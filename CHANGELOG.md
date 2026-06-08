@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.15.0...v1.16.0) (2026-06-08)
+
+
+### Features
+
+* **eef:** ship the EEF graph tool surface live by default (D0–D7) ([d9f0d90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d9f0d9061527f2a40c34c04e1039b3de0a9f321a))
+
 # [1.15.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.14.2...v1.15.0) (2026-05-29)
 
 
