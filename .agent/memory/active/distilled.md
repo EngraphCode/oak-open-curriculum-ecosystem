@@ -25,6 +25,20 @@ terse lessons merged. Future high-signal lessons may be added here when they nee
 the distilled staging surface; fitness is a routing signal, not a reason to avoid
 capture.
 
+## Deleting a "to be synthesised" holding pen — migrate-don't-drop (2026-06-08, Starless Prowling Veil)
+
+A "relocate to synthesise/supersede" holding pen silently absorbs adjacent-collection
+**live** intent, then its framing presents everything as disposable. Before deleting such
+a directory: verify per-file conservation, separating useful-forward intent from spent
+working-out whose conclusions are already homed elsewhere. **Migrate-don't-drop on any
+judgment call** — migration is cheap and reversible, deletion is the loss; restore live
+intent to its value-home (often origin), delete only the genuinely-spent. Second-order:
+deleting *part* of a coherent set orphans survivors' companion links — run a repo-wide ref
+sweep, not just the deleted paths. Agent/workflow verdicts are input-to-verify: a
+"deletion-safe" verdict correct in one frame can be wrong once the surrounding disposition
+changes (a restored plan's cited evidence must not be the file you delete). Routing:
+pattern-candidate in the harvest/disposition family; full instance in napkin 2026-06-08.
+
 ## Felt-authority cluster — no derived-authority surface self-certifies
 
 The dominant recurring meta-theme (≥6 instances; owner reinforced ~4× in one
