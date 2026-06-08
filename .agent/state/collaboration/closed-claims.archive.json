@@ -9616,6 +9616,138 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "2c0e01bc-5ff0-4012-9339-81d2daa27af9",
+      "agent_id": {
+        "agent_name": "Opalescent Gliding Aurora",
+        "platform": "codex",
+        "model": "GPT-5",
+        "session_id_prefix": "019ea7",
+        "id": "c272d9da-2360-5493-a5b6-dcc5702e151e"
+      },
+      "thread": "educator-end-users",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/user-experience/educator-end-users/current/plugin-package-creation.plan.md",
+            ".agent/plans/user-experience/educator-end-users/future/plugin-bundle-distribution.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-08T16:02:21Z",
+      "freshness_seconds": 3600,
+      "sidebar_open": false,
+      "intent": "Fix promoted plugin bundle/current creation plan cross-reference and promotion-gate wording.",
+      "archived_at": "2026-06-08",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-08T16:03:15Z",
+        "closed_by": {
+          "agent_name": "Opalescent Gliding Aurora",
+          "platform": "codex",
+          "model": "GPT-5",
+          "session_id_prefix": "019ea7",
+          "id": "c272d9da-2360-5493-a5b6-dcc5702e151e"
+        },
+        "summary": "Fixed plugin bundle strategic brief and current creation plan cross-reference/promotion-gate wording; targeted markdownlint green.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "2c0e01bc-5ff0-4012-9339-81d2daa27af9",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "cd650247-a01f-455c-9750-1c6356577916",
+      "agent_id": {
+        "agent_name": "Fiery Burning Bellows",
+        "platform": "codex",
+        "model": "GPT-5",
+        "session_id_prefix": "019ea7",
+        "id": "29840555-4542-51a2-af5d-b295c08760cd"
+      },
+      "thread": "external-facing-capability-distribution",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md",
+            ".agent/plans/user-experience/educator-end-users/previous-materials/claude-and-chatgpt-app-submission-compliance.plan.md",
+            ".agent/plans/user-experience/educator-end-users/current/app-submission-standards.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-08T16:27:56Z",
+      "freshness_seconds": 7200,
+      "sidebar_open": false,
+      "intent": "Fiery support slice from Starless: create oak-skills upstream request for stale Direction-A filename, promote app-submission standards plan with links fixed, no commit",
+      "archived_at": "2026-06-08",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-08T16:31:56Z",
+        "closed_by": {
+          "agent_name": "Fiery Burning Bellows",
+          "platform": "codex",
+          "model": "GPT-5",
+          "session_id_prefix": "019ea7",
+          "id": "29840555-4542-51a2-af5d-b295c08760cd"
+        },
+        "summary": "Completed Starless-routed Fiery slice: new oak-skills upstream request plus app-submission standards plan promotion; validations passed; no commit and no staged files.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "cd650247-a01f-455c-9750-1c6356577916",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "4fc24866-b7ef-495d-8312-15477a55c1b7",
+      "agent_id": {
+        "agent_name": "Starless Prowling Veil",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4863ac",
+        "id": "df7ed389-1c60-58ff-9853-9898fb99c735"
+      },
+      "thread": "external-facing-capability-distribution",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/user-experience/educator-end-users/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-08T16:20:23Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Controller+gatekeeper: land the external-facing-capability synthesis corpus; verify previous-materials/ conservation and delete it without loss (owner criterion); reshape plan ledger to deletability; own git:index/head for the commit window.",
+      "archived_at": "2026-06-08",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-08T17:13:12Z",
+        "closed_by": {
+          "agent_name": "Starless Prowling Veil",
+          "platform": "claude",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4863ac",
+          "id": "df7ed389-1c60-58ff-9853-9898fb99c735"
+        },
+        "summary": "previous-materials/ deleted with zero loss: 6 files restored to home collections, compliance promoted to current/app-submission-standards, holding pen + README removed, corpus reshaped to a clean map; all refs repointed, no dangling links. Committed this session.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "4fc24866-b7ef-495d-8312-15477a55c1b7",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

@@ -9,12 +9,14 @@ last_updated: 2026-06-08
 
 # External-facing skills, plugins, and MCP skill-like surfaces — review
 
-> **Synthesis seed.** This is the review/reflection that prompted gathering the
-> prior external-facing skills materials into
-> [`previous-materials/`](previous-materials/README.md). It is the input to a
-> fresh educator-experience synthesis, not itself an executable plan. Grounded
-> first-hand (skill files, EEF c4/c5 code, the discovery docs, and current
-> official Anthropic/OpenAI documentation).
+> **Synthesis seed.** This is the review/reflection that prompted dispositioning
+> the prior external-facing skills materials: the discovery Agent Skills lane
+> (its two plans + two companion reports) was restored to `discovery/future/`, the
+> app-submission compliance plan was promoted to `current/`, and the cursor-plugins
+> and education-skills plans returned to their collections. It is the input
+> to a fresh educator-experience synthesis, not itself an executable plan.
+> Grounded first-hand (skill files, EEF c4/c5 code, the discovery docs, and
+> current official Anthropic/OpenAI documentation).
 
 ## Context
 
@@ -123,7 +125,8 @@ forced.
 
 oak-skills `SKILL.md` files; EEF `mcp-prompts.ts` / `mcp-prompt-messages.ts` /
 `eef-interpretation-resource.ts` / `register-prompts.ts`; the discovery /
-taxonomy / distribution docs (now in `previous-materials/`); and current official
+taxonomy / distribution docs (skills-discovery and taxonomy plans now in
+`discovery/future/`; distribution and research conclusions ratified in ADR-189); and current official
 docs — Anthropic Agent Skills + Claude Code skills/plugins, OpenAI Apps SDK +
 **Codex plugins** — read first-hand.
 

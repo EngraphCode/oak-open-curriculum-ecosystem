@@ -17,11 +17,18 @@ last_updated: 2026-06-08
 > server lives here. This resolves **open decision #2 (packaging)** in the synthesis
 > plan [`../current/external-facing-capability-distribution.plan.md`](../current/external-facing-capability-distribution.plan.md).
 > This brief focuses on **benefits and user impact**; the build mechanism, vendor
-> manifests, and risk detail are intentionally deferred to promotion.
+> manifests, and risk detail were intentionally deferred until promotion and are
+> now owned by the promoted creation plan.
+>
+> **Promoted (2026-06-08):** the build is now an executable plan —
+> [`../current/plugin-package-creation.plan.md`](../current/plugin-package-creation.plan.md).
+> This brief remains its benefits-and-rationale source; the engineering, vendor
+> manifests, risk detail, validation, and completion proof live in the creation
+> plan.
 
 ## Problem and intent
 
-Oak holds the two halves a plugin bundles — the **skills** (`oak-skills`) and an
+Oak holds the two halves of a plugin bundle — the **skills** (`oak-skills`) and an
 **MCP app** (this repo's Oak Curriculum MCP server, incl. the EEF c4
 `eef://interpretation` resource and c5 `adapt-lesson` prompt) — but ships them
 through separate channels, so a teacher never gets the whole capability in one
@@ -85,24 +92,32 @@ teacher installs once and gets the skills plus the live MCP tools together.
   concrete manifest shapes and build steps are finalised at promotion (vendor specs
   re-verified then; they move fast).
 
-## Open questions to resolve before promotion (framed, not decided here)
+## Open questions carried by the creation plan (framed, not decided here)
 
 - **Skills source** — the canonical `oak-skills`, Direction B's curated public
   mirror, or a manifest layer (shared with Direction A's `t0` topology decision and
-  Direction B's WS1).
+  Direction B's WS1; resolved by the creation plan's `w0` gate before real-source
+  binding).
 - **First-tranche capability scope** — lesson adaptation + evidence framing are the
   strongest candidates (EEF c4/c5); the scope call is the owner's.
 - **Marketplace + endpoint specifics** — submission paths for each vendor, and how
-  each manifest references the deployed MCP and authenticates end users.
+  each manifest references the deployed MCP and authenticates end users (resolved
+  by the creation plan's `w0` gate before manifest implementation).
 
-## Dependencies (light)
+## Dependencies (creation-plan gates, not brief blocks)
 
-- **`blocking`** — the Oak Curriculum MCP must be **deployed/reachable** (a bundle
-  that references it can't function otherwise), and the **skills-source** question
-  must be decided (shared with Directions A and B).
-- **`beneficial`** — Direction A's generator (so the two vendor manifests are
-  emitted from one source, not hand-maintained) and the EEF surface being live
-  (strengthens the first tranche).
+This is a `future/` strategic brief retained after promotion — it builds nothing
+itself, so nothing is "blocked" here. The live execution gates are owned by the
+executable creation plan
+([`../current/plugin-package-creation.plan.md`](../current/plugin-package-creation.plan.md)):
+
+- **`creation-gate`** — the **skills-source** topology question must be decided
+  before real-source binding in the creation plan (shared with Directions A and B).
+- **`already-satisfied`** — the Oak Curriculum MCP is **deployed, reachable, and
+  EEF-live** (verified 2026-06-08); a referencing bundle can function against it
+  today.
+- **`beneficial`** — Direction A's generator, so the two vendor manifests emit from
+  one source rather than being hand-maintained.
 
 ## Strategic acceptance and success signals
 
@@ -115,23 +130,26 @@ teacher installs once and gets the skills plus the live MCP tools together.
 
 ## Non-goals
 
-- **Do not build now** — `future/`; promotion gates the build and the detailed
-  mechanism/risk work.
+- **Do not build here** — this is the retained strategic brief; the promoted
+  `current/` creation plan owns the build and detailed mechanism/risk work.
 - **Do not re-open the decided shape** (bundle / both-vendors / ecosystem-owned).
 - **Do not duplicate** Direction A's MCP-emitter work or Direction B's skills-CLI
   distribution — the bundle **consumes** both.
 
-## Promotion trigger into `current/`
+## Promotion status and handoff
 
-Promote when the Oak Curriculum MCP is deployed (or scheduled), the skills-source
-question is decided, the per-vendor marketplace/manifest specifics are re-verified,
-and `assumptions-expert` + `mcp-expert` have validated the promoted scope. At
-promotion, author a `current/` executable plan with the deferred mechanism, vendor
-manifests, dependencies, and risks worked out in full.
+Promoted on 2026-06-08 to
+[`../current/plugin-package-creation.plan.md`](../current/plugin-package-creation.plan.md).
+The promotion intentionally moved the still-fast-moving vendor manifest specifics,
+skills-source binding, authentication shape, assumptions review, and MCP review
+into the creation plan's `w0` design gate. Do not treat those unresolved details as
+missing promotion prerequisites in this brief; treat them as execution gates in the
+current plan.
 
 ## Cross-references (authoritative homes — do not duplicate)
 
+- Creation plan (promoted executable, `current/`): [`../current/plugin-package-creation.plan.md`](../current/plugin-package-creation.plan.md)
 - Synthesis (sibling, `current/`): [`../current/external-facing-capability-distribution.plan.md`](../current/external-facing-capability-distribution.plan.md)
-- Direction A — MCP surfacing (sibling, `current/`): [`../current/mcp-skill-surfacing-and-ingest.plan.md`](../current/mcp-skill-surfacing-and-ingest.plan.md)
+- Direction A — MCP skill-surfacing (sibling, `current/`): [`../current/oak-skills-ingest-and-resurfacing.plan.md`](../current/oak-skills-ingest-and-resurfacing.plan.md)
 - Seed review (vendor plugin facts, Part 2): [`../external-facing-skills-and-mcp-surfaces-review.report.md`](../external-facing-skills-and-mcp-surfaces-review.report.md)
 - Direction B — skills-CLI distribution (other repo): `oaknational/oak-skills` → `.agent/plans/public-distribution.plan.md`

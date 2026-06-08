@@ -45,7 +45,8 @@ runtime tools, remote agents, registries, or generic service-discovery drafts.
 | Child Plan / Report | Owned Surface | Status | Relationship |
 | --- | --- | --- | --- |
 | [mcp-server-cards.plan.md](mcp-server-cards.plan.md) | Pre-connection metadata for public remote MCP servers | Strategic tracking | Discovers the server endpoint; runtime capabilities remain MCP |
-| _Agent Skills lane (skills discovery + research + taxonomy + distribution)_ | Oak-authored workflow skills, index, audience taxonomy, distribution channels | **Relocated 2026-06-08** | Moved to [user-experience/educator-end-users/previous-materials/](../../user-experience/educator-end-users/previous-materials/) to seed an educator synthesis; this parent retains the cross-surface layer map |
+| [agent-skills-discovery.plan.md](agent-skills-discovery.plan.md) | Oak-authored workflow skills and Agent Skills Discovery standard | Strategic tracking | Workflow guidance layer; sibling to server-card work |
+| [skills-classification-taxonomy.plan.md](skills-classification-taxonomy.plan.md) | Audience-led capability taxonomy for Oak skills | Strategic tracking | Audience taxonomy ratified in [ADR-189](../../../../docs/architecture/architectural-decisions/189-audience-led-agent-capability-taxonomy.md) |
 | [dns-aid-discovery.plan.md](dns-aid-discovery.plan.md) | Optional DNS-layer discovery entry point | Strategic tracking | DNS accelerator only; apex catalog remains source of truth |
 | [aila-a2a-agent-card.plan.md](aila-a2a-agent-card.plan.md) | Conditional Aila remote-agent discovery | Strategic tracking | Only relevant if Aila becomes an A2A server |
 | [webmcp-human-site-operability.plan.md](webmcp-human-site-operability.plan.md) | Optional browser-native page actions | Strategic tracking | Human-site operability, not headless MCP |

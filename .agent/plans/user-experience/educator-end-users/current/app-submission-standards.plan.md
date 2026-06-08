@@ -1,6 +1,12 @@
 ---
-name: "Directory Policy Compliance (Anthropic + OpenAI)"
-overview: "Codify Anthropic and OpenAI directory policy requirements as permanent architectural and process requirements; resolve compliance gaps (privacy policy, graph token efficiency)."
+name: "App submission standards — Claude & OpenAI directory requirements"
+collection: user-experience
+audience: educator-end-users
+lane: current
+status: current
+type: executable
+last_updated: 2026-06-08
+overview: "Codify Claude and OpenAI app submission requirements as permanent architectural and process standards; resolve gaps around privacy policy surfacing, graph token efficiency, and directory readiness."
 todos:
   - id: ws1-governance-docs
     content: "WS1: Governance documentation — ADR-159 (both policies), extend safety-and-security.md with architectural requirements and submission checklist."
@@ -29,12 +35,18 @@ todos:
 isProject: false
 ---
 
-# Directory Policy Compliance (Anthropic + OpenAI)
+# App Submission Standards — Claude & OpenAI Directory Requirements
 
-**Last Updated**: 2026-04-14
+**Last Updated**: 2026-06-08
 **Status**: CURRENT (queued, not yet started)
-**Scope**: Codify both directory policies as permanent repo requirements;
-resolve compliance gaps (privacy policy, graph token efficiency)
+**Scope**: Codify Claude and OpenAI app submission standards as permanent repo
+requirements; resolve gaps around privacy policy surfacing, graph token
+efficiency, and directory readiness.
+
+This is a live educator-end-user plan. The directory-policy slice is consumed by
+[`plugin-package-creation.plan.md`](plugin-package-creation.plan.md) workstream
+`w3`; keep the full standards and implementation strands here rather than
+duplicating them in the plugin package plan.
 
 ---
 
@@ -43,7 +55,7 @@ resolve compliance gaps (privacy policy, graph token efficiency)
 Audits of the Oak Curriculum MCP server against both the
 [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy)
 and the
-[OpenAI ChatGPT App Submission Guidelines](https://developers.openai.com/apps-sdk/app-submission-guidelines)
+[OpenAI app submission guidelines](https://developers.openai.com/apps-sdk/app-submission-guidelines)
 (2026-04-14) found the server largely compliant across both policy sets.
 
 The two policies overlap substantially but each adds unique requirements.
@@ -76,10 +88,10 @@ mapping in `safety-and-security.md`, and no developer checklist for
 directory submission readiness.
 
 The graph tools dump entire datasets on every call. The
-[Dec 2025 graph tools plan](../../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md)
+[Dec 2025 graph tools plan](../../../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md)
 already identified this and proposed filtering by `subject`/`keyStage` plus
 summary mode for large graphs. The
-[post-merge-tidy-up snag M1-S007](../../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md)
+[post-merge-tidy-up snag M1-S007](../../../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md)
 also deferred "Prerequisite sub-graph fetching."
 
 ### Existing Capabilities
@@ -143,7 +155,7 @@ No TDD — this is documentation work.
 **Contents**:
 
 - **Decision**: adopt the Anthropic Software Directory Policy and the
-  OpenAI ChatGPT App Submission Guidelines as binding compliance
+  OpenAI app submission guidelines as binding compliance
   requirements for the Oak MCP HTTP server
 - **Dual compliance mapping table**: each Anthropic rule (1.A–5.G) and
   each OpenAI section mapped to existing control, gap, or N/A with
@@ -446,7 +458,7 @@ Add a "Privacy and Data Handling" section to the MCP server README:
 
 All tests MUST FAIL at the end of WS3.
 
-> See [TDD Phases component](../../templates/components/tdd-phases.md)
+> See [TDD Phases component](../../../templates/components/tdd-phases.md)
 
 ### 3.1: Factory filtering tests
 
@@ -783,7 +795,8 @@ bug, not a stale cache or codegen issue. Our codegen faithfully
 reproduces the upstream spec.
 
 Tracked in the companion document
-[upstream-api-requests.md](upstream-api-requests.md) as Request 1.
+[upstream-api-requests.md](../../../compliance/current/upstream-api-requests.md)
+as Request 1.
 No action on our side until the upstream spec is fixed — running
 `pnpm sdk-codegen` will pick up the correction automatically.
 
@@ -810,7 +823,8 @@ subject, which can be large.
 
 This is a description-level mitigation only. The upstream API requests
 are documented in the companion document at
-`upstream-api-requests.md` alongside this plan.
+[`upstream-api-requests.md`](../../../compliance/current/upstream-api-requests.md)
+in the compliance plan collection.
 
 ### 5.5: README updates
 
@@ -827,7 +841,7 @@ cross-reference to this plan.
 
 ## WS6 — Quality Gates
 
-> See [Quality Gates component](../../templates/components/quality-gates.md)
+> See [Quality Gates component](../../../templates/components/quality-gates.md)
 
 ```bash
 pnpm clean && pnpm sdk-codegen && pnpm build && pnpm type-check && \
@@ -840,7 +854,7 @@ pnpm smoke:dev:stub
 
 ## WS7 — Adversarial Review
 
-> See [Adversarial Review component](../../templates/components/adversarial-review.md)
+> See [Adversarial Review component](../../../templates/components/adversarial-review.md)
 
 Invoke specialist reviewers after implementation. Minimum roster:
 
@@ -860,7 +874,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Risk Assessment
 
-> See [Risk Assessment component](../../templates/components/risk-assessment.md)
+> See [Risk Assessment component](../../../templates/components/risk-assessment.md)
 
 | Risk | Impact | Mitigation |
 |------|--------|------------|
@@ -876,7 +890,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Foundation Alignment
 
-> See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
+> See [Foundation Alignment component](../../../templates/components/foundation-alignment.md)
 
 - **Cardinal Rule**: graph filtering is pure runtime logic on generated
   data. No new types are hand-crafted; filter schemas are Zod-defined.
@@ -900,7 +914,7 @@ Document findings. Create follow-up plan if BLOCKERs found.
 
 ## Documentation Propagation
 
-> See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
+> See [Documentation Propagation component](../../../templates/components/documentation-propagation.md)
 
 Documents to update or assess:
 
@@ -939,11 +953,11 @@ before code changes reference it.
 
 **Related Plans**:
 
-- [08-mcp-graph-tools.md (archived)](../../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md) — original size analysis and filtering proposal (Dec 2025)
-- [post-merge-tidy-up.plan.md](../../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md) — M1-S007 snag resolved by this plan
-- [graph-resource-factory.plan.md](../../connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-resource-factory.plan.md) — factory pattern this plan extends (completed, archived)
+- [08-mcp-graph-tools.md (archived)](../../../archive/semantic-search-archive-dec25/part-1-search-excellence/08-mcp-graph-tools.md) — original size analysis and filtering proposal (Dec 2025)
+- [post-merge-tidy-up.plan.md](../../../sdk-and-mcp-enhancements/future/post-merge-tidy-up.plan.md) — M1-S007 snag resolved by this plan
+- [graph-resource-factory.plan.md](../../../connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-resource-factory.plan.md) — factory pattern this plan extends (completed, archived)
 - The historical open-education-knowledge-surfaces umbrella (archived) — filtering applies to all factory-produced surfaces
-- [upstream-api-requests.md](upstream-api-requests.md) — companion document for the Oak API team requesting upstream changes needed for directory compliance
+- [upstream-api-requests.md](../../../compliance/current/upstream-api-requests.md) — companion document for the Oak API team requesting upstream changes needed for directory compliance
 
 ## Policy References
 
@@ -964,7 +978,7 @@ Key sections driving this plan:
 - **2.G**: no hidden instructions
 - **3.D**: testing account with sample data (deferred to future plan)
 
-### OpenAI ChatGPT App Submission Guidelines
+### OpenAI App Submission Guidelines
 
 Source: [OpenAI App Submission Guidelines](https://developers.openai.com/apps-sdk/app-submission-guidelines)
 

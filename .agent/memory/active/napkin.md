@@ -17,6 +17,52 @@ Every behaviour-changing entry was verified live in a permanent home before
 rotation; the commit and those homes are the record. Fresh capture continues
 below.
 
+## 2026-06-08 — a "to be synthesised" holding pen swept in live intent (Starless Prowling Veil, 4863ac)
+
+### Surprise
+
+- **Expected**: `previous-materials/` was a holding pen of spent synthesis inputs,
+  safe to delete once conclusions were conserved (the owner's working hypothesis).
+- **Actual**: Per-file verification (a conservation fan-out + an adversarial-skeptic
+  pass + first-hand checks) showed most files were **live cross-collection intent**,
+  not spent. The 984-line compliance plan was a live plan (governance ADR, privacy,
+  graph token-efficiency) mis-filed as a distribution input — the canary. Four more
+  (the discovery Agent Skills lane, cursor-plugins, education-skills) were also live.
+- **Why expectation failed**: a "relocate to synthesise" sweep silently absorbs
+  adjacent-collection live intent, then the holding-pen framing presents it all as
+  disposable.
+
+### Correction / lesson
+
+- Before deleting a "to be synthesised" holding pen, verify per-file conservation,
+  separating useful-forward intent from spent working-out. **Migrate-don't-drop on
+  any judgment call** — migration is cheap and reversible; deletion is the loss.
+  Restore live intent to its value-home (often origin); delete only genuinely-spent
+  working-out whose conclusions are conserved elsewhere.
+- Second-order trap: restoring whole files re-resolves their internal sibling links,
+  but deleting *some but not all* of a coherent set orphans the survivors' companion
+  links (the discovery plans cited the two reports — caught on a repo-wide sweep).
+- Agent/workflow output is input-to-verify: the "channels report deletion-safe"
+  verdict was right in the educator-corpus frame but wrong once the discovery plans
+  were restored as live; overrode it on first-hand reassessment.
+
+## 2026-06-08 — Vining support watcher correction (Opalescent Gliding Aurora, 019ea7)
+
+### Surprise
+
+- **Expected**: Starting `comms watch` plus a heartbeat loop meant I was monitoring
+  team messages while working.
+- **Actual**: The watcher process stayed alive, but I only consumed backlog when I
+  manually polled; the owner correctly observed that my monitor was not working and
+  that Veil was no longer active.
+- **Why expectation failed**: I confused process liveness with attended monitoring
+  and let the useful-work lane sit behind a passive status surface.
+- **Behaviour change**: In team sessions on Codex, treat `comms watch` as a feed to
+  actively poll/read at the cadence promised; if it is not waking the session, say so,
+  switch to explicit polling, and stop any background watcher before closeout rather
+  than leaving misleading liveness.
+- **Source plane**: operational
+
 ## 2026-06-08 — EEF go-live verified + landing-page resources fix (Galactic Drifting Twilight, 64c8e4 — cont.)
 
 After the D7 closeout below: watched the merge → CI → semantic-release chain land **v1.16.0** and

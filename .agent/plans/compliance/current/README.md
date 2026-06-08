@@ -7,7 +7,7 @@ When a plan starts, move it to `active/` and update both indexes.
 
 | Priority | Plan | Scope | Status |
 |---|---|---|---|
-| — | _claude-and-chatgpt-app-submission-compliance.plan.md_ — **relocated 2026-06-08** to [user-experience/educator-end-users/previous-materials/](../../user-experience/educator-end-users/previous-materials/claude-and-chatgpt-app-submission-compliance.plan.md) | Claude + ChatGPT directory submission compliance, gathered into the external-facing skills/plugins synthesis | Relocated (owner-directed) |
+| — | [app-submission-standards.plan.md](../../user-experience/educator-end-users/current/app-submission-standards.plan.md) — App submission standards - Claude & OpenAI directory requirements | Claude + ChatGPT directory submission compliance | Queued |
 
 ## Companion Documents
 
