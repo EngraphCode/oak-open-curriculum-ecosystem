@@ -43,6 +43,7 @@ Before archival, mine completed outcomes into permanent documentation
 | Merge Readiness | 2026-03-02 | `feat/semantic_search_deployment` merged to `main`. MCP prompts investigated (ADR-123), onboarding review complete, quality gates green, secrets sweep done. | [archived plan](sdk-and-mcp-enhancements/archive/completed/merge-readiness.plan.md) |
 | Search `text` → `query` Rename | 2026-03-07 | Renamed the primary search/explore-topic MCP parameter from `text` to `query` across SDK, MCP, CLI, codegen, tests, prompts, and docs. Full specialist-review remediation completed and the governance follow-through that closed the wrapper/rules gap was recorded. | [archived plan](sdk-and-mcp-enhancements/archive/completed/search-tool-text-to-query-rename.plan.md) |
 | Folder Modernisation Meta Plan | 2026-02-22 | Legacy numbered plans archived under collection archive classes, disposition ledger established, governance docs normalised, and ADR-071 collision resolved by retaining widget URI ADR as 071 and renumbering dense-vector ADR to 118. | [archived plan](sdk-and-mcp-enhancements/archive/completed/folder-modernisation-meta-plan.md) |
+| Graph-Tool Output Schemas (DESIGN) | 2026-06-02 | Design content absorbed by `connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md` as its own overview directed: projection doctrine + Q2/Q4 → its Ratified decisions; Q1/Q3/Q5 → its Decisions A/B/D; W-mech rides EEF D4–D6. | [archived plan](sdk-and-mcp-enhancements/archive/completed/graph-tool-output-schemas.plan.md) |
 
 ---
 
@@ -99,6 +100,67 @@ Before archival, mine completed outcomes into permanent documentation
 | Plan | Completed | Key Outcomes | Archive |
 |------|-----------|--------------|---------|
 | MCP Post-Root-Green Follow-Through | 2026-04-23 | Closed the bounded repo-owned corrective lane after the root-green rerun: strict sitemap validation restored, wrapper/fallback drift removed, the configured Sentry build gate aligned to canonical env loading, and remaining manual validation stages explicitly externalised to the owner. | [archived plan](observability/archive/completed/mcp-canonical-deploy-shape-and-warnings-doctrine.plan.md) |
+
+---
+
+## Graph Coordination Spines (Superseded Framing)
+
+These four cross-collection graph coordination artefacts encoded the pre-rebuild
+architecture (gate-1a/1b, the 7-method `GraphView`, the withdrawn ADR-175 freshness
+gate, `recommend`/`explain`/`compare`, the Inc.3 cross-corpus join). The EEF
+graph-tooling rebuild discarded that framing; they were quarantined 2026-06-01 under
+[`graph-estate-consolidation.plan.md`](connecting-oak-resources/knowledge-graph-integration/current/graph-estate-consolidation.plan.md).
+Superseded by the live EEF plan
+([`eef-graph-tool-completion.plan.md`](sector-engagement/eef/current/eef-graph-tool-completion.plan.md))
+and the live KG hub
+([`knowledge-graph-integration/`](connecting-oak-resources/knowledge-graph-integration/README.md)).
+
+| Plan | Archived | Why superseded | Archive |
+|------|----------|----------------|---------|
+| Graph Portfolio — Index | 2026-06-01 | Cross-collection index routing into archived EEF plans and citing withdrawn ADR-175; replaced by collection-level navigation | [archived plan](archive/completed/graph-portfolio-index.md) |
+| Graph MVP Arc | 2026-06-01 | Gate-1a/1b spine over the discarded `EefStrandsGraphView` / 7-method `GraphView` / freshness-gate stack | [archived plan](archive/completed/graph-mvp-arc.plan.md) |
+| Graph Combinatorial Arc | 2026-06-01 | Follow-on spine depending on gates and graph-stack Inc.3 that the rebuild removed | [archived plan](archive/completed/graph-combinatorial-arc.plan.md) |
+| Meta — feat/mcp-graph-support-foundation | 2026-06-01 | Branch-scoped navigation index, two branches stale; inbound links all archived | [archived plan](archive/completed/feat-mcp-graph-support-foundation-meta.md) |
+| Graph-Tooling Rebuild (SPECIFIED) | 2026-05-30 | Quarantined symptom of the superseded broken concept (gate-1a/1b, the list-shaped tool, Zod-over-corpus, freshness); the live EEF plan replaced it | [archived plan](sector-engagement/eef/archive/graph-tooling-rebuild.plan.md) |
+
+---
+
+## Knowledge Graph Integration (2026-06-02 Estate Consolidation)
+
+The graph-estate consolidation
+([`graph-estate-consolidation.plan.md`](connecting-oak-resources/knowledge-graph-integration/current/graph-estate-consolidation.plan.md)
+t2–t5+t7) archived the superseded gate-1a/1b plan estate, archived the
+genuinely-completed plans, and consolidated the four misconception feature
+plans into
+[`oak-misconceptions-graph-features.plan.md`](connecting-oak-resources/knowledge-graph-integration/future/oak-misconceptions-graph-features.plan.md)
+(parked). This is the single where-did-they-go record for that move set.
+
+**Completed:**
+
+| Plan | Completed | Key Outcomes | Archive |
+|------|-----------|--------------|---------|
+| Graph Resource Factory | 2026-04-11 | Shared graph resource/tool factory extracted (SDK-internal) in `1eb302e8`; prior-knowledge + thread-progressions surfaces refactored onto it; curriculum-model documented exception; behaviour-preserving (full suite green). | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-resource-factory.plan.md) |
+| Misconception Graph MCP Surface | 2026-04-11 | `curriculum://misconception-graph` resource + `get-misconception-graph` tool live in `1eb302e8`; ADR-123 updated; E2E assertions landed. | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/misconception-graph-mcp-surface.plan.md) |
+| Graph-Stack WS1.6 Vocab Prep | 2026-06-02 | Prep note served its purpose: WS1.6 scope boundary + open design questions surfaced for owner review; vocabulary direction owned by `graph-stack.plan.md`. | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-stack-ws1.6-vocab-prep.md) |
+| PR 108 Quality-Gate Snagging | 2026-05-22 | CodeQL alert #90 and the failing SonarCloud Quality Gate on PR #108 cleared by per-finding disposition (FIXED / FALSE_POSITIVE / SAFE) and policy-aligned mechanical exclusion — gates never weakened; PR #108 merged 2026-05-24. | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/pr-108-snagging.plan.md) |
+| Ontology / Knowledge Graph Widget Tidy-Up | 2026-04-28 | Widget crash fixed, KG SVGs migrated to the ontology renderer, preview cleaned, stale active documentation references resolved; all 26 UI tests pass. | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/ontology-knowledge-graph-tidy-up.md) |
+
+**Superseded framing (archived 2026-06-02):**
+
+| Plan | Archived | Why superseded | Archive |
+|------|----------|----------------|---------|
+| Graph Query Layer | 2026-06-02 | Pre-rebuild 7-operation polymorphic `GraphView` layer with mandatory projection, gate-1a/0b sequencing | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/graph-query-layer.plan.md) |
+| Gate-1a Delivery Parallel Execution Addendum | 2026-06-02 | Rotating-cast coordination addendum for the retired gate-1a arc | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/gate-1a-delivery-parallel-execution-addendum.plan.md) |
+| Graph MVP-Arc Specialist Review Opener (2026-05-08) | 2026-06-02 | Superseded session opener; review completed 2026-05-07 | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/2026-05-08-graph-mvp-arc-specialist-review-opener.md) |
+| PR 102 Graph Decision-Complete Closeout | 2026-06-02 | Completed session record of a closeout for the later-discarded architecture | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/2026-05-08-pr102-graph-decision-complete-closeout.plan.md) |
+| Graph Execution Prep Opener (2026-05-11) | 2026-06-02 | Superseded session opener for the retired MVP-arc prep; steps 1–3 landed | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/2026-05-11-graph-execution-prep-opener.md) |
+| PR 108 Sonar Live Issues (2026-05-24) | 2026-06-02 | Point-in-time Sonar snapshot for merged PR #108 | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/pr-108-sonar-live-issues-2026-05-24.md) |
+| Open Education Knowledge Surfaces | 2026-06-02 | Historical umbrella: WS-0/1/2 landed (`1eb302e8`), WS-3 superseded by the rebuild, WS-4/5/6 owned by their own plans | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/open-education-knowledge-surfaces.plan.md) |
+| Oak Misconceptions Sub-Graph MCP Surface | 2026-06-02 | Consolidated into `oak-misconceptions-graph-features` §1 (bounded-traversal contract, fixture-manifest scheme, `_meta` discipline preserved; `maxResponseTokens=16000` retired) | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/oak-misconceptions-subgraph-mcp-surface.plan.md) |
+| Oak Misconceptions × EEF Cross-Corpus Surface | 2026-06-02 | Consolidated into `oak-misconceptions-graph-features` §2 (compound-prefix attribution, substrate-only principle preserved) | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/oak-misconceptions-eef-cross-corpus-surface.plan.md) |
+| Oak Misconceptions Topic Extraction | 2026-06-02 | Consolidated into `oak-misconceptions-graph-features` §3 | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/oak-misconceptions-topic-extraction.plan.md) |
+| Oak Misconceptions EEF Extended Contexts | 2026-06-02 | Consolidated into `oak-misconceptions-graph-features` §4 | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/oak-misconceptions-eef-extended-contexts.plan.md) |
+| Oak Misconceptions Substrate Migration | 2026-06-02 | Absorbed by the unified Judgement-call-4 plan `future/graph-tools-value-redesign.plan.md` via independent re-grounding (disposition ledger in its §Absorption record); the `Inc.3` trigger and `maxResponseTokens=16000` demand were retired framing | [archived plan](connecting-oak-resources/knowledge-graph-integration/archive/completed/oak-misconceptions-substrate-migration.plan.md) |
 
 ---
 

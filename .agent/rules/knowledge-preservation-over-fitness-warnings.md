@@ -22,6 +22,14 @@ the source as the preserved historical record. Archive-after-processing
 protects knowledge; archive-before-processing hides unfinished
 curation.
 
+Before any archive, park, supersede, or retirement move, run a
+live-unique substance screen. Ask what currently lives only in the
+candidate source, which current files still depend on it, and whether
+the proposed destination would keep that substance reachable for the
+next practical use. Archive/park framing is never the first lens; it
+is the lifecycle action that follows after the substance-loss question
+has been answered and recorded.
+
 Owner-stated 2026-05-11 as already-established repo doctrine:
 *"never, ever withhold knowledge preservation to keep a mechanical
 warning lower, that is already repo doctrine"*.
@@ -56,6 +64,32 @@ remaining live route, record the disposition, and only then archive the
 source body. Buffer scope changes the fitness diagnosis; it does not
 permit archive-before-processing.
 
+## Retiring a lossy or unversioned mirror
+
+Retiring an unversioned or lossy knowledge mirror — `.remember`, a
+per-platform memory store, any unversioned sidecar that has accumulated
+substance over time — is a special case of the live-unique substance
+screen, and it carries its own discipline:
+
+- **Mine, then verify every candidate against canon before deletion.**
+  The mirror may hold the only copy of a behaviour-changing learning;
+  enumerate its substance and confirm each item is either already homed
+  in canon or routed to a home before the mirror is removed.
+- **A near-empty harvest is the SUCCESS case, not a failed search.**
+  When mining surfaces little, that is positive evidence the
+  capture→graduate pipeline already caught the substance — it is not a
+  signal to keep digging or to doubt the search. Finding little is the
+  outcome a healthy pipeline produces.
+- **An unversioned mirror is a liability precisely because it can
+  resurrect overturned decisions.** That risk is the reason to retire
+  it, and the reason the correct move is mine-then-verify — neither a
+  blind delete (which can drop a live-only learning) nor blind retention
+  (which lets the mirror re-introduce superseded shapes).
+
+Worked twice in 2026: the `.remember` retirement (~1,400 lines mined →
+zero orphans) and a cross-platform memory read (Codex / Cursor / Gemini
+→ substance already homed).
+
 ## Why
 
 The fitness gate surfaces overflow as a rotation prompt — it is
@@ -80,8 +114,8 @@ substance change behaviour or carry durable understanding?**
 - **Yes** — write it. Fitness state of the destination is
   irrelevant to the write decision.
 - **No** — the entry would be ephemeral; consider whether it
-  belongs in a shorter-lived surface (`.remember/` buffer, comms
-  event) rather than the durable memory.
+  belongs in a shorter-lived surface (a comms event) rather than
+  the durable memory.
 
 If the destination surface is overflowing, raise the rotation
 question separately, **after the entry lands**. If archive or
@@ -121,3 +155,10 @@ move. Never:
   surface so the doctrine is visible to all platforms.
 - 2026-05-24 — owner sharpened the archival boundary: knowledge
   curation comes first, always; never archive unprocessed content.
+- 2026-06-02 — graph-estate consolidation supplied the second worked
+  instance for the live-unique substance screen before archive or
+  park moves; the doctrine now names the screen explicitly.
+- 2026-06-04 — owner-directed graduation of the lossy-mirror-retirement
+  clause (`.remember` retirement + cross-platform memory read as the two
+  worked instances): mine-then-verify-against-canon, near-empty-harvest-
+  is-success, unversioned-mirror-is-a-liability.

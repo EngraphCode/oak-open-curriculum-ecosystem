@@ -223,10 +223,6 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   (dependency vulnerability triage, blocking/disposition policy,
   Dependabot/override governance, and relationship to quality gates;
   Accepted 2026-05-10)
-- [ADR-175: External Evidence Corpus Freshness Governance](175-external-evidence-corpus-freshness-governance.md)
-  (freshness metadata, ownership, threshold, stale-data behaviour, and
-  attribution requirements for EEF and future external evidence corpora;
-  Accepted 2026-05-10)
 - [ADR-176: Commit-Skill Advisory Orchestrator Naming](176-commit-skill-advisory-orchestrator-naming.md)
   (commit-skill remains advisory, stages by explicit pathspec, and treats
   commit queue / index facts as coordination signals; Accepted 2026-05-11)
@@ -272,6 +268,37 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   rejected; C4 operative-in-effect-now; 4 named re-ratification
   triggers; platform-engagement vehicle as named owner-action;
   Accepted 2026-05-25)
+- [ADR-189: Audience-Led Agent Capability Taxonomy](189-audience-led-agent-capability-taxonomy.md)
+  (three audience-led categories — repo-working skills, Oak
+  developer capabilities, curriculum assistance capabilities —
+  with `SKILL.md`/MCP/plugin treated as packaging or runtime
+  mechanisms, never the category name; Accepted 2026-06-03)
+- [ADR-190: Heartbeat-Cron Health Monitoring via Watcher-Staleness Substrate](190-heartbeat-cron-health-monitoring-via-watcher-staleness.md)
+  (sibling to ADR-186: the heartbeat cron writes a per-tick staleness file via
+  the existing watcher-staleness substrate so retirement-detection composes
+  comms-silence AND staleness-file-age, suppressing false-positive retirement on
+  a cron-degraded-but-alive agent; `ping-before-escalate` demoted to
+  belt-and-braces; Proposed 2026-06-04)
+- [ADR-191: Deterministic Data Surface; the Agent Is the Only Reasoner](191-deterministic-data-surface-agent-reasons.md)
+  (promotes the EEF plan's Decision 10 to a repo-wide principle: the MCP server
+  surfaces deterministic projections of known data; relevance, ranking, scoring,
+  and situation→item mapping belong to the consuming agent; no server-side
+  scoring formula, recommendation engine, or request-time crosswalk — a
+  formal-ontology data crosswalk is out of scope, not forbidden; Accepted
+  2026-06-05)
+- [ADR-192: Feature-Flag Three-Stage Lifecycle](192-feature-flag-three-stage-lifecycle.md)
+  (records the convention for env-var feature flags: pre-release defaults off
+  and explicit true enables; release-pre-proof defaults on with an explicit-false
+  kill-switch and goes live on merge; release-post-proof removes the flag after
+  the value proof passes; Accepted 2026-06-06)
+- [ADR-193: System–Vendor Type Boundary — Strict Domain Types, Vendor Types at the Membrane](193-system-vendor-type-boundary-membrane.md)
+  (the outgoing mirror of ADR-032: strict domain types hold from the `as const`
+  corpus through validation to a per-primitive egress membrane; the vendor's
+  loose types — e.g. MCP `CallToolResult.structuredContent: Record<string, unknown>` —
+  are the external contract, confined to egress functions, never inside domain
+  code; transport code legitimately speaks the vendor type; strict types serve
+  internal DX and cross an external junction only for significant clear value;
+  Accepted 2026-06-08)
 
 ## Key Architectural Decisions
 
@@ -281,7 +308,6 @@ For understanding our API integration approach:
 - **[ADR-030](030-sdk-single-source-truth.md)** - SDK as single source of truth for API contracts
 - **[ADR-141](141-mcp-apps-standard-primary.md)** - MCP Apps standard as the only UI surface (supersedes ChatGPT-specific coupling)
 - **[ADR-157](157-multi-source-open-education-integration.md)** - Proposed multi-source open education knowledge integration across API, ontology, EEF, MCP, and graph surfaces
-- **[ADR-175](175-external-evidence-corpus-freshness-governance.md)** - Accepted freshness governance for EEF and future external evidence corpora
 - **[ADR-066](066-sdk-response-caching.md)** - SDK response caching with Redis
 - **[ADR-070](070-sdk-rate-limiting-and-retry.md)** - SDK rate limiting and exponential backoff retry
 - **[ADR-063](063-sdk-domain-synonyms-source-of-truth.md)** - SDK as single source of truth for domain synonyms
@@ -420,6 +446,12 @@ Include migration impact if replacing a prior approach.}
 - **Superseded**: replaced by a newer ADR. Keep the file; update status
   and link to the successor.
 - **Deprecated**: no longer applicable (e.g. workspace removed).
+- **Withdrawn**: created and then removed entirely because the decision
+  should not have existed — distinct from Superseded and Deprecated,
+  which keep the file and only update its status. The record file is
+  deleted; the number is retired and never reused, so a gap in the ADR
+  sequence indicates a withdrawal. The withdrawal and its rationale are
+  recoverable from version control; no tombstone is kept in this index.
 
 ### Creating an ADR
 

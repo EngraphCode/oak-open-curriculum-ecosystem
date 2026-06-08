@@ -27,8 +27,26 @@ point, and ADRs / PDRs / rules / permanent docs as the enforcement
 surface. Session handoff is the **capture edge** of this pipeline —
 it produces the surface `consolidate-docs` later distils.
 
+If a session-handoff discovers that a live buffer needs rotation or archive
+lifecycle work, it may record the need, but the first mutating action is to
+**verify the substance is live in its permanent home** before any archive,
+rename, park, supersession, or replacement move. Per
+[`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+do not create a disposition ledger; the commit and the permanent home are the
+record. Handoff must not turn "fitness is high" into "move the source"; the
+action is conserving and homing insight, and the validator is only evidence
+about routing and rest-state health.
+
 Lightweight end-of-session continuity update with a conditional
 consolidation gate.
+
+## Conservation Invariant
+
+The value of this workflow is conserving and correctly homing insight. Fitness
+numbers, line counts, and buffer sizes are diagnostic signals, never goals. Do
+not chase lower numbers, trim understanding, or skip capture to keep a surface
+green. Capture the knowledge at full weight, route it to the right home, and
+let any fitness improvement happen only as the side effect of real curation.
 
 **Relationship to `consolidate-docs`**: this workflow and
 [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md) are one
@@ -156,10 +174,14 @@ there unless the owner or closeout owner gives a further assignment.
    - `Current session focus` (if distinct from the branch-primary lane)
    - `Repo-wide invariants / non-goals`
    - `Next safe step`
-   - `Deep consolidation status`
 
-   Keep it compact and operational. Active plans remain authoritative for
-   scope, sequencing, acceptance criteria, and validation.
+   Keep it compact and operational, answering only "what is live right now?".
+   Do not add a session-closeout narrative or a "deep consolidation status"
+   log: per
+   [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+   the commit and the permanent docs are the record that the session happened.
+   Active plans remain authoritative for scope, sequencing, acceptance criteria,
+   and validation.
 
    **Role-boundary check before writing:** classify every proposed addition
    before it enters `repo-continuity.md`.
@@ -229,16 +251,6 @@ there unless the owner or closeout owner gives a further assignment.
    write pushes `distilled.md` into a fitness zone, record the pressure
    and route the structural follow-up rather than trimming the lesson.
 
-   **Auxiliary input: plugin-managed capture buffers.** The remember
-   plugin maintains `.remember/now.md`, `.remember/today-*.md`, and
-   sibling buffers as a separate ephemeral capture surface. Scan
-   them at session close for entries that would change next-session
-   behaviour; mirror any such entry into `napkin.md` using the
-   structured surprise format. Do not rotate, archive, or delete
-   `.remember/` files — lifecycle is owned by the plugin. This
-   surface is a read-source for extraction, not a surface we
-   maintain.
-
    **Auxiliary input: session comms-events.** The session's own
    comms-events under `.agent/state/collaboration/comms/`
    (and the regenerated `shared-comms-log.md`) carry
@@ -254,33 +266,64 @@ there unless the owner or closeout owner gives a further assignment.
    not a buffer surface. This is a read-source for extraction.
    Owner-stated standing 2026-05-05.
 
-   **Auxiliary input: platform-specific per-user memory.** Vendor
-   tools maintain their own per-user memory and session-history
-   surfaces outside the repo, one location per platform per user.
-   Named instances:
+   **Auxiliary input: platform-specific per-user memory.** Vendor tools
+   maintain their own per-user memory and session-history surfaces outside the
+   repo, one location per platform per user. Every session-close run checks at
+   least the four-platform set below. If a surface is absent or inaccessible on
+   the current machine, record that fact in the handoff/consolidation evidence
+   instead of silently skipping it.
 
    - Claude Code: `~/.claude/projects/<project>/memory/` (curated
      auto-memory; `MEMORY.md` + per-entry files)
-   - Cursor: `~/.cursor/chats/` (per-session transcripts),
-     `~/.cursor/prompt_history.json` (accumulated prompts)
    - Codex: `~/.codex/memories/` (curated memory files),
      `~/.codex/history.jsonl` (rolling session history),
      `~/.codex/archived_sessions/` (older session archives)
+   - Cursor: `~/.cursor/chats/` (per-session transcripts),
+     `~/.cursor/prompt_history.json` (accumulated prompts)
+   - Gemini CLI: `~/.gemini/` memory, history, or session surfaces when
+     present; if Gemini exposes no separate memory surface on the current
+     machine, record `not present` rather than inventing a path.
 
-   Read **only the surface that matches your current platform**
-   at session close — cross-platform ingestion (reading another
-   platform's memory) is reserved for `consolidate-docs` step 3.
-   Mirror any entry that would change next-session behaviour into
-   `napkin.md` using the structured surprise format. These are
-   vendor-managed surfaces; do not rotate, archive, or delete
-   them — lifecycle is owned by the platform. This is a read-source
-   for extraction, not a buffer surface this workflow maintains.
+   Mirror any entry that would change next-session behaviour into `napkin.md`
+   using the structured surprise format. These are vendor-managed file
+   surfaces; do not rotate, archive, or delete them — lifecycle is owned by
+   the platform. The learning they contain is still a repo knowledge source:
+   unmirrored material remains live for consolidation rather than being
+   considered processed.
    Symmetry note: this auxiliary input is also enumerated in
    [`start-right-quick`](../start-right-quick/shared/start-right.md)
    §4 (own-platform read at session open) and
    [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md) step 3
    (cross-platform read at thread-scoped depth); session-handoff is
    the session-close edge of the same surface.
+
+   **6a.2. Conserve grounded execution knowledge.** Distinct from the
+   surprise capture (6a) and the cross-session lesson (6a.1): a session also
+   produces **grounded execution knowledge** — facts it verified first-hand to
+   do the work, plus failed-approach learnings — that the next agent or a
+   downstream plan would otherwise re-derive. This is not a surprise and not a
+   general lesson; it is consumed by a *specific* next executor, so conserve it
+   at the CONSUMER's durable home (the owning plan, the thread next-session
+   record), not only the napkin (per
+   [PDR-011 §Grounded execution knowledge is a second capture edge](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md)).
+   Check, concretely:
+
+   - **Verified facts the next agent would re-derive** — a contract confirmed
+     at a named file:line, a dependency checked acyclic, a version or vendor
+     behaviour pinned, a data shape confirmed against the source.
+   - **Facts grounded by SUB-AGENTS this session** — a sub-agent's context is
+     already gone, so a fact a reviewer or explorer verified survives only if
+     you conserve it explicitly. These are the most loss-prone.
+   - **Failed-approach learnings** — what was tried and why it did not work, so
+     the next agent does not repeat the dead end.
+   - **Resolved-but-still-load-bearing knowledge** — knowledge whose triggering
+     surprise or change has since resolved (e.g. a reverted change) but which
+     stays load-bearing for a downstream consumer; a surprise-shaped sweep drops
+     it precisely because the surprise is gone.
+
+   Route each finding to the surface the consumer reads (the owning plan or the
+   thread next-session record), citing the durable home. "Nothing to conserve"
+   is a valid answer reached by checking, not by skipping.
 
    **6b. Surface ADR/PDR candidates.** Ask explicitly at every
    session close: *"Has this session surfaced an architectural
@@ -310,22 +353,20 @@ there unless the owner or closeout owner gives a further assignment.
    candidates stay under step 6b and pending-graduations; cross-link only when
    a candidate is blocked on an unresolved question.
 
-   **6c. Record subjective experience (foundational standing).**
-   Subjective experience and reflection are foundational continuity
-   substrate, not reflective surplus — the substrate the three continuity
-   types rest on (PDR-011 §"Subjective experience is foundational
-   substrate, not optional surplus"; ADR-150). Foundational standing
-   attaches to the *signal*, not to a quota: the obligation is never to
-   discard a genuine subjective shift as surplus, not to manufacture one
-   because a session ended. When the session carried a felt shift —
-   texture, friction, something that went differently from expectation —
-   capture it in
+   **6c. Subjective experience — strictly voluntary.**
+   Recording subjective experience is voluntary. There is no obligation,
+   quota, or capture edge to fill, and the corpus is not monitored for
+   volume or thinning. Pressure to record distorts both the motivation and
+   the result (owner direction, 2026-06-06). Subjective experience is valued
+   *when it is genuine* — but valuing it is not mandating it. When a session
+   carried a felt shift — texture, friction, something that went differently
+   from expectation — and you want to record it, write
    `.agent/experience/<date>-<slug>.md` per the
    [`.agent/experience/` convention](../../experience/README.md). A
-   reflection performed to fill this edge is not a smaller contribution —
-   it is noise that pollutes the subjective register; a session with no
-   genuine shift writes nothing here, and that is the correct outcome of an
-   event-anchored capture edge, not an evasion.
+   reflection performed because a session ended is noise that pollutes the
+   register; a session with no genuine shift, or one where the agent simply
+   does not record, writes nothing here, and that is an ordinary outcome —
+   not an evasion or a degraded edge.
 
    **The experience file is for *subjective experience* — what the
    work was like, not what was done.** Texture, shifts, surprises,
@@ -340,11 +381,11 @@ there unless the owner or closeout owner gives a further assignment.
    technical insight in its proper durable home.
 
    Subjective experience belongs to a session; this step is the
-   session-scoped capture edge. Cross-session audit of accumulated
-   experience files lives at `consolidate-docs` step 4, which exists
-   to protect the subjective register, recover any stranded
-   technical content, and surface emergent insight across
-   experiences.
+   optional session-scoped reflection point. Cross-session reading of
+   accumulated experience files lives at `consolidate-docs` step 4, which
+   exists to protect the subjective register, recover any stranded
+   technical content, and surface emergent insight across experiences —
+   never to measure whether enough were written.
 
    **6d. Sweep platform-specific entry points for drift.** Open
    each of the platform-specific entry-point files at the repo root
@@ -396,6 +437,48 @@ there unless the owner or closeout owner gives a further assignment.
    the canonical surfaces authoritative and prevents the slower
    accumulation that `consolidate-docs` would otherwise discover at
    thread-scoped depth.
+
+   **6e. Loss-sweep + first-hand claim verification — every handoff,
+   context-less.** Two parts, both fire **every** handoff — universal, NOT
+   high-stakes-only (a quality bar tiered to "high-stakes" decays to its lowest
+   tier in practice; excellence is the default, only the *means* scale). Per
+   [PDR-011 §A handoff author cannot self-verify its completeness](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md):
+   the author holds the context whose loss the handoff guards against, so a
+   self-run check re-affirms felt-true claims rather than falsifying them.
+
+   **6e.1 Verify the handoff's own load-bearing claims first-hand, at write-time.**
+   Ground every fact the handoff asserts — tree state, commit SHAs, ahead/behind,
+   file:line citations, version/dependency facts, gate green-ness — against its
+   source (the git command, the file, the gate output) AS YOU WRITE IT, never from
+   memory (`verify-dont-trust` on your own banner). Worked instance 2026-06-07: a
+   handoff's "branch unpushed" was false (4 ahead of a live origin) and its
+   executor.ts citations were off — both asserted from memory.
+
+   **6e.2 Run the loss-scan from inside your own context — it cannot be delegated.**
+   After the categorical edges (6a–6d), sweep *against the grain of "it is all
+   captured"*: *"If this context ceased now, what would be lost — and fits none of
+   6a–6d?"* This is **the context-holder's exclusive job, by definition.** Loss is
+   `(what you hold in context) − (what the durable artefacts capture)`; only the
+   holder can see the left side of that subtraction. A context-isolated reader sees
+   only the artefacts (the right side), so it can VERIFY them — ground each claim
+   against source, flag what is ambiguous, stale, or internally inconsistent — but it
+   **cannot detect loss**: it never had access to your context to subtract from, so it
+   can only report gaps *within* the written record, never what is absent from the
+   record relative to your knowledge. Asking a third party "what would be lost?"
+   returns an artefact audit, not a loss-scan; the two must never be conflated or
+   substituted. So enumerate, from inside your own context, the decisions, rationale,
+   rejected alternatives, and grounded knowledge you are still holding that reached no
+   durable surface — and route each to its consumer's durable home (per 6a.2); fence
+   stale content a fresh reader would misread. The externalised fresh-reader pass
+   remains valuable as the **verification** complement to 6e.1 (it grounds the claims
+   and surfaces reader-facing ambiguity) — run it for that, never as the loss-scan.
+   Owner correction 2026-06-07: this replaces the prior "externalise by default"
+   framing, which inverted the loss-scan's ownership. (The PDR-011 §"a handoff author
+   cannot self-verify" rationale governs 6e.1 *verification* — where author bias is
+   real and externalising helps; it does **not** govern loss-detection, which is the
+   one analysis the author alone can perform. PDR-011 / ADR-150 amendment pending —
+   see pending-graduations.) "Nothing survives the sweep" is a valid answer reached by
+   asking, not by skipping.
 
 7. **Refresh cross-session coordination surfaces** (session-scoped
    touch on cross-session artefacts the session affected).
@@ -536,6 +619,14 @@ there unless the owner or closeout owner gives a further assignment.
       commitments. Recorder/actor completion requires evidence; role
       handoff requires `handoff_to` plus evidence or a durable
       `next_action` reference.
+
+   **Multi-agent staging caution.** If this session-close commits on a shared
+   working tree while other agents are present, stage by explicit pathspec (per
+   [`stage-by-explicit-pathspec`](../../rules/stage-by-explicit-pathspec.md)) —
+   a broad `git add -A` at close sweeps a *paused* peer's uncommitted WIP into
+   your commit. Worked instance 2026-06-07: a peer's "commit all my files" close
+   swept another agent's paused WIP carrier change into the commit, landing
+   broken code that then needed a forward revert.
 
 9. **Run the consolidation gate.** Check the trigger checklist in
    [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md).

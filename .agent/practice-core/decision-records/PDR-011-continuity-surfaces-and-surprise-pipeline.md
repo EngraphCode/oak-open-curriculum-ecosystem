@@ -4,7 +4,7 @@ pdr_kind: governance
 
 # PDR-011: Continuity Surfaces and the Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29)
+**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08)
 **Date**: 2026-04-18 (amended 2026-04-20 — contract host abstracted
 from "primary session-continuation prompt" to "canonical repo-local
 surface set"; field set split into portable minimum plus optional
@@ -128,6 +128,48 @@ unit).
   twin (ADR-150) mirrors this in its Amendment Log; the host
   `session-handoff` §6c capture edge is reframed from "reflective surplus
   (optional)" to foundational standing.
+- **2026-06-07 — grounded execution knowledge named as a second capture
+  edge at session-handoff, with an adversarial completeness backstop**
+  (owner direction 2026-06-07, evidenced by an EEF D6 session where
+  load-bearing verified facts — a vendor type-carrier divergence,
+  sub-agent-grounded dependency/acyclicity checks, a failed-approach
+  learning — would have been lost at the session boundary because they fit
+  none of the surprise-pipeline capture categories; the loss-sweep that
+  caught them was owner-prompted, not mechanism-fired). §Decision gains
+  "### Grounded execution knowledge is a second capture edge" after §"The
+  surprise-to-enforcement pipeline". The three continuity types and the
+  surprise pipeline are unchanged; what is added is a sibling capture
+  concern at the capture stage — verified facts a session produces that the
+  next agent (or a downstream consumer) would re-derive — conserved at the
+  consumer's durable home and backed by an adversarial completeness sweep so
+  the conservation fires structurally rather than on recall. The host
+  `session-handoff` realises it as two capture edges (§6a.2 categorical +
+  §6e backstop); the repo-bound twin (ADR-150) mirrors this in its
+  Amendment Log.
+- **2026-06-07 — a handoff author cannot self-verify its completeness; both
+  cures are universal to every handoff** (owner direction 2026-06-07: "make all
+  handoffs high quality, not just high stakes ones"). §Decision gains "### A
+  handoff author cannot self-verify its completeness" after §"Grounded execution
+  knowledge is a second capture edge". The author holds the context whose loss the
+  handoff guards against, so a self-run completeness check re-affirms felt-true
+  claims; the cures are (a) first-hand verification of the handoff's own
+  load-bearing claims at write-time and (b) the completeness backstop run from a
+  context-less reader's state (externalised by default). Evidenced by the EEF D6
+  handoff session whose own banner's "branch unpushed" was false and whose
+  inherited peer "all gates green" was knip-red. Realised in host `session-handoff`
+  §6e (extended); ADR-150 mirrors. Pipeline and continuity types unchanged.
+- **2026-06-08 — disposition of continuity-surface content under fitness pressure named**
+  (owner direction 2026-06-08: a continuity surface's fitness pressure is a routing signal,
+  never a trim or archive trigger; the only dispositions are leave-live-verbatim or
+  conserve-insight-and-delete; classify surfaces by intended function, not by current stats;
+  a uniform line-length across declared surfaces prevents per-file gaming). §Decision gains
+  "### Disposition of continuity-surface content under fitness pressure" after "### The
+  continuity contract". The three continuity types, the surprise pipeline, and the contract's
+  fields are unchanged; what is added is the lifecycle discipline for continuity-surface
+  *content* under fitness pressure. The host realises it in its continuity directive's
+  disposition section plus the fitness apparatus; the repo-bound twin (ADR-150) mirrors this in
+  its Amendment Log. Graduated from the host pending-graduations register, whose trigger — a
+  dedicated continuity-curation session — fired 2026-06-08.
 
 ## Context
 
@@ -408,6 +450,54 @@ records. Multiple next-session records are not multiple
 continuity contracts — there is still one canonical contract;
 the per-thread records are satellites scoped by thread.
 
+### Disposition of continuity-surface content under fitness pressure (2026-06-08 amendment)
+
+A continuity surface — the canonical repo-level active-state index and the
+per-thread next-session records — is a compact **pickup** surface, classified
+by its intended **function**, not by its current size. Its function is to carry
+what the next session needs to recover orientation (identity, current state,
+landing target, the standing decisions the thread carries, and the latest
+still-live handoff), not a session-by-session log.
+
+A fitness signal on a continuity surface is therefore a **routing signal, not a
+trim trigger**. The question is never "how is this file made smaller" but "what
+is the state of the work this content describes?" Two dispositions only, applied
+per content block:
+
+1. **Live** — the work still needs doing (including paused-but-unfinished). The
+   content **stays in place, verbatim, however large.** A truthful record of
+   live work is worth more than a tidy file.
+2. **Finished** — landed, superseded, or abandoned. **Curate it**: conserve the
+   durable *insight* into its permanent home (a decision record, governance doc,
+   plan, pattern, rule, or — for still-live operational facts — the compact
+   current-state surface), **verify it is there**, then **delete the curated
+   residue.** Version control retains the literal record; the live surface
+   carries only what the next session needs.
+
+These are the only two dispositions. Do **not** relieve a continuity surface's
+fitness pressure by splitting it across files, rotating it, sharding it, or
+renaming it for score: moving content elsewhere is not the same as conserving
+its insight, and a split, shard, archive, or rename performed primarily to
+change a fitness category is self-delusion, not curation. Two companion
+principles hold:
+
+- **Classify by function, not by current statistics.** A continuity surface's
+  fitness limits are a property of its **function class**, derived once from
+  what that function should occupy and held independent of today's file sizes.
+  Reverse-engineering a limit from the measured corpus bakes existing bloat into
+  the "healthy" band and drifts as the corpus drifts; a surface that has
+  accumulated finished-work residue is a function violation that *should* trip
+  the signal, not a large healthy surface to re-baseline around.
+- **Uniform line-length across declared surfaces.** The per-line width limit is
+  uniform across every fitness-declaring surface so that no single file can be
+  tuned to a softer width band.
+
+The fitness checker only **surfaces a signal**; the agent who sees it chooses
+the disposition. The host realises this doctrine in its continuity directive
+(the disposition section each continuity surface's `overflow_disposition`
+frontmatter points at) and in its fitness apparatus; the repo-bound twin mirrors
+it.
+
 ### Live coordination state (2026-04-25 amendment)
 
 Memory and state are sibling artefact classes:
@@ -463,6 +553,92 @@ No automatic shortcut to permanent doctrine exists. The pipeline
 preserves the existing graduation bars at each stage. What it adds is
 **explicit entry**: a surprise enters the pipeline by being captured
 in structured form, not by being recounted in chat history.
+
+### Grounded execution knowledge is a second capture edge (2026-06-07 amendment)
+
+The surprise-to-enforcement pipeline captures **model-changing signal** —
+surprise, correction, contradiction. A session also produces a second kind of
+conservation-worthy output the pipeline does not name: **grounded execution
+knowledge** — the facts a session verified first-hand to do its work (a
+contract confirmed at a named location, a dependency checked acyclic, a version
+or vendor behaviour pinned, a data shape confirmed against the source) and the
+**failed-approach learnings** (what was tried, why it did not work). This is not
+a surprise (there need be no expectation-gap) and not a new continuity type — it
+serves operational and epistemic continuity. It is a distinct **capture
+concern**: when a session's context ceases, verified knowledge that fits no
+surprise/lesson/decision/question category is lost, and the next agent — or a
+downstream plan that inherits the work — re-derives it.
+
+Three properties make grounded execution knowledge especially loss-prone, and
+the capture edge must account for each:
+
+- **It is routed to the consumer, not the pipeline.** Surprise capture lands in
+  the ephemeral memory surface to be distilled into general rules. Grounded
+  execution knowledge is consumed by a *specific* next executor at a *specific*
+  surface — the owning plan, the thread next-session record — so it is conserved
+  *there*, where the consumer looks, not only in the napkin.
+- **Sub-agent-grounded facts are the most loss-prone of all.** A sub-agent's
+  context is already gone, so a fact a reviewer or explorer verified survives
+  only if the orchestrating session conserves it explicitly.
+- **A resolved surprise can leave load-bearing knowledge behind.** When the
+  triggering change is reverted or the surprise is settled, a surprise-shaped
+  capture drops the entry — yet the verified knowledge underneath it may still
+  be load-bearing for a downstream consumer.
+
+Conservation has two composed parts at session-handoff, because categorical
+capture and an open backstop catch different things:
+
+- **Categorical capture** — concrete check-items for the recurring kinds
+  (verified facts the next agent will re-derive; sub-agent-grounded facts;
+  failed-approach learnings; resolved-but-still-load-bearing knowledge). Cheap
+  and reliable: it catches the common cases without the agent having to generate
+  the frame.
+- **An adversarial completeness backstop** — run *after* the categorical edges,
+  against the grain of "it is all captured": *"if this context ceased now, what
+  valuable knowledge generated this session would be lost, and fits none of the
+  categories above?"* This catches the long tail that fits no category.
+
+The backstop must **fire every handoff as a mechanism, not on recall**: the loss
+it prevents is exactly the loss that occurs when no one thinks to ask, so a
+conservation step that depends on someone remembering to ask is debt. The host
+realises both parts as session-handoff capture edges (§6a.2 categorical + §6e
+backstop).
+
+### A handoff author cannot self-verify its completeness (2026-06-07 amendment)
+
+The agent writing a handoff holds the very context whose loss the handoff guards
+against. A completeness check the author runs on themselves therefore operates
+from the wrong knowledge state — a claim that *feels* true is re-affirmed, not
+falsified. Empirically (2026-06-07): a deep, deliberately loss-proofed handoff its
+author believed complete asserted a false "branch unpushed" tree-state and
+imprecise file:line citations; a context-less reviewer that read only the durable
+artefacts and grounded each claim against source caught both. The same session
+inherited a peer handoff whose "all gates green" self-report was knip-red and
+prettier-dirty — a self-report does not transfer verification.
+
+Two disciplines follow, and both are **universal — every handoff, not only
+high-stakes ones** (owner direction 2026-06-07). A quality bar carved to
+"high-stakes only" decays to its lowest tier in practice: artefact-gravity makes
+the routine path the default and the rigorous path is forgotten. Excellence is the
+default; only the *means* scale to meet it, never the bar.
+
+- **Verify the handoff's own load-bearing claims first-hand, at write-time.** Tree
+  state, commit SHAs, ahead/behind, file:line citations, version and dependency
+  facts, gate green-ness — ground each against its source (the git command, the
+  file, the gate output) as it is written, never from memory. This is
+  `verify-dont-trust` turned on the handoff's own banner; it is the cheapest and
+  most universal catch.
+- **Run the completeness backstop from a context-less reader's state.** Because the
+  author cannot reliably simulate that state, the reliable form externalises it: a
+  fresh reviewer (or a genuinely context-isolated pass) reads only the durable
+  artefacts the next session will read and reports what it cannot determine, finds
+  ambiguous, or would be misled by — grounding each finding against source.
+  Externalise by default whenever the handoff carries load-bearing facts a fresh
+  agent will act on; a handoff with nothing load-bearing to lose has nothing to
+  review. Fill the gaps; fence stale content a fresh reader would misread.
+
+This makes the loss-sweep recur-proof rather than recall-dependent — the
+structural cure the surprise-to-enforcement pipeline prefers.
 
 ### Mid-session re-grounding (complementary, not a continuity surface)
 

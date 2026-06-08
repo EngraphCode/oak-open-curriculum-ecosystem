@@ -40,7 +40,7 @@ describe('registerAllResources — registration completeness', () => {
   it('registers the expected number of resources', () => {
     const server = createRecordingServer();
 
-    registerAllResources(server, { getWidgetHtml: () => TEST_WIDGET_HTML });
+    registerAllResources(server, { getWidgetHtml: () => TEST_WIDGET_HTML, eefEnabled: false });
 
     expect(server.registerResource).toHaveBeenCalledTimes(EXPECTED_RESOURCE_COUNT);
   });
@@ -50,7 +50,6 @@ describe('registerPrompts — registration completeness', () => {
   it('registers at least one prompt', () => {
     const server = createRecordingServer();
 
-    // EEF flag OFF — the four base prompts register regardless of the flag.
     registerPrompts(server, false);
 
     expect(server.registerPrompt).toHaveBeenCalled();

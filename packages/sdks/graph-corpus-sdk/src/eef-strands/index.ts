@@ -1,71 +1,65 @@
 /**
- * `@oaknational/graph-corpus-sdk/eef-strands` — EEF strands corpus surface.
+ * `@oaknational/graph-corpus-sdk/eef-strands` — EEF strands corpus foundation.
  *
- * Home of the EEF corpus substrate per ADR-179 (the graph substrate owns
- * corpus types; the MCP surface consumes them) and ADR-173 (the EEF
- * adapter, its Zod loader, and the corpus snapshot live here):
- *
- * - the corpus-layer composition types (`EvidenceCorpus` and its
- *   `rank` / `explain` / `compare` operation, result, and error types);
- * - the `EefStrandsGraphView` adapter (`./graph-view.ts`) over the strands;
- * - the Zod schema (`./strand-schema.ts`) the `EefStrand` type flows from;
- * - the loader (`./loader.ts`) that validates + freshness-gates the
- *   snapshot (`./eef-toolkit.external-data.ts`) and constructs the adapter;
- * - the ADR-175 freshness gate (`./freshness.ts`).
+ * The typed raw-data foundation derived directly from the fixed `as const`
+ * corpus snapshot (`./eef-toolkit.external-data.ts`, ADR-173): strand identity
+ * and lookup, the finite raw domains, the declared-vs-observed divergence, raw
+ * related-strand edge facts, and corpus-level provenance/methodology. Per
+ * ADR-179 the substrate owns these corpus types; the MCP surface consumes them.
+ * The graph-native EEF view (`eefStrandGraph`, the bounded-BFS projection over
+ * this foundation) is built here (D5); the MCP schemas are built downstream
+ * (D6).
  */
 
 export {
-  EefStrandsGraphView,
-  type EefStrandEdgeType,
-  type EefStrandsManifestMeta,
-  type EefStrandsGraphViewInput,
-  type EefStrandsGraphViewConstructionError,
-} from './graph-view.js';
-
-export {
-  EefStrandSchema,
-  EefToolkitSchema,
+  strandById,
+  isValidStrandKey,
+  EEF_STRAND_IDS,
+  type EefToolkitData,
   type EefStrand,
-  type EefToolkit,
-  type EefToolkitMeta,
-} from './strand-schema.js';
+  type EefStrandId,
+  type EefStrandById,
+} from './strand-lookup.js';
 
 export {
-  EEF_PHASES,
-  EEF_PRIORITIES,
-  EEF_KEY_STAGES,
-  type EefPhase,
-  type EefPriority,
-  type EefKeyStage,
-} from './school-context.js';
+  declaredVsObservedDivergence,
+  OBSERVED_PHASES,
+  OBSERVED_KEY_STAGES,
+  OBSERVED_PRIORITIES,
+  relatedStrandEdges,
+  strandAxisIndex,
+  type DeclaredPhase,
+  type DeclaredKeyStage,
+  type DeclaredPriority,
+  type ObservedPhase,
+  type ObservedKeyStage,
+  type ObservedPriority,
+  type HeadlineImpactMonths,
+  type HeadlineCostRating,
+  type HeadlineCostLabel,
+  type HeadlineEvidenceStrengthRating,
+  type HeadlineEvidenceStrengthLabel,
+  type DeclaredVsObservedDivergence,
+  type RelatedStrandEdge,
+  type StrandAxisValues,
+} from './raw-domains.js';
 
 export {
-  loadEefCorpus,
-  type LoadedEefCorpus,
-  type LoadEefCorpusError,
-  type LoadEefCorpusOptions,
-} from './loader.js';
+  corpusMeta,
+  corpusCaveats,
+  corpusMethodology,
+  lastUpdated,
+  type CorpusMeta,
+  type CorpusCaveat,
+  type CorpusMethodology,
+} from './corpus-meta.js';
 
-export { selectEefSeedIds, type EefSeedSelectionContext } from './selection.js';
+export { eefStrandGraph, type EefStrandGraph } from './eef-graph.js';
 
 export {
-  checkFreshness,
-  DEFAULT_THRESHOLD_DAYS,
-  type FreshnessError,
-  type FreshnessOk,
-} from './freshness.js';
-
-export type {
-  CompareError,
-  CompareOptions,
-  ComparisonDimension,
-  ComparisonResult,
-  EvidenceCorpus,
-  ExplainOptions,
-  NodeExplanation,
-  NotImplementedYet,
-  RankError,
-  RankOptions,
-  RankedItem,
-  RankedResults,
-} from './types.js';
+  inspectStrand,
+  evidenceForMove,
+  type EefEvidenceEnvelope,
+  type EefEvidenceProvenance,
+  type EvidenceForMoveSelectors,
+} from './eef-evidence.js';

@@ -123,7 +123,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm agent-tools:check-blocked-patterns",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/run-pretooluse-guard.mjs\" agent-tools/dist/src/hook-policy/check-blocked-patterns.js",
             "timeout": 5
           }
         ]
@@ -133,7 +133,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm agent-tools:check-blocked-content",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/run-pretooluse-guard.mjs\" agent-tools/dist/src/hook-policy/check-blocked-content.js",
             "timeout": 5
           }
         ]
@@ -143,7 +143,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm agent-tools:check-blocked-content",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/run-pretooluse-guard.mjs\" agent-tools/dist/src/hook-policy/check-blocked-content.js",
             "timeout": 5
           }
         ]
@@ -179,7 +179,7 @@
   "skillListingBudgetFraction": 0.03,
   "enabledPlugins": {
     "sentry@claude-plugins-official": true,
-    "remember@claude-plugins-official": true,
+    "remember@claude-plugins-official": false,
     "mcp-server-dev@claude-plugins-official": true,
     "sonarqube@claude-plugins-official": true,
     "vercel@claude-plugins-official": true

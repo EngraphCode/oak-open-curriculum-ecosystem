@@ -25,23 +25,8 @@ import {
   lessonPlanningArgsSchema,
   exploreCurriculumArgsSchema,
   learningProgressionArgsSchema,
-  eefEvidenceGroundedLessonPlanArgsSchema,
+  adaptLessonArgsSchema,
 } from './prompt-schemas.js';
-import { EEF_PROMPT_NAME } from './eef-surface.js';
-
-/**
- * The EEF prompt registration — co-gated with the
- * `eef-explore-evidence-for-context` tool behind `OAK_CURRICULUM_MCP_EEF_ENABLED`.
- * Added to the served set only when the flag is enabled; the two surfaces are
- * one delivery unit (Definition of Delivery, criterion 4).
- */
-const EEF_PROMPT_REGISTRATION = {
-  name: EEF_PROMPT_NAME,
-  title: 'EEF Evidence-Grounded Lesson Plan',
-  description:
-    'Design a lesson plan grounded in EEF Toolkit evidence: combines 2-3 evidence-backed approaches drawn from a typed subgraph of EEF strands, with caveats and implementation guidance, into a structured pedagogical sequence.',
-  argsSchema: eefEvidenceGroundedLessonPlanArgsSchema,
-} as const;
 
 const PROMPT_REGISTRATIONS = [
   {
@@ -72,7 +57,24 @@ const PROMPT_REGISTRATIONS = [
       'Understand how a concept builds across year groups by searching progression threads and mapping dependencies.',
     argsSchema: learningProgressionArgsSchema,
   },
+  {
+    name: 'adapt-lesson',
+    title: 'Adapt Lesson with EEF Evidence',
+    description:
+      'Adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence, presenting evidence-calibrated options with caveats and attribution intact.',
+    argsSchema: adaptLessonArgsSchema,
+  },
 ] as const;
+
+/**
+ * Prompt names co-gated behind `OAK_CURRICULUM_MCP_EEF_ENABLED`. Mirrors the
+ * tool gating in `handlers.ts`: the EEF prompt is live by default and skipped
+ * at registration only when an explicit `=false` disables it (D6 c6). Typed against
+ * the registered prompt names so a rename is a compile error here, not a silently-stale string.
+ */
+type RegisteredPromptName = (typeof PROMPT_REGISTRATIONS)[number]['name'];
+const EEF_FLAG_GATED_PROMPT_NAMES: ReadonlySet<RegisteredPromptName> =
+  new Set<RegisteredPromptName>(['adapt-lesson']);
 
 /**
  * Formats SDK prompt messages for MCP response structure.
@@ -102,30 +104,27 @@ interface PromptRegistrar {
 /**
  * Registers MCP prompts for common curriculum workflows.
  *
- * The four base prompts are always registered. The EEF prompt is registered
- * only when `eefEnabled` is true — co-gated with the
- * `eef-explore-evidence-for-context` tool so the prompt+tool unit surfaces
- * together or not at all (Definition of Delivery, criterion 4).
- *
  * Each prompt is registered with an `argsSchema` for type-safe argument
  * validation, a callback that receives validated arguments directly, and
  * message generation delegated to the SDK's `getPromptMessages()`.
  *
  * @param server - MCP server instance (only `registerPrompt` is used)
- * @param eefEnabled - when true, also register the co-gated EEF prompt
+ * @param eefEnabled - Whether the EEF surface is on
+ *   (`OAK_CURRICULUM_MCP_EEF_ENABLED`, kill-switch, default ON). The `adapt-lesson`
+ *   prompt is co-gated by this flag and skipped only when an explicit `=false` disables it (D6 c6).
  *
  * @example
  * ```typescript
  * const server = new McpServer({ name: 'curriculum', version: '1.0.0' });
- * registerPrompts(server, runtimeConfig.eefEnabled);
+ * registerPrompts(server, false);
  * ```
  */
 export function registerPrompts(server: PromptRegistrar, eefEnabled: boolean): void {
-  const registrations = eefEnabled
-    ? [...PROMPT_REGISTRATIONS, EEF_PROMPT_REGISTRATION]
-    : PROMPT_REGISTRATIONS;
+  for (const prompt of PROMPT_REGISTRATIONS) {
+    if (EEF_FLAG_GATED_PROMPT_NAMES.has(prompt.name) && !eefEnabled) {
+      continue;
+    }
 
-  for (const prompt of registrations) {
     const handler = (args: Readonly<Record<string, string | undefined>>) =>
       formatPromptResponse(prompt.name, args);
 

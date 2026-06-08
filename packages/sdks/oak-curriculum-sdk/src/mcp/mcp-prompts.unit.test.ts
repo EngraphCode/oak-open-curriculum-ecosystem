@@ -25,6 +25,14 @@ describe('MCP_PROMPTS', () => {
     expect(MCP_PROMPTS).toHaveLength(5);
   });
 
+  it('has adapt-lesson prompt with topic and yearGroup arguments', () => {
+    const prompt = MCP_PROMPTS.find((p) => p.name === 'adapt-lesson');
+    expect(prompt).toBeDefined();
+    const argNames = prompt?.arguments?.map((a) => a.name) ?? [];
+    expect(argNames).toContain('topic');
+    expect(argNames).toContain('yearGroup');
+  });
+
   it('has explore-curriculum prompt', () => {
     const prompt = MCP_PROMPTS.find((p) => p.name === 'explore-curriculum');
     expect(prompt).toBeDefined();
@@ -56,12 +64,6 @@ describe('MCP_PROMPTS', () => {
     const argNames = prompt?.arguments?.map((a) => a.name) ?? [];
     expect(argNames).toContain('topic');
     expect(argNames).toContain('yearGroup');
-  });
-
-  it('has eef-evidence-grounded-lesson-plan prompt registered for client discovery', () => {
-    const prompt = MCP_PROMPTS.find((p) => p.name === 'eef-evidence-grounded-lesson-plan');
-
-    expect(prompt).toBeDefined();
   });
 });
 
@@ -188,31 +190,44 @@ describe('getPromptMessages', () => {
     });
   });
 
-  describe('eef-evidence-grounded-lesson-plan prompt', () => {
-    it('routes to the eef-evidence-grounded-lesson-plan generator when called by name', () => {
-      const messages = getPromptMessages('eef-evidence-grounded-lesson-plan', {
-        subject: 'mathematics',
-        keyStage: 'KS3',
-        topic: 'fractions',
+  describe('adapt-lesson prompt', () => {
+    it('returns messages naming the topic, year group, and the Oak→EEF workflow', () => {
+      const messages = getPromptMessages('adapt-lesson', {
+        topic: 'adding fractions',
+        yearGroup: 'Year 4',
       });
-
       expect(messages.length).toBeGreaterThan(0);
-
       const content = messages.map((m) => m.content.text).join(' ');
-      expect(content).toContain('mathematics');
-      expect(content).toContain('KS3');
-      expect(content).toContain('fractions');
+      expect(content).toContain('adding fractions');
+      expect(content).toContain('Year 4');
+      expect(content).toContain('get-eef-evidence');
+      expect(content).toContain('eef://interpretation');
     });
 
-    it('references the gate-1a eef-explore-evidence-for-context tool via the dispatcher', () => {
-      const messages = getPromptMessages('eef-evidence-grounded-lesson-plan', {
-        subject: 'english',
-        keyStage: 'KS2',
-        topic: 'phonics',
+    it('instructs converting free-form input to finite EEF tool inputs at the boundary', () => {
+      const messages = getPromptMessages('adapt-lesson', {
+        topic: 'photosynthesis',
+        yearGroup: 'Year 9',
       });
-
       const content = messages.map((m) => m.content.text).join(' ');
-      expect(content).toContain('eef-explore-evidence-for-context');
+      expect(content).toContain('finite');
+      // Surfaces the pedagogical signal via Oak's own graphs.
+      expect(content).toContain('misconception');
+      expect(content).toContain('prior-knowledge');
+    });
+
+    it('instructs preserving caveats/attribution and presenting options, not selections', () => {
+      const messages = getPromptMessages('adapt-lesson', {
+        topic: 'photosynthesis',
+        yearGroup: 'Year 9',
+      });
+      const content = messages
+        .map((m) => m.content.text)
+        .join(' ')
+        .toLowerCase();
+      expect(content).toContain('caveat');
+      expect(content).toContain('attribut');
+      expect(content).toContain('options');
     });
   });
 

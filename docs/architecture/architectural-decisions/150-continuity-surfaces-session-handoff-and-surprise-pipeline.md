@@ -1,6 +1,6 @@
 # ADR-150: Continuity Surfaces, Session Handoff, and Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, 2026-04-21, 2026-05-29)
+**Status**: Accepted (amended 2026-04-20, 2026-04-21, 2026-05-29, 2026-06-07, 2026-06-08)
 **Date**: 2026-04-02 (amended 2026-04-20 — §3 abstracted from
 prompt-host to canonical repo-local surface; §4 generalised; Rationale
 and Consequences language aligned to the amendment per OAC Phase 4.3;
@@ -68,6 +68,47 @@ doctrine carried forward in the parallel PDR-011 amendment)
   Amendment Log and realised in the host `session-handoff` §6c capture edge
   (re-framed from optional reflective surplus to foundational standing).
   Doctrine otherwise unchanged.
+- **2026-06-07 — grounded execution knowledge named as a second capture
+  edge, with an adversarial completeness backstop.** Mirrors the portable
+  PDR-011 amendment
+  ([PDR-011 §Amendment Log 2026-06-07](../../../.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log)):
+  alongside the surprise-to-enforcement pipeline (which captures model-changing
+  signal), a session also produces **grounded execution knowledge** — facts
+  verified first-hand that the next agent or a downstream plan would re-derive,
+  plus failed-approach learnings. This is not a surprise and not a fourth
+  continuity type; it is a sibling capture concern conserved at the consumer's
+  durable home (the owning plan or thread next-session record) and backed by an
+  adversarial completeness sweep so it fires structurally rather than on recall.
+  Sub-agent-grounded facts are the most loss-prone (the sub-agent's context is
+  already gone). Realised in the host `session-handoff` capture edges §6a.2
+  (categorical) and §6e (adversarial backstop), plus the §8 multi-agent staging
+  caution. Owner direction 2026-06-07; evidenced by an EEF D6 session where the
+  loss-sweep that caught the at-risk facts was owner-prompted, not
+  mechanism-fired. Doctrine otherwise unchanged.
+- **2026-06-07 — a handoff author cannot self-verify completeness; the cures
+  are universal to every handoff.** Mirrors the portable PDR-011 amendment
+  ([PDR-011 §Amendment Log 2026-06-07](../../../.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log)):
+  the agent writing a handoff holds the context whose loss it guards against, so a
+  self-run completeness check re-affirms felt-true claims. Two cures, both
+  universal to **every** handoff (owner direction "make all handoffs high quality,
+  not just high stakes ones"): (a) verify the handoff's own load-bearing claims
+  first-hand at write-time (tree state, SHAs, citations, gate green-ness), and (b)
+  run the completeness backstop from a context-less reader's state — externalised
+  by default to a fresh reviewer that reads only the durable artefacts. Realised in
+  host `session-handoff` §6e (extended). Evidenced by an EEF D6 handoff whose own
+  "branch unpushed" claim was false and whose inherited peer "all gates green" was
+  knip-red. Doctrine otherwise unchanged.
+- **2026-06-08 — disposition of continuity-surface content under fitness pressure.**
+  Mirrors the portable PDR-011 amendment
+  ([PDR-011 §Amendment Log 2026-06-08](../../../.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log)):
+  a continuity surface's fitness pressure is a routing signal, not a trim trigger; the only
+  dispositions are leave-live-verbatim or conserve-insight-and-delete (never
+  archive/split/rotate/shard); classify by intended function, not by current stats; a uniform
+  line-length across declared surfaces prevents per-file gaming. The repo realisation is
+  [`continuity-practice.md` §Disposition of Continuity Surfaces](../../../.agent/directives/continuity-practice.md)
+  (the section each continuity surface's `overflow_disposition` frontmatter points at) plus the
+  practice-fitness apparatus that surfaces the signal. First exercised in the 2026-06-08
+  dedicated continuity-curation session. Doctrine otherwise unchanged.
 
 ## Context
 

@@ -250,11 +250,11 @@ Before doing anything substantive:
   parent plan; carries Workstreams 2–5 and the B-01 bug entry.
 - [`multi-agent-collaboration-protocol.plan.md`](multi-agent-collaboration-protocol.plan.md) —
   current canonical protocol plan.
-- [`../../graph-mvp-arc.plan.md`](../../graph-mvp-arc.plan.md) §
+- `../../graph-mvp-arc.plan.md` §
   Team-of-Agents Execution — the demand-side justification for this
   session; MVP arc parallelism is bounded by this session's outcome.
-- [`../../connecting-oak-resources/knowledge-graph-integration/current/2026-05-11-graph-execution-prep-opener.md`](../../connecting-oak-resources/knowledge-graph-integration/current/2026-05-11-graph-execution-prep-opener.md) —
-  graph side of the same arc; step 4 routes here.
+- `2026-05-11-graph-execution-prep-opener.md` (since archived) —
+  graph side of the same arc; step 4 routed there.
 - [`../../../state/collaboration/shared-comms-log.md`](../../../state/collaboration/shared-comms-log.md) —
   primary friction-evidence source.
 - [`../../../state/collaboration/closed-claims.archive.json`](../../../state/collaboration/closed-claims.archive.json) —

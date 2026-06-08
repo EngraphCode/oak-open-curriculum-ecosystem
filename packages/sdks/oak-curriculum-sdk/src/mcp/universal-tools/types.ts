@@ -80,9 +80,9 @@ export type AggregatedToolName =
   | 'get-thread-progressions'
   | 'get-prior-knowledge-graph'
   | 'get-misconception-graph'
+  | 'get-eef-evidence'
   | 'browse-curriculum'
   | 'explore-topic'
-  | 'eef-explore-evidence-for-context'
   | 'download-asset'
   | 'user-search'
   | 'user-search-query';

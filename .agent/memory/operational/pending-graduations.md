@@ -1,8 +1,8 @@
 ---
-fitness_line_target: 1500
-fitness_line_limit: 2200
+fitness_line_target: 1100
+fitness_line_limit: 1467
 fitness_char_limit: 200000
-fitness_line_length: 500
+fitness_line_length: 100
 lifecycle_model: >-
   canonical pending-graduations register — owner-gated and pending items live
   here until graduated, duplicated, stale-withdrawn, or owner-resolved
@@ -13,11 +13,19 @@ drain_strategy: >-
   Graduate items to PDRs/ADRs/rules/permanent docs; keep owner-gated items here
   until owner direction resolves them; do not split, shard, or hide buffer depth
 fitness_rationale: >-
-  Recalibrated 2026-05-27 on owner direction to collapse legacy
-  pending-graduations pseudo-shards back into this canonical register. The
-  register is intentionally allowed to hold owner-gated decisions and compact
-  recovery-file disposition evidence in one place; fitness is routing evidence,
-  not permission to create sidecar buffer files.
+  Recalibrated 2026-06-08 on owner direction: hard limit 2200 -> 1467 and target
+  1500 -> 1100 (target lowered below the new hard limit for zone coherence) so
+  critical (hard x 1.5, the global ADR-144 ratio) lands at ~2200. The tighter hard
+  band is deliberate back-pressure for a consolidation-pass-only drainable buffer:
+  it keeps the register reading `hard` until the owner-gated backlog is genuinely
+  walked down with the owner present, rather than going green on tombstone-removal
+  alone. A fitness limit on a drainable buffer is a drain-cadence signal, not a
+  size cap. Fitness here is informational-only (not wired into any commit/push
+  hook), so the standing `hard` never blocks a commit and must be reported, not
+  chased: owner-gated items that legitimately wait are never trimmed to clear it.
+  Prior note: recalibrated 2026-05-27 to collapse legacy pseudo-shards back into
+  this one canonical register; fitness is routing evidence, not permission to
+  create sidecar buffer files.
 merge_class: mostly-append-register
 fitness_content_role: drainable-buffer
 ---
@@ -29,6 +37,274 @@ windowed, backlog, split, or shard-like pending-graduation files. New capture,
 owner-gated items, and unresolved pending-graduation decisions belong here until
 they graduate, duplicate, become stale-withdrawn, or receive owner direction.
 
+## 2026-06-08 capture — Briny Charting Lagoon (EEF go-live: flag-engine + verification doctrine)
+
+- **Test the feature-flag ENGINE, not the configuration.** Owner doctrine (2026-06-08): stop
+  testing a flag's default/posture/gated-surfaces; test the resolution mechanism once. Applied:
+  extracted `feature-flags.ts` (opt-in + kill-switch resolvers), unit-tested generically, removed
+  the per-surface EEF on/off gating tests + the exact prompt-count. This is testing-strategy's
+  "assert effects, not configuration collections" specialised to flags.
+  - `captured-date`: 2026-06-08
+  - `source-surface`: this session's owner direction; `.agent/directives/testing-strategy.md` §Rules
+  - `graduation-target`: testing-strategy.md amendment (feature-flag clause) or an always-applied rule
+  - `trigger-condition`: a second feature flag is added, or a session re-adds flag-config tests
+  - `status`: pending
+- **"Tests pass" ≠ "the feature works" — run the assembled system, don't flag the gap.** Owner:
+  "the tool has never been used" — after I shipped EEF D6 green and repeatedly *flagged* the
+  value-path proof as "open" rather than invoking it. Starting the no-auth server and calling the
+  four MCP surfaces proved it in seconds. A gap I can close this session is not "open", it's undone.
+  - `captured-date`: 2026-06-08
+  - `source-surface`: this session's owner direction; auto-memory `feedback_run_the_thing_dont_flag_the_gap`
+  - `graduation-target`: ADR-150 / PDR-011 amendment (verification edge) or a `run-the-feature-before-done` rule
+  - `trigger-condition`: a second "shipped green but never exercised" instance, or the next handoff revising ADR-150
+  - `status`: pending
+- **Refine "Precedence is NOT approval" (PDR-091) with the forced-by-my-interpretation clause.** A
+  verdict that feels "forced" only because of *my* reading of an owner/org directive (here: the org
+  "no PII" instruction → "omit authors", reversed by the owner) is not forced — it's a question I
+  owe the owner first. Sits between PDR-091 and the no-question-when-forced rule.
+  - `captured-date`: 2026-06-08
+  - `source-surface`: this session's owner correction; auto-memory `feedback_forced_verdict_resting_on_my_interpretation_is_a_question`
+  - `graduation-target`: PDR-091 amendment or the no-question-when-answer-is-forced rule
+  - `trigger-condition`: a second instance of an owner/org-directive interpretation treated as a forced verdict
+  - `status`: pending
+
+## 2026-06-08 capture — Lofty Spiralling Plume (continuity-surface disposition doctrine)
+
+- **Graduate the continuity-surface disposition doctrine to a PDR.** Owner stated as standing
+  doctrine (2026-06-08): a continuity surface's fitness pressure is a routing signal, never a
+  trim/archive trigger; the only two dispositions are (1) work live → content stays in place
+  verbatim, (2) work finished → conserve the insight to its permanent home and delete the residue.
+  Archiving (moving a blob verbatim to a companion file) is NOT knowledge preservation — curation is.
+  Now homed in `.agent/directives/continuity-practice.md` §Disposition of Continuity Surfaces (a
+  host directive); the candidate is to lift it to a **portable PDR** so it travels with the Practice.
+  Two adjacent owner-stated principles belong with it: *classify continuity surfaces by intended
+  function, not by current file stats* (limits are a property of the function class), and
+  *`fitness_line_length: 100` is uniform everywhere to prevent per-file gaming*.
+  - `captured-date`: 2026-06-08
+  - `source-surface`: `.agent/directives/continuity-practice.md` §Disposition; this session's owner direction
+  - `graduation-target`: a new PDR (continuity-surface disposition + function-classification + uniform line-length)
+  - `trigger-condition`: owner opens the dedicated continuity-curation session, or a second Practice-bearing repo needs the doctrine
+  - `status`: pending
+
+## 2026-06-07 capture — Glittering Weaving Comet (feedback-mechanism reappraisal generalisation)
+
+- **Generalise "feedback mechanisms carry positive reappraisal direction" across every
+  feedback surface, not only the PreToolUse content guard.** PDR-044 §Innate immunity was
+  amended (2026-06-07) so a hard block's surfaced detection pairs its citation with a
+  positive reappraisal direction; the first and only ENFORCED instance is the PreToolUse
+  content guard (concept-grouped `preToolUseContent.scoped_blocks`, each concept carrying a
+  `reappraisal`, presence enforced at commit-time by the `validate-policy-reappraisal` repo
+  validator). The amendment is deliberately scoped to that surface. The same discipline
+  should extend to the other feedback surfaces: the Bash command-block guard
+  (`preToolUse.blocked_patterns` — mostly bare strings today; regrouping breaks bare-string
+  backward-compat and risks a harder brick, so deferred this arc), ESLint custom-rule
+  messages, and the prose of the always-applied `.agent/rules/*.md` corpus (each rule should
+  state the positive move, not only the prohibition). Candidate enforcement surface: extend
+  `validate-policy-reappraisal` (or a sibling validator) to assert positive direction across
+  those surfaces. Owner directive origin: every agent feedback mechanism — hooks, rules,
+  eslint — must include positive reappraisal direction, not only a negative assessment;
+  doctrine without mechanism is debt (owner, 2026-06-06).
+  `[captured: 2026-06-07 | source: PDR-044 §2026-06-07 amendment + owner directive 2026-06-06 (feedback mechanisms embody doctrine) | target: extend validate-policy-reappraisal across Bash/ESLint/.agent-rules surfaces + the corresponding doctrine | trigger: FIRED — owner direction 2026-06-07 | size: M | status: owner-approved 2026-06-07; execute in a fresh session (handoff: agentic-engineering-enhancements.next-session.md)]`
+
+## 2026-06-07 capture — Briny Plumbing Beacon (item 2a landed; 2b reshaped; reappraising-message pattern)
+
+Progress + new candidates on the Glittering capture above (feedback-mechanism reappraisal generalisation):
+
+- **Item 2a (ESLint surface) LANDED — but NOT as the "extend validate-policy-reappraisal" validator the
+  capture proposed.** ESLint rules are TypeScript source, so enforcement moved to the **type system**:
+  `packages/core/oak-eslint/src/reappraising-message.ts` — a zod-branded `ReappraisingMessage` minted
+  only by `createMessage({prohibition, reappraisal})`, plus a `RuleWithReappraisingMessages` rule type;
+  a prohibition-only string fails `tsc`. All 6 `meta.messages` rules migrated. Committed (entangled with
+  EEF WIP) in `2cd529b5`. The validator is the right mechanism for the JSON policy guards (fail-open
+  registry); the type system is the right mechanism for TS rules (PDR-038, at the cheaper layer).
+- **Item 2b (rules-prose) RESHAPED + owner-expanded.** It is an **89-file** `.agent/rules/*.md` change
+  (not "M"); "states a positive move" is not mechanically checkable without first imposing a structured
+  slot (keyword heuristic rejected as false-positive noise). Owner approved the full pass. Reframed as
+  doctrine cartography: shared cures reveal rule-collapse candidates (owner insight).
+- **Item 2c is PER-SURFACE** — widen the PDR-044 amendment for ESLint once 2a is confirmed enforcing;
+  for rules-prose after 2b. Never wider than enforcement reaches.
+- **NEW pattern candidate:** *compile-time enforcement that a feedback surface teaches the positive
+  reappraisal direction* (the `reappraising-message` shape) — a reusable instance of "feedback mechanisms
+  embody doctrine" for any TS-authored feedback surface. **NEW precedent:** the **first branded type in
+  the repo**, minted via zod `.brand().parse()` (the assertion-free mint forced by
+  `consistent-type-assertions: 'never'`) — candidate for a short note in the type doctrine if a second
+  branded type appears.
+  `[captured: 2026-06-07 | source: item-2a execution (Briny Plumbing Beacon) | target: (a) PDR-044 cross-surface widening per-surface as each enforces; (b) pattern record for compile-time-feedback-teaching + zod-brand-mint precedent | trigger: 2a landed; 2b/WS1 next; pattern record at second consumer | status: 2a landed 2026-06-07; 2b owner-approved full pass; WS1 next]`
+
+## 2026-06-06 capture — Starlit Scattering Twilight
+
+- **Reconcile PDR-011's "subjective experience is foundational substrate, not optional
+  surplus" with the owner's "strictly voluntary" direction.** Owner direction 2026-06-06:
+  recording experience is strictly voluntary; pressure distorts the motivation and the
+  result. The operational surfaces (experience README, `session-handoff` 6c,
+  `consolidate-docs` step 4) are reconciled (valued-when-genuine, never-mandated, no
+  thinning monitor). PDR-011's "not optional surplus" wording still reads as
+  mandate-adjacent; reconcile it to "valued when genuine; voluntary always" so the Core
+  matches the operational surfaces. Practice Core edit — needs owner approval (owner
+  offered to have it drafted).
+  `[captured: 2026-06-06 | source: owner direction 2026-06-06 (experience voluntariness) | target: PDR-011 amendment | trigger: owner approves the Core edit | size: S | status: owner-gated]`
+
+## 2026-06-06 capture — Pearly Sailing Fjord (value-contingency rule)
+
+- **Graduate the live-owner-conductor heartbeat exemption properly.** This session homed
+  "collaboration functionality is value-contingent" as a rule
+  (`collaboration-is-value-contingent.md`, `da25dcda`) but did NOT add a heartbeat
+  exemption to `liveness-heartbeat-cron` — PDR-078 (Accepted) §"Forward-extensible
+  exemption list" forbids pre-empting the contract with hypothetical classes and requires
+  an observable opening event. The owner-conducted heartbeat drop is currently a working
+  hypothesis on PDR-082's (Proposed, n=2) second-instance path.
+  - `captured-date`: 2026-06-06
+  - `source-surface`: `.agent/rules/collaboration-is-value-contingent.md` + `.agent/rules/liveness-heartbeat-cron.md`
+  - `graduation-target`: PDR-082 promotion (second-instance evidence) → then a ratified exemption class in PDR-078 §4
+  - `trigger-condition`: a second clean owner-conducted instance validates the consumer-presence generalisation (this session — n=3, owner-conducted — is candidate first-such evidence); OR owner direction
+  - `status`: pending
+- **Consider a portable value-contingency PDR.** The principle is currently a rule citing
+  PDR-082/080/066. If a third surface needs the *portable contract* form (beyond this
+  repo's rule), a PDR parenting PDR-082/080/066 is the home.
+  - `captured-date`: 2026-06-06
+  - `source-surface`: `.agent/rules/collaboration-is-value-contingent.md`
+  - `graduation-target`: new PDR (portable value-contingency contract)
+  - `trigger-condition`: owner direction OR a third consumer needing the portable form
+  - `status`: pending
+
+## 2026-06-06 capture — Dusky Dimming Candle (D6 plan dual-review)
+
+- **Re-adjudicate premise-bound reviewer verdicts when a peer reviewer overturns the
+  shared premise.** In a multi-reviewer synthesis, one reviewer's verdict can be
+  conditioned on a premise that another reviewer's finding overturns; mechanically
+  applying the premise-bound verdict carries a stale conclusion. This is distinct from
+  the existing reviewer-discipline doctrine (`review-count-is-not-coverage`,
+  `different-lens-reviewer-divergence`, verifier false-negatives — PDR-089 §Decision 6):
+  it is about *dependency between verdicts at the synthesis step*, not lens divergence or
+  coverage. Worked instance: architecture-expert-fred's R3 homing verdict ("home the EEF
+  composition in the app") was premised on the bypass architecture; mcp-expert's BLOCK
+  overturned that premise to a first-class universal-tools entry, which forced the homing
+  to a different split (def+schemas SDK-side via `import type`; handler app-side). The
+  synthesis step had to re-derive the premise-bound verdict, not apply it. Single instance
+  so far; the cure when graduated is likely a clause on reviewer synthesis.
+  `[captured: 2026-06-06 | source: napkin Dusky Dimming Candle 2026-06-06 (D6 plan dual-review) | target: amend:validate-specialist-findings-before-acting OR PDR-089 §Decision 6 (reviewer-synthesis discipline) OR a new reviewer-synthesis pattern | trigger: second premise-cascade instance OR next reviewer-dispatch/synthesis doctrine pass OR owner direction | size: S | status: pending]`
+
+## 2026-06-05 capture — Skyward Lofting Breeze (PreToolUse guard fail-open)
+
+- **ADR-167 amendment: the PreToolUse guard shim now writes an exit-0 fail-open record to
+  `.claude/logs/hook-errors.log`.** The fail-open-on-unbuilt-artefact change makes
+  `.claude/hooks/run-pretooluse-guard.mjs` append a loud warning to the hook-error log on
+  an *allow* (exit 0). ADR-167's wrapper contract (`log-hook-errors.sh`) records only
+  NON-zero exits with a fixed exit/cmd/cwd/project/stderr block (Rule 5). The shim is a
+  *complementary* writer for the exit-0 case the wrapper is structurally blind to (ADR-167
+  §Limitation 6), in a deliberately simpler line format — it does not violate the ADR,
+  which governs the wrapper, not the file's exclusive schema. The candidate is whether to
+  record this second write-trigger as a short ADR-167 amendment. **Reviewer-recommended
+  amend; implementer-assessed NOT needed** (the shim comment already states the
+  complementary relationship); owner to adjudicate.
+  `[captured: 2026-06-05 | source: docs-adr-expert review of PreToolUse guard fail-open (Skyward Lofting Breeze) | target: ADR-167 amendment (Consequences/Limitations note) OR no-change | trigger: owner direction OR a second exit-0 writer to .claude/logs/hook-errors.log | size: S | status: owner-gated]`
+
+## 2026-06-05 capture — Lanternlit curation pass
+
+- **A coverage-matrix-vs-implementation drift validator (recur-proof cure for the
+  ADR-121 / pre-commit-hook drift).** This session found `.husky/pre-commit` had
+  silently drifted from ADR-121's coverage matrix (omitted knip + depcruise, added
+  build). The 2026-06-05 fixes — reconciling the hook + ADR + build-system.md, then
+  single-sourcing the matrix in ADR-121 — reduce *doc-to-doc* drift, but the matrix
+  still duplicates the *implementation* (the actual hook + `.github/workflows/ci.yml`
+  invocations). A repo-validator that parses ADR-121 §Coverage matrix and asserts each
+  surface column matches the live hook/CI command sets would make the documentation
+  verified-by-the-implementation (the metacognition structural-cure shape) and fail
+  loudly on the next drift instead of waiting for a curation pass to notice.
+  `[captured: 2026-06-05 | source: Lanternlit curation pass (ADR-121/hook drift fix 6f280f9f) | target: repo-validator:coverage-matrix-matches-hooks (under agent-tools/src/validators/) | trigger: a second matrix-vs-implementation drift instance OR owner direction to build it | size: M | status: owner-gated]`
+
+## 2026-06-04 captures — Arboreal Sprouting Branch curation pass
+
+Routed during the dedicated knowledge-curation pass (napkin rotation +
+experience-corpus cross-read). Each verified ABSENT from this register before
+adding. Disposition ledger:
+[`curator-passes/2026-06-04-arboreal-sprouting-branch-curation.md`](curator-passes/2026-06-04-arboreal-sprouting-branch-curation.md).
+
+- **Dissolution-by-re-attribution: when both options of a binary policy question
+  suppress a signal, re-attribute the root cause and the question dissolves.**
+  Worked instance: strict-vs-strip schema validation — `.strip()` silently
+  deletes upstream data, `.passthrough()` silently smuggles untyped data; both
+  are signal-suppression shapes. The real failure was schema STALENESS, not
+  validation strictness; re-attribution dissolved a 7-week-old open question into
+  "keep strict; cure freshness."
+  `[captured: 2026-06-04 | source: napkin Moonlit Waxing Nebula 2026-06-03 + Arboreal curation pass | target: pdr:dissolution-by-re-attribution | trigger: second dissolution-by-re-attribution instance OR owner direction | size: S | status: owner-gated]`
+- **Thoroughness-texture is not evidence.** The felt character of care — review
+  counts, reproduction counts, exact figures, polish, careful inheritance —
+  appears precisely in the FAILURE cases; the discriminators that actually worked
+  were one concrete observation against the artefact, an independent lens, and
+  shown-working. Enforcement shape: verifier verdicts must carry per-check
+  positive attestations (a bare CLEAN is consumable only after reading its
+  transcript). Now strongly cross-evidenced: the 2026-05-28→06-04 experience
+  corpus produces this as a dominant pattern (≥4 files — `the-reflex-i-kept-reaching-for`,
+  `evergreen-conserving-while-reviewing`, `seaworthy-d3-audit-dissolution`,
+  `defending-then-deleting-my-own-work`): the wrong move arrives wearing the
+  costume of diligence, never laziness; the cure cannot be "be more careful"
+  (that is the disease) but a direction-check before any act of diligence.
+  `[captured: 2026-06-04 | source: napkin Hushed Lurking Mask 2026-06-03 + experience-corpus cross-read Pattern 2 | target: enforcement-mechanism:verifier-verdicts-carry-per-check-positive-attestations (the CONCEPT — thoroughness disguises as virtue — is now in PDR-089 §Context obs 2 + §Decision 6; the open facet is the operational attestation mechanism, not yet built) | trigger: owner direction OR next reviewer-discipline authoring pass | size: M | status: owner-gated]`
+- **Gate-outcome vocabulary needs a third word.** PDR-058's `decide | park`
+  cannot express "reject-as-framed"; without it, owner hesitation at a mis-posed
+  gate gets coerced into a decision or a costume-trigger park. A reframed gate
+  routes back to synthesis and EDITS the gate row itself — a different recording
+  shape from a park, which only dates it.
+  `[captured: 2026-06-04 | source: napkin Mossy Whispering Bark 2026-06-03 opener-as-artefact | target: amend:PDR-058 (gate-outcome vocabulary) | trigger: second mis-posed-gate instance OR owner direction | size: S | status: owner-gated]`
+
+**Cross-experience meta-signal (owner-walk, not a new candidate):** Patterns 2–5
+above are facets of one deep structure — *the failure mode hides inside the
+surfaces that feel safest* (diligence, inherited authority, the corrective act,
+review volume). Separately, the experience corpus has spent ~6 days (2026-05-30
+onward) diagnosing its own "naming a lesson does not fire the reflex — only a
+mechanical tripwire does" insufficiency (Pattern 1; home:
+`patterns/passive-guidance-loses-to-artefact-gravity.md` + the owner-gated
+`action-time-structural-interrupt` item). The action-time-structural-interrupt
+trigger (cross-session recurrence) is now strongly met — surfaced to owner.
+
+## 2026-06-03 captures — Opalescent curation enforcement pass
+
+- **Commit-queue write-command help must expose the full identity tuple.**
+  `commit-queue enqueue` and `guard` require identity `--id`, but usage text
+  displayed agent name/platform/model/session-prefix and omitted the UUID field.
+  This produced avoidable closeout friction and combines with the live-claim
+  referential-integrity lesson: write commands need help/validation that shows
+  every required identity field. `[captured: 2026-06-03 | source: Lofty and
+  Lacustrine closeout napkin entries | target: agent-tools commit-queue UX/TDD
+  lane | trigger: owner direction or next commit-queue tool touch | size: S |
+  status: owner-gated]`
+
+## 2026-06-02 captures — napkin rotation doctrine routes (Shaded Veiling Mirror)
+
+- **Shared-window handoffs should scan for convergence, not only collision.** A
+  parallel agent may have produced the dependency or answer your lane needed. At
+  handoff, actively look for live peer outputs that answer open questions and wire
+  them together, rather than only checking for file conflicts.
+  `[captured: 2026-06-02 | source: napkin rotation from Flamebright/Abyssal Q-003 convergence | target: session-handoff or agent-collaboration practice amendment | trigger: owner direction or second shared-window convergence instance | size: S | status: owner-gated]`
+- **No-commit sessions need owner-visible proof for untracked artefacts.** A
+  successful file write is evidence to the writing agent but not to the owner if
+  the file is untracked and uncommitted. Reports that say "created X" should carry
+  path plus current `git status` evidence in no-commit sessions.
+  `[captured: 2026-06-02 | source: napkin rotation from graph-tool-output-schemas plan creation | target: amend:session-handoff OR verify-dont-trust | trigger: owner direction or second owner-invisible untracked artefact incident | size: S | status: owner-gated]`
+- **Projection provenance for data-as-source-of-truth work.** A hand-authored
+  mirror inside codegen is still a mirror; durable data shapes should be static
+  data projected through a type-strict schema boundary, with `satisfies` tying
+  the projection to the structured source.
+  `[captured: 2026-06-02 | source: distilled.md June 2 projection provenance | target: amend:schema-first-execution OR rule:projection-provenance | trigger: owner direction or second hand-authored-mirror/codegen drift instance | size: S | status: owner-gated]`
+- **Mechanical sweep and broad revert actions need set-level disposition before
+  execution.** A broad text sweep or revert can cross generated snapshots,
+  immutable records, peer edits, and live prose; state the planned set and
+  per-class disposition before action when the set spans more than simple live
+  prose.
+  `[captured: 2026-06-02 | source: napkin rotation from judgement sweep repair | target: rule-or-pattern:mechanical-sweep-set-discipline | trigger: owner direction or next broad text-sweep/revert pass | size: M | status: owner-gated]`
+- **Dependency refreshes need plan-truth cleanup.** Workspace dependency updates
+  can widen beyond the initially named package because shared ranges move
+  together; after manifests and lockfiles are current, check current/future plans
+  so old dependency-update plans stop advertising completed work.
+  `[captured: 2026-06-02 | source: distilled.md June 2 dependency refresh cleanup | target: dependency-refresh closeout checklist OR plan-hygiene doctrine | trigger: owner direction or next workspace-wide dependency refresh | size: S | status: owner-gated]`
+- **Cursor identity seed observability needs a machine-level check.** Ashen's
+  Cursor session could not claim or broadcast because
+  `PRACTICE_AGENT_SESSION_ID_CURSOR` was absent from the shell, so a broad sweep
+  was invisible to active-claims/comms. This looks like a host hook/environment
+  gap rather than an agent-level behaviour failure.
+  `[captured: 2026-06-02 | source: napkin rotation from Ashen Igniting Hearth sweep | target: cursor-hook/agent-tools identity observability check | trigger: owner direction or next Cursor session with missing identity seed | size: S | status: owner-gated]`
+
 ## Register Rule
 
 Legacy recovery files under `.agent/memory/operational/pending-graduations/`
@@ -37,22 +313,332 @@ substance that still needed a live queue home is preserved below. Processed
 source files were deleted after extraction so the repository does not carry
 pseudo-shards that hide the true buffer state.
 
+## 2026-06-02 capture — substrate-migration doctrine (Silvered Lurking Mask)
+
+- **Graph-tool substrate-migration doctrine: one replacement unit per tool, and
+  a tool's schema arrives when the tool is built or rebuilt, never before.**
+  Owner-ratified 2026-06-02 and recorded in
+  `graph-estate-consolidation.plan.md` (Judgement call 4) +
+  `output-schemas-for-mcp-tools.plan.md` (§Resolved Sequencing): per migrated
+  tool, the data/type re-emission (generated data becomes its own type
+  authority), the tool rewrite onto `graph-corpus-sdk`, and that tool's
+  projection-derived `outputSchema` land together; existing tools are
+  untouched before their migration. Plans are ephemeral; if this doctrine is
+  durable architecture it needs an ADR home (new ADR or ADR-173 amendment)
+  when its owning plan exists.
+  `[captured: 2026-06-02 | source: owner direction in-session + the two plans above | target: adr:graph-substrate-migration-doctrine OR amendment:ADR-173 | trigger: authoring of the unified substrate-migration plan (graph-estate Judgement call 4) | size: M | status: owner-gated 2026-06-02 — trigger not fired; hold until the unified substrate-migration plan exists or owner directs ADR authoring]`
+
+## 2026-05-31 capture — negation-contrast detection enforcement increment
+
+- **A structural detector or output-time review pass for the negation-contrast form
+  of tombstoning.** `.agent/rules/no-tombstones-for-removed-ideas.md` is the
+  always-applied rule and the write-time innate-immunity hook
+  (`.agent/hooks/policy.json`) is the intended hard-enforcement layer, but it can
+  carry only a narrow set of high-signal banner literals. The negation-contrast form
+  ("X, not Y"; "built fresh, never a bridge") is a *structural* pattern (a negation
+  bound to a dead concept), not a fixed literal — a naive block on "never" /
+  "rather than" / "instead of" would false-positive unacceptably. The open increment
+  is a smarter structural detector or an output-time review pass. The rule's §"Why
+  This Rule Is Strict" names this register as the home that tracks the increment.
+  `[captured: 2026-05-31 | source: .agent/rules/no-tombstones-for-removed-ideas.md §"Why This Rule Is Strict" | target: negation-contrast structural detector OR output-time review pass | trigger: owner direction OR a viable low-false-positive detector design | size: M | status: owner-gated]`
+
+## 2026-05-31 captures — agent-tools PreToolUse hooks + scripts→src migration
+
+Captured by Ethereal Weaving Constellation (claude / Opus 4.8 / `1d6645`) during
+the hook-fail-open fix + `agent-tools/scripts/` dissolution (commit `1851eed`).
+Capture-only; graduation deferred to a future consolidation when triggers fire.
+
+- **PreToolUse safety hooks must run prebuilt artefacts, not `pnpm exec tsx`.**
+  `[captured: 2026-05-31 | source: this-session commit 1851eed | target:
+  adr:hook-execution-from-prebuilt-artefacts | trigger: second per-tool-call hook
+  instance, a new PreToolUse hook, or owner direction | size: S |
+  status: owner-gated 2026-06-02 — keep until a second instance, new hook,
+  or owner direction fires]`
+  Per-call TS recompile (~1-2s) blows the 5s hook timeout under concurrent load
+  and the guard then fails OPEN. Cure: invoke `node dist/...` directly; guarantee
+  dist via the install lifecycle (postinstall + pre-commit build).
+
+- **Sub-agent verification briefs must mandate the full gate set, not eslint
+  alone — "lintClean ≠ gate-clean".**
+  `[captured: 2026-05-31 | source: this-session split-workflow agents | target:
+  rule-or-pdr:subagent-brief-mandates-full-gate-set (extends
+  validate-specialist-findings-before-acting) | trigger: second instance of an
+  agent passing one gate while failing another, or owner direction | size: S |
+  status: owner-gated 2026-06-02 — keep until recurrence or owner direction]`
+  Split agents wrote compact code that passed eslint but failed Prettier; the
+  format pass then un-compacted it over `max-lines`. The cure for over-cap is
+  responsibility-based splitting, never compaction.
+
+- **Relocating tsx-invoked entry points silently breaks knip's entry config.**
+  `[captured: 2026-05-31 | source: this-session knip failure | target:
+  pattern:knip-entry-config-tracks-entry-point-moves | trigger: second
+  entry-point relocation that breaks knip, or owner direction | size: S |
+  status: owner-gated 2026-06-02 — keep until recurrence or owner direction]`
+  knip `entry` globs pointed at the old `scripts/`; moving entries to `src/` made
+  the whole dependency graph read as unused. Update `knip.config.ts` entry list
+  on any entry-point relocation.
+
+## 2026-05-31 captures — source-buffer gates from napkin/distilled processing
+
+Captured by Eclipsed Stealing Raven (codex / GPT-5 / `019e7d`) during the
+dedicated source-buffer consolidation pass and repaired by Open Lofting Cliff
+after owner correction. These items remain owner-gated pending real promotion;
+active napkin / distilled content was restored, so this section is not evidence
+that the source buffers were validly drained.
+
+- **Verification sweeps must not exclude the class under test.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-30 readiness review |
+  target: rule-or-pattern:complete-sweep-without-negative-target-filter |
+  trigger: second sweep false-negative caused by an exclusion filter or owner
+  direction | size: S | status: owner-gated]`
+  The candidate is the concrete failure mode where a search/audit appears clean
+  because the command filtered away the very class it meant to inspect.
+- **Find the falsifying fact before product surgery.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-29 Twilit entry |
+  target: pattern:falsifying-fact-before-remediation-surgery |
+  trigger: second strict-refactor or product-remediation instance or owner
+  direction | size: S | status: owner-gated]`
+  This is the diagnostic counterpart to "recorded verdict is a claim to test":
+  locate the fact that would break the proposed repair before editing around the
+  inherited story.
+- **Plan narrative sections drift from working artefacts.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-29 Twilit entry |
+  target: plan-hygiene-or-rule:working-artefacts-outrank-plan-narrative |
+  trigger: second plan-body drift instance after a working artefact proves a
+  different state or owner direction | size: S | status: owner-gated]`
+  The current evidence is strong but overlaps with propagation doctrine; keep it
+  gated until another instance proves it needs a separate home.
+- **Validate your own verdict before acting on it.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-29 Tempestuous entry |
+  target: amend:verify-dont-trust-or-specialist-findings-doctrine |
+  trigger: second self-verdict invalidation instance or owner direction |
+  size: S | status: owner-gated]`
+  The unresolved refinement is that "verify the auditor" applies to the
+  agent's own summarized verdict, not only to external reviewers.
+- **Anti-abuse validators are tripwires, not adversarial guarantees.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-29 Tempestuous entry |
+  target: sonar-disposition-or-validator-doctrine |
+  trigger: second validator false-confidence instance or owner direction |
+  size: S | status: owner-gated]`
+  Preserve for a future quality-signal doctrine pass; do not graduate from one
+  worked instance.
+- **Verify-the-auditor needs asymmetric bias for irreversible withdrawal.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-29 Tempestuous entry |
+  target: amend:consolidate-docs-or-verify-auditor-doctrine |
+  trigger: second high-cost withdrawal where false negatives and false
+  positives have asymmetric harm, or owner direction | size: S |
+  status: owner-gated]`
+  This extends the existing verification-audit lesson; it is gated because the
+  current home may only need an amendment rather than a new rule.
+- **Watcher verification and filter-loss failures.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-29 Shaded + Highland entries |
+  target: dedicated-comms-research-plan |
+  trigger: comms research plan opens or owner direction | size: M |
+  status: owner-gated]`
+  Comms-event rotation is paused, but the evidence belongs in the eventual
+  comms research plan rather than active napkin prose.
+- **Feature flags must gate every naming surface through the real env path.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-29 Quiet entry |
+  target: product-engineering-pattern:dark-launch-surface-enumeration |
+  trigger: second flag-gated feature or owner direction | size: S |
+  status: owner-gated]`
+  The evidence is high-signal but product-pattern shaped; keep it gated until
+  another feature or owner decision asks for a durable pattern.
+- **Fixed canonical data is authority; derive, do not validate.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-29 Radiant entry |
+  target: eef-graph-tooling-doctrine-or-typescript-practice |
+  trigger: EEF D3/D4 contract ratification, second fixed-corpus instance, or
+  owner direction | size: M | status: owner-gated]`
+  This overlaps with EEF graph-tooling and TypeScript practice; avoid a new
+  doctrine until the live contract proves the reusable shape.
+- **Read the primary artefact before machinery or reviewers.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-29 Radiant entry |
+  target: grounding-or-reviewer-doctrine-amendment |
+  trigger: second reviewer/frame miss cured by reading the primary artefact or
+  owner direction | size: S | status: owner-gated]`
+  Preserve the behavioural lesson without expanding the always-read layer before
+  a second instance or owner ratification.
+- **Cursor session seed absent from terminal context.**
+  `[captured: 2026-05-31 | source: napkin 2026-05-31 Cirrus entry |
+  target: agent-tools-platform-identity-candidate |
+  trigger: second platform seed/context mismatch or owner direction | size: S |
+  status: owner-gated (TRIGGER FIRED 2026-06-04: the 2026-06-02 "Cursor identity seed observability needs a machine-level check" entry is the second instance — same PRACTICE_AGENT_SESSION_ID_CURSOR-absent failure, different agent; ready for the agent-tooling identity-observability implementation lane; surfaced to owner)]`
+  Route to agent-tools/platform identity work if it recurs.
+
+## 2026-05-31 longitudinal napkin-review gates
+
+Captured by Blooming Twining Grove (codex / GPT-5 / `019e7d`) during the
+dedicated longitudinal review of the active napkin plus the twenty most recent
+archived napkins. These items are owner-gated because the review found repeated
+failure despite existing reminders; they still need owner direction or a
+narrower doctrine/tooling pass before promotion.
+
+- **Active-buffer replacement needs a pre-replacement proof check.**
+  `[captured: 2026-05-31 | source: longitudinal napkin review F1 |
+  target: amend:consolidate-docs-or-consolidate-until-done |
+  trigger: owner direction or next curation-doctrine/tooling amendment |
+  size: S | status: owner-gated]`
+  The 2026-05-31 source-buffer repair showed that archive-only replacement of an
+  active source buffer can hide live material before the disposition ledger is
+  trustworthy. The future cure should block active-buffer replacement until the
+  source content has a valid item-level disposition proof in active homes.
+- **Shell-significant collaboration CLI arguments need structural affordance.**
+  `[captured: 2026-05-31 | source: longitudinal napkin review F2 |
+  target: agent-tools-collaboration-state-ux-or-rule |
+  trigger: owner direction or next collaboration-state CLI/doc pass |
+  size: S | status: owner-gated]`
+  Repeated instances include markdown backticks in comms bodies, unquoted `**`
+  claim patterns, unquoted active-claim globs, and the current pass repeating the
+  comms-glob variant. The shell expands before the CLI can validate, so the
+  eventual cure may need `--area-pattern-file`, quote-safe examples, wrapper
+  defaults, or another structural affordance rather than another prose reminder.
+
+## 2026-05-31 distilled continuation gates
+
+Processed by Foamy Charting Harbour (codex / GPT-5 / `019e7d`) while continuing
+the repaired dedicated docs consolidation pass. These items were removed from
+`distilled.md` only after a durable route was verified here or in an existing
+home.
+
+- **Rule-traction gap needs an action-time structural interrupt.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-14..28 / historical synthesis A1 |
+  target: pdr:doctrine-adoption-lag-or-action-time-structural-interrupt |
+  trigger: owner direction or next Practice-Core doctrine pass that reconciles
+  this with metacognition pre-action ratification | size: M | status: design lane opened 2026-06-04 (Hidden Hiding Dusk) -> .agent/plans/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md (general doctrine-traction frame + three-axis reconciliation; mechanism exploration deferred to closure-pressure-design-space)]`
+  The lesson is stable and cross-session, but promotion must reconcile the
+  structural-interrupt shape with existing metacognition and immune-system
+  doctrine rather than minting a duplicate rule.
+- **Substrate alignment is Practice design, not prose reinforcement.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-25..26 / historical synthesis A2 |
+  target: pdr:substrate-alignment-as-practice-design |
+  trigger: owner direction or next Practice-Core substrate-design pass |
+  size: M | status: owner-gated]`
+  The candidate says Done-When fields, heartbeat templates, skill success
+  criteria, and rules must encode the intended outcome. It is gated because the
+  existing PDR-038 / PDR-046 / PDR-089 family may be the right amendment home.
+- **Multi-agent auto-fix requires peer-file awareness.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-25 / historical synthesis B3 |
+  target: rule-or-pattern:multi-agent-auto-fix-requires-peer-file-check |
+  trigger: second repo-wide autofix sweep incident after the 2026-05-25 Hushed
+  instance or owner direction | size: S | status: owner-gated]`
+  Single-agent repo-wide autofix is normal; the pending decision is whether
+  multi-agent windows need an always-loaded pre-autofix peer-file check.
+- **Long gate runs require a fresh post-gate git status.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 Codex / historical synthesis B5 |
+  target: session-handoff-or-rule:post-long-gate-status-refresh |
+  trigger: second false-clean closeout after a long gate run or owner direction |
+  size: S | status: owner-gated]`
+  The candidate is a narrow closeout hygiene rule: after any long aggregate gate,
+  rerun `git status --short` before claiming tree-clean or writing handoff state.
+- **ADR status must match implementation maturity.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-25 / historical synthesis D3 |
+  target: adr-template-or-docs-adr-rule:status-matches-maturity |
+  trigger: next ADR/PDR paired-status review or owner direction |
+  size: S | status: owner-gated]`
+  The reusable rule is that `Accepted` means decided and validated; when the
+  paired PDR is still Candidate or implementation is explicitly deferred, the ADR
+  should remain Proposed unless the owner ratifies the maturity mismatch.
+
+## 2026-05-31 distilled final gates
+
+Processed by Foamy Charting Harbour (codex / GPT-5 / `019e7d`) as the second
+continuation batch on the restored active `distilled.md` buffer. These items are
+removed from `distilled.md` only because they now have explicit owner-gated
+routes here or duplicate homes named in the curator ledger.
+
+- **Recorded verdicts are claims to test, not frames to inherit.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-29 Pelagic entry |
+  target: evaluator-grounding-or-continuity-doctrine |
+  trigger: second evaluation task that inherits a stale diagnosis as its frame,
+  or owner direction | size: S | status: owner-gated]`
+  The candidate extends verify-dont-trust from artefacts to evaluation frames:
+  verify existence against code/git, but verify meaning, role, and verdict
+  before letting continuity prose define the question.
+- **Verification artefacts are claims; withdrawal verdicts need adversarial checks.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-28 Sunlit ledger +
+  Tempestuous recursion pass | target: consolidate-docs-or-curation-doctrine |
+  trigger: next curation-discipline amendment or owner direction | size: M |
+  status: owner-gated]`
+  The live evidence is strong: verification and curation ledgers can be wrong in
+  the highest-harm direction. Promote as a discipline amendment rather than
+  burying it as a one-off note.
+- **Merge and divergence risk must be content-derived.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 Sylvan entry |
+  target: git-collaboration-rule:content-derived-merge-risk |
+  trigger: second raw-name-status false-conflict prediction or owner direction |
+  size: S | status: owner-gated (verified 2026-06-04 NOT covered: pre-merge-divergence-analysis.md governs complex-merge handling, not the content-derived risk-assessment doctrine; stays gated — do not withdraw)]`
+  The reusable move is to prove risk from the merge algorithm or an empty content
+  diff, not from raw `HEAD..origin` name-status output.
+- **Session-opener fitness is stale until rerun.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 Sylvan entry |
+  target: start-right-or-consolidate-docs:rerun-fitness-before-acting |
+  trigger: next fitness-driven curation lane or owner direction | size: S |
+  status: owner-gated]`
+  Opening fitness is a historical reading. Before acting on a hard/critical
+  surface, rerun the validator and route substance structurally.
+- **Collaboration state is source material, not durable memory.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 Solar entry |
+  target: collaboration-state-lifecycle-or-comms-research-plan |
+  trigger: comms/state lifecycle research plan execution or owner direction |
+  size: S | status: owner-gated]`
+  State files may be preserved inside an explicit research window, but otherwise
+  useful knowledge should be routed into memory/docs/plans and the state surface
+  should not become long-term storage.
+- **Supersession must refresh the auto-surfaced continuity chain.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 EEF supersession entry |
+  target: session-handoff-or-continuity-practice-amendment |
+  trigger: next continuity-surface amendment or owner direction | size: S |
+  status: owner-gated]`
+  A superseding pass must update the first surfaces a fresh session reads, such
+  as the thread top and `repo-continuity` next steps, not only the plan body.
+- **Production reachability is deployed registration, not SDK definition.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 EEF registration entry |
+  target: mcp-registration-or-product-reachability-pattern |
+  trigger: second SDK-defined-but-app-unregistered surface or owner direction |
+  size: S | status: owner-gated]`
+  The reusable rule is to test the deployed registration path before calling a
+  prompt/tool/resource live in production.
+- **Delegate by judgement load, not by available parallelism.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 delegation entry |
+  target: agent-collaboration-or-reviewer-delegation-doctrine |
+  trigger: second boundary-sensitive delegated edit that plants a false claim,
+  or owner direction | size: S | status: owner-gated]`
+  Mechanical edits can parallelise; subtle correctness boundaries stay with the
+  agent that understands the boundary unless the delegation brief names it
+  precisely.
+- **Closeout verdicts require live plan-acceptance evidence.**
+  `[captured: 2026-05-31 | source: distilled 2026-05-27 Codex / historical synthesis D2 |
+  target: session-handoff-or-definition-of-delivery:truthful-closeout-language |
+  trigger: next closeout-doctrine pass or owner direction | size: S |
+  status: owner-gated]`
+  Documentation closeout, handoff wording, and useful slices are not completion
+  proof. The durable rule should force verdict words to match live acceptance
+  evidence.
+
 ## 2026-05-28 captures — EEF graph-tooling rebuild
 
 Surfaced by Deep Fathoming Harbour (claude / claude-opus-4-7) during the EEF
-wrong-shape diagnosis + rebuild. Full context:
-`plans/sector-engagement/eef/current/graph-tooling-rebuild-foundation-2026-05-28.md`.
+wrong-shape diagnosis. (The originating design docs were quarantined to `archive/`
+2026-05-30 as superseded broken-concept work; the substance to graduate is captured
+below, independent of them.)
 
 - **Graph-tool category + graph-delivery doctrine.**
   - captured-date: 2026-05-28
-  - source-surface: graph-tooling-rebuild foundation §2 + plan D1
   - graduation-target: ADR (host architecture) and/or PDR — "graph tools are a
     first-class tool category: complete-within-itself subgraphs (contiguous or
     sparse), navigable links, structuredContent-only, no context hint, budget as
     a design signal; the graph/corpus is smart and the tool is a thin formatter"
-  - trigger-condition: plan D1 ratifies the graph-tool contract (becomes settled
-    and reusable across adapters)
-  - status: pending (owner-directed rebuild; graduate at D1)
+  - trigger-condition: the live EEF plan ratifies the graph-tool / MCP contract
+    (D3/D4 — becomes settled and reusable across adapters)
+  - status: owner-gated 2026-06-02 (graduate when the live EEF plan's D3/D4
+    contract is ratified). TRIGGER FIRED 2026-06-04 (EEF D4 owner-ratified).
+    Owner-directed disposition 2026-06-04 (Hidden Hiding Dusk): the
+    graph-tool-category doctrine's ADR home is owned by the active
+    graph-tools-value-redesign thread (which plans an ADR-086 amendment +
+    ADR-173 / ADR-041 checks at D5/D6/D7 promotion); a standalone consolidation-
+    session ADR here would collide with that live work, so the doctrine lands via
+    the redesign's own ADR work at promotion. Deferred to EEF-redesign promotion
+    (owner choice).
 - **Self-correcting measurable deliverables (planning methodology).**
   - captured-date: 2026-05-28
   - source-surface: foundation §5 + this rebuild plan (first instance)
@@ -62,7 +648,9 @@ wrong-shape diagnosis + rebuild. Full context:
     the predecessor drifted
   - trigger-condition: plan D5 (extract from the rebuild plan as its first proven
     instance)
-  - status: pending (owner wants this in planning methodology)
+  - status: owner-gated 2026-06-02 (owner wants this in planning methodology).
+    Reviewed 2026-05-31 by Open Lofting Cliff: carried forward because D5 has
+    not fired.
 - **Definition-of-Delivery refinement for discovery/instrument work.**
   - captured-date: 2026-05-28
   - source-surface: foundation §6; PDR-085
@@ -71,7 +659,9 @@ wrong-shape diagnosis + rebuild. Full context:
     and the self-correcting-deliverables structure as the honesty mechanism; the
     F tool is the case study (merged + green + reviewed != delivery)
   - trigger-condition: plan D5 / owner direction on the doctrine refinement
-  - status: pending (open question, owner-flagged)
+  - status: owner-gated 2026-06-02 (open question, owner-flagged). Reviewed
+    2026-05-31 by Open Lofting Cliff: carried forward because D5 / direct owner
+    promotion has not fired.
 - **'Working with graphs' skill(s) + supporting docs.**
   - captured-date: 2026-05-28
   - source-surface: foundation §11; plan D5 (owner-directed deliverable)
@@ -80,7 +670,9 @@ wrong-shape diagnosis + rebuild. Full context:
     sparse subgraphs; navigable links; graph tools as a category; soft-stub
     failure mode
   - trigger-condition: plan D5 (extract from the real built tool/contract)
-  - status: pending (owner-directed plan deliverable)
+  - status: owner-gated 2026-06-02 (owner-directed plan deliverable). Reviewed
+    2026-05-31 by Open Lofting Cliff: carried forward because the D5 extraction
+    trigger has not fired.
 - **Proportionate exploration — raising a question is fine; the expenditure is the failure.**
   - captured-date: 2026-05-28
   - source-surface: owner correction 2026-05-28 — "it's always fine to raise a
@@ -93,7 +685,9 @@ wrong-shape diagnosis + rebuild. Full context:
     a sentence with a default, then move on) + costume-awareness
   - trigger-condition: second instance or owner-direction (one-session lesson;
     needs stability before graduating)
-  - status: pending
+  - status: owner-gated 2026-06-02. Reviewed 2026-05-31 by Open Lofting Cliff:
+    carried forward; no second instance or direct owner promotion found in the
+    selected docs surfaces.
 
 ## Extracted Recovery-File Disposition Ledger
 
@@ -195,19 +789,6 @@ Total live owner-gated items: 56.
   The remaining decision is whether to author that ADR/rule now, keep a
   retrospective watch, or withdraw because the plan and implementation are
   enough.
-- 2026-05-11; **Pre-flight fingerprint scan before shape decisions**.
-  `[captured: 2026-05-11 | source: smouldering-crackling-pyre | target: rule-or-pattern:fingerprint-data-before-shaping-fix | trigger: owner-direction-or-second-data-premise-refutation | size: S | status: owner-gated]`
-  A cheap data-corpus fingerprint scan refuted a migration-plan premise before
-  code landed and let the owner redirect the shape. The remaining decision is
-  whether to promote the rule/pattern now, keep watching for a second instance,
-  or withdraw as a local investigation tactic.
-- 2026-05-11; **Owner re-decision on evidence-refuted premise**.
-  `[captured: 2026-05-11 | source: deciduous-twining-dew | target: pdr-or-rule:re-surface-dont-override-on-evidence-correction | trigger: owner-direction-or-second-distinct-review-type | size: S | status: owner-gated]`
-  When reviewer evidence refutes an owner-approved premise, the healthy move is
-  to re-surface the corrected evidence and let the owner decide again, not to
-  silently reshape the design. The remaining decision is whether to promote the
-  protocol now, keep watching for another review-type instance, or withdraw
-  because existing owner-direction discipline is sufficient.
 - 2026-05-10; **evaluateParityChecks focused unit coverage**.
   `[captured: 2026-05-10 | source: commands-retirement-reviewer-follow-up | target: test-cycle:agent-tools/src/core/health-probe-parity.ts | trigger: owner-direction-or-next-touch | size: M | status: owner-gated]`
   `evaluateParityChecks` still lacks focused unit coverage for reviewer adapter
@@ -276,23 +857,6 @@ Total live owner-gated items: 56.
   The remaining decision is whether to graduate the pattern now, keep watching
   for a second named-receiver diagnostic handoff, or withdraw because PDR-048
   and PDR-046 already carry enough capture-at-the-moment guidance.
-- 2026-05-10; **Design optionality standalone rule sibling**.
-  `[captured: 2026-05-10 | source: legacy-backlog+pdr-058-surface-2 | target: rule:closed-shape-design-optionality | trigger: owner-direction-or-second-named-instance-with-cure-draft | size: S | status: owner-gated]`
-  PDR-058 Surface 2 names the design-optionality failure mode and cure:
-  author the closed shape the known instances need, and defer configurability
-  until a real second instance forces decomposition. PDR-058 also says the
-  rule sibling requires its own evidence trail and is not pre-graduated by the
-  PDR. The owner decision is whether to graduate the standalone rule now, keep
-  watching for a second named instance with a concrete cure draft, or withdraw
-  because PDR-058 plus existing consolidation rules are enough.
-- 2026-04-30; **Graduation-trigger criteria refinement**.
-  `[captured: 2026-04-30 | source: legacy-backlog | target: consolidate-docs-trigger-rubric | trigger: owner-appetite-for-flow-refinement | size: M | status: owner-gated]`
-  Owner observation: the default "second instance OR owner direction" trigger
-  can leave strong single-instance candidates waiting too long when the
-  principle articulation is already robust. The remaining decision is whether
-  to amend consolidate-docs trigger guidance now with evidence-density /
-  principle-quality / structural-coverage criteria, keep the current default,
-  or route a dedicated refinement pass.
 - 2026-04-29; **Trinity Active Principles and bootstrap structural
   extensions**.
   `[captured: 2026-04-29 | source: legacy-backlog+trinity-drift-report | target: core:practice+practice-lineage+practice-bootstrap+practice-verification | trigger: owner-approval-for-core-amendments | size: M | status: owner-gated]`
@@ -605,8 +1169,8 @@ done && echo "lock cleared"`). Even though the loop only OBSERVED
   listing during WS0 promotion. Trigger: second instance of new-plan-
   stub-spawn-without-future-survey; graduation target: distilled.md
   § Process entry naming "directory survey before plan-stub spawning"
-  OR amendment to `consolidate-at-third-consumer.md`; status: pending
-  (single instance; capture-only until second instance accumulates).
+  OR amendment to `consolidate-at-third-consumer.md`; status: owner-gated
+  2026-06-02 (single instance; capture-only until second instance accumulates).
   **Curation disposition (2026-05-27)**: owner-gated. No second
   plan-stub-survey instance was found in durable surfaces. Owner decision
   needed: promote a directory-survey-before-plan-stub rule now, keep the
@@ -627,7 +1191,7 @@ done && echo "lock cleared"`). Even though the loop only OBSERVED
   to touch). Plan-author discipline: do not invent serial
   dependencies the work shape does not require. Trigger: second
   Practice-bearing repo adopts the same discipline OR owner
-  direction. Status: pending (single-instance — graduates as a
+  direction. Status: owner-gated (single-instance — graduates as a
   PDR candidate when N≥2 host repos pick it up, or when owner
   directs). Captured: 2026-05-03 (Lush Spreading Seed). Source
   surface: this session's plan-template restructure following
@@ -988,54 +1552,6 @@ Cross-references:
 
 ---
 
-### Heartbeat-cron health-monitoring via watcher-staleness substrate (cure for platform-wide cron-drift episodes)
-
-[captured: 2026-05-25 | source: napkin 2026-05-25 Misty entry + DM event `8c6bd26a` (Misty to Lunar cron-drift correlation) |
-graduation-target: adr-draft:heartbeat-cron-health-monitoring OR amendment to ADR-186 §Migration discipline |
-trigger: second-instance — confirmed (Misty 20-min + Lunar 17-min concurrent gaps 23:28-23:47Z 2026-05-24) |
-size: M — substrate amendment to heartbeat emitter + watcher-staleness substrate |
-status: owner-gated]
-
-Context: Misty heartbeat cron silent 20 min (23:26 → 23:47Z) AND Lunar's
-silent 17 min (23:28 → 23:45Z) in the same window. Two independent
-Claude-platform Monitor cron loops degraded concurrently — strongly suggests
-platform/harness-side cause, not agent-side. Mistbound's silence-without-
-work-evidence at 23:11-onwards may have been the same episode (never
-broadcast a recovery).
-
-Cure shape: heartbeat-cron health-monitoring via the existing
-`agent-tools/src/collaboration-state/watcher-staleness.ts` substrate — the
-same surface ADR-186 §Substrate-as-API reserves for C5. The substrate
-already supports staleness-file writes per-tick (watcher already uses it for
-self-liveness); extending the heartbeat emitter to write the same kind of
-per-tick staleness file would let peers detect "cron loop alive, just
-silent" vs "cron loop dead". The retirement-detection rule could compose:
-silence past 10-min threshold AND staleness-file last-written > 5× expected
-cadence ago = retired; silence past 10-min AND staleness-file fresh =
-cron-degraded false-positive.
-
-Why pending: depends on whether the substrate extension is a sibling ADR to
-ADR-186 or an in-place amendment; needs ground-state check of
-`watcher-staleness.ts` to confirm the extension shape is non-breaking.
-
-Falsifiability: post-cure, a Director's retirement-detection decision can
-be made deterministically from (silence + staleness-file age) without
-relying on git work-evidence cross-check (the current ping-before-escalate
-cure). The current cure becomes belt-and-braces, not primary.
-
-Cross-references:
-
-- Composes with the PDR-078 / ADR-186 contract above and with the
-  heartbeat-content-state-binding candidate above. Together they form a
-  three-part cure family: (1) what heartbeat body says (state-binding), (2)
-  how peers detect heartbeat-loop liveness (staleness-substrate), (3) what
-  the contract specifies (PDR-078 cadence/threshold/exemptions).
-- Adjacent worked-instance: see Misty napkin entry 2026-05-25 §Surprises;
-  DM event `8c6bd26a` Misty → Lunar; cross-correlation observable in
-  comms-event timestamps for both agents' heartbeat streams.
-
----
-
 ## Napkin Tail Gates
 
 ### Heterogeneous working-tree owner direction splits by attribution
@@ -1194,3 +1710,103 @@ agent comms events total (vs the 6+ this cycle used).
 feedback (sidebar shape is the lightest); composes with `coordinator-role-threshold`
 (n≤3 is peer-collaboration default; n=2 is the lightest case); composes with PDR-082
 (n=2 collaboration mode, drafted by Stormy Surfing Dock 2026-05-25 on this substrate).
+
+## Reviewer-brief scope protection cites numbered ratified decisions only
+
+- **captured-date**: 2026-06-03
+- **source-surface**: `napkin.md` 2026-06-03 Lacustrine Swimming Beacon entry +
+  `distilled.md` 2026-06-03 entry (EEF D3 review-then-ratify session).
+- **graduation-target**: a clause in the reviewer-brief discipline surface
+  (`memory/executive/invoke-code-experts.md` or the brief-authoring guidance):
+  when a brief protects decided scope, the protection list enumerates the
+  owner's NUMBERED ratified decisions (and explicitly owner-settled artefact
+  sections); plan-authored elaborations remain refutable. Worked instance
+  2026-06-03: protecting the whole §Do sweep suppressed a legitimate PDR-058
+  no-consumer finding (metric-filter inputs) that the owner's settlement
+  question then surfaced and resolved by deferral.
+- **trigger-condition**: a second observed instance of scope-protection
+  suppressing a legitimate finding, OR the next authoring pass over the
+  reviewer-brief discipline surface — whichever first.
+- **status**: pending
+
+## Precedent-hunting / source-framing as an optionality-invention engine
+
+- **captured-date**: 2026-06-04
+- **source-surface**: `napkin.md` 2026-06-04 Mossy gate-session closeout entry
+  (four owner corrections, one root); cross-experience corpus signal (Furnace
+  "suspicion of unanimous answers"; Moonlit "verdict before the plan").
+- **graduation-target**: rule- or pattern-shaped behavioural discipline —
+  decide from requirements + primary sources, not precedent/source-framing as
+  cover; a unanimous recommendation + owner intent makes a gate a
+  *confirmation*, not a fork; generalise the root on the FIRST correction and
+  re-audit in-flight work for siblings rather than patching instances.
+- **trigger-condition**: a second cross-session instance, OR owner direction
+  (four in-session instances is strong but single-session).
+- **status**: pending
+
+## Licensing guardrail — crystal-clear-open licences only (school-data-search)
+
+- **captured-date**: 2026-06-04
+- **source-surface**: school-data-search plan §Non-goals (owner directive
+  2026-06-04); the V-06 verification (Scotland geospatial OS/LGIH licence).
+- **graduation-target**: ADR-shaped if the project proceeds — a data-licensing
+  posture (only crystal-clear, open, respected licences enter the canonical
+  dataset; a licence allowlist parallel to the privacy allowlist; OS-derived /
+  Crown-Copyright / unclear-licence data excluded). Plan-local for the POC.
+- **trigger-condition**: the school-data-search POC go/no-go (project
+  proceeds), OR a second Oak data-ingestion surface facing the same question.
+- **status**: pending (project-gated)
+
+## Two graph data sources are separate concerns sharing one substrate (graph KG)
+
+- **captured-date**: 2026-06-04
+- **source-surface**: graph-tools-value-redesign plan + the KG estate survey
+  report (Twilit Cascading Supernova), owner-directed 2026-06-04.
+- **graduation-target**: ADR-shaped — the bulk-derived curriculum graphs
+  (instances, slug-keyed, our codegen) and the Oak Ontology graphs (formal
+  RDF/OWL/SKOS, stable w3id IRIs, separate GitHub repo) are **distinct concerns**
+  that share the `graph-core`/`graph-corpus-sdk` substrate but are NOT one graph:
+  different identity, coverage, stability, and kind. Cross-source composition
+  (e.g. concept-anchored queries) is gated on a bulk↔ontology alignment audit.
+  Candidate to formalise alongside / amend ADR-173 (graph-stack topology) +
+  ADR-157 (multi-source integration) when the KG work resumes.
+- **trigger-condition**: the owner-directed full `oak-kg` / ontology estate
+  review, OR the graph-tools-value-redesign promotion (EEF D6 + D7), whichever
+  first reopens the substrate boundary as settled architecture.
+- **status**: pending (KG-work-gated)
+
+## Generated-doc drift detection missing from the blocking commit gate (skills:check → husky)
+
+- **captured-date**: 2026-06-07
+- **source-surface**: agentic-engineering-enhancements items 4 + 1 session
+  (Eclipsed Watching Veil); the `oak-consolidate-until-done` adapter drift
+  (`a4c4c047`) that red-lit `pnpm check` yet had landed committed because
+  `.husky/pre-commit` does not run `skills-adapter-generate --check`.
+- **graduation-target**: a build-config / ADR-121-adjacent decision — wire the
+  generated-adapter drift check (`skills-adapter-generate --check`, plus any
+  sibling generator-vs-source checks) into the BLOCKING commit gate
+  (`.husky/pre-commit`), mirroring the `knip`+`depcruise`→pre-commit fix that
+  closed the prior ADR-121 drift class. A check that lives only in the
+  comprehensive `pnpm check` but not the commit gate lets generated-doc drift
+  land committed (the "doctrine without mechanism" shape, in the gate-config
+  domain).
+- **trigger-condition**: a second instance of generated-doc drift landing
+  committed, OR the next `.husky` / `build-system.md` gate-coverage pass.
+- **status**: pending
+
+## Context-loss detection is holder-exclusive; only verification externalises (session-handoff 6e / PDR-011)
+
+- **captured-date**: 2026-06-07
+- **source-surface**: owner correction 2026-06-07 (Eclipsed Watching Veil session); the
+  session-handoff 6e.2 loss-scan was outsourced to a context-isolated sub-agent per the skill's
+  "externalise by default" wording, which inverts the loss-scan's ownership.
+- **graduation-target**: amend PDR-011 §"A handoff author cannot self-verify its completeness"
+  (and ADR-150, its host mirror) to SPLIT the two operations: (a) claim VERIFICATION — author bias
+  is real, externalising to a context-isolated reader helps (6e.1); (b) context-loss DETECTION —
+  holder-EXCLUSIVE by definition (loss = `context − artefacts`; a context-isolated reader sees only
+  the artefacts and cannot enumerate what is absent relative to the holder's knowledge), so it must
+  never be delegated or conflated with a fresh-reader audit (6e.2). The session-handoff SKILL 6e.2
+  is already corrected; this graduates the correction into the governing PDR/ADR.
+- **trigger-condition**: the next `continuity-practice` / PDR-011 / ADR-150 amendment pass, OR a
+  second instance of a loss-scan being outsourced to a third party.
+- **status**: pending

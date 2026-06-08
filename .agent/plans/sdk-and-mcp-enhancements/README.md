@@ -1,6 +1,6 @@
 # SDK and MCP Enhancements
 
-**Last Updated**: 28 April 2026
+**Last Updated**: 2 June 2026
 
 Planning hub for SDK pipeline evolution, MCP Apps work, and related
 architectural changes.
@@ -34,16 +34,17 @@ education and technology teams to build with.
 | [current/ws3-oak-url-augmentable-codegen-fix.plan.md](current/ws3-oak-url-augmentable-codegen-fix.plan.md) | Current plan (complete, awaiting archive) | Replace widening Oak URL augmentation typing with schema-derived GET response unions and honest middleware validation |
 | [archive/completed/ws3-design-token-prerequisite.plan.md](archive/completed/ws3-design-token-prerequisite.plan.md) | Completed plan | Minimal design-token infrastructure prerequisite completed and archived; Phase 4/5 now build on the shared token package and canonical shell |
 | [current/output-schemas-for-mcp-tools.plan.md](current/output-schemas-for-mcp-tools.plan.md) | Current plan | Add truthful `outputSchema` metadata to every MCP tool while keeping generated upstream-response validation aligned with actual MCP `structuredContent` envelopes |
-| [current/clerk-mcp-tools-and-ext-apps-bumps.plan.md](current/clerk-mcp-tools-and-ext-apps-bumps.plan.md) | Current plan | Land four available Clerk + MCP-related dependency updates (`@clerk/express`, `@clerk/backend`, `@modelcontextprotocol/ext-apps`, `@clerk/mcp-tools`) and capture `AppOptions.strict`, ext-apps 1.7.0 capabilities, and MCP SDK 2.0 direction as forward candidates |
+| [current/clerk-mcp-tools-and-ext-apps-bumps.plan.md](current/clerk-mcp-tools-and-ext-apps-bumps.plan.md) | Current plan (complete, awaiting archive) | Clerk/MCP dependency targets landed; plan now preserves forward triggers for `AppOptions.strict`, ext-apps capability adoption, and MCP SDK 2.0 |
 | [archive/completed/ws2-app-runtime-migration.plan.md](archive/completed/ws2-app-runtime-migration.plan.md) | Completed child plan | WS2 runtime migration completed and archived |
 | [archive/completed/mcp-runtime-boundary-simplification.plan.md](archive/completed/mcp-runtime-boundary-simplification.plan.md) | Completed plan | Canonical runtime descriptor surface and ingress-boundary simplification completed and archived |
 | [mcp-apps-support.research.md](mcp-apps-support.research.md) | Research | Canonical MCP Apps research summary for Oak. Active implementation is governed by the MCP Apps spec, `@modelcontextprotocol/ext-apps`, and the live executable plans |
 | [archive/completed/server-info-branding.plan.md](archive/completed/server-info-branding.plan.md) | Completed plan | MCP server branding alignment completed and archived |
-| [../connecting-oak-resources/knowledge-graph-integration/active/misconception-graph-mcp-surface.plan.md](../connecting-oak-resources/knowledge-graph-integration/active/misconception-graph-mcp-surface.plan.md) | Active plan | Expose misconception graph as MCP resource + tool (post-merge) |
+| [../connecting-oak-resources/knowledge-graph-integration/archive/completed/misconception-graph-mcp-surface.plan.md](../connecting-oak-resources/knowledge-graph-integration/archive/completed/misconception-graph-mcp-surface.plan.md) | Completed plan | Misconception graph exposed as MCP resource + tool (completed `1eb302e8`, archived) |
 | [../connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md](../connecting-oak-resources/knowledge-graph-integration/future/ontology-repo-fresh-perspective-review.plan.md) | Future cross-boundary plan | Re-read the ontology repo from an upstream-first starting point and write up what that fresh pass changes |
 | [../connecting-oak-resources/knowledge-graph-integration/future/direct-ontology-use-and-graph-serving-prototypes.plan.md](../connecting-oak-resources/knowledge-graph-integration/future/direct-ontology-use-and-graph-serving-prototypes.plan.md) | Future cross-boundary plan | Test direct ontology use as the control case before any Neo4j, Stardog, or hybrid serving decision is promoted |
 | [future/mcp-protocol-adoption-roadmap.plan.md](future/mcp-protocol-adoption-roadmap.plan.md) | Future plan | Resource templates, prompt completion, curriculum downloads, per-primitive icons |
 | [future/mcp-tool-token-economy-and-progressive-discovery.plan.md](future/mcp-tool-token-economy-and-progressive-discovery.plan.md) | Future strategic brief | Cloudflare/Anthropic Code Mode research, token-footprint measurement, progressive discovery, and Oak MCP applicability |
+| [../discovery/future/mcp-server-cards.plan.md](../discovery/future/mcp-server-cards.plan.md) | Future cross-collection brief | MCP Server Cards (SEP-2127) `.well-known` discovery tracking for Oak's public remote MCP server — owned by the [discovery/](../discovery/README.md) collection; how the server is *found*, complementary to what it *does* here |
 | [future/README.md](future/README.md) | Future index | Deferred/later plans |
 
 ## Read Order

@@ -110,12 +110,12 @@ Cross-axis index: [`.agent/plans/observability/high-level-observability-plan.md`
 ### `sdk-and-mcp-enhancements/`
 
 - [`active/mcp-app-extension-migration.plan.md`](../sdk-and-mcp-enhancements/active/mcp-app-extension-migration.plan.md) — MCP App widget rebuild (WS3 in progress, WS4 pending)
-- [`current/clerk-mcp-tools-and-ext-apps-bumps.plan.md`](../sdk-and-mcp-enhancements/current/clerk-mcp-tools-and-ext-apps-bumps.plan.md) — Clerk + MCP Apps version bumps (M3 dependency)
+- [`current/clerk-mcp-tools-and-ext-apps-bumps.plan.md`](../sdk-and-mcp-enhancements/current/clerk-mcp-tools-and-ext-apps-bumps.plan.md) — Clerk + MCP Apps version bumps complete; archive pending
 
 ### `compliance/`
 
 - [`compliance/roadmap.md`](../compliance/roadmap.md) — collection roadmap
-- [`current/claude-and-chatgpt-app-submission-compliance.plan.md`](../compliance/current/claude-and-chatgpt-app-submission-compliance.plan.md) — host-platform submission
+- [`claude-and-chatgpt-app-submission-compliance.plan.md`](../user-experience/educator-end-users/previous-materials/claude-and-chatgpt-app-submission-compliance.plan.md) — host-platform submission (relocated 2026-06-08 to the external-facing skills/plugins synthesis)
 
 ### `architecture-and-infrastructure/`
 
@@ -125,8 +125,8 @@ Cross-axis index: [`.agent/plans/observability/high-level-observability-plan.md`
 
 ### Cross-cutting threads (from repo-wide index)
 
-- Knowledge Graph thread — see [`.agent/plans/graph-portfolio-index.md`](../graph-portfolio-index.md). KG alignment audit feeds M2/M3 gates.
-- EEF Evidence thread — see [`.agent/plans/sector-engagement/eef/current/eef-evidence-corpus.plan.md`](../sector-engagement/eef/current/eef-evidence-corpus.plan.md). Sector-engagement story, M3+.
+- Knowledge Graph thread — see [`connecting-oak-resources/knowledge-graph-integration/`](../connecting-oak-resources/knowledge-graph-integration/README.md). KG alignment audit feeds M2/M3 gates.
+- EEF Evidence thread — see [`.agent/plans/sector-engagement/eef/current/eef-graph-tool-completion.plan.md`](../sector-engagement/eef/current/eef-graph-tool-completion.plan.md). Sector-engagement story, M3+.
 
 ---
 

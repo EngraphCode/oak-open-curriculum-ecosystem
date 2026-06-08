@@ -10,16 +10,41 @@
 > - **EEF Toolkit data**: Education Endowment Foundation
 >   (<https://educationendowmentfoundation.org.uk>). Original research
 >   authors: Higgins, Katsipataki, Kokotsaki, Coleman, Major, Coe.
-> - **EEF MCP server prototype**: John Roberts (JR)
->   `<john.roberts@thenational.academy>`. When any aspect of this work
->   is integrated functionally into the repo, JR must be added to the
->   authors list.
-> - **Oak Curriculum Ontology**: Mark Hodierne (MH)
->   `<mark@markhodierne.com>`. Primary author of the KG repo (170
->   commits). When any aspect of the KG is integrated, MH must be added
->   to the authors list.
+> - **EEF MCP server prototype**: John Roberts (Oak National Academy).
+>   When any aspect of this work is integrated functionally into the repo,
+>   credit JR in the package `contributors` (by name + Oak's public contact,
+>   not a personal email) per the attribution policy.
+> - **Oak Curriculum Ontology**: Mark Hodierne, primary author of the KG
+>   repo (170 commits). When any aspect of the KG is integrated, credit MH
+>   in the package `contributors` (by name + public profile, not a personal
+>   email) per the attribution policy.
 
 ---
+
+> **Reconciliation with the ratified EEF plan (2026-06-05).** This brief
+> (10 Apr 2026) is the originating strategic exploration; the ratified build is
+> [`current/eef-graph-tool-completion.plan.md`](../current/eef-graph-tool-completion.plan.md).
+> A clause-by-clause crosswalk found the two **agree on intent** for the impact
+> requirements **R1, R4, R5, R7, R8** (epistemic honesty, the no-cherry-picking
+> synthesis boundary, implementation guidance, professional-judgement framing,
+> partial-coverage honesty) — all carried by the live plan's Value contract and
+> evidence envelope. They **genuinely diverge on one mechanism**: this brief's
+> **R2/R3** "transparent composite scoring" and the "recommendation engine /
+> context-aware ranking" framing (§3, §9.4) put relevance, ranking, and
+> Pupil-Premium weighting in a **server-side algorithm**, whereas the live plan's
+> **Decision 10** makes the server a deterministic evidence surface and the
+> **consuming agent the only reasoner** — no server-side ranking, no
+> situation→strand crosswalk. Decision 10 is the ratified resolution (now
+> repo-wide doctrine as
+> [ADR-191](../../../../docs/architecture/architectural-decisions/191-deterministic-data-surface-agent-reasons.md))
+> and answers this brief's own open question §10.3. So where this brief says "recommend /
+> rank / score server-side", read: *the agent ranks; the server returns
+> deterministic facts plus the methodology and caveats the agent needs to reason
+> and show its working.* §5's curriculum-evidence crosswalk is a **distinct,
+> future, ontology-level** artefact (EEF-strand→curriculum-content as KG data,
+> Level 4, gated on the formal ontology) — orthogonal to Decision 10's forbidden
+> situation→strand *server* mapping, not in conflict with it. Inline notes below
+> mark the superseded clauses; the rest of this brief stands as live context.
 
 ## 1. Problem and Intent
 
@@ -115,6 +140,13 @@ The recommendation algorithm MUST expose its weighting to the user:
 or override. Teachers must understand *why* an approach is ranked
 highly to exercise professional judgement about whether it applies to
 their context.
+
+> **Superseded by Decision 10 (R2/R3 mechanism).** The live plan keeps relevance,
+> ranking, and PP-weighting in the consuming agent, not a server-side scoring
+> formula. The server surfaces the deterministic evidence plus EEF's own
+> methodology and caveats, so the agent ranks transparently and shows its working;
+> the transparency goal of R2/R3 is met by the agent's exposed reasoning over
+> first-class facts, not by a server-side composite-score weighting.
 
 ### R3: Disadvantage Gap Priority
 
@@ -259,17 +291,22 @@ Levels 1-3 use the EEF JSON data directly with bulk-data
 phase/subject matching. They do **not** depend on the KG alignment
 audit or the formal ontology and can proceed independently.
 
-Levels 4/4b require the formal ontology and depend on the KG
-alignment audit (`knowledge-graph-integration/current/kg-alignment-audit.execution.plan.md`)
-to establish join keys and overlap measurement.
+Levels 4/4b require the formal ontology and depend on the **EEF→curriculum
+semantic crosswalk** (§5) — pedagogical strand→content mapping, not an
+identifier join. They do **not** depend on an ontology↔bulk identity alignment
+audit (that plan is now archived). The 2026-06-04 deep review answered the
+identity question: threads join on content-slug, but lesson/unit identity is
+disjoint with no public crosswalk — and that bears only on cross-source *use*
+from a bulk/search entry point, not on extending the ontology itself with
+evidence properties.
 
 | Level | What | Data Source | Depends On | Effort | Value |
 |---|---|---|---|---|---|
 | **1: Prompt composition** | Both MCP servers used simultaneously by AI client | EEF JSON | Nothing | None | Immediate concept validation |
 | **2: Oak prompts reference EEF** | New prompts orchestrate calls to both servers | EEF JSON | Nothing | Low | Guided cross-server workflows |
 | **3: Aggregated evidence tool** | Oak ingests EEF data, exposes through own tools with type safety | EEF JSON + bulk data (phase/subject matching) | Nothing | Moderate | Unified experience, deployed |
-| **4: Ontology extension** | EEF strands as nodes in curriculum KG via formal vocabulary | Formal ontology (RDF/OWL) | KG alignment audit | Moderate-significant | Graph traversal queries |
-| **4b: Neo4j-powered queries** | Extended ontology exported via existing pipeline | Neo4j (from ontology) | KG alignment audit + Level 4 | Moderate | Cypher-powered evidence queries |
+| **4: Ontology extension** | EEF strands as nodes in curriculum KG via formal vocabulary | Formal ontology (TTL → substrate, ADR-173) | EEF→curriculum semantic crosswalk (§5) | Moderate-significant | Graph traversal queries |
+| **4b: Downstream graph queries** | Extended ontology served for richer queries | Ontology distribution (e.g. Neo4j/Cypher) — downstream of TTL → substrate, not the primary path | Level 4 | Moderate | Richer evidence queries |
 
 **Important distinction**: the "graphs" in this repo (ADR-059's
 curriculum concept map, the misconception graph, the prerequisite
@@ -369,20 +406,23 @@ The EEF material poses useful questions back to Oak's MCP strategy:
 ## 11. Dependencies and Sequencing
 
 **Levels 1-3 are independently deliverable.** They use EEF JSON data
-with bulk-data phase/subject matching. They do not require the ontology,
-the KG alignment audit, or Neo4j. They can proceed on a demo branch
+with bulk-data phase/subject matching. They do not require the ontology
+or any cross-source KG work. They can proceed on a demo branch
 immediately.
 
-**Levels 4/4b depend on the formal ontology.** They require the KG
-alignment audit to establish join keys and overlap measurement before
-the ontology can be safely extended with evidence properties.
+**Levels 4/4b depend on the formal ontology and the EEF→curriculum semantic
+crosswalk (§5).** Extending the ontology with evidence properties is
+ontology-side work plus pedagogical mapping; it does not require the (archived)
+ontology↔bulk identity audit. Cross-source *use* from a bulk/search entry point
+is thread-joinable but lesson/unit-blocked (2026-06-04 deep review) — a separate,
+already-answered concern. The ontology is consumed as a pinned TTL release
+(ADR-157 decision 5; ADR-173 TTL → substrate).
 
 | Dependency | Status | Blocks |
 |---|---|---|
 | Oak MCP ecosystem (Layer 1) | Production | Nothing — ready |
 | EEF data (Layer 3 source) | v0.2.0, 30 strands | Nothing — data file available |
-| Oak Curriculum Ontology (Layer 2) | v0.1.0, stable core | Level 4 only |
-| KG alignment audit | Active, Phase 0 pending | Level 4 only |
+| Oak Curriculum Ontology (Layer 2) | v0.1.0; consumed as pinned TTL release | Level 4 only |
 | EPPI study-level data | Not yet accessible | Layer B calibration (R4) |
 | Curriculum crosswalk mapping | Not started | Level 4 (highest-value artefact) |
 
@@ -392,10 +432,11 @@ the ontology can be safely extended with evidence properties.
 independently valuable, demonstrate the composition concept, and
 can ship on a demo branch without waiting for any KG work.
 
-**Levels 4/4b** should be promoted when:
-
-1. The KG alignment audit completes and establishes join keys
-2. OR the EEF project reaches v0.5 (curriculum crosswalk readiness)
+**Levels 4/4b** should be promoted when the EEF→curriculum semantic crosswalk
+(§5) is ready — i.e. the EEF project reaches curriculum-crosswalk readiness
+(~v0.5) and the pedagogical strand→content mapping is underway. The ontology
+itself is already consumable (pinned TTL release, ADR-157 decision 5) and is no
+longer a gating unknown.
 
 ## 13. Risks and Unknowns
 

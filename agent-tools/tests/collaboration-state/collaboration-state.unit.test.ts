@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -9,8 +9,6 @@ import {
   createCommsEvent,
   deriveCollaborationIdentity,
   runCollaborationStateCli,
-  updateJsonFileWithRetry,
-  updateJsonStateWithRetry,
   validateSharedStateAgentId,
   type CollaborationAgentId,
   type CollaborationClaim,
@@ -37,10 +35,6 @@ const woodland: CollaborationAgentId = {
   model: 'GPT-5',
   session_id_prefix: '019dd3',
 };
-
-interface CounterState {
-  readonly value: number;
-}
 
 function claim(overrides: Partial<CollaborationClaim> = {}): CollaborationClaim {
   return {
@@ -149,6 +143,7 @@ describe('runCollaborationStateCli', () => {
     const eventsDir = join(tempDir, 'events');
     await writeFile(activePath, '{"schema_version":"1.3.0","commit_queue":[],"claims":[]}\n');
     await writeFile(closedPath, '{"schema_version":"1.3.0","claims":[]}\n');
+    await mkdir(eventsDir);
 
     try {
       const result = await runCollaborationStateCli({
@@ -405,6 +400,39 @@ describe('runCollaborationStateCli', () => {
     expect(result.stdout).toContain('OAK_AGENT_IDENTITY_OVERRIDE');
   });
 
+  it('documents heartbeat-mode typed state args in comms append help', async () => {
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'append', '--help'],
+      env: {},
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('with --tag heartbeat');
+    expect(result.stdout).toContain('--body and --body-file are rejected');
+    expect(result.stdout).toContain('--claim-id <id>');
+    expect(result.stdout).toContain('--intent-id <id>');
+    expect(result.stdout).toContain('--branch <branch>');
+    expect(result.stdout).toContain('--current-cycle-label <label>');
+  });
+
+  it('documents heartbeat-mode typed state args in comms send help', async () => {
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'send', '--help'],
+      env: {},
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('with --tag heartbeat');
+    expect(result.stdout).toContain('--body and --body-file are rejected');
+    // Assert the full four-arg typed-state set the runtime requires (symmetric
+    // with the append test) so the help test protects the exact cure Windward
+    // needed — not just a subset of the heartbeat-mode flags.
+    expect(result.stdout).toContain('--claim-id <id>');
+    expect(result.stdout).toContain('--intent-id <id>');
+    expect(result.stdout).toContain('--branch <branch>');
+    expect(result.stdout).toContain('--current-cycle-label <label>');
+  });
+
   it('does not fall back to production IO for imported comms commands', async () => {
     const result = await runCollaborationStateCli({
       argv: ['--', 'comms', 'render', '--comms-dir', 'state/comms', '--output', 'state/log.md'],
@@ -615,67 +643,6 @@ describe('archiveStaleClaims', () => {
     ]);
   });
 });
-
-describe('updateJsonStateWithRetry', () => {
-  it('retries when the state text changes between read and write', async () => {
-    const writes: string[] = [];
-    const reads = ['{"value":1}\n', '{"value":2}\n', '{"value":2}\n'];
-
-    const result = await updateJsonStateWithRetry({
-      maxAttempts: 3,
-      parseText: parseCounterState,
-      readText: () => reads.shift() ?? '{"value":2}\n',
-      writeText: (value) => {
-        writes.push(value);
-      },
-      transform: (value: { readonly value: number }) => ({
-        value: value.value + 1,
-      }),
-    });
-
-    expect(result).toStrictEqual({ attempts: 2 });
-    expect(writes).toStrictEqual(['{\n  "value": 3\n}\n']);
-  });
-});
-
-describe('updateJsonFileWithRetry', () => {
-  it('serializes concurrent JSON file updates without lost writes', async () => {
-    const tempDir = await mkdtemp(join(tmpdir(), 'collaboration-state-'));
-    const statePath = join(tempDir, 'counter.json');
-    await writeFile(statePath, '{"value":0}\n');
-
-    try {
-      await Promise.all(
-        Array.from({ length: 5 }, () =>
-          updateJsonFileWithRetry({
-            filePath: statePath,
-            maxAttempts: 3,
-            parseText: parseCounterState,
-            transform: (value) => ({ value: value.value + 1 }),
-          }),
-        ),
-      );
-
-      expect(parseCounterState(await readFile(statePath, 'utf8'))).toStrictEqual({ value: 5 });
-    } finally {
-      await rm(tempDir, { recursive: true, force: true });
-    }
-  });
-});
-
-function parseCounterState(text: string): CounterState {
-  const parsed: unknown = JSON.parse(text);
-  if (
-    typeof parsed === 'object' &&
-    parsed !== null &&
-    'value' in parsed &&
-    typeof parsed.value === 'number'
-  ) {
-    return { value: parsed.value };
-  }
-
-  throw new Error('invalid counter state');
-}
 
 function options(
   values: Readonly<Record<string, string>>,

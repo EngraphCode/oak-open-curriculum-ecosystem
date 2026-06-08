@@ -143,11 +143,22 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: Per-file recovery — log the malformed file, skip it, and
   render the rest; emit a non-zero exit with a clear error summary so the
   fault is visible without blocking the substrate.
-- **Candidate cure**: `--skip-malformed` flag (default on) plus
-  per-file try/catch with error summary at the end.
-- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`
-- **Status**: open — legacy optional-field compatibility partially fixed;
-  malformed-file skip/reporting remains
+- **Candidate cure** (revised 2026-06-01, owner direction): the original
+  `--skip-malformed` direction is **rejected** — tolerating corruption on read is
+  not a fix. The cure is prevention at the write (serialize via `JSON.stringify`
+  only, validate the serialized string round-trips and conforms, write atomically
+  via temp + rename) plus a loud, hard read-side failure that names the offending
+  file, plus a one-time repair of existing corruption and a gate-wired regression
+  guard.
+- **Target surface**: `agent-tools/src/collaboration-state/state-io.ts` (write
+  path) and `cli-comms-commands.ts` (render/read).
+- **Status**: addressed-in-working-tree-2026-06-01 —
+  [`agent-tooling/current/comms-event-write-integrity.plan.md`](current/comms-event-write-integrity.plan.md)
+  (one-time repair + absolute prevention + loud read + gate guard). Comms event
+  writes now parse-back, schema-validate, and publish via a synced same-directory
+  atomic writer before the target file appears; readers hard-fail with the bad
+  path named; `comms validate` scans true-JSON collaboration state; and
+  `repo-validators:check` runs the same validator.
 - **Review 2026-05-10**: still open. `readCommsEvents` parses each JSON
   file directly in sequence; one parse or schema error still aborts the
   entire render.
@@ -160,6 +171,27 @@ below is a cross-reference index, not a second source of truth.
   render against the repo's three comms directories exits 0 to a temp output.
   The broader F-05 contract remains open: one truly malformed file should be
   skipped/reported without blocking the rest of the rendered log.
+- **Review 2026-06-01** (Windswept Floating Summit): fresh worked instance. Three
+  legacy events (`625fb072`, `76ede08d`, `a15363e5`) had bodies truncated
+  mid-sentence into unterminated JSON; one aborted `comms render` repo-wide — the
+  exact F-05 blocker. Manually repaired all three (terminated the strings,
+  preserving surviving content, with a `[body truncated by comms-CLI write bug;
+  JSON repaired]` marker); render now exits 0. F-05's core contract (skip + report
+  one malformed file without aborting the whole render) is still open and
+  re-confirmed high-severity.
+- **Write-side gap surfaced 2026-06-01 (candidate for its own entry):** these
+  files prove the *write* path can persist truncated/malformed JSON, not only that
+  the render is fragile. `comms append`/`send`/`direct` should validate that the
+  assembled event parses and write atomically (temp file + rename) so a failed
+  write never leaves a malformed event behind. `--body-file` (shipped) is the
+  operator-side cure for shell-quoting hazards but does not by itself guarantee
+  validated, atomic persistence.
+- **Implementation review 2026-06-01** (Tempestuous Gliding Falcon): implemented
+  the revised owner-directed cure. The live validator reports
+  `collaboration-state validate: OK (2824 JSON file(s) checked)`, and the root
+  repo validator now includes that check. The older `skip + report` expected shape
+  above is retained only as historical capture; the current accepted contract is
+  prevention at write plus loud, path-named failure on any external corruption.
 - **Severity**: high (substrate-wide blocker when triggered)
 - **Related shape**: 2026-05-06 (Hidden Slipping Moth, `4be7b5`) —
   `comms send` succeeded in writing the new event but then failed
@@ -168,10 +200,11 @@ below is a cross-reference index, not a second source of truth.
   identity fields instead of the current `author` object shape. This
   is the *legacy-schema* sibling of the malformed-JSON case: the
   file parses as JSON but does not conform to the current event
-  schema. The `--skip-malformed` cure should extend to schema-shape
-  mismatches, not only parse failures, with a migration warning
-  surfacing the offending event path. Manual repair of the legacy
-  event file unblocked this instance.
+  schema. The plan's validation covers both — parse failures and
+  schema-shape mismatches are caught at the write (rejected before
+  the file is created) and surfaced loudly at read, with the
+  offending event path named. Manual repair of the legacy event file
+  unblocked this instance.
 
 ### F-06 — Build-on-each-CLI-invocation causes identity drift mid-session
 
@@ -233,7 +266,12 @@ below is a cross-reference index, not a second source of truth.
   list` is the always-available poll for non-streaming platforms;
   `comms watch` is the optional streaming layer.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`
-- **Status**: open
+  (read path); narrative list/show landed in
+  `agent-tools/src/collaboration-state/cli-comms-query.ts`.
+- **Status**: partially-addressed — narrative `comms list`/`comms show`
+  landed-in-working-tree-2026-06-04 (Fiery Forging Ash); the directed-message
+  `comms watch` part landed 2026-05-12 (see Review below). Remaining: list
+  filters (`--since`/`--from`/`--audience`).
 - **Review 2026-05-10**: still open. `comms append`, `send`, and
   `render` exist; `comms list`, `show`, and `watch` do not.
 - **Review 2026-05-11**: B-10 working tree adds a narrow
@@ -254,6 +292,17 @@ below is a cross-reference index, not a second source of truth.
   `comms show <event-id>` should render the complete canonical JSON event and
   its body by id. This does not require a new substrate; it is a focused
   read-model over `.agent/state/collaboration/comms/`.
+- **Review 2026-06-04** (Fiery Forging Ash): the read-back core landed.
+  `comms list [--tail <n>]` (default 20) projects newest-first
+  `created_at  event_id  author/session_prefix  [kind] [tags]  title`, and
+  `comms show --event-id <id>` prints the full canonical JSON event including
+  body (mirroring `claims show --claim-id`). Both are read-only and need no
+  identity seed. New module `cli-comms-query.ts`; integration tests in
+  `tests/collaboration-state/comms-query.integration.test.ts`; verified against
+  the live 2886-event directory. Re-surfaced live by Windward Gliding Squall's
+  2026-06-04 consolidated frictions (item 2) and matches user-memory
+  `project_comms_cli_grounding_gap`. Deferred: `--since`/`--from`/`--audience`
+  filters and a `--format json` mode — open for a follow-on slice.
 - **Owner direction**: standing
 
 ### F-17 — No first-class directed-message authoring CLI
@@ -1039,6 +1088,70 @@ below is a cross-reference index, not a second source of truth.
 - **Target surface**: `agent-tools/src/collaboration-state/comms-relevant-events.ts`
   and comms watch/inbox rendering.
 - **Status**: open
+- **Owner direction status**: standing (agent-observed tooling friction is
+  first-class user feedback).
+
+### F-35 — `comms append`/`send --help` hides the `--tag heartbeat` typed-arg mode
+
+- **Source**: Windward Gliding Squall (`ab2bcd`) 2026-06-04 broadcast comms
+  event `fa7eb7df`; owner-relayed in-session.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms append --help`
+  (and the mirrored `comms send` path).
+- **Observed**: The `--help` usage line lists `(--body | --body-file)` as
+  required and `--tag` as accepting `[failure-mode, behaviour-note, heartbeat]`,
+  but does NOT surface that `--tag heartbeat` switches modes: it REJECTS
+  `--body`/`--body-file` and instead REQUIRES the typed state args
+  `--claim-id --intent-id --branch --current-cycle-label`. A heartbeat Monitor
+  built from `--help` plus the `liveness-heartbeat-cron` rule prose passed
+  `--body` and failed every cycle (exit 2) until the agent ran it manually to
+  read the (excellent) runtime error. The exact flag names lived only in the
+  runtime error, not in `--help`.
+- **Expected**: `comms append --help` reveals the heartbeat-mode flag set so an
+  agent building a heartbeat loop from `--help` alone composes a valid
+  invocation first time.
+- **Candidate cure**: document the heartbeat mode inline in the `comms append`
+  AND `comms send` help strings (both route `--tag heartbeat` through the same
+  typed-state body composer in `comms-heartbeat-cli.ts`). A static inline note
+  beats a dynamic branch — an agent reading `--help` with no flags sees both
+  modes.
+- **Target surface**:
+  `agent-tools/src/collaboration-state/cli-specs.ts` (help wiring) →
+  help strings extracted to
+  `agent-tools/src/collaboration-state/cli-spec-help.ts`;
+  regression tests in
+  `agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts`.
+- **Status**: addressed-in-working-tree-2026-06-04 (Fiery Forging Ash) —
+  `comms append`/`send --help` now document `HEARTBEAT MODE` with the typed
+  state args and the `--body`/`--body-file` rejection; help text extracted to a
+  dedicated module so the spec table stays under its `max-lines` ceiling as
+  help text grows; CLI-level help tests assert both commands. Pending commit;
+  replace with `addressed-in-<commit-sha>` after landing.
+- **Owner direction status**: standing (F-09 discoverability family —
+  agent-observed tooling friction is first-class user feedback).
+
+### F-36 — `pnpm agent-tools:*` wrapper preamble pollutes captured stdout
+
+- **Source**: Windward Gliding Squall (`ab2bcd`) 2026-06-04 consolidated
+  frictions (item 3), directed event `50299513`.
+- **Surface**: `pnpm agent-tools:collaboration-state -- <cmd>` (the root
+  `agent-tools:*` script wrappers).
+- **Observed**: The pnpm wrapper prints two `$ ...` preamble lines (the
+  `--filter` line and the `cd .. && node agent-tools/dist/...` recipe) ahead of
+  the command's real stdout. Capturing a machine-readable value (e.g. a
+  returned `event_id`) needs `tail -n +3` or filtering, which is brittle for
+  scripting.
+- **Expected**: A scriptable path that emits only the command's own stdout.
+- **Candidate cure**: a `--quiet`/`--porcelain` mode emitting only
+  machine-readable output, and/or document the direct
+  `node agent-tools/dist/src/bin/agent-tools.js ...` invocation for scripting
+  (the direct invocation is already clean — it is what the all-channels
+  watcher and these read commands use — but it is not advertised for
+  scripting). Sibling to F-06 / F-23 (the build-prelude / hot-path family);
+  route through the same hot-path split rather than per-command.
+- **Target surface**: root `package.json` agent-tools scripts;
+  `agent-tools/README.md` §"CLI Norms"; possibly the P-Foundation hot-path
+  split named in F-19/F-23.
+- **Status**: open.
 - **Owner direction status**: standing (agent-observed tooling friction is
   first-class user feedback).
 

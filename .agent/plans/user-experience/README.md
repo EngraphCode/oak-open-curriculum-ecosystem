@@ -86,6 +86,7 @@ See [high-level-plan.md](../high-level-plan.md) for cross-collection context.
 
 | Dependency | Why It Matters To UX |
 |------------|----------------------|
+| [discovery/README.md](../discovery/README.md) | How users and agents find, install, and are told about Oak capabilities (skills, MCP apps); owns the capability taxonomy and distribution lanes |
 | [semantic-search/roadmap.md](../semantic-search/roadmap.md) | Search quality and retrieval behaviour directly shape user trust |
 | [../sdk-and-mcp-enhancements/roadmap.md](../sdk-and-mcp-enhancements/roadmap.md) | UI surface and host compatibility determine app usability |
 | [semantic-search/future/08-experience-surfaces-and-extensions/README.md](../semantic-search/future/08-experience-surfaces-and-extensions/README.md) | Post-alpha experience capabilities and renderer sequencing |

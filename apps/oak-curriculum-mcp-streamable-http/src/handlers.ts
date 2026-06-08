@@ -12,7 +12,6 @@ import { registerAppTool } from '@modelcontextprotocol/ext-apps/server';
 import type { Logger } from '@oaknational/logger';
 import type { RuntimeConfig } from './runtime-config.js';
 import type { HttpObservability } from './observability/http-observability.js';
-import { EEF_TOOL_NAME } from './eef-surface.js';
 import {
   createOakPathBasedClient,
   executeToolCall,
@@ -22,6 +21,7 @@ import {
   generatedToolRegistry,
   isAppToolEntry,
   type SearchRetrievalService,
+  type UniversalToolName,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
 import { registerAllResources, registerPrompts } from './register-resources.js';
@@ -146,17 +146,21 @@ export function registerHandlers(
 
   registerAllResources(server, {
     getWidgetHtml: options.getWidgetHtml,
+    eefEnabled: options.runtimeConfig.eefEnabled,
   });
   registerPrompts(server, options.runtimeConfig.eefEnabled);
 }
 
 /**
- * The EEF evidence tool ({@link EEF_TOOL_NAME}) is co-gated with its prompt
- * behind `OAK_CURRICULUM_MCP_EEF_ENABLED`. It is filtered out of registration
- * when the flag is off so a partial EEF surface can never reach a client.
- * Registration-gating is distinct from `useStubTools`, which only swaps the
- * executor for already-registered tools.
+ * Tool names co-gated behind `OAK_CURRICULUM_MCP_EEF_ENABLED`. Typed as
+ * `UniversalToolName` so a tool-name rename is a compile error here, not a
+ * silently-stale string. EEF is one tool today; this is the single extension
+ * point for further EEF surfaces (D6 plan c6).
  */
+const EEF_FLAG_GATED_TOOL_NAMES: ReadonlySet<UniversalToolName> = new Set<UniversalToolName>([
+  'get-eef-evidence',
+]);
+
 /** Iterates over universal tools and registers each with the server. */
 function registerTools(
   server: Pick<McpServer, 'registerTool'>,
@@ -164,7 +168,12 @@ function registerTools(
   options: RegisterHandlersOptions,
 ): void {
   for (const tool of listUniversalTools(generatedToolRegistry)) {
-    if (!options.runtimeConfig.eefEnabled && tool.name === EEF_TOOL_NAME) {
+    // EEF is gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED → runtimeConfig.eefEnabled,
+    // kill-switch, default ON): register the entry unless an explicit `=false` disables it. The
+    // SDK enumerator stays transport-agnostic; the app owns the flag. Extension point: add a second EEF tool
+    // name here to co-gate it under the same flag (the typed constant fails compilation on a
+    // tool-name rename).
+    if (EEF_FLAG_GATED_TOOL_NAMES.has(tool.name) && !options.runtimeConfig.eefEnabled) {
       continue;
     }
 

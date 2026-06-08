@@ -13,8 +13,6 @@ extended + explicit-source-attribution discipline added 2026-05-07)
 Oak API types; non-API data sources have their own typing disciplines),
 [ADR-030](030-sdk-single-source-truth.md) — SDK as single source of truth,
 [ADR-123](123-mcp-server-primitives-strategy.md) — MCP server primitives,
-[ADR-175](175-external-evidence-corpus-freshness-governance.md) — accepted
-freshness governance for external evidence corpora,
 [ADR-154](154-separate-framework-from-consumer.md) — separate framework from
 consumer (the graph resource factory follows this pattern),
 [ADR-173](173-graph-stack-topology.md) — graph stack topology (proposed)
@@ -39,10 +37,56 @@ re-evaluated when the corpus extension lands. Until then, this ADR
 is **proposed**, not **accepted** — it documents a direction, not a
 constraint.
 
-ADR-175 is narrower and accepted: external evidence corpora such as EEF need
-freshness metadata, ownership, and stale-data behaviour before user-facing
-surfaces ship. That freshness decision is binding even while this broader
-multi-source integration ADR remains Proposed.
+## Status Amendment Note (2026-06-01)
+
+Owner-directed correction during the EEF graph-tool work. This note
+supersedes the delivery-model description in the first paragraph of the
+2026-04-30 note above; that paragraph recorded architecture that has since
+been retired.
+
+- **Five-increment delivery sequence retired.** EEF is no longer
+  "Increment 2" of a numbered sequence. Per
+  [ADR-173](173-graph-stack-topology.md) (2026-06-01 corrections), the
+  shared graph-query layer ships real operations only — an operation is
+  implemented with real graph-derived logic and tests, or it is absent —
+  and each corpus adapter is built when a consumer exists, not at a
+  numbered increment. The EEF strands corpus is the active first
+  graph-corpus consumer and pathfinder.
+- **`EvidenceCorpus`-over-`GraphView` abandoned.** The speculative
+  `EvidenceCorpus` surface and its `rank`/`explain`/`compare` operations
+  were removed from the tree; no such type exists.
+
+What has shipped is the typed `as const` foundation in `graph-corpus-sdk`:
+strand identity and lookup, the finite raw domains, the declared-vs-observed
+divergence, raw related-strand edge facts, and corpus-level provenance. The
+graph-native projection and the MCP tool/resource/prompt surface are later
+deliverables and have not yet shipped. By design, relevance judgement,
+ranking, and selection are the consuming agent's reasoning, not a
+server-side surface.
+
+The structural decisions in the 2026-04-30 note's second paragraph stand,
+and the typing discipline is now confirmed by that shipped foundation: the
+EEF types derive from the `as const` snapshot via `typeof`/indexed access
+with the ADR-153 constant-type predicate and no hand-maintained
+declarations. The `curriculum://` URI scheme, the `eef-*` namespace prefix,
+and the machine-readable provenance metadata remain policy. This ADR stays
+**Proposed**: the multi-source MCP surface has not yet shipped end to end in
+a running host.
+
+**Namespace-table naming correction.** The namespace table below predates
+two ratified EEF decisions: the EEF surface presents evidence-informed
+options and trade-offs, never recommendations or a single chosen action; and
+there is no server-side Oak-signal-to-strand crosswalk — the consuming agent
+selects strand keys, and EEF×Oak composition is agent-mediated at the
+workflow level. The `eef-*` row's `eef-recommend-evidence-for-context`
+example and the Consequences section's "EEF recommendations" phrasing are
+corrected in place. The compound-prefix row's original motivation —
+server-side EEF×misconceptions sequencing tooling (added 2026-05-07) — is
+superseded by the agent-mediated-composition decision, so the empty
+compound-prefix example row is removed from the namespace table. The
+compound-prefix naming rule remains in the convention prose for any genuine
+future cross-corpus tool, to be re-decided when one exists; no current surface
+uses it.
 
 ## Context
 
@@ -112,11 +156,18 @@ discipline is:
   structure at build time. Oak ontology source files are taken from the
   source-of-truth Oak Curriculum Ontology GitHub repository. Changes to `.ttl`
   files require re-extraction.
-- **EEF data**: Typed interfaces with Zod validation at load time.
-  The repository-held EEF JSON snapshot is static, versioned, and canonical for
-  implementation until EEF clarifies whether Oak should refresh from a public
-  download/API endpoint or direct supply. Zod validation catches schema drift
-  between the file and the declared types.
+- **EEF data**: Types derived directly from the repository-held snapshot
+  held `as const` — `typeof` and indexed-access types, with membership
+  checks using the constant-type-predicate pattern (ADR-153), no
+  hand-maintained type declarations, and no type assertions (the generalised
+  compile-time discipline of ADR-038). The snapshot is static, versioned, and canonical
+  for implementation until EEF clarifies whether Oak should refresh from a
+  public download/API endpoint or direct supply. Its external provenance
+  does not make its shape unknown: the constant _is_ the schema, so there
+  is no separate schema to validate it against and no runtime drift check
+  to run. Typing it `unknown` or parsing it with Zod to re-derive a shape
+  the file already fixes would be type destruction (the
+  `unknown-is-type-destruction` rule), not validation.
 - **Oak misconception data**: The misconception graph is constructed in this
   repository from Oak bulk data as part of bulk-data processing. It is
   graph-shaped API-derived data, not a separate external raw corpus.
@@ -148,13 +199,27 @@ server," not "data from the Oak API specifically."
 Resource and tool names use a prefix convention that signals data
 provenance for citation, credit, and attribution:
 
-| Prefix                         | Source                                        | Examples                                                               |
-| ------------------------------ | --------------------------------------------- | ---------------------------------------------------------------------- |
-| _(none)_                       | Oak Open Curriculum API (bulk data)           | `prior-knowledge-graph`, `thread-progressions`, `model`                |
-| `oak-kg-*`                     | Oak Curriculum Ontology                       | `oak-kg-knowledge-taxonomy`, `oak-kg-get-thread-content`               |
-| `oak-misconceptions-*`         | Oak misconception graph (bulk-derived)        | `oak-misconceptions-subgraph-for-thread`                               |
-| `eef-*`                        | EEF Teaching and Learning Toolkit             | `eef-methodology`, `eef-strands`, `eef-recommend-evidence-for-context` |
-| Compound (`oak-X-eef-*`, etc.) | Cross-corpus tool composing two named sources | `oak-misconceptions-eef-recommend-for-thread`                          |
+| Prefix        | Source (provenance)                      | Examples                                          |
+| ------------- | ---------------------------------------- | ------------------------------------------------- |
+| `onto-*`      | Oak Curriculum Ontology                  | `onto-threads`, `onto-knowledge-taxonomy`         |
+| `bulk-*`      | Oak Open Curriculum API — bulk export    | `bulk-thread-progressions`, `bulk-misconceptions` |
+| `oakapi-*`    | Oak Open Curriculum API — live endpoints | `oakapi-lesson-summary`                           |
+| `oaksearch-*` | Oak semantic search service              | `oaksearch-related-units`                         |
+| `eef-*`       | EEF Teaching and Learning Toolkit        | `eef-methodology`, `eef-strands`                  |
+
+**Source-prefix convention (owner-ratified 2026-06-04).** The prefix marks
+**source / provenance only** — which system a surface's data comes from. Five
+sources are recognised: `onto-` (ontology), `bulk-` (Oak API bulk export),
+`oakapi-` (Oak API live endpoints), `oaksearch-` (Oak search service), `eef-`
+(EEF Toolkit). This supersedes the earlier prefix table; legacy mapping:
+`oak-kg-*` → `onto-*`; unprefixed bulk tools and `oak-misconceptions-*` →
+`bulk-*`. **Migration is incremental** — already-shipped names
+(`prior-knowledge-graph`, `thread-progressions`, `model`, `oak-misconceptions-*`,
+`oak-kg-*`) keep their names until next touched; every NEW surface conforms. The
+National-Curriculum-vs-Oak-authored distinction is an **authority / content
+axis, orthogonal to source** — carried in `_meta` metadata, never as a prefix
+(see "No `nc-*` prefix" below). This makes the "Unprefixed default" note below a
+legacy-compatibility statement, not the go-forward rule.
 
 **Explicit source attribution on every NEW tool (added 2026-05-07).**
 New tools and resources MUST carry a source-identifying prefix (or
@@ -234,7 +299,7 @@ and attribution requirements.
 This is the beginning of a multi-source integration that will deepen
 as the ontology matures, EEF data expands, and Oak's knowledge graph
 work progresses. The value of these collaborations compounds over time.
-The initial surfaces (misconception graph, EEF recommendations, Oak KG
+The initial surfaces (misconception graph, EEF strand evidence, Oak KG
 knowledge taxonomy) are deliberately modest in scope — they prove the integration
 pattern and deliver immediate value to educators while laying the
 foundation for richer cross-source capabilities.
@@ -279,9 +344,11 @@ the future graph alignment path binding.
 ### Trade-offs
 
 - Each new data source adds a maintenance surface: the typed interfaces
-  must be kept aligned with the upstream data as it evolves. Zod
-  validation at load time mitigates this for static data (EEF); build-time
-  extraction mitigates it for ontology data.
+  must be kept aligned with the upstream data as it evolves. For static
+  data (EEF) the snapshot is held `as const` and its types are derived
+  from it, so the types cannot drift from the data they describe —
+  refreshing the snapshot is the single maintenance action. Build-time
+  extraction mitigates the same concern for ontology data.
 - The cardinal rule (ADR-029) applies strictly to Oak API types. Non-API
   data sources have their own typing disciplines documented above. This
   is a conscious scope boundary, not an exception.

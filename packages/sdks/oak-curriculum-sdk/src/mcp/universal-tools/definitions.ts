@@ -31,13 +31,13 @@ import {
   GET_MISCONCEPTION_GRAPH_TOOL_DEF,
   GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA,
 } from '../aggregated-misconception-graph.js';
+import {
+  GET_EEF_EVIDENCE_TOOL_DEF,
+  GET_EEF_EVIDENCE_INPUT_SCHEMA,
+} from '../aggregated-eef-evidence.js';
 import { SEARCH_TOOL_DEF, SEARCH_INPUT_SCHEMA } from '../aggregated-search/index.js';
 import { BROWSE_TOOL_DEF, BROWSE_INPUT_SCHEMA } from '../aggregated-browse/index.js';
 import { EXPLORE_TOOL_DEF, EXPLORE_INPUT_SCHEMA } from '../aggregated-explore/index.js';
-import {
-  EEF_EXPLORE_TOOL_DEF,
-  EEF_EXPLORE_INPUT_SCHEMA,
-} from '../evidence-corpus/tools/eef-explore-evidence-for-context/index.js';
 import {
   DOWNLOAD_ASSET_TOOL_DEF,
   DOWNLOAD_ASSET_INPUT_SCHEMA,
@@ -130,6 +130,10 @@ export const AGGREGATED_TOOL_DEFS = {
     ...GET_MISCONCEPTION_GRAPH_TOOL_DEF,
     inputSchema: GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA,
   },
+  'get-eef-evidence': {
+    ...GET_EEF_EVIDENCE_TOOL_DEF,
+    inputSchema: GET_EEF_EVIDENCE_INPUT_SCHEMA,
+  },
   'browse-curriculum': {
     ...BROWSE_TOOL_DEF,
     inputSchema: BROWSE_INPUT_SCHEMA,
@@ -137,10 +141,6 @@ export const AGGREGATED_TOOL_DEFS = {
   'explore-topic': {
     ...EXPLORE_TOOL_DEF,
     inputSchema: EXPLORE_INPUT_SCHEMA,
-  },
-  'eef-explore-evidence-for-context': {
-    ...EEF_EXPLORE_TOOL_DEF,
-    inputSchema: EEF_EXPLORE_INPUT_SCHEMA,
   },
   'download-asset': {
     ...DOWNLOAD_ASSET_TOOL_DEF,

@@ -46,14 +46,24 @@ Run `consolidate-docs` when one or more of these is true:
   historical synthesis, or prior consolidations keep reporting the same
   family without naming its deeper cause
 - documentation drift or stale cross-references now need graduation
-- `.agent/state/collaboration/comms/` contains events whose
-  `created_at` timestamp is older than seven days and therefore due for
-  retention processing
+- the owner explicitly opens a comms-corpus research / retention plan; routine
+  comms-event rotation is otherwise paused and calendar age is not a lifecycle
+  trigger
 
 This workflow preserves the full deep-convergence role: graduation, pattern
 extraction, napkin rotation, fitness management, and practice exchange.
 
 ## Mode Contract
+
+### Conservation Invariant
+
+The value of every mode is conserving and correctly homing insight. Fitness
+results, line counts, and buffer sizes are diagnostic signals, not goals. Do not
+chase lower numbers, trim understanding, or suppress capture to make a report
+look better. Process the knowledge, preserve the learning at full weight, move
+it to the right durable home, and let any fitness improvement happen only as the
+side effect of real curation. Completion evidence is item-level disposition and
+truthful closeout, not a softer fitness report.
 
 Start every invocation by declaring one mode. The mode fixes the default scope,
 completion criteria, and closeout evidence for the pass.
@@ -201,32 +211,40 @@ in one sitting, record item-level disposition progress in a ledger; do not make
 another buffer file to stand in for that work.
 
 For each buffer item, read the source, understand the substance, route it, and
-record exactly one disposition in a ledger before any archive move:
+**classify its disposition as you go** — this is reasoning, not a record to
+persist:
 
-- `graduated` - durable home created or updated, with path evidence.
-- `duplicate` - already represented in a durable home, with path evidence.
-- `owner-gated` - cannot proceed without owner decision, with the question and
-  live holding location.
+- `graduated` - durable home created or updated (verify it is there).
+- `duplicate` - already represented in a durable home (verify it is there).
+- `owner-gated` - cannot proceed without owner decision; mark it owner-gated in
+  its live holding location, with the question.
 - `stale-withdrawn` - no longer valid, with reason.
 - `carried-forward` - still valid but not drainable in this pass, with trigger
   and next action. This is valid for honest mid-pass handoff or
   `session-completion`; it is not a final completion state for an owner goal
   that asks to continue until buffers are empty or explicitly owner-gated.
 
-The ledger may live in the touched buffer, an adjacent disposition note, a plan
-closeout section, or a curation report. It must be durable enough for the next
-agent to verify the item count and each route without rereading the whole
-source history.
+Per [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md),
+do **not** write these dispositions into a durable ledger, adjacent disposition
+note, curation report, or count line. The commit and the permanent home are the
+record; a ledger restating "item X went to home Y" is accounting, not value.
+
+**Pre-archive verification gate**: before any command or edit that moves,
+renames, archives, parks, supersedes, or replaces a live buffer source, stop and
+**verify the substance is live in its permanent home** — read the home, confirm
+it is there. That in-context verification is the knowledge-preservation screen;
+do not create a ledger to record it. Do not frame the action as making a fitness
+check pass; the action is conserving and homing knowledge.
 
 **Checklist failure / anti-example**: archiving a buffer or source file before
-read/extract/route/disposition evidence exists is not curation. An
+reading, extracting, routing, and verifying the home is not curation. An
 archive-only "drain" leaves the buffer live for completion purposes, even if
 the fitness report becomes softer afterward.
 
 **Fitness anti-pattern**: split, shard, archive, rename, or delete operations
 performed primarily to change the fitness category are self-delusion, not
-curation. They may appear in a correct pass only after the item ledger proves
-what happened to the knowledge.
+curation. Curation is verified by the homed substance and the commit, never by an
+accounting record of what was moved.
 
 ## Plan supersession discipline
 
@@ -269,47 +287,45 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    - **Capture surfaces**: `.agent/memory/active/napkin.md`,
      `.agent/memory/active/distilled.md` (the staging surface itself,
      not yet graduated), prompt artefacts.
-   - **Plugin-managed capture buffers**: `.remember/now.md`,
-     `.remember/today-*.md`, `.remember/recent.md`, and sibling
-     buffers authored by the remember plugin. These are a
-     session-and-daily capture surface whose lifecycle (rotation,
-     archival, deletion) is managed by the plugin — do not rotate
-     or delete them manually. Read them alongside the napkin and
-     extract any cross-session insight into `distilled.md` or a
-     permanent home per the standard graduation rules in step 7.
    - **Session comms-events**: `.agent/state/collaboration/comms/`
      (and the regenerated `shared-comms-log.md`) carry coordination-context
      substance — owner-direction-captured-inline, inter-agent surprises,
      tooling friction discovered during cross-agent work, decision
      timelines, and worked instances of coordination-cure patterns.
-     Sweep events across the consolidation window (not only session-
-     authored ones); extract any cross-session coordination insight to
-     `distilled.md`, a pattern instance, or a pending-graduations entry.
-     Events older than seven days are retention-processing inputs, not
-     permanent documentation. Process them through step 3a before deletion.
-     Step 7e audits active protocol observability; this step extracts
-     substance from comms history.
+     The comms corpus is currently owner-preserved pending a dedicated
+     comms research plan. Do not sweep, rotate, process for deletion, or
+     treat calendar age as a lifecycle trigger during routine consolidation.
+     Read event files only when the owner explicitly scopes comms-corpus
+     research / retention work or when a specific event is already named as
+     evidence for another disposition. Step 7e audits active protocol
+     observability; it does not rotate comms history.
    - **Plan surfaces**: active and recently completed plans (per step
      1 above) — surface any content that describes how things work
      rather than what to do next.
    - **Platform-specific per-user memory**: session logs and
      curated memory outside the repo, one location per platform
-     per user. Named instances:
+     per user. Every consolidation run checks at least Claude, Codex,
+     Cursor, and Gemini. If a surface is absent or inaccessible on the
+     current machine, record that fact in the disposition evidence instead
+     of silently skipping it. Named instances:
      - Claude Code: `~/.claude/projects/<project>/memory/`
        (curated auto-memory; `MEMORY.md` + per-entry files)
-     - Cursor: `~/.cursor/chats/` (per-session transcripts),
-       `~/.cursor/prompt_history.json` (accumulated prompts)
      - Codex: `~/.codex/memories/` (curated memory files),
        `~/.codex/history.jsonl` (rolling session history),
        `~/.codex/archived_sessions/` (older session archives)
+     - Cursor: `~/.cursor/chats/` (per-session transcripts),
+       `~/.cursor/prompt_history.json` (accumulated prompts)
+     - Gemini CLI: `~/.gemini/` memory, history, or session surfaces
+       when present; if Gemini exposes no separate memory surface on the
+       current machine, record `not present` rather than inventing a path.
 
      These are platform-specific napkin analogues. Agents
-     running on each platform should scan their own platform's
-     surface; at consolidation, insights with cross-platform
-     value flow into the canonical napkin or `distilled.md`, or
-     directly to permanent homes if stable. Do not assume one
-     platform's memory is readable to another platform's agent
-     at session open — cross-platform ingestion is a
+     running on any platform scan the minimum four-platform set above
+     when accessible; at consolidation, insights with cross-platform value
+     flow into the canonical napkin or `distilled.md`, or directly to
+     permanent homes if stable. Do not assume every platform's memory is
+     readable on every machine — unavailable surfaces are explicit
+     dispositions, not silent skips. Cross-platform ingestion is a
      consolidation-time activity, not a session-open activity.
    - **Platform-specific entry points**: `CLAUDE.md`, `AGENTS.md`,
      `GEMINI.md`, and analogous host adapters. Session-handoff
@@ -320,31 +336,22 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    Per the standing direction codified in the homing partial: *all
    content must be moved to permanent homes or, if not useful,
    removed*. Silent deletion without homing is not the default.
-3a. **Rotate stale comms-events after processing.** At each consolidation
-    pass, inspect `.agent/state/collaboration/comms/` for event files
-    whose `created_at` timestamp is older than seven days. Treat every
-    matching event as a capture surface that must be processed before
-    deletion:
+3a. **Comms-event rotation is paused pending a dedicated comms research plan.**
+    Routine consolidation MUST NOT rotate, delete, or process comms-events for
+    retention. Calendar age is not a lifecycle trigger for
+    `.agent/state/collaboration/comms/`.
 
-    1. Read the event body and decide whether it contains permanent
-       documentation content, reusable coordination insight, tooling friction,
-       owner direction, or pattern evidence.
-    2. Route useful substance to the smallest durable or still-processable
-       home: a permanent doc/ADR/PDR/rule/README when stable; otherwise
-       `.agent/memory/active/napkin.md`, `distilled.md`,
-       `.agent/memory/active/patterns/`, or
-       `.agent/memory/operational/pending-graduations.md` for normal later
-       processing.
-    3. If the event carries no useful substance beyond transient coordination,
-       record no duplicate copy; deletion is the correct lifecycle outcome
-       once that judgement has been made.
-    4. Delete the processed old event file from `comms/`.
-    5. Regenerate `shared-comms-log.md` from the remaining collaboration
-       sources so the rendered log reflects the retained live window.
+    The active invariant is **preserve the comms corpus unless the owner opens
+    a comms-corpus research / retention plan or names a specific event as
+    evidence for another disposition**. Under that explicitly-scoped work,
+    process before any deletion: read the event body, route durable substance to
+    the smallest appropriate home, record item-level disposition evidence, and
+    only then remove a source event if the approved research / retention plan
+    authorises removal.
 
-    The invariant is **process before deletion**. Old comms-events are not a
-    durable archive, but the insights they contain must be homed before the
-    source event disappears.
+    `shared-comms-log.md` remains a generated recent-view artefact; regenerate
+    it when comms-state writes make that necessary, not as a side-effect of a
+    paused retention rotation.
 4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../experience/README.md § Why the audit step exists`](../../experience/README.md)):
 
    a. **Preserve the purpose** — scan for files that have drifted into technical content; this displaces the subjective register the files are meant to hold.
@@ -355,7 +362,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    Purpose (c) is the most valuable and the most easily skipped. Even when purposes (a) and (b) produce no work (no drift, no stranded content), purpose (c) still fires — read across the recent experiences with the cross-plane / cross-session lens, and record any emergent observation for the graduation scan.
 
-   The same cross-corpus read also protects the subjective register's *foundational standing* (PDR-011 §"Subjective experience is foundational substrate, not optional surplus"; ADR-150): reading the experiences as a whole makes *absence* legible, not just insight. A register that thins toward silence while sessions continue to do substantive work is a degraded capture edge — the observable guard against "no genuine shift" decaying back into the optional-surplus opt-out the reframe cures. An honest event-anchored null and a habitual opt-out look identical at a single session and are distinguishable only across the corpus, so flag a thinning corpus as a loop-health signal, not a null result.
+   Experience writing is **strictly voluntary** (see [`experience/README.md`](../../experience/README.md)): there is no quota, obligation, or session-close requirement, and the corpus is **not** monitored for volume or thinning. Pressure to record distorts the motivation and the result — a reflection written because it felt *due* is performance, not experience. Do **not** treat a quiet or thinning corpus as a problem, a degraded capture edge, or a loop-health signal; not writing is a valid, ordinary outcome. Purpose (c) reads across the experiences that *do* exist to surface emergent insight — it never measures whether enough were written.
 5. **Extract reusable patterns.** Review completed work for patterns that meet the barrier: broadly applicable, proven by implementation, prevents a recurring mistake, and stable. This covers all types of learning — code patterns, process patterns, architecture patterns, structural observations, agent operational concerns, behavioural rules, domain-specific gotchas — anything reusable that would change behaviour if read before similar work. Extract qualifying patterns to `.agent/memory/active/patterns/` as specific ecosystem-grounded instances (one pattern per file, markdown with frontmatter). See `.agent/memory/active/patterns/README.md` for the frontmatter schema, category options, and barrier criteria.
 
    **Three destinations, not one** (per PDR-007). The substance shape determines the home:
@@ -443,8 +450,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    - `.agent/memory/active/distilled.md` — refined cross-session entries from prior napkin rotations.
    - `.agent/memory/active/napkin.md` — recent surprises and candidate tags.
-   - `.remember/now.md`, `.remember/today-*.md`, `.remember/recent.md` — plugin-managed capture buffers. Read-only for graduation purposes; extract qualifying insight into `distilled.md` or the appropriate permanent home, then leave the buffers to the plugin's own lifecycle.
-   - **[`.agent/memory/operational/pending-graduations.md`](../../memory/operational/pending-graduations.md) (the pending-graduations register)** — the structured list of captured candidates with per-item `captured-date`, `source-surface`, `graduation-target`, `trigger-condition`, and `status`. Items with `status: due` or `status: overdue` are the primary graduation candidates for this pass. Items with `status: pending` are reviewed to see whether their trigger condition has fired since last consolidation. The register was split out from `repo-continuity.md § Deep consolidation status` on 2026-04-30; older references to that location route here.
+   - **[`.agent/memory/operational/pending-graduations.md`](../../memory/operational/pending-graduations.md) (the pending-graduations register)** — the structured list of captured candidates with per-item `captured-date`, `source-surface`, `graduation-target`, `trigger-condition`, and `status`. Items with `status: due` or `status: overdue` are the primary graduation candidates for this pass. Items with `status: pending` are reviewed to see whether their trigger condition has fired since last consolidation. Items with `status: owner-gated` are **not** parked indefinitely. Per the owner direction of 2026-06-04 ("owner-gated should be collapsed into owner-directed"), `owner-gated` must not function as a graveyard: a consolidation session with the owner present is itself the venue, so **walk every owner-gated item with the owner** during the pass, not only those whose sole trigger is owner-direction. Present them as a recommendation-first digest (graduate / withdraw / confirm genuinely-event-gated); the owner may graduate a strong single-instance candidate now or override an external-event gate (a second-instance trigger is a default, not a barrier when the owner is present). Items left after the walk are those the owner explicitly confirms are genuinely waiting on an external event. The register was split out from `repo-continuity.md § Deep consolidation status` on 2026-04-30; older references to that location route here.
    - **[`.agent/memory/operational/open-questions.md`](../../memory/operational/open-questions.md) (the open-questions register)** — the structured list of non-urgent unresolved decision-shapes with `Q-NNN` identity, context, deferral reason, suggested resolution path, status, and links. Open entries are not graduation candidates by default; they are consolidation-time questions to answer, surface to owner, withdraw, or leave open with deferral-honesty.
 
    **7a. Scan for ADR-shaped and PDR-shaped doctrine** (do this *before* applying the three outcomes below). Walk every entry in `distilled.md` and every recent napkin surprise and ask two questions:
@@ -736,16 +742,21 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
 ## Closeout Proof
 
-Close every `consolidate-docs` invocation with proof that matches the declared
-mode. The closeout must report:
+Close every `consolidate-docs` invocation with a report of **value and impact**
+that matches the declared mode:
 
 - mode used;
-- fitness before and after, as routing evidence only;
-- buffer item count before and after for every selected drainable buffer;
-- disposition ledger pointer when any buffer was drained;
-- durable homes changed;
-- unresolved live items and blockers;
+- what knowledge reached which permanent home, and what behaviour it changes;
+- unresolved live items and blockers — including any fitness file still worse
+  than soft, named as a live signal (un-homed substance? structural debt?), not
+  as a before/after accounting table;
 - explicit verdict: `complete`, `partial slice landed`, or `pending`.
+
+Per [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md):
+the commits and the permanent homes ARE the record the pass happened. Do not
+report before/after counts, a disposition-ledger pointer, a before/after fitness
+table, or provenance pointers. Fitness is a signal to explain when it points at
+real work, never the thing delivered.
 
 For `session-completion`, `partial slice landed` is acceptable when fresh
 learning was captured and obvious substance was routed while larger curation

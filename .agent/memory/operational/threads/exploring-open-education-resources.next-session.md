@@ -1,3 +1,12 @@
+---
+fitness_line_target: 700
+fitness_line_limit: 1100
+fitness_char_limit: 70000
+fitness_line_length: 100
+fitness_content_role: reference
+overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never archive/split/rotate/shard (see continuity-practice.md §Disposition of Continuity Surfaces)'
+merge_class: index-narrative-tables
+---
 # Next-Session Record — `exploring-open-education-resources` thread
 
 **Last refreshed**: 2026-05-01 (Gnarled Fruiting Root / claude-code /
@@ -31,8 +40,10 @@ moved to `.agent/plans/exploring-open-education-resources/external-knowledge-sou
 - `.agent/plans/exploring-open-education-resources/external-knowledge-sources/`
   — was `.agent/plans/sector-engagement/external-knowledge-sources/`
   pre-2026-05-01 restructure. Currently contains:
-  - `future/education-skills-mcp-surface.plan.md`
   - `future/external-knowledge-graph-data-source-integration.plan.md`
+  - *`education-skills-mcp-surface.plan.md` relocated 2026-06-08 to
+    `user-experience/educator-end-users/previous-materials/` (external-facing
+    skills/plugins synthesis).*
 
 ## Cross-Plan Links
 

@@ -234,11 +234,12 @@ function expectJsonContent(content: McpUiReadResourceResult['contents'][number] 
   }).not.toThrow();
 }
 
-/** Shared options for all registration tests. */
+/** Shared options for all registration tests (EEF off by default, mirroring prod). */
 function createTestOptions(
   getWidgetHtml: ResourceRegistrationOptions['getWidgetHtml'] = () => TEST_WIDGET_HTML,
+  eefEnabled = false,
 ): ResourceRegistrationOptions {
-  return { getWidgetHtml };
+  return { getWidgetHtml, eefEnabled };
 }
 
 describe('registerDocumentationResources', () => {
