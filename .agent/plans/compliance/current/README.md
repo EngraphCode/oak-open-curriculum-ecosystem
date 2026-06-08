@@ -7,7 +7,7 @@ When a plan starts, move it to `active/` and update both indexes.
 
 | Priority | Plan | Scope | Status |
 |---|---|---|---|
-| — | [app-submission-standards.plan.md](../../user-experience/educator-end-users/current/app-submission-standards.plan.md) — App submission standards - Claude & OpenAI directory requirements | Claude + ChatGPT directory submission compliance | Queued |
+| — | [app-submission-standards.plan.md](../../user-experience/educator-end-users/current/app-submission-standards.plan.md) — App submission standards - Claude & OpenAI directory requirements | Claude + OpenAI/Codex directory submission standards | Queued |
 
 ## Companion Documents
 

@@ -54,7 +54,7 @@ Phase 3: Submission readiness (both platforms)          FUTURE (process, not cod
 
 ### Phase 0 — Governance Documentation
 
-- Plan: [claude-and-chatgpt-app-submission-compliance.plan.md](../user-experience/educator-end-users/current/app-submission-standards.plan.md) (WS1)
+- Plan: [app-submission-standards.plan.md](../user-experience/educator-end-users/current/app-submission-standards.plan.md) (WS1)
 - Done when:
   - ADR-159 records the decision to comply with both policies
   - 15 permanent architectural requirements codified
@@ -65,7 +65,7 @@ Phase 3: Submission readiness (both platforms)          FUTURE (process, not cod
 
 ### Phase 1 — Privacy Policy Integration
 
-- Plan: [claude-and-chatgpt-app-submission-compliance.plan.md](../user-experience/educator-end-users/current/app-submission-standards.plan.md) (WS2)
+- Plan: [app-submission-standards.plan.md](../user-experience/educator-end-users/current/app-submission-standards.plan.md) (WS2)
 - Done when:
   - Privacy and cookie policy links surfaced in server metadata, README,
     and OAuth discovery endpoints
@@ -74,7 +74,7 @@ Phase 3: Submission readiness (both platforms)          FUTURE (process, not cod
 
 ### Phase 2 — Graph Sub-Querying for Token Efficiency
 
-- Plan: [claude-and-chatgpt-app-submission-compliance.plan.md](../user-experience/educator-end-users/current/app-submission-standards.plan.md) (WS3-WS5)
+- Plan: [app-submission-standards.plan.md](../user-experience/educator-end-users/current/app-submission-standards.plan.md) (WS3-WS5)
 - Done when:
   - All three graph tools accept per-surface filter params and
     `mode: 'summary'`

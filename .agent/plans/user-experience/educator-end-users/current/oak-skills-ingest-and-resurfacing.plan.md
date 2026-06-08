@@ -99,12 +99,12 @@ t0 must record a verdict + rationale for each before any build workstream starts
 3. **Source-of-truth topology** — ingest from the canonical `oak-skills` repo
    directly, from Direction B's curated **public mirror**
    (`oak-curriculum-skills`), or via a capability-manifest layer between
-   (synthesis-plan open decision #1). The set **may diverge**: Direction B may
-   publish only a curated, brand-excluded subset, so the MCP-resurfaced set and
-   the public-CLI set are not necessarily identical — and ingesting the mirror
-   inherits its licensing/exclusion decisions (decision #5). Resolve this
-   coherently with Direction B's WS1 (oak-skills plan
-   `.agent/plans/public-distribution.plan.md`).
+   (synthesis-plan open decision #4 — source-of-truth topology). The set **may
+   diverge**: Direction B may publish only a curated, brand-excluded subset, so
+   the MCP-resurfaced set and the public-CLI set are not necessarily identical —
+   and ingesting the mirror inherits its licensing/exclusion decisions (item 5
+   below — Licensing / attribution). Resolve this coherently with Direction B's
+   WS1 (`oaknational/oak-skills` plan `.agent/plans/public-distribution.plan.md`).
 4. **Determinism and pinning** — how an ingested source is pinned (SHA in
    `skills-lock.json` `source`/`computedHash`) so `pnpm skills:check` stays
    byte-deterministic.

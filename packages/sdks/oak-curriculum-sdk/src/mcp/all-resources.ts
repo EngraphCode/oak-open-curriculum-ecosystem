@@ -2,10 +2,16 @@
  * Canonical catalogue of every MCP resource the Oak Curriculum server exposes.
  *
  * This is the single source of truth for resource *listing* surfaces (the
- * landing page's Resources section) and for the registration drift guard. Both
- * the landing page and the app's `registerAllResources` derive from this list,
- * so the rendered list can never silently drift from the resources actually
- * registered — adding a resource here (and registering it) keeps them in lockstep.
+ * landing page's Resources section) and for the registration drift guard.
+ * `registerAllResources` registers resources explicitly (it does not iterate
+ * this list); an integration test asserts the registered set matches this
+ * catalogue, so a resource registered without being listed here — or listed
+ * without being registered — fails the guard rather than drifting silently.
+ *
+ * Listing is intentionally the full static set, not the runtime-registered set:
+ * the EEF resource is registered behind `OAK_CURRICULUM_MCP_EEF_ENABLED`
+ * (default ON), but the catalogue and the landing page always advertise it, so
+ * the listed capability surface is stable regardless of the flag.
  *
  * The `ui://` widget (`WIDGET_URI`) is a string constant used for MCP-Apps tool
  * output rendering, not a `resources/read` data resource, so it is deliberately

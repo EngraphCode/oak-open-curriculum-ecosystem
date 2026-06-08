@@ -148,10 +148,10 @@ todos:
     content: >-
       Clear each marketplace's directory-submission policy for the listed package:
       the Anthropic Software Directory Policy and the OpenAI/Codex submission
-      guidelines. Absorbs the live, distribution-agnostic compliance architecture
-      from the relocated compliance plan (tool annotations, response minimisation,
-      privacy-policy link, graph token efficiency) and re-frames its OpenAI section
-      to the Codex-plugin route. Acceptance: a compliance checklist per vendor is
+      guidelines. The directory-policy standards (tool annotations, response
+      minimisation, privacy-policy link, graph token efficiency) are owned by
+      app-submission-standards.plan.md and consumed here, not duplicated; w3
+      applies them per vendor via the Codex-plugin route. Acceptance: a compliance checklist per vendor is
       green; the privacy-policy link and required annotations are present; no PII is
       emitted in produced artefacts. Proof: non-code (checklist) + integration where
       a check is automatable.

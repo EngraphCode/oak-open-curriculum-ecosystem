@@ -15,7 +15,8 @@ import { escapeHtml } from './escape-html.js';
  * Generates an expandable `<details>` element containing a list of all
  * MCP resources with their URIs, titles, and descriptions. Resource data is
  * sourced from the canonical `ALL_MCP_RESOURCES` catalogue in the Oak
- * Curriculum SDK, so the page stays in sync with what is actually registered.
+ * Curriculum SDK — the advertised capability surface (the full static set; the
+ * flag-gated EEF entry is listed even when its registration flag is off).
  *
  * @returns HTML string for the resources section
  *
