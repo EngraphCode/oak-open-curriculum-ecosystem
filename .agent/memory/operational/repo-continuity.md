@@ -73,9 +73,18 @@ surface.
   [`eef-outcome-evaluation-infrastructure.plan.md`](../../plans/sector-engagement/eef/future/eef-outcome-evaluation-infrastructure.plan.md).
   Marking D7 green fires the
   [`graph-tools-value-redesign`](../../plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
-  promotion trigger (`get-keywords` added to that plan this session). **Next safe step: session
-  handoff + docs consolidation (this pass), then merge the PR** (branch `feat/graph-tooling-tidyup`;
-  re-derive ahead-count first-hand).
+  promotion trigger (`get-keywords` added to that plan this session). **SHIPPED TO PRODUCTION
+  2026-06-08**: PR #131 squash-merged to `main` (`d9f0d906`) → semantic-release `v1.16.0` → Vercel
+  production deploy READY; the EEF surface is live by default at
+  `curriculum-mcp-alpha.oaknational.dev` (owner-confirmed on the landing page). **Next safe step:
+  none on this thread — the build arc is delivered and shipped.**
+- **MCP landing-page resources fix — committed, preview-verified, awaiting merge.** The landing
+  page under-listed resources (3 of 8) because `render-resources-section` derived from a narrow
+  `DOCUMENTATION_RESOURCES` const; fixed with a single canonical `ALL_MCP_RESOURCES` catalogue
+  consumed by the page plus a registration drift-guard test (`009e5481` on `feat/skills-planning`,
+  PR #140). Preview shows Resources (8) incl. `eef://interpretation` (owner-confirmed). **Next safe
+  step: merge `feat/skills-planning`** (a `fix` → patch release) to reach production. The
+  `agent-tools:mcp-inspector-smoke` testing-harness plan is queued in `agent-tooling/current/`.
 - **MCP test estate + observability sinks plans → both `🟢 DECISION-COMPLETE`; execution
   owner-scheduled.**
   [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md)
