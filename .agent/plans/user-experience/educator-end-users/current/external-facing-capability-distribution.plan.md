@@ -20,6 +20,12 @@ last_updated: 2026-06-08
 > decisions — it does **not** resolve where the capability source-of-truth lives
 > or which hosts ship first, and it does **not** assume `oaknational/oak-skills`
 > remains the source of truth.
+>
+> **Update (2026-06-08):** the owner has since decided the **packaging** (a
+> cross-vendor plugin bundle) and to pursue **both** distribution directions. The
+> "Owner decisions — status" section below records what is now decided versus
+> still open, with pointers to the sibling plans; this synthesis still only
+> *frames* the remaining open items.
 
 ## Problem and intent
 
@@ -142,26 +148,39 @@ todos:
     depends_on: [t5-update-indexes]
 ```
 
-## Open owner decisions (named here, resolved at a later product step — NOT by this plan)
+## Owner decisions — status (some decided 2026-06-08)
 
-1. Where does the external-facing capability source-of-truth live — `oak-skills`,
-   a capability-manifest layer above it, or a new home? (We do not assume
-   `oak-skills`.)
-2. Packaging: a cross-vendor plugin bundle, or another shape?
-3. Which hosts/marketplaces first (the UK/EEA ChatGPT-Apps availability gap bears
-   on this)?
-4. First-tranche capability scope (lesson adaptation + evidence framing are the
-   strongest candidates given EEF, but the scope call is the owner's).
+1. **Source-of-truth topology — partially decided; topology still open.** The owner
+   has decided to pursue **both** external-facing directions (2026-06-08): Direction
+   A — this repo re-surfaces `SKILL.md` capability through the MCP app
+   ([`mcp-skill-surfacing-and-ingest.plan.md`](mcp-skill-surfacing-and-ingest.plan.md));
+   and Direction B — `oak-skills` becomes a public skills-CLI source
+   (`oaknational/oak-skills` → `.agent/plans/public-distribution.plan.md`). **Still
+   open:** whether the ingest/publish source is the canonical `oak-skills`, a
+   curated public mirror (`oak-curriculum-skills`), or a manifest layer — owned by
+   Direction A's `t0` spike and Direction B's WS1.
+2. **Packaging — DECIDED: a cross-vendor plugin bundle** (skills + MCP) shipping to
+   **both Claude and Codex**, owned in this repo. Recorded in
+   [`../future/plugin-bundle-distribution.plan.md`](../future/plugin-bundle-distribution.plan.md).
+3. **Hosts/marketplaces — route decided; specifics open.** The route is the **Claude
+   and Codex marketplaces** (via the plugin bundle, decision #2); per-vendor
+   submission specifics are framed in the plugin-bundle plan. (The seed review
+   clarified the OpenAI equivalent is the **Codex plugin**, not ChatGPT apps, so the
+   earlier UK/EEA ChatGPT-Apps gap is not the gating constraint.)
+4. **First-tranche capability scope — open.** Lesson adaptation + evidence framing
+   are the strongest candidates given EEF; the scope call is the owner's.
 
-These are recorded so the coherent set frames them; resolving them is a separate
-product decision with its own prerequisites (publication intent; EEF deployment;
-cross-repo agreement).
+The decided items were made by the owner since this plan was authored and are
+recorded here for coherence; the remaining open items are *framed*, not resolved,
+by this plan, with resolution owned by the sibling plans named above.
 
 ## Non-goals
 
-- Do not resolve the open decisions above; frame them only.
-- Do not assume `oak-skills` is or remains the source of truth, or any specific
-  packaging/host outcome.
+- Do not resolve the *remaining open* decisions above; frame them only.
+- Do not assume a source-of-truth topology (canonical `oak-skills`, a curated
+  mirror, or a manifest layer) — that remains open. The packaging shape
+  (cross-vendor plugin bundle) and the both-directions intent are owner-decided
+  (2026-06-08) and recorded above, not re-litigated here.
 - Do not edit `oak-skills` (separate repo; upstream requests only).
 - Do not duplicate the discovery parent's layer map or the ADR-189 taxonomy.
 - Do not build or design a generator/registry here — that is downstream of the
