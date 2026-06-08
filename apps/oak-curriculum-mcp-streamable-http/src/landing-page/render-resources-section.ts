@@ -5,7 +5,7 @@
  * from the Oak Curriculum SDK.
  */
 
-import { DOCUMENTATION_RESOURCES } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+import { ALL_MCP_RESOURCES } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
 import { escapeHtml } from './escape-html.js';
 
@@ -13,8 +13,10 @@ import { escapeHtml } from './escape-html.js';
  * Renders the resources section with all available MCP resources.
  *
  * Generates an expandable `<details>` element containing a list of all
- * MCP documentation resources with their URIs, titles, and descriptions.
- * Resource data is sourced from the Oak Curriculum SDK.
+ * MCP resources with their URIs, titles, and descriptions. Resource data is
+ * sourced from the canonical `ALL_MCP_RESOURCES` catalogue in the Oak
+ * Curriculum SDK — the advertised capability surface (the full static set; the
+ * flag-gated EEF entry is listed even when its registration flag is off).
  *
  * @returns HTML string for the resources section
  *
@@ -25,9 +27,9 @@ import { escapeHtml } from './escape-html.js';
  * ```
  */
 export function renderResourcesSection(): string {
-  const resourceCount = DOCUMENTATION_RESOURCES.length;
+  const resourceCount = ALL_MCP_RESOURCES.length;
 
-  const resourceItems = DOCUMENTATION_RESOURCES.map(
+  const resourceItems = ALL_MCP_RESOURCES.map(
     (resource) => `
       <li>
         <code>${escapeHtml(resource.uri)}</code>
@@ -42,7 +44,7 @@ export function renderResourcesSection(): string {
         <h2>Resources (${String(resourceCount)})</h2>
         <span class="expand-hint">Click to expand</span>
       </summary>
-      <p>Documentation resources available via MCP resources/read:</p>
+      <p>Resources available via MCP resources/read:</p>
       <ul class="tool-list">${resourceItems}
       </ul>
     </details>`;

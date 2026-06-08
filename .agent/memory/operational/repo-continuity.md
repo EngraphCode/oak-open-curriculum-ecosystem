@@ -44,21 +44,29 @@ surface.
   this §Current State curated. **Residual signals (reported, not chased):** a few small
   paused/retired records keep minor link-dominated or barely-over width. **Next safe step: none
   on this lane.**
-- **EXTERNAL-FACING SKILLS → EDUCATOR-END-USERS SYNTHESIS SEEDED (2026-06-08, Zephyrous Buffeting
-  Falcon / `2de7a7`, claude / Opus 4.8, owner-directed).** Reviewed `oaknational/oak-skills` + the
-  discovery skills lane; relocated the external-consumer skills/plugin/MCP-skill-like materials
-  (7 docs) into
-  [`user-experience/educator-end-users/previous-materials/`](../../plans/user-experience/educator-end-users/previous-materials/README.md)
-  with a seed review report (`6101a946`); cross-linked the EEF↔oak-skills upstream request and
-  corrected a stale EEF-status line. Web-verified finding: **plugins are the cross-vendor bundling
-  layer** — Claude plugins and OpenAI **Codex plugins** both bundle skills + MCP via a marketplace.
-  **Next safe step: execute**
-  [`current/external-facing-capability-distribution.plan.md`](../../plans/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)
-  — synthesise our scattered plan documents into one coherent, current set (executable now; it
-  FRAMES the downstream product decisions — source-of-truth location, packaging, hosts — rather
-  than assuming them, NOT assuming oak-skills remains the source of truth). The oak-skills-side EEF
-  reference is an
-  [upstream request](../../plans/upstream-feature-requests/oak-skills/reference-eef-evidence-once-live.md).
+- **EXTERNAL-FACING CAPABILITY CORPUS — `previous-materials/` HOLDING PEN DELETED, ZERO LOSS (2026-06-08,
+  Starless Prowling Veil / `4863ac`, claude / Opus 4.8, owner-directed; took over from Vining Climbing
+  Canopy, with Fiery Burning Bellows + Opalescent Gliding Aurora, both retired).** Owner criterion: make
+  `previous-materials/` deletable with **zero loss of useful information**. Verified per-file (a
+  conservation-verification fan-out + an adversarial-skeptic pass + first-hand checks) that the prior
+  relocation sweep was too aggressive — most gathered files were **live intent**, not spent inputs (the
+  984-line compliance plan was the canary). Outcome: the discovery **Agent Skills lane** (2 plans + 2
+  companion reports) **restored intact** to
+  [`discovery/future/`](../../plans/discovery/future/README.md); `cursor-plugins-...` restored to
+  `developer-experience/future/`; `education-skills-mcp-surface.plan.md` to
+  `exploring-open-education-resources/external-knowledge-sources/future/`; the app-submission compliance
+  plan **promoted + renamed** to
+  [`current/app-submission-standards.plan.md`](../../plans/user-experience/educator-end-users/current/app-submission-standards.plan.md);
+  the holding pen + its README deleted. The synthesis hub
+  [`external-facing-capability-distribution.plan.md`](../../plans/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)
+  reshaped from a "disposition ledger" into a **clean corpus map** (Direction A; plugin-package-creation;
+  app-submission-standards; `future/` bundle brief; cross-repo Direction B). All cross-collection refs
+  repointed; **no tombstones, no dangling links.** EEF live on `oak-prod` (`get-eef-evidence`). Upstream
+  request for the stale cross-repo Direction-A filename authored at
+  [`upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md`](../../plans/upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md).
+  **Open owner decisions:** source-of-truth topology (#4, cross-cutting) and first-tranche capability
+  scope (#5). **Next safe step:** none on the corpus (coherent + committed); execute Direction A `t0` /
+  plugin-package `w0` design gates once the owner resolves #4/#5.
 - **EEF `get-eef-evidence` — D6 + D7 COMPLETE; the EEF build arc (D0–D7) is DELIVERED
   (D7 owner-marked 2026-06-08).** The surface is LIVE BY DEFAULT (kill-switch posture: default ON,
   `OAK_CURRICULUM_MCP_EEF_ENABLED=false` disables — `feature-flags.ts` engine, `d3109d7c`; the
@@ -73,9 +81,18 @@ surface.
   [`eef-outcome-evaluation-infrastructure.plan.md`](../../plans/sector-engagement/eef/future/eef-outcome-evaluation-infrastructure.plan.md).
   Marking D7 green fires the
   [`graph-tools-value-redesign`](../../plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
-  promotion trigger (`get-keywords` added to that plan this session). **Next safe step: session
-  handoff + docs consolidation (this pass), then merge the PR** (branch `feat/graph-tooling-tidyup`;
-  re-derive ahead-count first-hand).
+  promotion trigger (`get-keywords` added to that plan this session). **SHIPPED TO PRODUCTION
+  2026-06-08**: PR #131 squash-merged to `main` (`d9f0d906`) → semantic-release `v1.16.0` → Vercel
+  production deploy READY; the EEF surface is live by default at
+  `curriculum-mcp-alpha.oaknational.dev` (owner-confirmed on the landing page). **Next safe step:
+  none on this thread — the build arc is delivered and shipped.**
+- **MCP landing-page resources fix — committed, preview-verified, awaiting merge.** The landing
+  page under-listed resources (3 of 8) because `render-resources-section` derived from a narrow
+  `DOCUMENTATION_RESOURCES` const; fixed with a single canonical `ALL_MCP_RESOURCES` catalogue
+  consumed by the page plus a registration drift-guard test (`009e5481` on `feat/skills-planning`,
+  PR #140). Preview shows Resources (8) incl. `eef://interpretation` (owner-confirmed). **Next safe
+  step: merge `feat/skills-planning`** (a `fix` → patch release) to reach production. The
+  `agent-tools:mcp-inspector-smoke` testing-harness plan is queued in `agent-tooling/current/`.
 - **MCP test estate + observability sinks plans → both `🟢 DECISION-COMPLETE`; execution
   owner-scheduled.**
   [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md)

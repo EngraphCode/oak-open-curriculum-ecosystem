@@ -17,6 +17,82 @@ Every behaviour-changing entry was verified live in a permanent home before
 rotation; the commit and those homes are the record. Fresh capture continues
 below.
 
+## 2026-06-08 — a "to be synthesised" holding pen swept in live intent (Starless Prowling Veil, 4863ac)
+
+### Surprise
+
+- **Expected**: `previous-materials/` was a holding pen of spent synthesis inputs,
+  safe to delete once conclusions were conserved (the owner's working hypothesis).
+- **Actual**: Per-file verification (a conservation fan-out + an adversarial-skeptic
+  pass + first-hand checks) showed most files were **live cross-collection intent**,
+  not spent. The 984-line compliance plan was a live plan (governance ADR, privacy,
+  graph token-efficiency) mis-filed as a distribution input — the canary. Four more
+  (the discovery Agent Skills lane, cursor-plugins, education-skills) were also live.
+- **Why expectation failed**: a "relocate to synthesise" sweep silently absorbs
+  adjacent-collection live intent, then the holding-pen framing presents it all as
+  disposable.
+
+### Correction / lesson
+
+- Before deleting a "to be synthesised" holding pen, verify per-file conservation,
+  separating useful-forward intent from spent working-out. **Migrate-don't-drop on
+  any judgment call** — migration is cheap and reversible; deletion is the loss.
+  Restore live intent to its value-home (often origin); delete only genuinely-spent
+  working-out whose conclusions are conserved elsewhere.
+- Second-order trap: restoring whole files re-resolves their internal sibling links,
+  but deleting *some but not all* of a coherent set orphans the survivors' companion
+  links (the discovery plans cited the two reports — caught on a repo-wide sweep).
+- Agent/workflow output is input-to-verify: the "channels report deletion-safe"
+  verdict was right in the educator-corpus frame but wrong once the discovery plans
+  were restored as live; overrode it on first-hand reassessment.
+
+## 2026-06-08 — Vining support watcher correction (Opalescent Gliding Aurora, 019ea7)
+
+### Surprise
+
+- **Expected**: Starting `comms watch` plus a heartbeat loop meant I was monitoring
+  team messages while working.
+- **Actual**: The watcher process stayed alive, but I only consumed backlog when I
+  manually polled; the owner correctly observed that my monitor was not working and
+  that Veil was no longer active.
+- **Why expectation failed**: I confused process liveness with attended monitoring
+  and let the useful-work lane sit behind a passive status surface.
+- **Behaviour change**: In team sessions on Codex, treat `comms watch` as a feed to
+  actively poll/read at the cadence promised; if it is not waking the session, say so,
+  switch to explicit polling, and stop any background watcher before closeout rather
+  than leaving misleading liveness.
+- **Source plane**: operational
+
+## 2026-06-08 — EEF go-live verified + landing-page resources fix (Galactic Drifting Twilight, 64c8e4 — cont.)
+
+After the D7 closeout below: watched the merge → CI → semantic-release chain land **v1.16.0** and
+the Vercel production deploy go READY (the EEF surface live by default in prod, owner-confirmed on
+the landing page). Then found + fixed a landing-page defect on `feat/skills-planning` (009e5481,
+preview verified, owner saw 8 resources).
+
+- **To check pushed-state, resolve the upstream via `@{u}` — never hand-construct `origin/<branch>`.**
+  I typed `origin/feat-graph-tooling-tidyup` (hyphen) for a branch named `feat/graph-tooling-tidyup`
+  (slash) → `git merge-base --is-ancestor … origin/feat-graph-tooling-tidyup` errored (unknown
+  revision) → I read the errors as false negatives and **escalated a "your push didn't land / 5
+  commits unpushed" alarm to the owner before verifying**. `@{u}` showed everything was already
+  pushed (HEAD == upstream == PR head). Cure: use `git rev-parse --abbrev-ref @{u}` / `@{u}...HEAD`
+  for pushed-state, and never escalate a push/sync "discrepancy" to the owner until it is confirmed
+  against the authoritative ref. Homed in [[feedback_check_pushed_state_via_upstream_ref]].
+- **`candidate:` derive-don't-drift for multi-section listing surfaces.** The MCP landing page
+  derived its prompts and tools sections from full SDK catalogues but the resources section from a
+  narrow `DOCUMENTATION_RESOURCES` const → it silently under-listed (3 of 8; missing
+  `eef://interpretation` + graph + model resources). Cure: a single canonical catalogue
+  (`ALL_MCP_RESOURCES`) consumed by the page, plus a drift-guard test tying the listing to the
+  registered surface. Reusable for any "list what's registered" UI; capture pending a second instance.
+- **Foreign git lock on a non-quiescent branch — worked instance.** Committing the fix on
+  `feat/skills-planning` collided with `.git/index.lock` held by the owner's terminal mid-burst
+  (3 docs commits landed). Per doctrine I did NOT delete the lock or poll-loop; surfaced it, and the
+  explicit-pathspec retry landed clean once the lock cleared. Reinforces never-delete-lock +
+  explicit-pathspec; "sole agent" can still mean concurrent owner-terminal commits.
+- **release-and-observe, closed by the owner's own eyes.** The value proof for both the EEF surface
+  and the landing-page fix was the owner viewing real output (prod + preview), not a test —
+  [[feedback_value_proven_by_release_not_test]] in action.
+
 ## 2026-06-08 — EEF UAT + inspector + D7 closeout (Galactic Drifting Twilight, 64c8e4)
 
 Arc: live-exercised the EEF surface over the authenticated MCP; rewrote the MCP manual

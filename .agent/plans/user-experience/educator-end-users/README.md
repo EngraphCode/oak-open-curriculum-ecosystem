@@ -11,14 +11,13 @@ A fresh synthesis of Oak's external-facing skills, plugins, and MCP skill-like
 surfaces is underway in this persona's home — curriculum-assistance is the
 primary external skills audience.
 
-- **Active plan:** [current/external-facing-capability-distribution.plan.md](current/external-facing-capability-distribution.plan.md)
-  — synthesise our scattered plan documents into one coherent, current set.
+- **Corpus map:** [current/external-facing-capability-distribution.plan.md](current/external-facing-capability-distribution.plan.md)
+  — the coherent set of external-facing-capability plans and the open owner decisions.
 - Seed review: [external-facing-skills-and-mcp-surfaces-review.report.md](external-facing-skills-and-mcp-surfaces-review.report.md)
-- Prior materials (relocated 2026-06-08): [previous-materials/](previous-materials/README.md)
 
-The active plan consolidates our estate and **frames** the downstream product
-decisions (where the capability source-of-truth lives, packaging, which hosts)
-rather than assuming them. New plans land here.
+The corpus map **frames** the downstream product decisions (where the capability
+source-of-truth lives, packaging, which hosts) rather than assuming them. New
+plans land here.
 
 ---
 
@@ -74,7 +73,7 @@ Implementation sequencing remains in semantic-search and SDK/MCP plans.
 | [../../semantic-search/future/08-experience-surfaces-and-extensions/advanced-features.md](../../semantic-search/future/08-experience-surfaces-and-extensions/advanced-features.md) | Defines extension-capability journeys that map to educator outcomes |
 | [../../sdk-and-mcp-enhancements/roadmap.md](../../sdk-and-mcp-enhancements/roadmap.md) | App surface/host compatibility for user-facing UI |
 | [../../security-and-privacy/roadmap.md](../../security-and-privacy/roadmap.md) | Safety and trust signals in educational usage contexts |
-| [../../sector-engagement/ooc-api-wishlist/index.md](../../sector-engagement/ooc-api-wishlist/index.md) | Upstream API constraints that can block or degrade educator journeys |
+| [../../sector-engagement/archive/ooc-api-wishlist/index.md](../../sector-engagement/archive/ooc-api-wishlist/index.md) | Upstream API constraints that can block or degrade educator journeys |
 | [../public-alpha-experience-contract.md](../public-alpha-experience-contract.md) | Shared alpha promise and no-go criteria |
 
 ---
@@ -92,9 +91,9 @@ Implementation sequencing remains in semantic-search and SDK/MCP plans.
 
 | Risk | Educator Impact | Source |
 |------|-----------------|--------|
-| Broken canonical URL patterns | Teachers lose trust when generated lesson links fail | [../../sector-engagement/ooc-api-wishlist/06-response-metadata-and-caching.md](../../sector-engagement/ooc-api-wishlist/06-response-metadata-and-caching.md) |
-| Missing programme/tier context | GCSE-level discovery and comparison journeys are ambiguous | [../../sector-engagement/ooc-api-wishlist/18-programmes-and-identifiers-examples.md](../../sector-engagement/ooc-api-wishlist/18-programmes-and-identifiers-examples.md) |
-| Incomplete transcript signalling | Accessibility and explanation journeys become inconsistent | [../../sector-engagement/ooc-api-wishlist/11-assets-and-transcripts-examples.md](../../sector-engagement/ooc-api-wishlist/11-assets-and-transcripts-examples.md) |
+| Broken canonical URL patterns | Teachers lose trust when generated lesson links fail | [../../sector-engagement/archive/ooc-api-wishlist/06-response-metadata-and-caching.md](../../sector-engagement/archive/ooc-api-wishlist/06-response-metadata-and-caching.md) |
+| Missing programme/tier context | GCSE-level discovery and comparison journeys are ambiguous | [../../sector-engagement/archive/ooc-api-wishlist/18-programmes-and-identifiers-examples.md](../../sector-engagement/archive/ooc-api-wishlist/18-programmes-and-identifiers-examples.md) |
+| Incomplete transcript signalling | Accessibility and explanation journeys become inconsistent | [../../sector-engagement/archive/ooc-api-wishlist/11-assets-and-transcripts-examples.md](../../sector-engagement/archive/ooc-api-wishlist/11-assets-and-transcripts-examples.md) |
 
 ---
 

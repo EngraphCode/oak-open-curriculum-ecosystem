@@ -19,6 +19,7 @@ import type {
 } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpUiReadResourceResult } from '@modelcontextprotocol/ext-apps/server';
 import {
+  ALL_MCP_RESOURCES,
   DOCUMENTATION_RESOURCES,
   WIDGET_URI,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
@@ -507,5 +508,40 @@ describe('registerAllResources registers the widget resource', () => {
     expect(resource?.contents[0]?.mimeType).toBe(RESOURCE_MIME_TYPE);
     expect(getTextContent(resource?.contents[0])).toBe(TEST_WIDGET_HTML);
     expect(widgetHtmlReadCount).toBe(1);
+  });
+});
+
+describe('registerAllResources matches the canonical resource catalogue (drift guard)', () => {
+  let server: Pick<McpServer, 'registerResource'>;
+  let registeredResources: RegisteredResourceMap;
+  let flush: () => Promise<void>;
+
+  beforeEach(() => {
+    const mock = createMockServer();
+    server = mock.server;
+    registeredResources = mock.registeredResources;
+    flush = mock.flush;
+  });
+
+  it('registers exactly the ALL_MCP_RESOURCES URIs (widget aside) when the EEF flag is on', async () => {
+    registerAllResources(server, createTestOptions(undefined, true));
+    await flush();
+
+    const registeredUris = Array.from(registeredResources.keys())
+      .filter((uri) => uri !== WIDGET_URI)
+      .sort((a, b) => a.localeCompare(b));
+    const catalogueUris = ALL_MCP_RESOURCES.map((resource) => resource.uri).sort((a, b) =>
+      a.localeCompare(b),
+    );
+
+    expect(registeredUris).toStrictEqual(catalogueUris);
+  });
+
+  it('omits the EEF interpretation resource when the EEF flag is off', async () => {
+    registerAllResources(server, createTestOptions(undefined, false));
+    await flush();
+
+    const uris = Array.from(registeredResources.keys());
+    expect(uris).not.toContain('eef://interpretation');
   });
 });

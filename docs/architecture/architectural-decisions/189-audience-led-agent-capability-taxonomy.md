@@ -26,11 +26,8 @@ adapters, repo paths) becoming user-facing language, and developer
 guidance being framed as teacher workflow or vice versa.
 
 The vocabulary itself is defined in
-[`agent-capability-vocabulary.md`](../../../.agent/memory/executive/agent-capability-vocabulary.md);
-the application pass is owned by the
-[skills-classification-taxonomy plan](../../../.agent/plans/user-experience/educator-end-users/previous-materials/skills-classification-taxonomy.plan.md);
-the supporting ecosystem survey is the
-[skills-distribution-channels report](../../../.agent/plans/user-experience/educator-end-users/previous-materials/skills-distribution-channels-suggestions.report.md).
+[`agent-capability-vocabulary.md`](../../../.agent/memory/executive/agent-capability-vocabulary.md),
+the live source of truth for the capability terminology this decision ratifies.
 
 ## Decision
 

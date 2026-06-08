@@ -1,5 +1,5 @@
 ---
-name: "MCP skill-surfacing and ingest — this repo's half of the both-directions distribution decision"
+name: "Oak Skills ingest and resurfacing — this repo's half of the both-directions distribution decision, the other half is in the oak-skills repo"
 collection: user-experience
 audience: educator-end-users
 lane: current
@@ -8,7 +8,7 @@ type: executable
 last_updated: 2026-06-08
 ---
 
-# MCP skill-surfacing and ingest — this-repo half of the both-directions decision
+# Oak Skills ingest and resurfacing — this-repo half of the both-directions decision, the other half is in the oak-skills repo
 
 > **Executable, queued (`current/`).** This is the **this-repo** half of an owner
 > decision (2026-06-08): pursue **both** external-facing distribution directions
@@ -75,6 +75,16 @@ preserved.
   EEF is default-ON in this repo (commit `d3109d7c`), gated live by deployment.
 - `oak-skills` is an Agent Skills library (`skills/<id>/SKILL.md`); it is a
   separate repo, **not edited from here** (Direction B is owned by its own plan).
+- The MCP app also exposes a **legacy `workflows` surface**: the static
+  `toolGuidanceWorkflows` recipes (seven hand-authored "call tool A → B → C"
+  sequences in `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`),
+  surfaced as the `docs://oak/workflows.md` resource **and** embedded in
+  `get-curriculum-model` output and tool `structuredContent` via
+  `tool-guidance-data.ts`. These are an early, primitive form of a skill
+  workflow-spine — the same "orchestrate tools toward a teacher task" shape this
+  generated skill-surfacing path produces properly. The `workflows` surface is
+  **deprecated**; its useful content migrates into the generated surfaces and the
+  static copies are then removed (t5).
 
 ## Open design decisions — resolved by Workstream 0 (the design gate)
 
@@ -86,8 +96,15 @@ t0 must record a verdict + rationale for each before any build workstream starts
    ↔ prompt; `references/` ↔ resource).
 2. **The `sourceType` contract** — the closed discriminated union shape (per
    `closed-shape-design-optionality`), each member carrying its resolver + emitter.
-3. **Source-of-truth topology** — ingest `oak-skills` directly, or a
-   capability-manifest layer between (synthesis-plan open decision #1).
+3. **Source-of-truth topology** — ingest from the canonical `oak-skills` repo
+   directly, from Direction B's curated **public mirror**
+   (`oak-curriculum-skills`), or via a capability-manifest layer between
+   (synthesis-plan open decision #4 — source-of-truth topology). The set **may
+   diverge**: Direction B may publish only a curated, brand-excluded subset, so
+   the MCP-resurfaced set and the public-CLI set are not necessarily identical —
+   and ingesting the mirror inherits its licensing/exclusion decisions (item 5
+   below — Licensing / attribution). Resolve this coherently with Direction B's
+   WS1 (`oaknational/oak-skills` plan `.agent/plans/public-distribution.plan.md`).
 4. **Determinism and pinning** — how an ingested source is pinned (SHA in
    `skills-lock.json` `source`/`computedHash`) so `pnpm skills:check` stays
    byte-deterministic.
@@ -148,6 +165,26 @@ todos:
       Proof: integration.
     status: pending
     depends_on: [t2-mcp-emitter]
+  - id: t5-fold-and-deprecate-workflows
+    content: >-
+      Migrate the useful content of the legacy `workflows` surface, then deprecate
+      it. The seven `toolGuidanceWorkflows` recipes are curated tool-orchestration
+      sequences (the t0 #1 "workflow spine ↔ prompt" mapping); fold their guidance
+      into the generated skill/prompt surfaces so the orchestration lives in the
+      generated path, then remove the static copies at all three sites — the
+      `docs://oak/workflows.md` resource (`DOCUMENTATION_RESOURCES` + getWorkflowsMarkdown),
+      the `workflows` key in `tool-guidance-data.ts` (which flows into
+      get-curriculum-model + tool structuredContent), and the
+      `tool-guidance-workflows.ts` module. Replace-don't-bridge: the static surface
+      is removed only once the generated surfaces carry the equivalent guidance, so
+      no guidance is lost. TDD: a failing test asserts a generated surface carries
+      the migrated orchestration guidance and that get-curriculum-model no longer
+      emits the static `workflows` block; product code greens it. Acceptance: the
+      workflow guidance is reachable via the generated path; all three static sites
+      are removed; `pnpm skills:check`, type-check, and tests are green. Proof:
+      integration.
+    status: pending
+    depends_on: [t2-mcp-emitter]
 ```
 
 ## Sequencing and gating
@@ -169,11 +206,13 @@ and final validation use the canonical aggregate gate
 ## Acceptance / proof contract
 
 Proof levels by todo: **t0** non-code (decision record); **t1** unit; **t2**
-integration; **t3** unit + integration; **t4** integration. Completion of a code
-workstream requires all tests passing at every level for that workstream; the
-plan is complete when at least one curriculum-assistance capability is reachable
-through the MCP app from a generated `SKILL.md` source, the EEF c4/c5 surfaces are
-generated (t4), and `pnpm skills:check` is green and deterministic.
+integration; **t3** unit + integration; **t4** integration; **t5** integration.
+Completion of a code workstream requires all tests passing at every level for that
+workstream; the plan is complete when at least one curriculum-assistance capability
+is reachable through the MCP app from a generated `SKILL.md` source, the EEF c4/c5
+surfaces are generated (t4), the legacy `workflows` surface is migrated into the
+generated path and its static copies removed (t5), and `pnpm skills:check` is green
+and deterministic.
 
 ## Non-goals
 

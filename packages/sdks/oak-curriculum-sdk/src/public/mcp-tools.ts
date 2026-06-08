@@ -110,6 +110,8 @@ export {
   getEefInterpretationMarkdown,
 } from '../mcp/eef-interpretation-resource.js';
 
+export { ALL_MCP_RESOURCES, type McpResource } from '../mcp/all-resources.js';
+
 export { MCP_PROMPTS, getPromptMessages, type McpPrompt } from '../mcp/mcp-prompts.js';
 
 export { SERVER_INSTRUCTIONS } from '../mcp/prerequisite-guidance.js';

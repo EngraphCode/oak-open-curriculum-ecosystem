@@ -28,7 +28,8 @@ It is deliberately distinct from:
 | [current/standards-verification-2026-06-01.report.md](current/standards-verification-2026-06-01.report.md) | Verification report | Re-checks repo discovery plans and the Oak ticket against live standards and public Oak endpoints |
 | [future/README.md](future/README.md) | Future index | Strategic / later discovery briefs |
 | [future/agentic-mechanisms-discovery.plan.md](future/agentic-mechanisms-discovery.plan.md) | Future strategic parent | Owns the broader discovery thread and layer map across skills, MCP server cards, A2A, registry metadata, and adjacent agent-web proposals |
-| *Agent Skills lane (4 docs)* | Relocated 2026-06-08 | Moved to [../user-experience/educator-end-users/previous-materials/](../user-experience/educator-end-users/previous-materials/) to seed an educator synthesis; ADR-189 + executive capability vocabulary remain the ratified homes |
+| [future/agent-skills-discovery.plan.md](future/agent-skills-discovery.plan.md) | Future strategic brief | Discover and surface Oak agent skills to external registries and runtimes; taxonomy conclusions ratified in [ADR-189](../../../docs/architecture/architectural-decisions/189-audience-led-agent-capability-taxonomy.md) |
+| [future/skills-classification-taxonomy.plan.md](future/skills-classification-taxonomy.plan.md) | Future strategic brief | Classification and taxonomy scheme for Oak agent skills; vocabulary ratified in [ADR-189](../../../docs/architecture/architectural-decisions/189-audience-led-agent-capability-taxonomy.md) |
 | [future/mcp-server-cards.plan.md](future/mcp-server-cards.plan.md) | Future strategic brief | Track the draft MCP Server Cards spec (SEP-2127) and prepare a discoverable `.well-known` server card for Oak's public remote MCP server once the spec stabilises |
 | [future/dns-aid-discovery.plan.md](future/dns-aid-discovery.plan.md) | Future strategic brief | Track optional DNS-AID publication and keep DNS discovery from drifting from the apex catalog |
 | [future/aila-a2a-agent-card.plan.md](future/aila-a2a-agent-card.plan.md) | Future strategic brief | Conditional Aila A2A Agent Card plan if Oak exposes Aila to third-party agents |
@@ -44,8 +45,6 @@ It is deliberately distinct from:
 5. [future/agentic-mechanisms-discovery.plan.md](future/agentic-mechanisms-discovery.plan.md)
 6. [future/mcp-server-cards.plan.md](future/mcp-server-cards.plan.md)
 7. Relevant conditional child plans in [future/README.md](future/README.md)
-
-*(The Agent Skills lane relocated 2026-06-08 to [../user-experience/educator-end-users/previous-materials/](../user-experience/educator-end-users/previous-materials/).)*
 
 ## Status Legend
 
