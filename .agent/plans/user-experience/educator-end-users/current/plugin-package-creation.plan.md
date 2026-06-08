@@ -98,8 +98,9 @@ starts:
    output; the determinism/pinning contract either way.
 4. **Skills-source binding** — which source the manifests reference (the canonical
    `oak-skills`, Direction B's curated public mirror, or a manifest layer). This is
-   the synthesis plan's open decision #1, **shared with Direction A's t0 and
-   Direction B's WS1** — resolve coherently, do not re-decide independently.
+   the synthesis plan's open decision #4 (source-of-truth topology), **shared with
+   Direction A's t0 and Direction B's WS1** — resolve coherently, do not re-decide
+   independently.
 5. **End-user authentication** — how each vendor manifest references the deployed
    MCP and authenticates the end user (the Clerk-fronted auth path), and what the
    marketplace listing must declare about it.
