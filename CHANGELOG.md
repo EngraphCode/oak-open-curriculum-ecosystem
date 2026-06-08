@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.16.0...v1.16.1) (2026-06-08)
+
+
+### Bug Fixes
+
+* **mcp:** list the full resource catalogue on the landing page ([009e548](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/009e5481edecea9d7e5fee23057259faa6db17fb))
+
 # [1.16.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.15.0...v1.16.0) (2026-06-08)
 
 
