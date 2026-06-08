@@ -1,5 +1,5 @@
 ---
-name: "MCP skill-surfacing and ingest — this repo's half of the both-directions distribution decision"
+name: "Oak Skills ingest and resurfacing — this repo's half of the both-directions distribution decision, the other half is in the oak-skills repo"
 collection: user-experience
 audience: educator-end-users
 lane: current
@@ -8,7 +8,7 @@ type: executable
 last_updated: 2026-06-08
 ---
 
-# MCP skill-surfacing and ingest — this-repo half of the both-directions decision
+# Oak Skills ingest and resurfacing — this-repo half of the both-directions decision, the other half is in the oak-skills repo
 
 > **Executable, queued (`current/`).** This is the **this-repo** half of an owner
 > decision (2026-06-08): pursue **both** external-facing distribution directions
