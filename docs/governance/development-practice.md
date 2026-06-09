@@ -234,6 +234,13 @@ the current understanding.
 - PR or issue references like `#108` can fail markdownlint MD018
   if wrapping moves them to the start of a line. Use `PR-#108`,
   `issue #108`, or rewrap so the `#` token stays mid-line.
+- A wrapped prose line that begins with a list marker (`+`, `-`,
+  `*` then a space) trips MD004/MD032 — markdownlint reads it as a
+  nested list item. Never let a marker char start a wrapped line;
+  reword, rewrap, or use commas.
+- A bare `|` inside a table cell breaks MD056 column counting —
+  even inside inline-code backticks, even as TS union syntax
+  (`<EefStrand \| EefStrandHeadline>`). Escape it as `\|`.
 - For prose artefacts (READMEs, ADR/PDR/governance bodies,
   runbooks), acceptance criteria name the _decision_ and the
   _audience outcome_ — discoverability and accuracy, not exact
