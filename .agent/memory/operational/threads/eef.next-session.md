@@ -11,7 +11,21 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-09, Brazen Roasting Cinder / claude Opus 4.8, branch
+- **THIS SESSION (2026-06-09, Fragrant Spreading Sapling / claude Fable 5, branches
+  `feat/graph-migration-part-1` → `feat/graph-migration-part-2`) — graph-tools readiness →
+  🟢 DECISION-COMPLETE.** The review-and-readiness session the entry below queued. Owner overturned
+  the surface/graph split (find the real membranes); seam analysis + data grounding
+  ([report](../../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md)) → owner-ratified
+  deliverables (S1, S2, G1–G3, G4, U1 — each one small PR); `get-keywords` provenance falsified
+  (live-API tool; kept; U1 upstream request + G4 additional bounded tool, bulk-parity gated);
+  mechanisms settled R1-unanimous (B = new `./graph-corpus` subpath; NO substrate change —
+  per-view `GraphView` construction; factory + unit test deleted at G3); misconception anchors
+  ratified (unit+lesson core, thread bounded heavy-tail); R2 conditions all applied
+  (anchor-threading prompt rewrites; emission-ownership table; G4 Gate-1 rule) →
+  **DECISION-COMPLETE** with proof contract. Delivery: PR #143 (analysis + restructure) + a
+  stacked PR (R2 + flip + continuity). **Next: merge the two PRs; execution starts with any
+  unblocked deliverable (S1/S2/U1/G1).**
+- **PRIOR SESSION (2026-06-09, Brazen Roasting Cinder / claude Opus 4.8, branch
   `assess/evidence_workflows`, PR #142) — A-i/C deferred reviews + graph-tools-plan promotion.**
   The deferred A-i/C specialist reviews ran (5 reviewers via a workflow; every finding adjudicated
   FIRST-HAND — code/types/tests SOUND, no real defects; two over-escalations refuted). Verified
