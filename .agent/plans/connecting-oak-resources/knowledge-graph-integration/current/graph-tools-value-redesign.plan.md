@@ -526,10 +526,45 @@ Each names its single observable signal; verdicts land at promotion + per-unit l
 | Naive identity (slug-as-id) corrupts the graph silently when a lesson is placed in >1 unit | Identity is a deliberate design item (node/edge model): stable entity ids, unit↔lesson placement modelled as an edge, no slug-uniqueness assumption. Verified rare in the snapshot but not guaranteed; the model is correct for the edge case by construction. Bulk-id↔ontology-IRI reconciliation is a separate concern. |
 | Ontology coupling creep (treating the v0.1, change-prone ontology as a dependency of this plan) | Hard separation of concerns: this plan builds only from the bulk source and does not ingest/depend on the ontology. Any cross-source (concept) capability is a separate concern gated on the alignment audit. |
 
+## Prompt-surface follow-ons (surfaced 2026-06-09, exercising the live MCP)
+
+Captured here per owner direction (2026-06-09) after evaluating the five served MCP prompts
+(`find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `adapt-lesson` —
+defined in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts` + `mcp-prompt-messages.ts`).
+Item 1 is graph-coupled (this redesign's bounded tools are what fixes it); items 2–3 are adjacent
+prompt-surface quality items captured here on owner direction.
+
+1. **Whole-corpus flood in the prompts that consume the graph tools.** `adapt-lesson` (step 2) and
+   `learning-progression` (steps 2–3) instruct raw `get-misconception-graph` /
+   `get-prior-knowledge-graph` / `get-thread-progressions` calls — the exact whole-corpus floods
+   this redesign removes. **Make repointing the consuming prompt a per-unit acceptance:** a redesign
+   unit is not done until the prompt steps that call its tool are switched to the bounded, anchored
+   retrieval (misconceptions for the lesson's anchor; the thread's own progression), not the
+   whole-corpus dump.
+2. **`adapt-lesson` argument mapping over a slash invocation.** Its two required args (`topic`,
+   `yearGroup`) do not split cleanly from a single free-text slash command (observed 2026-06-09: a
+   free-text invocation arrived with the topic mis-assigned). It degrades gracefully (defaults), but
+   the arg shape is awkward for free-text use — consider a single structured brief arg or clearer
+   per-arg hints. Prompt-surface only, not graph work.
+3. **Fixed domain language — no near-synonym drift (owner: non-negotiable).** The prompt argument
+   vocabulary drifts (`topic` in four prompts vs `concept` in `learning-progression`; the scoping arg
+   is `keyStage` / `yearGroup` / `subject` across prompts). This is a professional domain with defined
+   terms, so the prompts (arg names AND message language) must use the canonical Oak glossary terms
+   consistently. **Authority (verified 2026-06-09): the served MCP resources carry NO standalone
+   glossary resource; the canonical domain terms are served in the `curriculum://model` resource**
+   (entity hierarchy; key stages `ks1`–`ks4`; year groups Year 1–11; subjects; phases primary /
+   secondary), which itself cites the authoritative Oak glossary at
+   `https://open-api.thenational.academy/docs/about-oaks-data/glossary`. Audit all five prompts
+   against it; standardise on the canonical terms — distinguish `keyStage` from `yearGroup`
+   deliberately (different granularities, not synonyms) and pick ONE query-arg term mapped to its
+   glossary entity. This is broader than the graph tools (a repo-wide MCP-language consistency
+   requirement); captured here per owner direction.
+
 ## Non-goals
 
-- **Not building anything while parked** — no data object reshaped, no tool rewritten; the build
-  is gated on EEF D6 + D7.
+- **Not building anything before the mechanism settle lands** — no data object reshaped, no tool
+  rewritten; the trigger (EEF D6 + D7) has fired, but the build is gated on the §Remaining promotion
+  work (settle + executable cycles), per owner direction (2026-06-09).
 - **Not cross-corpus composition, free-text topic resolution, or extended contexts** — owned by
   `oak-misconceptions-graph-features.plan.md §2–§4`, gated on this redesign + D7.
 - **Not the EEF tool** (owned by the EEF plan); **not** `vocabulary-graph` / `nc-coverage-graph`
