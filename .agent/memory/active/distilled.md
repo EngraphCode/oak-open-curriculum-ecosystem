@@ -76,6 +76,17 @@ invariant (`inspectStrand(id) === evidenceForMove({strandIds:[id]})`); the
 invariant-safe axis was coverage (`strand-lookup` vs `context-subset`). The existing
 invariant is design input, discovered first.
 
+## Don't pile new scope onto a plan pending its readiness review (2026-06-09, Fragrant Spreading Sapling)
+
+A plan whose whole pending job is review → decision-complete → execution-ready
+must not grow while it awaits that review — added scope makes the readiness review
+certify a *moving target*. When new scope lands on a not-yet-ready plan (even
+owner-directed), immediately fence it as a separate strand AND recommend splitting
+it to its own plan so the review stays on the original scope. Pair with **small-PR
+delivery**: "is it ready?" becomes "is each small unit ready?", never a mega-block
+judgement. Planning-discipline candidate; sibling of
+[[feedback_consolidate_estate_decouple_execution]].
+
 ## Reviewer-brief scope protection cites NUMBERED ratified decisions only
 
 "Decided scope protected" in a reviewer brief cites the numbered ratified
