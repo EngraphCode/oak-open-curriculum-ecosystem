@@ -79,10 +79,27 @@ todos:
 ## Remaining promotion work (next session)
 
 This plan is PROMOTED (active in `current/`) but **not yet decision-complete**. The owner deferred
-the decision-completing + execution-readying work to the next session (2026-06-09) given its scope.
-All of it is a **planning** effort (settle + author + review) — NOT the corpus re-emission or tool
-rewrites, which are the following branch's execution. The following must land for this plan to reach
-`🟢 DECISION-COMPLETE` and be execution-ready:
+the decision-completing + execution-readying work to the next session (2026-06-09).
+
+> **THE NEXT SESSION IS A PLAN-REVIEW-AND-READINESS SESSION — NOT EXECUTION.** History the next
+> session must know: this plan was promoted *needing* review → decision-complete → execution-ready
+> (that was its whole pending job), and THEN a load of extra scope was added on top (the
+> [§MCP surface rationalisation](#mcp-surface-rationalisation-surfaced-2026-06-09-exercising-the-live-mcp)
+> strand). A readiness review cannot certify a growing target. **Recommended opening move (Step 0):
+> SPLIT the surface-rationalisation strand (§A2–§A5, §B, §C — the non-graph-coupled parts) into its
+> own `mcp-surface-rationalisation` plan, leaving this plan its ORIGINAL graph-core scope.** The
+> readiness review below then covers only the graph-core scope, un-muddied. (Owner confirms the split
+> at session open; if it is held, the review must explicitly span both strands.)
+>
+> **DELIVERY: small, independently-shippable PRs — no more mega-PRs (PR #142 was the last).** Each
+> redesign unit (or smaller) is one PR; each surface item is its own small PR. Size every cycle to a
+> small PR at readiness time — the executable cycles below ARE the PR units. This is a hard delivery
+> constraint, not a preference, and an explicit readiness-review criterion: a unit is not
+> execution-ready unless it is shippable as a small standalone PR.
+
+All readiness work is a **planning** effort (settle + author + review) — NOT the corpus re-emission
+or tool rewrites, which are the following branch's execution. The following must land for this plan
+(its graph-core scope) to reach `🟢 DECISION-COMPLETE` and be execution-ready:
 
 1. **Settle the open MECHANISM decisions A/B/D/E** (see [§Open mechanism decisions](#open-mechanism-decisions-settled-at-promotion-not-before))
    against the landed code. They were held open until the substrate existed; it now does. Grounded

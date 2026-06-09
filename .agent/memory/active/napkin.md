@@ -38,6 +38,16 @@ MCP-surface-rationalisation strand (resources/prompts/skills) in the plan.
 - **Surfacing real scope early lets the owner right-size.** The promotion-depth question + the
   two-strand observation let the owner reduce scope twice (full-settle → structural-promote →
   decision-complete-but-stop-at-plan) and enumerate the strands. Surface scope before over-investing.
+- **Don't pile new scope onto a plan that is pending its readiness review — it conflates the review
+  and grows the next session's job.** I promoted `graph-tools-value-redesign` (a plan whose whole
+  pending job was review → decision-complete → execution-ready) and THEN added 10 surface items on
+  top (owner-directed, but I executed it without flagging the consequence sharply enough); the owner
+  spotted that the next session's readiness review now has to certify a *growing* target. Reflex:
+  when scope lands on a not-yet-ready plan, immediately fence it as a separate strand AND recommend
+  splitting it to its own plan so the readiness review stays on the original scope; and require
+  **small-PR delivery** so "is it ready?" becomes "is each small unit ready?", never a mega-block
+  judgement (no more mega-PRs; PR #142 was the last). Siblings: [[feedback_consolidate_estate_decouple_execution]],
+  the small-PR/push-often cadence.
 
 ## 2026-06-09 — A-i/C deferred reviews + estate completeness (Brazen Roasting Cinder)
 

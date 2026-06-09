@@ -46,11 +46,15 @@ surface.
   skills §C (pre-empt `oak-skills`→prompts; licence owner-clarified — content is Oak's to use, the
   constraint is preserving external-research attribution; `oak-brand` out, `oak-tone-of-voice` open;
   `oak-curriculum-principles-mcp-enabled` is the strongest candidate as it already drives this MCP).
-  **Next safe step (owner): the next session on `feat/graph-migration-part-1` STARTS with finishing
-  the graph-tools promotion** — settle A/B/D/E + the node/edge model + the `GraphView`
-  edge-type-selective extension, author the executable TDD cycles, run architecture + assumptions
-  validation → DECISION-COMPLETE; the surface-rationalisation strand follows, and the
-  split-into-its-own-plan decision is taken then. PR #142's value (A-i/C) shipped in v1.17.0.**
+  **Next safe step (owner): the next session is a PLAN-REVIEW-AND-READINESS session — NOT execution.**
+  The plan was promoted *needing* review → decision-complete → execution-ready, then scope was added
+  (the surface strand) — so do not review a growing target. **Step 0: split the surface-rationalisation
+  strand into its own `mcp-surface-rationalisation` plan**, leaving `graph-tools-value-redesign` its
+  ORIGINAL graph-core scope. Then review + decision-complete that scope: settle A/B/D/E + node/edge
+  model + the `GraphView` edge-type extension, author the executable TDD cycles, run architecture +
+  assumptions validation → DECISION-COMPLETE. **Deliver in small, independently-shippable PRs — no
+  more mega-PRs (PR #142 was the last); each redesign unit = one small PR, a hard readiness criterion.**
+  PR #142's value (A-i/C) shipped in v1.17.0.**
 - **EVIDENCE-WORKFLOW ENHANCEMENTS + ADR-194 + OUTPUT-SCHEMA INTEGRATION (2026-06-09, Incandescent
   Smouldering Brazier / `939d21`, claude / Opus 4.8, owner-directed; branch
   `assess/evidence_workflows`).** Three commits, full pre-commit gate green each, **pushed (PR #142)**:
