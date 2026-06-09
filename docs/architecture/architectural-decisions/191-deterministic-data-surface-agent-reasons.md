@@ -3,6 +3,11 @@
 **Status**: Accepted
 **Date**: 2026-06-05 (ratified by owner 2026-06-05)
 **Related**:
+[ADR-194](194-teacher-as-expert-product-boundary.md)
+(the product principle this ADR is the server-side engineering corollary of:
+ADR-194 states that Oak's surfaces inform teachers — with information, resources,
+and evidence — and never instruct or do the teacher's job; this ADR enforces that
+line on the server);
 [ADR-107](107-deterministic-sdk-nl-in-mcp-boundary.md)
 (deterministic SDK / NL-in-MCP boundary — this ADR is the relevance/ranking
 corollary: ADR-107 settles where natural-language interpretation happens, this

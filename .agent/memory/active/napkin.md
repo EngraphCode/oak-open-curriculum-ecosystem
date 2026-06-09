@@ -8,6 +8,19 @@ merge_class: append-only-narrative
 fitness_content_role: drainable-buffer
 ---
 
+## 2026-06-09 — expectTypeOf mirrors are config, not behaviour (Incandescent Smouldering Brazier)
+
+Adding A-i/C to the EEF tool, I wrote `expectTypeOf<EefEvidenceEnvelope['answerType']>().toEqualTypeOf<EefAnswerType>()`
+— copying the file's existing `strict-type-flow invariants` block by analogy. Owner challenged it:
+"is using Vitest to prove type design correct?" testing-strategy.md §"Do not test types" is explicit —
+*types cannot be tested; if a test only tests types, delete it.* An `expectTypeOf<Field>().toEqualTypeOf<Declared>()`
+**mirrors the declaration** (configuration), and `type-check` (tsc) is the correct tool for type correctness;
+vitest proves runtime behaviour. Cure: deleted ALL type-only assertions (mine + the pre-existing block it
+modelled — existence-is-not-correctness), kept the runtime behaviour tests (`answerType` value per query shape;
+headline projection drops deep fields), and rely on tsc for the type proof. Behaviour change: when adding a test,
+check the proof against "correct tool" — types→tsc, behaviour→vitest — and never mirror a type declaration in a
+test framework. Sibling of [[feedback_test_the_flag_engine_not_the_configuration]].
+
 ## Session: 2026-06-08 — napkin rotated (Ferny Ripening Meadow curation pass)
 
 Rotated the 2026-06-06 → 2026-06-07 window during a dedicated knowledge-curation

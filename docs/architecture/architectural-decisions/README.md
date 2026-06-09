@@ -299,6 +299,13 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   code; transport code legitimately speaks the vendor type; strict types serve
   internal DX and cross an external junction only for significant clear value;
   Accepted 2026-06-08)
+- [ADR-194: Teacher-as-Expert Product Boundary](194-teacher-as-expert-product-boundary.md)
+  (the product principle that ADR-191 is the engineering corollary of: Oak's
+  curriculum and evidence surfaces inform teachers with information, resources, and
+  evidence and may present evidenced options and trade-offs, but never make the
+  pedagogical decision that belongs to the teacher; the teacher is the pedagogical
+  expert and the authority on what should happen; Accepted
+  2026-06-09)
 
 ## Key Architectural Decisions
 
@@ -308,6 +315,7 @@ For understanding our API integration approach:
 - **[ADR-030](030-sdk-single-source-truth.md)** - SDK as single source of truth for API contracts
 - **[ADR-141](141-mcp-apps-standard-primary.md)** - MCP Apps standard as the only UI surface (supersedes ChatGPT-specific coupling)
 - **[ADR-157](157-multi-source-open-education-integration.md)** - Proposed multi-source open education knowledge integration across API, ontology, EEF, MCP, and graph surfaces
+- **[ADR-194](194-teacher-as-expert-product-boundary.md)** - Teacher-as-expert product boundary: surfaces inform teachers and may present evidenced options and trade-offs, but never make the pedagogical decision that belongs to the teacher; the teacher is the pedagogical expert and the authority on what should happen; the product principle that ADR-191 is the engineering corollary of
 - **[ADR-066](066-sdk-response-caching.md)** - SDK response caching with Redis
 - **[ADR-070](070-sdk-rate-limiting-and-retry.md)** - SDK rate limiting and exponential backoff retry
 - **[ADR-063](063-sdk-domain-synonyms-source-of-truth.md)** - SDK as single source of truth for domain synonyms
