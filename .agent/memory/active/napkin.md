@@ -8,6 +8,30 @@ merge_class: append-only-narrative
 fitness_content_role: drainable-buffer
 ---
 
+## 2026-06-09 — A-i/C deferred reviews + estate completeness (Brazen Roasting Cinder)
+
+Ran the deferred A-i/C specialist reviews (the prior session's owner-sanctioned defer). 5 reviewers
+fanned out as a workflow; every finding adjudicated FIRST-HAND against source. Verdict: the A-i/C code
+is sound (D4 overlap structural, egress cast-free, answerType correct across all shapes, tests
+behaviour-shaped with no type-mirrors). Landed `4f15d7df` (review-surfaced test coverage) + `747023fd`
+(doc/plan accuracy fixes), both full-gate green.
+
+- **markdown TABLE cells: a bare `|` — even inside inline-code backticks, even as TS union syntax
+  `<EefStrand | EefStrandHeadline>` — breaks MD056 column-count; escape it `\|`.** My own mistake:
+  fixing a mono→union type-tie inside a plan's proof-contract TABLE, the unescaped pipe split the row
+  into 4 cells and markdownlint caught it on the pre-commit auto-fix pass. Sibling of the distilled
+  "wrapped-line list-marker trap" — a bare markdown metacharacter at the wrong position. distilled
+  candidate (markdown-gotcha family).
+- **Clean 2nd instance of fan-out-for-verify / gatekeeper-for-execute** (distilled, 2026-06-09): the
+  workflow's reviewers were samplers; I owned adjudication. First-hand grounding refuted TWO
+  out-of-scope nits — a pre-existing tags-guard line NOT in the reviewed commit, and a "use the same
+  selector in both tests" suggestion that would REDUCE coverage — and a grep confirmed a reviewer's
+  exact line-attribution before editing (a discrepancy claim, the highest-risk relay class). Landed
+  only verified findings; neither deferred nor dismissed. Strengthens that entry's graduation case.
+- **One owner-decision surfaced (did NOT decide it)**: `graph-tools-value-redesign`'s promotion
+  trigger (EEF D6+D7) has FIRED but the plan still read PARKED — landed a trigger-fired freshness
+  note; promote-vs-hold is the owner's call.
+
 ## 2026-06-09 — closeout notes: pre-review feat commit + decision-authority refinement (Incandescent Smouldering Brazier)
 
 - **The product principle's real axis is decision authority, not initiation.** First draft of
