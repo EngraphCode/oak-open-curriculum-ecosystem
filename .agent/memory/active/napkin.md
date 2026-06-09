@@ -17,6 +17,30 @@ Every behaviour-changing entry was verified live in a permanent home before
 rotation; the commit and those homes are the record. Fresh capture continues
 below.
 
+## 2026-06-09 — PR review: sweep the defect class, not just the flagged line (Starless Prowling Veil, 4863ac)
+
+### Surprise
+
+- **Expected**: fixing the bot-flagged instance of a defect resolves it.
+- **Actual**: after I fixed a stale "open decision #1" cross-reference Bugbot flagged in
+  Direction A, Bugbot's next review found a **second** instance of the same bug in a
+  different file (plugin-package w0) that my first pass missed.
+- **Why expectation failed**: a review comment names ONE location of a defect *class*; the
+  same error often recurs elsewhere the reviewer hasn't (yet) flagged.
+
+### Correction / lesson
+
+- When a review comment reveals a defect **class** (a stale cross-reference, a wrong
+  number, a mislabel), sweep the whole corpus for the class and grep the pattern
+  repo-wide — don't just patch the flagged line.
+- Bot/reviewer output is dual-use: **input-to-verify** (never applied blindly) AND a
+  **sampler** that surfaces a class you then exhaustively close. The critical-assessment
+  reflex must catch over-escalation without sliding into dismissal — both halves matter.
+- Thread resolution: cursor[bot] auto-resolves on re-review after a fix; Copilot threads
+  need manual GraphQL `resolveReviewThread`. Verify 0-unresolved via **GraphQL** before
+  merge (REST `/pulls/comments` does not expose resolved state). Candidate for distilled /
+  a review-discipline pattern.
+
 ## 2026-06-08 — a "to be synthesised" holding pen swept in live intent (Starless Prowling Veil, 4863ac)
 
 ### Surprise

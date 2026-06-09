@@ -65,8 +65,12 @@ surface.
   request for the stale cross-repo Direction-A filename authored at
   [`upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md`](../../plans/upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md).
   **Open owner decisions:** source-of-truth topology (#4, cross-cutting) and first-tranche capability
-  scope (#5). **Next safe step:** none on the corpus (coherent + committed); execute Direction A `t0` /
-  plugin-package `w0` design gates once the owner resolves #4/#5.
+  scope (#5). **MERGED to main as PR #140** (merge `5836230a`, then release `5779ed20` / v1.16.1): all
+  review comments addressed + threads resolved (Bugbot caught a 2nd stale-decision-number instance after
+  the first fix → swept the whole corpus); preview MCP `oak-prev-140` assessed (resources catalogue
+  matches `ALL_MCP_RESOURCES`, EEF + search return real data). **Next safe step:** none on the corpus
+  (merged); execute Direction A `t0` / plugin-package `w0` design gates once the owner resolves #4/#5.
+  Snagging / follow-on continues on `assess/evidence_workflows`.
 - **EEF `get-eef-evidence` — D6 + D7 COMPLETE; the EEF build arc (D0–D7) is DELIVERED
   (D7 owner-marked 2026-06-08).** The surface is LIVE BY DEFAULT (kill-switch posture: default ON,
   `OAK_CURRICULUM_MCP_EEF_ENABLED=false` disables — `feature-flags.ts` engine, `d3109d7c`; the
