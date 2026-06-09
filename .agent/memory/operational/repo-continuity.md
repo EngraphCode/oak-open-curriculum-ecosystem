@@ -20,6 +20,24 @@ surface.
 
 ## Current State
 
+- **EVIDENCE-WORKFLOW ENHANCEMENTS + ADR-194 + OUTPUT-SCHEMA INTEGRATION (2026-06-09, Incandescent
+  Smouldering Brazier / `939d21`, claude / Opus 4.8, owner-directed; branch
+  `assess/evidence_workflows`).** Three commits, full pre-commit gate green each, **NOT yet pushed**:
+  `80dd642d` feat(eef) — A-i self-describing `answerType` (`strand-lookup`/`context-subset`) + C
+  `detail:'headline'` bounded view on `get-eef-evidence` (new
+  `graph-corpus-sdk/src/eef-strands/eef-headline-view.ts`); behaviour-tested + exercised LIVE over MCP
+  HTTP, types by tsc — **but NOT specialist-reviewed (code/type/test experts not invoked)**.
+  `20105837` docs(adr) — **ADR-194 Teacher-as-Expert Product Boundary (Accepted)**: inform and offer
+  evidenced options, never make the teacher's pedagogical decision; ADR-191 is its server-side
+  engineering corollary; propagated to the ADR index, ADR-191, VISION, the curriculum-tools playbook,
+  and EEF R7; assessment reports in `.agent/reports/`. `f95a051d` docs(plans) — output-schemas estate
+  integrated (the composition approach + my EEF `answerType` / full-headline-union reconciliation).
+  **NEXT SAFE STEP (owner-directed): next session reviews + checks, THEN this session pushes/PRs.**
+  Next session: (1) deferred reviews — `code-expert`/`type-expert`/`test-expert` on the A-i/C code,
+  `docs-adr-expert` on the output-schemas plan; (2) **critically assess ALL reviewer feedback
+  first-hand** (reviewers over-escalate — `project_specialist_agent_design_overhaul`,
+  `validate-specialist-findings-before-acting`); (3) **gap analysis + underspecified-items check +
+  decision-completeness check** across the ADR-194 + A-i/C + output-schema estate.
 - **OUTPUT-SCHEMAS PLAN — DERIVE-FROM-SOURCE AMENDMENT (2026-06-09, Oceanic Lapping Anchor / `db4eb4`,
   claude / Opus 4.8, owner-directed).**
   [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
@@ -28,8 +46,9 @@ surface.
   EEF corpus type-level tie / search generated schemas); `composeEnvelopeSchema` lives in `oak-sdk-codegen`;
   W2 stays atomic incl. `get-keywords`; EEF tie is type-level (`z.infer … extends`), never `satisfies`-on-value,
   and never annotate the raw shape `: z.ZodRawShape` (widens enums). Tombstones removed; README/roadmap/graph-tools
-  cross-refs synced. **Next safe step: commit the doc edits (uncommitted on `assess/evidence_workflows`); execution
-  gated on EEF D6/D7 + `graph-tools-value-redesign`.** Separately: memory `project_specialist_agent_design_overhaul`
+  cross-refs synced. **Next safe step: the doc edits are committed (`f95a051d`, with the EEF
+  answerType/headline reconciliation folded in); execution stays gated on EEF D6/D7 +
+  `graph-tools-value-redesign`.** Separately: memory `project_specialist_agent_design_overhaul`
   records owner-directed overhaul of all specialist sub-agents (type-reviewer over-escalated on a wrong Zod signature
   this session) — verify every load-bearing specialist claim first-hand until then.
 - **PENDING-GRADUATIONS REGISTER DRAIN + PDR-091 (2026-06-08, Coppery Crackling Crucible / `a28ee6`,
@@ -130,7 +149,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Opus 4.8 / Briny Charting Lagoon / d6-completion-attribution-flag-default-on-and-live-exercise / 2026-06-08 (prior: Lanternlit Shrouding Raven c4-c5-reflection-and-attribution-fix 2026-06-08, Luminous Drifting Dawn c6-tool-gating-fix 2026-06-08, Evergreen Blossoming Copse adr-193-vendor-boundary-and-egress-membrane 2026-06-08, Pelagic Charting Rudder c1-c3-authoring-and-strict-type-flow 2026-06-07, Hidden Prowling Owl c1-finite-domain-prereq-and-type-widening-doctrine 2026-06-07, Arboreal Shedding Canopy d6-reshape-and-phase-e-handoff 2026-06-07, Moonlit Orbiting Moon d6-execution-reshaped 2026-06-07, Zephyrous Kiting Squall d6-readiness-regrounding 2026-06-06, Floating Darting Cloud d7-golive-plan-edit 2026-06-06, Dusky Dimming Candle author-d6-execution-plan 2026-06-06, Masked Creeping Lantern eef-deep-review-resolutions-adr191 2026-06-05, Dim Dimming Threshold eef-d5-execution 2026-06-05, Prismatic Twinkling Planet eef-d5-fresh-dual-review 2026-06-04, Windward Gliding Squall eef-d5-plan-authoring 2026-06-04, Shadowed Creeping Secret eef-d4-ratify 2026-06-04, Burnished Glowing Spark 2026-06-04, Lacustrine Swimming Beacon 2026-06-03, Seaworthy Swimming Sextant 2026-06-03, Galactic Glowing Prism + Opalescent Cascading Planet + Stellar Waning Planet + Silvered Lurking Mask 2026-06-02) |
+| `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Opus 4.8 / Incandescent Smouldering Brazier / post-d7-answertype-headline-adr194-and-output-schema-integration / 2026-06-09 (prior: Briny Charting Lagoon d6-completion-and-live-exercise 2026-06-08, Lanternlit Shrouding Raven c4-c5-reflection-and-attribution-fix 2026-06-08, Luminous Drifting Dawn c6-tool-gating-fix 2026-06-08, Evergreen Blossoming Copse adr-193-vendor-boundary-and-egress-membrane 2026-06-08, Pelagic Charting Rudder c1-c3-authoring-and-strict-type-flow 2026-06-07, Hidden Prowling Owl c1-finite-domain-prereq-and-type-widening-doctrine 2026-06-07, Arboreal Shedding Canopy d6-reshape-and-phase-e-handoff 2026-06-07, Moonlit Orbiting Moon d6-execution-reshaped 2026-06-07, Zephyrous Kiting Squall d6-readiness-regrounding 2026-06-06, Floating Darting Cloud d7-golive-plan-edit 2026-06-06, Dusky Dimming Candle author-d6-execution-plan 2026-06-06, Masked Creeping Lantern eef-deep-review-resolutions-adr191 2026-06-05, Dim Dimming Threshold eef-d5-execution 2026-06-05, Prismatic Twinkling Planet eef-d5-fresh-dual-review 2026-06-04, Windward Gliding Squall eef-d5-plan-authoring 2026-06-04, Shadowed Creeping Secret eef-d4-ratify 2026-06-04, Burnished Glowing Spark 2026-06-04, Lacustrine Swimming Beacon 2026-06-03, Seaworthy Swimming Sextant 2026-06-03, Galactic Glowing Prism + Opalescent Cascading Planet + Stellar Waning Planet + Silvered Lurking Mask 2026-06-02) |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work, starting with a deep review of the Oak Curriculum Ontology repo (separate concern from the bulk-derived graph redesign) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 — **opened, not started; deep review is a fresh session** |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior: Blustery Lifting Gale skills-taxonomy-and-distribution 2026-06-03, Umbral Whispering Silhouette 2026-06-01) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Opus 4.8 / Coppery Crackling Crucible / pending-graduations-drain-and-pdr-091 / 2026-06-08 (prior: Cosmic Illuminating Planet dedicated-continuity-surface-consolidation 2026-06-08, Lofty Spiralling Plume continuity-surface-fitness-and-prose-awareness 2026-06-08, Briny Plumbing Beacon feedback-mechanism-follow-ons 2026-06-07, Eclipsed Watching Veil items-4+1 2026-06-07, Glittering Weaving Comet 2026-06-07, Volcanic Blazing Magma 2026-06-06, Lanternlit Passing Mask 2026-06-05, Hidden Hiding Dusk 2026-06-04, Arboreal Sprouting Branch 2026-06-04, Opalescent Illuminating Prism 2026-06-03, Lacustrine Swimming Beacon, Ashen Burning Magma, Solar Glowing Meteor, Stratospheric Buffeting Breeze, Lofty Sweeping Falcon, Shaded Veiling Mirror) |

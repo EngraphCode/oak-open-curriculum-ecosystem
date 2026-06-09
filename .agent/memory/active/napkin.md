@@ -8,6 +8,25 @@ merge_class: append-only-narrative
 fitness_content_role: drainable-buffer
 ---
 
+## 2026-06-09 — closeout notes: pre-review feat commit + decision-authority refinement (Incandescent Smouldering Brazier)
+
+- **The product principle's real axis is decision authority, not initiation.** First draft of
+  ADR-194 forbade "pedagogical approaches unless the teacher explicitly asks" — owner corrected:
+  presenting evidenced *options* (proactively or on request) is informing and is encouraged; what
+  is forbidden is *making the pedagogical decision* that belongs to the teacher. The line is "who
+  decides," not "who asks." A principle drafted on the wrong axis reads plausible but mis-governs;
+  re-derive the axis from the owner's words, not the convenient framing. Homed in ADR-194.
+- **A-i/C feat code was committed without specialist review** (code/type/test experts not invoked
+  — gates + self-review + live-MCP proof only), owner-directed to defer the reviews to the next
+  session. Recorded honestly in the eef thread banner + repo-continuity so the next session does
+  NOT inherit it as a hidden gap. This is a deliberate owner-sanctioned deferral, not a silent skip
+  — the distinction matters (`no-backfill-reviews` is the default; this is an explicit exception).
+- **answerType taxonomy was constrained by the D4 overlap invariant.** The obvious taxonomy
+  (single-strand vs explicit-set) would have broken `inspectStrand(id) === evidenceForMove({strandIds:[id]})`;
+  the invariant-safe distinction is coverage (`strand-lookup` vs `context-subset`). A landed
+  invariant in the code you're extending is a hard constraint on a new field's shape — check it
+  before designing the field, not after.
+
 ## 2026-06-09 — expectTypeOf mirrors are config, not behaviour (Incandescent Smouldering Brazier)
 
 Adding A-i/C to the EEF tool, I wrote `expectTypeOf<EefEvidenceEnvelope['answerType']>().toEqualTypeOf<EefAnswerType>()`
