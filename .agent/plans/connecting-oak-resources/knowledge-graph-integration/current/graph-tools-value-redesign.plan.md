@@ -526,39 +526,92 @@ Each names its single observable signal; verdicts land at promotion + per-unit l
 | Naive identity (slug-as-id) corrupts the graph silently when a lesson is placed in >1 unit | Identity is a deliberate design item (node/edge model): stable entity ids, unit↔lesson placement modelled as an edge, no slug-uniqueness assumption. Verified rare in the snapshot but not guaranteed; the model is correct for the edge case by construction. Bulk-id↔ontology-IRI reconciliation is a separate concern. |
 | Ontology coupling creep (treating the v0.1, change-prone ontology as a dependency of this plan) | Hard separation of concerns: this plan builds only from the bulk source and does not ingest/depend on the ontology. Any cross-source (concept) capability is a separate concern gated on the alignment audit. |
 
-## Prompt-surface follow-ons (surfaced 2026-06-09, exercising the live MCP)
+## MCP surface rationalisation (surfaced 2026-06-09, exercising the live MCP)
 
-Captured here per owner direction (2026-06-09) after evaluating the five served MCP prompts
-(`find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `adapt-lesson` —
-defined in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts` + `mcp-prompt-messages.ts`).
-Item 1 is graph-coupled (this redesign's bounded tools are what fixes it); items 2–3 are adjacent
-prompt-surface quality items captured here on owner direction.
+Captured per owner direction (2026-06-09) after exercising and evaluating the live MCP surface (the
+five prompts in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts` + `mcp-prompt-messages.ts`,
+and the served resources). These are surface-quality items ADJACENT to the graph-tool redesign: the
+redesign is the trigger and owns the graph-coupled parts (resources A1; context A5); the rest are
+accumulated here because the owner directed them here. **If this section outgrows the plan, graduate
+it to a dedicated `mcp-surface-rationalisation` plan — owner decides then; not split pre-emptively.**
+Single governing principle (verified 2026-06-09): **`curriculum://model` is the ONE canonical source
+of the domain model + tool guidance + workflows + tips; every other doc resource should DERIVE from
+it or be removed, never duplicate it.**
 
-1. **Whole-corpus flood in the prompts that consume the graph tools.** `adapt-lesson` (step 2) and
-   `learning-progression` (steps 2–3) instruct raw `get-misconception-graph` /
-   `get-prior-knowledge-graph` / `get-thread-progressions` calls — the exact whole-corpus floods
-   this redesign removes. **Make repointing the consuming prompt a per-unit acceptance:** a redesign
-   unit is not done until the prompt steps that call its tool are switched to the bounded, anchored
-   retrieval (misconceptions for the lesson's anchor; the thread's own progression), not the
-   whole-corpus dump.
-2. **`adapt-lesson` argument mapping over a slash invocation.** Its two required args (`topic`,
-   `yearGroup`) do not split cleanly from a single free-text slash command (observed 2026-06-09: a
-   free-text invocation arrived with the topic mis-assigned). It degrades gracefully (defaults), but
-   the arg shape is awkward for free-text use — consider a single structured brief arg or clearer
-   per-arg hints. Prompt-surface only, not graph work.
-3. **Fixed domain language — no near-synonym drift (owner: non-negotiable).** The prompt argument
-   vocabulary drifts (`topic` in four prompts vs `concept` in `learning-progression`; the scoping arg
-   is `keyStage` / `yearGroup` / `subject` across prompts). This is a professional domain with defined
-   terms, so the prompts (arg names AND message language) must use the canonical Oak glossary terms
-   consistently. **Authority (verified 2026-06-09): the served MCP resources carry NO standalone
-   glossary resource; the canonical domain terms are served in the `curriculum://model` resource**
-   (entity hierarchy; key stages `ks1`–`ks4`; year groups Year 1–11; subjects; phases primary /
-   secondary), which itself cites the authoritative Oak glossary at
-   `https://open-api.thenational.academy/docs/about-oaks-data/glossary`. Audit all five prompts
-   against it; standardise on the canonical terms — distinguish `keyStage` from `yearGroup`
-   deliberately (different granularities, not synonyms) and pick ONE query-arg term mapped to its
-   glossary entity. This is broader than the graph tools (a repo-wide MCP-language consistency
-   requirement); captured here per owner direction.
+### A. Resources
+
+- **A1 — Remove the three whole-corpus graph resources** (`curriculum://misconception-graph`,
+  `curriculum://prior-knowledge-graph`, `curriculum://thread-progressions`) as part of the migration.
+  A resource is a static whole-corpus read with no anchor input, so it has **no bounded form** — once
+  the bounded TOOLS exist the resources no longer make sense. This **corrects the per-tool todos'
+  "rewrite … + the `curriculum://X` resource onto the substrate" wording: the resource is REMOVED,
+  not rewritten** (the bounded tool replaces it). Graph-coupled — fold into each redesign unit's
+  acceptance.
+- **A2 — Remove `docs://oak/tools.md` (redundant).** Verified: it triplicates the live `tools/list`
+  AND `curriculum://model`'s `toolGuidance.toolCategories` (same categories verbatim). The live tool
+  list + model are the source of truth; the static doc drifts.
+- **A3 — Remove or fold `docs://oak/workflows.md` (redundant + will-break).** It is a verbatim
+  duplicate of `curriculum://model`'s `workflows`, and its "track-progression" workflow calls the
+  whole-corpus graph tools, so it goes stale the moment those tools are bounded. Fold any unique
+  content into `model`; otherwise remove.
+- **A4 — Trim `docs://oak/getting-started.md`.** Its auth + quick-start framing is unique and worth
+  keeping, but its entire Tips block duplicates `curriculum://model`'s `tips` verbatim —
+  de-duplicate (reference model, do not copy).
+- **A5 — Protect the two canonical context resources.** `curriculum://model` (the single source that
+  A2–A4 duplicate) and `eef://interpretation` (the EEF grounding context) are load-bearing and must
+  NOT be broken or duplicated by the migration. They stay.
+
+### B. Prompts
+
+- **B1 — Whole-corpus flood in the prompts that consume the graph tools.** `adapt-lesson` (step 2)
+  and `learning-progression` (steps 2–3) instruct raw `get-misconception-graph` /
+  `get-prior-knowledge-graph` / `get-thread-progressions` calls — the floods this redesign removes.
+  **Per-unit acceptance:** a redesign unit is not done until the prompt steps that call its tool are
+  switched to the bounded, anchored retrieval, not the whole-corpus dump.
+- **B2 — `adapt-lesson` argument mapping.** Its two required args (`topic`, `yearGroup`) do not split
+  cleanly from a single free-text slash invocation (observed 2026-06-09: the topic arrived
+  mis-assigned). It degrades gracefully (defaults); consider a single structured brief arg or clearer
+  per-arg hints. Prompt-surface only.
+- **B3 — Fixed domain language, no near-synonym drift (owner: non-negotiable).** The prompt arg
+  vocabulary drifts (`topic` in four prompts vs `concept` in `learning-progression`; scoping arg
+  `keyStage` / `yearGroup` / `subject`). Authority (verified 2026-06-09): NO standalone glossary
+  resource is served; the canonical domain terms live in `curriculum://model` (entity hierarchy; key
+  stages `ks1`–`ks4`; year groups Year 1–11; subjects; phases), which cites the authoritative Oak
+  glossary at `https://open-api.thenational.academy/docs/about-oaks-data/glossary`. Audit all five
+  prompts (arg names AND message language); standardise on the canonical terms — keep `keyStage` and
+  `yearGroup` distinct (different granularities, not synonyms). Repo-wide MCP-language requirement.
+- **B4 — Distinguish the prompt names.** `find-lessons`, `explore-curriculum`, and `lesson-planning`
+  overlap in a user's mental model (all read as "find/plan a lesson"); their real axis of difference
+  (targeted single-lesson search vs broad cross-scope discovery vs full-materials prep) is not
+  obvious from the names. `learning-progression` and `adapt-lesson` are already distinct. Rename for
+  distinguishability THROUGH the B3 glossary, so the names use fixed domain terms, not ad-hoc verbs
+  (B3 + B4 are one fixed-language pass).
+
+### C. Skills → prompts (PRE-EMPTIVE; blocked + licence-gated)
+
+Could `oak-skills` (`github.com/oaknational/oak-skills`) skills be surfaced as MCP prompts? This
+pre-empts the proper integration, which is **blocked on that repo going public**. Pre-emptive
+analysis only — do NOT build until unblocked and licence-cleared.
+
+- **Candidates** (excl. `oak-brand` per owner, AND `oak-tone-of-voice` per licence — see below):
+  `oak-curriculum-principles`, `oak-curriculum-principles-mcp-enabled`, `oak-lesson-builder`,
+  `oak-accessibility`, `oak-curriculum-mapper`.
+- **Prompt-suitability (assessment):** the workflow-shaped, MCP-aware skills are the strongest fits —
+  `oak-curriculum-principles-mcp-enabled` (already MCP-wired), `oak-lesson-builder`,
+  `oak-curriculum-mapper`. `oak-accessibility` is a cross-cutting QUALITY standard better woven into
+  prompts (like the WCAG clause already in `adapt-lesson`) than surfaced as a standalone prompt.
+  `oak-lesson-builder` overlaps `lesson-planning` / `adapt-lesson` — reconcile, do not duplicate.
+- **Licence position (verified 2026-06-09 against `oak-skills/LICENSE`) — careful, as directed:** the
+  repo is **split-licensed**. MIT covers scaffolding/structure/spec only. **`oak-brand` AND
+  `oak-tone-of-voice` are NOT open** — © Oak National Academy, all rights reserved, usable only per
+  the Oak brand guidelines → both excluded from open prompt-surfacing. `oak-curriculum-principles` +
+  `-mcp-enabled` carry pedagogical content "shared in the spirit of the principles" with attribution
+  per each skill's `references/sources.md`. Oak curriculum DATA (via the MCP/API) is OGL v3.0 with
+  attribution. Each skill also declares terms in its `SKILL.md` frontmatter; **where they differ from
+  the repo LICENSE, the more-restrictive applies.** Any surfacing must clear each skill's terms first.
+- **Reconcile, don't duplicate:** `oak-skills` already ships eight MCP-wired "curriculum commands"
+  (the Gemini CLI extension) over the same Oak Curriculum MCP. Proper integration should reconcile
+  MCP prompts ↔ those commands ↔ the skills, not create a third parallel surface.
 
 ## Non-goals
 
