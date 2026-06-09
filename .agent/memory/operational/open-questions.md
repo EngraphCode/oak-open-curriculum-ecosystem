@@ -142,7 +142,7 @@ fitness_content_role: drainable-buffer
 
 [q3-general]: ../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md
 [q3-graph]: ../../plans/sdk-and-mcp-enhancements/archive/completed/graph-tool-output-schemas.plan.md
-[q3-migration]: ../../plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md
+[q3-migration]: ../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md
 
 ## Q-004 — does the capability taxonomy need a rights/licensing axis?
 

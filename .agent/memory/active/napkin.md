@@ -8,6 +8,62 @@ merge_class: append-only-narrative
 fitness_content_role: drainable-buffer
 ---
 
+## 2026-06-09 — A-i/C deferred reviews + estate completeness (Brazen Roasting Cinder)
+
+Ran the deferred A-i/C specialist reviews (the prior session's owner-sanctioned defer). 5 reviewers
+fanned out as a workflow; every finding adjudicated FIRST-HAND against source. Verdict: the A-i/C code
+is sound (D4 overlap structural, egress cast-free, answerType correct across all shapes, tests
+behaviour-shaped with no type-mirrors). Landed `4f15d7df` (review-surfaced test coverage) + `747023fd`
+(doc/plan accuracy fixes), both full-gate green.
+
+- **markdown TABLE cells: a bare `|` — even inside inline-code backticks, even as TS union syntax
+  `<EefStrand | EefStrandHeadline>` — breaks MD056 column-count; escape it `\|`.** My own mistake:
+  fixing a mono→union type-tie inside a plan's proof-contract TABLE, the unescaped pipe split the row
+  into 4 cells and markdownlint caught it on the pre-commit auto-fix pass. Sibling of the distilled
+  "wrapped-line list-marker trap" — a bare markdown metacharacter at the wrong position. distilled
+  candidate (markdown-gotcha family).
+- **Clean 2nd instance of fan-out-for-verify / gatekeeper-for-execute** (distilled, 2026-06-09): the
+  workflow's reviewers were samplers; I owned adjudication. First-hand grounding refuted TWO
+  out-of-scope nits — a pre-existing tags-guard line NOT in the reviewed commit, and a "use the same
+  selector in both tests" suggestion that would REDUCE coverage — and a grep confirmed a reviewer's
+  exact line-attribution before editing (a discrepancy claim, the highest-risk relay class). Landed
+  only verified findings; neither deferred nor dismissed. Strengthens that entry's graduation case.
+- **One owner-decision surfaced (did NOT decide it)**: `graph-tools-value-redesign`'s promotion
+  trigger (EEF D6+D7) has FIRED but the plan still read PARKED — landed a trigger-fired freshness
+  note; promote-vs-hold is the owner's call.
+
+## 2026-06-09 — closeout notes: pre-review feat commit + decision-authority refinement (Incandescent Smouldering Brazier)
+
+- **The product principle's real axis is decision authority, not initiation.** First draft of
+  ADR-194 forbade "pedagogical approaches unless the teacher explicitly asks" — owner corrected:
+  presenting evidenced *options* (proactively or on request) is informing and is encouraged; what
+  is forbidden is *making the pedagogical decision* that belongs to the teacher. The line is "who
+  decides," not "who asks." A principle drafted on the wrong axis reads plausible but mis-governs;
+  re-derive the axis from the owner's words, not the convenient framing. Homed in ADR-194.
+- **A-i/C feat code was committed without specialist review** (code/type/test experts not invoked
+  — gates + self-review + live-MCP proof only), owner-directed to defer the reviews to the next
+  session. Recorded honestly in the eef thread banner + repo-continuity so the next session does
+  NOT inherit it as a hidden gap. This is a deliberate owner-sanctioned deferral, not a silent skip
+  — the distinction matters (`no-backfill-reviews` is the default; this is an explicit exception).
+- **answerType taxonomy was constrained by the D4 overlap invariant.** The obvious taxonomy
+  (single-strand vs explicit-set) would have broken `inspectStrand(id) === evidenceForMove({strandIds:[id]})`;
+  the invariant-safe distinction is coverage (`strand-lookup` vs `context-subset`). A landed
+  invariant in the code you're extending is a hard constraint on a new field's shape — check it
+  before designing the field, not after.
+
+## 2026-06-09 — expectTypeOf mirrors are config, not behaviour (Incandescent Smouldering Brazier)
+
+Adding A-i/C to the EEF tool, I wrote `expectTypeOf<EefEvidenceEnvelope['answerType']>().toEqualTypeOf<EefAnswerType>()`
+— copying the file's existing `strict-type-flow invariants` block by analogy. Owner challenged it:
+"is using Vitest to prove type design correct?" testing-strategy.md §"Do not test types" is explicit —
+*types cannot be tested; if a test only tests types, delete it.* An `expectTypeOf<Field>().toEqualTypeOf<Declared>()`
+**mirrors the declaration** (configuration), and `type-check` (tsc) is the correct tool for type correctness;
+vitest proves runtime behaviour. Cure: deleted ALL type-only assertions (mine + the pre-existing block it
+modelled — existence-is-not-correctness), kept the runtime behaviour tests (`answerType` value per query shape;
+headline projection drops deep fields), and rely on tsc for the type proof. Behaviour change: when adding a test,
+check the proof against "correct tool" — types→tsc, behaviour→vitest — and never mirror a type declaration in a
+test framework. Sibling of [[feedback_test_the_flag_engine_not_the_configuration]].
+
 ## Session: 2026-06-08 — napkin rotated (Ferny Ripening Meadow curation pass)
 
 Rotated the 2026-06-06 → 2026-06-07 window during a dedicated knowledge-curation
@@ -16,6 +72,30 @@ pass. The processed window is preserved verbatim at
 Every behaviour-changing entry was verified live in a permanent home before
 rotation; the commit and those homes are the record. Fresh capture continues
 below.
+
+## 2026-06-09 — PR review: sweep the defect class, not just the flagged line (Starless Prowling Veil, 4863ac)
+
+### Surprise
+
+- **Expected**: fixing the bot-flagged instance of a defect resolves it.
+- **Actual**: after I fixed a stale "open decision #1" cross-reference Bugbot flagged in
+  Direction A, Bugbot's next review found a **second** instance of the same bug in a
+  different file (plugin-package w0) that my first pass missed.
+- **Why expectation failed**: a review comment names ONE location of a defect *class*; the
+  same error often recurs elsewhere the reviewer hasn't (yet) flagged.
+
+### Correction / lesson
+
+- When a review comment reveals a defect **class** (a stale cross-reference, a wrong
+  number, a mislabel), sweep the whole corpus for the class and grep the pattern
+  repo-wide — don't just patch the flagged line.
+- Bot/reviewer output is dual-use: **input-to-verify** (never applied blindly) AND a
+  **sampler** that surfaces a class you then exhaustively close. The critical-assessment
+  reflex must catch over-escalation without sliding into dismissal — both halves matter.
+- Thread resolution: cursor[bot] auto-resolves on re-review after a fix; Copilot threads
+  need manual GraphQL `resolveReviewThread`. Verify 0-unresolved via **GraphQL** before
+  merge (REST `/pulls/comments` does not expose resolved state). Candidate for distilled /
+  a review-discipline pattern.
 
 ## 2026-06-08 — a "to be synthesised" holding pen swept in live intent (Starless Prowling Veil, 4863ac)
 

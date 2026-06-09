@@ -29,8 +29,10 @@ import {
   OBSERVED_PRIORITIES,
   inspectStrand,
   evidenceForMove,
+  evidenceForMoveHeadlines,
   type EvidenceForMoveSelectors,
   type EefEvidenceEnvelope,
+  type EefStrandHeadline,
 } from '@oaknational/graph-corpus-sdk/eef-strands';
 import { SCOPES_SUPPORTED } from './scopes-supported.js';
 
@@ -75,6 +77,12 @@ const EEF_EVIDENCE_INPUT = z.object({
     .enum([...OBSERVED_PRIORITIES])
     .optional()
     .describe('evidence-for-move: the school-improvement priority the move addresses.'),
+  detail: z
+    .enum(['full', 'headline'])
+    .optional()
+    .describe(
+      "evidence-for-move: 'full' (default) returns the complete strands; 'headline' returns a bounded list — identity, the impact-for-cost headline metrics, tags, and the EEF page — to scan, then drill a chosen strand with inspect-strand. Ignored by inspect-strand.",
+    ),
 });
 
 /**
@@ -99,13 +107,13 @@ export const GET_EEF_EVIDENCE_TOOL_DEF = {
 
 Two queries via \`function\`:
 - 'inspect-strand': the evidence for one named EEF strand, by \`strandId\`.
-- 'evidence-for-move': the strands matching a pedagogical context — any of \`phase\`, \`keyStage\`, \`priority\`, or explicit \`strandIds\`. At least one selector is required.
+- 'evidence-for-move': the strands matching a pedagogical context — any of \`phase\`, \`keyStage\`, \`priority\`, or explicit \`strandIds\`. At least one selector is required. Pass \`detail: 'headline'\` to scan a bounded list (identity, headline metrics, tags, EEF page), then drill a chosen strand with 'inspect-strand'.
 
 Use this when the teacher asks for the evidence behind an approach, or when you are already adapting, combining, or framing Oak material pedagogically. State a terse rationale first (e.g. "EEF because: <pedagogical choice>").
 
 Do NOT use for plain curriculum retrieval (use 'search'/'fetch'), for guaranteed-outcome claims, for individual-pupil causal claims, or to make a teacher-replacing selection. The evidence is population-level; carry its caveats and attribution into anything drafted from it.
 
-Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (\`phase\`/\`keyStage\`/\`priority\`) match only the strands the corpus tags for school context — they focus the result, they do not bound coverage, and a missing tag is not evidence of inapplicability. Use \`eef://interpretation\` for the full strand index and how to read the evidence faithfully.`,
+Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (\`phase\`/\`keyStage\`/\`priority\`) match only the strands the corpus tags for school context — they focus the result, they do not bound coverage, and a missing tag is not evidence of inapplicability. The result's \`answerType\` says which it is: 'strand-lookup' (exactly the strands you named, complete) or 'context-subset' (the corpus-curated, non-exhaustive axis match). Use \`eef://interpretation\` for the full strand index and how to read the evidence faithfully.`,
   securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }] as const,
   annotations: {
     readOnlyHint: true,
@@ -127,9 +135,22 @@ Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (\`
  * type is preserved here and only widens to the shared `CallToolResult` carrier
  * when stored in the `AGGREGATED_HANDLERS` map. On failure, an `isError` text
  * result (no structured content to type).
+ *
+ * The success union collapses to `EefEvidenceEnvelope<EefStrandHeadline>`
+ * (`EefStrand` is assignable to `EefStrandHeadline`), so it adds no static
+ * information. Kept DELIBERATELY (owner decision, 2026-06-09) as an egress
+ * transport shape: the sole consumer is the ADR-193 membrane, then JSON, then the
+ * calling agent, which gets the full runtime data regardless of the static type.
+ * Full-member precision for a TypeScript consumer lives in the binding functions;
+ * not "fixed" because Copilot's nested member union collapses the same way and a
+ * `memberDepth` discriminant buys only narrowing the egress path does not need.
  */
 type EefEvidenceResult =
-  | { content: never[]; structuredContent: EefEvidenceEnvelope; isError?: false }
+  | {
+      content: never[];
+      structuredContent: EefEvidenceEnvelope | EefEvidenceEnvelope<EefStrandHeadline>;
+      isError?: false;
+    }
   | { content: TextContent[]; isError: true };
 
 /** Build the strict `isError` result for a boundary-predicate failure. */
@@ -191,7 +212,9 @@ export function runEefEvidenceTool(input: unknown): EefEvidenceResult {
       'evidence-for-move requires at least one selector: strandIds, phase, keyStage, or priority.',
     );
   }
-  return { content: [], structuredContent: evidenceForMove(selectors) };
+  const structuredContent =
+    args.detail === 'headline' ? evidenceForMoveHeadlines(selectors) : evidenceForMove(selectors);
+  return { content: [], structuredContent };
 }
 
 // ─── EGRESS MEMBRANE (ADR-193) ───────────────────────────────────────────────

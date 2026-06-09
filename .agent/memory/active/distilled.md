@@ -39,6 +39,22 @@ sweep, not just the deleted paths. Agent/workflow verdicts are input-to-verify: 
 changes (a restored plan's cited evidence must not be the file you delete). Routing:
 pattern-candidate in the harvest/disposition family; full instance in napkin 2026-06-08.
 
+## Fan-out for verification, gatekeeper for execution (2026-06-09, Starless Prowling Veil)
+
+In a controller / multi-agent session the value splits cleanly by **reversibility**. The
+verification half — independent reads, conservation checks, "is this claim true?" — is
+fan-out-shaped: a workflow with an adversarial-skeptic stage *is* the critical-assessment
+discipline mechanized (each finder's claim gets a refuter). The execution half — irreversible
+or coordination-dependent moves (delete, commit, merge, reshape shared indexes) — is **not**:
+it stays serial, gatekeeper-owned, and first-hand, because agent/workflow output (even a
+high-confidence verdict) is input-to-verify, never a fact. The integration cuts both ways and
+both matter: this session I *overrode* over-escalated verdicts on first-hand re-read (a
+reviewer's "all blocked"; a workflow's "deletion-safe") AND a bot *caught a real instance I'd
+missed* (a second defect of a class I'd only patched once). So: fan out the verify, own the
+execute, ground the load-bearing claims yourself — critical assessment that neither defers nor
+dismisses. Candidate: collaboration-practice pattern (refines coordinator-delegates +
+when-to-reach-for-fan-out).
+
 ## Felt-authority cluster — no derived-authority surface self-certifies
 
 The dominant recurring meta-theme (≥6 instances; owner reinforced ~4× in one

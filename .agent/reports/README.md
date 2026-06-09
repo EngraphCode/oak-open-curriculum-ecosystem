@@ -47,6 +47,11 @@ research notes or investigation logs.
 - [claude-code-compaction-thinking-block-bug-2026-05-28.md](./claude-code-compaction-thinking-block-bug-2026-05-28.md)
   — Claude Code 2.1.153 bug report: `/compact` fails deterministically on Opus
   extended-thinking blocks; evidence, root cause, workaround, paste-ready `/feedback` text
+- [pr-142-eef-evidence-result-union-type-review-2026-06-09.md](./pr-142-eef-evidence-result-union-type-review-2026-06-09.md)
+  — type review of the one Copilot comment on PR #142 (`EefEvidenceResult` root
+  union): empirically-verified `EefStrand <: EefStrandHeadline` subtype collapse,
+  why the nested-union fix is lossy, and the discriminant-vs-transport-shape
+  recommendation for the deferred type review
 
 ## Related Surfaces
 

@@ -157,6 +157,11 @@ To keep scope clear, this repository is not:
 - an attempt to define a universal "right way" for others to build; our role
   is to support and enable, not constrain
 - a replacement for Oak's primary teacher-facing site and product journeys
+- a system that makes teachers' pedagogical decisions for them — the teacher is
+  the pedagogical expert and the authority on what should happen; our surfaces
+  inform with information, resources, and evidence and may present evidenced
+  options and trade-offs, but never make the decision or instruct
+  ([ADR-194](../architecture/architectural-decisions/194-teacher-as-expert-product-boundary.md))
 - the owner of upstream curriculum licensing policy or legal interpretation
 - a promise that every experimental AI capability is exposed publicly before
   it meets quality, safety, and pedagogical standards
