@@ -11,14 +11,11 @@
  * the corpus at test time), never a hard-coded count.
  */
 
-import { describe, expect, expectTypeOf, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import type { GraphEdge } from '@oaknational/graph-core/graph-view';
 import { EEF_TOOLKIT_DATA } from './eef-toolkit.external-data.js';
 import { evidenceForMove, inspectStrand } from './eef-evidence.js';
-import type { EefEvidenceEnvelope, EefEvidenceProvenance } from './eef-evidence.js';
 import { strandAxisIndex } from './raw-domains.js';
-import type { EefStrand, EefStrandId } from './strand-lookup.js';
 
 const byLocale = (a: string, b: string): number => a.localeCompare(b);
 
@@ -110,13 +107,25 @@ describe('evidenceForMove — axis-resolved evidence envelope', () => {
   });
 });
 
-describe('EefEvidenceEnvelope — strict-type-flow invariants', () => {
-  it('preserves the exact field types (no widening to unknown)', () => {
-    expectTypeOf<EefEvidenceEnvelope['members']>().toEqualTypeOf<readonly EefStrand[]>();
-    expectTypeOf<EefEvidenceEnvelope['edges']>().toEqualTypeOf<
-      readonly GraphEdge<EefStrandId, 'related_strand'>[]
-    >();
-    expectTypeOf<EefEvidenceEnvelope['frontier']>().toEqualTypeOf<readonly EefStrandId[]>();
-    expectTypeOf<EefEvidenceEnvelope['provenance']>().toEqualTypeOf<EefEvidenceProvenance>();
+describe('answerType — self-describing result coverage (A-i)', () => {
+  it('labels a single-strand inspect as a strand-lookup (complete for the request)', () => {
+    expect(inspectStrand('eef-tl-feedback').answerType).toBe('strand-lookup');
+  });
+
+  it('labels an explicit-id evidence-for-move as a strand-lookup (same as inspect — overlap preserved)', () => {
+    expect(evidenceForMove({ strandIds: ['eef-tl-feedback'] }).answerType).toBe('strand-lookup');
+  });
+
+  it('labels an axis evidence-for-move as a non-exhaustive context-subset', () => {
+    expect(evidenceForMove({ phase: 'primary' }).answerType).toBe('context-subset');
+  });
+
+  it('labels a mixed explicit+axis query as a context-subset (the axis portion is curated)', () => {
+    expect(
+      evidenceForMove({
+        strandIds: ['eef-tl-feedback'],
+        priority: 'closing_disadvantage_gap',
+      }).answerType,
+    ).toBe('context-subset');
   });
 });

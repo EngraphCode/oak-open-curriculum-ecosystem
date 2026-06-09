@@ -4,6 +4,7 @@ import {
   OBSERVED_PHASES,
   inspectStrand,
   evidenceForMove,
+  evidenceForMoveHeadlines,
 } from '@oaknational/graph-corpus-sdk/eef-strands';
 import { typeSafeKeys } from '../types/helpers/type-helpers.js';
 import {
@@ -31,6 +32,7 @@ describe('get-eef-evidence input schema (closed, finite domain)', () => {
       'phase',
       'keyStage',
       'priority',
+      'detail',
     ]);
   });
 });
@@ -55,6 +57,26 @@ describe('runEefEvidenceTool (thin parse-and-dispatch over the D5 bindings)', ()
     }
     expect(result.content).toEqual([]);
     expect(result.structuredContent).toEqual(expected);
+  });
+
+  it("evidence-for-move with detail:'headline' returns the bounded headline envelope", () => {
+    const result = runEefEvidenceTool({
+      function: 'evidence-for-move',
+      phase: firstPhase,
+      detail: 'headline',
+    });
+    if (result.isError) {
+      throw new Error('expected a successful result');
+    }
+    expect(result.structuredContent).toEqual(evidenceForMoveHeadlines({ phase: firstPhase }));
+  });
+
+  it('evidence-for-move defaults to the full strands when detail is omitted', () => {
+    const result = runEefEvidenceTool({ function: 'evidence-for-move', phase: firstPhase });
+    if (result.isError) {
+      throw new Error('expected a successful result');
+    }
+    expect(result.structuredContent).toEqual(evidenceForMove({ phase: firstPhase }));
   });
 
   it('evidence-for-move with no selector is isError (an unscoped query is invalid)', () => {
