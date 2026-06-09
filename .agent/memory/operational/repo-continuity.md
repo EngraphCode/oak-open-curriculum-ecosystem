@@ -20,9 +20,9 @@ surface.
 
 ## Current State
 
-- **A-i/C REVIEWS LANDED + PUSHED; GRAPH-TOOLS PLAN PROMOTED (2026-06-09, Brazen Roasting Cinder /
-  `527005`, claude / Opus 4.8, owner-directed; branch `assess/evidence_workflows`, PR #142 OPEN +
-  green).** The deferred A-i/C reviews ran (5 reviewers via a workflow; every finding adjudicated
+- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION + MCP-SURFACE FOLLOW-ONS (2026-06-09, Brazen Roasting Cinder /
+  `527005`, claude / Opus 4.8, owner-directed; PR #142 MERGED → v1.17.0; continued on
+  `feat/graph-migration-part-1`).** The deferred A-i/C reviews ran (5 reviewers via a workflow; every finding adjudicated
   FIRST-HAND — code/types/tests SOUND, two over-escalations refuted: a pre-existing `tags`-guard line
   not in the reviewed commit, and a "same selector" suggestion that would cut coverage). Verified
   findings landed + pushed: `4f15d7df` test(eef) review-surfaced coverage; `747023fd` docs(eef)
@@ -37,9 +37,20 @@ surface.
   edge-type-selective extension) + executable TDD cycles + architecture/assumptions review remain,
   deferred to the NEXT SESSION (owner-directed; see the plan's §Remaining promotion work). The
   fitness-driven curation pass (napkin rotation / distilled graduation) was NOT done — owner directed
-  not to act on fitness limits this session. **Next safe step: the next session completes the
-  promotion (settle + author + review → DECISION-COMPLETE) on a NEW branch; this branch's value
-  (A-i/C) is shipped.**
+  not to act on fitness limits this session. **Continued (post-merge, `feat/graph-migration-part-1`):**
+  evaluated the 5 served MCP prompts + the served resources and (owner-directed) captured an **MCP
+  surface rationalisation** strand in `graph-tools-value-redesign` — resources §A (remove the 3 graph
+  resources + the redundant `docs://oak/tools.md`/`workflows.md`, trim `getting-started`, protect
+  `curriculum://model` + `eef://interpretation` as the canonical context); prompts §B (graph-flood
+  repointing, `adapt-lesson` arg-mapping, fixed glossary language, distinguish overlapping names);
+  skills §C (pre-empt `oak-skills`→prompts; licence owner-clarified — content is Oak's to use, the
+  constraint is preserving external-research attribution; `oak-brand` out, `oak-tone-of-voice` open;
+  `oak-curriculum-principles-mcp-enabled` is the strongest candidate as it already drives this MCP).
+  **Next safe step (owner): the next session on `feat/graph-migration-part-1` STARTS with finishing
+  the graph-tools promotion** — settle A/B/D/E + the node/edge model + the `GraphView`
+  edge-type-selective extension, author the executable TDD cycles, run architecture + assumptions
+  validation → DECISION-COMPLETE; the surface-rationalisation strand follows, and the
+  split-into-its-own-plan decision is taken then. PR #142's value (A-i/C) shipped in v1.17.0.**
 - **EVIDENCE-WORKFLOW ENHANCEMENTS + ADR-194 + OUTPUT-SCHEMA INTEGRATION (2026-06-09, Incandescent
   Smouldering Brazier / `939d21`, claude / Opus 4.8, owner-directed; branch
   `assess/evidence_workflows`).** Three commits, full pre-commit gate green each, **pushed (PR #142)**:

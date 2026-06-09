@@ -8,6 +8,37 @@ merge_class: append-only-narrative
 fitness_content_role: drainable-buffer
 ---
 
+## 2026-06-09 — graph promotion + MCP-surface evaluation; a type-review miss; licence precision (Brazen Roasting Cinder, cont.)
+
+Post-merge continuation (PR #142 → v1.17.0; on `feat/graph-migration-part-1`). Promoted
+`graph-tools-value-redesign`, evaluated the 5 served MCP prompts + the served resources, captured an
+MCP-surface-rationalisation strand (resources/prompts/skills) in the plan.
+
+- **A union of two types where one is a structural subtype of the other COLLAPSES — flag it in type
+  review.** Copilot caught a nit my 5-reviewer A-i/C pass missed: `EefEvidenceResult`'s success union
+  `EefEvidenceEnvelope | EefEvidenceEnvelope<EefStrandHeadline>` collapses (`EefStrand` is assignable
+  to the headline `Pick`), carrying no extra static info. My pass screened the familiar risks
+  (casts/widening/the wrong-Zod precedent) but not the subtype-collapse axis. AND — critically assess
+  the INFERENCE, not just the facts: Copilot's facts were right but its suggested nested-union fix
+  collapses identically (unhelpful). Parallel-reviewer/bot redundancy catches the tail a single pass
+  misses; both halves of critical assessment fire (don't dismiss the real nit; don't apply the
+  unhelpful fix). Sibling of [[feedback_validate_specialist_findings_before_acting]].
+- **MCP-resource single-source drift — derive-or-remove, never duplicate.** `curriculum://model` is
+  the one canonical source (domain model + tool guidance + workflows + tips); `docs://oak/tools.md`,
+  `workflows.md`, and `getting-started`'s Tips block DUPLICATE it verbatim and drift. Same
+  derive-don't-bridge / single-source principle, applied to the resource surface. Captured in the
+  plan's §A.
+- **Ground a licence boundary precisely — over-caution is as wrong as over-permission.** I read
+  oak-skills' "© Oak, all rights reserved" as use-prohibition and pre-excluded `oak-tone-of-voice`;
+  owner corrected — the skill content is Oak's to use, the real constraint is preserving the
+  external-research attribution to the same extent as the originals (each skill's
+  `references/sources.md`), and tone-of-voice is open, not excluded. Read the LICENSE scope note AND
+  the per-skill terms; a convenient over-restriction deserves the same suspicion as a convenient
+  permission. Sibling of [[feedback_ground_convenient_claims]].
+- **Surfacing real scope early lets the owner right-size.** The promotion-depth question + the
+  two-strand observation let the owner reduce scope twice (full-settle → structural-promote →
+  decision-complete-but-stop-at-plan) and enumerate the strands. Surface scope before over-investing.
+
 ## 2026-06-09 — A-i/C deferred reviews + estate completeness (Brazen Roasting Cinder)
 
 Ran the deferred A-i/C specialist reviews (the prior session's owner-sanctioned defer). 5 reviewers
