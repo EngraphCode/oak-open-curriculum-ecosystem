@@ -135,6 +135,15 @@ Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (\`
  * type is preserved here and only widens to the shared `CallToolResult` carrier
  * when stored in the `AGGREGATED_HANDLERS` map. On failure, an `isError` text
  * result (no structured content to type).
+ *
+ * The success union collapses to `EefEvidenceEnvelope<EefStrandHeadline>`
+ * (`EefStrand` is assignable to `EefStrandHeadline`), so it adds no static
+ * information. Kept DELIBERATELY (owner decision, 2026-06-09) as an egress
+ * transport shape: the sole consumer is the ADR-193 membrane, then JSON, then the
+ * calling agent, which gets the full runtime data regardless of the static type.
+ * Full-member precision for a TypeScript consumer lives in the binding functions;
+ * not "fixed" because Copilot's nested member union collapses the same way and a
+ * `memberDepth` discriminant buys only narrowing the egress path does not need.
  */
 type EefEvidenceResult =
   | {
