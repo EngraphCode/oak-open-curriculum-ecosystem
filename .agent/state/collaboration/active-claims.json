@@ -1,5 +1,55 @@
 {
   "schema_version": "1.3.0",
-  "commit_queue": [],
-  "claims": []
+  "commit_queue": [
+    {
+      "intent_id": "ec5c92f6-a011-44f7-a2bd-b593adc796c0",
+      "claim_id": "f29200c1-555f-410f-87ea-0da56e30903b",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "files": [
+        ".agent/reports/graph-tools-readiness-seam-analysis-2026-06-09.md",
+        ".agent/memory/operational/threads/eef.next-session.md",
+        ".agent/state/collaboration/active-claims.json",
+        ".agent/state/collaboration/closed-claims.archive.json"
+      ],
+      "commit_subject": "docs(reports): add graph-tools readiness seam analysis + session bootstrap",
+      "queued_at": "2026-06-09T19:32:23.188Z",
+      "updated_at": "2026-06-09T19:33:33.494Z",
+      "expires_at": "2026-06-09T19:47:23.188Z",
+      "phase": "abandoned",
+      "notes": "not abandoned in substance: bundle lands in this same collaboration-state commit (residue exception); queue entry closed pre-commit so the commit carries its own lifecycle closure"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "11123f7b-7ebe-4454-9eb8-10d93b087d0a",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/**",
+            ".agent/memory/operational/threads/eef.next-session.md",
+            ".agent/memory/operational/repo-continuity.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-09T19:14:55Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Graph-tools-value-redesign readiness session: seam analysis, mechanism settle, cycle authoring, decision-complete (docs/plans only)"
+    }
+  ]
 }

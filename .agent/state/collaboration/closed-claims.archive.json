@@ -9748,6 +9748,50 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "f29200c1-555f-410f-87ea-0da56e30903b",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-09T19:32:12Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit the readiness-session checkpoint (seam-analysis report + eef identity row + claim state).",
+      "intent_to_commit": "ec5c92f6-a011-44f7-a2bd-b593adc796c0",
+      "archived_at": "2026-06-09",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-09T19:33:02Z",
+        "closed_by": {
+          "agent_name": "Fragrant Spreading Sapling",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "47f78a",
+          "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+        },
+        "summary": "checkpoint commit: seam-analysis report + eef identity row; closed in same collaboration-state commit",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "f29200c1-555f-410f-87ea-0da56e30903b",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

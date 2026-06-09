@@ -204,6 +204,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Briny Charting Lagoon` | `claude` | `Opus 4.8` | `4dae1b` | `d6-completion-attribution-passthrough-flag-default-on-and-live-exercise` | 2026-06-08 | 2026-06-08 |
 | `Incandescent Smouldering Brazier` | `claude` | `Opus 4.8` | `939d21` | `post-d7-answertype-and-headline-view-adr194-product-boundary-and-output-schema-integration` | 2026-06-09 | 2026-06-09 |
 | `Brazen Roasting Cinder` | `claude` | `Opus 4.8` | `527005` | `aic-deferred-reviews-and-graph-tools-plan-promotion` | 2026-06-09 | 2026-06-09 |
+| `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `graph-plan-readiness-seam-analysis-and-decision-complete` | 2026-06-09 | 2026-06-09 |
 
 ## Cross-Plan and Cross-Thread Links
 
