@@ -16,9 +16,10 @@ merge_class: index-narrative-tables
 
 ## Current State
 
-- **Parked on EEF D6 + D7.** When EEF reaches D6 + D7 green, promote
-  [`future/graph-tools-value-redesign.plan.md`](../../../plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
-  — one plan owning the migration of all three existing graph tools onto `graph-corpus-sdk`.
+- **PROMOTED 2026-06-09.** EEF reached D6 + D7 green and shipped, so
+  [`current/graph-tools-value-redesign.plan.md`](../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  was promoted to `current/` — one plan owning the migration of all three existing graph tools onto
+  `graph-corpus-sdk` (mechanism-settling + executable cycles remain; see its §Remaining promotion work).
   (NB: an older note here said "next: EEF D3"; that is stale — EEF is now at D6 c4/c5. Re-derive
   the EEF state from `eef.next-session.md` + `repo-continuity.md` § Current State.)
 - **Graph-estate consolidated** (`c3b78eec`, pushed): eleven plans archived with banners; the

@@ -21,7 +21,7 @@ the agent reason well over deterministic facts);
 the EEF plan's **Decision 10** in
 [`eef-graph-tool-completion.plan.md`](../../../.agent/plans/sector-engagement/eef/current/eef-graph-tool-completion.plan.md)
 (the plan-local statement this ADR promotes to a repo-wide principle);
-[`graph-tools-value-redesign.plan.md`](../../../.agent/plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
+[`graph-tools-value-redesign.plan.md`](../../../.agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
 (the second plan that independently embodies the same principle: bounded
 retrieval, agent reasons);
 PDR-058 §Surface 2 (earned-generic design optionality).

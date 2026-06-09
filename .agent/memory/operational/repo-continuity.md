@@ -20,9 +20,29 @@ surface.
 
 ## Current State
 
+- **A-i/C REVIEWS LANDED + PUSHED; GRAPH-TOOLS PLAN PROMOTED (2026-06-09, Brazen Roasting Cinder /
+  `527005`, claude / Opus 4.8, owner-directed; branch `assess/evidence_workflows`, PR #142 OPEN +
+  green).** The deferred A-i/C reviews ran (5 reviewers via a workflow; every finding adjudicated
+  FIRST-HAND — code/types/tests SOUND, two over-escalations refuted: a pre-existing `tags`-guard line
+  not in the reviewed commit, and a "same selector" suggestion that would cut coverage). Verified
+  findings landed + pushed: `4f15d7df` test(eef) review-surfaced coverage; `747023fd` docs(eef)
+  comment + plan accuracy (`eef-evidence.ts` stale "open question" → ADR-193; output-schemas
+  type-tie + stale-count fixes); `836d7d85` docs(memory) napkin capture. Estate
+  gap/decision-completeness check done — the single open item was the graph-tools promotion, which
+  the owner decided PROMOTE. **`graph-tools-value-redesign.plan.md` PROMOTED future/→current/**
+  (status: current; banner reframed; the stale `GraphView` subgraph/neighbours/manifest claim
+  corrected to the verified subgraph-only + edge-type-agnostic truth; tool count + dependency rows
+  refreshed; all inbound links repointed; KG README row moved to Live Work). It is **NOT
+  decision-complete**: the MECHANISM settle (A/B/D/E + node/edge model + a required `GraphView`
+  edge-type-selective extension) + executable TDD cycles + architecture/assumptions review remain,
+  deferred to the NEXT SESSION (owner-directed; see the plan's §Remaining promotion work). The
+  fitness-driven curation pass (napkin rotation / distilled graduation) was NOT done — owner directed
+  not to act on fitness limits this session. **Next safe step: the next session completes the
+  promotion (settle + author + review → DECISION-COMPLETE) on a NEW branch; this branch's value
+  (A-i/C) is shipped.**
 - **EVIDENCE-WORKFLOW ENHANCEMENTS + ADR-194 + OUTPUT-SCHEMA INTEGRATION (2026-06-09, Incandescent
   Smouldering Brazier / `939d21`, claude / Opus 4.8, owner-directed; branch
-  `assess/evidence_workflows`).** Three commits, full pre-commit gate green each, **NOT yet pushed**:
+  `assess/evidence_workflows`).** Three commits, full pre-commit gate green each, **pushed (PR #142)**:
   `80dd642d` feat(eef) — A-i self-describing `answerType` (`strand-lookup`/`context-subset`) + C
   `detail:'headline'` bounded view on `get-eef-evidence` (new
   `graph-corpus-sdk/src/eef-strands/eef-headline-view.ts`); behaviour-tested + exercised LIVE over MCP
@@ -32,12 +52,10 @@ surface.
   engineering corollary; propagated to the ADR index, ADR-191, VISION, the curriculum-tools playbook,
   and EEF R7; assessment reports in `.agent/reports/`. `f95a051d` docs(plans) — output-schemas estate
   integrated (the composition approach + my EEF `answerType` / full-headline-union reconciliation).
-  **NEXT SAFE STEP (owner-directed): next session reviews + checks, THEN this session pushes/PRs.**
-  Next session: (1) deferred reviews — `code-expert`/`type-expert`/`test-expert` on the A-i/C code,
-  `docs-adr-expert` on the output-schemas plan; (2) **critically assess ALL reviewer feedback
-  first-hand** (reviewers over-escalate — `project_specialist_agent_design_overhaul`,
-  `validate-specialist-findings-before-acting`); (3) **gap analysis + underspecified-items check +
-  decision-completeness check** across the ADR-194 + A-i/C + output-schema estate.
+  **NEXT SAFE STEP — DONE 2026-06-09 (Brazen Roasting Cinder; see the top entry):** the reviews ran
+  (5 reviewers, adjudicated first-hand), the verified findings landed + pushed, and the
+  gap/underspecified/decision-completeness check ran across the estate (the one open item — the
+  graph-tools promotion — was owner-decided PROMOTE and actioned).
 - **OUTPUT-SCHEMAS PLAN — DERIVE-FROM-SOURCE AMENDMENT (2026-06-09, Oceanic Lapping Anchor / `db4eb4`,
   claude / Opus 4.8, owner-directed).**
   [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
@@ -115,7 +133,7 @@ surface.
   proven by release-and-observe, not a codified test**; delivered-value stays with
   [`eef-outcome-evaluation-infrastructure.plan.md`](../../plans/sector-engagement/eef/future/eef-outcome-evaluation-infrastructure.plan.md).
   Marking D7 green fires the
-  [`graph-tools-value-redesign`](../../plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
+  [`graph-tools-value-redesign`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   promotion trigger (`get-keywords` added to that plan this session). **SHIPPED TO PRODUCTION
   2026-06-08**: PR #131 squash-merged to `main` (`d9f0d906`) → semantic-release `v1.16.0` → Vercel
   production deploy READY; the EEF surface is live by default at

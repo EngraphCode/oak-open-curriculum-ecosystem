@@ -11,9 +11,23 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-09, Incandescent Smouldering Brazier / claude Opus 4.8, branch
+- **THIS SESSION (2026-06-09, Brazen Roasting Cinder / claude Opus 4.8, branch
+  `assess/evidence_workflows`, PR #142) — A-i/C deferred reviews + graph-tools-plan promotion.**
+  The deferred A-i/C specialist reviews ran (5 reviewers via a workflow; every finding adjudicated
+  FIRST-HAND — code/types/tests SOUND, no real defects; two over-escalations refuted). Verified
+  findings landed + **PUSHED**: `4f15d7df` test(eef) coverage, `747023fd` docs(eef) comment/plan
+  accuracy (`eef-evidence.ts` stale "open question" → ADR-193; output-schemas type-tie/count fixes),
+  `836d7d85` docs(memory) napkin capture. Estate gap/decision-completeness check done.
+  **`graph-tools-value-redesign.plan.md` PROMOTED future/→current/** (owner-decided): stale
+  substrate facts corrected (the landed `GraphView` is subgraph-only + edge-type-agnostic — the
+  views need an edge-type-selective extension), inbound links repointed, KG README row moved to Live
+  Work. It is **NOT yet decision-complete** — the mechanism settle (A/B/D/E + node/edge model + the
+  `GraphView` extension) + executable TDD cycles + architecture/assumptions review remain for the
+  NEXT SESSION on a NEW branch (see the plan's §Remaining promotion work). The fitness-driven curation
+  pass was NOT done (owner directed not to act on fitness limits this session).
+- **PRIOR SESSION (2026-06-09, Incandescent Smouldering Brazier / claude Opus 4.8, branch
   `assess/evidence_workflows`) — post-D7 evidence-workflow enhancements + the product principle.
-  All three commits landed (full gate green each); NOT yet pushed:**
+  All three commits landed (full gate green each); pushed (PR #142):**
   - **`80dd642d` feat(eef): A-i + C on `get-eef-evidence`.** A self-describing `answerType`
     (`'strand-lookup' | 'context-subset'`) on the evidence envelope (a complete by-id result vs a
     non-exhaustive corpus-curated axis subset), and a `detail: 'headline'` option on
@@ -31,8 +45,8 @@ merge_class: index-narrative-tables
   - **`f95a051d` docs(plans): output-schema estate integrated.** The composition approach +
     my EEF reconciliation — `answerType` + the full/headline member union threaded through the
     output-schemas plan's W0-cycle-3 / W2 / §Relationship clauses.
-- **NEXT SAFE STEP — reviews + completeness checks, THEN push/PR (owner-directed 2026-06-09).**
-  The next session MUST:
+- **NEXT SAFE STEP — reviews + completeness checks, THEN push/PR (owner-directed 2026-06-09). ✅ COMPLETED 2026-06-09 (Brazen Roasting Cinder; see the top entry — reviews ran, findings landed + pushed, completeness check done, graph plan promoted).**
+  The original next-session checklist was:
   1. **Carry out the deferred reviews** — `code-expert` / `type-expert` / `test-expert` on the
      A-i/C code (`80dd642d`); `docs-adr-expert` coherence pass on the integrated
      `output-schemas-for-mcp-tools.plan.md`.
@@ -48,7 +62,7 @@ merge_class: index-narrative-tables
 - **Prior arc (D0–D7) DELIVERED + SHIPPED.** The EEF build arc shipped to production 2026-06-08
   (PR #131 → `v1.16.0`); the surface is live by default at `curriculum-mcp-alpha.oaknational.dev`.
   The A-i/C above are post-ship enhancements on a new branch. The
-  [`graph-tools-value-redesign`](../../../plans/connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
+  [`graph-tools-value-redesign`](../../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   promotion trigger (EEF D6 + D7 green) is fired; its output-schema work is gated behind
   `output-schemas-for-mcp-tools.plan.md`.
 - **Acceptance bar carried**: every tool/resource/prompt is real graph-derived logic with
@@ -186,6 +200,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Lanternlit Shrouding Raven` | `claude` | `Opus 4.8` | `7636f9` | `c4-c5-reflection-and-attribution-fix` | 2026-06-08 | 2026-06-08 |
 | `Briny Charting Lagoon` | `claude` | `Opus 4.8` | `4dae1b` | `d6-completion-attribution-passthrough-flag-default-on-and-live-exercise` | 2026-06-08 | 2026-06-08 |
 | `Incandescent Smouldering Brazier` | `claude` | `Opus 4.8` | `939d21` | `post-d7-answertype-and-headline-view-adr194-product-boundary-and-output-schema-integration` | 2026-06-09 | 2026-06-09 |
+| `Brazen Roasting Cinder` | `claude` | `Opus 4.8` | `527005` | `aic-deferred-reviews-and-graph-tools-plan-promotion` | 2026-06-09 | 2026-06-09 |
 
 ## Cross-Plan and Cross-Thread Links
 

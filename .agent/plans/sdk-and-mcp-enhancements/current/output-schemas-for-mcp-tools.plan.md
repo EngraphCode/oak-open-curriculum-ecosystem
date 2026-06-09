@@ -824,7 +824,7 @@ them and can be prepared earlier.
   the new EEF graph tool. EEF D6 ships no output schema and does not touch the
   carrier, so it no longer shares the S0 seam; this plan owns the seam outright
   and authors the EEF tool's output schema as an ordinary aggregated tool.
-- `../../connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md`
+- `../../connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md`
   — rebuilds the three existing graph tools onto the substrate (substrate +
   bounded retrieval only, **no** MCP output schema); this plan authors their
   `outputSchema` in W2 against their post-migration `structuredContent`. Blocking

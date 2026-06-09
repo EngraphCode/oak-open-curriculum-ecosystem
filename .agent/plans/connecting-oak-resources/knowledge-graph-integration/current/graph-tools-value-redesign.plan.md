@@ -1,19 +1,19 @@
 ---
 name: "Graph Tools Value Redesign (unified)"
-overview: "ONE plan owning the value-driven (re)design of all existing whole-corpus Oak MCP tools (misconception, prior-knowledge, thread-progressions, keywords) onto the graph-corpus-sdk substrate — a list or ordered sequence is a simple DAG, still a graph (owner 2026-06-08), so frequency-ranked keywords and thread sequences belong on the same substrate and in this one plan. Governing premise: bounded, relevant, token-efficient retrieval under full design agency over BOTH the generated data-object shape AND the retrieval mechanism — not behaviour-preservation. Per tool, the landing unit is data/type re-emission + the input-interface and bounded-retrieval shape + tool rewrite, together; it ships NO MCP outputSchema (the tool works without one, as today) — every tool's outputSchema is composed uniformly in output-schemas-for-mcp-tools.plan.md W2, so no tool is a special case (owner 2026-06-08). Authored under graph-estate-consolidation Judgement call 4 (owner-ratified 2026-06-02); reframed from behaviour-preservation to design-in-our-power (owner-directed 2026-06-04). Single upstream of the EEF re-validation gate. Parked until the named promotion trigger: EEF D6 landed + EEF D7 green."
+overview: "ONE plan owning the value-driven (re)design of all existing whole-corpus Oak MCP tools (misconception, prior-knowledge, thread-progressions, keywords) onto the graph-corpus-sdk substrate — a list or ordered sequence is a simple DAG, still a graph (owner 2026-06-08), so frequency-ranked keywords and thread sequences belong on the same substrate and in this one plan. Governing premise: bounded, relevant, token-efficient retrieval under full design agency over BOTH the generated data-object shape AND the retrieval mechanism — not behaviour-preservation. Per tool, the landing unit is data/type re-emission + the input-interface and bounded-retrieval shape + tool rewrite, together; it ships NO MCP outputSchema (the tool works without one, as today) — every tool's outputSchema is composed uniformly in output-schemas-for-mcp-tools.plan.md W2, so no tool is a special case (owner 2026-06-08). Authored under graph-estate-consolidation Judgement call 4 (owner-ratified 2026-06-02); reframed from behaviour-preservation to design-in-our-power (owner-directed 2026-06-04). Single upstream of the EEF re-validation gate. PROMOTED to current/ 2026-06-09 (trigger EEF D6 + D7 fired and shipped); the MECHANISM decisions + executable TDD cycles remain (see the Remaining promotion work section), deferred to the next session by owner direction."
 plan_id: graph-tools-value-redesign
 type: strategic
-status: future
+status: current
 graph_layer: oak-graph-surface
 thread: eef
 date: 2026-06-04
 isProject: false
 related:
-  - "../current/graph-estate-consolidation.plan.md (authority: §Judgement calls, call 4)"
+  - "graph-estate-consolidation.plan.md (authority: §Judgement calls, call 4)"
   - "../../../sector-engagement/eef/current/eef-graph-tool-completion.plan.md (D4–D6 mechanism co-design; D7 value gate; EEF decision B = homogeneous strand graph)"
   - "../../../sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md (binding §Resolved Sequencing contract)"
   - "../../../sector-engagement/eef/future/eef-revalidate-on-new-graph-tools.plan.md (downstream gate; this plan is its single upstream)"
-  - "./oak-misconceptions-graph-features.plan.md (boundary redrawn — §1 bounded retrieval folded into this redesign's core)"
+  - "../future/oak-misconceptions-graph-features.plan.md (boundary redrawn — §1 bounded retrieval folded into this redesign's core)"
 todos:
   - id: settle-mechanism-at-promotion
     content: "At promotion (trigger: EEF D6 landed + D7 green), settle the open MECHANISM decisions against the landed EEF D5/D6 code: data/type re-emission shape per corpus (A), adapter home + dependency direction with an ADR-041 check — including an explicit no-circular-dependency confirmation if Decision B lands on a new graph-corpus-sdk -> oak-sdk-codegen import edge (B), the codegen schema-emission shape (D), the per-unit landing order (E), and — for misconception — whether the bulk SOURCE supports emitting ids+edges (graph-shaping) beyond the attribute-filter shape decided now. Co-decide the anchor input TYPES against Decision A's emission choice (finite-domain keys lessonSlug/unitSlug/threadSlug as generated literal unions vs widened string — must be consistent, not left implicit). Any shared accessor mechanics ship with real operations + tests or are absent (ADR-173 real-operations-only) — no stubs. ONE mechanism shared with EEF — no parallel. Value-SHAPES (anchors + retrieval form per corpus) are decided in this plan, not deferred."
@@ -35,7 +35,7 @@ todos:
     status: pending
     depends_on: [settle-mechanism-at-promotion, define-heterogeneous-node-edge-model]
   - id: define-heterogeneous-node-edge-model
-    content: "Define ONE bulk curriculum graph's heterogeneous node/edge model — node kinds (misconception, unit, lesson, thread, keyword) and typed inter-kind edges (unit->thread, unit<->lesson, lesson->misconception, lesson->keyword, unit->unit prerequisite), all re-projected from the bulk source. Identity is a DELIBERATE design item, NOT slug-as-id: stable entity ids; unit<->lesson placement modelled as an edge (a lesson can be placed in >1 unit; slugs not assumed unique). The four tools are bounded query VIEWS over this one graph (GraphView ops: subgraph / neighbours / path), NOT a single polymorphic god-primitive and NOT four independently re-emitted corpora; any shared view mechanics consolidate as a third-consumer decision (consolidate-at-third-consumer), never presupposed. DEFERRED from EEF D4 (homogeneous single-kind strand graph, decision B 2026-06-04). The model's CORE is mechanism-INDEPENDENT and derivable now; only its reconciliation with the landed EEF D4 homogeneous contract depends on landed code (lands at promotion). Bulk-id<->ontology-IRI reconciliation is a separate concern. Must NOT be assumed-inherited from EEF nor dropped."
+    content: "Define ONE bulk curriculum graph's heterogeneous node/edge model — node kinds (misconception, unit, lesson, thread, keyword) and typed inter-kind edges (unit->thread, unit<->lesson, lesson->misconception, lesson->keyword, unit->unit prerequisite), all re-projected from the bulk source. Identity is a DELIBERATE design item, NOT slug-as-id: stable entity ids; unit<->lesson placement modelled as an edge (a lesson can be placed in >1 unit; slugs not assumed unique). The four tools are bounded query VIEWS over this one graph (over the landed `GraphView` `subgraph` op — the ONLY operation that exists, verified 2026-06-09; edge-type-selective traversal is a required substrate extension, see the node/edge-model section), NOT a single polymorphic god-primitive and NOT four independently re-emitted corpora; any shared view mechanics consolidate as a third-consumer decision (consolidate-at-third-consumer), never presupposed. DEFERRED from EEF D4 (homogeneous single-kind strand graph, decision B 2026-06-04). The model's CORE is mechanism-INDEPENDENT and derivable now; only its reconciliation with the landed EEF D4 homogeneous contract depends on landed code (lands at promotion). Bulk-id<->ontology-IRI reconciliation is a separate concern. Must NOT be assumed-inherited from EEF nor dropped."
     status: pending
     depends_on: [settle-mechanism-at-promotion]
   - id: amend-adr-086
@@ -50,19 +50,21 @@ todos:
 
 # Graph Tools Value Redesign (unified)
 
-> **🔔 PROMOTION TRIGGER FIRED (verified 2026-06-09).** EEF D6 and D7 are both
-> `status: completed` and shipped to production — recorded in
-> [`eef-graph-tool-completion.plan.md`](../../../sector-engagement/eef/current/eef-graph-tool-completion.plan.md)
-> (d6/d7 completed; "promotion trigger … now fires"). Promoting this plan to
-> `current/` (rename + `settle-mechanism-at-promotion` + architecture review) is now
-> a **pending owner decision**: promote, or record a deliberate hold with a new exit
-> criterion. `output-schemas-for-mcp-tools.plan.md` W2's graph-tool portion is gated
-> on this plan landing, so this decision gates that work too. `status: future` is
-> retained until the owner promotes (promotion includes moving the file to `current/`).
+> **✅ PROMOTED to `current/` (2026-06-09, owner-directed).** The promotion trigger fired — EEF D6
+> and D7 are both `status: completed` and shipped to production (recorded in
+> [`eef-graph-tool-completion.plan.md`](../../../sector-engagement/eef/current/eef-graph-tool-completion.plan.md)).
+> This plan is now an active `current/` plan, but it is **NOT yet decision-complete**: the MECHANISM
+> decisions (A/B/D/E), the heterogeneous node/edge model (incl. a required `GraphView` substrate
+> extension), and the per-unit executable TDD cycles remain to be settled and authored against the
+> landed code — that is the [§Remaining promotion work](#remaining-promotion-work-next-session),
+> deferred to the next session by owner direction (2026-06-09) given its scope. Only MECHANISM +
+> executable-cycle authoring is outstanding; the per-corpus value-SHAPES and the governing frame are
+> owner-ratified. `output-schemas-for-mcp-tools.plan.md` W2's graph-tool portion stays gated on this
+> plan reaching decision-complete and landing its tools.
 >
-> **⏸️ PARKED — promotion trigger: EEF D6 landed AND EEF D7 green.** Ownership and the
-> governing frame are established now (Judgement call 4,
-> [`graph-estate-consolidation.plan.md`](../current/graph-estate-consolidation.plan.md)
+> **Governing frame (established 2026-06-02/04).** Ownership and the
+> governing frame are established (Judgement call 4,
+> [`graph-estate-consolidation.plan.md`](graph-estate-consolidation.plan.md)
 > §Judgement calls, owner-ratified 2026-06-02; the value-driven-redesign frame
 > owner-directed 2026-06-04). The per-corpus value-SHAPES are decided in this plan;
 > the MECHANISM decisions (A/B/D/E, node/edge-model reconciliation) finalise at promotion
@@ -73,6 +75,60 @@ todos:
 > [`eef-graph-tool-completion.plan.md`](../../../sector-engagement/eef/current/eef-graph-tool-completion.plan.md):
 > D6 landing is the first in-tree instance of the shared projection→single-Zod-call
 > mechanism this redesign reuses; D7 green is the value proof the redesign scales.
+
+## Remaining promotion work (next session)
+
+This plan is PROMOTED (active in `current/`) but **not yet decision-complete**. The owner deferred
+the decision-completing + execution-readying work to the next session (2026-06-09) given its scope.
+All of it is a **planning** effort (settle + author + review) — NOT the corpus re-emission or tool
+rewrites, which are the following branch's execution. The following must land for this plan to reach
+`🟢 DECISION-COMPLETE` and be execution-ready:
+
+1. **Settle the open MECHANISM decisions A/B/D/E** (see [§Open mechanism decisions](#open-mechanism-decisions-settled-at-promotion-not-before))
+   against the landed code. They were held open until the substrate existed; it now does. Grounded
+   inputs verified 2026-06-09:
+   - **A (data/type re-emission per corpus):** the generated corpora are JSON-loaded —
+     `misconception-graph/{data.json,types.ts}` (flat `MisconceptionNode`: `misconception`,
+     `response`, `subject`, `keyStage`, `lessonSlug`, `lessonTitle` — **no id, no edges**);
+     `prior-knowledge-graph/{data.json,types.ts}` (`PriorKnowledgeNode` + `PriorKnowledgeEdge`
+     `{from,to,rel:'prerequisiteFor',source}`); thread-progressions is `as const`; keywords are
+     bulk-extracted (`oak-sdk-codegen/src/bulk/extractors/keyword-extractor.ts`). Decide the
+     emit-types-from-data shape per corpus (the EEF `as const`→`typeof` model is the homogeneous
+     precedent; the JSON-loaded vocab corpora re-emit at the vocab-gen writer).
+   - **B (adapter home + dependency direction):** verified against ADR-041 (2026-06-09) —
+     `graph-corpus-sdk` is `sdks` tier and MAY import other sdks "directed only, no circular" via
+     approved package surfaces (ADR-108). Options: (a) `graph-corpus-sdk` imports the generated
+     corpus from `@oaknational/sdk-codegen` (a directed sdk→sdk edge — confirm no circular
+     back-edge), or (b) vocab-gen emits corpus modules into `graph-corpus-sdk` (no new import edge).
+     Architecture review (barney/fred) decides.
+   - **D (codegen schema-emission shape):** default (a) — a projection module performing the
+     projection + single Zod call at the generated package's compile.
+   - **E (per-unit landing order):** consumer-readiness — misconception + prior-knowledge first (the
+     EEF value path); thread-progressions + keywords follow.
+2. **Settle the heterogeneous node/edge model AND the required `GraphView` substrate extension.**
+   Node kinds (misconception/unit/lesson/thread/keyword), stable-id identity (NOT slug-as-id;
+   unit↔lesson placement as an edge), typed inter-kind edges re-projected from the ONE bulk source —
+   the chain `unit.threads` / `unit.unitLessons`+`lesson.unitSlug` /
+   `lesson.misconceptionsAndCommonMistakes` / `unit.priorKnowledgeRequirements`, all re-confirmed
+   present in `bulk-downloads/schema.json` (2026-06-09). **Substrate extension (verified
+   2026-06-09):** the landed `GraphView` provides only `subgraph` and traverses edge-type-agnostically,
+   so the views need an `edgeTypes?` filter on `subgraph` (per-edge-type adjacency), plus the
+   D4-deferred `manifest()` if a view needs it — real operations + tests (ADR-173), never stubbed.
+3. **Run the four data-grounding checks** (see [§Promotion trigger](#promotion-trigger-into-current))
+   against the tree at execution start: prerequisite-edge out-degree/depth distribution; `lessonSlug`
+   density on misconception nodes; anchored-subgraph population/density; keyword per-anchor density +
+   the exact bulk keyword field.
+4. **Author the executable TDD cycles** per redesign unit (the per-tool todos already sketch them;
+   re-derive under the one-graph architecture + the settled mechanisms).
+5. **Architecture + assumptions review** — `architecture-expert-barney/betty/fred/wilma` on the
+   boundary, dependency direction, and substrate extension; `assumptions-expert` on settle-completeness.
+   Verify every finding first-hand before folding in.
+6. **Then mark `🟢 DECISION-COMPLETE`** and amend ADR-086 (see [§ADR obligations](#adr-obligations)) in
+   the first re-emission commit.
+
+Until the above lands, do NOT begin the corpus re-emission or tool rewrites. The value-SHAPES
+(§Per-corpus value + token analysis) and the one-graph frame are owner-ratified inputs to the settle,
+not re-opened.
 
 ## Problem and intent
 
@@ -313,9 +369,17 @@ landed code):
   graph**: misconception-retrieval and prerequisite-retrieval are both **bounded subgraph
   traversals** (differing only in seed node + which edge types they follow), thread-progressions
   is a **bounded path/sequence** over thread→unit ordering, and keyword-retrieval is a **bounded
-  neighbourhood** over `lesson→keyword` edges. These map directly onto the typed
-  operations the substrate's `GraphView` interface already provides (`subgraph` / `neighbours` /
-  `manifest`), parameterised by seed + edge-type — so there is neither a single overloaded
+  neighbourhood** over `lesson→keyword` edges. **Substrate truth (verified 2026-06-09):** the landed `GraphView`
+  interface (`packages/core/graph-core/src/graph-view/interface.ts`) provides ONLY
+  `subgraph({ rootIds, depth })`, and `createGraphView`'s BFS is **edge-type-agnostic** (it follows
+  every outgoing edge within `depth`). The heterogeneous views need edge-type-SELECTIVE bounded
+  traversal (the misconception view follows only `thread→unit→lesson→misconception`, not all edges
+  from a node), so the `GraphView` contract must be **extended**: an `edgeTypes?` filter on
+  `subgraph` (adjacency built per edge type), plus the D4-deferred `manifest()` only if a view
+  needs it — added with real operations + tests (ADR-173 real-operations-only), never stubbed.
+  (`neighbours` / `manifest` / `path` do NOT exist today; the earlier claim that the substrate
+  "already provides subgraph / neighbours / manifest" was wrong, corrected here.) These map onto
+  that one extended `subgraph` op, parameterised by seed + edge-type — so there is neither a single overloaded
   `boundedRetrieval()` god-function nor four unrelated bespoke accessors. Each view shares the
   structural discipline (seed-input, bounded result, well-formed empty); any genuinely shared
   mechanics consolidate as a **third-consumer decision** (`consolidate-at-third-consumer`), never
@@ -334,7 +398,7 @@ or are absent** (ADR-173 §2026-06-01 real-operations-only) — no stubs.
 
 Inclusion criterion: a live aggregated MCP tool whose payload is a bulk-derived whole-corpus
 flood — a generated graph corpus (`packages/sdks/oak-sdk-codegen/src/generated/vocab/`) or another
-bulk-extracted whole-corpus return (the keyword extractor). The live registry carries 35 tools;
+bulk-extracted whole-corpus return (the keyword extractor). The live registry carries 36 tools (35 at the 2026-06-04 pin; +1 the EEF tool, shipped 2026-06-09);
 four meet the criterion — the three graph corpora plus keywords (added owner-directed 2026-06-08,
 on the "a list is a simple DAG" principle). **Landing is staged per tool/view** — each tool's
 rewrite moves every consumer of its surface at once (tool, resource twin, interpolation
@@ -400,7 +464,7 @@ MECHANISM waits.
 
 ## Reconciliation with the misconceptions-graph-features plan
 
-[`oak-misconceptions-graph-features.plan.md §1`](./oak-misconceptions-graph-features.plan.md)
+[`oak-misconceptions-graph-features.plan.md §1`](../future/oak-misconceptions-graph-features.plan.md)
 parks *bounded sub-graph extraction* (Thread-IRI + bound → bounded sub-graph) as a future
 feature, on the now-overturned premise that the live tool stays whole-corpus and bounded
 retrieval is a separate later feature. Under the value-driven frame, **bounded retrieval is the
@@ -416,8 +480,8 @@ features plan is updated to record this boundary move (its §1 status), preservi
 
 | Dependency | Class | Detail |
 | --- | --- | --- |
-| EEF D6 landed (first instance of the shared projection→single-Zod-call mechanism) | **blocking** | The mechanism this redesign reuses must exist as landed code, not prose. Schema-delivery order is contractually after D6 (§Resolved Sequencing). |
-| EEF D7 green (value proven on the live tools) | **blocking** | EEF's *first delivery consumes today's prerequisite and misconception graphs as they are* (owner, 2026-06-04); redesigning those tools before EEF v1 ships would delay or break the EEF first delivery, and would invalidate the D7 proof's target. The redesign scales proven value — it does not touch the signal tools until EEF v1 has shipped. |
+| EEF D6 landed (first instance of the shared projection→single-Zod-call mechanism) | **satisfied (2026-06-09)** | The mechanism this redesign reuses now exists as landed code (EEF D5/D6, shipped). Schema-delivery order is contractually after D6 (§Resolved Sequencing). |
+| EEF D7 green (value proven on the live tools) | **satisfied (2026-06-09)** | EEF's *first delivery consumes today's prerequisite and misconception graphs as they are* (owner, 2026-06-04); redesigning those tools before EEF v1 ships would delay or break the EEF first delivery, and would invalidate the D7 proof's target. The redesign scales proven value — it does not touch the signal tools until EEF v1 has shipped. |
 | EEF D4 ratified (homogeneous strand contract) | **beneficial** | Without the landed D4 code, the node/edge-model *reconciliation* cannot finalise — but the model's core (kinds, id policy, edges) is derivable now and is the minimum shippable shape of that deliverable. |
 | `graph-corpus-sdk` substrate (scaffold, `GraphView`, EEF adapter) | satisfied | Verified present 2026-06-04 — `src/eef-strands/` only (homogeneous); no heterogeneous model yet. |
 | ADR-041 dependency-direction check for Decision B | **beneficial** | Without it the minimum shippable shape is `vocab-gen` emitting into `graph-corpus-sdk` (no new cross-sdk import edge). |

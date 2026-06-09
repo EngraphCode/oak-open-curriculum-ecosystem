@@ -1208,7 +1208,7 @@ the shared primitives.
   machinery is removed and EEF stays a homogeneous strand graph. The **fundamental
   heterogeneous node/edge model** (multiple node kinds, a cross-kind node-id policy,
   typed inter-kind edges) is deferred and homed in
-  [`graph-tools-value-redesign.plan.md`](../../../connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
+  [`graph-tools-value-redesign.plan.md`](../../../connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
   — it must not be dropped.
 - **Verify consumer impact first (hard gate):** confirm what consumes graph-core's
   query contract. Verified state: graph-ingest and graph-project consume only the
@@ -1488,7 +1488,7 @@ Command: `pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http test`.
 > the running server and via the MCP Inspector CLI). Delivered-value measurement remains owned by
 > [`../future/eef-outcome-evaluation-infrastructure.plan.md`](../future/eef-outcome-evaluation-infrastructure.plan.md).
 > With D7 complete, this plan's D0–D7 are all delivered, and the
-> [`graph-tools-value-redesign`](../../../connecting-oak-resources/knowledge-graph-integration/future/graph-tools-value-redesign.plan.md)
+> [`graph-tools-value-redesign`](../../../connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
 > promotion trigger ("EEF D6 landed + D7 green") now fires.
 
 **Purpose:** ship the EEF surface live and prove the intended teacher value path.
