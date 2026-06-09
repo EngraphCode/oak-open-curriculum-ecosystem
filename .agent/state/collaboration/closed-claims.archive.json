@@ -9836,6 +9836,50 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "fc782c2f-f609-4788-8515-9e5ca152061e",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-09T21:07:46Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit the R2 dispositions + DECISION-COMPLETE flip.",
+      "intent_to_commit": "ff1cd7cc-df29-4de0-a6d4-3ca4f7a46d49",
+      "archived_at": "2026-06-09",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-09T21:07:50Z",
+        "closed_by": {
+          "agent_name": "Fragrant Spreading Sapling",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "47f78a",
+          "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+        },
+        "summary": "R2 dispositions + decision-complete flip; closed in same collaboration-state commit",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "fc782c2f-f609-4788-8515-9e5ca152061e",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }
