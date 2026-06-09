@@ -20,6 +20,18 @@ surface.
 
 ## Current State
 
+- **OUTPUT-SCHEMAS PLAN — DERIVE-FROM-SOURCE AMENDMENT (2026-06-09, Oceanic Lapping Anchor / `db4eb4`,
+  claude / Opus 4.8, owner-directed).**
+  [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
+  amended + **🟢 DECISION-COMPLETE** (owner-ratified): every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`,
+  payload Zod derived at the ONE source of truth per provenance (live-API codegen / bulk vocab-writer /
+  EEF corpus type-level tie / search generated schemas); `composeEnvelopeSchema` lives in `oak-sdk-codegen`;
+  W2 stays atomic incl. `get-keywords`; EEF tie is type-level (`z.infer … extends`), never `satisfies`-on-value,
+  and never annotate the raw shape `: z.ZodRawShape` (widens enums). Tombstones removed; README/roadmap/graph-tools
+  cross-refs synced. **Next safe step: commit the doc edits (uncommitted on `assess/evidence_workflows`); execution
+  gated on EEF D6/D7 + `graph-tools-value-redesign`.** Separately: memory `project_specialist_agent_design_overhaul`
+  records owner-directed overhaul of all specialist sub-agents (type-reviewer over-escalated on a wrong Zod signature
+  this session) — verify every load-bearing specialist claim first-hand until then.
 - **PENDING-GRADUATIONS REGISTER DRAIN + PDR-091 (2026-06-08, Coppery Crackling Crucible / `a28ee6`,
   claude / Opus 4.8, owner-directed).** The dedicated register-drain the prior session anticipated:
   28 `status: graduated` tombstones + 1 verified `duplicate` removed from
