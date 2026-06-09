@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.16.1...v1.17.0) (2026-06-09)
+
+
+### Features
+
+* **eef:** self-describing answerType and bounded headline view for get-eef-evidence ([80dd642](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/80dd642d4ad209390b2225cac1fc061f5da58f02))
+
 ## [1.16.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.16.0...v1.16.1) (2026-06-08)
 
 
