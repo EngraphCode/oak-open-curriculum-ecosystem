@@ -28,3 +28,25 @@ the proportionate move was a one-line corollary to that doctrine's home. Sharpen
 default: **an instance of existing doctrine → one-line corollary to that doctrine's
 home, then move on.** Routing deliberation scales to novelty, not to thoroughness for
 its own sake. Instance of [[feedback_stay_with_stated_scope]].
+
+## 2026-06-09 — two curation-discipline catches in a shared-tree window (Fruited Twining Canopy)
+
+- **A napkin rotation on a shared working tree can archive a peer's just-committed
+  lesson without graduation-processing it.** A peer committed a planning-discipline
+  lesson into the napkin AFTER my read but BEFORE my rotation. My `cp` archive caught
+  it verbatim (conserved), but my graduation pass — working from my earlier read —
+  never saw it, so it was archived un-homed; the rotation marker's "every lesson
+  homed" claim was false until I diffed the archived window against my read and
+  graduated the peer's lesson to `distilled.md`. Reflex: in a multi-agent window,
+  `git log -p` the napkin (or diff archive vs your working read) BEFORE asserting the
+  rotation homed everything. Sibling of the "staging a file holds another agent's
+  work" lessons.
+- **I asserted a convenient "it's an unwrappable table" to justify not-chasing a
+  width-critical; grounding the checker source falsified it.** The practice-fitness
+  prose-width metric measures ONLY `kind === 'prose'` lines — `markdown.ts` classifies
+  code-fence / code-block / table / link-reference / frontmatter as non-prose and
+  excludes them, and `measurableProseWidth` strips inline-link / autolink / bare-URL
+  targets (`evaluate.ts:95`, `markdown.ts:1-120`). So a width hard/critical points at
+  genuine over-long PROSE to reflow; it is NOT tripped by tables or link-heavy lines
+  (already discounted). The convenient claim made the not-chase tidy — exactly
+  [[feedback_ground_convenient_claims]]; grounding before asserting is the cure.

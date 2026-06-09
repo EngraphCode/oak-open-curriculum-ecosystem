@@ -232,7 +232,9 @@ Reviews:
 1. Pick up branch `fix/sonar-fixes-20260506` at HEAD `6b2b972c` on a different vendor system.
 2. Read [PDR-049][pdr-049] before merging anything.
 3. Re-initiate the merge: `git merge --no-commit --no-ff origin/main`.
-4. Resolve the 5 conflict files per the table above. Add `merge_class:` frontmatter to the in-scope files as you go (per the metadata-application table).
+4. Resolve the 5 conflict files per the table above. Add `merge_class:`
+   frontmatter to the in-scope files as you go (per the metadata-application
+   table).
 5. Verify each merged file end-to-end + run validators; commit the merge.
 6. Address the two PR-comment findings (CodeQL ReDoS regex fix; zodgen-core type-comparison investigation).
 7. Push when ready; let CI re-run; expected outcome is CodeQL clean + Sonar still RED only on duplication.
