@@ -9,6 +9,11 @@
  * bindings (ADR-155): the agent scans the headline list and drills a chosen
  * strand with `inspectStrand` for its full evidence — a payload bounded by
  * member depth, not by dropping the graph structure.
+ *
+ * There is deliberately no headline counterpart for `inspectStrand`: a
+ * single-strand inspect is already the drilled, full result, so the
+ * scan-then-drill step a headline serves has no meaning there — which is why the
+ * `detail` input is accepted only on `evidence-for-move`.
  */
 
 import {
@@ -21,9 +26,13 @@ import type { EefStrand } from './strand-lookup.js';
 /**
  * The headline projection of a strand — identity, the impact-for-cost headline
  * metrics, tags, and the EEF page — for the bounded `evidenceForMoveHeadlines`
- * list view. A `Pick` over {@link EefStrand}, so it tracks the corpus shape and
- * cannot drift; the deep evidence fields (key findings, effectiveness,
- * implementation, …) are omitted and reached by drilling with `inspectStrand`.
+ * list view. A `Pick` over {@link EefStrand}: the named fields are
+ * compile-time-checked against the corpus shape (rename or remove one and the
+ * build breaks), so the projected fields cannot drift in type. A NEW corpus
+ * field that belongs in the headline does not appear automatically — it must be
+ * added here AND in `toHeadline`. The deep evidence fields (key findings,
+ * effectiveness, implementation, …) are omitted and reached by drilling with
+ * `inspectStrand`.
  */
 export type EefStrandHeadline = Pick<
   EefStrand,

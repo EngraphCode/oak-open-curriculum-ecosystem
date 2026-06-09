@@ -78,9 +78,9 @@ export type EefAnswerType = 'strand-lookup' | 'context-subset';
  *
  * Declared as a strict `interface` — every field exact, NO index signature and
  * NO `unknown`/`Record` fallback. (The MCP SDK's structured-content carrier is
- * `Record<string, unknown>`; reconciling this strict envelope with that vendor
- * carrier WITHOUT any allow-anything type, cast, or disabled check is an open
- * boundary question — see the EEF strict-type-flow plan.)
+ * `Record<string, unknown>`; the strict envelope crosses into that vendor carrier
+ * at a single egress membrane in the MCP consumer — a fresh-object spread, with no
+ * cast, no index signature, and no disabled check — per ADR-193.)
  */
 export interface EefEvidenceEnvelope<TMember = EefStrand> {
   readonly answerType: EefAnswerType;
@@ -199,8 +199,10 @@ function resolveRoots(selectors: EvidenceForMoveSelectors): readonly EefStrandId
 /**
  * An axis selector (`phase` / `keyStage` / `priority`) makes the result a
  * non-exhaustive corpus-curated `'context-subset'`; a query that names only
- * explicit `strandIds` (or none) is a `'strand-lookup'` complete for the
- * request — keeping `evidenceForMove({ strandIds: [id] })` identical to
+ * explicit `strandIds` (or none at all — `{}` or an empty `strandIds: []`) is a
+ * `'strand-lookup'` complete for the request. So an empty selector set yields an
+ * empty `'strand-lookup'` envelope (complete for nothing requested, not a curated
+ * subset), and `evidenceForMove({ strandIds: [id] })` stays identical to
  * `inspectStrand(id)` (D4 structural overlap).
  */
 function answerTypeFor(selectors: EvidenceForMoveSelectors): EefAnswerType {

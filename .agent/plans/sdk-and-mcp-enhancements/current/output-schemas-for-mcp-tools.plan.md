@@ -84,7 +84,8 @@ the runtime guarantee.
 - **One transport.** `StreamableHTTPServerTransport`, instantiated per-request
   (`apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts:101`).
   **There is no stdio transport** — zero `StdioServerTransport` occurrences.
-- **35 tools total today (pre-EEF; rises to 36 once the EEF tool lands)**, all
+- **36 tools total** (35 at this 2026-06-02 snapshot, pre-EEF; the EEF tool
+  `get-eef-evidence` shipped to production 2026-06-09, making 36 — 24 generated + 12 aggregated), all
   registered through one loop
   (`handlers.ts:158`): **24 generated** (`MCP_TOOL_ENTRIES`,
   `oak-sdk-codegen/.../mcp-tools/definitions.ts:41-66`) + **11 aggregated**
@@ -92,7 +93,7 @@ the runtime guarantee.
   `get-curriculum-model`, `get-thread-progressions`, `get-prior-knowledge-graph`,
   `get-misconception-graph`, `browse-curriculum`, `explore-topic`,
   `download-asset`, `user-search`, `user-search-query`. The EEF tool
-  (`get-eef-evidence`) becomes the 12th aggregated tool at D6, so the surface this
+  (`get-eef-evidence`) became the 12th aggregated tool at D6 (shipped 2026-06-09), so the surface this
   plan schemas in full is **36** (24 generated + 12 aggregated). When
   `graph-tools-value-redesign` lands, `get-keywords` moves generated→aggregated
   (23 generated + 13 aggregated; net **36** unchanged).
@@ -370,7 +371,7 @@ Acceptance ids are the todo ids. Each names its proof level and proving command.
 |---------------|-------------|-----------|
 | `w0-cycle-1` | unit | `composeEnvelopeSchema` unit tests (summary-always, oakContextHint `!== false` predicate, status-when-present, object-root, non-object fail-fast); `pnpm test --filter @oaknational/sdk-codegen` |
 | `w0-cycle-2` | unit | search/fetch/user-search output payload derives from the generated source-of-truth schemas; conformance against a real response fixture; `pnpm type-check && pnpm test` |
-| `w0-cycle-3` | unit | EEF output Zod accepts real `inspect-strand`/`evidence-for-move` envelopes; the type-level `z.infer … extends EefEvidenceEnvelope<EefStrand>` tie compiles; `pnpm type-check && pnpm test` |
+| `w0-cycle-3` | unit | EEF output Zod accepts real `inspect-strand`/`evidence-for-move` envelopes; the type-level `z.infer … extends EefEvidenceEnvelope<EefStrand \| EefStrandHeadline>` tie compiles; `pnpm type-check && pnpm test` |
 | `w0-cycle-4` | unit | single-sourced search input: registration shape and runtime-narrowing schema share one derived base; `pnpm type-check && pnpm test` |
 | `w1-cycle-1` | unit | emitter unit tests (single/multi-status, oakContextHint predicate); `pnpm test --filter @oaknational/sdk-codegen` + `pnpm sdk-codegen && pnpm build` |
 | `w1-cycle-2` | integration | conformance test over all 24 generated descriptors; `pnpm test` |
@@ -468,7 +469,13 @@ union — `evidence-for-move` returns full `EefStrand` members by default and
 `evidenceForMoveHeadlines` projection, `eef-headline-view.ts`). The output Zod is
 therefore one object-rooted schema with `answerType`, `members:
 z.array(z.union([<full> , <headline>]))` (nested union, not a root union — Principle 6),
-`edges`, `frontier`, `provenance`.
+`edges`, `frontier`, `provenance`. The member union is deliberately WIDER than any
+single call's output — each call returns homogeneous members (all-full OR all-headline,
+the generic `EefEvidenceEnvelope<TMember>`) — because one object-rooted schema must
+accept both shapes and a per-shape split would need a root union the SDK silently
+drops; at execution, order the union full-before-headline so the richer schema is
+tried first (a real headline envelope still falls through, as the full-strand schema
+requires deep fields a headline lacks).
 
 **Test (Red)**: the `EefEvidenceEnvelope` output Zod, built from `EEF_STRAND_IDS` /
 `OBSERVED_*`, accepts a real `inspect-strand`, `evidence-for-move` (full), AND

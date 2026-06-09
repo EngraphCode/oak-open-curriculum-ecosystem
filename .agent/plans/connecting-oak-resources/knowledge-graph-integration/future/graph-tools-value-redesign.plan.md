@@ -50,6 +50,16 @@ todos:
 
 # Graph Tools Value Redesign (unified)
 
+> **🔔 PROMOTION TRIGGER FIRED (verified 2026-06-09).** EEF D6 and D7 are both
+> `status: completed` and shipped to production — recorded in
+> [`eef-graph-tool-completion.plan.md`](../../../sector-engagement/eef/current/eef-graph-tool-completion.plan.md)
+> (d6/d7 completed; "promotion trigger … now fires"). Promoting this plan to
+> `current/` (rename + `settle-mechanism-at-promotion` + architecture review) is now
+> a **pending owner decision**: promote, or record a deliberate hold with a new exit
+> criterion. `output-schemas-for-mcp-tools.plan.md` W2's graph-tool portion is gated
+> on this plan landing, so this decision gates that work too. `status: future` is
+> retained until the owner promotes (promotion includes moving the file to `current/`).
+>
 > **⏸️ PARKED — promotion trigger: EEF D6 landed AND EEF D7 green.** Ownership and the
 > governing frame are established now (Judgement call 4,
 > [`graph-estate-consolidation.plan.md`](../current/graph-estate-consolidation.plan.md)
