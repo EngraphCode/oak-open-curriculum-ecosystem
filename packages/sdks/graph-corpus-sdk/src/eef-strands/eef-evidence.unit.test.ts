@@ -104,6 +104,9 @@ describe('evidenceForMove — axis-resolved evidence envelope', () => {
     expect(envelope.members).toEqual([]);
     expect(envelope.edges).toEqual([]);
     expect(envelope.frontier).toEqual([]);
+    // An empty selector set has no axis component, so it is a (vacuous)
+    // strand-lookup — complete for nothing requested, not a curated subset.
+    expect(envelope.answerType).toBe('strand-lookup');
   });
 });
 
@@ -127,5 +130,9 @@ describe('answerType — self-describing result coverage (A-i)', () => {
         priority: 'closing_disadvantage_gap',
       }).answerType,
     ).toBe('context-subset');
+  });
+
+  it('labels a keyStage axis query as a context-subset (axis-symmetry with phase and priority)', () => {
+    expect(evidenceForMove({ keyStage: 'KS4' }).answerType).toBe('context-subset');
   });
 });

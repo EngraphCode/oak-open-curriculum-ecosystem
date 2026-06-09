@@ -71,6 +71,18 @@ describe('runEefEvidenceTool (thin parse-and-dispatch over the D5 bindings)', ()
     expect(result.structuredContent).toEqual(evidenceForMoveHeadlines({ phase: firstPhase }));
   });
 
+  it("evidence-for-move with detail:'full' returns the full strands (same as the default)", () => {
+    const result = runEefEvidenceTool({
+      function: 'evidence-for-move',
+      phase: firstPhase,
+      detail: 'full',
+    });
+    if (result.isError) {
+      throw new Error('expected a successful result');
+    }
+    expect(result.structuredContent).toEqual(evidenceForMove({ phase: firstPhase }));
+  });
+
   it('evidence-for-move defaults to the full strands when detail is omitted', () => {
     const result = runEefEvidenceTool({ function: 'evidence-for-move', phase: firstPhase });
     if (result.isError) {
@@ -81,6 +93,14 @@ describe('runEefEvidenceTool (thin parse-and-dispatch over the D5 bindings)', ()
 
   it('evidence-for-move with no selector is isError (an unscoped query is invalid)', () => {
     const result = runEefEvidenceTool({ function: 'evidence-for-move' });
+    if (!result.isError) {
+      throw new Error('expected an error result');
+    }
+    expect(result.content[0]?.text).toContain('at least one selector');
+  });
+
+  it('evidence-for-move with an empty strandIds array is isError (an empty explicit set is not a scope)', () => {
+    const result = runEefEvidenceTool({ function: 'evidence-for-move', strandIds: [] });
     if (!result.isError) {
       throw new Error('expected an error result');
     }

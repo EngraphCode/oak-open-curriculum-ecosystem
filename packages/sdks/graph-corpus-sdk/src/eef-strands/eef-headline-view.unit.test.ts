@@ -17,13 +17,17 @@ describe('evidenceForMoveHeadlines — bounded headline projection (C)', () => {
     const env = evidenceForMoveHeadlines({ phase: 'primary' });
     expect(env.members.length).toBeGreaterThan(0);
     for (const member of env.members) {
+      // All six headline (Pick) fields survive the projection.
       expect(typeof member.id).toBe('string');
       expect(typeof member.name).toBe('string');
+      expect(typeof member.slug).toBe('string');
+      expect(typeof member.eef_url).toBe('string');
       expect(member.headline).toBeDefined();
       expect(member.tags.length).toBeGreaterThan(0);
       // Deep evidence fields are dropped — the agent drills via inspect-strand.
       expect('key_findings' in member).toBe(false);
       expect('effectiveness' in member).toBe(false);
+      expect('school_context_relevance' in member).toBe(false);
     }
   });
 
