@@ -45,7 +45,10 @@ merge_class: index-narrative-tables
   - **`f95a051d` docs(plans): output-schema estate integrated.** The composition approach +
     my EEF reconciliation — `answerType` + the full/headline member union threaded through the
     output-schemas plan's W0-cycle-3 / W2 / §Relationship clauses.
-- **NEXT SAFE STEP — reviews + completeness checks, THEN push/PR (owner-directed 2026-06-09). ✅ COMPLETED 2026-06-09 (Brazen Roasting Cinder; see the top entry — reviews ran, findings landed + pushed, completeness check done, graph plan promoted).**
+- **NEXT SAFE STEP — reviews + completeness checks, THEN push/PR (owner-directed
+  2026-06-09). ✅ COMPLETED 2026-06-09 (Brazen Roasting Cinder; see the top entry —
+  reviews ran, findings landed + pushed, completeness check done, graph plan
+  promoted).**
   The original next-session checklist was:
   1. **Carry out the deferred reviews** — `code-expert` / `type-expert` / `test-expert` on the
      A-i/C code (`80dd642d`); `docs-adr-expert` coherence pass on the integrated
