@@ -538,6 +538,15 @@ Single governing principle (verified 2026-06-09): **`curriculum://model` is the 
 of the domain model + tool guidance + workflows + tips; every other doc resource should DERIVE from
 it or be removed, never duplicate it.**
 
+**Sequencing (owner 2026-06-09).** The plan now carries two strands: (1) the **graph-tool redesign**
+(data/retrieval — settle + executable cycles + the bounded 4-tool rebuild); (2) **MCP surface
+rationalisation** (resources §A, prompts §B, skills §C). The next session on this plan **STARTS with
+finishing the promotion** — the [§Remaining promotion work](#remaining-promotion-work-next-session)
+(settle the mechanisms, author the executable cycles, run architecture + assumptions validation) —
+that is the priority and the gate. The surface-rationalisation strand follows; the
+graduate-into-its-own-plan decision (§A2–§A5, §B2–§B4, §C — the parts NOT graph-coupled) is taken at
+that point.
+
 ### A. Resources
 
 - **A1 — Remove the three whole-corpus graph resources** (`curriculum://misconception-graph`,
@@ -593,22 +602,29 @@ Could `oak-skills` (`github.com/oaknational/oak-skills`) skills be surfaced as M
 pre-empts the proper integration, which is **blocked on that repo going public**. Pre-emptive
 analysis only — do NOT build until unblocked and licence-cleared.
 
-- **Candidates** (excl. `oak-brand` per owner, AND `oak-tone-of-voice` per licence — see below):
+- **Candidates** — `oak-brand` excluded (owner: stay clear of branding altogether);
   `oak-curriculum-principles`, `oak-curriculum-principles-mcp-enabled`, `oak-lesson-builder`,
-  `oak-accessibility`, `oak-curriculum-mapper`.
-- **Prompt-suitability (assessment):** the workflow-shaped, MCP-aware skills are the strongest fits —
-  `oak-curriculum-principles-mcp-enabled` (already MCP-wired), `oak-lesson-builder`,
-  `oak-curriculum-mapper`. `oak-accessibility` is a cross-cutting QUALITY standard better woven into
-  prompts (like the WCAG clause already in `adapt-lesson`) than surfaced as a standalone prompt.
-  `oak-lesson-builder` overlaps `lesson-planning` / `adapt-lesson` — reconcile, do not duplicate.
-- **Licence position (verified 2026-06-09 against `oak-skills/LICENSE`) — careful, as directed:** the
-  repo is **split-licensed**. MIT covers scaffolding/structure/spec only. **`oak-brand` AND
-  `oak-tone-of-voice` are NOT open** — © Oak National Academy, all rights reserved, usable only per
-  the Oak brand guidelines → both excluded from open prompt-surfacing. `oak-curriculum-principles` +
-  `-mcp-enabled` carry pedagogical content "shared in the spirit of the principles" with attribution
-  per each skill's `references/sources.md`. Oak curriculum DATA (via the MCP/API) is OGL v3.0 with
-  attribution. Each skill also declares terms in its `SKILL.md` frontmatter; **where they differ from
-  the repo LICENSE, the more-restrictive applies.** Any surfacing must clear each skill's terms first.
+  `oak-curriculum-mapper`, `oak-accessibility`; **`oak-tone-of-voice` is an OPEN question** (owner
+  undecided 2026-06-09 — interesting, not ruled out).
+- **What the principles skills are** (resolved 2026-06-09): `oak-curriculum-principles` applies Oak's
+  six curriculum principles (knowledge/vocabulary-rich, sequenced/coherent, evidence-informed,
+  flexible, diverse, accessible) + 15 subject principles to curriculum/lesson design (self-contained).
+  `oak-curriculum-principles-mcp-enabled` grounds those principles in LIVE data **via this very Oak
+  Curriculum MCP** (it drives the server this repo ships — checks sequences against threads /
+  prior-knowledge, mines misconceptions, checks coverage). **The MCP-enabled one is the strongest
+  prompt candidate**: it is already a "use the Oak MCP to apply the principles" workflow.
+- **Prompt-suitability (assessment):** strongest fits are the MCP-aware / workflow skills —
+  `oak-curriculum-principles-mcp-enabled`, `oak-lesson-builder`, `oak-curriculum-mapper`.
+  `oak-accessibility` is a cross-cutting QUALITY standard better woven into prompts (like the WCAG
+  clause already in `adapt-lesson`) than surfaced standalone. `oak-lesson-builder` overlaps
+  `lesson-planning` / `adapt-lesson` — reconcile, do not duplicate.
+- **Licence (owner-clarified 2026-06-09):** using the skill CONTENT is fine — it is Oak's own, and
+  this is Oak's MCP repo. The real constraint is **preserving the external-research attribution to
+  the same extent the originals do** — each principles skill ships a `references/sources.md`; carry
+  that attribution through to any prompt that surfaces the content. `oak-brand` stays out entirely;
+  `oak-tone-of-voice` is open. The repo LICENSE split (MIT scaffolding; brand-tier all-rights-
+  reserved) and each skill's `SKILL.md` `license:` field still apply (more-restrictive wins), but the
+  framing is attribution-preservation, not use-prohibition.
 - **Reconcile, don't duplicate:** `oak-skills` already ships eight MCP-wired "curriculum commands"
   (the Gemini CLI extension) over the same Oak Curriculum MCP. Proper integration should reconcile
   MCP prompts ↔ those commands ↔ the skills, not create a third parallel surface.
