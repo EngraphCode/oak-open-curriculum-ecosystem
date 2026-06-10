@@ -1,3 +1,18 @@
+# [1.20.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.19.2...v1.20.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* **graph-corpus-sdk:** validate depth regardless of anchor resolution (PR [#161](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/161) review) ([47ad98d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/47ad98dfdd0ad2afbc1c8fc4186a671dca0b9ac6))
+
+
+### Features
+
+* **curriculum-sdk:** remove the curriculum prior-knowledge-graph resource (G1b c2) ([83196e2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/83196e2091180a3f6807ac6d38cd292d1399cab0))
+* **curriculum-sdk:** rewrite get-prior-knowledge-graph as anchored bounded tool (G1b c2) ([29e3ecc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/29e3eccb2f54b6045daf6aeaff7dec09a22f7bc7))
+* **graph-corpus-sdk:** add bounded prior-knowledge predecessor view (G1b c1) ([a79b227](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a79b22713319f560590f06220208804529b3a8e4))
+* **sdk-codegen:** retire the orphaned prior-knowledge-graph dataset and its emission path (G1b c2) ([036b459](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/036b459ec48555267687ba9906874d17959db0c4))
+
 ## [1.19.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.19.1...v1.19.2) (2026-06-10)
 
 
