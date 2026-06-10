@@ -333,7 +333,8 @@ for (const e of d.edges) (adj.get(e.from) ?? adj.set(e.from, []).get(e.from)).pu
 ```
 
 **Check (b) — misconception `lessonSlug` density + cardinality** over
-`.../vocab/misconception-graph/data.json`: count present/empty/absent `lessonSlug`; distinct
+`packages/sdks/oak-sdk-codegen/src/generated/vocab/misconception-graph/data.json`: count
+present/empty/absent `lessonSlug`; distinct
 slugs (12,385); misconceptions-per-slug quantiles (median 1, max 2); slug→title conflict scan
 (0); same density scan over `subject`/`keyStage`/`lessonTitle`/`misconception`/`response`
 (all 100%).

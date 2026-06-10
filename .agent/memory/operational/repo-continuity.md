@@ -49,8 +49,10 @@ surface.
   trip-list + `no-hedging-vocabulary.md` catalogue + sibling regression test) is green with its
   Copilot review adjudicated first-hand (2 comments refuted with matcher grounding, 3 applied —
   inline-code dodge closed, doc scope fixed, regression test added; replies on the PR record the
-  verdicts). **Next safe step: merge PR #146; execution then starts with any unblocked
-  deliverable (S1 / S2 / S3-c0 / U1 / G1), each one small PR.**
+  verdicts). **Next safe step: merge PR #146 (trip-list),
+  PR #147 (handoff/consolidation + loss-scan closures), and PR #148 (upstream schema-hash sync —
+  4×1-line, no contract change); execution then starts with any unblocked deliverable
+  (S1 / S2 / S3-c0 / U1 / G1), each one small PR.**
 - **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder / `527005`, claude /
   Opus 4.8; PR #142 MERGED → v1.17.0).** The deferred A-i/C specialist reviews ran (5 reviewers;
   every finding adjudicated first-hand — code/types/tests SOUND); verified findings landed
