@@ -213,11 +213,13 @@ enforcement.
 
 ### 2. Per-call broadcast guidance must stay within token budgets
 
-`oakContextHint` (§3) and per-tool descriptions are **repeated on every tool
-invocation** and consume the _consuming_ agent's context window. Any expansion of
-per-call guidance — for example richer pedagogical framing — must stay within
-token budgets. Uniformly broadcasting rich guidance on every response does not
-scale; the per-call cost is paid for the whole session.
+`oakContextHint` (§3) is **repeated in every tool response**; per-tool
+descriptions are delivered once at discovery (`tools/list`) but **reside in the
+consuming agent's context for the whole session**. Both consume the consuming
+agent's context window — by different mechanisms — and any expansion of either
+(for example richer pedagogical framing) must stay within token budgets.
+Uniformly broadcasting rich guidance on every response does not scale; the
+per-call cost is paid for the whole session.
 
 ### 3. A per-tool guidance-enhancement mechanism may be required
 

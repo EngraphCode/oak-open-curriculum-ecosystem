@@ -84,7 +84,7 @@ export const AGENT_SUPPORT_TOOL_METADATA = {
 | `name`             | Tool name as it appears in `tools/list`                        |
 | `shortDescription` | Brief description used in generated server instructions        |
 | `callOrder`        | Recommended sequence (0-based; reserved for future multi-tool) |
-| `complementsTools` | Other agent support tools that work alongside this one         |
+| `complementsTools` | Tools that complement this one (any tool, e.g. `search`)       |
 | `seeAlso`          | Guidance on when to use related tools instead                  |
 | `provides`         | Specific data categories the tool returns                      |
 | `purpose`          | Why an agent should call this tool                             |
