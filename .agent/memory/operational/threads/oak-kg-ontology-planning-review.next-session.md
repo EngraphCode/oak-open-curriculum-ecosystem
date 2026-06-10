@@ -64,8 +64,8 @@ surface stubs now live as a forward backlog in the README, not per-surface files
 ## Scope guardrails
 
 - Review + planning context; the next step authors a plan, not the implementation itself.
-- **Separate from** the bulk-derived `graph-tools-value-redesign` (parked behind EEF D6+D7) — do not
-  expand it or fold the two concerns together.
+- **Separate from** the bulk-derived `graph-tools-value-redesign` (🟢 DECISION-COMPLETE
+  2026-06-09; the EEF D6+D7 gate fired) — do not expand it or fold the two concerns together.
 - The six decisions above are ratified and may be built against.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |

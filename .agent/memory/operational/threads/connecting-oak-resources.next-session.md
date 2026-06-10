@@ -9,8 +9,9 @@ merge_class: index-narrative-tables
 ---
 # Next-Session Record — `connecting-oak-resources` thread
 
-> **PAUSED thread.** Reactivation is owner-directed; the graph-substrate work is parked on
-> the EEF D6 + D7 promotion trigger. Full session narrative (the WS1–WS3 graph-core build, the
+> **PAUSED thread.** Reactivation is owner-directed. The EEF D6 + D7 trigger has FIRED: the
+> graph-substrate work now flows through `graph-tools-value-redesign`
+> (🟢 DECISION-COMPLETE 2026-06-09). Full session narrative (the WS1–WS3 graph-core build, the
 > inc-1d team session, the graph-estate consolidation) and the full ~56-session identity trail
 > are retained in git.
 
@@ -96,4 +97,6 @@ the inc-1d multi-agent team session, the PR-102/PR-108 arcs) is retained in git 
 ## References
 
 - **Repo state**: [`repo-continuity.md`](../repo-continuity.md) § Current State (authoritative).
-- **ADR-173** (graph stack) governs the graph-estate; the migration plan is parked on EEF D6+D7.
+- **ADR-173** (graph stack) governs the graph-estate; `graph-tools-value-redesign` is
+  🟢 DECISION-COMPLETE (2026-06-09; the EEF D6+D7 gate fired) — execution PRs follow per its
+  deliverables map.
