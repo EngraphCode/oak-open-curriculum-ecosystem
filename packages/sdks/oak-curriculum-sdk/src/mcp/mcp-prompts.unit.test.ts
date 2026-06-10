@@ -174,6 +174,22 @@ describe('getPromptMessages', () => {
       expect(content).toContain('get-misconception-graph');
     });
 
+    it('names the tool for every lesson-data pull it instructs', () => {
+      const messages = getPromptMessages('lesson-planning', {
+        topic: 'fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      // Each data pull names its MCP tool so the agent never guesses
+      // between fetch and a dedicated tool for the same data.
+      expect(content).toContain('get-lessons-summary');
+      expect(content).toContain('get-lessons-transcript');
+      expect(content).toContain('get-keywords');
+      expect(content).toContain('get-lessons-quiz');
+      expect(content).toContain('get-lessons-assets');
+      expect(content).toContain('download-asset');
+    });
+
     it('carries Oak attribution under the Open Government Licence', () => {
       const messages = getPromptMessages('lesson-planning', {
         topic: 'fractions',
