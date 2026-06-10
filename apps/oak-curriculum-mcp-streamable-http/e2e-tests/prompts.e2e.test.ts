@@ -66,6 +66,7 @@ describe('MCP Prompts E2E', () => {
       'explore-curriculum',
       'learning-progression',
       'curriculum-mapping',
+      'adapt-lesson',
     ])('returns %s prompt', async (promptName) => {
       const { response, parsed, prompts } = await listPrompts();
 

@@ -308,7 +308,9 @@ describe('getPromptMessages', () => {
       expect(content).toContain('Year 4');
     });
 
-    it('warns about KS4 structure and routes science via sequences', () => {
+    // The KS4 caution is a standing clause of the served prompt (present for
+    // every key stage), not a conditional branch on the keyStage argument.
+    it('always carries the KS4 structure caution routing science via sequences', () => {
       const messages = getPromptMessages('curriculum-mapping', {
         subject: 'science',
         keyStage: 'ks4',
