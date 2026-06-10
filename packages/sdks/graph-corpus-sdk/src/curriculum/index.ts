@@ -1,18 +1,24 @@
 /**
  * Curriculum graph subpath barrel: `@oaknational/graph-corpus-sdk/curriculum`.
  *
- * The curriculum prerequisite graph foundation (G1a): the generated one-graph
- * corpus bridged into the domain-generic graph substrate. The G1b
- * prior-knowledge view and its anchored `get-prior-knowledge-graph` query
- * surface build on top of this foundation.
+ * The generated one-graph corpus (G1a) plus the bounded anchored
+ * prior-knowledge view over it (G1b): `priorKnowledgeSubgraph` answers "what is
+ * the prior knowledge of these units?" as a depth-bounded predecessor subgraph.
  */
 
 export {
   graphCorpus,
-  createCurriculumPrerequisiteGraph,
   type GraphCorpus,
   type GraphCorpusEdge,
   type GraphCorpusNodeId,
   type GraphCorpusUnitNode,
-  type CurriculumPrerequisiteGraph,
 } from './graph-corpus.js';
+
+export {
+  DEFAULT_PREREQUISITE_DEPTH,
+  MAX_PREREQUISITE_DEPTH,
+  createCurriculumPriorKnowledgeView,
+  priorKnowledgeSubgraph,
+  type CurriculumPriorKnowledgeView,
+  type PriorKnowledgeSubgraph,
+} from './prior-knowledge-view.js';
