@@ -68,7 +68,7 @@ projection** (its own real operation in the view layer over the same one-graph d
 plan itself half-recognises ("not graph-forced"). This changes the view's mechanism description,
 not the deliverable structure.
 
-### 1.4 Data-grounding results (checks a–c; commands recorded in the session workflow output)
+### 1.4 Data-grounding results (checks a–c; command recipes conserved in §10)
 
 **(a) prior-knowledge (1,607 nodes / 3,452 edges — count confirmed):**
 
@@ -308,3 +308,43 @@ items landed in the plan revision that carries the 🟢 DECISION-COMPLETE flip.
    owner-decided 2026-05-09 hold in the monorepo-topology strategic brief; one school-data-search
    gate-discipline line) were left as-is — the matcher blocks only newly-added instances, and
    each will be cured by descriptive substitution on its next legitimate edit.
+
+## 10. Data-grounding command recipes (conserved 2026-06-10)
+
+The §1.4 numbers were computed by session workflow agents whose transcripts are ephemeral; the
+recipes are conserved here so re-runs (the plan requires re-verification at execution start) are
+mechanical. All paths relative to the repo root; corpus = the generated vocab datasets; bulk =
+`apps/oak-search-cli/bulk-downloads/` (numbers valid against the `2026-05-21T13:45:16.086Z`
+manifest snapshot).
+
+**Check (a) — prerequisite out-degree, depth reachability, cycle audit** over
+`packages/sdks/oak-sdk-codegen/src/generated/vocab/prior-knowledge-graph/data.json`:
+
+```javascript
+const d = require('./packages/sdks/oak-sdk-codegen/src/generated/vocab/prior-knowledge-graph/data.json');
+const nodeSet = new Set(d.nodes.map((n) => n.unitSlug));
+// integrity: edge endpoints missing from the node set (5 found 2026-06-09)
+const dangling = [...new Set(d.edges.flatMap((e) => [e.from, e.to]).filter((s) => !nodeSet.has(s)))];
+// adjacency + out-degree distribution (zero-count, median, p90, max)
+const adj = new Map();
+for (const e of d.edges) (adj.get(e.from) ?? adj.set(e.from, []).get(e.from)).push(e.to);
+// depth-bounded BFS from every 10th node (161 anchors): reached-set sizes at depth 1/2/3
+// cycle audit: self-loops = d.edges.filter((e) => e.from === e.to) (28); Tarjan SCC for 2-cycles (4)
+```
+
+**Check (b) — misconception `lessonSlug` density + cardinality** over
+`packages/sdks/oak-sdk-codegen/src/generated/vocab/misconception-graph/data.json`: count
+present/empty/absent `lessonSlug`; distinct
+slugs (12,385); misconceptions-per-slug quantiles (median 1, max 2); slug→title conflict scan
+(0); same density scan over `subject`/`keyStage`/`lessonTitle`/`misconception`/`response`
+(all 100%).
+
+**Check (c) — bulk chain population/density**: parse 5 representative subject files one at a
+time (maths-primary, english-secondary, science-secondary, science-primary,
+cooking-nutrition-primary; sizes 3.7–76.5 MB, single `JSON.parse` each). Joins: thread identity
+= `thread.slug` within a subject file; lessons-per-thread = union of `unitLessons.lessonSlug`
+(state `published` only, deduped) over units carrying the thread; misconceptions looked up via a
+`lessonSlug → lesson` map over `lessons[]`, reading `misconceptionsAndCommonMistakes`. Sizes via
+`Buffer.byteLength(JSON.stringify(entry))`; quantiles over sorted arrays. Outputs: per-thread and
+per-unit median/p90/max for units/lessons/misconceptions; chain-presence percentages
+(units with ≥1 thread; lessons with ≥1 misconception).

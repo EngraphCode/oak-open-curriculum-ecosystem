@@ -22,9 +22,12 @@ merge_class: index-narrative-tables
   per-view `GraphView` construction; factory + unit test deleted at G3); misconception anchors
   ratified (unit+lesson core, thread bounded heavy-tail); R2 conditions all applied
   (anchor-threading prompt rewrites; emission-ownership table; G4 Gate-1 rule) →
-  **DECISION-COMPLETE** with proof contract. Delivery: PR #143 (analysis + restructure) + a
-  stacked PR (R2 + flip + continuity). **Next: merge the two PRs; execution starts with any
-  unblocked deliverable (S1/S2/U1/G1).**
+  **DECISION-COMPLETE** with proof contract. Delivered + MERGED (2026-06-10): PR #143 (analysis +
+  restructure), #144 (R2 + flip + continuity), #145 (owner corrections — S3 live deliverable, no
+  unagreed holding states; stale fired-trigger facts fixed). PR #146 (indefinite-deferral
+  vocabulary → trip-list + regression test) is green, Copilot review adjudicated first-hand
+  (2 refuted with matcher grounding / 3 applied). **Next: merge #146; execution starts with any
+  unblocked deliverable (S1/S2/S3-c0/U1/G1), each one small PR.**
 - **PRIOR SESSION (2026-06-09, Brazen Roasting Cinder / claude Opus 4.8, branch
   `assess/evidence_workflows`, PR #142) — A-i/C deferred reviews + graph-tools-plan promotion.**
   The deferred A-i/C specialist reviews ran (5 reviewers via a workflow; every finding adjudicated
@@ -218,7 +221,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Briny Charting Lagoon` | `claude` | `Opus 4.8` | `4dae1b` | `d6-completion-attribution-passthrough-flag-default-on-and-live-exercise` | 2026-06-08 | 2026-06-08 |
 | `Incandescent Smouldering Brazier` | `claude` | `Opus 4.8` | `939d21` | `post-d7-answertype-and-headline-view-adr194-product-boundary-and-output-schema-integration` | 2026-06-09 | 2026-06-09 |
 | `Brazen Roasting Cinder` | `claude` | `Opus 4.8` | `527005` | `aic-deferred-reviews-and-graph-tools-plan-promotion` | 2026-06-09 | 2026-06-09 |
-| `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `graph-plan-readiness-seam-analysis-and-decision-complete` | 2026-06-09 | 2026-06-09 |
+| `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `graph-plan-readiness-seam-analysis-and-decision-complete` | 2026-06-09 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 
