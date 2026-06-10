@@ -47,7 +47,8 @@ research notes or investigation logs.
   grounding to the MCP server `instructions` field: where session instructions
   live today, the generator gap (tool-orientation only, no general-prose slot),
   the surface reliability ranking (`instructions` is advisory/client-optional),
-  the future-work process, and the verdict that ADR-058/060 need no edit now
+  the future-work process, and the verdict — facts/constraints recorded now as
+  ADR-058/060 addenda; the grounding decision itself stays out until ratified
 - [oak-openapi-bug-report-2026-03-07.md](./oak-openapi-bug-report-2026-03-07.md)
   — existing standalone report
 - [claude-code-compaction-thinking-block-bug-2026-05-28.md](./claude-code-compaction-thinking-block-bug-2026-05-28.md)

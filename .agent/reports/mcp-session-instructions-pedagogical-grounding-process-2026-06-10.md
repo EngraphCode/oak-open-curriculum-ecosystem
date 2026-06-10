@@ -130,22 +130,23 @@ whichever surfaces the client actually honours.
 
 ## Verdict: do the ADRs need updating?
 
-**Not now.** ADR-058 and ADR-060 accurately describe the system as built. The
-`instructions` field is governed by ADR-060 (generation) inside ADR-058's
-multi-layer grounding strategy. Nothing this finding exposes is stale or wrong.
+**Facts and constraints: recorded now. The decision itself: not until ratified.**
+ADR-058 and ADR-060 accurately describe the system as built — the `instructions`
+field is governed by ADR-060 (generation) inside ADR-058's multi-layer grounding
+strategy, and nothing this finding exposes is stale or wrong about the built
+system. But the *reliability ranking* of the grounding surfaces, the per-call
+token-budget constraint, and the generator gap are stable architectural facts
+that were previously unrecorded, and they are load-bearing for any future
+pedagogical-rigour work. They land alongside this report as **fact-only
+addenda**: ADR-058 gains the reliability ranking, budget constraint, and
+per-tool guidance-enhancement direction; ADR-060 gains the generator gap and
+budget notes. Each addendum states explicitly that **no implementation decision
+is ratified**.
 
-**One latent gap, to close only when the pedagogical-grounding decision is taken:**
-neither ADR states the *reliability ranking* of the grounding surfaces. ADR-058's
-rationale leans on "multiple touchpoints / redundancy" but never records that the
-`instructions` field is advisory/client-optional and therefore the weakest link,
-nor that tool output data is itself a grounding surface. For
-pedagogical-rigour-at-production this ranking is load-bearing.
-
-When the decision is ratified, the right move is to **amend ADR-058** (the
-governing context-grounding ADR) with the reliability ranking and the
-pedagogical-grounding surface choice, and add a cross-note in **ADR-060** for the
-generator extension. Writing either before the decision is taken would put a
-moving target into a permanent doc, which is excluded.
+What stays out of the ADRs until the pedagogical-grounding decision is taken:
+the decision itself and the surface *choice* it implies. Writing those before
+ratification would put a moving target into a permanent doc, which is excluded.
+When the decision is ratified, the addenda are the prepared ground it lands on.
 
 ## Related
 

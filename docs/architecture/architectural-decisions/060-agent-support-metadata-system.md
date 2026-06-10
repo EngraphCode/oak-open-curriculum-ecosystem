@@ -81,11 +81,14 @@ export const AGENT_SUPPORT_TOOL_METADATA = {
 
 | Field              | Purpose                                                        |
 | ------------------ | -------------------------------------------------------------- |
+| `name`             | Tool name as it appears in `tools/list`                        |
+| `shortDescription` | Brief description used in generated server instructions        |
 | `callOrder`        | Recommended sequence (0-based; reserved for future multi-tool) |
 | `complementsTools` | Other agent support tools that work alongside this one         |
 | `seeAlso`          | Guidance on when to use related tools instead                  |
 | `provides`         | Specific data categories the tool returns                      |
 | `purpose`          | Why an agent should call this tool                             |
+| `callAtStart`      | Whether the tool should be called at conversation start        |
 
 The per-response reinforcement hint is generated from tool names by
 `generateContextHint()`; it is not a metadata field.
