@@ -55,6 +55,7 @@ const KNOWN_OPTION_KEYS = new Set([
   'repo-root',
   'shared-log',
   'seen-file',
+  'step-timeout-ms',
   'subject',
   'summary',
   'tag',
