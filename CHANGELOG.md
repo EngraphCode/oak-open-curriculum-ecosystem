@@ -1,3 +1,15 @@
+# [1.19.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.18.1...v1.19.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* **graph-corpus:** ship ./curriculum runtime + drop aggregate eager-load ([8ac240b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8ac240be3b9feb14928bc6a72cdf02aec7b1c356)), closes [#153](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/153)
+
+
+### Features
+
+* **graph-corpus:** emit one-graph corpus foundation (G1a) ([177df9b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/177df9b6fc95172a1b433d6358f3d807ee2771a6))
+
 ## [1.18.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.18.0...v1.18.1) (2026-06-10)
 
 
