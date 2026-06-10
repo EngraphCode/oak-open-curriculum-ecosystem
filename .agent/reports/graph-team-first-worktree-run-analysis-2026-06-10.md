@@ -200,3 +200,83 @@ Succession state at this addendum: Solar Soaring Star is the Director (singleton
 restored); the outgoing Director's session continues as a non-coordinator member for the
 write-up arc only, with continuity writes routed through Solar. Live-lane outcomes (G1b c2,
 G4a, the hardening merge) belong to Solar's record, not this one.
+
+## Addendum 2 (written by the third Director at their own succession's completion)
+
+### 9. The third Directorship (17:26–19:42Z): the rotation cadence becomes the operating mode
+
+**Author**: Celestial Glowing Dusk (Director third holder, claude / Fable 5, `1e526e`), written
+on the owner-directed write-up arc after transferring authority to Stratospheric Swooping
+Zephyr (`fe53ec`, Moment-2 event `ed4e9d01`). Scope: the third Director window. Delivered in
+the window: #159 (resync, `c60f030f`) and #160 (turbo env, `409c0999`) merged under two-loop
+serialisation; ALL G1b source work completed across two seat rotations (four gate-green
+commits ending `036b459e`, −51,427 lines of superseded surface retired); the G2 mint-rule
+design delivered adversarially-reviewed (verdict event `62313be2`); five seat rotations and
+one Director succession executed with zero lost work; two continuity waypoints committed +
+pushed (`e8c9b219`, `ceb4dc8f`).
+
+- **Rotation became cadence, not exception.** §2 recorded rotations as events; this window ran
+  them as the steady state: five seat rotations (Airy-Squall→Galactic, Twinkling-Orbit→Eclipsed,
+  Galactic→Fruited, plus two standbys pre-positioned: Glassy for Eclipsed, Fruited pre-arrival)
+  and a Director succession, ~20 minutes apart on average, all owner-initiated. What made the
+  cadence cheap: (a) **pre-arrival routing** — a broadcast addressed to a not-yet-registered
+  successor by name, absorbed by their session-open baseline sweep (worked first for Fruited,
+  event `221f42df`; the incoming Director then reused the shape for Glassy within minutes —
+  doctrine propagating by stream observation, not instruction); (b) handoff-record chains
+  (each record names its predecessors; the fifth G1b holder read three records and was
+  instantly current); (c) the **two-condition transfer trigger** set this window
+  (owner-calibrated: natural boundary OR self-sensed ~40% context approach — degradation onset
+  for this session class is 40–45%, far below PDR-063's 80%). Worked instance: Twinkling Orbit
+  at 36% finished c2-3 to gate-green INSIDE the tightened envelope and transferred at the
+  boundary — the trigger reshaped behaviour (scope-fenced sweep, no PR mechanics) without
+  firing.
+- **The detached-heartbeat class produced its third variant — from the Director seat, in a new
+  mode.** §3: hung watcher, live agent. §8: hung watcher, blind Director. This window:
+  **blocked-on-owner-ask** — the Director heartbeat-only for ~9 cadence windows while awaiting
+  a synchronous owner decision, indistinguishable from stalled (a merge-ready PR waited 49
+  minutes). The implementer's PDR-078 §6 bounded ping fired correctly; the named cure is now
+  practice: entering a potentially-long owner-wait, relabel the heartbeat
+  (`blocked-on-owner-ask`) — the label IS the signal. Honest-label discipline generalised
+  across the team within the hour (idle seats, paused standbys, and the write-up arc all
+  self-describe).
+- **The occupied-seat contention replayed and the choreography held under a race.** An
+  owner-named successor arrived while the incumbent was live mid-cycle (the §2/Solar ruling's
+  exact shape); the Director's claim-closure raced the incumbent's liveness broadcast by
+  seconds. Resolution: hold the successor, restore registry truth, let the incumbent run to
+  the boundary — and the incumbent then DELIVERED to gate-green inside their budget. The
+  lesson: under fast rotation, registry operations on a live peer's claim need the peer's own
+  signal (their supersession or closeout event) as the trigger, never the successor's arrival
+  alone.
+- **The verify-the-write-proof discipline earned its place as a standing ruling.** Three
+  silent-failure shapes in one window: a comms-direct rejected on a malformed id whose error
+  tail read as success (a Director ruling silently never landed); a claims-close that no-ops
+  on an unmatched id; an append whose success is indistinguishable from failure without a
+  grep. The cure is uniform — a write is real when its success token is observed — and the
+  tool-fix notes are filed (napkin §Practice/tooling feedback) under the owner's standing
+  direction that unnecessary-attention costs are tool-fix notes. A bootstrapping agent
+  independently paid the same tax (a bare `test-probe` broadcast to verify their write path)
+  — corroboration that the fix belongs in the tool, not in agent discipline.
+- **The pull-forward pattern is now 2-for-2 and faster.** Iridescent's G4 Gate-1 pull-forward
+  (§4) took a seat-session; Galactic's G2 mint-rule pull-forward ran arrival-to-reviewed-verdict
+  in ~25 minutes: read-only grounding against the fresh bulk snapshot, two adversarial
+  reviewers (one concern-pair folded, one framing refuted with grounds, every quantitative
+  claim reproduced), open items named-not-decided, zero source edits. The design arrived
+  settled before its execution unblocks — the critical-path compression a third seat could not
+  have bought (the owner asked; the dependency analysis said the fork arrives at G2's merge,
+  and the idle warm seat took the design instead).
+- **Owner scope-assurance ran three-layer and the layers agreed.** "Will the full
+  prior-knowledge graph survive c2-3?" was answered by: the corpus read first-hand in main
+  (1,612 nodes / 3,452 prerequisiteFor edges), the deletion set grepped against graph-corpus
+  paths (zero intersection), and a stop-and-flag tripwire embedded in the implementer's GO
+  (their sweep confirmed it). Verdicts to the owner rested on my own reads at every layer —
+  the first-hand-means-me discipline applied from the direction seat, where the temptation to
+  relay is strongest.
+
+Succession state at this addendum: Stratospheric Swooping Zephyr is the Director (fourth
+holder; clean two-moments path, the third clean PDR-064 execution today); the G1b PR (#161)
+opened into their serialisation queue minutes after transfer; the G2 fold, S3/G2-execution
+routing, and the small queue transferred ordered and pre-staged in pre-positioning `56ae6447`.
+This window's open question for the shape's next iteration: rotation this fast concentrates
+choreography load on the Director (five pickups adjudicated in ~35 minutes) — whether
+pre-arrival routing plus handoff-record chains keep that load sublinear as cast size grows is
+the thing to watch.
