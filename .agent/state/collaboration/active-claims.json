@@ -46,31 +46,6 @@
   ],
   "claims": [
     {
-      "claim_id": "75323860-9eb9-4a9a-95e9-29e22c41639c",
-      "agent_id": {
-        "agent_name": "Celestial Glowing Dusk",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "1e526e",
-        "id": "516015df-a884-587f-9bdb-2b4319eff103"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/state/**",
-            ".agent/memory/**",
-            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-10T17:24:59Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Director (graph implementation team) — PDR-064 successor to Solar Soaring Star (7f0c08), owner-directed ~17:17Z. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch; reviewer routing (route to implementers, never self-dispatch); Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Solar claim 8cd0de7f closes at Solar's own hand citing my Moment-2 acknowledgement."
-    },
-    {
       "claim_id": "166fb4fb-f565-48c5-ac40-d13bd1fe6b69",
       "agent_id": {
         "agent_name": "Eclipsed Masking Shade",
@@ -99,6 +74,31 @@
       "freshness_seconds": 14400,
       "sidebar_open": false,
       "intent": "G1b completion (Seat B / Track G) — SUPERSEDES claim cd9b5e17-00e6-4981-990b-664e3926102d (Abyssal->Radiant->Celestial-Orbit->me rotation; transfer event 57c97cbc at gate-green boundary; handoff record 2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md read end to end): all four source commits landed (HEAD 036b459e); remainder = code-expert backstop on c2-2 diff, eef-revalidation signal, push, ONE G1b PR off origin/main, monitor-to-merge with first-hand adjudication, MERGE-READY report to Director. Worktree oak-wt-airy-g branch feat/g1b-prior-knowledge-view; requesting Director closure of predecessor claim cd9b5e17 per rotation choreography."
+    },
+    {
+      "claim_id": "dbe87352-5db0-4bc6-ad1b-3101099c2fd1",
+      "agent_id": {
+        "agent_name": "Stratospheric Swooping Zephyr",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "fe53ec",
+        "id": "ca49249e-a87d-5e87-9d5b-ce8ae31548c3"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:42:20Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team, fourth holder) — PDR-064 successor to Celestial Glowing Dusk (1e526e), owner-directed; Moment-1 event 56ae6447. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Celestial-Dusk claim 75323860 closes at their hand citing my Moment-2 event."
     }
   ]
 }

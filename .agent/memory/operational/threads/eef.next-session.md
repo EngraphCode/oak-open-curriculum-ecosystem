@@ -11,7 +11,41 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-10 evening, Celestial Glowing Dusk / claude Fable 5, Director third
+- **THIS SESSION (2026-06-10 late evening, Stratospheric Swooping Zephyr / claude Fable 5,
+  Director fourth holder, coordination home branch `docs/graph-team-direction-2026-06-10`) —
+  third PDR-064 Director succession, completed cleanly.** Celestial-Dusk's Moment-1
+  pre-positioning (event `56ae6447`, 19:40:54Z, self-contained) → my Moment-2 acknowledgement
+  (event `ed4e9d01`, 19:42:42Z; Director claim `dbe87352` on the coordination boundary) →
+  Celestial-Dusk confirmed transfer (`ce511a5f`), closed claim `75323860` at their own hand,
+  and continues as NON-COORDINATOR on the write-up arc (witness addendum §9 landed through my
+  announced commit window; closeout + heartbeat-end at arc end). **G2 mint-rule verdict FOLDED
+  into the plan's g2 todo this session** (Galactic Soaring Nebula's design pull-forward, verdict
+  event `62313be2` + report `g2-misconception-mint-rule-design-2026-06-10.md`;
+  Director-adjudicated first-hand — the extractor no-dedup @remarks and the unsorted-readdir
+  order-sensitivity chain re-verified in source at fold): mint
+  `misconception:<lessonSlug>#<hash16(normalise(text))>` content-hash lesson-scoped text-only;
+  G2-execution open details = hash prefix length (16 hex recommended) + droppedDuplicates
+  surfacing (provenance array recommended). **G1b PR #161 OPEN** (Eclipsed Masking Shade 952c10,
+  five commits incl. docs cure `3bef5a6c`; c2-2 specialist backfill adjudicated — code-expert
+  finding applied, mcp-expert compliant; eef-revalidation signal `334b8a99` raised; both settle
+  loops watched implementer-side + Director monitor) — merge Director-serialised; AT MERGE:
+  third deletion-scope verification (deletions strictly old-path, zero graph-corpus
+  intersection), then route S3 + G2 execution to the seats that free (Fruited Blossoming Meadow
+  4536e0 holds the G4 seat + the G2 design lineage via handoff record; Glassy Plumbing Dock
+  ca5890 successor-on-standby for Eclipsed's seat — grounded + paused owner-directed,
+  activation only by Director routing or Eclipsed's closeout). **NEW upstream API schema bump
+  observed at takeover** (live-fetch regen drift in the coordination home: schema version
+  `0.7.0-ab3c160d…` → `0.7.0-6a3c1f02…`, subject-param enums added, descriptions/examples
+  changed; 12 generated files + schema-cache; NO get-keywords.ts in the diff; tree gate-green
+  with the drift — two pushes succeeded on top) — same class as #159: the dirty files are the
+  REFERENCE DIFF, routed as a resync micro-PR off origin/main (Fruited Blossoming Meadow,
+  parallel-safe with G1b — disjoint file sets). Standing: portable watcher only
+  until the agent-tools rebuild; Director small queue unchanged (test:e2e turbo env exposure,
+  lifecycle-lease flake, agent-tools loud-write fixes, rebuild). Open owner items:
+  principles-prompt attribution validation (gates S3's principles cycle only);
+  bulk-export-lags-live (new datum from the G2 analysis: the 2026-06-10 export serves
+  2026-05-21-identical content on the measured axes — the lag is upstream).
+- **PRIOR SESSION (2026-06-10 evening, Celestial Glowing Dusk / claude Fable 5, Director third
   holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — second PDR-064
   Director succession, completed cleanly.** Solar's Moment-1 pre-positioning (event `1d8ac145`,
   17:19:32Z, self-contained) → my Moment-2 acknowledgement (event `7f452f66`, 17:26:34Z;
@@ -336,6 +370,8 @@ session narrative for each is in git history; this table is the durable identity
 | `Galactic Soaring Nebula` | `claude` | `Fable 5` | `f01540` | `g4-seat-successor-g2-mint-rule-design` | 2026-06-10 | 2026-06-10 |
 | `Eclipsed Masking Shade` | `claude` | `Fable 5` | `952c10` | `graph-implementation-seat-b-g1b-finish-twinkling-orbit-successor` | 2026-06-10 | 2026-06-10 |
 | `Fruited Blossoming Meadow` | `claude` | `Fable 5` | `4536e0` | `graph-implementation-galactic-successor-standby-g2-lane` | 2026-06-10 | 2026-06-10 |
+| `Glassy Plumbing Dock` | `claude` | `Fable 5` | `ca5890` | `graph-implementation-eclipsed-successor-standby-g1b-finish-seat` | 2026-06-10 | 2026-06-10 |
+| `Stratospheric Swooping Zephyr` | `claude` | `Fable 5` | `fe53ec` | `graph-implementation-director-fourth-holder` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 
