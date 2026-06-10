@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.18.0...v1.18.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* **mcp:** use the search year filter in adapt-lesson and lesson-planning prompts ([b057ce8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b057ce89e2975f3f93a233460ed4c49f1e125a37))
+
 # [1.18.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.17.0...v1.18.0) (2026-06-10)
 
 
