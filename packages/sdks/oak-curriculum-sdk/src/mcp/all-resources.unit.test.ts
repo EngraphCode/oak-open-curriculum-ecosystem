@@ -16,8 +16,6 @@ describe('ALL_MCP_RESOURCES', () => {
   it('contains every MCP resource URI the server exposes, in listing order', () => {
     expect(uris).toStrictEqual([
       'docs://oak/getting-started.md',
-      'docs://oak/tools.md',
-      'docs://oak/workflows.md',
       'curriculum://model',
       'curriculum://prior-knowledge-graph',
       'curriculum://thread-progressions',

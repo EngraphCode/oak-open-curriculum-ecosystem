@@ -79,8 +79,6 @@ export {
 export {
   DOCUMENTATION_RESOURCES,
   getGettingStartedMarkdown,
-  getToolsReferenceMarkdown,
-  getWorkflowsMarkdown,
   getDocumentationContent,
   type DocumentationResource,
 } from '../mcp/documentation-resources.js';

@@ -31,14 +31,12 @@ import { registerWidgetResource } from './register-widget-resource.js';
 /**
  * Registers documentation resources for the "start here" experience.
  *
- * These markdown resources provide server-level documentation that MCP clients
- * can list via resources/list and read via resources/read. Content includes:
- * - Getting started guide
- * - Tool reference by category
- * - Common workflow guides
+ * The getting-started guide is the documentation resource exposed via
+ * resources/list and resources/read. Tool categories, workflows, and tips are
+ * single-sourced through the canonical `curriculum://model` resource (and the
+ * `get-curriculum-model` tool), not duplicated as separate doc resources.
  *
  * @param server - MCP server instance
- * @param observability - Observability for resource handler tracing
  */
 export function registerDocumentationResources(server: ResourceRegistrar): void {
   for (const resource of DOCUMENTATION_RESOURCES) {
