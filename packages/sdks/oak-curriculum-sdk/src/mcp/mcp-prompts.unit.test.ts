@@ -117,6 +117,21 @@ describe('getPromptMessages', () => {
       const content = messages.map((m) => m.content.text).join(' ');
       expect(content).toMatch(/get-curriculum-model/);
     });
+
+    it('guides narrowing the lessons search by the search "year" filter', () => {
+      const messages = getPromptMessages('lesson-planning', {
+        topic: 'fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The served prompt directs the agent to the search tool's year-group
+      // filter (the "year" parameter), which matches yearGroup granularity —
+      // not a coarser key-stage substitution.
+      expect(content).toContain('Year 4');
+      // Anchor to the exact instructional example so a regression to a coarser
+      // key-stage substitution (dropping the year filter) fails the test.
+      expect(content).toContain('year: 4 for "Year 4"');
+    });
   });
 
   describe('progression-map prompt (removed)', () => {
@@ -228,6 +243,21 @@ describe('getPromptMessages', () => {
       expect(content).toContain('caveat');
       expect(content).toContain('attribut');
       expect(content).toContain('options');
+    });
+
+    it('guides narrowing the lessons search by the search "year" filter', () => {
+      const messages = getPromptMessages('adapt-lesson', {
+        topic: 'adding fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The served prompt directs the agent to the search tool's year-group
+      // filter (the "year" parameter), which matches yearGroup granularity —
+      // not a coarser key-stage substitution.
+      expect(content).toContain('Year 4');
+      // Anchor to the exact instructional example so a regression to a coarser
+      // key-stage substitution (dropping the year filter) fails the test.
+      expect(content).toContain('year: 4 for "Year 4"');
     });
   });
 

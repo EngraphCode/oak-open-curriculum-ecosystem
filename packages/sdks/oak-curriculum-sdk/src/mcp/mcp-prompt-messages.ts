@@ -68,7 +68,7 @@ export function getLessonPlanningMessages(
 Call get-curriculum-model first for domain definitions, concept relationships, and tool usage guidance.
 
 Steps:
-1. Use search with scope "lessons" to search for lessons on "${topic}" appropriate for ${yearGroup}
+1. Use search with scope "lessons" to find lessons on "${topic}" for ${yearGroup} — narrow by the search tool's "year" parameter (lessons scope), passing the year number (for example, year: 4 for "Year 4") so results match the year group
 2. Select the most relevant lesson
 3. Get the lesson summary for learning objectives and keywords
 4. Get the lesson transcript to understand the content delivery
@@ -113,7 +113,7 @@ export function getAdaptLessonMessages(
 Call get-curriculum-model first for domain definitions and tool guidance. MCP tool names may appear prefixed (e.g. mcp__<id>__get-eef-evidence); match them by the suffix.
 
 Workflow:
-1. Use search (scope "lessons") to find the Oak material for "${topic}" at ${yearGroup}, then get the lesson summary, transcript, and quiz.
+1. Use search (scope "lessons") to find the Oak material for "${topic}", narrowed to ${yearGroup}: the search tool filters lessons by year group through its "year" parameter — pass the year number (for example, year: 4 for "Year 4"), not a key stage, so results match ${yearGroup}. Then get the lesson summary, transcript, and quiz.
 2. Surface the pedagogical signals: use get-misconception-graph and get-prior-knowledge-graph (plus the quiz and transcript) to see the likely misconceptions and prerequisite gaps for this lesson.
 3. Name the pedagogical move each signal raises (this is your reasoning, not EEF data). Pick the real EEF strands for those moves from the strand index in the eef://interpretation resource — convert your free-form reasoning into the finite strand ids and axis values the tool accepts at the boundary.
 4. Call get-eef-evidence with those finite inputs. Read eef://interpretation when applying the evidence so you interpret impact, cost, evidence strength, and caveats faithfully.
