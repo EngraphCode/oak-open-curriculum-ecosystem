@@ -127,7 +127,7 @@ export const GET_MISCONCEPTION_GRAPH_TOOL_DEF = {
 Misconceptions are extracted per lesson from the Oak curriculum and reached through the thread → unit → lesson → misconception chain. Every call is anchored — exactly ONE of:
 - lessonSlugs: the leaf anchor; each lesson carries at most two misconceptions.
 - unitSlugs: the core anchor; each unit returns every placed lesson with its misconceptions (typical bodies 2–11 KB per unit).
-- threadSlug (+ optional unitOffset/unitLimit): a unit-granular window over one thread, default ${String(DEFAULT_THREAD_UNIT_LIMIT)} units per page (maximum ${String(MAX_THREAD_UNIT_LIMIT)}), with totalUnits and hasMore reported so partial coverage is always visible.
+- threadSlug (+ optional unitOffset/unitLimit): a unit-granular window over one thread, default ${String(DEFAULT_THREAD_UNIT_LIMIT)} units per page (maximum ${String(MAX_THREAD_UNIT_LIMIT)}), with totalUnits and hasMore reported so partial coverage is always visible. unitOffset/unitLimit are valid ONLY with threadSlug — combining them with lessonSlugs or unitSlugs is rejected.
 
 Slugs are corpus keys — resolve them first with search, fetch, or browse-curriculum. Unknown slugs are reported in the result's unknownAnchors, not errored.
 

@@ -180,6 +180,19 @@ describe('runMisconceptionGraphTool', () => {
     expect(summary.text).toContain(String(entry.totalUnits));
   });
 
+  it('summarises an offset-beyond-length window as empty, never an inverted range', () => {
+    const result = runMisconceptionGraphTool({
+      threadSlug: megaThread.threadSlug,
+      unitOffset: megaThread.unitCount,
+      unitLimit: 5,
+    });
+
+    expect(result.isError).toBeUndefined();
+    const summary = TEXT_CONTENT.parse(result.content[0]);
+    expect(summary.text).toContain('no units in this window');
+    expect(summary.text).toContain(String(megaThread.unitCount));
+  });
+
   it('honours an explicit thread window within the ceiling', () => {
     const result = runMisconceptionGraphTool({
       threadSlug: megaThread.threadSlug,

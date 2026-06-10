@@ -52,6 +52,9 @@ export function summariseThread(subgraph: ThreadMisconceptionsSubgraph): string 
       ...subgraph.unknownAnchors,
     ]);
   }
+  if (entry.units.length === 0) {
+    return `Misconceptions for thread window: no units in this window (offset ${String(entry.unitOffset)} of ${String(entry.totalUnits)} units).`;
+  }
   const from = entry.unitOffset + 1;
   const to = entry.unitOffset + entry.units.length;
   return `Misconceptions for thread window: units ${String(from)}–${String(to)} of ${String(entry.totalUnits)}${entry.hasMore ? ' (more available via unitOffset)' : ''}.`;
