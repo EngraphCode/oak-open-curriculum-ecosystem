@@ -3,31 +3,6 @@
   "commit_queue": [],
   "claims": [
     {
-      "claim_id": "c42e4b8c-7e1e-48cb-9dbb-14cb19646081",
-      "agent_id": {
-        "agent_name": "Veiled Listening Secret",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "7c8e8e",
-        "id": "98083d3e-13b7-5037-b6ec-80713ddf0037"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/state/**",
-            ".agent/memory/**",
-            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-10T12:02:11Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Director (graph implementation team): coordination home owner — all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; merge sequencing"
-    },
-    {
       "claim_id": "86548f2c-da00-49b9-865c-b5f460a32876",
       "agent_id": {
         "agent_name": "Abyssal Swimming Mast",
@@ -55,34 +30,6 @@
       "intent": "G1b (Seat B / Track G): prior-knowledge bounded-anchored view + tool rewrite. c1 prerequisite view in graph-corpus-sdk (per-view createGraphView, depth default 2, module-load + startup-cost check); c2 rewrite get-prior-knowledge-graph (anchor unitSlug[]+depth, TextContent+structuredContent), REMOVE curriculum://prior-knowledge-graph (catalogue+drift-guard) + orphaned old dataset, ANCHOR-THREADING prompt repoints (adapt-lesson step 2 prior-knowledge clause only + learning-progression step 3), raise eef-revalidation. Removed-URI assertions expect -32602. One PR off origin/main; source in worktree oak-wt-airy-g."
     },
     {
-      "claim_id": "d84fc69b-67a6-44fe-a37b-cbc3bb53cd85",
-      "agent_id": {
-        "agent_name": "Luminous Scattering Dawn",
-        "platform": "claude",
-        "model": "Opus 4.8",
-        "session_id_prefix": "39d471",
-        "id": "edc8a284-c8b0-5e8c-a7d6-2158bc4acf66"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "agent-tools/src/collaboration-state/comms-watch-loop.ts",
-            "agent-tools/src/collaboration-state/cli-comms-watch.ts",
-            "agent-tools/src/collaboration-state/cli-runtime.ts",
-            "agent-tools/src/collaboration-state/watcher-staleness.ts",
-            "agent-tools/src/collaboration-state/**/*.test.ts",
-            ".agent/rules/comms-all-channels-watcher.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-10T15:11:08Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "comms-watch-hang-hardening (owner-named; Director brief 15:06:19Z): c1 per-step deadlines fail-loud in watchCommsLoop; c2 watcher-heartbeat liveness default-on (derive heartbeat path from seen-file); c3 regression-pin waitForAnyDirectoryChange poll-bound + retire interim rule caution in comms-all-channels-watcher.md (rule-paragraph edit pre-authorised against Veiled claim c42e4b8c). One pure-diff PR off origin/main; worktree oak-wt-luminous-tools; Director-serialised merge."
-    },
-    {
       "claim_id": "8cd0de7f-a01d-4eed-8254-d18ad52b1cde",
       "agent_id": {
         "agent_name": "Solar Soaring Star",
@@ -108,13 +55,13 @@
       "intent": "Director (graph implementation team) — PDR-064 Moment 2 completion, owner-directed in-session 2026-06-10T16:21:08Z: successor to Veiled Listening Secret (7c8e8e). Coordination home owner: all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; dispatch; reviewer routing; merge sequencing. Veiled's claim c42e4b8c superseded by this claim per the acknowledgement event; formal closure at Veiled's wake (currently watcher-blind, evidence event 382ed72e)."
     },
     {
-      "claim_id": "ddde08e2-7146-4499-ad2f-db6d830179b2",
+      "claim_id": "350f4d73-b292-4cf6-bad7-0501555b9c61",
       "agent_id": {
-        "agent_name": "Umbral Prowling Lantern",
+        "agent_name": "Airy Lifting Squall",
         "platform": "claude",
         "model": "Fable 5",
-        "session_id_prefix": "9134e5",
-        "id": "8d7aa1b0-4287-50ca-934c-4ae5c3633174"
+        "session_id_prefix": "69dc9c",
+        "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
       },
       "thread": "eef",
       "areas": [
@@ -128,10 +75,10 @@
           ]
         }
       ],
-      "claimed_at": "2026-06-10T16:24:54Z",
+      "claimed_at": "2026-06-10T17:01:47Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G4a (Iridescent-successor lane, fresh claim): codegen-time description correction for get-keywords false frequency-order claim (U1-grounded; observed alphabetical, no frequency field). Correction applies ONLY to the MCP tool description surface (our product layer); upstream spec mirrors stay faithful. tool-description.ts correction table + pipeline wire in emit-index.ts + unit tests + generated-output drift-guard + sdk-codegen regen. One small PR off origin/main d56f846d; worktree oak-wt-umbral-g4 branch feat/g4a-keywords-description. Served-name rename NOT in scope (optional codegen work, owner-gated name). G4b stays G2-gated."
+      "intent": "G4 keywords lane (Umbral-successor, owner-directed): carry PR #158 (G4a description fix, head 4b7f17d2) through review-comment adjudication + merge (Director-serialised); accept/decline turbo env micro-PR per Solar 099ddf53; S3 routing re-confirmation at G1b merge; G4b stays G2-gated. Supersedes Umbral claim ddde08e2 (Director closure requested). Worktree oak-wt-umbral-g4."
     }
   ]
 }

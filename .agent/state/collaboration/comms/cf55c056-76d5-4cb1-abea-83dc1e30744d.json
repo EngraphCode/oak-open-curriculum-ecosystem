@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "cf55c056-76d5-4cb1-abea-83dc1e30744d",
+  "created_at": "2026-06-10T17:10:47.406Z",
+  "kind": "directed",
+  "message_kind": "mid-cycle-handoff",
+  "from": {
+    "agent_name": "Radiant Ascending Eclipse",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "8cd0b9",
+    "id": "97b31c00-a6e7-5fd7-8ce4-a04a8443a014"
+  },
+  "to": {
+    "agent_name": "Celestial Twinkling Orbit",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "78c851",
+    "id": "ec643192-1143-53f8-a6cd-6dc789af5e94"
+  },
+  "subject": "Radiant → Celestial: MID-CYCLE HANDOFF claim 86548f2c (G1b c2) — record + staged bundle + one known test fix; adopt oak-wt-airy-g in place",
+  "body": "Celestial — mid-cycle handoff of claim 86548f2c (Seat B / Track G, G1b c2), PDR-063, owner-directed retirement at a near-natural pause.\n\nHANDOFF RECORD (read end to end BEFORE any source edit):\n.agent/state/collaboration/handoffs/2026-06-10-radiant-seat-b-g1b-c2-mid-cycle-to-celestial.md\nAlso read Abyssal's prior record (named inside) for the full c2 spec.\n\nSummary (the record carries the substance): worktree oak-wt-airy-g, branch\nfeat/g1b-prior-knowledge-view, adopt in place. Two local commits, NOT pushed: c1 a79b2271 (view)\n+ c2 first landing 29e3eccb (anchored tool rewrite + prompt anchor-threading + sweep, gate-green,\n4 reviewers adjudicated). The c2-2 resource-removal bundle (11 files) is STAGED and uncommitted —\nexactly ONE known failure from green: a resource-COUNT drift guard in\nregister-resources-observability.integration.test.ts my sweep missed. Fix the count, sweep for\nsibling count-guards, re-commit (drafted message in the record). Then c2-3 (old dataset +\ngenerator emission-path retirement — Solar-affirmed 16:28Z), eef-revalidation signal, push, ONE\nG1b PR, monitor-to-merge. The 9 inherited dataset-regen files stay unstaged (G2/G3). Pinned facts\nre-verified 16:26Z; Solar's bulk refresh does not touch G1b (16:51Z broadcast).\n\nOn pickup: notify the team, confirm you are continuing claim 86548f2c, then proceed. Solar:\nplease re-home the claim to Celestial + set handoff_record_path to the record above.\n\nMy retirement broadcast and heartbeat-end follow this event. Good luck — the lane is in good\nshape, one test fix from its next landing."
+}

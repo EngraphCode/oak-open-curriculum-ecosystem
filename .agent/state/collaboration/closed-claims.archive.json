@@ -10328,6 +10328,145 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "c42e4b8c-7e1e-48cb-9dbb-14cb19646081",
+      "agent_id": {
+        "agent_name": "Veiled Listening Secret",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "7c8e8e",
+        "id": "98083d3e-13b7-5037-b6ec-80713ddf0037"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T12:02:11Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team): coordination home owner — all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; merge sequencing",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T16:37:35Z",
+        "closed_by": {
+          "agent_name": "Veiled Listening Secret",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "7c8e8e",
+          "id": "98083d3e-13b7-5037-b6ec-80713ddf0037"
+        },
+        "summary": "Director role transferred at PDR-064 Moment 2 (event 0a3d08ff, 16:22:39Z, owner-directed; Solar Soaring Star claim 8cd0de7f open). Outgoing claim closed at Veiled's wake per the singleton-authority worked shape. Session continues as non-coordinator for write-ups; continuity writes route through Solar.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "c42e4b8c-7e1e-48cb-9dbb-14cb19646081",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "d84fc69b-67a6-44fe-a37b-cbc3bb53cd85",
+      "agent_id": {
+        "agent_name": "Luminous Scattering Dawn",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "39d471",
+        "id": "edc8a284-c8b0-5e8c-a7d6-2158bc4acf66"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/collaboration-state/comms-watch-loop.ts",
+            "agent-tools/src/collaboration-state/cli-comms-watch.ts",
+            "agent-tools/src/collaboration-state/cli-runtime.ts",
+            "agent-tools/src/collaboration-state/watcher-staleness.ts",
+            "agent-tools/src/collaboration-state/**/*.test.ts",
+            ".agent/rules/comms-all-channels-watcher.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T15:11:08Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "comms-watch-hang-hardening (owner-named; Director brief 15:06:19Z): c1 per-step deadlines fail-loud in watchCommsLoop; c2 watcher-heartbeat liveness default-on (derive heartbeat path from seen-file); c3 regression-pin waitForAnyDirectoryChange poll-bound + retire interim rule caution in comms-all-channels-watcher.md (rule-paragraph edit pre-authorised against Veiled claim c42e4b8c). One pure-diff PR off origin/main; worktree oak-wt-luminous-tools; Director-serialised merge.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T17:12:02Z",
+        "closed_by": {
+          "agent_name": "Luminous Scattering Dawn",
+          "platform": "claude",
+          "model": "Opus 4.8",
+          "session_id_prefix": "39d471",
+          "id": "edc8a284-c8b0-5e8c-a7d6-2158bc4acf66"
+        },
+        "summary": "comms-watch-hang-hardening DELIVERED — PR #157 merged to main (3ed24de7): per-step fail-loud deadlines, liveness default-on, poll-bound regression pin, hardened-contract rule. Review findings adjudicated + fixed (a60aa1d7). No follow-on.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "d84fc69b-67a6-44fe-a37b-cbc3bb53cd85",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "ddde08e2-7146-4499-ad2f-db6d830179b2",
+      "agent_id": {
+        "agent_name": "Umbral Prowling Lantern",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "9134e5",
+        "id": "8d7aa1b0-4287-50ca-934c-4ae5c3633174"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts",
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.unit.test.ts",
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/emit-index.ts",
+            "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T16:24:54Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G4a (Iridescent-successor lane, fresh claim): codegen-time description correction for get-keywords false frequency-order claim (U1-grounded; observed alphabetical, no frequency field). Correction applies ONLY to the MCP tool description surface (our product layer); upstream spec mirrors stay faithful. tool-description.ts correction table + pipeline wire in emit-index.ts + unit tests + generated-output drift-guard + sdk-codegen regen. One small PR off origin/main d56f846d; worktree oak-wt-umbral-g4 branch feat/g4a-keywords-description. Served-name rename NOT in scope (optional codegen work, owner-gated name). G4b stays G2-gated.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T17:16:30Z",
+        "closed_by": {
+          "agent_name": "Umbral Prowling Lantern",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "9134e5",
+          "id": "8d7aa1b0-4287-50ca-934c-4ae5c3633174"
+        },
+        "summary": "G4a delivered: PR #158 (4b7f17d2 + 50a6f659, gate-green, verdict posted); lane transferred to Airy Lifting Squall via handoff record 2026-06-10-umbral-g4a-to-airy-squall.md",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "ddde08e2-7146-4499-ad2f-db6d830179b2",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

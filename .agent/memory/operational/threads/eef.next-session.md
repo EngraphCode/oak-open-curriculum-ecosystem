@@ -32,6 +32,21 @@ merge_class: index-narrative-tables
   this branch's interim watcher caution per Luminous's supersession note). Open owner items:
   bulk-refresh timing (pre-G2; KS4 divergence — english live +38% vs bulk, science-ks4 live
   inverted to zero), principles-prompt attribution validation (S3 gate), Veiled wake.
+  **Late-session wave (17:10–17:20Z, recorded at second succession):** comms-watch hardening
+  **#157 MERGED** (`3ed24de7`; verdicts recorded; the docs-branch rule copy aligned to main's
+  hardened version in this commit); owner executed the **bulk refresh** (manifest
+  `2026-06-10T16:43Z` — G2+ mine the fresh snapshot; the regen's 16 dirty generated files in
+  the coordination home are the REFERENCE DIFF for Airy-Squall's resync PR — leave in place);
+  **G4a PR #158** open, both findings verdict-recorded, fix head `50a6f659` in CI, merge
+  Director-serialised; rotations: Radiant → **Celestial Twinkling Orbit** on G1b c2 (PDR-063
+  mid-cycle record; c2-2 staged one fix from green), Umbral → **Airy Lifting Squall** on the
+  G4 lane (claim `350f4d73`; then resync PR + turbo env micro-PR + S3 re-confirmation at G1b
+  merge); Luminous + Radiant + Umbral all stood down clean. **Second Director succession
+  initiated by owner ~17:17Z**: Solar's Moment-1 pre-positioning event `1d8ac145` →
+  **Celestial Glowing Dusk** (full required reading, lanes, rulings, choreography inside;
+  NAME COLLISION caution — two Celestials, full name + prefix always). Solar closes out at
+  their Moment 2. Veiled's learning-pass consolidation note may still arrive — land it via
+  the next continuity commit.
 - **PRIOR SESSION (2026-06-10, Veiled Listening Secret / claude Fable 5, Director, branch
   `docs/graph-team-direction-2026-06-10`) — graph implementation team, first worktree-team run.**
   Owner-ratified shape live: Director coordination home = primary checkout (owner-confirmed,
@@ -277,6 +292,9 @@ session narrative for each is in git history; this table is the durable identity
 | `Umbral Prowling Lantern` | `claude` | `Fable 5` | `9134e5` | `g4a-keywords-description-implementer-iridescent-successor` | 2026-06-10 | 2026-06-10 |
 | `Radiant Ascending Eclipse` | `claude` | `Fable 5` | `8cd0b9` | `graph-implementation-seat-b-g1b-c2-implementer` | 2026-06-10 | 2026-06-10 |
 | `Solar Soaring Star` | `claude` | `Fable 5` | `7f0c08` | `graph-implementation-director-successor` | 2026-06-10 | 2026-06-10 |
+| `Airy Lifting Squall` | `claude` | `Fable 5` | `69dc9c` | `g4-lane-implementer-umbral-successor` | 2026-06-10 | 2026-06-10 |
+| `Celestial Twinkling Orbit` | `claude` | `Fable 5` | `78c851` | `graph-implementation-seat-b-g1b-c2-completion-radiant-successor` | 2026-06-10 | 2026-06-10 |
+| `Airy Lifting Squall` | `claude` | `Fable 5` | `69dc9c` | `g4-keywords-lane-implementer-umbral-successor` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 

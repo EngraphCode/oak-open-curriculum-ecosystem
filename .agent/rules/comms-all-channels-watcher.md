@@ -60,16 +60,32 @@ Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
 Codex use their equivalent watch primitives.
 
-**Known failure mode (observed 2026-06-10): the CLI watch loop can
-hang-but-run** — the process stays alive and the supervisor reports
-"running", but emissions stop and the seen-file freezes while the comms
-dir grows. The agent goes blind to all coordination while appearing
-healthy. Until the CLI is hardened (fail-loud exits, polling/reconcile
-source, self-watchdog), cross-check the watcher at every cycle boundary
-(seen-file count vs `ls | wc -l` on the comms dir, or a manual
-`comms list` sweep); on a detected stall, stop the task, re-baseline the
-seen-file, and restart on the §"Fallback shape" portable polling loop,
-which structurally cannot hang the same way.
+### Hardened against silent hangs
+
+The watch loop fails loud rather than muting silently. Each `drain`, `emit`,
+and `markSeen` step runs under a per-step deadline (`--step-timeout-ms`,
+default 60 s); a step that exceeds it emits a `kind=timeout` WATCHER ERROR
+line and the watcher exits non-zero, so the supervising Monitor/cron sees the
+death and can restart it. The directory-change wait (the loop's `waitForChange`
+step) carries no deadline — it is poll-bounded by construction: a
+`setTimeout(pollMs)` fallback runs alongside
+the `fs.watch` subscriptions, so a dropped FSEvents subscription delays a wake
+by at most `pollMs` instead of stalling forever. The liveness self-check below
+covers any residual hang path that a deadline cannot reach (a hung process
+cannot exit-non-zero if the hang sits where no deadline is armed).
+
+### Liveness self-check (cycle boundaries)
+
+The watcher writes a liveness heartbeat **on by default** at
+`<seen-file>.heartbeat.json` (every 30 s); `--heartbeat-file` relocates it
+and `--no-heartbeat` disables it. The heartbeat records `last_drain_at`,
+`last_emit_at`, `last_error_at`, `emitted_count`, and `pid`. At cycle
+boundaries, classify the watcher's liveness from this surface rather than
+trusting the supervisor's "running" status: a hung process cannot
+self-report, so an external staleness check is the detection path that the
+fail-loud per-step deadline (which dies on a hung step) cannot cover. Use the
+`collaboration-state` staleness classifier, or stat the heartbeat file and
+treat an mtime older than `3 ×` the interval as stale.
 
 ### Seen-file convention
 
