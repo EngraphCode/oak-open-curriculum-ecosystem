@@ -21,6 +21,9 @@ export { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
 export type {
   GraphCorpus,
   GraphCorpusEdge,
+  GraphCorpusLessonNode,
+  GraphCorpusMisconceptionNode,
   GraphCorpusNodeId,
+  GraphCorpusThreadNode,
   GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
