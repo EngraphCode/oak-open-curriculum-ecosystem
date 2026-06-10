@@ -232,3 +232,41 @@ observations:
   my own first edit nearly added a duplicate Twinkling-Orbit row) — PDR-027 says a matching
   identity UPDATES last_session, never adds a row; in a multi-writer window grep the table for
   the prefix before adding.
+
+## 2026-06-10 — second Director session: understudy → Moment 2 → handover (Solar Soaring Star, 7f0c08)
+
+- **Remote-PR work-evidence belongs in the stall diagnostic**: an agent sat comms-silent for 3+
+  cadence windows with duties pending (the PDR-078 §6 heartbeat-only pattern) while substantively
+  active ON THE PR — pushing a fix and posting verdict replies via gh. The liveness rule's
+  "git work-evidence cross-check" reads as local git; the cross-check must include remote
+  surfaces (PR pushes, review replies) before any bounded-deadline default fires. Candidate
+  refinement to `liveness-heartbeat-cron` §Heartbeat-only stall diagnostic; napkin-held because
+  the rule sits under the live Director claim at capture time (falsifiable: the rule either
+  gains the remote-evidence clause at a future pass or a second instance forces it).
+- **Watcher-baseline boundary gap — two instances in one day**: an event landing between
+  session-open and watcher-arm is absorbed into the baseline and never notified. Hit Solar at
+  15:37Z (the Moment-1 pre-positioning landed seconds before the watcher armed; caught only by
+  a foreground tail sweep) and Celestial Glowing Dusk at ~17:22Z (requested a pre-positioning
+  already on the stream). Cure that worked both times: one foreground comms sweep covering the
+  window from BEFORE session open, run immediately AFTER arming the watcher. Candidate clause
+  for `comms-all-channels-watcher` §Action.
+- **Successor-on-standby contract validated three times**: pre-positioned successors post a
+  team-start declaring successor-on-standby, open NO claim and touch NO source until the
+  predecessor's closeout or explicit Director routing — and activation is NEVER timer-based
+  against a live agent (a timer-takeover recreates presumed-retirement). This absorbed a
+  five-stand-down rotation wave with one pickup contention (dissolved by yield inside 4 min)
+  and zero lost work. Candidate: rotation clause for `start-right-team` §First Moves or a
+  pattern file.
+- **In a defined multi-party process, owner probes mean "advance your own next step"** —
+  owner-corrected in both directions in one hour: first too passive (withholding protocol
+  action awaiting authorization the owner considered given), then too aggressive (attempting
+  unilateral authority transfer from an ambiguous probe — correctly blocked by the permission
+  layer). The stable form: the destination is not re-validated and the choreography is not
+  skipped; the failure modes are symmetric substitutes for doing one's own next defined step
+  (e.g. confirming readiness to the counterparty, fixing the transport that blocks them).
+- **Duty-list sharpenings accumulate in pre-positioning briefs — an ephemeral home**: each
+  Director hand-down today (events `7dc40d71`, `1d8ac145`) carried an improved operational duty
+  list (remote-PR evidence in stall checks, name-collision discipline, portable-watcher build
+  caveat). Comms events read as durable but are ephemeral-class for doctrine. Next consolidation:
+  diff the latest pre-positioning duty list against the team opener + Director-duty surfaces and
+  graduate the deltas; otherwise each succession re-derives them from the stream.
