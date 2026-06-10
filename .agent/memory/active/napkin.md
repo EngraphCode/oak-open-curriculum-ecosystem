@@ -114,3 +114,18 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   the trip-list "was added" while it lived in open #146 — Copilot flagged all 4 instances; they
   became true on merge, but the honest authoring shape is "lands in sibling PR #N" until then.
   Same family as principles.md §Target-architecture wording needs consuming-runtime evidence.
+
+## 2026-06-10 — merge-phase operational captures (Fragrant Spreading Sapling, closing)
+
+- **`gh pr merge` of the branch you are sitting on auto-switches the local checkout to the
+  default branch and attempts a pull** — mid-merge that pull can misfire, leaving local main
+  stale with carried-over file copies blocking the next fast-forward. Cure that worked, fully
+  forward-going: verify the blocking files are byte-identical to origin/main
+  (`git show origin/main:<path> | diff -q - <path>`), write HEAD's versions forward over the
+  redundant copies, then `git pull --ff-only`. Zero loss by construction (the content is in the
+  merged PR); no blocked verbs needed.
+- **A watcher script is itself input-to-verify**: my numeric-guard rewrite silently dropped the
+  new-comment exit condition, so a PR comment arrived without a wake and was only caught by the
+  owner-prompted status sweep. When rewriting a monitor, diff the EXIT CONDITIONS old-vs-new,
+  not just the mechanics. (zsh arrays are 1-indexed; `$((...))` chokes on non-numeric capture —
+  guard every variable that feeds arithmetic.)

@@ -44,15 +44,19 @@ surface.
   assumptions-expert / mcp-expert) all ready-with-conditions → every condition verified
   first-hand and applied (anchor-threading prompt rewrites — the substantive catch; emission-
   ownership table; G4 Gate-1 decision rule; per-unit types.ts deletion scope; materialised `id`
-  field) → **🟢 DECISION-COMPLETE** with the proof contract validated. PRs #143, #144, #145
-  all MERGED to main (2026-06-10). PR #146 (indefinite-deferral vocabulary → the innate-immunity
-  trip-list + `no-hedging-vocabulary.md` catalogue + sibling regression test) is green with its
-  Copilot review adjudicated first-hand (2 comments refuted with matcher grounding, 3 applied —
-  inline-code dodge closed, doc scope fixed, regression test added; replies on the PR record the
-  verdicts). **Next safe step: merge PR #146 (trip-list),
-  PR #147 (handoff/consolidation + loss-scan closures), and PR #148 (upstream schema-hash sync —
-  4×1-line, no contract change); execution then starts with any unblocked deliverable
-  (S1 / S2 / S3-c0 / U1 / G1), each one small PR.**
+  field) → **🟢 DECISION-COMPLETE** with the proof contract validated. **The whole readiness arc
+  is MERGED to main (2026-06-10): PRs #143–#148** — analysis + restructure; R2 + flip; owner
+  corrections (S3 live deliverable, no unagreed holding states); the indefinite-deferral
+  trip-list + regression test (shipped in **v1.18.0**); deep handoff/consolidation + loss-scan
+  closures; the upstream schema-hash sync. Every bot review comment across the arc was
+  adjudicated first-hand (8 applied / 2 refuted with matcher grounding / 2 historical). Branches
+  deleted; claims and commit-queue empty; main CI green. **Next safe step: the IMPLEMENTATION
+  PHASE begins — pick any unblocked deliverable from
+  [`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  (S1 doc-resources, S2 prompt language, S3-c0 owner design gate, U1 upstream request, or G1
+  prior-knowledge view + one-graph foundation), execute its cycles per the plan's proof contract,
+  and ship it as one small PR. The plan's frontmatter todos and §Cycles and proof contract are
+  the execution authority; re-verify the pinned data facts against the tree at execution start.**
 - **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder / `527005`, claude /
   Opus 4.8; PR #142 MERGED → v1.17.0).** The deferred A-i/C specialist reviews ran (5 reviewers;
   every finding adjudicated first-hand — code/types/tests SOUND); verified findings landed
