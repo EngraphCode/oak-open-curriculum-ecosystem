@@ -414,12 +414,12 @@ describe('registerAllResources registers supplementary data resources', () => {
     options = createTestOptions();
   });
 
-  it('registers curriculum://prior-knowledge-graph', async () => {
+  it('does not register the removed curriculum://prior-knowledge-graph (served by the anchored tool)', async () => {
     registerAllResources(server, options);
     await flush();
 
     const uris = Array.from(registeredResources.keys());
-    expect(uris).toContain('curriculum://prior-knowledge-graph');
+    expect(uris).not.toContain('curriculum://prior-knowledge-graph');
   });
 
   it('registers curriculum://thread-progressions', async () => {
@@ -428,18 +428,6 @@ describe('registerAllResources registers supplementary data resources', () => {
 
     const uris = Array.from(registeredResources.keys());
     expect(uris).toContain('curriculum://thread-progressions');
-  });
-
-  it('prior knowledge graph has priority 0.5 annotations', async () => {
-    registerAllResources(server, options);
-    await flush();
-
-    const resource = registeredResources.get('curriculum://prior-knowledge-graph');
-    expect(resource).toBeDefined();
-    expect(resource?.metadata.annotations?.priority).toBe(0.5);
-    expect(resource?.metadata.annotations?.audience).toContain('assistant');
-    const content = await readResource('curriculum://prior-knowledge-graph');
-    expectJsonContent(content.contents[0]);
   });
 
   it('thread progressions has priority 0.5 annotations', async () => {

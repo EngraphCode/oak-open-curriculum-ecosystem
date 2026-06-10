@@ -89,11 +89,6 @@ export {
 } from '../mcp/curriculum-model-resource.js';
 
 export {
-  PRIOR_KNOWLEDGE_GRAPH_RESOURCE,
-  getPriorKnowledgeGraphJson,
-} from '../mcp/prior-knowledge-graph-resource.js';
-
-export {
   THREAD_PROGRESSIONS_RESOURCE,
   getThreadProgressionsJson,
 } from '../mcp/thread-progressions-resource.js';

@@ -16,9 +16,14 @@ import { parseSseEnvelope } from './helpers/sse.js';
 import { z } from 'zod';
 import {
   getMisconceptionGraphJson,
-  getPriorKnowledgeGraphJson,
   getThreadProgressionsJson,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+
+/** JSON-RPC error shape for removed-URI assertions (code is load-bearing). */
+const JsonRpcErrorWithCodeSchema = z.object({
+  code: z.number(),
+  message: z.string().optional(),
+});
 
 const ResourcesListResultSchema = z.object({
   resources: z.array(
@@ -165,7 +170,7 @@ describe('Documentation Resources E2E', () => {
 
 describe('Supplementary Data Resources E2E', () => {
   describe('resources/list includes supplementary data resources', () => {
-    it('includes curriculum://prior-knowledge-graph in resource list', async () => {
+    it('does not list curriculum://prior-knowledge-graph (removed — served by the anchored tool)', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -178,12 +183,8 @@ describe('Supplementary Data Resources E2E', () => {
       const parsed = ResourcesListResultSchema.safeParse(envelope.result);
       expect(parsed.success).toBe(true);
 
-      const resources = parsed.data?.resources ?? [];
-      const priorKnowledgeGraph = resources.find(
-        (r) => r.uri === 'curriculum://prior-knowledge-graph',
-      );
-      expect(priorKnowledgeGraph).toBeDefined();
-      expect(priorKnowledgeGraph?.mimeType).toBe('application/json');
+      const uris = (parsed.data?.resources ?? []).map((r) => r.uri);
+      expect(uris).not.toContain('curriculum://prior-knowledge-graph');
     });
 
     it('includes curriculum://thread-progressions in resource list', async () => {
@@ -230,9 +231,25 @@ describe('Supplementary Data Resources E2E', () => {
   });
 
   describe('resources/read returns valid data', () => {
-    it('prior knowledge graph returns the source data via MCP protocol', async () => {
-      const content = await readResource('curriculum://prior-knowledge-graph');
-      expect(content).toBe(getPriorKnowledgeGraphJson());
+    it('reading the removed prior-knowledge-graph URI is a -32602 JSON-RPC error', async () => {
+      const { app } = await createStubbedHttpApp();
+
+      const response = await request(app)
+        .post('/mcp')
+        .set('Host', 'localhost')
+        .set('Accept', STUB_ACCEPT_HEADER)
+        .send({
+          jsonrpc: '2.0',
+          id: '1',
+          method: 'resources/read',
+          params: { uri: 'curriculum://prior-knowledge-graph' },
+        });
+
+      const envelope = parseSseEnvelope(response.text);
+      // SDK 1.29.0 rejects an unknown resource URI as InvalidParams (-32602);
+      // the spec's -32002 resource-not-found is an unimplemented SHOULD.
+      const error = JsonRpcErrorWithCodeSchema.parse(envelope.error);
+      expect(error.code).toBe(-32602);
     });
 
     it('thread progressions returns the source data via MCP protocol', async () => {

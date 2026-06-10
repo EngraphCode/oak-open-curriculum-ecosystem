@@ -2,7 +2,7 @@
  * Unit tests for the resources section renderer.
  *
  * Verifies the landing page lists the FULL MCP resource catalogue
- * (`ALL_MCP_RESOURCES`) — documentation, curriculum model, the three curriculum
+ * (`ALL_MCP_RESOURCES`) — documentation, curriculum model, the two curriculum
  * graphs, and the EEF interpretation guide — not just the documentation
  * resources. Binding to the catalogue keeps the page from silently drifting.
  */
@@ -24,9 +24,12 @@ describe('renderResourcesSection', () => {
   it('includes the EEF, graph, and curriculum-model resources, not just documentation', () => {
     expect(html).toContain('eef://interpretation');
     expect(html).toContain('curriculum://model');
-    expect(html).toContain('curriculum://prior-knowledge-graph');
     expect(html).toContain('curriculum://thread-progressions');
     expect(html).toContain('curriculum://misconception-graph');
+  });
+
+  it('does not list the removed prior-knowledge-graph resource (served by the anchored tool)', () => {
+    expect(html).not.toContain('curriculum://prior-knowledge-graph');
   });
 
   it('renders the count from the full catalogue length', () => {
