@@ -1,3 +1,19 @@
+# [1.21.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.20.0...v1.21.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** sort per-unit prior knowledge for order-independent emission (PR [#163](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/163) review) ([b72c07f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b72c07fc9a507a2357c6472bb7bb04c685fa41b5))
+
+
+### Features
+
+* **curriculum-sdk:** remove the curriculum misconception-graph resource (G2 c3) ([b51c474](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b51c4742017a56b014de190b03ea7e96645033c7))
+* **curriculum-sdk:** rewrite get-misconception-graph as anchored bounded retrieval (G2 c3) ([0e65743](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0e657437a5cb1d819437e4b0380fc3b041ca8b99))
+* **graph-corpus-sdk:** add the bounded anchored misconception view (G2 c2) ([78a7912](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/78a7912225dea97edaeaa17132bcb051e3c41939))
+* **sdk-codegen:** emit the misconception chain into the graph corpus (G2 c1) ([a0b3210](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a0b32100e10c080b7fb140f93ec8e522e54afe4e))
+* **sdk-codegen:** retire the orphaned misconception-graph dataset and its emission path (G2 c3) ([ceda4a7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ceda4a706c108fc8abd1228626bc2fa53c77641d))
+
 # [1.20.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.19.2...v1.20.0) (2026-06-10)
 
 
