@@ -94,11 +94,6 @@ export {
 } from '../mcp/thread-progressions-resource.js';
 
 export {
-  MISCONCEPTION_GRAPH_RESOURCE,
-  getMisconceptionGraphJson,
-} from '../mcp/misconception-graph-resource.js';
-
-export {
   EEF_INTERPRETATION_RESOURCE,
   getEefInterpretationMarkdown,
 } from '../mcp/eef-interpretation-resource.js';

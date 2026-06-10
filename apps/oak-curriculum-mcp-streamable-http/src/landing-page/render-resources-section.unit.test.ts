@@ -25,11 +25,14 @@ describe('renderResourcesSection', () => {
     expect(html).toContain('eef://interpretation');
     expect(html).toContain('curriculum://model');
     expect(html).toContain('curriculum://thread-progressions');
-    expect(html).toContain('curriculum://misconception-graph');
   });
 
   it('does not list the removed prior-knowledge-graph resource (served by the anchored tool)', () => {
     expect(html).not.toContain('curriculum://prior-knowledge-graph');
+  });
+
+  it('does not list the removed misconception-graph resource (served by the anchored tool)', () => {
+    expect(html).not.toContain('curriculum://misconception-graph');
   });
 
   it('renders the count from the full catalogue length', () => {
