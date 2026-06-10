@@ -9969,6 +9969,97 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "c12b42c5-b2fd-40d8-84d6-65aab6a43973",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T07:23:47Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit the owner-correction de-park bundle.",
+      "intent_to_commit": "5acbb7f0-a551-43bf-ab87-d16df5d0ae85",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T07:23:52Z",
+        "closed_by": {
+          "agent_name": "Fragrant Spreading Sapling",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "47f78a",
+          "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+        },
+        "summary": "de-park correction commit; closed in same collaboration-state commit",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "c12b42c5-b2fd-40d8-84d6-65aab6a43973",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "8c424815-e16a-4ce0-b192-f742ad176c25",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/**",
+            ".agent/reports/graph-tools-readiness-seam-analysis-2026-06-09.md",
+            ".agent/memory/operational/**",
+            ".agent/hooks/policy.json",
+            ".agent/rules/no-hedging-vocabulary.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T07:19:12Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Owner-directed corrections: reframe S3 as a live deliverable + add the indefinite-deferral vocabulary to the innate-immunity trip-list",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T07:33:14Z",
+        "closed_by": {
+          "agent_name": "Fragrant Spreading Sapling",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "47f78a",
+          "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+        },
+        "summary": "Owner corrections complete: S3 de-park (PR #145) + indefinite-deferral trip-list (PR #146); claim closed at continuation end",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "8c424815-e16a-4ce0-b192-f742ad176c25",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

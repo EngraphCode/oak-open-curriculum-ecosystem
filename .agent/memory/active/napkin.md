@@ -46,6 +46,16 @@ stacked PR). Four captures:
   thread the anchor from the preceding workflow step, or the prompt instructs invalid calls.
   "Repoint" language hid the gap; the plan now pins anchor-threading rewrites,
   correct-at-every-commit.
+- **Owner correction (2026-06-10): bundle-ratification is not clause-ratification.** My seam-map
+  ratification question embedded a holding-state clause for §C the owner never agreed to —
+  "Ratify" on the bundle did not ratify that clause. Owner doctrine: work is a live deliverable
+  with named gates, or it is removed by owner decision — no unagreed holding states, ever. Cure
+  landed: §C → deliverable S3 (c0 owner design gate); the indefinite-deferral vocabulary family
+  (the p-word and siblings — descriptive form per hook-policy-substring-discipline) added to the
+  innate-immunity trip-list as a word-boundary regex group (literal substrings would have
+  false-positived on agent display names like "Sparking …"). Sibling of
+  [[feedback_forced_verdict_resting_on_my_interpretation_is_a_question]] (precedent ≠ approval,
+  applied to my own bundled question).
 
 ## 2026-06-09 — proportionality on routing an already-doctrined instance (Fruited Twining Canopy)
 
