@@ -171,7 +171,7 @@ export interface paths {
         };
         /**
          * Subjects
-         * This endpoint returns an array of available subject slugs.
+         * This endpoint returns an array of all available subjects and their associated sequences, key stages and years.
          */
         get: operations["getSubjects-getAllSubjects"];
         put?: never;
@@ -3710,7 +3710,7 @@ export interface operations {
             header?: never;
             path: {
                 /** The subject slug identifier */
-                subject: string;
+                subject: "art" | "citizenship" | "computing" | "cooking-nutrition" | "design-technology" | "english" | "french" | "geography" | "german" | "history" | "maths" | "music" | "physical-education" | "religious-education" | "rshe-pshe" | "science" | "spanish";
             };
             cookie?: never;
         };
@@ -3752,7 +3752,7 @@ export interface operations {
             header?: never;
             path: {
                 /** Subject slug to filter by */
-                subject: string;
+                subject: "art" | "citizenship" | "computing" | "cooking-nutrition" | "design-technology" | "english" | "french" | "geography" | "german" | "history" | "maths" | "music" | "physical-education" | "religious-education" | "rshe-pshe" | "science" | "spanish";
             };
             cookie?: never;
         };
