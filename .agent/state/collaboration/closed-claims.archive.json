@@ -9838,7 +9838,7 @@
       }
     },
     {
-      "claim_id": "daeed441-ffc0-4656-9c24-9881d37dbf23",
+      "claim_id": "fc782c2f-f609-4788-8515-9e5ca152061e",
       "agent_id": {
         "agent_name": "Fragrant Spreading Sapling",
         "platform": "claude",
@@ -9855,15 +9855,15 @@
           ]
         }
       ],
-      "claimed_at": "2026-06-10T07:27:58Z",
+      "claimed_at": "2026-06-09T21:07:46Z",
       "freshness_seconds": 900,
       "sidebar_open": false,
-      "intent": "Stage and commit the indefinite-deferral trip-list group.",
-      "intent_to_commit": "e26439da-4e94-4ac7-9030-4d838012d6a2",
-      "archived_at": "2026-06-10",
+      "intent": "Stage and commit the R2 dispositions + DECISION-COMPLETE flip.",
+      "intent_to_commit": "ff1cd7cc-df29-4de0-a6d4-3ca4f7a46d49",
+      "archived_at": "2026-06-09",
       "closure": {
         "kind": "explicit",
-        "closed_at": "2026-06-10T07:28:03Z",
+        "closed_at": "2026-06-09T21:07:50Z",
         "closed_by": {
           "agent_name": "Fragrant Spreading Sapling",
           "platform": "claude",
@@ -9871,11 +9871,100 @@
           "session_id_prefix": "47f78a",
           "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
         },
-        "summary": "trip-list commit; closed in same collaboration-state commit",
+        "summary": "R2 dispositions + decision-complete flip; closed in same collaboration-state commit",
         "evidence": [
           {
             "kind": "claim",
-            "ref": "daeed441-ffc0-4656-9c24-9881d37dbf23",
+            "ref": "fc782c2f-f609-4788-8515-9e5ca152061e",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "11123f7b-7ebe-4454-9eb8-10d93b087d0a",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/**",
+            ".agent/memory/operational/threads/eef.next-session.md",
+            ".agent/memory/operational/repo-continuity.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-09T19:14:55Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Graph-tools-value-redesign readiness session: seam analysis, mechanism settle, cycle authoring, decision-complete (docs/plans only)",
+      "archived_at": "2026-06-09",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-09T21:11:04Z",
+        "closed_by": {
+          "agent_name": "Fragrant Spreading Sapling",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "47f78a",
+          "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+        },
+        "summary": "Readiness session complete: DECISION-COMPLETE flipped (95c20a73); PR #143 + stacked PR; continuity updated",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "11123f7b-7ebe-4454-9eb8-10d93b087d0a",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "0400dc9f-0195-46c6-a141-94320e796fd9",
+      "agent_id": {
+        "agent_name": "Fragrant Spreading Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "47f78a",
+        "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-09T21:11:00Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit the session-close continuity bundle.",
+      "intent_to_commit": "33f2a41e-c339-4bcd-b74e-b0052b71b967",
+      "archived_at": "2026-06-09",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-09T21:11:05Z",
+        "closed_by": {
+          "agent_name": "Fragrant Spreading Sapling",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "47f78a",
+          "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
+        },
+        "summary": "session-close continuity commit; closed in same collaboration-state commit",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "0400dc9f-0195-46c6-a141-94320e796fd9",
             "summary": "Claim explicitly closed by owning session."
           }
         ]

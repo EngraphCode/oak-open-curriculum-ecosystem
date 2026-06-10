@@ -47,8 +47,8 @@
       "notes": "not abandoned in substance: bundle lands in this same collaboration-state commit (residue exception)"
     },
     {
-      "intent_id": "e26439da-4e94-4ac7-9030-4d838012d6a2",
-      "claim_id": "daeed441-ffc0-4656-9c24-9881d37dbf23",
+      "intent_id": "ff1cd7cc-df29-4de0-a6d4-3ca4f7a46d49",
+      "claim_id": "fc782c2f-f609-4788-8515-9e5ca152061e",
       "agent_id": {
         "agent_name": "Fragrant Spreading Sapling",
         "platform": "claude",
@@ -57,22 +57,21 @@
         "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
       },
       "files": [
-        ".agent/hooks/policy.json",
-        ".agent/rules/no-hedging-vocabulary.md",
+        ".agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md",
+        ".agent/reports/graph-tools-readiness-seam-analysis-2026-06-09.md",
         ".agent/state/collaboration/active-claims.json",
         ".agent/state/collaboration/closed-claims.archive.json"
       ],
-      "commit_subject": "feat(hooks): add the indefinite-deferral vocabulary family to the innate-immunity trip-list",
-      "queued_at": "2026-06-10T07:28:00.922Z",
-      "updated_at": "2026-06-10T07:28:03.517Z",
-      "expires_at": "2026-06-10T07:43:00.922Z",
+      "commit_subject": "docs(plans): apply R2 dispositions and mark graph-tools-value-redesign DECISION-COMPLETE",
+      "queued_at": "2026-06-09T21:07:48.179Z",
+      "updated_at": "2026-06-09T21:07:50.780Z",
+      "expires_at": "2026-06-09T21:22:48.179Z",
       "phase": "abandoned",
       "notes": "not abandoned in substance: bundle lands in this same collaboration-state commit (residue exception)"
-    }
-  ],
-  "claims": [
+    },
     {
-      "claim_id": "11123f7b-7ebe-4454-9eb8-10d93b087d0a",
+      "intent_id": "33f2a41e-c339-4bcd-b74e-b0052b71b967",
+      "claim_id": "0400dc9f-0195-46c6-a141-94320e796fd9",
       "agent_id": {
         "agent_name": "Fragrant Spreading Sapling",
         "platform": "claude",
@@ -80,21 +79,20 @@
         "session_id_prefix": "47f78a",
         "id": "738d6f76-2bad-5ede-9305-1fe95032c92e"
       },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/**",
-            ".agent/memory/operational/threads/eef.next-session.md",
-            ".agent/memory/operational/repo-continuity.md"
-          ]
-        }
+      "files": [
+        ".agent/memory/operational/repo-continuity.md",
+        ".agent/memory/operational/threads/eef.next-session.md",
+        ".agent/memory/active/napkin.md",
+        ".agent/state/collaboration/active-claims.json",
+        ".agent/state/collaboration/closed-claims.archive.json"
       ],
-      "claimed_at": "2026-06-09T19:14:55Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Graph-tools-value-redesign readiness session: seam analysis, mechanism settle, cycle authoring, decision-complete (docs/plans only)"
+      "commit_subject": "docs(continuity): graph-tools readiness session close — continuity + captures",
+      "queued_at": "2026-06-09T21:11:02.253Z",
+      "updated_at": "2026-06-09T21:11:04.885Z",
+      "expires_at": "2026-06-09T21:26:02.253Z",
+      "phase": "abandoned",
+      "notes": "not abandoned in substance: bundle lands in this same collaboration-state commit (residue exception)"
     }
-  ]
+  ],
+  "claims": []
 }

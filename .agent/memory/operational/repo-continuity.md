@@ -20,41 +20,40 @@ surface.
 
 ## Current State
 
-- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION + MCP-SURFACE FOLLOW-ONS (2026-06-09, Brazen Roasting Cinder /
-  `527005`, claude / Opus 4.8, owner-directed; PR #142 MERGED → v1.17.0; continued on
-  `feat/graph-migration-part-1`).** The deferred A-i/C reviews ran (5 reviewers via a workflow; every finding adjudicated
-  FIRST-HAND — code/types/tests SOUND, two over-escalations refuted: a pre-existing `tags`-guard line
-  not in the reviewed commit, and a "same selector" suggestion that would cut coverage). Verified
-  findings landed + pushed: `4f15d7df` test(eef) review-surfaced coverage; `747023fd` docs(eef)
-  comment + plan accuracy (`eef-evidence.ts` stale "open question" → ADR-193; output-schemas
-  type-tie + stale-count fixes); `836d7d85` docs(memory) napkin capture. Estate
-  gap/decision-completeness check done — the single open item was the graph-tools promotion, which
-  the owner decided PROMOTE. **`graph-tools-value-redesign.plan.md` PROMOTED future/→current/**
-  (status: current; banner reframed; the stale `GraphView` subgraph/neighbours/manifest claim
-  corrected to the verified subgraph-only + edge-type-agnostic truth; tool count + dependency rows
-  refreshed; all inbound links repointed; KG README row moved to Live Work). It is **NOT
-  decision-complete**: the MECHANISM settle (A/B/D/E + node/edge model + a required `GraphView`
-  edge-type-selective extension) + executable TDD cycles + architecture/assumptions review remain,
-  deferred to the NEXT SESSION (owner-directed; see the plan's §Remaining promotion work). The
-  fitness-driven curation pass (napkin rotation / distilled graduation) was NOT done — owner directed
-  not to act on fitness limits this session. **Continued (post-merge, `feat/graph-migration-part-1`):**
-  evaluated the 5 served MCP prompts + the served resources and (owner-directed) captured an **MCP
-  surface rationalisation** strand in `graph-tools-value-redesign` — resources §A (remove the 3 graph
-  resources + the redundant `docs://oak/tools.md`/`workflows.md`, trim `getting-started`, protect
-  `curriculum://model` + `eef://interpretation` as the canonical context); prompts §B (graph-flood
-  repointing, `adapt-lesson` arg-mapping, fixed glossary language, distinguish overlapping names);
-  skills §C (pre-empt `oak-skills`→prompts; licence owner-clarified — content is Oak's to use, the
-  constraint is preserving external-research attribution; `oak-brand` out, `oak-tone-of-voice` open;
-  `oak-curriculum-principles-mcp-enabled` is the strongest candidate as it already drives this MCP).
-  **Next safe step (owner): the next session is a PLAN-REVIEW-AND-READINESS session — NOT execution.**
-  The plan was promoted *needing* review → decision-complete → execution-ready, then scope was added
-  (the surface strand) — so do not review a growing target. **Step 0: split the surface-rationalisation
-  strand into its own `mcp-surface-rationalisation` plan**, leaving `graph-tools-value-redesign` its
-  ORIGINAL graph-core scope. Then review + decision-complete that scope: settle A/B/D/E + node/edge
-  model + the `GraphView` edge-type extension, author the executable TDD cycles, run architecture +
-  assumptions validation → DECISION-COMPLETE. **Deliver in small, independently-shippable PRs — no
-  more mega-PRs (PR #142 was the last); each redesign unit = one small PR, a hard readiness criterion.**
-  PR #142's value (A-i/C) shipped in v1.17.0.**
+- **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling /
+  `47f78a`, claude / Fable 5, owner-directed; PR #143 + a stacked PR from
+  `feat/graph-migration-part-2`).** The plan-review-and-readiness session the prior entry queued.
+  The owner overturned the recommended surface/graph Step-0 split at session open ("too crude —
+  find the real membranes"); a deep whole-document seam analysis + data grounding (report:
+  [`graph-tools-readiness-seam-analysis-2026-06-09.md`](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md))
+  produced the owner-ratified deliverables map — S1 doc-resources single-sourcing, S2 prompt
+  fixed-language pass, G1–G3 view units, G4 bounded-keywords addition, U1 upstream request — each
+  one small PR. **Verified falsification**: `get-keywords` is a live-API generated tool with
+  existing narrowing params (NOT bulk-corpus as the plan claimed); owner disposition: keep it as
+  the API pass-through, add U1 (upstream finer-grained-control request) + G4 (additional bounded
+  tool, bulk-parity gated). **Mechanisms settled** (R1 barney/fred/betty unanimous, adjudicated
+  first-hand): B = option (a) new `./graph-corpus` subpath (zero boundary-rule changes); **no
+  substrate change** — per-view `GraphView` construction (the plan's "required `edgeTypes?`
+  extension" claim was corrected; the EEF adapter is the landed precedent); factory + its unit
+  test deleted at G3. **Data grounded** (bulk manifest 2026-05-21): prior-knowledge depth-2
+  default (median 5 nodes); corpus NOT a DAG (28 self-loops + 4 cycles); 5 dangling endpoints
+  (G1 integrity rule settled — emit-from-bulk-if-present, else drop-with-provenance);
+  misconception anchors owner-ratified (unit+lesson core; thread bounded with heavy-tail
+  semantics; english-secondary 15.7% thread-unreachable recorded). **R2** (wilma /
+  assumptions-expert / mcp-expert) all ready-with-conditions → every condition verified
+  first-hand and applied (anchor-threading prompt rewrites — the substantive catch; emission-
+  ownership table; G4 Gate-1 decision rule; per-unit types.ts deletion scope; materialised `id`
+  field) → **🟢 DECISION-COMPLETE** with the proof contract validated. **Next safe step: merge
+  PR #143 (analysis + restructure), then the stacked PR (R2 dispositions + flip + continuity);
+  execution then starts with any unblocked deliverable (S1 / S2 / U1 / G1), each one small PR.**
+- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder / `527005`, claude /
+  Opus 4.8; PR #142 MERGED → v1.17.0).** The deferred A-i/C specialist reviews ran (5 reviewers;
+  every finding adjudicated first-hand — code/types/tests SOUND); verified findings landed
+  (`4f15d7df`, `747023fd`, `836d7d85`). `graph-tools-value-redesign.plan.md` PROMOTED
+  future/→current/ (owner-decided) and the MCP-surface-rationalisation strand captured
+  (owner-directed); the readiness work it queued is DONE — see the top entry. Skills §C licence
+  framing (content is Oak's; preserve external-research attribution; `oak-brand` out,
+  `oak-tone-of-voice` open) is conserved in the plan's §Parked section.
 - **OUTPUT-SCHEMAS PLAN — 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09).**
   [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md):
   every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload Zod
