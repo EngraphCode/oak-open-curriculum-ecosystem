@@ -19,19 +19,36 @@ merge_class: index-narrative-tables
   their own hand citing the acknowledgement, posted team-member closeout (`d823e718`) +
   heartbeat-end (`0f3eedd5`), NO retained claims — the protocol's clean-path worked precedent,
   same day as its hard-path one (witness report §8). Solar's last act pre-transfer: **G4a PR
-  #158 MERGED** (`fa100b3a`), both findings verdict-recorded. **Live lanes under my
-  direction**: Airy Lifting Squall (69dc9c, claim `350f4d73`) — resync PR IN FLIGHT off fresh
-  main (the coordination home's 16 dirty regen files are its REFERENCE DIFF, deliberately
-  uncommitted until that PR merges; get-keywords.ts appearing in its diff = stop-and-flag),
-  then the turbo env micro-PR (sdk-codegen task lacks env declaration; SDK_CODEGEN_MODE
-  stripped under strict mode), S3 routing re-confirmation at G1b merge, G4b stays G2-gated;
-  Celestial Twinkling Orbit (78c851) — G1b c2 via Radiant's PDR-063 mid-cycle handoff (claim
-  `86548f2c`; c2-2 staged one known test fix from green; its merge discharges the S3 + G2
-  gates AND fires the plan's eef-revalidation signal). Watcher discipline standing: PORTABLE
-  polling loop only — the coordination home's agent-tools build predates #157; switch only
-  after a rebuild from a main-rebased tree. Open owner item: principles-prompt attribution
-  validation (gates that S3 cycle only). Veiled's learning-pass consolidation note may still
-  arrive — land it via a continuity commit.
+  #158 MERGED** (`fa100b3a`), both findings verdict-recorded. **Evening wave under my
+  direction (17:37–19:31Z)**:
+  **#159 resync MERGED** (`c60f030f`; flagged delta Director-verified first-hand as 4
+  timestamp-only lines) and **#160 turbo env MERGED** (`409c0999`; sdk-codegen cache-replay
+  defect cured, proofs on the PR) — Airy-Squall's lane FULLY DISCHARGED; the spent 16-file
+  reference dirt cleared by owner-authorised write-forward (coordination home regen-clean).
+  Rotations (all clean, two-moments/PDR-063 throughout): Airy-Squall → **Galactic Soaring
+  Nebula** (f01540) on the G2 mint-rule design pull-forward (read-only, Iridescent pattern;
+  verdict drafted content-hash lesson-scoped, adversarial review in flight, lands via the
+  Director into the plan's g2 todo); Twinkling Orbit → **Eclipsed Masking Shade** (952c10) on
+  G1b-finish at the gate-green boundary (**ALL G1b source work COMPLETE** — four local commits
+  on `feat/g1b-prior-knowledge-view` in oak-wt-airy-g, every one full-gate green: c1
+  `a79b2271`, c2-1 `29e3eccb`, c2-2 `83196e20`, c2-3 `036b459e` old-dataset+generator
+  retirement −51,427 lines; remainder: c2-2 specialist backfill dispatch (code-expert +
+  mcp-expert, Director-routed on the incumbent's review-gap flag), eef-revalidation signal,
+  push, ONE PR, Director-serialised merge); **Fruited Blossoming Meadow** (4536e0)
+  successor-on-standby for Galactic's lane (pre-arrival routing event `221f42df`, productive
+  hold). **Doctrine set this session**: transfers are TWO-CONDITION (natural boundary OR
+  self-sensed ~40% context approach — owner-calibrated degradation onset 40–45%); owner
+  prior-knowledge scope assurance verified first-hand (graph-corpus 1,612 nodes / 3,452
+  prerequisiteFor edges live in main; c2-3 deletions strictly old-path, zero graph-corpus
+  intersection). At G1b merge: route S3 to the seat that frees (lean: Eclipsed post-merge;
+  Galactic continues G2 design→execution). **Director queue**: test:e2e turbo env exposure
+  (same class #160 cured — follow-on micro-PR candidate); lifecycle-lease flake (Umbral
+  closeout, uncured); agent-tools loud-write fixes (napkin §Practice/tooling feedback:
+  comms-append silent success, claims-close silent no-op); agent-tools rebuild from
+  main-rebased tree to retire the portable-watcher caution. Watcher discipline standing:
+  PORTABLE polling loop only until that rebuild. Open owner item: principles-prompt
+  attribution validation (gates that S3 cycle only). Veiled's learning-pass consolidation
+  note may still arrive — land it via a continuity commit.
 - **PRIOR SESSION (2026-06-10 afternoon, Solar Soaring Star / claude Fable 5, Director
   successor, coordination home branch `docs/graph-team-direction-2026-06-10`) — PDR-064
   Director succession + second implementer rotation.** Veiled's Moment-1 pre-positioning
@@ -316,6 +333,9 @@ session narrative for each is in git history; this table is the durable identity
 | `Airy Lifting Squall` | `claude` | `Fable 5` | `69dc9c` | `g4-keywords-lane-implementer-umbral-successor` | 2026-06-10 | 2026-06-10 |
 | `Celestial Twinkling Orbit` | `claude` | `Fable 5` | `78c851` | `graph-implementation-seat-b-g1b-c2-completion-radiant-successor` | 2026-06-10 | 2026-06-10 |
 | `Celestial Glowing Dusk` | `claude` | `Fable 5` | `1e526e` | `graph-implementation-director-third-holder` | 2026-06-10 | 2026-06-10 |
+| `Galactic Soaring Nebula` | `claude` | `Fable 5` | `f01540` | `g4-seat-successor-g2-mint-rule-design` | 2026-06-10 | 2026-06-10 |
+| `Eclipsed Masking Shade` | `claude` | `Fable 5` | `952c10` | `graph-implementation-seat-b-g1b-finish-twinkling-orbit-successor` | 2026-06-10 | 2026-06-10 |
+| `Fruited Blossoming Meadow` | `claude` | `Fable 5` | `4536e0` | `graph-implementation-galactic-successor-standby-g2-lane` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 

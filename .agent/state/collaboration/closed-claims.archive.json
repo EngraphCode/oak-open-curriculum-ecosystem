@@ -10556,6 +10556,372 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "2b9857c6-01f3-4545-9932-716d657cb99a",
+      "agent_id": {
+        "agent_name": "Airy Lifting Squall",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "69dc9c",
+        "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "apps/oak-search-cli/ground-truths/generated/**",
+            "packages/sdks/oak-sdk-codegen/schema-cache/**",
+            "packages/sdks/oak-sdk-codegen/src/types/generated/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T17:27:49Z",
+      "freshness_seconds": 7200,
+      "sidebar_open": false,
+      "intent": "RESYNC PR (Solar GO 17:25:49Z, post-#158): reproduce owner's regen — bulk-downloads copied (manifest 2026-06-10T16:43:00.027Z), bulk:codegen + sdk-codegen + build off origin/main fa100b3a; verify against the 16-file reference diff (get-keywords.ts = stop-and-flag canary); one pure-diff PR, branch chore/upstream-and-bulk-resync, worktree oak-wt-umbral-g4; merge Director-serialised (Celestial Glowing Dusk post-Moment-2). Companion lane claim 350f4d73.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T17:49:02Z",
+        "closed_by": {
+          "agent_name": "Airy Lifting Squall",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "69dc9c",
+          "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+        },
+        "summary": "Resync PR #159 MERGED: commit b14fe459, 16-file set verified vs reference (12 byte-identical, 4 timestamp-only deltas Director-verified PROCEED), canary clean, 7/7 checks, zero review findings",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "2b9857c6-01f3-4545-9932-716d657cb99a",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "29e4fa13-01c7-49c9-a098-d37fb5fe51e2",
+      "agent_id": {
+        "agent_name": "Airy Lifting Squall",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "69dc9c",
+        "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "turbo.json"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T17:50:49Z",
+      "freshness_seconds": 7200,
+      "sidebar_open": false,
+      "intent": "TURBO ENV MICRO-PR (Director GO 17:48:16Z; transferred Umbral acceptance): declare behaviour-determining env (SDK_CODEGEN_MODE, CI, VERCEL per codegen.ts:36-40 mode logic) on the turbo sdk-codegen task + settle cache posture; config-expert reviewed; behavioural proof = offline mode reachable through turbo with Using-cached log. Branch build/turbo-sdk-codegen-env off origin/main c60f030f, worktree oak-wt-umbral-g4. Merge Director-serialised (Celestial Glowing Dusk).",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T18:59:56Z",
+        "closed_by": {
+          "agent_name": "Airy Lifting Squall",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "69dc9c",
+          "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+        },
+        "summary": "Turbo env micro-PR #160 MERGED 409c0999 (owner-merged 18:59:02Z during Director stall): env [SDK_CODEGEN_MODE, CI, VERCEL] on sdk-codegen task; offline-reachability + hash-discrimination both proof-verified; config-expert approved",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "29e4fa13-01c7-49c9-a098-d37fb5fe51e2",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "350f4d73-b292-4cf6-bad7-0501555b9c61",
+      "agent_id": {
+        "agent_name": "Airy Lifting Squall",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "69dc9c",
+        "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts",
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.unit.test.ts",
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/emit-index.ts",
+            "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T17:01:47Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G4 keywords lane (Umbral-successor, owner-directed): carry PR #158 (G4a description fix, head 4b7f17d2) through review-comment adjudication + merge (Director-serialised); accept/decline turbo env micro-PR per Solar 099ddf53; S3 routing re-confirmation at G1b merge; G4b stays G2-gated. Supersedes Umbral claim ddde08e2 (Director closure requested). Worktree oak-wt-umbral-g4.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T18:59:58Z",
+        "closed_by": {
+          "agent_name": "Airy Lifting Squall",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "69dc9c",
+          "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+        },
+        "summary": "G4 lane (Umbral-successor) transferred duty list FULLY DISCHARGED: #158 watched to merge fa100b3a; resync PR #159 merged c60f030f; turbo env PR #160 merged 409c0999. Standing items carried forward outside claim state: S3 routing re-confirmation with the Director at G1b merge; G4b remains G2-gated (build spec in Iridescent record §4)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "350f4d73-b292-4cf6-bad7-0501555b9c61",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "86548f2c-da00-49b9-865c-b5f460a32876",
+      "agent_id": {
+        "agent_name": "Abyssal Swimming Mast",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "b14f60",
+        "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/graph-corpus-sdk/src/curriculum/**",
+            "packages/sdks/oak-curriculum-mcp-streamable-http/**/prior-knowledge*",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-sdk-codegen/src/generated/vocab/prior-knowledge-graph/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T14:31:20Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-10-abyssal-seat-b-g1b-c1-to-c2.md",
+      "intent": "G1b (Seat B / Track G): prior-knowledge bounded-anchored view + tool rewrite. c1 prerequisite view in graph-corpus-sdk (per-view createGraphView, depth default 2, module-load + startup-cost check); c2 rewrite get-prior-knowledge-graph (anchor unitSlug[]+depth, TextContent+structuredContent), REMOVE curriculum://prior-knowledge-graph (catalogue+drift-guard) + orphaned old dataset, ANCHOR-THREADING prompt repoints (adapt-lesson step 2 prior-knowledge clause only + learning-progression step 3), raise eef-revalidation. Removed-URI assertions expect -32602. One PR off origin/main; source in worktree oak-wt-airy-g.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T19:03:14Z",
+        "closed_by": {
+          "agent_name": "Celestial Glowing Dusk",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "1e526e",
+          "id": "516015df-a884-587f-9bdb-2b4319eff103"
+        },
+        "summary": "Superseded by claim 3df980b5 (Celestial Twinkling Orbit, 78c851) — third holder in the Abyssal→Radiant→Twinkling-Orbit G1b rotation; Director closure per the pickup-confirmed event 19:02:44Z; handoff records remain the lane's required reading",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "86548f2c-da00-49b9-865c-b5f460a32876",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "3df980b5-2b68-4a28-a98d-3d42bce075a3",
+      "agent_id": {
+        "agent_name": "Celestial Twinkling Orbit",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "78c851",
+        "id": "ec643192-1143-53f8-a6cd-6dc789af5e94"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/src/public/mcp-tools.ts",
+            "packages/sdks/oak-sdk-codegen/src/generated/vocab/prior-knowledge-graph/**",
+            "packages/sdks/oak-sdk-codegen/src/generated/vocab/index.ts",
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/**",
+            "apps/oak-curriculum-mcp-streamable-http/src/**",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:02:21Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G1b c2 continuation (Seat B / Track G) — SUPERSEDES claim 86548f2c-da00-49b9-865c-b5f460a32876 (Abyssal->Radiant->Celestial rotation, PDR-063 handoff event cf55c056, record 2026-06-10-radiant-seat-b-g1b-c2-mid-cycle-to-celestial.md): c2-2 resource-removal commit (count-guard fix + sibling sweep), c2-3 old-dataset + generator emission-path retirement (Solar-affirmed 16:28Z), eef-revalidation signal, push + ONE G1b PR off origin/main; worktree oak-wt-airy-g branch feat/g1b-prior-knowledge-view; requesting Director closure of predecessor entry per rotation choreography.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T19:15:47Z",
+        "closed_by": {
+          "agent_name": "Celestial Glowing Dusk",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "1e526e",
+          "id": "516015df-a884-587f-9bdb-2b4319eff103"
+        },
+        "summary": "Superseded under owner-directed Seat B succession: Celestial Twinkling Orbit (78c851) → Eclipsed Masking Shade (952c10), fourth holder in the Abyssal→Radiant→Twinkling-Orbit→Eclipsed G1b rotation; Director closure per Eclipsed's team-start 19:14:27Z; partial c2-3 working state transfers in oak-wt-airy-g (10 uncommitted deletions, compile state unverified)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "3df980b5-2b68-4a28-a98d-3d42bce075a3",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "cd9b5e17-00e6-4981-990b-664e3926102d",
+      "agent_id": {
+        "agent_name": "Celestial Twinkling Orbit",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "78c851",
+        "id": "ec643192-1143-53f8-a6cd-6dc789af5e94"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "apps/oak-curriculum-mcp-streamable-http/src/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:18:03Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G1b c2-3 completion to gate-green (Seat B, re-opened per Director 19:17:27Z after premature closure in the takeover contention; predecessor chain Abyssal->Radiant->me): land the c2-3 retirement commit (edits complete, reviewers in flight), freeze PDR-063 handoff record, transfer lane remainder (eef-revalidation, push, ONE G1b PR) to Eclipsed Masking Shade (952c10) at the boundary. Worktree oak-wt-airy-g, branch feat/g1b-prior-knowledge-view. Eclipsed holds until my transfer event.",
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T19:28:25Z",
+        "closed_by": {
+          "agent_name": "Celestial Glowing Dusk",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "1e526e",
+          "id": "516015df-a884-587f-9bdb-2b4319eff103"
+        },
+        "summary": "Superseded at the gate-green boundary transfer: Celestial Twinkling Orbit (78c851) → Eclipsed Masking Shade (952c10), fifth holder in the G1b rotation; Eclipsed pickup confirmed 19:26:19Z with superseding claim 166fb4fb; handoff record 2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "cd9b5e17-00e6-4981-990b-664e3926102d",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "5a3b5b87-8f6a-477b-a931-abc94f5cf2ee",
+      "agent_id": {
+        "agent_name": "Galactic Soaring Nebula",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "f01540",
+        "id": "d044d04b-b82e-58da-aee2-89db6d126490"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/g2-misconception-mint-rule-design-2026-06-10.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:12:44Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G2 mint-rule design pull-forward (read-only analysis; Director-routed 19:07:52Z, re-confirmed 19:12:07Z to Galactic Soaring Nebula f01540): content-hash vs ordinal identity for misconception nodes + stability-across-regenerations contract, grounded against fresh bulk (manifest 2026-06-10T16:43:00.027Z) in worktree oak-wt-umbral-g4; NO source edits; adversarial review (architecture + assumptions) before verdict; deliverable = directed verdict event + foldable design note via Director. S3 at G1b merge pre-empts; G4b stays G2-gated.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T19:33:03Z",
+        "closed_by": {
+          "agent_name": "Galactic Soaring Nebula",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "f01540",
+          "id": "d044d04b-b82e-58da-aee2-89db6d126490"
+        },
+        "summary": "G2 mint-rule design verdict DELIVERED (event 62313be2): content-hash, lesson-scoped, text-only — misconception:<lessonSlug>#<hash16(normalise(text))>; ordinal/hybrid/unit-scope rejected with grounds; 5-part stability contract-test shape; both adversarial reviews (architecture=concerns-no-blocker, assumptions=sound) folded into the note at .agent/reports/g2-misconception-mint-rule-design-2026-06-10.md; read-only analysis, zero source edits; Director folds into plan g2 todo.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "5a3b5b87-8f6a-477b-a931-abc94f5cf2ee",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "670a1ac6-d059-4421-9a84-6fea3f9f7292",
+      "agent_id": {
+        "agent_name": "Celestial Glowing Dusk",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "1e526e",
+        "id": "516015df-a884-587f-9bdb-2b4319eff103"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:33:11Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit evening-wave continuity waypoint (self-contained lifecycle commit; pre-positioning for Director succession follows).",
+      "intent_to_commit": "13b77aad-abb2-4cee-a30b-7572f74682ca",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T19:35:24Z",
+        "closed_by": {
+          "agent_name": "Celestial Glowing Dusk",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "1e526e",
+          "id": "516015df-a884-587f-9bdb-2b4319eff103"
+        },
+        "summary": "closed in same collaboration-state commit (lifecycle exception): evening-wave waypoint, intent 13b77aad",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "670a1ac6-d059-4421-9a84-6fea3f9f7292",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

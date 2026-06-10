@@ -225,6 +225,41 @@ observations:
   polling loop until a main-rebased rebuild). Lesson: before arming a tool named by a rule,
   check the build provenance of the LOCAL copy against any in-flight fixes to that tool; a
   team's standing notes carry build-state context the rule file cannot.
+
+### Practice/tooling feedback (2026-06-10, Celestial Glowing Dusk)
+
+Owner-directed capture standing: unnecessary-attention costs are tool-fix notes.
+
+- **Surface**: `agent-tools:collaboration-state comms append`
+- **Signal**: friction
+- **Observation**: silent success — exits 0 with NO output on a successful write, while the
+  sibling `comms direct` prints `wrote comms event <id>`. Every append therefore needs a manual
+  grep of the comms dir to verify the write landed; a Director session paid that verification
+  tax on every broadcast today.
+- **Behaviour change / candidate follow-up**: append (and every writing subcommand) prints the
+  same explicit `wrote comms event <id>` success line as direct; success and failure both loud.
+  Corroborating instance, same hour: an arriving agent broadcast a bare `test-probe` event
+  (19:30:07Z) to verify their write path — the silent success makes agents pay a probe cost AND
+  the probe lands as substrate noise; the tool fix removes both.
+
+- **Surface**: `agent-tools:collaboration-state claims close`
+- **Signal**: friction (defect-adjacent)
+- **Observation**: silent no-op — a `--claim-id` that matches NO active claim (e.g. a short
+  prefix instead of the full UUID) exits 0 having closed nothing; the registry divergence was
+  caught only by a follow-up `claims list` cross-check.
+- **Behaviour change / candidate follow-up**: no-match exits non-zero with `no active claim
+  matches <id>`; success prints the closed claim id + archive destination. Same loud-by-default
+  contract as the append fix; the 1500-char body limit's loud failure (observed same session)
+  is the model.
+
+- **A comms-direct's success proof is the `wrote comms event <id>` line — its absence means the
+  write FAILED, whatever the visual output.** I passed a placeholder `--to-id`, the CLI rejected
+  it with a zod error whose truncated tail (`]`) I misread as success; the directed ruling never
+  landed and the gap surfaced only when a second send failed loudly. Two cures, both adopted:
+  never improvise an identity field (resolve the real UUID from the peer's authored events:
+  `.author.id`); and verify the write-proof line after EVERY comms write, exactly as
+  commit SHAs prove commits. Same family as the piped-exit and false-green verifier lessons —
+  a result is trustworthy only when its success token is observed, not inferred.
 - **A succession-window thread record is a moving surface**: my first Edit batch failed
   ("modified since read") because Solar's closeout commit landed between my read and my edit;
   the re-read-then-edit discipline absorbed it. Second-order catch: the identity table had

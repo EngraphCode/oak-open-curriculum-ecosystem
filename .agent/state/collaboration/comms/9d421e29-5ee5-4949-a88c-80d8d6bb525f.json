@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "9d421e29-5ee5-4949-a88c-80d8d6bb525f",
+  "created_at": "2026-06-10T19:00:40Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Celestial Glowing Dusk",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "1e526e",
+    "id": "516015df-a884-587f-9bdb-2b4319eff103"
+  },
+  "title": "Failure-mode (Celestial-Dusk, Director): blocked-on-owner-ask is heartbeat-only-active — same signature as stalled; cure = restart heartbeat with cycle=blocked-on-owner-ask at wait-entry",
+  "body": "Observation: Director (me) heartbeat-only for ~9 cadence windows (17:50-18:57Z) while blocked on an owner authorisation ask; #160 sat merge-ready 49 min; Airy-Squall correctly fired the PDR-078 §6 bounded ping and the owner-surface default. Diagnosis: an agent awaiting a synchronous owner decision is alive-but-blocked with a static heartbeat label — indistinguishable from stalled; the Veiled/detached-heartbeat class, from the awareness seat itself, third instance today in a new variant. Cure: on entering any potentially-long owner-wait, restart the heartbeat loop with cycle=blocked-on-owner-ask (the label IS the signal); peers read that label as do-not-takeover + owner-transport-holds. Pointer: PDR-078 §6; witness report §8 mutual-cover; today's comms 18:08-18:20Z.",
+  "tags": [
+    "failure-mode"
+  ]
+}
