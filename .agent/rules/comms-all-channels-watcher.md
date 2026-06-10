@@ -60,6 +60,19 @@ Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
 Codex use their equivalent watch primitives.
 
+### Liveness self-check (cycle boundaries)
+
+The watcher writes a liveness heartbeat **on by default** at
+`<seen-file>.heartbeat.json` (every 30 s); `--heartbeat-file` relocates it
+and `--no-heartbeat` disables it. The heartbeat records `last_drain_at`,
+`last_emit_at`, `last_error_at`, `emitted_count`, and `pid`. At cycle
+boundaries, classify the watcher's liveness from this surface rather than
+trusting the supervisor's "running" status: a hung process cannot
+self-report, so an external staleness check is the detection path that the
+fail-loud per-step deadline (which dies on a hung step) cannot cover. Use the
+`collaboration-state` staleness classifier, or stat the heartbeat file and
+treat an mtime older than `3 ×` the interval as stale.
+
 ### Seen-file convention
 
 The `<agent-codename>.json` seen-file lives in

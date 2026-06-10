@@ -47,6 +47,7 @@ export const commsWatchOptions = [
   'step-timeout-ms',
   'heartbeat-file',
   'heartbeat-interval-ms',
+  'no-heartbeat',
   'seed-from-now',
   'no-auto-seed',
 ] as const;
