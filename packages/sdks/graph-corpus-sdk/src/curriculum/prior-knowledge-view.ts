@@ -168,14 +168,12 @@ export function priorKnowledgeSubgraph(
     }
   }
 
-  if (resolvedAnchors.length === 0) {
-    return ok({ nodes: [], edges: [], resolvedAnchors, unknownAnchors, depth });
-  }
-
   const result = priorKnowledgeView.subgraph({ rootIds: resolvedAnchors, depth });
   if (!result.ok) {
     // Only `SubgraphDepthExceeded` can fire — every resolved anchor is a known
-    // node, so `SubgraphRootNotFound` is unreachable here.
+    // node (and an empty anchor list resolves no missing root), so
+    // `SubgraphRootNotFound` is unreachable here. Depth validates before root
+    // resolution, so the error contract holds even when no anchors resolve.
     return err(result.error);
   }
 

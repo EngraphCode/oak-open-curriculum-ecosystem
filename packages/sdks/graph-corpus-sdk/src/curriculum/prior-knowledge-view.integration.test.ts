@@ -224,6 +224,18 @@ describe('prior-knowledge view — bounded anchored predecessor retrieval', () =
     expect(result.error.kind).toBe('SubgraphDepthExceeded');
   });
 
+  it('validates depth before anchor resolution: out-of-range depth errs even when no anchors resolve', () => {
+    const result = priorKnowledgeSubgraph(
+      ['definitely-not-a-real-unit-slug-xyz'],
+      MAX_PREREQUISITE_DEPTH + 1,
+    );
+    expect(result.ok).toBe(false);
+    if (result.ok) {
+      return;
+    }
+    expect(result.error.kind).toBe('SubgraphDepthExceeded');
+  });
+
   it('returns only the anchor at depth 0 (no predecessor traversal)', () => {
     const slug = anchorWithPredecessors.replace('unit:', '');
     const result = priorKnowledgeSubgraph([slug], 0);
