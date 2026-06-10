@@ -10467,6 +10467,95 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "8cd0de7f-a01d-4eed-8254-d18ad52b1cde",
+      "agent_id": {
+        "agent_name": "Solar Soaring Star",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "7f0c08",
+        "id": "d9ef7975-bcb1-5ccf-b29e-09dae2bbb4e2"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T16:21:08Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team) — PDR-064 Moment 2 completion, owner-directed in-session 2026-06-10T16:21:08Z: successor to Veiled Listening Secret (7c8e8e). Coordination home owner: all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; dispatch; reviewer routing; merge sequencing. Veiled's claim c42e4b8c superseded by this claim per the acknowledgement event; formal closure at Veiled's wake (currently watcher-blind, evidence event 382ed72e).",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T17:27:14Z",
+        "closed_by": {
+          "agent_name": "Solar Soaring Star",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "7f0c08",
+          "id": "d9ef7975-bcb1-5ccf-b29e-09dae2bbb4e2"
+        },
+        "summary": "Director role complete at second succession: authority transferred to Celestial Glowing Dusk (1e526e) per Moment-2 acknowledgement 7f452f66 (in response to pre-positioning 1d8ac145). Tenure: Moment 2 16:22:39Z -> 17:26:34Z; #157 + #158 merged Director-serialised with all verdicts recorded; two rotation waves choreographed clean; continuity commits 5d166e9e + e3af9b65.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "8cd0de7f-a01d-4eed-8254-d18ad52b1cde",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "d72b58b3-8a6b-4849-97a4-a0444dad646f",
+      "agent_id": {
+        "agent_name": "Celestial Glowing Dusk",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "1e526e",
+        "id": "516015df-a884-587f-9bdb-2b4319eff103"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T17:32:30Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit third-Director takeover continuity waypoint (self-contained lifecycle commit per commit-skill exception).",
+      "intent_to_commit": "38b27063-7608-4fe3-86a0-ebfd6816a322",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T17:35:14Z",
+        "closed_by": {
+          "agent_name": "Celestial Glowing Dusk",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "1e526e",
+          "id": "516015df-a884-587f-9bdb-2b4319eff103"
+        },
+        "summary": "closed in same collaboration-state commit (lifecycle exception): third-director takeover waypoint, intent 38b27063",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "d72b58b3-8a6b-4849-97a4-a0444dad646f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

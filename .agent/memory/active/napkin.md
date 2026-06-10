@@ -215,3 +215,20 @@ observations:
   manual `comms list` sweep at each cycle boundary as backstop. Director-side tell that worked:
   heartbeat-only + stale cycle label for 2+ windows → ping → work-evidence cross-check.
   Candidate structural cure: watchdog/self-test on the watcher CLI (emit a liveness line per poll).
+
+## 2026-06-10 — third Director session, second succession (Celestial Glowing Dusk, 1e526e)
+
+- **I armed the rule's canonical CLI watcher despite two live warnings against it** (the napkin
+  entry above + the auto-memory stall note): the rule file's canonical invocation reads as the
+  default, but the LOCAL BUILD of the tool predates the #157 hardening fix — exactly the defect
+  that blinded two Directors today. Corrected on Solar's pre-positioning standing note (portable
+  polling loop until a main-rebased rebuild). Lesson: before arming a tool named by a rule,
+  check the build provenance of the LOCAL copy against any in-flight fixes to that tool; a
+  team's standing notes carry build-state context the rule file cannot.
+- **A succession-window thread record is a moving surface**: my first Edit batch failed
+  ("modified since read") because Solar's closeout commit landed between my read and my edit;
+  the re-read-then-edit discipline absorbed it. Second-order catch: the identity table had
+  accumulated duplicate rows during the rotation churn (two Airy-Squall rows from two writers;
+  my own first edit nearly added a duplicate Twinkling-Orbit row) — PDR-027 says a matching
+  identity UPDATES last_session, never adds a row; in a multi-writer window grep the table for
+  the prefix before adding.

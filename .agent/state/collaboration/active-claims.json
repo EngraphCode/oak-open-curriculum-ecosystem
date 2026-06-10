@@ -1,6 +1,49 @@
 {
   "schema_version": "1.3.0",
-  "commit_queue": [],
+  "commit_queue": [
+    {
+      "intent_id": "47e9ed83-796b-49e7-afc5-c18bfc9cd4af",
+      "claim_id": "d72b58b3-8a6b-4849-97a4-a0444dad646f",
+      "agent_id": {
+        "agent_name": "Celestial Glowing Dusk",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "1e526e",
+        "id": "516015df-a884-587f-9bdb-2b4319eff103"
+      },
+      "files": [
+        ".agent/memory/active/napkin.md",
+        ".agent/memory/operational/threads/eef.next-session.md",
+        ".agent/state/collaboration/active-claims.json",
+        ".agent/state/collaboration/closed-claims.archive.json",
+        ".agent/state/collaboration/comms-seen/celestial-glowing-dusk.json",
+        ".agent/state/collaboration/handoffs/2026-06-10-umbral-g4a-to-airy-squall.md",
+        ".agent/state/collaboration/comms/080ab220-3601-459f-ae15-3f1b0d058777.json",
+        ".agent/state/collaboration/comms/0f3eedd5-b39c-40b0-8300-cba2071d83b2.json",
+        ".agent/state/collaboration/comms/14b32a9e-cd13-4060-9d1c-2651bcbe6e24.json",
+        ".agent/state/collaboration/comms/2102341b-6048-4c7a-947c-a538816ff78a.json",
+        ".agent/state/collaboration/comms/4685667c-1a1f-4d6b-b65b-28167b79d675.json",
+        ".agent/state/collaboration/comms/4fee06c8-c173-43c9-926a-d7ac21a2c0fd.json",
+        ".agent/state/collaboration/comms/5699771a-d778-48e6-9ffe-2d488d78db77.json",
+        ".agent/state/collaboration/comms/56f8cc6a-937b-449a-a0bc-d5ba9587e893.json",
+        ".agent/state/collaboration/comms/7f452f66-716f-4529-9253-6827c7f55921.json",
+        ".agent/state/collaboration/comms/85f47bb9-b588-42c1-9753-f2ad1b256411.json",
+        ".agent/state/collaboration/comms/94e7ec1b-0465-4b9a-9d68-60b79efe8364.json",
+        ".agent/state/collaboration/comms/986c961c-ae8d-46ef-b394-9e36bd4b5333.json",
+        ".agent/state/collaboration/comms/d823e718-ec56-4655-a860-00e34d6943d4.json",
+        ".agent/state/collaboration/comms/dcb3ce5a-76d1-48f3-aa08-fdf46ce67d09.json",
+        ".agent/state/collaboration/comms/e435d21d-4c11-4d05-9849-e4dec8c8640e.json",
+        ".agent/state/collaboration/comms/f53a2833-be05-400f-8db4-bcfb6f527807.json",
+        ".agent/state/collaboration/comms/fd7dde8a-8c8b-43c6-9de0-84be0de54014.json"
+      ],
+      "commit_subject": "docs(continuity): third-director takeover waypoint — succession, thread record, registry churn",
+      "queued_at": "2026-06-10T17:32:42.171Z",
+      "updated_at": "2026-06-10T17:33:26.870Z",
+      "expires_at": "2026-06-10T17:47:42.171Z",
+      "phase": "abandoned",
+      "notes": "duplicate enqueue: first attempt succeeded but its output-parse step errored, prompting a re-enqueue; 38b27063 is the live intent"
+    }
+  ],
   "claims": [
     {
       "claim_id": "86548f2c-da00-49b9-865c-b5f460a32876",
@@ -30,31 +73,6 @@
       "intent": "G1b (Seat B / Track G): prior-knowledge bounded-anchored view + tool rewrite. c1 prerequisite view in graph-corpus-sdk (per-view createGraphView, depth default 2, module-load + startup-cost check); c2 rewrite get-prior-knowledge-graph (anchor unitSlug[]+depth, TextContent+structuredContent), REMOVE curriculum://prior-knowledge-graph (catalogue+drift-guard) + orphaned old dataset, ANCHOR-THREADING prompt repoints (adapt-lesson step 2 prior-knowledge clause only + learning-progression step 3), raise eef-revalidation. Removed-URI assertions expect -32602. One PR off origin/main; source in worktree oak-wt-airy-g."
     },
     {
-      "claim_id": "8cd0de7f-a01d-4eed-8254-d18ad52b1cde",
-      "agent_id": {
-        "agent_name": "Solar Soaring Star",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "7f0c08",
-        "id": "d9ef7975-bcb1-5ccf-b29e-09dae2bbb4e2"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/state/**",
-            ".agent/memory/**",
-            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-10T16:21:08Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Director (graph implementation team) — PDR-064 Moment 2 completion, owner-directed in-session 2026-06-10T16:21:08Z: successor to Veiled Listening Secret (7c8e8e). Coordination home owner: all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; dispatch; reviewer routing; merge sequencing. Veiled's claim c42e4b8c superseded by this claim per the acknowledgement event; formal closure at Veiled's wake (currently watcher-blind, evidence event 382ed72e)."
-    },
-    {
       "claim_id": "350f4d73-b292-4cf6-bad7-0501555b9c61",
       "agent_id": {
         "agent_name": "Airy Lifting Squall",
@@ -79,6 +97,56 @@
       "freshness_seconds": 14400,
       "sidebar_open": false,
       "intent": "G4 keywords lane (Umbral-successor, owner-directed): carry PR #158 (G4a description fix, head 4b7f17d2) through review-comment adjudication + merge (Director-serialised); accept/decline turbo env micro-PR per Solar 099ddf53; S3 routing re-confirmation at G1b merge; G4b stays G2-gated. Supersedes Umbral claim ddde08e2 (Director closure requested). Worktree oak-wt-umbral-g4."
+    },
+    {
+      "claim_id": "75323860-9eb9-4a9a-95e9-29e22c41639c",
+      "agent_id": {
+        "agent_name": "Celestial Glowing Dusk",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "1e526e",
+        "id": "516015df-a884-587f-9bdb-2b4319eff103"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T17:24:59Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team) — PDR-064 successor to Solar Soaring Star (7f0c08), owner-directed ~17:17Z. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch; reviewer routing (route to implementers, never self-dispatch); Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Solar claim 8cd0de7f closes at Solar's own hand citing my Moment-2 acknowledgement."
+    },
+    {
+      "claim_id": "2b9857c6-01f3-4545-9932-716d657cb99a",
+      "agent_id": {
+        "agent_name": "Airy Lifting Squall",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "69dc9c",
+        "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "apps/oak-search-cli/ground-truths/generated/**",
+            "packages/sdks/oak-sdk-codegen/schema-cache/**",
+            "packages/sdks/oak-sdk-codegen/src/types/generated/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T17:27:49Z",
+      "freshness_seconds": 7200,
+      "sidebar_open": false,
+      "intent": "RESYNC PR (Solar GO 17:25:49Z, post-#158): reproduce owner's regen — bulk-downloads copied (manifest 2026-06-10T16:43:00.027Z), bulk:codegen + sdk-codegen + build off origin/main fa100b3a; verify against the 16-file reference diff (get-keywords.ts = stop-and-flag canary); one pure-diff PR, branch chore/upstream-and-bulk-resync, worktree oak-wt-umbral-g4; merge Director-serialised (Celestial Glowing Dusk post-Moment-2). Companion lane claim 350f4d73."
     }
   ]
 }

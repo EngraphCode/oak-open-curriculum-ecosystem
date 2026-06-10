@@ -11,7 +11,28 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-10 afternoon, Solar Soaring Star / claude Fable 5, Director
+- **THIS SESSION (2026-06-10 evening, Celestial Glowing Dusk / claude Fable 5, Director third
+  holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — second PDR-064
+  Director succession, completed cleanly.** Solar's Moment-1 pre-positioning (event `1d8ac145`,
+  17:19:32Z, self-contained) → my Moment-2 acknowledgement (event `7f452f66`, 17:26:34Z;
+  Director claim `75323860` on the coordination boundary) → Solar closed claim `8cd0de7f` at
+  their own hand citing the acknowledgement, posted team-member closeout (`d823e718`) +
+  heartbeat-end (`0f3eedd5`), NO retained claims — the protocol's clean-path worked precedent,
+  same day as its hard-path one (witness report §8). Solar's last act pre-transfer: **G4a PR
+  #158 MERGED** (`fa100b3a`), both findings verdict-recorded. **Live lanes under my
+  direction**: Airy Lifting Squall (69dc9c, claim `350f4d73`) — resync PR IN FLIGHT off fresh
+  main (the coordination home's 16 dirty regen files are its REFERENCE DIFF, deliberately
+  uncommitted until that PR merges; get-keywords.ts appearing in its diff = stop-and-flag),
+  then the turbo env micro-PR (sdk-codegen task lacks env declaration; SDK_CODEGEN_MODE
+  stripped under strict mode), S3 routing re-confirmation at G1b merge, G4b stays G2-gated;
+  Celestial Twinkling Orbit (78c851) — G1b c2 via Radiant's PDR-063 mid-cycle handoff (claim
+  `86548f2c`; c2-2 staged one known test fix from green; its merge discharges the S3 + G2
+  gates AND fires the plan's eef-revalidation signal). Watcher discipline standing: PORTABLE
+  polling loop only — the coordination home's agent-tools build predates #157; switch only
+  after a rebuild from a main-rebased tree. Open owner item: principles-prompt attribution
+  validation (gates that S3 cycle only). Veiled's learning-pass consolidation note may still
+  arrive — land it via a continuity commit.
+- **PRIOR SESSION (2026-06-10 afternoon, Solar Soaring Star / claude Fable 5, Director
   successor, coordination home branch `docs/graph-team-direction-2026-06-10`) — PDR-064
   Director succession + second implementer rotation.** Veiled's Moment-1 pre-positioning
   (event `7dc40d71`, 15:37:03Z) opened the understudy window; Veiled's own comms watcher then
@@ -292,9 +313,9 @@ session narrative for each is in git history; this table is the durable identity
 | `Umbral Prowling Lantern` | `claude` | `Fable 5` | `9134e5` | `g4a-keywords-description-implementer-iridescent-successor` | 2026-06-10 | 2026-06-10 |
 | `Radiant Ascending Eclipse` | `claude` | `Fable 5` | `8cd0b9` | `graph-implementation-seat-b-g1b-c2-implementer` | 2026-06-10 | 2026-06-10 |
 | `Solar Soaring Star` | `claude` | `Fable 5` | `7f0c08` | `graph-implementation-director-successor` | 2026-06-10 | 2026-06-10 |
-| `Airy Lifting Squall` | `claude` | `Fable 5` | `69dc9c` | `g4-lane-implementer-umbral-successor` | 2026-06-10 | 2026-06-10 |
-| `Celestial Twinkling Orbit` | `claude` | `Fable 5` | `78c851` | `graph-implementation-seat-b-g1b-c2-completion-radiant-successor` | 2026-06-10 | 2026-06-10 |
 | `Airy Lifting Squall` | `claude` | `Fable 5` | `69dc9c` | `g4-keywords-lane-implementer-umbral-successor` | 2026-06-10 | 2026-06-10 |
+| `Celestial Twinkling Orbit` | `claude` | `Fable 5` | `78c851` | `graph-implementation-seat-b-g1b-c2-completion-radiant-successor` | 2026-06-10 | 2026-06-10 |
+| `Celestial Glowing Dusk` | `claude` | `Fable 5` | `1e526e` | `graph-implementation-director-third-holder` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 

@@ -103,7 +103,7 @@ plus the transferred duties.
 
 ## 6. Pointers
 
-- PR: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/158
+- PR: <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/158>
 - My key comms events: team-start 15:47:13Z; G4a mechanism verdict 89d93227; yield 3cc83e7c;
   Solar acks 3cf5bf15; PR-open note efb309f9.
 - Iridescent design record: `.agent/state/collaboration/handoffs/2026-06-10-iridescent-g4-keywords-graph-design.md`
