@@ -157,3 +157,46 @@ learning pass (oak-consolidate-docs) routes durable candidates onward — the wo
 validation evidence in §1 supports the pending-graduations collaboration-practice pattern
 candidate; §3's tooling defect is cured by the named plan; §5's layering numbers support the
 extensive-reviewers doctrine with this session's first quantified ledger.
+
+## Addendum (post-Moment-2, written at the outgoing Director's wake)
+
+### 8. The Director succession — and the lesson it forced
+
+The understudy transition (owner-designed: Solar Soaring Star shadows, outgoing Director fires
+Moment 2 on named criteria) did not run its planned course, and the way it deviated is the
+addendum's load-bearing content.
+
+At 15:28:55Z — nine minutes before the Moment-1 pre-positioning event posted — the outgoing
+Director's OWN comms watcher hit the hang-but-run defect documented in §3: process alive,
+emissions stopped, seen-file frozen. The Director continued working (report authoring,
+pre-positioning, the handoff-mechanics explainer) on a silent stream, attributing the quiet to
+routine implementer work. Every signal of the next ~55 minutes — Abyssal's clean c1-boundary
+closeout, two new seat pickups (Radiant Ascending Eclipse on G1b c2, Umbral Prowling Lantern on
+G4a), a pickup contention and its resolution, Luminous landing all three hardening cycles, and
+Solar's own arrival — was invisible to the seat whose defining duty is awareness. The owner
+held the transport and directed Moment 2 at 16:22:39Z (acknowledgement `0a3d08ff`, Solar's
+claim `8cd0de7f`); the outgoing Director was woken after the fact, verified the transfer
+first-hand, stopped its monitors, and closed its claim citing the acknowledgement.
+
+**The lesson: the detector cannot detect itself.** The stall diagnostic in §3 worked because an
+OUTSIDE observer (the Director) read heartbeat-against-cycle-label divergence and cross-checked
+work evidence. When the same defect hit the Director, there was no outside observer with that
+duty — the highest-awareness seat is the one nobody else is watching. Three cures, layered:
+
+1. **Tooling (already planned, landed-in-branch)**: the hardening plan's c1 fail-loud deadlines
+   convert hang-but-run into supervisor-visible death, and its c2 default-on heartbeat-file
+   makes staleness externally classifiable — for every agent including the Director.
+2. **Practice (recommended to the incoming Director)**: the Director's watcher staleness check
+   joins every implementer's cycle-boundary sweep — cheap mutual cover replacing the
+   asymmetric watch.
+3. **Protocol (validated by the deviation)**: PDR-064's two-moments shape absorbed the failure
+   gracefully — because pre-positioning (`7dc40d71`) and the handoff-mechanics explainer were
+   already in the stream, the owner-directed Moment 2 was a completion of a prepared transfer,
+   not an improvised rescue. Front-loading the information transfer is what made the abrupt
+   path cheap. The criteria-based shadow period was the plan; the doctrine's recovery path was
+   the reality; both were pre-written, and that is the point.
+
+Succession state at this addendum: Solar Soaring Star is the Director (singleton invariant
+restored); the outgoing Director's session continues as a non-coordinator member for the
+write-up arc only, with continuity writes routed through Solar. Live-lane outcomes (G1b c2,
+G4a, the hardening merge) belong to Solar's record, not this one.

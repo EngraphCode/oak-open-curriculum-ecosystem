@@ -1830,4 +1830,35 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
   the graph-implementation team opener's coordination-home convention (one Director-owned
   checkout holds all registry state; implementer worktrees produce pure-diff PRs by
   construction) — its outcome is this candidate's strongest evidence either way.
+  **Trial outcome (2026-06-10, evidence landed)**: VALIDATING — five concurrent-window PRs
+  (#152–#156), zero registry conflicts, zero index/HEAD races; evidence in
+  `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` §1. Promotion is a
+  curation-pass decision.
+- **status**: pending
+
+## Detector-cannot-detect-itself: watcher staleness needs an external consumer
+
+- **captured-date**: 2026-06-10
+- **source-surface**: report `graph-team-first-worktree-run-analysis-2026-06-10.md` §3 + §8;
+  napkin 2026-06-10; two worked instances in one session (Abyssal's frozen watcher caught by the
+  Director's outside-view stall diagnostic; the Director's own frozen watcher caught only by
+  owner transport — the highest-awareness seat is the one nobody else watches).
+- **graduation-target**: PDR-078 amendment (or a new rule): every agent's cycle-boundary sweep
+  includes a staleness check on the DIRECTOR'S watcher heartbeat-file (mutual cover), consuming
+  the comms-watch hardening plan's c2 default-on liveness surface.
+- **trigger-condition**: the comms-watch-hang-hardening plan's c2 merging (the substrate the
+  check consumes), OR a third hang-but-run instance.
+- **status**: pending
+
+## PDR-064 shadow-period extension (understudy succession)
+
+- **captured-date**: 2026-06-10
+- **source-surface**: report §8; pre-positioning event 7dc40d71 + handoff-mechanics explainer +
+  acknowledgement 0a3d08ff (owner-directed completion over the outgoing Director's silence).
+- **graduation-target**: PDR-064 amendment: pre-positioning as a PROCESS (shadow period with
+  named, team-visible handover criteria + the abrupt-unavailability recovery path), not only a
+  single information-transfer event. Worked instance: the deviation case — front-loaded transfer
+  made owner-directed Moment 2 a completion, not a rescue.
+- **trigger-condition**: the next Director/coordinator succession (second instance), OR the next
+  PDR-064 amendment pass.
 - **status**: pending

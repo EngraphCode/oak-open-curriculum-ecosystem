@@ -20,6 +20,20 @@ surface.
 
 ## Current State
 
+- **GRAPH IMPLEMENTATION UNDERWAY — first worktree-team run + Director succession (2026-06-10).**
+  Live NOW: **Solar Soaring Star (`7f0c08`, Fable 5) is the Director** (PDR-064 Moment 2 at
+  16:22:39Z, event `0a3d08ff`; coordination home = primary checkout, branch
+  `docs/graph-team-direction-2026-06-10` — no PR yet, Director's to open). Live lanes: **G1b c2**
+  (Radiant Ascending Eclipse; c1 landed `a79b2271`), **G4a** (Umbral Prowling Lantern),
+  **comms-watch hardening** (Luminous Scattering Dawn; three cycles pushed, PR pending owner
+  auth — plan `agent-tooling/current/comms-watch-hang-hardening.plan.md`). MERGED today: S1
+  #152, G1a #153, #154 (ADR-058/060 addenda), S2 #155, U1 #156 — Track S complete. S3 holds for
+  G1b merge (c0 ratified in part; principles prompt owner-gated on attribution). Open owner
+  items: bulk-refresh timing (pre-G2; KS4 snapshot divergence), principles attribution gate,
+  Luminous PR auth. Authority: the graph plan's todos + the eef thread record (Solar's entry).
+  Witness synthesis: `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` (+ §8
+  succession addendum). **Next safe step**: Director merges Luminous's PR when auth lands; G1b
+  c2 → merge → S3 + G2 open; owner decides bulk-refresh before G2.
 - **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling /
   `47f78a`, claude / Fable 5, owner-directed; PR #143 + a stacked PR from
   `feat/graph-migration-part-2`).** The plan-review-and-readiness session the prior entry queued.
