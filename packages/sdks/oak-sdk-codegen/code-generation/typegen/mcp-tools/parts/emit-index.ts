@@ -5,6 +5,7 @@ import { literalName, collectDocumentedStatuses } from './emit-index-helpers.js'
 import { kebabToTitleCase } from './kebab-to-title-case.js';
 import {
   toToolDescription,
+  applyDescriptionCorrections,
   appendPrerequisiteGuidance,
   appendToolEnhancements,
 } from './tool-description.js';
@@ -192,8 +193,8 @@ export function emitIndex(
   operationId: string,
   operation: OperationObject,
 ): string {
-  // Get base description from OpenAPI spec
-  const baseDescription = toToolDescription(operation);
+  // Get base description from OpenAPI spec, correcting known-false upstream claims
+  const baseDescription = applyDescriptionCorrections(toToolDescription(operation), path, method);
 
   // Determine if tool requires authentication (not noauth)
   const securitySchemes = getSecuritySchemeForTool(toolName);
