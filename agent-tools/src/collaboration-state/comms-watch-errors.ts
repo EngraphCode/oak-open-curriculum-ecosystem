@@ -7,7 +7,7 @@
  * cure for the 2026-06-10 hang-but-run incident — lives as one cohesive unit.
  */
 
-export type WatcherErrorKind = 'drain' | 'emit' | 'markSeen' | 'timeout';
+export type WatcherErrorKind = 'drain' | 'emit' | 'markSeen';
 
 /**
  * Thrown when a watch-loop step exceeds its per-step deadline. Carries the
@@ -88,7 +88,10 @@ export async function reportTimeout(
     if (timeoutMs === undefined) {
       await emit(text);
     } else {
-      await runWithDeadline('timeout', () => emit(text), timeoutMs);
+      // Bound the report's own emit against the same deadline (it is itself an
+      // emit). The `kind=timeout` classification above is a literal in the
+      // output line, not a step kind.
+      await runWithDeadline('emit', () => emit(text), timeoutMs);
     }
   } catch {
     // Swallow — fail-loud is carried by the re-thrown error / non-zero exit.

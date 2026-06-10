@@ -92,4 +92,22 @@ describe('waitForAnyDirectoryChange — poll-bounded wait (Luminous c3 regressio
     await vi.advanceTimersByTimeAsync(500);
     await expect(wait).resolves.toBeUndefined();
   });
+
+  it('settles cleanly when a factory fires onChange synchronously (no temporal-dead-zone crash)', async () => {
+    const subscribed: string[] = [];
+    const wait = waitForAnyDirectoryChange({
+      directories: ['/sync', '/second'],
+      pollMs: 500,
+      watchFactory: (directory, onChange) => {
+        subscribed.push(directory);
+        onChange(); // fire synchronously during subscription
+        return { close: () => undefined };
+      },
+    });
+
+    // Resolves without a timer advance and without throwing; the synchronous
+    // settle also stops subscribing the remaining directory.
+    await expect(wait).resolves.toBeUndefined();
+    expect(subscribed).toStrictEqual(['/sync']);
+  });
 });

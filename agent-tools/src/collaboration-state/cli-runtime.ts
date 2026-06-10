@@ -164,10 +164,11 @@ function waitForCollaborationStateChangeFromFiles(input: {
  * poll-bound invariant below is unit-testable without real FS events — which
  * are non-deterministic, especially the dropped-subscription case this guards.
  *
- * `onChange` MUST be invoked asynchronously (after the factory returns), as
- * the real `node:fs` watch callback always is. Firing it synchronously during
- * construction is unsupported — the resolve path reads the not-yet-populated
- * handle list.
+ * The real `node:fs` watch callback always fires asynchronously. A factory
+ * that fires `onChange` synchronously during subscription is tolerated (the
+ * wait settles immediately and no further directories are subscribed), but a
+ * handle returned by such a factory cannot be closed — it has not been
+ * registered yet — so asynchronous firing remains the supported contract.
  */
 export type DirectoryWatchFactory = (
   directory: string,
@@ -199,19 +200,35 @@ export function waitForAnyDirectoryChange(input: {
   const watchFactory = input.watchFactory ?? fsDirectoryWatchFactory;
   return new Promise((resolve) => {
     let settled = false;
-    const timer = setTimeout(done, input.pollMs);
-    const watchers = input.directories.map((directory) => watchFactory(directory, done));
+    const watchers: ({ readonly close: () => void } | null)[] = [];
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
-    function done(): void {
+    const done = (): void => {
       if (settled) {
         return;
       }
       settled = true;
-      clearTimeout(timer);
+      if (timer !== undefined) {
+        clearTimeout(timer);
+      }
       for (const watcher of watchers) {
         watcher?.close();
       }
       resolve();
+    };
+
+    // `watchers` and `done` are initialised before any factory call, so a
+    // synchronous callback settles cleanly instead of hitting a temporal dead
+    // zone. A sync-settle also stops subscribing further directories.
+    for (const directory of input.directories) {
+      if (settled) {
+        break;
+      }
+      watchers.push(watchFactory(directory, done));
+    }
+    // Arm the poll fallback alongside the still-open subscriptions.
+    if (!settled) {
+      timer = setTimeout(done, input.pollMs);
     }
   });
 }
