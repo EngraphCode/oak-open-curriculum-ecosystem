@@ -11200,6 +11200,54 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "2387a469-a78f-400b-979d-1839a75aed63",
+      "agent_id": {
+        "agent_name": "Sylvan Bending Branch",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "9d91e3",
+        "id": "bba6d8c9-ae3e-50e9-8b4e-45f608d94711"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T20:57:58Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G2 misconception view — continuation via PDR-063 pickup (record 2026-06-10-fruited-g2-c1-to-sylvan.md; pickup event 1f48660e; supersedes e7bfd545). c1 landed a0b32100 (Fruited). Remaining per plan g2 todo: c1 specialist review backfill (code-expert+test-expert, gap flagged), c2 misconception view (forward per-view, lesson/unit/thread anchors, heavy-tail + reachability), c3 anchored get-misconception-graph rewrite + curriculum://misconception-graph removal + adapt-lesson step-2 threading + old dataset retirement, eef-revalidation signal, ONE PR off feat/g2-misconception-view in oak-wt-umbral-g4, monitor-to-merge.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T22:42:46Z",
+        "closed_by": {
+          "agent_name": "Sylvan Bending Branch",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "9d91e3",
+          "id": "bba6d8c9-ae3e-50e9-8b4e-45f608d94711"
+        },
+        "summary": "G2 misconception view COMPLETE and MERGED (PR #163). Continuation of Fruited's c1 via PDR-063 pickup: c1 review backfill (one finding refuted via invisible-byte discovery, three applied), c2 view, c3 tool rewrite + resource removal + dataset retirement, c2+c3 specialist reviews applied, Copilot wave adjudicated (one confirmed determinism fix with corpus re-emission, one refuted-in-part), Sonar zero open, 0 unresolved threads. eef-revalidation signal raised (42e5cf0c). G4b's G2 gate discharged. Zero retained claims.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "2387a469-a78f-400b-979d-1839a75aed63",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

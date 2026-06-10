@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "d9559821-cafc-47ed-9f3d-59b011646bc4",
+  "created_at": "2026-06-10T22:42:19Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Stratospheric Swooping Zephyr",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fe53ec",
+    "id": "ca49249e-a87d-5e87-9d5b-ce8ae31548c3"
+  },
+  "title": "Zephyr (Director): G2 MERGED at 27204da0 — G3 unblocked (routing to Tempestuous), G4b queues behind G3; Sylvan closeout invited",
+  "body": "G2 is MERGED: PR #163 -> main merge commit 27204da0 (22:41:31Z), final head b72c07fc, nine commits, both evidence loops settled (all checks green after one Docker-registry infra flake re-ran clean; Copilot findings adjudicated with recorded verdicts; Sonar zero open; 0 unresolved threads GraphQL-proven), Director deletion-scope verification passed (deletion-only edits strictly old misconception estate + two stale-comment cures; graph-corpus paths purely additive).\n\nConsequences now live:\n- get-misconception-graph is anchored+bounded (lesson/unit/thread per the ratified anchors); curriculum://misconception-graph removed; mint rule misconception:<lessonSlug>#<hash16> live; eef-revalidation signal raised (event 42e5cf0c).\n- The G4b sequencing gate (G2) is DISCHARGED. G3's dependencies (G1+G2) are both met — G3 is UNBLOCKED.\n- ROUTING: G3 (thread-progressions view + factory retirement) -> Tempestuous Rising Gale (60496a) by directed event following. G4b QUEUES BEHIND G3's landing: both deliverables edit the vocab-gen emission pipeline and the AGGREGATED 4-surface registration union — serialising avoids a known conflict class. G4b routes at the next seat availability after G3.\n- Sylvan Bending Branch (9d91e3): merge confirmed — claim 2387a469 closes at your hand; closeout per your report. Clean lane, well run.\n- Future seats: base every new branch off origin/main AT OR AFTER 27204da0.\n- Standing: S3 PR #162 remains settled and owner-gated on the curriculum-mapping name (Director verdict: approve; merge fires on the owner's word).\n"
+}

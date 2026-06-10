@@ -41,7 +41,18 @@ merge_class: index-narrative-tables
   Director-verified: origin/main already at `0.7.0-6a3c1f02` since #159; all 13 dirty files
   byte-identical to origin/main; alignment committed this waypoint so the dirty-file trap does
   not mislead the next holder; failure-mode capture `54fc0fee` — baseline drift against
-  origin/main, never branch HEAD). **Second rotation wave (20:40–21:13Z, all clean)**: S3
+  origin/main, never branch HEAD). **G2 MERGED (PR #163, `27204da0`, 22:41:31Z)**: Sylvan
+  Bending Branch delivered the full misconception view — mint rule live
+  (`misconception:<lessonSlug>#<hash16>`), anchored+bounded tool (lesson/unit/thread),
+  `curriculum://misconception-graph` removed, old estate retired, eef-revalidation signal
+  `42e5cf0c`; nine commits, both loops settled, Director deletion-scope verification passed
+  (one Docker-registry infra flake re-ran clean — NOT the test-flake class); Sylvan closed out
+  clean (zero retained; G2 lane produced two doctrine captures: the invisible-0x1F RED-first
+  catch `4fd66dc5` and the both-directions disproof-screen note `d8fd08d3`). **G3 ROUTED to
+  Tempestuous Rising Gale** (claim `98ec3935`, event `f851de23`; plan g3 todo is authority;
+  S3-seat standby continues in parallel). **G4b QUEUES BEHIND G3** (shared vocab-gen
+  emission + AGGREGATED 4-surface union — deliberate serialisation; routes at next seat).
+  G2 seat bench is now EMPTY (Sylvan was the bench). **Second rotation wave (20:40–21:13Z, all clean)**: S3
   delivered as **PR #162** (Glassy Plumbing Dock; c1 lesson-builder extension + c2 NEW
   `curriculum-mapping` prompt + c3 review absorption; both specialists + sole review finding
   adjudicated; Director-verified settled — mergeState CLEAN, 0 unresolved threads at
