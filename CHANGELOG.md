@@ -1,3 +1,15 @@
+# [1.18.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.17.0...v1.18.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* **hooks:** apply PR 146 review — close inline-code dodge, fix doc scope, add regression test ([8009b28](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8009b28d7f531f4b847964d8bfb44bd2a9e80616))
+
+
+### Features
+
+* **hooks:** add the indefinite-deferral vocabulary family to the trip-list ([fe4b102](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fe4b102b063826e4bda4b8629615efb2eb57e3e2))
+
 # [1.17.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.16.1...v1.17.0) (2026-06-09)
 
 
