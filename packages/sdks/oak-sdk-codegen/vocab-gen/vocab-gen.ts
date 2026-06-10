@@ -118,12 +118,15 @@ async function generateOutputFiles(
   const threadFilePath = await writeThreadProgressionFile(threadGraph, config.outputPath, logger);
   outputFiles.push(basename(threadFilePath));
 
-  // Generate the graph corpus (one-graph foundation: unit nodes + prerequisiteFor edges)
-  const graphCorpus = generateGraphCorpusData(
-    result.extractedData.priorKnowledge,
-    result.extractedData.threads,
+  // Generate the graph corpus (one-graph foundation + G2 chain:
+  // unit/thread/lesson/misconception nodes, prerequisiteFor + chain edges)
+  const graphCorpus = generateGraphCorpusData({
+    priorKnowledge: result.extractedData.priorKnowledge,
+    threads: result.extractedData.threads,
+    lessons: result.extractedData.lessons,
+    misconceptions: result.extractedData.misconceptions,
     sourceVersion,
-  );
+  });
   const graphCorpusDirPath = await writeGraphCorpusAsJson(graphCorpus, config.outputPath, logger);
   outputFiles.push(basename(graphCorpusDirPath));
 

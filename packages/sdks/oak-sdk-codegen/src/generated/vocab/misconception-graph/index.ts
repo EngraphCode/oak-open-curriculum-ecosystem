@@ -9,10 +9,6 @@ import { createRequire } from 'node:module';
 import type { MisconceptionGraph } from './types.js';
 
 const require = createRequire(import.meta.url);
-// Direct type annotation is acceptable here: MisconceptionGraph contains only
-// primitive fields (string, Record<string, number>) with no union literals
-// requiring runtime validation. See prior-knowledge-graph/index.ts for the
-// two-step validation pattern used when union narrowing is needed.
 const data: MisconceptionGraph = require('./data.json');
 
 /**

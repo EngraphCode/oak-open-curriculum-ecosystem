@@ -10,9 +10,21 @@
 
 export type {
   GraphCorpus,
+  GraphCorpusNode,
   GraphCorpusUnitNode,
+  GraphCorpusThreadNode,
+  GraphCorpusLessonNode,
+  GraphCorpusMisconceptionNode,
   GraphCorpusEdge,
+  GraphCorpusEdgeType,
   GraphCorpusNodeId,
+  GraphCorpusUnitNodeId,
+  GraphCorpusThreadNodeId,
+  GraphCorpusLessonNodeId,
+  GraphCorpusMisconceptionNodeId,
   GraphCorpusStats,
+  GraphCorpusNodeKindCounts,
+  GraphCorpusEdgeTypeCounts,
   GraphCorpusDroppedEdge,
+  GraphCorpusDroppedDuplicate,
 } from '../../../bulk/generators/graph-corpus-generator.js';

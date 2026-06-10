@@ -41,7 +41,8 @@ const SUBGRAPH_ENVELOPE = z.object({
 });
 
 /** A corpus unit slug, chosen deterministically (lexicographic minimum). */
-const firstUnitSlug = [...graphCorpus.nodes]
+const firstUnitSlug = graphCorpus.nodes
+  .filter((node) => node.kind === 'unit')
   .map((node) => node.unitSlug)
   .sort((a, b) => a.localeCompare(b))[0];
 if (firstUnitSlug === undefined) {
