@@ -45,7 +45,10 @@ merge_class: index-narrative-tables
   - **`f95a051d` docs(plans): output-schema estate integrated.** The composition approach +
     my EEF reconciliation — `answerType` + the full/headline member union threaded through the
     output-schemas plan's W0-cycle-3 / W2 / §Relationship clauses.
-- **NEXT SAFE STEP — reviews + completeness checks, THEN push/PR (owner-directed 2026-06-09). ✅ COMPLETED 2026-06-09 (Brazen Roasting Cinder; see the top entry — reviews ran, findings landed + pushed, completeness check done, graph plan promoted).**
+- **NEXT SAFE STEP — reviews + completeness checks, THEN push/PR (owner-directed
+  2026-06-09). ✅ COMPLETED 2026-06-09 (Brazen Roasting Cinder; see the top entry —
+  reviews ran, findings landed + pushed, completeness check done, graph plan
+  promoted).**
   The original next-session checklist was:
   1. **Carry out the deferred reviews** — `code-expert` / `type-expert` / `test-expert` on the
      A-i/C code (`80dd642d`); `docs-adr-expert` coherence pass on the integrated
@@ -201,6 +204,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Briny Charting Lagoon` | `claude` | `Opus 4.8` | `4dae1b` | `d6-completion-attribution-passthrough-flag-default-on-and-live-exercise` | 2026-06-08 | 2026-06-08 |
 | `Incandescent Smouldering Brazier` | `claude` | `Opus 4.8` | `939d21` | `post-d7-answertype-and-headline-view-adr194-product-boundary-and-output-schema-integration` | 2026-06-09 | 2026-06-09 |
 | `Brazen Roasting Cinder` | `claude` | `Opus 4.8` | `527005` | `aic-deferred-reviews-and-graph-tools-plan-promotion` | 2026-06-09 | 2026-06-09 |
+| `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `graph-plan-readiness-seam-analysis-and-decision-complete` | 2026-06-09 | 2026-06-09 |
 
 ## Cross-Plan and Cross-Thread Links
 

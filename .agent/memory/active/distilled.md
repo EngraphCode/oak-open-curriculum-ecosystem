@@ -25,7 +25,7 @@ terse lessons merged. Future high-signal lessons may be added here when they nee
 the distilled staging surface; fitness is a routing signal, not a reason to avoid
 capture.
 
-## Deleting a "to be synthesised" holding pen — migrate-don't-drop (2026-06-08, Starless Prowling Veil)
+## A "to be synthesised" holding pen — migrate-don't-drop (2026-06-08, Starless Prowling Veil)
 
 A "relocate to synthesise/supersede" holding pen silently absorbs adjacent-collection
 **live** intent, then its framing presents everything as disposable. Before deleting such
@@ -55,44 +55,37 @@ execute, ground the load-bearing claims yourself — critical assessment that ne
 dismisses. Candidate: collaboration-practice pattern (refines coordinator-delegates +
 when-to-reach-for-fan-out).
 
-## Felt-authority cluster — no derived-authority surface self-certifies
+## A review comment names one location of a defect CLASS — sweep the whole corpus
 
-The dominant recurring meta-theme (≥6 instances; owner reinforced ~4× in one
-session; strong subjective corroboration across the experience corpus). Authority
-comes only from grounding against the **primary source**; the stronger the
-felt-authority of a surface, the more the grounding reflex must resist being skipped.
+Bot/reviewer output is dual-use: input-to-verify (never applied blindly) AND a
+sampler that surfaces a defect *class* you then exhaustively close. When a comment
+reveals a stale cross-reference, a wrong number, or a mislabel, grep the pattern
+repo-wide — don't just patch the flagged line (twice in one window a bot found a
+second instance after the first fix). The critical-assessment reflex must catch
+over-escalation without sliding into dismissal — both halves fire. Thread-resolution
+gotcha: cursor[bot] auto-resolves on re-review; Copilot threads need manual GraphQL
+`resolveReviewThread`; verify 0-unresolved via GraphQL (REST doesn't expose resolved
+state) before merge. Review-discipline candidate; sibling of fan-out-for-verify.
 
-- **No derived-authority surface self-certifies**: a validated schema, a green
-  gate, a clean review, a polished synthesis, a co-equal peer's verdict, a
-  "confirmed in X" pre-stamp, or N convergent reviewers — none transfers
-  verification. Convergence is not proof; an empirical check beats agreement.
-- **Discrepancy/contradiction claims are the highest-risk relay class** — they
-  assert a defect, so ground both sides against the primary source before relaying.
-- **Critically assess a finding's inference, not just its facts** — correct facts
-  can support the opposite of the recommendation (most of all when the facts check
-  out and the proposal is the more elaborate shape).
-- **Calibration guard (against over-applying):** scale grounding effort to **what
-  the output drives** (a test assertion / schema field demands first-hand; a report
-  tolerates relayed-with-disclosed-tier), not a blanket re-verify-everything reflex.
-- **Convenience is a warning sign** — a claim that makes the hard thing easy or the
-  boundary tidy correlates with motivated construction; specificity is not
-  verification; constraint-strictness is not data volume.
+## A landed invariant in code you're extending is a hard constraint on a new field's shape
 
-Worked instances live in the 2026-06-05 napkin archive. Homed: pending-graduations
-top entry (`pdr:felt-authority-grounding-discipline`, owner-gated unification);
-PDR-089 §Decision 6 (corrections-have-no-immunity-gradient + review-count-is-not-coverage);
-rules `verify-dont-trust`; auto-memory `validate-specialist-findings-before-acting`,
-`ground-convenient-claims`. **Unified 2026-06-05 → PDR-089 §Decision 7** (the
-governance home for the whole family; this entry is the terse staging pointer to it).
+When designing a new field or taxonomy on existing code, check the invariants the
+code already holds BEFORE designing the field, not after. EEF's `answerType` taxonomy:
+the obvious single-strand-vs-explicit-set split would have broken the D4 overlap
+invariant (`inspectStrand(id) === evidenceForMove({strandIds:[id]})`); the
+invariant-safe axis was coverage (`strand-lookup` vs `context-subset`). The existing
+invariant is design input, discovered first.
 
-## A status/pointer surface is not ground truth — recompute against the live source
+## Don't pile new scope onto a plan pending its readiness review (2026-06-09, Fragrant Spreading Sapling)
 
-Thread records, frictions registers, plan statuses, register markers: each is a
-pointer, not the fact. Before acting on a status, recompute against the current
-code/data/state. (Frictions register stamped "addressed-in-working-tree" with a
-never-completed "replace with SHA" trigger would read "fixed" for things that may
-never have committed; the live `comms append --help` / option sets decided what was
-real.) Sibling of validate-specialist-findings on a state-surface.
+A plan whose whole pending job is review → decision-complete → execution-ready
+must not grow while it awaits that review — added scope makes the readiness review
+certify a *moving target*. When new scope lands on a not-yet-ready plan (even
+owner-directed), immediately fence it as a separate strand AND recommend splitting
+it to its own plan so the review stays on the original scope. Pair with **small-PR
+delivery**: "is it ready?" becomes "is each small unit ready?", never a mega-block
+judgement. Planning-discipline candidate; sibling of
+[[feedback_consolidate_estate_decouple_execution]].
 
 ## Reviewer-brief scope protection cites NUMBERED ratified decisions only
 
@@ -156,12 +149,6 @@ lives. If that home (an ADR, contract, doc section) is owned by an active mid-fl
 thread, authoring a standalone artefact collides/duplicates — defer to the owning
 thread. Pairs with the full-doctrine-estate non-duplication check (survey the plan
 estate, not just the register, before authoring). Sibling of `respect-active-agent-claims`.
-
-## markdown wrapped-line list-marker trap
-
-A wrapped prose line that begins with a list marker (`+`, `-`, `*` then a space)
-trips MD004/MD032 — markdownlint reads it as a nested list item. Never let a marker
-char start a wrapped line; reword, rewrap, or use commas.
 
 ## An IDE diagnostic flood is not automatically a repo warning
 

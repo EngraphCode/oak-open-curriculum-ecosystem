@@ -20,9 +20,9 @@ surface.
 
 ## Current State
 
-- **A-i/C REVIEWS LANDED + PUSHED; GRAPH-TOOLS PLAN PROMOTED (2026-06-09, Brazen Roasting Cinder /
-  `527005`, claude / Opus 4.8, owner-directed; branch `assess/evidence_workflows`, PR #142 OPEN +
-  green).** The deferred A-i/C reviews ran (5 reviewers via a workflow; every finding adjudicated
+- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION + MCP-SURFACE FOLLOW-ONS (2026-06-09, Brazen Roasting Cinder /
+  `527005`, claude / Opus 4.8, owner-directed; PR #142 MERGED → v1.17.0; continued on
+  `feat/graph-migration-part-1`).** The deferred A-i/C reviews ran (5 reviewers via a workflow; every finding adjudicated
   FIRST-HAND — code/types/tests SOUND, two over-escalations refuted: a pre-existing `tags`-guard line
   not in the reviewed commit, and a "same selector" suggestion that would cut coverage). Verified
   findings landed + pushed: `4f15d7df` test(eef) review-surfaced coverage; `747023fd` docs(eef)
@@ -37,122 +37,45 @@ surface.
   edge-type-selective extension) + executable TDD cycles + architecture/assumptions review remain,
   deferred to the NEXT SESSION (owner-directed; see the plan's §Remaining promotion work). The
   fitness-driven curation pass (napkin rotation / distilled graduation) was NOT done — owner directed
-  not to act on fitness limits this session. **Next safe step: the next session completes the
-  promotion (settle + author + review → DECISION-COMPLETE) on a NEW branch; this branch's value
-  (A-i/C) is shipped.**
-- **EVIDENCE-WORKFLOW ENHANCEMENTS + ADR-194 + OUTPUT-SCHEMA INTEGRATION (2026-06-09, Incandescent
-  Smouldering Brazier / `939d21`, claude / Opus 4.8, owner-directed; branch
-  `assess/evidence_workflows`).** Three commits, full pre-commit gate green each, **pushed (PR #142)**:
-  `80dd642d` feat(eef) — A-i self-describing `answerType` (`strand-lookup`/`context-subset`) + C
-  `detail:'headline'` bounded view on `get-eef-evidence` (new
-  `graph-corpus-sdk/src/eef-strands/eef-headline-view.ts`); behaviour-tested + exercised LIVE over MCP
-  HTTP, types by tsc — **but NOT specialist-reviewed (code/type/test experts not invoked)**.
-  `20105837` docs(adr) — **ADR-194 Teacher-as-Expert Product Boundary (Accepted)**: inform and offer
-  evidenced options, never make the teacher's pedagogical decision; ADR-191 is its server-side
-  engineering corollary; propagated to the ADR index, ADR-191, VISION, the curriculum-tools playbook,
-  and EEF R7; assessment reports in `.agent/reports/`. `f95a051d` docs(plans) — output-schemas estate
-  integrated (the composition approach + my EEF `answerType` / full-headline-union reconciliation).
-  **NEXT SAFE STEP — DONE 2026-06-09 (Brazen Roasting Cinder; see the top entry):** the reviews ran
-  (5 reviewers, adjudicated first-hand), the verified findings landed + pushed, and the
-  gap/underspecified/decision-completeness check ran across the estate (the one open item — the
-  graph-tools promotion — was owner-decided PROMOTE and actioned).
-- **OUTPUT-SCHEMAS PLAN — DERIVE-FROM-SOURCE AMENDMENT (2026-06-09, Oceanic Lapping Anchor / `db4eb4`,
-  claude / Opus 4.8, owner-directed).**
-  [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
-  amended + **🟢 DECISION-COMPLETE** (owner-ratified): every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`,
-  payload Zod derived at the ONE source of truth per provenance (live-API codegen / bulk vocab-writer /
-  EEF corpus type-level tie / search generated schemas); `composeEnvelopeSchema` lives in `oak-sdk-codegen`;
-  W2 stays atomic incl. `get-keywords`; EEF tie is type-level (`z.infer … extends`), never `satisfies`-on-value,
-  and never annotate the raw shape `: z.ZodRawShape` (widens enums). Tombstones removed; README/roadmap/graph-tools
-  cross-refs synced. **Next safe step: the doc edits are committed (`f95a051d`, with the EEF
-  answerType/headline reconciliation folded in); execution stays gated on EEF D6/D7 +
-  `graph-tools-value-redesign`.** Separately: memory `project_specialist_agent_design_overhaul`
-  records owner-directed overhaul of all specialist sub-agents (type-reviewer over-escalated on a wrong Zod signature
-  this session) — verify every load-bearing specialist claim first-hand until then.
-- **PENDING-GRADUATIONS REGISTER DRAIN + PDR-091 (2026-06-08, Coppery Crackling Crucible / `a28ee6`,
-  claude / Opus 4.8, owner-directed).** The dedicated register-drain the prior session anticipated:
-  28 `status: graduated` tombstones + 1 verified `duplicate` removed from
-  [`pending-graduations.md`](pending-graduations.md) after confirming each item's substance live in
-  its named home (`00a9b434`); the negation-contrast enforcement increment was rehomed as a
-  standalone owner-gated entry. Register **recalibrated on owner direction** (`fitness_line_limit`
-  2200→1467, target 1500→1100; critical lands ~2200): it now reads `hard` **by design** — a standing
-  informational-only drain-signal (not wired into any commit/push hook) to keep the owner-gated
-  backlog walked down; never a gate, never chased. Owner doctrine **"Precedence is NOT approval"
-  graduated to portable
-  [PDR-091](../../practice-core/decision-records/PDR-091-precedence-is-not-approval.md)** + an
-  always-applied host rule (`0e0e7f42`; docs-adr-expert reviewed). **Next safe step: none on this
-  lane;** the deep owner-gated backlog (96 items) legitimately stays per its `lifecycle_model`.
-- **CONTINUITY-SURFACE CONSOLIDATION RUN (2026-06-08, Cosmic Illuminating Planet / `773ea1`,
-  claude / Opus 4.8, owner-directed).** The dedicated curation session the prior fitness-wiring
-  anticipated. The four critical thread records (`eef`, `agentic-engineering-enhancements`,
-  `observability`, `connecting-oak`) were curated to their pickup function per
-  [`continuity-practice.md` §Disposition](../../directives/continuity-practice.md) —
-  conserving each live pickup + the additive identity trail + un-homed insight, deleting
-  homed/superseded session narrative (git retains the literal record).
-  `agent-collaboration-research` reflowed to width; `repo-professionalism` opener de-drifted;
-  this §Current State curated. **Residual signals (reported, not chased):** a few small
-  paused/retired records keep minor link-dominated or barely-over width. **Next safe step: none
-  on this lane.**
-- **EXTERNAL-FACING CAPABILITY CORPUS — `previous-materials/` HOLDING PEN DELETED, ZERO LOSS (2026-06-08,
-  Starless Prowling Veil / `4863ac`, claude / Opus 4.8, owner-directed; took over from Vining Climbing
-  Canopy, with Fiery Burning Bellows + Opalescent Gliding Aurora, both retired).** Owner criterion: make
-  `previous-materials/` deletable with **zero loss of useful information**. Verified per-file (a
-  conservation-verification fan-out + an adversarial-skeptic pass + first-hand checks) that the prior
-  relocation sweep was too aggressive — most gathered files were **live intent**, not spent inputs (the
-  984-line compliance plan was the canary). Outcome: the discovery **Agent Skills lane** (2 plans + 2
-  companion reports) **restored intact** to
-  [`discovery/future/`](../../plans/discovery/future/README.md); `cursor-plugins-...` restored to
-  `developer-experience/future/`; `education-skills-mcp-surface.plan.md` to
-  `exploring-open-education-resources/external-knowledge-sources/future/`; the app-submission compliance
-  plan **promoted + renamed** to
-  [`current/app-submission-standards.plan.md`](../../plans/user-experience/educator-end-users/current/app-submission-standards.plan.md);
-  the holding pen + its README deleted. The synthesis hub
+  not to act on fitness limits this session. **Continued (post-merge, `feat/graph-migration-part-1`):**
+  evaluated the 5 served MCP prompts + the served resources and (owner-directed) captured an **MCP
+  surface rationalisation** strand in `graph-tools-value-redesign` — resources §A (remove the 3 graph
+  resources + the redundant `docs://oak/tools.md`/`workflows.md`, trim `getting-started`, protect
+  `curriculum://model` + `eef://interpretation` as the canonical context); prompts §B (graph-flood
+  repointing, `adapt-lesson` arg-mapping, fixed glossary language, distinguish overlapping names);
+  skills §C (pre-empt `oak-skills`→prompts; licence owner-clarified — content is Oak's to use, the
+  constraint is preserving external-research attribution; `oak-brand` out, `oak-tone-of-voice` open;
+  `oak-curriculum-principles-mcp-enabled` is the strongest candidate as it already drives this MCP).
+  **Next safe step (owner): the next session is a PLAN-REVIEW-AND-READINESS session — NOT execution.**
+  The plan was promoted *needing* review → decision-complete → execution-ready, then scope was added
+  (the surface strand) — so do not review a growing target. **Step 0: split the surface-rationalisation
+  strand into its own `mcp-surface-rationalisation` plan**, leaving `graph-tools-value-redesign` its
+  ORIGINAL graph-core scope. Then review + decision-complete that scope: settle A/B/D/E + node/edge
+  model + the `GraphView` edge-type extension, author the executable TDD cycles, run architecture +
+  assumptions validation → DECISION-COMPLETE. **Deliver in small, independently-shippable PRs — no
+  more mega-PRs (PR #142 was the last); each redesign unit = one small PR, a hard readiness criterion.**
+  PR #142's value (A-i/C) shipped in v1.17.0.**
+- **OUTPUT-SCHEMAS PLAN — 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09).**
+  [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md):
+  every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload Zod
+  derived at the one source of truth per provenance; `composeEnvelopeSchema` lives in
+  `oak-sdk-codegen`; the EEF tie is type-level, never `satisfies`-on-value. Execution
+  stays gated on the `graph-tools-value-redesign` mechanism settle. **Cross-cutting**:
+  memory `project_specialist_agent_design_overhaul` records an owner-directed overhaul of
+  all specialist sub-agents (a type-reviewer over-escalated on a wrong Zod signature) —
+  verify every load-bearing specialist claim first-hand until it lands.
+- **EXTERNAL-FACING CAPABILITY CORPUS — merged (PR #140 → v1.16.1).** The
   [`external-facing-capability-distribution.plan.md`](../../plans/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)
-  reshaped from a "disposition ledger" into a **clean corpus map** (Direction A; plugin-package-creation;
-  app-submission-standards; `future/` bundle brief; cross-repo Direction B). All cross-collection refs
-  repointed; **no tombstones, no dangling links.** EEF live on `oak-prod` (`get-eef-evidence`). Upstream
-  request for the stale cross-repo Direction-A filename authored at
-  [`upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md`](../../plans/upstream-feature-requests/oak-skills/update-direction-a-plan-reference.md).
-  **Open owner decisions:** source-of-truth topology (#4, cross-cutting) and first-tranche capability
-  scope (#5). **MERGED to main as PR #140** (merge `5836230a`, then release `5779ed20` / v1.16.1): all
-  review comments addressed + threads resolved (Bugbot caught a 2nd stale-decision-number instance after
-  the first fix → swept the whole corpus); preview MCP `oak-prev-140` assessed (resources catalogue
-  matches `ALL_MCP_RESOURCES`, EEF + search return real data). **Next safe step:** none on the corpus
-  (merged); execute Direction A `t0` / plugin-package `w0` design gates once the owner resolves #4/#5.
-  Snagging / follow-on continues on `assess/evidence_workflows`.
-- **EEF `get-eef-evidence` — D6 + D7 COMPLETE; the EEF build arc (D0–D7) is DELIVERED
-  (D7 owner-marked 2026-06-08).** The surface is LIVE BY DEFAULT (kill-switch posture: default ON,
-  `OAK_CURRICULUM_MCP_EEF_ENABLED=false` disables — `feature-flags.ts` engine, `d3109d7c`; the
-  engine is unit-tested, not per-flag config). c4 `eef://interpretation` resource + c5
-  `adapt-lesson` prompt (`dcf46e6f`) + guidance (`6913aa47`); ADR-193 boundary holds (carrier-fix /
-  index-sig / generic-spine remain DEAD). Engineering-complete + `pnpm check` green; the SDK e2e
-  suite (130 tests) is validated and pre-push-gated. Potential teacher value was demonstrated live
-  this session via a real LLM-mediated round trip over MCP — on the running auth-enabled server AND
-  via the MCP Inspector CLI (multi-signal Oak↔EEF, verbatim corpus values, honest insufficiency,
-  no teacher-replacing language). **Value-proof reshaped (owner 2026-06-08): potential value is
-  proven by release-and-observe, not a codified test**; delivered-value stays with
+  corpus map is live (Direction A; plugin-package-creation; app-submission-standards;
+  `future/` bundle brief; cross-repo Direction B). **Open owner decisions:** source-of-truth
+  topology (#4) and first-tranche capability scope (#5). **Next safe step:** execute Direction
+  A `t0` / plugin-package `w0` design gates once the owner resolves #4/#5.
+- **EEF build arc (D0–D7) DELIVERED + SHIPPED TO PRODUCTION (v1.16.0, 2026-06-08).** The
+  `get-eef-evidence` surface is live by default at `curriculum-mcp-alpha.oaknational.dev`
+  (kill-switch flag, default ON; ADR-193 boundary holds). Potential teacher value proven by
+  release-and-observe (owner 2026-06-08); delivered-value stays with
   [`eef-outcome-evaluation-infrastructure.plan.md`](../../plans/sector-engagement/eef/future/eef-outcome-evaluation-infrastructure.plan.md).
-  Marking D7 green fires the
-  [`graph-tools-value-redesign`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
-  promotion trigger (`get-keywords` added to that plan this session). **SHIPPED TO PRODUCTION
-  2026-06-08**: PR #131 squash-merged to `main` (`d9f0d906`) → semantic-release `v1.16.0` → Vercel
-  production deploy READY; the EEF surface is live by default at
-  `curriculum-mcp-alpha.oaknational.dev` (owner-confirmed on the landing page). **Next safe step:
-  none on this thread — the build arc is delivered and shipped.**
-- **MCP landing-page resources fix — committed, preview-verified, awaiting merge.** The landing
-  page under-listed resources (3 of 8) because `render-resources-section` derived from a narrow
-  `DOCUMENTATION_RESOURCES` const; fixed with a single canonical `ALL_MCP_RESOURCES` catalogue
-  consumed by the page plus a registration drift-guard test (`009e5481` on `feat/skills-planning`,
-  PR #140). Preview shows Resources (8) incl. `eef://interpretation` (owner-confirmed). **Next safe
-  step: merge `feat/skills-planning`** (a `fix` → patch release) to reach production. The
-  `agent-tools:mcp-inspector-smoke` testing-harness plan is queued in `agent-tooling/current/`.
-- **MCP test estate + observability sinks plans → both `🟢 DECISION-COMPLETE`; execution
-  owner-scheduled.**
-  [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md)
-  (WS0 + WS3 executable now; WS1 = EEF D7) and
-  [`observability-sinks-decoupling.plan.md`](../../plans/observability/current/observability-sinks-decoupling.plan.md)
-  (C1+C2 atomic → C2b `SENTRY_MODE` bridge → C3 → C4 → C5; gated on the relevant feature
-  branch merging). Neither has a dedicated thread record yet; see § Next Safe Steps.
+  **Next safe step: none on this thread** — see the [`eef` record][eef] for the full arc.
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.
@@ -170,7 +93,7 @@ each thread record; this table is the repo-level index.
 | `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Opus 4.8 / Incandescent Smouldering Brazier / post-d7-answertype-headline-adr194-and-output-schema-integration / 2026-06-09 (prior: Briny Charting Lagoon d6-completion-and-live-exercise 2026-06-08, Lanternlit Shrouding Raven c4-c5-reflection-and-attribution-fix 2026-06-08, Luminous Drifting Dawn c6-tool-gating-fix 2026-06-08, Evergreen Blossoming Copse adr-193-vendor-boundary-and-egress-membrane 2026-06-08, Pelagic Charting Rudder c1-c3-authoring-and-strict-type-flow 2026-06-07, Hidden Prowling Owl c1-finite-domain-prereq-and-type-widening-doctrine 2026-06-07, Arboreal Shedding Canopy d6-reshape-and-phase-e-handoff 2026-06-07, Moonlit Orbiting Moon d6-execution-reshaped 2026-06-07, Zephyrous Kiting Squall d6-readiness-regrounding 2026-06-06, Floating Darting Cloud d7-golive-plan-edit 2026-06-06, Dusky Dimming Candle author-d6-execution-plan 2026-06-06, Masked Creeping Lantern eef-deep-review-resolutions-adr191 2026-06-05, Dim Dimming Threshold eef-d5-execution 2026-06-05, Prismatic Twinkling Planet eef-d5-fresh-dual-review 2026-06-04, Windward Gliding Squall eef-d5-plan-authoring 2026-06-04, Shadowed Creeping Secret eef-d4-ratify 2026-06-04, Burnished Glowing Spark 2026-06-04, Lacustrine Swimming Beacon 2026-06-03, Seaworthy Swimming Sextant 2026-06-03, Galactic Glowing Prism + Opalescent Cascading Planet + Stellar Waning Planet + Silvered Lurking Mask 2026-06-02) |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work, starting with a deep review of the Oak Curriculum Ontology repo (separate concern from the bulk-derived graph redesign) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 — **opened, not started; deep review is a fresh session** |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior: Blustery Lifting Gale skills-taxonomy-and-distribution 2026-06-03, Umbral Whispering Silhouette 2026-06-01) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Opus 4.8 / Coppery Crackling Crucible / pending-graduations-drain-and-pdr-091 / 2026-06-08 (prior: Cosmic Illuminating Planet dedicated-continuity-surface-consolidation 2026-06-08, Lofty Spiralling Plume continuity-surface-fitness-and-prose-awareness 2026-06-08, Briny Plumbing Beacon feedback-mechanism-follow-ons 2026-06-07, Eclipsed Watching Veil items-4+1 2026-06-07, Glittering Weaving Comet 2026-06-07, Volcanic Blazing Magma 2026-06-06, Lanternlit Passing Mask 2026-06-05, Hidden Hiding Dusk 2026-06-04, Arboreal Sprouting Branch 2026-06-04, Opalescent Illuminating Prism 2026-06-03, Lacustrine Swimming Beacon, Ashen Burning Magma, Solar Glowing Meteor, Stratospheric Buffeting Breeze, Lofty Sweeping Falcon, Shaded Veiling Mirror) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Opus 4.8 / Fruited Twining Canopy / dedicated-knowledge-curation / 2026-06-09 (prior: Coppery Crackling Crucible pending-graduations-drain-and-pdr-091 2026-06-08, Cosmic Illuminating Planet dedicated-continuity-surface-consolidation 2026-06-08, Lofty Spiralling Plume continuity-surface-fitness-and-prose-awareness 2026-06-08, Briny Plumbing Beacon feedback-mechanism-follow-ons 2026-06-07, Eclipsed Watching Veil items-4+1 2026-06-07, Glittering Weaving Comet 2026-06-07, Volcanic Blazing Magma 2026-06-06, Lanternlit Passing Mask 2026-06-05, Hidden Hiding Dusk 2026-06-04, Arboreal Sprouting Branch 2026-06-04, Opalescent Illuminating Prism 2026-06-03, Lacustrine Swimming Beacon, Ashen Burning Magma, Solar Glowing Meteor, Stratospheric Buffeting Breeze, Lofty Sweeping Falcon, Shaded Veiling Mirror) |
 | `repo-professionalism-assessment` | Repo professionalism / engineering-quality report → planability triage | [record][repo-professionalism-assessment] | codex / GPT-5 / Airy Whirling Wing / report-author-and-planability-router / 2026-06-03 |
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |

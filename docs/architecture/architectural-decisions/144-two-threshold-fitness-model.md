@@ -198,6 +198,17 @@ structural response.
    vocabulary. `.agent/directives/principles.md` §Refactoring: "NEVER create
    compatibility layers."
 
+7. **Thresholds derive from the surface's documented function, not the measured
+   corpus.** A limit is a property of what the surface's `fitness_content_role`
+   _should_ occupy — a thread-continuation record is a compact pickup surface
+   (identity + current state + landing target + standing decisions + the latest
+   live handoff banner); a drainable buffer holds in-flight items. Set the
+   threshold once from that function and hold it. Curve-fitting limits to the
+   current file-size distribution bakes existing bloat into the "healthy" band
+   and drifts as the corpus drifts; a bloated file is then a _function
+   violation_ that should trip the signal, not a large healthy file. Use the
+   `fitness_content_role` vocabulary to make the classification explicit.
+
 ## Loop Health
 
 Reaching `critical` is always a loop-health signal, not a routine state.

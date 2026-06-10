@@ -10,33 +10,6 @@ merge_class: mostly-append-register
 fitness_content_role: drainable-buffer
 ---
 
-## Q-001 — gate-1a EEF tool: whole-graph selection vs data-supported narrowing
-
-- **Captured**: 2026-05-27 (Galactic Dancing Constellation / `claude` / `7efeec`)
-- **Question**: At gate-1a, `eef-explore-evidence-for-context` returns the whole
-  connected EEF graph (all 30 strands + 37 edges) and lets the model select
-  contextual fit. Is whole-graph the right teacher experience, or should a
-  later stage add narrowing — and if so, on what signal?
-- **Why it shapes future work**: determines the scope and trigger of the gate-1b
-  t5 ranking/scoring engine (relevance selection is explicitly deferred there).
-- **Why not answerable cheaply now**: needs real teacher-usage signal; the
-  corpus tag vocabulary does not support reliable server-side narrowing today
-  (verified: focus-enum→tag mapping mostly empty; only 16/30 strands carry a
-  phase tag, so phase-narrowing would suppress ~14 phase-general strands).
-- **Owning artefact / discussion home**: PR #121 top section (Starless flagged
-  for owner discussion). Does not block the current cycle — PR #121 is
-  mergeable as whole-graph.
-- **Status**: withdrawn 2026-05-28 (Sylvan Whispering Fern) — framing superseded.
-- **Disposition (2026-05-28)**: the gate-1a/1b split and the
-  `eef-explore-evidence-for-context` whole-graph tool this question assumes were
-  diagnosed as the wrong foundation and discarded; the EEF work was rebuilt from
-  foundations. The underlying substance — the selection / scoping strategy for a
-  graph-shaped tool — is preserved and was carried into the live EEF plan
-  (`plans/sector-engagement/eef/current/eef-graph-tool-completion.plan.md`); the
-  2026-05-28 design docs that first explored it were quarantined to `archive/`
-  (2026-05-30). No substance lost; this entry is retired to avoid a stale second
-  home in dead gate-1a/1b vocabulary.
-
 ## Q-002 — which `.agent/rules/*` rules are actually impactful
 
 - **Captured**: 2026-06-01 (Sunlit Gliding Twilight / `claude` / `2a4252`)
@@ -88,60 +61,27 @@ fitness_content_role: drainable-buffer
   failure mode (a silent `outputSchema` drop leaves graph tools unvalidated while
   existing no-outputSchema tools pass, uncaught by current tests). The EEF plan
   (D3/D6) defers these mechanics to this question's resolution.
-- **Update (2026-06-02, Abyssal Flowing Beacon / `762085`)**: the output-schemas
-  plan was audited + rewritten decision-complete, and the owner **resolved S0
-  ownership** (that plan owns the seam) and the **sourcing doctrine**: schemas are
-  a deterministic type-strict **projection** of the static data fed to a **single
-  Zod call** (`satisfies`-tied), never hand-constructed — same pattern as EEF,
-  emitted at codegen for the graph tools. The graph slice and its five sub-questions
-  (the `as const` precondition + scale, the output-only structural simplification,
-  where the one shared mechanism lives, 2-vs-3 graph scope, codegen emission shape)
-  are owned by the new
-  [`graph-tool-output-schemas.plan.md`][q3-graph]
-  (status DESIGN; co-design with EEF D4–D6). EEF D5/D6's single-Zod-call mechanism
-  is pending, so the two are co-defining ONE mechanism.
-- **Update (2026-06-02, Silvered Lurking Mask / `bbb696`)**: the owner ratified
-  the **delivery order** (now recorded in the owning plans, committed
-  `e8fe16e0`): the EEF tool's `outputSchema` lands **first and alone via EEF
-  D6** — the mechanism's first instance; the 3 existing graph tools receive
-  theirs **with their substrate migration** (one replacement unit per tool) and
-  are untouched before it; remaining types follow; required/root promotion
-  last. Of the five sub-questions, **Q2 is resolved** (verified in code: the
-  graph tools take no input; the projection is structural) and **Q4 is
-  resolved** (thread-progressions excluded — sequence-shaped, not
-  graph-forced). Q1/Q3/Q5 (as-const scope, mechanism home, codegen emission
-  shape) resolve in the EEF D4–D6 co-design and the unified substrate-migration
-  plan.
-- **Update (2026-06-02, Galactic Glowing Prism / `cd7389`)**: the unified
-  substrate-migration plan is authored —
-  [`graph-tools-value-redesign.plan.md`][q3-migration]. The graph
-  projection plan's design content is absorbed there (Q1/Q3/Q5 are its
-  Decisions A/B/D; the projection doctrine and resolved Q2/Q4 are its
-  Ratified decisions 7–9) and the file is archived. Q1/Q3/Q5 now resolve in
-  the EEF D4–D6 co-design and at that plan's promotion (trigger: EEF D6
-  landed + D7 green).
-- **Status**: owner-gated — narrowed to Q1/Q3/Q5, the shared-mechanism design.
-  Owner-facing decision point is the EEF D4–D6 co-design and unified
-  substrate-migration promotion. Future check: verify whether EEF D6 has landed,
-  D7 is green, and the substrate-migration promotion resolved Decisions A/B/D;
-  otherwise keep this question live.
-- **Progress (2026-06-04, Arboreal curation drain)**: EEF D4 is now
-  owner-ratified and the migration plan is the renamed value-redesign; the D6/D7
-  gate (and that plan's promotion) remains unfired, so this question stays live.
-- **Progress (2026-06-05, Lanternlit curation pass)**: EEF D5 landed green
-  (`2e9021ff`) — the graph-native view + single-Zod-call mechanism's substrate;
-  D6 (the EEF MCP composition surface, where the `outputSchema` mechanism's first
-  instance lands) is the next safe step but is **not yet built**. The D6/D7 gate
-  and the substrate-migration promotion remain unfired; this question stays live.
-- **Progress (2026-06-06, Starlit Scattering Twilight curation pass)**: the D6
-  execution plan is authored + dual-reviewed (`eef-d6-execution.plan.md`, Dusky
-  Dimming Candle), with D6 re-grounding refinements folded (`93ee593f`); D6 **code
-  is still not written** (next safe step = EXECUTE D6). The `outputSchema`
-  mechanism's first instance therefore still has not landed; the gate stays unfired
-  and this question stays live.
+- **Resolved doctrine**: schemas are a deterministic type-strict **projection**
+  of the static data fed to a **single Zod call** (`satisfies`-tied), never
+  hand-constructed — same pattern as EEF, emitted at codegen for the graph tools.
+  Delivery order owner-ratified: the EEF tool's `outputSchema` lands first and
+  alone (the mechanism's first instance), the 3 existing graph tools receive
+  theirs with their substrate migration, remaining types follow, required/root
+  promotion last. Of the five graph sub-questions, **Q2 and Q4 are resolved**
+  (graph tools take no input — the projection is structural; thread-progressions
+  excluded as sequence-shaped).
+- **Status (2026-06-09)**: the trigger has fired. EEF D6+D7 are complete and
+  shipped (v1.16.0), and
+  [`output-schemas-for-mcp-tools.plan.md`][q3-general] is **🟢 DECISION-COMPLETE**
+  (every tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload
+  Zod derived at the one source per provenance). The remaining open slice
+  (Q1/Q3/Q5 — `as const` scope, mechanism home, codegen emission shape for the
+  graph tools) now resolves inside the promoted
+  [`graph-tools-value-redesign.plan.md`][q3-migration] mechanism settle (under
+  plan-review this session). Keep live until that plan reaches decision-complete;
+  then this question is answered-in-plan and retires.
 
 [q3-general]: ../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md
-[q3-graph]: ../../plans/sdk-and-mcp-enhancements/archive/completed/graph-tool-output-schemas.plan.md
 [q3-migration]: ../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md
 
 ## Q-004 — does the capability taxonomy need a rights/licensing axis?

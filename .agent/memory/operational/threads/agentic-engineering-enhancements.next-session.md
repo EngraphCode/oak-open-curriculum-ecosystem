@@ -36,11 +36,6 @@ work brief and the recent identity stretch, per
     do NOT auto-collapse — owner decides). **2c** = per-surface PDR-044 widening (ESLint
     now-eligible; rules-prose after 2b). **WS2** = tripwire wiring; coordinate with
     [`future/action-time-structural-interrupt-design-space.plan.md`](../../../plans/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md).
-- **This session (Cosmic Illuminating Planet, 2026-06-08)**: dedicated continuity-surface
-  consolidation. Curated the four critical thread records (`eef`, this record, `observability`,
-  `connecting-oak`) to their pickup function, the small width-breaching records, and the
-  buffers — conserving insight to permanent homes, deleting curated residue (git retains).
-  See `repo-continuity.md` § Current State.
 
 > **🤝 Session Handoff (2026-06-07 — Briny Plumbing Beacon / claude / Opus 4.8 / `5dd58c`):
 > item 2a LANDED (ESLint reappraisal enforcement); WS1 next**
@@ -160,6 +155,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Lofty Spiralling Plume` | `claude` | `Opus 4.8` | `891aa5` | `continuity-surface-fitness-wiring + prose-line-awareness + ADR-193-fold` | 2026-06-08 | 2026-06-08 |
 | `Cosmic Illuminating Planet` | `claude` | `Opus 4.8` | `773ea1` | `dedicated-continuity-surface-consolidation` | 2026-06-08 | 2026-06-08 |
 | `Coppery Crackling Crucible` | `claude` | `Opus 4.8` | `a28ee6` | `pending-graduations-drain + recalibration + PDR-091 (precedence-is-not-approval)` | 2026-06-08 | 2026-06-08 |
+| `Fruited Twining Canopy` | `claude` | `Opus 4.8` | `1aff59` | `dedicated-knowledge-curation (napkin rotation + graduation + continuity/open-questions drain)` | 2026-06-09 | 2026-06-09 |
 
 ## Cross-Plan and Cross-Thread Links
 
