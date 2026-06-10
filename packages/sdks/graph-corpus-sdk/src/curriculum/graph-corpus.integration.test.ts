@@ -13,7 +13,8 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import { createCurriculumPrerequisiteGraph, graphCorpus } from './graph-corpus.js';
+import { graphCorpus } from './graph-corpus.js';
+import { createCurriculumPriorKnowledgeView } from './prior-knowledge-view.js';
 
 describe('curriculum graph corpus (integration over the emitted dataset)', () => {
   it('loads the emitted corpus with unit nodes and prerequisiteFor edges', () => {
@@ -38,7 +39,7 @@ describe('curriculum graph corpus (integration over the emitted dataset)', () =>
     expect(dangling).toHaveLength(0);
   });
 
-  it('constructs in createGraphView without throwing', () => {
-    expect(() => createCurriculumPrerequisiteGraph(3)).not.toThrow();
+  it('constructs the prior-knowledge view over the corpus without throwing', () => {
+    expect(() => createCurriculumPriorKnowledgeView(3)).not.toThrow();
   });
 });

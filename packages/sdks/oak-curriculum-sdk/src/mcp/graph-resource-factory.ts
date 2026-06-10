@@ -38,12 +38,12 @@ import type { SourceAttribution } from '@oaknational/sdk-codegen/mcp-tools';
  *
  * @example
  * ```typescript
- * const config: GraphSurfaceConfig<PriorKnowledgeGraph> = \{
- *   name: 'prior-knowledge-graph',
- *   title: 'Oak Curriculum Prior Knowledge Graph',
- *   description: 'Unit dependency graph...',
- *   uriSegment: 'prior-knowledge-graph',
- *   sourceData: priorKnowledgeGraph,
+ * const config: GraphSurfaceConfig<MisconceptionGraph> = \{
+ *   name: 'misconception-graph',
+ *   title: 'Oak Curriculum Misconception Graph',
+ *   description: 'Misconception graph...',
+ *   uriSegment: 'misconception-graph',
+ *   sourceData: misconceptionGraph,
  *   summary: `Graph loaded. $\{stats\}.`,
  * \};
  * ```

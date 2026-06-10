@@ -3,7 +3,7 @@
  *
  * Registers static resources with the MCP server, including:
  * - Documentation resources for the "start here" experience
- * - Curriculum model, prior knowledge graph, and thread progressions
+ * - Curriculum model, thread progressions, and misconception graph
  * - MCP App widget resource (interactive React curriculum app)
  */
 
@@ -12,8 +12,6 @@ import {
   getDocumentationContent,
   CURRICULUM_MODEL_RESOURCE,
   getCurriculumModelJson,
-  PRIOR_KNOWLEDGE_GRAPH_RESOURCE,
-  getPriorKnowledgeGraphJson,
   THREAD_PROGRESSIONS_RESOURCE,
   getThreadProgressionsJson,
   MISCONCEPTION_GRAPH_RESOURCE,
@@ -94,9 +92,9 @@ function registerEefInterpretationResource(server: ResourceRegistrar): void {
  * Registers a graph resource with the MCP server.
  *
  * Generic helper that eliminates per-graph registration boilerplate.
- * Each graph surface (prior knowledge, thread progressions, misconception, etc.)
- * follows the same registration pattern — only the resource constant and
- * JSON getter differ.
+ * Each graph surface (thread progressions, misconception, etc.) follows the
+ * same registration pattern — only the resource constant and JSON getter
+ * differ.
  *
  * @param server - MCP server instance
  * @param resource - Resource constant from the SDK (name, uri, mimeType, etc.)
@@ -133,8 +131,8 @@ function registerGraphResource(
 /**
  * Registers all static resources with the MCP server.
  *
- * Combines documentation, curriculum model, prior knowledge graph,
- * thread progressions, and widget resource registration into a single call.
+ * Combines documentation, curriculum model, thread progressions,
+ * misconception graph, and widget resource registration into a single call.
  *
  * @param server - MCP server instance
  * @param options - Resource registration options including observability
@@ -145,7 +143,6 @@ export function registerAllResources(
 ): void {
   registerDocumentationResources(server);
   registerCurriculumModelResource(server);
-  registerGraphResource(server, PRIOR_KNOWLEDGE_GRAPH_RESOURCE, getPriorKnowledgeGraphJson);
   registerGraphResource(server, THREAD_PROGRESSIONS_RESOURCE, getThreadProgressionsJson);
   registerGraphResource(server, MISCONCEPTION_GRAPH_RESOURCE, getMisconceptionGraphJson);
   // EEF is co-gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED, kill-switch,

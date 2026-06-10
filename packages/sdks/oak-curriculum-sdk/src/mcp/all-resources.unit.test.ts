@@ -17,11 +17,14 @@ describe('ALL_MCP_RESOURCES', () => {
     expect(uris).toStrictEqual([
       'docs://oak/getting-started.md',
       'curriculum://model',
-      'curriculum://prior-knowledge-graph',
       'curriculum://thread-progressions',
       'curriculum://misconception-graph',
       'eef://interpretation',
     ]);
+  });
+
+  it('does not list the removed prior-knowledge-graph resource (served by the anchored tool, G1b)', () => {
+    expect(uris).not.toContain('curriculum://prior-knowledge-graph');
   });
 
   it('excludes the ui:// widget, which is not a resources/read data resource', () => {

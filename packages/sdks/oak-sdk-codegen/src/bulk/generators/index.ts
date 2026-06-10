@@ -52,14 +52,6 @@ export {
 } from './synonym-miner.js';
 
 export {
-  generatePriorKnowledgeGraphData,
-  type PriorKnowledgeEdge,
-  type PriorKnowledgeGraph,
-  type PriorKnowledgeGraphStats,
-  type PriorKnowledgeNode,
-} from './prior-knowledge-graph-generator.js';
-
-export {
   generateGraphCorpusData,
   type GraphCorpus,
   type GraphCorpusUnitNode,
@@ -85,14 +77,7 @@ export {
   type VocabularyNode,
 } from './vocabulary-graph-generator.js';
 
-export {
-  serializePriorKnowledgeGraph,
-  serializeThreadProgressionGraph,
-  writePriorKnowledgeGraphFile,
-  writeThreadProgressionFile,
-} from './write-graph-file.js';
-
-export { writePriorKnowledgeGraphAsJson } from './write-json-graph-file.js';
+export { serializeThreadProgressionGraph, writeThreadProgressionFile } from './write-graph-file.js';
 
 export { writeGraphCorpusAsJson, graphCorpusDescriptor } from './write-json-graph-corpus-file.js';
 

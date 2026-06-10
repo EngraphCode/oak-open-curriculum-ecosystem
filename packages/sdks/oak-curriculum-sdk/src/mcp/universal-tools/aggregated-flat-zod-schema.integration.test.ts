@@ -23,10 +23,7 @@ describe('aggregated tools inputSchema propagation', () => {
     expect(aggregatedTools).toHaveLength(typeSafeKeys(AGGREGATED_TOOL_DEFS).length);
 
     const toolsWithParams = aggregatedTools.filter(
-      (t) =>
-        t.name !== 'get-curriculum-model' &&
-        t.name !== 'get-thread-progressions' &&
-        t.name !== 'get-prior-knowledge-graph',
+      (t) => t.name !== 'get-curriculum-model' && t.name !== 'get-thread-progressions',
     );
 
     for (const tool of toolsWithParams) {
@@ -108,6 +105,21 @@ describe('aggregated tools inputSchema propagation', () => {
     expect(jsonSchema).toHaveProperty('properties.scope.examples');
   });
 
+  it('get-prior-knowledge-graph inputSchema produces JSON Schema with the anchored contract', () => {
+    const tools = listUniversalTools(generatedToolRegistry);
+    const priorKnowledge = tools.find((t) => t.name === 'get-prior-knowledge-graph');
+
+    expect(priorKnowledge?.inputSchema).toBeDefined();
+    if (!priorKnowledge?.inputSchema) {
+      throw new Error('get-prior-knowledge-graph inputSchema not found');
+    }
+
+    const jsonSchema = z.toJSONSchema(z.object(priorKnowledge.inputSchema));
+    expect(jsonSchema).toHaveProperty('properties.unitSlugs.description');
+    expect(jsonSchema).toHaveProperty('properties.depth.description');
+    expect(jsonSchema).toHaveProperty('required', ['unitSlugs']);
+  });
+
   it('user-search-query inputSchema produces JSON Schema with examples', () => {
     const tools = listUniversalTools(generatedToolRegistry);
     const userSearchQuery = tools.find((t) => t.name === 'user-search-query');
@@ -148,13 +160,5 @@ describe('no-input tools have empty inputSchema (MCP spec: strict empty object)'
 
     expect(threadProgressions).toBeDefined();
     expect(threadProgressions?.inputSchema).toEqual({});
-  });
-
-  it('get-prior-knowledge-graph inputSchema is an empty shape', () => {
-    const tools = listUniversalTools(generatedToolRegistry);
-    const prereqGraph = tools.find((t) => t.name === 'get-prior-knowledge-graph');
-
-    expect(prereqGraph).toBeDefined();
-    expect(prereqGraph?.inputSchema).toEqual({});
   });
 });

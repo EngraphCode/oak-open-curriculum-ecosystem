@@ -27,14 +27,12 @@ import {
   generateMinedSynonyms,
   generateMisconceptionGraphData,
   generateNCCoverageGraphData,
-  generatePriorKnowledgeGraphData,
   generateThreadProgressionData,
   generateVocabularyGraphData,
   writeAnalysisReportFile,
   writeMinedSynonymsFile,
   writeMisconceptionGraphAsJson,
   writeNCCoverageGraphAsJson,
-  writePriorKnowledgeGraphAsJson,
   writeThreadProgressionFile,
   writeVocabularyGraphAsJson,
   generateGraphCorpusData,
@@ -119,19 +117,6 @@ async function generateOutputFiles(
   const threadGraph = generateThreadProgressionData(result.extractedData.threads, sourceVersion);
   const threadFilePath = await writeThreadProgressionFile(threadGraph, config.outputPath, logger);
   outputFiles.push(basename(threadFilePath));
-
-  // Generate prior knowledge graph
-  const priorKnowledgeGraph = generatePriorKnowledgeGraphData(
-    result.extractedData.priorKnowledge,
-    result.extractedData.threads,
-    sourceVersion,
-  );
-  const priorKnowledgeDirPath = await writePriorKnowledgeGraphAsJson(
-    priorKnowledgeGraph,
-    config.outputPath,
-    logger,
-  );
-  outputFiles.push(basename(priorKnowledgeDirPath));
 
   // Generate the graph corpus (one-graph foundation: unit nodes + prerequisiteFor edges)
   const graphCorpus = generateGraphCorpusData(

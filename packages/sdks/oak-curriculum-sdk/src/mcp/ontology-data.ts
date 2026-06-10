@@ -29,7 +29,7 @@ export const ontologyData = {
     threadProgressions:
       'Call get-thread-progressions for ordered unit sequences within curriculum threads (instance data)',
     priorKnowledgeGraph:
-      'Call get-prior-knowledge-graph for unit dependencies and prior knowledge requirements',
+      'Call get-prior-knowledge-graph with anchor unit slugs for the bounded prior-knowledge subgraph of those units (dependencies and prior knowledge requirements)',
   },
 
   curriculumStructure: {
