@@ -168,6 +168,26 @@ describe('generateGraphCorpusData — G2 stability contract', () => {
       );
     });
 
+    it('emits an identical corpus when same-unit prior-knowledge records arrive in reversed order', () => {
+      // Two requirements on ONE unit: encounter order must not leak into the
+      // emitted priorKnowledge array (the bulk file enumeration is unsorted).
+      const requirementA: ExtractedPriorKnowledge = {
+        ...basePriorKnowledge,
+        requirement: 'Understand equal parts',
+      };
+      const requirementB: ExtractedPriorKnowledge = {
+        ...basePriorKnowledge,
+        requirement: 'Count in fractions on a number line',
+      };
+
+      const forward = makeInput({ priorKnowledge: [requirementA, requirementB] });
+      const reversed = makeInput({ priorKnowledge: [requirementB, requirementA] });
+
+      expect(timeless(generateGraphCorpusData(reversed))).toEqual(
+        timeless(generateGraphCorpusData(forward)),
+      );
+    });
+
     it('emits an identical corpus when same-lesson records arrive in reversed order', () => {
       // Same lesson, three records: two distinct texts plus a keep-first pair
       // (same text, different response). Intra-lesson encounter order must not

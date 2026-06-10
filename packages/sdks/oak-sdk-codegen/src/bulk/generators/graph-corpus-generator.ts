@@ -42,12 +42,10 @@ import {
   buildPrerequisiteEdges,
 } from './graph-corpus-edges.js';
 import {
-  buildLessonNodes,
   buildMisconceptionNodes,
-  buildThreadNodes,
-  buildUnitNodes,
   type MisconceptionBuild,
-} from './graph-corpus-nodes.js';
+} from './graph-corpus-misconception-nodes.js';
+import { buildLessonNodes, buildThreadNodes, buildUnitNodes } from './graph-corpus-nodes.js';
 import type {
   GraphCorpus,
   GraphCorpusDroppedEdge,

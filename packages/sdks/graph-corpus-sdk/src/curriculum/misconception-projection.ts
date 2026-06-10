@@ -88,8 +88,13 @@ export function buildCurriculumMisconceptionProjection(): CurriculumMisconceptio
       unitsById.set(node.id, node);
     } else if (node.kind === 'thread') {
       threadsById.set(node.id, node);
-    } else {
+    } else if (node.kind === 'misconception') {
       misconceptionsById.set(node.id, node);
+    } else {
+      // Exhaustiveness anchor: a new corpus node kind fails compilation here
+      // instead of silently joining the wrong index.
+      const unhandled: never = node;
+      throw new Error(`graph corpus integrity breach: unhandled node ${JSON.stringify(unhandled)}`);
     }
   }
   return {
