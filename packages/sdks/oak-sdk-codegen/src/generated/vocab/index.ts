@@ -10,13 +10,6 @@
  */
 
 export { threadProgressionGraph } from './thread-progression-data.js';
-export { priorKnowledgeGraph } from './prior-knowledge-graph/index.js';
-export type {
-  PriorKnowledgeEdge,
-  PriorKnowledgeGraph,
-  PriorKnowledgeGraphStats,
-  PriorKnowledgeNode,
-} from './prior-knowledge-graph/index.js';
 export { graphCorpus } from './graph-corpus/index.js';
 export type {
   GraphCorpus,

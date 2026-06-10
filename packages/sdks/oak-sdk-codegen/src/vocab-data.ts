@@ -11,7 +11,6 @@
 
 export {
   threadProgressionGraph,
-  priorKnowledgeGraph,
   misconceptionGraph,
   vocabularyGraph,
   ncCoverageGraph,
