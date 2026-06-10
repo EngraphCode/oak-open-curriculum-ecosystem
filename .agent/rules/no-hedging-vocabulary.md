@@ -86,6 +86,16 @@ names the plan, gate, or owner decision that resolves the work — see
 §What to Do Instead). Regression coverage:
 `agent-tools/tests/hook-policy/scoped-blocks-indefinite-deferral.unit.test.ts`.
 
+**Rejected patterns (design-time, 2026-06-10) — do not "complete" the
+family with these.** Bare `\bpark\b` is excluded: curriculum content
+legitimately names parks ("Hyde Park", "visiting the park"), and the
+inflected forms cover the deferral usage. `on ice` is excluded:
+skating/science lesson content uses it literally. `defer`/`deferred`
+are excluded deliberately — a *sequenced deferral to a named gate* is
+legitimate repo vocabulary (PDR-026 deferral-honesty); the pathogen is
+deferral-to-nowhere, not deferral itself. Adding any of these would
+trade a known false-positive flood for no real coverage gain.
+
 ## In-Scope Surfaces
 
 - `.agent/practice-core/`
