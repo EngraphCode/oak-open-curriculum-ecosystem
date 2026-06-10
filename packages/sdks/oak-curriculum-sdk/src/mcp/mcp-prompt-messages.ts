@@ -114,7 +114,7 @@ Call get-curriculum-model first for domain definitions and tool guidance. MCP to
 
 Workflow:
 1. Use search (scope "lessons") to find the Oak material for "${topic}", narrowed to ${yearGroup}: the search tool filters lessons by year group through its "year" parameter — pass the year number (for example, year: 4 for "Year 4"), not a key stage, so results match ${yearGroup}. Then get the lesson summary, transcript, and quiz.
-2. Surface the pedagogical signals: use get-misconception-graph and get-prior-knowledge-graph (plus the quiz and transcript) to see the likely misconceptions and prerequisite gaps for this lesson.
+2. Surface the pedagogical signals: use get-misconception-graph (plus the quiz and transcript) to see the likely misconceptions for this lesson. For the prerequisite gaps, take the unit slug of the lesson you selected in step 1 and call get-prior-knowledge-graph({ unitSlugs: ["<unit-slug-from-step-1>"] }) — it returns the bounded prior-knowledge subgraph for that unit.
 3. Name the pedagogical move each signal raises (this is your reasoning, not EEF data). Pick the real EEF strands for those moves from the strand index in the eef://interpretation resource — convert your free-form reasoning into the finite strand ids and axis values the tool accepts at the boundary.
 4. Call get-eef-evidence with those finite inputs. Read eef://interpretation when applying the evidence so you interpret impact, cost, evidence strength, and caveats faithfully.
 5. Give me the adapted lesson as evidence-calibrated options and trade-offs — not a single recommendation or selection, with a short rationale for each. The decision is mine to make.
@@ -183,7 +183,7 @@ Call get-curriculum-model first for domain definitions and tool guidance.
 Please:
 1. Use search with scope "threads" to find progression threads: search({ query: "${concept}", scope: "threads", subject: "${subject}" })
 2. Use get-thread-progressions for the full progression graph
-3. Use get-prior-knowledge-graph for unit-level dependencies
+3. Take the unit slugs of the thread units from steps 1-2 and call get-prior-knowledge-graph({ unitSlugs: ["<unit-slug-from-step-2>", "<another-unit-slug-from-step-2>"] }) with them for unit-level dependencies
 4. Map out:
    - The progression from earliest to latest year group
    - Key prerequisites at each stage
