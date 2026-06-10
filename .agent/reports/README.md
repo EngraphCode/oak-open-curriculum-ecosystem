@@ -42,6 +42,12 @@ research notes or investigation logs.
   engineering quality, effectiveness, operational friction, verification
   posture, and agentic-practice substrate; includes blunt ratings, evidence
   snapshot, risk modes, and ordered improvement recommendations
+- [graph-team-first-worktree-run-analysis-2026-06-10.md](./graph-team-first-worktree-run-analysis-2026-06-10.md)
+  — Director's witness synthesis of the worktree-team shape's first live run:
+  the three structurally-dissolved failure modes validated, the rotation
+  protocol under live fire, the comms-watch stall incident end to end, two
+  evidence-forced de-escalations, adjudication economics across five PRs, and
+  Director-pattern observations for the seat's future holders
 - [oak-openapi-bug-report-2026-03-07.md](./oak-openapi-bug-report-2026-03-07.md)
   — existing standalone report
 - [claude-code-compaction-thinking-block-bug-2026-05-28.md](./claude-code-compaction-thinking-block-bug-2026-05-28.md)

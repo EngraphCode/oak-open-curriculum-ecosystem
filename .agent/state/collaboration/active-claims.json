@@ -54,7 +54,35 @@
       "intent": "G1b (Seat B / Track G): prior-knowledge bounded-anchored view + tool rewrite. c1 prerequisite view in graph-corpus-sdk (per-view createGraphView, depth default 2, module-load + startup-cost check); c2 rewrite get-prior-knowledge-graph (anchor unitSlug[]+depth, TextContent+structuredContent), REMOVE curriculum://prior-knowledge-graph (catalogue+drift-guard) + orphaned old dataset, ANCHOR-THREADING prompt repoints (adapt-lesson step 2 prior-knowledge clause only + learning-progression step 3), raise eef-revalidation. Removed-URI assertions expect -32602. One PR off origin/main; source in worktree oak-wt-airy-g."
     },
     {
-      "claim_id": "fb9eb588-f32e-489c-b495-2346d0a1525d",
+      "claim_id": "d84fc69b-67a6-44fe-a37b-cbc3bb53cd85",
+      "agent_id": {
+        "agent_name": "Luminous Scattering Dawn",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "39d471",
+        "id": "edc8a284-c8b0-5e8c-a7d6-2158bc4acf66"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/collaboration-state/comms-watch-loop.ts",
+            "agent-tools/src/collaboration-state/cli-comms-watch.ts",
+            "agent-tools/src/collaboration-state/cli-runtime.ts",
+            "agent-tools/src/collaboration-state/watcher-staleness.ts",
+            "agent-tools/src/collaboration-state/**/*.test.ts",
+            ".agent/rules/comms-all-channels-watcher.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T15:11:08Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "comms-watch-hang-hardening (owner-named; Director brief 15:06:19Z): c1 per-step deadlines fail-loud in watchCommsLoop; c2 watcher-heartbeat liveness default-on (derive heartbeat path from seen-file); c3 regression-pin waitForAnyDirectoryChange poll-bound + retire interim rule caution in comms-all-channels-watcher.md (rule-paragraph edit pre-authorised against Veiled claim c42e4b8c). One pure-diff PR off origin/main; worktree oak-wt-luminous-tools; Director-serialised merge."
+    },
+    {
+      "claim_id": "15a76136-ce64-4718-9c18-8f2d58ff0ac8",
       "agent_id": {
         "agent_name": "Iridescent Glowing Sun",
         "platform": "claude",
@@ -67,16 +95,15 @@
         {
           "kind": "files",
           "patterns": [
-            "packages/sdks/oak-sdk-codegen/src/bulk/extractors/keyword-extractor.ts",
-            "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts",
-            "apps/oak-search-cli/bulk-downloads/**"
+            ".agent/state/collaboration/handoffs/2026-06-10-iridescent-g4-keywords-graph-design.md",
+            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md"
           ]
         }
       ],
-      "claimed_at": "2026-06-10T14:53:50Z",
+      "claimed_at": "2026-06-10T15:35:03Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G4 Gate-1 parity determination (READ-ONLY ANALYSIS — no source/plan/state edits). Compares bulk keyword fields + lesson-coverage vs the live /keywords response for sampled anchors; produces a recorded verdict routed to Director (Veiled) who lands it in the plan per the Seat-C convention. Areas listed are READ surfaces, not edit locks."
+      "intent": "Owner-directed G4 keywords-graph DESIGN pull-forward + successor handoff. Authoring the reshaped-G4 design (two tools: keywords_api rename + bulk keywords_graph richly decorated) as a ready-to-fold plan section in a handoff record; Director folds into the canonical plan + commits. Build gated on G2; design-ready-for-successor. Plan pattern is the design DESTINATION (Director's commit surface), not an edit lock by me."
     }
   ]
 }
