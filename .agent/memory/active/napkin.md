@@ -193,3 +193,17 @@ observations:
   byte-identical), critically assess content first-hand (the ADR edits were stale-doc corrections —
   verified against live source), commit on THEIR branch in THEIR worktree via git -C, push + PR,
   then write-forward HEAD over the now-redundant primary copies (loss-free by construction).
+- **A handoff hypothesis is a floor, not a fix-spec** (Pearly, S2/B2): the record's
+  "yearGroup→keyStage mapping" repair was honestly marked unconfirmed; the pre-execution reviewer
+  surfaced a missed `year` param, and first-hand schema tracing (flat-zod-schema → validation →
+  execution → searchLessons) found the lessons-scope `year` filter matching yearGroup granularity
+  exactly — the landed fix preserved precision instead of coarsening. Confirm-the-defect-first +
+  reviewer-before-execution caught it; the hypothesis-marked-as-hypothesis discipline made the
+  supersession frictionless. (cwd-reset gotcha independently CONFIRMED by Pearly — zero misfires
+  once `git -C` was adopted throughout.)
+- **Package name ≠ directory name** (Pearly): the curriculum SDK is `@oaknational/curriculum-sdk`
+  but lives at `packages/sdks/oak-curriculum-sdk` — `pnpm --filter` takes the package name.
+- **Hook-policy substring false-positive on compound commands** (Director): `git … push` plus a
+  later `gh api -f body=` in ONE Bash command matched the force-push pattern and was blocked.
+  Cure: split the push and the API calls into separate commands; the reappraisal direction was
+  honoured (no sibling-command bypass — the push genuinely carried no force flag).

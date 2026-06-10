@@ -14,13 +14,16 @@ merge_class: index-narrative-tables
 - **THIS SESSION (2026-06-10, Veiled Listening Secret / claude Fable 5, Director, branch
   `docs/graph-team-direction-2026-06-10`) — graph implementation team, first worktree-team run.**
   Owner-ratified shape live: Director coordination home = primary checkout (owner-confirmed,
-  Director off main); implementers in own worktrees, pure-diff PRs. Delivered: **S1 MERGED**
-  (PR #152, `c2aa4791`, Riverine Swimming Sail) — plan todo completed; **G1a SHIPPED** (PR #153,
-  `177df9b6`, Airy Wheeling Gale; ADR-086 amended in-commit; emitted corpus 1,612 nodes / 3,452
-  edges / 0 dangling) — **merge HELD on two verified Copilot findings** (broken `./curriculum`
-  export runtime — tsup glob gap; eager-loading `./graph-corpus` barrel): the Seat B successor's
-  FIRST task, before S2-gated G1b. **S2 IN FLIGHT** (Pearly Snorkelling Dock, claim `682584f8`,
-  `feat/s2-prompt-language-pass`). Arc rulings: **non-major versioning through the alpha
+  Director off main); implementers in own worktrees, pure-diff PRs. Delivered + MERGED: **S1**
+  (PR #152, Riverine Swimming Sail), **S2** (PR #155, Pearly Snorkelling Dock; B2 repaired via
+  the lessons-scope `year` filter — no keyStage coarsening; B4 owner-signed-off no-rename),
+  **U1** (PR #156, Pearly; upstream /keywords request — alphabetical-despite-frequency-promise
+  evidence) — **Seat A lane complete, Pearly stood down clean**; **G1a** (PR #153, Airy Wheeling
+  Gale + Abyssal Swimming Mast's two Copilot fixes `8ac240be`: ./curriculum runtime emitted,
+  aggregate eager-load dropped; ADR-086 amended in-commit; corpus 1,612 nodes / 3,452 edges /
+  0 dangling); Blooming Bending Root's ADR-058/060 addenda Director-integrated (PR #154).
+  **G1b IN FLIGHT** (Abyssal, off post-#153 origin/main; gate discharged — S1+S2 merged).
+  Arc rulings: **non-major versioning through the alpha
   redesign** (all G-units; Riverine flag, Director-ratified, owner-silent default); removed-URI
   reads return **-32602** not -32002 (plan §Protocol notes corrected); stale-corpus fork
   **dissolved by evidence** (committed corpus ≡ 2026-05-21 bulk content; do not re-open);

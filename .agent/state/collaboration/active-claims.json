@@ -28,30 +28,28 @@
       "intent": "Director (graph implementation team): coordination home owner — all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; merge sequencing"
     },
     {
-      "claim_id": "682584f8-50f1-4c4a-83b5-16385c8c8e2b",
+      "claim_id": "9aad3134-8bba-45ee-ba14-e95480de21b8",
       "agent_id": {
-        "agent_name": "Pearly Snorkelling Dock",
+        "agent_name": "Abyssal Swimming Mast",
         "platform": "claude",
         "model": "Opus 4.8",
-        "session_id_prefix": "5e9a5c",
-        "id": "d1d40263-7c56-532e-9273-e233bcfb98d4"
+        "session_id_prefix": "b14f60",
+        "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
       },
       "thread": "eef",
       "areas": [
         {
           "kind": "files",
           "patterns": [
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.unit.test.ts"
+            "packages/sdks/graph-corpus-sdk/tsup.config.ts",
+            "packages/sdks/oak-sdk-codegen/src/graph-corpus.ts"
           ]
         }
       ],
-      "claimed_at": "2026-06-10T13:25:26Z",
+      "claimed_at": "2026-06-10T13:44:10Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "S2 (Seat A / Track S): s2-prompt-language-pass — fixed-language pass over the 5 served MCP prompts (canonical arg vocabulary per B3; distinguishable names per B4; adapt-lesson arg-mapping fix per B2 once confirmed first-hand). One atomic test+code pure-diff PR off origin/main. Source edits in my own worktree /Users/jim/code/oak/oak-wt-seat-a; this is the coordination-home visibility claim. Team critical path — G1b gate is S2-only."
+      "intent": "G1a #153 held-merge fixes (Seat B / Track G, Director Addendum): (1) add src/curriculum/**/*.ts to graph-corpus-sdk tsup entry globs so ./curriculum default condition ships dist/curriculum/*.js; (2) re-point oak-sdk-codegen/src/graph-corpus.ts barrel at ./generated/vocab/graph-corpus/index.js direct (drop aggregate eager-load). One commit on feat/g1a-graph-corpus-foundation; source edits in worktree /Users/jim/code/oak/oak-wt-airy-g; this is the coordination-home visibility claim. Then S2-gated G1b."
     }
   ]
 }
