@@ -28,53 +28,30 @@
       "intent": "Director (graph implementation team): coordination home owner — all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; merge sequencing"
     },
     {
-      "claim_id": "57a83f00-0c6f-4812-be85-bca154e0fc9b",
+      "claim_id": "682584f8-50f1-4c4a-83b5-16385c8c8e2b",
       "agent_id": {
-        "agent_name": "Airy Wheeling Gale",
+        "agent_name": "Pearly Snorkelling Dock",
         "platform": "claude",
         "model": "Opus 4.8",
-        "session_id_prefix": "597439",
-        "id": "91aa593c-263b-50b5-97b3-b7216729a720"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "workspace",
-          "patterns": [
-            "packages/sdks/oak-sdk-codegen/**",
-            "packages/sdks/graph-corpus-sdk/**"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-10T12:05:45Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "G1a (Seat B / Track G): vocab-gen emits the graph-corpus dataset (unit nodes w/ materialised kind-qualified id + prerequisiteFor edges; dangling-endpoint integrity resolution + zero-dangling generator test); new ./graph-corpus subpath barrel (ADR-108 inv.2); replace prior-knowledge-graph/types.ts ONLY with emitted types; ADR-086 amendment rides the same commit; graph-corpus-sdk curriculum adapter. Source edits happen in my own worktree off origin/main; this is the coordination-home visibility claim."
-    },
-    {
-      "claim_id": "fadd64b7-eed3-4e8e-a17f-c118d738f088",
-      "agent_id": {
-        "agent_name": "Riverine Swimming Sail",
-        "platform": "claude",
-        "model": "Opus 4.8",
-        "session_id_prefix": "5cc20f",
-        "id": "ce2996db-7810-54f5-9cb3-dcee397dd256"
+        "session_id_prefix": "5e9a5c",
+        "id": "d1d40263-7c56-532e-9273-e233bcfb98d4"
       },
       "thread": "eef",
       "areas": [
         {
           "kind": "files",
           "patterns": [
-            "packages/sdks/oak-curriculum-sdk/src/mcp/documentation-resources.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/all-resources.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/all-resources.unit.test.ts"
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.unit.test.ts"
           ]
         }
       ],
-      "claimed_at": "2026-06-10T12:11:15Z",
+      "claimed_at": "2026-06-10T13:25:26Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "S1 doc-resources single-sourcing (curriculum://model is canonical): remove docs://oak/tools.md, remove/fold docs://oak/workflows.md, de-dup getting-started Tips; A5 invariant intact (model + eef://interpretation untouched); drift-guard green. One small pure-diff PR. Worktree oak-wt-seat-a, branch feat/s1-doc-resources-single-source."
+      "intent": "S2 (Seat A / Track S): s2-prompt-language-pass — fixed-language pass over the 5 served MCP prompts (canonical arg vocabulary per B3; distinguishable names per B4; adapt-lesson arg-mapping fix per B2 once confirmed first-hand). One atomic test+code pure-diff PR off origin/main. Source edits in my own worktree /Users/jim/code/oak/oak-wt-seat-a; this is the coordination-home visibility claim. Team critical path — G1b gate is S2-only."
     }
   ]
 }

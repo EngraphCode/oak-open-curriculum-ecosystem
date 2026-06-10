@@ -24,8 +24,8 @@ todos:
     content: "Define the one bulk curriculum graph's heterogeneous node/edge model. COMPLETED 2026-06-09: kind-qualified deterministic ids minted at vocab-gen, materialised as an explicit `id` field on every emitted node (never a nodeId-extractor convention); placement-as-edge; typed edges re-projected from the one bulk source; views are per-view GraphView constructions over the one corpus (construction-time edge selection — NO substrate extension; the earlier 'required edgeTypes? extension' claim is corrected); thread-progressions is an ordered corpus projection (own real operation). Misconception mint-rule stability (content-hash vs ordinal) is a named G2 design item. Evidence: seam-analysis report §1.2–§1.3, §4.7."
     status: completed
   - id: s1-doc-resources-single-source
-    content: "S1 (one PR): doc-resources single-sourcing under the curriculum://model-is-canonical principle. Remove docs://oak/tools.md (triplicates tools/list + model toolCategories); remove or fold docs://oak/workflows.md (verbatim duplicate; its track-progression workflow goes stale when tools are bounded); de-duplicate getting-started's Tips block (reference model, do not copy). A5 invariant: curriculum://model and eef://interpretation are untouched and unbroken (drift-guard test green). Independent of Track G."
-    status: pending
+    content: "COMPLETED 2026-06-10: PR #152 merged (c2aa4791; commits 529786df + 89536435). Both duplicate doc resources removed, getting-started Tips reference the model, A5 invariant live-proven, drift-guard green; code-expert + mcp-expert approved; Copilot comments adjudicated first-hand (deprecation-stub cure refuted per replace-dont-bridge). Removed-URI reads return -32602 — see §Protocol notes. — S1 (one PR): doc-resources single-sourcing under the curriculum://model-is-canonical principle. Remove docs://oak/tools.md (triplicates tools/list + model toolCategories); remove or fold docs://oak/workflows.md (verbatim duplicate; its track-progression workflow goes stale when tools are bounded); de-duplicate getting-started's Tips block (reference model, do not copy). A5 invariant: curriculum://model and eef://interpretation are untouched and unbroken (drift-guard test green). Independent of Track G."
+    status: completed
   - id: s2-prompt-language-pass
     content: "S2 (one PR): prompt-surface fixed-language pass over the five served prompts — B3 canonical domain vocabulary (terms from curriculum://model; keyStage and yearGroup stay distinct) + B4 distinguishable prompt names (renames go THROUGH the fixed vocabulary) + B2 adapt-lesson arg-mapping repair. Outward-facing renames need owner sign-off at the PR. Independent of Track G; lands before G-units' prompt-step repoints where possible to minimise churn."
     status: pending
@@ -223,8 +223,10 @@ Evidence and the full grounding trail:
 - **Staged resource removal is protocol-safe by construction**: the production transport is
   stateless per request (`sessionIdGenerator: undefined`, ADR-112) — every connection re-discovers
   `resources/list` and `tools/list`, so no `listChanged` notification plumbing is load-bearing or
-  needed; a `resources/read` on a removed URI returns the spec's `-32002`. Do not wire
-  notification plumbing the architecture makes inert.
+  needed; a `resources/read` on a removed URI returns `-32602` (InvalidParams) from the live SDK
+  (verified first-hand at S1 against `@modelcontextprotocol/sdk@1.29.0`; the spec's `-32002` is a
+  SHOULD the SDK does not implement — removed-URI assertions in G1b/G2/G3 expect `-32602`). Do not
+  wire notification plumbing the architecture makes inert.
 - **Zero-arg → required-anchor is a deliberate behaviour break** for any caller relying on the
   old form (replace-don't-bridge; no aliasing or deprecation step). The mitigation is the tool
   description carrying the anchor contract, and the per-request transport means no client holds a

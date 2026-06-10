@@ -12,7 +12,11 @@ authority). Evidence:
 **Entry ritual**: every seat runs
 [`start-right-team`](../../skills/start-right-team/SKILL-CANONICAL.md) (Director) or
 [`start-right-quick`](../../skills/start-right-quick/shared/start-right.md) (implementers),
-registers its PDR-027 identity on the `eef` thread, and reads this brief end to end.
+registers its PDR-027 identity on the `eef` thread, and reads this brief end to end. A seat
+continuing another session's lane ALSO reads its seat's latest handoff record under
+`.agent/state/collaboration/handoffs/` end to end before any source edit — natural-boundary
+closeouts leave no claim carrying `handoff_record_path`, so the record is reached from here, the
+Director's pickup brief, and the thread record, not from the claims registry.
 
 ## Team shape (owner-ratified)
 
@@ -50,7 +54,10 @@ machine-local path into a versioned file). Consequences, by construction:
 
 ## Worktree setup (operator or Director, once per seat)
 
-From the initial primary checkout, on a current `main`, every agent creates a new worktree for itself.
+From the initial primary checkout, on a current `main`, every agent creates a new worktree for
+itself — or, when continuing a seat after a session rotation, adopts the seat's existing worktree
+in the state the handoff record describes (pull `main`, cut the next branch; never re-create over
+a worktree holding recorded state).
 
 Director worktrees should be clearly identified as such.
 

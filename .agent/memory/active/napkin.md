@@ -140,3 +140,56 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   Design insight worth keeping: the collaboration CLIs being path-parameterised means worktree
   topology needs ZERO new tooling, and it converts three of this arc's lessons (registry
   conflicts, gate coupling, watcher exit-condition discipline) into structure on first use.
+
+## 2026-06-10 — graph implementation team session (Veiled Listening Secret, 7c8e8e, Director)
+
+First live run of the worktree-team shape (Director + Riverine S1 + Airy G1a). Consolidated from
+implementer handoff records (Seat A: `2026-06-10-riverine-seat-a-s1-to-s2.md`) + Director
+observations:
+
+- **Worktree cwd gotcha (Riverine, high value): the Bash shell cwd resets to the PRIMARY checkout
+  between calls.** All git ops in a worktree MUST use `git -C <worktree>` (or cd inside the one
+  command) — otherwise they silently hit the Director's tree. Worktree teams must internalise this.
+- **Co-Authored-By trailer must land BEFORE the first push** (Riverine): amending a pushed commit
+  needs a force-push the deny rule blocks. Once the commit merges to main the decision is forced —
+  leave as-is; never amend merged history.
+- **Fresh worktrees lack gitignored env files** (Riverine): the live-MCP exercise needs
+  `apps/oak-curriculum-mcp-streamable-http/.env.local` copied from the primary; it never rides a PR.
+- **Bot reviewers caught what both specialist sub-agents missed** (Riverine, #152): Copilot found a
+  stale JSDoc + a vacuous-pass e2e after code-expert/mcp-expert approved. Real-time first-hand
+  adjudication fired both ways: two comments applied, one deprecation-stub cure refuted
+  (replace-dont-bridge). Layered reviewers earn their keep.
+- **Execution-start re-verification works as designed** (Airy): the pinned-facts duty surfaced a
+  sourceVersion gap (committed corpus 2026-03-07 vs bulk 2026-05-21); a 1.74s throwaway re-mine
+  proved content-identity (pinned facts hold exactly; ~13 cosmetic lines), dissolving the fork
+  before it reshaped scope. Quantify-the-drift-first beats deciding from the label. Do not re-open.
+- **An owner edit naming "every agent" can pull apart against a role whose defining property is
+  elsewhere** (Director): "every agent creates a worktree" vs "the Director's checkout is the
+  coordination home" — surfaced the interpretation per forced-verdict-on-interpretation doctrine;
+  owner ruled primary checkout + Director branch off main. Cheap question, topology-defining answer.
+- **Natural-boundary closeouts leave no claim carrying `handoff_record_path`** — the skill's pickup
+  mechanism only fires on retained claims. Cure landed in the team opener's entry ritual: successor
+  seats read their seat's latest handoff record routed via opener + Director pickup brief + thread
+  record, not the claims registry.
+- **Green gates do not prove the package export contract** (Director, #153): the monorepo
+  `development` export condition resolves to `src/`, so a `./curriculum` subpath whose `default`
+  points at a never-built `dist/curriculum/index.js` passes build+test+e2e while broken for real
+  consumers. tsup entry globs are per-tree; a new src subtree needs its glob. Verify new subpath
+  exports against the `default` condition (dist-level), not just the monorepo gates.
+- **Explore-agent output is input-to-verify, by half** (Airy): its TYPE facts were correct and
+  load-bearing; its DESIGN suggestions were hallucinated (proposed NLP edge-parsing where the real
+  generator builds edges from thread ordering). Read the actual generator before accepting design
+  claims. Sibling of [[feedback_validate_specialist_findings_before_acting]].
+- **correct-at-every-commit can force a literal-todo deviation — surface it, don't silently
+  follow** (Airy): "G1a deletes prior-knowledge types.ts" would have broken the still-live tool;
+  additive-G1a + G1b deferral honoured the invariant, the plan todo holds at the G1 level, and the
+  deviation was broadcast, not silent. Intra-lane sequencing within a delegated split is the
+  implementer's call.
+- **vocab-gen is ungated** (Airy): it is separate from sdk-codegen and no CI gate re-runs it, so
+  generated-vs-generator drift persists invisibly while main stays green. Surfaced by the honest
+  execution-start re-verification; candidate structural cure belongs with the G2/G3 resync.
+- **Integrating an unregistered agent's work** (Director, Blooming): work left uncommitted in a
+  shared checkout integrates safely as: locate ALL copies (their worktree + primary were
+  byte-identical), critically assess content first-hand (the ADR edits were stale-doc corrections —
+  verified against live source), commit on THEIR branch in THEIR worktree via git -C, push + PR,
+  then write-forward HEAD over the now-redundant primary copies (loss-free by construction).
