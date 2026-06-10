@@ -36,8 +36,11 @@ export interface DocumentationResource {
 /**
  * Documentation resources available for MCP registration.
  *
- * These resources provide "getting started" and tool usage documentation.
- * MCP clients can list these via resources/list and read via resources/read.
+ * Provides the "getting started" guide. Tool categories, workflows, tips, and
+ * `fetch` ID formats are single-sourced through the canonical
+ * `curriculum://model` resource (and the `get-curriculum-model` tool), not
+ * duplicated here. MCP clients can list these via resources/list and read via
+ * resources/read.
  */
 export const DOCUMENTATION_RESOURCES: readonly DocumentationResource[] = [
   {

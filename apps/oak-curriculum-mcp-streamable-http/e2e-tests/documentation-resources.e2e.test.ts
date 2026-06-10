@@ -95,10 +95,16 @@ describe('Documentation Resources E2E', () => {
           method: 'resources/list',
         });
 
+      expect(response.status).toBe(200);
+
       const envelope = parseSseEnvelope(response.text);
       const parsed = ResourcesListResultSchema.safeParse(envelope.result);
+      expect(parsed.success).toBe(true);
 
       const uris = (parsed.data?.resources ?? []).map((r) => r.uri);
+      // The list is genuinely populated (getting-started present) and the
+      // duplicated doc resources are gone — not a vacuous pass on a parse failure.
+      expect(uris).toContain('docs://oak/getting-started.md');
       expect(uris).not.toContain('docs://oak/tools.md');
       expect(uris).not.toContain('docs://oak/workflows.md');
     });
