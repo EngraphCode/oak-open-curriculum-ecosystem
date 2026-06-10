@@ -38,12 +38,12 @@ import type { SourceAttribution } from '@oaknational/sdk-codegen/mcp-tools';
  *
  * @example
  * ```typescript
- * const config: GraphSurfaceConfig<MisconceptionGraph> = \{
- *   name: 'misconception-graph',
- *   title: 'Oak Curriculum Misconception Graph',
- *   description: 'Misconception graph...',
- *   uriSegment: 'misconception-graph',
- *   sourceData: misconceptionGraph,
+ * const config: GraphSurfaceConfig<ThreadProgressionsData> = \{
+ *   name: 'thread-progressions',
+ *   title: 'Oak Curriculum Thread Progressions',
+ *   description: 'Thread progressions...',
+ *   uriSegment: 'thread-progressions',
+ *   sourceData: threadProgressions,
  *   summary: `Graph loaded. $\{stats\}.`,
  * \};
  * ```

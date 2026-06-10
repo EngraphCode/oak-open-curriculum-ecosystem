@@ -85,27 +85,39 @@ export type CurriculumPriorKnowledgeView = GraphView<
 export function createCurriculumPriorKnowledgeView(
   maxDepth: number = MAX_PREREQUISITE_DEPTH,
 ): CurriculumPriorKnowledgeView {
+  // Per-view selection (the settled substrate mechanism): this view includes
+  // exactly the unit nodes and the prerequisiteFor edges — the G2 chain kinds
+  // (thread/lesson/misconception nodes, containsUnit/containsLesson/
+  // addressesMisconception edges) live in the same corpus but are not part of
+  // the prior-knowledge traversal.
   const reversedPrerequisiteEdges: readonly GraphEdge<GraphCorpusNodeId, 'prerequisiteFor'>[] =
-    graphCorpus.edges.map((edge) => ({
-      source: edge.target,
-      type: 'prerequisiteFor' as const,
-      target: edge.source,
-    }));
+    graphCorpus.edges
+      .filter((edge) => edge.type === 'prerequisiteFor')
+      .map((edge) => ({
+        source: edge.target,
+        type: 'prerequisiteFor' as const,
+        target: edge.source,
+      }));
 
   return createGraphView<GraphCorpusUnitNode, GraphCorpusNodeId, 'prerequisiteFor'>({
-    nodes: graphCorpus.nodes,
+    nodes: corpusUnitNodes,
     edges: reversedPrerequisiteEdges,
     nodeId: (node) => node.id,
     maxDepth,
   });
 }
 
+/** The corpus's unit nodes — the node kind this view traverses (per-view selection). */
+const corpusUnitNodes: readonly GraphCorpusUnitNode[] = graphCorpus.nodes.filter(
+  (node): node is GraphCorpusUnitNode => node.kind === 'unit',
+);
+
 /** The prior-knowledge view, constructed once at module load (EEF `eef-graph.ts` precedent). */
 const priorKnowledgeView: CurriculumPriorKnowledgeView = createCurriculumPriorKnowledgeView();
 
-/** The corpus node-id set, for resolving anchor slugs to known nodes once at module load. */
+/** The unit node-id set, for resolving anchor slugs to known nodes once at module load. */
 const corpusNodeIds: ReadonlySet<GraphCorpusNodeId> = new Set(
-  graphCorpus.nodes.map((node) => node.id),
+  corpusUnitNodes.map((node) => node.id),
 );
 
 /**

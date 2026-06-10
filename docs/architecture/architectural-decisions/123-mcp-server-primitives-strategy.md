@@ -9,6 +9,11 @@ Accepted (amended 2026-06-10)
 > resource catalogue; the anchored, bounded `get-prior-knowledge-graph` tool
 > is the prior-knowledge value surface. See the Resources section below for
 > the post-removal table and rationale.
+>
+> **Amendment (2026-06-10 — graph-tools-value-redesign, deliverable G2).**
+> The `curriculum://misconception-graph` resource was removed on the same
+> grounds; the anchored, bounded `get-misconception-graph` tool (lesson,
+> unit, and windowed thread anchors) is the misconception value surface.
 
 ## Context
 
@@ -48,20 +53,21 @@ the tool visibility metadata exposed through the MCP contract.
 
 ### Resources (application-controlled)
 
-Three resources for clients that support resource injection:
+Two curriculum resources for clients that support resource injection:
 
 | Resource URI                       | Content                    | Priority | Audience        |
 | ---------------------------------- | -------------------------- | -------- | --------------- |
 | `curriculum://model`               | Domain ontology + guidance | 1.0      | `["assistant"]` |
 | `curriculum://thread-progressions` | Learning progression data  | 0.5      | `["assistant"]` |
-| `curriculum://misconception-graph` | Misconception data         | 0.5      | `["assistant"]` |
 
-The host application decides whether and how to inject these into the model's context. Only `curriculum://model` (priority 1.0) should be loaded at conversation start — the other graph resources are supplementary and should be loaded only when the conversation needs them.
+The host application decides whether and how to inject these into the model's context. Only `curriculum://model` (priority 1.0) should be loaded at conversation start — the thread-progressions resource is supplementary and should be loaded only when the conversation needs it.
 
-Prior-knowledge data is deliberately tool-only: the whole-corpus
-`curriculum://prior-knowledge-graph` resource was removed (2026-06-10, G1b)
-when the anchored, bounded `get-prior-knowledge-graph` tool became its value
-surface — a whole-corpus dump has no bounded resource form.
+Prior-knowledge and misconception data are deliberately tool-only: the
+whole-corpus `curriculum://prior-knowledge-graph` (2026-06-10, G1b) and
+`curriculum://misconception-graph` (2026-06-10, G2) resources were removed
+when the anchored, bounded `get-prior-knowledge-graph` and
+`get-misconception-graph` tools became their value surfaces — a whole-corpus
+dump has no bounded resource form.
 
 A fourth resource serves the interactive MCP App widget:
 

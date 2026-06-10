@@ -14,10 +14,7 @@ import { describe, it, expect } from 'vitest';
 import { createStubbedHttpApp, STUB_ACCEPT_HEADER } from './helpers/create-stubbed-http-app.js';
 import { parseSseEnvelope } from './helpers/sse.js';
 import { z } from 'zod';
-import {
-  getMisconceptionGraphJson,
-  getThreadProgressionsJson,
-} from '@oaknational/curriculum-sdk/public/mcp-tools.js';
+import { getThreadProgressionsJson } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
 /** JSON-RPC error shape for removed-URI assertions (code is load-bearing). */
 const JsonRpcErrorWithCodeSchema = z.object({
@@ -208,7 +205,7 @@ describe('Supplementary Data Resources E2E', () => {
       expect(threadProgressions?.mimeType).toBe('application/json');
     });
 
-    it('includes curriculum://misconception-graph in resource list', async () => {
+    it('does not list curriculum://misconception-graph (removed — served by the anchored tool)', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -221,12 +218,8 @@ describe('Supplementary Data Resources E2E', () => {
       const parsed = ResourcesListResultSchema.safeParse(envelope.result);
       expect(parsed.success).toBe(true);
 
-      const resources = parsed.data?.resources ?? [];
-      const misconceptionGraph = resources.find(
-        (r) => r.uri === 'curriculum://misconception-graph',
-      );
-      expect(misconceptionGraph).toBeDefined();
-      expect(misconceptionGraph?.mimeType).toBe('application/json');
+      const uris = (parsed.data?.resources ?? []).map((r) => r.uri);
+      expect(uris).not.toContain('curriculum://misconception-graph');
     });
   });
 
@@ -252,14 +245,30 @@ describe('Supplementary Data Resources E2E', () => {
       expect(error.code).toBe(-32602);
     });
 
+    it('reading the removed misconception-graph URI is a -32602 JSON-RPC error', async () => {
+      const { app } = await createStubbedHttpApp();
+
+      const response = await request(app)
+        .post('/mcp')
+        .set('Host', 'localhost')
+        .set('Accept', STUB_ACCEPT_HEADER)
+        .send({
+          jsonrpc: '2.0',
+          id: '1',
+          method: 'resources/read',
+          params: { uri: 'curriculum://misconception-graph' },
+        });
+
+      const envelope = parseSseEnvelope(response.text);
+      // SDK 1.29.0 rejects an unknown resource URI as InvalidParams (-32602);
+      // the spec's -32002 resource-not-found is an unimplemented SHOULD.
+      const error = JsonRpcErrorWithCodeSchema.parse(envelope.error);
+      expect(error.code).toBe(-32602);
+    });
+
     it('thread progressions returns the source data via MCP protocol', async () => {
       const content = await readResource('curriculum://thread-progressions');
       expect(content).toBe(getThreadProgressionsJson());
-    });
-
-    it('misconception graph returns the source data via MCP protocol', async () => {
-      const content = await readResource('curriculum://misconception-graph');
-      expect(content).toBe(getMisconceptionGraphJson());
     });
   });
 });

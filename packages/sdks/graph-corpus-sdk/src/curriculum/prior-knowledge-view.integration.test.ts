@@ -20,9 +20,12 @@ import {
   createCurriculumPriorKnowledgeView,
 } from './prior-knowledge-view.js';
 
+/** The prerequisite subgraph's edges — the one-graph corpus carries the G2 chain types too. */
+const prerequisiteEdges = graphCorpus.edges.filter((edge) => edge.type === 'prerequisiteFor');
+
 /** Reference incoming-adjacency: target → its direct predecessors (the sources of edges into it). */
 const predecessorsOf = new Map<GraphCorpusNodeId, GraphCorpusNodeId[]>();
-for (const edge of graphCorpus.edges) {
+for (const edge of prerequisiteEdges) {
   const existing = predecessorsOf.get(edge.target);
   if (existing) {
     existing.push(edge.source);
@@ -71,11 +74,11 @@ function required<T>(value: T | undefined, message: string): T {
 
 /** A unit with at least one direct predecessor (a non-self-loop incoming edge), chosen deterministically. */
 const anchorWithPredecessors: GraphCorpusNodeId = required(
-  [...graphCorpus.edges]
+  [...prerequisiteEdges]
     .filter((edge) => edge.source !== edge.target)
     .map((edge) => edge.target)
     .sort((a, b) => a.localeCompare(b))[0],
-  'corpus has no non-self-loop edge to anchor the prior-knowledge test',
+  'corpus has no non-self-loop prerequisite edge to anchor the prior-knowledge test',
 );
 
 /**
@@ -84,7 +87,7 @@ const anchorWithPredecessors: GraphCorpusNodeId = required(
  * `predecessorsOf` oracle (no separate edge-key set).
  */
 const cleanDirectedEdge = required(
-  graphCorpus.edges.find(
+  prerequisiteEdges.find(
     (edge) =>
       edge.source !== edge.target && !(predecessorsOf.get(edge.source) ?? []).includes(edge.target),
   ),
@@ -99,7 +102,7 @@ describe('prior-knowledge view — bounded anchored predecessor retrieval', () =
       return;
     }
 
-    const ids = new Set(result.value.nodes.map((node) => node.id));
+    const ids = new Set<GraphCorpusNodeId>(result.value.nodes.map((node) => node.id));
     const expected = expectedPredecessorMembers(
       [anchorWithPredecessors],
       DEFAULT_PREREQUISITE_DEPTH,

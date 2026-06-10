@@ -1,9 +1,10 @@
 /**
  * Integration tests for MCP resource registration.
  *
- * These tests verify that documentation, curriculum model, prior knowledge graph,
- * thread progressions, and widget resources are registered with the correct
- * metadata and content.
+ * These tests verify that documentation, curriculum model, thread
+ * progressions, and widget resources are registered with the correct
+ * metadata and content — and that the removed whole-corpus graph resources
+ * (prior knowledge, misconception) stay unregistered.
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
@@ -420,6 +421,14 @@ describe('registerAllResources registers supplementary data resources', () => {
 
     const uris = Array.from(registeredResources.keys());
     expect(uris).not.toContain('curriculum://prior-knowledge-graph');
+  });
+
+  it('does not register the removed curriculum://misconception-graph (served by the anchored tool)', async () => {
+    registerAllResources(server, options);
+    await flush();
+
+    const uris = Array.from(registeredResources.keys());
+    expect(uris).not.toContain('curriculum://misconception-graph');
   });
 
   it('registers curriculum://thread-progressions', async () => {

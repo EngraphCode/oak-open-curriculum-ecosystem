@@ -1,232 +1,223 @@
 /**
- * Graph-corpus generator (G1a — the one-graph foundation).
+ * Graph-corpus generator (G1a foundation + G2 chain re-projection).
  *
  * @remarks
  * Emits the bulk curriculum graph as a single corpus with one identity space
- * (plan graph-tools-value-redesign, Decision A). G1a emits the `unit` node kind
- * and prerequisiteFor edges between units; later deliverables add node kinds and
- * edge types to the same corpus.
+ * (plan graph-tools-value-redesign, Decision A). G1a emitted the `unit` node
+ * kind and prerequisiteFor edges; G2 adds the `thread`, `lesson`, and
+ * `misconception` node kinds and the thread→unit→lesson→misconception chain
+ * edges (`containsUnit`, `containsLesson`, `addressesMisconception`). Later
+ * deliverables add node kinds and edge types to the same corpus.
  *
  * Identity model: node ids are kind-qualified and minted at generation from
- * `(kind, source key)` — a unit node id is `unit:<unitSlug>`, materialised as an
- * explicit `id` field so the `createGraphView` nodeId extractor returns
- * `node.id` rather than a bare slug.
+ * `(kind, source key)` — `unit:<unitSlug>`, `thread:<threadSlug>`,
+ * `lesson:<lessonSlug>` — materialised as an explicit `id` field so the
+ * `createGraphView` nodeId extractor returns `node.id` rather than a bare
+ * slug. Misconceptions have no source key: their id is the settled
+ * content-hash mint `misconception:<lessonSlug>#<hash16(normalise(text))>`
+ * (`misconception-mint.ts`). Slugs remain content keys; unit↔lesson
+ * placement is an edge (correct by construction for multi-unit lesson
+ * placement).
  *
- * Node set: the union of units carrying prior-knowledge requirements and units
- * appearing in any thread (both carry full metadata). Edges come from thread
- * ordering, so every endpoint is a thread unit and therefore a node — the corpus
- * has zero dangling endpoints by construction and builds in `createGraphView`
- * without throwing. The defensive path records any unresolved endpoint in
- * `droppedEdges` rather than emitting a dangling edge. Self-loops (an upstream
- * data-quality signal) are preserved and counted; the bounded BFS is
- * visited-set-safe.
+ * Every edge endpoint resolves to an emitted node — the corpus has zero
+ * dangling endpoints by construction and builds in `createGraphView` without
+ * throwing (unresolvable endpoints drop their edge into `droppedEdges`
+ * provenance). Self-loops on prerequisiteFor edges (an upstream data-quality
+ * signal) are preserved and counted.
+ *
+ * Determinism: nodes emit grouped by kind and id-sorted within each kind;
+ * edges emit sorted by (type, source, target). The emitted artefact is
+ * identical regardless of bulk-file enumeration order (the order-independence
+ * contract — `discoverBulkFiles` is an unsorted readdir).
+ *
+ * The module decomposes along build seams: types and id mints in
+ * `graph-corpus-types.ts`, node builders in `graph-corpus-nodes.ts`, edge
+ * builders in `graph-corpus-edges.ts`; this module assembles the corpus.
  *
  * @see ADR-086 for the export pattern; ADR-031 for generation-time extraction.
  */
-import type { ExtractedPriorKnowledge } from '../extractors/index.js';
-import type { ExtractedThread, ThreadUnit } from '../extractors/thread-extractor.js';
+import {
+  buildContainsLessonEdges,
+  buildContainsUnitEdges,
+  buildPrerequisiteEdges,
+} from './graph-corpus-edges.js';
+import {
+  buildMisconceptionNodes,
+  type MisconceptionBuild,
+} from './graph-corpus-misconception-nodes.js';
+import { buildLessonNodes, buildThreadNodes, buildUnitNodes } from './graph-corpus-nodes.js';
+import type {
+  GraphCorpus,
+  GraphCorpusDroppedEdge,
+  GraphCorpusEdge,
+  GraphCorpusEdgeType,
+  GraphCorpusInput,
+  GraphCorpusLessonNode,
+  GraphCorpusNode,
+  GraphCorpusStats,
+  GraphCorpusUnitNode,
+} from './graph-corpus-types.js';
 
-/** A kind-qualified graph-corpus node id (`unit:<unitSlug>` for a unit node). */
-export type GraphCorpusNodeId = `unit:${string}`;
+export type {
+  GraphCorpus,
+  GraphCorpusNode,
+  GraphCorpusUnitNode,
+  GraphCorpusThreadNode,
+  GraphCorpusLessonNode,
+  GraphCorpusMisconceptionNode,
+  GraphCorpusEdge,
+  GraphCorpusEdgeType,
+  GraphCorpusNodeId,
+  GraphCorpusUnitNodeId,
+  GraphCorpusThreadNodeId,
+  GraphCorpusLessonNodeId,
+  GraphCorpusMisconceptionNodeId,
+  GraphCorpusStats,
+  GraphCorpusNodeKindCounts,
+  GraphCorpusEdgeTypeCounts,
+  GraphCorpusDroppedEdge,
+  GraphCorpusDroppedDuplicate,
+  GraphCorpusInput,
+} from './graph-corpus-types.js';
 
-/** A unit node in the graph corpus. */
-export interface GraphCorpusUnitNode {
-  readonly id: GraphCorpusNodeId;
-  readonly unitSlug: string;
-  readonly unitTitle: string;
-  readonly subject: string;
-  readonly keyStage: string;
-  readonly year: number | undefined;
-  readonly priorKnowledge: readonly string[];
-  readonly threadSlugs: readonly string[];
-}
-
-/** A typed directed edge between unit nodes (graph-core `GraphEdge` shape). */
-export interface GraphCorpusEdge {
-  readonly source: GraphCorpusNodeId;
-  readonly type: 'prerequisiteFor';
-  readonly target: GraphCorpusNodeId;
-}
-
-/** Provenance for an edge dropped because an endpoint could not be resolved. */
-export interface GraphCorpusDroppedEdge {
-  readonly source: GraphCorpusNodeId;
-  readonly target: GraphCorpusNodeId;
-  readonly type: 'prerequisiteFor';
-  readonly reason: string;
-}
-
-/** Statistics about the graph corpus. */
-export interface GraphCorpusStats {
-  readonly totalNodes: number;
-  readonly totalEdges: number;
-  readonly subjectsCovered: readonly string[];
-  readonly selfLoops: number;
-}
-
-/** The graph corpus: one identity space surfaced through bounded views. */
-export interface GraphCorpus {
-  readonly version: string;
-  readonly generatedAt: string;
-  readonly sourceVersion: string;
-  readonly stats: GraphCorpusStats;
-  readonly nodes: readonly GraphCorpusUnitNode[];
-  readonly edges: readonly GraphCorpusEdge[];
-  readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
-  readonly seeAlso: string;
-}
-
-/** Mints the kind-qualified id for a unit node. */
-function unitNodeId(unitSlug: string): GraphCorpusNodeId {
-  return `unit:${unitSlug}`;
-}
-
-/** Mutable node accumulator used during construction. */
-interface NodeAccumulator {
-  readonly unitSlug: string;
-  readonly unitTitle: string;
-  readonly subject: string;
-  readonly keyStage: string;
-  readonly year: number | undefined;
-  readonly priorKnowledge: string[];
-  readonly threadSlugs: string[];
-}
-
-/**
- * Ensures (creating on first sight from the unit's metadata) the accumulator for
- * a unit. Thread units are visited before prior-knowledge entries, so existing
- * accumulators keep their first-seen metadata.
- */
-function ensureNode(
-  byUnit: Map<string, NodeAccumulator>,
-  unit: ThreadUnit | ExtractedPriorKnowledge,
-): NodeAccumulator {
-  const existing = byUnit.get(unit.unitSlug);
-  if (existing) {
-    return existing;
-  }
-  const created: NodeAccumulator = {
-    unitSlug: unit.unitSlug,
-    unitTitle: unit.unitTitle,
-    subject: unit.subject,
-    keyStage: unit.keyStage,
-    year: unit.year,
-    priorKnowledge: [],
-    threadSlugs: [],
-  };
-  byUnit.set(unit.unitSlug, created);
-  return created;
-}
-
-/** Builds the union node set (thread units and prior-knowledge units), slug-sorted. */
-function buildNodes(
-  priorKnowledge: readonly ExtractedPriorKnowledge[],
-  threads: readonly ExtractedThread[],
-): readonly GraphCorpusUnitNode[] {
-  const byUnit = new Map<string, NodeAccumulator>();
-  for (const thread of threads) {
-    for (const unit of thread.units) {
-      const node = ensureNode(byUnit, unit);
-      if (!node.threadSlugs.includes(thread.slug)) {
-        node.threadSlugs.push(thread.slug);
-      }
-    }
-  }
-  for (const pk of priorKnowledge) {
-    ensureNode(byUnit, pk).priorKnowledge.push(pk.requirement);
-  }
-  return [...byUnit.values()]
-    .sort((a, b) => a.unitSlug.localeCompare(b.unitSlug))
-    .map((node) => ({ ...node, id: unitNodeId(node.unitSlug) }));
-}
-
-/** Consecutive (from, to) unit pairs along each thread's ordering. */
-function threadOrderingPairs(
-  threads: readonly ExtractedThread[],
-): readonly (readonly [ThreadUnit, ThreadUnit])[] {
-  const pairs: (readonly [ThreadUnit, ThreadUnit])[] = [];
-  for (const thread of threads) {
-    for (let i = 0; i < thread.units.length - 1; i += 1) {
-      const from = thread.units[i];
-      const to = thread.units[i + 1];
-      if (from && to) {
-        pairs.push([from, to]);
-      }
-    }
-  }
-  return pairs;
-}
-
-/** The resolved edge set plus the provenance of any dropped edges. */
-interface ResolvedEdges {
+/** Resolved `addressesMisconception` edges plus dropped-edge provenance. */
+interface MisconceptionEdges {
   readonly edges: readonly GraphCorpusEdge[];
   readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
 }
 
-/** Resolves thread-ordering pairs into edges, dropping any with an unknown endpoint. */
-function buildEdges(
-  threads: readonly ExtractedThread[],
-  knownUnitSlugs: ReadonlySet<string>,
-): ResolvedEdges {
+/** Resolves lesson→misconception pairs into edges, dropping any whose lesson is unknown. */
+function buildAddressesMisconceptionEdges(
+  misconceptionBuild: MisconceptionBuild,
+  lessonNodes: readonly GraphCorpusLessonNode[],
+): MisconceptionEdges {
+  const knownLessonIds = new Set(lessonNodes.map((node) => node.id));
   const edges: GraphCorpusEdge[] = [];
   const droppedEdges: GraphCorpusDroppedEdge[] = [];
-  for (const [from, to] of threadOrderingPairs(threads)) {
-    const source = unitNodeId(from.unitSlug);
-    const target = unitNodeId(to.unitSlug);
-    if (knownUnitSlugs.has(from.unitSlug) && knownUnitSlugs.has(to.unitSlug)) {
-      edges.push({ source, type: 'prerequisiteFor', target });
+  for (const [source, target] of misconceptionBuild.edgePairs) {
+    if (knownLessonIds.has(source)) {
+      edges.push({ source, type: 'addressesMisconception', target });
     } else {
-      const missing = knownUnitSlugs.has(from.unitSlug) ? to.unitSlug : from.unitSlug;
       droppedEdges.push({
         source,
         target,
-        type: 'prerequisiteFor',
-        reason: `endpoint "${missing}" is not resolvable to a bulk unit node`,
+        type: 'addressesMisconception',
+        reason: `endpoint "${source}" is not resolvable to a bulk lesson node`,
       });
     }
   }
   return { edges, droppedEdges };
 }
 
-/** Collects the unique subjects present across the corpus nodes. */
+/** Sorts edges by (type, source, target) for a deterministic artefact. */
+function sortEdges(edges: readonly GraphCorpusEdge[]): readonly GraphCorpusEdge[] {
+  return [...edges].sort(
+    (a, b) =>
+      a.type.localeCompare(b.type) ||
+      a.source.localeCompare(b.source) ||
+      a.target.localeCompare(b.target),
+  );
+}
+
+/** Counts edges of one type. */
+function countEdges(edges: readonly GraphCorpusEdge[], type: GraphCorpusEdgeType): number {
+  return edges.filter((edge) => edge.type === type).length;
+}
+
+/** Collects the unique subjects present across the unit nodes. */
 function collectSubjects(nodes: readonly GraphCorpusUnitNode[]): readonly string[] {
   return [...new Set(nodes.map((node) => node.subject))].sort((a, b) => a.localeCompare(b));
 }
 
-/**
- * Generates the graph corpus from extracted bulk data: unit nodes with
- * materialised kind-qualified ids and prerequisiteFor edges, with zero dangling
- * endpoints (every edge endpoint resolves to a node).
- *
- * @param priorKnowledge - Extracted prior-knowledge requirements (node metadata + requirements)
- * @param threads - Extracted threads (edge ordering + thread-unit node metadata)
- * @param sourceVersion - Version identifier for the source bulk download data
- * @returns The graph corpus (unit nodes + prerequisiteFor edges; `droppedEdges` empty in practice)
- */
-export function generateGraphCorpusData(
-  priorKnowledge: readonly ExtractedPriorKnowledge[],
-  threads: readonly ExtractedThread[],
-  sourceVersion: string,
-): GraphCorpus {
-  const nodes = buildNodes(priorKnowledge, threads);
-  const knownUnitSlugs = new Set(nodes.map((node) => node.unitSlug));
-  const { edges, droppedEdges } = buildEdges(threads, knownUnitSlugs);
-  const selfLoops = edges.filter((edge) => edge.source === edge.target).length;
+/** The assembled node and edge sets plus provenance, pre-stats. */
+interface CorpusAssembly {
+  readonly unitNodes: readonly GraphCorpusUnitNode[];
+  readonly threadNodeCount: number;
+  readonly lessonNodeCount: number;
+  readonly misconceptionBuild: MisconceptionBuild;
+  readonly nodes: readonly GraphCorpusNode[];
+  readonly edges: readonly GraphCorpusEdge[];
+  readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
+}
+
+/** Builds the full node and edge sets from the extracted input. */
+function assembleCorpus(input: GraphCorpusInput): CorpusAssembly {
+  const { priorKnowledge, threads, lessons, misconceptions } = input;
+  const unitNodes = buildUnitNodes(priorKnowledge, threads, lessons);
+  const threadNodes = buildThreadNodes(threads);
+  const lessonNodes = buildLessonNodes(lessons);
+  const misconceptionBuild = buildMisconceptionNodes(misconceptions);
+
+  const knownUnitSlugs = new Set(unitNodes.map((node) => node.unitSlug));
+  const prerequisite = buildPrerequisiteEdges(threads, knownUnitSlugs);
+  const addresses = buildAddressesMisconceptionEdges(misconceptionBuild, lessonNodes);
+
   return {
-    version: '1.0.0',
-    generatedAt: new Date().toISOString(),
-    sourceVersion,
-    stats: {
-      totalNodes: nodes.length,
-      totalEdges: edges.length,
-      subjectsCovered: collectSubjects(nodes),
-      selfLoops,
+    unitNodes,
+    threadNodeCount: threadNodes.length,
+    lessonNodeCount: lessonNodes.length,
+    misconceptionBuild,
+    nodes: [...unitNodes, ...threadNodes, ...lessonNodes, ...misconceptionBuild.nodes],
+    edges: sortEdges([
+      ...prerequisite.edges,
+      ...buildContainsUnitEdges(threads),
+      ...buildContainsLessonEdges(lessons),
+      ...addresses.edges,
+    ]),
+    droppedEdges: [...prerequisite.droppedEdges, ...addresses.droppedEdges],
+  };
+}
+
+/** Computes the corpus stats from an assembly. */
+function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
+  const { unitNodes, edges } = assembly;
+  const selfLoops = edges.filter(
+    (edge) => edge.type === 'prerequisiteFor' && edge.source === edge.target,
+  ).length;
+  return {
+    totalNodes: assembly.nodes.length,
+    totalEdges: edges.length,
+    nodeKindCounts: {
+      unit: unitNodes.length,
+      thread: assembly.threadNodeCount,
+      lesson: assembly.lessonNodeCount,
+      misconception: assembly.misconceptionBuild.nodes.length,
     },
-    nodes,
-    edges,
-    droppedEdges,
+    edgeTypeCounts: {
+      prerequisiteFor: countEdges(edges, 'prerequisiteFor'),
+      containsUnit: countEdges(edges, 'containsUnit'),
+      containsLesson: countEdges(edges, 'containsLesson'),
+      addressesMisconception: countEdges(edges, 'addressesMisconception'),
+    },
+    subjectsCovered: collectSubjects(unitNodes),
+    selfLoops,
+    collapsedIdenticalMisconceptions: assembly.misconceptionBuild.collapsedIdentical,
+  };
+}
+
+/**
+ * Generates the graph corpus from extracted bulk data: unit, thread, lesson,
+ * and misconception nodes with materialised kind-qualified ids, and the
+ * prerequisiteFor + thread→unit→lesson→misconception chain edges, with zero
+ * dangling endpoints (every edge endpoint resolves to a node).
+ *
+ * @param input - Extracted bulk data and the source version identifier
+ * @returns The graph corpus (`droppedEdges`/`droppedDuplicates` empty in practice)
+ */
+export function generateGraphCorpusData(input: GraphCorpusInput): GraphCorpus {
+  const assembly = assembleCorpus(input);
+  return {
+    version: '1.1.0',
+    generatedAt: new Date().toISOString(),
+    sourceVersion: input.sourceVersion,
+    stats: buildStats(assembly),
+    nodes: assembly.nodes,
+    edges: assembly.edges,
+    droppedEdges: assembly.droppedEdges,
+    droppedDuplicates: assembly.misconceptionBuild.droppedDuplicates,
     seeAlso:
       'One bulk curriculum graph surfaced as bounded views. Use the prior-knowledge view ' +
-      'for "what comes before" queries; use get-thread-progressions for ordered learning paths.',
+      'for "what comes before" queries; use the misconception view for the ' +
+      'thread→unit→lesson→misconception chain; use get-thread-progressions for ordered learning paths.',
   };
 }

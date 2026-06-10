@@ -11,7 +11,6 @@
 
 export {
   threadProgressionGraph,
-  misconceptionGraph,
   vocabularyGraph,
   ncCoverageGraph,
   minedDefinitionSynonyms,

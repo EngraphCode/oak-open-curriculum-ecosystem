@@ -167,7 +167,7 @@ const AGGREGATED_HANDLERS: Readonly<Record<AggregatedToolName, AggregatedHandler
   'get-curriculum-model': () => Promise.resolve(handleCurriculumModelTool()),
   'get-thread-progressions': () => Promise.resolve(runThreadProgressionsTool()),
   'get-prior-knowledge-graph': (input) => Promise.resolve(runPriorKnowledgeGraphTool(input)),
-  'get-misconception-graph': () => Promise.resolve(runMisconceptionGraphTool()),
+  'get-misconception-graph': (input) => Promise.resolve(runMisconceptionGraphTool(input)),
   'get-eef-evidence': (input) =>
     Promise.resolve(eefEvidenceToCallToolResult(runEefEvidenceTool(input))),
   fetch: handleFetchTool,

@@ -19,12 +19,6 @@ export type {
   GraphCorpusStats,
   GraphCorpusDroppedEdge,
 } from './graph-corpus/index.js';
-export { misconceptionGraph } from './misconception-graph/index.js';
-export type {
-  MisconceptionGraph,
-  MisconceptionGraphStats,
-  MisconceptionNode,
-} from './misconception-graph/index.js';
 export { vocabularyGraph } from './vocabulary-graph/index.js';
 export type {
   VocabularyGraph,

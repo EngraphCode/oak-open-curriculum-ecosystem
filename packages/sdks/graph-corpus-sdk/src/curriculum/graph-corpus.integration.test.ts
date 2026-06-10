@@ -1,34 +1,51 @@
 /**
- * Integration test (G1a): the emitted graph corpus loads from
+ * Integration test (G1a + G2): the emitted graph corpus loads from
  * `@oaknational/sdk-codegen/graph-corpus` and constructs a `GraphView` over the
  * full corpus without throwing.
  *
  * @remarks
- * This is the G1a "integration (emitted corpus loads)" proof at corpus scale:
- * the generator unit test specifies the emitted shape against fixtures; this
- * test exercises the REAL emitted dataset (≈1.6k unit nodes, ≈3.5k
- * prerequisiteFor edges) through the loader and the `createGraphView`
- * construction contract, proving the integrity resolution holds at scale (zero
- * dangling endpoints, no duplicate ids).
+ * This is the "integration (emitted corpus loads)" proof at corpus scale: the
+ * generator unit tests specify the emitted shape against fixtures; this test
+ * exercises the REAL emitted dataset (unit/thread/lesson/misconception nodes;
+ * prerequisiteFor + thread→unit→lesson→misconception chain edges) through the
+ * loader and the `createGraphView` construction contract, proving the
+ * integrity resolution holds at scale (zero dangling endpoints, no duplicate
+ * ids).
  */
 import { describe, expect, it } from 'vitest';
 
 import { graphCorpus } from './graph-corpus.js';
 import { createCurriculumPriorKnowledgeView } from './prior-knowledge-view.js';
 
+const EDGE_TYPES = [
+  'prerequisiteFor',
+  'containsUnit',
+  'containsLesson',
+  'addressesMisconception',
+] as const;
+
+const EDGE_TYPE_SET: ReadonlySet<string> = new Set(EDGE_TYPES);
+
 describe('curriculum graph corpus (integration over the emitted dataset)', () => {
-  it('loads the emitted corpus with unit nodes and prerequisiteFor edges', () => {
+  it('loads the emitted one-graph corpus with every node kind and edge type present', () => {
     expect(graphCorpus.nodes.length).toBeGreaterThan(1000);
     expect(graphCorpus.edges.length).toBeGreaterThan(1000);
-    expect(graphCorpus.edges.every((edge) => edge.type === 'prerequisiteFor')).toBe(true);
+    for (const kind of ['unit', 'thread', 'lesson', 'misconception'] as const) {
+      expect(graphCorpus.nodes.some((node) => node.kind === kind)).toBe(true);
+    }
+    for (const type of EDGE_TYPES) {
+      expect(graphCorpus.edges.some((edge) => edge.type === type)).toBe(true);
+    }
+    expect(graphCorpus.edges.every((edge) => EDGE_TYPE_SET.has(edge.type))).toBe(true);
   });
 
-  it('carries a materialised kind-qualified unit id on every node', () => {
-    expect(graphCorpus.nodes.every((node) => node.id === `unit:${node.unitSlug}`)).toBe(true);
+  it('carries a materialised kind-qualified id on every node', () => {
+    expect(graphCorpus.nodes.every((node) => node.id.startsWith(`${node.kind}:`))).toBe(true);
   });
 
-  it('has zero dropped edges (G1a integrity resolution complete)', () => {
+  it('has zero dropped edges and zero dropped duplicates (integrity resolution complete)', () => {
     expect(graphCorpus.droppedEdges).toHaveLength(0);
+    expect(graphCorpus.droppedDuplicates).toHaveLength(0);
   });
 
   it('resolves every edge endpoint to a node id (zero dangling at corpus scale)', () => {

@@ -25,13 +25,11 @@ import type { Logger } from '@oaknational/logger';
 import {
   generateAnalysisReport,
   generateMinedSynonyms,
-  generateMisconceptionGraphData,
   generateNCCoverageGraphData,
   generateThreadProgressionData,
   generateVocabularyGraphData,
   writeAnalysisReportFile,
   writeMinedSynonymsFile,
-  writeMisconceptionGraphAsJson,
   writeNCCoverageGraphAsJson,
   writeThreadProgressionFile,
   writeVocabularyGraphAsJson,
@@ -118,12 +116,15 @@ async function generateOutputFiles(
   const threadFilePath = await writeThreadProgressionFile(threadGraph, config.outputPath, logger);
   outputFiles.push(basename(threadFilePath));
 
-  // Generate the graph corpus (one-graph foundation: unit nodes + prerequisiteFor edges)
-  const graphCorpus = generateGraphCorpusData(
-    result.extractedData.priorKnowledge,
-    result.extractedData.threads,
+  // Generate the graph corpus (one-graph foundation + G2 chain:
+  // unit/thread/lesson/misconception nodes, prerequisiteFor + chain edges)
+  const graphCorpus = generateGraphCorpusData({
+    priorKnowledge: result.extractedData.priorKnowledge,
+    threads: result.extractedData.threads,
+    lessons: result.extractedData.lessons,
+    misconceptions: result.extractedData.misconceptions,
     sourceVersion,
-  );
+  });
   const graphCorpusDirPath = await writeGraphCorpusAsJson(graphCorpus, config.outputPath, logger);
   outputFiles.push(basename(graphCorpusDirPath));
 
@@ -137,18 +138,6 @@ async function generateOutputFiles(
   const synonymsDir = join(config.outputPath, 'synonyms');
   const synonymsFilePath = await writeMinedSynonymsFile(minedSynonyms, synonymsDir, logger);
   outputFiles.push(`synonyms/${basename(synonymsFilePath)}`);
-
-  // Generate misconception graph (JSON + typed loader)
-  const misconceptionGraph = generateMisconceptionGraphData(
-    result.extractedData.misconceptions,
-    sourceVersion,
-  );
-  const misconceptionDirPath = await writeMisconceptionGraphAsJson(
-    misconceptionGraph,
-    config.outputPath,
-    logger,
-  );
-  outputFiles.push(basename(misconceptionDirPath));
 
   // Generate vocabulary graph (JSON + typed loader)
   const vocabularyGraph = generateVocabularyGraphData(result.extractedData.keywords, sourceVersion);
