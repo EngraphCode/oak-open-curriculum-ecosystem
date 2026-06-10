@@ -21,8 +21,20 @@ describe('MCP_PROMPTS', () => {
     expect(prompt?.description).toContain('plan');
   });
 
-  it('has exactly 5 prompts', () => {
-    expect(MCP_PROMPTS).toHaveLength(5);
+  it('has exactly 6 prompts', () => {
+    expect(MCP_PROMPTS).toHaveLength(6);
+  });
+
+  it('has curriculum-mapping prompt with subject and keyStage arguments', () => {
+    const prompt = MCP_PROMPTS.find((p) => p.name === 'curriculum-mapping');
+    expect(prompt).toBeDefined();
+    expect(prompt?.description).toContain('map');
+    expect(prompt?.arguments).toContainEqual(
+      expect.objectContaining({ name: 'subject', required: true }),
+    );
+    expect(prompt?.arguments).toContainEqual(
+      expect.objectContaining({ name: 'keyStage', required: true }),
+    );
   });
 
   it('has adapt-lesson prompt with topic and yearGroup arguments', () => {
@@ -254,6 +266,67 @@ describe('getPromptMessages', () => {
       const content = messages.map((m) => m.content.text).join(' ');
       expect(content).toContain('get-thread-progressions');
       expect(content).toContain('get-prior-knowledge-graph');
+    });
+  });
+
+  describe('curriculum-mapping prompt', () => {
+    it('returns messages with subject and keyStage in content', () => {
+      const messages = getPromptMessages('curriculum-mapping', {
+        subject: 'maths',
+        keyStage: 'ks2',
+      });
+      expect(messages.length).toBeGreaterThan(0);
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('maths');
+      expect(content).toContain('ks2');
+      expect(content).toMatch(/get-curriculum-model/);
+    });
+
+    it('grounds the map in threads, prerequisites, and coverage tools', () => {
+      const messages = getPromptMessages('curriculum-mapping', {
+        subject: 'maths',
+        keyStage: 'ks2',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The mapping backbone from the oak-curriculum-mapper skill:
+      // threads (vertical), prerequisites (horizontal), NC coverage.
+      expect(content).toContain('get-threads');
+      expect(content).toContain('get-thread-progressions');
+      expect(content).toContain('get-prior-knowledge-graph');
+      expect(content).toContain('get-units-summary');
+      expect(content.toLowerCase()).toContain('prerequisite');
+      expect(content.toLowerCase()).toContain('national curriculum');
+    });
+
+    it('includes the year group when provided', () => {
+      const messages = getPromptMessages('curriculum-mapping', {
+        subject: 'maths',
+        keyStage: 'ks2',
+        yearGroup: 'Year 4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('Year 4');
+    });
+
+    it('warns about KS4 structure and routes science via sequences', () => {
+      const messages = getPromptMessages('curriculum-mapping', {
+        subject: 'science',
+        keyStage: 'ks4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('KS4');
+      expect(content).toContain('sequences');
+    });
+
+    it('carries Oak attribution and keeps the map adaptable, not a mandate', () => {
+      const messages = getPromptMessages('curriculum-mapping', {
+        subject: 'maths',
+        keyStage: 'ks2',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('Oak National Academy');
+      expect(content).toContain('Open Government Licence');
+      expect(content.toLowerCase()).toContain('adapt');
     });
   });
 

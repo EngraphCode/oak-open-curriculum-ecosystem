@@ -16,6 +16,7 @@ import {
   getLessonPlanningMessages,
   getExploreCurriculumMessages,
   getLearningProgressionMessages,
+  getCurriculumMappingMessages,
   getAdaptLessonMessages,
 } from './mcp-prompt-messages.js';
 
@@ -113,6 +114,19 @@ export const MCP_PROMPTS: readonly McpPrompt[] = [
     ],
   },
   {
+    name: 'curriculum-mapping',
+    description:
+      "Build or audit a curriculum map — what is taught and in what order across a year or key stage — grounded in Oak's threads, prior-knowledge graph, and national-curriculum coverage.",
+    arguments: [
+      requiredArgument('subject', 'The subject area (e.g., "maths", "science", "english")'),
+      requiredArgument('keyStage', 'The key stage to map (e.g., "ks1", "ks2", "ks3", "ks4")'),
+      optionalArgument(
+        'yearGroup',
+        'Optional: Narrow the map to a specific year group (e.g., "Year 4")',
+      ),
+    ],
+  },
+  {
     name: 'adapt-lesson',
     description:
       'Adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence: surface the pedagogical signals, retrieve the relevant EEF evidence, and present evidence-calibrated options with caveats and attribution intact.',
@@ -149,6 +163,8 @@ export function getPromptMessages(
       return getExploreCurriculumMessages(args);
     case 'learning-progression':
       return getLearningProgressionMessages(args);
+    case 'curriculum-mapping':
+      return getCurriculumMappingMessages(args);
     case 'adapt-lesson':
       return getAdaptLessonMessages(args);
     default:

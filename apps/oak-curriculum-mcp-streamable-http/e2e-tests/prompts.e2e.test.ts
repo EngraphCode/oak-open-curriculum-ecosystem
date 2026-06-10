@@ -60,16 +60,19 @@ async function listPrompts() {
 
 describe('MCP Prompts E2E', () => {
   describe('prompts/list - Client can discover workflow prompts', () => {
-    it.each(['find-lessons', 'lesson-planning', 'explore-curriculum', 'learning-progression'])(
-      'returns %s prompt',
-      async (promptName) => {
-        const { response, parsed, prompts } = await listPrompts();
+    it.each([
+      'find-lessons',
+      'lesson-planning',
+      'explore-curriculum',
+      'learning-progression',
+      'curriculum-mapping',
+    ])('returns %s prompt', async (promptName) => {
+      const { response, parsed, prompts } = await listPrompts();
 
-        expect(response.status).toBe(200);
-        expect(parsed.success).toBe(true);
-        expect(prompts.find((p) => p.name === promptName)).toBeDefined();
-      },
-    );
+      expect(response.status).toBe(200);
+      expect(parsed.success).toBe(true);
+      expect(prompts.find((p) => p.name === promptName)).toBeDefined();
+    });
 
     it('prompts include helpful descriptions', async () => {
       const { prompts } = await listPrompts();
@@ -221,6 +224,35 @@ describe('MCP Prompts E2E', () => {
 
       expect(allText).toContain('volcanos');
       expect(allText).toContain('explore-topic');
+    });
+
+    it('curriculum-mapping prompt grounds the map in threads and prerequisites', async () => {
+      const { app } = await createStubbedHttpApp();
+
+      const response = await request(app)
+        .post('/mcp')
+        .set('Host', 'localhost')
+        .set('Accept', STUB_ACCEPT_HEADER)
+        .send({
+          jsonrpc: '2.0',
+          id: '1',
+          method: 'prompts/get',
+          params: {
+            name: 'curriculum-mapping',
+            arguments: { subject: 'maths', keyStage: 'ks2' },
+          },
+        });
+
+      const envelope = parseSseEnvelope(response.text);
+      const parsed = PromptsGetResultSchema.safeParse(envelope.result);
+
+      const messages = parsed.data?.messages ?? [];
+      const allText = messages.map((m) => m.content.text ?? '').join(' ');
+
+      expect(allText).toContain('maths');
+      expect(allText).toContain('ks2');
+      // Proves: the served prompt grounds ordering in Oak's thread backbone.
+      expect(allText).toContain('get-thread-progressions');
     });
 
     it('learning-progression prompt includes concept and subject', async () => {
