@@ -1,3 +1,12 @@
+## [1.19.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.19.0...v1.19.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* **agent-tools:** adjudicate PR review — robust sync-callback wait, tighter error-kind union ([a60aa1d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a60aa1d7546c7ca6ae060a40efb97aafc511bc98))
+* **agent-tools:** default the comms-watch liveness heartbeat on ([0a1e07d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0a1e07d716b09f1b5dc9a5d7f02af98fa66eba9e))
+* **agent-tools:** per-step deadlines make comms-watch fail loud on hang ([6710712](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6710712f437d8d92c174b3d2c23f6892d34e9da4))
+
 # [1.19.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.18.1...v1.19.0) (2026-06-10)
 
 
