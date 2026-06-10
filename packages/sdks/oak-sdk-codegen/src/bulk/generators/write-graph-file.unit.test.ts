@@ -45,7 +45,7 @@ describe('serializeThreadProgressionGraph', () => {
 
     const serialized = serializeThreadProgressionGraph(graph);
 
-    expect(serialized).toContain("title: 'Newton\\'s Laws',");
+    expect(serialized).toContain(String.raw`title: 'Newton\'s Laws',`);
   });
 
   it('serializes an absent year range as the literal undefined', () => {
