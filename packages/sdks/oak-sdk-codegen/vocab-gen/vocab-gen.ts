@@ -25,13 +25,11 @@ import type { Logger } from '@oaknational/logger';
 import {
   generateAnalysisReport,
   generateMinedSynonyms,
-  generateMisconceptionGraphData,
   generateNCCoverageGraphData,
   generateThreadProgressionData,
   generateVocabularyGraphData,
   writeAnalysisReportFile,
   writeMinedSynonymsFile,
-  writeMisconceptionGraphAsJson,
   writeNCCoverageGraphAsJson,
   writeThreadProgressionFile,
   writeVocabularyGraphAsJson,
@@ -140,18 +138,6 @@ async function generateOutputFiles(
   const synonymsDir = join(config.outputPath, 'synonyms');
   const synonymsFilePath = await writeMinedSynonymsFile(minedSynonyms, synonymsDir, logger);
   outputFiles.push(`synonyms/${basename(synonymsFilePath)}`);
-
-  // Generate misconception graph (JSON + typed loader)
-  const misconceptionGraph = generateMisconceptionGraphData(
-    result.extractedData.misconceptions,
-    sourceVersion,
-  );
-  const misconceptionDirPath = await writeMisconceptionGraphAsJson(
-    misconceptionGraph,
-    config.outputPath,
-    logger,
-  );
-  outputFiles.push(basename(misconceptionDirPath));
 
   // Generate vocabulary graph (JSON + typed loader)
   const vocabularyGraph = generateVocabularyGraphData(result.extractedData.keywords, sourceVersion);

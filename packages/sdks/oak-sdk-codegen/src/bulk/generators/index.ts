@@ -24,15 +24,6 @@ export {
 } from './analysis-report-generator.js';
 
 export {
-  generateMisconceptionGraphData,
-  serializeMisconceptionGraph,
-  writeMisconceptionGraphAsJson,
-  type MisconceptionGraph,
-  type MisconceptionGraphStats,
-  type MisconceptionNode,
-} from './misconception-graph-generator.js';
-
-export {
   generateNCCoverageGraphData,
   serializeNCCoverageGraph,
   writeNCCoverageGraphAsJson,

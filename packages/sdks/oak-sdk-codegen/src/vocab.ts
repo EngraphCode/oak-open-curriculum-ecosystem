@@ -20,9 +20,6 @@ export type {
 } from './mcp/property-graph-data.js';
 
 export type {
-  MisconceptionGraph,
-  MisconceptionGraphStats,
-  MisconceptionNode,
   NCCoverageGraph,
   NCCoverageGraphStats,
   NCStatementNode,
