@@ -223,7 +223,6 @@
             "/tests/",
             ".test.ts"
           ],
-          "excludes_inline_code": true,
           "citation": "no-hedging-vocabulary.md §Indefinite-deferral vocabulary; principles.md §Strict and Complete",
           "reappraisal": "Work is either a live deliverable with named dependencies and an owner-agreed gate, or it is removed by owner decision — there is no indefinite holding state. Name the gate and the decision, or delete the item."
         },

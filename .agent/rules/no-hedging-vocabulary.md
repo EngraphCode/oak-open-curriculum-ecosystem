@@ -71,13 +71,20 @@ of the identity tables that carry them):
 \binto the long grass\b
 ```
 
-In-scope surfaces add `.agent/reports/` and `.agent/memory/operational/`
-to the doctrine set below (continuity and thread records are where
-holding-state language hides). The matcher blocks only newly-added
-instances, so historical dated records remain editable; cure existing
-instances by descriptive substitution on their next legitimate edit
-(a *sequenced deferral* names the plan, gate, or owner decision that
-resolves the work — see §What to Do Instead).
+This group's in-scope surfaces are wider than the literal trip-list's
+(the `## In-Scope Surfaces` section below applies to the literal
+group): `.agent/practice-core/`, `.agent/plans/`, `.agent/reports/`,
+`.agent/memory/operational/`, `docs/architecture/`,
+`docs/governance/`, and any `**/*.plan.md` — continuity and thread
+records are where holding-state language hides. Inline code is NOT
+excluded for this group (a backticked family member in a table row
+would otherwise dodge the block); fenced code blocks remain skipped.
+The matcher blocks only newly-added instances, so historical dated
+records remain editable; cure existing instances by descriptive
+substitution on their next legitimate edit (a *sequenced deferral*
+names the plan, gate, or owner decision that resolves the work — see
+§What to Do Instead). Regression coverage:
+`agent-tools/tests/hook-policy/scoped-blocks-indefinite-deferral.unit.test.ts`.
 
 ## In-Scope Surfaces
 
