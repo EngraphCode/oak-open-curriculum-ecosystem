@@ -2,7 +2,13 @@
 
 ## Status
 
-Accepted
+Accepted (amended 2026-06-10)
+
+> **Amendment (2026-06-10 — graph-tools-value-redesign, deliverable G1b).**
+> The `curriculum://prior-knowledge-graph` resource was removed from the
+> resource catalogue; the anchored, bounded `get-prior-knowledge-graph` tool
+> is the prior-knowledge value surface. See the Resources section below for
+> the post-removal table and rationale.
 
 ## Context
 
@@ -42,16 +48,20 @@ the tool visibility metadata exposed through the MCP contract.
 
 ### Resources (application-controlled)
 
-Four resources for clients that support resource injection:
+Three resources for clients that support resource injection:
 
-| Resource URI                         | Content                    | Priority | Audience        |
-| ------------------------------------ | -------------------------- | -------- | --------------- |
-| `curriculum://model`                 | Domain ontology + guidance | 1.0      | `["assistant"]` |
-| `curriculum://prior-knowledge-graph` | Unit dependency data       | 0.5      | `["assistant"]` |
-| `curriculum://thread-progressions`   | Learning progression data  | 0.5      | `["assistant"]` |
-| `curriculum://misconception-graph`   | Misconception data         | 0.5      | `["assistant"]` |
+| Resource URI                       | Content                    | Priority | Audience        |
+| ---------------------------------- | -------------------------- | -------- | --------------- |
+| `curriculum://model`               | Domain ontology + guidance | 1.0      | `["assistant"]` |
+| `curriculum://thread-progressions` | Learning progression data  | 0.5      | `["assistant"]` |
+| `curriculum://misconception-graph` | Misconception data         | 0.5      | `["assistant"]` |
 
 The host application decides whether and how to inject these into the model's context. Only `curriculum://model` (priority 1.0) should be loaded at conversation start — the other graph resources are supplementary and should be loaded only when the conversation needs them.
+
+Prior-knowledge data is deliberately tool-only: the whole-corpus
+`curriculum://prior-knowledge-graph` resource was removed (2026-06-10, G1b)
+when the anchored, bounded `get-prior-knowledge-graph` tool became its value
+surface — a whole-corpus dump has no bounded resource form.
 
 A fourth resource serves the interactive MCP App widget:
 
