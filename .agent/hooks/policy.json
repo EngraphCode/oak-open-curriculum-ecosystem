@@ -188,6 +188,46 @@
           "reappraisal": "State the durable fact rather than this pointer; if a genuine historical reference is needed, mark it explicitly as one. The fix removes the dependence on a moving target."
         },
         {
+          "concept": "indefinite-deferral",
+          "kind": "regex",
+          "patterns": [
+            "\\bparked\\b",
+            "\\bparking\\b",
+            "\\bpark (?:it|this|that|for now)\\b",
+            "\\bshelv(?:e|ed|ing)\\b",
+            "\\bmothball\\w*\\b",
+            "\\bback[- ]?burner\\w*\\b",
+            "\\bon hold\\b",
+            "\\bput a pin in\\b",
+            "\\bicebox\\w*\\b",
+            "\\binto the long grass\\b"
+          ],
+          "include_paths": [
+            ".agent/practice-core/",
+            ".agent/plans/",
+            ".agent/reports/",
+            ".agent/memory/operational/",
+            "docs/architecture/",
+            "docs/governance/",
+            "**/*.plan.md"
+          ],
+          "exclude_paths": [
+            "principles.md",
+            "distilled.md",
+            "PDR-043",
+            "PDR-044",
+            "PDR-047",
+            "no-hedging-vocabulary.md",
+            "archive/",
+            "fixtures/",
+            "/tests/",
+            ".test.ts"
+          ],
+          "excludes_inline_code": true,
+          "citation": "no-hedging-vocabulary.md §Indefinite-deferral vocabulary; principles.md §Strict and Complete",
+          "reappraisal": "Work is either a live deliverable with named dependencies and an owner-agreed gate, or it is removed by owner decision — there is no indefinite holding state. Name the gate and the decision, or delete the item."
+        },
+        {
           "concept": "menu-framing",
           "kind": "literal",
           "patterns": [
@@ -218,7 +258,7 @@
           "reappraisal": "If you have analysed the situation to a verdict, present the verdict with its evidence; reserve owner questions for genuine permission gates and decisions only the owner can make."
         }
       ],
-      "description": "Block agents from writing into Edit/Write content. Two surfaces: (blocked_patterns) the owner-approval marker, path-agnostic, which only the project owner may author; (scoped_blocks) path-scoped doctrine block GROUPS per PDR-044 §Innate immunity. Each group gathers the surface patterns for one concept and carries the doctrinal `citation` PLUS a `reappraisal` — the positive direction the firing signals — so a block teaches the agent to step back and re-assess the concept rather than to reword around the wall (PDR-044 §Innate immunity, as amended; the doctrine that an enforcement surface must carry the advisory-response content, not only a refusal). `kind` and the `excludes_*` options are group-level: every pattern in a group shares them. The three concepts: (literal) `expediency-hedging` — language that means 'I know the rule applies, but this situation is special' rejected on doctrine surfaces (PDRs, plans, ADRs, governance), with doctrine-defining surfaces excluded so principles.md, distilled.md, PDR-043/044/047 may catalogue the words they forbid; (regex) `sha-in-permanent-doc` — 7- to 40-character hex tokens with at least one a-f character on portable-permanent-doc paths (practice-core, rules, memory/active/patterns, principles.md, testing-strategy.md; ADRs are repo-bound and out of scope per PDR-079), with fenced code blocks, inline-code spans, and `(historical reference)` marker lines excluded; (literal) `menu-framing` — owner-decision phrasings rejected on architectural surfaces so menu-shaped option-sets do not slip past the re-apply-first-question-at-elaboration-boundaries discipline (the rule file itself is excluded so it may catalogue the phrases it forbids). `reappraisal` is enforced present at commit-time by the `validate-policy-reappraisal` repo validator; it is optional at load time so a missing value never fails the guard closed. PDR-044 names false positives as a design property of the innate layer."
+      "description": "Block agents from writing into Edit/Write content. Two surfaces: (blocked_patterns) the owner-approval marker, path-agnostic, which only the project owner may author; (scoped_blocks) path-scoped doctrine block GROUPS per PDR-044 §Innate immunity. Each group gathers the surface patterns for one concept and carries the doctrinal `citation` PLUS a `reappraisal` — the positive direction the firing signals — so a block teaches the agent to step back and re-assess the concept rather than to reword around the wall (PDR-044 §Innate immunity, as amended; the doctrine that an enforcement surface must carry the advisory-response content, not only a refusal). `kind` and the `excludes_*` options are group-level: every pattern in a group shares them. The four concepts: (literal) `expediency-hedging` — language that means 'I know the rule applies, but this situation is special' rejected on doctrine surfaces (PDRs, plans, ADRs, governance), with doctrine-defining surfaces excluded so principles.md, distilled.md, PDR-043/044/047 may catalogue the words they forbid; (regex) `sha-in-permanent-doc` — 7- to 40-character hex tokens with at least one a-f character on portable-permanent-doc paths (practice-core, rules, memory/active/patterns, principles.md, testing-strategy.md; ADRs are repo-bound and out of scope per PDR-079), with fenced code blocks, inline-code spans, and `(historical reference)` marker lines excluded; (regex) `indefinite-deferral` — deferral-to-nowhere vocabulary (owner-directed 2026-06-10) rejected on doctrine and operational-memory surfaces: work is a live deliverable with named gates or it is removed by owner decision, never left in an unagreed holding state; word-boundary regex so substrings inside names (e.g. agent display names containing 'Sparking') never false-positive, with no-hedging-vocabulary.md excluded as the cataloguing home; (literal) `menu-framing` — owner-decision phrasings rejected on architectural surfaces so menu-shaped option-sets do not slip past the re-apply-first-question-at-elaboration-boundaries discipline (the rule file itself is excluded so it may catalogue the phrases it forbids). `reappraisal` is enforced present at commit-time by the `validate-policy-reappraisal` repo validator; it is optional at load time so a missing value never fails the guard closed. PDR-044 names false positives as a design property of the innate layer."
     },
     "sessionStart": {
       "grounding_reminder": "Read .agent/directives/AGENT.md and .agent/memory/active/distilled.md before starting work.",

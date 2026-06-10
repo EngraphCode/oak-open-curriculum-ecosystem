@@ -42,6 +42,43 @@ quick fix
 
 The list is not exhaustive. New shapes graduate when observed.
 
+## Indefinite-Deferral Vocabulary (regex family, added 2026-06-10)
+
+Owner-directed graduation: language that puts work into an
+**unagreed holding state** is the same failure shape as hedging —
+it defers a decision to nowhere instead of naming a gate or making
+the removal decision. Work is either a live deliverable with named
+dependencies and an owner-agreed gate, or it is removed by owner
+decision. There is no third state, and an owner ratification of a
+bundle does not ratify a holding-state clause embedded inside it.
+
+The hook group (`concept: indefinite-deferral`) matches with
+word-boundary regex — not literal substrings — so words *containing*
+a family member never false-positive (agent display names such as
+"Sparking …" contain one; literal matching would block every edit
+of the identity tables that carry them):
+
+```text
+\bparked\b
+\bparking\b
+\bpark (?:it|this|that|for now)\b
+\bshelv(?:e|ed|ing)\b
+\bmothball\w*\b
+\bback[- ]?burner\w*\b
+\bon hold\b
+\bput a pin in\b
+\bicebox\w*\b
+\binto the long grass\b
+```
+
+In-scope surfaces add `.agent/reports/` and `.agent/memory/operational/`
+to the doctrine set below (continuity and thread records are where
+holding-state language hides). The matcher blocks only newly-added
+instances, so historical dated records remain editable; cure existing
+instances by descriptive substitution on their next legitimate edit
+(a *sequenced deferral* names the plan, gate, or owner decision that
+resolves the work — see §What to Do Instead).
+
 ## In-Scope Surfaces
 
 - `.agent/practice-core/`
