@@ -129,3 +129,14 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   owner-prompted status sweep. When rewriting a monitor, diff the EXIT CONDITIONS old-vs-new,
   not just the mechanics. (zsh arrays are 1-indexed; `$((...))` chokes on non-numeric capture —
   guard every variable that feeds arithmetic.)
+
+## 2026-06-10 — team-shape design + memory retirement (Fragrant Spreading Sapling, final)
+
+- **Owner retired the subagent-worktree base-drift caution as stale** ("no reason to assume it
+  is still an issue") — the platform auto-memory entry is deleted; do not re-derive the caution
+  without a fresh observed failure.
+- **Per-session git worktrees + a single Director-owned coordination home** is the ratified
+  next-session team shape (opener: `prompts/connecting-oak-resources/graph-implementation-team.prompt.md`).
+  Design insight worth keeping: the collaboration CLIs being path-parameterised means worktree
+  topology needs ZERO new tooling, and it converts three of this arc's lessons (registry
+  conflicts, gate coupling, watcher exit-condition discipline) into structure on first use.

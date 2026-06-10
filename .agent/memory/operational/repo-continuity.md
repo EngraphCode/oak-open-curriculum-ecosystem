@@ -56,7 +56,10 @@ surface.
   (S1 doc-resources, S2 prompt language, S3-c0 owner design gate, U1 upstream request, or G1
   prior-knowledge view + one-graph foundation), execute its cycles per the plan's proof contract,
   and ship it as one small PR. The plan's frontmatter todos and §Cycles and proof contract are
-  the execution authority; re-verify the pinned data facts against the tree at execution start.**
+  the execution authority; re-verify the pinned data facts against the tree at execution start.
+  Team shape (owner-ratified 2026-06-10): Director (Fable 5) + Opus implementers in per-session
+  git worktrees — the session opener is
+  [`graph-implementation-team.prompt.md`](../../prompts/connecting-oak-resources/graph-implementation-team.prompt.md).**
 - **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder / `527005`, claude /
   Opus 4.8; PR #142 MERGED → v1.17.0).** The deferred A-i/C specialist reviews ran (5 reviewers;
   every finding adjudicated first-hand — code/types/tests SOUND); verified findings landed
