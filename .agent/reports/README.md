@@ -42,6 +42,13 @@ research notes or investigation logs.
   engineering quality, effectiveness, operational friction, verification
   posture, and agentic-practice substrate; includes blunt ratings, evidence
   snapshot, risk modes, and ordered improvement recommendations
+- [mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md](./mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md)
+  — process record for adding session-wide pedagogical / curriculum-rigour
+  grounding to the MCP server `instructions` field: where session instructions
+  live today, the generator gap (tool-orientation only, no general-prose slot),
+  the surface reliability ranking (`instructions` is advisory/client-optional),
+  the future-work process, and the verdict — facts/constraints recorded now as
+  ADR-058/060 addenda; the grounding decision itself stays out until ratified
 - [oak-openapi-bug-report-2026-03-07.md](./oak-openapi-bug-report-2026-03-07.md)
   — existing standalone report
 - [claude-code-compaction-thinking-block-bug-2026-05-28.md](./claude-code-compaction-thinking-block-bug-2026-05-28.md)
