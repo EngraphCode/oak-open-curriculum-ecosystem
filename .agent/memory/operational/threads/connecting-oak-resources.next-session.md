@@ -93,6 +93,7 @@ the inc-1d multi-agent team session, the PR-102/PR-108 arcs) is retained in git 
 | `Stellar Waning Planet` | `claude` | `Opus 4.8` | `64c383` | `mandate-1 scan: graph-estate plan fixes (37020386)` | 2026-06-02 | 2026-06-02 |
 | `Opalescent Cascading Planet` | `claude` | `Opus 4.8` | `0340f9` | `graph-estate consolidation executed (c3b78eec)` | 2026-06-02 | 2026-06-02 |
 | `Galactic Glowing Prism` | `claude` | `Opus 4.8` | `cd7389` | `JC4 unified substrate-migration plan authored (9fab8669)` | 2026-06-02 | 2026-06-02 |
+| `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `stale-fired-trigger-fact-fix-only` | 2026-06-10 | 2026-06-10 |
 
 ## References
 

@@ -25,6 +25,18 @@ terse lessons merged. Future high-signal lessons may be added here when they nee
 the distilled staging surface; fitness is a routing signal, not a reason to avoid
 capture.
 
+## PR delivery practice: monitor-to-merge, flat stacks, pure diffs (2026-06-10, Fragrant Spreading Sapling)
+
+Opening a PR creates a monitoring obligation that ends at merge: watch checks AND review
+comments, adjudicate every bot/reviewer finding first-hand (both halves — refute false claims
+with source grounding, apply true ones), and reply with the verdicts on the PR. Prefer PRs based
+directly on main over serial stacks (stacks make fixing earlier PRs hard — owner, 2026-06-10);
+retarget/flatten as bases merge. Keep shared-registry state (`active-claims.json` and siblings)
+out of feature-PR diffs — it conflicts with every other open PR by construction; resolve such
+conflicts to main's version of the registry, never the branch's. Write sibling-PR claims as
+"lands in PR #N", switching to present tense only after merge. Routing: instances in napkin
+2026-06-10; registry-state architecture candidate in pending-graduations.
+
 ## A "to be synthesised" holding pen — migrate-don't-drop (2026-06-08, Starless Prowling Veil)
 
 A "relocate to synthesise/supersede" holding pen silently absorbs adjacent-collection

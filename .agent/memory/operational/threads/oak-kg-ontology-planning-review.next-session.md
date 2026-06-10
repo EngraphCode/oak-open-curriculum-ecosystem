@@ -72,3 +72,4 @@ surface stubs now live as a forward backlog in the README, not per-surface files
 | --- | --- | --- | --- | --- | --- | --- |
 | `Twilit Cascading Supernova` | `claude` | `Opus 4.8` | `bb53a9` | `thread-opener-brief-only` | 2026-06-04 | 2026-06-04 |
 | `Tempestuous Vaulting Gust` | `claude` | `Opus 4.8` | `d61788` | `deep-reviewer + estate-cleanup` | 2026-06-04 | 2026-06-04 |
+| `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `stale-fired-trigger-fact-fix-only` | 2026-06-10 | 2026-06-10 |

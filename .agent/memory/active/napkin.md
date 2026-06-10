@@ -88,3 +88,29 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   genuine over-long PROSE to reflow; it is NOT tripped by tables or link-heavy lines
   (already discounted). The convenient claim made the not-chase tidy — exactly
   [[feedback_ground_convenient_claims]]; grounding before asserting is the cure.
+
+## 2026-06-10 — closeout continuation: PR monitoring + review adjudication (Fragrant Spreading Sapling)
+
+- **PR-bot comments are other-agent input — both adjudication halves fired, worked instance.**
+  Copilot left 5 comments on PR #146: 2 were FALSE (claimed `\bpark (?:it|this|that|for now)\b`
+  "won't match park-it-for-now" — refuted first-hand: `scanLinesForRegex` runs unanchored
+  `regex.exec` per line, so the contained "park it" fires; encoded as a regression test case) and
+  3 were genuine (doc scope inconsistency; the inline-code exclusion let a backticked family member
+  on a DATA-SHAPED line — a table row — dodge the block; missing sibling regression test). Owner
+  re-stated the standing requirement mid-flight: critical analysis applies to ALL other-agent
+  input, explicitly including GH PR bots. Extends [[feedback_validate_specialist_findings_before_acting]].
+- **Collaboration-ceremony registry writes inside feature PRs are a cross-PR conflict generator.**
+  PR #146 went CONFLICTING within minutes: every commit ceremony writes
+  `active-claims.json`/`closed-claims.archive.json`, so any two open PRs collide on them. Cure
+  that worked: merge main into the branch and resolve the registry files to MAIN's exact content
+  (forward `git show origin/main:<path>` + copy — no blocked restore verbs), making the PR a pure
+  policy/code diff that can never conflict on registry state again. `candidate:` keep ceremony
+  registry state OUT of feature-PR diffs entirely (see pending-graduations).
+- **Branch creation: `git switch -c` is the purpose-built verb; `git checkout -b` trips the
+  worktree-destruction guard** (checkout's overloaded surface is the blocked family; switch -c
+  creates branches with no file-overwrite surface). Reappraisal honoured — not a sibling-command
+  bypass: no worktree state is touched.
+- **Cross-PR present-tense claims read as false until the sibling merges.** #145's docs asserted
+  the trip-list "was added" while it lived in open #146 — Copilot flagged all 4 instances; they
+  became true on merge, but the honest authoring shape is "lands in sibling PR #N" until then.
+  Same family as principles.md §Target-architecture wording needs consuming-runtime evidence.

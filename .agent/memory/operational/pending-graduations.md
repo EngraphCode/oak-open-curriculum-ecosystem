@@ -1810,3 +1810,21 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
 - **trigger-condition**: the next `continuity-practice` / PDR-011 / ADR-150 amendment pass, OR a
   second instance of a loss-scan being outsourced to a third party.
 - **status**: pending
+
+## Commit-ceremony registry state should not ride feature-PR diffs
+
+- **captured-date**: 2026-06-10
+- **source-surface**: napkin 2026-06-10 (Fragrant Spreading Sapling); worked instance — PR #146
+  CONFLICTING on `active-claims.json`/`closed-claims.archive.json` within minutes of opening,
+  because every commit ceremony writes the shared registries and any two open PRs therefore
+  collide; resolved by resetting the registry files to main's content so the PR carries a pure
+  policy diff. Owner named the underlying friction the same day ("serial branches make it hard to
+  resolve issues in earlier PRs").
+- **graduation-target**: ADR (or an amendment to the commit-skill canonical + ADR-176 family)
+  deciding where short-lived ceremony state lives — candidates: registry writes excluded from
+  feature-PR commits (state stays working-tree-local until a dedicated continuity commit on the
+  default branch), a dedicated state branch, or out-of-tree state. The structural tension:
+  audit-trail durability vs cross-PR conflict generation.
+- **trigger-condition**: a second cross-PR registry conflict, OR the next commit-skill /
+  collaboration-state architecture pass, OR owner direction.
+- **status**: pending
