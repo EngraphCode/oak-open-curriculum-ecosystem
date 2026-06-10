@@ -27,8 +27,9 @@ surface.
   find the real membranes"); a deep whole-document seam analysis + data grounding (report:
   [`graph-tools-readiness-seam-analysis-2026-06-09.md`](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md))
   produced the owner-ratified deliverables map — S1 doc-resources single-sourcing, S2 prompt
-  fixed-language pass, G1–G3 view units, G4 bounded-keywords addition, U1 upstream request — each
-  one small PR. **Verified falsification**: `get-keywords` is a live-API generated tool with
+  fixed-language pass, S3 skills→prompts (added 2026-06-10: owner — nothing sits in an unagreed
+  holding state; c0 owner design gate, then one cycle per prompt), G1–G3 view units, G4
+  bounded-keywords addition, U1 upstream request — each one small PR. **Verified falsification**: `get-keywords` is a live-API generated tool with
   existing narrowing params (NOT bulk-corpus as the plan claimed); owner disposition: keep it as
   the API pass-through, add U1 (upstream finer-grained-control request) + G4 (additional bounded
   tool, bulk-parity gated). **Mechanisms settled** (R1 barney/fred/betty unanimous, adjudicated
@@ -44,8 +45,11 @@ surface.
   first-hand and applied (anchor-threading prompt rewrites — the substantive catch; emission-
   ownership table; G4 Gate-1 decision rule; per-unit types.ts deletion scope; materialised `id`
   field) → **🟢 DECISION-COMPLETE** with the proof contract validated. **Next safe step: merge
-  PR #143 (analysis + restructure), then the stacked PR (R2 dispositions + flip + continuity);
-  execution then starts with any unblocked deliverable (S1 / S2 / U1 / G1), each one small PR.**
+  PR #143 (analysis + restructure), the stacked PR #144 (R2 dispositions + flip + continuity),
+  then the part-3 PR (owner corrections 2026-06-10: S3 added as a live deliverable; stale
+  thread-record facts fixed) and the trip-list PR (indefinite-deferral vocabulary →
+  `.agent/hooks/policy.json` + `no-hedging-vocabulary.md`); execution then starts with any
+  unblocked deliverable (S1 / S2 / S3-c0 / U1 / G1), each one small PR.**
 - **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder / `527005`, claude /
   Opus 4.8; PR #142 MERGED → v1.17.0).** The deferred A-i/C specialist reviews ran (5 reviewers;
   every finding adjudicated first-hand — code/types/tests SOUND); verified findings landed
@@ -53,7 +57,7 @@ surface.
   future/→current/ (owner-decided) and the MCP-surface-rationalisation strand captured
   (owner-directed); the readiness work it queued is DONE — see the top entry. Skills §C licence
   framing (content is Oak's; preserve external-research attribution; `oak-brand` out,
-  `oak-tone-of-voice` open) is conserved in the plan's §Parked section.
+  `oak-tone-of-voice` open) is carried in the plan's S3 deliverable.
 - **OUTPUT-SCHEMAS PLAN — 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09).**
   [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md):
   every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload Zod
@@ -369,8 +373,8 @@ this section; create a thread record when execution is scheduled.
    process only when a trigger fires or the owner directs.
 2. MCP product analytics execution-plan promotion is deferred. Production PostHog
    capture still needs the legal/privacy gates named in the exploration record.
-3. Monorepo workspace topology remains parked until after the graph MVP
-   implementation tranche unless the owner reopens it.
+3. Monorepo workspace topology is held by owner decision (2026-05-09) until after
+   the graph MVP implementation tranche, unless the owner reopens it.
 4. Comms-event lifecycle research is owner-gated; do not rotate the event corpus
    from calendar age alone.
 

@@ -114,7 +114,7 @@ The real membranes, derived from dependency structure, solution class, and revie
 
 | Membrane | What it separates | Why it is real |
 | --- | --- | --- |
-| Solution-class | Generated-corpus zero-input aggregated tools (misconception, prior-knowledge, thread-progressions) vs the live-API generated tool (keywords) vs static doc-resources (A2–A4) vs prompt-language quality (B2–B4) vs blocked analysis (C) | Verified in code (§1.1); each class has a different change mechanism, risk profile, and reviewer |
+| Solution-class | Generated-corpus zero-input aggregated tools (misconception, prior-knowledge, thread-progressions) vs the live-API generated tool (keywords) vs static doc-resources (A2–A4) vs prompt-language quality (B2–B4) vs design-gated skills→prompts (C → S3, per §9) | Verified in code (§1.1); each class has a different change mechanism, risk profile, and reviewer |
 | Dependency | One-graph identity model + per-view node-kind/edge growth → per-view tool rewrites | The model is decided once; the code grows incrementally per view (the plan's own one-graph clause); no big-bang ingestion deliverable exists |
 | Surface cohesion | Each tool's rewrite moves its whole surface at once: tool + input schema + resource removal (A1) + prompt-step repoint (B1) + consumers + eef-revalidation signal | The plan's own staged-landing rule; splitting a tool's surface across PRs splits one authority across two states |
 | Decision vs delivery | Mechanism decisions (A/B/D/E/F, identity, substrate question) vs the PR-shaped deliverables that consume them | Decisions settle once, before cycle authoring; deliverables land independently |
@@ -128,6 +128,7 @@ The real membranes, derived from dependency structure, solution class, and revie
 | --- | --- | --- | --- |
 | S1 | `doc-resources-single-source` | A2 remove `docs://oak/tools.md`; A3 remove/fold `docs://oak/workflows.md`; A4 de-duplicate `getting-started` Tips — all under the `curriculum://model`-is-canonical principle. A5 invariant (protect `curriculum://model` + `eef://interpretation`) honoured as acceptance. | `documentation-resources.ts`, `all-resources.ts` drift-guard test |
 | S2 | `prompt-language-pass` | B3 fixed domain vocabulary (canonical terms from `curriculum://model`; `keyStage` ≠ `yearGroup`) + B4 distinguishable prompt names + B2 `adapt-lesson` arg-mapping — one fixed-language pass. Outward-facing renames need owner sign-off at PR. | `mcp-prompts.ts`, `mcp-prompt-messages.ts` |
+| S3 | `skills-as-prompts` | §C as a live deliverable (added per §9, owner-directed 2026-06-10): c0 owner design gate (candidate set + reconciliation with the eight oak-skills curriculum commands), then one cycle per prompt, source-skill attribution carried. `oak-skills` going public is BENEFICIAL, not blocking. | `mcp-prompts.ts`, `mcp-prompt-messages.ts`, oak-skills content |
 
 ### Track G — the graph redesign (sequenced; G1 → G2 → G3; G4 conditional)
 
@@ -138,11 +139,6 @@ The real membranes, derived from dependency structure, solution class, and revie
 | G3 | `thread-progressions-view` | Ordered sequence projection (own real operation — §1.3); rewrite `get-thread-progressions` (anchor `threadSlug` or `subject`+`keyStage`); remove its resource (A1); repoint `learning-progression` step 2 (B1); move the 3 stats interpolators (`tool-guidance-data.ts`, `tool-guidance-workflows.ts`, `ontology-data.ts`); signal; **graph-resource-factory retires here** (Decision F — last consumer leaves). | G1 (G2 lands the thread/unit kinds) |
 | G0 | `graphview-edgetypes-extension` | **Conditional — only if R1 selects option (i)** (§1.2). If option (ii), no substrate change exists and this deliverable is absent. | R1 verdict |
 | G4 | `keywords` | **Conditional on the owner disposition (§5.2)**: (1) corpus-backed view unit incl. generated-tool replacement mechanics; or (2) upstream API feature request (bounded/ranked params); or (3) removal from this plan with correction. | Owner decision |
-
-### Parked (not deliverables)
-
-§C (skills→prompts) stays a gated analysis section: blocked on `oak-skills` going public,
-licence/attribution constraints recorded, no build.
 
 ### Session-output PRs (this readiness session, ≥2 per owner direction)
 
@@ -292,3 +288,23 @@ items landed in the plan revision that carries the 🟢 DECISION-COMPLETE flip.
 | mcp | Two-keyword-tool disambiguation needs a description contract | advisory | **applied** — G4 carries the choose-this-when description contract, verified e2e |
 | mcp | `structuredContent` without `outputSchema` protocol-valid | advisory | **confirmed** — recorded in §Protocol notes incl. the TextContent SHOULD |
 | mcp | `listChanged` semantics never addressed | advisory | **applied** — §Protocol notes: per-connection re-discovery; no inert notification plumbing |
+
+## 9. Owner corrections (2026-06-10)
+
+1. **The two session PRs are the PLANNING output** (owner-confirmed); execution fans out as one
+   PR per deliverable, per the plan's delivery contract.
+2. **Nothing sits in an unagreed holding state.** This report's earlier "not deliverables"
+   framing for §C exceeded what the owner ratified: the seam-map bundle ratification did not
+   ratify that embedded clause. §C is now deliverable **S3** (c0 owner design gate — candidate
+   set + reconciliation shape — then one cycle per prompt with source-skill attribution carried);
+   the "blocked on `oak-skills` going public" claim is reclassified BENEFICIAL (the content is
+   Oak's to use; the repo is Oak-owned and accessible). §2 and §3 above are amended in place;
+   plan ledger row 17 records the disposition.
+3. **The indefinite-deferral vocabulary family is now a forbidden trip-list group** in the
+   innate-immunity hook (`.agent/hooks/policy.json`, concept `indefinite-deferral`, word-boundary
+   regex so agent display names like "Sparking …" never false-positive), catalogued in
+   [`no-hedging-vocabulary.md`](../rules/no-hedging-vocabulary.md). Known pre-existing instances
+   on covered surfaces (historical dated reports; PDR-026's warning-usage line; the
+   owner-decided 2026-05-09 hold in the monorepo-topology strategic brief; one school-data-search
+   gate-discipline line) were left as-is — the matcher blocks only newly-added instances, and
+   each will be cured by descriptive substitution on its next legitimate edit.

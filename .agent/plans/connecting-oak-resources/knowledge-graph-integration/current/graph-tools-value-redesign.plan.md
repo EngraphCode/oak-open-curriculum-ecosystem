@@ -45,6 +45,9 @@ todos:
     content: "G4 (one PR; owner-shaped 2026-06-09): an ADDITIONAL bounded keywords tool. The existing generated get-keywords MCP tool is KEPT — it is an important live-API pass-through and is NOT replaced. Gate 1 (grounding): determine whether the same keyword data the API serves is available in the bulk source (the vocab-gen keyword extractor proves lesson keyword data exists in bulk; parity of fields/coverage vs the live /keywords response is the check). Gate decision rule (R2 condition): bulk branch iff every field the bounded tool's value-shape needs (keyword text + per-lesson association + any description field the shape adopts) is present in bulk AND bulk lesson-coverage is within 1 percentage point of the live API's keyword-serving coverage for the sampled anchors; otherwise the API-pull branch. The recorded verdict carries the field comparison + coverage numbers + commands. If parity holds: construct the new tool from bulk on the one-graph substrate (keyword node kind + lesson→keyword edge per the model — hence the G2 dependency: the lesson node kind is emitted by G2). If not: pull keywords via the API at codegen time and generate the local corpus from that pull. Shape: bounded, frequency-ranked retrieval (anchor subject+keyStage, narrowable by unit/lesson); name distinguishable from get-keywords through the S2 fixed vocabulary AND a description disambiguation contract: both tools' descriptions state when to prefer each (get-keywords = live-API pass-through, full set at coarse anchors; the new tool = bounded frequency-ranked subset for token economy), verified e2e via tools/list. Signal eef-revalidation if the EEF path consumes it."
     status: pending
     depends_on: [g1-prior-knowledge-view, g2-misconception-view]
+  - id: s3-skills-as-prompts
+    content: "S3 (one PR per tranche; c0 design gate first — owner-directed 2026-06-10: this is a live deliverable, never an unagreed holding state): surface oak-skills curriculum skills as MCP prompts. c0 (owner design gate): confirm the candidate set and the reconciliation shape with the eight MCP-wired oak-skills curriculum commands — never a third parallel surface. Candidates assessed 2026-06-09: oak-curriculum-principles-mcp-enabled (strongest — it already drives this MCP), oak-curriculum-principles, oak-lesson-builder (reconcile with lesson-planning/adapt-lesson, do not duplicate), oak-curriculum-mapper; oak-accessibility is woven into prompts rather than standalone; oak-brand excluded (owner); oak-tone-of-voice open (owner undecided 2026-06-09). Licence (owner-clarified 2026-06-09): the content is Oak's to use; each shipped prompt carries its source skill's external-research attribution (references/sources.md) to the same extent the original does. Prerequisite classification: oak-skills going public is BENEFICIAL, not blocking — the minimum shippable shape derives prompt content from the (Oak-owned, accessible) private repo now, attribution carried. c1+: one cycle per prompt (prompt-surface tests describe the served prompt; attribution present), names landed through the S2 fixed vocabulary."
+    status: pending
   - id: u1-keywords-upstream-request
     content: "U1 (one small docs PR; owner-shaped 2026-06-09): author an upstream API feature request for finer-grained /keywords control (e.g. bounded/ranked parameters), grounded in the LATEST upstream API source code (read-only grounding against the upstream repo; the request document lives in THIS repo's upstream-feature-requests lane — never write to the sibling repo)."
     status: pending
@@ -82,6 +85,14 @@ todos:
 > [seam-analysis report §8](../../../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md).
 > Validated per the §Cycles-and-proof-contract DECISION-COMPLETE clause. Execution may begin with
 > any unblocked deliverable.
+>
+> **Owner corrections (2026-06-10).** The two session PRs are the PLANNING output; execution fans
+> out as one PR per deliverable. **Nothing in this plan sits in an unagreed holding state**
+> (owner): the former §C analysis is now deliverable **S3** (c0 owner design gate, then one cycle
+> per prompt — ledger row 17); S3 reaches execution-ready at its c0, the other deliverables'
+> decision-complete standing is unchanged. The indefinite-deferral vocabulary family was added to
+> the innate-immunity trip-list (`.agent/hooks/policy.json`) and catalogued in
+> `no-hedging-vocabulary.md`.
 
 ## Problem and intent
 
@@ -141,15 +152,17 @@ table is the index.
 | --- | --- | --- | --- |
 | S1 | Doc-resources single-sourcing (`curriculum://model` is canonical) | Surface | — |
 | S2 | Prompt fixed-language pass (vocabulary + names + arg-mapping) | Surface | — |
+| S3 | Skills → prompts (c0 owner design gate, then one cycle per prompt) | Surface | c0 gate |
 | G1 | One-graph foundation + prior-knowledge view (two cycles; default one PR) | Graph | settled decisions |
 | G2 | Misconception view (chain re-projection; ratified anchors) | Graph | G1 |
 | G3 | Thread-progressions view (ordered projection) + factory deletion | Graph | G1, G2 |
 | G4 | Additional bounded keywords tool (gate: bulk-parity determination) | Graph | G1 |
 | U1 | Upstream `/keywords` finer-grained-control feature request | Upstream | — |
 
-Track S is independent of Track G and shippable immediately. S2 lands before the G-units' prompt
-repoints where scheduling allows (same files; no hard dependency). §Skills→prompts stays parked
-(see §Parked).
+Track S is independent of Track G. S1 and S2 are shippable immediately; S2 lands before the
+G-units' prompt repoints where scheduling allows (same files; no hard dependency). S3 starts at
+its c0 owner design gate — a live deliverable like every other row (owner 2026-06-10: nothing in
+this plan sits in an unagreed holding state).
 
 ### Surface-cohesion rule (binding on every G-unit)
 
@@ -324,6 +337,7 @@ Dispositions from the behaviour-preservation authoring (2026-06-04) are retained
 | 14 | A5 dual-listing + B1 banner/sequencing contradiction + unowned row F | **dissolved by structure** — A1/B1 live inside the owning G-units; A5 is an acceptance invariant on every surface-touching PR; F is settled (factory deleted at G3) |
 | 15 | Prior-knowledge "DAG" claim | **corrected** — sparse directed graph with 28 self-loops + 4 two-node cycles; traversal is visited-set-safe; upstream data-quality signal recorded |
 | 16 | Extractor path (`src/bulk/extractors/keyword-extractor.ts`) | **corrected** — the live pipeline extracts via `vocab-gen/extractors/`; the duplication is a verified smell the G-units must resolve, not entrench |
+| 17 | §C as a non-deliverable holding state | **replaced** (owner-directed 2026-06-10) — nothing sits in an unagreed holding state: §C is deliverable S3 with a c0 owner design gate; the "blocked on `oak-skills` going public" claim is reclassified BENEFICIAL (the content is Oak's; attribution carried); the indefinite-deferral vocabulary family joined the innate-immunity trip-list |
 
 ## Acceptance criteria
 
@@ -349,6 +363,10 @@ Dispositions from the behaviour-preservation authoring (2026-06-04) are retained
    `eef-revalidate-on-new-graph-tools` citing the commit + the new contract.
 9. **Small-PR shippability**: every deliverable lands as one small standalone PR (G1 carries the
    named two-cycle split-permission). This is a readiness criterion, not a preference.
+10. **Skills → prompts (S3)**: the c0 owner confirmation (candidate set + reconciliation shape)
+    is recorded; every shipped prompt derives from its source skill and carries that skill's
+    external-research attribution; no third parallel surface beside the oak-skills curriculum
+    commands.
 
 ## Cycles and proof contract
 
@@ -366,6 +384,7 @@ designed at execution, not prescribed here (`plan-body-first-principles-check`).
 | G2 | `get-misconception-graph`'s wire envelope | c1: generator tests describe chain re-projection + mint-rule stability (contract test) → emission incl. misconception types deletion; c2: view test describes lesson/unit/thread anchors incl. heavy-tail + reachability metadata → view; c3: tool test describes the envelope + resource absence + completed adapt-lesson step → tool rewrite + removals | unit + integration + e2e: full gate chain |
 | G3 | `get-thread-progressions`'s wire envelope | c1: ordered-projection test describes one thread's ordered sequence (own real operation) → projection + emission; c2: tool test describes the envelope + resource absence + interpolator continuity (stats render from the new surface) → tool rewrite, consumer moves, factory deletion (post re-grep) | unit + integration + e2e: full gate chain |
 | G4 | Gate 1: a recorded parity verdict; then the new tool's wire envelope | c0 (gate): parity determination recorded in this plan (bulk fields/coverage vs live `/keywords` response); c1+: per the surviving branch (bulk build mirrors G2's cycle shape; API-pull branch adds the codegen-time pull first) | gate: non-code (recorded verdict + commands); build: full gate chain |
+| S3 | The served prompt set (`prompts/get` output + attribution presence) | c0 (owner design gate): candidate set + reconciliation shape recorded; c1+: one cycle per prompt (prompt-surface test describes the served prompt incl. its source-skill attribution) → derive content with attribution carried | gate: non-code (recorded owner confirmation); build: integration (prompt tests) + e2e (`prompts/get`); full gate chain |
 | U1 | The upstream request document | single docs cycle (non-code) | non-code: document exists in the upstream-feature-requests lane, grounded in cited upstream source |
 
 **DECISION-COMPLETE proof contract.** The flip is validated by: (1) every deliverable above
@@ -390,18 +409,6 @@ exist.
 | Generated-tool/aggregated-tool naming collision (G4) | New tool named through the S2 fixed vocabulary; `get-keywords` untouched |
 | Scope bleed from features-plan §2–§4 | Boundary unchanged: cross-corpus/topic/extended-context composition stays in `oak-misconceptions-graph-features.plan.md`, gated on this redesign + D7 |
 | Extractor duplication entrenched by new generator work | G-units target the live `vocab-gen/extractors/` path; duplication resolution named in G1 |
-
-## Parked: skills → prompts (blocked + licence-gated)
-
-Pre-emptive analysis only — blocked on `oak-skills` going public; do NOT build until unblocked
-and licence-cleared. Candidates: `oak-curriculum-principles`,
-`oak-curriculum-principles-mcp-enabled` (strongest — it already drives this MCP),
-`oak-lesson-builder`, `oak-curriculum-mapper`, `oak-accessibility` (better woven into prompts
-than standalone); `oak-brand` excluded (owner); `oak-tone-of-voice` open (owner undecided
-2026-06-09). Licence framing (owner-clarified 2026-06-09): the content is Oak's to use; the
-constraint is preserving each skill's external-research attribution (`references/sources.md`) to
-the same extent the originals do. Reconcile with the eight MCP-wired `oak-skills` curriculum
-commands — never a third parallel surface.
 
 ## Non-goals
 
