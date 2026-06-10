@@ -224,6 +224,9 @@ session narrative for each is in git history; this table is the durable identity
 | `Incandescent Smouldering Brazier` | `claude` | `Opus 4.8` | `939d21` | `post-d7-answertype-and-headline-view-adr194-product-boundary-and-output-schema-integration` | 2026-06-09 | 2026-06-09 |
 | `Brazen Roasting Cinder` | `claude` | `Opus 4.8` | `527005` | `aic-deferred-reviews-and-graph-tools-plan-promotion` | 2026-06-09 | 2026-06-09 |
 | `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `graph-plan-readiness-seam-analysis-and-decision-complete` | 2026-06-09 | 2026-06-10 |
+| `Veiled Listening Secret` | `claude` | `Fable 5` | `7c8e8e` | `graph-implementation-team-director` | 2026-06-10 | 2026-06-10 |
+| `Airy Wheeling Gale` | `claude` | `Opus 4.8` | `597439` | `graph-implementation-seat-b-track-g-implementer` | 2026-06-10 | 2026-06-10 |
+| `Riverine Swimming Sail` | `claude` | `Opus 4.8` | `5cc20f` | `graph-implementation-seat-a-track-s-implementer` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 

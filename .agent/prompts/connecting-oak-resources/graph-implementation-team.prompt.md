@@ -1,5 +1,8 @@
 # Graph Implementation Team — Session Opener
 
+> When working with other agents, all responses, work, claims and sources
+> must be critically assessed before being accepted.
+
 **Type**: handover (team session entry point; owner-ratified shape 2026-06-10)
 **Plan authority**:
 [`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
@@ -47,7 +50,11 @@ machine-local path into a versioned file). Consequences, by construction:
 
 ## Worktree setup (operator or Director, once per seat)
 
-From the primary checkout, on a current `main`:
+From the initial primary checkout, on a current `main`, every agent creates a new worktree for itself.
+
+Director worktrees should be clearly identified as such.
+
+Guidance:
 
 ```bash
 git worktree add <worktrees-root>/wt-seat-a -b feat/<first-deliverable-a> origin/main

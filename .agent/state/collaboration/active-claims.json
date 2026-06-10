@@ -1,5 +1,80 @@
 {
   "schema_version": "1.3.0",
   "commit_queue": [],
-  "claims": []
+  "claims": [
+    {
+      "claim_id": "c42e4b8c-7e1e-48cb-9dbb-14cb19646081",
+      "agent_id": {
+        "agent_name": "Veiled Listening Secret",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "7c8e8e",
+        "id": "98083d3e-13b7-5037-b6ec-80713ddf0037"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T12:02:11Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team): coordination home owner — all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; merge sequencing"
+    },
+    {
+      "claim_id": "57a83f00-0c6f-4812-be85-bca154e0fc9b",
+      "agent_id": {
+        "agent_name": "Airy Wheeling Gale",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "597439",
+        "id": "91aa593c-263b-50b5-97b3-b7216729a720"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "workspace",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/**",
+            "packages/sdks/graph-corpus-sdk/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T12:05:45Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G1a (Seat B / Track G): vocab-gen emits the graph-corpus dataset (unit nodes w/ materialised kind-qualified id + prerequisiteFor edges; dangling-endpoint integrity resolution + zero-dangling generator test); new ./graph-corpus subpath barrel (ADR-108 inv.2); replace prior-knowledge-graph/types.ts ONLY with emitted types; ADR-086 amendment rides the same commit; graph-corpus-sdk curriculum adapter. Source edits happen in my own worktree off origin/main; this is the coordination-home visibility claim."
+    },
+    {
+      "claim_id": "fadd64b7-eed3-4e8e-a17f-c118d738f088",
+      "agent_id": {
+        "agent_name": "Riverine Swimming Sail",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "5cc20f",
+        "id": "ce2996db-7810-54f5-9cb3-dcee397dd256"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/documentation-resources.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/all-resources.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/all-resources.unit.test.ts"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T12:11:15Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "S1 doc-resources single-sourcing (curriculum://model is canonical): remove docs://oak/tools.md, remove/fold docs://oak/workflows.md, de-dup getting-started Tips; A5 invariant intact (model + eef://interpretation untouched); drift-guard green. One small pure-diff PR. Worktree oak-wt-seat-a, branch feat/s1-doc-resources-single-source."
+    }
+  ]
 }
