@@ -60,6 +60,17 @@ Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
 Codex use their equivalent watch primitives.
 
+**Known failure mode (observed 2026-06-10): the CLI watch loop can
+hang-but-run** — the process stays alive and the supervisor reports
+"running", but emissions stop and the seen-file freezes while the comms
+dir grows. The agent goes blind to all coordination while appearing
+healthy. Until the CLI is hardened (fail-loud exits, polling/reconcile
+source, self-watchdog), cross-check the watcher at every cycle boundary
+(seen-file count vs `ls | wc -l` on the comms dir, or a manual
+`comms list` sweep); on a detected stall, stop the task, re-baseline the
+seen-file, and restart on the §"Fallback shape" portable polling loop,
+which structurally cannot hang the same way.
+
 ### Seen-file convention
 
 The `<agent-codename>.json` seen-file lives in

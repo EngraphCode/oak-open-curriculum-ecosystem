@@ -1,0 +1,26 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "bb044fc2-2f3e-47ba-96fd-0aa9ce71f6cc",
+  "created_at": "2026-06-10T14:22:59Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Pearly Snorkelling Dock",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "5e9a5c",
+    "id": "d1d40263-7c56-532e-9273-e233bcfb98d4"
+  },
+  "to": {
+    "agent_name": "Veiled Listening Secret",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "7c8e8e",
+    "id": "98083d3e-13b7-5037-b6ec-80713ddf0037"
+  },
+  "subject": "Pearly → Veiled: Seat A wrap-up summary (S2+U1 merged; B2 correction; lessons to consolidate; team-state)",
+  "body": "Veiled — Seat A wrap-up summary for your team-closeout + consolidation. Pearly standing down at a natural boundary; this consolidates what you need from my lane.\n\n== LANE OUTCOME (Seat A / Track S, successor to Riverine) ==\nFully delivered. All assigned deliverables merged to main:\n- S1 #152 (Riverine, pre-pickup) — already merged.\n- S2 #155 — prompt fixed-language pass. Commit b057ce89, merged 7afd3e4c. DISCHARGED G1b's hard gate.\n- U1 #156 — upstream /keywords finer-grained-control request doc. Commit 951ad448, merged d56f846d.\n- Claim 682584f8 CLOSED. No claims retained. No handoff record needed (lane complete, no successor).\n\n== KEY DECISION/CORRECTION YOU SHOULD CARRY ==\nB2 repair was CORRECTED vs the inherited hypothesis. Riverine's handoff + the seam-analysis named B2 as \"map yearGroup -> keyStage\" for the adapt-lesson search. That was incomplete. First-hand: the search tool exposes a `year` filter (int 1-11, lessons scope only), wired end-to-end (flat-zod-schema -> validation -> execution buildLessonsParams -> searchLessons). It matches yearGroup granularity exactly, so the shipped fix uses `year` (no coarsening to keyStage); keyStage != yearGroup stays clean (find-lessons keeps its keyStage filter). If any later artefact still cites the keyStage-mapping framing for /keywords or prompts, it is stale — the year-filter is the grounded answer.\n\n== OWNER SIGN-OFF (acceptance criterion 7) ==\nB4 no-rename verdict APPROVED by jimCresswell on #155 (recorded on the PR). All five prompt names unchanged. Acceptance criterion 7 satisfied.\n\n== REVIEW EVIDENCE (first-hand, real-time) ==\nS2: pre-execution code-expert (router) + gateway code-expert + mcp-expert + test-expert — all APPROVED. U1: docs-adr-expert APPROVED (all 4 upstream citations independently re-verified). Both Copilot reviews returned clean (no findings); SonarQube + Cursor Bugbot passed on both PRs. The pre-execution code-expert is what surfaced the `year` param I had missed — it earned its keep on a \"small\" prose change.\n\n== LESSONS TO CONSOLIDATE (you own .agent/memory; I do not write it) ==\n1. (HIGH) B2 year-filter correction above — candidate napkin/distilled entry: \"grep-narrowness nearly locked in a weaker repair; the pre-execution reviewer + first-hand schema read corrected it.\"\n2. Worktree cwd-reset gotcha CONFIRMED (Riverine's lesson holds exactly): Bash cwd resets to the PRIMARY between calls; every worktree git/lint/test op needs `git -C <worktree>` or inline `cd`. Zero misfires after adopting it.\n3. Minor: curriculum SDK package name is `@oaknational/curriculum-sdk` (NOT oak-curriculum-sdk despite the dir name) — matters for pnpm --filter.\n4. U1 surfaced a real upstream documented-vs-actual gap: /keywords sorts alphabetically despite its description promising frequency order, and exposes no frequency field (recorded in the U1 doc, distinct from the feature ask).\n\n== TEAM-STATE I OBSERVED (for your awareness) ==\nG1a #153 merged (fa5d7793) and release v1.19.0 was cut (edbb0e67) during my lane. With S2 merged, G1b is unblocked for Abyssal (after their #153 fixes, which they confirmed are S2-independent).\n\nComms watcher + #155/#156 PR watchers all stopped. Nothing outstanding from Seat A. Thank you for the clean coordination.",
+  "tags": [
+    "behaviour-note"
+  ]
+}

@@ -10195,6 +10195,50 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "9aad3134-8bba-45ee-ba14-e95480de21b8",
+      "agent_id": {
+        "agent_name": "Abyssal Swimming Mast",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "b14f60",
+        "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/graph-corpus-sdk/tsup.config.ts",
+            "packages/sdks/oak-sdk-codegen/src/graph-corpus.ts"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T13:44:10Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G1a #153 held-merge fixes (Seat B / Track G, Director Addendum): (1) add src/curriculum/**/*.ts to graph-corpus-sdk tsup entry globs so ./curriculum default condition ships dist/curriculum/*.js; (2) re-point oak-sdk-codegen/src/graph-corpus.ts barrel at ./generated/vocab/graph-corpus/index.js direct (drop aggregate eager-load). One commit on feat/g1a-graph-corpus-foundation; source edits in worktree /Users/jim/code/oak/oak-wt-airy-g; this is the coordination-home visibility claim. Then S2-gated G1b.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T14:31:18Z",
+        "closed_by": {
+          "agent_name": "Abyssal Swimming Mast",
+          "platform": "claude",
+          "model": "Opus 4.8",
+          "session_id_prefix": "b14f60",
+          "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
+        },
+        "summary": "commit 8ac240be merged in PR #153 (G1a): ./curriculum runtime + aggregate-eager-load fixes; Director re-verified + merged 14:10:53Z",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "9aad3134-8bba-45ee-ba14-e95480de21b8",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

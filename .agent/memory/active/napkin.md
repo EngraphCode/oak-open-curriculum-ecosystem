@@ -207,3 +207,11 @@ observations:
   later `gh api -f body=` in ONE Bash command matched the force-push pattern and was blocked.
   Cure: split the push and the API calls into separate commands; the reappraisal direction was
   honoured (no sibling-command bypass — the push genuinely carried no force flag).
+- **The all-channels watcher can hang-but-run** (Abyssal, 2026-06-10 ~14:07Z): the `comms watch`
+  CLI loop stalled silently — process alive, zero emissions, seen-file frozen (3045 vs 3070 on
+  disk) — blinding the agent to a merge + GO + ping for ~16 min while their detached heartbeat
+  kept broadcasting stale state. NEW mode vs the exit-conditions lesson: not wrong conditions, a
+  hung loop. Cure: portable 15s ls+diff polling shape (cannot hang silently the same way) + a
+  manual `comms list` sweep at each cycle boundary as backstop. Director-side tell that worked:
+  heartbeat-only + stale cycle label for 2+ windows → ping → work-evidence cross-check.
+  Candidate structural cure: watchdog/self-test on the watcher CLI (emit a liveness line per poll).
