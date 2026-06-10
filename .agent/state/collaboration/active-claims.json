@@ -71,13 +71,13 @@
       "intent": "Director (graph implementation team, fourth holder) — PDR-064 successor to Celestial Glowing Dusk (1e526e), owner-directed; Moment-1 event 56ae6447. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Celestial-Dusk claim 75323860 closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "e7bfd545-8100-4293-9e77-a987947b374c",
+      "claim_id": "2387a469-a78f-400b-979d-1839a75aed63",
       "agent_id": {
-        "agent_name": "Fruited Blossoming Meadow",
+        "agent_name": "Sylvan Bending Branch",
         "platform": "claude",
-        "model": "Fable 5",
-        "session_id_prefix": "4536e0",
-        "id": "1ceaba69-a9a1-58be-970b-a88ebcaef4f1"
+        "model": "fable-5",
+        "session_id_prefix": "9d91e3",
+        "id": "bba6d8c9-ae3e-50e9-8b4e-45f608d94711"
       },
       "thread": "eef",
       "areas": [
@@ -93,10 +93,10 @@
           ]
         }
       ],
-      "claimed_at": "2026-06-10T20:07:08Z",
+      "claimed_at": "2026-06-10T20:57:58Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G2 misconception view execution (Director-routed 20:06:13Z event 4eebdf2e; gate discharged at G1b merge 793cb3c1). One PR per plan g2 todo (authority; mint rule settled+folded at e3590ea6): vocab-gen re-projection of thread/unit/lesson/misconception nodes + chain edges with content-hash lesson-scoped text-only mint + five-part stability contract test; delete hand-written misconception-graph/types.ts; per-view misconception view in graph-corpus-sdk; anchored get-misconception-graph rewrite (lesson/unit/thread, heavy-tail semantics); REMOVE curriculum://misconception-graph; adapt-lesson step-2 anchor-threading completion; eef-revalidation signal at landing. Worktree oak-wt-umbral-g4, branch feat/g2-misconception-view off origin/main@>=793cb3c1. Pinned-facts re-verification at execution start."
+      "intent": "G2 misconception view — continuation via PDR-063 pickup (record 2026-06-10-fruited-g2-c1-to-sylvan.md; pickup event 1f48660e; supersedes e7bfd545). c1 landed a0b32100 (Fruited). Remaining per plan g2 todo: c1 specialist review backfill (code-expert+test-expert, gap flagged), c2 misconception view (forward per-view, lesson/unit/thread anchors, heavy-tail + reachability), c3 anchored get-misconception-graph rewrite + curriculum://misconception-graph removal + adapt-lesson step-2 threading + old dataset retirement, eef-revalidation signal, ONE PR off feat/g2-misconception-view in oak-wt-umbral-g4, monitor-to-merge."
     }
   ]
 }

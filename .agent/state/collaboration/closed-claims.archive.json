@@ -11061,6 +11061,145 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "fb708a4e-065a-4c19-898d-bb4178f7375c",
+      "agent_id": {
+        "agent_name": "Glassy Plumbing Dock",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "ca5890",
+        "id": "f165587f-0d9b-5656-aa0e-5798330c15ae"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt*",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T20:09:37Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "S3 skills-as-prompts (Director routing 7efc70c8): cycles oak-lesson-builder (extend/merge with lesson-planning/adapt-lesson) + oak-curriculum-mapper; principles-prompt owner-gated NOT started; tone-of-voice excluded; worktree oak-wt-airy-g, fresh branch off origin/main; one PR",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T20:15:23Z",
+        "closed_by": {
+          "agent_name": "Glassy Plumbing Dock",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "ca5890",
+          "id": "f165587f-0d9b-5656-aa0e-5798330c15ae"
+        },
+        "summary": "Superseded by widened claim 31b7e003 (same S3 lane, app-registration surfaces added)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "fb708a4e-065a-4c19-898d-bb4178f7375c",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "e7bfd545-8100-4293-9e77-a987947b374c",
+      "agent_id": {
+        "agent_name": "Fruited Blossoming Meadow",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "4536e0",
+        "id": "1ceaba69-a9a1-58be-970b-a88ebcaef4f1"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T20:07:08Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G2 misconception view execution (Director-routed 20:06:13Z event 4eebdf2e; gate discharged at G1b merge 793cb3c1). One PR per plan g2 todo (authority; mint rule settled+folded at e3590ea6): vocab-gen re-projection of thread/unit/lesson/misconception nodes + chain edges with content-hash lesson-scoped text-only mint + five-part stability contract test; delete hand-written misconception-graph/types.ts; per-view misconception view in graph-corpus-sdk; anchored get-misconception-graph rewrite (lesson/unit/thread, heavy-tail semantics); REMOVE curriculum://misconception-graph; adapt-lesson step-2 anchor-threading completion; eef-revalidation signal at landing. Worktree oak-wt-umbral-g4, branch feat/g2-misconception-view off origin/main@>=793cb3c1. Pinned-facts re-verification at execution start.",
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-10-fruited-g2-c1-to-sylvan.md",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T20:57:58Z",
+        "closed_by": {
+          "agent_name": "Sylvan Bending Branch",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "9d91e3",
+          "id": "bba6d8c9-ae3e-50e9-8b4e-45f608d94711"
+        },
+        "summary": "Superseded at PDR-063 pickup by Sylvan Bending Branch (9d91e3): retained-for-handoff claim served its purpose; c1 landed+pushed a0b32100 by Fruited (4536e0); successor claim opened on the identical boundary; pickup event 1f48660e",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "e7bfd545-8100-4293-9e77-a987947b374c",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "31b7e003-44b0-42c0-8243-4423b17a8a33",
+      "agent_id": {
+        "agent_name": "Glassy Plumbing Dock",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "ca5890",
+        "id": "f165587f-0d9b-5656-aa0e-5798330c15ae"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt*",
+            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts*",
+            "apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/prompts.e2e.test.ts"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T20:15:01Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "S3 skills-as-prompts (routing 7efc70c8; supersedes fb708a4e with widened app-registration boundary): c1 extend lesson-planning with oak-lesson-builder derived workflow; c2 new curriculum-mapping prompt from oak-curriculum-mapper; principles-prompt owner-gated NOT started; tone-of-voice excluded; branch feat/s3-skills-as-prompts in oak-wt-airy-g; one PR",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T21:11:29Z",
+        "closed_by": {
+          "agent_name": "Glassy Plumbing Dock",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "ca5890",
+          "id": "f165587f-0d9b-5656-aa0e-5798330c15ae"
+        },
+        "summary": "S3 delivered: PR #162 merge-ready at 37f69b0c (4 commits, all gates green, both evidence loops settled, live-exercised); merge Director-serialised pending owner naming sign-off; zero retained claims — Tempestuous Rising Gale activates via Director routing if a rename cycle is directed",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "31b7e003-44b0-42c0-8243-4423b17a8a33",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

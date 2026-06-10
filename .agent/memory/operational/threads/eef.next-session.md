@@ -41,9 +41,26 @@ merge_class: index-narrative-tables
   Director-verified: origin/main already at `0.7.0-6a3c1f02` since #159; all 13 dirty files
   byte-identical to origin/main; alignment committed this waypoint so the dirty-file trap does
   not mislead the next holder; failure-mode capture `54fc0fee` — baseline drift against
-  origin/main, never branch HEAD). Standing: portable watcher only
-  until the agent-tools rebuild; Director small queue unchanged (test:e2e turbo env exposure,
-  lifecycle-lease flake, agent-tools loud-write fixes, rebuild). Open owner items:
+  origin/main, never branch HEAD). **Second rotation wave (20:40–21:13Z, all clean)**: S3
+  delivered as **PR #162** (Glassy Plumbing Dock; c1 lesson-builder extension + c2 NEW
+  `curriculum-mapping` prompt + c3 review absorption; both specialists + sole review finding
+  adjudicated; Director-verified settled — mergeState CLEAN, 0 unresolved threads at
+  `37f69b0c`) — **merge held ONLY on the owner naming gate** (`curriculum-mapping` outward
+  name; Director verdict: approve); Glassy closed out clean at Director discretion ruling.
+  Fruited: G2 c1 landed+pushed (`a0b32100`) then PDR-063 mid-cycle handoff → **Sylvan Bending
+  Branch** (9d91e3, claim `2387a469`; record
+  `2026-06-10-fruited-g2-c1-to-sylvan.md`); Sylvan closed the c1 review gap (specialist
+  verdicts + fix `8cce69a0` — an invisible 0x1F byte in dedup keys that fooled reviewer AND
+  first-hand grep, caught by RED-first disproof; failure-mode event `4fd66dc5`, generalises
+  the control-character doctrine) and is executing c2. **Succession bench fully provisioned
+  (owner-named, all grounded + holding)**: Ethereal Orbiting Eclipse (f92636, Director seat),
+  Sylvan→active, Tempestuous Rising Gale (60496a, S3 seat). Watcher doctrine addition
+  (Tempestuous capture `6cf5f4ab`): four-shape render test (directed / untagged narrative /
+  tagged / self-excluded) against the EXACT filter before arming any portable watcher;
+  Director watcher verified sound (`01ed41d7`). Standing: portable watcher only
+  until the agent-tools rebuild; Director small queue (test:e2e turbo env exposure,
+  lifecycle-lease flake, **auth-routes scopes_supported flake** [Glassy capture, same class],
+  agent-tools loud-write fixes, rebuild). Open owner items:
   principles-prompt attribution validation (gates S3's principles cycle only);
   bulk-export-lags-live (new datum from the G2 analysis: the 2026-06-10 export serves
   2026-05-21-identical content on the measured axes — the lag is upstream).
@@ -374,6 +391,9 @@ session narrative for each is in git history; this table is the durable identity
 | `Fruited Blossoming Meadow` | `claude` | `Fable 5` | `4536e0` | `graph-implementation-galactic-successor-standby-g2-lane` | 2026-06-10 | 2026-06-10 |
 | `Glassy Plumbing Dock` | `claude` | `Fable 5` | `ca5890` | `graph-implementation-eclipsed-successor-standby-g1b-finish-seat` | 2026-06-10 | 2026-06-10 |
 | `Stratospheric Swooping Zephyr` | `claude` | `Fable 5` | `fe53ec` | `graph-implementation-director-fourth-holder` | 2026-06-10 | 2026-06-10 |
+| `Sylvan Bending Branch` | `claude` | `fable-5` | `9d91e3` | `graph-implementation-g2-execution-fruited-pdr063-successor` | 2026-06-10 | 2026-06-10 |
+| `Tempestuous Rising Gale` | `claude` | `Fable 5` | `60496a` | `graph-implementation-s3-seat-successor-standby` | 2026-06-10 | 2026-06-10 |
+| `Ethereal Orbiting Eclipse` | `claude` | `Fable 5` | `f92636` | `graph-implementation-director-successor-standby` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 
