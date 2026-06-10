@@ -24,10 +24,12 @@ merge_class: index-narrative-tables
   (anchor-threading prompt rewrites; emission-ownership table; G4 Gate-1 rule) →
   **DECISION-COMPLETE** with proof contract. Delivered + MERGED (2026-06-10): PR #143 (analysis +
   restructure), #144 (R2 + flip + continuity), #145 (owner corrections — S3 live deliverable, no
-  unagreed holding states; stale fired-trigger facts fixed). PR #146 (indefinite-deferral
-  vocabulary → trip-list + regression test) is green, Copilot review adjudicated first-hand
-  (2 refuted with matcher grounding / 3 applied). **Next: merge #146; execution starts with any
-  unblocked deliverable (S1/S2/S3-c0/U1/G1), each one small PR.**
+  unagreed holding states; stale fired-trigger facts fixed), #146 (indefinite-deferral
+  vocabulary → trip-list + regression test, shipped in v1.18.0; all Copilot comments adjudicated
+  first-hand), #147 (deep handoff/consolidation + loss-scan closures), #148 (upstream
+  schema-hash sync). **Next: the IMPLEMENTATION PHASE — pick any unblocked deliverable
+  (S1/S2/S3-c0/U1/G1) from the plan, execute its cycles per the proof contract, ship as one
+  small PR; re-verify the pinned data facts against the tree at execution start.**
 - **PRIOR SESSION (2026-06-09, Brazen Roasting Cinder / claude Opus 4.8, branch
   `assess/evidence_workflows`, PR #142) — A-i/C deferred reviews + graph-tools-plan promotion.**
   The deferred A-i/C specialist reviews ran (5 reviewers via a workflow; every finding adjudicated
