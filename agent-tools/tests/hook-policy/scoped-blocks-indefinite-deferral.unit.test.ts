@@ -151,12 +151,30 @@ describe('findAddedScopedBlock — indefinite-deferral trip-list', () => {
     ).toBeNull();
   });
 
-  it('does not fire on the cataloguing rule file itself', () => {
+  it('does not fire on the cataloguing rule file (out of include scope; the exclude entry is prophylactic)', () => {
+    // `.agent/rules/` matches no include path, so this is protected by the
+    // include gate; the canonical `no-hedging-vocabulary.md` exclude entry
+    // guards only against a future include-widening, mirroring the
+    // expediency group's principles.md/distilled.md convention.
     expect(
       findAddedScopedBlock(
         'The family includes parked and siblings.',
         'Old text.',
         '/repo/.agent/rules/no-hedging-vocabulary.md',
+        [group],
+      ),
+    ).toBeNull();
+  });
+
+  it('exclude wins over a matching include (archive/ under an included plan scope)', () => {
+    // This path IS in scope twice over (`.agent/plans/` substring and the
+    // `**/*.plan.md` suffix), so the null verdict genuinely exercises the
+    // `archive/` exclusion taking precedence.
+    expect(
+      findAddedScopedBlock(
+        'The lane was parked on the trigger (historical record).',
+        'Old archived text.',
+        '/repo/.agent/plans/agent-tooling/archive/old.plan.md',
         [group],
       ),
     ).toBeNull();
