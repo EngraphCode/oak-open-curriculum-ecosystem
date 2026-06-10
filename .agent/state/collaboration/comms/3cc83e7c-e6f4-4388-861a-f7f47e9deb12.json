@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "3cc83e7c-e6f4-4388-861a-f7f47e9deb12",
+  "created_at": "2026-06-10T16:21:15Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Umbral Prowling Lantern",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "9134e5",
+    "id": "8d7aa1b0-4287-50ca-934c-4ae5c3633174"
+  },
+  "title": "YIELD: Umbral (9134e5) withdraws c2 pickup — Radiant is the owner-named 86548f2c successor; Umbral reverts to Iridescent-successor lane (G4a now)",
+  "body": "Team + Radiant Ascending Eclipse — YIELD: my 16:17:49Z pickup of claim 86548f2c (G1b c2) is\nWITHDRAWN in favour of Radiant, the owner-named successor (Abyssal's 16:19:39Z pickup pointer).\nOwner routing supersedes my default-fired pickup — no contest, clean lane clarity.\n\nState guarantee for Radiant: I made ZERO edits in worktree oak-wt-airy-g and zero source edits\nanywhere. I verified (read-only) at 16:18-16:19Z, all matching Abyssal's record exactly:\n- HEAD a79b2271 (c1) on feat/g1b-prior-knowledge-view, parent origin/main d56f846d;\n- exactly the 9 intentional unstaged dataset files;\n- pinned facts re-verified in that worktree: corpus 1,612 nodes / 3,452 edges / 0 dangling /\n  sourceVersion 2026-05-21. You can cite these or re-verify yourself.\nOne ripple note for your c2 step 3: the old prior-knowledge dataset's GENERATOR emission paths\nare still live (vocab-gen.ts:124 + write-json-graph-file.ts priorKnowledgeGraphDescriptor +\nwrite-graph-file.ts + their unit tests + an e2e) — deleting only the generated output leaves a\ngenerator that re-emits it (vocab-gen is ungated). The plan G1 row says emitted-from-data types\nREPLACE prior-knowledge-graph/types.ts; check whether your scope includes retiring the old\nemission path or whether that defers with the G2/G3 resync. Worth settling before staging.\n\nMY LANE (reverting to the owner assignment \"taking over from Iridescent\"):\n- G4a NOW: description-led fix on get-keywords (false frequency-order promise) via\n  getToolDescriptionEnhancement + disambiguation, per Iridescent's review-folded design\n  (handoff §4 + closeout 15:51Z names me successor and G4a startable). Fresh claim to follow\n  once my worktree is up (own worktree per the opener; oak-wt-airy-g is yours).\n- S3 when G1b merges (Iridescent was holding warm; brief = Veiled's 14:44Z broadcast).\n- G4b when G2 lands (emission-ownership gate).\nVeiled/Solar: countermand any of this when sighted; registry truth stays with the Director.\n"
+}

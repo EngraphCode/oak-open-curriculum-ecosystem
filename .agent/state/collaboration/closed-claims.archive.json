@@ -10284,6 +10284,50 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "15a76136-ce64-4718-9c18-8f2d58ff0ac8",
+      "agent_id": {
+        "agent_name": "Iridescent Glowing Sun",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "53b04f",
+        "id": "86853f44-f760-5c51-ac2d-a9b886136af2"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/collaboration/handoffs/2026-06-10-iridescent-g4-keywords-graph-design.md",
+            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T15:35:03Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Owner-directed G4 keywords-graph DESIGN pull-forward + successor handoff. Authoring the reshaped-G4 design (two tools: keywords_api rename + bulk keywords_graph richly decorated) as a ready-to-fold plan section in a handoff record; Director folds into the canonical plan + commits. Build gated on G2; design-ready-for-successor. Plan pattern is the design DESTINATION (Director's commit surface), not an edit lock by me.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T15:51:15Z",
+        "closed_by": {
+          "agent_name": "Iridescent Glowing Sun",
+          "platform": "claude",
+          "model": "Opus 4.8",
+          "session_id_prefix": "53b04f",
+          "id": "86853f44-f760-5c51-ac2d-a9b886136af2"
+        },
+        "summary": "G4 keywords design pull-forward COMPLETE (owner-directed): two-tool reshape design authored as ready-to-fold plan section in handoff 2026-06-10-iridescent-g4-keywords-graph-design.md + adversarially reviewed (wf_960b361b-e45) + findings folded. Natural-boundary closeout; build gated on G2. Successor Umbral Prowling Lantern (9134e5). Director to fold §4 into plan + decide bulk-refresh + add eef identity row.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "15a76136-ce64-4718-9c18-8f2d58ff0ac8",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

@@ -51,6 +51,7 @@
       "claimed_at": "2026-06-10T14:31:20Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-10-abyssal-seat-b-g1b-c1-to-c2.md",
       "intent": "G1b (Seat B / Track G): prior-knowledge bounded-anchored view + tool rewrite. c1 prerequisite view in graph-corpus-sdk (per-view createGraphView, depth default 2, module-load + startup-cost check); c2 rewrite get-prior-knowledge-graph (anchor unitSlug[]+depth, TextContent+structuredContent), REMOVE curriculum://prior-knowledge-graph (catalogue+drift-guard) + orphaned old dataset, ANCHOR-THREADING prompt repoints (adapt-lesson step 2 prior-knowledge clause only + learning-progression step 3), raise eef-revalidation. Removed-URI assertions expect -32602. One PR off origin/main; source in worktree oak-wt-airy-g."
     },
     {
@@ -82,28 +83,55 @@
       "intent": "comms-watch-hang-hardening (owner-named; Director brief 15:06:19Z): c1 per-step deadlines fail-loud in watchCommsLoop; c2 watcher-heartbeat liveness default-on (derive heartbeat path from seen-file); c3 regression-pin waitForAnyDirectoryChange poll-bound + retire interim rule caution in comms-all-channels-watcher.md (rule-paragraph edit pre-authorised against Veiled claim c42e4b8c). One pure-diff PR off origin/main; worktree oak-wt-luminous-tools; Director-serialised merge."
     },
     {
-      "claim_id": "15a76136-ce64-4718-9c18-8f2d58ff0ac8",
+      "claim_id": "8cd0de7f-a01d-4eed-8254-d18ad52b1cde",
       "agent_id": {
-        "agent_name": "Iridescent Glowing Sun",
+        "agent_name": "Solar Soaring Star",
         "platform": "claude",
-        "model": "Opus 4.8",
-        "session_id_prefix": "53b04f",
-        "id": "86853f44-f760-5c51-ac2d-a9b886136af2"
+        "model": "fable-5",
+        "session_id_prefix": "7f0c08",
+        "id": "d9ef7975-bcb1-5ccf-b29e-09dae2bbb4e2"
       },
       "thread": "eef",
       "areas": [
         {
           "kind": "files",
           "patterns": [
-            ".agent/state/collaboration/handoffs/2026-06-10-iridescent-g4-keywords-graph-design.md",
-            ".agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md"
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
           ]
         }
       ],
-      "claimed_at": "2026-06-10T15:35:03Z",
+      "claimed_at": "2026-06-10T16:21:08Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "Owner-directed G4 keywords-graph DESIGN pull-forward + successor handoff. Authoring the reshaped-G4 design (two tools: keywords_api rename + bulk keywords_graph richly decorated) as a ready-to-fold plan section in a handoff record; Director folds into the canonical plan + commits. Build gated on G2; design-ready-for-successor. Plan pattern is the design DESTINATION (Director's commit surface), not an edit lock by me."
+      "intent": "Director (graph implementation team) — PDR-064 Moment 2 completion, owner-directed in-session 2026-06-10T16:21:08Z: successor to Veiled Listening Secret (7c8e8e). Coordination home owner: all .agent/state, .agent/memory, continuity writes; prompts/plans status lines; dispatch; reviewer routing; merge sequencing. Veiled's claim c42e4b8c superseded by this claim per the acknowledgement event; formal closure at Veiled's wake (currently watcher-blind, evidence event 382ed72e)."
+    },
+    {
+      "claim_id": "ddde08e2-7146-4499-ad2f-db6d830179b2",
+      "agent_id": {
+        "agent_name": "Umbral Prowling Lantern",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "9134e5",
+        "id": "8d7aa1b0-4287-50ca-934c-4ae5c3633174"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts",
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.unit.test.ts",
+            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/emit-index.ts",
+            "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T16:24:54Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G4a (Iridescent-successor lane, fresh claim): codegen-time description correction for get-keywords false frequency-order claim (U1-grounded; observed alphabetical, no frequency field). Correction applies ONLY to the MCP tool description surface (our product layer); upstream spec mirrors stay faithful. tool-description.ts correction table + pipeline wire in emit-index.ts + unit tests + generated-output drift-guard + sdk-codegen regen. One small PR off origin/main d56f846d; worktree oak-wt-umbral-g4 branch feat/g4a-keywords-description. Served-name rename NOT in scope (optional codegen work, owner-gated name). G4b stays G2-gated."
     }
   ]
 }

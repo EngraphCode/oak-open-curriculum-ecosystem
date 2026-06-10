@@ -11,7 +11,28 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-10, Veiled Listening Secret / claude Fable 5, Director, branch
+- **THIS SESSION (2026-06-10 afternoon, Solar Soaring Star / claude Fable 5, Director
+  successor, coordination home branch `docs/graph-team-direction-2026-06-10`) — PDR-064
+  Director succession + second implementer rotation.** Veiled's Moment-1 pre-positioning
+  (event `7dc40d71`, 15:37:03Z) opened the understudy window; Veiled's own comms watcher then
+  proved FROZEN since 15:28:55Z (seen-file stall — the hang-but-run CLI defect; root-cause
+  evidence event `382ed72e`), leaving Veiled alive-but-blind with a detached heartbeat.
+  Owner-directed **Moment 2 fired 16:22:39Z** (acknowledgement event `0a3d08ff`; Solar claim
+  `8cd0de7f` opened; Veiled claim `c42e4b8c` superseded — formal closure + team-member
+  closeout at Veiled's wake, owner holds the transport). Rotations: Abyssal closed clean at
+  the G1b c1 boundary (c1 landed `a79b2271`; claim `86548f2c` retained, handoff record +
+  `handoff_record_path` set) → **Radiant Ascending Eclipse executes G1b c2** (a brief
+  Umbral/Radiant pickup contention dissolved by Umbral's 16:21Z yield, ratified in
+  `0a3d08ff`); Iridescent delivered the G4 Gate-1 verdict + adversarially-reviewed design
+  (handoff record `2026-06-10-iridescent-g4-keywords-graph-design.md`; §4 folded into the
+  plan's g4 todo this session) and closed clean → **Umbral Prowling Lantern executes G4a**
+  (get-keywords description correction; claim `ddde08e2`; G4b stays G2-gated; S3 next for
+  Umbral after G4a, re-confirm at PR-open). **Luminous landed all three comms-watch-hardening
+  cycles** (pushed; PR pending owner GitHub auth; merge Director-serialised; at merge drop
+  this branch's interim watcher caution per Luminous's supersession note). Open owner items:
+  bulk-refresh timing (pre-G2; KS4 divergence — english live +38% vs bulk, science-ks4 live
+  inverted to zero), principles-prompt attribution validation (S3 gate), Veiled wake.
+- **PRIOR SESSION (2026-06-10, Veiled Listening Secret / claude Fable 5, Director, branch
   `docs/graph-team-direction-2026-06-10`) — graph implementation team, first worktree-team run.**
   Owner-ratified shape live: Director coordination home = primary checkout (owner-confirmed,
   Director off main); implementers in own worktrees, pure-diff PRs. Delivered + MERGED: **S1**
@@ -249,6 +270,13 @@ session narrative for each is in git history; this table is the durable identity
 | `Veiled Listening Secret` | `claude` | `Fable 5` | `7c8e8e` | `graph-implementation-team-director` | 2026-06-10 | 2026-06-10 |
 | `Airy Wheeling Gale` | `claude` | `Opus 4.8` | `597439` | `graph-implementation-seat-b-track-g-implementer` | 2026-06-10 | 2026-06-10 |
 | `Riverine Swimming Sail` | `claude` | `Opus 4.8` | `5cc20f` | `graph-implementation-seat-a-track-s-implementer` | 2026-06-10 | 2026-06-10 |
+| `Pearly Snorkelling Dock` | `claude` | `Opus 4.8` | `5e9a5c` | `graph-implementation-seat-a-s2-u1-implementer` | 2026-06-10 | 2026-06-10 |
+| `Abyssal Swimming Mast` | `claude` | `Opus 4.8` | `b14f60` | `graph-implementation-seat-b-g1a-fixes-and-g1b-c1-implementer` | 2026-06-10 | 2026-06-10 |
+| `Iridescent Glowing Sun` | `claude` | `Opus 4.8` | `53b04f` | `g4-gate1-parity-verdict-and-design-pull-forward` | 2026-06-10 | 2026-06-10 |
+| `Luminous Scattering Dawn` | `claude` | `Opus 4.8` | `39d471` | `agent-tools-comms-watch-hang-hardening-implementer` | 2026-06-10 | 2026-06-10 |
+| `Umbral Prowling Lantern` | `claude` | `Fable 5` | `9134e5` | `g4a-keywords-description-implementer-iridescent-successor` | 2026-06-10 | 2026-06-10 |
+| `Radiant Ascending Eclipse` | `claude` | `Fable 5` | `8cd0b9` | `graph-implementation-seat-b-g1b-c2-implementer` | 2026-06-10 | 2026-06-10 |
+| `Solar Soaring Star` | `claude` | `Fable 5` | `7f0c08` | `graph-implementation-director-successor` | 2026-06-10 | 2026-06-10 |
 
 ## Cross-Plan and Cross-Thread Links
 
