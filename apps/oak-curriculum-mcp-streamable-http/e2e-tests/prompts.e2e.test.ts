@@ -167,6 +167,35 @@ describe('MCP Prompts E2E', () => {
       expect(allText).toContain('decimals');
     });
 
+    it('lesson-planning prompt carries Oak attribution under the Open Government Licence', async () => {
+      const { app } = await createStubbedHttpApp();
+
+      const response = await request(app)
+        .post('/mcp')
+        .set('Host', 'localhost')
+        .set('Accept', STUB_ACCEPT_HEADER)
+        .send({
+          jsonrpc: '2.0',
+          id: '1',
+          method: 'prompts/get',
+          params: {
+            name: 'lesson-planning',
+            arguments: { topic: 'decimals', yearGroup: 'Year 5' },
+          },
+        });
+
+      const envelope = parseSseEnvelope(response.text);
+      const parsed = PromptsGetResultSchema.safeParse(envelope.result);
+
+      const messages = parsed.data?.messages ?? [];
+      const allText = messages.map((m) => m.content.text ?? '').join(' ');
+
+      // Proves: the served prompt carries its source skill's attribution
+      // (Oak data under OGL v3.0) through the wire surface.
+      expect(allText).toContain('Oak National Academy');
+      expect(allText).toContain('Open Government Licence');
+    });
+
     it('explore-curriculum prompt includes topic and references explore-topic', async () => {
       const { app } = await createStubbedHttpApp();
 

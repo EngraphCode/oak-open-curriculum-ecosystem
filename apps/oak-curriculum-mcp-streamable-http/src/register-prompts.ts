@@ -40,7 +40,7 @@ const PROMPT_REGISTRATIONS = [
     name: 'lesson-planning',
     title: 'Lesson Planning',
     description:
-      'Gather materials for planning a lesson on a topic, including objectives and resources.',
+      "Build a complete, teachable lesson on a topic, grounded in Oak's live curriculum data and six curriculum principles — outcome, key learning points, keywords, misconceptions, quizzes, and resources.",
     argsSchema: lessonPlanningArgsSchema,
   },
   {

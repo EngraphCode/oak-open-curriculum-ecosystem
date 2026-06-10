@@ -76,7 +76,7 @@ export const MCP_PROMPTS: readonly McpPrompt[] = [
   {
     name: 'lesson-planning',
     description:
-      'Gather materials for planning a lesson on a topic, including objectives, transcript, quiz questions, and resources.',
+      "Build a complete, teachable lesson on a topic the way Oak does — planning grounded in Oak's live curriculum data and six curriculum principles: pupil outcome, key learning points, keywords, misconceptions, quizzes, and resources, with attribution carried.",
     arguments: [
       requiredArgument(
         'topic',

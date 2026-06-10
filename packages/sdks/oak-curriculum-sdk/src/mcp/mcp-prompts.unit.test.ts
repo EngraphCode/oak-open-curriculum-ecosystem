@@ -132,6 +132,58 @@ describe('getPromptMessages', () => {
       // key-stage substitution (dropping the year filter) fails the test.
       expect(content).toContain('year: 4 for "Year 4"');
     });
+
+    it('guides building the full lesson core, not just gathering materials', () => {
+      const messages = getPromptMessages('lesson-planning', {
+        topic: 'fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages
+        .map((m) => m.content.text)
+        .join(' ')
+        .toLowerCase();
+      // The lesson anatomy from the oak-lesson-builder skill: outcome,
+      // knowledge, vocabulary, misconceptions, and both quizzes.
+      expect(content).toContain('pupil outcome');
+      expect(content).toContain('key learning points');
+      expect(content).toContain('keyword');
+      expect(content).toContain('misconception');
+      expect(content).toContain('starter quiz');
+      expect(content).toContain('exit quiz');
+    });
+
+    it('grounds prior knowledge and misconceptions in Oak graph tools', () => {
+      const messages = getPromptMessages('lesson-planning', {
+        topic: 'fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('get-prior-knowledge-graph');
+      expect(content).toContain('get-misconception-graph');
+    });
+
+    it('carries Oak attribution under the Open Government Licence', () => {
+      const messages = getPromptMessages('lesson-planning', {
+        topic: 'fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('Oak National Academy');
+      expect(content).toContain('Open Government Licence');
+    });
+
+    it('keeps the teacher in charge — a starting point to adapt, not a script', () => {
+      const messages = getPromptMessages('lesson-planning', {
+        topic: 'fractions',
+        yearGroup: 'Year 4',
+      });
+      const content = messages
+        .map((m) => m.content.text)
+        .join(' ')
+        .toLowerCase();
+      expect(content).toContain('adapt');
+      expect(content).toContain('not a script');
+    });
   });
 
   describe('progression-map prompt (removed)', () => {
