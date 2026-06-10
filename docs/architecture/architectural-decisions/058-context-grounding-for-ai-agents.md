@@ -198,12 +198,12 @@ work; no implementation decision is ratified.
 This ADR's rationale leans on "multiple touchpoints / redundancy" but does not
 state that the touchpoints are **not equally reliable**. Strongest to weakest:
 
-| Rank | Surface | Why |
-| --- | --- | --- |
-| 1 | **Tool output data itself** | Always consumed by the model; cannot be ignored. Not currently treated as a grounding surface. |
-| 2 | **`oakContextHint` in `structuredContent`** | Reliably model-visible on every response (§3). |
-| 3 | **Per-tool `description`** | Visible at discovery; may truncate in large tool lists. |
-| 4 | **Server `instructions` field** | Per the MCP spec the field is `"Optional instructions for the client"` — a client **MAY** fold it into the system prompt but is **not required to**. |
+| Rank | Surface                                     | Why                                                                                                                                                  |
+| ---- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | **Tool output data itself**                 | Always consumed by the model; cannot be ignored. Not currently treated as a grounding surface.                                                       |
+| 2    | **`oakContextHint` in `structuredContent`** | Reliably model-visible on every response (§3).                                                                                                       |
+| 3    | **Per-tool `description`**                  | Visible at discovery; may truncate in large tool lists.                                                                                              |
+| 4    | **Server `instructions` field**             | Per the MCP spec the field is `"Optional instructions for the client"` — a client **MAY** fold it into the system prompt but is **not required to**. |
 
 **Implication:** the server `instructions` field is the **weakest** lever and
 shapes tool-selection, not output quality. Rigour that must be honoured belongs
@@ -214,7 +214,7 @@ enforcement.
 ### 2. Per-call broadcast guidance must stay within token budgets
 
 `oakContextHint` (§3) and per-tool descriptions are **repeated on every tool
-invocation** and consume the *consuming* agent's context window. Any expansion of
+invocation** and consume the _consuming_ agent's context window. Any expansion of
 per-call guidance — for example richer pedagogical framing — must stay within
 token budgets. Uniformly broadcasting rich guidance on every response does not
 scale; the per-call cost is paid for the whole session.

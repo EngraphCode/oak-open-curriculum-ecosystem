@@ -70,7 +70,8 @@ export const AGENT_SUPPORT_TOOL_METADATA = {
     purpose: 'understand the Oak curriculum domain model and how to use available tools',
     callOrder: 0,
     complementsTools: ['search', 'fetch'],
-    seeAlso: 'search for finding content, fetch for retrieving details, browse-curriculum for browsing',
+    seeAlso:
+      'search for finding content, fetch for retrieving details, browse-curriculum for browsing',
     callAtStart: true,
   },
 } as const;
@@ -235,7 +236,7 @@ mechanism for **per-tool guidance enhancements** — guidance targeted to the to
 that need it, applied only where it earns its tokens — rather than one larger
 uniform broadcast string. The metadata system is already per-tool (keyed by tool
 name), so this would extend the established pattern rather than replace it. The
-reliability ranking that should drive *which* surface carries enhanced guidance is
+reliability ranking that should drive _which_ surface carries enhanced guidance is
 recorded in [ADR-058 Addendum](058-context-grounding-for-ai-agents.md#addendum-2026-06-10--pedagogical-grounding-forward-considerations).
 
 ## Related Decisions
