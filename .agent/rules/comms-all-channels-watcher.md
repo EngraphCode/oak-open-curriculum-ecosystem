@@ -60,6 +60,20 @@ Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
 Codex use their equivalent watch primitives.
 
+### Hardened against silent hangs
+
+The watch loop fails loud rather than muting silently. Each `drain`, `emit`,
+and `markSeen` step runs under a per-step deadline (`--step-timeout-ms`,
+default 60 s); a step that exceeds it emits a `kind=timeout` WATCHER ERROR
+line and the watcher exits non-zero, so the supervising Monitor/cron sees the
+death and can restart it. The directory-change wait (the loop's `waitForChange`
+step) carries no deadline — it is poll-bounded by construction: a
+`setTimeout(pollMs)` fallback runs alongside
+the `fs.watch` subscriptions, so a dropped FSEvents subscription delays a wake
+by at most `pollMs` instead of stalling forever. The liveness self-check below
+covers any residual hang path that a deadline cannot reach (a hung process
+cannot exit-non-zero if the hang sits where no deadline is armed).
+
 ### Liveness self-check (cycle boundaries)
 
 The watcher writes a liveness heartbeat **on by default** at

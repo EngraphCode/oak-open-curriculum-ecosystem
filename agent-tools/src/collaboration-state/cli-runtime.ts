@@ -158,14 +158,49 @@ function waitForCollaborationStateChangeFromFiles(input: {
   });
 }
 
-function waitForAnyDirectoryChange(input: {
+/**
+ * Subscribes `onChange` to a directory's change events, returning a closable
+ * handle or `null` when the platform cannot watch the path. Injectable so the
+ * poll-bound invariant below is unit-testable without real FS events — which
+ * are non-deterministic, especially the dropped-subscription case this guards.
+ *
+ * `onChange` MUST be invoked asynchronously (after the factory returns), as
+ * the real `node:fs` watch callback always is. Firing it synchronously during
+ * construction is unsupported — the resolve path reads the not-yet-populated
+ * handle list.
+ */
+export type DirectoryWatchFactory = (
+  directory: string,
+  onChange: () => void,
+) => { readonly close: () => void } | null;
+
+const fsDirectoryWatchFactory: DirectoryWatchFactory = (directory, onChange) => {
+  try {
+    const watcher = watch(directory, { persistent: false }, onChange);
+    watcher.on('error', onChange);
+    return watcher;
+  } catch {
+    return null;
+  }
+};
+
+/**
+ * Resolve when ANY watched directory changes — OR after `pollMs`, whichever
+ * comes first. The `setTimeout(pollMs)` fallback is armed ALONGSIDE the watch
+ * subscriptions, so a dropped FSEvents subscription (the macOS hang suspect)
+ * delays a wake by at most `pollMs` instead of stalling the watcher forever.
+ * This poll-bound is the invariant pinned by `cli-runtime.unit.test.ts`.
+ */
+export function waitForAnyDirectoryChange(input: {
   readonly directories: readonly string[];
   readonly pollMs: number;
+  readonly watchFactory?: DirectoryWatchFactory;
 }): Promise<void> {
+  const watchFactory = input.watchFactory ?? fsDirectoryWatchFactory;
   return new Promise((resolve) => {
     let settled = false;
     const timer = setTimeout(done, input.pollMs);
-    const watchers = input.directories.map((directory) => tryWatchDirectory(directory, done));
+    const watchers = input.directories.map((directory) => watchFactory(directory, done));
 
     function done(): void {
       if (settled) {
@@ -179,14 +214,4 @@ function waitForAnyDirectoryChange(input: {
       resolve();
     }
   });
-}
-
-function tryWatchDirectory(directory: string, done: () => void): ReturnType<typeof watch> | null {
-  try {
-    const watcher = watch(directory, { persistent: false }, done);
-    watcher.on('error', done);
-    return watcher;
-  } catch {
-    return null;
-  }
 }
