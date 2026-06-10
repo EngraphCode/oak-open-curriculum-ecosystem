@@ -44,8 +44,10 @@ export const commsWatchOptions = [
   'session-prefix',
   'poll-ms',
   'max-events',
+  'step-timeout-ms',
   'heartbeat-file',
   'heartbeat-interval-ms',
+  'no-heartbeat',
   'seed-from-now',
   'no-auto-seed',
 ] as const;
