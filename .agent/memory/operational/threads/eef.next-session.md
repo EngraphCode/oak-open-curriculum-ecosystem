@@ -25,21 +25,23 @@ merge_class: index-narrative-tables
   order-sensitivity chain re-verified in source at fold): mint
   `misconception:<lessonSlug>#<hash16(normalise(text))>` content-hash lesson-scoped text-only;
   G2-execution open details = hash prefix length (16 hex recommended) + droppedDuplicates
-  surfacing (provenance array recommended). **G1b PR #161 OPEN** (Eclipsed Masking Shade 952c10,
-  five commits incl. docs cure `3bef5a6c`; c2-2 specialist backfill adjudicated — code-expert
-  finding applied, mcp-expert compliant; eef-revalidation signal `334b8a99` raised; both settle
-  loops watched implementer-side + Director monitor) — merge Director-serialised; AT MERGE:
-  third deletion-scope verification (deletions strictly old-path, zero graph-corpus
-  intersection), then route S3 + G2 execution to the seats that free (Fruited Blossoming Meadow
-  4536e0 holds the G4 seat + the G2 design lineage via handoff record; Glassy Plumbing Dock
-  ca5890 successor-on-standby for Eclipsed's seat — grounded + paused owner-directed,
-  activation only by Director routing or Eclipsed's closeout). **NEW upstream API schema bump
-  observed at takeover** (live-fetch regen drift in the coordination home: schema version
-  `0.7.0-ab3c160d…` → `0.7.0-6a3c1f02…`, subject-param enums added, descriptions/examples
-  changed; 12 generated files + schema-cache; NO get-keywords.ts in the diff; tree gate-green
-  with the drift — two pushes succeeded on top) — same class as #159: the dirty files are the
-  REFERENCE DIFF, routed as a resync micro-PR off origin/main (Fruited Blossoming Meadow,
-  parallel-safe with G1b — disjoint file sets). Standing: portable watcher only
+  surfacing (provenance array recommended). **G1b PR #161 MERGED** (`793cb3c1`, 20:05:02Z,
+  merge-commit convention; Eclipsed Masking Shade 952c10, seven commits ending `47ad98df`; both
+  evidence loops settled — all checks green, sole substantive reviewer finding [empty-anchor
+  depth-validation bypass] applied with recorded verdict, Sonar zero open; Director third
+  deletion-scope verification PASSED: deletion-only edits strictly old prior-knowledge estate,
+  graph-corpus paths purely additive; eef-revalidation signal `334b8a99` stands raised for the
+  downstream plan) — **S3 + G2 sequencing gates DISCHARGED**. Post-merge wave: Eclipsed closed
+  out clean (`41ba63ca`, zero retained); **G2 execution ROUTED to Fruited Blossoming Meadow**
+  (4536e0, design lineage; event `4eebdf2e` — plan g2 todo is the authority, mint rule folded);
+  **S3 ROUTED to Glassy Plumbing Dock** (ca5890, event `7efc70c8` — activation at Eclipsed's
+  closeout [met]; lesson-builder + curriculum-mapper cycles only; principles-prompt OWNER-GATED;
+  tone-of-voice excluded; adopt oak-wt-airy-g, branch at/after `793cb3c1`). **Takeover
+  schema-bump diagnosis REFUTED as branch-lag no-op** (Fruited verdict `459451d5`,
+  Director-verified: origin/main already at `0.7.0-6a3c1f02` since #159; all 13 dirty files
+  byte-identical to origin/main; alignment committed this waypoint so the dirty-file trap does
+  not mislead the next holder; failure-mode capture `54fc0fee` — baseline drift against
+  origin/main, never branch HEAD). Standing: portable watcher only
   until the agent-tools rebuild; Director small queue unchanged (test:e2e turbo env exposure,
   lifecycle-lease flake, agent-tools loud-write fixes, rebuild). Open owner items:
   principles-prompt attribution validation (gates S3's principles cycle only);

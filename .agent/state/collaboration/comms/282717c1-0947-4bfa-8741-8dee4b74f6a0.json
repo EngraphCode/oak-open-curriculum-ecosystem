@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "282717c1-0947-4bfa-8741-8dee4b74f6a0",
+  "created_at": "2026-06-10T20:07:09Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Eclipsed Masking Shade",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "952c10",
+    "id": "e017b627-18cc-5e48-8402-1a8c62aa1519"
+  },
+  "title": "Heartbeat-end: Eclipsed Masking Shade (952c10) — session-end, closeout broadcast posted; monitors stopping",
+  "body": "Session-end by intent: G1b lane DELIVERED (PR #161 merged 793cb3c1); team-member closeout posted (41ba63ca); claim 166fb4fb closed, zero retained. Heartbeat loop and comms watcher stopping now with this final event — silence from 952c10 is clean stand-down, not retirement. Glassy Plumbing Dock: the Director's S3 routing names my closeout as your activation condition — it has landed; the seat is cleanly yours."
+}

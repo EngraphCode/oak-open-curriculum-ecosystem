@@ -8,7 +8,7 @@ export const schemaBase = {
   "openapi": "3.1.0",
   "info": {
     "title": "Oak OpenAPI",
-    "version": "0.7.0-ab3c160d2b824f610e55fa78125aee348fe2dd1a"
+    "version": "0.7.0-6a3c1f02b1196500aff0753eac13cc51c341c528"
   },
   "servers": [
     {
@@ -66,7 +66,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The sequence slug identifier",
-              "example": "art-secondary-aqa"
+              "example": "art-secondary"
             },
             "required": true,
             "description": "The sequence slug identifier"
@@ -773,7 +773,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getSubjects-getAllSubjects",
         "summary": "Subjects",
-        "description": "This endpoint returns an array of available subject slugs.",
+        "description": "This endpoint returns an array of all available subjects and their associated sequences, key stages and years.",
         "tags": [
           "lists"
         ],
@@ -934,6 +934,25 @@ export const schemaBase = {
             "name": "subject",
             "schema": {
               "type": "string",
+              "enum": [
+                "art",
+                "citizenship",
+                "computing",
+                "cooking-nutrition",
+                "design-technology",
+                "english",
+                "french",
+                "geography",
+                "german",
+                "history",
+                "maths",
+                "music",
+                "physical-education",
+                "religious-education",
+                "rshe-pshe",
+                "science",
+                "spanish"
+              ],
               "description": "The subject slug identifier",
               "example": "art"
             },
@@ -1004,6 +1023,25 @@ export const schemaBase = {
             "name": "subject",
             "schema": {
               "type": "string",
+              "enum": [
+                "art",
+                "citizenship",
+                "computing",
+                "cooking-nutrition",
+                "design-technology",
+                "english",
+                "french",
+                "geography",
+                "german",
+                "history",
+                "maths",
+                "music",
+                "physical-education",
+                "religious-education",
+                "rshe-pshe",
+                "science",
+                "spanish"
+              ],
               "example": "cooking-nutrition",
               "description": "Subject slug to filter by"
             },

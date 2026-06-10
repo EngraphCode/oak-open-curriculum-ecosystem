@@ -46,36 +46,6 @@
   ],
   "claims": [
     {
-      "claim_id": "166fb4fb-f565-48c5-ac40-d13bd1fe6b69",
-      "agent_id": {
-        "agent_name": "Eclipsed Masking Shade",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "952c10",
-        "id": "e017b627-18cc-5e48-8402-1a8c62aa1519"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
-            "packages/sdks/oak-curriculum-sdk/src/public/mcp-tools.ts",
-            "packages/sdks/oak-sdk-codegen/src/generated/vocab/**",
-            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
-            "packages/sdks/oak-sdk-codegen/src/bulk/generators/**",
-            "packages/sdks/graph-corpus-sdk/src/curriculum/**",
-            "apps/oak-curriculum-mcp-streamable-http/src/**",
-            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-10T19:25:51Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "G1b completion (Seat B / Track G) — SUPERSEDES claim cd9b5e17-00e6-4981-990b-664e3926102d (Abyssal->Radiant->Celestial-Orbit->me rotation; transfer event 57c97cbc at gate-green boundary; handoff record 2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md read end to end): all four source commits landed (HEAD 036b459e); remainder = code-expert backstop on c2-2 diff, eef-revalidation signal, push, ONE G1b PR off origin/main, monitor-to-merge with first-hand adjudication, MERGE-READY report to Director. Worktree oak-wt-airy-g branch feat/g1b-prior-knowledge-view; requesting Director closure of predecessor claim cd9b5e17 per rotation choreography."
-    },
-    {
       "claim_id": "dbe87352-5db0-4bc6-ad1b-3101099c2fd1",
       "agent_id": {
         "agent_name": "Stratospheric Swooping Zephyr",
@@ -99,6 +69,34 @@
       "freshness_seconds": 14400,
       "sidebar_open": false,
       "intent": "Director (graph implementation team, fourth holder) — PDR-064 successor to Celestial Glowing Dusk (1e526e), owner-directed; Moment-1 event 56ae6447. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Celestial-Dusk claim 75323860 closes at their hand citing my Moment-2 event."
+    },
+    {
+      "claim_id": "e7bfd545-8100-4293-9e77-a987947b374c",
+      "agent_id": {
+        "agent_name": "Fruited Blossoming Meadow",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "4536e0",
+        "id": "1ceaba69-a9a1-58be-970b-a88ebcaef4f1"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T20:07:08Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G2 misconception view execution (Director-routed 20:06:13Z event 4eebdf2e; gate discharged at G1b merge 793cb3c1). One PR per plan g2 todo (authority; mint rule settled+folded at e3590ea6): vocab-gen re-projection of thread/unit/lesson/misconception nodes + chain edges with content-hash lesson-scoped text-only mint + five-part stability contract test; delete hand-written misconception-graph/types.ts; per-view misconception view in graph-corpus-sdk; anchored get-misconception-graph rewrite (lesson/unit/thread, heavy-tail semantics); REMOVE curriculum://misconception-graph; adapt-lesson step-2 anchor-threading completion; eef-revalidation signal at landing. Worktree oak-wt-umbral-g4, branch feat/g2-misconception-view off origin/main@>=793cb3c1. Pinned-facts re-verification at execution start."
     }
   ]
 }

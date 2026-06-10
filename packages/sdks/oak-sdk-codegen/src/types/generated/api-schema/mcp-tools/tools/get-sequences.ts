@@ -31,11 +31,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"slug":{"type":"string","description":"The sequence slug identifier","examples":["art-secondary-aqa"]}} as const, additionalProperties: false as const, required: ["slug"] };
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"slug":{"type":"string","description":"The sequence slug identifier","examples":["art-secondary"]}} as const, additionalProperties: false as const, required: ["slug"] };
 export const toolZodSchema = z.object({ params: z.object({ path: z.object({ slug: z.string().describe("The sequence slug identifier") }) }) });
-export const toolMcpFlatInputSchema = z.strictObject({ slug: z.string().describe("The sequence slug identifier").meta({ examples: ["art-secondary-aqa"] }) });
+export const toolMcpFlatInputSchema = z.strictObject({ slug: z.string().describe("The sequence slug identifier").meta({ examples: ["art-secondary"] }) });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"slug":{"type":"string","description":"The sequence slug identifier","examples":["art-secondary-aqa"]}},"additionalProperties":false,"required":["slug"]}\nRequired: slug';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"slug":{"type":"string","description":"The sequence slug identifier","examples":["art-secondary"]}},"additionalProperties":false,"required":["slug"]}\nRequired: slug';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.

@@ -10967,6 +10967,100 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "cc93749e-e48e-4a80-92f5-7f5b924e380f",
+      "agent_id": {
+        "agent_name": "Fruited Blossoming Meadow",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "4536e0",
+        "id": "1ceaba69-a9a1-58be-970b-a88ebcaef4f1"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json",
+            "packages/sdks/oak-sdk-codegen/src/types/generated/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:57:00Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Upstream API schema resync micro-PR (0.7.0-ab3c160d -> 0.7.0-6a3c1f02), #159 class; Director-routed 19:55:48Z (event 848e4ce4) to Fruited Blossoming Meadow (4536e0). Work in worktree oak-wt-umbral-g4, branch feat/sdk-schema-resync-6a3c1f02 off origin/main; pnpm sdk-codegen; diff verified against the coordination-home reference (13 paths; get-keywords.ts = stop-and-flag); full gates; ONE pure-diff PR; monitor-to-merge. G2 execution follows at G1b merge; resync finishes first if in flight.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T20:01:25Z",
+        "closed_by": {
+          "agent_name": "Fruited Blossoming Meadow",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "4536e0",
+          "id": "1ceaba69-a9a1-58be-970b-a88ebcaef4f1"
+        },
+        "summary": "NO-OP by evidence: origin/main already carries upstream 0.7.0-6a3c1f02 (commit b14fe459, PR #159); fresh live-fetch sdk-codegen regen (19:59Z, turbo --force past the cache) reproduced origin/main byte-identically — zero diff across all 13 reference paths incl. schema-cache. The observed 'new bump' was the coordination home's branch lag (its HEAD commits ab3c160d — the recorded Airy reference-diff residue, now stale since #159 merged). No PR; zero source edits; worktree returned clean to build/turbo-sdk-codegen-env; zero-commit branch removed. Verdict reported to Director (Zephyr).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "cc93749e-e48e-4a80-92f5-7f5b924e380f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "166fb4fb-f565-48c5-ac40-d13bd1fe6b69",
+      "agent_id": {
+        "agent_name": "Eclipsed Masking Shade",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "952c10",
+        "id": "e017b627-18cc-5e48-8402-1a8c62aa1519"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/src/public/mcp-tools.ts",
+            "packages/sdks/oak-sdk-codegen/src/generated/vocab/**",
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/**",
+            "packages/sdks/graph-corpus-sdk/src/curriculum/**",
+            "apps/oak-curriculum-mcp-streamable-http/src/**",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T19:25:51Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G1b completion (Seat B / Track G) — SUPERSEDES claim cd9b5e17-00e6-4981-990b-664e3926102d (Abyssal->Radiant->Celestial-Orbit->me rotation; transfer event 57c97cbc at gate-green boundary; handoff record 2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md read end to end): all four source commits landed (HEAD 036b459e); remainder = code-expert backstop on c2-2 diff, eef-revalidation signal, push, ONE G1b PR off origin/main, monitor-to-merge with first-hand adjudication, MERGE-READY report to Director. Worktree oak-wt-airy-g branch feat/g1b-prior-knowledge-view; requesting Director closure of predecessor claim cd9b5e17 per rotation choreography.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T20:05:56Z",
+        "closed_by": {
+          "agent_name": "Eclipsed Masking Shade",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "952c10",
+          "id": "e017b627-18cc-5e48-8402-1a8c62aa1519"
+        },
+        "summary": "G1b COMPLETE: PR #161 merged 793cb3c1 (7 commits, all gates green, sole reviewer finding applied 47ad98df, zero open Sonar issues, eef-revalidation signal 334b8a99, S3+G2 gates discharged). Seat closed; no remainder.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "166fb4fb-f565-48c5-ac40-d13bd1fe6b69",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

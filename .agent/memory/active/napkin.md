@@ -305,3 +305,16 @@ Owner-directed capture standing: unnecessary-attention costs are tool-fix notes.
   caveat). Comms events read as durable but are ephemeral-class for doctrine. Next consolidation:
   diff the latest pre-positioning duty list against the team opener + Director-duty surfaces and
   graduate the deltas; otherwise each succession re-derives them from the stream.
+
+## 2026-06-10 — fourth Director session (Stratospheric Swooping Zephyr, fe53ec)
+
+- **Generated-file drift is baselined against origin/main, never branch HEAD.** At takeover I
+  classified the coordination home's 13 dirty regen files as a NEW upstream schema bump and
+  routed a resync micro-PR; Fruited's execution-start re-verification proved main already
+  carried that schema (#159) — the "drift" was the long-lived docs branch lagging main. One
+  cheap byte-compare loop (`git show origin/main:<path> | diff -q - <path>`) would have
+  dissolved it pre-routing; the #159 reference-diff precedent pattern-matched too eagerly.
+  Caught by design (execution-start re-verification, third worked instance today), zero damage;
+  cost = one routing round-trip. Cure adopted: byte-compare against origin/main BEFORE
+  classifying drift; alignment committed so the trap does not mislead the next holder. Comms
+  capture `54fc0fee`.
