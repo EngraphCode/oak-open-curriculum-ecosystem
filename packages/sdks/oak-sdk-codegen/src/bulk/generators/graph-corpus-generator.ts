@@ -46,6 +46,7 @@ import {
   type MisconceptionBuild,
 } from './graph-corpus-misconception-nodes.js';
 import { buildLessonNodes, buildThreadNodes, buildUnitNodes } from './graph-corpus-nodes.js';
+import { buildSequences, type SequenceBuild } from './graph-corpus-sequences.js';
 import type {
   GraphCorpus,
   GraphCorpusDroppedEdge,
@@ -78,6 +79,8 @@ export type {
   GraphCorpusDroppedEdge,
   GraphCorpusDroppedDuplicate,
   GraphCorpusInput,
+  GraphCorpusSequence,
+  GraphCorpusSequencePlacement,
 } from './graph-corpus-types.js';
 
 /** Resolved `addressesMisconception` edges plus dropped-edge provenance. */
@@ -135,6 +138,7 @@ interface CorpusAssembly {
   readonly threadNodeCount: number;
   readonly lessonNodeCount: number;
   readonly misconceptionBuild: MisconceptionBuild;
+  readonly sequenceBuild: SequenceBuild;
   readonly nodes: readonly GraphCorpusNode[];
   readonly edges: readonly GraphCorpusEdge[];
   readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
@@ -157,6 +161,7 @@ function assembleCorpus(input: GraphCorpusInput): CorpusAssembly {
     threadNodeCount: threadNodes.length,
     lessonNodeCount: lessonNodes.length,
     misconceptionBuild,
+    sequenceBuild: buildSequences(threads),
     nodes: [...unitNodes, ...threadNodes, ...lessonNodes, ...misconceptionBuild.nodes],
     edges: sortEdges([
       ...prerequisite.edges,
@@ -192,6 +197,7 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
     subjectsCovered: collectSubjects(unitNodes),
     selfLoops,
     collapsedIdenticalMisconceptions: assembly.misconceptionBuild.collapsedIdentical,
+    collapsedIdenticalPlacements: assembly.sequenceBuild.collapsedIdenticalPlacements,
   };
 }
 
@@ -207,17 +213,19 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
 export function generateGraphCorpusData(input: GraphCorpusInput): GraphCorpus {
   const assembly = assembleCorpus(input);
   return {
-    version: '1.1.0',
+    version: '1.2.0',
     generatedAt: new Date().toISOString(),
     sourceVersion: input.sourceVersion,
     stats: buildStats(assembly),
     nodes: assembly.nodes,
     edges: assembly.edges,
+    sequences: assembly.sequenceBuild.sequences,
     droppedEdges: assembly.droppedEdges,
     droppedDuplicates: assembly.misconceptionBuild.droppedDuplicates,
     seeAlso:
       'One bulk curriculum graph surfaced as bounded views. Use the prior-knowledge view ' +
       'for "what comes before" queries; use the misconception view for the ' +
-      'thread→unit→lesson→misconception chain; use get-thread-progressions for ordered learning paths.',
+      'thread→unit→lesson→misconception chain; use the thread-progressions view ' +
+      '(sequences) for ordered learning paths.',
   };
 }

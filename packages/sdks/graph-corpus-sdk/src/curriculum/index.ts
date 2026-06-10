@@ -6,7 +6,9 @@
  * these units?" as a depth-bounded predecessor subgraph;
  * `misconceptionsForLessons` / `misconceptionsForUnits` /
  * `misconceptionsForThread` (G2) answer "which misconceptions does this
- * anchor address?" over the thread→unit→lesson→misconception chain.
+ * anchor address?" over the thread→unit→lesson→misconception chain;
+ * `progressionForThread` / `progressionsForSubjectKeyStage` (G3) answer "how
+ * does this thread progress across years?" over the year-ordered sequences.
  */
 
 export {
@@ -16,6 +18,8 @@ export {
   type GraphCorpusLessonNode,
   type GraphCorpusMisconceptionNode,
   type GraphCorpusNodeId,
+  type GraphCorpusSequence,
+  type GraphCorpusSequencePlacement,
   type GraphCorpusThreadNode,
   type GraphCorpusUnitNode,
 } from './graph-corpus.js';
@@ -49,3 +53,20 @@ export {
   type UnitMisconceptions,
   type UnitMisconceptionsSubgraph,
 } from './misconception-view.js';
+
+export {
+  buildCurriculumThreadProgressionsProjection,
+  type CurriculumThreadProgressionsProjection,
+} from './thread-progressions-projection.js';
+
+export {
+  progressionForThread,
+  progressionsForSubjectKeyStage,
+  threadProgressionStats,
+  type ThreadDescriptor,
+  type ThreadDiscovery,
+  type ThreadProgression,
+  type ThreadProgressionEntry,
+  type ThreadProgressionStats,
+  type ThreadProgressionSubgraph,
+} from './thread-progressions-view.js';

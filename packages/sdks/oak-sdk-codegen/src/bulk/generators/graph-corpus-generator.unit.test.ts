@@ -127,10 +127,10 @@ describe('generateGraphCorpusData', () => {
   };
 
   describe('graph metadata', () => {
-    it('returns a corpus with version 1.1.0 (G2 additive node kinds)', () => {
+    it('returns a corpus with version 1.2.0 (G3 additive sequences)', () => {
       const result = generateGraphCorpusData(makeInput());
 
-      expect(result.version).toBe('1.1.0');
+      expect(result.version).toBe('1.2.0');
     });
 
     it('includes a generatedAt ISO timestamp', () => {
@@ -630,6 +630,7 @@ describe('generateGraphCorpusData', () => {
       expect(result).toHaveProperty('stats');
       expect(result).toHaveProperty('nodes');
       expect(result).toHaveProperty('edges');
+      expect(result).toHaveProperty('sequences');
       expect(result).toHaveProperty('droppedEdges');
       expect(result).toHaveProperty('droppedDuplicates');
       expect(result).toHaveProperty('seeAlso');

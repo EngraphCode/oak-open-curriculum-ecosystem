@@ -27,4 +27,6 @@ export type {
   GraphCorpusEdgeTypeCounts,
   GraphCorpusDroppedEdge,
   GraphCorpusDroppedDuplicate,
+  GraphCorpusSequence,
+  GraphCorpusSequencePlacement,
 } from '../../../bulk/generators/graph-corpus-generator.js';

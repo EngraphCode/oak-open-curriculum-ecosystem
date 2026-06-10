@@ -37,4 +37,6 @@ export type {
   GraphCorpusStats,
   GraphCorpusDroppedEdge,
   GraphCorpusDroppedDuplicate,
+  GraphCorpusSequence,
+  GraphCorpusSequencePlacement,
 } from './generated/vocab/graph-corpus/index.js';

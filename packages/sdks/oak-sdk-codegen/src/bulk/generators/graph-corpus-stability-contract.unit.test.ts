@@ -168,6 +168,25 @@ describe('generateGraphCorpusData — G2 stability contract', () => {
       );
     });
 
+    it('emits identical sequences when one thread’s unit placements arrive in reversed order', () => {
+      // Placement encounter order must not leak into the emitted SEQUENCES —
+      // the (year, unitId) sort is the total order (G3 ordering data). Scoped
+      // to sequences: prerequisiteFor edges still chain in placement
+      // encounter order (the falsified `unit.threads[].order` basis); their
+      // re-derivation is a routed open decision, not silently changed here.
+      const forwardThread: ExtractedThread = baseThread;
+      const reversedThread: ExtractedThread = {
+        ...baseThread,
+        units: [...baseThread.units].reverse(),
+      };
+
+      const forward = generateGraphCorpusData(makeInput({ threads: [forwardThread] }));
+      const reversed = generateGraphCorpusData(makeInput({ threads: [reversedThread] }));
+
+      expect(reversed.sequences).toEqual(forward.sequences);
+      expect(reversed.sequences[0]?.placements.map((p) => p.year)).toEqual([2, 3, 4]);
+    });
+
     it('emits an identical corpus when same-unit prior-knowledge records arrive in reversed order', () => {
       // Two requirements on ONE unit: encounter order must not leak into the
       // emitted priorKnowledge array (the bulk file enumeration is unsorted).
