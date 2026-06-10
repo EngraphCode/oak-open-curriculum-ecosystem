@@ -1826,5 +1826,8 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
   default branch), a dedicated state branch, or out-of-tree state. The structural tension:
   audit-trail durability vs cross-PR conflict generation.
 - **trigger-condition**: a second cross-PR registry conflict, OR the next commit-skill /
-  collaboration-state architecture pass, OR owner direction.
+  collaboration-state architecture pass, OR owner direction. First structural trial scheduled:
+  the graph-implementation team opener's coordination-home convention (one Director-owned
+  checkout holds all registry state; implementer worktrees produce pure-diff PRs by
+  construction) — its outcome is this candidate's strongest evidence either way.
 - **status**: pending
