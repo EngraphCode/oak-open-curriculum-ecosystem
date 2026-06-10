@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.19.1...v1.19.2) (2026-06-10)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** correct false frequency-order claim in get-keywords tool description ([4b7f17d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4b7f17d21ae2aa94ce01c911cc37f3130fe909bb))
+
 ## [1.19.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.19.0...v1.19.1) (2026-06-10)
 
 
