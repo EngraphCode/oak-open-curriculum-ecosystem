@@ -74,7 +74,7 @@ export function buildContainsUnitEdges(
   const edges: GraphCorpusEdge[] = [];
   for (const thread of threads) {
     for (const unit of thread.units) {
-      const key = `${thread.slug}${unit.unitSlug}`;
+      const key = `${thread.slug}\u001f${unit.unitSlug}`;
       if (seen.has(key)) {
         continue;
       }
@@ -96,7 +96,7 @@ export function buildContainsLessonEdges(
   const seen = new Set<string>();
   const edges: GraphCorpusEdge[] = [];
   for (const lesson of lessons) {
-    const key = `${lesson.unitSlug}${lesson.lessonSlug}`;
+    const key = `${lesson.unitSlug}\u001f${lesson.lessonSlug}`;
     if (seen.has(key)) {
       continue;
     }

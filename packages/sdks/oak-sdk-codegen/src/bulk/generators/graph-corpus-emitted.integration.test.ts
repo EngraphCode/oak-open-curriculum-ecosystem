@@ -38,6 +38,24 @@ describe('committed graph corpus (G2 real-corpus count guards)', () => {
     });
   });
 
+  it('stats node-kind counts match a direct recount of the emitted nodes', () => {
+    // The stats block must describe the artefact, not merely record what the
+    // generator believed at write time (validators recompute, never just read).
+    const counts: Record<string, number> = {};
+    for (const node of graphCorpus.nodes) {
+      counts[node.kind] = (counts[node.kind] ?? 0) + 1;
+    }
+    expect(counts).toEqual(graphCorpus.stats.nodeKindCounts);
+  });
+
+  it('stats edge-type counts match a direct recount of the emitted edges', () => {
+    const counts: Record<string, number> = {};
+    for (const edge of graphCorpus.edges) {
+      counts[edge.type] = (counts[edge.type] ?? 0) + 1;
+    }
+    expect(counts).toEqual(graphCorpus.stats.edgeTypeCounts);
+  });
+
   it('emits one addressesMisconception edge per misconception node', () => {
     expect(graphCorpus.stats.edgeTypeCounts.addressesMisconception).toBe(
       graphCorpus.stats.nodeKindCounts.misconception,

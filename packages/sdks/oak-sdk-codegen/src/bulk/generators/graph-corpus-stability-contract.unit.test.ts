@@ -167,6 +167,33 @@ describe('generateGraphCorpusData — G2 stability contract', () => {
         timeless(generateGraphCorpusData(forward)),
       );
     });
+
+    it('emits an identical corpus when same-lesson records arrive in reversed order', () => {
+      // Same lesson, three records: two distinct texts plus a keep-first pair
+      // (same text, different response). Intra-lesson encounter order must not
+      // affect the emitted ids, the kept response, or the provenance.
+      const secondText: ExtractedMisconception = {
+        ...baseMisconception,
+        misconception: 'Fractions are always smaller than one',
+      };
+      const responseVariant: ExtractedMisconception = {
+        ...baseMisconception,
+        response: 'Z — a different response for the same misconception text.',
+      };
+
+      const forward = makeInput({
+        lessons: [baseLesson],
+        misconceptions: [baseMisconception, secondText, responseVariant],
+      });
+      const reversed = makeInput({
+        lessons: [baseLesson],
+        misconceptions: [...forward.misconceptions].reverse(),
+      });
+
+      expect(timeless(generateGraphCorpusData(reversed))).toEqual(
+        timeless(generateGraphCorpusData(forward)),
+      );
+    });
   });
 
   describe('G2 contract — churn semantics (honest churn, no silent re-pointing)', () => {

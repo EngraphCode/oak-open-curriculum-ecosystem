@@ -412,6 +412,92 @@ describe('generateGraphCorpusData', () => {
         target: expectedId,
       });
     });
+
+    it('emits distinct containsUnit edges for boundary-coincident thread/unit slug pairs', () => {
+      // "ab"+"cdef" and "abc"+"def" concatenate identically; each pair is a
+      // distinct thread→unit containment and must emit its own edge.
+      const threadA: ExtractedThread = {
+        slug: 'ab',
+        title: 'Thread AB',
+        firstYear: 2,
+        lastYear: 3,
+        units: [
+          {
+            unitSlug: 'cdef',
+            unitTitle: 'Unit CDEF',
+            order: 1,
+            subject: 'maths',
+            keyStage: 'ks1',
+            year: 2,
+          },
+        ],
+      };
+      const threadB: ExtractedThread = {
+        slug: 'abc',
+        title: 'Thread ABC',
+        firstYear: 2,
+        lastYear: 3,
+        units: [
+          {
+            unitSlug: 'def',
+            unitTitle: 'Unit DEF',
+            order: 1,
+            subject: 'maths',
+            keyStage: 'ks1',
+            year: 2,
+          },
+        ],
+      };
+
+      const result = generateGraphCorpusData(makeInput({ threads: [threadA, threadB] }));
+
+      const edges = result.edges.filter((e) => e.type === 'containsUnit');
+      expect(edges).toHaveLength(2);
+      expect(edges).toContainEqual({
+        source: 'thread:ab',
+        type: 'containsUnit',
+        target: 'unit:cdef',
+      });
+      expect(edges).toContainEqual({
+        source: 'thread:abc',
+        type: 'containsUnit',
+        target: 'unit:def',
+      });
+    });
+
+    it('emits distinct containsLesson edges for boundary-coincident unit/lesson slug pairs', () => {
+      const lessonA: ExtractedLesson = {
+        lessonSlug: 'cdef',
+        lessonTitle: 'Lesson CDEF',
+        unitSlug: 'ab',
+        unitTitle: 'Unit AB',
+        subject: 'maths',
+        keyStage: 'ks2',
+      };
+      const lessonB: ExtractedLesson = {
+        lessonSlug: 'def',
+        lessonTitle: 'Lesson DEF',
+        unitSlug: 'abc',
+        unitTitle: 'Unit ABC',
+        subject: 'maths',
+        keyStage: 'ks2',
+      };
+
+      const result = generateGraphCorpusData(makeInput({ lessons: [lessonA, lessonB] }));
+
+      const edges = result.edges.filter((e) => e.type === 'containsLesson');
+      expect(edges).toHaveLength(2);
+      expect(edges).toContainEqual({
+        source: 'unit:ab',
+        type: 'containsLesson',
+        target: 'lesson:cdef',
+      });
+      expect(edges).toContainEqual({
+        source: 'unit:abc',
+        type: 'containsLesson',
+        target: 'lesson:def',
+      });
+    });
   });
 
   describe('integrity — zero dangling endpoints (constructs in createGraphView)', () => {

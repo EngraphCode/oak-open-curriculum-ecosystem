@@ -79,10 +79,4 @@ describe('mintMisconceptionId — golden vectors', () => {
     const b = mintMisconceptionId('a-lesson', 'Plants drink soil');
     expect(a).not.toBe(b);
   });
-
-  it('is independent of the response (text-only identity)', () => {
-    // The mint takes no response argument by design; this test documents the
-    // contract by construction: the signature admits only (lessonSlug, text).
-    expect(mintMisconceptionId.length).toBe(2);
-  });
 });
