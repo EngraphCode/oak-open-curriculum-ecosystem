@@ -60,6 +60,16 @@ export {
 } from './prior-knowledge-graph-generator.js';
 
 export {
+  generateGraphCorpusData,
+  type GraphCorpus,
+  type GraphCorpusUnitNode,
+  type GraphCorpusEdge,
+  type GraphCorpusNodeId,
+  type GraphCorpusStats,
+  type GraphCorpusDroppedEdge,
+} from './graph-corpus-generator.js';
+
+export {
   generateThreadProgressionData,
   type ThreadNode,
   type ThreadProgressionGraph,
@@ -83,6 +93,8 @@ export {
 } from './write-graph-file.js';
 
 export { writePriorKnowledgeGraphAsJson } from './write-json-graph-file.js';
+
+export { writeGraphCorpusAsJson, graphCorpusDescriptor } from './write-json-graph-corpus-file.js';
 
 export {
   serializeDatasetToJson,

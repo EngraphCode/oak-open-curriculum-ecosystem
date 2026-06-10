@@ -23,6 +23,11 @@
       "types": "./dist/eef-strands/index.d.ts",
       "development": "./src/eef-strands/index.ts",
       "default": "./dist/eef-strands/index.js"
+    },
+    "./curriculum": {
+      "types": "./dist/curriculum/index.d.ts",
+      "development": "./src/curriculum/index.ts",
+      "default": "./dist/curriculum/index.js"
     }
   },
   "scripts": {
@@ -36,7 +41,8 @@
   },
   "dependencies": {
     "@oaknational/graph-core": "workspace:*",
-    "@oaknational/result": "workspace:*"
+    "@oaknational/result": "workspace:*",
+    "@oaknational/sdk-codegen": "workspace:*"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",

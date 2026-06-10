@@ -170,6 +170,8 @@ export {
   writePriorKnowledgeGraphFile,
   writePriorKnowledgeGraphAsJson,
   writeThreadProgressionFile,
+  generateGraphCorpusData,
+  writeGraphCorpusAsJson,
 } from './generators/index.js';
 
 export type {
@@ -202,4 +204,10 @@ export type {
   VocabularyGraph,
   VocabularyGraphStats,
   VocabularyNode,
+  GraphCorpus,
+  GraphCorpusUnitNode,
+  GraphCorpusEdge,
+  GraphCorpusNodeId,
+  GraphCorpusStats,
+  GraphCorpusDroppedEdge,
 } from './generators/index.js';
