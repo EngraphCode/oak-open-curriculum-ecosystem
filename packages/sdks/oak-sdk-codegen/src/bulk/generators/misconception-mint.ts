@@ -4,8 +4,9 @@
  * @remarks
  * Mints the kind-qualified misconception node id
  * `misconception:<lessonSlug>#<hash16(normalise(text))>` — content-hash,
- * lesson-scoped, text-only (plan `graph-tools-value-redesign` g2 todo;
- * design verdict `.agent/reports/g2-misconception-mint-rule-design-2026-06-10.md`):
+ * lesson-scoped, text-only (plan `graph-tools-value-redesign`, deliverable
+ * `g2-misconception-view`; design verdict
+ * `.agent/reports/g2-misconception-mint-rule-design-2026-06-10.md`):
  *
  * - **Content-hash**: a text edit mints a new id (honest churn); an id can
  *   never silently re-point at different content, and ids are independent of
