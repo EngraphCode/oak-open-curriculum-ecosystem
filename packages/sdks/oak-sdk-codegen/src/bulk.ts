@@ -69,6 +69,8 @@ export {
   writePriorKnowledgeGraphFile,
   writePriorKnowledgeGraphAsJson,
   writeThreadProgressionFile,
+  generateGraphCorpusData,
+  writeGraphCorpusAsJson,
 } from './bulk/index.js';
 
 export type {
@@ -129,6 +131,12 @@ export type {
   VocabularyGraph,
   VocabularyGraphStats,
   VocabularyNode,
+  GraphCorpus,
+  GraphCorpusUnitNode,
+  GraphCorpusEdge,
+  GraphCorpusNodeId,
+  GraphCorpusStats,
+  GraphCorpusDroppedEdge,
 } from './bulk/index.js';
 
 // Static graph data and ontology are in the /vocab subpath.

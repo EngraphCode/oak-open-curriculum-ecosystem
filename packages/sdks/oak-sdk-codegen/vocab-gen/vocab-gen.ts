@@ -37,6 +37,8 @@ import {
   writePriorKnowledgeGraphAsJson,
   writeThreadProgressionFile,
   writeVocabularyGraphAsJson,
+  generateGraphCorpusData,
+  writeGraphCorpusAsJson,
 } from '../src/bulk.js';
 import { readAllBulkFiles } from './lib/index.js';
 import { type BulkDataInput, processBulkData, type ProcessingResult } from './vocab-gen-core.js';
@@ -130,6 +132,15 @@ async function generateOutputFiles(
     logger,
   );
   outputFiles.push(basename(priorKnowledgeDirPath));
+
+  // Generate the graph corpus (one-graph foundation: unit nodes + prerequisiteFor edges)
+  const graphCorpus = generateGraphCorpusData(
+    result.extractedData.priorKnowledge,
+    result.extractedData.threads,
+    sourceVersion,
+  );
+  const graphCorpusDirPath = await writeGraphCorpusAsJson(graphCorpus, config.outputPath, logger);
+  outputFiles.push(basename(graphCorpusDirPath));
 
   // Generate analysis report (written to vocab-gen/reports in the SDK)
   const analysisReport = generateAnalysisReport(result.extractedData);

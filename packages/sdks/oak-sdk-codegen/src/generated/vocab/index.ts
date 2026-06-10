@@ -17,6 +17,15 @@ export type {
   PriorKnowledgeGraphStats,
   PriorKnowledgeNode,
 } from './prior-knowledge-graph/index.js';
+export { graphCorpus } from './graph-corpus/index.js';
+export type {
+  GraphCorpus,
+  GraphCorpusUnitNode,
+  GraphCorpusEdge,
+  GraphCorpusNodeId,
+  GraphCorpusStats,
+  GraphCorpusDroppedEdge,
+} from './graph-corpus/index.js';
 export { misconceptionGraph } from './misconception-graph/index.js';
 export type {
   MisconceptionGraph,
