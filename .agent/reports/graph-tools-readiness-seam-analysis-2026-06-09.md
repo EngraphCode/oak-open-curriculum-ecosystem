@@ -266,3 +266,29 @@ subject-complete). The exact journey is the owner's call.
   (settle-completeness, depends_on legitimacy, proof-contract honesty), mcp-expert (resource
   removal protocol implications, prompt repointing, tool-signature change for clients).
 - Every finding is verified first-hand before folding; dispositions recorded.
+
+## 8. R2 dispositions (2026-06-09; verdicts: all three `ready-with-conditions`)
+
+Every finding below was verified first-hand against the tree before its disposition. The applied
+items landed in the plan revision that carries the 🟢 DECISION-COMPLETE flip.
+
+| Reviewer | Finding | Severity | Disposition |
+| --- | --- | --- | --- |
+| wilma | G1 integrity-resolution choice (emit vs drop) unspecified | blocking | **applied** — rule settled: emit the endpoint node if the unit exists in bulk; else drop the edge with provenance + a zero-dangling generator test |
+| wilma | G1 partial prompt edit creates a misleading transient state | blocking | **applied** — subsumed by the anchor-threading rewrite condition: every partial edit leaves the prompt correct-at-that-commit |
+| wilma | Per-view construction timing/memory unspecified | advisory | **applied** — G1b pins module-load construction (EEF precedent) + a recorded startup-cost check |
+| wilma | Mint-rule choice deferred but not precluded | advisory | **confirmed** — already a named G2 design item; no change |
+| wilma | `AGGREGATED_TOOL_ORDER` landing-page maintenance gap | advisory | **applied** — G3 carries a landing-page render check |
+| assumptions | G4 `depends_on` wrong (lesson kind is a G2 emission) | blocking | **applied** — G4 now depends on G1 + G2; rationale stated in the todo |
+| assumptions | Emission-ownership model implicit (root of both dependency findings) | blocking | **applied** — §Emission ownership table added; `depends_on` edges derive mechanically from it |
+| assumptions | G3→G2 rationale unstated | advisory | **applied** — stated inline in the G3 todo |
+| assumptions | G4 Gate 1 lacks a decision rule | advisory | **applied** — field-set + coverage-within-1pp criterion pinned, with the partial-parity fallthrough to API-pull |
+| assumptions | Factory importer count omits the unit test | blocking-adjacent (stated advisory) | **applied** — verified first-hand (`graph-resource-factory.unit.test.ts` is a real seventh importer; the earlier "six" grep excluded test files); G3 deletion scope + §F wording corrected |
+| assumptions | Req 12 Learning Loop only oblique | advisory | **applied** — explicit consolidation-workflow reference in §Lifecycle triggers |
+| assumptions | All settled-decision evidence re-verified; proof contract honest | advisory | **confirmed** — independent re-verification recorded |
+| mcp | Prompt repoints leave zero-arg instructions against anchored tools | blocking | **applied** — B1 repoints are anchor-threading rewrites in every G-unit (the substantive R2 catch) |
+| mcp | Staged resource removal protocol-safe; reason unstated | advisory | **applied** — §Protocol notes records the stateless-transport rationale + `-32002` semantics |
+| mcp | Zero-arg → anchored behaviour break understated | advisory | **applied** — §Protocol notes states the deliberate break + mitigation |
+| mcp | Two-keyword-tool disambiguation needs a description contract | advisory | **applied** — G4 carries the choose-this-when description contract, verified e2e |
+| mcp | `structuredContent` without `outputSchema` protocol-valid | advisory | **confirmed** — recorded in §Protocol notes incl. the TextContent SHOULD |
+| mcp | `listChanged` semantics never addressed | advisory | **applied** — §Protocol notes: per-connection re-discovery; no inert notification plumbing |

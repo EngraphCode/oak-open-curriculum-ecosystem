@@ -30,21 +30,21 @@ todos:
     content: "S2 (one PR): prompt-surface fixed-language pass over the five served prompts — B3 canonical domain vocabulary (terms from curriculum://model; keyStage and yearGroup stay distinct) + B4 distinguishable prompt names (renames go THROUGH the fixed vocabulary) + B2 adapt-lesson arg-mapping repair. Outward-facing renames need owner sign-off at the PR. Independent of Track G; lands before G-units' prompt-step repoints where possible to minimise churn."
     status: pending
   - id: g1-prior-knowledge-view
-    content: "G1 (default one PR; split-permitted at size into G1a foundation + G1b view): the one-graph foundation + prior-knowledge view. G1a: vocab-gen emits the graph-corpus dataset (unit node kind with materialised kind-qualified `id`, prerequisiteFor typed edges) with integrity resolution (5 dangling endpoints resolved at the generator — emit endpoint nodes from bulk or drop-with-provenance; self-loop policy recorded; the corpus must construct in createGraphView without throwing); emitted-from-data types replace hand-written prior-knowledge-graph/types.ts (ONLY that file — misconception's types live until G2); new ./graph-corpus subpath export (hand-authored barrel, ADR-108 invariant 2); ADR-086 amendment in the same commit (overturn explicit-interface-first §2, clear the §4 freeze clause, correct tool-status rows and counts — recompute counts at amendment time). G1b: prerequisite view in graph-corpus-sdk (per-view createGraphView over the corpus; depth default 2, empirical basis: depth-2 median 5 / p90 9 / max 18 nodes); rewrite get-prior-knowledge-graph (anchor unitSlug[] + depth; well-formed empty results); REMOVE curriculum://prior-knowledge-graph (resource has no bounded form); repoint the prior-knowledge clause of adapt-lesson step 2 AND learning-progression step 3 (misconception clause of adapt-lesson stays until G2 — pinned partial-edit); raise the eef-revalidation signal. Bulk re-projection targets the live vocab-gen extraction path (not the src/bulk duplicate)."
+    content: "G1 (default one PR; split-permitted at size into G1a foundation + G1b view): the one-graph foundation + prior-knowledge view. G1a: vocab-gen emits the graph-corpus dataset (unit node kind with materialised kind-qualified `id`, prerequisiteFor typed edges) with integrity resolution per the settled rule (R2 condition, 2026-06-09): for each of the 5 dangling edge endpoints, emit the endpoint node IF the unit exists in the bulk source; otherwise DROP the edge with provenance recorded in the generator output, plus a generator test asserting zero dangling endpoints in the emitted corpus (the corpus must construct in createGraphView without throwing); self-loop policy recorded; emitted-from-data types replace hand-written prior-knowledge-graph/types.ts (ONLY that file — misconception's types live until G2); new ./graph-corpus subpath export (hand-authored barrel, ADR-108 invariant 2); ADR-086 amendment in the same commit (overturn explicit-interface-first §2, clear the §4 freeze clause, correct tool-status rows and counts — recompute counts at amendment time). G1b: prerequisite view in graph-corpus-sdk (per-view createGraphView over the corpus; module-load construction per the EEF precedent with a recorded startup-cost check; depth default 2, empirical basis: depth-2 median 5 / p90 9 / max 18 nodes); rewrite get-prior-knowledge-graph (anchor unitSlug[] + depth; well-formed empty results; keep the TextContent serialization alongside structuredContent per the MCP spec SHOULD); REMOVE curriculum://prior-knowledge-graph (resource has no bounded form; catalogue + drift-guard updated in the same PR); prompt repoints are ANCHOR-THREADING REWRITES, not reference swaps (R2/mcp condition): rewrite the prior-knowledge clause of adapt-lesson step 2 AND learning-progression step 3 so the step resolves the anchor from the preceding search/fetch step and passes it to the anchored tool — each partial edit leaves the prompt correct-at-that-commit (the misconception clause keeps instructing the still-whole-corpus tool until G2); raise the eef-revalidation signal. Bulk re-projection targets the live vocab-gen extraction path (not the src/bulk duplicate)."
     status: pending
     depends_on: [settle-mechanism-at-promotion, define-heterogeneous-node-edge-model]
   - id: g2-misconception-view
-    content: "G2 (one PR): misconception view. Re-project thread/unit/lesson/misconception node kinds + the thread→unit→lesson→misconception chain edges from the bulk source (verified fully navigable: 100% field presence, ≥99.8% misconception population); misconception mint rule settled here (content-hash vs ordinal — stability-across-regenerations contract test required); delete hand-written misconception-graph/types.ts (replaced by emitted types); misconception view (per-view construction over the chain edges); rewrite get-misconception-graph — anchors per owner ratification 2026-06-09: lesson (leaf, ≤2 items) + unit (core, 2–11 KB typical) + thread (bounded with heavy-tail semantics: limit/paging or unit-granular response for mega-threads — max observed 262 KB bodies; one maths thread spans 77% of its subject) and the thread-unreachable-units gap recorded in the tool contract (english-secondary 15.7% — results never presented as subject-complete); REMOVE curriculum://misconception-graph; complete the adapt-lesson step-2 repoint; signal eef-revalidation."
+    content: "G2 (one PR): misconception view. Re-project thread/unit/lesson/misconception node kinds + the thread→unit→lesson→misconception chain edges from the bulk source (verified fully navigable: 100% field presence, ≥99.8% misconception population); misconception mint rule settled here (content-hash vs ordinal — stability-across-regenerations contract test required); delete hand-written misconception-graph/types.ts (replaced by emitted types); misconception view (per-view construction over the chain edges); rewrite get-misconception-graph — anchors per owner ratification 2026-06-09: lesson (leaf, ≤2 items) + unit (core, 2–11 KB typical) + thread (bounded with heavy-tail semantics: limit/paging or unit-granular response for mega-threads — max observed 262 KB bodies; one maths thread spans 77% of its subject) and the thread-unreachable-units gap recorded in the tool contract (english-secondary 15.7% — results never presented as subject-complete); REMOVE curriculum://misconception-graph; complete the adapt-lesson step-2 rewrite (anchor-threading: the step resolves its anchor from the preceding workflow step — never a bare reference swap); signal eef-revalidation."
     status: pending
     depends_on: [g1-prior-knowledge-view]
   - id: g3-thread-progressions-view
-    content: "G3 (one PR): thread-progressions view + factory retirement. Ordered sequence projection as its own real operation in graph-corpus-sdk (sequence order CANNOT ride GraphView subgraph edges — {source,type,target} carry no attributes; this is an ordered projection over the one-graph corpus data, real logic + tests per ADR-173); thread ordering re-projected per the one-graph model (replacing the as-const thread-progression-data.ts authority per Decision A); rewrite get-thread-progressions (anchor threadSlug, or subject+keyStage); REMOVE curriculum://thread-progressions; repoint learning-progression step 2; move the three stats-interpolation consumers (tool-guidance-data.ts, tool-guidance-workflows.ts, ontology-data.ts) onto the new surface; DELETE graph-resource-factory.ts (re-grep the importer set at execution — verified 2026-06-09 as exactly the six G1–G3 files; the curriculum-model and EEF resources deliberately bypass it); signal eef-revalidation."
+    content: "G3 (one PR): thread-progressions view + factory retirement. Ordered sequence projection as its own real operation in graph-corpus-sdk (sequence order CANNOT ride GraphView subgraph edges — {source,type,target} carry no attributes; this is an ordered projection over the one-graph corpus data, real logic + tests per ADR-173); thread ordering re-projected per the one-graph model (replacing the as-const thread-progression-data.ts authority per Decision A); rewrite get-thread-progressions (anchor threadSlug, or subject+keyStage); REMOVE curriculum://thread-progressions; rewrite learning-progression step 2 (anchor-threading); move the three stats-interpolation consumers (tool-guidance-data.ts, tool-guidance-workflows.ts, ontology-data.ts) onto the new surface; DELETE graph-resource-factory.ts AND its co-deleted unit test graph-resource-factory.unit.test.ts (re-grep the importer set at execution — verified 2026-06-09 as the six G1–G3 product files plus the factory's own unit test; the curriculum-model and EEF resources deliberately bypass it); check AGGREGATED_TOOL_ORDER on the landing page renders correctly post-rewrite; signal eef-revalidation. Depends on G2 because the thread node kind is emitted by G2 (see §Emission ownership) and Decision A forbids re-emission."
     status: pending
     depends_on: [g1-prior-knowledge-view, g2-misconception-view]
   - id: g4-bounded-keywords-tool
-    content: "G4 (one PR; owner-shaped 2026-06-09): an ADDITIONAL bounded keywords tool. The existing generated get-keywords MCP tool is KEPT — it is an important live-API pass-through and is NOT replaced. Gate 1 (grounding): determine whether the same keyword data the API serves is available in the bulk source (the vocab-gen keyword extractor proves lesson keyword data exists in bulk; parity of fields/coverage vs the live /keywords response is the check). If parity holds: construct the new tool from bulk on the one-graph substrate (keyword node kind + lesson→keyword edge per the model). If not: pull keywords via the API at codegen time and generate the local corpus from that pull. Shape: bounded, frequency-ranked retrieval (anchor subject+keyStage, narrowable by unit/lesson); name distinguishable from get-keywords through the S2 fixed vocabulary. Signal eef-revalidation if the EEF path consumes it."
+    content: "G4 (one PR; owner-shaped 2026-06-09): an ADDITIONAL bounded keywords tool. The existing generated get-keywords MCP tool is KEPT — it is an important live-API pass-through and is NOT replaced. Gate 1 (grounding): determine whether the same keyword data the API serves is available in the bulk source (the vocab-gen keyword extractor proves lesson keyword data exists in bulk; parity of fields/coverage vs the live /keywords response is the check). Gate decision rule (R2 condition): bulk branch iff every field the bounded tool's value-shape needs (keyword text + per-lesson association + any description field the shape adopts) is present in bulk AND bulk lesson-coverage is within 1 percentage point of the live API's keyword-serving coverage for the sampled anchors; otherwise the API-pull branch. The recorded verdict carries the field comparison + coverage numbers + commands. If parity holds: construct the new tool from bulk on the one-graph substrate (keyword node kind + lesson→keyword edge per the model — hence the G2 dependency: the lesson node kind is emitted by G2). If not: pull keywords via the API at codegen time and generate the local corpus from that pull. Shape: bounded, frequency-ranked retrieval (anchor subject+keyStage, narrowable by unit/lesson); name distinguishable from get-keywords through the S2 fixed vocabulary AND a description disambiguation contract: both tools' descriptions state when to prefer each (get-keywords = live-API pass-through, full set at coarse anchors; the new tool = bounded frequency-ranked subset for token economy), verified e2e via tools/list. Signal eef-revalidation if the EEF path consumes it."
     status: pending
-    depends_on: [g1-prior-knowledge-view]
+    depends_on: [g1-prior-knowledge-view, g2-misconception-view]
   - id: u1-keywords-upstream-request
     content: "U1 (one small docs PR; owner-shaped 2026-06-09): author an upstream API feature request for finer-grained /keywords control (e.g. bounded/ranked parameters), grounded in the LATEST upstream API source code (read-only grounding against the upstream repo; the request document lives in THIS repo's upstream-feature-requests lane — never write to the sibling repo)."
     status: pending
@@ -70,8 +70,18 @@ todos:
 > first-hand. The owner ratified (2026-06-09): the seam map and deliverables, the keywords
 > disposition (§Keywords), and the misconception anchors (§Per-corpus value).
 > **Delivery: every deliverable is one small, independently-shippable PR — a hard constraint.**
-> The remaining readiness gate is R2 (wilma + assumptions-expert + mcp-expert) on the authored
-> cycles; the 🟢 DECISION-COMPLETE flip lands with R2's dispositions.
+>
+> **🟢 DECISION-COMPLETE (2026-06-09).** R2 ran (architecture-expert-wilma, assumptions-expert,
+> mcp-expert — all `ready-with-conditions`); every condition was verified first-hand and applied
+> in this revision: the G1 integrity-resolution rule settled; prompt repoints upgraded to
+> anchor-threading rewrites (correct-at-every-commit); the §Emission ownership table added and
+> the G4/G3 `depends_on` edges corrected from it; the G4 Gate-1 decision rule pinned; the factory
+> deletion scope corrected (six product files + the co-deleted unit test); §Protocol notes added
+> (stateless-transport rationale, behaviour-break statement, outputSchema-deferral validity); the
+> Learning Loop reference made explicit. Full dispositions:
+> [seam-analysis report §8](../../../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md).
+> Validated per the §Cycles-and-proof-contract DECISION-COMPLETE clause. Execution may begin with
+> any unblocked deliverable.
 
 ## Problem and intent
 
@@ -189,10 +199,39 @@ Evidence and the full grounding trail:
   single edge type, edges already present in the source). E orders landing, not authoring.
 - **F — factory disposition.** `graph-resource-factory.ts` (the whole-corpus
   `() => config.sourceData` executor — the exact shape being removed) is **deleted in G3** when
-  its last consumer leaves. Importer set verified 2026-06-09 as exactly the six G1–G3 files; the
-  curriculum-model and EEF resources deliberately bypass it; G3 re-greps the importer set at
-  execution. No compatibility shim; any shared anchored-view mechanics are a
-  consolidate-at-third-consumer decision at G3, never presupposed.
+  its last consumer leaves, together with its own unit test. Importer set verified 2026-06-09 as
+  the six G1–G3 product files plus `graph-resource-factory.unit.test.ts`; the curriculum-model
+  and EEF resources deliberately bypass it; G3 re-greps the importer set at execution. No
+  compatibility shim; any shared anchored-view mechanics are a consolidate-at-third-consumer
+  decision at G3, never presupposed.
+
+### Protocol notes (R2/mcp-expert, 2026-06-09)
+
+- **Staged resource removal is protocol-safe by construction**: the production transport is
+  stateless per request (`sessionIdGenerator: undefined`, ADR-112) — every connection re-discovers
+  `resources/list` and `tools/list`, so no `listChanged` notification plumbing is load-bearing or
+  needed; a `resources/read` on a removed URI returns the spec's `-32002`. Do not wire
+  notification plumbing the architecture makes inert.
+- **Zero-arg → required-anchor is a deliberate behaviour break** for any caller relying on the
+  old form (replace-don't-bridge; no aliasing or deprecation step). The mitigation is the tool
+  description carrying the anchor contract, and the per-request transport means no client holds a
+  stale schema across connections.
+- **`structuredContent` without an MCP `outputSchema` is protocol-valid** (outputSchema is
+  optional; the conformance MUST attaches only once one exists). Rewrites keep the serialized
+  TextContent block alongside `structuredContent` per the spec's backwards-compat SHOULD.
+
+### Emission ownership (settled; R2 condition 2026-06-09)
+
+Every `depends_on` edge between G-units derives mechanically from this table plus Decision A's
+never-re-emit-shared-entities rule. An executor consults it to know what already exists in the
+corpus when their deliverable starts.
+
+| Node kind / edge type | Emitted by |
+| --- | --- |
+| `unit` nodes; `unit→unit prerequisiteFor` edges | G1 |
+| `thread`, `lesson`, `misconception` nodes; `unit→thread`, `unit↔lesson` placement, `lesson→misconception` edges | G2 |
+| thread→unit ordering data (the ordered projection's source) | G3 (re-projection of the sequence authority) |
+| `keyword` nodes; `lesson→keyword` edges (bulk branch only) | G4 |
 
 ### Identity model (settled core)
 
@@ -407,6 +446,8 @@ Touch points: start-right at session open; an active claim on
 `packages/sdks/oak-sdk-codegen/`, `packages/sdks/oak-curriculum-sdk/src/mcp/`, and
 `packages/sdks/graph-corpus-sdk/` before the first execution edit (EEF shares the
 `universal-tools/` seam — coordinate per §Resolved Sequencing of the output-schemas plan);
-session-handoff at boundaries; consolidation at completion. The ratified arc (owner,
-2026-06-02): finish EEF → redesign the graph tools → then decide what is next; this plan's
-completion opens an owner decision point — nothing downstream auto-resumes.
+session-handoff at boundaries. **Learning Loop**: each deliverable's landing and the plan's
+completion run the consolidation workflow (`oak-consolidate-docs`) — milestone closures mine
+lessons to permanent homes before archival per ADR-117. The ratified arc (owner, 2026-06-02):
+finish EEF → redesign the graph tools → then decide what is next; this plan's completion opens an
+owner decision point — nothing downstream auto-resumes.
