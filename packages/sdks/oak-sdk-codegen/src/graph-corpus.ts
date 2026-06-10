@@ -10,9 +10,14 @@
  * excluded from the lint TypeScript program; this barrel is the single import
  * surface for both the corpus value and its types, so consumers depend on one
  * stable subpath rather than reaching into `generated/`.
+ *
+ * Re-exports resolve to the graph-corpus generated module directly, not the
+ * aggregate `generated/vocab` barrel: importing the aggregate would eagerly
+ * load every legacy vocab dataset's `data.json` (misconception, vocabulary,
+ * nc-coverage, prior-knowledge, thread-progression) just to reach `graphCorpus`.
  */
 
-export { graphCorpus } from './generated/vocab/index.js';
+export { graphCorpus } from './generated/vocab/graph-corpus/index.js';
 export type {
   GraphCorpus,
   GraphCorpusUnitNode,
@@ -20,4 +25,4 @@ export type {
   GraphCorpusNodeId,
   GraphCorpusStats,
   GraphCorpusDroppedEdge,
-} from './generated/vocab/index.js';
+} from './generated/vocab/graph-corpus/index.js';
