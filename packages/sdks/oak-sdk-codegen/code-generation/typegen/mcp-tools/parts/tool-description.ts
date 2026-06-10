@@ -1,6 +1,27 @@
 import type { OperationObject } from 'openapi3-ts/oas31';
 
 /**
+ * Normalises a raw upstream operation description into the form the tool
+ * description pipeline operates on: "This endpoint" rewritten to "This
+ * tool" (case-preserving), whitespace runs collapsed to single spaces,
+ * leading/trailing whitespace trimmed.
+ *
+ * Single source of the transform for BOTH consumers of correction
+ * sentences: {@link toToolDescription} produces descriptions in this form
+ * (so {@link applyDescriptionCorrections} replaces against it), and the
+ * removal-condition test normalises the cached upstream description with
+ * this same function before comparing. A correction sentence containing
+ * "This tool" therefore matches in both places even though the raw
+ * upstream text says "This endpoint".
+ */
+export function normaliseUpstreamDescription(rawDescription: string): string {
+  return rawDescription
+    .replace(/\bThis endpoint\b/gi, (match) => (match.startsWith('T') ? 'This tool' : 'this tool'))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
  * Build tool description in git commit message format:
  * - First paragraph: OpenAPI summary (short title/overview)
  * - Blank line
@@ -13,11 +34,7 @@ export function toToolDescription(operation: OperationObject): string | undefine
   const summary = typeof operation.summary === 'string' ? operation.summary.trim() : '';
   const rawDescription = typeof operation.description === 'string' ? operation.description : '';
 
-  // Transform "This endpoint" to "This tool" in the description
-  const description = rawDescription
-    .replace(/\bThis endpoint\b/gi, (match) => (match.startsWith('T') ? 'This tool' : 'this tool'))
-    .replace(/\s+/g, ' ')
-    .trim();
+  const description = normaliseUpstreamDescription(rawDescription);
 
   // Build git commit message style: summary\n\ndescription
   if (summary && description) {
@@ -82,110 +99,6 @@ export function appendPrerequisiteGuidance(
   }
   return `${description}${prerequisiteGuidance}`;
 }
-
-/**
- * An operation-description correction replacing an upstream claim that is
- * observably false at the served surface.
- *
- * The operation-level sibling of `ParamDescriptionOverride` in
- * `param-description-overrides.ts`: a sentence inside the operation
- * description is replaced rather than a whole parameter description, because
- * operation descriptions mix correct scope-setting prose with the one false
- * claim.
- */
-interface ToolDescriptionCorrection {
-  /**
-   * The exact known-false upstream sentence in whitespace-normalised form
-   * (single spaces, no leading/trailing whitespace) — the form
-   * {@link toToolDescription} produces and the replace operates on. The
-   * removal-condition test normalises the cached upstream description the
-   * same way before comparing, so the two consumers of this value always see
-   * the same form.
-   */
-  readonly upstreamBuggySentence: string;
-  /** The observed behaviour, stated truthfully in the upstream sentence's place. */
-  readonly correctSentence: string;
-}
-
-/**
- * Map of `{openApiPath}:{method}` to operation-description corrections for
- * upstream claims the live API does not honour.
- *
- * Scope: corrections apply ONLY to the MCP tool description — the
- * agent-facing product surface this generator already transforms (see the
- * "This endpoint" → "This tool" rewrite and the appended notes). The
- * generated spec mirrors (`api-schema-*.json`, `api-paths-types.ts`, the Zod
- * schema descriptions) stay faithful to upstream by design: they record what
- * upstream says, and the upstream request tracking each divergence is the
- * cure at source.
- *
- * Lifecycle mirrors `PARAM_DESCRIPTION_OVERRIDES`: when the upstream spec
- * changes the sentence, the removal-condition test
- * (`upstream-tool-description-corrections.unit.test.ts`) fails, signalling
- * that the correction should be removed (or re-grounded against the new
- * wording). The generated-output drift-guard
- * (`generated-description-corrections.integration.test.ts`) independently
- * pins the served surface.
- *
- * `/keywords:get`: the upstream description promises frequency ordering, but
- * the handler sorts alphabetically and the response carries no frequency
- * field — verified first-hand against the live API (2026-06-10) and the
- * upstream handler source. Upstream request:
- * `.agent/plans/upstream-feature-requests/oak-open-api/keywords-finer-grained-control.md`.
- */
-const TOOL_DESCRIPTION_CORRECTIONS: Readonly<
-  Partial<Record<string, readonly ToolDescriptionCorrection[]>>
-> = {
-  '/keywords:get': [
-    {
-      upstreamBuggySentence:
-        'The keywords are returned in order of frequency, with the most common keywords appearing first.',
-      correctSentence:
-        'The keywords are returned in alphabetical order, and the response carries no frequency field.',
-    },
-  ],
-};
-
-/**
- * Replaces known-false upstream claims in an operation's base description
- * with the observed behaviour.
- *
- * @param description - Base tool description from {@link toToolDescription}
- * @param path - OpenAPI path of the operation (corrections-map key, first half)
- * @param method - HTTP method of the operation (corrections-map key, second half)
- * @returns Description with corrections applied, or the original when the
- *   operation has no entry or the upstream sentence is no longer present
- */
-export function applyDescriptionCorrections(
-  description: string | undefined,
-  path: string,
-  method: string,
-): string | undefined {
-  if (!description) {
-    return undefined;
-  }
-
-  const corrections = TOOL_DESCRIPTION_CORRECTIONS[`${path}:${method.toLowerCase()}`];
-  if (!corrections) {
-    return description;
-  }
-
-  return corrections.reduce(
-    (corrected, correction) =>
-      corrected.replace(correction.upstreamBuggySentence, correction.correctSentence),
-    description,
-  );
-}
-
-/**
- * Exported for the removal-condition test only.
- *
- * The test reads the schema cache and checks whether each correction's
- * `upstreamBuggySentence` still appears in the cached operation description.
- * When it no longer appears, the upstream wording has changed and the
- * correction must be removed or re-grounded.
- */
-export { TOOL_DESCRIPTION_CORRECTIONS };
 
 const GET_RATE_LIMIT_NOTE = `
 

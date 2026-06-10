@@ -5,10 +5,10 @@ import { literalName, collectDocumentedStatuses } from './emit-index-helpers.js'
 import { kebabToTitleCase } from './kebab-to-title-case.js';
 import {
   toToolDescription,
-  applyDescriptionCorrections,
   appendPrerequisiteGuidance,
   appendToolEnhancements,
 } from './tool-description.js';
+import { applyDescriptionCorrections } from './tool-description-corrections.js';
 import { BASE_WIDGET_URI, WIDGET_TOOL_NAMES } from '../../cross-domain-constants.js';
 
 function buildExports({

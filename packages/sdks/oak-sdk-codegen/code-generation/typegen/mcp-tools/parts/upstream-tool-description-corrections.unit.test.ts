@@ -20,7 +20,8 @@
 import { describe, it, expect } from 'vitest';
 
 import { schemaBase } from '../../../../src/types/generated/api-schema/api-schema-base.js';
-import { TOOL_DESCRIPTION_CORRECTIONS } from './tool-description.js';
+import { TOOL_DESCRIPTION_CORRECTIONS } from './tool-description-corrections.js';
+import { normaliseUpstreamDescription } from './tool-description.js';
 
 interface SchemaOperation {
   readonly description: string;
@@ -38,12 +39,13 @@ function isPathsRecord(value: unknown): value is Record<string, Record<string, u
 }
 
 /**
- * The upstream operation description, whitespace-normalised exactly as
- * `toToolDescription` normalises it, so the comparison sees the same form
- * `applyDescriptionCorrections` operates on. Throws (rather than returning
- * undefined) on a missing operation or description so a mistyped corrections
- * key fails with a readable message instead of an opaque
- * `toContain(undefined)` explosion.
+ * The upstream operation description, normalised with the SAME
+ * `normaliseUpstreamDescription` transform the pipeline applies ("This
+ * endpoint" → "This tool" + whitespace collapse), so the comparison sees
+ * exactly the form `applyDescriptionCorrections` operates on. Throws
+ * (rather than returning undefined) on a missing operation or description
+ * so a mistyped corrections key fails with a readable message instead of
+ * an opaque `toContain(undefined)` explosion.
  */
 function getNormalisedOperationDescription(apiPath: string, method: string): string {
   const paths: unknown = schemaBase.paths;
@@ -61,7 +63,7 @@ function getNormalisedOperationDescription(apiPath: string, method: string): str
       `Operation ${method.toUpperCase()} ${apiPath} has no string description in schemaBase`,
     );
   }
-  return operation.description.replace(/\s+/g, ' ').trim();
+  return normaliseUpstreamDescription(operation.description);
 }
 
 describe('upstream tool description corrections — removal conditions', () => {
