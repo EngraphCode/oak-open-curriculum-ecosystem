@@ -44,10 +44,10 @@ export const REQUEST_PARAMETER_SCHEMAS = {
     "subject": z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"]),
   }),
   "GET:/subjects/:subject/key-stages": z.object({
-    "subject": z.string(),
+    "subject": z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"]),
   }),
   "GET:/subjects/:subject/years": z.object({
-    "subject": z.string(),
+    "subject": z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"]),
   }),
   "GET:/key-stages": z.object({}),
   "GET:/key-stages/:keyStage/subject/:subject/lessons": z.object({

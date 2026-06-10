@@ -484,7 +484,7 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The sequence slug identifier",
-          "example": "art-secondary-aqa"
+          "example": "art-secondary"
         }
       }
     ],
@@ -1129,7 +1129,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getSubjects-getAllSubjects",
     "summary": "Subjects",
-    "description": "This endpoint returns an array of available subject slugs.",
+    "description": "This endpoint returns an array of all available subjects and their associated sequences, key stages and years.",
     "parameters": [],
     "responses": {
       "200": {
@@ -1269,6 +1269,25 @@ export const PATH_OPERATIONS = [
         "required": true,
         "schema": {
           "type": "string",
+          "enum": [
+            "art",
+            "citizenship",
+            "computing",
+            "cooking-nutrition",
+            "design-technology",
+            "english",
+            "french",
+            "geography",
+            "german",
+            "history",
+            "maths",
+            "music",
+            "physical-education",
+            "religious-education",
+            "rshe-pshe",
+            "science",
+            "spanish"
+          ],
           "description": "The subject slug identifier",
           "example": "art"
         }
@@ -1331,6 +1350,25 @@ export const PATH_OPERATIONS = [
         "required": true,
         "schema": {
           "type": "string",
+          "enum": [
+            "art",
+            "citizenship",
+            "computing",
+            "cooking-nutrition",
+            "design-technology",
+            "english",
+            "french",
+            "geography",
+            "german",
+            "history",
+            "maths",
+            "music",
+            "physical-education",
+            "religious-education",
+            "rshe-pshe",
+            "science",
+            "spanish"
+          ],
           "example": "cooking-nutrition",
           "description": "Subject slug to filter by"
         }

@@ -22,8 +22,8 @@ const method = 'GET' as const;
  * Path parameters derived from the OpenAPI schema.
  */
 export interface ToolPathParams {
-  /** The subject slug identifier */
-  readonly subject: string;
+  /** The subject slug identifier Allowed values: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish */
+  readonly subject: 'art' | 'citizenship' | 'computing' | 'cooking-nutrition' | 'design-technology' | 'english' | 'french' | 'geography' | 'german' | 'history' | 'maths' | 'music' | 'physical-education' | 'religious-education' | 'rshe-pshe' | 'science' | 'spanish';
 }
 export interface ToolParams {
   readonly path: ToolPathParams;
@@ -31,11 +31,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"subject":{"type":"string","description":"The subject slug identifier","examples":["art"]}} as const, additionalProperties: false as const, required: ["subject"] };
-export const toolZodSchema = z.object({ params: z.object({ path: z.object({ subject: z.string().describe("The subject slug identifier") }) }) });
-export const toolMcpFlatInputSchema = z.strictObject({ subject: z.string().describe("The subject slug identifier").meta({ examples: ["art"] }) });
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"subject":{"type":"string","description":"The subject slug identifier","examples":["art"],"enum":["art","citizenship","computing","cooking-nutrition","design-technology","english","french","geography","german","history","maths","music","physical-education","religious-education","rshe-pshe","science","spanish"]}} as const, additionalProperties: false as const, required: ["subject"] };
+export const toolZodSchema = z.object({ params: z.object({ path: z.object({ subject: z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"] as const).describe("The subject slug identifier") }) }) });
+export const toolMcpFlatInputSchema = z.strictObject({ subject: z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"] as const).describe("The subject slug identifier").meta({ examples: ["art"] }) });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"subject":{"type":"string","description":"The subject slug identifier","examples":["art"]}},"additionalProperties":false,"required":["subject"]}\nRequired: subject';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"subject":{"type":"string","description":"The subject slug identifier","examples":["art"],"enum":["art","citizenship","computing","cooking-nutrition","design-technology","english","french","geography","german","history","maths","music","physical-education","religious-education","rshe-pshe","science","spanish"]}},"additionalProperties":false,"required":["subject"]}\nRequired: subject';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.
