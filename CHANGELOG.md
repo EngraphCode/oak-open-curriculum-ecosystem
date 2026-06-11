@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.27.0...v1.28.0) (2026-06-11)
+
+
+### Features
+
+* **mcp:** emit the dual response shape from get-eef-evidence ([20ad833](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/20ad83326ff47d484be3d4fbba9a58dada126b85))
+
 # [1.27.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.26.1...v1.27.0) (2026-06-11)
 
 
