@@ -182,7 +182,11 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
 
     // The doc text and the runtime refusal both enforce an integer in
     // [1, 100]; the served JSON schema must declare the same bounds rather
-    // than a bare number, so callers see the contract before calling.
+    // than a bare number, so callers see the contract before calling. The
+    // 100 is a deliberate literal pin of the served contract (the app does
+    // not depend on graph-corpus-sdk, where MAX_KEYWORD_LIMIT lives): if
+    // the ceiling ever changes, this safeParse fails loudly and the pin is
+    // updated as part of that deliberate change.
     const KeywordGraphLimitSchema = z.object({
       inputSchema: z.looseObject({
         properties: z.looseObject({
