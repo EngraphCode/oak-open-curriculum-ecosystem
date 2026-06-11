@@ -363,7 +363,7 @@ const` (the generalised compile-time discipline of ADR-038), never typed
   same architectural reason. Owner-authorised 2026-05-29.
 
 - `agent-tools/src/core/agent-identity/schemas/**` — curated naming-schema
-  wordlist data (ADR-195). Each registered era's themed word columns live in
+  wordlist data (ADR-198). Each registered era's themed word columns live in
   one pure-data module per theme; cpd's token-sequence matching normalises
   string-literal values, so six structurally identical data modules register
   as ~96 duplicated lines each while their actual content is provably

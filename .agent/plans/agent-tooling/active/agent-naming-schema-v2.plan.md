@@ -62,7 +62,7 @@ todos:
     status: completed
     depends_on: [ws4-owner-review, ws3-cycle-1]
   - id: ws5-docs
-    content: "WS5: agent-identity.md update, ADR-195, example-name refresh in identity docs."
+    content: "WS5: agent-identity.md update, ADR-198, example-name refresh in identity docs."
     status: completed
     depends_on: [ws4-cycle-1]
   - id: ws6-quality-gates-final

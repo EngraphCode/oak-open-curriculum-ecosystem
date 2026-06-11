@@ -61,7 +61,7 @@ describe('naming schema registry', () => {
     expect(computeNamingSchemaDigest(v1)).toBe(v1.wordlistDigest);
   });
 
-  // Activation recorded in ADR-195.
+  // Activation recorded in ADR-198.
   it('uses v2-noun-verb-noun as the active naming schema', () => {
     expect(ACTIVE_NAMING_SCHEMA_ID).toBe('v2-noun-verb-noun');
   });

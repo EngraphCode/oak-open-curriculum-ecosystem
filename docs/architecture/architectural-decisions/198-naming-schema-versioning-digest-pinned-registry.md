@@ -1,4 +1,4 @@
-# ADR-195: Naming-Schema Versioning with a Digest-Pinned Registry
+# ADR-198: Naming-Schema Versioning with a Digest-Pinned Registry
 
 **Status**: Accepted
 **Date**: 2026-06-11 (design ratified with owner in session `aba87a`)

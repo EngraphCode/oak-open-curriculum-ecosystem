@@ -306,7 +306,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   pedagogical decision that belongs to the teacher; the teacher is the pedagogical
   expert and the authority on what should happen; Accepted
   2026-06-09)
-- [ADR-195: Naming-Schema Versioning with a Digest-Pinned Registry](195-naming-schema-versioning-digest-pinned-registry.md)
+- [ADR-198: Naming-Schema Versioning with a Digest-Pinned Registry](198-naming-schema-versioning-digest-pinned-registry.md)
   (agent display names derive through registered, versioned schema eras with
   digest-pinned wordlist material — edits without a version bump fail the
   tree, so material freezes at activation; old eras stay registered and
