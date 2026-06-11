@@ -26,13 +26,13 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
 
 ## Carried forward (live, not residue)
 
-- **Core-amendment scope signal (ADR-131) — stabilise posture HOLDS**: the 2026-06-11
-  Arboreal consolidation surfaced FIVE Practice-Core amendment candidates (PDR-064, PDR-011
-  two-clause bundle, PDR-091, continuity-disposition PDR, self-certification synthesis),
-  above the >3 pause-and-stabilise threshold; all owner-gated in the register. Do not add
-  further Core restructuring candidates before the owner walks these. (This pass complied:
-  PDR-078 emit-side and the mechanical-firing-moments PDR were registered owner-gated, not
-  authored.)
+- **Core-amendment scope signal (ADR-131) — posture RESOLVED by the 2026-06-11 owner walk**:
+  the owner walked all five Practice-Core amendment candidates (PDR-064, PDR-011 two-clause
+  bundle, PDR-091, continuity-disposition PDR, self-certification synthesis → PDR-089) plus
+  the PDR-078 emit-side facet and the mechanical-firing-moments PDR at the dedicated
+  consolidation session, approving every one for authoring (per-item statuses in the
+  register). The pause-and-stabilise posture lifts when those approved amendments land;
+  still do not add NEW Core restructuring candidates while the approved set is in flight.
 - **Unresolved tool feedback** (capture-practice-tool-feedback): `pnpm exec markdownlint
   <file>` printed its USAGE text yet exited 0 (file arg apparently not reaching it) — a
   false-green shape in that invocation path, cause unresolved; the commit-gate markdownlint
@@ -92,3 +92,21 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   Graduation-target: reconcile at the next curation-doctrine touch (PDR-081 amendment retiring
   the ledger clause, or a pass-metadata vs disposition-ledger scope clarification). Trigger:
   next curator-pass invocation or owner direction.
+
+## 2026-06-11 — dedicated consolidation seat (Thermal Circling Updraft, f42c24)
+
+- **Director-became-implementer is a missing-autonomy-primitive signal** (handed delta,
+  Iridescent event e17324ff, conserved verbatim in substance): the seventh directorship
+  started as pure coordination (routing up to 7 live implementers) and ended as solo
+  implementation — the Director personally authored the host-load rule + its two-wave
+  matcher fix, the operations report, and the team-opener generalisation plan, with no
+  implementer pool left to route to. Legitimate under the degenerate-team exception
+  (owner directing the Director at named deliverables), BUT the pattern is load-bearing
+  evidence: the human-pasted opener and the human-in-the-loop Director exist for the same
+  reason — the collaboration infrastructure cannot yet carry a long-running team
+  autonomously. The session's manual toil (hand-rolled PR monitors, manual merge
+  serialisation, six continuity waypoints by hand) is exactly what the generalisation
+  plan proposes to systematize. Candidate framing for the doctrine pipeline: "a Director
+  doing sustained implementer work is a missing-autonomy-primitive signal" (sibling of
+  feedback_owner_action_is_not_a_cure). No graduation proposed; conserve for the owner
+  walk on the generalisation plan.

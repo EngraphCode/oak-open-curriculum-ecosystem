@@ -37,6 +37,13 @@ windowed, backlog, split, or shard-like pending-graduation files. New capture,
 owner-gated items, and unresolved pending-graduation decisions belong here until
 they graduate, duplicate, become stale-withdrawn, or receive owner direction.
 
+**Owner walk 2026-06-11 (dedicated consolidation, Thermal Circling Updraft):**
+every owner-gated item was walked with the owner. Items now reading
+`owner-approved 2026-06-11` have authorised authoring/graduation queued; items
+reading `routed 2026-06-11` belong to the agent-tools implementation lane; items
+still reading `owner-gated` or `pending` below were confirmed at the walk as
+genuinely waiting on their named external event or trigger.
+
 ## 2026-06-11 capture — Pearly Snorkelling Compass (doctrine-curation pass: fired triggers)
 
 Routed during the owner-named doctrine-curation session (naming event 211a1794;
@@ -110,8 +117,9 @@ capture time.
   `[captured: 2026-06-11 | source: Pier napkin entry (4a1b92) + Prismatic
   closeout 62d747c4 + Scorched napkin entry + this seat's live relabel at
   claim-open | target: rule amendment GRADUATED (PR 183, f5e51d0ad); PDR-078
-  emit-side follow-up | trigger: rule facet RESOLVED; PDR facet awaits the
-  owner's Core walk | size: S | status: owner-gated — PDR-078 facet only]`
+  emit-side follow-up | trigger: rule facet RESOLVED; PDR facet walked | size:
+  S | status: owner-approved 2026-06-11 — PDR-078 emit-side amendment
+  authorised; authoring queued]`
 - **Comms `reply` demands the full event UUID — add git-style prefix
   resolution.** Second instance FIRED (Prismatic's closeout + the earlier
   instance counted in pre-position 0f36d756 item 4): an 8-char event-id prefix
@@ -283,10 +291,24 @@ verified absent from this register before adding.
   "mechanical moments as the durable default", not "vigilance never works".
   `[captured: 2026-06-11 | source: Hushed napkin candidate (consolidation
   step-4c synthesis) + the six 2026-06-11 .agent/experience files | target:
-  PDR (knowledge-flow discipline) | trigger: owner-walk at a dedicated
-  curation pass under the Core stabilise posture — surfaced to owner in THIS
-  pass's closeout; authoring stays owner-gated | size: M | status:
-  owner-gated]`
+  PDR (knowledge-flow discipline) | trigger: owner-walk FIRED 2026-06-11 |
+  size: M | status: owner-approved 2026-06-11 — PDR authoring authorised with
+  the balanced shape above]`
+
+## 2026-06-11 capture — Thermal Circling Updraft (dedicated consolidation walk)
+
+- **Team-opener generalisation exploration plan: x5 owner walk.** The
+  owner-directed exploration plan
+  `.agent/plans/agent-tooling/current/team-opener-generalisation-exploration.plan.md`
+  (authored 2026-06-11, merging at the Director's hand) names decisions without
+  making them: the generic-platform / start-right-team-overlap / thread-specific
+  decomposition and the home options (skill / sibling skill / skill+template /
+  rule extraction). Its todo x5 is a future owner walk; recorded here so the
+  decision surfaces in the owner-decision queue rather than only inside the plan.
+  `[captured: 2026-06-11 | source: Director handed delta (event e17324ff) |
+  target: the plan's own x5 walk | trigger: plan merged + owner walks it |
+  size: decision-only | status: owner-gated — future walk, plan not yet merged
+  at capture time]`
 
 ## 2026-06-08 capture — Briny Charting Lagoon (EEF go-live: flag-engine + verification doctrine)
 
@@ -310,9 +332,8 @@ verified absent from this register before adding.
   - `source-surface`: this session's owner correction; auto-memory
     `feedback_forced_verdict_resting_on_my_interpretation_is_a_question`
   - `graduation-target`: PDR-091 amendment or the no-question-when-answer-is-forced rule
-  - `trigger-condition`: a second instance of an owner/org-directive interpretation treated as a
-    forced verdict
-  - `status`: pending
+  - `trigger-condition`: owner walk 2026-06-11
+  - `status`: owner-approved 2026-06-11 — PDR-091 fold-in authorised
 
 ## 2026-06-08 capture — Lofty Spiralling Plume (continuity-surface disposition doctrine)
 
@@ -333,9 +354,9 @@ verified absent from this register before adding.
     direction
   - `graduation-target`: a new PDR (continuity-surface disposition + function-classification +
     uniform line-length)
-  - `trigger-condition`: owner opens the dedicated continuity-curation session, or a second
-    Practice-bearing repo needs the doctrine
-  - `status`: pending
+  - `trigger-condition`: FIRED 2026-06-11 — this dedicated consolidation
+    session is the named venue
+  - `status`: owner-approved 2026-06-11 — portable PDR authoring authorised
 
 ## 2026-06-07 capture — Glittering Weaving Comet (feedback-mechanism reappraisal generalisation)
 
@@ -415,7 +436,9 @@ generalisation):
   matches the operational surfaces. Practice Core edit — needs owner approval (owner
   offered to have it drafted).
   `[captured: 2026-06-06 | source: owner direction 2026-06-06 (experience voluntariness) | target:
-  PDR-011 amendment | trigger: owner approves the Core edit | size: S | status: owner-gated]`
+  PDR-011 amendment | trigger: owner approved 2026-06-11 | size: S | status:
+  owner-approved 2026-06-11 — clause (a) of the authorised two-clause PDR-011
+  amendment (clause (b) is the loss-scan holder-exclusive split below)]`
 
 ## 2026-06-06 capture — Pearly Sailing Fjord (value-contingency rule)
 
@@ -479,9 +502,10 @@ generalisation):
   amend; implementer-assessed NOT needed** (the shim comment already states the
   complementary relationship); owner to adjudicate.
   `[captured: 2026-06-05 | source: docs-adr-expert review of PreToolUse guard fail-open (Skyward
-  Lofting Breeze) | target: ADR-167 amendment (Consequences/Limitations note) OR no-change |
-  trigger: owner direction OR a second exit-0 writer to .claude/logs/hook-errors.log | size: S |
-  status: owner-gated]`
+  Lofting Breeze) | target: ADR-167 amendment (Consequences/Limitations note) |
+  trigger: owner adjudicated 2026-06-11 | size: S | status: owner-approved
+  2026-06-11 — amend (short note recording the complementary exit-0 writer);
+  authoring queued]`
 
 ## 2026-06-05 capture — Lanternlit curation pass
 
@@ -497,8 +521,8 @@ generalisation):
   loudly on the next drift instead of waiting for a curation pass to notice.
   `[captured: 2026-06-05 | source: Lanternlit curation pass (ADR-121/hook drift fix 6f280f9f) |
   target: repo-validator:coverage-matrix-matches-hooks (under agent-tools/src/validators/) |
-  trigger: a second matrix-vs-implementation drift instance OR owner direction to build it | size: M
-  | status: owner-gated]`
+  trigger: owner direction 2026-06-11 | size: M | status: routed 2026-06-11 —
+  agent-tools implementation lane]`
 
 ## 2026-06-04 captures — Arboreal Sprouting Branch curation pass
 
@@ -533,16 +557,21 @@ adding. Disposition ledger:
   cross-read Pattern 2 | target:
   enforcement-mechanism:verifier-verdicts-carry-per-check-positive-attestations (the CONCEPT —
   thoroughness disguises as virtue — is now in PDR-089 §Context obs 2 + §Decision 6; the open facet
-  is the operational attestation mechanism, not yet built) | trigger: owner direction OR next
-  reviewer-discipline authoring pass | size: M | status: owner-gated]`
+  is the operational attestation mechanism, not yet built) | trigger: owner
+  walk 2026-06-11 | size: M | status: owner-approved 2026-06-11 — PDR-089
+  attestation-mechanism amendment authorised (synthesise with the
+  "verification artefacts are claims" item in the distilled final gates)]`
 - **Gate-outcome vocabulary needs a third word.** PDR-058's `decide | park`
   cannot express "reject-as-framed"; without it, owner hesitation at a mis-posed
   gate gets coerced into a decision or a costume-trigger park. A reframed gate
   routes back to synthesis and EDITS the gate row itself — a different recording
   shape from a park, which only dates it.
   `[captured: 2026-06-04 | source: napkin Mossy Whispering Bark 2026-06-03 opener-as-artefact |
-  target: amend:PDR-058 (gate-outcome vocabulary) | trigger: second mis-posed-gate instance OR owner
-  direction | size: S | status: owner-gated]`
+  target: amend:PDR-058 (gate-outcome vocabulary) | trigger: FIRED 2026-06-11
+  — second instance is the owner's reframe of the decision-walk's own question
+  protocol ("assume recommended; show me genuine questions") | size: S |
+  status: owner-approved 2026-06-11 — graduate the third word
+  (reject-as-framed)]`
 
 **Cross-experience meta-signal (owner-walk, not a new candidate):** Patterns 2–5
 above are facets of one deep structure — *the failure mode hides inside the
@@ -563,8 +592,8 @@ trigger (cross-session recurrence) is now strongly met — surfaced to owner.
   referential-integrity lesson: write commands need help/validation that shows
   every required identity field. `[captured: 2026-06-03 | source: Lofty and
   Lacustrine closeout napkin entries | target: agent-tools commit-queue UX/TDD
-  lane | trigger: owner direction or next commit-queue tool touch | size: S |
-  status: owner-gated]`
+  lane | trigger: owner direction 2026-06-11 | size: S | status: routed
+  2026-06-11 — agent-tools implementation lane]`
 
 ## 2026-06-02 captures — napkin rotation doctrine routes (Shaded Veiling Mirror)
 
@@ -635,10 +664,10 @@ pseudo-shards that hide the true buffer state.
   durable architecture it needs an ADR home (new ADR or ADR-173 amendment)
   when its owning plan exists.
   `[captured: 2026-06-02 | source: owner direction in-session + the two plans above | target:
-  adr:graph-substrate-migration-doctrine OR amendment:ADR-173 | trigger: authoring of the unified
-  substrate-migration plan (graph-estate Judgement call 4) | size: M | status: owner-gated
-  2026-06-02 — trigger not fired; hold until the unified substrate-migration plan exists or owner
-  directs ADR authoring]`
+  adr:graph-substrate-migration-doctrine OR amendment:ADR-173 | trigger: FIRED
+  — the unified plan was authored, promoted, and has executed in full
+  (Track-G complete 2026-06-11) | size: M | status: owner-approved 2026-06-11
+  — ADR authoring authorised (pair with the graph-tool category ADR)]`
 
 ## 2026-05-31 capture — negation-contrast detection enforcement increment
 
@@ -774,10 +803,10 @@ that the source buffers were validly drained.
   `[captured: 2026-05-31 | source: napkin 2026-05-31 Cirrus entry |
   target: agent-tools-platform-identity-candidate |
   trigger: second platform seed/context mismatch or owner direction | size: S |
-  status: owner-gated (TRIGGER FIRED 2026-06-04: the 2026-06-02 "Cursor identity seed observability
-  needs a machine-level check" entry is the second instance — same
-  PRACTICE_AGENT_SESSION_ID_CURSOR-absent failure, different agent; ready for the agent-tooling
-  identity-observability implementation lane; surfaced to owner)]`
+  status: routed 2026-06-11 — agent-tools identity-observability lane (trigger
+  fired 2026-06-04: the 2026-06-02 second instance, same
+  PRACTICE_AGENT_SESSION_ID_CURSOR-absent failure, different agent; owner
+  ratified the routing at the 2026-06-11 walk)]`
   Route to agent-tools/platform identity work if it recurs.
 
 ## 2026-05-31 longitudinal napkin-review gates
@@ -951,12 +980,11 @@ below, independent of them.)
   - status: owner-gated 2026-06-02 (graduate when the live EEF plan's D3/D4
     contract is ratified). TRIGGER FIRED 2026-06-04 (EEF D4 owner-ratified).
     Owner-directed disposition 2026-06-04 (Hidden Hiding Dusk): the
-    graph-tool-category doctrine's ADR home is owned by the active
-    graph-tools-value-redesign thread (which plans an ADR-086 amendment +
-    ADR-173 / ADR-041 checks at D5/D6/D7 promotion); a standalone consolidation-
-    session ADR here would collide with that live work, so the doctrine lands via
-    the redesign's own ADR work at promotion. Deferred to EEF-redesign promotion
-    (owner choice).
+    graph-tool-category doctrine's ADR home was owned by the active
+    graph-tools-value-redesign thread; that work has now EXECUTED IN FULL
+    (Track-G complete 2026-06-11), so the collision risk is moot.
+    Owner-approved 2026-06-11 — ADR authoring authorised (pair with the
+    substrate-migration doctrine ADR).
 - **Self-correcting measurable deliverables (planning methodology).**
   - captured-date: 2026-05-28
   - source-surface: foundation §5 + this rebuild plan (first instance)
@@ -966,9 +994,8 @@ below, independent of them.)
     the predecessor drifted
   - trigger-condition: plan D5 (extract from the rebuild plan as its first proven
     instance)
-  - status: owner-gated 2026-06-02 (owner wants this in planning methodology).
-    Reviewed 2026-05-31 by Open Lofting Cliff: carried forward because D5 has
-    not fired.
+  - status: owner-approved 2026-06-11 — D5 fired (landed 2026-06-05,
+    `2e9021ff`); PDR + `oak-plan` skill amendment authorised.
 - **Definition-of-Delivery refinement for discovery/instrument work.**
   - captured-date: 2026-05-28
   - source-surface: foundation §6; PDR-085
@@ -977,9 +1004,8 @@ below, independent of them.)
     and the self-correcting-deliverables structure as the honesty mechanism; the
     F tool is the case study (merged + green + reviewed != delivery)
   - trigger-condition: plan D5 / owner direction on the doctrine refinement
-  - status: owner-gated 2026-06-02 (open question, owner-flagged). Reviewed
-    2026-05-31 by Open Lofting Cliff: carried forward because D5 / direct owner
-    promotion has not fired.
+  - status: owner-approved 2026-06-11 — PDR-085 amendment authorised
+    (instrument/discovery deliverables; the F tool stays the case study).
 - **'Working with graphs' skill(s) + supporting docs.**
   - captured-date: 2026-05-28
   - source-surface: foundation §11; plan D5 (owner-directed deliverable)
@@ -988,9 +1014,8 @@ below, independent of them.)
     sparse subgraphs; navigable links; graph tools as a category; soft-stub
     failure mode
   - trigger-condition: plan D5 (extract from the real built tool/contract)
-  - status: owner-gated 2026-06-02 (owner-directed plan deliverable). Reviewed
-    2026-05-31 by Open Lofting Cliff: carried forward because the D5 extraction
-    trigger has not fired.
+  - status: owner-approved 2026-06-11 — D5/D7 extraction trigger fired; skill
+    authoring authorised (extract from the real built graph contract).
 - **Proportionate exploration — raising a question is fine; the expenditure is the failure.**
   - captured-date: 2026-05-28
   - source-surface: owner correction 2026-05-28 — "it's always fine to raise a
@@ -1240,20 +1265,6 @@ Total live owner-gated items: 56.
   implementation that needs the same thin-wrapper contract, or withdraw because
   ADR-167 plus `hook-as-question-not-obstacle` covers the current operational
   risk.
-- 2026-04-28; **PR-87 pre-phase adversarial security review pattern**.
-  `[captured: 2026-04-28 | source: pr-87-security-review | target:
-  pattern:pre-phase-adversarial-review-expands-cluster-scope | trigger:
-  owner-direction-or-second-cross-session-instance | size: S | status: owner-gated]`
-  PR-87's Phase 2 pre-phase security review originally surfaced
-  `X-Forwarded-For` spoofing on Vercel as MUST-FIX. The live security
-  substance is already durable: the completed PR-87 security-review record
-  re-reviewed the premise against Vercel docs and reclassified the finding as
-  HARDENING, while ADR-158 and `safety-and-security.md` now carry the
-  runtime-aware key-extraction boundary. The remaining item is only the
-  pattern-promotion decision: whether to create
-  `pre-phase-adversarial-review-expands-cluster-scope` as a reusable pattern,
-  keep watching for a second cross-session instance, or withdraw because the
-  generic adversarial-review component and security docs are sufficient.
 - 2026-05-21; **Sync-kind / urgency flag in comms schema (ADR candidate)**.
   `[captured: 2026-05-21 | source: owner-direction+agent-tools-cli-landing | target:
   adr:184+implementation-tranches | trigger: implementation-lands | size: S | status: owner-gated]`
@@ -1450,31 +1461,6 @@ collaboration-state" not found` despite the script being present and
   docs and tool schema first, plus a sweep of governed files, then a
   portable PDR. Disposition 2026-05-27: owner-gated; this remains an
   owner-routed implementation lane, not a narrow recovery-file drain.
-- 2026-05-04; **memory classifications and systems review**
-  (Verdant Sprouting Leaf, owner-flagged future-session item at
-  session close): assess the three memory planes (`active/`,
-  `operational/`, `executive/`) plus their sub-surfaces (napkin,
-  distilled, patterns, threads, comms, claims, escalations,
-  conversations, pending-graduations) for what works well, what
-  can be improved, gaps, and beneficial restructure options. The
-  seam-review concept exists in PDR-029 Family-B Layer-1 as a
-  `taxonomy-review` candidate trigger; ≥3 such candidates in a
-  single consolidation or ≥5 across consecutive consolidations
-  signal a full taxonomy-review session is owed. Source-surface:
-  napkin 2026-05-04 §"Three owner asides at session close".
-  Graduation-target: dedicated taxonomy-review session with
-  output: a memory-architecture audit report + any reorganisation
-  proposals as PDR candidates against PDR-007/PDR-024/PDR-028. The
-  assessment is multi-session in scope and benefits from the
-  structural-foundation work landing first (the doctrine-scanner
-  quick wins + practice trio activation create natural
-  observation points for what the memory system *enables* vs
-  *obstructs*). Trigger-condition: post-quick-wins evidence + owner
-  direction, OR ≥2 additional taxonomy-review candidates
-  accumulating before then. Status: owner-gated — PDR-029 Family B
-  and the memory-feedback plans carry the seam-review lane; owner
-  decision needed to ratify/restart that lane or withdraw this older
-  broad review watch.
 - 2026-05-03; **autonomous .git/index.lock interaction is forbidden,
   including wait loops** (Prismatic Illuminating Eclipse, owner
   intervention mid-A1-commit): the existing 2026-04-30 distilled.md
@@ -2108,40 +2094,6 @@ should remain live until a second race clarifies the durable cure, or be
 withdrawn because current commit-window and claim rules already cover the known
 portion.
 
-### Goal-backed handoff state must be explicit
-
-`[captured: 2026-05-24 | source: active-napkin Sylvan persistent-goal handoff capture | target:
-session-handoff-or-platform-pattern:goal-backed-session-close | trigger: second goal-backed
-stop/wind-down conflict or owner-direction to codify handoff step | size: S | status: owner-gated]`
-
-Sylvan captured a handoff failure mode where the owner repeatedly asked to wind
-down or stop, but a persistent goal wrapper kept reactivating the Knowledge
-Curator objective. The reusable shape is not "always mark blocked"; the
-reusable shape is that handoff must make the goal state explicit when an
-unfinished long-running objective remains active after owner stop/wind-down
-language.
-
-Natural home: `session-handoff` amendment if this is repo-workflow doctrine, or
-a platform/goal-runner pattern if the behaviour belongs to the wrapper that
-resumes active goals. The repo-facing handoff move should be precise: complete
-only with proof, block only when the blocked-audit threshold is satisfied, or
-state that the persistent goal remains active and can resume.
-
-Falsifiability: a second long-running goal-backed session reaches owner
-wind-down/stop while unfinished, and the closeout either resolves the goal state
-or visibly carries the active-goal continuation risk.
-
-Processing disposition: verified 2026-05-24 under Shaded claim
-`d7fe5974-56b1-45d4-92aa-b09d23911313`. Keep pending because the rule boundary
-crosses repo workflow and platform goal-runner behaviour. Do not promote until
-the trigger clarifies whether the durable cure belongs in `session-handoff`,
-platform memory, or the goal wrapper itself.
-
-Owner gate: decide the durable home for goal-backed closeout state: repo
-`session-handoff`, platform goal-runner behaviour, or the already-landed
-`consolidate-until-done` wrapper. Until that boundary is owner-ratified, this
-entry stays live as an explicit user-decision item.
-
 ## Collaboration Mode Gate
 
 ## n=2 coordination efficiency
@@ -2295,9 +2247,9 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
   the artefacts and cannot enumerate what is absent relative to the holder's knowledge), so it must
   never be delegated or conflated with a fresh-reader audit (6e.2). The session-handoff SKILL 6e.2
   is already corrected; this graduates the correction into the governing PDR/ADR.
-- **trigger-condition**: the next `continuity-practice` / PDR-011 / ADR-150 amendment pass, OR a
-  second instance of a loss-scan being outsourced to a third party.
-- **status**: pending
+- **trigger-condition**: owner walk 2026-06-11.
+- **status**: owner-approved 2026-06-11 — clause (b) of the authorised
+  two-clause PDR-011 amendment (with the ADR-150 host mirror).
 
 ## Commit-ceremony registry state should not ride feature-PR diffs
 
@@ -2320,9 +2272,10 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
   construction) — its outcome is this candidate's strongest evidence either way.
   **Trial outcome (2026-06-10, evidence landed)**: VALIDATING — five concurrent-window PRs
   (#152–#156), zero registry conflicts, zero index/HEAD races; evidence in
-  `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` §1. Promotion is a
-  curation-pass decision.
-- **status**: pending
+  `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` §1.
+- **status**: owner-approved 2026-06-11 — ADR authoring authorised
+  (coordination-home convention: Director-owned checkout holds registry state;
+  implementer worktrees produce pure-diff PRs)
 
 ## Detector-cannot-detect-itself: watcher staleness needs an external consumer
 
@@ -2334,9 +2287,9 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
 - **graduation-target**: PDR-078 amendment (or a new rule): every agent's cycle-boundary sweep
   includes a staleness check on the DIRECTOR'S watcher heartbeat-file (mutual cover), consuming
   the comms-watch hardening plan's c2 default-on liveness surface.
-- **trigger-condition**: the comms-watch-hang-hardening plan's c2 merging (the substrate the
-  check consumes), OR a third hang-but-run instance.
-- **status**: pending
+- **trigger-condition**: owner walk 2026-06-11.
+- **status**: owner-approved 2026-06-11 — mutual-cover clause authorised,
+  folded into the watcher/liveness rule-amendment bundle (diff via Director).
 
 ## Liveness + watcher rule clauses (held while the rules sit under a live Director claim)
 
@@ -2360,9 +2313,9 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
   heartbeat volume). Tooling sibling for the watcher-hardening lane: filter `*.tmp-*` names
   from poll-loop listings (atomic-write rename race, benign parse-error line, observed
   2026-06-11).
-- **trigger-condition**: the graph team session closing (rules freed from the live Director
-  claim), OR the next pass over the team-session rules, whichever first.
-- **status**: pending
+- **trigger-condition**: FIRED — the graph team session is closing (2026-06-11).
+- **status**: owner-approved 2026-06-11 — all four clauses authorised as rule
+  amendments; diffs via Director.
 
 ## PDR-064 shadow-period extension (understudy succession)
 
@@ -2382,5 +2335,6 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
   writing "owner directs X" into any coordination artefact, cite where the owner reserved X;
   an uncited reservation is an invented gate (supersedes a bare "fire and let the owner
   interrupt" framing, which would overcorrect at genuinely owner-owned moments). All of it
-  belongs in the same PDR-064 amendment. Practice Core edit — owner approval at the digest.
-- **status**: owner-gated (trigger fired; amendment drafted on owner approval)
+  belongs in the same PDR-064 amendment. Practice Core edit.
+- **status**: owner-approved 2026-06-11 — amendment authoring authorised
+  (shadow-period process + standing-successor authorisation + citable-gate test)

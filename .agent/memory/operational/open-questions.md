@@ -29,10 +29,13 @@ fitness_content_role: drainable-buffer
   for evidence a rule altered a move. No built-in per-rule analytics exist.
 - **Owning artefact / discussion home**: none yet; relates to context-budget
   governance. Does not block any current cycle.
-- **Status**: owner-gated — needs owner direction to open a rule-impact
-  instrumentation / transcript-audit lane, or an owner decision to retire the
-  question. Future check: look for a current context-budget or rule-analytics
-  plan before asking again; none is recorded here.
+- **Status**: lane-opened 2026-06-11 (owner decision at the dedicated
+  consolidation walk) — a lean instrumentation lane is authorised: hook
+  invocation fire-count logging only (the one mechanically measurable signal),
+  routed to the agent-tools implementation lane queue; transcript-audit
+  deferred until fire-count evidence exists. The question stays open pending
+  that evidence; the 2b reappraisal-cartography pass remains the prose-rule
+  rationalisation vehicle.
 
 ## Q-003 — input/output schema strategy for MCP tools (+ the EEF coupling)
 
