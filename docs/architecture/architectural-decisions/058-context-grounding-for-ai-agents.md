@@ -33,6 +33,25 @@ Per the [OpenAI Apps SDK Reference](https://developers.openai.com/apps-sdk/refer
 
 This means any context guidance placed in `_meta` is invisible to the model—it can only be seen by the widget.
 
+> **Client-variability note (2026-06-11):** the table above is
+> **OpenAI-Apps-SDK-specific**, not a property of MCP clients in general. A
+> live two-client probe (2026-06-11) found Cursor's agent harness delivers
+> ONLY `content` blocks to the model (`structuredContent` never reaches it —
+> a structuredContent-only response renders "(omitted)"), while Claude Code
+> delivers ONLY `structuredContent` (the `content` blocks are dropped).
+> "Model sees `structuredContent`" must not be assumed per-client. The only
+> shape that renders in every observed client is the dual shape
+> (`formatToolResponse`: `content` summary + serialised JSON, plus decorated
+> `structuredContent`) — the MCP spec's backwards-compatibility SHOULD, and
+> the shape every Oak tool emits (the `get-eef-evidence` exception was
+> removed 2026-06-11). Evidence:
+> [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../../.agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
+> and the in-repo research `mcp-client-tool-result-consumption-2026-05-28.md`.
+> This ADR's model-visibility reasoning below (e.g. "reliably model-visible
+> on every response") holds for both-fields clients and for
+> `structuredContent`-rendering clients; guidance that must reach the model
+> in EVERY client belongs in fields the dual shape carries on both channels.
+
 ### MCP Primitive Audiences
 
 MCP primitives have different control models and audiences:
