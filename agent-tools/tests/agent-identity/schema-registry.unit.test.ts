@@ -59,14 +59,14 @@ describe('naming schema registry', () => {
     expect(computeNamingSchemaDigest(v1)).toBe(v1.wordlistDigest);
   });
 
-  it('keeps v1 as the active schema until the v2 activation cycle lands', () => {
-    expect(ACTIVE_NAMING_SCHEMA_ID).toBe('v1-adjective-verb-noun');
+  it('uses v2 as the active schema (owner-approved 2026-06-11)', () => {
+    expect(ACTIVE_NAMING_SCHEMA_ID).toBe('v2-noun-verb-noun');
   });
 
   it.each(V1_ERA_SEED_TABLE)(
-    'derives the frozen v1 era name for $seed',
+    'reproduces the frozen v1 era name for $seed under the historical schema id',
     ({ seed, displayName, slug }) => {
-      const result = deriveIdentity(seed);
+      const result = deriveIdentity(seed, { schemaId: 'v1-adjective-verb-noun' });
 
       expect(result.kind).toBe('derived');
       expect(result.displayName).toBe(displayName);

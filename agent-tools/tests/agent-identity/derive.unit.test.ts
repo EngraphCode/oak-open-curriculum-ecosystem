@@ -5,6 +5,10 @@ import {
   type DerivedIdentityResult,
   type OverrideIdentityResult,
 } from '../../src/core/agent-identity';
+import {
+  ACTIVE_NAMING_SCHEMA_ID,
+  NAMING_SCHEMAS,
+} from '../../src/core/agent-identity/schema-registry';
 import { IDENTITY_WORD_GROUPS } from '../../src/core/agent-identity/wordlists';
 
 const APPROVED_IDENTITY_GROUPS = [
@@ -29,7 +33,7 @@ describe('deriveIdentity', () => {
     const result = deriveIdentity('format-check-seed');
 
     expect(result.kind).toBe('derived');
-    expect(result.displayName).toMatch(/^[A-Z][a-z]+ [A-Z][a-z]+ [A-Z][a-z]+$/u);
+    expect(result.displayName).toMatch(/^[A-Z][a-z]+ [a-z]+ [A-Z][a-z]+$/u);
     expect(result.slug).toMatch(/^[a-z]+-[a-z]+-[a-z]+$/u);
     expect(result.seedDigest).toBe(createHash('sha256').update('format-check-seed').digest('hex'));
   });
@@ -54,11 +58,11 @@ describe('deriveIdentity', () => {
   it('stamps derived results with the active naming schema version', () => {
     const result = expectDerivedIdentity(deriveIdentity('version-seed'));
 
-    expect(result.namingSchemaVersion).toBe('v1-adjective-verb-noun');
+    expect(result.namingSchemaVersion).toBe('v2-noun-verb-noun');
   });
 
   it('derives identically under the explicitly requested active schema', () => {
-    const explicit = deriveIdentity('version-seed', { schemaId: 'v1-adjective-verb-noun' });
+    const explicit = deriveIdentity('version-seed', { schemaId: 'v2-noun-verb-noun' });
 
     expect(explicit).toEqual(deriveIdentity('version-seed'));
   });
@@ -101,14 +105,13 @@ describe('deriveIdentity', () => {
 
   it('emits words that belong to the reported word group, in column order', () => {
     const result = expectDerivedIdentity(deriveIdentity('coherence-seed'));
-    const group = expectIdentityWordGroup(
-      IDENTITY_WORD_GROUPS.find((candidate) => candidate.group === result.group),
-    );
-    const columns = [group.adjectives, group.verbs, group.nouns];
+    const activeSchema = NAMING_SCHEMAS[ACTIVE_NAMING_SCHEMA_ID];
+    const group = activeSchema.groups.find((candidate) => candidate.group === result.group);
 
-    expect(result.words).toHaveLength(3);
+    expect(group).toBeDefined();
+    expect(result.words).toHaveLength(activeSchema.columnCasing.length);
     result.words.forEach((word, index) => {
-      expect(columns[index]).toContain(word);
+      expect(group?.columns[index]).toContain(word);
     });
   });
 });
@@ -127,14 +130,4 @@ function expectOverrideIdentity(result: ReturnType<typeof deriveIdentity>): Over
   }
 
   return result;
-}
-
-function expectIdentityWordGroup(
-  group: (typeof IDENTITY_WORD_GROUPS)[number] | undefined,
-): (typeof IDENTITY_WORD_GROUPS)[number] {
-  if (group === undefined) {
-    throw new Error('expected identity word group to exist');
-  }
-
-  return group;
 }

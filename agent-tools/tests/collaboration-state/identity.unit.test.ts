@@ -121,7 +121,7 @@ describe('naming schema version on the identity tuple', () => {
       env: { CODEX_THREAD_ID: codexThreadId },
     });
 
-    expect(result.agentId.naming_schema_version).toBe('v1-adjective-verb-noun');
+    expect(result.agentId.naming_schema_version).toBe('v2-noun-verb-noun');
   });
 
   it('stamps env-override identities with the override provenance marker', () => {

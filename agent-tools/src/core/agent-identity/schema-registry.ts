@@ -123,9 +123,11 @@ export const NAMING_SCHEMAS: Readonly<Record<NamingSchemaId, NamingSchema>> = {
 };
 
 /**
- * The schema used for new derivations.
+ * The schema used for new derivations. v2 activated 2026-06-11 after the
+ * owner wordlist taste review; the digest pin froze the v2 material at this
+ * moment — any later wordlist change is a new schema version.
  */
-export const ACTIVE_NAMING_SCHEMA_ID: NamingSchemaId = 'v1-adjective-verb-noun';
+export const ACTIVE_NAMING_SCHEMA_ID: NamingSchemaId = 'v2-noun-verb-noun';
 
 /**
  * Every value the `naming_schema_version` identity field may carry: each
