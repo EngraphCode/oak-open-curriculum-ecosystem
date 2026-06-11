@@ -118,7 +118,8 @@ misconception tools — test against real use before believing it.
 
 - Owner direction: 2026-06-11 session (verbatim rationale quoted above);
   Director routing event `56dcda07`.
-- Tool surface: `oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts` and
+- Tool surface:
+  `packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts` and
   the keyword view in `@oaknational/graph-corpus-sdk/curriculum` (verified at
   `origin/main` 2026-06-11).
 - Adjacency finding:

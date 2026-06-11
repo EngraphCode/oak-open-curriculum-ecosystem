@@ -166,7 +166,8 @@ verified against delivered behaviour** before it is written:
 - **NC vocabulary is grounded — cite, don't soften**: verified 2026-06-11
   (readiness review + first-hand):
   `UnitSummaryResponseSchema.nationalCurriculumContent`
-  (`oak-sdk-codegen/src/types/generated/zod/curriculumZodSchemas.ts`) flows
+  (`packages/sdks/oak-sdk-codegen/src/types/generated/zod/curriculumZodSchemas.ts`)
+  flows
   through `get-units-summary` into the `curriculum-mapping` prompt's
   coverage step. W2 may use national-curriculum-coverage language for that
   chain. The deeper NC-statement surface remains owned by the future
@@ -200,7 +201,9 @@ trip; delivered value remains release-and-observe (P5).
 ## Prerequisites
 
 - Track-G graph tools — **blocking, satisfied** (merged through #173; tool
-  registration verified in `universal-tools/definitions.ts` + `executor.ts`).
+  registration verified in
+  `packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/definitions.ts` +
+  `executor.ts` beside it).
 - S3 attribution-validation owner step — **not a prerequisite** (this prompt
   derives from no oak-skills content; it composes served tools only; the OGL
   attribution block is the landed static pattern).
