@@ -81,6 +81,36 @@ The loop SHOULD swallow stdout on success (failures emit so the agent
 can react). The loop dies when the session ends, which correctly
 satisfies the retirement-on-silence rule for natural session-end.
 
+### Loop hygiene (worked-instance-derived, 2026-06-11)
+
+Four disciplines keep the heartbeat loop honest; each cures a recorded
+failure instance from the 2026-06-11 team window:
+
+- **Relabel at lane transitions.** A fixed-label loop goes stale by
+  construction: its title and typed state args are frozen at start, so a
+  claim open, lane-terminal event, or cycle advance leaves the loop
+  asserting a lane the agent no longer occupies (worked instance: a
+  PDR-078 stall ping fired on a seat that was actively working, three
+  cadence windows after its declared lane terminated). Relabelling —
+  stop the loop, restart it with the honest label and current
+  claim/intent/branch/cycle args — is a NAMED step of every lane
+  transition, the same discipline class as verifying a CLI write's
+  destination.
+- **Stop-loop-first at heartbeat-end.** At session end the ordering is:
+  stop the loop FIRST, then emit the final heartbeat-end event. A loop
+  that outlives the end event can emit a stale "active" heartbeat after
+  peers have already read the stand-down.
+- **One timestamp per tick.** Derive a single timestamp per tick and pass
+  it to both `--now` and `--created-at`; two `$(date)` calls can race a
+  second boundary and the CLI rejects the resulting created_at-in-future
+  (worked instance 2026-06-11).
+- **Failures report with captured stderr.** A loop that swallows stderr
+  makes its own failures undiagnosable (worked instance: a transient emit
+  failure during registry churn surfaced as a bare "FAILED" line). Capture
+  stderr into the failure line — e.g. `out=$(cmd 2>&1) || echo "HEARTBEAT
+  FAILURE: $out"` — never a bare failure marker. Sibling of the
+  loud-writes class.
+
 ### Owner-input precedence on every scheduled tick
 
 A cron, scheduled wakeup, or persistent monitor prompt is itself
