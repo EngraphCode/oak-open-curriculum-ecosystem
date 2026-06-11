@@ -165,17 +165,21 @@ verified absent from this register before adding.
   (Iridescent's restart with a real-events gap window; Nebulous's two clean
   same-seen-file restarts, 12:18Z + 13:46Z), all restarts clean, one gap
   window carrying substantive events. Mechanically worsens as the comms
-  corpus grows. Candidate cures: a drain budget scaled to directory size (or
-  configurable default raised — this pass ran `--step-timeout-ms 120000`
-  pre-emptively and had zero deaths), or comms-dir hygiene/archival — the
-  latter is OWNER-GATED by the standing comms-corpus preservation pause
-  (consolidate-docs step 3a: no rotation absent an owner-opened comms research
-  / retention plan).
+  corpus grows. Candidate cures: a drain budget scaled to directory size, or
+  comms-dir hygiene/archival — the latter is OWNER-GATED by the standing
+  comms-corpus preservation pause (consolidate-docs step 3a: no rotation
+  absent an owner-opened comms research / retention plan). TRIGGER FIRED
+  within this same pass: the curation seat ran `--step-timeout-ms 120000`
+  pre-emptively, and the watcher STILL died a drain-timeout at 14:16Z (during
+  the pre-push window's I/O load), restarting clean on the same seen-file
+  with a heartbeat-only gap — a further death after a raised budget is
+  exactly the condition this entry named at capture, one hour earlier. A
+  fixed budget of any size loses to a growing dir under concurrent load; the
+  durable cure is dir-size-scaled budgeting (or the owner-gated archival).
   `[captured: 2026-06-11 | source: pre-position 0f36d756 item 7 + Nebulous
-  delta de5122b8 + this pass's zero-death 120s run | target: agent-tools comms
-  watch drain-budget sizing; archival path owner-gated | trigger: a further
-  death after budgets are raised, or owner direction | size: S | status:
-  pending]`
+  delta de5122b8 + this pass's 120s death at 14:16Z | target: agent-tools
+  comms watch drain-budget sizing; archival path owner-gated | trigger:
+  FIRED same-pass (death at a raised budget) | size: S | status: due]`
 - **Worktree vocab-gen needs the gitignored bulk-downloads — symlink pattern
   for the team opener.** Worked once (Prismatic, PR-180 cycle): vocab-gen in a
   worktree needs `apps/oak-search-cli/bulk-downloads` (gitignored,
