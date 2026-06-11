@@ -107,8 +107,9 @@ failure instance from the 2026-06-11 team window:
 - **Failures report with captured stderr.** A loop that swallows stderr
   makes its own failures undiagnosable (worked instance: a transient emit
   failure during registry churn surfaced as a bare "FAILED" line). Capture
-  stderr into the failure line — e.g. `out=$(cmd 2>&1) || echo "HEARTBEAT
-  FAILURE: $out"` — never a bare failure marker. Sibling of the
+  stderr into the failure line —
+  e.g. `out=$(cmd 2>&1) || echo "HEARTBEAT FAILURE: $out"` — never a bare
+  failure marker. Sibling of the
   loud-writes class.
 
 ### Owner-input precedence on every scheduled tick
