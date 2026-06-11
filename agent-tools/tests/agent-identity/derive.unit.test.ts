@@ -9,7 +9,6 @@ import {
   ACTIVE_NAMING_SCHEMA_ID,
   NAMING_SCHEMAS,
 } from '../../src/core/agent-identity/schema-registry';
-import { IDENTITY_WORD_GROUPS } from '../../src/core/agent-identity/wordlists';
 
 const APPROVED_IDENTITY_GROUPS = [
   'celestial',
@@ -61,10 +60,15 @@ describe('deriveIdentity', () => {
     expect(result.namingSchemaVersion).toBe('v2-noun-verb-noun');
   });
 
-  it('derives identically under the explicitly requested active schema', () => {
-    const explicit = deriveIdentity('version-seed', { schemaId: 'v2-noun-verb-noun' });
+  it('derives the pinned ground-truth name whether the active schema is implicit or explicit', () => {
+    const implicit = expectDerivedIdentity(deriveIdentity('version-seed'));
+    const explicit = expectDerivedIdentity(
+      deriveIdentity('version-seed', { schemaId: 'v2-noun-verb-noun' }),
+    );
 
-    expect(explicit).toEqual(deriveIdentity('version-seed'));
+    expect(implicit.displayName).toBe('Starling weaves Bluff');
+    expect(implicit.slug).toBe('starling-weaves-bluff');
+    expect(explicit).toEqual(implicit);
   });
 
   it('rejects an empty seed before derivation', () => {
@@ -77,8 +81,10 @@ describe('deriveIdentity', () => {
     );
   });
 
-  it('uses the approved neutral identity word group keys', () => {
-    expect(IDENTITY_WORD_GROUPS.map((group) => group.group)).toEqual(APPROVED_IDENTITY_GROUPS);
+  it('uses the approved neutral identity word group keys in every registered schema', () => {
+    for (const schema of Object.values(NAMING_SCHEMAS)) {
+      expect(schema.groups.map((group) => group.group)).toEqual([...APPROVED_IDENTITY_GROUPS]);
+    }
   });
 
   it('routes a fixed seed corpus across every approved word group', () => {
@@ -92,12 +98,10 @@ describe('deriveIdentity', () => {
     expect(groups).toEqual(expectedGroups);
   });
 
-  it('uses lowercase slug-safe words in every approved group slot', () => {
-    const allWords = IDENTITY_WORD_GROUPS.flatMap((group) => [
-      ...group.adjectives,
-      ...group.verbs,
-      ...group.nouns,
-    ]);
+  it('uses lowercase slug-safe words in every registered schema column', () => {
+    const allWords = Object.values(NAMING_SCHEMAS).flatMap((schema) =>
+      schema.groups.flatMap((group) => group.columns.flat()),
+    );
 
     expect(allWords).not.toHaveLength(0);
     expect(allWords.every((word) => /^[a-z]+$/u.test(word))).toBe(true);

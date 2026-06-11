@@ -26,7 +26,7 @@
         },
         "naming_schema_version": {
           "enum": ["v1-adjective-verb-noun", "v2-noun-verb-noun", "override"],
-          "description": "Name provenance: the registered naming-schema era that derived agent_name, or 'override' for operator-specified names. Optional on read (rows written before the field existed are the v1 era by definition); required on all new writes."
+          "description": "Name provenance: the registered naming-schema era that derived agent_name, or 'override' for operator-specified names. Optional: rows written before the field existed are the v1 era by definition, and address-relay blocks may omit it because another agent's provenance is unknowable to the writer. Identity derivation factories always stamp it (test-enforced)."
         }
       },
       "description": "PDR-027 agent identity block (amended 2026-05-26 per PDR-076a). Identity routing key is (agent_name, id); session_id_prefix remains for readable diagnostic prose. Reused across all event kinds."

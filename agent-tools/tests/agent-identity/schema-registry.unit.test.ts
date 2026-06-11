@@ -3,6 +3,8 @@ import {
   ACTIVE_NAMING_SCHEMA_ID,
   NAMING_SCHEMAS,
   computeNamingSchemaDigest,
+  type NAMING_SCHEMA_VERSION_VALUES,
+  type NamingSchemaId,
 } from '../../src/core/agent-identity/schema-registry';
 
 const APPROVED_V1_GROUPS = [
@@ -43,13 +45,13 @@ const V2_ERA_SEED_TABLE = [
 ] as const;
 
 describe('naming schema registry', () => {
-  it('registers the v1 era with three title-cased columns over the six approved groups', () => {
+  it('registers the v1 era over the six approved groups, rendering all-title-case names', () => {
     const v1 = NAMING_SCHEMAS['v1-adjective-verb-noun'];
+    const result = deriveIdentity('v1-render-seed', { schemaId: 'v1-adjective-verb-noun' });
 
-    expect(v1.id).toBe('v1-adjective-verb-noun');
-    expect(v1.columnCasing).toEqual(['title', 'title', 'title']);
     expect(v1.groups.map((group) => group.group)).toEqual([...APPROVED_V1_GROUPS]);
-    expect(v1.groups.every((group) => group.columns.length === 3)).toBe(true);
+    expect(result.kind).toBe('derived');
+    expect(result.displayName).toMatch(/^[A-Z][a-z]+ [A-Z][a-z]+ [A-Z][a-z]+$/u);
   });
 
   it('pins the v1 wordlist digest so wordlist edits cannot land without a version bump', () => {
@@ -59,7 +61,8 @@ describe('naming schema registry', () => {
     expect(computeNamingSchemaDigest(v1)).toBe(v1.wordlistDigest);
   });
 
-  it('uses v2 as the active schema (owner-approved 2026-06-11)', () => {
+  // Activation recorded in ADR-195.
+  it('uses v2-noun-verb-noun as the active naming schema', () => {
     expect(ACTIVE_NAMING_SCHEMA_ID).toBe('v2-noun-verb-noun');
   });
 
@@ -69,23 +72,33 @@ describe('naming schema registry', () => {
       const result = deriveIdentity(seed, { schemaId: 'v1-adjective-verb-noun' });
 
       expect(result.kind).toBe('derived');
+      expect(result.namingSchemaVersion).toBe('v1-adjective-verb-noun');
       expect(result.displayName).toBe(displayName);
       expect(result.slug).toBe(slug);
     },
   );
 
-  it('registers the complete v2 era: six themes, title-lower-title casing, U-shaped columns', () => {
+  it('registers the complete v2 era: six themes with U-shaped column allocation', () => {
     const v2 = NAMING_SCHEMAS['v2-noun-verb-noun'];
 
-    expect(v2.id).toBe('v2-noun-verb-noun');
-    expect(v2.columnCasing).toEqual(['title', 'lower', 'title']);
     expect(v2.groups.map((group) => group.group)).toEqual([...APPROVED_V1_GROUPS]);
     for (const group of v2.groups) {
-      expect(group.columns).toHaveLength(3);
       expect(group.columns[0]?.length).toBeGreaterThanOrEqual(50);
       expect(group.columns[1]?.length).toBeGreaterThanOrEqual(16);
       expect(group.columns[2]?.length).toBeGreaterThanOrEqual(40);
     }
+  });
+
+  it('enumerates every registered schema id in the version-value list (compile-time check)', () => {
+    // Type-level exhaustiveness proof: if NamingSchemaId gains a member that
+    // NAMING_SCHEMA_VERSION_VALUES does not enumerate, this assignment fails
+    // to compile and downstream parse boundaries cannot silently reject the
+    // new era.
+    const everyIdEnumerated: NamingSchemaId extends (typeof NAMING_SCHEMA_VERSION_VALUES)[number]
+      ? true
+      : never = true;
+
+    expect(everyIdEnumerated).toBe(true);
   });
 
   it('pins the v2 wordlist digest so wordlist edits cannot land without a version bump', () => {
@@ -109,6 +122,7 @@ describe('naming schema registry', () => {
       const result = deriveIdentity(seed, { schemaId: 'v2-noun-verb-noun' });
 
       expect(result.kind).toBe('derived');
+      expect(result.namingSchemaVersion).toBe('v2-noun-verb-noun');
       expect(result.displayName).toBe(displayName);
       expect(result.slug).toBe(slug);
     },

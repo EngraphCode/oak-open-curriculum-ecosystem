@@ -38,6 +38,10 @@ describe('v2 shared verb pool', () => {
 });
 
 describe('v2 themed noun columns', () => {
+  it('registers the complete six-theme manifest (gates can never pass vacuously)', () => {
+    expect(V2_THEME_GROUPS.length).toBeGreaterThanOrEqual(6);
+  });
+
   it('passes every per-column curation gate in every registered theme', () => {
     for (const theme of V2_THEME_GROUPS) {
       assertNounColumn(`${theme.group} subject`, theme.subjectNouns, SUBJECT_MINIMUM);
