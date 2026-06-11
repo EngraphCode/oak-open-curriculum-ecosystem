@@ -19,6 +19,42 @@ fitness-threshold derivation principle in ADR-144, the status-surface-recompute
 sharpening in `verify-dont-trust`, and the sweep-the-defect-class and
 landed-invariant lessons in `distilled.md`. Fresh capture continues below.
 
+## 2026-06-11 evening — oak-prod snagging wave 2 (Dawnlit Glimmering Orbit, 50c2d1, cursor)
+
+NOTE: wave-1 captures (Cursor drops structuredContent-only tool results; schema-skip instance;
+session-env recovery via `.cursor/oak-composer-session.local.json`; Cursor-Shell pre-push turbo
+SIGABRT + file-redirect cure; piped-exit false-RED wrinkle) are napkin'd on branch
+`docs/graph-team-direction-2026-06-10` (`ae5372e2c` + `c9ff6bb49`) — reconcile on merge. This
+branch's additions:
+
+- **The shared checkout's BRANCH moved under a paused session** — between my turns a peer
+  session checked out `docs/…` → `main` → `feat/better_agent_naming`; my next file-read
+  "lost" a committed report (it lives on the other branch). Cure that worked: on ANY
+  resumed turn in a shared checkout, re-derive branch + HEAD (`git rev-parse
+  --abbrev-ref HEAD; git log -1`) BEFORE interpreting file state; `git reflog` names what
+  happened. Same family as the stale-cwd class: session-persistent state (cwd, branch) is
+  a peer-mutable input, never a memory.
+- **Whole-tree pre-commit gates bind you to a live peer's WIP**: my docs-only commit failed
+  on 3 red agent-tools tests belonging to the peer's mid-TDD working tree (same checkout);
+  no bypass — surfaced to owner, waited; their next commit landed the tests green (997
+  pass) and the collision dissolved. Corollary of check-singleton-per-window: a commit's
+  gate chain is a whole-checkout event.
+- **A peer's broad `git add` swept my staged bundle into their feat commit** (`3de15f01a`
+  carries my five doc files + their identity work) — content conserved (set-membership
+  verified), but the commit-subject-to-content attribution is now mixed. The
+  stage-by-explicit-pathspec discipline protects against sweeping OTHERS' work; being
+  swept BY a peer is the mirror exposure — the cure is the same discipline adopted by all
+  writers, plus not leaving bundles staged-but-uncommitted in a shared checkout longer
+  than necessary (mine sat staged through a blocked-gate window).
+- **candidate: client-visibility check belongs in MCP tool-shape ratification** — a
+  spec-valid response shape (`content: []` + structuredContent-only) was ratified without
+  evidence of how real agent clients render it; the live exercise falsified the implicit
+  "clients surface structuredContent" assumption for Cursor (decoration-key fingerprint
+  proof in the cursor-visibility write-up). Graduation shape: a clause in the
+  output-schemas plan / ADR-195 family requiring a client-population rendering check
+  before ratifying any non-default response shape. Trigger: S1 decision on the snag
+  register, or a second client found dropping structuredContent (S0 probe).
+
 ## 2026-06-09 — graph-tools readiness session (Fragrant Spreading Sapling, 47f78a)
 
 Readiness session: seam analysis → owner ratifications → R1/R2 → DECISION-COMPLETE (PR #143 + a
@@ -140,3 +176,12 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   Design insight worth keeping: the collaboration CLIs being path-parameterised means worktree
   topology needs ZERO new tooling, and it converts three of this arc's lessons (registry
   conflicts, gate coupling, watcher exit-condition discipline) into structure on first use.
+- **"Solo window" is a point-in-time observation, not a session property** (Swift Gliding
+  Zephyr, 2026-06-11): claims registry empty at session open + at WS1.1 → skipped the
+  commit-queue ceremony as solo-window lean path; by WS1.2 a peer had staged a 4-file
+  bundle (plan, report, lane README, closed-claims archive) and my `git commit` absorbed
+  it — `git add` is pathspec-scoped but commit takes the whole index. Cure adopted
+  mid-session: `git diff --cached --name-only` verified against the intended bundle
+  IMMEDIATELY before every `git commit`, halt on any foreign entry. The queue ceremony's
+  verify-staged step is collision protection, not ceremony, even when the registry reads
+  empty.

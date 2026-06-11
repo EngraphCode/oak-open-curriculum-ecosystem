@@ -11,6 +11,25 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
+- **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
+  oak-prod-live-mcp-exercise + snagging, solo). NOTE this branch lags the eef arc** — the
+  TRACK-G completion narrative and this session's first-wave artefacts (verification record +
+  thread-record entry) live on branch `docs/graph-team-direction-2026-06-10` (commits
+  `ae5372e2c` + `c9ff6bb49`, pushed); reconcile on merge. This branch carries the session's
+  second wave, owner-directed: **write-up before fixes, successor will not be a Cursor
+  instance**. Landed here (swept into peer commit `3de15f01a`, content verified conserved):
+  the self-contained
+  [cursor-visibility write-up](../../../reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
+  (server wire shapes pinned to source; Cursor delivers ONLY `content` blocks to the model —
+  decoration-key fingerprint proof; the ratified `content: []` + structuredContent-only
+  `get-eef-evidence` success is fully invisible to the Cursor agent, shape-based not
+  size-based; prompt layer = user slash commands yes / agent invocation no, results loop back
+  as injected command context; replay recipe for non-Cursor successors) and the
+  [snag register](../../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+  (S0 client-population probe → S1 owner decision on the EEF shape; S2 keyword description
+  leakage; S3 corpus typo; S4 `limit` schema bounds; S5 prompt-UX observation). **Next safe
+  step for this lane**: S0 — probe how non-Cursor clients surface the Shape-B response (one
+  call each per the write-up's §6 replay recipe), then put S1 to the owner.
 - **THIS SESSION (2026-06-09, Fragrant Spreading Sapling / claude Fable 5, branches
   `feat/graph-migration-part-1` → `feat/graph-migration-part-2`) — graph-tools readiness →
   🟢 DECISION-COMPLETE.** The review-and-readiness session the entry below queued. Owner overturned
@@ -224,6 +243,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Incandescent Smouldering Brazier` | `claude` | `Opus 4.8` | `939d21` | `post-d7-answertype-and-headline-view-adr194-product-boundary-and-output-schema-integration` | 2026-06-09 | 2026-06-09 |
 | `Brazen Roasting Cinder` | `claude` | `Opus 4.8` | `527005` | `aic-deferred-reviews-and-graph-tools-plan-promotion` | 2026-06-09 | 2026-06-09 |
 | `Fragrant Spreading Sapling` | `claude` | `Fable 5` | `47f78a` | `graph-plan-readiness-seam-analysis-and-decision-complete` | 2026-06-09 | 2026-06-10 |
+| `Dawnlit Glimmering Orbit` | `cursor` | `Fable 5` | `50c2d1` | `oak-prod-live-mcp-exercise-snagging-and-cursor-visibility-writeup` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 
