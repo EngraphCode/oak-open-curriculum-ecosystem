@@ -123,6 +123,37 @@ describe('generateGraphCorpusData — sequences (G3 year-ordered placement data)
     ]);
   });
 
+  it('breaks an equal-year tie deterministically by unitId', () => {
+    const tiedThread: ExtractedThread = {
+      ...fractionsThread,
+      units: [
+        {
+          unitSlug: 'fractions-zebra',
+          unitTitle: 'Fractions zebra',
+          order: 8,
+          subject: 'maths',
+          keyStage: 'ks2',
+          year: 3,
+        },
+        {
+          unitSlug: 'fractions-apple',
+          unitTitle: 'Fractions apple',
+          order: 8,
+          subject: 'maths',
+          keyStage: 'ks2',
+          year: 3,
+        },
+      ],
+    };
+
+    const result = generateGraphCorpusData(makeInput({ threads: [tiedThread] }));
+
+    expect(result.sequences[0]?.placements.map((p) => p.unitId)).toEqual([
+      'unit:fractions-apple',
+      'unit:fractions-zebra',
+    ]);
+  });
+
   it('sorts year-less placements after yeared ones, by unitId', () => {
     const yearlessThread: ExtractedThread = {
       ...fractionsThread,

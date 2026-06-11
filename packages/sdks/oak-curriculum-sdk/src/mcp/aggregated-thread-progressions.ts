@@ -177,9 +177,16 @@ function dispatchAnchor(input: z.infer<typeof THREAD_PROGRESSIONS_INPUT>): {
       data: { anchorKind: 'thread', ...subgraph },
     };
   }
-  // The parse-time exactly-one-anchor rule guarantees subject+keyStage here;
-  // the empty-string fallbacks are unreachable and exist only for the types.
-  const discovery = progressionsForSubjectKeyStage(input.subject ?? '', input.keyStage ?? '');
+  const { subject, keyStage } = input;
+  if (subject === undefined || keyStage === undefined) {
+    // Structurally unreachable: the parse-time exactly-one-anchor rule
+    // guarantees subject+keyStage here. Fail loud rather than silently
+    // dispatching an empty discovery if that guarantee ever drifts.
+    throw new Error(
+      'get-thread-progressions invariant breach: discovery anchor missing subject or keyStage after validated parse',
+    );
+  }
+  const discovery = progressionsForSubjectKeyStage(subject, keyStage);
   return {
     summary: summariseDiscovery(discovery),
     data: { anchorKind: 'subjectKeyStage', ...discovery },

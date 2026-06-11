@@ -36,7 +36,14 @@ export interface SequenceBuild {
   readonly collapsedIdenticalPlacements: number;
 }
 
-/** Compares placements by (year, unitId), year-less placements last — a total order. */
+/**
+ * Compares placements by (year, unitId), year-less placements last — a total
+ * order, so any placement sort is deterministic regardless of encounter order.
+ *
+ * @param a - The first placement (unitId plus optional teaching year)
+ * @param b - The second placement (unitId plus optional teaching year)
+ * @returns A negative/zero/positive comparator value for `Array.prototype.sort`
+ */
 export function comparePlacements(
   a: { readonly unitId: string; readonly year: number | undefined },
   b: { readonly unitId: string; readonly year: number | undefined },

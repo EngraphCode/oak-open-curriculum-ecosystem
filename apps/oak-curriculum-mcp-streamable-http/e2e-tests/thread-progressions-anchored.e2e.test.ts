@@ -45,6 +45,15 @@ const THREAD_ENVELOPE = z.object({
   unknownAnchors: z.array(z.string()),
 });
 
+const DISCOVERY_ENVELOPE = z.object({
+  anchorKind: z.literal('subjectKeyStage'),
+  subject: z.string(),
+  keyStage: z.string(),
+  threads: z.array(
+    z.object({ thread: z.unknown(), totalUnits: z.number(), subjects: z.array(z.string()) }),
+  ),
+});
+
 /** A thread slug with at least one placement, chosen deterministically (first emitted sequence). */
 const firstSequence = graphCorpus.sequences.find((sequence) => sequence.placements.length > 0);
 if (firstSequence === undefined) {
@@ -53,6 +62,23 @@ if (firstSequence === undefined) {
 const knownThreadSlug: string = firstSequence.threadId.slice(
   firstSequence.threadId.indexOf(':') + 1,
 );
+
+/** A (subject, keyStage) pair carried by a sequenced unit, chosen deterministically. */
+const placedUnitIds = new Set(
+  graphCorpus.sequences.flatMap((sequence) =>
+    sequence.placements.map((placement) => placement.unitId),
+  ),
+);
+const sequencedUnit = graphCorpus.nodes.find(
+  (node) => node.kind === 'unit' && placedUnitIds.has(node.id),
+);
+if (sequencedUnit === undefined || sequencedUnit.kind !== 'unit') {
+  throw new Error('corpus has no sequenced unit to derive a subject+keyStage anchor');
+}
+const knownSubjectKeyStage = {
+  subject: sequencedUnit.subject,
+  keyStage: sequencedUnit.keyStage,
+};
 
 async function callThreadProgressions(args: unknown): Promise<request.Response> {
   const runtimeConfig = createMockRuntimeConfig({ dangerouslyDisableAuth: true });
@@ -91,6 +117,35 @@ describe('get-thread-progressions anchored tools/call', () => {
     expect(structured.unknownAnchors).toStrictEqual([]);
     expect(structured.threads).toHaveLength(1);
     expect(structured.threads[0]?.entries.length).toBeGreaterThan(0);
+  });
+
+  it('returns bounded discovery descriptors for a subject+keyStage anchor', async () => {
+    const response = await callThreadProgressions(knownSubjectKeyStage);
+
+    expect(response.status).toBe(200);
+    const envelope = parseSseEnvelope(response.text);
+    const result = parseJsonRpcResult(envelope);
+    expect(result.isError).not.toBe(true);
+
+    const structured = DISCOVERY_ENVELOPE.parse(getStructuredContentData(result));
+    expect(structured.threads.length).toBeGreaterThan(0);
+    expect(structured.threads.length).toBeLessThan(graphCorpus.sequences.length);
+    expect(structured.threads[0]).not.toHaveProperty('entries');
+  });
+
+  it('returns a well-formed empty discovery result for an unmatched anchor', async () => {
+    const response = await callThreadProgressions({
+      subject: 'no-such-subject',
+      keyStage: 'ks2',
+    });
+
+    expect(response.status).toBe(200);
+    const envelope = parseSseEnvelope(response.text);
+    const result = parseJsonRpcResult(envelope);
+    expect(result.isError).not.toBe(true);
+
+    const structured = DISCOVERY_ENVELOPE.parse(getStructuredContentData(result));
+    expect(structured.threads).toStrictEqual([]);
   });
 
   it('rejects an anchorless call at the input boundary', async () => {
