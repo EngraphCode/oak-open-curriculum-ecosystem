@@ -1,12 +1,14 @@
 /**
  * Subpath barrel: `@oaknational/sdk-codegen/graph-corpus`
  *
- * The one bulk curriculum graph corpus (Decision A): unit, thread, lesson, and
- * misconception nodes carrying kind-qualified ids (`unit:<unitSlug>`,
- * `misconception:<lessonSlug>#<hash16>`, …) with `prerequisiteFor` edges plus
- * the thread→unit→lesson→misconception chain edges, emitted by the vocab-gen
- * pipeline as a single identity space and surfaced for bounded query views
- * (e.g. `graph-corpus-sdk` constructs its per-view selections over it).
+ * The one bulk curriculum graph corpus (Decision A): unit, thread, lesson,
+ * misconception, and keyword nodes carrying kind-qualified ids
+ * (`unit:<unitSlug>`, `misconception:<lessonSlug>#<hash16>`,
+ * `keyword:<normalised-term>`, …) with `prerequisiteFor` edges plus the
+ * thread→unit→lesson→\{misconception, keyword\} chain edges, emitted by the
+ * vocab-gen pipeline as a single identity space and surfaced for bounded
+ * query views (e.g. `graph-corpus-sdk` constructs its per-view selections
+ * over it).
  *
  * The runtime corpus is a large generated structure (loaded from `data.json`)
  * excluded from the lint TypeScript program; this barrel is the single import
@@ -27,6 +29,7 @@ export type {
   GraphCorpusThreadNode,
   GraphCorpusLessonNode,
   GraphCorpusMisconceptionNode,
+  GraphCorpusKeywordNode,
   GraphCorpusEdge,
   GraphCorpusEdgeType,
   GraphCorpusNodeId,
@@ -34,6 +37,7 @@ export type {
   GraphCorpusThreadNodeId,
   GraphCorpusLessonNodeId,
   GraphCorpusMisconceptionNodeId,
+  GraphCorpusKeywordNodeId,
   GraphCorpusStats,
   GraphCorpusDroppedEdge,
   GraphCorpusDroppedDuplicate,

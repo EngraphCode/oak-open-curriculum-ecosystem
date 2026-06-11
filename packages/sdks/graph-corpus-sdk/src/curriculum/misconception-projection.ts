@@ -90,6 +90,9 @@ export function buildCurriculumMisconceptionProjection(): CurriculumMisconceptio
       threadsById.set(node.id, node);
     } else if (node.kind === 'misconception') {
       misconceptionsById.set(node.id, node);
+    } else if (node.kind === 'keyword') {
+      // Keyword nodes are deliberately outside the misconception chain; the
+      // keyword view owns them.
     } else {
       // Exhaustiveness anchor: a new corpus node kind fails compilation here
       // instead of silently joining the wrong index.

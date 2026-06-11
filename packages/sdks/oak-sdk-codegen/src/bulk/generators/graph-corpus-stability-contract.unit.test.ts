@@ -17,6 +17,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type {
+  ExtractedKeyword,
   ExtractedLesson,
   ExtractedMisconception,
   ExtractedPriorKnowledge,
@@ -36,6 +37,7 @@ function makeInput(overrides: Partial<GraphCorpusInput> = {}): GraphCorpusInput 
     threads: [],
     lessons: [],
     misconceptions: [],
+    keywords: [],
     sourceVersion: '2026-05-21T13:45:16.086Z',
     ...overrides,
   };
@@ -150,17 +152,38 @@ describe('generateGraphCorpusData — G2 stability contract', () => {
         ],
       };
 
+      const firstKeyword: ExtractedKeyword = {
+        term: 'denominator',
+        displayTerm: 'Denominator',
+        definition: 'The number below the line in a fraction.',
+        frequency: 1,
+        subjects: ['maths'],
+        firstYear: 3,
+        lessonSlugs: ['comparing-fractions'],
+      };
+      const secondKeyword: ExtractedKeyword = {
+        term: 'numerator',
+        displayTerm: 'Numerator',
+        definition: 'The number above the line in a fraction.',
+        frequency: 1,
+        subjects: ['maths'],
+        firstYear: 3,
+        lessonSlugs: ['adding-fractions'],
+      };
+
       const forward = makeInput({
         priorKnowledge: [basePriorKnowledge],
         threads: [baseThread, secondThread],
         lessons: [baseLesson, secondLesson],
         misconceptions: [baseMisconception, secondMisconception],
+        keywords: [firstKeyword, secondKeyword],
       });
       const reversed = makeInput({
         priorKnowledge: [...forward.priorKnowledge].reverse(),
         threads: [...forward.threads].reverse(),
         lessons: [...forward.lessons].reverse(),
         misconceptions: [...forward.misconceptions].reverse(),
+        keywords: [...forward.keywords].reverse(),
       });
 
       expect(timeless(generateGraphCorpusData(reversed))).toEqual(

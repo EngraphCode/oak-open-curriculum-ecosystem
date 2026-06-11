@@ -61,7 +61,22 @@ interface JsonMisconceptionNode {
   readonly response: string;
 }
 
-type JsonGraphCorpusNode = JsonUnitNode | JsonThreadNode | JsonLessonNode | JsonMisconceptionNode;
+interface JsonKeywordNode {
+  readonly kind: 'keyword';
+  readonly id: string;
+  readonly term: string;
+  readonly description: string;
+  readonly frequency: number;
+  readonly firstYear: number;
+  readonly subjects: readonly string[];
+}
+
+type JsonGraphCorpusNode =
+  | JsonUnitNode
+  | JsonThreadNode
+  | JsonLessonNode
+  | JsonMisconceptionNode
+  | JsonKeywordNode;
 
 interface JsonGraphCorpusEdge {
   readonly source: string;
@@ -92,9 +107,9 @@ interface JsonGraphCorpus {
   readonly seeAlso: string;
 }
 
-const NODE_KINDS = ['unit', 'thread', 'lesson', 'misconception'] as const;
+const NODE_KINDS = ['unit', 'thread', 'lesson', 'misconception', 'keyword'] as const;
 
-const EDGE_TYPES = ['prerequisiteFor', 'containsUnit', 'containsLesson', 'addressesMisconception'] as const;
+const EDGE_TYPES = ['prerequisiteFor', 'containsUnit', 'containsLesson', 'addressesMisconception', 'containsKeyword'] as const;
 
 function isEdgeType(value: string): value is GraphCorpusEdgeType {
   return (EDGE_TYPES as readonly string[]).includes(value);
@@ -157,6 +172,16 @@ function toNode(node: JsonGraphCorpusNode): GraphCorpusNode {
         misconception: node.misconception,
         response: node.response,
       };
+    case 'keyword':
+      return {
+        kind: 'keyword',
+        id: toKindQualifiedId('keyword', node.id),
+        term: node.term,
+        description: node.description,
+        frequency: node.frequency,
+        firstYear: node.firstYear,
+        subjects: node.subjects,
+      };
     default:
       throw new TypeError(`Unexpected graph-corpus node kind: ${JSON.stringify(node)}`);
   }
@@ -208,16 +233,18 @@ function createGraphCorpus(graph: JsonGraphCorpus): GraphCorpus {
 }
 
 /**
- * The bulk curriculum graph corpus (unit, thread, lesson, and misconception
- * nodes; prerequisiteFor and thread→unit→lesson→misconception chain edges;
- * ordered thread→unit placement sequences).
+ * The bulk curriculum graph corpus (unit, thread, lesson, misconception,
+ * and keyword nodes; prerequisiteFor and
+ * thread→unit→lesson→{misconception, keyword} chain edges; ordered
+ * thread→unit placement sequences).
  *
  * @remarks
  * One identity space surfaced through bounded query views (Decision A). Node
  * ids are kind-qualified (`unit:<unitSlug>`, `thread:<threadSlug>`,
- * `lesson:<lessonSlug>`, `misconception:<lessonSlug>#<hash16>`); edge
- * endpoints reference those ids; the corpus has zero dangling endpoints, so
- * it constructs in `createGraphView` without throwing.
+ * `lesson:<lessonSlug>`, `misconception:<lessonSlug>#<hash16>`,
+ * `keyword:<normalised-term>`); edge endpoints reference those ids; the
+ * corpus has zero dangling endpoints, so it constructs in `createGraphView`
+ * without throwing.
  */
 export const graphCorpus: GraphCorpus = createGraphCorpus(data);
 
@@ -228,6 +255,7 @@ export type {
   GraphCorpusThreadNode,
   GraphCorpusLessonNode,
   GraphCorpusMisconceptionNode,
+  GraphCorpusKeywordNode,
   GraphCorpusEdge,
   GraphCorpusEdgeType,
   GraphCorpusNodeId,
@@ -235,6 +263,7 @@ export type {
   GraphCorpusThreadNodeId,
   GraphCorpusLessonNodeId,
   GraphCorpusMisconceptionNodeId,
+  GraphCorpusKeywordNodeId,
   GraphCorpusStats,
   GraphCorpusNodeKindCounts,
   GraphCorpusEdgeTypeCounts,

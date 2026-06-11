@@ -1,16 +1,16 @@
 /**
- * Integration test (G1a + G2): the emitted graph corpus loads from
+ * Integration test (G1a + G2 + G4b): the emitted graph corpus loads from
  * `@oaknational/sdk-codegen/graph-corpus` and constructs a `GraphView` over the
  * full corpus without throwing.
  *
  * @remarks
  * This is the "integration (emitted corpus loads)" proof at corpus scale: the
  * generator unit tests specify the emitted shape against fixtures; this test
- * exercises the REAL emitted dataset (unit/thread/lesson/misconception nodes;
- * prerequisiteFor + thread→unit→lesson→misconception chain edges) through the
- * loader and the `createGraphView` construction contract, proving the
- * integrity resolution holds at scale (zero dangling endpoints, no duplicate
- * ids).
+ * exercises the REAL emitted dataset (unit/thread/lesson/misconception/keyword
+ * nodes; prerequisiteFor + thread→unit→lesson→misconception chain +
+ * lesson→keyword `containsKeyword` edges) through the loader and the
+ * `createGraphView` construction contract, proving the integrity resolution
+ * holds at scale (zero dangling endpoints, no duplicate ids).
  */
 import { describe, expect, it } from 'vitest';
 
@@ -22,6 +22,7 @@ const EDGE_TYPES = [
   'containsUnit',
   'containsLesson',
   'addressesMisconception',
+  'containsKeyword',
 ] as const;
 
 const EDGE_TYPE_SET: ReadonlySet<string> = new Set(EDGE_TYPES);
@@ -30,7 +31,7 @@ describe('curriculum graph corpus (integration over the emitted dataset)', () =>
   it('loads the emitted one-graph corpus with every node kind and edge type present', () => {
     expect(graphCorpus.nodes.length).toBeGreaterThan(1000);
     expect(graphCorpus.edges.length).toBeGreaterThan(1000);
-    for (const kind of ['unit', 'thread', 'lesson', 'misconception'] as const) {
+    for (const kind of ['unit', 'thread', 'lesson', 'misconception', 'keyword'] as const) {
       expect(graphCorpus.nodes.some((node) => node.kind === kind)).toBe(true);
     }
     for (const type of EDGE_TYPES) {

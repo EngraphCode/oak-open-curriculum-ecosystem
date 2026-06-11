@@ -21,7 +21,43 @@ import {
   unitNodeId,
   type GraphCorpusDroppedEdge,
   type GraphCorpusEdge,
+  type GraphCorpusEdgeType,
+  type GraphCorpusLessonNodeId,
+  type GraphCorpusNodeId,
 } from './graph-corpus-types.js';
+
+/** A resolved edge set plus dropped-edge provenance. */
+export interface LessonAnchoredEdges {
+  readonly edges: readonly GraphCorpusEdge[];
+  readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
+}
+
+/**
+ * Resolves lesson-anchored `(lesson, target)` pairs into edges of one type,
+ * dropping any whose lesson is unknown (fail-loud provenance — the corpus
+ * must construct in `createGraphView` with zero dangling endpoints).
+ */
+export function buildLessonAnchoredEdges(
+  edgePairs: readonly (readonly [GraphCorpusLessonNodeId, GraphCorpusNodeId])[],
+  type: GraphCorpusEdgeType,
+  knownLessonIds: ReadonlySet<GraphCorpusNodeId>,
+): LessonAnchoredEdges {
+  const edges: GraphCorpusEdge[] = [];
+  const droppedEdges: GraphCorpusDroppedEdge[] = [];
+  for (const [source, target] of edgePairs) {
+    if (knownLessonIds.has(source)) {
+      edges.push({ source, type, target });
+    } else {
+      droppedEdges.push({
+        source,
+        target,
+        type,
+        reason: `endpoint "${source}" is not resolvable to a bulk lesson node`,
+      });
+    }
+  }
+  return { edges, droppedEdges };
+}
 
 /**
  * Consecutive (from, to) unit pairs along each thread's year ordering.

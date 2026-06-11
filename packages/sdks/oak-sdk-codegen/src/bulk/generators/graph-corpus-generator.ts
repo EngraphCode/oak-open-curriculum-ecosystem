@@ -1,13 +1,15 @@
 /**
- * Graph-corpus generator (G1a foundation + G2 chain re-projection).
+ * Graph-corpus generator (G1a foundation + G2 chain re-projection + G4b
+ * keywords).
  *
  * @remarks
  * Emits the bulk curriculum graph as a single corpus with one identity space
  * (plan graph-tools-value-redesign, Decision A). G1a emitted the `unit` node
  * kind and prerequisiteFor edges; G2 adds the `thread`, `lesson`, and
  * `misconception` node kinds and the thread→unit→lesson→misconception chain
- * edges (`containsUnit`, `containsLesson`, `addressesMisconception`). Later
- * deliverables add node kinds and edge types to the same corpus.
+ * edges (`containsUnit`, `containsLesson`, `addressesMisconception`); G4b
+ * adds the `keyword` node kind and lesson→keyword `containsKeyword` edges.
+ * Later deliverables add node kinds and edge types to the same corpus.
  *
  * Identity model: node ids are kind-qualified and minted at generation from
  * `(kind, source key)` — `unit:<unitSlug>`, `thread:<threadSlug>`,
@@ -39,8 +41,10 @@
 import {
   buildContainsLessonEdges,
   buildContainsUnitEdges,
+  buildLessonAnchoredEdges,
   buildPrerequisiteEdges,
 } from './graph-corpus-edges.js';
+import { buildKeywordNodes, type KeywordBuild } from './graph-corpus-keyword-nodes.js';
 import {
   buildMisconceptionNodes,
   type MisconceptionBuild,
@@ -53,8 +57,8 @@ import type {
   GraphCorpusEdge,
   GraphCorpusEdgeType,
   GraphCorpusInput,
-  GraphCorpusLessonNode,
   GraphCorpusNode,
+  GraphCorpusNodeId,
   GraphCorpusStats,
   GraphCorpusUnitNode,
 } from './graph-corpus-types.js';
@@ -66,6 +70,7 @@ export type {
   GraphCorpusThreadNode,
   GraphCorpusLessonNode,
   GraphCorpusMisconceptionNode,
+  GraphCorpusKeywordNode,
   GraphCorpusEdge,
   GraphCorpusEdgeType,
   GraphCorpusNodeId,
@@ -73,6 +78,7 @@ export type {
   GraphCorpusThreadNodeId,
   GraphCorpusLessonNodeId,
   GraphCorpusMisconceptionNodeId,
+  GraphCorpusKeywordNodeId,
   GraphCorpusStats,
   GraphCorpusNodeKindCounts,
   GraphCorpusEdgeTypeCounts,
@@ -82,35 +88,6 @@ export type {
   GraphCorpusSequence,
   GraphCorpusSequencePlacement,
 } from './graph-corpus-types.js';
-
-/** Resolved `addressesMisconception` edges plus dropped-edge provenance. */
-interface MisconceptionEdges {
-  readonly edges: readonly GraphCorpusEdge[];
-  readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
-}
-
-/** Resolves lesson→misconception pairs into edges, dropping any whose lesson is unknown. */
-function buildAddressesMisconceptionEdges(
-  misconceptionBuild: MisconceptionBuild,
-  lessonNodes: readonly GraphCorpusLessonNode[],
-): MisconceptionEdges {
-  const knownLessonIds = new Set(lessonNodes.map((node) => node.id));
-  const edges: GraphCorpusEdge[] = [];
-  const droppedEdges: GraphCorpusDroppedEdge[] = [];
-  for (const [source, target] of misconceptionBuild.edgePairs) {
-    if (knownLessonIds.has(source)) {
-      edges.push({ source, type: 'addressesMisconception', target });
-    } else {
-      droppedEdges.push({
-        source,
-        target,
-        type: 'addressesMisconception',
-        reason: `endpoint "${source}" is not resolvable to a bulk lesson node`,
-      });
-    }
-  }
-  return { edges, droppedEdges };
-}
 
 /** Sorts edges by (type, source, target) for a deterministic artefact. */
 function sortEdges(edges: readonly GraphCorpusEdge[]): readonly GraphCorpusEdge[] {
@@ -138,6 +115,7 @@ interface CorpusAssembly {
   readonly threadNodeCount: number;
   readonly lessonNodeCount: number;
   readonly misconceptionBuild: MisconceptionBuild;
+  readonly keywordBuild: KeywordBuild;
   readonly sequenceBuild: SequenceBuild;
   readonly nodes: readonly GraphCorpusNode[];
   readonly edges: readonly GraphCorpusEdge[];
@@ -146,30 +124,53 @@ interface CorpusAssembly {
 
 /** Builds the full node and edge sets from the extracted input. */
 function assembleCorpus(input: GraphCorpusInput): CorpusAssembly {
-  const { priorKnowledge, threads, lessons, misconceptions } = input;
+  const { priorKnowledge, threads, lessons, misconceptions, keywords } = input;
   const unitNodes = buildUnitNodes(priorKnowledge, threads, lessons);
   const threadNodes = buildThreadNodes(threads);
   const lessonNodes = buildLessonNodes(lessons);
   const misconceptionBuild = buildMisconceptionNodes(misconceptions);
+  const keywordBuild = buildKeywordNodes(keywords);
 
   const knownUnitSlugs = new Set(unitNodes.map((node) => node.unitSlug));
+  const knownLessonIds = new Set<GraphCorpusNodeId>(lessonNodes.map((node) => node.id));
   const prerequisite = buildPrerequisiteEdges(threads, knownUnitSlugs);
-  const addresses = buildAddressesMisconceptionEdges(misconceptionBuild, lessonNodes);
+  const addresses = buildLessonAnchoredEdges(
+    misconceptionBuild.edgePairs,
+    'addressesMisconception',
+    knownLessonIds,
+  );
+  const containsKeyword = buildLessonAnchoredEdges(
+    keywordBuild.edgePairs,
+    'containsKeyword',
+    knownLessonIds,
+  );
 
   return {
     unitNodes,
     threadNodeCount: threadNodes.length,
     lessonNodeCount: lessonNodes.length,
     misconceptionBuild,
+    keywordBuild,
     sequenceBuild: buildSequences(threads),
-    nodes: [...unitNodes, ...threadNodes, ...lessonNodes, ...misconceptionBuild.nodes],
+    nodes: [
+      ...unitNodes,
+      ...threadNodes,
+      ...lessonNodes,
+      ...misconceptionBuild.nodes,
+      ...keywordBuild.nodes,
+    ],
     edges: sortEdges([
       ...prerequisite.edges,
       ...buildContainsUnitEdges(threads),
       ...buildContainsLessonEdges(lessons),
       ...addresses.edges,
+      ...containsKeyword.edges,
     ]),
-    droppedEdges: [...prerequisite.droppedEdges, ...addresses.droppedEdges],
+    droppedEdges: [
+      ...prerequisite.droppedEdges,
+      ...addresses.droppedEdges,
+      ...containsKeyword.droppedEdges,
+    ],
   };
 }
 
@@ -187,12 +188,14 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
       thread: assembly.threadNodeCount,
       lesson: assembly.lessonNodeCount,
       misconception: assembly.misconceptionBuild.nodes.length,
+      keyword: assembly.keywordBuild.nodes.length,
     },
     edgeTypeCounts: {
       prerequisiteFor: countEdges(edges, 'prerequisiteFor'),
       containsUnit: countEdges(edges, 'containsUnit'),
       containsLesson: countEdges(edges, 'containsLesson'),
       addressesMisconception: countEdges(edges, 'addressesMisconception'),
+      containsKeyword: countEdges(edges, 'containsKeyword'),
     },
     subjectsCovered: collectSubjects(unitNodes),
     selfLoops,
@@ -203,9 +206,10 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
 
 /**
  * Generates the graph corpus from extracted bulk data: unit, thread, lesson,
- * and misconception nodes with materialised kind-qualified ids, and the
- * prerequisiteFor + thread→unit→lesson→misconception chain edges, with zero
- * dangling endpoints (every edge endpoint resolves to a node).
+ * misconception, and keyword nodes with materialised kind-qualified ids, and
+ * the prerequisiteFor + thread→unit→lesson→\{misconception, keyword\} chain
+ * edges, with zero dangling endpoints (every edge endpoint resolves to a
+ * node).
  *
  * @param input - Extracted bulk data and the source version identifier
  * @returns The graph corpus (`droppedEdges`/`droppedDuplicates` empty in practice)
@@ -213,7 +217,7 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
 export function generateGraphCorpusData(input: GraphCorpusInput): GraphCorpus {
   const assembly = assembleCorpus(input);
   return {
-    version: '1.2.0',
+    version: '1.3.0',
     generatedAt: new Date().toISOString(),
     sourceVersion: input.sourceVersion,
     stats: buildStats(assembly),
@@ -226,6 +230,7 @@ export function generateGraphCorpusData(input: GraphCorpusInput): GraphCorpus {
       'One bulk curriculum graph surfaced as bounded views. Use the prior-knowledge view ' +
       'for "what comes before" queries; use the misconception view for the ' +
       'thread→unit→lesson→misconception chain; use the thread-progressions view ' +
-      '(sequences) for ordered learning paths.',
+      '(sequences) for ordered learning paths; use the keyword view for bounded ' +
+      'frequency-ranked vocabulary anchored to lessons.',
   };
 }

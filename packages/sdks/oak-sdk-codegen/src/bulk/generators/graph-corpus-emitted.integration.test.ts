@@ -35,7 +35,19 @@ describe('committed graph corpus (G2 real-corpus count guards)', () => {
       thread: 164,
       lesson: 12391,
       misconception: 12385,
+      keyword: 13452,
     });
+  });
+
+  it('emits one containsKeyword edge per unique lesson placement (G4b pinned snapshot)', () => {
+    expect(graphCorpus.stats.edgeTypeCounts.containsKeyword).toBe(43660);
+  });
+
+  it('emits keyword nodes id-sorted (deterministic artefact order)', () => {
+    const ids = graphCorpus.nodes.filter((node) => node.kind === 'keyword').map((node) => node.id);
+    expect(ids.length).toBeGreaterThan(0);
+    const sorted = [...ids].sort((a, b) => a.localeCompare(b));
+    expect(ids).toEqual(sorted);
   });
 
   it('stats node-kind counts match a direct recount of the emitted nodes', () => {

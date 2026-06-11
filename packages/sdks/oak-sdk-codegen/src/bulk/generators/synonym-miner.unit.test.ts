@@ -26,6 +26,7 @@ function createKeyword(
 ): ExtractedKeyword {
   return {
     term,
+    displayTerm: term,
     definition,
     frequency: 10,
     subjects,
