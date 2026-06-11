@@ -24,6 +24,32 @@ describe('findBlockedPattern', () => {
     expect(findBlockedPattern('pnpm lint', ['git push --force'])).toBeNull();
   });
 
+  it('matches substring-mode patterns inside quoted arguments (the 2026-06-11 founding DOS shape)', () => {
+    const blockedPatterns = [
+      { pattern: 'for(;;)', match: 'substring' as const },
+      { pattern: 'while(1)', match: 'substring' as const },
+    ];
+
+    expect(
+      findBlockedPattern('node -e "for(;;){Math.sqrt(Math.random())}"', blockedPatterns),
+    ).toStrictEqual({ pattern: 'for(;;)', match: 'substring' });
+    expect(findBlockedPattern("node -e 'while(1){}' &", blockedPatterns)).toStrictEqual({
+      pattern: 'while(1)',
+      match: 'substring',
+    });
+  });
+
+  it('substring-mode matching is case-insensitive and leaves benign commands alone', () => {
+    const blockedPatterns = [{ pattern: 'for(;;)', match: 'substring' as const }];
+
+    expect(findBlockedPattern('node -e "FOR(;;){}"', blockedPatterns)).toStrictEqual({
+      pattern: 'for(;;)',
+      match: 'substring',
+    });
+    expect(findBlockedPattern('node -e "console.log(1)"', blockedPatterns)).toBeNull();
+    expect(findBlockedPattern('for i in 1 2 3; do echo $i; done', blockedPatterns)).toBeNull();
+  });
+
   it('limits guardrail-bypass flags to git commands when the policy requires git', () => {
     expect(findBlockedPattern('git commit --no-verify', ['git --no-verify'])).toStrictEqual({
       pattern: 'git --no-verify',

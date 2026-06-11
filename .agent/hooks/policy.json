@@ -116,19 +116,22 @@
           "pattern": "for(;;)",
           "concept": "host-dos-unbounded-load",
           "citation": ".agent/rules/no-unbounded-host-load.md",
-          "reappraisal": "The host is a shared substrate \u2014 unbounded load is a denial of service against the owner and every session. Provoke effects in-process (fake timers, injected delays); if load is truly needed it must be timeout-bounded, niced, announced, and reaped with a verified census."
+          "reappraisal": "The host is a shared substrate \u2014 unbounded load is a denial of service against the owner and every session. Provoke effects in-process (fake timers, injected delays); if load is truly needed it must be timeout-bounded, niced, announced, and reaped with a verified census.",
+          "match": "substring"
         },
         {
           "pattern": "while(1)",
           "concept": "host-dos-unbounded-load",
           "citation": ".agent/rules/no-unbounded-host-load.md",
-          "reappraisal": "The host is a shared substrate \u2014 unbounded load is a denial of service against the owner and every session. Provoke effects in-process (fake timers, injected delays); if load is truly needed it must be timeout-bounded, niced, announced, and reaped with a verified census."
+          "reappraisal": "The host is a shared substrate \u2014 unbounded load is a denial of service against the owner and every session. Provoke effects in-process (fake timers, injected delays); if load is truly needed it must be timeout-bounded, niced, announced, and reaped with a verified census.",
+          "match": "substring"
         },
         {
           "pattern": ":(){ :|:&",
           "concept": "host-dos-forkbomb",
           "citation": ".agent/rules/no-unbounded-host-load.md",
-          "reappraisal": "The host is a shared substrate \u2014 unbounded load is a denial of service against the owner and every session. Provoke effects in-process (fake timers, injected delays); if load is truly needed it must be timeout-bounded, niced, announced, and reaped with a verified census."
+          "reappraisal": "The host is a shared substrate \u2014 unbounded load is a denial of service against the owner and every session. Provoke effects in-process (fake timers, injected delays); if load is truly needed it must be timeout-bounded, niced, announced, and reaped with a verified census.",
+          "match": "substring"
         },
         {
           "pattern": "stress-ng",
