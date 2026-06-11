@@ -8,8 +8,8 @@
  * @remarks This is a simple ontology for the public API data specifically. For the complete, official Oak ontology see https://github.com/oaknational/oak-curriculum-ontology
  */
 
+import { threadProgressionStats } from '@oaknational/graph-corpus-sdk/curriculum';
 import { conceptGraph } from '@oaknational/sdk-codegen/vocab';
-import { threadProgressionGraph } from '@oaknational/sdk-codegen/vocab-data';
 import { toolGuidanceData } from './tool-guidance-data.js';
 
 /**
@@ -29,7 +29,7 @@ export const ontologyData = {
     threadProgressions:
       'Call get-thread-progressions for ordered unit sequences within curriculum threads (instance data)',
     priorKnowledgeGraph:
-      'Call get-prior-knowledge-graph for unit dependencies and prior knowledge requirements',
+      'Call get-prior-knowledge-graph with anchor unit slugs for the bounded prior-knowledge subgraph of those units (dependencies and prior knowledge requirements)',
   },
 
   curriculumStructure: {
@@ -117,10 +117,10 @@ export const ontologyData = {
       'An attribute assigned to units that groups together units across the curriculum building a common body of knowledge. Threads are important for making vertical connections across year groups in each subject.',
     importance:
       "Threads show how ideas BUILD over time — they are the pedagogical backbone of Oak's curriculum. Understanding threads enables powerful queries like 'what comes before this topic?' and 'how does this concept develop from Year 1 to Year 11?'",
-    countSummary: `${String(threadProgressionGraph.stats.threadCount)} threads across ${String(threadProgressionGraph.stats.subjectsCovered.length)} subjects, connecting units into learning progressions`,
+    countSummary: `${String(threadProgressionStats.threadCount)} threads across ${String(threadProgressionStats.subjectsCovered.length)} subjects, connecting units into learning progressions`,
     characteristics: [
       'Programme-agnostic: A single thread spans multiple programmes, key stages, and years',
-      'Ordered: Units within a thread have unitOrder showing conceptual progression',
+      'Year-ordered: A thread’s units progress by teaching year (within one year the order is not curricular)',
       'Cross-key-stage: Threads enable tracking progression from early years to GCSE',
       'Primary navigation: Threads are used as filters on the Oak website',
     ],

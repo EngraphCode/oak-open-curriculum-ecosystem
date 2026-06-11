@@ -81,7 +81,7 @@ interface AggregatedToolDefShape {
  * - `search`: Full-text search across curriculum content
  * - `fetch`: Retrieve detailed content by prefixed ID
  * - `get-thread-progressions`: Return ordered unit sequences within threads
- * - `get-prior-knowledge-graph`: Return unit dependencies and prior knowledge
+ * - `get-prior-knowledge-graph`: Return the bounded prior-knowledge subgraph for anchor units
  * - `browse-curriculum`: Browse subjects, key stages, units
  * - `explore-topic`: Explore a topic across lessons, units, and threads
  *

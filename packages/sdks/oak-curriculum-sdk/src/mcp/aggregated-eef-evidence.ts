@@ -6,8 +6,9 @@
  * (`search`, `fetch`) it takes ONLY closed, finite, compile-time-known input —
  * every selector is a `z.enum` over the corpus's own finite domains, so the
  * schema IS the input contract and there is no open content to validate or
- * interpret. Unlike the no-input whole-corpus dumps (`get-misconception-graph`)
- * it answers a BOUNDED query rather than returning everything. The handler is
+ * interpret. Like the anchored curriculum graph tools (`get-misconception-graph`,
+ * `get-prior-knowledge-graph`) it answers a BOUNDED query rather than
+ * returning everything. The handler is
  * therefore a thin parse-and-dispatch over the D5 graph bindings that returns
  * the evidence envelope verbatim as `structuredContent` — zero transformation,
  * the corpus citation provenance emitted as authored (ADR-191: the data surface

@@ -65,7 +65,7 @@ SCOPE LIMITATIONS:
 - "threads" can omit query when subject or keyStage is provided, returning all matching threads sorted by unit count.
 CROSS-TOOL WORKFLOWS:
 - For lesson planning: search(scope: 'lessons') → fetch(lesson:slug) for full details
-- For prerequisites: search(scope: 'threads') → get-prior-knowledge-graph for dependencies
+- For prerequisites: search(scope: 'threads') → get-prior-knowledge-graph with the found unit slugs for dependencies
 - For progressions: search(scope: 'threads') → get-thread-progressions for ordered units`,
   securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }] as const,
   annotations: {

@@ -8,6 +8,7 @@ import {
   appendPrerequisiteGuidance,
   appendToolEnhancements,
 } from './tool-description.js';
+import { applyDescriptionCorrections } from './tool-description-corrections.js';
 import { BASE_WIDGET_URI, WIDGET_TOOL_NAMES } from '../../cross-domain-constants.js';
 
 function buildExports({
@@ -192,8 +193,8 @@ export function emitIndex(
   operationId: string,
   operation: OperationObject,
 ): string {
-  // Get base description from OpenAPI spec
-  const baseDescription = toToolDescription(operation);
+  // Get base description from OpenAPI spec, correcting known-false upstream claims
+  const baseDescription = applyDescriptionCorrections(toToolDescription(operation), path, method);
 
   // Determine if tool requires authentication (not noauth)
   const securitySchemes = getSecuritySchemeForTool(toolName);

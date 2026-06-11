@@ -15,7 +15,7 @@ interface EntriesFile {
 }
 
 export async function appendJsonEntry(options: Options): Promise<string> {
-  const filePath = required(options, 'file');
+  const filePath = singleFileOption(options);
   await updateJsonFileWithRetry({
     filePath,
     parseText: parseEntriesFile,
@@ -27,18 +27,36 @@ export async function appendJsonEntry(options: Options): Promise<string> {
     maxAttempts: 5,
   });
 
-  return '';
+  return `appended entry to ${filePath}\n`;
 }
 
 export async function writeJsonBody(options: Options): Promise<string> {
-  const filePath = required(options, 'file');
+  const filePath = singleFileOption(options);
   await writeJsonFileAtomically({
     filePath,
     value: JSON.parse(required(options, 'body-json')),
     validateText: (text) => validateCollaborationJsonFileText(filePath, text),
   });
 
-  return '';
+  return `wrote ${filePath}\n`;
+}
+
+/**
+ * Resolve the single `--file` target for conversation/escalation writes. The
+ * argv parser collects every `--file` into the repeatable `files` array (the
+ * shape `claims open` consumes), so value-map lookups never see it; these
+ * single-target commands require exactly one.
+ */
+function singleFileOption(options: Options): string {
+  const [filePath, ...extra] = options.files;
+  if (filePath === undefined) {
+    throw new Error('missing required option --file');
+  }
+  if (extra.length > 0) {
+    throw new Error('expected exactly one --file');
+  }
+
+  return filePath;
 }
 
 export async function checkState(options: Options): Promise<string> {

@@ -1061,6 +1061,9 @@ importers:
       '@oaknational/result':
         specifier: workspace:*
         version: link:../../core/result
+      '@oaknational/sdk-codegen':
+        specifier: workspace:*
+        version: link:../oak-sdk-codegen
     devDependencies:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*

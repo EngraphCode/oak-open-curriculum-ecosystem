@@ -54,6 +54,11 @@
       "development": "./src/vocab-data.ts",
       "default": "./dist/vocab-data.js"
     },
+    "./graph-corpus": {
+      "types": "./dist/graph-corpus.d.ts",
+      "development": "./src/graph-corpus.ts",
+      "default": "./dist/graph-corpus.js"
+    },
     "./query-parser": {
       "types": "./dist/query-parser.d.ts",
       "development": "./src/query-parser.ts",

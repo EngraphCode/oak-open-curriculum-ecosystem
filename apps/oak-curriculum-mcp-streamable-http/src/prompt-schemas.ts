@@ -84,3 +84,18 @@ export const learningProgressionArgsSchema = {
     .describe('The concept to trace (e.g., "algebra", "cells", "narrative writing")'),
   subject: z.string().describe('The subject area (e.g., "maths", "science", "english")'),
 };
+
+/**
+ * Schema for curriculum-mapping prompt arguments.
+ *
+ * Used when building or auditing a curriculum map grounded in Oak's
+ * threads, prior-knowledge graph, and national-curriculum coverage.
+ */
+export const curriculumMappingArgsSchema = {
+  subject: z.string().describe('The subject area (e.g., "maths", "science", "english")'),
+  keyStage: z.string().describe('The key stage to map (e.g., "ks1", "ks2", "ks3", "ks4")'),
+  yearGroup: z
+    .string()
+    .optional()
+    .describe('Optional: Narrow the map to a specific year group (e.g., "Year 4")'),
+};

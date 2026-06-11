@@ -4,6 +4,7 @@ import {
   toToolDescription,
   appendPrerequisiteGuidance,
   appendToolEnhancements,
+  normaliseUpstreamDescription,
 } from './tool-description.js';
 
 /**
@@ -250,5 +251,25 @@ describe('appendToolEnhancements', () => {
 
       expect(result).toBe('Base description');
     });
+  });
+});
+
+/**
+ * Unit tests for normaliseUpstreamDescription pure function.
+ *
+ * Proves: the single shared transform both pipeline and removal-condition
+ * test apply to upstream descriptions — "This endpoint" rewritten to "This
+ * tool" (case-preserving) and whitespace runs collapsed — so a correction
+ * sentence written in pipeline form matches in both consumers.
+ */
+describe('normaliseUpstreamDescription', () => {
+  it('rewrites "This endpoint" to "This tool" preserving case', () => {
+    expect(normaliseUpstreamDescription('This endpoint returns data. Use this endpoint.')).toBe(
+      'This tool returns data. Use this tool.',
+    );
+  });
+
+  it('collapses whitespace runs and trims', () => {
+    expect(normaliseUpstreamDescription('  Multi   space\n\ttext  ')).toBe('Multi space text');
   });
 });

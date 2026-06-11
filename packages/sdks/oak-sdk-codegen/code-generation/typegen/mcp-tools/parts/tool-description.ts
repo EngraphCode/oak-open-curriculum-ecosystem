@@ -1,6 +1,27 @@
 import type { OperationObject } from 'openapi3-ts/oas31';
 
 /**
+ * Normalises a raw upstream operation description into the form the tool
+ * description pipeline operates on: "This endpoint" rewritten to "This
+ * tool" (case-preserving), whitespace runs collapsed to single spaces,
+ * leading/trailing whitespace trimmed.
+ *
+ * Single source of the transform for BOTH consumers of correction
+ * sentences: {@link toToolDescription} produces descriptions in this form
+ * (so {@link applyDescriptionCorrections} replaces against it), and the
+ * removal-condition test normalises the cached upstream description with
+ * this same function before comparing. A correction sentence containing
+ * "This tool" therefore matches in both places even though the raw
+ * upstream text says "This endpoint".
+ */
+export function normaliseUpstreamDescription(rawDescription: string): string {
+  return rawDescription
+    .replace(/\bThis endpoint\b/gi, (match) => (match.startsWith('T') ? 'This tool' : 'this tool'))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
  * Build tool description in git commit message format:
  * - First paragraph: OpenAPI summary (short title/overview)
  * - Blank line
@@ -13,11 +34,7 @@ export function toToolDescription(operation: OperationObject): string | undefine
   const summary = typeof operation.summary === 'string' ? operation.summary.trim() : '';
   const rawDescription = typeof operation.description === 'string' ? operation.description : '';
 
-  // Transform "This endpoint" to "This tool" in the description
-  const description = rawDescription
-    .replace(/\bThis endpoint\b/gi, (match) => (match.startsWith('T') ? 'This tool' : 'this tool'))
-    .replace(/\s+/g, ' ')
-    .trim();
+  const description = normaliseUpstreamDescription(rawDescription);
 
   // Build git commit message style: summary\n\ndescription
   if (summary && description) {
