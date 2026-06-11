@@ -99,17 +99,19 @@ capture time.
   stderr-capture (a loop that swallows stderr surfaces its own failures as an
   undiagnosable bare "FAILED" line), and the stop-loop-FIRST ordering for
   heartbeat-end already worked by Pier and Nebulous. Disposition per Hushed's
-  11:15Z routing rests with the Director (register refresh or direct rule
-  amendment); the rule amendment was DRAFTED during this pass and handed to
-  the Director as a diff (rule surfaces are outside the curation write lane).
-  A PDR-078 emit-side amendment is the portable follow-up, owner-gated under
-  the Core stabilise posture (2026-06-11 Arboreal scope signal: >3 Core
+  11:15Z routing rested with the Director (register refresh or direct rule
+  amendment); the rule amendment was DRAFTED during this pass, handed as a
+  diff (rule surfaces are outside the curation write lane), Director-accepted
+  with first-hand adjudication, and is GRADUATED — live on main via PR 183
+  (merge f5e51d0ad, one Copilot finding adjudicated at the PR). The residual
+  facet is the portable follow-up: a PDR-078 emit-side amendment, owner-gated
+  under the Core stabilise posture (2026-06-11 Arboreal scope signal: >3 Core
   amendments pending).
   `[captured: 2026-06-11 | source: Pier napkin entry (4a1b92) + Prismatic
   closeout 62d747c4 + Scorched napkin entry + this seat's live relabel at
-  claim-open | target: liveness-heartbeat-cron rule amendment (draft handed to
-  Director); PDR-078 emit-side follow-up owner-gated | trigger: FIRED, both of
-  Pier's named triggers | size: S | status: due — draft handed]`
+  claim-open | target: rule amendment GRADUATED (PR 183, f5e51d0ad); PDR-078
+  emit-side follow-up | trigger: rule facet RESOLVED; PDR facet awaits the
+  owner's Core walk | size: S | status: owner-gated — PDR-078 facet only]`
 - **Comms `reply` demands the full event UUID — add git-style prefix
   resolution.** Second instance FIRED (Prismatic's closeout + the earlier
   instance counted in pre-position 0f36d756 item 4): an 8-char event-id prefix
