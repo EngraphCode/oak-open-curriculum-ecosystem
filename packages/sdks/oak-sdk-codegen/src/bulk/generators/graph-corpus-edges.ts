@@ -1,15 +1,20 @@
 /**
- * Graph-corpus edge builders (G1a + G2).
+ * Graph-corpus edge builders (G1a + G2; prerequisiteFor re-derived on the
+ * year axis at the G3 follow-on).
  *
  * @remarks
  * Builds the typed edge sets: `prerequisiteFor` from consecutive
- * thread-ordering pairs (with dropped-edge provenance for unresolvable
+ * year-ordered thread pairs (with dropped-edge provenance for unresolvable
  * endpoints), `containsUnit` (thread→unit), and `containsLesson`
- * (unit→lesson placement), each deduplicated per pair.
+ * (unit→lesson placement). `containsUnit` and `containsLesson` deduplicate
+ * per pair; `prerequisiteFor` emits one edge per consecutive placement pair,
+ * so the same (source, target) recurs when threads share adjacency —
+ * multiplicity is placement data, preserved since G1a.
  */
 import type { ExtractedLesson } from '../extractors/index.js';
 import type { ExtractedThread, ThreadUnit } from '../extractors/thread-extractor.js';
 
+import { comparePlacements } from './graph-corpus-sequences.js';
 import {
   lessonNodeId,
   threadNodeId,
@@ -18,15 +23,33 @@ import {
   type GraphCorpusEdge,
 } from './graph-corpus-types.js';
 
-/** Consecutive (from, to) unit pairs along each thread's ordering. */
+/**
+ * Consecutive (from, to) unit pairs along each thread's year ordering.
+ *
+ * @remarks
+ * Units sort by the {@link comparePlacements} total order — `(year, unitId)`,
+ * year-less last — shared with the sequence builder, so chains and sequences
+ * carry ONE ordering basis and the derived chain never depends on placement
+ * encounter order. The bulk's `unit.threads[].order` is the THREAD's display
+ * index (constant per thread) and carries no within-thread ordering; the
+ * teaching year is the progression axis. Same-year units still chain (count
+ * preservation) in unitId order — a stated-arbitrary tie-break, not a
+ * pedagogical claim; within one year the order is not curricular.
+ */
 function threadOrderingPairs(
   threads: readonly ExtractedThread[],
 ): readonly (readonly [ThreadUnit, ThreadUnit])[] {
   const pairs: (readonly [ThreadUnit, ThreadUnit])[] = [];
   for (const thread of threads) {
-    for (let i = 0; i < thread.units.length - 1; i += 1) {
-      const from = thread.units[i];
-      const to = thread.units[i + 1];
+    const ordered = [...thread.units].sort((a, b) =>
+      comparePlacements(
+        { unitId: unitNodeId(a.unitSlug), year: a.year },
+        { unitId: unitNodeId(b.unitSlug), year: b.year },
+      ),
+    );
+    for (let i = 0; i < ordered.length - 1; i += 1) {
+      const from = ordered[i];
+      const to = ordered[i + 1];
       if (from && to) {
         pairs.push([from, to]);
       }

@@ -168,12 +168,12 @@ describe('generateGraphCorpusData — G2 stability contract', () => {
       );
     });
 
-    it('emits identical sequences when one thread’s unit placements arrive in reversed order', () => {
-      // Placement encounter order must not leak into the emitted SEQUENCES —
-      // the (year, unitId) sort is the total order (G3 ordering data). Scoped
-      // to sequences: prerequisiteFor edges still chain in placement
-      // encounter order (the falsified `unit.threads[].order` basis); their
-      // re-derivation is a routed open decision, not silently changed here.
+    it('emits an identical corpus when one thread’s unit placements arrive in reversed order', () => {
+      // Placement encounter order must not leak ANYWHERE in the corpus —
+      // sequences AND prerequisiteFor chains share the (year, unitId) total
+      // order (the year-axis re-derivation ruled at the G3 falsification;
+      // the bulk's `unit.threads[].order` is a thread display index and
+      // carries no within-thread ordering).
       const forwardThread: ExtractedThread = baseThread;
       const reversedThread: ExtractedThread = {
         ...baseThread,
@@ -183,8 +183,62 @@ describe('generateGraphCorpusData — G2 stability contract', () => {
       const forward = generateGraphCorpusData(makeInput({ threads: [forwardThread] }));
       const reversed = generateGraphCorpusData(makeInput({ threads: [reversedThread] }));
 
-      expect(reversed.sequences).toEqual(forward.sequences);
+      expect(timeless(reversed)).toEqual(timeless(forward));
       expect(reversed.sequences[0]?.placements.map((p) => p.year)).toEqual([2, 3, 4]);
+    });
+
+    it('chains same-year units deterministically by unitId (stated-arbitrary tie-break)', () => {
+      // Within one year the order is not curricular; same-year units still
+      // chain (count preservation — a ruling ground) in unitId order, and the
+      // contract states the arbitrariness rather than implying pedagogy.
+      const sameYearThread: ExtractedThread = {
+        slug: 'same-year-thread',
+        title: 'Same-year thread',
+        firstYear: 4,
+        lastYear: 5,
+        units: [
+          {
+            unitSlug: 'unit-zebra',
+            unitTitle: 'Unit zebra',
+            order: 8,
+            subject: 'maths',
+            keyStage: 'ks2',
+            year: 4,
+          },
+          {
+            unitSlug: 'unit-apple',
+            unitTitle: 'Unit apple',
+            order: 8,
+            subject: 'maths',
+            keyStage: 'ks2',
+            year: 4,
+          },
+          {
+            unitSlug: 'unit-final',
+            unitTitle: 'Unit final',
+            order: 8,
+            subject: 'maths',
+            keyStage: 'ks2',
+            year: 5,
+          },
+        ],
+      };
+
+      const result = generateGraphCorpusData(makeInput({ threads: [sameYearThread] }));
+
+      const chain = result.edges
+        .filter((edge) => edge.type === 'prerequisiteFor')
+        .map((edge) => `${edge.source}>${edge.target}`);
+      expect(chain).toEqual(['unit:unit-apple>unit:unit-zebra', 'unit:unit-zebra>unit:unit-final']);
+
+      // Encounter order must not leak into the same-year chain either: the
+      // pinned order above holds regardless of placement arrival order.
+      const reversed = generateGraphCorpusData(
+        makeInput({
+          threads: [{ ...sameYearThread, units: [...sameYearThread.units].reverse() }],
+        }),
+      );
+      expect(timeless(reversed)).toEqual(timeless(result));
     });
 
     it('emits an identical corpus when same-unit prior-knowledge records arrive in reversed order', () => {
