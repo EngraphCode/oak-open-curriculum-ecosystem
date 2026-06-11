@@ -185,5 +185,10 @@ fitness_content_role: drainable-buffer
 - **Owning artefact / discussion home**: the team opener
   (`prompts/connecting-oak-resources/graph-implementation-team.prompt.md`) §coordination-home
   convention; the [`eef` thread record](threads/eef.next-session.md).
-- **Status**: open — trigger is the next coordination-home topology decision or the next
-  drift-class incident.
+- **Status**: RESOLVED 2026-06-11 (owner ruling, answered-in-place): the Director merges
+  `origin/main` INTO the coordination home, forward-only with merge commits, never rebase, on
+  the two named triggers (Director tooling needs landed source; generated-file drift
+  accumulates), with a pre-merge divergence analysis and main-authoritative conflict resolution
+  for source/generated files. Codified in the team opener §Branching strategy (landed with
+  `898a0ac4d`); first execution `ae1802da1`. Drift baselines remain `origin/main`, never branch
+  HEAD.

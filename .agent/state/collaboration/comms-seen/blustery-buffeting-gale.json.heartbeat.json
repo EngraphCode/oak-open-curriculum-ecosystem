@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 63506,
+  "started_at": "2026-06-11T09:56:37.128Z",
+  "last_drain_at": "2026-06-11T10:35:47.302Z",
+  "last_emit_at": "2026-06-11T10:35:26.434Z",
+  "last_error_at": null,
+  "emitted_count": 50,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Blustery Buffeting Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "9819b2",
+    "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
+  }
+}

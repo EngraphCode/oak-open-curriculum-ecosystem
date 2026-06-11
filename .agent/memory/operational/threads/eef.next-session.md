@@ -25,19 +25,39 @@ merge_class: index-narrative-tables
   `718b1d24` closed-discharged at Ethereal's hand); **Cindery Forging Volcano (378172) holds
   the G4b seat** (claim `8ba9e931`, executing c3 with a c2 reviewer dispatch alongside; ONE PR
   at the end; tool name owner-decided at PR; #167 template-overlap caution held). **n=3 ARC
-  reliability team ACTIVE** on Evergreen's start signal (Evergreen closed out zero-retained):
-  X=Seaworthy Fathoming Pier 4a1b92 (#170 delivered; follow-on (a) PR in flight), Y=Oceanic
-  Flowing Harbour e05bf4 (#169 delivered; ARC synthesis custody), Z=Hushed Watching Night
-  999f69 (item-5 gate watch, claim deliberately deferred to the G4b merge). **Director-queue
+  reliability team** activated on Evergreen's start signal (Evergreen closed out zero-retained),
+  then contracted to Y+Z by 3/3 concurrence: seat X (Seaworthy Fathoming Pier 4a1b92) DELIVERED
+  IN FULL and stood down (#170 merged + follow-on (a) merged as **#172** `52472d2ab` at my hand,
+  first serialised merge of this directorship — both loops verified first-hand; claim closed
+  zero-retained; worktree oak-wt-evergreen-rel clean at origin/main, ADOPTABLE); Y=Oceanic
+  Flowing Harbour e05bf4 (#169 delivered; ARC synthesis custody — synthesis PR at the team
+  boundary; Hushed's git-durable findings ledger event 2026-06-11T09:59:14Z precedes it),
+  Z=Hushed Watching Night 999f69 (item-5 gate watch, claim deliberately deferred to the G4b
+  merge; team closeout owner). Reliability remainder: item 5 (G4b-gated) + follow-on (b)
+  (trigger-gated, inventoried in the Evergreen handoff record + PR #172 body). **G4b PR #173
+  OPEN** (Cindery, five gate-green commits; owner name sign-off **get-keyword-graph** recorded
+  on the PR at my hand; both-loops settle in progress at this writing; Blustery Buffeting Gale
+  9819b2 owner-named successor standing by at Cindery's boundary). **Director-queue
   additions at the handoff**: lint:shell does not cover `.husky/*` (Hushed routing; evidence =
   the gate-inverting near-miss `effea526` + #170's tee); `pnpm agent-tools:check-commit-message
   -F file` is a FALSE GREEN (pnpm eats -F as --filter; use `pnpm exec tsx
   agent-tools/src/commit-advisories/check-commit-message.ts -F file`). Queue order and standing
   rulings absorbed as handed (Moment-1 `f0126218` §Director queue / §Standing rulings).
-  **Next safe step**: monitor G4b c3 → PR → Director-serialised merge (two loops +
-  deletion-scope verification); at that merge route item 5 (Hushed, pre-declared) and open the
-  eef-revalidation re-proof routing (prerequisiteFor multiplicity decides alongside it); owner
-  items HELD AS-IS (principles attribution; bulk-export-lags-live).
+  **TRACK-G COMPLETE IN FULL (10:33:44Z)**: PR #173 MERGED `c868bb52e` at my hand (7/7 checks,
+  0 unresolved, deletion-scope exact — one pure deletion, the duplicate vocab-gen extractor,
+  consolidation per the readiness-settled boundary; plan g4 todo flipped completed this
+  waypoint). The G4b lane ran FOUR seat holders (Tempestuous → Seaworthy → Cindery → Blustery)
+  through three clean PDR-063 rotations; claims `8ba9e931` (closed-discharged at my hand) +
+  `6ffcbc12` (closed at Blustery's); worktree oak-wt-airy-g cleared ADOPTABLE; Blustery closed
+  out zero-retained. **Item 5 GO sent to Hushed** (`dce86435`) at the gate. **ARC seat-Y
+  contraction to n=1 (owner-directed)**: Oceanic → Hushed at the PR-174 monitor boundary
+  (record `2026-06-11-oceanic-seat-y-to-hushed.md`, pointer set on claim `be2de6b4`, closes at
+  Hushed's pickup); Oceanic closed out clean — #174 comment loop CLOSED (3 Copilot verdicts
+  applied, threads GraphQL-resolved), gate loop re-running on `f831e8389`, merge ask comes
+  from Hushed. **Next safe step**: #174 merge ask → serialised merge; Hushed's item-5
+  micro-PR; then ROUTE THE eef-revalidation RE-PROOF (the next value move — prerequisiteFor
+  multiplicity AND the G4b on-EEF-path determination both ride it; needs a seat when one
+  frees); owner items HELD AS-IS (principles attribution; bulk-export-lags-live).
 - **PRIOR SESSION (2026-06-11 morning, Ethereal Orbiting Eclipse / claude Fable 5, Director
   FIFTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fourth
   PDR-064 Director succession, completed cleanly; G4b + curation lanes routed.** Zephyr's
@@ -544,6 +564,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Seaworthy Fathoming Pier` | `claude` | `Fable 5` | `4a1b92` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
 | `Hushed Watching Night` | `claude` | `Fable 5` | `999f69` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
 | `Sunlit Waxing Asteroid` | `claude` | `Fable 5` | `14a56a` | `graph-implementation-director-sixth-holder` | 2026-06-11 | 2026-06-11 |
+| `Blustery Buffeting Gale` | `claude` | `Fable 5` | `9819b2` | `graph-implementation-g4b-final-seat-holder-delivered` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 

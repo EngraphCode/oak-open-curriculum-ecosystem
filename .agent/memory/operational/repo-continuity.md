@@ -23,12 +23,14 @@ surface.
 - **TRACK-G COMPLETE + CURED — graph implementation team, sixth Director (2026-06-11).**
   Live NOW: **Sunlit Waxing Asteroid (`14a56a`, Fable 5) is the Director** (sixth holder;
   PDR-064 Moment 2 at ~09:26Z 06-11, event `118ad69e` on Ethereal's Moment-1 `f0126218`;
-  coordination home = primary checkout, branch `docs/graph-team-direction-2026-06-10`). Live
-  lanes: **G4b c3** (Cindery Forging Volcano `378172`, third seat holder after two clean
-  PDR-063 rotations — c1 `73aaedca0` + c2 `451a9a658` landed gate-green; ONE PR at the end);
-  **n=3 ARC reliability team** (X=Seaworthy Fathoming Pier `4a1b92`, Y=Oceanic Flowing Harbour
-  `e05bf4`, Z=Hushed Watching Night `999f69`; #169 + #170 delivered; item 5 gated on the G4b
-  merge). MERGED across the arc: S1 #152, G1a #153, #154, S2 #155, U1 #156, comms-watch #157,
+  coordination home = primary checkout, branch `docs/graph-team-direction-2026-06-10`). **TRACK-G NOW
+  COMPLETE IN FULL — G4b PR #173 MERGED `c868bb52e` 10:33Z** (get-keyword-graph owner-signed-off;
+  four seat holders through three clean PDR-063 rotations; plan g4 todo completed; the G4b
+  on-EEF-path determination rides the re-proof). Live lane: **ARC reliability contracted to
+  n=1** (Hushed Watching Night `999f69`: #174 ARC-synthesis monitor-to-merge inherited from
+  Oceanic at the owner-directed contraction + item-5 micro-PR [Director GO sent] + team
+  closeout; #169 + #170 + #172 delivered earlier — seats X and Y stood down zero-retained;
+  follow-on (b) trigger-gated). MERGED across the arc: S1 #152, G1a #153, #154, S2 #155, U1 #156, comms-watch #157,
   G4a #158, resync #159, turbo-env #160, **G1b #161, G2 #163, G3 #164, year-axis re-chain
   #165, S3 #162** (`curriculum-mapping` owner-approved), and under the fifth directorship
   #166–#170 + origin/main merged into the coordination home (`ae1802da1`, Q-008 resolved) —
@@ -39,10 +41,10 @@ surface.
   principles follow-on, plan s3 todo); bulk-export-lags-live (hold as-is, owner 06-11).
   Authority: the graph plan's todos + the eef thread record (sixth-holder entry). Witness
   synthesis: `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` (+ §8/§9 addenda).
-  **Next safe step**: G4b c3 → PR → Director-serialised merge; at that merge route item 5 +
-  open the `eef-revalidate-on-new-graph-tools` re-proof (the prerequisiteFor multiplicity
-  decision rides it); the S3 principles follow-on unblocks at the owner's attribution
-  direction.
+  **Next safe step**: #174 serialised merge + Hushed's item-5 micro-PR, then ROUTE the
+  `eef-revalidate-on-new-graph-tools` re-proof (the next value move — the prerequisiteFor
+  multiplicity decision AND the G4b on-EEF-path determination both ride it); the S3 principles
+  follow-on unblocks at the owner's attribution direction.
 - **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling /
   `47f78a`, claude / Fable 5, owner-directed; PR #143 + a stacked PR from
   `feat/graph-migration-part-2`).** The plan-review-and-readiness session the prior entry queued.

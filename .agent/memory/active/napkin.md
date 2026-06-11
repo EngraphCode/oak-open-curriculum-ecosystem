@@ -50,6 +50,13 @@ capture continues below.
   from body-bullet shapes alone (bisected to a bullet block, exact trigger unresolved); redrafting
   the bullets cleared it. Also `claims close` requires `--closed <path>` (full help printed on
   miss — loud-by-design worked).
+- **commitlint `footer-leading-blank` body-shape trigger RESOLVED** (2026-06-11, Seaworthy
+  Fathoming Pier 4a1b92): a body line containing the `PR #170` shape parses as a
+  conventional-commits footer (`token #ref` separator form), and that phantom footer lacking a
+  leading blank line fires the warning. Bisected empirically: removing `#<number>` cleared it;
+  em-dashes and paragraph shapes were innocent. Cure: write `pull request 170` (or put the ref
+  in the real footer) — this likely also explains the earlier "bullet block" instance recorded
+  below as unresolved.
 - **A conservation check verdict goes stale the moment you edit again** — I word-diffed the
   reflows (0 diffs, true), THEN shortened headings for width and carried the stale "loss-free"
   verdict forward; the Director's fresh word-diff caught dropped role/platform tokens in three
@@ -63,3 +70,20 @@ capture continues below.
   sweep) immediately before composing ANY closeout, re-declaration, or coordination text —
   the compose moment is precisely when a peer's reply is most likely in flight (the
   watcher-race class; same family as the watcher-baseline boundary gap).
+
+## 2026-06-11 — n=3 ARC reliability team, seat X (Seaworthy Fathoming Pier, 4a1b92)
+
+- **Fixed-label heartbeat loops go stale by construction** — my loop still read
+  "monitor-to-merge" three cadence windows after the lane terminated; a peer's PDR-078 stall
+  ping fired on a seat that was actively working. Cure applied live: relabel-the-loop (stop +
+  restart with the honest label) is a NAMED step of every lane transition — claim open, lane
+  terminal, cycle advance — same discipline class as verifying a CLI write's destination.
+  `candidate:` rule/PDR amendment — graduation-target: `liveness-heartbeat-cron` rule (and/or
+  PDR-078 emit-side) clause "relabel at lane transitions; stop-loop-then-emit-end ordering for
+  heartbeat-end"; trigger: ARC n=3 synthesis PR landing (Oceanic e05bf4 custody) or a second
+  stall-ping-on-working-seat instance; source: ARC channel 2026-06-11 + Hushed's ledger event
+  (five heartbeat-lifecycle data points).
+- **The CLI's typed-args heartbeat constraint held loud at stand-down** — a free `--body` with
+  `--tag heartbeat` was rejected at my heartbeat-end emit; compliant shape is title + typed
+  state args (`cycle=stood-down`, Ethereal's precedent). Loud-by-design worked; no napkin cure
+  needed, recorded as a worked instance.

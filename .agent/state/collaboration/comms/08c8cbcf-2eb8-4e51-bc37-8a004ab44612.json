@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "08c8cbcf-2eb8-4e51-bc37-8a004ab44612",
+  "created_at": "2026-06-11T10:17:47Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Seaworthy Fathoming Pier",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "4a1b92",
+    "id": "40917b3a-543c-54d8-895e-c66c1054b7b3"
+  },
+  "to": {
+    "agent_name": "Sunlit Waxing Asteroid",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "14a56a",
+    "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+  },
+  "subject": "Seaworthy-Pier (4a1b92, stood down) -> Sunlit (Director): session-handoff deltas — eef record seat-X line stale, napkin/distilled/experience writes in tree, one graduation candidate napkin-tagged",
+  "body": "Session-handoff delta handover (deltas, not edits — your continuity boundary; the curation-session precedent).\n\nMy seat X session is closing permanently at the owner's direction (post-closeout 4574207d / heartbeat-end ba7064be; this is the session-handoff sweep behind it).\n\nCONTINUITY DELTAS for your next docs(continuity) commit:\n\n1. eef thread record — line ~29 seat-X status is stale: reads \"follow-on (a) PR in flight\"; truth = follow-on (a) MERGED as PR #172 (52472d2ab, commit 5f97ecb64), claim 84454cf0 closed zero-retained, seat X stood down at the team-agreed boundary (fold-check shape (a), 3/3 concurrence on the team ARC channel). Team is now Y (Oceanic e05bf4, ARC synthesis custody + floater) + Z (Hushed 999f69, item-5 gate + team closeout). My identity row (line ~544) already shows today — no row edit needed.\n2. repo-continuity Current State (reliability/n=3 mention, if any) — same delta: both inherited PRs (#169, #170) + follow-on (a) (#172) merged; reliability stream remainder = item 5 (G4b-gated, Hushed) + follow-on (b) (trigger-gated on a startRenewalLoop injectable observation seam; inventoried in the Evergreen handoff record + PR #172 body).\n3. Deep consolidation status: not due from my session — capture edges all ran (napkin + distilled + experience file written this session, working-tree state for your next continuity commit); cross-session convergence is owned by the live lanes (Oceanic's ARC synthesis PR at the team boundary; the dedicated curation lane).\n4. Worktree oak-wt-evergreen-rel: CLEAN, detached at origin/main (52472d2ab), local branch deleted at your note — ADOPTABLE.\n\nPENDING-GRADUATIONS candidate (napkin-tagged per the session-handoff 6b alternative path, surfaces at the next register refresh — yours or the curation lane's): \"relabel-heartbeat-loop at lane transitions + stop-loop-then-emit-end ordering\" — graduation-target: liveness-heartbeat-cron rule (and/or PDR-078 emit-side); trigger: ARC n=3 synthesis PR landing or a second stall-ping-on-working-seat instance; source: today's ARC channel + Hushed's ledger event.\n\nWorking-tree writes mine this session (uncommitted, standing pattern — yours to sweep into continuity commits): napkin (two entries: commitlint footer-leading-blank ROOT CAUSE resolving a recorded-unresolved gotcha; the n=3 seat-X block with the candidate tag), distilled.md (piped-push transfer-false-green vector appended to the existing piped-exit entry), .agent/experience/2026-06-11-first-n3-gelling-seat-x.md (voluntary).\n\npnpm check posture, explicit: I am a team member, not the closeout owner — the step-11 singleton check belongs to Hushed's team closeout per check-singleton-per-window. My session's gate evidence chain: full pre-commit (97 turbo tasks) + full pre-push on 5f97ecb64; 7/7 CI checks on both #170 and #172; both merges verified first-hand post-merge.\n\n— Seaworthy Fathoming Pier / claude / Fable 5 / 4a1b92 / 40917b3a-543c-54d8-895e-c66c1054b7b3 (final event this session)"
+}

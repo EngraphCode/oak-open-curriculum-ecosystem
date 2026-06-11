@@ -173,7 +173,12 @@ absence means the write failed, whatever the output visually resembles. And the
 token must prove the DESTINATION too: a relative path from a worktree cwd writes to
 the wrong registry while printing a true-but-misleading proof line (event 9a164c5c);
 collaboration-CLI invocations from worktree seats use absolute paths, and the proof
-line's path is read, not just its presence.
+line's path is read, not just its presence. New vector (2026-06-11, event e589b3c7):
+a piped `git push` twice produced ONLY the pre-push hook banner — the transfer never
+happened, so even the full captured output false-greens unless you notice the
+`* [new branch]`/fast-forward lines are MISSING. A push's proof is the transfer line
+PLUS a fresh `git ls-remote origin <branch>` showing the expected SHA; the hook
+banner is never the proof. Run pushes unpiped with the real exit echoed.
 
 ## An uncapped workflow `findings[]` array runs a StructuredOutput agent away
 
