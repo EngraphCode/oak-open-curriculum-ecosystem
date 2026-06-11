@@ -1,3 +1,16 @@
+# [1.22.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.21.0...v1.22.0) (2026-06-11)
+
+
+### Bug Fixes
+
+* **graph-corpus-sdk:** derive thread stats from the sequences themselves ([15444c4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15444c416e44a67dbe8a738b9e9507ea25070556)), closes [#164](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/164)
+
+
+### Features
+
+* **curriculum-sdk:** anchored get-thread-progressions + legacy retirement ([f1ae2fd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f1ae2fdc7e2ba679be131e004bb88da3558b818c))
+* **sdk-codegen:** emit year-ordered thread sequences + G3 progression view ([d6ae0d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d6ae0d1438689105d9918d02da284b48b4236edc))
+
 # [1.21.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.20.0...v1.21.0) (2026-06-10)
 
 
