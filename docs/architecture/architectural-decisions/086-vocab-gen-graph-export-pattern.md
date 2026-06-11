@@ -1,10 +1,31 @@
 # ADR-086: Vocabulary Mining and Graph Export Pattern
 
-**Status**: Accepted (amended 2026-06-10)  
-**Date**: 2025-12-25 (amended 2026-06-10)  
+**Status**: Accepted (amended 2026-06-11)  
+**Date**: 2025-12-25 (amended 2026-06-11)  
 **Authors**: AI Agent  
 **Deciders**: Engineering Team
 
+> **Amendment (2026-06-11 — graph-tools-value-redesign, deliverable G4b).**
+>
+> - **Keywords join the one-graph corpus.** The keyword extraction that fed the
+>   standalone `vocabulary-graph` dataset now ALSO emits into `graph-corpus`:
+>   a `keyword` node kind (kind-qualified `keyword:<normalised-term>` ids,
+>   lc+trim normalisation; display casing kept on the node; node `frequency` =
+>   unique placing lessons) and `containsKeyword` lesson→keyword edges. Corpus
+>   version 1.2.0 → 1.3.0 (additive).
+> - **Keyword tool surface live.** The §3 Vocabulary Processor's deferred
+>   `get-vocabulary-graph` is superseded by the live `get-keyword-graph`
+>   aggregated tool: bounded anchored (subject + keyStage) frequency-ranked
+>   retrieval over the corpus, disambiguated against the generated live-API
+>   `get-keywords` in both tools' served descriptions.
+> - **Counts recomputed at amendment time** from the regenerated
+>   `graph-corpus/data.json` (2026-06-10 bulk snapshot): 40,016 nodes
+>   (unit 1,624; thread 164; lesson 12,391; misconception 12,385;
+>   keyword 13,452) and 75,571 edges (prerequisiteFor 3,452;
+>   containsUnit 3,583; containsLesson 12,491; addressesMisconception
+>   12,385; containsKeyword 43,660); zero dropped edges, zero dropped
+>   duplicates.
+>
 > **Amendment (2026-06-10 — graph-tools-value-redesign, deliverable G1a).**
 >
 > - **§2 overturned for the one-graph corpus.** Decision A of the
@@ -174,13 +195,13 @@ Each generator serves specific user personas with measurable impact:
 
 #### Vocabulary Processor ✅ COMPLETE
 
-| Aspect        | Details                                                                                                                                                                        |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Audiences** | Student, Teacher, AI Agent                                                                                                                                                     |
-| **User Need** | "What does X mean?" "When is Y introduced?"                                                                                                                                    |
-| **Impact**    | Curated glossary enables clear definitions. Students get age-appropriate explanations; teachers know when terms are introduced; AI agents provide accurate vocabulary context. |
-| **Output**    | `vocabulary-graph/` (JSON loader; 13,452 terms across 20 subjects)                                                                                                             |
-| **MCP Tool**  | `get-vocabulary-graph` (deferred until search optimisation complete)                                                                                                           |
+| Aspect        | Details                                                                                                                                                                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Audiences** | Student, Teacher, AI Agent                                                                                                                                                                                                                                              |
+| **User Need** | "What does X mean?" "When is Y introduced?"                                                                                                                                                                                                                             |
+| **Impact**    | Curated glossary enables clear definitions. Students get age-appropriate explanations; teachers know when terms are introduced; AI agents provide accurate vocabulary context.                                                                                          |
+| **Output**    | `vocabulary-graph/` (JSON loader; 13,452 terms across 20 subjects). The one-graph `graph-corpus/` dataset carries the same terms as `keyword` nodes with `containsKeyword` lesson edges (v1.3.0) for bounded views.                                                     |
+| **MCP Tool**  | `get-keyword-graph` (live, 2026-06-11 — bounded anchored frequency-ranked retrieval over the corpus; supersedes the deferred `get-vocabulary-graph`). The generated `get-keywords` remains the live-API full-set surface; the two descriptions disambiguate each other. |
 
 #### Synonym Miner ✅ COMPLETE
 

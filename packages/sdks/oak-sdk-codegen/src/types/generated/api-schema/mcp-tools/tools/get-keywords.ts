@@ -123,7 +123,7 @@ export const getKeywords = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Keywords\n\nThis tool returns a list of keywords for a given key stage and subject, based on the keywords associated with the lessons that are available for that key stage and subject. The keywords are returned in alphabetical order, and the response carries no frequency field.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
+  description: "Keywords\n\nThis tool returns a list of keywords for a given key stage and subject, based on the keywords associated with the lessons that are available for that key stage and subject. The keywords are returned in alphabetical order, and the response carries no frequency field.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.\n\nWHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set for a key stage + subject — fresh and authoritative (including KS4 during curriculum restructures), alphabetical, unranked, and large at subject scope. For a bounded frequency-ranked subset with lesson connections (token economy + relationship navigation over the curriculum graph), prefer get-keyword-graph, which serves a point-in-time curriculum snapshot.",
   path,
   method,
   documentedStatuses,

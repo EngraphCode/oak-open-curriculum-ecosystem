@@ -129,6 +129,7 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
       'fetch',
       'get-curriculum-model',
       'get-eef-evidence',
+      'get-keyword-graph',
       'get-misconception-graph',
       'get-prior-knowledge-graph',
       'get-thread-progressions',
@@ -140,6 +141,30 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
     expect(names.toSorted((a, b) => a.localeCompare(b))).toEqual(
       expectedToolNames.toSorted((a, b) => a.localeCompare(b)),
     );
+  });
+
+  it('serves both keywords tools with mutual when-to-prefer disambiguation (G4b)', async () => {
+    const app = await createBypassedApp();
+    const res = await request(app)
+      .post('/mcp')
+      .set('Accept', ACCEPT)
+      .send({ jsonrpc: '2.0', id: '1', method: 'tools/list' });
+    expect(res.status).toBe(200);
+
+    const envelope = parseSseEnvelope(res.text);
+    const toolListResult = ToolListResultSchema.parse(envelope.result);
+    const describeTool = (name: string): string => {
+      const description = toolListResult.tools.find((t) => t.name === name)?.description;
+      return typeof description === 'string' ? description : '';
+    };
+
+    // The generated live-API tool points at the graph sibling…
+    expect(describeTool('get-keywords')).toContain('get-keyword-graph');
+    expect(describeTool('get-keywords')).toContain('LIVE');
+
+    // …and the graph tool points back, stating its snapshot semantics.
+    expect(describeTool('get-keyword-graph')).toContain('get-keywords');
+    expect(describeTool('get-keyword-graph')).toContain('snapshot');
   });
 
   it('rejects missing Accept header with 406', async () => {

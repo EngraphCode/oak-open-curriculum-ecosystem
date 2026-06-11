@@ -32,6 +32,10 @@ import {
   GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA,
 } from '../aggregated-misconception-graph.js';
 import {
+  GET_KEYWORD_GRAPH_TOOL_DEF,
+  GET_KEYWORD_GRAPH_INPUT_SCHEMA,
+} from '../aggregated-keyword-graph.js';
+import {
   GET_EEF_EVIDENCE_TOOL_DEF,
   GET_EEF_EVIDENCE_INPUT_SCHEMA,
 } from '../aggregated-eef-evidence.js';
@@ -129,6 +133,10 @@ export const AGGREGATED_TOOL_DEFS = {
   'get-misconception-graph': {
     ...GET_MISCONCEPTION_GRAPH_TOOL_DEF,
     inputSchema: GET_MISCONCEPTION_GRAPH_INPUT_SCHEMA,
+  },
+  'get-keyword-graph': {
+    ...GET_KEYWORD_GRAPH_TOOL_DEF,
+    inputSchema: GET_KEYWORD_GRAPH_INPUT_SCHEMA,
   },
   'get-eef-evidence': {
     ...GET_EEF_EVIDENCE_TOOL_DEF,

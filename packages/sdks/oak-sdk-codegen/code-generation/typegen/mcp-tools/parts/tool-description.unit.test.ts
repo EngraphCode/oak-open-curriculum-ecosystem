@@ -252,6 +252,17 @@ describe('appendToolEnhancements', () => {
       expect(result).toBe('Base description');
     });
   });
+
+  describe('keywords tool disambiguation (G4b)', () => {
+    it('appends the when-to-prefer note for get-keywords, naming the graph sibling', () => {
+      const result = appendToolEnhancements('Base description', 'get-keywords');
+
+      expect(result).toContain('Base description');
+      expect(result).toContain('get-keyword-graph');
+      expect(result).toContain('LIVE');
+      expect(result).toContain('snapshot');
+    });
+  });
 });
 
 /**
