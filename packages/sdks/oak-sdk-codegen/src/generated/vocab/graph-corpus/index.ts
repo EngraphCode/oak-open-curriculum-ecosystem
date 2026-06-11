@@ -97,7 +97,7 @@ const NODE_KINDS = ['unit', 'thread', 'lesson', 'misconception'] as const;
 const EDGE_TYPES = ['prerequisiteFor', 'containsUnit', 'containsLesson', 'addressesMisconception'] as const;
 
 function isEdgeType(value: string): value is GraphCorpusEdgeType {
-  return (EDGE_TYPES as readonly string[]).includes(value);
+  return EDGE_TYPES.some((edgeType) => edgeType === value);
 }
 
 /** Narrows a raw id to the kind-qualified template type for one kind. */
