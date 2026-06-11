@@ -1,11 +1,11 @@
 {
   "schema_version": "0.1.0",
-  "pid": 63506,
-  "started_at": "2026-06-11T09:56:37.128Z",
-  "last_drain_at": "2026-06-11T10:35:47.302Z",
-  "last_emit_at": "2026-06-11T10:35:26.434Z",
+  "pid": 48640,
+  "started_at": "2026-06-11T10:57:17.209Z",
+  "last_drain_at": "2026-06-11T11:06:02.329Z",
+  "last_emit_at": "2026-06-11T11:03:54.001Z",
   "last_error_at": null,
-  "emitted_count": 50,
+  "emitted_count": 25,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {
     "agent_name": "Blustery Buffeting Gale",

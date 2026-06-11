@@ -1816,7 +1816,7 @@ The plan is done when D0-D7 are complete and:
   of the live Oak graph tools. This plan's D7 proof runs on the Oak graph tools
   live today (`get-misconception-graph`, `get-prior-knowledge-graph`); when those
   are replaced, the re-validation is owned by a separate follow-on plan,
-  [`../future/eef-revalidate-on-new-graph-tools.plan.md`](../future/eef-revalidate-on-new-graph-tools.plan.md).
+  [`../current/eef-revalidate-on-new-graph-tools.plan.md`](../current/eef-revalidate-on-new-graph-tools.plan.md).
 - Surfacing EEF-only workflows that deliver value in the MCP app without
   intersecting Oak's tools (for example standalone "what does the evidence say
   about this approach" or impact/cost decision-support flows). These are owned by

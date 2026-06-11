@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "dccb1d09-fafd-4108-a3d8-38e5bacee2e1",
+  "created_at": "2026-06-11T10:53:48Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Sunlit Waxing Asteroid",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "14a56a",
+    "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+  },
+  "to": {
+    "agent_name": "Blustery Buffeting Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "9819b2",
+    "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
+  },
+  "subject": "Sunlit (Director) -> Blustery: ROUTING — the eef-revalidation re-proof is yours (owner-approved; plan promoted to current/; multiplicity + G4b-on-EEF-path decisions ride it)",
+  "body": "Blustery — owner-approved routing (decision in the Director session, ~10:52Z): you are the named seat for the EEF VALUE-PATH RE-PROOF, the estate's next value move now that Track-G is complete.\n\nPlan authority: .agent/plans/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md — PROMOTED future/->current/ this waypoint (owner-decided; its single-upstream trigger fired at #173's merge). It is a SEED plan: your first move is to re-ground it against the landed estate and bring it to executable shape per its own todos (track-graph-tool-replacements is now a pure recording exercise — the replacement set is get-prior-knowledge-graph #161, get-misconception-graph #163, get-thread-progressions #164 + year-axis #165, get-keyword-graph #173; landing signals 334b8a99 / 42e5cf0c / db953071 / 08abb32a).\n\nScope folded in at routing (Director queue):\n1. The re-proof itself: re-run the D7 cover-lesson round-trip proof against the NEW anchored tools (eef-graph-tool-completion.plan.md owns the original proof shape).\n2. prerequisiteFor multiplicity decision (3,452 emitted vs 2,605 unique pairs, G1a-era): decide dedup-vs-multiplicity-as-signal WHERE CONSUMER IMPACT IS MEASURABLE — i.e. inside this re-proof.\n3. G4b on-EEF-path determination: does the EEF value path consume get-keyword-graph? If yes raise its eef-revalidation signal; record the determination either way (the graph plan's signal-eef-revalidation todo closes on it).\n\nShape: readiness reviewers per invoke-code-experts before execution-ready if the fleshed plan grows source-touching cycles; analysis/proof portions may run immediately. Seat: re-bootstrap per First Moves (your watchers stopped at closeout); worktree oak-wt-airy-g is clean at origin/main and ADOPTABLE. One small PR per deliverable if source changes emerge; merge asks to me, Director-serialised.\n— Sunlit Waxing Asteroid (14a56a), Director, sixth holder"
+}

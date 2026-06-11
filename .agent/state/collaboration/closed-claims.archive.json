@@ -12185,6 +12185,137 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "be2de6b4-a517-4862-bcf9-98823ec58a1f",
+      "agent_id": {
+        "agent_name": "Oceanic Flowing Harbour",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "e05bf4",
+        "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reference/arc-rapid-communication.md",
+            ".agent/reference/README.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T09:09:43Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Seat Y, n=3 ARC successor team (Evergreen seat handover record 2026-06-11-evergreen-reliability-seat-to-n3-team.md; START event 78025097; 3/3 mapping quorum on the team ARC channel): PR #169 (docs/arc-protocol-reference) monitor-to-merge — verify the two Copilot-finding verdict-replies first-hand (Evergreen closeout says replied; record said owed), adjudicate any fresh review comments, Director-serialised merge ask at both-loops-settled (live holder verified first: Ethereal f92636 until a Moment-2 lands). PLUS ARC n=3 synthesis/conservation custody — frictions/benefits/n3-notes conserve into .agent/reference/arc-rapid-communication.md at closeout (via PR or this PR's branch per Director ruling). Agent: Oceanic Flowing Harbour (e05bf4).",
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-11-oceanic-seat-y-to-hushed.md",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T10:42:15Z",
+        "closed_by": {
+          "agent_name": "Sunlit Waxing Asteroid",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "14a56a",
+          "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+        },
+        "summary": "Closed-discharged at Director hand (Sunlit 14a56a): Seat-Y lane delivered — #169 merged (Oceanic), #174 ARC synthesis merged 6340c595b at my hand on Hushed's three-loop-settled ask; Oceanic retired clean at the owner-directed n=1 contraction (record 2026-06-11-oceanic-seat-y-to-hushed.md); successor Hushed picked up under own claim c77f2453 + inheritance. Predecessor claim closes once the successor is live, per precedent.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "be2de6b4-a517-4862-bcf9-98823ec58a1f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "c77f2453-f9f5-45a6-8593-eed7ce1a1512",
+      "agent_id": {
+        "agent_name": "Hushed Watching Night",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "999f69",
+        "id": "c29f88bc-d975-5bbf-a909-8712108e57eb"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section*"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T10:37:12Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Reliability item 5 (Director GO directed event 10:34:32Z, gate = PR #173 merge c868bb52e): AGGREGATED_TOOL_ORDER older missing entries — derived first-hand from origin/main: 5 missing (get-misconception-graph, get-eef-evidence, download-asset, user-search, user-search-query) of 13 AggregatedToolName. Guard test RED-first so new aggregated tools cannot silently miss the array, then complete the array, atomic test+code. Worktree oak-wt-airy-g (adopted, detached at c868bb52e), branch fix/aggregated-tool-order off origin/main. ONE micro-PR, Director-serialised merge ask to Sunlit (14a56a). ALSO holding: Seat Y pickup (claim be2de6b4 continuation — PR #174 monitor-to-merge + ARC synthesis custody, record read end to end) + team closeout at n=1. Agent: Hushed Watching Night (999f69).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T11:03:28Z",
+        "closed_by": {
+          "agent_name": "Hushed Watching Night",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "999f69",
+          "id": "c29f88bc-d975-5bbf-a909-8712108e57eb"
+        },
+        "summary": "Item 5 DELIVERED: PR #175 merged 5310d1e4e (AGGREGATED_TOOL_ORDER completed, 5 entries, RED-proven guard test, keyof type-strengthening; one Copilot finding refuted with grounds, Director-verified empirically). Both inherited local branches cleared; oak-wt-airy-g + oak-wt-evergreen-rel ADOPTABLE at origin/main. Seat Y inheritance also delivered this window (PR #174 merged 6340c595b at the Director's hand).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "c77f2453-f9f5-45a6-8593-eed7ce1a1512",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "9cca355d-626f-4b75-9777-0c4bbe8b038d",
+      "agent_id": {
+        "agent_name": "Oceanic Flowing Harbour",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "e05bf4",
+        "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:00:11Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Author the position-anchored teaching-continuity plan (owner-directed 2026-06-11 ~10:40Z: class-position context is our area, determine best approach + /oak-plan). Plan-authoring only, no source edits; plan file left as working-tree state for the Director's continuity sweep. Agent: Oceanic Flowing Harbour (e05bf4).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T11:04:20Z",
+        "closed_by": {
+          "agent_name": "Oceanic Flowing Harbour",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "e05bf4",
+          "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
+        },
+        "summary": "Plan authored at .agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md (+ current/README index row); draft-pending-owner-c0; left as working-tree state for the Director's continuity sweep",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "9cca355d-626f-4b75-9777-0c4bbe8b038d",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

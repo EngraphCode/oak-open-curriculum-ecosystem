@@ -46,31 +46,6 @@
   ],
   "claims": [
     {
-      "claim_id": "be2de6b4-a517-4862-bcf9-98823ec58a1f",
-      "agent_id": {
-        "agent_name": "Oceanic Flowing Harbour",
-        "platform": "claude",
-        "model": "Fable 5",
-        "session_id_prefix": "e05bf4",
-        "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/reference/arc-rapid-communication.md",
-            ".agent/reference/README.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T09:09:43Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Seat Y, n=3 ARC successor team (Evergreen seat handover record 2026-06-11-evergreen-reliability-seat-to-n3-team.md; START event 78025097; 3/3 mapping quorum on the team ARC channel): PR #169 (docs/arc-protocol-reference) monitor-to-merge — verify the two Copilot-finding verdict-replies first-hand (Evergreen closeout says replied; record said owed), adjudicate any fresh review comments, Director-serialised merge ask at both-loops-settled (live holder verified first: Ethereal f92636 until a Moment-2 lands). PLUS ARC n=3 synthesis/conservation custody — frictions/benefits/n3-notes conserve into .agent/reference/arc-rapid-communication.md at closeout (via PR or this PR's branch per Director ruling). Agent: Oceanic Flowing Harbour (e05bf4).",
-      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-11-oceanic-seat-y-to-hushed.md"
-    },
-    {
       "claim_id": "1d37fdfe-9754-41ca-99f2-9da5781f40d6",
       "agent_id": {
         "agent_name": "Sunlit Waxing Asteroid",
@@ -96,27 +71,28 @@
       "intent": "Director (graph implementation team, SIXTH holder) — PDR-064 successor to Ethereal Orbiting Eclipse (f92636), owner-confirmed (my session ~08:50Z; Moment-1 event f0126218). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Ethereal claim 0a8075f4 closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "c77f2453-f9f5-45a6-8593-eed7ce1a1512",
+      "claim_id": "f74cdf73-ec20-4caf-bea8-ffb4bc3f919f",
       "agent_id": {
-        "agent_name": "Hushed Watching Night",
+        "agent_name": "Blustery Buffeting Gale",
         "platform": "claude",
-        "model": "Fable 5",
-        "session_id_prefix": "999f69",
-        "id": "c29f88bc-d975-5bbf-a909-8712108e57eb"
+        "model": "fable-5",
+        "session_id_prefix": "9819b2",
+        "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
       },
       "thread": "eef",
       "areas": [
         {
           "kind": "files",
           "patterns": [
-            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section*"
+            ".agent/plans/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md",
+            ".agent/reports/eef-revalidation-*"
           ]
         }
       ],
-      "claimed_at": "2026-06-11T10:37:12Z",
+      "claimed_at": "2026-06-11T11:00:13Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "Reliability item 5 (Director GO directed event 10:34:32Z, gate = PR #173 merge c868bb52e): AGGREGATED_TOOL_ORDER older missing entries — derived first-hand from origin/main: 5 missing (get-misconception-graph, get-eef-evidence, download-asset, user-search, user-search-query) of 13 AggregatedToolName. Guard test RED-first so new aggregated tools cannot silently miss the array, then complete the array, atomic test+code. Worktree oak-wt-airy-g (adopted, detached at c868bb52e), branch fix/aggregated-tool-order off origin/main. ONE micro-PR, Director-serialised merge ask to Sunlit (14a56a). ALSO holding: Seat Y pickup (claim be2de6b4 continuation — PR #174 monitor-to-merge + ARC synthesis custody, record read end to end) + team closeout at n=1. Agent: Hushed Watching Night (999f69)."
+      "intent": "EEF value-path re-proof (Director routing dccb1d09 + correction dd536088, owner-approved ~10:52Z; both read end to end). Seed plan eef-revalidate-on-new-graph-tools.plan.md (promoted current/ at Track-G completion): (1) re-ground the seed against the landed estate — replacement set get-prior-knowledge-graph #161 / get-misconception-graph #163 / get-thread-progressions #164+#165 / get-keyword-graph #173, signals 334b8a99/42e5cf0c/db953071/08abb32a — and bring it to executable shape per its todos; (2) re-run the D7 cover-lesson round-trip proof against the NEW anchored tools (proof shape owned by eef-graph-tool-completion.plan.md); (3) prerequisiteFor multiplicity decision (3,452 emitted vs 2,605 unique) decided where consumer impact is measurable, inside the re-proof; (4) G4b on-EEF-path determination recorded either way. Worktree oak-wt-umbral-g4 per the Director correction — NEVER oak-wt-airy-g (Hushed claim c77f2453 live there). Analysis/proof may run immediately; readiness reviewers before any source-touching cycles become execution-ready. Agent: Blustery Buffeting Gale (9819b2)."
     }
   ]
 }

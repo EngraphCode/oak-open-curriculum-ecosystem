@@ -2,7 +2,8 @@
 name: "EEF Value-Path Re-validation on the New Graph Tools"
 overview: "Seed for a follow-on plan: when the new graph-corpus-sdk replacements for the live Oak graph tools (misconception, prior-knowledge/prerequisite, threads) land, re-validate the EEF value path against them. The teacher cover-lesson plan proves the value path (D7) against the Oak graph tools that are live today (get-misconception-graph, get-prior-knowledge-graph); this plan re-runs that proof once those tools are replaced by their graph-corpus-sdk versions, so the EEF value path is not silently broken by the substrate migration. Building the replacement graph tools is owned by the knowledge-graph-integration estate, which is currently being reviewed and rewritten; this seed is created clean on the EEF side now and will be deduplicated against that estate once it settles."
 type: seed
-status: future
+status: current
+promoted: "2026-06-11 — owner-decided at Track-G completion (single upstream graph-tools-value-redesign: G1b/G2/G3/G4b landed; all landing signals raised: 334b8a99, 42e5cf0c, db953071, 08abb32a). Riding decisions folded at routing: prerequisiteFor multiplicity (3,452 emitted vs 2,605 unique) and the G4b on-EEF-path determination."
 thread: eef
 related_plans:
   - "../current/eef-graph-tool-completion.plan.md"

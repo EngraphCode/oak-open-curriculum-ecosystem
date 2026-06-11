@@ -14,7 +14,7 @@ related:
   - "../../../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md (the settle evidence: seam map, data grounding, R1 verdicts)"
   - "../../../sector-engagement/eef/current/eef-graph-tool-completion.plan.md (D4–D6 mechanism co-design; D7 value gate)"
   - "../../../sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md (binding §Resolved Sequencing contract; owns ALL MCP outputSchema work)"
-  - "../../../sector-engagement/eef/future/eef-revalidate-on-new-graph-tools.plan.md (downstream gate; this plan is its single upstream)"
+  - "../../../sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md (downstream gate; this plan is its single upstream)"
   - "../future/oak-misconceptions-graph-features.plan.md (boundary: §1 bounded retrieval folded into this redesign's core)"
 todos:
   - id: settle-mechanism-at-promotion

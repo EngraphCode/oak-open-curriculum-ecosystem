@@ -54,10 +54,24 @@ merge_class: index-narrative-tables
   (record `2026-06-11-oceanic-seat-y-to-hushed.md`, pointer set on claim `be2de6b4`, closes at
   Hushed's pickup); Oceanic closed out clean — #174 comment loop CLOSED (3 Copilot verdicts
   applied, threads GraphQL-resolved), gate loop re-running on `f831e8389`, merge ask comes
-  from Hushed. **Next safe step**: #174 merge ask → serialised merge; Hushed's item-5
-  micro-PR; then ROUTE THE eef-revalidation RE-PROOF (the next value move — prerequisiteFor
-  multiplicity AND the G4b on-EEF-path determination both ride it; needs a seat when one
-  frees); owner items HELD AS-IS (principles attribution; bulk-export-lags-live).
+  from Hushed. **SECOND HALF of the sixth directorship (10:39–11:02Z)**: #174 MERGED
+  `6340c595b` (ARC n=3 evidence conserved on main; Seat-Y claim `be2de6b4` closed-discharged at
+  my hand after the owner-directed Oceanic→Hushed n=1 contraction, record pointer set); #175
+  MERGED `5310d1e4e` (item 5 — AGGREGATED_TOOL_ORDER completed with a RED-proven derived guard
+  test; Hushed's Copilot refutation empirically grounded) — **the inherited reliability
+  micro-queue is fully drained** (3a/3b/4/5 + follow-on (a); follow-on (b) trigger-gated).
+  **The eef-revalidation RE-PROOF is ROUTED**: plan PROMOTED future/→current/ (owner-decided;
+  promotion note in frontmatter; four referrers updated) and routed to Blustery Buffeting Gale
+  (events `dccb1d09` + worktree correction `dd536088` + pointer `b377655d`; acceptance
+  11:00:40Z, claim `f74cdf73`, cycle seed-plan-regrounding; seat = oak-wt-umbral-g4 or fresh,
+  NEVER airy-g while Hushed's claim lives — the stale-ADOPTABLE routing error + cure is
+  napkinned). **Director succession**: Iridescent Threading Constellation owner-named SEVENTH
+  holder (~11:02Z, no further sign-off needed); my Moment-1 pre-positioning follows this
+  waypoint. **Next safe step**: Blustery's re-proof arc (re-ground seed → D7 round-trip
+  re-proof on the anchored tools; multiplicity + G4b-on-EEF-path decisions ride it); Hushed's
+  team closeout (named owner; relabel-heartbeat-loop graduation candidate routes through it,
+  trigger fired at #174); owner items HELD AS-IS (principles attribution;
+  bulk-export-lags-live).
 - **PRIOR SESSION (2026-06-11 morning, Ethereal Orbiting Eclipse / claude Fable 5, Director
   FIFTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fourth
   PDR-064 Director succession, completed cleanly; G4b + curation lanes routed.** Zephyr's

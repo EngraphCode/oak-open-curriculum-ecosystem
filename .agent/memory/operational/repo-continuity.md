@@ -41,10 +41,14 @@ surface.
   principles follow-on, plan s3 todo); bulk-export-lags-live (hold as-is, owner 06-11).
   Authority: the graph plan's todos + the eef thread record (sixth-holder entry). Witness
   synthesis: `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` (+ §8/§9 addenda).
-  **Next safe step**: #174 serialised merge + Hushed's item-5 micro-PR, then ROUTE the
-  `eef-revalidate-on-new-graph-tools` re-proof (the next value move — the prerequisiteFor
-  multiplicity decision AND the G4b on-EEF-path determination both ride it); the S3 principles
-  follow-on unblocks at the owner's attribution direction.
+  Since then at the sixth Director's hand: **#174 merged `6340c595b`** (ARC evidence on main),
+  **#175 merged `5310d1e4e`** (reliability micro-queue fully drained; follow-on (b)
+  trigger-gated), and the **re-proof plan PROMOTED to current/ + ROUTED to Blustery Buffeting
+  Gale** (`9819b2`, claim `f74cdf73`). **Director succession: Iridescent Threading
+  Constellation owner-named seventh holder** (~11:02Z; Moment-1 pre-positioning at this
+  waypoint). **Next safe step**: Blustery's re-proof arc (the multiplicity + G4b-on-EEF-path
+  decisions ride it); Hushed's team closeout; the S3 principles follow-on unblocks at the
+  owner's attribution direction.
 - **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling /
   `47f78a`, claude / Fable 5, owner-directed; PR #143 + a stacked PR from
   `feat/graph-migration-part-2`).** The plan-review-and-readiness session the prior entry queued.

@@ -87,3 +87,14 @@ capture continues below.
   `--tag heartbeat` was rejected at my heartbeat-end emit; compliant shape is title + typed
   state args (`cycle=stood-down`, Ethereal's precedent). Loud-by-design worked; no napkin cure
   needed, recorded as a worked instance.
+
+## 2026-06-11 — sixth Director session (Sunlit Waxing Asteroid, 14a56a)
+
+- **A closeout's worktree-state claim is stale the moment a successor's gate fires** — I routed
+  Blustery to oak-wt-airy-g citing Blustery's own closeout "ADOPTABLE" line, but Hushed had
+  adopted it 16 minutes later at the item-5 gate (claim c77f2453 named the worktree — the
+  registry was ahead of my quote). Peer correction inside one cadence; amendment dd536088.
+  Cure (same family as verify-named-surfaces-before-quoting): at ROUTING COMPOSE TIME re-derive
+  worktree/branch facts from the live registry + a fresh `git -C <wt> status`, never from any
+  closeout text, however recent. Routing events are load-bearing; their facts must be
+  compose-time fresh.
