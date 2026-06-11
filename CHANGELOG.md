@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.26.1...v1.27.0) (2026-06-11)
+
+
+### Features
+
+* **mcp:** outbound token health metric v1 — wire bytes and per-field tool-result sizes ([95cc631](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/95cc6319fa88e2596cc40c1e2b8bd5c631629fdb))
+
 ## [1.26.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.26.0...v1.26.1) (2026-06-11)
 
 
