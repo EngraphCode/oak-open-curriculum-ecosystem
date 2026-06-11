@@ -126,3 +126,18 @@ export const NAMING_SCHEMAS: Readonly<Record<NamingSchemaId, NamingSchema>> = {
  * The schema used for new derivations.
  */
 export const ACTIVE_NAMING_SCHEMA_ID: NamingSchemaId = 'v1-adjective-verb-noun';
+
+/**
+ * Every value the `naming_schema_version` identity field may carry: each
+ * registered era plus the operator-override provenance marker.
+ *
+ * @remarks
+ * Exported as a value so boundary schemas (Zod enums, JSON schema) derive
+ * from one source. The `satisfies` clause keeps the list in lockstep with
+ * the registered id union.
+ */
+export const NAMING_SCHEMA_VERSION_VALUES = [
+  'v1-adjective-verb-noun',
+  'v2-noun-verb-noun',
+  'override',
+] as const satisfies readonly (NamingSchemaId | 'override')[];
