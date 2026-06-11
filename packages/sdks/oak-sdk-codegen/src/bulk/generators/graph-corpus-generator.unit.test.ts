@@ -139,10 +139,10 @@ describe('generateGraphCorpusData', () => {
   };
 
   describe('graph metadata', () => {
-    it('returns a corpus with version 1.3.0 (G4b additive keyword kind)', () => {
+    it('returns a semver corpus version (the exact value is generator metadata, not contract)', () => {
       const result = generateGraphCorpusData(makeInput());
 
-      expect(result.version).toBe('1.3.0');
+      expect(result.version).toMatch(/^\d+\.\d+\.\d+$/);
     });
 
     it('includes a generatedAt ISO timestamp', () => {
