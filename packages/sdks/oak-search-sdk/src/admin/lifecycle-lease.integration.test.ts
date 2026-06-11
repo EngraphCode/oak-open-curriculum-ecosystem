@@ -56,6 +56,32 @@ function setupClient(): Client {
   return client;
 }
 
+/**
+ * Causal gate for renewal-loop tests: `gate` resolves once `countIssue`
+ * has been called `n` times. By the renewal loop's single-in-flight
+ * invariant, issuance N+1 can only happen after issuance N's outcome has
+ * been fully processed — so a leased work function that awaits the gate
+ * completes strictly AFTER the (N-1)th counted outcome is recorded,
+ * under any scheduler load. Which issuance class is counted is decided
+ * by where the test calls `countIssue()` in its mock chain.
+ */
+function gateOnNthRenewalIssue(n: number): { gate: Promise<void>; countIssue: () => void } {
+  let issues = 0;
+  let resolveGate!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    resolveGate = resolve;
+  });
+  return {
+    gate,
+    countIssue: () => {
+      issues += 1;
+      if (issues >= n) {
+        resolveGate();
+      }
+    },
+  };
+}
+
 describe('withLifecycleLease', () => {
   it('returns validation error and skips ES calls for invalid TTL', async () => {
     const client = setupClient();
@@ -166,16 +192,11 @@ describe('withLifecycleLease', () => {
 
   it('returns execution result when execution succeeds but renewal fails persistently', async () => {
     const client = setupClient();
-    // Causal gate, not wall-clock: renewal N+1 can only be issued after
-    // renewal N's outcome has been fully processed (the renewal loop's
-    // single-in-flight invariant). The gate resolving on the SECOND
-    // renewal issue therefore proves the first failed renewal has been
-    // recorded before the work completes, under any scheduler load.
-    let renewalIssues = 0;
-    let firstFailureProcessed!: () => void;
-    const gate = new Promise<void>((resolve) => {
-      firstFailureProcessed = resolve;
-    });
+    // Causal gate, not wall-clock: every post-acquisition issue is a
+    // (counted) failing renewal, so the gate resolving on the SECOND
+    // renewal issue proves the first failed renewal has been recorded
+    // before the work completes.
+    const { gate, countIssue } = gateOnNthRenewalIssue(2);
     vi.spyOn(client, 'index')
       .mockResolvedValueOnce({
         _index: 'oak_lifecycle_leases',
@@ -187,10 +208,7 @@ describe('withLifecycleLease', () => {
         result: 'created',
       })
       .mockImplementation(() => {
-        renewalIssues += 1;
-        if (renewalIssues >= 2) {
-          firstFailureProcessed();
-        }
+        countIssue();
         return Promise.reject(createResponseError(503, 'renew failed'));
       });
 
@@ -216,11 +234,7 @@ describe('withLifecycleLease', () => {
     // Same causal gate as the persistent-failure test above: the second
     // renewal issue proves the first failure is recorded before the work
     // returns its own error.
-    let renewalIssues = 0;
-    let firstFailureProcessed!: () => void;
-    const gate = new Promise<void>((resolve) => {
-      firstFailureProcessed = resolve;
-    });
+    const { gate, countIssue } = gateOnNthRenewalIssue(2);
     vi.spyOn(client, 'index')
       .mockResolvedValueOnce({
         _index: 'oak_lifecycle_leases',
@@ -232,10 +246,7 @@ describe('withLifecycleLease', () => {
         result: 'created',
       })
       .mockImplementation(() => {
-        renewalIssues += 1;
-        if (renewalIssues >= 2) {
-          firstFailureProcessed();
-        }
+        countIssue();
         return Promise.reject(createResponseError(503, 'renew failed'));
       });
 
@@ -264,20 +275,17 @@ describe('withLifecycleLease', () => {
     const client = setupClient();
     // The recovery contract is causal, not temporal: fail once, then a
     // successful renewal clears the failure, then the work completes and
-    // the lease releases normally. The gate resolves when the SECOND
-    // successful renewal is issued — which (by the renewal loop's
-    // single-in-flight invariant) proves the FIRST successful renewal's
-    // outcome has been fully processed, i.e. the transient failure is
-    // already cleared when the work completes. The previous shape raced
-    // a real 5ms renewal interval against a real 40ms work timer; under
-    // full-gate CPU load only the failing renewal fitted the window and
-    // the lease was deliberately left unreleased (observed as the
-    // "DeleteApi called 0 times" full-tree flake, 2026-06-10).
-    let successfulRenewalIssues = 0;
-    let recoveryProcessed!: () => void;
-    const gate = new Promise<void>((resolve) => {
-      recoveryProcessed = resolve;
-    });
+    // the lease releases normally. Here `countIssue` sits AFTER the
+    // single rejected renewal, so only SUCCESSFUL renewals are counted:
+    // the gate resolving on the second successful issue proves the FIRST
+    // successful renewal's outcome has been fully processed, i.e. the
+    // transient failure is already cleared when the work completes. The
+    // previous shape raced a real 5ms renewal interval against a real
+    // 40ms work timer; under full-gate CPU load only the failing renewal
+    // fitted the window and the lease was deliberately left unreleased
+    // (observed as the "DeleteApi called 0 times" full-tree flake,
+    // 2026-06-10).
+    const { gate, countIssue } = gateOnNthRenewalIssue(2);
     vi.spyOn(client, 'index')
       .mockResolvedValueOnce({
         _index: 'oak_lifecycle_leases',
@@ -290,10 +298,7 @@ describe('withLifecycleLease', () => {
       })
       .mockRejectedValueOnce(createResponseError(503, 'transient failure'))
       .mockImplementation(() => {
-        successfulRenewalIssues += 1;
-        if (successfulRenewalIssues >= 2) {
-          recoveryProcessed();
-        }
+        countIssue();
         return Promise.resolve({
           _index: 'oak_lifecycle_leases',
           _id: 'lifecycle_lease_primary',
