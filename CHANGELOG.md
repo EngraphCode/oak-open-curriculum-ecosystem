@@ -1,3 +1,10 @@
+## [1.25.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.25.0...v1.25.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** deduplicate prerequisiteFor edges at graph-corpus emission ([5b541e2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5b541e204f57ce3e66ed455b66e73ecbcc25663b))
+
 # [1.25.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.24.1...v1.25.0) (2026-06-11)
 
 
