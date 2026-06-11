@@ -8,7 +8,10 @@
  * `misconceptionsForThread` (G2) answer "which misconceptions does this
  * anchor address?" over the thread→unit→lesson→misconception chain;
  * `progressionForThread` / `progressionsForSubjectKeyStage` (G3) answer "how
- * does this thread progress across years?" over the year-ordered sequences.
+ * does this thread progress across years?" over the year-ordered sequences;
+ * `keywordsForSubjectKeyStage` (G4b) answers "what is the key vocabulary for
+ * this teaching context?" as a bounded frequency-ranked keyword page with
+ * lesson decoration.
  */
 
 export {
@@ -70,3 +73,19 @@ export {
   type ThreadProgressionStats,
   type ThreadProgressionSubgraph,
 } from './thread-progressions-view.js';
+
+export {
+  buildCurriculumKeywordProjection,
+  type CurriculumKeywordProjection,
+} from './keyword-projection.js';
+
+export {
+  DEFAULT_KEYWORD_LIMIT,
+  KEYWORD_LESSON_DECORATION_LIMIT,
+  MAX_KEYWORD_LIMIT,
+  keywordsForSubjectKeyStage,
+  type KeywordLessons,
+  type KeywordLimitInvalid,
+  type KeywordRetrievalOptions,
+  type KeywordSubgraph,
+} from './keyword-view.js';
