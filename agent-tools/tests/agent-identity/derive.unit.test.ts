@@ -43,11 +43,24 @@ describe('deriveIdentity', () => {
 
     expect(result).toEqual({
       kind: 'override',
+      namingSchemaVersion: 'override',
       displayName: 'Frolicking Toast',
       slug: 'frolicking-toast',
       seedDigest: createHash('sha256').update('override-seed').digest('hex'),
       override: 'Frolicking Toast',
     });
+  });
+
+  it('stamps derived results with the active naming schema version', () => {
+    const result = expectDerivedIdentity(deriveIdentity('version-seed'));
+
+    expect(result.namingSchemaVersion).toBe('v1-adjective-verb-noun');
+  });
+
+  it('derives identically under the explicitly requested active schema', () => {
+    const explicit = deriveIdentity('version-seed', { schemaId: 'v1-adjective-verb-noun' });
+
+    expect(explicit).toEqual(deriveIdentity('version-seed'));
   });
 
   it('rejects an empty seed before derivation', () => {
@@ -86,15 +99,17 @@ describe('deriveIdentity', () => {
     expect(allWords.every((word) => /^[a-z]+$/u.test(word))).toBe(true);
   });
 
-  it('emits slot values that belong to the reported word group', () => {
+  it('emits words that belong to the reported word group, in column order', () => {
     const result = expectDerivedIdentity(deriveIdentity('coherence-seed'));
     const group = expectIdentityWordGroup(
       IDENTITY_WORD_GROUPS.find((candidate) => candidate.group === result.group),
     );
+    const columns = [group.adjectives, group.verbs, group.nouns];
 
-    expect(group.adjectives).toContain(result.adjective);
-    expect(group.verbs).toContain(result.verb);
-    expect(group.nouns).toContain(result.noun);
+    expect(result.words).toHaveLength(3);
+    result.words.forEach((word, index) => {
+      expect(columns[index]).toContain(word);
+    });
   });
 });
 
