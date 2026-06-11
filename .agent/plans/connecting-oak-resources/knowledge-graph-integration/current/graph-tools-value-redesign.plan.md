@@ -272,7 +272,9 @@ median 5 / p90 9 / max 18 nodes; depth-3 max 40 (2.5% of the graph). **Default d
 caller-adjustable** — this is the recorded empirical basis. Two integrity findings the G1
 generator must resolve: the corpus is **not a DAG** (28 self-loops + 4 two-node maths cycles —
 visited-set-safe traversal required, which the landed BFS provides; the self-loops are an
-upstream data-quality signal), and **5 edge-endpoint slugs are missing from the node set** —
+upstream data-quality signal; **corrected 2026-06-11 at the PR #165 year-axis re-chain: 33
+self-loops — the corrected adjacency exposes five duplicate same-(unit, year) placements that
+encounter order had hidden**), and **5 edge-endpoint slugs are missing from the node set** —
 `createGraphView` throws at construction on unknown endpoints, so the re-projection must emit
 those endpoint nodes from bulk or drop the dangling edges with provenance.
 
@@ -337,7 +339,7 @@ Dispositions from the behaviour-preservation authoring (2026-06-04) are retained
 | 12 | "Required" `GraphView` `edgeTypes?` extension + `manifest()` re-add | **replaced** — per-view construction over the one corpus (R1 unanimous); no substrate change; no G0; `manifest()` stays absent |
 | 13 | Check (d) keyword data-grounding | **dissolved** — its existence half answered by the provenance verification; G4's Gate 1 is the live check |
 | 14 | A5 dual-listing + B1 banner/sequencing contradiction + unowned row F | **dissolved by structure** — A1/B1 live inside the owning G-units; A5 is an acceptance invariant on every surface-touching PR; F is settled (factory deleted at G3) |
-| 15 | Prior-knowledge "DAG" claim | **corrected** — sparse directed graph with 28 self-loops + 4 two-node cycles; traversal is visited-set-safe; upstream data-quality signal recorded |
+| 15 | Prior-knowledge "DAG" claim | **corrected** — sparse directed graph with self-loops + 4 two-node cycles; traversal is visited-set-safe; upstream data-quality signal recorded (28 at analysis; 33 post-#165 year-axis re-chain — corrected adjacency exposes five duplicate same-(unit, year) placements) |
 | 16 | Extractor path (`src/bulk/extractors/keyword-extractor.ts`) | **corrected** — the live pipeline extracts via `vocab-gen/extractors/`; the duplication is a verified smell the G-units must resolve, not entrench |
 | 17 | §C as a non-deliverable holding state | **replaced** (owner-directed 2026-06-10) — nothing sits in an unagreed holding state: §C is deliverable S3 with a c0 owner design gate; the "blocked on `oak-skills` going public" claim is reclassified BENEFICIAL (the content is Oak's; attribution carried); the indefinite-deferral vocabulary family joined the innate-immunity trip-list |
 

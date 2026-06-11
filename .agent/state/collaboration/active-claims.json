@@ -71,7 +71,7 @@
       "intent": "Director (graph implementation team, fourth holder) — PDR-064 successor to Celestial Glowing Dusk (1e526e), owner-directed; Moment-1 event 56ae6447. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Celestial-Dusk claim 75323860 closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "8a33ae0d-2366-4289-b45d-b6cd069814e3",
+      "claim_id": "0e14e503-553d-48da-bc5a-a79444626560",
       "agent_id": {
         "agent_name": "Tempestuous Rising Gale",
         "platform": "claude",
@@ -84,21 +84,15 @@
         {
           "kind": "files",
           "patterns": [
-            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
             "packages/sdks/oak-sdk-codegen/src/**",
-            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
-            "packages/sdks/graph-corpus-sdk/src/**",
-            "packages/sdks/oak-curriculum-sdk/src/**",
-            "packages/sdks/oak-curriculum-sdk/e2e-tests/**",
-            "apps/oak-curriculum-mcp-streamable-http/src/**",
-            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
+            "packages/sdks/graph-corpus-sdk/src/**"
           ]
         }
       ],
-      "claimed_at": "2026-06-10T23:48:50Z",
+      "claimed_at": "2026-06-11T00:53:12Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G3 c2 (continuation; c1 landed d6ae0d14; supersedes 2c111aae widening to the app src + sdk public barrel the resource removal spans): anchored get-thread-progressions rewrite (landed in working tree; threadSlug detail XOR subject+keyStage discovery; year-axis honesty); REMOVE curriculum://thread-progressions across all-resources + register-resources + public barrel + drift guard + e2e proofs; learning-progression step-2 anchor-threading; 3 stats consumers -> threadProgressionStats; factory + legacy thread-progression emission deleted with importers moved; AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. prerequisiteFor year-axis re-chain RULED (a) by Director 215b08d2 — separate follow-on PR, owner-visible merge, NOT this cycle. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view."
+      "intent": "Follow-on PR per Director ruling 215b08d2 (owner-visible merge, default-approve): re-derive prerequisiteFor edges on the year axis (count-preserving, ~93% re-chain of the EEF-consumed surface; falsified encounter-order basis retired). Scope: threadOrderingPairs sorts via the shared comparePlacements total order; whole-corpus reversal stability test restored; within-year chaining semantics decided-with-reviewers and pinned by test + stated in TSDoc; regenerated data.json; eef-revalidation signal naming the re-chain. Branch feat/prerequisite-year-axis-rechain off origin/main@a229d63d in oak-wt-airy-g."
     }
   ]
 }

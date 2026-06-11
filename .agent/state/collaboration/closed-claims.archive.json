@@ -11391,6 +11391,56 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "8a33ae0d-2366-4289-b45d-b6cd069814e3",
+      "agent_id": {
+        "agent_name": "Tempestuous Rising Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "60496a",
+        "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**",
+            "apps/oak-curriculum-mcp-streamable-http/src/**",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T23:48:50Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G3 c2 (continuation; c1 landed d6ae0d14; supersedes 2c111aae widening to the app src + sdk public barrel the resource removal spans): anchored get-thread-progressions rewrite (landed in working tree; threadSlug detail XOR subject+keyStage discovery; year-axis honesty); REMOVE curriculum://thread-progressions across all-resources + register-resources + public barrel + drift guard + e2e proofs; learning-progression step-2 anchor-threading; 3 stats consumers -> threadProgressionStats; factory + legacy thread-progression emission deleted with importers moved; AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. prerequisiteFor year-axis re-chain RULED (a) by Director 215b08d2 — separate follow-on PR, owner-visible merge, NOT this cycle. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view.",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T00:53:11Z",
+        "closed_by": {
+          "agent_name": "Tempestuous Rising Gale",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "60496a",
+          "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+        },
+        "summary": "G3 DELIVERED: PR #164 merged a229d63d (v1.21.0) — anchored year-ordered get-thread-progressions, resource removed, factory + legacy emission retired; three bot waves adjudicated with recorded verdicts; eef-revalidation raised (db953071). Superseded by the follow-on re-chain claim.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "8a33ae0d-2366-4289-b45d-b6cd069814e3",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

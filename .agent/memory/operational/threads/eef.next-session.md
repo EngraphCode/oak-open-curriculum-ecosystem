@@ -41,7 +41,19 @@ merge_class: index-narrative-tables
   Director-verified: origin/main already at `0.7.0-6a3c1f02` since #159; all 13 dirty files
   byte-identical to origin/main; alignment committed this waypoint so the dirty-file trap does
   not mislead the next holder; failure-mode capture `54fc0fee` — baseline drift against
-  origin/main, never branch HEAD). **G3 MERGED (PR #164, `a229d63d`, 00:51:23Z 06-11) — TRACK-G
+  origin/main, never branch HEAD). **YEAR-AXIS RE-CHAIN MERGED (PR #165, `53308e1e`, 01:25:32Z
+  06-11)**: prerequisiteFor on the honest year-ordered basis (count preserved 3,452; 93.1%
+  re-chained; within-year chaining-with-stated-tiebreak reviewer-ratified on three grounds;
+  owner default-approve operative — visibility given twice, no objection through the settle
+  window); selfLoops 28→33 (corrected adjacency exposes five duplicate same-(unit,year)
+  placements — plan facts corrected in the same waypoint); eef-revalidation raised
+  (`08abb32a`) — the falsified-ordering cure is COMPLETE across sequences and chains. NEW
+  Director-queue item (Tempestuous `bbe99f11`): prerequisiteFor multiplicity — 3,452 emitted vs
+  2,605 unique pairs (G1a-era, never deduped; false doc claim corrected on the PR); decide
+  dedup-vs-multiplicity-as-signal ALONGSIDE the eef-revalidation re-proof where consumer impact
+  is measurable. **G4b UNBLOCKED** (data.json contention cleared); routing offered to
+  Tempestuous with budget-honesty invited (decline → seat need surfaces to owner).
+  **G3 MERGED (PR #164, `a229d63d`, 00:51:23Z 06-11) — TRACK-G
   CORE COMPLETE (G1+G2+G3)**: Tempestuous Rising Gale delivered the thread-progressions ordered
   projection (year-ordered sequences, corpus v1.2.0), anchored tool rewrite, resource removal,
   factory retirement (Decision F), three bot review waves adjudicated; all three
