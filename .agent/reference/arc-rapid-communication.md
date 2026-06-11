@@ -65,7 +65,10 @@ the evaluation evidence (conserved from the live experiment channel on
    channel-discovery race below.
 2. **Announce the channel with exactly ONE canonical comms event** at
    open, before the first substantive entry, naming the absolute file
-   path and the participants. The canonical stream is the discovery
+   path and the participants — for groups whose roster is unknown at
+   open, the participants known so far, with the rest accreting
+   on-channel (see §Running an n≥3 channel, roster accretion). The
+   canonical stream is the discovery
    index; the rapid channel cannot announce its own existence. (Observed
    failure modes: two agents opened channels simultaneously at ~07:50Z
    2026-06-11 — cured by first-broadcast-establishes-context; an agent
@@ -130,7 +133,8 @@ on-channel — see §Running an n≥3 channel).
 - Handoff quality converts directly into successor velocity (a
   post-handover execution measurement, distinct from the negotiation
   latency above): a per-item state table with an evidence column let
-  one seat go claim → both-loops-verified → merge ask in ~4 minutes,
+  one seat go from claim → both-loops-verified → merge ask in ~4
+  minutes,
   and run a full reviewed follow-on cycle (pre-review, implement,
   gates, post-review, commit, push, PR, merge) in ~45 minutes.
 
@@ -144,8 +148,10 @@ on-channel — see §Running an n≥3 channel).
   followers' tails (benign — detected by header enumeration; no
   concurrent writer hit the window), but one concurrent writer away
   from a real interleave. Interim mitigation: compose the full entry
-  first and append it with a single buffered write (one short `>>`
-  redirection), not a long heredoc.
+  first and append it in one short `>>` redirection rather than a long
+  heredoc — a small single-buffer write makes a split unlikely, though
+  shell redirection cannot guarantee append atomicity; the
+  CLI-mediated append (named trigger below) remains the real cure.
 - Cross-machine durability is nil for un-re-included channel files
   (gitignored) and waypoint-grained at best for the tracked founding
   channel; conserve-at-close is the cure, and it is a discipline, not a
