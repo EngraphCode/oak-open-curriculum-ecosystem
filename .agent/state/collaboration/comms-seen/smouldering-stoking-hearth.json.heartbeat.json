@@ -1,11 +1,11 @@
 {
   "schema_version": "0.1.0",
-  "pid": 21967,
-  "started_at": "2026-06-11T11:11:31.700Z",
-  "last_drain_at": "2026-06-11T11:35:30.589Z",
-  "last_emit_at": "2026-06-11T11:35:15.818Z",
+  "pid": 71485,
+  "started_at": "2026-06-11T12:01:28.690Z",
+  "last_drain_at": "2026-06-11T12:07:11.213Z",
+  "last_emit_at": "2026-06-11T12:06:06.207Z",
   "last_error_at": null,
-  "emitted_count": 47,
+  "emitted_count": 14,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {
     "agent_name": "Smouldering Stoking Hearth",

@@ -46,30 +46,6 @@
   ],
   "claims": [
     {
-      "claim_id": "f74cdf73-ec20-4caf-bea8-ffb4bc3f919f",
-      "agent_id": {
-        "agent_name": "Blustery Buffeting Gale",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "9819b2",
-        "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/plans/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md",
-            ".agent/reports/eef-revalidation-*"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T11:00:13Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "EEF value-path re-proof (Director routing dccb1d09 + correction dd536088, owner-approved ~10:52Z; both read end to end). Seed plan eef-revalidate-on-new-graph-tools.plan.md (promoted current/ at Track-G completion): (1) re-ground the seed against the landed estate — replacement set get-prior-knowledge-graph #161 / get-misconception-graph #163 / get-thread-progressions #164+#165 / get-keyword-graph #173, signals 334b8a99/42e5cf0c/db953071/08abb32a — and bring it to executable shape per its todos; (2) re-run the D7 cover-lesson round-trip proof against the NEW anchored tools (proof shape owned by eef-graph-tool-completion.plan.md); (3) prerequisiteFor multiplicity decision (3,452 emitted vs 2,605 unique) decided where consumer impact is measurable, inside the re-proof; (4) G4b on-EEF-path determination recorded either way. Worktree oak-wt-umbral-g4 per the Director correction — NEVER oak-wt-airy-g (Hushed claim c77f2453 live there). Analysis/proof may run immediately; readiness reviewers before any source-touching cycles become execution-ready. Agent: Blustery Buffeting Gale (9819b2)."
-    },
-    {
       "claim_id": "537f2f1c-dce4-4445-ac06-372ac13fd448",
       "agent_id": {
         "agent_name": "Iridescent Threading Constellation",
@@ -95,13 +71,38 @@
       "intent": "Director (graph implementation team, SEVENTH holder) — PDR-064 successor to Sunlit Waxing Asteroid (14a56a), owner-confirmed (my session ~11:05Z; Moment-1 event 9c8326a1). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Sunlit claim 1d37fdfe closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "45b3a187-4c4c-4ac5-8bf4-7226d912c50f",
+      "claim_id": "54501de4-0320-478e-9326-5b6ce7df61d9",
       "agent_id": {
-        "agent_name": "Smouldering Stoking Hearth",
+        "agent_name": "Prismatic Shimmering Planet",
         "platform": "claude",
         "model": "fable-5",
-        "session_id_prefix": "fddf14",
-        "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+        "session_id_prefix": "65394e",
+        "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md",
+            ".agent/plans/user-experience/educator-end-users/keyword-graph-teacher-user-stories.report.md",
+            ".agent/plans/user-experience/educator-end-users/README.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T12:04:00Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Keyword-graph teacher-user-story capture (owner-directed ~11:59Z; Director routing 56dcda07, read end to end): ONE pure-diff docs PR off origin/main — (1) discovery note keyword-graph-teacher-user-stories.report.md in the educator-end-users collection (five stories as named considerations; prioritisation decision owner-owned; ADR-194 frame; grounded in re-proof report §3 G4b adjacency + the landed get-keyword-graph surface verified at origin/main); (2) ADDITIVE future-cycle fold of the vocabulary-bridge story into position-anchored-teaching-continuity.plan.md, NOT blocking w2-c1 (collision-verified: Smouldering claim 45b3a187 covers code+ADR-123 only, PR #178 diff does not touch the plan file); (3) persona README link line for the note (additive discoverability, declared expansion of the routed two-path scope). Worktree oak-wt-evergreen-rel (re-verified clean detached 5c8cb22b6), branch docs/keyword-graph-teacher-user-stories. Queue item 2b pre-position unchanged, still gated on PR 177 merge. Agent: Prismatic Shimmering Planet (65394e)."
+    },
+    {
+      "claim_id": "d73c15d2-fead-40f0-937f-55df8ae97fce",
+      "agent_id": {
+        "agent_name": "Nebulous Shimmering Nebula",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "3493fb",
+        "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
       },
       "thread": "eef",
       "areas": [
@@ -110,6 +111,7 @@
           "patterns": [
             "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
             "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.unit.test.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/**",
             "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
             "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
             "apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts",
@@ -120,10 +122,10 @@
           ]
         }
       ],
-      "claimed_at": "2026-06-11T11:16:42Z",
+      "claimed_at": "2026-06-11T12:07:55Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "w1-c1 position-anchored-teaching-continuity prompt TDD cycle (plan .agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md; owner-assigned implementer; Director GO Sunlit 11:15:17Z, ratified by Iridescent Moment-2 11:16:13Z). One PR off origin/main from fresh worktree oak-wt-smouldering, branch feat/position-anchored-prompt. Four registration surfaces + tests + ADR-123 drift reconciliation."
+      "intent": "Continuation of claim 45b3a187 (Smouldering's, retained for my pickup per handoff record 2026-06-11-smouldering-pr178-to-nebulous.md, read end to end) — PR-178 remainder: ONE where-next rename commit (owner decision on the PR, issuecomment-4680314953) + the two Copilot fixes adjudicated VALID at 32ba1ceeb, full gates, unpiped push + ls-remote proof; then three-loop monitor-to-merge; merge ask DIRECTED to Iridescent (f9454b). Worktree oak-wt-smouldering, branch feat/position-anchored-prompt. w2-c1 follows only after merge with fresh collision-safety read. Agent: Nebulous Shimmering Nebula (3493fb)."
     }
   ]
 }

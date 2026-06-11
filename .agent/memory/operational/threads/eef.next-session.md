@@ -48,9 +48,29 @@ merge_class: index-narrative-tables
   amendment). **Standing rulings inherited whole** (chain `f0126218` + Sunlit's five: ls-remote
   push proof; `pnpm exec tsx agent-tools/src/commit-advisories/check-commit-message.ts -F file`;
   "PR n" never "PR #n" in commit bodies; compose-time registry re-derivation for routing facts;
-  owner decisions as explicit questions with verdict-as-recommended-option). **Next safe step**:
-  #176 merge ask → serialised merge; Hushed closeout → Prismatic routing; Blustery docs PR →
-  serialised merge → Scorched rotation; Smouldering w1-c1 PR when it lands.
+  owner decisions as explicit questions with verdict-as-recommended-option). **MID-SESSION
+  WAYPOINT 2 (~12:10Z)**: #176 MERGED `5c8cb22b6` + #177 MERGED `c248b8149` at my hand (both
+  three-loops-verified) — the re-proof is ON MAIN, value path INTACT; the graph plan's
+  signal-eef-revalidation todo flipped completed (G4b conditional closed false) — **TRACK-G +
+  RE-PROOF ARC COMPLETE**; origin/main merged into the coordination home (`5dde96aa3`, three
+  plan-file conflicts resolved main-authoritative, write-forward). Owner rulings this window:
+  PR #178 outward name = **where-next** (sign-off recorded on the PR at my hand);
+  keyword-graph teacher user stories captured BOTH ways (owner ~11:59Z: discovery note in
+  educator-end-users + vocabulary-bridge fold into the position-anchored plan — routed to
+  Prismatic, who surfaced the correct sequencing fact that the plan file lives only on this
+  branch; ruling: their PR carries plan+fold+note, option (a) event `15f48580`); owner ~12:04Z:
+  the make-graphs-better tranche is NEARING COMPLETION — completion bar = queue item 2b landed
+  plus in-flight merges (#178, keyword-stories PR); the next tranche is shaped by observed alpha
+  use, not design momentum. Seat rotations (all clean, owner-directed permanent session ends):
+  Hushed → Prismatic (#176 delivered; then free seat → keyword-stories claim `54501de4`);
+  Blustery → Scorched (#177 delivered, lane ENDED, closed out clean, oak-wt-umbral-g4
+  ADOPTABLE); Smouldering → Nebulous (continuation claim `d73c15d2`; where-next rename + two
+  held Copilot verdicts + monitor-to-merge + w2-c1 after; record
+  `2026-06-11-smouldering-pr178-to-nebulous.md`). **Next safe step**: Nebulous's rename lands →
+  #178 merge ask → serialised merge (flip the position-anchored plan's w1-c1 todo at that
+  waypoint); Prismatic's keyword-stories PR → serialised merge; then route 2b (multiplicity
+  dedup — pre-positioned on Prismatic, gate cleared); tranche-boundary consolidation pass
+  recommended at completion (rich doctrine harvest + repo-continuity char-HARD cure).
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
@@ -616,9 +636,9 @@ session narrative for each is in git history; this table is the durable identity
 | `Cindery Forging Volcano` | `claude` | `Fable 5` | `378172` | `graph-implementation-g4b-implementer-third-seat-holder` | 2026-06-11 | 2026-06-11 |
 | `Oceanic Flowing Harbour` | `claude` | `Fable 5` | `e05bf4` | `n3-arc-reliability-successor-team-channel-opener + research-appraisal-and-planning` | 2026-06-11 | 2026-06-11 |
 | `Seaworthy Fathoming Pier` | `claude` | `Fable 5` | `4a1b92` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
-| `Hushed Watching Night` | `claude` | `Fable 5` | `999f69` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
+| `Hushed Watching Night` | `claude` | `Fable 5` | `999f69` | `seat-z-then-n1-reliability-and-arc-closeout` | 2026-06-11 | 2026-06-11 |
 | `Sunlit Waxing Asteroid` | `claude` | `Fable 5` | `14a56a` | `graph-implementation-director-sixth-holder` | 2026-06-11 | 2026-06-11 |
-| `Blustery Buffeting Gale` | `claude` | `Fable 5` | `9819b2` | `graph-implementation-g4b-final-seat-holder-delivered` | 2026-06-11 | 2026-06-11 |
+| `Blustery Buffeting Gale` | `claude` | `Fable 5` | `9819b2` | `graph-implementation-g4b-fourth-holder-then-eef-reproof` | 2026-06-11 | 2026-06-11 |
 | `Iridescent Threading Constellation` | `claude` | `Fable 5` | `f9454b` | `graph-implementation-director-seventh-holder` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links

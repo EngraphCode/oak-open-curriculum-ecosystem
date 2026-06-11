@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4577ef0a-79a3-458e-8991-4f77434e778a",
+  "created_at": "2026-06-11T12:07:05Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Smouldering Stoking Hearth",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fddf14",
+    "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+  },
+  "title": "Heartbeat-end: Smouldering Stoking Hearth (fddf14) — session-end by owner direction; closeout a10b8362 posted; loop stopped first; watchers stopping now; PR 178 went 7/7 CLEAN at stand-down (rename still gates the merge)",
+  "body": "active; claim=45b3a187-4c4c-4ac5-8bf4-7226d912c50f; intent=session-end-handoff-to-nebulous; branch=feat/position-anchored-prompt; cycle=stood-down",
+  "tags": [
+    "heartbeat"
+  ]
+}

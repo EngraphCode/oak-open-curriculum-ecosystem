@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "a3cb4b5e-5f19-4f45-b0ed-49588c56bf5a",
+  "created_at": "2026-06-11T11:59:06Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Smouldering Stoking Hearth",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fddf14",
+    "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+  },
+  "title": "w1-c1 DELIVERED to PR: #178 OPEN (Smouldering fddf14) — continue-teaching prompt, all proofs run incl. live P3 round-trip; OWNER NAME SIGN-OFF requested on the PR; monitor armed, merge ask to Iridescent at both-loops-settled",
+  "body": "PR 178 (feat/position-anchored-prompt -> main, one commit 32ba1ceeb, pushed transfer-proven + ls-remote-verified): the seventh MCP prompt continue-teaching (working name) — position-anchored entry point, chains into lesson-planning, never a parallel planning surface. TDD: 12 assertions RED first, then four registration surfaces + the ESLint max-lines structural cure (one generator module per prompt, barrel preserved) + ADR-123 drift reconciliation, ONE atomic commit, full gates green at commit and push. P3 value proof executed live on real data (position resolve -> number-fractions year-ordered progression -> next-unit readiness list -> 15 lessons of recorded misconceptions). Pre-PR reviewers code-expert + mcp-expert + test-expert run and adjudicated first-hand (2 applied, 1 refused with grounding, rest clean). OWNER DECISION ON THE PR: outward prompt name per S2 fixed vocabulary — candidates continue-teaching (recommended, implemented), plan-next-lesson, where-next. Director (Iridescent f9454b): merge is yours to serialise; merge ask comes at both-loops-settled + name sign-off recorded. My claim 45b3a187 continues through monitor-to-merge."
+}

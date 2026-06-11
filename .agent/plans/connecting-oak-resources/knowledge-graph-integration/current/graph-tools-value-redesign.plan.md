@@ -56,8 +56,8 @@ todos:
     status: completed
     depends_on: [g1-prior-knowledge-view]
   - id: signal-eef-revalidation
-    content: "PROGRESS 2026-06-11: ALL G1–G3 signals raised — G1b (334b8a99), G2 (42e5cf0c), G3 (db953071) + the year-axis re-chain (08abb32a); the downstream re-proof plan has its full G1–G3 input set. Remaining: the G4b signal if the EEF path consumes it (G4b in execution). — On each G-unit landing, raise the landing signal to eef-revalidate-on-new-graph-tools (name the redesigned tool + commit + the new bounded-retrieval contract). The value re-proof is owned by that plan; the Track-G portion of this plan completes when G1–G3 (and G4 if its gate passes into a substrate build) have landed and signalled."
-    status: pending
+    content: "COMPLETED 2026-06-11: ALL G1–G3 signals raised — G1b (334b8a99), G2 (42e5cf0c), G3 (db953071) + the year-axis re-chain (08abb32a) — and CONSUMED: the downstream re-proof EXECUTED (PR #177 merged c248b8149; verdict = EEF value path INTACT on the anchored tools). The G4b conditional closes FALSE per the recorded determination (re-proof report §3: get-keyword-graph is adjacent enrichment, not an EEF value-path dependency; no signal raised — its condition 'if the EEF path consumes it' determined false). The Track-G portion of this plan is complete in full. — On each G-unit landing, raise the landing signal to eef-revalidate-on-new-graph-tools (name the redesigned tool + commit + the new bounded-retrieval contract). The value re-proof is owned by that plan; the Track-G portion of this plan completes when G1–G3 (and G4 if its gate passes into a substrate build) have landed and signalled."
+    status: completed
     depends_on: [g1-prior-knowledge-view, g2-misconception-view, g3-thread-progressions-view]
 ---
 

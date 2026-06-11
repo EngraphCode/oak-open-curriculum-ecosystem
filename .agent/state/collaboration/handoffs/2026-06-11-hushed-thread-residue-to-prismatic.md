@@ -27,10 +27,17 @@ serialised, all verified first-hand at each boundary):
   (5 missing entries), guard test RED-proven against the authoritative
   AGGREGATED_TOOL_DEFS keys, entries typed `keyof` so renames fail type-check.
 - **PR #176** — final ARC conservation (the n=1 contraction + gated-seat lifecycle
-  proof, +12/−1 doc-only): in monitor-to-merge at record freeze; if it is not yet
-  merged when you read this, the ONLY live duty that transfers is its
-  monitor-to-merge (checks were green-trending; merge ask to the live Director at
-  all-three-loops-settled — checks, comments, fresh GraphQL thread state).
+  proof, doc-only): TWO commits, both pushed and ls-remote-proven on origin
+  (`3111e5514` substance + `cd6f8941b` wording, the latter applying the one Copilot
+  finding — verdict VALID, reply posted id 3395535903, thread GraphQL-resolved).
+  Comment loop CLOSED. The ONLY live duty that transfers: monitor its checks
+  (re-running on `cd6f8941b`; the prior head went 7/7 green and the change is
+  doc-only) to terminal, fresh GraphQL thread recount, then the merge ask to the
+  live Director — Iridescent Threading Constellation (f9454b, seventh holder,
+  Moment-2 11:16:13Z). PUSH DISCIPLINE for this branch (lived twice this hour):
+  a push's only proof is the transfer line PLUS fresh `ls-remote` — two pushes
+  false-failed silently here (one piped, one SIGPIPE exit 141 after a green hook
+  with no transfer); the bare unpiped push succeeded third.
 
 Worktrees: `oak-wt-airy-g` detached CLEAN at `5310d1e4e` — ADOPTABLE.
 `oak-wt-evergreen-rel` holds branch `docs/arc-n1-contraction` (= PR #176) until its

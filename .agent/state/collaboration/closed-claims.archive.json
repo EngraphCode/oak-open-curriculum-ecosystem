@@ -12361,6 +12361,189 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "f74cdf73-ec20-4caf-bea8-ffb4bc3f919f",
+      "agent_id": {
+        "agent_name": "Blustery Buffeting Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "9819b2",
+        "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md",
+            ".agent/reports/eef-revalidation-*"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:00:13Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "EEF value-path re-proof (Director routing dccb1d09 + correction dd536088, owner-approved ~10:52Z; both read end to end). Seed plan eef-revalidate-on-new-graph-tools.plan.md (promoted current/ at Track-G completion): (1) re-ground the seed against the landed estate — replacement set get-prior-knowledge-graph #161 / get-misconception-graph #163 / get-thread-progressions #164+#165 / get-keyword-graph #173, signals 334b8a99/42e5cf0c/db953071/08abb32a — and bring it to executable shape per its todos; (2) re-run the D7 cover-lesson round-trip proof against the NEW anchored tools (proof shape owned by eef-graph-tool-completion.plan.md); (3) prerequisiteFor multiplicity decision (3,452 emitted vs 2,605 unique) decided where consumer impact is measurable, inside the re-proof; (4) G4b on-EEF-path determination recorded either way. Worktree oak-wt-umbral-g4 per the Director correction — NEVER oak-wt-airy-g (Hushed claim c77f2453 live there). Analysis/proof may run immediately; readiness reviewers before any source-touching cycles become execution-ready. Agent: Blustery Buffeting Gale (9819b2).",
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-11-blustery-eef-reproof-pr177-to-scorched.md",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T11:46:55Z",
+        "closed_by": {
+          "agent_name": "Iridescent Threading Constellation",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "f9454b",
+          "id": "e576a9b1-56c5-5749-9d52-ac62ab3329ad"
+        },
+        "summary": "closed-discharged at the Director's hand on Scorched's pickup (continuation claim 74b7b8d7, pickup event 11:46:00Z): re-proof delivered to PR 177 by Blustery (retained at PDR-063 retirement); handoff record 2026-06-11-blustery-eef-reproof-pr177-to-scorched.md read end to end by successor; lane continues as monitor-to-merge under Scorched",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "f74cdf73-ec20-4caf-bea8-ffb4bc3f919f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "96bf98e3-692b-4a39-ac9a-a869aaaae5d0",
+      "agent_id": {
+        "agent_name": "Prismatic Shimmering Planet",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "65394e",
+        "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reference/arc-rapid-communication.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:44:41Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "PR #176 monitor-to-merge (Hushed->Prismatic handoff record 2026-06-11-hushed-thread-residue-to-prismatic.md, read end to end; owner-directed succession at the natural boundary). Scope: watch checks to terminal on cd6f8941b (6/7 green, run-quality-gates pending at claim open); fresh GraphQL thread recount at merge-ask time (replies do not resolve threads, REST hides state); merge ask to the live Director (Iridescent f9454b, verified seventh holder, Moment-2 11:16:13Z); after merge clear local branch docs/arc-n1-contraction in oak-wt-evergreen-rel (worktree then ADOPTABLE). NO source edits in scope; doc-only PR, comment loop already CLOSED (verdict reply 3395535903, thread resolved). Thread residue inherited as dormant: follow-on (b) trigger-gated; ARC experiment finished-for-now (owner ~11:05Z). Agent: Prismatic Shimmering Planet (65394e).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T11:49:56Z",
+        "closed_by": {
+          "agent_name": "Prismatic Shimmering Planet",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "65394e",
+          "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+        },
+        "summary": "PR #176 monitor-to-merge DELIVERED: merged 5c8cb22b6 at the Director's hand (11:48:32Z) with all three loops verified both ends (7/7 checks green on cd6f8941b; comment loop closed pre-handoff; fresh GraphQL recount 0 unresolved at merge-ask AND at the Director's final surface). Post-merge: local branch docs/arc-n1-contraction deleted (-d, merged-safe) in oak-wt-evergreen-rel; worktree detached clean at 5c8cb22b6 — ADOPTABLE. Inherited dormant residue stands as inventoried in the handoff record (follow-on (b) trigger-gated; ARC experiment finished-for-now per owner). Zero retained.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "96bf98e3-692b-4a39-ac9a-a869aaaae5d0",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "74b7b8d7-ff0b-4a72-82d5-351a0e85e2cf",
+      "agent_id": {
+        "agent_name": "Scorched Kindling Ash",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "0d8138",
+        "id": "30764908-9f30-5337-a814-10cacaec62b4"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/sector-engagement/eef/current/eef-revalidate-on-new-graph-tools.plan.md",
+            ".agent/reports/eef-revalidation-*"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:45:27Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Continuation of claim f74cdf73 (Blustery's, retained for my pickup) — eef-revalidation re-proof lane at the PR-177 monitor boundary, per handoff record 2026-06-11-blustery-eef-reproof-pr177-to-scorched.md (read end to end) + mid-cycle-handoff event d09ba4f1. Worktree oak-wt-umbral-g4, branch docs/eef-revalidation-reproof, head 968aff597 pushed. Remaining: PR #177 monitor-to-merge ONLY (checks settle; review comments adjudicated first-hand with Copilot GraphQL resolve; directed merge ask to Iridescent f9454b at both-loops-settled; natural-boundary closeout at the merge — the lane ENDS there). Do-not-widen: multiplicity implementing cycle is Director queue item 2b. Agent: Scorched Kindling Ash (0d8138).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T12:04:40Z",
+        "closed_by": {
+          "agent_name": "Scorched Kindling Ash",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "0d8138",
+          "id": "30764908-9f30-5337-a814-10cacaec62b4"
+        },
+        "summary": "DELIVERED: PR 177 merged c248b8149 at the Director's hand — eef-revalidation lane COMPLETE (value path INTACT on main). My segment: review wave adjudicated (3 Copilot link-depth findings VALID, fixed fe35219d8, gates green at commit+push, ls-remote proven), verdict on the PR record, both loops + fresh 0-unresolved recount verified at the merge ask (dc2fff3c). Worktree oak-wt-umbral-g4 detached CLEAN at c248b8149, branch deleted merged-safe — ADOPTABLE. Lane ends here per the handoff record; queue item 2b untouched (Prismatic's, gate now cleared).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "74b7b8d7-ff0b-4a72-82d5-351a0e85e2cf",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "45b3a187-4c4c-4ac5-8bf4-7226d912c50f",
+      "agent_id": {
+        "agent_name": "Smouldering Stoking Hearth",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "fddf14",
+        "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.unit.test.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.integration.test.ts",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/prompts.e2e.test.ts",
+            "docs/architecture/architectural-decisions/123-mcp-server-primitives-strategy.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:16:42Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "w1-c1 position-anchored-teaching-continuity prompt TDD cycle (plan .agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md; owner-assigned implementer; Director GO Sunlit 11:15:17Z, ratified by Iridescent Moment-2 11:16:13Z). One PR off origin/main from fresh worktree oak-wt-smouldering, branch feat/position-anchored-prompt. Four registration surfaces + tests + ADR-123 drift reconciliation.",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T12:08:18Z",
+        "closed_by": {
+          "agent_name": "Nebulous Shimmering Nebula",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "3493fb",
+          "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+        },
+        "summary": "Closed-discharged at successor pickup (Nebulous Shimmering Nebula 3493fb): retained-for-handoff purpose fulfilled — handoff record 2026-06-11-smouldering-pr178-to-nebulous.md read end to end, pickup notification dc309d50 posted, continuation claim opened on the same surfaces. w1-c1 delivered to PR #178 at 32ba1ceeb (7/7 checks green at Smouldering's stand-down); remainder (where-next rename + 2 Copilot fixes + monitor-to-merge) continues under the successor's claim.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "45b3a187-4c4c-4ac5-8bf4-7226d912c50f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

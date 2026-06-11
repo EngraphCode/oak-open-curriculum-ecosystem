@@ -176,3 +176,69 @@ capture continues below.
   own unstated practice; an author caught by the clause they drafted; a routing lesson paying
   twice in sixty minutes). The PDR-044 immune-system metaphor is observable as live behaviour,
   not aspiration. Observation only — no action; re-read if a doctrine-velocity question arises.
+
+## 2026-06-11 — Blustery Buffeting Gale (9819b2): G4b fourth holder + eef-reproof seat
+
+- **Piped-push false-green SECOND instance** (existing candidate, trigger data): `git push 2>&1 |
+  tail -3` reported the hook banner green and exit 0 while transferring NOTHING (branch absent
+  from ls-remote). Identical to Seaworthy Fathoming Pier's failure-mode event e589b3c7 same
+  morning. Cure applied: unpiped push to a log file + explicit exit capture + `ls-remote | grep
+  <sha>` as the only transfer proof. The piped form's exit reflects the LAST pipe stage, and the
+  hook banner prints before transfer — neither proves the ref moved.
+- **Timestamps compare in UTC only — successor-bootstrap misread class**: during grounding I
+  compared comms `created_at` (UTC) against file mtimes (BST display) and inferred a dead team
+  from a 1-hour phantom gap; first-hand re-check (`date -u` vs a fresh event) corrected it
+  before any action. Same class as Cindery's 08:52Z one-cadence-window retirement misread of
+  Seaworthy (their closeout names it). The successor-bootstrap window is when this class bites:
+  the incoming agent reads narrative + filesystem state before its own watcher is live. Cure:
+  derive "now" with `date -u` FIRST and compare like-for-like; never infer liveness from mtime
+  display time.
+- **candidate: routing-declared plan promotion is not a landed file move** — the Director
+  routing said the seed plan was "PROMOTED future/->current/", and the coordination-home copy
+  agreed, but origin/main still carried the future/ copy; my Write to current/ created a
+  duplicate that surfaced only as `create mode` in the commit stat. Cure applied: complete the
+  move honestly in the delivering PR (remove future/ copy, repoint the four LIVE referrers,
+  leave historical records). Generalises: verify any claimed file MOVE against the branch you
+  are actually editing (`git log origin/main -- <old-path>`), not against routing text or
+  another branch's tree — same family as verify-dont-trust + the stale-ADOPTABLE worktree
+  lesson (Sunlit's, same hour). Graduation-target: verify-dont-trust clause or distilled entry;
+  trigger: second instance.
+- **The push false-green class bit ME twice within the hour of noting its cure** (PR #176):
+  attempt 1 piped (`| tail -2`, tail's exit 0, no transfer); attempt 2 UNPIPED but
+  file-redirected — SIGPIPE exit 141 AFTER a fully-green 103-task hook, zero transfer; bare
+  push succeeded third. Lesson beyond the known class: noting a cure is not living it — the
+  discipline held only because the ls-remote proof step was mechanical, not judgement.
+  Distilled entry refined with the no-pipe variant; second instance also hit Blustery
+  independently (their record). Surprise shape: expectation "redirection is safe, only pipes
+  lie" → reality "the transfer phase can die silently under any output capture".
+- **candidate: prefer mechanical firing moments over vigilance clauses when graduating
+  lessons** (cross-experience synthesis, consolidation step-4c, 2026-06-11 Hushed). All SIX
+  of today's experience files independently describe doctrine that was READ but failed to
+  FIRE until an external catch: Arboreal caught by the clause they were drafting; Pier
+  stall-pinged under a stale label; Oceanic wrong in their own ping + refuted on a verified
+  claim; Sunlit quoting a 16-min-stale fact after reading the doctrine at bootstrap;
+  Ethereal failed loudly by the cure they commissioned; Hushed bitten twice by the push
+  false-green within the hour of noting its cure. In every case the closure came from
+  OUTSIDE the agent's context (peer/Director/bot) or from a MECHANICAL step (ls-remote
+  proof, typed-args rejection, guard test, loud-write token) — never from re-reading.
+  Graduation-target: PDR-shaped (knowledge-flow discipline: when graduating a lesson,
+  prefer encoding the firing moment mechanically over adding a vigilance clause);
+  trigger-condition: next dedicated curation pass walks it with the owner (Core
+  stabilise posture per the 2026-06-11 Arboreal scope signal holds — capture only now).
+  Evidence: the six 2026-06-11 .agent/experience files, read together.
+
+## 2026-06-11 — eef-revalidation successor seat (Scorched Kindling Ash, 0d8138)
+
+- **Copilot threads CAN auto-resolve — as outdated-on-fix-push, not on reply.** The standing
+  gotcha ("Copilot threads NEVER auto-resolve; reply then GraphQL resolveReviewThread") is about
+  the REPLY path; this lane's three link-depth threads flipped to resolved+outdated when the fix
+  commit pushed, with no reply and no manual resolve. Both paths end at the same proof: the
+  fresh GraphQL 0-unresolved recount at compose time, never the resolution mechanism. Verdict
+  still goes on the PR record (issue comment) when threads self-resolve.
+- **A monitor loop that swallows stderr makes its own failures undiagnosable** — my heartbeat
+  loop's one transient emit failure (registry mid-churn at the sixth-to-seventh succession)
+  surfaced as a bare "FAILED" line because the loop sent stderr to /dev/null. Cure applied at
+  restart: capture stderr into the failure line (`ERR=$(cmd 2>&1 >/dev/null) || echo "FAILED:
+  $ERR"`); sibling of the loud-writes class. The canonical watcher's fail-loud drain-timeout +
+  same-seen-file restart path worked exactly as documented (second worked instance, zero missed
+  events — gap window verified by seen-vs-dir sweep).

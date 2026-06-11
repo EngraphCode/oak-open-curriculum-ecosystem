@@ -178,7 +178,11 @@ a piped `git push` twice produced ONLY the pre-push hook banner — the transfer
 happened, so even the full captured output false-greens unless you notice the
 `* [new branch]`/fast-forward lines are MISSING. A push's proof is the transfer line
 PLUS a fresh `git ls-remote origin <branch>` showing the expected SHA; the hook
-banner is never the proof. Run pushes unpiped with the real exit echoed.
+banner is never the proof. Run pushes unpiped with the real exit echoed. Second
+lived instance same day (Hushed, PR #176): even an UNPIPED push redirected to a
+file died SIGPIPE (exit 141) after a fully-green hook with ZERO transfer — only a
+bare push transferred, and only ls-remote distinguished the three attempts. The
+proof discipline is unconditional, not a piping-hygiene rule.
 
 ## An uncapped workflow `findings[]` array runs a StructuredOutput agent away
 
