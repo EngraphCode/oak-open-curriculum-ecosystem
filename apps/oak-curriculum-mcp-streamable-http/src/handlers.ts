@@ -24,6 +24,7 @@ import {
   type UniversalToolName,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
+import { measureCallToolResult } from './observability/tool-result-measurement.js';
 import { registerAllResources, registerPrompts } from './register-resources.js';
 import {
   createDefaultRequestExecutor,
@@ -179,7 +180,7 @@ function registerTools(
 
     const handler = async (params: unknown, extra: Parameters<ToolCallback>[0]) => {
       options.observability.setTag('mcp.tool_name', tool.name);
-      return handleToolWithAuthInterception({
+      const result = await handleToolWithAuthInterception({
         tool,
         params,
         deps,
@@ -189,6 +190,13 @@ function registerTools(
         createAssetDownloadUrl: options.createAssetDownloadUrl,
         authInfo: extra.authInfo,
       });
+      // Outbound token health metric, per-field half: every tool result —
+      // including auth errors — is measured (sizes only, never content).
+      options.logger.info('MCP tool result size', {
+        toolName: tool.name,
+        ...measureCallToolResult(result),
+      });
+      return result;
     };
 
     const config = {
