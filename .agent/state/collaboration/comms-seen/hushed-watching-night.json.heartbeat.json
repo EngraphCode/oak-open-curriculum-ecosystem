@@ -2,10 +2,10 @@
   "schema_version": "0.1.0",
   "pid": 93520,
   "started_at": "2026-06-11T08:50:42.294Z",
-  "last_drain_at": "2026-06-11T11:06:24.920Z",
-  "last_emit_at": "2026-06-11T11:06:16.231Z",
+  "last_drain_at": "2026-06-11T11:35:13.830Z",
+  "last_emit_at": "2026-06-11T11:34:11.166Z",
   "last_error_at": null,
-  "emitted_count": 203,
+  "emitted_count": 258,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {
     "agent_name": "Hushed Watching Night",

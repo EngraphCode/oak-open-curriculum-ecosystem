@@ -1,7 +1,23 @@
 ---
-status: c0-ratified-pending-readiness-reviewers
+status: ready-for-execution
 created: 2026-06-11
 collection: user-experience/educator-end-users
+implementer: >-
+  Smouldering Stoking Hearth (owner-named 2026-06-11, ~10:58Z, in the
+  authoring session: "your job is planning, theirs is implementation").
+  Planning by Oceanic Flowing Harbour (e05bf4); execution claims open at the
+  implementer's hand per §Lifecycle.
+readiness: >-
+  Reviewers run 2026-06-11 at authoring: assumptions-expert (not-ready ->
+  conditions absorbed: the stale item-5 sequencing removed [claim closed at
+  PR #175 mid-review]; the NC verify-and-ground item INVERTED — the field IS
+  served via UnitSummaryResponseSchema -> get-units-summary, the plan
+  author's original zero-hits grep used the wrong directory) and mcp-expert
+  (ready-with-conditions -> all four absorbed: four registration surfaces
+  named incl. prompt-schemas.ts + register-prompts.ts; explicit test
+  enumeration incl. the 6->7 count assertion; ADR-123 reconcile-drift scope;
+  single-anchor-mode misconception instruction + test). Every load-bearing
+  reviewer claim re-verified first-hand before absorption.
 todos:
   - id: w1-c0-owner-design-gate
     content: >-
@@ -16,20 +32,37 @@ todos:
     status: completed
   - id: w1-c1-prompt-cycle
     content: >-
-      TDD cycle: prompt-surface tests describe the served prompt (definition,
-      arguments, message orchestration incl. the KS4-science sequences caveat
-      and attribution block) -> add the prompt definition + message generator;
-      ADR-123 prompt count + table row; e2e prompts/get parity. One PR,
-      Director-serialised.
+      TDD cycle, ONE PR, Director-serialised. Tests first: SDK
+      mcp-prompts.unit.test.ts count 6->7 + definition/arguments assertions;
+      message-generator tests (orchestration incl. the KS4-science sequences
+      caveat carried verbatim from curriculum-mapping, the OGL attribution
+      block, AND an assertion that the misconception-graph step instructs ONE
+      explicit anchor mode with <slug-from-step-N> placeholders — the tool's
+      exactly-one-anchor contract errors on ambiguity); e2e
+      prompts.e2e.test.ts list/get arrays. Implementation across ALL FOUR
+      registration surfaces: mcp-prompts.ts (MCP_PROMPTS entry AND the
+      getPromptMessages switch case — a missing case silently serves []),
+      mcp-prompt-messages.ts (generator), apps prompt-schemas.ts (new Zod
+      args schema — required args non-optional, classNotes .optional(); this
+      is the spec-SHOULD -32602 enforcement surface), apps
+      register-prompts.ts (PROMPT_REGISTRATIONS entry). The landing page
+      renders prompts dynamically from MCP_PROMPTS — no manual edit. ADR-123:
+      reconcile EXISTING drift, not append-a-row (table lists 5 with the old
+      eef-evidence-grounded-lesson-plan name vs shipped adapt-lesson; prose
+      says "four curriculum prompts" and "intentionally small (4)"; shipped
+      count is 6 going to 7).
     status: pending
     depends_on: [w1-c0-owner-design-gate]
   - id: w2-c1-impact-language-alignment
     content: >-
       Bounded outward-language alignment pass: sequencing / builds-on /
       curriculum-connected impact vocabulary across the named surfaces, every
-      claim verified against delivered tool behaviour; includes the
-      curriculum-mapping NC-coverage over-claim verify-and-ground item.
-      Landing-page surface sequences BEHIND the item-5 claim (Hushed, seat Z).
+      claim verified against delivered tool behaviour. NC-coverage vocabulary
+      is ALREADY GROUNDED (UnitSummaryResponseSchema.nationalCurriculumContent
+      -> get-units-summary -> the curriculum-mapping coverage column) — no
+      remediation; W2 may cite that chain. No live claim covers the
+      landing-page file at authoring time; run the standard collision-safety
+      read of active-claims.json at W2 execution start.
     status: pending
 ---
 
@@ -84,14 +117,17 @@ Arguments: `subject` (required), `yearGroup` (required), `justCovered`
 
 ### W1 — the prompt (c0 gate, then one TDD cycle)
 
-- **c0 (owner design gate)**: name + argument set + chaining shape, mirroring
-  the S3 c0 shape. Candidates above; owner decides; name lands through the S2
-  fixed vocabulary with sign-off at the PR.
-- **c1 (one cycle, one PR)**: prompt-surface tests describe the served prompt
-  (definition + arguments + message orchestration incl. KS4 caveat + OGL
-  attribution block, mirroring the landed prompt tests); implementation in
-  `mcp-prompts.ts` + `mcp-prompt-messages.ts`; ADR-123 prompt count/table;
-  e2e `prompts/get` parity. Director-serialised merge.
+- **c0 (owner design gate)**: COMPLETED 2026-06-11 — new prompt + argument
+  set ratified by the owner; the name lands through the S2 fixed vocabulary
+  with sign-off at the PR.
+- **c1 (one cycle, one PR)**: full scope in the frontmatter todo — tests
+  first (SDK unit count 6→7, generator assertions incl. the
+  single-anchor-mode instruction for the misconception step, e2e list/get
+  arrays), then the FOUR registration surfaces (SDK `mcp-prompts.ts` array +
+  switch case, `mcp-prompt-messages.ts`, apps `prompt-schemas.ts`, apps
+  `register-prompts.ts`), plus the ADR-123 drift reconciliation (5-row table
+  with a stale prompt name; "four"/"(4)" prose; shipped count 6→7). The
+  landing page renders prompts dynamically — no manual edit.
 
 ### W2 — outward impact-language alignment (one bounded pass)
 
@@ -103,25 +139,28 @@ verified against delivered behaviour** before it is written:
 - MCP server instructions block (the "AI Agent Guidance" served text) and
   `get-curriculum-model` orientation copy.
 - Prompt descriptions (sequencing / builds-on-what-came-before vocabulary).
-- Root README + the MCP app landing page (hero/tools copy) — the landing-page
-  file sequences BEHIND the live item-5 claim (seat Z) to avoid collision.
-- **Named verify-and-ground item**: the live `curriculum-mapping` prompt asks
-  for a "national curriculum coverage" output column, but no tool surfaces
-  `nationalCurriculumContent` (verified 2026-06-11: zero hits in SDK source
-  and codegen output; the field exists only in the bulk export schema). Either
-  ground that step in a real surface or soften the claim — an unsupported NC
-  claim is precisely the credibility failure the impact language must avoid.
-  The full NC surface remains owned by the future
+- Root README + the MCP app landing page (hero/tools copy) — no live claim
+  covers the landing-page file at authoring time (the item-5 claim closed at
+  PR #175); run the standard collision-safety read of `active-claims.json`
+  at W2 execution start.
+- **NC vocabulary is grounded — cite, don't soften**: verified 2026-06-11
+  (readiness review + first-hand):
+  `UnitSummaryResponseSchema.nationalCurriculumContent`
+  (`oak-sdk-codegen/src/types/generated/zod/curriculumZodSchemas.ts`) flows
+  through `get-units-summary` into the `curriculum-mapping` prompt's
+  coverage step. W2 may use national-curriculum-coverage language for that
+  chain. The deeper NC-statement surface remains owned by the future
   `nc-knowledge-taxonomy-surface` plan (separate; not pulled in here).
 
 ## Prerequisites
 
-- Track-G graph tools — **blocking, satisfied** (merged through #173).
+- Track-G graph tools — **blocking, satisfied** (merged through #173; tool
+  registration verified in `universal-tools/definitions.ts` + `executor.ts`).
 - S3 attribution-validation owner step — **not a prerequisite** (this prompt
-  derives from no oak-skills content; it composes served tools only).
-- Item 5 (AGGREGATED_TOOL_ORDER) — **beneficial** for W2's landing-page file
-  only (collision avoidance); minimum shippable shape: land W2 minus that one
-  file, or sequence behind seat Z's PR.
+  derives from no oak-skills content; it composes served tools only; the OGL
+  attribution block is the landed static pattern).
+- No other prerequisites. Item 5 closed at PR #175 before this plan reached
+  readiness; the formerly planned landing-page sequencing is moot.
 
 ## Non-goals
 

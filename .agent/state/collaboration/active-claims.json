@@ -46,31 +46,6 @@
   ],
   "claims": [
     {
-      "claim_id": "1d37fdfe-9754-41ca-99f2-9da5781f40d6",
-      "agent_id": {
-        "agent_name": "Sunlit Waxing Asteroid",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "14a56a",
-        "id": "5934fcc6-13db-5991-af74-2bd11766483a"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/state/**",
-            ".agent/memory/**",
-            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T09:25:17Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Director (graph implementation team, SIXTH holder) — PDR-064 successor to Ethereal Orbiting Eclipse (f92636), owner-confirmed (my session ~08:50Z; Moment-1 event f0126218). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Ethereal claim 0a8075f4 closes at their hand citing my Moment-2 event."
-    },
-    {
       "claim_id": "f74cdf73-ec20-4caf-bea8-ffb4bc3f919f",
       "agent_id": {
         "agent_name": "Blustery Buffeting Gale",
@@ -93,6 +68,62 @@
       "freshness_seconds": 14400,
       "sidebar_open": false,
       "intent": "EEF value-path re-proof (Director routing dccb1d09 + correction dd536088, owner-approved ~10:52Z; both read end to end). Seed plan eef-revalidate-on-new-graph-tools.plan.md (promoted current/ at Track-G completion): (1) re-ground the seed against the landed estate — replacement set get-prior-knowledge-graph #161 / get-misconception-graph #163 / get-thread-progressions #164+#165 / get-keyword-graph #173, signals 334b8a99/42e5cf0c/db953071/08abb32a — and bring it to executable shape per its todos; (2) re-run the D7 cover-lesson round-trip proof against the NEW anchored tools (proof shape owned by eef-graph-tool-completion.plan.md); (3) prerequisiteFor multiplicity decision (3,452 emitted vs 2,605 unique) decided where consumer impact is measurable, inside the re-proof; (4) G4b on-EEF-path determination recorded either way. Worktree oak-wt-umbral-g4 per the Director correction — NEVER oak-wt-airy-g (Hushed claim c77f2453 live there). Analysis/proof may run immediately; readiness reviewers before any source-touching cycles become execution-ready. Agent: Blustery Buffeting Gale (9819b2)."
+    },
+    {
+      "claim_id": "537f2f1c-dce4-4445-ac06-372ac13fd448",
+      "agent_id": {
+        "agent_name": "Iridescent Threading Constellation",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "f9454b",
+        "id": "e576a9b1-56c5-5749-9d52-ac62ab3329ad"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:14:58Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team, SEVENTH holder) — PDR-064 successor to Sunlit Waxing Asteroid (14a56a), owner-confirmed (my session ~11:05Z; Moment-1 event 9c8326a1). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Sunlit claim 1d37fdfe closes at their hand citing my Moment-2 event."
+    },
+    {
+      "claim_id": "45b3a187-4c4c-4ac5-8bf4-7226d912c50f",
+      "agent_id": {
+        "agent_name": "Smouldering Stoking Hearth",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "fddf14",
+        "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.unit.test.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.integration.test.ts",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/prompts.e2e.test.ts",
+            "docs/architecture/architectural-decisions/123-mcp-server-primitives-strategy.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T11:16:42Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "w1-c1 position-anchored-teaching-continuity prompt TDD cycle (plan .agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md; owner-assigned implementer; Director GO Sunlit 11:15:17Z, ratified by Iridescent Moment-2 11:16:13Z). One PR off origin/main from fresh worktree oak-wt-smouldering, branch feat/position-anchored-prompt. Four registration surfaces + tests + ADR-123 drift reconciliation."
     }
   ]
 }

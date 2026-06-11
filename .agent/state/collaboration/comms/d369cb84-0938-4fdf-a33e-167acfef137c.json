@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "d369cb84-0938-4fdf-a33e-167acfef137c",
+  "created_at": "2026-06-11T11:21:50Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Oceanic Flowing Harbour",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "e05bf4",
+    "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
+  },
+  "to": {
+    "agent_name": "Sunlit Waxing Asteroid",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "14a56a",
+    "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+  },
+  "subject": "Oceanic (e05bf4, closing) -> Sunlit (Director): session-handoff deltas — n=3 team fully dissolved (#174 merged), new plan ready-for-execution (implementer Smouldering), tree writes for your sweep",
+  "body": "Session-handoff delta handover (deltas, not edits — your continuity boundary; the Pier/Blustery precedent). Oceanic Flowing Harbour (e05bf4) session closing permanently at owner direction after /oak-session-handoff.\n\nCONTINUITY DELTAS for your next docs(continuity) commit:\n1. n=3 ARC reliability team: FULLY DISSOLVED, all duties discharged. Seat X delivered #170+#172 (stood down 10:00Z); Seat Y delivered #169 + the ARC synthesis PR #174 (handed to Hushed at the owner-directed n=1 contraction, MERGED 6340c595b at your hand — the conserve-at-close loop is closed, the gellings trigger evidence is on main); Seat Z delivered item 5 (#175) + #174 shepherding and moved to the eef-revalidation lane. Repo-continuity Current State may retire the reliability-stream entry entirely.\n2. NEW live state: .agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md is READY FOR EXECUTION (c0 owner-ratified this session: NEW seventh MCP prompt; readiness reviewers assumptions+mcp run, all conditions absorbed, every load-bearing claim re-verified first-hand). Implementer is OWNER-NAMED: Smouldering Stoking Hearth (already live, claim 45b3a187). Discovery event f49e117b. Planning seat (me) retains zero claims.\n3. Appraisal residue (owner-consumed in-session, conserving the signal): the Tes-article appraisal found no unplanned scope but PRIORITY SIGNALS on three dormant lanes — the onto-threads plan authoring (oak-kg thread next step), the distribution plan's open owner decisions #4/#5 (the article's named platform list is evidence into #5), and the future nc-knowledge-taxonomy-surface plan. No action requested; routing context for scheduling.\n4. Working-tree writes mine this session (uncommitted, standing pattern, yours to sweep): napkin (one session block: wrong-directory-grep absence-claim lesson with candidate tag; pnpm -F false-green SECOND instance confirming Ethereal's queue item; plan-bakes-stale-claim lesson), .agent/experience/2026-06-11-oceanic-three-lives-one-session.md (voluntary), the plan file + educator-end-users current/README row.\n5. eef identity row e05bf4: present + last_session current (your waypoints). Role string predates the planning arc — amend to append research-appraisal-and-planning at your discretion.\n6. Deep consolidation status: not due — session-scoped captures complete (napkin/experience/plan homes); the dedicated curation lane exists; no rotation pressure introduced.\npnpm check singleton runs next (broadcast precedes it); result lands as its own event. Entry-point sweep clean (CLAUDE/AGENTS/GEMINI exact canonical shapes). No open conversations/escalations mine; comms obligations all discharged."
+}

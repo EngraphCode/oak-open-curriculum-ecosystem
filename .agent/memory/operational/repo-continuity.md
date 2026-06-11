@@ -20,35 +20,37 @@ surface.
 
 ## Current State
 
-- **TRACK-G COMPLETE + CURED — graph implementation team, sixth Director (2026-06-11).**
-  Live NOW: **Sunlit Waxing Asteroid (`14a56a`, Fable 5) is the Director** (sixth holder;
-  PDR-064 Moment 2 at ~09:26Z 06-11, event `118ad69e` on Ethereal's Moment-1 `f0126218`;
-  coordination home = primary checkout, branch `docs/graph-team-direction-2026-06-10`). **TRACK-G NOW
-  COMPLETE IN FULL — G4b PR #173 MERGED `c868bb52e` 10:33Z** (get-keyword-graph owner-signed-off;
-  four seat holders through three clean PDR-063 rotations; plan g4 todo completed; the G4b
-  on-EEF-path determination rides the re-proof). Live lane: **ARC reliability contracted to
-  n=1** (Hushed Watching Night `999f69`: #174 ARC-synthesis monitor-to-merge inherited from
-  Oceanic at the owner-directed contraction + item-5 micro-PR [Director GO sent] + team
-  closeout; #169 + #170 + #172 delivered earlier — seats X and Y stood down zero-retained;
-  follow-on (b) trigger-gated). MERGED across the arc: S1 #152, G1a #153, #154, S2 #155, U1 #156, comms-watch #157,
-  G4a #158, resync #159, turbo-env #160, **G1b #161, G2 #163, G3 #164, year-axis re-chain
-  #165, S3 #162** (`curriculum-mapping` owner-approved), and under the fifth directorship
-  #166–#170 + origin/main merged into the coordination home (`ae1802da1`, Q-008 resolved) —
-  all three whole-corpus graph tools are anchored+bounded on the one-graph corpus, the factory
-  is retired, the falsified within-thread-ordering premise is cured end-to-end, and **all
-  eef-revalidation signals are raised** (the downstream re-proof plan has its full G1–G3 input
-  set). Open owner items: principles-prompt attribution validation (gates the owner-pinned S3
-  principles follow-on, plan s3 todo); bulk-export-lags-live (hold as-is, owner 06-11).
-  Authority: the graph plan's todos + the eef thread record (sixth-holder entry). Witness
-  synthesis: `reports/graph-team-first-worktree-run-analysis-2026-06-10.md` (+ §8/§9 addenda).
-  Since then at the sixth Director's hand: **#174 merged `6340c595b`** (ARC evidence on main),
-  **#175 merged `5310d1e4e`** (reliability micro-queue fully drained; follow-on (b)
-  trigger-gated), and the **re-proof plan PROMOTED to current/ + ROUTED to Blustery Buffeting
-  Gale** (`9819b2`, claim `f74cdf73`). **Director succession: Iridescent Threading
-  Constellation owner-named seventh holder** (~11:02Z; Moment-1 pre-positioning at this
-  waypoint). **Next safe step**: Blustery's re-proof arc (the multiplicity + G4b-on-EEF-path
-  decisions ride it); Hushed's team closeout; the S3 principles follow-on unblocks at the
-  owner's attribution direction.
+- **TRACK-G COMPLETE + CURED — graph implementation team, seventh Director (2026-06-11).**
+  Live NOW: **Iridescent Threading Constellation (`f9454b`, Fable 5) is the Director**
+  (seventh holder; PDR-064 Moment 2 at ~11:16Z 06-11, event `3985ce20` on Sunlit's Moment-1
+  `9c8326a1`; Sunlit closed out zero-retained, closeout `7ad83f44`; coordination home =
+  primary checkout, branch `docs/graph-team-direction-2026-06-10`). **TRACK-G COMPLETE IN
+  FULL — G4b PR #173 MERGED `c868bb52e` 10:33Z** (get-keyword-graph owner-signed-off; four
+  seat holders through three clean PDR-063 rotations; plan g4 todo completed; the re-proof
+  has since RECORDED the G4b determination: NOT on the EEF path, no signal). **ARC
+  reliability DISSOLVED in full** (all duties discharged: #169/#170/#172 + ARC synthesis #174
+  `6340c595b` + item-5 #175 `5310d1e4e`; residue = PR #176 conservation [Hushed shepherding]
+  plus Hushed's team closeout; follow-on (b) trigger-gated). MERGED across the arc: S1 #152,
+  G1a #153, #154, S2 #155, U1 #156, comms-watch #157, G4a #158, resync #159, turbo-env #160,
+  **G1b #161, G2 #163, G3 #164, year-axis re-chain #165, S3 #162** (`curriculum-mapping`
+  owner-approved), fifth directorship #166–#170 + origin/main merged into the coordination
+  home (`ae1802da1`, Q-008 resolved) — all three whole-corpus graph tools are
+  anchored+bounded on the one-graph corpus, the factory is retired, the falsified
+  within-thread-ordering premise is cured end-to-end, and **all eef-revalidation signals are
+  raised**. Live lanes NOW: **Blustery Buffeting Gale** (`9819b2`, claim `f74cdf73`) — the
+  re-proof, proof rounds COMPLETE and green, multiplicity decided (dedup at emission;
+  implementation = a new Director-queue item), remaining = plan rewrite + one docs PR +
+  serialised merge (successor Scorched Kindling Ash `0d8138` on standby); **Smouldering
+  Stoking Hearth** (`fddf14`, claim `45b3a187`) — position-anchored-teaching-continuity
+  w1-c1 (plan READY, Oceanic-authored, owner-ratified c0; worktree oak-wt-smouldering);
+  **Prismatic Shimmering Planet** (`65394e`) standby for Hushed's remainder at Hushed's own
+  closeout boundary. Open owner items: principles-prompt attribution validation (gates the
+  owner-pinned S3 principles follow-on, plan s3 todo); bulk-export-lags-live (hold as-is,
+  owner 06-11). Authority: the graph plan's todos + the eef thread record (seventh-holder
+  entry). Witness synthesis: `reports/graph-team-first-worktree-run-analysis-2026-06-10.md`
+  (+ §8/§9 addenda). **Next safe step**: #176 merge ask → serialised merge; Hushed closeout →
+  Prismatic routing; Blustery's docs PR → merge → Scorched rotation; Smouldering w1-c1 PR;
+  the S3 principles follow-on unblocks at the owner's attribution direction.
 - **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling /
   `47f78a`, claude / Fable 5, owner-directed; PR #143 + a stacked PR from
   `feat/graph-migration-part-2`).** The plan-review-and-readiness session the prior entry queued.

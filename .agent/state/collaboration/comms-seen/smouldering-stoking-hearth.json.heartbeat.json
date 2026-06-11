@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 21967,
+  "started_at": "2026-06-11T11:11:31.700Z",
+  "last_drain_at": "2026-06-11T11:35:30.589Z",
+  "last_emit_at": "2026-06-11T11:35:15.818Z",
+  "last_error_at": null,
+  "emitted_count": 47,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Smouldering Stoking Hearth",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fddf14",
+    "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+  }
+}

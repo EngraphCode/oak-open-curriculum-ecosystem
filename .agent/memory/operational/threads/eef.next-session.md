@@ -11,7 +11,47 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
+- **THIS SESSION (2026-06-11 midday, Iridescent Threading Constellation / claude Fable 5,
+  Director SEVENTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) —
+  sixth PDR-064 Director succession, completed cleanly.** Sunlit's Moment-1 pre-positioning
+  (event `9c8326a1`, 11:13:50Z; owner-confirmed in both sessions — the naming IS the
+  authorization) → my Moment-2 acknowledgement (event `3985ce20`, ~11:16Z; Director claim
+  `537f2f1c` on the coordination boundary) → Sunlit closed `1d37fdfe` at their own hand citing
+  it, posted closeout (`7ad83f44`) + heartbeat-end, ZERO retained. Their four merges
+  (#172–#175), Track-G completion (#173), and the re-proof promotion+routing are recorded in
+  their entry below. **One compose-time race caught live at the transition**: my drafted
+  Moment-2 said Smouldering's GO would come from me; Sunlit issued the GO at 11:15:17Z under
+  retained authority — watcher caught it, body amended before posting (the
+  directed-backlog-before-compose cure working as designed). **Team shape at takeover (all
+  registry-verified)**: Blustery Buffeting Gale (9819b2, claim `f74cdf73`) — eef-revalidation
+  re-proof, proof rounds COMPLETE and green, multiplicity decision RECORDED (dedup at emission;
+  IMPLEMENTATION routed to the Director queue, off their lane), G4b determination RECORDED
+  (NOT on the EEF path; no signal raised), remaining = plan rewrite + one docs PR +
+  Director-serialised merge; Scorched Kindling Ash (0d8138) owner-named successor on standby at
+  Blustery's PDR-063 boundary. Hushed Watching Night (999f69) — boundary arc: PR #176 (final
+  ARC conservation) to merge (my monitor armed at Sunlit's stop; merge ask comes to me), then
+  napkin delta + handoff record for Prismatic + TEAM CLOSEOUT (named owner); the
+  relabel-heartbeat-loop graduation disposition is MINE (Hushed discharged the routing duty,
+  event 11:15:05Z; both triggers fired). Prismatic Shimmering Planet (65394e) — standby;
+  absorbs Hushed's remainder at HUSHED'S OWN closeout boundary, never on a label lag.
+  Smouldering Stoking Hearth (fddf14, claim `45b3a187`) — position-anchored-teaching-continuity
+  w1-c1 under Sunlit's GO (fresh worktree oak-wt-smouldering, branch
+  feat/position-anchored-prompt; Oceanic's plan READY broadcast 11:14:26Z; Oceanic closed out —
+  plan-authoring lane complete, outside this team). **Director queue as inherited (Moment-1
+  §queue, order kept)**: 1. Blustery merge ask; 2. Hushed closeout → Prismatic routing;
+  2b. NEW prerequisiteFor-multiplicity dedup-at-emission implementation (small PR, route when a
+  seat frees); 3. owner-gated HELD AS-IS (principles attribution; bulk-export-lags-live);
+  4. small queue (lint:shell .husky gap; EDGE_TYPES derive-don't-parallel `9d35369a`;
+  control-byte gate-check `4fd66dc5`+`b84fae38`; ARC routing-card row; Stryker exploration;
+  duty-list graduation diff); 5. consolidation debt (failure-mode events read-forward;
+  relabel-heartbeat-loop candidate — disposition mine: register refresh or direct rule
+  amendment). **Standing rulings inherited whole** (chain `f0126218` + Sunlit's five: ls-remote
+  push proof; `pnpm exec tsx agent-tools/src/commit-advisories/check-commit-message.ts -F file`;
+  "PR n" never "PR #n" in commit bodies; compose-time registry re-derivation for routing facts;
+  owner decisions as explicit questions with verdict-as-recommended-option). **Next safe step**:
+  #176 merge ask → serialised merge; Hushed closeout → Prismatic routing; Blustery docs PR →
+  serialised merge → Scorched rotation; Smouldering w1-c1 PR when it lands.
+- **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
   `f0126218`, 09:23:35Z; owner-confirmed in my session ~08:50Z — naming IS the authorization,
@@ -574,11 +614,12 @@ session narrative for each is in git history; this table is the durable identity
 | `Evergreen Budding Sapling` | `claude` | `Fable 5` | `1e6b10` | `reliability-seat-sylvan-successor` | 2026-06-11 | 2026-06-11 |
 | `Seaworthy Surfing Compass` | `claude` | `Fable 5` | `e7dd0b` | `graph-implementation-g4b-tempestuous-darting-successor` | 2026-06-11 | 2026-06-11 |
 | `Cindery Forging Volcano` | `claude` | `Fable 5` | `378172` | `graph-implementation-g4b-implementer-third-seat-holder` | 2026-06-11 | 2026-06-11 |
-| `Oceanic Flowing Harbour` | `claude` | `Fable 5` | `e05bf4` | `n3-arc-reliability-successor-team-channel-opener` | 2026-06-11 | 2026-06-11 |
+| `Oceanic Flowing Harbour` | `claude` | `Fable 5` | `e05bf4` | `n3-arc-reliability-successor-team-channel-opener + research-appraisal-and-planning` | 2026-06-11 | 2026-06-11 |
 | `Seaworthy Fathoming Pier` | `claude` | `Fable 5` | `4a1b92` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
 | `Hushed Watching Night` | `claude` | `Fable 5` | `999f69` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
 | `Sunlit Waxing Asteroid` | `claude` | `Fable 5` | `14a56a` | `graph-implementation-director-sixth-holder` | 2026-06-11 | 2026-06-11 |
 | `Blustery Buffeting Gale` | `claude` | `Fable 5` | `9819b2` | `graph-implementation-g4b-final-seat-holder-delivered` | 2026-06-11 | 2026-06-11 |
+| `Iridescent Threading Constellation` | `claude` | `Fable 5` | `f9454b` | `graph-implementation-director-seventh-holder` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 

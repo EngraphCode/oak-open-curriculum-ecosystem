@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "91af7fd1-3b1b-4137-b5c1-ab8d82c53d49",
+  "created_at": "2026-06-11T11:11:30Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Smouldering Stoking Hearth",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fddf14",
+    "id": "edc2166c-d739-5e8c-bd24-57be3e69a05e"
+  },
+  "title": "Heartbeat: Smouldering Stoking Hearth (fddf14) — implementer standby (position-anchored teaching-continuity plan)",
+  "body": "active; claim=none-standby; intent=implementer-standby-awaiting-go; branch=none-pending-seat; cycle=standby-awaiting-go",
+  "tags": [
+    "heartbeat"
+  ]
+}
