@@ -6,7 +6,8 @@ import {
   showClaim,
   statusClaims,
 } from './cli-claim-query-commands.js';
-import { appendComms, migrateComms, renderComms, sendComms } from './cli-comms-commands.js';
+import { appendComms, migrateComms, renderComms } from './cli-comms-commands.js';
+import { sendComms } from './cli-comms-send.js';
 import { inboxComms } from './cli-comms-inbox.js';
 import { listComms, showComms } from './cli-comms-query.js';
 import { directComms, replyComms } from './cli-comms-messages.js';
