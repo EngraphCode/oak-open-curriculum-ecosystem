@@ -90,6 +90,17 @@ merge_class: index-narrative-tables
   bar closes there (owner ~12:04Z); Nebulous's w2-c1 PR; then the tranche-boundary
   consolidation pass (rich doctrine harvest + repo-continuity char-HARD cure) and next-tranche
   shaping from observed alpha use (owner doctrine: user impetus, not design momentum).
+  **TRANCHE COMPLETE (13:28Z)**: **PR #180 MERGED `a06b9dec8`** (2b dedup at emission, corpus
+  v1.4.0: 2,605 all-unique prerequisiteFor edges, 847 collapsed surfaced as a stat, selfLoops
+  33→30, zero review threads) — the owner's completion bar is CLOSED in full. Prismatic
+  closed their THIRD delivered boundary (#176 shepherd, #179 stories+plan, #180 dedup; all
+  claims archived delivered) and holds free-seat standby; six napkin-class deltas swept this
+  waypoint (TWO more graduation triggers fired: control-byte gate-check second instance
+  f305c720; claims-close relative-path second instance). Nebulous continues w2-c1
+  (impact-language + the declared count/name drift repairs). Remaining live surfaces at this
+  writing: Nebulous's w2-c1 PR (Director-serialised at its ask) and the recommended
+  TRANCHE-BOUNDARY CONSOLIDATION PASS (owner-gated next move; the doctrine harvest is
+  enumerated in the napkin sweep).
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
@@ -661,7 +672,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Iridescent Threading Constellation` | `claude` | `Fable 5` | `f9454b` | `graph-implementation-director-seventh-holder` | 2026-06-11 | 2026-06-11 |
 | `Smouldering Stoking Hearth` | `claude` | `fable-5` | `fddf14` | `position-anchored-w1c1-implementer` | 2026-06-11 | 2026-06-11 |
 | `Scorched Kindling Ash` | `claude` | `fable-5` | `0d8138` | `eef-revalidation-pr177-monitor-to-merge` | 2026-06-11 | 2026-06-11 |
-| `Prismatic Shimmering Planet` | `claude` | `fable-5` | `65394e` | `hushed-successor-pr176-pr179-then-2b-implementer` | 2026-06-11 | 2026-06-11 |
+| `Prismatic Shimmering Planet` | `claude` | `fable-5` | `65394e` | `pr176-shepherd-then-keyword-stories-then-2b-dedup` | 2026-06-11 | 2026-06-11 |
 | `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `smouldering-successor-pr178-w1c1-then-w2c1` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links

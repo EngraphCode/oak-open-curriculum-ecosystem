@@ -12641,6 +12641,54 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "2cb293ec-3457-4670-b9f0-2d3615620a5f",
+      "agent_id": {
+        "agent_name": "Prismatic Shimmering Planet",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "65394e",
+        "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-edges.ts",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-types.ts",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-generator.ts",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/*.test.ts",
+            "packages/sdks/oak-sdk-codegen/src/generated/vocab/graph-corpus/**",
+            "packages/sdks/graph-corpus-sdk/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T12:46:44Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director queue item 2b — prerequisiteFor multiplicity IMPLEMENTING cycle (dedup at emission; decision RECORDED in the merged re-proof report §2, NOT re-openable; routing pre-position 58c0b421 + 2b-is-yours confirmation at the PR-179 merge 12:45Z). One TDD cycle: RED-first generator test describing unique-(source,type,target) prerequisiteFor emission + dropped-duplicate count surfacing (collapsed-identical stat pattern precedent: collapsedIdenticalMisconceptions/Placements; reviewers check the exact home), the seen-set dedup in buildPrerequisiteEdges mirroring the sibling containsUnit/containsLesson builders, @remarks correction (multiplicity-as-placement-data claim is refuted), regenerated corpus. Pinned facts re-verified at execution start (3452 emitted / 2605 unique / 570 dup pairs max x8; selfLoops 33 instances 30 unique). Readiness reviewers (execution-legitimacy brief, decided scope respected) BEFORE execution-ready. One pure-diff PR off origin/main c13281ca3; worktree oak-wt-evergreen-rel, branch fix/prerequisitefor-dedup-at-emission. Agent: Prismatic Shimmering Planet (65394e).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T13:28:31Z",
+        "closed_by": {
+          "agent_name": "Prismatic Shimmering Planet",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "65394e",
+          "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+        },
+        "summary": "Director queue item 2b DELIVERED: PR #180 merged at the Director's hand — prerequisiteFor dedup at emission per the recorded re-proof decision. Corpus v1.4.0 on main: 2605 all-unique edges (847 collapsed surfaced as stats.collapsedIdenticalPrerequisiteEdges), selfLoops 30 instances, dropped arrays empty. RED-first cycle, readiness verdicts absorbed pre-execution, two structural lint cures, one failure-mode capture (escape-materialisation 0x1F instance, comms f305c720). Local branch cleared (-d, merged-safe); oak-wt-evergreen-rel detached clean at the merge commit — ADOPTABLE. Zero retained.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "2cb293ec-3457-4670-b9f0-2d3615620a5f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

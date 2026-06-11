@@ -264,3 +264,30 @@ capture continues below.
   inventory question and the what-would-you-do-differently question find different gaps.
   Graduation-target: repo-validators (or markdownlint config) link-resolution check;
   trigger: second shipped-dead-link instance, or owner direction.
+
+## 2026-06-11 — seventh Director session, tranche-completion sweep (Iridescent, f9454b)
+
+- **Handed deltas from Prismatic's three-boundary seat** (their closeout 13:29Z, written here
+  at the Director sweep): (1) escape-materialisation SECOND instance — an Edit-tool write
+  materialised an escape sequence into a literal 0x1F byte; cat -v + od caught it pre-commit;
+  the control-byte gate-check candidate's second-instance trigger has FIRED (live evidence:
+  failure-mode event f305c720). (2) heartbeat-loop clock-skew — two $(date) calls for
+  --now/--created-at raced a second boundary, CLI rejected created_at-in-future; cure: ONE
+  timestamp per tick (candidate clause for liveness-heartbeat-cron's invocation example,
+  rides with Pier's relabel + Scorched's stderr-capture). (3) comms reply needs the FULL
+  event UUID — 8-char prefix exits 2 loud; prefix-resolution CLI affordance candidate
+  (second-instance trigger now met: Prismatic + earlier instance). (4) claims close with
+  relative paths from a worktree cwd crashes — SECOND instance (Scorched then Prismatic);
+  candidate: CLI resolves --active/--closed against the coordination home root or refuses
+  relative paths. (5) vocab-gen in a worktree needs the gitignored bulk-downloads — symlink
+  from the primary checkout works and stays git-invisible; candidate line for the team
+  opener's worktree-setup section. (6) turbo FULL-TURBO replay on sdk-codegen masked that
+  data.json is written by vocab-gen — know the generator-task mapping before assuming a
+  regen ran.
+- **My own instances this session**: the background-wrapper exit-0 false-green bit my
+  waypoint-3 commit+push (wrapper green, both hooks red inside; caught by failure-marker
+  scan of the output, never the exit code — Smouldering's variant confirmed at my own hand,
+  third member of the piped-exit family). The MD004 wrapped-list-marker trap fired THREE
+  times today across two authors ("+ " at a wrapped line start; cures were reword-to-plus);
+  graduation pressure toward a structural cure (authoring reflex clause or a wrap-aware
+  check) rather than a remembered rule.
