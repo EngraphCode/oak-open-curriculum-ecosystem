@@ -466,6 +466,10 @@ describe('getPromptMessages', () => {
       // Anchor to the exact instructional example so a regression to a coarser
       // key-stage substitution (dropping the year filter) fails the test.
       expect(content).toContain('year: 4 for "Year 4"');
+      // The lessons fallback must keep the subject filter — dropping it raises
+      // the wrong-unit resolution risk when justCovered is ambiguous across
+      // subjects (the search tool supports subject and it is always available).
+      expect(content).toContain('keeping the subject filter');
     });
 
     it('instructs candidate presentation and teacher confirmation on ambiguous position matches', () => {
@@ -527,6 +531,9 @@ describe('getPromptMessages', () => {
       expect(content).toContain(
         'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
       );
+      // The credited dataset list matches what the workflow pulls: step 4
+      // uses get-misconception-graph, so misconception data is credited too.
+      expect(content).toContain('misconception data');
       // ADR-194: the surface informs; the teaching decision stays the teacher's.
       expect(content.toLowerCase()).toContain('decision is mine');
     });
