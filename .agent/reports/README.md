@@ -59,6 +59,13 @@ research notes or investigation logs.
   union): empirically-verified `EefStrand <: EefStrandHeadline` subtype collapse,
   why the nested-union fix is lossy, and the discriminant-vs-transport-shape
   recommendation for the deferred type review
+- [graph-team-first-worktree-run-analysis-2026-06-10.md](./graph-team-first-worktree-run-analysis-2026-06-10.md)
+  — witness synthesis of the graph implementation team's first per-worktree
+  multi-agent run (2026-06-10)
+- [graph-team-session-operations-and-experience-2026-06-10-11.md](./graph-team-session-operations-and-experience-2026-06-10-11.md)
+  — team operations and experience report for the full contiguous 38-agent /
+  seven-Director session (2026-06-10→11); substrate-under-load findings and
+  tooling considerations
 
 ## Related Surfaces
 
