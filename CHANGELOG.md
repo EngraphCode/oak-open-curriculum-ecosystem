@@ -1,3 +1,17 @@
+# [1.25.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.24.1...v1.25.0) (2026-06-11)
+
+
+### Bug Fixes
+
+* **mcp:** chain lesson-planning on the next unit's teaching year ([5eab2c3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5eab2c32235a56392feb0496dc8638277c07718d))
+* **mcp:** ground the continue-teaching fallback search and attribution ([b864f22](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b864f2279e3c591115a151f0d74280c02335a901))
+
+
+### Features
+
+* **mcp:** add continue-teaching position-anchored prompt ([32ba1ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/32ba1ceebd4b8ef4d5720b69a6fd243be8f68eda))
+* **mcp:** rename the position-anchored prompt to continue-progression ([5505a04](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5505a048d4c982e9ae887fdc741757f409450553))
+
 ## [1.24.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.24.0...v1.24.1) (2026-06-11)
 
 
