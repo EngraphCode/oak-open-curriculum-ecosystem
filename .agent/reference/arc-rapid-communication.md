@@ -231,11 +231,12 @@ first edition of this document now have observed answers:
   indistinguishable from a stalled seat under the PDR-078 stall
   diagnostic unless idle is declared (heartbeat label
   `none-by-design-<gate>` plus an on-channel posture line). The
-  convention proved out end-to-end: the declared-idle seat's gate
-  fired ~85 minutes after declaration, the coordinator's GO routed to
-  it by name (the declaration had made the seat's readiness legible in
-  the coordination handover package), and claim → delivery followed
-  with no liveness query ever raised against the waiting seat. Relatedly,
+  convention held end-to-end in its first full test: the declared-idle
+  seat's gate fired ~85 minutes after declaration, the coordinator's
+  go-ahead was routed to that seat by name (the declaration had made
+  the seat's readiness legible in the coordination handover package),
+  and claim → delivery followed with no liveness query ever raised
+  against the waiting seat. Relatedly,
   fixed-label heartbeat loops go stale by construction — relabel the
   loop as a named step of every lane transition, and stop the loop
   BEFORE emitting heartbeat-end.
