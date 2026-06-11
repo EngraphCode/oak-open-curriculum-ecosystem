@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.22.0...v1.22.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** re-derive prerequisiteFor chains on the year axis ([c5dcf6c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c5dcf6ca95afa6e44a7b784f537874d8d5536847))
+
 # [1.22.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.21.0...v1.22.0) (2026-06-11)
 
 
