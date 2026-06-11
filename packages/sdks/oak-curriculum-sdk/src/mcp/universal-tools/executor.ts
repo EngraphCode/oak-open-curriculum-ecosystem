@@ -165,7 +165,7 @@ type AggregatedHandler = (
 const AGGREGATED_HANDLERS: Readonly<Record<AggregatedToolName, AggregatedHandler>> = {
   search: handleSearchTool,
   'get-curriculum-model': () => Promise.resolve(handleCurriculumModelTool()),
-  'get-thread-progressions': () => Promise.resolve(runThreadProgressionsTool()),
+  'get-thread-progressions': (input) => Promise.resolve(runThreadProgressionsTool(input)),
   'get-prior-knowledge-graph': (input) => Promise.resolve(runPriorKnowledgeGraphTool(input)),
   'get-misconception-graph': (input) => Promise.resolve(runMisconceptionGraphTool(input)),
   'get-eef-evidence': (input) =>

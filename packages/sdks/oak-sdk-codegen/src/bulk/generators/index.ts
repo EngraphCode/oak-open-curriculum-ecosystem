@@ -53,13 +53,6 @@ export {
 } from './graph-corpus-generator.js';
 
 export {
-  generateThreadProgressionData,
-  type ThreadNode,
-  type ThreadProgressionGraph,
-  type ThreadProgressionStats,
-} from './thread-progression-generator.js';
-
-export {
   generateVocabularyGraphData,
   serializeVocabularyGraph,
   writeVocabularyGraphAsJson,
@@ -67,8 +60,6 @@ export {
   type VocabularyGraphStats,
   type VocabularyNode,
 } from './vocabulary-graph-generator.js';
-
-export { serializeThreadProgressionGraph, writeThreadProgressionFile } from './write-graph-file.js';
 
 export { writeGraphCorpusAsJson, graphCorpusDescriptor } from './write-json-graph-corpus-file.js';
 

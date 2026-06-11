@@ -22,9 +22,7 @@ describe('aggregated tools inputSchema propagation', () => {
 
     expect(aggregatedTools).toHaveLength(typeSafeKeys(AGGREGATED_TOOL_DEFS).length);
 
-    const toolsWithParams = aggregatedTools.filter(
-      (t) => t.name !== 'get-curriculum-model' && t.name !== 'get-thread-progressions',
-    );
+    const toolsWithParams = aggregatedTools.filter((t) => t.name !== 'get-curriculum-model');
 
     for (const tool of toolsWithParams) {
       expect(tool.inputSchema, `${tool.name} should have inputSchema`).toBeDefined();
@@ -154,11 +152,13 @@ describe('no-input tools have empty inputSchema (MCP spec: strict empty object)'
     expect(model?.inputSchema).toEqual({});
   });
 
-  it('get-thread-progressions inputSchema is an empty shape', () => {
+  it('get-thread-progressions inputSchema carries the anchored fields (G3 rewrite)', () => {
     const tools = listUniversalTools(generatedToolRegistry);
     const threadProgressions = tools.find((t) => t.name === 'get-thread-progressions');
 
     expect(threadProgressions).toBeDefined();
-    expect(threadProgressions?.inputSchema).toEqual({});
+    expect(
+      Object.keys(threadProgressions?.inputSchema ?? {}).sort((a, b) => a.localeCompare(b)),
+    ).toEqual(['keyStage', 'subject', 'threadSlug']);
   });
 });

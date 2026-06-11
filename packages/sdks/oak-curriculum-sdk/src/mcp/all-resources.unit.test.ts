@@ -17,7 +17,6 @@ describe('ALL_MCP_RESOURCES', () => {
     expect(uris).toStrictEqual([
       'docs://oak/getting-started.md',
       'curriculum://model',
-      'curriculum://thread-progressions',
       'eef://interpretation',
     ]);
   });
@@ -28,6 +27,10 @@ describe('ALL_MCP_RESOURCES', () => {
 
   it('does not list the removed misconception-graph resource (served by the anchored tool, G2)', () => {
     expect(uris).not.toContain('curriculum://misconception-graph');
+  });
+
+  it('does not list the removed thread-progressions resource (served by the anchored tool, G3)', () => {
+    expect(uris).not.toContain('curriculum://thread-progressions');
   });
 
   it('excludes the ui:// widget, which is not a resources/read data resource', () => {

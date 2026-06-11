@@ -12,7 +12,6 @@
  * @see `./tool-guidance-types.ts` for type definitions
  */
 
-import { threadProgressionGraph } from '@oaknational/sdk-codegen/vocab-data';
 import type { Workflow } from './tool-guidance-types.js';
 
 /**
@@ -167,10 +166,11 @@ export const toolGuidanceWorkflows = {
       },
       {
         step: 2,
-        action: 'Get the full progression graph for all threads',
+        action: 'Get the year-ordered progression for the thread found in step 1',
         tool: 'get-thread-progressions',
-        returns: `Complete static graph of all ${String(threadProgressionGraph.stats.threadCount)} threads with units ordered by progression`,
-        note: 'Lower unitOrder = earlier in progression',
+        example: 'get-thread-progressions({ threadSlug: "<thread-slug-from-step-1>" })',
+        returns:
+          'That thread’s unit progression ordered by teaching year (within one year the order is not curricular)',
       },
       {
         step: 3,
