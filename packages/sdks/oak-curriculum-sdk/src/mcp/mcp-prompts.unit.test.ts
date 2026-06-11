@@ -523,6 +523,19 @@ describe('getPromptMessages', () => {
       expect(content).toContain('lesson-planning');
     });
 
+    it('chains with the next unit’s teaching year and surfaces any divergence from the stated year group', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The next unit comes from the year-ordered progression and can sit on a
+      // different teaching year than the class label (the P3 live proof: a
+      // Year 4 class's next unit was Y5). Chaining with the stated yearGroup
+      // would steer lesson-planning's year-scoped search at the wrong year;
+      // the prompt instructs using the next unit's teaching year and flagging
+      // the difference — the teaching decision stays the teacher's (ADR-194).
+      expect(content).toContain("the next unit's teaching year from step 2");
+      expect(content.toLowerCase()).toContain('if that year differs from');
+    });
+
     it('carries Oak attribution under the Open Government Licence and keeps the teacher in charge', () => {
       const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
