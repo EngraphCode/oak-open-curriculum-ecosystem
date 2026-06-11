@@ -25,6 +25,7 @@ import {
   lessonPlanningArgsSchema,
   exploreCurriculumArgsSchema,
   learningProgressionArgsSchema,
+  curriculumMappingArgsSchema,
   adaptLessonArgsSchema,
 } from './prompt-schemas.js';
 
@@ -40,7 +41,7 @@ const PROMPT_REGISTRATIONS = [
     name: 'lesson-planning',
     title: 'Lesson Planning',
     description:
-      'Gather materials for planning a lesson on a topic, including objectives and resources.',
+      "Build a complete, teachable lesson on a topic, grounded in Oak's live curriculum data and six curriculum principles — outcome, key learning points, keywords, misconceptions, quizzes, and resources.",
     argsSchema: lessonPlanningArgsSchema,
   },
   {
@@ -56,6 +57,13 @@ const PROMPT_REGISTRATIONS = [
     description:
       'Understand how a concept builds across year groups by searching progression threads and mapping dependencies.',
     argsSchema: learningProgressionArgsSchema,
+  },
+  {
+    name: 'curriculum-mapping',
+    title: 'Curriculum Mapping',
+    description:
+      "Build or audit a curriculum map — unit order across a year or key stage — grounded in Oak's threads, prerequisites, and national-curriculum coverage.",
+    argsSchema: curriculumMappingArgsSchema,
   },
   {
     name: 'adapt-lesson',
