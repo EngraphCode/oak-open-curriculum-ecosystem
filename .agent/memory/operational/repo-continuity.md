@@ -37,89 +37,63 @@ surface.
   home (`ae1802da1`, Q-008 resolved) — all three whole-corpus graph tools are
   anchored+bounded on the one-graph corpus, the factory is retired, the falsified
   within-thread-ordering premise is cured end-to-end, and **all eef-revalidation signals are
-  raised**. Live lanes NOW: **Blustery Buffeting Gale** (`9819b2`, claim `f74cdf73`) — the
-  re-proof, proof rounds COMPLETE and green, multiplicity decided (dedup at emission;
-  implementation = a new Director-queue item), remaining = plan rewrite + one docs PR +
-  serialised merge (successor Scorched Kindling Ash `0d8138` on standby); **Smouldering
-  Stoking Hearth** (`fddf14`, claim `45b3a187`) — position-anchored-teaching-continuity
-  w1-c1 (plan READY, Oceanic-authored, owner-ratified c0; worktree oak-wt-smouldering);
-  **Prismatic Shimmering Planet** (`65394e`) standby for Hushed's remainder at Hushed's own
-  closeout boundary. Open owner items: principles-prompt attribution validation (gates the
-  owner-pinned S3 principles follow-on, plan s3 todo); bulk-export-lags-live (hold as-is,
-  owner 06-11). Authority: the graph plan's todos + the eef thread record (seventh-holder
-  entry). Witness synthesis: `reports/graph-team-first-worktree-run-analysis-2026-06-10.md`
-  (+ §8/§9 addenda). **Next safe step**: #176 merge ask → serialised merge; Hushed closeout →
-  Prismatic routing; Blustery's docs PR → merge → Scorched rotation; Smouldering w1-c1 PR;
-  the S3 principles follow-on unblocks at the owner's attribution direction.
-- **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling /
-  `47f78a`, claude / Fable 5, owner-directed; PR #143 + a stacked PR from
-  `feat/graph-migration-part-2`).** The plan-review-and-readiness session the prior entry queued.
-  The owner overturned the recommended surface/graph Step-0 split at session open ("too crude —
-  find the real membranes"); a deep whole-document seam analysis + data grounding (report:
-  [`graph-tools-readiness-seam-analysis-2026-06-09.md`](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md))
-  produced the owner-ratified deliverables map — S1 doc-resources single-sourcing, S2 prompt
-  fixed-language pass, S3 skills→prompts (added 2026-06-10: owner — nothing sits in an unagreed
-  holding state; c0 owner design gate, then one cycle per prompt), G1–G3 view units, G4
-  bounded-keywords addition, U1 upstream request — each one small PR. **Verified falsification**: `get-keywords` is a live-API generated tool with
-  existing narrowing params (NOT bulk-corpus as the plan claimed); owner disposition: keep it as
-  the API pass-through, add U1 (upstream finer-grained-control request) + G4 (additional bounded
-  tool, bulk-parity gated). **Mechanisms settled** (R1 barney/fred/betty unanimous, adjudicated
-  first-hand): B = option (a) new `./graph-corpus` subpath (zero boundary-rule changes); **no
-  substrate change** — per-view `GraphView` construction (the plan's "required `edgeTypes?`
-  extension" claim was corrected; the EEF adapter is the landed precedent); factory + its unit
-  test deleted at G3. **Data grounded** (bulk manifest 2026-05-21): prior-knowledge depth-2
-  default (median 5 nodes); corpus NOT a DAG (28 self-loops + 4 cycles); 5 dangling endpoints
-  (G1 integrity rule settled — emit-from-bulk-if-present, else drop-with-provenance);
-  misconception anchors owner-ratified (unit+lesson core; thread bounded with heavy-tail
-  semantics; english-secondary 15.7% thread-unreachable recorded). **R2** (wilma /
-  assumptions-expert / mcp-expert) all ready-with-conditions → every condition verified
-  first-hand and applied (anchor-threading prompt rewrites — the substantive catch; emission-
-  ownership table; G4 Gate-1 decision rule; per-unit types.ts deletion scope; materialised `id`
-  field) → **🟢 DECISION-COMPLETE** with the proof contract validated. **The whole readiness arc
-  is MERGED to main (2026-06-10): PRs #143–#148** — analysis + restructure; R2 + flip; owner
-  corrections (S3 live deliverable, no unagreed holding states); the indefinite-deferral
-  trip-list + regression test (shipped in **v1.18.0**); deep handoff/consolidation + loss-scan
-  closures; the upstream schema-hash sync. Every bot review comment across the arc was
-  adjudicated first-hand (8 applied / 2 refuted with matcher grounding / 2 historical). Branches
-  deleted; claims and commit-queue empty; main CI green. **Next safe step: the IMPLEMENTATION
-  PHASE begins — pick any unblocked deliverable from
+  raised**. **SESSION ARC COMPLETE (14:30Z 06-11)**: the re-proof EXECUTED (#177, value path
+  INTACT), the multiplicity dedup landed (#180, corpus v1.4.0), the seventh prompt live as
+  `continue-progression` (#178) with w2-c1 alignment (#181) and todo flips (#182), the
+  loop-hygiene rule amendment (#183, curation-lane drafted), and the **session operations +
+  experience report on main** —
+  [`graph-team-session-operations-and-experience-2026-06-10-11.md`](../../reports/graph-team-session-operations-and-experience-2026-06-10-11.md)
+  (owner-directed; substrate-under-load findings + tooling considerations; the predecessor
+  witness-synthesis carried to main alongside it). All implementer seats closed zero-retained;
+  live at this writing: the seventh Director + the Pearly Snorkelling Compass doctrine-curation
+  lane (claim `d24e22f7`, write-lane grant `c8432d36`). Open owner items: principles-prompt
+  attribution validation (gates the owner-pinned S3 principles follow-on, plan s3 todo);
+  bulk-export-lags-live (hold as-is, owner 06-11); output-schemas execution routing (gate
+  satisfied — see its entry below). Authority: the graph plan's todos + the eef thread record
+  (seventh-holder entry). **Next safe step**: the curation lane drains the fired triggers;
+  next product tranche shaped by observed alpha use (owner doctrine 06-11); w3-c1
+  vocabulary-bridge and the S3 principles follow-on route at owner direction.
+- **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling
+  `47f78a`) — since EXECUTED in full (see the TRACK-G entry above).** The owner overturned the
+  crude Step-0 split ("find the real membranes"); the seam analysis
+  [`graph-tools-readiness-seam-analysis-2026-06-09.md`](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md)
+  produced the owner-ratified deliverables map (S1/S2/S3, G1–G4, U1), the settled mechanisms
+  (new `./graph-corpus` subpath; per-view `GraphView`, no substrate change; factory deleted at
+  G3), and the pinned data facts; the plan's `get-keywords` bulk-corpus claim was FALSIFIED
+  (live-API pass-through with narrowing params; owner disposition added U1 + G4). Detail and
+  authority live in
   [`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
-  (S1 doc-resources, S2 prompt language, S3-c0 owner design gate, U1 upstream request, or G1
-  prior-knowledge view + one-graph foundation), execute its cycles per the plan's proof contract,
-  and ship it as one small PR. The plan's frontmatter todos and §Cycles and proof contract are
-  the execution authority; re-verify the pinned data facts against the tree at execution start.
-  Team shape (owner-ratified 2026-06-10): Director (Fable 5) + Opus implementers in per-session
-  git worktrees — the session opener is
-  [`graph-implementation-team.prompt.md`](../../prompts/connecting-oak-resources/graph-implementation-team.prompt.md).**
-- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder / `527005`, claude /
-  Opus 4.8; PR #142 MERGED → v1.17.0).** The deferred A-i/C specialist reviews ran (5 reviewers;
-  every finding adjudicated first-hand — code/types/tests SOUND); verified findings landed
-  (`4f15d7df`, `747023fd`, `836d7d85`). `graph-tools-value-redesign.plan.md` PROMOTED
-  future/→current/ (owner-decided) and the MCP-surface-rationalisation strand captured
-  (owner-directed); the readiness work it queued is DONE — see the top entry. Skills §C licence
-  framing (content is Oak's; preserve external-research attribution; `oak-brand` out,
+  (frontmatter todos + §Cycles and proof contract) and the merged readiness arc PRs #143–#148
+  (incl. the indefinite-deferral trip-list, v1.18.0). Team shape (owner-ratified 2026-06-10):
+  Director + Opus implementers in per-session worktrees; opener =
+  [`graph-implementation-team.prompt.md`](../../prompts/connecting-oak-resources/graph-implementation-team.prompt.md).
+- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder `527005`; PR
+  #142 MERGED → v1.17.0).** The five deferred specialist reviews ran, every finding
+  adjudicated first-hand (code/types/tests SOUND; verified findings landed);
+  `graph-tools-value-redesign.plan.md` PROMOTED future/→current/ (owner-decided). Skills §C
+  licence framing (content is Oak's; preserve external-research attribution; `oak-brand` out,
   `oak-tone-of-voice` open) is carried in the plan's S3 deliverable.
 - **OUTPUT-SCHEMAS PLAN — 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09).**
   [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md):
   every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload Zod
   derived at the one source of truth per provenance; `composeEnvelopeSchema` lives in
-  `oak-sdk-codegen`; the EEF tie is type-level, never `satisfies`-on-value. Execution
-  stays gated on the `graph-tools-value-redesign` mechanism settle. **Cross-cutting**:
-  memory `project_specialist_agent_design_overhaul` records an owner-directed overhaul of
-  all specialist sub-agents (a type-reviewer over-escalated on a wrong Zod signature) —
-  verify every load-bearing specialist claim first-hand until it lands.
+  `oak-sdk-codegen`; the EEF tie is type-level, never `satisfies`-on-value. Its named
+  execution gate — the graph-tools mechanism settle — has since SETTLED and executed
+  (TRACK-G); execution routing is now an open Director/owner call. Cross-cutting: auto-memory
+  `project_specialist_agent_design_overhaul` — verify every load-bearing specialist claim
+  first-hand until the overhaul lands.
 - **EXTERNAL-FACING CAPABILITY CORPUS — merged (PR #140 → v1.16.1).** The
   [`external-facing-capability-distribution.plan.md`](../../plans/user-experience/educator-end-users/current/external-facing-capability-distribution.plan.md)
   corpus map is live (Direction A; plugin-package-creation; app-submission-standards;
   `future/` bundle brief; cross-repo Direction B). **Open owner decisions:** source-of-truth
   topology (#4) and first-tranche capability scope (#5). **Next safe step:** execute Direction
   A `t0` / plugin-package `w0` design gates once the owner resolves #4/#5.
-- **EEF build arc (D0–D7) DELIVERED + SHIPPED TO PRODUCTION (v1.16.0, 2026-06-08).** The
-  `get-eef-evidence` surface is live by default at `curriculum-mcp-alpha.oaknational.dev`
-  (kill-switch flag, default ON; ADR-193 boundary holds). Potential teacher value proven by
-  release-and-observe (owner 2026-06-08); delivered-value stays with
+- **EEF build arc (D0–D7) DELIVERED + SHIPPED (v1.16.0, 2026-06-08).** `get-eef-evidence` is
+  live by default at `curriculum-mcp-alpha.oaknational.dev` (kill-switch flag, default ON;
+  ADR-193 boundary holds). Potential teacher value proven by release-and-observe (owner
+  2026-06-08); delivered-value stays with
   [`eef-outcome-evaluation-infrastructure.plan.md`](../../plans/sector-engagement/eef/future/eef-outcome-evaluation-infrastructure.plan.md).
-  **Next safe step: none on this thread** — see the [`eef` record][eef] for the full arc.
+  Full arc: the [`eef` record][eef].
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.

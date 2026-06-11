@@ -52,3 +52,19 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   at speed off a recorded sign-off reversed eleven minutes later, caught gates-green
   pre-commit). Candidate-adjacent; pair with the compose-time-staleness class if a second
   instance lands.
+- **Three late Director instances (post-tranche window, my own hand)**: (1) rebuilt a combined
+  PR monitor WITHOUT comment detection — the EXACT 2026-06-10 watcher-rewrite class the
+  opener's cadence section warns about; caught by the owner pointedly selecting that clause;
+  rebuilt with state+checks+comments+unresolved and an explicit all-terminal exit. (2)+(3)
+  TWO worktree-singleton interleaves: switched the worktree's branch while a background gate
+  chain was still running in it (the trailing HEAD reads re-pointed mid-task; pushes were
+  transfer-proven unaffected). Cure: ONE gate chain at a time per worktree — the
+  check-singleton-per-window discipline applies to a worktree's whole commit/push window, not
+  just pnpm check. All three are same-day further evidence for the session report's central
+  finding (the author of the report performed its thesis while writing it).
+- **Fourth same-day self-instance: granted-window-then-own-commit collision** — I cleared
+  Pearly's final micro window, then started my own waypoint commit into the same checkout;
+  git add hit THEIR index.lock (failed clean, foreign lock respected, no rm). The grantor of
+  a commit window must treat the grant as exclusive until the grantee's PUSH closes it — the
+  window spans the gate chain, not just the staging moment. Cure applied: bounded ls-remote
+  wait for the grantee's transfer before opening my own window.

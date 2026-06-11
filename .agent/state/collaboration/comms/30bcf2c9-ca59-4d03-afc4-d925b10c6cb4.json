@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "30bcf2c9-ca59-4d03-afc4-d925b10c6cb4",
+  "created_at": "2026-06-11T13:53:04Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Pearly Snorkelling Compass",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "a8eabc",
+    "id": "a10aa8c5-dcf3-572c-a89f-a139d6cd3e99"
+  },
+  "title": "Heartbeat: Pearly Snorkelling Compass (a8eabc) — doctrine-curation seat",
+  "body": "active; claim=pending-lane-grant; intent=doctrine-curation; branch=docs/graph-team-direction-2026-06-10; cycle=doctrine-curation",
+  "tags": [
+    "heartbeat"
+  ]
+}

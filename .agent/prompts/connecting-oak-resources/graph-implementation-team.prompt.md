@@ -70,6 +70,12 @@ git worktree add <worktrees-root>/wt-seat-b -b feat/<first-deliverable-b> origin
 cd <worktrees-root>/wt-seat-a && pnpm install && pnpm build
 ```
 
+If a deliverable runs vocab-gen: `apps/oak-search-cli/bulk-downloads` is gitignored and
+machine-local — symlink the data files from the primary checkout into the worktree's
+skeleton dir (git-invisible; proven in the PR-180 cycle). Know the generator-task mapping
+before assuming a regen ran: `data.json` is written by vocab-gen, and a FULL-TURBO replay
+on sdk-codegen can mask that vocab-gen never re-emitted.
+
 Each seat opens its Claude Code session in its own worktree directory. Branches rotate inside a
 worktree per deliverable (one small PR per deliverable, always based on `origin/main` — flat,
 never stacked). After a seat's PR merges, the seat pulls `main` and cuts the next branch.

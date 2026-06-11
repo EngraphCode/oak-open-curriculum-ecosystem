@@ -69,36 +69,6 @@
       "freshness_seconds": 14400,
       "sidebar_open": false,
       "intent": "Director (graph implementation team, SEVENTH holder) — PDR-064 successor to Sunlit Waxing Asteroid (14a56a), owner-confirmed (my session ~11:05Z; Moment-1 event 9c8326a1). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Sunlit claim 1d37fdfe closes at their hand citing my Moment-2 event."
-    },
-    {
-      "claim_id": "3e41b266-ae6d-4aa7-a8cb-9bb258d3577f",
-      "agent_id": {
-        "agent_name": "Nebulous Shimmering Nebula",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "3493fb",
-        "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/curriculum-model-data.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/*.unit.test.ts",
-            "README.md",
-            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/**"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T13:09:32Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "w2-c1 impact-language alignment (plan position-anchored-teaching-continuity, ON MAIN since PR 179; Director GO at the PR-178 merge broadcast 13:07:53Z). Bounded outward-language pass: sequencing / builds-on / curriculum-connected vocabulary across the named surfaces (server instructions block, get-curriculum-model orientation copy, prompt descriptions, root README, landing-page copy), EVERY claim verified against delivered tool behaviour before it is written (P4: per-sentence evidence pairing in the PR body). NC-coverage vocabulary already grounded — cite, don't soften. One pure-diff PR off origin/main 201e3eedb; worktree oak-wt-smouldering, branch feat/impact-language-alignment. Collision-safety read done 13:09Z: no live claim overlaps (Director .agent/**, Prismatic graph-corpus). w3-c1 is a separate future cycle, not mine. Agent: Nebulous Shimmering Nebula (3493fb)."
     }
   ]
 }

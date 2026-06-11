@@ -12689,6 +12689,100 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "3e41b266-ae6d-4aa7-a8cb-9bb258d3577f",
+      "agent_id": {
+        "agent_name": "Nebulous Shimmering Nebula",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "3493fb",
+        "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/curriculum-model-data.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/*.unit.test.ts",
+            "README.md",
+            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T13:09:32Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "w2-c1 impact-language alignment (plan position-anchored-teaching-continuity, ON MAIN since PR 179; Director GO at the PR-178 merge broadcast 13:07:53Z). Bounded outward-language pass: sequencing / builds-on / curriculum-connected vocabulary across the named surfaces (server instructions block, get-curriculum-model orientation copy, prompt descriptions, root README, landing-page copy), EVERY claim verified against delivered tool behaviour before it is written (P4: per-sentence evidence pairing in the PR body). NC-coverage vocabulary already grounded — cite, don't soften. One pure-diff PR off origin/main 201e3eedb; worktree oak-wt-smouldering, branch feat/impact-language-alignment. Collision-safety read done 13:09Z: no live claim overlaps (Director .agent/**, Prismatic graph-corpus). w3-c1 is a separate future cycle, not mine. Agent: Nebulous Shimmering Nebula (3493fb).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T13:53:38Z",
+        "closed_by": {
+          "agent_name": "Nebulous Shimmering Nebula",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "3493fb",
+          "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+        },
+        "summary": "Delivered at the PR-181 merge (6048f337d at the Director's hand, 13:52Z): w2-c1 impact-language alignment complete — served instructions sequenced-curriculum sentence (RED-first, 772/772), root+apps README primitives corrected (37=24+13 tools, served resources, seven prompts incl. continue-progression), ADR-123 counts + EEF name fixed; one Copilot finding VALID fixed+verdict-recorded; declared scope expansion a37e949a. Worktree oak-wt-smouldering clean at main 6048f337d, branch deleted merged-safe. Zero retained.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "3e41b266-ae6d-4aa7-a8cb-9bb258d3577f",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "d24e22f7-9ead-4763-b837-fb03cbb14782",
+      "agent_id": {
+        "agent_name": "Pearly Snorkelling Compass",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "a8eabc",
+        "id": "a10aa8c5-dcf3-572c-a89f-a139d6cd3e99"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/memory/active/**",
+            ".agent/memory/operational/pending-graduations.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T13:55:28Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Doctrine-curation lane (owner-named seat, naming event 211a1794; write-lane carve-out from Director claim 537f2f1c granted at event c8432d36). Scope: .agent/memory/active/** + pending-graduations.md + platform auto-memory. Priority per pre-position 0f36d756: 4 fired triggers first, then 7 accumulating candidates' conservation, then routed fitness cures (repo-continuity older-entry condensation drafted as handed delta — Director lands). Rule/PDR/ADR amendment drafts handed as diffs to Director or owner-gated per candidate. Commit windows announced to Director before staging, explicit pathspec within scope only. Agent: Pearly Snorkelling Compass (a8eabc).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T14:34:41Z",
+        "closed_by": {
+          "agent_name": "Pearly Snorkelling Compass",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "a8eabc",
+          "id": "a10aa8c5-dcf3-572c-a89f-a139d6cd3e99"
+        },
+        "summary": "Doctrine-curation lane DELIVERED: commits a41fd4525 + 89bca2e9d + 10872242b (all pushed, transfer + ls-remote proven). Four fired triggers drained (one GRADUATED same-pass: loop-hygiene rule via Director PR 183 f5e51d0ad; three due in register with routing); nine accumulating candidates conserved (two trigger-fires recorded same-pass: MD004 fourth instance, drain-timeout at raised budget); napkin rotated with verbatim archive; distilled refined; repo-continuity condensation delta APPLIED by Director (char-HARD cured); team-opener line at waypoint 5. Zero retained claims.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "d24e22f7-9ead-4763-b837-fb03cbb14782",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

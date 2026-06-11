@@ -100,7 +100,37 @@ merge_class: index-narrative-tables
   (impact-language + the declared count/name drift repairs). Remaining live surfaces at this
   writing: Nebulous's w2-c1 PR (Director-serialised at its ask) and the recommended
   TRANCHE-BOUNDARY CONSOLIDATION PASS (owner-gated next move; the doctrine harvest is
-  enumerated in the napkin sweep).
+  enumerated in the napkin sweep). **POST-TRANCHE WAVE (13:32–13:56Z)**: **PR #181 MERGED
+  `6048f337d`** (w2-c1: outward capability claims aligned to the served estate — 37 tools,
+  served-instructions sequenced-curriculum sentence, ADR-123 + both READMEs repaired; P4
+  per-sentence evidence on the PR) — the position-anchored lane is COMPLETE end-to-end
+  (w1-c1 + w2-c1 delivered; w3-c1 unblocked, pending, routing owner/Director-owned).
+  Nebulous closed out zero-retained (both inherited lanes delivered; oak-wt-smouldering
+  ADOPTABLE). ZERO open PRs at 13:52Z; Prismatic routed a micro docs PR off main for the
+  plan's todo flips (the plan lives on main since #179 — branch-only flips diverge; event
+  `282a3758`). **Doctrine-curation session LIVE**: owner-named Pearly Snorkelling Compass
+  (a8eabc; collision caution vs the 06-10 Pearly Snorkelling Dock observed in their own
+  team-start); write-lane GRANTED at my hand (event `c8432d36`, Arboreal-precedent scope,
+  explicit carve-out from Director claim `537f2f1c`, announced commit windows,
+  repo-continuity condensation via handed deltas); harvest inventory pre-positioned
+  (`0f36d756`: 4 fired triggers priority, 7 accumulating candidates, routed fitness cures).
+  **OWNER-DIRECTED SESSION REPORT ON MAIN (PR #184 `34626870`)**:
+  `reports/graph-team-session-operations-and-experience-2026-06-10-11.md` — the
+  team-operations-and-experience synthesis for the whole contiguous session (38 agents, seven
+  Directors, one pause; central finding: reading doctrine does not fire it — mechanism does;
+  §7 = the tooling-considerations backlog); the predecessor witness-synthesis report carried
+  to main in the same PR + both indexed in reports/README. **Director PR wave (all merged,
+  three-loop verified)**: #182 plan todo flips `bae7d2153`; #183 loop-hygiene rule amendment
+  `f5e51d0ad` (Pearly-drafted, the FIRST graduated cure of the curation pass — fired trigger
+  3 discharged); #184 the report `34626870`. **Curation lane progress (Pearly, live)**:
+  repo-continuity char-HARD CURED (handed condensation applied, 36.2k→33.4k, conservation
+  spot-checked; output-schemas stale-gate adjudicated satisfied-not-stale — execution routing
+  now an open Director/owner call); opener gains the vocab-gen worktree symlink line (Delta
+  B); two same-pass trigger-fires recorded (MD004 FOURTH instance at the curator's own gate;
+  drain-timeout death at the RAISED 120s budget — budget-raise-is-not-the-cure settled,
+  store-side cure direction). Late Director instances napkinned (watcher-rewrite comment-
+  detection lapse; two worktree-singleton interleaves). **Next safe step**: Pearly's closeout
+  deltas → final waypoint; owner items as the top entry; next tranche by observed alpha use.
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
@@ -673,7 +703,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Smouldering Stoking Hearth` | `claude` | `fable-5` | `fddf14` | `position-anchored-w1c1-implementer` | 2026-06-11 | 2026-06-11 |
 | `Scorched Kindling Ash` | `claude` | `fable-5` | `0d8138` | `eef-revalidation-pr177-monitor-to-merge` | 2026-06-11 | 2026-06-11 |
 | `Prismatic Shimmering Planet` | `claude` | `fable-5` | `65394e` | `pr176-shepherd-then-keyword-stories-then-2b-dedup` | 2026-06-11 | 2026-06-11 |
-| `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `smouldering-successor-pr178-w1c1-then-w2c1` | 2026-06-11 | 2026-06-11 |
+| `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `pr178-remainder+w2c1-implementer` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 
