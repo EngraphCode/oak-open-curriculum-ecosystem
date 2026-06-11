@@ -21,8 +21,26 @@ describe('MCP_PROMPTS', () => {
     expect(prompt?.description).toContain('plan');
   });
 
-  it('has exactly 6 prompts', () => {
-    expect(MCP_PROMPTS).toHaveLength(6);
+  it('has exactly 7 prompts', () => {
+    expect(MCP_PROMPTS).toHaveLength(7);
+  });
+
+  it('has continue-progression prompt with subject, yearGroup, justCovered required and classNotes optional', () => {
+    const prompt = MCP_PROMPTS.find((p) => p.name === 'continue-progression');
+    expect(prompt).toBeDefined();
+    expect(prompt?.description).toContain('next');
+    expect(prompt?.arguments).toContainEqual(
+      expect.objectContaining({ name: 'subject', required: true }),
+    );
+    expect(prompt?.arguments).toContainEqual(
+      expect.objectContaining({ name: 'yearGroup', required: true }),
+    );
+    expect(prompt?.arguments).toContainEqual(
+      expect.objectContaining({ name: 'justCovered', required: true }),
+    );
+    expect(prompt?.arguments).toContainEqual(
+      expect.objectContaining({ name: 'classNotes', required: false }),
+    );
   });
 
   it('has curriculum-mapping prompt with subject and keyStage arguments', () => {
@@ -401,6 +419,136 @@ describe('getPromptMessages', () => {
       // Anchor to the exact instructional example so a regression to a coarser
       // key-stage substitution (dropping the year filter) fails the test.
       expect(content).toContain('year: 4 for "Year 4"');
+    });
+  });
+
+  describe('continue-progression prompt', () => {
+    const fullArgs = {
+      subject: 'maths',
+      yearGroup: 'Year 4',
+      justCovered: 'equivalent fractions',
+    } as const;
+
+    it('returns messages with subject, yearGroup, and justCovered in content', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      expect(messages.length).toBeGreaterThan(0);
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('maths');
+      expect(content).toContain('Year 4');
+      expect(content).toContain('equivalent fractions');
+      expect(content).toMatch(/get-curriculum-model/);
+    });
+
+    it('includes class notes when provided', () => {
+      const messages = getPromptMessages('continue-progression', {
+        ...fullArgs,
+        classNotes: 'they struggled with comparing fractions',
+      });
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('they struggled with comparing fractions');
+    });
+
+    it('orchestrates position resolution, sequence, readiness, and misconceptions in Oak tools', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The position→next backbone: resolve position via search, derive the
+      // next step from the thread progression, check readiness against the
+      // next unit's prior knowledge, anticipate its misconceptions.
+      expect(content).toContain('search');
+      expect(content).toContain('get-thread-progressions');
+      expect(content).toContain('get-prior-knowledge-graph');
+      expect(content).toContain('get-misconception-graph');
+    });
+
+    it('guides narrowing the lessons search by the search "year" filter', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // Anchor to the exact instructional example so a regression to a coarser
+      // key-stage substitution (dropping the year filter) fails the test.
+      expect(content).toContain('year: 4 for "Year 4"');
+      // The lessons fallback must keep the subject filter — dropping it raises
+      // the wrong-unit resolution risk when justCovered is ambiguous across
+      // subjects (the search tool supports subject and it is always available).
+      expect(content).toContain('keeping the subject filter');
+    });
+
+    it('instructs candidate presentation and teacher confirmation on ambiguous position matches', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // Free-text justCovered may match several units; the prompt instructs
+      // presenting candidates for the teacher to confirm, never silent selection.
+      expect(content.toLowerCase()).toContain('confirm');
+      expect(content.toLowerCase()).toContain('candidate');
+    });
+
+    // The KS4 caution is a standing clause of the served prompt (present for
+    // every key stage). The verbatim form is the contract: the
+    // position-anchored-teaching-continuity plan (w1-c1) mandates the caveat
+    // "carried verbatim from curriculum-mapping", so the two prompts' caveat
+    // sentences move together or not at all.
+    it('always carries the KS4 structure caution routing science via sequences', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain(
+        'KS4 is more complex (tiers and exam boards); science at KS4 must be traversed via sequences (get-sequences), not the flat lessons route.',
+      );
+    });
+
+    it('instructs exactly one explicit anchor mode for the misconception-graph step', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The tool's parse-time contract errors on ambiguous anchors; the served
+      // step must show ONE anchor mode with a slug-from-step placeholder, so
+      // the agent never improvises a multi-anchor call.
+      expect(content).toMatch(
+        /get-misconception-graph\(\{ unitSlugs: \["<next-unit-slug-from-step-\d>"\] \}\)/,
+      );
+      // No second anchor mode is offered anywhere in the misconception step.
+      expect(content).not.toMatch(/get-misconception-graph\(\{[^}]*lessonSlugs/);
+      expect(content).not.toMatch(/get-misconception-graph\(\{[^}]*threadSlug/);
+    });
+
+    it('presents the readiness list as checkable against what the class has covered', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The next unit's assumed prior knowledge is what the class should now
+      // have secured — served as a checkable readiness list.
+      expect(content.toLowerCase()).toContain('readiness');
+      expect(content.toLowerCase()).toContain('prior knowledge');
+    });
+
+    it('chains into lesson-planning rather than restating the planning workflow', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('lesson-planning');
+    });
+
+    it('chains with the next unit’s teaching year and surfaces any divergence from the stated year group', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      // The next unit comes from the year-ordered progression and can sit on a
+      // different teaching year than the class label (the P3 live proof: a
+      // Year 4 class's next unit was Y5). Chaining with the stated yearGroup
+      // would steer lesson-planning's year-scoped search at the wrong year;
+      // the prompt instructs using the next unit's teaching year and flagging
+      // the difference — the teaching decision stays the teacher's (ADR-194).
+      expect(content).toContain("the next unit's teaching year from step 2");
+      expect(content.toLowerCase()).toContain('if that year differs from');
+    });
+
+    it('carries Oak attribution under the Open Government Licence and keeps the teacher in charge', () => {
+      const messages = getPromptMessages('continue-progression', fullArgs);
+      const content = messages.map((m) => m.content.text).join(' ');
+      expect(content).toContain('Oak National Academy');
+      expect(content).toContain('Open Government Licence');
+      expect(content).toContain(
+        'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+      );
+      // The credited dataset list matches what the workflow pulls: step 4
+      // uses get-misconception-graph, so misconception data is credited too.
+      expect(content).toContain('misconception data');
+      // ADR-194: the surface informs; the teaching decision stays the teacher's.
+      expect(content.toLowerCase()).toContain('decision is mine');
     });
   });
 

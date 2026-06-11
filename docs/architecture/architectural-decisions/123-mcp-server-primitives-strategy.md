@@ -20,6 +20,14 @@ Accepted (amended 2026-06-11)
 > grounds; the anchored, bounded `get-thread-progressions` tool (threadSlug
 > detail, or subject + keyStage discovery) is the thread-progression value
 > surface, ordered by teaching year.
+>
+> **Amendment (2026-06-11 — position-anchored-teaching-continuity, w1-c1).**
+> The Prompts section below was reconciled with the shipped estate, which
+> had drifted: the served set is seven prompts (the table previously listed
+> five, one under a pre-ship name). `continue-progression` was added as the
+> position-anchored entry point — it resolves position→next and chains into
+> `lesson-planning`, never duplicating planning substance (the S3
+> extend/merge reconciliation discipline, PR #162 precedent).
 
 ## Context
 
@@ -91,21 +99,23 @@ See [ADR-058](058-context-grounding-for-ai-agents.md) for the dual-exposure rati
 
 ### Prompts (user-controlled)
 
-Five parameterised workflow templates that the user explicitly invokes (slash commands, UI buttons):
+Seven parameterised workflow templates that the user explicitly invokes (slash commands, UI buttons):
 
-| Prompt                              | Arguments                        | Workflow                                                            |
-| ----------------------------------- | -------------------------------- | ------------------------------------------------------------------- |
-| `find-lessons`                      | topic, keyStage?                 | Search lessons, summarise top results                               |
-| `lesson-planning`                   | topic, yearGroup                 | Search, get summary/transcript/quiz/assets                          |
-| `explore-curriculum`                | topic, subject?                  | Broad parallel search across lessons/units/threads                  |
-| `learning-progression`              | concept, subject                 | Search threads, map progression, identify gaps                      |
-| `eef-evidence-grounded-lesson-plan` | subject, keyStage, topic, focus? | Explore EEF evidence (subgraph), select strands by fit, plan lesson |
+| Prompt                 | Arguments                                    | Workflow                                                                                                                     |
+| ---------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `find-lessons`         | topic, keyStage?                             | Search lessons, summarise top results                                                                                        |
+| `lesson-planning`      | topic, yearGroup                             | Full lesson build: place the lesson, specify knowledge, misconceptions, sequence, assess, resources                          |
+| `explore-curriculum`   | topic, subject?                              | Broad parallel search across lessons/units/threads                                                                           |
+| `learning-progression` | concept, subject                             | Search threads, map progression, identify gaps                                                                               |
+| `curriculum-mapping`   | subject, keyStage, yearGroup?                | Order units from the thread backbone and prerequisites, check national-curriculum coverage                                   |
+| `adapt-lesson`         | topic, yearGroup                             | Surface pedagogical signals from Oak's graphs, retrieve EEF evidence, present calibrated options                             |
+| `continue-progression` | subject, yearGroup, justCovered, classNotes? | Resolve the class's position, derive the next step from the thread, readiness + misconceptions, chain into `lesson-planning` |
 
-The four curriculum prompts open by calling `get-curriculum-model` for orientation; `eef-evidence-grounded-lesson-plan` instead opens by calling `eef-explore-evidence-for-context`, since its orientation is the EEF evidence base rather than the Oak curriculum domain model.
+Every prompt opens by calling `get-curriculum-model` for orientation in the Oak curriculum domain model before its workflow steps.
 
 **Intent**: Structure common teacher workflows so the model follows a proven multi-step recipe instead of improvising.
 
-**Impact**: Consistent, high-quality responses for the four most common curriculum queries.
+**Impact**: Consistent, high-quality responses for the most common curriculum queries — including the position-anchored entry point ("my class just finished X — what next?"), which `continue-progression` owns by resolving position→next and chaining into `lesson-planning` rather than duplicating it.
 
 ### Prompt selection criteria
 
@@ -134,7 +144,7 @@ A prompt earns its place when it:
 
 ### Neutral
 
-- **Prompt count is intentionally small** (4). More prompts may be added post-alpha as real usage patterns emerge.
+- **Prompt count is intentionally small** (7). More prompts may be added post-alpha as real usage patterns emerge.
 
 ## Related Decisions
 
