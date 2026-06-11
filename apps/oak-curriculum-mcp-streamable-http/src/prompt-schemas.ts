@@ -86,6 +86,30 @@ export const learningProgressionArgsSchema = {
 };
 
 /**
+ * Schema for continue-teaching prompt arguments.
+ *
+ * Used when planning the next step from the class's stated position. The
+ * free-text `justCovered` is legitimate here — the prompt instructs the
+ * agent to resolve it to Oak unit/lesson slugs (with teacher confirmation
+ * on ambiguity) before any anchored tool call.
+ */
+export const continueTeachingArgsSchema = {
+  subject: z.string().describe('The subject area (e.g., "maths", "science", "english")'),
+  yearGroup: z.string().describe('The year group (e.g., "Year 4", "Year 9")'),
+  justCovered: z
+    .string()
+    .describe(
+      'What the class just completed — a topic, unit, or lesson (e.g., "equivalent fractions", "the circulatory system")',
+    ),
+  classNotes: z
+    .string()
+    .optional()
+    .describe(
+      'Optional: Notes on how the class did (e.g., "they struggled with equivalent fractions")',
+    ),
+};
+
+/**
  * Schema for curriculum-mapping prompt arguments.
  *
  * Used when building or auditing a curriculum map grounded in Oak's
