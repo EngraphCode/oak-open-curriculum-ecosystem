@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.0...v1.23.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** make every collaboration-state write loud ([5b9295e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5b9295ed6dd822d512ab28740bbc6ef515f33a96))
+
 # [1.23.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.22.1...v1.23.0) (2026-06-11)
 
 
