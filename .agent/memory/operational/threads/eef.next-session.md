@@ -163,7 +163,14 @@ merge_class: index-narrative-tables
   recorded (PDR-064, PDR-011 two-clause, PDR-078 emit-side, PDR-085 pair, two new PDRs, three
   folds — next dedicated session authors without re-asking); the generalisation plan's x5 owner
   walk; w3-c1 + S3-principles at owner direction; next product tranche shaped by observed alpha
-  use.
+  use. **RECONCILIATION (16:30Z, owner-directed): PR #187 opens the coordination home → main** —
+  the forward-only model stranded the arc's permanent learning/doctrine off main (4 ADRs, 3
+  PDRs, 4 rules, 2 skills, governance docs, 12 experience files, distilled, the durable
+  collaboration state); the merge is clean (zero per-file overlap; semantic state validation
+  passed — git's no-conflict is necessary not sufficient) and is the end-of-arc step the model
+  never specified. Gaps captured: generalisation-plan todo x6 (team closeout needs a branch→main
+  step) + open-question Q-009 (state-merge-semantics, three-tier framework, strong ADR
+  candidate). Merging #187 is the session's final act.
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
