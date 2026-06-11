@@ -11,7 +11,37 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-10 late evening, Stratospheric Swooping Zephyr / claude Fable 5,
+- **THIS SESSION (2026-06-11 morning, Ethereal Orbiting Eclipse / claude Fable 5, Director
+  FIFTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fourth
+  PDR-064 Director succession, completed cleanly; G4b + curation lanes routed.** Zephyr's
+  Moment-1 pre-positioning (event `a2bbd708`, 01:31:58Z, fired at the natural boundary with all
+  implementer lanes closed) → owner confirmed transfer in chat ~06:20Z (relayed with state
+  delta in `0d51031f`; owner correction absorbed: succession between pre-positioned agents
+  needs NO owner sign-off ask — the standing naming IS the authorization) → my Moment-2
+  acknowledgement (event `d07e7266`, 06:29:11Z; Director claim `0a8075f4` on the coordination
+  boundary) → Zephyr closed `dbe87352` at their own hand citing it, posted closeout +
+  heartbeat-end, zero retained. **G4b ROUTED to Tempestuous Darting Gale** (6243de, fresh
+  owner-provisioned Opus seat; routing event `9ef9078a` — plan g4 todo is the authority;
+  readiness reviewers assumptions+architecture+mcp+type BEFORE execution-ready; pinned-facts
+  re-verification at start; adopt oak-wt-airy-g, branch off origin/main ≥ `53308e1e`; tool
+  name owner-decided at PR). NOTE the name near-collision with Tempestuous RISING Gale
+  (60496a, yesterday's G3 seat) — full name + prefix always. **Curation write-lane GRANTED to
+  Arboreal Swaying Thicket** (d2947e, owner-directed dedicated consolidation session; ruling
+  `3e68a674` on request `bb7721e6`): write scope `.agent/memory/active/**` +
+  `pending-graduations.md` + platform auto-memory; repo-continuity + threads/** stay
+  Director-owned (deltas handed over); commits via announced windows through the Director;
+  owner-gated graduations stay gated; the four comms-held failure-mode events (`4fd66dc5`,
+  `6cf5f4ab`, `9a164c5c`, `54fc0fee`) handed over for read-forward — Moment-2 queue item 5
+  discharging through this lane. **Director queue standing**: prerequisiteFor multiplicity
+  (3,452 vs 2,605 unique — decide ALONGSIDE the eef-revalidation re-proof); two test flakes
+  (lifecycle-lease; auth-routes scopes_supported); test:e2e turbo env micro-PR; agent-tools
+  loud-write fixes (four instances) + main-rebased rebuild (retires the portable-watcher
+  caution). Owner items HELD AS-IS: principles attribution validation (gates the principles
+  prompt cycle; explicit follow-on pinned in the plan s3 todo at `6ceb36ce`);
+  bulk-export-lags-live. **Next value move when a seat frees**: the eef-revalidation re-proof
+  (all input signals raised) — honest start point is AFTER G4b lands (a keyword tool on the
+  EEF path would raise its own signal; starting earlier risks a second pass).
+- **PRIOR SESSION (2026-06-10 late evening, Stratospheric Swooping Zephyr / claude Fable 5,
   Director fourth holder, coordination home branch `docs/graph-team-direction-2026-06-10`) —
   third PDR-064 Director succession, completed cleanly.** Celestial-Dusk's Moment-1
   pre-positioning (event `56ae6447`, 19:40:54Z, self-contained) → my Moment-2 acknowledgement
@@ -439,7 +469,8 @@ session narrative for each is in git history; this table is the durable identity
 | `Stratospheric Swooping Zephyr` | `claude` | `Fable 5` | `fe53ec` | `graph-implementation-director-fourth-holder` | 2026-06-10 | 2026-06-10 |
 | `Sylvan Bending Branch` | `claude` | `fable-5` | `9d91e3` | `graph-implementation-g2-execution-fruited-pdr063-successor` | 2026-06-10 | 2026-06-10 |
 | `Tempestuous Rising Gale` | `claude` | `Fable 5` | `60496a` | `graph-implementation-s3-seat-successor-standby` | 2026-06-10 | 2026-06-10 |
-| `Ethereal Orbiting Eclipse` | `claude` | `Fable 5` | `f92636` | `graph-implementation-director-successor-standby` | 2026-06-10 | 2026-06-10 |
+| `Ethereal Orbiting Eclipse` | `claude` | `Fable 5` | `f92636` | `graph-implementation-director-fifth-holder` | 2026-06-10 | 2026-06-11 |
+| `Tempestuous Darting Gale` | `claude` | `Opus 4.8` | `6243de` | `graph-implementation-g4b-implementer` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 
