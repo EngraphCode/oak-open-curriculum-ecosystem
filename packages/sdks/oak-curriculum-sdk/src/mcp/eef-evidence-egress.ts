@@ -38,5 +38,6 @@ export function eefEvidenceToCallToolResult(result: EefEvidenceResult): CallTool
     status: 'success',
     toolName: 'get-eef-evidence',
     annotationsTitle: GET_EEF_EVIDENCE_TOOL_DEF.title,
+    timestamp: Date.now(),
   });
 }

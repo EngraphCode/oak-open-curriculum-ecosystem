@@ -117,6 +117,24 @@ alongside the identical `structuredContent` — per the redesign plan's recorded
 shapes carry the same structured payload; the context hint belongs in neither (see §Open
 questions for the convergence item).
 
+> **Superseded in part (owner, 2026-06-11): the structuredContent-only shape is
+> reversed.** A live two-client probe falsified the 2026-05-28 research's
+> sufficiency: Cursor's agent harness renders ONLY `content` blocks (a
+> `content: []` success renders "(omitted)" — the EEF teacher-value path was
+> dead in Cursor-class clients), while Claude Code renders ONLY
+> `structuredContent`. The category shape is now the **dual response shape**
+> (`formatToolResponse`: summary + serialised-JSON `content` blocks plus the
+> `structuredContent` payload) — the MCP spec's backwards-compatibility SHOULD
+> — for every graph tool; `get-eef-evidence` was realigned in PR-2 of the
+> [2026-06-11 snagging plan](../../../.agent/plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+> (commit `20ad83326`). Evidence:
+> [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../../.agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
+> and [ADR-058's client-variability note](058-context-grounding-for-ai-agents.md).
+> The no-context-hint position for graph tools remains an open item (§Open
+> questions); note `formatToolResponse` includes the hint by default, so the
+> realigned EEF response currently carries it — its cost is now measurable by
+> the outbound token health metric.
+
 ### 5. Budget is a design signal, never a runtime cap
 
 Token-economy targets shape the _design_ of the bounded subgraph — anchor arity, empirically
@@ -200,6 +218,9 @@ projection under ADR-191, not relevance judgement.
   predates this doctrine. Removing the context hint from the graph-tool path, and reconciling the
   two content shapes into one recorded category shape, is the named open item; the universal
   output-schema work touches the same envelope surface and is a natural vehicle.
+  _(Resolved in part 2026-06-11: the content-shape half converged — the owner reversed
+  structuredContent-only and every graph tool now emits the dual shape (§4 supersession note).
+  The context-hint half remains open.)_
 - **The "working with graphs" skill.** Authorised in the same graduation pass, it operationalises
   this category for agent practice (graph ≠ list, the forbidden list-ops, the soft-stub failure
   mode). It teaches this contract; it does not change it.

@@ -40,7 +40,7 @@ import {
   type EefStrandHeadline,
 } from '@oaknational/graph-corpus-sdk/eef-strands';
 import { SCOPES_SUPPORTED } from './scopes-supported.js';
-import { summariseEefEnvelope } from './eef-evidence-summary.js';
+import { summariseEefEnvelope } from './aggregated-eef-evidence-summaries.js';
 
 /**
  * The closed input contract for `get-eef-evidence`.

@@ -46,7 +46,8 @@ This means any context guidance placed in `_meta` is invisible to the model—it
 > the shape every Oak tool emits (the `get-eef-evidence` exception was
 > removed 2026-06-11). Evidence:
 > [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../../.agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
-> and the in-repo research `mcp-client-tool-result-consumption-2026-05-28.md`.
+> and the in-repo research
+> [`mcp-client-tool-result-consumption-2026-05-28.md`](../../../.agent/research/mcp-client-tool-result-consumption-2026-05-28.md).
 > This ADR's model-visibility reasoning below (e.g. "reliably model-visible
 > on every response") holds for both-fields clients and for
 > `structuredContent`-rendering clients; guidance that must reach the model

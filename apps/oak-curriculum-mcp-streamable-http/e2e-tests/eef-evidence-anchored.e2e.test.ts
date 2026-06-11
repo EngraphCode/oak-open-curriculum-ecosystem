@@ -107,5 +107,8 @@ describe('get-eef-evidence anchored tools/call (dual response shape)', () => {
     const envelope = parseSseEnvelope(response.text);
     const result = parseJsonRpcResult(envelope);
     expect(result.isError).toBe(true);
+    // The spec's error shape carries content + isError only — a refusal
+    // must never leak a structuredContent payload.
+    expect(result.structuredContent).toBeUndefined();
   });
 });
