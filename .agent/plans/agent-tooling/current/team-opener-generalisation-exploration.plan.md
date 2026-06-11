@@ -13,7 +13,6 @@ overview: >-
   in the existing agent-tooling collaboration-plan estate; references rather than
   fragments it.
 status: exploration
-graph_layer: n/a
 thread: agent-collaboration-research
 date: 2026-06-11
 related:
@@ -65,7 +64,7 @@ todos:
       convention, Director-serialised merges, the three-loop merge-ask. Fix
       (friction the session surfaced — see the ops report §7): PR-monitoring as a
       hand-rolled per-Director loop (the comment-detection-drop recurred — a
-      tooling primitive candidate); the opener clauses that were quoted AT agents
+      tooling primitive candidate); the opener clauses that were quoted *at* agents
       to catch live errors (the watcher-rewrite clause, the cadence section) —
       evidence that some opener content is doing rule-enforcement work that may
       belong in the rule tier; the host-health gap (now a rule). Source: the ops
@@ -111,7 +110,7 @@ the agents read once; it was live, load-bearing infrastructure that carried the
 team shape, the coordination conventions, the branching strategy, the cadence,
 and the seat briefs into each session's context. Clauses from it were quoted
 *at* agents mid-session to catch live errors (the watcher-rewrite
-comment-detection drop fired exactly as its clause warned).
+comment-detection-drop fired exactly as its clause warned).
 
 But it lives as a **per-thread prose artefact** with two structural problems:
 
