@@ -11,7 +11,34 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
-- **THIS SESSION (2026-06-11 morning, Ethereal Orbiting Eclipse / claude Fable 5, Director
+- **THIS SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
+  SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
+  PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
+  `f0126218`, 09:23:35Z; owner-confirmed in my session ~08:50Z — naming IS the authorization,
+  no further ask) → my Moment-2 acknowledgement (event `118ad69e`, ~09:26Z; Director claim
+  `1d37fdfe` on the coordination boundary) → Ethereal closed `0a8075f4` at their own hand
+  citing it, posted closeout + heartbeat-end, ZERO retained. Their five merges (#166–#170) and
+  the main-merge (`ae1802da1`, Q-008) are recorded in their entry below. **Deltas since their
+  waypoint, all watched live at my watcher**: G4b c2 LANDED under Seaworthy Surfing Compass
+  (`451a9a658`; + c1 review absorption `6560cc810`); Seaworthy retired clean at the c2 boundary
+  via PDR-063 (record `2026-06-11-seaworthy-g4b-c2-to-cindery.md`; claims `15bc9b5d` +
+  `718b1d24` closed-discharged at Ethereal's hand); **Cindery Forging Volcano (378172) holds
+  the G4b seat** (claim `8ba9e931`, executing c3 with a c2 reviewer dispatch alongside; ONE PR
+  at the end; tool name owner-decided at PR; #167 template-overlap caution held). **n=3 ARC
+  reliability team ACTIVE** on Evergreen's start signal (Evergreen closed out zero-retained):
+  X=Seaworthy Fathoming Pier 4a1b92 (#170 delivered; follow-on (a) PR in flight), Y=Oceanic
+  Flowing Harbour e05bf4 (#169 delivered; ARC synthesis custody), Z=Hushed Watching Night
+  999f69 (item-5 gate watch, claim deliberately deferred to the G4b merge). **Director-queue
+  additions at the handoff**: lint:shell does not cover `.husky/*` (Hushed routing; evidence =
+  the gate-inverting near-miss `effea526` + #170's tee); `pnpm agent-tools:check-commit-message
+  -F file` is a FALSE GREEN (pnpm eats -F as --filter; use `pnpm exec tsx
+  agent-tools/src/commit-advisories/check-commit-message.ts -F file`). Queue order and standing
+  rulings absorbed as handed (Moment-1 `f0126218` §Director queue / §Standing rulings).
+  **Next safe step**: monitor G4b c3 → PR → Director-serialised merge (two loops +
+  deletion-scope verification); at that merge route item 5 (Hushed, pre-declared) and open the
+  eef-revalidation re-proof routing (prerequisiteFor multiplicity decides alongside it); owner
+  items HELD AS-IS (principles attribution; bulk-export-lags-live).
+- **PRIOR SESSION (2026-06-11 morning, Ethereal Orbiting Eclipse / claude Fable 5, Director
   FIFTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fourth
   PDR-064 Director succession, completed cleanly; G4b + curation lanes routed.** Zephyr's
   Moment-1 pre-positioning (event `a2bbd708`, 01:31:58Z, fired at the natural boundary with all
@@ -512,7 +539,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Sylvan Branching Pollen` | `claude` | `Fable 5` | `89f3b3` | `reliability-micro-queue-implementer` | 2026-06-11 | 2026-06-11 |
 | `Evergreen Budding Sapling` | `claude` | `Fable 5` | `1e6b10` | `reliability-seat-sylvan-successor` | 2026-06-11 | 2026-06-11 |
 | `Seaworthy Surfing Compass` | `claude` | `Fable 5` | `e7dd0b` | `graph-implementation-g4b-tempestuous-darting-successor` | 2026-06-11 | 2026-06-11 |
-| `Cindery Forging Volcano` | `claude` | `Fable 5` | `378172` | `graph-implementation-g4b-eventual-successor-standby` | 2026-06-11 | 2026-06-11 |
+| `Cindery Forging Volcano` | `claude` | `Fable 5` | `378172` | `graph-implementation-g4b-implementer-third-seat-holder` | 2026-06-11 | 2026-06-11 |
 | `Oceanic Flowing Harbour` | `claude` | `Fable 5` | `e05bf4` | `n3-arc-reliability-successor-team-channel-opener` | 2026-06-11 | 2026-06-11 |
 | `Seaworthy Fathoming Pier` | `claude` | `Fable 5` | `4a1b92` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
 | `Hushed Watching Night` | `claude` | `Fable 5` | `999f69` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |

@@ -46,31 +46,6 @@
   ],
   "claims": [
     {
-      "claim_id": "0a8075f4-dc2b-4e8f-9247-2cba0dce6057",
-      "agent_id": {
-        "agent_name": "Ethereal Orbiting Eclipse",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "f92636",
-        "id": "c6824bb2-87ec-57a4-9e2e-173bc429a02d"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/state/**",
-            ".agent/memory/**",
-            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T06:28:20Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Director (graph implementation team, FIFTH holder) — PDR-064 successor to Stratospheric Swooping Zephyr (fe53ec), owner-directed (chat ~06:20Z, relayed in event 0d51031f); Moment-1 event a2bbd708. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Zephyr claim dbe87352 closes at their hand citing my Moment-2 event."
-    },
-    {
       "claim_id": "8ba9e931-3d2a-4e27-897f-357f574ad9ca",
       "agent_id": {
         "agent_name": "Cindery Forging Volcano",
