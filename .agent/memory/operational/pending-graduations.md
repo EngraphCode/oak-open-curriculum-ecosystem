@@ -455,19 +455,12 @@ that the source buffers were validly drained.
   trigger: second sweep false-negative caused by an exclusion filter or owner
   direction — SECOND INSTANCE 2026-06-09 (the -v .test.ts grep that hid a real
   seventh importer, napkin Fragrant entry) | size: S | status: owner-gated —
-  trigger fired; cure DRAFTED as a verify-dont-trust clause in the working
-  tree, owner decision pending (Director adjudication 08d5c8b7)]`
+  the verify-your-own-verification clause is RATIFIED and landed in
+  verify-dont-trust (owner ~07:43Z 2026-06-11, events 57d32eb1/c13f2e2b); this
+  item stays per Director direction for its residual facet, the dedicated
+  complete-sweep rule-or-pattern]`
   The candidate is the concrete failure mode where a search/audit appears clean
   because the command filtered away the very class it meant to inspect.
-- **Validate your own verdict before acting on it.**
-  `[captured: 2026-05-31 | source: napkin 2026-05-29 Tempestuous entry |
-  target: amend:verify-dont-trust-or-specialist-findings-doctrine |
-  trigger: second self-verdict invalidation instance or owner direction —
-  SECOND INSTANCE 2026-06-09 (own refutation-grep's filter audited and found
-  wrong) | size: S | status: owner-gated — trigger fired; same drafted
-  verify-dont-trust clause as the sweep item above, owner decision pending]`
-  The unresolved refinement is that "verify the auditor" applies to the
-  agent's own summarized verdict, not only to external reviewers.
 - **Find the falsifying fact before product surgery.**
   `[captured: 2026-05-31 | source: napkin 2026-05-29 Twilit entry |
   target: pattern:falsifying-fact-before-remediation-surgery |
@@ -627,9 +620,9 @@ routes here or duplicate homes named in the curator ledger.
   target: evaluator-grounding-or-continuity-doctrine |
   trigger: second evaluation task that inherits a stale diagnosis as its frame,
   or owner direction | size: S | status: owner-gated — partially covered by
-  verify-dont-trust §Status-surfaces-are-pointers; the frames/meaning facet
-  awaits the same owner decision as the drafted clause (Director adjudication
-  08d5c8b7)]`
+  verify-dont-trust §Status-surfaces-are-pointers plus the landed
+  verify-your-own-verification clause; the frames/meaning facet keeps its own
+  second-instance gate (Director adjudication 08d5c8b7)]`
   The candidate extends verify-dont-trust from artefacts to evaluation frames:
   verify existence against code/git, but verify meaning, role, and verdict
   before letting continuity prose define the question.

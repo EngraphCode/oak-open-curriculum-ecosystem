@@ -18,6 +18,20 @@ work brief and the recent identity stretch, per
 
 ## Current Continuation
 
+**Curation state (2026-06-11, Arboreal Swaying Thicket / `d2947e`, commit `7da93ae6`)**:
+dedicated pass complete — napkin rotated, distilled within envelope, register drained of
+fired/duplicate items, platform auto-memory under budget, repo-wide fitness critical zone
+empty. Open items: (a) `verify-dont-trust` verify-your-own-verification clause RATIFIED by
+the owner (~07:43Z, events `57d32eb1`/`c13f2e2b`) and landed in the closeout commit;
+(b) five owner-gated Practice-Core amendment candidates in the register (PDR-064, PDR-011
+bundle, PDR-091, continuity-disposition PDR, self-certification synthesis) — ADR-131
+scope-signal recorded in napkin, no further Core candidates before the owner walk; (c) the
+register's ~45 remaining owner-gated watches are the line-HARD's designed drain pressure — a
+dedicated owner walk is the next curation move. Team-window boundary that applied: curation
+seat edits curation-class surfaces in `threads/**` excluding `eef`; `repo-continuity.md` +
+`eef` record stay Director-owned, deltas handed over (events `bac7b4b4`, `ca102efa`,
+`22df9df2`).
+
 - **Branch**: `feat/graph-tooling-tidyup` — **clean and pushed** at HEAD `934d5c21`
   (re-derive git first-hand).
 - **Live work (next non-curation session)**: the feedback-mechanism follow-ons, in sequence

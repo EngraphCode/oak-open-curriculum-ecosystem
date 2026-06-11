@@ -70,6 +70,13 @@ A spot check scoped to files named by a claim cannot discover unclaimed
 consumers or siblings. Enumerate from the code, graph, schema, or source corpus
 first, then compare the claim boundary to that discovered set.
 
+Verification applies to your own verification. A sweep, grep, or audit command
+is itself a claim-shaped artefact: before trusting its empty result, audit its
+filters — any exclusion (`-v`, glob, path scope, type filter) that could remove
+the class under test invalidates the sweep. The same discipline covers your own
+summarised verdicts: a conclusion you recorded earlier is a claim to re-test at
+the point of action, not a fact to inherit.
+
 ## Anti-Patterns
 
 - Asking "are you done?" when the answer needs a claim, diff, event, or gate.
@@ -85,6 +92,8 @@ first, then compare the claim boundary to that discovered set.
   historical note, superseded plan, or contaminated in-flight artefact.
 - Checking only files named by a claim when the assertion is about all
   consumers, siblings, or members of a source set.
+- Declaring a sweep clean while the sweep command carried an exclusion filter
+  that removed the very class it was meant to inspect.
 
 ## Composition
 
@@ -116,6 +125,10 @@ first, then compare the claim boundary to that discovered set.
 - 2026-06-02 EEF D4 sibling-frontmatter repair: a stale label was present in
   history and contaminated artefacts but not live truth; assertion-time checks
   needed to test whether the cited label was current and visible.
+- 2026-05-30 readiness review + 2026-06-09 factory-importer refutation: two
+  sweeps reported clean because the command's own exclusion filter (`-v
+  .test.ts` in the second instance) removed the class under test; the durable
+  check is to audit the sweep's filters before trusting its empty result.
 - Status surfaces are pointers, not facts: thread records, frictions registers,
   plan statuses, and register markers each describe state without being it. A
   frictions register stamped "addressed-in-working-tree" with a never-completed

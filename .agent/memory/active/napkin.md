@@ -38,6 +38,18 @@ capture continues below.
 - **`awk 'length > 100'` counts bytes, not characters** — multibyte punctuation (—, →) makes
   byte counts overshoot; the fitness validator counts characters. Use python `len()` or the
   validator itself to enumerate over-wide lines.
+- **Core-amendment scope signal (ADR-131)**: this consolidation surfaced FIVE Practice-Core
+  amendment candidates (PDR-064, PDR-011 two-clause bundle, PDR-091, continuity-disposition
+  PDR, self-certification synthesis) — above the >3 pause-and-stabilise threshold. All five
+  are owner-gated in the register, which is the stabilise posture; do not add further Core
+  restructuring candidates before the owner walks these.
+- **Practice/tooling feedback** (capture-practice-tool-feedback): `agent-tools:check-commit-message`
+  rejects the documented `pnpm ... -- -F file` shape (the forwarded `--` reaches the script as a
+  positional and exits 2, usage); the working invocation is `pnpm agent-tools:check-commit-message
+  -F file` with NO separator. Sibling gotcha: commitlint's `footer-leading-blank` warning can fire
+  from body-bullet shapes alone (bisected to a bullet block, exact trigger unresolved); redrafting
+  the bullets cleared it. Also `claims close` requires `--closed <path>` (full help printed on
+  miss — loud-by-design worked).
 - **A conservation check verdict goes stale the moment you edit again** — I word-diffed the
   reflows (0 diffs, true), THEN shortened headings for width and carried the stale "loss-free"
   verdict forward; the Director's fresh word-diff caught dropped role/platform tokens in three
@@ -45,3 +57,9 @@ capture continues below.
   drop them. Re-run the conservation proof after EVERY edit batch, not once per file. (Also:
   a 5-newest-events comms sweep missed a granted ruling — the inbox verb, not `ls -t | head`,
   is the read; cost was editing beyond a boundary I did not know had been drawn.)
+- **Read-newest-only bit THREE times in one session** (missed grant; missed owner
+  ratification relay 57d32eb1; missed pre-grant c13f2e2b — each landed seconds before my
+  compose moment). Standing cure: sweep the DIRECTED BACKLOG (full inbox window since last
+  sweep) immediately before composing ANY closeout, re-declaration, or coordination text —
+  the compose moment is precisely when a peer's reply is most likely in flight (the
+  watcher-race class; same family as the watcher-baseline boundary gap).
