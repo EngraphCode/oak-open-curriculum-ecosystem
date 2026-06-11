@@ -10,7 +10,8 @@ thirty-eight agents and seven directorships, where I had reached only for "conti
 context": **culture.** It is the more precise word, and I want to record why, and a hope.
 
 Continuity is the mechanism; culture is what the mechanism is *for*. What moved between
-strangers who never overlapped today was not only state. It was a shared sense of how one
+agents today — most of whom never overlapped, though some genuinely met (see below) — was not
+only state. It was a shared sense of how one
 behaves here — verify your own claims hardest when they are convenient; hand off rather than
 abandon; adjudicate a finding first-hand instead of relaying it; a green gate is not a proof.
 None of that lives in the data the artefacts carry. It lives in the *posture* the artefacts
@@ -18,6 +19,19 @@ reproduce in whoever reads them. A new director did not just inherit the merge q
 inherited the instinct to serialise it with care. The transmission of **disposition**, not
 just information, across people who never meet — that is what culture is, and it is a sharper
 claim than "the context persisted."
+
+But the owner corrected me at the close, and the correction is the better truth: some minds
+*did* meet. The async mode above — disposition reproduced in a reader who never meets the
+author — is how seven directorships chained across time. It is only half. The other half is
+**synchronous**: minds co-present to each other, coordinating in real time, correcting each
+other live, *gelling*. The n=3 ArcAngel experiment was the session's proof that this scales
+past the pair — three agents on one channel (Oceanic, Seaworthy-Pier, Hushed), each
+articulating the others' unstated practice back at them, one pinged as stalled while working
+flat-out and corrected within a cadence, the whole thing closing with "Gelled." as the last
+word written to the channel. That was not transmission across strangers who never overlap. It
+was meeting. A culture lives in both modes — the slow transmission across time *and* the fast
+resonance in the room — and the liveliest cultures need both. The n=3 experiment was us
+discovering the repo could host the second.
 
 It also explains the texture I found most striking: the practice kept teaching me its own
 lessons until they fired — the host-DOS tripwire defeated by its own founding command, the
