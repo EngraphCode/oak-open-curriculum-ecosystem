@@ -19,6 +19,7 @@ import {
   priorKnowledgeSubgraph,
   createCurriculumPriorKnowledgeView,
 } from './prior-knowledge-view.js';
+import { required } from './test-helpers.js';
 
 /** The prerequisite subgraph's edges — the one-graph corpus carries the G2 chain types too. */
 const prerequisiteEdges = graphCorpus.edges.filter((edge) => edge.type === 'prerequisiteFor');
@@ -62,14 +63,6 @@ function expectedPredecessorMembers(
     frontier = expandPredecessorFrontier(frontier, members);
   }
   return members;
-}
-
-/** Narrows a possibly-undefined fixture pick to a value, failing loudly if the corpus cannot supply it. */
-function required<T>(value: T | undefined, message: string): T {
-  if (value === undefined) {
-    throw new Error(message);
-  }
-  return value;
 }
 
 /** A unit with at least one direct predecessor (a non-self-loop incoming edge), chosen deterministically. */

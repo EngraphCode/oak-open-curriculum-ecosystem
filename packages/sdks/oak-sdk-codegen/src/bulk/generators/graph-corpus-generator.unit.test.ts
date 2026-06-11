@@ -33,6 +33,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type {
+  ExtractedKeyword,
   ExtractedLesson,
   ExtractedMisconception,
   ExtractedPriorKnowledge,
@@ -53,6 +54,7 @@ function makeInput(overrides: Partial<GraphCorpusInput> = {}): GraphCorpusInput 
     threads: [],
     lessons: [],
     misconceptions: [],
+    keywords: [],
     sourceVersion: '2026-05-21T13:45:16.086Z',
     ...overrides,
   };
@@ -126,11 +128,21 @@ describe('generateGraphCorpusData', () => {
     lessonTitle: 'Comparing fractions',
   };
 
+  const baseKeyword: ExtractedKeyword = {
+    term: 'denominator',
+    displayTerm: 'Denominator',
+    definition: 'The number below the line in a fraction.',
+    frequency: 1,
+    subjects: ['maths'],
+    firstYear: 3,
+    lessonSlugs: ['comparing-fractions'],
+  };
+
   describe('graph metadata', () => {
-    it('returns a corpus with version 1.2.0 (G3 additive sequences)', () => {
+    it('returns a semver corpus version (the exact value is generator metadata, not contract)', () => {
       const result = generateGraphCorpusData(makeInput());
 
-      expect(result.version).toBe('1.2.0');
+      expect(result.version).toMatch(/^\d+\.\d+\.\d+$/);
     });
 
     it('includes a generatedAt ISO timestamp', () => {
@@ -585,6 +597,7 @@ describe('generateGraphCorpusData', () => {
       threads: [baseThread],
       lessons: [baseLesson],
       misconceptions: [baseMisconception],
+      keywords: [baseKeyword],
     });
 
     it('reports node and edge totals', () => {
@@ -602,12 +615,14 @@ describe('generateGraphCorpusData', () => {
         thread: 1,
         lesson: 1,
         misconception: 1,
+        keyword: 1,
       });
       expect(result.stats.edgeTypeCounts).toEqual({
         prerequisiteFor: 2,
         containsUnit: 3,
         containsLesson: 1,
         addressesMisconception: 1,
+        containsKeyword: 1,
       });
     });
 

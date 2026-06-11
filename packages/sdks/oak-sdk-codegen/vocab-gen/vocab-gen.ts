@@ -109,14 +109,16 @@ async function generateOutputFiles(
   const outputFiles: string[] = [];
   const sourceVersion = await readSourceVersion(config.bulkDataPath);
 
-  // Generate the graph corpus (one-graph foundation + G2 chain + G3 sequences:
-  // unit/thread/lesson/misconception nodes, prerequisiteFor + chain edges,
-  // year-ordered thread→unit placement sequences)
+  // Generate the graph corpus (one-graph foundation + G2 chain + G3 sequences
+  // + G4b keywords: unit/thread/lesson/misconception/keyword nodes,
+  // prerequisiteFor + chain edges, year-ordered thread→unit placement
+  // sequences)
   const graphCorpus = generateGraphCorpusData({
     priorKnowledge: result.extractedData.priorKnowledge,
     threads: result.extractedData.threads,
     lessons: result.extractedData.lessons,
     misconceptions: result.extractedData.misconceptions,
+    keywords: result.extractedData.keywords,
     sourceVersion,
   });
   const graphCorpusDirPath = await writeGraphCorpusAsJson(graphCorpus, config.outputPath, logger);

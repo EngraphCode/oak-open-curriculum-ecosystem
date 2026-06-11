@@ -28,6 +28,7 @@ const AGGREGATED_TOOL_ORDER: readonly string[] = [
   'fetch',
   'get-thread-progressions',
   'get-prior-knowledge-graph',
+  'get-keyword-graph',
 ];
 
 /**

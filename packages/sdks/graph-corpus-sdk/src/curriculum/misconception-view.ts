@@ -26,18 +26,18 @@ import {
   type GraphCorpusLessonNode,
   type GraphCorpusLessonNodeId,
   type GraphCorpusMisconceptionNode,
-  type GraphCorpusNodeId,
   type GraphCorpusThreadNode,
   type GraphCorpusThreadNodeId,
   type GraphCorpusUnitNode,
   type GraphCorpusUnitNodeId,
 } from '@oaknational/sdk-codegen/graph-corpus';
 
+import { resolveAnchors } from './anchor-resolution.js';
 import {
   buildCurriculumMisconceptionProjection,
-  mustGet,
   type CurriculumMisconceptionProjection,
 } from './misconception-projection.js';
+import { mustGet } from './projection-helpers.js';
 
 /** Default unit-window size for thread anchors — bounds the heavy tail while returning median threads whole. */
 export const DEFAULT_THREAD_UNIT_LIMIT = 10;
@@ -104,31 +104,6 @@ export interface ThreadWindowInvalid {
 
 /** The misconception projection, constructed once at module load (EEF precedent). */
 const projection: CurriculumMisconceptionProjection = buildCurriculumMisconceptionProjection();
-
-/** Resolves anchor slugs to known node ids with set semantics; unknown slugs are reported, not errors. */
-function resolveAnchors<TId extends GraphCorpusNodeId>(
-  slugs: readonly string[],
-  toNodeId: (slug: string) => TId,
-  known: ReadonlyMap<GraphCorpusNodeId, unknown>,
-): { readonly resolved: readonly TId[]; readonly unknown: readonly string[] } {
-  const resolved: TId[] = [];
-  const unknown: string[] = [];
-  const seenResolved = new Set<TId>();
-  const seenUnknown = new Set<string>();
-  for (const slug of slugs) {
-    const nodeId = toNodeId(slug);
-    if (known.has(nodeId)) {
-      if (!seenResolved.has(nodeId)) {
-        seenResolved.add(nodeId);
-        resolved.push(nodeId);
-      }
-    } else if (!seenUnknown.has(slug)) {
-      seenUnknown.add(slug);
-      unknown.push(slug);
-    }
-  }
-  return { resolved, unknown };
-}
 
 /** Builds one lesson entry: the lesson with its (possibly empty) id-sorted misconceptions. */
 function lessonEntry(lesson: GraphCorpusLessonNode): LessonMisconceptions {

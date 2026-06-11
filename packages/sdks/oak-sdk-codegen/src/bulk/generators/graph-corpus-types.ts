@@ -1,5 +1,5 @@
 /**
- * Graph-corpus emitted types (G1a + G2) — the single source of truth.
+ * Graph-corpus emitted types (G1a + G2 + G4b) — the single source of truth.
  *
  * @remarks
  * These interfaces define the emitted graph-corpus dataset: kind-discriminated
@@ -8,7 +8,9 @@
  * re-exports them (via the generator module), so no hand-maintained type runs
  * parallel to the generated corpus (Decision A / ADR-031).
  */
+import { normaliseKeyword } from '../extractors/keyword-extractor.js';
 import type {
+  ExtractedKeyword,
   ExtractedLesson,
   ExtractedMisconception,
   ExtractedPriorKnowledge,
@@ -23,13 +25,16 @@ export type GraphCorpusThreadNodeId = `thread:${string}`;
 export type GraphCorpusLessonNodeId = `lesson:${string}`;
 /** A kind-qualified misconception node id (content-hash mint). */
 export type GraphCorpusMisconceptionNodeId = `misconception:${string}`;
+/** A kind-qualified keyword node id (normalised-term mint, lc+trim). */
+export type GraphCorpusKeywordNodeId = `keyword:${string}`;
 
 /** A kind-qualified graph-corpus node id. */
 export type GraphCorpusNodeId =
   | GraphCorpusUnitNodeId
   | GraphCorpusThreadNodeId
   | GraphCorpusLessonNodeId
-  | GraphCorpusMisconceptionNodeId;
+  | GraphCorpusMisconceptionNodeId
+  | GraphCorpusKeywordNodeId;
 
 /** A unit node in the graph corpus. */
 export interface GraphCorpusUnitNode {
@@ -72,19 +77,41 @@ export interface GraphCorpusMisconceptionNode {
   readonly response: string;
 }
 
+/**
+ * A keyword node in the graph corpus (G4b).
+ *
+ * @remarks
+ * Lean by design: richness arrives via `containsKeyword` edge traversal
+ * (keyword→lesson→unit/thread/misconception) on the one-graph substrate,
+ * never via a fat node. `term` carries the first-occurrence display casing;
+ * the normalised form lives in the id. `frequency` is the unique-lesson
+ * count; `firstYear` is key-stage-derived (coarse), not placement-year.
+ */
+export interface GraphCorpusKeywordNode {
+  readonly kind: 'keyword';
+  readonly id: GraphCorpusKeywordNodeId;
+  readonly term: string;
+  readonly description: string;
+  readonly frequency: number;
+  readonly firstYear: number;
+  readonly subjects: readonly string[];
+}
+
 /** Any node in the graph corpus (discriminated on `kind`). */
 export type GraphCorpusNode =
   | GraphCorpusUnitNode
   | GraphCorpusThreadNode
   | GraphCorpusLessonNode
-  | GraphCorpusMisconceptionNode;
+  | GraphCorpusMisconceptionNode
+  | GraphCorpusKeywordNode;
 
 /** The typed edge vocabulary of the corpus. */
 export type GraphCorpusEdgeType =
   | 'prerequisiteFor'
   | 'containsUnit'
   | 'containsLesson'
-  | 'addressesMisconception';
+  | 'addressesMisconception'
+  | 'containsKeyword';
 
 /** A typed directed edge between corpus nodes (graph-core `GraphEdge` shape). */
 export interface GraphCorpusEdge {
@@ -143,6 +170,7 @@ export interface GraphCorpusNodeKindCounts {
   readonly thread: number;
   readonly lesson: number;
   readonly misconception: number;
+  readonly keyword: number;
 }
 
 /** Per-type edge counts. */
@@ -151,6 +179,7 @@ export interface GraphCorpusEdgeTypeCounts {
   readonly containsUnit: number;
   readonly containsLesson: number;
   readonly addressesMisconception: number;
+  readonly containsKeyword: number;
 }
 
 /** Statistics about the graph corpus. */
@@ -187,6 +216,7 @@ export interface GraphCorpusInput {
   readonly threads: readonly ExtractedThread[];
   readonly lessons: readonly ExtractedLesson[];
   readonly misconceptions: readonly ExtractedMisconception[];
+  readonly keywords: readonly ExtractedKeyword[];
   readonly sourceVersion: string;
 }
 /** Mints the kind-qualified id for a unit node. */
@@ -202,4 +232,15 @@ export function threadNodeId(threadSlug: string): GraphCorpusThreadNodeId {
 /** Mints the kind-qualified id for a lesson node. */
 export function lessonNodeId(lessonSlug: string): GraphCorpusLessonNodeId {
   return `lesson:${lessonSlug}`;
+}
+
+/**
+ * Mints the kind-qualified id for a keyword node from the term.
+ *
+ * @remarks
+ * Normalises internally (lc+trim via {@link normaliseKeyword}), so the mint
+ * is stable for raw and already-normalised inputs alike.
+ */
+export function keywordNodeId(term: string): GraphCorpusKeywordNodeId {
+  return `keyword:${normaliseKeyword(term)}`;
 }

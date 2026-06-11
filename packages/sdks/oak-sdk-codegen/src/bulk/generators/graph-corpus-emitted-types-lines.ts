@@ -1,5 +1,5 @@
 /**
- * Emitted module content for the graph-corpus dataset (G1a + G2).
+ * Emitted module content for the graph-corpus dataset (G1a + G2 + G4b).
  *
  * @remarks
  * The literal lines of the generated `types.ts` (re-exporting the
@@ -26,6 +26,7 @@ export const graphCorpusTypesModuleLines: readonly string[] = [
   '  GraphCorpusThreadNode,',
   '  GraphCorpusLessonNode,',
   '  GraphCorpusMisconceptionNode,',
+  '  GraphCorpusKeywordNode,',
   '  GraphCorpusEdge,',
   '  GraphCorpusEdgeType,',
   '  GraphCorpusNodeId,',
@@ -33,6 +34,7 @@ export const graphCorpusTypesModuleLines: readonly string[] = [
   '  GraphCorpusThreadNodeId,',
   '  GraphCorpusLessonNodeId,',
   '  GraphCorpusMisconceptionNodeId,',
+  '  GraphCorpusKeywordNodeId,',
   '  GraphCorpusStats,',
   '  GraphCorpusNodeKindCounts,',
   '  GraphCorpusEdgeTypeCounts,',
