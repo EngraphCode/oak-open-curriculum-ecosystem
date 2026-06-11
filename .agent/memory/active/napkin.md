@@ -232,3 +232,19 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   disease the token metric exists to cure — what you don't measure (assert) can vanish
   silently. Siblings: [[feedback_tests_no_global_state]], testing-strategy §No conditional
   tests, the EEF unit test's throw-guard precedent.
+
+## 2026-06-11 — naming-lane pickup tranche (Moss weaves Blossom, 10438c)
+
+- **An inherited handoff-record recipe is a hypothesis — verify each reference's REFERENT
+  before bulk-renaming.** The record's ADR 195→198 enumeration swept the napkin in, but the
+  napkin's "ADR-195 family" line is Dawnlit's reference to MAIN's ADR-195 (graph-tools,
+  response-shape context), not the naming ADR; renaming it would have pointed a snagging
+  lesson at the wrong ADR. Same-number-different-referent is exactly what a renumber-collision
+  window produces. Sibling of the inherited-Step-0-recommendation lesson (2026-06-09).
+- **A pre-push "branch failure" can be a TREE failure: root format/markdownlint gates inspect
+  the working tree, not the pushed commits.** Zephyr's push of 6056d48b2 failed in the window
+  where their aborted origin/main merge attempt had conflict markers in the primary checkout's
+  napkin; the same chain runs green (103/103) on the same content in a clean worktree.
+  Diagnose pre-push failures by separating tree state from branch content before treating the
+  gate as red. Corollary of "whole-tree pre-commit gates bind you to a live peer's WIP"
+  (2026-06-11 wave-2); the per-session-worktree team shape removes the exposure.
