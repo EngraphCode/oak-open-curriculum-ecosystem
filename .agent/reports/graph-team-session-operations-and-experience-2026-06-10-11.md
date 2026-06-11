@@ -233,3 +233,22 @@ graduation triggers in the pending-graduations register as of this writing.
   ~20 records across the session).
 - Protocol sources: PDR-063 (mid-cycle retirement), PDR-064 (two-moments handoff), PDR-078
   (liveness heartbeat), ADR-182/183/186 (substrate phenotypes).
+
+## 9. Addendum (2026-06-11 ~15:00Z): the host-load confounder
+
+A post-publication host audit materially revises §3.3's root-cause weighting. Fourteen
+per-core `node -e "for(;;){…}"` busy-loops — synthetic load spawned inline at 08:38Z during
+the timer-race flake investigation and never reaped — ran orphaned for seven hours, pegging
+every core (load average >60 on the host) and driving ~26 GB of swap. **Host CPU starvation,
+not comms-directory scale, was likely the dominant variable behind the watcher drain-timeout
+deaths**, and a contributor to the day's multi-minute gate chains; the directory-scale factor
+remains real but secondary. Two further findings from the same audit: the watcher's
+fail-loud drain-timeout path emits its error WITHOUT terminating the process (zombie watchers
+accumulated, sharing seen-files with their replacements and adding load — a feedback loop),
+and the owner's review judges the synthetic load itself unnecessary (the race class is
+provocable in-process with fake timers or injected delays). Consequences, landed at owner
+direction with this addendum: the `no-unbounded-host-load` rule with innate-immunity trips,
+a host-health check in `start-right` bootstrap, and a revision to §7's consideration 3 —
+fix the watcher's exit path and process hygiene before building store sharding. The episode
+is §5.1's thesis at machine scale: the reaping intention lived in prose, and prose did not
+fire; only a host census found it, seven hours late.

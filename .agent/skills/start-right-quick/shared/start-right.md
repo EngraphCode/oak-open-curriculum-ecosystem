@@ -149,6 +149,19 @@ git status --short
 git log --oneline --decorate -5
 ```
 
+### 7. Host health
+
+```bash
+uptime          # load averages vs core count
+sysctl vm.swapusage 2>/dev/null || true
+```
+
+A load average well above the core count, or heavy swap, is a
+stop-and-surface signal before work starts — a starved host corrupts
+gate timings, watcher deadlines, and experiment results, and the cause
+may be leaked processes from an earlier session (see
+[`no-unbounded-host-load`](../../../rules/no-unbounded-host-load.md)).
+
 ## Practice Box
 
 Check `.agent/practice-core/incoming/` for practice-core files. If
