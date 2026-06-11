@@ -194,6 +194,8 @@ export interface GraphCorpusStats {
   readonly collapsedIdenticalMisconceptions: number;
   /** Identical (threadId, unitId, year) placements collapsed beyond the first. */
   readonly collapsedIdenticalPlacements: number;
+  /** Identical (source, target) prerequisiteFor occurrences collapsed beyond the first. */
+  readonly collapsedIdenticalPrerequisiteEdges: number;
 }
 
 /** The graph corpus: one identity space surfaced through bounded views. */

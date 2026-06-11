@@ -6,10 +6,13 @@
  * Builds the typed edge sets: `prerequisiteFor` from consecutive
  * year-ordered thread pairs (with dropped-edge provenance for unresolvable
  * endpoints), `containsUnit` (thread→unit), and `containsLesson`
- * (unit→lesson placement). `containsUnit` and `containsLesson` deduplicate
- * per pair; `prerequisiteFor` emits one edge per consecutive placement pair,
- * so the same (source, target) recurs when threads share adjacency —
- * multiplicity is placement data, preserved since G1a.
+ * (unit→lesson placement). All three deduplicate per (source, target) pair.
+ * `prerequisiteFor` deduplicated at emission since 2026-06-11: identical
+ * `{source, type, target}` triples recurring when threads share adjacency
+ * carry no decodable signal in the emitted shape (multiplicity-as-signal
+ * refuted — eef-revalidation report 2026-06-11 §2); occurrences collapsed
+ * beyond the first are surfaced as
+ * `stats.collapsedIdenticalPrerequisiteEdges`.
  */
 import type { ExtractedLesson } from '../extractors/index.js';
 import type { ExtractedThread, ThreadUnit } from '../extractors/thread-extractor.js';
@@ -100,17 +103,35 @@ export interface ResolvedEdges {
   readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
 }
 
-/** Resolves thread-ordering pairs into prerequisiteFor edges, dropping any with an unknown endpoint. */
+/** {@link ResolvedEdges} plus the count of identical pairs collapsed at emission. */
+export interface PrerequisiteEdgesBuild extends ResolvedEdges {
+  /** Identical (source, target) occurrences collapsed beyond the first. */
+  readonly collapsedIdenticalPrerequisiteEdges: number;
+}
+
+/**
+ * Resolves thread-ordering pairs into prerequisiteFor edges, dropping any
+ * with an unknown endpoint and collapsing identical (source, target) pairs
+ * beyond their first occurrence (the collapse count is surfaced for stats).
+ */
 export function buildPrerequisiteEdges(
   threads: readonly ExtractedThread[],
   knownUnitSlugs: ReadonlySet<string>,
-): ResolvedEdges {
+): PrerequisiteEdgesBuild {
+  const seen = new Set<string>();
+  let collapsedIdenticalPrerequisiteEdges = 0;
   const edges: GraphCorpusEdge[] = [];
   const droppedEdges: GraphCorpusDroppedEdge[] = [];
   for (const [from, to] of threadOrderingPairs(threads)) {
     const source = unitNodeId(from.unitSlug);
     const target = unitNodeId(to.unitSlug);
     if (knownUnitSlugs.has(from.unitSlug) && knownUnitSlugs.has(to.unitSlug)) {
+      const key = `${source}\u001f${target}`;
+      if (seen.has(key)) {
+        collapsedIdenticalPrerequisiteEdges += 1;
+        continue;
+      }
+      seen.add(key);
       edges.push({ source, type: 'prerequisiteFor', target });
     } else {
       const missing = knownUnitSlugs.has(from.unitSlug) ? to.unitSlug : from.unitSlug;
@@ -122,7 +143,7 @@ export function buildPrerequisiteEdges(
       });
     }
   }
-  return { edges, droppedEdges };
+  return { edges, droppedEdges, collapsedIdenticalPrerequisiteEdges };
 }
 
 /** Builds thread→unit containsUnit edges (deduplicated per thread/unit pair). */
