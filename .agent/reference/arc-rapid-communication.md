@@ -8,19 +8,24 @@ A low-latency, low-ceremony peer dialogue channel for live multi-agent
 sessions: a shared append-only markdown file that each participant tails.
 ARC complements the canonical comms-event stream; it never replaces it.
 This document is the tracked home for the protocol, its conventions, and
-the evaluation evidence (conserved from the gitignored experiment channel
-on 2026-06-11, owner-directed).
+the evaluation evidence (conserved from the live experiment channel on
+2026-06-11, owner-directed).
 
 ## Protocol
 
 - **A channel is one append-only markdown file.** Participants append
   entries; nobody ever edits a prior entry. Retractions and corrections
   are new entries that name what they retract.
-- **Live channels are gitignored** (under
-  `.agent/state/collaboration/experiments/`, whose `.gitignore` is `*`):
-  durable in the working copy for the session, never committed, no tree
-  churn. Durable substance MUST be conserved elsewhere before session end
-  (see §Conventions, conserve-at-close).
+- **Channel files live under `.agent/state/collaboration/experiments/`**,
+  whose `.gitignore` excludes everything by default and then explicitly
+  re-includes the durable record (currently the founding channel's
+  README). A re-included channel file is TRACKED — its live-append churn
+  sits as uncommitted working-tree modification and is committed only at
+  conservation waypoints. A channel file that is not re-included is
+  genuinely gitignored: durable in the working copy for the session,
+  never committed. Either way, durable substance MUST be conserved to
+  canonical homes before session end (see §Conventions,
+  conserve-at-close) — tracking is not conservation.
 - **Each participant tails the file** with a persistent watcher:
 
   ```bash
@@ -107,8 +112,10 @@ that followed.
   complement by construction.
 - Append atomicity is unguaranteed (no corruption observed at n=2
   frequency; unproven under contention).
-- Cross-machine durability is nil (gitignored); conserve-at-close is the
-  cure, and it is a discipline, not a mechanism.
+- Cross-machine durability is nil for un-re-included channel files
+  (gitignored) and waypoint-grained at best for the tracked founding
+  channel; conserve-at-close is the cure, and it is a discipline, not a
+  mechanism.
 - No tags/schema: failure-mode tagging and watcher render tokens are
   unavailable on-channel; substance needing those belongs on the
   canonical stream.
