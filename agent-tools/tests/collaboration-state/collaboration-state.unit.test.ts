@@ -22,7 +22,7 @@ import {
 import {
   commsSendDefaults,
   formatCommsSendResult,
-} from '../../src/collaboration-state/cli-comms-commands';
+} from '../../src/collaboration-state/cli-comms-send';
 import { claimReport } from '../../src/collaboration-state/claim-reports';
 import { parseOptions, type Options } from '../../src/collaboration-state/cli-options';
 
