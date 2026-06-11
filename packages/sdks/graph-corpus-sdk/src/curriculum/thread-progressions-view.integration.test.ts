@@ -25,14 +25,7 @@ import {
   progressionsForSubjectKeyStage,
   threadProgressionStats,
 } from './thread-progressions-view.js';
-
-/** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
-function required<T>(value: T | undefined, message: string): T {
-  if (value === undefined) {
-    throw new Error(message);
-  }
-  return value;
-}
+import { required } from './test-helpers.js';
 
 /** A thread slug with at least one placement, chosen deterministically (first emitted sequence). */
 const firstSequence = required(

@@ -1,3 +1,31 @@
+## [1.24.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.24.0...v1.24.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **mcp-streamable-http:** complete the aggregated tool landing-page order ([a09eccb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a09eccb238c4e92c53337da04d7851be4fff9d3d))
+
+# [1.24.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.2...v1.24.0) (2026-06-11)
+
+
+### Bug Fixes
+
+* **graph-corpus-sdk:** absorb PR [#173](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/173) review wave — shared adjacency helper, honest summaries ([0c79385](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0c7938579e9176eb9a5ce923575a06c0dfae6ea2))
+
+
+### Features
+
+* **curriculum-sdk:** anchored get-keyword-graph tool + keywords disambiguation (G4b-c3) ([46799ca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/46799ca7df0fdc419e35dd47faa1024606b8aa99))
+* **graph-corpus-sdk:** keyword view — bounded anchored frequency-ranked retrieval (G4b-c2) ([451a9a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/451a9a658bc2a09f5f0b2e35d6839e9ebdb7ef40))
+* **sdk-codegen:** emit keyword nodes and containsKeyword edges into the graph corpus (G4b-c1) ([73aaedc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/73aaedca023e0698fe0c3e59d88addac5194ff22))
+
+## [1.23.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.1...v1.23.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** use type-preserving some() in emitted edge-type predicate ([d7f5d0d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d7f5d0de3fa078ab4a0cc6f9ca29d5b26c70fa46))
+
 ## [1.23.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.0...v1.23.1) (2026-06-11)
 
 

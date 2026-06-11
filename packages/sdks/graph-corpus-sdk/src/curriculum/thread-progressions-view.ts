@@ -25,7 +25,7 @@ import type {
   GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
 
-import { mustGet } from './misconception-projection.js';
+import { mustGet } from './projection-helpers.js';
 import {
   buildCurriculumThreadProgressionsProjection,
   type CurriculumThreadProgressionsProjection,

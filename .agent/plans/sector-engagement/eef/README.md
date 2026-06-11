@@ -93,7 +93,7 @@ not owned here.
 | [`future/eef-school-leadership-evidence.plan.md`](future/eef-school-leadership-evidence.plan.md) | Seed plan | School-leadership / SLT EEF strands, split out of the teacher plan 2026-05-31; gated on establishing clear school-leader value before any design. |
 | [`future/eef-standalone-evidence-workflows.plan.md`](future/eef-standalone-evidence-workflows.plan.md) | Seed plan | EEF-only MCP-app workflows that deliver value without intersecting Oak's tools; captured 2026-05-31, gated on establishing standalone teacher value. |
 | [`future/eef-tool-metric-filter-inputs.plan.md`](future/eef-tool-metric-filter-inputs.plan.md) | Seed plan | Exact-value headline-metric filter inputs for `get-eef-evidence`, owner-deferred from the D3 v1 contract (2026-06-03); trigger: D7 green + observed agent usage. |
-| [`current/eef-revalidate-on-new-graph-tools.plan.md`](current/eef-revalidate-on-new-graph-tools.plan.md) | Current plan (promoted 2026-06-11) | Re-validate the EEF value path (D7 round trip) against the landed graph-corpus-sdk tools — Track-G complete, all landing signals raised; the prerequisiteFor-multiplicity and G4b on-EEF-path decisions ride it. |
+| [`current/eef-revalidate-on-new-graph-tools.plan.md`](current/eef-revalidate-on-new-graph-tools.plan.md) | Seed plan (executed) | Re-validate the EEF value path (D7 round trip) against the landed graph-corpus-sdk replacements. Executed 2026-06-11: value path intact; evidence in `.agent/reports/eef-revalidation-report-2026-06-11.md`. |
 | [`archive/`](archive/) | Superseded | The quarantined list-era estate and graph-tooling-rebuild design docs. Do not resume or cite. |
 
 ## Read Order

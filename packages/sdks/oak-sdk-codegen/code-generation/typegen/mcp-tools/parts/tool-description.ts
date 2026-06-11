@@ -116,10 +116,25 @@ const ASSET_DOWNLOAD_NOTE = `
 
 NOTE: The asset \`url\` fields returned by this tool are authenticated API endpoints and cannot be used as direct browser download links. To generate a clickable download link for the user, call the \`download-asset\` tool with the lesson slug and asset type. If \`download-asset\` is not available (e.g. stdio transport), direct users to the lesson page on the Oak website — use the lesson's \`oakUrl\` (e.g. \`https://www.thenational.academy/teachers/lessons/{lessonSlug}\`).`;
 
+/**
+ * Disambiguation guidance appended to the generated get-keywords description.
+ *
+ * Two keywords tools serve different needs (G4b): generated get-keywords is
+ * the live-API pass-through; the hand-written get-keyword-graph aggregated
+ * tool serves a bounded frequency-ranked subset of the curriculum-graph
+ * snapshot. Each tool's description names the other and states when to
+ * prefer it, verified end-to-end via `tools/list`.
+ */
+const GET_KEYWORDS_DISAMBIGUATION_NOTE = `
+
+WHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set for a key stage + subject — fresh and authoritative (including KS4 during curriculum restructures), alphabetical, unranked, and large at subject scope. For a bounded frequency-ranked subset with lesson connections (token economy + relationship navigation over the curriculum graph), prefer get-keyword-graph, which serves a point-in-time curriculum snapshot.`;
+
 function getToolDescriptionEnhancement(toolName: string): string | undefined {
   switch (toolName) {
     case 'get-rate-limit':
       return GET_RATE_LIMIT_NOTE;
+    case 'get-keywords':
+      return GET_KEYWORDS_DISAMBIGUATION_NOTE;
     case 'get-lessons-assets':
     case 'get-key-stages-subject-assets':
     case 'get-sequences-assets':

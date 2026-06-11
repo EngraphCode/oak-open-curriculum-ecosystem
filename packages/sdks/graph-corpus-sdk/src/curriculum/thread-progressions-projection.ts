@@ -24,7 +24,7 @@ import {
   type GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
 
-import { mustGet } from './misconception-projection.js';
+import { mustGet } from './projection-helpers.js';
 
 /** The module-load projection: thread/unit node indexes plus the sequence map. */
 export interface CurriculumThreadProgressionsProjection {

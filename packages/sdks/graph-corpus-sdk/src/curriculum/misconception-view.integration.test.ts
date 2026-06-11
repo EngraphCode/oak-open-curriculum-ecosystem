@@ -25,14 +25,7 @@ import {
   misconceptionsForThread,
   misconceptionsForUnits,
 } from './misconception-view.js';
-
-/** Narrows a possibly-undefined fixture pick to a value, failing loudly if the corpus cannot supply it. */
-function required<T>(value: T | undefined, message: string): T {
-  if (value === undefined) {
-    throw new Error(message);
-  }
-  return value;
-}
+import { bareSlug, required } from './test-helpers.js';
 
 /** Independent reference adjacency: source id → sorted target ids, per edge type. */
 function referenceAdjacency(edgeType: string): Map<string, string[]> {
@@ -114,8 +107,6 @@ const megaThread = required(
     .sort((a, b) => b.unitCount - a.unitCount || a.threadId.localeCompare(b.threadId))[0],
   'corpus has no thread with units',
 );
-
-const bareSlug = (id: string): string => id.slice(id.indexOf(':') + 1);
 
 describe('misconception view — bounded anchored chain retrieval', () => {
   it('returns a lesson anchor with its misconceptions matching the reference adjacency', () => {
