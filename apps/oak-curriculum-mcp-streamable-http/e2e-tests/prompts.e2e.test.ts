@@ -67,6 +67,7 @@ describe('MCP Prompts E2E', () => {
       'learning-progression',
       'curriculum-mapping',
       'adapt-lesson',
+      'continue-progression',
     ])('returns %s prompt', async (promptName) => {
       const { response, parsed, prompts } = await listPrompts();
 
@@ -254,6 +255,47 @@ describe('MCP Prompts E2E', () => {
       expect(allText).toContain('ks2');
       // Proves: the served prompt grounds ordering in Oak's thread backbone.
       expect(allText).toContain('get-thread-progressions');
+    });
+
+    it('continue-progression prompt resolves position to next step via Oak sequence tools', async () => {
+      const { app } = await createStubbedHttpApp();
+
+      const response = await request(app)
+        .post('/mcp')
+        .set('Host', 'localhost')
+        .set('Accept', STUB_ACCEPT_HEADER)
+        .send({
+          jsonrpc: '2.0',
+          id: '1',
+          method: 'prompts/get',
+          params: {
+            name: 'continue-progression',
+            arguments: {
+              subject: 'maths',
+              yearGroup: 'Year 4',
+              justCovered: 'equivalent fractions',
+            },
+          },
+        });
+
+      expect(response.status).toBe(200);
+
+      const envelope = parseSseEnvelope(response.text);
+      const parsed = PromptsGetResultSchema.safeParse(envelope.result);
+      expect(parsed.success).toBe(true);
+
+      const messages = parsed.data?.messages ?? [];
+      const allText = messages.map((m) => m.content.text ?? '').join(' ');
+
+      // Proves: the served prompt anchors on the stated position and derives
+      // the next step from Oak's sequence, readiness, and misconception tools.
+      expect(allText).toContain('equivalent fractions');
+      expect(allText).toContain('get-thread-progressions');
+      expect(allText).toContain('get-prior-knowledge-graph');
+      expect(allText).toContain('get-misconception-graph');
+      // Proves: planning substance stays single-sourced — the prompt chains
+      // into lesson-planning rather than restating it.
+      expect(allText).toContain('lesson-planning');
     });
 
     it('learning-progression prompt includes concept and subject', async () => {

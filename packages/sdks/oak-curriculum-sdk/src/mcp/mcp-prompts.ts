@@ -18,6 +18,7 @@ import {
   getLearningProgressionMessages,
   getCurriculumMappingMessages,
   getAdaptLessonMessages,
+  getContinueProgressionMessages,
 } from './mcp-prompt-messages.js';
 
 /**
@@ -138,6 +139,23 @@ export const MCP_PROMPTS: readonly McpPrompt[] = [
       requiredArgument('yearGroup', 'The year group (e.g., "Year 4", "Year 9")'),
     ],
   },
+  {
+    name: 'continue-progression',
+    description:
+      "State where your class is — what they just covered — and plan the next step from Oak's curriculum sequence: assumed prior knowledge surfaced as a checkable readiness list, upcoming misconceptions anticipated, then a full lesson plan through lesson-planning.",
+    arguments: [
+      requiredArgument('subject', 'The subject area (e.g., "maths", "science", "english")'),
+      requiredArgument('yearGroup', 'The year group (e.g., "Year 4", "Year 9")'),
+      requiredArgument(
+        'justCovered',
+        'What the class just completed — a topic, unit, or lesson (e.g., "equivalent fractions", "the circulatory system")',
+      ),
+      optionalArgument(
+        'classNotes',
+        'Optional: Notes on how the class did (e.g., "they struggled with equivalent fractions")',
+      ),
+    ],
+  },
 ] as const;
 
 /**
@@ -167,6 +185,8 @@ export function getPromptMessages(
       return getCurriculumMappingMessages(args);
     case 'adapt-lesson':
       return getAdaptLessonMessages(args);
+    case 'continue-progression':
+      return getContinueProgressionMessages(args);
     default:
       return [];
   }
