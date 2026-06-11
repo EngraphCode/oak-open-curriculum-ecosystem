@@ -28,6 +28,28 @@ under the 2026-05-01 owner-named reformulation.
 
 ## Amendment Log
 
+- **2026-06-11** (Accepted; owner-approved at the dedicated consolidation
+  walk): **Gate-outcome vocabulary gains a third word — `reject-as-framed`.**
+  Surface 4's gate-walk application previously admitted two outcomes for a
+  fork presented at a decision gate: *decide* (settle it at the gate) or
+  *park* (defer with a named, falsifiable trigger). Two outcomes coerce a
+  third, distinct state: the gate itself is **mis-posed** — its framing, not
+  its answer, is what the decision-holder rejects. Without the third word,
+  owner hesitation at a mis-posed gate gets coerced into a decision that was
+  never made or into a costume-trigger park which merely dates the
+  mis-framing. `reject-as-framed` has a different recording shape from both:
+  the gate **routes back to synthesis and the gate row itself is edited** —
+  the question is re-posed, not answered or postponed. Evidence: first
+  instance 2026-06-04 (a gate-walk opener where owner hesitation had no
+  legitimate outlet); second instance 2026-06-11 (the owner reframed a
+  decision-walk's own question protocol — "assume the recommendation; show
+  me only genuine questions" — which neither *decide* nor *park* could
+  record).
+  - **Falsifiability**: this amendment would be shown wrong if gate walks
+    using the three-word vocabulary routinely misfiled genuine decisions or
+    parks under `reject-as-framed` (the word becoming an escape hatch from
+    deciding), or if no gate walk ever legitimately used it again.
+
 - **2026-05-29** (Accepted; owner-reviewed): **Surface 4 — Sequencing
   Optionality named, and Surface 3's rule sibling graduated as a merged
   discipline.** The §Decision lead previously listed *sequencing
@@ -263,6 +285,11 @@ observability*, not whether a condition is merely named: a named-but-
 unobservable condition (*"when the design is approved"* with no approval
 artefact a future agent could check) is still bare-deferred optionality,
 because nothing a future agent can observe tells them it has fired.
+
+At a decision gate the cure's vocabulary has three words, not two:
+*decide*, *park* (with a falsifiable trigger), or *reject-as-framed* —
+the gate is mis-posed, routes back to synthesis, and the gate row itself
+is edited (2026-06-11 amendment; see the Amendment Log).
 
 **Enforcement (active layer for Surfaces 3 and 4).** Both the
 outcome-optionality and sequencing-optionality cures fire at the

@@ -218,6 +218,20 @@ covers only the wrapper — a commit+push inside ran both hooks red while the
 wrapper reported green; the verdict lives in the captured output's failure
 markers, never in any wrapper's exit code.
 
+## An untested mechanism is prose in costume
+
+A tripwire/guard must be proven against the actual attack shape it targets — a
+mechanism shipped without a verifying test is prose with a type signature.
+Worked instance (2026-06-11, recursive): the host-DOS cure added a `for(;;)`
+innate-immunity trip, but the guard's token-equality matcher could not see
+inside a quoted arg, so the FOUNDING command (`node -e "for(;;){...}"`) sailed
+straight past the trip built for exactly it; caught by a review bot, not the
+author. Cure: substring match-mode, RED-first against the founding command
+verbatim (PR 185). Corollary of the mechanism-over-vigilance lesson: "prose
+discipline does not fire — mechanism does" AND "an untested mechanism is just
+prose." Routing: named corollary in the mechanical-firing-moments PDR
+(owner-approved 2026-06-11).
+
 ## An uncapped workflow `findings[]` array runs a StructuredOutput agent away
 
 A workflow `agent({schema})` whose array field is unbounded can exceed the

@@ -817,15 +817,6 @@ archived napkins. These items are owner-gated because the review found repeated
 failure despite existing reminders; they still need owner direction or a
 narrower doctrine/tooling pass before promotion.
 
-- **Active-buffer replacement needs a pre-replacement proof check.**
-  `[captured: 2026-05-31 | source: longitudinal napkin review F1 |
-  target: amend:consolidate-docs-or-consolidate-until-done |
-  trigger: owner direction or next curation-doctrine/tooling amendment |
-  size: S | status: owner-gated]`
-  The 2026-05-31 source-buffer repair showed that archive-only replacement of an
-  active source buffer can hide live material before the disposition ledger is
-  trustworthy. The future cure should block active-buffer replacement until the
-  source content has a valid item-level disposition proof in active homes.
 - **Shell-significant collaboration CLI arguments need structural affordance.**
   `[captured: 2026-05-31 | source: longitudinal napkin review F2 |
   target: agent-tools-collaboration-state-ux-or-rule |
@@ -1102,15 +1093,6 @@ Total live owner-gated items: 56.
   resolution as the expected move. No standalone rule/pattern currently settles
   the narrower resolution doctrine. Owner gate: promote this as its own pattern,
   fold it into the existing divergence pattern, keep watching, or withdraw.
-- 2026-05-12; **Re-plan after second cycle lands**.
-  `[captured: 2026-05-12 | source: graph-stack Inc.1a holistic re-plan | target:
-  pdr-or-rule:workstream-evolution-cadence | trigger: owner-direction-or-third-cycle-replan-failure
-  | size: M | status: owner-gated]`
-  The graph-stack plan and thread record preserve the worked instance: after
-  WS1.2 landed, the remaining cycles were walked backwards from downstream
-  consumers and reduced from 12 to 10 with five substantive verdicts. The
-  broader reusable question is whether this becomes a cross-workstream cadence
-  rule, folds into planning discipline, or remains graph-thread-specific.
 - 2026-05-12; **Deferral with retrospective-review tripwire**.
   `[captured: 2026-05-12 | source: graph-stack Inc.1a V3 deferral | target:
   rule-or-pdr:defer-with-binding-retrospective-review | trigger:
@@ -1188,14 +1170,6 @@ Total live owner-gated items: 56.
   ("lead with answer" and concise evidence/next-step structure). The remaining
   decision is whether to amend `user-collaboration.md`, keep watching, or
   withdraw because the existing Working Model is enough.
-- 2026-05-10; **Memory/skills key-terms glossary**.
-  `[captured: 2026-05-10 | source: insight-report-2026-05-10 | target:
-  memory-readme-or-memory-skills-glossary | trigger:
-  owner-direction-or-second-term-confusion-instance | size: M | status: owner-gated]`
-  Distillation, napkin rotation, and adapter-only skill are pervasive terms in
-  memory/skill contexts but lack a glossary home. The remaining decision is
-  whether to create a memory/skills glossary, keep watching for confusion or
-  inconsistent usage, or withdraw because contextual use is sufficient.
 - 2026-05-10; **Owner affirmation phrase corpus**.
   `[captured: 2026-05-10 | source: insight-report-2026-05-10+owner-course-correct-vocabulary |
   target: pattern:owner-affirmation-vocabulary | trigger: owner-direction-or-second-regeneration |
@@ -1563,11 +1537,6 @@ done && echo "lock cleared"`). Even though the loop only OBSERVED
   adoption is already live in the plan-template surfaces; portable
   Practice-Core promotion still needs owner direction or a second
   Practice-bearing repo adoption instance.
-- 2026-04-23; session-handoff entrypoint sweep; PDR-014 amendment for
-  platform-specific entry points as homing substance; trigger: second
-  drift instance and owner request; status: owner-gated. Owner decision
-  needed to promote the existing skill-level sweep into PDR-014, keep it
-  skill-local, or wait for another drift instance.
 - 2026-04-25; multi-agent protocol WS architecture; pattern candidate
   `operational-seed-per-workstream`; trigger: second protocol-plan
   instance or owner direction; status: owner-gated. No second

@@ -110,3 +110,19 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   doing sustained implementer work is a missing-autonomy-primitive signal" (sibling of
   feedback_owner_action_is_not_a_cure). No graduation proposed; conserve for the owner
   walk on the generalisation plan.
+- **The 15-of-18 withdrawal failure REPRODUCED at this seat — 14 of 18, different agent,
+  fortnight later, same mechanism.** My backlog triage proposed 18 withdrawals with
+  named coverage homes; the owner confirmed them on my claims; a 25-agent adversarial
+  refutation pass (owner-directed workflow fan-out) then refuted 14 — the same two
+  conflations as the 2026-05-29 precedent: (a) "the instance/reference has a home" read
+  as "the pattern-candidate substance has a home"; (b) absence-of-recurrence read as
+  permission to drop an unhomed signal. Several refuted rationales had ALREADY been
+  refuted verbatim by the Tempestuous pass, which I had read that morning — read-doctrine
+  did not fire; the mechanical refutation stage did. Net: only 4 withdrawals stood (two
+  with corrected rationales). Lessons banked: (1) adversarial-verify-before-withdrawal is
+  now twice-proven as the mechanism for this exact failure; (2) an owner confirmation
+  obtained on my unverified claims is not authority once the claims fall — surface the
+  revision, do not hide behind the confirm (PDR-091's interpretation clause, lived);
+  (3) this is the strongest worked instance yet for BOTH the PDR-089 attestation
+  amendment and the mechanical-firing-moments PDR (both owner-approved this session —
+  cite this instance in their texts).
