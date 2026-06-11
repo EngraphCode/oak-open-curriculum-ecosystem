@@ -309,10 +309,12 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-195: Graph Tools Are a First-Class Tool Category](195-graph-tools-first-class-tool-category.md)
   (graph tools are a distinct MCP tool category: anchored, bounded queries on the
   one-graph corpus; complete-within-itself subgraphs, contiguous or sparse;
-  navigable links; structuredContent-only responses; the corpus is smart and the
-  tool is a thin deterministic formatter; fixed canonical data is authority —
-  durable shapes derive from the corpus; validated by the EEF rebuild and the
-  executed Track-G redesign; Accepted 2026-06-11)
+  navigable links; dual-content responses (`formatToolResponse`: summary +
+  serialised-JSON content blocks plus `structuredContent` — superseding the
+  original structuredContent-only clause, owner 2026-06-11); the corpus is smart
+  and the tool is a thin deterministic formatter; fixed canonical data is
+  authority — durable shapes derive from the corpus; validated by the EEF
+  rebuild and the executed Track-G redesign; Accepted 2026-06-11)
 - [ADR-196: Graph Substrate Migration — One Replacement Unit per Tool](196-graph-substrate-migration-one-unit-per-tool.md)
   (per migrated tool, the data/type re-emission, the rewrite onto the graph
   corpus substrate, and the projection-derived schema land together as one

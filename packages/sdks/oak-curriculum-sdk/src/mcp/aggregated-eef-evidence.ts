@@ -10,9 +10,13 @@
  * `get-prior-knowledge-graph`) it answers a BOUNDED query rather than
  * returning everything. The handler is
  * therefore a thin parse-and-dispatch over the D5 graph bindings that returns
- * the evidence envelope verbatim as `structuredContent` — zero transformation,
- * the corpus citation provenance emitted as authored (ADR-191: the data surface
- * is deterministic; the agent is the only reasoner).
+ * the evidence envelope verbatim — zero transformation, the corpus citation
+ * provenance emitted as authored (ADR-191: the data surface is deterministic;
+ * the agent is the only reasoner). The egress membrane emits the family's
+ * dual shape via `formatToolResponse` (the MCP spec SHOULD), so the envelope
+ * renders in content-block-only AND structuredContent-only clients (owner
+ * reversal 2026-06-11 of the D6 structuredContent-only ratification, on live
+ * client-matrix evidence — 2026-06-11 snagging plan S1).
  *
  * @see `@oaknational/graph-corpus-sdk/eef-strands` — the D5 query bindings and
  *   the finite input domains.
@@ -21,7 +25,7 @@
  *   the consumer layer).
  */
 
-import type { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types';
+import type { TextContent } from '@modelcontextprotocol/sdk/types';
 import { z } from 'zod';
 import {
   EEF_STRAND_IDS,
@@ -36,6 +40,7 @@ import {
   type EefStrandHeadline,
 } from '@oaknational/graph-corpus-sdk/eef-strands';
 import { SCOPES_SUPPORTED } from './scopes-supported.js';
+import { summariseEefEnvelope } from './aggregated-eef-evidence-summaries.js';
 
 /**
  * The closed input contract for `get-eef-evidence`.
@@ -130,26 +135,24 @@ Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (\`
 /**
  * The strict result of `get-eef-evidence`.
  *
- * On success, `structuredContent` is the exact {@link EefEvidenceEnvelope} — NOT
- * widened to the MCP carrier's `Record<string, unknown>`. That erasure is only
- * correct for genuinely-unknown content; this response is fully typed, so its
- * type is preserved here and only widens to the shared `CallToolResult` carrier
- * when stored in the `AGGREGATED_HANDLERS` map. On failure, an `isError` text
- * result (no structured content to type).
+ * On success, `envelope` is the exact {@link EefEvidenceEnvelope} — NOT widened
+ * to the MCP carrier's `Record<string, unknown>` — and `summary` is its
+ * deterministic one-line projection (built where `detail` is statically
+ * known). The success shape is pure domain: transport fields (content blocks,
+ * decorations) are the egress membrane's concern. On failure, an `isError`
+ * text result (no envelope to type).
  *
  * The success union collapses to `EefEvidenceEnvelope<EefStrandHeadline>`
- * (`EefStrand` is assignable to `EefStrandHeadline`), so it adds no static
- * information. Kept DELIBERATELY (owner decision, 2026-06-09) as an egress
- * transport shape: the sole consumer is the ADR-193 membrane, then JSON, then the
- * calling agent, which gets the full runtime data regardless of the static type.
- * Full-member precision for a TypeScript consumer lives in the binding functions;
- * not "fixed" because Copilot's nested member union collapses the same way and a
- * `memberDepth` discriminant buys only narrowing the egress path does not need.
+ * (`EefStrand` is assignable to `EefStrandHeadline`) and adds no static
+ * information; kept DELIBERATELY (owner decision, 2026-06-09) as an egress
+ * transport shape — the sole consumer is the ADR-193 membrane, then JSON,
+ * then the calling agent, which gets the full runtime data regardless.
+ * Full-member precision for TypeScript consumers lives in the bindings.
  */
-type EefEvidenceResult =
+export type EefEvidenceResult =
   | {
-      content: never[];
-      structuredContent: EefEvidenceEnvelope | EefEvidenceEnvelope<EefStrandHeadline>;
+      summary: string;
+      envelope: EefEvidenceEnvelope | EefEvidenceEnvelope<EefStrandHeadline>;
       isError?: false;
     }
   | { content: TextContent[]; isError: true };
@@ -178,15 +181,15 @@ function hasSelector(selectors: EvidenceForMoveSelectors): boolean {
 
 /**
  * Run `get-eef-evidence`: narrow the closed input with a single schema parse,
- * dispatch on `function`, and return the D5 evidence envelope verbatim as
- * `structuredContent`.
+ * dispatch on `function`, and return the D5 evidence envelope verbatim with
+ * its deterministic summary.
  *
  * Validation is the parse itself — enum membership (including rejection of an
  * unknown strand id) falls out of {@link EEF_EVIDENCE_INPUT}; the only
  * additional predicates are the cross-field requirements D3 places at the
- * handler boundary. Success returns `content: []` with the envelope as
- * `structuredContent` (the owner-ratified structuredContent-only shape);
- * failures return `isError: true`.
+ * handler boundary. The summary is built here, at the dispatch sites, because
+ * this is the only place `detail` (full vs headline) is statically known.
+ * Failures return `isError: true`.
  */
 export function runEefEvidenceTool(input: unknown): EefEvidenceResult {
   const parsed = EEF_EVIDENCE_INPUT.safeParse(input);
@@ -199,7 +202,8 @@ export function runEefEvidenceTool(input: unknown): EefEvidenceResult {
     if (args.strandId === undefined) {
       return eefError("inspect-strand requires 'strandId'.");
     }
-    return { content: [], structuredContent: inspectStrand(args.strandId) };
+    const envelope = inspectStrand(args.strandId);
+    return { summary: summariseEefEnvelope(envelope, 'full'), envelope };
   }
 
   const selectors: EvidenceForMoveSelectors = {
@@ -213,36 +217,12 @@ export function runEefEvidenceTool(input: unknown): EefEvidenceResult {
       'evidence-for-move requires at least one selector: strandIds, phase, keyStage, or priority.',
     );
   }
-  const structuredContent =
-    args.detail === 'headline' ? evidenceForMoveHeadlines(selectors) : evidenceForMove(selectors);
-  return { content: [], structuredContent };
+  const detail = args.detail === 'headline' ? ('headline' as const) : ('full' as const);
+  const envelope =
+    detail === 'headline' ? evidenceForMoveHeadlines(selectors) : evidenceForMove(selectors);
+  return { summary: summariseEefEnvelope(envelope, detail), envelope };
 }
 
-// ─── EGRESS MEMBRANE (ADR-193) ───────────────────────────────────────────────
-// Everything above is strict EEF DOMAIN code: exact types derived from the fixed
-// `as const` corpus, no `unknown`/`Record`/index-signature/`as`. The function
-// below is the single seam where that strict result crosses into the MCP vendor
-// TRANSPORT type. Everything that consumes its output (the executor, the auth
-// layer, registration) is vendor-facing transport whose currency is the SDK's
-// `CallToolResult`.
-
-/**
- * Egress membrane (ADR-193): cross the strict {@link EefEvidenceResult} produced
- * by {@link runEefEvidenceTool} into the vendor's `CallToolResult`.
- *
- * On success the envelope crosses as `structuredContent` via a fresh object
- * (`{ ...envelope }`). That fresh object is structurally assignable to the
- * vendor's `Record<string, unknown>` slot with **no `as` cast, no index
- * signature on the strict domain type, no `any`, and no disabled check** — a
- * fresh object literal *is* a record; the strict interface is the named
- * constraint on that shape; the spread is the one erasure as the value crosses
- * out. `isError` results pass through unchanged. Beyond this function the value
- * is the vendor's; the SDK serialises it to JSON for the calling agent, which is
- * its only consumer (ADR-191).
- */
-export function eefEvidenceToCallToolResult(result: EefEvidenceResult): CallToolResult {
-  if (result.isError) {
-    return { content: result.content, isError: true };
-  }
-  return { content: [], structuredContent: { ...result.structuredContent } };
-}
+// The egress membrane (ADR-193) lives in `eef-evidence-egress.ts` — the single
+// seam where this module's strict domain result crosses into the MCP vendor
+// transport type.
