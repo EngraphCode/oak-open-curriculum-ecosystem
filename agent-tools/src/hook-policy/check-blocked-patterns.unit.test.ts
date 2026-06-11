@@ -39,6 +39,31 @@ describe('findBlockedPattern', () => {
     });
   });
 
+  it('substring-mode matching tolerates whitespace inside the shape (spaced busy-loops)', () => {
+    const blockedPatterns = [
+      { pattern: 'for(;;)', match: 'substring' as const },
+      { pattern: 'while(1)', match: 'substring' as const },
+    ];
+
+    expect(findBlockedPattern('node -e "for (;;) {}"', blockedPatterns)).toStrictEqual({
+      pattern: 'for(;;)',
+      match: 'substring',
+    });
+    expect(findBlockedPattern('node -e "while ( 1 ) {}"', blockedPatterns)).toStrictEqual({
+      pattern: 'while(1)',
+      match: 'substring',
+    });
+  });
+
+  it('substring-mode matches a load tool however it is pathed', () => {
+    const blockedPatterns = [{ pattern: 'stress-ng', match: 'substring' as const }];
+
+    expect(findBlockedPattern('./tools/stress-ng --cpu 8', blockedPatterns)).toStrictEqual({
+      pattern: 'stress-ng',
+      match: 'substring',
+    });
+  });
+
   it('substring-mode matching is case-insensitive and leaves benign commands alone', () => {
     const blockedPatterns = [{ pattern: 'for(;;)', match: 'substring' as const }];
 

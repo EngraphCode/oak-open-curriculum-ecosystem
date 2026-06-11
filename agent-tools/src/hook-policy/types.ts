@@ -171,7 +171,9 @@ export interface RunPreToolUseContentGuardOptions {
  */
 const BlockedPatternEntrySchema = z
   .object({
-    pattern: z.string(),
+    // min(1): an empty pattern would match every command (substring mode
+    // matches everything via includes('')), bricking the worktree.
+    pattern: z.string().min(1),
     citation: z.string().optional(),
     concept: z.string().optional(),
     reappraisal: z.string().optional(),

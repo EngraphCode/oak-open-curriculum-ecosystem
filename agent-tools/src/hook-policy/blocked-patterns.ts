@@ -59,7 +59,9 @@ export function findBlockedPattern(
   blockedPatterns: readonly RawBlockedPattern[],
 ): BlockedPatternEntry | null {
   const commandTokens = tokenizeCommand(command);
-  const lowerCommand = command.toLowerCase();
+  // Substring probes are whitespace-stripped on BOTH sides so spacing cannot
+  // smuggle a shape past the trip (`for (;;)` vs `for(;;)`).
+  const strippedCommand = command.toLowerCase().replace(/\s+/gu, '');
 
   for (const blockedPattern of blockedPatterns) {
     const entry = normaliseEntry(blockedPattern);
@@ -68,7 +70,7 @@ export function findBlockedPattern(
     // arguments: the 2026-06-11 founding DOS command carried its busy-loop as
     // one quoted token, sailing past a token-sequence trip for the same shape.
     if (entry.match === 'substring') {
-      if (lowerCommand.includes(entry.pattern.toLowerCase())) {
+      if (strippedCommand.includes(entry.pattern.toLowerCase().replace(/\s+/gu, ''))) {
         return entry;
       }
       continue;
