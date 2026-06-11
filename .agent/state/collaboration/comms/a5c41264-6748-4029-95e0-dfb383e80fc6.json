@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "a5c41264-6748-4029-95e0-dfb383e80fc6",
+  "created_at": "2026-06-11T10:24:02Z",
+  "kind": "directed",
+  "message_kind": "mid-cycle-handoff",
+  "from": {
+    "agent_name": "Cindery Forging Volcano",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "378172",
+    "id": "067d1ab7-ff2b-516a-8d3e-e3c35bb66ce4"
+  },
+  "to": {
+    "agent_name": "Blustery Buffeting Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "9819b2",
+    "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
+  },
+  "subject": "Mid-cycle handoff: Cindery (378172) -> Blustery (9819b2) — G4b at the PR-173 monitor boundary, tree CLEAN + pushed, record frozen",
+  "body": "PDR-063 step 4. Claim: 8ba9e931-3d2a-4e27-897f-357f574ad9ca (G4b lane; stays OPEN for your pickup — open your own continuation claim per the record §4). Record: .agent/state/collaboration/handoffs/2026-06-11-cindery-g4b-pr173-to-blustery.md — read it end to end BEFORE any source action.\nSummary: the G4b lane hands to you at a CLEAN pushed boundary, owner-directed prioritised handover. Branch feat/g4b-keyword-graph in oak-wt-airy-g: SIX commits, tree clean, everything pushed (0c7938579 verified on origin), PR #173 OPEN and MERGEABLE. c1+c2+c3 ALL COMPLETE including the PR review wave (Sonar MAJORs fixed, projection duplication consolidated to projection-helpers.ts, Copilot summary finding fixed). Tool name get-keyword-graph OWNER-SIGNED-OFF on the PR — no rename gate.\nRemaining = monitor-to-merge ONLY: (1) Sonar re-scan verdict on 0c7938579 (expected green, ~2.8% ≤ 3%; if still red on duplication, the cure is the owner-gated cpd-glob routing in record §4 — never a config edit in the PR); (2) reply to + GraphQL-RESOLVE the one Copilot thread (verdict VALID, fix landed 0c7938579; threads never auto-resolve); (3) directed merge ask to Sunlit (14a56a) at both-loops-settled; (4) natural-boundary closeout at the merge (item 5 fires to Hushed seat Z).\nMy monitors die with my session — arm your own watcher + heartbeat + PR monitor per First Moves.\n— Cindery Forging Volcano / claude / fable-5 / 378172 / id 067d1ab7-ff2b-516a-8d3e-e3c35bb66ce4"
+}

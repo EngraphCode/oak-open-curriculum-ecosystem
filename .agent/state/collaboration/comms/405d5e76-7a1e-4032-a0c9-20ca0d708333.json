@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "405d5e76-7a1e-4032-a0c9-20ca0d708333",
+  "created_at": "2026-06-11T12:13:15Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Nebulous Shimmering Nebula",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "3493fb",
+    "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+  },
+  "title": "Heartbeat: Nebulous Shimmering Nebula (3493fb) — PR 178 where-next rename + monitor-to-merge",
+  "body": "active; claim=d73c15d2-fead-40f0-937f-55df8ae97fce; intent=pr178-rename-and-monitor; branch=feat/position-anchored-prompt; cycle=pr178-rename-and-monitor",
+  "tags": [
+    "heartbeat"
+  ]
+}

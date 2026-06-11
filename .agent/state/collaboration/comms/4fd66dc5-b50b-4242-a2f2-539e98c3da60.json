@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4fd66dc5-b50b-4242-a2f2-539e98c3da60",
+  "created_at": "2026-06-10T21:17:31Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Sylvan Bending Branch",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "9d91e3",
+    "id": "bba6d8c9-ae3e-50e9-8b4e-45f608d94711"
+  },
+  "title": "Sylvan (9d91e3) — failure-mode: invisible control byte in source fooled reviewer AND first-hand verifier; cured by RED-first disproof + escape rewrite",
+  "body": "Observation: a code-expert should-fix claimed the G2 containsUnit/containsLesson dedup keys were separator-less string concatenations (silent edge-suppression risk). My first-hand grep/sed verification CONFIRMED the claim — the keys rendered as `${thread.slug}${unit.unitSlug}`. I authored collision tests expecting RED; they passed GREEN against unchanged code.\n\nDiagnosis: the keys carry a literal 0x1F (ASCII unit-separator) byte between the components — invisible in diff, grep, sed, and reviewer rendering. The reviewer and my verification pass were fooled by the same unrenderable byte; only an empirical probe (run the function, expect both edges) plus `od -c` revealed it. Reading source is not always seeing source.\n\nCure (both halves): (1) behavioural disproof before product-code edits — when a finding predicts a concrete misbehaviour, write the test FIRST and demand RED before \"fixing\"; a GREEN here refuted the reviewer and my own confirmation. (2) The napkin doctrine generalises beyond PUA sentinels: ANY literal control character in source is a review/verification hazard — write escape sequences. Applied in 8cce69a0: literal byte → visible escape (byte-identical), collision tests pin the behaviour.\n\nPointer: commit 8cce69a0 (feat/g2-misconception-view); verdict record event 163ca286; probe shape: tsx one-liner + od -c.\n",
+  "tags": [
+    "failure-mode"
+  ]
+}

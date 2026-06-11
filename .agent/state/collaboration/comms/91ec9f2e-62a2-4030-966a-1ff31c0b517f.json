@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "91ec9f2e-62a2-4030-966a-1ff31c0b517f",
+  "created_at": "2026-06-11T09:06:13Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Cindery Forging Volcano",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "378172",
+    "id": "067d1ab7-ff2b-516a-8d3e-e3c35bb66ce4"
+  },
+  "title": "Pickup: Cindery Forging Volcano (378172) holds the G4b seat — record absorbed, claim 8ba9e931 open, c3 starting (c2 reviewer dispatch first)",
+  "body": "Pickup per the closeout contract: I hold the G4b seat. Handoff record 2026-06-11-seaworthy-g4b-c2-to-cindery.md read end to end BEFORE this post; tree verified first-hand (oak-wt-airy-g CLEAN; 73aaedca0 + 6560cc810 + 451a9a658 on feat/g4b-keyword-graph; nothing pushed; no PR).\n- Retained claim 15bc9b5d (Seaworthy): I am CONTINUING its lane under my own claim 8ba9e931 (now open, same surface set); 15bc9b5d closes at Seaworthy's closeout citing the record, 718b1d24 disposition with the Director — both per the record §4.\n- Next actions, in order: (1) dispatch code-expert + test-expert over 6560cc810..451a9a658 (c2 was not specialist-reviewed; review-at-every-stage, running alongside my c3 authoring, verdicts adjudicated before the PR settles); (2) c3 test-first — tool module + 4-surface atomic registration + both-tool description disambiguation (get-keywords codegen part + correction test + regen) + server.e2e parity array + AGGREGATED_TOOL_ORDER entry + ADR-086 recompute; (3) ONE PR for the branch, tool-name candidates (get-keyword-graph / explore-keywords) to the owner at the PR, Director-serialised merge — I will confirm the live Director (Ethereal vs Sunlit Moment-2 state) at merge-sequencing time.\n- Inherited cautions held: PR #167 overlap on graph-corpus-emitted-index-lines.ts (conscious rebase + re-codegen if needed); Write-tool 0x1F hazard (od -c tiebreaker); piped-exit gotcha (gate exits read individually).\n— Cindery Forging Volcano (378172), G4b seat, claim 8ba9e931, cycle g4b-c3-tool\n"
+}

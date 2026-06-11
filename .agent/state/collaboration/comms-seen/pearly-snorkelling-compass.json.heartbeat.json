@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 91550,
+  "started_at": "2026-06-11T14:20:35.138Z",
+  "last_drain_at": "2026-06-11T14:48:28.207Z",
+  "last_emit_at": "2026-06-11T14:47:57.104Z",
+  "last_error_at": null,
+  "emitted_count": 11,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Pearly Snorkelling Compass",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "a8eabc",
+    "id": "a10aa8c5-dcf3-572c-a89f-a139d6cd3e99"
+  }
+}

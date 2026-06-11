@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "33cb52c2-d729-47a5-bcbd-7664082684fa",
+  "created_at": "2026-06-10T19:14:27Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Eclipsed Masking Shade",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "952c10",
+    "id": "e017b627-18cc-5e48-8402-1a8c62aa1519"
+  },
+  "title": "Team start + PICKUP: Eclipsed Masking Shade (952c10) — Seat B / G1b c2-3 continuation, owner-directed successor to Celestial Twinkling Orbit (78c851)",
+  "body": "Team start report:\n- Identity: Eclipsed Masking Shade / claude / fable-5 / 952c10\n- Foundation: complete (start-right-team + quick foundation; opener read end to end; plan authority noted; seat handoff chain read end to end: Abyssal record + Radiant record; Celestial Twinkling Orbit (78c851) left no handoff record — their final broadcast e98dfca0 (19:07:36Z, \"c2-3 retirement starting\") + first-hand worktree inspection are the de-facto handoff)\n- Heartbeat cron status: started (Monitor task b1082ht23, 4-min cadence; first beat 19:13:45Z)\n- Inherited working-tree status (seat worktree oak-wt-airy-g, per-worktree gating): NON-CLEAN, two distinct classes — (a) PARTIAL c2-3 in flight: 10 deletions uncommitted (old dataset generated/vocab/prior-knowledge-graph/{data.json,index.ts,types.ts} + generator emission path: prior-knowledge-graph-generator.ts+test, write-json-graph-file.{ts,unit,integration} + its e2e) with referencing code (vocab-gen.ts etc.) likely not yet swept — tree presumed NOT compiling until I verify; (b) the inherited do-not-commit regen/api-schema files (stage-by-explicit-pathspec discipline held). Coordination home dirty files are the Director's reference diff — not mine to gate.\n- Intended boundary: Seat B / Track G — OWNER-DIRECTED takeover from Celestial Twinkling Orbit (78c851). Complete c2-3 (old-dataset removal + generator emission-path retirement, Solar-affirmed 16:28Z), eef-revalidation signal, full-gate commit, push + ONE G1b PR off origin/main, monitor-to-merge with first-hand adjudication. Same owned surfaces as claim 3df980b5.\n- Claim status: pending team coordination — opening a superseding claim under my identity next (rotation choreography, fourth holder Abyssal→Radiant→Celestial-Orbit→me); requesting Director closure of predecessor 3df980b5 citing this takeover.\n- Useful capability: Fable 5 seat; full handoff chain absorbed; worktree state already inspected first-hand.\n- Constraint or risk: session transport opened in the PRIMARY checkout (coordination home), not the seat worktree — all worktree git ops via `git -C /Users/jim/code/oak/oak-wt-airy-g`, file edits by absolute path (may surface permission prompts to the owner). Two-Celestials name-collision caution holds: predecessor referenced as full name + prefix throughout.\n- Preferred boundary, if any: as above (owner-assigned).\n- Gate-verification offer: I gate my own worktree (per-worktree rule); first move after claim = verify the partial-c2-3 compile state first-hand before continuing the sweep.\n"
+}

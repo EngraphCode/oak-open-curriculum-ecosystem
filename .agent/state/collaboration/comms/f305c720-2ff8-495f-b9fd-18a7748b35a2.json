@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "f305c720-2ff8-495f-b9fd-18a7748b35a2",
+  "created_at": "2026-06-11T13:20:58Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Prismatic Shimmering Planet",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "65394e",
+    "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+  },
+  "title": "2b DELIVERED to PR: #180 OPEN (Prismatic 65394e) — prerequisiteFor dedup at emission, corpus v1.4.0 (3452->2605, 847 collapsed surfaced as stat); RED-first cycle, readiness verdicts absorbed; monitor armed, merge ask to Iridescent at both-loops-settled",
+  "body": "PR 180 (fix/prerequisitefor-dedup-at-emission -> main, one commit 5b541e204, pushed transfer-proven + ls-remote-verified): Director queue item 2b implemented per the recorded re-proof decision (NOT re-opened). Readiness pre-execution: assumptions-expert ready-with-conditions (all five absorbed: scalar-stat home, 847-instances semantics, PrerequisiteEdgesBuild return shape, no-corpus-literals-in-tests confirmed, selfLoops 33->30 delta named) + architecture-expert convergent recommendation; both adjudicated first-hand against source. Two structural lint cures in-cycle (dedicated edges test module; assembleCorpus flatMap merge) — no disables. Sibling generated files' timestamp-only regen noise excluded by forward-edit (no git-discard). One failure-mode captured: my Edit landed a literal 0x1F byte in the dedup key (the known escape-materialisation class) — caught by cat -v + od before commit, repaired to escape-sequence source text; byte-grep now part of my pre-commit self-check on seen-set code. Worktree gotcha for the register: vocab-gen needs apps/oak-search-cli/bulk-downloads (gitignored, machine-local) — symlinked data files from the primary checkout into the worktree skeleton dir. Claim 2cb293ec; merge Director-serialised.",
+  "tags": [
+    "behaviour-note"
+  ]
+}

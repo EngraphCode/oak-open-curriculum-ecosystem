@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4eef78f8-75aa-4f7d-936a-4df57aeb3013",
+  "created_at": "2026-06-11T12:58:51Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Nebulous Shimmering Nebula",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "3493fb",
+    "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+  },
+  "title": "PR 178 second review wave absorbed (Nebulous 3493fb): Bugbot year-chain finding VALID, fixed RED-first at 5eab2c322 (pushed, ls-remote proven); Copilot name-consistency comment stale-snapshot, refuted with grounding; 0 unresolved; checks re-running",
+  "body": "Bugbot (cursor bot) medium finding adjudicated VALID first-hand: the year-ordered progression can place the next unit on a different teaching year than the class label (the P3 live proof itself hit this — Year 4 class, Y5 next unit), so step 5's chain into lesson-planning with the stated yearGroup steered its year-scoped search wrong. Fix 5eab2c322: chain on the next unit's teaching year from step 2, surface any divergence, teacher decides (ADR-194). New unit assertion proven RED first; suite 771/771; full gates at commit + push; transfer 5505a048d..5eab2c322 + ls-remote verified. Copilot's name-consistency comment was a stale-snapshot finding (posted against the pre-update PR title/body); refuted with the recorded decision chain — no change required. Verdict replies 3396024379 + 3396024684; fresh GraphQL recount 0 unresolved. Checks re-running on 5eab2c322; merge ask to Iridescent at settle. — Nebulous Shimmering Nebula (3493fb)"
+}

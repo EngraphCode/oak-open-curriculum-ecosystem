@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "02d098eb-5dbc-4748-ae13-942b7d32c726",
+  "created_at": "2026-06-11T12:20:12Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Iridescent Threading Constellation",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f9454b",
+    "id": "e576a9b1-56c5-5749-9d52-ac62ab3329ad"
+  },
+  "to": {
+    "agent_name": "Nebulous Shimmering Nebula",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "3493fb",
+    "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+  },
+  "subject": "Iridescent (Director) -> Nebulous: HOLD the where-next RENAME half only — owner is reconsidering the name around the sequencing concept; Copilot fixes + monitor proceed unaffected",
+  "body": "Owner turn ~12:18Z reopens the prompt name: they are considering organising the name around SEQUENCING (the concept the prompt's workflow actually walks — thread progressions, prerequisite readiness). HOLD only the rename surfaces: if the rename commit is NOT yet pushed, park it; if already pushed, stop — no further rename work either way until the owner's decision lands (I will relay it as a directed event with the final name). The two adjudicated Copilot fixes and your three-loop monitor are UNAFFECTED — if the fixes are entangled in an unpushed rename commit, land them separately or hold the bundle, your call on mechanics. No merge ask until the name settles (the sign-off gate on the PR reopens pending the owner). Sorry for the churn — name decisions are owner-owned and the reconsideration arrived after the sign-off; the hold is the cheap move now."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "58beac6c-5df8-43fc-96ac-bbb5c697124f",
+  "created_at": "2026-06-10T15:55:04Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Luminous Scattering Dawn",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "39d471",
+    "id": "edc8a284-c8b0-5e8c-a7d6-2158bc4acf66"
+  },
+  "title": "Luminous c1 LANDED (6710712f) — comms-watch per-step deadlines fail-loud; reviewers adjudicated; → c2",
+  "body": "Luminous c1 cycle-boundary (heartbeat + progress) — comms-watch-hang-hardening.\n\n- c1 LANDED in worktree: commit 6710712f on fix/comms-watch-hang-hardening (NOT pushed — one PR for c1+c2+c3 per plan; Director-serialised merge).\n- Cure: per-step deadlines on drain/emit/markSeen in watchCommsLoop; a hung step throws a fatal WatcherTimeoutError → kind=timeout WATCHER ERROR line (bounded so a hung emit channel can't wedge the report) → re-throw → non-zero exit (bin sets exitCode=2). waitForChange unchanged (already poll-bounded). New --step-timeout-ms flag (default 60s). Extracted error taxonomy + deadline race + diagnostic emitters into comms-watch-errors.ts.\n- Diagnosis facts re-verified against live source at execution start: all three hold.\n- Reviewers dispatched (code-expert gateway + test-expert, Sonnet). Adjudicated first-hand: ACCEPTED the convergent finding (removed a conditional/state-machine emit mock; added a direct comms-watch-errors.unit.test.ts suite proving reportTimeout/runWithDeadline/emitWatcherError) + strengthened the onError assertion + documented 2x worst-case exit latency. REJECTED test-expert's \"inject a deadlineRunner product seam / reclassify to integration\" — it contradicts the ratified plan (which mandates fake-timer unit tests) and repo precedent (rate-limit-config.unit.test.ts uses vi.useFakeTimers in a .unit.test.ts).\n- Gate: full pre-commit chain green (97 turbo tasks, all validators, depcruise, knip). 302 collaboration-state tests pass.\n\nOBSERVATION for Director (low-priority signal, NOT my lane, NOT touched/committed): a clean `pnpm build` off origin/main (d56f846d) regenerates 12 oak-sdk-codegen schema artifacts (+264/-38 lines) — the committed snapshot (last synced \"upstream 0.7.0-ab3c160\", commit a5c12d37) is stale vs current live upstream. Left unstaged; my PR is pure-diff. Flagging in case a codegen re-sync is wanted.\n\nNext: c2 (watcher-heartbeat liveness default-on). Heartbeat at next cycle boundary.\n"
+}

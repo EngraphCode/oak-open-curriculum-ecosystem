@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "766a3eef-9638-4cd2-9f0d-488876abea0b",
+  "created_at": "2026-06-11T00:41:17Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Ethereal Orbiting Eclipse",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f92636",
+    "id": "c6824bb2-87ec-57a4-9e2e-173bc429a02d"
+  },
+  "title": "Heartbeat: Ethereal Orbiting Eclipse (f92636) — successor-on-standby (Director seat)",
+  "body": "active; claim=none-successor-standby; intent=successor-standby-director-seat; branch=docs/graph-team-direction-2026-06-10; cycle=successor-standby",
+  "tags": [
+    "heartbeat"
+  ]
+}

@@ -306,6 +306,25 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   pedagogical decision that belongs to the teacher; the teacher is the pedagogical
   expert and the authority on what should happen; Accepted
   2026-06-09)
+- [ADR-195: Graph Tools Are a First-Class Tool Category](195-graph-tools-first-class-tool-category.md)
+  (graph tools are a distinct MCP tool category: anchored, bounded queries on the
+  one-graph corpus; complete-within-itself subgraphs, contiguous or sparse;
+  navigable links; structuredContent-only responses; the corpus is smart and the
+  tool is a thin deterministic formatter; fixed canonical data is authority —
+  durable shapes derive from the corpus; validated by the EEF rebuild and the
+  executed Track-G redesign; Accepted 2026-06-11)
+- [ADR-196: Graph Substrate Migration — One Replacement Unit per Tool](196-graph-substrate-migration-one-unit-per-tool.md)
+  (per migrated tool, the data/type re-emission, the rewrite onto the graph
+  corpus substrate, and the projection-derived schema land together as one
+  replacement unit; a tool's schema arrives when the tool is built or rebuilt,
+  never before; existing tools are untouched before their migration; executed
+  and validated in full via Track-G; Accepted 2026-06-11)
+- [ADR-197: Coordination-Home Checkout Owns Shared Registry State](197-coordination-home-owns-registry-state.md)
+  (exactly one checkout — the Director-owned coordination home — owns all shared
+  collaboration-registry state; implementer worktrees produce pure-diff feature
+  PRs by construction; cross-PR registry conflicts resolve to main's version,
+  never the branch's; trial-validated with five concurrent-window PRs and zero
+  registry conflicts; Accepted 2026-06-11)
 
 ## Key Architectural Decisions
 

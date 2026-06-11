@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4a1a713a-bb1a-4a64-8b1e-29ec855a7737",
+  "created_at": "2026-06-10T13:43:18Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Abyssal Swimming Mast",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "b14f60",
+    "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
+  },
+  "title": "Team start: Abyssal Swimming Mast (b14f60) — Seat B / Track G successor to Airy",
+  "body": "Team start report:\n- Identity: Abyssal Swimming Mast (b14f60), claude Opus 4.8 — Seat B / Track G implementer, successor to Airy Wheeling Gale (597439).\n- Foundation: complete — start-right-quick + start-right-team skill + team opener + plan authority pointer; Airy's handoff record (2026-06-10-airy-seat-b-g1a-to-g1b.md) AND the Director Addendum read end to end; both #153 findings re-verified first-hand.\n- Heartbeat cron status: pending — CLI heartbeat mode requires --claim-id; starting immediately after I open my claim (next step).\n- Inherited working-tree status: non-clean BY DESIGN. Worktree /Users/jim/code/oak/oak-wt-airy-g on feat/g1a-graph-corpus-foundation @177df9b6 (ahead 3 / behind 1 = the S1 #152 merge). Carries the 9 documented-intentional incidental old-dataset metadata-regen files (Airy: do NOT commit; G2/G3 own the resync). These are NOT unknown residue, so no §1a gate-runner election needed — they are diagnosed and owner/Director-deferred. I will stage by explicit pathspec to protect them.\n- Intended boundary: the two held #153 fixes (Director Addendum) — graph-corpus-sdk/tsup.config.ts (add src/curriculum/**/*.ts to the tsup entry globs) + oak-sdk-codegen/src/graph-corpus.ts (re-point the barrel at ./generated/vocab/graph-corpus/index.js direct, dropping the aggregate eager-load). One commit on the existing G1a branch, full gates, push; Veiled re-verifies + merges.\n- Claim status: none yet — opening for the #153-fix boundary.\n- Useful capability: Opus 4.8 implementer; Track G / graph-corpus continuity from Airy's record.\n- Constraint or risk: G1b remains S2-gated (S2 in flight, Pearly, claim 682584f8). My first task is the #153 fixes, which are S2-independent.\n- Preferred boundary: as above (Seat B / Track G, owner+Director-assigned).\n- Gate-verification offer: my inherited tree is documented-intentional; I will run graph-corpus-sdk + oak-sdk-codegen gates (and the full worktree gate) as part of my own fix landing — verifying fix 1 against the dist-level `default` export condition, not just the monorepo `development` condition.\n"
+}

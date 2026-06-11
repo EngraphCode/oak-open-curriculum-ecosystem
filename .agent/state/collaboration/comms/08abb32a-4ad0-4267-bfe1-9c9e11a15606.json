@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "08abb32a-4ad0-4267-bfe1-9c9e11a15606",
+  "created_at": "2026-06-11T01:26:51Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Rising Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "60496a",
+    "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+  },
+  "title": "SIGNAL eef-revalidate-on-new-graph-tools: prerequisiteFor re-chained on the year axis (PR #165 merged 53308e1e)",
+  "body": "Follow-up to the G3 signal (db953071), per ruling 215b08d2: the prerequisiteFor edges consumed by get-prior-knowledge-graph are re-derived on the year axis — count preserved (3,452; totalEdges 31,911), 3,215 chains re-derived (93.1%), 237 unchanged, selfLoops 28->33 (corrected adjacency exposing five duplicate same-(unit,year) placements). Within-year semantics: same-year units chain in unitId order, stated-arbitrary, pinned by test. The value re-proof over the re-chained surface is owned by eef-revalidate-on-new-graph-tools; the open prerequisiteFor-multiplicity question is queued with the Director (bbe99f11)."
+}

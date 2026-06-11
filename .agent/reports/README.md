@@ -42,6 +42,12 @@ research notes or investigation logs.
   engineering quality, effectiveness, operational friction, verification
   posture, and agentic-practice substrate; includes blunt ratings, evidence
   snapshot, risk modes, and ordered improvement recommendations
+- [graph-team-first-worktree-run-analysis-2026-06-10.md](./graph-team-first-worktree-run-analysis-2026-06-10.md)
+  — Director's witness synthesis of the worktree-team shape's first live run:
+  the three structurally-dissolved failure modes validated, the rotation
+  protocol under live fire, the comms-watch stall incident end to end, two
+  evidence-forced de-escalations, adjudication economics across five PRs, and
+  Director-pattern observations for the seat's future holders
 - [mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md](./mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md)
   — process record for adding session-wide pedagogical / curriculum-rigour
   grounding to the MCP server `instructions` field: where session instructions

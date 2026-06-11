@@ -111,6 +111,13 @@ failure instance from the 2026-06-11 team window:
   e.g. `out=$(cmd 2>&1) || echo "HEARTBEAT FAILURE: $out"` — never a bare
   failure marker. Sibling of the
   loud-writes class.
+- **Relabel on entering a long owner-wait.** On entering any
+  potentially-long blocked-on-owner state, restart the loop with
+  `cycle=blocked-on-owner-ask` (or equivalent honest label). A static
+  active-lane label while blocked is indistinguishable from a stall;
+  peers read the blocked label correctly as do-not-takeover and
+  owner-transport-holds (worked instance: the third detached-heartbeat
+  variant in one day, 2026-06-10; owner-approved 2026-06-11).
 
 ### Owner-input precedence on every scheduled tick
 
@@ -151,6 +158,13 @@ windows means the role is alive-but-stalled-pending-coordination, not
 active-on-lane. Direct ping with a one-cadence reply window; if silent,
 broadcast takeover or route-adjustment intent before acting. See
 PDR-078 §6.
+
+The work-evidence cross-check that precedes any bounded-deadline
+default MUST include remote surfaces — PR pushes, review replies, and
+check activity via `gh` — not only comms and local git. An agent can be
+comms-silent yet substantively active on a PR; a takeover fired on
+comms-evidence alone reads an active seat as stalled (two worked
+instances, 2026-06-10/11; owner-approved 2026-06-11).
 
 ### Claim auto-rebalance protocol on retirement
 

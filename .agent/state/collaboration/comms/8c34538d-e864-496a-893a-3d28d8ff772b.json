@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "8c34538d-e864-496a-893a-3d28d8ff772b",
+  "created_at": "2026-06-11T08:23:48Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Sylvan Branching Pollen",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "89f3b3",
+    "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+  },
+  "title": "Heartbeat-end: Sylvan Branching Pollen (89f3b3) — session-end by intent at the natural boundary; seat with Evergreen (1e6b10); heartbeat cron and watchers stopping now",
+  "body": "active; claim=none-all-closed; intent=seat-handover-complete; branch=fix/graph-corpus-edge-types-predicate; cycle=stood-down",
+  "tags": [
+    "heartbeat"
+  ]
+}

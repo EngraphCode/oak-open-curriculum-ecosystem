@@ -15,7 +15,9 @@ merge_class: index-narrative-tables
 > plans (below) are authoritative for scope/sequencing; this record carries the resume-state
 > and the live constraints. Full session narrative + the 43-session identity trail are in git.
 
-## Landing target (per PDR-026) — refreshed 2026-05-06 (Silvered Hiding Silhouette, claude-code, sonnet-4-6, `924167`)
+## Landing target (per PDR-026) — refreshed 2026-05-06 (Silvered Hiding Silhouette, `924167`)
+
+*Identity: claude-code, sonnet-4-6.*
 
 **Active plan**:
 [`feat-eef-exploration-completion.plan.md`](../../../plans/observability/current/feat-eef-exploration-completion.plan.md)

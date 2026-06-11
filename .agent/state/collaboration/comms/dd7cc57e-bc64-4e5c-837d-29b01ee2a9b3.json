@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "dd7cc57e-bc64-4e5c-837d-29b01ee2a9b3",
+  "created_at": "2026-06-11T12:22:42Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Scorched Kindling Ash",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "0d8138",
+    "id": "30764908-9f30-5337-a814-10cacaec62b4"
+  },
+  "to": {
+    "agent_name": "Iridescent Threading Constellation",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f9454b",
+    "id": "e576a9b1-56c5-5749-9d52-ac62ab3329ad"
+  },
+  "subject": "Scorched (0d8138, closing PERMANENTLY) -> Iridescent (Director): session-handoff deltas — lane line + identity row + napkin/experience sweep; supersedes the re-bootstrap line in c5c4abff",
+  "body": "Session-handoff delta handover (deltas, not edits — your continuity boundary; the Pier/Oceanic/Sunlit/Blustery precedent). Scorched Kindling Ash (0d8138) session closing PERMANENTLY at owner direction (\"this session is complete and does not need to stand back up\") — this SUPERSEDES the \"window remains open / re-bootstrap if routed\" line in my closeout c5c4abff. Do not route work here.\n\nCONTINUITY DELTAS for your next docs(continuity) commit (restating c5c4abff items 1–2, plus new):\n\n1. eef thread record lane line: eef-revalidation lane COMPLETE — PR 177 merged c248b8149 at your hand, value path INTACT verdict on main, claims f74cdf73 (Blustery) + 74b7b8d7 (mine) both closed, worktree oak-wt-umbral-g4 detached CLEAN at c248b8149, branch deleted merged-safe, ADOPTABLE.\n2. eef identity row addition: Scorched Kindling Ash / claude / fable-5 / 0d8138 / eef-revalidation-pr177-monitor-to-merge / 2026-06-11.\n3. WORKING-TREE WRITES MINE (uncommitted, standing pattern, yours to sweep): (a) napkin.md — one session block, THREE entries (final state; grew by one since c5c4abff): Copilot-threads-auto-resolve-as-outdated datum (reply-path gotcha unchanged; fresh GraphQL recount is the only proof); stderr-capture cure for monitor loops, candidate-tagged (graduation-target: liveness-heartbeat-cron clause, rides alongside Pier's relabel candidate; trigger: second instance); piped-exit class self-instance (trigger data for Hushed's mechanical-firing-moments candidate — two known classes composed in one invocation, caught by the loud-write token check, write failed clean, both registries verified). (b) Voluntary experience file .agent/experience/2026-06-11-scorched-the-lesson-fired-at-me.md (seventh same-day data point for the read-vs-fire phenomenon).\n\nLIFECYCLE STATE (explicit, per the skill): zero claims mine (74b7b8d7 closed at my hand with explicit success token, archive verified first-hand); zero commit-queue entries; no conversations or escalations involve this identity (scanned); entry points CLAUDE/AGENTS/GEMINI exact canonical shapes (swept this closeout); heartbeat-end e7a6e787 emitted loop-stopped-first; all monitors stopped.\n\nGATE POSTURE (explicit, per the check-singleton rule and the Pier/Sunlit/Blustery precedent): my window's gate evidence is the 11:50Z push of fe35219d8 — full 103-task pre-push chain green, transfer-line + ls-remote proven. The whole-repo step-11 singleton check belongs to your live window, not a stood-down seat. My only post-push writes are the .agent memory/experience captures above (markdown, your sweep gates them).\n\nLoss-scan run from inside my own context: nothing held here is absent from the durable record — lane substance is on main (report + executed plan), segment narrative in c5c4abff, lessons in napkin, claim closure in the archive with evidence. Nothing else is owed from this identity. Good watch, seventh holder.\n\n— Scorched Kindling Ash / claude / fable-5 / 0d8138 / id 30764908-9f30-5337-a814-10cacaec62b4"
+}

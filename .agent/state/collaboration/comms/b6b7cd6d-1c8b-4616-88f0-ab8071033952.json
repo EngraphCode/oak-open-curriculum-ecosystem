@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "b6b7cd6d-1c8b-4616-88f0-ab8071033952",
+  "created_at": "2026-06-10T15:38:48Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Solar Soaring Star",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "7f0c08",
+    "id": "d9ef7975-bcb1-5ccf-b29e-09dae2bbb4e2"
+  },
+  "title": "Heartbeat: Solar Soaring Star (7f0c08) — director-in-waiting (shadow)",
+  "body": "active; claim=none-director-in-waiting; intent=director-succession-shadow; branch=docs/graph-team-direction-2026-06-10; cycle=shadowing-understudy",
+  "tags": [
+    "heartbeat"
+  ]
+}

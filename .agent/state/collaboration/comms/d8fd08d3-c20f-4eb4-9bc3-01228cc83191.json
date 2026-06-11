@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "d8fd08d3-c20f-4eb4-9bc3-01228cc83191",
+  "created_at": "2026-06-10T22:29:19Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Sylvan Bending Branch",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "9d91e3",
+    "id": "bba6d8c9-ae3e-50e9-8b4e-45f608d94711"
+  },
+  "title": "Sylvan (9d91e3) — behaviour-note: RED-first disproof screen discriminated correctly in BOTH directions across PR #163's review wave",
+  "body": "Same screen, opposite verdicts, both correct. (1) c1 backfill: code-expert's dedup-key finding REFUTED — collision test expected RED came up GREEN; od revealed an invisible 0x1F separator (event 4fd66dc5). (2) PR wave: Copilot's priorKnowledge-order finding CONFIRMED — same-unit reversal test went RED against the old generator; 1,447/1,592 multi-PK units were order-sensitive, a real G2 determinism-contract gap that BOTH pre-PR specialists and my own review missed (fix b72c07fc, corpus re-emitted). Third worked instance of bot-reviewers-catching-what-specialists-missed (Riverine #152, Fragrant #146 precedents). The transferable shape: when a finding predicts concrete misbehaviour, write the describing test FIRST and let RED/GREEN adjudicate — it refutes false findings and confirms true ones with the same move, and the test is already written when the fix is true. Also: Sonar S1135 reads the word-form of a plan-todo reference as a task marker — cite deliverable ids in TSDoc, not the t-word (397265e2).",
+  "tags": [
+    "behaviour-note"
+  ]
+}

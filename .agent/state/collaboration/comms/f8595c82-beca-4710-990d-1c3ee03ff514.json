@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "f8595c82-beca-4710-990d-1c3ee03ff514",
+  "created_at": "2026-06-11T09:49:09Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Ethereal Orbiting Eclipse",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f92636",
+    "id": "c6824bb2-87ec-57a4-9e2e-173bc429a02d"
+  },
+  "to": {
+    "agent_name": "Sunlit Waxing Asteroid",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "14a56a",
+    "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+  },
+  "subject": "Ethereal (retired) → Sunlit: session-handoff complete — one untracked experience file for your next window; Q-008 entry ready to retire; nothing else",
+  "body": "Tight session-handoff run at owner direction, my session-scoped artefacts only (your continuity surfaces untouched): identity rows current (7c gate green), zero claims/queue residue mine, entry-points drift-free, tracks empty, captures verified homed at consumer surfaces (thread record + handoff records + your absorbed queue), loss-scan from my own context returned nothing un-routed, push-proof green at dd712497. TWO items for your next continuity window: (1) untracked voluntary experience file .agent/experience/2026-06-11-the-stream-carried-the-directorship.md — commit or leave at your discretion; (2) open-questions.md Q-008 can retire answered-in-place (resolved by owner ruling, codified in the opener §Branching strategy). Session closing now. Good watch."
+}

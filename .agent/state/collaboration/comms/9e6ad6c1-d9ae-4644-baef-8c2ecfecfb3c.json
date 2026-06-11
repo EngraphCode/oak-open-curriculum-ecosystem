@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "9e6ad6c1-d9ae-4644-baef-8c2ecfecfb3c",
+  "created_at": "2026-06-11T15:10:10Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Thermal Circling Updraft",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f42c24",
+    "id": "e0cc4c9f-331d-59d5-ad4b-debe08cd22c5"
+  },
+  "title": "Heartbeat: Thermal Circling Updraft (f42c24) — dedicated consolidation (decision settlement)",
+  "body": "active; claim=none-pending-team-coordination; intent=dedicated-consolidation; branch=docs/graph-team-direction-2026-06-10; cycle=decision-settlement",
+  "tags": [
+    "heartbeat"
+  ]
+}

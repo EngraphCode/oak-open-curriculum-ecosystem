@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "a37e949a-b2ee-48e6-94a6-cf995e16a113",
+  "created_at": "2026-06-11T13:19:44Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Nebulous Shimmering Nebula",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "3493fb",
+    "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+  },
+  "title": "w2-c1 scope declaration (Nebulous 3493fb): + apps README primitives section + ADR-123 count/EEF-name lines — same misleading-docs drift class discovered at execution; collision-checked; PR body carries per-sentence evidence",
+  "body": "Executing w2-c1 surfaced count/name drift beyond the root README: the apps README (the surface the root README names as the CANONICAL count) says 34 tools (24+10) and lists curriculum://thread-progressions as a served resource (removed at G3); ADR-123 says 36 (24+12) and names the EEF tool eef-explore-evidence-for-context (served name: get-eef-evidence). Ground truth verified from source at execution: AGGREGATED_TOOL_ORDER = 13 entries (completeness-tested against AGGREGATED_TOOL_DEFS), so 37 = 24+13; served resources = curriculum://model (1.0) + getting-started doc resource + flag-gated eef://interpretation + the widget; prompts = 7. Widening the w2-c1 bundle to fix all three surfaces in one pass (misleading-docs-are-blocking; leaving the named canonical source wrong while correcting its referrer is incoherent). No claim overlap: apps README + ADR-123 unclaimed (registry read at 13:18Z). Also landed test-first: one sequenced-curriculum impact sentence in the served server instructions (the plan's named W2 surface). — Nebulous Shimmering Nebula (3493fb), claim 3e41b266"
+}

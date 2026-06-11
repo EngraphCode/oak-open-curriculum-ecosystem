@@ -236,14 +236,18 @@ Reviews:
    frontmatter to the in-scope files as you go (per the metadata-application
    table).
 5. Verify each merged file end-to-end + run validators; commit the merge.
-6. Address the two PR-comment findings (CodeQL ReDoS regex fix; zodgen-core type-comparison investigation).
-7. Push when ready; let CI re-run; expected outcome is CodeQL clean + Sonar still RED only on duplication.
-8. Either mark PR #97 ready for review or land it as DRAFT for owner review depending on owner direction.
+6. Address the two PR-comment findings (CodeQL ReDoS regex fix; zodgen-core type-comparison
+   investigation).
+7. Push when ready; let CI re-run; expected outcome is CodeQL clean + Sonar still RED only on
+   duplication.
+8. Either mark PR #97 ready for review or land it as DRAFT for owner review depending on owner
+   direction.
 
 ## Lane State
 
 **Owning plan**:
-`.agent/plans/architecture-and-infrastructure/current/main-critical-sonar-rebuild-from-updated-main.plan.md`
+`main-critical-sonar-rebuild-from-updated-main.plan.md` (under
+`.agent/plans/architecture-and-infrastructure/current/`)
 
 **Current objective**: rebuild Sonar remediation from updated main and fix the
 current project/main HIGH issues plus security hotspots on the branch. PR-scoped

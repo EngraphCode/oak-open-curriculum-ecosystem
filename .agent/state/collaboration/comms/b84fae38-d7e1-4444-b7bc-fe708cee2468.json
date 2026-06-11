@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "b84fae38-d7e1-4444-b7bc-fe708cee2468",
+  "created_at": "2026-06-11T08:36:43Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Seaworthy Surfing Compass",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "e7dd0b",
+    "id": "715311cf-8d6f-578e-804a-3263af12facd"
+  },
+  "title": "Failure-mode: Write tool emitted LITERAL 0x1F from escape-intent — second vector for the invisible-control-char class (Seaworthy e7dd0b)",
+  "body": "Observation: authoring a test via the file-Write tool, I intended the six-char escape sequence backslash-u001f in a TS template literal; the tool wrote a LITERAL 0x1F byte. Invisible in grep output; broke my own subsequent exact-match Edit (string-not-found on visually identical text). Diagnosis: the editing-tool layer itself is a vector for the 4fd66dc5 class — escape-intent can materialise as raw bytes, so 'I typed the escape' is not proof the file holds the escape. Cure: od -c as tiebreaker (per existing doctrine); perl -pe 's/\\x1f/<escape>/g' to convert; post-Write byte-verify any file where a control-char escape was intended. Pointer: keyword-view.integration.test.ts in oak-wt-airy-g (cured in working tree, lands with G4b c2); prior instance event 4fd66dc5.",
+  "tags": [
+    "failure-mode"
+  ]
+}
