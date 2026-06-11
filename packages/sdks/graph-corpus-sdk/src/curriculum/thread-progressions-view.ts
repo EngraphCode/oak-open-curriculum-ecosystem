@@ -25,7 +25,6 @@ import type {
   GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
 
-import { graphCorpus } from './graph-corpus.js';
 import { mustGet } from './misconception-projection.js';
 import {
   buildCurriculumThreadProgressionsProjection,
@@ -78,13 +77,27 @@ export interface ThreadProgressionStats {
 const projection: CurriculumThreadProgressionsProjection =
   buildCurriculumThreadProgressionsProjection();
 
+/** The unique subjects carried by the units the thread sequences place, sorted. */
+function sequencedSubjects(p: CurriculumThreadProgressionsProjection): readonly string[] {
+  const subjects = new Set<string>();
+  for (const sequence of p.sequencesByThreadId.values()) {
+    for (const placement of sequence.placements) {
+      subjects.add(mustGet(p.unitsById, placement.unitId).subject);
+    }
+  }
+  return [...subjects].sort((a, b) => a.localeCompare(b));
+}
+
 /**
- * Corpus-level thread stats for description interpolation (the consumers that
- * previously interpolated the legacy threadProgressionGraph stats).
+ * Thread-estate stats for description interpolation (the consumers that
+ * previously interpolated the legacy threadProgressionGraph stats). Both
+ * fields derive from the sequences themselves — never from corpus-wide unit
+ * stats — so "N threads across M subjects" describes thread coverage by
+ * construction, not by coincidence.
  */
 export const threadProgressionStats: ThreadProgressionStats = {
-  threadCount: graphCorpus.stats.nodeKindCounts.thread,
-  subjectsCovered: graphCorpus.stats.subjectsCovered,
+  threadCount: projection.sequencesByThreadId.size,
+  subjectsCovered: sequencedSubjects(projection),
 };
 
 /** Builds one thread's progression by joining its sequence placements to unit nodes. */

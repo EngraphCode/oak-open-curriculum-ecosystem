@@ -111,9 +111,24 @@ describe('progressionsForSubjectKeyStage (discovery anchor)', () => {
 });
 
 describe('threadProgressionStats (interpolator continuity)', () => {
-  it('carries the corpus thread count and subject coverage', () => {
-    expect(threadProgressionStats.threadCount).toBe(graphCorpus.stats.nodeKindCounts.thread);
+  it('counts the threads the sequences cover', () => {
+    expect(threadProgressionStats.threadCount).toBe(graphCorpus.sequences.length);
     expect(threadProgressionStats.threadCount).toBeGreaterThan(0);
-    expect(threadProgressionStats.subjectsCovered).toEqual(graphCorpus.stats.subjectsCovered);
+  });
+
+  it('derives subjectsCovered from sequenced units only (thread coverage by construction)', () => {
+    const placedUnitIds = new Set(
+      graphCorpus.sequences.flatMap((sequence) =>
+        sequence.placements.map((placement) => placement.unitId),
+      ),
+    );
+    const sequencedSubjects = new Set(
+      graphCorpus.nodes
+        .filter((node) => node.kind === 'unit' && placedUnitIds.has(node.id))
+        .map((node) => (node.kind === 'unit' ? node.subject : '')),
+    );
+
+    expect(new Set(threadProgressionStats.subjectsCovered)).toEqual(sequencedSubjects);
+    expect(threadProgressionStats.subjectsCovered.length).toBeGreaterThan(0);
   });
 });
