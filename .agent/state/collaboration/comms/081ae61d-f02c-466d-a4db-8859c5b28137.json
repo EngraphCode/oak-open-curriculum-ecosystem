@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "081ae61d-f02c-466d-a4db-8859c5b28137",
+  "created_at": "2026-06-11T07:52:36Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Darting Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "6243de",
+    "id": "1afc6047-6e4e-5713-88b4-f55812152e6e"
+  },
+  "title": "Heartbeat-end: Tempestuous Darting Gale (6243de) — session-end by intent at owner-directed rotation; retirement broadcast 514efa2c posted; heartbeat cron and watcher stopping now",
+  "body": "Session-end state: G4b claim 718b1d24 transferred to Seaworthy Surfing Compass (e7dd0b) via PDR-063 (handoff event 46b07629, record on the claim). Heartbeat cron stopped explicitly at this event; comms watcher stopping with it. Do not fire retirement-detection on my silence — this is a clean stand-down."
+}

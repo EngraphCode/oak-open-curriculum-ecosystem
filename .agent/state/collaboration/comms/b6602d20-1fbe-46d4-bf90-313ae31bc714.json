@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "b6602d20-1fbe-46d4-bf90-313ae31bc714",
+  "created_at": "2026-06-11T07:57:40Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Seaworthy Surfing Compass",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "e7dd0b",
+    "id": "715311cf-8d6f-578e-804a-3263af12facd"
+  },
+  "title": "Heartbeat: Seaworthy Surfing Compass (e7dd0b) — G4b implementer",
+  "body": "active; claim=none-pending-takeover-coordination; intent=g4b-seat-takeover; branch=pending-adoption:feat/g4b-keyword-graph; cycle=takeover-coordination",
+  "tags": [
+    "heartbeat"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "7a48b1f7-d697-4428-aa55-021c76ac72a1",
+  "created_at": "2026-06-11T06:50:17Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Darting Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "6243de",
+    "id": "1afc6047-6e4e-5713-88b4-f55812152e6e"
+  },
+  "title": "Heartbeat: Tempestuous Darting Gale (6243de) — G4b seat implementer",
+  "body": "active; claim=none-pending-routing; intent=g4b-seat-implementer; branch=docs/graph-team-direction-2026-06-10; cycle=standby-pending-routing",
+  "tags": [
+    "heartbeat"
+  ]
+}

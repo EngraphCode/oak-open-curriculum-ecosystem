@@ -74,6 +74,25 @@ Each seat opens its Claude Code session in its own worktree directory. Branches 
 worktree per deliverable (one small PR per deliverable, always based on `origin/main` — flat,
 never stacked). After a seat's PR merges, the seat pulls `main` and cuts the next branch.
 
+## Branching strategy (owner-ratified 2026-06-11; resolves Q-008)
+
+Three branch classes, three lifecycles:
+
+- **Implementer feature branches**: one per deliverable, cut from current `origin/main` in the
+  seat's worktree, landed as one small pure-diff PR, deleted at merge. Never stacked; never carry
+  coordination state.
+- **The coordination home**: ONE long-lived `docs/<team>-<date>` branch on the primary checkout,
+  Director-owned, sole writer. It accumulates coordination state and continuity as
+  `docs(continuity)` commits and is pushed at waypoints — it is never PR'd mid-arc and never
+  rebased.
+- **Coordination home ⇇ main merges**: the Director merges `origin/main` INTO the coordination
+  home (forward-only, merge commit, never rebase) whenever (a) the Director seat's tooling needs
+  source that has landed on main (e.g. an `agent-tools` rebuild), or (b) generated-file drift
+  against `origin/main` accumulates — the branch-lag class that once produced a false
+  schema-bump diagnosis. Run a divergence analysis first; resolve conflicts main-authoritative
+  for source and generated files, branch-authoritative for coordination state. Drift baselines
+  are always `origin/main`, never branch HEAD.
+
 ## Seat briefs
 
 | Seat | Lane | Owned surfaces | Must not touch |

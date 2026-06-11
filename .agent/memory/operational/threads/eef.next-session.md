@@ -466,11 +466,11 @@ session narrative for each is in git history; this table is the durable identity
 | `Eclipsed Masking Shade` | `claude` | `Fable 5` | `952c10` | `graph-implementation-seat-b-g1b-finish-twinkling-orbit-successor` | 2026-06-10 | 2026-06-10 |
 | `Fruited Blossoming Meadow` | `claude` | `Fable 5` | `4536e0` | `graph-implementation-galactic-successor-standby-g2-lane` | 2026-06-10 | 2026-06-10 |
 | `Glassy Plumbing Dock` | `claude` | `Fable 5` | `ca5890` | `graph-implementation-eclipsed-successor-standby-g1b-finish-seat` | 2026-06-10 | 2026-06-10 |
-| `Stratospheric Swooping Zephyr` | `claude` | `Fable 5` | `fe53ec` | `graph-implementation-director-fourth-holder` | 2026-06-10 | 2026-06-10 |
+| `Stratospheric Swooping Zephyr` | `claude` | `Fable 5` | `fe53ec` | `graph-implementation-director-fourth-holder` | 2026-06-10 | 2026-06-11 |
 | `Sylvan Bending Branch` | `claude` | `fable-5` | `9d91e3` | `graph-implementation-g2-execution-fruited-pdr063-successor` | 2026-06-10 | 2026-06-10 |
 | `Tempestuous Rising Gale` | `claude` | `Fable 5` | `60496a` | `graph-implementation-s3-seat-successor-standby` | 2026-06-10 | 2026-06-10 |
 | `Ethereal Orbiting Eclipse` | `claude` | `Fable 5` | `f92636` | `graph-implementation-director-fifth-holder` | 2026-06-10 | 2026-06-11 |
-| `Tempestuous Darting Gale` | `claude` | `Opus 4.8` | `6243de` | `graph-implementation-g4b-implementer` | 2026-06-11 | 2026-06-11 |
+| `Tempestuous Darting Gale` | `claude` | `Fable 5` | `6243de` | `graph-implementation-g4b-implementer` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 

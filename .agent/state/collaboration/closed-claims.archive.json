@@ -11530,6 +11530,141 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "afd9710f-9211-4c7e-8e87-a719b7ad0c95",
+      "agent_id": {
+        "agent_name": "Tempestuous Darting Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "6243de",
+        "id": "1afc6047-6e4e-5713-88b4-f55812152e6e"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/bulk/extractors/**",
+            "packages/sdks/oak-sdk-codegen/src/graph-corpus/**",
+            "packages/sdks/graph-corpus-sdk/src/curriculum/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/**",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T06:38:09Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G4b keyword graph tool (Director-routed 9ef9078a; plan g4 todo is authority): vocab-gen keyword emission + extractor-duplicate consolidation (c1), keyword view in graph-corpus-sdk src/curriculum (c2), AGGREGATED tool add with 4-surface atomic registration + description disambiguation e2e (c3). Worktree oak-wt-airy-g, branch feat/g4b-keyword-graph off origin/main. Readiness reviewers (assumptions+architecture+mcp+type) before execution-ready; pinned data facts re-verified at start. ONE PR, Director-serialised merge. Agent: Tempestuous Darting Gale (6243de) — NOT Tempestuous Rising Gale (60496a).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T06:55:32Z",
+        "closed_by": {
+          "agent_name": "Tempestuous Darting Gale",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "6243de",
+          "id": "1afc6047-6e4e-5713-88b4-f55812152e6e"
+        },
+        "summary": "Superseded by claim 718b1d24 (same agent, same G4b lane): boundary corrected after readiness-review adjudication — tool modules live at src/mcp/*.ts not universal-tools/, plus generators, generated graph-corpus output, codegen description parts, landing-page order array, ADR-086.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "afd9710f-9211-4c7e-8e87-a719b7ad0c95",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "d7805e66-b51d-4532-a976-54fc0593b8d9",
+      "agent_id": {
+        "agent_name": "Arboreal Swaying Thicket",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "d2947e",
+        "id": "1fc30e19-ba54-5af4-941a-62065fdbb261"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/memory/active/**",
+            ".agent/memory/operational/pending-graduations.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T06:35:54Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Dedicated knowledge-curation seat (owner-directed consolidation session, oak-consolidate-until-done). Write lane on .agent/memory curation buffers PENDING Director routing — overlaps Director claim 0a8075f4 (Ethereal Orbiting Eclipse, sole-writer .agent/memory/**); direct request sent; no memory/state content writes until routed. Read-only inventory + drafting meanwhile.",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T07:46:28Z",
+        "closed_by": {
+          "agent_name": "Arboreal Swaying Thicket",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "d2947e",
+          "id": "1fc30e19-ba54-5af4-941a-62065fdbb261"
+        },
+        "summary": "Dedicated curation pass complete: commit 7da93ae6 (19 files); verify-dont-trust draft owner-gated per Director adjudication 08d5c8b7",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "d7805e66-b51d-4532-a976-54fc0593b8d9",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "19136ff2-0089-4a32-a686-d540e8aa00c6",
+      "agent_id": {
+        "agent_name": "Sylvan Branching Pollen",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "89f3b3",
+        "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T06:44:33Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Reliability micro-queue item 1 (Director routing c87340f6): agent-tools loud-write fixes — every writing subcommand prints an explicit success token (comms append silent-success cure; claims close loud no-match failure; model = 1500-char limit loud failure). Own worktree, one PR off origin/main, TDD atomic landings, full gates. Items 2-4 follow as separate claims per PR boundary.",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T07:58:02Z",
+        "closed_by": {
+          "agent_name": "Sylvan Branching Pollen",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "89f3b3",
+          "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+        },
+        "summary": "PR #166 MERGED (loud-write fixes; head 700d2a0f): all writing subcommands loud, no-match claim writes fail loudly, conversation/escalation --file defect cured. Both loops settled pre-merge. Releases the agent-tools/** boundary; unblocks Evergreen Budding Sapling's lifecycle-lease lane (Director condition e9f8c218).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "19136ff2-0089-4a32-a686-d540e8aa00c6",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }
