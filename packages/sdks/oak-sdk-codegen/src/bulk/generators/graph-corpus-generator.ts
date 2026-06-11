@@ -120,6 +120,7 @@ interface CorpusAssembly {
   readonly nodes: readonly GraphCorpusNode[];
   readonly edges: readonly GraphCorpusEdge[];
   readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
+  readonly collapsedIdenticalPrerequisiteEdges: number;
 }
 
 /** Builds the full node and edge sets from the extracted input. */
@@ -166,11 +167,8 @@ function assembleCorpus(input: GraphCorpusInput): CorpusAssembly {
       ...addresses.edges,
       ...containsKeyword.edges,
     ]),
-    droppedEdges: [
-      ...prerequisite.droppedEdges,
-      ...addresses.droppedEdges,
-      ...containsKeyword.droppedEdges,
-    ],
+    droppedEdges: [prerequisite, addresses, containsKeyword].flatMap((build) => build.droppedEdges),
+    collapsedIdenticalPrerequisiteEdges: prerequisite.collapsedIdenticalPrerequisiteEdges,
   };
 }
 
@@ -201,6 +199,7 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
     selfLoops,
     collapsedIdenticalMisconceptions: assembly.misconceptionBuild.collapsedIdentical,
     collapsedIdenticalPlacements: assembly.sequenceBuild.collapsedIdenticalPlacements,
+    collapsedIdenticalPrerequisiteEdges: assembly.collapsedIdenticalPrerequisiteEdges,
   };
 }
 
@@ -212,12 +211,14 @@ function buildStats(assembly: CorpusAssembly): GraphCorpusStats {
  * node).
  *
  * @param input - Extracted bulk data and the source version identifier
- * @returns The graph corpus (`droppedEdges`/`droppedDuplicates` empty in practice)
+ * @returns The graph corpus (`droppedEdges`/`droppedDuplicates` empty in
+ *   practice; identical-duplicate collapses surface as the
+ *   `stats.collapsedIdentical*` scalar counts, never as dropped entries)
  */
 export function generateGraphCorpusData(input: GraphCorpusInput): GraphCorpus {
   const assembly = assembleCorpus(input);
   return {
-    version: '1.3.0',
+    version: '1.4.0',
     generatedAt: new Date().toISOString(),
     sourceVersion: input.sourceVersion,
     stats: buildStats(assembly),
