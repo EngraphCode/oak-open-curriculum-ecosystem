@@ -1,3 +1,10 @@
+## [1.23.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.1...v1.23.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** use type-preserving some() in emitted edge-type predicate ([d7f5d0d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d7f5d0de3fa078ab4a0cc6f9ca29d5b26c70fa46))
+
 ## [1.23.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.0...v1.23.1) (2026-06-11)
 
 
