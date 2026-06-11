@@ -6,7 +6,10 @@
  * Builds the typed edge sets: `prerequisiteFor` from consecutive
  * year-ordered thread pairs (with dropped-edge provenance for unresolvable
  * endpoints), `containsUnit` (thread→unit), and `containsLesson`
- * (unit→lesson placement), each deduplicated per pair.
+ * (unit→lesson placement). `containsUnit` and `containsLesson` deduplicate
+ * per pair; `prerequisiteFor` emits one edge per consecutive placement pair,
+ * so the same (source, target) recurs when threads share adjacency —
+ * multiplicity is placement data, preserved since G1a.
  */
 import type { ExtractedLesson } from '../extractors/index.js';
 import type { ExtractedThread, ThreadUnit } from '../extractors/thread-extractor.js';
