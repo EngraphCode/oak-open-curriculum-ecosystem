@@ -195,3 +195,38 @@ fitness_content_role: drainable-buffer
   for source/generated files. Codified in the team opener §Branching strategy (landed with
   `898a0ac4d`); first execution `ae1802da1`. Drift baselines remain `origin/main`, never branch
   HEAD.
+
+## Q-009 — do memory/state files need schema-driven or agent-driven merge strategies?
+
+- **Captured**: 2026-06-11 (Iridescent Threading Constellation / claude / Fable 5 / `f9454b`),
+  owner-raised during the first coordination-home → main reconciliation.
+- **Question**: git merges lines; our `.agent/memory` and `.agent/state` files carry semantic
+  invariants git cannot see (a JSON set keyed by `claim_id`; a markdown file with exactly one
+  Current State block; an append-only narrative buffer; an additive identity table). A
+  textually-clean git merge can be semantically wrong. Should we implement custom merge
+  strategies, and of what kind?
+- **The spectrum (analysis, not decision)**: three tiers, prefer the lowest that works.
+  (1) **Conflict-free by construction** — the comms event store already is this (immutable,
+  content-addressed, one-file-per-event, append-only, single-writer); 1,863 events reconciled
+  with zero risk on 2026-06-11 *because* of this model. Push more state toward it.
+  (2) **Schema-driven merge drivers** — the structured registries (`active-claims.json`,
+  `closed-claims.archive.json`, `comms-seen`) have algebraic merges (set-union keyed by id,
+  last-writer-wins per key, append-dedup, line-set-union). Git's native `.gitattributes
+  merge=<driver>` mechanism + one schema-aware tool per shape; makes ADR-197's
+  branch-authoritative-for-state policy semantically safe rather than textually hopeful.
+  (3) **Agent-driven merge** — narrative state (`repo-continuity.md` Current State, `napkin.md`,
+  `distilled.md`, thread records) needs *meaning* (same-surprise-twice? supersede-vs-coexist?);
+  no algebra suffices. A merge driver invoking a reasoning agent with the file's semantic
+  contract is justified ONLY here, as a last resort, and MUST emit a reviewable diff, never a
+  silent merge (an un-inspectable agent merge is the false-green failure at a new altitude).
+- **Why it shapes future work**: every coordination-home → main reconciliation (and any
+  multi-writer state convergence) relies on this; the 2026-06-11 reconciliation was clean only
+  because of tier-1 + zero per-file overlap, not because git merged state safely.
+- **Why not answerable cheaply now**: needs a per-file-class merge-semantics audit, a decision
+  on git-merge-driver vs out-of-band tooling, and (for tier 3) the auditability/cost design.
+- **Owning artefact / discussion home**: the mechanism follow-on to
+  [ADR-197](../../../docs/architecture/architectural-decisions/197-coordination-home-owns-registry-state.md)
+  (which set the policy but assumed git's textual merge); the
+  [team-opener generalisation exploration plan](../../plans/agent-tooling/current/team-opener-generalisation-exploration.plan.md).
+- **Status**: OPEN — captured for the next dedicated agentic-engineering session; a strong ADR
+  candidate (state-file merge-semantics architecture).

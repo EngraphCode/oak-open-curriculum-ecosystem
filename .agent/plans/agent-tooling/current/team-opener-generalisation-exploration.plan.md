@@ -90,6 +90,30 @@ todos:
       or spawns the implementing plan. NO execution until the owner disposes —
       this plan's job is to make the decision walkable, not to pre-empt it.
     status: pending
+  - id: x6-team-closeout-needs-branch-to-main-reconciliation
+    content: >-
+      WORKED INSTANCE 2026-06-11 (owner-named gap): the team closeout needs a
+      step a sole-session closeout does not — landing the coordination home's
+      PERMANENT output on main. The coordination-home model is forward-only
+      (main→branch merges; the branch is "never PR'd"), which created two
+      classes of must-reach-main work but a path for only one: implementer work
+      reaches main via pure-diff PRs (worked); everything authored ON the
+      coordination home — ADRs, PDRs, rules, skills, governance docs, the
+      memory/continuity substrate, distilled lessons, experience files — reaches
+      main via NOTHING. Seven directors landed continuity waypoints faithfully
+      onto a sink branch; at session end the whole arc's doctrine + learning was
+      stranded off main (4 ADRs, 3 PDRs, 4 rules, 2 skills, governance docs, 12
+      experience files, distilled). Owner: "docs are not secondary artefacts."
+      Cure shape (to design, not assert): the team-closeout workflow gains an
+      explicit branch→main reconciliation step (the divergence is typically
+      conflict-free because the two sides touch disjoint paths — verify with the
+      overlap analysis, then merge main→branch and PR branch→main with full CI);
+      this is a `session-handoff` Team-Closeout-Owner-mode amendment AND part of
+      whatever home x2 chooses. The 2026-06-11 reconciliation (this PR) is the
+      first worked instance and its evidence. Cross-ref ADR-197 (coordination
+      home owns registry state) which half-describes the boundary this gap sits
+      on.
+    status: pending
 ---
 
 # Team-Opener Generalisation — Exploration
