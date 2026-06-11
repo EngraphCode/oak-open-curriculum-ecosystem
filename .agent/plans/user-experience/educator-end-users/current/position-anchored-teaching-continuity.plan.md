@@ -67,7 +67,7 @@ todos:
   - id: w3-c1-vocabulary-bridge
     content: >-
       FUTURE CYCLE (owner-directed fold 2026-06-11; additive — neither blocks
-      nor sequences with w2-c1): extend the where-next prompt's orchestration
+      nor sequences with w2-c1): extend this plan's prompt orchestration
       with the position-anchored vocabulary bridge — two get-keyword-graph
       calls within the same subject+keyStage anchor, narrowed by unitSlugs
       (the finished unit vs the resolved candidate next units); the agent
@@ -177,7 +177,7 @@ verified against delivered behaviour** before it is written:
 Additive future cycle, folded in by owner direction (2026-06-11; Director
 routing event `56dcda07`); it neither blocks nor sequences with W2. At the
 "my class just finished X — what next?" moment the prompt this plan ships
-(served name `where-next`, owner-decided 2026-06-11) gains a vocabulary
+(served name owner-decided at its PR, per w1-c0) gains a vocabulary
 bridge between the finished unit and the candidate next units:
 
 - Two `get-keyword-graph` calls within the same `subject` + `keyStage`

@@ -69,10 +69,10 @@ Pairs naturally with `get-prior-knowledge-graph` — prerequisites say what was
 
 ### 3. Position-anchored vocabulary bridge (folded into the plan)
 
-At the "my class just finished X — what next?" moment (the `where-next`
-prompt, owner-named 2026-06-11), bridge the vocabulary between the finished
-unit and the candidate next units: shared terms become continuity anchors,
-new terms become the pre-teach list.
+At the "my class just finished X — what next?" moment (the position-anchored
+prompt; its served name is owner-decided at its PR), bridge the vocabulary
+between the finished unit and the candidate next units: shared terms become
+continuity anchors, new terms become the pre-teach list.
 
 - **Data support (verified)**: two anchored calls narrowed by `unitSlugs`
   (finished vs candidate units) within the same `subject` + `keyStage`
