@@ -1,3 +1,16 @@
+# [1.23.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.22.1...v1.23.0) (2026-06-11)
+
+
+### Bug Fixes
+
+* **curriculum-sdk:** name get-lessons-transcript in the lesson-planning workflow ([37f69b0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/37f69b0c8290cfdf4440843a5b8376681521412a)), closes [#162](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/162)
+
+
+### Features
+
+* **curriculum-sdk:** add curriculum-mapping prompt derived from oak-curriculum-mapper ([c14e812](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c14e812150a563f081a5c8fc516c12a3e95344de))
+* **curriculum-sdk:** extend lesson-planning prompt into the full lesson-builder workflow ([3cb8766](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3cb8766d8eecbe725cc3f9eae6d0778cda5fa694))
+
 ## [1.22.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.22.0...v1.22.1) (2026-06-11)
 
 
