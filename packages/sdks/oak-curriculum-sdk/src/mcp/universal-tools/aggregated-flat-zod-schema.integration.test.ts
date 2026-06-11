@@ -151,7 +151,9 @@ describe('no-input tools have empty inputSchema (MCP spec: strict empty object)'
     expect(model).toBeDefined();
     expect(model?.inputSchema).toEqual({});
   });
+});
 
+describe('anchored tools carry their anchor fields on the wire schema', () => {
   it('get-thread-progressions inputSchema carries the anchored fields (G3 rewrite)', () => {
     const tools = listUniversalTools(generatedToolRegistry);
     const threadProgressions = tools.find((t) => t.name === 'get-thread-progressions');
