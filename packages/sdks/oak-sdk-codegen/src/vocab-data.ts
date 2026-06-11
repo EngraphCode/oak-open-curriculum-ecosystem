@@ -10,7 +10,6 @@
  */
 
 export {
-  threadProgressionGraph,
   vocabularyGraph,
   ncCoverageGraph,
   minedDefinitionSynonyms,

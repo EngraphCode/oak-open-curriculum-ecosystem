@@ -15,6 +15,7 @@ import type {
   GraphCorpusEdgeType,
   GraphCorpusNode,
   GraphCorpusNodeId,
+  GraphCorpusSequence,
   GraphCorpusStats,
   GraphCorpusDroppedEdge,
   GraphCorpusDroppedDuplicate,
@@ -68,6 +69,16 @@ interface JsonGraphCorpusEdge {
   readonly target: string;
 }
 
+interface JsonSequencePlacement {
+  readonly unitId: string;
+  readonly year?: number;
+}
+
+interface JsonSequence {
+  readonly threadId: string;
+  readonly placements: readonly JsonSequencePlacement[];
+}
+
 interface JsonGraphCorpus {
   readonly version: string;
   readonly generatedAt: string;
@@ -75,6 +86,7 @@ interface JsonGraphCorpus {
   readonly stats: GraphCorpusStats;
   readonly nodes: readonly JsonGraphCorpusNode[];
   readonly edges: readonly JsonGraphCorpusEdge[];
+  readonly sequences: readonly JsonSequence[];
   readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
   readonly droppedDuplicates: readonly GraphCorpusDroppedDuplicate[];
   readonly seeAlso: string;
@@ -169,6 +181,17 @@ function toEdge(edge: JsonGraphCorpusEdge): GraphCorpusEdge {
   };
 }
 
+/** Narrows one sequence, validating the kind-qualified thread and unit ids at load. */
+function toSequence(sequence: JsonSequence): GraphCorpusSequence {
+  return {
+    threadId: toKindQualifiedId('thread', sequence.threadId),
+    placements: sequence.placements.map((placement) => ({
+      unitId: toKindQualifiedId('unit', placement.unitId),
+      year: placement.year,
+    })),
+  };
+}
+
 function createGraphCorpus(graph: JsonGraphCorpus): GraphCorpus {
   return {
     version: graph.version,
@@ -177,6 +200,7 @@ function createGraphCorpus(graph: JsonGraphCorpus): GraphCorpus {
     stats: graph.stats,
     nodes: graph.nodes.map(toNode),
     edges: graph.edges.map(toEdge),
+    sequences: graph.sequences.map(toSequence),
     droppedEdges: graph.droppedEdges,
     droppedDuplicates: graph.droppedDuplicates,
     seeAlso: graph.seeAlso,
@@ -185,7 +209,8 @@ function createGraphCorpus(graph: JsonGraphCorpus): GraphCorpus {
 
 /**
  * The bulk curriculum graph corpus (unit, thread, lesson, and misconception
- * nodes; prerequisiteFor and thread→unit→lesson→misconception chain edges).
+ * nodes; prerequisiteFor and thread→unit→lesson→misconception chain edges;
+ * ordered thread→unit placement sequences).
  *
  * @remarks
  * One identity space surfaced through bounded query views (Decision A). Node
@@ -215,4 +240,6 @@ export type {
   GraphCorpusEdgeTypeCounts,
   GraphCorpusDroppedEdge,
   GraphCorpusDroppedDuplicate,
+  GraphCorpusSequence,
+  GraphCorpusSequencePlacement,
 } from './types.js';

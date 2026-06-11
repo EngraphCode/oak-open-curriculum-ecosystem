@@ -89,11 +89,6 @@ export {
 } from '../mcp/curriculum-model-resource.js';
 
 export {
-  THREAD_PROGRESSIONS_RESOURCE,
-  getThreadProgressionsJson,
-} from '../mcp/thread-progressions-resource.js';
-
-export {
   EEF_INTERPRETATION_RESOURCE,
   getEefInterpretationMarkdown,
 } from '../mcp/eef-interpretation-resource.js';

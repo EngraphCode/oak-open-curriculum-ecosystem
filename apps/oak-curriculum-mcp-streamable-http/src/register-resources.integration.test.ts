@@ -402,7 +402,6 @@ describe('registerAllResources registers model and documentation resources', () 
 describe('registerAllResources registers supplementary data resources', () => {
   let server: Pick<McpServer, 'registerResource'>;
   let registeredResources: RegisteredResourceMap;
-  let readResource: (uri: string) => Promise<ReadResourceCapture>;
   let flush: () => Promise<void>;
   let options: ResourceRegistrationOptions;
 
@@ -410,7 +409,6 @@ describe('registerAllResources registers supplementary data resources', () => {
     const mock = createMockServer();
     server = mock.server;
     registeredResources = mock.registeredResources;
-    readResource = mock.readResource;
     flush = mock.flush;
     options = createTestOptions();
   });
@@ -431,24 +429,12 @@ describe('registerAllResources registers supplementary data resources', () => {
     expect(uris).not.toContain('curriculum://misconception-graph');
   });
 
-  it('registers curriculum://thread-progressions', async () => {
+  it('does not register the removed curriculum://thread-progressions (served by the anchored tool)', async () => {
     registerAllResources(server, options);
     await flush();
 
     const uris = Array.from(registeredResources.keys());
-    expect(uris).toContain('curriculum://thread-progressions');
-  });
-
-  it('thread progressions has priority 0.5 annotations', async () => {
-    registerAllResources(server, options);
-    await flush();
-
-    const resource = registeredResources.get('curriculum://thread-progressions');
-    expect(resource).toBeDefined();
-    expect(resource?.metadata.annotations?.priority).toBe(0.5);
-    expect(resource?.metadata.annotations?.audience).toContain('assistant');
-    const content = await readResource('curriculum://thread-progressions');
-    expectJsonContent(content.contents[0]);
+    expect(uris).not.toContain('curriculum://thread-progressions');
   });
 });
 

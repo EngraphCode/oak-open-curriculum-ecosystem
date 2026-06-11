@@ -38,6 +38,8 @@ export const graphCorpusTypesModuleLines: readonly string[] = [
   '  GraphCorpusEdgeTypeCounts,',
   '  GraphCorpusDroppedEdge,',
   '  GraphCorpusDroppedDuplicate,',
+  '  GraphCorpusSequence,',
+  '  GraphCorpusSequencePlacement,',
   "} from '../../../bulk/generators/graph-corpus-generator.js';",
   '',
 ];

@@ -9,7 +9,6 @@
  * Import only what you need — do not import this entire module unless necessary.
  */
 
-export { threadProgressionGraph } from './thread-progression-data.js';
 export { graphCorpus } from './graph-corpus/index.js';
 export type {
   GraphCorpus,

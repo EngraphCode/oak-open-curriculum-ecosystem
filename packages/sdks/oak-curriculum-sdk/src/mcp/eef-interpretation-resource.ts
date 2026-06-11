@@ -13,13 +13,13 @@
  * It is read context, never executable: the agent is the only reasoner over the
  * evidence (ADR-191), and this guidance cannot constrain it.
  *
- * The content is a HAND-AUTHORED markdown projection, deliberately NOT produced by
- * the JSON `graph-resource-factory` (that emits `application/json` for a single
- * data graph; this is a layered `text/markdown` guide — a different
- * responsibility). All corpus material is cited verbatim or derived from the
- * corpus at build time; no EEF vocabulary, caveat class, or strand is invented
- * (ADR-191). Source attribution — organisation, url, AND named authors — is
- * carried in full; free access to sources is a trust requirement.
+ * The content is a HAND-AUTHORED markdown projection — a layered
+ * `text/markdown` guide, a different responsibility from the generated graph
+ * corpora (served by their anchored tools). All corpus material is cited
+ * verbatim or derived from the corpus at build time; no EEF vocabulary,
+ * caveat class, or strand is invented (ADR-191). Source attribution —
+ * organisation, url, AND named authors — is carried in full; free access to
+ * sources is a trust requirement.
  */
 
 import {

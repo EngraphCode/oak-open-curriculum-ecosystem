@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted (amended 2026-06-10)
+Accepted (amended 2026-06-11)
 
 > **Amendment (2026-06-10 — graph-tools-value-redesign, deliverable G1b).**
 > The `curriculum://prior-knowledge-graph` resource was removed from the
@@ -14,6 +14,12 @@ Accepted (amended 2026-06-10)
 > The `curriculum://misconception-graph` resource was removed on the same
 > grounds; the anchored, bounded `get-misconception-graph` tool (lesson,
 > unit, and windowed thread anchors) is the misconception value surface.
+>
+> **Amendment (2026-06-11 — graph-tools-value-redesign, deliverable G3).**
+> The `curriculum://thread-progressions` resource was removed on the same
+> grounds; the anchored, bounded `get-thread-progressions` tool (threadSlug
+> detail, or subject + keyStage discovery) is the thread-progression value
+> surface, ordered by teaching year.
 
 ## Context
 
@@ -53,23 +59,23 @@ the tool visibility metadata exposed through the MCP contract.
 
 ### Resources (application-controlled)
 
-Two curriculum resources for clients that support resource injection:
+One curriculum resource for clients that support resource injection:
 
-| Resource URI                       | Content                    | Priority | Audience        |
-| ---------------------------------- | -------------------------- | -------- | --------------- |
-| `curriculum://model`               | Domain ontology + guidance | 1.0      | `["assistant"]` |
-| `curriculum://thread-progressions` | Learning progression data  | 0.5      | `["assistant"]` |
+| Resource URI         | Content                    | Priority | Audience        |
+| -------------------- | -------------------------- | -------- | --------------- |
+| `curriculum://model` | Domain ontology + guidance | 1.0      | `["assistant"]` |
 
-The host application decides whether and how to inject these into the model's context. Only `curriculum://model` (priority 1.0) should be loaded at conversation start — the thread-progressions resource is supplementary and should be loaded only when the conversation needs it.
+The host application decides whether and how to inject it into the model's context; `curriculum://model` (priority 1.0) should be loaded at conversation start.
 
-Prior-knowledge and misconception data are deliberately tool-only: the
-whole-corpus `curriculum://prior-knowledge-graph` (2026-06-10, G1b) and
-`curriculum://misconception-graph` (2026-06-10, G2) resources were removed
-when the anchored, bounded `get-prior-knowledge-graph` and
-`get-misconception-graph` tools became their value surfaces — a whole-corpus
-dump has no bounded resource form.
+The graph corpora are deliberately tool-only: the whole-corpus
+`curriculum://prior-knowledge-graph` (2026-06-10, G1b),
+`curriculum://misconception-graph` (2026-06-10, G2), and
+`curriculum://thread-progressions` (2026-06-11, G3) resources were removed
+when the anchored, bounded `get-prior-knowledge-graph`,
+`get-misconception-graph`, and `get-thread-progressions` tools became their
+value surfaces — a whole-corpus dump has no bounded resource form.
 
-A fourth resource serves the interactive MCP App widget:
+A further resource serves the interactive MCP App widget:
 
 | Resource URI                    | Content              | Priority | Audience  |
 | ------------------------------- | -------------------- | -------- | --------- |

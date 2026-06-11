@@ -113,6 +113,30 @@ export interface GraphCorpusDroppedDuplicate {
   readonly reason: string;
 }
 
+/**
+ * One unit's placement in a thread's year-ordered sequence (G3).
+ *
+ * @remarks
+ * The bulk exports no authoritative within-thread unit ordering
+ * (`unit.threads[].order` is the THREAD's display index, constant per
+ * thread); the progression axis is the placement's teaching YEAR — the axis
+ * the thread concept itself advertises (`firstYear`→`lastYear`). Ordering
+ * cannot ride the attribute-less corpus edges, so placements are emitted as
+ * the ordered projection's source. A unit may recur in one sequence at
+ * distinct years (a revisited concept); within one year the order is not
+ * curricular and ties break deterministically by unitId.
+ */
+export interface GraphCorpusSequencePlacement {
+  readonly unitId: GraphCorpusUnitNodeId;
+  readonly year: number | undefined;
+}
+
+/** One thread's year-ordered unit sequence (year ascending, year-less last, then unitId). */
+export interface GraphCorpusSequence {
+  readonly threadId: GraphCorpusThreadNodeId;
+  readonly placements: readonly GraphCorpusSequencePlacement[];
+}
+
 /** Per-kind node counts. */
 export interface GraphCorpusNodeKindCounts {
   readonly unit: number;
@@ -139,6 +163,8 @@ export interface GraphCorpusStats {
   readonly selfLoops: number;
   /** Identical (lessonSlug, normalised text) occurrences collapsed beyond the first. */
   readonly collapsedIdenticalMisconceptions: number;
+  /** Identical (threadId, unitId, year) placements collapsed beyond the first. */
+  readonly collapsedIdenticalPlacements: number;
 }
 
 /** The graph corpus: one identity space surfaced through bounded views. */
@@ -149,6 +175,7 @@ export interface GraphCorpus {
   readonly stats: GraphCorpusStats;
   readonly nodes: readonly GraphCorpusNode[];
   readonly edges: readonly GraphCorpusEdge[];
+  readonly sequences: readonly GraphCorpusSequence[];
   readonly droppedEdges: readonly GraphCorpusDroppedEdge[];
   readonly droppedDuplicates: readonly GraphCorpusDroppedDuplicate[];
   readonly seeAlso: string;

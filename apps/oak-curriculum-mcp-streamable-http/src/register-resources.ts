@@ -3,8 +3,13 @@
  *
  * Registers static resources with the MCP server, including:
  * - Documentation resources for the "start here" experience
- * - Curriculum model and thread progressions
+ * - Curriculum model and the EEF interpretation guide
  * - MCP App widget resource (interactive React curriculum app)
+ *
+ * The graph corpora have no whole-corpus resource form: prior knowledge,
+ * misconceptions, and thread progressions are served by their anchored tools
+ * (`get-prior-knowledge-graph`, `get-misconception-graph`,
+ * `get-thread-progressions`).
  */
 
 import {
@@ -12,8 +17,6 @@ import {
   getDocumentationContent,
   CURRICULUM_MODEL_RESOURCE,
   getCurriculumModelJson,
-  THREAD_PROGRESSIONS_RESOURCE,
-  getThreadProgressionsJson,
   EEF_INTERPRETATION_RESOURCE,
   getEefInterpretationMarkdown,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
@@ -87,49 +90,10 @@ function registerEefInterpretationResource(server: ResourceRegistrar): void {
 }
 
 /**
- * Registers a graph resource with the MCP server.
- *
- * Generic helper that eliminates per-graph registration boilerplate.
- * Each graph surface (currently thread progressions) follows the same
- * registration pattern — only the resource constant and JSON getter differ.
- *
- * @param server - MCP server instance
- * @param resource - Resource constant from the SDK (name, uri, mimeType, etc.)
- * @param getJson - Function returning the graph data as formatted JSON
- * @param observability - Observability for resource handler tracing
- */
-function registerGraphResource(
-  server: ResourceRegistrar,
-  resource: {
-    readonly name: string;
-    readonly uri: string;
-    readonly title: string;
-    readonly description: string;
-    readonly mimeType: string;
-    readonly annotations: {
-      readonly priority: 0.5 | 1.0;
-      readonly audience: ('user' | 'assistant')[];
-    };
-  },
-  getJson: () => string,
-): void {
-  const { name, uri, ...metadata } = resource;
-  server.registerResource(name, uri, metadata, () => ({
-    contents: [
-      {
-        uri,
-        mimeType: resource.mimeType,
-        text: getJson(),
-      },
-    ],
-  }));
-}
-
-/**
  * Registers all static resources with the MCP server.
  *
- * Combines documentation, curriculum model, thread progressions, and
- * widget resource registration into a single call.
+ * Combines documentation, curriculum model, EEF interpretation, and widget
+ * resource registration into a single call.
  *
  * @param server - MCP server instance
  * @param options - Resource registration options including observability
@@ -140,7 +104,6 @@ export function registerAllResources(
 ): void {
   registerDocumentationResources(server);
   registerCurriculumModelResource(server);
-  registerGraphResource(server, THREAD_PROGRESSIONS_RESOURCE, getThreadProgressionsJson);
   // EEF is co-gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED, kill-switch,
   // default ON): register the resource unless an explicit `=false` disables it. The
   // tool and prompt are gated by the same flag (D6 c6).

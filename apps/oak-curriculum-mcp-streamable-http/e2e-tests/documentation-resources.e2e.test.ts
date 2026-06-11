@@ -14,7 +14,6 @@ import { describe, it, expect } from 'vitest';
 import { createStubbedHttpApp, STUB_ACCEPT_HEADER } from './helpers/create-stubbed-http-app.js';
 import { parseSseEnvelope } from './helpers/sse.js';
 import { z } from 'zod';
-import { getThreadProgressionsJson } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
 
 /** JSON-RPC error shape for removed-URI assertions (code is load-bearing). */
 const JsonRpcErrorWithCodeSchema = z.object({
@@ -42,19 +41,6 @@ const ResourcesReadResultSchema = z.object({
     }),
   ),
 });
-
-/** Reads a resource and returns its text content */
-async function readResource(uri: string): Promise<string> {
-  const { app } = await createStubbedHttpApp();
-  const response = await request(app)
-    .post('/mcp')
-    .set('Host', 'localhost')
-    .set('Accept', STUB_ACCEPT_HEADER)
-    .send({ jsonrpc: '2.0', id: '1', method: 'resources/read', params: { uri } });
-  const envelope = parseSseEnvelope(response.text);
-  const parsed = ResourcesReadResultSchema.safeParse(envelope.result);
-  return parsed.data?.contents[0]?.text ?? '';
-}
 
 describe('Documentation Resources E2E', () => {
   describe('resources/list - Client can discover documentation', () => {
@@ -184,7 +170,7 @@ describe('Supplementary Data Resources E2E', () => {
       expect(uris).not.toContain('curriculum://prior-knowledge-graph');
     });
 
-    it('includes curriculum://thread-progressions in resource list', async () => {
+    it('does not list curriculum://thread-progressions (removed — served by the anchored tool)', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -197,12 +183,8 @@ describe('Supplementary Data Resources E2E', () => {
       const parsed = ResourcesListResultSchema.safeParse(envelope.result);
       expect(parsed.success).toBe(true);
 
-      const resources = parsed.data?.resources ?? [];
-      const threadProgressions = resources.find(
-        (r) => r.uri === 'curriculum://thread-progressions',
-      );
-      expect(threadProgressions).toBeDefined();
-      expect(threadProgressions?.mimeType).toBe('application/json');
+      const uris = (parsed.data?.resources ?? []).map((r) => r.uri);
+      expect(uris).not.toContain('curriculum://thread-progressions');
     });
 
     it('does not list curriculum://misconception-graph (removed — served by the anchored tool)', async () => {
@@ -266,9 +248,25 @@ describe('Supplementary Data Resources E2E', () => {
       expect(error.code).toBe(-32602);
     });
 
-    it('thread progressions returns the source data via MCP protocol', async () => {
-      const content = await readResource('curriculum://thread-progressions');
-      expect(content).toBe(getThreadProgressionsJson());
+    it('reading the removed thread-progressions URI is a -32602 JSON-RPC error', async () => {
+      const { app } = await createStubbedHttpApp();
+
+      const response = await request(app)
+        .post('/mcp')
+        .set('Host', 'localhost')
+        .set('Accept', STUB_ACCEPT_HEADER)
+        .send({
+          jsonrpc: '2.0',
+          id: '1',
+          method: 'resources/read',
+          params: { uri: 'curriculum://thread-progressions' },
+        });
+
+      const envelope = parseSseEnvelope(response.text);
+      // SDK 1.29.0 rejects an unknown resource URI as InvalidParams (-32602);
+      // the spec's -32002 resource-not-found is an unimplemented SHOULD.
+      const error = JsonRpcErrorWithCodeSchema.parse(envelope.error);
+      expect(error.code).toBe(-32602);
     });
   });
 });

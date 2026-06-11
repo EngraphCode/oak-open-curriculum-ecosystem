@@ -26,12 +26,10 @@ import {
   generateAnalysisReport,
   generateMinedSynonyms,
   generateNCCoverageGraphData,
-  generateThreadProgressionData,
   generateVocabularyGraphData,
   writeAnalysisReportFile,
   writeMinedSynonymsFile,
   writeNCCoverageGraphAsJson,
-  writeThreadProgressionFile,
   writeVocabularyGraphAsJson,
   generateGraphCorpusData,
   writeGraphCorpusAsJson,
@@ -111,13 +109,9 @@ async function generateOutputFiles(
   const outputFiles: string[] = [];
   const sourceVersion = await readSourceVersion(config.bulkDataPath);
 
-  // Generate thread progression graph
-  const threadGraph = generateThreadProgressionData(result.extractedData.threads, sourceVersion);
-  const threadFilePath = await writeThreadProgressionFile(threadGraph, config.outputPath, logger);
-  outputFiles.push(basename(threadFilePath));
-
-  // Generate the graph corpus (one-graph foundation + G2 chain:
-  // unit/thread/lesson/misconception nodes, prerequisiteFor + chain edges)
+  // Generate the graph corpus (one-graph foundation + G2 chain + G3 sequences:
+  // unit/thread/lesson/misconception nodes, prerequisiteFor + chain edges,
+  // year-ordered thread→unit placement sequences)
   const graphCorpus = generateGraphCorpusData({
     priorKnowledge: result.extractedData.priorKnowledge,
     threads: result.extractedData.threads,

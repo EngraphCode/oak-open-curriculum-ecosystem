@@ -17,10 +17,11 @@ import { registerAllResources, registerPrompts } from './register-resources.js';
 const TEST_WIDGET_HTML = '<!doctype html><html><body>Oak Curriculum App</body></html>';
 
 /**
- * Total resource count: documentation resources + 3 supplementary resources
- * (curriculum model, thread progressions, widget).
+ * Total resource count: documentation resources + 2 supplementary resources
+ * (curriculum model, widget). The graph corpora have no resource form — they
+ * are served by their anchored tools.
  */
-const EXPECTED_RESOURCE_COUNT = DOCUMENTATION_RESOURCES.length + 3;
+const EXPECTED_RESOURCE_COUNT = DOCUMENTATION_RESOURCES.length + 2;
 
 /**
  * Creates a minimal recording server using bare `vi.fn()` spies.
