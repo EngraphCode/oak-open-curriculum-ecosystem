@@ -118,11 +118,33 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   as "the pattern-candidate substance has a home"; (b) absence-of-recurrence read as
   permission to drop an unhomed signal. Several refuted rationales had ALREADY been
   refuted verbatim by the Tempestuous pass, which I had read that morning — read-doctrine
-  did not fire; the mechanical refutation stage did. Net: only 4 withdrawals stood (two
-  with corrected rationales). Lessons banked: (1) adversarial-verify-before-withdrawal is
-  now twice-proven as the mechanism for this exact failure; (2) an owner confirmation
-  obtained on my unverified claims is not authority once the claims fall — surface the
-  revision, do not hide behind the confirm (PDR-091's interpretation clause, lived);
-  (3) this is the strongest worked instance yet for BOTH the PDR-089 attestation
-  amendment and the mechanical-firing-moments PDR (both owner-approved this session —
-  cite this instance in their texts).
+  did not fire; the mechanical refutation stage did. A THIRD conflation shape surfaced in
+  the fold refutations: inventing a fold target by synthesis-convenience, overriding the
+  item's own recorded `target:` field (four of seven folds misrouted this way — the
+  verifiers caught it by reading the field I had written past). Net: only 4 withdrawals
+  stood (two with corrected rationales). Lessons banked: (1) adversarial-verify-before-
+  withdrawal is now twice-proven as the mechanism for this exact failure (graduated
+  same-session as PDR-089 Decision 8); (2) an owner confirmation obtained on my unverified
+  claims is not authority once the claims fall — surface the revision, do not hide behind
+  the confirm (PDR-091's interpretation clause, lived); (3) an item's recorded target
+  field outranks the consolidator's synthesis convenience.
+- **Workflow-tool args delivery gotcha**: a `Workflow` launch with a JSON-object `args`
+  failed instantly (`pipeline() expects an array`, zero agents ran) — `args.items` did not
+  resolve to an array inside the script. Cure that worked: a defensive guard at script top
+  (`typeof args === 'string' ? JSON.parse(args) : args`, then accept either the array or
+  `.items`, throw loud if empty) + relaunch with `resumeFromRunId` — the journal replay ran
+  clean. Future workflow scripts in this repo should carry the guard by default.
+- **Dash-leading grep patterns are an argv hazard — and my own piped-push lived instance**:
+  `git push 2>&1 | grep -E "->|..."` failed twice over — ugrep consumed the `->`-leading
+  pattern as an option, AND the pipe meant the push never transferred (ls-remote showed the
+  old SHA; the bare re-run transferred). Confirms the distilled unconditional push-proof
+  doctrine end-to-end at this seat; sharp new detail: any pattern beginning with `-` needs
+  `-e <pattern>` or `--`. Cure applied and held: pushes bare, proof = transfer line + fresh
+  ls-remote.
+- **Adding a skill is a two-gate, possibly owner-keyed operation**: the pre-push
+  portability validator requires a `Skill(<name>)` + `Skill(<name>:*)` pair in
+  `.claude/settings.json` permissions.allow for every Claude adapter, and the harness
+  classifier may block the agent's own settings.json edit as self-modification — by
+  design; the cure is an explicit owner authorisation moment (worked instance this
+  session, owner-keyed in-chat within a minute). Expect the two-step when landing any
+  new skill: canonical + generated adapters, THEN the owner-visible settings entry.

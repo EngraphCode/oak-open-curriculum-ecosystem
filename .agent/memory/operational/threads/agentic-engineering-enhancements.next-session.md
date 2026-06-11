@@ -19,18 +19,23 @@ work brief and the recent identity stretch, per
 ## Current Continuation
 
 **Curation state (2026-06-11, Arboreal Swaying Thicket / `d2947e`, commit `7da93ae6`)**:
-dedicated pass complete — napkin rotated, distilled within envelope, register drained of
-fired/duplicate items, platform auto-memory under budget, repo-wide fitness critical zone
-empty. Open items: (a) `verify-dont-trust` verify-your-own-verification clause RATIFIED by
-the owner (~07:43Z, events `57d32eb1`/`c13f2e2b`) and landed in the closeout commit;
-(b) five owner-gated Practice-Core amendment candidates in the register (PDR-064, PDR-011
-bundle, PDR-091, continuity-disposition PDR, self-certification synthesis) — ADR-131
-scope-signal recorded in napkin, no further Core candidates before the owner walk; (c) the
-register's ~45 remaining owner-gated watches are the line-HARD's designed drain pressure — a
-dedicated owner walk is the next curation move. Team-window boundary that applied: curation
-seat edits curation-class surfaces in `threads/**` excluding `eef`; `repo-continuity.md` +
-`eef` record stay Director-owned, deltas handed over (events `bac7b4b4`, `ca102efa`,
-`22df9df2`).
+**THE OWNER WALK RAN (2026-06-11, Thermal Circling Updraft / `f42c24`, dedicated
+consolidation session)**: every owner-gated promotion and decision in the estate was walked
+with the owner and settled. Landed same-session (push-proven `7f655249c` → `3a3784ef9` →
+`0a32ea36d`): ADR-195/196/197 (+ index), the `working-with-graphs` skill (canonical +
+adapters + owner-keyed settings entry), PDR-058 `reject-as-framed`, PDR-091
+forced-by-interpretation clause, PDR-089 Decision 8 (attestation + refutation-before-
+irreversible-disposition — confirmed same-day by a reproduced 14-of-18 withdrawal-refutation
+outcome), the ADR-167 exit-0-writer note, five watcher/liveness rule clauses, four verified
+register withdrawals, and an 11-entry register drain. **Next curation move: author the
+approved-unauthored queue** — every item carries `owner-approved 2026-06-11` status in the
+register, no re-asking needed: PDR-064 amendment, PDR-011 two-clause amendment, PDR-078
+emit-side, PDR-085 + self-correcting-deliverables PDR + `oak-plan` amendment,
+continuity-disposition PDR, mechanical-firing-moments PDR, F1 (PDR-051 one-liner), F2
+(commit-skill lock-wait alignment to the stricter no-contact direction), F5
+(continuity-practice §Continuation Records supersession clause). Prior open item (a) is
+landed; the ADR-131 stabilise posture lifts when the approved set lands (napkin
+carried-forward entry); no NEW Core candidates meanwhile.
 
 - **Branch**: `feat/graph-tooling-tidyup` — **clean and pushed** at HEAD `934d5c21`
   (re-derive git first-hand).
@@ -189,6 +194,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Coppery Crackling Crucible` | `claude` | `Opus 4.8` | `a28ee6` | `pending-graduations-drain + recalibration + PDR-091 (precedence-is-not-approval)` | 2026-06-08 | 2026-06-08 |
 | `Fruited Twining Canopy` | `claude` | `Opus 4.8` | `1aff59` | `dedicated-knowledge-curation (napkin rotation + graduation + continuity/open-questions drain)` | 2026-06-09 | 2026-06-09 |
 | `Arboreal Swaying Thicket` | `claude` | `Fable 5` | `d2947e` | `dedicated-knowledge-curation (register drain + napkin rotation + width repairs + platform-memory)` | 2026-06-11 | 2026-06-11 |
+| `Thermal Circling Updraft` | `claude` | `Fable 5` | `f42c24` | `dedicated-consolidation (owner decision walk: all gated dispositions settled; ADR-195/196/197 + skill + PDR-058/091/089 landed; approved-authoring queue frozen)` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 
