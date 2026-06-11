@@ -110,6 +110,12 @@ at the top. Fields:
 > platform/model/agent_name as an existing identity, it updates
 > `last_session` on that identity rather than adding a new one.
 
+In a multi-writer window, grep the identity table for your
+`session_id_prefix` before adding a row — rotation churn has
+produced duplicate rows when two writers each added the same
+identity (observed 2026-06-10); a matching identity UPDATES
+`last_session`, never adds.
+
 This rule becomes a `.agent/rules/*.md` entry once ratified as a
 PDR at the next consolidation pass.
 

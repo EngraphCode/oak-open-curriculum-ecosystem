@@ -9,7 +9,9 @@ merge_class: index-narrative-tables
 ---
 # Next-Session Record — `mcp-product-analytics` thread
 
-## Landing target (per PDR-026) — refreshed 2026-05-26 (Stellar Glowing Satellite, claude, claude-opus-4-7, `9a2967`)
+## Landing target (per PDR-026) — refreshed 2026-05-26 (Stellar Glowing Satellite, `9a2967`)
+
+*Identity: claude, claude-opus-4-7.*
 
 **Path-to-GA Programme + substance amendments LANDED** at commit
 [`09eda6f4`](.) (`feat(plans): add MCP analytics exploration and Path-to-GA
@@ -92,7 +94,8 @@ on owner authorisation:
 - **A3** MCP `2026-07-28` upgrade plan (collection TBD, likely
   `sdk-and-mcp-enhancements/`) — spec GA + owner
 - **A4** `.agent/milestones/m4-general-availability.md` definition — owner
-- **A5** Exploration 10 (`docs/explorations/2026-04-19-redaction-policy-clerk-identity-downstream.md`)
+- **A5** Exploration 10
+  (`docs/explorations/2026-04-19-redaction-policy-clerk-identity-downstream.md`)
   formal per-sink ruling backfill — owner + legal
 
 Before production PostHog capture: resolve §11.7 privacy review gate and

@@ -74,6 +74,14 @@ plan][doctrine-plan].
 - **Assert effects, not constants** - Test observable product
   behaviour through the interface, not the value of internal
   constants or configuration collections.
+- **Test the feature-flag engine, not the configuration** - Test
+  the flag resolution mechanism (opt-in, kill-switch, precedence)
+  once, generically, as a named unit. Never test a specific flag's
+  default, posture, or gated surfaces — those are configuration
+  that flexes by release stage, and per-flag on/off tests re-prove
+  the engine while pinning config. Wire posture at the call site.
+  (Owner doctrine 2026-06-08; the specialisation of "assert
+  effects, not constants" for flags.)
 - **No useless tests** - Each test must prove something useful
   about the product code. If a test is only testing the test or
   mocks, delete it.

@@ -14,18 +14,31 @@ fitness_rationale: >-
   envelope by substance rather than trimming the lesson.
 ---
 
-## Ready-Empty State (2026-06-05 baseline — Lanternlit Passing Mask curation)
+## Worktree-team and Director operational gotchas (2026-06-09→11 window)
 
-Processed in the 2026-06-05 dedicated curation pass: the napkin's 2026-06-04/05
-window rotated through the
-[ledger](../operational/curator-passes/2026-06-05-lanternlit-passing-mask-curation.md);
-the felt-authority cluster below was consolidated from five verbose entries to one
-pointer (substance homed in pending-graduations + PDR-089 + rules); three new
-terse lessons merged. Future high-signal lessons may be added here when they need
-the distilled staging surface; fitness is a routing signal, not a reason to avoid
-capture.
+- **Worktree git ops MUST use `git -C <worktree>`** — the Bash shell cwd resets to the
+  primary checkout between calls, so bare git silently hits the wrong tree (confirmed by
+  two implementers, zero misfires once adopted).
+- **Byte-compare against `origin/main` before classifying generated-file drift** — a
+  long-lived branch lagging main reads as "new upstream drift" until
+  `git show origin/main:<path> | diff -q - <path>` dissolves it.
+- **Before arming a tool a rule names as canonical, check the LOCAL build's provenance
+  against in-flight fixes to that tool** — a stale local build re-creates the very defect
+  the fix addresses; team standing notes carry build-state context the rule file cannot.
+- **Package name ≠ directory name** — `pnpm --filter` takes the package name
+  (`@oaknational/curriculum-sdk`), not the directory (`packages/sdks/oak-curriculum-sdk`).
+- **For any MCP tool, check dispatch class + data provenance FIRST** (generated-vs-aggregated
+  handler; live-API-vs-corpus) before designing its redesign — a stale provenance belief
+  carried a false plan unit until a 30-second check refuted it.
+- **Branch creation is `git switch -c`** — `git checkout -b` trips the worktree-destruction
+  guard (checkout's overloaded surface is the blocked family; switch -c touches no files).
+- **`gh pr merge` of the branch you sit on auto-switches to the default branch and pulls** —
+  mid-merge that pull can misfire; cure forward-going: verify blockers byte-identical to
+  origin/main, write HEAD's versions forward, then `git pull --ff-only`.
+- **Co-Authored-By trailers must land BEFORE the first push** — amending a pushed commit needs
+  a blocked force-push; once merged the decision is forced (leave as-is).
 
-## PR delivery practice: monitor-to-merge, flat stacks, pure diffs (2026-06-10, Fragrant Spreading Sapling)
+## PR delivery practice: monitor-to-merge, flat stacks, pure diffs (2026-06-10)
 
 Opening a PR creates a monitoring obligation that ends at merge: watch checks AND review
 comments, adjudicate every bot/reviewer finding first-hand (both halves — refute false claims
@@ -67,18 +80,6 @@ execute, ground the load-bearing claims yourself — critical assessment that ne
 dismisses. Candidate: collaboration-practice pattern (refines coordinator-delegates +
 when-to-reach-for-fan-out).
 
-## A review comment names one location of a defect CLASS — sweep the whole corpus
-
-Bot/reviewer output is dual-use: input-to-verify (never applied blindly) AND a
-sampler that surfaces a defect *class* you then exhaustively close. When a comment
-reveals a stale cross-reference, a wrong number, or a mislabel, grep the pattern
-repo-wide — don't just patch the flagged line (twice in one window a bot found a
-second instance after the first fix). The critical-assessment reflex must catch
-over-escalation without sliding into dismissal — both halves fire. Thread-resolution
-gotcha: cursor[bot] auto-resolves on re-review; Copilot threads need manual GraphQL
-`resolveReviewThread`; verify 0-unresolved via GraphQL (REST doesn't expose resolved
-state) before merge. Review-discipline candidate; sibling of fan-out-for-verify.
-
 ## A landed invariant in code you're extending is a hard constraint on a new field's shape
 
 When designing a new field or taxonomy on existing code, check the invariants the
@@ -88,7 +89,7 @@ invariant (`inspectStrand(id) === evidenceForMove({strandIds:[id]})`); the
 invariant-safe axis was coverage (`strand-lookup` vs `context-subset`). The existing
 invariant is design input, discovered first.
 
-## Don't pile new scope onto a plan pending its readiness review (2026-06-09, Fragrant Spreading Sapling)
+## Don't pile new scope onto a plan pending its readiness review (2026-06-09)
 
 A plan whose whole pending job is review → decision-complete → execution-ready
 must not grow while it awaits that review — added scope makes the readiness review
@@ -98,14 +99,6 @@ it to its own plan so the review stays on the original scope. Pair with **small-
 delivery**: "is it ready?" becomes "is each small unit ready?", never a mega-block
 judgement. Planning-discipline candidate; sibling of
 [[feedback_consolidate_estate_decouple_execution]].
-
-## Reviewer-brief scope protection cites NUMBERED ratified decisions only
-
-"Decided scope protected" in a reviewer brief cites the numbered ratified
-decisions only — plan elaborations stay refutable. Sweeping §Do elaborations into
-"protected" suppressed a legitimate PDR-058 no-consumer finding the owner then
-surfaced. Routing: pending-graduations (clause in `invoke-code-experts` /
-brief-authoring rule); trigger-gated on a second instance or the next brief pass.
 
 ## Split a candidate category before naming when it lumps a standard with a presentation concern
 
@@ -124,10 +117,16 @@ promotion, then delete here.
   (especially zsh over multiline variables) false-green by checking no inputs;
   verifiers that enumerate files/links must report the count before their result is
   trusted.
-- **Literal private-use characters in scripts are unsafe capture material.** When a
-  script needs PUA sentinels, write them as escape sequences (a backslash, the
-  letter u, then the four hex digits), never literal bytes; literal PUA text was
-  stripped once by an editing tool and made a regex match everywhere.
+- **ANY literal control character in source is a review/verification hazard — write
+  escape sequences, never literal bytes.** A literal 0x1F separator was invisible in
+  diff, grep, sed, AND reviewer rendering, fooling a reviewer and a first-hand
+  verifier in the same direction (2026-06-10, event 4fd66dc5); a PUA sentinel was
+  earlier stripped by an editing tool. Reading source is not always seeing source —
+  `od -c` or an empirical probe is the tiebreaker.
+- **RED-first disproof before fixing a reviewer-predicted misbehaviour.** When a
+  finding predicts concrete wrong behaviour, write the test FIRST and demand RED; an
+  unexpected GREEN refutes the finding (and once refuted both a reviewer and the
+  author's own confirming grep).
 
 ## Value-first; existing artefacts are malleable design surface
 
@@ -154,23 +153,6 @@ cross-platform. Connects to LTAE, premature-crystallization, existence-is-not-co
 - Rule/PDR graduation stays owner-gated (pending-grad commit-window items 15/40);
   this is the interim cross-session home.
 
-## A fired trigger is not "graduate standalone now"
-
-When a pending-graduation's trigger fires, the next check is WHERE its permanent home
-lives. If that home (an ADR, contract, doc section) is owned by an active mid-flight
-thread, authoring a standalone artefact collides/duplicates — defer to the owning
-thread. Pairs with the full-doctrine-estate non-duplication check (survey the plan
-estate, not just the register, before authoring). Sibling of `respect-active-agent-claims`.
-
-## An IDE diagnostic flood is not automatically a repo warning
-
-Before treating an editor diagnostic flood as a no-warning-toleration obligation,
-verify the tool is a repo-influenced gate. ~30 cSpell diagnostics on legitimate
-domain terms came from the editor extension's default dictionary (no repo cspell
-config, none in the gate scripts) — local noise, not a repo warning.
-never-ignore-signals means investigate the signal; no-warning-toleration scopes to
-systems the repo influences.
-
 ## Crosswalk two drifted docs before reconciling — semantics vs intent
 
 When two documents appear to conflict (older brief vs ratified plan), crosswalk
@@ -185,7 +167,13 @@ ontology-crosswalk orthogonal. Sibling of validate-specialist-findings.
 `cmd 2>&1 | tail` (and background-task wrappers over it) report the LAST pipeline
 stage's exit, masking a non-zero `cmd`. A full `pnpm check` once reported "exit 0"
 while it had actually failed. Read the captured output for the real gate verdict, or
-use `PIPESTATUS`/avoid the pipe, before trusting green.
+use `PIPESTATUS`/avoid the pipe, before trusting green. Same family: a CLI write's
+explicit success token (`wrote comms event <id>`, a commit SHA) is the proof — its
+absence means the write failed, whatever the output visually resembles. And the
+token must prove the DESTINATION too: a relative path from a worktree cwd writes to
+the wrong registry while printing a true-but-misleading proof line (event 9a164c5c);
+collaboration-CLI invocations from worktree seats use absolute paths, and the proof
+line's path is read, not just its presence.
 
 ## An uncapped workflow `findings[]` array runs a StructuredOutput agent away
 

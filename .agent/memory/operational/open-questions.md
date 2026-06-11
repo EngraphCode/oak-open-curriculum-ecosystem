@@ -70,16 +70,14 @@ fitness_content_role: drainable-buffer
   promotion last. Of the five graph sub-questions, **Q2 and Q4 are resolved**
   (graph tools take no input — the projection is structural; thread-progressions
   excluded as sequence-shaped).
-- **Status (2026-06-09)**: the trigger has fired. EEF D6+D7 are complete and
-  shipped (v1.16.0), and
-  [`output-schemas-for-mcp-tools.plan.md`][q3-general] is **🟢 DECISION-COMPLETE**
-  (every tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload
-  Zod derived at the one source per provenance). The remaining open slice
-  (Q1/Q3/Q5 — `as const` scope, mechanism home, codegen emission shape for the
-  graph tools) now resolves inside the promoted
-  [`graph-tools-value-redesign.plan.md`][q3-migration] mechanism settle (under
-  plan-review this session). Keep live until that plan reaches decision-complete;
-  then this question is answered-in-plan and retires.
+- **Status (2026-06-11): answered-in-place — retired.** The recorded retirement
+  condition is met: [`graph-tools-value-redesign.plan.md`][q3-migration] reached
+  🟢 DECISION-COMPLETE (2026-06-09, owner-ratified; mechanisms settled — new
+  `./graph-corpus` subpath, per-view `GraphView` construction, no substrate
+  change) and its Track-G view units are MERGED (G1 #153, G2/G3 + re-chain,
+  v1.22.0). [`output-schemas-for-mcp-tools.plan.md`][q3-general] carries the
+  ratified schema doctrine (`composeEnvelopeSchema(payloadSchema)`, payload Zod
+  derived at the one source per provenance); the plans are the durable owners.
 
 [q3-general]: ../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md
 [q3-migration]: ../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md
@@ -167,3 +165,25 @@ fitness_content_role: drainable-buffer
   [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md)
   (WS0 smoke/parity) or the `eef` thread record.
 - **Status**: open — trigger is the next test-harness (WS0/WS3) session.
+
+## Q-008 — should the coordination-home branch periodically merge main, or accept recurring lag?
+
+- **Captured**: 2026-06-11 (Stratospheric Swooping Zephyr / claude / Fable 5 / `fe53ec`).
+- **Question**: the team coordination home is the long-lived branch
+  `docs/graph-team-direction-2026-06-10`, which lags `origin/main` by construction as feature
+  PRs merge. Should the Director periodically merge main into it (clean status, heavier
+  history), or accept recurring generated-file lag guarded only by the
+  baseline-against-origin/main reflex?
+- **Why it shapes future work**: the lag produced a real Director misdiagnosis on 2026-06-10
+  (working-tree regen drift read as a new upstream schema bump; one wasted routing round-trip —
+  failure-mode capture `54fc0fee`). The byte-identical alignment commit cured the instance, not
+  the topology; every future main movement recreates the trap for whoever runs a gate that
+  regenerates files in the coordination home.
+- **Why not answerable cheaply now**: depends on the coordination-home branch's end-of-life
+  shape (does it ever PR to main?), the owner's appetite for merge commits on a docs branch,
+  and whether the worktree-team shape itself outlives this arc.
+- **Owning artefact / discussion home**: the team opener
+  (`prompts/connecting-oak-resources/graph-implementation-team.prompt.md`) §coordination-home
+  convention; the [`eef` thread record](threads/eef.next-session.md).
+- **Status**: open — trigger is the next coordination-home topology decision or the next
+  drift-class incident.

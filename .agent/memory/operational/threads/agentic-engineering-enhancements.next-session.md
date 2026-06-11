@@ -51,15 +51,19 @@ work brief and the recent identity stretch, per
 >
 > - **Mechanism = compile-time-by-construction (NOT a validator, NOT a factory).**
 >   `packages/core/oak-eslint/src/reappraising-message.ts`: a zod-branded `ReappraisingMessage`
->   type, minted only by `createMessage({prohibition, reappraisal})` via `z.string().brand().parse()`,
->   plus a `RuleWithReappraisingMessages<MessageIds, Options>` rule type that narrows `meta.messages`
+>   type, minted only by `createMessage({prohibition, reappraisal})` via
+> `z.string().brand().parse()`,
+>   plus a `RuleWithReappraisingMessages<MessageIds, Options>` rule type that narrows
+> `meta.messages`
 >   to the brand. A **plain prohibition-only string now fails `tsc`** in any rule typed this way —
 >   non-bypassable, no separate validator to drift, no bypass-guard needed.
 > - **Why zod, not a hand-rolled brand:** the shared config bans assertions outright
 >   (`@typescript-eslint/consistent-type-assertions: { assertionStyle: 'never' }`,
 >   `packages/core/oak-eslint/src/configs/recommended.ts`), and the repo had **no existing branded
->   types**. A hand-rolled `as` brand is illegal; zod's `.parse()` is the only assertion-free mint and
->   matches the repo's z.infer / types-flow-from-schema doctrine. This is the **first branded type in
+>   types**. A hand-rolled `as` brand is illegal; zod's `.parse()` is the only assertion-free mint
+> and
+>   matches the repo's z.infer / types-flow-from-schema doctrine. This is the **first branded type
+> in
 >   the repo**. Added `zod@^4.4.3` to `oak-eslint` deps + `tsup.config.ts` `external` (zod is NOT
 >   inlined — verified `from 'zod'` in dist, 0 inlined source).
 > - **All 6 `meta.messages` rules migrated** (`no-dynamic-import`, `no-eslint-disable`,
@@ -71,27 +75,37 @@ work brief and the recent identity stretch, per
 > - **Green:** oak-eslint type-check, lint, 202 tests, build. TDD test-first
 >   (`reappraising-message.unit.test.ts`, red→green). Reviewed at the unit boundary (not backfill):
 >   **type-expert SAFE**, **code-expert APPROVED**, **test-expert PASS**. Applied: test assertions
->   pinned to product-owned substrings; zod externalised. **Caught one false positive** — code-expert's
+>   pinned to product-owned substrings; zod externalised. **Caught one false positive** —
+> code-expert's
 >   "zod inlines ~46KB" did not hold (dist unchanged at 62KB; tsup externalises deps by default).
 >
 > **Decisions held in my context (loss-scan — reached no other durable surface):**
 >
 > - **Option C beat the factory** (assumptions-expert + architecture-expert-betty converged): a
 >   rule-wrapping factory over-reached the M-sized approved capture and needed a fragile no-bypass
->   guard; compile-time brand is lighter AND stronger. Then zod-brand beat a hand-rolled brand because
+>   guard; compile-time brand is lighter AND stronger. Then zod-brand beat a hand-rolled brand
+> because
 >   of the `as` ban (above). Do not "simplify" this back to a hand-rolled brand — it will not lint.
 > - **2b is RESHAPED and OWNER-EXPANDED.** The capture sized it "M"; it is actually an **89-file
 >   corpus change** (`.agent/rules/*.md`), many flat-prose with no positive-direction section, so
->   "states a positive move" is **not mechanically checkable** without first imposing a structured slot
->   (a keyword heuristic was rejected as false-positive noise). **Owner approved the full 89-file pass
->   now.** Reframed as **doctrine cartography, not data-entry** (owner insight: *rules sharing the same
+>   "states a positive move" is **not mechanically checkable** without first imposing a structured
+> slot
+>   (a keyword heuristic was rejected as false-positive noise). **Owner approved the full 89-file
+> pass
+>   now.** Reframed as **doctrine cartography, not data-entry** (owner insight: *rules sharing the
+> same
 >   positive suggestion are collapse candidates*): (1) discover — author a sharp cure per rule; (2)
->   cluster by cure; (3) discriminate+surface each collision as genuine-redundancy (collapse candidate,
->   owner decides — do NOT auto-collapse, knowledge-preservation) vs coarse-cure-prose (sharpen, don't
->   merge) vs same-cure-different-concept (keep). The reappraisal is a **concept-key**: the cure-space
->   is lower-dimensional than the detection-space. Let collision density decide 2b's structure (dense →
+>   cluster by cure; (3) discriminate+surface each collision as genuine-redundancy (collapse
+> candidate,
+>   owner decides — do NOT auto-collapse, knowledge-preservation) vs coarse-cure-prose (sharpen,
+> don't
+>   merge) vs same-cure-different-concept (keep). The reappraisal is a **concept-key**: the
+> cure-space
+>   is lower-dimensional than the detection-space. Let collision density decide 2b's structure
+> (dense →
 >   shared concept→cure registry; sparse → per-rule section).
-> - **Collision signal already found (feeds 2b):** within the ESLint surface, `no-real-io-in-tests`'s
+> - **Collision signal already found (feeds 2b):** within the ESLint surface,
+> `no-real-io-in-tests`'s
 >   three `bannedModule*` messages share one cure ("inject a fake instead"); `eslintDisableBanned` +
 >   `tsDirectiveBanned` both cure to "fix the root cause".
 > - **2c (PDR-044 widening) is PER-SURFACE**, not all-or-nothing: ESLint widening lands once 2a
@@ -108,22 +122,26 @@ work brief and the recent identity stretch, per
 >    `xs.some((x) => x === value)`. **Author its message via `createMessage`** (born teaching).
 >    **The hard part** (owner + plan flagged): distinguishing a literal-union widening from a
 >    legitimate arbitrary-`string` collection via typescript-eslint's type-checker — precision gates
->    `warn → error`; a permanently-advisory rule is not acceptable, surface-with-evidence if precision
+>    `warn → error`; a permanently-advisory rule is not acceptable, surface-with-evidence if
+> precision
 >    proves unreachable. Do NOT redo the doctrine already strengthened (typescript-practice.md,
 >    ADR-153/038/028, EEF graph-corpus-sdk code).
 > 2. **Item 2b** — the 89-file cartography pass above.
 > 3. **Item 2c** — per-surface PDR-044 widening (ESLint now-eligible once 2a is confirmed enforcing;
 >    rules-prose after 2b).
 > 4. **No-type-widening WS2** — tripwire wiring; coordinate with
->    `action-time-structural-interrupt-design-space.plan.md`; beneficial, not blocking; lowest priority.
+>    `action-time-structural-interrupt-design-space.plan.md`; beneficial, not blocking; lowest
+> priority.
 > 5. **Follow-on (not 2a scope):** `toPosix` is duplicated across `max-files-per-dir`,
 >    `require-observability-emission`, `no-real-io-in-tests` (third consumer → consolidate-at-third-
 >    consumer); extract to `oak-eslint/src/utils/path.ts`.
 >
 > **Disciplines carried (worked this session):** an `as`-ban + a live multi-writer lockfile turns a
 > mechanism choice into a coordination problem — surface it; ground specialist findings first-hand
-> before acting (caught the zod-bloat false positive by checking the dist size); reviewers at the unit
-> boundary, not backfill; the owner's safety-commit can sweep your green WIP in with a peer's — verify
+> before acting (caught the zod-bloat false positive by checking the dist size); reviewers at the
+> unit
+> boundary, not backfill; the owner's safety-commit can sweep your green WIP in with a peer's —
+> verify
 > HEAD is green, do not assume your work landed as its own commit.
 
 ## Participating Agent Identities
@@ -156,6 +174,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Cosmic Illuminating Planet` | `claude` | `Opus 4.8` | `773ea1` | `dedicated-continuity-surface-consolidation` | 2026-06-08 | 2026-06-08 |
 | `Coppery Crackling Crucible` | `claude` | `Opus 4.8` | `a28ee6` | `pending-graduations-drain + recalibration + PDR-091 (precedence-is-not-approval)` | 2026-06-08 | 2026-06-08 |
 | `Fruited Twining Canopy` | `claude` | `Opus 4.8` | `1aff59` | `dedicated-knowledge-curation (napkin rotation + graduation + continuity/open-questions drain)` | 2026-06-09 | 2026-06-09 |
+| `Arboreal Swaying Thicket` | `claude` | `Fable 5` | `d2947e` | `dedicated-knowledge-curation (register drain + napkin rotation + width repairs + platform-memory)` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 
