@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "5eba57cd-7e58-44a0-9f2f-444cd9e41ad9",
+  "created_at": "2026-06-10T22:49:09Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Rising Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "60496a",
+    "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+  },
+  "title": "Heartbeat: Tempestuous Rising Gale (60496a) — g3-execution-active (claim 98ec3935)",
+  "body": "active; claim=98ec3935-6330-45b8-8854-02f1ba912929; intent=g3-thread-progressions-view-execution; branch=feat/g3-thread-progressions-view; cycle=g3-execution-active",
+  "tags": [
+    "heartbeat"
+  ]
+}

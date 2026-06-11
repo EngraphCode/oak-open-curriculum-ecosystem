@@ -11248,6 +11248,149 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "98ec3935-6330-45b8-8854-02f1ba912929",
+      "agent_id": {
+        "agent_name": "Tempestuous Rising Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "60496a",
+        "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T22:44:45Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G3 thread-progressions view + factory retirement (Director routing f851de23, 22:42:43Z; deps G1 793cb3c1 + G2 27204da0 both merged). One PR per plan g3-thread-progressions-view todo (authority): ordered projection as real operation in graph-corpus-sdk (order cannot ride subgraph edges); re-project thread ordering per one-graph model replacing thread-progression-data.ts authority; anchored get-thread-progressions rewrite (threadSlug or subject+keyStage, bounded, heavy-tail semantics stated); REMOVE curriculum://thread-progressions; learning-progression step-2 anchor-threading; move 3 stats-interpolation consumers; DELETE graph-resource-factory.ts + unit test (importer set re-grepped at execution); AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view off origin/main >=27204da0. Pinned-facts re-verification at execution start. S3 standby continues in parallel (bounded interrupt only).",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T22:49:56Z",
+        "closed_by": {
+          "agent_name": "Tempestuous Rising Gale",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "60496a",
+          "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+        },
+        "summary": "Superseded within minutes by a complete-boundary re-open: the G3 proof contract's c1 includes the thread-ordering re-projection at vocab-gen (oak-sdk-codegen), which the original area patterns missed. No source work performed under this claim.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "98ec3935-6330-45b8-8854-02f1ba912929",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "4ff0f27f-2404-40fb-ae8e-2273d59c5ab4",
+      "agent_id": {
+        "agent_name": "Tempestuous Rising Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "60496a",
+        "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T22:49:57Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G3 thread-progressions view + factory retirement (Director routing f851de23; supersedes 98ec3935 with the vocab-gen emission boundary the proof contract's c1 requires). One PR per plan g3-thread-progressions-view todo: c1 ordered-projection test (one thread's ordered sequence, own real operation) -> projection in graph-corpus-sdk + thread-ordering re-projection at vocab-gen replacing thread-progression-data.ts authority; c2 tool test (envelope + resource absence + interpolator continuity) -> anchored get-thread-progressions rewrite (threadSlug or subject+keyStage, one thread only, never all 164), REMOVE curriculum://thread-progressions, learning-progression step-2 anchor-threading, move 3 stats-interpolation consumers, DELETE graph-resource-factory.ts + unit test post re-grep, AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view off origin/main@27204da0 (built green). S3 standby parallel (bounded interrupt only).",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T23:43:46Z",
+        "closed_by": {
+          "agent_name": "Tempestuous Rising Gale",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "60496a",
+          "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+        },
+        "summary": "Superseded at c2 start by a re-open adding the app e2e + landing-page surfaces the resource-removal proof touches. c1 landed d6ae0d14 under this claim (sequences emission + progression view, fork-invariant per Director HOLD eb284f91); prerequisiteFor fork routed via 16939248.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "4ff0f27f-2404-40fb-ae8e-2273d59c5ab4",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "2c111aae-d38f-41d2-b04e-6da9a73c3bd2",
+      "agent_id": {
+        "agent_name": "Tempestuous Rising Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "60496a",
+        "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
+            "packages/sdks/graph-corpus-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**",
+            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-10T23:43:47Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "G3 c2 (claim continuation; c1 landed d6ae0d14; supersedes 4ff0f27f adding the app e2e + landing-page proof surfaces): anchored get-thread-progressions rewrite on the G2 template (threadSlug detail XOR subject+keyStage discovery; year-axis honesty in the contract); REMOVE curriculum://thread-progressions (all-resources + drift guard + app e2e resource-list proof); learning-progression step-2 anchor-threading; move 3 stats-interpolation consumers to threadProgressionStats; DELETE graph-resource-factory.ts + unit test (re-grepped: 2 real importers, both G3 surfaces) + legacy thread-progression emission (write-graph-file, generated data file, barrels) with all real importers moved; comment-ref cleanups; AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. prerequisiteFor fork pends Director ruling on 16939248 — NOT in this cycle. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view.",
+      "archived_at": "2026-06-10",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-10T23:48:49Z",
+        "closed_by": {
+          "agent_name": "Tempestuous Rising Gale",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "60496a",
+          "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+        },
+        "summary": "Superseded minutes in: the resource-removal surface includes the app's register-resources.ts + public barrel — the surface-cohesion rule means a G-unit claim spans sdk + app registration + e2e; widened to apps/.../src/** in the re-open.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "2c111aae-d38f-41d2-b04e-6da9a73c3bd2",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

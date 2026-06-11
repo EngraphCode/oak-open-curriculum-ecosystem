@@ -41,7 +41,19 @@ merge_class: index-narrative-tables
   Director-verified: origin/main already at `0.7.0-6a3c1f02` since #159; all 13 dirty files
   byte-identical to origin/main; alignment committed this waypoint so the dirty-file trap does
   not mislead the next holder; failure-mode capture `54fc0fee` — baseline drift against
-  origin/main, never branch HEAD). **G2 MERGED (PR #163, `27204da0`, 22:41:31Z)**: Sylvan
+  origin/main, never branch HEAD). **G3 MERGED (PR #164, `a229d63d`, 00:51:23Z 06-11) — TRACK-G
+  CORE COMPLETE (G1+G2+G3)**: Tempestuous Rising Gale delivered the thread-progressions ordered
+  projection (year-ordered sequences, corpus v1.2.0), anchored tool rewrite, resource removal,
+  factory retirement (Decision F), three bot review waves adjudicated; all three
+  eef-revalidation signals raised — the downstream re-proof plan has its full input set.
+  **G3 surfaced + cured a falsified plan premise** (bulk has NO within-thread unit ordering;
+  legacy order was file-encounter; fork ask resent after the worktree relative-`--comms-dir`
+  silent-retarget trap — failure-mode `9a164c5c`, write-proof must verify DESTINATION):
+  Director RULED (a) year-axis re-chain of prerequisiteFor (event `215b08d2`; engineering
+  correctness, count-preserved, eef-revalidation as re-proof; within-year tiebreak named for PR
+  design) — follow-on PR branches off main post-a229d63d, **MERGE IS OWNER-VISIBLE**
+  (default-approve surfaced in chat). G4b queues behind the follow-on (shared data.json).
+  **G2 MERGED (PR #163, `27204da0`, 22:41:31Z)**: Sylvan
   Bending Branch delivered the full misconception view — mint rule live
   (`misconception:<lessonSlug>#<hash16>`), anchored+bounded tool (lesson/unit/thread),
   `curriculum://misconception-graph` removed, old estate retired, eef-revalidation signal

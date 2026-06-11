@@ -71,7 +71,7 @@
       "intent": "Director (graph implementation team, fourth holder) — PDR-064 successor to Celestial Glowing Dusk (1e526e), owner-directed; Moment-1 event 56ae6447. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle); pure direction only. Celestial-Dusk claim 75323860 closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "98ec3935-6330-45b8-8854-02f1ba912929",
+      "claim_id": "8a33ae0d-2366-4289-b45d-b6cd069814e3",
       "agent_id": {
         "agent_name": "Tempestuous Rising Gale",
         "platform": "claude",
@@ -84,16 +84,21 @@
         {
           "kind": "files",
           "patterns": [
+            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/oak-sdk-codegen/e2e-tests/**",
             "packages/sdks/graph-corpus-sdk/src/**",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
-            "packages/sdks/oak-curriculum-sdk/e2e-tests/**"
+            "packages/sdks/oak-curriculum-sdk/src/**",
+            "packages/sdks/oak-curriculum-sdk/e2e-tests/**",
+            "apps/oak-curriculum-mcp-streamable-http/src/**",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**"
           ]
         }
       ],
-      "claimed_at": "2026-06-10T22:44:45Z",
+      "claimed_at": "2026-06-10T23:48:50Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G3 thread-progressions view + factory retirement (Director routing f851de23, 22:42:43Z; deps G1 793cb3c1 + G2 27204da0 both merged). One PR per plan g3-thread-progressions-view todo (authority): ordered projection as real operation in graph-corpus-sdk (order cannot ride subgraph edges); re-project thread ordering per one-graph model replacing thread-progression-data.ts authority; anchored get-thread-progressions rewrite (threadSlug or subject+keyStage, bounded, heavy-tail semantics stated); REMOVE curriculum://thread-progressions; learning-progression step-2 anchor-threading; move 3 stats-interpolation consumers; DELETE graph-resource-factory.ts + unit test (importer set re-grepped at execution); AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view off origin/main >=27204da0. Pinned-facts re-verification at execution start. S3 standby continues in parallel (bounded interrupt only)."
+      "intent": "G3 c2 (continuation; c1 landed d6ae0d14; supersedes 2c111aae widening to the app src + sdk public barrel the resource removal spans): anchored get-thread-progressions rewrite (landed in working tree; threadSlug detail XOR subject+keyStage discovery; year-axis honesty); REMOVE curriculum://thread-progressions across all-resources + register-resources + public barrel + drift guard + e2e proofs; learning-progression step-2 anchor-threading; 3 stats consumers -> threadProgressionStats; factory + legacy thread-progression emission deleted with importers moved; AGGREGATED_TOOL_ORDER render check; eef-revalidation at landing. prerequisiteFor year-axis re-chain RULED (a) by Director 215b08d2 — separate follow-on PR, owner-visible merge, NOT this cycle. Worktree oak-wt-airy-g, branch feat/g3-thread-progressions-view."
     }
   ]
 }
