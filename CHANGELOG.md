@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.24.0...v1.24.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **mcp-streamable-http:** complete the aggregated tool landing-page order ([a09eccb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a09eccb238c4e92c53337da04d7851be4fff9d3d))
+
 # [1.24.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.23.2...v1.24.0) (2026-06-11)
 
 
