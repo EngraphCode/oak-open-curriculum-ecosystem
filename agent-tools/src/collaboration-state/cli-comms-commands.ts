@@ -110,7 +110,8 @@ export async function appendComms(
     event: tags.length > 0 ? { ...baseEvent, tags } : baseEvent,
   });
 
-  return `wrote comms event ${baseEvent.event_id} to ${join(commsDir, `${baseEvent.event_id}.json`)}\n`;
+  const eventPath = join(commsDir, `${baseEvent.event_id}.json`);
+  return `wrote comms event ${baseEvent.event_id} to ${eventPath}\n`;
 }
 
 export async function renderComms(
