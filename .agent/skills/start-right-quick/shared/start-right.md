@@ -152,8 +152,9 @@ git log --oneline --decorate -5
 ### 7. Host health
 
 ```bash
-uptime          # load averages vs core count
-sysctl vm.swapusage 2>/dev/null || true
+uptime                                      # load averages…
+sysctl -n hw.ncpu 2>/dev/null || nproc      # …vs this core count
+sysctl vm.swapusage 2>/dev/null || free -m 2>/dev/null || true  # swap
 ```
 
 A load average well above the core count, or heavy swap, is a

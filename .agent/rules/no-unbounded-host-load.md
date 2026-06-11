@@ -18,9 +18,12 @@ again.**
    suffices; ambient host load is the wrong instrument and was not shown
    necessary even in the founding instance.
 2. **Any spawned process is bounded, owned, and reaped — by construction.**
-   - *Bounded*: a lifetime limit built into the invocation
-     (`timeout <seconds> <cmd>`), never an open-ended loop the spawner
-     promises to remember.
+   - *Bounded*: a lifetime limit built into the invocation — GNU
+     `timeout <seconds> <cmd>` where available; on macOS (which ships no
+     `timeout` — the founding incident's own platform) use the repo's
+     documented substitute `perl -e 'alarm <seconds>; exec @ARGV' -- <cmd>`
+     (see `codex-helper` SKILL §timeouts). Never an open-ended loop the
+     spawner promises to remember.
    - *Owned*: the spawn is recorded (pid captured) at the moment it
      happens.
    - *Reaped with proof*: the spawning step ends with a process census —
