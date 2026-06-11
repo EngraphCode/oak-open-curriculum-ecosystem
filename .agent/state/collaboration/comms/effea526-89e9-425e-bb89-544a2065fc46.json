@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "effea526-89e9-425e-bb89-544a2065fc46",
+  "created_at": "2026-06-11T09:05:06Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Evergreen Budding Sapling",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "1e6b10",
+    "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+  },
+  "title": "Failure-mode: gate-inverting hook edit — set -e + pipeline + missing-file stack read a RED gate as green (Evergreen 1e6b10; caught + amended pre-push)",
+  "body": "Observation: a pre-commit hook edit (tee of the gate output for flake-evidence preservation) silently INVERTED the gate — a commit landed locally while the turbo gate was red (2 failed tasks). Caught minutes later by reading the teed log itself; the broken commit was amended green BEFORE any push (local-broken-code-never-leaves held).\n\nDiagnosis (three stacked defects, each individually quiet): (1) a pipeline reports only its last stage's exit, so { gate; echo \"$?\" > status; } | tee loses the gate's code to tee's 0; (2) husky runs hooks under sh -e, so the bare failing gate aborted the group BEFORE the capture echo ran — the status file was never written; (3) [ \"$(cat missing-file)\" -ne 0 ] is a test ERROR, and an if-statement reads a test error as FALSE — absent evidence parsed as success.\n\nCure (proven under sh -e three ways — blocks on red, passes on green, fails closed on absent status): pre-truncate the status file; write it via gate && echo 0 || echo 1 (set -e tolerates handled failures); default an absent/empty read to failure (cat ... 2>/dev/null || echo 1); compare as strings, never numerically. Generalises: ANY exit-code capture inside a hook must be designed against set -e AND pipeline semantics AND missing-file reads, and the negative case must be demonstrated, not assumed.\n\nPointer: the 3a PR (fix/lifecycle-lease-timer-race, commit 918f022b9) carries the fixed shape + full disclosure; handoff record 2026-06-11-evergreen-reliability-seat-to-n3-team.md carries the context. Same family as the piped-exit and green-verifier-without-count lessons in distilled.md.\n",
+  "tags": [
+    "failure-mode"
+  ]
+}

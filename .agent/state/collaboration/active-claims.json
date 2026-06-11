@@ -71,37 +71,13 @@
       "intent": "Director (graph implementation team, FIFTH holder) — PDR-064 successor to Stratospheric Swooping Zephyr (fe53ec), owner-directed (chat ~06:20Z, relayed in event 0d51031f); Moment-1 event a2bbd708. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Zephyr claim dbe87352 closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "ac7ff0ad-fbb4-41c8-9e48-4e91f723ade4",
+      "claim_id": "8ba9e931-3d2a-4e27-897f-357f574ad9ca",
       "agent_id": {
-        "agent_name": "Evergreen Budding Sapling",
-        "platform": "claude",
-        "model": "Fable 5",
-        "session_id_prefix": "1e6b10",
-        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "apps/oak-curriculum-mcp-streamable-http/src/auth-routes*",
-            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/auth-enforcement*"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T07:54:39Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Reliability micro-queue item 3b (Director GO e9f8c218; split accepted by Sylvan on ARC): auth-routes scopes_supported flake — confirm-the-defect-first under parallel load, then atomic test+fix; determinism cure, never retries. Worktree oak-wt-evergreen-rel, branch fix/auth-routes-scopes-flake off origin/main b3a482dc9. ONE small PR, Director-serialised merge. Agent: Evergreen Budding Sapling (1e6b10)."
-    },
-    {
-      "claim_id": "15bc9b5d-e155-4619-a74a-42258b15380f",
-      "agent_id": {
-        "agent_name": "Seaworthy Surfing Compass",
+        "agent_name": "Cindery Forging Volcano",
         "platform": "claude",
         "model": "fable-5",
-        "session_id_prefix": "e7dd0b",
-        "id": "715311cf-8d6f-578e-804a-3263af12facd"
+        "session_id_prefix": "378172",
+        "id": "067d1ab7-ff2b-516a-8d3e-e3c35bb66ce4"
       },
       "thread": "eef",
       "areas": [
@@ -121,67 +97,19 @@
           ]
         }
       ],
-      "claimed_at": "2026-06-11T08:06:30Z",
+      "claimed_at": "2026-06-11T09:05:45Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G4b keyword graph tool — PDR-063 CONTINUATION of claim 718b1d24 (Tempestuous Darting Gale 6243de, owner-directed rotation; handoff record 2026-06-11-tempestuous-darting-gale-g4b-c1-to-seaworthy.md read end to end + synthesis event a9a83862). c1 functionally complete in oak-wt-airy-g working tree (feat/g4b-keyword-graph): remaining = build/lint/format + full gates + ONE atomic c1 commit -> c2 keyword projection view -> c3 tool + 4-surface registration + both-tool disambiguation e2e + parity array + landing order + ADR-086 recompute. ONE PR, Director-serialised. Predecessor claim closes at their retirement (or Director disposition). Agent: Seaworthy Surfing Compass (e7dd0b).",
-      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-11-seaworthy-g4b-c2-to-cindery.md"
+      "intent": "G4b keyword graph tool — PDR-063 CONTINUATION of claim 15bc9b5d (Seaworthy e7dd0b, post-commit budget rotation at the clean c2->c3 boundary; handoff record 2026-06-11-seaworthy-g4b-c2-to-cindery.md read end to end + synthesis a9a83862 + Tempestuous record). Branch feat/g4b-keyword-graph in oak-wt-airy-g: c1 73aaedca0 + review absorption 6560cc810 + c2 view 451a9a658 all landed gate-green, tree clean, nothing pushed. Remaining = c3 ONLY: tool module + 4-surface atomic registration + both-tool description disambiguation (incl get-keywords codegen part + correction test + regen) + server.e2e parity array + AGGREGATED_TOOL_ORDER entry + ADR-086 count recompute; c2 specialist review (code+test experts over 6560cc810..451a9a658) dispatched by me; then ONE PR (three inherited commits + c3), Director-serialised merge. Tool name = owner decision at PR. Agent: Cindery Forging Volcano (378172)."
     },
     {
-      "claim_id": "9956c979-b364-4666-859e-35e46205c5c7",
+      "claim_id": "84454cf0-ab43-48d6-ab0f-633522ddd433",
       "agent_id": {
-        "agent_name": "Evergreen Budding Sapling",
+        "agent_name": "Seaworthy Fathoming Pier",
         "platform": "claude",
         "model": "Fable 5",
-        "session_id_prefix": "1e6b10",
-        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "turbo.json"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T08:13:35Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Reliability micro-queue item 4 (Director GO e9f8c218): test:e2e turbo env exposure. Grounded verdict: e2e estate verified hermetic (explicit env injection; scrubbed git env; no ambient process.env reads) — no live #160-class defect; cure = remove dead passThroughEnv entries [LOG_LEVEL, OAK_API_KEY] so strict mode ENFORCES hermeticity. Worktree oak-wt-evergreen-rel, branch build/turbo-test-e2e-env off origin/main b3a482dc9. ONE micro-PR, config-expert review, Director-serialised merge. Agent: Evergreen Budding Sapling (1e6b10)."
-    },
-    {
-      "claim_id": "e7f1d978-d169-4e72-9583-270053fd86d0",
-      "agent_id": {
-        "agent_name": "Evergreen Budding Sapling",
-        "platform": "claude",
-        "model": "Fable 5",
-        "session_id_prefix": "1e6b10",
-        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            ".agent/reference/arc-rapid-communication.md",
-            ".agent/reference/README.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T08:28:17Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "ARC conservation (owner-directed ~08:14Z): tracked reference doc for the ARC rapid-communication protocol — protocol, conventions, evaluation evidence, n>=3 guidance. Branch docs/arc-protocol-reference off origin/main, worktree oak-wt-evergreen-rel. ONE docs PR, Director-serialised. Routing-card row is flagged to the Director (their .agent/memory boundary). Agent: Evergreen Budding Sapling (1e6b10)."
-    },
-    {
-      "claim_id": "abbc5d7a-e349-4b15-b559-8ffdd1175b53",
-      "agent_id": {
-        "agent_name": "Evergreen Budding Sapling",
-        "platform": "claude",
-        "model": "Fable 5",
-        "session_id_prefix": "1e6b10",
-        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+        "session_id_prefix": "4a1b92",
+        "id": "40917b3a-543c-54d8-895e-c66c1054b7b3"
       },
       "thread": "eef",
       "areas": [
@@ -193,10 +121,59 @@
           ]
         }
       ],
-      "claimed_at": "2026-06-11T08:35:09Z",
+      "claimed_at": "2026-06-11T09:09:34Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "Reliability item 3a (Director explicit GO e6bc0cdb): lifecycle-lease real-timer race — RED-first tick-order demonstration, then deterministic-timer fix, atomic test+code; PLUS the Director-approved 3b evidence-preservation tee (.husky/pre-commit gate output to gitignored .turbo/last-gate.log, POSIX-safe exit capture) riding the same PR. Branch fix/lifecycle-lease-timer-race off origin/main, worktree oak-wt-evergreen-rel. Agent: Evergreen Budding Sapling (1e6b10)."
+      "intent": "Seat X of the n=3 ARC successor team (mapping settled on the team ARC channel 09:08-09:11Z; handoff record 2026-06-11-evergreen-reliability-seat-to-n3-team.md read end to end): PR #170 (fix/lifecycle-lease-timer-race — lifecycle-lease causal-gate cure + fail-closed gate tee) monitor-to-merge with first-hand adjudication of all review comments; Director-serialised merge via the LIVE Director (Ethereal f92636 until a Moment-2 lands); reviewer follow-ons (a) gateOnNthRenewalIssue helper consolidation + (b) injected-fake simplification when natural. Worktree oak-wt-evergreen-rel adoptable; no source edits expected unless adjudication demands them. Agent: Seaworthy Fathoming Pier (4a1b92) — NOT Seaworthy Surfing Compass (e7dd0b, retired)."
+    },
+    {
+      "claim_id": "be2de6b4-a517-4862-bcf9-98823ec58a1f",
+      "agent_id": {
+        "agent_name": "Oceanic Flowing Harbour",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "e05bf4",
+        "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reference/arc-rapid-communication.md",
+            ".agent/reference/README.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T09:09:43Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Seat Y, n=3 ARC successor team (Evergreen seat handover record 2026-06-11-evergreen-reliability-seat-to-n3-team.md; START event 78025097; 3/3 mapping quorum on the team ARC channel): PR #169 (docs/arc-protocol-reference) monitor-to-merge — verify the two Copilot-finding verdict-replies first-hand (Evergreen closeout says replied; record said owed), adjudicate any fresh review comments, Director-serialised merge ask at both-loops-settled (live holder verified first: Ethereal f92636 until a Moment-2 lands). PLUS ARC n=3 synthesis/conservation custody — frictions/benefits/n3-notes conserve into .agent/reference/arc-rapid-communication.md at closeout (via PR or this PR's branch per Director ruling). Agent: Oceanic Flowing Harbour (e05bf4)."
+    },
+    {
+      "claim_id": "1d37fdfe-9754-41ca-99f2-9da5781f40d6",
+      "agent_id": {
+        "agent_name": "Sunlit Waxing Asteroid",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "14a56a",
+        "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/**",
+            ".agent/memory/**",
+            ".agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T09:25:17Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (graph implementation team, SIXTH holder) — PDR-064 successor to Ethereal Orbiting Eclipse (f92636), owner-confirmed (my session ~08:50Z; Moment-1 event f0126218). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Ethereal claim 0a8075f4 closes at their hand citing my Moment-2 event."
     }
   ]
 }

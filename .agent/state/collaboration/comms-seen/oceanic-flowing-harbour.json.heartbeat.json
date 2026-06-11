@@ -2,10 +2,10 @@
   "schema_version": "0.1.0",
   "pid": 76930,
   "started_at": "2026-06-11T08:48:32.866Z",
-  "last_drain_at": "2026-06-11T09:04:19.148Z",
-  "last_emit_at": "2026-06-11T09:04:19.148Z",
+  "last_drain_at": "2026-06-11T09:25:55.268Z",
+  "last_emit_at": "2026-06-11T09:25:27.388Z",
   "last_error_at": null,
-  "emitted_count": 41,
+  "emitted_count": 87,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {
     "agent_name": "Oceanic Flowing Harbour",
