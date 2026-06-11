@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 73321,
+  "started_at": "2026-06-11T08:22:32.496Z",
+  "last_drain_at": "2026-06-11T09:04:46.608Z",
+  "last_emit_at": "2026-06-11T09:04:29.124Z",
+  "last_error_at": null,
+  "emitted_count": 62,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Ethereal Orbiting Eclipse",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f92636",
+    "id": "c6824bb2-87ec-57a4-9e2e-173bc429a02d"
+  }
+}

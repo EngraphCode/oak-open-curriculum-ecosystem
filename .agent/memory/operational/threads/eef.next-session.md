@@ -40,7 +40,45 @@ merge_class: index-narrative-tables
   prompt cycle; explicit follow-on pinned in the plan s3 todo at `6ceb36ce`);
   bulk-export-lags-live. **Next value move when a seat frees**: the eef-revalidation re-proof
   (all input signals raised) — honest start point is AFTER G4b lands (a keyword tool on the
-  EEF path would raise its own signal; starting earlier risks a second pass).
+  EEF path would raise its own signal; starting earlier risks a second pass). **SECOND HALF of
+  the fifth directorship (07:40–08:56Z)**: Arboreal curation pass delivered (commits `7da93ae6`
+  19-files + `4a8f8ed3` closeout; the owner-ratified verify-dont-trust graduation landed after
+  TWO missed relays — the read-newest-only sweep gap, thrice-bitten, napkinned by them; my
+  refutation of their "word-identical" reflow claim forced loss-free repairs, verified by
+  set-membership). **Reliability lane complete through THREE holders**: Sylvan Branching Pollen
+  delivered #166 loud-write contract (found a WHOLLY broken conversation/escalation CLI surface
+  978 green tests never touched), the agent-tools rebuild (portable-watcher caution RETIRED,
+  supersession `bbb1c8ed` — Director seat migrated to the canonical hardened watcher, seen-file
+  seeded, heartbeat-file externally classifiable) and #167 EDGE_TYPES predicate; full seat
+  handover to Evergreen Budding Sapling (owner-directed, record
+  `2026-06-11-sylvan-reliability-seat-to-evergreen.md`); Evergreen delivered #168 turbo env +
+  #169 ARC reference doc (in monitor at this writing) + 3a GO (real timer-race,
+  oak-search-sdk) + 3b closed unconfirmed-with-dossier with the evidence-preservation tee cure
+  approved. **Q-008 RESOLVED (owner)**: origin/main merged into the coordination home
+  (`ae1802da1`; one both-additive conflict; pushed `ea7a615a7` after a mechanical lint repair
+  in the peer-written ARC file); branching strategy codified in the team opener §Branching
+  strategy + template-generalisation notes in the prompts README. **G4b under three holders**:
+  Tempestuous Darting Gale (readiness 4/4 adjudicated; claim `718b1d24` closed discharged) →
+  PDR-063 → Seaworthy Surfing Compass (c1 LANDED `73aaedca0`: 13,452 keyword nodes / 43,660
+  containsKeyword edges / 0 dropped, corpus v1.3.0) → c2 in flight at this writing; Cindery
+  Forging Volcano (378172) benched as eventual successor after a liveness contention resolved
+  ALIVE (the detached-heartbeat inference refuted by the incumbent inside the ping window —
+  nobody touched the worktree twice; ruling: c2 completes under the incumbent, handoff at that
+  boundary, no c3). **n=3 ARC reliability successor team** (Oceanic Flowing Harbour e05bf4 +
+  Seaworthy Fathoming Pier 4a1b92 + Hushed Watching Night 999f69) bootstrapped + PAUSED on
+  Evergreen's start signal (owner-directed); group channel
+  `experiments/agent-rapid-communication-and-gellings/2026-06-11-reliability-stream-n3.md`.
+  **Director-queue additions this half**: EDGE_TYPES derive-don't-parallel candidate
+  (`9d35369a`); control-byte gate-check candidate (TWO vectors now: literal-byte-in-source
+  `4fd66dc5` + Seaworthy's Write-tool escape-materialisation instance); ARC routing-card row
+  for agent-collaboration-channels.md; Stryker mutation-testing exploration (owner-directed
+  2026-06-11, agent-tools candidate workspace — Sylvan's 978-green-tests instance is the
+  motivating evidence); duty-list graduation diff (Solar's standing instruction). ARC channel
+  transcript backed up (COPY) to `sidebars/2026-06-11-arc-channel-transcript-backup.md`.
+  **Owner UX direction (standing, auto-memory)**: owner decisions surface as explicit
+  questions with the verdict as recommended option. **Succession**: Sunlit Waxing Asteroid
+  (14a56a) owner-named sixth holder, pre-positioned `2c1cba56`, team-start + Moment-1 request
+  in; transfer at this waypoint.
 - **PRIOR SESSION (2026-06-10 late evening, Stratospheric Swooping Zephyr / claude Fable 5,
   Director fourth holder, coordination home branch `docs/graph-team-direction-2026-06-10`) —
   third PDR-064 Director succession, completed cleanly.** Celestial-Dusk's Moment-1
@@ -471,6 +509,14 @@ session narrative for each is in git history; this table is the durable identity
 | `Tempestuous Rising Gale` | `claude` | `Fable 5` | `60496a` | `graph-implementation-s3-seat-successor-standby` | 2026-06-10 | 2026-06-10 |
 | `Ethereal Orbiting Eclipse` | `claude` | `Fable 5` | `f92636` | `graph-implementation-director-fifth-holder` | 2026-06-10 | 2026-06-11 |
 | `Tempestuous Darting Gale` | `claude` | `Fable 5` | `6243de` | `graph-implementation-g4b-implementer` | 2026-06-11 | 2026-06-11 |
+| `Sylvan Branching Pollen` | `claude` | `Fable 5` | `89f3b3` | `reliability-micro-queue-implementer` | 2026-06-11 | 2026-06-11 |
+| `Evergreen Budding Sapling` | `claude` | `Fable 5` | `1e6b10` | `reliability-seat-sylvan-successor` | 2026-06-11 | 2026-06-11 |
+| `Seaworthy Surfing Compass` | `claude` | `Fable 5` | `e7dd0b` | `graph-implementation-g4b-tempestuous-darting-successor` | 2026-06-11 | 2026-06-11 |
+| `Cindery Forging Volcano` | `claude` | `Fable 5` | `378172` | `graph-implementation-g4b-eventual-successor-standby` | 2026-06-11 | 2026-06-11 |
+| `Oceanic Flowing Harbour` | `claude` | `Fable 5` | `e05bf4` | `n3-arc-reliability-successor-team-channel-opener` | 2026-06-11 | 2026-06-11 |
+| `Seaworthy Fathoming Pier` | `claude` | `Fable 5` | `4a1b92` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
+| `Hushed Watching Night` | `claude` | `Fable 5` | `999f69` | `n3-arc-reliability-successor-team` | 2026-06-11 | 2026-06-11 |
+| `Sunlit Waxing Asteroid` | `claude` | `Fable 5` | `14a56a` | `graph-implementation-director-sixth-holder` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 

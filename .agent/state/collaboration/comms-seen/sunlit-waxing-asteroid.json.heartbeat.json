@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 811,
+  "started_at": "2026-06-11T08:51:47.108Z",
+  "last_drain_at": "2026-06-11T09:04:31.256Z",
+  "last_emit_at": "2026-06-11T09:04:28.670Z",
+  "last_error_at": null,
+  "emitted_count": 33,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Sunlit Waxing Asteroid",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "14a56a",
+    "id": "5934fcc6-13db-5991-af74-2bd11766483a"
+  }
+}

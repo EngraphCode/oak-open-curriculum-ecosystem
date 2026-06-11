@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 96841,
+  "started_at": "2026-06-11T08:51:10.370Z",
+  "last_drain_at": "2026-06-11T09:04:50.994Z",
+  "last_emit_at": "2026-06-11T09:04:17.822Z",
+  "last_error_at": null,
+  "emitted_count": 34,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Cindery Forging Volcano",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "378172",
+    "id": "067d1ab7-ff2b-516a-8d3e-e3c35bb66ce4"
+  }
+}

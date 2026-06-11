@@ -71,39 +71,6 @@
       "intent": "Director (graph implementation team, FIFTH holder) — PDR-064 successor to Stratospheric Swooping Zephyr (fe53ec), owner-directed (chat ~06:20Z, relayed in event 0d51031f); Moment-1 event a2bbd708. Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Zephyr claim dbe87352 closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "718b1d24-5997-4658-a9d0-6ccd691ef7e6",
-      "agent_id": {
-        "agent_name": "Tempestuous Darting Gale",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "6243de",
-        "id": "1afc6047-6e4e-5713-88b4-f55812152e6e"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "packages/sdks/oak-sdk-codegen/vocab-gen/**",
-            "packages/sdks/oak-sdk-codegen/src/bulk/**",
-            "packages/sdks/oak-sdk-codegen/src/generated/vocab/graph-corpus/**",
-            "packages/sdks/oak-sdk-codegen/src/graph-corpus.ts",
-            "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/**",
-            "packages/sdks/graph-corpus-sdk/src/curriculum/**",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/**",
-            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/**",
-            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts",
-            "docs/architecture/architectural-decisions/086-vocab-gen-graph-export-pattern.md"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T06:54:58Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "G4b keyword graph tool (Director-routed 9ef9078a; plan g4 todo authority; readiness reviews adjudicated — boundary corrected from review findings, supersedes claim afd9710f): c1 emission (extractor displayTerm extension + duplicate consolidation src/bulk-canonical, emitted-template chain atomic, regen) -> c2 keyword projection view -> c3 tool + 4-surface registration + both-tool description disambiguation e2e (incl get-keywords codegen description part) + e2e parity array + landing order + ADR-086 count recompute. Worktree oak-wt-airy-g, feat/g4b-keyword-graph. ONE PR, Director-serialised. Agent: Tempestuous Darting Gale (6243de) — NOT Tempestuous Rising Gale (60496a).",
-      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-11-tempestuous-darting-gale-g4b-c1-to-seaworthy.md"
-    },
-    {
       "claim_id": "ac7ff0ad-fbb4-41c8-9e48-4e91f723ade4",
       "agent_id": {
         "agent_name": "Evergreen Budding Sapling",
@@ -126,30 +93,6 @@
       "freshness_seconds": 14400,
       "sidebar_open": false,
       "intent": "Reliability micro-queue item 3b (Director GO e9f8c218; split accepted by Sylvan on ARC): auth-routes scopes_supported flake — confirm-the-defect-first under parallel load, then atomic test+fix; determinism cure, never retries. Worktree oak-wt-evergreen-rel, branch fix/auth-routes-scopes-flake off origin/main b3a482dc9. ONE small PR, Director-serialised merge. Agent: Evergreen Budding Sapling (1e6b10)."
-    },
-    {
-      "claim_id": "66881c6a-4a5d-4c5d-af7b-39700a6cfdd9",
-      "agent_id": {
-        "agent_name": "Sylvan Branching Pollen",
-        "platform": "claude",
-        "model": "fable-5",
-        "session_id_prefix": "89f3b3",
-        "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
-      },
-      "thread": "eef",
-      "areas": [
-        {
-          "kind": "files",
-          "patterns": [
-            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-emitted-index-lines.ts",
-            "packages/sdks/oak-sdk-codegen/src/generated/vocab/graph-corpus/**"
-          ]
-        }
-      ],
-      "claimed_at": "2026-06-11T07:56:48Z",
-      "freshness_seconds": 14400,
-      "sidebar_open": false,
-      "intent": "Reliability micro-queue item 6 (Director routing fbbe9f74): EDGE_TYPES type-widening cure — ADR-153 .some() predicate form in the graph-corpus emitted template + regen. Branch fix/graph-corpus-edge-types-predicate in oak-wt-umbral-g4; one small PR off origin/main."
     },
     {
       "claim_id": "15bc9b5d-e155-4619-a74a-42258b15380f",
@@ -181,7 +124,79 @@
       "claimed_at": "2026-06-11T08:06:30Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G4b keyword graph tool — PDR-063 CONTINUATION of claim 718b1d24 (Tempestuous Darting Gale 6243de, owner-directed rotation; handoff record 2026-06-11-tempestuous-darting-gale-g4b-c1-to-seaworthy.md read end to end + synthesis event a9a83862). c1 functionally complete in oak-wt-airy-g working tree (feat/g4b-keyword-graph): remaining = build/lint/format + full gates + ONE atomic c1 commit -> c2 keyword projection view -> c3 tool + 4-surface registration + both-tool disambiguation e2e + parity array + landing order + ADR-086 recompute. ONE PR, Director-serialised. Predecessor claim closes at their retirement (or Director disposition). Agent: Seaworthy Surfing Compass (e7dd0b)."
+      "intent": "G4b keyword graph tool — PDR-063 CONTINUATION of claim 718b1d24 (Tempestuous Darting Gale 6243de, owner-directed rotation; handoff record 2026-06-11-tempestuous-darting-gale-g4b-c1-to-seaworthy.md read end to end + synthesis event a9a83862). c1 functionally complete in oak-wt-airy-g working tree (feat/g4b-keyword-graph): remaining = build/lint/format + full gates + ONE atomic c1 commit -> c2 keyword projection view -> c3 tool + 4-surface registration + both-tool disambiguation e2e + parity array + landing order + ADR-086 recompute. ONE PR, Director-serialised. Predecessor claim closes at their retirement (or Director disposition). Agent: Seaworthy Surfing Compass (e7dd0b).",
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2026-06-11-seaworthy-g4b-c2-to-cindery.md"
+    },
+    {
+      "claim_id": "9956c979-b364-4666-859e-35e46205c5c7",
+      "agent_id": {
+        "agent_name": "Evergreen Budding Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "1e6b10",
+        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "turbo.json"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T08:13:35Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Reliability micro-queue item 4 (Director GO e9f8c218): test:e2e turbo env exposure. Grounded verdict: e2e estate verified hermetic (explicit env injection; scrubbed git env; no ambient process.env reads) — no live #160-class defect; cure = remove dead passThroughEnv entries [LOG_LEVEL, OAK_API_KEY] so strict mode ENFORCES hermeticity. Worktree oak-wt-evergreen-rel, branch build/turbo-test-e2e-env off origin/main b3a482dc9. ONE micro-PR, config-expert review, Director-serialised merge. Agent: Evergreen Budding Sapling (1e6b10)."
+    },
+    {
+      "claim_id": "e7f1d978-d169-4e72-9583-270053fd86d0",
+      "agent_id": {
+        "agent_name": "Evergreen Budding Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "1e6b10",
+        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reference/arc-rapid-communication.md",
+            ".agent/reference/README.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T08:28:17Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "ARC conservation (owner-directed ~08:14Z): tracked reference doc for the ARC rapid-communication protocol — protocol, conventions, evaluation evidence, n>=3 guidance. Branch docs/arc-protocol-reference off origin/main, worktree oak-wt-evergreen-rel. ONE docs PR, Director-serialised. Routing-card row is flagged to the Director (their .agent/memory boundary). Agent: Evergreen Budding Sapling (1e6b10)."
+    },
+    {
+      "claim_id": "abbc5d7a-e349-4b15-b559-8ffdd1175b53",
+      "agent_id": {
+        "agent_name": "Evergreen Budding Sapling",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "1e6b10",
+        "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-search-sdk/src/admin/lifecycle-lease*",
+            ".husky/pre-commit"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T08:35:09Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Reliability item 3a (Director explicit GO e6bc0cdb): lifecycle-lease real-timer race — RED-first tick-order demonstration, then deterministic-timer fix, atomic test+code; PLUS the Director-approved 3b evidence-preservation tee (.husky/pre-commit gate output to gitignored .turbo/last-gate.log, POSIX-safe exit capture) riding the same PR. Branch fix/lifecycle-lease-timer-race off origin/main, worktree oak-wt-evergreen-rel. Agent: Evergreen Budding Sapling (1e6b10)."
     }
   ]
 }

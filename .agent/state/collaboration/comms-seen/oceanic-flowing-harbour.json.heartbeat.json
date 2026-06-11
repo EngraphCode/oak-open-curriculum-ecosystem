@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 76930,
+  "started_at": "2026-06-11T08:48:32.866Z",
+  "last_drain_at": "2026-06-11T09:04:19.148Z",
+  "last_emit_at": "2026-06-11T09:04:19.148Z",
+  "last_error_at": null,
+  "emitted_count": 41,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Oceanic Flowing Harbour",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "e05bf4",
+    "id": "8b79d203-7448-53e4-9aa4-27eb16b00703"
+  }
+}
