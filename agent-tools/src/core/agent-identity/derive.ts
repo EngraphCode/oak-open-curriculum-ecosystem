@@ -20,7 +20,7 @@ export interface DerivedIdentityResult {
   readonly words: readonly string[];
   /** Human-readable display form rendered per the schema's column casing. */
   readonly displayName: string;
-  /** Lowercase kebab-case slug form, for example "lunar-orbiting-comet". */
+  /** Lowercase kebab-case slug form, for example "harrier-weaves-stratosphere". */
   readonly slug: string;
   /** SHA-256 digest of the normalised seed. */
   readonly seedDigest: string;

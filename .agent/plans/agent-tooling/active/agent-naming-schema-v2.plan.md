@@ -4,42 +4,42 @@ overview: "Versioned naming-schema registry; NVN lowercase-middle display names;
 todos:
   - id: ws1-cycle-1
     content: "WS1 cycle 1: naming-schema registry types + v1 era freeze + digest pin. One commit. Tree green at end."
-    status: pending
+    status: completed
   - id: ws1-cycle-2
     content: "WS1 cycle 2: versioned derivation + per-schema render policy; v1 output byte-identical. One commit. Tree green at end."
-    status: pending
+    status: completed
     depends_on: [ws1-cycle-1]
   - id: ws2-cycle-1
     content: "WS2 cycle 1: data-driven curation gate tests + shared v2 verb pool. One commit. Tree green at end."
-    status: pending
+    status: completed
     depends_on: [ws1-cycle-2]
   - id: ws2-theme-celestial
-    content: "WS2: celestial v2 subject/object noun lists passing curation gates. One commit."
-    status: pending
+    content: "WS2: celestial v2 subject/object noun lists passing curation gates. Landed in the consolidated six-theme commit (solo serial execution; per-theme split was parallel-dispatch shaped)."
+    status: completed
     depends_on: [ws2-cycle-1]
   - id: ws2-theme-maritime
-    content: "WS2: maritime v2 subject/object noun lists passing curation gates. One commit."
-    status: pending
+    content: "WS2: maritime v2 subject/object noun lists passing curation gates. Landed in the consolidated six-theme commit."
+    status: completed
     depends_on: [ws2-cycle-1]
   - id: ws2-theme-botanical
-    content: "WS2: botanical v2 subject/object noun lists passing curation gates. One commit."
-    status: pending
+    content: "WS2: botanical v2 subject/object noun lists passing curation gates. Landed in the consolidated six-theme commit."
+    status: completed
     depends_on: [ws2-cycle-1]
   - id: ws2-theme-ember
-    content: "WS2: ember v2 subject/object noun lists passing curation gates. One commit."
-    status: pending
+    content: "WS2: ember v2 subject/object noun lists passing curation gates. Landed in the consolidated six-theme commit."
+    status: completed
     depends_on: [ws2-cycle-1]
   - id: ws2-theme-aerial
-    content: "WS2: aerial v2 subject/object noun lists passing curation gates. One commit."
-    status: pending
+    content: "WS2: aerial v2 subject/object noun lists passing curation gates. Landed in the consolidated six-theme commit."
+    status: completed
     depends_on: [ws2-cycle-1]
   - id: ws2-theme-nocturnal
-    content: "WS2: nocturnal v2 subject/object noun lists passing curation gates. One commit."
-    status: pending
+    content: "WS2: nocturnal v2 subject/object noun lists passing curation gates. Landed in the consolidated six-theme commit."
+    status: completed
     depends_on: [ws2-cycle-1]
   - id: ws2-assembly
     content: "WS2 cycle 2.8: v2 registry entry + digest pin + render snapshot tests. One commit. Tree green at end."
-    status: pending
+    status: completed
     depends_on:
       [
         ws2-theme-celestial,
@@ -51,19 +51,19 @@ todos:
       ]
   - id: ws3-cycle-1
     content: "WS3 cycle 1: naming_schema_version on the collaboration identity tuple; absent reads as v1. One commit. Tree green at end."
-    status: pending
+    status: completed
     depends_on: [ws1-cycle-2]
   - id: ws4-owner-review
-    content: "WS4 checkpoint: owner taste review of all v2 wordlists BEFORE activation (digest pin freezes lists at activation)."
-    status: pending
+    content: "WS4 checkpoint: owner taste review of all v2 wordlists BEFORE activation. Approved by owner 2026-06-11 in session aba87a."
+    status: completed
     depends_on: [ws2-assembly]
   - id: ws4-cycle-1
-    content: "WS4 cycle 1: flip active schema to v2; versioned session-cache key; surface tests (CLI, statusline, hooks). One commit. Tree green at end."
-    status: pending
+    content: "WS4 cycle 1: flip active schema to v2; surface tests (CLI, statusline, hooks); live CLI proof. No persistent cache exists to version — see WS4 body note."
+    status: completed
     depends_on: [ws4-owner-review, ws3-cycle-1]
   - id: ws5-docs
-    content: "WS5: agent-identity.md update, new ADR for naming-schema versioning, example-name refresh in identity docs."
-    status: pending
+    content: "WS5: agent-identity.md update, ADR-195, example-name refresh in identity docs."
+    status: completed
     depends_on: [ws4-cycle-1]
   - id: ws6-quality-gates-final
     content: "WS6: full quality gate chain on the integrated delivery."
@@ -382,13 +382,20 @@ pointer), session-cache module,
 
 - Active schema resolves to `v2-noun-verb-noun`; a known seed renders an
   NVN lowercase-middle name end-to-end through the CLI display format.
-- Session name cache keys include the schema id (or store name +
-  version), so a cached v1 name cannot be served as a v2 identity after
-  upgrade.
 - Platform hook and statusline tests render the v2 shape.
 
-**Product code** (Green): active-pointer flip; cache key change; test
-fixture updates.
+**Execution note (2026-06-11)**: the "versioned session-cache key" item
+dissolved on grounding — no persistent name cache exists. The session
+cache is the `OAK_AGENT_IDENTITY_OVERRIDE` env value written once at
+SessionStart, which dies with its session; the docs already define it as
+a session cache, not a wordlist compatibility layer. An in-flight session
+keeps its pre-flip name as override provenance for its lifetime (observed
+live: this session stayed "Swift Gliding Zephyr" while its seed freshly
+derives "Harrier weaves Stratosphere"); staleness cannot cross sessions
+by construction. AC-6 is proven by the existing session-cache integration
+test plus that live observation.
+
+**Product code** (Green): active-pointer flip; test fixture updates.
 
 **Acceptance**: `pnpm agent-tools:agent-identity --format display`
 renders an NVN name with lowercase middle for the live session seed
@@ -448,7 +455,7 @@ Run from repo root, one gate at a time per start-right discipline.
 | AC-3 | v2 names render NVN with lowercase middle, end to end | e2e | CLI invocation on the live session seed (WS4 acceptance) |
 | AC-4 | Identity tuple carries `naming_schema_version`; legacy rows read as v1; unregistered version ids rejected at the parse boundary | unit | collaboration-state schema tests |
 | AC-5 | UUID and `session_id_prefix` unchanged across the migration | unit | identity tests assert id derivation untouched by schema flip |
-| AC-6 | Stale cached names cannot cross the version boundary | integration | session-cache integration test |
+| AC-6 | Stale cached names cannot cross the version boundary | integration | session-cache integration test; no persistent cache exists (env cache is session-scoped — WS4 execution note) |
 | AC-7 | Docs and ADR reflect landed behaviour | non-code | docs-adr-expert review verdict in WS7 |
 
 Completion language (plan complete, workstream complete) is valid only
