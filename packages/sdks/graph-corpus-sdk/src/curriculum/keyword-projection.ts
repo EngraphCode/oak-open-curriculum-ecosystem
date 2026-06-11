@@ -11,12 +11,13 @@
  */
 import {
   graphCorpus,
-  type GraphCorpusEdgeType,
   type GraphCorpusKeywordNode,
   type GraphCorpusLessonNode,
   type GraphCorpusNodeId,
   type GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
+
+import { mustGet } from './misconception-projection.js';
 
 /** The keyword view's per-kind node indexes plus its two traversal adjacencies. */
 export interface CurriculumKeywordProjection {
@@ -28,7 +29,7 @@ export interface CurriculumKeywordProjection {
 
 /** Builds a source→targets adjacency for one edge type, id-sorted per source. */
 function buildAdjacency<TTarget extends { readonly id: GraphCorpusNodeId }>(
-  edgeType: GraphCorpusEdgeType,
+  edgeType: 'containsKeyword' | 'containsLesson',
   targetsById: ReadonlyMap<GraphCorpusNodeId, TTarget>,
 ): Map<GraphCorpusNodeId, TTarget[]> {
   const adjacency = new Map<GraphCorpusNodeId, TTarget[]>();
@@ -36,10 +37,7 @@ function buildAdjacency<TTarget extends { readonly id: GraphCorpusNodeId }>(
     if (edge.type !== edgeType) {
       continue;
     }
-    const target = targetsById.get(edge.target);
-    if (target === undefined) {
-      throw new Error(`graph corpus integrity breach: dangling edge target ${edge.target}`);
-    }
+    const target = mustGet(targetsById, edge.target);
     const existing = adjacency.get(edge.source);
     if (existing) {
       existing.push(target);

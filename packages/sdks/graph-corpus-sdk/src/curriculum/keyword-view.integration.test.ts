@@ -13,9 +13,11 @@
  * decorated with its in-scope placing lessons (id-sorted, windowed at
  * {@link KEYWORD_LESSON_DECORATION_LIMIT} — richness via edge traversal,
  * never a fat node). These tests exercise the REAL corpus and check results
- * against INDEPENDENT reference adjacency computed here from
- * `graphCorpus.edges`, so they specify behaviour without mirroring the
- * implementation.
+ * against a separately-computed reference adjacency built here from
+ * `graphCorpus.edges` (same corpus source, deliberately simpler accumulation
+ * than the projection's), plus implementation-independent ordering and
+ * boundedness invariants — the invariants, not the reference counts, are the
+ * assertions that survive an equivalent reimplementation.
  */
 import { graphCorpus, type GraphCorpusNode } from '@oaknational/sdk-codegen/graph-corpus';
 import { describe, expect, it } from 'vitest';
@@ -27,14 +29,7 @@ import {
   MAX_KEYWORD_LIMIT,
   keywordsForSubjectKeyStage,
 } from './keyword-view.js';
-
-/** Narrows a possibly-undefined fixture pick to a value, failing loudly if the corpus cannot supply it. */
-function required<T>(value: T | undefined, message: string): T {
-  if (value === undefined) {
-    throw new Error(message);
-  }
-  return value;
-}
+import { bareSlug, required, unwrapErr, unwrapOk } from './test-helpers.js';
 
 /** Lesson nodes by id (reference index; string-keyed so reference adjacency ids look up directly). */
 const lessonNodesById: ReadonlyMap<string, GraphCorpusNode> = new Map(
@@ -160,17 +155,11 @@ const keywordedLesson = required(
   'corpus has no in-scope keyworded lesson',
 );
 
-const bareSlug = (id: string): string => id.slice(id.indexOf(':') + 1);
-
 describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
   it('returns the top in-scope keywords ranked by scoped placement count with honest totals', () => {
     const result = keywordsForSubjectKeyStage(richAnchor.subject, richAnchor.keyStage);
 
-    expect(result.ok).toBe(true);
-    if (!result.ok) {
-      return;
-    }
-    const { keywords, totalMatchingKeywords, hasMore, limit } = result.value;
+    const { keywords, totalMatchingKeywords, hasMore, limit } = unwrapOk(result);
     expect(limit).toBe(DEFAULT_KEYWORD_LIMIT);
     expect(totalMatchingKeywords).toBe(richCounts.size);
     expect(keywords.length).toBe(Math.min(DEFAULT_KEYWORD_LIMIT, richCounts.size));
@@ -193,11 +182,7 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
   it('decorates each keyword with its in-scope placing lessons, id-sorted and windowed', () => {
     const result = keywordsForSubjectKeyStage(richAnchor.subject, richAnchor.keyStage);
 
-    expect(result.ok).toBe(true);
-    if (!result.ok) {
-      return;
-    }
-    const top = required(result.value.keywords[0], 'rich anchor returned no keywords');
+    const top = required(unwrapOk(result).keywords[0], 'rich anchor returned no keywords');
     expect(top.lessons.length).toBe(
       Math.min(top.scopedLessonCount, KEYWORD_LESSON_DECORATION_LIMIT),
     );
@@ -219,14 +204,11 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
       limit: MAX_KEYWORD_LIMIT,
     });
 
-    expect(limited.ok && atCeiling.ok).toBe(true);
-    if (!limited.ok || !atCeiling.ok) {
-      return;
-    }
-    expect(limited.value.keywords).toHaveLength(3);
-    expect(limited.value.limit).toBe(3);
-    expect(limited.value.hasMore).toBe(true);
-    expect(atCeiling.value.limit).toBe(MAX_KEYWORD_LIMIT);
+    const limitedValue = unwrapOk(limited);
+    expect(limitedValue.keywords).toHaveLength(3);
+    expect(limitedValue.limit).toBe(3);
+    expect(limitedValue.hasMore).toBe(true);
+    expect(unwrapOk(atCeiling).limit).toBe(MAX_KEYWORD_LIMIT);
   });
 
   it('rejects a limit beyond the ceiling, a non-positive limit, and a non-integer limit', () => {
@@ -241,12 +223,9 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
     });
 
     for (const result of [beyond, zero, fractional]) {
-      expect(result.ok).toBe(false);
-      if (result.ok) {
-        continue;
-      }
-      expect(result.error.kind).toBe('KeywordLimitInvalid');
-      expect(result.error.maxLimit).toBe(MAX_KEYWORD_LIMIT);
+      const error = unwrapErr(result);
+      expect(error.kind).toBe('KeywordLimitInvalid');
+      expect(error.maxLimit).toBe(MAX_KEYWORD_LIMIT);
     }
   });
 
@@ -255,19 +234,37 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
       unitSlugs: [bareSlug(keywordedUnit), 'no-such-unit-slug-xyz'],
     });
 
-    expect(result.ok).toBe(true);
-    if (!result.ok) {
-      return;
-    }
-    expect(result.value.resolvedUnitAnchors).toStrictEqual([keywordedUnit]);
-    expect(result.value.unknownUnitAnchors).toStrictEqual(['no-such-unit-slug-xyz']);
-    expect(result.value.keywords.length).toBeGreaterThan(0);
+    const value = unwrapOk(result);
+    expect(value.resolvedUnitAnchors).toStrictEqual([keywordedUnit]);
+    expect(value.unknownUnitAnchors).toStrictEqual(['no-such-unit-slug-xyz']);
+    expect(value.keywords.length).toBeGreaterThan(0);
     const unitLessonIds = new Set(lessonIdsByUnitId.get(keywordedUnit) ?? []);
-    for (const entry of result.value.keywords) {
+    for (const entry of value.keywords) {
+      // Count fidelity: the scoped count is bounded by the unit's lesson set,
+      // and below the decoration window it must equal the visible (all
+      // in-unit) lessons — an out-of-unit lesson inflating the count would
+      // break this without needing a recomputed reference.
+      expect(entry.scopedLessonCount).toBeLessThanOrEqual(unitLessonIds.size);
+      expect(entry.lessons.length).toBe(
+        Math.min(entry.scopedLessonCount, KEYWORD_LESSON_DECORATION_LIMIT),
+      );
       for (const lesson of entry.lessons) {
         expect(unitLessonIds.has(lesson.id)).toBe(true);
       }
     }
+  });
+
+  it('returns a well-formed empty result when every unit narrowing slug is unknown', () => {
+    const result = keywordsForSubjectKeyStage(richAnchor.subject, richAnchor.keyStage, {
+      unitSlugs: ['no-such-unit-slug-xyz'],
+    });
+
+    const value = unwrapOk(result);
+    expect(value.keywords).toStrictEqual([]);
+    expect(value.totalMatchingKeywords).toBe(0);
+    expect(value.hasMore).toBe(false);
+    expect(value.resolvedUnitAnchors).toStrictEqual([]);
+    expect(value.unknownUnitAnchors).toStrictEqual(['no-such-unit-slug-xyz']);
   });
 
   it('narrows to lesson anchors: scoped counts reflect only those lessons', () => {
@@ -275,15 +272,12 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
       lessonSlugs: [bareSlug(keywordedLesson), 'no-such-lesson-slug-xyz'],
     });
 
-    expect(result.ok).toBe(true);
-    if (!result.ok) {
-      return;
-    }
-    expect(result.value.resolvedLessonAnchors).toStrictEqual([keywordedLesson]);
-    expect(result.value.unknownLessonAnchors).toStrictEqual(['no-such-lesson-slug-xyz']);
+    const value = unwrapOk(result);
+    expect(value.resolvedLessonAnchors).toStrictEqual([keywordedLesson]);
+    expect(value.unknownLessonAnchors).toStrictEqual(['no-such-lesson-slug-xyz']);
     const referenceKeywords = keywordIdsByLessonId.get(keywordedLesson) ?? [];
-    expect(result.value.totalMatchingKeywords).toBe(referenceKeywords.length);
-    for (const entry of result.value.keywords) {
+    expect(value.totalMatchingKeywords).toBe(referenceKeywords.length);
+    for (const entry of value.keywords) {
       expect(referenceKeywords).toContain(entry.keyword.id);
       expect(entry.scopedLessonCount).toBe(1);
       expect(entry.lessons.map((lesson) => lesson.id)).toStrictEqual([keywordedLesson]);
@@ -297,23 +291,16 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
       lessonSlugs: [],
     });
 
-    expect(absent.ok && empty.ok).toBe(true);
-    if (!absent.ok || !empty.ok) {
-      return;
-    }
-    expect(empty.value).toStrictEqual(absent.value);
+    expect(unwrapOk(empty)).toStrictEqual(unwrapOk(absent));
   });
 
   it('returns a well-formed empty result for an unknown subject or key stage', () => {
     const result = keywordsForSubjectKeyStage('no-such-subject-xyz', 'ks2');
 
-    expect(result.ok).toBe(true);
-    if (!result.ok) {
-      return;
-    }
-    expect(result.value.keywords).toStrictEqual([]);
-    expect(result.value.totalMatchingKeywords).toBe(0);
-    expect(result.value.hasMore).toBe(false);
+    const value = unwrapOk(result);
+    expect(value.keywords).toStrictEqual([]);
+    expect(value.totalMatchingKeywords).toBe(0);
+    expect(value.hasMore).toBe(false);
   });
 
   it('validates the limit before anchor work: an invalid limit errs even on an unknown subject', () => {
@@ -339,7 +326,10 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
     const start = performance.now();
     buildCurriculumKeywordProjection();
     const elapsedMs = performance.now() - start;
-    // Map-building over ~41k nodes / ~75k edges; 500ms is a generous, non-flaky ceiling.
+    // Map-building over ~41k nodes / ~75k edges. Calibration: this re-build
+    // (the module-load singleton has already constructed once) typically
+    // completes in well under 50ms locally; 500ms is ~10x headroom for CI
+    // pressure, matching the sibling views' shared ceiling convention.
     expect(elapsedMs).toBeLessThan(500);
   });
 });
