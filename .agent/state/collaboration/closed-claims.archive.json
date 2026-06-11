@@ -11441,6 +11441,50 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "0e14e503-553d-48da-bc5a-a79444626560",
+      "agent_id": {
+        "agent_name": "Tempestuous Rising Gale",
+        "platform": "claude",
+        "model": "fable-5",
+        "session_id_prefix": "60496a",
+        "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "packages/sdks/oak-sdk-codegen/src/**",
+            "packages/sdks/graph-corpus-sdk/src/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T00:53:12Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Follow-on PR per Director ruling 215b08d2 (owner-visible merge, default-approve): re-derive prerequisiteFor edges on the year axis (count-preserving, ~93% re-chain of the EEF-consumed surface; falsified encounter-order basis retired). Scope: threadOrderingPairs sorts via the shared comparePlacements total order; whole-corpus reversal stability test restored; within-year chaining semantics decided-with-reviewers and pinned by test + stated in TSDoc; regenerated data.json; eef-revalidation signal naming the re-chain. Branch feat/prerequisite-year-axis-rechain off origin/main@a229d63d in oak-wt-airy-g.",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T01:28:56Z",
+        "closed_by": {
+          "agent_name": "Tempestuous Rising Gale",
+          "platform": "claude",
+          "model": "fable-5",
+          "session_id_prefix": "60496a",
+          "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+        },
+        "summary": "DELIVERED + CLOSED at natural boundary: the year-axis re-chain merged (#165, 53308e1e, v1.22.0), eef-revalidation raised (08abb32a), the dedup question queued (bbe99f11). G4b routing DECLINED on honest budget self-assessment per the two-condition discipline (Director invitation 89321e50) — waits for a fresh seat. Zero retained claims.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "0e14e503-553d-48da-bc5a-a79444626560",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

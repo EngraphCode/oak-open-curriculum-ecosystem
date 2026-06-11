@@ -41,7 +41,18 @@ merge_class: index-narrative-tables
   Director-verified: origin/main already at `0.7.0-6a3c1f02` since #159; all 13 dirty files
   byte-identical to origin/main; alignment committed this waypoint so the dirty-file trap does
   not mislead the next holder; failure-mode capture `54fc0fee` — baseline drift against
-  origin/main, never branch HEAD). **YEAR-AXIS RE-CHAIN MERGED (PR #165, `53308e1e`, 01:25:32Z
+  origin/main, never branch HEAD). **OWNER RULINGS (~06:20Z 06-11, four)**: (1) curriculum-mapping
+  name APPROVED → **S3 PR #162 MERGED (`12762fd4`)**, sign-off recorded on the PR; (2) OWNER
+  ADDITION — the two oak-curriculum-principles skills carry an EXPLICIT FOLLOW-ON (plan s3 todo
+  amended this waypoint; attribution-validation stays the gate; do not forget); (3) G4b seat:
+  owner provisioning a fresh implementer — incoming Director routes G4b per the plan g4 todo;
+  (4) standing items (attribution validation; bulk-export-lags-live) HOLD AS-IS. **Owner
+  correction (doctrine-grade)**: Director succession between pre-positioned agents NEVER needs
+  an owner sign-off ask — the standing successor naming + worked pattern IS the authorization;
+  asking re-opened a decided thing (napkin capture this waypoint). **Moment 2 fired at owner
+  confirmation** (my directed `0d51031f` carries the state delta); fifth-holder transition to
+  Ethereal Orbiting Eclipse (f92636) in flight at this waypoint — my claim `dbe87352` closes
+  citing their acknowledgement. **YEAR-AXIS RE-CHAIN MERGED (PR #165, `53308e1e`, 01:25:32Z
   06-11)**: prerequisiteFor on the honest year-ordered basis (count preserved 3,452; 93.1%
   re-chained; within-year chaining-with-stated-tiebreak reviewer-ratified on three grounds;
   owner default-approve operative — visibility given twice, no objection through the settle
