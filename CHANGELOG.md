@@ -1,3 +1,11 @@
+## [1.26.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.26.0...v1.26.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** substring-mode blocked patterns — quoted busy-loops now trip the guard ([f6dfef6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f6dfef6b2221dbe7295c7a5cbe5b465542a38d19))
+* **agent-tools:** whitespace-tolerant substring trips, non-empty pattern schema ([3da6d40](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3da6d40cf15a2d6c808f93c4fcd5b296c66c9b2b))
+
 # [1.26.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.25.1...v1.26.0) (2026-06-11)
 
 
