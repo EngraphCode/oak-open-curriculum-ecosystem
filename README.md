@@ -160,9 +160,9 @@ full licence terms.
 
 The MCP servers expose curriculum data through the three [MCP primitive types](https://modelcontextprotocol.io/docs/learn/server-concepts):
 
-- **Tools** (model-controlled): 34 curriculum tools (24 generated from the OpenAPI schema, 8 aggregated, plus a user-search pair) including orientation via `get-curriculum-model` and `download-asset`. The AI decides when to use them. See [`apps/oak-curriculum-mcp-streamable-http/README.md`](apps/oak-curriculum-mcp-streamable-http/README.md) as the canonical count.
-- **Resources** (application-controlled): Curriculum model, prior knowledge graph, and learning progressions as pre-loadable context for MCP clients that support resource injection.
-- **Prompts** (user-controlled): Four workflow templates (`find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`) that guide users through common curriculum tasks.
+- **Tools** (model-controlled): 37 curriculum tools (24 generated from the OpenAPI schema plus 13 aggregated compositions) covering search/browse/fetch flows, orientation via `get-curriculum-model`, the curriculum graph tools (`get-thread-progressions` for year-ordered sequences, `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`), EEF evidence, `download-asset`, and the user-search pair. The AI decides when to use them. See [`apps/oak-curriculum-mcp-streamable-http/README.md`](apps/oak-curriculum-mcp-streamable-http/README.md) as the canonical count.
+- **Resources** (application-controlled): The curriculum model, a getting-started guide, and the EEF evidence-interpretation guide as pre-loadable context for MCP clients that support resource injection. The curriculum graphs are deliberately tool-only — served anchored and bounded by the graph tools rather than as whole-corpus dumps.
+- **Prompts** (user-controlled): Seven workflow templates (`find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `curriculum-mapping`, `adapt-lesson`, `continue-progression`) that guide users through common curriculum tasks — including the position-anchored entry point: state what your class just covered and plan the next step from Oak's sequence, building on what came before.
 
 The standalone stdio workspace has been retired and removed. The
 canonical MCP server workspace is now

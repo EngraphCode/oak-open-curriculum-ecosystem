@@ -64,6 +64,12 @@ todos:
     depends_on: [w1-c0-owner-design-gate]
   - id: w2-c1-impact-language-alignment
     content: >-
+      COMPLETED 2026-06-11: PR #181 merged (6048f337d) — outward capability
+      claims aligned with the served estate (served-instructions
+      sequenced-curriculum sentence RED-first; root + apps README primitives
+      corrected to 37 tools = 24+13; ADR-123 counts + EEF tool name repaired;
+      removed resources delisted; P4 per-sentence evidence table on the PR;
+      one Copilot enumeration finding fixed with verdict recorded). —
       Bounded outward-language alignment pass: sequencing / builds-on /
       curriculum-connected impact vocabulary across the named surfaces, every
       claim verified against delivered tool behaviour. NC-coverage vocabulary
@@ -72,9 +78,11 @@ todos:
       remediation; W2 may cite that chain. No live claim covers the
       landing-page file at authoring time; run the standard collision-safety
       read of active-claims.json at W2 execution start.
-    status: pending
+    status: completed
   - id: w3-c1-vocabulary-bridge
     content: >-
+      UNBLOCKED 2026-06-11 (depends_on w1-c1 satisfied at PR #178's merge);
+      remains a future cycle — routing is owner/Director-owned.
       FUTURE CYCLE (owner-directed fold 2026-06-11; additive — neither blocks
       nor sequences with w2-c1): extend this plan's prompt orchestration
       with the position-anchored vocabulary bridge — two get-keyword-graph

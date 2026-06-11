@@ -39,17 +39,20 @@ Start with the [ADR index](../../docs/architecture/architectural-decisions/), th
 
 This server exposes Oak's curriculum through the three MCP primitive types, each with a distinct control model defined by the [MCP specification](https://modelcontextprotocol.io/).
 
-**Tools** (model-controlled) — currently 34 curriculum tools: 24 generated
-from the OpenAPI schema plus 10 aggregated tools. The aggregated set covers
-search/browse/fetch flows, orientation and graph tools, `download-asset`, and
+**Tools** (model-controlled) — currently 37 curriculum tools: 24 generated
+from the OpenAPI schema plus 13 aggregated tools. The aggregated set covers
+search/browse/fetch flows, orientation, the curriculum graph tools
+(`get-thread-progressions` for year-ordered sequences,
+`get-prior-knowledge-graph`, `get-misconception-graph`,
+`get-keyword-graph`), EEF evidence, `download-asset`, and
 the MCP App user-search pair (`user-search`, `user-search-query`). The AI
 model decides when to call them, subject to per-tool visibility metadata.
 Generated tool definitions are updated automatically when the upstream API
 changes via `pnpm sdk-codegen`.
 
-**Resources** (application-controlled) — `curriculum://model` (domain ontology, `priority: 1.0`), `curriculum://thread-progressions` (learning progression data, `priority: 0.5`), and `eef://interpretation` (EEF evidence interpretation guide, `priority: 0.5`). All annotated with `audience: ["assistant"]`. The host application decides whether to inject these into the model's context. Clients that support resource auto-injection get orientation data without a tool call. Prior knowledge and misconceptions have no whole-corpus resource form — they are served by the anchored `get-prior-knowledge-graph` and `get-misconception-graph` tools.
+**Resources** (application-controlled) — `curriculum://model` (domain ontology, `priority: 1.0`), a getting-started documentation resource, and `eef://interpretation` (EEF evidence interpretation guide, flag-gated, on by default). The host application decides whether to inject these into the model's context. Clients that support resource auto-injection get orientation data without a tool call. The curriculum graphs have no whole-corpus resource form — thread progressions, prior knowledge, misconceptions, and keywords are served by the anchored `get-thread-progressions`, `get-prior-knowledge-graph`, `get-misconception-graph`, and `get-keyword-graph` tools.
 
-**Prompts** (user-controlled) — `find-lessons`, `lesson-planning`, `explore-curriculum`, and `learning-progression`. Parameterised workflow templates the user explicitly invokes as slash commands or UI actions. Each orchestrates multiple tools in a proven sequence for a common teacher task.
+**Prompts** (user-controlled) — `find-lessons`, `lesson-planning`, `explore-curriculum`, `learning-progression`, `curriculum-mapping`, `adapt-lesson`, and `continue-progression`. Parameterised workflow templates the user explicitly invokes as slash commands or UI actions. Each orchestrates multiple tools in a proven sequence for a common teacher task — `continue-progression` is the position-anchored entry point: state what your class just covered and plan the next step from Oak's sequence, building on what came before.
 
 Together, tools give the AI autonomous access to curriculum data, resources
 give capable clients pre-loaded context, and prompts give users structured
