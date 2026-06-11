@@ -68,3 +68,27 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   a commit window must treat the grant as exclusive until the grantee's PUSH closes it — the
   window spans the gate chain, not just the staging moment. Cure applied: bounded ls-remote
   wait for the grantee's transfer before opening my own window.
+- **Background-process audit (owner-directed) found the drain-timeout exit is NOT an exit** —
+  the watcher emits the fail-loud WATCHER ERROR line but the node process LINGERS: both of my
+  "dead" watchers were still running hours later, sharing my seen-file + heartbeat-file with
+  the live one (three writers, one file), and two orphan watchers survived a stood-down
+  session entirely. Probable feedback loop: zombie drains add I/O load on the same comms dir,
+  worsening the drain times that kill watchers. Cure shape for the routed agent-tools lane:
+  the timeout path must process.exit AND the supervisor must kill the process tree; restart
+  guidance should include a stale-process census (ps for prior watchers on the same
+  seen-file). Cleanup: TaskStop killed mine cleanly; orphans killed by pid.
+- **Forename-keyed /tmp filenames collide across same-forename agents** (curation seat, at
+  handoff): my closeout draft Write to `/tmp/pearly-closeout.md` hit yesterday's Pearly
+  Snorkelling DOCK file at the same default path — caught by the Write tool's
+  read-before-overwrite guard (mechanical, again). Cure applied: identity-qualified temp
+  names (`pearly-compass-<purpose>-<date>`). The PDR-027 full-name+prefix discipline,
+  /tmp-shaped.
+- **candidate: PDR-081 curator-ledger clause vs `permanent-doc-is-the-consolidation-record`
+  rule — apparent contradiction** (curation seat, first-hand read of both surfaces): the team
+  SKILL §3 (citing PDR-081) names "the per-pass metadata file under the operational-memory
+  curator-passes directory" as the curator's traceability surface, while the newer canonical
+  rule forbids disposition ledgers (the commit and the permanent home are the record). This
+  pass followed the RULE — no ledger written; commits + register + comms are the record.
+  Graduation-target: reconcile at the next curation-doctrine touch (PDR-081 amendment retiring
+  the ledger clause, or a pass-metadata vs disposition-ledger scope clarification). Trigger:
+  next curator-pass invocation or owner direction.

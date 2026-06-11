@@ -178,10 +178,22 @@ verified absent from this register before adding.
   exactly the condition this entry named at capture, one hour earlier. A
   fixed budget of any size loses to a growing dir under concurrent load; the
   durable cure is dir-size-scaled budgeting (or the owner-gated archival).
+  SHARPENED by the Director's owner-directed background-process audit (same
+  day, ~14:50Z): the fail-loud timeout emits the WATCHER ERROR line but the
+  node process does NOT exit — "dead" watchers linger as zombie co-writers on
+  the same seen-file/heartbeat-file (three writers on one file observed; two
+  orphans survived a stood-down session), and the zombie drains plausibly
+  feed the very I/O load that kills subsequent drains. The cure shape is
+  therefore THREE-part: the timeout path must process.exit; the supervisor
+  must kill the process tree; restart guidance gains a stale-process census
+  (ps for prior watchers on the same seen-file) before any same-seen-file
+  restart.
   `[captured: 2026-06-11 | source: pre-position 0f36d756 item 7 + Nebulous
-  delta de5122b8 + this pass's 120s death at 14:16Z | target: agent-tools
-  comms watch drain-budget sizing; archival path owner-gated | trigger:
-  FIRED same-pass (death at a raised budget) | size: S | status: due]`
+  delta de5122b8 + this pass's 120s death at 14:16Z + the Director's
+  lingering-process audit (napkin, same day) | target: agent-tools comms
+  watch exit-on-timeout + supervisor kill-tree + census; budget sizing
+  secondary; archival path owner-gated | trigger: FIRED same-pass (death at
+  a raised budget; root cause now sharper) | size: M | status: due]`
 - **Worktree vocab-gen needs the gitignored bulk-downloads — symlink pattern
   for the team opener.** Worked once (Prismatic, PR-180 cycle): vocab-gen in a
   worktree needs `apps/oak-search-cli/bulk-downloads` (gitignored,
