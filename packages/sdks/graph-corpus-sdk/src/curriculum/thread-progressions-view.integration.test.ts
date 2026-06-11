@@ -26,8 +26,35 @@ import {
   threadProgressionStats,
 } from './thread-progressions-view.js';
 
-/** A corpus thread slug known to exist (asserted, so corpus drift fails loudly). */
-const KNOWN_THREAD_SLUG = 'active-citizenship-making-a-positive-difference';
+/** Narrows a deterministic fixture pick, failing loudly if the corpus cannot supply it. */
+function required<T>(value: T | undefined, message: string): T {
+  if (value === undefined) {
+    throw new Error(message);
+  }
+  return value;
+}
+
+/** A thread slug with at least one placement, chosen deterministically (first emitted sequence). */
+const firstSequence = required(
+  graphCorpus.sequences.find((sequence) => sequence.placements.length > 0),
+  'corpus has no non-empty sequence to anchor the view tests',
+);
+const KNOWN_THREAD_SLUG: string = firstSequence.threadId.slice(
+  firstSequence.threadId.indexOf(':') + 1,
+);
+
+/** A (subject, keyStage) pair carried by a sequenced unit, chosen deterministically. */
+const placedUnitIds = new Set(
+  graphCorpus.sequences.flatMap((sequence) =>
+    sequence.placements.map((placement) => placement.unitId),
+  ),
+);
+const sequencedUnit = required(
+  graphCorpus.nodes.find((node) => node.kind === 'unit' && placedUnitIds.has(node.id)),
+  'corpus has no sequenced unit to derive a subject+keyStage anchor',
+);
+const KNOWN_SUBJECT: string = sequencedUnit.kind === 'unit' ? sequencedUnit.subject : '';
+const KNOWN_KEY_STAGE: string = sequencedUnit.kind === 'unit' ? sequencedUnit.keyStage : '';
 
 describe('thread-progressions projection', () => {
   it('indexes every corpus sequence with integrity-checked endpoints', () => {
@@ -85,18 +112,18 @@ describe('progressionForThread (detail anchor)', () => {
 
 describe('progressionsForSubjectKeyStage (discovery anchor)', () => {
   it('returns bounded descriptors whose threads each carry a matching member unit', () => {
-    const result = progressionsForSubjectKeyStage('citizenship', 'ks3');
+    const result = progressionsForSubjectKeyStage(KNOWN_SUBJECT, KNOWN_KEY_STAGE);
 
     expect(result.threads.length).toBeGreaterThan(0);
     expect(result.threads.length).toBeLessThan(threadProgressionStats.threadCount);
     for (const descriptor of result.threads) {
-      expect(descriptor.subjects).toContain('citizenship');
+      expect(descriptor.subjects).toContain(KNOWN_SUBJECT);
       expect(descriptor.totalUnits).toBeGreaterThan(0);
     }
   });
 
   it('returns descriptors without sequences (discovery, not detail)', () => {
-    const result = progressionsForSubjectKeyStage('citizenship', 'ks3');
+    const result = progressionsForSubjectKeyStage(KNOWN_SUBJECT, KNOWN_KEY_STAGE);
 
     expect(result.threads[0]).not.toHaveProperty('entries');
   });
