@@ -4,7 +4,7 @@ overview: "Re-validate the EEF value path against the graph-corpus-sdk replaceme
 type: seed
 status: completed
 promoted: "2026-06-11 — owner-decided at Track-G completion (single upstream graph-tools-value-redesign: G1b/G2/G3/G4b landed; all landing signals raised: 334b8a99, 42e5cf0c, db953071, 08abb32a). Riding decisions folded at routing: prerequisiteFor multiplicity (3,452 emitted vs 2,605 unique) and the G4b on-EEF-path determination."
-executed: "2026-06-11 — Blustery Buffeting Gale (9819b2), Director routing dccb1d09 (owner-approved). Evidence: ../../../reports/eef-revalidation-report-2026-06-11.md. Verdict: EEF value path INTACT on the new anchored tools (three signal types, verbatim ground truth, honest insufficiency, provenance unfiltered). Decisions: prerequisiteFor multiplicity → dedup at emission (consumer impact measured at the MCP surface: 22-edge envelope carrying 4 distinct relationships, agent-facing summary misstating the graph; implementation cycle routed to the Director queue); get-keyword-graph NOT on the EEF value path (code + workflow level; no eef-revalidation signal raised; the graph plan's signal-eef-revalidation condition is determined false)."
+executed: "2026-06-11 — Blustery Buffeting Gale (9819b2), Director routing dccb1d09 (owner-approved). Evidence: ../../../../reports/eef-revalidation-report-2026-06-11.md. Verdict: EEF value path INTACT on the new anchored tools (three signal types, verbatim ground truth, honest insufficiency, provenance unfiltered). Decisions: prerequisiteFor multiplicity → dedup at emission (consumer impact measured at the MCP surface: 22-edge envelope carrying 4 distinct relationships, agent-facing summary misstating the graph; implementation cycle routed to the Director queue); get-keyword-graph NOT on the EEF value path (code + workflow level; no eef-revalidation signal raised; the graph plan's signal-eef-revalidation condition is determined false)."
 thread: eef
 related_plans:
   - "../current/eef-graph-tool-completion.plan.md"
@@ -16,7 +16,7 @@ todos:
     status: completed
     depends_on: []
   - id: revalidate-eef-value-path
-    content: "COMPLETE 2026-06-11: the D7-style cover-lesson round trip re-ran against the live landed estate (origin/main 5310d1e4e, corpus v1.3.0, server dev:observe:noauth, stateless JSON-RPC). Three signal types exercised (misconception via get-misconception-graph lesson anchor; prior knowledge via get-prior-knowledge-graph unit anchor; thread progression via get-thread-progressions year-ordered sequence); eef-tl-feedback corpus values reached the payload verbatim 10/10 (impact 6mo, Very Low, Extensive, headline, definition, eef_url, provenance with original_authors, caveats, answerType); evidence-for-move axis query returned context-subset members with provenance + caveats intact and strict finite-domain boundary validation; eef-tl-learning-styles preserved honest insufficiency (impact_months null, Insufficient, honest headline) verbatim; no teacher-replacing language at the tool layer. The Oak/EEF workflow seam closes on the new tools. Full evidence: ../../../reports/eef-revalidation-report-2026-06-11.md."
+    content: "COMPLETE 2026-06-11: the D7-style cover-lesson round trip re-ran against the live landed estate (origin/main 5310d1e4e, corpus v1.3.0, server dev:observe:noauth, stateless JSON-RPC). Three signal types exercised (misconception via get-misconception-graph lesson anchor; prior knowledge via get-prior-knowledge-graph unit anchor; thread progression via get-thread-progressions year-ordered sequence); eef-tl-feedback corpus values reached the payload verbatim 10/10 (impact 6mo, Very Low, Extensive, headline, definition, eef_url, provenance with original_authors, caveats, answerType); evidence-for-move axis query returned context-subset members with provenance + caveats intact and strict finite-domain boundary validation; eef-tl-learning-styles preserved honest insufficiency (impact_months null, Insufficient, honest headline) verbatim; no teacher-replacing language at the tool layer. The Oak/EEF workflow seam closes on the new tools. Full evidence: ../../../../reports/eef-revalidation-report-2026-06-11.md."
     status: completed
     depends_on: [track-graph-tool-replacements]
 ---
@@ -36,7 +36,7 @@ migration could silently break the seam the teacher value depends on.
 
 The re-proof ran against the fully landed estate and **the EEF value path is intact**. The
 verdict, the per-round evidence, and the two riding decisions are recorded in
-[`eef-revalidation-report-2026-06-11.md`](../../../reports/eef-revalidation-report-2026-06-11.md):
+[`eef-revalidation-report-2026-06-11.md`](../../../../reports/eef-revalidation-report-2026-06-11.md):
 
 - **Re-proof**: three signal types (misconception, prior knowledge, thread progression) ×
   verbatim EEF ground truth × honest insufficiency × unfiltered provenance — all green.
