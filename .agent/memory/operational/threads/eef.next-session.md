@@ -137,10 +137,33 @@ merge_class: index-narrative-tables
   agent-tools lanes), 9 candidates conserved, napkin rotated, char-HARD cured. Three curated
   classes fired ON the curator mid-pass, all caught mechanically; the balancing warm-read
   counter-instance recorded — the mechanical-firing-moments PDR candidate stays owner-gated
-  with honest two-sided evidence. **SESSION FULLY QUIESCED**: the seventh Director is the
-  sole live seat; the durable next-actions are the Director-queue agent-tools items, the
-  owner-gated register walk, w3-c1 + S3-principles at owner direction, and next-tranche
-  shaping by observed alpha use.
+  with honest two-sided evidence. **POST-QUIESCENCE CLOSING ARC (15:00–16:12Z)**: owner-directed
+  reflexive work landed — the session **operations + experience report** (PR #184) and its
+  host-load addendum; the **no-unbounded-host-load** safety rule (PR #185, owner max-severity
+  directive: a real DOS — 14 orphaned per-core busy-loops ran 7h — cured as MECHANISM: blocking
+  innate-immunity trip [substring-mode, whitespace-tolerant, proven against the founding command
+  verbatim across two review waves], canonical rule, start-right host-health check); the
+  **team-opener generalisation exploration plan** (PR #186, owner-directed, names the
+  decision-makes-none, owner walk at x5); position-anchored todo flips (PR #182) +
+  the loop-hygiene rule (PR #183). The Director's session-handoff ran (loss-scan caught one
+  lesson — untested-mechanism-is-prose-in-costume — handed to the curation lane);
+  consolidate-docs was correctly NOT run by the Director (a colliding parallel pass) — it was
+  Thermal's live session. **DEDICATED CONSOLIDATION DELIVERED (Thermal Circling Updraft a8eabc→
+  f42c24, closeout 16:11Z, zero-retained)**: all owner-gated decisions settled; three
+  push-proven waves (dispositions 7f655249c; ADR-195/196/197 + working-with-graphs skill +
+  PDR-058/091 at 3a3784ef9; rule clauses + PDR-089 D8 + register drain at 0a32ea36d); the
+  18→4 withdrawal outcome via a 25-agent adversarial refutation pass (the 15-of-18 over-
+  withdrawal class REPRODUCED and was caught pre-execution — adversarial-verify-before-withdrawal
+  twice-proven, now PDR-089 Decision 8). **SESSION AT REST**: zero open PRs, all work on main,
+  the seventh directorship closes at this waypoint (claim 537f2f1c closed zero-retained, no
+  successor — the team dissolves cleanly). **Durable next-actions** (no live agent; register +
+  plan statuses are the pickup surface): the Director-queue agent-tools lanes (control-byte
+  gate-check, CLI relative-path hardening, comms-reply prefix resolution, watcher-non-exit fix,
+  comms-store scalability); the approved-unauthored Core amendment queue Thermal register-
+  recorded (PDR-064, PDR-011 two-clause, PDR-078 emit-side, PDR-085 pair, two new PDRs, three
+  folds — next dedicated session authors without re-asking); the generalisation plan's x5 owner
+  walk; w3-c1 + S3-principles at owner direction; next product tranche shaped by observed alpha
+  use.
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event

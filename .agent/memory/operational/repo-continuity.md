@@ -50,9 +50,17 @@ surface.
   attribution validation (gates the owner-pinned S3 principles follow-on, plan s3 todo);
   bulk-export-lags-live (hold as-is, owner 06-11); output-schemas execution routing (gate
   satisfied — see its entry below). Authority: the graph plan's todos + the eef thread record
-  (seventh-holder entry). **Next safe step**: the curation lane drains the fired triggers;
-  next product tranche shaped by observed alpha use (owner doctrine 06-11); w3-c1
-  vocabulary-bridge and the S3 principles follow-on route at owner direction.
+  (seventh-holder entry). **SESSION AT REST (16:12Z 06-11)**: the host-DOS safety rule
+  (#185, owner max-severity), the team-opener generalisation exploration plan (#186), and the
+  dedicated consolidation (Thermal: ADR-195/196/197 + working-with-graphs skill + PDR
+  amendments + register drain, three push-proven waves through `0a32ea36d`, zero-retained) all
+  landed; zero open PRs; the seventh directorship closes at this waypoint with no successor
+  (team dissolved cleanly). **Next safe step** (no live agent; register + plan statuses are the
+  pickup surface): the Director-queue agent-tools lanes (control-byte gate-check, CLI
+  relative-path hardening, comms-reply prefix resolution, watcher-non-exit fix, comms-store
+  scalability); the approved-unauthored Core amendment queue (register-recorded; next dedicated
+  session authors without re-asking); the generalisation plan's x5 owner walk; w3-c1 + S3
+  principles + next product tranche (observed alpha use) at owner direction.
 - **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling
   `47f78a`) — since EXECUTED in full (see the TRACK-G entry above).** The owner overturned the
   crude Step-0 split ("find the real membranes"); the seam analysis
