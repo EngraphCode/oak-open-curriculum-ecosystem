@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.25.1...v1.26.0) (2026-06-11)
+
+
+### Features
+
+* **mcp:** align outward capability claims with the served estate ([eb29a6e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb29a6ed18d31c53761c35987f610844626e679c))
+
 ## [1.25.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.25.0...v1.25.1) (2026-06-11)
 
 
