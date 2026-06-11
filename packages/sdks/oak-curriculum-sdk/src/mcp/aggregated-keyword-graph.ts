@@ -122,18 +122,24 @@ type KeywordGraphEnvelopeData = {
   readonly keyStage: string;
 } & KeywordSubgraph;
 
-/** Summarises the ranked result for the envelope TextContent. */
-function summariseKeywords(subject: string, keyStage: string, subgraph: KeywordSubgraph): string {
+/**
+ * Summarises the ranked result for the envelope TextContent. `narrowed`
+ * reflects whether the CALLER provided narrowing inputs (not whether they
+ * resolved) — the summary must never imply narrowing that was not asked for,
+ * and must still name it when every narrowing slug was unknown.
+ */
+function summariseKeywords(
+  subject: string,
+  keyStage: string,
+  narrowed: boolean,
+  subgraph: KeywordSubgraph,
+): string {
   if (subgraph.keywords.length === 0) {
-    return `No keywords matched ${subject} at ${keyStage} with the given narrowing.`;
+    return `No keywords matched ${subject} at ${keyStage}${narrowed ? ' with the given narrowing' : ''}.`;
   }
   const shown = String(subgraph.keywords.length);
   const total = String(subgraph.totalMatchingKeywords);
-  const narrowing =
-    subgraph.resolvedUnitAnchors.length > 0 || subgraph.resolvedLessonAnchors.length > 0
-      ? ' (narrowed)'
-      : '';
-  return `Top ${shown} of ${total} keywords for ${subject} at ${keyStage}${narrowing}, ranked by in-scope lesson placements.`;
+  return `Top ${shown} of ${total} keywords for ${subject} at ${keyStage}${narrowed ? ' (narrowed)' : ''}, ranked by in-scope lesson placements.`;
 }
 
 /**
@@ -167,9 +173,10 @@ export function runKeywordGraphTool(input: unknown): CallToolResult {
     );
   }
 
+  const narrowed = (unitSlugs?.length ?? 0) > 0 || (lessonSlugs?.length ?? 0) > 0;
   const data: KeywordGraphEnvelopeData = { subject, keyStage, ...result.value };
   return formatToolResponse({
-    summary: summariseKeywords(subject, keyStage, result.value),
+    summary: summariseKeywords(subject, keyStage, narrowed, result.value),
     data,
     status: 'success',
     timestamp: Date.now(),

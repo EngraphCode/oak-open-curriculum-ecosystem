@@ -81,7 +81,7 @@ function referenceScopedCounts(subject: string, keyStage: string): Map<string, n
   const counts = new Map<string, number>();
   for (const [lessonId, keywordIds] of keywordIdsByLessonId) {
     const lesson = lessonNodesById.get(lessonId);
-    if (!lesson || lesson.kind !== 'lesson') {
+    if (lesson?.kind !== 'lesson') {
       continue;
     }
     if (lesson.subject !== subject || lesson.keyStage !== keyStage) {
@@ -103,7 +103,7 @@ const richAnchor = required(
     const pairCounts = new Map<string, number>();
     for (const lessonId of keywordIdsByLessonId.keys()) {
       const lesson = lessonNodesById.get(lessonId);
-      if (!lesson || lesson.kind !== 'lesson') {
+      if (lesson?.kind !== 'lesson') {
         continue;
       }
       const key = `${lesson.subject}\u001f${lesson.keyStage}`;

@@ -17,7 +17,7 @@ import {
   type GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
 
-import { mustGet } from './misconception-projection.js';
+import { buildEdgeAdjacency } from './projection-helpers.js';
 
 /** The keyword view's per-kind node indexes plus its two traversal adjacencies. */
 export interface CurriculumKeywordProjection {
@@ -27,28 +27,16 @@ export interface CurriculumKeywordProjection {
   readonly lessonsByUnitId: ReadonlyMap<GraphCorpusNodeId, readonly GraphCorpusLessonNode[]>;
 }
 
-/** Builds a source→targets adjacency for one edge type, id-sorted per source. */
+/**
+ * Builds a source→targets adjacency for one edge type — the shared traversal
+ * body lives in `projection-helpers`; this wrapper narrows the edge-type
+ * parameter to the two types the keyword view traverses.
+ */
 function buildAdjacency<TTarget extends { readonly id: GraphCorpusNodeId }>(
   edgeType: 'containsKeyword' | 'containsLesson',
   targetsById: ReadonlyMap<GraphCorpusNodeId, TTarget>,
-): Map<GraphCorpusNodeId, TTarget[]> {
-  const adjacency = new Map<GraphCorpusNodeId, TTarget[]>();
-  for (const edge of graphCorpus.edges) {
-    if (edge.type !== edgeType) {
-      continue;
-    }
-    const target = mustGet(targetsById, edge.target);
-    const existing = adjacency.get(edge.source);
-    if (existing) {
-      existing.push(target);
-    } else {
-      adjacency.set(edge.source, [target]);
-    }
-  }
-  for (const targets of adjacency.values()) {
-    targets.sort((a, b) => a.id.localeCompare(b.id));
-  }
-  return adjacency;
+): ReadonlyMap<GraphCorpusNodeId, readonly TTarget[]> {
+  return buildEdgeAdjacency(edgeType, targetsById);
 }
 
 /**

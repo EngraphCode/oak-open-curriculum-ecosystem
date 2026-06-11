@@ -35,9 +35,9 @@ import {
 import { resolveAnchors } from './anchor-resolution.js';
 import {
   buildCurriculumMisconceptionProjection,
-  mustGet,
   type CurriculumMisconceptionProjection,
 } from './misconception-projection.js';
+import { mustGet } from './projection-helpers.js';
 
 /** Default unit-window size for thread anchors — bounds the heavy tail while returning median threads whole. */
 export const DEFAULT_THREAD_UNIT_LIMIT = 10;

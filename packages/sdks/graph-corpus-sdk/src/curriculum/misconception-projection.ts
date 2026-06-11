@@ -22,6 +22,8 @@ import {
   type GraphCorpusUnitNode,
 } from '@oaknational/sdk-codegen/graph-corpus';
 
+import { buildEdgeAdjacency } from './projection-helpers.js';
+
 /** The module-load projection: per-kind node indexes plus chain adjacency, all id-sorted. */
 export interface CurriculumMisconceptionProjection {
   readonly lessonsById: ReadonlyMap<GraphCorpusNodeId, GraphCorpusLessonNode>;
@@ -35,40 +37,16 @@ export interface CurriculumMisconceptionProjection {
   readonly unitsByThreadId: ReadonlyMap<GraphCorpusNodeId, readonly GraphCorpusUnitNode[]>;
 }
 
-/** Looks up a known node, failing loudly if the corpus integrity invariant is breached. */
-export function mustGet<TNode>(
-  map: ReadonlyMap<GraphCorpusNodeId, TNode>,
-  id: GraphCorpusNodeId,
-): TNode {
-  const node = map.get(id);
-  if (node === undefined) {
-    throw new Error(`graph corpus integrity breach: node id "${id}" has no emitted node`);
-  }
-  return node;
-}
-
-/** Groups resolved target nodes per source id for one chain edge type, id-sorted per group. */
+/**
+ * Groups resolved target nodes per source id for one CHAIN edge type — the
+ * shared traversal body lives in `projection-helpers`; this wrapper narrows
+ * the edge-type parameter to the three chain types this view traverses.
+ */
 function buildAdjacency<TNode extends { readonly id: GraphCorpusNodeId }>(
   edgeType: 'containsUnit' | 'containsLesson' | 'addressesMisconception',
   targetsById: ReadonlyMap<GraphCorpusNodeId, TNode>,
 ): ReadonlyMap<GraphCorpusNodeId, readonly TNode[]> {
-  const adjacency = new Map<GraphCorpusNodeId, TNode[]>();
-  for (const edge of graphCorpus.edges) {
-    if (edge.type !== edgeType) {
-      continue;
-    }
-    const target = mustGet(targetsById, edge.target);
-    const existing = adjacency.get(edge.source);
-    if (existing) {
-      existing.push(target);
-    } else {
-      adjacency.set(edge.source, [target]);
-    }
-  }
-  for (const targets of adjacency.values()) {
-    targets.sort((a, b) => a.id.localeCompare(b.id));
-  }
-  return adjacency;
+  return buildEdgeAdjacency(edgeType, targetsById);
 }
 
 /**
