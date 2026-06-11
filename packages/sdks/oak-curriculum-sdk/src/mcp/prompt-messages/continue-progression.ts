@@ -1,5 +1,5 @@
 /**
- * Message generator for the continue-teaching prompt.
+ * Message generator for the continue-progression prompt.
  *
  * @remarks One module per prompt keeps every generator file within the
  * ESLint max-lines budget as the prompt estate grows. All content is
@@ -10,7 +10,7 @@
 import type { PromptMessage } from '../mcp-prompt-types.js';
 
 /**
- * Generates messages for the continue-teaching prompt — the position-anchored
+ * Generates messages for the continue-progression prompt — the position-anchored
  * entry point. The teacher states where their class is (subject, year group,
  * what was just covered) and the workflow resolves the next step from Oak's
  * curriculum sequence, checks readiness via the prior-knowledge graph,
@@ -23,7 +23,7 @@ import type { PromptMessage } from '../mcp-prompt-types.js';
  *   optional classNotes)
  * @returns Messages guiding the model through the position→next workflow
  */
-export function getContinueTeachingMessages(
+export function getContinueProgressionMessages(
   args: Readonly<Record<string, string | undefined>>,
 ): PromptMessage[] {
   const subject = args.subject ?? 'the subject';

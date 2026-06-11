@@ -67,7 +67,7 @@ describe('MCP Prompts E2E', () => {
       'learning-progression',
       'curriculum-mapping',
       'adapt-lesson',
-      'continue-teaching',
+      'continue-progression',
     ])('returns %s prompt', async (promptName) => {
       const { response, parsed, prompts } = await listPrompts();
 
@@ -257,7 +257,7 @@ describe('MCP Prompts E2E', () => {
       expect(allText).toContain('get-thread-progressions');
     });
 
-    it('continue-teaching prompt resolves position to next step via Oak sequence tools', async () => {
+    it('continue-progression prompt resolves position to next step via Oak sequence tools', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -269,7 +269,7 @@ describe('MCP Prompts E2E', () => {
           id: '1',
           method: 'prompts/get',
           params: {
-            name: 'continue-teaching',
+            name: 'continue-progression',
             arguments: {
               subject: 'maths',
               yearGroup: 'Year 4',

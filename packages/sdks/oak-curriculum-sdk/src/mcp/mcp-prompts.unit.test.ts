@@ -25,8 +25,8 @@ describe('MCP_PROMPTS', () => {
     expect(MCP_PROMPTS).toHaveLength(7);
   });
 
-  it('has continue-teaching prompt with subject, yearGroup, justCovered required and classNotes optional', () => {
-    const prompt = MCP_PROMPTS.find((p) => p.name === 'continue-teaching');
+  it('has continue-progression prompt with subject, yearGroup, justCovered required and classNotes optional', () => {
+    const prompt = MCP_PROMPTS.find((p) => p.name === 'continue-progression');
     expect(prompt).toBeDefined();
     expect(prompt?.description).toContain('next');
     expect(prompt?.arguments).toContainEqual(
@@ -422,7 +422,7 @@ describe('getPromptMessages', () => {
     });
   });
 
-  describe('continue-teaching prompt', () => {
+  describe('continue-progression prompt', () => {
     const fullArgs = {
       subject: 'maths',
       yearGroup: 'Year 4',
@@ -430,7 +430,7 @@ describe('getPromptMessages', () => {
     } as const;
 
     it('returns messages with subject, yearGroup, and justCovered in content', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       expect(messages.length).toBeGreaterThan(0);
       const content = messages.map((m) => m.content.text).join(' ');
       expect(content).toContain('maths');
@@ -440,7 +440,7 @@ describe('getPromptMessages', () => {
     });
 
     it('includes class notes when provided', () => {
-      const messages = getPromptMessages('continue-teaching', {
+      const messages = getPromptMessages('continue-progression', {
         ...fullArgs,
         classNotes: 'they struggled with comparing fractions',
       });
@@ -449,7 +449,7 @@ describe('getPromptMessages', () => {
     });
 
     it('orchestrates position resolution, sequence, readiness, and misconceptions in Oak tools', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       // The position→next backbone: resolve position via search, derive the
       // next step from the thread progression, check readiness against the
@@ -461,7 +461,7 @@ describe('getPromptMessages', () => {
     });
 
     it('guides narrowing the lessons search by the search "year" filter', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       // Anchor to the exact instructional example so a regression to a coarser
       // key-stage substitution (dropping the year filter) fails the test.
@@ -473,7 +473,7 @@ describe('getPromptMessages', () => {
     });
 
     it('instructs candidate presentation and teacher confirmation on ambiguous position matches', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       // Free-text justCovered may match several units; the prompt instructs
       // presenting candidates for the teacher to confirm, never silent selection.
@@ -487,7 +487,7 @@ describe('getPromptMessages', () => {
     // "carried verbatim from curriculum-mapping", so the two prompts' caveat
     // sentences move together or not at all.
     it('always carries the KS4 structure caution routing science via sequences', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       expect(content).toContain(
         'KS4 is more complex (tiers and exam boards); science at KS4 must be traversed via sequences (get-sequences), not the flat lessons route.',
@@ -495,7 +495,7 @@ describe('getPromptMessages', () => {
     });
 
     it('instructs exactly one explicit anchor mode for the misconception-graph step', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       // The tool's parse-time contract errors on ambiguous anchors; the served
       // step must show ONE anchor mode with a slug-from-step placeholder, so
@@ -509,7 +509,7 @@ describe('getPromptMessages', () => {
     });
 
     it('presents the readiness list as checkable against what the class has covered', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       // The next unit's assumed prior knowledge is what the class should now
       // have secured — served as a checkable readiness list.
@@ -518,13 +518,13 @@ describe('getPromptMessages', () => {
     });
 
     it('chains into lesson-planning rather than restating the planning workflow', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       expect(content).toContain('lesson-planning');
     });
 
     it('carries Oak attribution under the Open Government Licence and keeps the teacher in charge', () => {
-      const messages = getPromptMessages('continue-teaching', fullArgs);
+      const messages = getPromptMessages('continue-progression', fullArgs);
       const content = messages.map((m) => m.content.text).join(' ');
       expect(content).toContain('Oak National Academy');
       expect(content).toContain('Open Government Licence');

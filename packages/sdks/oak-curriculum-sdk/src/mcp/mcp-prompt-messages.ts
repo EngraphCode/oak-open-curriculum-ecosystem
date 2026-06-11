@@ -18,4 +18,4 @@ export { getExploreCurriculumMessages } from './prompt-messages/explore-curricul
 export { getLearningProgressionMessages } from './prompt-messages/learning-progression.js';
 export { getCurriculumMappingMessages } from './prompt-messages/curriculum-mapping.js';
 export { getAdaptLessonMessages } from './prompt-messages/adapt-lesson.js';
-export { getContinueTeachingMessages } from './prompt-messages/continue-teaching.js';
+export { getContinueProgressionMessages } from './prompt-messages/continue-progression.js';

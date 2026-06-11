@@ -27,7 +27,7 @@ import {
   learningProgressionArgsSchema,
   curriculumMappingArgsSchema,
   adaptLessonArgsSchema,
-  continueTeachingArgsSchema,
+  continueProgressionArgsSchema,
 } from './prompt-schemas.js';
 
 const PROMPT_REGISTRATIONS = [
@@ -74,11 +74,11 @@ const PROMPT_REGISTRATIONS = [
     argsSchema: adaptLessonArgsSchema,
   },
   {
-    name: 'continue-teaching',
-    title: 'Continue Teaching from Where You Are',
+    name: 'continue-progression',
+    title: 'Continue Progression',
     description:
       "Plan the next step from where your class is: state what they just covered and get the next unit from Oak's sequence, a checkable readiness list, and the misconceptions to anticipate.",
-    argsSchema: continueTeachingArgsSchema,
+    argsSchema: continueProgressionArgsSchema,
   },
 ] as const;
 

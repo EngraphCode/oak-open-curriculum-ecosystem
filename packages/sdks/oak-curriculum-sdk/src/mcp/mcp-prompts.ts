@@ -18,7 +18,7 @@ import {
   getLearningProgressionMessages,
   getCurriculumMappingMessages,
   getAdaptLessonMessages,
-  getContinueTeachingMessages,
+  getContinueProgressionMessages,
 } from './mcp-prompt-messages.js';
 
 /**
@@ -140,7 +140,7 @@ export const MCP_PROMPTS: readonly McpPrompt[] = [
     ],
   },
   {
-    name: 'continue-teaching',
+    name: 'continue-progression',
     description:
       "State where your class is — what they just covered — and plan the next step from Oak's curriculum sequence: assumed prior knowledge surfaced as a checkable readiness list, upcoming misconceptions anticipated, then a full lesson plan through lesson-planning.",
     arguments: [
@@ -185,8 +185,8 @@ export function getPromptMessages(
       return getCurriculumMappingMessages(args);
     case 'adapt-lesson':
       return getAdaptLessonMessages(args);
-    case 'continue-teaching':
-      return getContinueTeachingMessages(args);
+    case 'continue-progression':
+      return getContinueProgressionMessages(args);
     default:
       return [];
   }

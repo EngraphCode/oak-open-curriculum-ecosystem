@@ -24,7 +24,7 @@ Accepted (amended 2026-06-11)
 > **Amendment (2026-06-11 — position-anchored-teaching-continuity, w1-c1).**
 > The Prompts section below was reconciled with the shipped estate, which
 > had drifted: the served set is seven prompts (the table previously listed
-> five, one under a pre-ship name). `continue-teaching` was added as the
+> five, one under a pre-ship name). `continue-progression` was added as the
 > position-anchored entry point — it resolves position→next and chains into
 > `lesson-planning`, never duplicating planning substance (the S3
 > extend/merge reconciliation discipline, PR #162 precedent).
@@ -109,13 +109,13 @@ Seven parameterised workflow templates that the user explicitly invokes (slash c
 | `learning-progression` | concept, subject                             | Search threads, map progression, identify gaps                                                                               |
 | `curriculum-mapping`   | subject, keyStage, yearGroup?                | Order units from the thread backbone and prerequisites, check national-curriculum coverage                                   |
 | `adapt-lesson`         | topic, yearGroup                             | Surface pedagogical signals from Oak's graphs, retrieve EEF evidence, present calibrated options                             |
-| `continue-teaching`    | subject, yearGroup, justCovered, classNotes? | Resolve the class's position, derive the next step from the thread, readiness + misconceptions, chain into `lesson-planning` |
+| `continue-progression` | subject, yearGroup, justCovered, classNotes? | Resolve the class's position, derive the next step from the thread, readiness + misconceptions, chain into `lesson-planning` |
 
 Every prompt opens by calling `get-curriculum-model` for orientation in the Oak curriculum domain model before its workflow steps.
 
 **Intent**: Structure common teacher workflows so the model follows a proven multi-step recipe instead of improvising.
 
-**Impact**: Consistent, high-quality responses for the most common curriculum queries — including the position-anchored entry point ("my class just finished X — what next?"), which `continue-teaching` owns by resolving position→next and chaining into `lesson-planning` rather than duplicating it.
+**Impact**: Consistent, high-quality responses for the most common curriculum queries — including the position-anchored entry point ("my class just finished X — what next?"), which `continue-progression` owns by resolving position→next and chaining into `lesson-planning` rather than duplicating it.
 
 ### Prompt selection criteria
 
