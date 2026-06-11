@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto';
 
+import { V2_THEME_GROUPS } from './schemas/v2/themes.js';
+import { V2_SHARED_VERBS } from './schemas/v2/verbs.js';
 import { IDENTITY_WORD_GROUPS } from './wordlists.js';
 
 /**
@@ -11,7 +13,7 @@ import { IDENTITY_WORD_GROUPS } from './wordlists.js';
  * ordinal prefix), never bare digits, so historical rows remain
  * self-describing.
  */
-export type NamingSchemaId = 'v1-adjective-verb-noun';
+export type NamingSchemaId = 'v1-adjective-verb-noun' | 'v2-noun-verb-noun';
 
 /**
  * Casing applied to one display-name column at render time.
@@ -94,11 +96,30 @@ const V1_NAMING_SCHEMA: NamingSchema = {
   wordlistDigest: V1_WORDLIST_DIGEST,
 };
 
+const V2_WORDLIST_DIGEST = '13c9f18b4067134d1840e6416f33007891c8c5585f02096a46cc93da97c3e35a';
+
+/**
+ * The v2 era: noun-verb-noun micro-sentence names ("Comet rides Night").
+ * Edge nouns are themed and title-cased; the shared middle verb renders
+ * lowercase so the typography manufactures U-shaped salience. Frozen at
+ * activation by the digest pin.
+ */
+const V2_NAMING_SCHEMA: NamingSchema = {
+  id: 'v2-noun-verb-noun',
+  columnCasing: ['title', 'lower', 'title'],
+  groups: V2_THEME_GROUPS.map((theme) => ({
+    group: theme.group,
+    columns: [theme.subjectNouns, V2_SHARED_VERBS, theme.objectNouns],
+  })),
+  wordlistDigest: V2_WORDLIST_DIGEST,
+};
+
 /**
  * All registered naming schemas, keyed by id.
  */
 export const NAMING_SCHEMAS: Readonly<Record<NamingSchemaId, NamingSchema>> = {
   'v1-adjective-verb-noun': V1_NAMING_SCHEMA,
+  'v2-noun-verb-noun': V2_NAMING_SCHEMA,
 };
 
 /**
