@@ -230,7 +230,12 @@ first edition of this document now have observed answers:
 - **Gated seats declare their idleness.** A gate-watch seat is
   indistinguishable from a stalled seat under the PDR-078 stall
   diagnostic unless idle is declared (heartbeat label
-  `none-by-design-<gate>` plus an on-channel posture line). Relatedly,
+  `none-by-design-<gate>` plus an on-channel posture line). The
+  convention proved out end-to-end: the declared-idle seat's gate
+  fired ~85 minutes after declaration, the coordinator's GO routed to
+  it by name (the declaration had made the seat's readiness legible in
+  the coordination handover package), and claim → delivery followed
+  with no liveness query ever raised against the waiting seat. Relatedly,
   fixed-label heartbeat loops go stale by construction — relabel the
   loop as a named step of every lane transition, and stop the loop
   BEFORE emitting heartbeat-end.
@@ -240,6 +245,12 @@ first edition of this document now have observed answers:
   the synthesis custodian logs the contraction; unaffected lanes carry
   on. Lane-terminal news travelling as a DIRECTED event to one seat
   leaves the other seats blind unless relayed on-channel — relay it.
+  The shape is trigger-independent: the same session later ran an
+  owner-directed n=2→n=1 contraction mid-monitor with an identical
+  choreography (record → directed event → closeout → heartbeat-end,
+  loop stopped first). At n=1 the channel becomes a journal — its
+  residual value is the closeout-synthesis record, which is exactly
+  the conserve-at-close claim.
 - **Watcher noise scales with team size**: at 5–6 live agents the
   all-channels watcher wakes each seat every ~30–60s, dominated by
   heartbeats; gate-watch seats pay the most. A heartbeat-suppressed
