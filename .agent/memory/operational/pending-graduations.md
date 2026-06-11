@@ -37,6 +37,239 @@ windowed, backlog, split, or shard-like pending-graduation files. New capture,
 owner-gated items, and unresolved pending-graduation decisions belong here until
 they graduate, duplicate, become stale-withdrawn, or receive owner direction.
 
+## 2026-06-11 capture — Pearly Snorkelling Compass (doctrine-curation pass: fired triggers)
+
+Routed during the owner-named doctrine-curation session (naming event 211a1794;
+Director pre-position 0f36d756 carries the harvest inventory). The four items
+below have FIRED triggers and were the priority drain of the pass. Each was
+verified absent from this register before adding; every instance citation was
+re-verified first-hand against the comms corpus or the closing seat's events at
+capture time.
+
+- **Control-byte gate-check: literal control bytes in source need a mechanical
+  pre-commit screen.** Second instance FIRED: an Edit-tool write materialised an
+  escape sequence as a literal 0x1F byte in a dedup key, caught by `cat -v` +
+  `od` BEFORE commit (Prismatic, PR-180 cycle, evidence in event f305c720);
+  first instance was the invisible 0x1F that fooled a reviewer AND a first-hand
+  verifier in the same direction (Sylvan, event 4fd66dc5, 2026-06-10). The
+  behavioural doctrine is live in `distilled.md` §Curation enforcement ("write
+  escape sequences, never literal bytes; `od -c` is the tiebreaker"). The FIRED
+  candidate is the structural cure: a control-byte scan at the gate tier
+  (reject bytes < 0x20 other than tab/newline/CR in tracked text/source files)
+  — both instances were caught by ad-hoc vigilance, which the 2026-06-11
+  cross-experience synthesis names as the non-durable mechanism.
+  `[captured: 2026-06-11 | source: events 4fd66dc5 + f305c720; distilled
+  §Curation enforcement | target: repo-validator or lint-tier control-byte
+  check (agent-tools implementation lane) | trigger: FIRED 2026-06-11, second
+  instance | size: S | status: due — implementation routing sits in the
+  Director queue (pre-position 0f36d756 item 1)]`
+- **Collaboration-CLI relative-path hardening: resolve registry/comms paths
+  against the coordination home or refuse relative paths loudly.** THREE
+  instances in two days, three vectors, two failure shapes: (1) Scorched
+  (0d8138) — `claims close` with relative `--active` from a stale cwd, crash
+  masked by a pipe, caught only by the absent success token; (2) Prismatic
+  (65394e) — `claims close` relative-path crash from a worktree cwd (closeout
+  62d747c4); (3) Nebulous (3493fb) — comms-append vector: a comms sweep left
+  the shell cwd inside the comms dir and the next `node agent-tools/dist/...`
+  invocation crashed MODULE_NOT_FOUND (delta event de5122b8). All three failed
+  CLEAN; the class's dirty variant is already on record (event 9a164c5c: a
+  relative path from a worktree cwd wrote to the WRONG registry behind a
+  true-looking proof line — distilled §piped-exit entry). A fourth
+  read-direction confirmation landed during this pass (curation seat,
+  FileNotFoundError after an earlier `cd` persisted across Bash calls). The
+  behavioural cure (absolute paths; read the proof line's destination) is live
+  in distilled; the FIRED candidate is the structural CLI cure: resolve
+  `--active`/`--closed`/`--comms-dir`/`--seen-file` against a discovered
+  repo/coordination-home root, or refuse relative paths with an error that
+  names shell-cwd persistence (any prior `cd`, not only worktree seats) as the
+  trigger and absolute paths as the cure.
+  `[captured: 2026-06-11 | source: Scorched napkin entry + Prismatic closeout
+  62d747c4 + Nebulous delta de5122b8 + this pass's read-direction instance |
+  target: agent-tools collaboration-state path-resolution hardening | trigger:
+  FIRED, second instance (Scorched+Prismatic); third instance adds the
+  comms-append vector | size: S | status: due]`
+- **Heartbeat-loop hygiene bundle for `liveness-heartbeat-cron`: relabel at
+  lane transitions, stop-loop-then-emit-end ordering, one timestamp per tick,
+  and stderr-captured failure lines.** Pier's relabel candidate's BOTH named
+  triggers fired (the ARC n=3 synthesis landed via PR #174; the
+  stall-ping-on-a-working-seat instance occurred the same morning). Three
+  riders, same rule surface: Prismatic's clock-skew (two `$(date)` calls raced
+  a second boundary; the CLI rejected created_at-in-future; cure is ONE
+  timestamp per tick passed to both `--now` and `--created-at`), Scorched's
+  stderr-capture (a loop that swallows stderr surfaces its own failures as an
+  undiagnosable bare "FAILED" line), and the stop-loop-FIRST ordering for
+  heartbeat-end already worked by Pier and Nebulous. Disposition per Hushed's
+  11:15Z routing rests with the Director (register refresh or direct rule
+  amendment); the rule amendment was DRAFTED during this pass and handed to
+  the Director as a diff (rule surfaces are outside the curation write lane).
+  A PDR-078 emit-side amendment is the portable follow-up, owner-gated under
+  the Core stabilise posture (2026-06-11 Arboreal scope signal: >3 Core
+  amendments pending).
+  `[captured: 2026-06-11 | source: Pier napkin entry (4a1b92) + Prismatic
+  closeout 62d747c4 + Scorched napkin entry + this seat's live relabel at
+  claim-open | target: liveness-heartbeat-cron rule amendment (draft handed to
+  Director); PDR-078 emit-side follow-up owner-gated | trigger: FIRED, both of
+  Pier's named triggers | size: S | status: due — draft handed]`
+- **Comms `reply` demands the full event UUID — add git-style prefix
+  resolution.** Second instance FIRED (Prismatic's closeout + the earlier
+  instance counted in pre-position 0f36d756 item 4): an 8-char event-id prefix
+  exits 2 loud, while the corpus's own conventions (titles, sweep output,
+  napkin citations) circulate short prefixes, so agents naturally carry them.
+  Cure: the CLI resolves unambiguous event-id prefixes against the comms dir,
+  erroring loudly on ambiguity.
+  `[captured: 2026-06-11 | source: Prismatic closeout 62d747c4 + pre-position
+  0f36d756 item 4 | target: agent-tools comms reply/show prefix resolution |
+  trigger: FIRED, second instance | size: S | status: due]`
+
+## 2026-06-11 capture — Pearly Snorkelling Compass (doctrine-curation pass: accumulating candidates)
+
+Conserved from the same pass: candidates whose triggers have NOT fired,
+moved here from napkin capture (or registered from the harvest inventory) so
+the substance survives napkin rotation with verified instance counts. Each
+verified absent from this register before adding.
+
+- **Wrapped/piped/background-captured invocations: read the failure surface,
+  never the exit code.** FOUR worked instances across the family's variants:
+  piped `pnpm check` reporting the pipe's exit; piped `git push` printing only
+  the hook banner with zero transfer (event e589b3c7); an UNPIPED push
+  redirected to a file dying SIGPIPE exit 141 after a green hook (Hushed, PR
+  #176); a background-task wrapper reporting exit 0 while both hooks inside
+  ran red (Iridescent waypoint-3 + Smouldering's variant, independent seats).
+  Full behavioural doctrine is live in `distilled.md` §"A piped command's
+  reported exit is the pipe's"; the candidate is the doctrine-level clause in
+  `verify-dont-trust`: read the failure surface, never the exit code, for any
+  wrapped, piped, or output-captured invocation.
+  `[captured: 2026-06-11 | source: distilled §piped-exit (four variants) +
+  pre-position 0f36d756 item 5 | target: verify-dont-trust clause | trigger:
+  next verify-dont-trust amendment pass or owner direction | size: S |
+  status: pending]`
+- **MD004 wrapped-list-marker trap needs a structural cure.** FOUR instances,
+  three authors, one day (2026-06-11): reflowing 100-char-width prose wraps a
+  continuation line so it starts with a list-marker character ("+ ", "- ",
+  "* "), and markdownlint MD004 reads it as an inconsistent list marker. The
+  fourth instance landed on THIS register entry's own sibling (the curation
+  seat's heartbeat-bundle item wrapped onto "+ stderr-captured"), caught by
+  the staged-markdownlint pre-commit gate minutes after the candidate was
+  first registered at three instances — a mechanical catch, where the three
+  earlier reword cures were vigilance-shaped. Candidate cures: an authoring
+  reflex clause (audit wrap output for accidental markdown semantics — the
+  Arboreal napkin lesson) or a wrap-aware check of continuation lines at the
+  lint tier.
+  `[captured: 2026-06-11 | source: pre-position 0f36d756 item 6 + Arboreal
+  napkin entry + this pass's commit-gate instance | target: authoring-reflex
+  clause or wrap-aware continuation-line lint | trigger: FIRED, fourth
+  instance (same-day, third author) | size: S | status: due]`
+- **Comms watcher drain-step needs a budget sized to the comms dir, or the
+  dir needs hygiene.** The hardened watcher's 60s drain-step deadline died
+  fail-loud on a >100-event comms dir at least FOUR times across two seats
+  (Iridescent's restart with a real-events gap window; Nebulous's two clean
+  same-seen-file restarts, 12:18Z + 13:46Z), all restarts clean, one gap
+  window carrying substantive events. Mechanically worsens as the comms
+  corpus grows. Candidate cures: a drain budget scaled to directory size (or
+  configurable default raised — this pass ran `--step-timeout-ms 120000`
+  pre-emptively and had zero deaths), or comms-dir hygiene/archival — the
+  latter is OWNER-GATED by the standing comms-corpus preservation pause
+  (consolidate-docs step 3a: no rotation absent an owner-opened comms research
+  / retention plan).
+  `[captured: 2026-06-11 | source: pre-position 0f36d756 item 7 + Nebulous
+  delta de5122b8 + this pass's zero-death 120s run | target: agent-tools comms
+  watch drain-budget sizing; archival path owner-gated | trigger: a further
+  death after budgets are raised, or owner direction | size: S | status:
+  pending]`
+- **Worktree vocab-gen needs the gitignored bulk-downloads — symlink pattern
+  for the team opener.** Worked once (Prismatic, PR-180 cycle): vocab-gen in a
+  worktree needs `apps/oak-search-cli/bulk-downloads` (gitignored,
+  machine-local); symlinking the data files from the primary checkout into the
+  worktree skeleton dir works and stays git-invisible. Target surface is the
+  team opener's §Worktree setup (Director-owned prompt file); the drafted line
+  was handed to the Director with this pass's delta hand-off. Sibling gotcha
+  conserved with it: turbo FULL-TURBO replay on sdk-codegen masked that
+  data.json is written by vocab-gen — know the generator-task mapping before
+  assuming a regen ran.
+  `[captured: 2026-06-11 | source: Prismatic closeout 62d747c4 / event
+  f305c720 body | target: team opener §Worktree setup line (Director lands) |
+  trigger: handed this pass; lands at Director's hand | size: S | status:
+  pending — handed]`
+- **Stale-narrative-fact class: extend pointer-and-hypothesis to ALL narrative
+  coordination artefacts.** TWO instances (Sunlit's stale-ADOPTABLE routing of
+  a worktree a registry-visible claim held, peer-caught within one cadence,
+  events dd536088 + 006eb353; the evergreen-rel in-live-use near-miss, caught
+  by the cure). Closeouts, team-starts, and handoff summaries carry volatile
+  facts (worktree state, branch positions, seat occupancy) that are hypotheses
+  to re-derive from the registry + `git -C` at COMPOSE TIME, never quotable
+  facts — the same principle the Continuation Pointer Contract already applies
+  to thread records. Sibling napkin classes already live: compose-time
+  staleness (three instances in one hour, Hushed) and
+  conservation-check-goes-stale (Arboreal).
+  `[captured: 2026-06-11 | source: Sunlit napkin candidate (sixth
+  directorship) + Hushed compose-time-staleness entries | target:
+  verify-dont-trust clause or PDR-011 amendment (PDR path owner-gated under
+  the Core stabilise posture) | trigger: third stale-narrative-fact instance |
+  size: S | status: pending]`
+- **Dead relative links ride a green gate chain — link-resolution check
+  candidate.** PR 177 shipped three off-by-one `../../../` report links
+  through a 103-task green pre-push chain; a review bot, not a gate, caught
+  them (markdownlint checks style, never link resolution). Once-fix landed at
+  fe35219d8; the recur-proof cure is a relative-link + anchor resolution check
+  in the markdownlint/repo-validators gate tier. Found by the closing
+  metacognition pass AFTER the handoff loss-scan returned "all captured" — the
+  inventory question and the what-would-you-do-differently question find
+  different gaps.
+  `[captured: 2026-06-11 | source: Scorched napkin candidate (0d8138) |
+  target: repo-validators or markdownlint-tier link-resolution check |
+  trigger: second shipped-dead-link instance or owner direction | size: M |
+  status: pending]`
+- **Zero-hit absence claims need the generator's real output map plus a
+  positive control.** A zero-hit grep over the WRONG generated-output
+  directory produced a confident false "field is unsurfaced" claim that
+  nearly removed accurate language (live zod output is at
+  `oak-sdk-codegen/src/types/generated/zod/`, not `src/generated`;
+  `nationalCurriculumContent` IS served). Caught by assumptions-expert at plan
+  readiness, re-verified first-hand, plan item INVERTED. Cure: before
+  declaring any generated field absent, locate the generator's actual output
+  map (or grep the whole package), and pair every absence claim with a
+  positive control (a known-present field found by the same command). Sibling
+  of check-bulk-schema-before-declaring-data-unsourced and the
+  green-verifier-without-count family.
+  `[captured: 2026-06-11 | source: Oceanic napkin candidate (e05bf4) |
+  target: verify-dont-trust clause or distilled refinement | trigger: second
+  wrong-output-dir absence-claim instance or owner direction | size: S |
+  status: pending]`
+- **A routing-declared file move is not a landed file move.** Director routing
+  said a seed plan was "PROMOTED future/->current/" and the coordination-home
+  copy agreed, but origin/main still carried the future/ copy; a Write to
+  current/ created a duplicate that surfaced only as `create mode` in the
+  commit stat. Cure applied in the delivering PR (remove future/ copy, repoint
+  the four live referrers). Generalises: verify any claimed file MOVE against
+  the branch actually being edited (`git log origin/main -- <old-path>`),
+  never against routing text or another branch's tree. Same family as
+  verify-dont-trust + the stale-narrative-fact class above.
+  `[captured: 2026-06-11 | source: Blustery napkin candidate (9819b2) |
+  target: verify-dont-trust clause or distilled refinement | trigger: second
+  claimed-move-not-landed instance | size: S | status: pending]`
+- **Prefer mechanical firing moments over vigilance clauses when graduating
+  lessons (PDR-shaped, owner-walk).** Cross-experience synthesis across all
+  SIX 2026-06-11 experience files: doctrine that was READ failed to FIRE until
+  an external catch (peer/Director/bot) or a MECHANICAL step (ls-remote proof,
+  typed-args rejection, guard test, loud-write token) — never by re-reading.
+  The candidate knowledge-flow discipline: when graduating a lesson, prefer
+  encoding the firing moment mechanically over adding a vigilance clause. This
+  pass adds confirming texture: every fired trigger drained above has a
+  mechanical-cure shape (gate-tier byte scan, CLI path resolution, CLI prefix
+  resolution, typed-args + loop hygiene), and the piped-exit family's only
+  reliable catches were mechanical tokens. BALANCING counter-instance for the
+  owner walk (Prismatic's experience file, same day): the distilled 0x1F
+  warning DID fire pre-action from a plain read ("the distilled entry reaching
+  forward and catching my hand") — read-doctrine sometimes fires when the
+  warning is recent and context-warm; the candidate's honest shape is
+  "mechanical moments as the durable default", not "vigilance never works".
+  `[captured: 2026-06-11 | source: Hushed napkin candidate (consolidation
+  step-4c synthesis) + the six 2026-06-11 .agent/experience files | target:
+  PDR (knowledge-flow discipline) | trigger: owner-walk at a dedicated
+  curation pass under the Core stabilise posture — surfaced to owner in THIS
+  pass's closeout; authoring stays owner-gated | size: M | status:
+  owner-gated]`
+
 ## 2026-06-08 capture — Briny Charting Lagoon (EEF go-live: flag-engine + verification doctrine)
 
 - **"Tests pass" ≠ "the feature works" — run the assembled system, don't flag the gap.** Owner:

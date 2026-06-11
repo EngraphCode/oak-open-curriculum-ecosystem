@@ -108,6 +108,32 @@ caveats) into branding. Rigour standards travel INSIDE capabilities; branding is
 capability in its own right. Routing: fold into the taxonomy plan's audit step at
 promotion, then delete here.
 
+## Coordination-surface compose discipline (2026-06-11 window)
+
+- **Sweep the directed backlog (full inbox window since last sweep) immediately before
+  composing ANY closeout, re-declaration, routing, or coordination text.** The compose
+  moment is precisely when a peer's reply is most likely in flight: read-newest-only missed
+  a grant, an owner-ratification relay, and a pre-grant in ONE session (each landed seconds
+  before compose); the cure held live at a Director Moment-2 (watcher surfaced a retained-
+  authority GO mid-compose; body amended before posting). After ANY watcher restart, the
+  same sweep covers the gap window — a fail-loud restart's ~2-minute gap carried substantive
+  events. Inbox verb, never `ls -t | head`.
+- **Timestamps compare in UTC only — derive "now" with `date -u` FIRST.** Comms `created_at`
+  (UTC) against file mtimes (local display time) manufactures phantom gaps: two independent
+  successor-bootstrap misreads inferred a dead team / a retirement from a 1-hour display
+  offset (2026-06-11). Never infer liveness from mtime display time; compare like-for-like.
+
+## Commit-message drafting gotchas (verified cures)
+
+- **`pnpm agent-tools:check-commit-message -F file` false-greens** — pnpm eats `-F` as
+  `--filter`, the script runs argless and exits 0 (two independent instances). Working shape:
+  `pnpm exec tsx agent-tools/src/commit-advisories/check-commit-message.ts -F <file>`, proven
+  with a deliberate-RED negative case first. Tool fix sits in the Director queue.
+- **commitlint `footer-leading-blank` fires from a body line with `token #ref` shape** (e.g.
+  `PR #170`) — it parses as a conventional-commits footer missing its leading blank. Cure:
+  write `pull request 170` or move the ref to the real footer. Bisected empirically; em-dashes
+  and bullet shapes were innocent.
+
 ## Curation enforcement and verifier lessons
 
 - **During live parallel curation, verify named surfaces immediately before quoting
@@ -122,7 +148,11 @@ promotion, then delete here.
   diff, grep, sed, AND reviewer rendering, fooling a reviewer and a first-hand
   verifier in the same direction (2026-06-10, event 4fd66dc5); a PUA sentinel was
   earlier stripped by an editing tool. Reading source is not always seeing source —
-  `od -c` or an empirical probe is the tiebreaker.
+  `od -c` or an empirical probe is the tiebreaker. The write direction bites too
+  (second instance, 2026-06-11, event f305c720): an Edit-tool write MATERIALISED an
+  escape sequence into a literal 0x1F — run the byte check after writing
+  escape-bearing code, not only when reviewing. Structural gate-tier cure is a due
+  register item (fired 2026-06-11).
 - **RED-first disproof before fixing a reviewer-predicted misbehaviour.** When a
   finding predicts concrete wrong behaviour, write the test FIRST and demand RED; an
   unexpected GREEN refutes the finding (and once refuted both a reviewer and the
@@ -182,7 +212,11 @@ banner is never the proof. Run pushes unpiped with the real exit echoed. Second
 lived instance same day (Hushed, PR #176): even an UNPIPED push redirected to a
 file died SIGPIPE (exit 141) after a fully-green hook with ZERO transfer — only a
 bare push transferred, and only ls-remote distinguished the three attempts. The
-proof discipline is unconditional, not a piping-hygiene rule.
+proof discipline is unconditional, not a piping-hygiene rule. Fourth family
+member (2026-06-11, two independent seats): a background-task WRAPPER's exit 0
+covers only the wrapper — a commit+push inside ran both hooks red while the
+wrapper reported green; the verdict lives in the captured output's failure
+markers, never in any wrapper's exit code.
 
 ## An uncapped workflow `findings[]` array runs a StructuredOutput agent away
 
