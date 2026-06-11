@@ -47,13 +47,13 @@ This ADR fills that gap: it documents which curriculum capabilities are exposed 
 
 ### Tools (model-controlled)
 
-36 tools: 24 generated from the OpenAPI schema plus 12 aggregated
+37 tools: 24 generated from the OpenAPI schema plus 13 aggregated
 tools. The model decides when to call them based on the user's question and
 the tool visibility metadata exposed through the MCP contract.
 
 - **Generated tools** (24) are produced at SDK compile time from the OpenAPI schema. When the upstream API changes, `pnpm sdk-codegen` updates the tool definitions automatically.
-- **Aggregated tools** (12) are hand-authored compositions that orchestrate API calls, search, reference data, and MCP App entry points. These include `search`, `fetch`, `browse-curriculum`, `explore-topic`, `get-thread-progressions`, `get-prior-knowledge-graph`, `get-misconception-graph`, `get-curriculum-model` (domain ontology and tool usage guidance), `download-asset`, `user-search`, and `user-search-query`.
-- One aggregated tool draws on an external evidence corpus rather than the Oak curriculum API: `eef-explore-evidence-for-context` returns a typed subgraph of EEF Teaching and Learning Toolkit strands (with structural citations and caveats) for a lesson context. It composes the `GraphView` substrate per [ADR-179](179-transport-agnostic-graph-substrate.md) and carries `eef-*` namespacing + source attribution per [ADR-157](157-multi-source-open-education-integration.md).
+- **Aggregated tools** (13) are hand-authored compositions that orchestrate API calls, search, reference data, and MCP App entry points. These include `search`, `fetch`, `browse-curriculum`, `explore-topic`, `get-thread-progressions`, `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`, `get-curriculum-model` (domain ontology and tool usage guidance), `download-asset`, `user-search`, and `user-search-query`.
+- One aggregated tool draws on an external evidence corpus rather than the Oak curriculum API: `get-eef-evidence` returns a typed subgraph of EEF Teaching and Learning Toolkit strands (with structural citations and caveats) for a lesson context. It composes the `GraphView` substrate per [ADR-179](179-transport-agnostic-graph-substrate.md) and carries `eef-*` namespacing + source attribution per [ADR-157](157-multi-source-open-education-integration.md).
 
 > **Maintenance note**: the tool counts and the aggregated-tool list above are
 > hand-maintained and drift from the code as tools are added (this entry is the
