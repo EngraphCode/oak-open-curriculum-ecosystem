@@ -185,3 +185,50 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   IMMEDIATELY before every `git commit`, halt on any foreign entry. The queue ceremony's
   verify-staged step is collision protection, not ceremony, even when the registry reads
   empty.
+
+## 2026-06-11 — snagging deep-analysis + plan phase (Dusky Passing Mist, 2c0c4b)
+
+- **In-repo research that names a defect does not flow into sibling decision threads by
+  itself.** `mcp-client-tool-result-consumption-2026-05-28.md` concluded "only both is
+  robust" and recommended revising structuredContent-only — ten days before EEF D6 shipped
+  structuredContent-only (ratified 2026-06-06/07 in the EEF thread, scoped to graph tools'
+  rebuild). The 2026-06-11 Cursor live exercise rediscovered it in prod. Cure direction:
+  a research output whose conclusion contradicts a pending/ratified decision in ANOTHER
+  thread needs an explicit cross-thread surfacing step, not just a filed report.
+  Distilled candidate.
+- **My own verification grep carried a single-line assumption** — `rg "z\.number\(\)"`
+  missed the multi-line Zod chain at `aggregated-keyword-graph.ts:67-72`, and I briefly
+  held the explorer's correct citation as suspect. Second instance of the
+  audit-my-own-filters lesson (sibling: the `-v .test.ts` exclusion, 2026-06-09). Use
+  `rg -U` (multiline) or structural reads when sweeping fluent/chained API patterns.
+- **A workflow explorer's summary can contradict its own findings** — the S2 agent's
+  answer said "upstream bulk-data conflation" while its findings proved upstream carries
+  per-placement descriptions and OUR extractor collapses them (first-occurrence-wins,
+  `keyword-extractor.ts:101-105,152-186`). Read the findings, not just the synthesis,
+  before acting. Instance of validate-specialist-findings.
+- **An adversarial reviewer can invent calendar gates** — wilma's "metric must run live
+  ≥3 days before the EEF fix merges" failed the gates-must-be-citable screen; the
+  before/after delta is measurable deterministically (instrumented server, both builds,
+  local). Rejected with reasoning in the approved plan; sequencing kept (metric PR first).
+- **Live two-client probe beats speculation**: Cursor surfaces only `content` blocks;
+  Claude Code (probed from this session against oak-prod) surfaces only `structuredContent`
+  — opposite halves. Worth keeping as the canonical client-matrix example alongside the
+  2026-05-28 research.
+
+## 2026-06-11 — owner catch: conditional in a test (Dusky Passing Mist, execution phase)
+
+- **I wrote `if (shape ok) { expect(...) }` in a test; owner challenged "what happens if
+  it is not met?"** Answer: nothing — the guarded assertions silently skip and the test
+  PASSES. It proves only that the unguarded path ran; it is unfalsifiable for exactly the
+  case it guards, while READING as proof. I had part-caught it pre-challenge (swapped to
+  throw-guards, the house fail-loud narrowing), but the deeper diagnosis per
+  testing-strategy stands: the conditional existed because I erased types myself (loose
+  recording fake capturing a registered handler), then clawed the shape back at use — a
+  complex mock fighting the real seam (the McpServer overload type error was the tell).
+  Cure that worked: DELETE the capture test; prove the behaviour at the level where it is
+  real (e2e through HTTP→SDK→SSE reading the app's own logger; Zod `.parse` as the
+  fail-loud record check; deterministic enumeration; zero conditionals). Numeric edge
+  semantics stay in unit tests. Irony worth keeping: the vacuous-pass shape is the same
+  disease the token metric exists to cure — what you don't measure (assert) can vanish
+  silently. Siblings: [[feedback_tests_no_global_state]], testing-strategy §No conditional
+  tests, the EEF unit test's throw-guard precedent.
