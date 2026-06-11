@@ -131,6 +131,16 @@ merge_class: index-narrative-tables
   store-side cure direction). Late Director instances napkinned (watcher-rewrite comment-
   detection lapse; two worktree-singleton interleaves). **Next safe step**: Pearly's closeout
   deltas → final waypoint; owner items as the top entry; next tranche by observed alpha use.
+  **CURATION LANE DELIVERED (14:36Z)**: Pearly closed out zero-retained — 4 fired triggers
+  drained (loop-hygiene GRADUATED via PR #183; control-byte gate-check, CLI relative-path
+  hardening, comms-reply prefix resolution all due-with-routing on the Director queue as
+  agent-tools lanes), 9 candidates conserved, napkin rotated, char-HARD cured. Three curated
+  classes fired ON the curator mid-pass, all caught mechanically; the balancing warm-read
+  counter-instance recorded — the mechanical-firing-moments PDR candidate stays owner-gated
+  with honest two-sided evidence. **SESSION FULLY QUIESCED**: the seventh Director is the
+  sole live seat; the durable next-actions are the Director-queue agent-tools items, the
+  owner-gated register walk, w3-c1 + S3-principles at owner direction, and next-tranche
+  shaping by observed alpha use.
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
@@ -704,6 +714,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Scorched Kindling Ash` | `claude` | `fable-5` | `0d8138` | `eef-revalidation-pr177-monitor-to-merge` | 2026-06-11 | 2026-06-11 |
 | `Prismatic Shimmering Planet` | `claude` | `fable-5` | `65394e` | `pr176-shepherd-then-keyword-stories-then-2b-dedup` | 2026-06-11 | 2026-06-11 |
 | `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `pr178-remainder+w2c1-implementer` | 2026-06-11 | 2026-06-11 |
+| `Pearly Snorkelling Compass` | `claude` | `fable-5` | `a8eabc` | `doctrine-curation-lane-tranche-boundary` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 
