@@ -66,11 +66,30 @@ merge_class: index-narrative-tables
   Blustery → Scorched (#177 delivered, lane ENDED, closed out clean, oak-wt-umbral-g4
   ADOPTABLE); Smouldering → Nebulous (continuation claim `d73c15d2`; where-next rename + two
   held Copilot verdicts + monitor-to-merge + w2-c1 after; record
-  `2026-06-11-smouldering-pr178-to-nebulous.md`). **Next safe step**: Nebulous's rename lands →
-  #178 merge ask → serialised merge (flip the position-anchored plan's w1-c1 todo at that
-  waypoint); Prismatic's keyword-stories PR → serialised merge; then route 2b (multiplicity
-  dedup — pre-positioned on Prismatic, gate cleared); tranche-boundary consolidation pass
-  recommended at completion (rich doctrine harvest + repo-continuity char-HARD cure).
+  `2026-06-11-smouldering-pr178-to-nebulous.md`). **MID-SESSION WAYPOINT 3 (~13:10Z)**: the
+  owner reopened the prompt name around the SEQUENCING concept → four-source definitions check
+  at the owner's direction (upstream spec; bulk schema; served curriculum model; public
+  glossary) → final owner decision **continue-progression** (the served model's
+  programmesVsSequences criticalDistinction set "sequence" aside as the API-internal entity;
+  "progression" is the served tool-category name for exactly the tools the prompt
+  orchestrates; superseding sign-off chain on PR #178). **PR #179 MERGED `c13281ca3`** (both
+  owner halves on main: the five-story keyword discovery note + the position-anchored plan
+  with the W3 vocabulary-bridge fold — Prismatic's sequencing fact ratified option (a): the
+  plan rode the PR onto main). **PR #178 MERGED `201e3eedb`** — the SEVENTH prompt
+  continue-progression is LIVE (four-finding two-wave adjudication under Nebulous incl. the
+  substantive Bugbot year-divergence cure: chain on the NEXT unit's teaching year, surface
+  divergence, teacher decides per ADR-194); w1-c1 todo flipped completed this waypoint;
+  Nebulous straight into w2-c1 (claim `3e41b266`, feat/impact-language-alignment). Prismatic
+  in the 2b TDD cycle (claim `2cb293ec`, fix/prerequisitefor-dedup-at-emission). Second
+  main-merge into the coordination home (`c2ef4ef84`, plan-file conflict main-authoritative).
+  Doctrine signals accumulated for the boundary consolidation: relative-path claims-close
+  crash SECOND instance (Scorched + Prismatic — trigger fired); watcher drain-timeout died
+  TWICE this session on the >100-event comms dir (agent-tools candidate: drain budget or dir
+  hygiene); piped-push false-green worked instances now FOUR. **Next safe step**: Prismatic's
+  2b PR → readiness reviewers → serialised merge — the make-graphs-better tranche completion
+  bar closes there (owner ~12:04Z); Nebulous's w2-c1 PR; then the tranche-boundary
+  consolidation pass (rich doctrine harvest + repo-continuity char-HARD cure) and next-tranche
+  shaping from observed alpha use (owner doctrine: user impetus, not design momentum).
 - **PRIOR SESSION (2026-06-11 mid-morning, Sunlit Waxing Asteroid / claude Fable 5, Director
   SIXTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) — fifth
   PDR-064 Director succession, completed cleanly.** Ethereal's Moment-1 pre-positioning (event
@@ -640,6 +659,10 @@ session narrative for each is in git history; this table is the durable identity
 | `Sunlit Waxing Asteroid` | `claude` | `Fable 5` | `14a56a` | `graph-implementation-director-sixth-holder` | 2026-06-11 | 2026-06-11 |
 | `Blustery Buffeting Gale` | `claude` | `Fable 5` | `9819b2` | `graph-implementation-g4b-fourth-holder-then-eef-reproof` | 2026-06-11 | 2026-06-11 |
 | `Iridescent Threading Constellation` | `claude` | `Fable 5` | `f9454b` | `graph-implementation-director-seventh-holder` | 2026-06-11 | 2026-06-11 |
+| `Smouldering Stoking Hearth` | `claude` | `fable-5` | `fddf14` | `position-anchored-w1c1-implementer` | 2026-06-11 | 2026-06-11 |
+| `Scorched Kindling Ash` | `claude` | `fable-5` | `0d8138` | `eef-revalidation-pr177-monitor-to-merge` | 2026-06-11 | 2026-06-11 |
+| `Prismatic Shimmering Planet` | `claude` | `fable-5` | `65394e` | `hushed-successor-pr176-pr179-then-2b-implementer` | 2026-06-11 | 2026-06-11 |
+| `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `smouldering-successor-pr178-w1c1-then-w2c1` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 

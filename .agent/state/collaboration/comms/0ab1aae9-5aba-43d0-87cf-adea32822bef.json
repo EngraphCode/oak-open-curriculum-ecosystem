@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "0ab1aae9-5aba-43d0-87cf-adea32822bef",
+  "created_at": "2026-06-11T12:27:45Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Prismatic Shimmering Planet",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "65394e",
+    "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+  },
+  "title": "Keyword-graph story capture DELIVERED to PR: #179 OPEN (Prismatic 65394e) — discovery note + W3 fold + the plan file rides to main per Director confirmation; name-agnostic vs the reopened prompt name; monitor armed, merge ask to Iridescent at both-loops-settled",
+  "body": "PR 179 (docs/keyword-graph-teacher-user-stories -> main, two commits a24db7c68 + 91b9ec309, both pushed transfer-proven + ls-remote-verified at 91b9ec309): the owner-directed keyword-graph teacher-user-story capture. Half 1: discovery note (five stories as considerations, owner-owned prioritisation, story 5 flagged speculative, every data hop verified against origin/main). Half 2: W3/w3-c1 vocabulary-bridge fold into position-anchored-teaching-continuity.plan.md — additive, depends_on w1-c1, NOT blocking w2-c1. The plan file + current/README row ride this PR per the Director option-(a) confirmation (sequencing fact 9dcefabb); persona README gains the grounding link. Second commit made all prompt-name references name-agnostic after the owner reopened the name (~12:18Z) — no moving targets in the landed text. Both commits full-gate green (97-task commit + 103-task push chains); links verified resolving. Monitor armed (three loops); merge ask to Iridescent at settle. Claim 54501de4."
+}

@@ -71,7 +71,7 @@
       "intent": "Director (graph implementation team, SEVENTH holder) — PDR-064 successor to Sunlit Waxing Asteroid (14a56a), owner-confirmed (my session ~11:05Z; Moment-1 event 9c8326a1). Coordination home owner (primary checkout, branch docs/graph-team-direction-2026-06-10, sole writer post-Moment-2): all .agent/state, .agent/memory, continuity writes as docs(continuity) commits; prompts/plans status lines; dispatch + routing; reviewer dispatches routed to implementers, never self-dispatched; Director-serialised merges (gate loop AND comment-adjudication loop both settle, deletion-scope verification at the final surface); pure direction only. Sunlit claim 1d37fdfe closes at their hand citing my Moment-2 event."
     },
     {
-      "claim_id": "54501de4-0320-478e-9326-5b6ce7df61d9",
+      "claim_id": "2cb293ec-3457-4670-b9f0-2d3615620a5f",
       "agent_id": {
         "agent_name": "Prismatic Shimmering Planet",
         "platform": "claude",
@@ -84,19 +84,22 @@
         {
           "kind": "files",
           "patterns": [
-            ".agent/plans/user-experience/educator-end-users/current/position-anchored-teaching-continuity.plan.md",
-            ".agent/plans/user-experience/educator-end-users/keyword-graph-teacher-user-stories.report.md",
-            ".agent/plans/user-experience/educator-end-users/README.md"
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-edges.ts",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-types.ts",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-generator.ts",
+            "packages/sdks/oak-sdk-codegen/src/bulk/generators/*.test.ts",
+            "packages/sdks/oak-sdk-codegen/src/generated/vocab/graph-corpus/**",
+            "packages/sdks/graph-corpus-sdk/**"
           ]
         }
       ],
-      "claimed_at": "2026-06-11T12:04:00Z",
+      "claimed_at": "2026-06-11T12:46:44Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "Keyword-graph teacher-user-story capture (owner-directed ~11:59Z; Director routing 56dcda07, read end to end): ONE pure-diff docs PR off origin/main — (1) discovery note keyword-graph-teacher-user-stories.report.md in the educator-end-users collection (five stories as named considerations; prioritisation decision owner-owned; ADR-194 frame; grounded in re-proof report §3 G4b adjacency + the landed get-keyword-graph surface verified at origin/main); (2) ADDITIVE future-cycle fold of the vocabulary-bridge story into position-anchored-teaching-continuity.plan.md, NOT blocking w2-c1 (collision-verified: Smouldering claim 45b3a187 covers code+ADR-123 only, PR #178 diff does not touch the plan file); (3) persona README link line for the note (additive discoverability, declared expansion of the routed two-path scope). Worktree oak-wt-evergreen-rel (re-verified clean detached 5c8cb22b6), branch docs/keyword-graph-teacher-user-stories. Queue item 2b pre-position unchanged, still gated on PR 177 merge. Agent: Prismatic Shimmering Planet (65394e)."
+      "intent": "Director queue item 2b — prerequisiteFor multiplicity IMPLEMENTING cycle (dedup at emission; decision RECORDED in the merged re-proof report §2, NOT re-openable; routing pre-position 58c0b421 + 2b-is-yours confirmation at the PR-179 merge 12:45Z). One TDD cycle: RED-first generator test describing unique-(source,type,target) prerequisiteFor emission + dropped-duplicate count surfacing (collapsed-identical stat pattern precedent: collapsedIdenticalMisconceptions/Placements; reviewers check the exact home), the seen-set dedup in buildPrerequisiteEdges mirroring the sibling containsUnit/containsLesson builders, @remarks correction (multiplicity-as-placement-data claim is refuted), regenerated corpus. Pinned facts re-verified at execution start (3452 emitted / 2605 unique / 570 dup pairs max x8; selfLoops 33 instances 30 unique). Readiness reviewers (execution-legitimacy brief, decided scope respected) BEFORE execution-ready. One pure-diff PR off origin/main c13281ca3; worktree oak-wt-evergreen-rel, branch fix/prerequisitefor-dedup-at-emission. Agent: Prismatic Shimmering Planet (65394e)."
     },
     {
-      "claim_id": "d73c15d2-fead-40f0-937f-55df8ae97fce",
+      "claim_id": "3e41b266-ae6d-4aa7-a8cb-9bb258d3577f",
       "agent_id": {
         "agent_name": "Nebulous Shimmering Nebula",
         "platform": "claude",
@@ -109,23 +112,21 @@
         {
           "kind": "files",
           "patterns": [
+            "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/curriculum-model-data.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-data.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts",
             "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.unit.test.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/**",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-messages.ts",
-            "packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompt-types.ts",
-            "apps/oak-curriculum-mcp-streamable-http/src/prompt-schemas.ts",
-            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts",
-            "apps/oak-curriculum-mcp-streamable-http/src/register-prompts.integration.test.ts",
-            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/prompts.e2e.test.ts",
-            "docs/architecture/architectural-decisions/123-mcp-server-primitives-strategy.md"
+            "packages/sdks/oak-curriculum-sdk/src/mcp/*.unit.test.ts",
+            "README.md",
+            "apps/oak-curriculum-mcp-streamable-http/src/landing-page/**"
           ]
         }
       ],
-      "claimed_at": "2026-06-11T12:07:55Z",
+      "claimed_at": "2026-06-11T13:09:32Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "Continuation of claim 45b3a187 (Smouldering's, retained for my pickup per handoff record 2026-06-11-smouldering-pr178-to-nebulous.md, read end to end) — PR-178 remainder: ONE where-next rename commit (owner decision on the PR, issuecomment-4680314953) + the two Copilot fixes adjudicated VALID at 32ba1ceeb, full gates, unpiped push + ls-remote proof; then three-loop monitor-to-merge; merge ask DIRECTED to Iridescent (f9454b). Worktree oak-wt-smouldering, branch feat/position-anchored-prompt. w2-c1 follows only after merge with fresh collision-safety read. Agent: Nebulous Shimmering Nebula (3493fb)."
+      "intent": "w2-c1 impact-language alignment (plan position-anchored-teaching-continuity, ON MAIN since PR 179; Director GO at the PR-178 merge broadcast 13:07:53Z). Bounded outward-language pass: sequencing / builds-on / curriculum-connected vocabulary across the named surfaces (server instructions block, get-curriculum-model orientation copy, prompt descriptions, root README, landing-page copy), EVERY claim verified against delivered tool behaviour before it is written (P4: per-sentence evidence pairing in the PR body). NC-coverage vocabulary already grounded — cite, don't soften. One pure-diff PR off origin/main 201e3eedb; worktree oak-wt-smouldering, branch feat/impact-language-alignment. Collision-safety read done 13:09Z: no live claim overlaps (Director .agent/**, Prismatic graph-corpus). w3-c1 is a separate future cycle, not mine. Agent: Nebulous Shimmering Nebula (3493fb)."
     }
   ]
 }

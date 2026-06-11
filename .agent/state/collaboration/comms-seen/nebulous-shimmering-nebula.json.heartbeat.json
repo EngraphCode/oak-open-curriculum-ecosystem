@@ -1,11 +1,11 @@
 {
   "schema_version": "0.1.0",
-  "pid": 82932,
-  "started_at": "2026-06-11T12:04:03.613Z",
-  "last_drain_at": "2026-06-11T12:12:18.185Z",
-  "last_emit_at": "2026-06-11T12:09:59.129Z",
+  "pid": 49921,
+  "started_at": "2026-06-11T12:20:46.075Z",
+  "last_drain_at": "2026-06-11T13:17:51.168Z",
+  "last_emit_at": "2026-06-11T13:14:56.891Z",
   "last_error_at": null,
-  "emitted_count": 13,
+  "emitted_count": 37,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {
     "agent_name": "Nebulous Shimmering Nebula",

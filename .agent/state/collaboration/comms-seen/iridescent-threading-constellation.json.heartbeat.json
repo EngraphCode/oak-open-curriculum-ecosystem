@@ -1,11 +1,11 @@
 {
   "schema_version": "0.1.0",
-  "pid": 87051,
-  "started_at": "2026-06-11T11:06:12.498Z",
-  "last_drain_at": "2026-06-11T12:12:31.764Z",
-  "last_emit_at": "2026-06-11T12:09:15.988Z",
+  "pid": 34419,
+  "started_at": "2026-06-11T12:49:15.398Z",
+  "last_drain_at": "2026-06-11T13:18:08.737Z",
+  "last_emit_at": "2026-06-11T13:14:52.007Z",
   "last_error_at": null,
-  "emitted_count": 111,
+  "emitted_count": 15,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {
     "agent_name": "Iridescent Threading Constellation",

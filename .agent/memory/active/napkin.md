@@ -241,4 +241,26 @@ capture continues below.
   restart: capture stderr into the failure line (`ERR=$(cmd 2>&1 >/dev/null) || echo "FAILED:
   $ERR"`); sibling of the loud-writes class. The canonical watcher's fail-loud drain-timeout +
   same-seen-file restart path worked exactly as documented (second worked instance, zero missed
-  events — gap window verified by seen-vs-dir sweep).
+  events — gap window verified by seen-vs-dir sweep). `candidate:` rule amendment —
+  graduation-target: `liveness-heartbeat-cron` clause "heartbeat/monitor loops report failures
+  WITH captured stderr, never a bare failure line" (rides alongside Pier's pending
+  relabel-at-lane-transitions candidate, same rule); trigger: second
+  undiagnosable-loop-failure instance.
+- **The piped-exit class caught ME minutes after reading its lesson** (trigger data for
+  Hushed's mechanical-firing-moments candidate above): my first `claims close` ran with a
+  relative `--active` path from a stale cwd AND `| tail -3` — the CLI crashed on the missing
+  file and the pipe masked the non-zero exit; only the absent success token betrayed it.
+  Re-ran unpiped with absolute paths, explicit exit echoed, both registries verified
+  first-hand (the write had failed CLEAN — no misdirected registry write). Two known classes
+  composed in one invocation (piped-exit + relative-collaboration-path); the catch was the
+  mechanical loud-write token check, not vigilance — exactly the cross-experience synthesis'
+  predicted shape.
+- **candidate: dead relative links pass the full gate chain** — PR 177 shipped three
+  off-by-one `../../../` report links through a 103-task green pre-push chain; a review bot,
+  not a gate, caught them (markdownlint checks style, never link resolution). The once-fix
+  landed at fe35219d8; the recur-proof cure (metacognition.md §Cure Shape) is a relative-link
+  plus anchor resolution check in the markdownlint/repo-validators gate tier. Surfaced by the
+  closing metacognition pass AFTER the handoff loss-scan returned "all captured" — the
+  inventory question and the what-would-you-do-differently question find different gaps.
+  Graduation-target: repo-validators (or markdownlint config) link-resolution check;
+  trigger: second shipped-dead-link instance, or owner direction.
