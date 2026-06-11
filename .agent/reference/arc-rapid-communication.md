@@ -48,13 +48,18 @@ the evaluation evidence (conserved from the live experiment channel on
 
   Identity is the PDR-027 tuple by convention (name + session prefix in
   the header and signature). Timestamps replace turn numbers: concurrent
-  appenders collide on turn numbers (observed 2026-06-11, two "turn 51"s);
-  file position plus timestamp orders entries unambiguously.
+  appenders collide on turn numbers (observed 2026-06-11, two "turn 51"s).
+  FILE POSITION is the authoritative order; header timestamps are
+  compose-time claims, not append-time facts (observed at n=3: entries
+  landing out of timestamp order under concurrent composition). Do not
+  infer causality from timestamps alone.
 
 ## Conventions
 
 1. **One channel per pairing (or grouping) per topic, in a dated file** —
-   `YYYY-MM-DD-<topic-slug>-<name-a>-<name-b>.md`. A single shared file
+   `YYYY-MM-DD-<topic-slug>-<name-a>-<name-b>.md` for pairs; for groups
+   whose roster is unknown at open, `YYYY-MM-DD-<topic-slug>.md` (see
+   §Running an n≥3 channel, roster accretion). A single shared file
    accreted three pairs' history (70KB) and taxed every new pair with all
    prior pairs' context; per-pair files cure this and the
    channel-discovery race below.
@@ -64,7 +69,12 @@ the evaluation evidence (conserved from the live experiment channel on
    index; the rapid channel cannot announce its own existence. (Observed
    failure modes: two agents opened channels simultaneously at ~07:50Z
    2026-06-11 — cured by first-broadcast-establishes-context; an agent
-   missed three entries in 2026-05-27 after a channel moved paths.)
+   missed three entries in 2026-05-27 after a channel moved paths; an
+   appender derived the path from the announce TITLE instead of copying
+   it verbatim from the body and appended one directory up — the
+   stray-path vector, 2026-06-11. Cures: put the absolute path in the
+   announce title as well as the body, and verify the tail-target file
+   exists with the expected header before appending.)
 3. **Conserve-at-close.** ARC is working memory. Decisions, recon,
    verdicts, and insights fold into their canonical homes (handoff
    records, thread records, reports, reference docs) before the session
@@ -81,11 +91,14 @@ the evaluation evidence (conserved from the live experiment channel on
 
 ## Evaluation evidence (as of 2026-06-11)
 
-Four arcs observed: a driver/reviewer commit-cycle collaboration
+Five arcs observed: a driver/reviewer commit-cycle collaboration
 (2026-05-27, turns 20–43 of the founding channel), a research handover
 with corrections (2026-05-28, turns 44–49), a work-split negotiation plus
-recon handover (2026-06-11), and the owner-directed handover coordination
-that followed.
+recon handover (2026-06-11), the owner-directed handover coordination
+that followed, and the first n≥3 group channel (2026-06-11, a
+three-seat reliability successor team running rendezvous, boundary
+split, two PR deliveries, and a deliberate contraction entirely
+on-channel — see §Running an n≥3 channel).
 
 **Measured benefits:**
 
@@ -105,13 +118,34 @@ that followed.
   round-trip, and was safe to act on because the entry cited the owner
   turn it relayed. The citation discipline (`gates must be citable`) is
   what makes authority-bearing content legitimate on a peer channel.
+- The latency benefit holds at n=3: a three-seat boundary-split
+  negotiation went proposal → 3/3 confirmed in ~4 minutes; seat handover
+  → both inherited PRs merged in ~15 minutes, with zero owner mediation
+  and zero Director round-trips spent on team-internal coordination.
+- Owner-direction triangulation is an n≥3-only benefit: the same owner
+  direction landed independently in three seats' chats and each relayed
+  it on-channel with a citation — three independent citations made the
+  direction self-confirming, where the n=2 protocol leaned on the
+  citation discipline alone.
+- Handoff quality converts directly into successor velocity (a
+  post-handover execution measurement, distinct from the negotiation
+  latency above): a per-item state table with an evidence column let
+  one seat go claim → both-loops-verified → merge ask in ~4 minutes,
+  and run a full reviewed follow-on cycle (pre-review, implement,
+  gates, post-review, commit, push, PR, merge) in ~45 minutes.
 
 **Known limitations (with worked instances):**
 
 - Bootstrap depends on the canonical stream (pointer events) — ARC is a
   complement by construction.
-- Append atomicity is unguaranteed (no corruption observed at n=2
-  frequency; unproven under contention).
+- Append atomicity is unguaranteed, and a SPLIT append is now observed
+  (2026-06-11, n=3): a heredoc `cat >>` entry landed across two
+  `write()` calls mid-signature, delivering a stray fragment line to
+  followers' tails (benign — detected by header enumeration; no
+  concurrent writer hit the window), but one concurrent writer away
+  from a real interleave. Interim mitigation: compose the full entry
+  first and append it with a single buffered write (one short `>>`
+  redirection), not a long heredoc.
 - Cross-machine durability is nil for un-re-included channel files
   (gitignored) and waypoint-grained at best for the tracked founding
   channel; conserve-at-close is the cure, and it is a discipline, not a
@@ -119,33 +153,92 @@ that followed.
 - No tags/schema: failure-mode tagging and watcher render tokens are
   unavailable on-channel; substance needing those belongs on the
   canonical stream.
-- **Non-append writes reset every follower.** `tail -F` treats an inode
-  swap or truncate-and-rewrite as rotation and replays the entire file
-  into every follower's context (observed live 2026-06-11 ~08:16Z, both
-  participants' tails flooded; content intact). The liveness contract
-  assumes strictly append-only writes (`>>`). Convention: conservation,
+- **Non-append writes reset every follower, and the cost scales with
+  n−1.** `tail -F` treats an inode swap or truncate-and-rewrite as
+  rotation and replays the entire file into every follower's context
+  (observed live 2026-06-11 ~08:16Z, both participants' tails flooded;
+  content intact). The liveness contract assumes strictly append-only
+  writes (`>>`). Three vectors are now observed: a conservation-pass
+  rewrite; a placeholder-then-substitute fix-up (an in-place edit even
+  when the change is one token — compose the timestamp BEFORE the
+  append; corrections are new entries, never edits); and external
+  lint/format passes (`--fix` gates run from the repo root reach
+  gitignored channel files and rewrite them in place — an MD004 marker
+  flip was observed in a seat buffer). Convention: conservation,
   backup, or normalisation passes COPY the channel file elsewhere and
   never rewrite it in place; editing tools that write whole files are
-  unsafe on a live channel.
+  unsafe on a live channel; keep entries lint-clean at compose time
+  (wrapped lines must not start with a list-marker character) so
+  format gates have nothing to fix.
 
 **Named triggers for mechanism-level work** (do not build ahead of
 these; the zero-ceremony property is the thing to protect):
 
-- First n≥3 group channel ("gellings") — group dynamics, addressing, and
-  read-cursor questions are all unobserved.
+- ~~First n≥3 group channel ("gellings")~~ — FIRED 2026-06-11; the
+  observations are folded into §Running an n≥3 channel below.
 - First observed interleaved/corrupted append under real contention —
-  then consider a CLI-mediated append.
+  then consider a CLI-mediated append. NOT yet fired, but one near-miss
+  closer (the observed split append above). A tiny atomic-append helper
+  (compose-then-single-`O_APPEND`-write) is the consolidated cure
+  candidate: it would close the split-append, placeholder-rewrite, and
+  stray-path classes at once. Path-and-append discipline failed twice
+  in ten minutes across two well-grounded agents, so when this trigger
+  fires, prefer the helper over more vigilance.
 - First cross-platform pairing (Codex or Cursor seat) — tail/append
   ergonomics differ.
 
-## Spinning up an n≥3 channel (untested guidance)
+## Running an n≥3 channel (observed 2026-06-11)
 
-Apply the conventions above plus: one dated file for the group; the
-announce event lists every participant tuple; every participant tails the
-same absolute path; first-broadcast-establishes-context resolves any
-opening race; expect the unobserved questions (threading, addressing,
-quorum on proposals with deadlines) to surface — capture them as
-evaluation notes and fold them back into this document.
+First observed instance: a three-seat team ("gellings") ran a full seat
+lifecycle on one channel — rendezvous, boundary split, parallel PR
+delivery, and a deliberate contraction. The open questions from the
+first edition of this document now have observed answers:
+
+- **Roster accretion replaces roster declaration.** "The announce event
+  lists every participant tuple" is unsatisfiable when a team assembles
+  asynchronously. Observed cure, worked first time: open with a partial
+  roster, the canonical announce carries only the absolute path, and
+  each seat appends an identity entry on arrival. The canonical
+  heartbeat surface does real rendezvous work — seats discovered each
+  other there before the channel existed.
+- **Addressing**: a named-addressee prefix ("Name —") for seat-specific
+  asks, unaddressed entries read as to-all. All three seats converged
+  on this independently without negotiation — a shared doctrine corpus
+  produces convention convergence cheaply.
+- **Read-cursor**: every seat tails everything and triages in
+  reasoning; no per-seat cursor mechanism was needed at this scale.
+- **Quorum, two observed shapes**: (a) live-seats — explicit one-line
+  confirms closed a three-way boundary split in ~4 minutes, with
+  "preference-inside-confirmation" emerging as a third signal type
+  between confirm and objection (the mapping-holder absorbs it with
+  stated grounds and an explicit swap-offer); (b) deadline+default —
+  never fired, retained as the dark-seat backstop. Contraction
+  consensus proved lighter than formation consensus: verdict from the
+  affected seat + custodian concurrence + unaffected-seat carve-out,
+  with only an objection window as mechanism.
+- **Compose-races are the norm, not the exception** (four instances in
+  one session): entries cross mid-air, and "awaiting your line"
+  assertions must be re-checked against the file before acting on an
+  absence. Write entries that survive arriving after a crossing peer
+  entry; file position arbitrates.
+- **Gated seats declare their idleness.** A gate-watch seat is
+  indistinguishable from a stalled seat under the PDR-078 stall
+  diagnostic unless idle is declared (heartbeat label
+  `none-by-design-<gate>` plus an on-channel posture line). Relatedly,
+  fixed-label heartbeat loops go stale by construction — relabel the
+  loop as a named step of every lane transition, and stop the loop
+  BEFORE emitting heartbeat-end.
+- **Disassembly is choreographed, not attritional.** The observed
+  contraction shape: the closing seat posts a team-member closeout plus
+  heartbeat-end on the canonical stream and a sign-off entry on-channel;
+  the synthesis custodian logs the contraction; unaffected lanes carry
+  on. Lane-terminal news travelling as a DIRECTED event to one seat
+  leaves the other seats blind unless relayed on-channel — relay it.
+- **Watcher noise scales with team size**: at 5–6 live agents the
+  all-channels watcher wakes each seat every ~30–60s, dominated by
+  heartbeats; gate-watch seats pay the most. A heartbeat-suppressed
+  watcher view for non-Director seats is an open question, counterweighed
+  by the rendezvous value of heartbeat visibility above.
 
 ## Relationship to the canonical channels
 
