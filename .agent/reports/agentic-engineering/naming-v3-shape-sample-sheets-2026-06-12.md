@@ -11,6 +11,22 @@ Blossom wrote during the 2026-06-11/12 naming-lane session (seed 20260611, read-
 live v2 wordlists; agentive and adverb pools are DEMO lists — a real v3 requires the full
 curation gates). 56 samples per sheet.
 
+## The comparison that informed the decision (n = 1000 sessions; exact pool sizes)
+
+| Shape | First-word pool | Full namespace N | E[duplicate pairs] @1000 | First-name clash rate per 10-agent window |
+| --- | --- | --- | --- | --- |
+| v2 baseline (3-word) | 300 | 192,000 | 2.6 | 15% |
+| A adjective+noun | 119 | 64,260 | 7.8 | 38% |
+| B noun+noun | 300 | 72,000 | 6.9 | 15% |
+| C noun+agentive (curated ~120) | 540 | 64,800 | 7.7 | 8.3% |
+| D noun+verb+adverb (curated like v2) | 300 | 192,000 | 2.6 | 15% |
+
+Formulae: expected duplicate pairs = n(n−1)/2N; per-window clash rate = C(10,2)/first-pool.
+Pools verified from the live wordlists (300 subject + 240 object nouns, zero overlap → 540
+union; 119 unique adjectives; 16 verbs). C wins per-window distinctiveness decisively; the
+namespace cost (~3× v2's duplicate pairs at corpus scale) is display-level only, backstopped
+by session-prefix + UUID.
+
 ## Decision context
 
 - **The four shape directions** (selected with the owner 2026-06-11): A adjective+noun,

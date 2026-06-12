@@ -51,10 +51,16 @@ surface.
   2026-06-12** — recorded in the
   [sample-sheets artefact](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
   sequence stays era-pinning cure → C wordlist curation (full v2 gates, ~120 agentives) → v3
-  registry entry. **Comms research dispatch RELEASED by owner (2026-06-12), gated only on
-  this team session's closeout.** The 2026-06-11/12 handover-team arc itself is COMPLETE:
-  both lanes landed (#189–#194), both implementers closed out cleanly; the coordination
-  branch's continuity bundle MERGED to main as PR #195 (`063b2d43a`).
+  registry entry. **Comms research dispatch RELEASED by owner (2026-06-12) — its closeout
+  gate is now MET: the Director session closed 2026-06-12 (PRs #195/#196/#197 merged; final
+  handoff + consolidation run; both prior branches verified 0-commits-unmerged).**
+  (12) The path-sweep code-class follow-on lane: remaining OS-temp-path carriers in code
+  (logger runtime defaults, test fixtures, integration temp usage — enumerable via
+  `git grep -lF '/tmp/' -- '*.ts' '*.sh'`) plus the CI validator the
+  no-machine-local-paths rule names; behaviour changes need their own TDD cycles, never a
+  sweep sed. The 2026-06-11/12 handover-team arc itself is COMPLETE: both lanes landed
+  (#189–#194), both implementers closed out cleanly; continuity bundles merged as PRs
+  #195/#196; the wider-ecosystem options summary merged owner-reviewed as #197.
 
 - **TRACK-G COMPLETE + CURED — graph implementation team, seventh Director (2026-06-11).**
   Live NOW: **Iridescent Threading Constellation (`f9454b`, Fable 5) is the Director**

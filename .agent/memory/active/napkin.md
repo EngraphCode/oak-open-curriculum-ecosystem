@@ -414,3 +414,12 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   client-visibility lessons (rendering evidence before shape ratification). Belongs to the
   standing owner-directed specialist-agent design overhaul; mcp-expert is now its first
   named target.
+- **Sweep-execution captures (path-sweep, 2026-06-12)**: (1) BSD `sed -i ''` creates
+  transient `.!nnnnn!file` siblings that RACE live directory watchers (observed: comms-drain
+  ENOENT mid-sweep) — pause or expect-noise on watchers before in-place sweeps over watched
+  dirs. (2) An OS-temp commit-message file evaporated between two commit attempts DURING the
+  no-OS-temp-paths sweep itself — poetic worked confirmation of both the temp-files rule and
+  the commit skill's `.git/COMMIT_EDITMSG` recommendation; deviate from the skill, get bitten.
+  (3) The eef identity-row char-pressure cure that worked: verify every name in the row's
+  prior-tail exists in the thread record's identity table (set-membership, scripted), THEN
+  replace the tail with a pointer — dedup-with-proof, zero loss, ~1.8k chars freed.
