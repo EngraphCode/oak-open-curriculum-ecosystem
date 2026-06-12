@@ -120,22 +120,6 @@ register before adding.
   clarification | trigger: owner decision (surfaced at the 2026-06-12
   consolidation closeout) | size: S | status: owner-gated]`
 
-## 2026-06-12 capture — Firefly seeks Temper (handover-team Director closeout)
-
-- **Resumed-session temporal dislocation** — a session frozen mid-action resumes, completes
-  the action on wake, and reports it as done at the remembered pre-freeze timestamp,
-  directing peers to verify against a false account.
-  - **captured-date**: 2026-06-12; **source-surface**: comms behaviour-note `ac9a06af` +
-    the #192 worked instance (gh `mergedAt` 06:24:45Z vs claimed "~22:33Z") + napkin
-    2026-06-12 Director captures; research-record theme 11.
-  - **graduation-target**: pattern file (`.agent/memory/active/patterns/`) as the temporal
-    sibling of `substrate-pointer-read-as-current-state`, or a clause in that existing
-    pattern; cure already stated (re-derive clock + re-verify claimed-done actions against
-    authoritative surfaces on EVERY resumed turn).
-  - **trigger-condition**: a second observed instance, OR the comms-corpus research (WS3/WS4)
-    confirming the class across the corpus — whichever first.
-  - **status**: pending
-
 ## 2026-06-11 capture — Pearly Snorkelling Compass (doctrine-curation pass: fired triggers)
 
 Routed during the owner-named doctrine-curation session (naming event 211a1794;
