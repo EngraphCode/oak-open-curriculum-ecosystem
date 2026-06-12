@@ -2,9 +2,9 @@
   "schema_version": "0.1.0",
   "pid": 99589,
   "started_at": "2026-06-12T09:09:33.532Z",
-  "last_drain_at": "2026-06-12T09:30:00.697Z",
+  "last_drain_at": "2026-06-12T09:51:27.145Z",
   "last_emit_at": "2026-06-12T09:15:12.553Z",
-  "last_error_at": null,
+  "last_error_at": "2026-06-12T09:44:56.224Z",
   "emitted_count": 1,
   "heartbeat_interval_ms": 30000,
   "watcher_identity": {

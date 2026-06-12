@@ -164,7 +164,7 @@ Per Director Twilit ST tick #3 routing (18:03:24Z):
 - **Cycle #6** — WS-2 SPLIT (PDR-076 → PDR-076a identity tuple +
   PDR-076b body-file frontmatter; 1 permanent-doc citation update
   at `.agent/rules/loop-exit-criteria-required.md:120`). Author:
-  Ferny (paste-ready stubs at `/tmp/ferny-ws2-partition-prestage-
+  Ferny (paste-ready stubs at `<scratch>/ferny-ws2-partition-prestage-
   synthesis.md`). Marshal: next marshal. Status: **BLOCKED behind
   partition-cure verdict** — owner-side decision required first.
 - **Lanternlit heartbeat-doctrine substrate** (PDR-078 + ADR-186 +

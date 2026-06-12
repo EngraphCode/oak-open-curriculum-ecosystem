@@ -11,7 +11,7 @@ canonical plan's `g2-misconception-view` todo (Iridescent §4 pattern).
 (worktree `oak-wt-umbral-g4`, `apps/oak-search-cli/bulk-downloads/manifest.json`); committed
 misconception dataset `sourceVersion: 2026-03-07T16:56:12.520Z`
 (`oak-sdk-codegen/src/generated/vocab/misconception-graph/data.json`, 12,858 nodes). Analysis
-scripts conserved at `/tmp/galactic-f01540-mint-rule-analysis{,2}.py` (session-ephemeral; all
+scripts conserved at `<scratch>/galactic-f01540-mint-rule-analysis{,2}.py` (session-ephemeral; all
 result numbers reproduced below with their measurement description).
 
 ## Verdict

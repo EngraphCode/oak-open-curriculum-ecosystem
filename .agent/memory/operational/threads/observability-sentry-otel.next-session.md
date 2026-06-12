@@ -25,7 +25,7 @@ merge_class: index-narrative-tables
 
 **Step 10 closing summary**: reviewer dispatch complete (security/clerk/sentry-expert
 verdicts recovered from quota-stopped subagent transcripts; restarted sentry-expert
-completed cleanly). All four verdicts appended to `/tmp/mcp-tool-exercise.log`. Three P2
+completed cleanly). All four verdicts appended to `<scratch>/mcp-tool-exercise.log`. Three P2
 snags added to `pr-93-merge-snagging-2026-05-05.md`. Step 10 verdict **ACCEPTED** — no P1
 blockers.
 

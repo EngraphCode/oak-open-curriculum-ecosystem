@@ -101,7 +101,7 @@ todos:
     content: "Phase 2.5 (FIND-008, HARDENING): repo-wide static check (lint rule or unit test) asserting .resetKey, .resetAll, .getKey symbols never appear outside rate-limiting/. Lands with brand-preservation work since the brand expansion is what motivates it."
     status: pending
   - id: cluster-b-runGitCommand-lockdown
-    content: "Cluster B (Phase 1, TOP PRIORITY): runGitCommand chain lockdown. **COMPLETE** as of 2026-04-28 (Luminous Dancing Quasar, claude-code, claude-opus-4-7-1m, two commits on PR-87). 9b2b2ed7 landed the architectural cure (validateGitSha at trust boundary, named gitShowFileAtSha+gitFetchShallow capabilities, scrubbedGitEnv, defence-in-depth on filePath, symmetric stderr diagnostics). 84571ccf finished the env-scrub (absolute /usr/bin/git, scrubbedGitEnv no longer reads PATH, eager check unwound, S3776 cognitive-complexity refactor via attemptShowAfterShallowFetch + readPackageJsonText helpers, removed /tmp/evil S5443 fixtures). All 5 reviewers absorbed (code/security/fred/test/wilma). Sonar hotspot AZ3D3iflrIk5eL0ceU__ closed; new_security_hotspots_reviewed flipped 90.9% → 100% OK; 0 TO_REVIEW. MUST-FIX argv-injection class closed. The cluster's two file-scoped Sonar issues (S5843 + S6644) carry forward to Phase 4 per plan."
+    content: "Cluster B (Phase 1, TOP PRIORITY): runGitCommand chain lockdown. **COMPLETE** as of 2026-04-28 (Luminous Dancing Quasar, claude-code, claude-opus-4-7-1m, two commits on PR-87). 9b2b2ed7 landed the architectural cure (validateGitSha at trust boundary, named gitShowFileAtSha+gitFetchShallow capabilities, scrubbedGitEnv, defence-in-depth on filePath, symmetric stderr diagnostics). 84571ccf finished the env-scrub (absolute /usr/bin/git, scrubbedGitEnv no longer reads PATH, eager check unwound, S3776 cognitive-complexity refactor via attemptShowAfterShallowFetch + readPackageJsonText helpers, removed <scratch>/evil S5443 fixtures). All 5 reviewers absorbed (code/security/fred/test/wilma). Sonar hotspot AZ3D3iflrIk5eL0ceU__ closed; new_security_hotspots_reviewed flipped 90.9% → 100% OK; 0 TO_REVIEW. MUST-FIX argv-injection class closed. The cluster's two file-scoped Sonar issues (S5843 + S6644) carry forward to Phase 4 per plan."
     status: completed
   - id: cluster-b-vercel-runner
     content: "Cluster B (legacy id, kept for cross-reference): scope is fully captured under cluster-b-runGitCommand-lockdown above. Treat the WIP id as authoritative."
@@ -532,7 +532,7 @@ consumer).
   file-path defence-in-depth, and symmetric stderr diagnostics;
 - `5d6622d0` — surgical fix for parallel-session seed-env rename drift;
 - `84571ccf` — absolute `/usr/bin/git`, no PATH inheritance from scrubbed env,
-  cognitive-complexity refactor, and removal of `/tmp/evil` fixtures.
+  cognitive-complexity refactor, and removal of `<scratch>/evil` fixtures.
 
 **Outcome on PR-87 head `84571ccf`**: `new_security_hotspots_reviewed` flipped
 90.9% → 100% OK; Sonar hotspot `AZ3D3iflrIk5eL0ceU__` closed via data-flow

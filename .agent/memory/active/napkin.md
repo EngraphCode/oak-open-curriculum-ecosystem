@@ -86,7 +86,7 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   guidance should include a stale-process census (ps for prior watchers on the same
   seen-file). Cleanup: TaskStop killed mine cleanly; orphans killed by pid.
 - **Forename-keyed /tmp filenames collide across same-forename agents** (curation seat, at
-  handoff): my closeout draft Write to `/tmp/pearly-closeout.md` hit yesterday's Pearly
+  handoff): my closeout draft Write to `<scratch>/pearly-closeout.md` hit yesterday's Pearly
   Snorkelling DOCK file at the same default path — caught by the Write tool's
   read-before-overwrite guard (mechanical, again). Cure applied: identity-qualified temp
   names (`pearly-compass-<purpose>-<date>`). The PDR-027 full-name+prefix discipline,

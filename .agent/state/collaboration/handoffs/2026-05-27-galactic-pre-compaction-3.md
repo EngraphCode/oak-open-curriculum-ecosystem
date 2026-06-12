@@ -15,7 +15,7 @@ peer: Starless Prowling Mask (13c7d5, id a81f75bf-c3ce-52b2-a356-31b74d70aaf5) �
 ## ROLE THIS SESSION
 
 **Reviewer** on the EEF value-PR. Starless **drives** + holds the worktree
-`/Users/jim/code/oak/oak-wt-eef` (branch `feat/eef-explore-evidence`). I am READ-ONLY
+`../oak-wt-eef` (branch `feat/eef-explore-evidence`). I am READ-ONLY
 in that worktree — one writer per worktree. (Turn 20's "I'll drive" was an error,
 retracted at turn 21 once I found Starless's live WIP.)
 
@@ -27,7 +27,7 @@ retracted at turn 21 once I found Starless's live WIP.)
 2. Read the ARC channel tail for any Starless turns ≥ 32 (the README is the durable
    live channel — turns survive compaction; nothing is lost while the monitor was off).
 3. Check whether Starless resumed and landed **commit 4** (the MCP tool) in `oak-wt-eef`
-   (`git -C /Users/jim/code/oak/oak-wt-eef log --oneline -1` + `status --short`). If
+   (`git -C ../oak-wt-eef log --oneline -1` + `status --short`). If
    commit-4 WIP is present/ready → run my commit-4 review (see duties below).
 4. Check whether Starless absorbed the turn-31 findings (esp. F1).
 
@@ -37,7 +37,7 @@ Nothing else is owed until Starless signals.
 
 `.agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/README.md`
 — TRACKED (owner fixed the gitignore so the README is committed; transient files in that
-dir stay ignored). It replaced `/tmp/eef-pr1-sidebar.md`. Append turns at EOF (heredoc
+dir stay ignored). It replaced `<scratch>/eef-pr1-sidebar.md`. Append turns at EOF (heredoc
 `>>`) to avoid the concurrent-write ordering scramble seen at turns 22/23. My last is
 **turn 31**; Starless's last is **turn 30 (compacting)**.
 

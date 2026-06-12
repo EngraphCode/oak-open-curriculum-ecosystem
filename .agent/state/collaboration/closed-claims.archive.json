@@ -10174,7 +10174,7 @@
       "claimed_at": "2026-06-10T13:25:26Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "S2 (Seat A / Track S): s2-prompt-language-pass — fixed-language pass over the 5 served MCP prompts (canonical arg vocabulary per B3; distinguishable names per B4; adapt-lesson arg-mapping fix per B2 once confirmed first-hand). One atomic test+code pure-diff PR off origin/main. Source edits in my own worktree /Users/jim/code/oak/oak-wt-seat-a; this is the coordination-home visibility claim. Team critical path — G1b gate is S2-only.",
+      "intent": "S2 (Seat A / Track S): s2-prompt-language-pass — fixed-language pass over the 5 served MCP prompts (canonical arg vocabulary per B3; distinguishable names per B4; adapt-lesson arg-mapping fix per B2 once confirmed first-hand). One atomic test+code pure-diff PR off origin/main. Source edits in my own worktree ../oak-wt-seat-a; this is the coordination-home visibility claim. Team critical path — G1b gate is S2-only.",
       "archived_at": "2026-06-10",
       "closure": {
         "kind": "explicit",
@@ -10218,7 +10218,7 @@
       "claimed_at": "2026-06-10T13:44:10Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G1a #153 held-merge fixes (Seat B / Track G, Director Addendum): (1) add src/curriculum/**/*.ts to graph-corpus-sdk tsup entry globs so ./curriculum default condition ships dist/curriculum/*.js; (2) re-point oak-sdk-codegen/src/graph-corpus.ts barrel at ./generated/vocab/graph-corpus/index.js direct (drop aggregate eager-load). One commit on feat/g1a-graph-corpus-foundation; source edits in worktree /Users/jim/code/oak/oak-wt-airy-g; this is the coordination-home visibility claim. Then S2-gated G1b.",
+      "intent": "G1a #153 held-merge fixes (Seat B / Track G, Director Addendum): (1) add src/curriculum/**/*.ts to graph-corpus-sdk tsup entry globs so ./curriculum default condition ships dist/curriculum/*.js; (2) re-point oak-sdk-codegen/src/graph-corpus.ts barrel at ./generated/vocab/graph-corpus/index.js direct (drop aggregate eager-load). One commit on feat/g1a-graph-corpus-foundation; source edits in worktree ../oak-wt-airy-g; this is the coordination-home visibility claim. Then S2-gated G1b.",
       "archived_at": "2026-06-10",
       "closure": {
         "kind": "explicit",

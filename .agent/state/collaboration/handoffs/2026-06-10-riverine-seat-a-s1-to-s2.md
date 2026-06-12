@@ -4,8 +4,8 @@
 **Outgoing agent**: Riverine Swimming Sail · claude · Opus 4.8 · session_id_prefix `5cc20f` · id `ce2996db-7810-54f5-9cb3-dcee397dd256`
 **Seat / lane**: Seat A / Track S — **S1 → S2 → U1** of `graph-tools-value-redesign.plan.md` (thread `eef`).
 **Mode**: natural-boundary closeout (per Veiled's session-end directive, event `8b3dc940-d4f0-4412-8baf-31e2d1bbd462`).
-**Worktree**: `/Users/jim/code/oak/oak-wt-seat-a` — branch `feat/s1-doc-resources-single-source` at `89536435` (merged via #152). Clean tree. A gitignored `apps/oak-curriculum-mcp-streamable-http/.env.local` is present (copied from the primary for the live MCP exercise; intentionally NOT committed — never rides a PR).
-**Coordination home**: `/Users/jim/code/oak/oak-open-curriculum-ecosystem` (primary checkout; Veiled is Director and owns all `.agent/state`/`.agent/memory`/continuity writes + merge sequencing). Implementers point all comms/claims at this path by absolute path; implementer PRs are pure diffs.
+**Worktree**: `../oak-wt-seat-a` — branch `feat/s1-doc-resources-single-source` at `89536435` (merged via #152). Clean tree. A gitignored `apps/oak-curriculum-mcp-streamable-http/.env.local` is present (copied from the primary for the live MCP exercise; intentionally NOT committed — never rides a PR).
+**Coordination home**: `the repo root` (primary checkout; Veiled is Director and owns all `.agent/state`/`.agent/memory`/continuity writes + merge sequencing). Implementers point all comms/claims at this path by absolute path; implementer PRs are pure diffs.
 
 ---
 
@@ -14,7 +14,7 @@
 - **S1 (doc-resources single-sourcing) is COMPLETE and MERGED to `main`** via PR **#152** (merge commit `c2aa4791`).
   - `529786df` `refactor(mcp): single-source doc resources via curriculum://model` (10 files, +51/−409). **This commit has NO `Co-Authored-By` trailer** — it was pushed before the trailer was added; amending to add it needs a force-push, which the owner's deny rule (`Bash(git push --force-with-lease:*)`) blocks. Left as-is pending the owner's decision (leave vs authorise a one-time force-push). The owner was informed in chat.
   - `89536435` `test(mcp): harden doc-resources resources/list e2e against a vacuous pass` (2 files; Copilot review fixes). **Carries the `Co-Authored-By: Claude Opus 4.8 (1M context)` trailer.**
-- **No uncommitted product work.** Worktree sits on the merged `feat/s1` branch. Successor: `git -C /Users/jim/code/oak/oak-wt-seat-a fetch origin && git -C … checkout -b feat/s2-prompt-language-pass origin/main` (S1 is already in `origin/main` → `c2aa4791`).
+- **No uncommitted product work.** Worktree sits on the merged `feat/s1` branch. Successor: `git -C ../oak-wt-seat-a fetch origin && git -C … checkout -b feat/s2-prompt-language-pass origin/main` (S1 is already in `origin/main` → `c2aa4791`).
 - **S2 was NOT started** (per directive). S2 and U1 are the successor's work.
 
 ## 2. In-flight reasoning — S2 pre-scoping (read-only work product; this is the context to preserve)

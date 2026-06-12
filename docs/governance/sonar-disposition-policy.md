@@ -93,7 +93,7 @@ argument in test code.
 filesystem use; no production runtime exposure".
 
 **Worked example**: `packages/libs/logger/src/file-sink.unit.test.ts:43` —
-`/tmp/test.log` passed alongside vi.fn() mocked `fs`. No real filesystem
+`tmp/test.log` passed alongside vi.fn() mocked `fs`. No real filesystem
 touch.
 
 ### S5332 — Clear-text protocols (`http://`)

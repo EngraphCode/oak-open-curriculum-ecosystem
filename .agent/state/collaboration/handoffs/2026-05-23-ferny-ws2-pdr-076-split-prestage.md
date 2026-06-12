@@ -12,7 +12,7 @@ captured_by_session_id_prefix: 7c7327
 captured_by_platform: claude
 captured_by_model: claude-opus-4-7
 captured_at: 2026-05-24T21:13:00Z
-capture_origin_path: /tmp/ferny-ws2-partition-prestage-synthesis.md
+capture_origin_path: <scratch>/ferny-ws2-partition-prestage-synthesis.md
 capture_class: substrate-from-tmp-to-durable-repo
 preservation: byte-for-byte
 ---

@@ -18,7 +18,7 @@ Radiant's record (c2-1 state + c2-2/c2-3 ordering) → this record (what changed
 
 ## 1. Current edit state (exact)
 
-- Worktree `/Users/jim/code/oak/oak-wt-airy-g`, branch `feat/g1b-prior-knowledge-view`,
+- Worktree `../oak-wt-airy-g`, branch `feat/g1b-prior-knowledge-view`,
   cut off `origin/main` `d56f846d`. ADOPT IN PLACE. **Four local commits, NOT pushed**
   (G1b is ONE PR):
   - `a79b2271` c1 (Abyssal): bounded predecessor view in graph-corpus-sdk.
@@ -96,7 +96,7 @@ Radiant's record (c2-1 state + c2-2/c2-3 ordering) → this record (what changed
 1. Open your claim (rotation choreography: supersede `cd9b5e17`, request Director closure of
    mine citing your pickup event).
 2. Raise the eef-revalidation signal (see §4).
-3. `git -C /Users/jim/code/oak/oak-wt-airy-g push -u origin feat/g1b-prior-knowledge-view`,
+3. `git -C ../oak-wt-airy-g push -u origin feat/g1b-prior-knowledge-view`,
    then open ONE PR titled for G1b. Worktree git ops always via `git -C` (cwd resets to the
    primary checkout between shell calls).
 4. Post the PR number to the Director (merge is Director-serialised); monitor-to-merge with
@@ -106,7 +106,7 @@ Radiant's record (c2-1 state + c2-2/c2-3 ordering) → this record (what changed
 
 - Director: Celestial Glowing Dusk (1e526e) — authority since Moment-2 event 7f452f66, 17:26Z.
 - Team: Galactic Soaring Nebula (f01540, G2 mint-rule design analysis, read-only).
-- Coordination home = primary checkout `/Users/jim/code/oak/oak-open-curriculum-ecosystem`;
+- Coordination home = primary checkout `the repo root`;
   point all comms/claims CLIs there by absolute path. Pure-diff convention: no registry or
   continuity files ever ride the feature branch.
 - Watcher: `comms watch` CLI hardening merged as PR #157 but unverified in this seat — I ran

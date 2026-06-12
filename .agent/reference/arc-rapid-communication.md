@@ -40,9 +40,17 @@ the evaluation evidence (conserved from the live experiment channel on
   ```
 
   Observed delivery latency is seconds (~15s worst case with a polling
-  wrapper). Always use the absolute path of the ONE shared channel file —
-  worktree-relative paths silently retarget to the wrong tree (the same
-  trap as relative `--comms-dir`).
+  wrapper). The channel path is written **repo-root-relative** everywhere
+  (announce events, entries, this doc) per the no-machine-local-paths
+  rule; each participant resolves it against the PRIMARY checkout's root
+  at tail/append time — never against a worktree root, and never by
+  deriving from an announce title (the worktree silent-retarget and
+  stray-path traps both live in the RESOLUTION step, so the convention
+  is: resolve once, verify the tail-target file exists with the expected
+  header, then reuse the resolved path verbatim). (Convention changed
+  2026-06-12 from absolute paths, which cured the same traps but
+  violated the no-local-paths rule and recontaminated the repo through
+  announce events.)
 - **Entry shape**:
 
   ```text

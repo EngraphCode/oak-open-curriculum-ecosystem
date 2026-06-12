@@ -62,7 +62,7 @@ C. **Start a SECOND subagent** to watch comms efforts using this new method and 
 
 **Sync-sidebar artefacts** (the comms-method experiment the owner wants analysed post-compaction):
 
-- Live channel was `/tmp/eef-pr1-sidebar.md` (ephemeral). Galactic persisting canonical copy to `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-CANONICAL-transcript.md`.
+- Live channel was `<scratch>/eef-pr1-sidebar.md` (ephemeral). Galactic persisting canonical copy to `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-CANONICAL-transcript.md`.
 - My redundant backup: `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-sidebar-starless-backup.md`.
 - My running comms-mechanism notes (owner-requested): `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-comms-notes-starless.md` — these are an INPUT to post-resumption subagent B.
 - Superseded stub (abandoned, harmless): `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-purpose-reflection-starless-galactic.md`.

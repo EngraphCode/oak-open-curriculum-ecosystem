@@ -688,14 +688,14 @@ jq '.sequence | length' bulk-downloads/maths-primary.json  # Should be 125 units
 
 # List ALL lessons to /tmp for reference
 jq -r '.sequence[] | .unitTitle as $unit | .unitLessons[] | "\(.lessonSlug)|\(.lessonTitle)|Unit: \($unit)"' \
-  bulk-downloads/maths-primary.json > /tmp/maths-primary-all.txt
+  bulk-downloads/maths-primary.json > <scratch>/maths-primary-all.txt
 
 # Count total lessons (should be ~1072)
-wc -l /tmp/maths-primary-all.txt
+wc -l <scratch>/maths-primary-all.txt
 
 # List ALL units (MUST review ALL of these for each query)
 jq -r '.sequence[] | "\(.unitSlug): \(.unitTitle) (\(.unitLessons | length) lessons)"' \
-  bulk-downloads/maths-primary.json > /tmp/maths-primary-units.txt
+  bulk-downloads/maths-primary.json > <scratch>/maths-primary-units.txt
 
 # Read ALL query files (12 total for PRIMARY)
 cat src/lib/search-quality/ground-truth/maths/primary/precise-topic.query.ts
@@ -725,14 +725,14 @@ jq '.sequence | length' bulk-downloads/maths-secondary.json  # Should be 98 unit
 
 # List ALL lessons to /tmp for reference
 jq -r '.sequence[] | .unitTitle as $unit | .unitLessons[] | "\(.lessonSlug)|\(.lessonTitle)|Unit: \($unit)"' \
-  bulk-downloads/maths-secondary.json > /tmp/maths-secondary-all.txt
+  bulk-downloads/maths-secondary.json > <scratch>/maths-secondary-all.txt
 
 # Count total lessons (should be ~1073)
-wc -l /tmp/maths-secondary-all.txt
+wc -l <scratch>/maths-secondary-all.txt
 
 # List ALL units (MUST review ALL of these for each query)
 jq -r '.sequence[] | "\(.unitSlug): \(.unitTitle) (\(.unitLessons | length) lessons)"' \
-  bulk-downloads/maths-secondary.json > /tmp/maths-secondary-units.txt
+  bulk-downloads/maths-secondary.json > <scratch>/maths-secondary-units.txt
 
 # Read ALL query files (12 total for SECONDARY)
 cat src/lib/search-quality/ground-truth/maths/secondary/precise-topic.query.ts

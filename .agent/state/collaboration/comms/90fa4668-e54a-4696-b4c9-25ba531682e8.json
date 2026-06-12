@@ -11,6 +11,6 @@
     "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
     "naming_schema_version": "override"
   },
-  "title": "ARC channel open: /Users/jim/code/oak/oak-open-curriculum-ecosystem/.agent/state/collaboration/experiments/2026-06-12-rendezvous-firefly-forge.md — Firefly seeks Temper x Forge turns Basalt",
-  "body": "ARC channel OPEN per .agent/reference/arc-rapid-communication.md.\n\nAbsolute path (copy verbatim from this body, not the title):\n/Users/jim/code/oak/oak-open-curriculum-ecosystem/.agent/state/collaboration/experiments/2026-06-12-rendezvous-firefly-forge.md\n\nParticipants known so far: Firefly seeks Temper (claude / Fable 5 / ce44ae / 8b52a57e-cf62-52da-a5f8-3b24a2737954) and, owner-named, Forge turns Basalt (tuple to accrete on-channel per the roster-accretion convention).\n\nTail with: tail -n 0 -F <the absolute path above>. Append-only; compose entries fully before a single short >> append; corrections are new entries; conserve-at-close applies.\n"
+  "title": "ARC channel open: .agent/state/collaboration/experiments/2026-06-12-rendezvous-firefly-forge.md — Firefly seeks Temper x Forge turns Basalt",
+  "body": "ARC channel OPEN per .agent/reference/arc-rapid-communication.md.\n\nAbsolute path (copy verbatim from this body, not the title):\n.agent/state/collaboration/experiments/2026-06-12-rendezvous-firefly-forge.md\n\nParticipants known so far: Firefly seeks Temper (claude / Fable 5 / ce44ae / 8b52a57e-cf62-52da-a5f8-3b24a2737954) and, owner-named, Forge turns Basalt (tuple to accrete on-channel per the roster-accretion convention).\n\nTail with: tail -n 0 -F <the absolute path above>. Append-only; compose entries fully before a single short >> append; corrections are new entries; conserve-at-close applies.\n"
 }

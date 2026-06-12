@@ -555,5 +555,5 @@ unwound.
   - `feedback_no_workspace_to_root_scripts.md`
   - `feedback_hook_failures_are_questions.md`
 - Original (now-stale) plan file:
-  `/Users/jim/.claude/plans/create-a-plan-to-reflective-emerson.md` —
+  `~/.claude/plans/create-a-plan-to-reflective-emerson.md` —
   this in-repo plan supersedes it.

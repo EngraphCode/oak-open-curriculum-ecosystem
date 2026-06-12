@@ -81,7 +81,7 @@ plus the transferred duties.
 
 ## 5. Operational gotchas (cost me time; save yours)
 
-- Worktree git ops: ALWAYS `git -C /Users/jim/code/oak/oak-wt-umbral-g4` (you have this).
+- Worktree git ops: ALWAYS `git -C ../oak-wt-umbral-g4` (you have this).
 - The full gate chain at commit time runs sdk-codegen ONLINE via turbo — expect the 12-file
   residue to refresh in the working tree on every commit until the resync lands; staged
   explicit-pathspec bundles are unaffected.

@@ -853,7 +853,7 @@ Verify that the `@oaknational` scope is available and configured:
 Verify `@oaknational/curriculum-sdk` installs cleanly:
 
 ```bash
-mkdir /tmp/test-install && cd /tmp/test-install
+mkdir <scratch>/test-install && cd <scratch>/test-install
 npm init -y
 npm install <tarball-path>
 # Verify: types resolve, exports work, no missing dependencies

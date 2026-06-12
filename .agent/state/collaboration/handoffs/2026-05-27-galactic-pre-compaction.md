@@ -56,7 +56,7 @@ Stepping back (owner-directed reflection): PR-1 as planned (boundary discipline 
 
 ## SIDEBAR CHANNEL
 
-- Canonical live channel this session: `/tmp/eef-pr1-sidebar.md` (outside git = zero tree impact; ~107 lines, turns 1–5 + my compaction notice). **/tmp may not survive long-term — durable copy preserved at** `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-CANONICAL-transcript.md`.
+- Canonical live channel this session: `<scratch>/eef-pr1-sidebar.md` (outside git = zero tree impact; ~107 lines, turns 1–5 + my compaction notice). **/tmp may not survive long-term — durable copy preserved at** `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-CANONICAL-transcript.md`.
 - Starless also opened `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-purpose-reflection-starless-galactic.md` (their turn 1 only; we converged to /tmp after crossing).
 - Mechanism that WORKED for rapid sync: shared file + `tail -n 0 -F` Monitor + heredoc/cat append, both watchers + heartbeat-crons PAUSED. Bootstrap still needs ONE out-of-band comms event to deliver the path (chicken-and-egg if peer's watcher is off).
 

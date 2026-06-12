@@ -15,7 +15,7 @@
 
 ## 1. Current edit state
 
-**Worktree**: `/Users/jim/code/oak/oak-wt-umbral-g4`, branch `docs/eef-revalidation-reproof`
+**Worktree**: `../oak-wt-umbral-g4`, branch `docs/eef-revalidation-reproof`
 off `origin/main` (`5310d1e4e`). **Tree CLEAN. Everything pushed** — ONE commit `968aff597`,
 ls-remote transfer-proven. **PR #177 OPEN + MERGEABLE**
 (<https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/177>), checks in flight at

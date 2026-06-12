@@ -14,7 +14,7 @@ intended_consumer: post-m1-attestation-tidy-up cycle 5 (PDR-077 final author)
 created_at: 2026-05-23T20:32:00Z
 last_updated_at: 2026-05-24T21:30:00Z
 topic: pdr-077-marshal-as-cycle-discipline-draft
-capture_origin_path: /tmp/charcoal-pdr-077-draft.md
+capture_origin_path: <scratch>/charcoal-pdr-077-draft.md
 role_in_lane: draft-artefact
 ---
 

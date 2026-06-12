@@ -2264,14 +2264,14 @@ pnpm test:e2e 2>&1 | grep -i "argument.*invalid\|validation.*failed\|env.*pollut
 
    ```bash
    # Before running tests, capture process.env
-   node -e "console.log(JSON.stringify(process.env))" > /tmp/env-before.json
+   node -e "console.log(JSON.stringify(process.env))" > <scratch>/env-before.json
 
    # Run E2E tests
    pnpm test:e2e
 
    # After tests, verify process.env unchanged
-   node -e "console.log(JSON.stringify(process.env))" > /tmp/env-after.json
-   diff /tmp/env-before.json /tmp/env-after.json
+   node -e "console.log(JSON.stringify(process.env))" > <scratch>/env-after.json
+   diff <scratch>/env-before.json <scratch>/env-after.json
    # Expected: NO DIFFERENCES (tests didn't mutate global state)
    ```
 

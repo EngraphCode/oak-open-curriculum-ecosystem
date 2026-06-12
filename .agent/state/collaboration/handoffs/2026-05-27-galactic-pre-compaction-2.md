@@ -18,7 +18,7 @@ Restart the two watchers (normal comms + rapid sidebar tail), then check whether
 Starless's EEF **commit 2** has landed and needs my in-cycle review. Nothing else is owed.
 
 - Normal comms watcher: `node agent-tools/dist/src/bin/agent-tools.js collaboration-state comms watch --comms-dir .agent/state/collaboration/comms --seen-file .agent/state/collaboration/comms-seen/galactic-dancing-constellation.json --platform claude --model claude-opus-4-7 --session-prefix 7efeec 2>&1 | grep --line-buffered -v 'routing-legacy-fallback'` (persistent Monitor).
-- Rapid sidebar tail: `tail -n 0 -F /tmp/eef-pr1-sidebar.md` (persistent Monitor) — IF /tmp survived; else read the durable transcript (see below) and coordinate a fresh channel.
+- Rapid sidebar tail: `tail -n 0 -F <scratch>/eef-pr1-sidebar.md` (persistent Monitor) — IF /tmp survived; else read the durable transcript (see below) and coordinate a fresh channel.
 - Both run FROM THE PRIMARY TREE (never a worktree — item O: the collaboration-state CLI reads a worktree's stale .agent/state).
 - PAUSE both watchers during any shared-tree git op (the comms-seen-churn deadlock lesson).
 
@@ -27,10 +27,10 @@ Starless's EEF **commit 2** has landed and needs my in-cycle review. Nothing els
 ### My lane — DONE
 
 - **Cure PR #119 OPEN**: `fix/agent-tools-comms-schema → main`. Commit `92266061` ("reject empty identity strings in agent-id schema" — `.min(1)` on the 4 identity fields aligning Zod with comms-event.schema.json minLength:1). Full pre-commit + pre-push gates green (90/90 turbo, 717 tests). **code-expert APPROVE + architecture-expert-fred COMPLIANT**; both findings absorbed (test in canonical home `agent-id-schema.unit.test.ts`; TSDoc documents the constraint). AWAITING OWNER MERGE.
-  - Worktree: `/Users/jim/code/oak/oak-wt-cure` (branch `fix/agent-tools-comms-schema`, pushed). Built deps: eslint-plugin-standards.
+  - Worktree: `../oak-wt-cure` (branch `fix/agent-tools-comms-schema`, pushed). Built deps: eslint-plugin-standards.
 - **Plan corrections committed** `7dc6b2bc` on `feat/graph-foundations` (register items A+K): corrected the false "WS4.5 adapter landed" drift, reshape banner → owner-approved **4-commit** sequence, removed `ExplainError`, fixed type line-range 64-219→64-226.
 
-### EEF value-PR (Starless's lane, worktree `/Users/jim/code/oak/oak-wt-eef`, branch `feat/eef-explore-evidence`)
+### EEF value-PR (Starless's lane, worktree `../oak-wt-eef`, branch `feat/eef-explore-evidence`)
 
 - **Commit 1 (type relocation) LANDED** `52972ad6` — my in-cycle review (architecture-expert-fred + type-expert) **APPROVED**. R100 byte-identical rename; replace-don't-bridge clean.
 - **Commit 2 NOT started** (worktree clean at 52972ad6 as of compaction). 4-commit sequence: (1) relocation ✓ / (2) WS4.5 `EefStrandsGraphView` adapter + item G eslint boundary / (3) loader + freshness / (4) tool + wire-up + tests [adds the `oak-curriculum-sdk → graph-corpus-sdk` dep here].
@@ -46,7 +46,7 @@ Starless's EEF **commit 2** has landed and needs my in-cycle review. Nothing els
 
 ### MY POST-COMPACTION REVIEW DUTIES
 
-- In-cycle **fred + type-expert** review of **commit 2** (adapter) when it lands (NO mcp-expert yet — no tool surface until commit 4). Dispatch on `git -C /Users/jim/code/oak/oak-wt-eef diff` + any untracked new files.
+- In-cycle **fred + type-expert** review of **commit 2** (adapter) when it lands (NO mcp-expert yet — no tool surface until commit 4). Dispatch on `git -C ../oak-wt-eef diff` + any untracked new files.
 - In-cycle **type-expert** review for **commit 3** (register item J).
 - (Commit 4 = tool: add mcp-expert to the in-cycle set.)
 
@@ -66,6 +66,6 @@ Starless's EEF **commit 2** has landed and needs my in-cycle review. Nothing els
 
 ## CHANNELS
 
-- Rapid sidebar (live): `/tmp/eef-pr1-sidebar.md` (~292 lines, turns 1–18; my last is turn 18 = pause notice). /tmp is ephemeral.
+- Rapid sidebar (live): `<scratch>/eef-pr1-sidebar.md` (~292 lines, turns 1–18; my last is turn 18 = pause notice). /tmp is ephemeral.
 - Durable canonical transcript: `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-CANONICAL-transcript.md` is STALE (only to ~turn 6). Re-persisting turns 7–18 is **register item N (Starless owns)**. This handoff is self-contained so it does not depend on the transcript.
 - Peer: Starless Prowling Mask (13c7d5). Their last sidebar post: turn 16 (commit 1 landed, grounding commit 2). They may also be paused/compacting.

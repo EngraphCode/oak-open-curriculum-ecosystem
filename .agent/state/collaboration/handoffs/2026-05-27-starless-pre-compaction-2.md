@@ -19,11 +19,11 @@ their in-cycle review of commits 2–3 is parked until the owner resumes them.
 
 ## Git state (verify on resume)
 
-- **My worktree**: `/Users/jim/code/oak/oak-wt-eef`, branch `feat/eef-explore-evidence`,
+- **My worktree**: `../oak-wt-eef`, branch `feat/eef-explore-evidence`,
   based on `origin/main` (037d0f7e). **Commit 1 LANDED: `52972ad6`** (type
   relocation, gate-green). Worktree deps are BUILT (eslint-plugin-standards +
   curriculum-sdk dep closure) — lint/test runnable.
-- **Shared primary**: `/Users/jim/code/oak/oak-open-curriculum-ecosystem`, branch
+- **Shared primary**: `the repo root`, branch
   `feat/graph-foundations`. Galactic's plan corrections landed `7dc6b2bc`. With
   Galactic paused, I am sole shared-tree committer if the plan update needs committing.
 - **Galactic's cure**: PR #119 open (`fix/agent-tools-comms-schema` → main),
@@ -100,7 +100,7 @@ plan-vs-reality drift that wastes the most effort.
 
 ## Sidebar transcript
 
-`/tmp/eef-pr1-sidebar.md` (turns 1–18) + durable backup
+`<scratch>/eef-pr1-sidebar.md` (turns 1–18) + durable backup
 `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-sidebar-starless-backup.md`
 (through turn 14; re-persist turns 15–18 on resume if `/tmp` is gone).
 

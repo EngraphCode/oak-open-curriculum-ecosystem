@@ -114,10 +114,10 @@ for f in .agent/state/collaboration/comms/*.json; do node -e "
   const e=require('./$f');
   console.log([e.created_at,e.kind,(e.tags||[]).join('+')||'-',
     (e.author?.agent_name||e.from?.agent_name||'?')].join('|'))
-" ; done > /tmp/corpus-index.psv
-cut -d'|' -f2 /tmp/corpus-index.psv | sort | uniq -c | sort -rn   # by kind
-cut -d'|' -f3 /tmp/corpus-index.psv | sort | uniq -c | sort -rn   # by tag
-cut -d'|' -f1 /tmp/corpus-index.psv | cut -dT -f1 | sort | uniq -c # by day
+" ; done > <scratch>/corpus-index.psv
+cut -d'|' -f2 <scratch>/corpus-index.psv | sort | uniq -c | sort -rn   # by kind
+cut -d'|' -f3 <scratch>/corpus-index.psv | sort | uniq -c | sort -rn   # by tag
+cut -d'|' -f1 <scratch>/corpus-index.psv | cut -dT -f1 | sort | uniq -c # by day
 ```
 
 (One `node` process per file is slow but dependency-free; the agent may batch with a single

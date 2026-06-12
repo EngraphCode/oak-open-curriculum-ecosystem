@@ -121,11 +121,11 @@ Use when the `agent-tools` CLI is not yet built locally, or on a platform
 without the CLI:
 
 ```bash
-SEEN=/tmp/<agent>-comms-seen.txt
+SEEN=tmp/<agent>-comms-seen.txt
 ls .agent/state/collaboration/comms | sort > "$SEEN"
 while true; do
-  ls .agent/state/collaboration/comms | sort > /tmp/now.txt
-  for f in $(comm -13 "$SEEN" /tmp/now.txt); do
+  ls .agent/state/collaboration/comms | sort > tmp/now.txt
+  for f in $(comm -13 "$SEEN" tmp/now.txt); do
     jq -r --arg self "$SELF_SESSION_PREFIX" '
       if (.author.session_id_prefix // .from.session_id_prefix // "") == $self
       then empty
@@ -144,7 +144,7 @@ while true; do
            + " :: " + (.title // .subject // "?")
       end' ".agent/state/collaboration/comms/$f"
   done
-  mv /tmp/now.txt "$SEEN"
+  mv tmp/now.txt "$SEEN"
   sleep 5
 done
 ```

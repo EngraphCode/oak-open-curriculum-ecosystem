@@ -12,7 +12,7 @@
 
 ## 1. Current edit state
 
-**Worktree**: `/Users/jim/code/oak/oak-wt-airy-g`, branch `feat/g4b-keyword-graph` off
+**Worktree**: `../oak-wt-airy-g`, branch `feat/g4b-keyword-graph` off
 `origin/main` (b3a482dc, contains #162). `pnpm install && pnpm build` done (provisioned, green).
 **Nothing is committed on the branch** — ALL c1 work is working-tree state. All git ops `git -C`
 (the cwd resets to the primary checkout between Bash calls — confirmed gotcha).

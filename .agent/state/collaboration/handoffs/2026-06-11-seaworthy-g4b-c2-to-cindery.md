@@ -8,7 +8,7 @@
 
 ## 1. Current edit state
 
-**Worktree**: `/Users/jim/code/oak/oak-wt-airy-g`, branch `feat/g4b-keyword-graph` off `b3a482dc`
+**Worktree**: `../oak-wt-airy-g`, branch `feat/g4b-keyword-graph` off `b3a482dc`
 (origin/main has since advanced ~4 commits: #166 agent-tools loud-writes + releases — no overlap
 with this branch's surfaces; verified first-hand). **Working tree CLEAN.** Three commits, each
 full-gate green at landing (the pre-commit hook runs the whole chain):

@@ -139,7 +139,7 @@ Inherited from Seaworthy's 22:01Z pre-positioning §3, with additions from this 
 
 **Failure modes:**
 
-1. **Tmp-file-stale-body** (×2 instances): Lunar's team-start broadcast `bc86dec8` at 22:01Z used a stale `/tmp/lunar-team-start.md` body from a prior Claude session; Seaworthy's team-member closeout at 22:08Z fired the same pattern on a different `/tmp` file. Cure: owner-directed standing rule "tmp is buffer only, never storage" (propagated 22:08Z). Concrete sub-rules: default to inline `--body`; for `--body-file` paths, write under `.agent/state/collaboration/_tmp-<agent>-<subject>.md` + `rm -f` after; never reuse path-names without `head`-verifying content.
+1. **Tmp-file-stale-body** (×2 instances): Lunar's team-start broadcast `bc86dec8` at 22:01Z used a stale `<scratch>/lunar-team-start.md` body from a prior Claude session; Seaworthy's team-member closeout at 22:08Z fired the same pattern on a different `/tmp` file. Cure: owner-directed standing rule "tmp is buffer only, never storage" (propagated 22:08Z). Concrete sub-rules: default to inline `--body`; for `--body-file` paths, write under `.agent/state/collaboration/_tmp-<agent>-<subject>.md` + `rm -f` after; never reuse path-names without `head`-verifying content.
 
 2. **Mistbound-marshal-broadcast-gap → false-positive retirement-detection** (×2 instances): Seaworthy fired retirement-detection at 21:57Z on Mistbound (Mistbound was processing Cycle 4 abandon-flow); Lunar fired same at 22:57Z (Mistbound was mid-batch-marshal across 3 commits). Both false-positive. Cure: Director cross-references `git log` for work-evidence BEFORE escalating retirement-detection (established at 23:01Z). Companion cure adopted by Mistbound at 23:02Z: per-landing landing broadcasts, not batch-only.
 
