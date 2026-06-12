@@ -39,6 +39,7 @@ const RESET = '\u001b[0m';
 const DIM = '\u001b[2m';
 const CYAN = '\u001b[0;36m';
 const BOLD_BLUE = '\u001b[1;34m';
+const GREEN = '\u001b[0;32m';
 const RED = '\u001b[0;31m';
 const YELLOW = '\u001b[0;33m';
 const MAGENTA = '\u001b[0;35m';
@@ -46,10 +47,10 @@ const MAGENTA = '\u001b[0;35m';
 const SEPARATOR = `${DIM} · ${RESET}`;
 const DIRTY_MARK = '*';
 
-/** Context usage from this percentage upwards renders in yellow. */
-const CONTEXT_ELEVATED_PERCENT = 60;
+/** Context usage below this percentage renders in green; from it, yellow. */
+const CONTEXT_ELEVATED_PERCENT = 50;
 /** Context usage from this percentage upwards renders in red. */
-const CONTEXT_HIGH_PERCENT = 85;
+const CONTEXT_HIGH_PERCENT = 70;
 
 /**
  * Assemble the statusline string from gathered segment values.
@@ -106,5 +107,5 @@ function formatContext(usedPercentage: number): string {
   if (pct >= CONTEXT_ELEVATED_PERCENT) {
     return `${YELLOW}${text}${RESET}`;
   }
-  return text;
+  return `${GREEN}${text}${RESET}`;
 }

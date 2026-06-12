@@ -4,6 +4,7 @@ const RESET = '[0m';
 const DIM = '[2m';
 const CYAN = '[0;36m';
 const BOLD_BLUE = '[1;34m';
+const GREEN = '[0;32m';
 const RED = '[0;31m';
 const YELLOW = '[0;33m';
 const MAGENTA = '[0;35m';
@@ -35,7 +36,7 @@ describe('renderStatusline', () => {
     ).toBe(
       `${MAGENTA}Fragrant Creeping Sapling${RESET}${SEP}` +
         `${DIM}Opus 4.7${RESET}${SEP}` +
-        `ctx:12%${SEP}` +
+        `${GREEN}ctx:12%${RESET}${SEP}` +
         `${BOLD_BLUE}feat/eef-explore-evidence${RESET}${SEP}` +
         `${CYAN}wt:oak-wt-eef${RESET}`,
     );
@@ -71,22 +72,22 @@ describe('renderStatusline', () => {
     expect(renderStatusline({ ...base, branch: undefined, dirty: true })).not.toContain('*');
   });
 
-  it('renders low context usage uncoloured, rounded to a whole number', () => {
+  it('renders low context usage in green, rounded to a whole number', () => {
     const line = renderStatusline({ ...base, usedPercentage: 12.6 });
-    expect(line).toContain('ctx:13%');
+    expect(line).toContain(`${GREEN}ctx:13%${RESET}`);
     expect(line).not.toContain(`${YELLOW}ctx:13%`);
     expect(line).not.toContain(`${RED}ctx:13%`);
   });
 
-  it('renders elevated context usage in yellow from 60%', () => {
-    expect(renderStatusline({ ...base, usedPercentage: 60 })).toContain(`${YELLOW}ctx:60%${RESET}`);
-    expect(renderStatusline({ ...base, usedPercentage: 59.4 })).not.toContain(`${YELLOW}ctx:59%`);
+  it('renders elevated context usage in yellow from 50%', () => {
+    expect(renderStatusline({ ...base, usedPercentage: 50 })).toContain(`${YELLOW}ctx:50%${RESET}`);
+    expect(renderStatusline({ ...base, usedPercentage: 49.4 })).not.toContain(`${YELLOW}ctx:49%`);
   });
 
-  it('renders high context usage in red from 85%', () => {
-    expect(renderStatusline({ ...base, usedPercentage: 85 })).toContain(`${RED}ctx:85%${RESET}`);
-    expect(renderStatusline({ ...base, usedPercentage: 84.4 })).toContain(
-      `${YELLOW}ctx:84%${RESET}`,
+  it('renders high context usage in red from 70%', () => {
+    expect(renderStatusline({ ...base, usedPercentage: 70 })).toContain(`${RED}ctx:70%${RESET}`);
+    expect(renderStatusline({ ...base, usedPercentage: 69.4 })).toContain(
+      `${YELLOW}ctx:69%${RESET}`,
     );
   });
 
