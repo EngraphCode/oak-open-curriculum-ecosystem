@@ -6,7 +6,8 @@
  *
  * Built through `parseOptions` rather than a hand-assembled Options value so
  * the test also proves `role` is registered in the value-taking flag
- * whitelist.
+ * whitelist. The dispatch-time allowlist is a second, separate gate —
+ * covered by `cli-claim-role.integration.test.ts`.
  */
 import { describe, expect, it } from 'vitest';
 
