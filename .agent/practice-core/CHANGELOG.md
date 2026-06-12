@@ -4,6 +4,44 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-06-12 — owner-approved amendment queue authored (Thyme wakes Canopy dedicated consolidation)
+
+The amendment queue the owner approved at the 2026-06-11 register walk
+("next dedicated session authors without re-asking") landed in one pass:
+
+- **Authored**: `PDR-092-mechanical-firing-moments-over-vigilance-clauses.md`
+  (knowledge-flow discipline: mechanical firing moments as the durable
+  graduation default, vigilance clauses as interim capture; corollary —
+  an untested mechanism is prose in costume).
+- **Authored**: `PDR-093-self-correcting-measurable-deliverables.md`
+  (`pdr_kind: pattern`; deliverables sequenced by consumption so a
+  successor's gate breaks on predecessor drift; host plan skill amended
+  to carry the drafting discipline).
+- **Amended**: PDR-064 — pre-positioning matured into a shadow-period
+  process; standing-successor authorisation + the citable-gate test
+  (resolves deferred open question 4); Director-session closeout
+  obligations; Status Proposed → Accepted per its own fired trigger.
+- **Amended**: PDR-011 — two clauses: subjective register reconciled to
+  "valued when genuine; voluntary always" (no volume/thinning monitor),
+  and the completeness backstop split into externalisable claim
+  verification vs holder-exclusive context-loss detection. ADR-150
+  host mirror updated.
+- **Amended**: PDR-078 — new §7 emit-side loop hygiene (posture derived
+  at emit time, one timestamp per tick, stop-loop-then-emit-end,
+  stderr-captured failures).
+- **Amended**: PDR-085 — instrument/discovery deliverables (beneficiary
+  = the team enabled to explore; receipt = first real reading produced
+  and consumed; PDR-093 as the honesty mechanism).
+- **Verified already-homed**: the continuity-surface disposition PDR
+  candidate — its full substance landed as PDR-011's 2026-06-08
+  amendment; no duplicate PDR authored.
+- **Three approved folds landed**: PDR-051 gains the
+  skill-listing-budgets-rise-with-adoption note (F1); the commit skill's
+  bounded lock-wait section replaced with the stricter
+  no-autonomous-lock-contact direction (F2); the host continuity
+  directive's §Continuation Records gains the
+  supersession-refreshes-the-auto-surfaced-chain clause (F5).
+
 ## [oak-open-curriculum-ecosystem] 2026-05-11 — PDR-059 regenerator-output-classification graduated (Fronded Flowering Seed session)
 
 Graduated the 2026-05-10 Quiet Lurking Mask pending-graduations entry

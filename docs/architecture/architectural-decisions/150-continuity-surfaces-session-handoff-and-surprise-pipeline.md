@@ -98,6 +98,19 @@ doctrine carried forward in the parallel PDR-011 amendment)
   host `session-handoff` §6e (extended). Evidenced by an EEF D6 handoff whose own
   "branch unpushed" claim was false and whose inherited peer "all gates green" was
   knip-red. Doctrine otherwise unchanged.
+- **2026-06-12 — two-clause mirror of the PDR-011 2026-06-12 amendment**
+  ([PDR-011 §Amendment Log 2026-06-12](../../../.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log)):
+  (a) the subjective register is **valued when genuine, voluntary always** —
+  the corpus is not monitored for volume or thinning, and a quiet register
+  while substantive work continues is a valid ordinary outcome, never a
+  degraded capture edge (reconciles the 2026-05-29 foundational-substrate
+  framing with the owner's strictly-voluntary direction of 2026-06-06).
+  (b) The completeness backstop SPLITS into claim VERIFICATION
+  (externalisable to a context-isolated reader — author bias is real) and
+  context-loss DETECTION (holder-EXCLUSIVE: loss is `context − artefacts`,
+  invisible to a context-isolated reader; never delegated). Realised in the
+  host `session-handoff` §6e (already corrected 2026-06-07) and the
+  experience README's voluntariness contract. Doctrine otherwise unchanged.
 - **2026-06-08 — disposition of continuity-surface content under fitness pressure.**
   Mirrors the portable PDR-011 amendment
   ([PDR-011 §Amendment Log 2026-06-08](../../../.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md#amendment-log)):

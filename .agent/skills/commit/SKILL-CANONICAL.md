@@ -112,6 +112,21 @@ Run these steps **before** formulating the commit message.
    | `body-leading-blank` | Body must be preceded by a blank line |
    | `footer-leading-blank` | Footer must be preceded by a blank line |
 
+   **`footer-leading-blank` trap (bisected 2026-06-11):** a BODY line of
+   the shape `token #ref` (e.g. `PR #170`) parses as a conventional-commits
+   footer missing its leading blank and fires this rule. Write
+   `pull request 170` or move the reference to the real footer. Em-dashes
+   and bullet shapes are innocent.
+
+   **Trust the checker only after a negative control:** advisory checkers
+   can run void and exit 0 (two seats observed an argless false-green run
+   on 2026-06-11; a deliberate-RED probe from repo root reproduces neither
+   today, so the trigger is environment-dependent). If the run does not
+   echo your message back (or prints usage), it checked nothing — re-run
+   with a deliberately bad message first, or fall back to
+   `pnpm exec tsx agent-tools/src/commit-advisories/check-commit-message.ts -F <file>`
+   from the repo root.
+
 5. **Surface any repo-specific extra hooks** flagged by `.husky/commit-msg`. In
    this repo at the time of writing, `pnpm agent-tools:prevent-accidental-major-version`
    (`agent-tools/src/version-guard/prevent-accidental-major-version.ts`) runs
@@ -344,26 +359,25 @@ If git reports an index lock, treat it as a commit-window collision: inspect
 the queue, active claims, and the log. Do not delete `.git/index.lock` unless
 the owner authorises it after you have proved no git process is active.
 
-### Physical lock wait
+### Foreign index lock — no autonomous contact, including waits
 
-It is valid to wait for `.git/index.lock` to disappear as a final physical
-guard. Claude Code may use its Monitor tool for this. Codex and Cursor should
-use an equivalent bounded shell wait unless a custom monitor tool is
-configured:
+Any autonomous interaction with `.git/index.lock` is forbidden — deletion
+AND polling/wait loops alike (owner direction 2026-05-03, aligned here at
+the 2026-06-11 owner walk). A wait loop only *observes* today, but it
+conditions the agent to treat lock-clearing as an action it takes, and any
+future evolution of the loop (timeout-then-remove) is a small step from the
+catastrophic shape. A foreign lock means another agent is mid-commit:
 
-```bash
-deadline=$((SECONDS + 300))
-while [ -e .git/index.lock ]; do
-  if [ "$SECONDS" -ge "$deadline" ]; then
-    echo "Timed out waiting for .git/index.lock"
-    exit 124
-  fi
-  sleep 1
-done
-```
+1. Stop the commit attempt cleanly (a failed `git add`/`git commit` on a
+   foreign lock fails safe — nothing is corrupted).
+2. Diagnose without touching the lock: inspect the `commit_queue`, active
+   claims, and `git log` for the live committer.
+3. Surface the foreign lock to the owner with the diagnostics and the
+   wait-vs-handoff options. The owner decides; the agent never loops on the
+   lock file.
 
-The wait is not coordination. It complements, but never replaces, the
-`commit_queue`, `git:index/head` active claim, and shared-log entry.
+The `commit_queue`, `git:index/head` active claim, and shared-log entry are
+the coordination surfaces; the lock file is never one of them.
 
 ## Process
 

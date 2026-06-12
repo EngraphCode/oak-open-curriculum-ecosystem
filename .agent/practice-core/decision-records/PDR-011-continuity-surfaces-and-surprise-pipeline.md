@@ -4,7 +4,7 @@ pdr_kind: governance
 
 # PDR-011: Continuity Surfaces and the Surprise Pipeline
 
-**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08)
+**Status**: Accepted (amended 2026-04-20, amended 2026-04-21, amended 2026-04-25, amended 2026-05-29, amended 2026-06-07, amended 2026-06-08, amended 2026-06-12)
 **Date**: 2026-04-18 (amended 2026-04-20 — contract host abstracted
 from "primary session-continuation prompt" to "canonical repo-local
 surface set"; field set split into portable minimum plus optional
@@ -158,6 +158,20 @@ unit).
   handoff session whose own banner's "branch unpushed" was false and whose
   inherited peer "all gates green" was knip-red. Realised in host `session-handoff`
   §6e (extended); ADR-150 mirrors. Pipeline and continuity types unchanged.
+- **2026-06-12 — two-clause amendment (owner-approved 2026-06-11 walk).**
+  Clause (a): §"Subjective experience is foundational substrate" reconciled to
+  the owner's strictly-voluntary direction (2026-06-06) — the closing
+  corpus-audit guard, which treated a thinning register as a degraded capture
+  edge, is replaced with the operational surfaces' settled posture: valued when
+  genuine, voluntary always, no volume/thinning monitor; the cross-experience
+  read surfaces emergent insight only. Clause (b): §"A handoff author cannot
+  self-verify its completeness" splits the completeness backstop into claim
+  VERIFICATION (externalisable — author bias is real) and context-loss
+  DETECTION (holder-exclusive — loss is `context − artefacts`, invisible to a
+  context-isolated reader; never delegated). Evidenced by a 2026-06-07 session
+  whose loss-scan was outsourced to a context-isolated sub-agent per the prior
+  "externalise by default" wording, inverting the scan's ownership. The
+  repo-bound twin (ADR-150) mirrors both clauses.
 - **2026-06-08 — disposition of continuity-surface content under fitness pressure named**
   (owner direction 2026-06-08: a continuity surface's fitness pressure is a routing signal,
   never a trim or archive trigger; the only dispositions are leave-live-verbatim or
@@ -331,16 +345,19 @@ event-anchored trigger, not an exemption from a mandate. The cure for
 "optional surplus" is to stop discarding the signal, never to start
 fabricating it.
 
-The honest event-anchored null and the habitual no-shift opt-out are not
-self-distinguishing at the level of a single session: both write nothing.
-The guard against relapse into "optional surplus" under a new name is
-therefore *observable, not normative* — the cross-session experience
-audit in the consolidation workflow reads the corpus as a whole and
-treats a subjective register that thins toward silence while substantive
-work continues as a degraded capture edge, the same class of loop-health
-signal as "ephemeral memory stops capturing surprises". Foundational
-standing is auditable at the corpus level precisely because no single
-session is obligated to produce a record.
+Foundational standing and strict voluntariness compose: the subjective
+register is **valued when genuine; voluntary always** (owner direction
+2026-06-06). The honest event-anchored null and the habitual no-shift
+opt-out are not self-distinguishing at the level of a single session —
+both write nothing — and no corpus-volume guard is erected over that
+ambiguity: the corpus is NOT monitored for volume or thinning, and a
+quiet or thinning register while substantive work continues is a valid,
+ordinary outcome, not a degraded capture edge or a loop-health signal.
+Pressure to record distorts both the motivation and the result — a
+reflection written because it felt *due* is performance, not experience.
+The consolidation-time cross-experience read exists to surface emergent
+insight across the records that genuinely exist; it never measures
+whether enough were written.
 
 ### The split-loop workflow
 
@@ -628,14 +645,24 @@ default; only the *means* scale to meet it, never the bar.
   file, the gate output) as it is written, never from memory. This is
   `verify-dont-trust` turned on the handoff's own banner; it is the cheapest and
   most universal catch.
-- **Run the completeness backstop from a context-less reader's state.** Because the
-  author cannot reliably simulate that state, the reliable form externalises it: a
-  fresh reviewer (or a genuinely context-isolated pass) reads only the durable
-  artefacts the next session will read and reports what it cannot determine, finds
-  ambiguous, or would be misled by — grounding each finding against source.
-  Externalise by default whenever the handoff carries load-bearing facts a fresh
-  agent will act on; a handoff with nothing load-bearing to lose has nothing to
-  review. Fill the gaps; fence stale content a fresh reader would misread.
+- **Run the completeness backstop as two SPLIT operations — they have opposite
+  ownership (2026-06-12 amendment).**
+  - **Claim VERIFICATION** — author bias is real, and a context-isolated reader
+    helps: a fresh reviewer (or a genuinely context-isolated pass) reads only the
+    durable artefacts the next session will read and reports what it cannot
+    determine, finds ambiguous, or would be misled by — grounding each finding
+    against source. Externalise this by default whenever the handoff carries
+    load-bearing facts a fresh agent will act on.
+  - **Context-loss DETECTION** — holder-EXCLUSIVE by definition. Loss is
+    `context − artefacts`: a context-isolated reader sees only the artefacts and
+    cannot enumerate what is absent relative to the holder's knowledge. The
+    loss-scan ("if this context ceased now, what valuable knowledge generated
+    this session would be lost?") must be run by the context holder and is never
+    delegated or conflated with the fresh-reader audit. Delegating it inverts
+    its ownership and produces a vacuous "all captured" from a reader who could
+    not know otherwise.
+
+  Fill the gaps; fence stale content a fresh reader would misread.
 
 This makes the loss-sweep recur-proof rather than recall-dependent — the
 structural cure the surprise-to-enforcement pipeline prefers.

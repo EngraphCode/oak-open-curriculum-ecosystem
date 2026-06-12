@@ -104,7 +104,13 @@ Every non-trivial plan, strategic or executable, MUST define:
 4. **Explicit acceptance criteria** — strategic plans use
    outcome-level acceptance criteria; executable plans use task or
    cycle-level criteria. Acceptance criteria must measure outcomes, not
-   activity alone.
+   activity alone. For multi-deliverable executable plans, apply the
+   self-correcting-deliverables drafting discipline (PDR-093): sequence
+   deliverables by consumption so D(n+1)'s gate breaks if D(n) drifted,
+   and draft each deliverable with (a) measurable acceptance, (b) what
+   it consumes, and (c) how its gate breaks if the predecessor drifted.
+   Declare genuinely independent deliverables as independent — never
+   invent a consumption chain that serialises parallel-safe work.
 5. **Prerequisite classification** — every prerequisite is either
    `blocking` or `beneficial`. For each `beneficial` prerequisite, state
    the minimum shippable shape without it.
