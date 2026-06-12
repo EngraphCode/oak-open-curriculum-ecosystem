@@ -1,3 +1,10 @@
+## [1.31.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.31.0...v1.31.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** align with upstream openapi description rewrite ([2ff259b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2ff259bca40e823297d20352ef62b32ff9d193fe))
+
 # [1.31.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.30.0...v1.31.0) (2026-06-12)
 
 
