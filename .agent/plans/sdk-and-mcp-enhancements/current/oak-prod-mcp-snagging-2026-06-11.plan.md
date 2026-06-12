@@ -15,8 +15,8 @@ todos:
     content: "S3: route the 'Interpret adn present data' prior-knowledge typo (unit:understand-additive-relationships-and-apply-them-to-rearrange-equations) to its source. REFRAMED 2026-06-11: the typo is in the generated corpus (graph-corpus/data.json:30036) but ABSENT from current bulk-downloads (the unit slug is absent too) — so refresh bulk downloads, regenerate the corpus, then route: typo gone → close; typo survives → file the upstream ticket in sector-engagement/ooc-issues. Queued (needs a network + regen window)."
     status: pending
   - id: s4-keyword-limit-schema-bounds
-    content: "S4: align the get-keyword-graph `limit` descriptor schema with its documented and enforced bounds — the JSON schema declares bare `type: number` while the doc text and runtime refusal enforce an integer in [1, 100]. CORRECTED FRAMING 2026-06-11: the limit Zod is HAND-AUTHORED multi-line chain at aggregated-keyword-graph.ts:67-72 (not generated) — one-line fix to z.number().int().min(1).max(MAX_KEYWORD_LIMIT), nothing to regenerate; integration test asserts the served JSON schema carries the bounds. Executes as PR-3."
-    status: pending
+    content: "S4: align the get-keyword-graph `limit` descriptor schema with its documented and enforced bounds — the JSON schema declares bare `type: number` while the doc text and runtime refusal enforce an integer in [1, 100]. CORRECTED FRAMING 2026-06-11: the limit Zod is HAND-AUTHORED multi-line chain at aggregated-keyword-graph.ts:67-72 (not generated) — one-line fix to z.number().int().min(1).max(MAX_KEYWORD_LIMIT), nothing to regenerate; integration test asserts the served JSON schema carries the bounds. Executes as PR-3. CLOSED 2026-06-12: landed as PR #192 (merge f4e8da260); the transport-level e2e proves the served schema declares type integer, minimum 1, maximum 100, and the multiline-aware sweep confirmed no other bare numeric input param."
+    status: completed
   - id: s5-prompt-ux-observations
     content: "S5 (observation, decide disposition): argless user invocation of a prompt slash-command (e.g. /adapt-lesson) surfaces a raw zod -32602 JSON dump to the user. Spec-correct server-side. DISPOSITION 2026-06-11: stays an observation — a client-UX concern; no server-side change."
     status: completed
@@ -25,15 +25,25 @@ isProject: false
 
 # Oak Prod MCP Snagging — 2026-06-11 Live Exercise
 
-**Last Updated**: 2026-06-11 (late evening — dispositions under new ownership;
-see the §Dispositions ledger)
-**Status**: OPEN — S0/S1/S2/S5 closed (see ledger), S3 queued on a
-network + regen window, S4 executes as PR-3. The owner decided S1 on
-2026-06-11: `get-eef-evidence` aligns onto the family dual response shape
-(supersedes the EEF plan D6/D7 structuredContent-only ratification); executed
-as PR-2 (`feat/eef-dual-shape-alignment`, commit `20ad83326`). The earlier
-write-up-first direction (2026-06-11 evening) was satisfied by the
-cursor-visibility write-up below before any fix.
+**Last Updated**: 2026-06-12 (three-PR arc landed; S4 closed; verification
+outcomes recorded)
+**Status**: OPEN — S0/S1/S2/S4/S5 closed (see ledger); S3 alone remains,
+queued on a network + regen window. The owner decided S1 on 2026-06-11:
+`get-eef-evidence` aligns onto the family dual response shape (supersedes the
+EEF plan D6/D7 structuredContent-only ratification). The three-PR arc is
+fully landed: PR #190 (outbound token health metric, merge `8f1cc49c0`,
+released as 1.27.0), PR #191 (EEF dual-shape, merge `1b02b70b4`, released as
+1.28.0), PR #192 (S4 limit bounds, merge `f4e8da260`). Post-merge
+verification (2026-06-12): the write-up's Shape-B replay against a local
+1.28.0 build returns 2 content blocks + the decorated `structuredContent`
+(finding 1 fixed at the level it was broken); production serves 1.28.0; the
+metric's `oak.http.request.mcp` spans and "MCP response size" structured
+logs are arriving in Sentry (one caveat: span-ATTRIBUTE searchability in the
+Sentry explorer is unconfirmed — the logs dataset carries `bodyBytes` /
+`tokensEst`, so baselines are observable regardless; check attribute
+indexing before wiring the follow-on threshold decision to span queries).
+The earlier write-up-first direction (2026-06-11 evening) was satisfied by
+the cursor-visibility write-up below before any fix.
 **Primary evidence (self-contained, on this branch)**:
 [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../../reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
 — wire shapes, the Cursor agent-visibility matrix, prompt-layer split, replay
@@ -67,7 +77,7 @@ nothing here depends on that branch.
 | S1 | Closed — owner decided the dual shape 2026-06-11; executes as PR-2 (commit `20ad83326`) |
 | S2 | Investigation closed — root cause is the repo keyword-extractor first-occurrence-wins collapse (`keyword-extractor.ts:101-105,152-186`); upstream data is per-placement. Cure (per-placement/per-subject description model — placement data belongs on edges, not collapsed into identity) queued as its own design decision |
 | S3 | Reframed — refresh bulk downloads → regenerate corpus → typo gone ? close : file the ooc-issues ticket. Queued (needs a network + regen window) |
-| S4 | Executes as PR-3 (hand-authored Zod, one-line fix — nothing to regenerate; corrects this plan's original framing) |
+| S4 | Closed — landed as PR #192 (merge `f4e8da260`, 2026-06-12); hand-authored Zod, one-line fix — nothing to regenerate (corrects this plan's original framing) |
 | S5 | Stays an observation (spec-correct; a client-UX concern) |
 
 ## Non-snags recorded during the same pass (no action)
