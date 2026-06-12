@@ -18,7 +18,7 @@ succession is staged (Ethereal Orbiting Eclipse f92636 activation-ready); verify
 before routing. Routing authority for this lane: Zephyr's directed event `4eebdf2e` (20:06:13Z);
 plan authority: the `g2-misconception-view` todo (mint rule folded at `e3590ea6` — read it whole).
 
-## 1. Current edit state (verify first-hand: git -C /Users/jim/code/oak/oak-wt-umbral-g4 …)
+## 1. Current edit state (verify first-hand: git -C ../oak-wt-umbral-g4 …)
 
 - **Worktree `oak-wt-umbral-g4`, branch `feat/g2-misconception-view` off origin/main@793cb3c1
   (the G1b merge). c1 LANDED at `a0b32100`, full pre-commit gate green, PUSHED to origin**
@@ -106,7 +106,7 @@ plan authority: the `g2-misconception-view` todo (mint rule folded at `e3590ea6`
   duties-raise `357bf1ab`. Claims: resync `cc93749e` (closed, no-op disposition); G2 `e7bfd545`
   (retained for you, handoff_record_path set).
 - Design note: `.agent/reports/g2-misconception-mint-rule-design-2026-06-10.md`. Pinned-facts
-  recompute script: /tmp/fruited-g2-pinned-facts.cjs (session-ephemeral; every number is also in
+  recompute script: <scratch>/fruited-g2-pinned-facts.cjs (session-ephemeral; every number is also in
   the note + the count-guard test).
 - Worked-pattern commits for c3: `29e3eccb` (tool rewrite), `83196e20` (resource removal),
   `036b459e` (dataset retirement).

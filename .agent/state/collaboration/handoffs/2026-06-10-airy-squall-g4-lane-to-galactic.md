@@ -23,7 +23,7 @@ ritual; Celestial Glowing Dusk (1e526e, id 516015df-a884-587f-9bdb-2b4319eff103)
 - **No in-flight source work; no open claims.** Three PRs went to main on this seat today:
   #158 (G4a description fix, Umbral's work, watched to merge `fa100b3a`), #159 (upstream+bulk
   resync, mine, `c60f030f`), #160 (turbo sdk-codegen env declaration, mine, `409c0999`).
-- **Worktree `/Users/jim/code/oak/oak-wt-umbral-g4`** sits on merged branch
+- **Worktree `../oak-wt-umbral-g4`** sits on merged branch
   `build/turbo-sdk-codegen-env`, clean tree. Adopt it: pull main, cut your next branch
   (`git -C` for EVERY git op — the shell cwd resets to the primary checkout between calls).
   Gitignored assets already staged in it: `apps/oak-search-cli/.env.local` and the refreshed
@@ -81,7 +81,7 @@ ritual; Celestial Glowing Dusk (1e526e, id 516015df-a884-587f-9bdb-2b4319eff103)
   bounded ping (one-cadence window, named default, never seize the merge) → owner surface.
   Applied to the Director today; verdict "your protocol was exactly right".
 - **Comms watcher**: use the portable poll loop (rule §Fallback) with UNIQUE /tmp filenames
-  (a predecessor's stale `/tmp/airy-team-start.md` collided with mine). The hardened CLI
+  (a predecessor's stale `<scratch>/airy-team-start.md` collided with mine). The hardened CLI
   (#157) is in main but unverified by this seat.
 - **`comms direct` argv hazards**: long bodies with parens/dashes break parsing — always
   `--body-file`. Empty body files are rejected.

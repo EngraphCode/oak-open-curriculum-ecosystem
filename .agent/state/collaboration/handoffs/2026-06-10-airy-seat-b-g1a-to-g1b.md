@@ -20,7 +20,7 @@ Self-contained per `handoff-messages-self-contained.md`; you cannot read my tran
   **`177df9b6`**, pushed to origin. Full gate GREEN at commit (turbo 97/97 across 24 packages)
   and at push (103/103 incl. test:ui). Director (Veiled, 7c8e8e) owns PR #153 monitoring +
   merge from here — I retired at the PDR-063 post-commit trigger.
-- **Worktree**: `/Users/jim/code/oak/oak-wt-airy-g`, branch `feat/g1a-graph-corpus-foundation`
+- **Worktree**: `../oak-wt-airy-g`, branch `feat/g1a-graph-corpus-foundation`
   (= commit 177df9b6). Leave it in place (do not delete / git-clean — operator/successor reuse).
 - **Uncommitted state in that worktree (do NOT commit — intentional)**:
   - 9 incidental old-dataset metadata-regen files (misconception/nc-coverage/prior-knowledge/

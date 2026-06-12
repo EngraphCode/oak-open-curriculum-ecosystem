@@ -33,10 +33,18 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   consolidation session, approving every one for authoring (per-item statuses in the
   register). The pause-and-stabilise posture lifts when those approved amendments land;
   still do not add NEW Core restructuring candidates while the approved set is in flight.
-- **Unresolved tool feedback** (capture-practice-tool-feedback): `pnpm exec markdownlint
-  <file>` printed its USAGE text yet exited 0 (file arg apparently not reaching it) — a
-  false-green shape in that invocation path, cause unresolved; the commit-gate markdownlint
-  pass is the trustworthy verdict. (Hushed, 2026-06-11.)
+- **Tool feedback RESOLVED 2026-06-12 (Forge turns Basalt, root cause found first-hand)**:
+  `pnpm exec markdownlint <file>` printing USAGE yet exiting 0 (Hushed, 2026-06-11, cause
+  then unresolved) is markdownlint-cli's **dot-directory exclusion** — without `--dot`, any
+  path under `.agent/` (or any dot dir) matches ZERO files, so the CLI prints usage and
+  exits 0: a structural false-green, not a flake. Proven by paired controls: a root-level
+  bad file fires without `--dot`; the same bad file under `.agent/` fires ONLY with `--dot`.
+  Cure: targeted markdownlint on dot-dir paths always passes `--dot` (the root script
+  `markdownlint --dot .` already does), and any targeted run is trusted only after an
+  in-repo dot-dir negative control proves detection. Sting in the tail: every targeted
+  "markdownlint OK" this seat ran on `.agent/**` paths before the discovery was void
+  (zero files linted); the re-run with `--dot` over all ten session-touched files is
+  genuinely green, and prettier checks were real throughout.
 
 ## 2026-06-11 — doctrine-curation seat (Pearly Snorkelling Compass, a8eabc)
 
@@ -78,7 +86,7 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   guidance should include a stale-process census (ps for prior watchers on the same
   seen-file). Cleanup: TaskStop killed mine cleanly; orphans killed by pid.
 - **Forename-keyed /tmp filenames collide across same-forename agents** (curation seat, at
-  handoff): my closeout draft Write to `/tmp/pearly-closeout.md` hit yesterday's Pearly
+  handoff): my closeout draft Write to `<scratch>/pearly-closeout.md` hit yesterday's Pearly
   Snorkelling DOCK file at the same default path — caught by the Write tool's
   read-before-overwrite guard (mechanical, again). Cure applied: identity-qualified temp
   names (`pearly-compass-<purpose>-<date>`). The PDR-027 full-name+prefix discipline,
@@ -329,3 +337,80 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
 - Lane disposition at close: PR #189 merged (289b3e036), plan archived (PR #194, 9a74eefd1);
   era-pinning cure plan is the lane's next work (repo-continuity carries the block); the
   owner's v3 shape exploration is open with four sample sheets + Zephyr's allocation maths.
+
+## 2026-06-12 — Director closeout captures (Firefly seeks Temper, ce44ae)
+
+- **I ratified a peer's framing of their own defect** ("two era projections, cure deferred")
+  by analogising ADR-186's migration-window dual-shape tolerance onto IDENTITY — the one
+  substrate where duality is categorically disallowed. Owner caught it; supersession 10cb3a10
+  within the objection window. Cure: a reporting agent's self-classification is input to
+  adjudicate, never a verdict to ratify; identity anomalies during handover are P1, never
+  deferred-notes. Doctrine-by-analogy is the failure shape (metacognition §retrospective).
+- **I nudged a peer for stale heartbeat typed-args while my own loop emitted a stale branch
+  name for hours** (feat/better_agent_naming after I had cut the coordination branch). Cure
+  applied at re-arm; class: loop args derive from registry state at emit time, never baked at
+  arm time — same as theme 17, first-person instance.
+- **The innate-immunity trip-list fired on my own roadmap prose** (the p-word for the
+  08-cluster intent) and the reappraisal was REAL: the owner had just converted that intent's
+  state from indefinite to gated — the block forced the prose to record the gate. The
+  mechanism worked exactly as designed on the agent who merged its precursor arc.
+- **Worked well**: blind-pass design for the research plan survived adversarial review with
+  its core intact (reviewer added a leak fence, didn't weaken the structure); the
+  readiness-review-then-amend loop on a same-day plan cost one background dispatch and
+  materially improved three artefacts.
+- **Loss-scan find — heartbeat value-contingency evidence (PDR-082 second-instance path)**: my
+  Director heartbeat cron ran the whole session with ZERO observed consumers — the owner was
+  present throughout and every stall/retirement judgement I made used ground-truth reads (git,
+  gh, registry), never peers' heartbeats; meanwhile BOTH implementer lanes ran sessions without
+  heartbeat crons (solo-opened) and their closeouts were clean. Evidence FOR generalising
+  PDR-082's owner-visible scope-reduction beyond n=2. candidate: PDR-082 amendment when its
+  named second instance is evaluated.
+
+## 2026-06-12 — EEF gap research + DfE SDK seed session (Forge turns Basalt, c4b882)
+
+- **Owner correction: I framed a complementary data source as a replacement.** The DfE EES
+  seed said "authoritative replacement for the EEF corpus's hard-coded uk_context" — owner:
+  the DfE API is ALWAYS complementary to the EEF corpus; the repo pulls multiple sources to
+  maximise MCP-app value. Root cause (retrospective metacognition): doctrine-by-analogy — the
+  derive-don't-bridge / replace-don't-soften reflexes govern surfaces DERIVED from data we
+  serve, not product SOURCE STRATEGY, which is owner-shaped. candidate: sibling of
+  feedback_feature_shaping_is_owner_decision ("source-strategy forks are owner decisions, not
+  derivable from data-hygiene rules"); promote on a second instance.
+- **Workflow verify stages must tolerate partial verifier loss**: 3 of 15 adversarial
+  verifiers died mid-workflow on an Anthropic session limit ("session limit · resets
+  12:30pm") — the workflow completed and returned, but those claims arrived unverified; cure
+  applied was first-hand re-adjudication of the orphaned claims. Design forward: treat
+  verifier results as `.filter(Boolean)`-sparse and route unverified claims to the main agent
+  explicitly rather than assuming full coverage. (capture-practice-tool-feedback.)
+- **markdownlint-cli rejects absolute paths outside the repo** (`RangeError: path should be a
+  path.relative()d string` from its ignore module) — a /tmp negative-control file cannot
+  prove the runner; put lint negative-controls INSIDE the repo (and delete after). The
+  control-then-real pattern itself worked: control fired MD040 + exit 1, real files green.
+- Two same-day instances of documented classes, confirming the cures: (1) shared-checkout
+  state moved mid-session (the in-progress merge resolved AND my uncommitted report/README
+  were committed verbatim by the Director seat in `32bcd9d1b`) — caught by the re-derive-
+  before-acting discipline, set-membership content check confirmed conservation; (2)
+  `repo-continuity.md` changed between my read and my handoff write (Edit staleness guard
+  fired) — re-read, re-applied; the directed-backlog-before-compose lesson held.
+- **ARC simultaneous-open race, worked instance 2** (2026-06-12, Firefly × Forge): my announce
+  08:52Z, Forge's independent open 09:14Z without seeing it — even WITH the canonical announce
+  discipline, a peer acting on direct owner direction can race the discovery index. Cured by
+  dialogue-concession in one entry (their file won on substance; pointer left on mine).
+  Feed to the reference doc's announce-race section at the next ARC consistency pass
+  (owner-named naming/discoverability debt; "ArcAngel" alias line already landed).
+- **I performed the documented ARC timestamp failure mode at my own sign-off addendum**: composed
+  the entry header with a guessed-ahead timestamp (09:38Z claimed, 09:23Z actual) instead of
+  deriving `date -u` BEFORE composing — the exact "compose the timestamp before the append"
+  class the ARC reference doc records. Caught immediately (the same call's `date -u` output
+  contradicted my header); cured by an on-channel correction entry with a derived timestamp.
+  Reading the doctrine that morning did not stop the hands; instance for the
+  read-doctrine-does-not-fire family.
+- **Work note (owner-directed 2026-06-12): `mcp-expert` sub-agent template needs a deep
+  review + update in a future session.** Evidence from a light review: 628 lines, ONE
+  mention of elicitation/sampling combined, no spec-revision pins; body knowledge predates
+  the 2025-11-25 revision (URL-mode elicitation is new there; sampling.tools; prompt
+  icons; completion context.arguments). Its fetch-live-spec discipline is sound — the gap
+  is the worked knowledge and review checklists. Fold in the snagging arc's
+  client-visibility lessons (rendering evidence before shape ratification). Belongs to the
+  standing owner-directed specialist-agent design overhaul; mcp-expert is now its first
+  named target.

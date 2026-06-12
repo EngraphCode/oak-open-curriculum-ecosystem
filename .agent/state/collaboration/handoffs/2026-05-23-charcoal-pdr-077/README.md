@@ -31,11 +31,11 @@ MUST be kept in the repo at all times".
 
 | File | Role | Origin path | Origin date |
 |------|------|-------------|-------------|
-| `pdr-077-draft.md` | Draft artefact (the PDR body) | `/tmp/charcoal-pdr-077-draft.md` | 2026-05-23T20:32Z |
-| `pdr-077-r1-fanout-synthesis.md` | R1 reviewer fan-out synthesis | `/tmp/charcoal-pdr077-fanout-synthesis.md` | 2026-05-23T17:20Z |
-| `pdr-077-r3-final-iteration-fanout-synthesis.md` | **Primary**: R3 final-iteration synthesis | `/tmp/charcoal-pdr077-postresume-fanout-synthesis.md` | 2026-05-23T20:37Z |
-| `pdr-077-scope-question.md` | Twilit ST iteration tick scope-expansion question | `/tmp/charcoal-pdr077-scope-question.md` | 2026-05-23T17:29Z |
-| `pdr-077-status-update.md` | Status update pre-care-and-consult | `/tmp/charcoal-pdr077-status.md` | 2026-05-23T17:15Z |
+| `pdr-077-draft.md` | Draft artefact (the PDR body) | `<scratch>/charcoal-pdr-077-draft.md` | 2026-05-23T20:32Z |
+| `pdr-077-r1-fanout-synthesis.md` | R1 reviewer fan-out synthesis | `<scratch>/charcoal-pdr077-fanout-synthesis.md` | 2026-05-23T17:20Z |
+| `pdr-077-r3-final-iteration-fanout-synthesis.md` | **Primary**: R3 final-iteration synthesis | `<scratch>/charcoal-pdr077-postresume-fanout-synthesis.md` | 2026-05-23T20:37Z |
+| `pdr-077-scope-question.md` | Twilit ST iteration tick scope-expansion question | `<scratch>/charcoal-pdr077-scope-question.md` | 2026-05-23T17:29Z |
+| `pdr-077-status-update.md` | Status update pre-care-and-consult | `<scratch>/charcoal-pdr077-status.md` | 2026-05-23T17:15Z |
 
 ## Review-round state at capture
 

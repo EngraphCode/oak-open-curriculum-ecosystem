@@ -68,7 +68,7 @@ checklist**.
 | Seaworthy Navigating Beacon | claude / claude-opus-4-7 / 6966d4 | **outgoing director** | Moment 2 official transition imminent; Moment 1 pre-positioning follows |
 | Twilit Scattering Twilight | claude / claude-opus-4-7 / 8d8d93 | **commit marshal — ONLY agent permitted to commit per owner direction** | active; queue empty post-wide-sweep; Bundle 5 (Clouded) imminent |
 | Incandescent Banking Flame | claude / claude-opus-4-7 / aa986e | post-Monitor-recovery; no-claim standby | fresh Monitor `b6h4k72mh` + 3-min health-check cron `a22e6a55`; Bundle 1 work absorbed by wide-sweep |
-| Abyssal Mooring Hull | claude / claude-opus-4-7 / c79a39 | post-cure-discharge; no-claim standby | cure code substance landed in wide-sweep; cure-PR description Lane β output preserved at `/tmp/lane-beta-combined-output.md` |
+| Abyssal Mooring Hull | claude / claude-opus-4-7 / c79a39 | post-cure-discharge; no-claim standby | cure code substance landed in wide-sweep; cure-PR description Lane β output preserved at `<scratch>/lane-beta-combined-output.md` |
 | Secret Creeping Moth | claude / claude-opus-4-7 / 61d726 | post-Lane-β-discharge; no-claim standby | Lane 3a + 3b weave delivered; available for next routing |
 | Clouded Streaming Airstream | codex / GPT-5 / 019e54 | Bundle 5 author | claim `ecd614f0` active; marshal submission to Twilit imminent (gates all green) |
 | Zephyrous Darting Aerie | codex / GPT-5 / 019e54 | Monitor-harness liveness investigation lane | active read-only research; sub-agent fan-out authorised; hypothesis space narrowed to silent-watcher-process-death |

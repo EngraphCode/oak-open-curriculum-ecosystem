@@ -30,7 +30,7 @@ git checkout HEAD -- src/index.ts  # For error handling
 git checkout HEAD -- docs/
 
 # Keep the Zod schemas for later use
-cp src/mcp/tools/schemas.ts /tmp/schemas-backup.ts
+cp src/mcp/tools/schemas.ts <scratch>/schemas-backup.ts
 ```
 
 ## Overview

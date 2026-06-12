@@ -43,7 +43,7 @@ twice, 2026-05-27). Do not treat it as settled.
   green (type-check, lint, knip, unit + integration + E2E, build, md, prettier).
 - **Branch HEAD** `49317312`. 5 feature commits + 2 gate-fix commits
   (`5e8f404c` knip internal-const; `49317312` E2E list_tools parity).
-- Worktree `/Users/jim/code/oak/oak-wt-eef` is clean; I hold it (one writer).
+- Worktree `../oak-wt-eef` is clean; I hold it (one writer).
 - CI on #121 will run on GitHub; check `gh pr checks 121` on resume.
 
 ## The feature (gate-1a, complete)

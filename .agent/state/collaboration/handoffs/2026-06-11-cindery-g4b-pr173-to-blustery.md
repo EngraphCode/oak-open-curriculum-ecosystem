@@ -16,7 +16,7 @@
 
 ## 1. Current edit state
 
-**Worktree**: `/Users/jim/code/oak/oak-wt-airy-g`, branch `feat/g4b-keyword-graph` off
+**Worktree**: `../oak-wt-airy-g`, branch `feat/g4b-keyword-graph` off
 `b3a482dc`. **Working tree CLEAN. Everything is pushed** (`ls-remote` verified
 `0c7938579` == local HEAD). **PR #173 is OPEN**
 (<https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/173>), MERGEABLE against main

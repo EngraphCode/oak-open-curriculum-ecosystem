@@ -19,12 +19,12 @@ owner-directed betty/wilma panel findings will be waiting there.
 
 ## Git state (verify on resume)
 
-- **My worktree**: `/Users/jim/code/oak/oak-wt-eef`, branch `feat/eef-explore-evidence`.
+- **My worktree**: `../oak-wt-eef`, branch `feat/eef-explore-evidence`.
   - **Commit 1** `52972ad6` — type relocation (landed earlier session).
   - **Commit 2** `6ef9e65d` — `EefStrandsGraphView` adapter (WS4.5) + item G depcruise rule.
   - **Commit 3** `6ba7b5a0` — Zod loader + freshness + schema (real-data e2e proven).
   - Worktree deps BUILT; zod added to graph-corpus-sdk. Tree clean post-commit-3.
-- **Shared primary**: `/Users/jim/code/oak/oak-open-curriculum-ecosystem`, `feat/graph-foundations`.
+- **Shared primary**: `the repo root`, `feat/graph-foundations`.
   Run all comms / collaboration-state CLI ONLY from here (item O: worktree resolves stale state).
 - I hold `oak-wt-eef` (one writer per worktree). Galactic is read-only there.
 

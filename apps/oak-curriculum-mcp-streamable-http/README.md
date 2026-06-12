@@ -162,7 +162,7 @@ serverless cold path filesystem-free.
 
 `dev:widget-in-host` clones `@modelcontextprotocol/ext-apps` to
 `$TMPDIR/mcp-ext-apps` on first run and reuses it subsequently. Delete
-that directory to refresh: `rm -rf /tmp/mcp-ext-apps`. Requires `bun`.
+that directory to refresh: `rm -rf tmp/mcp-ext-apps`. Requires `bun`.
 
 ### Design tokens
 

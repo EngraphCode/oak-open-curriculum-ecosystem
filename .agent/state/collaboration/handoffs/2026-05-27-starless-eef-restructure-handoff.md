@@ -59,9 +59,9 @@ B and A-adjacent doc work parallel. C→D is gate-1b, non-blocking for gate-1a.
 ## Branch coordination (CRITICAL — land each increment on the right branch)
 
 - **A + the plan restructure (Step 1):** primary checkout
-  `/Users/jim/code/oak/oak-open-curriculum-ecosystem`, branch
+  `the repo root`, branch
   **`feat/graph-foundations`**.
-- **EEF increments B / E / F (code):** worktree `/Users/jim/code/oak/oak-wt-eef`,
+- **EEF increments B / E / F (code):** worktree `../oak-wt-eef`,
   branch **`feat/eef-explore-evidence`** (the PR #121 branch).
 - **Open landing-vehicle question for the owner:** the doctrine + restructure
   currently ride `feat/graph-foundations`. Decide whether they reach `main` via

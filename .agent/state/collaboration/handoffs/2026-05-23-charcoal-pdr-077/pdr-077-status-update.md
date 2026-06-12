@@ -14,7 +14,7 @@ intended_consumer: post-m1-attestation-tidy-up cycle 5 (PDR-077 final author)
 created_at: 2026-05-23T17:15:00Z
 last_updated_at: 2026-05-24T21:30:00Z
 topic: pdr-077-draft-status-pre-care-and-consult
-capture_origin_path: /tmp/charcoal-pdr077-status.md
+capture_origin_path: <scratch>/charcoal-pdr077-status.md
 role_in_lane: status-update-pre-care-and-consult
 ---
 
@@ -24,7 +24,7 @@ Seaworthy — PDR-077 draft status update (pre-care-and-consult).
 
 ## Status
 
-- **Draft complete**: `/tmp/charcoal-pdr-077-draft.md` (~280 lines)
+- **Draft complete**: `<scratch>/charcoal-pdr-077-draft.md` (~280 lines)
 - **Title**: "Commit Marshal As Cycle-Discipline Role"
 - **Status**: Candidate
 - **Sequential reviewer dispatch**: `docs-adr-expert` post-draft pass IN-FLIGHT (~5-7 min)

@@ -94,7 +94,7 @@ Use the `pnpm agent-tools:commit-queue` CLI. Per intent, in order:
 6. `commit --intent-id <uuid> --message-file <repo-tracked tmp path>` (husky runs here)
 7. (No explicit `complete` needed — `commit` finalises internally; `complete` returns `unknown intent_id` after, which is correct)
 
-**Commit-message file location**: under repo workdir (e.g. `.agent/state/collaboration/_tmp-<agent>-marshal-cycle-N.txt`); `rm -f` immediately after commit. **Never `/tmp/`** — owner direction 22:08Z: `/tmp` is buffer-only, never storage.
+**Commit-message file location**: under repo workdir (e.g. `.agent/state/collaboration/_tmp-<agent>-marshal-cycle-N.txt`); `rm -f` immediately after commit. **Never `<scratch>/`** — owner direction 22:08Z: `/tmp` is buffer-only, never storage.
 
 **Commit-message format**:
 

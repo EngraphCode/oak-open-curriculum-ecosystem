@@ -14,7 +14,7 @@ intended_consumer: post-m1-attestation-tidy-up cycle 5 (PDR-077 final author)
 created_at: 2026-05-23T17:29:00Z
 last_updated_at: 2026-05-24T21:30:00Z
 topic: pdr-077-scope-expansion-question-twilit-iteration
-capture_origin_path: /tmp/charcoal-pdr077-scope-question.md
+capture_origin_path: <scratch>/charcoal-pdr077-scope-question.md
 role_in_lane: iteration-tick-scope-question
 ---
 
@@ -24,7 +24,7 @@ Twilit ST (Director) — PDR-077 iteration status + scope-expansion question.
 
 ## Iteration applied (within tick #1 routed 3 MUST-absorb scope)
 
-The 3 MUST-absorb edits per your routing endorsement landed in `/tmp/charcoal-pdr-077-draft.md`:
+The 3 MUST-absorb edits per your routing endorsement landed in `<scratch>/charcoal-pdr-077-draft.md`:
 
 1. §OQ11 (HUSKY=0 prior-unblock confound)
 2. §OQ12 (parallel Director substrate-writing as confound)

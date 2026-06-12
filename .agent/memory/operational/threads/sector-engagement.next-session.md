@@ -9,7 +9,24 @@ merge_class: index-narrative-tables
 ---
 # Next-Session Record — `sector-engagement` thread
 
-**Last refreshed**: 2026-04-30 (Squally Washing Jetty / `cursor` /
+**Last refreshed**: 2026-06-12 (Forge turns Basalt / `claude-code` / Fable 5 /
+`c4b882` — DfE data SDK strategic seed authored at
+[`future/dfe-data-sdk.plan.md`](../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
+with a future-lane README index row: thin, transport-agnostic SDK over the DfE
+Explore Education Statistics public API (Beta, anonymous, OpenAPI-documented,
+OGL v3.0; 140 of 1,085 datasets API-queryable across 22 publications —
+research facts conserved in the seed, all first-hand-verified 2026-06-12).
+Complementary to the EEF corpus, never a replacement (owner posture
+2026-06-12). Workspace language TypeScript-or-Python is a named
+promotion-time decision — owner authorised Python and sketched the
+integration shape (minimal root `package.json` deferring to `uv`/binaries,
+pure-Python `python/` subtree; all dependencies/approaches illustrative only,
+deep critical analysis before tooling choices); this connects to the
+Python-in-TypeScript-monorepo cognitive-load concern already recorded under
+Blockers below. Promotion gate: a named Oak consumer with a ratified value
+statement.)
+
+**Prior refresh**: 2026-04-30 (Squally Washing Jetty / `cursor` /
 `composer` / `178e6a` — Vision structural pass: compositional thesis at
 fold, layered impact framing, reusable sector-component canon with partner
 [`sector-reusable-components-adoption.plan.md`](../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md); README mirror of hosted vs
@@ -45,6 +62,7 @@ lifecycle skill follow-up.)
 | `Pearly Swimming Atoll` | `codex` | `GPT-5` | `019dd9` | `repo-goal-narrative-refresh` | 2026-04-29 | 2026-04-29 |
 | `Squally Diving Anchor` | `codex` | `GPT-5` | `019dd8` | `sector-engagement-taxonomy-and-handoff` | 2026-04-29 | 2026-04-29 |
 | `Squally Washing Jetty` | `cursor` | `composer` | `178e6a` | `vision-sector-components-contract-and-readme-handoff` | 2026-04-30 | 2026-04-30 |
+| `Forge turns Basalt` | `claude-code` | `Fable 5` | `c4b882` | `dfe-data-sdk-seed-authoring` | 2026-06-12 | 2026-06-12 |
 
 Identity discipline remains additive per
 [PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
@@ -146,6 +164,7 @@ before implementation promotion:
 - [Knowledge Graph Adoption](../../../plans/sector-engagement/knowledge-graph-adoption/README.md)
 - [Sector reusable components adoption (current)](../../../plans/sector-engagement/current/sector-reusable-components-adoption.plan.md)
 - [Oak OpenAPI Monorepo Integration](../../../plans/sector-engagement/future/oak-openapi-monorepo-integration.plan.md)
+- [DfE Data SDK seed](../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
 - [Oak Curriculum Ontology Workspace Reassessment](../../../plans/connecting-oak-resources/knowledge-graph-integration/future/oak-curriculum-ontology-workspace-reassessment.plan.md)
 
 ### Current Objective
@@ -196,6 +215,10 @@ None.
 
 - OEAI follow-up may become a partner call brief, support playbook, or no-go
   decision.
+- DfE data SDK seed promotes when a named Oak consumer's value statement is
+  ratified (school-leadership evidence, outcome-evaluation baselines, or
+  equivalent); its TypeScript-or-Python workspace decision lands then, priced
+  against the Python-in-TypeScript-monorepo cognitive-load evidence.
 - API/KG convergence may require an ADR or architecture plan if repo topology
   or workspace boundaries change.
 - External organisation support patterns may become reusable sector-engagement

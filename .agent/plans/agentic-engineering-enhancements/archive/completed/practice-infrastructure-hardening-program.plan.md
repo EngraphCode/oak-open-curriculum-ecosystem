@@ -138,7 +138,7 @@ record at `.agent/state/collaboration/handoffs/marshal-role-handoff-2026-05-23-m
   at 16:14:10Z; docs-adr-expert reviewer dispatched; awaiting
   Charcoal re-engagement.
 - Ferny's WS-2 partition prestage at
-  `/tmp/ferny-ws2-partition-prestage-synthesis.md`: 3-way fan-out
+  `<scratch>/ferny-ws2-partition-prestage-synthesis.md`: 3-way fan-out
   complete; critical Cascade §2 body-file-adjacency overlap with §5
   caught; partition-cure shape needs owner sight before authoring.
 - Architecture-expert-fred verdict on the Q3 ADR-186 citation cure path
@@ -573,7 +573,7 @@ IMPORTANT (8), NIT (5), and surprise-by-absence (3) categories.
   absorption: (a) Scorched `4e6e18b2` + Mistbound `00375e07` claims
   ACTIVE via jq on active-claims.json; (b) Mistbound 4-cycle arc git
   author timestamps 17:03:45 BST → 17:17:45 BST = ~14 min (not 22 min
-  as inherited from upstream handoff); (c) `/tmp/charcoal-pdr077-postresume-fanout-synthesis.md`
+  as inherited from upstream handoff); (c) `<scratch>/charcoal-pdr077-postresume-fanout-synthesis.md`
   exists (6.8KB) — confirms 3-round review state for PDR-077.
 
 **Metacognitive observation**: the dominant failure mode in my R1
@@ -954,7 +954,7 @@ EEF First Feature delivery on owner unpause.
 | Broadcast event ID | `2849b623-5026-4e9d-9938-7ebaffb727fd` |
 | Broadcast timestamp | `2026-05-24T20:09:10.000Z` |
 | Owner ratification | Direct: *"we have completed M1"* (2026-05-24 post-merge turn) |
-| Source body | `/tmp/seaworthy-m1-safe-pause-attestation.md` (capture-to-durable: companion plan cycle 1) |
+| Source body | `<scratch>/seaworthy-m1-safe-pause-attestation.md` (capture-to-durable: companion plan cycle 1) |
 
 Each gate carries a MET marker with terminal-state evidence.
 
@@ -1244,7 +1244,7 @@ All P1.* items reached terminal state. Audit trail preserved below.
   confirmed. Awaiting Ferny re-engagement.
 - Action: Ferny re-engages → authors PDR-076a (identity tuple) +
   PDR-076b (body-file frontmatter) from the paste-ready blocks in
-  `/tmp/ferny-ws2-partition-prestage-synthesis.md` → marshal-cycle
+  `<scratch>/ferny-ws2-partition-prestage-synthesis.md` → marshal-cycle
   via Mistbound → both child PDRs land.
 - Prerequisite: Ferny re-engagement. Director Seaworthy monitors
   Ferny's heartbeat per §Roles + triggers; if silent past retirement
@@ -1307,7 +1307,7 @@ or-Director-routed per item.
 - M1 contribution: closes one Gate 5 queue entry.
 - M2 contribution: landing feeds Completion Criterion 2.
 - LAND path: Charcoal re-engages, absorbs 7 R3 SHOULD-ABSORB items in
-  `/tmp/charcoal-pdr077-postresume-fanout-synthesis.md` + 1 Director-
+  `<scratch>/charcoal-pdr077-postresume-fanout-synthesis.md` + 1 Director-
   verdict item (claim-state immutability clause); marshal-cycles into
   the tree (3 review rounds already complete with final
   docs-adr-expert GO).

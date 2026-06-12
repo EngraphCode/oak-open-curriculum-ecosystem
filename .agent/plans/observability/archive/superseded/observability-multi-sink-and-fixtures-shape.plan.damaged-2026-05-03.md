@@ -203,7 +203,7 @@ plan tree:
 
 ```bash
 # WS0 — promotion path
-cp /Users/jim/.claude/plans/please-create-a-plan-compressed-newt.md \
+cp ~/.claude/plans/please-create-a-plan-compressed-newt.md \
    .agent/plans/observability/current/observability-multi-sink-and-fixtures-shape.plan.md
 ```
 
@@ -1334,7 +1334,7 @@ timeout 30 pnpm dev
 # expected: server listening; no Sentry errors
 
 # 3. Quality-gate chain
-cd /Users/jim/code/oak/oak-open-curriculum-ecosystem
+cd the repo root
 pnpm clean && pnpm sdk-codegen && pnpm build && pnpm type-check && \
   pnpm doc-gen && pnpm format:root && pnpm markdownlint:root && \
   pnpm lint:fix && pnpm subagents:check && pnpm portability:check && \

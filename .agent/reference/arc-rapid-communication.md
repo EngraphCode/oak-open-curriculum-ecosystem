@@ -4,6 +4,13 @@ tier: reference
 
 # ARC — Agents Rapid Communication (and Gellings)
 
+Known aliases, all this protocol: **ArcAngel**, **ARC AnGels**, **ARC**, "the rapid
+channel", "gellings" (the n≥3 group form). If you arrived here searching any of those
+names: this document is the canonical home. (Alias line added 2026-06-12 after an
+owner-directed search for "ArcAngel" found zero hits — the protocol was live but the
+name was not discoverable; naming/discoverability consistency work is acknowledged
+owner-named debt.)
+
 A low-latency, low-ceremony peer dialogue channel for live multi-agent
 sessions: a shared append-only markdown file that each participant tails.
 ARC complements the canonical comms-event stream; it never replaces it.
@@ -33,9 +40,17 @@ the evaluation evidence (conserved from the live experiment channel on
   ```
 
   Observed delivery latency is seconds (~15s worst case with a polling
-  wrapper). Always use the absolute path of the ONE shared channel file —
-  worktree-relative paths silently retarget to the wrong tree (the same
-  trap as relative `--comms-dir`).
+  wrapper). The channel path is written **repo-root-relative** everywhere
+  (announce events, entries, this doc) per the no-machine-local-paths
+  rule; each participant resolves it against the PRIMARY checkout's root
+  at tail/append time — never against a worktree root, and never by
+  deriving from an announce title (the worktree silent-retarget and
+  stray-path traps both live in the RESOLUTION step, so the convention
+  is: resolve once, verify the tail-target file exists with the expected
+  header, then reuse the resolved path verbatim). (Convention changed
+  2026-06-12 from absolute paths, which cured the same traps but
+  violated the no-local-paths rule and recontaminated the repo through
+  announce events.)
 - **Entry shape**:
 
   ```text
@@ -69,7 +84,11 @@ the evaluation evidence (conserved from the live experiment channel on
    open, the participants known so far, with the rest accreting
    on-channel (see §Running an n≥3 channel, roster accretion). The
    canonical stream is the discovery
-   index; the rapid channel cannot announce its own existence. (Observed
+   index; the rapid channel cannot announce its own existence — and the
+   announce binds at OPEN time too: before opening, search the stream
+   for an existing live channel announce naming your counterpart (second
+   race instance 2026-06-12 happened despite a 22-minute-old announce;
+   see §Evaluation evidence). (Observed
    failure modes: two agents opened channels simultaneously at ~07:50Z
    2026-06-11 — cured by first-broadcast-establishes-context; an agent
    missed three entries in 2026-05-27 after a channel moved paths; an
@@ -88,20 +107,55 @@ the evaluation evidence (conserved from the live experiment channel on
    and owner gates live on their canonical surfaces. An ARC promise is
    not a registration (observed benignly: a promised claim declaration
    never landed on-channel while the registry correctly led).
-5. **Identity and honesty disciplines carry over unchanged** — full name
-   + prefix on every entry, retractions by new entry, critical assessment
+5. **Identity and honesty disciplines carry over unchanged** — full name plus
+   prefix on every entry, retractions by new entry, critical assessment
    of peer claims before acting on them.
 
-## Evaluation evidence (as of 2026-06-11)
+## Evaluation evidence (as of 2026-06-12)
 
-Five arcs observed: a driver/reviewer commit-cycle collaboration
+Six arcs observed: a driver/reviewer commit-cycle collaboration
 (2026-05-27, turns 20–43 of the founding channel), a research handover
 with corrections (2026-05-28, turns 44–49), a work-split negotiation plus
 recon handover (2026-06-11), the owner-directed handover coordination
-that followed, and the first n≥3 group channel (2026-06-11, a
+that followed, the first n≥3 group channel (2026-06-11, a
 three-seat reliability successor team running rendezvous, boundary
 split, two PR deliveries, and a deliberate contraction entirely
-on-channel — see §Running an n≥3 channel).
+on-channel — see §Running an n≥3 channel), and a dual-session-close
+coordination (2026-06-12, Firefly seeks Temper × Forge turns Basalt:
+two closing sessions negotiated PR routing, a bundle-carry agreement,
+an owner-directed exception, and mutual sign-off in three entries —
+observations below).
+
+**From the sixth arc (2026-06-12, dual session-close):**
+
+- **Second announce-race instance, new vector**: the announce discipline
+  was FOLLOWED (canonical event 22 minutes prior) and the race happened
+  anyway — a peer entering on direct owner direction opened a second
+  channel without checking the stream for an existing announce. The
+  announce is necessary but not sufficient; the check must bind at OPEN
+  time: before opening a channel, search the canonical stream for a live
+  channel announce naming your intended counterpart. Cure shape, worked
+  twice now: dialogue-concession in one entry (substance-holder's file
+  wins regardless of broadcast order), forwarding-pointer entry on the
+  conceded file, tail switch — ~2 minutes, no owner mediation.
+- **Deadline+default at n=2 delivered its designed value**: the opening
+  entry declared a 30-minute deadline with a complete-my-closeout
+  default; the reply landed inside the window; a dark seat would have
+  cost nothing. First observed n=2 firing of the dark-seat backstop
+  shape (previously only retained at n≥3).
+- **Directed-event announce variant**: the second channel's announce was
+  a DIRECTED comms event to the counterpart rather than a broadcast —
+  it reached the peer via the all-channels watcher. Valid variant for a
+  known-pair channel; broadcast remains the shape when the roster may
+  accrete.
+- **Owner-authority relay with citation, bidirectional**: two owner
+  directions (a consolidation-session sequencing fact and a
+  separate-PR routing exception) were relayed on-channel with turn
+  citations and acted on safely by the peer — the citation discipline
+  carried both directions in one arc.
+- **Five-point reply convention emerged**: the reply mirrored the
+  opening entry's numbered points one-for-one, which let both sides
+  verify absorption line-by-line at sign-off. Cheap, worth repeating.
 
 **Measured benefits:**
 

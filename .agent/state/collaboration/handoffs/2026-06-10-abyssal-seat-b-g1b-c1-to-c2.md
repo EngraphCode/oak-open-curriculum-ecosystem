@@ -17,7 +17,7 @@ Self-contained per `handoff-messages-self-contained.md`; you cannot read my tran
 ## 1. Current edit state (where things are)
 
 - **G1b c1 is DONE and COMMITTED, NOT pushed.** Commit **`a79b2271`** on branch
-  **`feat/g1b-prior-knowledge-view`** in worktree **`/Users/jim/code/oak/oak-wt-airy-g`**
+  **`feat/g1b-prior-knowledge-view`** in worktree **`../oak-wt-airy-g`**
   (cut off `origin/main` `d56f846d`, which has #153 + S1 + S2 + U1 merged + release 1.19.0). Full
   worktree pre-commit gate GREEN at commit (turbo 97/97; major-version guard passed). G1b is ONE
   PR (c1 + c2), so c1 stays local until c2 lands — then push + open ONE PR. c1 is gate-green, not
@@ -117,7 +117,7 @@ Per the plan `§Cycles` G1b c2 + the g1-prior-knowledge-view todo. On branch
 ## Coordination
 
 - Director: Veiled Listening Secret (7c8e8e). Coordination home = primary checkout
-  `/Users/jim/code/oak/oak-open-curriculum-ecosystem`; point all comms/claims CLIs there by absolute
+  `the repo root`; point all comms/claims CLIs there by absolute
   path. Director serialises merges + monitors PRs.
 - Team also live: Iridescent Glowing Sun (Seat A / S3 + G4 design, owner-rerouted forward);
   Luminous Scattering Dawn (agent-tools comms-watch hang hardening — disjoint).

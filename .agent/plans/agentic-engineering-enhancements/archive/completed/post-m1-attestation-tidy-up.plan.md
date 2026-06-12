@@ -572,7 +572,7 @@ for all subsequent cycles.
 
 **File scope**:
 
-- Source: `/tmp/ferny-ws2-partition-prestage-synthesis.md` (session-local;
+- Source: `<scratch>/ferny-ws2-partition-prestage-synthesis.md` (session-local;
   may not exist if /tmp purged between sessions — see Blocked Protocol)
 - Destination: `.agent/state/collaboration/handoffs/2026-05-23-ferny-ws2-pdr-076-split-prestage.md`
 
@@ -609,7 +609,7 @@ Expected: exit 0 all three; head shows frontmatter; markdownlint clean.
 `.agent/state/collaboration/handoffs/` naming convention.
 
 **R1 amendment (finding #1 cycle-1 branch of Blocked Protocol)**: if
-`/tmp/ferny-ws2-partition-prestage-synthesis.md` is purged at
+`<scratch>/ferny-ws2-partition-prestage-synthesis.md` is purged at
 cycle-open time (session-local; not guaranteed present), Blocked
 Protocol fires: surface to owner; do NOT silently auto-reconstruct
 PDR-076a/b content from primary plan + memory; cycles 3 + 4 are
@@ -627,7 +627,7 @@ cycles 3+4 stand-down).
 
 **File scope**:
 
-- Sources: `/tmp/charcoal-pdr077-postresume-fanout-synthesis.md` +
+- Sources: `<scratch>/charcoal-pdr077-postresume-fanout-synthesis.md` +
   any sibling `/tmp` files Charcoal authored for the PDR-077 lane
   (R1 + R2 + R3 review transcripts if still in `/tmp`)
 - Destinations:

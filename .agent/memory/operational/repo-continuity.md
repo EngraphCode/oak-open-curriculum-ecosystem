@@ -33,11 +33,28 @@ surface.
   production issues in Sentry; (4) organise the Sentry logging improvements those discoveries
   will surface; (5) refine the PostHog plan (home:
   [`mcp-product-analytics` thread](threads/mcp-product-analytics.next-session.md));
-  (6) begin planning integration of the oak api repo into this ecosystem repo. The
-  2026-06-11/12 handover-team arc itself is COMPLETE: both lanes landed (#189–#194), both
-  implementers closed out cleanly; coordination branch
-  `coordination/naming-and-snagging-team-2026-06-11` (prefix convention owner-adopted
-  2026-06-12) carries the continuity bundle to merge at Director closeout.
+  (6) begin planning integration of the oak api repo into this ecosystem repo;
+  (7) EEF data unexploited-value: initial gap research landed at
+  [`eef-data-surfacing-gap-research-2026-06-12.md`](../../plans/sector-engagement/eef/reference/eef-data-surfacing-gap-research-2026-06-12.md)
+  — organise its follow-ons; (8) identify high-impact graphs latent in the bulk data not yet
+  extracted; (9) apply the new graph-tool capabilities to the Oak curriculum-ontology repo
+  contents (formerly Oak knowledge graphs; sibling checkout `oak-curriculum-ontology`);
+  (10) build out React MCP-app capabilities via a user-facing search experience that fully
+  shows off hybrid semantic search — update the search-experience intent in the
+  [08-experience-surfaces cluster](../../plans/semantic-search/future/08-experience-surfaces-and-extensions/README.md)
+  and integrate it into the active
+  [`mcp-app-extension-migration.plan.md`](../../plans/sdk-and-mcp-enhancements/active/mcp-app-extension-migration.plan.md)
+  WS3 rebuild (this roadmap item is that intent's owner-agreed gate);
+  (11) keep the plan discovery surfaces current (`plans/README.md`, `high-level-plan.md`,
+  `good-first-issues.md`, `completed-plans.md`) and analyse `plans/notes/` for useful
+  substance then retire it. **NAMING v3 SHAPE DECIDED: C (noun + agentive), owner
+  2026-06-12** — recorded in the
+  [sample-sheets artefact](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
+  sequence stays era-pinning cure → C wordlist curation (full v2 gates, ~120 agentives) → v3
+  registry entry. **Comms research dispatch RELEASED by owner (2026-06-12), gated only on
+  this team session's closeout.** The 2026-06-11/12 handover-team arc itself is COMPLETE:
+  both lanes landed (#189–#194), both implementers closed out cleanly; the coordination
+  branch's continuity bundle MERGED to main as PR #195 (`063b2d43a`).
 
 - **TRACK-G COMPLETE + CURED — graph implementation team, seventh Director (2026-06-11).**
   Live NOW: **Iridescent Threading Constellation (`f9454b`, Fable 5) is the Director**
@@ -145,6 +162,37 @@ surface.
   `"override"` provenance mis-record; prerequisite for any v3 schema activation (owner is
   exploring v3 shapes — four sample sheets + Zephyr's column-allocation maths in comms).
   Own claim + owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3).
+- **DFE DATA SDK SEED + EEF GAP-RESEARCH SESSION CLOSED (2026-06-12, Forge turns Basalt
+  `c4b882`).** Three artefacts: the EEF surfacing-gap research report (roadmap item 7 above;
+  committed by the Director, `32bcd9d1b`), the
+  [DfE data SDK strategic seed](../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
+  (+ future-lane README row; assumptions-expert verdict sound-with-amendments, all amendments
+  applied), and the owner-commissioned
+  [Oak×EEF executive briefing](../../plans/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md)
+  (standalone C-suite companion to the research; the partnership-asks outreach vehicle).
+  Landing routes settled via ARC coordination with Firefly seeks Temper (owner-directed;
+  channel + announces `596fcb9a`/`90fa4668`, full round-trip closed 09:22Z): **ALL commit
+  responsibility for this session's artefacts is Firefly's** (owner direction ~09:22Z,
+  relayed on-channel) — the seed + all continuity edits RIDE Firefly's PR #196 closeout
+  bundle; the executive briefing is EXCLUDED from #196 and lands as Firefly's small
+  standalone PR immediately after it merges (owner direction ~09:20Z, cited via Firefly's
+  on-channel relay); the briefing's working-tree version at commit time is authoritative
+  (owner-edited after the final-signal). The deep-consolidation-DUE flag
+  is owned by the owner's planned dedicated consolidation session (relay, same source).
+  Session-close `pnpm check` GREEN (exit 0, zero warnings, full-log verified); Firefly's
+  bundle-proving run also GREEN on the tree carrying both edit sets; doc-only edits after my
+  run are markdownlint+prettier-clean individually. Seed substance: thin transport-agnostic SDK over the DfE Explore
+  Education Statistics public API (Beta, anonymous, OpenAPI-documented, OGL v3.0);
+  COMPLEMENTARY to the EEF corpus, never a replacement (owner posture 2026-06-12); workspace
+  language TypeScript-or-Python is a named promotion-time decision (owner authorised Python +
+  sketched the integration shape; all named tooling illustrative only — deep critical
+  analysis before choices). Promotion gate: a named Oak consumer with a ratified value
+  statement. **Next safe step**: owner roadmap item 7 (organise the EEF research follow-ons —
+  report §8 carries the ten unowned items); the seed waits on its promotion gate. Deep
+  consolidation status: due — `napkin.md` is over its fitness line limit (386 > 300) after
+  the 2026-06-11/12 multi-team capture window; rotation/convergence is a deliberate
+  next-session curation pass, not bounded for this closeout (this session's own captures are
+  routed: report, seed, thread records, napkin).
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.
@@ -159,7 +207,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Fable 5 / Sunlit Waxing Asteroid / graph-implementation-director-sixth-holder / 2026-06-11, claude / Fable 5 / Cindery Forging Volcano / g4b-implementer-third-seat-holder / 2026-06-11 (prior: Ethereal Orbiting Eclipse director-fifth-holder 2026-06-11, the 2026-06-10/11 graph worktree-team arc — five Director holders [Veiled Listening Secret, Solar Soaring Star, Celestial Glowing Dusk, Stratospheric Swooping Zephyr 2026-06-11, Ethereal] + eleven implementer seats, full identity table in the thread record; Fragrant Spreading Sapling graph-plan-readiness-seam-analysis-and-decision-complete 2026-06-10, Brazen Roasting Cinder aic-deferred-reviews-and-graph-tools-plan-promotion 2026-06-09, Incandescent Smouldering Brazier post-d7-answertype-headline-adr194-and-output-schema-integration 2026-06-09, Briny Charting Lagoon d6-completion-and-live-exercise 2026-06-08, Lanternlit Shrouding Raven c4-c5-reflection-and-attribution-fix 2026-06-08, Luminous Drifting Dawn c6-tool-gating-fix 2026-06-08, Evergreen Blossoming Copse adr-193-vendor-boundary-and-egress-membrane 2026-06-08, Pelagic Charting Rudder c1-c3-authoring-and-strict-type-flow 2026-06-07, Hidden Prowling Owl c1-finite-domain-prereq-and-type-widening-doctrine 2026-06-07, Arboreal Shedding Canopy d6-reshape-and-phase-e-handoff 2026-06-07, Moonlit Orbiting Moon d6-execution-reshaped 2026-06-07, Zephyrous Kiting Squall d6-readiness-regrounding 2026-06-06, Floating Darting Cloud d7-golive-plan-edit 2026-06-06, Dusky Dimming Candle author-d6-execution-plan 2026-06-06, Masked Creeping Lantern eef-deep-review-resolutions-adr191 2026-06-05, Dim Dimming Threshold eef-d5-execution 2026-06-05, Prismatic Twinkling Planet eef-d5-fresh-dual-review 2026-06-04, Windward Gliding Squall eef-d5-plan-authoring 2026-06-04, Shadowed Creeping Secret eef-d4-ratify 2026-06-04, Burnished Glowing Spark 2026-06-04, Lacustrine Swimming Beacon 2026-06-03, Seaworthy Swimming Sextant 2026-06-03, Galactic Glowing Prism + Opalescent Cascading Planet + Stellar Waning Planet + Silvered Lurking Mask 2026-06-02) |
+| `eef` | EEF graph-tooling rebuild | [record][eef] | claude-code / Fable 5 / Forge turns Basalt / eef-data-surfacing-gap-research / 2026-06-12, claude / Fable 5 / Cosmos turns Equinox / snagging-execution-successor-pickup (handoff record 7fb69812; arc landed #190/#191/#192/#193, closed out) / 2026-06-12, claude / Fable 5 / Dusky Passing Mist / snagging-execution-token-metric-pr190-eef-dual-shape-then-midcycle-handoff (retired) / 2026-06-11, cursor / Fable 5 / Dawnlit Glimmering Orbit / oak-prod-live-mcp-exercise-snagging-and-cursor-visibility-writeup / 2026-06-11 (NOTE: this branch lags the eef arc — TRACK-G completion + the seventh directorship live on branch `docs/graph-team-direction-2026-06-10`; reconcile on merge; prior: claude / Fable 5 / Fragrant Spreading Sapling graph-plan-readiness-seam-analysis-and-decision-complete 2026-06-10, Brazen Roasting Cinder aic-deferred-reviews-and-graph-tools-plan-promotion 2026-06-09, Incandescent Smouldering Brazier post-d7-answertype-headline-adr194-and-output-schema-integration 2026-06-09, Briny Charting Lagoon d6-completion-and-live-exercise 2026-06-08, Lanternlit Shrouding Raven c4-c5-reflection-and-attribution-fix 2026-06-08, Luminous Drifting Dawn c6-tool-gating-fix 2026-06-08, Evergreen Blossoming Copse adr-193-vendor-boundary-and-egress-membrane 2026-06-08, Pelagic Charting Rudder c1-c3-authoring-and-strict-type-flow 2026-06-07, Hidden Prowling Owl c1-finite-domain-prereq-and-type-widening-doctrine 2026-06-07, Arboreal Shedding Canopy d6-reshape-and-phase-e-handoff 2026-06-07, Moonlit Orbiting Moon d6-execution-reshaped 2026-06-07, Zephyrous Kiting Squall d6-readiness-regrounding 2026-06-06, Floating Darting Cloud d7-golive-plan-edit 2026-06-06, Dusky Dimming Candle author-d6-execution-plan 2026-06-06, Masked Creeping Lantern eef-deep-review-resolutions-adr191 2026-06-05, Dim Dimming Threshold eef-d5-execution 2026-06-05, Prismatic Twinkling Planet eef-d5-fresh-dual-review 2026-06-04, Windward Gliding Squall eef-d5-plan-authoring 2026-06-04, Shadowed Creeping Secret eef-d4-ratify 2026-06-04, Burnished Glowing Spark 2026-06-04, Lacustrine Swimming Beacon 2026-06-03, Seaworthy Swimming Sextant 2026-06-03, Galactic Glowing Prism + Opalescent Cascading Planet + Stellar Waning Planet + Silvered Lurking Mask 2026-06-02), claude / Fable 5 / Sunlit Waxing Asteroid / graph-implementation-director-sixth-holder / 2026-06-11, claude / Fable 5 / Cindery Forging Volcano / g4b-implementer-third-seat-holder / 2026-06-11 (full prior-identity history: the thread record identity table) |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work, starting with a deep review of the Oak Curriculum Ontology repo (separate concern from the bulk-derived graph redesign) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 — **opened, not started; deep review is a fresh session** |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior: Blustery Lifting Gale skills-taxonomy-and-distribution 2026-06-03, Umbral Whispering Silhouette 2026-06-01) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Fable 5 / Thermal Circling Updraft / dedicated-consolidation-owner-walk / 2026-06-11 (prior: Arboreal Swaying Thicket dedicated-knowledge-curation 2026-06-11, Fruited Twining Canopy dedicated-knowledge-curation 2026-06-09, Coppery Crackling Crucible pending-graduations-drain-and-pdr-091 2026-06-08, Cosmic Illuminating Planet dedicated-continuity-surface-consolidation 2026-06-08, Lofty Spiralling Plume continuity-surface-fitness-and-prose-awareness 2026-06-08, Briny Plumbing Beacon feedback-mechanism-follow-ons 2026-06-07, Eclipsed Watching Veil items-4+1 2026-06-07, Glittering Weaving Comet 2026-06-07, Volcanic Blazing Magma 2026-06-06, Lanternlit Passing Mask 2026-06-05, Hidden Hiding Dusk 2026-06-04, Arboreal Sprouting Branch 2026-06-04, Opalescent Illuminating Prism 2026-06-03, Lacustrine Swimming Beacon, Ashen Burning Magma, Solar Glowing Meteor, Stratospheric Buffeting Breeze, Lofty Sweeping Falcon, Shaded Veiling Mirror) |
@@ -180,10 +228,10 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `observability-sentry-otel` | Sentry/OTel integration | [record][observability] | Umbral Creeping Night / claude-code / opus-4.7 / 2026-05-10 |
 | `main-critical-sonar-remediation` | Sonar remediation | [record][main-critical] | Stormy / claude-code / 2026-05-06 |
 | `exploring-open-education-resources` | Third-party OER | [record][oer] | Gnarled / claude-code / 2026-05-01 |
-| `sector-engagement` | External adoption | [record][sector] | Squally / cursor / 2026-04-30 |
+| `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | Twilit Orbiting Satellite / routing-sunset execution landed; research vector owner-gated / 2026-05-29 |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude / Fable 5 / Firefly seeks Temper / record-deep-dive + companion-plan + dispatch-released (research READY FOR DISPATCH, owner 2026-06-12; standalone session via the opener prompt) / 2026-06-12, claude / claude-opus-4-8 / Twilit Orbiting Satellite / routing-sunset execution / 2026-05-29 |
 
 ## Next Safe Steps
 

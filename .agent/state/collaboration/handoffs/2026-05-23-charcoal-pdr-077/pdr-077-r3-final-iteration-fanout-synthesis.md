@@ -14,7 +14,7 @@ intended_consumer: post-m1-attestation-tidy-up cycle 5 (PDR-077 final author)
 created_at: 2026-05-23T20:37:00Z
 last_updated_at: 2026-05-24T21:30:00Z
 topic: pdr-077-r3-final-iteration-fanout-synthesis
-capture_origin_path: /tmp/charcoal-pdr077-postresume-fanout-synthesis.md
+capture_origin_path: <scratch>/charcoal-pdr077-postresume-fanout-synthesis.md
 role_in_lane: primary-r3-final-iteration-synthesis
 review_round_state: R1 + R2 + R3 review-complete; 7 SHOULD-ABSORB + 1 Director-verdict pending absorption
 ---

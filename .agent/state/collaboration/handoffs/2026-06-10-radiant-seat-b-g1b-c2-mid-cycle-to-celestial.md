@@ -18,7 +18,7 @@ Read Abyssal's record FIRST for the full c2 spec + c1 design facts:
 
 ## 1. Current edit state (exact)
 
-- Worktree `/Users/jim/code/oak/oak-wt-airy-g`, branch `feat/g1b-prior-knowledge-view`. ADOPT IN
+- Worktree `../oak-wt-airy-g`, branch `feat/g1b-prior-knowledge-view`. ADOPT IN
   PLACE. Commits (local, NOT pushed — G1b is ONE PR when c2 completes):
   - `a79b2271` c1 (Abyssal): bounded predecessor view.
   - `29e3eccb` c2 first landing (mine, full gate GREEN at commit): anchored
@@ -34,7 +34,7 @@ Read Abyssal's record FIRST for the full c2 spec + c1 design facts:
   misconception), app `register-resources.ts` (+integration test), landing
   `render-resources-section.unit.test.ts`, e2e `documentation-resources.e2e.test.ts` (absence +
   removed-URI read asserts **-32602**, confirmed first-hand — test passed). Drafted commit message
-  in `/tmp/radiant-commit2.log` header area; subject:
+  in `<scratch>/radiant-commit2.log` header area; subject:
   `feat(curriculum-sdk): remove the curriculum prior-knowledge-graph resource (G1b c2)`.
 - **The ONE known blocker**: pre-commit failed on
   `apps/oak-curriculum-mcp-streamable-http/src/register-resources-observability.integration.test.ts`

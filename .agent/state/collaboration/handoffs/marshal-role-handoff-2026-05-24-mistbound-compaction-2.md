@@ -174,7 +174,7 @@ pathspec → run husky → commit with Co-authored-by attribution.
 | ADR-186 (comms-event-heartbeat-lifecycle-substrate) | Lanternlit (retired) | needs re-author or re-route |
 | WS-8 ADR (C2+C5+C4 self-mod authz shape) | Lanternlit (retired) | needs re-author or re-route |
 | Thin SKILL §0.5 collapse | Lanternlit (retired) | needs re-author or re-route |
-| PDR-076a + PDR-076b (WS-2 SPLIT) | Ferny (retired) | prestage substrate at `/tmp/ferny-ws2-partition-prestage-synthesis.md` (per Ferny captures) — needs in-repo promotion per owner rule |
+| PDR-076a + PDR-076b (WS-2 SPLIT) | Ferny (retired) | prestage substrate at `<scratch>/ferny-ws2-partition-prestage-synthesis.md` (per Ferny captures) — needs in-repo promotion per owner rule |
 | PDR-077 (Marshal-as-cycle-discipline) R3 absorption | Charcoal (state unverified) | 7 R3 SHOULD-ABSORB items + 1 Director-verdict item |
 | Vining knowledge-curation deliverables | Vining (active) | none surfaced yet; lane is read-curate; may produce substantive landings |
 
@@ -187,7 +187,7 @@ Captured to durable in-repo surfaces this resume arc:
 - Program plan R1.4+R1.5 landed in 2 commits (Lanternlit-authored, 8421658e + 302f3a33).
 - Lanternlit session-end substrate (8cbba057) — 5 new pending-graduations candidates.
 - Ferny window-2 closeout captures A/B/C/D (644956dc + bba7c914) + WS-8 ratification reviewer synthesis (f5426cba; promoted /tmp → repo per owner rule).
-- Owner rule captured (napkin Capture D, bba7c914): important state never in /tmp/ long-term; in-repo only. Graduation candidate for `.agent/rules/important-state-not-in-temp-files.md`.
+- Owner rule captured (napkin Capture D, bba7c914): important state never in <scratch>/ long-term; in-repo only. Graduation candidate for `.agent/rules/important-state-not-in-temp-files.md`.
 - Heartbeat convenience CLI idea captured in plan "Ideas to be integrated" section (commit 760f359a) and absorbed into program plan WS-10/WS-11 via Lanternlit's R1.5 refinement.
 
 ## 10. Open marshal obligations

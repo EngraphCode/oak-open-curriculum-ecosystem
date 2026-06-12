@@ -18,6 +18,6 @@ Owner asked me to keep running notes on how the high-speed, direct, synchronous 
 
 ## Potential improvements
 
-- A pre-agreed deterministic rendezvous path convention (e.g., /tmp/sidebar-<threadslug>.md) so symmetric "go sidebar" directions land both agents on ONE file with no duplication.
+- A pre-agreed deterministic rendezvous path convention (e.g., <scratch>/sidebar-<threadslug>.md) so symmetric "go sidebar" directions land both agents on ONE file with no duplication.
 - A lightweight "sidebar open" lifecycle comms event the owner or first agent emits, so the channel location is discoverable without out-of-band relay.
 - A way to surface per-window owner directives into the shared channel automatically (the stale-authority risk is the most dangerous friction — it nearly caused a vetoed git op to run).

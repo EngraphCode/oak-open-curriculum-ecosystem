@@ -14,7 +14,7 @@ intended_consumer: post-m1-attestation-tidy-up cycle 5 (PDR-077 final author)
 created_at: 2026-05-23T17:20:00Z
 last_updated_at: 2026-05-24T21:30:00Z
 topic: pdr-077-r1-fanout-synthesis
-capture_origin_path: /tmp/charcoal-pdr077-fanout-synthesis.md
+capture_origin_path: <scratch>/charcoal-pdr077-fanout-synthesis.md
 role_in_lane: r1-reviewer-fanout-synthesis
 ---
 

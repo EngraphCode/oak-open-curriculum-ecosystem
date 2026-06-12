@@ -45,9 +45,9 @@ Entries in this list have substance-stable + trigger-fired (or owner-direction-c
 
 - **Title**: `important-state-not-in-temp-files`
 - **Source**: `.agent/memory/active/napkin.md` lines 2284–2298 (Ferny Capture D, 2026-05-24)
-- **Substance**: Owner-stated rule (direct quote): *"important state and context must never be left in a temp file long-term, using it as a buffer is fine, but leaving it there for reference is not okay, everything of importance stays in the repo"*. Distinction: `/tmp/` as compose-buffer (write → emit/commit → done) is correct; `/tmp/` as durable-reference (a `.agent/` surface pointing at `/tmp/` for ongoing substrate) is the violation.
+- **Substance**: Owner-stated rule (direct quote): *"important state and context must never be left in a temp file long-term, using it as a buffer is fine, but leaving it there for reference is not okay, everything of importance stays in the repo"*. Distinction: `<scratch>/` as compose-buffer (write → emit/commit → done) is correct; `<scratch>/` as durable-reference (a `.agent/` surface pointing at `<scratch>/` for ongoing substrate) is the violation.
 - **Proposed home**: new rule `.agent/rules/important-state-not-in-temp-files.md` (+ `.claude/`, `.cursor/` adapters + RULES_INDEX entry). Composes with existing `.agent/rules/no-machine-local-paths.md`.
-- **Trigger**: **owner-direction (fired 2026-05-24)** + worked-instance (Ferny's `/tmp/ferny-ws8-reviewer-synthesis-window2.md` violation, self-cured this turn). Memory entry already exists at `feedback_*` level (per MEMORY.md mention: "Ferny Capture D — important-state-not-in-temp-files rule capture"); routing is rule-graduation.
+- **Trigger**: **owner-direction (fired 2026-05-24)** + worked-instance (Ferny's `<scratch>/ferny-ws8-reviewer-synthesis-window2.md` violation, self-cured this turn). Memory entry already exists at `feedback_*` level (per MEMORY.md mention: "Ferny Capture D — important-state-not-in-temp-files rule capture"); routing is rule-graduation.
 - **Note**: This is already the subject of the most recent commits (`e25b4f5b`, `bba7c914` per session-open git log) — looks **partially graduated** as memory entry; rule-layer graduation is the pending move.
 
 ### 2.2 — Director-pure-direction-only → PDR (principle-class)
@@ -237,7 +237,7 @@ Mature substance with no obvious permanent home. Each is a structural-cure propo
 
 ### 5.6 — Curator-pass log file accumulation (latent risk)
 
-- Per PDR-081 §Per-pass log contract, the metadata-only constraint exists precisely to prevent the per-pass log from becoming a buffer requiring a curator. This survey's working-artefact at `/tmp/breezy-deep-curation-survey-2026-05-24.md` is **substantively rich** — that's appropriate for a one-shot working artefact, but the curator-pass log file Vining authors downstream must point at this report, not embed its contents.
+- Per PDR-081 §Per-pass log contract, the metadata-only constraint exists precisely to prevent the per-pass log from becoming a buffer requiring a curator. This survey's working-artefact at `<scratch>/breezy-deep-curation-survey-2026-05-24.md` is **substantively rich** — that's appropriate for a one-shot working artefact, but the curator-pass log file Vining authors downstream must point at this report, not embed its contents.
 - **Watch-item, not a defect yet**: the contract was designed for exactly this case; the discipline is intact.
 
 ---
@@ -256,9 +256,9 @@ Patterns observed across multiple source-surface families. Higher-signal because
 - **Surfaces**: napkin (15 worked instances captured by 2026-05-24); pending-graduations (v3 candidates list); active patterns/ file (`substrate-pointer-read-as-current-state.md` — landed v2 at `8a99ed35`).
 - **Observation**: Pattern is in mature production-use; cure-shapes (verification-discipline; cron-prompt owner-input-precedence; handoff-attribution-vs-working-tree) are accumulating as variant-class instances. v3 promotion candidate is ripe.
 
-### 6.3 — `/tmp/` violations spanning multiple surfaces
+### 6.3 — `<scratch>/` violations spanning multiple surfaces
 
-- **Surfaces**: napkin (Ferny Capture D + Capture B `/tmp/ferny-ws8-reviewer-synthesis-window2.md` initial violation, then cure); program plan (WS-6: *"CAVEAT: review-trail substrate is in /tmp (session-local), not durable substrate — risk of loss across rotation"*); pending-graduations (no entry yet); comms broadcasts (Vining `7e6dcba3` includes durable-substrate-not-in-tmp framing).
+- **Surfaces**: napkin (Ferny Capture D + Capture B `<scratch>/ferny-ws8-reviewer-synthesis-window2.md` initial violation, then cure); program plan (WS-6: *"CAVEAT: review-trail substrate is in /tmp (session-local), not durable substrate — risk of loss across rotation"*); pending-graduations (no entry yet); comms broadcasts (Vining `7e6dcba3` includes durable-substrate-not-in-tmp framing).
 - **Observation**: Owner rule was stated 2026-05-24 (Capture D); worked-instance friction has been accumulating for at least the prior week. The rule is now articulated; the routing-to-rule step is the move.
 
 ### 6.4 — Cron-prompt-template-as-substrate

@@ -465,7 +465,7 @@ the tail after the command completes:
 
 ```bash
 START=$(date +%s)
-git commit -F - >/tmp/commit.log 2>&1 <<'EOF'
+git commit -F - >tmp/commit.log 2>&1 <<'EOF'
 type(scope): short subject starting lowercase
 
 Body paragraph.
@@ -475,7 +475,7 @@ EOF
 RC=$?
 END=$(date +%s)
 ELAPSED=$((END-START))
-tail -5 /tmp/commit.log
+tail -5 tmp/commit.log
 SHA=$(git log -1 --format=%h)
 ```
 

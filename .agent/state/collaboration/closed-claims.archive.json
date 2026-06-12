@@ -10174,7 +10174,7 @@
       "claimed_at": "2026-06-10T13:25:26Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "S2 (Seat A / Track S): s2-prompt-language-pass — fixed-language pass over the 5 served MCP prompts (canonical arg vocabulary per B3; distinguishable names per B4; adapt-lesson arg-mapping fix per B2 once confirmed first-hand). One atomic test+code pure-diff PR off origin/main. Source edits in my own worktree /Users/jim/code/oak/oak-wt-seat-a; this is the coordination-home visibility claim. Team critical path — G1b gate is S2-only.",
+      "intent": "S2 (Seat A / Track S): s2-prompt-language-pass — fixed-language pass over the 5 served MCP prompts (canonical arg vocabulary per B3; distinguishable names per B4; adapt-lesson arg-mapping fix per B2 once confirmed first-hand). One atomic test+code pure-diff PR off origin/main. Source edits in my own worktree ../oak-wt-seat-a; this is the coordination-home visibility claim. Team critical path — G1b gate is S2-only.",
       "archived_at": "2026-06-10",
       "closure": {
         "kind": "explicit",
@@ -10218,7 +10218,7 @@
       "claimed_at": "2026-06-10T13:44:10Z",
       "freshness_seconds": 14400,
       "sidebar_open": false,
-      "intent": "G1a #153 held-merge fixes (Seat B / Track G, Director Addendum): (1) add src/curriculum/**/*.ts to graph-corpus-sdk tsup entry globs so ./curriculum default condition ships dist/curriculum/*.js; (2) re-point oak-sdk-codegen/src/graph-corpus.ts barrel at ./generated/vocab/graph-corpus/index.js direct (drop aggregate eager-load). One commit on feat/g1a-graph-corpus-foundation; source edits in worktree /Users/jim/code/oak/oak-wt-airy-g; this is the coordination-home visibility claim. Then S2-gated G1b.",
+      "intent": "G1a #153 held-merge fixes (Seat B / Track G, Director Addendum): (1) add src/curriculum/**/*.ts to graph-corpus-sdk tsup entry globs so ./curriculum default condition ships dist/curriculum/*.js; (2) re-point oak-sdk-codegen/src/graph-corpus.ts barrel at ./generated/vocab/graph-corpus/index.js direct (drop aggregate eager-load). One commit on feat/g1a-graph-corpus-foundation; source edits in worktree ../oak-wt-airy-g; this is the coordination-home visibility claim. Then S2-gated G1b.",
       "archived_at": "2026-06-10",
       "closure": {
         "kind": "explicit",
@@ -13164,6 +13164,51 @@
           {
             "kind": "claim",
             "ref": "982dbcc5-5de6-4675-a483-68675ec860c1",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "9a666480-3bb6-45b0-b4e0-5f73ecf5a260",
+      "agent_id": {
+        "agent_name": "Firefly seeks Temper",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "ce44ae",
+        "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/collaboration/handoffs/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T21:04:56Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (owner-directed): coordinate mid-cycle handovers for Tarsier calls Warren (mcp inspector + snagging lane) and Harrier weaves Stratosphere (agent naming lane); route pickups per PDR-063/PDR-064; direction only, no source edits",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T08:04:20Z",
+        "closed_by": {
+          "agent_name": "Firefly seeks Temper",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "ce44ae",
+          "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+          "naming_schema_version": "override"
+        },
+        "summary": "Director arc complete: two PDR-063 handovers zero-loss; #189-#195 merged; v3=C decided; comms research released post-closeout. Stand-down by intent.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "9a666480-3bb6-45b0-b4e0-5f73ecf5a260",
             "summary": "Claim explicitly closed by owning session."
           }
         ]

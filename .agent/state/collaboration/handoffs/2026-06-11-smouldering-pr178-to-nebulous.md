@@ -15,7 +15,7 @@ END before any action (PDR-063 / ADR-182; the start-right-team pickup contract).
 - **Checks at freeze (~12:02Z)**: 6/7 green (CodeQL, Bugbot, SonarCloud, both Analyze, Vercel
   pass); `run-quality-gates` PENDING; mergeStateStatus BLOCKED pending that check.
   **0 review comments** at freeze.
-- **Worktree**: `/Users/jim/code/oak/oak-wt-smouldering`, branch `feat/position-anchored-prompt`
+- **Worktree**: `../oak-wt-smouldering`, branch `feat/position-anchored-prompt`
   at `32ba1ceeb`, working tree CLEAN, everything pushed. One local-only gitignored file:
   `apps/oak-curriculum-mcp-streamable-http/.env.local` (copied from the primary checkout for
   the P3 live proof; harmless, never committable).
