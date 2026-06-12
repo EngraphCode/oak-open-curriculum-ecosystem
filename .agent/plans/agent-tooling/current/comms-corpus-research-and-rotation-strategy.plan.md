@@ -20,7 +20,7 @@ todos:
     status: pending
     depends_on: [ws1-open-discovery, ws2-automated-survey]
   - id: ws5-rotation-strategy
-    content: "WS5: non-held rotation strategy — evaluate the candidate shapes in the thread record's rotation section against WS1-WS4 evidence and the five invariants; produce a ratification-ready proposal (PDR-class portable contract + ADR-class repo phenotype outline) and put it to the owner. NO deletion executes inside this plan."
+    content: "WS5: non-held rotation strategy — evaluate the candidate shapes in the thread record's rotation section against WS1-WS4 evidence and the five invariants; produce a ratification-ready proposal (PDR-class portable contract + ADR-class repo phenotype outline) and put it to the owner. NO deletion executes inside WS5 or any workstream before it — execution belongs exclusively to the owner-gated WS7, strictly after ratification."
     status: pending
     depends_on: [ws2-automated-survey, ws3-failure-mode-taxonomy]
   - id: ws6-consolidation-closeout
