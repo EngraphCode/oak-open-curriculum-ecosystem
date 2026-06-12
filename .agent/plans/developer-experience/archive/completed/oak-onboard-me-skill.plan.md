@@ -1,7 +1,7 @@
 ---
 name: "oak-onboard-me Interactive Onboarding Skill"
 overview: "Build the onboard-me repo-working skill (published /oak-onboard-me): an interactive onboarding walker that branches by audience and need, detects machine state with read-only probes first, guides one go-ahead-gated step at a time, and reads ALL content from the live docs at walkthrough time (router-not-copy). Structural cure for the onboarding register's junior-friction items D1-D3 and the 5.5/10 contributor-approachability finding."
-status: "ACTIVE — owner-approved plan 2026-06-12; executing in-session (Vanilla lifts Chlorophyll, 8dca0d)"
+status: "COMPLETE — executed and proven 2026-06-12 (Vanilla lifts Chlorophyll, 8dca0d); archived same day with post-completion amendments recorded below"
 todos:
   - id: c1-canonical
     content: "Write .agent/skills/onboard-me/SKILL-CANONICAL.md: frontmatter (name onboard-me, classification active, delegation-trigger description), buddy interaction contract, router principle + source-doc table, read-only detection table, journey graph (D0 audience fork; D1 access fork; branches A engineer trunk / B impact-strategy / C planning corpus / D prerequisites / E repo setup), re-entry-by-redetection, completion contract, failure handling, adapters pointer. Before writing the graph, re-verify every doc anchor it names (first-principles landing-path check). Zero embedded doc-content copies."
@@ -45,14 +45,16 @@ body encodes a numbered decision-tree journey in the house style of
 go-ahead-gated step at a time. **Router-not-copy is absolute**: the skill
 carries the journey graph and the manners; every command, prerequisite, and
 description is read from the live docs at walkthrough time, so the walker
-cannot drift from them. Re-running the skill is the resume mechanism (no
-persisted state).
+cannot drift from them. Re-running the skill is the resume mechanism (designed
+state-free; the owner reversed this after completion — see the amended
+non-goal — and the shipped contract adds untracked, individual-scoped,
+schema-versioned state under `.agent/state/onboarding/`).
 
 ## Acceptance criteria and proof contract
 
 | Id | Acceptance | Proof level | Proof |
 | --- | --- | --- | --- |
-| c1 | Canonical ≤ ~200 lines; zero embedded doc-content copies; every named doc path resolves | non-code | first-hand read + `ls` per path |
+| c1 | Canonical ≤ ~200 lines (met at completion; owner scope additions afterwards — the Practice branch, headline invariants, and the persisted-state contract — grew the shipped canonical to ~300 lines); zero embedded doc-content copies; every named doc path resolves | non-code | first-hand read + `ls` per path |
 | c2 | Both adapters generator-fresh; `pnpm skills:check` + `pnpm portability:check` exit 0; settings entries present (owner-authorised) | non-code | gate output |
 | c3 | Pointers resolve both ways; `pnpm subagents:check` green | non-code | gate output + link check |
 | c4 | One branch walked live with correct detection and gating; both reviewers report no blocking findings; commits green | value-proxy | session transcript + reviewer reports + commit SHAs |

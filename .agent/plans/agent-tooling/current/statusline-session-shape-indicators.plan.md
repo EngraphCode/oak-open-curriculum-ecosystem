@@ -1,7 +1,7 @@
 ---
 name: "Statusline Session-Shape Indicators"
 overview: "Add dense, glanceable session-coordination indicators to the Claude Code statusline: a Director demark on the identity, a team-shape icon (directed team vs peer team vs solo), and an ArcAngel-active wing — resolved from the claims registry and the ARC experiments directory only (never the comms corpus), enabled by an additive optional role field on the claim schema that also lands the long-pending structural claim-schema cure for singleton roles."
-status: "QUEUED — owner-directed 2026-06-12 (feasibility assessed and plan ratified in-session; written to disk uncommitted by owner instruction)"
+status: "QUEUED — owner-directed 2026-06-12 (feasibility assessed and plan ratified in-session; committed via the successor bundle; assigned to the next session's statusline lane)"
 todos:
   - id: ws1-claim-role-field
     content: "WS1: add an optional `role` field to the active-claims schema (enum-ish open string: director, peer, marshal, curator, implementer...) + `--role` on `claims open`; additive, existing readers unaffected (the handoff_record_path precedent); update the start-right skills' claim-opening steps to pass it; record that this lands the structural claim-schema cure for singleton roles (check-singleton-per-window pending cure, 2026-05-22)."

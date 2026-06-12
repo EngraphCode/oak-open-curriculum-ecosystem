@@ -80,8 +80,8 @@ contribution you want to make first.
 ### E. MCP tool snagging on the canonical HTTP MCP server
 
 - **Area**: [`apps/oak-curriculum-mcp-streamable-http/`](../../apps/oak-curriculum-mcp-streamable-http/)
-- **Why this is a good first issue**: The canonical MCP server exposes 37
-  curriculum tools; any one of them can be exercised end-to-end against the
+- **Why this is a good first issue**: The canonical MCP server exposes dozens
+  of curriculum tools; any one of them can be exercised end-to-end against the
   live invite-only alpha and surface a small, well-bounded snag.
 - **Definition of done**: A reproducible snag captured (issue, with curl /
   client repro) — or, if scoped to fix, a TDD cycle that closes it.
