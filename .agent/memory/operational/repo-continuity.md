@@ -20,6 +20,21 @@ surface.
 
 ## Current State
 
+- **ONBOARDING-IMPROVEMENT ARC — PR #199 OPEN, merge-once-green owner-directed (2026-06-12,
+  Vanilla lifts Chlorophyll `8dca0d`).** The arc landed on `feat/onboarding-improvement`:
+  `/oak-onboard-me` walker (conversation-first after live owner falsification; untracked
+  schema-versioned personal state in `.agent/state/onboarding/`), entry-path drift fixes,
+  reviewer-template verification discipline (onboarding/docs-adr/subagent-architect),
+  consolidation freshness duties, VISION/README value framing (implied, never stated —
+  pillars memory), Track-B dispositions (B4/B5 closed; B1 awaits owner cost bands; B2/B3
+  risk-register draft queued; B6 at the M2 gate), and the conserved 2026-06-12 curation
+  pass. **Next safe steps**: owner re-walks `/oak-onboard-me` off-branch; B2/B3 register
+  seeding; the ask-the-repo search decision (research attached to PR-session transcript).
+  **NEXT SESSION (owner-directed): a two-member team** — (a) the comms-corpus research
+  session below, research/reporting only with zero/minimal implementation: the goal is
+  understanding and discovery, and to make it safe to REMOVE and STOP TRACKING the
+  `.agent/state/` files; (b) the enhanced-statusline lane
+  ([statusline-session-shape-indicators plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md), QUEUED).
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session

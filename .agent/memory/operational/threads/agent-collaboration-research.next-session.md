@@ -502,3 +502,14 @@ executing the companion plan's open-discovery cold read (WS1) defers BOTH Candid
 sections until its surprises log is recorded, so the seeded catalogue cannot anchor the cold
 read. The catalogue is a floor for what counts as a pattern, never a fence around what may be
 found; surprises outrank seeded-theme confirmation.
+
+## Dispatch refinement (owner, 2026-06-12 evening)
+
+The session runs as one half of a two-member team (the other lane: enhanced
+statusline work). Scope re-affirmed as research and reporting only — zero or
+minimal implementation. The goal is understanding and discovery, and
+explicitly: **to make it safe to remove, and stop git-tracking, the
+`.agent/state/` files.** The individual-scoped precedent landed 2026-06-12:
+`.agent/state/onboarding/` is already gitignored (uniform classification —
+individual-scoped state is untracked by design); this research owns the
+repo-scoped remainder.

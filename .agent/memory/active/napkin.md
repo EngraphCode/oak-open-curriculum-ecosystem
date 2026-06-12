@@ -95,3 +95,9 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   graph = private routing model). Lesson: interaction-layer quality is only provable by a
   live newcomer-shaped run; wire that into any future interactive-surface plan's proof
   contract in place of (not in addition to) a mechanics smoke test.
+- **A policy-blocked compound command runs NONE of its parts — including the heredoc at the
+  top.** My memory-bundle commit reused the previous COMMIT_EDITMSG because the blocked
+  `git add -A` command carried the message-write heredoc, which never executed; the retry
+  committed with the prior commit's message (caught on the log line, cured by amend — local
+  and unpushed, so safe). Cure: after ANY policy-blocked commit attempt, re-verify
+  COMMIT_EDITMSG content before retrying; better, write the message file in its own command.
