@@ -68,7 +68,11 @@ the register's pre-public-alpha rerun is the named measurement point.
 
 ## Non-goals
 
-- No content embedding; no persisted walkthrough state; no telemetry machinery.
+- No content embedding; no telemetry machinery. (*Amended 2026-06-12 after
+  completion: the owner reversed the no-persisted-state non-goal — walkthrough
+  state now persists in the untracked individual-scoped
+  `.agent/state/onboarding/` path; see the register's Interactive Onboarding
+  Inputs section for the decided shape.*)
 - No workflow prescription beyond the two session bookends (owner-ratified).
 - No platform-specific walkthrough variants beyond the generated adapters.
 - No auto-run of slow verify gates or state-changing commands without explicit

@@ -109,23 +109,42 @@ mechanism that keeps structure coherent over time.
 
 ### Track B (Governance): Leadership-Input Items
 
-- **Status**: 📋 Not started
-- These cannot be completed by documentation editing alone.
+- **Status**: 🟢 Owner dispositions recorded 2026-06-12 (surfaced as six
+  questions; every item now has a decided path)
 
 Status key: `[ ]` not started, `[~]` in progress, `[x]` complete.
 
-- [ ] **B1. Add cost model and sustainability framing to `foundation/VISION.md`**
-  - Requires infrastructure-cost evidence and team-model decisions.
-- [ ] **B2. Create architectural risk register**
-  - Requires organisation-level risk prioritisation.
-- [ ] **B3. Add business-level risks and mitigations to `foundation/VISION.md`**
-  - Requires reputational, operational, financial, and regulatory framing.
-- [ ] **B4. Document agentic-practice transferability**
-  - Requires explicit split of general-purpose vs Oak-specific components.
-- [ ] **B5. Clarify ecosystem/open-source posture for non-technical audiences**
-  - Requires policy decisions for contribution posture.
+- [~] **B1. Add cost model and sustainability framing to `foundation/VISION.md`**
+  - **Disposition (2026-06-12)**: agent drafts the skeleton (hosting,
+    search, auth, observability cost lines + sustainability narrative);
+    owner supplies numbers and team-model stance. Draft goes to owner
+    review before landing — no placeholder sections in the live VISION.
+- [~] **B2. Create architectural risk register**
+  - **Disposition (2026-06-12)**: seed from existing findings (CTO
+    conditional-go items, adversarial architecture reviews, ADR risk
+    sections); prioritisation stays with the owner; owner-reviewed
+    before landing.
+- [~] **B3. Add business-level risks and mitigations to `foundation/VISION.md`**
+  - **Disposition (2026-06-12)**: folded into the B2 register as a
+    business-risk section, with a short plain-language summary linked
+    from VISION — one risk document, not two.
+- [~] **B4. Document agentic-practice transferability**
+  - **Disposition (2026-06-12)**: substantially resolved by architecture
+    since baseline (practice-core portable by construction with the
+    portability gate enforcing it; ADR-124 propagation; plasmid
+    mechanism). Remaining work: a concise evidence note in VISION,
+    owner-reviewed.
+- [~] **B5. Clarify ecosystem/open-source posture for non-technical audiences**
+  - **Disposition (2026-06-12)**: a plain-language policy paragraph —
+    why contributions are closed during alpha, what external readers can
+    do, what would trigger opening — owner-reviewed, homed in VISION
+    §Open Source And Licensing with entry points linking to it.
 - [ ] **B6. Expand `SECURITY.md` for organisational risk assessment**
-  - Requires data governance and security-posture decisions.
+  - **Disposition (2026-06-12)**: deferred to the M2 (open public alpha)
+    exit gate, recorded alongside the existing M2 blockers (R9 Clerk,
+    R10 Sentry, R13 rate limiting). Decision inputs when the gate
+    approaches: data classes handled, governance boundaries, posture
+    summary.
 
 Traceability to baseline report:
 
@@ -1283,9 +1302,16 @@ Owner-directed scope addition at build time (12 June 2026): a Practice
 branch — what the Practice is, how to work with the agents through the
 skills, and how agents accelerate development without compromising quality
 or safety — routing to the live Practice explainers rather than copying
-them. Resumability is re-derivation, not memory: persisted session state is
-an owner-gated future upgrade pending the `.agent/state/` tracking decision
-(after the comms research plan completes).
+them. Resumability (owner-decided 2026-06-12, superseding the earlier hold):
+walkthrough state persists in the **untracked** individual-scoped file
+`.agent/state/onboarding/walkthrough.local.md` (path gitignored;
+one checkout = one individual unless the user says otherwise; journey
+state only, never personal details). Machine state remains re-derived by
+probes on every run — the file is a resume hypothesis, never a fact.
+The classification is uniform: individual-scoped state is untracked by
+design; whether repo-scoped collaboration state under `.agent/state/`
+also becomes local-only is a separate decision gated on the comms
+research plan.
 
 **First live run falsified the menu-shaped interaction (12 June 2026,
 owner walkthrough)**: the walker front-loaded prerequisite probes before

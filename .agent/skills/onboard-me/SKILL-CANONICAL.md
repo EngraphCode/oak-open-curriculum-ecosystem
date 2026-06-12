@@ -238,18 +238,27 @@ steps** (the verify gates are slow; never auto-run them). Teammates: offer
 `docs/engineering/sibling-repos.md` for the wider working set. Route env
 depth to the live CONTRIBUTING.md contribution levels. Exit → Completion.
 
-## Re-entry
+## Re-entry and Personal State
 
-Re-running this skill is how a newcomer resumes: every stateful branch
-re-detects from scratch, so a second run shows yesterday's gap as `[x]`
-and offers the next one. Never trust a prior run's checklist; never
-persist walkthrough state to disk. Resumption here is **re-derivation,
-not memory**: machine state lives in the filesystem and is re-probed,
-while the conversational answers (audience, access) are deliberately
-re-asked — two cheap questions buy a fully state-free walker. If real
-re-run friction is ever observed, persisted session state is a future,
-owner-gated upgrade (pending the `.agent/state/` tracking decision), not
-something to improvise here.
+Onboarding is scoped to the individual, not the repository. Record
+walkthrough state in the **untracked** personal state file
+`.agent/state/onboarding/walkthrough.local.md` (the directory is
+gitignored — this state must never reach a commit). The working
+assumption is **one checkout = one individual**; if the newcomer says
+the checkout is shared, skip persistence entirely and rely on
+re-detection alone.
+
+Record only journey state: the stated audience and access answers,
+branches completed, items consciously deferred with their one-line
+reasons, and the date. **Never record personal details** — no names, no
+emails, nothing identifying; the file is personal by location, not by
+identity. Update it as the walk progresses.
+
+On re-entry: if the state file exists, greet them back warmly and offer
+to pick up where they left off — but treat the file as a hypothesis, not
+a fact. Machine state is always re-verified by the read-only probes
+(reality outranks the file), and the recorded answers are theirs to
+revise. Never resume from a stale checklist without re-detection.
 
 ## Completion
 
