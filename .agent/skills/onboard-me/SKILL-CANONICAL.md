@@ -248,11 +248,25 @@ assumption is **one checkout = one individual**; if the newcomer says
 the checkout is shared, skip persistence entirely and rely on
 re-detection alone.
 
-Record only journey state: the stated audience and access answers,
-branches completed, items consciously deferred with their one-line
-reasons, and the date. **Never record personal details** — no names, no
-emails, nothing identifying; the file is personal by location, not by
-identity. Update it as the walk progresses.
+Record only journey state, in a **versioned, closed shape**: markdown
+with YAML frontmatter, free-form walk notes below it.
+
+```yaml
+schema_version: 1
+audience: "their stated need, in their own words, one line"
+access: oak-teammate | external | unstated
+branches_completed: []
+deferred: [] # one-liners: "item — reason"
+last_walk: YYYY-MM-DD
+```
+
+**Never record personal details** — no names, no emails, nothing
+identifying; the file is personal by location, not by identity. Update
+it as the walk progresses. On read: if `schema_version` is missing,
+unknown, or the file fails to parse, treat the file as absent and fall
+back to stateless re-derivation — never guess at a migration mid-walk.
+If the shape ever evolves, bump the version and migrate explicitly at
+write time.
 
 On re-entry: if the state file exists, greet them back warmly and offer
 to pick up where they left off — but treat the file as a hypothesis, not
