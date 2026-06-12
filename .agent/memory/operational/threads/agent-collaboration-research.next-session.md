@@ -11,13 +11,21 @@ merge_class: index-narrative-tables
 
 ## Status
 
-**Dispatch preparation under owner direction (2026-06-12).** The owner directed (in-session to
-Director Firefly seeks Temper, 2026-06-12) that this record be deepened and that an executable
-plan be created for a dedicated research agent to pick up. The companion plan is
+**Execution-ready; successor session executes (planning session closed 2026-06-12, Fern lifts
+Mulch / 66f12b).** The owner reshaped the first dispatch into a planning session: the companion
+plan
 [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
-— once the owner marks it ready, dispatch happens through that plan; this record remains the
-research-substrate home (hypothesis, themes, vectors, corpus facts). Until the plan is
-owner-ratified, no autonomous research dispatch.
+is now decision-complete and execution-ready — owner-amended same day to own the full arc
+(WS6 comprehensive synthesis report; owner-gated WS7 executes the ratified end-state:
+contract-surface relocation, experiments/ preservation, `.agent/state/` untracked-by-design,
+7-day default retention purge post-absorption). Immediate preservation landed: the
+experiments/ gitignore policy was flipped and five machine-local experiment records committed.
+The successor research session enters via the
+[opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md) and
+begins at WS0. **Blind-pass attestation**: the planning seat did NOT open this record's two
+Candidate Themes sections, the fenced comms-pattern files, or prior napkin/distilled
+comms-pattern commentary — the WS1 cold read remains uncontaminated for the successor. This
+record remains the research-substrate home (hypothesis, themes, vectors, corpus facts).
 
 ## Origin
 
@@ -76,7 +84,10 @@ Two facts sharpen the boundary as of 2026-06-12:
 - **The corpus is git-heterogeneous.** Older events are committed; recent events (including the
   entire 2026-06-11/12 handover arc) are untracked working-tree files. Deleting an untracked
   event is unrecoverable loss. Any rotation mechanism must treat commit-or-absorb as the
-  precondition for deletion of untracked events.
+  precondition for deletion of untracked events. **Corrected 2026-06-12 (Fern lifts Mulch,
+  verified first-hand)**: commit `567bf0f1a` tracked the full corpus — all 4,978 events are
+  now committed, zero untracked. The held corpus is git-recoverable; the commit-or-absorb
+  invariant remains live for future events written after any untracking lands.
 
 ## Research Lenses (owner-named, 2026-06-12)
 
@@ -465,6 +476,7 @@ Relevance to this research thread:
 | Solar Illuminating Dawn | codex | GPT-5 | 019e6a | 2026-05-27 | 2026-05-27 | state-file-lifecycle-boundary-clarification |
 | Twilit Orbiting Satellite | claude | claude-opus-4-8 | 263042 | 2026-05-29 | 2026-05-29 | routing-legacy-fallback-sunset execution (Leafy claim `14b484d6` pickup) |
 | Firefly seeks Temper | claude | Fable 5 | ce44ae | 2026-06-12 | 2026-06-12 | record deep-dive + second theme seeding + rotation-strategy framing + companion-plan creation (owner-directed, Director seat) |
+| Fern lifts Mulch | claude-code | Fable 5 | 66f12b | 2026-06-12 | 2026-06-12 | planning session (owner-reshaped from research dispatch; claim 63d80264): WS6 synthesis-report + owner-gated WS7 end-state amendments, experiments/ preservation commit, continuation surfaces made execution-ready; blind-pass discipline honoured — Candidate Themes sections unread |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 

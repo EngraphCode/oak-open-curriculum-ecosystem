@@ -13263,6 +13263,192 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "f6fa43ec-a640-424d-ac38-faeba71e8f5c",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T15:52:00Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit WS1 claim role field (worktree feat/statusline-enhancements).",
+      "intent_to_commit": "3bdc8219-2688-4fbb-8a9b-489c548cbf29",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T16:09:54Z",
+        "closed_by": {
+          "agent_name": "Monsoon guards Cirrus",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "aaa0b7",
+          "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f",
+          "naming_schema_version": "override"
+        },
+        "summary": "No commit landed: pre-commit blocked by sdk-codegen removal-condition tests (upstream GET /keywords description changed). Owner handling the fix in a separate worktree; statusline WS1 bundle remains staged in worktree, lane paused. Three abandoned queue intents (1266cd70, 205de542, 3bdc8219) carry the attempt audit.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "f6fa43ec-a640-424d-ac38-faeba71e8f5c",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "18a299f4-3e6a-4666-80fc-67cfc243859d",
+      "agent_id": {
+        "agent_name": "Tempest spins Stratosphere",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "123098",
+        "id": "1ccc5b3b-f898-55f3-bdbc-244046fdad12",
+        "naming_schema_version": "override"
+      },
+      "thread": "upstream-api-spec-alignment",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T16:44:18Z",
+      "freshness_seconds": 1800,
+      "sidebar_open": false,
+      "intent": "Stage and commit upstream-spec alignment (three sequential commits) on fix/align_with_upstream_api_spec in worktree align-with-upstream-api-spec.",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T16:56:26Z",
+        "closed_by": {
+          "agent_name": "Tempest spins Stratosphere",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "123098",
+          "id": "1ccc5b3b-f898-55f3-bdbc-244046fdad12",
+          "naming_schema_version": "override"
+        },
+        "summary": "commits 2ff259bca + 1906bde1b + 3c8ac0bcb pushed on fix/align_with_upstream_api_spec (pre-push 103/103 green); commit-queue ceremony unavailable from worktree seat (registry cwd-coupling, register evidence appended)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "18a299f4-3e6a-4666-80fc-67cfc243859d",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "4a1d3d29-72ae-46ab-8658-51e142792ffb",
+      "agent_id": {
+        "agent_name": "Tempest spins Stratosphere",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "123098",
+        "id": "1ccc5b3b-f898-55f3-bdbc-244046fdad12",
+        "naming_schema_version": "override"
+      },
+      "thread": "upstream-api-spec-alignment",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "code-generation/**",
+            "packages/sdks/**",
+            ".claude/worktrees/align-with-upstream-api-spec/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T16:10:10Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Align repo with upstream Open Curriculum API spec change on branch fix/align_with_upstream_api_spec in worktree .claude/worktrees/align-with-upstream-api-spec (discovery -> plan -> codegen alignment); no edits in the shared checkout",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T17:06:35Z",
+        "closed_by": {
+          "agent_name": "Tempest spins Stratosphere",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "123098",
+          "id": "1ccc5b3b-f898-55f3-bdbc-244046fdad12",
+          "naming_schema_version": "override"
+        },
+        "summary": "PR 200 open and green (commits 2ff259bca..1d98284f3); upstream-spec alignment landed; merge is owner action; peers notified via comms event 4a5a889f",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "4a1d3d29-72ae-46ab-8658-51e142792ffb",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "63d80264-3c9c-436d-8aea-65e7cabc75a9",
+      "agent_id": {
+        "agent_name": "Fern lifts Mulch",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "66f12b",
+        "id": "e929d0a4-eeaf-5e2f-ac89-60c458aae7b8",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/collaboration/comms/**",
+            ".agent/reports/agentic-engineering/comms-corpus-*",
+            ".agent/memory/operational/threads/agent-collaboration-research.next-session.md",
+            ".agent/plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T15:51:54Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Execute comms-corpus-research-and-rotation-strategy.plan.md (WS0-WS6, research/reporting only; corpus is read-only to this lane) as the research half of the owner-directed two-member team",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T17:22:53Z",
+        "closed_by": {
+          "agent_name": "Fern lifts Mulch",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "66f12b",
+          "id": "e929d0a4-eeaf-5e2f-ac89-60c458aae7b8",
+          "naming_schema_version": "override"
+        },
+        "summary": "Planning session complete: comms-corpus research plan made decision-complete + execution-ready (owner-amended WS6 synthesis + owner-gated WS7 end-state); experiments preserved in 549332925; continuation surfaces updated; blind pass attested intact; successor session executes WS0+ via the opener prompt",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "63d80264-3c9c-436d-8aea-65e7cabc75a9",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

@@ -141,3 +141,43 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   as ONE positional to `enqueue`): the distilled entry exists and still did not fire at
   compose time; it DID make diagnosis instant. `${=ARGS}` cured. Read-doctrine-does-not-fire
   family; counted as further evidence, not a new lesson.
+
+## 2026-06-12 — comms-corpus planning session (Fern lifts Mulch, 66f12b)
+
+- **A "preserve everything" directive can be silently defeated by a scoped .gitignore built
+  for the opposite intent.** `experiments/.gitignore` ignored `*` by design ("transient
+  working files"); five experiment records existed ONLY on this machine while the directory
+  looked tracked from the outside (its README and .gitignore were committed). When
+  preservation is the goal, run `git ls-files` + `git check-ignore -v` over the actual tree
+  before trusting tracked-ness; flip the policy, don't bolt re-includes onto it.
+- **UTC-vs-local claim-freshness near-miss (the distilled lesson fired only via tooling).**
+  I read a peer's commit-window claim as expired by comparing its UTC `claimed_at` against
+  local-display file mtimes; `claims status --now $(date -u ...)` recomputed it as FRESH with
+  ~4 minutes left. The cure that actually worked was structural (the CLI recomputes), not the
+  written lesson — validators-must-recompute vindicated in the small.
+- **A merge-event watcher with a name-shaped filter is a silent never-fire.** My PR watcher
+  matched `align-with-upstream-api-spec` (hyphens); the real branch was
+  `fix/align_with_upstream_api_spec` (underscores). It would have slept to its 4h timeout;
+  the owner's ping rescued it. Audit-your-own-search-filters family, third instance: a
+  filter encoding a naming-convention GUESS must be verified against the live referent
+  (one `gh pr list` at arm time would have caught it) or matched insensitively to
+  separators ([-_]). Exit criteria saved the failure from being unbounded; they did not
+  make the watcher correct.
+- **Owner reshapes arrive mid-flight; self-correct the surfaces immediately.** This session
+  went execute→planning→paused-for-upstream within an hour. The cheap discipline: fix any
+  status line the reshape falsifies BEFORE doing new work (the plan briefly claimed "IN
+  EXECUTION — dispatched" about a session that was no longer executing).
+- **`commit-queue -- commit` workflow fails while the identical standalone path passes —
+  FIVE instances, TWO agents, one day (P1 for the agent-tools lane).** Signature: the
+  workflow's captured hook output dies at the depcruise ✔ line (before the 🧪 turbo echo),
+  `git commit` reported exit 1, intent abandoned — across Monsoon guards Cirrus ×3
+  (worktree, 15:53–15:56Z) and Fern lifts Mulch ×1 (main checkout, ~17:20Z). Controls:
+  `bash .husky/pre-commit` standalone exits 0 (full chain, turbo 97/97), and the exact
+  `git commit -F <msg> -- <pathspecs>` the workflow composes lands clean (`549332925`).
+  The defect is in the workflow's spawn/capture environment, not the tree, hooks, or
+  message. Path-B (direct explicit-pathspec commit) used for recovery with the five
+  invariants preserved manually; queue intents record the failures. Tempest's worktree
+  lockout finding (above) is a SIBLING defect in the same tool family, not the same
+  signature — Monsoon's three failures matched the depcruise-truncation shape, but their
+  cwd at invocation is unverified; adjudicate per-instance when the agent-tools lane
+  picks this up.
