@@ -12828,6 +12828,138 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "22fda278-467f-48d1-afcc-0aae4d02b1dc",
+      "agent_id": {
+        "agent_name": "Dawnlit Glimmering Orbit",
+        "platform": "cursor",
+        "model": "Fable 5",
+        "session_id_prefix": "50c2d1",
+        "id": "fc6b8d1d-4cf4-5e4b-9cac-0c06610ada1f"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md",
+            ".agent/plans/sdk-and-mcp-enhancements/current/README.md",
+            ".agent/reports/oak-prod-live-mcp-exercise-2026-06-11.md",
+            ".agent/memory/active/napkin.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T18:24:51Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Open oak-prod MCP snagging plan; correct exercise-report prompt-invocability claim; napkin capture",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T18:33:07Z",
+        "closed_by": {
+          "agent_name": "Dawnlit Glimmering Orbit",
+          "platform": "cursor",
+          "model": "Fable 5",
+          "session_id_prefix": "50c2d1",
+          "id": "fc6b8d1d-4cf4-5e4b-9cac-0c06610ada1f"
+        },
+        "summary": "Delivered: snagging plan + cursor-visibility write-up + README index row (write-up-first per owner); closed in same collaboration-state commit",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "22fda278-467f-48d1-afcc-0aae4d02b1dc",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "3c90e3d6-ff2d-4306-a259-74e15b94bed1",
+      "agent_id": {
+        "agent_name": "Dawnlit Glimmering Orbit",
+        "platform": "cursor",
+        "model": "Fable 5",
+        "session_id_prefix": "50c2d1",
+        "id": "fc6b8d1d-4cf4-5e4b-9cac-0c06610ada1f"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T18:32:16Z",
+      "freshness_seconds": 600,
+      "sidebar_open": false,
+      "intent": "Stage and commit oak-prod MCP snagging plan + cursor-visibility write-up (docs only, explicit pathspec).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T18:33:07Z",
+        "closed_by": {
+          "agent_name": "Dawnlit Glimmering Orbit",
+          "platform": "cursor",
+          "model": "Fable 5",
+          "session_id_prefix": "50c2d1",
+          "id": "fc6b8d1d-4cf4-5e4b-9cac-0c06610ada1f"
+        },
+        "summary": "Commit window closed in same collaboration-state commit (self-contained lifecycle commit)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "3c90e3d6-ff2d-4306-a259-74e15b94bed1",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "5c623784-3936-44da-9e5b-6eb82618b493",
+      "agent_id": {
+        "agent_name": "Dawnlit Glimmering Orbit",
+        "platform": "cursor",
+        "model": "Fable 5",
+        "session_id_prefix": "50c2d1",
+        "id": "fc6b8d1d-4cf4-5e4b-9cac-0c06610ada1f"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T18:44:19Z",
+      "freshness_seconds": 600,
+      "sidebar_open": false,
+      "intent": "Stage and commit session-handoff continuity bundle (explicit pathspec).",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T18:44:52Z",
+        "closed_by": {
+          "agent_name": "Dawnlit Glimmering Orbit",
+          "platform": "cursor",
+          "model": "Fable 5",
+          "session_id_prefix": "50c2d1",
+          "id": "fc6b8d1d-4cf4-5e4b-9cac-0c06610ada1f"
+        },
+        "summary": "Handoff commit window closed in same collaboration-state commit (self-contained lifecycle commit)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "5c623784-3936-44da-9e5b-6eb82618b493",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

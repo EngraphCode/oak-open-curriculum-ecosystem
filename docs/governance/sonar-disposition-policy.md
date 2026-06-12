@@ -362,6 +362,19 @@ const` (the generalised compile-time discipline of ADR-038), never typed
   The same suffix also drives the workspace ESLint code-quality ignore for the
   same architectural reason. Owner-authorised 2026-05-29.
 
+- `agent-tools/src/core/agent-identity/schemas/**` — curated naming-schema
+  wordlist data (ADR-198). Each registered era's themed word columns live in
+  one pure-data module per theme; cpd's token-sequence matching normalises
+  string-literal values, so six structurally identical data modules register
+  as ~96 duplicated lines each while their actual content is provably
+  disjoint — the curation gate tests enforce zero shared words across themes
+  per column, a strictly stronger anti-duplication property than cpd
+  measures. The material is digest-pinned and frozen at activation, so
+  "de-duplicating" (merging the files) would damage the per-theme curation
+  and review boundary to appease a false signal. The modules MUST stay pure
+  data (word arrays plus one typed export each, no logic), kept by the
+  curation gates and review. Owner-authorised 2026-06-11 (PR #189).
+
 ### What this does NOT do
 
 - It does **not** silence duplication on real source files. Findings in

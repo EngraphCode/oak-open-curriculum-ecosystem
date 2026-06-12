@@ -81,12 +81,14 @@ not a title string or prompt decoration.
 
 Formats:
 
-- `kebab` — lowercase slug, the default: `gnarled-sprouting-fern`
-- `display` — human-readable title case: `Gnarled Sprouting Fern`
+- `kebab` — lowercase slug, the default: `harrier-weaves-stratosphere`
+- `display` — human-readable rendering per the active schema's column
+  casing: `Harrier weaves Stratosphere` (v2 lowercases the middle verb)
 - `json` — full result including the SHA-256 `seedDigest`
 
-Derived JSON results include `kind: "derived"` plus `group`, `adjective`,
-`verb`, `noun`, `displayName`, `slug`, and `seedDigest`.
+Derived JSON results include `kind: "derived"` plus `namingSchemaVersion`,
+`group`, `words` (the selected words in column order), `displayName`, `slug`,
+and `seedDigest`.
 
 Resolved-name override:
 
@@ -95,11 +97,35 @@ OAK_AGENT_IDENTITY_OVERRIDE="Frolicking Toast" \
   node agent-tools/dist/src/bin/agent-identity.js --seed any --format display
 ```
 
-Override JSON results use `kind: "override"` and include only
-`displayName`, `slug`, `seedDigest`, and `override`. They intentionally do
-not invent derived word slots. The same environment variable is used by
-operator-provided names and by platform session hooks after they derive a name
-for the current session.
+Override JSON results use `kind: "override"` with
+`namingSchemaVersion: "override"` and include only `displayName`, `slug`,
+`seedDigest`, and `override`. They intentionally do not invent derived word
+slots. The same environment variable is used by operator-provided names and by
+platform session hooks after they derive a name for the current session.
+
+## Naming Schema Registry (ADR-198)
+
+The seed-to-name projection is versioned. Each era is registered in
+`src/core/agent-identity/schema-registry.ts` with its wordlist material,
+per-column render casing, and a pinned SHA-256 content digest; a gate test
+recomputes the digest so editing registered material without adding a new
+schema version fails the tree (material freezes at activation):
+
+- `v1-adjective-verb-noun` — the original adjective–participle–noun scheme,
+  all words title-cased (`Gnarled Sprouting Fern`). Frozen; remains
+  reproducible via `deriveIdentity(seed, { schemaId: 'v1-adjective-verb-noun' })`.
+- `v2-noun-verb-noun` — **active**. Noun–verb–noun micro-sentences with a
+  lowercase shared middle verb (`Harrier weaves Stratosphere`): themed
+  title-cased edge nouns around a theme-neutral verb pool, U-shaped column
+  salience by construction.
+
+Collaboration-state identity tuples record name provenance in an optional
+`naming_schema_version` field (a registered era id, or `override`). The two
+derivation factories always stamp it; address relays (recipient blocks,
+relayed caller identity) omit it because another agent's provenance is
+unknowable to the writer. Absence reads as the v1 era via
+`namingSchemaVersionOf` — rows written before the field existed are v1 by
+definition, with no backfill and no rewriting of immutable historical events.
 
 ## Session-Level Name Cache
 

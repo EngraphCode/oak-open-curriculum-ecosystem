@@ -148,3 +148,118 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   design; the cure is an explicit owner authorisation moment (worked instance this
   session, owner-keyed in-chat within a minute). Expect the two-step when landing any
   new skill: canonical + generated adapters, THEN the owner-visible settings entry.
+
+## 2026-06-11 — solo-window staged-bundle lesson (Swift Gliding Zephyr, aba87a)
+
+Authored inside the 2026-06-10 team-shape section on the naming branch after main's
+Arboreal rotation archived that section, so main's archive copy lacks it; carried
+forward verbatim at the naming-lane semantic merge:
+
+- **"Solo window" is a point-in-time observation, not a session property** (Swift Gliding
+  Zephyr, 2026-06-11): claims registry empty at session open + at WS1.1 → skipped the
+  commit-queue ceremony as solo-window lean path; by WS1.2 a peer had staged a 4-file
+  bundle (plan, report, lane README, closed-claims archive) and my `git commit` absorbed
+  it — `git add` is pathspec-scoped but commit takes the whole index. Cure adopted
+  mid-session: `git diff --cached --name-only` verified against the intended bundle
+  IMMEDIATELY before every `git commit`, halt on any foreign entry. The queue ceremony's
+  verify-staged step is collision protection, not ceremony, even when the registry reads
+  empty.
+
+## 2026-06-11 evening — oak-prod snagging wave 2 (Dawnlit Glimmering Orbit, 50c2d1, cursor)
+
+NOTE: wave-1 captures (Cursor drops structuredContent-only tool results; schema-skip instance;
+session-env recovery via `.cursor/oak-composer-session.local.json`; Cursor-Shell pre-push turbo
+SIGABRT + file-redirect cure; piped-exit false-RED wrinkle) are napkin'd on branch
+`docs/graph-team-direction-2026-06-10` (`ae5372e2c` + `c9ff6bb49`) — reconcile on merge. This
+branch's additions:
+
+- **The shared checkout's BRANCH moved under a paused session** — between my turns a peer
+  session checked out `docs/…` → `main` → `feat/better_agent_naming`; my next file-read
+  "lost" a committed report (it lives on the other branch). Cure that worked: on ANY
+  resumed turn in a shared checkout, re-derive branch + HEAD (`git rev-parse
+  --abbrev-ref HEAD; git log -1`) BEFORE interpreting file state; `git reflog` names what
+  happened. Same family as the stale-cwd class: session-persistent state (cwd, branch) is
+  a peer-mutable input, never a memory.
+- **Whole-tree pre-commit gates bind you to a live peer's WIP**: my docs-only commit failed
+  on 3 red agent-tools tests belonging to the peer's mid-TDD working tree (same checkout);
+  no bypass — surfaced to owner, waited; their next commit landed the tests green (997
+  pass) and the collision dissolved. Corollary of check-singleton-per-window: a commit's
+  gate chain is a whole-checkout event.
+- **A peer's broad `git add` swept my staged bundle into their feat commit** (`3de15f01a`
+  carries my five doc files + their identity work) — content conserved (set-membership
+  verified), but the commit-subject-to-content attribution is now mixed. The
+  stage-by-explicit-pathspec discipline protects against sweeping OTHERS' work; being
+  swept BY a peer is the mirror exposure — the cure is the same discipline adopted by all
+  writers, plus not leaving bundles staged-but-uncommitted in a shared checkout longer
+  than necessary (mine sat staged through a blocked-gate window).
+- **candidate: client-visibility check belongs in MCP tool-shape ratification** — a
+  spec-valid response shape (`content: []` + structuredContent-only) was ratified without
+  evidence of how real agent clients render it; the live exercise falsified the implicit
+  "clients surface structuredContent" assumption for Cursor (decoration-key fingerprint
+  proof in the cursor-visibility write-up). Graduation shape: a clause in the
+  output-schemas plan / ADR-195 family requiring a client-population rendering check
+  before ratifying any non-default response shape. Trigger: S1 decision on the snag
+  register, or a second client found dropping structuredContent (S0 probe).
+
+## 2026-06-11 — snagging deep-analysis + plan phase (Dusky Passing Mist, 2c0c4b)
+
+- **In-repo research that names a defect does not flow into sibling decision threads by
+  itself.** `mcp-client-tool-result-consumption-2026-05-28.md` concluded "only both is
+  robust" and recommended revising structuredContent-only — ten days before EEF D6 shipped
+  structuredContent-only (ratified 2026-06-06/07 in the EEF thread, scoped to graph tools'
+  rebuild). The 2026-06-11 Cursor live exercise rediscovered it in prod. Cure direction:
+  a research output whose conclusion contradicts a pending/ratified decision in ANOTHER
+  thread needs an explicit cross-thread surfacing step, not just a filed report.
+  Distilled candidate.
+- **My own verification grep carried a single-line assumption** — `rg "z\.number\(\)"`
+  missed the multi-line Zod chain at `aggregated-keyword-graph.ts:67-72`, and I briefly
+  held the explorer's correct citation as suspect. Second instance of the
+  audit-my-own-filters lesson (sibling: the `-v .test.ts` exclusion, 2026-06-09). Use
+  `rg -U` (multiline) or structural reads when sweeping fluent/chained API patterns.
+- **A workflow explorer's summary can contradict its own findings** — the S2 agent's
+  answer said "upstream bulk-data conflation" while its findings proved upstream carries
+  per-placement descriptions and OUR extractor collapses them (first-occurrence-wins,
+  `keyword-extractor.ts:101-105,152-186`). Read the findings, not just the synthesis,
+  before acting. Instance of validate-specialist-findings.
+- **An adversarial reviewer can invent calendar gates** — wilma's "metric must run live
+  ≥3 days before the EEF fix merges" failed the gates-must-be-citable screen; the
+  before/after delta is measurable deterministically (instrumented server, both builds,
+  local). Rejected with reasoning in the approved plan; sequencing kept (metric PR first).
+- **Live two-client probe beats speculation**: Cursor surfaces only `content` blocks;
+  Claude Code (probed from this session against oak-prod) surfaces only `structuredContent`
+  — opposite halves. Worth keeping as the canonical client-matrix example alongside the
+  2026-05-28 research.
+
+## 2026-06-11 — owner catch: conditional in a test (Dusky Passing Mist, execution phase)
+
+- **I wrote `if (shape ok) { expect(...) }` in a test; owner challenged "what happens if
+  it is not met?"** Answer: nothing — the guarded assertions silently skip and the test
+  PASSES. It proves only that the unguarded path ran; it is unfalsifiable for exactly the
+  case it guards, while READING as proof. I had part-caught it pre-challenge (swapped to
+  throw-guards, the house fail-loud narrowing), but the deeper diagnosis per
+  testing-strategy stands: the conditional existed because I erased types myself (loose
+  recording fake capturing a registered handler), then clawed the shape back at use — a
+  complex mock fighting the real seam (the McpServer overload type error was the tell).
+  Cure that worked: DELETE the capture test; prove the behaviour at the level where it is
+  real (e2e through HTTP→SDK→SSE reading the app's own logger; Zod `.parse` as the
+  fail-loud record check; deterministic enumeration; zero conditionals). Numeric edge
+  semantics stay in unit tests. Irony worth keeping: the vacuous-pass shape is the same
+  disease the token metric exists to cure — what you don't measure (assert) can vanish
+  silently. Siblings: [[feedback_tests_no_global_state]], testing-strategy §No conditional
+  tests, the EEF unit test's throw-guard precedent.
+
+## 2026-06-11 — naming-lane pickup tranche (Moss weaves Blossom, 10438c)
+
+- **An inherited handoff-record recipe is a hypothesis — verify each reference's REFERENT
+  before bulk-renaming.** The record's ADR 195→198 enumeration swept the napkin in, but the
+  napkin's "ADR-195 family" line is Dawnlit's reference to MAIN's ADR-195 (graph-tools,
+  response-shape context), not the naming ADR; renaming it would have pointed a snagging
+  lesson at the wrong ADR. Same-number-different-referent is exactly what a renumber-collision
+  window produces. Sibling of the inherited-Step-0-recommendation lesson (2026-06-09).
+- **A pre-push "branch failure" can be a TREE failure: root format/markdownlint gates inspect
+  the working tree, not the pushed commits.** Zephyr's push of 6056d48b2 failed in the window
+  where their aborted origin/main merge attempt had conflict markers in the primary checkout's
+  napkin; the same chain runs green (103/103) on the same content in a clean worktree.
+  Diagnose pre-push failures by separating tree state from branch content before treating the
+  gate as red. Corollary of "whole-tree pre-commit gates bind you to a live peer's WIP"
+  (2026-06-11 wave-2); the per-session-worktree team shape removes the exposure.

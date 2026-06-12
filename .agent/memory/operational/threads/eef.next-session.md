@@ -11,6 +11,26 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
+- **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
+  oak-prod-live-mcp-exercise + snagging, solo). NOTE this branch lags the eef arc** — the
+  TRACK-G completion narrative and this session's first-wave artefacts (verification record +
+  thread-record entry) live on branch `docs/graph-team-direction-2026-06-10` (commits
+  `ae5372e2c` + `c9ff6bb49`, pushed); reconcile on merge. This branch carries the session's
+  second wave, owner-directed: **write-up before fixes, successor will not be a Cursor
+  instance**. Landed here (swept into peer commit `3de15f01a`, content verified conserved):
+  the self-contained
+  [cursor-visibility write-up](../../../reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
+  (server wire shapes pinned to source; Cursor delivers ONLY `content` blocks to the model —
+  decoration-key fingerprint proof; the ratified `content: []` + structuredContent-only
+  `get-eef-evidence` success is fully invisible to the Cursor agent, shape-based not
+  size-based; prompt layer = user slash commands yes / agent invocation no, results loop back
+  as injected command context; replay recipe for non-Cursor successors) and the
+  [snag register](../../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+  (S0 client-population probe → S1 owner decision on the EEF shape; S2 keyword description
+  leakage; S3 corpus typo; S4 `limit` schema bounds; S5 prompt-UX observation). **Next safe
+  step for this lane**: S0 — probe how non-Cursor clients surface the Shape-B response (one
+  call each per the write-up's §6 replay recipe), then put S1 to the owner.
+- **THIS SESSION (2026-06-09, Fragrant Spreading Sapling / claude Fable 5, branches
 - **THIS SESSION (2026-06-11 midday, Iridescent Threading Constellation / claude Fable 5,
   Director SEVENTH holder, coordination home branch `docs/graph-team-direction-2026-06-10`) —
   sixth PDR-064 Director succession, completed cleanly.** Sunlit's Moment-1 pre-positioning
@@ -745,6 +765,7 @@ session narrative for each is in git history; this table is the durable identity
 | `Prismatic Shimmering Planet` | `claude` | `fable-5` | `65394e` | `pr176-shepherd-then-keyword-stories-then-2b-dedup` | 2026-06-11 | 2026-06-11 |
 | `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `pr178-remainder+w2c1-implementer` | 2026-06-11 | 2026-06-11 |
 | `Pearly Snorkelling Compass` | `claude` | `fable-5` | `a8eabc` | `doctrine-curation-lane-tranche-boundary` | 2026-06-11 | 2026-06-11 |
+| `Dawnlit Glimmering Orbit` | `cursor` | `Fable 5` | `50c2d1` | `oak-prod-live-mcp-exercise-snagging-and-cursor-visibility-writeup` | 2026-06-11 | 2026-06-11 |
 
 ## Cross-Plan and Cross-Thread Links
 

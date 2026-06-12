@@ -9,7 +9,9 @@ when it completes.
 
 ## Plans
 
-_(none currently active in this lane)_
+| Plan | Scope | Status |
+| --- | --- | --- |
+| [agent-naming-schema-v2.plan.md](agent-naming-schema-v2.plan.md) | Versioned naming-schema registry in `core/agent-identity`: noun-verb-noun lowercase-middle v2 display names, digest-pinned wordlist eras (current scheme preserved as v1), `naming_schema_version` on the collaboration identity tuple. UUID v5 derivation and `session_id_prefix` untouched. Owner wordlist taste review is a blocking pre-activation gate. | ACTIVE |
 
 ## Related
 
