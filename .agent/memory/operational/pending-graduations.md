@@ -46,6 +46,19 @@ genuinely waiting on their named external event or trigger.
 
 ## 2026-06-12 capture — Firefly seeks Temper (handover-team Director closeout)
 
+- **Director-closeout protocol clause** — at every Director session closeout the Director
+  runs the FULL session-handoff AND consolidate-docs workflows BEFORE merging the final
+  coordination-branch PR; the session is not closed until that PR merges.
+  - **captured-date**: 2026-06-12; **source-surface**: owner-standing direction (in-session,
+    "at all Director session closeouts"), already live in the team-session-opener template
+    §Coordination cadence Closeout bullet.
+  - **graduation-target**: PDR — either a PDR-064-family amendment (coordinator/Director
+    role lifecycle) or the team-process PDR the next Core pass shapes; the template is the
+    operational home, the PDR is the portable contract.
+  - **trigger-condition**: the next Practice-Core authoring slot (the approved-unauthored
+    Core amendment queue) or the next Director closeout, whichever first.
+  - **status**: pending
+
 - **Resumed-session temporal dislocation** — a session frozen mid-action resumes, completes
   the action on wake, and reports it as done at the remembered pre-freeze timestamp,
   directing peers to verify against a false account.
