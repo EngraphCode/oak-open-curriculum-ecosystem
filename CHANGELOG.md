@@ -1,3 +1,16 @@
+# [1.31.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.30.0...v1.31.0) (2026-06-12)
+
+
+### Bug Fixes
+
+* **skills:** make the onboarding walker conversation-first after live falsification ([f83eed5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f83eed525332c57688dd7b4feb67e9139e7a9880))
+
+
+### Features
+
+* **skills:** add the oak-onboard-me interactive onboarding walker ([50403a5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/50403a538834742177a456c868750fca9d336e1f))
+* **skills:** persist individual onboarding state untracked and record track-b dispositions ([0fef8cf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0fef8cf6f55df5805d943f1c7df7ff73ca293510))
+
 # [1.30.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.29.0...v1.30.0) (2026-06-12)
 
 
