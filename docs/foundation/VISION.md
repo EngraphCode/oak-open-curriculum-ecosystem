@@ -234,6 +234,11 @@ each with a primary set of beneficiaries:
    reliable access to a high-quality curriculum, wherever the AI tools
    teachers use happen to live.
 
+Each order widens the circle: from Oak's own delivery, through the
+organisations and platforms building for schools — across the education
+sector, edtech, and the AI ecosystem's work in education — to the teachers
+and pupils all of it exists to serve.
+
 A key leverage point is compositional curriculum creation. With semantic
 discovery, curriculum APIs, and knowledge-graph traversal combined, it
 becomes far easier to assemble coherent, pedagogically rigorous new resource
@@ -339,7 +344,7 @@ revisited as the project matures; watch the repository for updates.
 
 Open code + open curriculum access is a deliberate strategy: maximise
 educational impact by making high-quality infrastructure, components, and
-practice reusable.
+practice reusable. Public goods from a public body, built in the open.
 
 ## Historical Positioning
 

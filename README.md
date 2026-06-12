@@ -3,13 +3,26 @@
 
 # Oak Open Curriculum Ecosystem
 
-Tools for building AI applications on the [Oak National Academy Open Curriculum](https://open-api.thenational.academy/), using a generated, type-safe TypeScript SDK and [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) servers, MCP Apps, and semantic search over the curriculum data powered by Elasticsearch Serverless.
+Tools for working with the [Oak National Academy Open Curriculum](https://open-api.thenational.academy/) data, including a generated, type-safe TypeScript SDK, a [Model Context Protocol app](https://modelcontextprotocol.io/) (MCP app), a semantic search service, graph tools generated from Oak data, and evidence surfaces grounded in the wider education sector.
 
-**Vision and direction**: For the strategic overview of what this repository is for, see [VISION.md](docs/foundation/VISION.md). For the live delivery roadmap, see the [high-level plan](.agent/plans/high-level-plan.md).
+> **This repository exists to support, and build on, the innovations of the education, edtech and AI ecosystems.**
+
+Everything here serves the same ends: helping teachers find, adapt, and use
+high-quality curriculum resources; helping the organisations that serve
+schools build better tools, faster; and giving the wider world of education —
+sector bodies, edtech, and the AI platforms now working in classrooms — open
+components, open data access, and an openly documented engineering practice
+to build on. Public goods, built in the open.
+
+**Vision and direction**: For more on the strategic overview of what this repository is for, see [VISION.md](docs/foundation/VISION.md). For the live delivery roadmap, see the [high-level plan](.agent/plans/high-level-plan.md).
 
 ---
 
-> **Current status: Invite-Only Alpha (M1 complete)** — The server is live at `curriculum-mcp-alpha.oaknational.dev`. Open public alpha (M2) is next. See the [high-level plan](.agent/plans/high-level-plan.md) for milestone detail.
+---
+
+**Current status: Invite-Only Alpha** — The alpha MCP app server is live at `curriculum-mcp-alpha.oaknational.dev`.
+
+---
 
 ---
 
