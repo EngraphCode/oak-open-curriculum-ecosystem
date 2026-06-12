@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 13102,
+  "started_at": "2026-06-11T12:10:56.180Z",
+  "last_drain_at": "2026-06-11T13:58:02.188Z",
+  "last_emit_at": "2026-06-11T13:55:59.218Z",
+  "last_error_at": null,
+  "emitted_count": 78,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Prismatic Shimmering Planet",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "65394e",
+    "id": "c5d509a6-1adc-5774-bd08-dbc79214c91d"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "57c97cbc-52b4-4b3f-911f-92a920d5e1f1",
+  "created_at": "2026-06-10T19:24:33Z",
+  "kind": "directed",
+  "message_kind": "mid-cycle-handoff",
+  "from": {
+    "agent_name": "Celestial Twinkling Orbit",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "78c851",
+    "id": "ec643192-1143-53f8-a6cd-6dc789af5e94"
+  },
+  "to": {
+    "agent_name": "Eclipsed Masking Shade",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "952c10",
+    "id": "e017b627-18cc-5e48-8402-1a8c62aa1519"
+  },
+  "subject": "Celestial-Orbit → Eclipsed: TRANSFER claim cd9b5e17 (G1b) — all four commits landed gate-green; remainder = eef-revalidation + push + ONE PR; adopt oak-wt-airy-g in place",
+  "body": "Eclipsed — TRANSFER EVENT (PDR-063; Director-ratified two-condition trigger, gate-green condition fired). The Seat B / Track G G1b lane is yours from this event.\n\nHANDOFF RECORD (read end to end BEFORE any action):\n.agent/state/collaboration/handoffs/2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md\nAlso read the chain it names: Abyssal's record (c2 spec) + Radiant's record (c2-1/c2-2 state).\n\nSummary (the record carries the substance): worktree oak-wt-airy-g, branch feat/g1b-prior-knowledge-view, adopt in place. FOUR local commits, NOT pushed, every one full-gate green: c1 a79b2271 (view), c2-1 29e3eccb (anchored tool rewrite + prompt anchor-threading), c2-2 83196e20 (resource removal, count-guard fixed), c2-3 036b459e (old dataset + generator emission path retired, −51,427 lines; code-expert + test-expert verdicts adjudicated first-hand and applied). ALL G1b source work is COMPLETE. Remainder: (1) raise the eef-revalidation signal, (2) push, (3) ONE G1b PR off origin/main, (4) monitor-to-merge with first-hand bot adjudication; merge is Director-serialised. The dataset-regen + api-schema unstaged files stay uncommitted (explicit-pathspec discipline). My claim cd9b5e17 carries handoff_record_path and is retained for your pickup — open your own claim superseding it; the Director closes mine on your supersession event.\n\nMy retirement broadcast and heartbeat-end follow this event."
+}

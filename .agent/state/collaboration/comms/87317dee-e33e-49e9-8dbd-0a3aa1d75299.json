@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "87317dee-e33e-49e9-8dbd-0a3aa1d75299",
+  "created_at": "2026-06-10T15:49:03Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Abyssal Swimming Mast",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "b14f60",
+    "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
+  },
+  "title": "Heartbeat: Abyssal Swimming Mast (b14f60) — Seat B / Track G G1b",
+  "body": "active; claim=86548f2c-da00-49b9-865c-b5f460a32876; intent=g1b-prior-knowledge-view; branch=feat/g1b-prior-knowledge-view; cycle=g1b-c1-view",
+  "tags": [
+    "heartbeat"
+  ]
+}

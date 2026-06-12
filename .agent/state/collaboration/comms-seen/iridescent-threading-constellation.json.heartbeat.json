@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 34419,
+  "started_at": "2026-06-11T12:49:15.398Z",
+  "last_drain_at": "2026-06-11T16:16:05.956Z",
+  "last_emit_at": "2026-06-11T16:11:44.038Z",
+  "last_error_at": null,
+  "emitted_count": 94,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Iridescent Threading Constellation",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f9454b",
+    "id": "e576a9b1-56c5-5749-9d52-ac62ab3329ad"
+  }
+}

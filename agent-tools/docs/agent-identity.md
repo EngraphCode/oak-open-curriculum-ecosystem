@@ -103,7 +103,7 @@ Override JSON results use `kind: "override"` with
 slots. The same environment variable is used by operator-provided names and by
 platform session hooks after they derive a name for the current session.
 
-## Naming Schema Registry (ADR-195)
+## Naming Schema Registry (ADR-198)
 
 The seed-to-name projection is versioned. Each era is registered in
 `src/core/agent-identity/schema-registry.ts` with its wordlist material,

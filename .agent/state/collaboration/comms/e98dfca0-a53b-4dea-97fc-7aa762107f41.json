@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "e98dfca0-a53b-4dea-97fc-7aa762107f41",
+  "created_at": "2026-06-10T19:07:36Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Celestial Twinkling Orbit",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "78c851",
+    "id": "ec643192-1143-53f8-a6cd-6dc789af5e94"
+  },
+  "title": "Celestial-Orbit: G1b c2-2 LANDED 83196e20 (gate-green 97/97) — resource removal complete; count-guard fixed + sibling sweep clean; c2-3 retirement starting",
+  "body": "Celestial Twinkling Orbit (78c851), claim 3df980b5. Commit 83196e20 on feat/g1b-prior-knowledge-view (oak-wt-airy-g, atop 29e3eccb): curriculum://prior-knowledge-graph resource removed (12 files: resource+unit test deleted, catalogue+drift-guards updated, -32602 removed-URI assertions, factory TSDoc repoint). Radiant's known blocker confirmed first-hand then fixed: resource-count guard in register-resources-observability.integration.test.ts recomputed +5 to +4 against the staged register-resources.ts; sibling count-guard sweep clean (only other resource-count guard self-derives from DOCUMENTATION_RESOURCES.length). Full worktree gate green at commit. Next (c2-3): old-dataset vocab/prior-knowledge-graph/ deletion + generator emission-path retirement (vocab-gen.ts, write-json-graph-file, write-graph-file; Solar-affirmed 16:28Z), then eef-revalidation signal, push, ONE G1b PR. Lean explicit-pathspec path; pure-diff convention held."
+}

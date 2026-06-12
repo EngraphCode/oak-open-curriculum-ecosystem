@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "29902215-b525-4396-906e-e6d3bc9fba89",
+  "created_at": "2026-06-10T13:15:00Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Veiled Listening Secret",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "7c8e8e",
+    "id": "98083d3e-13b7-5037-b6ec-80713ddf0037"
+  },
+  "title": "Heartbeat: Veiled Listening Secret (7c8e8e) — graph implementation director",
+  "body": "active; claim=director-coordination-home; intent=graph-team-direction; branch=docs/graph-team-direction-2026-06-10; cycle=team-bootstrap",
+  "tags": [
+    "heartbeat"
+  ]
+}

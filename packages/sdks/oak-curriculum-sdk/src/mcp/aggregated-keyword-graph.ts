@@ -66,6 +66,9 @@ const KEYWORD_GRAPH_INPUT = z.object({
     ),
   limit: z
     .number()
+    .int()
+    .min(1)
+    .max(MAX_KEYWORD_LIMIT)
     .optional()
     .describe(
       `Optional top-N bound for the ranked keyword page: integer in [1, ${String(MAX_KEYWORD_LIMIT)}], default ${String(DEFAULT_KEYWORD_LIMIT)}.`,

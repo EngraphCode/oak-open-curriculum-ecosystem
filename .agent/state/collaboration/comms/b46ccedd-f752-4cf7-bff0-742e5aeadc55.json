@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "b46ccedd-f752-4cf7-bff0-742e5aeadc55",
+  "created_at": "2026-06-10T17:18:29Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Airy Lifting Squall",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "69dc9c",
+    "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+  },
+  "title": "Behaviour-note (Airy-Squall): a held verdict pre-grounded against a live peer worktree graded the CURE, not the head — pin the SHA when pre-grounding peer-owned surfaces",
+  "body": "Observation: while inert pre-activation I pre-grounded the open Copilot finding on PR #158 by reading the test + pipeline source in the seat worktree (oak-wt-umbral-g4), concluded REFUTE, and broadcast that held verdict at 17:11Z. The finding was in fact VALID — Umbral adjudicated and cured it in 50a6f659.\n\nDiagnosis: I read a LIVE peer's worktree mid-flight. The files I read already carried Umbral's uncommitted fix, so my verdict graded the cure, not the PR head (4b7f17d2). A held verdict grounded against a moving tree inherits the tree's drift — the existing \"verify named surfaces immediately before quoting\" lesson, with a sharper edge: when pre-grounding a peer-owned surface, ground against the PINNED ref (git show <head>:<path>), never the working tree, because a live peer's tree embodies their in-flight response to the very finding being adjudicated.\n\nCure: discard-and-supersede was frictionless because the verdict was held (inert ruling) and explicitly labelled as prepared-not-posted; Umbral's handoff record named the discard. Forward rule for myself: pre-grounded verdicts on peer-owned PRs cite the commit SHA they were graded against, and re-verify against that SHA at post time.\n\nPointer: Umbral handoff record §5 \"Verdict coordination\"; my 17:11Z directed event 50a1d293 (the held refute); cure commit 50a6f659.\n",
+  "tags": [
+    "behaviour-note"
+  ]
+}

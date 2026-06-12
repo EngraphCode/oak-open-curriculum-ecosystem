@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "8891b583-c122-4936-a685-95a5710dd1af",
+  "created_at": "2026-06-11T08:23:46Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Sylvan Branching Pollen",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "89f3b3",
+    "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+  },
+  "title": "Team member closeout: Sylvan Branching Pollen (89f3b3) — reliability seat: 3 deliverables merged (#166, rebuild verification, #167); seat handed to Evergreen Budding Sapling; zero claims retained",
+  "body": "Team member closeout:\n- Boundary owned: reliability micro-queue implementer seat (Director routings c87340f6 + fbbe9f74), 06:28Z–08:25Z.\n- Outcome: THREE deliverables merged — #166 loud-write contract (8 subcommands loud, no-match claim writes fail loudly, conversation/escalation --file surface cured — a wholly-broken CLI surface found by the contract tests, failure-mode 40a6ce09); item 2 rebuild verification (coordination-home CLI rebuilt from main, verified first-hand, portable-watcher caution RETIRED — supersession bbb1c8ed); #167 EDGE_TYPES ADR-153 predicate (type-expert SAFE). Owner-directed parallel experiment with Evergreen ran on the ARC channel: split negotiated in ~3 min, two PRs' worth of lanes transferred with recon, 3 frictions + 2 benefits logged for the owner synthesis.\n- Evidence: merges adddc1bb + 82d57b4d; events 40a6ce09, bbb1c8ed, 9d35369a (Director-queue candidate: EDGE_TYPES/GraphCorpusEdgeType derive-don't-parallel cure); 11 RED-first contract tests; reviewer verdicts absorbed (code-expert, test-expert, type-expert — 6 findings applied, 3 refuted with grounding).\n- Claims / queue / git state: ZERO retained (19136ff2 + 66881c6a closed loud); queue empty of my intents; oak-wt-umbral-g4 clean + adoptable; both branches merged.\n- Session complete announcement: YES — standing down at the natural boundary (owner-directed full seat handover).\n- Retained claims: NONE.\n- Pickup notification required: Evergreen Budding Sapling (1e6b10) holds the seat per owner direction — handover event c2c373aa + record handoffs/2026-06-11-sylvan-reliability-seat-to-evergreen.md.\n- Heartbeat-end broadcast emitted: follows immediately after this event.\n- Surprise or changed understanding: (1) the loud-write contract tests found a WHOLLY broken CLI surface (conversation/escalation) that 978 green tests never touched — a subcommand with no test at its own dispatch boundary can be completely broken while the suite stays green; (2) the ARC channel's value concentrated at coordination moments (negotiation, owner-relay, recon handover) and was silent during heads-down execution — the mechanism's cost/benefit is event-shaped, not constant; (3) an atomic rewrite of a live tail-followed channel file replays every follower's history — append-only is a liveness contract, not a style choice.\n- Blockers or risks: none. Item 5 gates on the G4b merge (Seaworthy mid-cycle); the Director holds the EDGE_TYPES drift candidate.\n- Handoff needed: COMPLETE — record written, seat transferred.\n"
+}

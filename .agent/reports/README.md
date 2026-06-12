@@ -42,6 +42,12 @@ research notes or investigation logs.
   engineering quality, effectiveness, operational friction, verification
   posture, and agentic-practice substrate; includes blunt ratings, evidence
   snapshot, risk modes, and ordered improvement recommendations
+- [graph-team-first-worktree-run-analysis-2026-06-10.md](./graph-team-first-worktree-run-analysis-2026-06-10.md)
+  — Director's witness synthesis of the worktree-team shape's first live run:
+  the three structurally-dissolved failure modes validated, the rotation
+  protocol under live fire, the comms-watch stall incident end to end, two
+  evidence-forced de-escalations, adjudication economics across five PRs, and
+  Director-pattern observations for the seat's future holders
 - [mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md](./mcp-session-instructions-pedagogical-grounding-process-2026-06-10.md)
   — process record for adding session-wide pedagogical / curriculum-rigour
   grounding to the MCP server `instructions` field: where session instructions
@@ -59,6 +65,13 @@ research notes or investigation logs.
   union): empirically-verified `EefStrand <: EefStrandHeadline` subtype collapse,
   why the nested-union fix is lossy, and the discriminant-vs-transport-shape
   recommendation for the deferred type review
+- [graph-team-first-worktree-run-analysis-2026-06-10.md](./graph-team-first-worktree-run-analysis-2026-06-10.md)
+  — witness synthesis of the graph implementation team's first per-worktree
+  multi-agent run (2026-06-10)
+- [graph-team-session-operations-and-experience-2026-06-10-11.md](./graph-team-session-operations-and-experience-2026-06-10-11.md)
+  — team operations and experience report for the full contiguous 38-agent /
+  seven-Director session (2026-06-10→11); substrate-under-load findings and
+  tooling considerations
 
 ## Related Surfaces
 

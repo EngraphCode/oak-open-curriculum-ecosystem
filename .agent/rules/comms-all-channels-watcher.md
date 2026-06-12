@@ -60,6 +60,14 @@ Run the command via the platform's persistent background-task mechanism:
 Claude Code uses the `Monitor` tool with `persistent: true`; Cursor and
 Codex use their equivalent watch primitives.
 
+**After arming the watcher, run ONE foreground comms sweep covering the
+window from BEFORE session open.** An event landing between session-open
+and watcher-arm is otherwise absorbed into the watcher's baseline and
+never notified (two instances in one day, 2026-06-10; owner-approved
+2026-06-11). The same sweep fires after ANY watcher restart, covering
+the restart's gap window. Use an inbox-shaped read, never `ls -t |
+head`.
+
 ### Hardened against silent hangs
 
 The watch loop fails loud rather than muting silently. Each `drain`, `emit`,
@@ -86,6 +94,13 @@ self-report, so an external staleness check is the detection path that the
 fail-loud per-step deadline (which dies on a hung step) cannot cover. Use the
 `collaboration-state` staleness classifier, or stat the heartbeat file and
 treat an mtime older than `3 ×` the interval as stale.
+
+**Mutual cover — the detector cannot detect itself.** In a team window,
+every agent's cycle-boundary sweep ALSO staleness-checks the DIRECTOR'S
+watcher heartbeat-file, because the highest-awareness seat is the one
+nobody else watches: two worked instances in one session saw a frozen
+watcher caught only from outside (a peer's stall diagnostic; owner
+transport). Owner-approved 2026-06-11.
 
 ### Seen-file convention
 
@@ -139,6 +154,16 @@ declare the gap in their team-start post and adopt a polling cadence that
 sweeps the full directory at the team-cadence interval, never a
 single-view filter — because the directed-only view misses the broadcast
 and group events that carry the team-bootstrap coordination itself.
+
+**Before arming ANY hand-written watcher, test its exact filter against
+one event of each shape** — directed, untagged narrative, tagged
+heartbeat, self-authored. A render path proven only on heartbeats is
+unproven for the events that matter: a hand-rolled filter once dropped
+every untagged narrative event while rendering heartbeats perfectly,
+and the heartbeat volume masked the gap (worked instance 2026-06-10;
+owner-approved 2026-06-11). Filter `*.tmp-*` names from poll-loop
+listings — the atomic-write rename race produces benign transient
+files.
 
 ## Real-Time Failure-Mode Capture on the Comms Stream
 

@@ -32,7 +32,16 @@ todos:
     status: completed
   - id: w1-c1-prompt-cycle
     content: >-
-      TDD cycle, ONE PR, Director-serialised. Tests first: SDK
+      COMPLETED 2026-06-11: PR #178 merged (201e3eedb) — the seventh prompt
+      shipped as continue-progression (owner name decision after a four-source
+      definitions check; sign-off chain on the PR). One atomic w1-c1 landing
+      (32ba1ceeb, Smouldering) + successor absorption under Nebulous: two
+      Copilot fixes (b864f2279), the rename (5505a048d), and the Bugbot
+      year-divergence cure (5eab2c322 — chain into lesson-planning on the NEXT
+      unit's teaching year, surface divergence, teacher decides per ADR-194).
+      All four registration surfaces, per-prompt module split, ADR-123
+      reconciled, live P3 round-trip proven. — TDD cycle, ONE PR,
+      Director-serialised. Tests first: SDK
       mcp-prompts.unit.test.ts count 6->7 + definition/arguments assertions;
       message-generator tests (orchestration incl. the KS4-science sequences
       caveat carried verbatim from curriculum-mapping, the OGL attribution
@@ -51,10 +60,16 @@ todos:
       eef-evidence-grounded-lesson-plan name vs shipped adapt-lesson; prose
       says "four curriculum prompts" and "intentionally small (4)"; shipped
       count is 6 going to 7).
-    status: pending
+    status: completed
     depends_on: [w1-c0-owner-design-gate]
   - id: w2-c1-impact-language-alignment
     content: >-
+      COMPLETED 2026-06-11: PR #181 merged (6048f337d) — outward capability
+      claims aligned with the served estate (served-instructions
+      sequenced-curriculum sentence RED-first; root + apps README primitives
+      corrected to 37 tools = 24+13; ADR-123 counts + EEF tool name repaired;
+      removed resources delisted; P4 per-sentence evidence table on the PR;
+      one Copilot enumeration finding fixed with verdict recorded). —
       Bounded outward-language alignment pass: sequencing / builds-on /
       curriculum-connected impact vocabulary across the named surfaces, every
       claim verified against delivered tool behaviour. NC-coverage vocabulary
@@ -63,9 +78,11 @@ todos:
       remediation; W2 may cite that chain. No live claim covers the
       landing-page file at authoring time; run the standard collision-safety
       read of active-claims.json at W2 execution start.
-    status: pending
+    status: completed
   - id: w3-c1-vocabulary-bridge
     content: >-
+      UNBLOCKED 2026-06-11 (depends_on w1-c1 satisfied at PR #178's merge);
+      remains a future cycle — routing is owner/Director-owned.
       FUTURE CYCLE (owner-directed fold 2026-06-11; additive — neither blocks
       nor sequences with w2-c1): extend this plan's prompt orchestration
       with the position-anchored vocabulary bridge — two get-keyword-graph

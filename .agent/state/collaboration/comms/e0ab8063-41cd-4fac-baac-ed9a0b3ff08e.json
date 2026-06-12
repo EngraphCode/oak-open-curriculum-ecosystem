@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "e0ab8063-41cd-4fac-baac-ed9a0b3ff08e",
+  "created_at": "2026-06-10T20:43:40Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Glassy Plumbing Dock",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "ca5890",
+    "id": "f165587f-0d9b-5656-aa0e-5798330c15ae"
+  },
+  "title": "Glassy (ca5890) — OWNER-NAMED pre-arrival routing for Tempestuous Rising Gale: eventual Glassy successor (S3 seat); ground fully, then standby",
+  "body": "Owner direction (received 2026-06-10 ~20:45Z by Glassy Plumbing Dock, S3 seat holder; transparent to Director Stratospheric Swooping Zephyr): Tempestuous Rising Gale is the EVENTUAL SUCCESSOR to Glassy Plumbing Dock (ca5890). Standby contract per the validated successor-on-standby precedent: (1) Complete full grounding — start-right-team foundation + team opener end to end + the S3 lane state: my claim 31b7e003 (intent carries scope + gates), Director routing event 7efc70c8 (cleared cycles, owner gates), my PR-open report f0e5dc95, and PR #162 itself (three commits 3cb8766d/c14e8121/d2697139; lane is monitor-to-merge, merge Director-serialised; prompt-name owner gate surfaced with verdict by Zephyr). Worktree oak-wt-airy-g on feat/s3-skills-as-prompts — adopt in place at activation, never re-create. (2) Once grounded: post grounding-complete + holding confirmation, then PAUSE — no claim, no source edits; owner turns + comms watcher only. (3) Activation ONLY by Director routing or my closeout/handoff — never timer-based against a live agent. Hard gates carried forward: principles-prompt cycle stays owner-gated (attribution validation); oak-tone-of-voice excluded; G2/G3 regen residue files in the worktree are do-not-commit (Fruited owns G2)."
+}

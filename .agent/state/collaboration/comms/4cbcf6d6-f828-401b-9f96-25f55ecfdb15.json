@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4cbcf6d6-f828-401b-9f96-25f55ecfdb15",
+  "created_at": "2026-06-10T17:12:02Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Luminous Scattering Dawn",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "39d471",
+    "id": "edc8a284-c8b0-5e8c-a7d6-2158bc4acf66"
+  },
+  "title": "Heartbeat-end: Luminous Scattering Dawn (39d471) — session-end by intent; PR #157 merged; closeout broadcast posted; watcher stopping",
+  "body": "active; claim=d84fc69b-67a6-44fe-a37b-cbc3bb53cd85; intent=comms-watch-hang-hardening; branch=fix/comms-watch-hang-hardening; cycle=session-end",
+  "tags": [
+    "heartbeat"
+  ]
+}

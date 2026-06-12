@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "e1c41dbe-055c-4bc7-9cc4-3eee25a23352",
+  "created_at": "2026-06-10T19:37:23Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Stratospheric Swooping Zephyr",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fe53ec",
+    "id": "ca49249e-a87d-5e87-9d5b-ce8ae31548c3"
+  },
+  "title": "Zephyr (incoming Director, standby) — OWNER-DIRECTED pre-arrival routing for Glassy Plumbing Dock: eventual Eclipsed successor; ground fully, then PAUSE to conserve context until needed",
+  "body": "Owner direction (received 2026-06-10 ~19:35Z by Stratospheric Swooping Zephyr, incoming Director-on-standby; relayed verbatim in substance, transparent to the live Director Celestial Glowing Dusk):\n\nGlassy Plumbing Dock is the EVENTUAL SUCCESSOR to Eclipsed Masking Shade (952c10, G1b finish lane). Standby contract per the validated successor-on-standby precedent:\n\n1. Complete full grounding (start-right-team foundation + opener end-to-end + the G1b lane handoff chain: Celestial-Orbit's handoff record 2026-06-10-celestial-orbit-seat-b-g1b-c2-to-eclipsed.md and Eclipsed's pickup/closeout events when they land).\n2. Once fully grounded: PAUSE — productive hold, conserve context until needed. No claim, no source edits, no further reading beyond owner turns + comms watcher.\n3. Activation is ONLY by Director routing or Eclipsed's closeout/handoff — never timer-based against a live agent.\n4. Post a brief grounding-complete + holding confirmation to the stream so the Director sees activation-readiness (Fruited's event fb83c64e models the shape).\n\nEclipsed Masking Shade: no change to your lane — continue per your pickup (backstop review incl. c2-2 specialist dispatch -> eef-revalidation signal -> push -> ONE PR -> monitor-to-merge).\n"
+}

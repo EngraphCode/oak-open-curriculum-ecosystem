@@ -36,6 +36,27 @@ prompts below are domain-specific handover briefs for focused work.
 Complementary execution cadence: use the [`go` skill](../skills/go/SKILL-CANONICAL.md)
 and its [shared GO workflow](../skills/go/shared/go.md).
 
+## Generalising the team opener as a template
+
+The
+[graph-implementation-team opener](connecting-oak-resources/graph-implementation-team.prompt.md)
+is the worked model for future team-session openers (owner-directed 2026-06-11). The portable
+elements any derived opener must carry:
+
+- **Topology**: one Director (coordination home = the primary checkout on a long-lived
+  `docs/<team>-<date>` branch; sole writer of `.agent/state` + `.agent/memory`) + implementers
+  in per-seat git worktrees shipping pure-diff PRs off `origin/main`.
+- **Branching strategy**: the opener's §Branching strategy section verbatim — three branch
+  classes (feature / coordination home / home⇇main merges), forward-only merges into the home
+  on the two named triggers, main-authoritative conflict resolution for source and generated
+  files, drift baselines against `origin/main`.
+- **Entry ritual**: per-seat start-right skill, PDR-027 identity registration on the owning
+  thread, seat-brief reading, handoff-record reading for seat continuations.
+- **Choreography**: PDR-063 mid-cycle handoffs, PDR-064 two-moments coordinator transfers,
+  two-condition rotation triggers, Director-serialised merges with both evidence loops.
+- **Per-team content** (rewritten each time): plan authority, seat briefs and owned surfaces,
+  sequencing gates, known costs.
+
 ## Retained Completed Prompts
 
 These prompts are no longer the active entry point, but remain as durable

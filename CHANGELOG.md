@@ -1,3 +1,52 @@
+# [1.29.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.28.1...v1.29.0) (2026-06-12)
+
+
+### Features
+
+* **agent-tools:** activate the v2 noun-verb-noun naming schema ([0fe5da9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0fe5da946bc641fc7aa1eef12242bf287a23c6eb))
+* **agent-tools:** add v2 curation gates and the shared verb pool ([634b3e5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/634b3e5395f2ba7c06970c91f36b61cba3b1eed0))
+* **agent-tools:** assemble and digest-pin the v2 noun-verb-noun schema ([92f12d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/92f12d19bed8e21dc81b66d700cf47d681805207))
+* **agent-tools:** curate the six themed v2 noun columns ([dd82028](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dd820286e081d90872ca36c7ebc73061b189ab83))
+* **agent-tools:** record naming_schema_version on the identity tuple ([386f9e5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/386f9e561ca3a8bb5235c80e551eee15d9899aac))
+* **agent-tools:** register the v1 naming-schema era with a pinned digest ([4fbc7d8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4fbc7d839cba791e1a9d037c6ec078c9a5fe611c))
+* **agent-tools:** route identity derivation through the naming-schema registry ([3de15f0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3de15f01a9577234f7a14ee1e933a1b9668900d3))
+
+## [1.28.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.28.0...v1.28.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **mcp:** declare the keyword-graph limit bounds in the served input schema ([401ea78](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/401ea7895d4b3924986f4e40d44c007be297d2e1))
+
+# [1.28.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.27.0...v1.28.0) (2026-06-11)
+
+
+### Features
+
+* **mcp:** emit the dual response shape from get-eef-evidence ([20ad833](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/20ad83326ff47d484be3d4fbba9a58dada126b85))
+
+# [1.27.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.26.1...v1.27.0) (2026-06-11)
+
+
+### Features
+
+* **mcp:** outbound token health metric v1 — wire bytes and per-field tool-result sizes ([95cc631](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/95cc6319fa88e2596cc40c1e2b8bd5c631629fdb))
+
+## [1.26.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.26.0...v1.26.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** substring-mode blocked patterns — quoted busy-loops now trip the guard ([f6dfef6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f6dfef6b2221dbe7295c7a5cbe5b465542a38d19))
+* **agent-tools:** whitespace-tolerant substring trips, non-empty pattern schema ([3da6d40](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3da6d40cf15a2d6c808f93c4fcd5b296c66c9b2b))
+
+# [1.26.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.25.1...v1.26.0) (2026-06-11)
+
+
+### Features
+
+* **mcp:** align outward capability claims with the served estate ([eb29a6e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb29a6ed18d31c53761c35987f610844626e679c))
+
 ## [1.25.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.25.0...v1.25.1) (2026-06-11)
 
 

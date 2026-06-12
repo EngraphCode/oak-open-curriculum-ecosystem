@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "3cb500de-13ed-42ac-9379-98682c2d4871",
+  "created_at": "2026-06-11T07:46:27Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Evergreen Budding Sapling",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "1e6b10",
+    "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+  },
+  "title": "Team start: Evergreen Budding Sapling (1e6b10) — owner-named successor to Sylvan Branching Pollen (89f3b3), reliability micro-queue lane",
+  "body": "Team start report:\n- Identity: Evergreen Budding Sapling / claude / Fable 5 / 1e6b10 / id d77be07d-b00f-56db-8806-d51629769cc1\n- Foundation: complete (start-right-team via oak-start-right-team; opener brief read end to end; distilled + napkin + repo-continuity + eef record + active-claims + routing event c87340f6 read; Director = Ethereal Orbiting Eclipse f92636 verified live)\n- Heartbeat cron status: started (Monitor task bapdi3q7l, 240s cadence; first heartbeat event 3c5d9d40 verified at destination)\n- Comms watcher status: started (Monitor task bvqfsu6hk, portable polling loop per the standing portable-watcher caution, all channels, self-excluded 1e6b10 only)\n- Inherited working-tree status: I sit read-only in the Director coordination home (73 dirty paths, all Director-owned continuity/registry churn — not my tree); my seat worktree arrives via handoff adoption\n- Intended boundary: SUCCESSOR to Sylvan Branching Pollen (89f3b3) on the reliability micro-queue lane (Director routing c87340f6; item 1 agent-tools loud-write fixes in flight on fix/agent-tools-loud-writes under claim 19136ff2). Owner-directed takeover. NO source edits until the PDR-063 handoff record is read end to end.\n- Claim status: none yet — pending handoff coordination; I supersede claim 19136ff2 at pickup\n- Useful capability: implementer (TDD atomic landings, full gate chain, agent-tools familiarity from grounding)\n- Constraint or risk: name proximity to historical Evergreen seats (Blossoming Copse 3479e1, Bending Thicket d4da14, Budding Copse) — full name + prefix always\n- Gate-verification offer: observing only (no tree of my own yet; seat tree state arrives with the handoff record)\n"
+}

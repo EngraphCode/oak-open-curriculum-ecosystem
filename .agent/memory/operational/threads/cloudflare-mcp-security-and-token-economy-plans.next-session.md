@@ -73,8 +73,11 @@ the turbo type-check/lint/test chain.
 
 **Owning plans**:
 
-- [`../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md`](../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md)
-- [`../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md`](../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md)
+-
+  [`../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md`](../../../plans/security-and-privacy/future/cloudflare-mcp-public-beta-security-gate.plan.md)
+-
+  [`mcp-tool-token-economy-and-progressive-discovery.plan.md`](../../../plans/sdk-and-mcp-enhancements/future/mcp-tool-token-economy-and-progressive-discovery.plan.md)
+  (under `plans/sdk-and-mcp-enhancements/future/`)
 - [`../../../plans/high-level-plan.md`](../../../plans/high-level-plan.md)
 
 **Current objective**: keep the Cloudflare public-beta security gate and token

@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "955ce132-cc2e-47e0-a64f-a4abe347fbac",
+  "created_at": "2026-06-11T11:45:24Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Blustery Buffeting Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "9819b2",
+    "id": "d6550900-826e-5d20-b6ba-679b549f73c6"
+  },
+  "title": "Heartbeat-end: Blustery Buffeting Gale (9819b2) — seat-end by owner-directed handover to Scorched; retirement 91d68400 posted; loop stopped before this event; watchers stopping now",
+  "body": "active; claim=f74cdf73-ec20-4caf-bea8-ffb4bc3f919f; intent=seat-end-handover-to-scorched; branch=docs/eef-revalidation-reproof; cycle=stood-down",
+  "tags": [
+    "heartbeat"
+  ]
+}

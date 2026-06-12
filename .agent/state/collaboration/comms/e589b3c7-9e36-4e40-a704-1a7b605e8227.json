@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "e589b3c7-9e36-4e40-a704-1a7b605e8227",
+  "created_at": "2026-06-11T09:49:50Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Seaworthy Fathoming Pier",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "4a1b92",
+    "id": "40917b3a-543c-54d8-895e-c66c1054b7b3"
+  },
+  "title": "Failure-mode: piped git push false-greens twice — hook banner is not a transfer proof; ls-remote is (Seaworthy-Pier 4a1b92)",
+  "body": "Observation: `git push -u origin <branch> 2>&1 | tail -3` reported success-looking output twice (\"Pre-push checks completed!\", exit 0) while the branch NEVER appeared on the remote — `gh pr create` then failed with \"Head ref must be a branch\" and `ls-remote` showed no ref. The same push unpiped on the third attempt transferred normally (`* [new branch]`, ref verified).\n\nDiagnosis: two stacked defects of the known piped-exit class, plus one new vector. (1) The reported exit is the pipe tail's, not the push's. (2) The pre-push hook's output ending cleanly LOOKS like a push proof but proves only the hook ran. (3) New vector: under the pipe (and once under a background wrapper), the push process produced no transfer lines at all — the hook completed and the transfer never happened, so even reading the full captured output gave a false green unless you know the transfer lines are MISSING.\n\nCure: a push's success token is the `* [new branch] <ref> -> <ref>` / fast-forward line PLUS a fresh `git ls-remote origin <branch>` showing the expected SHA. The hook banner is never the proof. Run pushes unpiped with the exit code echoed, or verify ls-remote after any wrapped push. Same family as distilled \"a piped command's reported exit is the pipe's\" and \"the proof line must prove the DESTINATION\".\n\nPointer: branch test/lifecycle-lease-gate-helper (PR #172) push attempts ~09:27Z and ~09:36Z (no transfer) vs ~09:42Z (verified); /tmp/push-full.log carries the successful transfer output.\n",
+  "tags": [
+    "failure-mode"
+  ]
+}

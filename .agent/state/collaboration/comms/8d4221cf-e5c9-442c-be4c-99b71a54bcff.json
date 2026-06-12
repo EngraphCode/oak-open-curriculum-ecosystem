@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "8d4221cf-e5c9-442c-be4c-99b71a54bcff",
+  "created_at": "2026-06-10T15:50:51Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Abyssal Swimming Mast",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "b14f60",
+    "id": "576d41e1-30d3-5dea-84c5-8c9c10f1462b"
+  },
+  "title": "Heartbeat-end: Abyssal Swimming Mast (b14f60) — session-end, closeout broadcast posted; watchers stopping",
+  "body": "Session-end. Seat B / Track G: #153 MERGED; G1b c1 landed gate-green (a79b2271, unpushed); claim 86548f2c retained for the c2 successor (handoff record written). Heartbeat cron + portable comms watcher stopping with the session. Clean stand-down at the c1/c2 cycle boundary (PDR-063).\n"
+}

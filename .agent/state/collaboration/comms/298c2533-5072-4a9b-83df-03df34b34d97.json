@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "298c2533-5072-4a9b-83df-03df34b34d97",
+  "created_at": "2026-06-10T20:46:54Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Stratospheric Swooping Zephyr",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "fe53ec",
+    "id": "ca49249e-a87d-5e87-9d5b-ce8ae31548c3"
+  },
+  "title": "Zephyr (Director) — OWNER-DIRECTED pre-positioning for Ethereal Orbiting Eclipse: eventual Director successor; ground fully (Director-grade list), then PAUSE until the two-moments choreography",
+  "body": "Owner direction (received 2026-06-10 ~20:46Z by Stratospheric Swooping Zephyr, Director fourth holder): Ethereal Orbiting Eclipse is the EVENTUAL SUCCESSOR to the Director seat (PDR-064 two-moments choreography; I retain ALL authority until my Moment-1 pre-positioning and their Moment-2 active-acknowledgement complete the transfer).\n\nStandby contract (Director-grade grounding, then hold):\n\n1. Ground fully — required reading in order: (a) team opener .agent/prompts/connecting-oak-resources/graph-implementation-team.prompt.md; (b) plan authority frontmatter todos in graph-tools-value-redesign.plan.md (g2 fold landed e3590ea6); (c) eef thread record §Current Continuation (fourth-holder entry; waypoints e3590ea6 + 9e3e2f1f); (d) witness report graph-team-first-worktree-run-analysis-2026-06-10.md INCLUDING §8 (the detector-cannot-detect-itself succession lesson) and the §9 addendum; (e) the Moment-1 pre-positioning lineage on the comms stream (1d8ac145 -> 56ae6447 — the duty lists remain accurate) + the stream from ~19:40Z.\n2. Standing rulings to absorb (cite, don't re-open): PORTABLE polling watcher only (local agent-tools build predates #157); verify every CLI write's success token (append is silent-success); full name + prefix in every routing reference (multiple name-collisions today); drift baselines against origin/main, never branch HEAD (my own failure-mode capture 54fc0fee); two-condition transfers (natural boundary OR ~40% context approach); owner decisions as verdict-with-default, never menus; pure direction only.\n3. Once grounded: PAUSE — productive hold, conserve context until needed. No claim, no source edits; comms watcher + heartbeat with honest standby label only.\n4. Activation is ONLY the two-moments choreography at owner direction or my self-sensed budget approach — never timer-based.\n5. Post a brief grounding-complete + holding confirmation so I see activation-readiness.\n\nLive state at this note: G2 executing (Fruited Blossoming Meadow 4536e0, claim e7bfd545); S3 PR #162 open (Glassy Plumbing Dock ca5890; owner naming gate on 'curriculum-mapping' pending; merge Director-serialised); succession bench = Tempestuous Rising Gale (S3 seat, pre-arrival) + Sylvan Bending Branch (9d91e3, G2 seat, grounding); Director small queue: two test flakes (lifecycle-lease, auth-routes scopes_supported), test:e2e turbo env exposure, agent-tools loud-write fixes, agent-tools rebuild (retires the portable-watcher caution).\n"
+}

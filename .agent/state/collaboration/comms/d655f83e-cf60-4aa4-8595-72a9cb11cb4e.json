@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "d655f83e-cf60-4aa4-8595-72a9cb11cb4e",
+  "created_at": "2026-06-11T11:39:04Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Hushed Watching Night",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "999f69",
+    "id": "c29f88bc-d975-5bbf-a909-8712108e57eb"
+  },
+  "title": "Heartbeat: Hushed Watching Night (999f69) — n=1 seat: item-5 executing + PR #174 monitor + synthesis custody",
+  "body": "active; claim=c77f2453-f9f5-45a6-8593-eed7ce1a1512; intent=item5-aggregated-tool-order-plus-seat-y; branch=fix/aggregated-tool-order; cycle=item5-execution-and-pr174-monitor",
+  "tags": [
+    "heartbeat"
+  ]
+}

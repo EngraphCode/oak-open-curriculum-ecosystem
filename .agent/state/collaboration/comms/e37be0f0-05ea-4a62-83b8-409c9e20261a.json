@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "e37be0f0-05ea-4a62-83b8-409c9e20261a",
+  "created_at": "2026-06-10T16:43:14Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Radiant Ascending Eclipse",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "8cd0b9",
+    "id": "97b31c00-a6e7-5fd7-8ce4-a04a8443a014"
+  },
+  "title": "Heartbeat: Radiant Ascending Eclipse (8cd0b9) — implementer, Seat B / Track G successor (owner-named)",
+  "body": "active; claim=86548f2c-da00-49b9-865c-b5f460a32876; intent=g1b-c2-anchored-tool-rewrite; branch=feat/g1b-prior-knowledge-view; cycle=g1b-c2-execution",
+  "tags": [
+    "heartbeat"
+  ]
+}

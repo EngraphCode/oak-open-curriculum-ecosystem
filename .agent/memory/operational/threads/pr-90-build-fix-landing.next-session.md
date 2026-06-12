@@ -70,15 +70,22 @@ Evidence (commits, all pushed to `fix/build_issues`):
 - `b8540657` — `fix(build): align ts-script invocation pattern across ci, docs, and research`
 - `78718b3b` — `chore(sonar): mechanical sweep of 12 quality-gate issues across validate-* scripts`
 - `532b0871` — `chore(napkin): remove duplicate heading in archived 2026-04-29 napkin`
-- `bdcf21ae` — `test(scripts): add local detection gate for stale node scripts/X.{mjs,ts,js} patterns`
-- _(Phase 5 commit pending push)_ — enable markdownlint MD024 with `siblings_only: true`; fix 3 sibling-level duplicate-heading violations
+- `bdcf21ae` — `test(scripts): add local detection gate for stale node scripts/X.{mjs,ts,js}
+  patterns`
+- _(Phase 5 commit pending push)_ — enable markdownlint MD024 with `siblings_only: true`; fix 3
+  sibling-level duplicate-heading violations
 
 PR-90 verification:
 
-- All required CI gates green: <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90>
-- Sonar PR analysis: <https://sonarcloud.io/dashboard?id=oaknational_oak-open-curriculum-ecosystem&pullRequest=90> — 0 OPEN/CONFIRMED, 50 FIXED.
-- Closure comment with local-detection register: <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90#issuecomment-4346625386>
-- Follow-up comment with sharper MD024 finding: <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90#issuecomment-4346657905>
+- All required CI gates green:
+  <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90>
+- Sonar PR analysis:
+  <https://sonarcloud.io/dashboard?id=oaknational_oak-open-curriculum-ecosystem&pullRequest=90> — 0
+  OPEN/CONFIRMED, 50 FIXED.
+- Closure comment with local-detection register:
+  <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90#issuecomment-4346625386>
+- Follow-up comment with sharper MD024 finding:
+  <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90#issuecomment-4346657905>
 - Plan: `.agent/plans/architecture-and-infrastructure/current/pr-90-landing-closure.plan.md`
 - Active claim `21943b5a` to be closed at session-handoff.
 
@@ -93,7 +100,8 @@ when the squash-merge lands; pending that, no further agent action is
 required on this thread.
 
 Post-merge work (out-of-scope for this thread but raised in the PR-90
-closure register at <https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90#issuecomment-4346625386>):
+closure register at
+<https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/90#issuecomment-4346625386>):
 
 1. **Workflow + markdown TS-invocation lint** — root-script test that greps
    `.github/workflows/*.yml` and authored markdown for `node scripts/*` and

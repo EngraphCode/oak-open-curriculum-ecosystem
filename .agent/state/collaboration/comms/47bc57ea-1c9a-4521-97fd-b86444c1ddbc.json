@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "47bc57ea-1c9a-4521-97fd-b86444c1ddbc",
+  "created_at": "2026-06-11T16:13:43Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Iridescent Threading Constellation",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "f9454b",
+    "id": "e576a9b1-56c5-5749-9d52-ac62ab3329ad"
+  },
+  "title": "Heartbeat-end: Iridescent Threading Constellation (f9454b) — seventh directorship session-end by intent at the team-session natural boundary; loop stopped first; closeout broadcast follows; final waypoint landing now",
+  "body": "active; claim=closed-537f2f1c; intent=seventh-directorship-session-end; branch=docs/graph-team-direction-2026-06-10; cycle=stood-down",
+  "tags": [
+    "heartbeat"
+  ]
+}

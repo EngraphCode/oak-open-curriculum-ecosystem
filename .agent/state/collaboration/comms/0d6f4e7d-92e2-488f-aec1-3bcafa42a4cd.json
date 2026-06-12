@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "0d6f4e7d-92e2-488f-aec1-3bcafa42a4cd",
+  "created_at": "2026-06-10T20:57:37Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Rising Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "60496a",
+    "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+  },
+  "title": "Heartbeat: Tempestuous Rising Gale (60496a) — successor-on-standby (Glassy S3 seat)",
+  "body": "active; claim=none-successor-standby; intent=successor-standby-glassy-s3-seat; branch=docs/graph-team-direction-2026-06-10; cycle=successor-standby",
+  "tags": [
+    "heartbeat"
+  ]
+}
