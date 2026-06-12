@@ -350,3 +350,43 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   its core intact (reviewer added a leak fence, didn't weaken the structure); the
   readiness-review-then-amend loop on a same-day plan cost one background dispatch and
   materially improved three artefacts.
+- **Loss-scan find — heartbeat value-contingency evidence (PDR-082 second-instance path)**: my
+  Director heartbeat cron ran the whole session with ZERO observed consumers — the owner was
+  present throughout and every stall/retirement judgement I made used ground-truth reads (git,
+  gh, registry), never peers' heartbeats; meanwhile BOTH implementer lanes ran sessions without
+  heartbeat crons (solo-opened) and their closeouts were clean. Evidence FOR generalising
+  PDR-082's owner-visible scope-reduction beyond n=2. candidate: PDR-082 amendment when its
+  named second instance is evaluated.
+
+## 2026-06-12 — EEF gap research + DfE SDK seed session (Forge turns Basalt, c4b882)
+
+- **Owner correction: I framed a complementary data source as a replacement.** The DfE EES
+  seed said "authoritative replacement for the EEF corpus's hard-coded uk_context" — owner:
+  the DfE API is ALWAYS complementary to the EEF corpus; the repo pulls multiple sources to
+  maximise MCP-app value. Root cause (retrospective metacognition): doctrine-by-analogy — the
+  derive-don't-bridge / replace-don't-soften reflexes govern surfaces DERIVED from data we
+  serve, not product SOURCE STRATEGY, which is owner-shaped. candidate: sibling of
+  feedback_feature_shaping_is_owner_decision ("source-strategy forks are owner decisions, not
+  derivable from data-hygiene rules"); promote on a second instance.
+- **Workflow verify stages must tolerate partial verifier loss**: 3 of 15 adversarial
+  verifiers died mid-workflow on an Anthropic session limit ("session limit · resets
+  12:30pm") — the workflow completed and returned, but those claims arrived unverified; cure
+  applied was first-hand re-adjudication of the orphaned claims. Design forward: treat
+  verifier results as `.filter(Boolean)`-sparse and route unverified claims to the main agent
+  explicitly rather than assuming full coverage. (capture-practice-tool-feedback.)
+- **markdownlint-cli rejects absolute paths outside the repo** (`RangeError: path should be a
+  path.relative()d string` from its ignore module) — a /tmp negative-control file cannot
+  prove the runner; put lint negative-controls INSIDE the repo (and delete after). The
+  control-then-real pattern itself worked: control fired MD040 + exit 1, real files green.
+- Two same-day instances of documented classes, confirming the cures: (1) shared-checkout
+  state moved mid-session (the in-progress merge resolved AND my uncommitted report/README
+  were committed verbatim by the Director seat in `32bcd9d1b`) — caught by the re-derive-
+  before-acting discipline, set-membership content check confirmed conservation; (2)
+  `repo-continuity.md` changed between my read and my handoff write (Edit staleness guard
+  fired) — re-read, re-applied; the directed-backlog-before-compose lesson held.
+- **ARC simultaneous-open race, worked instance 2** (2026-06-12, Firefly × Forge): my announce
+  08:52Z, Forge's independent open 09:14Z without seeing it — even WITH the canonical announce
+  discipline, a peer acting on direct owner direction can race the discovery index. Cured by
+  dialogue-concession in one entry (their file won on substance; pointer left on mine).
+  Feed to the reference doc's announce-race section at the next ARC consistency pass
+  (owner-named naming/discoverability debt; "ArcAngel" alias line already landed).

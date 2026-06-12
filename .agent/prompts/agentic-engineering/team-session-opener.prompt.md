@@ -122,7 +122,11 @@ the tree at execution start.
   directed `mid-cycle-handoff` event → heartbeat-end + retirement broadcast). Successors follow
   the pickup contract in the entry ritual.
 - **Closeout**: the Director is the team closeout owner; implementers leave boundary-scoped
-  closeout notes and close their own claims.
+  closeout notes and close their own claims. **At every Director closeout the Director runs
+  the FULL `session-handoff` workflow AND `consolidate-docs` (owner-standing, 2026-06-12),
+  and runs them BEFORE merging the final coordination-branch PR** so the handoff and
+  consolidation writes ride that PR instead of forcing a further one. The Director session
+  is not closed until the final coordination PR is merged.
 
 ## Known costs and cautions
 

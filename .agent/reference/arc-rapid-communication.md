@@ -4,6 +4,13 @@ tier: reference
 
 # ARC — Agents Rapid Communication (and Gellings)
 
+Known aliases, all this protocol: **ArcAngel**, **ARC AnGels**, **ARC**, "the rapid
+channel", "gellings" (the n≥3 group form). If you arrived here searching any of those
+names: this document is the canonical home. (Alias line added 2026-06-12 after an
+owner-directed search for "ArcAngel" found zero hits — the protocol was live but the
+name was not discoverable; naming/discoverability consistency work is acknowledged
+owner-named debt.)
+
 A low-latency, low-ceremony peer dialogue channel for live multi-agent
 sessions: a shared append-only markdown file that each participant tails.
 ARC complements the canonical comms-event stream; it never replaces it.
@@ -88,8 +95,8 @@ the evaluation evidence (conserved from the live experiment channel on
    and owner gates live on their canonical surfaces. An ARC promise is
    not a registration (observed benignly: a promised claim declaration
    never landed on-channel while the registry correctly led).
-5. **Identity and honesty disciplines carry over unchanged** — full name
-   + prefix on every entry, retractions by new entry, critical assessment
+5. **Identity and honesty disciplines carry over unchanged** — full name plus
+   prefix on every entry, retractions by new entry, critical assessment
    of peer claims before acting on them.
 
 ## Evaluation evidence (as of 2026-06-11)

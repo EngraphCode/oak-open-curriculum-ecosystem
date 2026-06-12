@@ -37,9 +37,9 @@ Created 2026-05-24 at the post-M1-Safe-Pause-merge boundary by Charcoal Brazing 
 
 **Hypothesis**: the `.agent/state/collaboration/comms/` event archive — ~5 days of intensive
 multi-agent collaboration leading into M1 Safe Pause, grown to **3,153 events (as of
-2026-06-12T07:05Z; re-derive at use) spanning 2026-05-20 → live** — is **research substrate** for understanding modes of
-agent collaboration. Since the original capture window the corpus has gained whole new event
-classes: heartbeat-tagged liveness events (ADR-186), `mid-cycle-handoff` directed events
+2026-06-12T07:05Z; re-derive at use) spanning 2026-05-20 → live** — is **research substrate**
+for understanding modes of agent collaboration. Since the original capture window the corpus
+has gained whole new event classes: heartbeat-tagged liveness events (ADR-186), `mid-cycle-handoff` directed events
 (PDR-063 / ADR-182), live `failure-mode` / `behaviour-note` tag usage (ADR-183 / PDR-066),
 and complete coordinated-team arcs (bootstrap → P1 diagnosis → merge sequencing → completion,
 2026-06-11/12). Patterns exist in the corpus that:

@@ -11,6 +11,24 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
+- **2026-06-12 (Forge turns Basalt / claude-code Fable 5, `c4b882`) — EEF DATA SURFACING-GAP
+  RESEARCH LANDED.** Read-only research: corpus-vs-surfaced inventory, verified first-hand
+  (full surfacing stack read; three live oak-prod probes; 24-agent workflow with adversarial
+  verify). The report is the conservation home:
+  [`eef-data-surfacing-gap-research-2026-06-12.md`](../../../plans/sector-engagement/eef/reference/eef-data-surfacing-gap-research-2026-06-12.md)
+  (committed by the Director in `32bcd9d1b`; owner roadmap item 7 owns organising its
+  follow-ons). Load-bearing for the next EEF session: report §8 lists the ten unowned items
+  (no recorded decision anywhere) — headline: EEF absent from `get-curriculum-model`
+  orientation; methodology sub-fields exported but rendered nowhere; the unowned EEF
+  provenance/refresh outreach (report §6), which also gates the corpus-backfill opportunity
+  (report §7). Sibling artefacts: the
+  [DfE data SDK seed](../../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
+  (sector-engagement thread) — DfE EES statistics as a COMPLEMENTARY source, never a
+  replacement (owner posture 2026-06-12); the EEF corpus stays whole and authoritative for
+  EEF evidence — and the owner-commissioned
+  [executive briefing](../../../plans/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md)
+  (standalone, C-suite Oak + EEF): the outreach vehicle for the report-§6 partnership
+  conversation (dataset depth, update route, licence terms).
 - **THIS SESSION (2026-06-11→12, Cosmos turns Equinox / claude Fable 5, `1bc763`,
   snagging-execution successor per PDR-063 handoff from Dusky Passing Mist) — 🟢 SNAGGING ARC
   LANDED.** The 2026-06-11 snagging plan's three-PR arc is fully merged: PR #190 (outbound
@@ -419,7 +437,8 @@ merge_class: index-narrative-tables
   Tempestuous Rising Gale** (claim `98ec3935`, event `f851de23`; plan g3 todo is authority;
   S3-seat standby continues in parallel). **G4b QUEUES BEHIND G3** (shared vocab-gen
   emission + AGGREGATED 4-surface union — deliberate serialisation; routes at next seat).
-  G2 seat bench is now EMPTY (Sylvan was the bench). **Second rotation wave (20:40–21:13Z, all clean)**: S3
+  G2 seat bench is now EMPTY (Sylvan was the bench). **Second rotation wave (20:40–21:13Z, all
+  clean)**: S3
   delivered as **PR #162** (Glassy Plumbing Dock; c1 lesson-builder extension + c2 NEW
   `curriculum-mapping` prompt + c3 review absorption; both specialists + sole review finding
   adjudicated; Director-verified settled — mergeState CLEAN, 0 unresolved threads at
@@ -569,7 +588,8 @@ merge_class: index-narrative-tables
   views need an edge-type-selective extension), inbound links repointed, KG README row moved to Live
   Work. It is **NOT yet decision-complete** — the mechanism settle (A/B/D/E + node/edge model + the
   `GraphView` extension) + executable TDD cycles + architecture/assumptions review remain for the
-  NEXT SESSION on a NEW branch (see the plan's §Remaining promotion work). The fitness-driven curation
+  NEXT SESSION on a NEW branch (see the plan's §Remaining promotion work). The fitness-driven
+  curation
   pass was NOT done (owner directed not to act on fitness limits this session).
 - **PRIOR SESSION (2026-06-09, Incandescent Smouldering Brazier / claude Opus 4.8, branch
   `assess/evidence_workflows`) — post-D7 evidence-workflow enhancements + the product principle.
@@ -674,6 +694,8 @@ session narrative for each is in git history; this table is the durable identity
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| `Forge turns Basalt` | `claude-code` | `Fable 5` | `c4b882` | `eef-data-surfacing-gap-research` | 2026-06-12 | 2026-06-12 |
+| `Firefly seeks Temper` | `claude` | `Fable 5` | `ce44ae` | `handover-team-director-snagging-lane-routing` | 2026-06-11 | 2026-06-12 |
 | `Iridescent Soaring Planet` | `claude-code` | `claude-opus-4-7-1m` | `b38261` | `architecture-restructure-and-handoff` | 2026-04-30 | 2026-04-30 |
 | `Fragrant Sheltering Petal` | `claude-code` | `claude-opus-4-7-1m` | `360064` | `type-expert-round` | 2026-04-30 | 2026-04-30 |
 | `Vining Whispering Root` | `claude-code` | `claude-opus-4-7-1m` | `696765` | `tracer-matrix-and-promotion-packet` | 2026-04-30 | 2026-05-01 |
