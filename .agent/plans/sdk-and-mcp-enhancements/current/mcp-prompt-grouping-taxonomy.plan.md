@@ -4,10 +4,10 @@ overview: "Group Oak's MCP prompts by the teacher job they serve (owner directio
 status: "QUEUED — DRAFT FOR OWNER REVIEW; taxonomy ratification is the owner gate"
 todos:
   - id: ws1-spec-grounding
-    content: "WS1: ground the grouping vehicle against the MCP spec and the real client population — what do prompts support for grouping (title, description, _meta tags, naming conventions) and what do Cursor / Claude Code / claude.ai / ChatGPT actually RENDER of each vehicle (the client-visibility lesson from the snagging arc applies: ratify no vehicle without rendering evidence). mcp-expert review of the verdict."
+    content: "WS1: SPEC SIDE DONE 2026-06-12 (owner-supplied 2025-11-25 spec sources, verified first-hand — see §WS1 findings): no tag/group field on Prompt; vehicles are description conventions, title prefixes, naming conventions, icons, and content-level audience annotations. REMAINING: client-rendering evidence — what do Cursor / Claude Code / claude.ai / ChatGPT actually RENDER of each candidate vehicle (the client-visibility lesson applies: ratify no vehicle without rendering evidence). mcp-expert review of the final verdict."
     status: pending
   - id: ws2-taxonomy-design
-    content: "WS2: design the job-to-be-done taxonomy over the seven live prompts (find-lessons, lesson-planning, explore-curriculum, learning-progression, curriculum-mapping, adapt-lesson, continue-progression) starting from the owner's seed groups (curriculum planning / lesson planning / resource adaptation); name the planning-moment axis explicitly (term-ahead sequence planning vs just-in-time anchored next-step — the 2026-06-12 briefing conflation is the motivating instance); put the taxonomy to the owner for ratification."
+    content: "WS2: design the taxonomy over the seven live prompts (find-lessons, lesson-planning, explore-curriculum, learning-progression, curriculum-mapping, adapt-lesson, continue-progression) on TWO axes: job-to-be-done (owner seed groups: curriculum planning / lesson planning / resource adaptation) AND audience (user-facing workflow vs assistant-audience procedural content — the prompts-as-skills observation; weigh the spec's user-controlled interaction model as a design tension and cross-link the oak-skills estate); name the planning-moment distinction explicitly (term-ahead sequence planning vs just-in-time anchored next-step — the 2026-06-12 briefing conflation is the motivating instance); put the taxonomy to the owner for ratification."
     status: pending
     depends_on: [ws1-spec-grounding]
   - id: ws3-apply-and-align
@@ -15,7 +15,7 @@ todos:
     status: pending
     depends_on: [ws2-taxonomy-design]
   - id: ws4-gap-surface
-    content: "WS4: name the taxonomy's empty cells as candidate roadmap items (e.g. a guided term-ahead sequence-planning workflow has data support today but no guided prompt — surfaced to the owner as candidates, never auto-added; feature-shaping is the owner's decision)."
+    content: "WS4: name the taxonomy's empty cells and adjacent capability gaps as candidate roadmap items — at minimum: a guided term-ahead sequence-planning workflow (data support exists today, no guided prompt); the completions capability for typed prompt-argument autocompletion (subject/key-stage enums, context-dependent narrowing); any assistant-audience skill-channel prompts the audience axis surfaces. Candidates go to the owner; feature-shaping is the owner's decision."
     status: pending
     depends_on: [ws2-taxonomy-design]
 isProject: false
@@ -26,6 +26,38 @@ isProject: false
 **Created**: 2026-06-12 (owner direction in-session: "Broadly we should start grouping our
 prompts, possibly with tags, curriculum planning, lesson planning, resource adaptation...
 that sort of thing").
+
+## WS1 findings — spec grounding (2026-06-12, verified against the 2025-11-25 revision)
+
+Owner-supplied sources, each fetched and verified first-hand:
+
+- **Prompt definition fields** (`server/prompts` §Data Types): `name`, `title`,
+  `description`, `icons`, `arguments`. **No tag, group, or category field exists.** The
+  description field can carry an indicative grouping convention (owner suggestion);
+  `icons` offer a visual-grouping channel; `title` prefixes and `name` conventions are the
+  other definition-level vehicles.
+- **Audience labelling** (`server/prompts` §PromptMessage note → `server/resources`
+  §Annotations): prompt-message **content blocks** support `annotations.audience` with
+  values `"user"` and `"assistant"` (plus `priority` 0.0–1.0 and `lastModified`). The
+  prompt *definition* cannot be audience-labelled, but its *substance* can be marked
+  assistant-audience. The spec's stated prompt interaction model is **user-controlled**
+  (slash-command style) — an agent-facing prompt cuts against that model's grain, which
+  the taxonomy must treat as a design tension, not a free choice.
+- **The owner's strategic observation**: a prompt whose content is assistant-audience
+  procedural instruction **is functionally a skill**. This reframes the taxonomy from menu
+  tidiness to **audience separation** — teacher-facing workflows vs agent-facing
+  procedural capabilities — and bridges the MCP prompt estate to Oak's skills estate
+  (the oaknational/oak-skills library and the external-facing skills synthesis): MCP
+  prompts with assistant-audience content are a candidate MCP-native skill delivery
+  channel. WS2's taxonomy must carry the audience axis alongside the job-to-be-done axis.
+- **Completion** (`server/utilities/completion`): the `completions` capability +
+  `completion/complete` with `ref/prompt` provides typed argument autocompletion,
+  including `context.arguments` for dependent arguments (e.g. key stage narrowed by
+  subject). Oak's prompt arguments (subject, key stage, focus enums) are a natural fit —
+  recorded as a WS4 candidate for the owner, not in-scope work.
+- **Pagination** (`server/utilities/pagination`): `prompts/list` is cursor-paginated;
+  irrelevant at seven prompts, noted for scale honesty. Logging utility noted as estate
+  context only.
 
 ## End goal
 
