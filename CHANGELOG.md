@@ -1,3 +1,11 @@
+# [1.30.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.29.0...v1.30.0) (2026-06-12)
+
+
+### Features
+
+* **agent-tools:** redesign the statusline for glance value under narrow terminals ([e84d6bc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e84d6bc3d1cee047aa0e6307321f0179be990ab7))
+* **agent-tools:** tune statusline context colours to green/yellow/red at 50/70 ([1f55957](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1f55957201340de3e6b964d5f944d29c56f18df0))
+
 # [1.29.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.28.1...v1.29.0) (2026-06-12)
 
 
