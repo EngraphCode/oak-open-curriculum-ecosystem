@@ -1,7 +1,7 @@
 ---
 name: "Comms-Corpus Research and Rotation Strategy"
 overview: "Dedicated research pass over the preserved .agent/state/collaboration/comms/ corpus (~3,150 events; 3,153 as of 2026-06-12T07:05Z — re-derive at WS0): blind cold read, automated survey, failure-mode taxonomy, prioritised theme deep-dives, mechanism recommendations routed to the comms/coordination plan cluster, and a ratification-ready non-held rotation strategy that ends the preservation hold without losing unprocessed signal. Companion to the agent-collaboration-research thread record, which owns the hypothesis, analysis vectors, and seeded themes."
-status: "QUEUED — DRAFT FOR OWNER REVIEW; readiness reviewers not yet run"
+status: "READY FOR DISPATCH (owner-released 2026-06-12, gated only on the handover-team session closeout, now complete) — run as a standalone session via the opener prompt"
 todos:
   - id: ws0-grounding
     content: "WS0: read the agent-collaboration-research thread record (resume contract) EXCEPT its two Candidate Themes sections, which are deferred until the WS1 surprises log is recorded (blind-pass exception in the record's Resume Contract); read the comms-event schema and this plan; confirm corpus size/span first-hand."

@@ -13168,6 +13168,51 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "9a666480-3bb6-45b0-b4e0-5f73ecf5a260",
+      "agent_id": {
+        "agent_name": "Firefly seeks Temper",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "ce44ae",
+        "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/collaboration/handoffs/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T21:04:56Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (owner-directed): coordinate mid-cycle handovers for Tarsier calls Warren (mcp inspector + snagging lane) and Harrier weaves Stratosphere (agent naming lane); route pickups per PDR-063/PDR-064; direction only, no source edits",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T08:04:20Z",
+        "closed_by": {
+          "agent_name": "Firefly seeks Temper",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "ce44ae",
+          "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+          "naming_schema_version": "override"
+        },
+        "summary": "Director arc complete: two PDR-063 handovers zero-loss; #189-#195 merged; v3=C decided; comms research released post-closeout. Stand-down by intent.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "9a666480-3bb6-45b0-b4e0-5f73ecf5a260",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

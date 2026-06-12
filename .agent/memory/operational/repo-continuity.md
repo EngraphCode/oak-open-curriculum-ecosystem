@@ -33,11 +33,28 @@ surface.
   production issues in Sentry; (4) organise the Sentry logging improvements those discoveries
   will surface; (5) refine the PostHog plan (home:
   [`mcp-product-analytics` thread](threads/mcp-product-analytics.next-session.md));
-  (6) begin planning integration of the oak api repo into this ecosystem repo. The
-  2026-06-11/12 handover-team arc itself is COMPLETE: both lanes landed (#189–#194), both
-  implementers closed out cleanly; coordination branch
-  `coordination/naming-and-snagging-team-2026-06-11` (prefix convention owner-adopted
-  2026-06-12) carries the continuity bundle to merge at Director closeout.
+  (6) begin planning integration of the oak api repo into this ecosystem repo;
+  (7) EEF data unexploited-value: initial gap research landed at
+  [`eef-data-surfacing-gap-research-2026-06-12.md`](../../plans/sector-engagement/eef/reference/eef-data-surfacing-gap-research-2026-06-12.md)
+  — organise its follow-ons; (8) identify high-impact graphs latent in the bulk data not yet
+  extracted; (9) apply the new graph-tool capabilities to the Oak curriculum-ontology repo
+  contents (formerly Oak knowledge graphs; sibling checkout `oak-curriculum-ontology`);
+  (10) build out React MCP-app capabilities via a user-facing search experience that fully
+  shows off hybrid semantic search — update the search-experience intent in the
+  [08-experience-surfaces cluster](../../plans/semantic-search/future/08-experience-surfaces-and-extensions/README.md)
+  and integrate it into the active
+  [`mcp-app-extension-migration.plan.md`](../../plans/sdk-and-mcp-enhancements/active/mcp-app-extension-migration.plan.md)
+  WS3 rebuild (this roadmap item is that intent's owner-agreed gate);
+  (11) keep the plan discovery surfaces current (`plans/README.md`, `high-level-plan.md`,
+  `good-first-issues.md`, `completed-plans.md`) and analyse `plans/notes/` for useful
+  substance then retire it. **NAMING v3 SHAPE DECIDED: C (noun + agentive), owner
+  2026-06-12** — recorded in the
+  [sample-sheets artefact](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
+  sequence stays era-pinning cure → C wordlist curation (full v2 gates, ~120 agentives) → v3
+  registry entry. **Comms research dispatch RELEASED by owner (2026-06-12), gated only on
+  this team session's closeout.** The 2026-06-11/12 handover-team arc itself is COMPLETE:
+  both lanes landed (#189–#194), both implementers closed out cleanly; the coordination
+  branch's continuity bundle MERGED to main as PR #195 (`063b2d43a`).
 
 - **TRACK-G COMPLETE + CURED — graph implementation team, seventh Director (2026-06-11).**
   Live NOW: **Iridescent Threading Constellation (`f9454b`, Fable 5) is the Director**

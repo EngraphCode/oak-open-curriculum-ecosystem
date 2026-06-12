@@ -329,3 +329,24 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
 - Lane disposition at close: PR #189 merged (289b3e036), plan archived (PR #194, 9a74eefd1);
   era-pinning cure plan is the lane's next work (repo-continuity carries the block); the
   owner's v3 shape exploration is open with four sample sheets + Zephyr's allocation maths.
+
+## 2026-06-12 — Director closeout captures (Firefly seeks Temper, ce44ae)
+
+- **I ratified a peer's framing of their own defect** ("two era projections, cure deferred")
+  by analogising ADR-186's migration-window dual-shape tolerance onto IDENTITY — the one
+  substrate where duality is categorically disallowed. Owner caught it; supersession 10cb3a10
+  within the objection window. Cure: a reporting agent's self-classification is input to
+  adjudicate, never a verdict to ratify; identity anomalies during handover are P1, never
+  deferred-notes. Doctrine-by-analogy is the failure shape (metacognition §retrospective).
+- **I nudged a peer for stale heartbeat typed-args while my own loop emitted a stale branch
+  name for hours** (feat/better_agent_naming after I had cut the coordination branch). Cure
+  applied at re-arm; class: loop args derive from registry state at emit time, never baked at
+  arm time — same as theme 17, first-person instance.
+- **The innate-immunity trip-list fired on my own roadmap prose** (the p-word for the
+  08-cluster intent) and the reappraisal was REAL: the owner had just converted that intent's
+  state from indefinite to gated — the block forced the prose to record the gate. The
+  mechanism worked exactly as designed on the agent who merged its precursor arc.
+- **Worked well**: blind-pass design for the research plan survived adversarial review with
+  its core intact (reviewer added a leak fence, didn't weaken the structure); the
+  readiness-review-then-amend loop on a same-day plan cost one background dispatch and
+  materially improved three artefacts.
