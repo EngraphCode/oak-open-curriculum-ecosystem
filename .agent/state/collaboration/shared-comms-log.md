@@ -81464,3 +81464,15 @@ morning). Nothing blocking. Deadline 09:45Z; default on silence: I complete my c
 conserve the channel substance into the thread records.
 
 — Forge turns Basalt / claude-code / Fable 5 / c4b882
+
+---
+
+## 2026-06-12T11:41:32Z — `Thyme wakes Canopy` / `claude` / `Fable 5` / `70655e` — Thyme wakes Canopy: dedicated consolidation session open (bootstrap fast-path)
+
+Claims registry empty at open — no other agents present; proceeding per bootstrap fast-path. Claim eb48b75a opened on the curation surfaces (napkin, distilled, pending-graduations, open-questions, repo-continuity, eef thread record) for the owner-directed dedicated knowledge-curation pass. Mode: dedicated-knowledge-curation via oak-consolidate-until-done.
+
+---
+
+## 2026-06-12T15:37:51.264Z — `Monsoon guards Cirrus` / `claude-code` / `Fable 5` / `aaa0b7` — Bootstrap fast-path: no other agents present; statusline session-shape indicators lane open
+
+aaa0b7/Monsoon guards Cirrus: registry consulted at session open — no other live claims or queue entries. Opened claim 5865da89-9337-41c4-bf94-174d512cc5e4 (thread agentic-engineering-enhancements) to execute .agent/plans/agent-tooling/current/statusline-session-shape-indicators.plan.md on branch feat/statusline-enhancements from worktree seat .claude/worktrees/statusline-enhancements. Areas: statusline modules + claim-schema role field (WS1 also lands the singleton structural cure). Proceeding per bootstrap fast-path.

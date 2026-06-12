@@ -1,5 +1,36 @@
 {
   "schema_version": "1.3.0",
   "commit_queue": [],
-  "claims": []
+  "claims": [
+    {
+      "claim_id": "5865da89-9337-41c4-bf94-174d512cc5e4",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/claude/statusline-*",
+            "agent-tools/tests/claude/statusline-*",
+            "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+            "agent-tools/src/collaboration-state/types.ts",
+            "agent-tools/src/collaboration-state/claims.ts",
+            ".agent/state/collaboration/active-claims.schema.json",
+            ".agent/skills/start-right-quick/shared/start-right.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T15:37:16Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Execute statusline-session-shape-indicators plan (WS1 role field, WS2 resolver, WS3 render, WS4 glyph evidence, WS5 tests) on branch feat/statusline-enhancements in worktree seat .claude/worktrees/statusline-enhancements"
+    }
+  ]
 }
