@@ -484,3 +484,10 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   credited to the owner) — both resolved with a same-bullet RESOLVED addendum, the
   established continuity pattern. A peer's recorded next-step is a hypothesis, superseded
   here by later owner direction.
+- **"Defer commit control to you" is not a summons for the marshal apparatus.** One relayed
+  sentence about a peer's commit posture and I armed a persistent registry Monitor — the exact
+  machinery the standing comms-ceremony-minimal direction forbids. Owner corrected within
+  minutes ("lanes should be largely independent"). The arrangement's real shape was: do your
+  lane; fresh `git status` + pathspec-scoped commits already cover collision safety. Cure:
+  Monitor killed; reflex updated — coordination machinery scales with demonstrated need,
+  never with role vocabulary ("gatekeeper", "marshal") pattern-matched from past sessions.
