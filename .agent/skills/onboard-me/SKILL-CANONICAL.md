@@ -52,6 +52,39 @@ onboarding status register
 | `docs/engineering/sibling-repos.md` | Repos a teammate may clone alongside (teammates) |
 | `.agent/plans/good-first-issues.md` | Curated starter tasks (teammates) |
 
+## Headline Invariants (surface these — they are what makes this repo itself)
+
+Six stable, ADR-backed architectural invariants every newcomer should
+hear early. They are named here because they are load-bearing and
+drift-resistant; the detail behind each still lives in its routed doc,
+which always wins:
+
+1. **The SDK updates itself from the API spec** — when the upstream
+   OpenAPI schema changes, regeneration brings every workspace into
+   alignment with zero manual type work (the Cardinal Rule; README
+   §Architecture → `docs/architecture/openapi-pipeline.md`).
+2. **Two data feeds, both deliberate** — the live API powers the SDK and
+   MCP tools (`docs/architecture/openapi-pipeline.md`), while
+   bulk-downloaded curriculum data is the source of truth for search
+   ingestion and graph derivation
+   (`docs/agent-guidance/semantic-search-architecture.md`).
+3. **The curriculum graphs are derived from the bulk data** — prior
+   knowledge, misconceptions, keywords, and progressions served as
+   anchored graph tools (the MCP server README's graph tools section;
+   ADR-173 for the graph-stack topology and bulk derivation).
+4. **EEF evidence grounds the pedagogy** — the Teaching and Learning
+   Toolkit is integrated for evidence-based support (README §Data
+   Sources).
+5. **The bulk data populates the semantic search** — ingestion builds
+   the search indices from it (`apps/oak-search-cli/docs/INGESTION-GUIDE.md`).
+6. **The Search SDK serves both sides** — creating and operating search
+   instances as well as querying them
+   (`packages/sdks/oak-search-sdk/README.md`).
+
+Branches A (engineer orientation) and B (impact and strategy) surface
+these one at a time at the newcomer's pace, routing into the named doc
+wherever they want depth.
+
 ## State Detection (read-only, always before asking)
 
 Run cheap probes rather than interrogating the newcomer. Every probe in
@@ -104,7 +137,8 @@ set, sibling repos, good first issues).
 
 ### A — Engineer trunk
 
-Run branch D, then branch E, then: read the contribution levels from the
+Run branch D, then branch E, then surface the Headline Invariants
+(above) as orientation; then: read the contribution levels from the
 live CONTRIBUTING.md and render them one sentence each; ask which fits
 their first task; walk only that level's setup from the doc. Teammates:
 surface `.agent/plans/good-first-issues.md` and the two session bookends —
@@ -117,8 +151,10 @@ part no other repo will have taught them. Exit → Completion.
 ### B — Impact and strategy
 
 No detection needed. Offer, one at a time, letting the newcomer pick
-depth: the README's audience-routing block; `docs/foundation/VISION.md`;
-`docs/domain/curriculum-guide.md`; then the newest progress report
+depth: the README's audience-routing block; the Headline Invariants
+(above) for what technically distinguishes the repo;
+`docs/foundation/VISION.md`; `docs/domain/curriculum-guide.md`; then the
+newest progress report
 (the `oak-ecosystem-progress-*` family), resolved from
 `.agent/reports/README.md` at walk time (never assume a remembered
 filename is the latest, and filter by family — the index also carries
