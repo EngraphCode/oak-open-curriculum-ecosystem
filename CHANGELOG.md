@@ -1,3 +1,16 @@
+# [1.29.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.28.1...v1.29.0) (2026-06-12)
+
+
+### Features
+
+* **agent-tools:** activate the v2 noun-verb-noun naming schema ([0fe5da9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0fe5da946bc641fc7aa1eef12242bf287a23c6eb))
+* **agent-tools:** add v2 curation gates and the shared verb pool ([634b3e5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/634b3e5395f2ba7c06970c91f36b61cba3b1eed0))
+* **agent-tools:** assemble and digest-pin the v2 noun-verb-noun schema ([92f12d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/92f12d19bed8e21dc81b66d700cf47d681805207))
+* **agent-tools:** curate the six themed v2 noun columns ([dd82028](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dd820286e081d90872ca36c7ebc73061b189ab83))
+* **agent-tools:** record naming_schema_version on the identity tuple ([386f9e5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/386f9e561ca3a8bb5235c80e551eee15d9899aac))
+* **agent-tools:** register the v1 naming-schema era with a pinned digest ([4fbc7d8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4fbc7d839cba791e1a9d037c6ec078c9a5fe611c))
+* **agent-tools:** route identity derivation through the naming-schema registry ([3de15f0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3de15f01a9577234f7a14ee1e933a1b9668900d3))
+
 ## [1.28.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.28.0...v1.28.1) (2026-06-12)
 
 
