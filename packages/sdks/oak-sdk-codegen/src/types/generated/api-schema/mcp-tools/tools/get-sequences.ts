@@ -113,7 +113,7 @@ export const getSequences = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Sequencing information for a given sequence slug\n\nThis tool returns the sequence object for the provided sequence slug. For secondary sequences, this includes information about key stage 4 variance such as exam board sequences and non-GCSE ‘core’ unit sequences.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
+  description: "Sequencing information for a given sequence slug\n\nUse when you have a sequence slug and need the sequence-level summary. A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/{subject} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it. Not for: the programmes within this sequence (GET /sequences/{sequence}/programmes); the unit sequence for one programme (GET /sequences/{sequence}/programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}). Example: sequence=maths-primary or science-secondary-aqa.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
   path,
   method,
   documentedStatuses,

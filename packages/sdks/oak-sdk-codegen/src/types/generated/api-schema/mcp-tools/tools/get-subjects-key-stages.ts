@@ -113,7 +113,7 @@ export const getSubjectsKeyStages = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Key stages within a subject\n\nThis tool returns a list of key stages that are currently available for a given subject.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
+  description: "Key stages for a subject\n\nUse when you only need the key stages where this subject is available. Returns key-stage titles and slugs. Not for: every key stage (GET /key-stages); the subject record (GET /subjects/{subject}). Example: 'subject=history'.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
   path,
   method,
   documentedStatuses,
