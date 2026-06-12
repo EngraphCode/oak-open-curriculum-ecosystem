@@ -33,10 +33,18 @@ team-opener vocab-gen symlink line were handed as Director deltas (event a3279ac
   consolidation session, approving every one for authoring (per-item statuses in the
   register). The pause-and-stabilise posture lifts when those approved amendments land;
   still do not add NEW Core restructuring candidates while the approved set is in flight.
-- **Unresolved tool feedback** (capture-practice-tool-feedback): `pnpm exec markdownlint
-  <file>` printed its USAGE text yet exited 0 (file arg apparently not reaching it) — a
-  false-green shape in that invocation path, cause unresolved; the commit-gate markdownlint
-  pass is the trustworthy verdict. (Hushed, 2026-06-11.)
+- **Tool feedback RESOLVED 2026-06-12 (Forge turns Basalt, root cause found first-hand)**:
+  `pnpm exec markdownlint <file>` printing USAGE yet exiting 0 (Hushed, 2026-06-11, cause
+  then unresolved) is markdownlint-cli's **dot-directory exclusion** — without `--dot`, any
+  path under `.agent/` (or any dot dir) matches ZERO files, so the CLI prints usage and
+  exits 0: a structural false-green, not a flake. Proven by paired controls: a root-level
+  bad file fires without `--dot`; the same bad file under `.agent/` fires ONLY with `--dot`.
+  Cure: targeted markdownlint on dot-dir paths always passes `--dot` (the root script
+  `markdownlint --dot .` already does), and any targeted run is trusted only after an
+  in-repo dot-dir negative control proves detection. Sting in the tail: every targeted
+  "markdownlint OK" this seat ran on `.agent/**` paths before the discovery was void
+  (zero files linted); the re-run with `--dot` over all ten session-touched files is
+  genuinely green, and prettier checks were real throughout.
 
 ## 2026-06-11 — doctrine-curation seat (Pearly Snorkelling Compass, a8eabc)
 
