@@ -3,13 +3,26 @@
 
 # Oak Open Curriculum Ecosystem
 
-Tools for building AI applications on the [Oak National Academy Open Curriculum](https://open-api.thenational.academy/), using a generated, type-safe TypeScript SDK and [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) servers, MCP Apps, and semantic search over the curriculum data powered by Elasticsearch Serverless.
+Tools for working with the [Oak National Academy Open Curriculum](https://open-api.thenational.academy/) data, including a generated, type-safe TypeScript SDK, a [Model Context Protocol app](https://modelcontextprotocol.io/) (MCP app), a semantic search service, graph tools generated from Oak data, and evidence surfaces grounded in the wider education sector.
 
-**Vision and direction**: For the strategic overview of what this repository is for, see [VISION.md](docs/foundation/VISION.md). For the live delivery roadmap, see the [high-level plan](.agent/plans/high-level-plan.md).
+> **This repository exists to support, and build on, the innovations of the education, edtech and AI ecosystems.**
+
+Everything here serves the same ends: helping teachers find, adapt, and use
+high-quality curriculum resources; helping the organisations that serve
+schools build better tools, faster; and giving the wider world of education —
+sector bodies, edtech, and the AI platforms now working in classrooms — open
+components, open data access, and an openly documented engineering practice
+to build on. Public goods, built in the open.
+
+**Vision and direction**: For more on the strategic overview of what this repository is for, see [VISION.md](docs/foundation/VISION.md). For the live delivery roadmap, see the [high-level plan](.agent/plans/high-level-plan.md).
 
 ---
 
-> **Current status: Invite-Only Alpha (M1 complete)** — The server is live at `curriculum-mcp-alpha.oaknational.dev`. Open public alpha (M2) is next. See the [high-level plan](.agent/plans/high-level-plan.md) for milestone detail.
+---
+
+**Current status: Invite-Only Alpha** — The alpha MCP app server is live at `curriculum-mcp-alpha.oaknational.dev`.
+
+---
 
 ---
 
@@ -46,10 +59,13 @@ Deliver_](docs/foundation/VISION.md#what-we-deliver) in the Vision.
 
 - [VISION.md](docs/foundation/VISION.md) — what this project delivers, hosted vs reusable sector components, why it matters, and the investment case
 - [Curriculum Guide](docs/domain/curriculum-guide.md) — Oak's curriculum structure explained in plain language
-- [Latest progress update](.agent/reports/oak-ecosystem-progress-update-2026-04-20.md) — what has been delivered, what is next, and why it matters
+- [Progress update (April 2026)](.agent/reports/oak-ecosystem-progress-update-2026-04-20.md) — what has been delivered, what is next, and why it matters; newer reports land in [.agent/reports/](.agent/reports/README.md)
 
 ## Developers and AI agents
 
+- **New here?** — open an agent session and run `/oak-onboard-me` for an
+  interactive walkthrough that branches by audience, detects your setup state,
+  and guides one step at a time
 - **Developers** — continue to [Quick Start](#quick-start) below
 - **Oak teammates joining via Claude Code (or another AI coding agent)** — Quick Start as above, then [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md) for the sanctioned MCP set, and [good first issues](.agent/plans/good-first-issues.md) for what to pick up first
 - **AI agents** — read the [start-right-quick workflow](.agent/skills/start-right-quick/shared/start-right.md), then [AGENT.md](.agent/directives/AGENT.md), then scan the [five foundational ADRs](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) — the architectural source of truth
@@ -288,7 +304,7 @@ Search uses Elasticsearch with 4-way reciprocal rank fusion (ELSER sparse vector
 
 | Workspace                                                                        | Purpose                                                                                                                                                                                                      |
 | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [`oak-curriculum-mcp-streamable-http`](apps/oak-curriculum-mcp-streamable-http/) | Canonical MCP server — Streamable HTTP transport, Vercel deployment, 34 curriculum tools, resources, prompts, and MCP App widget                                                                             |
+| [`oak-curriculum-mcp-streamable-http`](apps/oak-curriculum-mcp-streamable-http/) | Canonical MCP server — Streamable HTTP transport, Vercel deployment, the full curriculum tool set (the workspace README is the authoritative inventory), resources, prompts, and MCP App widget              |
 | [`oak-search-cli`](apps/oak-search-cli/)                                         | Search CLI — admin operations, bulk ingestion, blue/green index lifecycle ([ADR-130](docs/architecture/architectural-decisions/130-blue-green-index-swapping.md)), evaluation, and ground-truth benchmarking |
 
 **SDKs:**

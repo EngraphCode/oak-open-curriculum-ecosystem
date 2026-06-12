@@ -56,6 +56,10 @@ Gemini CLI, Copilot, Windsurf) start with two additional surfaces:
 - [Sibling repositories](docs/engineering/sibling-repos.md) — related Oak
   repos a teammate may need to clone
 
+**New to the repository?** Open your first agent session with
+`/oak-onboard-me` — an interactive walkthrough that meets you where you
+are, detects your setup state, and guides one step at a time.
+
 The team's skill and command vocabulary lives under
 [`.agent/skills/`](.agent/skills/) (canonical) with platform adapters under
 [`.claude/skills/`](.claude/skills/) and equivalents for other agents. Open
@@ -289,9 +293,9 @@ gates, CI, AI review, human review, merge, and release — see the
 ### 1. Create a Feature Branch
 
 ```bash
-git checkout -b feat/your-feature-name
+git switch -c feat/your-feature-name
 # or
-git checkout -b fix/bug-description
+git switch -c fix/bug-description
 ```
 
 ### 2. Follow TDD Approach
@@ -310,7 +314,8 @@ git checkout -b fix/bug-description
 Before committing, run the comprehensive quality gate:
 
 ```bash
-pnpm check    # Full suite: clean, codegen, build, type-check, lint, test, e2e, smoke, knip, format
+pnpm check    # Canonical full verification gate — every check in order; the root
+              # package.json `check` script is the authoritative step list
 ```
 
 This single command runs every quality gate in the correct order. If it

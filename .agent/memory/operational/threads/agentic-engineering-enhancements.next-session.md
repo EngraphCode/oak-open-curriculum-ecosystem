@@ -18,24 +18,26 @@ work brief and the recent identity stretch, per
 
 ## Current Continuation
 
-**Curation state (2026-06-11, Arboreal Swaying Thicket / `d2947e`, commit `7da93ae6`)**:
-**THE OWNER WALK RAN (2026-06-11, Thermal Circling Updraft / `f42c24`, dedicated
-consolidation session)**: every owner-gated promotion and decision in the estate was walked
-with the owner and settled. Landed same-session (push-proven `7f655249c` → `3a3784ef9` →
-`0a32ea36d`): ADR-195/196/197 (+ index), the `working-with-graphs` skill (canonical +
-adapters + owner-keyed settings entry), PDR-058 `reject-as-framed`, PDR-091
-forced-by-interpretation clause, PDR-089 Decision 8 (attestation + refutation-before-
-irreversible-disposition — confirmed same-day by a reproduced 14-of-18 withdrawal-refutation
-outcome), the ADR-167 exit-0-writer note, five watcher/liveness rule clauses, four verified
-register withdrawals, and an 11-entry register drain. **Next curation move: author the
-approved-unauthored queue** — every item carries `owner-approved 2026-06-11` status in the
-register, no re-asking needed: PDR-064 amendment, PDR-011 two-clause amendment, PDR-078
-emit-side, PDR-085 + self-correcting-deliverables PDR + `oak-plan` amendment,
-continuity-disposition PDR, mechanical-firing-moments PDR, F1 (PDR-051 one-liner), F2
-(commit-skill lock-wait alignment to the stricter no-contact direction), F5
-(continuity-practice §Continuation Records supersession clause). Prior open item (a) is
-landed; the ADR-131 stabilise posture lifts when the approved set lands (napkin
-carried-forward entry); no NEW Core candidates meanwhile.
+**Curation state (2026-06-12, Thyme wakes Canopy / claude Fable 5 / `70655e`, dedicated
+consolidation; uncommitted working-tree edits — commit control rests with the live
+onboarding lane per owner direction)**: **THE APPROVED-UNAUTHORED QUEUE IS FULLY AUTHORED**
+— PDR-092 (mechanical firing moments) + PDR-093 (self-correcting deliverables + the plan
+skill drafting clause); amendments to PDR-064 (shadow period, standing-successor
+authorisation + citable-gate test, Director closeout; Proposed → Accepted), PDR-011
+(voluntariness + holder-exclusive loss-scan; ADR-150 mirrored), PDR-078 (§7 emit-side loop
+hygiene), PDR-085 (instrument/discovery delivery); folds F1 (PDR-051 budget note), F2
+(commit-skill lock-wait → no-contact), F5 (continuity-practice supersession clause); the
+continuity-disposition candidate verified already homed (PDR-011 2026-06-08). The Core
+CHANGELOG carries the pass. Same session: napkin rotated (critical cured; archive
+`napkin-2026-06-12-thyme-curation.md`), distilled graduated (six new pattern files),
+open-questions drained of two resolved entries, repo-continuity + this thread's eef sibling
+condensed insight-conserved, three unbacked register pointers conserved as real entries.
+**The ADR-131 pause-and-stabilise posture lifts when these edits land in a commit**; no NEW
+Core restructuring candidates meanwhile. **Next curation move**: none queued — the next
+dedicated pass fires on the consolidate-docs trigger checklist (owner-walk deltas waiting:
+PDR-082 second-instance evidence; the PDR-081 ledger-clause contradiction, owner-gated).
+The prior walk's record (Thermal Circling Updraft, 2026-06-11) lives in git history and the
+register.
 
 - **Branch**: `feat/graph-tooling-tidyup` — **clean and pushed** at HEAD `934d5c21`
   (re-derive git first-hand).
@@ -195,6 +197,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Fruited Twining Canopy` | `claude` | `Opus 4.8` | `1aff59` | `dedicated-knowledge-curation (napkin rotation + graduation + continuity/open-questions drain)` | 2026-06-09 | 2026-06-09 |
 | `Arboreal Swaying Thicket` | `claude` | `Fable 5` | `d2947e` | `dedicated-knowledge-curation (register drain + napkin rotation + width repairs + platform-memory)` | 2026-06-11 | 2026-06-11 |
 | `Thermal Circling Updraft` | `claude` | `Fable 5` | `f42c24` | `dedicated-consolidation (owner decision walk: all gated dispositions settled; ADR-195/196/197 + skill + PDR-058/091/089 landed; approved-authoring queue frozen)` | 2026-06-11 | 2026-06-11 |
+| `Thyme wakes Canopy` | `claude` | `Fable 5` | `70655e` | `dedicated-consolidation (approved queue authored: PDR-092/093 + 4 amendments + 3 folds; napkin rotated; registers drained; continuity condensed)` | 2026-06-12 | 2026-06-12 |
 
 ## Cross-Plan and Cross-Thread Links
 

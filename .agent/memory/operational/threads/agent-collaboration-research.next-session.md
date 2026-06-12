@@ -39,7 +39,8 @@ Created 2026-05-24 at the post-M1-Safe-Pause-merge boundary by Charcoal Brazing 
 multi-agent collaboration leading into M1 Safe Pause, grown to **3,153 events (as of
 2026-06-12T07:05Z; re-derive at use) spanning 2026-05-20 → live** — is **research substrate**
 for understanding modes of agent collaboration. Since the original capture window the corpus
-has gained whole new event classes: heartbeat-tagged liveness events (ADR-186), `mid-cycle-handoff` directed events
+has gained whole new event classes: heartbeat-tagged liveness events (ADR-186),
+`mid-cycle-handoff` directed events
 (PDR-063 / ADR-182), live `failure-mode` / `behaviour-note` tag usage (ADR-183 / PDR-066),
 and complete coordinated-team arcs (bootstrap → P1 diagnosis → merge sequencing → completion,
 2026-06-11/12). Patterns exist in the corpus that:
@@ -501,3 +502,14 @@ executing the companion plan's open-discovery cold read (WS1) defers BOTH Candid
 sections until its surprises log is recorded, so the seeded catalogue cannot anchor the cold
 read. The catalogue is a floor for what counts as a pattern, never a fence around what may be
 found; surprises outrank seeded-theme confirmation.
+
+## Dispatch refinement (owner, 2026-06-12 evening)
+
+The session runs as one half of a two-member team (the other lane: enhanced
+statusline work). Scope re-affirmed as research and reporting only — zero or
+minimal implementation. The goal is understanding and discovery, and
+explicitly: **to make it safe to remove, and stop git-tracking, the
+`.agent/state/` files.** The individual-scoped precedent landed 2026-06-12:
+`.agent/state/onboarding/` is already gitignored (uniform classification —
+individual-scoped state is untracked by design); this research owns the
+repo-scoped remainder.

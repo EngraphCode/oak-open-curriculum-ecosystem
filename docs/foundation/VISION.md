@@ -1,7 +1,7 @@
 ---
 title: Vision
 status: active
-last_reviewed: 2026-04-30
+last_reviewed: 2026-06-12
 ---
 
 # Vision
@@ -28,7 +28,10 @@ Oak's curriculum graph surfaces carry relationships between curriculum entities
 (pathways, threads, misconceptions, prerequisites, cross-links). Coverage and
 rigour deepen as formal graph work lands. Tools can therefore traverse and
 justify against structured relationships wherever they exist, rather than
-improvising purely from unstructured text alone.
+improvising purely from unstructured text alone. The same surfaces support
+and build on the innovations of the wider ecosystem, grounding curriculum
+workflows in the sector's research and evidence base so that tools can
+justify recommendations rather than merely make them.
 
 MCP servers and MCP Apps form the interoperability layer that AI assistants and
 engineering toolchains consume, bringing the same primitives to teachers
@@ -113,9 +116,11 @@ Desktop, Cursor, and any other MCP-capable host); and a **semantic search
 service** with its own SDK and MCP tools so the corpus is fully discoverable
 from natural-language requests. Curriculum graph-aligned surfaces add
 structured relationships alongside retrieval, exposed through the same MCP
-and SDK pathways. Downstream teams can run their own search infrastructure
-(for example Elasticsearch Serverless) using this repository as the
-implementation baseline.
+and SDK pathways, and evidence surfaces ground recommendations in the wider
+sector's research base — supporting and building on the innovations of the
+broader education ecosystem. Downstream teams can run their own search
+infrastructure (for example Elasticsearch Serverless) using this repository
+as the implementation baseline.
 
 The same body of work doubles as a set of **reusable components** for the
 sector. The canonical component inventory is:
@@ -150,6 +155,15 @@ where it is useful. It includes architectural enforcement and human-AI
 collaboration improvements
 ([ADR-119](../architecture/architectural-decisions/119-agentic-engineering-practice.md)).
 
+The Practice is portable by construction, not aspiration: its core is
+written without any reference to this repository's paths, decisions, or
+history — a self-containment rule that is mechanically verifiable —
+and it propagates between repositories through a defined exchange mechanism
+([ADR-124](../architecture/architectural-decisions/124-practice-propagation-model.md)),
+already exercised across Oak repos. What stays Oak-specific is the local
+bridge; what travels is the framework: principles, decision records, the
+learning loop, and the reviewer patterns.
+
 ## Non-Goals
 
 To keep scope clear, this repository is not:
@@ -174,10 +188,11 @@ To keep scope clear, this repository is not:
 
 Oak's curriculum intelligence evolves; this repository is where new depth
 lands inside the SDK and MCP integration surface — not as rival efforts.
-Knowledge-graph-aligned capabilities are partial today and deepen across
-releases: richer formal ontology, breadth of traversal queries, clearer
-export contracts for partners, tighter alignment between graph projections
-and search-facing records.
+Knowledge-graph-aligned capabilities are live today — anchored graph tools
+serve year-ordered progressions, prior-knowledge, misconception, and keyword
+relationships — and deepen across releases: richer formal ontology, breadth
+of traversal queries, clearer export contracts for partners, tighter
+alignment between graph projections and search-facing records.
 
 Further Oak capabilities slated to feed this same trajectory include:
 
@@ -218,6 +233,11 @@ each with a primary set of beneficiaries:
    mission, this work helps **close the disadvantage gap** by widening
    reliable access to a high-quality curriculum, wherever the AI tools
    teachers use happen to live.
+
+Each order widens the circle: from Oak's own delivery, through the
+organisations and platforms building for schools — across the education
+sector, edtech, and the AI ecosystem's work in education — to the teachers
+and pupils all of it exists to serve.
 
 A key leverage point is compositional curriculum creation. With semantic
 discovery, curriculum APIs, and knowledge-graph traversal combined, it
@@ -313,9 +333,18 @@ obligations preserved.
 For practical guidance on code/data boundaries and attribution requirements,
 see [LICENCE-DATA.md](../../LICENCE-DATA.md).
 
+**Contribution posture.** During the alpha phases this repository does not
+accept external pull requests: the codebase is built through a governed
+agentic workflow whose quality gates, reviewer roster, and learning loop are
+still being hardened, and external changes would arrive outside the
+discipline that keeps the quality and safety guarantees credible. External
+readers are warmly encouraged to read, fork, learn from, and build on the
+code and the reusable components under the MIT licence. This posture will be
+revisited as the project matures; watch the repository for updates.
+
 Open code + open curriculum access is a deliberate strategy: maximise
 educational impact by making high-quality infrastructure, components, and
-practice reusable.
+practice reusable. Public goods from a public body, built in the open.
 
 ## Historical Positioning
 

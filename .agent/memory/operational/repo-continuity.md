@@ -20,6 +20,21 @@ surface.
 
 ## Current State
 
+- **ONBOARDING-IMPROVEMENT ARC — PR #199 OPEN, merge-once-green owner-directed (2026-06-12,
+  Vanilla lifts Chlorophyll `8dca0d`).** The arc landed on `feat/onboarding-improvement`:
+  `/oak-onboard-me` walker (conversation-first after live owner falsification; untracked
+  schema-versioned personal state in `.agent/state/onboarding/`), entry-path drift fixes,
+  reviewer-template verification discipline (onboarding/docs-adr/subagent-architect),
+  consolidation freshness duties, VISION/README value framing (implied, never stated —
+  pillars memory), Track-B dispositions (B4/B5 closed; B1 awaits owner cost bands; B2/B3
+  risk-register draft queued; B6 at the M2 gate), and the conserved 2026-06-12 curation
+  pass. **Next safe steps**: owner re-walks `/oak-onboard-me` off-branch; B2/B3 register
+  seeding; the ask-the-repo search decision (research attached to PR-session transcript).
+  **NEXT SESSION (owner-directed): a two-member team** — (a) the comms-corpus research
+  session below, research/reporting only with zero/minimal implementation: the goal is
+  understanding and discovery, and to make it safe to REMOVE and STOP TRACKING the
+  `.agent/state/` files; (b) the enhanced-statusline lane
+  ([statusline-session-shape-indicators plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md), QUEUED).
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session
@@ -52,8 +67,14 @@ surface.
   [sample-sheets artefact](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
   sequence stays era-pinning cure → C wordlist curation (full v2 gates, ~120 agentives) → v3
   registry entry. **Comms research dispatch RELEASED by owner (2026-06-12) — its closeout
-  gate is now MET: the Director session closed 2026-06-12 (PRs #195/#196/#197 merged; final
-  handoff + consolidation run; both prior branches verified 0-commits-unmerged).**
+  gate is MET: the Director session closed 2026-06-12 (PRs #195/#196/#197 merged; final
+  handoff + consolidation run).** Correction (verified first-hand 2026-06-12, Thyme wakes
+  Canopy): the prior "both prior branches 0-commits-unmerged" claim is FALSE for
+  `docs/graph-team-direction-2026-06-10`, which carries TWO unmerged commits
+  (`ae5372e2c` plus `c9ff6bb49` — Dawnlit's first-wave snagging evidence: 44 napkin
+  lines incl. the Cursor structuredContent captures, 18 eef-record lines, and the
+  oak-prod live-exercise verification record). Merging that branch is an open
+  owner/Director action; reconcile the napkin/eef-record content on merge.
   (12) The path-sweep code-class follow-on lane: remaining OS-temp-path carriers in code
   (logger runtime defaults, test fixtures, integration temp usage — enumerable via
   `git grep -lF '/tmp/' -- '*.ts' '*.sh'`) plus the CI validator the
@@ -62,67 +83,24 @@ surface.
   (#189–#194), both implementers closed out cleanly; continuity bundles merged as PRs
   #195/#196; the wider-ecosystem options summary merged owner-reviewed as #197.
 
-- **TRACK-G COMPLETE + CURED — graph implementation team, seventh Director (2026-06-11).**
-  Live NOW: **Iridescent Threading Constellation (`f9454b`, Fable 5) is the Director**
-  (seventh holder; PDR-064 Moment 2 at ~11:16Z 06-11, event `3985ce20` on Sunlit's Moment-1
-  `9c8326a1`; Sunlit closed out zero-retained, closeout `7ad83f44`; coordination home =
-  primary checkout, branch `docs/graph-team-direction-2026-06-10`). **TRACK-G COMPLETE IN
-  FULL — G4b PR #173 MERGED `c868bb52e` 10:33Z** (get-keyword-graph owner-signed-off; four
-  seat holders through three clean PDR-063 rotations; plan g4 todo completed; the re-proof
-  has since RECORDED the G4b determination: NOT on the EEF path, no signal). **ARC
-  reliability DISSOLVED in full** (all duties discharged: #169/#170/#172 + ARC synthesis #174
-  `6340c595b` + item-5 #175 `5310d1e4e`; residue = PR #176 conservation [Hushed shepherding]
-  plus Hushed's team closeout; follow-on (b) trigger-gated). MERGED across the arc: S1 #152,
-  G1a #153, #154, S2 #155, U1 #156, comms-watch #157, G4a #158, resync #159, turbo-env #160,
-  **G1b #161, G2 #163, G3 #164, year-axis re-chain #165, S3 #162** (`curriculum-mapping`
-  owner-approved), fifth directorship #166–#170 + origin/main merged into the coordination
-  home (`ae1802da1`, Q-008 resolved) — all three whole-corpus graph tools are
-  anchored+bounded on the one-graph corpus, the factory is retired, the falsified
-  within-thread-ordering premise is cured end-to-end, and **all eef-revalidation signals are
-  raised**. **SESSION ARC COMPLETE (14:30Z 06-11)**: the re-proof EXECUTED (#177, value path
-  INTACT), the multiplicity dedup landed (#180, corpus v1.4.0), the seventh prompt live as
-  `continue-progression` (#178) with w2-c1 alignment (#181) and todo flips (#182), the
-  loop-hygiene rule amendment (#183, curation-lane drafted), and the **session operations +
-  experience report on main** —
-  [`graph-team-session-operations-and-experience-2026-06-10-11.md`](../../reports/graph-team-session-operations-and-experience-2026-06-10-11.md)
-  (owner-directed; substrate-under-load findings + tooling considerations; the predecessor
-  witness-synthesis carried to main alongside it). All implementer seats closed zero-retained;
-  live at this writing: the seventh Director + the Pearly Snorkelling Compass doctrine-curation
-  lane (claim `d24e22f7`, write-lane grant `c8432d36`). Open owner items: principles-prompt
-  attribution validation (gates the owner-pinned S3 principles follow-on, plan s3 todo);
-  bulk-export-lags-live (hold as-is, owner 06-11); output-schemas execution routing (gate
-  satisfied — see its entry below). Authority: the graph plan's todos + the eef thread record
-  (seventh-holder entry). **SESSION AT REST (16:12Z 06-11)**: the host-DOS safety rule
-  (#185, owner max-severity), the team-opener generalisation exploration plan (#186), and the
-  dedicated consolidation (Thermal: ADR-195/196/197 + working-with-graphs skill + PDR
-  amendments + register drain, three push-proven waves through `0a32ea36d`, zero-retained) all
-  landed; zero open PRs; the seventh directorship closes at this waypoint with no successor
-  (team dissolved cleanly). **Next safe step** (no live agent; register + plan statuses are the
-  pickup surface): the Director-queue agent-tools lanes (control-byte gate-check, CLI
+- **TRACK-G + the graph implementation team arc — COMPLETE AND AT REST (2026-06-11).** All
+  Track-G deliverables merged and owner-signed-off (arc PRs #142–#186 inclusive: readiness
+  seam analysis, S1–S3, G1–G4b, U1, the re-proof, multiplicity dedup, `continue-progression`
+  prompt, host-DOS safety rule, team-opener generalisation plan, Thermal's consolidation);
+  the seventh directorship closed cleanly with no successor (team dissolved). Authority for
+  the full arc: the
+  [graph plan](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+  todos, the [`eef` record][eef], the
+  [seam analysis](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md), and the
+  [session operations + experience report](../../reports/graph-team-session-operations-and-experience-2026-06-10-11.md).
+  **Live remainder**: the Director-queue agent-tools lanes (control-byte gate-check, CLI
   relative-path hardening, comms-reply prefix resolution, watcher-non-exit fix, comms-store
-  scalability); the approved-unauthored Core amendment queue (register-recorded; next dedicated
-  session authors without re-asking); the generalisation plan's x5 owner walk; w3-c1 + S3
-  principles + next product tranche (observed alpha use) at owner direction.
-- **GRAPH-TOOLS READINESS → 🟢 DECISION-COMPLETE (2026-06-09, Fragrant Spreading Sapling
-  `47f78a`) — since EXECUTED in full (see the TRACK-G entry above).** The owner overturned the
-  crude Step-0 split ("find the real membranes"); the seam analysis
-  [`graph-tools-readiness-seam-analysis-2026-06-09.md`](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md)
-  produced the owner-ratified deliverables map (S1/S2/S3, G1–G4, U1), the settled mechanisms
-  (new `./graph-corpus` subpath; per-view `GraphView`, no substrate change; factory deleted at
-  G3), and the pinned data facts; the plan's `get-keywords` bulk-corpus claim was FALSIFIED
-  (live-API pass-through with narrowing params; owner disposition added U1 + G4). Detail and
-  authority live in
-  [`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
-  (frontmatter todos + §Cycles and proof contract) and the merged readiness arc PRs #143–#148
-  (incl. the indefinite-deferral trip-list, v1.18.0). Team shape (owner-ratified 2026-06-10):
-  Director + Opus implementers in per-session worktrees; opener =
-  [`graph-implementation-team.prompt.md`](../../prompts/connecting-oak-resources/graph-implementation-team.prompt.md).
-- **A-i/C REVIEWS + GRAPH-TOOLS PROMOTION (2026-06-09, Brazen Roasting Cinder `527005`; PR
-  #142 MERGED → v1.17.0).** The five deferred specialist reviews ran, every finding
-  adjudicated first-hand (code/types/tests SOUND; verified findings landed);
-  `graph-tools-value-redesign.plan.md` PROMOTED future/→current/ (owner-decided). Skills §C
-  licence framing (content is Oak's; preserve external-research attribution; `oak-brand` out,
-  `oak-tone-of-voice` open) is carried in the plan's S3 deliverable.
+  scalability — register-recorded); the generalisation plan's x5 owner walk; w3-c1 + S3
+  principles + next product tranche at owner direction. Open owner items: principles-prompt
+  attribution validation (gates the S3 principles follow-on); bulk-export-lags-live (hold
+  as-is, owner 06-11); output-schemas execution routing (gate satisfied — entry below). The
+  approved-unauthored Core amendment queue was AUTHORED 2026-06-12 (Thyme wakes Canopy
+  dedicated consolidation; Core CHANGELOG carries the pass).
 - **OUTPUT-SCHEMAS PLAN — 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09).**
   [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md):
   every MCP tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload Zod
@@ -168,37 +146,55 @@ surface.
   `"override"` provenance mis-record; prerequisite for any v3 schema activation (owner is
   exploring v3 shapes — four sample sheets + Zephyr's column-allocation maths in comms).
   Own claim + owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3).
-- **DFE DATA SDK SEED + EEF GAP-RESEARCH SESSION CLOSED (2026-06-12, Forge turns Basalt
-  `c4b882`).** Three artefacts: the EEF surfacing-gap research report (roadmap item 7 above;
-  committed by the Director, `32bcd9d1b`), the
-  [DfE data SDK strategic seed](../../plans/sector-engagement/future/dfe-data-sdk.plan.md)
-  (+ future-lane README row; assumptions-expert verdict sound-with-amendments, all amendments
-  applied), and the owner-commissioned
-  [Oak×EEF executive briefing](../../plans/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md)
-  (standalone C-suite companion to the research; the partnership-asks outreach vehicle).
-  Landing routes settled via ARC coordination with Firefly seeks Temper (owner-directed;
-  channel + announces `596fcb9a`/`90fa4668`, full round-trip closed 09:22Z): **ALL commit
-  responsibility for this session's artefacts is Firefly's** (owner direction ~09:22Z,
-  relayed on-channel) — the seed + all continuity edits RIDE Firefly's PR #196 closeout
-  bundle; the executive briefing is EXCLUDED from #196 and lands as Firefly's small
-  standalone PR immediately after it merges (owner direction ~09:20Z, cited via Firefly's
-  on-channel relay); the briefing's working-tree version at commit time is authoritative
-  (owner-edited after the final-signal). The deep-consolidation-DUE flag
-  is owned by the owner's planned dedicated consolidation session (relay, same source).
-  Session-close `pnpm check` GREEN (exit 0, zero warnings, full-log verified); Firefly's
-  bundle-proving run also GREEN on the tree carrying both edit sets; doc-only edits after my
-  run are markdownlint+prettier-clean individually. Seed substance: thin transport-agnostic SDK over the DfE Explore
-  Education Statistics public API (Beta, anonymous, OpenAPI-documented, OGL v3.0);
-  COMPLEMENTARY to the EEF corpus, never a replacement (owner posture 2026-06-12); workspace
-  language TypeScript-or-Python is a named promotion-time decision (owner authorised Python +
-  sketched the integration shape; all named tooling illustrative only — deep critical
-  analysis before choices). Promotion gate: a named Oak consumer with a ratified value
-  statement. **Next safe step**: owner roadmap item 7 (organise the EEF research follow-ons —
-  report §8 carries the ten unowned items); the seed waits on its promotion gate. Deep
-  consolidation status: due — `napkin.md` is over its fitness line limit (386 > 300) after
-  the 2026-06-11/12 multi-team capture window; rotation/convergence is a deliberate
-  next-session curation pass, not bounded for this closeout (this session's own captures are
-  routed: report, seed, thread records, napkin).
+- **DFE DATA SDK SEED + EEF GAP-RESEARCH — landed and merged (2026-06-12, Forge turns
+  Basalt `c4b882`; artefacts merged via PRs #196/#197 at the Director's hand).** Three
+  artefacts: the EEF surfacing-gap research report (roadmap item 7 above), the
+  [DfE data SDK strategic seed](../../plans/sector-engagement/future/dfe-data-sdk.plan.md),
+  and the owner-commissioned
+  [Oak×EEF executive briefing](../../plans/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md).
+  Seed posture: thin transport-agnostic SDK over the DfE Explore Education Statistics
+  public API (Beta, anonymous, OpenAPI-documented, OGL v3.0); COMPLEMENTARY to the EEF
+  corpus, never a replacement (owner posture 2026-06-12); workspace language
+  TypeScript-or-Python is a named promotion-time decision. Promotion gate: a named Oak
+  consumer with a ratified value statement. **Next safe step**: owner roadmap item 7
+  (organise the EEF research follow-ons — report §8 carries the ten unowned items); the
+  seed waits on its promotion gate. Deep consolidation status: DISCHARGED 2026-06-12 — the
+  napkin-fitness flag this entry carried was consumed by the dedicated consolidation
+  session (Thyme wakes Canopy): napkin rotated with dispositions, distilled graduated,
+  registers drained, the approved Core queue authored.
+- **CLAUDE STATUSLINE REDESIGN — RESOLVED and merged (2026-06-12; built by Starling wakes
+  Wind `b34fdb`, adopted + merged via PR #198 by Director Firefly seeks Temper, 1,020
+  agent-tools tests green).** Live thresholds: ctx% green &lt;50 / yellow 50–69 / red ≥70
+  (owner-tuned in #198); the tokens segment was deliberately DROPPED (Claude Code shows the
+  count natively — do not re-add without that changing). Follow-on work queued in the
+  committed
+  [statusline-session-shape-indicators plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md).
+- **CLAUDE CODE TEAM ONBOARDING GUIDE — landed, uncommitted (2026-06-12, Altair rides Gloom
+  `0920d8`).** One artefact:
+  `2026-06-12-claude-code-team-onboarding.report.md` (developer-experience collection;
+  since mined and removed — see the resolution below)
+  — a paste-into-Claude-Code onboarding guide for teammates new to Claude Code, generated
+  from 30-day usage data via /team-onboarding and owner-redirected from repo-root
+  `ONBOARDING.md` into the developer-experience plans collection. Owner-shaped content rule:
+  stats are descriptive; Team Tips carry ONLY the two session bookends (a start-right skill
+  at open, session-handoff at close), stated as deliberately complete — the owner declined
+  to prescribe workflow beyond them. Untracked on `feat/onboarding-improvement` (local-only
+  branch, no upstream; HEAD `c6754a262` is the owner's onboarding entry-path drift fixes,
+  committed mid-session, not by this seat). **Next safe step**: commit the report with this
+  branch's onboarding work (owner-owned; handoff makes no git moves). Deep consolidation
+  status: due — carried (napkin fitness; the flag is owned by the owner's planned dedicated
+  consolidation session); this session adds one napkin block + this entry only.
+  Session-close `pnpm check` NOT run — owner directed "update appropriate surfaces then
+  stop" at close (doc-only session diff; the gate obligation passes to whoever commits).
+  **RESOLVED same day (Vanilla lifts Chlorophyll `8dca0d`)**: at owner direction the report
+  was critically assessed as agent-generated input, mined, and NOT committed — the
+  interaction-design prototype and caveated usage evidence folded into the canonical
+  onboarding plan (§Interactive Onboarding Inputs), an `oak-skills` row added to
+  sibling-repos.md (repo, visibility, and plugin directory verified first-hand via the
+  GitHub API), then the source file deleted ("no need to preserve the source document").
+  The "commit the report" next-step above is closed. Attribution correction: HEAD
+  `c6754a262` (onboarding entry-path drift fixes) was committed by this seat at owner
+  direction, not by the owner's hand.
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.
@@ -213,10 +209,10 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `eef` | EEF graph-tooling rebuild | [record][eef] | claude-code / Fable 5 / Forge turns Basalt / eef-data-surfacing-gap-research / 2026-06-12, claude / Fable 5 / Cosmos turns Equinox / snagging-execution-successor-pickup (handoff record 7fb69812; arc landed #190/#191/#192/#193, closed out) / 2026-06-12, claude / Fable 5 / Dusky Passing Mist / snagging-execution-token-metric-pr190-eef-dual-shape-then-midcycle-handoff (retired) / 2026-06-11, cursor / Fable 5 / Dawnlit Glimmering Orbit / oak-prod-live-mcp-exercise-snagging-and-cursor-visibility-writeup / 2026-06-11 (NOTE: this branch lags the eef arc — TRACK-G completion + the seventh directorship live on branch `docs/graph-team-direction-2026-06-10`; reconcile on merge; prior: claude / Fable 5 / Fragrant Spreading Sapling graph-plan-readiness-seam-analysis-and-decision-complete 2026-06-10, Brazen Roasting Cinder aic-deferred-reviews-and-graph-tools-plan-promotion 2026-06-09, Incandescent Smouldering Brazier post-d7-answertype-headline-adr194-and-output-schema-integration 2026-06-09, Briny Charting Lagoon d6-completion-and-live-exercise 2026-06-08, Lanternlit Shrouding Raven c4-c5-reflection-and-attribution-fix 2026-06-08, Luminous Drifting Dawn c6-tool-gating-fix 2026-06-08, Evergreen Blossoming Copse adr-193-vendor-boundary-and-egress-membrane 2026-06-08, Pelagic Charting Rudder c1-c3-authoring-and-strict-type-flow 2026-06-07, Hidden Prowling Owl c1-finite-domain-prereq-and-type-widening-doctrine 2026-06-07, Arboreal Shedding Canopy d6-reshape-and-phase-e-handoff 2026-06-07, Moonlit Orbiting Moon d6-execution-reshaped 2026-06-07, Zephyrous Kiting Squall d6-readiness-regrounding 2026-06-06, Floating Darting Cloud d7-golive-plan-edit 2026-06-06, Dusky Dimming Candle author-d6-execution-plan 2026-06-06, Masked Creeping Lantern eef-deep-review-resolutions-adr191 2026-06-05, Dim Dimming Threshold eef-d5-execution 2026-06-05, Prismatic Twinkling Planet eef-d5-fresh-dual-review 2026-06-04, Windward Gliding Squall eef-d5-plan-authoring 2026-06-04, Shadowed Creeping Secret eef-d4-ratify 2026-06-04, Burnished Glowing Spark 2026-06-04, Lacustrine Swimming Beacon 2026-06-03, Seaworthy Swimming Sextant 2026-06-03, Galactic Glowing Prism + Opalescent Cascading Planet + Stellar Waning Planet + Silvered Lurking Mask 2026-06-02), claude / Fable 5 / Sunlit Waxing Asteroid / graph-implementation-director-sixth-holder / 2026-06-11, claude / Fable 5 / Cindery Forging Volcano / g4b-implementer-third-seat-holder / 2026-06-11 (full prior-identity history: the thread record identity table) |
+| `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Fable 5 / Thyme wakes Canopy / record-condensation (curation lane) / 2026-06-12, claude-code / Fable 5 / Forge turns Basalt / eef-data-surfacing-gap-research / 2026-06-12, claude / Fable 5 / Cosmos turns Equinox / snagging-execution-successor-pickup (arc landed #190–#193, closed out) / 2026-06-12, cursor / Fable 5 / Dawnlit Glimmering Orbit / oak-prod-snagging-and-cursor-visibility-writeup / 2026-06-11 (first-wave evidence still unmerged on `docs/graph-team-direction-2026-06-10` — see §Current State correction). Full prior-identity history (30+ seats, 2026-06-02 →): the thread record identity table — set-membership verified 2026-06-12 before this dedup |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work, starting with a deep review of the Oak Curriculum Ontology repo (separate concern from the bulk-derived graph redesign) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 — **opened, not started; deep review is a fresh session** |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior: Blustery Lifting Gale skills-taxonomy-and-distribution 2026-06-03, Umbral Whispering Silhouette 2026-06-01) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Fable 5 / Thermal Circling Updraft / dedicated-consolidation-owner-walk / 2026-06-11 (prior: Arboreal Swaying Thicket dedicated-knowledge-curation 2026-06-11, Fruited Twining Canopy dedicated-knowledge-curation 2026-06-09, Coppery Crackling Crucible pending-graduations-drain-and-pdr-091 2026-06-08, Cosmic Illuminating Planet dedicated-continuity-surface-consolidation 2026-06-08, Lofty Spiralling Plume continuity-surface-fitness-and-prose-awareness 2026-06-08, Briny Plumbing Beacon feedback-mechanism-follow-ons 2026-06-07, Eclipsed Watching Veil items-4+1 2026-06-07, Glittering Weaving Comet 2026-06-07, Volcanic Blazing Magma 2026-06-06, Lanternlit Passing Mask 2026-06-05, Hidden Hiding Dusk 2026-06-04, Arboreal Sprouting Branch 2026-06-04, Opalescent Illuminating Prism 2026-06-03, Lacustrine Swimming Beacon, Ashen Burning Magma, Solar Glowing Meteor, Stratospheric Buffeting Breeze, Lofty Sweeping Falcon, Shaded Veiling Mirror) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Fable 5 / Thyme wakes Canopy / dedicated-consolidation-queue-authored / 2026-06-12 (prior: Thermal Circling Updraft dedicated-consolidation-owner-walk 2026-06-11; full prior-identity history: the thread record identity table) |
 | `repo-professionalism-assessment` | Repo professionalism / engineering-quality report → planability triage | [record][repo-professionalism-assessment] | codex / GPT-5 / Airy Whirling Wing / report-author-and-planability-router / 2026-06-03 |
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |
@@ -294,178 +290,46 @@ licensing guardrail. See the
 
 ### EEF Graph-Tooling Rebuild
 
-**NEXT SAFE STEP (2026-06-08): D6 COMPLETE; the EEF surface is LIVE BY DEFAULT (kill-switch
-flag, default ON) and was EXERCISED live over MCP HTTP this session (Briny Charting Lagoon).**
-The owner-directed next step is to **exercise the running app via the standard MCP tools** —
-the EXERCISE RECIPE banner in the [`eef` record](threads/eef.next-session.md) carries the
-server-start command (port 3333, no-auth) and the four working JSON-RPC calls — then **D7**,
-the teacher-value round-trip proof (the go-live flag mechanism is done; the delivered-value
-proof against independent ground truth remains, per the master `d7-teacher-value-round-trip`
-todo). The numbered history below is retained for context.
-Open execution-time items (not blockers — G0/TDD surface them) + the full verdict
-are in the `eef` next-session record banner. **D5 LANDED green as one commit (`2e9021ff`; Dim Dimming
-Threshold, 2026-06-05)** — graph-core generic query layer + graph-native EEF view
-(`inspectStrand`/`evidenceForMove`/envelope); the `d5-graph-construction-methods`
-todo is `completed`; the runtime `projection?` param was dropped by owner decision
-(see the `eef` thread banner + the D4 "Projection deferred" amendment). The
-graph-tools-value-redesign lane stays parked on EEF D6 + D7. The numbered history
-below is retained for context.
+The D0–D6 build arc is COMPLETE and SHIPPED (v1.16.0; live by default with a
+kill-switch flag) and Track-G executed the graph-tools redesign in full — the
+[`eef` record][eef] and the
+[EEF rebuild plan](../../plans/sector-engagement/eef/) /
+[graph plan](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+todos are the durable authority for the arc's history (D0–D7 chronology,
+review outcomes, ADR-191, the contamination-correction arc, commits).
 
-**Post-D5 deep review (2026-06-05, Masked Creeping Lantern) — resolutions landed:**
-`NodeProjection`/`DeepKeyPath` removed (no consumer); status currency +
-strategy-brief reconciliation (crosswalk — shared-intent kept, server-scoring
-superseded, §5 orthogonal); **ADR-191 ratified** (deterministic data surface; the
-agent is the only reasoner — Decision 10 promoted repo-wide); contributor-
-attribution/PII policy codified (`documentation-hygiene` §2 + `ATTRIBUTION.md`;
-personal emails only in `package.json`). Substantive set landed via `10c5aeac` +
-`0d99dc00` (Jim Cresswell); ADR-191 file + PII-sweep remainder + handoff committed
-this session.
+Live remainder:
 
-1. Re-ground in the `eef` thread banner and current git state.
-2. D0 (fixed-data doctrine + validator removal + estate decontamination) and D1
-   (teacher value contract) are complete and committed (`ce9745c7`, `f8548985`).
-   The live plan reads as positive design, carried by one invariant: every tool,
-   resource, prompt, graph operation, and handler is implemented with real
-   graph-derived logic and tests, or it is absent. `EEF_TOOLKIT_DATA` is the only
-   source of truth; relevance is by pedagogical move on EEF-native finite axes,
-   and the value intersects Oak's misconception/prior-knowledge tools at the
-   workflow level.
-3. The two reviews (whole-plan + D2) are COMPLETE (2026-06-01, Windswept Floating
-   Summit). The plan was corrected and enhanced: graph-view status truth, V1
-   source-path fixes, optionality made first-class with verified corpus
-   cardinalities, Decision 10 (deterministic data; the agent is the only reasoner),
-   and a rewritten `## Sequencing` carrying the seam taxonomy + the "seams compose,
-   never reconciled" law.
-4. **D2 IS COMPLETE (2026-06-01, Lunar Transiting Eclipse, commit `9019bb86`,
-   green + reviewed by code/type/test experts).** The typed raw-corpus foundation
-   is built in `graph-corpus-sdk` (`EefStrand`/`EefStrandId`/`EefStrandById`/
-   `isValidStrandKey`, raw domains, declared-vs-observed divergence, related-strand
-   edges, corpus provenance); the old list-shaped EEF surface was removed across
-   three workspaces; `OAK_CURRICULUM_MCP_EEF_ENABLED` is a dormant seam for D6. The
-   source-path table is at `eef/current/eef-d2-source-path-table.md`.
-5. **Contamination-correction arc (2026-06-01, commits `fb7ad234`, `70ccbef8`,
-   `75b0734a`).** A fabricated key-stage→phase concept (the corpus holds phase and
-   key-stage as two independent fields with no mapping) reached the canonical plan
-   from a deleted prompt and was caught by the owner; removed, then an independent
-   grounding audit + tombstone disposition pass cleared it. Lesson in Claude
-   auto-memory (`harvest-from-deleted-is-contamination-vector`). The cite-or-tag
-   corpus-grounding discipline is now a real `trigger-loaded` rule
-   ([`.agent/rules/eef-corpus-grounding.md`](../../rules/eef-corpus-grounding.md));
-   the stopgap doc was retired (graduated 2026-06-01).
-6. **D3 (MCP tool/resource/prompt contract) is the next plan deliverable** —
-   owner-ratified, `mcp-expert` SDK-registration verification pending. The D3/D4
-   PENDING reviewers fire against the ratified D3/D4 outputs once those exist.
-   **This session (2026-06-01, Dawnlit Dancing Satellite)** reviewed the whole plan
-   and D3 with every corpus claim grounded against `EEF_TOOLKIT_DATA` (all
-   cardinalities, the phase/key-stage independence, and the divergence verified
-   exact; no fabrication). Applied post-D2 currency truth-fixes to the plan (D2
-   `completed`; the never-built `EefKeyStage`/`EefPriority` replaced with the real
-   projection inventory; already-removed surfaces corrected) and added the missing
-   attribution rows to the source-path table. A session-built `field-cardinality.ts`
-   projection was **backed out** (owner-directed) as a zero-consumer surface
-   restating an inherent type fact — the floor/sparse split **is** `keyof EefStrand`,
-   carried by the corpus type, derived at D6 from the graph-native view via the
-   `satisfies` tie; there is no separate structure to build. The thread banner now
-   carries an explicit GOOD/GREAT quality bar. **D3 is advanced to ratifiable
-   output (2026-06-02, Seaworthy Swimming Sextant)**: the whole-plan and D3
-   reviews ran (4-lens refutation workflow, findings applied), the declared-only
-   filter-exclusions edit is applied in D3, and the contract + SDK/app
-   verification record are authored in
-   [`eef-d3-mcp-contract.md`](../../plans/sector-engagement/eef/current/eef-d3-mcp-contract.md)
-   with all four D3 PENDING reviewers run and their conditions applied. An
-   owner-directed adversarial audit (2026-06-03) removed three author-invented
-   surfaces; a pinned-target mcp-expert re-pass returned SIGN-OFF. **The
-   review-then-ratify gate CLOSED 2026-06-03 (Lacustrine Swimming Beacon):
-   D3 is owner-ratified + committed (`a0fd7b0f`). **D4 (graph capability shape)
-   is now AUTHORED + RATIFIABLE (2026-06-04, Burnished Glowing Spark, committed
-   `ca927e40`):** owner decision B made EEF a homogeneous strand graph (guidance
-   reports inline; nine bound names → eight); the fundamental heterogeneous
-   node/edge model is deferred-and-homed in the migration plan. **That migration
-   plan was OVERHAULED → value-driven redesign and renamed
-   `graph-tools-value-redesign.plan.md` (2026-06-04, Twilit Cascading Supernova);
-   the `graph-migration-plan-overhaul.plan.md` metaplan is COMPLETED.** The
-   node/edge model is now scoped there as one-bulk-graph + views with a deliberate
-   identity model. **D4 + the whole EEF plan were REVIEWED and D4 OWNER-RATIFIED
-   (2026-06-04, Shadowed Creeping Secret): 11 review corrections applied, the EEF
-   and value-redesign plans verified coherent (manifest disposition mirrored both
-   ways), the `d4` todo flipped to `completed`. D5 — build the new graph-core query
-   layer (`GraphView<TNode, TNodeId, TEdgeType>`, `subgraph` only) + the EEF
-   strand-view fresh — is the next safe step.** The redesign stays parked on EEF
-   D6 + D7. See the `eef` thread banner.** **(Update 2026-06-04, Prismatic
-   Twinkling Planet): the FRESH DUAL-REVIEW of the D5 plan + parent is DONE —
-   verdict READY WITH CONDITIONS; all conditions C1–C8 owner-resolved and folded in
-   (keep `projection?` + implement/test; per-graph depth-ceiling factory input; D4
-   doc-fix in both places; C3–C7 clarifications). Every empirical claim was
-   re-grounded first-hand; four adversarial attacks on the load-bearing claims were
-   rejected as false-positives. NEXT: **execute D5** — build the new graph-core
-   query layer (`GraphView<TNode, TNodeId, TEdgeType>`, `subgraph` only with
-   `projection?` retained) + the graph-native EEF view fresh as TDD cycles, landing
-   as ONE green commit, per the condition-folded `eef-d5-execution.plan.md`. The
-   graph-tools-value-redesign lane stays parked on EEF D6 + D7.**
-7. **Graph-estate-consolidation: t2–t5+t7 EXECUTED and pushed at `c3b78eec`;
-   scoped t8 verification PASSED (2026-06-02, Opalescent Cascading Planet)**.
-   The estate reads true in one pass: eleven plans archived with banners +
-   index entries, the four misconception feature plans consolidated into
-   `kg/future/oak-misconceptions-graph-features.plan.md`, both
-   assumptions-expert park-header conditions honoured at the t4 move,
-   the KG README rewritten, `graph-stack.plan.md` re-framed per ADR-173,
-   surviving live references de-linked. `t6` + the full `t8` close are the
-   only remaining graph-estate items and stay D7-gated (the `t8` todo is
-   `pending` by design). **The Judgement-call-4 unified substrate-migration
-   plan is AUTHORED (2026-06-02, Galactic Glowing Prism):**
-   `kg/future/graph-tools-value-redesign.plan.md`, parked on the named
-   promotion trigger EEF D6 + D7. **The next step in the ratified one-thread
-   order is EEF D3 per item 6.**
-8. The seam-mapping taxonomy + "seams compose" law is a candidate for a reusable
-   plan template/archetype (owner-confirmed intent); tracked in
-   [`pending-graduations.md`](pending-graduations.md).
+1. **D7 — the teacher-value round-trip proof** (the master
+   `d7-teacher-value-round-trip` todo): delivered-value proof against
+   independent ground truth. The EXERCISE RECIPE banner in the
+   [`eef` record](threads/eef.next-session.md) carries the server-start
+   command and the four working JSON-RPC calls.
+2. Graph-estate close: `t6` + the full `t8` remain D7-gated by design (the
+   graph-estate items live in the plan todos).
+3. The seam-mapping taxonomy + "seams compose, never reconciled" law as a
+   reusable plan-template component — registered in
+   [`pending-graduations.md`](pending-graduations.md) (2026-06-12).
 
 ### Agentic-Engineering Curation
 
-1. The 2026-06-03 docs bundles are committed (`a0fd7b0f`, `88d8da9d`,
-   `6379f1e4`, `422e57e0`); current curation is Opalescent's dedicated pass.
-2. `napkin.md` has been processed through the Opalescent item-level ledger and
-   preserved as `active/archive/napkin-2026-06-03-opalescent-curation.md`.
-   The PDF-only ChatGPT report-normalisation protocol graduated into the
-   canonical skill and pattern; the pre-archive ledger tripwire graduated into
-   the consolidation/handoff skills. Remaining register items are owner-gated
-   or trigger-gated.
-3. The abandoned commit-queue residue entries in `active-claims.json` remain a
-   secondary cleanup signal; do not treat them as current commit authority.
-4. The relative-link integrity item is accepted as a future validator lane, not
+1. The latest dedicated curation pass is 2026-06-12 (Thyme wakes Canopy): napkin
+   rotated (archive `napkin-2026-06-12-thyme-curation.md`), distilled graduated
+   (five new pattern files), the owner-approved Core amendment queue authored,
+   open-questions and pending-graduations drained to genuinely gated items.
+2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
-5. Comms-event rotation remains paused until a dedicated comms research plan
-   exists.
-
-### Docs Consolidation Repair
-
-1. For a later ordinary continuation, use
+3. Comms-event rotation remains paused until a dedicated comms research plan
+   exists; fitness is routing evidence only — never archive, split, shard, or
+   rename unprocessed content to improve scores. For a later ordinary docs
+   continuation, use
    [`codex-docs-consolidation.brief.md`](codex-docs-consolidation.brief.md).
-2. Treat fitness as routing evidence only; do not archive, split, shard, rename,
-   pointer-replace, or move unprocessed content to improve scores.
-3. Continue item-level dispositions from active buffers and the canonical
-   [`pending-graduations.md`](pending-graduations.md). Owner-gated items remain
-   there until their trigger fires.
-4. Comms-event rotation remains paused until a dedicated comms research plan
-   exists.
 
 ### Connecting-Oak / PR History
 
 Before resuming paused graph-substrate work, re-check current PR, CI, Sonar,
 CodeQL, active claims, commit queue, and git state. Do not rely on historical
 issue counts in archived prose.
-
-### Agent Tooling (collaboration CLI + PreToolUse guard) — LANDED + PUSHED
-
-Both WIP lanes have landed and pushed (verified 2026-06-06, Starlit Scattering
-Twilight curation pass — the prior "uncommitted, commit when greenlit" framing was
-stale): Fiery's collaboration-state CLI (F-35 `--tag heartbeat` help + F-07
-`comms list`/`show`) in `562b97f3`; Skyward's PreToolUse guard
-fail-open-on-unbuilt-artefact (+ the pure `decideMissingGuardArtifact`) in
-`89ec8dcf`. No open next step. Owner-gated residuals are tracked in
-`pending-graduations.md`: the ADR-167 exit-0-log amendment (recommended not needed)
-and F-36 (pnpm-wrapper porcelain-stdout) + F-07 list-filters
-(owner-directed-optional).
 
 ### MCP Test Estate + Observability Sinks (both DECISION-COMPLETE 2026-06-06)
 
@@ -489,10 +353,13 @@ this section; create a thread record when execution is scheduled.
 
 ## Open Owner-Decision Items
 
-1. `pending-graduations.md` carries the owner-walked estate (2026-06-11): items with
-   `owner-approved 2026-06-11` are an authoring queue needing no re-asking; `routed` items
-   belong to the agent-tools lane; remaining `owner-gated`/`pending` items were confirmed
-   genuinely event-gated at the walk.
+1. `pending-graduations.md` carries the owner-walked estate (2026-06-11): the
+   `owner-approved 2026-06-11` authoring queue was AUTHORED and drained 2026-06-12
+   (Thyme wakes Canopy; Core CHANGELOG carries the pass); `routed` items belong to the
+   agent-tools lane; remaining `owner-gated`/`pending` items were confirmed genuinely
+   event-gated at the walk. New evidence recorded 2026-06-12 on two items (PDR-082
+   heartbeat value-contingency second instance; PDR-081 ledger-clause contradiction) —
+   surface at the next owner walk.
 2. MCP product analytics execution-plan promotion is deferred. Production PostHog
    capture still needs the legal/privacy gates named in the exploration record.
 3. Monorepo workspace topology is held by owner decision (2026-05-09) until after

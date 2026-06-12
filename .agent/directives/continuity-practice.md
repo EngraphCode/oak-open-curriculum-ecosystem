@@ -165,6 +165,15 @@ actual commit evidence or an explicit unlanded state. A stale "ready to land"
 phrase after the work has committed is a continuity defect because the next
 session cannot tell whether it should stage work, verify a commit, or move on.
 
+**Supersession refreshes the whole auto-surfaced chain.** A pass that
+supersedes a decision, plan state, or next step MUST update the first
+surfaces a fresh session reads — the thread-record top and the
+`repo-continuity.md` next-safe-step entry — not only the plan body or the
+deep artefact. A superseded fact that survives on an auto-surfaced
+continuity surface outranks the correction in practice, because the next
+session reads the continuity chain first. (Owner-approved fold,
+2026-06-11 walk.)
+
 ## GO
 
 `GO` is a complementary execution cadence, not a handoff surface.

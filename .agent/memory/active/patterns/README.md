@@ -203,7 +203,7 @@ surface that makes later governance or enforcement honest.
 - **Wire-Format-Aware Redaction** -- Use this when: telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as `application/x-www-form-urlencoded` request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** -- Use this when: a workaround exists and someone is explaining why it's justified, especially when invoking "different purposes" or "separate concerns". → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (36)
+### Process (39)
 
 - **ADR by Reusability, Not Diff Size** -- Use this when: closing a small implementation lane and deciding whether the decision it encoded deserves to be promoted to an ADR. → [adr-by-reusability-not-diff-size.md](adr-by-reusability-not-diff-size.md)
 
@@ -240,6 +240,9 @@ surface that makes later governance or enforcement honest.
 - **Static Analysis Registration With Scaffold** -- Use this when: scaffolding a package, public export, or sub-path barrel before all planned consumers exist. → [static-analysis-registration-with-scaffold.md](static-analysis-registration-with-scaffold.md)
 - **UX Predates Visual Design** -- Use this when: user experience decisions accumulate in CLIs, SDKs, APIs, documentation, and error messages long before any visual UI exists. → [ux-predates-visual-design.md](ux-predates-visual-design.md)
 - **Verify Claims Against Primary Sources Before Propagating** -- Use this when: writing technical claims into plans, TSDoc, or governance documents. → [verify-before-propagating.md](verify-before-propagating.md)
+- **Prove the Checker With an In-Repo Deliberate-RED Negative Control** -- Use this when: trusting any targeted checker run — a lint over specific paths, an advisory commit-message check, a one-off validator invocation — especially when the result is green. → [prove-the-checker-with-a-negative-control.md](prove-the-checker-with-a-negative-control.md)
+- **Wrapped Exit Codes False-Green** *(anti-pattern)* -- Use this when: reading success from any piped, redirected, background-wrapped, or hook-bannered invocation — especially `git push`, aggregate gate runs, and collaboration-CLI writes. → [wrapped-exit-codes-false-green.md](wrapped-exit-codes-false-green.md)
+- **PR Delivery: Monitor to Merge, Flat Stacks, Pure Diffs** -- Use this when: opening a pull request, choosing the base for a dependent change, or resolving merge conflicts that touch shared registry state. → [pr-monitor-to-merge.md](pr-monitor-to-merge.md)
 - **Plan-as-Artefact Gravity** -- Use this when: a remediation plan has accumulated multiple session-history sections, re-grounding tables, and re-classification amendments while the gates it targets remain red. → [plan-as-artefact-gravity.md](plan-as-artefact-gravity.md)
 - **Templates Can Institutionalise Failure Modes** -- Use this when: sharpening a doctrine, principle, or rule that flows through templates, scaffolds, or generators that produce future plans or artefacts. → [templates-encode-failure-modes.md](templates-encode-failure-modes.md)
 
@@ -252,7 +255,7 @@ surface that makes later governance or enforcement honest.
 - **satisfies for Mock Completeness** -- Use this when: a test mock implements an interface and you need compile-time proof that all methods are present. → [satisfies-for-mock-completeness.md](satisfies-for-mock-completeness.md)
 - **Don't Test SDK Internals** -- Use this when: tests must prove product behaviour, not third-party SDK internal normalisation or compatibility logic. → [dont-test-sdk-internals.md](dont-test-sdk-internals.md)
 
-### Agent (13)
+### Agent (16)
 
 - **Agentic Surface Separation** -- Use this when: designing or refactoring agent infrastructure that spans skills, rules, commands, subagents, or platform adapters. → [agentic-surface-separation.md](agentic-surface-separation.md)
 - **Audit Rule Body When Extending With a New Prohibition** -- Use this when: adding a new "X is forbidden" / "X must not appear" / "do not Y" clause to an existing rule, ADR, governance doc, or directive — scan the rule body itself for instances of the new prohibition before committing. → [audit-rule-body-on-prohibition-extension.md](audit-rule-body-on-prohibition-extension.md)
@@ -266,4 +269,7 @@ surface that makes later governance or enforcement honest.
 - **Route Reviewers by Abstraction Layer, Not File Scope** -- Use this when: dispatching specialist reviewers on a finishing pass over a mixed code + docs + ADR lane and choosing which reviewers to invoke. → [route-reviewers-by-abstraction-layer.md](route-reviewers-by-abstraction-layer.md)
 - **Structural Enforcer Recursive Exclusion** -- Use this when: designing a structural enforcer (hook, scanner, lint rule, regex matcher) that scans for a pathogen across a path scope; the cataloguing documents and tests inside that scope will trip the enforcer on themselves unless explicitly excluded. → [structural-enforcer-recursive-exclusion.md](structural-enforcer-recursive-exclusion.md)
 - **Untracked WIP Whole-Tree Lint Blocker** *(anti-pattern)* -- Use this when: a multi-agent workspace has untracked work-in-progress and another agent's commit or push is blocked by whole-tree quality gates. → [untracked-wip-whole-tree-lint-blocker.md](untracked-wip-whole-tree-lint-blocker.md)
+- **Re-Derive Session-Persistent State Before Acting** -- Use this when: any resumed turn, shared-checkout git operation, or compose moment relies on shell cwd, checked-out branch, the staged set, the clock, or a remembered in-flight action. → [re-derive-session-persistent-state.md](re-derive-session-persistent-state.md)
+- **Bounded Structured Output for Workflow Fan-Outs** -- Use this when: authoring a Workflow script that uses `agent({schema})` fan-out, passing args into it, or consuming its verify-stage results. → [bounded-structured-output-for-workflows.md](bounded-structured-output-for-workflows.md)
+- **Fan Out the Verify, Gatekeep the Execute** -- Use this when: structuring a multi-agent or workflow session that mixes verification work with irreversible or coordination-dependent moves. → [fan-out-verify-gatekeeper-execute.md](fan-out-verify-gatekeeper-execute.md)
 - **Parallel `isolation:"worktree"` Dispatch Is Unreliable** -- Use this when: considering a parallel `Agent` batch with `isolation:"worktree"` for non-trivial work that depends on a specific branch HEAD or specific repo state. → [parallel-worktree-dispatch-unreliable.md](parallel-worktree-dispatch-unreliable.md)

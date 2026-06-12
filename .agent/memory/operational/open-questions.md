@@ -37,54 +37,6 @@ fitness_content_role: drainable-buffer
   that evidence; the 2b reappraisal-cartography pass remains the prose-rule
   rationalisation vehicle.
 
-## Q-003 — input/output schema strategy for MCP tools (+ the EEF coupling)
-
-- **Captured**: 2026-06-02 (Flamebright Charring Ember / `claude` / Opus 4.8 / `30dd5d`)
-- **Question**: how are MCP tool **input and output** schemas carried to the SDK
-  registration path, and what is the canonical mechanism? (Owner: "additional
-  information about input/output schemas is coming soon.")
-- **Owning artefact**:
-  [`sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md`][q3-general]
-  (general) and — the precise owner of the EEF-coupling sub-question —
-  [`sdk-and-mcp-enhancements/current/graph-tool-output-schemas.plan.md`][q3-graph]
-  ("Graph-tool output schemas via the EEF projection pattern", DESIGN), both
-  authored/refreshed 2026-06-02 by the Abyssal Flowing Beacon workstream (audit:
-  `.agent/reports/output-schema-mcp-plan-audit-2026-06-02.md`). Owner resolved the
-  S0 universal-tools seam there: apply the required `outputSchema` per tool type,
-  **graph first**, promoting to root `UniversalToolListEntry` last. This entry does
-  **not** duplicate those plans; it records the EEF coupling so it is not lost.
-- **EEF coupling (this session's finding to hand to the owning plan)**: the EEF
-  MCP tool is a *graph universal tool* (same family as `get-misconception-graph`/
-  `get-prior-knowledge-graph`, which return `structuredContent` but carry **no**
-  `outputSchema` today). Carrying `outputSchema` through the universal-tools path
-  is net-new and touches a specific surface set — `AggregatedToolName`,
-  `AGGREGATED_TOOL_DEFS`/`AggregatedToolDefShape`, `UniversalToolListEntry`,
-  `listUniversalTools`, and the `handlers.ts` config (all carry `inputSchema`
-  only). A four-architecture-reviewer pass flagged a **three-step asymmetric-drop**
-  failure mode (a silent `outputSchema` drop leaves graph tools unvalidated while
-  existing no-outputSchema tools pass, uncaught by current tests). The EEF plan
-  (D3/D6) defers these mechanics to this question's resolution.
-- **Resolved doctrine**: schemas are a deterministic type-strict **projection**
-  of the static data fed to a **single Zod call** (`satisfies`-tied), never
-  hand-constructed — same pattern as EEF, emitted at codegen for the graph tools.
-  Delivery order owner-ratified: the EEF tool's `outputSchema` lands first and
-  alone (the mechanism's first instance), the 3 existing graph tools receive
-  theirs with their substrate migration, remaining types follow, required/root
-  promotion last. Of the five graph sub-questions, **Q2 and Q4 are resolved**
-  (graph tools take no input — the projection is structural; thread-progressions
-  excluded as sequence-shaped).
-- **Status (2026-06-11): answered-in-place — retired.** The recorded retirement
-  condition is met: [`graph-tools-value-redesign.plan.md`][q3-migration] reached
-  🟢 DECISION-COMPLETE (2026-06-09, owner-ratified; mechanisms settled — new
-  `./graph-corpus` subpath, per-view `GraphView` construction, no substrate
-  change) and its Track-G view units are MERGED (G1 #153, G2/G3 + re-chain,
-  v1.22.0). [`output-schemas-for-mcp-tools.plan.md`][q3-general] carries the
-  ratified schema doctrine (`composeEnvelopeSchema(payloadSchema)`, payload Zod
-  derived at the one source per provenance); the plans are the durable owners.
-
-[q3-general]: ../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md
-[q3-migration]: ../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md
-
 ## Q-004 — does the capability taxonomy need a rights/licensing axis?
 
 - **Captured**: 2026-06-03 (Blustery Lifting Gale / claude / Opus 4.8 / `9b33b0`).
@@ -168,33 +120,6 @@ fitness_content_role: drainable-buffer
   [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md)
   (WS0 smoke/parity) or the `eef` thread record.
 - **Status**: open — trigger is the next test-harness (WS0/WS3) session.
-
-## Q-008 — should the coordination-home branch periodically merge main, or accept recurring lag?
-
-- **Captured**: 2026-06-11 (Stratospheric Swooping Zephyr / claude / Fable 5 / `fe53ec`).
-- **Question**: the team coordination home is the long-lived branch
-  `docs/graph-team-direction-2026-06-10`, which lags `origin/main` by construction as feature
-  PRs merge. Should the Director periodically merge main into it (clean status, heavier
-  history), or accept recurring generated-file lag guarded only by the
-  baseline-against-origin/main reflex?
-- **Why it shapes future work**: the lag produced a real Director misdiagnosis on 2026-06-10
-  (working-tree regen drift read as a new upstream schema bump; one wasted routing round-trip —
-  failure-mode capture `54fc0fee`). The byte-identical alignment commit cured the instance, not
-  the topology; every future main movement recreates the trap for whoever runs a gate that
-  regenerates files in the coordination home.
-- **Why not answerable cheaply now**: depends on the coordination-home branch's end-of-life
-  shape (does it ever PR to main?), the owner's appetite for merge commits on a docs branch,
-  and whether the worktree-team shape itself outlives this arc.
-- **Owning artefact / discussion home**: the team opener
-  (`prompts/connecting-oak-resources/graph-implementation-team.prompt.md`) §coordination-home
-  convention; the [`eef` thread record](threads/eef.next-session.md).
-- **Status**: RESOLVED 2026-06-11 (owner ruling, answered-in-place): the Director merges
-  `origin/main` INTO the coordination home, forward-only with merge commits, never rebase, on
-  the two named triggers (Director tooling needs landed source; generated-file drift
-  accumulates), with a pre-merge divergence analysis and main-authoritative conflict resolution
-  for source/generated files. Codified in the team opener §Branching strategy (landed with
-  `898a0ac4d`); first execution `ae1802da1`. Drift baselines remain `origin/main`, never branch
-  HEAD.
 
 ## Q-009 — do memory/state files need schema-driven or agent-driven merge strategies?
 

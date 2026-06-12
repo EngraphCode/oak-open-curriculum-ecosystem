@@ -3,16 +3,20 @@ boundary: cross-boundary
 doc_role: index
 authority: docs-root-navigation
 status: active
-last_reviewed: 2026-04-20
+last_reviewed: 2026-06-12
 ---
 
 # Documentation for Oak Open Curriculum Ecosystem
 
-**Last Updated**: 2026-04-20
+**Last Updated**: 2026-06-12
 **Status**: Active index
 
 ## Getting Started
 
+- **New to everything?** → run `/oak-onboard-me` in an agent session
+  (`$oak-onboard-me` in Codex) — an interactive onboarding walker that
+  branches by audience and need, detects your setup state, and reads the
+  live docs as it guides you
 - **Evaluating the project?** → [VISION.md](foundation/VISION.md) for the
   timeless framing: MCP Apps exploration in AI platforms, sector reuse of
   Oak's openly licenced curriculum, hybrid semantic search, knowledge graphs,
@@ -23,8 +27,8 @@ last_reviewed: 2026-04-20
 - **New to the repo?** → [Root README Quick Start](../README.md#quick-start) for setup, then [CONTRIBUTING.md](../CONTRIBUTING.md) for the development process
 - **Working with AI?** → Start with the canonical
   [`start-right-quick` shared workflow](../.agent/skills/start-right-quick/shared/start-right.md),
-  or invoke the `jc-start-right-quick` platform adapter (`/jc-start-right-quick`
-  in Claude Code, Cursor, and Gemini; `$jc-start-right-quick` in Codex). Then
+  or invoke the `oak-start-right-quick` platform adapter (`/oak-start-right-quick`
+  in Claude Code, Cursor, and Gemini; `$oak-start-right-quick` in Codex). Then
   read [AGENT.md](../.agent/directives/AGENT.md).
 - **Need an optional map of the wider agentic corpus?** → [Agentic Engineering Research Lanes & Hub](../.agent/research/agentic-engineering/README.md) — concept-and-deep-dive hub linking canon, deep dives, research, evidence, reports, and docs surfaces
 - **Architecture source of truth?** → [ADR index](architecture/architectural-decisions/) — Architectural Decision Records define how the system should work

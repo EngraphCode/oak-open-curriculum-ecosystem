@@ -109,23 +109,45 @@ mechanism that keeps structure coherent over time.
 
 ### Track B (Governance): Leadership-Input Items
 
-- **Status**: 📋 Not started
-- These cannot be completed by documentation editing alone.
+- **Status**: 🟢 Owner dispositions recorded 2026-06-12 (surfaced as six
+  questions; every item now has a decided path)
 
 Status key: `[ ]` not started, `[~]` in progress, `[x]` complete.
 
-- [ ] **B1. Add cost model and sustainability framing to `foundation/VISION.md`**
-  - Requires infrastructure-cost evidence and team-model decisions.
-- [ ] **B2. Create architectural risk register**
-  - Requires organisation-level risk prioritisation.
-- [ ] **B3. Add business-level risks and mitigations to `foundation/VISION.md`**
-  - Requires reputational, operational, financial, and regulatory framing.
-- [ ] **B4. Document agentic-practice transferability**
-  - Requires explicit split of general-purpose vs Oak-specific components.
-- [ ] **B5. Clarify ecosystem/open-source posture for non-technical audiences**
-  - Requires policy decisions for contribution posture.
+- [~] **B1. Add cost model and sustainability framing to `foundation/VISION.md`**
+  - **Disposition (2026-06-12)**: agent drafts the skeleton (hosting,
+    search, auth, observability cost lines + sustainability narrative);
+    owner supplies numbers and team-model stance. Draft goes to owner
+    review before landing — no placeholder sections in the live VISION.
+- [~] **B2. Create architectural risk register**
+  - **Disposition (2026-06-12)**: seed from existing findings (CTO
+    conditional-go items, adversarial architecture reviews, ADR risk
+    sections); prioritisation stays with the owner; owner-reviewed
+    before landing.
+- [~] **B3. Add business-level risks and mitigations to `foundation/VISION.md`**
+  - **Disposition (2026-06-12)**: folded into the B2 register as a
+    business-risk section, with a short plain-language summary linked
+    from VISION — one risk document, not two.
+- [x] **B4. Document agentic-practice transferability**
+  - **Disposition (2026-06-12)**: substantially resolved by architecture
+    since baseline (practice-core portable by construction with the
+    portability gate enforcing it; ADR-124 propagation; plasmid
+    mechanism). **Landed same day**: owner-approved evidence note in
+    VISION §What We Deliver (portable by construction, ADR-124 cited).
+- [x] **B5. Clarify ecosystem/open-source posture for non-technical audiences**
+  - **Disposition (2026-06-12)**: a plain-language policy paragraph —
+    why contributions are closed during alpha, what external readers can
+    do, what would trigger opening. **Landed same day**: owner-approved
+    Contribution Posture paragraph in VISION §Open Source And Licensing.
+    Evidence-grounding also woven into VISION the same day as
+    "supporting and building on the innovations of the wider ecosystem"
+    (owner-shaped: no named dataset in the timeless doc).
 - [ ] **B6. Expand `SECURITY.md` for organisational risk assessment**
-  - Requires data governance and security-posture decisions.
+  - **Disposition (2026-06-12)**: deferred to the M2 (open public alpha)
+    exit gate, recorded alongside the existing M2 blockers (R9 Clerk,
+    R10 Sentry, R13 rate limiting). Decision inputs when the gate
+    approaches: data classes handled, governance boundaries, posture
+    summary.
 
 Traceability to baseline report:
 
@@ -1273,8 +1295,100 @@ review pending (4 personas: junior dev, lead dev, CTO, CEO).
 
 ---
 
+## Interactive Onboarding Inputs (12 June 2026)
+
+**Status: LANDED same day** — the skill shipped as
+`.agent/skills/onboard-me/SKILL-CANONICAL.md` (published `/oak-onboard-me`)
+via [oak-onboard-me-skill.plan.md](../archive/completed/oak-onboard-me-skill.plan.md), built to
+the design inputs below (router-not-copy; detect-first; go-ahead-gated).
+Owner-directed scope addition at build time (12 June 2026): a Practice
+branch — what the Practice is, how to work with the agents through the
+skills, and how agents accelerate development without compromising quality
+or safety — routing to the live Practice explainers rather than copying
+them. Resumability (owner-decided 2026-06-12, superseding the earlier hold):
+walkthrough state persists in the **untracked** individual-scoped file
+`.agent/state/onboarding/walkthrough.local.md` (path gitignored;
+one checkout = one individual unless the user says otherwise; journey
+state only, never personal details). Machine state remains re-derived by
+probes on every run — the file is a resume hypothesis, never a fact.
+The classification is uniform: individual-scoped state is untracked by
+design; whether repo-scoped collaboration state under `.agent/state/`
+also becomes local-only is a separate decision gated on the comms
+research plan.
+
+**First live run falsified the menu-shaped interaction (12 June 2026,
+owner walkthrough)**: the walker front-loaded prerequisite probes before
+greeting, rendered journey questions as forced-choice menus, and narrated
+its routing in repo jargon — "DOS menus from 1996, not a conversation".
+Root cause: structural instructions (detect-first precept, question-UI
+mandate, displayed forks) defeated the prose warmth contract — the
+passive-guidance-loses-to-artefact-gravity pattern inside a skill body.
+Redesign landed same day: greeting-before-any-tool-call as rule 1, free
+prose questions (menu UI banned for journey questions), the journey graph
+demoted to a private routing model, plain language until depth is opted
+into, detection only inside setup conversations. Standing design lesson
+for every interactive surface: a smoke test proves mechanics, only a real
+newcomer run proves experience — re-validate by live walkthrough after
+interaction-layer changes.
+
+Owner direction (in-session, 12 June 2026): a new interactive onboarding
+skill, `/oak-onboard-me`, will walk new people through onboarding with
+branching by audience and need — engineer vs impact-focused, strategy and
+planning corpus overview, development prerequisites, repository setup. The
+design inputs below were mined from a generated `/team-onboarding`
+walkthrough (30-day single-contributor usage window, 275 sessions). The
+source was agent-generated output: its checklist facts were verified
+first-hand before folding (sanctioned-MCP coverage against
+mcp-servers-for-contributors.md; the `oak-skills` repository, visibility,
+and plugin directory via the GitHub API), and its usage statistics are
+workflow-derived from local usage data, not independently verifiable —
+treat them as one attributed observation window, never as team fact.
+
+### Interaction design (generated prototype shape — untested with a real newcomer)
+
+The generated walkthrough carried a prototype of the interaction design
+worth preserving for the skill:
+
+- Buddy persona: warm, conversational, not lecture-y.
+- Detect state first: check what is already set up, render the checklist
+  with `[x]`/`[ ]` marks, lead with what already works, one sentence per
+  item, all in one message.
+- Guided execution: offer the first unchecked item, get a go-ahead, then
+  work through the rest one at a time.
+- After setup, walk the remaining sections — help where possible, surface
+  the purely informational parts, and never invent sections or summaries
+  that are not in the guide.
+- Never extrapolate one person's usage statistics into a "team workflow"
+  narrative.
+
+### Usage evidence (caveat: one contributor's 30-day window)
+
+- In the generating contributor's window, team-session grounding
+  (`oak-start-right-team`) ran roughly four times as often as solo
+  grounding (`oak-start-right-quick`).
+- `/rename` was that window's single most-used command, consistent with
+  the documented "AgentName - intent" session-naming convention.
+- The only prescribed practices are the session bookends (a start-right
+  skill at open, `oak-session-handoff` at close); everything else is
+  deliberately unprescribed — owner-ratified 2026-06-12 in the generating
+  session ("other than that I don't want to prescribe how they should
+  work", recorded in that session's napkin entry). The interactive walker
+  must preserve that minimalism rather than prescribing workflow.
+- Setup-surface validation: the sanctioned MCP set in
+  [mcp-servers-for-contributors.md](../../../../docs/engineering/mcp-servers-for-contributors.md)
+  already covered every server a real day-one checklist needed; the one
+  gap found was `oak-skills` missing from
+  [sibling-repos.md](../../../../docs/engineering/sibling-repos.md)
+  (added 12 June 2026).
+
+---
+
 ## Change Log
 
+- **2026-06-12**: Added §Interactive Onboarding Inputs — owner-directed
+  `/oak-onboard-me` skill intent, interaction-design prototype, and usage
+  evidence mined from a generated `/team-onboarding` walkthrough; `oak-skills`
+  row added to sibling-repos.md from the same source.
 - **2026-02-27**: N10 generator `as` casts resolved. Both casts in
   `emit-index.ts` eliminated: `toStatusDiscriminant` replaced with
   per-tool `STATUS_DISCRIMINANTS` const map; `invoke` return changed
