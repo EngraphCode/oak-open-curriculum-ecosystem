@@ -128,17 +128,20 @@ Status key: `[ ]` not started, `[~]` in progress, `[x]` complete.
   - **Disposition (2026-06-12)**: folded into the B2 register as a
     business-risk section, with a short plain-language summary linked
     from VISION — one risk document, not two.
-- [~] **B4. Document agentic-practice transferability**
+- [x] **B4. Document agentic-practice transferability**
   - **Disposition (2026-06-12)**: substantially resolved by architecture
     since baseline (practice-core portable by construction with the
     portability gate enforcing it; ADR-124 propagation; plasmid
-    mechanism). Remaining work: a concise evidence note in VISION,
-    owner-reviewed.
-- [~] **B5. Clarify ecosystem/open-source posture for non-technical audiences**
+    mechanism). **Landed same day**: owner-approved evidence note in
+    VISION §What We Deliver (portable by construction, ADR-124 cited).
+- [x] **B5. Clarify ecosystem/open-source posture for non-technical audiences**
   - **Disposition (2026-06-12)**: a plain-language policy paragraph —
     why contributions are closed during alpha, what external readers can
-    do, what would trigger opening — owner-reviewed, homed in VISION
-    §Open Source And Licensing with entry points linking to it.
+    do, what would trigger opening. **Landed same day**: owner-approved
+    Contribution Posture paragraph in VISION §Open Source And Licensing.
+    Evidence-grounding also woven into VISION the same day as
+    "supporting and building on the innovations of the wider ecosystem"
+    (owner-shaped: no named dataset in the timeless doc).
 - [ ] **B6. Expand `SECURITY.md` for organisational risk assessment**
   - **Disposition (2026-06-12)**: deferred to the M2 (open public alpha)
     exit gate, recorded alongside the existing M2 blockers (R9 Clerk,
