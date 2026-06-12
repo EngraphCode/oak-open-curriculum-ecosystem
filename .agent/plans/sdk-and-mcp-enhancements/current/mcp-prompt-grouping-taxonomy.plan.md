@@ -59,6 +59,33 @@ Owner-supplied sources, each fetched and verified first-hand:
   irrelevant at seven prompts, noted for scale honesty. Logging utility noted as estate
   context only.
 
+### Client-features addendum — elicitation + sampling (2026-06-12, owner-supplied sources)
+
+Verified first-hand against `client/elicitation` and `client/sampling` (2025-11-25):
+
+- **Elicitation** (CLIENT capability; `elicitation/create`, nestable inside other server
+  features): form mode collects flat structured input — string/number/boolean plus
+  single- and multi-select enums WITH display titles and defaults — under a three-action
+  contract (`accept` / `decline` / `cancel`); URL mode covers sensitive out-of-band flows.
+  The enum shapes map directly onto lesson-building choices (subject, key stage,
+  misconception focus, resource selection), and arguments compose with the completions
+  capability above.
+- **Sampling** (CLIENT capability; `sampling/createMessage`): server-orchestrated LLM
+  generation through the client's own model — including tool use (`sampling.tools`: the
+  server runs a bounded agentic loop where the LLM proposes tool calls, the server
+  executes them, and the loop continues), with human-in-the-loop review REQUIRED at each
+  gate and model preferences advisory.
+- **Owner-seeded candidate (2026-06-12): interactive lesson building.** Elicitation
+  gathers the teacher's choices step by step; sampling — with Oak's curriculum tools in
+  the loop — drafts and refines lesson content; every step passes the three-action gate,
+  structurally honouring the briefing's "the teacher decides" guarantee. Routed to WS4.
+  The gating evidence is the same class as the rendering question: which real clients
+  declare `elicitation` (and which modes) and `sampling` (and `sampling.tools`) — sampling
+  support is historically the sparsest of all client capabilities.
+- **Tooling note**: the `mcp-server-dev` plugin (anthropics/claude-plugins-official,
+  installed 2026-06-12, user scope) carries live MCP-development skills; upstream:
+  `github.com/anthropics/claude-plugins-official` → `plugins/mcp-server-dev/skills`.
+
 ## End goal
 
 A teacher-facing prompt surface whose grouping makes the *planning moment* legible — which
