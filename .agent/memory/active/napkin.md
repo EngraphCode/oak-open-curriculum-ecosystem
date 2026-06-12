@@ -446,3 +446,41 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   Worked cure: `perl -pe 's/\x1b\[/\\u001b[/'` over the constant block, verify with
   `grep | cat -v`. Check idiom with `cat -v` whenever editing files whose literals encode
   control characters.
+
+## 2026-06-12 — Team-onboarding guide session (Altair rides Gloom, 0920d8)
+
+- **Owner direction (session-scoped) shaping onboarding content: don't prescribe workflow.**
+  I proposed candidate team tips (rename ritual, no-Vercel-CLI, …); the owner ratified only
+  the two session bookends — a start-right skill at open, session-handoff at close — and
+  explicitly declined more: "other than that I don't want to prescribe how they should work".
+  Shape that landed: usage stats stay descriptive; prescriptive content names only
+  owner-ratified norms and states the list as deliberately complete, so a walkthrough agent
+  reading the guide cannot invent a "team workflow" narrative on top of it.
+- **Vendor skill templates can mandate falsifiable assertions**: /team-onboarding's close
+  template demands the exact line "Saved to `ONBOARDING.md`" — falsified here by the owner's
+  redirect of the artefact into `.agent/plans/developer-experience/`. Adapted the canned line
+  to the real path; template fidelity never outranks faithful reporting (verify-dont-trust on
+  my own banner, applied to a vendor template's words rather than my own).
+- **The ESC-byte Edit-anchor class fired on this very file**: my napkin append anchored on the
+  prior entry's ANSI line and failed — the Read-rendered text hid a real ESC byte, exactly as
+  that entry warns. Cure applied: re-anchor on adjacent lines that carry no control bytes.
+
+## 2026-06-12 — Onboarding review + report-mining session (Vanilla lifts Chlorophyll, 8dca0d)
+
+- **I relaxed input-to-verify because the owner handed me the input.** Mining the
+  /team-onboarding report I verified the MCP-checklist coverage first-hand but folded the
+  oak-skills repo facts on memory-corroboration alone, wrote "proven prototype shape" for a
+  walkthrough no newcomer has run, and extrapolated one contributor's stats into "multi-agent
+  coordination is the common case" — the exact extrapolation the report's own instruction
+  block forbids. Owner caught it mid-fold. Cures applied: gh API verification (repo,
+  visibility, `.claude-plugin/` dir), attribution-precise rewording, overclaim removed.
+  Lesson: owner-TRIGGERED generation is not owner-VERIFIED content; the input-to-verify
+  posture is unconditional on provenance.
+- **A closed peer session's artefacts can land in the tree asynchronously, mid-my-session**
+  (Altair rides Gloom's closeout napkin/continuity writes + the report file appeared between
+  my commits). Re-derive-before-acting held: `git status` before each commit surfaced the
+  foreign diffs; investigation identified a peer closeout, not anomaly. Their continuity
+  entry carried a stale next-step ("commit the report") and a misattribution (my commit
+  credited to the owner) — both resolved with a same-bullet RESOLVED addendum, the
+  established continuity pattern. A peer's recorded next-step is a hypothesis, superseded
+  here by later owner direction.

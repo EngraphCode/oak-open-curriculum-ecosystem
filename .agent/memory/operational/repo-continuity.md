@@ -223,6 +223,32 @@ surface.
   the owner re-tuned to **green &lt;50% / yellow 50–69% / red ≥70%** (also in #198). Only
   this continuity entry itself plus the owner-directed (uncommitted-by-instruction)
   statusline-session-shape-indicators plan remain for a successor bundle.
+- **CLAUDE CODE TEAM ONBOARDING GUIDE — landed, uncommitted (2026-06-12, Altair rides Gloom
+  `0920d8`).** One artefact:
+  `2026-06-12-claude-code-team-onboarding.report.md` (developer-experience collection;
+  since mined and removed — see the resolution below)
+  — a paste-into-Claude-Code onboarding guide for teammates new to Claude Code, generated
+  from 30-day usage data via /team-onboarding and owner-redirected from repo-root
+  `ONBOARDING.md` into the developer-experience plans collection. Owner-shaped content rule:
+  stats are descriptive; Team Tips carry ONLY the two session bookends (a start-right skill
+  at open, session-handoff at close), stated as deliberately complete — the owner declined
+  to prescribe workflow beyond them. Untracked on `feat/onboarding-improvement` (local-only
+  branch, no upstream; HEAD `c6754a262` is the owner's onboarding entry-path drift fixes,
+  committed mid-session, not by this seat). **Next safe step**: commit the report with this
+  branch's onboarding work (owner-owned; handoff makes no git moves). Deep consolidation
+  status: due — carried (napkin fitness; the flag is owned by the owner's planned dedicated
+  consolidation session); this session adds one napkin block + this entry only.
+  Session-close `pnpm check` NOT run — owner directed "update appropriate surfaces then
+  stop" at close (doc-only session diff; the gate obligation passes to whoever commits).
+  **RESOLVED same day (Vanilla lifts Chlorophyll `8dca0d`)**: at owner direction the report
+  was critically assessed as agent-generated input, mined, and NOT committed — the
+  interaction-design prototype and caveated usage evidence folded into the canonical
+  onboarding plan (§Interactive Onboarding Inputs), an `oak-skills` row added to
+  sibling-repos.md (repo, visibility, and plugin directory verified first-hand via the
+  GitHub API), then the source file deleted ("no need to preserve the source document").
+  The "commit the report" next-step above is closed. Attribution correction: HEAD
+  `c6754a262` (onboarding entry-path drift fixes) was committed by this seat at owner
+  direction, not by the owner's hand.
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.

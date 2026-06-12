@@ -1273,8 +1273,66 @@ review pending (4 personas: junior dev, lead dev, CTO, CEO).
 
 ---
 
+## Interactive Onboarding Inputs (12 June 2026)
+
+Owner direction (in-session, 12 June 2026): a new interactive onboarding
+skill, `/oak-onboard-me`, will walk new people through onboarding with
+branching by audience and need — engineer vs impact-focused, strategy and
+planning corpus overview, development prerequisites, repository setup. The
+design inputs below were mined from a generated `/team-onboarding`
+walkthrough (30-day single-contributor usage window, 275 sessions). The
+source was agent-generated output: its checklist facts were verified
+first-hand before folding (sanctioned-MCP coverage against
+mcp-servers-for-contributors.md; the `oak-skills` repository, visibility,
+and plugin directory via the GitHub API), and its usage statistics are
+workflow-derived from local usage data, not independently verifiable —
+treat them as one attributed observation window, never as team fact.
+
+### Interaction design (generated prototype shape — untested with a real newcomer)
+
+The generated walkthrough carried a prototype of the interaction design
+worth preserving for the skill:
+
+- Buddy persona: warm, conversational, not lecture-y.
+- Detect state first: check what is already set up, render the checklist
+  with `[x]`/`[ ]` marks, lead with what already works, one sentence per
+  item, all in one message.
+- Guided execution: offer the first unchecked item, get a go-ahead, then
+  work through the rest one at a time.
+- After setup, walk the remaining sections — help where possible, surface
+  the purely informational parts, and never invent sections or summaries
+  that are not in the guide.
+- Never extrapolate one person's usage statistics into a "team workflow"
+  narrative.
+
+### Usage evidence (caveat: one contributor's 30-day window)
+
+- In the generating contributor's window, team-session grounding
+  (`oak-start-right-team`) ran roughly four times as often as solo
+  grounding (`oak-start-right-quick`).
+- `/rename` was that window's single most-used command, consistent with
+  the documented "AgentName - intent" session-naming convention.
+- The only prescribed practices are the session bookends (a start-right
+  skill at open, `oak-session-handoff` at close); everything else is
+  deliberately unprescribed — owner-ratified 2026-06-12 in the generating
+  session ("other than that I don't want to prescribe how they should
+  work", recorded in that session's napkin entry). The interactive walker
+  must preserve that minimalism rather than prescribing workflow.
+- Setup-surface validation: the sanctioned MCP set in
+  [mcp-servers-for-contributors.md](../../../../docs/engineering/mcp-servers-for-contributors.md)
+  already covered every server a real day-one checklist needed; the one
+  gap found was `oak-skills` missing from
+  [sibling-repos.md](../../../../docs/engineering/sibling-repos.md)
+  (added 12 June 2026).
+
+---
+
 ## Change Log
 
+- **2026-06-12**: Added §Interactive Onboarding Inputs — owner-directed
+  `/oak-onboard-me` skill intent, interaction-design prototype, and usage
+  evidence mined from a generated `/team-onboarding` walkthrough; `oak-skills`
+  row added to sibling-repos.md from the same source.
 - **2026-02-27**: N10 generator `as` casts resolved. Both casts in
   `emit-index.ts` eliminated: `toStatusDiscriminant` replaced with
   per-tool `STATUS_DISCRIMINANTS` const map; `invoke` return changed
