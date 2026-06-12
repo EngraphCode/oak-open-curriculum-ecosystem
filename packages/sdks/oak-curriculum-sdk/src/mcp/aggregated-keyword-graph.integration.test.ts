@@ -132,6 +132,9 @@ describe('runKeywordGraphTool — anchor requirements at the boundary', () => {
     expect(result.isError).toBe(true);
   });
 
+  // Since the input schema carries .max(MAX_KEYWORD_LIMIT), the rejection
+  // fires at the Zod parse boundary; the view-layer validateLimit remains
+  // as defence-in-depth for direct unvalidated calls.
   it('rejects a limit beyond the view ceiling as a boundary error', () => {
     const result = runKeywordGraphTool({
       ...knownAnchor,

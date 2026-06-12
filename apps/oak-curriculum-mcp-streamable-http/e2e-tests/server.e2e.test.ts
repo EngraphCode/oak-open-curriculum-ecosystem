@@ -167,6 +167,41 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
     expect(describeTool('get-keyword-graph')).toContain('snapshot');
   });
 
+  it('serves the bounded integer limit schema for get-keyword-graph (S4)', async () => {
+    const app = await createBypassedApp();
+    const res = await request(app)
+      .post('/mcp')
+      .set('Accept', ACCEPT)
+      .send({ jsonrpc: '2.0', id: '1', method: 'tools/list' });
+    expect(res.status).toBe(200);
+
+    const envelope = parseSseEnvelope(res.text);
+    const toolListResult = ToolListResultSchema.parse(envelope.result);
+    const keywordGraph = toolListResult.tools.find((t) => t.name === 'get-keyword-graph');
+    expect(keywordGraph).toBeDefined();
+
+    // The doc text and the runtime refusal both enforce an integer in
+    // [1, 100]; the served JSON schema must declare the same bounds rather
+    // than a bare number, so callers see the contract before calling. The
+    // 100 is a deliberate literal pin of the served contract (the app does
+    // not depend on graph-corpus-sdk, where MAX_KEYWORD_LIMIT lives): if
+    // the ceiling ever changes, this safeParse fails loudly and the pin is
+    // updated as part of that deliberate change.
+    const KeywordGraphLimitSchema = z.object({
+      inputSchema: z.looseObject({
+        properties: z.looseObject({
+          limit: z.looseObject({
+            type: z.literal('integer'),
+            minimum: z.literal(1),
+            maximum: z.literal(100),
+          }),
+        }),
+      }),
+    });
+    const parsed = KeywordGraphLimitSchema.safeParse(keywordGraph);
+    expect(parsed.error?.message ?? 'conforms').toBe('conforms');
+  });
+
   it('rejects missing Accept header with 406', async () => {
     const app = await createBypassedApp();
     const res = await request(app)
