@@ -165,7 +165,30 @@ register.
 > verify
 > HEAD is green, do not assume your work landed as its own commit.
 
-## Participating Agent Identities
+## Statusline Session-Shape Indicators Lane (2026-06-12)
+
+**Owning plan**: `.agent/plans/agent-tooling/current/statusline-session-shape-indicators.plan.md`
+(status: EXECUTED ON BRANCH; archive on merge).
+**Current state**: all five workstreams landed on `feat/statusline-enhancements` in worktree
+`.claude/worktrees/statusline-enhancements` (local, unpushed), based on origin/main
+`5bbda2fa9`: commits `ac2901fe1` (claim `role` field — schema + types + `claims open
+--role` in BOTH allowlists + start-right docs + singleton-cure recording), `1ac430378`
+(pure session-shape resolver + exported `isClaimStale` + porcelain primary-root parser),
+`4270ea49d` (renderer demark/team-icon/ARC-wing + adapter two-reads-per-tick + glyph
+evidence matrix in commit body). 1063 agent-tools tests green; full pre-commit chain green
+per commit; code-expert + test-expert reviewed each cycle with findings applied.
+**Next safe step (successor: Flame rides Temper)**: push the branch, open a flat PR onto
+main, monitor to merge adjudicating findings first-hand. POST-MERGE ONLY: the live
+director-demark proof — the primary checkout's write-path validator compiles the schema
+beside the registry, so it correctly REFUSES role-bearing claims until the merged schema
+reaches the primary's working tree (verified live 2026-06-12: `schema validation failed at
+/claims/N: must NOT have additional properties`). After merge + primary `pnpm build`
+(statusline ticks run each checkout's own built dist): open a real `--role director` claim
+and confirm the compass demark renders; then archive the plan per its lifecycle clause.
+**Residue**: three abandoned commit-queue intents in the primary registry (1266cd70,
+205de542, 3bdc8219 — attempt audit from the pre-merge blocked window) sweep at the next
+consolidation; the WS1-shaped uncommitted edits seen in the primary at session open
+(2026-06-12 morning) are superseded by this lane's landed commits if still present.
 
 Additive per
 [PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
@@ -198,6 +221,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Arboreal Swaying Thicket` | `claude` | `Fable 5` | `d2947e` | `dedicated-knowledge-curation (register drain + napkin rotation + width repairs + platform-memory)` | 2026-06-11 | 2026-06-11 |
 | `Thermal Circling Updraft` | `claude` | `Fable 5` | `f42c24` | `dedicated-consolidation (owner decision walk: all gated dispositions settled; ADR-195/196/197 + skill + PDR-058/091/089 landed; approved-authoring queue frozen)` | 2026-06-11 | 2026-06-11 |
 | `Thyme wakes Canopy` | `claude` | `Fable 5` | `70655e` | `dedicated-consolidation (approved queue authored: PDR-092/093 + 4 amendments + 3 folds; napkin rotated; registers drained; continuity condensed)` | 2026-06-12 | 2026-06-12 |
+| `Monsoon guards Cirrus` | `claude` | `Fable 5` | `aaa0b7` | `statusline-session-shape-indicators (all five workstreams landed on feat/statusline-enhancements; handed to Flame rides Temper for push/PR/post-merge proof)` | 2026-06-12 | 2026-06-12 |
 
 ## Cross-Plan and Cross-Thread Links
 

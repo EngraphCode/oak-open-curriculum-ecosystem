@@ -176,3 +176,20 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   ("Rebasing (1/2)" → lock error → rescheduled pick appearing twice in the done-list). The
   cure: after any denied state-changing call, read the state surfaces it could have touched
   (`git status`, lock files, in-progress operation dirs) before the next move.
+- **A new CLI flag passes TWO allowlists; unit tests below the dispatcher prove only the
+  first.** `--role` was registered in `KNOWN_OPTION_KEYS` (parse layer) with green unit
+  tests over `parseOptions`+`createClaimFromOptions` — and the live `claims open --role`
+  still failed: the `claims:open` command spec (`cli-spec-options.ts`) is a second,
+  dispatch-time allowlist invisible below `runCollaborationStateCli`. Cure shape: every new
+  flag ships a dispatcher-level integration test (temp canonical registry + full argv);
+  graduated to distilled. `candidate:` testing-strategy note — "CLI surface changes need a
+  dispatcher-tier test" may deserve a recipe line in testing-tdd-recipes.
+- **The write-path validator defends the AUTHORED shape per checkout** — it compiles the
+  schema set beside the target registry, so a role-bearing claim into the primary registry
+  is correctly refused until the schema change merges there ("must NOT have additional
+  properties"). The designed consequence: additive-field live proofs in shared registries
+  are post-merge steps, plan them that way.
+- **Commit-queue from a worktree seat can target the primary registry** with
+  `--registry "../../../.agent/state/collaboration/active-claims.json"` (joined to the
+  worktree repoRoot) while the inner git commit stays in the worktree (cwd-derived). Used
+  for the pre-merge attempts; the queue+git split worked exactly as designed.

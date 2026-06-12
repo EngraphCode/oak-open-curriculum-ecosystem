@@ -216,3 +216,15 @@ memory-corroboration, owner-caught mid-fold). Sibling: template fidelity never o
 faithful reporting — a vendor skill template demanded the exact line "Saved to
 `ONBOARDING.md`" after the owner had redirected the artefact; the canned line was adapted
 to the real path.
+
+## A CLI flag exists only when the DISPATCHER accepts it — test that tier
+
+Registering a flag at the parse layer (`KNOWN_OPTION_KEYS`) with green unit tests over the
+parse+construct functions proves nothing about the command being invocable: per-command
+specs (`cli-spec-options.ts` and siblings) are a second, dispatch-time allowlist invisible
+below the dispatcher entry point. Every new flag ships a dispatcher-tier integration test
+(full argv through `runCollaborationStateCli` against a canonical temp registry — file
+plus the complete schema set beside it). Worked instance 2026-06-12: `claims open --role`
+unit-green, live-failed on exactly this gap; cure in `cli-claim-role.integration.test.ts`.
+Source: statusline-indicators session (Monsoon guards Cirrus); routing: fold into
+testing-tdd-recipes at next consolidation if a second CLI-surface instance appears.
