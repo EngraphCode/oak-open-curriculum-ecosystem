@@ -199,6 +199,30 @@ surface.
   the 2026-06-11/12 multi-team capture window; rotation/convergence is a deliberate
   next-session curation pass, not bounded for this closeout (this session's own captures are
   routed: report, seed, thread records, napkin).
+- **CLAUDE STATUSLINE REDESIGN — built + verified, awaiting commit by a successor agent
+  (2026-06-12, Starling wakes Wind `b34fdb`).** The repo-carried Claude Code statusline
+  (`.claude/settings.json` → `.claude/scripts/statusline-identity.mjs` → `agent-tools` built
+  adapter) was redesigned owner-decided: segments `identity · model · ctx:N% · branch[*] ·
+  dir/worktree` (shortest first so narrow terminals truncate the long git segments), dim `·`
+  separators, dirty mark `*`, ctx% colour thresholds 60% yellow / 85% red; the tokens segment
+  was deliberately DROPPED (Claude Code shows the count natively — do not re-add without that
+  changing). Working-tree edits, exactly three files: `agent-tools/src/claude/statusline-render.ts`,
+  `agent-tools/src/claude/statusline-identity.ts`, `agent-tools/tests/claude/statusline-render.test.ts`
+  (`statusline-identity-input.ts` + its test were touched then reverted byte-identical to
+  committed state). Verified this session: vitest 27/27, eslint clean, `pnpm build` in
+  `agent-tools/` rebuilt the gitignored `dist/` the shim runs, end-to-end render proven via
+  the shim. **Next safe step (successor committer)**: stage the three files by explicit
+  pathspec on a fresh branch off main — the shared tree carries unrelated peer/owner WIP and
+  sat on `coordination/director-final-handoff-2026-06-12` at close. The user-global
+  `~/.claude/statusline-command.sh` was updated to match (session-name-only identity) —
+  off-repo, nothing to commit. Deep consolidation status: due — carried (napkin fitness, see
+  the Forge entry above); this session added two napkin captures + this entry only.
+  **RESOLVED same day (Director Firefly seeks Temper `ce44ae`)**: the three files were
+  adopted at owner direction, verified green (1,020 agent-tools tests), and MERGED via
+  PR #198 with Starling's napkin captures carried; the ctx thresholds above are historical —
+  the owner re-tuned to **green &lt;50% / yellow 50–69% / red ≥70%** (also in #198). Only
+  this continuity entry itself plus the owner-directed (uncommitted-by-instruction)
+  statusline-session-shape-indicators plan remain for a successor bundle.
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.
