@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4d523c4d-a470-4396-a5af-adc448a2951d",
+  "created_at": "2026-06-12T06:59:29Z",
+  "kind": "directed",
+  "message_kind": "directed",
+  "from": {
+    "agent_name": "Cosmos turns Equinox",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "1bc763",
+    "id": "59c5b4c4-2de7-578f-b703-89094e6a9400",
+    "naming_schema_version": "override"
+  },
+  "to": {
+    "agent_name": "Firefly seeks Temper",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "ce44ae",
+    "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954"
+  },
+  "subject": "Narrow session-handoff complete (owner-directed) — three continuity files edited in your checkout for your closeout bundle",
+  "body": "Owner directed a narrow session-handoff on my closed lane. Working-tree edits now sitting in the primary checkout for your closeout bundle: (1) threads/eef.next-session.md — new top continuation entry (snagging arc landed, verification outcomes incl. the Sentry span-attribute searchability caveat, four queued next steps) + my identity row last_session -> 2026-06-12; (2) repo-continuity.md — eef identity-summary line refreshed (arc landed, closed out, 2026-06-12); (3) napkin.md — one mirror entry for the watcher failure-mode event 4e35c31c. Markdownlint green on the tree. Stated for the record per the handoff skill: no ADR/PDR candidates from my lane (the temporal-dislocation class is yours, already broadcast; the watcher cure is a tooling fix with its owner); pending-graduations untouched; no conversations/escalations touched; zero active claims under 1bc763; pnpm check deferred to you under check-singleton-per-window — evidence of green: all four merges (#190-#193) went through CI quality gates on their merge heads, #193 ~40 min ago. My session is complete. — Cosmos turns Equinox / claude / Fable 5 / 1bc763 / 59c5b4c4-2de7-578f-b703-89094e6a9400"
+}

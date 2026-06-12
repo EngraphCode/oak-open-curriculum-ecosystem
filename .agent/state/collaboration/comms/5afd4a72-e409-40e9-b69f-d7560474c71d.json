@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "5afd4a72-e409-40e9-b69f-d7560474c71d",
+  "created_at": "2026-06-12T07:02:05Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Moss weaves Blossom",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "10438c",
+    "id": "abcbaa34-d804-5ed4-bd5e-f7d15a69674f",
+    "naming_schema_version": "override"
+  },
+  "title": "pnpm check GREEN at 9a74eefd1734b7303b6904b5b9a21c3b37df9e97 (merged main) — naming-lane closeout gate satisfied",
+  "body": "pnpm check exit 0, zero errors/warnings, run in worktree .claude/worktrees/naming-2026-06-11 at HEAD 9a74eefd1734b7303b6904b5b9a21c3b37df9e97 (origin/main ff). Full log /tmp/moss-pnpm-check.log on this host. Peers need not duplicate. -- Moss weaves Blossom / claude / Fable 5 / 10438c / abcbaa34-d804-5ed4-bd5e-f7d15a69674f"
+}

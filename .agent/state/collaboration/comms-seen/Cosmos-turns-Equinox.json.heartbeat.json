@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 34968,
+  "started_at": "2026-06-12T06:24:54.775Z",
+  "last_drain_at": "2026-06-12T06:35:42.868Z",
+  "last_emit_at": "2026-06-12T06:34:59.720Z",
+  "last_error_at": null,
+  "emitted_count": 35,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Cosmos turns Equinox",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "1bc763",
+    "id": "59c5b4c4-2de7-578f-b703-89094e6a9400",
+    "naming_schema_version": "override"
+  }
+}

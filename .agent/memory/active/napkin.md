@@ -232,3 +232,69 @@ its own sake. Instance of [[feedback_stay_with_stated_scope]].
   disease the token metric exists to cure — what you don't measure (assert) can vanish
   silently. Siblings: [[feedback_tests_no_global_state]], testing-strategy §No conditional
   tests, the EEF unit test's throw-guard precedent.
+
+## 2026-06-11 late — snagging-lane successor session (Cosmos turns Equinox, 1bc763)
+
+Mid-cycle pickup per PDR-063 (from Dusky Passing Mist) ran clean end-to-end: record read
+before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
+
+- **`tail -3` on a failed gate run destroyed the failure surface.** The PR-1 doc-fix push
+  failed pre-push; my pipe kept three lines and the failing task's name was gone — a clean
+  re-run (full log to file) came back green, so the original cause is unknowable. Instance
+  of read-diagnostic-artefacts-in-full: gate output goes to a file FIRST (`> log 2>&1`),
+  triage from the file; never triage through a tail.
+- **Transient pre-push failures on BOTH lanes in one window** (mine on the PR-1 doc fix;
+  Moss weaves Blossom's on the naming branch) — neither reproduces on a clean re-run.
+  Suspect: shared-worktree turbo cache under concurrent gate runs across worktrees.
+  Cure that worked: full-log capture + one clean re-run before treating a pre-push red as
+  content-rooted. If a third lane hits it, it stops being weather → candidate for a
+  build-system investigation.
+- **zsh does not word-split unquoted `$VAR`; `set -- $CYCLE` passed empty args** in my
+  heartbeat monitor loop (CLI rejected the typed heartbeat). Cure: one value per state
+  file (or `${=VAR}` if splitting is genuinely wanted). Same family as the zsh array
+  1-indexing gotcha.
+- **cwd is a peer-of-mine-mutable session variable too**: a `cd` in an earlier compound
+  command left me in the MAIN checkout (the Director's coordination home), where my next
+  `git switch` correctly refused on their dirty coordination state — the dirty files were
+  legitimate live registry/comms churn, not anomaly. Instance of the existing
+  stale-cwd/branch class: re-derive `pwd` + branch before ANY git-state operation in a
+  multi-checkout session.
+- **A wording test surfaced a real taxonomy fact**: EEF `answerType` is the COVERAGE axis —
+  explicit-id selection is `strand-lookup` at ANY cardinality (30 ids → strand-lookup);
+  `context-subset` is axis-selector-only. My test assumed cardinality semantics and went
+  red against correct code; the corrected test now encodes the fact. Writing the
+  describe-shaped test is what flushed the wrong mental model — TDD as discovery.
+
+## 2026-06-12 morning — resumed-session captures (Cosmos turns Equinox, 1bc763)
+
+- **I reported a frozen in-flight action as a remembered completion** (the Director's
+  temporal-dislocation behaviour-note names the class; this is my first-person instance).
+  The #192 merge I initiated before an overnight freeze actually EXECUTED at 06:24Z on my
+  wake; I reported it as "executed ~22:33Z" and told the Director their (correct) ground
+  truth was stale. Cure adopted: on any resumed turn, `date -u` first, then re-verify every
+  claimed-done external action against its authoritative surface (gh/git/comms dir), citing
+  the surface's own timestamps. Temporal sibling of the stale-cwd/branch class.
+- **A serverless export entry exits 0 silently when run directly** — `dist/server.js` is
+  the Vercel export, `dist/index.js` the Node listener (and `.env.local` resolves from the
+  app cwd). Forty minutes of "why is the log empty" for what one `cat scripts/start-server.sh`
+  answered. Reflex: when a server "starts" with no output and no port, check WHICH entry the
+  repo's own start script execs before debugging env. Homed: the write-up's replay recipe is
+  corrected (PR #193).
+- **comms watcher drain-deadline does not converge under load** (3 deaths in one session at
+  60s/180s/300s budgets; ~3,060-event dir; deaths correlate with parallel turbo gate runs).
+  Raising the budget is symptom-treatment; cure direction (batched/incremental drain off the
+  deadline path) is with the watcher's owner — full diagnosis in failure-mode comms event
+  4e35c31c. Supersedes the "raise drain budget" arm of the existing cure memory when the
+  third strike hits.
+
+### Closing addendum (Moss weaves Blossom, 2026-06-12 session close)
+
+- **Watcher drain budgets: invert, don't raise.** Six drain-timeout deaths across two
+  sessions killed 60s/180s/300s/540s budgets alike; the 540s death hit at moderate load on a
+  stable 3,143-event dir (9-minute wedge — intermittent blocking stall, not load-starvation).
+  Operational cure until the batched-drain fix is built: keep `--step-timeout-ms` SHORT
+  (~120s) so wedges die cheap and the seen-file gap-drain recovers fast. Evidence + cure
+  direction in comms events ~2026-06-12T06:42Z (Cosmos + mine).
+- Lane disposition at close: PR #189 merged (289b3e036), plan archived (PR #194, 9a74eefd1);
+  era-pinning cure plan is the lane's next work (repo-continuity carries the block); the
+  owner's v3 shape exploration is open with four sample sheets + Zephyr's allocation maths.

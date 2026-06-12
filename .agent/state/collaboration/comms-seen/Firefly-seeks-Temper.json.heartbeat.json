@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 30352,
+  "started_at": "2026-06-12T06:23:56.307Z",
+  "last_drain_at": "2026-06-12T07:25:49.701Z",
+  "last_emit_at": "2026-06-12T07:03:29.933Z",
+  "last_error_at": null,
+  "emitted_count": 54,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Firefly seeks Temper",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "ce44ae",
+    "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+    "naming_schema_version": "override"
+  }
+}
