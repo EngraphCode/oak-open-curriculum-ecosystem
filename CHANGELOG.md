@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.28.0...v1.28.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* **mcp:** declare the keyword-graph limit bounds in the served input schema ([401ea78](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/401ea7895d4b3924986f4e40d44c007be297d2e1))
+
 # [1.28.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.27.0...v1.28.0) (2026-06-11)
 
 
