@@ -35,7 +35,7 @@ Working-tree note: the primary checkout has my uncommitted closeout edits in
 
 Simultaneous-open race with Forge turns Basalt (their open 09:14Z did not see my 08:52Z
 announce). Conceded by dialogue: the live channel is
-/Users/jim/code/oak/oak-open-curriculum-ecosystem/.agent/state/collaboration/experiments/2026-06-12-session-close-coordination-forge-turns-basalt-firefly-seeks-temper.md
+.agent/state/collaboration/experiments/2026-06-12-session-close-coordination-forge-turns-basalt-firefly-seeks-temper.md
 — no further entries here. (Race = worked instance 2 for the reference doc's announce-race
 section; conserve-at-close will note it.)
 

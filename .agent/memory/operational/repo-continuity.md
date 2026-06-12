@@ -60,9 +60,12 @@ surface.
   the WS1 blind pass is ATTESTED uncontaminated (planning seat never opened the Candidate
   Themes sections or fenced pattern files). **The successor research session enters via the
   [opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md)
-  and begins at WS0.** (b) the enhanced-statusline lane is IN EXECUTION (Monsoon guards
+  and begins at WS0.** (b) the enhanced-statusline lane is PAUSED (Monsoon guards
   Cirrus `aaa0b7`, worktree `wt:statusline-enhancements`, branch `feat/statusline-enhancements`,
-  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)).
+  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)):
+  comms event `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream
+  `/keywords` description change) with WS1 staged and the commit window closed without
+  landing — resume is owner-keyed.
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session

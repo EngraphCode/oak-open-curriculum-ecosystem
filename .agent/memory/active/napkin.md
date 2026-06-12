@@ -181,3 +181,9 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   signature — Monsoon's three failures matched the depcruise-truncation shape, but their
   cwd at invocation is unverified; adjudicate per-instance when the agent-tools lane
   picks this up.
+- **Compose-without-sweep fired on this seat too** (distilled lesson, another instance,
+  bot-caught): my continuity team-update wrote "statusline lane IN EXECUTION" while the
+  same commit carried Monsoon's PAUSED comms event — I swept their event INTO the bundle
+  without reading it before composing the coordination text. Review-bot adjudication
+  (PR 201) caught it; corrected to PAUSED with the blocker named. The sweep must include
+  READING what is swept.

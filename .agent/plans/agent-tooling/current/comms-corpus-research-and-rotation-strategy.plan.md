@@ -30,7 +30,7 @@ todos:
   - id: ws7-ratified-execution
     content: "WS7 (owner-gated: fires only on owner ratification of the WS5 proposal): execute the ratified rotation end-state — (a) relocate load-bearing contract surfaces out of .agent/state/collaboration/ to tracked homes first (the five *.schema.json files consumed by agent-tools source, the test fixtures/ tree; default homes unless the WS5 proposal argues otherwise: schemas and fixtures into the agent-tools workspace, consumers updated, gates green); (b) PRESERVE everything under .agent/state/collaboration/experiments/ — owner direction 2026-06-12: experiments content is conserved, never purged. Interim safety landed in the planning session (gitignore policy flipped, five machine-local records committed in place); WS7 still routes the content to a durable tracked home OUTSIDE the untracked-by-design boundary, because step (c) would otherwise re-untrack it; (c) gitignore .agent/state/ as untracked-by-design (uniform classification with the .agent/state/onboarding/ precedent; the tracked README.md anchor remains in git); (d) delete comms events older than the ratified retention window (owner default 2026-06-12: 7 days; class-tiering permitted where WS2-WS4 evidence argues it) only after absorption/disposition is recorded per invariant 1. No step here runs before ratification."
     status: pending
-    depends_on: [ws5-rotation-strategy]
+    depends_on: [ws5-rotation-strategy, ws6-consolidation-closeout]
 isProject: false
 ---
 
