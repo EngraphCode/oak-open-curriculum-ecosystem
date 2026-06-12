@@ -1287,6 +1287,21 @@ them. Resumability is re-derivation, not memory: persisted session state is
 an owner-gated future upgrade pending the `.agent/state/` tracking decision
 (after the comms research plan completes).
 
+**First live run falsified the menu-shaped interaction (12 June 2026,
+owner walkthrough)**: the walker front-loaded prerequisite probes before
+greeting, rendered journey questions as forced-choice menus, and narrated
+its routing in repo jargon — "DOS menus from 1996, not a conversation".
+Root cause: structural instructions (detect-first precept, question-UI
+mandate, displayed forks) defeated the prose warmth contract — the
+passive-guidance-loses-to-artefact-gravity pattern inside a skill body.
+Redesign landed same day: greeting-before-any-tool-call as rule 1, free
+prose questions (menu UI banned for journey questions), the journey graph
+demoted to a private routing model, plain language until depth is opted
+into, detection only inside setup conversations. Standing design lesson
+for every interactive surface: a smoke test proves mechanics, only a real
+newcomer run proves experience — re-validate by live walkthrough after
+interaction-layer changes.
+
 Owner direction (in-session, 12 June 2026): a new interactive onboarding
 skill, `/oak-onboard-me`, will walk new people through onboarding with
 branching by audience and need — engineer vs impact-focused, strategy and
