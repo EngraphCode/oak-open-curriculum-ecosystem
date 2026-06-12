@@ -76,7 +76,11 @@ the evaluation evidence (conserved from the live experiment channel on
    open, the participants known so far, with the rest accreting
    on-channel (see §Running an n≥3 channel, roster accretion). The
    canonical stream is the discovery
-   index; the rapid channel cannot announce its own existence. (Observed
+   index; the rapid channel cannot announce its own existence — and the
+   announce binds at OPEN time too: before opening, search the stream
+   for an existing live channel announce naming your counterpart (second
+   race instance 2026-06-12 happened despite a 22-minute-old announce;
+   see §Evaluation evidence). (Observed
    failure modes: two agents opened channels simultaneously at ~07:50Z
    2026-06-11 — cured by first-broadcast-establishes-context; an agent
    missed three entries in 2026-05-27 after a channel moved paths; an
@@ -99,16 +103,51 @@ the evaluation evidence (conserved from the live experiment channel on
    prefix on every entry, retractions by new entry, critical assessment
    of peer claims before acting on them.
 
-## Evaluation evidence (as of 2026-06-11)
+## Evaluation evidence (as of 2026-06-12)
 
-Five arcs observed: a driver/reviewer commit-cycle collaboration
+Six arcs observed: a driver/reviewer commit-cycle collaboration
 (2026-05-27, turns 20–43 of the founding channel), a research handover
 with corrections (2026-05-28, turns 44–49), a work-split negotiation plus
 recon handover (2026-06-11), the owner-directed handover coordination
-that followed, and the first n≥3 group channel (2026-06-11, a
+that followed, the first n≥3 group channel (2026-06-11, a
 three-seat reliability successor team running rendezvous, boundary
 split, two PR deliveries, and a deliberate contraction entirely
-on-channel — see §Running an n≥3 channel).
+on-channel — see §Running an n≥3 channel), and a dual-session-close
+coordination (2026-06-12, Firefly seeks Temper × Forge turns Basalt:
+two closing sessions negotiated PR routing, a bundle-carry agreement,
+an owner-directed exception, and mutual sign-off in three entries —
+observations below).
+
+**From the sixth arc (2026-06-12, dual session-close):**
+
+- **Second announce-race instance, new vector**: the announce discipline
+  was FOLLOWED (canonical event 22 minutes prior) and the race happened
+  anyway — a peer entering on direct owner direction opened a second
+  channel without checking the stream for an existing announce. The
+  announce is necessary but not sufficient; the check must bind at OPEN
+  time: before opening a channel, search the canonical stream for a live
+  channel announce naming your intended counterpart. Cure shape, worked
+  twice now: dialogue-concession in one entry (substance-holder's file
+  wins regardless of broadcast order), forwarding-pointer entry on the
+  conceded file, tail switch — ~2 minutes, no owner mediation.
+- **Deadline+default at n=2 delivered its designed value**: the opening
+  entry declared a 30-minute deadline with a complete-my-closeout
+  default; the reply landed inside the window; a dark seat would have
+  cost nothing. First observed n=2 firing of the dark-seat backstop
+  shape (previously only retained at n≥3).
+- **Directed-event announce variant**: the second channel's announce was
+  a DIRECTED comms event to the counterpart rather than a broadcast —
+  it reached the peer via the all-channels watcher. Valid variant for a
+  known-pair channel; broadcast remains the shape when the roster may
+  accrete.
+- **Owner-authority relay with citation, bidirectional**: two owner
+  directions (a consolidation-session sequencing fact and a
+  separate-PR routing exception) were relayed on-channel with turn
+  citations and acted on safely by the peer — the citation discipline
+  carried both directions in one arc.
+- **Five-point reply convention emerged**: the reply mirrored the
+  opening entry's numbered points one-for-one, which let both sides
+  verify absorption line-by-line at sign-off. Cheap, worth repeating.
 
 **Measured benefits:**
 

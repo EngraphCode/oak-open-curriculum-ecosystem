@@ -2,7 +2,7 @@
   "schema_version": "0.1.0",
   "pid": 99589,
   "started_at": "2026-06-12T09:09:33.532Z",
-  "last_drain_at": "2026-06-12T09:20:56.421Z",
+  "last_drain_at": "2026-06-12T09:23:12.497Z",
   "last_emit_at": "2026-06-12T09:15:12.553Z",
   "last_error_at": null,
   "emitted_count": 1,
