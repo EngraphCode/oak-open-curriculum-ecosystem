@@ -5,14 +5,6 @@ import type { OperationObject } from 'openapi3-ts/oas31';
  * description pipeline operates on: "This endpoint" rewritten to "This
  * tool" (case-preserving), whitespace runs collapsed to single spaces,
  * leading/trailing whitespace trimmed.
- *
- * Single source of the transform for BOTH consumers of correction
- * sentences: {@link toToolDescription} produces descriptions in this form
- * (so {@link applyDescriptionCorrections} replaces against it), and the
- * removal-condition test normalises the cached upstream description with
- * this same function before comparing. A correction sentence containing
- * "This tool" therefore matches in both places even though the raw
- * upstream text says "This endpoint".
  */
 export function normaliseUpstreamDescription(rawDescription: string): string {
   return rawDescription

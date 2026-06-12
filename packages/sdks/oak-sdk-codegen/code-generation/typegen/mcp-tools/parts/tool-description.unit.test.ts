@@ -156,9 +156,12 @@ describe('toToolDescription', () => {
           "This endpoint returns the types of available assets for a given lesson, and the download endpoints for each. This endpoint contains licence information for any third-party content contained in the lesson's downloadable resources.",
       };
       const result = toToolDescription(operation);
-      expect(result).toContain('Downloadable lesson assets\n\n');
-      expect(result).toContain('This tool returns the types');
-      expect(result).toContain('This tool contains licence information');
+      expect(result).toBe(
+        'Downloadable lesson assets\n\n' +
+          'This tool returns the types of available assets for a given lesson, and the ' +
+          'download endpoints for each. This tool contains licence information for any ' +
+          "third-party content contained in the lesson's downloadable resources.",
+      );
     });
   });
 });
@@ -268,10 +271,9 @@ describe('appendToolEnhancements', () => {
 /**
  * Unit tests for normaliseUpstreamDescription pure function.
  *
- * Proves: the single shared transform both pipeline and removal-condition
- * test apply to upstream descriptions — "This endpoint" rewritten to "This
- * tool" (case-preserving) and whitespace runs collapsed — so a correction
- * sentence written in pipeline form matches in both consumers.
+ * Proves: the transform the tool-description pipeline applies to raw
+ * upstream descriptions — "This endpoint" rewritten to "This tool"
+ * (case-preserving) and whitespace runs collapsed to single spaces.
  */
 describe('normaliseUpstreamDescription', () => {
   it('rewrites "This endpoint" to "This tool" preserving case', () => {

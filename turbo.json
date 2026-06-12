@@ -29,7 +29,7 @@
     "sdk-codegen": {
       "dependsOn": ["^build"],
       "cache": true,
-      "outputs": ["**/generated/**"],
+      "outputs": ["**/generated/**", "**/schema-cache/**"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "**/code-generation/**/*.ts",

@@ -20,6 +20,25 @@ surface.
 
 ## Current State
 
+- **UPSTREAM-SPEC ALIGNMENT — PR #200 (2026-06-12, Tempest spins Stratosphere `123098`).**
+  Branch `fix/align_with_upstream_api_spec` (worktree seat) aligns the repo with the
+  upstream OpenAPI description rewrite (oak-openapi PR 269, `0.7.0-69d2b6c9…`): docs-only
+  drift verified structurally; schema cache + 30 generated files refreshed; the
+  `/keywords:get` correction mechanism retired in full (its removal-condition test fired as
+  designed; `param-description-overrides` remains the live exemplar); turbo `sdk-codegen`
+  outputs now cover the full write-set (`**/schema-cache/**`); the upstream-spec-change
+  runbook landed in the
+  [sdk-codegen README](../../../packages/sdks/oak-sdk-codegen/README.md#responding-to-upstream-spec-changes)
+  with caching doctrine in
+  [build-system.md](../../../docs/engineering/build-system.md#caching). Peers Fern lifts
+  Mulch + Monsoon guards Cirrus rebase onto main once merged. **Open owner forks** (PR
+  body): endpoint-style cross-refs in MCP tool descriptions (faithful adoption now;
+  generator tool-name rewrite is a separable decision) and Q-010 (repair vs retire the
+  orphaned `oak-curriculum-sdk` typedoc api-md estate). Register evidence appended:
+  collaboration-CLI relative-path hardening now carries the worktree-lockout shape
+  (commit-queue write commands cannot address the shared registry from a worktree seat).
+  Deep consolidation status: completed this handoff — session-completion mode; the
+  session's learning homed via commit `3c8ac0bcb` (runbook, caching doctrine, registers).
 - **ONBOARDING-IMPROVEMENT ARC — PR #199 OPEN, merge-once-green owner-directed (2026-06-12,
   Vanilla lifts Chlorophyll `8dca0d`).** The arc landed on `feat/onboarding-improvement`:
   `/oak-onboard-me` walker (conversation-first after live owner falsification; untracked
