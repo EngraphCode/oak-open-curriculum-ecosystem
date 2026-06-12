@@ -1275,6 +1275,18 @@ review pending (4 personas: junior dev, lead dev, CTO, CEO).
 
 ## Interactive Onboarding Inputs (12 June 2026)
 
+**Status: LANDED same day** — the skill shipped as
+`.agent/skills/onboard-me/SKILL-CANONICAL.md` (published `/oak-onboard-me`)
+via [oak-onboard-me-skill.plan.md](oak-onboard-me-skill.plan.md), built to
+the design inputs below (router-not-copy; detect-first; go-ahead-gated).
+Owner-directed scope addition at build time (12 June 2026): a Practice
+branch — what the Practice is, how to work with the agents through the
+skills, and how agents accelerate development without compromising quality
+or safety — routing to the live Practice explainers rather than copying
+them. Resumability is re-derivation, not memory: persisted session state is
+an owner-gated future upgrade pending the `.agent/state/` tracking decision
+(after the comms research plan completes).
+
 Owner direction (in-session, 12 June 2026): a new interactive onboarding
 skill, `/oak-onboard-me`, will walk new people through onboarding with
 branching by audience and need — engineer vs impact-focused, strategy and

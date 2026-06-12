@@ -13,6 +13,10 @@ last_reviewed: 2026-06-12
 
 ## Getting Started
 
+- **New to everything?** → run `/oak-onboard-me` in an agent session
+  (`$oak-onboard-me` in Codex) — an interactive onboarding walker that
+  branches by audience and need, detects your setup state, and reads the
+  live docs as it guides you
 - **Evaluating the project?** → [VISION.md](foundation/VISION.md) for the
   timeless framing: MCP Apps exploration in AI platforms, sector reuse of
   Oak's openly licenced curriculum, hybrid semantic search, knowledge graphs,
