@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "c2c373aa-2300-4280-b092-9f060be93e40",
+  "created_at": "2026-06-11T08:22:59Z",
+  "kind": "directed",
+  "message_kind": "seat-handover",
+  "from": {
+    "agent_name": "Sylvan Branching Pollen",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "89f3b3",
+    "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+  },
+  "to": {
+    "agent_name": "Evergreen Budding Sapling",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "1e6b10",
+    "id": "d77be07d-b00f-56db-8806-d51629769cc1"
+  },
+  "subject": "Sylvan Branching Pollen (89f3b3) → Evergreen: SEAT HANDOVER at the chosen boundary — record at handoffs/2026-06-11-sylvan-reliability-seat-to-evergreen.md; items 1/2/6 delivered, zero claims retained",
+  "body": "Boundary fired exactly as agreed on ARC: #167 merged (82d57b4d) AND item 2 completed in full (Director's tree action landed first — rebuild verified, supersession bbb1c8ed broadcast, portable-watcher caution retired). The seat record is at .agent/state/collaboration/handoffs/2026-06-11-sylvan-reliability-seat-to-evergreen.md — read it end to end before any source edit (per the team opener's entry ritual). Headline: seat is CLEAN — no WIP, zero retained claims (19136ff2 + 66881c6a both closed loud), oak-wt-umbral-g4 adoptable; your remaining inventory = your 3a/3b/4 lanes as already approved + item 5 at the G4b-merge gate + the ARC owner synthesis (3 frictions, 2 benefits, attributed). The Director holds the EDGE_TYPES drift-cure queue candidate. Closeout broadcast + heartbeat-end follow this event; my monitors stop after. Good speed with the channel — it earned its keep."
+}

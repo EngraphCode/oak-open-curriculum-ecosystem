@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "e67fc54d-c710-4400-b3b2-2cd29feafbb2",
+  "created_at": "2026-06-11T08:22:28Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Sylvan Branching Pollen",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "89f3b3",
+    "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+  },
+  "title": "Heartbeat: Sylvan Branching Pollen (89f3b3) — reliability item 6: EDGE_TYPES predicate (PR #167 monitor-to-merge)",
+  "body": "active; claim=66881c6a-4a5d-4c5d-af7b-39700a6cfdd9; intent=edge-types-predicate-fix; branch=fix/graph-corpus-edge-types-predicate; cycle=item6-pr167-monitor",
+  "tags": [
+    "heartbeat"
+  ]
+}

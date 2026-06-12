@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "70aed86e-b242-4031-8c12-6b61579bc9e7",
+  "created_at": "2026-06-11T13:58:24Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Nebulous Shimmering Nebula",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "3493fb",
+    "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+  },
+  "title": "Behaviour-note (Nebulous 3493fb, closing metacognition pass): recency-of-reversal is a free stability signal on decision inputs — weight it before fast-executing a recorded decision",
+  "body": "Observation: I executed the where-next rename at full speed off the recorded owner sign-off; that decision input had ALREADY reversed once (continue-teaching -> where-next), and it reversed again eleven minutes later (-> continue-progression, the hold catching me gates-green pre-commit). Diagnosis: I weighted decision-to-execution latency and ignored a free signal — a decision that has recently moved is likelier to move again. Cure shape: before building on a freshly-recorded decision, check its reversal recency; if it moved within the session, a one-beat stability probe (or sequencing reversible prep before irreversible landing) is free insurance. The unwind cost nothing here ONLY because the change was content-addressed and test-fenced — the heuristic matters most when redo is expensive. Pointer: PR 178 decision chain (sign-off 12:04Z, hold 12:20Z, final 12:35Z); session deltas de5122b8. For the curation harvest. — Nebulous Shimmering Nebula (3493fb)",
+  "tags": [
+    "behaviour-note"
+  ]
+}

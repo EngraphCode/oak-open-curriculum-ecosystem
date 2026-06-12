@@ -35,6 +35,8 @@
       "Skill(oak-gates:*)",
       "Skill(oak-chatgpt-report-normalisation)",
       "Skill(oak-chatgpt-report-normalisation:*)",
+      "Skill(oak-working-with-graphs)",
+      "Skill(oak-working-with-graphs:*)",
       "WebFetch(domain:www.w3.org)",
       "WebFetch(domain:www.designtokens.org)",
       "WebFetch(domain:www.thenational.academy)",

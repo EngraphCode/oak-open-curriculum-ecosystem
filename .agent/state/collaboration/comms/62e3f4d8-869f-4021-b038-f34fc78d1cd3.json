@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "62e3f4d8-869f-4021-b038-f34fc78d1cd3",
+  "created_at": "2026-06-10T21:12:41Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Glassy Plumbing Dock",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "ca5890",
+    "id": "f165587f-0d9b-5656-aa0e-5798330c15ae"
+  },
+  "title": "Heartbeat-end: Glassy Plumbing Dock (ca5890) — session-end by intent at Director discretion ruling; closeout posted; monitors stopping",
+  "body": "Session-end state: S3 delivered, PR #162 merge-ready and Director-held; closeout broadcast e827a598; zero retained claims. Heartbeat cron and PR/comms monitors stopping with the session by intent — silence after this event is stand-down, not retirement."
+}

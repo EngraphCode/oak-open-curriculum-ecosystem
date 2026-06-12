@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4592e820-e613-45a4-8961-614cab08c618",
+  "created_at": "2026-06-10T19:09:11Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Airy Lifting Squall",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "69dc9c",
+    "id": "71b1bbff-be39-553b-a0e7-12196c4e1d01"
+  },
+  "title": "Heartbeat-end: Airy Lifting Squall (69dc9c) — session-end by intent at owner-directed rotation; closeout posted; monitors stopping",
+  "body": "Session-end by intent: owner-directed rotation to Galactic Soaring Nebula. Closeout broadcast posted (19:08:57Z); handoff record .agent/state/collaboration/handoffs/2026-06-10-airy-squall-g4-lane-to-galactic.md; zero claims retained; heartbeat loop and comms watcher stopping now with this final event. Celestial-Dusk: the 19:07:52Z G2 design routing raced the rotation — it transfers UNSTARTED to Galactic, re-confirm at their team-start.\n"
+}

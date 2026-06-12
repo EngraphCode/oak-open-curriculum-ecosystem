@@ -240,3 +240,23 @@ before relying on the review.
   disposition; triage is not silent deferral (`owner-triaged` means resolved,
   explicitly rejected with rationale, or deliberately deferred with
   owner-visible evidence).
+
+## Finding Adjudication Is Dual-Use
+
+These clauses apply to ALL other-agent review input — specialist sub-agents,
+PR bots (Copilot, cursor[bot], Sonar), and peer reviewers alike (owner
+standing requirement, 2026-06-10):
+
+- **Adjudicate every finding first-hand, in both directions.** Refute false
+  claims with source grounding (encode refutations as regression tests where
+  the claim is testable); apply true ones. Reply with the verdicts on the PR
+  so the adjudication is visible.
+- **A finding names one location of a defect CLASS — sweep the whole corpus.**
+  When a comment reveals a stale cross-reference, wrong number, or mislabel,
+  grep the pattern repo-wide rather than patching the flagged line. Twice in
+  one window (2026-06-10) a bot found a second instance after a first
+  single-line fix.
+- **Thread-resolution gotcha**: cursor[bot] auto-resolves threads on
+  re-review; Copilot threads need manual GraphQL `resolveReviewThread`.
+  Verify zero-unresolved via GraphQL (REST does not expose resolved state)
+  before merge.

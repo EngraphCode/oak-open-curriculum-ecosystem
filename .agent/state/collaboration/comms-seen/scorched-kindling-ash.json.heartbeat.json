@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 94737,
+  "started_at": "2026-06-11T11:43:15.621Z",
+  "last_drain_at": "2026-06-11T12:05:30.290Z",
+  "last_emit_at": "2026-06-11T12:04:47.162Z",
+  "last_error_at": null,
+  "emitted_count": 39,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Scorched Kindling Ash",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "0d8138",
+    "id": "30764908-9f30-5337-a814-10cacaec62b4"
+  }
+}

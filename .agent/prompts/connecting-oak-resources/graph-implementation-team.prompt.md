@@ -1,5 +1,8 @@
 # Graph Implementation Team — Session Opener
 
+> When working with other agents, all responses, work, claims and sources
+> must be critically assessed before being accepted.
+
 **Type**: handover (team session entry point; owner-ratified shape 2026-06-10)
 **Plan authority**:
 [`graph-tools-value-redesign.plan.md`](../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
@@ -9,7 +12,11 @@ authority). Evidence:
 **Entry ritual**: every seat runs
 [`start-right-team`](../../skills/start-right-team/SKILL-CANONICAL.md) (Director) or
 [`start-right-quick`](../../skills/start-right-quick/shared/start-right.md) (implementers),
-registers its PDR-027 identity on the `eef` thread, and reads this brief end to end.
+registers its PDR-027 identity on the `eef` thread, and reads this brief end to end. A seat
+continuing another session's lane ALSO reads its seat's latest handoff record under
+`.agent/state/collaboration/handoffs/` end to end before any source edit — natural-boundary
+closeouts leave no claim carrying `handoff_record_path`, so the record is reached from here, the
+Director's pickup brief, and the thread record, not from the claims registry.
 
 ## Team shape (owner-ratified)
 
@@ -47,7 +54,14 @@ machine-local path into a versioned file). Consequences, by construction:
 
 ## Worktree setup (operator or Director, once per seat)
 
-From the primary checkout, on a current `main`:
+From the initial primary checkout, on a current `main`, every agent creates a new worktree for
+itself — or, when continuing a seat after a session rotation, adopts the seat's existing worktree
+in the state the handoff record describes (pull `main`, cut the next branch; never re-create over
+a worktree holding recorded state).
+
+Director worktrees should be clearly identified as such.
+
+Guidance:
 
 ```bash
 git worktree add <worktrees-root>/wt-seat-a -b feat/<first-deliverable-a> origin/main
@@ -56,9 +70,34 @@ git worktree add <worktrees-root>/wt-seat-b -b feat/<first-deliverable-b> origin
 cd <worktrees-root>/wt-seat-a && pnpm install && pnpm build
 ```
 
+If a deliverable runs vocab-gen: `apps/oak-search-cli/bulk-downloads` is gitignored and
+machine-local — symlink the data files from the primary checkout into the worktree's
+skeleton dir (git-invisible; proven in the PR-180 cycle). Know the generator-task mapping
+before assuming a regen ran: `data.json` is written by vocab-gen, and a FULL-TURBO replay
+on sdk-codegen can mask that vocab-gen never re-emitted.
+
 Each seat opens its Claude Code session in its own worktree directory. Branches rotate inside a
 worktree per deliverable (one small PR per deliverable, always based on `origin/main` — flat,
 never stacked). After a seat's PR merges, the seat pulls `main` and cuts the next branch.
+
+## Branching strategy (owner-ratified 2026-06-11; resolves Q-008)
+
+Three branch classes, three lifecycles:
+
+- **Implementer feature branches**: one per deliverable, cut from current `origin/main` in the
+  seat's worktree, landed as one small pure-diff PR, deleted at merge. Never stacked; never carry
+  coordination state.
+- **The coordination home**: ONE long-lived `docs/<team>-<date>` branch on the primary checkout,
+  Director-owned, sole writer. It accumulates coordination state and continuity as
+  `docs(continuity)` commits and is pushed at waypoints — it is never PR'd mid-arc and never
+  rebased.
+- **Coordination home ⇇ main merges**: the Director merges `origin/main` INTO the coordination
+  home (forward-only, merge commit, never rebase) whenever (a) the Director seat's tooling needs
+  source that has landed on main (e.g. an `agent-tools` rebuild), or (b) generated-file drift
+  against `origin/main` accumulates — the branch-lag class that once produced a false
+  schema-bump diagnosis. Run a divergence analysis first; resolve conflicts main-authoritative
+  for source and generated files, branch-authoritative for coordination state. Drift baselines
+  are always `origin/main`, never branch HEAD.
 
 ## Seat briefs
 

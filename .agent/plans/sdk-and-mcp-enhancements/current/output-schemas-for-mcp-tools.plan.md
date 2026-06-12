@@ -162,6 +162,17 @@ Every tool's `payloadSchema` is emitted at its authoritative source. Sources are
 The cure — emit a runtime Zod schema at each tool's source — differs per provenance, which is why W0
 is phased by readiness.
 
+**Landed-shape note (2026-06-11, owner decision via the
+[2026-06-11 snagging plan](oak-prod-mcp-snagging-2026-06-11.plan.md) S1/PR-2,
+commit `20ad83326`):** `get-eef-evidence` no longer returns the bare
+`EefEvidenceEnvelope` as `structuredContent` with `content: []`. It now emits
+through `formatToolResponse` like every aggregated tool — dual `content`
+blocks plus the decorated `structuredContent`
+(`{...envelope, summary, oakContextHint, status}`). This removes the latent
+EEF special case in this plan: `composeEnvelopeSchema` applies uniformly to
+EEF in W2 (envelope over the W0-cycle-3 corpus payload Zod), with no
+EEF-specific bare-envelope variant needed.
+
 ## The Two Contracts (the load-bearing distinction)
 
 ### Contract A — Upstream API response validation (EXISTING, unchanged)
@@ -286,7 +297,10 @@ no tool is a special case (revised 2026-06-08).
 1. **EEF D6/D7 (priority, first).** The EEF tool ships `structuredContent` with
    **no** `outputSchema`, uniform with every other aggregated tool, and does not
    touch the carrier. EEF gains its output schema in this plan (phase 3), not at
-   D6.
+   D6. *(Landed 2026-06-09; then revised 2026-06-11: the D6 `content: []`
+   success shape was reversed by the owner — EEF now emits the
+   `formatToolResponse` dual shape, PR-2 of the 2026-06-11 snagging plan. See
+   the landed-shape note under §Provenance.)*
 2. **The graph tools migrate (`graph-tools-value-redesign`).** Each graph tool is
    rebuilt onto the `graph-corpus-sdk` substrate with bounded retrieval, shipping
    **no MCP `outputSchema`** — they work exactly as they do today (an MCP tool
@@ -343,6 +357,11 @@ state where the field is optional.
   carries `answerType` and a full-vs-headline member union (the A-i/C increment —
   `evidenceForMoveHeadlines` + the `detail` input); W0-cycle-3 and W2 compose the
   output Zod over that real shape (a nested member union, never a root union).
+  **Update 2026-06-11:** the D6 `content: []` / bare-envelope `structuredContent`
+  shape is reversed (owner decision, PR-2 of the 2026-06-11 snagging plan,
+  commit `20ad83326`) — EEF now emits the `formatToolResponse` dual shape, so
+  W2's `composeEnvelopeSchema` applies to EEF exactly as to every other
+  aggregated tool, over the same W0-cycle-3 corpus payload Zod.
 - **One seam, one schema owner.** This plan owns the carrier seam AND every
   tool's `outputSchema`; the EEF and graph-migration plans own their tools'
   construction. Coordinate on the seam; ownership does not transfer.

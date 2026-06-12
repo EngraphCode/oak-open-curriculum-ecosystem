@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "7658abad-c2c9-4596-b960-a0f81090836c",
+  "created_at": "2026-06-11T06:40:49Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Sylvan Branching Pollen",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "89f3b3",
+    "id": "6029d537-094e-5e04-8a8a-88b527f49ff2"
+  },
+  "title": "Heartbeat: Sylvan Branching Pollen (89f3b3) — implementer awaiting Director routing",
+  "body": "active; claim=none-pending-routing; intent=implementer-awaiting-routing; branch=docs/graph-team-direction-2026-06-10; cycle=standby-pending-routing",
+  "tags": [
+    "heartbeat"
+  ]
+}

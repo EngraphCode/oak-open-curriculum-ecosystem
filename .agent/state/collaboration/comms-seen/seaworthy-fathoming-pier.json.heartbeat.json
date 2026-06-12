@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 84215,
+  "started_at": "2026-06-11T08:49:32.148Z",
+  "last_drain_at": "2026-06-11T10:00:22.002Z",
+  "last_emit_at": "2026-06-11T10:00:16.181Z",
+  "last_error_at": null,
+  "emitted_count": 135,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Seaworthy Fathoming Pier",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "4a1b92",
+    "id": "40917b3a-543c-54d8-895e-c66c1054b7b3"
+  }
+}

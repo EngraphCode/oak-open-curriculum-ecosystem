@@ -9,6 +9,14 @@
 - **Status**: write-up only — no fixes applied, by owner direction
   (2026-06-11 evening). The tracker is
   [`oak-prod-mcp-snagging-2026-06-11.plan.md`](../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md).
+- **Outcome addendum (2026-06-11, late evening)**: the owner decided S1 the
+  same day — `get-eef-evidence` aligns onto the family dual response shape
+  (§7 option 1, strengthened: full `formatToolResponse` delegation, not just a
+  TextContent mirror), superseding the D6/D7 structuredContent-only
+  ratification. Executed as PR-2 (`feat/eef-dual-shape-alignment`, commit
+  `20ad83326`). A live Claude Code probe completed the client matrix the same
+  session — see §3a. Shape B no longer leaves the server: post-PR-2, every
+  `get-eef-evidence` success is Shape A.
 - **Companion evidence**: the full live-exercise verification record
   `oak-prod-live-mcp-exercise-2026-06-11.md` lives on branch
   `docs/graph-team-direction-2026-06-10` (commit `ae5372e2c`, pushed to
@@ -119,6 +127,23 @@ content delivered into the model context by Cursor's harness.
    threshold was not probed. Note for successors: file diversion is a
    Cursor-harness behaviour, not server behaviour.
 
+### 3a. Addendum (2026-06-11, same session): the Claude Code matrix row
+
+A live Claude Code probe against oak-prod (session 2c0c4b, Dusky Passing
+Mist) established the opposite half of the visibility split:
+
+| # | Call | Server shape | Agent sees (Claude Code) |
+|---|------|--------------|--------------------------|
+| 8 | Shape-A dual-content success | A | ONLY `structuredContent` — the decorated JSON (with `summary`/`oakContextHint`/`status` keys present); the `content` text blocks are NOT delivered to the model. |
+| 9 | `get-eef-evidence` Shape-B success | B | The `structuredContent` envelope renders fine — the EEF tool was never broken for Claude Code. |
+
+So the two clients surface **opposite halves** of the response: Cursor only
+`content`, Claude Code only `structuredContent`; claude.ai and ChatGPT
+surface both (in-repo research
+`mcp-client-tool-result-consumption-2026-05-28.md`). Only the dual shape
+renders everywhere — the basis of the owner's S1 decision (see the Outcome
+addendum at the top).
+
 ## 4. The prompt layer — who can invoke what in Cursor
 
 - **Agent-side**: Cursor's agent harness exposes MCP **tools** (via
@@ -164,7 +189,10 @@ content delivered into the model context by Cursor's harness.
    - whether ANY content-block-only behaviour exists in other major clients
      (Claude Code, Codex, Gemini CLI…) — worth a one-call probe each before
      deciding S1, since the fix decision should rest on the client
-     population, not Cursor alone.
+     population, not Cursor alone. *(Answered for Claude Code the same
+     session — see §3a: it surfaces ONLY `structuredContent`, the opposite
+     half. The owner closed S0 on this matrix; Codex/Gemini probes remain an
+     optional annex, not gates.)*
 
 ## 6. Replay recipe for a non-Cursor agent
 
@@ -189,6 +217,16 @@ Then over JSON-RPC (`initialize` → `tools/call`):
   expect `isError: true` with the selector-refusal text.
 
 ## 7. Disposition options for S1 (decision is the owner's)
+
+> **Decided (owner, 2026-06-11):** option 1, strengthened — full
+> `formatToolResponse` delegation (dual `content` blocks + decorated
+> `structuredContent`), executed as PR-2, commit `20ad83326`. The §3a matrix
+> made option 2 untenable: holding the ratified shape would have kept the
+> tool dead for the content-block-only client population. The coherence note
+> (option 3) is reconciled in
+> [`output-schemas-for-mcp-tools.plan.md`](../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md)
+> §Provenance landed-shape note: `composeEnvelopeSchema` now applies to EEF
+> uniformly.
 
 1. **Add a serialised TextContent mirror to `get-eef-evidence` success**
    (one change at the handler boundary in `aggregated-eef-evidence.ts`,

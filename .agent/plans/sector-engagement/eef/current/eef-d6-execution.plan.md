@@ -65,6 +65,19 @@ todos:
 
 # EEF D6 execution — EEF as the first graph tool on the new substrate
 
+**Supersession note (owner, 2026-06-11):** the structuredContent-only success
+shape (`content: []`) this plan built is reversed. `get-eef-evidence` now
+emits the family dual response shape via `formatToolResponse` (summary +
+serialised-JSON `content` blocks PLUS decorated `structuredContent`), landing
+in PR-2 of
+[`oak-prod-mcp-snagging-2026-06-11.plan.md`](../../../sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+(branch `feat/eef-dual-shape-alignment`, commit `20ad83326`). Reason: the
+2026-06-11 live client matrix — Cursor renders only `content` blocks, Claude
+Code only `structuredContent` — so the prior shape was invisible to
+Cursor-class agents. Read this plan's `content: []` /
+`structuredContent`-only statements (frontmatter `owner_scope`, cycle bodies)
+as the historical record of the superseded ratification.
+
 > **Ready to execute (`c1`–`c6`; no `c0`).** `get-eef-evidence` is an aggregated
 > graph-tool-family peer — an `AGGREGATED_HANDLERS` entry SDK-side, registered and
 > executed uniformly, with uniform auth (`securitySchemes`), a runtime

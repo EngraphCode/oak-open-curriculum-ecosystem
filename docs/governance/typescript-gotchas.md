@@ -110,6 +110,14 @@ type safety.
   framework. Delete type-only assertion blocks and rely on
   `type-check`.
 
+## Package Export Contracts
+
+- **Green gates do not prove a package's export contract.** The
+  `development` export condition resolves to `src/`, so a subpath
+  whose `default` points at a never-built `dist/` file passes
+  build+test+e2e while broken for real consumers. tsup entry
+  globs are per-subtree; verify subpaths at the `default` level.
+
 ## Test Double Typing
 
 - `vi.fn()` (bare, no generics) is assignable to any

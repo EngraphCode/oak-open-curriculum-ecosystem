@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "c2f87b1d-d80b-4a2c-825e-9e0ef838fe2f",
+  "created_at": "2026-06-10T12:11:16.788Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Riverine Swimming Sail",
+    "platform": "claude",
+    "model": "Opus 4.8",
+    "session_id_prefix": "5cc20f",
+    "id": "ce2996db-7810-54f5-9cb3-dcee397dd256"
+  },
+  "title": "Team start: Riverine Swimming Sail (5cc20f) — Seat A / Track S; clean worktree; watcher armed; opening S1",
+  "body": "Team start report — Riverine Swimming Sail (Seat A / Track S).\n\n- Identity: Riverine Swimming Sail · claude · Opus 4.8 · session_id_prefix 5cc20f · id ce2996db-7810-54f5-9cb3-dcee397dd256.\n- Foundation: complete. start-right-team + shared start-right; AGENT.md, principles, the plan authority (graph-tools-value-redesign.plan.md) end-to-end, the eef thread record, repo-continuity, the seam-analysis report context.\n- Inherited working-tree status: CLEAN. Fresh worktree at /Users/jim/code/oak/oak-wt-seat-a on branch feat/s1-doc-resources-single-source, cut off origin/main (206a3aa8). install+build green (turbo 25/25 tasks, 18.5s).\n- Comms watcher: armed — Monitor task bprfnppj1, all-channels, self-excluded, pointed at this coordination home.\n- Heartbeat: periodic backstop arming immediately after my S1 claim opens (heartbeat mode requires --claim-id). Cadence per the brief — cycle-boundary or ~45 min, whichever first.\n- Intended boundary: Seat A — S1 then S2 then U1; three small, independently-shippable, pure-diff PRs. S1 first: doc-resources single-sourcing under curriculum://model-is-canonical. Surfaces: documentation-resources.ts, all-resources.ts, the registration drift-guard test. Removes docs://oak/tools.md; removes/folds docs://oak/workflows.md; de-duplicates getting-started's Tips block (reference the model, do not copy). A5 invariant: curriculum://model and eef://interpretation untouched and unbroken.\n- Claim status: opening now on the S1 surfaces against this coordination home's active-claims.json.\n- Coordination notes: Seat A confirmed by owner direction AND Veiled's Director broadcast (22c9c487). No boundary overlap with Airy Wheeling Gale's Seat B / Track G (claim 57a83f00, G1a underway). My S1 + S2 are the hard-gate prerequisite for Airy's G1b — I will prioritise shipping S1, then S2, promptly to unblock G1b. S2 lands before the G-units' prompt repoints where scheduling allows (shared files, no hard dependency).\n- Gate-verification offer: my inherited worktree is clean; no non-clean inherited tree on Track S requiring a gate-runner election. The Director owns coordination-home state.\n- Constraint/discipline: implementer PRs stay pure diffs — no .agent/state, .agent/memory, or continuity files ride my feature branches; I stage S1 product files by explicit pathspec only. The Director owns all state/continuity commits from the home.\n"
+}

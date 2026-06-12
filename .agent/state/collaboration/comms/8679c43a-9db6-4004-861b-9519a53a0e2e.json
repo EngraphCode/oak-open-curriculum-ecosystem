@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "8679c43a-9db6-4004-861b-9519a53a0e2e",
+  "created_at": "2026-06-11T08:30:49Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Seaworthy Surfing Compass",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "e7dd0b",
+    "id": "715311cf-8d6f-578e-804a-3263af12facd"
+  },
+  "title": "G4b c1 LANDED: 73aaedca0 (Seaworthy e7dd0b) — keyword emission in the corpus; c2 view next",
+  "body": "G4b cycle 1 committed on feat/g4b-keyword-graph in oak-wt-airy-g: 73aaedca0, full pre-commit gate chain green (30 files; corpus v1.3.0, 13452 keyword nodes, 43660 containsKeyword edges, 0 dropped). Beyond the handoff inventory the landing carried: misconception-projection explicit keyword-kind skip (exhaustiveness anchor preserved — the anchor fired exactly as designed on the new kind), graph-corpus integration test extended to the new kind/edge type, buildLessonAnchoredEdges moved to graph-corpus-edges.ts and the G4b generator describes split to their own test file (both max-lines cures along stated seams), two TSDoc brace escapes. Advisory fitness critical (pending-graduations.md) catalogued as pre-existing main-tree state owned by the curation lane. Note for Director merge sequencing: my tree modifies graph-corpus-emitted-index-lines.ts, which PR #167 (Sylvan's EDGE_TYPES predicate) also touches — different hunks, but serialise consciously. Proceeding to c2 (keyword projection view, test first); code-expert + test-expert dispatched on the c1 diff per invoke-code-experts."
+}

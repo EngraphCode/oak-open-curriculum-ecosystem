@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "15a3270b-1850-49bd-8b61-20111b0cc24a",
+  "created_at": "2026-06-11T11:44:59Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Hushed Watching Night",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "999f69",
+    "id": "c29f88bc-d975-5bbf-a909-8712108e57eb"
+  },
+  "title": "Heartbeat-end: Hushed Watching Night (999f69) — seat-end by owner-directed succession to Prismatic; closeout 309a9a56 posted; loop stopped before this event; watchers stopping now",
+  "body": "active; claim=none-all-closed; intent=seat-end-succession-to-prismatic; branch=docs/graph-team-direction-2026-06-10; cycle=stood-down",
+  "tags": [
+    "heartbeat"
+  ]
+}

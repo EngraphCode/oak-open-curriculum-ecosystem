@@ -29,10 +29,13 @@ fitness_content_role: drainable-buffer
   for evidence a rule altered a move. No built-in per-rule analytics exist.
 - **Owning artefact / discussion home**: none yet; relates to context-budget
   governance. Does not block any current cycle.
-- **Status**: owner-gated — needs owner direction to open a rule-impact
-  instrumentation / transcript-audit lane, or an owner decision to retire the
-  question. Future check: look for a current context-budget or rule-analytics
-  plan before asking again; none is recorded here.
+- **Status**: lane-opened 2026-06-11 (owner decision at the dedicated
+  consolidation walk) — a lean instrumentation lane is authorised: hook
+  invocation fire-count logging only (the one mechanically measurable signal),
+  routed to the agent-tools implementation lane queue; transcript-audit
+  deferred until fire-count evidence exists. The question stays open pending
+  that evidence; the 2b reappraisal-cartography pass remains the prose-rule
+  rationalisation vehicle.
 
 ## Q-003 — input/output schema strategy for MCP tools (+ the EEF coupling)
 
@@ -70,16 +73,14 @@ fitness_content_role: drainable-buffer
   promotion last. Of the five graph sub-questions, **Q2 and Q4 are resolved**
   (graph tools take no input — the projection is structural; thread-progressions
   excluded as sequence-shaped).
-- **Status (2026-06-09)**: the trigger has fired. EEF D6+D7 are complete and
-  shipped (v1.16.0), and
-  [`output-schemas-for-mcp-tools.plan.md`][q3-general] is **🟢 DECISION-COMPLETE**
-  (every tool's `outputSchema` = `composeEnvelopeSchema(payloadSchema)`, payload
-  Zod derived at the one source per provenance). The remaining open slice
-  (Q1/Q3/Q5 — `as const` scope, mechanism home, codegen emission shape for the
-  graph tools) now resolves inside the promoted
-  [`graph-tools-value-redesign.plan.md`][q3-migration] mechanism settle (under
-  plan-review this session). Keep live until that plan reaches decision-complete;
-  then this question is answered-in-plan and retires.
+- **Status (2026-06-11): answered-in-place — retired.** The recorded retirement
+  condition is met: [`graph-tools-value-redesign.plan.md`][q3-migration] reached
+  🟢 DECISION-COMPLETE (2026-06-09, owner-ratified; mechanisms settled — new
+  `./graph-corpus` subpath, per-view `GraphView` construction, no substrate
+  change) and its Track-G view units are MERGED (G1 #153, G2/G3 + re-chain,
+  v1.22.0). [`output-schemas-for-mcp-tools.plan.md`][q3-general] carries the
+  ratified schema doctrine (`composeEnvelopeSchema(payloadSchema)`, payload Zod
+  derived at the one source per provenance); the plans are the durable owners.
 
 [q3-general]: ../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md
 [q3-migration]: ../../plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md
@@ -167,3 +168,65 @@ fitness_content_role: drainable-buffer
   [`unified-mcp-server-test-harness.plan.md`](../../plans/sdk-and-mcp-enhancements/current/unified-mcp-server-test-harness.plan.md)
   (WS0 smoke/parity) or the `eef` thread record.
 - **Status**: open — trigger is the next test-harness (WS0/WS3) session.
+
+## Q-008 — should the coordination-home branch periodically merge main, or accept recurring lag?
+
+- **Captured**: 2026-06-11 (Stratospheric Swooping Zephyr / claude / Fable 5 / `fe53ec`).
+- **Question**: the team coordination home is the long-lived branch
+  `docs/graph-team-direction-2026-06-10`, which lags `origin/main` by construction as feature
+  PRs merge. Should the Director periodically merge main into it (clean status, heavier
+  history), or accept recurring generated-file lag guarded only by the
+  baseline-against-origin/main reflex?
+- **Why it shapes future work**: the lag produced a real Director misdiagnosis on 2026-06-10
+  (working-tree regen drift read as a new upstream schema bump; one wasted routing round-trip —
+  failure-mode capture `54fc0fee`). The byte-identical alignment commit cured the instance, not
+  the topology; every future main movement recreates the trap for whoever runs a gate that
+  regenerates files in the coordination home.
+- **Why not answerable cheaply now**: depends on the coordination-home branch's end-of-life
+  shape (does it ever PR to main?), the owner's appetite for merge commits on a docs branch,
+  and whether the worktree-team shape itself outlives this arc.
+- **Owning artefact / discussion home**: the team opener
+  (`prompts/connecting-oak-resources/graph-implementation-team.prompt.md`) §coordination-home
+  convention; the [`eef` thread record](threads/eef.next-session.md).
+- **Status**: RESOLVED 2026-06-11 (owner ruling, answered-in-place): the Director merges
+  `origin/main` INTO the coordination home, forward-only with merge commits, never rebase, on
+  the two named triggers (Director tooling needs landed source; generated-file drift
+  accumulates), with a pre-merge divergence analysis and main-authoritative conflict resolution
+  for source/generated files. Codified in the team opener §Branching strategy (landed with
+  `898a0ac4d`); first execution `ae1802da1`. Drift baselines remain `origin/main`, never branch
+  HEAD.
+
+## Q-009 — do memory/state files need schema-driven or agent-driven merge strategies?
+
+- **Captured**: 2026-06-11 (Iridescent Threading Constellation / claude / Fable 5 / `f9454b`),
+  owner-raised during the first coordination-home → main reconciliation.
+- **Question**: git merges lines; our `.agent/memory` and `.agent/state` files carry semantic
+  invariants git cannot see (a JSON set keyed by `claim_id`; a markdown file with exactly one
+  Current State block; an append-only narrative buffer; an additive identity table). A
+  textually-clean git merge can be semantically wrong. Should we implement custom merge
+  strategies, and of what kind?
+- **The spectrum (analysis, not decision)**: three tiers, prefer the lowest that works.
+  (1) **Conflict-free by construction** — the comms event store already is this (immutable,
+  content-addressed, one-file-per-event, append-only, single-writer); 1,863 events reconciled
+  with zero risk on 2026-06-11 *because* of this model. Push more state toward it.
+  (2) **Schema-driven merge drivers** — the structured registries (`active-claims.json`,
+  `closed-claims.archive.json`, `comms-seen`) have algebraic merges (set-union keyed by id,
+  last-writer-wins per key, append-dedup, line-set-union). Git's native `.gitattributes
+  merge=<driver>` mechanism + one schema-aware tool per shape; makes ADR-197's
+  branch-authoritative-for-state policy semantically safe rather than textually hopeful.
+  (3) **Agent-driven merge** — narrative state (`repo-continuity.md` Current State, `napkin.md`,
+  `distilled.md`, thread records) needs *meaning* (same-surprise-twice? supersede-vs-coexist?);
+  no algebra suffices. A merge driver invoking a reasoning agent with the file's semantic
+  contract is justified ONLY here, as a last resort, and MUST emit a reviewable diff, never a
+  silent merge (an un-inspectable agent merge is the false-green failure at a new altitude).
+- **Why it shapes future work**: every coordination-home → main reconciliation (and any
+  multi-writer state convergence) relies on this; the 2026-06-11 reconciliation was clean only
+  because of tier-1 + zero per-file overlap, not because git merged state safely.
+- **Why not answerable cheaply now**: needs a per-file-class merge-semantics audit, a decision
+  on git-merge-driver vs out-of-band tooling, and (for tier 3) the auditability/cost design.
+- **Owning artefact / discussion home**: the mechanism follow-on to
+  [ADR-197](../../../docs/architecture/architectural-decisions/197-coordination-home-owns-registry-state.md)
+  (which set the policy but assumed git's textual merge); the
+  [team-opener generalisation exploration plan](../../plans/agent-tooling/current/team-opener-generalisation-exploration.plan.md).
+- **Status**: OPEN — captured for the next dedicated agentic-engineering session; a strong ADR
+  candidate (state-file merge-semantics architecture).

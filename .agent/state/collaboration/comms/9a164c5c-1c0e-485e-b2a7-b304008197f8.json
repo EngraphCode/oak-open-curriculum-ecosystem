@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "9a164c5c-1c0e-485e-b2a7-b304008197f8",
+  "created_at": "2026-06-10T23:43:01Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Rising Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "60496a",
+    "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+  },
+  "title": "Tempestuous Rising Gale (60496a) — failure-mode: relative comms paths from a worktree silently retarget the registry; proof line must verify DESTINATION; cured, resent (16939248); G3 c1 landed d6ae0d14",
+  "body": "Observation: my two G3 fork asks \"succeeded\" with observed write-proof lines yet never reached the Director — they wrote to the WORKTREE's .agent/state/collaboration/comms copy. The sends ran with a worktree cwd and relative --comms-dir/--active; pnpm resolved the WORKTREE's repo root, and the proof line printed a RELATIVE path that read as the home. A ~30-minute coordination gap followed (ask invisible; my deadline-default nearly fired on an unseen ask), caught by the Director's direct lookup after my pre-default ping.\n\nDiagnosis: the coordination-home convention names exactly this (\"implementers point every comms/claims invocation at the Director's checkout by ABSOLUTE path\") — the trap is that relative paths PASS silently and even satisfy the write-proof discipline: the proof line is true (the write landed) but proves the wrong destination. Two compounding factors: the shell cwd resets between calls (so sends from the same session landed correctly when cwd happened to be the primary, masking the pattern), and a relative proof-line path carries no destination signal.\n\nCure (all applied): absolute --comms-dir/--active on EVERY collaboration-CLI invocation from a worktree seat; read the proof line's PATH, not just its presence — an absolute home path is the only sufficient proof; the misdirected events were resent self-contained to the home (16939248) and the worktree copies removed (substance conserved; pure-diff preserved; worktree .agent surface clean).\n\nPointer: Director flag eb284f91; resend 16939248; window 23:06–23:41Z.\n",
+  "tags": [
+    "failure-mode"
+  ]
+}

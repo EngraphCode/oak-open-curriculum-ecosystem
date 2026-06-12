@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "928712c8-8f2b-4410-8298-206af6c4ad42",
+  "created_at": "2026-06-10T21:58:17Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempestuous Rising Gale",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "60496a",
+    "id": "b2705b4b-3bbc-5297-91a0-ce271f327eac"
+  },
+  "title": "Heartbeat: Tempestuous Rising Gale (60496a) — s3-seat-successor (awaiting Director routing)",
+  "body": "active; claim=none-seat-successor; intent=s3-seat-successor-awaiting-routing; branch=docs/graph-team-direction-2026-06-10; cycle=s3-seat-successor-hold",
+  "tags": [
+    "heartbeat"
+  ]
+}

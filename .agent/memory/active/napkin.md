@@ -8,16 +8,162 @@ merge_class: append-only-narrative
 fitness_content_role: drainable-buffer
 ---
 
-## Session: 2026-06-09 — napkin rotated (Fruited Twining Canopy curation pass)
+## Session: 2026-06-11 — napkin rotated (Pearly Snorkelling Compass doctrine-curation pass)
 
-Rotated the 2026-06-08 → 2026-06-09 window during a dedicated knowledge-curation
-pass. The processed window is preserved verbatim at
-[`napkin-2026-06-09-fruited-curation.md`](archive/napkin-2026-06-09-fruited-curation.md).
-Every behaviour-changing lesson was verified live in a permanent home before
-rotation — type and markdown gotchas in the governance docs, the
-fitness-threshold derivation principle in ADR-144, the status-surface-recompute
-sharpening in `verify-dont-trust`, and the sweep-the-defect-class and
-landed-invariant lessons in `distilled.md`. Fresh capture continues below.
+Second rotation of 2026-06-11, closing the post-Arboreal capture window during the
+owner-named doctrine-curation session (naming event 211a1794; lane grant c8432d36). The
+processed window is preserved verbatim at
+[`napkin-2026-06-11-pearly-curation.md`](archive/napkin-2026-06-11-pearly-curation.md).
+Every item left with a disposition before rotation: the four fired harvest triggers and
+nine accumulating candidates are registered in `pending-graduations.md` (two new 2026-06-11
+sections) with first-hand-verified instance counts; the liveness-heartbeat-cron loop-hygiene
+amendment was drafted and ACCEPTED by the Director (events ca24c8d8 → adjudication 14:04Z);
+behavioural lessons graduated to `distilled.md` (control-byte write-direction vector,
+background-wrapper exit-0 family member, directed-backlog-before-compose, UTC-only
+comparisons, commit-message drafting gotchas); the repo-continuity condensation and the
+team-opener vocab-gen symlink line were handed as Director deltas (event a3279acf, received
+14:08Z). Carried-forward live items below; fresh capture continues after them.
+
+## Carried forward (live, not residue)
+
+- **Core-amendment scope signal (ADR-131) — posture RESOLVED by the 2026-06-11 owner walk**:
+  the owner walked all five Practice-Core amendment candidates (PDR-064, PDR-011 two-clause
+  bundle, PDR-091, continuity-disposition PDR, self-certification synthesis → PDR-089) plus
+  the PDR-078 emit-side facet and the mechanical-firing-moments PDR at the dedicated
+  consolidation session, approving every one for authoring (per-item statuses in the
+  register). The pause-and-stabilise posture lifts when those approved amendments land;
+  still do not add NEW Core restructuring candidates while the approved set is in flight.
+- **Unresolved tool feedback** (capture-practice-tool-feedback): `pnpm exec markdownlint
+  <file>` printed its USAGE text yet exited 0 (file arg apparently not reaching it) — a
+  false-green shape in that invocation path, cause unresolved; the commit-gate markdownlint
+  pass is the trustworthy verdict. (Hushed, 2026-06-11.)
+
+## 2026-06-11 — doctrine-curation seat (Pearly Snorkelling Compass, a8eabc)
+
+- **The stale-cwd class bit this seat too, read-direction, minutes after reading its harvest
+  entry**: an earlier `cd` into the comms dir persisted across Bash calls and a relative-path
+  read crashed FileNotFoundError — loud and harmless, but live confirmation that the trigger
+  condition is shell-cwd persistence generally (any prior `cd`, not only worktree seats); the
+  CLI error text for the fired harvest-trigger-2 cure should name exactly that.
+- **Recency-of-reversal is a free stability signal on decision inputs** (Nebulous's closing
+  behaviour-note, ~13:58Z, post-dating the Director's delta sweep; conserved here): a decision
+  input that has ALREADY reversed once is likelier to reverse again — check its reversal
+  history before fast-executing a freshly-recorded decision (their where-next rename executed
+  at speed off a recorded sign-off reversed eleven minutes later, caught gates-green
+  pre-commit). Candidate-adjacent; pair with the compose-time-staleness class if a second
+  instance lands.
+- **Three late Director instances (post-tranche window, my own hand)**: (1) rebuilt a combined
+  PR monitor WITHOUT comment detection — the EXACT 2026-06-10 watcher-rewrite class the
+  opener's cadence section warns about; caught by the owner pointedly selecting that clause;
+  rebuilt with state+checks+comments+unresolved and an explicit all-terminal exit. (2)+(3)
+  TWO worktree-singleton interleaves: switched the worktree's branch while a background gate
+  chain was still running in it (the trailing HEAD reads re-pointed mid-task; pushes were
+  transfer-proven unaffected). Cure: ONE gate chain at a time per worktree — the
+  check-singleton-per-window discipline applies to a worktree's whole commit/push window, not
+  just pnpm check. All three are same-day further evidence for the session report's central
+  finding (the author of the report performed its thesis while writing it).
+- **Fourth same-day self-instance: granted-window-then-own-commit collision** — I cleared
+  Pearly's final micro window, then started my own waypoint commit into the same checkout;
+  git add hit THEIR index.lock (failed clean, foreign lock respected, no rm). The grantor of
+  a commit window must treat the grant as exclusive until the grantee's PUSH closes it — the
+  window spans the gate chain, not just the staging moment. Cure applied: bounded ls-remote
+  wait for the grantee's transfer before opening my own window.
+- **Background-process audit (owner-directed) found the drain-timeout exit is NOT an exit** —
+  the watcher emits the fail-loud WATCHER ERROR line but the node process LINGERS: both of my
+  "dead" watchers were still running hours later, sharing my seen-file + heartbeat-file with
+  the live one (three writers, one file), and two orphan watchers survived a stood-down
+  session entirely. Probable feedback loop: zombie drains add I/O load on the same comms dir,
+  worsening the drain times that kill watchers. Cure shape for the routed agent-tools lane:
+  the timeout path must process.exit AND the supervisor must kill the process tree; restart
+  guidance should include a stale-process census (ps for prior watchers on the same
+  seen-file). Cleanup: TaskStop killed mine cleanly; orphans killed by pid.
+- **Forename-keyed /tmp filenames collide across same-forename agents** (curation seat, at
+  handoff): my closeout draft Write to `/tmp/pearly-closeout.md` hit yesterday's Pearly
+  Snorkelling DOCK file at the same default path — caught by the Write tool's
+  read-before-overwrite guard (mechanical, again). Cure applied: identity-qualified temp
+  names (`pearly-compass-<purpose>-<date>`). The PDR-027 full-name+prefix discipline,
+  /tmp-shaped.
+- **candidate: PDR-081 curator-ledger clause vs `permanent-doc-is-the-consolidation-record`
+  rule — apparent contradiction** (curation seat, first-hand read of both surfaces): the team
+  SKILL §3 (citing PDR-081) names "the per-pass metadata file under the operational-memory
+  curator-passes directory" as the curator's traceability surface, while the newer canonical
+  rule forbids disposition ledgers (the commit and the permanent home are the record). This
+  pass followed the RULE — no ledger written; commits + register + comms are the record.
+  Graduation-target: reconcile at the next curation-doctrine touch (PDR-081 amendment retiring
+  the ledger clause, or a pass-metadata vs disposition-ledger scope clarification). Trigger:
+  next curator-pass invocation or owner direction.
+
+## 2026-06-11 — dedicated consolidation seat (Thermal Circling Updraft, f42c24)
+
+- **Director-became-implementer is a missing-autonomy-primitive signal** (handed delta,
+  Iridescent event e17324ff, conserved verbatim in substance): the seventh directorship
+  started as pure coordination (routing up to 7 live implementers) and ended as solo
+  implementation — the Director personally authored the host-load rule + its two-wave
+  matcher fix, the operations report, and the team-opener generalisation plan, with no
+  implementer pool left to route to. Legitimate under the degenerate-team exception
+  (owner directing the Director at named deliverables), BUT the pattern is load-bearing
+  evidence: the human-pasted opener and the human-in-the-loop Director exist for the same
+  reason — the collaboration infrastructure cannot yet carry a long-running team
+  autonomously. The session's manual toil (hand-rolled PR monitors, manual merge
+  serialisation, six continuity waypoints by hand) is exactly what the generalisation
+  plan proposes to systematize. Candidate framing for the doctrine pipeline: "a Director
+  doing sustained implementer work is a missing-autonomy-primitive signal" (sibling of
+  feedback_owner_action_is_not_a_cure). No graduation proposed; conserve for the owner
+  walk on the generalisation plan.
+- **The 15-of-18 withdrawal failure REPRODUCED at this seat — 14 of 18, different agent,
+  fortnight later, same mechanism.** My backlog triage proposed 18 withdrawals with
+  named coverage homes; the owner confirmed them on my claims; a 25-agent adversarial
+  refutation pass (owner-directed workflow fan-out) then refuted 14 — the same two
+  conflations as the 2026-05-29 precedent: (a) "the instance/reference has a home" read
+  as "the pattern-candidate substance has a home"; (b) absence-of-recurrence read as
+  permission to drop an unhomed signal. Several refuted rationales had ALREADY been
+  refuted verbatim by the Tempestuous pass, which I had read that morning — read-doctrine
+  did not fire; the mechanical refutation stage did. A THIRD conflation shape surfaced in
+  the fold refutations: inventing a fold target by synthesis-convenience, overriding the
+  item's own recorded `target:` field (four of seven folds misrouted this way — the
+  verifiers caught it by reading the field I had written past). Net: only 4 withdrawals
+  stood (two with corrected rationales). Lessons banked: (1) adversarial-verify-before-
+  withdrawal is now twice-proven as the mechanism for this exact failure (graduated
+  same-session as PDR-089 Decision 8); (2) an owner confirmation obtained on my unverified
+  claims is not authority once the claims fall — surface the revision, do not hide behind
+  the confirm (PDR-091's interpretation clause, lived); (3) an item's recorded target
+  field outranks the consolidator's synthesis convenience.
+- **Workflow-tool args delivery gotcha**: a `Workflow` launch with a JSON-object `args`
+  failed instantly (`pipeline() expects an array`, zero agents ran) — `args.items` did not
+  resolve to an array inside the script. Cure that worked: a defensive guard at script top
+  (`typeof args === 'string' ? JSON.parse(args) : args`, then accept either the array or
+  `.items`, throw loud if empty) + relaunch with `resumeFromRunId` — the journal replay ran
+  clean. Future workflow scripts in this repo should carry the guard by default.
+- **Dash-leading grep patterns are an argv hazard — and my own piped-push lived instance**:
+  `git push 2>&1 | grep -E "->|..."` failed twice over — ugrep consumed the `->`-leading
+  pattern as an option, AND the pipe meant the push never transferred (ls-remote showed the
+  old SHA; the bare re-run transferred). Confirms the distilled unconditional push-proof
+  doctrine end-to-end at this seat; sharp new detail: any pattern beginning with `-` needs
+  `-e <pattern>` or `--`. Cure applied and held: pushes bare, proof = transfer line + fresh
+  ls-remote.
+- **Adding a skill is a two-gate, possibly owner-keyed operation**: the pre-push
+  portability validator requires a `Skill(<name>)` + `Skill(<name>:*)` pair in
+  `.claude/settings.json` permissions.allow for every Claude adapter, and the harness
+  classifier may block the agent's own settings.json edit as self-modification — by
+  design; the cure is an explicit owner authorisation moment (worked instance this
+  session, owner-keyed in-chat within a minute). Expect the two-step when landing any
+  new skill: canonical + generated adapters, THEN the owner-visible settings entry.
+
+## 2026-06-11 — solo-window staged-bundle lesson (Swift Gliding Zephyr, aba87a)
+
+Authored inside the 2026-06-10 team-shape section on the naming branch after main's
+Arboreal rotation archived that section, so main's archive copy lacks it; carried
+forward verbatim at the naming-lane semantic merge:
+
+- **"Solo window" is a point-in-time observation, not a session property** (Swift Gliding
+  Zephyr, 2026-06-11): claims registry empty at session open + at WS1.1 → skipped the
+  commit-queue ceremony as solo-window lean path; by WS1.2 a peer had staged a 4-file
+  bundle (plan, report, lane README, closed-claims archive) and my `git commit` absorbed
+  it — `git add` is pathspec-scoped but commit takes the whole index. Cure adopted
+  mid-session: `git diff --cached --name-only` verified against the intended bundle
+  IMMEDIATELY before every `git commit`, halt on any foreign entry. The queue ceremony's
+  verify-staged step is collision protection, not ceremony, even when the registry reads
+  empty.
 
 ## 2026-06-11 evening — oak-prod snagging wave 2 (Dawnlit Glimmering Orbit, 50c2d1, cursor)
 
@@ -54,137 +200,6 @@ branch's additions:
   output-schemas plan / ADR-195 family requiring a client-population rendering check
   before ratifying any non-default response shape. Trigger: S1 decision on the snag
   register, or a second client found dropping structuredContent (S0 probe).
-
-## 2026-06-09 — graph-tools readiness session (Fragrant Spreading Sapling, 47f78a)
-
-Readiness session: seam analysis → owner ratifications → R1/R2 → DECISION-COMPLETE (PR #143 + a
-stacked PR). Four captures:
-
-- **An inherited Step-0 recommendation is a hypothesis, not a plan.** I proposed the plan's own
-  recommended surface/graph split to the owner verbatim; owner: "too crude, find the real
-  membranes". The cure that worked: derive decomposition from dependency + solution-class +
-  surface-cohesion analysis, then ratify. The document's own seam enumerations disagreeing (A5/B1
-  contradictions) was the tell the split was never analysed. Sibling of [[premature-crystallization]].
-- **Ground a tool's provenance class before designing its redesign.** The plan's keywords unit
-  rested on a false belief (bulk-corpus) refuted by a 30-second check: `AGGREGATED_HANDLERS`
-  membership + the generated tool file (`/keywords` GET, live API, params already present). An
-  owner-directed scope addition (2026-06-08) carried the stale belief in; the readiness review
-  caught it. Reflex: for any MCP tool, check generated-vs-aggregated dispatch + data provenance
-  (live vs corpus) FIRST.
-- **Audit my own verification filters, not just reviewer claims.** barney said "exactly six"
-  factory importers; betty said the EEF tool was a seventh (blocking). My first-hand grep refuted
-  betty (comment-only refs) — but my grep carried `-v .test.ts`, which hid the factory's own unit
-  test as a REAL seventh importer that assumptions-expert later caught. Both halves fired: a
-  blocking reviewer claim refuted by evidence AND my refutation-grep's exclusion filter audited.
-  Sibling of [[feedback_validate_specialist_findings_before_acting]].
-- **A contract change makes every calling prompt-step a data-flow rewrite, not a reference swap**
-  (R2/mcp-expert's substantive catch): zero-arg → required-anchor tools mean prompt steps must
-  thread the anchor from the preceding workflow step, or the prompt instructs invalid calls.
-  "Repoint" language hid the gap; the plan now pins anchor-threading rewrites,
-  correct-at-every-commit.
-- **Owner correction (2026-06-10): bundle-ratification is not clause-ratification.** My seam-map
-  ratification question embedded a holding-state clause for §C the owner never agreed to —
-  "Ratify" on the bundle did not ratify that clause. Owner doctrine: work is a live deliverable
-  with named gates, or it is removed by owner decision — no unagreed holding states, ever. Cure
-  landed: §C → deliverable S3 (c0 owner design gate); the indefinite-deferral vocabulary family
-  (the p-word and siblings — descriptive form per hook-policy-substring-discipline) added to the
-  innate-immunity trip-list as a word-boundary regex group (literal substrings would have
-  false-positived on agent display names like "Sparking …"). Sibling of
-  [[feedback_forced_verdict_resting_on_my_interpretation_is_a_question]] (precedent ≠ approval,
-  applied to my own bundled question).
-
-## 2026-06-09 — proportionality on routing an already-doctrined instance (Fruited Twining Canopy)
-
-Curating, I circled the "derive-don't-drift listing" lesson — standalone distilled
-entry vs pattern file vs memory corollary — longer than its value warranted. It was
-plainly an instance of the existing `derive-dont-bridge-controlled-surface` doctrine;
-the proportionate move was a one-line corollary to that doctrine's home. Sharpened
-default: **an instance of existing doctrine → one-line corollary to that doctrine's
-home, then move on.** Routing deliberation scales to novelty, not to thoroughness for
-its own sake. Instance of [[feedback_stay_with_stated_scope]].
-
-## 2026-06-09 — two curation-discipline catches in a shared-tree window (Fruited Twining Canopy)
-
-- **A napkin rotation on a shared working tree can archive a peer's just-committed
-  lesson without graduation-processing it.** A peer committed a planning-discipline
-  lesson into the napkin AFTER my read but BEFORE my rotation. My `cp` archive caught
-  it verbatim (conserved), but my graduation pass — working from my earlier read —
-  never saw it, so it was archived un-homed; the rotation marker's "every lesson
-  homed" claim was false until I diffed the archived window against my read and
-  graduated the peer's lesson to `distilled.md`. Reflex: in a multi-agent window,
-  `git log -p` the napkin (or diff archive vs your working read) BEFORE asserting the
-  rotation homed everything. Sibling of the "staging a file holds another agent's
-  work" lessons.
-- **I asserted a convenient "it's an unwrappable table" to justify not-chasing a
-  width-critical; grounding the checker source falsified it.** The practice-fitness
-  prose-width metric measures ONLY `kind === 'prose'` lines — `markdown.ts` classifies
-  code-fence / code-block / table / link-reference / frontmatter as non-prose and
-  excludes them, and `measurableProseWidth` strips inline-link / autolink / bare-URL
-  targets (`evaluate.ts:95`, `markdown.ts:1-120`). So a width hard/critical points at
-  genuine over-long PROSE to reflow; it is NOT tripped by tables or link-heavy lines
-  (already discounted). The convenient claim made the not-chase tidy — exactly
-  [[feedback_ground_convenient_claims]]; grounding before asserting is the cure.
-
-## 2026-06-10 — closeout continuation: PR monitoring + review adjudication (Fragrant Spreading Sapling)
-
-- **PR-bot comments are other-agent input — both adjudication halves fired, worked instance.**
-  Copilot left 5 comments on PR #146: 2 were FALSE (claimed `\bpark (?:it|this|that|for now)\b`
-  "won't match park-it-for-now" — refuted first-hand: `scanLinesForRegex` runs unanchored
-  `regex.exec` per line, so the contained "park it" fires; encoded as a regression test case) and
-  3 were genuine (doc scope inconsistency; the inline-code exclusion let a backticked family member
-  on a DATA-SHAPED line — a table row — dodge the block; missing sibling regression test). Owner
-  re-stated the standing requirement mid-flight: critical analysis applies to ALL other-agent
-  input, explicitly including GH PR bots. Extends [[feedback_validate_specialist_findings_before_acting]].
-- **Collaboration-ceremony registry writes inside feature PRs are a cross-PR conflict generator.**
-  PR #146 went CONFLICTING within minutes: every commit ceremony writes
-  `active-claims.json`/`closed-claims.archive.json`, so any two open PRs collide on them. Cure
-  that worked: merge main into the branch and resolve the registry files to MAIN's exact content
-  (forward `git show origin/main:<path>` + copy — no blocked restore verbs), making the PR a pure
-  policy/code diff that can never conflict on registry state again. `candidate:` keep ceremony
-  registry state OUT of feature-PR diffs entirely (see pending-graduations).
-- **Branch creation: `git switch -c` is the purpose-built verb; `git checkout -b` trips the
-  worktree-destruction guard** (checkout's overloaded surface is the blocked family; switch -c
-  creates branches with no file-overwrite surface). Reappraisal honoured — not a sibling-command
-  bypass: no worktree state is touched.
-- **Cross-PR present-tense claims read as false until the sibling merges.** #145's docs asserted
-  the trip-list "was added" while it lived in open #146 — Copilot flagged all 4 instances; they
-  became true on merge, but the honest authoring shape is "lands in sibling PR #N" until then.
-  Same family as principles.md §Target-architecture wording needs consuming-runtime evidence.
-
-## 2026-06-10 — merge-phase operational captures (Fragrant Spreading Sapling, closing)
-
-- **`gh pr merge` of the branch you are sitting on auto-switches the local checkout to the
-  default branch and attempts a pull** — mid-merge that pull can misfire, leaving local main
-  stale with carried-over file copies blocking the next fast-forward. Cure that worked, fully
-  forward-going: verify the blocking files are byte-identical to origin/main
-  (`git show origin/main:<path> | diff -q - <path>`), write HEAD's versions forward over the
-  redundant copies, then `git pull --ff-only`. Zero loss by construction (the content is in the
-  merged PR); no blocked verbs needed.
-- **A watcher script is itself input-to-verify**: my numeric-guard rewrite silently dropped the
-  new-comment exit condition, so a PR comment arrived without a wake and was only caught by the
-  owner-prompted status sweep. When rewriting a monitor, diff the EXIT CONDITIONS old-vs-new,
-  not just the mechanics. (zsh arrays are 1-indexed; `$((...))` chokes on non-numeric capture —
-  guard every variable that feeds arithmetic.)
-
-## 2026-06-10 — team-shape design + memory retirement (Fragrant Spreading Sapling, final)
-
-- **Owner retired the subagent-worktree base-drift caution as stale** ("no reason to assume it
-  is still an issue") — the platform auto-memory entry is deleted; do not re-derive the caution
-  without a fresh observed failure.
-- **Per-session git worktrees + a single Director-owned coordination home** is the ratified
-  next-session team shape (opener: `prompts/connecting-oak-resources/graph-implementation-team.prompt.md`).
-  Design insight worth keeping: the collaboration CLIs being path-parameterised means worktree
-  topology needs ZERO new tooling, and it converts three of this arc's lessons (registry
-  conflicts, gate coupling, watcher exit-condition discipline) into structure on first use.
-- **"Solo window" is a point-in-time observation, not a session property** (Swift Gliding
-  Zephyr, 2026-06-11): claims registry empty at session open + at WS1.1 → skipped the
-  commit-queue ceremony as solo-window lean path; by WS1.2 a peer had staged a 4-file
-  bundle (plan, report, lane README, closed-claims archive) and my `git commit` absorbed
-  it — `git add` is pathspec-scoped but commit takes the whole index. Cure adopted
-  mid-session: `git diff --cached --name-only` verified against the intended bundle
-  IMMEDIATELY before every `git commit`, halt on any foreign entry. The queue ceremony's
-  verify-staged step is collision protection, not ceremony, even when the registry reads
-  empty.
 
 ## 2026-06-11 — snagging deep-analysis + plan phase (Dusky Passing Mist, 2c0c4b)
 

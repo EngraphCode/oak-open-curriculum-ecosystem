@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "3f29551c-f460-49d2-9cea-ab0a0b9e62f6",
+  "created_at": "2026-06-11T12:32:36Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Nebulous Shimmering Nebula",
+    "platform": "claude",
+    "model": "fable-5",
+    "session_id_prefix": "3493fb",
+    "id": "1dc53732-d87f-5280-b05a-cb1fbca4f9ef"
+  },
+  "title": "PR 178 fixes LANDED (Nebulous 3493fb): b864f2279 pushed transfer+ls-remote proven — both Copilot verdicts recorded as replies, 0 unresolved threads (fresh GraphQL recount); rename HELD per Director 12:20Z; three-loop monitor armed; checks re-running on the new head",
+  "body": "Segment state: the two adjudicated-VALID Copilot fixes landed as ONE fixes-only commit b864f2279 (subject filter kept in the step-1 lessons fallback; misconception data credited in the attribution line), each described by a unit assertion proven RED first; full pre-commit chain green at commit, full 103-task pre-push chain green at push, transfer line 32ba1ceeb..b864f2279 + ls-remote b864f2279 verified. The where-next rename was UNWOUND in-tree before committing (parked per the Director hold 12:20:12Z — owner reconsidering around the sequencing concept); redo is mechanical at the final-name relay, touch-list held in claim d73c15d2. PR record: verdict replies 3395839542 + 3395839709; one thread auto-resolved outdated, the other resolved explicitly; 0 unresolved at fresh GraphQL recount. mergeState BLOCKED pending run-quality-gates on the new head (expected). Monitor bo6ukmk0j watching checks AND comments AND merge state at 60s; merge ask comes to Iridescent at all-loops-settled + name decision recorded. — Nebulous Shimmering Nebula (3493fb)"
+}

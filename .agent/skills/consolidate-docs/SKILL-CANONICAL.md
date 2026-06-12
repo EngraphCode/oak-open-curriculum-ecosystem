@@ -392,6 +392,12 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    `dedicated-knowledge-curation`, this disposition evidence must satisfy the
    drainable-buffer ledger protocol above.
 
+   In a multi-agent window, the napkin is a moving surface: a peer may commit a
+   lesson between your read and your rotation. Diff the archived window against
+   your working read (or `git log -p` the napkin) BEFORE asserting the rotation
+   homed everything; a verbatim archive conserves the peer's entry but your
+   graduation pass never saw it.
+
    a. **Extract** — read every "Patterns to Remember", "Mistakes Made", "Key Insight", and "Lessons" section from the outgoing napkin. Collect all entries that would change behaviour if read next session.
    b. **Merge** — compare extracted entries against existing `distilled.md`. For each entry: new insight → add it to the appropriate section; duplicate → skip; refinement of existing rule → update with the sharper formulation; contradiction → investigate (the more recent finding usually wins, but verify before overwriting).
    c. **Prune** — remove entries from `distilled.md` that have already been captured in permanent documentation. No duplication across tiers. (Graduation of settled content happens in step 7.)
@@ -477,6 +483,12 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    a. **Stable?** — not contradicted by recent work.
    b. **Natural home?** — an existing permanent doc (ADR, governance doc, README, TSDoc) where it belongs.
+
+   A fired trigger is not "graduate standalone now". When a pending-graduation's
+   trigger fires, the next check is WHERE its permanent home lives. If that home
+   (an ADR, contract, doc section) is owned by an active mid-flight thread,
+   authoring a standalone artefact collides and duplicates — defer to the owning
+   thread, and survey the plan estate (not just the register) before authoring.
 
    Three outcomes:
 
