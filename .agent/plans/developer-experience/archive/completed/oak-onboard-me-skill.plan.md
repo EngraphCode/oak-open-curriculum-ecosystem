@@ -26,7 +26,7 @@ isProject: false
 **Created**: 2026-06-12 (owner-approved execution plan; design ratified in-session).
 Design inputs and interaction contract are authoritative in the onboarding
 status register —
-[onboarding-simulations-public-alpha-readiness.md §Interactive Onboarding Inputs](onboarding-simulations-public-alpha-readiness.md#interactive-onboarding-inputs-12-june-2026)
+[onboarding-simulations-public-alpha-readiness.md §Interactive Onboarding Inputs](../../active/onboarding-simulations-public-alpha-readiness.md#interactive-onboarding-inputs-12-june-2026)
 — this plan holds execution only (ADR-117 single-authority layering).
 
 ## End goal
@@ -102,5 +102,5 @@ ADR-125 (canonical + generated adapters); ADR-189 (repo-working skill);
 PDR-018 / ADR-117 (plan form and single-authority layering). The plan-body
 first-principles check fires at c1 (anchor re-verification before the graph is
 written) and c4 (does the live walkthrough match the designed graph?).
-Lifecycle per `../templates/components/lifecycle-triggers.md`; completion
+Lifecycle per `../../../templates/components/lifecycle-triggers.md`; completion
 archives this plan and mines the journey-graph notes into the register.

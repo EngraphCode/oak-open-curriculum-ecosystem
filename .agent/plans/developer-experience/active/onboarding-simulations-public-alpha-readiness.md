@@ -1299,7 +1299,7 @@ review pending (4 personas: junior dev, lead dev, CTO, CEO).
 
 **Status: LANDED same day** — the skill shipped as
 `.agent/skills/onboard-me/SKILL-CANONICAL.md` (published `/oak-onboard-me`)
-via [oak-onboard-me-skill.plan.md](oak-onboard-me-skill.plan.md), built to
+via [oak-onboard-me-skill.plan.md](../archive/completed/oak-onboard-me-skill.plan.md), built to
 the design inputs below (router-not-copy; detect-first; go-ahead-gated).
 Owner-directed scope addition at build time (12 June 2026): a Practice
 branch — what the Practice is, how to work with the agents through the
