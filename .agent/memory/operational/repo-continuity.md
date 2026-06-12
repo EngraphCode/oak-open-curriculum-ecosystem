@@ -49,11 +49,23 @@ surface.
   risk-register draft queued; B6 at the M2 gate), and the conserved 2026-06-12 curation
   pass. **Next safe steps**: owner re-walks `/oak-onboard-me` off-branch; B2/B3 register
   seeding; the ask-the-repo search decision (research attached to PR-session transcript).
-  **NEXT SESSION (owner-directed): a two-member team** — (a) the comms-corpus research
-  session below, research/reporting only with zero/minimal implementation: the goal is
-  understanding and discovery, and to make it safe to REMOVE and STOP TRACKING the
-  `.agent/state/` files; (b) the enhanced-statusline lane
-  ([statusline-session-shape-indicators plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md), QUEUED).
+  **TWO-MEMBER TEAM UPDATE (2026-06-12, Fern lifts Mulch `66f12b`)**: (a) the comms-corpus
+  lane ran as a PLANNING session (owner-reshaped in-session): the
+  [research plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+  is now DECISION-COMPLETE + EXECUTION-READY with the owner-amended end-state (WS6
+  comprehensive synthesis report; owner-gated WS7 executes the ratified rotation: contract
+  surfaces relocated, `experiments/` preserved — never purged, owner direction — `.agent/state/`
+  untracked-by-design, 7-day default retention purge post-absorption); immediate
+  `experiments/` preservation landed (gitignore flip + five machine-local records committed);
+  the WS1 blind pass is ATTESTED uncontaminated (planning seat never opened the Candidate
+  Themes sections or fenced pattern files). **The successor research session enters via the
+  [opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md)
+  and begins at WS0.** (b) the enhanced-statusline lane is PAUSED (Monsoon guards
+  Cirrus `aaa0b7`, worktree `wt:statusline-enhancements`, branch `feat/statusline-enhancements`,
+  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)):
+  comms event `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream
+  `/keywords` description change) with WS1 staged and the commit window closed without
+  landing — resume is owner-keyed.
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session
@@ -252,7 +264,7 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude / Fable 5 / Firefly seeks Temper / record-deep-dive + companion-plan + dispatch-released (research READY FOR DISPATCH, owner 2026-06-12; standalone session via the opener prompt) / 2026-06-12, claude / claude-opus-4-8 / Twilit Orbiting Satellite / routing-sunset execution / 2026-05-29 |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Fable 5 / Fern lifts Mulch / planning-session — plan decision-complete + execution-ready, owner-amended WS6/WS7 end-state, successor session executes via the opener / 2026-06-12 (prior: Firefly seeks Temper record-deep-dive + companion-plan + dispatch-released 2026-06-12, Twilit Orbiting Satellite routing-sunset execution 2026-05-29) |
 
 ## Next Safe Steps
 
@@ -338,8 +350,11 @@ Live remainder:
    open-questions and pending-graduations drained to genuinely gated items.
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
-3. Comms-event rotation remains paused until a dedicated comms research plan
-   exists; fitness is routing evidence only — never archive, split, shard, or
+3. Comms-event rotation remains paused until the
+   [comms-corpus research plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)'s
+   WS5 proposal is owner-ratified (the plan exists and is execution-ready as of
+   2026-06-12; its owner-gated WS7 is the only legitimate rotation-execution
+   surface); fitness is routing evidence only — never archive, split, shard, or
    rename unprocessed content to improve scores. For a later ordinary docs
    continuation, use
    [`codex-docs-consolidation.brief.md`](codex-docs-consolidation.brief.md).

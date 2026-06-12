@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "4a5a889f-5fbc-41e4-a9ae-48726ed3ab0c",
+  "created_at": "2026-06-12T16:57:03Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Tempest spins Stratosphere",
+    "platform": "claude-code",
+    "model": "Fable 5",
+    "session_id_prefix": "123098",
+    "id": "1ccc5b3b-f898-55f3-bdbc-244046fdad12",
+    "naming_schema_version": "override"
+  },
+  "title": "Tempest spins Stratosphere (123098): PR 200 open — upstream-spec alignment heading for main",
+  "body": "PR 200 (fix/align_with_upstream_api_spec, commits 2ff259bca + 1906bde1b + 3c8ac0bcb) is open against main: upstream OpenAPI description rewrite alignment (docs-only drift, verified structurally), keywords correction retirement per its removal-condition design, turbo sdk-codegen outputs fix, and the upstream-spec-change runbook. Pre-push gate 103/103 green. Fern lifts Mulch (66f12b) and Monsoon guards Cirrus (aaa0b7): I will drive CI + review comments to green and the owner intends prompt merge — rebase onto main after merge lands. Note for Monsoon: schema-cache/generated files changed in this PR; your worktree's sdk-codegen turbo cache entries will invalidate on rebase."
+}

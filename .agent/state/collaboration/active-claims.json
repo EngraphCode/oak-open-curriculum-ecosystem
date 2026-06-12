@@ -1,5 +1,154 @@
 {
   "schema_version": "1.3.0",
-  "commit_queue": [],
-  "claims": []
+  "commit_queue": [
+    {
+      "intent_id": "1266cd70-5027-48f9-ac60-93bc171b2c28",
+      "claim_id": "f6fa43ec-a640-424d-ac38-faeba71e8f5c",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f"
+      },
+      "files": [
+        ".agent/rules/check-singleton-per-window.md",
+        ".agent/skills/start-right-quick/shared/start-right.md",
+        ".agent/skills/start-right-team/SKILL-CANONICAL.md",
+        ".agent/state/collaboration/active-claims.schema.json",
+        "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+        "agent-tools/src/collaboration-state/cli-options.ts",
+        "agent-tools/src/collaboration-state/types.ts",
+        "agent-tools/tests/collaboration-state/active-claims-claim-jsonschema.unit.test.ts",
+        "agent-tools/tests/collaboration-state/cli-claim-role.unit.test.ts"
+      ],
+      "commit_subject": "feat(agent-tools): add optional role field to active claims",
+      "queued_at": "2026-06-12T15:52:47.371Z",
+      "updated_at": "2026-06-12T15:53:49.374Z",
+      "expires_at": "2026-06-12T16:07:47.371Z",
+      "phase": "abandoned",
+      "staged_bundle_fingerprint": "0d1f73001c2af2b8314c1ea1d176837e9f2216c35d05ef2699e5432a4407b5d3",
+      "staged_name_status": "M\t.agent/rules/check-singleton-per-window.md\nM\t.agent/skills/start-right-quick/shared/start-right.md\nM\t.agent/skills/start-right-team/SKILL-CANONICAL.md\nM\t.agent/state/collaboration/active-claims.schema.json\nM\tagent-tools/src/collaboration-state/cli-claim-commands.ts\nM\tagent-tools/src/collaboration-state/cli-options.ts\nM\tagent-tools/src/collaboration-state/types.ts\nA\tagent-tools/tests/collaboration-state/active-claims-claim-jsonschema.unit.test.ts\nA\tagent-tools/tests/collaboration-state/cli-claim-role.unit.test.ts\n",
+      "notes": "commit-workflow git-commit failure: git commit exited with code 1: 🔍 Running pre-commit checks...\n📝 Checking formatting on staged files...\n$ pnpm --filter @oaknational/agent-tools repo-check prettier-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts prettier-staged\nChecking formatting...\nAll matched files use Prettier code style!\n🔍 Running markdownlint on staged Markdown files...\n$ pnpm --filter @oaknational/agent-tools repo-check markdownlint-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts markdownlint-staged\n🧭 Running workspace-owned repo validators...\n$ pnpm --filter @oaknational/eslint-plugin-standards validate-boundaries && pnpm --filter @oaknational/agent-tools validate-no-stale-script-invocations && pnpm --filter @oaknational/agent-tools validate-collaboration-state && pnpm --filter @oaknational/agent-tools validate-lifecycle-scripts && pnpm --filter @oaknational/agent-tools validate-pretooluse-guard-routing && pnpm --filter @oaknational/agent-tools validate-policy-reappraisal\n$ cd ../../.. && pnpm exec tsx packages/core/oak-eslint/scripts/validate-boundaries.ts\n$ cd .. && pnpm exec tsx agent-tools/src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts\nvalidate-no-stale-script-invocations: OK (no stale root `scripts/...` invocations)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/collaboration-state/validate-collaboration-state.ts\ncollaboration-state validate: OK (4981 JSON file(s) checked)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts\nvalidate-lifecycle-scripts: OK (no package-manager/turbo invocations in root lifecycle scripts)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts\nvalidate-pretooluse-guard-routing: OK (all PreToolUse guards route through the shim)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/policy-reappraisal/validate-policy-reappraisal.ts\nvalidate-policy-reappraisal: OK (every content-guard scoped-block group and Bash blocked-pattern entry carries a reappraisal direction)\n🐚 Linting shell scripts...\n$ pnpm lint:shell:syntax\n$ bash -n apps/oak-curriculum-mcp-streamable-http/scripts/*.sh\n🔗 Checking for unused code (knip)...\n$ knip\nERROR: Error loading apps/oak-search-cli/vitest.smoke.config.ts (No \"exports\" main defined in apps/oak-search-cli/node_modules/@oaknational/env-resolution/package.json)\nERROR: Please fix or visit https://knip.dev/reference/known-issues\n🧱 Checking dependency boundaries (depcruise)...\n$ depcruise apps packages agent-tools\n\n✔ no dependency violations found (2445 modules, 6085 dependencies cruised)"
+    },
+    {
+      "intent_id": "205de542-af86-4428-9717-a26c0f849df0",
+      "claim_id": "f6fa43ec-a640-424d-ac38-faeba71e8f5c",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f"
+      },
+      "files": [
+        ".agent/rules/check-singleton-per-window.md",
+        ".agent/skills/start-right-quick/shared/start-right.md",
+        ".agent/skills/start-right-team/SKILL-CANONICAL.md",
+        ".agent/state/collaboration/active-claims.schema.json",
+        "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+        "agent-tools/src/collaboration-state/cli-options.ts",
+        "agent-tools/src/collaboration-state/types.ts",
+        "agent-tools/tests/collaboration-state/active-claims-claim-jsonschema.unit.test.ts",
+        "agent-tools/tests/collaboration-state/cli-claim-role.unit.test.ts"
+      ],
+      "commit_subject": "feat(agent-tools): add optional role field to active claims",
+      "queued_at": "2026-06-12T15:54:58.862Z",
+      "updated_at": "2026-06-12T15:55:20.474Z",
+      "expires_at": "2026-06-12T16:09:58.862Z",
+      "phase": "abandoned",
+      "staged_bundle_fingerprint": "0d1f73001c2af2b8314c1ea1d176837e9f2216c35d05ef2699e5432a4407b5d3",
+      "staged_name_status": "M\t.agent/rules/check-singleton-per-window.md\nM\t.agent/skills/start-right-quick/shared/start-right.md\nM\t.agent/skills/start-right-team/SKILL-CANONICAL.md\nM\t.agent/state/collaboration/active-claims.schema.json\nM\tagent-tools/src/collaboration-state/cli-claim-commands.ts\nM\tagent-tools/src/collaboration-state/cli-options.ts\nM\tagent-tools/src/collaboration-state/types.ts\nA\tagent-tools/tests/collaboration-state/active-claims-claim-jsonschema.unit.test.ts\nA\tagent-tools/tests/collaboration-state/cli-claim-role.unit.test.ts\n",
+      "notes": "commit-workflow git-commit failure: git commit exited with code 1: 🔍 Running pre-commit checks...\n📝 Checking formatting on staged files...\n$ pnpm --filter @oaknational/agent-tools repo-check prettier-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts prettier-staged\nChecking formatting...\nAll matched files use Prettier code style!\n🔍 Running markdownlint on staged Markdown files...\n$ pnpm --filter @oaknational/agent-tools repo-check markdownlint-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts markdownlint-staged\n🧭 Running workspace-owned repo validators...\n$ pnpm --filter @oaknational/eslint-plugin-standards validate-boundaries && pnpm --filter @oaknational/agent-tools validate-no-stale-script-invocations && pnpm --filter @oaknational/agent-tools validate-collaboration-state && pnpm --filter @oaknational/agent-tools validate-lifecycle-scripts && pnpm --filter @oaknational/agent-tools validate-pretooluse-guard-routing && pnpm --filter @oaknational/agent-tools validate-policy-reappraisal\n$ cd ../../.. && pnpm exec tsx packages/core/oak-eslint/scripts/validate-boundaries.ts\n$ cd .. && pnpm exec tsx agent-tools/src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts\nvalidate-no-stale-script-invocations: OK (no stale root `scripts/...` invocations)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/collaboration-state/validate-collaboration-state.ts\ncollaboration-state validate: OK (4981 JSON file(s) checked)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts\nvalidate-lifecycle-scripts: OK (no package-manager/turbo invocations in root lifecycle scripts)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts\nvalidate-pretooluse-guard-routing: OK (all PreToolUse guards route through the shim)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/policy-reappraisal/validate-policy-reappraisal.ts\nvalidate-policy-reappraisal: OK (every content-guard scoped-block group and Bash blocked-pattern entry carries a reappraisal direction)\n🐚 Linting shell scripts...\n$ pnpm lint:shell:syntax\n$ bash -n apps/oak-curriculum-mcp-streamable-http/scripts/*.sh\n🔗 Checking for unused code (knip)...\n$ knip\n🧱 Checking dependency boundaries (depcruise)...\n$ depcruise apps packages agent-tools\n\n✔ no dependency violations found (2404 modules, 5252 dependencies cruised)"
+    },
+    {
+      "intent_id": "3bdc8219-2688-4fbb-8a9b-489c548cbf29",
+      "claim_id": "f6fa43ec-a640-424d-ac38-faeba71e8f5c",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f"
+      },
+      "files": [
+        ".agent/rules/check-singleton-per-window.md",
+        ".agent/skills/start-right-quick/shared/start-right.md",
+        ".agent/skills/start-right-team/SKILL-CANONICAL.md",
+        ".agent/state/collaboration/active-claims.schema.json",
+        "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+        "agent-tools/src/collaboration-state/cli-options.ts",
+        "agent-tools/src/collaboration-state/types.ts",
+        "agent-tools/tests/collaboration-state/active-claims-claim-jsonschema.unit.test.ts",
+        "agent-tools/tests/collaboration-state/cli-claim-role.unit.test.ts"
+      ],
+      "commit_subject": "feat(agent-tools): add optional role field to active claims",
+      "queued_at": "2026-06-12T15:56:33.660Z",
+      "updated_at": "2026-06-12T15:56:49.361Z",
+      "expires_at": "2026-06-12T16:11:33.660Z",
+      "phase": "abandoned",
+      "staged_bundle_fingerprint": "0d1f73001c2af2b8314c1ea1d176837e9f2216c35d05ef2699e5432a4407b5d3",
+      "staged_name_status": "M\t.agent/rules/check-singleton-per-window.md\nM\t.agent/skills/start-right-quick/shared/start-right.md\nM\t.agent/skills/start-right-team/SKILL-CANONICAL.md\nM\t.agent/state/collaboration/active-claims.schema.json\nM\tagent-tools/src/collaboration-state/cli-claim-commands.ts\nM\tagent-tools/src/collaboration-state/cli-options.ts\nM\tagent-tools/src/collaboration-state/types.ts\nA\tagent-tools/tests/collaboration-state/active-claims-claim-jsonschema.unit.test.ts\nA\tagent-tools/tests/collaboration-state/cli-claim-role.unit.test.ts\n",
+      "notes": "commit-workflow git-commit failure: git commit exited with code 1: 🔍 Running pre-commit checks...\n📝 Checking formatting on staged files...\n$ pnpm --filter @oaknational/agent-tools repo-check prettier-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts prettier-staged\nChecking formatting...\nAll matched files use Prettier code style!\n🔍 Running markdownlint on staged Markdown files...\n$ pnpm --filter @oaknational/agent-tools repo-check markdownlint-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts markdownlint-staged\n🧭 Running workspace-owned repo validators...\n$ pnpm --filter @oaknational/eslint-plugin-standards validate-boundaries && pnpm --filter @oaknational/agent-tools validate-no-stale-script-invocations && pnpm --filter @oaknational/agent-tools validate-collaboration-state && pnpm --filter @oaknational/agent-tools validate-lifecycle-scripts && pnpm --filter @oaknational/agent-tools validate-pretooluse-guard-routing && pnpm --filter @oaknational/agent-tools validate-policy-reappraisal\n$ cd ../../.. && pnpm exec tsx packages/core/oak-eslint/scripts/validate-boundaries.ts\n$ cd .. && pnpm exec tsx agent-tools/src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts\nvalidate-no-stale-script-invocations: OK (no stale root `scripts/...` invocations)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/collaboration-state/validate-collaboration-state.ts\ncollaboration-state validate: OK (4981 JSON file(s) checked)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts\nvalidate-lifecycle-scripts: OK (no package-manager/turbo invocations in root lifecycle scripts)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts\nvalidate-pretooluse-guard-routing: OK (all PreToolUse guards route through the shim)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/policy-reappraisal/validate-policy-reappraisal.ts\nvalidate-policy-reappraisal: OK (every content-guard scoped-block group and Bash blocked-pattern entry carries a reappraisal direction)\n🐚 Linting shell scripts...\n$ pnpm lint:shell:syntax\n$ bash -n apps/oak-curriculum-mcp-streamable-http/scripts/*.sh\n🔗 Checking for unused code (knip)...\n$ knip\n🧱 Checking dependency boundaries (depcruise)...\n$ depcruise apps packages agent-tools\n\n✔ no dependency violations found (2404 modules, 5252 dependencies cruised)"
+    },
+    {
+      "intent_id": "696b94fb-8420-484a-976b-f6bd938630e4",
+      "claim_id": "e569c8da-a34a-4f56-a2af-40f86cb1f5e8",
+      "agent_id": {
+        "agent_name": "Fern lifts Mulch",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "66f12b",
+        "id": "e929d0a4-eeaf-5e2f-ac89-60c458aae7b8"
+      },
+      "files": [
+        ".agent/state/collaboration/experiments/.gitignore",
+        ".agent/state/collaboration/experiments/2026-06-12-rendezvous-firefly-forge.md",
+        ".agent/state/collaboration/experiments/2026-06-12-session-close-coordination-forge-turns-basalt-firefly-seeks-temper.md",
+        ".agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/.starless-notice-body.md",
+        ".agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/2026-06-11-n3-notes-hushed.md",
+        ".agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/2026-06-11-reliability-stream-n3.md"
+      ],
+      "commit_subject": "chore(collaboration-state): preserve all comms experiment records in git",
+      "queued_at": "2026-06-12T17:18:04.890Z",
+      "updated_at": "2026-06-12T17:19:06.408Z",
+      "expires_at": "2026-06-12T17:33:04.890Z",
+      "phase": "abandoned",
+      "staged_bundle_fingerprint": "731bf7742d150eb036c77c9d1c629c9a1358a22d0def1fe5bec7e626e34125bf",
+      "staged_name_status": "M\t.agent/state/collaboration/experiments/.gitignore\nA\t.agent/state/collaboration/experiments/2026-06-12-rendezvous-firefly-forge.md\nA\t.agent/state/collaboration/experiments/2026-06-12-session-close-coordination-forge-turns-basalt-firefly-seeks-temper.md\nA\t.agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/.starless-notice-body.md\nA\t.agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/2026-06-11-n3-notes-hushed.md\nA\t.agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/2026-06-11-reliability-stream-n3.md\n",
+      "notes": "commit-workflow git-commit failure: git commit exited with code 1: 🔍 Running pre-commit checks...\n📝 Checking formatting on staged files...\n$ pnpm --filter @oaknational/agent-tools repo-check prettier-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts prettier-staged\nChecking formatting...\nAll matched files use Prettier code style!\n🔍 Running markdownlint on staged Markdown files...\n$ pnpm --filter @oaknational/agent-tools repo-check markdownlint-staged\n$ cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts markdownlint-staged\n🧭 Running workspace-owned repo validators...\n$ pnpm --filter @oaknational/eslint-plugin-standards validate-boundaries && pnpm --filter @oaknational/agent-tools validate-no-stale-script-invocations && pnpm --filter @oaknational/agent-tools validate-collaboration-state && pnpm --filter @oaknational/agent-tools validate-lifecycle-scripts && pnpm --filter @oaknational/agent-tools validate-pretooluse-guard-routing && pnpm --filter @oaknational/agent-tools validate-policy-reappraisal\n$ cd ../../.. && pnpm exec tsx packages/core/oak-eslint/scripts/validate-boundaries.ts\n$ cd .. && pnpm exec tsx agent-tools/src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts\nvalidate-no-stale-script-invocations: OK (no stale root `scripts/...` invocations)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/collaboration-state/validate-collaboration-state.ts\ncollaboration-state validate: OK (4986 JSON file(s) checked)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts\nvalidate-lifecycle-scripts: OK (no package-manager/turbo invocations in root lifecycle scripts)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts\nvalidate-pretooluse-guard-routing: OK (all PreToolUse guards route through the shim)\n$ cd .. && pnpm exec tsx agent-tools/src/validators/policy-reappraisal/validate-policy-reappraisal.ts\nvalidate-policy-reappraisal: OK (every content-guard scoped-block group and Bash blocked-pattern entry carries a reappraisal direction)\n🐚 Linting shell scripts...\n$ pnpm lint:shell:syntax\n$ bash -n apps/oak-curriculum-mcp-streamable-http/scripts/*.sh\n🔗 Checking for unused code (knip)...\n$ knip\n🧱 Checking dependency boundaries (depcruise)...\n$ depcruise apps packages agent-tools\n\n✔ no dependency violations found (2439 modules, 5344 dependencies cruised)"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "5865da89-9337-41c4-bf94-174d512cc5e4",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/claude/statusline-*",
+            "agent-tools/tests/claude/statusline-*",
+            "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+            "agent-tools/src/collaboration-state/types.ts",
+            "agent-tools/src/collaboration-state/claims.ts",
+            ".agent/state/collaboration/active-claims.schema.json",
+            ".agent/skills/start-right-quick/shared/start-right.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T15:37:16Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Execute statusline-session-shape-indicators plan (WS1 role field, WS2 resolver, WS3 render, WS4 glyph evidence, WS5 tests) on branch feat/statusline-enhancements in worktree seat .claude/worktrees/statusline-enhancements"
+    }
+  ]
 }

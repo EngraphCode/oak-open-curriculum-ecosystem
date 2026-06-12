@@ -1,6 +1,14 @@
 # Comms-Corpus Research Session — Opener
 
 **Type**: handover (research session entry point; owner-prioritised 2026-06-12)
+**Planning-session note (2026-06-12, Fern lifts Mulch / 66f12b)**: the plan was made
+decision-complete and execution-ready under owner direction — WS6 now requires a
+comprehensive synthesis report, and a new owner-gated WS7 executes the ratified rotation
+end-state (contract-surface relocation, `experiments/` preservation — never purged,
+`.agent/state/` untracked-by-design, 7-day default retention purge post-absorption).
+Immediate `experiments/` preservation already landed. **The WS1 blind pass is attested
+uncontaminated**: the planning seat never opened the thread record's Candidate Themes
+sections or the fenced pattern files — you arrive with the cold read intact.
 **Plan authority**:
 [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
 — the execution contract (workstreams, acceptance criteria, proof contract, non-goals).

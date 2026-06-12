@@ -1,7 +1,7 @@
 ---
 name: "Comms-Corpus Research and Rotation Strategy"
-overview: "Dedicated research pass over the preserved .agent/state/collaboration/comms/ corpus (~3,150 events; 3,153 as of 2026-06-12T07:05Z — re-derive at WS0): blind cold read, automated survey, failure-mode taxonomy, prioritised theme deep-dives, mechanism recommendations routed to the comms/coordination plan cluster, and a ratification-ready non-held rotation strategy that ends the preservation hold without losing unprocessed signal. Companion to the agent-collaboration-research thread record, which owns the hypothesis, analysis vectors, and seeded themes."
-status: "READY FOR DISPATCH (owner-released 2026-06-12, gated only on the handover-team session closeout, now complete) — run as a standalone session via the opener prompt"
+overview: "Dedicated research pass over the preserved .agent/state/collaboration/comms/ corpus (4,978 events as of 2026-06-12T15:45Z, fully git-tracked since 567bf0f1a — re-derive at WS0): blind cold read, automated survey, failure-mode taxonomy, prioritised theme deep-dives, mechanism recommendations routed to the comms/coordination plan cluster, a ratification-ready non-held rotation strategy that ends the preservation hold without losing unprocessed signal, and (owner-amended 2026-06-12) the owner-gated execution of the ratified end-state: .agent/state/ untracked, experiments/ preserved, comms events beyond the retention window deleted post-absorption. Companion to the agent-collaboration-research thread record, which owns the hypothesis, analysis vectors, and seeded themes."
+status: "DECISION-COMPLETE + EXECUTION-READY (planning session 2026-06-12, Fern lifts Mulch / 66f12b: end-state amended under owner direction — WS6 gains the comprehensive synthesis report, new owner-gated WS7 executes the ratified rotation inside this plan; experiments/ preservation landed immediately. The successor research session executes WS0+ via the opener prompt; the WS1 blind pass is attested uncontaminated — the planning seat did not open the Candidate Themes sections or the fenced pattern files)"
 todos:
   - id: ws0-grounding
     content: "WS0: read the agent-collaboration-research thread record (resume contract) EXCEPT its two Candidate Themes sections, which are deferred until the WS1 surprises log is recorded (blind-pass exception in the record's Resume Contract); read the comms-event schema and this plan; confirm corpus size/span first-hand."
@@ -20,13 +20,17 @@ todos:
     status: pending
     depends_on: [ws1-open-discovery, ws2-automated-survey]
   - id: ws5-rotation-strategy
-    content: "WS5: non-held rotation strategy — evaluate the candidate shapes in the thread record's rotation section against WS1-WS4 evidence and the five invariants; produce a ratification-ready proposal (PDR-class portable contract + ADR-class repo phenotype outline) and put it to the owner. NO deletion executes inside this plan."
+    content: "WS5: non-held rotation strategy — evaluate the candidate shapes in the thread record's rotation section against WS1-WS4 evidence and the five invariants; produce a ratification-ready proposal (PDR-class portable contract + ADR-class repo phenotype outline) and put it to the owner. NO deletion executes inside WS5 or any workstream before it — execution belongs exclusively to the owner-gated WS7, strictly after ratification."
     status: pending
     depends_on: [ws2-automated-survey, ws3-failure-mode-taxonomy]
   - id: ws6-consolidation-closeout
-    content: "WS6: consolidation and closeout — run the consolidation workflow over research outputs; update the thread record (what was processed, what remains, new themes discovered, identity row); archive or queue follow-ons per lifecycle triggers."
+    content: "WS6: consolidation and closeout — produce the comprehensive synthesis report under .agent/reports/agentic-engineering/ fronting the full artefact set (discoveries, emergent patterns, insights, what-worked-well findings, routed recommendations, future-enhancement proposals, with links to the WS1-WS5 artefacts); run the consolidation workflow over research outputs; update the thread record (what was processed, what remains, new themes discovered, identity row); archive or queue follow-ons per lifecycle triggers."
     status: pending
     depends_on: [ws4-theme-deep-dives, ws5-rotation-strategy]
+  - id: ws7-ratified-execution
+    content: "WS7 (owner-gated: fires only on owner ratification of the WS5 proposal): execute the ratified rotation end-state — (a) relocate load-bearing contract surfaces out of .agent/state/collaboration/ to tracked homes first (the five *.schema.json files consumed by agent-tools source, the test fixtures/ tree; default homes unless the WS5 proposal argues otherwise: schemas and fixtures into the agent-tools workspace, consumers updated, gates green); (b) PRESERVE everything under .agent/state/collaboration/experiments/ — owner direction 2026-06-12: experiments content is conserved, never purged. Interim safety landed in the planning session (gitignore policy flipped, five machine-local records committed in place); WS7 still routes the content to a durable tracked home OUTSIDE the untracked-by-design boundary, because step (c) would otherwise re-untrack it; (c) gitignore .agent/state/ as untracked-by-design (uniform classification with the .agent/state/onboarding/ precedent; the tracked README.md anchor remains in git). DERIVED ARTEFACTS ARE NOT PRESERVATION TARGETS (owner, PR 201 review): shared-comms-log.md is an ephemeral rendering rebuilt from the event stream — it goes untracked with no relocation and no disposition ledger entry; rotation invariant 3 (provenance) attaches to the comms events themselves, never to the rendered log; (d) delete comms events older than the ratified retention window (owner default 2026-06-12: 7 days; class-tiering permitted where WS2-WS4 evidence argues it) only after absorption/disposition is recorded per invariant 1. No step here runs before ratification."
+    status: pending
+    depends_on: [ws5-rotation-strategy, ws6-consolidation-closeout]
 isProject: false
 ---
 
@@ -61,6 +65,14 @@ Two user-impact outcomes:
 2. **A ratified steady-state for the comms stream**: the preservation hold ends through an
    owner-ratified non-held rotation strategy, restoring watcher drain health permanently
    without losing unprocessed signal.
+3. **The ratified end-state executed (owner-amended scope, 2026-06-12)**: once the owner
+   ratifies the WS5 proposal, WS7 executes it inside this plan — load-bearing contract
+   surfaces relocated to tracked homes, `.agent/state/collaboration/experiments/` content
+   preserved into a durable tracked home (owner direction: never purged), `.agent/state/`
+   gitignored as untracked-by-design (tracked README anchor remains), and comms events older
+   than the ratified retention window (owner default: 7 days) deleted after recorded
+   absorption. The owner decision moment between WS5 and WS7 is the gate; nothing executes
+   before it.
 
 ## Mechanism
 
@@ -135,16 +147,23 @@ All proof levels are `non-code` (research artefacts) unless stated.
 | ws3 | Taxonomy report clusters every tagged failure-mode/behaviour-note event (count derived at execution time per the disposition-ledger discipline) into named classes with cure-shape patterns; each class carries a doctrine-grade vs note-grade verdict and a routing decision (PDR draft / pending-graduations / note) | non-code: report file + disposition ledger covering all tagged events |
 | ws4 | Each prioritised item has a research artefact with ≥2 worked instances (event ids cited), a lens classification (deficit / strength / emergent), and a steering verdict (fix / encourage / discourage / observe-only); cure- and steering-bearing artefacts carry a recommendation routed to a named consumer plan; understanding-only conclusions are explicitly legitimate; the deep-dive set as a whole must not be deficit-only unless the evidence genuinely is | non-code: artefact files + routing records |
 | ws5 | A ratification-ready rotation proposal exists naming: mechanism, trigger, owner-role, archive home, heartbeat-class handling, the five invariants' satisfaction, storage-redesign composition, and the migration path for the current held corpus (item-level disposition); proposal surfaced to the owner as a decision | non-code: proposal artefact + owner-decision surfacing |
-| ws6 | Consolidation run; thread record updated (processed/remaining, new themes discovered, identity row); follow-ons queued | non-code: record diff + consolidation evidence |
+| ws6 | Comprehensive synthesis report exists under `.agent/reports/agentic-engineering/` fronting the full artefact set (discoveries, emergent patterns, insights, routed recommendations, future-enhancement proposals); consolidation run; thread record updated (processed/remaining, new themes discovered, identity row); follow-ons queued | non-code: synthesis report file + record diff + consolidation evidence |
+| ws7 | Owner ratification recorded FIRST; then: schemas + fixtures relocated to tracked homes with consumers updated (agent-tools gates green); `experiments/` content preserved to a durable tracked home (nothing under it deleted); `.agent/state/` gitignored with tracked README anchor; comms events older than the ratified window deleted with absorption/disposition recorded per event class | code + non-code: gitignore diff, relocation commits, disposition ledger, post-purge watcher drain health observation |
 
-Completion language: this plan claims complete only when ws0–ws6 are proven as above.
-WS5's *ratification* is explicitly out of scope — "proposal put to owner" is the completion
-bar, per research-outputs-name-decisions discipline.
+Completion language: this plan claims complete only when ws0–ws7 are proven as above.
+WS5's own bar remains "proposal put to owner" per research-outputs-name-decisions discipline —
+the research names the decision, the owner makes it. WS7 then executes the ratified decision;
+if the owner declines or reshapes the proposal, WS7 executes the reshaped ratification, and a
+declined proposal closes the plan at ws6 with the decline recorded.
 
 ## Non-goals
 
-- **No deletion, archival movement, or rotation execution** of any corpus event inside this
-  plan — determination only; execution follows owner ratification under a successor slice.
+- **No deletion, archival movement, or rotation execution before owner ratification of the
+  WS5 proposal** — WS1–WS5 are determination only; WS7 is the sole execution surface in this
+  plan and fires exclusively on recorded ratification (amended 2026-06-12 from the original
+  successor-slice shape, under owner direction, so the plan owns the full arc).
+- **Nothing under `.agent/state/collaboration/experiments/` is ever deleted** — owner
+  direction 2026-06-12; WS7 preserves it into a durable tracked home.
 - **No new coordination machinery** (CLIs, watchers, hooks) — recommendations route to the
   cluster's owning plans; the rightsizing keystone's anti-accretion stance governs.
 - **No doctrine changes** — doctrine-grade findings become PDR drafts or pending-graduations
