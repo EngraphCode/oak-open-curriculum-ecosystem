@@ -122,7 +122,7 @@ in AI-mediated planning.
 
 ## The numbers at a glance
 
-| | |
+| Measure | Position |
 | --- | --- |
 | Teaching approaches served | 30, the full Toolkit |
 | Live since | 8 June 2026, on Oak's public AI interface |
