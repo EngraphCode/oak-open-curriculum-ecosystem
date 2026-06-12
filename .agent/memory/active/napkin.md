@@ -405,3 +405,12 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   contradicted my header); cured by an on-channel correction entry with a derived timestamp.
   Reading the doctrine that morning did not stop the hands; instance for the
   read-doctrine-does-not-fire family.
+- **Work note (owner-directed 2026-06-12): `mcp-expert` sub-agent template needs a deep
+  review + update in a future session.** Evidence from a light review: 628 lines, ONE
+  mention of elicitation/sampling combined, no spec-revision pins; body knowledge predates
+  the 2025-11-25 revision (URL-mode elicitation is new there; sampling.tools; prompt
+  icons; completion context.arguments). Its fetch-live-spec discipline is sound — the gap
+  is the worked knowledge and review checklists. Fold in the snagging arc's
+  client-visibility lessons (rendering evidence before shape ratification). Belongs to the
+  standing owner-directed specialist-agent design overhaul; mcp-expert is now its first
+  named target.
