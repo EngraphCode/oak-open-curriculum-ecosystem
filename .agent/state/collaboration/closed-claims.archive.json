@@ -13213,6 +13213,56 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "eb48b75a-4d30-4590-97f5-0789d2332575",
+      "agent_id": {
+        "agent_name": "Thyme wakes Canopy",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "70655e",
+        "id": "f86abc9a-222e-5991-bc82-97e39819250f",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/memory/active/napkin.md",
+            ".agent/memory/active/distilled.md",
+            ".agent/memory/operational/pending-graduations.md",
+            ".agent/memory/operational/open-questions.md",
+            ".agent/memory/operational/repo-continuity.md",
+            ".agent/memory/operational/threads/eef.next-session.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T11:41:08Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Dedicated knowledge-curation pass (Thyme wakes Canopy, 70655e): napkin rotation, distilled graduation, register drains, continuity condensation",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T12:28:43Z",
+        "closed_by": {
+          "agent_name": "Thyme wakes Canopy",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "70655e",
+          "id": "f86abc9a-222e-5991-bc82-97e39819250f",
+          "naming_schema_version": "override"
+        },
+        "summary": "Dedicated knowledge-curation pass complete: napkin rotated (critical cured), distilled graduated (6 new patterns), owner-approved Core queue authored (PDR-092/093 + 4 amendments + ADR-150 mirror), registers drained to genuinely gated items, continuity surfaces condensed insight-conserved. Working-tree edits uncommitted by design — commit control rests with Vanilla lifts Chlorophyll.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "eb48b75a-4d30-4590-97f5-0789d2332575",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

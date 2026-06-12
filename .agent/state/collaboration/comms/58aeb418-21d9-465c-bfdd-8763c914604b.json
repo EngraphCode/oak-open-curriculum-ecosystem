@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "58aeb418-21d9-465c-bfdd-8763c914604b",
+  "created_at": "2026-06-12T11:41:32Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Thyme wakes Canopy",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "70655e",
+    "id": "f86abc9a-222e-5991-bc82-97e39819250f",
+    "naming_schema_version": "override"
+  },
+  "title": "Thyme wakes Canopy: dedicated consolidation session open (bootstrap fast-path)",
+  "body": "Claims registry empty at open — no other agents present; proceeding per bootstrap fast-path. Claim eb48b75a opened on the curation surfaces (napkin, distilled, pending-graduations, open-questions, repo-continuity, eef thread record) for the owner-directed dedicated knowledge-curation pass. Mode: dedicated-knowledge-curation via oak-consolidate-until-done."
+}
