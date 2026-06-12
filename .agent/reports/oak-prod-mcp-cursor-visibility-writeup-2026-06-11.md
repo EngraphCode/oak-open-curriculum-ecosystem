@@ -200,7 +200,10 @@ Local (no auth), from repo root:
 
 ```bash
 pnpm --filter @oaknational/oak-curriculum-mcp-streamable-http build
-node apps/oak-curriculum-mcp-streamable-http/dist/server.js  # port 3333
+# dist/index.js is the Node LISTENER entry; dist/server.js is the serverless
+# export and exits 0 silently when run directly (replay-verified 2026-06-12).
+# Run from the app directory so .env.local resolves.
+(cd apps/oak-curriculum-mcp-streamable-http && node dist/index.js)  # port 3333
 ```
 
 Then over JSON-RPC (`initialize` → `tools/call`):
