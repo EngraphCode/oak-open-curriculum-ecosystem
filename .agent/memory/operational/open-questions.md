@@ -155,3 +155,30 @@ fitness_content_role: drainable-buffer
   [team-opener generalisation exploration plan](../../plans/agent-tooling/current/team-opener-generalisation-exploration.plan.md).
 - **Status**: OPEN — captured for the next dedicated agentic-engineering session; a strong ADR
   candidate (state-file merge-semantics architecture).
+
+## Q-010 — repair or retire the curriculum-sdk committed typedoc markdown estate?
+
+- **Captured**: 2026-06-12 (Tempest spins Stratosphere / claude-code / Fable 5 / `123098`),
+  during the upstream-spec description-rewrite alignment.
+- **Question**: `packages/sdks/oak-curriculum-sdk/docs/api-md/` is a committed,
+  generated typedoc-markdown tree with no live generator flow: its `docs:api` script is wired
+  into no root script and no turbo task; `typedoc.json` still lists a
+  `docs/_typedoc_src/...` entrypoint deleted in the 2026-02-16 cleanup (every run warns and
+  exits 2); and a bare regeneration today produces a structurally different, far smaller tree
+  (135 files changed, −16k lines, `PATH_OPERATIONS.md`/`schema.md` deleted). Independently,
+  config review found the turbo `doc-gen` task declares `**/docs/api-md/**` as an output that
+  its script never writes. The committed tree now also embeds pre-rewrite upstream
+  descriptions, so it is stale documentation on a doc surface.
+- **The fork**: (a) repair the pipeline — fix the typedoc entrypoints, decide the intended
+  output shape, wire `docs:api` into `doc-gen`, regenerate, and commit the fresh tree; or
+  (b) retire the committed `api-md` tree (typedoc output is derivable on demand; committed
+  copies drift by construction) and remove the dangling `doc-gen` output glob. Option (b) is
+  the smaller, drift-proof shape unless a named consumer reads the committed markdown.
+- **Why not resolved in the alignment PR**: the alignment is description-refresh +
+  correction retirement; rebuilding or retiring a docs pipeline is a separable product
+  decision with its own blast radius (a mis-fired bare regeneration during the alignment was
+  restored forward from HEAD).
+- **Owning artefact / discussion home**: `packages/sdks/oak-curriculum-sdk` README/typedoc
+  config; turbo `doc-gen` task config.
+- **Status**: OPEN — owner decision (repair vs retire); evidence in the 2026-06-12 napkin
+  entry and the alignment PR discussion.

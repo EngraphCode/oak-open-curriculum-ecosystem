@@ -23,10 +23,17 @@ way to bound or rank the response. Two distinct gaps:
    bounded, frequency-ranked local tool (deliverable G4 of the graph-tools
    redesign) as a workaround.
 2. **Ranking is promised but not delivered.** The endpoint's own description
-   states the keywords are *"returned in order of frequency, with the most
+   stated the keywords are *"returned in order of frequency, with the most
    common keywords appearing first."* The handler instead sorts
    **alphabetically**, and the response carries no frequency signal, so a
    consumer cannot rank or threshold by frequency either.
+
+   **Update 2026-06-12**: the documented-vs-actual contract gap is resolved
+   at source — the upstream description rewrite (oak-openapi PR #269,
+   deployed as `0.7.0-69d2b6c9…`) now states the keywords are "sorted
+   alphabetically". The feature ask itself (bounding + a real frequency
+   ranking signal) remains open; the evidence below cites the pre-rewrite
+   description it was grounded against.
 
 ## Evidence
 

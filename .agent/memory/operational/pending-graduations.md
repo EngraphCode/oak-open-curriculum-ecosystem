@@ -166,11 +166,28 @@ capture time.
   repo/coordination-home root, or refuse relative paths with an error that
   names shell-cwd persistence (any prior `cd`, not only worktree seats) as the
   trigger and absolute paths as the cure.
+  Two further instances 2026-06-12 (Tempest spins Stratosphere, 123098): (5) the
+  dirty comms-append vector again — relative `--comms-dir` after a `cd` into a
+  worktree wrote the presence event into the WORKTREE's comms store behind a
+  true-looking "wrote comms event" line (caught by checking the destination,
+  moved forward); (6) a NEW shape that extends the cure spec — `commit-queue`
+  write commands (`enqueue`/`guard`/`record-staged`/`commit`) expose no
+  registry path option at all, so a worktree seat CANNOT address the shared
+  registry even with absolute-path discipline: `enqueue` rejected a valid
+  shared-registry claim as `unknown claim_id` because it resolved the
+  worktree's own registry from cwd. The structural cure must therefore resolve
+  the coordination home across worktrees (e.g. via the git common dir), not
+  merely refuse relative paths — otherwise worktree seats are locked out of
+  the commit-queue ceremony entirely and fall back to manual staging
+  discipline.
   `[captured: 2026-06-11 | source: Scorched napkin entry + Prismatic closeout
-  62d747c4 + Nebulous delta de5122b8 + this pass's read-direction instance |
-  target: agent-tools collaboration-state path-resolution hardening | trigger:
-  FIRED, second instance (Scorched+Prismatic); third instance adds the
-  comms-append vector | size: S | status: due]`
+  62d747c4 + Nebulous delta de5122b8 + this pass's read-direction instance +
+  Tempest 2026-06-12 instances 5–6 (comms-append misroute; commit-queue
+  worktree lockout) | target: agent-tools collaboration-state path-resolution
+  hardening | trigger: FIRED, second instance (Scorched+Prismatic); third
+  instance adds the comms-append vector; sixth instance adds the
+  worktree-lockout shape and the common-dir resolution requirement | size: S→M
+  (common-dir discovery added) | status: due]`
 - **Comms `reply` demands the full event UUID — add git-style prefix
   resolution.** Second instance FIRED (Prismatic's closeout + the earlier
   instance counted in pre-position 0f36d756 item 4): an 8-char event-id prefix

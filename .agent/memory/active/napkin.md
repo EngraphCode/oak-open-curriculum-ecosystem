@@ -101,3 +101,43 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   committed with the prior commit's message (caught on the log line, cured by amend — local
   and unpushed, so safe). Cure: after ANY policy-blocked commit attempt, re-verify
   COMMIT_EDITMSG content before retrying; better, write the message file in its own command.
+
+## 2026-06-12 — upstream-spec alignment seat (Tempest spins Stratosphere, 123098)
+
+- **Upstream docs-only spec rewrite exercised the Cardinal Rule path end-to-end and the
+  removal-condition design fired exactly as built**: oak-openapi PR #269 rewrote every
+  operation description/summary ("Use when…/Not for…"); zero structural drift. The
+  `/keywords:get` correction's removal-condition test failed on refresh (upstream fixed the
+  false frequency claim at source), and the whole operation-level corrections mechanism was
+  retired (zero entries left; param-level sibling stays as the live exemplar).
+- **A turbo task whose script writes a file not named in `outputs` serves incoherent state
+  on cache replay**: `sdk-codegen` declared `outputs: ['**/generated/**']` but also writes
+  `schema-cache/**` (declared only as input) — the first worktree run restored new-hash
+  generated files while leaving the schema cache stale. Cured this PR: outputs now name the
+  full write-set. Open observation: an online fetch inside a cache-enabled turbo task is
+  inherently non-hermetic (18 cache hits in a brand-new worktree prove a shared cache);
+  staleness semantics is a design question, flagged, not solved here.
+- **`packages/sdks/oak-curriculum-sdk` `docs:api` is an orphaned, broken docs pipeline**:
+  `typedoc.json` still lists `docs/_typedoc_src/...` deleted in the 2026-02-16 cleanup
+  (warning → exit 2), no root script or turbo task invokes `docs:api`, and the committed
+  `docs/api-md` is stale output of an older config (regen produced a −16k-line different
+  tree, deleting PATH_OPERATIONS.md/schema.md). My mis-run's damage was restored FORWARD
+  from HEAD via `git archive | tar -x` + `rm` of residue dirs (never-use-git-to-remove-work
+  honoured). The committed api-md still embeds pre-rewrite upstream descriptions — needs an
+  owner decision: repair the pipeline (fix entrypoints, wire into doc-gen) or retire the
+  committed api-md tree. Follow-on, not this PR.
+- **cwd persistence + relative-path coordination CLIs misroute shared state**: after `cd`
+  into the worktree, `collaboration-state comms append` with a relative `--comms-dir` wrote
+  the event into the WORKTREE's `.agent/` (invisible to peers); moved to the shared
+  checkout. Run coordination CLIs from the shared checkout, or pass absolute paths.
+- **Worktree seats are locked out of the commit-queue ceremony**: the write commands
+  (`enqueue`/`guard`/`record-staged`/`commit`) take no registry path and resolve from cwd,
+  so a shared-registry claim reads as `unknown claim_id` from a worktree. Evidence appended
+  to the pending-graduations relative-path-hardening item (instances 5–6, cure spec extended
+  to common-dir coordination-home discovery). Fallback used: shared-registry window claim +
+  explicit-pathspec staging + exact staged-set verification + pre-validated message + close
+  with SHAs.
+- **zsh no-word-split fired AGAIN same-day-class** (`$ARGS` of repeated `--file` flags passed
+  as ONE positional to `enqueue`): the distilled entry exists and still did not fire at
+  compose time; it DID make diagnosis instant. `${=ARGS}` cured. Read-doctrine-does-not-fire
+  family; counted as further evidence, not a new lesson.
