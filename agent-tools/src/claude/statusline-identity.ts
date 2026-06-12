@@ -7,7 +7,7 @@
  * statusline of the form:
  *
  * ```text
- * <agent-identity> ➜ <dir> git:(<branch>) [✗] [wt:(<worktree>)] ctx:N% [model]
+ * <agent-identity> · <model> · ctx:N% · <branch>[*] · <dir or wt:worktree>
  * ```
  *
  * The agent-identity name (PDR-027) is produced by the built `agent-identity`

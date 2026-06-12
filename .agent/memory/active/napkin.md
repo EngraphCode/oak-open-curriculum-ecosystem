@@ -423,3 +423,26 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   (3) The eef identity-row char-pressure cure that worked: verify every name in the row's
   prior-tail exists in the thread record's identity table (set-membership, scripted), THEN
   replace the tail with a pointer — dedup-with-proof, zero loss, ~1.8k chars freed.
+
+## 2026-06-12 — Statusline redesign session (Starling wakes Wind, b34fdb)
+
+- **The /statusline subagent edited the wrong surface**: statusline-setup rewrote the
+  user-global `~/.claude/statusline-command.sh` while this repo's live statusline is
+  repo-carried (`.claude/settings.json` → `.claude/scripts/statusline-identity.mjs` →
+  `agent-tools` built adapter; project settings override user settings). Owner caught it.
+  Cure applied: redo in `agent-tools/src/claude/statusline-render.ts` + tests. Lesson:
+  locate the live config surface (project settings first) before editing harness config —
+  and before delegating such edits to a platform subagent that only knows user scope.
+- **Shared-checkout state moved mid-session, confirming instance**: the checked-out branch
+  switched under the session (`docs/wider-ecosystem-options-summary` →
+  `coordination/director-final-handoff-2026-06-12`) with peer/owner doc WIP in the tree;
+  my statusline edits ride along as working-tree edits. Caught by re-running git state
+  before reporting (verify-dont-trust on my own banner); owner routed commit responsibility
+  to a future agent. Same class as the 2026-06-12 Forge instance — re-derive-before-acting
+  held.
+- **Tool feedback (Read/Write + ANSI)**: Read renders the ESC control byte invisibly, so a
+  Write composed from read context carries REAL ESC bytes into string literals — tests then
+  pass (bytes match) but the file diverges from the repo idiom of textual `\u001b` escapes.
+  Worked cure: `perl -pe 's/\x1b\[/\\u001b[/'` over the constant block, verify with
+  `grep | cat -v`. Check idiom with `cat -v` whenever editing files whose literals encode
+  control characters.
