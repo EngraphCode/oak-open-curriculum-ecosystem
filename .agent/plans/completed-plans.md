@@ -13,6 +13,7 @@ Before archival, mine completed outcomes into permanent documentation
 
 | Plan | Completed | Key Outcomes | Archive |
 |------|-----------|--------------|---------|
+| Agent Naming Schema v2 | 2026-06-12 | Versioned naming-schema registry (ADR-198): digest-pinned wordlists, v1 era frozen + reproducible, NVN v2 activated, `naming_schema_version` provenance on the identity tuple, data-driven curation gates. PR #189 merged (289b3e036). Era-pinning cure for the session-cache identity split routed to its own follow-on plan. | [archived plan](agent-tooling/archive/completed/agent-naming-schema-v2.plan.md) |
 | Short-Term PR Snagging | 2026-03-11 | PR snagging pass complete. Checks and review findings resolved. | [archived plan](semantic-search/archive/completed/short-term-pr-snagging.plan.md) |
 | MCP Result Pattern Unification | 2026-03-08 | Converged MCP tool execution on `Result<T, E>` across curriculum SDK and MCP consumers. `executeToolCall` returns `Result<ToolExecutionSuccess, McpToolError \| McpParameterError>`, `extractExecutionData` removed, stdio + streamable-http consumers migrated. | [archived plan](semantic-search/archive/completed/mcp-result-pattern-unification.execution.plan.md) |
 | SDK Workspace Separation | 2026-02-25 | Split curriculum-sdk into generation (`@oaknational/sdk-codegen`) and runtime workspaces. Phases 0-7 complete. Two pipelines (API + bulk), 11 subpath exports, boundary rules, 4 package/repo renames. 12-gate quality chain, 8 specialist reviews. | [archived plan](semantic-search/archive/completed/sdk-workspace-separation.md) |

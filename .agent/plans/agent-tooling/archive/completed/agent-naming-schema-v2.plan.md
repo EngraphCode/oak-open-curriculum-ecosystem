@@ -66,12 +66,12 @@ todos:
     status: completed
     depends_on: [ws4-cycle-1]
   - id: ws6-quality-gates-final
-    content: "WS6: full quality gate chain on the integrated delivery."
-    status: pending
+    content: "WS6: full quality gate chain on the integrated delivery. Green repeatedly (1,013 tests at d5a2b1a02; 103/103 pre-push tasks at 56ec1dc91 and 3b4599368; seven-check live-green run verified at merge time)."
+    status: completed
     depends_on: [ws5-docs]
   - id: ws7-adversarial-review
-    content: "WS7: adversarial specialist reviews (code, test, type, docs-adr). Document findings."
-    status: pending
+    content: "WS7: adversarial specialist reviews (code, test, type, docs-adr). Four reviewer verdicts adjudicated; amendments landed in 4159dedb6; two findings refuted with grounding (knip-rejected barrel re-export; registry-as-material-surface in tests)."
+    status: completed
     depends_on: [ws6-quality-gates-final]
 isProject: false
 ---
