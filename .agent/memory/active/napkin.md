@@ -390,3 +390,10 @@ before any source edit; E3 + amendments + PR-3 landed; #190 merged. Captures:
   dialogue-concession in one entry (their file won on substance; pointer left on mine).
   Feed to the reference doc's announce-race section at the next ARC consistency pass
   (owner-named naming/discoverability debt; "ArcAngel" alias line already landed).
+- **I performed the documented ARC timestamp failure mode at my own sign-off addendum**: composed
+  the entry header with a guessed-ahead timestamp (09:38Z claimed, 09:23Z actual) instead of
+  deriving `date -u` BEFORE composing — the exact "compose the timestamp before the append"
+  class the ARC reference doc records. Caught immediately (the same call's `date -u` output
+  contradicted my header); cured by an on-channel correction entry with a derived timestamp.
+  Reading the doctrine that morning did not stop the hands; instance for the
+  read-doctrine-does-not-fire family.
