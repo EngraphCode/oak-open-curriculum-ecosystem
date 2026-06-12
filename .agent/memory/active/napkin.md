@@ -170,3 +170,9 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   taken content; verify successor rows exist for superseded lines) before trusting the
   result. Worked instance: three conflict files resolved to main's versions only AFTER
   verifying mainline successor rows carried the same semantics forward.
+- **A permission-denied tool call is not a guaranteed no-op — verify repo state after any
+  denial.** My denied `git rebase` invocation had already started before the denial landed,
+  leaving a stale `index.lock` plus an in-progress rebase that the owner then collided with
+  ("Rebasing (1/2)" → lock error → rescheduled pick appearing twice in the done-list). The
+  cure: after any denied state-changing call, read the state surfaces it could have touched
+  (`git status`, lock files, in-progress operation dirs) before the next move.
