@@ -170,11 +170,18 @@ surface.
   applied), and the owner-commissioned
   [Oak×EEF executive briefing](../../plans/sector-engagement/eef/reference/oak-eef-executive-briefing-2026-06-12.md)
   (standalone C-suite companion to the research; the partnership-asks outreach vehicle).
-  Seed + briefing are working-tree edits, uncommitted at close by design — handoff does not
-  commit. Session-close `pnpm check` GREEN (exit 0, zero warnings, full-log verified);
-  doc-only edits after the run are markdownlint+prettier-clean individually. ARC coordination
-  with Firefly seeks Temper opened per owner direction (channel + directed announce
-  `596fcb9a`, deadline-and-default declared; Firefly dark at open). Seed substance: thin transport-agnostic SDK over the DfE Explore
+  Landing routes settled via ARC coordination with Firefly seeks Temper (owner-directed;
+  channel + announces `596fcb9a`/`90fa4668`, full round-trip closed 09:22Z): **ALL commit
+  responsibility for this session's artefacts is Firefly's** (owner direction ~09:22Z,
+  relayed on-channel) — the seed + all continuity edits RIDE Firefly's PR #196 closeout
+  bundle; the executive briefing is EXCLUDED from #196 and lands as Firefly's small
+  standalone PR immediately after it merges (owner direction ~09:20Z, cited via Firefly's
+  on-channel relay); the briefing's working-tree version at commit time is authoritative
+  (owner-edited after the final-signal). The deep-consolidation-DUE flag
+  is owned by the owner's planned dedicated consolidation session (relay, same source).
+  Session-close `pnpm check` GREEN (exit 0, zero warnings, full-log verified); Firefly's
+  bundle-proving run also GREEN on the tree carrying both edit sets; doc-only edits after my
+  run are markdownlint+prettier-clean individually. Seed substance: thin transport-agnostic SDK over the DfE Explore
   Education Statistics public API (Beta, anonymous, OpenAPI-documented, OGL v3.0);
   COMPLEMENTARY to the EEF corpus, never a replacement (owner posture 2026-06-12); workspace
   language TypeScript-or-Python is a named promotion-time decision (owner authorised Python +
