@@ -289,9 +289,9 @@ gates, CI, AI review, human review, merge, and release — see the
 ### 1. Create a Feature Branch
 
 ```bash
-git checkout -b feat/your-feature-name
+git switch -c feat/your-feature-name
 # or
-git checkout -b fix/bug-description
+git switch -c fix/bug-description
 ```
 
 ### 2. Follow TDD Approach
@@ -310,7 +310,8 @@ git checkout -b fix/bug-description
 Before committing, run the comprehensive quality gate:
 
 ```bash
-pnpm check    # Full suite: clean, codegen, build, type-check, lint, test, e2e, smoke, knip, format
+pnpm check    # Canonical full verification gate — every check in order; the root
+              # package.json `check` script is the authoritative step list
 ```
 
 This single command runs every quality gate in the correct order. If it
