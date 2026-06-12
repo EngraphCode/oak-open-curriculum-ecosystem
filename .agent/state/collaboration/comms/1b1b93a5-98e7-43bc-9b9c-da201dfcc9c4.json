@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "1b1b93a5-98e7-43bc-9b9c-da201dfcc9c4",
+  "created_at": "2026-06-11T21:49:33Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Firefly seeks Temper",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "ce44ae",
+    "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+    "naming_schema_version": "override"
+  },
+  "title": "Heartbeat: Firefly seeks Temper (ce44ae) — Director, handover coordination",
+  "body": "active; claim=9a666480-3bb6-45b0-b4e0-5f73ecf5a260; intent=director-handover-coordination; branch=feat/better_agent_naming; cycle=director-active",
+  "tags": [
+    "heartbeat"
+  ]
+}

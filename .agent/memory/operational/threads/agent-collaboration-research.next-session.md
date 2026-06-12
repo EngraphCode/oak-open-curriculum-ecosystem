@@ -11,8 +11,13 @@ merge_class: index-narrative-tables
 
 ## Status
 
-**Owner-gated, buffered.** Not currently dispatchable. Awaiting owner direction to open
-dedicated research sessions.
+**Dispatch preparation under owner direction (2026-06-12).** The owner directed (in-session to
+Director Firefly seeks Temper, 2026-06-12) that this record be deepened and that an executable
+plan be created for a dedicated research agent to pick up. The companion plan is
+[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+— once the owner marks it ready, dispatch happens through that plan; this record remains the
+research-substrate home (hypothesis, themes, vectors, corpus facts). Until the plan is
+owner-ratified, no autonomous research dispatch.
 
 ## Origin
 
@@ -30,9 +35,14 @@ Created 2026-05-24 at the post-M1-Safe-Pause-merge boundary by Charcoal Brazing 
 
 ## The Research Vector
 
-**Hypothesis**: the `.agent/state/collaboration/comms/` event archive — accumulated across
-~5 days of intensive multi-agent collaboration leading into M1 Safe Pause — is **research
-substrate** for understanding modes of agent collaboration. Patterns exist in the corpus that:
+**Hypothesis**: the `.agent/state/collaboration/comms/` event archive — ~5 days of intensive
+multi-agent collaboration leading into M1 Safe Pause, grown to **3,153 events (as of
+2026-06-12T07:05Z; re-derive at use) spanning 2026-05-20 → live** — is **research substrate** for understanding modes of
+agent collaboration. Since the original capture window the corpus has gained whole new event
+classes: heartbeat-tagged liveness events (ADR-186), `mid-cycle-handoff` directed events
+(PDR-063 / ADR-182), live `failure-mode` / `behaviour-note` tag usage (ADR-183 / PDR-066),
+and complete coordinated-team arcs (bootstrap → P1 diagnosis → merge sequencing → completion,
+2026-06-11/12). Patterns exist in the corpus that:
 
 - Have already been documented in ADRs / PDRs (the recorded substrate)
 - Are visible to agents inside individual sessions but never extracted (operational-but-
@@ -55,6 +65,32 @@ owner-gated, keep the corpus intact for the future comms/coordination research
 plan. When the owner opens cleanup or research processing, use item-level
 disposition evidence rather than archive-only movement.
 
+Two facts sharpen the boundary as of 2026-06-12:
+
+- **The hold now has an operational cost.** The 3,109-file flat directory degrades the live
+  comms watcher: drain steps exceeded their 60 s (and later 300 s) deadlines twice on
+  2026-06-11/12, killing the Director's watcher mid-session. Preservation-without-rotation is
+  itself a recorded substrate-failure-mode instance (see new theme 13). The research unlock is
+  therefore operationally urgent, not only intellectually valuable.
+- **The corpus is git-heterogeneous.** Older events are committed; recent events (including the
+  entire 2026-06-11/12 handover arc) are untracked working-tree files. Deleting an untracked
+  event is unrecoverable loss. Any rotation mechanism must treat commit-or-absorb as the
+  precondition for deletion of untracked events.
+
+## Research Lenses (owner-named, 2026-06-12)
+
+The research is explicitly not a find-and-fix-problems pass. Three lenses, with the third
+weighted highest:
+
+1. **Failure modes** — what went wrong, clustered with cure-shapes.
+2. **What worked well** — successful practices and substrate behaviours, named so they can be
+   protected and propagated rather than accidentally regressed.
+3. **Surprising emergent behaviour** — behaviours nobody designed that the corpus reveals.
+   These are steerable: the cure-shape vocabulary is **activation-enthalpy tuning** — nudges
+   in comms tool design, defaults, affordances, and ceremony cost that make a desired emergent
+   behaviour cheaper to do and an undesired one costlier, in preference to mandates or
+   prohibitions. Encouraging, discouraging, or simply observing are all legitimate verdicts.
+
 ## Analysis Vectors (owner-named)
 
 1. **Subject**: what was being discussed (marshal cycles, reviewer dispatch, owner direction,
@@ -63,9 +99,11 @@ disposition evidence rather than archive-only movement.
    pre-compaction, post-merge, …)
 3. **Theme**: recurring concerns across events (failure modes, behaviour notes, heartbeat
    cadence, coordination protocol, substrate writes, …)
-4. **Connection**: cross-event linkages — `in_response_to` chains, citation references in
-   bodies, identity tuples appearing across multiple lanes, temporal adjacency, conceptual
-   adjacency
+4. **Connection**: cross-event linkages — citation references in bodies (the practical
+   linkage substrate: the structured `in_response_to` field is unpopulated corpus-wide as of
+   2026-06-12, so chains are reconstructed from body-text event-id citations, subject
+   threading, and temporal adjacency), identity tuples appearing across multiple lanes,
+   conceptual adjacency
 
 ## Candidate Themes (catalogue seeded from one session — 2026-05-24 Charcoal lens)
 
@@ -180,6 +218,101 @@ corpus contains and what counts as a pattern.
   (tags).
 - Structured-enough for automated pattern mining; rich-enough for qualitative analysis.
 
+## Candidate Themes — second seeding (2026-06-12, Firefly seeks Temper / Director lens)
+
+Captured from the 2026-06-11/12 handover-team arc, which the corpus now holds end to end
+(two PDR-063 mid-cycle handovers, a P1 defect arc, Director merge sequencing, completion).
+As with the first seeding: these are worked examples of what counts as a pattern, a floor and
+never a fence — the owner's standing direction is that the corpus holds surprises not yet
+recognised, and the research must protect open discovery from these priors (see the companion
+plan's blind cold-read workstream and this record's Resume Contract exception).
+
+### 11. Resumed-session temporal dislocation
+
+- **Shape**: a session frozen mid-action resumes, completes the action on wake, and reports it
+  as a past action at the remembered (pre-freeze) timestamp — directing peers to verify against
+  an account that authoritative surfaces contradict.
+- **Worked instance**: PR #192 "merged ~22:33Z" claim vs GitHub `mergedAt 06:24:45Z`; Director
+  behaviour-note event `ac9a06af` carries the four-section capture and cure.
+- **Research angles**: temporal sibling of theme 1 (snapshot-vs-stream). What session-state
+  classes invalidate at freeze/resume boundaries (clock, branch, cwd, in-flight ledger)? Can
+  the cure (re-derive + re-verify on resumed turns) be made structural rather than behavioural?
+
+### 12. Identity era-provenance erasure (the split-brain arc)
+
+- **Shape**: a cache channel records a *derived rendering* (the name) instead of the
+  *derivation input* (the schema era); any later schema activation makes one seed render two
+  live names, fracturing claim ownership, watcher self-exclusion, and roster-to-registry maps.
+- **Worked instances**: Zephyr/Harrier dual rendering 2026-06-11; five tuples stamping
+  `naming_schema_version: "override"`; diagnosis + ruling events `10cb3a10`, `46db87d0`;
+  cure direction = era pinning (post-ADR-198 follow-on plan).
+- **Research angles**: which other substrate fields cache derived values where inputs should be
+  pinned? A general derive-at-use-time vs cache-at-mint-time taxonomy for identity-adjacent
+  state.
+
+### 13. Corpus growth degrades the live mechanism (reflexive substrate finding)
+
+- **Shape**: the preservation hold that protects the research substrate grows the flat event
+  directory until the watcher that depends on it starts dying (drain-step timeouts) — the
+  corpus's value-preservation mechanism erodes the team's awareness mechanism.
+- **Worked instances**: EIGHT watcher deaths across THREE sessions in one team window —
+  Director (60 s + 300 s budgets), Cosmos turns Equinox (3 deaths across 60/180/300 s;
+  failure-mode event 06:42:11Z: "raising budgets is not the cure"; deaths correlate with
+  heavy parallel gate load), Moss weaves Blossom (2 deaths, corroboration event 06:42:42Z;
+  then a third at 06:54:04Z). Between deaths the same directory drained in seconds.
+- **Hypothesis revision in-flight (worth studying as a live falsification arc)**: the first
+  diagnosis was load-starvation (slow-but-healthy drain killed by a fixed budget). Moss's
+  eighth death falsified load-starvation-only: a 540 s budget died at MODERATE load on a
+  stable 3,143-event dir — an intermittent BLOCKING wedge in the drain path. Operational
+  inversion follows: keep budgets SHORT (fail fast + restart) because a long budget extends
+  blindness without saving a wedged drain (behaviour-note event 06:54:04Z).
+- **Research angles**: substrate scalability envelopes; what directory/storage shape decouples
+  preservation volume from watch latency (joins `comms-watch-storage-redesign`); rotation as
+  the structural cure (see §Non-Held Rotation Strategy below).
+
+### 14. Heartbeat cadence under turn starvation
+
+- **Shape**: heartbeat loops emit only when their session is scheduled; overnight turn
+  starvation stretched a 4-minute cadence to 20–40+ minutes while sessions remained healthy.
+  Observe-side thresholds (10-minute retirement) misread starved-but-fine sessions; the
+  heartbeat measures *scheduling*, not *agent intent or health*.
+- **Worked instances**: both implementer lanes overnight 2026-06-11→12; Director correctly
+  withheld retirement-detection by cross-checking ground truth (PR/git state) first.
+- **Research angles**: false-positive analysis for PDR-078 thresholds across operating modes
+  (owner-attended vs unattended); should cadence contracts be scheduling-aware?
+
+### 15. PDR-063 mid-cycle handover — first by-the-book worked pair
+
+- **Shape**: freeze record → claim pointer → directed `mid-cycle-handoff` event → heartbeat-end
+  → successor reads record end-to-end → pickup broadcast with first-hand state re-verification.
+- **Worked instances**: Dusky→Cosmos (record `7fb69812-…`, pickup caught a push that never
+  completed) and Zephyr→Moss (record `2a080642-…`, six sections) on 2026-06-11; zero work loss
+  across both.
+- **Research angles**: which record sections did successors actually consume? Cost of the
+  protocol vs the loss it prevented; what the pickup re-verification catches in practice
+  (stale push state, stale claims) as a class.
+
+### 16. Cross-lane file collisions cured by merge sequencing
+
+- **Shape**: an accidental broad-add sweep put one lane's artefacts on another lane's branch;
+  the cure was Director-serialised merge ordering plus a named per-path resolution rule —
+  coordination-by-ordering instead of conflict-resolution-by-reviewer.
+- **Worked instance**: snagging plan + cursor-visibility write-up on both branches; ruling
+  event `a774bacd` (#190 → #191 → #189, main-authoritative on the two paths).
+- **Research angles**: when is ordering cheaper than ownership enforcement? Interaction with
+  the pure-diff convention (registry state out of feature branches).
+
+### 17. Declared-vs-actual drift in liveness substrate (stale heartbeat typed-args)
+
+- **Shape**: heartbeat loops armed once at bootstrap keep broadcasting stale claim/cycle state
+  after the lane moves on; the liveness stream silently diverges from registry truth.
+- **Worked instances**: two stale-args windows on one lane 2026-06-11 (cured in under a minute
+  per nudge, events `269714aa` + re-arms); contrast with the same lane's accurate substantive
+  reporting.
+- **Research angles**: should heartbeat args derive from the registry at emit time instead of
+  being baked into the loop? Cheap consistency checks between heartbeat claims and
+  `active-claims.json`.
+
 ## Dedicated-Session Profile (research-mode agent)
 
 What kind of agent should do this research?
@@ -209,7 +342,10 @@ What kind of agent should do this research?
 
 1. Read `.agent/state/collaboration/comms/**` end-to-end (or by date-window if doing
    theme-deep-dive); the comms event schema is at
-   `.agent/state/collaboration/comms-event.schema.json`.
+   `.agent/state/collaboration/comms-event.schema.json` (a three-way `oneOf`:
+   `narrative` / `directed` / `lifecycle` — partition by shape before aggregating). An agent
+   executing the companion plan defers the Candidate Themes sections per the Resume Contract
+   exception and the plan's WS1.
 2. Cross-reference against existing PDRs / ADRs in `.agent/practice-core/decision-records/` and
    `docs/architecture/architectural-decisions/`.
 3. Choose session shape from the menu above (or define a new one if a fresh angle surfaces).
@@ -217,11 +353,106 @@ What kind of agent should do this research?
    warrants permanent substrate).
 5. Update this thread record with what was processed + what remains.
 
+## Non-Held Rotation Strategy (to determine)
+
+The current corpus state is **held**: the Preservation Boundary keeps every event intact for
+research. That hold is bounded — once the research processing the companion plan defines has
+absorbed the corpus's signal, the steady state needs a **non-held rotation strategy**: the
+standing mechanism by which comms events flow from the live directory into durable homes and
+out of existence, so the live directory stays small enough for the watcher while no
+unprocessed signal is ever lost. This section frames the determination; the companion plan's
+rotation workstream produces the ratification-ready proposal; **the owner ratifies the
+strategy before any deletion executes**.
+
+Invariants any candidate strategy must satisfy:
+
+1. **No unprocessed signal is deleted.** Absorption (consolidation into napkin / distilled /
+   patterns / PDR / ADR homes, or recorded item-level disposition) precedes removal — the
+   owner's 2026-05-27 clarification, mechanised.
+2. **Untracked events are committed or absorbed before deletion** (git-heterogeneity fact
+   above; deletion of an untracked event is unrecoverable).
+3. **Provenance survives rotation.** Identity tuples, `in_response_to` chains, and event ids
+   cited in permanent docs must remain resolvable (or the citations updated) after rotation.
+4. **The live directory has a bounded working set** sized to watcher drain health, not to a
+   round number.
+5. **Heartbeat events are a distinct class.** Highest volume, lowest per-event research value
+   once aggregate cadence statistics are extracted; candidate for the shortest retention.
+
+Candidate shapes to evaluate (not mutually exclusive; evidence from the research pass decides):
+
+- **Absorb-then-delete on consolidation cadence** — comms-log-care (PDR-080 signal-driven
+  absorption) extended with a deletion step after recorded disposition.
+- **Date-window archival** — rotate events older than N days into a committed archive
+  directory outside the watcher's drain path; delete only after research processing.
+- **Class-tiered retention** — heartbeats aggregated-then-deleted on a short window;
+  `failure-mode` / `behaviour-note` events retained until graduated; coordination narrative
+  retained until thread closure.
+- **Storage-shape change** — if `comms-watch-storage-redesign` lands a watermark/segment-store
+  shape, rotation may become a storage concern rather than a directory-hygiene concern.
+
+Open questions the determination must answer: who runs rotation (curator lane vs Director vs
+hook); on what trigger (size, age, session close, consolidation); where archives live; how
+PDR-080's bin-counter interacts; and what the ratified artefact is (PDR for the portable
+contract + ADR for the repo phenotype is the default shape).
+
+## Related Plans and Decision Records
+
+The comms/coordination plan cluster is indexed at
+[`agent-tooling/future/README.md` §Comms / coordination cluster](../../plans/agent-tooling/future/README.md#comms--coordination-cluster);
+disposition of overlapping plans routes through the rightsizing keystone's M4, not per-plan.
+Relevance to this research thread:
+
+- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+  — **the companion executable plan** (created 2026-06-12 under owner direction); dispatch
+  vehicle for this record's research vector.
+- [`collaboration-substrate-coordination-rightsizing.plan.md`](../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
+  — cluster keystone; this research's mechanism findings feed its M4 cull/fold list, and its
+  minimal-substrate re-derivation consumes the failure-mode taxonomy.
+- [`cost-of-collaboration.plan.md`](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
+  — owns cost-per-coordination-event; corpus-derived overhead/substance ratios are direct
+  evidence for its P-ordered workstreams.
+- [`comms-watch-storage-redesign.plan.md`](../../plans/agent-tooling/current/comms-watch-storage-redesign.plan.md)
+  — watcher storage shape; theme 13 (corpus growth degrades drain) is its motivating evidence
+  and the rotation strategy must compose with whatever it lands.
+- [`pdr-080-comms-log-care-phenotype.plan.md`](../../plans/agent-tooling/current/pdr-080-comms-log-care-phenotype.plan.md)
+  — signal-driven absorption phenotype; the rotation strategy's absorption precondition builds
+  on it.
+- [`n-agent-collaboration-experiments.plan.md`](../../plans/agent-tooling/current/n-agent-collaboration-experiments.plan.md)
+  — hypothesis-validation during real work; corpus analysis can confirm/refute the same
+  primitives retrospectively at scale.
+- [`comms-event-write-integrity.plan.md`](../../plans/agent-tooling/current/comms-event-write-integrity.plan.md)
+  — write-path integrity; rotation must not introduce new partial-write windows.
+- [`comms-watch-liveness-floor.plan.md`](../../plans/agent-tooling/future/comms-watch-liveness-floor.plan.md)
+  and
+  [`claim-liveness-crash-reconciliation-and-session-forensics.plan.md`](../../plans/agent-tooling/future/claim-liveness-crash-reconciliation-and-session-forensics.plan.md)
+  — liveness/forensics consumers of themes 14 and 17.
+- Decision records: PDR-066 (comms events as failure-mode channel), PDR-078 (liveness
+  contract), PDR-063 / ADR-182 (mid-cycle handoff), PDR-064 (coordinator two moments),
+  PDR-080 (signal-driven absorption), ADR-183 (tag namespace), ADR-186 (heartbeat substrate).
+
+## Opportunities Surfaced (2026-06-12 deep-dive)
+
+- **Automated pre-pass before agent reading.** Event metadata supports cheap scripted
+  clustering (counts by kind/tag/author/day; burst and silence windows; `in_response_to`
+  chain extraction) so expensive qualitative reading is targeted, not exhaustive. No new
+  machinery needed — `jq`/`node` one-liners recorded in the companion plan suffice.
+- **Tag-adoption analytics.** Measure how often `failure-mode` / `behaviour-note` tags are
+  used vs prose-only captures — direct falsifiability evidence for PDR-066's channel design.
+- **Cross-substrate provenance joins.** Comms events ↔ napkin archive windows ↔
+  closed-claims archive ↔ git commits (SHA-prefix discipline) form a joinable provenance
+  graph; several themes (2, 13, 15) are only visible across the join.
+- **Arc-level analysis.** The corpus now contains complete team arcs with known outcomes;
+  analysing arcs (not just events) lets cure-shapes be scored against what actually happened
+  next — e.g. the 2026-06-11/12 handover arc validates PDR-063 end to end.
+- **Research-feeds-mechanism loop.** Each taxonomy output has a named consumer plan (cluster
+  table above), so findings land as routed recommendations rather than orphaned reports.
+
 ## What this thread is NOT
 
-- Not a plan (no implementation roadmap)
+- Not a plan (no implementation roadmap — that is the companion plan's job)
 - Not a decision (no architectural commitment)
-- Not currently dispatchable (owner-gated)
+- Not autonomously dispatchable (dispatch routes through the companion plan once
+  owner-ratified)
 - Not source of doctrine until research outputs ratify (the corpus is signal, not yet
   pattern-extracted at scale)
 
@@ -232,6 +463,7 @@ What kind of agent should do this research?
 | Charcoal Brazing Kiln | claude | claude-opus-4-7 | 7c7327 | 2026-05-24 | 2026-05-24 | thread-record-author-post-m1-merge |
 | Solar Illuminating Dawn | codex | GPT-5 | 019e6a | 2026-05-27 | 2026-05-27 | state-file-lifecycle-boundary-clarification |
 | Twilit Orbiting Satellite | claude | claude-opus-4-8 | 263042 | 2026-05-29 | 2026-05-29 | routing-legacy-fallback-sunset execution (Leafy claim `14b484d6` pickup) |
+| Firefly seeks Temper | claude | Fable 5 | ce44ae | 2026-06-12 | 2026-06-12 | record deep-dive + second theme seeding + rotation-strategy framing + companion-plan creation (owner-directed, Director seat) |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 
@@ -264,4 +496,8 @@ dispatch contract is unchanged.
 ## Resume Contract
 
 Owner directs resume. No autonomous dispatch. When dispatched, the receiving agent reads this
-record end-to-end before any analysis pass.
+record end-to-end before any analysis pass — **with one deliberate exception**: an agent
+executing the companion plan's open-discovery cold read (WS1) defers BOTH Candidate Themes
+sections until its surprises log is recorded, so the seeded catalogue cannot anchor the cold
+read. The catalogue is a floor for what counts as a pattern, never a fence around what may be
+found; surprises outrank seeded-theme confirmation.

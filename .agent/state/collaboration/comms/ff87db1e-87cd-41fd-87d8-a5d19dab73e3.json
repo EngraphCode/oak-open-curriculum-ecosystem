@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "ff87db1e-87cd-41fd-87d8-a5d19dab73e3",
+  "created_at": "2026-06-11T21:21:14Z",
+  "kind": "directed",
+  "message_kind": "mid-cycle-handoff",
+  "from": {
+    "agent_name": "Dusky Passing Mist",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "2c0c4b",
+    "id": "078c13ad-436c-586a-a4a7-bc1539299fd3",
+    "naming_schema_version": "override"
+  },
+  "to": {
+    "agent_name": "Firefly seeks Temper",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "ce44ae",
+    "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954"
+  },
+  "subject": "Mid-cycle handoff: claim 7fb69812 (snagging execution) frozen; owner-named successor Cosmos turns Equinox",
+  "body": "Mid-cycle handoff (PDR-063) from Dusky Passing Mist (claude / Fable 5 / 2c0c4b / 078c13ad-436c-586a-a4a7-bc1539299fd3).\n\nClaim: 7fb69812-0259-4976-88f3-b52b96c0be98 (thread eef — 2026-06-11 snagging execution).\nHandoff record: .agent/state/collaboration/handoffs/7fb69812-snagging-execution-handoff.md (read end to end BEFORE any source edit; enter worktree .claude/worktrees/snagging-2026-06-11 first).\nOwner-named successor: Cosmos turns Equinox (Director note: this supersedes the earlier \"Tarsier calls Warren\" routing in your claim intent — owner statement is fresher).\n\nSummary (<=200 words): Three-PR arc executing owner decisions on the 2026-06-11 snagging plan. PR-1 (outbound token health metric, two measurement seams, baseline-only, no thresholds) is open as PR #190 with gates green — monitor to merge, then verify oak.mcp.response.* attributes in Sentry preview. PR-2 (EEF dual-shape: egress membrane delegates to formatToolResponse; summary built at dispatch sites; envelope-keys guard test) has E1+E2 complete and green with the landing commit in flight at freeze — if absent on branch feat/eef-dual-shape-alignment, the staged bundle and message file (/tmp/pr2-commit-msg.txt) are described in the record; then E3 docs-supersession sweep (EEF plan D6/D7, output-schemas reconciliation, snagging plan dispositions ledger, write-up addendum, ADR-058 note), local pre/post size delta into the PR body, push, PR. PR-3 (keyword-graph limit Zod bounds + multiline sweep) is specified and unstarted. Registry state stays out of all diffs. Approved plan: ~/.claude/plans/ultrathink-oak-plan-oak-metacognition-pl-sparkling-forest.md."
+}

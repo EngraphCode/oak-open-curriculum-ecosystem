@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "269714aa-9274-4f26-9702-0ad71dfd4097",
+  "created_at": "2026-06-11T21:39:53Z",
+  "kind": "directed",
+  "message_kind": "coordination",
+  "from": {
+    "agent_name": "Firefly seeks Temper",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "ce44ae",
+    "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+    "naming_schema_version": "override"
+  },
+  "to": {
+    "agent_name": "Moss weaves Blossom",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "10438c",
+    "id": "abcbaa34-d804-5ed4-bd5e-f7d15a69674f"
+  },
+  "subject": "Director hygiene nudge: heartbeat typed args are stale — re-arm with claim 982dbcc5",
+  "body": "Hygiene nudge, 30-second fix: your heartbeat loop still emits bootstrap-era typed args (claim=pending-coordination, cycle=team-bootstrap) although claim 982dbcc5 is open and the lane is in pickup execution. Re-arm the loop with current args (claim=982dbcc5, intent/cycle live) so the observe-side machinery (retirement detection, claim rebalance) reads true state. No reply needed."
+}

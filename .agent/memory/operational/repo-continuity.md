@@ -20,6 +20,25 @@ surface.
 
 ## Current State
 
+- **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
+  "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
+  the comms-corpus research session
+  ([opener](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md) →
+  [plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md),
+  readiness-reviewed READY-WITH-AMENDMENTS, amendments applied; owner gate: mark ready).
+  Queued behind it, owner-named: (1) organise the research's follow-ons; (2) complete naming
+  v3 (shape decision input:
+  [sample sheets + maths](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
+  era-pinning cure lands FIRST — Director ruling 10cb3a10); (3) protocols/skills for examining
+  production issues in Sentry; (4) organise the Sentry logging improvements those discoveries
+  will surface; (5) refine the PostHog plan (home:
+  [`mcp-product-analytics` thread](threads/mcp-product-analytics.next-session.md));
+  (6) begin planning integration of the oak api repo into this ecosystem repo. The
+  2026-06-11/12 handover-team arc itself is COMPLETE: both lanes landed (#189–#194), both
+  implementers closed out cleanly; coordination branch
+  `coordination/naming-and-snagging-team-2026-06-11` (prefix convention owner-adopted
+  2026-06-12) carries the continuity bundle to merge at Director closeout.
+
 - **TRACK-G COMPLETE + CURED — graph implementation team, seventh Director (2026-06-11).**
   Live NOW: **Iridescent Threading Constellation (`f9454b`, Fable 5) is the Director**
   (seventh holder; PDR-064 Moment 2 at ~11:16Z 06-11, event `3985ce20` on Sunlit's Moment-1
@@ -102,6 +121,30 @@ surface.
   2026-06-08); delivered-value stays with
   [`eef-outcome-evaluation-infrastructure.plan.md`](../../plans/sector-engagement/eef/future/eef-outcome-evaluation-infrastructure.plan.md).
   Full arc: the [`eef` record][eef].
+- **OAK-PROD MCP SNAGGING (2026-06-11 evening, Dawnlit Glimmering Orbit `50c2d1`) — write-up
+  landed, fixes deferred by owner direction (next agent will not be a Cursor instance).**
+  The live oak-prod MCP was exercised end-to-end (graph tools doctrine-clean, no soft stubs);
+  the one material finding — the ratified `content: []` + structuredContent-only
+  `get-eef-evidence` success is fully invisible to the Cursor agent harness — is pinned with
+  proof, replay recipe, and Cursor-specifics in
+  [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md);
+  the tracker is the
+  [snag register](../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+  (S0 non-Cursor client probe → S1 owner decision; S2–S5 queued). First-wave evidence
+  (verification record) is on branch `docs/graph-team-direction-2026-06-10` (`ae5372e2c`).
+  **Next safe step**: run S0 per the write-up §6 replay recipe, then put S1 to the owner.
+  Deep consolidation status: not due — session captures routed to permanent homes (write-up,
+  snag register, thread record); a dedicated consolidation ran earlier today (Thermal).
+- **AGENT NAMING LANE (2026-06-12, Moss weaves Blossom `10438c`) — landed and closed.**
+  PR #189 merged (`289b3e036`): versioned naming-schema registry, v1 era frozen, NVN v2 active,
+  ADR-198, `naming_schema_version` provenance. Plan archived (PR #194, `9a74eefd1`); full arc in
+  the [completed plan](../../plans/agent-tooling/archive/completed/agent-naming-schema-v2.plan.md)
+  and handoff record `2a080642-naming-lane-handoff.md`. **Next safe step**: author the
+  era-pinning cure plan — hooks pin `OAK_AGENT_NAMING_SCHEMA_ID`, not the rendered name; cures
+  the one-seed-two-names P1 (diagnosis accepted 2026-06-12, comms 75696ec5) and the
+  `"override"` provenance mis-record; prerequisite for any v3 schema activation (owner is
+  exploring v3 shapes — four sample sheets + Zephyr's column-allocation maths in comms).
+  Own claim + owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3).
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.

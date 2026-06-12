@@ -11,6 +11,29 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
+- **THIS SESSION (2026-06-11→12, Cosmos turns Equinox / claude Fable 5, `1bc763`,
+  snagging-execution successor per PDR-063 handoff from Dusky Passing Mist) — 🟢 SNAGGING ARC
+  LANDED.** The 2026-06-11 snagging plan's three-PR arc is fully merged: PR #190 (outbound
+  token health metric, merge `8f1cc49c0`, released 1.27.0), PR #191 (EEF dual-shape — the
+  owner-decided reversal of D6/D7 structuredContent-only, merge `1b02b70b4`, released 1.28.0,
+  including the E3 docs supersession sweep across the EEF plans / output-schemas plan /
+  ADR-058 / ADR-195 / D3 contract), PR #192 (keyword-graph `limit` schema bounds, merge
+  `f4e8da260`), plus PR #193 (S4 closure + arc record + replay-recipe correction, merge
+  `9686adba3`). Post-merge verified: the write-up's Shape-B replay against a local 1.28.0
+  build returns the dual shape; production serves 1.28.0; the metric's spans + "MCP response
+  size" logs are arriving in production Sentry — with one named caveat: span-ATTRIBUTE
+  searchability in the Sentry explorer is unconfirmed (`has:oak.mcp.response.body_bytes`
+  finds nothing while the spans exist; the logs dataset carries `bodyBytes`/`tokensEst`), so
+  check attribute indexing before wiring the threshold follow-on to span queries. All review
+  verdicts adjudicated first-hand on the PRs. **Next safe steps for this lane (queued by
+  design, recorded in the
+  [snagging plan](../../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)):**
+  (1) S3 corpus-typo routing — refresh bulk downloads, regenerate, then route (needs a
+  network/regen window); (2) the S2 cure — keyword identity-model design decision
+  (per-placement descriptions belong on edges; evidence in the plan); (3) the outbound-token
+  threshold follow-on (trigger: baselines visible in Sentry; note the searchability caveat);
+  (4) optional annex — Codex/Gemini client probes, and a fresh-session Claude Code re-probe
+  of `get-eef-evidence` against deployed 1.28.0 to complete the client matrix.
 - **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
   oak-prod-live-mcp-exercise + snagging, solo). NOTE this branch lags the eef arc** — the
   TRACK-G completion narrative and this session's first-wave artefacts (verification record +
@@ -766,6 +789,8 @@ session narrative for each is in git history; this table is the durable identity
 | `Nebulous Shimmering Nebula` | `claude` | `fable-5` | `3493fb` | `pr178-remainder+w2c1-implementer` | 2026-06-11 | 2026-06-11 |
 | `Pearly Snorkelling Compass` | `claude` | `fable-5` | `a8eabc` | `doctrine-curation-lane-tranche-boundary` | 2026-06-11 | 2026-06-11 |
 | `Dawnlit Glimmering Orbit` | `cursor` | `Fable 5` | `50c2d1` | `oak-prod-live-mcp-exercise-snagging-and-cursor-visibility-writeup` | 2026-06-11 | 2026-06-11 |
+| `Dusky Passing Mist` | `claude` | `Fable 5` | `2c0c4b` | `snagging-execution-token-metric-pr190-eef-dual-shape-then-midcycle-handoff` | 2026-06-11 | 2026-06-11 |
+| `Cosmos turns Equinox` | `claude` | `Fable 5` | `1bc763` | `snagging-execution-successor-pickup-per-handoff-record-7fb69812` | 2026-06-11 | 2026-06-12 |
 
 ## Cross-Plan and Cross-Thread Links
 

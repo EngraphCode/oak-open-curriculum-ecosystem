@@ -1,5 +1,30 @@
 {
   "schema_version": "1.3.0",
   "commit_queue": [],
-  "claims": []
+  "claims": [
+    {
+      "claim_id": "9a666480-3bb6-45b0-b4e0-5f73ecf5a260",
+      "agent_id": {
+        "agent_name": "Firefly seeks Temper",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "ce44ae",
+        "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/state/collaboration/handoffs/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T21:04:56Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Director (owner-directed): coordinate mid-cycle handovers for Tarsier calls Warren (mcp inspector + snagging lane) and Harrier weaves Stratosphere (agent naming lane); route pickups per PDR-063/PDR-064; direction only, no source edits"
+    }
+  ]
 }

@@ -12960,6 +12960,214 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "7fb69812-0259-4976-88f3-b52b96c0be98",
+      "agent_id": {
+        "agent_name": "Dusky Passing Mist",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "2c0c4b",
+        "id": "078c13ad-436c-586a-a4a7-bc1539299fd3",
+        "naming_schema_version": "override"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md",
+            ".agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-eef-evidence.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-eef-evidence.unit.test.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/mcp-handler.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/handlers.ts",
+            ".agent/plans/observability/current/mcp-outbound-token-health.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T20:31:25Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "handoff_record_path": ".agent/state/collaboration/handoffs/7fb69812-snagging-execution-handoff.md",
+      "intent": "Owner-directed takeover of 2026-06-11 snagging artefacts from Dawnlit Glimmering Orbit; execute S1 EEF dual-shape (PR-2), S4 limit bounds (PR-3), outbound token health metric (PR-1) — MID-CYCLE HANDOFF FROZEN 2026-06-11 ~22:30Z, successor per owner: Cosmos turns Equinox",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T21:23:58Z",
+        "closed_by": {
+          "agent_name": "Dusky Passing Mist",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "2c0c4b",
+          "id": "078c13ad-436c-586a-a4a7-bc1539299fd3",
+          "naming_schema_version": "override"
+        },
+        "summary": "Mid-cycle handoff complete; successor claim 7e903895 open (Cosmos turns Equinox)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "7fb69812-0259-4976-88f3-b52b96c0be98",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "2a080642-1aef-4372-8498-7cfe2de3e3d7",
+      "agent_id": {
+        "agent_name": "Swift Gliding Zephyr",
+        "platform": "claude",
+        "model": "claude-fable-5",
+        "session_id_prefix": "aba87a",
+        "id": "5cad9c4d-8c71-583b-ad1c-7b0d7c2cea04",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-tooling",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/core/agent-identity/**",
+            "agent-tools/src/collaboration-state/agent-id.ts",
+            ".agent/plans/agent-tooling/active/agent-naming-schema-v2.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T21:04:15Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Land agent naming schema v2 (PR #189): monitor re-analysis to merge, then archive plan and consolidate.",
+      "handoff_record_path": ".agent/state/collaboration/handoffs/2a080642-naming-lane-handoff.md",
+      "archived_at": "2026-06-11",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-11T21:36:57Z",
+        "closed_by": {
+          "agent_name": "Firefly seeks Temper",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "ce44ae",
+          "id": "8b52a57e-cf62-52da-a5f8-3b24a2737954",
+          "naming_schema_version": "override"
+        },
+        "summary": "Handoff purpose fulfilled: Swift Gliding Zephyr retired mid-cycle per PDR-063 (record 2a080642-naming-lane-handoff.md); successor Moss weaves Blossom confirmed pickup after end-to-end record read and opened replacing claim 982dbcc5 on the lane boundary. Closed by Director Firefly seeks Temper at successor's request (pickup event 2026-06-11T21:36:36Z).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "2a080642-1aef-4372-8498-7cfe2de3e3d7",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "7e903895-4e8a-4f51-b1ad-bc9a8a18b62b",
+      "agent_id": {
+        "agent_name": "Cosmos turns Equinox",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "1bc763",
+        "id": "59c5b4c4-2de7-578f-b703-89094e6a9400",
+        "naming_schema_version": "override"
+      },
+      "thread": "eef",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md",
+            ".agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-eef-evidence.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-eef-evidence.unit.test.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/eef-evidence-egress.ts",
+            "packages/sdks/oak-curriculum-sdk/src/mcp/eef-evidence-summary.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/mcp-handler.ts",
+            "apps/oak-curriculum-mcp-streamable-http/src/handlers.ts",
+            "apps/oak-curriculum-mcp-streamable-http/e2e-tests/eef-evidence-anchored.e2e.test.ts",
+            ".agent/plans/observability/current/mcp-outbound-token-health.plan.md",
+            ".agent/plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md",
+            "docs/architecture/architectural-decisions/058-*.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T21:22:34Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Successor pickup of claim 7fb69812 per PDR-063 handoff record (owner-named: Cosmos turns Equinox). Remaining: PR-2 E3 docs supersession sweep + size delta + open PR; monitor PR #190 (PR-1) to merge + Sentry verification; PR-3 keyword-graph limit bounds. Worktree .claude/worktrees/snagging-2026-06-11, branch feat/eef-dual-shape-alignment.",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T06:45:56Z",
+        "closed_by": {
+          "agent_name": "Cosmos turns Equinox",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "1bc763",
+          "id": "59c5b4c4-2de7-578f-b703-89094e6a9400",
+          "naming_schema_version": "override"
+        },
+        "summary": "Snagging arc complete: #190 8f1cc49c0 (token metric, 1.27.0) + #191 1b02b70b4 (EEF dual-shape, 1.28.0) + #192 f4e8da260 (limit bounds) + #193 9686adba3 (S4 closure + arc record). Post-merge verified: Shape-B replay returns dual shape; metric spans+logs arriving in prod Sentry (span-attribute searchability caveat recorded). S3 + S2-cure + threshold follow-on remain queued by design in the snagging plan.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "7e903895-4e8a-4f51-b1ad-bc9a8a18b62b",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "982dbcc5-5de6-4675-a483-68675ec860c1",
+      "agent_id": {
+        "agent_name": "Moss weaves Blossom",
+        "platform": "claude",
+        "model": "Fable 5",
+        "session_id_prefix": "10438c",
+        "id": "abcbaa34-d804-5ed4-bd5e-f7d15a69674f",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-tooling",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/core/agent-identity/**",
+            "agent-tools/src/*/session-identity-hook.ts",
+            "agent-tools/src/bin/agent-identity-cli*.ts",
+            "agent-tools/src/collaboration-state/identity.ts",
+            ".agent/plans/agent-tooling/active/agent-naming-schema-v2.plan.md",
+            "docs/architecture/architectural-decisions/195-naming-schema-versioning-digest-pinned-registry.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-11T21:36:03Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Naming-lane successor (replacing 2a080642 per PDR-063 pickup): P1 single-valued identity diagnosis + era-pinning cure first; then ADR renumber 195->198, semantic origin/main merge, pre-push root-cause, merge PR #189, plan archive; v3 name-shape prototyping (owner exploration) is design-time within this boundary",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T06:59:03Z",
+        "closed_by": {
+          "agent_name": "Moss weaves Blossom",
+          "platform": "claude",
+          "model": "Fable 5",
+          "session_id_prefix": "10438c",
+          "id": "abcbaa34-d804-5ed4-bd5e-f7d15a69674f",
+          "naming_schema_version": "override"
+        },
+        "summary": "Naming lane complete: P1 identity-split diagnosed (defect main-resident, Director-accepted, comms 75696ec5); ADR renumbered 195->198 (56ec1dc91); semantic origin/main merge (3b4599368); pre-push root-caused (no content defect); PR #189 merged 289b3e036; plan archived PR #194 9a74eefd1. Follow-ons routed, not retained: era-pinning cure plan (own claim per Director conditions, repo-continuity carries the block) and consolidation pass (napkin lessons already committed/homed).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "982dbcc5-5de6-4675-a483-68675ec860c1",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "9843700f-6d0f-4fb3-8177-08a98e504eb0",
+  "created_at": "2026-06-11T22:35:44Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Cosmos turns Equinox",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "1bc763",
+    "id": "59c5b4c4-2de7-578f-b703-89094e6a9400",
+    "naming_schema_version": "override"
+  },
+  "title": "Heartbeat: Cosmos turns Equinox (1bc763) — implementer, snagging lane",
+  "body": "active; claim=7e903895-4e8a-4f51-b1ad-bc9a8a18b62b; intent=snagging-execution-successor; branch=feat/eef-dual-shape-alignment; cycle=pr3-limit-bounds",
+  "tags": [
+    "heartbeat"
+  ]
+}

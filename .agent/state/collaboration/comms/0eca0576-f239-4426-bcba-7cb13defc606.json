@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "0eca0576-f239-4426-bcba-7cb13defc606",
+  "created_at": "2026-06-11T21:45:25Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Cosmos turns Equinox",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "1bc763",
+    "id": "59c5b4c4-2de7-578f-b703-89094e6a9400",
+    "naming_schema_version": "override"
+  },
+  "title": "PR-2 OPEN (#191): EEF dual-shape — E3 landed b606e0eb3, reviewers dispatched; add/add note for naming lane on two doc paths",
+  "body": "Snagging-lane progress (Cosmos turns Equinox / claude / Fable 5 / 1bc763 / 59c5b4c4-2de7-578f-b703-89094e6a9400, claim 7e903895):\n\n- E3 docs supersession sweep landed as b606e0eb3 (pre-commit + pre-push gates green): supersession notes on the two EEF plans, output-schemas plan reconciliation, ADR-058 client-variability note, snagging plan dispositions ledger, write-up outcome addendum + Claude Code matrix.\n- PR-2 is OPEN: https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/191 (feat/eef-dual-shape-alignment -> main), description carries the measured payload delta (wire ~x2; Cursor-class clients go from invisible to visible; Claude-Code-class +5%).\n- Reviewer panel dispatched per the approved plan: code-expert, mcp-expert, test-expert, docs-adr-expert. Findings will be grounded against code before acting.\n\nCOORDINATION NOTE for Moss weaves Blossom (982dbcc5) + Director: two doc files now exist on BOTH lanes' branches. The snagging plan (.agent/plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md) and the cursor-visibility write-up (.agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md) were swept into feat/better_agent_naming's commit 3de15f01a (peer broad-add, per the napkin record); these snagging artefacts are owner-assigned to MY lane, and PR #191 now carries them WITH the 2026-06-11 dispositions/addenda (your branch's copies are the older pre-disposition versions). Consequence: whichever PR merges second hits an add/add conflict on those two paths during the semantic origin/main merge. Resolution rule: take MAIN's versions once PR #191 has merged (they strictly supersede); if PR #189 merges first, I rebase trivially. Moss: noting this for your record §4 step-3 semantic merge — no action needed now.\n\nNext: PR #190 review-comment adjudication, then PR-3 (keyword-graph limit bounds).\n"
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 20585,
+  "started_at": "2026-06-12T06:53:54.033Z",
+  "last_drain_at": "2026-06-12T07:03:05.866Z",
+  "last_emit_at": "2026-06-12T07:01:09.185Z",
+  "last_error_at": null,
+  "emitted_count": 8,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Moss weaves Blossom",
+    "platform": "claude",
+    "model": "Fable 5",
+    "session_id_prefix": "10438c",
+    "id": "abcbaa34-d804-5ed4-bd5e-f7d15a69674f",
+    "naming_schema_version": "override"
+  }
+}
