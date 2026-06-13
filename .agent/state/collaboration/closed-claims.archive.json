@@ -14011,6 +14011,465 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "275e91f8-72a8-466c-bd80-008e90bae085",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T16:44:21Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Stage and commit the statusline 4-row re-fit bundle (explicit pathspec).",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T16:45:21Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit 89c8983c7: statusline 4-row indicator re-fit; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "275e91f8-72a8-466c-bd80-008e90bae085",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "9aeaa659-244e-4570-b2df-bdc15ea3f13a",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/claude/statusline-render.ts",
+            "agent-tools/src/claude/statusline-identity.ts",
+            "agent-tools/src/claude/statusline-session-shape.ts",
+            "agent-tools/src/collaboration-state/types.ts",
+            "agent-tools/src/collaboration-state/claims.ts",
+            "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+            "agent-tools/src/collaboration-state/cli-options.ts",
+            "agent-tools/src/collaboration-state/cli-spec-help.ts",
+            "agent-tools/src/collaboration-state/cli-spec-options.ts",
+            ".agent/state/collaboration/active-claims.schema.json"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T16:19:52Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Re-fit session-shape indicators (WS1-3) onto the landed 4-row Oak-mark layout; correct stale records. Disjoint from comms-research product files. Singleton git:index/head window + explicit-pathspec on shared branch.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T16:45:21Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit 89c8983c7 landed; statusline re-fit complete; remaining = owner glyph verification + push (deferred)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "9aeaa659-244e-4570-b2df-bdc15ea3f13a",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "8afffecb-2f66-40bc-86af-ef67d6490424",
+      "agent_id": {
+        "agent_name": "Juno mends Plasma",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "3cc9d5",
+        "id": "600e53f5-e8da-52f0-8e3f-3259afbfcc86",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "git:index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T16:46:53Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Singleton git:index/head window: commit comms-corpus consolidation docs bundle (14 docs files) by explicit pathspec, then release. Window handed off by Skylark wakes Summit at 16:45Z; their statusline bundle committed 89c8983c7, claims closed.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T16:50:01Z",
+        "closed_by": {
+          "agent_name": "Juno mends Plasma",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "3cc9d5",
+          "id": "600e53f5-e8da-52f0-8e3f-3259afbfcc86",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit 95d464f10: comms-corpus consolidation docs bundle (PDR-094 + ADR-199 + routing); window released",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "8afffecb-2f66-40bc-86af-ef67d6490424",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "4962c934-cbb4-4252-8c61-de5afa1bc0f4",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:02:27Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit collaboration-state test IO-compliance fix (explicit pathspec).",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:03:04Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit a1fb8e9c4: collaboration-state tests IO-free; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "4962c934-cbb4-4252-8c61-de5afa1bc0f4",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "e529e43b-5571-43e6-9a69-d8d9d59acc41",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:12:38Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit schema-fixture JSON-import IO fix.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:13:11Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "schema-fixture JSON-import IO fix landed; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "e529e43b-5571-43e6-9a69-d8d9d59acc41",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "3f479435-d830-4d04-8003-1ba47a401af6",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:31:44Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit check/preflight io-injection DI refactor.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:32:15Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "check/preflight io-injection DI refactor landed; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "3f479435-d830-4d04-8003-1ba47a401af6",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "41d0e438-9fe1-419c-8e4c-777489b3147c",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:35:06Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit test-IO compliance tracking plan.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:35:31Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "test-IO compliance plan committed; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "41d0e438-9fe1-419c-8e4c-777489b3147c",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "61c54e15-8b81-47dc-8238-0e5adfe88c4b",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:52:13Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit unknown/solo distinction + peer glyph swap.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:52:26Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "unknown/solo distinction + peer glyph swap landed; glyphs pending owner terminal check before push",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "61c54e15-8b81-47dc-8238-0e5adfe88c4b",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "acf62c25-f374-44dd-bd2f-c76775586019",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:52:56Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit unknown/solo distinction (retry after prettier).",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:53:18Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "unknown/solo distinction + peer glyph swap landed; glyphs pending owner terminal check before push",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "acf62c25-f374-44dd-bd2f-c76775586019",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "4cb866d9-cd4d-4b13-bb15-645e0fdad9c0",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T17:58:18Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit statusline lane-complete records + glyph comment.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T17:58:40Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "statusline lane-complete records committed; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "4cb866d9-cd4d-4b13-bb15-645e0fdad9c0",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

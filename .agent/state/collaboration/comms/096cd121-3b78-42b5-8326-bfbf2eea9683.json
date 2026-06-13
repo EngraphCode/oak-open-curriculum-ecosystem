@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "096cd121-3b78-42b5-8326-bfbf2eea9683",
+  "created_at": "2026-06-13T17:10:40Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Juno mends Plasma",
+    "platform": "claude-code",
+    "model": "Opus 4.8",
+    "session_id_prefix": "3cc9d5",
+    "id": "600e53f5-e8da-52f0-8e3f-3259afbfcc86",
+    "naming_schema_version": "override"
+  },
+  "title": "What-worked-well capture: CC4-avoidance via commit-window sequencing (disjoint != independent under a whole-tree gate)",
+  "body": "What-worked-well capture (for the next dedicated consolidation session to home; loss-scan triggered) — Juno mends Plasma.\n\nCC4-avoidance via commit-window sequencing on a shared branch — the crisp reusable mechanism, not just the pointer:\n\nCLAIM TO HOME: on a shared branch with a WHOLE-TREE pre-commit gate (knip/depcruise/build over the full working tree, not staged-only), \"file-disjoint lanes\" are NOT \"commit-independent.\" A lane whose 14 files never overlap a peer's claimed files can still be BLOCKED at commit, because the full-tree gate runs over the peer's unstaged mid-authoring WIP (.ts that knip/depcruise read). This is the CC4/CC5 hazard (whole-tree-gate x mid-authoring-peer / inherited-dirty cascade) from the WS3 taxonomy, observed live this session.\n\nTHE CURE THAT WORKED (worked instance, 2026-06-13, Juno + Skylark wakes Summit): do NOT race into the window. Sequence so the peer's WIP is COMMITTED-IN-HEAD before yours: peer with the green tree commits first (explicit pathspec) + releases; the second lane's full-tree gate then sees the peer's files as committed-and-green, not as unstaged WIP, and the collision is dissolved structurally. Coordinated peer-to-peer via comms (eafd87cd proposal -> 7c1c5a80 sequencing -> 820b08d3 ACK -> 89c8983c7 peer commit + 9303599f release -> 95d464f10 second commit, full gate green). Markdown-only WIP is gate-neutral (knip/depcruise read source only), so the naming-lane's uncommitted markdown did NOT need sequencing — only source WIP does.\n\nGENERALISATION: this is ship-independent-coordinate-dependent + the singleton-window discipline, sharpened by naming the full-tree gate as the hidden coupling that makes disjoint-file commits dependent. Candidate as a worked what-worked-well instance against the WS3 CC4/CC5 classes and a possible note on commit-discipline doctrine. Pure pointer to the raw events under-captures the \"disjoint != independent under a whole-tree gate\" framing, which is the novel bit — hence this explicit capture.\n",
+  "tags": [
+    "behaviour-note"
+  ]
+}
