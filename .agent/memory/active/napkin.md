@@ -318,3 +318,42 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   "fixed-width prefix" layout was silently superseded by the landed 4-row logo column. Folded them
   into one lane and flagged the superseded WS — two branches editing one render function in
   parallel is the conflict to avoid.
+
+## 2026-06-13 — Bluebell mends Mulch (c2ef19), comms-research WS5/WS6 successor
+
+- **Insight: consolidating a finding under pressure is the finding.** The research's central result is
+  M2 — the learning loop (capture→distil→graduate→enforce) doesn't fire under load. So running the
+  deep consolidation of the research *at the tired tail of the research session* would be a live M2
+  instance. Capture-first had already conserved every finding in durable artefacts, so deferring the
+  deep curation to a fresh agent loses nothing and does it justice. Self-referential: a finding about
+  the learning loop constrains how you close the loop on that finding.
+- **What-worked (fresh instance): the two-reader loop ran in BOTH directions this session.** The WS5
+  adversarial review caught a critical invariant-3 gap I had missed (a gitignored archive strands
+  permanent-doc citations); my own first-hand re-count corrected the reviewer's undercount of untagged
+  `Heartbeat-end:` events (29 → 35). Neither pass alone produces the corrected proposal.
+- **What-worked: run the adversarial shape on your OWN output before the owner sees it.** Applying the
+  §11 method-note's adversarial-FH discipline to my own WS5 draft (two rounds: four-lens + a digest
+  skeptic) surfaced a `holds:false` I would otherwise have shipped. "The discipline is prose-only,
+  weakest exactly at archive-move time" turned a plausible mechanism into a guarded one.
+- **Discipline (live two-agent branch): explicit-pathspec commit + singleton git:index/head window.**
+  Committed my 5-file docs bundle by `git commit -- <files>` while Bilby's staged repo-continuity +
+  statusline-plan + registry residue sat in the shared index — verified post-commit that only my 5
+  files landed, foreign residue untouched. Mirror of Bilby's entry (they hit my lock, backed off,
+  retried). Singleton window + pathspec is what makes a shared feature branch safe.
+
+## 2026-06-13 — Bilby hunts Eventide (66eb9b), continuity-discoverability (owner-directed)
+
+- **Landed work without a discoverable continuity through-line risks silent orphaning — the
+  effort dies even though the artefact survives.** This session's statusline lane was real,
+  valuable, committed work, but it had no thread record and no Active Threads row; it lived only
+  as a sub-bullet under another lane's continuity entry. It surfaced ONLY because the owner asked
+  "what is the name of this thread?" A fresh agent running start-right (Active Threads table →
+  thread record → plan) would not have found it, and the pending indicators work would simply not
+  happen — not refused, just invisible, hence undone. Lesson: every live lane needs a through-line
+  reachable by the STANDARD discovery path (an Active Threads row + a `<slug>.next-session.md`
+  record), not merely "present somewhere in the repo." Presence is not discoverability — the
+  passive-guidance-loses-to-artefact-gravity family: structural reachability beats prose mention.
+  Self-application: when doing continuity work, verify the through-line is reachable by the next
+  agent's actual reading path, not just that it exists. I had treated "plan updated + a continuity
+  sub-bullet" as sufficient; it was not. The risk this guards is the quiet one — not bad work, but
+  good work no one picks up.

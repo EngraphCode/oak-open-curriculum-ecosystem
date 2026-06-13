@@ -267,6 +267,7 @@ each thread record; this table is the repo-level index.
 | `repo-professionalism-assessment` | Repo professionalism / engineering-quality report → planability triage | [record][repo-professionalism-assessment] | codex / GPT-5 / Airy Whirling Wing / report-author-and-planability-router / 2026-06-03 |
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |
+| `statusline-enhancements` | Claude Code statusline: Oak-mark logo column (landed) + session-shape indicators (pending) | [record][statusline] | claude-code / Opus 4.8 / Bilby hunts Eventide / oak-mark-landed-lane-unified / 2026-06-13 |
 
 ## Paused Threads
 
@@ -284,7 +285,7 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Opus 4.8 / Kayak herds Ballast / consolidated lane owner — WS0–WS4 complete + first-hand verified; findings+handoff synthesis `2026-06-13-comms-corpus-findings-and-handoff-kayak.md`; adversarial context analysis run; WS5/WS6 owner-sequenced-separately / 2026-06-13 (prior: Katydid hunts Roost WS0–WS2, Myrtle weaves Thicket WS3, Geyser stirs Bronze WS3-forward+B/D/M2 — all 2026-06-13; Fern lifts Mulch 2026-06-12; Twilit Orbiting Satellite 2026-05-29) |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Opus 4.8 / Bluebell mends Mulch / sole lane owner — WS0–WS6 COMPLETE + first-hand verified; WS5 rotation strategy RATIFIED by owner 2026-06-13 (proposal `2026-06-13-ws5-rotation-strategy-proposal.md`, two-round adversarial review; WS6 synthesis `2026-06-13-ws6-comms-corpus-synthesis.md`; §11 re-verify `2026-06-13-reverify-outcomes-bluebell.md`; committed f20680041). NEXT: owner-directed dedicated consolidation session (author rotation PDR/ADR + M2/SC1 PDR drafts, route §5 recs) then WS7 archive-not-delete execution / 2026-06-13 (prior: Kayak herds Ballast WS0–WS4+handoff; Katydid hunts Roost WS0–WS2, Myrtle weaves Thicket WS3, Geyser stirs Bronze WS3-forward+B/D/M2 — all 2026-06-13; Fern lifts Mulch 2026-06-12; Twilit Orbiting Satellite 2026-05-29) |
 
 ## Next Safe Steps
 
@@ -477,3 +478,4 @@ authority.
 [repo-professionalism-assessment]: threads/repo-professionalism-assessment.next-session.md
 [collab-research]: threads/agent-collaboration-research.next-session.md
 [branch-fitness]: threads/branch-fitness-and-push-cadence.next-session.md
+[statusline]: threads/statusline-enhancements.next-session.md
