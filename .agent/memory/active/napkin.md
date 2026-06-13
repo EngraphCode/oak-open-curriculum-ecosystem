@@ -244,3 +244,37 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   opener-first dispatch ordering). Banner cure routed to the successor (record is in
   their claim); the deeper ordering cure is research input — it is itself an
   activation-enthalpy instance of the class the research studies.
+
+## 2026-06-13 — Bilby hunts Eventide (66eb9b), logo text-art doc
+
+- **A doc's prose description of an artefact, and prior renderings of it, are both
+  untrustworthy — rasterise the source and close the loop by render-back**: the
+  statusline-logos research doc described the Oak acorn as a solid blob with a sharp
+  bottom point and "horizontal shoulder", and every Braille rendering executed that
+  description. Rendering the actual SVG (`rsvg-convert`) showed the opposite — an open
+  thin-line cup, rounded bottom, leaf upper-right, sprout — mostly negative space. The
+  prose and the prior attempts agreed with each other and were both wrong because both
+  came from a mental image, not the pixels. What works: for any faithful-rendering-of-a-
+  visual-source task, (1) rasterise the source of truth first, (2) **convert** from pixels
+  rather than hand-draw, (3) verify by rendering the derived glyphs back to an image and
+  comparing by eye. The render-back step catches shape inversions that no ratio/measurement
+  check would. Verify-dont-trust family, visual-artefact instance.
+- **Ratio measurements were the freehand era's tool — a pixel-conversion pipeline makes
+  them unnecessary**: once you rasterise at the source aspect ratio and set each dot from
+  ink coverage, every internal proportion is inherited pixel-for-pixel (measured: ink fills
+  100%×99.7% of the viewBox). The only proportion with real slack is the display cell-aspect
+  ratio, which is terminal/font-dependent and not measurable from the source. Don't reach for
+  measurements to "constrain" a conversion that already inherits the geometry.
+- **Glyph-family resolution-vs-legibility INVERTS with size**: Braille (2×4 dots) is sharpest at
+  large sizes (8–16 lines, dots form a crisp contour) but WORST when tiny (≤6 lines) — sparse dots
+  scatter into specks. Solid families hold a small shape together: sextant (2×3, U+1FB00 Symbols
+  for Legacy Computing) is sharpest small but font-fragile (tofu on old fonts); quadrant (2×2,
+  U+2580) is the universal-font fallback. So "highest resolution" ≠ "most legible" — pick the
+  family by target size, and offer a portable fallback when using newer Unicode blocks.
+- **Odd glyph widths express a vertical symmetry axis at sub-glyph level** (owner insight): a
+  partially-mirror-symmetric mark has a centreline (here the cup/sprout/base; the leaf is the
+  deliberate asymmetric break). Odd character-width puts one column ON the axis so its internal
+  sub-column seam bisects the centreline; even width splits a centred feature across two cells.
+  Caveat verified: the symmetry axis is the SHAPE's axis, not the bbox centre — but here they
+  coincided (leaf didn't drag it off centre), so odd-width-spanning-bbox sufficed. Measure the
+  axis before assuming bbox centre.
