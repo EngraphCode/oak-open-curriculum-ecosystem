@@ -56,13 +56,16 @@ export interface SessionShape {
    */
   readonly ownRole: string | undefined;
   /**
-   * Team shape, in strict priority order: `directed` (any fresh claim whose
-   * `role` is exactly the lowercase string `director` — the schema's
-   * well-known values are lowercase by convention and matching is
-   * case-sensitive) beats `peer` (two or more distinct fresh identities)
-   * beats `solo`.
+   * Team shape. `unknown` means the registry could not be read for this tick —
+   * the resolver does not claim a confident shape it never saw, so the
+   * statusline shows no team icon (distinct from `solo`, a confident
+   * peerless-and-directorless reading). For a readable registry the shape is, in
+   * strict priority order: `directed` (any fresh claim whose `role` is exactly
+   * the lowercase string `director` — the schema's well-known values are
+   * lowercase by convention and matching is case-sensitive) beats `peer` (two or
+   * more distinct fresh identities) beats `solo`.
    */
-  readonly teamShape: 'solo' | 'peer' | 'directed';
+  readonly teamShape: 'unknown' | 'solo' | 'peer' | 'directed';
   /** Whether a rapid channel naming this agent was written within the ARC liveness window. */
   readonly arcActive: boolean;
 }
@@ -83,19 +86,25 @@ const ARC_ACTIVE_WINDOW_SECONDS = 1800;
  *
  * Stale claims (per the registry's own {@link isClaimStale} predicate) are
  * invisible: a stale director claim does not shape the icon, and a stale own
- * claim carries no role. Missing inputs degrade soft: no registry reads as
- * solo, no listing reads as no ARC wing — the statusline never fails a tick
- * over an unreadable coordination surface.
+ * claim carries no role. Missing inputs degrade soft but honestly: an
+ * unreadable registry resolves to `unknown` (not a false `solo`), and an
+ * unreadable listing reads as no ARC wing — the statusline never fails a tick
+ * over an unreadable coordination surface, but it never claims a confident
+ * team shape it could not read.
  */
 export function resolveSessionShape(inputs: SessionShapeInputs): SessionShape {
-  const freshClaims = (inputs.registry?.claims ?? []).filter(
-    (claim) => !isClaimStale(claim, inputs.nowIso),
-  );
+  const arcActive = resolveArcActive(inputs.experimentsListing, inputs.ownAgentName, inputs.nowIso);
+
+  if (inputs.registry === undefined) {
+    return { ownRole: undefined, teamShape: 'unknown', arcActive };
+  }
+
+  const freshClaims = inputs.registry.claims.filter((claim) => !isClaimStale(claim, inputs.nowIso));
 
   return {
     ownRole: resolveOwnRole(freshClaims, inputs.ownAgentName),
     teamShape: resolveTeamShape(freshClaims),
-    arcActive: resolveArcActive(inputs.experimentsListing, inputs.ownAgentName, inputs.nowIso),
+    arcActive,
   };
 }
 

@@ -75,16 +75,15 @@ const DIRTY_MARK = '*';
 const LOGO_GAP = '  ';
 
 /**
- * Session-shape indicator glyphs. CLIENT-VISIBILITY (WS4): the render tests
- * prove placement, but terminal rendering is the owner's gate and is NOT yet
- * done — the Oak-mark sextant glyph rendered in chat yet tofu'd in the owner's
- * terminal. Tofu risk: ARC_WING (U+1FAB6) and the family emoji. If a glyph
- * tofus, swap to its ASCII fallback — Director `[D]`, directed `[T]`, peer
- * `[P]`, wing `[A]` — and record the terminal in the commit body.
+ * Session-shape indicator glyphs. WS4: DIRECTOR_MARK, TEAM_DIRECTED_ICON and
+ * ARC_WING verified in the owner's terminals (2026-06-13); the old peer glyph
+ * U+1F465 tofu'd and was replaced. TEAM_PEER_ICON + TEAM_SOLO_ICON await the
+ * owner's check. ASCII fallbacks if a glyph tofus: `[D]` `[T]` `[P]` `[S]` `[A]`.
  */
 const DIRECTOR_MARK = '\u{1F9ED}';
 const TEAM_DIRECTED_ICON = '\u{1F46A}';
-const TEAM_PEER_ICON = '\u{1F465}';
+const TEAM_PEER_ICON = '\u{1F91D}';
+const TEAM_SOLO_ICON = '\u{1F9CD}';
 const ARC_WING = '\u{1FAB6}';
 
 /** Context usage below this percentage renders in green; from it, yellow. */
@@ -173,10 +172,9 @@ function buildSegments(parts: StatuslineParts): Segments {
 }
 
 /**
- * Format the identity segment, suffixing the Director demark when this
- * session's fresh claim carries the director role. Undefined identity drops the
- * segment (and with it the demark — a directorship cannot be resolved without
- * an identity in the first place).
+ * Format the identity segment, suffixing the Director demark when this session's
+ * fresh claim carries the director role. Undefined identity drops the segment
+ * (and the demark with it — a directorship needs an identity to resolve).
  */
 function formatIdentity(parts: StatuslineParts): string | undefined {
   if (parts.identity === undefined) {
@@ -187,8 +185,8 @@ function formatIdentity(parts: StatuslineParts): string | undefined {
 }
 
 /**
- * Map a resolved team shape to its glyph. Solo shows nothing — an absent icon
- * and a peerless team read identically at a glance, by design.
+ * Map a resolved team shape to its glyph: `solo` shows its own marker; `unknown`
+ * shows nothing (an unreadable surface reads as absence, never a false solo).
  */
 function teamIcon(teamShape: SessionShape['teamShape']): string | undefined {
   if (teamShape === 'directed') {
@@ -197,13 +195,16 @@ function teamIcon(teamShape: SessionShape['teamShape']): string | undefined {
   if (teamShape === 'peer') {
     return TEAM_PEER_ICON;
   }
+  if (teamShape === 'solo') {
+    return TEAM_SOLO_ICON;
+  }
   return undefined;
 }
 
 /**
  * Format the team-shape icon and ArcAngel wing as one segment, or undefined
- * when there is nothing to show (solo with no live rapid channel, or no
- * resolved shape for the tick — the two render identically by design).
+ * when there is nothing to show — only an unknown shape (or no resolved shape)
+ * with no live channel renders blank; a confident solo carries its own marker.
  */
 function formatSessionIndicators(shape: SessionShape | undefined): string | undefined {
   if (shape === undefined) {

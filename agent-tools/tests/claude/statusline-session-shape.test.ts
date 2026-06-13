@@ -323,7 +323,7 @@ describe('resolveSessionShape — ARC liveness', () => {
 });
 
 describe('resolveSessionShape — soft degradation', () => {
-  it('reads missing registry and listing as solo with no wing', () => {
+  it('reads an unreadable registry as unknown, not a false solo', () => {
     const shape = resolveSessionShape({
       ownAgentName: 'Monsoon guards Cirrus',
       registry: undefined,
@@ -331,7 +331,20 @@ describe('resolveSessionShape — soft degradation', () => {
       nowIso: NOW,
     });
 
-    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'solo', arcActive: false });
+    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'unknown', arcActive: false });
+  });
+
+  it('still raises the wing when the registry is unreadable but a channel is live', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: undefined,
+      experimentsListing: [
+        arc('arc-monsoon-guards-cirrus-and-fern/README.md', '2026-06-12T11:50:00Z'),
+      ],
+      nowIso: NOW,
+    });
+
+    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'unknown', arcActive: true });
   });
 
   it('resolves team shape but no own-role or wing without an identity', () => {
