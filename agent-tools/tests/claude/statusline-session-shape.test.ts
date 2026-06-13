@@ -297,6 +297,19 @@ describe('resolveSessionShape — ARC liveness', () => {
     expect(shape.arcActive).toBe(false);
   });
 
+  it('keeps the wing down for a future-dated channel (clock skew yields a negative age)', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([]),
+      experimentsListing: [
+        arc('arc-monsoon-guards-cirrus-and-fern/README.md', '2026-06-12T12:05:00Z'),
+      ],
+      nowIso: NOW,
+    });
+
+    expect(shape.arcActive).toBe(false);
+  });
+
   it('keeps the wing down for a fresh channel naming other participants', () => {
     const shape = resolveSessionShape({
       ownAgentName: 'Monsoon guards Cirrus',
@@ -351,20 +364,23 @@ describe('resolveSessionShape — soft degradation', () => {
 
 describe('parsePrimaryWorktreeRoot', () => {
   it('returns the first worktree path from porcelain output', () => {
+    // Git emits absolute worktree paths at runtime, but the parser is
+    // path-shape-agnostic (it extracts the first `worktree <path>` line
+    // verbatim), so the fixture uses portable repo-relative placeholders to
+    // honour no-machine-local-paths rather than a machine-local or
+    // non-resolving absolute path.
     const porcelain = [
-      'worktree /Users/jim/code/oak/oak-open-curriculum-ecosystem',
+      'worktree primary-checkout',
       'HEAD 5bbda2fa900000000000000000000000000000000',
       'branch refs/heads/main',
       '',
-      'worktree /Users/jim/code/oak/oak-open-curriculum-ecosystem/.claude/worktrees/statusline-enhancements',
+      'worktree primary-checkout/.claude/worktrees/statusline-enhancements',
       'HEAD ac2901fe100000000000000000000000000000000',
       'branch refs/heads/feat/statusline-enhancements',
       '',
     ].join('\n');
 
-    expect(parsePrimaryWorktreeRoot(porcelain)).toBe(
-      '/Users/jim/code/oak/oak-open-curriculum-ecosystem',
-    );
+    expect(parsePrimaryWorktreeRoot(porcelain)).toBe('primary-checkout');
   });
 
   it('returns undefined for unrecognised output', () => {

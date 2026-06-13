@@ -165,30 +165,27 @@ register.
 > verify
 > HEAD is green, do not assume your work landed as its own commit.
 
-## Statusline Session-Shape Indicators Lane (2026-06-12)
+## Statusline Session-Shape Indicators Lane (2026-06-12 → 2026-06-13) — DONE
 
-**Owning plan**: `.agent/plans/agent-tooling/current/statusline-session-shape-indicators.plan.md`
-(status: EXECUTED ON BRANCH; archive on merge).
-**Current state**: all five workstreams landed on `feat/statusline-enhancements` in worktree
-`.claude/worktrees/statusline-enhancements` (local, unpushed), based on origin/main
-`5bbda2fa9`: commits `ac2901fe1` (claim `role` field — schema + types + `claims open
---role` in BOTH allowlists + start-right docs + singleton-cure recording), `1ac430378`
-(pure session-shape resolver + exported `isClaimStale` + porcelain primary-root parser),
-`4270ea49d` (renderer demark/team-icon/ARC-wing + adapter two-reads-per-tick + glyph
-evidence matrix in commit body). 1063 agent-tools tests green; full pre-commit chain green
-per commit; code-expert + test-expert reviewed each cycle with findings applied.
-**Next safe step (successor: Flame rides Temper)**: push the branch, open a flat PR onto
-main, monitor to merge adjudicating findings first-hand. POST-MERGE ONLY: the live
-director-demark proof — the primary checkout's write-path validator compiles the schema
-beside the registry, so it correctly REFUSES role-bearing claims until the merged schema
-reaches the primary's working tree (verified live 2026-06-12: `schema validation failed at
-/claims/N: must NOT have additional properties`). After merge + primary `pnpm build`
-(statusline ticks run each checkout's own built dist): open a real `--role director` claim
-and confirm the compass demark renders; then archive the plan per its lifecycle clause.
-**Residue**: three abandoned commit-queue intents in the primary registry (1266cd70,
-205de542, 3bdc8219 — attempt audit from the pre-merge blocked window) sweep at the next
-consolidation; the WS1-shaped uncommitted edits seen in the primary at session open
-(2026-06-12 morning) are superseded by this lane's landed commits if still present.
+**Owning plan**: archived at
+`.agent/plans/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`
+(status: DONE; lifecycle index entry in `completed-plans.md` § Agent Tooling).
+**Outcome**: all five workstreams executed by Monsoon guards Cirrus on
+`feat/statusline-enhancements` (commits `ac2901fe1` claim `role` field + singleton-cure,
+`1ac430378` resolver + `isClaimStale` + porcelain primary-root parser, `4270ea49d`
+renderer + adapter two-reads-per-tick + glyph evidence). Pushed, conflict-resolved against
+main (napkin/repo-continuity, semantic merge), and **PR #203 merged to main 2026-06-13
+(merge `00c1f758d`)** by Flame rides Temper. One post-merge SonarCloud smell (nested ternary,
+S3358) fixed by extracting a `teamIcon` helper before merge. **Post-merge live proof
+passed**: against the merged schema the write-path validator now accepts a `role:director`
+claim (the write it correctly refused pre-merge), and the built statusline adapter renders
+the 🧭 Director demark suffixed to the identity plus the 👪 directed-team icon.
+**Residue (sweep at next consolidation)**: three abandoned commit-queue intents in the
+primary registry (1266cd70, 205de542, 3bdc8219 — pre-merge blocked-window attempt audit);
+two stale `current/` plan-path links in `repo-continuity.md` (a dated point-in-time bullet
+and the redesign bullet) left for the continuity lane to repoint to `archive/completed/`
+when it next touches that file (it carried uncommitted edits in the primary during this
+lane, so this PR did not churn it).
 
 Additive per
 [PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).

@@ -1,7 +1,7 @@
 ---
 name: "Statusline Session-Shape Indicators"
 overview: "Add dense, glanceable session-coordination indicators to the Claude Code statusline: a Director demark on the identity, a team-shape icon (directed team vs peer team vs solo), and an ArcAngel-active wing — resolved from the claims registry and the ARC experiments directory only (never the comms corpus), enabled by an additive optional role field on the claim schema that also lands the long-pending structural claim-schema cure for singleton roles."
-status: "EXECUTED ON BRANCH — all five workstreams landed on feat/statusline-enhancements 2026-06-12 (glyph evidence recorded; live primary-registry director proof is post-merge by design); archive on merge"
+status: "DONE — all five workstreams executed by Monsoon guards Cirrus on feat/statusline-enhancements; pushed, PR #203 merged to main 2026-06-13 (merge 00c1f758d) by Flame rides Temper; post-merge live director-demark proof passed (the write-path validator accepts a role:director claim against the merged schema; the built adapter renders the 🧭 demark and 👪 directed-team icon). Archived per the lifecycle clause."
 todos:
   - id: ws1-claim-role-field
     content: "WS1: add an optional `role` field to the active-claims schema (enum-ish open string: director, peer, marshal, curator, implementer...) + `--role` on `claims open`; additive, existing readers unaffected (the handoff_record_path precedent); update the start-right skills' claim-opening steps to pass it; record that this lands the structural claim-schema cure for singleton roles (check-singleton-per-window pending cure, 2026-05-22)."
