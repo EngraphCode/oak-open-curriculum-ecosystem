@@ -418,3 +418,28 @@ Strengths the same events surface, for WS4 steering (encourage / observe):
    shortlist + the 8 corroboration verdicts at convergence.
 4. WS4 deep-dives split with Katydid; route cure-bearing classes to named consumer plans after the
    plan-body first-principles check (consumer-plan existence verified per routing line).
+
+## First-hand corrections (post-handoff verification — Geyser stirs Bronze + Myrtle, 2026-06-13)
+
+Successor Geyser stirs Bronze independently FH-verified the spine (reproducing the SC1/citation
+figures — now QUADRUPLE-attested) and surfaced three corrections; each was re-verified FH by Myrtle
+against LIVE CODE before recording. **These override the inline entries above where they conflict:**
+
+- **S9 (watcher addressee-filter) — RECLASSIFIED: CURED in live code, NOT a live defect.** The S9
+  entry grades it doctrine-grade-live and routes it as a defect; that is WRONG. FH:
+  `agent-tools/src/collaboration-state/comms-relevant-events.ts` `classifyEventForAgent` returns
+  `observed` for directed-to-other / `addressed_to`-other / audience-excluding-self, and `undefined`
+  ONLY for self — the `[OBSERVED]`-token cure that `c7fba7db` itself proposed has LANDED. S9 is a
+  HISTORICAL failure the substrate SELF-HEALED → it belongs in what-worked-well; its consumer-plan
+  routing is withdrawn. (Lesson: a historical tagged event is not a live defect — verify against
+  current code, not the event alone.)
+- **SC1 causal-root — UPGRADED inferred→evidenced.** SC1/deep-dives inferred (from the two
+  `--tags`-only anchors `1e2c83eb`/`ec86492e`) that the threading/addressing fields were unreachable.
+  FH against live code: `cli-options.ts` exposes only `--tag` — no `--in-response-to` /
+  `--in-reply-to` / `--audience` / `--addressed-to` flag — so the affordances are unreachable from
+  the authoring CLI by construction. Evidenced, not inferred. (The fields exist in the schema +
+  legacy migration path, never in live authoring.)
+- **M2 quantifier — SOFTENED (owner's don't-pre-empt-conclusions steer).** The "~105 beats / ~60×"
+  figure is R4's single-source cold-reader count, NOT yet FH. The M2 FAMILY is FH-solid (napkin
+  same-day re-fires). Treat M2 as "named, graduated, re-suffered the same day"; the dramatic
+  quantifier is FH-PENDING (Geyser's task) and must not carry M2's grade until verified.

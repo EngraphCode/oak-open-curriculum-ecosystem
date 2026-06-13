@@ -1,13 +1,18 @@
 # Handoff — Myrtle weaves Thicket → Geyser stirs Bronze (WS3 comms-corpus research)
 
-**PDR-063 handoff record — PARTIAL handoff.** Read this end-to-end BEFORE any source edit or comms
-post (PDR-063 pickup contract). **Owner direction 2026-06-13:** Myrtle CONTINUES the deep write-up
-(the WS3 taxonomy `2026-06-13-ws3-failure-mode-taxonomy.md` + the deep-dives
-`2026-06-13-ws3-deep-dives.md`); **Geyser stirs Bronze takes the NON-write-up forward tasks** in §4
-(make-safe commit support, WS4 verification fan-outs, the ~37 REVIEW disposition, PENDING-FH
-verification, WS5/WS6 co-authoring with Katydid, the PR-best-practice routing decision, infra
-restart, Katydid liaison). This is a division of labour, not a retirement — Myrtle keeps the claim
-`eb94d37c` for the write-up; Geyser opens their own claim for the forward tasks. Outgoing: Myrtle weaves Thicket / claude-code / Opus 4.8 / adcccb /
+**PDR-063 handoff record — FULL handoff (Myrtle retiring).** Read this end-to-end BEFORE any source
+edit or comms post (PDR-063 pickup contract). **Owner direction 2026-06-13 (final):** Myrtle does a
+FULL session handoff. The deep write-up is COMPLETE and committed + pushed (taxonomy + deep-dives,
+on origin via `8d5cbb659`; PR-best-practice candidate-inputs via local `931f6f1c7`). Geyser stirs
+Bronze inherits the ENTIRE WS3 lane: the committed write-up to DEEPEN (after verification) plus all
+§4 forward tasks. Myrtle relinquishes claim `eb94d37c` at closeout; Geyser opens their own.
+
+> **OWNER STEER — governs everything below: conserve the INSIGHT, do NOT prematurely narrow the
+> eventual conclusions.** The taxonomy + deep-dives are foundational-research EVIDENCE — provisional,
+> provenance-tagged (FH / ADV / HARVEST), not ratified doctrine. Do NOT graduate findings into
+> rules/PDRs yet; do not let the strong framing ("DOCTRINE-GRADE", "keystone", "the finding") read
+> as closed conclusions. WS4 / WS5 / WS6 and the PENDING-FH verification are all open; the
+> conclusions are the research's to REACH, not to assume. Preserve richness; resist crystallisation. Outgoing: Myrtle weaves Thicket / claude-code / Opus 4.8 / adcccb /
 `fa85dab0-5ceb-58d9-9348-8ca506d6f677`. Claim: `eb94d37c-5b55-49a1-bd19-627cec1bb5e1` (thread
 `agent-collaboration-research`, area `.agent/reports/agentic-engineering/2026-06-13-ws3-*`).
 Branch: `feat/comms-research` @ base `5a2ac400b`.
@@ -109,3 +114,36 @@ comms watcher (Monitor `bkf3362fs`), ArcAngel tail (Monitor `bvnk6mz0p` on
 - ArcAngel channel with Katydid: `.agent/collaboration/rapid-comms/2026-06-13-katydid-myrtle.md`
   (read it for the full coordination arc; ArcAngel = the enhanced experimental comms approach,
   not a backup — owner correction).
+
+## Process lessons (consolidated, durable — distinct from the open research conclusions)
+
+These are settled lessons about HOW the session worked (safe to conserve; not research conclusions):
+
+- **Mutual first-hand adversarial verification between peers is a strong primitive.** It caught every
+  overstatement this session, both directions: my own dotdir search false-negative (ripgrep skips
+  dotdirs; use `--hidden`); my seeded-prior over-attribution (the Wave-2 refuters corrected
+  S2/S3/A2/A3 miscites); Katydid's two overstated relays; and Katydid's own citation metric that
+  manufactured a phantom 93.7% signal (the recursive A6). Encourage: paired researchers FH-verifying
+  each other on a low-ceremony channel (ArcAngel).
+- **Input-to-verify is unconditional on source** — a trusted peer's relay AND your own measurement
+  metric are both input-to-verify. A naive scan confounds claim/agent/intent UUIDs with event
+  citations; verify the metric, not just the claim.
+- **Tooling/scope gotchas:** `.agent/reports/` is markdownlint-exempt (`.markdownlintignore` line 22)
+  but `.agent/plans/` IS linted — check scope before assuming a file blocks a gate. The comms-event
+  watcher wedges on the ~5,120-file dir (theme-13 live); restart short + gap-sweep.
+- **Insight-loss safeguards that worked (owner-directed):** preserve workflow output out of `/tmp`
+  (buffer-only) into the repo; a WS3 running-notes log; the co-owned lab notebook
+  `2026-06-13-comms-corpus-research-notes.md`.
+- **S7 cure applied + repeated at closeout:** stop the heartbeat loop BEFORE emitting the heartbeat-end
+  (the zombie-boundary-heartbeat the corpus catalogues) — done once already when re-arming on the
+  correct branch, repeated at this closeout.
+
+## Closeout state (at Myrtle's retirement)
+
+- Committed + on origin: `9aaa6f710` (Katydid WS0-WS1) + `8d5cbb659` (Myrtle WS3). Local-only
+  (unpushed, owner/successor to push): `931f6f1c7` (PR-best-practice candidate inputs) + this
+  handoff-record update.
+- Claim `eb94d37c` relinquished at closeout (no active claims retained).
+- Monitors (watcher, ArcAngel tail, heartbeat loop) stopped at closeout.
+- Katydid hunts Roost retired in parallel to successor Kayak herds Ballast (their boundary:
+  liveness/coordination/emergent). The WS4 split holds; brief Kayak on it + the shared notebook.
