@@ -19,12 +19,26 @@ merge_class: index-narrative-tables
 
 ## Status
 
-**IN EXECUTION — WS0+WS1 complete; WS2 drafted; WS3 in progress; make-safe checkpoint
-2026-06-13 (Katydid hunts Roost / a4314f + Myrtle weaves Thicket / adcccb, peer pair on
-`feat/comms-research`).** The companion plan
+**WS0–WS4 COMPLETE + first-hand verified; WS5/WS6 remaining (owner sequenced separately,
+2026-06-13). Lane consolidated to Kayak herds Ballast (`328eee`), sole owner.** Cast progression
+on `feat/comms-research`: Katydid hunts Roost + Myrtle weaves Thicket (WS0–WS3) → Geyser stirs
+Bronze (WS3-forward + B/D/M2) → Kayak herds Ballast (WS4 liveness/coordination/emergent + anchor
+verification + consolidation). The companion plan
 [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
-is being executed under the owner's ultracode multi-wave strategy (see the plan's §Execution
-strategy + §Execution log).
+runs under the owner's ultracode multi-wave strategy.
+
+**WS4 outcome (Kayak + Geyser, mutual first-hand verification — itself a WS6 what-worked-well):**
+12-lead liveness/coordination/emergent fan-out + 18 anchors (T7/CC4 + 16) verified; 8
+FH-confirmed, corrections folded. Corrections (conserve-don't-narrow): S9 cured-in-live-code (→
+what-worked, routing withdrawn); SC1 causal-root evidenced + sharpened (no authoring path records
+linkage, incl. `comms reply`, event `2ff03ded`); T7 count 5→4 FH-enumerable (5th unlocated); the
+**swap-9G→0 finding RETRACTED** (reboot confound — `kern.boottime` 10:52Z). WS3 REVIEW disposition:
+0 new spine class (structure holds; tagged population a lower bound). PR #207 (merged) evidence
+integration reviewed faithful — one post-merge follow-up: correct "commit-queue ×5" → "4 enumerable".
+Evidence on origin (`48b9765b5`+): `ws4-find-verify-evidence.json`, `ws4-anchor-verify-evidence.json`,
+`ws4-pending-fh-verification.md`, `ws4-bdm2-verification.md`, `ws4-review-disposition.md`,
+`ws4-geyser-continuation.md`, `ws-critical-reassessment-kayak.md`. Full corpus committed + pushed
+(`8d6e26f88`) — the 189-untracked deletion-safety gap is largely cured (now ~1 untracked).
 
 Progress:
 
@@ -51,12 +65,15 @@ Progress:
 - **ArcAngel** relocated to the tracked home `.agent/collaboration/rapid-comms/` (owner-directed
   early WS7 slice); the live peer channel is `rapid-comms/2026-06-13-katydid-myrtle.md`.
 
-**Next safe step**: make-safe commit of the research substrate to `feat/comms-research`, then
-WS4 deep-dives split (Katydid: liveness/heartbeat + coordination + cold-read emergent; Myrtle:
-substrate-credibility + commit/concurrency + M2), then co-authored WS5 rotation proposal (put
-to the owner) + WS6 synthesis. WS7 owner-gated. This record remains the research-substrate home
-(hypothesis, themes, vectors, corpus facts). **Blind-pass note**: the WS1 cold read was kept
-blind via delegation; the executing seat's own contamination is disclosed and cured.
+**Next safe step (WS5/WS6 — owner sequenced separately)**: WS5 rotation strategy → owner
+ratification (NO deletion in research; the §Non-Held Rotation Strategy framing below is the input) and WS6 comprehensive synthesis. Both led by Kayak herds Ballast. **Open items to carry**: (1) PR #207
+"commit-queue ×5" → "4 enumerable" post-merge follow-up on `main`; (2) one-decision-home PR shape
+awaits owner confirm; (3) `feat/comms-research` ~28 behind `origin/main` (PR back-links
+dangle-until-merge); (4) 2 Dependabot vulns on `main` (1 high / 1 low, owner-flagged); (5) the
+watcher host-resource cost is a HYPOTHESIS (the swap→0 evidence was reboot-confounded) — a
+controlled watcher-RSS × dir-size measure would settle it. WS7 owner-gated. This record remains the
+research-substrate home (hypothesis, themes, vectors, corpus facts). **Blind-pass note**: the WS1
+cold read was kept blind via delegation; the executing seat's own contamination is disclosed and cured.
 
 **Succession**: owner named **Kayak herds Ballast** as Katydid hunts Roost's eventual successor
 on this lane (2026-06-13). Pickup surface for Kayak: this record + the running-notes lab
@@ -516,6 +533,8 @@ Relevance to this research thread:
 | Firefly seeks Temper | claude | Fable 5 | ce44ae | 2026-06-12 | 2026-06-12 | record deep-dive + second theme seeding + rotation-strategy framing + companion-plan creation (owner-directed, Director seat) |
 | Fern lifts Mulch | claude-code | Fable 5 | 66f12b | 2026-06-12 | 2026-06-12 | planning session (owner-reshaped from research dispatch; claim 63d80264): WS6 synthesis-report + owner-gated WS7 end-state amendments, experiments/ preservation commit, continuation surfaces made execution-ready; blind-pass discipline honoured — Candidate Themes sections unread |
 | Katydid hunts Roost | claude-code | Fable 5 | a4314f | 2026-06-12 | 2026-06-12 | research session (claim 8910ee5f): WS0 grounding + corpus facts re-derived (5,003 events, 2026-05-20→06-12, zero lifecycle-kind); successor-seat WS1 contamination disclosed (events 37523113/8cefbe36) and owner-cured — WS1 cold read delegated to multiple fresh-context Fable 5 blind readers; entry-point fence banner added |
+| Geyser stirs Bronze | claude-code | Opus 4.8 | 3636b0 | 2026-06-13 | 2026-06-13 | forward lane (Myrtle PDR-063 handoff; claims eb88ee15→6603978f): B/D/M2 FH-verification, ~37 REVIEW disposition (0 new spine class), SC1 live-test sharpening, PR convergence with Flame; stood down on owner-directed consolidation to Kayak |
+| Kayak herds Ballast | claude-code | Opus 4.8 | 328eee | 2026-06-13 | 2026-06-13 | successor + consolidated lane owner (claim b76045bb): critical re-assessment of WS0–WS3; crash-safety flush (full corpus committed+pushed); WS4 liveness/coordination/emergent fan-out + 18-anchor verification; corrections (S9-cured, SC1-sharpened, T7 5→4, swap-finding retracted); mutual-FH loop with Geyser; PR #207 post-merge faithfulness review; WS5/WS6 owner-sequenced-separately |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 

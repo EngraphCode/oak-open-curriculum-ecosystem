@@ -443,3 +443,10 @@ against LIVE CODE before recording. **These override the inline entries above wh
   figure is R4's single-source cold-reader count, NOT yet FH. The M2 FAMILY is FH-solid (napkin
   same-day re-fires). Treat M2 as "named, graduated, re-suffered the same day"; the dramatic
   quantifier is FH-PENDING (Geyser's task) and must not carry M2's grade until verified.
+- **SC1 causal-root — SHARPENED via live test (the dedicated reply command also records no linkage).**
+  Beyond the `--tags`-only finding above: `comms reply --to-event-id` EXISTS (`cli-options.ts`) and the
+  schema can hold `in_response_to` / `in_reply_to` (`state-schemas.ts`), but the reply path does NOT
+  populate them — proven FH by reply event `2ff03ded` (a directed reply carrying `in_response_to` =
+  undefined). So `in_response_to` = 0 corpus-wide because NO authoring path records linkage, **including
+  the dedicated reply command**. Cleaner cure: make `comms reply --to-event-id` map to `in_response_to`.
+  (FH: Geyser stirs Bronze live-test + Kayak herds Ballast field-confirm of `2ff03ded`, 2026-06-13.)
