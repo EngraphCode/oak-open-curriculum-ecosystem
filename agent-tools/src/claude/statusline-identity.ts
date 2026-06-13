@@ -17,7 +17,7 @@
  * The logo style is read from `OAK_STATUSLINE_LOGO` (`braille-sharp` default;
  * `braille` for the unmodified conversion; `quad` for universal-font block
  * elements; `sextant` for the sharpest mark where the font has the Legacy
- * Computing block; or `none` for the original single line). The agent-identity
+ * Computing block; or `none` for the two-line layout). The agent-identity
  * name (PDR-027) is produced by the built `agent-identity` CLI at
  * `agent-tools/dist/src/bin/agent-identity.js`. Git branch, dirty state, and
  * linked-worktree name are gathered from the working directory in the payload.

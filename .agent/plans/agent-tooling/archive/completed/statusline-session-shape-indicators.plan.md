@@ -1,7 +1,7 @@
 ---
 name: "Statusline Enhancements — Oak Mark + Session-Shape Indicators"
 overview: "The unified Claude Code statusline lane. Part one — the Oak acorn logo-column mark — has LANDED (see §Landed). Part two adds dense, glanceable session-coordination indicators to the statusline: a Director demark on the identity, a team-shape icon (directed team vs peer team vs solo), and an ArcAngel-active wing — resolved from the claims registry and the ARC experiments directory only (never the comms corpus), enabled by an additive optional role field on the claim schema that also lands the long-pending structural claim-schema cure for singleton roles."
-status: "COMPLETE on feat/comms-research (2026-06-13, Skylark wakes Summit) — rides the branch push/merge. The Oak mark landed+pushed; WS1/WS2/WS3 re-fit onto the 4-row layout; WS4 glyph terminal verification DONE (all five verified in the owner's terminals — peer swapped 👥→🤝, solo 🧍 added); a resolver correctness fix makes an unreadable registry resolve to 'unknown' (no icon) rather than a false 'solo'; WS5 green at 1081 agent-tools tests. Archive this plan once the branch merges."
+status: "COMPLETE — reconciled on feat/comms-research (2026-06-13). The WS1–WS5 base previously landed on main via PR #203 (merge 00c1f758d, by Flame rides Temper); feat/comms-research then re-fit WS1/WS2/WS3 onto the 4-row Oak-mark layout, completed WS4 glyph terminal verification (all five verified in the owner's terminals — peer swapped 👥→🤝, solo 🧍 added), and added a resolver correctness fix making an unreadable registry resolve to 'unknown' (no icon) rather than a false 'solo'. The reconcile merge (origin/main → feat/comms-research) unified the two lineages, taking best-of-both on the statusline files (branch four-row + main two-line on the logo:'none' path; main's clock-skew ARC guard restored onto branch's resolver). Archived as part of that merge."
 todos:
   - id: ws1-claim-role-field
     content: "WS1 (DONE): optional `role` field on the active-claims schema + `--role` on `claims open`; additive, existing readers unaffected. Authored on feat/statusline-enhancements (ac2901fe1), brought onto feat/comms-research this session. Lands the structural claim-schema cure for singleton roles. NOTE: the schema test was renamed from .unit to .integration (it reads the real schema via a fixture)."
@@ -11,14 +11,14 @@ todos:
     status: completed
     depends_on: [ws1-claim-role-field]
   - id: ws3-render-integration
-    content: "WS3 (DONE, re-fit): render the indicators in BOTH layouts. Director demark suffixed to the identity; team-shape icon (directed/peer; nothing when solo); ArcAngel wing while a relevant channel is live. In the 4-row layout the indicators trail the identity on row 0 (`joinPresent([identity, indicators])`); in the `logo:'none'` single line they are the second segment (byte-compatible with the original feat/statusline-enhancements output). Authored single-line on feat/statusline-enhancements (4270ea49d), re-fit onto the 4-row layout on feat/comms-research this session. The glyph CHOICE still awaits WS4 terminal verification, but placement is proven by the render tests."
+    content: "WS3 (DONE, re-fit): render the indicators in BOTH layouts. Director demark suffixed to the identity; team-shape icon (directed/peer; nothing when solo); ArcAngel wing while a relevant channel is live. In the 4-row layout the indicators trail the identity on row 0 (`joinPresent([identity, indicators])`); in the `logo:'none'` path they sit on the coordination line of the two-line layout. Authored single-line on feat/statusline-enhancements (4270ea49d), re-fit onto the 4-row layout on feat/comms-research this session; the reconcile merge folded main's #206 two-line layout into the `logo:'none'` path."
     status: completed
     depends_on: [ws2-session-shape-resolver]
   - id: ws4-glyph-verification
     content: "WS4 (DONE): all five glyphs verified rendering in the owner's terminals 2026-06-13 — Director 🧭 U+1F9ED, directed-team 👪 U+1F46A, peer-team 🤝 U+1F91D (replaced 👥 U+1F465, which rendered nowhere), solo 🧍 U+1F9CD, ArcAngel wing 🪶 U+1FAB6. ASCII fallbacks ([D]/[T]/[P]/[S]/[A]) pinned in the statusline-render.ts glyph comment. Client-visibility discipline satisfied: no glyph shipped without rendering evidence."
     status: completed
   - id: ws5-tests
-    content: "WS5 (DONE for the landed scope): resolver unit tests over explicit fixture inputs (no global state, no process.env), render tests for every shape combination crossed with logo present vs none (single-line AND 4-row placement), boundary tests for claim freshness. 1075 agent-tools tests green. Continues to ride any future glyph swap from WS4."
+    content: "WS5 (DONE for the landed scope): resolver unit tests over explicit fixture inputs (no global state, no process.env), render tests for every shape combination crossed with logo present vs none (two-line AND 4-row placement), boundary tests for claim freshness including the clock-skew future-mtime guard. 1075+ agent-tools tests green. Continues to ride any future glyph swap from WS4."
     status: completed
 isProject: false
 ---

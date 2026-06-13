@@ -145,11 +145,16 @@ function resolveArcActive(
   }
   const ownNeedle = normaliseForFilenameMatch(ownAgentName);
   const nowMs = Date.parse(nowIso);
-  return listing.some(
-    (entry) =>
-      normaliseForFilenameMatch(entry.name).includes(ownNeedle) &&
-      nowMs - Date.parse(entry.mtimeIso) <= ARC_ACTIVE_WINDOW_SECONDS * 1000,
-  );
+  return listing.some((entry) => {
+    if (!normaliseForFilenameMatch(entry.name).includes(ownNeedle)) {
+      return false;
+    }
+    // Age must fall within [0, window]. A future mtime (clock skew) yields a
+    // negative age that would otherwise satisfy `<= window` and raise a false
+    // wing; an unparseable mtime yields NaN, which fails both bounds.
+    const ageMs = nowMs - Date.parse(entry.mtimeIso);
+    return ageMs >= 0 && ageMs <= ARC_ACTIVE_WINDOW_SECONDS * 1000;
+  });
 }
 
 /**

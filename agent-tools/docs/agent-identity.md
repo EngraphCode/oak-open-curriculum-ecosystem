@@ -199,8 +199,8 @@ The wiring after activation is:
    `agent-tools/src/claude/statusline-identity.ts`) parses the stdin JSON
    (`session_id`, `cwd` / `workspace.current_dir`, `model`, `context_window`, …),
    derives the PDR-027 display name, gathers git state from the working directory,
-   and prints one line via `renderStatusline` (same shape as Claude Code).
-4. Cursor CLI renders that line in the status bar.
+   and prints the two-line statusline via `renderStatusline` (same shape as Claude Code).
+4. Cursor CLI renders those two lines in the status bar.
 
 The adapter is a soft surface: missing input, missing build artefact,
 unparseable JSON, or any spawn failure exits 0 with empty stdout. The
@@ -210,7 +210,8 @@ unparseable JSON, or any spawn failure exits 0 with empty stdout. The
 
 The Claude Code statusline runs once per session at startup and on subsequent
 prompt-submit events. The harness pipes a JSON object on stdin containing
-`session_id` (and other fields the adapter ignores). The wiring is:
+`session_id`, `cwd` / `workspace.current_dir`, `model`, and `context_window`
+(the adapter reads each of these — see step 3). The wiring is:
 
 1. `.claude/settings.json` declares
    `"statusLine": { "type": "command", "command": "node .claude/scripts/statusline-identity.mjs" }`.
@@ -218,12 +219,20 @@ prompt-submit events. The harness pipes a JSON object on stdin containing
    built adapter path under `agent-tools/dist/src/claude/`. If the build
    artefact is missing it exits 0 silently rather than disrupting the session.
 3. `agent-tools/dist/src/claude/statusline-identity.js` (built from
-   `agent-tools/src/claude/statusline-identity.ts`) parses the stdin JSON,
-   extracts `session_id`, and synchronously invokes the built
-   `agent-identity` CLI (via `spawnSync`) with
-   `--seed <session_id> --format display`.
-4. The CLI prints the deterministic name to stdout, which Claude Code renders
-   in the statusline.
+   `agent-tools/src/claude/statusline-identity.ts`) parses the stdin JSON
+   (`session_id`, `cwd` / `workspace.current_dir`, `model`, `context_window`),
+   derives the PDR-027 display name (via the built `agent-identity` CLI with
+   `--seed <session_id> --format display`), gathers git state (branch, dirty,
+   linked-worktree name), and resolves the session-coordination shape — own
+   role, team shape (solo / peer / directed), and ArcAngel liveness — from two
+   cheap reads of the primary checkout (the active-claims registry's optional
+   `role` field and the experiments-directory listing; never the comms corpus).
+4. `renderStatusline` composes a **two-line** statusline — line 1 the
+   coordination segments (identity with a Director demark when the session's
+   fresh claim carries `role: director`, the team-shape / ArcAngel indicators,
+   model, context %), line 2 the git location (branch with dirty mark, directory
+   or worktree) — which Claude Code renders in the statusline. Each segment and
+   each line drop cleanly when absent.
 
 The adapter is a soft surface: missing input, missing build artefact,
 unparseable JSON, or any spawn failure exits 0 with empty stdout. The

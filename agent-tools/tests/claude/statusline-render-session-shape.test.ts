@@ -3,8 +3,8 @@
  * (unknown/solo/peer/directed × arc on/off × director/non-director own role),
  * the no-shape tick, the solo-vs-unknown distinction (a confident solo carries
  * its own marker; an unknown shape shows nothing), clean dropping of absent
- * indicator segments, and placement in both layouts — the single-line layout
- * (indicators as the second segment) and the four-row Oak-mark layout
+ * indicator segments, and placement in both layouts — the no-logo two-line
+ * layout (indicators on the coordination line) and the four-row Oak-mark layout
  * (indicators trailing the identity on row 0).
  */
 import { describe, expect, it } from 'vitest';
@@ -48,17 +48,15 @@ const PLACE = `${CYAN}repo${RESET}`;
 
 describe('renderStatusline — session-shape indicators', () => {
   it('renders the solo marker for a confident solo session', () => {
-    expect(renderStatusline(parts(shape({})))).toBe(`${IDENTITY}${SEP}${SOLO}${SEP}${PLACE}`);
+    expect(renderStatusline(parts(shape({})))).toBe(`${IDENTITY}${SEP}${SOLO}\n${PLACE}`);
   });
 
   it('renders nothing for an unknown shape (unreadable registry)', () => {
-    expect(renderStatusline(parts(shape({ teamShape: 'unknown' })))).toBe(
-      `${IDENTITY}${SEP}${PLACE}`,
-    );
+    expect(renderStatusline(parts(shape({ teamShape: 'unknown' })))).toBe(`${IDENTITY}\n${PLACE}`);
   });
 
   it('renders nothing for an unresolved (undefined) shape', () => {
-    expect(renderStatusline(parts(undefined))).toBe(`${IDENTITY}${SEP}${PLACE}`);
+    expect(renderStatusline(parts(undefined))).toBe(`${IDENTITY}\n${PLACE}`);
   });
 
   it('distinguishes a confident solo from an unknown shape', () => {
@@ -72,49 +70,49 @@ describe('renderStatusline — session-shape indicators', () => {
 
   it('renders the peer icon for a peer window', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer' })))).toBe(
-      `${IDENTITY}${SEP}${PEER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${PEER}\n${PLACE}`,
     );
   });
 
   it('renders the family icon for a directed window without my demark', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed' })))).toBe(
-      `${IDENTITY}${SEP}${FAMILY}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${FAMILY}\n${PLACE}`,
     );
   });
 
   it('suffixes the compass demark to the identity when I am the director', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed', ownRole: 'director' })))).toBe(
-      `${IDENTITY} ${COMPASS}${SEP}${FAMILY}${SEP}${PLACE}`,
+      `${IDENTITY} ${COMPASS}${SEP}${FAMILY}\n${PLACE}`,
     );
   });
 
   it('shows no demark for a non-director own role', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer', ownRole: 'curator' })))).toBe(
-      `${IDENTITY}${SEP}${PEER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${PEER}\n${PLACE}`,
     );
   });
 
   it('renders the solo marker and wing for a solo session with a live channel', () => {
     expect(renderStatusline(parts(shape({ arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${SOLO} ${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${SOLO} ${FEATHER}\n${PLACE}`,
     );
   });
 
   it('renders the wing alone for an unknown shape with a live channel', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'unknown', arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${FEATHER}\n${PLACE}`,
     );
   });
 
   it('renders peer icon and wing together', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer', arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${PEER} ${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${PEER} ${FEATHER}\n${PLACE}`,
     );
   });
 
   it('renders family icon and wing for a directed window I am not directing', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed', arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${FAMILY} ${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${FAMILY} ${FEATHER}\n${PLACE}`,
     );
   });
 
@@ -123,7 +121,7 @@ describe('renderStatusline — session-shape indicators', () => {
       renderStatusline(
         parts(shape({ teamShape: 'directed', ownRole: 'director', arcActive: true })),
       ),
-    ).toBe(`${IDENTITY} ${COMPASS}${SEP}${FAMILY} ${FEATHER}${SEP}${PLACE}`);
+    ).toBe(`${IDENTITY} ${COMPASS}${SEP}${FAMILY} ${FEATHER}\n${PLACE}`);
   });
 
   it('keeps indicators in the single-line layout, before the model segment', () => {
@@ -148,7 +146,7 @@ describe('renderStatusline — session-shape indicators', () => {
       identity: undefined,
     });
 
-    expect(rendered).toBe(`${PEER}${SEP}${PLACE}`);
+    expect(rendered).toBe(`${PEER}\n${PLACE}`);
   });
 });
 

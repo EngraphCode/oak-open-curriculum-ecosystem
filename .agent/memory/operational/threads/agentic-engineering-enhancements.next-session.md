@@ -165,7 +165,27 @@ register.
 > verify
 > HEAD is green, do not assume your work landed as its own commit.
 
-## Participating Agent Identities
+## Statusline Session-Shape Indicators Lane (2026-06-12 → 2026-06-13) — DONE
+
+**Owning plan**: archived at
+`.agent/plans/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`
+(status: DONE; lifecycle index entry in `completed-plans.md` § Agent Tooling).
+**Outcome**: all five workstreams executed by Monsoon guards Cirrus on
+`feat/statusline-enhancements` (commits `ac2901fe1` claim `role` field + singleton-cure,
+`1ac430378` resolver + `isClaimStale` + porcelain primary-root parser, `4270ea49d`
+renderer + adapter two-reads-per-tick + glyph evidence). Pushed, conflict-resolved against
+main (napkin/repo-continuity, semantic merge), and **PR #203 merged to main 2026-06-13
+(merge `00c1f758d`)** by Flame rides Temper. One post-merge SonarCloud smell (nested ternary,
+S3358) fixed by extracting a `teamIcon` helper before merge. **Post-merge live proof
+passed**: against the merged schema the write-path validator now accepts a `role:director`
+claim (the write it correctly refused pre-merge), and the built statusline adapter renders
+the 🧭 Director demark suffixed to the identity plus the 👪 directed-team icon.
+**Residue (sweep at next consolidation)**: three abandoned commit-queue intents in the
+primary registry (1266cd70, 205de542, 3bdc8219 — pre-merge blocked-window attempt audit);
+two stale `current/` plan-path links in `repo-continuity.md` (a dated point-in-time bullet
+and the redesign bullet) left for the continuity lane to repoint to `archive/completed/`
+when it next touches that file (it carried uncommitted edits in the primary during this
+lane, so this PR did not churn it).
 
 Additive per
 [PDR-027](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md).
@@ -198,6 +218,8 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Arboreal Swaying Thicket` | `claude` | `Fable 5` | `d2947e` | `dedicated-knowledge-curation (register drain + napkin rotation + width repairs + platform-memory)` | 2026-06-11 | 2026-06-11 |
 | `Thermal Circling Updraft` | `claude` | `Fable 5` | `f42c24` | `dedicated-consolidation (owner decision walk: all gated dispositions settled; ADR-195/196/197 + skill + PDR-058/091/089 landed; approved-authoring queue frozen)` | 2026-06-11 | 2026-06-11 |
 | `Thyme wakes Canopy` | `claude` | `Fable 5` | `70655e` | `dedicated-consolidation (approved queue authored: PDR-092/093 + 4 amendments + 3 folds; napkin rotated; registers drained; continuity condensed)` | 2026-06-12 | 2026-06-12 |
+| `Monsoon guards Cirrus` | `claude` | `Fable 5` | `aaa0b7` | `statusline-session-shape-indicators (all five workstreams landed on feat/statusline-enhancements; handed to Flame rides Temper for push/PR/post-merge proof)` | 2026-06-12 | 2026-06-12 |
+| `Flame rides Temper` | `claude-code` | `Fable 5` | `362832` | `statusline-lane successor (Monsoon handoff): PR #203 + #206 merged + post-merge director-demark proof + two-line layout; PR merge-readiness discipline plan #205 + WS3-evidence integration #207; review-comment-resolution discipline applied across all PRs` | 2026-06-13 | 2026-06-13 |
 
 ## Cross-Plan and Cross-Thread Links
 

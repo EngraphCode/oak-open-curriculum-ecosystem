@@ -13,10 +13,11 @@
  *
  * The session-shape indicators are glanceable coordination glyphs (a Director
  * demark on the identity, a team-shape icon, an ArcAngel wing) that sit with the
- * identity: the single-line layout keeps them as the second segment, the
+ * identity: the no-logo layout keeps them on the coordination line, the
  * four-row logo layout trails them on the identity row. With a logo style the
  * statusline renders as a four-row block (the Oak mark as a left logo-column,
- * segments to its right); without one (the default) it is the original line.
+ * segments to its right); without one (the default) it renders over two lines —
+ * the coordination segments first, then the git location.
  *
  * @packageDocumentation
  */
@@ -96,11 +97,11 @@ const CONTEXT_HIGH_PERCENT = 70;
  *
  * @param parts - The resolved segment values.
  * @param options - Optional presentation controls (e.g. the Oak logo style).
- * @returns The ANSI-coloured statusline. Without a logo it is a single line
- *   (identity, then indicators, model, context, branch, place — absent segments
- *   dropped). With a logo it is four newline-separated rows: the Oak mark column
- *   with the segments to its right, the indicators trailing the identity on
- *   row 0.
+ * @returns The ANSI-coloured statusline. Without a logo it renders over two
+ *   lines (coordination: identity, indicators, model, context; then git: branch,
+ *   place — absent segments dropped, an empty line omitted). With a logo it is
+ *   four newline-separated rows: the Oak mark column with the segments to its
+ *   right, the indicators trailing the identity on row 0.
  *
  * @example
  * ```ts
@@ -114,7 +115,7 @@ const CONTEXT_HIGH_PERCENT = 70;
  *   model: 'Opus 4.7',
  *   sessionShape: undefined,
  * });
- * // -> "<magenta>Fragrant... · Opus 4.7 · ctx:12% · feat/...* · wt:oak-wt-eef"
+ * // -> "<magenta>Fragrant... · Opus 4.7 · ctx:12%\nfeat/...* · wt:oak-wt-eef"
  * ```
  */
 export function renderStatusline(
@@ -124,14 +125,11 @@ export function renderStatusline(
   const seg = buildSegments(parts);
   const logo = options.logo ?? 'none';
   if (logo === 'none') {
-    return joinPresent([
-      seg.identity,
-      seg.indicators,
-      seg.model,
-      seg.context,
-      seg.branch,
-      seg.place,
-    ]);
+    // No logo: two lines — coordination segments first, then the git location;
+    // an empty line (all its segments absent) is dropped so no blank row renders.
+    const coordinationLine = joinPresent([seg.identity, seg.indicators, seg.model, seg.context]);
+    const locationLine = joinPresent([seg.branch, seg.place]);
+    return [coordinationLine, locationLine].filter((line) => line.length > 0).join('\n');
   }
 
   // One entry per logo row (all styles are four rows); composeWithLogo drives

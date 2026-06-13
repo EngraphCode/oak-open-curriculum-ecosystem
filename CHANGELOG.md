@@ -1,3 +1,27 @@
+# [1.33.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.32.1...v1.33.0) (2026-06-13)
+
+
+### Features
+
+* **agent-tools:** render the statusline over two lines ([ae2744d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ae2744d3ef4a781123e8778b6360938dc7930f63))
+
+## [1.32.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.32.0...v1.32.1) (2026-06-13)
+
+
+### Bug Fixes
+
+* **agent-tools:** make worktree porcelain fixture repo-relative (no-machine-local-paths) ([8128f35](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8128f3570497065a556564c0ecb0019f51dda360))
+* **agent-tools:** resolve PR [#203](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/203) review comments (machine-local paths + ARC future mtime) ([bcf71e6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcf71e6d1fd2f26755441e3b96bef75e0484dce9))
+
+# [1.32.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.31.1...v1.32.0) (2026-06-13)
+
+
+### Features
+
+* **agent-tools:** add optional role field to active claims ([ac2901f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ac2901fe1cceca05e1adba50eee1f26cbc5aa015))
+* **agent-tools:** pure session-shape resolver for the statusline ([1ac4303](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1ac430378525a1d0397a276444d4ce65fbfb882b))
+* **agent-tools:** render session-shape indicators in the statusline ([4270ea4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4270ea49d2a758d4a0e329c7148586a2ccd87eed))
+
 ## [1.31.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.31.0...v1.31.1) (2026-06-12)
 
 

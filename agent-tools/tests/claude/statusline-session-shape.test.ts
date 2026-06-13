@@ -320,6 +320,19 @@ describe('resolveSessionShape — ARC liveness', () => {
 
     expect(shape.arcActive).toBe(true);
   });
+
+  it('keeps the wing down for a future-dated channel (clock skew yields a negative age)', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([]),
+      experimentsListing: [
+        arc('arc-monsoon-guards-cirrus-and-fern/README.md', '2026-06-12T12:05:00Z'),
+      ],
+      nowIso: NOW,
+    });
+
+    expect(shape.arcActive).toBe(false);
+  });
 });
 
 describe('resolveSessionShape — soft degradation', () => {
