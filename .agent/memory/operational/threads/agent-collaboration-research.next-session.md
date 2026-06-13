@@ -98,6 +98,19 @@ controlled watcher-RSS × dir-size measure would settle it. WS7 owner-gated. Thi
 research-substrate home (hypothesis, themes, vectors, corpus facts). **Blind-pass note**: the WS1
 cold read was kept blind via delegation; the executing seat's own contamination is disclosed and cured.
 
+**Session-boundary state (Bluebell mends Mulch closeout, 2026-06-13).** The WS5/WS6/re-verify bundle is
+committed (`f20680041`). The closeout captures — this thread record, `.agent/memory/active/napkin.md`,
+the `pending-graduations.md` deep-consolidation candidate entry, and the `repo-continuity.md`
+Active-threads row — are durable working-tree edits left UNCOMMITTED per the owner's git-state waiver;
+the incoming session commits them with its work. `feat/comms-research` is a SHARED branch (Bilby hunts
+Eventide, statusline lane): commit by EXPLICIT PATHSPEC under a singleton `git:index/head` window; the
+staged registry residue (`active-claims` / `closed-claims` / `comms-seen`) is stale + pure-diff-excluded
+— never commit it to the feature branch. **Conduct doctrine (load-bearing, carry it)**: corpus events
+are input-to-verify, not truth (ground every load-bearing claim first-hand; first-hand means you, not a
+sub-agent); conserve insight, never prematurely narrow; the two-reader mutual-first-hand-correction loop
+is the lane's strongest reliability mechanism (run the adversarial shape on your own output) — full text
+in the WS6 synthesis §1 and Kayak's handoff (`2026-06-13-comms-corpus-findings-and-handoff-kayak.md`) §1.
+
 **Succession**: owner named **Kayak herds Ballast** as Katydid hunts Roost's eventual successor
 on this lane (2026-06-13). Pickup surface for Kayak: this record + the running-notes lab
 notebook (`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`) + the

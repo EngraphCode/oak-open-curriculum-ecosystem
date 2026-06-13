@@ -13966,6 +13966,51 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "A4D7A48D-FDE0-491D-AFE6-D81DB95A9BD8",
+      "agent_id": {
+        "agent_name": "Bilby hunts Eventide",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "66eb9b",
+        "id": "c5aa65f2-3770-54c1-9bf4-faaa4212a9d4",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T15:59:58Z",
+      "freshness_seconds": 600,
+      "sidebar_open": false,
+      "intent": "Bilby: gatekeeper-batch commit of statusline thread + continuity buffers (coordinated w/ Bluebell, comms 5f5d3823)",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T16:00:12Z",
+        "closed_by": {
+          "agent_name": "Bilby hunts Eventide",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "66eb9b",
+          "id": "c5aa65f2-3770-54c1-9bf4-faaa4212a9d4",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit 8b7cf9014: statusline thread + discoverability lesson (gatekeeper batch)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "A4D7A48D-FDE0-491D-AFE6-D81DB95A9BD8",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

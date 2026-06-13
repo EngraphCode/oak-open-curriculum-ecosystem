@@ -2033,3 +2033,28 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
 - **trigger-condition**: a second instance of generated-doc drift landing
   committed, OR the next `.husky` / `build-system.md` gate-coverage pass.
 - **status**: pending
+
+## Comms-corpus research — deep-consolidation graduation candidates (Bluebell mends Mulch)
+
+- **captured-date**: 2026-06-13
+- **source-surface**: comms-corpus research lane closeout — the WS6 synthesis
+  (`reports/agentic-engineering/2026-06-13-ws6-comms-corpus-synthesis.md` §5 routed
+  recommendations), the WS5 rotation proposal (owner-ratified 2026-06-13), and the WS3
+  failure-mode taxonomy. Routed forward to the owner-directed dedicated consolidation session
+  (the thread record next-session lists the same; this is the canonical register entry).
+- **graduation-target**: three distinct artefacts the dedicated consolidation authors —
+  (1) **DUE (owner ratified):** a rotation **PDR** (portable contract: five invariants,
+  class-tiers, the §4.3 absorption gate, archive-not-delete, inline-quote-first + tracked
+  cited-events digest + pre-archive-move guard) + an **ADR** (repo phenotype: paths,
+  curator-pass cadence, gitignore, guard script) — also WS7's mandated-first step;
+  (2) **M2** (learning-loop-doesn't-fire-under-pressure) → a PDR on active-vs-passive
+  enforcement (`passive-guidance-loses-to-artefact-gravity`), carrying the self-reference
+  corollary that deep consolidation under load is itself an M2 instance → defer to a fresh
+  session when capture-first has already conserved the signal;
+  (3) **SC1** (reply/lifecycle/addressing fields unreachable from the authoring CLI) →
+  rightsizing-M4 enforce-or-remove + `comms-event-write-integrity` (wire
+  `comms reply --to-event-id` → `in_response_to`, or remove the dead affordances).
+- **trigger-condition**: the owner-directed dedicated consolidation + WS7 session (next agent).
+- **status**: due (rotation PDR/ADR — owner-ratified) / pending (M2, SC1 — dedicated
+  consolidation drafts them). Note: this register is in the critical fitness zone (2035+
+  lines); the dedicated consolidation is its drain, not a trim trigger.
