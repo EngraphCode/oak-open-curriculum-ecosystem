@@ -3,17 +3,23 @@
  * Claude Code statusline adapter.
  *
  * @remarks
- * Reads the JSON object Claude Code passes on stdin and prints a single
- * statusline of the form:
+ * Reads the JSON object Claude Code passes on stdin and prints the statusline.
+ * By default it renders a three-row block with the Oak acorn mark as a left
+ * logo-column and the segments flowing to its right:
  *
  * ```text
- * <agent-identity> · <model> · ctx:N% · <branch>[*] · <dir or wt:worktree>
+ * <mark> <agent-identity> · <model>
+ * <mark> ctx:N% · <branch>[*]
+ * <mark> <dir or wt:worktree>
  * ```
  *
- * The agent-identity name (PDR-027) is produced by the built `agent-identity`
- * CLI at `agent-tools/dist/src/bin/agent-identity.js`. Git branch, dirty state,
- * and linked-worktree name are gathered from the working directory in the
- * payload. Formatting is delegated to the pure {@link renderStatusline}.
+ * The logo style is read from `OAK_STATUSLINE_LOGO` (`quad` default, for
+ * universal font support; `sextant` for a sharper mark where the font has the
+ * Legacy Computing block; or `none` for the original single line). The
+ * agent-identity name (PDR-027) is produced by the built `agent-identity` CLI
+ * at `agent-tools/dist/src/bin/agent-identity.js`. Git branch, dirty state, and
+ * linked-worktree name are gathered from the working directory in the payload.
+ * Formatting is delegated to the pure {@link renderStatusline}.
  *
  * The statusline is a soft surface: missing input, missing build artefact, or
  * any spawn failure degrades the affected segment to empty rather than
@@ -27,6 +33,7 @@ import { existsSync } from 'node:fs';
 import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { resolveLogoStyle } from './oak-logo.js';
 import { planStatuslineExecution, type StatuslinePlan } from './statusline-identity-input.js';
 import { renderStatusline } from './statusline-render.js';
 
@@ -50,15 +57,18 @@ function emitStatusline(rawJson: string): void {
   const cwd = plan.inputs.cwd ?? process.cwd();
   const git = gatherGitState(cwd);
 
-  const line = renderStatusline({
-    identity: deriveIdentity(plan.inputs.seed),
-    dir: basename(cwd),
-    branch: git.branch,
-    dirty: git.dirty,
-    worktree: git.worktree,
-    usedPercentage: plan.inputs.usedPercentage,
-    model: plan.inputs.model,
-  });
+  const line = renderStatusline(
+    {
+      identity: deriveIdentity(plan.inputs.seed),
+      dir: basename(cwd),
+      branch: git.branch,
+      dirty: git.dirty,
+      worktree: git.worktree,
+      usedPercentage: plan.inputs.usedPercentage,
+      model: plan.inputs.model,
+    },
+    { logo: resolveLogoStyle(process.env.OAK_STATUSLINE_LOGO) },
+  );
 
   process.stdout.write(line);
 }
