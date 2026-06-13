@@ -75,10 +75,10 @@ const DIRTY_MARK = '*';
 const LOGO_GAP = '  ';
 
 /**
- * Session-shape indicator glyphs. WS4: DIRECTOR_MARK, TEAM_DIRECTED_ICON and
- * ARC_WING verified in the owner's terminals (2026-06-13); the old peer glyph
- * U+1F465 tofu'd and was replaced. TEAM_PEER_ICON + TEAM_SOLO_ICON await the
- * owner's check. ASCII fallbacks if a glyph tofus: `[D]` `[T]` `[P]` `[S]` `[A]`.
+ * Session-shape indicator glyphs — all five verified in the owner's terminals
+ * (2026-06-13): DIRECTOR_MARK, TEAM_DIRECTED_ICON, TEAM_PEER_ICON, TEAM_SOLO_ICON,
+ * ARC_WING. The original peer glyph U+1F465 (busts) tofu'd and was replaced by
+ * U+1F91D. ASCII fallbacks if a font regresses: `[D]` `[T]` `[P]` `[S]` `[A]`.
  */
 const DIRECTOR_MARK = '\u{1F9ED}';
 const TEAM_DIRECTED_ICON = '\u{1F46A}';

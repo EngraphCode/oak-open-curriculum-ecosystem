@@ -1,7 +1,7 @@
 ---
 name: "Statusline Enhancements — Oak Mark + Session-Shape Indicators"
 overview: "The unified Claude Code statusline lane. Part one — the Oak acorn logo-column mark — has LANDED (see §Landed). Part two adds dense, glanceable session-coordination indicators to the statusline: a Director demark on the identity, a team-shape icon (directed team vs peer team vs solo), and an ArcAngel-active wing — resolved from the claims registry and the ARC experiments directory only (never the comms corpus), enabled by an additive optional role field on the claim schema that also lands the long-pending structural claim-schema cure for singleton roles."
-status: "IN PROGRESS — unified statusline lane. The Oak acorn mark LANDED and is PUSHED (commit 40ef58a06 on feat/comms-research). The session-shape indicators WS1 (role field), WS2 (resolver) and WS3 (render) were authored on feat/statusline-enhancements against the single-line layout, then RE-FIT onto the 4-row layout on feat/comms-research (2026-06-13, Skylark wakes Summit); WS5 tests green at 1075. REMAINING: WS4 glyph terminal verification (owner gate), then push + PR. The earlier 'WS1 paused on an sdk-codegen blocker' note was mis-attributed — the role-field commit touches no sdk/keywords files."
+status: "COMPLETE on feat/comms-research (2026-06-13, Skylark wakes Summit) — rides the branch push/merge. The Oak mark landed+pushed; WS1/WS2/WS3 re-fit onto the 4-row layout; WS4 glyph terminal verification DONE (all five verified in the owner's terminals — peer swapped 👥→🤝, solo 🧍 added); a resolver correctness fix makes an unreadable registry resolve to 'unknown' (no icon) rather than a false 'solo'; WS5 green at 1081 agent-tools tests. Archive this plan once the branch merges."
 todos:
   - id: ws1-claim-role-field
     content: "WS1 (DONE): optional `role` field on the active-claims schema + `--role` on `claims open`; additive, existing readers unaffected. Authored on feat/statusline-enhancements (ac2901fe1), brought onto feat/comms-research this session. Lands the structural claim-schema cure for singleton roles. NOTE: the schema test was renamed from .unit to .integration (it reads the real schema via a fixture)."
@@ -15,8 +15,8 @@ todos:
     status: completed
     depends_on: [ws2-session-shape-resolver]
   - id: ws4-glyph-verification
-    content: "WS4: verify candidate glyphs in real terminals (iTerm2, Terminal.app, VS Code terminal): owner's candidates are a family-style icon for directed teams (NOTE: ZWJ sequences like the adult-and-two-children emoji often render as fragments in mono fonts), two-people for peer (single codepoint, safe), a wing for ArcAngel (U+1FAB6, newer — verify), and a Director mark (compass suggested). Prefer single-codepoint emoji; pin an ASCII fallback set ([D]/[T]/[A]) for any target terminal that mangles a choice. The client-visibility discipline applies: no glyph ships without rendering evidence."
-    status: pending
+    content: "WS4 (DONE): all five glyphs verified rendering in the owner's terminals 2026-06-13 — Director 🧭 U+1F9ED, directed-team 👪 U+1F46A, peer-team 🤝 U+1F91D (replaced 👥 U+1F465, which rendered nowhere), solo 🧍 U+1F9CD, ArcAngel wing 🪶 U+1FAB6. ASCII fallbacks ([D]/[T]/[P]/[S]/[A]) pinned in the statusline-render.ts glyph comment. Client-visibility discipline satisfied: no glyph shipped without rendering evidence."
+    status: completed
   - id: ws5-tests
     content: "WS5 (DONE for the landed scope): resolver unit tests over explicit fixture inputs (no global state, no process.env), render tests for every shape combination crossed with logo present vs none (single-line AND 4-row placement), boundary tests for claim freshness. 1075 agent-tools tests green. Continues to ride any future glyph swap from WS4."
     status: completed

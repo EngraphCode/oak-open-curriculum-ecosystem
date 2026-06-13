@@ -12,11 +12,11 @@ merge_class: index-narrative-tables
 
 The unified Claude Code statusline lane: the Oak-mark logo column plus the
 session-shape indicators. Both render through the same `renderStatusline`, so
-they are one lane, not two. The indicators are now **re-fit onto the 4-row
-layout** (the load-bearing step) and the lane is consolidated on
-`feat/comms-research`; what remains is owner glyph verification, then push + PR.
-Authoritative scope and acceptance live in the controlling plan — this record is
-the discoverable pointer to it.
+they are one lane, not two. The lane is **COMPLETE** on `feat/comms-research` —
+indicators re-fit onto the 4-row layout, an unknown-vs-solo resolver correctness
+fix, and all five glyphs verified in the owner's terminals; it now rides the
+branch's push/merge lifecycle. Authoritative scope and acceptance live in the
+controlling plan — this record is the discoverable pointer to it.
 
 ## Current continuation
 
@@ -34,43 +34,40 @@ the discoverable pointer to it.
   (`ac2901fe1` / `1ac430378` / `4270ea49d`) — were brought onto
   `feat/comms-research` and **re-fit into the 4-row layout**: Director demark on
   the identity row, team-icon + ArcAngel wing trailing it; `logo:'none'`
-  preserves the single line byte-compatibly. WS5 green (1075 agent-tools tests).
+  preserves the single line byte-compatibly. WS5 green (1081 agent-tools tests).
   The old "WS1 paused on an sdk-codegen blocker (`7ca3eba2`)" note was wrong —
   the role-field commit touches no sdk/keywords files; mis-attributed.
-- **Remaining**: WS4 glyph **terminal** verification (the owner gate — render in
-  iTerm2 / Terminal.app / VS Code, swap any tofu glyph to the pinned ASCII
-  fallback). Glyphs: Director `🧭` U+1F9ED, directed-team `👪` U+1F46A, peer-team
-  `👥` U+1F465, ArcAngel wing `🪶` U+1FAB6 (U+1FAB6 + the family emoji are the
-  tofu-risk members). Then push the re-fit commit, then open/refresh the PR.
+- **Landed (WS4 glyphs + unknown/solo, 2026-06-13, Skylark wakes Summit)**: WS4
+  glyph terminal verification is **COMPLETE** — all five verified rendering in the
+  owner's terminals: Director `🧭` U+1F9ED, directed-team `👪` U+1F46A, peer-team
+  `🤝` U+1F91D (replaced `👥` U+1F465, which rendered nowhere), solo `🧍` U+1F9CD,
+  ArcAngel wing `🪶` U+1FAB6. Plus a resolver **correctness** fix: an unreadable
+  registry now resolves to `unknown` (no team icon — honest absence) instead of a
+  false `solo`; a confident solo carries its own marker (`c456cda0d`). WS5 green
+  (1081 agent-tools tests).
 
 ## Next safe step (the fresh session's first move)
 
-1. **Glyph terminal verification (owner gate).** Run the built statusline in the
-   owner's iTerm2 / Terminal.app / VS Code across the shape combinations (see the
-   render-evidence sample in the re-fit commit body). Any glyph that tofus is
-   swapped to its ASCII fallback (`[D]`/`[T]`/`[P]`/`[A]`, pinned in the
-   `statusline-render.ts` glyph comment); record the terminals checked.
-2. **Push** the re-fit commit on `feat/comms-research` (coordinate the window if
-   the comms-research lane is still active on the shared branch).
-3. **Open / refresh the PR** for the unified statusline lane.
+The statusline lane is **COMPLETE** on `feat/comms-research` — all workstreams
+landed, all five glyphs verified, 1081 agent-tools tests green. No
+statusline-specific next step remains; the commits ride the branch's normal
+push/merge lifecycle (the branch is shared with the comms-research and
+agent-naming lanes). Statusline commits this arc: `a1fb8e9c4` `5c01ee7ee`
+`221ee4a9f` (test-IO compliance), `c456cda0d` (unknown/solo + verified glyphs).
 
-Carried-over WS1/WS2 items (authored on `feat/statusline-enhancements`, surfaced
-by this branch's checks — resolve at WS1/WS2 canonical landing, not part of the
-re-fit scope):
-
-- **WS2**: `statusline-identity.ts` `listExperiments` uses `Dirent.parentPath`
-  (Node ≥ 20.12 / 21.4); no engines floor is declared, runtime is Node 24 — fine
-  in practice, worth pinning a floor.
-- **WS1**: `cli-claim-role.integration.test.ts` imports `node:fs/promises` (real
-  IO) — a warn-level `@oaknational/no-real-io-in-tests` finding (ADR-078). The
-  fix is to inject a fake fs; carried verbatim here to keep WS1 coverage complete
-  and intact.
+Carried-over note: `statusline-identity.ts` `listExperiments` uses
+`Dirent.parentPath` (Node ≥ 20.12 / 21.4); no engines floor is declared, runtime
+is Node 24 — fine in practice, worth pinning a floor. (The earlier WS1
+`cli-claim-role.integration.test.ts` real-IO item is RESOLVED — that test was
+deleted and its dispatch-allowlist guard re-expressed IO-free; see
+`agent-tools-test-io-compliance.plan.md` for the remaining pre-existing test-IO
+elsewhere in agent-tools.)
 
 ## Participating agent identities
 
 | Platform | Model | Agent name | Role on this thread | last_session |
 | --- | --- | --- | --- | --- |
-| claude-code | Opus 4.8 | Skylark wakes Summit | Re-fit WS1–WS3 indicators onto the 4-row layout on `feat/comms-research`; corrected this record + plan | 2026-06-13 |
+| claude-code | Opus 4.8 | Skylark wakes Summit | Re-fit WS1–WS3 onto the 4-row layout; unknown-vs-solo resolver fix; WS4 glyphs verified; test-IO compliance; corrected this record + plan | 2026-06-13 |
 | claude-code | Opus 4.8 | Bilby hunts Eventide | Oak mark landed; lane unified; thread opened | 2026-06-13 |
 
 Prior, on the indicators half (pre-unification, `feat/statusline-enhancements`):
@@ -79,6 +76,10 @@ Monsoon guards Cirrus authored WS1–WS3 against the single-line layout, and the
 
 ## Landing target for the next session
 
-WS4 glyph terminal verification in the owner's terminals (swap any tofu to its
-ASCII fallback), then push the re-fit commit and open/refresh the PR. The 4-row
-re-fit and its render evidence are done; the suite is green at 1075.
+None outstanding for the statusline lane — it is complete (all workstreams
+landed, all five glyphs verified, 1081 agent-tools tests green) and rides
+`feat/comms-research`'s push/merge. A fresh session opening this thread should
+confirm the branch has merged and then **archive this record + the controlling
+plan** per the lifecycle triggers. Unrelated follow-on: the pre-existing
+agent-tools test-IO compliance tracked in
+[`agent-tools-test-io-compliance.plan.md`](../../../plans/agent-tooling/current/agent-tools-test-io-compliance.plan.md).
