@@ -7,9 +7,11 @@
  * identity and gathers git state, then delegates formatting here so the layout
  * is unit-testable.
  *
- * Segment order puts the short, fixed-width segments (identity, model,
- * context %) first and the long, variable-width git segments last, so a narrow
- * terminal truncates the least important information first.
+ * The statusline renders over two lines: line 1 carries the short, stable
+ * coordination segments (identity with its Director demark, session-shape
+ * indicators, model, context %); line 2 carries the variable-width git
+ * segments (branch, directory or worktree). Splitting the long git segments
+ * onto their own line keeps line 1 readable in a narrow terminal.
  *
  * @packageDocumentation
  */
@@ -80,13 +82,14 @@ const CONTEXT_HIGH_PERCENT = 70;
  * Assemble the statusline string from gathered segment values.
  *
  * @param parts - The resolved segment values.
- * @returns The ANSI-coloured statusline of the form
- *   `<identity>[ 🧭] · [👪|👥][ 🪶] · <model> · ctx:N% · <branch>[*] · <dir or wt:name>`
- *   with absent segments dropped. The session-shape indicators sit inside
- *   the fixed-width prefix so narrow terminals never truncate them: the
- *   Director demark suffixes the identity, the team-shape icon renders for
- *   directed/peer windows (nothing when solo), and the ArcAngel wing
- *   appends while a rapid channel naming this agent is live.
+ * @returns The ANSI-coloured statusline over two lines, absent segments
+ *   dropped and an empty line omitted:
+ *   `<identity>[ 🧭] · [👪|👥][ 🪶] · <model> · ctx:N%` on line 1, then
+ *   `<branch>[*] · <dir or wt:name>` on line 2. The session-shape indicators
+ *   sit on line 1 beside the identity: the Director demark suffixes the
+ *   identity, the team-shape icon renders for directed/peer windows (nothing
+ *   when solo), and the ArcAngel wing appends while a rapid channel naming
+ *   this agent is live.
  *
  * @example
  * ```ts
@@ -100,35 +103,43 @@ const CONTEXT_HIGH_PERCENT = 70;
  *   model: 'Opus 4.7',
  *   sessionShape: undefined,
  * });
- * // -> "<magenta>Fragrant... · Opus 4.7 · ctx:12% · feat/...* · wt:oak-wt-eef"
+ * // -> "<magenta>Fragrant... · Opus 4.7 · ctx:12%\nfeat/...* · wt:oak-wt-eef"
  * ```
  */
 export function renderStatusline(parts: StatuslineParts): string {
-  const segments: string[] = [];
+  // Line 1 — who and how much: identity (+ Director demark), session-shape
+  // indicators, model, context %. Line 2 — where: branch (+ dirty mark) and
+  // the directory or worktree. Each line drops its own absent segments; an
+  // empty line is omitted entirely so the output never carries a blank row.
+  const identityLine: string[] = [];
 
   const identity = formatIdentity(parts);
   if (identity !== undefined) {
-    segments.push(identity);
+    identityLine.push(identity);
   }
   const indicators = formatSessionIndicators(parts.sessionShape);
   if (indicators !== undefined) {
-    segments.push(indicators);
+    identityLine.push(indicators);
   }
   if (parts.model !== undefined) {
-    segments.push(`${DIM}${parts.model}${RESET}`);
+    identityLine.push(`${DIM}${parts.model}${RESET}`);
   }
   if (parts.usedPercentage !== undefined) {
-    segments.push(formatContext(parts.usedPercentage));
+    identityLine.push(formatContext(parts.usedPercentage));
   }
+
+  const locationLine: string[] = [];
   if (parts.branch !== undefined) {
     const dirty = parts.dirty ? `${YELLOW}${DIRTY_MARK}${RESET}` : '';
-    segments.push(`${BOLD_BLUE}${parts.branch}${RESET}${dirty}`);
+    locationLine.push(`${BOLD_BLUE}${parts.branch}${RESET}${dirty}`);
   }
-
   const place = parts.worktree === undefined ? parts.dir : `wt:${parts.worktree}`;
-  segments.push(`${CYAN}${place}${RESET}`);
+  locationLine.push(`${CYAN}${place}${RESET}`);
 
-  return segments.join(SEPARATOR);
+  return [identityLine, locationLine]
+    .filter((line) => line.length > 0)
+    .map((line) => line.join(SEPARATOR))
+    .join('\n');
 }
 
 /**

@@ -43,7 +43,7 @@ const PLACE = `${CYAN}repo${RESET}`;
 
 describe('renderStatusline — session-shape indicators', () => {
   it('renders no indicators for a solo session with no live channel', () => {
-    expect(renderStatusline(parts(shape({})))).toBe(`${IDENTITY}${SEP}${PLACE}`);
+    expect(renderStatusline(parts(shape({})))).toBe(`${IDENTITY}\n${PLACE}`);
   });
 
   it('renders identically for an unresolved shape and a quiet solo session', () => {
@@ -52,43 +52,43 @@ describe('renderStatusline — session-shape indicators', () => {
 
   it('renders the peer icon for a peer window', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer' })))).toBe(
-      `${IDENTITY}${SEP}${BUSTS}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${BUSTS}\n${PLACE}`,
     );
   });
 
   it('renders the family icon for a directed window without my demark', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed' })))).toBe(
-      `${IDENTITY}${SEP}${FAMILY}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${FAMILY}\n${PLACE}`,
     );
   });
 
   it('suffixes the compass demark to the identity when I am the director', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed', ownRole: 'director' })))).toBe(
-      `${IDENTITY} ${COMPASS}${SEP}${FAMILY}${SEP}${PLACE}`,
+      `${IDENTITY} ${COMPASS}${SEP}${FAMILY}\n${PLACE}`,
     );
   });
 
   it('shows no demark for a non-director own role', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer', ownRole: 'curator' })))).toBe(
-      `${IDENTITY}${SEP}${BUSTS}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${BUSTS}\n${PLACE}`,
     );
   });
 
   it('renders the wing alone for a solo session with a live channel', () => {
     expect(renderStatusline(parts(shape({ arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${FEATHER}\n${PLACE}`,
     );
   });
 
   it('renders peer icon and wing together', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer', arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${BUSTS} ${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${BUSTS} ${FEATHER}\n${PLACE}`,
     );
   });
 
   it('renders family icon and wing for a directed window I am not directing', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed', arcActive: true })))).toBe(
-      `${IDENTITY}${SEP}${FAMILY} ${FEATHER}${SEP}${PLACE}`,
+      `${IDENTITY}${SEP}${FAMILY} ${FEATHER}\n${PLACE}`,
     );
   });
 
@@ -97,7 +97,7 @@ describe('renderStatusline — session-shape indicators', () => {
       renderStatusline(
         parts(shape({ teamShape: 'directed', ownRole: 'director', arcActive: true })),
       ),
-    ).toBe(`${IDENTITY} ${COMPASS}${SEP}${FAMILY} ${FEATHER}${SEP}${PLACE}`);
+    ).toBe(`${IDENTITY} ${COMPASS}${SEP}${FAMILY} ${FEATHER}\n${PLACE}`);
   });
 
   it('keeps indicators inside the fixed-width prefix, before the model segment', () => {
@@ -122,6 +122,6 @@ describe('renderStatusline — session-shape indicators', () => {
       identity: undefined,
     });
 
-    expect(rendered).toBe(`${BUSTS}${SEP}${PLACE}`);
+    expect(rendered).toBe(`${BUSTS}\n${PLACE}`);
   });
 });

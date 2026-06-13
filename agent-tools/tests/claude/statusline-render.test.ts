@@ -23,7 +23,7 @@ const base: StatuslineParts = {
 };
 
 describe('renderStatusline', () => {
-  it('renders every segment, longest last, for a full linked-worktree payload', () => {
+  it('renders coordination on line 1 and the git location on line 2 for a full payload', () => {
     expect(
       renderStatusline({
         identity: 'Fragrant Creeping Sapling',
@@ -38,9 +38,37 @@ describe('renderStatusline', () => {
     ).toBe(
       `${MAGENTA}Fragrant Creeping Sapling${RESET}${SEP}` +
         `${DIM}Opus 4.7${RESET}${SEP}` +
-        `${GREEN}ctx:12%${RESET}${SEP}` +
+        `${GREEN}ctx:12%${RESET}` +
+        `\n` +
         `${BOLD_BLUE}feat/eef-explore-evidence${RESET}${SEP}` +
         `${CYAN}wt:oak-wt-eef${RESET}`,
+    );
+  });
+
+  it('puts the identity-and-context segments and the git segments on separate lines', () => {
+    const lines = renderStatusline({
+      identity: 'Fragrant Creeping Sapling',
+      dir: 'oak-wt-eef',
+      branch: 'feat/eef-explore-evidence',
+      dirty: false,
+      worktree: 'oak-wt-eef',
+      usedPercentage: 12,
+      model: 'Opus 4.7',
+      sessionShape: undefined,
+    }).split('\n');
+
+    expect(lines).toHaveLength(2);
+    expect(lines[0]).toContain('Fragrant Creeping Sapling');
+    expect(lines[0]).toContain('Opus 4.7');
+    expect(lines[0]).toContain('ctx:12%');
+    expect(lines[0]).not.toContain('feat/eef-explore-evidence');
+    expect(lines[1]).toContain('feat/eef-explore-evidence');
+    expect(lines[1]).toContain('wt:oak-wt-eef');
+  });
+
+  it('emits a single line (no leading newline) when only git segments are present', () => {
+    expect(renderStatusline({ ...base, branch: 'main' })).toBe(
+      `${BOLD_BLUE}main${RESET}${SEP}${CYAN}repo${RESET}`,
     );
   });
 
