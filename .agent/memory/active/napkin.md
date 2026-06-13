@@ -357,3 +357,24 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   agent's actual reading path, not just that it exists. I had treated "plan updated + a continuity
   sub-bullet" as sufficient; it was not. The risk this guards is the quiet one — not bad work, but
   good work no one picks up.
+
+## 2026-06-13 — Squall hunts Troposphere (6bbbd2), agent-naming v3 plan authoring
+
+- **A "decision-complete" plan built from a prior handoff's touch-point list still needs
+  first-hand re-grounding — the executor inherits the plan's citations as settled.** I drafted
+  the v3 era-pinning plan partly from the merged naming-lane handoff's described cure surface.
+  The readiness reviewer (assumptions-expert), grounding against live code, found two imprecise
+  citations: `statusline-identity.ts` was listed as an edit site but it only *spawns* the CLI
+  (cured transitively, no edit), and `identity.ts:103` was cited as the happy-path `override`
+  stamp but that line is the separate admin path `deriveOverrideCollaborationIdentity` — the
+  normal path is `identity.ts:61`. Both corrected before marking decision-complete. Lesson: the
+  plan-body first-principles-check applies to plan *authoring*, not just execution — a citation
+  that is "decision-complete" but wrong sends the next agent to the wrong file. Dispatching the
+  reviewer at draft time (not backfill) caught it cheaply. Cross-links the same-day
+  discoverability lesson (Bilby hunts Eventide above): this session is that lesson's cure applied
+  to the naming lane — a dedicated `agent-naming` thread + Active Threads row + `current/` plan.
+- **Multi-writer working tree, observed live:** the tree went from 2 dirty files at session-open
+  to ~40 mid-session (a parallel statusline-session-shape / claim-role lane — Bilby's). I touched
+  none of it, staged nothing, committed nothing (owner: don't worry about the commit). Confirms
+  the shared-checkout norm; my edits to shared surfaces (repo-continuity, current/README) used
+  unique-anchor Edits and were verified intact post-write.

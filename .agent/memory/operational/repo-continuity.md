@@ -91,9 +91,11 @@ surface.
   [plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md),
   readiness-reviewed READY-WITH-AMENDMENTS, amendments applied; owner gate: mark ready).
   Queued behind it, owner-named: (1) organise the research's follow-ons; (2) complete naming
-  v3 (shape decision input:
+  v3 — now a DECISION-COMPLETE plan
+  ([`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md),
+  thread [`agent-naming`][agent-naming]; shape C decided per
   [sample sheets + maths](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
-  era-pinning cure lands FIRST — Director ruling 10cb3a10); (3) protocols/skills for examining
+  era-pinning cure is Phase 1 and lands FIRST — Director ruling 10cb3a10); (3) protocols/skills for examining
   production issues in Sentry; (4) organise the Sentry logging improvements those discoveries
   will surface; (5) refine the PostHog plan (home:
   [`mcp-product-analytics` thread](threads/mcp-product-analytics.next-session.md));
@@ -187,16 +189,20 @@ surface.
   **Next safe step**: run S0 per the write-up §6 replay recipe, then put S1 to the owner.
   Deep consolidation status: not due — session captures routed to permanent homes (write-up,
   snag register, thread record); a dedicated consolidation ran earlier today (Thermal).
-- **AGENT NAMING LANE (2026-06-12, Moss weaves Blossom `10438c`) — landed and closed.**
-  PR #189 merged (`289b3e036`): versioned naming-schema registry, v1 era frozen, NVN v2 active,
-  ADR-198, `naming_schema_version` provenance. Plan archived (PR #194, `9a74eefd1`); full arc in
-  the [completed plan](../../plans/agent-tooling/archive/completed/agent-naming-schema-v2.plan.md)
-  and handoff record `2a080642-naming-lane-handoff.md`. **Next safe step**: author the
-  era-pinning cure plan — hooks pin `OAK_AGENT_NAMING_SCHEMA_ID`, not the rendered name; cures
-  the one-seed-two-names P1 (diagnosis accepted 2026-06-12, comms 75696ec5) and the
-  `"override"` provenance mis-record; prerequisite for any v3 schema activation (owner is
-  exploring v3 shapes — four sample sheets + Zephyr's column-allocation maths in comms).
-  Own claim + owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3).
+- **AGENT NAMING — v2 landed; v3 lane now a decision-complete plan (2026-06-13, Squall hunts
+  Troposphere `6bbbd2`).** v2 merged (PR #189, `289b3e036`): versioned naming-schema registry,
+  v1 era frozen, NVN v2 active, ADR-198, `naming_schema_version` provenance; v2 plan archived
+  (PR #194, `9a74eefd1`). The throughline now has a durable home: thread
+  [`agent-naming`][agent-naming] + plan
+  [`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+  (DECISION-COMPLETE / QUEUED), one plan, three phases. **Next safe step**: execute **Phase 1
+  (WS1, era-pinning cure)** — hooks pin `OAK_AGENT_NAMING_SCHEMA_ID` (the era), not the rendered
+  name; cures the one-seed-two-names P1 (diagnosis accepted 2026-06-12, comms 75696ec5) and the
+  `"override"` provenance mis-record. Phase 1 ships independently and is the owner-ordered
+  prerequisite for v3 activation (shape C decided 2026-06-12). Own claim +
+  owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3). The merged
+  handoff `2a080642-naming-lane-handoff.md` is historical context only — its §4 merge-blockers
+  are all resolved.
 - **DFE DATA SDK SEED + EEF GAP-RESEARCH — landed and merged (2026-06-12, Forge turns
   Basalt `c4b882`; artefacts merged via PRs #196/#197 at the Director's hand).** Three
   artefacts: the EEF surfacing-gap research report (roadmap item 7 above), the
@@ -268,6 +274,7 @@ each thread record; this table is the repo-level index.
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark logo column (landed) + session-shape indicators (pending) | [record][statusline] | claude-code / Opus 4.8 / Bilby hunts Eventide / oak-mark-landed-lane-unified / 2026-06-13 |
+| `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior: Moss weaves Blossom v2-landing 2026-06-12, Swift Gliding Zephyr v2-build 2026-06-11) |
 
 ## Paused Threads
 
@@ -308,6 +315,19 @@ first-hand verified; lane consolidated to Kayak herds Ballast (closing out this 
 owner-gated. Deep consolidation status: completed this handoff — owner-invoked session-completion
 consolidation (captures routed to permanent homes: findings synthesis, adversarial analysis,
 research-notes log, thread record, napkin).
+
+### Agent Naming (v3 + era-pinning cure)
+
+Thread [`agent-naming`][agent-naming]; controlling plan
+[`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+(DECISION-COMPLETE / QUEUED, `current/`). v2 merged (PR #189). **Next safe
+step**: execute **Phase 1 (WS1, era-pinning cure)** off a fresh branch from
+`main` — the P1 single-valued-identity fix (hooks pin the era
+`OAK_AGENT_NAMING_SCHEMA_ID`, not the rendered name). It ships independently and
+is the owner-ordered prerequisite for v3 activation. Phases 2 (C wordlist
+curation, owner taste review BLOCKING) and 3 (v3 registry entry + activation)
+follow. Orientation: read the thread record, then the plan, then re-grep the
+`OAK_AGENT_IDENTITY_OVERRIDE` consumer set (plan-body first-principles check).
 
 ### School Data Search
 
@@ -479,3 +499,4 @@ authority.
 [collab-research]: threads/agent-collaboration-research.next-session.md
 [branch-fitness]: threads/branch-fitness-and-push-cadence.next-session.md
 [statusline]: threads/statusline-enhancements.next-session.md
+[agent-naming]: threads/agent-naming.next-session.md

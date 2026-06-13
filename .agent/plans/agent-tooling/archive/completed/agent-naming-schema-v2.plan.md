@@ -78,8 +78,11 @@ isProject: false
 
 # Agent Naming Schema v2 — Noun-Verb-Noun Micro-Sentence Names
 
-**Last Updated**: 2026-06-11
-**Status**: 🔵 ACTIVE (execution in progress; design ratified with owner 2026-06-11)
+**Last Updated**: 2026-06-11 (status corrected 2026-06-13)
+**Status**: ✅ COMPLETE / ARCHIVED — merged PR #189 (`289b3e036`); plan archived PR #194 (`9a74eefd1`).
+**Successor**: [`agent-naming-schema-v3.plan.md`](../../current/agent-naming-schema-v3.plan.md)
+(era-pinning cure + v3 noun-agentive era), thread
+[`agent-naming`](../../../../memory/operational/threads/agent-naming.next-session.md).
 **Scope**: Redesign the PDR-027 display-name derivation in
 `agent-tools/src/core/agent-identity/` around a versioned naming-schema
 registry, ship a noun-verb-noun ("NVN") v2 scheme, and record

@@ -1,3 +1,11 @@
+> **SUPERSEDED — 2026-06-13.** PR #189 **merged** (`289b3e036`); every §4
+> merge-blocker (ADR renumber, semantic merge, pre-push failure, merge) is
+> resolved. This record is historical context for the v2 arc only. The live
+> continuation is the [`agent-naming` thread record](../../../memory/operational/threads/agent-naming.next-session.md)
+> and [`agent-naming-schema-v3.plan.md`](../../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+> (era-pinning cure = Phase 1 / WS1). Read those for the next safe step; read
+> below only for the P1 diagnosis evidence (§2) the v3 plan builds on.
+
 # Mid-Cycle Handoff: Agent Naming Lane (claim 2a080642)
 
 - **Retiring agent**: Swift Gliding Zephyr / claude / claude-fable-5 / `aba87a` /
