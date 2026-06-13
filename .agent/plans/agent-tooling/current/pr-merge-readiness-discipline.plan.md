@@ -50,9 +50,10 @@ on a surface that does not gate the merge button.
 Agents now routinely **create**, **review**, **respond to comments on**, and **merge** pull
 requests, so the `oak-pr` skill (WS2) covers all four, each backed by mechanism/rule/skill/tool.
 This plan is the decision home for the companion evidence doc
-[`../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md`](../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md)
-(the WS3-grounded candidate inputs; see the Evidence base section): the doc preserves the
-evidence, this plan owns the decisions.
+`.agent/plans/agentic-engineering-enhancements/pull-request-best-practice-and-rules.md`
+(the WS3-grounded candidate inputs; see the Evidence base section). That doc is authored on
+the comms-research branch and lands on `main` via its PR — referenced here by path, not yet a
+resolvable link on `main` — but: the doc preserves the evidence, this plan owns the decisions.
 
 - **Creation**: flat PR onto the base branch; conflict/divergence resolved before opening or
   via semantic merge; commit hygiene (explicit pathspec, no half-committed renames — the
@@ -90,11 +91,13 @@ still a non-resolving absolute path, which the `no-machine-local-paths` owner ru
 The 2026-06-13 comms-corpus WS3 failure-mode taxonomy surfaced a coherent PR/commit failure
 family, every class grounded in first-hand-verified comms events. That evidence is preserved
 in the companion notes doc
-[`../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md`](../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md)
-(landing on `main` via the comms-research branch) with full analysis and cited events in
-[`../../../reports/agentic-engineering/2026-06-13-ws3-deep-dives.md`](../../../reports/agentic-engineering/2026-06-13-ws3-deep-dives.md)
+`.agent/plans/agentic-engineering-enhancements/pull-request-best-practice-and-rules.md`
+with full analysis and cited events in
+`.agent/reports/agentic-engineering/2026-06-13-ws3-deep-dives.md`
 (§D) and the taxonomy
-[`../../../reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md`](../../../reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md).
+`.agent/reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md`.
+(All three are authored on the comms-research branch and land on `main` via its PR; referenced
+here by path, not yet resolvable links on `main`.)
 The notes doc deliberately preserves the evidence and **not** the conclusion; this plan owns
 the decision. The decided disposition per candidate input (decision-complete):
 

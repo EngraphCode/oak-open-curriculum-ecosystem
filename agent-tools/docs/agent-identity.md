@@ -200,7 +200,7 @@ The wiring after activation is:
    (`session_id`, `cwd` / `workspace.current_dir`, `model`, `context_window`, …),
    derives the PDR-027 display name, gathers git state from the working directory,
    and prints the two-line statusline via `renderStatusline` (same shape as Claude Code).
-4. Cursor CLI renders that line in the status bar.
+4. Cursor CLI renders those two lines in the status bar.
 
 The adapter is a soft surface: missing input, missing build artefact,
 unparseable JSON, or any spawn failure exits 0 with empty stdout. The
@@ -210,7 +210,8 @@ unparseable JSON, or any spawn failure exits 0 with empty stdout. The
 
 The Claude Code statusline runs once per session at startup and on subsequent
 prompt-submit events. The harness pipes a JSON object on stdin containing
-`session_id` (and other fields the adapter ignores). The wiring is:
+`session_id`, `cwd` / `workspace.current_dir`, `model`, and `context_window`
+(the adapter reads each of these — see step 3). The wiring is:
 
 1. `.claude/settings.json` declares
    `"statusLine": { "type": "command", "command": "node .claude/scripts/statusline-identity.mjs" }`.
