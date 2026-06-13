@@ -243,3 +243,24 @@ follow-up.
 **Meta:** validates the earlier decision NOT to add a 4th watcher/heartbeat while the host was saturated
 — adding load to a host already exhibiting the studied failure mode would have deepened it. The
 action-to-impact bridge held.
+
+## 2026-06-13 — Kayak herds Ballast (328eee), WS4 — CORRECTION to the swap-9G→0 entry above (reboot confound)
+
+`corrected` (FH). The swap-9.0G→0 entry above attributed the clearance to watcher-fleet retirement and
+read it as confirming the watcher-over-flat-corpus host cost. **That is confounded and is hereby
+retracted as stated.** First-hand: `kern.boottime` = 2026-06-13 10:52Z, `uptime` "up 50 min" at 11:42Z
+— **the host REBOOTED ~10:52Z.** My swap=0 reading at 11:16Z was ~24 min into a fresh boot; swap→0 (and
+total→0) and all-watcher-pids-dead are **reboot artefacts**, not a watcher-retirement experiment. There
+was no clean retirement→clearance event to observe.
+
+**What survives:** the watcher CPU cost was real when observed (two watcher procs at ~78% CPU draining
+the ~5,150-file flat dir). The host-resource cost of (watcher count × flat-dir size) reverts to a
+**HYPOTHESIS**; swap→0 does NOT evidence it. A controlled measure (watcher RSS vs dir size) is the only
+way to confirm — still a candidate WS4 follow-up.
+
+**Meta-lesson (the real finding here):** this is a second-order instance of the exact failure mode the
+research keeps cataloguing — a convenient causal claim that supported my own thesis, asserted with a
+confound caveat that *missed the dominant confound*. I checked load but not `uptime`/`kern.boottime`
+when a host metric changed dramatically. Cure (reflex): when ANY host metric moves sharply, check boot
+time FIRST. Cross-attested: Geyser flagged the reboot on the ArcAngel channel; I verified it FH. The
+input-to-verify discipline caught the researcher, not just the corpus — both directions, on both of us.

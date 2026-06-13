@@ -32,6 +32,13 @@ owns the T7 commit-queue-wrapper tool-fix slice (oak-pr / agent-tools commit-que
 (Note: an initial precision-suspicion that the failure was at the knip stage, not depcruise, was
 checked and DISMISSED — Fern's primary account explicitly names the depcruise line.)
 
+(Correction 2026-06-13, cross-attested with Geyser stirs Bronze: the instance COUNT was overstated.
+Fern's §(3) reports "five instances," but FH-enumerable = Monsoon ×3 + Fern ×1 = **4** — matching the
+four abandoned `commit_queue` entries in `active-claims.json` at session open. The reported 5th is
+unlocated; the napkin marks Tempest's worktree-lockout a *sibling* (different signature). State as:
+**4 FH-enumerable across 2 agents; reported 5th unlocated.** Mechanism confirmation unaffected — I had
+taken Fern's count at face value rather than enumerating.)
+
 ### CC4 — Whole-tree-gate × mid-authoring-peer interference — **FH-CONFIRMED (instance); structural-universality held as hypothesis**
 
 Taxonomy claim (was HARVEST(1), PENDING-FH): one agent's untracked in-flight edits break whole-tree
@@ -57,7 +64,9 @@ taxonomy is relinquished and not edited in place.
 
 **FH-CONFIRMED → promote PENDING-FH → FH (8):** SC5 (byte-identical coordinator-handoff 22 s apart,
 no dedup — `c3d41f43`/`461982a5`), SC10, T6 (truncate-rewrite replays `tail -F` from offset 0 —
-`86e94e54`), T9, CC5, CC6, X1, R1. Cited events read first-hand; claims supported.
+`86e94e54`), T9, CC5 (`d2e41650`, SDK-codegen-bump cascade RED blocking all commits), CC6
+(`34f27c35`, stale `git:index/head` claim blocks a peer), X1, R1. Cited events read first-hand;
+claims supported. (CC5/CC6 anchor ids cross-attested with Geyser stirs Bronze's independent FH read.)
 
 **CORRECTED, core holds → promote with framing fix (3):**
 - **S8** — gap numbers exact FH (max inter-beat 3,168 / 3,247 / 3,168 s for Firefly / Cosmos / Moss,
