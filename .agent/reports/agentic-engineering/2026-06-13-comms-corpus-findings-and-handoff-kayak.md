@@ -152,9 +152,44 @@ convention; `statusline-logos.md` + the Bilby's logo work (theirs).
 6. 2 Dependabot vulns on `main` (1 high / 1 low, owner-flagged).
 7. The watcher host-cost controlled measure (settles the §7 retraction's hypothesis).
 
-## 11. Adversarial context analysis
+## 11. Adversarial context analysis (fresh-context, 5 dimensions)
 
-(Trust-map + re-verify list from the fresh-context adversarial review — folded in below on completion.)
+A fresh-context adversarial review challenged this session's claims, my own corrections, the state, and
+completeness. Full evidence: `2026-06-13-adversarial-context-analysis-evidence.json`.
+
+**Headline (calibration): the core findings and the session's own corrections HELD.** Independent
+re-derivation confirmed the corpus facts (now 5,187 events — live-growing; lifecycle 0; all four
+threading/addressing fields 0; ~46% heartbeat; 41 failure-mode; citation ratio ~6.4%; SC9 boundary
+`2026-05-24T10:18Z`; SC1 live-code evidence; 3 tag values only). The **self-corrections dimension found
+0 high / 0 medium issues** — the swap-retraction, T7 5→4, and S9-cured corrections all hold.
+
+**Trust adjustments + re-verify list for the incoming session (do these before building on the findings):**
+
+1. **Taxonomy-BODY figures are stale** — corrected in the evidence/verification files but NOT propagated
+   into `ws3-failure-mode-taxonomy.md` body: SC9 "~167" → **~186**; SC9 "~47% miss" is an early-snapshot
+   figure → **~7% at corpus close** (anchor it or restate); SC8 "21 instances" → **66**; SC1 "unreachable"
+   → the sharper "the `comms reply` subcommand exists but discards the linkage." **Carry the corrected
+   figures if promoting the taxonomy to a PDR/skill.**
+2. **T5 may NOT be flatly miscited** — the review flagged candidate FH-source `86e94e54` ("FRICTIONS
+   n3-3: repo-level lint/format gates rewrite gitignored ARC surfaces"). Read it to decide promote-to-FH
+   vs downgrade (this refines my "needs a correct source" verdict — a source candidate now exists).
+3. **Anchors never verified** — H1, L1, CC1, CC3 are PENDING-FH and were never queued to either WS4
+   verification lane. Verify them.
+4. **S7 3–6 s shutdown-race sub-claim is unsourced** (no cited events) — find the Tempestuous (01:29:48Z)
+   / Evergreen (09:08:16Z) events or drop the sub-claim (the "33-beat" half is already retracted as
+   miscited).
+5. **Minor framing** — T6 "tail -F replays from offset 0" is editorial-inferred (not corpus-stated);
+   CC4 "twice in one evening" 2nd instance is uncited. Keep both as instance + hypothesis.
+6. **Staged-index hazards (state)** — the shared git index carries stale registry (a staged
+   `active-claims` showing both Geyser's closed claim AND Kayak's) and staged `comms-seen` cursor state.
+   **Do NOT bare-commit** (it would put registry/cursor on the feature branch, violating the pure-diff
+   convention) — commit by explicit pathspec only. Working-tree truth: only Kayak's claim `b76045bb` open.
+7. **Re-count the corpus before any deletion** — it is live-growing (5,150 → 5,187 during this session);
+   the untracked-events accumulation is the live WS5/WS7 deletion precondition.
+
+**Method note:** this same adversarial-FH shape (fresh reader challenging the prior pass) is the
+session's strongest reliability mechanism — the incoming session should keep using it on its own WS5/WS6
+output.
 
 ## 12. Artefact index (all on origin)
 
