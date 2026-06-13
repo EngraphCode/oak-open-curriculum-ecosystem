@@ -299,3 +299,22 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
 - **Surprise: corrections in evidence files do not auto-propagate to the source doc.** SC9 (~167→186),
   SC8 (21→66), SC1 framing were corrected in the verification evidence; the taxonomy BODY still carries
   the old figures. Lesson: when promoting a doc to doctrine, re-derive or carry the corrected figures.
+
+## 2026-06-13 — Bilby hunts Eventide (66eb9b), statusline Oak-mark closeout
+
+- **Render-verify in the TARGET surface, not a proxy.** The sextant Oak-mark glyphs rendered
+  perfectly in my chat output but tofu'd in the owner's actual terminal (the U+1FB00 Legacy
+  Computing block was absent from their font). Chat-font ≠ terminal-font: "looks right in my
+  output" is not evidence for the deployment surface. Cure adopted: default to widely-supported
+  glyph families (Braille U+2800 / block-elements U+2580), keep sharper blocks opt-in, verify in
+  the real surface. The WS4 client-visibility discipline, confirmed live on a second feature.
+- **Foreign `.git/index.lock` on a shared branch = a peer mid-commit; back off, never delete or
+  wait-loop.** Hit Bluebell mends Mulch's lock mid-closeout; the commit failed safe, the lock
+  cleared on its own, I verified state and retried once. Explicit-pathspec `git commit -- <files>`
+  kept the peer's staged WIP out of my commit throughout. Worked instance of never-delete-lock +
+  no-wait-loop + stage-by-explicit-pathspec, on a live two-agent branch.
+- **Features coupled by a shared render surface belong in one lane.** The Oak mark and the
+  session-shape indicators both render through `renderStatusline`; the indicators' single-line
+  "fixed-width prefix" layout was silently superseded by the landed 4-row logo column. Folded them
+  into one lane and flagged the superseded WS — two branches editing one render function in
+  parallel is the conflict to avoid.
