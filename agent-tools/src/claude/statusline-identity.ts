@@ -8,7 +8,7 @@
  * logo-column and the segments flowing to its right:
  *
  * ```text
- * <mark> <agent-identity>
+ * <mark> <agent-identity>[ director-demark][ · team-icon wing]
  * <mark> <model>
  * <mark> ctx:N% · <branch>[*]
  * <mark> <dir or wt:worktree>
@@ -17,11 +17,13 @@
  * The logo style is read from `OAK_STATUSLINE_LOGO` (`braille-sharp` default;
  * `braille` for the unmodified conversion; `quad` for universal-font block
  * elements; `sextant` for the sharpest mark where the font has the Legacy
- * Computing block; or `none` for the original single line). The
- * agent-identity name (PDR-027) is produced by the built `agent-identity` CLI
- * at `agent-tools/dist/src/bin/agent-identity.js`. Git branch, dirty state, and
+ * Computing block; or `none` for the original single line). The agent-identity
+ * name (PDR-027) is produced by the built `agent-identity` CLI at
+ * `agent-tools/dist/src/bin/agent-identity.js`. Git branch, dirty state, and
  * linked-worktree name are gathered from the working directory in the payload.
- * Formatting is delegated to the pure {@link renderStatusline}.
+ * The session-shape indicators are resolved from two cheap repo-file reads
+ * (active-claims registry + experiments listing). Formatting is delegated to
+ * the pure {@link renderStatusline}.
  *
  * The statusline is a soft surface: missing input, missing build artefact, or
  * any spawn failure degrades the affected segment to empty rather than
@@ -31,13 +33,21 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
-import { basename, dirname, resolve } from 'node:path';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { parseCollaborationRegistry } from '../collaboration-state/state-parsers.js';
+import { type CollaborationRegistry } from '../collaboration-state/types.js';
 import { resolveLogoStyle } from './oak-logo.js';
 import { planStatuslineExecution, type StatuslinePlan } from './statusline-identity-input.js';
 import { renderStatusline } from './statusline-render.js';
+import {
+  parsePrimaryWorktreeRoot,
+  resolveSessionShape,
+  type ExperimentsEntry,
+  type SessionShape,
+} from './statusline-session-shape.js';
 
 const builtIdentityCliPath = resolveBuiltIdentityCliPath();
 
@@ -58,16 +68,18 @@ function emitStatusline(rawJson: string): void {
 
   const cwd = plan.inputs.cwd ?? process.cwd();
   const git = gatherGitState(cwd);
+  const identity = deriveIdentity(plan.inputs.seed);
 
   const line = renderStatusline(
     {
-      identity: deriveIdentity(plan.inputs.seed),
+      identity,
       dir: basename(cwd),
       branch: git.branch,
       dirty: git.dirty,
       worktree: git.worktree,
       usedPercentage: plan.inputs.usedPercentage,
       model: plan.inputs.model,
+      sessionShape: gatherSessionShape(cwd, identity),
     },
     { logo: resolveLogoStyle(process.env.OAK_STATUSLINE_LOGO) },
   );
@@ -132,4 +144,69 @@ function runGit(cwd: string, args: readonly string[]): string | undefined {
 function resolveBuiltIdentityCliPath(): string {
   const moduleDir = dirname(fileURLToPath(import.meta.url));
   return resolve(moduleDir, '..', 'bin', 'agent-identity.js');
+}
+
+/**
+ * Gather the session-shape inputs and resolve the coordination indicators for
+ * this tick.
+ *
+ * Exactly two coordination reads, both against the PRIMARY checkout root (first
+ * `git worktree list --porcelain` entry — a worktree seat must read the live
+ * registry, not its own checked-out copy): the active-claims registry and the
+ * experiments-directory listing. The comms corpus is never read from this path
+ * — the statusline ticks constantly and that directory is a large flat scan.
+ * Every read soft-fails to undefined so an unreadable coordination surface
+ * degrades the indicators rather than the statusline.
+ */
+function gatherSessionShape(cwd: string, ownAgentName: string | undefined): SessionShape {
+  const porcelain = runGit(cwd, ['worktree', 'list', '--porcelain']);
+  const primaryRoot = porcelain === undefined ? undefined : parsePrimaryWorktreeRoot(porcelain);
+
+  return resolveSessionShape({
+    ownAgentName,
+    registry: primaryRoot === undefined ? undefined : readActiveClaimsRegistry(primaryRoot),
+    experimentsListing: primaryRoot === undefined ? undefined : listExperiments(primaryRoot),
+    nowIso: new Date().toISOString(),
+  });
+}
+
+function readActiveClaimsRegistry(primaryRoot: string): CollaborationRegistry | undefined {
+  try {
+    return parseCollaborationRegistry(
+      readFileSync(join(primaryRoot, '.agent/state/collaboration/active-claims.json'), 'utf8'),
+    );
+  } catch {
+    return undefined;
+  }
+}
+
+function listExperiments(primaryRoot: string): readonly ExperimentsEntry[] | undefined {
+  const experimentsDir = join(primaryRoot, '.agent/state/collaboration/experiments');
+  try {
+    return readdirSync(experimentsDir, { recursive: true, withFileTypes: true })
+      .filter((entry) => entry.isFile())
+      .map((entry) => statExperimentsEntry(experimentsDir, join(entry.parentPath, entry.name)))
+      .filter((entry) => entry !== undefined);
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Stat one experiments file, isolating per-entry failures: a file deleted
+ * between the directory listing and its stat drops only that entry, not the
+ * whole ARC listing for the tick.
+ */
+function statExperimentsEntry(
+  experimentsDir: string,
+  filePath: string,
+): ExperimentsEntry | undefined {
+  try {
+    return {
+      name: relative(experimentsDir, filePath),
+      mtimeIso: statSync(filePath).mtime.toISOString(),
+    };
+  } catch {
+    return undefined;
+  }
 }

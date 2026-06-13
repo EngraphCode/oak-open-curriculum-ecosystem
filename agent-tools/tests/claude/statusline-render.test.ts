@@ -20,6 +20,7 @@ const base: StatuslineParts = {
   worktree: undefined,
   usedPercentage: undefined,
   model: undefined,
+  sessionShape: undefined,
 };
 
 describe('renderStatusline', () => {
@@ -33,6 +34,7 @@ describe('renderStatusline', () => {
         worktree: 'oak-wt-eef',
         usedPercentage: 12,
         model: 'Opus 4.7',
+        sessionShape: undefined,
       }),
     ).toBe(
       `${MAGENTA}Fragrant Creeping Sapling${RESET}${SEP}` +
@@ -110,6 +112,7 @@ describe('renderStatusline with an Oak logo column', () => {
         worktree: undefined,
         usedPercentage: 38,
         model: 'Opus 4.8',
+        sessionShape: undefined,
       },
       { logo: 'sextant' },
     );
