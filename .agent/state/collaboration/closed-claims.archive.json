@@ -14470,6 +14470,96 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "11dc0efd-320a-4bd0-82af-481559da0fd2",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T18:10:47Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit orphaned-doctrine recovery from statusline branch.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T18:11:13Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "orphaned statusline WS1 doctrine + lessons recovered; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "11dc0efd-320a-4bd0-82af-481559da0fd2",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "fad6d46a-1645-4cbb-99e4-7358381c3fe3",
+      "agent_id": {
+        "agent_name": "Skylark wakes Summit",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "4738bf",
+        "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+        "naming_schema_version": "override"
+      },
+      "thread": "statusline-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T18:16:13Z",
+      "freshness_seconds": 900,
+      "sidebar_open": false,
+      "intent": "Commit session-close meta-lesson capture.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T18:16:31Z",
+        "closed_by": {
+          "agent_name": "Skylark wakes Summit",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "4738bf",
+          "id": "c71aa0a8-0161-5549-8f25-6efb55e4bfeb",
+          "naming_schema_version": "override"
+        },
+        "summary": "session-close meta-lessons captured; window free",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "fad6d46a-1645-4cbb-99e4-7358381c3fe3",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }
