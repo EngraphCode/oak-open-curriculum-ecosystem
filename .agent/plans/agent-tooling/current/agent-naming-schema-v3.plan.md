@@ -362,6 +362,16 @@ plus agentive-specific gates: agentives are distinct from every first-word
 noun (no noun appearing as its own agentive), and the agentive pool meets the
 target cardinality floor (≈120). Reuse the v2 gate helpers; do not re-implement.
 
+**Unverified assumption to gate first (flagged at authoring, not independently
+confirmed):** the "540-noun union" rests on the v2 subject (300) and object
+(240) lists being **disjoint** (subject ∩ object = ∅). The v2 gates enforce
+*within-theme* subject/object stem-disjointness, NOT full cross-set disjointness
+across all six themes. Add an explicit test asserting the subject-set and
+object-set union has cardinality 540 (no element in both) before any namespace
+figure (64,800) is relied upon. If overlap exists, the first-word pool is
+smaller and the distinctiveness maths shifts — surface to the owner rather than
+silently de-duplicating.
+
 **Acceptance**: AC-6. **Validation**:
 `pnpm --filter @oaknational/agent-tools test -- v3-curation`.
 
@@ -401,7 +411,11 @@ the owner owns taste.
   ADR-198 §Decision #1).
 - `NAMING_SCHEMAS` carries a v3 entry: `columnCasing: ['title', 'title']`, a
   single flat group `{ columns: [NOUN_UNION_540, AGENTIVES_120] }`, and a pinned
-  `wordlistDigest`.
+  `wordlistDigest`. (Grounded note, verified against `derive.ts` 2026-06-13: with
+  one group, `selectByDigest` over the groups array always returns index 0 — the
+  group-routing digest bytes are intentionally unused for a flat schema; the two
+  column selections use byte offsets 4 and 8. This is correct, not a defect; do
+  not add a second group to "use" the bytes.)
 - `computeNamingSchemaDigest` over the live v3 material equals the pinned
   constant (the self-enforcement gate).
 - A fixed known seed derives a stable v3 name + slug (era-snapshot).
