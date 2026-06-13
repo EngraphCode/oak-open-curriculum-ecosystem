@@ -364,18 +364,23 @@ describe('resolveSessionShape — soft degradation', () => {
 
 describe('parsePrimaryWorktreeRoot', () => {
   it('returns the first worktree path from porcelain output', () => {
+    // Git emits absolute worktree paths at runtime, but the parser is
+    // path-shape-agnostic (it extracts the first `worktree <path>` line
+    // verbatim), so the fixture uses portable repo-relative placeholders to
+    // honour no-machine-local-paths rather than a machine-local or
+    // non-resolving absolute path.
     const porcelain = [
-      'worktree /repo',
+      'worktree primary-checkout',
       'HEAD 5bbda2fa900000000000000000000000000000000',
       'branch refs/heads/main',
       '',
-      'worktree /repo/.claude/worktrees/statusline-enhancements',
+      'worktree primary-checkout/.claude/worktrees/statusline-enhancements',
       'HEAD ac2901fe100000000000000000000000000000000',
       'branch refs/heads/feat/statusline-enhancements',
       '',
     ].join('\n');
 
-    expect(parsePrimaryWorktreeRoot(porcelain)).toBe('/repo');
+    expect(parsePrimaryWorktreeRoot(porcelain)).toBe('primary-checkout');
   });
 
   it('returns undefined for unrecognised output', () => {
