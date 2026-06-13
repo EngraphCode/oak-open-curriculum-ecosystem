@@ -218,3 +218,10 @@ memory-corroboration, owner-caught mid-fold). Sibling: template fidelity never o
 faithful reporting — a vendor skill template demanded the exact line "Saved to
 `ONBOARDING.md`" after the owner had redirected the artefact; the canned line was adapted
 to the real path.
+
+- **Check for a state-reset before causally attributing a metric change** (source: 2026-06-13
+  comms-corpus session). When a host/system metric moves sharply (swap, load, event counts), check for a
+  reset — reboot/`uptime`, fresh checkout, re-derivation window — BEFORE attributing it to a behavioural
+  cause; a reset is the dominant confound. Corollary: enumerate counts from primary evidence, never carry
+  a source's self-reported count. Both are instances of: a convenient causal claim that supports your own
+  thesis needs the dominant confound checked, not just a caveat.

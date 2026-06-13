@@ -278,3 +278,24 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   Caveat verified: the symmetry axis is the SHAPE's axis, not the bbox centre — but here they
   coincided (leaf didn't drag it off centre), so odd-width-spanning-bbox sufficed. Measure the
   axis before assuming bbox centre.
+
+## 2026-06-13 — Kayak herds Ballast (328eee), comms-corpus research session
+
+- **Surprise (corrected): my own swap-9G→0 finding was reboot-confounded.** Expected: watcher-fleet
+  retirement cleared swap (evidence for the watcher host-cost). Actual: the host had REBOOTED (~10:52Z,
+  `kern.boottime`); swap→0 + dead pids were fresh-boot artefacts. Lesson: when a host metric moves
+  sharply, check `uptime`/`kern.boottime` BEFORE causal attribution — a state-reset is the dominant
+  confound. A confound caveat that misses the dominant confound is worse than none.
+- **Surprise (corrected): over-accepted a source's self-reported count.** My T7 verdict carried Fern's
+  "five instances" at face value; FH-enumerable was 4 (Monsoon×3 + Fern×1). Lesson: enumerate from
+  primary evidence; never promote a count a source merely asserts.
+- **Surprise: live CC4 during the handoff.** An agent's UNTRACKED, owner-excluded file (`oak-logo.ts`)
+  blocked the whole-tree pre-push `prettier --check .` for my unrelated reports-only commit.
+  Lesson: excluded-from-commit ≠ excluded-from-whole-tree-gate; pre-push sees untracked peer files. This
+  is the exact CC4 / "whole-tree-gate ⇄ commit-scope" gap the research documented — witnessed on PUSH.
+- **What-worked: mutual first-hand correction.** Two independent FH readers (Kayak + Geyser) caught what
+  each single pass would have ratified, in both directions (my swap + T7; their seeded over-attribution).
+  Two-reader cross-attestation is the lane's strongest reliability mechanism.
+- **Surprise: corrections in evidence files do not auto-propagate to the source doc.** SC9 (~167→186),
+  SC8 (21→66), SC1 framing were corrected in the verification evidence; the taxonomy BODY still carries
+  the old figures. Lesson: when promoting a doc to doctrine, re-derive or carry the corrected figures.

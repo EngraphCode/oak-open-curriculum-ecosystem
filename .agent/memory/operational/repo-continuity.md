@@ -278,7 +278,7 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Fable 5 / Katydid hunts Roost / research-execution — WS0+WS1 complete (8 cold reads + 8 corroboration verdicts), WS2 survey drafted, WS3 in progress, ArcAngel relocated to tracked home / 2026-06-13; claude-code / Opus 4.8 / Myrtle weaves Thicket / peer — WS3 failure-mode taxonomy / 2026-06-13 (prior: Fern lifts Mulch planning 2026-06-12, Firefly seeks Temper deep-dive+plan 2026-06-12, Twilit Orbiting Satellite routing-sunset 2026-05-29) |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Opus 4.8 / Kayak herds Ballast / consolidated lane owner — WS0–WS4 complete + first-hand verified; findings+handoff synthesis `2026-06-13-comms-corpus-findings-and-handoff-kayak.md`; adversarial context analysis run; WS5/WS6 owner-sequenced-separately / 2026-06-13 (prior: Katydid hunts Roost WS0–WS2, Myrtle weaves Thicket WS3, Geyser stirs Bronze WS3-forward+B/D/M2 — all 2026-06-13; Fern lifts Mulch 2026-06-12; Twilit Orbiting Satellite 2026-05-29) |
 
 ## Next Safe Steps
 
@@ -293,13 +293,14 @@ verdicts, all complete; R2/R3 redone on Opus after a Fable outage), WS2 survey d
 one-way reports; tag-namespace-unreachable is the causal root of the zero-lifecycle/low-tag
 findings). ArcAngel relocated to the tracked home `.agent/collaboration/rapid-comms/`
 (owner-directed early WS7 slice). Running research-notes lab-notebook live at
-`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`. **Next safe step**:
-make-safe commit of the research substrate to `feat/comms-research` (owner-directed
-checkpoint), then WS4 deep-dives split — Katydid: liveness/heartbeat + coordination +
-cold-read emergent; Myrtle: substrate-credibility + commit/concurrency + the M2
-learning-loop spine class. WS5 rotation proposal + WS6 synthesis co-authored. WS7 owner-gated.
-Deep consolidation status: not due — session captures routed to permanent homes (reports,
-research-notes log, thread record).
+`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`. **Next safe step**: WS5 rotation strategy (→ owner ratification; NO deletion) + WS6 comprehensive
+synthesis, led by the incoming session. Orientation: read
+`reports/agentic-engineering/2026-06-13-comms-corpus-findings-and-handoff-kayak.md` FIRST (findings +
+handoff + adversarial trust-map + re-verify list), then the thread record. WS0–WS4 complete +
+first-hand verified; lane consolidated to Kayak herds Ballast (closing out this session). WS7
+owner-gated. Deep consolidation status: completed this handoff — owner-invoked session-completion
+consolidation (captures routed to permanent homes: findings synthesis, adversarial analysis,
+research-notes log, thread record, napkin).
 
 ### School Data Search
 
