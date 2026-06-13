@@ -226,6 +226,16 @@ surface.
   The "commit the report" next-step above is closed. Attribution correction: HEAD
   `c6754a262` (onboarding entry-path drift fixes) was committed by this seat at owner
   direction, not by the owner's hand.
+- **Statusline session-shape indicators (2026-06-12, Monsoon guards Cirrus `aaa0b7`)**: all
+  five plan workstreams EXECUTED on `feat/statusline-enhancements` (worktree
+  `.claude/worktrees/statusline-enhancements`, unpushed; commits `ac2901fe1` role field,
+  `1ac430378` resolver, `4270ea49d` render + adapter + glyph evidence). Claims now carry an
+  optional open-vocabulary `role`; the statusline renders Director demark / team shape /
+  ARC wing from two primary-root reads per tick (never the comms corpus).
+  **Next safe step**: successor Flame rides Temper pushes, opens a flat PR, monitors to
+  merge; the live director-demark proof and plan archival are post-merge by design (the
+  primary's schema gains `role` at merge — its validator correctly refuses earlier). Full
+  lane state: the `agentic-engineering-enhancements` thread record §Statusline lane.
 - **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
   `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
   WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.
@@ -243,7 +253,7 @@ each thread record; this table is the repo-level index.
 | `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Fable 5 / Thyme wakes Canopy / record-condensation (curation lane) / 2026-06-12, claude-code / Fable 5 / Forge turns Basalt / eef-data-surfacing-gap-research / 2026-06-12, claude / Fable 5 / Cosmos turns Equinox / snagging-execution-successor-pickup (arc landed #190–#193, closed out) / 2026-06-12, cursor / Fable 5 / Dawnlit Glimmering Orbit / oak-prod-snagging-and-cursor-visibility-writeup / 2026-06-11 (first-wave evidence still unmerged on `docs/graph-team-direction-2026-06-10` — see §Current State correction). Full prior-identity history (30+ seats, 2026-06-02 →): the thread record identity table — set-membership verified 2026-06-12 before this dedup |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work, starting with a deep review of the Oak Curriculum Ontology repo (separate concern from the bulk-derived graph redesign) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 — **opened, not started; deep review is a fresh session** |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior: Blustery Lifting Gale skills-taxonomy-and-distribution 2026-06-03, Umbral Whispering Silhouette 2026-06-01) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Fable 5 / Thyme wakes Canopy / dedicated-consolidation-queue-authored / 2026-06-12 (prior: Thermal Circling Updraft dedicated-consolidation-owner-walk 2026-06-11; full prior-identity history: the thread record identity table) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Fable 5 / Monsoon guards Cirrus / statusline-indicators-landed / 2026-06-12 (same day: Thyme wakes Canopy dedicated-consolidation; full prior-identity history: the thread record identity table) |
 | `repo-professionalism-assessment` | Repo professionalism / engineering-quality report → planability triage | [record][repo-professionalism-assessment] | codex / GPT-5 / Airy Whirling Wing / report-author-and-planability-router / 2026-06-03 |
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |

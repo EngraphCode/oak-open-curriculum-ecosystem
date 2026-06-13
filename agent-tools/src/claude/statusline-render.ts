@@ -14,6 +14,8 @@
  * @packageDocumentation
  */
 
+import { type SessionShape } from './statusline-session-shape.js';
+
 /**
  * Segment values for a single statusline render. Each is optional; absent
  * segments are dropped and the rest joined with a separator.
@@ -33,6 +35,12 @@ export interface StatuslineParts {
   readonly usedPercentage: number | undefined;
   /** Claude Code model display name. */
   readonly model: string | undefined;
+  /**
+   * Resolved session-coordination shape; undefined when the resolution was
+   * unavailable for the tick (renders identically to a solo session with no
+   * live rapid channel).
+   */
+  readonly sessionShape: SessionShape | undefined;
 }
 
 const RESET = '\u001b[0m';
@@ -47,6 +55,22 @@ const MAGENTA = '\u001b[0;35m';
 const SEPARATOR = `${DIM} · ${RESET}`;
 const DIRTY_MARK = '*';
 
+// Session-shape indicator glyphs. Rendering evidence recorded 2026-06-12
+// (owner screenshots, three terminals — iTerm2, Terminal.app, VS Code
+// terminal): each renders as a clean single glyph with no tofu, no
+// fragmentation, and no separator overlap. All four are single codepoints
+// by design — ZWJ sequences (e.g. the composed family emoji) fragment in
+// mono fonts. ASCII fallback set if a future target mangles one:
+// [D] director, [T] team shape, [A] arc.
+/** Director demark, suffixed to the identity segment (compass, U+1F9ED). */
+const DIRECTOR_MARK = '\u{1F9ED}';
+/** Directed-team icon (family, U+1F46A). */
+const TEAM_DIRECTED_ICON = '\u{1F46A}';
+/** Peer-team icon (busts in silhouette, U+1F465). */
+const TEAM_PEER_ICON = '\u{1F465}';
+/** ArcAngel-active wing (feather, U+1FAB6). */
+const ARC_WING = '\u{1FAB6}';
+
 /** Context usage below this percentage renders in green; from it, yellow. */
 const CONTEXT_ELEVATED_PERCENT = 50;
 /** Context usage from this percentage upwards renders in red. */
@@ -57,8 +81,12 @@ const CONTEXT_HIGH_PERCENT = 70;
  *
  * @param parts - The resolved segment values.
  * @returns The ANSI-coloured statusline of the form
- *   `<identity> · <model> · ctx:N% · <branch>[*] · <dir or wt:name>`
- *   with absent segments dropped.
+ *   `<identity>[ 🧭] · [👪|👥][ 🪶] · <model> · ctx:N% · <branch>[*] · <dir or wt:name>`
+ *   with absent segments dropped. The session-shape indicators sit inside
+ *   the fixed-width prefix so narrow terminals never truncate them: the
+ *   Director demark suffixes the identity, the team-shape icon renders for
+ *   directed/peer windows (nothing when solo), and the ArcAngel wing
+ *   appends while a rapid channel naming this agent is live.
  *
  * @example
  * ```ts
@@ -70,6 +98,7 @@ const CONTEXT_HIGH_PERCENT = 70;
  *   worktree: 'oak-wt-eef',
  *   usedPercentage: 12,
  *   model: 'Opus 4.7',
+ *   sessionShape: undefined,
  * });
  * // -> "<magenta>Fragrant... · Opus 4.7 · ctx:12% · feat/...* · wt:oak-wt-eef"
  * ```
@@ -77,8 +106,13 @@ const CONTEXT_HIGH_PERCENT = 70;
 export function renderStatusline(parts: StatuslineParts): string {
   const segments: string[] = [];
 
-  if (parts.identity !== undefined) {
-    segments.push(`${MAGENTA}${parts.identity}${RESET}`);
+  const identity = formatIdentity(parts);
+  if (identity !== undefined) {
+    segments.push(identity);
+  }
+  const indicators = formatSessionIndicators(parts.sessionShape);
+  if (indicators !== undefined) {
+    segments.push(indicators);
   }
   if (parts.model !== undefined) {
     segments.push(`${DIM}${parts.model}${RESET}`);
@@ -95,6 +129,49 @@ export function renderStatusline(parts: StatuslineParts): string {
   segments.push(`${CYAN}${place}${RESET}`);
 
   return segments.join(SEPARATOR);
+}
+
+/**
+ * Format the identity segment, suffixing the Director demark when this
+ * session's fresh claim carries the director role. Undefined identity drops
+ * the segment (and with it the demark — a directorship cannot be resolved
+ * without an identity in the first place).
+ */
+function formatIdentity(parts: StatuslineParts): string | undefined {
+  if (parts.identity === undefined) {
+    return undefined;
+  }
+  const demark = parts.sessionShape?.ownRole === 'director' ? ` ${DIRECTOR_MARK}` : '';
+  return `${MAGENTA}${parts.identity}${RESET}${demark}`;
+}
+
+/**
+ * Map a resolved team shape to its glyph. Solo shows nothing — an absent
+ * icon and a peerless team read identically at a glance, by design.
+ */
+function teamIcon(teamShape: SessionShape['teamShape']): string | undefined {
+  if (teamShape === 'directed') {
+    return TEAM_DIRECTED_ICON;
+  }
+  if (teamShape === 'peer') {
+    return TEAM_PEER_ICON;
+  }
+  return undefined;
+}
+
+/**
+ * Format the team-shape icon and ArcAngel wing as one segment, or undefined
+ * when there is nothing to show (solo with no live rapid channel, or no
+ * resolved shape for the tick — the two render identically by design).
+ */
+function formatSessionIndicators(shape: SessionShape | undefined): string | undefined {
+  if (shape === undefined) {
+    return undefined;
+  }
+  const team = teamIcon(shape.teamShape);
+  const wing = shape.arcActive ? ARC_WING : undefined;
+  const indicators = [team, wing].filter((glyph) => glyph !== undefined).join(' ');
+  return indicators.length === 0 ? undefined : indicators;
 }
 
 /** Format context usage, colour-coded as a glance-warning once it climbs. */

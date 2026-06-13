@@ -130,7 +130,10 @@ owner-visible. Run both unless that scope-reduction applies.
 7. **Open the work claim** in `active-claims.json` for the agreed
    boundary only after cycle/boundary coordination resolves, the
    gate-state report is observable, and the rename suggestion has been
-   surfaced. **If the claim being picked up carries a
+   surfaced. Pass the agreed coordination role via `--role <role>`
+   (director, peer, marshal, curator, implementer, ...) so the team
+   shape is resolvable from the registry by peers and glance surfaces;
+   the vocabulary is open and honest-by-convention. **If the claim being picked up carries a
    `handoff_record_path` field**, read the named handoff record under
    `.agent/state/collaboration/handoffs/` end to end BEFORE any source
    edit or comms post — this is a mid-cycle pickup per PDR-063 and the

@@ -51,6 +51,7 @@ export function createClaimFromOptions(
     claimed_at: required(options, 'now'),
     freshness_seconds: Number(valueOrDefault(options, 'ttl-seconds', '14400')),
     sidebar_open: false,
+    ...(optional(options, 'role') === undefined ? {} : { role: required(options, 'role') }),
     intent: required(options, 'intent'),
     ...(optional(options, 'notes') === undefined ? {} : { notes: required(options, 'notes') }),
   };

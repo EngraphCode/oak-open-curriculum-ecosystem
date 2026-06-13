@@ -150,6 +150,12 @@
           "type": "string",
           "$comment_provenance": "First-principles. Additive optional pointer per ADR-182 + PDR-063; existing readers ignore the field without breakage.",
           "description": "Optional. Presence signals this claim is mid-cycle and carries a handoff record per PDR-063 + ADR-182; absence signals normal active-claim semantics. Value is a repo-root-relative path to a file under .agent/state/collaboration/handoffs/ (content-addressed by claim_id, with versioned successors <claim_id>.<n>.json). Readers that do not understand this field MUST ignore it (additive-extension discipline per PDR-049 + PDR-050)."
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "$comment_provenance": "First-principles. Additive optional session-role marker, owner-directed 2026-06-12; lands the structural claim-schema cure pending since 2026-05-22 for singleton-role visibility (check-singleton-per-window). Existing readers ignore the field without breakage (additive-extension discipline per PDR-049 + PDR-050).",
+          "description": "Optional session role the claiming agent is playing in the current coordination window. Open vocabulary, deliberately not a fixed enum (the role-label ontology remains owner-gated); well-known values include director, peer, marshal, curator, implementer. Honest-by-convention — the same trust model as every other claim field; no enforcement. Resolvers may treat any fresh claim carrying role 'director' as evidence of a directed team shape. Readers that do not understand this field MUST ignore it."
         }
       }
     },
