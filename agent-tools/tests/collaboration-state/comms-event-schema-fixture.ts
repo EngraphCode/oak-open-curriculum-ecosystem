@@ -8,7 +8,7 @@
  */
 import { type AnySchemaObject } from 'ajv';
 
-import commsEventSchemaJson from '../../../.agent/state/collaboration/comms-event.schema.json';
+import commsEventSchemaJson from '../../src/collaboration-state/schemas/comms-event.schema.json';
 
 function isAnySchemaObject(value: unknown): value is AnySchemaObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

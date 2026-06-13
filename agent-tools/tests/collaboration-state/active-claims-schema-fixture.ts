@@ -9,7 +9,7 @@
  */
 import { type AnySchemaObject } from 'ajv';
 
-import activeClaimsSchemaJson from '../../../.agent/state/collaboration/active-claims.schema.json';
+import activeClaimsSchemaJson from '../../src/collaboration-state/schemas/active-claims.schema.json';
 
 function isAnySchemaObject(value: unknown): value is AnySchemaObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

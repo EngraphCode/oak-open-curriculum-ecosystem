@@ -181,7 +181,12 @@ function readActiveClaimsRegistry(primaryRoot: string): CollaborationRegistry | 
 }
 
 function listExperiments(primaryRoot: string): readonly ExperimentsEntry[] | undefined {
-  const experimentsDir = join(primaryRoot, '.agent/state/collaboration/experiments');
+  // ArcAngel channels live in the canonical rapid-comms home. WS7 / Bugbot
+  // ccc37502 + de9f2522: the wing previously scanned the stale experiments/
+  // path and so never lit for relocated channels. The single shared
+  // ArcAngel-home constant is the #7 consolidation; this is the de-bundled
+  // wing-fix repoint.
+  const experimentsDir = join(primaryRoot, '.agent/collaboration/rapid-comms');
   try {
     return readdirSync(experimentsDir, { recursive: true, withFileTypes: true })
       .filter((entry) => entry.isFile())
