@@ -1,3 +1,11 @@
+## [1.32.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.32.0...v1.32.1) (2026-06-13)
+
+
+### Bug Fixes
+
+* **agent-tools:** make worktree porcelain fixture repo-relative (no-machine-local-paths) ([8128f35](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8128f3570497065a556564c0ecb0019f51dda360))
+* **agent-tools:** resolve PR [#203](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/203) review comments (machine-local paths + ARC future mtime) ([bcf71e6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcf71e6d1fd2f26755441e3b96bef75e0484dce9))
+
 # [1.32.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.31.1...v1.32.0) (2026-06-13)
 
 
