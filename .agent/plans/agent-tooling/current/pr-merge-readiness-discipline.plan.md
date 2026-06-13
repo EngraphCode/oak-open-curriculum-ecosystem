@@ -4,7 +4,7 @@ overview: "Make premature PR merge mechanically impossible. A pull request is me
 status: "QUEUED — owner-directed 2026-06-13 (design ratified in-session; owner chose 'capture as a plan only'; owner enables branch-protection layer directly)"
 todos:
   - id: ws0-branch-protection
-    content: "WS0 (owner-owned, not an agent task): enable GitHub branch protection on main — 'Require conversation resolution before merging' + the required status checks (run-quality-gates, SonarCloud, CodeQL, Vercel). This is the strongest layer: GitHub blocks the merge button server-side, so no agent path can merge with unresolved review threads regardless of agent-side discipline. Recorded here so the agent-side layers are explicitly belt-and-braces, not the primary guard."
+    content: "WS0 (owner-owned, not an agent task): enable GitHub branch protection on main — 'Require conversation resolution before merging' + the required status checks. Use the EXACT check-context names as they appear in the live PR check list (currently `run-quality-gates`, `SonarCloud Code Analysis`, `CodeQL`, and `Vercel` — verify against an open PR before configuring, since a mislabelled context silently fails to gate). This is the strongest layer: GitHub blocks the merge button server-side, so no agent path can merge with unresolved review threads regardless of agent-side discipline. Recorded here so the agent-side layers are explicitly belt-and-braces, not the primary guard."
     status: pending
   - id: ws1-merge-readiness-checker
     content: "WS1: a mechanical merge-readiness checker in agent-tools — `pnpm agent-tools:pr-merge-readiness <pr>` (exact CLI name TBD at build). Given a PR number it reports and exits non-zero unless ALL hold: (a) mergeable !== CONFLICTING; (b) every required check is terminal and green (no pending/failed); (c) every review thread is resolved (GraphQL `reviewThreads.isResolved`) OR carries a reply from the merging agent. REST `/pulls/{n}/comments` does NOT carry thread resolved-state — use the GraphQL `reviewThreads` connection. TDD; pure core (verdict function over fetched thread/check state) + thin gh/GraphQL I/O adapter; no global state. Output names each blocking thread/check so the agent knows exactly what to resolve."
@@ -15,7 +15,7 @@ todos:
     status: pending
     depends_on: [ws1-merge-readiness-checker]
   - id: ws3-rule
-    content: "WS3: a thin always-loaded rule (e.g. `.agent/rules/resolve-pr-comments-before-merge.md`) stating the invariant — no merge until mergeable + checks green + every review comment resolved-or-refuted — pointing at the oak-pr skill and the WS1 checker. Three on-disk forms (.agent/rules canonical, .claude/rules + .cursor/rules + .agents forwarders) + RULES_INDEX.md entry, per the rule-authoring contract. Apply new-rule-vs-pdr-clause first to confirm rule (operational invariant, single trigger=PR merge) over PDR clause; start at the rule's enforcement-appropriate severity."
+    content: "WS3: a thin always-loaded rule (e.g. `.agent/rules/resolve-pr-comments-before-merge.md`) stating the invariant — no merge until mergeable + checks green + every review comment resolved-or-refuted — pointing at the oak-pr skill and the WS1 checker. All on-disk forms per the rule-authoring contract — the `.agent/rules` canonical plus the platform forwarders (`.claude/rules`, `.cursor/rules`, `.agents`) and a RULES_INDEX.md entry. Apply new-rule-vs-pdr-clause first to confirm rule (operational invariant, single trigger=PR merge) over PDR clause; start at the rule's enforcement-appropriate severity."
     status: pending
     depends_on: [ws2-oak-pr-skill]
   - id: ws4-validator-gap
@@ -147,5 +147,5 @@ PR&nbsp;#203.
 `metacognition.md` "structural, not doc-patch" (the checker + branch protection over prose);
 `principles.md` simplicity-first (pure verdict core + thin I/O adapter); `testing-strategy.md`
 (fixture-driven verdict tests, no global state); `new-rule-vs-pdr-clause` (WS3 form decision);
-the rule-authoring three-form contract (WS3 adapters). Lifecycle per
+the rule-authoring canonical-plus-forwarders contract (WS3 adapters). Lifecycle per
 `templates/components/lifecycle-triggers.md`.
