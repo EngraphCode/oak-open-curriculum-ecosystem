@@ -1,6 +1,6 @@
 ---
 name: "Comms-Corpus Research and Rotation Strategy"
-overview: "Dedicated research pass over the preserved .agent/state/collaboration/comms/ corpus (4,978 events as of 2026-06-12T15:45Z, fully git-tracked since 567bf0f1a — re-derive at WS0): blind cold read, automated survey, failure-mode taxonomy, prioritised theme deep-dives, mechanism recommendations routed to the comms/coordination plan cluster, a ratification-ready non-held rotation strategy that ends the preservation hold without losing unprocessed signal, and (owner-amended 2026-06-12) the owner-gated execution of the ratified end-state: .agent/state/ untracked, experiments/ preserved, comms events beyond the retention window deleted post-absorption. Companion to the agent-collaboration-research thread record, which owns the hypothesis, analysis vectors, and seeded themes."
+overview: "Dedicated research pass over the preserved .agent/state/collaboration/comms/ corpus (4,978 events as of 2026-06-12T15:45Z, fully git-tracked since 567bf0f1a — re-derive at WS0): blind cold read, automated survey, failure-mode taxonomy, prioritised theme deep-dives, mechanism recommendations routed to the comms/coordination plan cluster, a ratification-ready non-held rotation strategy that ends the preservation hold without losing unprocessed signal, and (owner-amended 2026-06-12) the owner-gated execution of the ratified end-state: .agent/state/ untracked, experiments/ preserved, comms events beyond the retention window MOVED TO AN UNTRACKED ARCHIVE post-absorption (owner direction 2026-06-13: archived not deleted, while Fable is unavailable, to preserve the option of later research). Companion to the agent-collaboration-research thread record, which owns the hypothesis, analysis vectors, and seeded themes."
 status: "IN EXECUTION (research session 2026-06-12, Katydid hunts Roost / a4314f: WS0 complete; WS1 running via owner-decided delegated blind cold readers after the successor seat's disclosed contamination — six of eight reader logs landed, R2/R3 re-dispatch staged; execution strategy owner-amended same day to the ultracode multi-wave shape recorded in §Execution strategy)"
 todos:
   - id: ws0-grounding
@@ -28,7 +28,7 @@ todos:
     status: pending
     depends_on: [ws4-theme-deep-dives, ws5-rotation-strategy]
   - id: ws7-ratified-execution
-    content: "WS7 (owner-gated: fires only on owner ratification of the WS5 proposal): execute the ratified rotation end-state — (a) relocate load-bearing contract surfaces out of .agent/state/collaboration/ to tracked homes first (the five *.schema.json files consumed by agent-tools source, the test fixtures/ tree; default homes unless the WS5 proposal argues otherwise: schemas and fixtures into the agent-tools workspace, consumers updated, gates green); (b) PRESERVE everything under .agent/state/collaboration/experiments/ — owner direction 2026-06-12: experiments content is conserved, never purged. Interim safety landed in the planning session (gitignore policy flipped, five machine-local records committed in place); WS7 still routes the content to a durable tracked home OUTSIDE the untracked-by-design boundary, because step (c) would otherwise re-untrack it; (c) gitignore .agent/state/ as untracked-by-design (uniform classification with the .agent/state/onboarding/ precedent; the tracked README.md anchor remains in git). DERIVED ARTEFACTS ARE NOT PRESERVATION TARGETS (owner, PR 201 review): shared-comms-log.md is an ephemeral rendering rebuilt from the event stream — it goes untracked with no relocation and no disposition ledger entry; rotation invariant 3 (provenance) attaches to the comms events themselves, never to the rendered log; (d) delete comms events older than the ratified retention window (owner default 2026-06-12: 7 days; class-tiering permitted where WS2-WS4 evidence argues it) only after absorption/disposition is recorded per invariant 1. No step here runs before ratification."
+    content: "WS7 (owner-gated: fires only on owner ratification of the WS5 proposal): execute the ratified rotation end-state — (a) relocate load-bearing contract surfaces out of .agent/state/collaboration/ to tracked homes first (the five *.schema.json files consumed by agent-tools source, the test fixtures/ tree; default homes unless the WS5 proposal argues otherwise: schemas and fixtures into the agent-tools workspace, consumers updated, gates green); (b) PRESERVE everything under .agent/state/collaboration/experiments/ — owner direction 2026-06-12: experiments content is conserved, never purged. Interim safety landed in the planning session (gitignore policy flipped, five machine-local records committed in place); WS7 still routes the content to a durable tracked home OUTSIDE the untracked-by-design boundary, because step (c) would otherwise re-untrack it; (c) gitignore .agent/state/ as untracked-by-design (uniform classification with the .agent/state/onboarding/ precedent; the tracked README.md anchor remains in git). DERIVED ARTEFACTS ARE NOT PRESERVATION TARGETS (owner, PR 201 review): shared-comms-log.md is an ephemeral rendering rebuilt from the event stream — it goes untracked with no relocation and no disposition ledger entry; rotation invariant 3 (provenance) attaches to the comms events themselves, never to the rendered log; (d) MOVE comms events older than the ratified retention window (owner default 2026-06-12: 7 days; class-tiering permitted where WS2-WS4 evidence argues it) to an untracked archive directory (off the watcher's live drain path, gitignored, retained on disk) — NOT delete them — only after absorption/disposition is recorded per invariant 1. OWNER DIRECTION 2026-06-13 (supersedes the original delete clause): while Fable is unavailable, the raw comms records are ARCHIVED not destroyed, so the option of further research later is preserved; the operational goal (shrink the live comms/ dir so the watcher drain stays healthy) is met by moving events out of the watched path, and deletion is no longer part of WS7. No step here runs before ratification."
     status: pending
     depends_on: [ws5-rotation-strategy, ws6-consolidation-closeout]
 isProject: false
@@ -70,9 +70,11 @@ Two user-impact outcomes:
    surfaces relocated to tracked homes, `.agent/state/collaboration/experiments/` content
    preserved into a durable tracked home (owner direction: never purged), `.agent/state/`
    gitignored as untracked-by-design (tracked README anchor remains), and comms events older
-   than the ratified retention window (owner default: 7 days) deleted after recorded
-   absorption. The owner decision moment between WS5 and WS7 is the gate; nothing executes
-   before it.
+   than the ratified retention window (owner default: 7 days) **moved to an untracked archive
+   (NOT deleted)** after recorded absorption — owner direction 2026-06-13: while Fable is
+   unavailable, retain the raw corpus on disk (off the watcher's live drain path) so the
+   option of further research later is preserved rather than destroyed. The owner decision
+   moment between WS5 and WS7 is the gate; nothing executes before it.
 
 ## Mechanism
 
@@ -144,9 +146,10 @@ WS1–WS4 under that direction; acceptance criteria and the WS5/WS7 boundary are
 ## Prerequisites
 
 - **Blocking**: owner marks this plan ready (readiness reviewers run; see §Readiness).
-- **Blocking for WS4 ratification only**: owner decision on the proposal — the plan completes
-  WS4 by *putting the proposal to the owner*; ratification and any subsequent deletion are
-  outside this plan.
+- **Blocking for WS4 ratification only**: owner decision on the proposal — the research
+  workstreams complete WS4 by *putting the proposal to the owner*; ratification gates the
+  owner-gated WS7, whose execution (now an archive-move, not deletion — owner direction
+  2026-06-13) is inside this plan per the 2026-06-12 scope amendment.
 - **Beneficial**: `comms-watch-storage-redesign` direction known (the rotation proposal must
   state composition with it either way; minimum shippable shape without it is a
   directory-level rotation proposal with an explicit storage-shape contingency note).
@@ -195,7 +198,9 @@ node script in `/tmp` — analysis scratch, not product code.)
   threading). The steady-state question for WS5 is therefore not only "how to rotate the heavy
   stream" but "which substrate for which coordination shape." `.agent/collaboration/` is the
   chosen tracked home (parallel to the untracked-bound `.agent/state/collaboration/`); WS7/owner
-  may refine the path. The full `.agent/state/` untracking and the 7-day purge remain owner-gated.
+  may refine the path. The full `.agent/state/` untracking and the 7-day archive-move (NOT
+  purge — owner direction 2026-06-13, see §End goal #3 and ws7 todo (d): archive not delete
+  while Fable is unavailable) remain owner-gated.
 - **Fable model outage (2026-06-13) → Opus 4.8 re-dispatch.** WS1 recovery sub-agents seated on
   Fable died during a temporary Fable outage (misread first as a token cap; owner-corrected —
   the same-wave Sonnet verifiers succeeded, confirming a model-specific, not session-wide,
@@ -221,7 +226,7 @@ All proof levels are `non-code` (research artefacts) unless stated.
 | ws4 | Each prioritised item has a research artefact with ≥2 worked instances (event ids cited), a lens classification (deficit / strength / emergent), and a steering verdict (fix / encourage / discourage / observe-only); cure- and steering-bearing artefacts carry a recommendation routed to a named consumer plan; understanding-only conclusions are explicitly legitimate; the deep-dive set as a whole must not be deficit-only unless the evidence genuinely is | non-code: artefact files + routing records |
 | ws5 | A ratification-ready rotation proposal exists naming: mechanism, trigger, owner-role, archive home, heartbeat-class handling, the five invariants' satisfaction, storage-redesign composition, and the migration path for the current held corpus (item-level disposition); proposal surfaced to the owner as a decision | non-code: proposal artefact + owner-decision surfacing |
 | ws6 | Comprehensive synthesis report exists under `.agent/reports/agentic-engineering/` fronting the full artefact set (discoveries, emergent patterns, insights, routed recommendations, future-enhancement proposals); consolidation run; thread record updated (processed/remaining, new themes discovered, identity row); follow-ons queued | non-code: synthesis report file + record diff + consolidation evidence |
-| ws7 | Owner ratification recorded FIRST; then: schemas + fixtures relocated to tracked homes with consumers updated (agent-tools gates green); `experiments/` content preserved to a durable tracked home (nothing under it deleted); `.agent/state/` gitignored with tracked README anchor; comms events older than the ratified window deleted with absorption/disposition recorded per event class | code + non-code: gitignore diff, relocation commits, disposition ledger, post-purge watcher drain health observation |
+| ws7 | Owner ratification recorded FIRST; then: schemas + fixtures relocated to tracked homes with consumers updated (agent-tools gates green); `experiments/` content preserved to a durable tracked home (nothing under it deleted); `.agent/state/` gitignored with tracked README anchor; comms events older than the ratified window MOVED to an untracked archive (NOT deleted — owner direction 2026-06-13, Fable-unavailable preserve-for-later-research) with absorption/disposition recorded per event class; the archive directory is off the watcher's live drain path | code + non-code: gitignore diff, relocation + archive-move commits, disposition ledger, post-archive-move watcher drain health observation |
 
 Completion language: this plan claims complete only when ws0–ws7 are proven as above.
 WS5's own bar remains "proposal put to owner" per research-outputs-name-decisions discipline —
