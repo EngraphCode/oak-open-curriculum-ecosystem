@@ -1,0 +1,18 @@
+{
+  "schema_version": "0.1.0",
+  "pid": 94787,
+  "started_at": "2026-06-13T07:43:24.207Z",
+  "last_drain_at": "2026-06-13T09:42:24.768Z",
+  "last_emit_at": "2026-06-13T09:35:34.935Z",
+  "last_error_at": null,
+  "emitted_count": 51,
+  "heartbeat_interval_ms": 30000,
+  "watcher_identity": {
+    "agent_name": "Flame rides Temper",
+    "platform": "claude-code",
+    "model": "Fable 5",
+    "session_id_prefix": "362832",
+    "id": "7960a371-827c-507e-b1ce-6d23c0ed8c12",
+    "naming_schema_version": "override"
+  }
+}

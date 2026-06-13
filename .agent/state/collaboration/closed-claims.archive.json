@@ -13495,6 +13495,477 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "5865da89-9337-41c4-bf94-174d512cc5e4",
+      "agent_id": {
+        "agent_name": "Monsoon guards Cirrus",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "aaa0b7",
+        "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/claude/statusline-*",
+            "agent-tools/tests/claude/statusline-*",
+            "agent-tools/src/collaboration-state/cli-claim-commands.ts",
+            "agent-tools/src/collaboration-state/types.ts",
+            "agent-tools/src/collaboration-state/claims.ts",
+            ".agent/state/collaboration/active-claims.schema.json",
+            ".agent/skills/start-right-quick/shared/start-right.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T15:37:16Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Execute statusline-session-shape-indicators plan (WS1 role field, WS2 resolver, WS3 render, WS4 glyph evidence, WS5 tests) on branch feat/statusline-enhancements in worktree seat .claude/worktrees/statusline-enhancements",
+      "archived_at": "2026-06-12",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-12T20:56:36Z",
+        "closed_by": {
+          "agent_name": "Monsoon guards Cirrus",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "aaa0b7",
+          "id": "77e2f19e-2830-5d28-aa37-f9dcdeb19a1f",
+          "naming_schema_version": "override"
+        },
+        "summary": "Statusline session-shape indicators: all five workstreams landed on feat/statusline-enhancements (commits ac2901fe1, 1ac430378, 4270ea49d; 1063 tests green). Handed to Flame rides Temper for push/PR/merge + post-merge live director proof; lane state in agentic-engineering-enhancements thread record.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "5865da89-9337-41c4-bf94-174d512cc5e4",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "8910ee5f-b4a2-434f-8ef3-6435eaba020e",
+      "agent_id": {
+        "agent_name": "Katydid hunts Roost",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "a4314f",
+        "id": "b0237a81-d8e7-5293-b6a6-90bc0358fc06",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/agentic-engineering/*",
+            ".agent/memory/operational/threads/agent-collaboration-research.next-session.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-12T19:17:29Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Comms-corpus research session (plan: comms-corpus-research-and-rotation-strategy, WS0+). Corpus at .agent/state/collaboration/comms/ is READ-ONLY to this claim; outputs land in reports + thread record. Owner-named successor to Fern lifts Mulch.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T08:54:50Z",
+        "closed_by": {
+          "agent_name": "Katydid hunts Roost",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "a4314f",
+          "id": "b0237a81-d8e7-5293-b6a6-90bc0358fc06",
+          "naming_schema_version": "override"
+        },
+        "summary": "Comms-corpus research WS0-WS2 + WS1 (8 cold reads + 8 verdicts) complete, committed+pushed on feat/comms-research (9aaa6f710, 8d5cbb659, 875da487b); ArcAngel relocated; running-notes lab notebook live. Retiring at make-safe checkpoint; successor Kayak herds Ballast (brief afd35253), pickup = thread record + running-notes. Clean boundary, no work in flight.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "8910ee5f-b4a2-434f-8ef3-6435eaba020e",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "eb94d37c-5b55-49a1-bd19-627cec1bb5e1",
+      "agent_id": {
+        "agent_name": "Myrtle weaves Thicket",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "adcccb",
+        "id": "fa85dab0-5ceb-58d9-9348-8ca506d6f677",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/agentic-engineering/2026-06-13-ws3-*"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T07:41:32Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "WS3 failure-mode taxonomy (companion plan comms-corpus-research). Complementary boundary INSIDE Katydid hunts Roost research claim 8910ee5f by peer agreement (coord d534642c / my team-start 94b91ad0). Corpus .agent/state/collaboration/comms/ is READ-ONLY to this claim. Output: 2026-06-13-ws3-* taxonomy report; first-hand-verified clustering of 41 failure-mode + 303 behaviour-note tagged events + untagged WS1-log captures + 76 extractor anomalies. NOT touching Katydid in-flight paths (ws1-cold-reads/**, 2026-06-12-ws2-*).",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T08:58:25Z",
+        "closed_by": {
+          "agent_name": "Myrtle weaves Thicket",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "adcccb",
+          "id": "fa85dab0-5ceb-58d9-9348-8ca506d6f677",
+          "naming_schema_version": "override"
+        },
+        "summary": "WS3 comms-corpus failure-mode taxonomy support complete; committed 8d5cbb659 (on origin) + 931f6f1c7 + bb80c1c7c (local, owner/successor to push); full handoff to Geyser stirs Bronze via handoff record 2026-06-13-ws3-handoff-myrtle-to-geyser-stirs-bronze.md. No claims retained.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "eb94d37c-5b55-49a1-bd19-627cec1bb5e1",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "c7071f8d-266b-476d-b68d-539de27bdda9",
+      "agent_id": {
+        "agent_name": "Flame rides Temper",
+        "platform": "claude-code",
+        "model": "Fable 5",
+        "session_id_prefix": "362832",
+        "id": "7960a371-827c-507e-b1ce-6d23c0ed8c12",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/claude/statusline-*",
+            "agent-tools/src/collaboration-state/*",
+            ".agent/state/collaboration/active-claims.schema.json",
+            ".agent/plans/agent-tooling/current/statusline-session-shape-indicators.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T07:21:27Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Take over statusline-session-shape-indicators lane from Monsoon guards Cirrus (owner-directed 2026-06-13). All 5 WS landed on feat/statusline-enhancements in worktree; successor task: push -> flat PR -> monitor to merge -> POST-MERGE live director-demark proof -> archive plan. Branch is READ-COMPLETE; this claim covers push/PR/merge mechanics + post-merge proof.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T09:03:24Z",
+        "closed_by": {
+          "agent_name": "Flame rides Temper",
+          "platform": "claude-code",
+          "model": "Fable 5",
+          "session_id_prefix": "362832",
+          "id": "7960a371-827c-507e-b1ce-6d23c0ed8c12",
+          "naming_schema_version": "override"
+        },
+        "summary": "Statusline lane takeover from Monsoon complete: PR #203 merged (00c1f758d) + live director-demark proof passed; review-comment remediation + plan archival merged (#204, 98d22378a); two-line statusline merged (#206, bb0b57389); PR merge-readiness discipline plan merged (#205, dd443f58c). All review comments across #203/#204/#205/#206 resolved-or-refuted before merge. Branch-protection layer (WS0) left for owner.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "c7071f8d-266b-476d-b68d-539de27bdda9",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "eb88ee15-832e-469c-9ab6-973c0e04a65b",
+      "agent_id": {
+        "agent_name": "Geyser stirs Bronze",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "3636b0",
+        "id": "21d38838-e514-51e8-8db8-cdcd4e8682d9",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/agentic-engineering/2026-06-13-ws4-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws5-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws6-*",
+            ".agent/plans/agentic-engineering-enhancements/pull-request-best-practice-and-rules.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T08:50:13Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Forward lane of comms-corpus research (PDR-063 handoff Myrtle->Geyser, record 2026-06-13-ws3-handoff-myrtle-to-geyser-stirs-bronze.md; owner division 2026-06-13). Complementary boundary INSIDE Katydid research claim 8910ee5f and ALONGSIDE Myrtle write-up claim eb94d37c (she keeps 2026-06-13-ws3 taxonomy + deep-dives). My tasks: WS4 verification fan-outs (B+D+M2 load-bearing claims), ~37 REVIEW disposition, PENDING-FH anchor verification, WS5 rotation proposal, WS6 synthesis, PR-best-practice routing. Corpus comms/ READ-ONLY. NOT touching Myrtle ws3 taxonomy/deep-dives or Katydid ws1/ws2. First findings: S9 cured in live code; SC1 causal-root evidenced vs live CLI; M2 quantifier single-source.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T10:16:11Z",
+        "closed_by": {
+          "agent_name": "Geyser stirs Bronze",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "3636b0",
+          "id": "21d38838-e514-51e8-8db8-cdcd4e8682d9",
+          "naming_schema_version": "override"
+        },
+        "summary": "Forward-lane safe pause (owner-directed); insight committed+pushed in 8d6e26f88. Thread inherited by Kayak herds Ballast via continuation record 2026-06-13-ws4-geyser-continuation.md. Done: spine FH-verified quadruple-attested; 3 corrections (S9-cured/SC1-evidenced/M2-softened) integrated by Myrtle (bb80c1c7c); SC1 causal-root sharpened via live test; PR back-link added (51e8e15ee) + converged into Flame oak-pr decision home (no fork). Transferred to Kayak: PENDING-FH anchors (T7/CC4 first), ~37 REVIEW disposition, SC1-refinement taxonomy-fold, #207 review, WS5/WS6.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "eb88ee15-832e-469c-9ab6-973c0e04a65b",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "6603978f-edd4-4984-b90b-696984fa437a",
+      "agent_id": {
+        "agent_name": "Geyser stirs Bronze",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "3636b0",
+        "id": "21d38838-e514-51e8-8db8-cdcd4e8682d9",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/agentic-engineering/2026-06-13-ws4-bdm2-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws4-review-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws5-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws6-*",
+            ".agent/plans/agentic-engineering-enhancements/pull-request-best-practice-and-rules.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T11:20:48Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "RESUME forward lane post-pause (owner 'carry on' 2026-06-13T11:16Z). Complementary to Kayak's liveness/coordination/emergent claim: I take B+D+M2 verification + ~37 REVIEW disposition + WS5/WS6 co-author + PR-plan #207 review + SC1-refinement taxonomy-fold. Re-split (not consolidate) per owner re-engagement. Corpus READ-ONLY. First FH findings: CC4 mechanism confirmed via 031852ab (Sparking blocked by Foamy untracked file); T7 count precision flag (enumerable 4 = Monsoon x3 + Fern x1, not reported 5; Tempest worktree-lockout is a sibling).",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T12:09:28Z",
+        "closed_by": {
+          "agent_name": "Geyser stirs Bronze",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "3636b0",
+          "id": "21d38838-e514-51e8-8db8-cdcd4e8682d9",
+          "naming_schema_version": "override"
+        },
+        "summary": "Forward lane handed to Kayak herds Ballast (owner-directed take-charge / consolidate-to-one researcher). All my work committed+pushed (48b9765b5 + Myrtle integration bb80c1c7c). Done: spine quadruple-attested, S9/SC1/M2 corrections, SC1 live-test sharpening, D-family FH (CC4/5/6 + T7 count fix), 37-row REVIEW disposition (0 new class), PR back-link + oak-pr convergence. Remaining lane (PR #207 review, SC1-fold, cross-verify SC5/SC8/SC10/T5/T6/T9/S7/S8, WS5/WS6) transferred to Kayak via continuation record 2026-06-13-ws4-geyser-continuation.md + ArcAngel turn 15. Standing down.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "6603978f-edd4-4984-b90b-696984fa437a",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "b76045bb-23e9-4204-9d2d-cde9809277be",
+      "agent_id": {
+        "agent_name": "Kayak herds Ballast",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "328eee",
+        "id": "35c025d4-1b30-51ec-8478-b82a3c33d11e",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/agentic-engineering/2026-06-13-ws4-liveness-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws4-coordination-*",
+            ".agent/reports/agentic-engineering/2026-06-13-ws4-emergent-*"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T09:34:35Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "Pick up Katydid hunts Roost research lane (owner-named successor; Katydid retired 08:55Z, no live handoff, durable pickup via successor brief afd35253 + running-notes). WS4 boundary: liveness/heartbeat + coordination + cold-read emergent set. Co-author WS5 rotation (PUT TO OWNER) + WS6 synthesis with Geyser stirs Bronze (eb88ee15: B/D/M2 + review + WS5/6). Corpus READ-ONLY. Conserve insight; first-hand grounding; non-Fable verifiers.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T14:14:43Z",
+        "closed_by": {
+          "agent_name": "Kayak herds Ballast",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "328eee",
+          "id": "35c025d4-1b30-51ec-8478-b82a3c33d11e",
+          "naming_schema_version": "override"
+        },
+        "summary": "Comms-corpus lane WS0-WS4 complete + verified; findings/handoff + adversarial analysis on origin (56a8b2526); WS5/WS6 for incoming session; clean stand-down.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "b76045bb-23e9-4204-9d2d-cde9809277be",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "5f4752c1-de6c-4a4a-920a-638d56c1b796",
+      "agent_id": {
+        "agent_name": "Bluebell mends Mulch",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "c2ef19",
+        "id": "ad1c5453-1321-531e-a4cb-acf27e4d3367",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T15:36:45Z",
+      "freshness_seconds": 600,
+      "sidebar_open": false,
+      "intent": "Commit comms-research WS5/WS6/re-verify docs bundle by explicit pathspec (queue intent 7a03366f)",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T15:37:22Z",
+        "closed_by": {
+          "agent_name": "Bluebell mends Mulch",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "c2ef19",
+          "id": "ad1c5453-1321-531e-a4cb-acf27e4d3367",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit f20680041: comms-research WS5/WS6/re-verify docs bundle (pathspec-scoped; foreign staged residue untouched)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "5f4752c1-de6c-4a4a-920a-638d56c1b796",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "AD9F46FF-3C1D-4BE5-81CF-D75D79C984A7",
+      "agent_id": {
+        "agent_name": "Bilby hunts Eventide",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "66eb9b",
+        "id": "c5aa65f2-3770-54c1-9bf4-faaa4212a9d4",
+        "naming_schema_version": "override"
+      },
+      "thread": "agentic-engineering-enhancements",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "index/head"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T15:38:41Z",
+      "freshness_seconds": 600,
+      "sidebar_open": false,
+      "intent": "Bilby session-closeout: commit statusline napkin lessons (explicit pathspec; coordinated w/ Bluebell)",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T15:38:55Z",
+        "closed_by": {
+          "agent_name": "Bilby hunts Eventide",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "66eb9b",
+          "id": "c5aa65f2-3770-54c1-9bf4-faaa4212a9d4",
+          "naming_schema_version": "override"
+        },
+        "summary": "commit 8efc58d83: statusline-closeout napkin lessons",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "AD9F46FF-3C1D-4BE5-81CF-D75D79C984A7",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "f6d74844-263d-4ba9-8e35-2b7bd0501333",
+      "agent_id": {
+        "agent_name": "Bluebell mends Mulch",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "c2ef19",
+        "id": "ad1c5453-1321-531e-a4cb-acf27e4d3367",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reports/agentic-engineering/**",
+            ".agent/memory/operational/threads/agent-collaboration-research.next-session.md",
+            ".agent/plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T14:42:59Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "intent": "WS5 rotation-strategy proposal + WS6 comprehensive synthesis (successor to Kayak herds Ballast); first action = §11 re-verify list",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T15:38:57Z",
+        "closed_by": {
+          "agent_name": "Bluebell mends Mulch",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "c2ef19",
+          "id": "ad1c5453-1321-531e-a4cb-acf27e4d3367",
+          "naming_schema_version": "override"
+        },
+        "summary": "WS5 ratified + WS6 synthesis + §11 re-verify complete, committed f20680041; consolidation + WS7 deferred to a dedicated follow-on session (thread record updated)",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "f6d74844-263d-4ba9-8e35-2b7bd0501333",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }
