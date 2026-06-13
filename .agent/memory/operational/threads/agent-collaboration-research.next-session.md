@@ -19,8 +19,9 @@ merge_class: index-narrative-tables
 
 ## Status
 
-**WS0–WS4 COMPLETE + first-hand verified; WS5/WS6 remaining (owner sequenced separately,
-2026-06-13). Lane consolidated to Kayak herds Ballast (`328eee`), sole owner.** Cast progression
+**WS0–WS6 COMPLETE + first-hand verified; WS7 (archive-not-delete) OWNER-GATED on ratification of the
+WS5 proposal (2026-06-13). Lane: Kayak herds Ballast → succeeded by Bluebell mends Mulch (`c2ef19`),
+sole owner.** Cast progression
 on `feat/comms-research`: Katydid hunts Roost + Myrtle weaves Thicket (WS0–WS3) → Geyser stirs
 Bronze (WS3-forward + B/D/M2) → Kayak herds Ballast (WS4 liveness/coordination/emergent + anchor
 verification + consolidation). The companion plan
@@ -65,8 +66,30 @@ Progress:
 - **ArcAngel** relocated to the tracked home `.agent/collaboration/rapid-comms/` (owner-directed
   early WS7 slice); the live peer channel is `rapid-comms/2026-06-13-katydid-myrtle.md`.
 
-**Next safe step (WS5/WS6 — owner sequenced separately)**: WS5 rotation strategy → owner
-ratification (NO deletion in research; the §Non-Held Rotation Strategy framing below is the input) and WS6 comprehensive synthesis. Both led by Kayak herds Ballast. **Open items to carry**: (1) PR #207
+**WS5 RATIFIED by owner 2026-06-13** ("ratify as proposed"). WS5 + WS6 COMPLETE (Bluebell mends Mulch):
+two-round-adversarially-reviewed rotation proposal
+(`reports/agentic-engineering/2026-06-13-ws5-rotation-strategy-proposal.md`); comprehensive synthesis
+(`2026-06-13-ws6-comms-corpus-synthesis.md`); §11 re-verify closed first-hand
+(`2026-06-13-reverify-outcomes-bluebell.md`: 6 anchors PENDING-FH→FH, 4 stale figures corrected).
+
+**Next safe step — a DEDICATED CONSOLIDATION SESSION (owner-directed 2026-06-13), then WS7 engineering.**
+Rationale (metacognition): consolidating this research's findings under the load of a long
+research+decision session would be a live instance of M2 (the learning-loop-doesn't-fire-under-pressure
+finding the research itself surfaced); capture-first already conserved all signal in durable artefacts,
+so a fresh session does the distil→graduate→enforce justice. Two follow-on bodies, sequenced:
+
+1. **Consolidation (knowledge curation)** — author the rotation **PDR (≈PDR-094) + ADR (≈ADR-199)**
+   recording the ratified decision (also WS7's mandated-first step); draft PDRs for the doctrine-grade
+   findings (M2 active-vs-passive enforcement; SC1 enforce-or-remove the dead linkage fields); hand the
+   §5 routed recommendations to their named consumer plans; absorb failure-mode/behaviour-note session
+   captures into napkin/distilled; pending-graduations entries for note-grade findings; run
+   `oak-consolidate-docs`.
+2. **WS7 engineering** — the code-bearing migration (5 schemas + `fixtures/` → agent-tools workspace;
+   preserve `experiments/`; gitignore `.agent/state/` with the README anchor; archive-move events past
+   the window; the pre-archive-move provenance guard). Gated on the PDR/ADR existing first (step
+   ordering in the WS5 proposal §5).
+
+**Open items to carry**: (1) PR #207
 "commit-queue ×5" → "4 enumerable" post-merge follow-up on `main`; (2) one-decision-home PR shape
 awaits owner confirm; (3) `feat/comms-research` ~28 behind `origin/main` (PR back-links
 dangle-until-merge); (4) 2 Dependabot vulns on `main` (1 high / 1 low, owner-flagged); (5) the
@@ -535,6 +558,7 @@ Relevance to this research thread:
 | Katydid hunts Roost | claude-code | Fable 5 | a4314f | 2026-06-12 | 2026-06-12 | research session (claim 8910ee5f): WS0 grounding + corpus facts re-derived (5,003 events, 2026-05-20→06-12, zero lifecycle-kind); successor-seat WS1 contamination disclosed (events 37523113/8cefbe36) and owner-cured — WS1 cold read delegated to multiple fresh-context Fable 5 blind readers; entry-point fence banner added |
 | Geyser stirs Bronze | claude-code | Opus 4.8 | 3636b0 | 2026-06-13 | 2026-06-13 | forward lane (Myrtle PDR-063 handoff; claims eb88ee15→6603978f): B/D/M2 FH-verification, ~37 REVIEW disposition (0 new spine class), SC1 live-test sharpening, PR convergence with Flame; stood down on owner-directed consolidation to Kayak |
 | Kayak herds Ballast | claude-code | Opus 4.8 | 328eee | 2026-06-13 | 2026-06-13 | successor + consolidated lane owner (claim b76045bb): critical re-assessment of WS0–WS3; crash-safety flush (full corpus committed+pushed); WS4 liveness/coordination/emergent fan-out + 18-anchor verification; corrections (S9-cured, SC1-sharpened, T7 5→4, swap-finding retracted); mutual-FH loop with Geyser; PR #207 post-merge faithfulness review; WS5/WS6 owner-sequenced-separately |
+| Bluebell mends Mulch | claude-code | Opus 4.8 | c2ef19 | 2026-06-13 | 2026-06-13 | successor + sole lane owner (claim `agent-collaboration-research`): closed Kayak's §11 re-verify list first-hand (H1/L1/CC1/CC3/T5/S7-3-6s promoted PENDING-FH→FH; SC8 21→66, SC9 ~167→~181 + 7.0% miss, SC1 framing); authored WS5 rotation-strategy proposal (two-round adversarial review — invariant-3 resolvability cured via inline-quote-first + tracked cited-events digest + pre-archive-move guard; SC3 bulk-classification hole closed; invariant-4 honestly restated); authored WS6 synthesis; reconciled plan-todo drift; put WS5 to owner for ratification |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 
