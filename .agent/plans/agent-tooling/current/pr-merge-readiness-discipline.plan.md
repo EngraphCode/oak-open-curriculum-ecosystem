@@ -1,6 +1,6 @@
 ---
 name: "PR Merge-Readiness Discipline (oak-pr)"
-overview: "Make premature PR merge mechanically impossible. A pull request is merge-ready only when it is mergeable, every required check is terminal-green, AND every review comment is resolved with a code correction or refuted with a reply — never green-checks alone. Cure is layered strongest-first: GitHub branch protection (require conversation resolution), a mechanical merge-readiness CLI checker, and an oak-pr skill plus an always-loaded rule that wrap and fire the gate. Grounded in a real 2026-06-13 failure: PR #203 merged with four unread Copilot comments (three valid machine-local-path findings, one valid clock-skew bug)."
+overview: "Establish the full PR/commit lifecycle discipline — creation, review, responding to comments, and merging — backed by mechanism, rules, skills, and tools. The originating spine is merge-readiness: a pull request is merge-ready only when it is mergeable, every required check is terminal-green, AND every review comment is resolved with a code correction or refuted with a reply — never green-checks alone. Cure is layered strongest-first: GitHub branch protection (require conversation resolution), a mechanical merge-readiness CLI checker, and an oak-pr skill plus an always-loaded rule that wrap and fire the gate; the skill also carries the broader lifecycle conventions (commit, push, gate/hooks, review/merge) the WS3 comms-corpus research surfaced. Grounded in a real 2026-06-13 failure (PR #203 merged with four unread Copilot comments) AND the WS3 failure-mode taxonomy's PR/commit failure family."
 status: "QUEUED — owner-directed 2026-06-13 (design ratified in-session; owner chose 'capture as a plan only'; owner enables branch-protection layer directly)"
 todos:
   - id: ws0-branch-protection
@@ -22,6 +22,10 @@ todos:
     content: "WS4 (separable follow-on): close the validate-portability scope gap that let machine-local `/Users/...` paths in `agent-tools/tests/` reach a merged PR (#203) without tripping the gate. Confirm the validator's file scope, extend it to cover test fixtures (and any other unscanned version-controlled trees), TDD a negative-control fixture. This is the structural cure for the specific class that escaped on #203."
     status: pending
     depends_on: []
+  - id: ws5-lifecycle-conventions
+    content: "WS5: fold the WS3-grounded commit/push/gate/review-merge candidate inputs (see the Evidence base section) into the oak-pr skill (WS2) at their lifecycle stage, with the decided disposition per item — most are EXISTING rules to consolidate/reference (stage-by-explicit-pathspec, no-verify-requires-fresh-authorisation, no-backfill, pin-SHA-when-pre-grounding, PDR-078/ping-before-escalate, PDR-064 two-moments warden), per consolidate-at-third-consumer NOT re-authored. Two genuine NEW gaps land as oak-pr skill clauses (not new always-loaded rules — single-lifecycle-stage scope): (a) COMMIT_EDITMSG message-identity isolation — prescribe a per-intent message file (`git commit -F <file>`) so a peer cannot overwrite `.git/COMMIT_EDITMSG` during the pre-commit window; (b) whole-tree-gate ⇄ commit-scope alignment in shared trees — guidance to diagnose a peer's untracked edits breaking your gate, separating tree-state from branch-content. One item is a TOOL-FIX routed to the agent-tools lane, NOT this plan's build: the `commit-queue`-wrapper captured-hook-output defect (five instances, distilled/napkin) — interim convention is the direct gated commit (Path-B). The push-proof clause (transfer line + `git ls-remote`, never the hook banner) is a graduation candidate already in distilled; reference it from the skill."
+    status: pending
+    depends_on: [ws2-oak-pr-skill]
 isProject: false
 ---
 
@@ -44,9 +48,11 @@ on a surface that does not gate the merge button.
 ## Scope — the four PR activities
 
 Agents now routinely **create**, **review**, **respond to comments on**, and **merge** pull
-requests, so the `oak-pr` skill (WS2) covers all four, each backed by mechanism/rule/skill/tool
-(this plan supersedes and conserves the intent of the earlier
-`pull-request-best-practice-and-rules` need-statement):
+requests, so the `oak-pr` skill (WS2) covers all four, each backed by mechanism/rule/skill/tool.
+This plan is the decision home for the companion evidence doc
+[`../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md`](../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md)
+(the WS3-grounded candidate inputs; see the Evidence base section): the doc preserves the
+evidence, this plan owns the decisions.
 
 - **Creation**: flat PR onto the base branch; conflict/divergence resolved before opening or
   via semantic merge; commit hygiene (explicit pathspec, no half-committed renames — the
@@ -78,6 +84,37 @@ The discipline's value was then demonstrated live: the **comment-sweep-before-me
 applied to PR #204 itself, caught a further valid Copilot comment (the `/repo` placeholder was
 still a non-resolving absolute path, which the `no-machine-local-paths` owner ruling forbids)
 *before* #204 merged.
+
+## Evidence base (WS3 comms-corpus research)
+
+The 2026-06-13 comms-corpus WS3 failure-mode taxonomy surfaced a coherent PR/commit failure
+family, every class grounded in first-hand-verified comms events. That evidence is preserved
+in the companion notes doc
+[`../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md`](../../agentic-engineering-enhancements/pull-request-best-practice-and-rules.md)
+(landing on `main` via the comms-research branch) with full analysis and cited events in
+[`../../../reports/agentic-engineering/2026-06-13-ws3-deep-dives.md`](../../../reports/agentic-engineering/2026-06-13-ws3-deep-dives.md)
+(§D) and the taxonomy
+[`../../../reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md`](../../../reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md).
+The notes doc deliberately preserves the evidence and **not** the conclusion; this plan owns
+the decision. The decided disposition per candidate input (decision-complete):
+
+| Candidate input | Stage | Disposition (decided) |
+| --- | --- | --- |
+| Explicit-pathspec staging + verify-staged-set (`0ba2c822`) | Commit | EXISTING — `stage-by-explicit-pathspec` + commit-queue verify; reference from the oak-pr skill, do not re-author |
+| Commit-subject length pre-flight (commitlint 100; `e7878e41`) | Commit | EXISTING — the `oak-commit` skill enumerates it; reference |
+| COMMIT_EDITMSG message-identity isolation (`230f3200`) | Commit | **NEW gap** — oak-pr/oak-commit skill clause: per-intent message file (`git commit -F`), never the shared `.git/COMMIT_EDITMSG`. WS5. (Worked twice this session — the blocked-compound-command reused a prior message.) |
+| Push proof = transfer line + `git ls-remote`, never the hook banner (`e589b3c7`) | Push | EXISTING-candidate — graduation candidate in `distilled.md`; reference from the skill |
+| Prefer direct gated commit (Path-B) over the `commit-queue` wrapper (`5ef5f1c0`, ×5) | Push/commit | **TOOL-FIX** — routed to the agent-tools lane (wrapper captured-hook-output defect); interim convention in the skill |
+| `--no-verify` is owner-authorised per instance; a hook block is a question (`054f1469`) | Gate | EXISTING — `no-verify-requires-fresh-authorisation`; reference |
+| Whole-tree-gate ⇄ commit-scope alignment in shared trees | Gate | **NEW gap** — oak-pr skill clause (diagnose tree-state vs branch-content); a gate-scoping tool change is a flagged candidate, not built here. WS5 |
+| Review-dispatch before commit/merge, no backfill (`3d56f233`) | Review | EXISTING — `no-backfill`; reference |
+| Pin the SHA when pre-grounding a peer PR (`b46ccedd`) | Review | EXISTING — `pin-SHA-when-pre-grounding`; reference |
+| Merge-window liveness: ping-before-escalate + git-evidence (`5fb2bcd9`) | Merge | EXISTING — PDR-078 / `ping-before-escalate`; reference |
+
+Two-moments warden handoff for the commit/push-window singleton (PDR-064) and
+execution-start re-verification are "what worked" — the skill encourages, not mandates, them.
+Net: the genuine NEW authoring is narrow (two skill clauses); everything else is
+consolidate-and-reference per `consolidate-at-third-consumer`, or a routed tool-fix.
 
 ## Mechanism — layered cure, strongest first
 
@@ -120,6 +157,7 @@ PR&nbsp;#203.
 | ws2 | the oak-pr skill drives a PR end-to-end with the gate enforced; `subagents:check` + `portability:check` green; settings permission pair present | skill adapters generated + gates green + a worked PR run |
 | ws3 | the rule exists in all on-disk forms + RULES_INDEX; new-rule-vs-pdr-clause applied | `portability:check` + rule-form parity |
 | ws4 | the portability validator flags a machine-local path planted in a test fixture | TDD negative-control (RED then GREEN) |
+| ws5 | every Evidence-base candidate input appears at its lifecycle stage in the oak-pr skill with its decided disposition; the two NEW gaps are skill clauses (not new always-loaded rules); the TOOL-FIX is routed to the agent-tools lane, not built here | skill content review against the Evidence-base table |
 
 ## Non-goals
 
