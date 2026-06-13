@@ -58,6 +58,13 @@ to the owner) + WS6 synthesis. WS7 owner-gated. This record remains the research
 (hypothesis, themes, vectors, corpus facts). **Blind-pass note**: the WS1 cold read was kept
 blind via delegation; the executing seat's own contamination is disclosed and cured.
 
+**Succession**: owner named **Kayak herds Ballast** as Katydid hunts Roost's eventual successor
+on this lane (2026-06-13). Pickup surface for Kayak: this record + the running-notes lab
+notebook (`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`) + the
+committed substrate at `feat/comms-research` `9aaa6f710`. Katydid retains the research claim
+and continues (WS4 liveness/coordination/emergent) until the handoff is triggered; Myrtle weaves
+Thicket holds WS4 substrate-credibility + commit/concurrency + M2 in parallel.
+
 ## Origin
 
 Created 2026-05-24 at the post-M1-Safe-Pause-merge boundary by Charcoal Brazing Kiln
