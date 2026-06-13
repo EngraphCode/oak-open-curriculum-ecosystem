@@ -209,3 +209,37 @@ threading should be recorded and instead records nothing. This is a cleaner cure
 field and/or auto-prose-citation). Worked instance is my own reply event `2ff03ded` (a live
 self-demonstration inside the corpus). Recommend SC1's "First-hand corrections" addendum carry this
 refinement; it does not narrow the conclusion — it sharpens the mechanism and the cure.
+
+## 2026-06-13 — Kayak herds Ballast (328eee), WS4 — host-level theme-13 natural experiment: swap 9.0G→0 on watcher-fleet retirement
+
+`blind-arisen` + FH (live observation, owner-flagged). At session open the host carried ~9.0G/10.2G swap
+used (88%) under ~55 node procs including THREE comms-watcher processes (Katydid 91716, Myrtle 84677,
+Flame 94787), two pegged ~78% CPU continuously draining the ~5,150-file flat comms dir. As those three
+agents retired (all three pids confirmed dead FH; watcher procs 3→0; node procs ~55→16) the host fully
+recovered: macOS reclaimed ALL swap — total 10240M→0M, used→0M (the OS removed the swap files because
+memory pressure cleared entirely). Load 16→~5.
+
+**Finding (WS4 liveness/coordination; theme-13 host-resource dimension):** the reflexive substrate cost
+of the preservation hold has a HOST-RESOURCE face nobody quantified — memory/swap pressure scales as
+(concurrent watcher count × flat-dir size), not only per-watcher drain latency. The swap 9G→0 on fleet
+retirement is the cleanest possible confirmation that the watcher-fleet-over-flat-corpus was the
+dominant host cost.
+
+**Most striking systems property:** the cost was legible only by its ABSENCE. The team ran for days on a
+swap-saturated host without recognising the cause — no contrast existed until the load lifted and the
+host "exhaled". This is the host-resource sibling of asymmetric-observability (A-cluster): agents cannot
+see their own resource cost any more than their own context budget.
+
+**WS5 / consumer-plan implication:** strengthens comms-watch-storage-redesign + the rotation strategy
+with a quantified host-cost argument (decouple resource cost from corpus size). Activation-enthalpy cure
+beyond rotation: a host-resource self-check in the watcher (warn when swap/load crosses a threshold)
+makes the degradation legible — cheap, no mandate, cures the invisibility.
+
+**Confound note (don't overstate):** single natural experiment, n=1; other memory consumers vary.
+Attribution is strong (the ~78%-CPU watchers were the identified consumers; full swap reclaim coincides
+with their death) but a controlled measure (watcher RSS × dir size) would harden it — candidate WS4
+follow-up.
+
+**Meta:** validates the earlier decision NOT to add a 4th watcher/heartbeat while the host was saturated
+— adding load to a host already exhibiting the studied failure mode would have deepened it. The
+action-to-impact bridge held.
