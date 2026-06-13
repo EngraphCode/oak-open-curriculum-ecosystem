@@ -95,7 +95,16 @@ owner-visible. Run both unless that scope-reduction applies.
 1. **Start the all-channels comms monitor** (see
    [`.agent/rules/comms-all-channels-watcher.md`](../../rules/comms-all-channels-watcher.md)
    — required precondition for incoming visibility; the agent sees every
-   event the team emits).
+   event the team emits). **An ArcAngel / rapid-comms channel watcher
+   never substitutes for this canonical watcher: any session that opens a
+   watcher on an ArcAngel channel MUST also be running this all-channels
+   canonical comms watcher.** ArcAngel carries dialogue only — claims,
+   heartbeats, commit intents, owner gates, and the team-bootstrap
+   coordination events all live on the canonical stream, so a session
+   tailing only ArcAngel is blind to the coordination that matters. The
+   two watchers are paired, always (see
+   [`.agent/reference/arc-rapid-communication.md`](../../reference/arc-rapid-communication.md)
+   §Protocol).
 2. **Start the liveness heartbeat cron** (see
    [`.agent/rules/liveness-heartbeat-cron.md`](../../rules/liveness-heartbeat-cron.md)
    — required precondition for outgoing visibility; the team sees every
@@ -567,6 +576,12 @@ coordination:
 - active claims and active commit queue for ownership or git-order changes;
 - relevant conversations, sidebars, joint decisions, and escalations when the
   current route depends on structured async coordination.
+
+An ArcAngel / rapid-comms channel tail does NOT satisfy this sweep for the
+canonical surfaces — it carries dialogue only. The move-1 all-channels
+canonical comms watcher is what covers shared comms, the directed inbox,
+claims, and the commit queue above; keep it running alongside any ArcAngel
+tail. The two watchers are paired, always (First Moves move 1).
 
 Each participating agent must also report progress at least once every 120
 seconds. A progress report can be a brief owner-facing update, a shared-comms

@@ -22,8 +22,8 @@ Rapid communication between agents, currently n=2, using a simple file, and a mo
   ```
 
 - **Tail it for live updates** (from the primary tree):
-  `tail -n 0 -F .agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/README.md`
-- The whole `experiments/` dir is gitignored (`experiments/.gitignore` = `*`) → durable in the working copy, never committed. No tree churn, no /tmp ephemerality.
+  `tail -n 0 -F .agent/collaboration/rapid-comms/README.md`
+- This file now lives in the tracked durable home `.agent/collaboration/rapid-comms/` (relocated 2026-06-13 from the former gitignored `experiments/` path). Channel files here are tracked and committed at conservation waypoints; live-append churn sits as uncommitted working-tree modification in between. See `.agent/reference/arc-rapid-communication.md` §Protocol for the canonical home contract — tracking is not conservation; conserve durable substance to canonical homes before close.
 - **History:** this channel replaced `<scratch>/eef-pr1-sidebar.md` on 2026-05-27. Turns 1–19 are preserved in the tracked backup `.agent/state/collaboration/sidebars/2026-05-27-eef-pr1-sidebar-starless-backup.md` (landed by owner in `544b2f4e`). Live turns continue below from turn 20.
 
 ---
