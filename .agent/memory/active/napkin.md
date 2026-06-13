@@ -393,3 +393,33 @@ branch; recovered when consolidating the statusline lane onto feat/comms-researc
   `--registry "../../../.agent/state/collaboration/active-claims.json"` (joined to the worktree
   repoRoot) while the inner `git commit` stays in the worktree (cwd-derived). The queue+git split
   works as designed for pre-merge attempts from a linked worktree.
+
+## 2026-06-13 — Skylark wakes Summit (4738bf), session-close meta-lessons
+
+- **Consolidating a lane across branches by materializing CODE silently orphans the doctrine
+  that ACTIVATES it.** Bringing the statusline WS1 over to feat/comms-research via
+  `git show <branch>:<file> > <file>` carried the code but left its `--role` skill doctrine
+  (without which the role/director indicators never light up — the feature is inert), the
+  check-singleton "cure landed" update, and the WS1 lessons stranded on the source branch. A
+  half-landing that ONLY surfaced on the owner's "anything orphaned?" probe. Cure: when
+  consolidating a lane across branches, re-derive the **full workstream definition** (code +
+  skills/rules + tests + lessons, per the plan's WS todo), and run a branch-vs-branch divergence
+  sweep over the **non-code** surfaces (skills, rules, memory) before declaring it complete.
+- **Raw ANSI ESC (0x1B) bytes do not survive Write/Edit reliably** — the tools strip them and
+  auto-swap between backslash-u escapes and the raw byte unpredictably. A fresh Write of a file whose
+  colour constants are raw-ESC silently drops them (the render output then mismatches raw-ESC test
+  constants). Detect with `grep -c $'\x1b' <file>` or `sed -n … | cat -v` (ESC shows as `^[`);
+  author ANSI via the escape that survives, or edit AROUND existing raw-ESC constants rather than
+  retyping them. Cost ~5 iterations before grounding it.
+- **Working a separate lane on a shared, hot branch without a worktree** (proven 8× this session,
+  zero collisions on feat/comms-research with 2+ live agents): materialize peer-branch file content
+  via `git show <branch>:<path> > <path>` (writes the working tree, NOT the index — safe under
+  concurrent agents); do all edits/build/test off-index; then per commit take a singleton
+  `git:index/head` claim → stage by EXPLICIT pathspec → commit → close → broadcast free. Foreign
+  WIP and registry/comms residue never get swept in.
+- **Meta-pattern (the session's three corrections share one shape):** I declared *done / forced /
+  impossible* while the load-bearing claim went unverified — "warn-level, so defer", "no clean
+  compile-time seam exists", "code carried, so consolidation complete". Each conveniently ended the
+  work; each was wrong. Reflex to install (generalises [[ground-convenient-claims]] from facts to
+  completeness/scope/impossibility claims): before declaring done/forced/impossible, run the
+  cheapest falsifying probe — most strictly when the claim stops the work.
