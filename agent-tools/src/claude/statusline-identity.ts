@@ -3,11 +3,12 @@
  * Claude Code statusline adapter.
  *
  * @remarks
- * Reads the JSON object Claude Code passes on stdin and prints a single
- * statusline of the form:
+ * Reads the JSON object Claude Code passes on stdin and prints a two-line
+ * statusline — line 1 the coordination segments, line 2 the git location:
  *
  * ```text
- * <agent-identity> · <model> · ctx:N% · <branch>[*] · <dir or wt:worktree>
+ * <agent-identity>[ 🧭] · [👪|👥][ 🪶] · <model> · ctx:N%
+ * <branch>[*] · <dir or wt:worktree>
  * ```
  *
  * The agent-identity name (PDR-027) is produced by the built `agent-identity`
