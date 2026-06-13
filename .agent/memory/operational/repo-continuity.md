@@ -72,12 +72,18 @@ surface.
   Deep consolidation status: completed this handoff — session-completion mode (the dedicated
   pass ran earlier today, Thyme wakes Canopy; this pass captured and routed the session's
   learning, verified buffers, `pnpm check` green on `5a2ac400b` + closeout edits).
-  (b) the enhanced-statusline lane is PAUSED (Monsoon guards
-  Cirrus `aaa0b7`, worktree `wt:statusline-enhancements`, branch `feat/statusline-enhancements`,
-  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)):
-  comms event `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream
-  `/keywords` description change) with WS1 staged and the commit window closed without
-  landing — resume is owner-keyed.
+  (b) the statusline lane is now UNIFIED (owner-directed 2026-06-13: the Oak-mark work
+  folded into the indicators lane — same `renderStatusline` surface,
+  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)).
+  The **Oak acorn mark LANDED** (commit `40ef58a06`, UNPUSHED, on `feat/comms-research`;
+  4-row logo-column, default `braille-sharp` via `OAK_STATUSLINE_LOGO`). The session-shape
+  indicators remain PAUSED (Monsoon guards Cirrus `aaa0b7`, worktree
+  `wt:statusline-enhancements`, branch `feat/statusline-enhancements`): comms event
+  `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream `/keywords`
+  description change) with WS1 staged and the commit window closed without landing.
+  **Next safe step**: push `40ef58a06` and reconcile the two branches onto one base; re-fit
+  WS3 to the new 4-row logo-column layout (its single-line framing is superseded); then
+  clear the WS1 blocker. See the plan §Landed + §Pickup.
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session
