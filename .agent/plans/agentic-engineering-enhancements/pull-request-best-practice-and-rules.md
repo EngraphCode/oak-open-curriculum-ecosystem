@@ -1,3 +1,7 @@
+> **Decision home:** the decisions on these candidate inputs live in the
+> [PR Merge-Readiness Discipline plan (oak-pr)](../agent-tooling/current/pr-merge-readiness-discipline.plan.md).
+> This doc preserves the WS3 evidence; that plan owns the decisions (its Evidence base section).
+
 Agents are carrying out more pull request creations, reviews, responding to comments, and merging.
 
 We need rules, guidance, best practices, and conventions for pull request creation, review, response, and merging.
@@ -38,7 +42,7 @@ and the eventual rule/skill/tool set is open. Full analysis + cited events:
 
 **Gate / hooks:**
 
-- **`--no-verify` is owner-authorised per instance; a hook block is a question** (`054f1469`).
+- **`--no-verify` is owner-authorised per instance; a hook block is a question, typically the answer is no** (`054f1469`).
   **EXISTING:** `no-verify-requires-fresh-authorisation` — reference.
 - **Whole-tree-gate ⇄ commit-scope alignment in shared trees** — a peer's untracked edits can
   break your gate. Candidate guidance + gate-scoping tool consideration. **GAP.**
@@ -50,6 +54,20 @@ and the eventual rule/skill/tool set is open. Full analysis + cited events:
   worktree) — `b46ccedd`. **EXISTING:** pin-SHA-when-pre-grounding.
 - **Merge-window liveness: ping-before-escalate + git-evidence** before reading silence as
   retirement (`5fb2bcd9` / `670cc290`). **EXISTING:** PDR-078 / ping-before-escalate.
+- **Resolve-or-refute every review comment before merge — never green-checks alone.** Advisory
+  reviewers (Copilot, cursor[bot]) sit on a surface that does not gate the merge button, so
+  "mergeable + CI green" is an incomplete readiness model; a PR is merge-ready only when every
+  review thread is also resolved-or-refuted. Founding worked instance: PR #203 merged on
+  green-checks with four unread valid comments (2026-06-13). **NEW** (oak-pr skill clause + the
+  merge-readiness gate; this is the originating decision of the oak-pr plan).
+- **Batch-resolve a review round; let advisory reviewers settle before responding.** Fixing one
+  comment, pushing, then drawing a fresh comment from the re-review produces a long
+  fix-push-per-comment convergence tail (worked instance: the 2026-06-13 arc — every follow-up
+  PR #204/#205/#206/#207 drew new advisory comments across successive re-review rounds). Cure:
+  after a push, let ALL advisory reviewers settle on that commit, then batch-resolve the round's
+  comments in one commit — minimising re-review cycles while still resolving-or-refuting each.
+  **NEW** (oak-pr skill efficiency clause; complements the resolve-or-refute gate, does not
+  replace it).
 
 ### What worked (encourage, not mandate)
 
