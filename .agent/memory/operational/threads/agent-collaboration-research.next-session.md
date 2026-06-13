@@ -9,23 +9,54 @@ merge_class: index-narrative-tables
 ---
 # Next-Session Record — `agent-collaboration-research` thread
 
+> **BLIND-PASS FENCE (read this before anything below).** Agents executing the companion
+> plan's open-discovery cold read defer BOTH `§Candidate Themes` sections until their WS1
+> surprises log is recorded — see `§Resume Contract`. A start-right full-record read
+> contaminates the cold read (worked instance 2026-06-12, Katydid hunts Roost, comms events
+> `37523113` / `8cefbe36`): if your session may execute WS1, stop here and read the opener
+> prompt at `.agent/prompts/agentic-engineering/comms-corpus-research-session.prompt.md`
+> FIRST.
+
 ## Status
 
-**Execution-ready; successor session executes (planning session closed 2026-06-12, Fern lifts
-Mulch / 66f12b).** The owner reshaped the first dispatch into a planning session: the companion
-plan
-[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
-is now decision-complete and execution-ready — owner-amended same day to own the full arc
-(WS6 comprehensive synthesis report; owner-gated WS7 executes the ratified end-state:
-contract-surface relocation, experiments/ preservation, `.agent/state/` untracked-by-design,
-7-day default retention purge post-absorption). Immediate preservation landed: the
-experiments/ gitignore policy was flipped and five machine-local experiment records committed.
-The successor research session enters via the
-[opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md) and
-begins at WS0. **Blind-pass attestation**: the planning seat did NOT open this record's two
-Candidate Themes sections, the fenced comms-pattern files, or prior napkin/distilled
-comms-pattern commentary — the WS1 cold read remains uncontaminated for the successor. This
-record remains the research-substrate home (hypothesis, themes, vectors, corpus facts).
+**IN EXECUTION — WS0+WS1 complete; WS2 drafted; WS3 in progress; make-safe checkpoint
+2026-06-13 (Katydid hunts Roost / a4314f + Myrtle weaves Thicket / adcccb, peer pair on
+`feat/comms-research`).** The companion plan
+[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
+is being executed under the owner's ultracode multi-wave strategy (see the plan's §Execution
+strategy + §Execution log).
+
+Progress:
+
+- **WS0 + WS2**: corpus surveyed (~5,120 events, 2026-05-20→06-13; 0 lifecycle-kind;
+  heartbeats ~45%→74%; ~48% one-way reports; 16 questions / 10 escalations corpus-wide).
+  Report: `reports/agentic-engineering/2026-06-12-ws2-corpus-survey.md` (+ scripts beside it).
+  Corrected first-hand: event→event threading is rare by ANY mechanism (`in_response_to`=0;
+  only 115 full-UUID tokens resolve to events), and the zero-lifecycle/low-tag findings have a
+  CAUSAL root — the comms CLI exposed no `--tags`/lifecycle authoring path (events `1e2c83eb`,
+  `ec86492e`).
+- **WS1**: WS1 was DELEGATED to fresh-context blind readers after the executing seat's
+  start-right contamination (disclosed `37523113`/`8cefbe36`; cured by the entry-point fence
+  banner above + delegation). All 8 cold-read logs complete (`ws1-cold-reads/`) with all 8
+  corroboration verdicts (`ws1-cold-reads/corroboration/`; R1 verifier 49/49 confirmed,
+  independently corroborating the citation correction). R2/R3 redone on Opus 4.8 after a
+  temporary Fable model outage.
+- **WS3** (Myrtle): failure-mode taxonomy in progress
+  (`reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md`), ~20 classes on a
+  substrate/tooling/agent/process/meta axis; M2 (learning-loop-doesn't-fire) promoted to the
+  spine.
+- **Running notes** (owner-directed insight safeguard): the lab-notebook write-ahead log is
+  `reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md` (both researchers
+  append; capture-first).
+- **ArcAngel** relocated to the tracked home `.agent/collaboration/rapid-comms/` (owner-directed
+  early WS7 slice); the live peer channel is `rapid-comms/2026-06-13-katydid-myrtle.md`.
+
+**Next safe step**: make-safe commit of the research substrate to `feat/comms-research`, then
+WS4 deep-dives split (Katydid: liveness/heartbeat + coordination + cold-read emergent; Myrtle:
+substrate-credibility + commit/concurrency + M2), then co-authored WS5 rotation proposal (put
+to the owner) + WS6 synthesis. WS7 owner-gated. This record remains the research-substrate home
+(hypothesis, themes, vectors, corpus facts). **Blind-pass note**: the WS1 cold read was kept
+blind via delegation; the executing seat's own contamination is disclosed and cured.
 
 ## Origin
 
@@ -414,7 +445,7 @@ The comms/coordination plan cluster is indexed at
 disposition of overlapping plans routes through the rightsizing keystone's M4, not per-plan.
 Relevance to this research thread:
 
-- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
   — **the companion executable plan** (created 2026-06-12 under owner direction); dispatch
   vehicle for this record's research vector.
 - [`collaboration-substrate-coordination-rightsizing.plan.md`](../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
@@ -477,6 +508,7 @@ Relevance to this research thread:
 | Twilit Orbiting Satellite | claude | claude-opus-4-8 | 263042 | 2026-05-29 | 2026-05-29 | routing-legacy-fallback-sunset execution (Leafy claim `14b484d6` pickup) |
 | Firefly seeks Temper | claude | Fable 5 | ce44ae | 2026-06-12 | 2026-06-12 | record deep-dive + second theme seeding + rotation-strategy framing + companion-plan creation (owner-directed, Director seat) |
 | Fern lifts Mulch | claude-code | Fable 5 | 66f12b | 2026-06-12 | 2026-06-12 | planning session (owner-reshaped from research dispatch; claim 63d80264): WS6 synthesis-report + owner-gated WS7 end-state amendments, experiments/ preservation commit, continuation surfaces made execution-ready; blind-pass discipline honoured — Candidate Themes sections unread |
+| Katydid hunts Roost | claude-code | Fable 5 | a4314f | 2026-06-12 | 2026-06-12 | research session (claim 8910ee5f): WS0 grounding + corpus facts re-derived (5,003 events, 2026-05-20→06-12, zero lifecycle-kind); successor-seat WS1 contamination disclosed (events 37523113/8cefbe36) and owner-cured — WS1 cold read delegated to multiple fresh-context Fable 5 blind readers; entry-point fence banner added |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 

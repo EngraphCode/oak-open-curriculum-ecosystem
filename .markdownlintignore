@@ -53,6 +53,15 @@ packages/sdks/oak-curriculum-sdk/docs/api/**
 # format; the file is the cached render output.
 .agent/state/collaboration/shared-comms-log.md
 
+# ARC AnGels (ArcAngel) rapid-comms channel logs: append-only, multi-author
+# conversational turns — the same category as the rendered comms log above
+# (chat-shaped content may not satisfy MD032/MD031, and the append-only
+# convention forbids rewriting prior turns to fix formatting). The README
+# mechanism doc in the same directory stays linted as canon; only the dated
+# channel logs are excluded.
+.agent/collaboration/rapid-comms/2026-*.md
+.agent/collaboration/rapid-comms/.starless-notice-body.md
+
 # Playwright test results
 **/test-results/**
 **/test-artifacts/**

@@ -51,16 +51,28 @@ surface.
   seeding; the ask-the-repo search decision (research attached to PR-session transcript).
   **TWO-MEMBER TEAM UPDATE (2026-06-12, Fern lifts Mulch `66f12b`)**: (a) the comms-corpus
   lane ran as a PLANNING session (owner-reshaped in-session): the
-  [research plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+  [research plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
   is now DECISION-COMPLETE + EXECUTION-READY with the owner-amended end-state (WS6
   comprehensive synthesis report; owner-gated WS7 executes the ratified rotation: contract
   surfaces relocated, `experiments/` preserved — never purged, owner direction — `.agent/state/`
   untracked-by-design, 7-day default retention purge post-absorption); immediate
   `experiments/` preservation landed (gitignore flip + five machine-local records committed);
-  the WS1 blind pass is ATTESTED uncontaminated (planning seat never opened the Candidate
-  Themes sections or fenced pattern files). **The successor research session enters via the
-  [opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md)
-  and begins at WS0.** (b) the enhanced-statusline lane is PAUSED (Monsoon guards
+  the WS1 blind pass was attested uncontaminated by the planning seat. **MERGED to main as
+  PR 201 (`5a2ac400b`, 2026-06-12); planning session closed (handoff + consolidation run
+  no-commit at owner direction — expect those surface edits uncommitted in the tree).**
+  **Successor LIVE: Katydid hunts Roost `a4314f` (claim `8910ee5f`, research lane, corpus
+  read-only).** Their team-start (comms `37523113`, failure-mode tagged) discloses WS1
+  blind-pass CONTAMINATION: start-right's read-the-thread-record step led them through both
+  Candidate Themes sections before the opener's fence could fire — a structural ordering
+  collision (the fence lives inside the fenced artefact). **Owner decision pending in their
+  session: WS1 shape** — fresh-context delegate cold readers (Katydid's recommendation,
+  endorsed by the planning seat in comms `99771de2`) vs re-dispatch WS1 to a fresh session.
+  WS2–WS5 are not blindness-dependent and proceed either way. The entry-point fence-banner
+  cure on the thread record is routed to Katydid (the record is inside their claim).
+  Deep consolidation status: completed this handoff — session-completion mode (the dedicated
+  pass ran earlier today, Thyme wakes Canopy; this pass captured and routed the session's
+  learning, verified buffers, `pnpm check` green on `5a2ac400b` + closeout edits).
+  (b) the enhanced-statusline lane is PAUSED (Monsoon guards
   Cirrus `aaa0b7`, worktree `wt:statusline-enhancements`, branch `feat/statusline-enhancements`,
   [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)):
   comms event `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream
@@ -70,7 +82,7 @@ surface.
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session
   ([opener](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md) →
-  [plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md),
+  [plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md),
   readiness-reviewed READY-WITH-AMENDMENTS, amendments applied; owner gate: mark ready).
   Queued behind it, owner-named: (1) organise the research's follow-ons; (2) complete naming
   v3 (shape decision input:
@@ -125,8 +137,10 @@ surface.
   [seam analysis](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md), and the
   [session operations + experience report](../../reports/graph-team-session-operations-and-experience-2026-06-10-11.md).
   **Live remainder**: the Director-queue agent-tools lanes (control-byte gate-check, CLI
-  relative-path hardening, comms-reply prefix resolution, watcher-non-exit fix, comms-store
-  scalability — register-recorded); the generalisation plan's x5 owner walk; w3-c1 + S3
+  relative-path hardening — now carrying the worktree-lockout shape, comms-reply prefix
+  resolution, watcher-non-exit fix, comms-store scalability — register-recorded; PLUS the
+  `commit-queue -- commit` spawn/capture defect, five instances two agents 2026-06-12,
+  signature + Path-B recovery in the napkin); the generalisation plan's x5 owner walk; w3-c1 + S3
   principles + next product tranche at owner direction. Open owner items: principles-prompt
   attribution validation (gates the S3 principles follow-on); bulk-export-lags-live (hold
   as-is, owner 06-11); output-schemas execution routing (gate satisfied — entry below). The
@@ -264,9 +278,28 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Fable 5 / Fern lifts Mulch / planning-session — plan decision-complete + execution-ready, owner-amended WS6/WS7 end-state, successor session executes via the opener / 2026-06-12 (prior: Firefly seeks Temper record-deep-dive + companion-plan + dispatch-released 2026-06-12, Twilit Orbiting Satellite routing-sunset execution 2026-05-29) |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Fable 5 / Katydid hunts Roost / research-execution — WS0+WS1 complete (8 cold reads + 8 corroboration verdicts), WS2 survey drafted, WS3 in progress, ArcAngel relocated to tracked home / 2026-06-13; claude-code / Opus 4.8 / Myrtle weaves Thicket / peer — WS3 failure-mode taxonomy / 2026-06-13 (prior: Fern lifts Mulch planning 2026-06-12, Firefly seeks Temper deep-dive+plan 2026-06-12, Twilit Orbiting Satellite routing-sunset 2026-05-29) |
 
 ## Next Safe Steps
+
+### Comms-Corpus Research (active lane, 2026-06-13)
+
+Two-agent peer pair on `feat/comms-research` (Katydid hunts Roost + Myrtle weaves Thicket),
+executing
+[`comms-corpus-research-and-rotation-strategy`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md).
+**Done**: WS0 (corpus survey, ~5,120 events), WS1 (8 blind cold reads + 8 corroboration
+verdicts, all complete; R2/R3 redone on Opus after a Fable outage), WS2 survey drafted
+(corrected: event→event threading rare by any mechanism; citation theatre rare; ~48%
+one-way reports; tag-namespace-unreachable is the causal root of the zero-lifecycle/low-tag
+findings). ArcAngel relocated to the tracked home `.agent/collaboration/rapid-comms/`
+(owner-directed early WS7 slice). Running research-notes lab-notebook live at
+`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`. **Next safe step**:
+make-safe commit of the research substrate to `feat/comms-research` (owner-directed
+checkpoint), then WS4 deep-dives split — Katydid: liveness/heartbeat + coordination +
+cold-read emergent; Myrtle: substrate-credibility + commit/concurrency + the M2
+learning-loop spine class. WS5 rotation proposal + WS6 synthesis co-authored. WS7 owner-gated.
+Deep consolidation status: not due — session captures routed to permanent homes (reports,
+research-notes log, thread record).
 
 ### School Data Search
 
@@ -351,7 +384,7 @@ Live remainder:
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
 3. Comms-event rotation remains paused until the
-   [comms-corpus research plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)'s
+   [comms-corpus research plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)'s
    WS5 proposal is owner-ratified (the plan exists and is execution-ready as of
    2026-06-12; its owner-gated WS7 is the only legitimate rotation-execution
    surface); fitness is routing evidence only — never archive, split, shard, or

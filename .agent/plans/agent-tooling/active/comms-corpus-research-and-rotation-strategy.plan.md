@@ -1,14 +1,14 @@
 ---
 name: "Comms-Corpus Research and Rotation Strategy"
 overview: "Dedicated research pass over the preserved .agent/state/collaboration/comms/ corpus (4,978 events as of 2026-06-12T15:45Z, fully git-tracked since 567bf0f1a — re-derive at WS0): blind cold read, automated survey, failure-mode taxonomy, prioritised theme deep-dives, mechanism recommendations routed to the comms/coordination plan cluster, a ratification-ready non-held rotation strategy that ends the preservation hold without losing unprocessed signal, and (owner-amended 2026-06-12) the owner-gated execution of the ratified end-state: .agent/state/ untracked, experiments/ preserved, comms events beyond the retention window deleted post-absorption. Companion to the agent-collaboration-research thread record, which owns the hypothesis, analysis vectors, and seeded themes."
-status: "DECISION-COMPLETE + EXECUTION-READY (planning session 2026-06-12, Fern lifts Mulch / 66f12b: end-state amended under owner direction — WS6 gains the comprehensive synthesis report, new owner-gated WS7 executes the ratified rotation inside this plan; experiments/ preservation landed immediately. The successor research session executes WS0+ via the opener prompt; the WS1 blind pass is attested uncontaminated — the planning seat did not open the Candidate Themes sections or the fenced pattern files)"
+status: "IN EXECUTION (research session 2026-06-12, Katydid hunts Roost / a4314f: WS0 complete; WS1 running via owner-decided delegated blind cold readers after the successor seat's disclosed contamination — six of eight reader logs landed, R2/R3 re-dispatch staged; execution strategy owner-amended same day to the ultracode multi-wave shape recorded in §Execution strategy)"
 todos:
   - id: ws0-grounding
     content: "WS0: read the agent-collaboration-research thread record (resume contract) EXCEPT its two Candidate Themes sections, which are deferred until the WS1 surprises log is recorded (blind-pass exception in the record's Resume Contract); read the comms-event schema and this plan; confirm corpus size/span first-hand."
-    status: pending
+    status: completed
   - id: ws1-open-discovery
-    content: "WS1: open-discovery cold read — read corpus date-windows BLIND to the seeded theme catalogue AND to the comms-pattern files in .agent/memory/active/patterns/ (notably substrate-pointer-read-as-current-state, cross-session-pattern-emergence, behaviour-nudge-pressure-design-constraints — do not open these or the thread record's themes sections until this pass is recorded); the 2026-05-20 -> 2026-05-24 window precedes BOTH theme seedings and is prime blind-read territory; note everything surprising, unexplained, or unclassifiable across all three lenses (failures, things that worked well, emergent behaviour); emit the surprises log. This pass runs FIRST among analysis passes so priors cannot anchor it."
-    status: pending
+    content: "WS1: open-discovery cold read — executed via delegated fresh-context blind readers (owner-decided 2026-06-12 after the successor seat's start-right contamination, disclosed in comms events 37523113/8cefbe36): eight readers briefed only on the three lenses + date windows, thread record / plans / patterns / memory surfaces fenced. COMPLETE 2026-06-13: all 8 surprises logs (R1-R8) carry full five-section structure incl. the mandatory we-did-not-expect-this; all 8 corroboration verdicts landed under ws1-cold-reads/corroboration/ (R1 verifier 49/49 confirmed, 0 refuted, independently corroborating the citation correction); R2/R3 completed on Opus 4.8 after a Fable model outage killed their Fable runs. The WS1 artefact (fronting synthesis under the contamination-and-delegation preamble) is the remaining synthesis step, folding the corrected findings. Surprises outrank seeded-theme confirmation downstream."
+    status: completed
   - id: ws2-automated-survey
     content: "WS2: automated corpus survey — scripted counts by kind/tag/author/day (partitioned by the three event-schema shapes BEFORE aggregating), burst and silence windows, response-linkage reconstruction (in_response_to is unpopulated across the corpus as of 2026-06-12 — reconstruct chains from body-text event-id citations, subject threading, and temporal adjacency), heartbeat-volume share, PLUS an anomaly scan (outlier events, unexplained clusters, chains fitting no known shape); emit the survey report with a prioritised shortlist that draws from BOTH the WS1 surprises log and the seeded catalogue."
     status: pending
@@ -91,9 +91,55 @@ speculation, which is what makes it ratifiable.
 
 ## Means
 
-The six workstreams in the frontmatter todos. WS1 runs first among analysis passes (blind);
-WS2 and WS3 follow; WS4 depends on WS1+WS2 prioritisation; WS5 depends on WS2+WS3; WS6
-closes.
+The workstreams in the frontmatter todos (WS0–WS7). WS1 runs first among analysis passes
+(blind); WS2 and WS3 follow; WS4 depends on WS1+WS2 prioritisation; WS5 depends on WS2+WS3;
+WS6 closes; WS7 is owner-gated execution.
+
+## Execution strategy (owner-directed 2026-06-12, ultracode multi-wave)
+
+The owner amended the execution profile mid-session: workflow-orchestrated agent fan-out at
+scale, statistical AND semantic methods, repeated passes ("if in doubt, do it again"), with
+critical validation of every finding. Initial waves value **numbers of agents over power**;
+later waves value **power**; every breadth wave seats one or two Fable 5 instances on the
+same task to catch what cheaper readers miss. This section is the execution contract for
+WS1–WS4 under that direction; acceptance criteria and the WS5/WS7 boundary are unchanged.
+
+- **Wave 0 — statistical index (local, no agents).** A metadata pass over the full corpus
+  produces the shared per-event index (one JSONL row per event: id, created_at, shape, kind,
+  tags, author tuple, recipient, title, body length, body-cited event ids/SHAs, title genre)
+  plus the WS2 quantitative skeleton: day/kind/tag/author distributions, burst and silence
+  windows, heartbeat cadence statistics, directed-pair matrix, body-citation linkage graph,
+  title-genre taxonomy, naming-era distribution, growth curve. Later waves consume the index
+  instead of re-scanning ~5,000 files. Commands recorded in the WS2 report for
+  reproducibility; the index itself is derived scratch, never a preservation target.
+- **Wave 1 — breadth (many cheap agents + Fable catchers).** (a) R2/R3 blind cold readers
+  complete WS1 (Fable — they are WS1 instruments). (b) Slice extractors sweep every
+  non-heartbeat event in chronological slices, emitting structured per-event annotations
+  (subject category, coordination-act type, entities, anomaly flags, candidate-pattern
+  nominations) — cheap models for breadth, plus two Fable catchers running the identical
+  brief on sampled slices; the catcher-vs-cheap delta is itself a recorded quality signal.
+  (c) Corroboration verifiers re-read each landed WS1 log's cited events and adjudicate
+  every top finding (confirmed / refuted / unverifiable) — input-to-verify applied to the
+  blind readers themselves.
+- **Wave 2 — power (Fable, adversarial).** WS3 taxonomy clustering over all tagged events
+  plus wave-1 anomaly nominations; WS4 deep-dives per prioritised item with ≥2 worked
+  instances; every cure- or steering-bearing claim passes an independent adversarial
+  verification (a refuter re-reads the cited events; load-bearing claims cross-checked
+  against git/GitHub/claims archives). Statistical-semantic joins (act sequences, response
+  latencies, cadence-vs-outcome) run where the wave-1 annotations support them.
+- **Wave 3 — synthesis + completeness.** Cross-wave synthesis with a corroboration matrix
+  (which findings are multiply-attested across independent readers and methods); a
+  completeness critic asks what window, method, or claim remains uncovered — what it finds
+  becomes the next round (loop-until-dry, the owner's "do it again" rule made structural);
+  then WS5 proposal and WS6 report assemble from the corroborated evidence.
+- **Finding provenance discipline.** Every finding carries how it is known:
+  `blind-arisen` (WS1 logs), `seeded-confirmed` (catalogue theme corroborated),
+  `statistically-derived` (wave 0/joins), and/or `cross-attested` (independent
+  reader/method agreement). The provenance matrix is what keeps the synthesis trustworthy
+  given the executing seat's recorded WS1 contamination.
+- **Quota resilience.** Heavy fan-outs batch (the 8-wide Fable fan-out died on the session
+  window, 2026-06-12); every long-running agent writes its output file incrementally from
+  the first finding; capacity is probe-verified before each wave.
 
 ## Prerequisites
 
@@ -134,6 +180,33 @@ cut -d'|' -f1 <scratch>/corpus-index.psv | cut -dT -f1 | sort | uniq -c # by day
 
 (One `node` process per file is slow but dependency-free; the agent may batch with a single
 node script in `/tmp` — analysis scratch, not product code.)
+
+## Execution log (2026-06-13, Katydid hunts Roost + Myrtle weaves Thicket)
+
+- **ArcAngel relocation — owner-directed early WS7 slice.** Owner directed (2026-06-13) that
+  the ArcAngel / ARC AnGels channel (`agent-rapid-communication-and-gellings/`) be moved from
+  the untracked-bound `.agent/state/collaboration/experiments/` to a tracked durable home so a
+  two-agent pair could use it for efficient comms. Relocated via `git mv` to
+  `.agent/collaboration/rapid-comms/` (history preserved; the two top-level `rendezvous`/
+  `session-close` experiment records remain in `experiments/` for full WS7). This is a clean
+  pilot of WS7 step (b) experiments-preservation and a **WS5 input**: ArcAngel (one file,
+  `tail -F`, append-only, zero ceremony) is the activation-enthalpy contrast to the
+  comms-event stream (≈45–74% heartbeats, repeated watcher drain-wedges, zero structured
+  threading). The steady-state question for WS5 is therefore not only "how to rotate the heavy
+  stream" but "which substrate for which coordination shape." `.agent/collaboration/` is the
+  chosen tracked home (parallel to the untracked-bound `.agent/state/collaboration/`); WS7/owner
+  may refine the path. The full `.agent/state/` untracking and the 7-day purge remain owner-gated.
+- **Fable model outage (2026-06-13) → Opus 4.8 re-dispatch.** WS1 recovery sub-agents seated on
+  Fable died during a temporary Fable outage (misread first as a token cap; owner-corrected —
+  the same-wave Sonnet verifiers succeeded, confirming a model-specific, not session-wide,
+  cause). Owner lifted the normal Opus concurrency cap; the Fable-killed work (R2/R3 complete
+  cold reads, catchers 6/19, R1/R4/R5/R6 verifiers, then R2/R3 verifiers) re-dispatched on
+  Opus 4.8. R7/R8 Sonnet verdicts already landed and are retained. Standing dispatch rule
+  added: seat fan-outs on a healthy model, never Fable until the outage clears; incremental
+  output-file writes mandatory (the universal safety net that saved every disk-writing agent).
+- **Peer pair on the lane.** Myrtle weaves Thicket (Opus 4.8, claim `eb94d37c`) joined as a
+  peer and owns WS3 (failure-mode taxonomy) on a clean file boundary; working coordination runs
+  on the ArcAngel channel. Katydid retains WS1 close-out + WS2 + the prioritised shortlist.
 
 ## Acceptance criteria and proof contract
 

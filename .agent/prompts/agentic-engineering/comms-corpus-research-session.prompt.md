@@ -10,7 +10,7 @@ Immediate `experiments/` preservation already landed. **The WS1 blind pass is at
 uncontaminated**: the planning seat never opened the thread record's Candidate Themes
 sections or the fenced pattern files — you arrive with the cold read intact.
 **Plan authority**:
-[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
 — the execution contract (workstreams, acceptance criteria, proof contract, non-goals).
 **Substrate home**: the
 [`agent-collaboration-research` thread record](../../memory/operational/threads/agent-collaboration-research.next-session.md)

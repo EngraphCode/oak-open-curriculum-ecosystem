@@ -142,6 +142,48 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   compose time; it DID make diagnosis instant. `${=ARGS}` cured. Read-doctrine-does-not-fire
   family; counted as further evidence, not a new lesson.
 
+## 2026-06-12 — comms-corpus research session (Katydid hunts Roost, a4314f)
+
+- **A blind-pass fence inside the fenced artefact loses to the grounding workflow's reading
+  order — contamination on arrival.** start-right names the thread record as required
+  session-open reading; the agent-collaboration-research record's blind-pass exception (defer
+  both Candidate Themes sections) lives INSIDE that record, discoverable only after the
+  contaminating full-file Read. This seat read all 17 seeded themes before the opener prompt
+  or the successor brief (which named the fence as "the one thing you must not break", landing
+  three minutes late) could fire. Activation-enthalpy-shaped: the contaminating read was the
+  cheap default path. Cure direction (structural, regardless of this session's disposition):
+  a fence on a section must be visible BEFORE the artefact is opened — in the dispatch
+  surface read first (opener/brief/claim), or the fenced content must live in a separate
+  file the default reading order never names. Disclosed: broadcast 37523113, directed
+  8cefbe36; owner decides the WS1 cure shape (delegate cold readers vs fresh-session WS1).
+- **MISDIAGNOSIS CORRECTED (owner, 2026-06-13): the sub-agent deaths were a FABLE MODEL
+  OUTAGE, not a token/quota cap.** The agents that died ("You've hit your session limit ·
+  resets Xam") were all Fable-seated; the Sonnet verifiers in the same wave SUCCEEDED (R7/R8
+  verdicts landed), which a true session-wide token cap would not allow. I first attributed
+  the deaths to the [[feedback_opus_team_quota_ceiling]] rolling-token-cap family because the
+  error STRING pattern-matched it — friction-fit-to-familiar-pattern without confirming the
+  platform cause (retrospective-metacognition failure; the cure is: on a limit/outage error,
+  check actual model/platform status before blaming self-inflicted orchestration). Owner
+  lifted the normal Opus concurrency cap and directed restart of the Fable-failed agents on
+  Opus 4.8. **What still holds regardless of cause**: (1) incremental output-file writes are
+  the universal safety net — the six readers + 20 haiku extractors that wrote incrementally
+  lost nothing; the two in-memory holders lost everything; (2) model availability is a live
+  dispatch variable — seat fan-outs on a healthy model and have a fallback when one degrades.
+- **Relayed second-hand findings, then a naive metric — overstated TWICE in one peer exchange;
+  the corpus arbitrated both against me.** (1) Forwarded cold-reader "we did not expect this"
+  surprises to a peer (Myrtle) as candidate patterns framed as established, without re-grounding
+  them first-hand; Myrtle's first-hand check found two of five overstated (the #160 "incompatible
+  accounts" did not reproduce; "citation theatre partly fictional" rested on a single
+  placeholder). (2) Trying to settle it with data, a corpus-wide full-UUID citation-resolution
+  scan returned "93.7% dangling" — which on inspecting the dangling examples was
+  claim/agent/intent UUIDs, NOT fictional event citations: a phantom signal, a live instance of
+  the measurement-artefact failure class INSIDE the failure-mode research. Cure (one discipline,
+  both cases): a relayed claim OR a convenient metric is input-to-verify; ground it against the
+  source before asserting, hardest when it supports your thesis; when relaying others' findings
+  into a peer's work, mark them "unverified — verify before integrating," never as established.
+  The honest result strengthened the reports (event→event threading is rare by ANY mechanism;
+  citation theatre is rare, not pervasive).
+
 ## 2026-06-12 — comms-corpus planning session (Fern lifts Mulch, 66f12b)
 
 - **A "preserve everything" directive can be silently defeated by a scoped .gitignore built
@@ -187,3 +229,18 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   without reading it before composing the coordination text. Review-bot adjudication
   (PR 201) caught it; corrected to PAUSED with the blocker named. The sweep must include
   READING what is swept.
+- **The fitness validator sweeps `.claude/worktrees/**` checkout copies** — Monsoon's
+  worktree carries a pre-drain pending-graduations mirror that reads HARD in the repo-wide
+  report (a stale copy, not live pressure). Signal for the validator's discovery scope:
+  worktree checkouts are duplicate surfaces and probably belong outside the sweep.
+  Single instance; validator-scope candidate, not yet register-worthy.
+- **A fence INSIDE the fenced artefact fires after the contamination** (successor seat,
+  worked instance, comms `37523113`): the WS1 blind-pass fence lived in the thread record's
+  Resume Contract + the opener + my successor brief — ALL downstream of start-right's
+  "read the thread record" step, so the successor's grounding read both Candidate Themes
+  sections before any fence could fire. Passive-guidance-loses-to-artefact-gravity family:
+  prose fences lose to structural reading order. Cure shape: place the fence at the
+  reader's ENTRY POINT (top-of-record banner before the fenced sections; better, an
+  opener-first dispatch ordering). Banner cure routed to the successor (record is in
+  their claim); the deeper ordering cure is research input — it is itself an
+  activation-enthalpy instance of the class the research studies.

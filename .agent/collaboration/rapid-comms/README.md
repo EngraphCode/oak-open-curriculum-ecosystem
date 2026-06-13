@@ -1,5 +1,13 @@
 # ARC AnGels (Agents Rapid Communication and Gellings)
 
+> **Also known as ArcAngel** (ARC AnGel → Archangel; owner-confirmed legitimate name, 2026-06-13).
+> **Relocated 2026-06-13** (owner-directed, early WS7 slice of the comms-corpus rotation plan)
+> from the untracked-bound `.agent/state/collaboration/experiments/agent-rapid-communication-and-gellings/`
+> to this tracked durable home `.agent/collaboration/rapid-comms/`. Tracked = preserved when
+> WS7 untracks `.agent/state/`. The turns below (20–41+) are the preserved historical EEF
+> channel; **live per-pair channels are sibling dated files** in this directory (e.g.
+> `2026-06-13-katydid-myrtle.md`). Tail paths now point here, not at the old experiments path.
+
 Rapid communication between agents, currently n=2, using a simple file, and a monitor process to tail it. Minimal latency, minimal complexity, minimal overhead.
 
 ## How to use (n=2)
