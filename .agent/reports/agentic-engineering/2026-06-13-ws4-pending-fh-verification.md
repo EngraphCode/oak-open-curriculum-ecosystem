@@ -48,7 +48,47 @@ is a sound generalisation from this one strong instance, not corpus-proven; keep
 well-grounded instance plus a reasonable structural hypothesis. **PR-rule it feeds:** gate scope vs
 authoring boundaries (whole-tree gate on a shared tree with mid-authoring peers).
 
-## Remaining PENDING-FH anchors
+## Remaining PENDING-FH anchors — verified
 
-Verification in progress (S7, S8, SC5, SC8–SC10, T5, T6, T8, T9, CC5, CC6, C1, I1, X1, R1). Results
-appended on completion.
+16-anchor first-hand verification (Sonnet adversarial-FH fan-out, one verifier per anchor reading the
+cited events; the 2 miscited verdicts spot-checked by me directly). Full per-anchor detail:
+`2026-06-13-ws4-anchor-verify-evidence.json`. Corrections recorded here (companion) — Myrtle's
+taxonomy is relinquished and not edited in place.
+
+**FH-CONFIRMED → promote PENDING-FH → FH (8):** SC5 (byte-identical coordinator-handoff 22 s apart,
+no dedup — `c3d41f43`/`461982a5`), SC10, T6 (truncate-rewrite replays `tail -F` from offset 0 —
+`86e94e54`), T9, CC5, CC6, X1, R1. Cited events read first-hand; claims supported.
+
+**CORRECTED, core holds → promote with framing fix (3):**
+- **S8** — gap numbers exact FH (max inter-beat 3,168 / 3,247 / 3,168 s for Firefly / Cosmos / Moss,
+  2026-06-12 overnight). Correction: "simultaneously gapped" overstates — the three *maxima* are
+  staggered/consecutive; genuine three-way ~30-min silence windows do exist (00:28–01:00, 02:48–03:21).
+  R6's "synchronised ~30-min holes" is the accurate framing. "Indistinguishable from inactivity" sound.
+- **SC8** — directed events carrying `message_kind:"narrative"`: "21 instances" is the R1 window only;
+  **full corpus = 66** (more pervasive than stated). Update the count.
+- **SC9** — ~167 pre-`--tag` untagged heartbeats: core mechanism + stratigraphic boundary
+  (2026-05-24T10:18Z) + CLI-no-`--tags` causal root all FH-confirmed.
+
+**CORRECTED, hold at NOTE (3, not promoted):**
+- **T8** — social-convergence-≠-proof insight real (only the reviewer who *ran* the stale-filter
+  command caught it); some detail correction; hold.
+- **C1** — pre-positioning-before-acknowledgement is real and correctly cited (`c020b3d6`); held pending
+  a cleaner second instance.
+- **I1** — `212cbf34` miscited (it is a directed commit-handoff, not a team-start); the dirty-tree-growth
+  pattern is real but the citation/class need correction.
+
+**MISCITED → taxonomy correction needed (2; spot-checked by me first-hand):**
+- **S7** — cited `f8cf9ad3` (Feathered pairing-feedback closeout) + `37d9e374` (light handoff) do NOT
+  support "33 beats / 2h20m runaway loop after declared stop". What they DO support: a Codex
+  signal-isolation constraint (closed stdin / blocked process-listing → cannot signal background loops
+  → Feathered forwent opening loops). **Cure:** drop the unverified 33-beat/2h20m quantifier; keep the
+  real (unquantified) Codex-signal-isolation finding; the Tempestuous/Evergreen 3–6 s shutdown-race
+  half has no cited event and must be separately sourced before any promotion.
+- **T5** — cited `8891b583` is Sylvan's reliability-queue-merge closeout (#166/#167), not a
+  `--fix`-rewrites-ARC-channel instance. **Cure:** find the correct source event or downgrade T5; the
+  append-only-channel-rewrite mechanism may still be real (cf. T6 truncate-rewrite) but `8891b583` does
+  not evidence it.
+
+**Net:** 8 confirmed + 3 confirm-with-fix promote to FH; 3 hold at NOTE; 2 miscited corrected. The
+adversarial-FH pass caught 2 miscitations + 6 corrections while conserving every real finding — the
+input-to-verify discipline earned its keep again.
