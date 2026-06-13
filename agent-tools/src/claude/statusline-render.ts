@@ -146,6 +146,20 @@ function formatIdentity(parts: StatuslineParts): string | undefined {
 }
 
 /**
+ * Map a resolved team shape to its glyph. Solo shows nothing — an absent
+ * icon and a peerless team read identically at a glance, by design.
+ */
+function teamIcon(teamShape: SessionShape['teamShape']): string | undefined {
+  if (teamShape === 'directed') {
+    return TEAM_DIRECTED_ICON;
+  }
+  if (teamShape === 'peer') {
+    return TEAM_PEER_ICON;
+  }
+  return undefined;
+}
+
+/**
  * Format the team-shape icon and ArcAngel wing as one segment, or undefined
  * when there is nothing to show (solo with no live rapid channel, or no
  * resolved shape for the tick — the two render identically by design).
@@ -154,12 +168,7 @@ function formatSessionIndicators(shape: SessionShape | undefined): string | unde
   if (shape === undefined) {
     return undefined;
   }
-  const team =
-    shape.teamShape === 'directed'
-      ? TEAM_DIRECTED_ICON
-      : shape.teamShape === 'peer'
-        ? TEAM_PEER_ICON
-        : undefined;
+  const team = teamIcon(shape.teamShape);
   const wing = shape.arcActive ? ARC_WING : undefined;
   const indicators = [team, wing].filter((glyph) => glyph !== undefined).join(' ');
   return indicators.length === 0 ? undefined : indicators;
