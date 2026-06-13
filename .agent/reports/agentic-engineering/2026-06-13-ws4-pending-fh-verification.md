@@ -101,3 +101,21 @@ claims supported. (CC5/CC6 anchor ids cross-attested with Geyser stirs Bronze's 
 **Net:** 8 confirmed + 3 confirm-with-fix promote to FH; 3 hold at NOTE; 2 miscited corrected. The
 adversarial-FH pass caught 2 miscitations + 6 corrections while conserving every real finding — the
 input-to-verify discipline earned its keep again.
+
+## Instance-count adds (from Geyser's REVIEW disposition; provenance Geyser-FH)
+
+Geyser's ~37 REVIEW-bucket hand-disposition (`2026-06-13-ws4-review-disposition.md`) returned **0 new
+spine class** (structure holds; tagged population confirmed a lower bound) plus 5 keyword-missed
+instances of EXISTING classes — instance-count adds that do not change any verdict. Provenance is
+Geyser's first-hand read (not re-read by me; flagged Geyser-FH, fold-only):
+
+- `9a164c5c` → **S4** (new instance)
+- `40a6ce09` → **S5** (new instance)
+- `14eab105` → **D/CC** — same-file cross-cycle staging contention + revert-and-sequence cure (new instance)
+- `5ef5f1c0` → **T7** — already my FH anchor (the same event; not a new count)
+- `f5cc5f2d` → **T8** — already cited in T8 above (stale `--filter` caught only by running it)
+
+**For WS6 (what-worked-well, keyword-missed, Geyser-FH):** `9a8004cd` (marshal hex-leak survey +
+write-time-only-hook coverage note), `15c5cd23` (execution-start re-verify caught a stale committed
+corpus), `c1054b3b` (reviewer-divergence handled by the different-lens pattern), `a15363e5` (reviewer
+fan-out converged).
