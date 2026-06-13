@@ -44,6 +44,37 @@ reading `routed 2026-06-11` belong to the agent-tools implementation lane; items
 still reading `owner-gated` or `pending` below were confirmed at the walk as
 genuinely waiting on their named external event or trigger.
 
+## 2026-06-13 capture — Juno mends Plasma (comms-corpus research consolidation)
+
+Routed during the dedicated consolidation session for the comms-corpus research
+(WS0–WS6 complete; rotation decision ratified and homed as PDR-094 + ADR-199; M2
+and SC1 routed into the rightsizing keystone M4; the WS6 §5 recommendations routed
+to their consumer plans). The one finding below has no fired trigger and is held
+here. Verified absent from this register before adding.
+
+- **The two-reader mutual-first-hand-correction loop is a reliability MECHANISM,
+  not a diligence habit — corpus-scale evidence for PDR-089.** The research's
+  single most load-bearing methodological finding (WS6 synthesis §1): treating
+  corpus events as input-to-verify (ground every load-bearing claim by reading the
+  cited event first-hand) plus running an independent first-hand reader over one's
+  own output caught errors a single pass would have ratified, **in both
+  directions** — a phantom "93.7% dangling-citation" metric, an over-accepted T7
+  count (5→4), a reboot-confounded swap finding (retracted), and several of the
+  researchers' *own* convenient claims. This is corpus-scale worked evidence for
+  PDR-089 (the Conservation Reflex — frame-capture recurs at every stage; the cure
+  is an external check) and sharpens it with a concrete mechanism: build the
+  external check IN (a second independent FH reader), do not rely on single-pass
+  diligence; the most dangerous claim is a convenient causal one that supports the
+  claimant's thesis. **Reconcile, do not mint:** the likely home is a PDR-089
+  worked-instance citation or a small amendment naming the mutual-FH loop as the
+  external-check phenotype for research/verification work; overlaps
+  `verify-dont-trust` and the auto-memory `first-hand-means-me`. Conserved here so
+  the doctrine-candidacy survives beyond the WS6 report.
+  `[captured: 2026-06-13 | source: 2026-06-13-ws6-comms-corpus-synthesis.md §1 +
+  Kayak handoff §1 | target: PDR-089 worked-instance citation or amendment (the
+  mutual-FH external-check phenotype) | trigger: owner direction OR the next
+  reviewer-doctrine / verification-doctrine pass | size: S | status: pending]`
+
 ## 2026-06-12 capture — Thyme wakes Canopy (dedicated consolidation; napkin-rotation routes)
 
 Routed during the 2026-06-12 napkin rotation. Each verified absent from this

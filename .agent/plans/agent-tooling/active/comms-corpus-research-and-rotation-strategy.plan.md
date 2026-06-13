@@ -213,6 +213,26 @@ node script in `/tmp` — analysis scratch, not product code.)
   peer and owns WS3 (failure-mode taxonomy) on a clean file boundary; working coordination runs
   on the ArcAngel channel. Katydid retains WS1 close-out + WS2 + the prioritised shortlist.
 
+## Execution log (2026-06-13, Juno mends Plasma — dedicated consolidation session)
+
+Owner ratified WS5 "as proposed" (2026-06-13) and directed a dedicated consolidation session
+before WS7 (rationale: consolidating under research load is an M2 instance). That session landed:
+
+- **The ratified rotation decision is homed:** PDR-094 (portable contract) + ADR-199 (repo
+  phenotype) authored and indexed. ADR-199 carries inline-quote provenance for the events it cites
+  (`86e94e54`, `3cc1fb93`, `2ff03ded`), so **WS7 step (1) [author the rotation ADR] and step (2)
+  [populate cited-event provenance] are SATISFIED.** WS7's remaining steps — (3) run the
+  pre-archive-move provenance check, (4) archive-move by class, plus the schemas/fixtures relocation
+  (step a) and `.agent/state/` untracking (step c) — stay `pending` and are gated on owner go AND
+  coordination with the statusline/agent-tools lane (WS7 step a shares `agent-tools/`).
+- **Findings routed:** M2 + SC1 into the rightsizing keystone M4 (reconcile-not-mint); the WS6 §5
+  recommendations into their six consumer plans. **First-hand routing correction:** the §5 table
+  named `comms-event-write-integrity` as an SC1 consumer, but that plan is complete + scope-frozen
+  ("no schema migration, no event-semantics change") and does not own the authoring-affordance
+  surface — SC1 routed to M4 instead. One PDR-089-evidence finding buffered in pending-graduations.
+
+The plan's completion bar is unchanged: it claims complete only at ws0–ws7; ws7 remains open.
+
 ## Acceptance criteria and proof contract
 
 All proof levels are `non-code` (research artefacts) unless stated.

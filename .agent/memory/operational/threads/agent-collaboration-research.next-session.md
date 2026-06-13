@@ -19,9 +19,14 @@ merge_class: index-narrative-tables
 
 ## Status
 
-**WS0–WS6 COMPLETE + first-hand verified; WS7 (archive-not-delete) OWNER-GATED on ratification of the
-WS5 proposal (2026-06-13). Lane: Kayak herds Ballast → succeeded by Bluebell mends Mulch (`c2ef19`),
-sole owner.** Cast progression
+**WS0–WS6 COMPLETE + first-hand verified; WS5 RATIFIED; CONSOLIDATION BODY COMPLETE (2026-06-13,
+Juno mends Plasma / `3cc9d5`) — the ratified rotation decision is now homed as PDR-094 (portable
+contract) + ADR-199 (repo phenotype); M2 + SC1 routed into the rightsizing keystone M4; the WS6 §5
+recommendations routed to their consumer plans; one PDR-089-evidence finding buffered. WS7
+(archive-not-delete CODE migration) remains the only open body — gated on owner go + coordination with
+the statusline/agent-tools lane (shared `agent-tools/`); WS7 steps 1–2 (author the rotation ADR +
+capture its cited-event provenance) are SATISFIED by this consolidation. Lane: Kayak herds Ballast →
+Bluebell mends Mulch (`c2ef19`) → Juno mends Plasma (`3cc9d5`), sole owner.** Cast progression
 on `feat/comms-research`: Katydid hunts Roost + Myrtle weaves Thicket (WS0–WS3) → Geyser stirs
 Bronze (WS3-forward + B/D/M2) → Kayak herds Ballast (WS4 liveness/coordination/emergent + anchor
 verification + consolidation). The companion plan
@@ -72,22 +77,28 @@ two-round-adversarially-reviewed rotation proposal
 (`2026-06-13-ws6-comms-corpus-synthesis.md`); §11 re-verify closed first-hand
 (`2026-06-13-reverify-outcomes-bluebell.md`: 6 anchors PENDING-FH→FH, 4 stale figures corrected).
 
-**Next safe step — a DEDICATED CONSOLIDATION SESSION (owner-directed 2026-06-13), then WS7 engineering.**
-Rationale (metacognition): consolidating this research's findings under the load of a long
-research+decision session would be a live instance of M2 (the learning-loop-doesn't-fire-under-pressure
-finding the research itself surfaced); capture-first already conserved all signal in durable artefacts,
-so a fresh session does the distil→graduate→enforce justice. Two follow-on bodies, sequenced:
+**CONSOLIDATION BODY DONE (2026-06-13, Juno mends Plasma). Next: WS7 engineering only.**
+The dedicated consolidation session ran (owner-directed 2026-06-13; rationale: consolidating under a
+long research+decision load would be a live instance of M2, so a fresh session did the
+distil→graduate→enforce justice). What it landed:
 
-1. **Consolidation (knowledge curation)** — author the rotation **PDR (≈PDR-094) + ADR (≈ADR-199)**
-   recording the ratified decision (also WS7's mandated-first step); draft PDRs for the doctrine-grade
-   findings (M2 active-vs-passive enforcement; SC1 enforce-or-remove the dead linkage fields); hand the
-   §5 routed recommendations to their named consumer plans; absorb failure-mode/behaviour-note session
-   captures into napkin/distilled; pending-graduations entries for note-grade findings; run
-   `oak-consolidate-docs`.
-2. **WS7 engineering** — the code-bearing migration (5 schemas + `fixtures/` → agent-tools workspace;
-   preserve `experiments/`; gitignore `.agent/state/` with the README anchor; archive-move events past
-   the window; the pre-archive-move provenance guard). Gated on the PDR/ADR existing first (step
-   ordering in the WS5 proposal §5).
+1. **Consolidation (knowledge curation) — DONE.** Rotation decision homed as **PDR-094**
+   (`coordination-event-rotation-is-class-tiered-archive-not-delete`, portable contract) + **ADR-199**
+   (`comms-event-rotation-phenotype`, repo phenotype, with inline-quote provenance for its cited events
+   `86e94e54` / `3cc1fb93` / `2ff03ded`). M2 + SC1 routed into the rightsizing keystone M4 (reconcile,
+   not mint — `passive-guidance-loses-to-artefact-gravity` + `action-time-structural-interrupt` for M2;
+   `closed-shape-design-optionality` for SC1). **First-hand routing correction:** the WS6 §5 table named
+   `comms-event-write-integrity` as an SC1 consumer, but that plan is complete + scope-frozen and does
+   NOT own the authoring-affordance surface — SC1's home is M4. §5 recommendations routed to PDR-078/
+   liveness-floor, hang-hardening, storage-redesign, cost-of-collaboration, n-agent-experiments,
+   commit-queue-multi-writer-cure. One PDR-089-evidence finding (the two-reader mutual-FH loop) buffered
+   in pending-graduations. PDR + ADR indexes updated. `oak-consolidate-docs` run.
+2. **WS7 engineering — STILL OPEN, owner-gated.** The code-bearing migration (5 schemas + `fixtures/` →
+   agent-tools workspace; preserve `experiments/`; gitignore `.agent/state/` with the README anchor;
+   archive-move events past the window; the pre-archive-move provenance guard script). **Steps 1–2
+   (author the rotation ADR + capture cited-event provenance) are now SATISFIED** by the consolidation;
+   the remaining steps (3 run the guard, 4 archive-move; plus schemas/fixtures relocation + untracking)
+   need owner go AND coordination with the statusline/agent-tools lane (shared `agent-tools/`).
 
 **Open items to carry**: (1) PR #207
 "commit-queue ×5" → "4 enumerable" post-merge follow-up on `main`; (2) one-decision-home PR shape
@@ -572,6 +583,7 @@ Relevance to this research thread:
 | Geyser stirs Bronze | claude-code | Opus 4.8 | 3636b0 | 2026-06-13 | 2026-06-13 | forward lane (Myrtle PDR-063 handoff; claims eb88ee15→6603978f): B/D/M2 FH-verification, ~37 REVIEW disposition (0 new spine class), SC1 live-test sharpening, PR convergence with Flame; stood down on owner-directed consolidation to Kayak |
 | Kayak herds Ballast | claude-code | Opus 4.8 | 328eee | 2026-06-13 | 2026-06-13 | successor + consolidated lane owner (claim b76045bb): critical re-assessment of WS0–WS3; crash-safety flush (full corpus committed+pushed); WS4 liveness/coordination/emergent fan-out + 18-anchor verification; corrections (S9-cured, SC1-sharpened, T7 5→4, swap-finding retracted); mutual-FH loop with Geyser; PR #207 post-merge faithfulness review; WS5/WS6 owner-sequenced-separately |
 | Bluebell mends Mulch | claude-code | Opus 4.8 | c2ef19 | 2026-06-13 | 2026-06-13 | successor + sole lane owner (claim `agent-collaboration-research`): closed Kayak's §11 re-verify list first-hand (H1/L1/CC1/CC3/T5/S7-3-6s promoted PENDING-FH→FH; SC8 21→66, SC9 ~167→~181 + 7.0% miss, SC1 framing); authored WS5 rotation-strategy proposal (two-round adversarial review — invariant-3 resolvability cured via inline-quote-first + tracked cited-events digest + pre-archive-move guard; SC3 bulk-classification hole closed; invariant-4 honestly restated); authored WS6 synthesis; reconciled plan-todo drift; put WS5 to owner for ratification |
+| Juno mends Plasma | claude-code | Opus 4.8 | 3cc9d5 | 2026-06-13 | 2026-06-13 | dedicated consolidation session (sole-contributor; WS5 ratified "as proposed"): authored PDR-094 (portable rotation contract) + ADR-199 (repo phenotype, inline-quote provenance for cited events) + both indexes; routed M2 + SC1 into rightsizing keystone M4 (reconcile-not-mint; first-hand-corrected the WS6 §5 SC1→write-integrity mis-route); routed the §5 recommendations to six consumer plans; buffered the two-reader mutual-FH-loop finding as PDR-089 evidence; satisfied WS7 steps 1–2; left WS7 code migration owner-gated + statusline-lane-coordination-gated |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 
