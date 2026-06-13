@@ -199,9 +199,11 @@ ontology-crosswalk orthogonal. Sibling of validate-specialist-findings.
   adapters, THEN a `Skill(<name>)` + `Skill(<name>:*)` permissions pair in
   `.claude/settings.json`; the harness may block the agent's own settings edit as
   self-modification (by design — an explicit owner authorisation moment).
-- **Audit your own search filters** (two instances) — `rg` single-line misses multi-line
-  Zod/fluent chains (`rg -U`), and a `-v .test.ts` exclusion hid a real importer; sweep
-  filters are part of the claim.
+- **Audit your own search filters** (three instances) — `rg` single-line misses multi-line
+  Zod/fluent chains (`rg -U`), a `-v .test.ts` exclusion hid a real importer, and a PR-merge
+  watcher matched a hyphenated branch-name guess against an underscored real branch
+  (silent never-fire; verify the filter against the live referent at arm time, or match
+  separator-insensitively `[-_]`); sweep filters are part of the claim.
 - **Verify each reference's REFERENT before bulk renames** — same-number-different-referent
   is exactly what a renumber-collision window produces (ADR-195 main vs naming branch).
 - **Recency-of-reversal is a free stability signal on decision inputs** — an input that has

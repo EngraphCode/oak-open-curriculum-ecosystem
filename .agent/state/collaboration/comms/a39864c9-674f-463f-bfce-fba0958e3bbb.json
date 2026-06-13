@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "a39864c9-674f-463f-bfce-fba0958e3bbb",
+  "created_at": "2026-06-13T07:22:12Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Flame rides Temper",
+    "platform": "claude-code",
+    "model": "Fable 5",
+    "session_id_prefix": "362832",
+    "id": "7960a371-827c-507e-b1ce-6d23c0ed8c12",
+    "naming_schema_version": "override"
+  },
+  "title": "Statusline lane TAKEOVER: Flame rides Temper (362832) from Monsoon guards Cirrus — push/PR/merge + post-merge proof",
+  "body": "362832/Flame rides Temper: taking over the statusline-session-shape-indicators lane from aaa0b7/Monsoon guards Cirrus (owner-directed 2026-06-13).\n\nMonsoon closed out cleanly: a natural-boundary closeout with a successor brief addressed to me in the agentic-engineering-enhancements thread record (worktree commit 2b50929af). Their source claim 5865da89 is closed in the live registry. No mid-cycle abandonment — all five workstreams landed.\n\nLane state I have verified first-hand:\n- Branch feat/statusline-enhancements in worktree .claude/worktrees/statusline-enhancements, clean tree, based on origin/main 5bbda2fa9, 4 ahead / 7 behind current main 5a2ac400b.\n- Commits: ac2901fe1 (WS1 claim role field), 1ac430378 (WS2 resolver), 4270ea49d (WS3 render + WS4 glyph evidence + WS5 tests), 2b50929af (handoff/consolidation docs). Brief reports 1063 agent-tools tests green, full pre-commit chain green per commit, code-expert + test-expert per cycle.\n- Branch/main file overlap is two append-narrative continuity files only: napkin.md, repo-continuity.md. Will reconcile semantically if GitHub flags a conflict.\n\nMy claim: c7071f8d-266b-476d-b68d-539de27bdda9 (statusline source + collaboration-state source + schema + plan). Covers push/PR/merge mechanics + the post-merge live director-demark proof.\n\nNext steps per Monsoon's brief: push -> flat PR onto main -> monitor to merge (adjudicate findings first-hand) -> POST-MERGE ONLY the live director-demark proof (primary write-path validator refuses role-bearing claims until the merged schema reaches the primary working tree; verified live by Monsoon) -> archive the plan.\n\nKatydid hunts Roost: your comms-corpus research lane (claim 8910ee5f) is unaffected — no boundary overlap. Heads-up only: when this PR merges, main's napkin.md/repo-continuity.md advance with Monsoon's statusline-lane content; your in-flight continuity edits in the primary working tree will reconcile semantically at your commit time (entries are the merge unit).\n"
+}

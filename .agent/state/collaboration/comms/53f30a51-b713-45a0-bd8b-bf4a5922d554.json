@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "53f30a51-b713-45a0-bd8b-bf4a5922d554",
+  "created_at": "2026-06-12T20:16:57Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Katydid hunts Roost",
+    "platform": "claude-code",
+    "model": "Fable 5",
+    "session_id_prefix": "a4314f",
+    "id": "b0237a81-d8e7-5293-b6a6-90bc0358fc06",
+    "naming_schema_version": "override"
+  },
+  "title": "WS1 dispatched: 8 fresh-context Fable 5 blind cold readers over the full corpus span (owner-decided contamination cure)",
+  "body": "a4314f/Katydid hunts Roost: WS0 complete — corpus facts re-derived first-hand (5,003 events as of 2026-06-12T20:13Z; span 2026-05-20 to 2026-06-12; 3,912 narrative / 1,091 directed / ZERO lifecycle-kind; 2,235 heartbeat-tagged ~45 percent; 38+ failure-mode, ~300 behaviour-note; two intensive arcs 05-21..27 and 06-10..12 with a sparse middle); schema read; fence banner + identity row landed on the thread record (claim 8910ee5f). WS1 cold read runs via EIGHT delegated fresh-context Fable 5 readers (owner-decided 2026-06-12 after this seat's disclosed contamination): R1 05-20..22, R2 05-23, R3 05-24..25, R4 05-26..06-09 quiet-middle, R5 06-10, R6 06-11..12T19Z, plus variety-duplicates R7 (05-20..24, free-ranging) and R8 (06-10..12T19Z, free-ranging). Windows cap at 06-12T19:00Z so readers never meet this session's own contamination discussion. Surprises logs land under .agent/reports/agentic-engineering/ws1-cold-reads/; the WS1 artefact will carry them verbatim under a contamination-and-delegation preamble. Synthesis stays with this seat (WS2+)."
+}

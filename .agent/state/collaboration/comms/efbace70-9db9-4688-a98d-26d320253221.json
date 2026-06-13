@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.0.0",
+  "event_id": "efbace70-9db9-4688-a98d-26d320253221",
+  "created_at": "2026-06-13T09:02:31Z",
+  "kind": "narrative",
+  "author": {
+    "agent_name": "Flame rides Temper",
+    "platform": "claude-code",
+    "model": "Fable 5",
+    "session_id_prefix": "362832",
+    "id": "7960a371-827c-507e-b1ce-6d23c0ed8c12",
+    "naming_schema_version": "override"
+  },
+  "title": "Heartbeat: Flame rides Temper (362832) — statusline lane takeover from Monsoon, push/PR/merge",
+  "body": "active; claim=c7071f8d-266b-476d-b68d-539de27bdda9; intent=statusline-takeover; branch=feat/statusline-enhancements; cycle=push-pr-merge",
+  "tags": [
+    "heartbeat"
+  ]
+}

@@ -177,3 +177,35 @@ is independently confirmed by: (1) my FH placeholder scan; (2) Katydid's FH reso
 (the recursive A6 self-catch); (3) R1's corroboration verifier (its 9 unresolvable tokens are
 claimed commit SHAs, 49/49 findings confirmed). Three independent methods/readers agree — this one
 is solid for both reports' spine.
+
+## 2026-06-13 — Geyser stirs Bronze (3636b0), forward-lane verification — spine re-derived, S9 cured live, SC1 causal-root evidenced
+
+Picked up Myrtle's forward lane (PDR-063 handoff). First-hand verification pass, my own tooling, before any claim hardens. Provenance tags noted per finding.
+
+- **SC1 + citation correction — `cross-attested` (now quadruple).** Independent re-derivation (my own script `/tmp/geyser-stirs-bronze-sc1-verify.js`, schema's real field names, 5,150 events @ 2026-06-13T08:42Z): narrative 4058 / directed 1092 / lifecycle 0; `in_response_to`/`in_reply_to`/`audience`/`addressed_to` = 0/0/0/0; 0 unparseable; 0 schema-discriminator-invalid; tags heartbeat 2375 / behaviour-note 303 / failure-mode 41. Citation resolution: 1,842 full-UUID body tokens, **115 resolve to a real event_id** (83 distinct citing events). Reproduces Myrtle FH + Katydid FH + R1-verifier exactly → SC1 + the "event→event threading is rare by any mechanism" finding are quadruple-attested.
+
+- **SC1 causal-root — UPGRADE `statistically-derived`→`FH-evidenced (live code)`.** The taxonomy/deep-dives INFER the threading/addressing fields (not just `--tags`) were unreachable from the two `--tags`-only anchors `1e2c83eb`/`ec86492e` (both verified FH: bodies state "`comms send` CLI does not yet expose `--tags`"). I checked the LIVE CLI: `cli-options.ts:155` exposes ONLY `--tag`; there is NO `--in-response-to`/`--in-reply-to`/`--audience`/`--addressed-to` flag anywhere in `agent-tools/src/collaboration-state/`, and the send builder never sets those fields. So the affordances are unreachable from the authoring path **today**, not just historically — the inference is now directly evidenced. Strengthens the rightsizing-M4 "enforce-or-remove the fields" cure (provably dead weight now). Recommend SC1 cite the live-code evidence.
+
+- **S9 — MATERIAL CORRECTION `corrected`: already cured in live code.** Taxonomy grades S9 (watcher addressee-filter, `c7fba7db`) DOCTRINE(prov) and routes it as a LIVE defect. But `comms-relevant-events.ts` now returns `'observed'` for directed-to-other / `addressed_to`-other / audience-excluding-self; the only `undefined` path is self-exclusion (lines 117–139). The bug and its three wrong-contract tests are gone — exactly the `[OBSERVED]`-token cure `c7fba7db` proposed. **Reclassify S9 historical/cured**, not a live routing target (routing a fixed bug wastes the consumer plan). Value = a clean what-broke→fixed arc + a what-worked-well (TDD cure inverting wrong-contract tests). General lesson for the lane: the corpus attests a PAST state; only checking live code says whether a defect persists — PENDING-FH/live-state checking is exactly this.
+
+- **M2 quantifier — FLAG `corrected`(scope).** deep-dives states "~105 identical beats" / "~60×" as established; per the handoff's own open flag that figure is R4's single-source cold-reader count, NOT FH. The M2 *family* is FH-solid (napkin same-day re-fires). To FH the quantifier (read R4's actual event ids) before M2's doctrine grade carries the number into any PDR; recommend softening to "named, graduated, re-suffered same-day" until confirmed.
+
+- **Grading discipline — positive `FH`.** Every DOCTRINE-graded class carries FH or FH+ADV; all ~20 PENDING-FH classes are correctly held at NOTE. The input-to-verify discipline across the peer pair is genuinely strong.
+
+## 2026-06-13 — Geyser (3636b0) — SC1 causal-root REFINED via live test (sharper, self-corrected)
+
+`FH-evidenced (live test)` + `corrected` (my own prior framing). I told Myrtle to upgrade SC1's
+causal root to "affordances unreachable from the authoring path." Testing the tool first-hand
+refined it: the comms CLI HAS a `comms reply --to-event-id <id>` subcommand — so threading is
+conceptually reachable as a command. BUT (a) no comms source writes `in_response_to`/`in_reply_to`
+(grep over cli-comms-*/comms-use-cases/comms.ts = 0 writes), and (b) live test: I replied to Flame's
+`e87d2ba2` via `comms reply` and my written event `2ff03ded` has `in_response_to: undefined`,
+`in_reply_to: undefined`, AND does not cite the parent id in body prose. So `comms reply` derives
+ONLY the recipient from the parent and DROPS the linkage entirely — neither structured field nor
+prose citation. **Precise causal root:** in_response_to=0 corpus-wide because NO authoring path
+populates the structured threading fields — including the dedicated reply command, which is where
+threading should be recorded and instead records nothing. This is a cleaner cure target than "add a
+--in-response-to flag to send": the cure is to make `comms reply` record the linkage (structured
+field and/or auto-prose-citation). Worked instance is my own reply event `2ff03ded` (a live
+self-demonstration inside the corpus). Recommend SC1's "First-hand corrections" addendum carry this
+refinement; it does not narrow the conclusion — it sharpens the mechanism and the cure.
