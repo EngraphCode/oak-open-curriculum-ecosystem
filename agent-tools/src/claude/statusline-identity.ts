@@ -4,18 +4,20 @@
  *
  * @remarks
  * Reads the JSON object Claude Code passes on stdin and prints the statusline.
- * By default it renders a three-row block with the Oak acorn mark as a left
+ * By default it renders a four-row block with the Oak acorn mark as a left
  * logo-column and the segments flowing to its right:
  *
  * ```text
- * <mark> <agent-identity> · <model>
+ * <mark> <agent-identity>
+ * <mark> <model>
  * <mark> ctx:N% · <branch>[*]
  * <mark> <dir or wt:worktree>
  * ```
  *
- * The logo style is read from `OAK_STATUSLINE_LOGO` (`quad` default, for
- * universal font support; `sextant` for a sharper mark where the font has the
- * Legacy Computing block; or `none` for the original single line). The
+ * The logo style is read from `OAK_STATUSLINE_LOGO` (`braille-sharp` default;
+ * `braille` for the unmodified conversion; `quad` for universal-font block
+ * elements; `sextant` for the sharpest mark where the font has the Legacy
+ * Computing block; or `none` for the original single line). The
  * agent-identity name (PDR-027) is produced by the built `agent-identity` CLI
  * at `agent-tools/dist/src/bin/agent-identity.js`. Git branch, dirty state, and
  * linked-worktree name are gathered from the working directory in the payload.

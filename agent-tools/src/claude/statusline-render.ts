@@ -11,7 +11,7 @@
  * context %) first and the long, variable-width git segments last, so a narrow
  * terminal truncates the least important information first.
  *
- * With a logo style the statusline renders as a three-row block: the Oak mark
+ * With a logo style the statusline renders as a four-row block: the Oak mark
  * forms a left logo-column and the segments flow to its right across the rows.
  * Without one (the default) it renders as the original single line.
  *
@@ -45,7 +45,7 @@ export interface StatuslineParts {
 export interface StatuslineRenderOptions {
   /**
    * Glyph family for the Oak mark. `none` (the default) renders the original
-   * single line; any other style renders the three-row logo-column layout.
+   * single line; any other style renders the four-row logo-column layout.
    */
   readonly logo?: OakLogoStyle;
 }
@@ -76,7 +76,7 @@ const CONTEXT_HIGH_PERCENT = 70;
  * @param options - Optional presentation controls (e.g. the Oak logo style).
  * @returns The ANSI-coloured statusline. Without a logo it is a single line of
  *   the form `<identity> · <model> · ctx:N% · <branch>[*] · <dir or wt:name>`
- *   with absent segments dropped. With a logo it is three newline-separated
+ *   with absent segments dropped. With a logo it is four newline-separated
  *   rows: the Oak mark column followed by the segments distributed across rows.
  *
  * @example
@@ -103,10 +103,11 @@ export function renderStatusline(
     return joinPresent([seg.identity, seg.model, seg.context, seg.branch, seg.place]);
   }
 
-  // One entry per logo row (all styles are three rows); composeWithLogo drives
+  // One entry per logo row (all styles are four rows); composeWithLogo drives
   // off the logo rows, so a row without text here renders as a bare mark.
   const rowTexts = [
-    joinPresent([seg.identity, seg.model]),
+    seg.identity ?? '',
+    seg.model ?? '',
     joinPresent([seg.context, seg.branch]),
     seg.place,
   ];

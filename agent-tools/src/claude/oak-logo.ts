@@ -6,53 +6,66 @@
  * the rasterise → area-coverage → glyph-pack pipeline documented, with its
  * regeneration recipe, in
  * `.agent/research/developer-experience/statusline-logos.md`. Each visible style
- * is a three-row mark of uniform per-row display width — an open acorn cup with
+ * is a four-row mark of uniform per-row display width — an open acorn cup with
  * an upper-right leaf, a sprout, and a rounded base — sized to sit as a left
  * logo-column with the statusline segments flowing to its right.
  *
- * The mark is a fixed brand asset, held here as a verified constant rather than
- * regenerated at build time. Regenerate from the SVG only if the brand mark
- * itself changes, using the recipe in the research document above.
+ * The marks are fixed brand assets, held here as verified constants rather than
+ * regenerated at build time. The `braille` / `quad` / `sextant` rows are the
+ * unmodified conversion output; `braille-sharp` carries two deliberate
+ * hand-tuned dots on top of it (see below). Regenerate the conversion styles
+ * from the SVG only if the brand mark itself changes, using the recipe in the
+ * research doc.
  *
  * @packageDocumentation
  */
 
-/** Glyph family used to draw the Oak mark, or `none` to suppress it. */
-export type OakLogoStyle = 'sextant' | 'quad' | 'braille' | 'none';
+/** Glyph style used to draw the Oak mark, or `none` to suppress it. */
+export type OakLogoStyle = 'braille-sharp' | 'braille' | 'quad' | 'sextant' | 'none';
 
 /**
- * Three-row Oak acorn marks keyed by glyph family. Every row within a style is
- * five code points wide, and the styles assume each glyph renders at
- * single-column (narrow) width so the adjacent segment column stays aligned. A
- * terminal that renders the Legacy Computing block double-width would misalign
- * the sextant column — use `quad` there.
+ * Four-row Oak acorn marks keyed by style. Every row within a style has a
+ * uniform display width (the braille styles are six columns; quad and sextant
+ * are seven), and each style assumes its glyphs render at single-column (narrow)
+ * width so the adjacent segment column stays aligned. A terminal that renders
+ * the Legacy Computing block double-width would misalign the sextant column —
+ * use a braille style or `quad` there.
  *
- * - `quad` — Unicode block-element quadrants (U+2580). The default: universal
- *   font support, slightly chunkier.
- * - `sextant` — Unicode Symbols for Legacy Computing (U+1FB00). Sharper, but
+ * - `braille-sharp` — the default. The braille conversion plus two hand-tuned
+ *   dots: a sharper lower-left nut-to-cup shoulder and a crisper sprout tip.
+ *   Braille Patterns (U+2800) have very wide font support.
+ * - `braille` — the unmodified braille conversion (rounder left shoulder),
+ *   regenerable from the SVG.
+ * - `quad` — Unicode block-element quadrants (U+2580). Universal font support,
+ *   slightly chunkier.
+ * - `sextant` — Unicode Symbols for Legacy Computing (U+1FB00). Sharpest, but
  *   needs a font with that block; it renders as tofu boxes otherwise.
- * - `braille` — Unicode Braille Patterns (U+2800). Very wide font support, but
- *   the sparsest at this three-row size (the dots scatter when small).
  */
 export const OAK_LOGO_ROWS: Readonly<Record<Exclude<OakLogoStyle, 'none'>, readonly string[]>> = {
-  sextant: ['🬞🬵🬻🬲🬏', '🬬 🬁🬋🬝', '🬁🬪🬭🬖🬄'],
-  quad: ['▗▄▟▙▖', '█ ▝▚█', '▝▙▄▟▘'],
-  braille: ['⢀⡤⣾⢥⡀', '⢯⠀⠘⠲⡽', '⠘⢧⣀⡴⠃'],
+  'braille-sharp': ['⠀⢀⣠⣞⣁⠀', '⣼⠋⠘⢧⡉⢷', '⢹⡅⠀⠀⢉⡍', '⠀⠻⣤⣤⠞⠁'],
+  braille: ['⠀⢀⣠⣟⣀⠀', '⣼⠋⠘⢧⡉⢷', '⢹⡄⠀⠀⢉⡍', '⠀⠻⣤⣤⠞⠁'],
+  quad: [' ▗▄▟▙▖ ', '▟▀ ▜▄▀▙', '▜▌  ▝▜▛', ' ▀▙▄▄▛ '],
+  sextant: [' 🬞🬭🬻🬮🬏 ', '🬻🬆🬀🬬🬱🬒🬺', '🬨▌  🬁🬡🬕', ' 🬊🬩🬭🬵🬆 '],
 };
 
 /**
  * Resolve an {@link OakLogoStyle} from a raw configuration string, such as the
  * `OAK_STATUSLINE_LOGO` environment variable. Unrecognised or absent values
- * fall back to the default `quad`, whose Block Elements have universal font
- * support; `sextant` is opt-in for terminals whose font renders the sharper
- * Legacy Computing block.
+ * fall back to the default `braille-sharp`; `braille`, `quad`, and `sextant`
+ * are opt-in alternatives, and `none` restores the single-line statusline.
  *
  * @param raw - The raw configuration value, or `undefined` when unset.
  * @returns The resolved logo style.
  */
 export function resolveLogoStyle(raw: string | undefined): OakLogoStyle {
-  if (raw === 'sextant' || raw === 'quad' || raw === 'braille' || raw === 'none') {
+  if (
+    raw === 'braille-sharp' ||
+    raw === 'braille' ||
+    raw === 'quad' ||
+    raw === 'sextant' ||
+    raw === 'none'
+  ) {
     return raw;
   }
-  return 'quad';
+  return 'braille-sharp';
 }

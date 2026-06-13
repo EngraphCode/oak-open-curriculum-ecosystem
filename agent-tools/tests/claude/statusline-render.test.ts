@@ -100,7 +100,7 @@ describe('renderStatusline', () => {
 describe('renderStatusline with an Oak logo column', () => {
   const SEXTANT = OAK_LOGO_ROWS.sextant;
 
-  it('distributes the segments across three rows beside the logo column', () => {
+  it('distributes the segments across four rows beside the logo column', () => {
     const out = renderStatusline(
       {
         identity: 'Bilby hunts Eventide',
@@ -114,25 +114,27 @@ describe('renderStatusline with an Oak logo column', () => {
       { logo: 'sextant' },
     );
     expect(out.split('\n')).toEqual([
-      `${GREEN}${SEXTANT[0]}${RESET}  ${MAGENTA}Bilby hunts Eventide${RESET}${SEP}${DIM}Opus 4.8${RESET}`,
-      `${GREEN}${SEXTANT[1]}${RESET}  ${GREEN}ctx:38%${RESET}${SEP}${BOLD_BLUE}feat/comms-research${RESET}${YELLOW}*${RESET}`,
-      `${GREEN}${SEXTANT[2]}${RESET}  ${CYAN}oak-open-curriculum-ecosystem${RESET}`,
+      `${GREEN}${SEXTANT[0]}${RESET}  ${MAGENTA}Bilby hunts Eventide${RESET}`,
+      `${GREEN}${SEXTANT[1]}${RESET}  ${DIM}Opus 4.8${RESET}`,
+      `${GREEN}${SEXTANT[2]}${RESET}  ${GREEN}ctx:38%${RESET}${SEP}${BOLD_BLUE}feat/comms-research${RESET}${YELLOW}*${RESET}`,
+      `${GREEN}${SEXTANT[3]}${RESET}  ${CYAN}oak-open-curriculum-ecosystem${RESET}`,
     ]);
   });
 
-  it('renders all three logo rows even when only the directory segment is present', () => {
+  it('renders all four logo rows even when only the directory segment is present', () => {
     expect(renderStatusline({ ...base, dir: 'repo' }, { logo: 'sextant' }).split('\n')).toEqual([
       `${GREEN}${SEXTANT[0]}${RESET}`,
       `${GREEN}${SEXTANT[1]}${RESET}`,
-      `${GREEN}${SEXTANT[2]}${RESET}  ${CYAN}repo${RESET}`,
+      `${GREEN}${SEXTANT[2]}${RESET}`,
+      `${GREEN}${SEXTANT[3]}${RESET}  ${CYAN}repo${RESET}`,
     ]);
   });
 
   it('uses universal quadrant glyphs for the quad style', () => {
     const lines = renderStatusline({ ...base, dir: 'repo' }, { logo: 'quad' }).split('\n');
-    expect(lines).toHaveLength(3);
+    expect(lines).toHaveLength(4);
     expect(lines[0]).toBe(`${GREEN}${OAK_LOGO_ROWS.quad[0]}${RESET}`);
-    expect(lines[2]).toBe(`${GREEN}${OAK_LOGO_ROWS.quad[2]}${RESET}  ${CYAN}repo${RESET}`);
+    expect(lines[3]).toBe(`${GREEN}${OAK_LOGO_ROWS.quad[3]}${RESET}  ${CYAN}repo${RESET}`);
   });
 
   it('renders the original single line when the logo style is none', () => {
