@@ -84,6 +84,7 @@ Before archival, mine completed outcomes into permanent documentation
 | Plan | Completed | Key Outcomes | Archive |
 |------|-----------|--------------|---------|
 | Memory/State Contract Doctor | 2026-05-07 | Completed the safe-merge gate: report mode is green on live substrate state, strict mode and the root built-output alias exist, collaboration schema blockers are normalised without deleting historical evidence, and repair/consolidation integration remain future arcs. | [archived plan](agent-tooling/archive/completed/memory-state-contract-doctor.plan.md) |
+| Statusline Session-Shape Indicators | 2026-06-13 | Glanceable statusline coordination indicators landed: optional open-vocabulary `role` field on the active-claims schema (also the singleton-role structural cure), a pure session-shape resolver (two primary-root reads per tick, never the comms corpus), and renderer demark/team-icon/ARC-wing with a recorded glyph matrix + ASCII fallbacks. PR #203 merged (00c1f758d); post-merge live proof passed (validator accepts `role:director`; built adapter renders 🧭 demark + 👪 directed icon). | [archived plan](agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md) |
 
 ---
 
