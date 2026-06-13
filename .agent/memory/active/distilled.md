@@ -225,3 +225,13 @@ to the real path.
   cause; a reset is the dominant confound. Corollary: enumerate counts from primary evidence, never carry
   a source's self-reported count. Both are instances of: a convenient causal claim that supports your own
   thesis needs the dominant confound checked, not just a caveat.
+
+- **A CLI flag exists only when the DISPATCHER accepts it — test that tier, purely** (source:
+  statusline session-shape WS1, Monsoon guards Cirrus; recovered + cure-corrected 2026-06-13). A flag
+  registered at the parse layer (`KNOWN_OPTION_KEYS`) with green unit tests over parse+construct proves
+  nothing about invocability: per-command specs (`cli-spec-options.ts`) are a second, dispatch-time
+  allowlist invisible below the dispatcher entry point. `claims open --role` was unit-green yet
+  live-failed on exactly this gap (2026-06-12). Test the dispatch allowlist at a PURE seam — the
+  exported `unknownValueOptions(options, spec)` over the real parser + command spec, with NO IO. (The
+  lesson originally shipped an IO temp-registry integration test as the cure; that was removed per
+  testing-strategy and re-expressed IO-free 2026-06-13 — see `cli-dispatch-allowlist.unit.test.ts`.)

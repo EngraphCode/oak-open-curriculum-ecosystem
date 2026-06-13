@@ -378,3 +378,18 @@ lessons merged to `distilled.md`; trigger-gated candidates and evidence appended
   none of it, staged nothing, committed nothing (owner: don't worry about the commit). Confirms
   the shared-checkout norm; my edits to shared surfaces (repo-continuity, current/README) used
   unique-anchor Edits and were verified intact post-write.
+
+## 2026-06-13 — Skylark wakes Summit (4738bf), recovered from feat/statusline-enhancements
+
+Orphaned WS1 mechanism lessons (authored by Monsoon guards Cirrus, stranded on the original
+branch; recovered when consolidating the statusline lane onto feat/comms-research):
+
+- **The write-path validator defends the AUTHORED shape per checkout.** It compiles the schema
+  set beside the *target* registry, so a role-bearing claim written into the primary registry is
+  correctly refused ("must NOT have additional properties") until the schema change merges there.
+  Designed consequence: additive-field live proofs in a shared registry are **post-merge** steps —
+  plan them that way (this is why the role field could not be live-proven pre-merge).
+- **Commit-queue from a worktree seat can target the primary registry** via
+  `--registry "../../../.agent/state/collaboration/active-claims.json"` (joined to the worktree
+  repoRoot) while the inner `git commit` stays in the worktree (cwd-derived). The queue+git split
+  works as designed for pre-merge attempts from a linked worktree.
