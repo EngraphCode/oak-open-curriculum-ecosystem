@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.32.1...v1.33.0) (2026-06-13)
+
+
+### Features
+
+* **agent-tools:** render the statusline over two lines ([ae2744d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ae2744d3ef4a781123e8778b6360938dc7930f63))
+
 ## [1.32.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.32.0...v1.32.1) (2026-06-13)
 
 
