@@ -608,3 +608,21 @@ format's singular "Next safe step" field encodes the linear assumption — a per
 "Lanes" section) would make multi-lane parallel pickup the default shape rather than something an agent has to
 remember to add. Siblings: thread→arc→plan continuity hierarchy (above); passive-guidance-loses-to-artefact-gravity
 (the field shape, not the prose, drives behaviour).
+
+### "Not lint-enforced here" is not "not required here" — Result pattern in agent-tools (2026-06-14, Serval mends Murmur, owner correction)
+
+Building the WS7 provenance module I found agent-tools throws (no Result) and that ESLint-core preserve-caught-error
+is wired only for `apps/**` and `packages/sdks/**`, and inferred Result wasn't required in agent-tools — started matching
+the throw convention. Owner corrected: that is an OVERSIGHT; agent-tools "must be held to the same high standards as
+everything else." ROOT CAUSE: doctrine-by-analogy — "match the surrounding code" misapplied to an un-ratified local
+deviation; the specific bad step was "not enforced here ⟹ not required here." CURE: repo-wide standards
+(use-result-pattern + ADR-088) govern local convention unless the deviation is explicitly ratified; an
+enforcement-scope gap is a defect to close, never a licence. Rebuilt provenance-scan Result-native (orchestrator
+returns Result; thin node-fs adapter translates throws→err at the one boundary; 22/22 green, lint+type-check clean).
+BROADER FINDING (accurate scope, verified): there is NO custom no-throw/use-Result lint rule anywhere —
+eslint-plugin-standards carries boundary/IO/observability/disable rules but nothing throw-controlling, so the Result
+pattern is doctrine enforced mostly by review, and agent-tools' existing code (collaboration-json-validation.ts,
+repo-root.ts, CLI surface) throws. STRUCTURAL-CURE CANDIDATE: a repo-wide no-throw/use-Result eslint rule (+ extend
+preserve-caught-error beyond apps/sdks), then retrofit agent-tools throws→Result incrementally under the red lint —
+own lane, owner-gated sequencing (recommend after WS7). Memory: feedback_enforcement_gap_is_not_requirement_gap.
+Sibling: existence-is-not-correctness-default-replace.
