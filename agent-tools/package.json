@@ -19,6 +19,7 @@
     "practice-substrate": "pnpm -s build && cd .. && node agent-tools/dist/src/bin/practice-substrate.js",
     "branch-touched-files": "cd .. && node agent-tools/dist/src/bin/agent-tools.js branch-touched-files",
     "comms-provenance-check": "cd .. && pnpm exec tsx agent-tools/src/bin/comms-provenance-check.ts",
+    "comms-archive-move": "cd .. && pnpm exec tsx agent-tools/src/bin/comms-archive-move.ts",
     "context-cost": "cd .. && node agent-tools/dist/src/bin/agent-tools.js context-cost",
     "codex-session-identity-hook": "pnpm -s build && node dist/src/bin/codex-session-identity-hook.js",
     "claude-agent-ops": "tsx src/bin/claude-agent-ops.ts",
