@@ -2167,3 +2167,33 @@ Verified absent from this register before adding.
   hazard in `distilled.md`). `home`: a clause near `markdown-code-blocks-must-have-language` (the
   markdown-source-authoring rule family) or a markdown style-guidance doc — decide at authoring.
   `trigger-condition`: owner directs, or the next consolidation pass. `status`: due (owner-surfaced 2026-06-14).
+
+## 2026-06-14 capture — Whirlwind rides Ridge (WS7 closeout + Brazier's loss-scan §6)
+
+- **Step-6e.2 adversarial loss-scan is role-INDEPENDENT (Brazier stirs Residue, §3.3/§6).**
+  - **source-surface**: Brazier's WS7 archive-move closeout handoff (folded by Whirlwind).
+  - **substance**: the closeout context-loss sweep fires for EVERY closeout, not closeout-owners
+    only; closeout lightness (the team-member path) is not a licence to skip it. Run it whenever a
+    session held substantial first-hand reconstruction or cross-surface synthesis. (Brazier's first,
+    minimal team-member closeout skipped it while holding a heavy reconstruction; the owner had to
+    direct the fuller pass.)
+  - **graduation-target**: `distilled.md` first; PDR-011 / ADR-150 (closeout contract) if it recurs.
+  - **trigger-condition**: a second instance of a context-rich closeout skipping the loss-scan.
+  - **status**: pending.
+
+- **Readers of untracked-by-design `.agent/state` paths must tolerate absence in a fresh checkout
+  (Whirlwind, generalize-the-failure-class as a structural cure).**
+  - **source-surface**: WS7 Phase-3 untrack CI fallout — `validate-collaboration-state` crashed
+    `ENOENT` twice in CI (comms/ dir, then the claim files) because the now-untracked surfaces are
+    absent in a fresh clone; fixed reactively (`356e76f59` + `7da12a82f`).
+  - **substance**: the untrack created a standing hazard class — ANY tool that reads a now-untracked
+    `.agent/state/collaboration/` path (validators, the comms watcher CLI, statusline scans, future
+    curator tooling) must treat an absent path as the clean empty state, not a fault. The validator
+    is fixed; the class is not swept. Structural cure: a one-pass audit of all readers of untracked
+    `.agent/state` paths for absence-tolerance (+ optionally a shared `readDirOrEmpty`/`optionalWhenAbsent`
+    helper), so the next reader doesn't re-learn it via a CI crash. Relevant to ADR-199 / the
+    repo-instance boundary.
+  - **graduation-target**: a short remediation pass (own lane) or an ADR-199 consequences note;
+    candidate rule "untracked-by-design readers tolerate absence".
+  - **trigger-condition**: a second reader crashing on an absent untracked `.agent/state` path.
+  - **status**: pending (owner-sequenced; non-blocking — the gated reader is fixed).

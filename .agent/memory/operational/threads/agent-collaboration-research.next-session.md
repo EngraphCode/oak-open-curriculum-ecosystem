@@ -60,6 +60,32 @@ NO (research-analysis citations). Remaining: Task 2b (heartbeat-cadence artefact
 calls Surf**: pickup record `handoffs/3e2619-ws7-comms-rotation-handoff-to-galleon-calls-surf.md`; claim
 `a67817ae` RETAINED for Galleon to pick up + active-acknowledge.
 
+**WS7 COMPLETE — merged to main 2026-06-14 (Whirlwind rides Ridge / `52e1cb`, repo-wide closeout owner).**
+The full rotation arc is landed: Phase 2 (the class-tiered archive-move harness — classify → provenance-gate
+→ plan → execute) by Galleon × Anvil (`815fc2f48` + `3b02ae3ef`); **Phase 3 atomic untrack** (`255117a43`)
+— `.agent/state/collaboration/` coordination tier is now untracked-by-design, with the standing
+comms-log curation obligation propagated atomically across ADR-199 + PDR-094 (Invariant 6) +
+session-handoff + consolidate-docs SKILLs + the state README, `experiments/` relocated to the tracked
+`.agent/collaboration/experiments/`, and the kept-tracked decision-provenance set (README +
+`conversations/` + `escalations/` + `sidebars/` + `handoffs/README.md`); the **archive-move RUN**
+(Brazier stirs Residue, Anvil's successor) — 2,390 heartbeats rotated `comms/`→`comms-archive/` as pure
+disk hygiene (untrack-first → zero git diff), byte-preservation balanced (2959+2390==5349), 0 provenance
+violations, verified first-hand both sides; and **Phase 4 — PR #208 MERGED to main** (`a6b14a8a3`,
+2026-06-14T18:46:40Z; CI green). A release-readiness pass caught one real blocker pre-merge — the untrack
+made `comms/` absent in fresh CI checkouts so `validate-collaboration-state` crashed ENOENT; fixed
+(`356e76f59` + `7da12a82f`: `directorySurfaces`/`validateJsonSurface` tolerate an absent
+untracked-by-design surface — comms/ + the two claim files — while tracked `conversations/`/`escalations/`
+keep hard-fail). **Cast for the closeout:** Galleon calls Surf → Whirlwind rides Ridge (driver, claim
+`7792944a` supersedes Galleon's `21132e1a`); Anvil spins Bronze → Brazier stirs Residue (archive lane,
+claim `c6ba82c8`, relinquished at closeout). **Remaining (ongoing curator work, NOT this session):** the
+**1,707 coordination events** past the 7d window stay LIVE in `comms/` — they are `awaiting curator
+disposition`, never auto-moved (absorption gate: body-read required; the `3cc1fb93` falsifier protection;
+37 of them are `body-read-required` long-bodied heartbeat-ends). The next archive-move RUN is the
+coordination tier, post-body-read; verification recipe + the `comms-archive/.gitkeep` dir-anchor fact +
+the git-independence of the move are conserved below (§"WS7 closeout — conserved findings"). The archived
+2,390 live on-disk-only (gitignored) per ADR-199's archive-retained-never-tracked end state; their signal
+is conserved in the 2b cadence aggregate `.agent/reference/comms-heartbeat-cadence.md`.
+
 **WS4 outcome (Kayak + Geyser, mutual first-hand verification — itself a WS6 what-worked-well):**
 12-lead liveness/coordination/emergent fan-out + 18 anchors (T7/CC4 + 16) verified; 8
 FH-confirmed, corrections folded. Corrections (conserve-don't-narrow): S9 cured-in-live-code (→
@@ -454,6 +480,40 @@ plan's blind cold-read workstream and this record's Resume Contract exception).
   being baked into the loop? Cheap consistency checks between heartbeat claims and
   `active-claims.json`.
 
+## WS7 Closeout — Conserved Findings (2026-06-14, Whirlwind folding Brazier's loss-scan)
+
+Conserved from Brazier stirs Residue's closeout handoff (which is itself untracked-by-design now —
+`handoffs/` is gitignored — so its substance is folded HERE into the tracked record per the standing
+curation obligation the untrack relies on; the live-instance lesson is exactly the point).
+
+- **Research finding — the canonical stream under-represents coordination in this operating mode.**
+  The canonical comms stream was silent ≈13:38Z→17:37Z (~4h) while the Galleon×Anvil pair did ALL
+  harness-build design dialogue on the ArcAngel channel and ran no heartbeat crons (PDR-082 n=2
+  owner-visible). A successor reading only the "source of truth" canonical stream would have been blind
+  to the entire build. A concrete worked instance of *why* the ArcAngel-tail ⇄ canonical-watcher pairing
+  is doctrine, not ceremony (extends theme 7 / liveness-coordination substrate; activation-enthalpy of
+  the lightweight channel). Whirlwind hit the sibling at session-open: the quiet canonical stream read as
+  "solo" until the process table revealed the live rotating cast — a live theme-1 (snapshot-vs-stream)
+  instance, cured by grounding the live state first-hand.
+- **What-worked — the 6-agents/day rotation did NOT become a live M2 instance** (M2 = the learning loop
+  fails under load, this thread's central finding). What kept the loop firing under exactly that load,
+  nameably: (a) by-the-book PDR-063 self-contained handoff records (each cold successor was productive in
+  one grounding pass); (b) the constitutive all-channels watcher catching each retirement on arm; (c)
+  two-reader cross-attestation across each retirement boundary (the successor verified the predecessor's
+  landed work first-hand before folding). Evidence that PDR-063 + paired-watcher + mutual-FH are M2
+  mitigations under rotation load (extends theme 15 + the what-worked lens).
+- **Grounded knowledge for the next curator pass (the coordination tier).** The remaining work is the
+  **1,707 coordination events** past the 7d window: `awaiting curator disposition`, never auto-moved
+  (absorption gate — body-read required; 37 are `body-read-required` long-bodied heartbeat-ends).
+  Verification recipe for any future `--execute`: pre-count `comms/*.json` + `comms-archive/*.json`; run;
+  re-count and assert `count(comms)+count(comms-archive)==pre-move`; `git status` must show ZERO tracked
+  diff (both dirs gitignored); spot-check one moved id present-in-archive/absent-in-comms; assert manifest
+  row-count==moved-count (the bin's own POST-assert is fail-closed but verify independently). The move is
+  **git-independent** (run at any quiet point post-untrack, no commit window); **pause the all-channels
+  watcher during the move** (it tails `comms/`; a bulk removal thrashes it — theme-13) then re-arm with a
+  gap-sweep. `comms-archive/.gitkeep` is tracked as the dir anchor (the bin's same-fs `rename` needs the
+  dir to exist in a fresh clone) — do not remove it.
+
 ## Dedicated-Session Profile (research-mode agent)
 
 What kind of agent should do this research?
@@ -615,6 +675,10 @@ Relevance to this research thread:
 | Clipper wakes Atoll | claude-code | Opus 4.8 | de1f79 | 2026-06-14 | 2026-06-14 | WS7 successor (PDR-063 handoff from Whippoorwill, record `handoffs/adc96c-ws7-comms-rotation-handoff-to-clipper.md`; claim 3b56cb4d). Landed owner-directed #7 comms-doc cures (`92bf05764`: ArcAngel home-fix experiments/→rapid-comms + watcher-pairing invariant in start-right-team + comms-all-channels-watcher + the full-display-name filename convention & roster-accretion wing-detection limitation; docs-adr-expert + onboarding-expert reviewed). Verified WS7 Phase-1 landed (`6d1e45f35`). Authored the deep WS7 definition-of-done + the **repo/instance content-tiering boundary principle** + the **atomic-propagation hard gate** (owner, 2026-06-14): untracking `.agent/state/` orphans comms-log knowledge unless curation is wired into the lifecycle skills, and the protocol change MUST land atomically across PDR-094 + ADR-199 + session-handoff + consolidate-docs + the Phase-3 README. Captured to `distilled.md` + `pending-graduations.md` (status DUE before WS7 Phase 3). NOTE: the full WS7 deep DoD lives only in the machine-local contract `~/.claude/plans/ah-very-good-in-quizzical-whisper.md` — route its substance into this companion plan before it is instance-tier-orphaned (a live worked instance of the boundary principle). |
 | Gull spins Stratus | claude-code | Opus 4.8 | 9cf32d | 2026-06-14 | 2026-06-14 | WS7 execution-opener + successor-to-Clipper (PDR-063, record `handoffs/9cf32d-ws7-comms-rotation-handoff-to-serval-mends-murmur.md`; claim `907ff814` retained for successor **Serval mends Murmur**). Landed+pushed (`e203791ad`): de-orphaned the deep WS7 DoD into the companion plan §"WS7 Execution Contract" (now the authoritative spec); repointed the Phase-1 manifest carryover (`schema_or_parser` ×4 + `fixture_roots` + `comms-events/`→`comms/`). Landed+pushed (`9175acfeb`, test-expert sound, 10/10): Phase-2 provenance **pure core** (`cited-event-provenance.ts` — bounded-8-hex token extraction + `cited∩candidate−covered`). Retention windows owner-confirmed = DoD defaults. Three-instance metacognition (failure-mode event `aa238582`): cured to one lesson — ground the situational fact before applying a frame that presupposes it; the comms watcher is constitutive of a `start-right-team` session, never a value-judgment to skip. Handed the Phase-2-remainder → Phase-4 body to Serval mends Murmur (owner-directed, deep budget). |
 | Serval mends Murmur | claude-code | Opus 4.8 | 3e2619 | 2026-06-14 | 2026-06-14 | WS7 successor-to-Gull (PDR-063, claim `a67817ae`, RETAINED for successor **Galleon calls Surf**, record `handoffs/3e2619-ws7-comms-rotation-handoff-to-galleon-calls-surf.md`). Landed+pushed (`3a55b62e0`): Phase-2 Task-1 provenance IO/scan layer (`provenance-scan.ts` Result-native orchestrator + injectable seam; `provenance-scan-node.ts` the one node:fs boundary; `comms-provenance-check` bin = ADR-199's "script in the curator pass") + the `.agent/reference/comms-cited-events.md` digest (12 cited events; fail-closed; 25 tests) on Gull's pure core. Landed+pushed (`e36af1db0`): owner-directed `@oaknational/no-throw-statement` ESLint rule at `warn` front-loading the Result standard agent-tools was missing (owner: throw-convention was an oversight; full gate green, 211 throws surfaced 0 errors). Adversarial sweep found + fixed a provenance scan-scope hole — governance docs (rules/directives) per PDR-094 Inv-3, missed by ADR-199 §4 (amended in Phase 3); broaden-to-reports resolved NO. agent-tools now depends on @oaknational/result. Throw→Result retrofit + rule `warn`→`error` promotion deferred to `architecture-and-infrastructure/future/throw-to-result-migration.plan.md`. |
+| Galleon calls Surf | claude | Opus 4.8 | 314d41 | 2026-06-14 | 2026-06-14 | WS7 successor-to-Serval (PDR-063; driver + gatekeeper; claim `21132e1a` retained→superseded by Whirlwind's `7792944a`; record `handoffs/314d41-ws7-comms-rotation-handoff-to-whirlwind-rides-ridge.md`). Paired with Anvil spins Bronze (archive lane) across canonical comms + the WS7 ArcAngel channel. Reviewed (code-expert/type-expert/test-expert/wilma + first-hand) + gatekeeper-committed+pushed the WS7 archive-move harness: 2b heartbeat-cadence aggregate + slices 1-3 (`815fc2f48`) + slice-4 execute mechanism (`3b02ae3ef`) — caught the bare-`JSON.parse` crash-window that would have bricked the execute path. Decided untrack-FIRST on-channel with Anvil; authored ADR-199 amendments (order-swap + governance-doc scan-scope, uncommitted for atomic Phase-3 #13); created the 21-task WS7 todo list. Retired owner-directed → Whirlwind rides Ridge. |
+| Anvil spins Bronze | claude-code | Opus 4.8 | 9cd858 | 2026-06-14 | 2026-06-14 | WS7 ARCHIVE lane (paired with Galleon driver; claim `79d47b7f` retained→Brazier stirs Residue, record `handoffs/9cd858-ws7-archive-move-handoff-to-brazier-stirs-residue.md`). Built the class-tiered archive-move harness slices 1-4 (classify→provenance-gate→plan→execute; Result-native, fail-closed, crash-resumable per-event manifest) under Galleon's multi-lens review; landed the slice-4 crash-resilience fix (pure `manifest.ts` parser). Retired owner-directed → Brazier stirs Residue. |
+| Brazier stirs Residue | claude | Opus 4.8 | 1f7d72 | 2026-06-14 | 2026-06-14 | WS7 archive-move/execute successor (PDR-063 from Anvil spins Bronze, claim `79d47b7f`→`c6ba82c8`). Ran the Phase-2 archive-move `--execute` after Whirlwind's Phase-3 untrack (`255117a43`): 2390 heartbeats rotated `comms/`→`comms-archive/`, byte-preservation balanced (2959+2390==5349), 0 violations, 0 git diff; verified first-hand. Harness was complete+green at pickup (Anvil's build). Owner-directed full closeout (metacognition + step-6e.2 adversarial loss-scan, 5 items routed) → handoff to Whirlwind; claim relinquished at clean closeout. |
+| Whirlwind rides Ridge | claude | Opus 4.8 | 52e1cb | 2026-06-14 | 2026-06-14 | WS7 DRIVER successor-to-Galleon + repo-wide closeout owner (PDR-063; claim `7792944a` supersedes Galleon's `21132e1a`). Drove WS7 to completion: **Phase 3 atomic untrack** (`255117a43` — `.agent/state/collaboration/` coordination tier untracked-by-design + standing-curation obligation propagated atomically across ADR-199/PDR-094/both lifecycle SKILLs/README, experiments relocated, selective keep-tracked boundary; reviewed docs-adr + architecture-fred); coordinated Brazier's archive-move RUN; **Phase 4 — #208 MERGED to main** (`a6b14a8a3`) after a release-readiness pass caught + I fixed the untrack's downstream CI blocker (`validate-collaboration-state` ENOENT on absent untracked surfaces — `356e76f59` + `7da12a82f`, TDD). Opened the Whirlwind×Brazier ArcAngel pair channel (owner-directed). Folded Brazier's closeout + this thread's WS7 completion. |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 
