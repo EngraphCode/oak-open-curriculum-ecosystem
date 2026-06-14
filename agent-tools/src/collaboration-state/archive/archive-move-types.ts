@@ -90,4 +90,49 @@ export type ArchiveMoveError =
   // An archive-move decision with no recorded disposition (an absorption-gate
   // invariant breach). The manifest is the Inv-1 ledger, so the plan fails closed
   // here rather than fabricating a disposition.
-  | { readonly kind: 'move-without-disposition'; readonly eventId: string };
+  | { readonly kind: 'move-without-disposition'; readonly eventId: string }
+  // Execute-phase failures (slice 4): the manifest could not be read, a row could
+  // not be appended, a file could not be moved, or the post-move byte-preservation
+  // invariant diverged — each aborts the pass fail-closed.
+  | { readonly kind: 'manifest-unreadable'; readonly path: string; readonly cause: string }
+  | { readonly kind: 'manifest-append-failed'; readonly eventId: string; readonly cause: string }
+  | { readonly kind: 'move-failed'; readonly eventId: string; readonly cause: string }
+  | {
+      readonly kind: 'byte-preservation-violation';
+      readonly preMoveTotal: number;
+      readonly commsAfter: number;
+      readonly archiveAfter: number;
+    };
+
+/**
+ * Execute-phase filesystem seam: the read-only {@link ArchiveMoveIo} plus the
+ * three mutating operations the move needs. Planning takes the base interface;
+ * only execution takes this wider one, so plan-only callers/tests are unaffected.
+ */
+export interface ArchiveMoveExecuteIo extends ArchiveMoveIo {
+  /** Event ids already recorded in the manifest (empty set if the file is absent). */
+  readonly readManifestEventIds: (manifestPath: string) => Result<ReadonlySet<string>, string>;
+  /** Append one JSONL line to the manifest, creating it if absent. */
+  readonly appendManifestRow: (manifestPath: string, jsonLine: string) => Result<void, string>;
+  /** Move an event file from the live stream into the archive. */
+  readonly moveEventFile: (fromPath: string, toPath: string) => Result<void, string>;
+}
+
+/** Actual post-move file-count balance (the byte-preservation assertion result). */
+interface BytePreservationResult {
+  readonly preMoveTotal: number;
+  readonly commsAfter: number;
+  readonly archiveAfter: number;
+  readonly balanced: boolean;
+}
+
+/** Outcome of a successful execute pass. */
+export interface ArchiveMoveExecuteReport {
+  /** Files moved from `comms/` into the archive this pass. */
+  readonly moved: number;
+  /** Manifest rows appended this pass (excludes ids already recorded by a prior pass). */
+  readonly manifestRowsAppended: number;
+  /** Move candidates already recorded in the manifest (idempotent re-run / crash-resume). */
+  readonly skippedAlreadyRecorded: number;
+  readonly bytePreservation: BytePreservationResult;
+}
