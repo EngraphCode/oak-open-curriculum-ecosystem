@@ -4,9 +4,9 @@ pdr_kind: pattern
 
 # PDR-095: Collaboration Is Multi-Dimensional — A Coordination Registry Measures One Axis, Not the Whole
 
-**Status**: Candidate (seeded 2026-06-14; awaiting owner ratification)
+**Status**: Accepted
 **Date**: 2026-06-14
-**Adopted**: —
+**Adopted**: 2026-06-14
 **Related**:
 [PDR-076a](PDR-076a-agent-identity-tuple-name-and-uuid.md)
 (the union of participants is deduplicated by the identity tuple, not by name

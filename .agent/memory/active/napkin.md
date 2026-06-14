@@ -574,3 +574,19 @@ hierarchy is thread → arc → plan; the plan-collection axis (`agent-tooling/`
 when no more-specific thread (e.g. `statusline-enhancements`, `agent-naming`) exists — register the identity row
 and update lane state at close; do not treat plan-only work as having no thread home. Sibling: register-identity-
 on-thread-join (session-open counterpart I also lacked, since I opened thread-less).
+
+### Claims measure coordination, not collaboration; and "no consumer yet" is never a descope verdict (2026-06-14, Orbit stirs Spectrum)
+
+A statusline that read team membership from the claim registry alone rendered a brand-new/read-only session as
+solo even when genuinely collaborating. Two lessons. (1) Claims measure coordination over MUTABLE artefacts (a
+read-write concern); collaboration also happens via discourse (comms / ArcAngel / sidebar) holding zero claims —
+read-only research/reasoning pairs are real teams. Any team-shape / presence surface must union ALL collaboration
+surfaces, deduplicated by identity, never claims alone. Graduated to PDR-095 (Accepted) + the team-state register
+plan WS2 active-agent-set union. (2) RECURRENCE of veto-on-absence: a readiness reviewer flagged forward-design
+plan fields as "no consumer → over-built (YAGNI), descope" and I surfaced *descope* as my recommended option. Owner
+corrected: "by that argument no innovation would ever happen because the new feature is not already in use." A
+reviewer's no-consumer verdict is input to weigh against the substance bar, never relayed as a recommendation; the
+move is "no consumer yet — review in a future session", not descope. Sibling tell: before treating a fix as net-new,
+check for an existing/superseding plan — the register plan already existed and supersedes the resolver I patched
+(my metacognition pass caught this only after I'd built the interim fix). Napkin >500 lines: rotation pressure
+routed to a dedicated consolidation pass, not trimmed here.

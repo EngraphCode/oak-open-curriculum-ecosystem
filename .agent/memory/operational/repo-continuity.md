@@ -72,18 +72,16 @@ surface.
   Deep consolidation status: completed this handoff — session-completion mode (the dedicated
   pass ran earlier today, Thyme wakes Canopy; this pass captured and routed the session's
   learning, verified buffers, `pnpm check` green on `5a2ac400b` + closeout edits).
-  (b) the statusline lane is now UNIFIED (owner-directed 2026-06-13: the Oak-mark work
-  folded into the indicators lane — same `renderStatusline` surface,
-  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)).
-  The **Oak acorn mark LANDED** (commit `40ef58a06`, UNPUSHED, on `feat/comms-research`;
-  4-row logo-column, default `braille-sharp` via `OAK_STATUSLINE_LOGO`). The session-shape
-  indicators remain PAUSED (Monsoon guards Cirrus `aaa0b7`, worktree
-  `wt:statusline-enhancements`, branch `feat/statusline-enhancements`): comms event
-  `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream `/keywords`
-  description change) with WS1 staged and the commit window closed without landing.
-  **Next safe step**: push `40ef58a06` and reconcile the two branches onto one base; re-fit
-  WS3 to the new 4-row logo-column layout (its single-line framing is superseded); then
-  clear the WS1 blocker. See the plan §Landed + §Pickup.
+  (b) the statusline lane is UNIFIED and the narrow lane is COMPLETE on `feat/comms-research`
+  (Oak-mark logo column + session-shape indicators landed; controlling plan archived). An
+  interim session-relative + `observing` resolver and the ansi/indicators/render module split
+  landed 2026-06-14 (commit `da8cbd7d6`, Orbit stirs Spectrum). The successor is the
+  [team-state register plan](../../plans/agent-tooling/current/team-state-register-and-session-shape-icons.plan.md)
+  (DRAFT, READY-WITH-CONDITIONS; active-agent set claim-independent per PDR-095, Accepted).
+  **Next safe step**: the register plan is unassigned (Clipper rotated out) — a next session
+  resolves its readiness Conditions B/C-D, or the branch rides its push/merge. The
+  [thread record](threads/statusline-enhancements.next-session.md) is the canonical home and
+  now cross-links the Oak-logo + terminal-animation research as lanes of the same thread.
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session
@@ -283,7 +281,7 @@ each thread record; this table is the repo-level index.
 | `repo-professionalism-assessment` | Repo professionalism / engineering-quality report → planability triage | [record][repo-professionalism-assessment] | codex / GPT-5 / Airy Whirling Wing / report-author-and-planability-router / 2026-06-03 |
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |
-| `statusline-enhancements` | Claude Code statusline: Oak-mark logo column (landed) + session-shape indicators (pending) | [record][statusline] | claude-code / Opus 4.8 / Bilby hunts Eventide / oak-mark-landed-lane-unified / 2026-06-13 |
+| `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators LANDED; interim session-relative/`observing` resolver + ansi/indicators/render split landed (`da8cbd7d6`); team-state register successor (DRAFT, ready-with-conditions); logo + terminal-animation research cross-linked in the record | [record][statusline] | claude-code / Opus 4.8 / Orbit stirs Spectrum / session-relative-resolver+PDR-095+register-refinement / 2026-06-14 (prior: Bilby hunts Eventide oak-mark-landed 2026-06-13) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior: Moss weaves Blossom v2-landing 2026-06-12, Swift Gliding Zephyr v2-build 2026-06-11) |
 
 ## Paused Threads

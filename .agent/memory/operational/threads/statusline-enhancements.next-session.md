@@ -28,6 +28,33 @@ a new **`observing`** shape (dim eyes) covers non-member-with-others-active, and
 the render module was split into `statusline-ansi.ts` / `statusline-indicators.ts`
 / `statusline-render.ts`.
 
+## Thread scope — all the related surfaces are ONE thread
+
+Owner question (2026-06-14): *are the statusline plans and the terminal Oak
+logo/animation work part of the same thread?* **Yes — and this section makes
+that explicit, because they were previously scattered with no cross-link.** This
+one thread spans:
+
+- **Session-shape indicators** (code): `renderStatusline` +
+  `statusline-session-shape.ts` / `statusline-ansi.ts` / `statusline-indicators.ts` /
+  `statusline-render.ts` + the successor register plan (below).
+- **Oak-mark logo column** (code + research): the `OAK_STATUSLINE_LOGO` 4-row
+  glyph column, derived from
+  [`research/developer-experience/statusline-logos/statusline-logos.md`](../../../research/developer-experience/statusline-logos/statusline-logos.md)
+  (SVG→glyph renderings; SVG is source of truth).
+- **Terminal animation** (research, no plan yet): the redraw-free terminal
+  animation toolkit at
+  [`statusline-logos/terminal-animation-without-redraw/`](../../../research/developer-experience/statusline-logos/terminal-animation-without-redraw/)
+  — a future lane of this same thread (animate the Oak mark / indicators), not a
+  separate thread.
+
+**Cross-thread note:** statusline lane state is also referenced from the
+[`agentic-engineering-enhancements`](agentic-engineering-enhancements.next-session.md)
+thread record (§Statusline lane) and from `repo-continuity.md`. This record is
+the canonical home for the thread; the agentic-engineering reference is a
+historical pointer, not a second owner. Consolidate any future statusline lane
+state here.
+
 ## Current continuation
 
 - **Controlling plan (narrow lane, now ARCHIVED)**:
