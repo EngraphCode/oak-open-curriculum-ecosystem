@@ -17,6 +17,10 @@ interface JsonSurface {
   readonly path: string;
   readonly schemaId: string;
   readonly parser?: (text: string) => unknown;
+  // Untracked-by-design surfaces (ADR-199 Phase-3 untrack) are absent in a fresh
+  // checkout (e.g. CI) and present-on-disk on a working instance. An absent such
+  // surface is the expected clean state, not an integrity fault.
+  readonly optionalWhenAbsent?: boolean;
 }
 
 interface CollaborationStateIntegrityFinding {
@@ -66,9 +70,11 @@ async function validateJsonSurface(
   validator: CollaborationJsonSchemaValidator,
   surface: JsonSurface,
 ): Promise<readonly CollaborationStateIntegrityFinding[]> {
-  const text = await readFile(join(repoRoot, surface.path), 'utf8').catch((error: unknown) => {
-    throw new Error(`failed to read ${surface.path}`, { cause: error });
-  });
+  const text = await readSurfaceText(repoRoot, surface);
+  if (text === undefined) {
+    // Optional-when-absent surface not present in this checkout — the clean state.
+    return [];
+  }
 
   try {
     JSON.parse(text);
@@ -96,11 +102,13 @@ async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
       path: `${COLLABORATION_ROOT}/active-claims.json`,
       schemaId: 'active-claims.schema.json',
       parser: parseCollaborationRegistry,
+      optionalWhenAbsent: true,
     },
     {
       path: `${COLLABORATION_ROOT}/closed-claims.archive.json`,
       schemaId: 'closed-claims.schema.json',
       parser: parseClosedClaimsArchive,
+      optionalWhenAbsent: true,
     },
     ...(await directorySurfaces({
       repoRoot,
@@ -148,6 +156,20 @@ async function directorySurfaces(input: {
       schemaId: input.schemaId,
       ...(input.parser === undefined ? {} : { parser: input.parser }),
     }));
+}
+
+async function readSurfaceText(
+  repoRoot: string,
+  surface: JsonSurface,
+): Promise<string | undefined> {
+  try {
+    return await readFile(join(repoRoot, surface.path), 'utf8');
+  } catch (error) {
+    if (surface.optionalWhenAbsent === true && isErrnoCode(error, 'ENOENT')) {
+      return undefined;
+    }
+    throw new Error(`failed to read ${surface.path}`, { cause: error });
+  }
 }
 
 async function readDirOrEmpty(

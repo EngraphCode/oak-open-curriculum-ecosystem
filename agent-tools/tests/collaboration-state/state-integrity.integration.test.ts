@@ -1,3 +1,4 @@
+import { rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -91,13 +92,16 @@ describe('collaboration state integrity validator', () => {
     }
   });
 
-  it('treats an absent untracked-by-design comms directory as zero surfaces', async () => {
+  it('treats absent untracked-by-design surfaces as clean (fresh checkout / CI)', async () => {
     const repoRoot = await makeTempCollaborationRepo();
     try {
-      // comms/ is untracked-by-design (ADR-199 Phase-3 untrack): a fresh
-      // checkout (e.g. CI) has no comms/ directory at all. That is the clean
-      // state, not an integrity fault — the validator must not crash on it.
+      // ADR-199 Phase-3 untracked the instance tier, so a fresh checkout (e.g.
+      // CI) has NONE of these on disk: the comms/ directory, active-claims.json,
+      // or closed-claims.archive.json. That absence is the clean state, not an
+      // integrity fault — the validator must not crash on any of them.
       await removeDirectory(join(repoRoot, '.agent/state/collaboration/comms'));
+      await rm(join(repoRoot, '.agent/state/collaboration/active-claims.json'));
+      await rm(join(repoRoot, '.agent/state/collaboration/closed-claims.archive.json'));
 
       const report = await validateCollaborationStateIntegrity({ repoRoot });
 
