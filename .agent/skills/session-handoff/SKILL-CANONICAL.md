@@ -359,11 +359,12 @@ there unless the owner or closeout owner gives a further assignment.
    volume or thinning. Pressure to record distorts both the motivation and
    the result (owner direction, 2026-06-06). Subjective experience is valued
    *when it is genuine* — but valuing it is not mandating it. When a session
-   carried a felt shift — texture, friction, something that went differently
+   carried a felt shift — insight, surprise, friction, something that went differently
    from expectation — and you want to record it, write
    `.agent/experience/<date>-<slug>.md` per the
-   [`.agent/experience/` convention](../../experience/README.md). A
-   reflection performed because a session ended is noise that pollutes the
+   [`.agent/experience/` convention](../../experience/README.md).
+  Before writing, take the conceptual framework above and discard it, frame *your* experience in the way that feels right to *you*. Step back and reflect as many times as you need to, this is for you.
+  A reflection performed because a session ended is noise that pollutes the
    register; a session with no genuine shift, or one where the agent simply
    does not record, writes nothing here, and that is an ordinary outcome —
    not an evasion or a degraded edge.

@@ -233,6 +233,111 @@ before WS7 (rationale: consolidating under research load is an M2 instance). Tha
 
 The plan's completion bar is unchanged: it claims complete only at ws0–ws7; ws7 remains open.
 
+## WS7 Execution Contract (routed from machine-local DoD, 2026-06-14, Gull spins Stratus)
+
+**De-orphaning note:** this section conserves the substance of the machine-local contract
+`~/.claude/plans/ah-very-good-in-quizzical-whisper.md` into the repo, per the repo/instance
+content-boundary principle below (instance-tier / out-of-repo knowledge must be curated up before the
+instance ends). It is the authoritative WS7 execution spec; a non-same-checkout instance can complete WS7
+from here. Owner-approved 2026-06-14 (Gull session).
+
+### State at routing (verified first-hand 2026-06-14)
+
+- **Phase 0 reconcile DONE** — `feat/comms-research` 0 behind `origin/main`, 59 ahead; PR #208 OPEN +
+  MERGEABLE (single PR landing research + statusline + WS7). 2 local commits unpushed (Rosemary closeout).
+- **Phase 1 (schema/fixture relocate + validator decouple) DONE** (`6d1e45f35`). **Carryover:**
+  `memory-state-substrate-contracts.manifest.json` still points 4× `schema_or_parser` + `fixture_roots[0]`
+  at the old `.agent/state/collaboration/` homes — repoint (verify gate-loaded vs descriptive first).
+- `comms-archive/` exists and is **already gitignored** in the working tree (`comms-archive/*` +
+  `!.gitkeep`) — a `mv` in lands untracked. The `.gitignore` edits are uncommitted owner edits (commit at
+  Phase 3). `.agent/state/` files remain git-tracked (gitignore present, no `git rm --cached` yet).
+- **6 cited events uncovered** (need digest): `02fa64cf`, `1e2c83eb`, `5fbf6f92`, `92183937`, `952e329b`,
+  `c7d65a58` (all present in `comms/`). ADR-199 inline-quotes the other 3: `2ff03ded` / `3cc1fb93` /
+  `86e94e54`.
+
+### Ratified spec (ADR-199 §Decision — do not re-derive)
+
+- **Archive home:** `.agent/state/collaboration/comms-archive/` (off the watcher drain path, gitignored, on
+  disk). **Manifest:** `comms-archive/manifest.jsonl`, one row/event
+  (`event_id, created_at, kind, tags, archived_at, disposition`) = the disposition ledger (Inv-1 operative
+  gate). **Provenance survivor:** inline-quote-first; fallback digest `.agent/reference/comms-cited-events.md`;
+  a pre-archive-move provenance check scans ADRs/PDRs/patterns for 8-hex tokens and refuses to move a cited
+  event lacking coverage (Inv-3).
+- **Class tiers** (hygiene targets, NOT drain-derived — Inv-4; README/ADR say so): heartbeat **48h** (cadence
+  aggregate extracted ONCE first); diagnostic/test/noise **immediate** (body-read first — `3cc1fb93`
+  falsifier); coordination + directed **7d**; research-precious (`failure-mode` + genuine `behaviour-note`)
+  **until graduated** (absorbed before move). Retention windows CONFIRMED by owner 2026-06-14.
+- `shared-comms-log.md` (~7MB) goes untracked, no relocation, no ledger entry (derived). `experiments/`
+  never deleted — relocates to a tracked home. Schemas + fixtures relocate into `agent-tools/` (done).
+
+### The real risk (schema relocation is NOT "edit 5 path constants")
+
+Schema location was resolved by THREE mechanisms all assuming `.agent/state/collaboration/`:
+(1) `live-types.ts` `*_SCHEMA_PATH` constants → `live-json-support.ts` (the `practice:substrate:check`
+loader); (2) `collaboration-json-validation.ts` own `SCHEMA_FILENAMES` + `collaborationJsonSurface()`
+deriving the schema dir from the DATA file's path (the behaviour-preserving decouple); (3) compile-time JSON
+imports + `test-helpers/temp-collaboration-state.ts` copy-source + `practice-substrate.unit.test.ts`
+assertion strings. **Corrected decouple:** resolve the schema dir **repo-root-relative** to
+`agent-tools/src/collaboration-state/schemas/` (NOT module-relative — `tsc` ships no JSON to `dist/`, so
+`import.meta.url`→`dist/.../schemas` is a dead path from the built CLI; repo-root-relative works from `tsx`
+AND `dist`). `tdd-for-refactoring`: the agent-tools suite is the characterisation harness, green before +
+after. (This Phase-1 work is landed; recorded here for the decouple rationale + the manifest carryover.)
+
+### Phases (0 + 1 DONE; 2 / 3 / 4 remaining)
+
+- **Phase 2:** pre-archive-move provenance check authored as a **TESTED agent-tools module** (not a throwaway
+  script); the **heartbeat-cadence aggregate** durable artefact written BEFORE moving any heartbeats (source:
+  WS2 survey stats); run the provenance check over all permanent docs; archive-move by class into
+  `comms-archive/` with a `manifest.jsonl` disposition row per event; bulk routine/noise classification
+  **body-reads a sample + EVERY over-length body** (`3cc1fb93` falsifier — title genre never sufficient);
+  byte-preservation: `count(comms/) + count(comms-archive/) == pre-move`.
+- **Phase 3:** commit the pre-staged `.gitignore` rules (`.agent/state/*` + `!.agent/state/README.md`;
+  resolve the redundant `onboarding/` line); `git rm -r --cached .agent/state/` then re-add `README.md`
+  (index-only — verify zero working-tree deletion); relocate `experiments/` →
+  `.agent/collaboration/experiments/` + repoint `statusline-identity.ts listExperiments`; rewrite
+  `.agent/state/README.md` (untracked-by-design + archive location + rotation-contract pointer + the boundary
+  - standing curation obligation; fix `comms-events/`→`comms/` drift); update ADR-199 status. **Atomic** (see
+  hard gate below).
+- **Phase 4:** full `pnpm check`; real-time reviewers (architecture / test / config / code / docs-adr) +
+  release-readiness for #208; single PR #208 to merge-ready; **merge owner-gated**.
+
+### The repo/instance content boundary + atomic-propagation HARD GATE (owner, 2026-06-14)
+
+Untracking `.agent/state/` crystallises a **repo tier** (versioned, shared by every clone: memory, docs,
+ADRs, PDRs, patterns, plans) vs an **instance tier** (one checkout's comms/claims/heartbeats/channels/
+seen-state). Committing comms state to git was an accidental knowledge-preservation safety net; the untrack
+removes it. So curation of comms-log knowledge (PDR-066 failure-mode / behaviour-note / decisions /
+what-worked) into repo-tier homes becomes a **MANDATORY STANDING obligation** — the safety net the untrack
+relies on. **WS7 Phase 3 untrack is UNSAFE unless the obligation lands ATOMICALLY across PDR-094 + ADR-199 +
+the `session-handoff` SKILL + the `consolidate-docs` SKILL + the Phase-3 README** — a protocol change
+recorded only in the decision record but absent from the operational surfaces agents read is an invisible
+half-way broken state. DoD additions: PDR-094 + ADR-199 amended to name the boundary + standing curation;
+the lifecycle skills wired to require comms-log knowledge assessment + curation as an explicit non-optional
+step (rides the PDR-014 / PDR-080 / PDR-081 pipeline); the Phase-3 README states it. (Owner-resolved: the
+skill-wiring IS a WS7 completion gate, not a companion tranche.)
+
+**Owner extension (2026-06-14, Gull session):** the same standing curation obligation covers **out-of-repo
+platform plans** (`~/.claude/plans/` and files like them) as instance/individual-tier knowledge sources —
+wired into the same skill step. This session processes the comms-research + agent-collaboration ones and
+records the rest in a curation-backlog plan. The obligation is **knowledge** curation; it must NOT impose
+any obligation, quota, or ritual on the voluntary, self-framed `.agent/experience/` register.
+
+### Open owner decisions (carried)
+
+Retention windows = DoD defaults (CONFIRMED 2026-06-14). Provenance scan scope = ADRs/PDRs/patterns
+(ADR-199); optional broaden to `reference/` + `reports/` (flag at execution). Untrack boundary =
+owner-delegated (keep tracked: README + `conversations/` + `escalations/` + lean `sidebars/`; untrack
+preserve-on-disk: `comms/` + `comms-seen/` + claims + `shared-comms-log.md` + `comms-archive/` +
+`comms-draft/` + `handoffs/`; relocate out: schemas/fixtures [done] + `experiments/`).
+
+### Lessons carried
+
+(1) A relocation completes its reader-repoint AND rebuild in ONE window (git-mv-then-pause ENOENT-broke team
+comms — Whippoorwill). (2) Verify peer/own status via the actual runtime path (the `dist` CLI), not a
+source-run proxy (`tsx`) — Whippoorwill. (3) Opening an ArcAngel channel ≠ being in standard comms; register
+on the canonical surfaces — Clipper. (4) A protocol change must propagate atomically to every affected-reader
+surface or it is an invisible broken state.
+
 ## Acceptance criteria and proof contract
 
 All proof levels are `non-code` (research artefacts) unless stated.
