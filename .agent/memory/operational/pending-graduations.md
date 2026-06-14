@@ -2129,3 +2129,23 @@ Verified absent from this register before adding.
   Inputs ready: the gap ledger in `current/skills-standardisation-and-adapter-generator.plan.md`
   §Reality Reconciliation; friction F-37. Two enhancement briefs already authored (oversized-core
   decomposition; skills eval harness) sit in `agent-tooling/future/`.
+
+- **Threads are multi-lane containers — generalise the continuity model past a singular "Next safe step".**
+  `captured-date`: 2026-06-14. `source-surface`: owner correction during the skills-planning closeout
+  (Margay wakes Whisper) — stated as **generally applicable to all threads**, not a one-record fix.
+  `graduation-target`: a continuity-doctrine amendment establishing that a thread holds multiple concurrent
+  arcs/lanes, each carrying its own state + branch + pickup trigger (active OR deferred), independently
+  pickup-able in parallel by different checkouts, separate agents, or collaborators — there is no single
+  thread-level next-step. Affected-reader surfaces that currently encode the singular assumption and MUST be
+  reconciled in one tranche (atomic propagation — a doctrine change absent from the operational surfaces
+  agents read is an invisible half-broken state): `.agent/skills/session-handoff/SKILL-CANONICAL.md` step 3
+  lane-state field list (singular `Next safe step`); `.agent/memory/operational/threads/README.md`
+  (thread-record convention + template, ~line 154); `.agent/directives/continuity-practice.md`; and the
+  PDR home (a clause on PDR-027 threads/sessions or PDR-011 continuity-surfaces, or a small dedicated PDR —
+  decide at authoring). Existing thread records then reconcile to a per-lane shape as they are next touched
+  (not a mass rewrite). `trigger-condition`: owner directs the doctrine tranche, OR the next dedicated
+  consolidation pass. `status`: due (owner-confirmed general principle 2026-06-14; awaiting authoring slot).
+  Worked instance: the `agentic-engineering-enhancements` record gained a "Concurrent lanes" framing
+  (Lane A feedback-mechanism active; Lane B skills review deferred) 2026-06-14 as the first per-lane example.
+  Meta-pattern noted (napkin): repeatedly collapsing the concurrent continuity graph
+  (threads × lanes × identities × checkouts) into linear singletons.

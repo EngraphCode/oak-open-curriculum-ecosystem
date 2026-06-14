@@ -590,3 +590,21 @@ move is "no consumer yet — review in a future session", not descope. Sibling t
 check for an existing/superseding plan — the register plan already existed and supersedes the resolver I patched
 (my metacognition pass caught this only after I'd built the interim fix). Napkin >500 lines: rotation pressure
 routed to a dedicated consolidation pass, not trimmed here.
+
+### A thread is a multi-lane container, not a single "Next safe step" (2026-06-14, Margay wakes Whisper, owner correction)
+
+At closeout I framed a thread's "Next safe step" as singular and concluded a DEFERRED lane (skills review) "isn't
+the thread's next step" — so I routed it only to the owner-gated register + a thread-record cross-link, leaving the
+feedback-mechanism lane as "the" next step. Owner corrected: a thread holds multiple concurrent arcs/lanes, and
+SEVERAL can be "next" at once — picked up independently by different checkouts, by separate agents, or by two agents
+collaborating. There is no single privileged next-step. ROOT CAUSE: doctrine-by-analogy again — "Next safe step is
+singular" fits a single-lane thread and I misapplied it to a multi-lane one. CURE: represent EVERY lane as a
+first-class pickup point in the thread record (its own state + branch + trigger, active OR deferred); the thread
+record's job is parallel-lane pickup, not a linear pointer. A cross-link records "this happened"; a lane entry
+records "here is takeable work." A deferred lane still belongs in the lane state (marked deferred + trigger), not
+only in the owner-gated register. Applied: added a "Concurrent lanes" framing to the agentic-engineering-enhancements
+record (Lane A feedback-mechanism active; Lane B skills review deferred). STRUCTURAL-CURE CANDIDATE: the thread-record
+format's singular "Next safe step" field encodes the linear assumption — a per-lane next-state structure (explicit
+"Lanes" section) would make multi-lane parallel pickup the default shape rather than something an agent has to
+remember to add. Siblings: thread→arc→plan continuity hierarchy (above); passive-guidance-loses-to-artefact-gravity
+(the field shape, not the prose, drives behaviour).

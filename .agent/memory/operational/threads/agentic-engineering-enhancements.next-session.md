@@ -39,6 +39,24 @@ PDR-082 second-instance evidence; the PDR-081 ledger-clause contradiction, owner
 The prior walk's record (Thermal Circling Updraft, 2026-06-11) lives in git history and the
 register.
 
+**Concurrent lanes on this thread.** This thread is a multi-lane container, not a single
+linear next-step: the lanes below are independent and can be picked up **in parallel** — by
+different checkouts, by separate agents, or collaboratively. Each carries its own state and
+pickup trigger; neither blocks the other.
+
+- **Lane A — feedback-mechanism follow-ons (active).** Branch `feat/graph-tooling-tidyup`;
+  next is **WS1 → 2b → 2c → WS2** (full detail in the bullets and the Briny Plumbing Beacon
+  banner below).
+- **Lane B — skills standardisation review (deferred, owner-gated).** Next is the
+  **PDR-051 reduced-implementation reconciliation review**. Pickup trigger: the owner review
+  session, OR the first ingested external skill, OR promotion of the oversized-core
+  decomposition brief. Inputs ready — owning plan §Reality Reconciliation gap ledger
+  ([`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)),
+  friction F-37, the pending-graduations entry, and two future briefs
+  ([decomposition](../../../plans/agent-tooling/future/skills-oversized-core-decomposition.plan.md),
+  [eval harness](../../../plans/agent-tooling/future/skills-eval-harness.plan.md)). On a
+  separate branch (committed `cbf01ae0`); not blocking and not blocked by Lane A.
+
 - **Branch**: `feat/graph-tooling-tidyup` — **clean and pushed** at HEAD `934d5c21`
   (re-derive git first-hand).
 - **Live work (next non-curation session)**: the feedback-mechanism follow-ons, in sequence
