@@ -1,3 +1,25 @@
+# [1.34.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.33.0...v1.34.0) (2026-06-14)
+
+
+### Bug Fixes
+
+* **agent-tools:** extend absent-surface guard to untracked claim files ([7da12a8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7da12a82fac65a00ebf4dee2169eba64eb057948))
+* **agent-tools:** tolerate absent untracked comms dir in state validator ([356e76f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/356e76f59f9cfa222b9574350c5f786fcae490c4)), closes [#208](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/208)
+
+
+### Features
+
+* **agent-tools:** add cited-event provenance pure core for WS7 rotation check ([9175acf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9175acfeb036353fc97ca2ec2b3548add092f571))
+* **agent-tools:** add Oak acorn logo column to the Claude Code statusline ([4be070c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4be070c27aa96daf56724b6c1ba95b6846dd0b0e))
+* **agent-tools:** add WS7 archive-move execute mechanism (dry-run default) ([3b02ae3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3b02ae3ef2b9808c334f0902587b4f72577dbd5c))
+* **agent-tools:** add WS7 cited-event provenance check, runner, and digest ([3a55b62](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3a55b62e0458c2a54ff6c3eb7e956179975aaadf))
+* **agent-tools:** add WS7 class-tiered archive-move planner + cadence aggregate ([815fc2f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/815fc2f486ee4da5df94be3921e3b6e033ea40a4))
+* **agent-tools:** distinguish unknown from solo session shape; replace tofu'd peer glyph ([c456cda](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c456cda0db030b0478fd217f2c5b7004cd24b23f))
+* **agent-tools:** re-fit session-shape statusline indicators onto the 4-row layout ([89c8983](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/89c8983c78ad7d76dbe31a014912569214453a57))
+* **agent-tools:** session-relative statusline team shape + observing state ([da8cbd7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/da8cbd7d678a11eeb6bfd29de5391b8861a5a144))
+* **agent-tools:** tune the statusline Oak mark to a 4-row braille acorn ([40ef58a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/40ef58a06ede0f17ecfa88e00ea9829c86f60f9d))
+* **oak-eslint:** add no-throw-statement rule at warn to front-load Result enforcement ([e36af1d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e36af1db093a3f9c568d7cdb65109f9668bee868))
+
 # [1.33.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.32.1...v1.33.0) (2026-06-13)
 
 
