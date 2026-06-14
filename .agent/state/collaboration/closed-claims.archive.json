@@ -14560,6 +14560,104 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "40e003fe-453b-4560-83a6-4cb7478812b1",
+      "agent_id": {
+        "agent_name": "Cassiopeia holds Stillness",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "d6f04a",
+        "id": "ef79b1dc-abeb-56a1-8e12-b1570751cdcb",
+        "naming_schema_version": "override"
+      },
+      "thread": "comms-research",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "merge:origin/main->feat/comms-research"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T18:38:58Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "role": "peer",
+      "intent": "Reconcile PR #208: merge origin/main (28 behind) into feat/comms-research, resolve 12 conflict files, unblock Whippoorwill's WS7. statusline add/add -> ours pending owner confirm; memory/skills/plans semantic.",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T20:33:37Z",
+        "closed_by": {
+          "agent_name": "Cassiopeia holds Stillness",
+          "platform": "claude",
+          "model": "Opus 4.8",
+          "session_id_prefix": "d6f04a",
+          "id": "ef79b1dc-abeb-56a1-8e12-b1570751cdcb",
+          "naming_schema_version": "override"
+        },
+        "summary": "Reconcile PR #208 complete: merge 70080844d (origin/main into feat/comms-research, best-of-both statusline) landed + pushed, gate-green; behind:0. Handed thread seat + #208 stewardship to Rosemary lifts Undergrowth; wing-fix + Bugbot resolutions with Clipper (WS7 owner).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "40e003fe-453b-4560-83a6-4cb7478812b1",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "8f2b9b8b-f7f0-4cc8-a6c0-8614606f03d5",
+      "agent_id": {
+        "agent_name": "Whippoorwill holds Catacomb",
+        "platform": "claude",
+        "model": "Opus 4.8",
+        "session_id_prefix": "adc96c",
+        "id": "93358c75-1a7a-5f3d-b501-7c7aee6bd21d",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/collaboration-state/**",
+            "agent-tools/src/practice-substrate/**",
+            "agent-tools/tests/collaboration-state/**",
+            "agent-tools/tests/test-helpers/**",
+            ".agent/state/**",
+            ".agent/collaboration/experiments/**",
+            ".agent/memory/executive/memory-state-substrate-contracts.manifest.json"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T18:41:50Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "role": "peer",
+      "intent": "WS7 ratified rotation execution (PDR-094/ADR-199): relocate 5 schemas+fixtures+experiments to tracked homes; decouple collaboration-json-validation schema-root from data path; pre-archive-move provenance-check module; class-tiered archive-move into comms-archive/; gitignore .agent/state/ keeping README anchor. Starts after Cassiopeia reconcile (claim 40e003fe) lands. Excludes agent-tools/src/claude/** (her reconcile set).",
+      "archived_at": "2026-06-13",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-13T20:51:52Z",
+        "closed_by": {
+          "agent_name": "Whippoorwill holds Catacomb",
+          "platform": "claude",
+          "model": "Opus 4.8",
+          "session_id_prefix": "adc96c",
+          "id": "93358c75-1a7a-5f3d-b501-7c7aee6bd21d",
+          "naming_schema_version": "override"
+        },
+        "summary": "WS7 Phase 1 landed (6d1e45f35, local). Lane handed to Clipper wakes Atoll per PDR-063; freeze record .agent/state/collaboration/handoffs/adc96c-ws7-comms-rotation-handoff-to-clipper.md; handoff event 5b2fbda3. Clipper inherits WS7 Phase 2/3, the team-state-register+icons plan (agent-tooling/current/), and #7. #208 push/merge parked on owner go (Rosemary stewards).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "8f2b9b8b-f7f0-4cc8-a6c0-8614606f03d5",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }

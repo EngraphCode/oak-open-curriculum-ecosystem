@@ -1,1 +1,8 @@
 _tmp-*
+comms/*
+comms-seen/*
+active-claims.json
+closed-claims.archive.json
+shared-comms-log.md
+comms-archive/*
+!comms-archive/.gitkeep
