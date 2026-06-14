@@ -62,6 +62,14 @@ packages/sdks/oak-curriculum-sdk/docs/api/**
 .agent/collaboration/rapid-comms/2026-*.md
 .agent/collaboration/rapid-comms/.starless-notice-body.md
 
+# Mid-cycle / retirement handoff records: untracked-by-design instance-tier
+# after the WS7 untrack (ADR-199) — agent-authored at retirement, not
+# gate-checked at author-time, same category as the rendered comms log and the
+# rapid-comms channels above. The convention README in the same directory stays
+# linted as canon; only the instance records are excluded.
+.agent/state/collaboration/handoffs/*.md
+!.agent/state/collaboration/handoffs/README.md
+
 # Playwright test results
 **/test-results/**
 **/test-artifacts/**

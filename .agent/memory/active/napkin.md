@@ -626,3 +626,126 @@ repo-root.ts, CLI surface) throws. STRUCTURAL-CURE CANDIDATE: a repo-wide no-thr
 preserve-caught-error beyond apps/sdks), then retrofit agent-tools throws→Result incrementally under the red lint —
 own lane, owner-gated sequencing (recommend after WS7). Memory: feedback_enforcement_gap_is_not_requirement_gap.
 Sibling: existence-is-not-correctness-default-replace.
+
+### "Lint-clean" is not "format-clean" — run prettier before declaring a slice green (2026-06-14, Anvil spins Bronze, gatekeeper-caught)
+
+Building the WS7 archive-move harness I declared each TDD slice "green" on `eslint --max-warnings 0` + `type-check`
+and `vitest` — but NOT prettier. The gatekeeper commit (Galleon calls Surf) then blocked at the pre-commit gate:
+5 of my new `.ts` were not Prettier-clean. ESLint passing (even at `--max-warnings 0`) does NOT imply Prettier
+formatting is correct — they are independent gates (ESLint config here does not run prettier as a rule). ROOT CAUSE:
+treated "the lint gate I ran" as a proxy for "all format/lint gates the pre-commit runs". CURE: run `pnpm format:root`
+(or targeted `prettier --write`) as part of declaring ANY slice green, alongside lint+type-check+test — format is a
+first-class gate, not folded into lint. Cost: one wasted gatekeeper commit cycle. Sibling: successful-push-proves-
+gates-green (the inverse — only the FULL gate proves green; a partial local check does not). General shape: when
+declaring "green", enumerate the ACTUAL gate set the commit will run, don't substitute the subset you happened to run.
+
+### Phantom blocker: don't park buildable work on a confirmation you already have (2026-06-14, Anvil spins Bronze, owner-nudged)
+
+WS7 slice 4: I told the owner "holding the build until Galleon confirms" — but Galleon had ALREADY confirmed the contract + said "build it," and the build was sequencing-INDEPENDENT (the execute code is identical whether the move runs before or after the Phase-3 untrack; only the RUN waits). I'd conflated "the decision about WHEN to run" with "WHAT I can build now," and over-corrected from an earlier soloing-correction into passive waiting. CURE: when blocked, check whether the blocker is REAL or manufactured — is the light actually red? And separate the sequencing-dependent part (the run) from the sequencing-independent part (the build); the latter progresses regardless. Owner caught it with "how can we use this insight to progress." Sibling: ship-independent-coordinate-dependent.
+
+### Inter-agent design decisions belong on the ArcAngel channel, not routed through the owner (2026-06-14, Anvil spins Bronze, owner-corrected)
+
+Owner asked "how do we move them + automatically"; I answered the OWNER directly with a full plan + a decision-menu, while a live run-sequencing design question between me and Galleon (execute-before-untrack vs untrack-first) sat unworked on the channel. Owner: "why are you and Galleon not in an ArcAngel channel collaborating?" We WERE in one (it carried the whole session), but on that exchange I drifted to soloing-for-the-owner instead of converging with my partner there. CURE: design/sequencing decisions that are the agents' to make get worked out on the rapid channel between them; surface to the owner only the parts genuinely theirs (e.g. an ADR-order ratification). Memory: feedback_inter_agent_decisions_belong_to_agents (reinforced). Sibling: peer-sidebar-beats-coordinator-helpers.
+
+### Shared-registry jq-mv races a live peer; `markdownlint:root` is --fix not check (2026-06-14, Galleon calls Surf, team-rotation closeout)
+
+Two closeout gotchas, both caught by verify-don't-trust:
+
+- **`jq … > /tmp && mv` on `active-claims.json` raced the incoming successors.** Setting `handoff_record_path` on my retained claim that way collided with Whirlwind + Brazier concurrently opening their claims; a verify showed my claim already gone (their write won). No harm here (Whirlwind opened their own claim, so my retention was moot), but a different interleave clobbers their claims. CURE: never read-modify-write a shared registry under live concurrency — use the collaboration-state CLI, or confirm no contending live agents first. Minutes later the Edit tool's "file modified since read" guard refused a repo-continuity write for the same reason (live driver editing it) — the race, caught structurally rather than by luck.
+- **`pnpm markdownlint:root` = `markdownlint --dot --fix .` (auto-FIX), not a check.** I ran it to "verify" my `.md` edits — it would have blind-`--fix`ed the whole tree (the prose-`+`-misparse mangling the napkin itself warns against). No-op this time (tree already clean), but the check-only variant is `pnpm markdownlint-check:root`. CURE: verify with `markdownlint-check:root`; `markdownlint:root` mutates.
+
+### As the named driver, gate only what's actually owner-gated; the rest is yours to drive (2026-06-14, Galleon calls Surf, owner-corrected several times)
+
+This session's recurring correction: I defaulted to WAITING when I was meant to DRIVE. The owner pushed me off it repeatedly — "you are driving this now", "stop waiting", "solid progress", and the feather-not-showing (my idle-holding had darkened the team-visibility ArcAngel wing, making real collaboration invisible to the owner). ROOT CAUSE: a snapshot-read of OWNER DIRECTION — I froze an early "stick to prep / say go" into a STANDING permission gate and kept applying it after a retirement, a partner-add, and an explicit "you're driving" had each dissolved it. CURE (installed): owner direction is a STREAM (latest supersedes), not a fixed snapshot; as the named driver, gate ONLY what is genuinely owner-gated (here: the atomic untrack commit + the #208 merge) and drive everything else — the pickup, reviews, commits, and sequencing decisions were never gated. TELL: if I am waiting for permission to do the thing I was just put in charge of, the waiting IS the error. Siblings: owner-action-is-not-a-cure; no-question-when-answer-is-forced; ship-independent-coordinate-dependent; Anvil's same-session phantom-blocker entry.
+
+### Adversarial loss-scan catches (2026-06-14, Galleon calls Surf, closeout — owner-requested re-scan after I'd implied the sweep was clean)
+
+My closeout summary implied the handoff loss-scan was clean; an owner-requested ADVERSARIAL re-scan found real losses I'd glossed (the author cannot self-certify "all captured" — PDR-011 §6e). Two captured here; the rest flagged for the deep consolidation:
+
+- **ArcAngel feather/wing-detection staleness (statusline lane; UNVERIFIED hypothesis).** The wing indicator was DARK while Galleon + Anvil collaborated heavily on the channel (18+ entries) — the owner read it as "you're not in a channel". Hypothesis (I offered to verify `resolveArcActive` but stayed on WS7): the wing keys on channel RECENCY and/or only re-evaluates on a turn-render, so during idle "holding" gaps it goes stale-dark; prodding both agents → re-render → lit. So it reflects recent ACTIVITY, not MEMBERSHIP (static — both full names are in the filename). Impact: real collaboration invisible to the owner; also a research-relevant collaboration-visibility failure mode. CURE direction: detect on membership (filename substring) independent of render-recency, or re-evaluate the wing on a cadence. NEEDS first-hand verification against `resolveArcActive`; route to the statusline wing-detection lane.
+- **Background-task completion summary masks the meaningful exit code (fresh wrapped-exit-codes-false-green variant).** A backgrounded `git push > log 2>&1; echo PUSH_EXIT=$?; …` reported "completed (exit code 0)" while the push was REJECTED (PUSH_EXIT=1, pre-push markdownlint on inherited napkin residue). The summary exit reflected the compound command's LAST statement, not the push. Caught by reading the output file, not the summary. CURE: for a backgrounded command whose specific step's exit matters, run that step ALONE so the command exit == the step's exit (did this on the re-push); never trust the background-completion summary exit for a compound command.
+
+## 2026-06-14 — Brazier stirs Residue (1f7d72), WS7 archive-move execute + lane closeout
+
+- **What-worked (worked instance, conserve): the constitutive all-channels watcher earned its keep on ARM.** Opened as Anvil's archive-lane successor; armed the watcher as First Moves move 1 (per the now-distilled constitutive-precondition lesson) — and its first events were Anvil's retirement + PDR-063 handoff broadcast (17:37Z), which I'd have been blind to via the session-open snapshot alone. Then it surfaced the FULL live cast rotation (Galleon→Whirlwind, Anvil→Brazier) in real time. The lesson fired correctly this time; recording the positive instance so it's protected, not just the failure that birthed it.
+- **Operational gotcha (Claude Code): the Edit tool's read-staleness guard loses to a concurrently-touched file; for append-only channel files use a shell append.** Appending my ArcAngel registration via Edit failed twice ("File has been modified since read") — a linter (or a peer's append) bumped the file mtime between Read and Edit. Cure: for append-only narrative surfaces (ArcAngel channels, napkin sections) write the entry to a tmp file and `cat tmp >> target` — the natural primitive for append-only files, and it sidesteps the staleness check entirely. Don't fight a concurrent writer through the Edit tool.
+- **Worked instance of untrack-first → archive-move as pure disk hygiene (ADR-199 / PDR-094 ratified shape, proven live).** Ran `comms-archive-move --execute` AFTER Whirlwind's Phase-3 atomic untrack (255117a43): 2390 heartbeats moved comms/→comms-archive/, byte-preservation balanced (2959+2390==5349), and **zero git diff** because both dirs were gitignored first. Had we executed before the untrack it would have been ~2390 git deletions. The sequencing decision the prior cast converged on (untrack-FIRST) is vindicated by a clean run. comms/ ~45% lighter → theme-13 drain choke eased.
+- **Two-reader cross-attestation across a retirement boundary works (PDR-063 + mutual-FH loop, theme 15).** A 4-seat by-the-book PDR-063 rotation (Serval→Galleon→Whirlwind driver; Gull→Serval; Anvil→Brazier archive) with zero work loss; Whirlwind verified my archive-move first-hand against my own report before folding it into the closeout record. The self-contained handoff records + the live watcher are what made a cold successor productive within one grounding pass.
+
+- **Metacognition (retrospective): the universal 6e.2 loss-scan is skippable precisely when it's
+  most needed — a context-rich team-member closeout.** My first closeout did the team-member
+  synthesis (claim relinquish + heartbeat-end + boundary note) but NOT the adversarial loss-scan;
+  the owner had to direct a "full closeout + context-loss sweep" to surface it. Root cause: the
+  session-handoff "Team Member, Not Closeout Owner" path reads as lightweight, so an agent holding
+  HEAVY reconstruction context (here: the entire 6-agent WS7 rotation state, assembled first-hand
+  from git + the sparse canonical stream + ArcAngel + handoff records) under-conserves. The 6e.2
+  loss-scan is documented as firing EVERY handoff (not closeout-owner-only) for exactly this reason
+  — only the context-holder can compute (held context − durable artefacts). TELL: when a closeout
+  caps a session that did substantial first-hand reconstruction or cross-surface synthesis, run the
+  loss-scan regardless of closeout-owner role; the lighter the prescribed closeout, the more
+  deliberately the scan must fire. candidate: distilled — "loss-scan is role-independent; closeout
+  lightness is not loss-scan licence".
+- **Self-referential what-worked (research-relevant): a 6-agents/day rotation did NOT become a live
+  M2 instance, and the mechanisms that prevented it are nameable.** The comms-research thread's
+  central finding is M2 (the capture→distil→graduate loop fails under load). This WS7 closeout ran
+  under exactly that load (Gull→Serval→Galleon→Whirlwind driver; …→Anvil→Brazier archive, all one
+  day). What kept the loop firing: (1) by-the-book PDR-063 self-contained handoff records — a cold
+  successor (me) was productive within one grounding pass; (2) the constitutive all-channels watcher
+  caught each retirement on arm; (3) two-reader cross-attestation across the retirement boundary
+  (Whirlwind verified my archive-move first-hand before folding it). Evidence that PDR-063 + the
+  paired-watcher + mutual-FH loop are M2 mitigations under rotation load — fold into the research
+  record (theme 15 + what-worked lens). Sibling: Bluebell's "consolidating a finding under pressure
+  IS the finding."
+- **Worked observation (research-relevant): in n=2 owner-visible mode with heartbeats deferred
+  (PDR-082) and dialogue on ArcAngel, the canonical comms stream UNDER-REPRESENTS the coordination.**
+  The canonical stream was silent ~13:38Z→17:37Z (≈4h) while the Galleon×Anvil pair did all design
+  dialogue on the ArcAngel channel and ran no heartbeat crons. A successor reading only the canonical
+  "source of truth" stream would have been blind to the entire harness-build dialogue. This is a
+  concrete worked instance of WHY the ArcAngel-tail ⇄ canonical-watcher pairing is doctrine (not
+  ceremony): the canonical stream alone is insufficient in this operating mode. Fold into the research
+  record (theme: liveness/coordination substrate; activation-enthalpy of the dialogue channel).
+
+- **Live 6e.1 slip (caught): a pre-composed tree-state claim must be reconciled against the `git
+  status` run alongside it.** In one bash block I ran `git status` (showing TWO tracked mods: my
+  napkin + the thread record carrying Galleon's/Anvil's retirement identity rows) and, in the SAME
+  block, sent a coordination ping whose pre-written body asserted "no tracked changes beyond the
+  napkin." The status output was right there; I didn't reconcile the claim against it. Caught on
+  re-read, corrected to Whirlwind. Reinforces 6e.1 (verify a handoff's load-bearing claims at
+  write-time) + [[ground-convenient-claims]]: a convenient tree-state assertion is input-to-verify
+  even when you're about to generate the evidence in the same step — read your own output before
+  asserting over it.
+
+## 2026-06-14 — Whirlwind rides Ridge (52e1cb), WS7 driver closeout
+
+- **Generalize the failure CLASS, not the reported instance (retrospective; cost: one extra CI
+  round, ~5 min).** The Phase-3 untrack made `.agent/state/collaboration/` absent in fresh CI
+  checkouts; `validate-collaboration-state` crashed `ENOENT`. I fixed the FIRST surface that
+  crashed (the `comms/` directory) without enumerating the whole class — "untracked-by-design
+  surface absent in a fresh checkout" applied to THREE surfaces the validator reads (comms/ +
+  active-claims.json + closed-claims.archive.json). CI failed again on the second. Cure: when a
+  fix addresses a class, enumerate every member up front (here: every untracked surface the reader
+  touches), don't patch the reported one. Couldn't be caught locally (all files exist on my disk);
+  only a fresh-checkout lens sees it — which is why the release-readiness pass earned its keep,
+  catching it pre-merge. Sibling: [[ground-convenient-claims]] (the convenient "fixed it" claim).
+- **Snapshot-read-as-current-state nearly fired at session-open — cured by grounding the live
+  process table first-hand.** The quiet canonical stream (~4h silent) + a handoff describing a
+  "solo lane" read as a solo closeout. The `ps` process table revealed the truth: a LIVE rotating
+  cast (Brazier live, Anvil mid-retirement, Galleon's leaked watcher at 69% CPU). This is a live
+  instance of THEME 1 of the very research thread I was closing (snapshot-vs-stream). Tell: a quiet
+  canonical stream is not evidence of an absent team; check the process table + handoff records +
+  registry together. Stopped the leaked predecessor watcher (no-unbounded-host-load; load 8.1→3.0).
+- **Untrack-first makes the archive-move git-independent (worked, ratified shape).** Because
+  Phase-3 untracked `comms/` BEFORE the `--execute` move, the 2,390-file rotation touched no tracked
+  file → zero git diff, no mass-deletion commit, runnable at any quiet point with no commit window.
+  The ratified untrack-first sequence (Galleon+Anvil's on-channel decision) is correct.
+- **The standing-curation obligation, eaten as dogfood at its own birth.** The untrack I landed
+  makes `handoffs/` untracked — so Brazier's closeout handoff record (rich loss-scan + grounded
+  knowledge) is itself instance-tier now. Folding its substance into the TRACKED thread record
+  (not pointing at the untracked record) IS the obligation the untrack relies on — a live worked
+  instance the same session it shipped. Pointing a tracked record at an untracked one dangles.
+- **What-worked under 6-agents/day rotation load (the M2-mitigation set):** by-the-book PDR-063
+  self-contained handoff records (each cold successor productive in one grounding pass), the
+  constitutive all-channels watcher catching each retirement on arm, and two-reader
+  cross-attestation across each retirement boundary (verify the predecessor's landed work
+  first-hand before folding). The closeout ran under exactly the load M2 says breaks the loop, and
+  the loop held — evidence conserved into the thread record.
