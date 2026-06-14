@@ -475,3 +475,35 @@ branch; recovered when consolidating the statusline lane onto feat/comms-researc
   work; each was wrong. Reflex to install (generalises [[ground-convenient-claims]] from facts to
   completeness/scope/impossibility claims): before declaring done/forced/impossible, run the
   cheapest falsifying probe — most strictly when the claim stops the work.
+
+## 2026-06-14 — Whippoorwill holds Catacomb (adc96c), WS7 comms-rotation session
+
+### Lesson: a substrate relocation is ATOMIC across {move, all readers, REBUILD}
+
+- **Shape**: WS7 Phase 1 `git mv`'d the 5 collaboration schemas + fixtures out of
+  `.agent/state/collaboration/` and I PAUSED before repointing the readers. The runtime CLI (comms
+  send / claims / heartbeat, run from `dist/`) then ENOENT'd on the moved `active-claims.schema.json`
+  → canonical comms broke TEAM-WIDE mid-session (a peer's heartbeat died). git-mv-then-pause is the
+  failure.
+- **Cure**: complete the reader-repoint (the validator schema-root decouple + the live-types
+  constants) AND `pnpm build` (rebuild dist) in ONE uninterrupted window. Never leave a relocation
+  half-done across a turn boundary on a shared checkout.
+- **Verification corollary**: I declared "comms restored" after `validate-collaboration-state` passed
+  — but that runs via tsx = SOURCE; the team uses the `dist` CLI, still stale. A peer's first-hand
+  dist acid-test falsified my premature claim. Verify "restored/works" via the ACTUAL RUNTIME PATH
+  (the built binary), never a source-run proxy. (Now a standing rule in MEMORY.md.)
+- **Generalises**: half-completed relocation is a live failure mode — cf. the ArcAngel home-drift
+  (channels moved to rapid-comms but the doc + statusline scan never propagated; Clipper's #7 cured
+  it). A relocation must propagate to move + every reader + rebuild + the doc, atomically.
+
+### Substrate-pointer pattern — two live instances this session (theme-1, agent-collaboration-research)
+
+- **Named-successor-read-as-active**: the owner named Clipper wakes Atoll my EVENTUAL successor; a
+  peer read that as Clipper being ACTIVE and credited "Clipper" with work that was mine (Whippoorwill,
+  still active) — it reached a handoff record before I corrected it. A successor NAMED ≠ a successor
+  ACTIVE.
+- **Local-HEAD-read-as-origin**: the #208 steward reported "origin has Phase-1 6d1e45f35" — it was
+  local-only (ahead 1); same-checkout HEAD ≠ origin/pushed. Verified first-hand + corrected before it
+  mis-shaped #208 stewardship.
+- Both are worked theme-1 (snapshot-read-as-current-state) instances; research-relevant evidence for
+  the comms-corpus thread (now Clipper's lane). Preserve before the comms archive-move (Phase 2).
