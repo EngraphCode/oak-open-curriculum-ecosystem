@@ -12,17 +12,35 @@ merge_class: index-narrative-tables
 
 The unified Claude Code statusline lane: the Oak-mark logo column plus the
 session-shape indicators. Both render through the same `renderStatusline`, so
-they are one lane, not two. The lane is **COMPLETE** on `feat/comms-research` —
-indicators re-fit onto the 4-row layout, an unknown-vs-solo resolver correctness
-fix, and all five glyphs verified in the owner's terminals; it now rides the
-branch's push/merge lifecycle. Authoritative scope and acceptance live in the
-controlling plan — this record is the discoverable pointer to it.
+they are one lane, not two. The original lane (Oak mark + the narrow
+solo/peer/directed + wing indicators) is **COMPLETE** on `feat/comms-research`
+and its controlling plan is **already archived** (see below).
+
+**The thread is LIVE, not closed — it has a successor.** A superseding plan,
+[`team-state-register-and-session-shape-icons.plan.md`](../../../plans/agent-tooling/current/team-state-register-and-session-shape-icons.plan.md)
+(current/, DRAFT, refined 2026-06-14, READY-WITH-CONDITIONS), replaces the narrow
+resolver with a **team-state register** projected into a 4-position icon — its
+active-agent set unions claims ∪ comms ∪ ArcAngel ∪ sidebar participants, so
+read-only collaborators count (the claims-only limitation; PDR-095). An interim
+improvement landed 2026-06-14 (Orbit stirs Spectrum) ahead of the register:
+the resolver is now **session-relative** (team shape gated on a fresh own claim),
+a new **`observing`** shape (dim eyes) covers non-member-with-others-active, and
+the render module was split into `statusline-ansi.ts` / `statusline-indicators.ts`
+/ `statusline-render.ts`.
 
 ## Current continuation
 
-- **Controlling plan**:
-  [`statusline-session-shape-indicators.plan.md`](../../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)
-  ("Statusline Enhancements — Oak Mark + Session-Shape Indicators").
+- **Controlling plan (narrow lane, now ARCHIVED)**:
+  [`statusline-session-shape-indicators.plan.md`](../../../plans/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md)
+  ("Statusline Enhancements — Oak Mark + Session-Shape Indicators") — in
+  `archive/completed/`, not `current/` (the earlier link here was stale).
+- **Successor plan (LIVE continuation)**:
+  [`team-state-register-and-session-shape-icons.plan.md`](../../../plans/agent-tooling/current/team-state-register-and-session-shape-icons.plan.md)
+  — the team-state register + 4-position projection that supersedes the narrow
+  resolver. Originally earmarked for Clipper wakes Atoll (since rotated out, so
+  the plan is unassigned — the next session that opens this thread picks it up);
+  refined 2026-06-14, READY-WITH-CONDITIONS (Condition A owner-resolved: forward-
+  design fields retained, marked no-consumer-yet for future review).
 - **Landed (mark)**: the Oak acorn mark — a 4-row logo-column, default
   `braille-sharp` via `OAK_STATUSLINE_LOGO` (`braille` / `quad` / `sextant` /
   `none` alternatives). Commits `40ef58a06` + `5cc13977e` + `8efc58d83` on
@@ -48,12 +66,13 @@ controlling plan — this record is the discoverable pointer to it.
 
 ## Next safe step (the fresh session's first move)
 
-The statusline lane is **COMPLETE** on `feat/comms-research` — all workstreams
-landed, all five glyphs verified, 1081 agent-tools tests green. No
-statusline-specific next step remains; the commits ride the branch's normal
-push/merge lifecycle (the branch is shared with the comms-research and
-agent-naming lanes). Statusline commits this arc: `a1fb8e9c4` `5c01ee7ee`
-`221ee4a9f` (test-IO compliance), `c456cda0d` (unknown/solo + verified glyphs).
+The **narrow** lane is COMPLETE on `feat/comms-research` (all workstreams landed,
+five glyphs verified, 1081 agent-tools tests green; commits this arc `a1fb8e9c4`
+`5c01ee7ee` `221ee4a9f` test-IO, `c456cda0d` unknown/solo + glyphs). The live
+next step is the **successor register plan** (queued, READY-WITH-CONDITIONS —
+resolve Conditions A/B/C-D before DECISION-COMPLETE; earmarked for Clipper). The
+interim 2026-06-14 resolver improvement (session-relative + `observing` + module
+split) is on the working tree, pending commit on `feat/comms-research`.
 
 Carried-over note: `statusline-identity.ts` `listExperiments` uses
 `Dirent.parentPath` (Node ≥ 20.12 / 21.4); no engines floor is declared, runtime
@@ -67,6 +86,7 @@ elsewhere in agent-tools.)
 
 | Platform | Model | Agent name | Role on this thread | last_session |
 | --- | --- | --- | --- | --- |
+| claude-code | Opus 4.8 | Orbit stirs Spectrum | Interim session-relative resolver + `observing` shape + ansi/indicators/render module split; refined the successor register plan (claim-independent active-agent set) + readiness pass; seeded PDR-095 | 2026-06-14 |
 | claude-code | Opus 4.8 | Skylark wakes Summit | Re-fit WS1–WS3 onto the 4-row layout; unknown-vs-solo resolver fix; WS4 glyphs verified; test-IO compliance; corrected this record + plan | 2026-06-13 |
 | claude-code | Opus 4.8 | Bilby hunts Eventide | Oak mark landed; lane unified; thread opened | 2026-06-13 |
 
@@ -76,10 +96,11 @@ Monsoon guards Cirrus authored WS1–WS3 against the single-line layout, and the
 
 ## Landing target for the next session
 
-None outstanding for the statusline lane — it is complete (all workstreams
-landed, all five glyphs verified, 1081 agent-tools tests green) and rides
-`feat/comms-research`'s push/merge. A fresh session opening this thread should
-confirm the branch has merged and then **archive this record + the controlling
-plan** per the lifecycle triggers. Unrelated follow-on: the pre-existing
+The narrow lane is complete and rides `feat/comms-research`'s push/merge, but
+**do NOT archive this record** — the thread is live via the successor register
+plan. The narrow controlling plan is already archived. A fresh session opening
+this thread picks up the register plan (resolve its readiness Conditions A/B/C-D)
+or commits the pending interim resolver improvement. Archive this record only
+when the register plan itself completes. Unrelated follow-on: the pre-existing
 agent-tools test-IO compliance tracked in
 [`agent-tools-test-io-compliance.plan.md`](../../../plans/agent-tooling/current/agent-tools-test-io-compliance.plan.md).

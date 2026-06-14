@@ -56,16 +56,27 @@ export interface SessionShape {
    */
   readonly ownRole: string | undefined;
   /**
-   * Team shape. `unknown` means the registry could not be read for this tick —
-   * the resolver does not claim a confident shape it never saw, so the
-   * statusline shows no team icon (distinct from `solo`, a confident
-   * peerless-and-directorless reading). For a readable registry the shape is, in
-   * strict priority order: `directed` (any fresh claim whose `role` is exactly
-   * the lowercase string `director` — the schema's well-known values are
-   * lowercase by convention and matching is case-sensitive) beats `peer` (two or
-   * more distinct fresh identities) beats `solo`.
+   * Team shape, read relative to *this* session's membership — a session is
+   * "in" a team only when it holds a fresh own claim. `unknown` means the
+   * registry could not be read for this tick — the resolver does not claim a
+   * confident shape it never saw, so the statusline shows no team icon
+   * (distinct from `solo`, a confident peerless reading).
+   *
+   * For a readable registry the shape is resolved in two stages. First, the
+   * membership gate: if this session holds **no** fresh own claim it is not a
+   * team member, so the shape is `observing` when any *other* fresh claim
+   * exists (the quiet "others are active here, you have not registered" glyph)
+   * or `solo` when the registry holds no fresh claim at all. An absent identity
+   * cannot be matched to any claim, so it too falls through this non-member
+   * gate. Second, for a registered session, in strict priority order:
+   * `directed` (any fresh claim whose `role` is exactly the lowercase string
+   * `director` — the schema's well-known values are lowercase by convention and
+   * matching is case-sensitive) beats `peer` (two or more distinct fresh
+   * identities) beats `solo`. A director active among *other* agents while this
+   * session holds no claim reads as `observing`, not `directed`: it is not this
+   * session's directed team.
    */
-  readonly teamShape: 'unknown' | 'solo' | 'peer' | 'directed';
+  readonly teamShape: 'unknown' | 'solo' | 'peer' | 'directed' | 'observing';
   /** Whether a rapid channel naming this agent was written within the ARC liveness window. */
   readonly arcActive: boolean;
 }
@@ -103,7 +114,7 @@ export function resolveSessionShape(inputs: SessionShapeInputs): SessionShape {
 
   return {
     ownRole: resolveOwnRole(freshClaims, inputs.ownAgentName),
-    teamShape: resolveTeamShape(freshClaims),
+    teamShape: resolveTeamShape(freshClaims, inputs.ownAgentName),
     arcActive,
   };
 }
@@ -115,12 +126,33 @@ function resolveOwnRole(
   if (ownAgentName === undefined) {
     return undefined;
   }
+  // Own-claim match is by name alone — kept deliberately in lockstep with the
+  // membership gate in resolveTeamShape. If one moves to the composite
+  // name|prefix identity key, the other must move with it, or the role demark
+  // and the team icon will disagree about whether this session is a member.
   return freshClaims.find(
     (claim) => claim.agent_id.agent_name === ownAgentName && claim.role !== undefined,
   )?.role;
 }
 
-function resolveTeamShape(freshClaims: readonly CollaborationClaim[]): SessionShape['teamShape'] {
+function resolveTeamShape(
+  freshClaims: readonly CollaborationClaim[],
+  ownAgentName: string | undefined,
+): SessionShape['teamShape'] {
+  // Membership gate: a session is "in" a team only when it holds a fresh own
+  // claim (matched by name — kept in lockstep with resolveOwnRole; see the note
+  // there before changing either matcher). A non-member — including a session
+  // with no resolved identity — reads the registry from the outside:
+  // `observing` when any other agent is live, else a confident `solo`. This is
+  // what keeps a brand-new, unregistered session from wearing a team icon it
+  // has not earned.
+  const ownHasFreshClaim =
+    ownAgentName !== undefined &&
+    freshClaims.some((claim) => claim.agent_id.agent_name === ownAgentName);
+  if (!ownHasFreshClaim) {
+    return freshClaims.length > 0 ? 'observing' : 'solo';
+  }
+
   if (freshClaims.some((claim) => claim.role === 'director')) {
     return 'directed';
   }

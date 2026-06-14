@@ -24,6 +24,7 @@ const COMPASS = '\u{1F9ED}';
 const FAMILY = '\u{1F46A}';
 const PEER = '\u{1F91D}';
 const SOLO = '\u{1F9CD}';
+const OBSERVING = `${DIM}\u{1F440}${RESET}`;
 const FEATHER = '\u{1FAB6}';
 
 function parts(sessionShape: SessionShape | undefined): StatuslineParts {
@@ -74,6 +75,12 @@ describe('renderStatusline — session-shape indicators', () => {
     );
   });
 
+  it('renders the dimmed eyes glyph for an observing non-member session', () => {
+    expect(renderStatusline(parts(shape({ teamShape: 'observing' })))).toBe(
+      `${IDENTITY}${SEP}${OBSERVING}\n${PLACE}`,
+    );
+  });
+
   it('renders the family icon for a directed window without my demark', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'directed' })))).toBe(
       `${IDENTITY}${SEP}${FAMILY}\n${PLACE}`,
@@ -107,6 +114,12 @@ describe('renderStatusline — session-shape indicators', () => {
   it('renders peer icon and wing together', () => {
     expect(renderStatusline(parts(shape({ teamShape: 'peer', arcActive: true })))).toBe(
       `${IDENTITY}${SEP}${PEER} ${FEATHER}\n${PLACE}`,
+    );
+  });
+
+  it('renders the dimmed eyes glyph and wing for an observing session with a live channel', () => {
+    expect(renderStatusline(parts(shape({ teamShape: 'observing', arcActive: true })))).toBe(
+      `${IDENTITY}${SEP}${OBSERVING} ${FEATHER}\n${PLACE}`,
     );
   });
 

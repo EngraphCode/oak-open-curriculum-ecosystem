@@ -5,7 +5,9 @@
  * Assembles the Claude Code statusline from already-gathered values. Holds no
  * I/O: the imperative adapter (`statusline-identity.ts`) derives the agent
  * identity, gathers git state, and resolves the session-shape indicators, then
- * delegates formatting here so the layout is unit-testable.
+ * delegates formatting here so the layout is unit-testable. The colour palette
+ * lives in `statusline-ansi.ts` and the coordination-indicator glyphs in
+ * `statusline-indicators.ts`, so this file holds the layout concern alone.
  *
  * Segment order puts the short, fixed-width segments (identity, session-shape
  * indicators, model, context %) first and the long, variable-width git segments
@@ -23,6 +25,8 @@
  */
 
 import { OAK_LOGO_ROWS, type OakLogoStyle } from './oak-logo.js';
+import { BOLD_BLUE, CYAN, DIM, GREEN, RED, RESET, SEPARATOR, YELLOW } from './statusline-ansi.js';
+import { formatIdentity, formatSessionIndicators } from './statusline-indicators.js';
 import { type SessionShape } from './statusline-session-shape.js';
 
 /**
@@ -61,31 +65,9 @@ export interface StatuslineRenderOptions {
   readonly logo?: OakLogoStyle;
 }
 
-const RESET = '[0m';
-const DIM = '[2m';
-const CYAN = '[0;36m';
-const BOLD_BLUE = '[1;34m';
-const GREEN = '[0;32m';
-const RED = '[0;31m';
-const YELLOW = '[0;33m';
-const MAGENTA = '[0;35m';
-
-const SEPARATOR = `${DIM} · ${RESET}`;
 const DIRTY_MARK = '*';
 /** Gap between the logo column and the segment text, in the multi-row layout. */
 const LOGO_GAP = '  ';
-
-/**
- * Session-shape indicator glyphs — all five verified in the owner's terminals
- * (2026-06-13): DIRECTOR_MARK, TEAM_DIRECTED_ICON, TEAM_PEER_ICON, TEAM_SOLO_ICON,
- * ARC_WING. The original peer glyph U+1F465 (busts) tofu'd and was replaced by
- * U+1F91D. ASCII fallbacks if a font regresses: `[D]` `[T]` `[P]` `[S]` `[A]`.
- */
-const DIRECTOR_MARK = '\u{1F9ED}';
-const TEAM_DIRECTED_ICON = '\u{1F46A}';
-const TEAM_PEER_ICON = '\u{1F91D}';
-const TEAM_SOLO_ICON = '\u{1F9CD}';
-const ARC_WING = '\u{1FAB6}';
 
 /** Context usage below this percentage renders in green; from it, yellow. */
 const CONTEXT_ELEVATED_PERCENT = 50;
@@ -160,58 +142,13 @@ function buildSegments(parts: StatuslineParts): Segments {
   const dirty = parts.dirty ? `${YELLOW}${DIRTY_MARK}${RESET}` : '';
   const place = parts.worktree === undefined ? parts.dir : `wt:${parts.worktree}`;
   return {
-    identity: formatIdentity(parts),
+    identity: formatIdentity(parts.identity, parts.sessionShape?.ownRole),
     indicators: formatSessionIndicators(parts.sessionShape),
     model: parts.model === undefined ? undefined : `${DIM}${parts.model}${RESET}`,
     context: parts.usedPercentage === undefined ? undefined : formatContext(parts.usedPercentage),
     branch: parts.branch === undefined ? undefined : `${BOLD_BLUE}${parts.branch}${RESET}${dirty}`,
     place: `${CYAN}${place}${RESET}`,
   };
-}
-
-/**
- * Format the identity segment, suffixing the Director demark when this session's
- * fresh claim carries the director role. Undefined identity drops the segment
- * (and the demark with it — a directorship needs an identity to resolve).
- */
-function formatIdentity(parts: StatuslineParts): string | undefined {
-  if (parts.identity === undefined) {
-    return undefined;
-  }
-  const demark = parts.sessionShape?.ownRole === 'director' ? ` ${DIRECTOR_MARK}` : '';
-  return `${MAGENTA}${parts.identity}${RESET}${demark}`;
-}
-
-/**
- * Map a resolved team shape to its glyph: `solo` shows its own marker; `unknown`
- * shows nothing (an unreadable surface reads as absence, never a false solo).
- */
-function teamIcon(teamShape: SessionShape['teamShape']): string | undefined {
-  if (teamShape === 'directed') {
-    return TEAM_DIRECTED_ICON;
-  }
-  if (teamShape === 'peer') {
-    return TEAM_PEER_ICON;
-  }
-  if (teamShape === 'solo') {
-    return TEAM_SOLO_ICON;
-  }
-  return undefined;
-}
-
-/**
- * Format the team-shape icon and ArcAngel wing as one segment, or undefined
- * when there is nothing to show — only an unknown shape (or no resolved shape)
- * with no live channel renders blank; a confident solo carries its own marker.
- */
-function formatSessionIndicators(shape: SessionShape | undefined): string | undefined {
-  if (shape === undefined) {
-    return undefined;
-  }
-  const team = teamIcon(shape.teamShape);
-  const wing = shape.arcActive ? ARC_WING : undefined;
-  const indicators = [team, wing].filter((glyph) => glyph !== undefined).join(' ');
-  return indicators.length === 0 ? undefined : indicators;
 }
 
 /** Join the present segments with the separator, dropping `undefined` ones. */

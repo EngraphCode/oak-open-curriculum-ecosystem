@@ -165,6 +165,59 @@ describe('resolveSessionShape — team shape', () => {
     expect(shape.teamShape).toBe('solo');
   });
 
+  it('drops to observing when my own claim expires past its TTL but a peer stays fresh', () => {
+    // The membership gate pivots on my own claim's freshness: once mine is
+    // stale I am no longer a member, so a still-fresh peer reads as observing,
+    // not peer.
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([
+        claim({ agent_name: 'Monsoon guards Cirrus', claimed_at: '2026-06-12T07:59:59Z' }),
+        claim({ agent_name: 'Fern lifts Mulch' }),
+      ]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('observing');
+  });
+
+  it('resolves observing when others are fresh but I hold no claim', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([claim({ agent_name: 'Fern lifts Mulch' })]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('observing');
+  });
+
+  it('reports observing — not directed — when a director is active but I am not a member', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([
+        claim({ agent_name: 'Fern lifts Mulch' }),
+        claim({ agent_name: 'Tempest spins Stratosphere', role: 'director' }),
+      ]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('observing');
+  });
+
+  it('resolves solo — not observing — when the only other claims are stale', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([claim({ agent_name: 'Fern lifts Mulch', claimed_at: STALE })]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('solo');
+  });
+
   it('resolves the same shape regardless of commit_queue content', () => {
     const queued: CollaborationRegistry = {
       schema_version: '1.3.0',
@@ -360,7 +413,10 @@ describe('resolveSessionShape — soft degradation', () => {
     expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'unknown', arcActive: true });
   });
 
-  it('resolves team shape but no own-role or wing without an identity', () => {
+  it('reads others as observing — never a team this session joined — without an identity', () => {
+    // No resolved identity cannot be matched to any claim, so the session is a
+    // non-member: other live claims read as observing, not directed/peer, and
+    // there is no own-role or participant-matched wing.
     const shape = resolveSessionShape({
       ownAgentName: undefined,
       registry: registry([
@@ -371,7 +427,7 @@ describe('resolveSessionShape — soft degradation', () => {
       nowIso: NOW,
     });
 
-    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'directed', arcActive: false });
+    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'observing', arcActive: false });
   });
 });
 
