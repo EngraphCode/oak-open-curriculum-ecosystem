@@ -2116,3 +2116,16 @@ Verified absent from this register before adding.
   substance MUST be routed into the repo companion plan (`comms-corpus-research-and-rotation-strategy`)
   before the instance ends, else it is instance-tier-orphaned — a live worked instance of the boundary
   principle above.
+
+- **PDR-051 reduced-implementation reconciliation review.**
+  `captured-date`: 2026-06-14. `source-surface`: 2026-06-14 skills audit (this session); owner direction to
+  record gaps and defer the disposition decision to a later session. `graduation-target`: a decision on
+  PDR-051 — either amend it to record the deferred/YAGNI scope (owned/ingested machinery, supporting-file
+  copy, `claude-*` hoisting are unexercised; `skills-lock.json` empty) OR a remediation plan that closes the
+  §Required gaps as defects. `trigger-condition`: the owner-deferred review/analysis session, OR the first
+  ingested external skill (which activates the owned/ingested apparatus), OR promotion of
+  `future/skills-oversized-core-decomposition.plan.md` (which needs the supporting-file-copy gap closed).
+  `status`: owner-gated (review deferred 2026-06-14).
+  Inputs ready: the gap ledger in `current/skills-standardisation-and-adapter-generator.plan.md`
+  §Reality Reconciliation; friction F-37. Two enhancement briefs already authored (oversized-core
+  decomposition; skills eval harness) sit in `agent-tooling/future/`.

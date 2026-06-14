@@ -1157,6 +1157,36 @@ below is a cross-reference index, not a second source of truth.
 
 ---
 
+### F-37 — Shipped skills generator diverges from PDR-051 §Required
+
+- **Source**: skills audit 2026-06-14 (this session); owner direction to record
+  gaps and defer review.
+- **Surface**: `agent-tools/src/skills-adapter-generate/` (generator + checker);
+  `.agent/skills/*/SKILL-CANONICAL.md` frontmatter; `scripts/validate-portability.ts`.
+- **Observed**: PDR-051's core landed (canonical filename, two surfaces, drift
+  gate, command retirement) but in a reduced form: generator emits only
+  `{name, description}`; no owned/ingested consistency check (`lock.ts` present
+  but unwired); `metadata.owned` on 2 of ~22 owned skills; no bytewise
+  supporting-file copy; no `claude-*` hoisting; a non-spec top-level
+  `classification` key is silently dropped. `skills-lock.json` is empty (no
+  ingested skills), so the owned/ingested apparatus is wholly unexercised.
+  The owning plan was never reconciled — todos read `pending` while the code shipped.
+- **Expected**: either the implementation satisfies PDR-051 §Required, or
+  PDR-051 is amended to record the deferred/YAGNI scope, and the plan reflects
+  reality.
+- **Candidate cure**: a dedicated review/analysis session (owner-deferred
+  2026-06-14) decides amend-PDR-down vs close-gaps-as-defects; the plan's
+  §Reality Reconciliation gap ledger is the input.
+- **Target surface**: PDR-051; the owning plan
+  [`current/skills-standardisation-and-adapter-generator.plan.md`](current/skills-standardisation-and-adapter-generator.plan.md)
+  (§Reality Reconciliation); generator + validator.
+- **Status**: recorded — review deferred to a later session (owner direction
+  2026-06-14). Gap ledger lives in the owning plan's §Reality Reconciliation.
+- **Owner direction status**: standing (agent-observed tooling friction is
+  first-class user feedback); review-timing session-scoped (deferred 2026-06-14).
+
+---
+
 ## Mitigated / Addressed Frictions
 
 - F-03 — addressed by current CLI validation ordering.

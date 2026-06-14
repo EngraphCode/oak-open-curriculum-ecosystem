@@ -507,3 +507,70 @@ branch; recovered when consolidating the statusline lane onto feat/comms-researc
   mis-shaped #208 stewardship.
 - Both are worked theme-1 (snapshot-read-as-current-state) instances; research-relevant evidence for
   the comms-corpus thread (now Clipper's lane). Preserve before the comms archive-move (Phase 2).
+
+### Constitutive precondition ≠ contingent machinery — the comms watcher is not a value-judgment (2026-06-14, Gull spins Stratus, owner ×2)
+
+Given start-right-team I skipped First Moves move 1 (all-channels comms watcher) and rationalised it
+("incoming visibility via directed ping + 120s sweeps; heartbeat deferred per value-contingency/PDR-082").
+Root cause is NOT "weighed value wrong" — it is running a value-contingency CHECK on a CONSTITUTIVE
+precondition. Owner's identity: invoking start-right-team = a team environment BY CONSTRUCTION → the
+comms watcher is ALWAYS justified → mandatory the instant the skill is invoked; there is no "is it
+justified here" to ask. The anti-ceremony reflex cluster (useful-work-over-ceremony,
+machinery-scales-with-need, collaboration-is-value-contingent) is correct for the CONTINGENT set
+(heartbeats, marshals, ArcAngel tails, ceremony) but carries no scope boundary, so it leaked onto a
+constitutive precondition. Convenient accelerants I failed to be most-skeptical of (both true, both
+irrelevant): watcher-death-risk (theme 13) → short budgets not skip; "owner attending" → owner sees ME,
+not MY visibility of the stream. Fallback inversion: 120s sweeps are the FALLBACK for surfaces a monitor
+CAN'T watch; I made it primary on one the monitor watches perfectly. TELL: composing a justification to
+skip a non-negotiable move IS the alarm — apparent licence to skip a constitutive move = re-read, not
+proceed. Live proof: seconds after arming, the watcher surfaced Rosemary's stand-down + Clipper's
+full-lane WS7 handoff to me — the handoff I exist to receive arrived on the stream I'd declined to watch.
+Structural-cure candidate (passive-loses-to-active): a session-open gate that fails fast when a
+team-skill session has no observable watcher (watcher-rule Enforcement already names it; prose said
+"must not be mis-filed as ceremony and skipped" and it still happened → prose insufficient). Monitors now
+live: watcher bxwj30v06, heartbeat b1jw20lap. Siblings: passive-guidance-loses-to-artefact-gravity;
+convenient-claim-confound.
+
+### Skills audit: a plan can read PLANNING/all-pending while its work has shipped (2026-06-14, Margay wakes Whisper)
+
+Auditing the skills estate against agentskills.io, I found `skills-standardisation-and-adapter-generator.plan.md`
+marked `🟡 PLANNING` with every todo `pending` — yet the PDR-051 core had LANDED (commits `a5d7fb12`→`17176e29`:
+canonical `SKILL-CANONICAL.md`, two adapter surfaces, `skills:check` drift gate, retired surfaces gone, commands
+subsumed), in a REDUCED form (generator emits only `{name,description}`; no owned/ingested consistency check, no
+`claude-*` hoisting, no supporting-file copy; `metadata.owned` on 2 of ~22). TELL: a plan's todos saying `pending`
+is NOT evidence the work is unstarted — verify status against the tree, not the plan banner. The `skills:check`
+gate prevents ADAPTER drift but nothing prevents PLAN-STATUS drift from implementation; that gap is the structural
+question for the deferred review. Recorded: plan §Reality Reconciliation gap ledger + friction F-37 (review owner-
+deferred 2026-06-14).
+
+### Doctrine-by-analogy: read the governing decision record BEFORE forming architectural verdicts (2026-06-14, Margay wakes Whisper, owner-adjacent)
+
+I framed "redirect-stub vs inline adapter body" as a genuine open architectural fork and surfaced it to the owner
+TWICE — reasoning from the agentskills.io spec + the external `oak-skills` repo by analogy. Then I read PDR-051,
+which had ALREADY settled it (Option E: redirect for co-located internal skills; self-contained is the separate
+regime for distributed skills). I retracted #1. Root cause is the metacognition-directive's named failure mode:
+doctrine-by-analogy — reaching for an external pattern that didn't fit because I hadn't grounded in the system's
+OWN authority first. CURE: when auditing an existing system against an external standard, read the system's
+governing ADR/PDR before forming or surfacing architectural verdicts. The external standard is INPUT; the internal
+decision record is the AUTHORITY. Sibling: ground-convenient-claims (my #1 conveniently favoured the "we should
+change it" thesis).
+
+### Empty lock file is the YAGNI tell for unexercised doctrine machinery (2026-06-14, Margay wakes Whisper)
+
+`skills-lock.json` is `{"skills":{}}` — zero ingested skills. So the entire PDR-051 owned/ingested apparatus
+(consistency check, owned prefix, `metadata.owned` on every owned skill) is UNEXERCISED machinery. The gap between
+PDR-051 §Required and the shipped reduced form reads better as deliberate YAGNI-deferral than as defect — but that
+disposition is an owner call (deferred). TELL: before treating a doctrine-vs-implementation divergence as a defect
+to close, check whether the divergent machinery is even exercised yet; an empty registry/lock/config is strong
+evidence the build was deliberately deferred to first-need.
+
+### Agent-tooling/Practice plan work is never thread-less — it threads under `agentic-engineering-enhancements` (2026-06-14, Margay wakes Whisper, owner correction)
+
+I decided this skills-planning session "didn't move a tracked thread's lane" and skipped thread bookkeeping,
+reasoning the work was self-contained in `agent-tooling/` plans. Owner corrected: the `agentic-engineering-
+enhancements` thread (Practice continuity) is the continuity home for exactly this work. CURE: the continuity
+hierarchy is thread → arc → plan; the plan-collection axis (`agent-tooling/`) is orthogonal to the continuity axis
+(thread). Agent-tooling / Practice-infrastructure work threads under `agentic-engineering-enhancements` by default
+when no more-specific thread (e.g. `statusline-enhancements`, `agent-naming`) exists — register the identity row
+and update lane state at close; do not treat plan-only work as having no thread home. Sibling: register-identity-
+on-thread-join (session-open counterpart I also lacked, since I opened thread-less).

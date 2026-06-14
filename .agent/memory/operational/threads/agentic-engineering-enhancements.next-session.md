@@ -220,12 +220,19 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Thyme wakes Canopy` | `claude` | `Fable 5` | `70655e` | `dedicated-consolidation (approved queue authored: PDR-092/093 + 4 amendments + 3 folds; napkin rotated; registers drained; continuity condensed)` | 2026-06-12 | 2026-06-12 |
 | `Monsoon guards Cirrus` | `claude` | `Fable 5` | `aaa0b7` | `statusline-session-shape-indicators (all five workstreams landed on feat/statusline-enhancements; handed to Flame rides Temper for push/PR/post-merge proof)` | 2026-06-12 | 2026-06-12 |
 | `Flame rides Temper` | `claude-code` | `Fable 5` | `362832` | `statusline-lane successor (Monsoon handoff): PR #203 + #206 merged + post-merge director-demark proof + two-line layout; PR merge-readiness discipline plan #205 + WS3-evidence integration #207; review-comment-resolution discipline applied across all PRs` | 2026-06-13 | 2026-06-13 |
+| `Margay wakes Whisper` | `claude` | `Opus 4.8` | `803f13` | `skills-estate audit vs agentskills.io + oak-skills compare; reconciled stale skills-standardisation plan (core landed in reduced form); authored 2 enhancement briefs (oversized-core decomposition, eval harness); gaps recorded as F-37, disposition review owner-deferred` | 2026-06-14 | 2026-06-14 |
 
 ## Cross-Plan and Cross-Thread Links
 
 - **Live-work plans**:
   [`current/no-type-widening-enforcement.plan.md`](../../../plans/agentic-engineering-enhancements/current/no-type-widening-enforcement.plan.md),
   [`future/action-time-structural-interrupt-design-space.plan.md`](../../../plans/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md).
+- **Skills arc** (2026-06-14 audit, agent-tooling collection): owning plan
+  [`agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](../../../plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
+  (§Reality Reconciliation gap ledger); enhancement briefs
+  [`agent-tooling/future/skills-oversized-core-decomposition.plan.md`](../../../plans/agent-tooling/future/skills-oversized-core-decomposition.plan.md)
+  and [`agent-tooling/future/skills-eval-harness.plan.md`](../../../plans/agent-tooling/future/skills-eval-harness.plan.md);
+  friction F-37; pending-graduations entry "PDR-051 reduced-implementation reconciliation review" (owner-deferred).
 - **Graduation register**: [`pending-graduations.md`](../pending-graduations.md) (owner-gated +
   fired-trigger candidates from this thread's curation passes).
 - **Curation ledgers**: [`curator-passes/`](../curator-passes/) (per-pass disposition evidence).
