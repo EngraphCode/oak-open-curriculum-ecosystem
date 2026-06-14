@@ -82,6 +82,14 @@ images**. Tune by editing the parameter constants near the top of each script â€
 final acorn the high-value knobs are `AMP` (light strength), the multipliers inside
 `warmcool()` (hue drift), `LIGHT` (light direction), and `RG`/`U`/`Wt` (glow reach & umbra).
 
+> **The generators are the source of truth; `statusline/*.sh` are build artefacts.** Each
+> generator writes its `.sh` into `./renders/`; the committed copies in `statusline/` are
+> those outputs copied across. To change a payload, edit the generator and regenerate, then
+> copy `renders/<name>.sh` to `statusline/<name>.sh` â€” do **not** hand-edit the committed
+> scripts (a regeneration would silently overwrite the edit). To verify a change, confirm
+> the script's animated branch still matches the prior payload and the `off`/`static` branch
+> contains no `\033[5` (SGR 5 blink) sequences.
+
 ---
 
 ## Using a payload in the Claude Code statusline
