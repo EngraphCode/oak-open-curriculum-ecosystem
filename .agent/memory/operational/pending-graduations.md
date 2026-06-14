@@ -2149,3 +2149,21 @@ Verified absent from this register before adding.
   (Lane A feedback-mechanism active; Lane B skills review deferred) 2026-06-14 as the first per-lane example.
   Meta-pattern noted (napkin): repeatedly collapsing the concurrent continuity graph
   (threads × lanes × identities × checkouts) into linear singletons.
+
+- **Prose `+`-for-"and" misparses as a list bullet at line-wrap (MD004) — authoring convention plus
+  autofix-discipline candidate.** `captured-date`: 2026-06-14. `source-surface`: owner aside during the
+  Gull spins Stratus → Serval mends Murmur WS7 handoff closeout (owner states it "happens a lot"). Worked
+  instance: a wrapped prose line beginning with a `+` then a space (the `+` meant "and") tripped
+  MD004/ul-style, and a blind
+  `markdownlint --fix` silently rewrote the `+` to `-`, corrupting the sentence's meaning before commit.
+  `graduation-target`: a lightweight markdown-authoring convention (a clause, NOT a new always-loaded rule —
+  skill/directive budget, `new-rule-vs-pdr-clause`) in two paired parts. (1) AUTHORING — in prose use the
+  word "and" (preferred) or a bare `&` for conjunction, never `+`, so a line-wrap that lands the conjunction
+  at line-start cannot be read as a `+` / `-` / `*` list bullet; `&amp;` is WRONG for raw-read agent markdown
+  (it renders literally as the five characters "&amp;"). (2) PROCESS, the load-bearing half — when MD004 (or
+  any structural lint) fires on prose, REWORD the line; never blind `markdownlint --fix` on prose-bearing
+  files, because the autofix changes semantics silently. Generalises: review an auto-fixer's diff before
+  trusting it (sibling of trust-the-checker-after-a-negative-control and the literal-control-character source
+  hazard in `distilled.md`). `home`: a clause near `markdown-code-blocks-must-have-language` (the
+  markdown-source-authoring rule family) or a markdown style-guidance doc — decide at authoring.
+  `trigger-condition`: owner directs, or the next consolidation pass. `status`: due (owner-surfaced 2026-06-14).
