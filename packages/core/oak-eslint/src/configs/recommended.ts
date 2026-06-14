@@ -176,6 +176,17 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
   rules: {
     '@oaknational/no-eslint-disable': 'error',
     '@oaknational/no-dynamic-import': 'error',
+    // New rule (2026-06-14): bans `throw` in favour of the Result pattern
+    // (ADR-088 / use-result-pattern). Wired at `warn` first per the
+    // no-warning-toleration §"Scope and exceptions" rule-authoring nuance — the
+    // existing-throw surface (notably workspaces that predate Result adoption
+    // here, such as agent-tools) is captured at `warn` while the throw→Result
+    // retrofit lane migrates it and the false-positive profile (test files,
+    // sanctioned boundary throws) is designed. PROMOTION POINT TO `error`: the
+    // completion of that retrofit lane, at which point the no-warning-toleration
+    // zero-warning regime applies unchanged. This rule must NOT be used to claim
+    // green quality gates until promotion.
+    '@oaknational/no-throw-statement': 'warn',
     // Severity is `warn` during the rule's development phase per the general
     // principle that new ESLint rules wire at `warn` first to avoid blocking
     // unrelated work in the monorepo while the rule is iterated and the
