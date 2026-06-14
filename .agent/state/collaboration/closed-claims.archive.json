@@ -14658,6 +14658,197 @@
           }
         ]
       }
+    },
+    {
+      "claim_id": "c8f0425f-d792-42b4-998c-4fcfec07d5b5",
+      "agent_id": {
+        "agent_name": "Clipper wakes Atoll",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "de1f79",
+        "id": "682f00a0-b711-55b9-ba37-25a1b71cfdb3",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            ".agent/reference/arc-rapid-communication.md",
+            ".agent/skills/start-right-team/SKILL-CANONICAL.md",
+            ".agent/collaboration/rapid-comms/**",
+            ".agent/rules/comms-all-channels-watcher.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T20:37:29Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "role": "peer",
+      "intent": "Owner-directed comms-DOCUMENTATION known-issue cures: arc-rapid-communication ARC-home path fix (#7a), start-right-team monitor-pairing invariant + ARC-home reinforcement (#7c/#7d), full-display-name filename convention (Bugbot de9f2522 doc limb). Eventual WS7 successor to Whippoorwill (adc96c); WS7 code Phase-1 + (b) wing-fix remain Whippoorwill's until handoff.",
+      "archived_at": "2026-06-14",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-14T08:10:37Z",
+        "closed_by": {
+          "agent_name": "Clipper wakes Atoll",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "de1f79",
+          "id": "682f00a0-b711-55b9-ba37-25a1b71cfdb3",
+          "naming_schema_version": "override"
+        },
+        "summary": "Owner-directed #7 ArcAngel comms-doc cures complete + landed (commit 92bf05764: arc-rapid-communication home-fix + watcher-pairing invariant in start-right-team + comms-all-channels-watcher cross-ref + full-display-name filename convention & roster-accretion wing limitation; docs-adr-expert APPROVE + onboarding-expert APPROVE-WITH-FIXES applied; markdownlint clean). Pushed (origin==HEAD).",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "c8f0425f-d792-42b4-998c-4fcfec07d5b5",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "c8bea71e-e286-4562-8b3a-ff50d57c6170",
+      "agent_id": {
+        "agent_name": "Rosemary lifts Undergrowth",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "6f55c7",
+        "id": "83e72dd7-984f-5bb7-b1d9-e3d9ede8f017",
+        "naming_schema_version": "override"
+      },
+      "thread": "comms-research",
+      "areas": [
+        {
+          "kind": "git",
+          "patterns": [
+            "merge:feat/comms-research->main",
+            "push:feat/comms-research"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-13T20:40:00Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "role": "peer",
+      "intent": "Comms-research continuation seat (Cassiopeia successor). PR #208 push/merge stewardship: origin at 70080844d, CLEAN/MERGEABLE, all checks green incl run-quality-gates; PARKED ON OWNER GO (no push/merge without it). Verify ArcAngel statusline wing on Whippoorwill WS7 Phase-1 land. NOT WS7/(b)/Bugbot (Whippoorwill owns). Git-level stewardship only; no source edits.",
+      "archived_at": "2026-06-14",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-14T08:17:02Z",
+        "closed_by": {
+          "agent_name": "Rosemary lifts Undergrowth",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "6f55c7",
+          "id": "83e72dd7-984f-5bb7-b1d9-e3d9ede8f017",
+          "naming_schema_version": "override"
+        },
+        "summary": "comms-research seat + PR #208 stewardship complete; branch pushed + in sync; #208 mergeable, merge owner-gated; standing down",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "c8bea71e-e286-4562-8b3a-ff50d57c6170",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "f74e1fcb-888a-499f-9536-a7d8ecfc1821",
+      "agent_id": {
+        "agent_name": "Gull spins Stratus",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "9cf32d",
+        "id": "f4715f75-e123-59f5-855a-978fdcf3eb66",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "plan",
+          "patterns": [
+            ".agent/plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-14T08:19:06Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "role": "standby",
+      "intent": "Standby successor to Clipper wakes Atoll (de1f79) on WS7 comms-rotation lane; awaiting handoff; coordination/standby only, NO source edits pending handoff; defers to Clipper's active source claim c8f0425f",
+      "archived_at": "2026-06-14",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-14T08:45:12Z",
+        "closed_by": {
+          "agent_name": "Gull spins Stratus",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "9cf32d",
+          "id": "f4715f75-e123-59f5-855a-978fdcf3eb66",
+          "naming_schema_version": "override"
+        },
+        "summary": "Superseded: standby successor claim resolved into active WS7 claim 907ff814 on PDR-063 handoff completion from Clipper wakes Atoll.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "f74e1fcb-888a-499f-9536-a7d8ecfc1821",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
+    },
+    {
+      "claim_id": "3b56cb4d-6f7d-4b43-b592-564db0fe0918",
+      "agent_id": {
+        "agent_name": "Clipper wakes Atoll",
+        "platform": "claude-code",
+        "model": "Opus 4.8",
+        "session_id_prefix": "de1f79",
+        "id": "682f00a0-b711-55b9-ba37-25a1b71cfdb3",
+        "naming_schema_version": "override"
+      },
+      "thread": "agent-collaboration-research",
+      "areas": [
+        {
+          "kind": "files",
+          "patterns": [
+            "agent-tools/src/collaboration-state/provenance/**",
+            "agent-tools/tests/collaboration-state/provenance/**",
+            ".agent/reference/comms-cited-events.md",
+            ".agent/state/collaboration/comms-archive/**"
+          ]
+        }
+      ],
+      "claimed_at": "2026-06-14T07:13:21Z",
+      "freshness_seconds": 14400,
+      "sidebar_open": false,
+      "role": "peer",
+      "intent": "WS7 Phase 2 (PDR-094/ADR-199): pre-archive-move provenance-check module + cited-event digest + heartbeat-cadence artefact, then class-tiered archive-move into comms-archive/. Non-destructive (archive-not-delete). Inherited from Whippoorwill (adc96c) PDR-063 handoff.",
+      "archived_at": "2026-06-14",
+      "closure": {
+        "kind": "explicit",
+        "closed_at": "2026-06-14T08:45:23Z",
+        "closed_by": {
+          "agent_name": "Gull spins Stratus",
+          "platform": "claude-code",
+          "model": "Opus 4.8",
+          "session_id_prefix": "9cf32d",
+          "id": "f4715f75-e123-59f5-855a-978fdcf3eb66",
+          "naming_schema_version": "override"
+        },
+        "summary": "PDR-063 pickup by Gull spins Stratus (9cf32d): WS7 Phase-2 retained claim assumed into Gull's WS7 completion claim 907ff814; transfer complete.",
+        "evidence": [
+          {
+            "kind": "claim",
+            "ref": "3b56cb4d-6f7d-4b43-b592-564db0fe0918",
+            "summary": "Claim explicitly closed by owning session."
+          }
+        ]
+      }
     }
   ]
 }
