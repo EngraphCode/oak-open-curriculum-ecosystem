@@ -1,3 +1,10 @@
+## [1.34.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.34.0...v1.34.1) (2026-06-14)
+
+
+### Bug Fixes
+
+* **lint:** exclude untracked-by-design handoff records from markdownlint ([c98f19a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c98f19ab76b9cd7ebe8e75c1f27e8ba843fa2f72))
+
 # [1.34.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.33.0...v1.34.0) (2026-06-14)
 
 
