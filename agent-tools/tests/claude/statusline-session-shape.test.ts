@@ -165,6 +165,59 @@ describe('resolveSessionShape — team shape', () => {
     expect(shape.teamShape).toBe('solo');
   });
 
+  it('drops to observing when my own claim expires past its TTL but a peer stays fresh', () => {
+    // The membership gate pivots on my own claim's freshness: once mine is
+    // stale I am no longer a member, so a still-fresh peer reads as observing,
+    // not peer.
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([
+        claim({ agent_name: 'Monsoon guards Cirrus', claimed_at: '2026-06-12T07:59:59Z' }),
+        claim({ agent_name: 'Fern lifts Mulch' }),
+      ]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('observing');
+  });
+
+  it('resolves observing when others are fresh but I hold no claim', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([claim({ agent_name: 'Fern lifts Mulch' })]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('observing');
+  });
+
+  it('reports observing — not directed — when a director is active but I am not a member', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([
+        claim({ agent_name: 'Fern lifts Mulch' }),
+        claim({ agent_name: 'Tempest spins Stratosphere', role: 'director' }),
+      ]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('observing');
+  });
+
+  it('resolves solo — not observing — when the only other claims are stale', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([claim({ agent_name: 'Fern lifts Mulch', claimed_at: STALE })]),
+      experimentsListing: [],
+      nowIso: NOW,
+    });
+
+    expect(shape.teamShape).toBe('solo');
+  });
+
   it('resolves the same shape regardless of commit_queue content', () => {
     const queued: CollaborationRegistry = {
       schema_version: '1.3.0',
@@ -297,19 +350,6 @@ describe('resolveSessionShape — ARC liveness', () => {
     expect(shape.arcActive).toBe(false);
   });
 
-  it('keeps the wing down for a future-dated channel (clock skew yields a negative age)', () => {
-    const shape = resolveSessionShape({
-      ownAgentName: 'Monsoon guards Cirrus',
-      registry: registry([]),
-      experimentsListing: [
-        arc('arc-monsoon-guards-cirrus-and-fern/README.md', '2026-06-12T12:05:00Z'),
-      ],
-      nowIso: NOW,
-    });
-
-    expect(shape.arcActive).toBe(false);
-  });
-
   it('keeps the wing down for a fresh channel naming other participants', () => {
     const shape = resolveSessionShape({
       ownAgentName: 'Monsoon guards Cirrus',
@@ -333,10 +373,23 @@ describe('resolveSessionShape — ARC liveness', () => {
 
     expect(shape.arcActive).toBe(true);
   });
+
+  it('keeps the wing down for a future-dated channel (clock skew yields a negative age)', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: registry([]),
+      experimentsListing: [
+        arc('arc-monsoon-guards-cirrus-and-fern/README.md', '2026-06-12T12:05:00Z'),
+      ],
+      nowIso: NOW,
+    });
+
+    expect(shape.arcActive).toBe(false);
+  });
 });
 
 describe('resolveSessionShape — soft degradation', () => {
-  it('reads missing registry and listing as solo with no wing', () => {
+  it('reads an unreadable registry as unknown, not a false solo', () => {
     const shape = resolveSessionShape({
       ownAgentName: 'Monsoon guards Cirrus',
       registry: undefined,
@@ -344,10 +397,26 @@ describe('resolveSessionShape — soft degradation', () => {
       nowIso: NOW,
     });
 
-    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'solo', arcActive: false });
+    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'unknown', arcActive: false });
   });
 
-  it('resolves team shape but no own-role or wing without an identity', () => {
+  it('still raises the wing when the registry is unreadable but a channel is live', () => {
+    const shape = resolveSessionShape({
+      ownAgentName: 'Monsoon guards Cirrus',
+      registry: undefined,
+      experimentsListing: [
+        arc('arc-monsoon-guards-cirrus-and-fern/README.md', '2026-06-12T11:50:00Z'),
+      ],
+      nowIso: NOW,
+    });
+
+    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'unknown', arcActive: true });
+  });
+
+  it('reads others as observing — never a team this session joined — without an identity', () => {
+    // No resolved identity cannot be matched to any claim, so the session is a
+    // non-member: other live claims read as observing, not directed/peer, and
+    // there is no own-role or participant-matched wing.
     const shape = resolveSessionShape({
       ownAgentName: undefined,
       registry: registry([
@@ -358,29 +427,26 @@ describe('resolveSessionShape — soft degradation', () => {
       nowIso: NOW,
     });
 
-    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'directed', arcActive: false });
+    expect(shape).toStrictEqual({ ownRole: undefined, teamShape: 'observing', arcActive: false });
   });
 });
 
 describe('parsePrimaryWorktreeRoot', () => {
   it('returns the first worktree path from porcelain output', () => {
-    // Git emits absolute worktree paths at runtime, but the parser is
-    // path-shape-agnostic (it extracts the first `worktree <path>` line
-    // verbatim), so the fixture uses portable repo-relative placeholders to
-    // honour no-machine-local-paths rather than a machine-local or
-    // non-resolving absolute path.
     const porcelain = [
-      'worktree primary-checkout',
+      'worktree /Users/jim/code/oak/oak-open-curriculum-ecosystem',
       'HEAD 5bbda2fa900000000000000000000000000000000',
       'branch refs/heads/main',
       '',
-      'worktree primary-checkout/.claude/worktrees/statusline-enhancements',
+      'worktree /Users/jim/code/oak/oak-open-curriculum-ecosystem/.claude/worktrees/statusline-enhancements',
       'HEAD ac2901fe100000000000000000000000000000000',
       'branch refs/heads/feat/statusline-enhancements',
       '',
     ].join('\n');
 
-    expect(parsePrimaryWorktreeRoot(porcelain)).toBe('primary-checkout');
+    expect(parsePrimaryWorktreeRoot(porcelain)).toBe(
+      '/Users/jim/code/oak/oak-open-curriculum-ecosystem',
+    );
   });
 
   it('returns undefined for unrecognised output', () => {

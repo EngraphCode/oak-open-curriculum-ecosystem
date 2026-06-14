@@ -1,13 +1,8 @@
-import { readFile } from 'node:fs/promises';
-
 import { getJsonValue, isJsonObject } from './json.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
+import { cliIo, type CliRuntime } from './cli-runtime.js';
 import { optional, required, type Options } from './cli-options.js';
-import {
-  parseClosedClaimsArchive,
-  parseCollaborationRegistry,
-  readCommsEvents,
-} from './state-io.js';
+import { type CollaborationStateEnvironment } from './types.js';
 import { updateJsonFileWithRetry, writeJsonFileAtomically } from './transaction.js';
 
 interface EntriesFile {
@@ -59,15 +54,20 @@ function singleFileOption(options: Options): string {
   return filePath;
 }
 
-export async function checkState(options: Options): Promise<string> {
+export async function checkState(
+  options: Options,
+  _env: CollaborationStateEnvironment,
+  runtime: CliRuntime,
+): Promise<string> {
+  const io = cliIo(runtime);
   if (optional(options, 'active') !== undefined) {
-    parseCollaborationRegistry(await readFile(required(options, 'active'), 'utf8'));
+    await io.readActiveClaimsFile(required(options, 'active'));
   }
   if (optional(options, 'closed') !== undefined) {
-    parseClosedClaimsArchive(await readFile(required(options, 'closed'), 'utf8'));
+    await io.readClosedClaimsFile(required(options, 'closed'));
   }
   if (optional(options, 'comms-dir') !== undefined) {
-    await readCommsEvents(required(options, 'comms-dir'));
+    await io.readCommsEvents(required(options, 'comms-dir'));
   }
 
   return 'ok\n';

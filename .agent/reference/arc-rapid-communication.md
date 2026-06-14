@@ -23,16 +23,26 @@ the evaluation evidence (conserved from the live experiment channel on
 - **A channel is one append-only markdown file.** Participants append
   entries; nobody ever edits a prior entry. Retractions and corrections
   are new entries that name what they retract.
-- **Channel files live under `.agent/state/collaboration/experiments/`**,
-  whose `.gitignore` excludes everything by default and then explicitly
-  re-includes the durable record (currently the founding channel's
-  README). A re-included channel file is TRACKED — its live-append churn
-  sits as uncommitted working-tree modification and is committed only at
-  conservation waypoints. A channel file that is not re-included is
-  genuinely gitignored: durable in the working copy for the session,
-  never committed. Either way, durable substance MUST be conserved to
-  canonical homes before session end (see §Conventions,
-  conserve-at-close) — tracking is not conservation.
+- **Channel files live under `.agent/collaboration/rapid-comms/`** — the
+  canonical ARC home, and the single source of truth for the path: every
+  tail command, announce event, and the statusline wing-detection resolve
+  against it (relocated here 2026-06-13, owner-directed, as an early WS7
+  slice of the comms-corpus rotation; the former
+  `.agent/state/collaboration/experiments/` path is retired for ARC
+  channels). It is a TRACKED durable directory: channel files are
+  committed at conservation waypoints, their live-append churn sitting as
+  uncommitted working-tree modification in between. Tracking is not
+  conservation — durable substance MUST still be conserved to canonical
+  homes before session end (see §Conventions, conserve-at-close).
+- **An ARC watcher never substitutes for the canonical comms watcher.**
+  ARC complements the canonical comms-event stream; it never replaces it
+  (§Relationship to the canonical channels). Any session tailing an ARC
+  channel MUST also be running the all-channels canonical comms watcher
+  (`.agent/rules/comms-all-channels-watcher.md`). The ARC channel carries
+  dialogue only; claims, heartbeats, commit intents, owner gates, and the
+  team-coordination events that bootstrap the session all live on the
+  canonical stream, and an agent watching only ARC is blind to them. The
+  two watchers are paired, always.
 - **Each participant tails the file** with a persistent watcher:
 
   ```bash
@@ -72,11 +82,25 @@ the evaluation evidence (conserved from the live experiment channel on
 ## Conventions
 
 1. **One channel per pairing (or grouping) per topic, in a dated file** —
-   `YYYY-MM-DD-<topic-slug>-<name-a>-<name-b>.md` for pairs; for groups
-   whose roster is unknown at open, `YYYY-MM-DD-<topic-slug>.md` (see
-   §Running an n≥3 channel, roster accretion). A single shared file
-   accreted three pairs' history (70KB) and taxed every new pair with all
-   prior pairs' context; per-pair files cure this and the
+   `YYYY-MM-DD-<topic-slug>-<name-a>-<name-b>.md` for pairs, where
+   `<name-a>` / `<name-b>` are the participants' FULL PDR-027 display
+   names (e.g. `clipper-wakes-atoll`, never a short alias). The statusline
+   ArcAngel wing-detection (`resolveArcActive`) lights a seat's wing only
+   when that seat's full display name is a substring of the channel
+   filename, so a short-slug name silently fails the match (Bugbot
+   de9f2522). For groups whose roster is unknown at open, use
+   `YYYY-MM-DD-<topic-slug>.md` (see §Running an n≥3 channel, roster
+   accretion). **Known limitation — roster-accretion joiners do not light
+   their wing.** A topic-only filename, and any channel a seat JOINS whose
+   filename names only the other participants, cannot contain the joiner's
+   name, so the joiner's wing stays dark even while they are an active
+   participant — the detection keys on the filename, not the on-channel
+   roster. The live workaround is to open a pair sub-channel whose
+   filename carries both seats' full display names; the structural cure
+   (matching on the on-channel participant roster rather than the
+   filename) is tracked in the statusline wing-detection lane. A single
+   shared file accreted three pairs' history (70KB) and taxed every new
+   pair with all prior pairs' context; per-pair files cure this and the
    channel-discovery race below.
 2. **Announce the channel with exactly ONE canonical comms event** at
    open, before the first substantive entry, naming the absolute file
@@ -223,13 +247,20 @@ observations below).
   when the change is one token — compose the timestamp BEFORE the
   append; corrections are new entries, never edits); and external
   lint/format passes (`--fix` gates run from the repo root reach
-  gitignored channel files and rewrite them in place — an MD004 marker
+  channel files and rewrite them in place — an MD004 marker
   flip was observed in a seat buffer). Convention: conservation,
   backup, or normalisation passes COPY the channel file elsewhere and
   never rewrite it in place; editing tools that write whole files are
   unsafe on a live channel; keep entries lint-clean at compose time
   (wrapped lines must not start with a list-marker character) so
-  format gates have nothing to fix.
+  format gates have nothing to fix. **Cure now in place (2026-06-13):**
+  the dated `rapid-comms/*.md` channel files (now TRACKED in
+  `.agent/collaboration/rapid-comms/`, no longer gitignored) are excluded
+  from the mutating format/lint passes — markdownlint via the `2026-*.md`
+  scope and prettier via the `.agent/` ignore — so a `--fix` gate no
+  longer rewrites a live dated channel mid-tail. The compose-time
+  lint-cleanliness discipline still applies as defence in depth and for
+  the undated channel READMEs.
 
 **Named triggers for mechanism-level work** (do not build ahead of
 these; the zero-ceremony property is the thing to protect):

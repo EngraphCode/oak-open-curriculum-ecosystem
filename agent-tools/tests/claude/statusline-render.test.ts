@@ -1,3 +1,4 @@
+import { OAK_LOGO_ROWS } from '../../src/claude/oak-logo';
 import { renderStatusline, type StatuslineParts } from '../../src/claude/statusline-render';
 
 const RESET = '[0m';
@@ -123,5 +124,53 @@ describe('renderStatusline', () => {
 
   it('omits the context segment when usage is absent', () => {
     expect(renderStatusline({ ...base, usedPercentage: undefined })).not.toContain('ctx:');
+  });
+});
+
+describe('renderStatusline with an Oak logo column', () => {
+  const SEXTANT = OAK_LOGO_ROWS.sextant;
+
+  it('distributes the segments across four rows beside the logo column', () => {
+    const out = renderStatusline(
+      {
+        identity: 'Bilby hunts Eventide',
+        dir: 'oak-open-curriculum-ecosystem',
+        branch: 'feat/comms-research',
+        dirty: true,
+        worktree: undefined,
+        usedPercentage: 38,
+        model: 'Opus 4.8',
+        sessionShape: undefined,
+      },
+      { logo: 'sextant' },
+    );
+    expect(out.split('\n')).toEqual([
+      `${GREEN}${SEXTANT[0]}${RESET}  ${MAGENTA}Bilby hunts Eventide${RESET}`,
+      `${GREEN}${SEXTANT[1]}${RESET}  ${DIM}Opus 4.8${RESET}`,
+      `${GREEN}${SEXTANT[2]}${RESET}  ${GREEN}ctx:38%${RESET}${SEP}${BOLD_BLUE}feat/comms-research${RESET}${YELLOW}*${RESET}`,
+      `${GREEN}${SEXTANT[3]}${RESET}  ${CYAN}oak-open-curriculum-ecosystem${RESET}`,
+    ]);
+  });
+
+  it('renders all four logo rows even when only the directory segment is present', () => {
+    expect(renderStatusline({ ...base, dir: 'repo' }, { logo: 'sextant' }).split('\n')).toEqual([
+      `${GREEN}${SEXTANT[0]}${RESET}`,
+      `${GREEN}${SEXTANT[1]}${RESET}`,
+      `${GREEN}${SEXTANT[2]}${RESET}`,
+      `${GREEN}${SEXTANT[3]}${RESET}  ${CYAN}repo${RESET}`,
+    ]);
+  });
+
+  it('uses universal quadrant glyphs for the quad style', () => {
+    const lines = renderStatusline({ ...base, dir: 'repo' }, { logo: 'quad' }).split('\n');
+    expect(lines).toHaveLength(4);
+    expect(lines[0]).toBe(`${GREEN}${OAK_LOGO_ROWS.quad[0]}${RESET}`);
+    expect(lines[3]).toBe(`${GREEN}${OAK_LOGO_ROWS.quad[3]}${RESET}  ${CYAN}repo${RESET}`);
+  });
+
+  it('renders the two-line layout when the logo style is none', () => {
+    const out = renderStatusline({ ...base, dir: 'repo', model: 'Opus 4.8' }, { logo: 'none' });
+    expect(out).toContain('\n');
+    expect(out).toBe(`${DIM}Opus 4.8${RESET}\n${CYAN}repo${RESET}`);
   });
 });

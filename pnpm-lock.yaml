@@ -119,6 +119,9 @@ importers:
 
   agent-tools:
     dependencies:
+      '@oaknational/result':
+        specifier: workspace:*
+        version: link:../packages/core/result
       ajv:
         specifier: ^8.20.0
         version: 8.20.0

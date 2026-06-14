@@ -76,7 +76,7 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   'identity:preflight': commandSpec({
     help: identityPreflightHelp,
     options: ['platform', 'model', 'active', 'now'],
-    handler: (options, env) => preflightIdentity(options, env),
+    handler: (options, env, runtime) => preflightIdentity(options, env, runtime),
   }),
   'identity:audit': commandSpec({
     help: identityAuditHelp,

@@ -1,55 +1,22 @@
 /**
- * Test fixture that loads the canonical `active-claims.schema.json` from disk
- * once and exposes it as a typed `AnySchemaObject`. The schema file is the
- * authority under test, so reading it in a test fixture (rather than a test
- * file directly) keeps `node:fs` out of test files while preserving the
- * schema-meets-reality property the tests assert.
+ * Test fixture exposing the canonical `active-claims.schema.json` as a typed
+ * `AnySchemaObject`. The schema is imported as a compile-time JSON module, not
+ * read from disk, so the tests that assert schema-meets-reality stay IO-free
+ * (per `testing-strategy.md`: unit and integration tests trigger no IO). The
+ * import resolves the same canonical file the product validator loads at
+ * runtime, so the schema-meets-reality property holds. Shared with
+ * `agent-id-jsonschema.unit.test.ts`.
  */
-import { readFileSync } from 'node:fs';
-import { copyFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import { type AnySchemaObject } from 'ajv';
+
+import activeClaimsSchemaJson from '../../src/collaboration-state/schemas/active-claims.schema.json';
 
 function isAnySchemaObject(value: unknown): value is AnySchemaObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function loadCollaborationSchema(fileName: string): AnySchemaObject {
-  const schemaUrl = new URL(`../../../.agent/state/collaboration/${fileName}`, import.meta.url);
-  const parsed: unknown = JSON.parse(readFileSync(fileURLToPath(schemaUrl), 'utf8'));
-  if (!isAnySchemaObject(parsed)) {
-    throw new Error(`${fileName} must be a JSON object`);
-  }
-  return parsed;
+if (!isAnySchemaObject(activeClaimsSchemaJson)) {
+  throw new Error('active-claims.schema.json must be a JSON object');
 }
 
-export const activeClaimsSchema: AnySchemaObject = loadCollaborationSchema(
-  'active-claims.schema.json',
-);
-
-const COLLABORATION_SCHEMA_FILE_NAMES = [
-  'active-claims.schema.json',
-  'closed-claims.schema.json',
-  'comms-event.schema.json',
-  'conversation.schema.json',
-  'escalation.schema.json',
-] as const;
-
-/**
- * Copy the full canonical collaboration schema set into a directory, for
- * tests that exercise the write-path validator: it compiles every schema in
- * the registry file's directory, so a canonical temp registry needs the
- * complete set beside it.
- */
-export async function writeCollaborationSchemaSet(targetDir: string): Promise<void> {
-  await Promise.all(
-    COLLABORATION_SCHEMA_FILE_NAMES.map((fileName) =>
-      copyFile(
-        fileURLToPath(new URL(`../../../.agent/state/collaboration/${fileName}`, import.meta.url)),
-        join(targetDir, fileName),
-      ),
-    ),
-  );
-}
+export const activeClaimsSchema: AnySchemaObject = activeClaimsSchemaJson;

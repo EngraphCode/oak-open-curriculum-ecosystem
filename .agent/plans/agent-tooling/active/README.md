@@ -11,7 +11,7 @@ when it completes.
 
 | Plan | Scope | Status |
 | --- | --- | --- |
-| [agent-naming-schema-v2.plan.md](agent-naming-schema-v2.plan.md) | Versioned naming-schema registry in `core/agent-identity`: noun-verb-noun lowercase-middle v2 display names, digest-pinned wordlist eras (current scheme preserved as v1), `naming_schema_version` on the collaboration identity tuple. UUID v5 derivation and `session_id_prefix` untouched. Owner wordlist taste review is a blocking pre-activation gate. | ACTIVE |
+| [comms-corpus-research-and-rotation-strategy.plan.md](comms-corpus-research-and-rotation-strategy.plan.md) | Dedicated research pass over the preserved comms-event corpus — blind cold read, automated survey, failure-mode taxonomy, deep-dives across three lenses, ratification-ready non-held rotation strategy, owner-gated WS7 end-state execution. Owner-amended 2026-06-12 to the ultracode multi-wave execution strategy (statistical index, breadth extraction waves, power analysis waves, adversarial verification, corroboration-provenance matrix). | IN EXECUTION — WS0 complete, WS1 running (Katydid hunts Roost, a4314f) |
 
 ## Related
 

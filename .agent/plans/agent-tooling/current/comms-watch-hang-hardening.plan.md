@@ -135,3 +135,23 @@ the owned surfaces before the first edit; session-handoff at boundaries; on comp
 `oak-consolidate-docs` — the napkin already carries the 2026-06-10 capture (hang-but-run mode +
 Director-side detection tell); completion mines it forward and retires the interim rule caution
 (c3 does the rule edit; consolidation confirms nothing else cites the stall as live).
+
+## Routed evidence from the comms-corpus research (2026-06-13)
+
+From the synthesis
+([`.agent/reports/agentic-engineering/2026-06-13-ws6-comms-corpus-synthesis.md`](../../../reports/agentic-engineering/2026-06-13-ws6-comms-corpus-synthesis.md)
+§5, §3.3).
+
+- **S1/S2 — watcher stall + drain-death are FH-confirmed; the size→health link is
+  NOT.** The dramatic swap→0 evidence that once implied "corpus size kills the
+  watcher" was **retracted** (reboot-confounded, `kern.boottime`). The evidenced
+  death mechanisms are load-starvation and an intermittent fs-contention blocking
+  stall, not size. The proven cure path is this plan's interval-poll + fail-loud
+  hardening — rotation (ADR-199) shrinks the dir as hygiene but is **not** a watcher
+  cure; do not let either plan claim the other's job.
+- **"The cure became the killer" (emergent caution).** The fail-loud hardening
+  written to stop silent stalls began killing *healthy* watchers (exit-nonzero on
+  transient conditions). Operational inversion from the corpus: keep budgets SHORT
+  (fail fast + restart) because a long budget extends blindness without saving a
+  wedged drain. Treat this as a design constraint on the hardening, not a budget
+  raise.

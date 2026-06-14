@@ -51,31 +51,49 @@ surface.
   seeding; the ask-the-repo search decision (research attached to PR-session transcript).
   **TWO-MEMBER TEAM UPDATE (2026-06-12, Fern lifts Mulch `66f12b`)**: (a) the comms-corpus
   lane ran as a PLANNING session (owner-reshaped in-session): the
-  [research plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+  [research plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
   is now DECISION-COMPLETE + EXECUTION-READY with the owner-amended end-state (WS6
   comprehensive synthesis report; owner-gated WS7 executes the ratified rotation: contract
   surfaces relocated, `experiments/` preserved — never purged, owner direction — `.agent/state/`
   untracked-by-design, 7-day default retention purge post-absorption); immediate
   `experiments/` preservation landed (gitignore flip + five machine-local records committed);
-  the WS1 blind pass is ATTESTED uncontaminated (planning seat never opened the Candidate
-  Themes sections or fenced pattern files). **The successor research session enters via the
-  [opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md)
-  and begins at WS0.** (b) the enhanced-statusline lane is PAUSED (Monsoon guards
-  Cirrus `aaa0b7`, worktree `wt:statusline-enhancements`, branch `feat/statusline-enhancements`,
-  [plan](../../plans/agent-tooling/current/statusline-session-shape-indicators.plan.md)):
-  comms event `7ca3eba2` records an owner-directed pause on an sdk-codegen blocker (upstream
-  `/keywords` description change) with WS1 staged and the commit window closed without
-  landing — resume is owner-keyed.
+  the WS1 blind pass was attested uncontaminated by the planning seat. **MERGED to main as
+  PR 201 (`5a2ac400b`, 2026-06-12); planning session closed (handoff + consolidation run
+  no-commit at owner direction — expect those surface edits uncommitted in the tree).**
+  **Successor LIVE: Katydid hunts Roost `a4314f` (claim `8910ee5f`, research lane, corpus
+  read-only).** Their team-start (comms `37523113`, failure-mode tagged) discloses WS1
+  blind-pass CONTAMINATION: start-right's read-the-thread-record step led them through both
+  Candidate Themes sections before the opener's fence could fire — a structural ordering
+  collision (the fence lives inside the fenced artefact). **Owner decision pending in their
+  session: WS1 shape** — fresh-context delegate cold readers (Katydid's recommendation,
+  endorsed by the planning seat in comms `99771de2`) vs re-dispatch WS1 to a fresh session.
+  WS2–WS5 are not blindness-dependent and proceed either way. The entry-point fence-banner
+  cure on the thread record is routed to Katydid (the record is inside their claim).
+  Deep consolidation status: completed this handoff — session-completion mode (the dedicated
+  pass ran earlier today, Thyme wakes Canopy; this pass captured and routed the session's
+  learning, verified buffers, `pnpm check` green on `5a2ac400b` + closeout edits).
+  (b) the statusline lane is UNIFIED and the narrow lane is COMPLETE on `feat/comms-research`
+  (Oak-mark logo column + session-shape indicators landed; controlling plan archived). An
+  interim session-relative + `observing` resolver and the ansi/indicators/render module split
+  landed 2026-06-14 (commit `da8cbd7d6`, Orbit stirs Spectrum). The successor is the
+  [team-state register plan](../../plans/agent-tooling/current/team-state-register-and-session-shape-icons.plan.md)
+  (DRAFT, READY-WITH-CONDITIONS; active-agent set claim-independent per PDR-095, Accepted).
+  **Next safe step**: the register plan is unassigned (Clipper rotated out) — a next session
+  resolves its readiness Conditions B/C-D, or the branch rides its push/merge. The
+  [thread record](threads/statusline-enhancements.next-session.md) is the canonical home and
+  now cross-links the Oak-logo + terminal-animation research as lanes of the same thread.
 - **OWNER ROADMAP AFTER THE COMMS RESEARCH (owner direction in-session 2026-06-12, sequenced
   "not all at once"; Director Firefly seeks Temper / `ce44ae` recording).** Next dispatch is
   the comms-corpus research session
   ([opener](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md) →
-  [plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md),
+  [plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md),
   readiness-reviewed READY-WITH-AMENDMENTS, amendments applied; owner gate: mark ready).
   Queued behind it, owner-named: (1) organise the research's follow-ons; (2) complete naming
-  v3 (shape decision input:
+  v3 — now a DECISION-COMPLETE plan
+  ([`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md),
+  thread [`agent-naming`][agent-naming]; shape C decided per
   [sample sheets + maths](../../reports/agentic-engineering/naming-v3-shape-sample-sheets-2026-06-12.md);
-  era-pinning cure lands FIRST — Director ruling 10cb3a10); (3) protocols/skills for examining
+  era-pinning cure is Phase 1 and lands FIRST — Director ruling 10cb3a10); (3) protocols/skills for examining
   production issues in Sentry; (4) organise the Sentry logging improvements those discoveries
   will surface; (5) refine the PostHog plan (home:
   [`mcp-product-analytics` thread](threads/mcp-product-analytics.next-session.md));
@@ -125,8 +143,10 @@ surface.
   [seam analysis](../../reports/graph-tools-readiness-seam-analysis-2026-06-09.md), and the
   [session operations + experience report](../../reports/graph-team-session-operations-and-experience-2026-06-10-11.md).
   **Live remainder**: the Director-queue agent-tools lanes (control-byte gate-check, CLI
-  relative-path hardening, comms-reply prefix resolution, watcher-non-exit fix, comms-store
-  scalability — register-recorded); the generalisation plan's x5 owner walk; w3-c1 + S3
+  relative-path hardening — now carrying the worktree-lockout shape, comms-reply prefix
+  resolution, watcher-non-exit fix, comms-store scalability — register-recorded; PLUS the
+  `commit-queue -- commit` spawn/capture defect, five instances two agents 2026-06-12,
+  signature + Path-B recovery in the napkin); the generalisation plan's x5 owner walk; w3-c1 + S3
   principles + next product tranche at owner direction. Open owner items: principles-prompt
   attribution validation (gates the S3 principles follow-on); bulk-export-lags-live (hold
   as-is, owner 06-11); output-schemas execution routing (gate satisfied — entry below). The
@@ -167,16 +187,20 @@ surface.
   **Next safe step**: run S0 per the write-up §6 replay recipe, then put S1 to the owner.
   Deep consolidation status: not due — session captures routed to permanent homes (write-up,
   snag register, thread record); a dedicated consolidation ran earlier today (Thermal).
-- **AGENT NAMING LANE (2026-06-12, Moss weaves Blossom `10438c`) — landed and closed.**
-  PR #189 merged (`289b3e036`): versioned naming-schema registry, v1 era frozen, NVN v2 active,
-  ADR-198, `naming_schema_version` provenance. Plan archived (PR #194, `9a74eefd1`); full arc in
-  the [completed plan](../../plans/agent-tooling/archive/completed/agent-naming-schema-v2.plan.md)
-  and handoff record `2a080642-naming-lane-handoff.md`. **Next safe step**: author the
-  era-pinning cure plan — hooks pin `OAK_AGENT_NAMING_SCHEMA_ID`, not the rendered name; cures
-  the one-seed-two-names P1 (diagnosis accepted 2026-06-12, comms 75696ec5) and the
-  `"override"` provenance mis-record; prerequisite for any v3 schema activation (owner is
-  exploring v3 shapes — four sample sheets + Zephyr's column-allocation maths in comms).
-  Own claim + owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3).
+- **AGENT NAMING — v2 landed; v3 lane now a decision-complete plan (2026-06-13, Squall hunts
+  Troposphere `6bbbd2`).** v2 merged (PR #189, `289b3e036`): versioned naming-schema registry,
+  v1 era frozen, NVN v2 active, ADR-198, `naming_schema_version` provenance; v2 plan archived
+  (PR #194, `9a74eefd1`). The throughline now has a durable home: thread
+  [`agent-naming`][agent-naming] + plan
+  [`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+  (DECISION-COMPLETE / QUEUED), one plan, three phases. **Next safe step**: execute **Phase 1
+  (WS1, era-pinning cure)** — hooks pin `OAK_AGENT_NAMING_SCHEMA_ID` (the era), not the rendered
+  name; cures the one-seed-two-names P1 (diagnosis accepted 2026-06-12, comms 75696ec5) and the
+  `"override"` provenance mis-record. Phase 1 ships independently and is the owner-ordered
+  prerequisite for v3 activation (shape C decided 2026-06-12). Own claim +
+  owner-informed-pre-execution per Director conditions (comms 10cb3a10 ruling 3). The merged
+  handoff `2a080642-naming-lane-handoff.md` is historical context only — its §4 merge-blockers
+  are all resolved.
 - **DFE DATA SDK SEED + EEF GAP-RESEARCH — landed and merged (2026-06-12, Forge turns
   Basalt `c4b882`; artefacts merged via PRs #196/#197 at the Director's hand).** Three
   artefacts: the EEF surfacing-gap research report (roadmap item 7 above), the
@@ -253,10 +277,12 @@ each thread record; this table is the repo-level index.
 | `eef` | EEF graph-tooling rebuild | [record][eef] | claude / Fable 5 / Thyme wakes Canopy / record-condensation (curation lane) / 2026-06-12, claude-code / Fable 5 / Forge turns Basalt / eef-data-surfacing-gap-research / 2026-06-12, claude / Fable 5 / Cosmos turns Equinox / snagging-execution-successor-pickup (arc landed #190–#193, closed out) / 2026-06-12, cursor / Fable 5 / Dawnlit Glimmering Orbit / oak-prod-snagging-and-cursor-visibility-writeup / 2026-06-11 (first-wave evidence still unmerged on `docs/graph-team-direction-2026-06-10` — see §Current State correction). Full prior-identity history (30+ seats, 2026-06-02 →): the thread record identity table — set-membership verified 2026-06-12 before this dedup |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work, starting with a deep review of the Oak Curriculum Ontology repo (separate concern from the bulk-derived graph redesign) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 — **opened, not started; deep review is a fresh session** |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior: Blustery Lifting Gale skills-taxonomy-and-distribution 2026-06-03, Umbral Whispering Silhouette 2026-06-01) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Fable 5 / Monsoon guards Cirrus / statusline-indicators-landed / 2026-06-12 (same day: Thyme wakes Canopy dedicated-consolidation; full prior-identity history: the thread record identity table) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / Opus 4.8 / Margay wakes Whisper / skills-estate-audit-and-plan-reconciliation / 2026-06-14 (prior: Flame rides Temper statusline-lane-successor 2026-06-13, Monsoon guards Cirrus statusline-indicators-landed 2026-06-12; full prior-identity history: the thread record identity table) |
 | `repo-professionalism-assessment` | Repo professionalism / engineering-quality report → planability triage | [record][repo-professionalism-assessment] | codex / GPT-5 / Airy Whirling Wing / report-author-and-planability-router / 2026-06-03 |
 | `school-data-search` | Oak School Data Search service (POC MVP): briefs → report → plan → gate walk → **deep review complete** → build | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior: Mossy Whispering Bark 2026-06-04, Furnace Roasting Brazier + Hushed Lurking Mask 2026-06-03) |
 | `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |
+| `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators LANDED; interim session-relative/`observing` resolver + ansi/indicators/render split landed (`da8cbd7d6`); team-state register successor (DRAFT, ready-with-conditions); logo + terminal-animation research cross-linked in the record | [record][statusline] | claude-code / Opus 4.8 / Orbit stirs Spectrum / session-relative-resolver+PDR-095+register-refinement / 2026-06-14 (prior: Bilby hunts Eventide oak-mark-landed 2026-06-13) |
+| `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior: Moss weaves Blossom v2-landing 2026-06-12, Swift Gliding Zephyr v2-build 2026-06-11) |
 
 ## Paused Threads
 
@@ -274,9 +300,55 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Fable 5 / Fern lifts Mulch / planning-session — plan decision-complete + execution-ready, owner-amended WS6/WS7 end-state, successor session executes via the opener / 2026-06-12 (prior: Firefly seeks Temper record-deep-dive + companion-plan + dispatch-released 2026-06-12, Twilit Orbiting Satellite routing-sunset execution 2026-05-29) |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Opus 4.8 / **Galleon calls Surf** / WS7 completion owner (owner-named successor, 2026-06-14) — PICKUP `handoffs/3e2619-ws7-comms-rotation-handoff-to-galleon-calls-surf.md`; claim `a67817ae` RETAINED; REMAINING: Task 2b heartbeat-cadence artefact → Task 2c/3 class-tiered archive-move (run `comms-provenance-check` first) → Phase-3 atomic untrack bundle (PDR-094/ADR-199 incl. §4 scan-scope amendment for governance docs, session-handoff, consolidate-docs, README, .gitignore) → Phase-4 land #208 (owner-gated merge); sole agent. Prior: Serval mends Murmur (2026-06-14) LANDED WS7 Phase-2 Task-1 — provenance IO/scan layer, `comms-provenance-check` bin, `comms-cited-events.md` digest (`3a55b62e0`, 12 cited events, fail-closed), AND owner-directed `@oaknational/no-throw-statement` ESLint rule at warn (`e36af1db0`, Result-standard front-load); adversarial sweep fixed a provenance scan-scope hole (governance docs per PDR-094 Inv-3); throw→Result retrofit is a future lane. Prior: Gull spins Stratus (2026-06-14) opened WS7 execution — de-orphaned the deep DoD into the companion plan §"WS7 Execution Contract" + repointed the Phase-1 manifest carryover (`e203791ad`); landed the Phase-2 provenance pure core (`9175acfeb`, test-expert sound, 10/10); retention windows owner-confirmed = DoD defaults. Prior: claude-code / Opus 4.8 / Clipper wakes Atoll / WS7 successor (2026-06-14) — WS7 Phase-1 landed `6d1e45f35`, #7 doc cures landed `92bf05764`; prior: claude-code / Opus 4.8 / Bluebell mends Mulch / sole lane owner — WS0–WS6 COMPLETE + first-hand verified; WS5 rotation strategy RATIFIED by owner 2026-06-13 (proposal `2026-06-13-ws5-rotation-strategy-proposal.md`, two-round adversarial review; WS6 synthesis `2026-06-13-ws6-comms-corpus-synthesis.md`; §11 re-verify `2026-06-13-reverify-outcomes-bluebell.md`; committed f20680041). NEXT: owner-directed dedicated consolidation session (author rotation PDR/ADR + M2/SC1 PDR drafts, route §5 recs) then WS7 archive-not-delete execution / 2026-06-13 (prior: Kayak herds Ballast WS0–WS4+handoff; Katydid hunts Roost WS0–WS2, Myrtle weaves Thicket WS3, Geyser stirs Bronze WS3-forward+B/D/M2 — all 2026-06-13; Fern lifts Mulch 2026-06-12; Twilit Orbiting Satellite 2026-05-29) |
 
 ## Next Safe Steps
+
+### Comms-Corpus Research (active lane, 2026-06-13)
+
+Two-agent peer pair on `feat/comms-research` (Katydid hunts Roost + Myrtle weaves Thicket),
+executing
+[`comms-corpus-research-and-rotation-strategy`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md).
+**Done**: WS0 (corpus survey, ~5,120 events), WS1 (8 blind cold reads + 8 corroboration
+verdicts, all complete; R2/R3 redone on Opus after a Fable outage), WS2 survey drafted
+(corrected: event→event threading rare by any mechanism; citation theatre rare; ~48%
+one-way reports; tag-namespace-unreachable is the causal root of the zero-lifecycle/low-tag
+findings). ArcAngel relocated to the tracked home `.agent/collaboration/rapid-comms/`
+(owner-directed early WS7 slice). Running research-notes lab-notebook live at
+`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`. WS0–WS6 COMPLETE + ratified
+(PDR-094 + ADR-199) + consolidated (Juno mends Plasma, 2026-06-13). **Next safe step**: WS7 Phase 2 Task 2b
+(heartbeat-cadence artefact from the WS2 liveness stats), then Task 2c/3 (class-tiered archive-move into
+`comms-archive/`; run `pnpm --filter @oaknational/agent-tools comms-provenance-check` FIRST — 0 violations means
+safe), then Phase 3 (atomic untrack `.agent/state/` bundle, including the ADR-199 §4 scan-scope amendment for
+governance docs), then Phase 4 land #208. WS7 successor: **Galleon calls Surf** (PDR-063 from Serval mends Murmur;
+record `handoffs/3e2619-ws7-comms-rotation-handoff-to-galleon-calls-surf.md`). LANDED this session (Serval): the
+Phase-2 Task-1 provenance IO/scan module, the `comms-provenance-check` bin, and the `comms-cited-events.md` digest
+(`3a55b62e0`, 12 cited events, fail-closed) on Gull's pure core; the owner-directed
+`@oaknational/no-throw-statement` ESLint rule at warn (`e36af1db0`, Result-standard front-load); and an
+adversarial sweep that widened the provenance scan scope to governance docs (PDR-094 Inv-3, beyond ADR-199 §4).
+The deep WS7 DoD was de-orphaned by Gull into the companion plan §"WS7 Execution Contract" (now authoritative).
+Prior WS7 Phase-1 (schema relocation, validator decouple, (b) wing-fix) LANDED `6d1e45f35`; #7 ArcAngel doc cures
+LANDED `92bf05764`. **HARD GATE before Phase 3**: the repo/instance content-boundary principle + mandatory
+comms-knowledge curation must land ATOMICALLY across PDR-094 + ADR-199 + the session-handoff +
+consolidate-docs SKILLs + the Phase-3 README — else the untrack ships an invisible broken state
+(comms-log knowledge orphaned). Orientation: the deep WS7 DoD is in the machine-local contract
+`~/.claude/plans/ah-very-good-in-quizzical-whisper.md` (route its substance into the companion plan);
+the boundary principle + atomic-propagation gate live in `distilled.md` + `pending-graduations.md`.
+Deep consolidation status: due — boundary-principle doctrine landing + skill-wiring captured and DUE
+before WS7 Phase 3; this handoff conserved the at-risk knowledge to repo-tier homes.
+
+### Agent Naming (v3 + era-pinning cure)
+
+Thread [`agent-naming`][agent-naming]; controlling plan
+[`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+(DECISION-COMPLETE / QUEUED, `current/`). v2 merged (PR #189). **Next safe
+step**: execute **Phase 1 (WS1, era-pinning cure)** off a fresh branch from
+`main` — the P1 single-valued-identity fix (hooks pin the era
+`OAK_AGENT_NAMING_SCHEMA_ID`, not the rendered name). It ships independently and
+is the owner-ordered prerequisite for v3 activation. Phases 2 (C wordlist
+curation, owner taste review BLOCKING) and 3 (v3 registry entry + activation)
+follow. Orientation: read the thread record, then the plan, then re-grep the
+`OAK_AGENT_IDENTITY_OVERRIDE` consumer set (plan-body first-principles check).
 
 ### School Data Search
 
@@ -361,7 +433,7 @@ Live remainder:
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
 3. Comms-event rotation remains paused until the
-   [comms-corpus research plan](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)'s
+   [comms-corpus research plan](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)'s
    WS5 proposal is owner-ratified (the plan exists and is execution-ready as of
    2026-06-12; its owner-gated WS7 is the only legitimate rotation-execution
    surface); fitness is routing evidence only — never archive, split, shard, or
@@ -447,3 +519,5 @@ authority.
 [repo-professionalism-assessment]: threads/repo-professionalism-assessment.next-session.md
 [collab-research]: threads/agent-collaboration-research.next-session.md
 [branch-fitness]: threads/branch-fitness-and-push-cadence.next-session.md
+[statusline]: threads/statusline-enhancements.next-session.md
+[agent-naming]: threads/agent-naming.next-session.md

@@ -56,13 +56,27 @@ export interface SessionShape {
    */
   readonly ownRole: string | undefined;
   /**
-   * Team shape, in strict priority order: `directed` (any fresh claim whose
-   * `role` is exactly the lowercase string `director` — the schema's
-   * well-known values are lowercase by convention and matching is
-   * case-sensitive) beats `peer` (two or more distinct fresh identities)
-   * beats `solo`.
+   * Team shape, read relative to *this* session's membership — a session is
+   * "in" a team only when it holds a fresh own claim. `unknown` means the
+   * registry could not be read for this tick — the resolver does not claim a
+   * confident shape it never saw, so the statusline shows no team icon
+   * (distinct from `solo`, a confident peerless reading).
+   *
+   * For a readable registry the shape is resolved in two stages. First, the
+   * membership gate: if this session holds **no** fresh own claim it is not a
+   * team member, so the shape is `observing` when any *other* fresh claim
+   * exists (the quiet "others are active here, you have not registered" glyph)
+   * or `solo` when the registry holds no fresh claim at all. An absent identity
+   * cannot be matched to any claim, so it too falls through this non-member
+   * gate. Second, for a registered session, in strict priority order:
+   * `directed` (any fresh claim whose `role` is exactly the lowercase string
+   * `director` — the schema's well-known values are lowercase by convention and
+   * matching is case-sensitive) beats `peer` (two or more distinct fresh
+   * identities) beats `solo`. A director active among *other* agents while this
+   * session holds no claim reads as `observing`, not `directed`: it is not this
+   * session's directed team.
    */
-  readonly teamShape: 'solo' | 'peer' | 'directed';
+  readonly teamShape: 'unknown' | 'solo' | 'peer' | 'directed' | 'observing';
   /** Whether a rapid channel naming this agent was written within the ARC liveness window. */
   readonly arcActive: boolean;
 }
@@ -83,19 +97,25 @@ const ARC_ACTIVE_WINDOW_SECONDS = 1800;
  *
  * Stale claims (per the registry's own {@link isClaimStale} predicate) are
  * invisible: a stale director claim does not shape the icon, and a stale own
- * claim carries no role. Missing inputs degrade soft: no registry reads as
- * solo, no listing reads as no ARC wing — the statusline never fails a tick
- * over an unreadable coordination surface.
+ * claim carries no role. Missing inputs degrade soft but honestly: an
+ * unreadable registry resolves to `unknown` (not a false `solo`), and an
+ * unreadable listing reads as no ARC wing — the statusline never fails a tick
+ * over an unreadable coordination surface, but it never claims a confident
+ * team shape it could not read.
  */
 export function resolveSessionShape(inputs: SessionShapeInputs): SessionShape {
-  const freshClaims = (inputs.registry?.claims ?? []).filter(
-    (claim) => !isClaimStale(claim, inputs.nowIso),
-  );
+  const arcActive = resolveArcActive(inputs.experimentsListing, inputs.ownAgentName, inputs.nowIso);
+
+  if (inputs.registry === undefined) {
+    return { ownRole: undefined, teamShape: 'unknown', arcActive };
+  }
+
+  const freshClaims = inputs.registry.claims.filter((claim) => !isClaimStale(claim, inputs.nowIso));
 
   return {
     ownRole: resolveOwnRole(freshClaims, inputs.ownAgentName),
-    teamShape: resolveTeamShape(freshClaims),
-    arcActive: resolveArcActive(inputs.experimentsListing, inputs.ownAgentName, inputs.nowIso),
+    teamShape: resolveTeamShape(freshClaims, inputs.ownAgentName),
+    arcActive,
   };
 }
 
@@ -106,12 +126,33 @@ function resolveOwnRole(
   if (ownAgentName === undefined) {
     return undefined;
   }
+  // Own-claim match is by name alone — kept deliberately in lockstep with the
+  // membership gate in resolveTeamShape. If one moves to the composite
+  // name|prefix identity key, the other must move with it, or the role demark
+  // and the team icon will disagree about whether this session is a member.
   return freshClaims.find(
     (claim) => claim.agent_id.agent_name === ownAgentName && claim.role !== undefined,
   )?.role;
 }
 
-function resolveTeamShape(freshClaims: readonly CollaborationClaim[]): SessionShape['teamShape'] {
+function resolveTeamShape(
+  freshClaims: readonly CollaborationClaim[],
+  ownAgentName: string | undefined,
+): SessionShape['teamShape'] {
+  // Membership gate: a session is "in" a team only when it holds a fresh own
+  // claim (matched by name — kept in lockstep with resolveOwnRole; see the note
+  // there before changing either matcher). A non-member — including a session
+  // with no resolved identity — reads the registry from the outside:
+  // `observing` when any other agent is live, else a confident `solo`. This is
+  // what keeps a brand-new, unregistered session from wearing a team icon it
+  // has not earned.
+  const ownHasFreshClaim =
+    ownAgentName !== undefined &&
+    freshClaims.some((claim) => claim.agent_id.agent_name === ownAgentName);
+  if (!ownHasFreshClaim) {
+    return freshClaims.length > 0 ? 'observing' : 'solo';
+  }
+
   if (freshClaims.some((claim) => claim.role === 'director')) {
     return 'directed';
   }

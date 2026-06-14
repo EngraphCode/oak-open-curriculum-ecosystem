@@ -1,1 +1,15 @@
+# Instance-tier coordination state — untracked-by-design (ADR-199 / PDR-094).
+# Preserved on disk, not carried in git. The durable decision-provenance
+# surfaces (conversations/, escalations/, sidebars/) and the README stay tracked.
 _tmp-*
+*.seen
+comms/*
+comms-seen/*
+comms-draft/*
+handoffs/*
+!handoffs/README.md
+active-claims.json
+closed-claims.archive.json
+shared-comms-log.md
+comms-archive/*
+!comms-archive/.gitkeep

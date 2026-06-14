@@ -1,5 +1,11 @@
 # Naming v3 — Shape Candidate Sample Sheets (owner decision input)
 
+> **Execution home (2026-06-13):** this decision is now carried by
+> [`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
+> (thread [`agent-naming`](../../memory/operational/threads/agent-naming.next-session.md)).
+> Sheet C is WS2's curation target. This report remains the decision record for
+> *why* C; the plan owns *how*.
+
 **Date**: 2026-06-12. **Status**: DECIDED — the owner chose **Sheet C (noun + agentive)**
 in-session 2026-06-12, informed by the namespace/birthday analysis (C: first-word pool 540 —
 best per-window distinctiveness at 8.3% ten-agent clash rate; full namespace 64,800 at a

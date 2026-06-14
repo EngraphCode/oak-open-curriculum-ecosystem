@@ -336,6 +336,14 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   `session_id_prefix` are deliberately untouched; the active v2 era renders
   noun–verb–noun micro-sentences with a lowercase middle word; Accepted
   2026-06-11)
+- [ADR-199: Comms-Event Rotation Phenotype — Class-Tiered Archive-Move](199-comms-event-rotation-phenotype.md)
+  (the repo phenotype of PDR-094: comms events rotate by a class-tiered,
+  age-triggered, archive-move curator pass — heartbeats shortest-retention after
+  an aggregate is extracted, research-precious held until graduated; cited-event
+  provenance survives via inline excerpts / a tracked digest enforced by a
+  pre-archive-move check; the watcher-health justification is honestly a
+  hypothesis, the windows hygiene targets; design Accepted 2026-06-13, execution
+  deferred to WS7)
 
 ## Key Architectural Decisions
 

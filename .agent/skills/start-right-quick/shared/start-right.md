@@ -100,8 +100,9 @@ and leave an artefact proving the registry was
 consulted. When the session is playing a named coordination role
 (director, peer, marshal, curator, implementer, ...), pass it via
 `--role <role>` on `claims open` so peers and glance surfaces (such as
-the statusline session-shape indicators) can resolve the team shape
-from the registry; the vocabulary is open and honest-by-convention. If no entries other than your own exist, log "no other agents
+the statusline session-shape indicators) can resolve the team shape from
+the registry; the vocabulary is open and honest-by-convention. If no
+entries other than your own exist, log "no other agents
 present" through an immutable comms event and proceed (bootstrap fast-path).
 On overlap, consult the shared communication log and any
 open decision-thread and escalation files before deciding whether to

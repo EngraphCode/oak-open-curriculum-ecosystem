@@ -199,9 +199,11 @@ ontology-crosswalk orthogonal. Sibling of validate-specialist-findings.
   adapters, THEN a `Skill(<name>)` + `Skill(<name>:*)` permissions pair in
   `.claude/settings.json`; the harness may block the agent's own settings edit as
   self-modification (by design — an explicit owner authorisation moment).
-- **Audit your own search filters** (two instances) — `rg` single-line misses multi-line
-  Zod/fluent chains (`rg -U`), and a `-v .test.ts` exclusion hid a real importer; sweep
-  filters are part of the claim.
+- **Audit your own search filters** (three instances) — `rg` single-line misses multi-line
+  Zod/fluent chains (`rg -U`), a `-v .test.ts` exclusion hid a real importer, and a PR-merge
+  watcher matched a hyphenated branch-name guess against an underscored real branch
+  (silent never-fire; verify the filter against the live referent at arm time, or match
+  separator-insensitively `[-_]`); sweep filters are part of the claim.
 - **Verify each reference's REFERENT before bulk renames** — same-number-different-referent
   is exactly what a renumber-collision window produces (ADR-195 main vs naming branch).
 - **Recency-of-reversal is a free stability signal on decision inputs** — an input that has
@@ -217,14 +219,41 @@ faithful reporting — a vendor skill template demanded the exact line "Saved to
 `ONBOARDING.md`" after the owner had redirected the artefact; the canned line was adapted
 to the real path.
 
-## A CLI flag exists only when the DISPATCHER accepts it — test that tier
+- **Check for a state-reset before causally attributing a metric change** (source: 2026-06-13
+  comms-corpus session). When a host/system metric moves sharply (swap, load, event counts), check for a
+  reset — reboot/`uptime`, fresh checkout, re-derivation window — BEFORE attributing it to a behavioural
+  cause; a reset is the dominant confound. Corollary: enumerate counts from primary evidence, never carry
+  a source's self-reported count. Both are instances of: a convenient causal claim that supports your own
+  thesis needs the dominant confound checked, not just a caveat.
 
-Registering a flag at the parse layer (`KNOWN_OPTION_KEYS`) with green unit tests over the
-parse+construct functions proves nothing about the command being invocable: per-command
-specs (`cli-spec-options.ts` and siblings) are a second, dispatch-time allowlist invisible
-below the dispatcher entry point. Every new flag ships a dispatcher-tier integration test
-(full argv through `runCollaborationStateCli` against a canonical temp registry — file
-plus the complete schema set beside it). Worked instance 2026-06-12: `claims open --role`
-unit-green, live-failed on exactly this gap; cure in `cli-claim-role.integration.test.ts`.
-Source: statusline-indicators session (Monsoon guards Cirrus); routing: fold into
-testing-tdd-recipes at next consolidation if a second CLI-surface instance appears.
+- **A CLI flag exists only when the DISPATCHER accepts it — test that tier, purely** (source:
+  statusline session-shape WS1, Monsoon guards Cirrus; recovered + cure-corrected 2026-06-13). A flag
+  registered at the parse layer (`KNOWN_OPTION_KEYS`) with green unit tests over parse+construct proves
+  nothing about invocability: per-command specs (`cli-spec-options.ts`) are a second, dispatch-time
+  allowlist invisible below the dispatcher entry point. `claims open --role` was unit-green yet
+  live-failed on exactly this gap (2026-06-12). Test the dispatch allowlist at a PURE seam — the
+  exported `unknownValueOptions(options, spec)` over the real parser + command spec, with NO IO. (The
+  lesson originally shipped an IO temp-registry integration test as the cure; that was removed per
+  testing-strategy and re-expressed IO-free 2026-06-13 — see `cli-dispatch-allowlist.unit.test.ts`.)
+
+- **Repo tier vs instance tier — instance-local knowledge must be curated UP before the instance ends**
+  (source: 2026-06-14 comms-corpus WS7, owner). A git repo is shared by every clone (the repo tier:
+  memory, docs, ADRs/PDRs, patterns, plans); a running collaboration instance accretes operational state
+  (comms events, claims, heartbeats, channels — the instance tier) local to one checkout. Comms logs are
+  a real knowledge-capture surface (PDR-066), so once `.agent/state/` is untracked (WS7 Phase 3) any
+  insight left only in the comms log is ORPHANED — invisible to every other instance the moment the
+  instance ends or the event rotates to the gitignored archive. Committing comms state to git was an
+  accidental safety net; untracking removes it. So curating comms-log knowledge into repo-tier homes is
+  MANDATORY, not best-effort, wired into session-handoff + consolidate-docs + dedicated consolidation.
+  Generalises: any instance-tier capture surface needs its durable knowledge curated up before close.
+
+- **A protocol change must propagate ATOMICALLY to every surface its affected parties read — else an
+  invisible broken state** (source: 2026-06-14, owner; third instance of this pattern in one session).
+  Recording a changed obligation only in its decision record (PDR/ADR) is the trap: affected parties read
+  the OPERATIONAL surfaces (skills, rules, READMEs, resolver code), not the decision record. If the change
+  lands in doctrine but not those surfaces, every surface looks internally consistent while the system is
+  broken and nobody has visibility they are in a half-way state. Same shape as the schema relocation that
+  did not repoint its readers, the ArcAngel home-drift (doc + statusline scan still on experiments/ after
+  channels moved to rapid-comms/), and the wing-detection never told the n>=3 roster-accretion filename
+  convention. Cure: enumerate every affected-reader surface and land the change across all of them in one
+  tranche.

@@ -9,23 +9,152 @@ merge_class: index-narrative-tables
 ---
 # Next-Session Record — `agent-collaboration-research` thread
 
+> **BLIND-PASS FENCE (read this before anything below).** Agents executing the companion
+> plan's open-discovery cold read defer BOTH `§Candidate Themes` sections until their WS1
+> surprises log is recorded — see `§Resume Contract`. A start-right full-record read
+> contaminates the cold read (worked instance 2026-06-12, Katydid hunts Roost, comms events
+> `37523113` / `8cefbe36`): if your session may execute WS1, stop here and read the opener
+> prompt at `.agent/prompts/agentic-engineering/comms-corpus-research-session.prompt.md`
+> FIRST.
+
 ## Status
 
-**Execution-ready; successor session executes (planning session closed 2026-06-12, Fern lifts
-Mulch / 66f12b).** The owner reshaped the first dispatch into a planning session: the companion
-plan
-[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
-is now decision-complete and execution-ready — owner-amended same day to own the full arc
-(WS6 comprehensive synthesis report; owner-gated WS7 executes the ratified end-state:
-contract-surface relocation, experiments/ preservation, `.agent/state/` untracked-by-design,
-7-day default retention purge post-absorption). Immediate preservation landed: the
-experiments/ gitignore policy was flipped and five machine-local experiment records committed.
-The successor research session enters via the
-[opener prompt](../../prompts/agentic-engineering/comms-corpus-research-session.prompt.md) and
-begins at WS0. **Blind-pass attestation**: the planning seat did NOT open this record's two
-Candidate Themes sections, the fenced comms-pattern files, or prior napkin/distilled
-comms-pattern commentary — the WS1 cold read remains uncontaminated for the successor. This
-record remains the research-substrate home (hypothesis, themes, vectors, corpus facts).
+**WS0–WS6 COMPLETE + first-hand verified; WS5 RATIFIED; CONSOLIDATION BODY COMPLETE (2026-06-13,
+Juno mends Plasma / `3cc9d5`) — the ratified rotation decision is now homed as PDR-094 (portable
+contract) + ADR-199 (repo phenotype); M2 + SC1 routed into the rightsizing keystone M4; the WS6 §5
+recommendations routed to their consumer plans; one PDR-089-evidence finding buffered. WS7
+(archive-not-delete CODE migration) remains the only open body — gated on owner go + coordination with
+the statusline/agent-tools lane (shared `agent-tools/`); WS7 steps 1–2 (author the rotation ADR +
+capture its cited-event provenance) are SATISFIED by this consolidation. Lane: Kayak herds Ballast →
+Bluebell mends Mulch (`c2ef19`) → Juno mends Plasma (`3cc9d5`), sole owner.** Cast progression
+on `feat/comms-research`: Katydid hunts Roost + Myrtle weaves Thicket (WS0–WS3) → Geyser stirs
+Bronze (WS3-forward + B/D/M2) → Kayak herds Ballast (WS4 liveness/coordination/emergent + anchor
+verification + consolidation). The companion plan
+[`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
+runs under the owner's ultracode multi-wave strategy.
+
+**Session-boundary state (Gull spins Stratus / `9cf32d`, 2026-06-14 — WS7 execution OPENED, handed to a
+successor).** WS7 is now mid-execution on `feat/comms-research` (solo for the remainder of the thread,
+owner-confirmed). Landed + pushed: the deep WS7 DoD de-orphaned into the companion plan's §"WS7 Execution
+Contract" (now the authoritative spec); the Phase-1 manifest carryover repointed (`e203791ad`); the Phase-2
+provenance **pure core** (`9175acfeb`, test-expert sound, 10/10). Remaining: Phase-2 IO/scan layer +
+`.agent/reference/comms-cited-events.md` digest + heartbeat-cadence artefact + the ~5,000-event class-tiered
+archive-move; then Phase-3 (the atomic untrack + PDR-094/ADR-199/skills/README/.gitignore bundle); then
+Phase-4 (land #208, owner-gated merge). Retention windows = DoD defaults (owner-confirmed). Owner directed a
+fresh-budget successor at this clean boundary — **Serval mends Murmur** (owner-named 2026-06-14): pickup
+record `handoffs/9cf32d-ws7-comms-rotation-handoff-to-serval-mends-murmur.md`; claim `907ff814` RETAINED
+for Serval to pick up and active-acknowledge.
+
+**Session-boundary state (Serval mends Murmur / `3e2619`, 2026-06-14 — WS7 Phase-2 Task-1 LANDED, handed to a
+successor).** Picked up from Gull (claim `a67817ae`). Landed + pushed: the Phase-2 provenance IO/scan layer +
+`comms-provenance-check` bin + the `.agent/reference/comms-cited-events.md` digest (`3a55b62e0`, 25 tests,
+fail-closed, 12 cited events covered) on Gull's pure core; AND — owner-directed — a repo-wide
+`@oaknational/no-throw-statement` ESLint rule at `warn` (`e36af1db0`, full gate green) front-loading the
+Result-pattern standard agent-tools had been missing (owner: the throw-convention was an oversight). An
+**adversarial sweep corrected the provenance scan scope to include governance docs (rules/directives)** per
+PDR-094 Inv-3 — ADR-199 §4's "ADRs/PDRs/patterns" wording is amended in Phase 3; broaden-to-`reports/` resolved
+NO (research-analysis citations). Remaining: Task 2b (heartbeat-cadence artefact) → Task 2c/3 (archive-move; run
+`comms-provenance-check` first, 0 violations = safe) → Phase 3 (atomic untrack + ADR-199 §4 amendment) → Phase 4
+(#208 merge, owner-gated). The throw→Result retrofit + rule promotion is a future lane
+(`architecture-and-infrastructure/future/throw-to-result-migration.plan.md`). Owner-named successor **Galleon
+calls Surf**: pickup record `handoffs/3e2619-ws7-comms-rotation-handoff-to-galleon-calls-surf.md`; claim
+`a67817ae` RETAINED for Galleon to pick up + active-acknowledge.
+
+**WS4 outcome (Kayak + Geyser, mutual first-hand verification — itself a WS6 what-worked-well):**
+12-lead liveness/coordination/emergent fan-out + 18 anchors (T7/CC4 + 16) verified; 8
+FH-confirmed, corrections folded. Corrections (conserve-don't-narrow): S9 cured-in-live-code (→
+what-worked, routing withdrawn); SC1 causal-root evidenced + sharpened (no authoring path records
+linkage, incl. `comms reply`, event `2ff03ded`); T7 count 5→4 FH-enumerable (5th unlocated); the
+**swap-9G→0 finding RETRACTED** (reboot confound — `kern.boottime` 10:52Z). WS3 REVIEW disposition:
+0 new spine class (structure holds; tagged population a lower bound). PR #207 (merged) evidence
+integration reviewed faithful — one post-merge follow-up: correct "commit-queue ×5" → "4 enumerable".
+Evidence on origin (`48b9765b5`+): `ws4-find-verify-evidence.json`, `ws4-anchor-verify-evidence.json`,
+`ws4-pending-fh-verification.md`, `ws4-bdm2-verification.md`, `ws4-review-disposition.md`,
+`ws4-geyser-continuation.md`, `ws-critical-reassessment-kayak.md`. Full corpus committed + pushed
+(`8d6e26f88`) — the 189-untracked deletion-safety gap is largely cured (now ~1 untracked).
+
+Progress:
+
+- **WS0 + WS2**: corpus surveyed (~5,120 events, 2026-05-20→06-13; 0 lifecycle-kind;
+  heartbeats ~45%→74%; ~48% one-way reports; 16 questions / 10 escalations corpus-wide).
+  Report: `reports/agentic-engineering/2026-06-12-ws2-corpus-survey.md` (+ scripts beside it).
+  Corrected first-hand: event→event threading is rare by ANY mechanism (`in_response_to`=0;
+  only 115 full-UUID tokens resolve to events), and the zero-lifecycle/low-tag findings have a
+  CAUSAL root — the comms CLI exposed no `--tags`/lifecycle authoring path (events `1e2c83eb`,
+  `ec86492e`).
+- **WS1**: WS1 was DELEGATED to fresh-context blind readers after the executing seat's
+  start-right contamination (disclosed `37523113`/`8cefbe36`; cured by the entry-point fence
+  banner above + delegation). All 8 cold-read logs complete (`ws1-cold-reads/`) with all 8
+  corroboration verdicts (`ws1-cold-reads/corroboration/`; R1 verifier 49/49 confirmed,
+  independently corroborating the citation correction). R2/R3 redone on Opus 4.8 after a
+  temporary Fable model outage.
+- **WS3** (Myrtle): failure-mode taxonomy in progress
+  (`reports/agentic-engineering/2026-06-13-ws3-failure-mode-taxonomy.md`), ~20 classes on a
+  substrate/tooling/agent/process/meta axis; M2 (learning-loop-doesn't-fire) promoted to the
+  spine.
+- **Running notes** (owner-directed insight safeguard): the lab-notebook write-ahead log is
+  `reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md` (both researchers
+  append; capture-first).
+- **ArcAngel** relocated to the tracked home `.agent/collaboration/rapid-comms/` (owner-directed
+  early WS7 slice); the live peer channel is `rapid-comms/2026-06-13-katydid-myrtle.md`.
+
+**WS5 RATIFIED by owner 2026-06-13** ("ratify as proposed"). WS5 + WS6 COMPLETE (Bluebell mends Mulch):
+two-round-adversarially-reviewed rotation proposal
+(`reports/agentic-engineering/2026-06-13-ws5-rotation-strategy-proposal.md`); comprehensive synthesis
+(`2026-06-13-ws6-comms-corpus-synthesis.md`); §11 re-verify closed first-hand
+(`2026-06-13-reverify-outcomes-bluebell.md`: 6 anchors PENDING-FH→FH, 4 stale figures corrected).
+
+**CONSOLIDATION BODY DONE (2026-06-13, Juno mends Plasma). Next: WS7 engineering only.**
+The dedicated consolidation session ran (owner-directed 2026-06-13; rationale: consolidating under a
+long research+decision load would be a live instance of M2, so a fresh session did the
+distil→graduate→enforce justice). What it landed:
+
+1. **Consolidation (knowledge curation) — DONE.** Rotation decision homed as **PDR-094**
+   (`coordination-event-rotation-is-class-tiered-archive-not-delete`, portable contract) + **ADR-199**
+   (`comms-event-rotation-phenotype`, repo phenotype, with inline-quote provenance for its cited events
+   `86e94e54` / `3cc1fb93` / `2ff03ded`). M2 + SC1 routed into the rightsizing keystone M4 (reconcile,
+   not mint — `passive-guidance-loses-to-artefact-gravity` + `action-time-structural-interrupt` for M2;
+   `closed-shape-design-optionality` for SC1). **First-hand routing correction:** the WS6 §5 table named
+   `comms-event-write-integrity` as an SC1 consumer, but that plan is complete + scope-frozen and does
+   NOT own the authoring-affordance surface — SC1's home is M4. §5 recommendations routed to PDR-078/
+   liveness-floor, hang-hardening, storage-redesign, cost-of-collaboration, n-agent-experiments,
+   commit-queue-multi-writer-cure. One PDR-089-evidence finding (the two-reader mutual-FH loop) buffered
+   in pending-graduations. PDR + ADR indexes updated. `oak-consolidate-docs` run.
+2. **WS7 engineering — STILL OPEN, owner-gated.** The code-bearing migration (5 schemas + `fixtures/` →
+   agent-tools workspace; preserve `experiments/`; gitignore `.agent/state/` with the README anchor;
+   archive-move events past the window; the pre-archive-move provenance guard script). **Steps 1–2
+   (author the rotation ADR + capture cited-event provenance) are now SATISFIED** by the consolidation;
+   the remaining steps (3 run the guard, 4 archive-move; plus schemas/fixtures relocation + untracking)
+   need owner go AND coordination with the statusline/agent-tools lane (shared `agent-tools/`).
+
+**Open items to carry**: (1) PR #207
+"commit-queue ×5" → "4 enumerable" post-merge follow-up on `main`; (2) one-decision-home PR shape
+awaits owner confirm; (3) `feat/comms-research` ~28 behind `origin/main` (PR back-links
+dangle-until-merge); (4) 2 Dependabot vulns on `main` (1 high / 1 low, owner-flagged); (5) the
+watcher host-resource cost is a HYPOTHESIS (the swap→0 evidence was reboot-confounded) — a
+controlled watcher-RSS × dir-size measure would settle it. WS7 owner-gated. This record remains the
+research-substrate home (hypothesis, themes, vectors, corpus facts). **Blind-pass note**: the WS1
+cold read was kept blind via delegation; the executing seat's own contamination is disclosed and cured.
+
+**Session-boundary state (Bluebell mends Mulch closeout, 2026-06-13).** The WS5/WS6/re-verify bundle is
+committed (`f20680041`). The closeout captures — this thread record, `.agent/memory/active/napkin.md`,
+the `pending-graduations.md` deep-consolidation candidate entry, and the `repo-continuity.md`
+Active-threads row — are durable working-tree edits left UNCOMMITTED per the owner's git-state waiver;
+the incoming session commits them with its work. `feat/comms-research` is a SHARED branch (Bilby hunts
+Eventide, statusline lane): commit by EXPLICIT PATHSPEC under a singleton `git:index/head` window; the
+staged registry residue (`active-claims` / `closed-claims` / `comms-seen`) is stale + pure-diff-excluded
+— never commit it to the feature branch. **Conduct doctrine (load-bearing, carry it)**: corpus events
+are input-to-verify, not truth (ground every load-bearing claim first-hand; first-hand means you, not a
+sub-agent); conserve insight, never prematurely narrow; the two-reader mutual-first-hand-correction loop
+is the lane's strongest reliability mechanism (run the adversarial shape on your own output) — full text
+in the WS6 synthesis §1 and Kayak's handoff (`2026-06-13-comms-corpus-findings-and-handoff-kayak.md`) §1.
+
+**Succession**: owner named **Kayak herds Ballast** as Katydid hunts Roost's eventual successor
+on this lane (2026-06-13). Pickup surface for Kayak: this record + the running-notes lab
+notebook (`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`) + the
+committed substrate at `feat/comms-research` `9aaa6f710`. Katydid retains the research claim
+and continues (WS4 liveness/coordination/emergent) until the handoff is triggered; Myrtle weaves
+Thicket holds WS4 substrate-credibility + commit/concurrency + M2 in parallel.
 
 ## Origin
 
@@ -414,7 +543,7 @@ The comms/coordination plan cluster is indexed at
 disposition of overlapping plans routes through the rightsizing keystone's M4, not per-plan.
 Relevance to this research thread:
 
-- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/current/comms-corpus-research-and-rotation-strategy.plan.md)
+- [`comms-corpus-research-and-rotation-strategy.plan.md`](../../plans/agent-tooling/active/comms-corpus-research-and-rotation-strategy.plan.md)
   — **the companion executable plan** (created 2026-06-12 under owner direction); dispatch
   vehicle for this record's research vector.
 - [`collaboration-substrate-coordination-rightsizing.plan.md`](../../plans/agent-tooling/future/collaboration-substrate-coordination-rightsizing.plan.md)
@@ -477,6 +606,15 @@ Relevance to this research thread:
 | Twilit Orbiting Satellite | claude | claude-opus-4-8 | 263042 | 2026-05-29 | 2026-05-29 | routing-legacy-fallback-sunset execution (Leafy claim `14b484d6` pickup) |
 | Firefly seeks Temper | claude | Fable 5 | ce44ae | 2026-06-12 | 2026-06-12 | record deep-dive + second theme seeding + rotation-strategy framing + companion-plan creation (owner-directed, Director seat) |
 | Fern lifts Mulch | claude-code | Fable 5 | 66f12b | 2026-06-12 | 2026-06-12 | planning session (owner-reshaped from research dispatch; claim 63d80264): WS6 synthesis-report + owner-gated WS7 end-state amendments, experiments/ preservation commit, continuation surfaces made execution-ready; blind-pass discipline honoured — Candidate Themes sections unread |
+| Katydid hunts Roost | claude-code | Fable 5 | a4314f | 2026-06-12 | 2026-06-12 | research session (claim 8910ee5f): WS0 grounding + corpus facts re-derived (5,003 events, 2026-05-20→06-12, zero lifecycle-kind); successor-seat WS1 contamination disclosed (events 37523113/8cefbe36) and owner-cured — WS1 cold read delegated to multiple fresh-context Fable 5 blind readers; entry-point fence banner added |
+| Geyser stirs Bronze | claude-code | Opus 4.8 | 3636b0 | 2026-06-13 | 2026-06-13 | forward lane (Myrtle PDR-063 handoff; claims eb88ee15→6603978f): B/D/M2 FH-verification, ~37 REVIEW disposition (0 new spine class), SC1 live-test sharpening, PR convergence with Flame; stood down on owner-directed consolidation to Kayak |
+| Kayak herds Ballast | claude-code | Opus 4.8 | 328eee | 2026-06-13 | 2026-06-13 | successor + consolidated lane owner (claim b76045bb): critical re-assessment of WS0–WS3; crash-safety flush (full corpus committed+pushed); WS4 liveness/coordination/emergent fan-out + 18-anchor verification; corrections (S9-cured, SC1-sharpened, T7 5→4, swap-finding retracted); mutual-FH loop with Geyser; PR #207 post-merge faithfulness review; WS5/WS6 owner-sequenced-separately |
+| Bluebell mends Mulch | claude-code | Opus 4.8 | c2ef19 | 2026-06-13 | 2026-06-13 | successor + sole lane owner (claim `agent-collaboration-research`): closed Kayak's §11 re-verify list first-hand (H1/L1/CC1/CC3/T5/S7-3-6s promoted PENDING-FH→FH; SC8 21→66, SC9 ~167→~181 + 7.0% miss, SC1 framing); authored WS5 rotation-strategy proposal (two-round adversarial review — invariant-3 resolvability cured via inline-quote-first + tracked cited-events digest + pre-archive-move guard; SC3 bulk-classification hole closed; invariant-4 honestly restated); authored WS6 synthesis; reconciled plan-todo drift; put WS5 to owner for ratification |
+| Juno mends Plasma | claude-code | Opus 4.8 | 3cc9d5 | 2026-06-13 | 2026-06-13 | dedicated consolidation session (sole-contributor; WS5 ratified "as proposed"): authored PDR-094 (portable rotation contract) + ADR-199 (repo phenotype, inline-quote provenance for cited events) + both indexes; routed M2 + SC1 into rightsizing keystone M4 (reconcile-not-mint; first-hand-corrected the WS6 §5 SC1→write-integrity mis-route); routed the §5 recommendations to six consumer plans; buffered the two-reader mutual-FH-loop finding as PDR-089 evidence; satisfied WS7 steps 1–2; left WS7 code migration owner-gated + statusline-lane-coordination-gated |
+| Cassiopeia holds Stillness | claude-code | Opus 4.8 | d6f04a | 2026-06-13 | 2026-06-13 | reconcile session (claim 40e003fe, closed): opened PR #208; reconciled origin/main into feat/comms-research as a careful best-of-both merge (70080844d, landed+pushed, gate-green) — restored main's clock-skew ARC guard + #206 two-line layout onto the branch's resolver, kept the fixed peer/solo glyphs; caught + removed a gate-surfaced resurrected superseded test (cli-claim-role.integration.test.ts); coordinated the (b) ArcAngel wing-fix to the WS7 owner; retired with a clean handoff (handoffs/d6f04a-comms-research-reconcile-handoff-to-rosemary.md) to successor Rosemary lifts Undergrowth |
+| Clipper wakes Atoll | claude-code | Opus 4.8 | de1f79 | 2026-06-14 | 2026-06-14 | WS7 successor (PDR-063 handoff from Whippoorwill, record `handoffs/adc96c-ws7-comms-rotation-handoff-to-clipper.md`; claim 3b56cb4d). Landed owner-directed #7 comms-doc cures (`92bf05764`: ArcAngel home-fix experiments/→rapid-comms + watcher-pairing invariant in start-right-team + comms-all-channels-watcher + the full-display-name filename convention & roster-accretion wing-detection limitation; docs-adr-expert + onboarding-expert reviewed). Verified WS7 Phase-1 landed (`6d1e45f35`). Authored the deep WS7 definition-of-done + the **repo/instance content-tiering boundary principle** + the **atomic-propagation hard gate** (owner, 2026-06-14): untracking `.agent/state/` orphans comms-log knowledge unless curation is wired into the lifecycle skills, and the protocol change MUST land atomically across PDR-094 + ADR-199 + session-handoff + consolidate-docs + the Phase-3 README. Captured to `distilled.md` + `pending-graduations.md` (status DUE before WS7 Phase 3). NOTE: the full WS7 deep DoD lives only in the machine-local contract `~/.claude/plans/ah-very-good-in-quizzical-whisper.md` — route its substance into this companion plan before it is instance-tier-orphaned (a live worked instance of the boundary principle). |
+| Gull spins Stratus | claude-code | Opus 4.8 | 9cf32d | 2026-06-14 | 2026-06-14 | WS7 execution-opener + successor-to-Clipper (PDR-063, record `handoffs/9cf32d-ws7-comms-rotation-handoff-to-serval-mends-murmur.md`; claim `907ff814` retained for successor **Serval mends Murmur**). Landed+pushed (`e203791ad`): de-orphaned the deep WS7 DoD into the companion plan §"WS7 Execution Contract" (now the authoritative spec); repointed the Phase-1 manifest carryover (`schema_or_parser` ×4 + `fixture_roots` + `comms-events/`→`comms/`). Landed+pushed (`9175acfeb`, test-expert sound, 10/10): Phase-2 provenance **pure core** (`cited-event-provenance.ts` — bounded-8-hex token extraction + `cited∩candidate−covered`). Retention windows owner-confirmed = DoD defaults. Three-instance metacognition (failure-mode event `aa238582`): cured to one lesson — ground the situational fact before applying a frame that presupposes it; the comms watcher is constitutive of a `start-right-team` session, never a value-judgment to skip. Handed the Phase-2-remainder → Phase-4 body to Serval mends Murmur (owner-directed, deep budget). |
+| Serval mends Murmur | claude-code | Opus 4.8 | 3e2619 | 2026-06-14 | 2026-06-14 | WS7 successor-to-Gull (PDR-063, claim `a67817ae`, RETAINED for successor **Galleon calls Surf**, record `handoffs/3e2619-ws7-comms-rotation-handoff-to-galleon-calls-surf.md`). Landed+pushed (`3a55b62e0`): Phase-2 Task-1 provenance IO/scan layer (`provenance-scan.ts` Result-native orchestrator + injectable seam; `provenance-scan-node.ts` the one node:fs boundary; `comms-provenance-check` bin = ADR-199's "script in the curator pass") + the `.agent/reference/comms-cited-events.md` digest (12 cited events; fail-closed; 25 tests) on Gull's pure core. Landed+pushed (`e36af1db0`): owner-directed `@oaknational/no-throw-statement` ESLint rule at `warn` front-loading the Result standard agent-tools was missing (owner: throw-convention was an oversight; full gate green, 211 throws surfaced 0 errors). Adversarial sweep found + fixed a provenance scan-scope hole — governance docs (rules/directives) per PDR-094 Inv-3, missed by ADR-199 §4 (amended in Phase 3); broaden-to-reports resolved NO. agent-tools now depends on @oaknational/result. Throw→Result retrofit + rule `warn`→`error` promotion deferred to `architecture-and-infrastructure/future/throw-to-result-migration.plan.md`. |
 
 ## 2026-05-29 — execution work touched this thread via a claim (not research)
 

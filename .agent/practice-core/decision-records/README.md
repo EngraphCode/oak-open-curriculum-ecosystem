@@ -216,3 +216,6 @@ Practice-Core portability ratifies both — see the bridge index
 | [PDR-089](PDR-089-conservation-reflex-external-check.md) | The Conservation Reflex — Frame-Capture Recurs at Every Stage; the Cure Is an External Check | Accepted |
 | [PDR-090](PDR-090-one-law-three-faces.md) | One Law, Three Faces — A Frame-Slip's Cure Is Always Return to the Source | Accepted |
 | [PDR-091](PDR-091-precedence-is-not-approval.md) | Precedence Is Not Approval | Accepted |
+| [PDR-092](PDR-092-mechanical-firing-moments-over-vigilance-clauses.md) | Mechanical Firing Moments Over Vigilance Clauses | Accepted |
+| [PDR-093](PDR-093-self-correcting-measurable-deliverables.md) | Self-Correcting Measurable Deliverables | Accepted |
+| [PDR-094](PDR-094-coordination-event-rotation-is-class-tiered-archive-not-delete.md) | Coordination-Event Rotation Is Class-Tiered and Archive-Not-Delete | Accepted |

@@ -4,23 +4,34 @@
  * @remarks
  * Assembles the Claude Code statusline from already-gathered values. Holds no
  * I/O: the imperative adapter (`statusline-identity.ts`) derives the agent
- * identity and gathers git state, then delegates formatting here so the layout
- * is unit-testable.
+ * identity, gathers git state, and resolves the session-shape indicators, then
+ * delegates formatting here so the layout is unit-testable. The colour palette
+ * lives in `statusline-ansi.ts` and the coordination-indicator glyphs in
+ * `statusline-indicators.ts`, so this file holds the layout concern alone.
  *
- * The statusline renders over two lines: line 1 carries the short, stable
- * coordination segments (identity with its Director demark, session-shape
- * indicators, model, context %); line 2 carries the variable-width git
- * segments (branch, directory or worktree). Splitting the long git segments
- * onto their own line keeps line 1 readable in a narrow terminal.
+ * Segment order puts the short, fixed-width segments (identity, session-shape
+ * indicators, model, context %) first and the long, variable-width git segments
+ * last, so a narrow terminal truncates the least important information first.
+ *
+ * The session-shape indicators are glanceable coordination glyphs (a Director
+ * demark on the identity, a team-shape icon, an ArcAngel wing) that sit with the
+ * identity: the no-logo layout keeps them on the coordination line, the
+ * four-row logo layout trails them on the identity row. With a logo style the
+ * statusline renders as a four-row block (the Oak mark as a left logo-column,
+ * segments to its right); without one (the default) it renders over two lines —
+ * the coordination segments first, then the git location.
  *
  * @packageDocumentation
  */
 
+import { OAK_LOGO_ROWS, type OakLogoStyle } from './oak-logo.js';
+import { BOLD_BLUE, CYAN, DIM, GREEN, RED, RESET, SEPARATOR, YELLOW } from './statusline-ansi.js';
+import { formatIdentity, formatSessionIndicators } from './statusline-indicators.js';
 import { type SessionShape } from './statusline-session-shape.js';
 
 /**
- * Segment values for a single statusline render. Each is optional; absent
- * segments are dropped and the rest joined with a separator.
+ * Segment values for a single statusline render. Each visible segment is
+ * optional; absent segments are dropped and the rest joined with a separator.
  */
 export interface StatuslineParts {
   /** Deterministic agent-identity display name (PDR-027). */
@@ -38,40 +49,25 @@ export interface StatuslineParts {
   /** Claude Code model display name. */
   readonly model: string | undefined;
   /**
-   * Resolved session-coordination shape; undefined when the resolution was
-   * unavailable for the tick (renders identically to a solo session with no
-   * live rapid channel).
+   * Resolved session coordination shape (own role, team shape, ArcAngel
+   * liveness); undefined when no shape was resolved for the tick, which renders
+   * identically to a soloist with no live rapid channel — no indicators.
    */
   readonly sessionShape: SessionShape | undefined;
 }
 
-const RESET = '\u001b[0m';
-const DIM = '\u001b[2m';
-const CYAN = '\u001b[0;36m';
-const BOLD_BLUE = '\u001b[1;34m';
-const GREEN = '\u001b[0;32m';
-const RED = '\u001b[0;31m';
-const YELLOW = '\u001b[0;33m';
-const MAGENTA = '\u001b[0;35m';
+/** Optional presentation controls for {@link renderStatusline}. */
+export interface StatuslineRenderOptions {
+  /**
+   * Glyph family for the Oak mark. `none` (the default) renders the original
+   * single line; any other style renders the four-row logo-column layout.
+   */
+  readonly logo?: OakLogoStyle;
+}
 
-const SEPARATOR = `${DIM} · ${RESET}`;
 const DIRTY_MARK = '*';
-
-// Session-shape indicator glyphs. Rendering evidence recorded 2026-06-12
-// (owner screenshots, three terminals — iTerm2, Terminal.app, VS Code
-// terminal): each renders as a clean single glyph with no tofu, no
-// fragmentation, and no separator overlap. All four are single codepoints
-// by design — ZWJ sequences (e.g. the composed family emoji) fragment in
-// mono fonts. ASCII fallback set if a future target mangles one:
-// [D] director, [T] team shape, [A] arc.
-/** Director demark, suffixed to the identity segment (compass, U+1F9ED). */
-const DIRECTOR_MARK = '\u{1F9ED}';
-/** Directed-team icon (family, U+1F46A). */
-const TEAM_DIRECTED_ICON = '\u{1F46A}';
-/** Peer-team icon (busts in silhouette, U+1F465). */
-const TEAM_PEER_ICON = '\u{1F465}';
-/** ArcAngel-active wing (feather, U+1FAB6). */
-const ARC_WING = '\u{1FAB6}';
+/** Gap between the logo column and the segment text, in the multi-row layout. */
+const LOGO_GAP = '  ';
 
 /** Context usage below this percentage renders in green; from it, yellow. */
 const CONTEXT_ELEVATED_PERCENT = 50;
@@ -79,17 +75,15 @@ const CONTEXT_ELEVATED_PERCENT = 50;
 const CONTEXT_HIGH_PERCENT = 70;
 
 /**
- * Assemble the statusline string from gathered segment values.
+ * Assemble the statusline from gathered segment values.
  *
  * @param parts - The resolved segment values.
- * @returns The ANSI-coloured statusline over two lines, absent segments
- *   dropped and an empty line omitted:
- *   `<identity>[ 🧭] · [👪|👥][ 🪶] · <model> · ctx:N%` on line 1, then
- *   `<branch>[*] · <dir or wt:name>` on line 2. The session-shape indicators
- *   sit on line 1 beside the identity: the Director demark suffixes the
- *   identity, the team-shape icon renders for directed/peer windows (nothing
- *   when solo), and the ArcAngel wing appends while a rapid channel naming
- *   this agent is live.
+ * @param options - Optional presentation controls (e.g. the Oak logo style).
+ * @returns The ANSI-coloured statusline. Without a logo it renders over two
+ *   lines (coordination: identity, indicators, model, context; then git: branch,
+ *   place — absent segments dropped, an empty line omitted). With a logo it is
+ *   four newline-separated rows: the Oak mark column with the segments to its
+ *   right, the indicators trailing the identity on row 0.
  *
  * @example
  * ```ts
@@ -106,83 +100,75 @@ const CONTEXT_HIGH_PERCENT = 70;
  * // -> "<magenta>Fragrant... · Opus 4.7 · ctx:12%\nfeat/...* · wt:oak-wt-eef"
  * ```
  */
-export function renderStatusline(parts: StatuslineParts): string {
-  // Line 1 — who and how much: identity (+ Director demark), session-shape
-  // indicators, model, context %. Line 2 — where: branch (+ dirty mark) and
-  // the directory or worktree. Each line drops its own absent segments; an
-  // empty line is omitted entirely so the output never carries a blank row.
-  const identityLine: string[] = [];
-
-  const identity = formatIdentity(parts);
-  if (identity !== undefined) {
-    identityLine.push(identity);
-  }
-  const indicators = formatSessionIndicators(parts.sessionShape);
-  if (indicators !== undefined) {
-    identityLine.push(indicators);
-  }
-  if (parts.model !== undefined) {
-    identityLine.push(`${DIM}${parts.model}${RESET}`);
-  }
-  if (parts.usedPercentage !== undefined) {
-    identityLine.push(formatContext(parts.usedPercentage));
+export function renderStatusline(
+  parts: StatuslineParts,
+  options: StatuslineRenderOptions = {},
+): string {
+  const seg = buildSegments(parts);
+  const logo = options.logo ?? 'none';
+  if (logo === 'none') {
+    // No logo: two lines — coordination segments first, then the git location;
+    // an empty line (all its segments absent) is dropped so no blank row renders.
+    const coordinationLine = joinPresent([seg.identity, seg.indicators, seg.model, seg.context]);
+    const locationLine = joinPresent([seg.branch, seg.place]);
+    return [coordinationLine, locationLine].filter((line) => line.length > 0).join('\n');
   }
 
-  const locationLine: string[] = [];
-  if (parts.branch !== undefined) {
-    const dirty = parts.dirty ? `${YELLOW}${DIRTY_MARK}${RESET}` : '';
-    locationLine.push(`${BOLD_BLUE}${parts.branch}${RESET}${dirty}`);
-  }
+  // One entry per logo row (all styles are four rows); composeWithLogo drives
+  // off the logo rows, so a row without text here renders as a bare mark. The
+  // indicators trail the identity on row 0 — the coordination glyphs stay with
+  // the agent name.
+  const rowTexts = [
+    joinPresent([seg.identity, seg.indicators]),
+    seg.model ?? '',
+    joinPresent([seg.context, seg.branch]),
+    seg.place,
+  ];
+  return composeWithLogo(OAK_LOGO_ROWS[logo], rowTexts);
+}
+
+/** The ANSI-coloured statusline segments, each absent when its value is. */
+interface Segments {
+  readonly identity: string | undefined;
+  readonly indicators: string | undefined;
+  readonly model: string | undefined;
+  readonly context: string | undefined;
+  readonly branch: string | undefined;
+  readonly place: string;
+}
+
+/** Format each {@link StatuslineParts} value into its coloured segment. */
+function buildSegments(parts: StatuslineParts): Segments {
+  const dirty = parts.dirty ? `${YELLOW}${DIRTY_MARK}${RESET}` : '';
   const place = parts.worktree === undefined ? parts.dir : `wt:${parts.worktree}`;
-  locationLine.push(`${CYAN}${place}${RESET}`);
+  return {
+    identity: formatIdentity(parts.identity, parts.sessionShape?.ownRole),
+    indicators: formatSessionIndicators(parts.sessionShape),
+    model: parts.model === undefined ? undefined : `${DIM}${parts.model}${RESET}`,
+    context: parts.usedPercentage === undefined ? undefined : formatContext(parts.usedPercentage),
+    branch: parts.branch === undefined ? undefined : `${BOLD_BLUE}${parts.branch}${RESET}${dirty}`,
+    place: `${CYAN}${place}${RESET}`,
+  };
+}
 
-  return [identityLine, locationLine]
-    .filter((line) => line.length > 0)
-    .map((line) => line.join(SEPARATOR))
+/** Join the present segments with the separator, dropping `undefined` ones. */
+function joinPresent(segments: readonly (string | undefined)[]): string {
+  return segments.filter((segment): segment is string => segment !== undefined).join(SEPARATOR);
+}
+
+/**
+ * Compose the logo rows with the per-row segment text. Each logo row always
+ * renders (the mark stays whole); the gap and text are appended only when that
+ * row has segment text.
+ */
+function composeWithLogo(logoRows: readonly string[], rowTexts: readonly string[]): string {
+  return logoRows
+    .map((logoRow, index) => {
+      const mark = `${GREEN}${logoRow}${RESET}`;
+      const text = rowTexts[index] ?? '';
+      return text.length > 0 ? `${mark}${LOGO_GAP}${text}` : mark;
+    })
     .join('\n');
-}
-
-/**
- * Format the identity segment, suffixing the Director demark when this
- * session's fresh claim carries the director role. Undefined identity drops
- * the segment (and with it the demark — a directorship cannot be resolved
- * without an identity in the first place).
- */
-function formatIdentity(parts: StatuslineParts): string | undefined {
-  if (parts.identity === undefined) {
-    return undefined;
-  }
-  const demark = parts.sessionShape?.ownRole === 'director' ? ` ${DIRECTOR_MARK}` : '';
-  return `${MAGENTA}${parts.identity}${RESET}${demark}`;
-}
-
-/**
- * Map a resolved team shape to its glyph. Solo shows nothing — an absent
- * icon and a peerless team read identically at a glance, by design.
- */
-function teamIcon(teamShape: SessionShape['teamShape']): string | undefined {
-  if (teamShape === 'directed') {
-    return TEAM_DIRECTED_ICON;
-  }
-  if (teamShape === 'peer') {
-    return TEAM_PEER_ICON;
-  }
-  return undefined;
-}
-
-/**
- * Format the team-shape icon and ArcAngel wing as one segment, or undefined
- * when there is nothing to show (solo with no live rapid channel, or no
- * resolved shape for the tick — the two render identically by design).
- */
-function formatSessionIndicators(shape: SessionShape | undefined): string | undefined {
-  if (shape === undefined) {
-    return undefined;
-  }
-  const team = teamIcon(shape.teamShape);
-  const wing = shape.arcActive ? ARC_WING : undefined;
-  const indicators = [team, wing].filter((glyph) => glyph !== undefined).join(' ');
-  return indicators.length === 0 ? undefined : indicators;
 }
 
 /** Format context usage, colour-coded as a glance-warning once it climbs. */
