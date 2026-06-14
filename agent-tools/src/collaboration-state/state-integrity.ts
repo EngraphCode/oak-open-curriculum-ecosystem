@@ -107,6 +107,10 @@ async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
       directory: `${COLLABORATION_ROOT}/comms`,
       schemaId: 'comms-event.schema.json',
       parser: parseCommsEvent,
+      // comms/ is untracked-by-design (ADR-199 Phase-3 untrack): absent in a
+      // fresh checkout (e.g. CI), present-on-disk on a working instance. An
+      // absent comms/ is the expected clean state, not an integrity fault.
+      optionalWhenAbsent: true,
     })),
     ...(await directorySurfaces({
       repoRoot,
@@ -129,8 +133,12 @@ async function directorySurfaces(input: {
   readonly schemaId: string;
   readonly parser?: (text: string) => unknown;
   readonly excludeExamples?: boolean;
+  readonly optionalWhenAbsent?: boolean;
 }): Promise<readonly JsonSurface[]> {
-  const entries = await readdir(join(input.repoRoot, input.directory));
+  const entries = await readDirOrEmpty(
+    join(input.repoRoot, input.directory),
+    input.optionalWhenAbsent === true,
+  );
   return entries
     .filter((entry) => entry.endsWith('.json'))
     .filter((entry) => input.excludeExamples !== true || !entry.endsWith('.example.json'))
@@ -140,6 +148,24 @@ async function directorySurfaces(input: {
       schemaId: input.schemaId,
       ...(input.parser === undefined ? {} : { parser: input.parser }),
     }));
+}
+
+async function readDirOrEmpty(
+  directory: string,
+  optionalWhenAbsent: boolean,
+): Promise<readonly string[]> {
+  try {
+    return await readdir(directory);
+  } catch (error) {
+    if (optionalWhenAbsent && isErrnoCode(error, 'ENOENT')) {
+      return [];
+    }
+    throw error;
+  }
+}
+
+function isErrnoCode(error: unknown, code: string): boolean {
+  return typeof error === 'object' && error !== null && 'code' in error && error.code === code;
 }
 
 function finding(path: string, message: string): CollaborationStateIntegrityFinding {

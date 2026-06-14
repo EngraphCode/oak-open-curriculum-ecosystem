@@ -91,9 +91,28 @@ describe('collaboration state integrity validator', () => {
     }
   });
 
-  it('hard-fails when a canonical collaboration directory is missing', async () => {
+  it('treats an absent untracked-by-design comms directory as zero surfaces', async () => {
     const repoRoot = await makeTempCollaborationRepo();
     try {
+      // comms/ is untracked-by-design (ADR-199 Phase-3 untrack): a fresh
+      // checkout (e.g. CI) has no comms/ directory at all. That is the clean
+      // state, not an integrity fault — the validator must not crash on it.
+      await removeDirectory(join(repoRoot, '.agent/state/collaboration/comms'));
+
+      const report = await validateCollaborationStateIntegrity({ repoRoot });
+
+      expect(report.findings).toStrictEqual([]);
+      expect(formatCollaborationStateIntegrityReport(report)).toContain('OK');
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
+  it('hard-fails when a tracked collaboration directory is missing', async () => {
+    const repoRoot = await makeTempCollaborationRepo();
+    try {
+      // conversations/ stays tracked (repo-tier decision provenance), so its
+      // absence is a genuine integrity fault, not the untracked-by-design case.
       await removeDirectory(join(repoRoot, '.agent/state/collaboration/conversations'));
 
       await expect(validateCollaborationStateIntegrity({ repoRoot })).rejects.toThrow(
