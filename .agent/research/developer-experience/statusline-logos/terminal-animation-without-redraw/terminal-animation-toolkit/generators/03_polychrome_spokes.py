@@ -75,12 +75,22 @@ for cy in range(H):
             cells[cy][cx]=(chr(0x2800+mask),spec,bg,blink)
         else:
             cells[cy][cx]=(' ',None,bg,False)
-def line_for(cy):
-    return ''.join(sgr(fg,bg,bl)+ch for (ch,fg,bg,bl) in (cells[cy][cx] for cx in range(W)))+'\033[0m'
-payload='\n'.join(line_for(cy) for cy in range(H))
+# animate=False strips SGR 5 -> the on-phase (rays + glints shown) as a still.
+def line_for(cy,animate):
+    return ''.join(sgr(fg,bg,bl and animate)+ch for (ch,fg,bg,bl) in (cells[cy][cx] for cx in range(W)))+'\033[0m'
+def build(animate): return '\n'.join(line_for(cy,animate) for cy in range(H))
+payload=build(True); payload_static=build(False)
+def esc(p): return p.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')
 bash="#!/usr/bin/env bash\n# Polychrome radial-spoke glow. BG = static smooth hue field; FG braille = Ben-Day halftone\n"
 bash+="# tracking the rays; outer spoke glints blink (shading drops on alternate frames). Acorn static.\n"
-bash+="cat > /dev/null 2>&1\n\nprintf '%b\\n' $'"+payload.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')+"'\n"
+bash+="# Reduce-motion: OAK_STATUSLINE_MOTION=off|static emits the static on-phase frame\n"
+bash+="# (SGR 5 stripped). Populate it from the OS setting via a SessionStart hook if wanted\n"
+bash+="# (e.g. macOS `defaults read com.apple.universalaccess reduceMotion`); never poll per emission.\n"
+bash+="cat > /dev/null 2>&1\n\n"
+bash+='case "${OAK_STATUSLINE_MOTION:-auto}" in\n'
+bash+="  off|static|none|reduce) printf '%b\\n' $'"+esc(payload_static)+"' ;;\n"
+bash+="  *) printf '%b\\n' $'"+esc(payload)+"' ;;\n"
+bash+="esac\n"
 open('renders/acorn_spokes.sh','w').write(bash)
 import os; os.chmod('renders/acorn_spokes.sh',0o755)
 from PIL import Image

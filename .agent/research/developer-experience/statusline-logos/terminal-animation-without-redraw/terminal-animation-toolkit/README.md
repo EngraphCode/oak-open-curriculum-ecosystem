@@ -119,6 +119,37 @@ one-line status bar. For a real status bar, shrink the source art or crop to a f
 
 ---
 
+## Reduce motion (accessibility)
+
+Animation must be defeatable. Every generated `statusline/*.sh` honours an override:
+
+```bash
+OAK_STATUSLINE_MOTION=off    # also accepts: static | none | reduce
+```
+
+When set, the script emits the **static on-phase frame with all `SGR 5` blink stripped**;
+unset (or `auto`) keeps the animation. The static fallback is the same on-phase still the
+design already produces, so nothing is lost but the motion. Set it in `~/.claude/settings.json`'s
+`env` block or a shell profile:
+
+```json
+{
+  "env": { "OAK_STATUSLINE_MOTION": "off" },
+  "statusLine": { "type": "command", "command": "~/.claude/acorn_final.sh", "padding": 0 }
+}
+```
+
+To follow the OS "reduce motion" setting, resolve it **once** in a `SessionStart` hook and
+write `OAK_STATUSLINE_MOTION` (macOS: `defaults read com.apple.universalaccess reduceMotion`;
+GNOME: `gsettings get org.gnome.desktop.interface enable-animations`). Do **not** poll the OS
+on every emission. Why this matters — and why a blinking *resting* frame is the one real
+[WCAG 2.2.2](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html) liability here —
+is in [`terminal-animation-techniques.md` §13](terminal-animation-techniques.md#13-accessibility--reduce-motion),
+which also cites the [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
+and macOS `defaults` references.
+
+---
+
 ## The honest ceiling (short version)
 
 Two interleaved frames, one global clock, 50% duty, at the terminal's rate — you control

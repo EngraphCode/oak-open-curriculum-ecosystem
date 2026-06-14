@@ -81,30 +81,36 @@ def sgr(fg=None,bg=None,blink=False):
     if bg is not None: parts+=['48','2',str(bg[0]),str(bg[1]),str(bg[2])]
     return '\033['+';'.join(parts)+'m'
 
-# build payload lines
-lines=[]
-for y in range(H):
-    s=''
-    for x in range(W):
-        c=cat[y][x]
-        if c==0:   s+= sgr(bg=MINT)+' '                  # canvas, no blink
-        elif c==1: s+= sgr(INK,MINT,blink=True)+'\u2588'  # A-only: ink on-phase, mint off
-        elif c==2: s+= sgr(MINT,INK,blink=True)+'\u2588'  # B-only: anti-phase (mint shows, ink hides)
-        else:      s+= sgr(INK,INK)+'\u2588'              # both: solid ink, static
-    s+='\033[0m'
-    lines.append(s)
-payload='\n'.join(lines)
+# build payload lines. animate=False strips SGR 5 -> the on-phase (Frame A) as a still.
+def build(animate):
+    lines=[]
+    for y in range(H):
+        s=''
+        for x in range(W):
+            c=cat[y][x]
+            if c==0:   s+= sgr(bg=MINT)+' '                       # canvas, no blink
+            elif c==1: s+= sgr(INK,MINT,blink=animate)+'\u2588'   # A-only: ink on-phase, mint off
+            elif c==2: s+= sgr(MINT,INK,blink=animate)+'\u2588'   # B-only: anti-phase (mint shows, ink hides)
+            else:      s+= sgr(INK,INK)+'\u2588'                  # both: solid ink, static
+        s+='\033[0m'
+        lines.append(s)
+    return '\n'.join(lines)
+payload=build(True); payload_static=build(False)
 
-# write the standalone bash script with payload baked in
-import json
+# write the standalone bash script with both payloads baked in
 import os
 os.makedirs("renders", exist_ok=True)
+def esc(p): return p.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')
 bash = "#!/usr/bin/env bash\n# Two-frame blink-swap swirl. Foreground blink + fg/bg swap gives anti-phase cells.\n"
 bash+= "# Drop into statusLine command, or run directly to eyeball the blink.\n"
+bash+= "# Reduce-motion: OAK_STATUSLINE_MOTION=off|static emits the static on-phase frame\n"
+bash+= "# (SGR 5 stripped). Populate it from the OS setting via a SessionStart hook if wanted\n"
+bash+= "# (e.g. macOS `defaults read com.apple.universalaccess reduceMotion`); never poll per emission.\n"
 bash+= "cat > /dev/null 2>&1   # consume stdin JSON when used as a statusline\n\n"
-# encode payload safely via printf %b with octal escapes
-enc=payload.replace('\\','\\\\').replace('\033','\\033').replace('%','%%')
-bash+="printf '%b\\n' "+ "$'" + payload.replace('\\','\\\\').replace("'", "\\'").replace('\033','\\033').replace('\n','\\n') + "'\n"
+bash+= 'case "${OAK_STATUSLINE_MOTION:-auto}" in\n'
+bash+= "  off|static|none|reduce) printf '%b\\n' $'"+esc(payload_static)+"' ;;\n"
+bash+= "  *) printf '%b\\n' $'"+esc(payload)+"' ;;\n"
+bash+= "esac\n"
 with open('renders/swirl_blink.sh','w') as f:
     f.write(bash)
 import os; os.chmod('renders/swirl_blink.sh',0o755)

@@ -120,9 +120,20 @@ def sgr(fg=None,bg=None,bl=False):
     if fg is not None:p+=['38','2',*map(str,fg)]
     if bg is not None:p+=['48','2',*map(str,bg)]
     return '\033['+';'.join(p)+'m'
-payload='\n'.join(''.join(sgr(c[1],c[2],c[3])+c[0] for c in (cells[cy][cx] for cx in range(W)))+'\033[0m' for cy in range(H))
+# animate=False strips SGR 5 -> the on-phase (calm composition) as a still.
+def build(animate):
+    return '\n'.join(''.join(sgr(c[1],c[2],c[3] and animate)+c[0] for c in (cells[cy][cx] for cx in range(W)))+'\033[0m' for cy in range(H))
+payload=build(True); payload_static=build(False)
+def esc(p): return p.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')
 b="#!/usr/bin/env bash\n# Mono acorn: original braille halftone on the curve, subtly side-lit; bounded interior\n# held constant near-black & steady; tight umbra; shimmering glow outside. A few curve glints.\n"
-b+="cat > /dev/null 2>&1\n\nprintf '%b\\n' $'"+payload.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')+"'\n"
+b+="# Reduce-motion: OAK_STATUSLINE_MOTION=off|static emits the static on-phase frame\n"
+b+="# (SGR 5 stripped). Populate it from the OS setting via a SessionStart hook if wanted\n"
+b+="# (e.g. macOS `defaults read com.apple.universalaccess reduceMotion`); never poll per emission.\n"
+b+="cat > /dev/null 2>&1\n\n"
+b+='case "${OAK_STATUSLINE_MOTION:-auto}" in\n'
+b+="  off|static|none|reduce) printf '%b\\n' $'"+esc(payload_static)+"' ;;\n"
+b+="  *) printf '%b\\n' $'"+esc(payload)+"' ;;\n"
+b+="esac\n"
 open('renders/acorn_final.sh','w').write(b)
 import os;os.chmod('renders/acorn_final.sh',0o755)
 from PIL import Image

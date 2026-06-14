@@ -110,27 +110,37 @@ def sgr(fg=None,bg=None,blink=False):
     if bg is not None:p+=['48','2',*map(str,bg)]
     return '\033['+';'.join(p)+'m'
 
-out=[]
-for cy in range(H):
-    s=''
-    for cx in range(W):
-        ch=acorn[cy][cx]
-        if ch not in BLANK:                              # acorn
-            s+=sgr(ACORN_G,BLACK)+ch
-        elif glowmask[cy][cx]:                           # glow
-            g=chr(0x2800+glowmask[cy][cx])
-            blink = cellband[cy][cx]=='blink'
-            s+=sgr(glowcol(celldist[cy][cx]),BLACK,blink=blink)+g
-        else:
-            s+=sgr(bg=BLACK)+' '
-    s+='\033[0m'
-    out.append(s)
-payload='\n'.join(out)
+# animate=False strips SGR 5 -> the on-phase (full glow shown) as a still.
+def build(animate):
+    out=[]
+    for cy in range(H):
+        s=''
+        for cx in range(W):
+            ch=acorn[cy][cx]
+            if ch not in BLANK:                              # acorn
+                s+=sgr(ACORN_G,BLACK)+ch
+            elif glowmask[cy][cx]:                           # glow
+                g=chr(0x2800+glowmask[cy][cx])
+                blink = animate and cellband[cy][cx]=='blink'
+                s+=sgr(glowcol(celldist[cy][cx]),BLACK,blink=blink)+g
+            else:
+                s+=sgr(bg=BLACK)+' '
+        s+='\033[0m'
+        out.append(s)
+    return '\n'.join(out)
+payload=build(True); payload_static=build(False)
 
+def esc(p): return p.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')
 bash="#!/usr/bin/env bash\n# Green acorn on black with a pulsing braille glow (density falls off by distance).\n"
 bash+="# Inner glow is steady; outer glow blinks -> the halo breathes. Acorn is static.\n"
+bash+="# Reduce-motion: OAK_STATUSLINE_MOTION=off|static emits the static on-phase frame\n"
+bash+="# (SGR 5 stripped). Populate it from the OS setting via a SessionStart hook if wanted\n"
+bash+="# (e.g. macOS `defaults read com.apple.universalaccess reduceMotion`); never poll per emission.\n"
 bash+="cat > /dev/null 2>&1\n\n"
-bash+="printf '%b\\n' $'"+payload.replace('\\','\\\\').replace("'","\\'").replace('\033','\\033').replace('\n','\\n')+"'\n"
+bash+='case "${OAK_STATUSLINE_MOTION:-auto}" in\n'
+bash+="  off|static|none|reduce) printf '%b\\n' $'"+esc(payload_static)+"' ;;\n"
+bash+="  *) printf '%b\\n' $'"+esc(payload)+"' ;;\n"
+bash+="esac\n"
 open('renders/acorn_glow.sh','w').write(bash)
 import os; os.chmod('renders/acorn_glow.sh',0o755)
 

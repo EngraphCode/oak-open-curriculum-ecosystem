@@ -25,7 +25,8 @@ out of that one constraint.
 10. [Workflow: previewing what you cannot see](#10-workflow)
 11. [Consolidated limits & ceilings](#11-consolidated-limits)
 12. [The final acorn — a worked composition](#12-the-final-acorn)
-13. [Appendix: quick reference](#appendix-quick-reference)
+13. [Accessibility & reduce motion](#13-accessibility--reduce-motion)
+14. [Appendix: quick reference](#appendix-quick-reference)
 
 ---
 
@@ -77,7 +78,10 @@ not your already-exited script, and a host TUI owns that channel.
 ## 2. The blink primitive
 
 `SGR 5` (`\033[5m`) is the one standardised way to get continuous, idle-capable motion
-from a static payload. Critical properties:
+from a static payload. That same *idle-capable* property is the one accessibility liability
+in this whole toolbox — a blink left on screen keeps blinking on the terminal's clock long
+after the conversation goes quiet. Read [§13](#13-accessibility--reduce-motion) before
+shipping blink as a resting frame. Critical properties:
 
 - **Blink gates the foreground only.** The background is painted in *both* phases.
 - **There is a single, free-running, global blink clock.** Every blinking cell shares one
@@ -529,6 +533,83 @@ softly breathing halo.
 
 The three knobs most worth touching by eye in a live terminal: `AMP` (light strength), the
 warm/cool tint multipliers (hue drift), and the light direction vector.
+
+---
+
+## 13. Accessibility & reduce motion
+
+Animation is never free of an accessibility cost. A user who has asked their system to
+minimise motion (vestibular disorders, attention/seizure sensitivity, or simple preference)
+must be able to get a still image. WCAG 2.2
+[**2.2.2 Pause, Stop, Hide**](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html)
+is explicit: any content that blinks or moves automatically for more than five seconds must
+be pausable, stoppable, or hideable. So every animated payload here ships with a static fallback and a
+documented override, and the static frame is treated as the default, not an afterthought.
+
+### 13.1 Two clocks — and only one is a problem
+
+The statusline is a *sampled* surface (§1): the host re-runs the script at message-update
+boundaries, throttled to ~300 ms, and **stops sampling entirely when the conversation is
+idle**. That gives two independent clocks:
+
+- **The event clock** — drives *script-driven* frame stepping (pick the frame from time or
+  state at each emission). It inherits the host's pauses: when the conversation settles, no
+  new emission fires, so the last frame simply freezes. Script-driven motion is therefore
+  **self-limiting** — it cannot run unattended past the activity that produced it, which is
+  exactly what 2.2.2 asks for.
+- **The terminal's blink clock** — drives `SGR 5`. It is free-running and *not ours*: once a
+  blinking payload is on screen it keeps toggling on the terminal's own clock, surviving our
+  script's exit and the event clock's idle pause.
+
+The accessibility exposure localises entirely to one quadrant: **an `SGR 5` payload left as
+the resting/idle frame.** That is the only motion in this toolbox that outlives the event
+which produced it and runs unattended past five seconds. We cannot offer a pause button for
+it because we do not own its clock — the only control is *not to emit it*.
+
+### 13.2 The override
+
+Every generated `statusline/*.sh` honours an environment variable:
+
+```bash
+OAK_STATUSLINE_MOTION=off    # also accepts: static | none | reduce
+```
+
+When set, the script emits the **static on-phase frame with every `SGR 5` stripped**; unset
+(or `auto`) keeps the animation. The fallback is cheap because it already exists: each piece
+is built so "the static frame is the on-phase and stands on its own" (Graceful degradation,
+§11), so the override just *selects the still the design already produces* — no separate art.
+
+Resolution order, cheapest first:
+
+1. **`OAK_STATUSLINE_MOTION`** — a pure environment read, zero cost per emission. This is the
+   primary, portable override; set it in `~/.claude/settings.json`'s `env` block or a shell
+   profile.
+2. **OS reduce-motion setting (optional bridge)** — there is *no* portable env var or shell
+   API for the OS preference ([`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
+   is CSS-only), but the setting is readable per platform:
+   - macOS: `defaults read com.apple.universalaccess reduceMotion` → `1` when enabled.
+   - GNOME: `gsettings get org.gnome.desktop.interface enable-animations` → `false` when
+     reduce-motion is on (verify on the target desktop).
+
+   Resolve it **once per session** in a `SessionStart` hook and write the result into
+   `OAK_STATUSLINE_MOTION`. **Never poll the OS per emission** — spawning `defaults`/`gsettings`
+   every ~300 ms is an unbounded-host-load anti-pattern.
+
+### 13.3 Default posture
+
+For the statusline specifically: prefer **script-driven frame stepping or a static frame as
+the resting content**, and reserve `SGR 5` for genuinely transient or splash contexts. Never
+leave a blinking payload as the settled state. Combined with the override, that keeps the
+default WCAG-aligned while still allowing rich animation while the conversation is active.
+
+### 13.4 References
+
+- WCAG 2.2 — Understanding SC 2.2.2 Pause, Stop, Hide:
+  <https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html>
+- `prefers-reduced-motion` (CSS media feature; not exposed to shells) — MDN:
+  <https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion>
+- macOS `defaults` keys (incl. `com.apple.universalaccess reduceMotion`) — ss64:
+  <https://ss64.com/mac/syntax-defaults.html>
 
 ---
 
