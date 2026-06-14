@@ -57,7 +57,7 @@ location segments flowing to its right.
   four-row segment distribution), `statusline-identity.ts` (env-driven style),
   plus `tests/claude/oak-logo.test.ts` and the `statusline-render` test additions.
   The mark is a verified conversion of the acorn SVG; recipe + provenance live in
-  `.agent/research/developer-experience/statusline-logos.md`.
+  `.agent/research/developer-experience/statusline-logos/statusline-logos.md`.
 - **Renderer shape**: `renderStatusline(parts, { logo })` is pure; `logo: 'none'`
   reproduces the original single line byte-identically. Segments are built once
   (`buildSegments`), then either joined (single line) or composed against the

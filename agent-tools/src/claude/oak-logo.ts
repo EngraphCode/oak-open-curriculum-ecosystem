@@ -5,7 +5,7 @@
  * The rows are a faithful conversion of the Oak National Academy acorn SVG via
  * the rasterise → area-coverage → glyph-pack pipeline documented, with its
  * regeneration recipe, in
- * `.agent/research/developer-experience/statusline-logos.md`. Each visible style
+ * `.agent/research/developer-experience/statusline-logos/statusline-logos.md`. Each visible style
  * is a four-row mark of uniform per-row display width — an open acorn cup with
  * an upper-right leaf, a sprout, and a rounded base — sized to sit as a left
  * logo-column with the statusline segments flowing to its right.
