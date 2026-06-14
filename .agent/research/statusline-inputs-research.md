@@ -459,3 +459,36 @@ verbal answer produced from model memory, before this cross-reference):
   fields became current-usage (not cumulative) in **v2.1.132**; `COLUMNS`/`LINES`
   injection requires **v2.1.153+**. Field names and shapes are otherwise stable as
   of the fetch date.
+
+## Session notes (buffered here for re-homing — not part of the reference)
+
+These notes are **Practice lessons**, not status-line facts. They live in this
+document only because it was the single valid communication surface for the
+session that produced it (2026-06-14). They are buffered here deliberately, and a
+later session should **graduate them to their proper homes** — agent memory or a
+Practice pattern, linked to the repo's `verify-dont-trust` rule — and then
+**remove this section** so the document returns to its single responsibility as a
+status-line reference.
+
+### Grounded, not remembered
+
+The first answer to the originating question was produced from model memory, and
+was wrong in three concrete ways (see "Corrections to common misconceptions"
+above). The durable lesson: **answer questions about Claude Code and LLM
+behaviour from the canonical documentation (`code.claude.com/docs`), never from
+model memory.** The field names, the entire `cost` object, and the environment
+variables were all things the model "knew" incorrectly. A source-cited reference
+artefact is the structural cure — it stops the next agent re-inheriting the error,
+rather than correcting one instance of it.
+
+### Verification methods that caught the errors
+
+Two cheap checks did the real work and are worth reusing:
+
+- **Cross-reference a confident answer against the primary source.** The errors
+  stayed invisible until each claimed field was checked against the docs' field
+  table. Confidence is not evidence.
+- **Negative-control a validator before trusting a green result.** The
+  commit-message checker was run on a deliberately bad message first (it had to
+  fail) before its pass on the real message was trusted — guarding against a
+  checker that exits `0` without actually checking anything.
