@@ -6,7 +6,7 @@ pdr_kind: governance
 
 **Status**: Accepted
 **Created**: 2026-06-13
-**Last updated**: 2026-06-13
+**Last updated**: 2026-06-14
 **Related**:
 [PDR-080](PDR-080-coordination-event-absorption-is-signal-driven.md)
 (coordination-event absorption is signal-driven — that PDR establishes
@@ -65,7 +65,7 @@ for an unmeasured health problem encodes a hypothesis as a mechanism.
 ## Decision
 
 Coordination-event **rotation is class-tiered, age-triggered, and
-archive-not-delete**, governed by five invariants and one operative gate.
+archive-not-delete**, governed by six invariants and one operative gate.
 Rotation runs as a deterministic curator-lane pass on the consolidation /
 session-close cadence — not as an autonomous daemon, and not behind per-pass
 owner approval once the contract is ratified.
@@ -142,6 +142,32 @@ Events are tiered by **research value, not volume alone**:
   the operative gate.
 - **Diagnostic / test / noise** events are immediate-eligible *after a body
   read* (see the falsifier in the operative gate).
+
+### Invariant 6 — Untracking the active stream makes curation a standing obligation
+
+A host may move the active stream out of version control entirely (untrack it),
+so that the live coordination tier is preserved on disk but no longer carried in
+history. This is legitimate — it removes the stream from the watched/auditable
+path that Invariant 4 bounds. But it removes an **accidental
+knowledge-preservation safety net**: while the stream was version-controlled,
+durable substance an agent failed to curate still survived in history; once
+untracked, uncurated substance is lost when the on-disk file rotates or the
+checkout is discarded.
+
+Therefore, when the host untracks the stream, **curation of the stream's durable
+substance into permanent homes becomes a mandatory standing obligation** — wired
+into the host's lifecycle / session-close / consolidation procedures as an
+explicit, non-optional step, not best-effort. The substance in scope is the same
+the absorption gate already names (failure-signal and genuine behaviour-note
+content, decisions, and reusable what-worked instances); the untrack changes only
+its enforcement from "history is a backstop" to "curation is the only path."
+
+**Atomic-propagation clause.** A protocol change recorded only in a decision
+record but absent from the operational surfaces agents actually read at
+session-open and session-close is an invisible, half-broken state. The untrack
+and the standing-obligation wiring across those operational surfaces MUST land
+**together**, in one change; an untrack that ships ahead of the wiring removes
+the safety net before the replacement obligation is installed.
 
 ### The operative absorption gate
 
@@ -257,3 +283,8 @@ latest-revision date.
   contract derived from a two-round adversarially-reviewed proposal. The
   proposal's host-specific evidence and phenotype are recorded in the host's
   paired architectural-decision record, not here (portability constraint).
+- **v2 (2026-06-14)** — added Invariant 6 (untracking the active stream makes
+  curation a standing obligation, with the atomic-propagation clause), recording
+  the portable doctrine surfaced when the host phenotype executed the full
+  untrack of its coordination tier. The host-specific boundary and wiring are in
+  the paired architectural-decision record (portability constraint).

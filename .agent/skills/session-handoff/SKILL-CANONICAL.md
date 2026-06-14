@@ -251,20 +251,38 @@ there unless the owner or closeout owner gives a further assignment.
    write pushes `distilled.md` into a fitness zone, record the pressure
    and route the structural follow-up rather than trimming the lesson.
 
-   **Auxiliary input: session comms-events.** The session's own
-   comms-events under `.agent/state/collaboration/comms/`
-   (and the regenerated `shared-comms-log.md`) carry
-   coordination-context substance: owner-direction-captured-inline,
-   inter-agent surprises, tooling friction discovered during
-   cross-agent work, the timeline of decisions made through the
-   parallel comms-default channel, and worked instances of
-   coordination-cure patterns. Scan events authored by your session
-   AND events addressed to your session at session close; mirror any
-   entry that would change next-session behaviour into `napkin.md`
-   using the structured surprise format. Do not rewrite or delete
-   the events themselves — they are durable coordination records,
-   not a buffer surface. This is a read-source for extraction.
-   Owner-stated standing 2026-05-05.
+   **Mandatory: curate session comms-log knowledge (the untrack safety
+   net).** `.agent/state/` is untracked-by-design (ADR-199 / PDR-094
+   Invariant 6): the comms tier — `.agent/state/collaboration/comms/`
+   and the generated `shared-comms-log.md` — lives on disk but is no
+   longer carried in version control, so version history is no longer a
+   backstop for substance an agent forgets to curate. Extracting
+   comms-log knowledge at session close is therefore a **non-optional
+   step**, not auxiliary. These events carry coordination-context
+   substance: owner-direction-captured-inline, inter-agent surprises,
+   tooling friction discovered during cross-agent work, the timeline of
+   decisions made through the parallel comms-default channel, PDR-066
+   failure-mode / behaviour-note events, and worked instances of
+   coordination-cure patterns. Scan events authored by your session AND
+   events addressed to your session at session close; mirror any entry
+   that would change next-session behaviour into `napkin.md` using the
+   structured surprise format (it then rides the PDR-014 capture → distil
+   → graduate pipeline). Do not rewrite or delete the event files here —
+   archive-move rotation is the curator pass's job (ADR-199), not the
+   session-close edge; this step is a read-source for extraction.
+   Owner-stated standing 2026-05-05; elevated to a standing obligation by
+   the WS7 untrack 2026-06-14.
+
+   **Mandatory: curate out-of-repo platform plans.** Platform plan
+   surfaces outside the repo (`~/.claude/plans/` and files like them)
+   are instance/individual-tier knowledge sources on the same footing as
+   the untracked comms tier: durable substance in them (decisions,
+   contracts, what-worked) is lost when the instance ends unless curated
+   up. Scan the current platform's plan surface at session close and
+   route any repo-relevant substance to a tracked home, recording
+   `not present` if the surface is absent rather than skipping silently.
+   This is **knowledge** curation only; it imposes no quota or ritual on
+   the voluntary, self-framed `.agent/experience/` register.
 
    **Auxiliary input: platform-specific per-user memory.** Vendor tools
    maintain their own per-user memory and session-history surfaces outside the

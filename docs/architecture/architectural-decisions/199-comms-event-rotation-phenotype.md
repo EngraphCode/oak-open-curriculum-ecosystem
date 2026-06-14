@@ -1,11 +1,13 @@
 # ADR-199: Comms-Event Rotation Phenotype — Class-Tiered Archive-Move
 
 **Status**: Accepted (design ratified with owner 2026-06-13, "ratify as
-proposed"). **Execution is deferred to WS7** of the comms-corpus research plan —
-this ADR records the decision and captures the provenance its own citations need;
-the archive-move, the `.agent/state/` untracking, and the provenance-check script
-are the executing change, gated on this ADR existing first (see §"WS7 execution
-order").
+proposed"); **WS7 execution landed 2026-06-14**. Phase 2 shipped the provenance
+check, the heartbeat-cadence aggregate, and the class-tiered archive-move harness
+(classify → provenance-gate → plan → execute); Phase 3 — the `.agent/state/`
+untrack and the standing curation obligation — lands atomically with this
+amendment (see §"WS7 execution order" and §"Repo/instance content boundary and
+the standing curation obligation"). The held-corpus archive-move run is the
+curator-pass disk-hygiene step the untrack makes safe.
 **Date**: 2026-06-13
 **Related**: PDR-094 (the portable rotation contract this ADR is the repo
 phenotype of — class-tiered, archive-not-delete, provenance-preserving);
@@ -61,10 +63,11 @@ repo phenotype of PDR-094. The phenotype:
    `.agent/state/collaboration/comms-archive/`, gitignored and outside the
    watcher's scan. The watcher already scans a configurable directory
    (`--comms-dir`, an existing parameter), so pointing it at `comms/` only is
-   configuration, not new machinery. Once WS7 makes all of `.agent/state/`
-   untracked-by-design (the tracked `README.md` anchor remains), the archive is
-   retained on disk but never tracked — the bytes survive, the watcher never
-   reads them.
+   configuration, not new machinery. Once WS7 makes the `.agent/state/`
+   coordination tier untracked-by-design (the `README.md` anchor and the
+   curated decision-provenance surfaces stay tracked — see §"Repo/instance
+   content boundary"), the archive is retained on disk but never tracked — the
+   bytes survive, the watcher never reads them.
 
 3. **Manifest (untracked, full record).** `comms-archive/manifest.jsonl`, one row
    per archived event (`event_id`, `created_at`, `kind`, `tags`, `archived_at`,
@@ -77,8 +80,13 @@ repo phenotype of PDR-094. The phenotype:
    citations is a git-tracked digest at **`.agent/reference/comms-cited-events.md`**
    (outside `.agent/state/`). A **pre-archive-move provenance check** (a script in
    the curator pass — rotation machinery, not a hook) scans ADRs / PDRs / patterns
-   for 8-hex event-id tokens and **refuses to archive-move any cited event lacking
-   inline or digest coverage** (PDR-094 Invariant 3).
+   / governance docs (rules + directives) for 8-hex event-id tokens and **refuses
+   to archive-move any cited event lacking inline or digest coverage** (PDR-094
+   Invariant 3). The scope names governance docs because an adversarial sweep
+   found three events (`013de4d4`, `0f03f45c`, `a596f140`) cited only in rules —
+   an "ADRs / PDRs / patterns" scope would have missed them. The executable check
+   (the bin + digest) already covers this wider scope; this wording closes the
+   prose gap.
 
 5. **Class tiers and windows** (PDR-094 Invariant 5; windows are the
    owner-defaulted §7 sub-choices, tunable):
@@ -161,17 +169,77 @@ checkout after the raw event is untracked.
 ## WS7 execution order (closes the report→ADR scope gap)
 
 WS7 runs in this order; the first two steps are satisfied by the consolidation
-session that authored this ADR:
+session that authored this ADR. **Amended 2026-06-14 (Galleon calls Surf × Anvil
+spins Bronze; owner-ratified via the Phase-3 commit that carries this amendment):
+untrack-before-execute.** The original order executed the archive-move while
+`comms/` was still git-tracked, which turns the move into ~2,400 git file
+deletions to commit (archived ≠ deleted — the git history would read as a mass
+deletion). Untracking `.agent/state/` first makes the archive-move **pure disk
+hygiene** (`comms/` is gitignored on disk; the move touches no tracked file), and
+it is safe because step 3 (the provenance check) already guarantees cited-event
+survival before any byte leaves the tracked stream.
 
 1. **Author this rotation ADR** (brings the evidence citations into a permanent
    doc) — done.
 2. **Populate inline excerpts / the digest** for every event id in the ADR —
    done (§"Cited-event provenance").
-3. **Run the pre-archive-move provenance check** over all permanent docs.
-4. **Only then execute archive-moves**, by class, per the migration path below.
+3. **Run the pre-archive-move provenance check** over all permanent docs (the
+   cited-event survival net — in place before any untrack or move).
+4. **Untrack `.agent/state/`** (WS7 step c) as the **atomic Phase-3 bundle**:
+   `.gitignore` + `git rm -r --cached .agent/state/` (README anchor re-added) +
+   the standing curation obligation landed together across PDR-094, this ADR, the
+   `session-handoff` SKILL, and the `consolidate-docs` SKILL. Must land atomically
+   — see §"Repo/instance content boundary".
+5. **Only then execute archive-moves**, by class, per the migration path below —
+   now pure disk hygiene over the untracked tree.
 
 Events cited as evidence must not be archive-moved before the doc citing them has
 its provenance captured.
+
+## Repo/instance content boundary and the standing curation obligation
+
+Untracking `.agent/state/` crystallises a content boundary that was previously
+blurred by the preservation hold:
+
+- **Repo tier (tracked, versioned, shared by every clone):** `.agent/memory/`,
+  `docs/`, ADRs, PDRs, patterns, plans, and — within `.agent/state/` — the
+  `README.md` anchor plus the **durable decision-provenance surfaces**:
+  `collaboration/conversations/` (decision threads, sidebars, joint decisions),
+  `collaboration/escalations/` (owner-facing case resolutions), and
+  `collaboration/sidebars/`. These are low-volume, ongoing-reference, and are
+  read by `start-right` as authority-order surfaces; they stay tracked.
+- **Instance tier (untracked-by-design, preserved on disk):** one checkout's
+  live, ephemeral coordination state — `collaboration/comms/`, `comms-seen/`,
+  `comms-archive/`, `comms-draft/`, `handoffs/`, `active-claims.json`,
+  `closed-claims.archive.json`, and the generated `shared-comms-log.md`. These
+  go untracked (the bytes remain on disk; git no longer carries them).
+
+The untrack boundary above is the owner-delegated default recorded in the
+companion plan's WS7 Execution Contract; ADR-199's earlier "blanket
+`.agent/state/`" wording is the simplification this section refines.
+
+**The standing curation obligation (the safety net the untrack relies on).**
+Committing comms state to git was an accidental knowledge-preservation safety
+net: durable substance that an agent failed to curate up still survived in
+version history. The untrack removes that net. So curation of comms-log
+knowledge — PDR-066 failure-mode / behaviour-note events, decisions made through
+the comms-default channel, and what-worked instances — into repo-tier homes
+(napkin → `distilled.md` → ADR/PDR/pattern, per the PDR-014 / PDR-080 / PDR-081
+pipeline) becomes a **MANDATORY STANDING obligation**, not best-effort.
+
+**Atomic-propagation hard gate.** A protocol change recorded only in a decision
+record but absent from the operational surfaces agents actually read is an
+invisible, half-broken state. The Phase-3 untrack is therefore **unsafe unless
+the standing obligation lands atomically** across this ADR, PDR-094, the
+`session-handoff` SKILL, the `consolidate-docs` SKILL, and the `.agent/state/`
+README — in one commit. The lifecycle skills are wired to require a comms-log
+knowledge assessment + curation as an explicit, non-optional step.
+
+**Out-of-repo platform plans (owner extension 2026-06-14).** The same standing
+curation obligation covers out-of-repo platform plans (`~/.claude/plans/` and
+files like them) as instance/individual-tier knowledge sources, wired into the
+same lifecycle skill step. The obligation is **knowledge** curation; it imposes
+no quota or ritual on the voluntary, self-framed `.agent/experience/` register.
 
 ## Migration path for the held corpus (item-level disposition)
 
@@ -206,9 +274,11 @@ relocates to a tracked home in WS7 step b).
   as an open item) sizes them.
 - No new coordination machinery: the curator pass is a procedure over existing
   tooling; the provenance check is a script, not a hook or CLI.
-- `.agent/state/` becomes untracked-by-design (WS7 step c), uniform with the
-  existing `.agent/state/onboarding/` precedent; the tracked `README.md` anchor
-  remains.
+- The `.agent/state/` coordination tier becomes untracked-by-design (WS7
+  step c), kin to the existing `.agent/state/onboarding/` precedent; the
+  `README.md` anchor plus the curated decision-provenance surfaces
+  (`conversations/`, `escalations/`, `sidebars/`) stay tracked — see
+  §"Repo/instance content boundary and the standing curation obligation".
 
 ## Sub-choices defaulted (WS5 §7; owner ratified "as proposed")
 

@@ -46,9 +46,9 @@ Run `consolidate-docs` when one or more of these is true:
   historical synthesis, or prior consolidations keep reporting the same
   family without naming its deeper cause
 - documentation drift or stale cross-references now need graduation
-- the owner explicitly opens a comms-corpus research / retention plan; routine
-  comms-event rotation is otherwise paused and calendar age is not a lifecycle
-  trigger
+- a class retention window has elapsed for live comms events (the curator-pass
+  archive-move trigger — see step 3a), or the owner opens a comms-corpus
+  research / retention plan
 
 This workflow preserves the full deep-convergence role: graduation, pattern
 extraction, napkin rotation, fitness management, and practice exchange.
@@ -300,18 +300,22 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    - **Capture surfaces**: `.agent/memory/active/napkin.md`,
      `.agent/memory/active/distilled.md` (the staging surface itself,
      not yet graduated), prompt artefacts.
-   - **Session comms-events**: `.agent/state/collaboration/comms/`
-     (and the regenerated `shared-comms-log.md`) carry coordination-context
-     substance — owner-direction-captured-inline, inter-agent surprises,
-     tooling friction discovered during cross-agent work, decision
-     timelines, and worked instances of coordination-cure patterns.
-     The comms corpus is currently owner-preserved pending a dedicated
-     comms research plan. Do not sweep, rotate, process for deletion, or
-     treat calendar age as a lifecycle trigger during routine consolidation.
-     Read event files only when the owner explicitly scopes comms-corpus
-     research / retention work or when a specific event is already named as
-     evidence for another disposition. Step 7e audits active protocol
-     observability; it does not rotate comms history.
+   - **Session comms-events** (mandatory curation — the untrack safety
+     net): `.agent/state/collaboration/comms/` (and the generated
+     `shared-comms-log.md`) carry coordination-context substance —
+     owner-direction-captured-inline, inter-agent surprises, tooling
+     friction discovered during cross-agent work, decision timelines,
+     PDR-066 failure-mode / behaviour-note events, and worked instances of
+     coordination-cure patterns. `.agent/state/` is untracked-by-design
+     (ADR-199 / PDR-094 Invariant 6): the comms tier is on disk but no
+     longer in version control, so curating its durable knowledge into
+     permanent homes is a **non-optional** consolidation step — version
+     history is no longer a backstop. Extract durable substance to the
+     smallest appropriate home (napkin → `distilled.md` → ADR/PDR/pattern).
+     Rotation of the raw events (archive-move into the gitignored
+     `comms-archive/`) is the curator-pass mechanism in step 3a below;
+     do not delete events, and remember the archive-move is gated on a
+     recorded disposition per event.
    - **Plan surfaces**: active and recently completed plans (per step
      1 above) — surface any content that describes how things work
      rather than what to do next.
@@ -349,22 +353,36 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    Per the standing direction codified in the homing partial: *all
    content must be moved to permanent homes or, if not useful,
    removed*. Silent deletion without homing is not the default.
-3a. **Comms-event rotation is paused pending a dedicated comms research plan.**
-    Routine consolidation MUST NOT rotate, delete, or process comms-events for
-    retention. Calendar age is not a lifecycle trigger for
-    `.agent/state/collaboration/comms/`.
+3a. **Comms-event rotation is a class-tiered, archive-not-delete curator pass**
+    (ADR-199 / PDR-094 — the preservation hold ended when WS7 of the comms-corpus
+    research plan ratified and executed the rotation, 2026-06-14). Rotation
+    **never deletes**: it archive-moves events past their class retention window
+    out of `.agent/state/collaboration/comms/` into the gitignored, off-drain-path
+    `.agent/state/collaboration/comms-archive/`, recording one `manifest.jsonl`
+    disposition row per event. It is gated three ways and these gates are
+    non-negotiable:
 
-    The active invariant is **preserve the comms corpus unless the owner opens
-    a comms-corpus research / retention plan or names a specific event as
-    evidence for another disposition**. Under that explicitly-scoped work,
-    process before any deletion: read the event body, route durable substance to
-    the smallest appropriate home, record item-level disposition evidence, and
-    only then remove a source event if the approved research / retention plan
-    authorises removal.
+    - **Absorption gate (PDR-094 operative gate):** an event moves only once its
+      disposition is recorded — absorbed into a durable home, classified routine,
+      or quarantined. Bulk routine/noise classification on **title genre alone is
+      never sufficient**; a bulk pass body-reads a sample plus every over-length
+      body (the `3cc1fb93` falsifier).
+    - **Provenance gate (Invariant 3):** the pre-archive-move provenance check
+      (`pnpm --filter @oaknational/agent-tools comms-provenance-check`) must report
+      0 violations — it refuses to move any event cited in a permanent doc that
+      lacks inline-quote or digest coverage.
+    - **Class tiers:** heartbeat 48h (cadence aggregate extracted once first),
+      coordination/directed 7d, diagnostic/test/noise immediate-after-body-read,
+      research-precious until graduated. The windows are hygiene targets, not
+      drain-health-derived bounds (Invariant 4).
 
-    `shared-comms-log.md` remains a generated recent-view artefact; regenerate
-    it when comms-state writes make that necessary, not as a side-effect of a
-    paused retention rotation.
+    The mechanism is the tested agent-tools harness
+    (`comms-archive-move`, dry-run by default; `--execute` gated). Knowledge
+    curation (the step-3 comms-events bullet above) is the **absorption** that
+    satisfies the gate; it precedes or accompanies any move. `shared-comms-log.md`
+    is a generated recent-view artefact (regenerate when comms-state writes make
+    it necessary) and goes untracked with no disposition-ledger entry — provenance
+    attaches to the events, never to the rendered log.
 4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../experience/README.md § Why the audit step exists`](../../experience/README.md)):
 
    a. **Preserve the purpose** — scan for files that have drifted into technical content; this displaces the subjective register the files are meant to hold.
@@ -653,13 +671,13 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       `[evidence-bundle] <path-or-id>: <missing field>`.
    11. **Schema validation**: confirm `active-claims.json` parses as JSON
       and conforms to
-      [`active-claims.schema.json`](../../state/collaboration/active-claims.schema.json).
+      [`active-claims.schema.json`](../../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json).
       Confirm `closed-claims.archive.json` parses as JSON and conforms to
-      [`closed-claims.schema.json`](../../state/collaboration/closed-claims.schema.json).
+      [`closed-claims.schema.json`](../../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json).
       Confirm each conversation file parses as JSON and conforms to
-      [`conversation.schema.json`](../../state/collaboration/conversation.schema.json).
+      [`conversation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/conversation.schema.json).
       Confirm each escalation file parses as JSON and conforms to
-      [`escalation.schema.json`](../../state/collaboration/escalation.schema.json).
+      [`escalation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json).
       Malformed JSON or schema violations surface as
       `[<file>]: <validator output>` for owner review. There is no
       automated validation tooling at this surface (per the source plan's
