@@ -2089,3 +2089,30 @@ feedback (sidebar shape is the lightest); composes with `coordinator-role-thresh
 - **status**: due (rotation PDR/ADR — owner-ratified) / pending (M2, SC1 — dedicated
   consolidation drafts them). Note: this register is in the critical fitness zone (2035+
   lines); the dedicated consolidation is its drain, not a trim trigger.
+
+## 2026-06-14 capture — Clipper wakes Atoll (WS7 content-boundary principle + atomic propagation)
+
+Verified absent from this register before adding.
+
+- **Repo/instance content-tiering boundary + mandatory comms-knowledge curation.**
+  `captured-date`: 2026-06-14. `source-surface`: owner direction during the WS7 deep-dive + the
+  machine-local WS7 execution contract. `graduation-target`: PDR-094 (portable principle) + ADR-199 (repo
+  phenotype) amendment, AND wired into the `session-handoff` + `consolidate-docs` SKILLs + the Phase-3
+  README. `trigger-condition`: lands ATOMICALLY with/before WS7 Phase 3 (the `.agent/state/` untrack) —
+  the untrack ships an invisible broken state without it. `status`: DUE.
+  Substance: untracking comms state crystallises a repo-tier (shared by every clone: memory/docs/ADR/PDR/
+  patterns/plans) vs instance-tier (one checkout's comms/claims/heartbeats/channels) boundary; the untrack
+  removes the accidental git safety net, so comms-log knowledge curation into repo-tier homes becomes a
+  standing lifecycle obligation, not best-effort (PDR-066 capture surface; rides PDR-014 / PDR-080 / the
+  curator lane PDR-081).
+  HARD GATE: the affected-reader surfaces (PDR-094, ADR-199, session-handoff SKILL, consolidate-docs SKILL,
+  Phase-3 README) MUST land in one tranche — a protocol change recorded only in the decision record but
+  absent from the operational surfaces agents actually read is an invisible half-way broken state (third
+  instance of the pattern this session).
+  Loss-risk flagged: the full deep WS7 definition-of-done lives only in the machine-local execution
+  contract `~/.claude/plans/ah-very-good-in-quizzical-whisper.md` (boundary principle, provenance scope =
+  9 cited / 6 uncovered live events, the comms-archive-not-yet-gitignored sequencing gap, corpus
+  composition 5290 = 2464 heartbeat / 346 research-precious / ~2480 coordination, the deep DoD). That
+  substance MUST be routed into the repo companion plan (`comms-corpus-research-and-rotation-strategy`)
+  before the instance ends, else it is instance-tier-orphaned — a live worked instance of the boundary
+  principle above.

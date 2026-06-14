@@ -302,7 +302,7 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
 | `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
-| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Opus 4.8 / Bluebell mends Mulch / sole lane owner — WS0–WS6 COMPLETE + first-hand verified; WS5 rotation strategy RATIFIED by owner 2026-06-13 (proposal `2026-06-13-ws5-rotation-strategy-proposal.md`, two-round adversarial review; WS6 synthesis `2026-06-13-ws6-comms-corpus-synthesis.md`; §11 re-verify `2026-06-13-reverify-outcomes-bluebell.md`; committed f20680041). NEXT: owner-directed dedicated consolidation session (author rotation PDR/ADR + M2/SC1 PDR drafts, route §5 recs) then WS7 archive-not-delete execution / 2026-06-13 (prior: Kayak herds Ballast WS0–WS4+handoff; Katydid hunts Roost WS0–WS2, Myrtle weaves Thicket WS3, Geyser stirs Bronze WS3-forward+B/D/M2 — all 2026-06-13; Fern lifts Mulch 2026-06-12; Twilit Orbiting Satellite 2026-05-29) |
+| `agent-collaboration-research` | Comms-corpus pattern research | [record][collab-research] | claude-code / Opus 4.8 / Clipper wakes Atoll / WS7 successor (2026-06-14) — WS7 Phase-1 landed `6d1e45f35`, #7 doc cures landed `92bf05764`, WS7 Phase-2/3 + the repo/instance boundary-principle atomic-propagation gate DUE before the untrack; prior: claude-code / Opus 4.8 / Bluebell mends Mulch / sole lane owner — WS0–WS6 COMPLETE + first-hand verified; WS5 rotation strategy RATIFIED by owner 2026-06-13 (proposal `2026-06-13-ws5-rotation-strategy-proposal.md`, two-round adversarial review; WS6 synthesis `2026-06-13-ws6-comms-corpus-synthesis.md`; §11 re-verify `2026-06-13-reverify-outcomes-bluebell.md`; committed f20680041). NEXT: owner-directed dedicated consolidation session (author rotation PDR/ADR + M2/SC1 PDR drafts, route §5 recs) then WS7 archive-not-delete execution / 2026-06-13 (prior: Kayak herds Ballast WS0–WS4+handoff; Katydid hunts Roost WS0–WS2, Myrtle weaves Thicket WS3, Geyser stirs Bronze WS3-forward+B/D/M2 — all 2026-06-13; Fern lifts Mulch 2026-06-12; Twilit Orbiting Satellite 2026-05-29) |
 
 ## Next Safe Steps
 
@@ -317,14 +317,20 @@ verdicts, all complete; R2/R3 redone on Opus after a Fable outage), WS2 survey d
 one-way reports; tag-namespace-unreachable is the causal root of the zero-lifecycle/low-tag
 findings). ArcAngel relocated to the tracked home `.agent/collaboration/rapid-comms/`
 (owner-directed early WS7 slice). Running research-notes lab-notebook live at
-`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`. **Next safe step**: WS5 rotation strategy (→ owner ratification; NO deletion) + WS6 comprehensive
-synthesis, led by the incoming session. Orientation: read
-`reports/agentic-engineering/2026-06-13-comms-corpus-findings-and-handoff-kayak.md` FIRST (findings +
-handoff + adversarial trust-map + re-verify list), then the thread record. WS0–WS4 complete +
-first-hand verified; lane consolidated to Kayak herds Ballast (closing out this session). WS7
-owner-gated. Deep consolidation status: completed this handoff — owner-invoked session-completion
-consolidation (captures routed to permanent homes: findings synthesis, adversarial analysis,
-research-notes log, thread record, napkin).
+`reports/agentic-engineering/2026-06-13-comms-corpus-research-notes.md`. WS0–WS6 COMPLETE + ratified
+(PDR-094 + ADR-199) + consolidated (Juno mends Plasma, 2026-06-13). **Next safe step**: WS7 Phase 2
+(provenance-check module + cited-event digest + heartbeat-cadence artefact, then class-tiered
+archive-move into `comms-archive/`) → Phase 3 (untrack `.agent/state/` per the delegated boundary) →
+Phase 4 land. WS7 successor: Clipper wakes Atoll (PDR-063 from Whippoorwill). WS7 Phase-1 (schema
+relocation + validator decouple + (b) wing-fix) LANDED `6d1e45f35`; #7 ArcAngel doc cures LANDED
+`92bf05764`. **HARD GATE before Phase 3**: the repo/instance content-boundary principle + mandatory
+comms-knowledge curation must land ATOMICALLY across PDR-094 + ADR-199 + the session-handoff +
+consolidate-docs SKILLs + the Phase-3 README — else the untrack ships an invisible broken state
+(comms-log knowledge orphaned). Orientation: the deep WS7 DoD is in the machine-local contract
+`~/.claude/plans/ah-very-good-in-quizzical-whisper.md` (route its substance into the companion plan);
+the boundary principle + atomic-propagation gate live in `distilled.md` + `pending-graduations.md`.
+Deep consolidation status: due — boundary-principle doctrine landing + skill-wiring captured and DUE
+before WS7 Phase 3; this handoff conserved the at-risk knowledge to repo-tier homes.
 
 ### Agent Naming (v3 + era-pinning cure)
 
