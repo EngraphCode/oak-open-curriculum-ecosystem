@@ -4,6 +4,69 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-06-21 — practice-lineage restored to the evolution record; principles evacuated by intent (owner-directed, Ferret seeks Tunnel)
+
+Owner-directed clarity-of-purpose restoration: "the Practice lineage is supposed to be a
+git-like record of the branching and merging and transplanting and evolution of the Practice
+in different contexts … it is not supposed to encode principles." Authored best-effort
+(PDR-104); docs-adr-expert assessed.
+
+- **Restructured**: `practice-lineage.md` restored to a single purpose — the evolution record,
+  the narrative companion to `provenance.yml`: provenance mechanism, plasmid exchange & merge,
+  genesis/branching scenarios, two-way merge, maturity & adaptation. Removed from it: §Learned
+  Principles (evacuated, below) and the what-it-is / how-to-apply sections (§Principles,
+  §Metacognition, §Testing Philosophy, §Agent Pattern, §Workflow Commands, §Always-Applied Rules,
+  §Knowledge Flow, §Session-Entry Skills, §Validation) — verbatim duplicates of
+  `practice.md` / `practice-bootstrap.md` / `practice-verification.md`, conserved there.
+  855 → 288 lines.
+- **Evacuated by intent** (no tombstones; home-before-remove): the 19 axioms + 28 active
+  principles routed to their homes — ~37 already duplicated in `practice.md`, `principles.md`,
+  bootstrap, or PDR-004/005/015/018/024 (deleted, conservation verified first-hand); the
+  genuinely unhomed authored fresh.
+- **Added**: PDR-108 (generalise where generalisation does not cost utility), PDR-109 (culture is
+  what propagates across instances — the transmission of disposition), PDR-110 (repo-state
+  enforcement is its own proof layer + RED-first). All portable.
+- **Amended**: PDR-002 (the reinforcement-vs-multi-framing boundary); `practice.md` §Structure
+  (agent files are first-class infrastructure) and §Meta-Principles (homes-by-intent; rule-vs-skill;
+  intent-over-mechanics); `practice-bootstrap.md` (engineering-imperative enumeration as the
+  repo-case template; source-pointers repointed off the retired lineage sections). Per the tier
+  model — PDRs are portable, `principles.md` holds repo-specific cases that may be based on PDRs.
+- **Repointed**: trinity + PDR-005 + Core `index.md` role descriptions to the evolution-record
+  framing; 0 broken references.
+
+## [oak-open-curriculum-ecosystem] 2026-06-18 — best-effort doctrine authoring + recurrence-capture at the drain (dedicated consolidation, Wisteria spins Bark)
+
+Authored under the best-effort policy this entry records (no owner pre-ratification;
+reviewers run: assumptions-expert SOUND-WITH-FIXES, docs-adr-expert FIX-NEEDED — both
+absorbed before commit).
+
+- **Added**: PDR-104 (best-effort Practice-doctrine authoring in dedicated
+  consolidation sessions) — the primary agent authors/amends doctrine on best effort
+  without owner pre-ratification of each change; mistakes accepted, the knowledge flow
+  corrects them. Preserves PDR-003 sub-agent protection, the kept action-authority /
+  safety gates, and the PDR-101 quorum (as review, not pre-ratification). Disambiguates
+  the 2026-06-16 "Core-edit" gate (sub-agent-protection sense kept; per-amendment
+  owner-approval sense relaxed). Graduates the `PG-best-effort-consolidation-policy`
+  register item (register drained to decision-debt 0).
+- **Amended**: PDR-003 §Decision — reconciled the stale "with the human's consent in the
+  loop for changes of substance" wording to best-effort-no-pre-ratification (cites
+  PDR-104); sub-agent prohibition unchanged.
+- **Amended**: `consolidate-docs` skill — step 7 `duplicate` disposition gains a
+  recurrence check (a recurring-despite-home concept routes to the doctrine-traction
+  mechanism lane per PDR-098, not silent deletion); step 8 §3-§4 reconciled to
+  best-effort authoring (cites PDR-104).
+
+## [oak-open-curriculum-ecosystem] 2026-06-16 — universal CLI API-surface-design consistency (owner-directed)
+
+- **Amended**: PDR-055 — generalised from the coordination-CLI affordance set to
+  universal CLI API-surface-design consistency. Added clauses 7–10
+  (ask-only-caller-knowledge and default/derive tool-knowable values; teaching-help
+  content; actionable boundary errors; universal consistency with a conformance
+  guard); broadened the Scope split (clauses 1–6 coordination CLIs; 7–10 every CLI in
+  every Practice repo); retitled; Falsifiability axis added. Owner direction:
+  API-surface-design consistency is a universal requirement for all CLIs in all
+  Practice repos.
+
 ## [oak-open-curriculum-ecosystem] 2026-06-14 — comms-research closeout consolidation (Marlin weaves Marsh)
 
 The dedicated consolidation closing the comms-corpus research thread graduated its flagship

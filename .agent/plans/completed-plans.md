@@ -1,3 +1,5 @@
+Deprecated: to be removed - scan for useful content and move to permanent docs
+
 # Completed Plans
 
 Index of archived plans across all collections. When a plan is completed,
@@ -72,10 +74,12 @@ Before archival, mine completed outcomes into permanent documentation
 
 | Plan | Completed | Key Outcomes | Archive |
 |------|-----------|--------------|---------|
+| Decision-Debt Register Drain | 2026-06-16 | Drained the pending-graduations register 72 → 0 under an owner-directed graduation quorum (assumptions + docs + two Opus + primary correction). 17 lessons graduated to durable homes, ~50 rejects conserved-verified first-hand, 4 frictions routed (F-60..F-63), and 2 open questions (TA1 closeout self-election, P6 routing-blockage) routed to a new exploration plan. Established the graduation-quorum and homing-category models (PDR candidates). | [archived plan](agentic-engineering-enhancements/archive/completed/decision-debt-register-drain.plan.md) |
 | Documentation Accuracy Improvements | 2026-02 | Documentation inaccuracies and structural issues fixed as prerequisite for enforcement work. | [archived plan](agentic-engineering-enhancements/archive/completed/documentation-accuracy-improvements.plan.md) |
 | Continuity and Surprise Practice Adoption | 2026-04-03 | Installed `session-handoff`, split ordinary continuity from deep consolidation, closed the evidence window with an explicit `promote` decision, and graduated the portable continuity note that later promoted into Practice Core. | [archived plan](agentic-engineering-enhancements/archive/completed/continuity-and-surprise-practice-adoption.plan.md) |
 | Owner-Directed Intent-to-Commit Queue | 2026-04-27 | Implemented the advisory FIFO `commit_queue` and exact staged-bundle verification in `5c39d1d4`, then graduated the shared git transaction / authorial-bundle tripwire into PDR-029 Family A Class A.3 while keeping `session_counter` future-only. | [archived plan](agentic-engineering-enhancements/archive/completed/intent-to-commit-queue.execution.plan.md) |
 | Cross-Agent Standardisation | 2026-03 | Superseded — absorbed into ADR-125 (Agent Artefact Portability). | [archived plan](agentic-engineering-enhancements/archive/completed/cross-agent-standardisation.plan.md) |
+| Memory Surface Critical Drain | 2026-06-16 | Superseded by `decision-debt-register-drain.plan.md` — PDR-100 abolished the owner-gated / agent-actionable split it was built around; the register drain is now a single decide-by-the-lenses disposition pass. | [archived plan](agentic-engineering-enhancements/archive/superseded/memory-surface-critical-drain-2026-05-24.plan.md) |
 
 ---
 

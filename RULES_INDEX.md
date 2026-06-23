@@ -60,6 +60,7 @@ without proportional value.
 
 | Rule                                                                       | Classification | Trigger / Loading Signal                                                                         |
 | -------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------ |
+| `.agent/rules/agent-experience-review-lens.md`                             | always-on      | —                                                                                                |
 | `.agent/rules/agent-state-observable.md`                                   | always-on      | —                                                                                                |
 | `.agent/rules/agents-default-no-gender.md`                                 | always-on      | —                                                                                                |
 | `.agent/rules/apply-architectural-principles.md`                           | always-on      | —                                                                                                |
@@ -133,6 +134,7 @@ without proportional value.
 | `.agent/rules/replace-dont-bridge.md`                                      | always-on      | —                                                                                                |
 | `.agent/rules/respect-active-agent-claims.md`                              | always-on      | —                                                                                                |
 | `.agent/rules/rules-have-no-exceptions.md`                                 | always-on      | —                                                                                                |
+| `.agent/rules/scope-from-goal-before-approach.md`                          | always-on      | —                                                                                                |
 | `.agent/rules/sha-prefix-in-collaboration-content.md`                      | always-on      | —                                                                                                |
 | `.agent/rules/ship-independent-coordinate-dependent.md`                    | always-on      | —                                                                                                |
 | `.agent/rules/sonarqube-mcp-instructions.md`                               | trigger-loaded | SonarQube MCP server usage                                                                       |

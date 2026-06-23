@@ -344,6 +344,19 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   pre-archive-move check; the watcher-health justification is honestly a
   hypothesis, the windows hygiene targets; design Accepted 2026-06-13, execution
   deferred to WS7)
+- [ADR-200: Intent as a living idea knowledge-graph — graph-authoritative, dual embodiment, frontmatter connection](200-intent-as-a-living-idea-graph.md)
+  (ideas are the fundamental unit of intent; the idea knowledge-graph is the authoritative source of truth,
+  the human documents its co-equal embodiment connected by frontmatter typed-edges; built as a domain
+  instance over graph-core; two drift mechanisms; the planning-estate rewrite; Accepted 2026-06-22)
+- [ADR-201: External systems as evidence edges — integrating external state into the idea knowledge-graph](201-external-systems-evidence-integration.md)
+  (external systems are typed evidence edges and the graph stays canonical; direction invariant — intent
+  projects outward, services report back; capability modes + supervision + no-PII-in-VCS; unlocks the full
+  self-measuring-delivery value on top of the substrate; Proposed 2026-06-22, gated on the substrate)
+- [ADR-202: Orientation as one intent-discerning lens](202-orientation-as-one-intent-discerning-lens.md)
+  (the repo-bound orientation surface is one lens, not mode-specific skills; delivery mode — specific answer /
+  area overview / guided tour — is a discerned variable, not a skill boundary; setup is a distinct
+  side-effecting capability, never an information mode; PDR-112 seam and primer unchanged, PDR-112 not
+  amended; Accepted 2026-06-23)
 
 ## Key Architectural Decisions
 
@@ -489,6 +502,12 @@ Include migration impact if replacing a prior approach.}
 
 - **Proposed**: under discussion, not yet binding.
 - **Accepted**: binding. Code, rules, and quality gates must comply.
+  _Decided is not the same as validated_: an Accepted ADR may still have
+  deferred implementation or a `Candidate` paired-PDR. Record that maturity gap
+  explicitly (e.g. "acceptance gated on Phase N", a Future Work section) rather
+  than silently reading Accepted as fully shipped — and do not downgrade a
+  decided ADR to Proposed merely because implementation lags. Validation
+  maturity is a separate, explicitly-recorded axis, not a status downgrade.
 - **Superseded**: replaced by a newer ADR. Keep the file; update status
   and link to the successor.
 - **Deprecated**: no longer applicable (e.g. workspace removed).

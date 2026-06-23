@@ -118,14 +118,18 @@ Run these steps **before** formulating the commit message.
    `pull request 170` or move the reference to the real footer. Em-dashes
    and bullet shapes are innocent.
 
-   **Trust the checker only after a negative control:** advisory checkers
-   can run void and exit 0 (two seats observed an argless false-green run
-   on 2026-06-11; a deliberate-RED probe from repo root reproduces neither
-   today, so the trigger is environment-dependent). If the run does not
-   echo your message back (or prints usage), it checked nothing — re-run
-   with a deliberately bad message first, or fall back to
-   `pnpm exec tsx agent-tools/src/commit-advisories/check-commit-message.ts -F <file>`
-   from the repo root.
+   **The `commit-msg` hook is the real gate — do not test the checker.** The
+   `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
+   pre-draft `check-commit-message` script is an optional convenience to catch a
+   format slip ~30s earlier, not a gate. **Never run a per-commit negative
+   control** (a deliberately-bad message to "prove the checker is live") — that
+   tests the tool, not your message, and has no bridge to landing a conforming
+   commit. If you run the checker, trust its exit code; if a given invocation
+   looks void (no echo, usage text), do not escalate to a forensic probe — just
+   commit and let the hook gate the message. (An argless false-green run was
+   observed once on 2026-06-11 and is environment-dependent; a one-off
+   self-check is reasonable only if you genuinely suspect the checker is broken
+   on this machine — it is never a standing per-commit step.)
 
 5. **Surface any repo-specific extra hooks** flagged by `.husky/commit-msg`. In
    this repo at the time of writing, `pnpm agent-tools:prevent-accidental-major-version`
@@ -460,19 +464,32 @@ EOF
 `git commit -m "$(cat <<EOF)"` HEREDOC pattern, with one fewer subshell
 layer.)
 
-## Cursor Shell tool — stream truncation workaround
+## Stream truncation at the depcruise → turbo handover — workaround
 
-**Scope**: Cursor Shell tool sessions only. Other platforms (Claude Code,
-Codex CLI, direct terminal) use the plain HEREDOC above without
-modification.
+**Scope**: Cursor Shell tool sessions, AND the `commit-queue -- commit`
+workflow's spawned git-commit in Claude Code (observed 2026-06-17). Both
+stream the pre-commit hook's output live and both hit the same artefact.
+A plain `git commit` typed at a direct terminal is unaffected.
 
-**Observation (active 2026-04-23)**: when `git commit` is invoked from
+**Observation (active 2026-04-23, Cursor)**: when `git commit` is invoked from
 the Cursor Shell tool with stdout/stderr streaming live, the pre-commit
 hook's output is consistently cut off at the `depcruise → turbo`
 handover, the tool reports `Exit 1`, and no commit lands. Running the
 exact same hook directly via `bash .husky/pre-commit` exits 0 with full
 output, and running the same `git commit` invocation with stdout/stderr
 redirected to a file completes cleanly with the commit landing.
+
+**Observation (active 2026-06-17, Claude Code commit-queue)**: the same
+truncation hits the `pnpm agent-tools:commit-queue -- commit` workflow — its
+internally-spawned `git commit` streams the hook live and dies at the
+`depcruise → turbo` handover with `git commit exited with code 1`, output
+truncated mid-hook, no commit landing. It reproduces across retries (it is not
+a cold-cache timeout). The disambiguation is the same: `bash .husky/pre-commit`
+exits 0 standalone, proving the gates are green and the failure is the spawned
+live-stream, not the hook. Cure: fall back to a direct `git commit -F <msgfile>`
+with output redirected to a file (hooks intact, no `--no-verify`); then record
+the queue intent's outcome and close the `git:index/head` claim manually with
+the landed SHA, since the workflow's own `complete` step never ran.
 
 **Workaround**: redirect stdout/stderr to a temporary file and inspect
 the tail after the command completes:

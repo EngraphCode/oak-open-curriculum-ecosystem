@@ -34,8 +34,8 @@ resource removal protocol-safe.
 Evidence record: the 2026-05-28 capture in
 [`pending-graduations.md`](../../../.agent/memory/operational/pending-graduations.md) (§2026-05-28
 captures — EEF graph-tooling rebuild); the EEF plan's Ratified Decisions in
-[`eef-graph-tool-completion.plan.md`](../../../.agent/plans/sector-engagement/eef/current/eef-graph-tool-completion.plan.md);
-[`graph-tools-value-redesign.plan.md`](../../../.agent/plans/connecting-oak-resources/knowledge-graph-integration/current/graph-tools-value-redesign.plan.md)
+`eef-graph-tool-completion.plan.md`;
+`graph-tools-value-redesign.plan.md`
 (the executed Track-G arc); the client-behaviour research
 [`mcp-client-tool-result-consumption-2026-05-28.md`](../../../.agent/research/mcp-client-tool-result-consumption-2026-05-28.md).
 
@@ -126,7 +126,7 @@ questions for the convergence item).
 > (`formatToolResponse`: summary + serialised-JSON `content` blocks plus the
 > `structuredContent` payload) — the MCP spec's backwards-compatibility SHOULD
 > — for every graph tool; `get-eef-evidence` was realigned in PR-2 of the
-> [2026-06-11 snagging plan](../../../.agent/plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md)
+> 2026-06-11 snagging plan
 > (commit `20ad83326`). Evidence:
 > [`oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md`](../../../.agent/reports/oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md)
 > and [ADR-058's client-variability note](058-context-grounding-for-ai-agents.md).
@@ -221,6 +221,13 @@ projection under ADR-191, not relevance judgement.
   _(Resolved in part 2026-06-11: the content-shape half converged — the owner reversed
   structuredContent-only and every graph tool now emits the dual shape (§4 supersession note).
   The context-hint half remains open.)_
+- **Client-render evidence before ratifying a non-default response shape (general principle).**
+  Beyond these four tools: ratifying any non-default MCP response shape requires first-hand evidence
+  of how real agent clients _render_ it. The Cursor-vs-Claude-Code two-client matrix in §4 (Cursor
+  surfaced only the decoration keys; Claude Code surfaced only `structuredContent`) is the worked
+  precedent that falsified the implicit "clients surface structuredContent" assumption — the same
+  client-population rendering check applies before any future non-default shape is ratified, and is
+  a natural input to the output-schema / mcp-expert work.
 - **The "working with graphs" skill.** Authorised in the same graduation pass, it operationalises
   this category for agent practice (graph ≠ list, the forbidden list-ops, the soft-stub failure
   mode). It teaches this contract; it does not change it.
