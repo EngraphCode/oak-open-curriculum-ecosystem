@@ -494,6 +494,50 @@ describe('registerAllResources registers the widget resource', () => {
   });
 });
 
+describe('registerAllResources registers the Oak effort-orientation resource (docs://oak/explain.md)', () => {
+  let server: Pick<McpServer, 'registerResource'>;
+  let registeredResources: RegisteredResourceMap;
+  let readResource: (uri: string) => Promise<ReadResourceCapture>;
+  let flush: () => Promise<void>;
+  let options: ResourceRegistrationOptions;
+
+  beforeEach(() => {
+    const mock = createMockServer();
+    server = mock.server;
+    registeredResources = mock.registeredResources;
+    readResource = mock.readResource;
+    flush = mock.flush;
+    options = createTestOptions();
+  });
+
+  it('registers docs://oak/explain.md with low-salience nested annotations', async () => {
+    registerAllResources(server, options);
+    await flush();
+
+    const resource = registeredResources.get('docs://oak/explain.md');
+    expect(resource).toBeDefined();
+    expect(resource?.metadata.mimeType).toBe('text/markdown');
+    expect(resource?.metadata.annotations?.priority).toBe(0.2);
+    expect(resource?.metadata.annotations?.audience).toContain('assistant');
+    expect(resource?.metadata.annotations?.lastModified).toBeDefined();
+  });
+
+  it('serves the effort-orientation body, curriculum-clean (the separation firewall)', async () => {
+    registerAllResources(server, options);
+    await flush();
+
+    const resource = await readResource('docs://oak/explain.md');
+    const text = getTextContent(resource.contents[0]);
+    // The effort body is present: a stable behaviour-shell phrase AND effort-domain content
+    // (so this proves the overview is served, not merely that the body avoids prohibited text)...
+    expect(text).toContain('never a menu');
+    expect(text.toLowerCase()).toContain('agent-first');
+    // ... and the separation firewall holds: no curriculum-tool name, no filesystem path.
+    expect(text).not.toContain('get-curriculum-model');
+    expect(text).not.toContain('file://');
+  });
+});
+
 describe('registerAllResources matches the canonical resource catalogue (drift guard)', () => {
   let server: Pick<McpServer, 'registerResource'>;
   let registeredResources: RegisteredResourceMap;
@@ -506,12 +550,15 @@ describe('registerAllResources matches the canonical resource catalogue (drift g
     flush = mock.flush;
   });
 
-  it('registers exactly the ALL_MCP_RESOURCES URIs (widget aside) when the EEF flag is on', async () => {
+  it('registers exactly the ALL_MCP_RESOURCES URIs (app-local resources aside) when the EEF flag is on', async () => {
     registerAllResources(server, createTestOptions(undefined, true));
     await flush();
 
+    // The widget and the effort-orientation resource are APP-LOCAL (not in the SDK
+    // catalogue, by design — ADR-041); the catalogue drift-guard covers the SDK resources.
+    const appLocalUris = [WIDGET_URI, 'docs://oak/explain.md'];
     const registeredUris = Array.from(registeredResources.keys())
-      .filter((uri) => uri !== WIDGET_URI)
+      .filter((uri) => !appLocalUris.includes(uri))
       .sort((a, b) => a.localeCompare(b));
     const catalogueUris = ALL_MCP_RESOURCES.map((resource) => resource.uri).sort((a, b) =>
       a.localeCompare(b),

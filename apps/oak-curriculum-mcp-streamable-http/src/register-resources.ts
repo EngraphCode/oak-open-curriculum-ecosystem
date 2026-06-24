@@ -26,6 +26,7 @@ import {
   type ResourceRegistrationOptions,
 } from './register-resource-helpers.js';
 import { registerWidgetResource } from './register-widget-resource.js';
+import { EXPLAIN_ORIENTATION_BODY, EXPLAIN_LAST_MODIFIED } from './generated/explain-content.js';
 
 /**
  * Registers documentation resources for the "start here" experience.
@@ -70,6 +71,41 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
 }
 
 /**
+ * Registers the Oak effort-orientation resource (`docs://oak/explain.md`).
+ *
+ * A LOW-SALIENCE (`priority` low, `audience: ['assistant']`) `text/markdown` resource serving
+ * the curated effort-orientation body — how Oak builds and delivers its curriculum (purpose,
+ * machinery at executive altitude, how to engage) — for the minority audience (assistants /
+ * integrators) that wants it. Effort-domain ONLY (owner separation principle): it never
+ * describes curriculum content, which the curriculum tools serve. The body is the committed
+ * generated constant, so the published surface reads no filesystem (ADR-041); `lastModified`
+ * is the body's source-commit freshness signal.
+ */
+function registerExplainResource(server: ResourceRegistrar): void {
+  const uri = 'docs://oak/explain.md';
+  server.registerResource(
+    'Oak effort orientation',
+    uri,
+    {
+      title: 'Oak effort orientation',
+      description:
+        'How Oak builds and delivers its curriculum — the project/effort/ecosystem, its purpose ' +
+        'and machinery, and how to engage. For assistants and integrators; a separate concern ' +
+        'from curriculum content, which the curriculum tools serve.',
+      mimeType: 'text/markdown',
+      annotations: {
+        priority: 0.2,
+        audience: ['assistant'],
+        lastModified: EXPLAIN_LAST_MODIFIED,
+      },
+    },
+    () => ({
+      contents: [{ uri, mimeType: 'text/markdown', text: EXPLAIN_ORIENTATION_BODY }],
+    }),
+  );
+}
+
+/**
  * Registers the EEF interpretation resource (`eef://interpretation`).
  *
  * A static `text/markdown` reasoning scaffold for the EEF Toolkit evidence
@@ -104,6 +140,7 @@ export function registerAllResources(
 ): void {
   registerDocumentationResources(server);
   registerCurriculumModelResource(server);
+  registerExplainResource(server);
   // EEF is co-gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED, kill-switch,
   // default ON): register the resource unless an explicit `=false` disables it. The
   // tool and prompt are gated by the same flag (D6 c6).

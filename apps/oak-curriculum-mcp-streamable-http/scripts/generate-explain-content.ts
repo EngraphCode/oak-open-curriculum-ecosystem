@@ -32,6 +32,10 @@ import {
   fingerprintCanonicalBehaviour,
   EXPECTED_CANONICAL_BEHAVIOUR_FINGERPRINT,
 } from '../src/explain/canonical-behaviour-contract.js';
+import {
+  fingerprintEffortSource,
+  EXPECTED_EFFORT_SOURCE_FINGERPRINT,
+} from '../src/explain/effort-source-contract.js';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const appRoot = resolve(scriptDir, '..');
@@ -78,13 +82,26 @@ if (fingerprint !== EXPECTED_CANONICAL_BEHAVIOUR_FINGERPRINT) {
   process.exit(1);
 }
 
+// Effort-source drift-guard: the curated effort overview must match the README/VISION
+// effort prose it was reviewed against, or generation fails loud (same tested-single-sourcing
+// pattern as the canonical behaviour drift-guard above).
+const readme = readFileSync(sources.readme, 'utf-8');
+const vision = readFileSync(sources.vision, 'utf-8');
+const effortFingerprint = fingerprintEffortSource(readme, vision);
+if (effortFingerprint !== EXPECTED_EFFORT_SOURCE_FINGERPRINT) {
+  process.stderr.write(
+    'DRIFT-GUARD FAILED: the README/VISION effort source has changed.\n' +
+      'Re-review the curated EXPLAIN_EFFORT_OVERVIEW against the source, then re-pin\n' +
+      'EXPECTED_EFFORT_SOURCE_FINGERPRINT in effort-source-contract.ts.\n' +
+      `  expected: ${EXPECTED_EFFORT_SOURCE_FINGERPRINT}\n` +
+      `  actual:   ${effortFingerprint}\n`,
+  );
+  process.exit(1);
+}
+
 const lastModified = newestSourceCommitDate([sources.canonical, sources.readme, sources.vision]);
 
-const body = transformExplainContent({
-  readme: readFileSync(sources.readme, 'utf-8'),
-  vision: readFileSync(sources.vision, 'utf-8'),
-  lastModified,
-});
+const body = transformExplainContent({ lastModified });
 
 const escaped = body.replaceAll('\\', '\\\\').replaceAll('`', '\\`').replaceAll('${', '\\${');
 
@@ -93,17 +110,16 @@ mkdirSync(dirname(outputPath), { recursive: true });
 const output = `/**
  * GENERATED FILE — DO NOT EDIT
  *
- * Explain effort-orientation body: curated behaviour shell plus stable README/VISION
- * effort-overview, behind the curriculum and volatility firewalls. Re-generate:
- * pnpm generate:explain-content
+ * Explain effort-orientation body: the curated behaviour shell plus the curated
+ * effort-overview, each anchored to its source by a generation-time drift-guard
+ * (curriculum and volatility firewalls held by construction in the curated constants).
+ * Re-generate: pnpm generate:explain-content
  *
- * @see scripts/generate-explain-content.ts - generation step (carries the drift-guard)
+ * @see scripts/generate-explain-content.ts - generation step (carries the drift-guards)
  */
 export const EXPLAIN_ORIENTATION_BODY = \`${escaped}\` as const;
 
 export const EXPLAIN_LAST_MODIFIED = '${lastModified}' as const;
-
-export const CANONICAL_BEHAVIOUR_FINGERPRINT = '${fingerprint}' as const;
 `;
 
 writeFileSync(outputPath, output, 'utf-8');
