@@ -51,30 +51,6 @@ staged for a second instance before graduating to a pattern. Sibling:
 [`tool-output-framing-bias`](patterns/tool-output-framing-bias.md) and the parsing-interleaved
 entry above (both: the shape of the aggregate misleads).
 
-## Decision locus: product strategy is the owner's; engineering/architecture is collaborative
-
-Calibrated by the owner across the strategy sessions (2026-06-20). Two loci, distinct:
-**product-level** strategy (diagnosis / how-we-win / measures / feature shaping) is the
-owner's — input and questions stay valuable, but I do not decide; **engineering strategy /
-architecture / technical approach** is **collaborative, case-by-case** — propose, reason,
-push for long-term excellence, never go passive. The failure mode **oscillates**:
-over-claim (deciding product strategy from partial grounding) ↔ over-suppress (marking
-owner-owned substance "deferred" and doing zero analysis — abdication, not deference). The
-stable point is neither pole: it is the **read-gate** (gate every substantive claim on
-"have I read the source this rests on?") plus **locus-awareness**, never silence. Source:
-2026-06-20 (Kayak seeks Coral, owner re-calibration). Refines `user-collaboration.md`
-§Risk-and-Decisions; sibling: [[passive-guidance-loses-to-artefact-gravity]],
-[[feedback_ground_convenient_claims]].
-
-## Knowledge surfaces are curated suggestions to a judging agent, not control-flow
-
-A skill, register, or routing pointer is read by a judging agent that decides what serves the
-moment — it is guidance, not a branch the system must execute. So a skill suggesting another
-skill carries no loop/cycle risk, and a reviewer's *lens* (the frame it judges from) matters
-as much as its facts. Applied 2026-06-22 framing onboard-me Branch F's primer hand-off as
-"a suggestion to your judgement, not a gate". Graduation candidate: PDR clause or pattern.
-Source: prior-session owner correction, promoted from the per-user buffer.
-
 ## Preserve the value-rationale (why-it-matters) at handoff, not only the what and how
 
 A plan's user stories carry *why it matters* — the most easily lost and most valuable layer.
@@ -192,6 +168,30 @@ Sibling: [[feedback_agent_identity_name_plus_uuid]].
   run (the owner walk) caught the orientation lens (and the agent's own answers) defaulting to walls of
   text. Source 2026-06-23 (Zenith, orientation-lens); encoded in the `explain` skill §Delivery grain.
   Siblings: [[present-verdicts-not-menus]].
+- **Bash/grep tool output of source can be substring-filtered; Read is not.** Several greps returned
+  bodies with tokens collapsed (e.g. `user-search`→`n`, `examBoard`); the Read tool rendered the same
+  files faithfully. When grep/Bash output of source looks mangled or suspiciously masked, switch to Read
+  for the load-bearing read — do not reason over the filtered text. Source 2026-06-23 (Blazar).
+
+## A whole-tree gate failing on files you didn't touch (and your own recent commits passed) ≠ your bug
+
+When a whole-tree gate (type-check, lint, full `pnpm check`) fails on a surface you never changed AND
+your own recent commits passed that exact gate minutes earlier, read active-claims + comms for a
+concurrent agent BEFORE assuming your change broke it — a peer's in-flight feature can leave the shared
+working tree transiently red. The cure is to coordinate (post the exact failing locations to the owning
+agent) and wait event-driven for their atomic cycle to heal the tree, NOT to patch their in-flight work
+(collision). Source 2026-06-23 (Blazar). Multi-developer/shared-checkout territory (F-83). Sibling:
+[[respect-active-agent-claims]].
+
+## State the positive understanding the reader needs, not your own correction path
+
+A recurring authoring failure: your *process* leaks into the *artefact*. After being corrected, you write
+the correction path into the copy — a tombstone ("isn't X, doesn't need to be X"), over-explaining that
+reuses your own contemplative imagery, narrating a journey to a reader who never held the misconception.
+State the positive understanding the reader actually needs; the reader did not take your path and does not
+need it retraced. Fluency is the tell — a tidy synthesis arriving smoothly is the tripwire to re-ground,
+not confirmation. Source 2026-06-22 (Skipper, the over-unification/tombstone window). Siblings:
+[[no-tombstones-for-removed-ideas]], the per-user [[feedback_graphs_as_method_not_one_artefact]].
 
 ## A scanner finding's disposition is decided by the lenses, not precedent; fix-vs-dismiss is rarely an owner-fork
 
@@ -204,10 +204,15 @@ N prior dismissals of a rule do NOT make THIS site a false-positive (a 12×-dism
 owner-fork when the decision lenses (LTAE first) decisively resolve it is analysis-passback; the lenses'
 own gate escalates to the owner only when all five fail or it is product/feature scope. The "harden"
 arm of one alleged fork was already implemented in the code I'd read. The outward-facing ACT of marking
-a dismissal still needs owner authorisation; the disposition *determination* does not. Source 2026-06-23
-(Galleon binds Seabed, PR 213 — 14 findings → 7 genuine fixes + 7 merit-grounded false-positives).
-Siblings: [[feedback_existence_is_not_correctness_default_replace]], [[feedback_no_responsibility_passback]],
-[[feedback_forced_verdict_resting_on_my_interpretation_is_a_question]].
+a dismissal still needs owner authorisation; the disposition *determination* does not. (c) **A
+deliberately-adopted profile's findings are a worklist, not noise** — when an owner activates a new
+profile on purpose (e.g. the Sonar AI profile), target zero; do NOT frame the resulting backlog as an
+activation-wave to "wait out" via push-and-reanalyse (that lesson is for STALE/zombie analysis only);
+every finding is fix-or-genuine-FP. Triage by cause-class, but a class splits by disposition-route
+(generated→generator, generator-source→in-place, hand-written→consolidate, vendored→import/FP). Source
+2026-06-23 (Galleon binds Seabed, PR 213 — 14 findings → 7 fixes + 7 FPs); refined 2026-06-24 (Aspen
+tracks Root, main AI-profile-to-zero plan). Siblings: [[feedback_existence_is_not_correctness_default_replace]],
+[[feedback_no_responsibility_passback]], [[feedback_forced_verdict_resting_on_my_interpretation_is_a_question]].
 
 ## To verify "is X guarded," trace EVERY layer; a black-box re-run can false-pass
 

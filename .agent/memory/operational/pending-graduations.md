@@ -84,33 +84,23 @@ substance reached its permanent home: the new-in-kind vessel doctrine and the
 over-caution recurrence evidence are live in their homes, and the best-effort-safety
 link is folded into PDR-104 itself. New capture appends below.*
 
-- **Falsifiable-judgment quality gate (decompose the judgment against the source,
-  don't trust a holistic verdict)**
+*Register empty (2026-06-23 dedicated consolidation, Narwhal tracks Lagoon). The two live
+candidates were decided this pass per owner direction: the falsifiable-judgment-gate candidate
+graduated to PDR-116; the state-tier process-and-archive-move convention graduated to ADR-203.
+New capture appends below.*
 
-  `[captured: 2026-06-21 | source: napkin (Saffron holds Sepal) + restructure-substance-specs.md
-  Spec 1 | target: PDR with pdr_kind: pattern (falsifiable-judgment-gate) | trigger: SECOND
-  instance of the shape in another gate/review → ready to synthesise the general form (one
-  instance now: the substance-gate effectiveness arm) | size: small | status: pending]`
+- **Assurance-regime portable PDR (test / evaluate / assure + 3 harm-keyed tiers)**
 
-  A quality gate's judgment-heavy arm is its theater-risk locus: where
-  conformance/traceability/no-loss have concrete mechanisms, a "does X plausibly achieve Y" arm
-  can pass by hand-waving. Cure: decompose the judgment against a FIXED checklist of dimensions
-  Y's source visibly contains, so under-decomposition is falsifiable by the source (not reviewer
-  taste) and the verdict is unrenderable without the source-anchored coverage × soundness map.
-  One instance so far (the effectiveness arm); needs a second to synthesise the PDR-pattern
-  general form.
+  `[captured: 2026-06-24 | source: napkin (Magnolia spins Mulch), archived in
+  napkin-2026-06-23-narwhal-consolidation.md | target: Core PDR (pdr_kind governance) so the
+  assurance regime travels with Practice Core | trigger: a SECOND Practice-bearing repo faces the
+  assurance-regime decision (plasmid exchange) AND the regime is stable across >=1 later session |
+  size: small | status: pending]`
 
-- **State-tier process-and-archive-move convention (extend ADR-199 rotation to
-  non-comms collaboration state)**
-
-  `[captured: 2026-06-21 | source: archive/README.md + .agent/state/collaboration/.gitignore +
-  napkin (Saffron holds Sepal) | target: ADR-199 amendment (or a sibling ADR) generalising
-  archive-move to conversations/sidebars/handoffs | trigger: SECOND state-archive-move pass, OR
-  the memory-vs-state local-split lands → DUE | size: small | status: pending]`
-
-  Owner doctrine (2026-06-21): stale collaboration state is PROCESSED (substance
-  verified-conserved into canonical homes), then ARCHIVE-MOVED to an untracked archive, NEVER
-  git-rm'd. This session built the convention for conversations/sidebars/handoffs (untracked
-  `archive/`, tracked README, gitignored contents) mirroring ADR-199's comms-event rotation.
-  Currently a one-instance local convention; graduate to an ADR (amendment or sibling) when a
-  second pass or the planned memory-vs-state split makes it general.
+  The assurance regime (test/evaluate/assure; three harm-keyed tiers; in-repo eval home; closing
+  against a real-world value signal) is already homed as host directives (principles.md §Agentic
+  Quality + validation-strategy.md). Only the PORTABLE generalisation — authoring it as a Core PDR
+  so it travels to other repos — awaits a second Practice-bearing repo facing the same decision;
+  genuinely external-gated, not agent-drivable now. Owner kept-gated 2026-06-24. Homed here (from
+  the archived napkin) so a future consolidation pass that walks this register sees the candidate
+  when the trigger fires.
