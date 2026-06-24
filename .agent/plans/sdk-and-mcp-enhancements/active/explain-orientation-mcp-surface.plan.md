@@ -538,6 +538,47 @@ research-capture log and the `worktree-per-agent-transition` future plan; mine t
 behaviour shell + the stable in-domain content; firewall the out-of-domain and the
 volatile) into the appropriate permanent home if it recurs.
 
+## Deferred Pre-Ship Requirements (owner-directed 2026-06-24)
+
+Owner direction (2026-06-24): the explain skill gains new expert audiences whose
+needs MUST be worked into the skill before this group of work (the worktree pilot)
+ships. **Record now; do NOT build now.** All effort/governance-domain — consistent
+with the reshaped effort-domain surface and the separation principle.
+
+New audiences and their needs:
+
+1. **Education experts** — the intended impact of the effort and the sources being
+   used.
+2. **Product experts** — intended impacts, the non-engineering requirements, and the
+   compliance features / checks / assurances being planned.
+3. **Leadership, Compliance, Education, and Product experts (cross-functional)** —
+   what sources are surfaced in the MCP and semantic-search apps, when each was
+   adopted, the criteria for reviewing suitability, when each was last reviewed, and
+   the criteria for removal.
+
+Design notes (for the pre-ship build, not now):
+
+- **Data-source provenance vs the curriculum firewall.** Audience 3 needs explain to
+  NAME the data sources as provenance/governance (effort-domain). The D1.1 curriculum
+  firewall currently bans curriculum-surface references outright; it needs the
+  refinement already implied by the domain-negative: **naming a source as
+  provenance/governance is allowed; describing curriculum content/structure is not.**
+  This interacts with the D1 behaviour-shell shape decision (open with the Director).
+- **`DATA-SOURCES.md` candidate (owner-floated).** No such file exists today; ADR-157
+  (multi-source open-education integration) and ADR-152 (provenance) are related but
+  there is no consolidated governance/lifecycle surface with the since / review-criteria
+  / last-reviewed / removal-criteria shape audience 3 wants. A repo-root `DATA-SOURCES.md`
+  (or `docs/governance/`) is the leading home; explain would POINT to it rather than
+  bake volatile review dates (volatility firewall). Placement is cross-cutting — owner
+  and Director call.
+- **Where it lands.** The audience-angles and content belong in the explain
+  `SKILL-CANONICAL` (shared Practice artefact — a coordination-branch edit, not this
+  feature branch) and in this WS-B MCP projection. The shared-skill edit, the
+  `DATA-SOURCES.md` decision, and the group ship-gate are routed to the Director.
+
+**Ship-gate:** WS-B (and the group) does not ship until these audiences are served by
+the explain skill, or the owner explicitly descopes them.
+
 ## Lifecycle Triggers
 
 Per [`components/lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md):
