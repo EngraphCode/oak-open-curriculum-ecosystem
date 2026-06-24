@@ -114,9 +114,26 @@ function keepSections(md: string, allow: readonly string[]): string {
     .join('\n\n');
 }
 
-/** Convert markdown links `[text](target)` to plain `text` (remote has no filesystem). */
+/**
+ * Convert markdown links `[text](target)` to plain `text` (remote has no filesystem).
+ * The target match tolerates one level of nested parens (e.g. anchor `#section-(v2)`)
+ * so a paren in the target cannot leave a dangling `)` in the output.
+ */
 function delinkify(text: string): string {
-  return text.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1');
+  return text.replace(/\[([^\]]+)\]\((?:[^()]|\([^()]*\))*\)/g, '$1');
+}
+
+/**
+ * Drop markdown table rows. Capability matrices carry data-scope detail (and, in the
+ * README, curriculum-structure vocabulary in their cells) rather than effort-purpose
+ * prose; the level-3 denylist does not reach a table in a kept section's preamble, so
+ * this closes that curriculum-domain leak path. The orientation body is prose anyway.
+ */
+function stripTableRows(text: string): string {
+  return text
+    .split('\n')
+    .filter((line) => !/^\s*\|.*\|/.test(line))
+    .join('\n');
 }
 
 /** Remove point-in-time status/lifecycle claims (volatility firewall). */
@@ -140,7 +157,7 @@ function stripFsCoupling(text: string): string {
         !line.includes('.agent/') &&
         !line.includes('README.md') &&
         !line.includes('VISION.md') &&
-        !/`[^`]*\/[^`]*`/.test(line) &&
+        !/`[^`:]*\/[^`:]*`/.test(line) &&
         !/read the (file|canonical|live doc)/i.test(line),
     )
     .join('\n');
@@ -164,8 +181,10 @@ export function transformExplainContent(inputs: ExplainContentInputs): string {
     .trim();
 
   const effortOverview = tidyBlankLines(
-    stripFsCoupling(
-      genericiseVolatileClaims(delinkify([effortFromReadme, effortFromVision].join('\n\n'))),
+    stripTableRows(
+      stripFsCoupling(
+        genericiseVolatileClaims(delinkify([effortFromReadme, effortFromVision].join('\n\n'))),
+      ),
     ),
   );
 

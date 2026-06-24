@@ -11,11 +11,18 @@
  * remote context with NO live-doc routing and NO repo paths.
  *
  * SINGLE-SOURCING IS A TESTED RELATIONSHIP, NOT A HOPE (PDR-112 / ADR-202): this
- * projection is anchored to the canonical's behaviour contract by the drift-guard
- * in `behaviour-shell.drift-guard.unit.test.ts`. If the canonical's behaviour
- * sections change, the drift-guard FAILS, forcing a deliberate re-curation of this
- * constant and a re-pin of the fingerprint. Do not edit this constant without
- * re-running the drift-guard.
+ * projection is anchored to the canonical's behaviour contract by the drift-guard:
+ * the generation-time assertion in generate-explain-content.ts (mechanism tested in
+ * canonical-behaviour-contract.unit.test.ts). If the canonical's behaviour sections
+ * change, the drift-guard FAILS, forcing a deliberate re-curation of this constant and
+ * a re-pin of the fingerprint. Do not edit this constant without re-running it.
+ *
+ * NOTE on the Honesty Invariants below: they are a curated projection, not a verbatim
+ * copy of the canonical's. "Snapshot honesty" is an intentional ADDITION with no
+ * canonical equivalent — it is required by the remote (static, no-live-read) context.
+ * "Setup-completion attribution" (canonical) is intentionally OMITTED — it is in-session
+ * state, irrelevant to a static remote body. The drift-guard fingerprints the canonical,
+ * so a canonical-side change is still caught; these shell-side deltas are by design.
  *
  * @see .agent/skills/explain/SKILL-CANONICAL.md — the behaviour SSOT this projects
  * @see src/explain/canonical-behaviour-contract.ts — the drift-guard anchor

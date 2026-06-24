@@ -27,6 +27,10 @@ Oak makes a high-quality curriculum freely available, delivered into the
 third-party AI assistants teachers already use. Three value-streams: schools,
 teachers, and the wider ecosystem.
 
+| Capability | What it does |
+| --- | --- |
+| Semantic Search | Hybrid retrieval across lessons, units, threads, and curriculum sequences |
+
 ### Data Sources
 
 The curriculum is organised into key stages 1 to 4, with subjects broken into
@@ -44,6 +48,7 @@ Run \`pnpm install\` then see \`docs/setup.md\`.
 
 As of February 2026, every line of code has been written by agents under a
 [gated, reviewer-backed practice](docs/foundation/agentic-engineering-system.md).
+Explore it at sandbox.oaknational.dev.
 `;
 
 const VISION_FIXTURE = `---
@@ -89,13 +94,13 @@ describe('transformExplainContent', () => {
       const body = build().toLowerCase();
       expect(body).toContain('at most three');
       expect(body).toContain('never a menu');
-      expect(body).toContain('specific');
-      expect(body).toContain('overview');
-      expect(body).toContain('tour');
       expect(body).toContain('escalation ladder');
-      expect(body).toContain('exists');
-      expect(body).toContain('planned');
-      expect(body).toContain('teammate');
+      // shell-unique phrases (not common single words) so the assertion can only
+      // pass if the curated shell content is present, not incidental effort prose:
+      expect(body).toContain('what exists today');
+      expect(body).toContain('what is planned');
+      expect(body).toContain('an oak teammate or exploring from outside');
+      expect(body).toContain('adapt silently');
     });
   });
 
@@ -114,6 +119,13 @@ describe('transformExplainContent', () => {
       const body = build().toLowerCase();
       expect(body).not.toContain('key stages 1 to 4');
       expect(body).not.toContain('units and lessons');
+      // regression: the capability-table preamble precedes the level-3 denylist, so
+      // table cells with curriculum-structure vocabulary must be stripped (the table
+      // is dropped wholesale) — not leaked into the effort body.
+      expect(body).not.toContain('lessons, units, threads');
+    });
+    it('retains the parent effort section, stripping only its denied subsections and table', () => {
+      expect(build()).toContain('What This Repo Provides');
     });
     it('does not name curriculum tools or data surfaces', () => {
       const body = build();
@@ -129,6 +141,9 @@ describe('transformExplainContent', () => {
       expect(body).not.toContain('curriculum-mcp-alpha.oaknational.dev');
       expect(body).not.toMatch(/as of \w+ \d{4}/i);
       expect(body).not.toMatch(/\d+\s+curriculum tools/i);
+      // a non-status deployment URL is REPLACED (not just deleted), pinning the substitution:
+      expect(body).toContain('the Oak MCP server');
+      expect(body).not.toContain('sandbox.oaknational.dev');
     });
   });
 

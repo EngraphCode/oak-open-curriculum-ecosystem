@@ -11,10 +11,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import {
-  fingerprintCanonicalBehaviour,
-  EXPECTED_CANONICAL_BEHAVIOUR_FINGERPRINT,
-} from './canonical-behaviour-contract.js';
+import { fingerprintCanonicalBehaviour } from './canonical-behaviour-contract.js';
 
 const CANONICAL_FIXTURE = `# Explain — the orientation lens
 
@@ -63,9 +60,5 @@ describe('fingerprintCanonicalBehaviour', () => {
       ),
     );
     expect(after).toBe(before);
-  });
-
-  it('pins a stable 64-char hex fingerprint of record', () => {
-    expect(EXPECTED_CANONICAL_BEHAVIOUR_FINGERPRINT).toMatch(/^[0-9a-f]{64}$/);
   });
 });
