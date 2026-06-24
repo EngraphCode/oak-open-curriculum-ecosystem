@@ -1,36 +1,36 @@
 /**
- * Explain effort-orientation content transformer (WS-B, D1).
+ * Explain effort-orientation content transformer (WS-B, D1 — curated-projection shape).
  *
- * Projects the explain lens onto a self-contained body for a remote MCP client
- * that has no repo filesystem. It bakes:
+ * Assembles the body served by the explain MCP surfaces (tool / resource / prompt)
+ * for a remote client with no repo filesystem, from two parts:
  *
- *   - the lens BEHAVIOUR SHELL — extracted from the explain SKILL-CANONICAL by an
- *     allowlist of section headings (Front Door / discernment, Three Delivery
- *     Modes, Honesty Invariants, Access-Aware Fork);
- *   - a stable EFFORT-OVERVIEW — extracted from README/VISION by an allowlist of
- *     effort sections, with curriculum-structure subsections denylisted out.
+ *   - the curated PORTABLE behaviour projection (`EXPLAIN_BEHAVIOUR_SHELL`) — authored
+ *     clean, anchored to the canonical by the drift-guard (single-sourcing as a
+ *     tested relationship; see canonical-behaviour-contract.ts). Verbatim extraction
+ *     of the canonical's behaviour sections was abandoned: it baked in-repo
+ *     live-routing and fs-coupling into a remote surface (Director verdict 2026-06-24).
+ *   - the stable EFFORT-OVERVIEW — extracted from README/VISION effort sections,
+ *     behind the curriculum and volatility firewalls.
  *
- * Behind two firewalls (owner separation principle, 2026-06-24):
+ * Firewalls applied to the assembled body (the curated shell is already clean):
+ *   - curriculum DOMAIN firewall — README curriculum-structure subsections are
+ *     denylisted out (Data Sources, MCP Server Capabilities); naming curriculum as
+ *     what the effort SERVES is permitted, describing it is not.
+ *   - volatility firewall — point-in-time status/lifecycle claims genericised
+ *     (alpha banner, "as of <month>", live counts, deployment URLs).
+ *   - fs-coupling — markdown doc-links delinkified (link text kept, path dropped) and
+ *     any residual repo-path lines stripped, so the remote body references no filesystem.
  *
- *   - curriculum DOMAIN firewall — extraction never pulls curriculum-structure
- *     sections (README "Data Sources", "MCP Server Capabilities", curriculum-guide
- *     prose); naming curriculum as what the effort SERVES is permitted.
- *   - volatility firewall — a genericisation pass removes every point-in-time
- *     status/lifecycle claim (alpha banner, "as of <month>", live counts,
- *     deployment URLs), not only the live progress report (which is never read).
+ * Pure function; no IO, no global clock — `lastModified` is passed in (the generation
+ * script derives it from the newest source-file commit date).
  *
- * The firewalls are STRUCTURAL (allowlist + denylist) with the genericisation
- * pass and the D1.1 unit assertions as the backstop against stray claims inside
- * kept sections. Pure function; no IO, no global clock — `lastModified` is passed
- * in (the generation script derives it from the newest source-file commit date).
- *
- * @see embed-widget-html.ts — the sibling generation-step pattern
- * @see .agent/skills/explain/SKILL-CANONICAL.md — behaviour-shell SSOT
+ * @see src/explain/behaviour-shell.ts — the curated behaviour projection
+ * @see src/explain/canonical-behaviour-contract.ts — the drift-guard anchor
  */
 
+import { EXPLAIN_BEHAVIOUR_SHELL } from './behaviour-shell.js';
+
 export interface ExplainContentInputs {
-  /** Raw text of `.agent/skills/explain/SKILL-CANONICAL.md`. */
-  canonical: string;
   /** Raw text of repo-root `README.md`. */
   readme: string;
   /** Raw text of repo-root `VISION.md`. */
@@ -40,35 +40,20 @@ export interface ExplainContentInputs {
 }
 
 interface Level2Block {
-  /** Heading text without the leading `## `. */
   heading: string;
-  /** The block including its `## ` heading line and all nested content. */
   text: string;
 }
-
-/** Behaviour-shell sections to keep from the canonical (prefix match, case-insensitive). */
-const CANONICAL_ALLOW: readonly string[] = [
-  'the front door',
-  'the three delivery modes',
-  'honesty invariants',
-  'access-aware fork',
-];
 
 /** Effort sections to keep from the README (prefix match, case-insensitive). */
 const README_ALLOW: readonly string[] = ['what this repo provides', 'engineering practice'];
 
-/**
- * Level-3 subsections to strip from otherwise-kept sections — the curriculum
- * DOMAIN firewall at the structural level (these live under README "What This
- * Repo Provides" in the real document).
- */
+/** Curriculum-structure subsections to strip from kept README sections (domain firewall). */
 const LEVEL3_DENY: readonly string[] = [
   'data sources',
   'mcp server capabilities',
   'sector reusable components',
 ];
 
-/** Strip a leading YAML frontmatter block (`---` … `---`). */
 function stripFrontmatter(md: string): string {
   if (!md.startsWith('---')) {
     return md;
@@ -81,7 +66,6 @@ function stripFrontmatter(md: string): string {
   return after === -1 ? '' : md.slice(after + 1);
 }
 
-/** Split markdown into level-2 (`## `) blocks; pre-heading content is dropped. */
 function splitLevel2Blocks(md: string): Level2Block[] {
   const lines = md.split('\n');
   const blocks: Level2Block[] = [];
@@ -107,7 +91,6 @@ function headingMatches(heading: string, allow: readonly string[]): boolean {
   return allow.some((a) => h.startsWith(a));
 }
 
-/** Remove denylisted level-3 (`### `) subsections from a block's text. */
 function stripDeniedSubsections(blockText: string): string {
   const lines = blockText.split('\n');
   const kept: string[] = [];
@@ -124,11 +107,16 @@ function stripDeniedSubsections(blockText: string): string {
   return kept.join('\n');
 }
 
-function keepSections(md: string, allow: readonly string[], denyLevel3: boolean): string {
+function keepSections(md: string, allow: readonly string[]): string {
   return splitLevel2Blocks(md)
     .filter((b) => headingMatches(b.heading, allow))
-    .map((b) => (denyLevel3 ? stripDeniedSubsections(b.text) : b.text))
+    .map((b) => stripDeniedSubsections(b.text))
     .join('\n\n');
+}
+
+/** Convert markdown links `[text](target)` to plain `text` (remote has no filesystem). */
+function delinkify(text: string): string {
+  return text.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1');
 }
 
 /** Remove point-in-time status/lifecycle claims (volatility firewall). */
@@ -142,7 +130,7 @@ function genericiseVolatileClaims(text: string): string {
     .replace(/`?[\w-]+\.oaknational\.dev`?/g, 'the Oak MCP server');
 }
 
-/** Final belt-and-braces strip of any line carrying filesystem / repo-path coupling. */
+/** Strip any residual line carrying filesystem / repo-path coupling. */
 function stripFsCoupling(text: string): string {
   return text
     .split('\n')
@@ -152,46 +140,46 @@ function stripFsCoupling(text: string): string {
         !line.includes('.agent/') &&
         !line.includes('README.md') &&
         !line.includes('VISION.md') &&
+        !/`[^`]*\/[^`]*`/.test(line) &&
         !/read the (file|canonical|live doc)/i.test(line),
     )
     .join('\n');
 }
 
-/** Collapse 3+ blank lines to a single blank line. */
 function tidyBlankLines(text: string): string {
   return text.replace(/\n{3,}/g, '\n\n').trim();
 }
 
 /**
- * Build the explain effort-orientation body for the MCP surfaces (tool / resource
- * / prompt all share it). Deterministic for a given set of inputs.
+ * Build the explain effort-orientation body. Deterministic for a given set of inputs.
+ * The curated behaviour shell is prepended verbatim (authored clean); the
+ * effort-overview is extracted from README/VISION and run through the firewalls.
  */
 export function transformExplainContent(inputs: ExplainContentInputs): string {
-  const { canonical, readme, vision, lastModified } = inputs;
+  const { readme, vision, lastModified } = inputs;
 
-  const behaviourShell = keepSections(stripFrontmatter(canonical), CANONICAL_ALLOW, false);
-  const effortFromReadme = keepSections(readme, README_ALLOW, true);
+  const effortFromReadme = keepSections(readme, README_ALLOW);
   const effortFromVision = stripFrontmatter(vision)
     .replace(/^#\s+.*$/m, '')
     .trim();
 
-  const assembled = [
+  const effortOverview = tidyBlankLines(
+    stripFsCoupling(
+      genericiseVolatileClaims(delinkify([effortFromReadme, effortFromVision].join('\n\n'))),
+    ),
+  );
+
+  return [
     '# Orienting someone to the Oak effort',
     '',
     `_Effort and ecosystem orientation — how Oak builds and delivers its curriculum. ` +
       `For assistants and integrators; this is a separate concern from curriculum content, ` +
       `which other tools serve. Source content last updated: ${lastModified}._`,
     '',
-    '## How to orient (the approach)',
-    '',
-    behaviourShell,
+    EXPLAIN_BEHAVIOUR_SHELL,
     '',
     '## What the Oak effort is',
     '',
-    effortFromReadme,
-    '',
-    effortFromVision,
+    effortOverview,
   ].join('\n');
-
-  return tidyBlankLines(stripFsCoupling(genericiseVolatileClaims(assembled)));
 }

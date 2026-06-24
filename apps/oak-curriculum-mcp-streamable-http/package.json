@@ -9,6 +9,7 @@
     "build:sentry:configured": "pnpm exec tsx build-scripts/run-sentry-configured-build.ts",
     "build:widget": "vite build --config widget/vite.config.ts && pnpm exec tsx scripts/embed-widget-html.ts",
     "clean": "rm -rf dist .turbo .widget-build",
+    "generate:explain-content": "pnpm exec tsx scripts/generate-explain-content.ts",
     "dev": "pnpm exec tsx operations/development/http-dev.ts dev",
     "dev:auth": "pnpm exec tsx operations/development/http-dev.ts dev",
     "dev:auth:stub": "OAK_CURRICULUM_MCP_USE_STUB_TOOLS=true OAK_API_KEY=stub-api-key pnpm exec tsx operations/development/http-dev.ts dev",
