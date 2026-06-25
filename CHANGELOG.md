@@ -1,3 +1,10 @@
+## [1.35.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.35.1...v1.35.2) (2026-06-25)
+
+
+### Bug Fixes
+
+* **agent-tools:** contain CLI paths within the git dir (S8707 sites 1-2) ([#223](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/223)) ([9d2e33b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9d2e33bb17f0a72f75aba8a53d199634393e9037))
+
 ## [1.35.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.35.0...v1.35.1) (2026-06-25)
 
 
