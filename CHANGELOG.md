@@ -1,3 +1,10 @@
+## [1.35.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.35.0...v1.35.1) (2026-06-25)
+
+
+### Bug Fixes
+
+* **agent-tools:** fix-before-team-session tooling — F-94 claims adopt/set-handoff + F-95 comms-watcher-presence gate ([#225](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/225)) ([e95fb95](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e95fb9594eda0f0824525a1cbbdeb17b3a0bdca1))
+
 # [1.35.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.34.1...v1.35.0) (2026-06-25)
 
 
