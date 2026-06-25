@@ -16,6 +16,64 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## Fix-before tooling DONE — F-94 + F-95 merged (2026-06-25, Seal hunts Offing)
+
+Lone session. The two strongest fix-before items the team-closer flagged are **live on
+`main`**:
+
+- **F-94 + F-95 merged via PR #225 (`e95fb9594`)** — `claims adopt` / `claims set-handoff`
+  (PDR-063 handoff primitives) and the comms-watcher-presence gate (`comms
+  assert-watcher-live` move-1 check + `claims open` blind-write backstop, solo-exempt).
+  Built TDD on a feature branch in a separate worktree; driven through CI + 5 bot re-review
+  findings (chief: a test-only `--comms-seen-dir` override that weakened the gate — removed).
+- **Frictions register + all live continuity surfaces corrected** to fixed (commits
+  `fa2de8f74`, `282171f8b` on this branch). F-96 / F-97 remain fix-during; F-98 (work-state
+  registry) is a future plan (`5ee4b4f2e`).
+
+**Branch state (verified, not from memory):** `coordination/worktree-pilot` is **22 ahead /
+5 behind `origin/main`**; the F-94/F-95 code merge `e95fb9594` is on `origin/main` but **NOT**
+on this branch — this branch is **continuity-only** and carries the register/handoff state,
+not the code. A rebase onto main was considered and **declined by the owner**; the branch
+stays diverged by design. Local is 5 ahead of `origin/coordination/worktree-pilot` (unpushed;
+push is owner-gated).
+
+## Worktree-pilot consolidation + team closer (2026-06-25, Thyme lifts Compost)
+
+Foundational / team-closer session (opened on "Sonar S8707 sites 2-3", pivoted under owner
+direction). Landed, with evidence:
+
+- **PR #222 proto-dispatch fix MERGED to `main`** (`8bebfd0a5`, release 1.35.0) — `Object.hasOwn`
+  dispatch guard + 5-key proto test, prove-fail-first, full gates green. This closes the
+  **pr-watch lane COMPLETE** (no dedicated `agent-tooling-pr-watch` thread record exists; the
+  pr-watch lane is tracked here and in the plan estate).
+- **Two foundational artefacts placed** (canonical, lint-clean, uncommitted — the consolidation
+  commit is the one owner-gated orphan-prevention action remaining): the guiding plan
+  [`current/worktree-pilot-consolidation-and-model-verdict.plan.md`](../../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md)
+  and the restructured `director-handoff.md` (Director Brief + volatile state + worktree orphan map).
+- **Orphan mitigation DONE**: the three never-pushed at-risk branches
+  (`pilot/ws-b-explain-resource`, `fix/sonar-s8707-cli-path-injection`, `pilot/ws-d-roles-doctrine`)
+  pushed to origin — all at-risk work preserved.
+- **Friction backlog**: F-94 (claims adopt/set-handoff) and F-95 (watcher-presence gate)
+  **FIXED before the team session** (PR #225, `e95fb9594`); F-96 (continuity-buffer lint
+  hostage) and F-97 (PR inline-comment monitor) remain.
+- **Sonar S8707 sites 2-3 PAUSED** (site-1 + site-2 committed + pushed; site-3 → next team session).
+
+**Push-vs-merge orphan rationale** (the WHY behind pushed-not-merged): the three at-risk branches
+were PUSHED to origin, NOT merged into coordination, deliberately — coordination is already
+squash-merged to `main`, the primary tree is dirty, and Sonar is a separate thread; push is the
+zero-risk reversible preservation that homes the work on origin without entangling it in a dirty
+tree or a closed coordination branch.
+
+**Team state**: #221/#222 merged to `main` (release 1.35.0, HEAD `1020001fd`); worktree-pilot team
+DISSOLVED; only Thyme lifts Compost active, operating independently. Director seat VACANT —
+whether to re-establish it is an owner-shaped open question (the guiding plan + brief assume a
+future Director-led team). Stale dissolved-team claims (Nightjar director `c6b76ae3`; orientation
+& pr-watch implementer claims) remain in `active-claims.json` pending a curator pass.
+
+**NEXT SAFE STEP**: owner-gated consolidation commit of the continuity buffers (the one remaining
+orphan-prevention action); then the guiding plan's verdict work. Sonar site-3 lands in the next
+team session (see `main-sonar-ai-profile-to-zero`).
+
 ## WS-3 F-41 path-safety LANDED + the proper-question lesson (2026-06-21, Oyster weaves Surf)
 
 Executed umbrella **WS-3 (F-41 path-safety)**. Landed (gate-green; unpushed — owner controls push):
@@ -709,6 +767,8 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Petrel stirs Wingspan` | `claude` | `Opus 4.8 (1M)` | `b8cd66` | `dedicated-knowledge-curation: napkin rotated 667→44 (critical→green); the 2026-06-22 action-time recurrence cluster routed to the design-space plan; graduated the forced-answer-test → scope-from-goal rule, bottom-up-flow → consolidate-until-done skill, decision-records-current-truth → no-tombstones, and PDR-113 (source-intent-from-the-principal); 9 new lessons → distilled (now soft); F-83 (whole-tree-gate coupling) + F-84 + test-estate-audit plan stub homed; run-the-lenses pending-graduation drained; first-hand loss-scan caught F-84 (the decision-debt count was a silent false-green) and the F-84 fix landed with TDD (detector f056285fb + register reformat ea633117a — count now honest at 2/soft, dwell anti-starvation alarm restored); register drain-semantics clarified (decide-all-to-zero + dwell, d0ba6ef41); 12 commits, gate-green, NOT pushed. Thread next step UNCHANGED = WS-1` | 2026-06-22 | 2026-06-22 |
 
 | `Magnolia spins Mulch` | `claude-code` | `Opus 4.8` | `5c3c64` | `MCPJam integration + curriculum-MCP validation (session home for the MCPJam thread; evals doctrine is the agentic-engineering tie-in): drove a full MCPJam-driven validation that closed the manual-UAT §11/§13/dual-shape gaps (UAT addendum 2026-06-23); settled the host-rebinding conformance finding FROM SOURCE → ADR-122 rewrite + ADR-158 (authed /mcp Host-validated in the auth layer via getPRMUrl→403; Origin deliberately permissive; no-auth dev = accepted residual) + a Host→403 regression test (auth-enforcement.e2e.test.ts); wired MCPJam (.mcp.json + README prereq + UAT-runbook programmatic pointer). Evals doctrine: authored the evals-and-assurance position report (test/evaluate/assure frame; 5 open questions for ratification) + the QUEUED skill-evals-pilot (start-right-quick). Lesson → distilled: trace ALL layers for a security check; a black-box re-run can false-pass; symmetric subagent skepticism. NOT pushed; thread next step UNCHANGED = WS-1` | 2026-06-23 | 2026-06-23 |
+| `Thyme lifts Compost` | `claude` | `claude-opus-4-8[1m]` | `c2b721` | `team-session-closer — worktree-pilot consolidation + team closer: PR #222 proto-dispatch fix merged to main (8bebfd0a5, release 1.35.0; pr-watch lane COMPLETE); placed the guiding plan worktree-pilot-consolidation-and-model-verdict + restructured director-handoff.md (canonical, uncommitted); orphan mitigation DONE (3 at-risk branches pushed to origin, push-not-merge for zero-risk reversible preservation); F-94..F-97 captured; Sonar S8707 sites 2-3 PAUSED (site-3 → next team session). Team DISSOLVED, Director seat vacant; consolidation commit of continuity buffers is the one owner-gated orphan-prevention action remaining` | 2026-06-25 | 2026-06-25 |
+| `Seal hunts Offing` | `claude` | `claude-opus-4-8[1m]` | `8210d6` | `fix-before-tooling — F-94 (claims adopt/set-handoff) + F-95 (watcher-presence gate) built TDD and MERGED to main via PR #225 (e95fb9594); register + live continuity surfaces corrected to fixed (fa2de8f74, 282171f8b); branch is continuity-only, 22 ahead/5 behind main, rebase declined by owner` | 2026-06-25 | 2026-06-25 |
 
 ## Cross-Plan and Cross-Thread Links
 

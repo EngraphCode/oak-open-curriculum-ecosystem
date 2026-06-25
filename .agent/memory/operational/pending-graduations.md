@@ -104,3 +104,35 @@ New capture appends below.*
   genuinely external-gated, not agent-drivable now. Owner kept-gated 2026-06-24. Homed here (from
   the archived napkin) so a future consolidation pass that walks this register sees the candidate
   when the trigger fires.
+
+- **Liveness during a model-availability outage — external staleness-reaper / dead-man's-switch primitive**
+
+  `[captured: 2026-06-25 | source: worktree-pilot-consolidation-and-model-verdict.plan.md §Risk
+  Assessment + open-questions Q-011 (Thyme lifts Compost, session c2b721) | target: PDR
+  (operating-model governance) — a structural external-reaping liveness primitive | trigger: owner
+  takes the Q-011 architectural decision OR a second false-"active"-after-outage incident recurs |
+  size: small | status: pending]`
+
+  "Stop your heartbeat at stand-down" cures only the graceful case; an outage kills a session's
+  Monitors so it cannot stop its own heartbeat, leaving a stale-but-"active" signal (~8h observed in
+  the worktree-pilot outage). The cure is an *external* staleness-reaper / dead-man's-switch that
+  reaps from outside the dead session, not self-stop. Owner-decision-gated (architectural primitive,
+  not agent-drivable). Full analysis lives in the plan §Risk Assessment and Q-011 — not restated here.
+
+- **Practice↔IDE integration plane — bounded-capability, local-install-only IDE plugin**
+
+  `[captured: 2026-06-25 | source: report practice-ide-integration-plane-feasibility-2026-06-25.md
+  (Panther hunts Reverie, cursor 7e4510) | target: PDR (portable capability concept — "the Practice
+  may cause effects in the IDE only through a closed, adversarially-vetted template registry; blast
+  radius bounded by construction") + host ADR (the practice-ide-plugin workspace + agent-tools
+  practice-ide commands + workspace file-drop transport) | trigger: owner greenlights the build (the
+  report §11 owner decisions resolved) AND the first vetted capability lands | size: medium | status:
+  pending]`
+
+  Both halves are Practice substance (PDR-035 / ADR-165). The concept is a proposal under owner
+  decision (report §11: first template, no-shell vs interactive-shell, workspace/command names,
+  kill-switch default, which agents constitute the comprehensive review, the deep-docs-read gate),
+  not yet built or stable — so it is captured here so a future consolidation pass surfaces it when
+  the owner decides, rather than graduated now. The security argument (bounded blast radius via a
+  closed template registry; no URI surface; per-template parameter→shell-flow adversarial analysis)
+  and the architecture live in the report — not restated here.
