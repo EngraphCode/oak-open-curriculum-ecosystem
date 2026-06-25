@@ -15,7 +15,6 @@ export const baseE2EConfig = defineConfig({
     environment: 'node',
     // E2E tests must be network-free; use DI and local fakes instead of real services.
     setupFiles: [resolve(dirname(fileURLToPath(import.meta.url)), 'test.setup.no-network.ts')],
-    passWithNoTests: true,
     include: ['e2e-tests/**/*.e2e.test.ts', 'e2e/**/*.e2e.test.ts'],
     exclude: ['node_modules', 'dist', 'coverage'],
     testTimeout: 60000, // E2E tests may take longer; 60s provides headroom under resource pressure
