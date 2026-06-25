@@ -15,8 +15,13 @@
  * behaviour change can only land loudly, forcing a deliberate re-curation + re-pin.
  *
  * `lastModified` is the NEWEST source-file commit date (git `%cI`), never build or
- * wall-clock time. Re-generate: `pnpm generate:explain-content`; a drift check
- * (regenerate → `git diff --exit-code`) guards freshness in the gate.
+ * wall-clock time. Re-generate: `pnpm generate:explain-content`; the `check:explain-content`
+ * drift check (regenerate → `git diff --exit-code`) guards freshness in the gate (wired into
+ * `pnpm check` via the turbo `check:explain-content` task).
+ * Note: `%cI` is the COMMITTER date, so rebasing/amending any commit that touches the source
+ * files (SKILL-CANONICAL.md / README.md / VISION.md) rewrites it and moves `lastModified` even
+ * with no content change — the drift check will then flag the committed body stale until you
+ * `pnpm generate:explain-content` and re-stage it. Expected, not a bug.
  *
  * @see src/explain/explain-content-transform.ts — the pure transformer
  * @see src/explain/canonical-behaviour-contract.ts — the drift-guard anchor
