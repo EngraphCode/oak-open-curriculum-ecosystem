@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.34.1...v1.35.0) (2026-06-25)
+
+
+### Features
+
+* **agent-tools:** add pr-watch command for PR CI/review/mergeable monitoring ([#222](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/222)) ([8bebfd0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8bebfd0a5a32656651c048f257d0d8d2fe446621))
+
 ## [1.34.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.34.0...v1.34.1) (2026-06-14)
 
 
