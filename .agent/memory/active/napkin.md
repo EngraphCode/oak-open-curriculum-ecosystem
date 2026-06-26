@@ -228,3 +228,16 @@ New session observations append below.
   main checkout is already built, masking this. Operational gotcha for any worktree-based lane.
   (Harness `EnterWorktree` places the worktree under `.claude/worktrees/` — gitignored, nested,
   sandbox-reachable — not as a sibling dir like the repo's `git worktree add` convention.)
+
+## 2026-06-26 — Don't claim observable session state you haven't observed; build worktrees before session start (Cedar lifts Canopy)
+
+- **Mistake: I told the owner "this session has its statusline" after `pnpm build` exited 0 — inferred,
+  not observed. The owner's screenshot showed no statusline.** Two compounding errors: (1) I treated a
+  build exit code as proof of a downstream observable (the statusline) — a convenient/fluent claim, the
+  exact shape [[verify-dont-trust]] and the metacognition "fluency is a warning" note target; (2) I built
+  the worktree MID-session, but the statusline initialises at session START (known primary-checkout
+  statusline-resolution bug), so a mid-session build cannot restore the current session's statusline
+  regardless. **Cure:** build every worktree BEFORE opening the session; never assert observable session
+  state I have not actually seen. The owner's same-session directive — "all results from all subagents
+  must be critically assessed, including claims and sources" — applies to my OWN claims too. Homed in
+  [[feedback_worktree_needs_install_and_build]] + start-right §8.
