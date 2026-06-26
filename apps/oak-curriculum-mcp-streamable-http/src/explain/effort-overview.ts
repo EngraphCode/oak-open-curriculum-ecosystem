@@ -67,6 +67,13 @@ Learning Toolkit — so what is surfaced is grounded in the wider evidence base,
 alone. The code is open; each data source stays under its own upstream open licence,
 attributed to whoever created it.
 
+For data analysts and scientists, the data architecture is an access layer over Oak's
+open curriculum *data* — a typed SDK, curriculum graph tools, and semantic search, all
+generated from and flowing through the published Open Curriculum API. That access layer
+is deliberately distinct from the curriculum *content* itself: this orientation names the
+separation and never describes curriculum structure — content questions are served by the
+curriculum tools, not here.
+
 ## Part one — Oak's curriculum, AI-native
 
 The web and AI assistants are two complementary ways teachers reach Oak; they reinforce each
@@ -107,6 +114,9 @@ agent-first delivery with excellence at its centre.
 - **How it is built safely and fast** — the agentic engineering Practice, openly documented.
 - **Openness and licensing** — the code is openly licensed; Oak's curriculum stays under its
   upstream open licence.
+- **Impact and the evidence base** — the intended impact for teachers and pupils, and the
+  open data sources the effort draws on, each under its own open licence and attributed to
+  its creator.
 
 ## The boundaries held
 

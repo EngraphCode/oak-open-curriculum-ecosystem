@@ -62,8 +62,9 @@ Gather only what you need to deliver well — usually one or two of these, rarel
 all three:
 
 - **What** — the topic or area, or the specific question they want answered.
-- **Who / angle** — their background and lens (engineer, strategy/leadership,
-  educator, AI-builder) and rough experience, so you pitch language and depth.
+- **Who / angle** — their background and lens (engineer/integrator, AI-builder,
+  data analyst or scientist, strategy/leadership, educator, education expert,
+  product expert) and rough experience, so you pitch language and depth.
 - **Mode** — specific / overview / tour. **Usually inferable from *What***; ask
   only when it is genuinely ambiguous.
 
@@ -160,6 +161,15 @@ recited from memory):
 - **The planning corpus** is `.agent/plans/high-level-plan.md`, then the shape of
   the plan estate (list `.agent/plans/` and read `docs/README.md` live);
   teammates also get `.agent/plans/good-first-issues.md`.
+- **The data and technical architecture** (engineers, integrators, data analysts
+  and scientists) draws on the architecture, SDK, and graph rows in the router at
+  the depth the angle wants. Orientation includes how the effort's data is kept
+  walled from the curriculum content the curriculum tools serve — name the
+  separation; never describe curriculum structure.
+- **Impact and provenance** (education and product experts) draws on `VISION.md`
+  for intended impact and the provenance/governance router row for the sources and
+  their licensing. Make no compliance claims (see the Honesty Invariants); point a
+  direct compliance question to the official surface.
 
 ## Setup (a distinct, go-ahead-gated capability — not an information mode)
 
@@ -222,6 +232,8 @@ status register
 | `docs/engineering/mcp-servers-for-contributors.md` | Sanctioned MCP set (teammates) |
 | `docs/engineering/sibling-repos.md` | Repos a teammate may clone alongside (teammates) |
 | `.agent/plans/good-first-issues.md` | Curated starter tasks (teammates) |
+| `docs/architecture/README.md`, the SDK READMEs (`packages/sdks/oak-curriculum-sdk`, `packages/sdks/oak-search-sdk`) and the graph packages (`packages/core/graph-core`, `packages/sdks/graph-corpus-sdk`) | The data and technical architecture — SDK, graph stack, semantic search — for engineers, integrators, and data analysts/scientists |
+| `VISION.md`, `ATTRIBUTION.md`, `LICENCE-DATA.md`, ADR-157, and `docs/governance/DATA-SOURCES.md` (once published) | Intended impact and data-source provenance/governance, for education and product experts — name the sources and their licences; never describe curriculum content |
 
 ## Headline Invariants (point to the single source — never restate them here)
 
@@ -296,6 +308,10 @@ Both must hold in every mode:
   build practice. The README banner and `VISION.md` carry the precise framing —
   follow them, and never inflate the repo to "this is how Oak does AI". Oak builds
   other user-facing AI products; this is complementary to them.
+- **No compliance claims.** Make no claims about Oak's compliance, assurance, or
+  regulatory posture — that is held in Oak's official surfaces, not invented here.
+  If someone asks a direct compliance question, point them to Oak's official
+  compliance information rather than answering it.
 
 ## The Primer Edge (PDR-112)
 

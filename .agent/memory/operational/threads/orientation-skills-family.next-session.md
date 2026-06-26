@@ -14,11 +14,23 @@ defined by PDR-112.
 | Skipper tracks Reef | claude-code | claude-opus-4-8[1m] | 87a7bb | planner — authored the orientation-lens unification plan (owner-directed); did not implement | 2026-06-23 | 2026-06-23 |
 | Zenith lifts Firmament | claude-code | claude-opus-4-8[1m] | 5c2f1b | implementer — executed the orientation-lens unification (WS0–WS6); folded two mid-execution owner directions | 2026-06-23 | 2026-06-23 |
 | Skipper tracks Kelp | claude | claude-opus-4-8[1m] | 20962d | implementer — WS-B MCP-surface continuation: cherry-picked D1+D2 to a fresh worktree off main, refactored the test surface to behaviour-only, scoped the audience-model work | 2026-06-26 | 2026-06-26 |
+| Cedar lifts Canopy | claude | claude-opus-4-8[1m] | 435d30 | implementer — WS-B D0 audience-model audit + reconciliation, then D3 tool / D4 prompt / D5 value-proxy | 2026-06-26 | 2026-06-26 |
 
 ## WS-B MCP surface — ACTIVE continuation handoff (2026-06-26, Skipper tracks Kelp)
 
 The WS-B explain-orientation MCP-surface lane is LIVE again (owner-directed). Read this section
 first, then the owning plan (`explain-orientation-mcp-surface.plan.md`, amended this session).
+
+**UPDATE (Cedar lifts Canopy, 2026-06-26) — D0 audience side RESOLVED.** The explain audience model
+is reconciled across the SKILL-CANONICAL (SSOT) and the MCP projection: added data analyst/scientist,
+education expert, product expert; kept "educator" in the canonical only (the projection omits it —
+separation principle); added a third **compliance firewall** (owner: no compliance claims; route
+direct questions to Oak's official surfaces). code-expert + docs-adr-expert APPROVE; 766 app tests
+green (behaviour-only). The plan's stale §D1.1/§Proof-Contract/§Faithful-Projection/§Risk sections
+are reconciled in-place; see the plan's §"D0 — Audience model RESOLVED". **DATA-SOURCES.md ownership
+(owner-directed):** Cedar authors it as a **ship-independent governance PR off main** (reuse the
+`oak-data-sources` worktree); explain POINTS to it at WS-B ship-time. **Next:** commit D0 → author
+DATA-SOURCES.md (separate PR) → D3 tool / D4 prompt / D5 value-proxy.
 
 **Branch / how to continue.** Work is on branch **`worktree-ws-b-explain`** (pushed to origin).
 Next session: check it out (or a fresh worktree off it), then run **`pnpm install` AND `pnpm build`**

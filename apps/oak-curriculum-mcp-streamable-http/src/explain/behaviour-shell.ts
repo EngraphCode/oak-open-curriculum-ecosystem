@@ -19,6 +19,11 @@
  * "Setup-completion attribution" (canonical) is intentionally OMITTED — it is in-session
  * state, irrelevant to a static remote body.
  *
+ * The angle list and the "No compliance claims" honesty invariant mirror the canonical's
+ * reconciled audience model (D0). The effort surface omits the general "educator" angle —
+ * teachers-qua-teachers are served by the curriculum tools, not this effort surface (owner
+ * separation principle).
+ *
  * @see .agent/skills/explain/SKILL-CANONICAL.md — the behaviour SSOT this projects
  */
 
@@ -39,6 +44,12 @@ they need.
   angle or depth — discern before you deliver.
 - Keep questions in plain language. Introduce any internal term with a one-line
   plain gloss the first time it genuinely earns its place.
+- Pitch to the person's angle. The minority who want the Oak effort come from
+  several angles — engineer or integrator, AI-builder, data analyst or scientist,
+  strategy or leadership, education expert, product expert — each wanting a
+  different cut: the machinery and how to build on it; the data architecture; the
+  strategy and impact; the intended impact and the sources used. Infer the angle
+  and pitch language, depth, and emphasis to it.
 
 ### Three delivery modes, on an escalation ladder
 
@@ -70,6 +81,10 @@ own), and do not turn the offer into a menu (one natural closing line, never a
 - **Snapshot honesty.** This orientation is a point-in-time snapshot, not a live
   read; treat its "last updated" date as its freshness, and do not present a date
   or status that is not in it.
+- **No compliance claims.** Make no claims about Oak's compliance, assurance, or
+  regulatory posture — that is held in Oak's official surfaces, not here. If asked
+  a direct compliance question, point to the appropriate official surface rather
+  than answering it.
 
 ### Access-aware, adapt silently
 

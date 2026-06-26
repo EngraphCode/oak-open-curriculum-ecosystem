@@ -25,7 +25,7 @@ todos:
       reconcile them consistently; add data analyst / data scientist (served the EFFORT/data
       orientation, firewalled from curriculum data). Re-curate the behaviour-shell to the current
       canonical (changed via #238). D1's body regenerates from the re-curated shell.
-    status: pending
+    status: completed
   - id: ws-b-d1-generated-body
     content: >
       App-local generation step builds a committed src/generated/explain-content.ts
@@ -111,6 +111,50 @@ product / compliance experts sit? D1's generated body regenerates from the re-cu
 **Merge note:** this branch's `.agent/` files (this plan, the thread record, repo-continuity, the
 napkin) need a SEMANTIC merge (`/oak-semantic-merge`) at branch→main reconciliation, never a git
 line-merge — git understands lines, not concepts.
+
+## D0 — Audience model RESOLVED (2026-06-26, Cedar lifts Canopy)
+
+D0 is complete for the audience side. **This section is authoritative; it supersedes the narrower
+angle treatment and the content-test framing in §"Faithful Projection", §"Workstreams" D1.1,
+§"Proof Contract", and §"Risk Assessment" below** (those are corrected in place too).
+
+**Reconciled angle set** (one effort-orientation lens, all effort-domain, firewalled from
+curriculum): engineer/integrator · AI-builder · data analyst/scientist · strategy/leadership ·
+education expert · product expert · cross-functional governance (pointer). The canonical (in-repo
+SSOT) additionally keeps the general **educator** angle; the **effort projection omits it** —
+teachers-qua-teachers are served by the curriculum tools (owner separation principle).
+
+**Three firewalls, held in the curated prose by construction + PR-review (NOT tests):**
+
+1. Curriculum — names curriculum as what the effort serves; never describes curriculum structure.
+2. Volatility — no point-in-time status (alpha banner, datelines, tool counts, deployment URLs).
+3. Compliance (NEW, owner 2026-06-26) — makes NO claims about Oak's compliance / assurance /
+   regulatory posture; a direct compliance question is routed to Oak's official surfaces, never
+   answered.
+
+**Owner decisions folded** (resolved via the `principles.md` decision-lens matrix; only genuinely
+owner forks were surfaced):
+
+- educator vs education expert → distinct (a pitch-register vs a content-need); educator stays in
+  the canonical only.
+- product & compliance → product is a distinct angle; compliance is no-claims + route-to-official.
+- `DATA-SOURCES.md` → Cedar authors it as a **ship-independent governance PR off `main`** (reusing
+  the warm `oak-data-sources` worktree); explain POINTS to it (coordinate-dependent, wired at WS-B
+  ship-time). NOT folded into the WS-B PR.
+- the canonical audience edit rides THIS branch (semantic-merge `.agent/` at merge); the prior
+  "coordination-branch edit, not this feature branch" note assumed the now-dissolved team model.
+
+**Changes landed (D0):** `SKILL-CANONICAL.md` (angles + two router rows + compliance invariant +
+recipe notes); `behaviour-shell.ts` (angle bullet + compliance invariant + header note);
+`effort-overview.ts` (data-architecture paragraph + impact/provenance bullet); regenerated
+`explain-content.ts`. **Reviewed APPROVE** by code-expert (three firewalls hold; no specialist
+needed) and docs-adr-expert (refs intact; compliance pointer tightened to the official surface).
+All 766 app tests green (behaviour-only; no content tests added).
+
+**Current proof (behaviour-only):** MCP-observable registration + serving (the D2 integration test
+compares the served text to the imported generated body), the DI'd assembler composition (trivial
+fakes), and the codegen-drift check (`pnpm check:explain-content` = regenerate →
+`git diff --exit-code`). The firewalls are a PR-review checklist item, not tests.
 
 ## Problem and Intent
 
@@ -231,8 +275,11 @@ volatile (any point-in-time status claim) and the curriculum**:
     the README block).
 
 The breadth of the MCP-served explain is therefore the **stable effort story**, baked
-because there is no live effort MCP surface to route to — bounded on one side by the
-curriculum firewall and on the other by the volatility (progress-report) firewall.
+because there is no live effort MCP surface to route to — bounded by three content
+firewalls (held by construction + PR-review, never tests; see §"D0 — Audience model
+RESOLVED"): the curriculum firewall, the volatility (progress-report) firewall, and the
+compliance firewall (no claims about Oak's compliance / assurance / regulatory posture; a
+direct compliance question is routed to Oak's official surfaces).
 
 ### Whole-ecosystem orientation — A/B dissolved
 
@@ -315,8 +362,15 @@ datetime **derived from the newest source-file commit date** across the canonica
 build-time value would refresh on every regeneration even when sources did not change,
 re-introducing the staleness it exists to prevent).
 
-- **Cycle D1.1 (unit).** Test the transformation function. Given the canonical and the
-  stable effort prose, the output:
+- **Cycle D1.1 — CORRECTED to behaviour-only (the (a)–(e) items below are now the
+  PR-REVIEW firewall checklist, not unit assertions).** As built, the transformer is a DI'd
+  assembler (`explain-content-transform.ts`) tested with **trivial fakes** for composition
+  behaviour only — freshness-header injection, part ordering, determinism — asserting no real
+  prose. The content properties below (no fs-coupling; behaviour shell retained; stable
+  effort-overview in; the curriculum, volatility, and compliance firewalls) are held by
+  authoring + PR-review, never by content-grep or fingerprint tests (those were deleted; see
+  the READ-FIRST correction and §"D0 — Audience model RESOLVED"). Read the (a)–(f) list as the
+  checklist the PR reviewer applies to the curated prose. The curated output:
   - **(a)** contains **none** of the filesystem / repo-path / `file://` / "read the
     file" lines;
   - **(b)** **retains** the discernment contract, the three delivery modes, the
@@ -481,7 +535,7 @@ swap 6.9–10G); durations are reported with load/swap and not trusted under con
 
 | Acceptance id | Proof level | Command / observation |
 |---|---|---|
-| ws-b-d1 | unit | transformer unit test (assertions a–e: no fs-coupling; behaviour-shell retained; stable effort-overview in, progress-report out; curriculum firewall; lastModified); `pnpm generate:explain-content` then `git diff --exit-code` on the generated file |
+| ws-b-d1 | unit | DI'd assembler composition test (trivial fakes — freshness-header injection, part ordering, determinism); `pnpm check:explain-content` (regenerate → `git diff --exit-code`). The curriculum / volatility / compliance firewalls are a PR-review checklist item, NOT tests |
 | ws-b-d2 | integration + e2e | resource integration test (low-salience nested metadata); `documentation-resources.e2e` extension asserting curriculum-clean body |
 | ws-b-d3 | integration + e2e | tool registration + coexistence integration test; `tools/list` (effort-scoped description) + `tools/call` e2e |
 | ws-b-d4 | integration + e2e | prompt registration integration test; `prompts/list` + `prompts/get` e2e |
@@ -578,6 +632,11 @@ behaviour shell + the stable in-domain content; firewall the out-of-domain and t
 volatile) into the appropriate permanent home if it recurs.
 
 ## Deferred Pre-Ship Requirements (owner-directed 2026-06-24)
+
+> **STATUS (2026-06-26): the audience side is DONE — see §"D0 — Audience model RESOLVED".**
+> The new audiences are worked into both the canonical and the projection; `DATA-SOURCES.md`
+> is owned by Cedar as a ship-independent governance PR; the ship-gate's remaining axis is that
+> register landing. The record below is retained as the originating owner direction.
 
 Owner direction (2026-06-24): the explain skill gains new expert audiences whose
 needs MUST be worked into the skill before this group of work (the worktree pilot)
