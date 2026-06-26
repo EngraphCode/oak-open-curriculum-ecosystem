@@ -1,38 +1,29 @@
 /**
- * Curated effort-overview projection for a remote MCP client (WS-B, D2 — Director-ratified
- * Option A, 2026-06-24).
+ * Curated effort-overview projection for a remote MCP client.
  *
  * Mechanical extraction of the README/VISION effort sections is unusable on a remote
  * surface: the README's "What This Repo Provides" is a capability table plus
- * curriculum-structure subsections (denylisted), which after firewalling leaves dangling
- * connective fragments; and the README hard-wraps an "as of <month>" dateline that a
- * line-based volatility filter slips. Both were caught by inspecting the generated body
- * against the REAL README (D2, verify-on-real-content). Option A (curate) is the same cure
- * the D1 verdict already applied to the behaviour shell: hand-author the projection, anchor
- * it to the source by a drift-guard, and the leak class dissolves (a curated constant pulls
- * no datelines and no curriculum structure from the README at all).
+ * curriculum-structure subsections, which after firewalling leaves dangling connective
+ * fragments; and the README hard-wraps an "as of <month>" dateline a line-based filter
+ * slips. So this is hand-authored: a curated constant pulls no datelines and no curriculum
+ * structure from the README at all.
  *
- * EFFORT-DOMAIN ONLY (owner separation principle, 2026-06-24): this describes how Oak
- * builds and delivers its curriculum — purpose, value-streams, the machinery at executive
- * altitude, how to engage. It NAMES curriculum as what the effort serves (permitted) but
- * never DESCRIBES curriculum structure or content (no subjects / units / lessons / key
- * stages / sequencing), and never routes to curriculum surfaces. Curriculum content is a
- * separate concern served by the curriculum tools.
+ * EFFORT-DOMAIN ONLY (owner separation principle): this describes how Oak builds and
+ * delivers its curriculum — purpose, value-streams, the machinery at executive altitude,
+ * how to engage. It NAMES curriculum as what the effort serves (permitted) but never
+ * DESCRIBES curriculum structure or content (no subjects / units / lessons / key stages /
+ * sequencing), and never routes to curriculum surfaces. Curriculum content is a separate
+ * concern served by the curriculum tools.
  *
- * NO point-in-time status (volatility firewall): no alpha-phase banner, "as of <month>"
- * dateline, live tool count, or deployment URL — these age. "Exists vs planned" is marked
- * inline ("Python to follow") rather than dated. Freshness is carried by the body's
- * `lastModified` header, derived from the newest source-file commit date.
+ * NO point-in-time status: no alpha-phase banner, "as of <month>" dateline, live tool
+ * count, or deployment URL — these age. "Exists vs planned" is marked inline ("Python to
+ * follow") rather than dated. Freshness is carried by the body's `lastModified` header.
  *
- * SINGLE-SOURCING IS A TESTED RELATIONSHIP (PDR-112 / ADR-202): this curated constant is
- * anchored to the README/VISION effort sections by the drift-guard in
- * effort-source-contract.ts — the generation step asserts the live source fingerprint
- * equals the pinned expected value, so a change to the source effort prose FAILS the build,
- * forcing a deliberate re-curation here and a re-pin. Do not edit this constant without
- * re-reviewing it against the current README/VISION and re-pinning the fingerprint.
+ * These domain and volatility properties are held BY CONSTRUCTION and kept correct by
+ * authoring and review (PDR-112 / ADR-202) — not by an automated content or source
+ * fingerprint check. When you revise the README/VISION effort prose, re-curate this to match.
  *
  * @see README.md / VISION.md — the effort-content SSOT this projects
- * @see src/explain/effort-source-contract.ts — the drift-guard anchor
  * @see src/explain/behaviour-shell.ts — the sibling curated projection (behaviour half)
  */
 

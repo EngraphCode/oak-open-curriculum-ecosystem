@@ -2,15 +2,14 @@
  * GENERATED FILE — DO NOT EDIT
  *
  * Explain effort-orientation body: the curated behaviour shell plus the curated
- * effort-overview, each anchored to its source by a generation-time drift-guard
- * (curriculum and volatility firewalls held by construction in the curated constants).
+ * effort-overview, composed with a source-commit-date freshness signal.
  * Re-generate: pnpm generate:explain-content
  *
- * @see scripts/generate-explain-content.ts - generation step (carries the drift-guards)
+ * @see scripts/generate-explain-content.ts - generation step
  */
 export const EXPLAIN_ORIENTATION_BODY = `# Orienting someone to the Oak effort
 
-_Effort and ecosystem orientation — how Oak builds and delivers its curriculum. For assistants and integrators; this is a separate concern from curriculum content, which other tools serve. Source content last updated: 2026-06-24T10:04:13+01:00._
+_Effort and ecosystem orientation — how Oak builds and delivers its curriculum. For assistants and integrators; this is a separate concern from curriculum content, which other tools serve. Source content last updated: 2026-06-26T15:26:01+01:00._
 
 ## How to orient someone (the approach)
 
@@ -155,4 +154,4 @@ built amplifies them rather than deciding for them. For teachers — the teacher
 the effort informs, it never decides. For Oak's own teams — agent-first work amplifies
 people; it does not replace them.` as const;
 
-export const EXPLAIN_LAST_MODIFIED = '2026-06-24T10:04:13+01:00' as const;
+export const EXPLAIN_LAST_MODIFIED = '2026-06-26T15:26:01+01:00' as const;

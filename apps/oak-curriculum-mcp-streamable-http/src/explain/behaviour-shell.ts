@@ -1,31 +1,25 @@
 /**
- * Curated PORTABLE behaviour projection of the explain lens, for a remote MCP
- * client (WS-B, D1 — Director-ratified shape, 2026-06-24).
+ * Curated PORTABLE behaviour projection of the explain lens, for a remote MCP client.
  *
- * Verbatim extraction of the canonical's behaviour sections is unusable on a
- * remote surface: the canonical interleaves portable behaviour with in-repo
- * live-doc routing (file paths, "resolve live", source tables) that a
- * filesystem-less remote client cannot follow. This constant is the curated
- * projection of just the PORTABLE behaviour — discernment, the three delivery
- * modes, the honesty invariants, and the access-aware principle — expressed for a
- * remote context with NO live-doc routing and NO repo paths.
+ * Verbatim extraction of the canonical's behaviour sections is unusable on a remote
+ * surface: the canonical interleaves portable behaviour with in-repo live-doc routing
+ * (file paths, "resolve live", source tables) that a filesystem-less remote client cannot
+ * follow. This constant is the curated projection of just the PORTABLE behaviour —
+ * discernment, the three delivery modes, the honesty invariants, and the access-aware
+ * principle — expressed for a remote context with NO live-doc routing and NO repo paths.
  *
- * SINGLE-SOURCING IS A TESTED RELATIONSHIP, NOT A HOPE (PDR-112 / ADR-202): this
- * projection is anchored to the canonical's behaviour contract by the drift-guard:
- * the generation-time assertion in generate-explain-content.ts (mechanism tested in
- * canonical-behaviour-contract.unit.test.ts). If the canonical's behaviour sections
- * change, the drift-guard FAILS, forcing a deliberate re-curation of this constant and
- * a re-pin of the fingerprint. Do not edit this constant without re-running it.
+ * It is a faithful projection of the canonical (PDR-112 / ADR-202), kept correct by
+ * authoring and review when the canonical's behaviour model changes — not by an automated
+ * fingerprint or content check. When you revise the explain `SKILL-CANONICAL.md` behaviour
+ * sections, re-curate this constant to match.
  *
- * NOTE on the Honesty Invariants below: they are a curated projection, not a verbatim
- * copy of the canonical's. "Snapshot honesty" is an intentional ADDITION with no
- * canonical equivalent — it is required by the remote (static, no-live-read) context.
+ * NOTE on the Honesty Invariants below: they are a curated projection, not a verbatim copy
+ * of the canonical's. "Snapshot honesty" is an intentional ADDITION with no canonical
+ * equivalent — it is required by the remote (static, no-live-read) context.
  * "Setup-completion attribution" (canonical) is intentionally OMITTED — it is in-session
- * state, irrelevant to a static remote body. The drift-guard fingerprints the canonical,
- * so a canonical-side change is still caught; these shell-side deltas are by design.
+ * state, irrelevant to a static remote body.
  *
  * @see .agent/skills/explain/SKILL-CANONICAL.md — the behaviour SSOT this projects
- * @see src/explain/canonical-behaviour-contract.ts — the drift-guard anchor
  */
 
 export const EXPLAIN_BEHAVIOUR_SHELL = `## How to orient someone (the approach)

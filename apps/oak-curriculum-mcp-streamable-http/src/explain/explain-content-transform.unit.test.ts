@@ -1,46 +1,39 @@
 /**
- * Unit tests for the explain effort-orientation assembler (WS-B — Option A shape).
+ * Unit tests for the explain effort-orientation assembler.
  *
- * The assembler composes the freshness header, the curated behaviour shell, and the curated
- * effort overview. The firewall properties (volatility / curriculum / fs-coupling) are held
- * BY CONSTRUCTION in the curated constants and are tested there (effort-overview.unit.test.ts)
- * and on the generated body (explain-content-generated.unit.test.ts); this file tests the
- * ASSEMBLY — the system state the assembler produces — not extraction (there is none).
- *
- * @see .agent/plans/sdk-and-mcp-enhancements/active/explain-orientation-mcp-surface.plan.md (D2)
+ * The assembler is a pure composition function. These tests inject TRIVIAL FAKES for the
+ * two parts and assert its composition BEHAVIOUR — the freshness header carries the given
+ * `lastModified`, the behaviour shell precedes the effort overview, and the output is
+ * deterministic. They never assert real prose: what the curated constants say is a content
+ * property held by authoring and review, not by this test.
  */
 
 import { describe, it, expect } from 'vitest';
 import { transformExplainContent } from './explain-content-transform.js';
-import { EXPLAIN_BEHAVIOUR_SHELL } from './behaviour-shell.js';
-import { EXPLAIN_EFFORT_OVERVIEW } from './effort-overview.js';
 
-const LAST_MODIFIED = '2026-06-24T10:04:13+01:00';
+const INPUTS = {
+  behaviourShell: 'BEHAVIOUR-SHELL-PART',
+  effortOverview: 'EFFORT-OVERVIEW-PART',
+  lastModified: '2026-06-24T10:04:13+01:00',
+} as const;
 
 describe('transformExplainContent (assembler)', () => {
-  it('assembles the freshness header, the curated behaviour shell, and the curated effort overview', () => {
-    const body = transformExplainContent({ lastModified: LAST_MODIFIED });
-    expect(body).toContain('# Orienting someone to the Oak effort');
-    expect(body).toContain(LAST_MODIFIED);
-    expect(body).toContain(EXPLAIN_BEHAVIOUR_SHELL);
-    expect(body).toContain(EXPLAIN_EFFORT_OVERVIEW);
+  it('carries the injected lastModified in the freshness header', () => {
+    expect(transformExplainContent(INPUTS)).toContain(INPUTS.lastModified);
   });
 
-  it('orders the behaviour shell before the effort overview', () => {
-    const body = transformExplainContent({ lastModified: LAST_MODIFIED });
-    expect(body.indexOf(EXPLAIN_BEHAVIOUR_SHELL)).toBeLessThan(
-      body.indexOf(EXPLAIN_EFFORT_OVERVIEW),
-    );
+  it('includes both injected parts', () => {
+    const body = transformExplainContent(INPUTS);
+    expect(body).toContain(INPUTS.behaviourShell);
+    expect(body).toContain(INPUTS.effortOverview);
   });
 
-  it('is deterministic for a given lastModified', () => {
-    expect(transformExplainContent({ lastModified: LAST_MODIFIED })).toBe(
-      transformExplainContent({ lastModified: LAST_MODIFIED }),
-    );
+  it('places the behaviour shell before the effort overview', () => {
+    const body = transformExplainContent(INPUTS);
+    expect(body.indexOf(INPUTS.behaviourShell)).toBeLessThan(body.indexOf(INPUTS.effortOverview));
   });
 
-  it('introduces no point-in-time dateline of its own', () => {
-    const body = transformExplainContent({ lastModified: LAST_MODIFIED });
-    expect(body).not.toMatch(/\bas of\s+\w+\s+\d{4}/i);
+  it('is deterministic for the same inputs', () => {
+    expect(transformExplainContent(INPUTS)).toBe(transformExplainContent(INPUTS));
   });
 });

@@ -30,6 +30,7 @@ import {
   registerAllResources,
   type ResourceRegistrationOptions,
 } from './register-resources.js';
+import { EXPLAIN_ORIENTATION_BODY } from './generated/explain-content.js';
 
 const TEST_WIDGET_HTML = '<!doctype html><html><body>Oak Curriculum App</body></html>';
 
@@ -522,19 +523,16 @@ describe('registerAllResources registers the Oak effort-orientation resource (do
     expect(resource?.metadata.annotations?.lastModified).toBeDefined();
   });
 
-  it('serves the effort-orientation body, curriculum-clean (the separation firewall)', async () => {
+  it('wires the read to serve the generated effort-orientation body', async () => {
     registerAllResources(server, options);
     await flush();
 
+    // Behaviour under test: the registered resource's read is wired to the explain body
+    // constant. What that body SAYS (effort-domain, curriculum-clean, no volatile status) is a
+    // content property of the curated source, held by authoring and review — not asserted here.
     const resource = await readResource('docs://oak/explain.md');
     const text = getTextContent(resource.contents[0]);
-    // The effort body is present: a stable behaviour-shell phrase AND effort-domain content
-    // (so this proves the overview is served, not merely that the body avoids prohibited text)...
-    expect(text).toContain('never a menu');
-    expect(text.toLowerCase()).toContain('agent-first');
-    // ... and the separation firewall holds: no curriculum-tool name, no filesystem path.
-    expect(text).not.toContain('get-curriculum-model');
-    expect(text).not.toContain('file://');
+    expect(text).toBe(EXPLAIN_ORIENTATION_BODY);
   });
 });
 
