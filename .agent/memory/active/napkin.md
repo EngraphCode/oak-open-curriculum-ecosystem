@@ -201,3 +201,30 @@ New session observations append below.
 - **Sonar `githubactions:S8264`: declare workflow permissions per JOB, not workflow-level.** A full
   workflow rewrite makes the permissions block "new code" and Sonar flags the over-grant; checkout
   jobs get `contents: read`, a fan-in job that uses no token gets `{}`.
+
+## 2026-06-26 — Tests prove behaviour, never config or content; hashing a source to detect change is a config-pin (Skipper tracks Kelp)
+
+- **Owner sharpening (absolute): a test/check must prove BEHAVIOUR without constraining
+  implementation. The disqualifying screens: does it test configuration? assert content that can
+  change (all content)? test test-code? test a third-party lib/service? use a complex mock instead
+  of a trivial DI'd fake? Any "yes" → it is the wrong shape.** Hashing a source file and pinning the
+  hash to detect change ("single-sourcing as a tested relationship") is the ANTITHESIS of
+  prove-behaviour — it pins config, constrains the source's bytes, proves nothing about behaviour,
+  and fails loud on a byte change that broke nothing. Content-grep tests
+  (`expect(body).toContain('agent-first')` / `.not.toContain('Invite-Only Alpha')`) assert content
+  that legitimately changes — brittle and circumventable. The cure for a content-quality invariant
+  (a firewall: "no curriculum / no volatile status in the prose") is NOT a grep test — it is
+  **construction + human review** (a PR-review checklist item). Worked instance: ripped the WS-B
+  explain projection's two fingerprint drift-guards + two content-grep test files out (`03c279ca2`,
+  +114/−605); kept only MCP-observable behaviour (resource registered with its metadata contract;
+  read serves the wired body) + a DI'd assembler tested with trivial fakes. Sharpens
+  [[feedback_test_the_flag_engine_not_the_configuration]] and
+  [[feedback_never_pin_owner_tunable_values_in_tests]] (assert effects, not constants) into the
+  6-screen checklist + the firewall-is-review rule. Candidate distilled/testing-strategy graduation.
+- **A fresh git worktree needs `pnpm install` AND `pnpm build` before gates run.** type-check +
+  vitest pass on install alone, but ESLint's flat config imports the internal
+  `@oaknational/eslint-plugin-standards`, which must be BUILT (its package `exports` resolve to
+  `dist/`) — so bare `eslint` exits 2 ("No exports main defined") in an install-only worktree. The
+  main checkout is already built, masking this. Operational gotcha for any worktree-based lane.
+  (Harness `EnterWorktree` places the worktree under `.claude/worktrees/` — gitignored, nested,
+  sandbox-reachable — not as a sibling dir like the repo's `git worktree add` convention.)

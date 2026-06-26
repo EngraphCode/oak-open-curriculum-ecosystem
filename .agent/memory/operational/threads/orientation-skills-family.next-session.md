@@ -13,6 +13,72 @@ defined by PDR-112.
 | Orbit rides Horizon | claude | claude-opus-4-8 | ef8284 | implementer | 2026-06-22 | 2026-06-22 |
 | Skipper tracks Reef | claude-code | claude-opus-4-8[1m] | 87a7bb | planner — authored the orientation-lens unification plan (owner-directed); did not implement | 2026-06-23 | 2026-06-23 |
 | Zenith lifts Firmament | claude-code | claude-opus-4-8[1m] | 5c2f1b | implementer — executed the orientation-lens unification (WS0–WS6); folded two mid-execution owner directions | 2026-06-23 | 2026-06-23 |
+| Skipper tracks Kelp | claude | claude-opus-4-8[1m] | 20962d | implementer — WS-B MCP-surface continuation: cherry-picked D1+D2 to a fresh worktree off main, refactored the test surface to behaviour-only, scoped the audience-model work | 2026-06-26 | 2026-06-26 |
+
+## WS-B MCP surface — ACTIVE continuation handoff (2026-06-26, Skipper tracks Kelp)
+
+The WS-B explain-orientation MCP-surface lane is LIVE again (owner-directed). Read this section
+first, then the owning plan (`explain-orientation-mcp-surface.plan.md`, amended this session).
+
+**Branch / how to continue.** Work is on branch **`worktree-ws-b-explain`** (pushed to origin).
+Next session: check it out (or a fresh worktree off it), then run **`pnpm install` AND `pnpm build`**
+before any gate — a fresh worktree's ESLint flat-config imports the internal
+`@oaknational/eslint-plugin-standards`, which must be built or `eslint` exits 2. Open a fresh claim
+on the boundary (the prior claim was local-only and is closed).
+
+**SEMANTIC-MERGE REQUIRED at branch→main reconciliation.** This branch commits shared `.agent/`
+memory/state/doctrine files (this thread record, repo-continuity, napkin, the plan) that have
+diverged from main while other sessions moved it. When `worktree-ws-b-explain` merges to main, merge
+these files **SEMANTICALLY by hand (`/oak-semantic-merge`), never a git line-merge** — git
+understands lines, not concepts (the `merge_class:` frontmatter + owner standing direction).
+
+**State landed this session:**
+
+- 8 D1+D2 commits cherry-picked onto a fresh worktree off `main`; verified current + gate-green.
+- **`03c279ca2`** — test-surface refactor to behaviour-only (owner-directed). Full pre-commit gate
+  chain green; +114/−605. D1 (generation step + curated behaviour-shell + curated effort-overview +
+  DI'd assembler + regenerate→git-diff drift check) and D2 (`docs://oak/explain.md` low-salience
+  resource) are BUILT and behaviour-only-tested.
+
+**DECISIONS / VERDICTS — do not re-litigate:**
+
+1. **Test doctrine (owner, absolute): tests prove BEHAVIOUR, never configuration or content.** Six
+   disqualifying screens — tests config / asserts content-that-changes / tests test-code / tests a
+   third-party lib / uses a complex mock over a trivial DI'd fake. Hashing a source to detect change
+   (the deleted fingerprint drift-guards) is a config-pin, the antithesis. Content greps are brittle.
+   DELETED: both fingerprint-guard modules + tests, both content-grep test files.
+2. **The firewall (effort-domain; no curriculum; no volatile status) is a PR-REVIEW checklist item,
+   not a test** — a content-quality property of the curated prose, held by construction + review.
+   The PR reviewer MUST read the served body for curriculum-domain leakage and point-in-time status.
+3. **Tested behaviour:** MCP-observable registration (resource/tool/prompt with their metadata
+   contract) + serving (read/call/get returns the wired body) + the DI'd assembler's composition
+   (trivial fakes) + the regenerate→git-diff codegen freshness check.
+4. **Disposition:** the lane is being completed + landed (owner-directed), not retired.
+
+**Remaining work (owner-directed scope):**
+
+- **D0 — Audience-model audit + consistency (NEW, foundational).** Identify ALL audiences and
+  audience-like decision points across the explain SKILL-CANONICAL (the SSOT) AND the MCP projection;
+  reconcile them consistently; **add data analyst / data scientist** — served the EFFORT/data
+  orientation (Oak's data architecture, graph stack, SDK, how to engage), **firewalled from
+  curriculum data**. Open design questions: is "educator" distinct from the deferred "education
+  expert"? where do product / compliance experts sit? Re-curate the behaviour-shell to the CURRENT
+  canonical (it changed via #238 since the WS-B branch was built — the deleted drift-guard's only
+  real concern, now met by doing this re-curation as part of D0).
+- **D3 (model-fired tool), D4 (prompt), D5 (value-proxy)** — behaviour-only tests from the start. The
+  plan's D3/D4 MCP shapes + the mcp-expert CORRECT verdict (SDK 1.29.0: zero-arg extra-only handlers,
+  no `outputSchema`, single-object prompt content, low priority 0.2, `audience: ['assistant']`)
+  remain valid grounding.
+- Final gates + PR to main via code-owner review (never `--admin`).
+
+**Owner ship-gate (still live):** WS-B does not SHIP (expose to users) until the explain skill serves
+the new expert audiences (the D0 work is the audience side of this) + the open `DATA-SOURCES.md`
+governance decision (separate axis; the surface POINTS to it, never bakes it). Landing code to main
+is fine; user exposure is gated.
+
+**Sibling lanes (Alder tracks Topsoil):** `oak-pr-watch` (proto-chain dispatch guard) + `oak-pilot-ws-e`
+(search-cli cli-contract e2e) handed off + ACKed; disjoint from this lane (comms stream + local
+`.agent/state/collaboration/handoffs/alder-pr-watch-and-ws-e-integration.md`).
 
 ## Lane state
 

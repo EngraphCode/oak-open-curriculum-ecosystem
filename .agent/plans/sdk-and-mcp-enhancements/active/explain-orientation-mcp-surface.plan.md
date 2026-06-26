@@ -1,6 +1,6 @@
 ---
 name: "Explain Effort-Orientation as an MCP Surface (WS-B)"
-status: READY FOR EXECUTION — effort-domain (owner separation principle 2026-06-24); readiness reviewers re-run and folded (assumptions-expert READY-WITH-CHANGES, mcp-expert CORRECT)
+status: IN PROGRESS — D1+D2 landed behaviour-only on branch worktree-ws-b-explain (commit 03c279ca2); test doctrine corrected (see §2026-06-26 correction, READ FIRST); D0 audience-model + D3-D5 remain. Authoritative continuation = orientation-skills-family thread record.
 lineage:
   serves_thread: orientation-skills-family
   serves_stream: teaching-surface family across the PDR-112 portability seam
@@ -18,6 +18,14 @@ lineage:
     2025-11-25, SDK 1.29.0 shapes — content-domain-invariant, re-confirm pending);
     architecture-expert-betty content-home verdict (app-local, ADR-031, ADR-041)
 todos:
+  - id: ws-b-d0-audience-model
+    content: >
+      NEW (owner-directed 2026-06-26), foundational. Audit ALL audiences and audience-like
+      decision points across the explain SKILL-CANONICAL (the SSOT) AND this MCP projection;
+      reconcile them consistently; add data analyst / data scientist (served the EFFORT/data
+      orientation, firewalled from curriculum data). Re-curate the behaviour-shell to the current
+      canonical (changed via #238). D1's body regenerates from the re-curated shell.
+    status: pending
   - id: ws-b-d1-generated-body
     content: >
       App-local generation step builds a committed src/generated/explain-content.ts
@@ -28,13 +36,13 @@ todos:
       the live progress report, carrying a lastModified freshness signal. NO
       curriculum-surface routing and NO curriculum data anywhere (separation
       principle). ADR-031 pattern; mirrors embed-widget-html.ts.
-    status: pending
+    status: completed
   - id: ws-b-d2-resource
     content: >
       Register an effort-overview resource (docs://oak/explain.md) with LOW-salience
       nested annotations (priority low, audience ['assistant']) whose read returns
       the generated effort-orientation body; file scope register-resources.ts
-    status: pending
+    status: completed
     depends_on: [ws-b-d1-generated-body]
   - id: ws-b-d3-tool
     content: >
@@ -72,6 +80,37 @@ todos:
 > principle (2026-06-24); the prior reviewer verdicts were folded against the
 > superseded curriculum-routing shape and are being re-run (see §Readiness
 > Reviewers).**
+
+## 2026-06-26 — Current state & test-doctrine correction (READ FIRST, Skipper tracks Kelp)
+
+**Status:** D1 + D2 are BUILT and landed **behaviour-only** on branch `worktree-ws-b-explain`
+(commit `03c279ca2`, off current `main`). D0 (audience model) + D3–D5 remain. The authoritative
+continuation handoff is the `orientation-skills-family` thread record (§WS-B MCP surface).
+
+**Test doctrine corrected (owner-directed, absolute) — this supersedes the drift-guard /
+firewall-assertion / content-test approach still described in §"Faithful Projection",
+§"Workstreams" D1, §"Proof Contract", and §"Risk Assessment" below.** Tests prove BEHAVIOUR, never
+configuration or content. The two fingerprint drift-guards (canonical + effort-source) and the
+content-grep unit tests were DELETED as config-pins / brittle content assertions (hashing a source
+to detect change is the antithesis of prove-behaviour). What IS tested: MCP-observable registration
+and serving, the DI'd assembler's composition (trivial fakes), and the regenerate→git-diff codegen
+freshness check. **The curriculum and volatility firewalls are NOT tests — they are a PR-REVIEW
+checklist item** (a content-quality property of the curated prose, held by construction and review).
+The stale body sections named above still describe the removed approach; **reconcile them in-place
+as part of D0** (they are flagged, not yet rewritten, to bound this session).
+
+**D0 — Audience model (NEW, foundational, owner-directed 2026-06-26):** identify ALL audiences and
+audience-like decision points across the explain SKILL-CANONICAL (the SSOT) AND this MCP projection;
+reconcile them consistently; **add data analyst / data scientist** (served the EFFORT/data
+orientation — Oak's data architecture, graph stack, SDK, how to engage — firewalled from curriculum
+data). Re-curate the behaviour-shell to the CURRENT canonical (changed via #238 since this branch
+was built — the deleted drift-guard's only real concern, now met by doing the re-curation). Open
+design questions: is "educator" distinct from the deferred "education expert"? where do
+product / compliance experts sit? D1's generated body regenerates from the re-curated shell.
+
+**Merge note:** this branch's `.agent/` files (this plan, the thread record, repo-continuity, the
+napkin) need a SEMANTIC merge (`/oak-semantic-merge`) at branch→main reconciliation, never a git
+line-merge — git understands lines, not concepts.
 
 ## Problem and Intent
 
