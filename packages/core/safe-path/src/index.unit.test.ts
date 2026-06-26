@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { assertPathWithinBase } from './index';
+import { assertPathWithinBase } from './index.js';
 
 // A pure `realpath` stand-in: maps each input to its canonical (symlink- and
 // `..`-resolved) form — the same transformation the real `realpathSync`
