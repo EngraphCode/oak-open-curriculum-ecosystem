@@ -223,11 +223,14 @@ New session observations append below.
   "advisory" when it is a REQUIRED merge check. (c) a `.ts`-only grep vs `package.json` → missed where
   `--passWithNoTests` actually lived. Cure: when a check returns a convenient "all clear", distrust it
   HARDER and verify against the authoritative live surface — the convenience is the tell.
-- **DRY/SSOT beats consolidate-at-third-consumer for security-critical code; don't make the owner say
-  "enforce DRY".** I over-applied the rule to justify duplicating a path-containment validator across
-  two workspaces. The rule defers PREMATURE abstraction of general utils; it does not license
-  copy-pasting a security validator (divergence risk) and never overrides a REQUIRED Sonar duplication
-  gate. Check a rule's preconditions before applying it by analogy.
+- **Enforce DRY for security-critical code; don't make the owner say "enforce DRY".** I leaned on the
+  `consolidate-at-third-consumer` rule's "third" wording to rationalise duplicating a path-containment
+  validator across two workspaces. The owner corrected the guidance: extraction is at the **second**
+  consumer (it always was — the rule was mis-stated as "third"; content now fixed, filename retained as
+  a stable id pending a tracked rename). So the SSOT extraction at the 2nd consumer was the on-policy,
+  correct move. Lessons: a security validator must have one source of truth (divergence is a latent
+  defect); a required gate (Sonar duplication) forces the right answer; don't let a rule's stated number
+  override DRY — check the rule's correctness and preconditions before leaning on it.
 - **For squash-merged branches, SHA-not-ancestor ≠ content-absent.** `git log main..branch` listed
   "net-new" commits whose CONTENT was already on `main` via the #222 / #224 squashes; the worktree
   "keepers" were already merged. Compare CONTENT (per-file diff / cherry-pick dry-run), not commit

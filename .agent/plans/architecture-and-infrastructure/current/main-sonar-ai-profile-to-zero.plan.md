@@ -65,7 +65,7 @@ outstanding).
 
 - **2026-06-26** · PR #223 (`fix(agent-tools): contain CLI paths within the git dir (S8707 sites 1-2)`) — **Phase 1, 2 of 3.** Landed the canonical-path validator `agent-tools/src/core/safe-path.ts` (`assertPathWithinBase`) with unit tests, applied at both agent-tools sites (`ci-turbo-report.ts`, `prevent-accidental-major-version.ts`). Gate effect: `new_vulnerabilities_severity` 15 → 0 (OK). Remaining Phase-1 site: `apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`. (Same PR also updated `docs/governance/sonar-disposition-policy.md`.)
 
-- **2026-06-26** · PR #242 (`fix(search-cli): contain analyze-elser report path within diagnostics dir (S8707)`) — **Phase 1, site-3 (final).** Local `apps/oak-search-cli/src/lib/safe-path.ts` (`assertPathWithinBase`) + traversal test contains the `process.argv` report path within the `diagnostics/` dir before reading. `security-expert`: GO. Awaiting code-owner merge (merge, not squash). **Sonar PR gate:** `new_duplicated_lines_density` initially ERROR (35.9%) from the local safe-path copy. SonarCloud is a **REQUIRED** merge-gate check (the `Protect default branch` ruleset, not advisory), so the duplication was **resolved, not accepted**: the validator was extracted to a shared `@oaknational/safe-path` SSOT package (commit `bf7277465`) consumed by both agent-tools and search-cli, and both local copies were deleted. DRY over the `consolidate-at-third-consumer` heuristic — a security-critical validator must have one source of truth, and the heuristic never overrides a required gate. All other PR conditions OK; zero new issues. On merge: S8707 → 0 (Phase 1 complete), `new_vulnerabilities_severity` stays OK.
+- **2026-06-26** · PR #242 (`fix(search-cli): contain analyze-elser report path within diagnostics dir (S8707)`) — **Phase 1, site-3 (final).** Local `apps/oak-search-cli/src/lib/safe-path.ts` (`assertPathWithinBase`) + traversal test contains the `process.argv` report path within the `diagnostics/` dir before reading. `security-expert`: GO. Awaiting code-owner merge (merge, not squash). **Sonar PR gate:** `new_duplicated_lines_density` initially ERROR (35.9%) from the local safe-path copy. SonarCloud is a **REQUIRED** merge-gate check (the `Protect default branch` ruleset, not advisory), so the duplication was **resolved, not accepted**: the validator was extracted to a shared `@oaknational/safe-path` SSOT package (commit `bf7277465`) consumed by both agent-tools and search-cli, and both local copies were deleted. This is on-policy: the consolidate rule extracts a shared shape at the **second** consumer (oak-search-cli is the 2nd), and a security-critical validator must have one source of truth. All other PR conditions OK; zero new issues. On merge: S8707 → 0 (Phase 1 complete), `new_vulnerabilities_severity` stays OK.
 
 ### Re-derivation evidence (2026-06-26, first-hand)
 
@@ -164,10 +164,10 @@ tests. Applied at both agent-tools sites (`ci-turbo-report.ts`,
 
 **Remaining (this plan's continuation):** the single `oak-search-cli` site
 `apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`. It is the **second**
-workspace to need containment, so per `consolidate-at-third-consumer` it gets its
-own **local** helper mirroring `assertPathWithinBase`'s proven design — no
-cross-workspace import of dev-tooling into the app, no shared `packages/core/*`
-extraction until a third consumer. `security-expert` confirms the design.
+workspace to need containment — the **second** consumer — so per the consolidate
+rule the validator was extracted to a shared `@oaknational/safe-path` package
+(PR #242, commit `bf7277465`) consumed by both agent-tools and oak-search-cli,
+rather than copied. `security-expert` confirmed the design.
 
 - **TDD cycle** (one commit): local helper unit tests (containment passes; `../`
   escape rejected; partial-prefix `…-secret` rejected) + helper; then apply at
