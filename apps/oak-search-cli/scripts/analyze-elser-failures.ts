@@ -148,7 +148,7 @@ function buildAndSaveAnalysis(
 
 /** Validate inputs. */
 function validateInputs(reportPath: string | undefined, bulkDir: string): void {
-  if (!reportPath || !existsSync(reportPath)) {
+  if (!reportPath) {
     console.error('Usage: pnpm analyze:elser <report-file>');
     process.exit(1);
   }
@@ -158,27 +158,12 @@ function validateInputs(reportPath: string | undefined, bulkDir: string): void {
   }
 }
 
-/** Main analysis function. */
-async function main(): Promise<void> {
-  const reportPath = process.argv[2] ?? '';
-  const bulkDir = join(__dirname, '..', 'bulk-downloads');
-  const diagnosticsDir = join(__dirname, '..', 'diagnostics');
-  validateInputs(reportPath, bulkDir);
-
-  // `reportPath` comes from `process.argv` (untrusted) and flows into
-  // `readFileSync` — the S8707 path-injection sink. Contain it within the
-  // diagnostics directory (where reports are produced and consumed) before
-  // reading; `..`/symlink escapes resolve outside the base and are rejected
-  // (fail closed).
-  const safeReportPath = assertPathWithinBase(reportPath, diagnosticsDir);
-
-  console.log(`ELSER Failure Analysis\nReport: ${safeReportPath}`);
-  const report = ReportSchema.parse(JSON.parse(readFileSync(safeReportPath, 'utf-8')));
-  console.log(
-    `\nSummary: ${report.summary.totalFailures}/${report.summary.totalDocuments} failures`,
-  );
-  printErrorDist(report.errorDistribution);
-
+/** Build the document lookup, match failures, analyse positions, and save the result. */
+async function analyseReport(
+  report: z.infer<typeof ReportSchema>,
+  bulkDir: string,
+  safeReportPath: string,
+): Promise<void> {
   console.log('\nBuilding document characteristics lookup...');
   const lookup = await buildLookup(bulkDir);
   console.log(`Loaded ${lookup.size} documents`);
@@ -195,6 +180,36 @@ async function main(): Promise<void> {
 
   const outputFile = buildAndSaveAnalysis(safeReportPath, report, withChars.length, positions);
   console.log(`\nAnalysis saved to: ${outputFile}`);
+}
+
+/** Main analysis function. */
+async function main(): Promise<void> {
+  const reportPath = process.argv[2] ?? '';
+  const bulkDir = join(__dirname, '..', 'bulk-downloads');
+  const diagnosticsDir = join(__dirname, '..', 'diagnostics');
+  validateInputs(reportPath, bulkDir);
+
+  // `reportPath` comes from `process.argv` (untrusted) and is the S8707
+  // path-injection source. Contain it before any filesystem access on it:
+  // `assertPathWithinBase` canonicalises with `realpathSync` — the single,
+  // contained stat of the candidate, which also proves existence — and rejects
+  // `..`/symlink escapes. Only the returned safe path is ever read (fail closed).
+  let safeReportPath: string;
+  try {
+    safeReportPath = assertPathWithinBase(reportPath, diagnosticsDir);
+  } catch {
+    console.error(`Report not found within the diagnostics directory: ${reportPath}`);
+    process.exit(1);
+  }
+
+  console.log(`ELSER Failure Analysis\nReport: ${safeReportPath}`);
+  const report = ReportSchema.parse(JSON.parse(readFileSync(safeReportPath, 'utf-8')));
+  console.log(
+    `\nSummary: ${report.summary.totalFailures}/${report.summary.totalDocuments} failures`,
+  );
+  printErrorDist(report.errorDistribution);
+
+  await analyseReport(report, bulkDir, safeReportPath);
 }
 
 main().catch((e) => {
