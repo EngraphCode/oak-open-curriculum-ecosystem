@@ -15,6 +15,8 @@ import { z } from 'zod';
 import { readAllBulkFiles } from '@oaknational/sdk-codegen/bulk';
 import { deriveSubjectSlugFromSequence, typeSafeEntries } from '@oaknational/curriculum-sdk';
 
+import { assertPathWithinBase } from '../src/lib/safe-path';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -160,10 +162,18 @@ function validateInputs(reportPath: string | undefined, bulkDir: string): void {
 async function main(): Promise<void> {
   const reportPath = process.argv[2] ?? '';
   const bulkDir = join(__dirname, '..', 'bulk-downloads');
+  const diagnosticsDir = join(__dirname, '..', 'diagnostics');
   validateInputs(reportPath, bulkDir);
 
-  console.log(`ELSER Failure Analysis\nReport: ${reportPath}`);
-  const report = ReportSchema.parse(JSON.parse(readFileSync(reportPath, 'utf-8')));
+  // `reportPath` comes from `process.argv` (untrusted) and flows into
+  // `readFileSync` — the S8707 path-injection sink. Contain it within the
+  // diagnostics directory (where reports are produced and consumed) before
+  // reading; `..`/symlink escapes resolve outside the base and are rejected
+  // (fail closed).
+  const safeReportPath = assertPathWithinBase(reportPath, diagnosticsDir);
+
+  console.log(`ELSER Failure Analysis\nReport: ${safeReportPath}`);
+  const report = ReportSchema.parse(JSON.parse(readFileSync(safeReportPath, 'utf-8')));
   console.log(
     `\nSummary: ${report.summary.totalFailures}/${report.summary.totalDocuments} failures`,
   );
@@ -183,7 +193,7 @@ async function main(): Promise<void> {
     `\nPosition Distribution: early=${positions.early} middle=${positions.middle} late=${positions.late}`,
   );
 
-  const outputFile = buildAndSaveAnalysis(reportPath, report, withChars.length, positions);
+  const outputFile = buildAndSaveAnalysis(safeReportPath, report, withChars.length, positions);
   console.log(`\nAnalysis saved to: ${outputFile}`);
 }
 
