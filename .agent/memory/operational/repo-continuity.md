@@ -24,6 +24,36 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+- **CI hardening session (2026-06-26, Inferno holds Tongs).** Two gates landed to `main`:
+  **(1) advisory dependency-review PR-gate** (#236, `570750939`): `actions/dependency-review-action`
+  v5.0.0 SHA-pinned, `pull_request`-only, `fail-on-severity: high`. ADR-161 + ADR-121 amended in
+  lockstep — the network-free PR-check boundary is stated as **third-party-vendor** scope, permitting
+  the gate's GitHub-first-party dependency-graph call via the run's `GITHUB_TOKEN` (ADR-204's
+  third-party reasoning preserved); advisory, NOT ruleset-required; RED-green proven (throwaway #237
+  with a critical dep drove the gate FAIL).
+  **(2) CI parallelisation** (#239, `67077cff9`): the serial `run-quality-gates` job split into
+  parallel cacheable jobs (`secret-scan`, `install`, `static-checks`, `build`, `unit-tests`,
+  `knip-depcruise`, `browser-tests`) behind a **fail-closed `run-quality-gates` fan-in** (requires
+  every result `success`; reuses the required-check context, so no ruleset change and `release.yml`'s
+  `workflow_run: [CI]` is untouched). Caching: `install` warms the pnpm store once (no cold stampede),
+  `build` warms the Turbo remote cache, Playwright browsers keyed on the Playwright version, gitleaks
+  moved docker→SHA-pinned-binary; per-ref concurrency cancels superseded PR runs. Reviews folded:
+  Sonar S8264 (per-job permissions), the fail-closed aggregator, the Playwright version cache key.
+  **Next safe step:** report #229 Tier-2/3 security-roadmap items; reconcile the pre-existing
+  widget/a11y pre-push≠CI parity gap (ADR-121 matrix, from #230).
+  **Session closeout (this branch `docs/session-closeout-continuity`):** the two sessions' memory was
+  **semantically merged** (this Inferno entry + Bonfire's #238 entry both kept) — git line-merge would
+  have corrupted it; new **`/oak-semantic-merge` skill** records that concept-preserving method
+  (per `merge_class` frontmatter). **Codex #239 follow-ups — INVESTIGATE against the merge-result code
+  (owner: some may be stale; NO code changed this session):** (P2) `ci.yml` main-run concurrency — rapid
+  main pushes share `ci-refs/heads/main`; a queued run can cancel the *pending* one, dropping an
+  intermediate main CI run + its Release `workflow_run`; consider a per-SHA group for non-PR runs.
+  (P3) ADR-121 changelog row says the Playwright cache keys on the lockfile hash, but the impl keys on
+  the Playwright version — align. (P3) the `setup` composite uses `--frozen-lockfile` not `--offline`
+  downstream — **declined** (graceful registry fallback beats fail-closed on a transient cache miss;
+  stampede-avoidance holds in the warm case). **Attribution format (owner direction 2026-06-26):**
+  `Agent-authored on behalf of \`jimCresswell\` by <Name> (<platform>, <model>)` — simpler, no emoji /
+  no "Generated with" line; apply to PR and comment bodies; the `identify-as-agent` rule canonical form is updated to match.
 - **Statusline two-set display (merged) + canonical MCP-app target platforms (2026-06-26, Bonfire guards Temper).**
   Statusline coord-branch work **merged** (PR #235, `589d6518c`): the statusline now renders two git-derived
   location sets (working tree + primary checkout) with **divergence-only dedup** — a coordination token shows
@@ -51,16 +81,8 @@ todo list — is [`director-handoff.md`](director-handoff.md).
   set instead; same merge-skew protection, no queue, no bypass (ADR-204). A session-scoped
   merge-queue bypass used during the broken-queue window is **provably unneeded** (#233 merged with
   no `--admin`); the authorisation lapses with the session.
-  **Next safe step — dependency-review PR-gate.** Owner-approved 2026-06-26; deferred to the next
-  session under one named constraint — this session's context budget is exhausted and the owner
-  directed a handoff (falsifiable: the next session resumes it directly, with no re-decision). The
-  work: (a) amend ADR-161 + ADR-121 with a narrow carve-out permitting GitHub's OWN dependency-graph
-  (dependency-review) API as a same-instance PR-check call — distinct from third-party-vendor
-  network calls, so ADR-161's vendor-uptime rationale is not incurred; (b) add
-  `.github/workflows/dependency-review.yml` running `actions/dependency-review-action` (latest is
-  v5.0.0; SHA-pin at author time) on `pull_request: [main]`, `fail-on-severity: high`,
-  `comment-summary-in-pr: on-failure`, perms `contents: read` + `pull-requests: write`,
-  advisory-not-required initially. Full rationale: report #229 §7 Tier-1.
+  **Next safe step — dependency-review PR-gate: DONE 2026-06-26 (Inferno holds Tongs), see the top
+  entry.**
 - **Knowledge-substrate consolidation — PR #226 (2026-06-25, Zephyr mends Bluff).** Register
   intents sharpened (pending-graduations = learned-doctrine-awaiting-a-home; open-questions =
   strategic open questions) with belongs/does-not-belong examples; the homing destinations table

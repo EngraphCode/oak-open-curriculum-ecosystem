@@ -96,6 +96,41 @@ New session observations append below.
   [[feedback_check_doctrine_preconditions_before_applying]], [[verify-dont-trust]]; candidate for a
   `patterns/` entry if a second instance appears.
 
+## 2026-06-26 — An inherited handoff term can smuggle a hedge-frame the design doesn't actually have (Inferno holds Tongs)
+
+- **Surprise: the PDR-044 write-hook blocked "carve-out" mid-edit, and it was right.** The
+  owner-approved handoff (and ADR-174's anticipatory wording) framed the dependency-review work as
+  "a narrow carve-out to ADR-161." I typed that verbatim into the ADR-161 Status line and the hook
+  blocked it as a write-time fingerprint of expediency-hedging. Per
+  [[hook-policy-substring-discipline]] I did NOT synonym-swap; I reappraised the *concept*. The
+  reappraisal yielded a strictly better framing: it is not an *exception hedged into* the rule, it
+  is a **positive scope refinement** — ADR-161's rationale was always third-party-vendor uptime, and
+  GitHub's own same-instance API was never a third-party call, so the dependency-review gate is
+  *within* the boundary correctly understood, not carved out of it. The handoff's vocabulary carried
+  a hedge-frame the actual design did not have. **Lesson:** an inherited term (from a handoff, a
+  prior ADR, an owner phrasing) can import a frame you wouldn't choose from first principles; the
+  hook firing on it is a design signal, not a lint to route around — reframe positively and the ADR
+  comes out stronger. This is [[feedback_existence_is_not_correctness_default_replace]] applied to
+  vocabulary, and the metacognition "fluency is a warning" note (a fluent inherited word bypassed
+  the situational check). Sibling: [[verify-dont-trust]].
+
+## 2026-06-26 — A CI gate passing on its first run is a vacuous green, not proof it gates (Inferno holds Tongs)
+
+- **Owner correction: "a completely useless unit test can pass on the first go, that's why TDD
+  requires RED, green, refactor."** I watched the new advisory `dependency-review` gate pass on PR
+  #236 and wrote "the gate works end-to-end." Wrong. #236 introduces **no dependency changes**, so a
+  green there proves only that the workflow *executes without erroring* — it would pass identically
+  whether `fail-on-severity: high` is wired correctly OR the action is a complete no-op. I never saw
+  RED, so the green was uninformative about whether the gate *gates*. **Cure (did it):** I proved RED
+  on a throwaway branch adding `[email protected]` (critical CVE-2021-44906) — the `dependency-review`
+  check went FAILURE, and the job log cited the exact advisory (`GHSA-xvch-5gv4-984h`), confirming it
+  failed *for the right reason*, not incidentally. Then #236's green is the real green (clean input →
+  pass). **Lesson:** for any gate/guard/validator, a green is meaningful only once you have seen the
+  matching RED for the right reason; "it ran and passed" is not "it works." This is the same shape as
+  [[feedback_test_the_flag_engine_not_the_configuration]], [[feedback_run_the_thing_dont_flag_the_gap]]
+  (run the gate against an input that *should* trip it), and the test-expert's describe-vs-audit
+  screen. Applies to CI gates, hooks, and assertions alike. Sibling: [[verify-dont-trust]].
+
 ## 2026-06-26 — Disambiguate overloaded terms before canonicalising; verify your OWN explanations against the full source (Bonfire guards Temper)
 
 - **Disambiguate an overloaded term's distinct concepts BEFORE canonicalising or sweeping for it.**
@@ -139,3 +174,30 @@ New session observations append below.
   keying on head SHA fixes per-push tracking. Emitting only on `pass` makes a failure indistinguishable
   from "still running" — emit on pass AND fail/skip/cancel so silence ≠ success. Extends
   [[pr-monitor-to-merge]].
+
+## 2026-06-26 — CI parallelisation: fail-closed gates, findings-vs-live-source, semantic memory merge (Inferno holds Tongs)
+
+- **A fan-in / aggregate gate must be fail-CLOSED — require every result to be `success`, not just
+  block on known-bad values.** The split-CI `run-quality-gates` aggregator first matched only
+  `failure`/`cancelled`; a bot caught that a standalone `skipped` (e.g. a future `if:`-guarded job)
+  would slip through as a pass. Fix: require all `needs.*.result == success` (failure, cancelled,
+  skipped, and any future GitHub value all block). Generalises the vacuous-green entry above: a gate's
+  safe default is fail-closed. Sibling: [[verify-dont-trust]].
+- **Validate a reviewer's finding against the live artefact it describes, not the doc it cites.** A
+  code-expert flagged "widget/a11y tiers newly promoted to CI" as blocking — but it compared to a
+  stale ADR-121 matrix; the actual `main` ci.yml had run them since #230, so the split merely preserved
+  them. Acting on the "fix" would have DELETED real coverage. Check current source, not the stale doc a
+  reviewer reasoned from. Sibling: [[feedback_validate_specialist_findings_before_acting]].
+- **`gh pr merge --delete-branch` while carrying uncommitted cross-cutting changes makes a mess.** It
+  switches the local checkout to the base branch (reverting committed working files) and aborts the
+  fast-forward on the uncommitted changes — the remote merge still succeeds, the local tree is the
+  casualty. Land or commit unrelated working-tree changes first, or merge without `--delete-branch`.
+- **Merge agent memory/state files SEMANTICALLY, never by git line-merge (owner standing principle,
+  2026-06-26).** When napkin/continuity diverge (your edits + another session's), git's line-merge
+  corrupts the concepts. Resolve as a CONCEPT UNION: identify what each side ADDED, author a merged
+  file where all entries coexist (recency-ordered, session-grouped where the file is index-shaped),
+  and review the WHOLE file, not just conflict hunks. The `merge_class:` frontmatter declares each
+  file's merge shape. Being written down as doctrine + a skill (owner-directed).
+- **Sonar `githubactions:S8264`: declare workflow permissions per JOB, not workflow-level.** A full
+  workflow rewrite makes the permissions block "new code" and Sonar flags the over-grant; checkout
+  jobs get `contents: read`, a fan-in job that uses no token gets `{}`.
