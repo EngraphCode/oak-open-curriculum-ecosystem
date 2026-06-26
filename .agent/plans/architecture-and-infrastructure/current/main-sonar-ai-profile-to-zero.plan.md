@@ -12,7 +12,7 @@ todos:
     content: "Phase 0: tracking home + full first-hand triage by cause-class."
     status: completed
   - id: phase-1-cli-security
-    content: "Phase 1: agent-CLI path-injection (S8707). Validator agent-tools/src/core/safe-path.ts:assertPathWithinBase + the 2 agent-tools sites LANDED (PR #223). Site-3 (oak-search-cli analyze-elser-failures.ts:166) local safe-path helper + traversal test is in PR #242, awaiting code-owner merge."
+    content: "Phase 1: agent-CLI path-injection (S8707). assertPathWithinBase + the 2 agent-tools sites LANDED (PR #223). Site-3 (oak-search-cli analyze-elser-failures.ts) done in PR #242, which also extracted the validator to the shared @oaknational/safe-path package (SSOT for all 3 sites). Awaiting code-owner merge."
     status: in_progress
   - id: phase-2-regex-strategy
     content: "Phase 2: regex safety (S8786/S5843/S6035) — generator fixes, per-workspace regex home, semver import, per-site FP."
@@ -154,13 +154,14 @@ first-hand triage of the three high-priority classes.
 ### Phase 1 — CLI security (S8707) — clears the gate's security condition — PART-LANDED (PR #223)
 
 **Landed on `main` (PR #223 — 2 of 3 sites + validator):** the canonical-path
-helper `agent-tools/src/core/safe-path.ts` exposing `assertPathWithinBase(candidate,
-baseDir, { realpath })` — `realpathSync` base + trailing `sep`, `realpathSync`
-candidate, `startsWith(base + sep)` containment (partial-prefix `…-secret` rejected;
-symlink-escape rejected; never `path.resolve`), injectable realpath seam, full unit
-tests. Applied at both agent-tools sites (`ci-turbo-report.ts`,
-`prevent-accidental-major-version.ts`). Live Sonar confirms those two cleared and
-`new_vulnerabilities_severity` is now OK.
+validator `assertPathWithinBase(candidate, baseDir, { realpath })` — `realpathSync`
+base + trailing `sep`, `realpathSync` candidate, `startsWith(base + sep)`
+containment (partial-prefix `…-secret` rejected; symlink-escape rejected; never
+`path.resolve`), injectable realpath seam, full unit tests. Applied at both
+agent-tools sites (`ci-turbo-report.ts`, `prevent-accidental-major-version.ts`).
+It originally lived at `agent-tools/src/core/safe-path.ts`; PR #242 extracted it to
+the shared `@oaknational/safe-path` package (SSOT). Live Sonar confirms those two
+sites cleared and `new_vulnerabilities_severity` is now OK.
 
 **Remaining (this plan's continuation):** the single `oak-search-cli` site
 `apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`. It is the **second**
@@ -169,9 +170,10 @@ rule the validator was extracted to a shared `@oaknational/safe-path` package
 (PR #242, commit `bf7277465`) consumed by both agent-tools and oak-search-cli,
 rather than copied. `security-expert` confirmed the design.
 
-- **TDD cycle** (one commit): local helper unit tests (containment passes; `../`
-  escape rejected; partial-prefix `…-secret` rejected) + helper; then apply at
-  `analyze-elser-failures.ts:166` with a site test proving traversal is rejected.
+- **TDD cycle**: the validator's unit tests travel with the shared
+  `@oaknational/safe-path` package (containment passes; `../`/symlink/partial-prefix
+  escapes rejected); the site applies it at `analyze-elser-failures.ts`, containing
+  the report path before any filesystem access.
 - **Acceptance**: the remaining site validated; `security-expert` GO; Sonar S8707
   → 0 on the branch. **Proof**: `unit` (helper + site) + branch Sonar re-scan.
 

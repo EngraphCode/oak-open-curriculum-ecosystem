@@ -25,6 +25,7 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 | claude-code | claude-opus-4-8-1m | c57e0b | Lapwing weaves Downdraft | implementer | 2026-06-24 | 2026-06-25 |
 | claude | claude-opus-4-8[1m] | c2b721 | Thyme lifts Compost | team-session-closer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8 | 3b1f1c | Junk tracks Moorings | implementer | 2026-06-25 | 2026-06-25 |
+| claude | claude-opus-4-8[1m] | 547586 | Alder tracks Topsoil | implementer | 2026-06-26 | 2026-06-26 |
 
 ## Landing Target For Next Session
 
@@ -102,17 +103,39 @@ design-MAJOR representative; mechanical-MINOR dispositioned at class level
 (per-site confirmation collapses into the fix act). Full per-site first-hand of
 every MINOR site is available on request.
 
-**Current state (2026-06-25, Thyme lifts Compost)**: sites 1 + 2 committed
-(`1329d787a`, `4c9cfbfc9`) on `fix/sonar-s8707-cli-path-injection`, branch PUSHED
-to origin (preserved). Lane PAUSED at the worktree-pilot team closer; site-3 → next
-team session.
+**Current state (2026-06-26, Alder tracks Topsoil)**: Phase 1 is COMPLETE in
+**PR #242** (branch `fix/sonar-site3-test-demask-local-edits`, off fresh `main`
+`f0b87a2e3` — NOT the old `fix/sonar-s8707-cli-path-injection`, which was the stale
+pre-squash #223 branch, 23 behind main; retire it). #242 (12 commits, all PUSHED,
+**Sonar gate OK** — duplication 0%, all conditions pass, CI green) contains: site-3
+containment fix; the validator extracted to a shared **`@oaknational/safe-path`**
+SSOT package (`packages/core/safe-path`) — the required Sonar
+`new_duplicated_lines_density` gate forced DRY at the **2nd** consumer; both local
+copies deleted; the two `--passWithNoTests` de-masks (graph-ingest, graph-project);
+plan/prompt/napkin/vscode updates; and the `consolidate-at-third-consumer` guidance
+correction (extraction is at the **second** consumer — rule content, practice-index,
+and closed-shape descriptions fixed; filename retained as a stable id; a clean rename
+is a tracked follow-up). Worktrees `oak-pr-watch` and `oak-pilot-ws-e`: verified retire-only
+(keepers already merged via #222/#224; nothing net-new).
 
-**Next safe step**: next-team-session successor reads the handoff record
-(`handoffs/f2a17e85-…md`) before any edit → checks out the pushed
-`fix/sonar-s8707-cli-path-injection` branch → wires site 3 (`apps/oak-search-cli/diagnostics`
-base, TDD) → continues security-expert thread `abed0b58a0b03bcb2` for the integrated
-re-review of all three sites → workspace gates → one PR direct to `main` via code-owner
-review. Then Phase 2 regex strategy.
+**Review fixes LANDED (2026-06-26T20:35Z, Alder tracks Topsoil)**: the #242 bot-review
+fixes are committed and the tree is green — (a) `12bad766e` analyze-elser contain-first
+(Codex P2: dropped the redundant `existsSync(reportPath)`; contain the untrusted argv
+path with `assertPathWithinBase` before any fs access; extracted `analyseReport()` so
+`main()` clears `max-statements` — and `analyseReport` returns `void`, sidestepping the
+`consistent-return` error that a `string`-returning resolver-helper extraction first
+introduced), (b) `b0e70e375` safe-path test `./index`→`./index.js` (Copilot), (c) plan
+prose → SSOT framing (Copilot) in the docs commit alongside this record. Verified
+first-hand: `search-cli` lint 0 errors + type-check clean, `safe-path` 6/6. (The 160
+`search-cli` lint *warnings* are pre-existing repo-wide ADR-088 `no-throw-statement`
+migration warnings in unrelated files — zero added by this work.)
+
+**Next safe step**: (1) post a #242 summary comment dispositioning each bot comment
+(Codex P1 resolved-by-SSOT; Codex P2 addressed + the realpath-inherency note; Copilot
+plan-stale + `.js` fixed); (2) after the push, re-fetch #242 reviews and confirm CI
+green + Sonar gate OK; (3) #242 is then owner-merge-ready — **merge, NOT squash**;
+**semantic-merge** the `.agent/` files if `main` has diverged. Then Phase 2 (regex
+strategy: S8786 ×15, S5843 ×2, S6035 ×1; per-workspace `src/lib/regex/` home).
 
 ## Watch (not mine; flagged)
 
