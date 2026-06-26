@@ -55,6 +55,7 @@
     "@oaknational/oak-search-sdk": "workspace:*",
     "@oaknational/observability": "workspace:*",
     "@oaknational/result": "workspace:*",
+    "@oaknational/safe-path": "workspace:*",
     "@oaknational/sdk-codegen": "workspace:*",
     "@oaknational/sentry-node": "workspace:*",
     "@oaknational/type-helpers": "workspace:*",

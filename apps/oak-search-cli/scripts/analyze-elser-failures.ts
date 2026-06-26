@@ -15,7 +15,7 @@ import { z } from 'zod';
 import { readAllBulkFiles } from '@oaknational/sdk-codegen/bulk';
 import { deriveSubjectSlugFromSequence, typeSafeEntries } from '@oaknational/curriculum-sdk';
 
-import { assertPathWithinBase } from '../src/lib/safe-path';
+import { assertPathWithinBase } from '@oaknational/safe-path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

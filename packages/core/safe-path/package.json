@@ -1,0 +1,69 @@
+{
+  "name": "@oaknational/safe-path",
+  "version": "0.0.0-development",
+  "private": true,
+  "description": "Path-containment guard: assert a candidate path resolves within a base directory (symlink- and traversal-safe)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "development": "./src/index.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "!**/*.test.ts",
+    "!**/*.integration.test.ts"
+  ],
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "clean": "rm -rf dist .turbo",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "type-check": "tsc -p tsconfig.lint.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@types/node": "^24.13.2",
+    "eslint": "^10.5.0",
+    "globals": "^17.7.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oaknational/oak-open-curriculum-ecosystem.git",
+    "directory": "packages/core/safe-path"
+  },
+  "bugs": {
+    "url": "https://github.com/oaknational/oak-open-curriculum-ecosystem/issues"
+  },
+  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/packages/core/safe-path#readme",
+  "keywords": [
+    "path",
+    "security",
+    "path-traversal",
+    "filesystem"
+  ],
+  "author": {
+    "name": "Jim Cresswell",
+    "email": "contact@jimcresswell.net",
+    "url": "https://jimcresswell.net"
+  },
+  "contributors": [
+    {
+      "name": "Oak National Academy",
+      "email": "help@thenational.academy",
+      "url": "https://www.thenational.academy"
+    }
+  ],
+  "license": "MIT"
+}

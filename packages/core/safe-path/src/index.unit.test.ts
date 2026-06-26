@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { assertPathWithinBase } from './safe-path.js';
+import { assertPathWithinBase } from './index';
 
 // A pure `realpath` stand-in: maps each input to its canonical (symlink- and
 // `..`-resolved) form — the same transformation the real `realpathSync`
@@ -19,27 +19,25 @@ const canonical =
 describe('assertPathWithinBase', () => {
   it('returns the canonical candidate path when it resolves inside the base', () => {
     const realpath = canonical({
-      '/repo': '/repo',
-      '/repo/.turbo/runs/run.json': '/repo/.turbo/runs/run.json',
+      '/base': '/base',
+      '/base/run.json': '/base/run.json',
     });
-    expect(assertPathWithinBase('/repo/.turbo/runs/run.json', '/repo', { realpath })).toBe(
-      '/repo/.turbo/runs/run.json',
-    );
+    expect(assertPathWithinBase('/base/run.json', '/base', { realpath })).toBe('/base/run.json');
   });
 
   it('rejects a candidate that escapes the base via `..` traversal', () => {
-    const realpath = canonical({ '/repo': '/repo', '/repo/../etc/passwd': '/etc/passwd' });
-    expect(() => assertPathWithinBase('/repo/../etc/passwd', '/repo', { realpath })).toThrow(
+    const realpath = canonical({ '/base': '/base', '/base/../etc/passwd': '/etc/passwd' });
+    expect(() => assertPathWithinBase('/base/../etc/passwd', '/base', { realpath })).toThrow(
       /not within/u,
     );
   });
 
   it('rejects a sibling whose name merely shares the base as a prefix', () => {
     const realpath = canonical({
-      '/repo': '/repo',
-      '/repo-secret/data.json': '/repo-secret/data.json',
+      '/base': '/base',
+      '/base-secret/data.json': '/base-secret/data.json',
     });
-    expect(() => assertPathWithinBase('/repo-secret/data.json', '/repo', { realpath })).toThrow(
+    expect(() => assertPathWithinBase('/base-secret/data.json', '/base', { realpath })).toThrow(
       /not within/u,
     );
   });
@@ -48,8 +46,8 @@ describe('assertPathWithinBase', () => {
     // The candidate lexically sits under the base, but its real path (the
     // symlink target) is outside — the case a `path.resolve`-only check would
     // wrongly accept.
-    const realpath = canonical({ '/repo': '/repo', '/repo/link': '/outside/secret.json' });
-    expect(() => assertPathWithinBase('/repo/link', '/repo', { realpath })).toThrow(/not within/u);
+    const realpath = canonical({ '/base': '/base', '/base/link': '/outside/secret.json' });
+    expect(() => assertPathWithinBase('/base/link', '/base', { realpath })).toThrow(/not within/u);
   });
 
   it('canonicalises the base before comparing, so a symlinked base still contains its children', () => {
@@ -63,8 +61,8 @@ describe('assertPathWithinBase', () => {
   });
 
   it('throws when the candidate cannot be canonicalised (does not exist)', () => {
-    const realpath = canonical({ '/repo': '/repo' });
-    expect(() => assertPathWithinBase('/repo/missing.json', '/repo', { realpath })).toThrow(
+    const realpath = canonical({ '/base': '/base' });
+    expect(() => assertPathWithinBase('/base/missing.json', '/base', { realpath })).toThrow(
       /ENOENT/u,
     );
   });

@@ -10,7 +10,7 @@ import { readFileSync, realpathSync } from 'node:fs';
 import { argv, exit } from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-import { assertPathWithinBase } from '../core/safe-path.js';
+import { assertPathWithinBase } from '@oaknational/safe-path';
 import { writeErrorLine } from '../core/terminal-output.js';
 import { resolveTrustedGit } from '../core/trusted-git.js';
 
