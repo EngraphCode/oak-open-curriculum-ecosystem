@@ -236,3 +236,21 @@ New session observations append below.
   "keepers" were already merged. Compare CONTENT (per-file diff / cherry-pick dry-run), not commit
   ancestry, to decide what is genuinely net-new to integrate. (Owner has re-enabled merge, not squash,
   for PRs precisely to keep commit-level comparison.)
+- **Post-compression, RE-GROUND before acting — never resume edits on the summary's picture.** After a
+  context compression I resumed *editing* `analyze-elser` on the summary's "solo, finish the lint" frame,
+  blind to the live multi-agent context (a Skipper→me worktree handoff, Cedar on a disjoint lane, a stale
+  Director claim). The edit happened to be safe — but I had not verified that when I made it. The discipline
+  already exists (start-right-team §Continuation Pointer Contract: recompute volatile truth from live
+  surfaces before acting); the gap is that nothing auto-fires it at the compression boundary — the owner had
+  to prompt the re-ground. Owner-action-is-a-stopgap ⇒ a missing primitive (a post-compression auto-reground
+  trigger; candidate). Cure until then: treat every compression boundary as a context-loss event whose first
+  move is re-grounding, never a resumed edit. [[inherited-framing-without-first-principles-check]]
+- **Read your OWN handoff — frozen reasoning can beat live reasoning.** My thread record prescribed
+  extracting `analyseReport()` (a `void` block) to clear `max-statements`. In the moment I instead extracted
+  a `string`-returning resolver, which tripped `consistent-return` (the rule does not infer `process.exit` is
+  `never`) — a wasted cycle. Following my own recorded plan would have avoided it. A handoff is not only for a
+  successor; it is my best prior thinking, to honour unless I have a concrete reason to override.
+- **Worked instance of the 2026-06-26 "trust CLEAN before `--admin`" entry (Wombat, above):** #242's
+  `mergeStateStatus` went BLOCKED→CLEAN once the 5 review threads resolved; `reviewDecision` empty + CLEAN
+  means these paths are NOT code-owner-review-gated. The "main merge gate = code-owner review" memory is
+  CODEOWNERS-path-scoped, not universal — confirms Wombat's lesson, no novel capture.

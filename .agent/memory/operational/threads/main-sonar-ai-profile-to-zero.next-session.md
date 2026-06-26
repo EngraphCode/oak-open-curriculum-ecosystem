@@ -130,12 +130,21 @@ first-hand: `search-cli` lint 0 errors + type-check clean, `safe-path` 6/6. (The
 `search-cli` lint *warnings* are pre-existing repo-wide ADR-088 `no-throw-statement`
 migration warnings in unrelated files — zero added by this work.)
 
-**Next safe step**: (1) post a #242 summary comment dispositioning each bot comment
-(Codex P1 resolved-by-SSOT; Codex P2 addressed + the realpath-inherency note; Copilot
-plan-stale + `.js` fixed); (2) after the push, re-fetch #242 reviews and confirm CI
-green + Sonar gate OK; (3) #242 is then owner-merge-ready — **merge, NOT squash**;
-**semantic-merge** the `.agent/` files if `main` has diverged. Then Phase 2 (regex
-strategy: S8786 ×15, S5843 ×2, S6035 ×1; per-workspace `src/lib/regex/` home).
+**#242 is GREEN and MERGE-READY (2026-06-26T~21:00Z, Alder tracks Topsoil)**: disposition
+comment posted (`#issuecomment-4813412293`); all 5 review threads RESOLVED; CI green on
+`d19559587`; **`mergeStateStatus: CLEAN`**. Verified first-hand: these paths are NOT
+code-owner-review-gated by the ruleset (`reviewDecision` empty + state CLEAN) — a normal
+merge works, **no `--admin`** (this corrects the earlier "code-owner approval required"
+assumption for this PR's paths). Owner-directed pipeline in flight: closeout →
+consolidate-docs → recursive scan → commit/push → semantic merge-impact analysis → merge
+→ tell Cedar.
+
+**Next safe step**: (1) flag Cedar on canonical per the merge-ordering pact; (2) run the
+`.agent/` semantic-merge check vs `main` (this branch touches the napkin, this thread
+record, the plan, `consolidate-at-third-consumer.md`, practice-index — git line-merges
+them, meaning needs an agent merge); (3) merge `#242` as a **MERGE commit (never squash)**;
+(4) tell Cedar it merged; (5) close claim `6bded07b`. Then Phase 2 (regex strategy:
+S8786 ×15, S5843 ×2, S6035 ×1; per-workspace `src/lib/regex/` home).
 
 ## Watch (not mine; flagged)
 
