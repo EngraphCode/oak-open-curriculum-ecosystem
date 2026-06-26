@@ -201,3 +201,35 @@ New session observations append below.
 - **Sonar `githubactions:S8264`: declare workflow permissions per JOB, not workflow-level.** A full
   workflow rewrite makes the permissions block "new code" and Sonar flags the over-grant; checkout
   jobs get `contents: read`, a fan-in job that uses no token gets `{}`.
+
+## 2026-06-26 — Sonar S8707 site-3, DRY/SSOT, read-the-live-surface (Alder tracks Topsoil)
+
+- **The repo needs a workspace-creation skill (owner-directed).** Creating `packages/core/safe-path`
+  was manual + error-prone: mirror a sibling's package.json / 3 tsconfigs / tsup / vitest / eslint /
+  README, add to the **EXPLICIT** `pnpm-workspace.yaml` list (NOT a glob — I missed it, owner had to
+  prompt), wire `workspace:*` deps into consumers, confirm turbo auto-discovery, run config-expert.
+  Should become a skill (template per workspace kind: core util / lib / sdk / app). Also in
+  agent-memory `create-workspace-skill-needed`; graduate into the agent-tooling frictions register.
+- **Workspace config divergence needs an analyse-and-categorise pass (owner-directed).** The
+  `default` export condition is split 11-no / 7-yes across packages — config-expert wrongly called
+  adding it a "MUST" (it is not; `type-helpers` ships without it), but it IS the right robustness
+  choice for a broadly-consumed core util, so `safe-path` adopts it. The divergence signals we should
+  categorise workspaces and decide consistent config approaches within and between categories, under
+  strict + LTAE. A real follow-up; capture as a plan. (`workspace-config-categorisation-needed`.)
+- **Read the LIVE authoritative surface, not a stale proxy — I made this mistake 3× this session.**
+  (a) `git grep origin/main` (committed) vs the working tree the owner was live-editing → I declared
+  the `--passWithNoTests` masks "net-new" when the owner had already removed them in the tree.
+  (b) `gh api .../branches/main/protection` (legacy) vs the **ruleset** → I called SonarCloud
+  "advisory" when it is a REQUIRED merge check. (c) a `.ts`-only grep vs `package.json` → missed where
+  `--passWithNoTests` actually lived. Cure: when a check returns a convenient "all clear", distrust it
+  HARDER and verify against the authoritative live surface — the convenience is the tell.
+- **DRY/SSOT beats consolidate-at-third-consumer for security-critical code; don't make the owner say
+  "enforce DRY".** I over-applied the rule to justify duplicating a path-containment validator across
+  two workspaces. The rule defers PREMATURE abstraction of general utils; it does not license
+  copy-pasting a security validator (divergence risk) and never overrides a REQUIRED Sonar duplication
+  gate. Check a rule's preconditions before applying it by analogy.
+- **For squash-merged branches, SHA-not-ancestor ≠ content-absent.** `git log main..branch` listed
+  "net-new" commits whose CONTENT was already on `main` via the #222 / #224 squashes; the worktree
+  "keepers" were already merged. Compare CONTENT (per-file diff / cherry-pick dry-run), not commit
+  ancestry, to decide what is genuinely net-new to integrate. (Owner has re-enabled merge, not squash,
+  for PRs precisely to keep commit-level comparison.)
