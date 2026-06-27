@@ -19,6 +19,36 @@ related:
 > review pass (see §Review gate). Several load-bearing facts are flagged
 > "verify" below; treat them as hypotheses, not settled.
 
+## Deep re-assessment scope — READ FIRST (everything below is provisional)
+
+This plan was captured fast at session end; treat **all specifics as provisional**. Each item
+below needs deliberate re-assessment and likely rewriting in the review pass — none is
+settled. The live review-round comments on this PR (#244) are **folded into this list** rather
+than fixed line-by-line, by owner direction:
+
+- **The per-command path discipline (Part A).** Which `comms` / `claims` subcommands default
+  their path via `resolveCoordinationHome` vs require `--comms-dir` / `--active` explicitly —
+  re-verify the EXACT set against the live CLI. It is not just `list/watch/inbox`: `direct`,
+  `reply`, and others also require explicit paths; only `send` is confirmed to default. Do not
+  enumerate from memory — the list drifts.
+- **The command-anchoring consolidation (Part B).** Whether to default every
+  collaboration-state command via `resolveCoordinationHome` — reconcile against the queued
+  `future/coordination-home-explicit-targeting-migration.plan.md` (F-41 CLI tail) and the
+  frictions register; it may be a reference, not new work.
+- **The statusline binary-pinning + resolver consolidation (Part B1/B2).** The Claude Code
+  semantics it rests on (project-settings resolution across worktrees, `CLAUDE_PROJECT_DIR`
+  reliability, the statusLine command cwd) are asserted but NOT verified end-to-end from a
+  worktree — re-verify (the claude-code-guide pass erred on `--show-toplevel`). Decide
+  command-resolves-primary vs shim-self-resolves vs both.
+- **The markdownlint `.agent/state` scheme.** The durable approach (gitignore-respecting vs
+  surgical globs, under the no-`!` HARD RULE) is open; the shipped fix is an interim narrow
+  ignore of the specific untracked files.
+- **Part A scope and shape (feature-shaping = owner's).** Two skills vs one; the content
+  boundaries; whether each is warranted.
+
+In short: re-derive every factual claim and every command name against the live system before
+building, and treat the structure as a starting point, not a specification.
+
 ## Why (the frictions that motivated this, all observed 2026-06-26/27)
 
 The invariant **"shared team state lives at the primary checkout"** (ADR-197; the
