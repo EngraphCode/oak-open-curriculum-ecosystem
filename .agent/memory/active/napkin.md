@@ -241,3 +241,24 @@ New session observations append below.
   state I have not actually seen. The owner's same-session directive — "all results from all subagents
   must be critically assessed, including claims and sources" — applies to my OWN claims too. Homed in
   [[feedback_worktree_needs_install_and_build]] + start-right §8.
+
+## 2026-06-27 — Cross-worktree fragmentation; a state `.md` is still glob-linted (Cedar lifts Canopy)
+
+- **Tracked `.agent/` files are PER-BRANCH, so they are invisible across worktrees — the F-41
+  coordination home (`.agent/state/collaboration/`, the primary checkout) is the ONLY
+  cross-worktree-visible surface.** A lane's state (thread record, plan, continuity) lives on its
+  branch; from any other worktree it cannot be seen — so work on an unpushed feature branch is
+  orphan-risk and a fresh session in another worktree can't find it. Worked instances: WS-B's D0
+  state lived only on the unpushed `worktree-ws-b-explain` branch; the `data-sources-governance`
+  branch is 38 behind main and lacks its OWN thread record (the grounding is on main). Cure: a
+  cross-worktree work-state map at the coordination home
+  (`.agent/state/collaboration/cross-worktree-work-state.md`) — the interim manual form of **F-98**
+  (`agent-work-state-registry.plan.md`), which is the durable fix. Owner standing concern: never let
+  work get forgotten/orphaned. Sibling: [[feedback_worktree_needs_install_and_build]].
+- **A markdown file under `.agent/state/` IS linted by `markdownlint-root` — the glob does NOT
+  respect `.gitignore`.** My new (git-ignored) cross-worktree map had an MD049 slip and blocked a
+  PEER's tree-wide pre-push (markdownlint-root lints the whole working tree). Gitignoring the file
+  did NOT exclude it from the lint (the glob `!`-excludes `shared-comms-log.md` by NAME, proving it
+  ignores `.gitignore`). Cures: keep any state `.md` markdownlint-clean, AND the durable config fix
+  is a glob exclude (e.g. `!.agent/state/**`) in the markdownlint-cli2 config (surfaced to the
+  owner). A local-state file is not lint-exempt. Sibling: [[verify-dont-trust]].

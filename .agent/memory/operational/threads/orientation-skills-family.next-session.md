@@ -14,7 +14,7 @@ defined by PDR-112.
 | Skipper tracks Reef | claude-code | claude-opus-4-8[1m] | 87a7bb | planner — authored the orientation-lens unification plan (owner-directed); did not implement | 2026-06-23 | 2026-06-23 |
 | Zenith lifts Firmament | claude-code | claude-opus-4-8[1m] | 5c2f1b | implementer — executed the orientation-lens unification (WS0–WS6); folded two mid-execution owner directions | 2026-06-23 | 2026-06-23 |
 | Skipper tracks Kelp | claude | claude-opus-4-8[1m] | 20962d | implementer — WS-B MCP-surface continuation: cherry-picked D1+D2 to a fresh worktree off main, refactored the test surface to behaviour-only, scoped the audience-model work | 2026-06-26 | 2026-06-26 |
-| Cedar lifts Canopy | claude | claude-opus-4-8[1m] | 435d30 | implementer — WS-B D0 audience-model audit + reconciliation, then D3 tool / D4 prompt / D5 value-proxy | 2026-06-26 | 2026-06-26 |
+| Cedar lifts Canopy | claude | claude-opus-4-8[1m] | 435d30 | implementer — WS-B D0 audience-model reconciliation + compliance firewall (DONE, pushed `36cb27444`); authored the data-sources brief; created the cross-worktree work-state map | 2026-06-26 | 2026-06-27 |
 
 ## WS-B MCP surface — ACTIVE continuation handoff (2026-06-26, Skipper tracks Kelp)
 
@@ -31,6 +31,17 @@ are reconciled in-place; see the plan's §"D0 — Audience model RESOLVED". **DA
 (owner-directed):** Cedar authors it as a **ship-independent governance PR off main** (reuse the
 `oak-data-sources` worktree); explain POINTS to it at WS-B ship-time. **Next:** commit D0 → author
 DATA-SOURCES.md (separate PR) → D3 tool / D4 prompt / D5 value-proxy.
+
+**CLOSEOUT (Cedar lifts Canopy, 2026-06-27).** D0 is DONE and PUSHED — `worktree-ws-b-explain` at
+`36cb27444` on origin (full pre-push gate green), draft PR #243. The cross-worktree work-state map
+is at `.agent/state/collaboration/cross-worktree-work-state.md` (read it for the live picture). The
+data-sources brief is written + owner-approved — short/simple review/removal criteria the owner
+reviews in the finished doc; per-source links to the external source + any in-repo representation
+(data cache *or* schema/spec) — at
+`.agent/plans/product-development-governance/data-sources-governance.brief.md` in the PRIMARY
+checkout (untracked; the data-sources session commits it). **Continuation:** D3 tool → D4 prompt →
+D5 value-proxy (all behaviour-only); update the WS-B branch on main before merge (#242 landed
+`3895b3f45`). Cedar retiring; WS-B claim released.
 
 **Branch / how to continue.** Work is on branch **`worktree-ws-b-explain`** (pushed to origin).
 Next session: check it out (or a fresh worktree off it), then run **`pnpm install` AND `pnpm build`**
