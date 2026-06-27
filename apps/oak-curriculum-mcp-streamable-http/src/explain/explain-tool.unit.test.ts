@@ -1,45 +1,42 @@
 /**
- * Unit tests for the explain tool's result builder (D3).
+ * Unit tests for `buildExplainToolResult` (W2: pointer shape), behaviour-only.
  *
- * Behaviour under test: `buildExplainToolResult` serves the effort-orientation
- * body in the ADR-058 dual shape — both content slots (a human-readable summary
- * and the JSON-encoded body) AND `structuredContent`. The body is compared to
- * the imported `EXPLAIN_ORIENTATION_BODY` constant in every slot — never
- * grepped for prose — so the test describes the serving behaviour, not the
- * content (the curriculum / volatility / compliance firewalls are held by
- * construction and PR review, never by tests; see the plan's test-doctrine
- * correction).
+ * These describe the SHAPE the tool returns — the ADR-058 dual shape carrying a
+ * pointer (summary, JSON body, and a `resource_link` to the canonical), with the
+ * curriculum firewall held structurally (no `oakContextHint`). They never compare
+ * the result to a baked-content constant: there is no baked body to pin, and a
+ * content pin would only prove the fixture, not the behaviour. The `resource_link`
+ * required fields (`uri`, `name`) are enforced at compile time by the `ResourceLink`
+ * type and asserted on the wire in the e2e test.
  */
 
 import { describe, it, expect } from 'vitest';
 import { buildExplainToolResult } from './explain-tool.js';
-import { EXPLAIN_ORIENTATION_BODY } from '../generated/explain-content.js';
 
 describe('buildExplainToolResult (unit)', () => {
-  it('serves the orientation body in both content slots (ADR-058 dual shape), as a success result', () => {
+  it('returns a non-error ADR-058 dual shape (summary + JSON body + resource_link, with structuredContent)', () => {
     const result = buildExplainToolResult();
 
-    // Two content items: a human-readable summary, then the JSON body for
-    // backwards-compatible readers.
-    expect(result.content).toHaveLength(2);
-
-    const [summary, jsonBody] = result.content;
-    expect(summary).toHaveProperty('type', 'text');
-    // content[0] (the summary) carries human-readable lead-in text.
-    expect(summary.type === 'text' ? summary.text.length : 0).toBeGreaterThan(0);
-
-    // content[1] (the JSON body) carries the committed orientation body.
-    expect(jsonBody).toHaveProperty('type', 'text');
-    const parsed: unknown = JSON.parse(jsonBody.type === 'text' ? jsonBody.text : '');
-    expect(parsed).toEqual({ orientation: EXPLAIN_ORIENTATION_BODY });
-
-    // The orientation is content, never an error.
     expect(result.isError).not.toBe(true);
+    expect(result.content).toHaveLength(3);
+    expect(result.content[0]?.type).toBe('text');
+    expect(result.content.map((block) => block.type)).toContain('resource_link');
+    expect(result.structuredContent).toBeDefined();
   });
 
-  it('exposes the committed orientation body in structuredContent for reasoning clients', () => {
+  it('points at the canonical via a https canonicalUrl and carries no baked body', () => {
     const result = buildExplainToolResult();
+    const structured = result.structuredContent;
 
-    expect(result.structuredContent).toHaveProperty('orientation', EXPLAIN_ORIENTATION_BODY);
+    expect(structured).toBeDefined();
+    expect(typeof structured?.canonicalUrl).toBe('string');
+    expect(structured?.canonicalUrl).toMatch(/^https:\/\//);
+    // No baked orientation body: the tool points, it does not carry content.
+    expect(structured).not.toHaveProperty('orientation');
+  });
+
+  it('does not carry oakContextHint (curriculum firewall, held structurally)', () => {
+    const result = buildExplainToolResult();
+    expect(result.structuredContent).not.toHaveProperty('oakContextHint');
   });
 });

@@ -30,7 +30,6 @@ import {
   registerAllResources,
   type ResourceRegistrationOptions,
 } from './register-resources.js';
-import { EXPLAIN_ORIENTATION_BODY } from './generated/explain-content.js';
 
 const TEST_WIDGET_HTML = '<!doctype html><html><body>Oak Curriculum App</body></html>';
 
@@ -520,19 +519,21 @@ describe('registerAllResources registers the Oak effort-orientation resource (do
     expect(resource?.metadata.mimeType).toBe('text/markdown');
     expect(resource?.metadata.annotations?.priority).toBe(0.2);
     expect(resource?.metadata.annotations?.audience).toContain('assistant');
-    expect(resource?.metadata.annotations?.lastModified).toBeDefined();
+    // No lastModified: the resource serves a pointer, not a server-owned body.
+    expect(resource?.metadata.annotations?.lastModified).toBeUndefined();
   });
 
-  it('wires the read to serve the generated effort-orientation body', async () => {
+  it('wires the read to serve a non-empty pointer (not a baked body)', async () => {
     registerAllResources(server, options);
     await flush();
 
-    // Behaviour under test: the registered resource's read is wired to the explain body
-    // constant. What that body SAYS (effort-domain, curriculum-clean, no volatile status) is a
-    // content property of the curated source, held by authoring and review — not asserted here.
+    // Behaviour under test: the read is wired and returns a non-empty markdown pointer.
+    // The resource carries NO baked orientation body; what the pointer SAYS is a content
+    // property of the source, held by authoring and review — never pinned here.
     const resource = await readResource('docs://oak/explain.md');
     const text = getTextContent(resource.contents[0]);
-    expect(text).toBe(EXPLAIN_ORIENTATION_BODY);
+    expect(typeof text).toBe('string');
+    expect(text.length).toBeGreaterThan(0);
   });
 });
 

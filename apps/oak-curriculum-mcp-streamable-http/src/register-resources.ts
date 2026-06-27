@@ -26,7 +26,7 @@ import {
   type ResourceRegistrationOptions,
 } from './register-resource-helpers.js';
 import { registerWidgetResource } from './register-widget-resource.js';
-import { EXPLAIN_ORIENTATION_BODY, EXPLAIN_LAST_MODIFIED } from './generated/explain-content.js';
+import { CANONICAL_SKILL_URL } from './explain/explain-tool.js';
 
 /**
  * Registers documentation resources for the "start here" experience.
@@ -73,16 +73,24 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
 /**
  * Registers the Oak effort-orientation resource (`docs://oak/explain.md`).
  *
- * A LOW-SALIENCE (`priority` low, `audience: ['assistant']`) `text/markdown` resource serving
- * the curated effort-orientation body — how Oak builds and delivers its curriculum (purpose,
- * machinery at executive altitude, how to engage) — for the minority audience (assistants /
- * integrators) that wants it. Effort-domain ONLY (owner separation principle): it never
- * describes curriculum content, which the curriculum tools serve. The body is the committed
- * generated constant, so the published surface reads no filesystem (ADR-041); `lastModified`
- * is the body's source-commit freshness signal.
+ * A LOW-SALIENCE (`priority` low, `audience: ['assistant']`) `text/markdown` resource serving a
+ * POINTER to the canonical orientation method (the oak-under-the-hood skill on the public repo),
+ * for the minority audience (assistants / integrators) that wants it. It carries NO orientation
+ * body: the canonical is always reachable, so the resource points rather than bakes a copy.
+ * Effort-domain ONLY (owner separation principle): it never describes curriculum content, which
+ * the curriculum tools serve. No `lastModified` — there is no server-owned body whose
+ * modification time is meaningful; the canonical's freshness lives at the canonical's own URL.
+ * (URI renamed to `docs://oak/under-the-hood.md` in W3.)
  */
 function registerExplainResource(server: ResourceRegistrar): void {
   const uri = 'docs://oak/explain.md';
+  const pointer =
+    '# Oak Under the Hood — orientation method\n\n' +
+    'This resource is a pointer, not a copy. Fetch the canonical orientation method and follow ' +
+    'it to orient the user to this repository (the Oak Open Curriculum Ecosystem), framed by ' +
+    "Oak's public mission and strategy:\n\n" +
+    `- Canonical method (always reachable): ${CANONICAL_SKILL_URL}\n\n` +
+    'Relay Oak’s official wording from its public site; never surface a person’s name.\n';
   server.registerResource(
     'Oak effort orientation',
     uri,
@@ -96,11 +104,10 @@ function registerExplainResource(server: ResourceRegistrar): void {
       annotations: {
         priority: 0.2,
         audience: ['assistant'],
-        lastModified: EXPLAIN_LAST_MODIFIED,
       },
     },
     () => ({
-      contents: [{ uri, mimeType: 'text/markdown', text: EXPLAIN_ORIENTATION_BODY }],
+      contents: [{ uri, mimeType: 'text/markdown', text: pointer }],
     }),
   );
 }

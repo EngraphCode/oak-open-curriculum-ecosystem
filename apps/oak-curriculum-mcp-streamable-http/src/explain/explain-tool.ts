@@ -1,88 +1,151 @@
 /**
- * The Oak effort-orientation tool (WS-B D3).
+ * The Oak Under the Hood orientation tool (W2: pointer shape).
  *
- * A model-controlled tool that fires on effort/ecosystem-orientation triggers
- * — "tell me about this project", "how does Oak build and deliver its
- * curriculum", "how do I engage or contribute" — and serves the curated
- * effort-orientation body so a connected assistant runs Oak's orientation
- * process instead of improvising.
+ * A model-controlled tool that fires on repo / effort orientation triggers —
+ * "tell me about this project", "how does Oak build and deliver its curriculum",
+ * "how do I engage or contribute" — and hands the connected assistant a POINTER:
+ * a minimal trigger instruction plus a `resource_link` to the canonical
+ * orientation method (the oak-under-the-hood skill, fetched from the public
+ * repo) and Oak's public framing sources. The assistant fetches the canonical
+ * and orients.
+ *
+ * It carries NO orientation body. The canonical sources are ALWAYS reachable
+ * (the repo skill on public GitHub; Oak's mission/strategy on the public Oak
+ * site), so the capability is the behaviour plus pointers, never a baked or
+ * generated copy. There is no fallback/degradation branch: a client that never
+ * follows the pointer simply gets the trigger — that is by design, not an
+ * invented-degradation path (principles.md §Strict and Complete).
  *
  * Effort-domain ONLY (owner separation principle). Two construction-held
- * firewalls, never tests (see the plan's test-doctrine correction):
+ * firewalls, never tests:
  *
- * 1. The `tools/list` description is the separation lever: it scopes the tool
- *    to the effort domain and excludes curriculum in user-domain terms, so a
+ * 1. The `tools/list` description is the separation lever: it scopes the tool to
+ *    the effort domain and excludes curriculum in user-domain terms, so a
  *    curriculum query routes to the curriculum tools, not here.
- * 2. The result carries NO curriculum context hint. The SDK's canonical
- *    `formatToolResponse` (the dual-shape formatter the curriculum tools use)
- *    is SDK-internal (not on the publishable `public/mcp-tools.js` barrel the
- *    app may import, per ADR-041) AND hard-couples `OAK_CONTEXT_HINT`, which
- *    steers the model toward `get-curriculum-model` and the curriculum tools.
- *    Building the ADR-058 dual shape locally — rather than reusing that
- *    formatter (the plan's original letter) — makes the curriculum firewall
- *    STRUCTURAL: the explain tool never imports the curriculum-coupled
- *    machinery, so the nudge cannot leak into its result.
+ * 2. The result carries NO curriculum context hint. This file never imports the
+ *    SDK's curriculum-coupled `formatToolResponse` / `OAK_CONTEXT_HINT` (ADR-041),
+ *    so the curriculum nudge cannot leak into the result — the firewall is
+ *    STRUCTURAL.
  *
  * Registered via a SEPARATE, additive `server.registerTool` call (outside the
- * SDK universal-tools loop): explain is app-local, not in the generated
- * registry. No `inputSchema` (zero-arg, so the handler is the `extra`-only
- * callback form) and no `outputSchema` (free-form `structuredContent`;
- * declaring an `outputSchema` would make `tools/call` run strict validation and
- * fail) — the ADR-058 dual shape, mirroring the agent-support tools.
+ * SDK universal-tools loop): explain is app-local, not in the generated registry.
+ * It declares an explicit empty CLOSED `inputSchema` (zero-arg; accepts only the
+ * empty object, per MCP 2025-11-25) and NO `outputSchema` — the result body is a
+ * free-form pointer, with no object contract worth declaring. The dual shape is
+ * ADR-058 (content + structuredContent), mirroring the agent-support tools.
  */
 
+import { z } from 'zod';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import type { CallToolResult, TextContent } from '@modelcontextprotocol/sdk/types.js';
-import { EXPLAIN_ORIENTATION_BODY } from '../generated/explain-content.js';
+import type { CallToolResult, ResourceLink, TextContent } from '@modelcontextprotocol/sdk/types.js';
 
 /**
- * Tool name. Collision-free against the universal tool registry, and aligned
- * with the `docs://oak/explain.md` resource and the explain orientation lens.
+ * Tool name. Renamed to `oak-under-the-hood` in W3 (one concept, one name);
+ * kept as `explain` in W2 so the shape change and the rename land as distinct,
+ * reviewable steps.
  */
 export const EXPLAIN_TOOL_NAME = 'explain';
+
+/**
+ * Public URL of the canonical orientation method (the oak-under-the-hood skill),
+ * read live from `main`. This targets the FINAL post-W3 path: W2 and W3 ride the
+ * same PR (#243, DRAFT until the reframe lands), so the `main` URL resolves once
+ * the PR merges. Reachability is a pre-merge check, never a network-coupled test.
+ */
+export const CANONICAL_SKILL_URL =
+  'https://raw.githubusercontent.com/oaknational/oak-open-curriculum-ecosystem/main/.agent/skills/oak-under-the-hood/SKILL-CANONICAL.md';
+
+/** Oak's official positioning and pillars — public-site framing context. */
+const OAK_WHO_WE_ARE_URL = 'https://www.thenational.academy/about-us/who-we-are';
+
+/** Oak's official strategy, annual plan, and impact evaluations — public-site, on-interest depth. */
+const OAK_STRATEGY_DOCS_URL = 'https://www.thenational.academy/about-us/meet-the-team#documents';
 
 /**
  * `tools/list` description — the separation lever. Trigger-optimised for
  * effort/ecosystem orientation and explicitly scoped away from curriculum in
  * user-domain terms (never internal tool identifiers, per mcp-expert), so a
- * curriculum query routes to the curriculum tools rather than here.
+ * curriculum query routes to the curriculum tools rather than here. Internal: the
+ * tests assert the advertised description over the wire, never import this constant
+ * (an identity pin on it would be content-pinning by the back door).
  */
-export const EXPLAIN_TOOL_DESCRIPTION =
+const EXPLAIN_TOOL_DESCRIPTION =
   'Use when a user asks to understand the Oak project, effort, or ecosystem — this repository, ' +
   "how Oak builds and delivers its curriculum, the project's purpose and machinery, or how to " +
   'engage or contribute. Not for curriculum content questions (subjects, units, lessons, key ' +
   'stages, sequencing) — those are served by the curriculum tools.';
 
+/**
+ * The pointer-trigger instruction the assistant follows. It names the method and
+ * points at the canonical; it does NOT restate the method (that lives in the
+ * canonical the assistant fetches). It carries the no-personal-data invariant so
+ * a connected assistant honours it even before reading the canonical.
+ */
+const EXPLAIN_TOOL_TRIGGER =
+  'Orient the user to this repository (the Oak Open Curriculum Ecosystem) using the Oak Under the ' +
+  'Hood method. Fetch the canonical skill at the linked URL and follow it: discern the person’s ' +
+  'angle, the facet they want (the repo’s impact, intent, mechanisms, or value) and their ' +
+  'altitude, then explore THIS repository through that lens, framed by Oak’s public mission and ' +
+  'strategy. The canonical lists the repo source documents; Oak’s official positioning and ' +
+  'strategy are at the two public Oak URLs provided. Relay Oak’s official wording; never surface ' +
+  'a person’s name.';
+
 const EXPLAIN_TOOL_SUMMARY =
-  "Oak effort orientation: how Oak builds and delivers its curriculum, the project's purpose and " +
-  'machinery, and how to engage. Follow the orientation below.';
+  'Oak Under the Hood: fetch the linked canonical method and orient the user to this repository. ' +
+  'The method and sources are at the resource link below.';
 
 /**
- * Builds the explain tool result: the ADR-058 dual shape — a 2-item `content`
- * array (human-readable summary, then the JSON body for backwards-compatible
- * readers) plus `structuredContent` — carrying the committed effort-orientation
- * body. No `oakContextHint` (separation firewall, held structurally; see the
- * file header). No `_meta`: explain is not an MCP App widget, so it carries no
- * widget-routing data (`_meta` is the widget-only channel).
+ * The structured pointer payload: the trigger instruction, the canonical method
+ * URL, and Oak's public framing sources. No carried orientation body; no
+ * `oakContextHint` (curriculum firewall, held structurally).
+ */
+interface ExplainPointer {
+  readonly trigger: string;
+  readonly canonicalUrl: string;
+  readonly oakSources: readonly string[];
+}
+
+/**
+ * Builds the explain tool result: the ADR-058 dual shape — a `content` array
+ * (human-readable summary, the JSON pointer for backwards-compatible readers,
+ * and a `resource_link` to the canonical) plus `structuredContent` carrying the
+ * same pointer. The canonical URL appears in BOTH the `resource_link` and
+ * `structuredContent` so it is model-visible regardless of how a client renders
+ * content blocks. No `oakContextHint` (separation firewall, held structurally).
  */
 export function buildExplainToolResult(): CallToolResult {
+  const pointer: ExplainPointer = {
+    trigger: EXPLAIN_TOOL_TRIGGER,
+    canonicalUrl: CANONICAL_SKILL_URL,
+    oakSources: [OAK_WHO_WE_ARE_URL, OAK_STRATEGY_DOCS_URL],
+  };
   const summary: TextContent = { type: 'text', text: EXPLAIN_TOOL_SUMMARY };
-  const jsonBody: TextContent = {
-    type: 'text',
-    text: JSON.stringify({ orientation: EXPLAIN_ORIENTATION_BODY }),
+  const jsonBody: TextContent = { type: 'text', text: JSON.stringify(pointer) };
+  const canonicalLink: ResourceLink = {
+    type: 'resource_link',
+    uri: CANONICAL_SKILL_URL,
+    name: 'oak-under-the-hood',
+    title: 'Oak Under the Hood — orientation method',
+    description:
+      'Canonical orientation method and source list; fetch and follow it to orient the user.',
+    mimeType: 'text/markdown',
+    annotations: { audience: ['assistant'], priority: 0.9 },
   };
   return {
-    content: [summary, jsonBody],
-    structuredContent: { orientation: EXPLAIN_ORIENTATION_BODY, summary: EXPLAIN_TOOL_SUMMARY },
+    content: [summary, jsonBody, canonicalLink],
+    structuredContent: { ...pointer, summary: EXPLAIN_TOOL_SUMMARY },
   };
 }
 
 /**
- * Registers the explain effort-orientation tool with the MCP server.
+ * Registers the Oak Under the Hood orientation tool with the MCP server.
  *
- * A separate, additive registration — not part of the universal-tools loop.
- * Zero-arg: `inputSchema` is omitted, so the handler is the `extra`-only
- * callback form; no `outputSchema` is declared.
+ * A separate, additive registration — not part of the universal-tools loop. It
+ * declares an explicit empty CLOSED `inputSchema` (`z.object({}).strict()`, which
+ * the SDK serialises to `{type:'object', additionalProperties:false}` — a strict
+ * raw shape `{}` alone does NOT emit `additionalProperties:false`) and no
+ * `outputSchema`. `openWorldHint: true` — the tool points OUT to a fetched
+ * external canonical.
  *
  * @param server - the MCP server (narrowed to the `registerTool` capability)
  */
@@ -92,7 +155,8 @@ export function registerExplainTool(server: Pick<McpServer, 'registerTool'>): vo
     {
       title: 'Explain the Oak effort',
       description: EXPLAIN_TOOL_DESCRIPTION,
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      inputSchema: z.object({}).strict(),
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     () => buildExplainToolResult(),
   );

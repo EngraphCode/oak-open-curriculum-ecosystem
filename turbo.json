@@ -55,10 +55,6 @@
         "!src/**/*.spec.ts"
       ]
     },
-    "check:explain-content": {
-      "cache": false,
-      "outputs": []
-    },
     "build": {
       "dependsOn": ["^build"],
       "cache": true,

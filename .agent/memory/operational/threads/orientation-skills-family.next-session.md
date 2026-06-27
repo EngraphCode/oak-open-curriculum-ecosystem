@@ -16,6 +16,26 @@ defined by PDR-112.
 | Skipper tracks Kelp | claude | claude-opus-4-8[1m] | 20962d | implementer — WS-B MCP-surface continuation: cherry-picked D1+D2 to a fresh worktree off main, refactored the test surface to behaviour-only, scoped the audience-model work | 2026-06-26 | 2026-06-26 |
 | Cedar lifts Canopy | claude | claude-opus-4-8[1m] | 435d30 | implementer — WS-B D0 audience-model reconciliation + compliance firewall (DONE, pushed `36cb27444`); authored the data-sources brief; created the cross-worktree work-state map | 2026-06-26 | 2026-06-27 |
 | Peony calls Trunk | claude-code | claude-opus-4-8 | d8ff86 | implementer — WS-B D3 (explain tool) landed `2ef673f4b`; authored the oak-under-the-hood full-lens reframe spine + the session wind-up/correction; D4/D5 and the retire-the-bake decision deferred to a fresh session per owner direction | 2026-06-27 | 2026-06-27 |
+| Swordfish rides Surf | claude-code | claude-opus-4-8[1m] | d7bc11 | implementer — re-assessed first-hand, REWROTE the plan to the simple system (one behaviour, two channels, no carried content; pointer-shape MCP; delete the bake), validated via two ultracode suites; **W1 (behaviour) DONE + onboarding-expert-reviewed, uncommitted**; W2/W3 not started; mid-cycle handoff (claim bb9073cd, record set) for an owner-named successor | 2026-06-27 | 2026-06-27 |
+
+## CURRENT PICKUP (2026-06-27, Swordfish rides Surf → Seal lifts Whirlpool) — READ FIRST
+
+The reframe is **scoped, simplified, planned, and partly built.** Pickup surfaces, in order:
+
+1. **The owning plan** `.agent/plans/sdk-and-mcp-enhancements/active/oak-under-the-hood.plan.md`
+   — decision-complete and self-contained (the prior `explain-orientation-mcp-surface.plan.md`
+   was removed; substance conserved there + in git).
+2. **The mid-cycle handoff record**
+   `.agent/state/collaboration/handoffs/bb9073cd-137f-46e5-832f-72a9d6ff74dd.md` — the correction
+   arc and the loss-scan residue (the *why*). Adopt claim `bb9073cd` first.
+
+**State:** the system is **one behaviour, two channels, no carried content** (pointer-shape MCP;
+delete the bake apparatus; tests behaviour-only; official-sourcing + no-PII; all parts always work,
+no fallback/optionality). **W1 (the behaviour) is DONE** (canonical authored + onboarding-expert-
+reviewed + hardened, **uncommitted** in worktree `worktree-ws-b-explain`). **W2 + W3 not started**
+— start at W2 (full verified inventories in the plan). Director: Chinook turns Halo (route ADR-202
+and portability there). #243 stays DRAFT until the reframe lands. The Peony WIND-UP below is the
+*prior* layer, superseded by the plan but kept for the arc.
 
 ## WS-B → oak-under-the-hood reframe — WIND-UP & NEXT-SESSION PICKUP (2026-06-27, Peony calls Trunk) — READ FIRST
 
@@ -31,7 +51,7 @@ throughout, most strictly where a claim is convenient. Full detail in the owning
 
 **Owner reframe (2026-06-27):** rename `effort`/`explain` → **oak-under-the-hood**, full-lens across BOTH channels (in-repo `/oak-explain` skill + the MCP projection), + an **intent → value → impact** content spine. THEN the owner corrected the *thinking*: **synthesis, not either-or** — route to canonical SSOT (the PUBLIC GitHub repo for repo doctrine/docs; the PUBLIC Oak site `www.thenational.academy/about-us/...` for org mission/goals/pillars), **minimum custom content**, DRY/SSOT, and **official-sourcing** (relay what Oak officially says — VISION quotes the mission verbatim; never the repo's own derivation). **No PII**; use **"executive audience"**, never "Oak leadership".
 
-**Authoritative pickup = the owning plan's `## SESSION WIND-UP & CORRECTION` section** (`explain-orientation-mcp-surface.plan.md`, top): it carries the assumptions to re-test (several already falsified — e.g. the remote surface CAN cite public URLs), the suspected wrong turns (chiefly the either-or collapse), the validated facts (TWO baked constants `effort-overview.ts` + `behaviour-shell.ts`; canonical homes; the `docs/strategy` gaps), and the three reviewer perspectives to **synthesise** (barney / docs-adr / mcp-expert — agentIds in session comms).
+**Authoritative pickup = `oak-under-the-hood.plan.md` §1 (the two frozen models).** Swordfish rides Surf rewrote `explain-orientation-mcp-surface.plan.md` → `oak-under-the-hood.plan.md` (decision-complete, 2026-06-27); the prior plan's wind-up/correction substance is conserved in §1 (frozen models) + §4 (disposition). Settled: Oak Under the Hood explores THIS REPO through lenses (angle × facet: impact/intent/mechanisms/value) framed by Oak's vision/goals/strategy, with Oak-org as context + on-interest depth; access-aware source resolution (read-local when local, fetch-public when remote); NO baking (retire `effort-overview.ts`); official Oak (website + `meet-the-team#documents` PDFs) authoritative for org claims, repo docs for repo-intent.
 
 **Fresh session owns:** whether/how to retire the baked overview (owner: *a fresh session decides*; leading read = retire for SSOT/DRY) and the route-vs-cite-vs-minimal-synthesis **composition** for the remote channel — a synthesis of all three reviewers, not a pick. Do NOT execute the retire here. Then the R-workstreams (R1 content/routing → R2 lens rename → R3 ADR-202 amend + AGENT.md → R4 MCP rename → R5 D4/D5 → R6 UK-spelling). Route the ADR-202 amendment + rename portability to the Director (Oyster spins Coral) for review.
 
@@ -40,7 +60,7 @@ throughout, most strictly where a claim is convenient. Full detail in the owning
 ## WS-B MCP surface — ACTIVE continuation handoff (2026-06-26, Skipper tracks Kelp)
 
 The WS-B explain-orientation MCP-surface lane is LIVE again (owner-directed). Read this section
-first, then the owning plan (`explain-orientation-mcp-surface.plan.md`, amended this session).
+first, then the owning plan (`oak-under-the-hood.plan.md` — the decision-complete rewrite).
 
 **UPDATE (Cedar lifts Canopy, 2026-06-26) — D0 audience side RESOLVED.** The explain audience model
 is reconciled across the SKILL-CANONICAL (SSOT) and the MCP projection: added data analyst/scientist,
