@@ -2151,6 +2151,24 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open — basic timeout cure shipped; lease+hook follow-up pending.
 - **Owner direction status**: owner-directed (2026-06-27) — "write it up as a friction; implement the basic timeout version; add GNU `timeout` install instructions to the root README."
 
+### F-102 — The `git push` hook substring-matches `-f` from later commands in the same compound
+
+- **Source**: Pulsar calls Ether (`ce6ba6`), 2026-06-27 — a compound `git push … ; gh api … -f t=… -f b=…` was blocked by the `never-use-git-to-remove-work` hook as `"git push -f" is a history-destruction operation`, although the actual push carried no `-f`; the `-f` came from the later `gh api` flags in the same command string.
+- **Surface**: the Bash PreToolUse guard's blocked-pattern matcher for `git push -f` / force-push; any compound shell command that pairs a plain `git push` with later `-f`-flagged tools (`gh api -f`, etc.).
+- **Observed**: the matcher scans the whole command string, so `push` and a later `-f` co-occurring trip the force-push rule even when they belong to different sub-commands. A [[hook-policy-substring-discipline]] false-positive: the concept (no force-push) is correct; the match is over-broad.
+- **Cure (workaround)**: isolate `git push` in its own Bash call, separate from any `-f`-flagged command. **Candidate durable cure**: tighten the matcher to require `-f`/`--force` as an argument *to* `git push` (token-adjacent), not anywhere in the string.
+- **Target surface**: the Bash blocked-pattern guard config (force-push entry); `validate-policy-reappraisal` already requires a reappraisal direction on the entry. Relates to F-96 (over-broad lint/guard scope).
+- **Status**: open — workaround known; matcher-tightening pending.
+
+### F-103 — markdownlint-cli2 lints git-ignored `.agent/state/**` files, blocking pre-push on non-committed transients
+
+- **Source**: Pulsar calls Ether (`ce6ba6`), 2026-06-27 — the pre-push full markdownlint (`markdownlint-check:root`) failed on git-ignored handoff records under `.agent/state/collaboration/handoffs/` (transient coordination files never committed), blocking a push whose committed content was clean.
+- **Surface**: `markdownlint-cli2` config globs (`.agent/**/*.md` with `!`-excludes) vs git-ignore; the pre-commit gate is staged-only (`markdownlint-staged`) but pre-push runs whole-tree, which globs the filesystem (markdownlint-cli2 does not honour `.gitignore` by default).
+- **Observed**: instance-tier untracked-by-design files (ADR-199/PDR-094) are still in lint scope, so a transient handoff's lint debt blocks an unrelated push. The interim fix is to make the transients lint-clean (editing files that are not even committed) — backwards.
+- **Cure (durable, owner-surfaced)**: add a `!.agent/state/**` (or `gitignore: true`) exclude to the markdownlint-cli2 config so the lint scope matches the tracked surface. The config already excludes specific `.agent/state/` files (`shared-comms-log.md`, `cross-worktree-work-state.md`) — generalise it.
+- **Target surface**: the markdownlint-cli2 config (`.markdownlint-cli2.*`); the `markdownlint-check:root` / `markdownlint:root` scripts. Relates to F-96 (over-broad gate scope), F-83 (whole-tree pre-commit hostage).
+- **Status**: open — durable config cure identified, owner-surfaced.
+
 ---
 
 ## Mitigated / Addressed Frictions
