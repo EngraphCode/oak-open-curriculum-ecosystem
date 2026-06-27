@@ -287,3 +287,23 @@ New session observations append below.
 - **Capture notes in the napkin, not (only) comms/scratchpad (owner correction).** I recorded the S101
   decision in a comms event first; the owner reminded me the napkin is the home for session notes. Comms is
   for live coordination; the napkin is the capture→distil→graduate buffer (PDR-014).
+
+## 2026-06-27 — Session-close residuals (Alder tracks Topsoil)
+
+- **Don't bundle a deep-review-gated forward-design doc into a closeout PR — it spawns an
+  unbounded bot-review churn loop.** PR #244 (sonar-lane closeout) carried the PROPOSED,
+  deep-review-gated `comms-and-worktree-operability.plan.md`; every push drew finer Codex/Copilot
+  refinements of the *plan's* prose (5+ rounds, each fix spawning the next) — a forward-design doc
+  has near-infinite polish surface and is deferred to a review that will rework it, so perfecting
+  its prose pre-review is wasted effort that blocks the closeout. The live worked instance of
+  [[pr-comments-resolve-and-recheck]] (every push → re-check → new comments). **Cure:** land such
+  docs in their OWN reviewed PR; if bundled, add ONE top "deep re-assessment scope" note folding
+  the content comments wholesale (what unblocked #244, owner-directed) rather than chasing
+  line-by-line.
+- **comms/claims primary-anchoring is asymmetric.** Only `comms send` auto-anchors
+  `--comms-dir`/`--active` to the primary via `resolveCoordinationHome`; `comms
+  list/watch/inbox/direct/reply` and `claims` REQUIRE those paths explicitly — pass the
+  primary-resolved path, never relative (from a worktree a relative path lands worktree-local).
+  Folded for re-assessment in the operability plan, which itself **needs its deep review before any
+  execution** (flagged at its top, not done this session). (My per-user worktree-resolution
+  agent-memory note still over-generalises this and wants tidying.)
