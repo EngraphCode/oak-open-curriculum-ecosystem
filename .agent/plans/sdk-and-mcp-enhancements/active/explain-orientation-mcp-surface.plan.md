@@ -1,6 +1,6 @@
 ---
 name: "Explain Effort-Orientation as an MCP Surface (WS-B)"
-status: IN PROGRESS — D1+D2 landed behaviour-only on branch worktree-ws-b-explain (commit 03c279ca2); test doctrine corrected (see §2026-06-26 correction, READ FIRST); D0 audience-model + D3-D5 remain. Authoritative continuation = orientation-skills-family thread record.
+status: IN PROGRESS — D0, D1, D2 landed behaviour-only on branch worktree-ws-b-explain; D3 (model-fired explain tool, additive registerTool, local dual-shape) landed this session; test doctrine corrected (see §2026-06-26 correction, READ FIRST); D4-D5 remain. Authoritative continuation = orientation-skills-family thread record.
 lineage:
   serves_thread: orientation-skills-family
   serves_stream: teaching-surface family across the PDR-112 portability seam
@@ -51,7 +51,7 @@ todos:
       ONLY on effort/ecosystem-orientation triggers, NEVER on curriculum queries;
       result is the dual-shape (content + structuredContent, NO outputSchema) per
       ADR-058; file scope handlers.ts
-    status: pending
+    status: completed
     depends_on: [ws-b-d1-generated-body]
   - id: ws-b-d4-prompt
     content: >
@@ -461,11 +461,22 @@ omitted** — the handler is therefore the **zero-arg `extra`-only `ToolCallback
 (no typed `args` first param). Pick a tool `name` that does **not collide** with any
 existing universal tool name (the SDK throws on duplicate registration). The tool
 **result** is the ADR-058 dual shape —
-`content: [summary, jsonBody]` plus `structuredContent` — built by reusing the
-canonical `formatToolResponse()` (`universal-tool-shared.ts`), and **declares NO
-`outputSchema`** (the SDK runs strict `structuredContent` validation only when an
-`outputSchema` is registered; a free-form body with an `outputSchema` would fail at
-`tools/call`; every existing agent-support tool omits it — mirror that).
+`content: [summary, jsonBody]` plus `structuredContent` — **built locally**
+(a small app-local dual-shape constructor), NOT by reusing the SDK's canonical
+`formatToolResponse()`. **As-built decision (D3, supersedes the plan's original
+"reuse formatToolResponse" letter; verified by mcp-expert + code-expert against
+installed `@modelcontextprotocol/sdk@1.29.0`):** `formatToolResponse` is
+SDK-internal — it is NOT on the publishable `@oaknational/curriculum-sdk/public/mcp-tools.js`
+barrel the app may import (ADR-041) — AND it hard-couples `OAK_CONTEXT_HINT`,
+which steers the model toward `get-curriculum-model` and the curriculum tools.
+Reusing it would breach the curriculum firewall from inside explain's own
+result. Building the dual shape locally makes the firewall **structural** (explain
+never imports the curriculum-coupled machinery) and is spec-equivalent (same
+`content`/`structuredContent` shape clients read identically). The result
+**declares NO `outputSchema`** (the SDK runs strict `structuredContent`
+validation only when an `outputSchema` is registered; a free-form body with an
+`outputSchema` would fail at `tools/call`; every existing agent-support tool
+omits it — mirror that).
 
 - **Cycle D3.1 (integration).** `server.registerTool` called for the explain tool with
   the effort-scoped, curriculum-excluding description; the handler returns the
@@ -551,7 +562,7 @@ test-first per cycle; retrospective coverage is not counted as TDD evidence.
 | Body leaks into the curriculum domain (curriculum data, curriculum-guide prose, or a curriculum-surface route) — separation breach | Med | High | D1.1 assertion (d) is the curriculum firewall; D2.2/D3.2 e2e assert no curriculum-tool name in the body; D5 proves a curriculum query does not engage explain |
 | Transformer over-strips (loses discernment) or under-strips (leaves fs-coupling) | Med | High | D1.1 asserts (a)–(b): no fs-coupling; discernment + modes + escalation + honesty + access-aware fork retained |
 | Volatility leak — a point-in-time status claim baked (the live progress report, OR README's "Invite-Only Alpha" / live tool counts / deployment URL / "as of <month>" datelines), presenting frozen content as current | Med | High | D1.1 assertion (e) excludes/genericises every point-in-time status claim wherever it lives, not only the progress report; `lastModified` derived from source-commit date (D1.1(f)), never build-time |
-| D3 mis-declares an `outputSchema` and fails `tools/call` validation | Med | High | Plan + D3.1 pin "no outputSchema; structuredContent only", mirroring agent-support tools; reuse `formatToolResponse()` |
+| D3 mis-declares an `outputSchema` and fails `tools/call` validation | Med | High | Plan + D3.1 pin "no outputSchema; structuredContent only", mirroring agent-support tools; build the dual shape locally (NOT `formatToolResponse()`, which is SDK-internal and curriculum-coupled — see §D3 as-built decision) |
 | Resource surfaces too prominently to teacher-facing clients | Low | Med | Low `priority` annotation + `audience: ['assistant']`; D2.2 asserts the low-salience metadata |
 | Canonical/README/VISION drift, generated body goes stale | Low | Med | Codegen-drift check (regenerate → `git diff --exit-code`) in D1.2; stable-only sources keep the check faithful |
 | Client does not fire the tool (not forceable) | High | Low (accepted) | Owner-accepted via C; lever is description quality; D5 proves "followable", not "guaranteed" |

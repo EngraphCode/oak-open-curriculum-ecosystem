@@ -142,7 +142,11 @@ describe('Oak Curriculum MCP Streamable HTTP - E2E', () => {
       'user-search',
       'user-search-query',
     ];
-    const expectedToolNames = [...baseToolNames, ...aggregatedTools];
+    // App-local tools registered outside the SDK universal/aggregated registry
+    // (a separate, additive server.registerTool call). The explain
+    // effort-orientation tool (WS-B D3) is the first of these.
+    const appLocalTools = ['explain'];
+    const expectedToolNames = [...baseToolNames, ...aggregatedTools, ...appLocalTools];
     expect(names.toSorted((a, b) => a.localeCompare(b))).toEqual(
       expectedToolNames.toSorted((a, b) => a.localeCompare(b)),
     );
