@@ -1,0 +1,6 @@
+---
+description: Every PR comment is fixed in code or explicitly rejected (none unaddressed); after EVERY push, always re-check for NEW comments — correcting the old ones is never enough.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/pr-comments-resolve-and-recheck.md`.
