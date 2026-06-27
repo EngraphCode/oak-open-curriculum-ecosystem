@@ -118,8 +118,8 @@ every source in the register has cleared the same bar:
    typing) and a **provenance prefix** per ADR-157 §Namespace Convention.
 4. **Add a source entry** to this register and a row to the
    [review log](#review-log).
-5. **Review and sign-off** — docs-adr-expert review, and owner sign-off on
-   suitability and licensing.
+5. **Review and sign-off** — docs-adr-expert review, and organisational sign-off
+   on suitability and licensing.
 
 The suitability-review criteria that keep a source suitable are the same bar a new
 source must clear to be adopted; the removal criteria are the same bar that retires
@@ -129,13 +129,14 @@ one.
 
 ## Governance policy
 
-> **Status: proposed — pending owner ratification (2026-06-27).** The factual
-> register above is grounded in ADR-157, `LICENCE-DATA.md`, and `ATTRIBUTION.md`.
-> The criteria and the review approach below are **new governance policy** this
-> register establishes; they are deliberately short and simple, each with a
-> one-line rationale grounded in the apps' purpose and Oak's four pillars
-> (Independent, Optional, Adaptable, Free). They take effect when the owner ratifies
-> them; the per-source review dates below are likewise provisional until then.
+> **Status: proposed — pending organisational ratification (2026-06-27).** The
+> factual register above is grounded in ADR-157, `LICENCE-DATA.md`, and
+> `ATTRIBUTION.md`. The criteria and the review approach below are **new
+> governance policy** this register proposes; they are deliberately short and
+> simple, each with a one-line rationale grounded in the apps' purpose and Oak's
+> four pillars (Independent, Optional, Adaptable, Free). This is **org-level
+> policy** — not settled by any one person; it takes effect when the organisation
+> ratifies it, and the per-source review dates below are provisional until then.
 
 ### Suitability-review criteria
 
@@ -198,5 +199,6 @@ surface. The criteria above are the trigger; the mechanics are ordinary work.
 | Oak Curriculum Ontology           | 2026-04-10 (ADR-157) | 2026-06-27 (provisional) | Best efforts + on trigger (licence / data / new consumer) |
 | EEF Teaching and Learning Toolkit | Per ADR-157          | 2026-06-27 (provisional) | Best efforts + on trigger (licence / data / new consumer) |
 
-_Provisional entries become effective when the owner ratifies the governance policy
-above; the "last reviewed" date then reflects the first ratified review._
+_Provisional entries become effective when the organisation ratifies the
+governance policy above; the "last reviewed" date then reflects the first ratified
+review._
