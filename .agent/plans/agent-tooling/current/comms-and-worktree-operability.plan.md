@@ -1,0 +1,133 @@
+---
+status: PROPOSED — DEEP REVIEW REQUIRED before any execution
+owner: unassigned (owner-scheduled)
+created: 2026-06-27
+created_by: Alder tracks Topsoil (claude / claude-opus-4-8[1m])
+thread: agent-tooling
+related:
+  - ADR-197 (one checkout owns shared registry state)
+  - F-41 (resolve the coordination home across worktrees)
+  - .agent/memory (reference) worktree-primary-resolution-scatter
+---
+
+# Comms-system and primary-checkout / worktree operability
+
+> **DEEP REVIEW AND FURTHER THOUGHT REQUIRED.** This plan NAMES the work and the
+> decisions to be made; it does not make them. It was drafted at the end of a long
+> session that surfaced the underlying frictions first-hand, so it captures the
+> shape while it is fresh — but it must not be executed before a deliberate
+> review pass (see §Review gate). Several load-bearing facts are flagged
+> "verify" below; treat them as hypotheses, not settled.
+
+## Why (the frictions that motivated this, all observed 2026-06-26/27)
+
+The invariant **"shared team state lives at the primary checkout"** (ADR-197; the
+F-41 cure) is real but **scattered and only partially enforced**, and it produced
+three first-hand footguns in one session:
+
+1. **Comms `--comms-dir` hazard.** The comms CLI default anchors to the primary via
+   `resolveCoordinationHome` (correct), but an explicit **relative `--comms-dir`**
+   overrides it and resolves relative to cwd — from a worktree that silently writes
+   worktree-local, re-creating the F-41 invisibility. (I passed a relative
+   `--comms-dir` all session; it only worked because the session ran in the primary.)
+2. **Statusline binary not pinned to the primary.** `statusLine.command` is
+   `node .claude/scripts/statusline-identity.mjs` (relative) → from a worktree it runs
+   the **worktree's** copy of the script (its branch's version + its agent-tools
+   build), so the statusline's layout and even existence vary by which worktree the
+   agent is in. The shim's internal `repoRoot = CLAUDE_PROJECT_DIR ?? <path-arithmetic>`
+   compounds it (both can resolve to the worktree).
+3. **markdownlint-root globbed untracked state.** `.agent/**/*.md` lint glob caught an
+   untracked `.agent/state/` coordination file and blocked pushes tree-wide. **FIXED
+   separately this session** (positive `.agent/state/**` ignore in
+   `.markdownlint-cli2.jsonc`; note the HARD RULE there — a `!` re-include silently
+   zeroes the gate, so the fix had to be a positive ignore).
+
+Root cause: the "primary checkout" is resolved by **at least two separate
+implementations** and the invariant is undocumented for operators.
+
+## Part A — Two operating skills (feature-shaping: owner decision)
+
+Two distinct skills, distinct invocation triggers; keep separate (they overlap only
+on "comms anchors to primary" — cross-reference, do not duplicate).
+
+### A1. Comms-system usage skill
+
+Operational how-to for the collaboration-state CLI. Consolidates knowledge currently
+scattered across `comms-all-channels-watcher`, `use-agent-comms-log`, the
+`arc-rapid-communication` reference, `start-right-team`, and the CLI `--help`. Must
+cover: send / list / watch / inbox / reply / claims; the canonical ↔ ARC channel
+pairing (and that an ARC watcher never substitutes for the canonical one); identity
+seeding; n=2 mode (PDR-082); and the rule **"rely on the default comms-dir (it anchors
+to the primary) — never pass a relative `--comms-dir`; use `--repo-root` if an explicit
+anchor is needed."**
+
+### A2. Mixed primary-checkout / worktree operation skill
+
+Environment-operational how-to for working inside a linked worktree. Must cover: the
+ADR-197 invariant; **what auto-resolves to the primary** (comms / claims / commit-queue
+defaults via `resolveCoordinationHome`) **vs. what does not** (relative path overrides,
+the statusline binary, anything globbed by tooling); that gates and pushes run against
+the *worktree*; the cross-worktree work-state map (the F-98 interim registry); and where
+to read vs. write shared state.
+
+## Part B — Structural consolidation (architecture; needs design review)
+
+Skills document how to operate given current behaviour; Part B fixes the behaviour.
+
+### B1. One primary-checkout resolver (DRY — owner-directed)
+
+There is already a reusable, tested resolver:
+`resolveCoordinationHome(cwd)` in `agent-tools/src/collaboration-state/coordination-home.ts`
+(`git worktree list --porcelain` → first/main worktree). **Use it everywhere — do not
+add a new resolver.** The statusline currently **duplicates** the logic in
+`agent-tools/src/claude/statusline-git-io.ts` (`parsePrimaryWorktreeRoot` via its own
+`git worktree list`). Consolidate the statusline's primary resolution onto
+`resolveCoordinationHome` (or a shared lower-level helper), removing the duplicate.
+
+> **VERIFIED TRAP (do not regress):** the primary is `git worktree list --porcelain |
+> first`, **NOT** `git rev-parse --show-toplevel` (which returns the *current* worktree —
+> empirically confirmed 2026-06-27; the claude-code-guide subagent wrongly recommended
+> `--show-toplevel`). Any reviewer who proposes `--show-toplevel` is wrong.
+
+### B2. Pin the statusline binary to the primary checkout
+
+Goal: the statusline script + its agent-tools build always come from the primary,
+regardless of the session's worktree.
+
+- `statusLine.command` resolves the primary via the shared resolver and runs the
+  primary's shim — no machine-local path (git-native resolution; the repo forbids
+  hardcoded absolute paths).
+- The shim (`statusline-identity.mjs`) resolves `repoRoot` via the same shared resolver,
+  not `CLAUDE_PROJECT_DIR ?? path-arithmetic` (both can resolve to the worktree).
+- Graceful degradation preserved: any resolution failure still exits 0 with no output
+  (the statusline must never disrupt a session).
+
+## Open questions / verify-before-building (the deep-review surface)
+
+- **Claude Code semantics (verify, do not trust):** does project `.claude/settings.json`
+  resolve to the primary repo in a worktree (claude-code-guide claimed yes)? Is the
+  `statusLine.command` cwd the worktree? Is `CLAUDE_PROJECT_DIR` reliably exported to the
+  statusline? These determine whether updating `main`'s settings is sufficient or whether
+  each branch needs it, and whether a shell-resolved command or a self-resolving shim is
+  the cleaner seam. The claude-code-guide pass got the core resolver wrong — re-verify
+  every Claude Code claim against current behaviour and docs.
+- Should the statusline `command` resolve the primary (shell `$(...)`) or should the shim
+  self-resolve (so even a stale worktree command still lands on the primary)? Likely both,
+  belt-and-suspenders — decide in review.
+- Is a shared lower-level "first worktree path" helper warranted (used by both
+  `resolveCoordinationHome` and the statusline), or should the statusline call
+  `resolveCoordinationHome` directly? (DRY either way; pick the cleaner boundary.)
+- Security: the bootstrap resolver runs `git` from PATH (S4036); acceptable for a
+  best-effort cosmetic read, but confirm against the trusted-git posture.
+
+## Review gate (before ANY execution)
+
+This plan is PROPOSED, not READY. Required before execution:
+
+- A deliberate design review with **architecture-expert** (boundary/DRY of the shared
+  resolver) and **config-expert** (the `statusLine` config + settings-resolution).
+- A **claude-code-guide** re-pass on the Claude Code semantics — **critically assessed**
+  (it erred on `--show-toplevel` this time).
+- An **end-to-end test from an actual linked worktree**, not just the primary.
+- Owner ratification of Part A scope (two skills vs. other shapes) — feature-shaping is
+  the owner's.

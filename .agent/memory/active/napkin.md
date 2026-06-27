@@ -251,6 +251,10 @@ New session observations append below.
   `never`) — a wasted cycle. Following my own recorded plan would have avoided it. A handoff is not only for a
   successor; it is my best prior thinking, to honour unless I have a concrete reason to override.
 - **Worked instance of the 2026-06-26 "trust CLEAN before `--admin`" entry (Wombat, above):** #242's
-  `mergeStateStatus` went BLOCKED→CLEAN once the 5 review threads resolved; `reviewDecision` empty + CLEAN
-  means these paths are NOT code-owner-review-gated. The "main merge gate = code-owner review" memory is
-  CODEOWNERS-path-scoped, not universal — confirms Wombat's lesson, no novel capture.
+  `mergeStateStatus` went BLOCKED→CLEAN once the 5 review threads resolved, and it merged with no approval
+  **because it was agent-authored under the owner's shared gh auth and the sole code owner IS the author**
+  (the documented author-dependent gate behaviour — GitHub auto-satisfies the gate and forbids
+  self-approval). NOT "these paths aren't code-owner-gated": CODEOWNERS is `* @jimCresswell`, every path is
+  gated. I first recorded the path-scoped reading; the loss-scan caught it against
+  [[project_main_merge_gate_codeowner]] (which already documents the author-dependent behaviour) — a
+  ground-convenient-claims miss (I asserted a convenient explanation without checking the existing memory).
