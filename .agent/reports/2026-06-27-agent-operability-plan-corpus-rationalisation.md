@@ -253,7 +253,7 @@ one concern", so it is recorded here.
 
 | # | Finding | Location | Action |
 | --- | --- | --- | --- |
-| Z-1 | **Personal-location disclosure** — "The owner is currently in Europe/London" | `collaboration-state-domain-model-and-comms-reliability.plan.md` | Remove/genericise. Org instruction: no PII; location is personal data. |
+| Z-1 | **Personal-location reference about the owner** (a coarse region/timezone line used as UTC-discipline context; pre-existing on main, line 112) | `collaboration-state-domain-model-and-comms-reliability.plan.md` | Genericise: drop the personal-location framing, keep the UTC-discipline point. Org directive: no PII. |
 | Z-2 | Hardcoded coordinator name leaked into doctrine (`use-agent-comms-log.md`) | flagged in `m1-inventory` §4.3, said fixed in `d9225d5b` | Verify the fix actually landed on `main`. |
 | Z-3 | Stale path text (`comms-events/` vs shipped `comms/`) | domain-model brief | Correct or mark superseded (= C-3). |
 | Z-4 | Status contradiction: "PLANNING (not started)" yet documents large landed code | `statusline-logo-modularisation.plan.md` | Reconcile the status banner with reality. |
