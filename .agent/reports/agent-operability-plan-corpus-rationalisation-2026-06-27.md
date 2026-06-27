@@ -1,7 +1,7 @@
 ---
 name: agent-operability-plan-corpus-rationalisation
 type: report
-status: DRAFT — research output (NAMES the rationalisation; the owner decides the shape)
+status: stable — synthesis report (names decisions and considerations; the owner/Director decides the shape)
 created: 2026-06-27
 created_by: Cedar lifts Canopy (claude-code / claude-opus-4-8[1m] / 435d30)
 thread: agent-operability-plan-consolidation
@@ -227,8 +227,9 @@ one concern", so it is recorded here.
 - **What it is.** A 42-line soft-fail bootstrap: resolve `repoRoot`
   (`CLAUDE_PROJECT_DIR ?? ../../`), `exit 0` silently if the built adapter is
   missing, else `spawn` the built/typed/gated `agent-tools/dist/.../statusline-identity.js`.
-- **Verified Claude Code semantics** (claude-code-guide against official docs,
-  critically assessed — the core point is a direct doc quote):
+- **Verified Claude Code semantics** ([official statusline docs](https://docs.anthropic.com/en/docs/claude-code/statusline),
+  via claude-code-guide against official docs, critically assessed — the core
+  point is a direct doc quote):
   - A `statusLine.command` that exits non-zero or produces no output just makes the
     status line **go blank — no error, no session disruption**. So the soft-fail is
     *aesthetic*, not a safety requirement.
@@ -269,7 +270,9 @@ My own report's "(now on `main`)" claim for the worktree-hygiene rule was
 ## Open decisions for the owner
 
 1. **D1 — Adopt the 3-tier substrate taxonomy** (memory / repo-state / local-state)
-   and make `.agent/state/` git-ignored? This resolves the C-1 contradiction and
+   and make the live coordination tier of `.agent/state/` git-ignored (its
+   decision-provenance surfaces — `conversations/`/`escalations/`/`sidebars/` —
+   stay tracked)? This resolves the C-1 contradiction and
    ratifies `continuity-surfaces-are-state-not-memory`.
 2. **D2 — Reconcile with the rightsizing brief.** Revive it as the meta-cull-home
    and expand its scope to all four facets, OR bound it to coordination-machinery
