@@ -202,6 +202,119 @@ New session observations append below.
   workflow rewrite makes the permissions block "new code" and Sonar flags the over-grant; checkout
   jobs get `contents: read`, a fan-in job that uses no token gets `{}`.
 
+## 2026-06-26 — Sonar S8707 site-3, DRY/SSOT, read-the-live-surface (Alder tracks Topsoil)
+
+- **The repo needs a workspace-creation skill (owner-directed).** Creating `packages/core/safe-path`
+  was manual + error-prone: mirror a sibling's package.json / 3 tsconfigs / tsup / vitest / eslint /
+  README, add to the **EXPLICIT** `pnpm-workspace.yaml` list (NOT a glob — I missed it, owner had to
+  prompt), wire `workspace:*` deps into consumers, confirm turbo auto-discovery, run config-expert.
+  Should become a skill (template per workspace kind: core util / lib / sdk / app). Also in
+  agent-memory `create-workspace-skill-needed`; graduate into the agent-tooling frictions register.
+- **Workspace config divergence needs an analyse-and-categorise pass (owner-directed).** The
+  `default` export condition is split 11-no / 7-yes across packages — config-expert wrongly called
+  adding it a "MUST" (it is not; `type-helpers` ships without it), but it IS the right robustness
+  choice for a broadly-consumed core util, so `safe-path` adopts it. The divergence signals we should
+  categorise workspaces and decide consistent config approaches within and between categories, under
+  strict + LTAE. A real follow-up; capture as a plan. (`workspace-config-categorisation-needed`.)
+- **Read the LIVE authoritative surface, not a stale proxy — I made this mistake 3× this session.**
+  (a) `git grep origin/main` (committed) vs the working tree the owner was live-editing → I declared
+  the `--passWithNoTests` masks "net-new" when the owner had already removed them in the tree.
+  (b) `gh api .../branches/main/protection` (legacy) vs the **ruleset** → I called SonarCloud
+  "advisory" when it is a REQUIRED merge check. (c) a `.ts`-only grep vs `package.json` → missed where
+  `--passWithNoTests` actually lived. Cure: when a check returns a convenient "all clear", distrust it
+  HARDER and verify against the authoritative live surface — the convenience is the tell.
+- **Enforce DRY for security-critical code; don't make the owner say "enforce DRY".** I leaned on the
+  `consolidate-at-third-consumer` rule's "third" wording to rationalise duplicating a path-containment
+  validator across two workspaces. The owner corrected the guidance: extraction is at the **second**
+  consumer (it always was — the rule was mis-stated as "third"; content now fixed, filename retained as
+  a stable id pending a tracked rename). So the SSOT extraction at the 2nd consumer was the on-policy,
+  correct move. Lessons: a security validator must have one source of truth (divergence is a latent
+  defect); a required gate (Sonar duplication) forces the right answer; don't let a rule's stated number
+  override DRY — check the rule's correctness and preconditions before leaning on it.
+- **For squash-merged branches, SHA-not-ancestor ≠ content-absent.** `git log main..branch` listed
+  "net-new" commits whose CONTENT was already on `main` via the #222 / #224 squashes; the worktree
+  "keepers" were already merged. Compare CONTENT (per-file diff / cherry-pick dry-run), not commit
+  ancestry, to decide what is genuinely net-new to integrate. (Owner has re-enabled merge, not squash,
+  for PRs precisely to keep commit-level comparison.)
+- **Post-compression, RE-GROUND before acting — never resume edits on the summary's picture.** After a
+  context compression I resumed *editing* `analyze-elser` on the summary's "solo, finish the lint" frame,
+  blind to the live multi-agent context (a Skipper→me worktree handoff, Cedar on a disjoint lane, a stale
+  Director claim). The edit happened to be safe — but I had not verified that when I made it. The discipline
+  already exists (start-right-team §Continuation Pointer Contract: recompute volatile truth from live
+  surfaces before acting); the gap is that nothing auto-fires it at the compression boundary — the owner had
+  to prompt the re-ground. Owner-action-is-a-stopgap ⇒ a missing primitive (a post-compression auto-reground
+  trigger; candidate). Cure until then: treat every compression boundary as a context-loss event whose first
+  move is re-grounding, never a resumed edit. [[inherited-framing-without-first-principles-check]]
+- **Read your OWN handoff — frozen reasoning can beat live reasoning.** My thread record prescribed
+  extracting `analyseReport()` (a `void` block) to clear `max-statements`. In the moment I instead extracted
+  a `string`-returning resolver, which tripped `consistent-return` (the rule does not infer `process.exit` is
+  `never`) — a wasted cycle. Following my own recorded plan would have avoided it. A handoff is not only for a
+  successor; it is my best prior thinking, to honour unless I have a concrete reason to override.
+- **Worked instance of the 2026-06-26 "trust CLEAN before `--admin`" entry (Wombat, above):** #242's
+  `mergeStateStatus` went BLOCKED→CLEAN once the 5 review threads resolved, and it merged with no approval
+  **because it was agent-authored under the owner's shared gh auth and the sole code owner IS the author**
+  (the documented author-dependent gate behaviour — GitHub auto-satisfies the gate and forbids
+  self-approval). NOT "these paths aren't code-owner-gated": CODEOWNERS is `* @jimCresswell`, every path is
+  gated. I first recorded the path-scoped reading; the loss-scan caught it against
+  [[project_main_merge_gate_codeowner]] (which already documents the author-dependent behaviour) — a
+  ground-convenient-claims miss (I asserted a convenient explanation without checking the existing memory).
+
+## 2026-06-27 — A "false positive" reflex on generated code is a fluency trap; set the disposition bar before triaging (Gull tracks Eyrie)
+
+- **Mistake → corrected: I reflexively marked S101×3 (PascalCase on the generated openapi
+  `paths`/`components`/`operations`) FALSE_POSITIVE**, on the fluent "it's generated, names are hardcoded,
+  owner pre-authorised" frame. Owner asked for a subagent second-opinion; it refuted the FP and I verified
+  first-hand: the file IS generated but the repo's `postProcessTypesSource` hook (`codegen-core.ts:176/202`)
+  *could* rename them — so it is NOT a tool error, and FP would be suppression wearing an FP costume. The
+  honest, proportionate disposition is **ACCEPT (won't-fix)**: the names are the public API of
+  `@oaknational/sdk-codegen` + the universal openapi-typescript/openapi-fetch ecosystem convention, so a
+  genuine rename is a breaking change for a MINOR cosmetic rule. Worked instance of the metacognition
+  "fluency is a warning" note + [[feedback_validate_specialist_findings_before_acting]] + [[verify-dont-trust]].
+  Also: a subagent can be right to REFUTE yet over-reach — it conflated "fixable" with "worth fixing"; the
+  proportionality judgement is mine to add, not the subagent's to make.
+- **Set the disposition BAR before triaging a backlog "to zero".** Owner ratified (AskUserQuestion):
+  genuine fix is default; site-specific architectural tension → recorded ACCEPT; FALSE_POSITIVE only for
+  true tool errors. This governs all ~388 remaining Sonar issues — without the bar, every disposition is an
+  ad-hoc call and "zero" is ambiguous (accept-with-rationale ≠ fix-everything). Name which "zero" the owner
+  means before triaging, not per-issue.
+- **Tooling gap: Sonar MCP `change_sonar_issue_status` has NO rationale-comment field**, and the auto-mode
+  classifier blocks issue-status writes as unauthorised external-state mutation until explicit owner auth.
+  So a server-side disposition can't carry its "why" in Sonar — the durable rationale must live in the
+  napkin/plan/comms. The classifier reading "zero means zero" as "fixes, not dispositions" was a useful
+  perturbation — it forced the bar to be made explicit. Candidate: a permission rule + a rationale-capture
+  convention if doing many. Adjacent [[no-warning-toleration]] (a dismissal without recorded rationale is a
+  thin audit trail).
+- **Capture notes in the napkin, not (only) comms/scratchpad (owner correction).** I recorded the S101
+  decision in a comms event first; the owner reminded me the napkin is the home for session notes. Comms is
+  for live coordination; the napkin is the capture→distil→graduate buffer (PDR-014).
+
+## 2026-06-27 — Session-close residuals (Alder tracks Topsoil)
+
+- **Don't bundle a deep-review-gated forward-design doc into a closeout PR — it spawns an
+  unbounded bot-review churn loop.** PR #244 (sonar-lane closeout) carried the PROPOSED,
+  deep-review-gated `comms-and-worktree-operability.plan.md`; every push drew finer Codex/Copilot
+  refinements of the *plan's* prose (5+ rounds, each fix spawning the next) — a forward-design doc
+  has near-infinite polish surface and is deferred to a review that will rework it, so perfecting
+  its prose pre-review is wasted effort that blocks the closeout. The live worked instance of
+  [[pr-comments-resolve-and-recheck]] (every push → re-check → new comments). **Cure:** land such
+  docs in their OWN reviewed PR; if bundled, add ONE top "deep re-assessment scope" note folding
+  the content comments wholesale (what unblocked #244, owner-directed) rather than chasing
+  line-by-line.
+- **comms/claims primary-anchoring is asymmetric.** Only `comms send` auto-anchors
+  `--comms-dir`/`--active` to the primary via `resolveCoordinationHome`; `comms
+  list/watch/inbox/direct/reply` and `claims` REQUIRE those paths explicitly — pass the
+  primary-resolved path, never relative (from a worktree a relative path lands worktree-local).
+  Folded for re-assessment in the operability plan, which itself **needs its deep review before any
+  execution** (flagged at its top, not done this session). (My per-user worktree-resolution
+  agent-memory note still over-generalises this and wants tidying.)
+
+## 2026-06-27 — Read a tool-rule's actual criterion before dispositioning; a plausibility argument isn't proof (Gull tracks Eyrie)
+
+- **A specialist subagent's blanket "all 18 regex findings are false-positives, dismiss all" was WRONG, and so was my own first analysis — both fixed by reading Sonar S8786's rule definition.** We both reasoned "delimited negated class (`{[^}]+}`) ⇒ linear." But S8786's documented criterion is *unanchored multi-position retry ⇒ O(n²) on non-match* (its noncompliant example is `/a+b/`; compliant `/^a+b/`). So those patterns ARE non-linear — NOT false positives; mass-dismissing 18 genuine findings would have been the error. Lesson: for a tool-rule disposition, read the RULE's criterion + examples first; a plausibility argument (yours OR a subagent's) is not proof. [[verify-dont-trust]], fluency-is-a-warning, owner's "critically assess subagent results" standing directive.
+- **Phase-2 disposition (accept-with-rationale bar): 2 fixes + 16 accepts.** FIX = sitemap-scanner `\s*([^<]+)\s*` (real O(n²), network XML) and S6035 `(?:—|\))`→`[—)]`. ACCEPT = 14 S8786 (internal/build-time/generated inputs; JS has no possessive quantifiers so an atomic "fix" renumbers capture groups + forces consumer changes) + 2 S5843 canonical-semver (complexity, parity-locked). The Vercel `ignoreCommand` `.mjs` semver shim is irreducible: it runs before `pnpm install` (no node_modules, dist gitignored) so it can only use Node built-ins + committed source; parity-test-locked inline copy is correct. **Napkin near fitness limit — drain due (Cedar flagged).**
+
+<!-- Merged from worktree-ws-b-explain (oak-under-the-hood reframe, 2026-06-27): the three entries below predate main's tail; reorder/drain at the next rotation. -->
+
 ## 2026-06-26 — Tests prove behaviour, never config or content; hashing a source to detect change is a config-pin (Skipper tracks Kelp)
 
 - **Owner sharpening (absolute): a test/check must prove BEHAVIOUR without constraining

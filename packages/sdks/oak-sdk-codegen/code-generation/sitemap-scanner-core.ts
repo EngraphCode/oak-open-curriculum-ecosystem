@@ -149,7 +149,11 @@ const TEACHER_ROUTES: readonly RouteRule[] = [
  */
 export function extractLocs(xmlText: string): string[] {
   const locs: string[] = [];
-  const re = /<loc>\s*([^<]+)\s*<\/loc>/gim;
+  // `[^<]+` already stops at the next `<`, and the capture is trimmed below, so the
+  // surrounding `\s*` quantifiers are redundant — and their overlap with `[^<]+` on
+  // whitespace is what made this pattern non-linear (Sonar S8786). Dropping them keeps
+  // identical results (whitespace-only and empty `<loc>` handling unchanged) and linear time.
+  const re = /<loc>([^<]+)<\/loc>/gim;
   let match: RegExpExecArray | null;
   while ((match = re.exec(xmlText)) !== null) {
     locs.push(match[1].trim());

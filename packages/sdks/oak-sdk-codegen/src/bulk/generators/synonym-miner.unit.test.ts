@@ -161,7 +161,7 @@ describe('generateMinedSynonyms', () => {
 
     const result = generateMinedSynonyms(keywords);
 
-    expect(result.synonyms.length).toBe(2);
+    expect(result.synonyms).toHaveLength(2);
   });
 
   it('includes confidence score based on pattern clarity', () => {
