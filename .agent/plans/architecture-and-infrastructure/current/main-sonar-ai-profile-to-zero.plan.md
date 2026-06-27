@@ -1,6 +1,6 @@
 ---
 name: "Main Sonar AI Profile To Zero"
-overview: "Drive main's Sonar AI quality-profile backlog (398 issues, 48 rule classes) to zero — fix or genuine-false-positive only, no suppression."
+overview: "Drive main's Sonar AI quality-profile backlog (392 issues at the 2026-06-26 re-derive, 48 rule classes) to zero — fix or genuine-false-positive only, no suppression. Phase 1 part-landed: the safe-path validator and 2 of 3 S8707 sites are fixed (PR #223, gate security condition green); the final site-3 is in PR #242."
 status: "DECISION-COMPLETE — ready for execution on a dedicated branch"
 lineage:
   serves_thread: main-sonar-ai-profile-to-zero
@@ -12,8 +12,8 @@ todos:
     content: "Phase 0: tracking home + full first-hand triage by cause-class."
     status: completed
   - id: phase-1-cli-security
-    content: "Phase 1: agent-CLI path-injection (S8707 x3) — local canonical-path validator + 3 sites."
-    status: pending
+    content: "Phase 1: agent-CLI path-injection (S8707). assertPathWithinBase + the 2 agent-tools sites LANDED (PR #223). Site-3 (oak-search-cli analyze-elser-failures.ts) done in PR #242, which also extracted the validator to the shared @oaknational/safe-path package (SSOT for all 3 sites). Awaiting code-owner merge."
+    status: in_progress
   - id: phase-2-regex-strategy
     content: "Phase 2: regex safety (S8786/S5843/S6035) — generator fixes, per-workspace regex home, semver import, per-site FP."
     status: pending
@@ -38,8 +38,8 @@ todos:
 
 # Main Sonar AI Profile To Zero
 
-**Last Updated**: 2026-06-24
-**Status**: DECISION-COMPLETE — ready for execution on a dedicated branch
+**Last Updated**: 2026-06-26
+**Status**: IN EXECUTION — Phase 1: S8707 sites 1-2 landed on `main` (PR #223), site-3 in PR #242 (awaiting code-owner merge); Phases 2-6 ready for execution on a dedicated branch off fresh `main`
 **Thread**: `main-sonar-ai-profile-to-zero`
 **Supersedes**: the retired `main-critical-sonar-remediation` lane (archived to
 `.agent/plans-old-archive/architecture-and-infrastructure/archive/superseded/`).
@@ -47,21 +47,35 @@ todos:
 ## Context
 
 The owner **deliberately activated the Sonar AI quality profile** on
-`oaknational_oak-open-curriculum-ecosystem`. `main`'s gate is **ERROR**, failing
-two new-code conditions (`new_vulnerabilities_severity` 15/9 — the S8707 class;
-`new_code_smells_severity` 15/14 — margin of one). The target is **zero issues**,
-reached by **fix or genuine-false-positive only** — never suppression, never rule
-disables; generated files fixed at the generator. The backlog is **398 issues
-across 48 rule classes**, dominated by recently-activated SonarJS idiom rules, with
-a small genuine core (security, ReDoS-adjacent regex, test integrity) inside it.
-This supersedes the retired `main-critical-sonar-remediation` lane, whose hotspot
-crisis is resolved (0 outstanding).
+`oaknational_oak-open-curriculum-ecosystem`. As of the 2026-06-26 re-derive,
+`main`'s gate is **ERROR** on a **single** new-code condition
+(`new_code_smells_severity` 15/14 — margin of one). The other condition the
+original baseline failed, `new_vulnerabilities_severity` (was 15/9 — the S8707
+class), is now **OK (0/9)**: PR #223 fixed 2 of the 3 S8707 sites, clearing the
+new-code vulnerability score; the final site-3 is in PR #242. The target is **zero issues**, reached by **fix or
+genuine-false-positive only** — never suppression, never rule disables; generated
+files fixed at the generator. The backlog is **392 issues across 48 rule classes**
+(re-derived 2026-06-26; was 398 on 2026-06-24), dominated by recently-activated
+SonarJS idiom rules, with a small genuine core (security, ReDoS-adjacent regex,
+test integrity) inside it. This supersedes the retired
+`main-critical-sonar-remediation` lane, whose hotspot crisis is resolved (0
+outstanding).
+
+## Execution Log
+
+- **2026-06-26** · PR #223 (`fix(agent-tools): contain CLI paths within the git dir (S8707 sites 1-2)`) — **Phase 1, 2 of 3.** Landed the canonical-path validator `agent-tools/src/core/safe-path.ts` (`assertPathWithinBase`) with unit tests, applied at both agent-tools sites (`ci-turbo-report.ts`, `prevent-accidental-major-version.ts`). Gate effect: `new_vulnerabilities_severity` 15 → 0 (OK). Remaining Phase-1 site: `apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`. (Same PR also updated `docs/governance/sonar-disposition-policy.md`.)
+
+- **2026-06-26** · PR #242 (`fix(search-cli): contain analyze-elser report path within diagnostics dir (S8707)`) — **Phase 1, site-3 (final).** Local `apps/oak-search-cli/src/lib/safe-path.ts` (`assertPathWithinBase`) + traversal test contains the `process.argv` report path within the `diagnostics/` dir before reading. `security-expert`: GO. Awaiting code-owner merge (merge, not squash). **Sonar PR gate:** `new_duplicated_lines_density` initially ERROR (35.9%) from the local safe-path copy. SonarCloud is a **REQUIRED** merge-gate check (the `Protect default branch` ruleset, not advisory), so the duplication was **resolved, not accepted**: the validator was extracted to a shared `@oaknational/safe-path` SSOT package (commit `bf7277465`) consumed by both agent-tools and search-cli, and both local copies were deleted. This is on-policy: the consolidate rule extracts a shared shape at the **second** consumer (oak-search-cli is the 2nd), and a security-critical validator must have one source of truth. All other PR conditions OK; zero new issues. On merge: S8707 → 0 (Phase 1 complete), `new_vulnerabilities_severity` stays OK.
+
+### Re-derivation evidence (2026-06-26, first-hand)
+
+Live `main`: **392** open issues across **49 distinct rule keys** (the "48 rule classes" figure collapses the `ts`+`js` variants of `S5843` and `S6644`; no new rule class has appeared). Quality gate **ERROR** on `new_code_smells_severity` 15/14 only; the other three conditions are OK. The 398 → 392 delta reconciles exactly: `S8707` −2 (PR #223), `S3358` −2, `S4624` −2, `S1135` −1, `S7786` +1 — the last four are incidental `main` churn (only #223 was Sonar-targeted). All other 44 classes and every priority site (`S8786` ×15, the `S2699` BLOCKER, `S5843`, `S6035`, `S101` ×3) are unchanged to the line. Method: `get_project_quality_gate_status` + `get_component_measures` + `search_sonar_issues_in_projects(issueStatuses=[OPEN,CONFIRMED], ps=500)` piped to `jq` group-by-rule. Regenerate the same way at execution start — counts drift; do not persist this snapshot as a dependency.
 
 ## End Goal · Mechanism · Means
 
 - **End goal**: `main` Sonar gate green at **zero** open issues under the AI
   profile, with no regression path left open.
-- **Mechanism**: triage by cause-class (48 classes, not 398 problems); fix at the
+- **Mechanism**: triage by cause-class (48 classes, not the raw issue count); fix at the
   correct layer (generator for generated code; per-workspace regex home for
   hand-written patterns; local validator for CLI security); lock idiom rules into
   the local lint gate so zero is durable.
@@ -86,7 +100,7 @@ crisis is resolved (0 outstanding).
 
 | Claim | Verification | Disposition |
 |---|---|---|
-| S8707 ×3 genuine `argv`→`fs` path-injection | Read all 3 sites; `ci-turbo-report.ts` `argv[2]`→`resolveSummaryPath` returns as-is (L150); `prevent-accidental-major-version.ts:37`; `analyze-elser-failures.ts` `validateInputs` checks existence only | **FIX** |
+| S8707 ×3 genuine `argv`→`fs` path-injection | Read all 3 sites; `ci-turbo-report.ts` `argv[2]`→`resolveSummaryPath` returns as-is (L150); `prevent-accidental-major-version.ts:37`; `analyze-elser-failures.ts` `validateInputs` checks existence only | **FIX — 2 of 3 done** (PR #223 via `agent-tools/src/core/safe-path.ts`); `analyze-elser-failures.ts:166` remains |
 | S101 ×3 `paths`/`operations` not renamable | `codegen-core.ts:201` calls `openapiTS(new URL(...))` with **no options**; names are openapi-typescript's fixed output, consumed by internal imports | **FALSE_POSITIVE** (authorised) |
 | `path-utils.ts` regexes are generated | Emitter is `typegen/paths/generate-path-utils.ts`; patterns like `/{([^}]+)}/g` are **linear-safe** | **FP candidate — confirm per-site** |
 | No existing path-containment validator | grep + agent; closest `agent-tools/src/core/repo-root.ts` is an upward sentinel walk | **New local helper** |
@@ -97,15 +111,18 @@ crisis is resolved (0 outstanding).
 
 The 2026-06-24 inventory is regenerable; do not rely on any scratch file. Sonar
 project key: `oaknational_oak-open-curriculum-ecosystem` (resolved automatically
-by the MCP integration; do not pass explicitly). Baseline: **398 issues** = 394
-code smells + 3 vulnerabilities + 1 bug; **0 outstanding security hotspots** (100%
-reviewed); reliability C (3.0), security C (3.0).
+by the MCP integration; do not pass explicitly). Baseline (re-derived 2026-06-26):
+**392 issues** = 390 code smells + 1 vulnerability + 1 bug; **0 outstanding
+security hotspots** (100% reviewed); reliability C (3.0), security C (3.0).
+(2026-06-24 origin baseline: 398 = 394 + 3 + 1.) The −6 reconciles exactly: S8707
+−2 (PR #223); S3358 −2, S4624 −2, S1135 −1, S7786 +1 (incidental `main` churn).
 
 Regenerate the inventory at execution start (re-derive — counts drift with main):
 
-1. Quality gate: `get_project_quality_gate_status(projectKey=<key>)` — expect
-   ERROR on `new_vulnerabilities_severity` and `new_code_smells_severity` until
-   Phase 1/5 land.
+1. Quality gate: `get_project_quality_gate_status(projectKey=<key>)` — as of
+   2026-06-26, ERROR on `new_code_smells_severity` only (15/14); the
+   `new_vulnerabilities_severity` condition is OK after PR #223 (re-confirm). It
+   clears for good once Phase 4/5 land.
 2. All open issues: `search_sonar_issues_in_projects(projects=[<key>],
    issueStatuses=["OPEN","CONFIRMED"], ps=500)`. The result is large; save to a
    file and aggregate with jq rather than reading inline:
@@ -120,8 +137,9 @@ Regenerate the inventory at execution start (re-derive — counts drift with mai
    jq -r '.issues[] | "\(.rule)\t\(.severity)\t\(.component|sub("^[^:]+:";""))\t\(.textRange.startLine)\t\(.message)"' <file>
    ```
 
-3. Security-quality filter: add `impactSoftwareQualities=["SECURITY"]` (returns the
-   3 S8707). Rule detail: `show_rule(key)`.
+3. Security-quality filter: add `impactSoftwareQualities=["SECURITY"]` (as of
+   2026-06-26 returns the 1 remaining S8707; was 3 before PR #223). Rule detail:
+   `show_rule(key)`.
 
 The full class→phase→disposition map and the verified priority-class sites are in
 the Appendix.
@@ -133,21 +151,31 @@ the Appendix.
 Repo plan, thread record, retired-lane archive, full 48-class triage table, and
 first-hand triage of the three high-priority classes.
 
-### Phase 1 — CLI security (S8707 ×3) — clears the gate's security condition
+### Phase 1 — CLI security (S8707) — clears the gate's security condition — PART-LANDED (PR #223)
 
-- **Validator home (verdict)**: a small canonical-path helper, *local* — not a new
-  workspace package. Two agent-tools sites → one helper in `agent-tools/src/core/`
-  (e.g. `safe-path.ts`); the one `oak-search-cli` site → a local helper. Extract to
-  a shared `packages/core/*` package only at a **third workspace**
-  (`consolidate-at-third-consumer`). `security-expert` confirms the design.
-- **Helper behaviour**: `realpathSync` the base dir + trailing `sep`; `realpathSync`
-  the candidate; assert `startsWith(baseDir + sep)` (partial-traversal safe); never
-  `path.resolve` as validator. Order: transform → normalise → sanitise → use.
-- **TDD cycles** (one commit each): helper unit tests (containment passes; `../`
-  escape rejected; partial-prefix `…-secret` rejected) + helper; then apply at each
-  of the 3 sites with a site test proving traversal is rejected.
-- **Acceptance**: 3 sites validated; `security-expert` GO; Sonar S8707 → 0 on the
-  branch. **Proof**: `unit` (helper + sites) + branch Sonar re-scan.
+**Landed on `main` (PR #223 — 2 of 3 sites + validator):** the canonical-path
+validator `assertPathWithinBase(candidate, baseDir, { realpath })` — `realpathSync`
+base + trailing `sep`, `realpathSync` candidate, `startsWith(base + sep)`
+containment (partial-prefix `…-secret` rejected; symlink-escape rejected; never
+`path.resolve`), injectable realpath seam, full unit tests. Applied at both
+agent-tools sites (`ci-turbo-report.ts`, `prevent-accidental-major-version.ts`).
+It originally lived at `agent-tools/src/core/safe-path.ts`; PR #242 extracted it to
+the shared `@oaknational/safe-path` package (SSOT). Live Sonar confirms those two
+sites cleared and `new_vulnerabilities_severity` is now OK.
+
+**Remaining (this plan's continuation):** the single `oak-search-cli` site
+`apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`. It is the **second**
+workspace to need containment — the **second** consumer — so per the consolidate
+rule the validator was extracted to a shared `@oaknational/safe-path` package
+(PR #242, commit `bf7277465`) consumed by both agent-tools and oak-search-cli,
+rather than copied. `security-expert` confirmed the design.
+
+- **TDD cycle**: the validator's unit tests travel with the shared
+  `@oaknational/safe-path` package (containment passes; `../`/symlink/partial-prefix
+  escapes rejected); the site applies it at `analyze-elser-failures.ts`, containing
+  the report path before any filesystem access.
+- **Acceptance**: the remaining site validated; `security-expert` GO; Sonar S8707
+  → 0 on the branch. **Proof**: `unit` (helper + site) + branch Sonar re-scan.
 
 ### Phase 2 — Regex safety (S8786 ×15, S5843 ×2, S6035 ×1)
 
@@ -190,7 +218,7 @@ is not a latent copy-paste bug before deduping. The largest class here is **`S77
 handling at each site, do not blind-autofix. Then `S107` ×7 (options-object),
 `S3358`, `S4624`, `S6564`, `S6661` ×2 (object spread over `Object.assign`), `S4782`,
 `S6571` (`unknown` widening — `type-expert`), and the singles (`S2301`, `S2310`,
-`S6582`, `S7746`, `S6606`, `S1135` ×2 — resolve/remove the TODOs). Generated-surface
+`S6582`, `S7746`, `S6606`, `S1135` ×1 — resolve/remove the TODO). Generated-surface
 hits (some S3358/S4624/S6564) → fix at generator + regen. **Proof**: `unit` +
 `type-expert`/`architecture` review + branch Sonar.
 
@@ -203,7 +231,7 @@ hits (some S3358/S4624/S6564) → fix at generator + regen. **Proof**: `unit` +
 2. `pnpm lint:fix` **dry-run** to **prove** actual coverage (not the ~159 estimate).
 3. Codemod / manual residue: `S7763` (export-from) ×34, `S7735` (negated
    conditions) ×31 with readability review, `S6353` (`\d`) ×10 → into the regex
-   home, `S7786` (TypeError) ×10 semantic review, small classes.
+   home, `S7786` (TypeError) ×11 semantic review, small classes.
 4. Escalate the enabled rules to `error` **once clean** (no warn-debt; the
    `new-rules-start-warn` concern does not bite after violations are cleared).
    Consider per-rule `sonarjs.configs.recommended` adoption here.
@@ -288,20 +316,22 @@ enable-autofix-lock) are closed above. Residual per-site dispositions (which exa
 S8786 are linear-safe FPs vs real fixes) resolve first-hand *during* execution
 under the standing FP authorisation, with site-specific rationale.
 
-## Appendix — Full 48-Class Triage (sums to 398) + Priority Sites
+## Appendix — Full 48-Class Triage (sums to 392 at the 2026-06-26 re-derive; 398 origin) + Priority Sites
 
-Snapshot 2026-06-24; **re-derive at execution start** (counts drift). Generated-file
+Snapshot 2026-06-26 (origin 2026-06-24); **re-derive at execution start** (counts drift). Generated-file
 sites in any class route FIX-GEN (fix the emitter) or FP, never hand-edit.
 
 ### Phase 1 — Security (FIX)
 
 | Rule | n | Sev |
 |---|--:|---|
-| `tssecurity:S8707` | 3 | MAJOR (HIGH security) |
+| `tssecurity:S8707` | 1 | MAJOR (HIGH security) |
 
-Sites: `agent-tools/src/ci/ci-turbo-report.ts` (taint from `argv[2]` L247 → readFile
-L77); `agent-tools/src/version-guard/prevent-accidental-major-version.ts:37`;
-`apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`.
+Sites (1 of 3 remaining): the two agent-tools sites (`ci-turbo-report.ts`,
+`prevent-accidental-major-version.ts:37`) are **FIXED in PR #223** via
+`agent-tools/src/core/safe-path.ts`. **Remaining:
+`apps/oak-search-cli/scripts/analyze-elser-failures.ts:166`** (`validateInputs`
+checks existence only).
 
 ### Phase 2 — Regex safety (FIX / FIX-GEN / FP / refactor)
 
@@ -334,16 +364,16 @@ S8786 sites: `codegen-core.ts` 183-187 (gen source), `path-utils.ts` 9,24
 |---|--:|---|---|
 | `typescript:S7785` | 17 | MAJOR | promise-chain → top-level await (preserve error handling) |
 | `typescript:S107` | 7 | MAJOR | options-object |
-| `typescript:S3358` | 6 | MAJOR | nested ternary |
+| `typescript:S3358` | 4 | MAJOR | nested ternary (was 6; remaining: hand-written `logger/error-normalisation.ts:85,88` + generated `mcp-tools/…/get-sequences-{assets,questions}.ts` → FIX-GEN) |
 | `typescript:S6564` | 4 | MAJOR | redundant type alias |
 | `typescript:S4144` | 3 | MAJOR | identical bodies — verify not a copy-paste bug |
-| `typescript:S4624` | 3 | MAJOR | nested template literals |
+| `typescript:S4624` | 1 | MAJOR | nested template literals (was 3; remaining: `render-prompts-section.ts:36`) |
 | `typescript:S4782` | 3 | MAJOR | redundant `undefined`+`?` |
 | `typescript:S6661` | 2 | MAJOR | object spread over `Object.assign` |
 | `typescript:S3923` | 1 | MAJOR | dead conditional — possible latent bug |
 | `typescript:S2301` `S2310` `S6582` `S7746` | 1 each | MAJOR | per-site |
 | `typescript:S6571` | 1 | MINOR | `unknown` widening (type-expert) |
-| `typescript:S6606` `S1135`×2 | 1,2 | MINOR/INFO | nullish-assign; resolve TODOs |
+| `typescript:S6606` `S1135`×1 | 1,1 | MINOR/INFO | nullish-assign; resolve TODO (S1135 was ×2 → ×1: `eslint.config.ts:123`) |
 
 ### Phase 5 — Mechanical idiom (enable unicorn → lint:fix → codemod residue → lock at error)
 
@@ -355,7 +385,7 @@ S8786 sites: `codegen-core.ts` 183-187 (gen source), `path-utils.ts` 9,24
 | `typescript:S7735` | 31 | codemod negated-condition (readability review) |
 | `typescript:S7773` | 19 | unicorn/prefer-number-properties |
 | `typescript:S6594` | 15 | unicorn/prefer-regexp-exec (regex-family; generated → FIX-GEN/FP) |
-| `typescript:S7786` | 10 | semantic (TypeError) — review, not blind |
+| `typescript:S7786` | 11 | semantic (TypeError) — review, not blind (was 10; +1 from `main` churn) |
 | `typescript:S6353` | 10 | `\d` over `[0-9]` → regex home (generated → FIX-GEN/FP) |
 | `typescript:S7755` | 9 | unicorn/prefer-at |
 | `typescript:S7765` | 9 | unicorn/prefer-includes |
@@ -372,7 +402,7 @@ S8786 sites: `codegen-core.ts` 183-187 (gen source), `path-utils.ts` 9,24
 
 | Rule | n | Rationale |
 |---|--:|---|
-| `typescript:S101` | 3 | openapi-typescript's fixed `paths`/`operations` interface names; `openapiTS` called with no options (`codegen-core.ts:201`); renaming breaks the external idiom + all consumers |
+| `typescript:S101` | 3 | openapi-typescript's fixed `paths`/`components`/`operations` interface names (generated `api-paths-types.ts` L1/L614/L3347); `openapiTS` called with no options (`codegen-core.ts:201`); renaming breaks the external idiom + all consumers |
 
-Class-count total: **398** = P1 3 + P2 18 + P3 48 + P4 54 + P5 272 + FP 3 (S101).
+Class-count total (2026-06-26 re-derive): **392** = P1 1 + P2 18 + P3 48 + P4 49 + P5 273 + FP 3 (S101). (2026-06-24 origin: 398 = 3 + 18 + 48 + 54 + 272 + 3.)
 Re-derive to confirm before execution; counts drift with main.

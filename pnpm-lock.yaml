@@ -125,6 +125,9 @@ importers:
       '@oaknational/result':
         specifier: workspace:*
         version: link:../packages/core/result
+      '@oaknational/safe-path':
+        specifier: workspace:*
+        version: link:../packages/core/safe-path
       ajv:
         specifier: ^8.20.0
         version: 8.20.0
@@ -379,6 +382,9 @@ importers:
       '@oaknational/result':
         specifier: workspace:*
         version: link:../../packages/core/result
+      '@oaknational/safe-path':
+        specifier: workspace:*
+        version: link:../../packages/core/safe-path
       '@oaknational/sdk-codegen':
         specifier: workspace:*
         version: link:../../packages/sdks/oak-sdk-codegen
@@ -700,6 +706,30 @@ importers:
         version: 4.1.9(@opentelemetry/api@1.9.1)(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
 
   packages/core/result:
+    devDependencies:
+      '@oaknational/eslint-plugin-standards':
+        specifier: workspace:*
+        version: link:../oak-eslint
+      '@types/node':
+        specifier: ^24.13.2
+        version: 24.13.2
+      eslint:
+        specifier: ^10.5.0
+        version: 10.5.0(jiti@2.7.0)
+      globals:
+        specifier: ^17.7.0
+        version: 17.7.0
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.15)(supports-color@10.2.2)(tsx@4.22.4)(typescript@6.0.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^4.1.9
+        version: 4.1.9(@opentelemetry/api@1.9.1)(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
+
+  packages/core/safe-path:
     devDependencies:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*

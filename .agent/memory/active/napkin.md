@@ -201,3 +201,56 @@ New session observations append below.
 - **Sonar `githubactions:S8264`: declare workflow permissions per JOB, not workflow-level.** A full
   workflow rewrite makes the permissions block "new code" and Sonar flags the over-grant; checkout
   jobs get `contents: read`, a fan-in job that uses no token gets `{}`.
+
+## 2026-06-26 — Sonar S8707 site-3, DRY/SSOT, read-the-live-surface (Alder tracks Topsoil)
+
+- **The repo needs a workspace-creation skill (owner-directed).** Creating `packages/core/safe-path`
+  was manual + error-prone: mirror a sibling's package.json / 3 tsconfigs / tsup / vitest / eslint /
+  README, add to the **EXPLICIT** `pnpm-workspace.yaml` list (NOT a glob — I missed it, owner had to
+  prompt), wire `workspace:*` deps into consumers, confirm turbo auto-discovery, run config-expert.
+  Should become a skill (template per workspace kind: core util / lib / sdk / app). Also in
+  agent-memory `create-workspace-skill-needed`; graduate into the agent-tooling frictions register.
+- **Workspace config divergence needs an analyse-and-categorise pass (owner-directed).** The
+  `default` export condition is split 11-no / 7-yes across packages — config-expert wrongly called
+  adding it a "MUST" (it is not; `type-helpers` ships without it), but it IS the right robustness
+  choice for a broadly-consumed core util, so `safe-path` adopts it. The divergence signals we should
+  categorise workspaces and decide consistent config approaches within and between categories, under
+  strict + LTAE. A real follow-up; capture as a plan. (`workspace-config-categorisation-needed`.)
+- **Read the LIVE authoritative surface, not a stale proxy — I made this mistake 3× this session.**
+  (a) `git grep origin/main` (committed) vs the working tree the owner was live-editing → I declared
+  the `--passWithNoTests` masks "net-new" when the owner had already removed them in the tree.
+  (b) `gh api .../branches/main/protection` (legacy) vs the **ruleset** → I called SonarCloud
+  "advisory" when it is a REQUIRED merge check. (c) a `.ts`-only grep vs `package.json` → missed where
+  `--passWithNoTests` actually lived. Cure: when a check returns a convenient "all clear", distrust it
+  HARDER and verify against the authoritative live surface — the convenience is the tell.
+- **Enforce DRY for security-critical code; don't make the owner say "enforce DRY".** I leaned on the
+  `consolidate-at-third-consumer` rule's "third" wording to rationalise duplicating a path-containment
+  validator across two workspaces. The owner corrected the guidance: extraction is at the **second**
+  consumer (it always was — the rule was mis-stated as "third"; content now fixed, filename retained as
+  a stable id pending a tracked rename). So the SSOT extraction at the 2nd consumer was the on-policy,
+  correct move. Lessons: a security validator must have one source of truth (divergence is a latent
+  defect); a required gate (Sonar duplication) forces the right answer; don't let a rule's stated number
+  override DRY — check the rule's correctness and preconditions before leaning on it.
+- **For squash-merged branches, SHA-not-ancestor ≠ content-absent.** `git log main..branch` listed
+  "net-new" commits whose CONTENT was already on `main` via the #222 / #224 squashes; the worktree
+  "keepers" were already merged. Compare CONTENT (per-file diff / cherry-pick dry-run), not commit
+  ancestry, to decide what is genuinely net-new to integrate. (Owner has re-enabled merge, not squash,
+  for PRs precisely to keep commit-level comparison.)
+- **Post-compression, RE-GROUND before acting — never resume edits on the summary's picture.** After a
+  context compression I resumed *editing* `analyze-elser` on the summary's "solo, finish the lint" frame,
+  blind to the live multi-agent context (a Skipper→me worktree handoff, Cedar on a disjoint lane, a stale
+  Director claim). The edit happened to be safe — but I had not verified that when I made it. The discipline
+  already exists (start-right-team §Continuation Pointer Contract: recompute volatile truth from live
+  surfaces before acting); the gap is that nothing auto-fires it at the compression boundary — the owner had
+  to prompt the re-ground. Owner-action-is-a-stopgap ⇒ a missing primitive (a post-compression auto-reground
+  trigger; candidate). Cure until then: treat every compression boundary as a context-loss event whose first
+  move is re-grounding, never a resumed edit. [[inherited-framing-without-first-principles-check]]
+- **Read your OWN handoff — frozen reasoning can beat live reasoning.** My thread record prescribed
+  extracting `analyseReport()` (a `void` block) to clear `max-statements`. In the moment I instead extracted
+  a `string`-returning resolver, which tripped `consistent-return` (the rule does not infer `process.exit` is
+  `never`) — a wasted cycle. Following my own recorded plan would have avoided it. A handoff is not only for a
+  successor; it is my best prior thinking, to honour unless I have a concrete reason to override.
+- **Worked instance of the 2026-06-26 "trust CLEAN before `--admin`" entry (Wombat, above):** #242's
+  `mergeStateStatus` went BLOCKED→CLEAN once the 5 review threads resolved; `reviewDecision` empty + CLEAN
+  means these paths are NOT code-owner-review-gated. The "main merge gate = code-owner review" memory is
+  CODEOWNERS-path-scoped, not universal — confirms Wombat's lesson, no novel capture.

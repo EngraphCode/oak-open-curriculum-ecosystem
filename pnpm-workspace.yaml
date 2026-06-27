@@ -9,6 +9,7 @@ packages:
   - packages/core/env
   - packages/core/graph-core
   - packages/core/result
+  - packages/core/safe-path
   - packages/core/type-helpers
   - packages/design/*
   - packages/libs/env-resolution

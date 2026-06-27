@@ -54,7 +54,8 @@ Author the closed shape. Encode exactly the cases in scope, with the tightest
 types that admit them and nothing more. The configurable or extensible surface
 is deferred until a real second instance forces it — at which point
 [`consolidate-at-third-consumer`](consolidate-at-third-consumer.md) governs the
-extraction. Two is not three; speculative configurability is not consolidation.
+extraction. A speculative future instance is not a real second consumer;
+speculative configurability is not consolidation.
 
 ## Why this is strict
 
@@ -83,8 +84,8 @@ Two named instances established the graduation bar PDR-058 required of Surface 2
 - [PDR-058 §Surface 2](../practice-core/decision-records/PDR-058-three-tier-optionality-decomposition.md)
   — the authority; this rule graduates Surface 2's cure.
 - [`consolidate-at-third-consumer.md`](consolidate-at-third-consumer.md) — the
-  extraction-time sibling: when to generalise, after a real second or third
-  instance forces it.
+  extraction-time sibling: when to generalise, once a real second
+  consumer forces it.
 - [`replace-dont-bridge.md`](replace-dont-bridge.md) — closing a speculative
   shape means replacing it, not bridging to it.
 - [`apply-architectural-principles.md`](apply-architectural-principles.md) — the

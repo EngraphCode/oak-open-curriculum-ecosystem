@@ -18,7 +18,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { resolveRepoRoot } from '../core/repo-root.js';
-import { assertPathWithinBase } from '../core/safe-path.js';
+import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import { nodeCiFileSystem } from './ci-turbo-report-fs.js';
 import type {

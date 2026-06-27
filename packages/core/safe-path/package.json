@@ -1,29 +1,15 @@
 {
-  "name": "@oaknational/graph-project",
+  "name": "@oaknational/safe-path",
   "version": "0.0.0-development",
   "private": true,
-  "description": "Property-graph projection over RDF datasets: types, projection, and adjacency primitives",
+  "description": "Path-containment guard: assert a candidate path resolves within a base directory (symlink- and traversal-safe)",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "development": "./src/index.ts",
-      "import": "./dist/index.js"
-    },
-    "./property-graph": {
-      "types": "./dist/property-graph/index.d.ts",
-      "development": "./src/property-graph/index.ts",
-      "import": "./dist/property-graph/index.js"
-    },
-    "./projection": {
-      "types": "./dist/projection/index.d.ts",
-      "development": "./src/projection/index.ts",
-      "import": "./dist/projection/index.js"
-    },
-    "./adjacency": {
-      "types": "./dist/adjacency/index.d.ts",
-      "development": "./src/adjacency/index.ts",
-      "import": "./dist/adjacency/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "main": "./dist/index.js",
@@ -43,13 +29,11 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "dependencies": {
-    "@oaknational/graph-core": "workspace:*"
-  },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@types/node": "^24.13.2",
     "eslint": "^10.5.0",
+    "globals": "^17.7.0",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
@@ -57,17 +41,17 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oaknational/oak-open-curriculum-ecosystem.git",
-    "directory": "packages/libs/graph-project"
+    "directory": "packages/core/safe-path"
   },
   "bugs": {
     "url": "https://github.com/oaknational/oak-open-curriculum-ecosystem/issues"
   },
-  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/packages/libs/graph-project#readme",
+  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/packages/core/safe-path#readme",
   "keywords": [
-    "rdf",
-    "graph",
-    "property-graph",
-    "knowledge-graph"
+    "path",
+    "security",
+    "path-traversal",
+    "filesystem"
   ],
   "author": {
     "name": "Jim Cresswell",

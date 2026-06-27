@@ -1,3 +1,6 @@
+<!-- This file is a user scratchpad for dedicated consolidation session prompts. It is not a doctrine 
+or a policy. Therefore it does not need to be canonical or exhaustive. -->
+
 # Dedicated Consolidation Session Prompts
 
 ## Base

@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@oaknational/result": "workspace:*",
+    "@oaknational/safe-path": "workspace:*",
     "ajv": "^8.20.0",
     "ink": "^7.1.0",
     "react": "^19.2.7",
