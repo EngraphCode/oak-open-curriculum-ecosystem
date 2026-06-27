@@ -44,10 +44,12 @@ and **only local state is git-ignored**: *memory* (knowledge — tracked),
 *local state* (checkout/session-specific — git-ignored; `.agent/state/`
 claims and comms). The discriminator: *would this be true on another
 checkout?* If yes it is repo state (tracked); if it is true only for this
-checkout right now it is local state. This is the existing boundary —
-ADR-203 makes `.agent/state/collaboration/` untracked-by-design and PDR-094
-governs its archive-not-delete disposition. Full table:
-`.agent/memory/README.md` §Tracking Tiers.
+checkout right now it is local state. This is the existing boundary — ADR-203
+keeps the live coordination tier of `.agent/state/collaboration/` (comms,
+handoffs, the claims registry, the rendered log) untracked-by-design while its
+decision-provenance surfaces (`conversations/`, `escalations/`, `sidebars/`)
+stay tracked, and PDR-094 governs the archive-not-delete disposition. Full
+table: `.agent/memory/README.md` §Tracking Tiers.
 
 ## Disposition of Continuity Surfaces
 

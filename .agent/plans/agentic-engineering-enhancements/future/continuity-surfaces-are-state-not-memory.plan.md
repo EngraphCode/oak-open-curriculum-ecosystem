@@ -9,9 +9,11 @@ owner_decision_required: false
 > **RATIFIED & ABSORBED INTO DOCTRINE (2026-06-27, D1).** The owner ratified this model
 > (2026-06-25/26); it now lives in doctrine — `.agent/memory/README.md` §Tracking Tiers and
 > `.agent/directives/continuity-practice.md` §Surface Roles (tracking tiers), citing ADR-203 +
-> PDR-094 for the untracked-by-design invariant. This file is retained only as the ratification
-> record and is a candidate for archival — its substance is conserved in doctrine, so there is no
-> new insight to preserve.
+> PDR-094 for the untracked-by-design invariant. This file is retained as the ratification
+> record. Its *taxonomy* substance is conserved in doctrine; the **§Open sub-question** (whether
+> `operational/` knowledge registers should be re-homed as memory) is an unresolved follow-on and
+> must be promoted to the `open-questions` register before this file is archived. Archival is gated
+> on that promotion, not on this note.
 
 ## The model (owner, 2026-06-25/26)
 
