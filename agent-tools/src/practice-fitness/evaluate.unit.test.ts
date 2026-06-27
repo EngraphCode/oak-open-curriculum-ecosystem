@@ -281,7 +281,6 @@ describe('content-only token measurement', () => {
     const contentText = extractFitnessContentText(raw);
     const result = evaluateFitnessFile('plain.md', raw);
 
-    expect(raw).toBe('abcd\nefgh');
     expect(contentText).toBe('abcd\nefgh');
     expect(result.contentText).toBe('abcd\nefgh');
     expect(result.totalChars).toBe(9);
