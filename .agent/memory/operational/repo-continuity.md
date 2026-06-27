@@ -102,7 +102,7 @@ todo list — is [`director-handoff.md`](director-handoff.md).
   #223; F-94/F-95 via #225. The Director-model *verdict* (did the pilot's model work) is owned by the
   [worktree-pilot plan](../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md)
   §L-Verdict; `director-handoff.md` is largely dormant and reducible under solo. **Live:** S8707 **site-3** DONE — PR #242
-  MERGED via #242 (merge commit `3895b3f45`, 2026-06-27; contain-first + `@oaknational/safe-path` SSOT); Phase 2 regex is the next Sonar lane; the
+  MERGED (merge commit `3895b3f45`, 2026-06-27; contain-first + `@oaknational/safe-path` SSOT); Phase 2 regex is the next Sonar lane; the
   **DATA-SOURCES** governance criteria (open); F-96/F-97 tooling backlog; and the stale dissolved-team
   claims in `active-claims.json` to clear (curator pass). Full pickup: [`director-handoff.md`](director-handoff.md).
 - **Strategy / plan-estate rewrite — LIVE primary lane** (thread

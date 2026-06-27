@@ -38,9 +38,10 @@ three first-hand footguns in one session:
    compounds it (both can resolve to the worktree).
 3. **markdownlint-root globbed untracked state.** `.agent/**/*.md` lint glob caught an
    untracked `.agent/state/` coordination file and blocked pushes tree-wide. **FIXED
-   separately this session** (positive `.agent/state/**` ignore in
-   `.markdownlint-cli2.jsonc`; note the HARD RULE there — a `!` re-include silently
-   zeroes the gate, so the fix had to be a positive ignore).
+   separately this session** by a *narrowed* ignore of the specific untracked coordination
+   files in `.markdownlint-cli2.jsonc` (the generated log + the cross-worktree map) — NOT a
+   blanket `.agent/state/**`, which would drop the tracked READMEs (see §Open questions).
+   Positive ignores only (the file's HARD RULE: a `!` re-include silently zeroes the gate).
 
 Root cause: the "primary checkout" is resolved by **at least two separate
 implementations** and the invariant is undocumented for operators.
@@ -61,8 +62,9 @@ seeding; n=2 mode (PDR-082); and the **command-specific path discipline** — `c
 defaults its `comms-dir`/`active` to the primary via `resolveCoordinationHome`, but `comms
 list / watch / inbox` REQUIRE `--comms-dir` and `claims` REQUIRE `--active` with no
 primary-anchored default (Codex, #244). So: let `send` default; give the explicit-path
-commands the **primary-resolved** path (via `--repo-root` or `resolveCoordinationHome`), and
-never a cwd-relative path to any of them (from a worktree a relative path lands worktree-local).
+commands the primary-resolved PATH directly in `--comms-dir` / `--active` (resolve it via
+`resolveCoordinationHome` / `git worktree list --porcelain | first` — those commands do NOT
+accept `--repo-root`), never a cwd-relative path (from a worktree that lands worktree-local).
 
 ### A2. Mixed primary-checkout / worktree operation skill
 
@@ -94,7 +96,9 @@ Also close the **command-anchoring asymmetry** (Codex, #244): `comms send` defau
 list/watch/inbox` and `claims` require those paths explicitly with no default — a footgun
 (a relative path lands worktree-local). Give them the same `resolveCoordinationHome` default
 so every collaboration-state command anchors to the primary by default (DRY; removes the
-relative-path hazard at the source rather than documenting around it).
+relative-path hazard at the source rather than documenting around it). This overlaps the
+already-queued `future/coordination-home-explicit-targeting-migration.plan.md` (the F-41 CLI
+tail) and the frictions register — drive/reference that work, do not duplicate it.
 
 > **VERIFIED TRAP (do not regress):** the primary is `git worktree list --porcelain |
 > first`, **NOT** `git rev-parse --show-toplevel` (which returns the *current* worktree —
