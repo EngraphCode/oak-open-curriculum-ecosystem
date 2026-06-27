@@ -29,39 +29,13 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 
 ## Landing Target For Next Session
 
-**Plan status: MERGED to `main` via PR #220 (`9e9844015`, 2026-06-24).**
-**Sites 1-2 + the S4036 fix MERGED to `main` via PR #223 (`9d2e33bb1`, 2026-06-25, Junk tracks Moorings)
-— S8707 sites 1-2 contained, plus S4036 cleared as a replace (`resolveTrustedGit` absolute git path,
-fail-loud; `TRUSTED_GIT_PATH` deleted; §S4036 retired to FIX-only). NEXT: site-3 only.**
-**Site-3 PAUSED (Thyme lifts Compost's claim `ff3da671`) — `apps/oak-search-cli` analyze-elser-failures
-local safe-path helper, then the integrated security-expert re-review, then one PR direct to main.**
-Phase 1 (S8707) on branch `fix/sonar-s8707-cli-path-injection` (off `9e9844015`; sites 1-2 now on main via #223):
-
-- **Site 1/3 DONE + green — COMMITTED `1329d787a`** — `assertPathWithinBase`
-  validator (`agent-tools/src/core/safe-path.ts`, security-expert GO) wired into
-  `ci-turbo-report.ts`; type-check clean, 24/24 tests; full pre-commit gate
-  green. A `max-lines` fix extracted the production fs seam to
-  `ci-turbo-report-fs.ts`. Phase 1 still lands as one PR direct to main.
-- **Site 2/3 DONE — COMMITTED `4c9cfbfc9`** — git-dir containment base
-  (`git rev-parse --absolute-git-dir`; repo-root would block every worktree
-  commit), gate-green.
-- **Branch PUSHED to origin** (orphan mitigation, 2026-06-25). PUSHED-not-merged
-  deliberately: coordination is already squash-merged to `main`, the primary tree
-  is dirty, and Sonar is a separate thread; push is the zero-risk reversible
-  preservation that homes the at-risk work on origin without entangling it in a
-  dirty tree or a closed coordination branch.
-- **Site 3/3 PENDING** → next team session. Containment base
-  `apps/oak-search-cli/diagnostics`.
-- **Sites 2-3 handoff record (PDR-063)**:
-  [`../../../state/collaboration/handoffs/f2a17e85-55e1-4081-bf9e-a6c4cd69e48b.md`](../../../state/collaboration/handoffs/f2a17e85-55e1-4081-bf9e-a6c4cd69e48b.md).
-- **Plan correction (verified first-hand + security-reviewed):** per-site
-  containment bases, NOT blanket repo-root — site-1 `.turbo/runs`, site-2
-  **git dir** (`git rev-parse --absolute-git-dir`; repo-root would block every
-  worktree commit), site-3 `apps/oak-search-cli/diagnostics`. All FIX.
-
-Target (next team session): successor wires site 3 (TDD; sites 1 + 2 already
-committed) → security-expert RE-review of integrated sites → workspace gates →
-one PR direct to `main` via code-owner review. Then Phase 2 regex strategy.
+**Phase 1 (S8707) COMPLETE — all three sites MERGED to `main`.** Sites 1-2 + S4036 via
+PR #223 (`9d2e33bb1`); **site-3 + the `@oaknational/safe-path` SSOT + the `--passWithNoTests`
+de-masks via PR #242 (merge commit `3895b3f45`, 2026-06-27)**; the plan itself via PR #220.
+**NEXT: Phase 2 (regex-safety).** The authoritative fresh-agent pickup is the §"Phase 1
+MERGED" and §"Next safe step — PHASE 2" blocks in the Lane State section below. The earlier
+site-by-site pickup text and the `fix/sonar-s8707-cli-path-injection` / `ff3da671`
+paused-claim references are **superseded and removed** — Phase 1 is done.
 
 ## Lane State
 

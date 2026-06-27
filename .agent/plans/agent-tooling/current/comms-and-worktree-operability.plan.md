@@ -57,16 +57,21 @@ scattered across `comms-all-channels-watcher`, `use-agent-comms-log`, the
 `arc-rapid-communication` reference, `start-right-team`, and the CLI `--help`. Must
 cover: send / list / watch / inbox / reply / claims; the canonical ↔ ARC channel
 pairing (and that an ARC watcher never substitutes for the canonical one); identity
-seeding; n=2 mode (PDR-082); and the rule **"rely on the default comms-dir (it anchors
-to the primary) — never pass a relative `--comms-dir`; use `--repo-root` if an explicit
-anchor is needed."**
+seeding; n=2 mode (PDR-082); and the **command-specific path discipline** — `comms send`
+defaults its `comms-dir`/`active` to the primary via `resolveCoordinationHome`, but `comms
+list / watch / inbox` REQUIRE `--comms-dir` and `claims` REQUIRE `--active` with no
+primary-anchored default (Codex, #244). So: let `send` default; give the explicit-path
+commands the **primary-resolved** path (via `--repo-root` or `resolveCoordinationHome`), and
+never a cwd-relative path to any of them (from a worktree a relative path lands worktree-local).
 
 ### A2. Mixed primary-checkout / worktree operation skill
 
 Environment-operational how-to for working inside a linked worktree. Must cover: the
-ADR-197 invariant; **what auto-resolves to the primary** (comms / claims / commit-queue
-defaults via `resolveCoordinationHome`) **vs. what does not** (relative path overrides,
-the statusline binary, anything globbed by tooling); that gates and pushes run against
+ADR-197 invariant; **what auto-resolves to the primary** (only `comms send`'s defaults, via
+`resolveCoordinationHome`) **vs. what does NOT and needs the primary path passed explicitly**
+(`comms list/watch/inbox` `--comms-dir`, `claims` `--active`, the statusline binary, anything
+globbed by tooling — a *relative* path to any of these silently lands worktree-local); that
+gates and pushes run against
 the *worktree*; the cross-worktree work-state map (the F-98 interim registry); and where
 to read vs. write shared state.
 
@@ -83,6 +88,13 @@ add a new resolver.** The statusline currently **duplicates** the logic in
 `agent-tools/src/claude/statusline-git-io.ts` (`parsePrimaryWorktreeRoot` via its own
 `git worktree list`). Consolidate the statusline's primary resolution onto
 `resolveCoordinationHome` (or a shared lower-level helper), removing the duplicate.
+
+Also close the **command-anchoring asymmetry** (Codex, #244): `comms send` defaults
+`--comms-dir`/`--active` to the primary via `resolveCoordinationHome`, but `comms
+list/watch/inbox` and `claims` require those paths explicitly with no default — a footgun
+(a relative path lands worktree-local). Give them the same `resolveCoordinationHome` default
+so every collaboration-state command anchors to the primary by default (DRY; removes the
+relative-path hazard at the source rather than documenting around it).
 
 > **VERIFIED TRAP (do not regress):** the primary is `git worktree list --porcelain |
 > first`, **NOT** `git rev-parse --show-toplevel` (which returns the *current* worktree —
