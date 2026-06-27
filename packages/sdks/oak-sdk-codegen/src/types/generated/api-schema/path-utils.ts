@@ -6,12 +6,12 @@
 
 /** Convert OpenAPI-style curly params to colon params. */
 export function toColon(path: string): string {
-  return path.replace(/{([^}]+)}/g, ':$1');
+  return path.replaceAll(/{([^}]+)}/g, ':$1');
 }
 
 /** Convert colon params to OpenAPI-style curly params. */
 export function toCurly(path: string): string {
-  return path.replace(/:([A-Za-z0-9_]+)/g, '{$1}');
+  return path.replaceAll(/:([A-Za-z0-9_]+)/g, '{$1}');
 }
 
 /** Detect if a path uses colon parameter style. */
