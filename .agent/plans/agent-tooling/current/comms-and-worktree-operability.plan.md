@@ -119,6 +119,16 @@ regardless of the session's worktree.
   `resolveCoordinationHome` directly? (DRY either way; pick the cleaner boundary.)
 - Security: the bootstrap resolver runs `git` from PATH (S4036); acceptable for a
   best-effort cosmetic read, but confirm against the trusted-git posture.
+- **markdownlint scope for `.agent/state/` (durable scheme, deferred):** markdownlint-cli2
+  lints by glob with `gitignore: false`, so untracked coordination `.md` (the cross-worktree
+  map, handoff records) get linted and can block pushes tree-wide — but `.agent/state/` also
+  holds **tracked, authored** scaffolding/decision-provenance markdown (`README.md`,
+  `handoffs/README.md`, `archive/README.md`, `escalations/README.md`) that SHOULD stay
+  linted. A blanket `.agent/state/**` ignore over-excludes those (Copilot caught this on
+  #244); the interim fix excludes only the specific untracked files. The durable options —
+  `gitignore: true` (skip gitignored files repo-wide; understand why it is currently `false`)
+  vs. surgical per-subtree globs (constrained by the HARD RULE forbidding `!` negation) — are
+  a design decision for this review, not a one-liner.
 
 ## Review gate (before ANY execution)
 
