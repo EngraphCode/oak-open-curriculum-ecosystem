@@ -18,7 +18,7 @@ const TEST_WIDGET_HTML = '<!doctype html><html><body>Oak Curriculum App</body></
 
 /**
  * Total resource count: documentation resources + 3 supplementary resources
- * (curriculum model, the app-local effort-orientation resource `docs://oak/explain.md`,
+ * (curriculum model, the app-local Oak: Under the Hood orientation resource `docs://oak/under-the-hood.md`,
  * and the widget). The graph corpora have no resource form — they are served by their
  * anchored tools.
  */

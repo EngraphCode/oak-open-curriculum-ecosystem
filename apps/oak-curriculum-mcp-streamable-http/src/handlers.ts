@@ -26,7 +26,7 @@ import {
 import { handleToolWithAuthInterception } from './tool-handler-with-auth.js';
 import { measureCallToolResult } from './observability/tool-result-measurement.js';
 import { registerAllResources, registerPrompts } from './register-resources.js';
-import { registerExplainTool } from './explain/explain-tool.js';
+import { registerOakUnderTheHoodTool } from './oak-under-the-hood/oak-under-the-hood-tool.js';
 import {
   createDefaultRequestExecutor,
   createStubRequestExecutor,
@@ -149,7 +149,7 @@ export function registerHandlers(
   // Additive, app-local effort-orientation tool — registered outside the
   // universal-tools loop (it is not in the SDK generated registry). Always on,
   // low-salience; the curriculum firewall lives in its description and result.
-  registerExplainTool(server);
+  registerOakUnderTheHoodTool(server);
 
   registerAllResources(server, {
     getWidgetHtml: options.getWidgetHtml,

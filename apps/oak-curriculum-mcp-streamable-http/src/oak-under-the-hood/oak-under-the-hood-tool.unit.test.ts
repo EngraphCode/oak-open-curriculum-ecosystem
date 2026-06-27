@@ -1,5 +1,5 @@
 /**
- * Unit tests for `buildExplainToolResult` (W2: pointer shape), behaviour-only.
+ * Unit tests for `buildOakUnderTheHoodToolResult` (pointer shape), behaviour-only.
  *
  * These describe the SHAPE the tool returns — the ADR-058 dual shape carrying a
  * pointer (summary, JSON body, and a `resource_link` to the canonical), with the
@@ -11,11 +11,11 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { buildExplainToolResult } from './explain-tool.js';
+import { buildOakUnderTheHoodToolResult } from './oak-under-the-hood-tool.js';
 
-describe('buildExplainToolResult (unit)', () => {
+describe('buildOakUnderTheHoodToolResult (unit)', () => {
   it('returns a non-error ADR-058 dual shape (summary + JSON body + resource_link, with structuredContent)', () => {
-    const result = buildExplainToolResult();
+    const result = buildOakUnderTheHoodToolResult();
 
     expect(result.isError).not.toBe(true);
     expect(result.content).toHaveLength(3);
@@ -25,7 +25,7 @@ describe('buildExplainToolResult (unit)', () => {
   });
 
   it('points at the canonical via a https canonicalUrl and carries no baked body', () => {
-    const result = buildExplainToolResult();
+    const result = buildOakUnderTheHoodToolResult();
     const structured = result.structuredContent;
 
     expect(structured).toBeDefined();
@@ -36,7 +36,7 @@ describe('buildExplainToolResult (unit)', () => {
   });
 
   it('does not carry oakContextHint (curriculum firewall, held structurally)', () => {
-    const result = buildExplainToolResult();
+    const result = buildOakUnderTheHoodToolResult();
     expect(result.structuredContent).not.toHaveProperty('oakContextHint');
   });
 });

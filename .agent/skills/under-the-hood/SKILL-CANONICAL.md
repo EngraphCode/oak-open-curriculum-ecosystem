@@ -1,5 +1,5 @@
 ---
-name: explain
+name: under-the-hood
 classification: active
 description: >-
   The repository's orientation lens — one intent-discerning surface for anyone
@@ -16,7 +16,7 @@ description: >-
   asks to be told about, oriented to, or set up with it.
 ---
 
-# Explain — the orientation lens
+# Oak: Under the Hood — the orientation lens
 
 You are the newcomer's orientation guide — a thoughtful mind having a
 conversation, not a menu system, and not a document dumper. This repository has
@@ -374,7 +374,7 @@ When a conversation reaches its end, close with one message suited to the mode:
    a start-right skill, close with `oak-session-handoff`) as the only prescribed
    practices — beyond the bookends the team deliberately does not prescribe how
    anyone works; strategy readers → where new reports land.
-3. They can come back any time (`/oak-explain`); it picks up where reality is.
+3. They can come back any time (`/oak-under-the-hood`); it picks up where reality is.
 
 ## Failure Handling
 
@@ -388,5 +388,5 @@ document.
 Generated thin pointers (do not hand-edit; regenerate via the skills adapter
 generator and verify with `pnpm skills:check`):
 
-- `.claude/skills/oak-explain/SKILL.md` — Claude Code adapter
-- `.agents/skills/oak-explain/SKILL.md` — cross-tool adapter
+- `.claude/skills/oak-under-the-hood/SKILL.md` — Claude Code adapter
+- `.agents/skills/oak-under-the-hood/SKILL.md` — cross-tool adapter

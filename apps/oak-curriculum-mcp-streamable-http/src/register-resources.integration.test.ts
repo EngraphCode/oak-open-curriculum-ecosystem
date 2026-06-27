@@ -494,7 +494,7 @@ describe('registerAllResources registers the widget resource', () => {
   });
 });
 
-describe('registerAllResources registers the Oak effort-orientation resource (docs://oak/explain.md)', () => {
+describe('registerAllResources registers the Oak: Under the Hood orientation resource (docs://oak/under-the-hood.md)', () => {
   let server: Pick<McpServer, 'registerResource'>;
   let registeredResources: RegisteredResourceMap;
   let readResource: (uri: string) => Promise<ReadResourceCapture>;
@@ -510,11 +510,11 @@ describe('registerAllResources registers the Oak effort-orientation resource (do
     options = createTestOptions();
   });
 
-  it('registers docs://oak/explain.md with low-salience nested annotations', async () => {
+  it('registers docs://oak/under-the-hood.md with low-salience nested annotations', async () => {
     registerAllResources(server, options);
     await flush();
 
-    const resource = registeredResources.get('docs://oak/explain.md');
+    const resource = registeredResources.get('docs://oak/under-the-hood.md');
     expect(resource).toBeDefined();
     expect(resource?.metadata.mimeType).toBe('text/markdown');
     expect(resource?.metadata.annotations?.priority).toBe(0.2);
@@ -530,7 +530,7 @@ describe('registerAllResources registers the Oak effort-orientation resource (do
     // Behaviour under test: the read is wired and returns a non-empty markdown pointer.
     // The resource carries NO baked orientation body; what the pointer SAYS is a content
     // property of the source, held by authoring and review — never pinned here.
-    const resource = await readResource('docs://oak/explain.md');
+    const resource = await readResource('docs://oak/under-the-hood.md');
     const text = getTextContent(resource.contents[0]);
     expect(typeof text).toBe('string');
     expect(text.length).toBeGreaterThan(0);
@@ -553,9 +553,9 @@ describe('registerAllResources matches the canonical resource catalogue (drift g
     registerAllResources(server, createTestOptions(undefined, true));
     await flush();
 
-    // The widget and the effort-orientation resource are APP-LOCAL (not in the SDK
+    // The widget and the Oak: Under the Hood orientation resource are APP-LOCAL (not in the SDK
     // catalogue, by design — ADR-041); the catalogue drift-guard covers the SDK resources.
-    const appLocalUris = [WIDGET_URI, 'docs://oak/explain.md'];
+    const appLocalUris = [WIDGET_URI, 'docs://oak/under-the-hood.md'];
     const registeredUris = Array.from(registeredResources.keys())
       .filter((uri) => !appLocalUris.includes(uri))
       .sort((a, b) => a.localeCompare(b));

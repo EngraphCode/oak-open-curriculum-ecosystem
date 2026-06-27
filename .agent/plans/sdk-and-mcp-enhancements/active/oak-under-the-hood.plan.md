@@ -1,6 +1,6 @@
 ---
 name: "Oak Under the Hood — one behaviour, two channels, no carried content"
-status: ACTIVE — W1 DONE (canonical authored + reviewed + hardened, uncommitted); W2 + W3 NOT STARTED. Decision-complete and self-contained for a successor (Swordfish rides Surf handed off 2026-06-27; successor TBD by owner). Validated by two ultracode review suites, all findings critically assessed.
+status: ACTIVE — W1 + W2 LANDED (commit `3e8636be7`, worktree `worktree-ws-b-explain`); W3 (rename) COMPLETE in the worktree, gate + review + commit pending (Seal lifts Whirlpool, 2026-06-27). Canonical dir resolved to `.agent/skills/under-the-hood/` (bare concept name — the `oak-` prefix is adapter-only; the W2 pointer URL was corrected to match). Validated by two ultracode review suites; all findings critically assessed.
 lineage:
   serves_thread: orientation-skills-family
   serves_stream: teaching-surface family across the PDR-112 portability seam
@@ -93,7 +93,7 @@ deleted, out of scope by design (all parts work at all times; sources always rea
 
 ## W1 — The behaviour (DONE, uncommitted)
 
-Authored in `.agent/skills/explain/SKILL-CANONICAL.md` (still old name; W3 renames):
+Authored in `.agent/skills/under-the-hood/SKILL-CANONICAL.md` (renamed from `.agent/skills/explain/` in W3):
 facets folded into §What-to-discern; the §Router Principle gained the access-aware
 public-locator paragraph (`raw.githubusercontent.com/oaknational/oak-open-curriculum-ecosystem/main/<path>`)
 and two Oak-org public-site rows (`who-we-are`; `meet-the-team#documents`); the
@@ -188,7 +188,10 @@ structural; tests behaviour-only. **Review:** mcp-expert + test-expert, critical
 ## W3 — Rename everywhere (replace, don't bridge)
 
 `explain` / `oak-explain` / `effort` → `oak-under-the-hood`, one concept one name: the
-skill dir `.agent/skills/explain/` → `.agent/skills/oak-under-the-hood/`; **the
+skill dir `.agent/skills/explain/` → `.agent/skills/under-the-hood/` (the **bare** concept
+name — the adapter generator prepends the `oak-` prefix, so the canonical must NOT carry it,
+or adapters double-prefix to `oak-oak-…`; the generated adapters and the `/oak-under-the-hood`
+command are `oak-`-prefixed; the W2 pointer URL was corrected to the bare path); **the
 `.agents/skills/oak-explain/` and `.claude/skills/oak-explain/` mirror dirs** +
 regenerate adapters; MCP tool name; resource URI `docs://oak/explain.md` →
 `docs://oak/under-the-hood.md`; `.claude/settings.json` allowlist (`Skill(oak-explain)`

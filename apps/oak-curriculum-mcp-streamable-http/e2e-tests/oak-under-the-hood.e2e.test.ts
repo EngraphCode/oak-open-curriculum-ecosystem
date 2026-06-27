@@ -1,9 +1,9 @@
 /**
- * E2E tests for the explain orientation tool (W2: pointer shape).
+ * E2E tests for the oak-under-the-hood orientation tool (pointer shape).
  *
  * These tests exercise the full MCP protocol path, proving that a connected
  * client can:
- * - Discover the explain tool via tools/list (with its effort-scoped
+ * - Discover the oak-under-the-hood tool via tools/list (with its effort-scoped
  *   description and a closed empty inputSchema), alongside the curriculum
  *   tools — coexistence.
  * - Call it via tools/call and receive the ADR-058 dual-shape result carrying a
@@ -20,7 +20,7 @@ import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { createStubbedHttpApp, STUB_ACCEPT_HEADER } from './helpers/create-stubbed-http-app.js';
 import { parseSseEnvelope } from './helpers/sse.js';
-import { EXPLAIN_TOOL_NAME } from '../src/explain/explain-tool.js';
+import { OAK_UNDER_THE_HOOD_TOOL_NAME } from '../src/oak-under-the-hood/oak-under-the-hood-tool.js';
 
 const ToolsListResultSchema = z.object({
   tools: z.array(
@@ -45,9 +45,9 @@ const ToolsCallResultSchema = z.object({
   isError: z.boolean().optional(),
 });
 
-describe('Explain tool E2E', () => {
-  describe('tools/list — client can discover the explain tool', () => {
-    it('advertises explain with an effort-scoped description and a closed empty inputSchema, alongside the curriculum tools', async () => {
+describe('Oak: Under the Hood tool E2E', () => {
+  describe('tools/list — client can discover the oak-under-the-hood tool', () => {
+    it('advertises the oak-under-the-hood tool with an effort-scoped description and a closed empty inputSchema, alongside the curriculum tools', async () => {
       const { app } = await createStubbedHttpApp();
 
       const response = await request(app)
@@ -60,15 +60,17 @@ describe('Explain tool E2E', () => {
 
       const envelope = parseSseEnvelope(response.text);
       const result = ToolsListResultSchema.parse(envelope.result);
-      const explain = result.tools.find((tool) => tool.name === EXPLAIN_TOOL_NAME);
+      const orientationTool = result.tools.find(
+        (tool) => tool.name === OAK_UNDER_THE_HOOD_TOOL_NAME,
+      );
 
-      expect(explain).toBeDefined();
+      expect(orientationTool).toBeDefined();
       // Description is non-vacuous and effort-scoped (the separation lever): it routes curriculum
       // queries away rather than describing curriculum. Never pinned to a constant.
-      expect(explain?.description).toContain('curriculum tools');
+      expect(orientationTool?.description).toContain('curriculum tools');
       // Closed empty inputSchema (zero-arg): a valid JSON Schema object accepting only {}.
-      expect(explain?.inputSchema?.type).toBe('object');
-      expect(explain?.inputSchema?.additionalProperties).toBe(false);
+      expect(orientationTool?.inputSchema?.type).toBe('object');
+      expect(orientationTool?.inputSchema?.additionalProperties).toBe(false);
       // Non-vacuous coexistence: the curriculum tools are still advertised in the same list.
       expect(result.tools.map((tool) => tool.name)).toContain('get-curriculum-model');
     });
@@ -86,7 +88,7 @@ describe('Explain tool E2E', () => {
           jsonrpc: '2.0',
           id: '1',
           method: 'tools/call',
-          params: { name: EXPLAIN_TOOL_NAME, arguments: {} },
+          params: { name: OAK_UNDER_THE_HOOD_TOOL_NAME, arguments: {} },
         });
 
       expect(response.status).toBe(200);

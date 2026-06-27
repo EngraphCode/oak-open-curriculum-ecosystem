@@ -26,7 +26,7 @@ import {
   type ResourceRegistrationOptions,
 } from './register-resource-helpers.js';
 import { registerWidgetResource } from './register-widget-resource.js';
-import { CANONICAL_SKILL_URL } from './explain/explain-tool.js';
+import { CANONICAL_SKILL_URL } from './oak-under-the-hood/oak-under-the-hood-tool.js';
 
 /**
  * Registers documentation resources for the "start here" experience.
@@ -71,31 +71,30 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
 }
 
 /**
- * Registers the Oak effort-orientation resource (`docs://oak/explain.md`).
+ * Registers the Oak: Under the Hood orientation resource (`docs://oak/under-the-hood.md`).
  *
  * A LOW-SALIENCE (`priority` low, `audience: ['assistant']`) `text/markdown` resource serving a
- * POINTER to the canonical orientation method (the oak-under-the-hood skill on the public repo),
+ * POINTER to the canonical orientation method (the under-the-hood skill on the public repo),
  * for the minority audience (assistants / integrators) that wants it. It carries NO orientation
  * body: the canonical is always reachable, so the resource points rather than bakes a copy.
  * Effort-domain ONLY (owner separation principle): it never describes curriculum content, which
  * the curriculum tools serve. No `lastModified` — there is no server-owned body whose
  * modification time is meaningful; the canonical's freshness lives at the canonical's own URL.
- * (URI renamed to `docs://oak/under-the-hood.md` in W3.)
  */
-function registerExplainResource(server: ResourceRegistrar): void {
-  const uri = 'docs://oak/explain.md';
+function registerOakUnderTheHoodResource(server: ResourceRegistrar): void {
+  const uri = 'docs://oak/under-the-hood.md';
   const pointer =
-    '# Oak Under the Hood — orientation method\n\n' +
+    '# Oak: Under the Hood — orientation method\n\n' +
     'This resource is a pointer, not a copy. Fetch the canonical orientation method and follow ' +
     'it to orient the user to this repository (the Oak Open Curriculum Ecosystem), framed by ' +
     "Oak's public mission and strategy:\n\n" +
     `- Canonical method (always reachable): ${CANONICAL_SKILL_URL}\n\n` +
     'Relay Oak’s official wording from its public site; never surface a person’s name.\n';
   server.registerResource(
-    'Oak effort orientation',
+    'Oak: Under the Hood orientation',
     uri,
     {
-      title: 'Oak effort orientation',
+      title: 'Oak: Under the Hood orientation',
       description:
         'How Oak builds and delivers its curriculum — the project/effort/ecosystem, its purpose ' +
         'and machinery, and how to engage. For assistants and integrators; a separate concern ' +
@@ -147,7 +146,7 @@ export function registerAllResources(
 ): void {
   registerDocumentationResources(server);
   registerCurriculumModelResource(server);
-  registerExplainResource(server);
+  registerOakUnderTheHoodResource(server);
   // EEF is co-gated at registration (OAK_CURRICULUM_MCP_EEF_ENABLED, kill-switch,
   // default ON): register the resource unless an explicit `=false` disables it. The
   // tool and prompt are gated by the same flag (D6 c6).

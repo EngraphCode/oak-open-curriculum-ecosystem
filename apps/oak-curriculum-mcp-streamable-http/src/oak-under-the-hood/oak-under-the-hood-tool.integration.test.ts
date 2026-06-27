@@ -1,13 +1,13 @@
 /**
- * Integration tests for explain tool registration (W2: pointer shape).
+ * Integration tests for the oak-under-the-hood tool registration (pointer shape).
  *
  * Behaviour under test:
- * 1. `registerExplainTool` registers the explain tool on a real `McpServer`
+ * 1. `registerOakUnderTheHoodTool` registers the oak-under-the-hood tool on a real `McpServer`
  *    under its name, declaring an explicit empty CLOSED `inputSchema` (zero-arg,
  *    empty Zod raw shape) and no `outputSchema` (ADR-058 free-form
  *    `structuredContent`), with `openWorldHint: true` (the tool points OUT to a
  *    fetched external canonical).
- * 2. Via `registerHandlers`, the explain tool COEXISTS with the SDK
+ * 2. Via `registerHandlers`, the oak-under-the-hood tool COEXISTS with the SDK
  *    universal/generated tools in one `tools/list` — the additive registration
  *    does not disturb the universal-tools loop.
  *
@@ -22,7 +22,10 @@ import {
   listUniversalTools,
   generatedToolRegistry,
 } from '@oaknational/curriculum-sdk/public/mcp-tools.js';
-import { registerExplainTool, EXPLAIN_TOOL_NAME } from './explain-tool.js';
+import {
+  registerOakUnderTheHoodTool,
+  OAK_UNDER_THE_HOOD_TOOL_NAME,
+} from './oak-under-the-hood-tool.js';
 import { registerHandlers } from '../handlers.js';
 import {
   createFakeSearchRetrieval,
@@ -31,14 +34,14 @@ import {
 } from '../test-helpers/fakes.js';
 import { createMockRuntimeConfig } from '../test-helpers/auth-error-test-helpers.js';
 
-describe('Explain tool registration (integration)', () => {
-  it('registers the explain tool with a closed empty inputSchema, no outputSchema, openWorldHint', () => {
+describe('Oak: Under the Hood tool registration (integration)', () => {
+  it('registers the oak-under-the-hood tool with a closed empty inputSchema, no outputSchema, openWorldHint', () => {
     const server = new McpServer({ name: 'test-server', version: '0.0.0' });
     const spy = vi.spyOn(server, 'registerTool');
 
-    registerExplainTool(server);
+    registerOakUnderTheHoodTool(server);
 
-    const call = spy.mock.calls.find((c) => c[0] === EXPLAIN_TOOL_NAME);
+    const call = spy.mock.calls.find((c) => c[0] === OAK_UNDER_THE_HOOD_TOOL_NAME);
     expect(call).toBeDefined();
     const config = call?.[1];
     expect(config).toHaveProperty('description');
@@ -64,8 +67,8 @@ describe('Explain tool registration (integration)', () => {
     });
 
     const registeredNames = spy.mock.calls.map((c) => c[0]);
-    // Explain is present...
-    expect(registeredNames).toContain(EXPLAIN_TOOL_NAME);
+    // The oak-under-the-hood tool is present...
+    expect(registeredNames).toContain(OAK_UNDER_THE_HOOD_TOOL_NAME);
     // ...and the universal tools are still all registered alongside it.
     for (const tool of listUniversalTools(generatedToolRegistry)) {
       expect(registeredNames).toContain(tool.name);
