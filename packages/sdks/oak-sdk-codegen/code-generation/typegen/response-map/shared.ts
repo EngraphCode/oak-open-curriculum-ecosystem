@@ -18,7 +18,7 @@ export function sanitizeIdentifier(value: string): string {
 }
 
 export function toColonPath(path: string): string {
-  return path.replaceAll(/\{([^}]+)\}/g, ':$1');
+  return path.replaceAll(/\{([^{}]+)\}/g, ':$1');
 }
 
 export interface ResponseInfo {

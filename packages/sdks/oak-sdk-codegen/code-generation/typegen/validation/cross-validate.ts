@@ -16,7 +16,7 @@ import {
 const ALLOWED_METHODS = ['get', 'post', 'put', 'delete', 'patch', 'head', 'options'] as const;
 
 function toColon(path: string): string {
-  return path.replaceAll(/{([^}]+)}/g, ':$1');
+  return path.replaceAll(/{([^{}]+)}/g, ':$1');
 }
 
 function toCurly(path: string): string {

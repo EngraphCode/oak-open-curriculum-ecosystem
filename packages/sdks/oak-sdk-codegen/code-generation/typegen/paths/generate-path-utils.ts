@@ -11,7 +11,7 @@ export function generatePathUtilsFile(): string {
 
 /** Convert OpenAPI-style curly params to colon params. */
 export function toColon(path: string): string {
-  return path.replaceAll(/{([^}]+)}/g, ':$1');
+  return path.replaceAll(/{([^{}]+)}/g, ':$1');
 }
 
 /** Convert colon params to OpenAPI-style curly params. */
@@ -26,7 +26,7 @@ export function isColon(path: string): boolean {
 
 /** Detect if a path uses curly parameter style. */
 export function isCurly(path: string): boolean {
-  return /{[^}]+}/.test(path);
+  return /{[^{}]+}/.test(path);
 }
 `;
 }
