@@ -12,8 +12,8 @@ todos:
     content: "Phase 0: tracking home + full first-hand triage by cause-class."
     status: completed
   - id: phase-1-cli-security
-    content: "Phase 1: agent-CLI path-injection (S8707). assertPathWithinBase + the 2 agent-tools sites LANDED (PR #223). Site-3 (oak-search-cli analyze-elser-failures.ts) done in PR #242, which also extracted the validator to the shared @oaknational/safe-path package (SSOT for all 3 sites). Awaiting code-owner merge."
-    status: in_progress
+    content: "Phase 1: agent-CLI path-injection (S8707). assertPathWithinBase + the 2 agent-tools sites LANDED (PR #223). Site-3 (oak-search-cli analyze-elser-failures.ts) done in PR #242, which also extracted the validator to the shared @oaknational/safe-path package (SSOT for all 3 sites). Merged 2026-06-27 (merge commit 3895b3f45)."
+    status: completed
   - id: phase-2-regex-strategy
     content: "Phase 2: regex safety (S8786/S5843/S6035) — generator fixes, per-workspace regex home, semver import, per-site FP."
     status: pending
@@ -39,7 +39,7 @@ todos:
 # Main Sonar AI Profile To Zero
 
 **Last Updated**: 2026-06-26
-**Status**: IN EXECUTION — Phase 1: S8707 sites 1-2 landed on `main` (PR #223), site-3 in PR #242 (awaiting code-owner merge); Phases 2-6 ready for execution on a dedicated branch off fresh `main`
+**Status**: Phase 1 (S8707) COMPLETE — sites 1-2 + S4036 via PR #223, site-3 + the `@oaknational/safe-path` SSOT via PR #242 (merge commit `3895b3f45`, merged 2026-06-27). Phases 2-6 ready for execution on a dedicated branch off fresh `main`
 **Thread**: `main-sonar-ai-profile-to-zero`
 **Supersedes**: the retired `main-critical-sonar-remediation` lane (archived to
 `.agent/plans-old-archive/architecture-and-infrastructure/archive/superseded/`).

@@ -29,39 +29,13 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 
 ## Landing Target For Next Session
 
-**Plan status: MERGED to `main` via PR #220 (`9e9844015`, 2026-06-24).**
-**Sites 1-2 + the S4036 fix MERGED to `main` via PR #223 (`9d2e33bb1`, 2026-06-25, Junk tracks Moorings)
-— S8707 sites 1-2 contained, plus S4036 cleared as a replace (`resolveTrustedGit` absolute git path,
-fail-loud; `TRUSTED_GIT_PATH` deleted; §S4036 retired to FIX-only). NEXT: site-3 only.**
-**Site-3 PAUSED (Thyme lifts Compost's claim `ff3da671`) — `apps/oak-search-cli` analyze-elser-failures
-local safe-path helper, then the integrated security-expert re-review, then one PR direct to main.**
-Phase 1 (S8707) on branch `fix/sonar-s8707-cli-path-injection` (off `9e9844015`; sites 1-2 now on main via #223):
-
-- **Site 1/3 DONE + green — COMMITTED `1329d787a`** — `assertPathWithinBase`
-  validator (`agent-tools/src/core/safe-path.ts`, security-expert GO) wired into
-  `ci-turbo-report.ts`; type-check clean, 24/24 tests; full pre-commit gate
-  green. A `max-lines` fix extracted the production fs seam to
-  `ci-turbo-report-fs.ts`. Phase 1 still lands as one PR direct to main.
-- **Site 2/3 DONE — COMMITTED `4c9cfbfc9`** — git-dir containment base
-  (`git rev-parse --absolute-git-dir`; repo-root would block every worktree
-  commit), gate-green.
-- **Branch PUSHED to origin** (orphan mitigation, 2026-06-25). PUSHED-not-merged
-  deliberately: coordination is already squash-merged to `main`, the primary tree
-  is dirty, and Sonar is a separate thread; push is the zero-risk reversible
-  preservation that homes the at-risk work on origin without entangling it in a
-  dirty tree or a closed coordination branch.
-- **Site 3/3 PENDING** → next team session. Containment base
-  `apps/oak-search-cli/diagnostics`.
-- **Sites 2-3 handoff record (PDR-063)**:
-  [`../../../state/collaboration/handoffs/f2a17e85-55e1-4081-bf9e-a6c4cd69e48b.md`](../../../state/collaboration/handoffs/f2a17e85-55e1-4081-bf9e-a6c4cd69e48b.md).
-- **Plan correction (verified first-hand + security-reviewed):** per-site
-  containment bases, NOT blanket repo-root — site-1 `.turbo/runs`, site-2
-  **git dir** (`git rev-parse --absolute-git-dir`; repo-root would block every
-  worktree commit), site-3 `apps/oak-search-cli/diagnostics`. All FIX.
-
-Target (next team session): successor wires site 3 (TDD; sites 1 + 2 already
-committed) → security-expert RE-review of integrated sites → workspace gates →
-one PR direct to `main` via code-owner review. Then Phase 2 regex strategy.
+**Phase 1 (S8707) COMPLETE — all three sites MERGED to `main`.** Sites 1-2 + S4036 via
+PR #223 (`9d2e33bb1`); **site-3 + the `@oaknational/safe-path` SSOT + the `--passWithNoTests`
+de-masks via PR #242 (merge commit `3895b3f45`, 2026-06-27)**; the plan itself via PR #220.
+**NEXT: Phase 2 (regex-safety).** The authoritative fresh-agent pickup is the §"Phase 1
+MERGED" and §"Next safe step — PHASE 2" blocks in the Lane State section below. The earlier
+site-by-site pickup text and the `fix/sonar-s8707-cli-path-injection` / `ff3da671`
+paused-claim references are **superseded and removed** — Phase 1 is done.
 
 ## Lane State
 
@@ -130,21 +104,29 @@ first-hand: `search-cli` lint 0 errors + type-check clean, `safe-path` 6/6. (The
 `search-cli` lint *warnings* are pre-existing repo-wide ADR-088 `no-throw-statement`
 migration warnings in unrelated files — zero added by this work.)
 
-**#242 is GREEN and MERGE-READY (2026-06-26T~21:00Z, Alder tracks Topsoil)**: disposition
-comment posted (`#issuecomment-4813412293`); all 5 review threads RESOLVED; CI green on
-`d19559587`; **`mergeStateStatus: CLEAN`**. Verified first-hand: these paths are NOT
-code-owner-review-gated by the ruleset (`reviewDecision` empty + state CLEAN) — a normal
-merge works, **no `--admin`** (this corrects the earlier "code-owner approval required"
-assumption for this PR's paths). Owner-directed pipeline in flight: closeout →
-consolidate-docs → recursive scan → commit/push → semantic merge-impact analysis → merge
-→ tell Cedar.
+**Phase 1 MERGED (2026-06-27, Alder tracks Topsoil)**: #242 merged to `main` as **merge
+commit `3895b3f45`** (a real two-parent merge, not a squash — all commits preserved;
+auto-release 1.36.1 followed as `c69aa57ea`). All 5 review threads resolved AND replied
+with per-thread dispositions; disposition summary `#issuecomment-4813412293`; CI green;
+the `.agent/` semantic merge-impact analysis was clean (main unchanged since the branch
+base, empty intersection — no manual merge needed). Claim `6bded07b` closed.
 
-**Next safe step**: (1) flag Cedar on canonical per the merge-ordering pact; (2) run the
-`.agent/` semantic-merge check vs `main` (this branch touches the napkin, this thread
-record, the plan, `consolidate-at-third-consumer.md`, practice-index — git line-merges
-them, meaning needs an agent merge); (3) merge `#242` as a **MERGE commit (never squash)**;
-(4) tell Cedar it merged; (5) close claim `6bded07b`. Then Phase 2 (regex strategy:
-S8786 ×15, S5843 ×2, S6035 ×1; per-workspace `src/lib/regex/` home).
+**Correction (knowledge integrity):** #242 merged `CLEAN` with no approval **because it was
+agent-authored under the owner's shared gh auth and the sole code owner IS the author**
+(GitHub auto-satisfies the code-owner gate and forbids self-approval) — the documented
+author-dependent gate behaviour, NOT because "these paths aren't code-owner-gated." CODEOWNERS
+is `* @jimCresswell`; every path is gated. An earlier note here claimed path-scoping — that was
+a misdiagnosis (see [[project_main_merge_gate_codeowner]]).
+
+**Next safe step — PHASE 2, for a FRESH agent (Phase 1 is done):** open a fresh branch off
+`main` and execute the **regex-safety** lane — `S8786 ×15`, `S5843 ×2`, `S6035 ×1`. Decided
+strategy (owner-ratified; see the plan + the §Owner decisions block above): hand-written sites
+consolidate into a per-workspace **`src/lib/regex/`** home; `path-utils.ts` is GENERATED (fix at
+the generator, never the output); `semver.ts:33` is refactor-to-import-from-`semver` (not a
+dismissal). **Re-triage first-hand** which exact S8786 sites are linear-safe FPs vs real fixes
+before fixing — the per-site labels proved unreliable (3 mislabels in one earlier session). Read
+the plan and this record first; re-fetch live Sonar (issue counts in archived prose are stale). No
+blockers, no claim held. Then the remaining MAJOR/MINOR classes per the plan's triage table.
 
 ## Watch (not mine; flagged)
 
