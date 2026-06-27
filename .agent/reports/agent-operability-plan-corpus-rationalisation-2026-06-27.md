@@ -199,7 +199,7 @@ or the current scatter.
 | Facet | Single SSOT | Live plans under it | Durable decision it rests on |
 | --- | --- | --- | --- |
 | Statusline | `statusline-enhancements` thread hub (slim to index-only) | logo-modularisation; session-state-icons | PDR-095, PDR-076a |
-| Working locations | worktree-hygiene **rule** (on `main`) | worktree-per-agent-transition (strategy); pilot-consolidation (evidence → then archive) | PDR-117; ADR-200 |
+| Working locations | worktree-hygiene **rule** (on `main`) | worktree-per-agent-transition (strategy); pilot-consolidation (evidence → then archive) | PDR-117; ADR-197 (the worktree-hygiene rule also grounds on ADR-204) |
 | Tooling locations | **ADR-197** + F-41-tail (the one remaining build) | cli-ergonomics; watcher-canonicalisation | ADR-197; PDR-055 |
 | Team-state records | **F-98 work-state-registry** (keystone) + rightsizing brief (the cull-home) | continuity-tiers taxonomy | needs the agent-work-state ADR |
 
