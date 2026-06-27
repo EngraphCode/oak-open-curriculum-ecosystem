@@ -81,6 +81,101 @@ todos:
 > superseded curriculum-routing shape and are being re-run (see §Readiness
 > Reviewers).**
 
+## REFRAME → oak-under-the-hood (owner-directed 2026-06-27) — READ FIRST; SUPERSEDES the "effort"/"explain" naming and the MCP-surface-only scope below
+
+**Owner direction (2026-06-27, direct to Peony calls Trunk; ratified via the terminology
+question then the full-lens decision):** rename the whole orientation capability from
+"effort"/"explain" to **`oak-under-the-hood`**, and expand its scope. The outgoing Director
+(Cedar lifts Canopy) confirmed Peony drives the WHOLE reframe as one coherent lane across BOTH
+channels; the incoming Director (Oyster spins Coral, from the 2026-06-27 PDR-064 Moment-2)
+reviews the ADR-202 amendment and the skill-rename portability. This section supersedes the
+"effort" vocabulary and the MCP-only scope throughout the body below; the D0–D5 cycle detail
+still applies, re-read under the new name and expanded content.
+
+### Name — one identity, both channels
+
+- **In-repo lens:** `/oak-explain` → **`/oak-under-the-hood`** (canonical
+  `.agent/skills/explain/` → `.agent/skills/oak-under-the-hood/`, regenerated `.claude`/`.agents`
+  adapters, `skills:check` + `portability:check` green).
+- **ADR-202** amended (orientation-lens identity = oak-under-the-hood); **AGENT.md §Orientation
+  Requests** routing updated.
+- **MCP projection:** tool `explain` → `oak-under-the-hood`; resource `docs://oak/explain.md` →
+  `docs://oak/under-the-hood.md`; prompt; generated body; tests; this plan. Supersedes the D2/D3
+  `explain` naming.
+- "effort" / "effort-orientation" / "effort-domain" → "under the hood" / "the project / how it
+  works" everywhere. **UK spelling throughout.**
+
+### Content — the intent → value → impact narrative (reopens D0/D1)
+
+oak-under-the-hood is NOT a feature tour of "what/how it works". It is the **intent → value →
+impact** story of this repo, the MCP app, and the content — *why* it exists and *what change it
+is designed to bring about* — navigable at **any altitude** the audience wants:
+
+- **Mission, top altitude:** the change in the world the work is designed to bring about —
+  *all students have access to a high-quality education* — and the value chain by which this
+  repo contributes to it.
+- **Intent and impact at every altitude:** what the services, repo, and content are *designed
+  to achieve*, through providing *what value*, for *whom* — from the mission down to the
+  granular: e.g. *the eval approach for our prompts*, *why we use multiple open-source education
+  data sources*, the pedagogical-rigour grounding, the architecture choices — and everything in
+  between. A leader gets the value/impact case; an evals engineer gets the eval method; both are
+  the same narrative at different altitudes.
+- **Why *this* repo:** what it does, how it achieves it, and why those things matter.
+- **Why *now*:** the timeliness thesis — why this is the right moment to invest in surfacing
+  educational content through AI assistants, grounded in real, proven pedagogical rigour.
+- **Mission and openness:** Oak's mission; Oak's open data and what an OGL licence is — a
+  *libre* concept, for interest and education, never a constraint.
+- **Honest impact:** *impacts* (designed-to-bring-about and achieved) are kept distinct from
+  *intents*, and exists-vs-planned is preserved — no overclaiming.
+- **Per-field depth, open-ended:** the discernment + delivery-mode behaviour shell adapts the
+  narrative to the audience's field and desired depth (leadership, strategy, education expert,
+  pedagogy expert, product design/management, engineering management, development, data science,
+  UX — or anyone else's), an open-ended field model, not a closed angle enum.
+
+**Grounding (anti-improvisation):** the intent/value/impact content aligns with the
+intent-as-a-living-idea-graph work (ADR-200), where intents, impacts, and value are first-class;
+oak-under-the-hood is their human-facing projection, so the narrative is sourced from the real
+intent estate rather than improvised marketing prose. UK spelling throughout.
+
+### Firewalls — HOLD and sharpen
+
+- **Curriculum:** talks *about* the open data / OGL as a libre/mission/provenance idea; never
+  serves or describes curriculum content/structure (naming the source as provenance is allowed).
+- **Compliance:** explaining what an OGL licence *is* is NOT a claim about Oak's regulatory
+  posture; direct compliance questions route to official surfaces.
+- **Volatility:** no point-in-time status; `lastModified` from source-commit date.
+
+### Workstreams (reframe; TDD/cycle discipline, one gated commit per cycle; reviewers throughout)
+
+- **R1 — Content expansion at the SSOT.** Expand the behaviour shell + overview sources
+  (`SKILL-CANONICAL.md`, `behaviour-shell.ts`, `effort-overview.ts` → `under-the-hood-overview.ts`)
+  with mission, open-data/OGL-libre, impacts-vs-intents, the open-ended field model; UK spelling.
+  Regenerate the body. Behaviour-only tests; firewalls by construction + PR review.
+- **R2 — In-repo lens rename.** `.agent/skills/explain/` → `.agent/skills/oak-under-the-hood/`;
+  regenerate adapters; `skills:check`/`portability:check`; migrate every live reference
+  (replace, don't bridge).
+- **R3 — ADR-202 amendment + AGENT.md routing.** Draft the amendment (lens identity =
+  oak-under-the-hood); update AGENT.md §Orientation Requests. **Route to Director (Oyster).**
+- **R4 — MCP projection rename.** tool/resource-URI/prompt/generated-body/tests →
+  oak-under-the-hood; supersede the D2/D3 `explain` naming; reconcile the `server.e2e` parity
+  test + the explain e2e. mcp-expert re-confirm.
+- **R5 — D4 (prompt) + D5 (value-proxy)** under the new name.
+- **R6 — UK-spelling sweep** across all touched surfaces (folded per cycle + a final pass).
+
+### Sequencing & ownership
+
+Content + SSOT first (R1) so the generated body is correct; then the mechanical renames (R2/R4);
+ADR/AGENT (R3) alongside R2; then D4/D5 (R5); UK-spelling per cycle + final (R6). Each cycle is a
+gated commit with code/mcp/test/docs-expert review; Oyster (Director) reviews ADR-202 +
+portability. **Merge order and the napkin + repo-continuity `/oak-semantic-merge` are the
+Director's (Oyster); #243 is NOT merge-ready until the reframe lands.**
+
+### Disposition of D0–D3 (already on this branch)
+
+D0 (audience model + firewalls), D1 (generated body), D2 (resource), D3 (tool, committed
+`2ef673f4b`) stand as the foundation; the reframe RENAMES their surfaces and EXPANDS their
+content — re-aimed, not redone.
+
 ## 2026-06-26 — Current state & test-doctrine correction (READ FIRST, Skipper tracks Kelp)
 
 **Status:** D1 + D2 are BUILT and landed **behaviour-only** on branch `worktree-ws-b-explain`
