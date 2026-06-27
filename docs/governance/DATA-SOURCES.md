@@ -8,11 +8,12 @@ last_reviewed: 2026-06-27
 
 # Data Sources
 
-A register of the external data sources that the **MCP server** and
-**semantic-search** apps surface to users. For each source it records what it
-is, when it was adopted, its licence and attribution, where it lives (external
-origin and in-repo representation), and the governance that keeps it suitable:
-**suitability-review criteria, last-reviewed date, and removal criteria**.
+A register of the external **data sources** that Oak's apps surface to users, and
+the governance that keeps each one suitable. For each source it records what it is,
+when it was adopted, its licence and attribution, where it lives (external origin
+and in-repo representation), and the governance that applies:
+**suitability-review criteria, last-reviewed date, and removal criteria**. The apps
+and services that consume these sources are listed under [Consumers](#consumers).
 
 ## Why this register exists
 
@@ -20,28 +21,29 @@ origin and in-repo representation), and the governance that keeps it suitable:
 enumerates the sources, their licensing, and their attribution — but it
 deliberately does **not** define how a source's continued suitability is reviewed
 or when it should be removed. This register fills that governance gap. It is the
-single home for the review and removal policy and for the per-source review
-dates.
+single home for the review and removal policy and for the per-source review dates.
 
 It is also the cross-functional surface (leadership, compliance, education,
 product) that the **Oak: Under the Hood** explanation lens points to when a user
 asks where the apps' data comes from and how it is governed.
 
 **Volatility firewall.** The explanation lens _points to_ this register; it never
-copies the dates or policy into itself. Review dates and review/removal policy
-live **here** so they have exactly one home and cannot drift between surfaces.
+copies the dates or policy into itself. Review dates and review/removal policy live
+**here** so they have exactly one home and cannot drift between surfaces.
 
 ## Scope
 
-The register covers sources the apps **surface to users** — the data behind MCP
-resources, tools, and prompts, and behind semantic search. It is not a
+The register covers external **sources** the apps surface to users — the data
+behind MCP resources, tools, and prompts, and behind semantic search. It is not a
 dependency manifest (that is `package.json`) and not a licence reference (that is
 [LICENCE-DATA.md](../../LICENCE-DATA.md) and [ATTRIBUTION.md](../../ATTRIBUTION.md),
 which this register links to rather than restates).
 
-Provenance prefixes (owner-ratified 2026-06-04, ADR-157 §Namespace Convention)
-mark which source a surface's data comes from: `oakapi-` / `bulk-` (Oak API),
-`onto-` (ontology), `eef-` (EEF), `oaksearch-` (Oak semantic search).
+Provenance prefixes (owner-ratified 2026-06-04, ADR-157 §Namespace Convention) mark
+which source a surface's data comes from: `oakapi-` / `bulk-` (Oak API), `onto-`
+(ontology), `eef-` (EEF). The `oaksearch-` prefix marks Oak curriculum content
+surfaced via the semantic-search **consumer** (see [Consumers](#consumers)), not a
+distinct source.
 
 ---
 
@@ -83,16 +85,45 @@ mark which source a surface's data comes from: `oakapi-` / `bulk-` (Oak API),
 | **Licence / attribution**  | **Attribution REQUIRED.** When citing EEF data, include: _"Data derived from the EEF Teaching and Learning Toolkit, Education Endowment Foundation (<https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit>). All impact estimates, cost ratings, and evidence strength ratings are sourced from EEF publications. Users should consult the original EEF strand pages for full detail and the most current figures."_ |
 | **Credits**                | Original research: Higgins, S., Katsipataki, M., Kokotsaki, D., Coleman, R., Major, L.E., & Coe, R. EEF MCP server prototype: John Roberts (Oak National Academy).                                                                                                                                                                                                                                                                                       |
 
-### 4. Oak semantic search service
+---
 
-| Field                      | Value                                                                                                                                                                                                                           |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Provenance prefix**      | `oaksearch-`                                                                                                                                                                                                                    |
-| **What it provides**       | Semantic search over Oak curriculum content (related units, relevance retrieval) — a _retrieval capability_, surfaced by the semantic-search app.                                                                               |
-| **External origin**        | An Oak-operated service over Oak curriculum content; it has no public corpus distinct from the Oak Open Curriculum API content it indexes.                                                                                      |
-| **In-repo representation** | Accessed through the internal search SDK; no external corpus is cached in this repo (it operates over the same Oak curriculum content as source 1).                                                                             |
-| **Adopted**                | Per ADR-157 / the semantic-search app.                                                                                                                                                                                          |
-| **Licence / attribution**  | Operates over Oak curriculum content under [OGL v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/); the same OGL attribution as source 1 applies to results. The service itself is Oak-operated. |
+## Consumers
+
+The sources above are surfaced to users by **consumers** — the apps and services
+that read the sources and present them. Consumers are not sources; they are listed
+here so the register is clear about who uses the governed data.
+
+- **MCP server** — exposes the sources to AI agents via MCP resources, tools, and
+  prompts.
+- **Semantic search** — provides semantic retrieval over Oak curriculum content
+  (the `oaksearch-` surfaces). It is itself **consumed** by the MCP server and by
+  agents, so it is both a consumer of a source and a consumed capability — not a
+  data source of its own (its data is the Oak Open Curriculum API content).
+
+More consumers may be added over time. Adding a consumer does not change this
+register — each new consumer surfaces the same governed sources. Only adding a
+_source_ changes the register (see [Adding a source](#adding-a-source)).
+
+## Adding a source
+
+The set of sources will grow. A new source is adopted through this process, so that
+every source in the register has cleared the same bar:
+
+1. **Propose** the source and confirm it meets **all** the
+   [suitability-review criteria](#suitability-review-criteria) below.
+2. **Establish licence and attribution**, and record them in
+   [`LICENCE-DATA.md`](../../LICENCE-DATA.md) and
+   [`ATTRIBUTION.md`](../../ATTRIBUTION.md).
+3. **Add the in-repo representation** (cached data, a cached schema/spec, or derived
+   typing) and a **provenance prefix** per ADR-157 §Namespace Convention.
+4. **Add a source entry** to this register and a row to the
+   [review log](#review-log).
+5. **Review and sign-off** — docs-adr-expert review, and owner sign-off on
+   suitability and licensing.
+
+The suitability-review criteria that keep a source suitable are the same bar a new
+source must clear to be adopted; the removal criteria are the same bar that retires
+one.
 
 ---
 
@@ -100,11 +131,11 @@ mark which source a surface's data comes from: `oakapi-` / `bulk-` (Oak API),
 
 > **Status: proposed — pending owner ratification (2026-06-27).** The factual
 > register above is grounded in ADR-157, `LICENCE-DATA.md`, and `ATTRIBUTION.md`.
-> The criteria and cadence below are **new governance policy** this register
-> establishes; they are deliberately short and simple, each with a one-line
-> rationale grounded in the apps' purpose and Oak's four pillars (Independent,
-> Optional, Adaptable, Free). They take effect when the owner ratifies them; the
-> per-source review dates below are likewise provisional until then.
+> The criteria and the review approach below are **new governance policy** this
+> register establishes; they are deliberately short and simple, each with a
+> one-line rationale grounded in the apps' purpose and Oak's four pillars
+> (Independent, Optional, Adaptable, Free). They take effect when the owner ratifies
+> them; the per-source review dates below are likewise provisional until then.
 
 ### Suitability-review criteria
 
@@ -119,22 +150,25 @@ A source is suitable to surface when **all** of these hold:
    depends on it._
 3. **Serves the apps' purpose** — it answers a question the apps exist to answer
    (what content exists / how the curriculum is structured / what teaching
-   approaches work / how to retrieve relevant content).
+   approaches work).
    _Scope discipline: a source earns its place by serving evidence-grounded
    curriculum discovery, not by being available._
 4. **Accurate and current** — it is maintained, or explicitly versioned and
    snapshotted, so what we surface is not stale or misleading.
-   _Adaptable and Optional pillars: teachers act on what we surface, so it must
-   be trustworthy enough to adapt or to decline._
+   _Adaptable and Optional pillars: teachers act on what we surface, so it must be
+   trustworthy enough to adapt or to decline._
 
-### Review cadence
+### Review and relevance
 
-Each source is reviewed against the criteria above **at least annually**, and
-additionally whenever any of these occurs: an **upstream licence change**, a
-**material change to the upstream data or its shape**, or a **new app surface**
-beginning to consume the source.
-_Rationale: a source's licence or quality posture can change upstream without
-notice — review on the events that actually move it, with a yearly floor._
+We make best efforts to ensure each source remains relevant and appropriate for the
+apps and their users. In practice a source is reviewed against the criteria above
+whenever a triggering change occurs: an **upstream licence change**, a **material
+change to the upstream data or its shape**, or a **new consumer** beginning to use
+the source.
+_Rationale: a source's licence, quality, or appropriateness can change upstream
+without notice — a standing best-efforts commitment to relevance and
+appropriateness, acting on the events that actually move a source's suitability,
+serves users better than a fixed calendar._
 
 ### Removal criteria
 
@@ -146,8 +180,7 @@ A source is removed from the apps when **any** of these holds:
 2. **Upstream is abandoned or unreachable** — it is no longer maintained or
    retrievable and cannot be refreshed.
    _A stale source misleads more than it helps._
-3. **No longer serves a purpose** — no app surface consumes it and none is
-   planned.
+3. **No longer serves a purpose** — no consumer uses it and none is planned.
    _Scope discipline: an unused source is maintenance burden, not value._
 4. **Quality or trust failure** — it is found materially inaccurate or unsafe to
    surface.
@@ -159,12 +192,11 @@ surface. The criteria above are the trigger; the mechanics are ordinary work.
 
 ### Review log
 
-| Source                            | Adopted              | Last reviewed            | Next review due                  |
-| --------------------------------- | -------------------- | ------------------------ | -------------------------------- |
-| Oak Open Curriculum API           | Repo inception       | 2026-06-27 (provisional) | On owner ratification + annually |
-| Oak Curriculum Ontology           | 2026-04-10 (ADR-157) | 2026-06-27 (provisional) | On owner ratification + annually |
-| EEF Teaching and Learning Toolkit | Per ADR-157          | 2026-06-27 (provisional) | On owner ratification + annually |
-| Oak semantic search service       | Per ADR-157          | 2026-06-27 (provisional) | On owner ratification + annually |
+| Source                            | Adopted              | Last reviewed            | Review approach                                           |
+| --------------------------------- | -------------------- | ------------------------ | --------------------------------------------------------- |
+| Oak Open Curriculum API           | Repo inception       | 2026-06-27 (provisional) | Best efforts + on trigger (licence / data / new consumer) |
+| Oak Curriculum Ontology           | 2026-04-10 (ADR-157) | 2026-06-27 (provisional) | Best efforts + on trigger (licence / data / new consumer) |
+| EEF Teaching and Learning Toolkit | Per ADR-157          | 2026-06-27 (provisional) | Best efforts + on trigger (licence / data / new consumer) |
 
-_Provisional entries become effective when the owner ratifies the governance
-policy above; the "last reviewed" date then reflects the first ratified review._
+_Provisional entries become effective when the owner ratifies the governance policy
+above; the "last reviewed" date then reflects the first ratified review._
