@@ -3,8 +3,8 @@
 A pull request is not done — not mergeable, not ready, not to be reported as ready — until
 **every** comment on it is either **fixed in code** or **explicitly rejected with a stated
 rationale**, then **replied to and resolved**. No comment is ever left unaddressed. Green
-checks alone are never sufficient (see `pr-not-done-until-live` /
-`feedback_pr_not_done_until_live`).
+checks alone are never sufficient: a PR is done only when it is mergeable AND every comment
+is dispositioned.
 
 "Every comment" spans every surface and every author — pull the full set first-hand, never
 from memory of what you think was raised:
