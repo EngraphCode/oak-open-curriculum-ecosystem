@@ -86,6 +86,24 @@ todos:
 This section is the honest close of a session that did real grounding but took wrong turns. A
 fresh session should read it before the REFRAME section below, which it corrects.
 
+### Successor: Swordfish rides Surf — re-assess, do not inherit (owner-directed)
+
+The owner has named **Swordfish rides Surf** as the successor for this lane, with a standing
+mandate: **re-assess the reports, findings, plans, and conclusions first-hand — do not inherit
+them as settled.** This is not pro-forma. Concretely:
+
+- This session took the wrong turns listed below and was corrected mid-flight. Treat ALL of its
+  conclusions — including the "validated facts" and the corrected architecture — as **inputs to
+  verify**, not truth. Re-ground the load-bearing facts against the canonical sources yourself.
+- The three reviewer verdicts (barney, docs-adr-expert, mcp-expert; agentIds in the session
+  comms for SendMessage) are **perspectives to re-judge and synthesise**, never findings to
+  apply on trust. Re-read the sources first-hand.
+- Re-fetch live state — `origin/main` has moved and the surrounding estate has shifted this
+  session (e.g. Cedar's plan-corpus rationalisation, PR #252; the Sonar merges). Do not trust
+  this record's snapshot of counts, SHAs, or merge state.
+- Apply verify-don't-trust to every claim here, most strictly where a claim is convenient or
+  flatters a conclusion. Re-assessment is the job, not a courtesy.
+
 ### The core correction (owner, 2026-06-27): synthesis, not either-or
 
 The owner's verdict on this session's thinking: *"none of this is either-or, it's about

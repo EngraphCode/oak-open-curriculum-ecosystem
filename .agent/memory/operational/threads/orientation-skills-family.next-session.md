@@ -19,6 +19,14 @@ defined by PDR-112.
 
 ## WS-B → oak-under-the-hood reframe — WIND-UP & NEXT-SESSION PICKUP (2026-06-27, Peony calls Trunk) — READ FIRST
 
+**Successor (owner-directed): Swordfish rides Surf.** Standing mandate for the pickup:
+**re-assess the reports, findings, plans, and conclusions first-hand — do not inherit them as
+settled.** This session took wrong turns (corrected mid-flight), so treat its conclusions, the
+"validated facts", and the reviewer verdicts (barney / docs-adr / mcp-expert) as **inputs to
+verify**, not truth; re-fetch live state (main and the estate moved); apply verify-don't-trust
+throughout, most strictly where a claim is convenient. Full detail in the owning plan's
+`## SESSION WIND-UP & CORRECTION` section (read it first).
+
 **Landed this session:** WS-B **D3** (the model-fired explain tool) committed local on `worktree-ws-b-explain` at `2ef673f4b` (full gate green; folded code-expert + mcp-expert + test-expert). The **oak-under-the-hood reframe spine + a session wind-up/correction** are committed to the owning plan.
 
 **Owner reframe (2026-06-27):** rename `effort`/`explain` → **oak-under-the-hood**, full-lens across BOTH channels (in-repo `/oak-explain` skill + the MCP projection), + an **intent → value → impact** content spine. THEN the owner corrected the *thinking*: **synthesis, not either-or** — route to canonical SSOT (the PUBLIC GitHub repo for repo doctrine/docs; the PUBLIC Oak site `www.thenational.academy/about-us/...` for org mission/goals/pillars), **minimum custom content**, DRY/SSOT, and **official-sourcing** (relay what Oak officially says — VISION quotes the mission verbatim; never the repo's own derivation). **No PII**; use **"executive audience"**, never "Oak leadership".
