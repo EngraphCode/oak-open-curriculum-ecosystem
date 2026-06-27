@@ -25,7 +25,7 @@ interface SharedLogIdentityRow {
 export function findThreadRecordIdentityRows(text: string): readonly ThreadRecordIdentityRow[] {
   const normalised = text.replace(/\s+/gu, ' ');
   const pattern =
-    /\*\*(Last refreshed|Prior refresh)\*\*:[^(]*\(([^/()]+) \/ ([^/()]+) \/ ([^/()]+) \/ ([A-Za-z0-9_-]{1,24})(?=\s*(?:—|\)))/gu;
+    /\*\*(Last refreshed|Prior refresh)\*\*:[^(]*\(([^/()]+) \/ ([^/()]+) \/ ([^/()]+) \/ ([A-Za-z0-9_-]{1,24})(?=\s*[—)])/gu;
 
   return Array.from(normalised.matchAll(pattern), (match) => ({
     label: parseThreadRecordLabel(match[1]),

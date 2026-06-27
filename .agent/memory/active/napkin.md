@@ -287,3 +287,28 @@ New session observations append below.
 - **Capture notes in the napkin, not (only) comms/scratchpad (owner correction).** I recorded the S101
   decision in a comms event first; the owner reminded me the napkin is the home for session notes. Comms is
   for live coordination; the napkin is the capture→distil→graduate buffer (PDR-014).
+
+## 2026-06-27 — Session-close residuals (Alder tracks Topsoil)
+
+- **Don't bundle a deep-review-gated forward-design doc into a closeout PR — it spawns an
+  unbounded bot-review churn loop.** PR #244 (sonar-lane closeout) carried the PROPOSED,
+  deep-review-gated `comms-and-worktree-operability.plan.md`; every push drew finer Codex/Copilot
+  refinements of the *plan's* prose (5+ rounds, each fix spawning the next) — a forward-design doc
+  has near-infinite polish surface and is deferred to a review that will rework it, so perfecting
+  its prose pre-review is wasted effort that blocks the closeout. The live worked instance of
+  [[pr-comments-resolve-and-recheck]] (every push → re-check → new comments). **Cure:** land such
+  docs in their OWN reviewed PR; if bundled, add ONE top "deep re-assessment scope" note folding
+  the content comments wholesale (what unblocked #244, owner-directed) rather than chasing
+  line-by-line.
+- **comms/claims primary-anchoring is asymmetric.** Only `comms send` auto-anchors
+  `--comms-dir`/`--active` to the primary via `resolveCoordinationHome`; `comms
+  list/watch/inbox/direct/reply` and `claims` REQUIRE those paths explicitly — pass the
+  primary-resolved path, never relative (from a worktree a relative path lands worktree-local).
+  Folded for re-assessment in the operability plan, which itself **needs its deep review before any
+  execution** (flagged at its top, not done this session). (My per-user worktree-resolution
+  agent-memory note still over-generalises this and wants tidying.)
+
+## 2026-06-27 — Read a tool-rule's actual criterion before dispositioning; a plausibility argument isn't proof (Gull tracks Eyrie)
+
+- **A specialist subagent's blanket "all 18 regex findings are false-positives, dismiss all" was WRONG, and so was my own first analysis — both fixed by reading Sonar S8786's rule definition.** We both reasoned "delimited negated class (`{[^}]+}`) ⇒ linear." But S8786's documented criterion is *unanchored multi-position retry ⇒ O(n²) on non-match* (its noncompliant example is `/a+b/`; compliant `/^a+b/`). So those patterns ARE non-linear — NOT false positives; mass-dismissing 18 genuine findings would have been the error. Lesson: for a tool-rule disposition, read the RULE's criterion + examples first; a plausibility argument (yours OR a subagent's) is not proof. [[verify-dont-trust]], fluency-is-a-warning, owner's "critically assess subagent results" standing directive.
+- **Phase-2 disposition (accept-with-rationale bar): 2 fixes + 16 accepts.** FIX = sitemap-scanner `\s*([^<]+)\s*` (real O(n²), network XML) and S6035 `(?:—|\))`→`[—)]`. ACCEPT = 14 S8786 (internal/build-time/generated inputs; JS has no possessive quantifiers so an atomic "fix" renumbers capture groups + forces consumer changes) + 2 S5843 canonical-semver (complexity, parity-locked). The Vercel `ignoreCommand` `.mjs` semver shim is irreducible: it runs before `pnpm install` (no node_modules, dist gitignored) so it can only use Node built-ins + committed source; parity-test-locked inline copy is correct. **Napkin near fitness limit — drain due (Cedar flagged).**
