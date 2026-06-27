@@ -36,6 +36,13 @@ A worktree carrying commits with no PR is an orphan by construction. A draft PR 
 low-cost — it requests no review until marked ready. **There is no acceptable state in
 which a worktree holds work and has no PR.**
 
+This absoluteness is deliberate. A read-only investigation checkout holds no committed
+work and is outside this clause — but a genuinely throwaway spike is **not** an
+exception: it too gets a draft PR, then is closed and removed the same session. The PR is
+cheap, and requiring it even for throwaways is the point — "committed work on a branch
+with no PR" is the single state this rule exists to forbid, so nothing is ever silently
+dropped.
+
 ### 2. One bounded lane per worktree
 
 A worktree owns one bounded lane — one coherent change set heading to one PR — not a
@@ -88,8 +95,9 @@ consciously released (`never-use-git-to-remove-work`).
 
 A worktree that is idle with no open PR, or whose PR has merged but the worktree
 lingers, is surfaced for retirement rather than left to accumulate. Keep the
-cross-worktree work-state map current at the F-41 coordination home (the interim F-98
-registry) — tracked `.agent/` files are per-branch and invisible across worktrees, so
+cross-worktree work-state map current at the F-41 coordination home (the interim map;
+its durable form is the F-98 registry) — tracked `.agent/` files are per-branch and
+invisible across worktrees, so
 the map is the only surface on which a forgotten worktree becomes visible.
 
 ### 8. Operate correctly from a worktree
@@ -139,6 +147,9 @@ holding a worktree.
   removal is gated and content-verified; deletion never removes unpreserved work.
 - [`semantic-merge` skill](../skills/semantic-merge/SKILL-CANONICAL.md) — the
   concept-union discipline for memory/state files at branch→main.
+- [ADR-197 (coordination-home checkout owns shared registry state)](../../docs/architecture/architectural-decisions/197-coordination-home-owns-registry-state.md)
+  — the accepted decision that one checkout owns `.agent/state/collaboration/` and feature
+  branches do not carry it; the basis for the cross-worktree-visibility and memory-merge clauses.
 - The cross-worktree work-state map at the F-41 coordination home
   (`.agent/state/collaboration/`) — the visibility substrate; its planned durable form is
   the agent-work-state registry (F-98).
