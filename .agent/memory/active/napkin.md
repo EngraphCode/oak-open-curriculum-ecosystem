@@ -258,3 +258,32 @@ New session observations append below.
   gated. I first recorded the path-scoped reading; the loss-scan caught it against
   [[project_main_merge_gate_codeowner]] (which already documents the author-dependent behaviour) — a
   ground-convenient-claims miss (I asserted a convenient explanation without checking the existing memory).
+
+## 2026-06-27 — A "false positive" reflex on generated code is a fluency trap; set the disposition bar before triaging (Gull tracks Eyrie)
+
+- **Mistake → corrected: I reflexively marked S101×3 (PascalCase on the generated openapi
+  `paths`/`components`/`operations`) FALSE_POSITIVE**, on the fluent "it's generated, names are hardcoded,
+  owner pre-authorised" frame. Owner asked for a subagent second-opinion; it refuted the FP and I verified
+  first-hand: the file IS generated but the repo's `postProcessTypesSource` hook (`codegen-core.ts:176/202`)
+  *could* rename them — so it is NOT a tool error, and FP would be suppression wearing an FP costume. The
+  honest, proportionate disposition is **ACCEPT (won't-fix)**: the names are the public API of
+  `@oaknational/sdk-codegen` + the universal openapi-typescript/openapi-fetch ecosystem convention, so a
+  genuine rename is a breaking change for a MINOR cosmetic rule. Worked instance of the metacognition
+  "fluency is a warning" note + [[feedback_validate_specialist_findings_before_acting]] + [[verify-dont-trust]].
+  Also: a subagent can be right to REFUTE yet over-reach — it conflated "fixable" with "worth fixing"; the
+  proportionality judgement is mine to add, not the subagent's to make.
+- **Set the disposition BAR before triaging a backlog "to zero".** Owner ratified (AskUserQuestion):
+  genuine fix is default; site-specific architectural tension → recorded ACCEPT; FALSE_POSITIVE only for
+  true tool errors. This governs all ~388 remaining Sonar issues — without the bar, every disposition is an
+  ad-hoc call and "zero" is ambiguous (accept-with-rationale ≠ fix-everything). Name which "zero" the owner
+  means before triaging, not per-issue.
+- **Tooling gap: Sonar MCP `change_sonar_issue_status` has NO rationale-comment field**, and the auto-mode
+  classifier blocks issue-status writes as unauthorised external-state mutation until explicit owner auth.
+  So a server-side disposition can't carry its "why" in Sonar — the durable rationale must live in the
+  napkin/plan/comms. The classifier reading "zero means zero" as "fixes, not dispositions" was a useful
+  perturbation — it forced the bar to be made explicit. Candidate: a permission rule + a rationale-capture
+  convention if doing many. Adjacent [[no-warning-toleration]] (a dismissal without recorded rationale is a
+  thin audit trail).
+- **Capture notes in the napkin, not (only) comms/scratchpad (owner correction).** I recorded the S101
+  decision in a comms event first; the owner reminded me the napkin is the home for session notes. Comms is
+  for live coordination; the napkin is the capture→distil→graduate buffer (PDR-014).

@@ -186,14 +186,16 @@ describe('withEsClient', () => {
     const esClient = createFakeEsClient(() => Promise.reject(new Error('close boom')));
     const deps = createFakeDeps();
 
-    // Should not throw
-    await withEsClient(
-      esClient,
-      async () => {
-        /* intentionally empty — tests that close() errors do not propagate */
-      },
-      deps,
-    );
+    // The wrapper swallows close() errors: the call resolves (no re-throw).
+    await expect(
+      withEsClient(
+        esClient,
+        async () => {
+          /* intentionally empty — tests that close() errors do not propagate */
+        },
+        deps,
+      ),
+    ).resolves.toBeUndefined();
   });
 
   it('calls captureHandledError when handler throws and capture is provided', async () => {
