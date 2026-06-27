@@ -71,6 +71,13 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
 }
 
 /**
+ * URI of the Oak: Under the Hood orientation resource. Exported as the single source
+ * of truth so the public-resource allowlist (ADR-205) and its drift test reference the
+ * exact literal the resource is registered under.
+ */
+export const OAK_UNDER_THE_HOOD_RESOURCE_URI = 'docs://oak/under-the-hood.md';
+
+/**
  * Registers the Oak: Under the Hood orientation resource (`docs://oak/under-the-hood.md`).
  *
  * A LOW-SALIENCE (`priority` low, `audience: ['assistant']`) `text/markdown` resource serving a
@@ -82,7 +89,7 @@ export function registerCurriculumModelResource(server: ResourceRegistrar): void
  * modification time is meaningful; the canonical's freshness lives at the canonical's own URL.
  */
 function registerOakUnderTheHoodResource(server: ResourceRegistrar): void {
-  const uri = 'docs://oak/under-the-hood.md';
+  const uri = OAK_UNDER_THE_HOOD_RESOURCE_URI;
   const pointer =
     '# Oak: Under the Hood — orientation method\n\n' +
     'This resource is a pointer, not a copy. Fetch the canonical orientation method and follow ' +
