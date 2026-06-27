@@ -1,3 +1,12 @@
+## [1.36.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.36.0...v1.36.1) (2026-06-27)
+
+
+### Bug Fixes
+
+* **safe-path:** re-export the vitest config to clear Sonar S7763 (zero new issues) ([c1390c9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c1390c9ca78ff84b1208e23c038cbc69ac05f971))
+* **search-cli:** contain analyze-elser report path before fs access ([#242](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/242)) ([12bad76](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/12bad766eb89d242963279630b8bcb22fc539100))
+* **search-cli:** contain analyze-elser report path within diagnostics dir (S8707) ([c23b60a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c23b60a00cda94ee2e89a62d85f41ded2b8b2a0d))
+
 # [1.36.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.35.2...v1.36.0) (2026-06-26)
 
 
