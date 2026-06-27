@@ -1,3 +1,10 @@
+## [1.36.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.36.2...v1.36.3) (2026-06-27)
+
+
+### Bug Fixes
+
+* **regex:** linear-time sitemap parser + char-class lookahead (Sonar S8786, S6035) ([269b40c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/269b40c863532be72877b5b381dd815706205f2a))
+
 ## [1.36.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.36.1...v1.36.2) (2026-06-27)
 
 
