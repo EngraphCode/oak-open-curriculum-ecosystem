@@ -94,12 +94,17 @@ establishes `.agent/state/collaboration/` as untracked-by-design, and
 governs its archive-not-delete disposition. The continuity surfaces under
 `operational/` are repo state — correctly tracked as-is; no migration.
 
-Precisely: within `.agent/state/` it is the *live* state that is git-ignored
-— `active-claims.json`, comms events, live conversations / escalations /
-handoffs / sidebars. The directory's own **scaffolding** — its `README`,
-`.gitignore` rules, `.gitkeep` placeholders, and `.example.json` fixtures — is
-tracked *structure*, not state. So "local state is git-ignored" is a claim
-about the live content, not about every path under the directory.
+Precisely: `.agent/state/` **straddles tiers** — the git-ignore boundary is
+drawn by its `.gitignore` rules, not by the directory. The **git-ignored local
+state** is `active-claims.json`, the `comms/` events, `handoffs/`, the rendered
+`shared-comms-log.md`, `cross-worktree-work-state.md`, and the processed
+`archive/`. But three surfaces under the same directory are **tracked
+repo-tier decision-provenance** — `conversations/`, `escalations/`, and
+`sidebars/` (a decision record is true on any checkout, so it is committed, not
+left local) — alongside the directory **scaffolding** (`README`s, the
+`.gitignore` itself, `.example.json` fixtures). So `.agent/state/` is not
+synonymous with "local state": classify by the `.gitignore` rules, and **commit
+conversations / escalations / sidebars as the durable provenance they are.**
 
 ## Relationship to Other Layers
 
