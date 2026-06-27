@@ -89,8 +89,8 @@ Facet key: **S** statusline · **W** working locations · **T** tooling location
 | `statusline-enhancements.next-session.md` | threads (hub) | S |
 | `comms-and-worktree-operability.plan.md` | agent-tooling/current | W, T |
 | `agent-work-state-registry.plan.md` (F-98) | agent-tooling/future | W, R |
-| `worktree-per-agent-transition.plan.md` | agentic-eng/future | W |
-| `worktree-pilot-consolidation-and-model-verdict.plan.md` | agentic-eng/current | W |
+| `worktree-per-agent-transition.plan.md` | agentic-engineering-enhancements/future | W |
+| `worktree-pilot-consolidation-and-model-verdict.plan.md` | agentic-engineering-enhancements/current | W |
 | `worktree-hygiene.md` (rule, on `main`) | rules | W |
 | `coordination-home-explicit-targeting-migration.plan.md` (F-41 tail) | agent-tooling/future | T |
 | `coordination-watcher-canonicalisation.plan.md` (current + promoted stub) | agent-tooling | T |
@@ -99,8 +99,8 @@ Facet key: **S** statusline · **W** working locations · **T** tooling location
 | `agent-coordination-cli-ergonomics-and-request-correlation.plan.md` | agent-tooling/future | T |
 | `multi-agent-collaboration-protocol.plan.md` | agent-tooling/current | R |
 | `collaboration-substrate-coordination-rightsizing.plan.md` (+ `.m1-inventory.md`) | agent-tooling/future | R, T |
-| `collaboration-state-surface-restructure.plan.md` | agentic-eng/current | R |
-| `continuity-surfaces-are-state-not-memory.plan.md` | agentic-eng/future | R |
+| `collaboration-state-surface-restructure.plan.md` | agentic-engineering-enhancements/current | R |
+| `continuity-surfaces-are-state-not-memory.plan.md` | agentic-engineering-enhancements/future | R |
 | cross-worktree work-state map (git-ignored) | state/collaboration | W, R |
 
 ## Findings
@@ -263,8 +263,8 @@ one concern", so it is recorded here.
 | Z-8 | No machine-local absolute paths found anywhere in scope | — | Clean. |
 
 My own report's "(now on `main`)" claim for the worktree-hygiene rule was
-**verified first-hand** against `origin/main` (`33aa9faee`) — correct as of this
-session's merge train.
+**verified first-hand** against `origin/main` at the §Method baseline
+(`af47c4a96`, which includes #248) — correct as of this session's merge train.
 
 ## Open decisions for the owner
 
