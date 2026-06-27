@@ -51,7 +51,13 @@ explicit and future agents classify correctly:
   ADR-203 / PDR-094 — likely a small clarifying amendment, not a reversal). **Verdict (D1): no new
   ADR — ADR-203 ("State-Tier Process-and-Archive-Move") already owns the state-tier concept; the
   README + directive cite it for the invariant. (Earlier drafts cited ADR-199, the comms-event
-  rotation phenotype — that was the wrong reference.)**
+  rotation phenotype — that was the wrong reference.) ADR-203 itself was amended 2026-06-27 for
+  tier-classification accuracy: it had described `conversations/`, `escalations/`, `sidebars/` as
+  untracked-by-design when the live `.gitignore` deliberately tracks those three (matching ADR-199's
+  own repo/instance boundary), so its Context/Decision/Consequences prose now distinguishes the
+  untracked instance tier from the tracked repo tier. The ratified disposition decision
+  (process-then-archive-move, never `git rm`) is unchanged — this is drift-correction, not a
+  reversal.**
 
 ## Open sub-question
 
