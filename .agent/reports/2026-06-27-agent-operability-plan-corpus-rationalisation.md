@@ -284,6 +284,37 @@ session's merge train.
 6. **D6 — Statusline working-location data** sourced from the F-98 registry, with
    §B2 binary-pinning treated as the separate smaller fix (per C-rebuttal)?
 
+## Decision resolution (through the decision lenses)
+
+The six decisions above were run through the `principles.md` decision lenses
+(applied in order; the first decisive lens governs; the owner is reached only for
+constitutively-owner questions — prioritisation, product/feature scope — or where
+all five genuinely fail). **Result: all six resolve as design questions.** What
+remains is prioritisation and execution authorisation, not design.
+
+| # | Governing lens / principle | Resolved verdict |
+| --- | --- | --- |
+| D1 | L1 excellence + §Decompose at the Tension | Adopt the 3-tier taxonomy; name the invariant (local-state is already largely git-ignored); this prevents the wrong migration rather than enabling one. |
+| D2 | L3 First Question + §Decompose | Bound the rightsizing brief to coordination-machinery; do not grow a four-facet mega-plan; this report feeds its M4. |
+| D3 | L2 Strict & Complete / §No legacy surfaces | Archive the completed plans after a first-hand completeness confirm. Routine curation, not destructive removal. |
+| D4 | L1 + L2 (DRY / no duplication) | Fold operability §B into the F-41-tail plan; slim §A against rule clause 8 (operability §B tells itself "do not duplicate"). |
+| D5 | L1 + L4 (dissolve, don't solve-in-place) | F-98 is the keystone; author its agent-work-state ADR first, ahead of the dependent facets. |
+| D6 | L2 + explicit §No shims, no hacks, no workarounds | Replace the bespoke `.mjs` shim with a gated entry; derive location from stdin / F-98; §B2 is the separate orthogonal fix. |
+
+### What remains (owner-nature, not design)
+
+1. **Prioritisation** — whether to pursue this area now, and what leads. F-98's ADR
+   first is the lens-recommended foundation. The lenses do not resolve cross-stream
+   priority; that is constitutively the owner's.
+2. **Execution authorisation on live lanes** — D4 and D6 edit live-lane plans
+   (operability / statusline), so execution needs Director (Oyster) coordination
+   plus an owner go. D5's *build* is owner-GO-gated by the F-98 plan's own promotion
+   trigger; D1's taxonomy is a doctrine amendment the owner ratifies; D3's archive
+   is routine but worth an explicit go.
+3. **One verification (a task, not a decision)** — the exact semantics of
+   `workspace.project_dir` vs `workspace.git_worktree` on the statusline stdin,
+   before the D6 redesign is finalised.
+
 ## Coordination note
 
 Phase 1 (this assessment) is read-only and parallel-safe. Any execution of the
