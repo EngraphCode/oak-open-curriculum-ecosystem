@@ -15,6 +15,8 @@ handoffs/*
 active-claims.json
 closed-claims.archive.json
 shared-comms-log.md
+# Cross-worktree work-state map (interim manual F-98) — local index of live worktrees/lanes.
+cross-worktree-work-state.md
 comms-archive/*
 !comms-archive/.gitkeep
 # Processed (knowledge-extracted) conversations/sidebars/handoffs are archive-moved
