@@ -136,7 +136,7 @@ a misdiagnosis (see [[project_main_merge_gate_codeowner]]).
 - **PR #249** (`fix/sonar-phase2-regex-safety`, merge-ready): Phase 2, 18 regex findings
   re-triaged **first-hand**. **2 genuine fixes** — `sitemap-scanner-core` `extractLocs` (real
   O(n²) triple-overlap on network XML; dropped redundant flanking `\s*`) and S6035
-  `(?:—\|\))`→`[—)]`. **16 ACCEPT-with-rationale** (server-side): 14 S8786 on
+  `(?:—|\))`→`[—)]`. **16 ACCEPT-with-rationale** (server-side): 14 S8786 on
   internal/build-time/generated inputs (path strings, generated JSDoc, slugs, repo markdown — JS
   has no possessive quantifiers, so an atomic-emulation fix renumbers capture groups + forces
   consumer changes, disproportionate for non-adversarial input) + 2 S5843 canonical semver
