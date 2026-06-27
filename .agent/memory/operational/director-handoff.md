@@ -206,10 +206,18 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> Refresh this whole section at every handoff. Last refreshed 2026-06-25 (post-merge).
-> **POST-MERGE TRUTH: the pilot bundle has landed and the team is dissolved.**
-> This section records the settled state; there is no sitting Director to hand off
-> from — a future effort re-establishes the seat against the Brief above.
+> Refresh this whole section at every handoff. Last refreshed 2026-06-27 evening (Pulsar calls Ether, Director).
+> **SEAT IS LIVE — Pulsar calls Ether (ce6ba6) holds the Director seat** (PDR-064 Moment-2 from Cinder spins
+> Scorch at 19:31Z; clean two-moments transfer, Cinder stood down with monitors stopped + claim adopted, no gap).
+> **Director chain this day:** Oyster spins Coral → Chinook turns Halo → Hearth tracks Tallow → Callisto tracks
+> Vacuum → Cinder spins Scorch → **Pulsar calls Ether** (current). **Team n=2 owner-visible:** Pulsar (Director)
+> and Beluga rides Wave (curator). **Live work:** **#259** (this continuity bundle, `chore/director-coordination` →
+> main) reconciled to **0-behind main** with conservation verified first-hand, driving to merge — the last PR to
+> zero; **#264** (Beluga deferred-work map) draft until zero. The complete first-hand pickup is the fresh handoff
+> record at git-ignored state
+> `.agent/state/collaboration/handoffs/director-handoff-cinder-to-pulsar-2026-06-27.md` plus the cross-worktree
+> map. The 2026-06-25 NEXT SESSION MANDATE below is retained only as precedent on team-session-plan / director-brief
+> authoring.
 
 ### ▶ NEXT SESSION MANDATE (owner-directed 2026-06-25) — read before anything else
 
