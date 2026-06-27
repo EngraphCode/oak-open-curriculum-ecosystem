@@ -15,6 +15,19 @@ defined by PDR-112.
 | Zenith lifts Firmament | claude-code | claude-opus-4-8[1m] | 5c2f1b | implementer — executed the orientation-lens unification (WS0–WS6); folded two mid-execution owner directions | 2026-06-23 | 2026-06-23 |
 | Skipper tracks Kelp | claude | claude-opus-4-8[1m] | 20962d | implementer — WS-B MCP-surface continuation: cherry-picked D1+D2 to a fresh worktree off main, refactored the test surface to behaviour-only, scoped the audience-model work | 2026-06-26 | 2026-06-26 |
 | Cedar lifts Canopy | claude | claude-opus-4-8[1m] | 435d30 | implementer — WS-B D0 audience-model reconciliation + compliance firewall (DONE, pushed `36cb27444`); authored the data-sources brief; created the cross-worktree work-state map | 2026-06-26 | 2026-06-27 |
+| Peony calls Trunk | claude-code | claude-opus-4-8 | d8ff86 | implementer — WS-B D3 (explain tool) landed `2ef673f4b`; authored the oak-under-the-hood full-lens reframe spine + the session wind-up/correction; D4/D5 and the retire-the-bake decision deferred to a fresh session per owner direction | 2026-06-27 | 2026-06-27 |
+
+## WS-B → oak-under-the-hood reframe — WIND-UP & NEXT-SESSION PICKUP (2026-06-27, Peony calls Trunk) — READ FIRST
+
+**Landed this session:** WS-B **D3** (the model-fired explain tool) committed local on `worktree-ws-b-explain` at `2ef673f4b` (full gate green; folded code-expert + mcp-expert + test-expert). The **oak-under-the-hood reframe spine + a session wind-up/correction** are committed to the owning plan.
+
+**Owner reframe (2026-06-27):** rename `effort`/`explain` → **oak-under-the-hood**, full-lens across BOTH channels (in-repo `/oak-explain` skill + the MCP projection), + an **intent → value → impact** content spine. THEN the owner corrected the *thinking*: **synthesis, not either-or** — route to canonical SSOT (the PUBLIC GitHub repo for repo doctrine/docs; the PUBLIC Oak site `www.thenational.academy/about-us/...` for org mission/goals/pillars), **minimum custom content**, DRY/SSOT, and **official-sourcing** (relay what Oak officially says — VISION quotes the mission verbatim; never the repo's own derivation). **No PII**; use **"executive audience"**, never "Oak leadership".
+
+**Authoritative pickup = the owning plan's `## SESSION WIND-UP & CORRECTION` section** (`explain-orientation-mcp-surface.plan.md`, top): it carries the assumptions to re-test (several already falsified — e.g. the remote surface CAN cite public URLs), the suspected wrong turns (chiefly the either-or collapse), the validated facts (TWO baked constants `effort-overview.ts` + `behaviour-shell.ts`; canonical homes; the `docs/strategy` gaps), and the three reviewer perspectives to **synthesise** (barney / docs-adr / mcp-expert — agentIds in session comms).
+
+**Fresh session owns:** whether/how to retire the baked overview (owner: *a fresh session decides*; leading read = retire for SSOT/DRY) and the route-vs-cite-vs-minimal-synthesis **composition** for the remote channel — a synthesis of all three reviewers, not a pick. Do NOT execute the retire here. Then the R-workstreams (R1 content/routing → R2 lens rename → R3 ADR-202 amend + AGENT.md → R4 MCP rename → R5 D4/D5 → R6 UK-spelling). Route the ADR-202 amendment + rename portability to the Director (Oyster spins Coral) for review.
+
+**Merge/coordination:** #243 stays DRAFT until the reframe lands; the Director owns merge order + the napkin/repo-continuity `/oak-semantic-merge`. Main advanced this session (#246/#249/#251/#247 landed; napkin drain in progress), so the branch needs a main-rebase before #243 is merge-ready.
 
 ## WS-B MCP surface — ACTIVE continuation handoff (2026-06-26, Skipper tracks Kelp)
 

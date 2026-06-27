@@ -81,7 +81,89 @@ todos:
 > superseded curriculum-routing shape and are being re-run (see §Readiness
 > Reviewers).**
 
-## REFRAME → oak-under-the-hood (owner-directed 2026-06-27) — READ FIRST; SUPERSEDES the "effort"/"explain" naming and the MCP-surface-only scope below
+## SESSION WIND-UP & CORRECTION (Peony calls Trunk, 2026-06-27) — READ THIS FIRST
+
+This section is the honest close of a session that did real grounding but took wrong turns. A
+fresh session should read it before the REFRAME section below, which it corrects.
+
+### The core correction (owner, 2026-06-27): synthesis, not either-or
+
+The owner's verdict on this session's thinking: *"none of this is either-or, it's about
+synthesising, routing, providing multiple perspectives; you have collapsed into simplistic
+conceptual models that will not bring about the impact we need."* That is the load-bearing
+lesson. oak-under-the-hood — and the reasoning that designs it — must **synthesise and route
+across many canonical sources and hold multiple perspectives** (per audience, per field, per
+depth), NOT collapse to one architecture or one "winning" answer. Treat every "X vs Y" below as
+"how do X and Y compose", not "pick one".
+
+### Suspected wrong turns this session (so the fresh session can re-judge them)
+
+1. **Either-or collapse (the worst one).** Repeatedly crystallised decisions into binary winners
+   — keep-vs-drop the baked overview, route-vs-duplicate, reviewer-A-vs-reviewer-B — instead of
+   synthesising. A thinking-pattern error, not just a content one.
+2. **Drafted a large custom-prose overview first** — violated minimum-custom-content / DRY /
+   SSOT. Superseded.
+3. **Paraphrased Oak's mission** ("all pupils can access...") instead of relaying VISION.md's
+   verbatim official quote — violated official-sourcing.
+4. **Adjudicated the reviewers to winners** (e.g. "reject mcp-expert's headline") rather than
+   composing their perspectives.
+5. **Premature crystallisation** of "the architecture" (routing-via-public-URLs as THE model).
+   Hold it open.
+6. **Went solo too long before using reviewers** — the owner had to direct it.
+
+### Assumptions to re-test (several already falsified)
+
+- **A1 (FALSIFIED):** that the remote MCP surface MUST bake content because it has no filesystem.
+  The repo is PUBLIC on GitHub and Oak has a public website — a remote assistant can cite/fetch
+  public canonical URLs. Remote routing is achievable.
+- **A2 (OWNER-DEFERRED):** the baked overview (`effort-overview.ts`) should *probably* be retired
+  (it violates SSOT/DRY) — but the owner directed that **a FRESH SESSION makes that decision**,
+  not this one. Do NOT execute the retire here.
+- **A3:** "minimum custom content" does NOT mean "thin link list". The *discernment behaviour*
+  (discern field + depth, then route) is legitimate, load-bearing custom content (barney). Do not
+  collapse the surface to bare links.
+- **A4:** the repo's `docs/strategy/alignment-and-streams.md` self-declares as *"our own
+  derivation"* of Oak's goals/pillars — it is NOT Oak-official. Org-level claims must route to the
+  PUBLIC Oak site (`www.thenational.academy/about-us/...`), relaying what Oak says, never the
+  repo's derivation.
+- **A5:** the full-lens rename and ADR-202 amendment are owner-directed (decision A), but the
+  fresh session should re-verify the blast radius under the synthesis framing.
+
+### Validated facts (grounded first-hand or reviewer-confirmed this session)
+
+- The baked duplication is TWO constants, not one: `src/explain/effort-overview.ts` (~97 lines)
+  AND `src/explain/behaviour-shell.ts` (~64 lines), composed into `generated/explain-content.ts`,
+  consumed by both the tool and the resource. A whole drift-policing apparatus (git-date
+  fingerprint, `check:explain-content` diff gate) exists only to police that copy.
+- Canonical homes already exist: `VISION.md` (quotes the official mission), `docs/strategy/*`
+  (diagnosis, streams, measures), `LICENCE-DATA.md` (OGL + primary-source links + caveats),
+  `README.md`, the Practice docs, ADRs, `high-level-plan.md`.
+- Routing must reach PUBLIC sources: the public GitHub repo (repo doctrine/docs/rules/ADRs) and
+  the public Oak site (org mission/goals/pillars). `docs/strategy/measures.md` says measures
+  "remain Oak's to ground" (a real, owner-owned gap).
+- `docs/strategy/README.md` frontmatter says `audience: 'Oak leadership ...'` — owner direction:
+  use **"executive audience"**, never "Oak leadership". README carries a point-in-time alpha
+  banner the volatility firewall must exclude even while routing to README.
+- **No PII** anywhere (org instruction). Link to public pages is fine; never embed a person's name.
+
+### The decision the fresh session owns
+
+Whether (and how) to retire the baked overview, and the exact route-vs-cite-vs-minimal-synthesis
+**composition** for the remote channel — synthesised from the three reviewer perspectives
+(barney: simplify, the repo is public so cite; docs-adr: route, fix the canonical gaps; mcp-expert
+guardrails: ADR-041 forbids runtime fs reads, keep the curriculum firewall structural, dual-shape
+results). The answer is a synthesis of all three, not a pick. The reviewer agentIds are recorded
+in the session comms for SendMessage follow-up.
+
+### Merge picture at wind-up
+
+`worktree-ws-b-explain` is well behind `origin/main` (main advanced this session: #246/#249/#251/#247
+landed; napkin drain in progress by the Director). #243 stays DRAFT until the reframe lands; merge
+order + the napkin/repo-continuity `/oak-semantic-merge` are the Director's (Oyster spins Coral).
+
+---
+
+## REFRAME → oak-under-the-hood (owner-directed 2026-06-27) — READ AFTER THE WIND-UP ABOVE; SUPERSEDES the "effort"/"explain" naming and the MCP-surface-only scope below (and is itself corrected by the wind-up: treat its single "architecture" as one synthesised option, not the settled answer)
 
 **Owner direction (2026-06-27, direct to Peony calls Trunk; ratified via the terminology
 question then the full-lens decision):** rename the whole orientation capability from
