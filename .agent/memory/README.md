@@ -67,6 +67,40 @@ evolves (rarely).
 governs (adding an artefact, picking a reviewer, checking platform
 parity).
 
+## Tracking Tiers (memory / repo state / local state)
+
+The three modes above classify memory by *refresh cadence*. A second,
+orthogonal axis classifies the whole agent substrate by *tracking and
+portability* — and it is the axis that decides what git tracks. There are
+three tiers, and **only local state is git-ignored**:
+
+| Tier | What it is | Tracked? | Examples |
+| --- | --- | --- | --- |
+| **memory** | Knowledge — learning and doctrine; portable across sessions (and, for Practice Core, across repos) | tracked | `active/` (napkin, distilled, patterns), the knowledge registers (pending-graduations, open-questions), `executive/` contracts, Practice Core |
+| **repo state** | Work-in-progress state — repo-specific but **checkout-portable** (the same content applies on any clone of this repo) | tracked | `operational/` continuity: `repo-continuity.md`, `threads/*.next-session.md`, `director-handoff.md` |
+| **local state** | Checkout/machine/session-specific — true only for this checkout right now | **git-ignored** | `.agent/state/`: `active-claims.json`, comms events, the rendered shared-comms log |
+
+The discriminator between repo state and local state: **would this be true
+on another checkout of the repo?** A thread record's "WS-1 next" or "PR #224
+merged" applies on any clone → **repo state (tracked)**. "Which agent is
+editing which file right now" / live coordination → **local state
+(git-ignored)**.
+
+**Invariant: only local state (`.agent/state/`) is git-ignored; memory and
+repo state are tracked.** This is the existing boundary, not a new decision:
+[ADR-203](../../docs/architecture/architectural-decisions/203-state-tier-process-and-archive-move.md)
+establishes `.agent/state/collaboration/` as untracked-by-design, and
+[PDR-094](../practice-core/decision-records/PDR-094-coordination-event-rotation-is-class-tiered-archive-not-delete.md)
+governs its archive-not-delete disposition. The continuity surfaces under
+`operational/` are repo state — correctly tracked as-is; no migration.
+
+Precisely: within `.agent/state/` it is the *live* state that is git-ignored
+— `active-claims.json`, comms events, live conversations / escalations /
+handoffs / sidebars. The directory's own **scaffolding** — its `README`,
+`.gitignore` rules, `.gitkeep` placeholders, and `.example.json` fixtures — is
+tracked *structure*, not state. So "local state is git-ignored" is a claim
+about the live content, not about every path under the directory.
+
 ## Relationship to Other Layers
 
 | Layer | Purpose | Surfaces |
