@@ -1,3 +1,15 @@
+## [1.36.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.36.1...v1.36.2) (2026-06-27)
+
+
+### Bug Fixes
+
+* address [#244](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/244) round-4 review — plan accuracy, primary-plan status, index, dedup ([f4d5a9a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f4d5a9aacffcd267d5f5082c7ccd1233299a81ed)), closes [#242](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/242)
+* address Codex [#244](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/244) review — plan comms/claims anchoring + thread-record top ([f126429](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f126429e58c6bbff75ccdb0ba71016db9db64f53))
+* gitignore the cross-worktree map (Codex [#244](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/244)) + add the PR-comment recheck rule ([b57ebc8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b57ebc8927b1dc2eea2482c9659936c5da3f87b3))
+* **markdownlint:** exclude the untracked .agent/state tier from the lint glob ([5b9c89a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5b9c89a0c7fd026ddf61a1c5c2a5ece75488cf1f))
+* **markdownlint:** narrow the .agent/state exclusion to untracked files (Copilot [#244](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/244)) ([ff6ee0d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ff6ee0d4833420d1e76429e30f5d60a4515221db))
+* **rules:** drop the dangling pr-not-done-until-live cross-reference (Copilot [#244](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/244)) ([c1082b7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c1082b7f58a38c8825ce409c6cb8daf9690de088))
+
 ## [1.36.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.36.0...v1.36.1) (2026-06-27)
 
 
