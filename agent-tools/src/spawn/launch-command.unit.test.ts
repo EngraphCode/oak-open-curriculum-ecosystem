@@ -7,7 +7,6 @@ const RESULT: SpawnedWorktree = {
   worktreePath: '/workspace/oak-spawn-flow',
   branch: 'feat/spawn-flow',
   base: 'origin/main',
-  session: { seed: 'seed-value', agentName: 'Test Agent Name', sessionIdPrefix: 'seed-v' },
   resumed: false,
 };
 
@@ -34,7 +33,6 @@ describe('formatLaunchCommand', () => {
     const command = formatLaunchCommand(RESULT);
 
     expect(command).not.toContain('PRACTICE_AGENT_SESSION_ID');
-    expect(command).not.toContain('seed-value');
   });
 
   it('uses the cd form, never native `claude --worktree` (which creates a second, conflicting worktree)', () => {

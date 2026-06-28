@@ -1,3 +1,15 @@
+# [1.50.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.49.0...v1.50.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** generic no-events message for empty dir with --since (F-70) ([b820711](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b820711d0e3cbe401f6fc4587dfc1a71a8cf78ee))
+
+
+### Features
+
+* **agent-tools:** add comms list --since <iso> filter (F-70) ([110217c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/110217cd09aec1aaaaff8bdcf4abe04a3d5aec0d))
+
 # [1.49.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.48.0...v1.49.0) (2026-06-28)
 
 
