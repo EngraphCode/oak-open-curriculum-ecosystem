@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.48.0...v1.49.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** emit the launch command at spawn (spawn-flow 1E) ([aaea42f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aaea42f77552dc5fda20f02b9d6f0108cb8c4855))
+
 # [1.48.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.47.0...v1.48.0) (2026-06-28)
 
 
