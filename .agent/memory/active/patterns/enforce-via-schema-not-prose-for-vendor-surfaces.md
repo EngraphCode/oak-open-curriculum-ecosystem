@@ -30,7 +30,7 @@ wrapper frontmatter and had drifted hard — the official Claude sub-agent spec 
 gained nine fields, its colour list named invalid values that were live in
 wrappers, and Cursor had no `tools` field at all. The cure was a per-platform Zod
 frontmatter schema as the SSOT, wired into `validate-subagents`; the prose now
-references it. Currency moves from drift-prone prose into one enforced, localized,
+references it. Currency moves from drift-prone prose into one enforced, localised,
 auditable file.
 
 ## Why this works
