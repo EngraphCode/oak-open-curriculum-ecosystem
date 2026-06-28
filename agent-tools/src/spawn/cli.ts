@@ -4,8 +4,8 @@ import { resolveCoordinationHome } from '../collaboration-state/coordination-hom
 
 import { formatSeatBrief } from './brief.js';
 import { buildWorktree, type BuildWorktreeOptions } from './build.js';
-import { formatSpawnResult } from './cli-output.js';
 import { parseSpawnArgs, usage, type ParsedSpawnArgs } from './cli-args.js';
+import { formatSpawnResult } from './cli-output.js';
 import {
   createSpawnWorktree,
   type CreateSpawnWorktreeOptions,
