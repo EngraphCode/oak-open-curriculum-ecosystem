@@ -118,6 +118,33 @@ describe('comms list', () => {
     expect(result.stderr).toContain('--tail must be a positive integer (got: 0)');
   });
 
+  // F-79: `comms list` accepts `--now` and ignores it, so a caller passing
+  // `--now` for cross-command symmetry (e.g. scripting alongside the many
+  // commands that DO take `--now`) is not rejected by the dispatch-time option
+  // allowlist. `comms list` is a read-only projection with no time-dependent
+  // behaviour, so the flag is a deliberate no-op — accepted, never read.
+  it('accepts and ignores --now, behaving identically to a call without it', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    // Discriminating witness: 11:30 sits BETWEEN the middle (11:00) and newest
+    // (12:00) fixture events, so if `now` were ever wrongly wired to an as-of
+    // filter the newest event would drop and the equality below would fail loud.
+    const withNow = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--now', '2026-06-04T11:30:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    const baseline = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const withoutNow = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir],
+      env: {},
+      io: baseline.runtime.io,
+    });
+
+    expect(withNow.exitCode).toBe(0);
+    expect(withNow.stdout).toBe(withoutNow.stdout);
+  });
+
   it('filters to events at or after --since, dropping older ones', async () => {
     const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
     const result = await runCollaborationStateCli({
