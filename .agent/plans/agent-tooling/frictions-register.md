@@ -1827,7 +1827,7 @@ below is a cross-reference index, not a second source of truth.
   F-44 (freshness must read the heartbeat stream to be correct) — both want `claims`/`comms` to
   treat the latest heartbeat event as the liveness source of truth.
 - **Target surface**: `agent-tools/src/collaboration-state/` comms-watch / heartbeat read path.
-- **Status**: open.
+- **Status**: ADDRESSED 2026-06-28 (PR #273 `feat(agent-tools): comms peer-liveness for heartbeat-silence detection`, squash-merged `0be09bf05`). Ships a pure `peerHeartbeatLiveness` classifier over the PDR-078 heartbeat comms-event stream (active <4m / offline 4-10m / retired ≥10m) + a standalone `comms peer-liveness` command + a documented poll/Monitor alert recipe in `liveness-heartbeat-cron.md`; real-content-proven (read a retired peer at ~28m). The standalone read-surface + poll-recipe IS the shipped alert mechanism. **NARROW** — the in-loop **push** integration (`comms watch --alert-stale-peers`) was deliberately deferred as a thin follow-on consumer of the same pure function (keeps the event-watcher free of timer/absence concerns); F-44 (freshness must read the heartbeat stream) remains the related open consumer-fix, gated on the OQ5 composed-liveness decision.
 - **Owner direction status**: standing (agent-observed tooling friction is first-class user feedback).
 
 ---
@@ -2021,7 +2021,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: a worktree is usable for its workstream (gates + CLI) shortly after creation without a manual, undocumented bring-up dance.
 - **Candidate cure**: a documented worktree bring-up step (`pnpm install` in the worktree, and either build agent-tools there or bless running the CLI from primary); longer term, a worktree-aware launcher that primes `node_modules`/`dist` (or shares them safely) on creation. Pairs with F-87 (launch-in-worktree) and F-85 (claims `--active`).
 - **Target surface**: `worktree-per-agent-transition.plan.md` (lifecycle / bring-up) / launch tooling
-- **Status**: open — worktree-transition evidence
+- **Status**: ADDRESSED for the spawn-created path 2026-06-28 (PR #272 `feat(agent-tools): build spawned worktrees at creation (spawn-flow 1B)`, squash-merged `4b84ea702`). `agent spawn` now installs + builds the worktree at creation (build-at-spawn) — the worktree-aware-launcher priming the candidate cure named — so a spawn-created worktree is immediately usable for gates and the CLI. **NARROW** — a *manually* `git worktree add`-ed tree still needs bring-up; F-90 closes by construction as the spawn tool becomes the paved path for worktree creation (F-87 launch-in-worktree, in progress on the spawn-flow lane: 1C–1E + Phase 2). Pairs with F-91 (cwd-pinning), which remains open.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-91 — session shell cwd resets to the primary checkout after every command (worktree commands silently run in the shared tree)

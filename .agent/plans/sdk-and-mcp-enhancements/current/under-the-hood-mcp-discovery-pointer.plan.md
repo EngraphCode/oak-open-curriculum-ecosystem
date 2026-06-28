@@ -27,7 +27,11 @@ todos:
       routing unaffected. Value-proxy: a real-client / MCPJam check that an orientation or
       "how is this built" query reaches oak-under-the-hood while a curriculum query still routes
       to the curriculum tools.
-    status: pending
+    status: done
+    landed: PR #271 (O5), squash-merged 5fe76db8c 2026-06-28 — pointer sentence on the SDK
+      generateServerInstructions discovery surface; behaviour test + e2e value-proxy green;
+      curriculum routing unaffected. Sticking-plaster; the architectural fix remains
+      mcp-tool-taxonomy-and-orientation.
 ---
 
 # Under-the-Hood MCP discovery pointer (sticking-plaster precursor)
