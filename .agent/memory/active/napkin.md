@@ -375,3 +375,125 @@ for the Director's central land / dedicated pass):
   contradicted by ground truth (Ingot had already handed over + retired earlier in-session; F-75/F-85
   merged). Recomputed live state instead of fabricating a fresh handover — the continuation pointer is a
   hypothesis, not truth.
+- **DOCTRINE (owner-taught 2026-06-28; PDR-063 candidate) — naming a successor STARTS the handover clock;
+  the predecessor DRIVES it to completion.** "Once a successor is named, the handover has begun, however
+  slow; leaving it hanging indefinitely is not an option; the PREDECESSOR decides *when* it completes —
+  unless the predecessor ends ungracefully (crash), in which case the silent-retirement / auto-rebalance
+  protocols take the timing instead." My error: I framed "warm + named successor + parked claim" as a
+  stable indefinite resting state and went passive (closeout) — so the SUCCESSOR (Lichen) initiated the
+  pickup unilaterally ~3 min later. Clean outcome (Lichen adopted 0ba02fee in-place, read the record), but
+  the *predecessor-didn't-drive-it* gap is the failure mode. Reflex update: named-successor ⇒
+  handover-in-progress I OWN to graceful completion at a timing I choose; warm-limbo is not a valid rest
+  state. (Loop-exit-criteria applies to "warm" too: "warm" needs a completion criterion, not "until the
+  successor happens to show up".)
+- **Watcher must stay armed until the handover is acknowledged-complete, not dropped at the first closeout
+  broadcast.** I stood my comms watcher down at the PDR-063 retirement broadcast while the handover was
+  still only *named* (not yet completed/acknowledged) — so I went blind to Lichen's live pickup and only
+  found it when the owner's correction made me re-check. The incoming-visibility watcher is the one surface
+  a retiring-but-not-yet-handed-over predecessor must keep until the baton is provably taken.
+- **No introspective context gauge — MEASURE budget when it gates a decision; don't confabulate "spent".**
+  Owner asked me to determine my actual context usage. Measured it from the session transcript
+  (`~/.claude/projects/<proj>/<session-id>.jsonl`, latest `message.usage`: `input_tokens` +
+  `cache_creation_input_tokens` + `cache_read_input_tokens` = tokens fed to the model that turn). Result:
+  **~528k / 1,000,000 = ~53%** — NOT "context-deep". Yet all session I'd asserted "spent / context-deep /
+  budget-aware retirement" and recommended a fresh seat on that basis. The felt level was confabulated and
+  almost certainly anchored to a 200k mental model (528k = 264% of 200k → "way over"), not my real 1M
+  window (claude-opus-4-8[1m]). Fluency-is-a-warning: "I'm spent" arrived smoothly and bypassed the check.
+  Rule: when budget is load-bearing (retire / continue / fresh-seat), READ the transcript usage vs the
+  ACTUAL window; separate "clean handoff point" (a real reason) from "nearly out of budget" (measure it).
+  Method note: `total_in` climbing monotonically with no drop ⇒ no auto-compaction fired; a compaction
+  event shows as a `total_in` drop.
+- **CORRECTION to the above (owner-taught 2026-06-28; supersedes the "53% = NOT context-deep, fine to
+  continue" reading) — TWO axes, the handover trigger is the NON-LINEAR one.** (a) token-capacity remaining
+  is ~linear (47% room left); (b) **effectiveness vs context-consumed is non-linear — a decreasing
+  sigmoid.** Owner calibration for Opus 4.8 **1M**: peak performance tops out ~**40–45%**; by ~**50%** it
+  is "definitely a good time to START handover"; by ~**65%** mistake-odds rise; by ~**80%** the agent slows
+  and makes strange decisions. So measuring % (last entry) is necessary but you must read it on the
+  EFFECTIVENESS curve, not the capacity curve: at ~53% I was **past peak / handover-appropriate**, NOT
+  "fine to continue". My original handover instinct around F-85 was correctly timed on this axis — only my
+  stated justification (token-budget) and my last-turn over-correction were wrong. Practice implication
+  (PDR-063 candidate, flag to Director): the mid-cycle-retirement trigger "≥80% of bounded budget" is far
+  too late if read vs the full window — retirement should START ~50% and hard-stop well before 65–80%.
+  Hold the curve as an approximate owner heuristic, not a precise constant.
+- **Meta (two corrections in two turns on my own operating characteristics):** my priors about my own
+  context/effectiveness are unreliable; defer to measurement + owner calibration, hold felt-sense as
+  low-reliability evidence.
+
+### 2026-06-28 — Quasar mends Penumbra (b66426), Lane A (O3 spawn-flow), 1C review-cycle + handover
+
+Friction/lesson candidates for the DUE dedicated pass (register / tooling). Full detail in the Lane A handoff
+record `a63ac21a-lane-a-quasar-to-bandicoot-2026-06-28.md` §Session frictions.
+
+- **`comms send --tag heartbeat` requires `--title`** even though help says the body is composed from typed
+  state args — non-obvious; the first heartbeat fails without it. CLI-ergonomics (F-72..F-80 sibling).
+- **Heartbeat-label-staleness — a working LOCAL cure (candidate impl of the "derive label from claim"
+  deeper cure):** run the heartbeat loop reading its `--current-cycle-label` (and `--title`) from a small
+  file the agent rewrites at each transition → the label never freezes. Cheap; cured the would-be 4th
+  instance (after Pangolin/Avocet/Dormouse) for me.
+- **Standby-seat context economy (candidate tooling gap):** a pre-positioned standby successor on the live
+  all-channels watcher pays ~1 turn/min on pure heartbeat pings, draining context before it is needed.
+  Owner chose "stay live" for instant availability; the dominating cure would be a watcher
+  `--exclude-tag heartbeat` mode for RESERVE seats (keeps ALL coordination channels, drops only
+  pure-liveness pings — NOT a single-view filter). Candidate only, not decided.
+- **`max-lines` edge-thrash:** a file parked at exactly the budget (cli.ts at 249/250) forces the next
+  editor to extract before any addition. Cured here by extracting `formatResult`→`cli-output.ts`; flagging
+  the pattern (the cap interacts badly with at-edge files).
+- **Watcher died twice this session:** the 3600s lifetime guard (exit 124) AND the 180000ms drain
+  step-timeout — re-armed each time with the seen-file cursor (no events missed). Corroborates Pegasus's
+  same-session datapoint that 180s is insufficient under multi-agent load; real cure is F-101
+  supervisor/lease + adaptive deadline.
+- **verify-don't-trust / critically-assess (owner directive) paid off:** I mis-guessed the max-lines
+  offending file twice before verifying it was `cli.ts`; and I verified each bot finding (Copilot's
+  `GhRunner` doc claim — confirmed the type genuinely does not exist) and each code-expert claim first-hand
+  before acting. Bots post review threads ASYNC — first GraphQL check showed 1 thread, 2 more appeared after.
+- **PDR-063 handover at ~50% window** (per the owner-taught effectiveness-sigmoid above): handed Lane A to
+  Bandicoot guards Slumber at the 1C-routed pause point rather than starting 1D — clean-boundary, not
+  budget-exhaustion.
+
+## 2026-06-28 — Director standby-successor session-open (Kraken spins Headland, 3bbe48; mid-session capture, staying live)
+
+Owner-named eventual Director successor to Triton lifts Eternity. Owner asked me to record insights so far
+and stay live (capture edge, not closeout). Team-member-not-closeout-owner shape, so napkin only — did NOT
+touch repo-continuity / thread records / register / director-handoff (Triton is the live Director + arc-end
+closeout owner; editing those races the active team). Loss-scanned from my own context.
+
+- **macOS host-health check is a Linux-shaped false-positive (headline; owner-corrected, Director-dispositioned).**
+  start-right §7 host-health reads `uptime` load-average vs core count + `swapusage` as a stop-signal. I read
+  load ~16/14 cores + swap 4.4G used as "host under pressure" and flagged it twice (team-start + to owner).
+  Owner showed Activity Monitor first-hand: **CPU idle 67.7%**, **memory-pressure graph GREEN**, swap-used =
+  normal macOS proactive paging of inactive pages. The host was fine. On macOS the real saturation signals are
+  **CPU idle%** and the **memory-pressure colour**, NOT load-avg-vs-cores (macOS load-avg counts I/O-blocked /
+  uninterruptible threads and over-reads) or raw swap-used. I withdrew the flag on comms (`4b7bf0a7`); Triton
+  absorbed it (owner-action-queue #2 RESOLVED-as-misread; watcher drain-deaths RE-DIAGNOSED as high-comms-volume,
+  not host starvation). Candidate home (DUE dedicated pass, Director-owned): a macOS-aware note in start-right §7
+  AND [[no-unbounded-host-load]] — read CPU idle% + memory-pressure state, not load-avg/swap. Sibling:
+  [[verify-dont-trust]], [[feedback_dont_defend_status_quo_keep_open_mind]] (owner evidence = verdict).
+- **Don't take the Director seat over a fresh/live Director — worked instance of the two-moments readiness gate.**
+  Invoked as "eventual successor" but the opener framing was a hypothesis: director-handoff.md was one rotation
+  stale (said Merlin→Triton) while Triton had ALREADY taken the seat (Moment-2 `d1170db7`) and was fresh/live
+  with NO Moment-1 naming me. Correct move = register STANDBY + arm all-channels watcher + open NO claim + await
+  Triton's Moment-1 — mirroring exactly how Triton itself joined under Merlin 20 min earlier. The mandatory
+  mechanical liveness check (UTC-to-UTC, `claims active-agents --now`) confirmed Triton `fresh`. A premature
+  Moment-2 over a live Director is the exact failure the brief's readiness gate exists to prevent (the 2026-06-25
+  retracted-ack precedent). Sibling: PDR-064, [[feedback_check_supersession_of_stale_artefacts_first]] (the brief
+  is a pointer, not volatile truth — Continuation Pointer Contract).
+- **Standby-seat context economy is a real cost — 2nd first-hand instance (corroborates Quasar's friction #3).**
+  A reserve/standby seat on the all-channels watcher is woken on EVERY event, including pure `[HEARTBEAT]` pings
+  (~1 turn/min in a busy multi-agent window). `comms watch` has NO `--exclude-tag` / heartbeat-filter, so there
+  is no implemented way to drop pure-liveness while keeping coordination. This burns the standby successor's OWN
+  context — and the whole value of a fresh successor is *arriving fresh* (a standby that idles to context-deep
+  defeats its purpose). Quasar flagged the candidate cure independently (a watcher reserve-seat mode that keeps
+  all coordination events, drops only `heartbeat`-tagged). Now 2 first-hand instances (Quasar + Kraken) = strong
+  graduation signal. Candidate: frictions-register / the DUE dedicated pass. Mitigation meanwhile: minimal
+  responses on routine traffic (Director context-economy lesson). Sibling: [[feedback_comms_ceremony_minimal]].
+- **Standby liveness = watcher + registration, NOT a heartbeat cron (no claim to attach one to).** Heartbeat-mode
+  (`comms append --tag heartbeat`) requires `--claim-id`; a standby holds no claim (a Director claim now would
+  collide with the live one). So a reserve seat's outgoing-liveness signal is its team-start registration + the
+  live watcher — matching the Bandicoot / Peregrine bench convention. The handoff handshake itself confirms the
+  successor is live at Moment-1. (Defines the standby-seat liveness contract for the standby-seat definition.)
+- **Loss-scan (from my own context, staying live):** nothing else material unconserved. The host-health
+  correction is durable on comms (`4b7bf0a7` + Triton's disposition behaviour-note) and now here; my operational
+  state is just "STANDBY, watcher live (task bub7v6o4v), no claim, awaiting Triton's Moment-1." No Director
+  authority held yet (transfers only at my Moment-2 after the readiness gate). Napkin write left uncommitted by
+  intent (shared checkout, active Director mid-merge — the arc-end closeout / dedicated pass commits the buffers;
+  not racing a commit window).
