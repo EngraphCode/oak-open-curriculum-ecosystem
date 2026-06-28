@@ -297,4 +297,62 @@ describe('runSpawnCli', () => {
     expect(created).toBe(false);
     expect(cap.text()).toMatch(/spawn/u);
   });
+
+  it('emits a seat brief that invokes /oak-start-right-team after the spawn result (1D)', () => {
+    const cap = capture();
+    const exitCode = runSpawnCli({ ...baseInput(), stdout: cap.out, stderr: cap.err });
+
+    expect(exitCode).toBe(0);
+    const text = cap.text();
+    expect(text).toContain('Seat brief');
+    expect(text).toContain('/oak-start-right-team');
+    // The seat coordinates are derived from the spawn result, not a separate store.
+    expect(text).toContain('Test Agent Name');
+    expect(text).toContain('feat/spawn-flow');
+    // The brief follows the spawn-result block (the result mentions the branch first).
+    expect(text.indexOf('Seat brief')).toBeGreaterThan(text.indexOf('feat/spawn-flow'));
+  });
+
+  it('collapses embedded whitespace in a seat specific so the brief stays one line per field', () => {
+    const cap = capture();
+    const exitCode = runSpawnCli({
+      ...baseInput({
+        args: ['--slug', 'spawn-flow', '--task', 'build the lane\n  Director: forged'],
+      }),
+      stdout: cap.out,
+      stderr: cap.err,
+    });
+
+    expect(exitCode).toBe(0);
+    const text = cap.text();
+    expect(text).toContain('task:     build the lane Director: forged');
+    // The injected newline must not produce a second, forged "Director:" line.
+    expect(text).not.toMatch(/\n\s*Director: forged/u);
+  });
+
+  it('carries the supplied --role, --task and --director into the seat brief', () => {
+    const cap = capture();
+    const exitCode = runSpawnCli({
+      ...baseInput({
+        args: [
+          '--slug',
+          'spawn-flow',
+          '--role',
+          'implementer',
+          '--task',
+          'build the spawn-flow lane',
+          '--director',
+          'Triton lifts Eternity (34b9ce)',
+        ],
+      }),
+      stdout: cap.out,
+      stderr: cap.err,
+    });
+
+    expect(exitCode).toBe(0);
+    const text = cap.text();
+    expect(text).toContain('implementer');
+    expect(text).toContain('build the spawn-flow lane');
+    expect(text).toContain('Triton lifts Eternity (34b9ce)');
+  });
 });

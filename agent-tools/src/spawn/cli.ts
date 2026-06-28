@@ -2,8 +2,10 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 
 import { resolveCoordinationHome } from '../collaboration-state/coordination-home.js';
 
+import { formatSeatBrief } from './brief.js';
 import { buildWorktree, type BuildWorktreeOptions } from './build.js';
 import { formatSpawnResult } from './cli-output.js';
+import { parseSpawnArgs, usage, type ParsedSpawnArgs } from './cli-args.js';
 import {
   createSpawnWorktree,
   type CreateSpawnWorktreeOptions,
@@ -12,9 +14,10 @@ import {
 import { openDraftPr, type OpenDraftPrOptions } from './open-pr.js';
 
 /**
- * CLI for `agent-tools spawn` (spawn-flow Phase 1A). Parses the lane slug, branch
- * type, and base ref, resolves the coordination home, and creates a fresh sibling
- * worktree with a minted session seed.
+ * CLI for `agent-tools spawn` (spawn-flow). Parses the lane slug, branch type, base
+ * ref, and per-seat specifics, resolves the coordination home, creates a fresh
+ * built draft-PR'd sibling worktree with a minted session seed, and emits its seat
+ * brief. Argument parsing lives in `./cli-args`; brief rendering in `./brief`.
  */
 export interface SpawnCliInput {
   readonly args: readonly string[];
@@ -31,101 +34,6 @@ export interface SpawnCliInput {
   readonly openPr?: (options: OpenDraftPrOptions) => Result<string, Error>;
 }
 
-const DEFAULT_TYPE = 'feat';
-const DEFAULT_BASE = 'origin/main';
-
-interface ParsedSpawnArgs {
-  readonly slug: string;
-  readonly type: string;
-  readonly base: string;
-  readonly help: boolean;
-}
-
-interface MutableSpawnArgs {
-  slug?: string;
-  type: string;
-  base: string;
-  help: boolean;
-}
-
-const VALUE_HANDLERS: Readonly<Record<string, (state: MutableSpawnArgs, value: string) => void>> = {
-  '--slug': (state, value) => {
-    state.slug = value;
-  },
-  '--type': (state, value) => {
-    state.type = value;
-  },
-  '--base': (state, value) => {
-    state.base = value;
-  },
-};
-
-function requireValue(
-  args: readonly string[],
-  index: number,
-  option: string,
-): Result<string, Error> {
-  const value = args[index];
-  if (value === undefined || value.startsWith('-')) {
-    return err(new Error(`spawn: ${option} requires a value`));
-  }
-  return ok(value);
-}
-
-/** Consume one argument into `state`; returns the new index, or an error. */
-function consumeArg(
-  args: readonly string[],
-  index: number,
-  state: MutableSpawnArgs,
-): Result<number, Error> {
-  const arg = args[index];
-  if (arg === '--help' || arg === '-h') {
-    state.help = true;
-    return ok(index);
-  }
-  const valueHandler = VALUE_HANDLERS[arg];
-  if (valueHandler !== undefined) {
-    const value = requireValue(args, index + 1, arg);
-    if (isErr(value)) {
-      return value;
-    }
-    valueHandler(state, value.value);
-    return ok(index + 1);
-  }
-  return err(new Error(`spawn: unknown option: ${arg}\n\n${usage()}`));
-}
-
-function parseSpawnArgs(args: readonly string[]): Result<ParsedSpawnArgs, Error> {
-  const state: MutableSpawnArgs = { type: DEFAULT_TYPE, base: DEFAULT_BASE, help: false };
-
-  let index = 0;
-  while (index < args.length) {
-    const step = consumeArg(args, index, state);
-    if (isErr(step)) {
-      return step;
-    }
-    index = step.value + 1;
-  }
-
-  if (state.help) {
-    return ok({ slug: '', type: state.type, base: state.base, help: true });
-  }
-  if (state.slug === undefined) {
-    return err(new Error(`spawn: --slug is required\n\n${usage()}`));
-  }
-  // Normalise the option values once at the parse boundary so every downstream
-  // consumer sees the same trimmed value. createSpawnWorktree trims again for its
-  // own validation, but openDraftPr consumes the parsed base/slug directly — without
-  // this, trailing whitespace on --base reached `gh pr create --base` (and the slug
-  // reached the marker commit / PR title) untrimmed.
-  return ok({
-    slug: state.slug.trim(),
-    type: state.type.trim(),
-    base: state.base.trim(),
-    help: false,
-  });
-}
-
 /**
  * Default coordination-home resolver: wraps {@link resolveCoordinationHome} (which
  * throws when cwd is outside a git working tree) into a Result at this single
@@ -139,18 +47,7 @@ function defaultResolveHome(cwd: string): Result<string, Error> {
   }
 }
 
-function usage(): string {
-  return [
-    'agent-tools spawn --slug <slug> [--type <type>] [--base <ref>]',
-    '',
-    'Creates a sibling oak-<slug> worktree on a <type>/<slug> branch cut from <ref>,',
-    'minting a fresh PDR-027 session seed for the session that will occupy it.',
-    `Defaults: --type ${DEFAULT_TYPE}, --base ${DEFAULT_BASE}.`,
-    '',
-  ].join('\n');
-}
-
-/** Resolve the home, create the worktree, and report it. Returns the exit code. */
+/** Resolve the home, create + prepare the worktree, and report it. Returns the exit code. */
 function executeSpawn(
   input: SpawnCliInput,
   parsed: ParsedSpawnArgs,
@@ -184,6 +81,13 @@ function executeSpawn(
   }
 
   stdout.write(formatSpawnResult(created.value, prepared.value));
+  stdout.write(
+    formatSeatBrief(created.value, {
+      role: parsed.role,
+      task: parsed.task,
+      director: parsed.director,
+    }),
+  );
   return 0;
 }
 
