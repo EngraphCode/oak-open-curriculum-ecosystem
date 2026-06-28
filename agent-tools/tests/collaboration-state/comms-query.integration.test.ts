@@ -117,6 +117,89 @@ describe('comms list', () => {
     expect(result.exitCode).toBe(2);
     expect(result.stderr).toContain('--tail must be a positive integer (got: 0)');
   });
+
+  it('filters to events at or after --since, dropping older ones', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      // 11:00:00Z is event-middle's exact created_at — proves the boundary is inclusive.
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-04T11:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    const lines = result.stdout.trimEnd().split('\n');
+    expect(lines[0]).toBe('comms list — newest 2 of 2 event(s), most recent first');
+    expect(result.stdout).toContain('event-newest');
+    expect(result.stdout).toContain('event-middle');
+    expect(result.stdout).not.toContain('event-oldest');
+  });
+
+  it('applies --tail after the --since filter, counting the filtered candidates', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: [
+        '--',
+        'comms',
+        'list',
+        '--comms-dir',
+        commsDir,
+        '--since',
+        '2026-06-04T11:00:00Z',
+        '--tail',
+        '1',
+      ],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    const lines = result.stdout.trimEnd().split('\n');
+    expect(lines[0]).toBe('comms list — newest 1 of 2 event(s), most recent first');
+    expect(lines).toHaveLength(2);
+    expect(lines[1]).toContain('event-newest');
+  });
+
+  it('reports no events since the boundary when the filter excludes everything', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-05T00:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe('no comms events since 2026-06-05T00:00:00Z\n');
+  });
+
+  // An EMPTY directory has no events at all, so the since-framed message would
+  // be misleading (it implies events exist but none are recent). The generic
+  // message is correct regardless of --since. The sibling empty-dir test above
+  // passes no --since and the empty-since test above filters a NON-empty dir, so
+  // this is the case that distinguishes "no events exist" from "none since X".
+  it('reports the generic no-events message for an empty directory even with --since', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: [] } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-04T11:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe('no comms events\n');
+  });
+
+  it('rejects a non-ISO --since with a clear error', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', 'not-a-date'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('--since must be an ISO-8601 timestamp (got: not-a-date)');
+  });
 });
 
 describe('comms show', () => {
