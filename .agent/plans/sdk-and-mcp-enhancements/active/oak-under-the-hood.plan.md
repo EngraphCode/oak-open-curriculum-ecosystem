@@ -1,6 +1,6 @@
 ---
 name: "Oak Under the Hood — one behaviour, two channels, no carried content"
-status: ACTIVE — W1 + W2 LANDED (commit `3e8636be7`, worktree `worktree-ws-b-explain`); W3 (rename) COMPLETE in the worktree, gate + review + commit pending (Seal lifts Whirlpool, 2026-06-27). Canonical dir resolved to `.agent/skills/under-the-hood/` (bare concept name — the `oak-` prefix is adapter-only; the W2 pointer URL was corrected to match). Validated by two ultracode review suites; all findings critically assessed.
+status: DONE — W1+W2+W3 all merged to main via PR #243 (merge commit `a0a85f60c`, 2026-06-27), plus follow-ups `7704a7bff` / `180e9b0f2`. Verified first-hand 2026-06-28 (Clover mends Hedgerow): bake apparatus absent; skill dir `.agent/skills/under-the-hood/`; MCP tool `oak-under-the-hood`; resource URI `docs://oak/under-the-hood.md`; settings allowlist + ADR-202 + ADR-205 landed. NEXT: archive-move to `archive/completed/`. The MCP-surfaced discoverability follow-on (orientation invisible to an agent via the MCP app) is NOT part of this plan — it is owned by `../current/mcp-tool-taxonomy-and-orientation.plan.md`.
 lineage:
   serves_thread: orientation-skills-family
   serves_stream: teaching-surface family across the PDR-112 portability seam
@@ -41,7 +41,7 @@ todos:
       assistant fetches and orients). In the SAME atomic change delete the whole
       bake apparatus + content-pinning tests (full inventory in the body). Behaviour-
       only tests. mcp-expert + test-expert review, critically assessed.
-    status: pending
+    status: completed
     depends_on: [w1-behaviour]
   - id: w3-rename-everywhere
     content: >
@@ -52,16 +52,23 @@ todos:
       sibling orientation-lens-unification.plan.md and carry forward its un-executed
       ws5/ws3/ws6 BEFORE retiring (only the name is superseded). Route ADR-202 +
       portability to the Director. docs-adr-expert + config-expert review.
-    status: pending
+    status: completed
     depends_on: [w1-behaviour]
 ---
 
 # Oak Under the Hood — one behaviour, two channels, no carried content
 
-> **Successor pickup:** read this plan + the handoff record
-> `.agent/state/collaboration/handoffs/<claim bb9073cd record>.md` (the correction
-> arc, the at-risk rationale, the exact edit state). W1 is DONE (uncommitted); start
-> at W2. Both W2 and W3 consume W1 and are independent of each other.
+> **DONE (2026-06-28, verified first-hand by Clover mends Hedgerow).** W1+W2+W3 all
+> merged to `main` via PR #243 (merge commit `a0a85f60c`), plus follow-ups
+> `7704a7bff` / `180e9b0f2`. Confirmed in the tree: bake apparatus deleted; skill
+> renamed to `.agent/skills/under-the-hood/`; MCP tool `oak-under-the-hood`; resource
+> `docs://oak/under-the-hood.md`; ADR-202 + ADR-205 landed. **The "NOT STARTED" prose
+> in the W2/W3 todos below is the pre-merge record — superseded by this banner.**
+> The **MCP-surfaced discoverability follow-on** (orientation practically invisible to
+> an agent connecting to the MCP app — including the Field-observation section below)
+> is NOT part of this plan; it is owned by
+> [`../current/mcp-tool-taxonomy-and-orientation.plan.md`](../current/mcp-tool-taxonomy-and-orientation.plan.md).
+> **NEXT:** archive-move this plan to `archive/completed/` (mine outcomes to permanent docs; ADR-200 retired the completed-plans index).
 
 ## The system (one paragraph)
 

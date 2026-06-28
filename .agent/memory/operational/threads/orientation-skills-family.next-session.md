@@ -20,6 +20,16 @@ defined by PDR-112.
 
 ## CURRENT PICKUP (2026-06-27, Swordfish rides Surf → Seal lifts Whirlpool) — READ FIRST
 
+> **SUPERSEDED 2026-06-28 (Clover mends Hedgerow) — READ THIS FIRST.** The reframe (W1+W2+W3) is
+> **all MERGED to `main` via PR #243** (`a0a85f60c`); `oak-under-the-hood.plan.md` is **DONE** (→
+> archive). The "start at W2" note below is the pre-merge record and no longer applies. The **live
+> follow-on** is the MCP-surfaced discoverability problem — orientation is practically invisible to
+> an agent via the MCP app — owned by
+> [`mcp-tool-taxonomy-and-orientation.plan.md`](../../../plans/sdk-and-mcp-enhancements/current/mcp-tool-taxonomy-and-orientation.plan.md):
+> DECISION-INCOMPLETE; WS0 (architectural review of the MCP stack) **not started — gated on owner
+> go-ahead**; WS1+ gated on the owner design decision. Planning vocabulary now formalised in ADR-209 /
+> PDR-121; this work sits under the `generic-foundation-decomposition` programme (downstream consumer).
+
 The reframe is **scoped, simplified, planned, and partly built.** Pickup surfaces, in order:
 
 1. **The owning plan** `.agent/plans/sdk-and-mcp-enhancements/active/oak-under-the-hood.plan.md`
