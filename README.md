@@ -215,11 +215,11 @@ and
   `sentry-cli` vs dev-`sentry` split and workspace invocation details.
 - **MCPJam** (optional, for MCP server development and validation only) —
   inspects, runs conformance checks, and authors/runs evals against the MCP
-  server; backs the optional `mcpjam` entry in [`.mcp.json`](.mcp.json). No repo
-  dependency — run on demand with `pnpm dlx @mcpjam/cli@latest <command>`, or the
-  inspector GUI with `pnpm dlx @mcpjam/inspector@latest`. For the hosted eval and
-  project features, authenticate once with `pnpm dlx @mcpjam/cli@latest login`.
-  The companion `mcp-inspector` skill installs at the machine level via
+  server; backs the optional `mcpjam` entry in [`.mcp.json`](.mcp.json). Installed
+  by `pnpm install`; run commands with `pnpm exec mcpjam <command>`, the inspector
+  GUI with `pnpm dlx @mcpjam/inspector@latest`, and authenticate for the hosted
+  eval and project features with `pnpm exec mcpjam login`. The companion
+  `mcp-inspector` skill installs at the machine level via
   `pnpm dlx skills add mcpjam/inspector --skill mcp-inspector`.
 
 ### Install and verify
