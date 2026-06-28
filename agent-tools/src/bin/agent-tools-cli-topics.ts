@@ -4,6 +4,7 @@ import { resolveCoordinationHome } from '../collaboration-state/coordination-hom
 import { parseCommitQueueArgs, runCommitQueueCli } from '../commit-queue/index.js';
 import { runContextCostCli } from '../context-cost/cli.js';
 import { runPrWatchCli } from '../pr-watch/cli.js';
+import { runSessionMetadataCli } from '../session-metadata/cli.js';
 import { runSpawnCli } from '../spawn/cli.js';
 import type { AgentToolsCliInput, AgentToolsCliResult } from './agent-tools-cli-types.js';
 
@@ -69,6 +70,21 @@ export async function runContextCostTopic(
   return runContextCostCli({
     argv: args,
     cwd: input.cwd,
+    stdout,
+    stderr,
+  });
+}
+
+export async function runSessionMetadataTopic(
+  input: AgentToolsCliInput,
+  args: readonly string[],
+): Promise<AgentToolsCliResult> {
+  const stdout = new OutputBuffer();
+  const stderr = new OutputBuffer();
+  return runSessionMetadataCli({
+    argv: args,
+    cwd: input.cwd,
+    env: input.env,
     stdout,
     stderr,
   });
