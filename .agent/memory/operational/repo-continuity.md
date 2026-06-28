@@ -24,6 +24,20 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+- **Intent-graph DORA SSOT + documentation-as-infrastructure (2026-06-28, Ketch turns Fathom, n=2 with Beluga rides Wave).**
+  Branch `docs/agent-work-state-projection`, **ahead 2 of `origin/main`, NOT pushed** (owner controls push).
+  **`76ad84aec`**: dissolved the `repo-intent-graph` god-document → **ADR-207** (DORA delivery-metrics SSOT) +
+  archived the plan to `plans-old-archive/` with a disposition record + repointed 5 dependents (measures,
+  observability plan, plan-node-schema.v0, dora-2025 research, the collection README); an owner-directed
+  comprehensive commit that also carried Beluga's `knowledge-distribution-substrate.plan.md` + agent-tooling
+  README after a shared-index tangle. **`b6d611544`**: made **documentation-is-infrastructure** prominent
+  (ADR-127 §5 + a `principles.md` clause, owner-ratified) and authored the **`docs-reviewer-split`** `future/`
+  plan (overhaul docs-adr-expert into a documentation-infrastructure expert + a new prose expert per Strunk &
+  White + `editorial-tone.md`). **Next safe step (owner-approved, post-compaction):** carry out the
+  docs-reviewer-split — its FIRST, BLOCKING task is the owner-directed prerequisite to **check + update
+  `subagent-architect` and `assumptions-expert` against official docs/guidance** before building it. n=2
+  coordination clean (ArcAngel channel `2026-06-28-...beluga-rides-wave-and-ketch-turns-fathom.md`); Beluga's
+  substrate/work-state lane is live and uncommitted in the shared tree.
 - **Team session continued — Director rotation to Pulsar + #259 continuity reconcile (2026-06-27 evening, Pulsar calls Ether, Director).**
   The merge-train day continued past the Oyster entry below. **#253 PDR-118 (agent work-state model keystone) LANDED to
   main** (`bc87c650d`; owner Option A — land honestly, composed-liveness mechanism deferred to OQ5). **Director seat rotated

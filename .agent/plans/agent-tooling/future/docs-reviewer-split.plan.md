@@ -109,11 +109,19 @@ serves both shallowly, exactly as a god-class does.
 
 ## Dependencies and sequencing
 
+- **`subagent-architect` and `assumptions-expert` currency — `blocking`, and the first work (owner-directed
+  prerequisite, 2026-06-28).** Before this split is built, both agents that will author and review the new
+  reviewers must be **checked against official/current documentation, new sources, and guidance, and updated
+  as necessary** — because they are the tools that produce and gate the work, and a stale architect or a
+  stale assumptions reviewer propagates its drift into every reviewer they touch. This currency check is the
+  first task at promotion; it gates the rest of the plan. Minimum shippable shape if deferred: none — this is
+  a hard prerequisite, not a beneficial one.
 - **ADR-127 §5 + the `principles.md` clause** — `blocking` for the infrastructure expert's new design
   lens (the doctrine it enforces). **Landed 2026-06-28**, so this prerequisite is met.
 - **`editorial-tone.md`** — `blocking` for the prose expert's voice layer. Exists (Accepted directive).
-- **`subagent-architect`** — `beneficial`, not blocking. Minimum shippable shape without it: author the
-  two definitions by hand against `.agent/sub-agents/` conventions and run `pnpm subagents:check` +
+- **`subagent-architect` (as authoring tool)** — `beneficial` for the authoring step, not blocking _it_
+  (but gated by the currency prerequisite above). Minimum shippable shape without it: author the two
+  definitions by hand against `.agent/sub-agents/` conventions and run `pnpm subagents:check` +
   `pnpm portability:check`. `subagent-architect` raises quality and spec-conformance.
 - **The reviewer matrix (`invoke-code-experts` executive memory)** — `blocking` for discoverability:
   both reviewers must be wired into the invocation matrix and timing tiers, or they will not be invoked.
@@ -141,10 +149,12 @@ serves both shallowly, exactly as a god-class does.
 
 ## Promotion trigger (`future/` -> `current/`)
 
-Promote when the owner authorises building the reviewers. At promotion, finalise: the
+Promote when the owner authorises building the reviewers. **The first task at promotion is the currency
+prerequisite above** — check `subagent-architect` and `assumptions-expert` against official/current
+documentation and guidance and update them as necessary; only then use them. After that, finalise: the
 infrastructure-expert naming decision (rename vs extend-in-place), the exact prose-expert knowledge
 base (which Strunk & White principles to encode, plus `editorial-tone.md`), the reviewer-matrix wiring,
-and the adapter regeneration. Author with `subagent-architect`; readiness review by
+and the adapter regeneration. Author with the (now-current) `subagent-architect`; readiness review by
 `assumptions-expert` (proportionality) and a docs/onboarding reviewer.
 
 ## Foundation alignment

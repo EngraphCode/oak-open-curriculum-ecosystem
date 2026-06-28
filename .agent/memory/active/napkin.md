@@ -178,3 +178,32 @@ New session observations append below.
 - **Owner correction (behaviour-change): "let's get back to careful, direct engineering and merging."** Across the #259 drive I repeatedly re-weighed decisions the owner had already made — "drive 259" (asked again whether to proceed), "you're the fresh seat, continue" (re-offered a fresh seat), "commit them all" (kept agonising over in/out disposition). Each re-litigation burned context and read as indecision. **Cure:** once the owner has given a clear directive, EXECUTE it with care — run the gate, read the failures, fix, merge — and reserve questions for *genuine* owner-decisions surfaced via AskUserQuestion. The metacognition signal: a decided directive arriving as "but should I really…" is the tell; the answer is already given. Sibling: [[feedback_owner_direction_is_a_stream]] (latest turn supersedes — including superseding my own re-deliberation), [[feedback_no_question_when_answer_is_forced]]. Candidate feedback-memory.
 - **A multi-way memory reconciliation is proven lossless by the `merge-base→side` diff, not by the conflict count.** Reconciling #259 across coord (9 commits) + main (82 commits): only `napkin.md` raised a git conflict, but the dangerous files were the *auto-merged* ones (distilled emptied on my side vs 16 entries on main). The check that proved no loss: `git diff $(git merge-base HEAD origin/main) origin/main -- distilled.md` was **empty** → main added nothing post-divergence, so #260 drained *exactly* main's set to the 169 pattern homes; taking the emptied version conserved everything. Generalises the napkin completeness-check: for each memory file in a 3-way merge, (1) heading-set-diff every clean side against the chosen result (empty miss-set = proof), AND (2) merge-base-diff each side to detect post-divergence additions the other side can't have drained. Sibling: [[verify-dont-trust]], PDR-119 render-invariant, the completeness-check entry above. Candidate `patterns/` entry: "prove a memory reconciliation lossless by set-diff + merge-base-diff".
 - **Two tooling frictions captured to the register this session: F-102** (the `git push` + `gh api -f` compound trips the `git push -f` hook substring matcher — isolate `push` from `-f`-flag commands) and **F-103** (markdownlint-cli2 lints git-ignored `.agent/state/**` handoff files, blocking pre-push on non-committed transient files — durable cure is a `!.agent/state/**` config exclude). Both are [[hook-policy-substring-discipline]] / F-96-family scope issues.
+
+## 2026-06-28 — n=2 shared-tree commit hazards; god-document dissolution as worked doc-as-infra (Ketch turns Fathom)
+
+Session arc (all landed; branch `docs/agent-work-state-projection` ahead 2 of `origin/main`, NOT pushed —
+owner controls push): dissolved the `repo-intent-graph` **god-document** → **ADR-207** (DORA delivery-metrics
+SSOT) + archived the plan with a disposition record + repointed 5 live dependents (commit `76ad84aec`, an
+owner-directed comprehensive commit also carrying Beluga's substrate work after a shared-index tangle); made
+**documentation-is-infrastructure** prominent (ADR-127 §5 + a `principles.md` clause, owner-ratified) and
+authored the `docs-reviewer-split` `future/` plan (commit `b6d611544`). The split is **post-compaction work**
+with a NEW BLOCKING prerequisite recorded in the plan: check+update `subagent-architect` and `assumptions-expert`
+against official docs/guidance BEFORE building it (they author and gate the work; a stale tool propagates drift).
+
+- **Shared-tree (same checkout) n=2 commit hazards — three worked instances.** (1) A peer's `git commit`
+  sweeps in YOUR already-staged content: my `git mv` rename was staged (`R`), Beluga's commit grabbed it, and
+  their `git reset --soft` then left it CO-STAGED with their files (soft reset keeps everything staged). (2) A
+  `git mv` whose deletion side is unstaged is a "half-applied rename" that can block the WHOLE-TREE pre-commit
+  `validate-no-machine-local-paths` (it reads a tracked-but-missing path) until the rename is fully staged.
+  (3) **Cure:** always commit by EXPLICIT PATHSPEC (`git commit -- <paths>`) so only your files land regardless
+  of the shared index; when the index is genuinely tangled, the owner chose ONE comprehensive explicit-pathspec
+  commit over continued untangling. Sibling: [[stage-by-explicit-pathspec]], [[verify-dont-trust]]. Candidate
+  `.agent/memory/collaboration/` pattern (extends the existing cross-lane-commit-blocking pattern).
+- **Verify a peer's git-state claims first-hand.** Beluga reported "your rename is back unstaged / commits
+  blocked by a half-applied rename." First-hand `git status` showed the rename STAGED (not unstaged) and
+  Beluga's two files co-staged with it — the narrative was imprecise. A peer's git-state description is
+  input-to-verify like any peer status. Sibling: [[feedback_peer_status_claims_are_input_to_verify]].
+- **Found the SSOT before forking it (doc-as-infra applied reflexively).** I nearly authored a new principles
+  clause/PDR for "documentation is infrastructure" — then a grep found **ADR-127** already owns it. The cure was
+  to AMEND ADR-127 (§5) + add a `principles.md` pointer, not fork. The find-the-existing-home step is the
+  reflexive case of the principle itself. Sibling: [[feedback_documentation_is_infrastructure]].
