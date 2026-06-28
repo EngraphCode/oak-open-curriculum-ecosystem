@@ -206,7 +206,26 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> Refresh this whole section at every handoff. Last refreshed 2026-06-27 night (Pulsar calls Ether, Director — session closeout).
+> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (Beluga rides Wave) — team-tooling
+> session setup. The Pulsar closeout pickup below is retained; verify each item against the #267 consolidation.
+>
+> ### ▶ TEAM-TOOLING SESSION (next effort, 2026-06-28)
+>
+> The dedicated consolidation **merged (#267 → `main`**, HEAD `7e12baeef`); estate at zero. The next effort is a
+> serious, long-running **Director + Implementer** session that _builds the agreed team tooling_. **Guiding scope**
+> (interim, until a team-session plan is authored):
+> [`cost-of-collaboration.plan.md` §Locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md).
+> Four lanes → four seats: **liveness** (F-82 first → F-101 → F-75); **binding/spawn** (launch-in-worktree
+> convention → spawn-flow Phase 1 → Phase 2 = F-98 binding view → F-98 heartbeat-age column; critical path);
+> **ergonomics/claims** (F-85 `--active`→home → the comms+claims batch); **OQ5 design** (the composed-liveness
+> _decision_ only, run late, owner-ratification-gated). Out: E3 + the OQ5 build. Residual: stall-detection until
+> OQ5 lands — brief the Director to verify liveness actively. **Coordination branch:**
+> `coordination/team-tooling-session-2026-06-28` (off `main`). **Still owed before the team session** (NEXT
+> SESSION MANDATE below, consolidation-half now done): a team-session plan from the template + a sharpened
+> Director brief.
+>
+> ---
+> **Prior pickup — Pulsar calls Ether session closeout (2026-06-27 night):**
 > **SEAT DISSOLVED at session end (owner-directed).** No live Director. **#259 MERGED to `main`** (squash
 > `e30108fe3`, 20:46Z) — the last PR to zero; **estate at zero**. Pulsar calls Ether (ce6ba6) stood down cleanly
 > (monitors stopped, Director claim `60baf0b1` closed, final heartbeat-end). **Director chain this day (all clean
