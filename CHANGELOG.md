@@ -1,3 +1,10 @@
+# [1.42.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.41.0...v1.42.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** build spawned worktrees at creation (spawn-flow 1B) ([#272](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/272)) ([4b84ea7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4b84ea702450943aa12262364468d2ebb63a24db))
+
 # [1.41.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.40.0...v1.41.0) (2026-06-28)
 
 
