@@ -27,7 +27,7 @@ todos:
     content: "Plan-estate body (core, large — informationally depends on the strategy's structure) — read every plan, extract permanent documentation, archive complete plans, extract-and-archive completed work from partial plans, rewrite survivors to a common standard, pull scattered concepts into new plans, delete with disposition. New thread/plan boundaries derived FROM the strategy. Value-preserving via recorded dispositions (supersession mappings per the consolidation discipline, never a standalone ledger)."
     status: blocked
   - id: estate-restructure-prep
-    content: "Plan-estate body, prerequisite deliverables — the **plan standard** (= the `plan` node-schema #1, delivered by the repo-intent-graph plan Stage 1 — the smallest slice that unlocks the survey and restructure) and a **fresh deep survey** of every plan and plan-adjacent surface (conformance + traceability inventory). Owner sequencing (2026-06-20, vision→strategy→planning flow): the strategy (Body 2) is authored FIRST; although the read+extract slice is informationally independent, both prerequisites' traceability elements depend on the strategy's strategic-choice shape, so they follow Body 2 — now signed off (2026-06-20), so these are startable. Then read every plan, extract permanent documentation, archive genuinely-complete. See §'Body 3 — Approach (the how)'."
+    content: "Plan-estate body, prerequisite deliverables — the **plan standard** (= the `plan` node-schema #1 = `plan-node-schema.v0.md`, the V0 bridge under ADR-200) and a **fresh deep survey** of every plan and plan-adjacent surface (conformance + traceability inventory). Owner sequencing (2026-06-20, vision→strategy→planning flow): the strategy (Body 2) is authored FIRST; although the read+extract slice is informationally independent, both prerequisites' traceability elements depend on the strategy's strategic-choice shape, so they follow Body 2 — now signed off (2026-06-20), so these are startable. Then read every plan, extract permanent documentation, archive genuinely-complete. See §'Body 3 — Approach (the how)'."
     status: pending
   - id: estate-hygiene
     content: "Estate hygiene (independent — no informational dependence on vision/strategy) — re-anchor dead VISION references; fix the editorial-tone vision path; clear the dead PR-76 blocker; remediate reachability/openers/stale-executables after re-verifying current counts."
@@ -466,13 +466,14 @@ standard of excellence and discovery** across every plan, and make two prerequis
 deliverables first-class. The one concrete that needs the estate read first — the collection
 layout — is explicitly gated on the fresh survey, not pre-judged.
 
-**The graph mechanism is owned by the [repo-intent-graph plan](future/repo-intent-graph.plan.md)
-(owner-ratified 2026-06-21).** The plan estate is one corpus of a typed, agentic-first memory and
-intent graph; this section records the **estate-restructure** approach that consumes that graph.
-Body 3's two anchors are delivered by that plan's **Stage 1** (the smallest slice): the `plan`
-node-schema (node-schema #1 = the plan standard, Anchor B) and the strategic-choice registry
-(Anchor A's target). The survey (Stage 2) and the restructure (Stage 3) follow. The schema,
-registry, validator, and observe→warn→enforce mechanics live in that plan, not here.
+**The graph mechanism is owned by [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
+(the living idea-graph architecture, Accepted 2026-06-22) and its executable
+[planning-estate-rewrite plan](current/planning-estate-rewrite.plan.md).** The plan estate is one
+corpus of a typed, agentic-first idea graph; this section records the **estate-restructure** approach
+that consumes that graph. Body 3's two anchors: the `plan` node-schema (node-schema #1 = the plan
+standard, Anchor B = [plan-node-schema.v0.md](plan-node-schema.v0.md), the V0 bridge under ADR-200) and
+the strategic-choice registry (Anchor A's target). The schema, registry, validator, and the harvest →
+rewrite sequence live in ADR-200 §Sequence and the rewrite plan's WS1–WS7, not here.
 
 **Two anchors, both gating the per-plan rewrite:**
 
@@ -480,8 +481,9 @@ registry, validator, and observe→warn→enforce mechanics live in that plan, n
   of strategic choices* (with IDs) as the traceability targets every surviving plan
   resolves to.
 - **Anchor B — the plan node-schema** (= the plan standard, **node-schema #1** of the repo
-  intent graph; delivered by the [repo-intent-graph plan](future/repo-intent-graph.plan.md)
-  Stage 1): the strict frontmatter-and-edge contract for the `plan` node-type, consolidated
+  intent graph; [plan-node-schema.v0.md](plan-node-schema.v0.md), the V0 bridge under
+  [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)):
+  the strict frontmatter-and-edge contract for the `plan` node-type, consolidated
   from PDR-018 + ADR-117 + `templates/`, covering the canonical frontmatter (incl. the
   `serves_strategic_choice` edge), the end-goal/mechanism/means body shape, a closed status
   vocabulary, size guidance, and inter-plan structure. Grounded need: the doctrine exists but
@@ -751,9 +753,11 @@ Settled (2026-06-21):
     on the generic graph substrate, dual human/agent legibility, authority as typed edges, intent
     preservation, and external systems as typed edges. The whole contract shape is ratified up
     front; the build is staged node-type by node-type (observe→warn→enforce). The **plan standard
-    is the `plan` node-schema (#1)**, delivered by the
-    [repo-intent-graph plan](future/repo-intent-graph.plan.md) Stage 1 — the smallest slice that
-    unlocks the Body-3 survey and restructure without compromising the vision. Schema-first
+    is the `plan` node-schema (#1)** = [plan-node-schema.v0.md](plan-node-schema.v0.md), the V0 bridge
+    under [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md),
+    which now owns the architecture and the harvest→rewrite sequence (the executable
+    [planning-estate-rewrite plan](current/planning-estate-rewrite.plan.md)); the earlier "staged build"
+    framing recorded here is superseded by ADR-200. Schema-first
     applies as a **second domain** (the Cardinal Rule names the OpenAPI spec; the same
     generated-from-schema discipline applies here). Taxonomy survey-gated; the `suggestions/` docs
     held as input-to-verify.

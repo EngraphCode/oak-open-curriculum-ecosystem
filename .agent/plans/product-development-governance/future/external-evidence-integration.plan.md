@@ -60,6 +60,20 @@ ADR-200 §Value: the substrate value stands without this plan; the full value re
   invariant, the capability modes, and the no-PII-in-VCS constraint.
 - **Means.** The four gated workstreams in the frontmatter `todos`.
 
+## Per-source evidence map (the connector build detail)
+
+Each connector (WS2) draws from one system and feeds specific edges and metrics (WS4). The metric
+_design authority_ is [ADR-207](../../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md);
+this map is the build-side decomposition:
+
+- **Vercel** — deploys → deployment frequency, change lead time, failed deployment recovery time.
+- **Sentry** (incl. OpenTelemetry spans) — incidents / errors → change fail rate, failed deployment
+  recovery time.
+- **Sonar** — code quality, duplication, complexity → quality-trend evidence.
+- **GitHub** — commits / PRs / reviews → the change axis, the `realized_by` join.
+- **PostHog** — product analytics → usage and user behaviour, the **primary signal for the
+  `validated_by` user-value loop**.
+
 ## Acceptance (outcome-level)
 
 Each integrated system attaches evidence via a typed edge with a declared capability mode and supervision

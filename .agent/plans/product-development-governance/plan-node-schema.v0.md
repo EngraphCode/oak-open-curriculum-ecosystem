@@ -21,8 +21,9 @@ historical context, not the active method.
 > refining_ this contract where the estate proves it incomplete. See
 > [§0](#0-the-v0--survey--v1-contract).
 >
-> **Authority.** This spec is delivered by **Stage 1.2** of the
-> [repo intent graph plan](./future/repo-intent-graph.plan.md) and consumed by
+> **Authority.** This spec is the V0 plan-node-schema **bridge** under
+> [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
+> (§Consequences — V0 plans as the bridge), consumed by
 > the [controlling plan's](./vision-strategy-and-plan-estate.plan.md) **Body 3**
 > as its conformance standard (Anchor B). It reconciles
 > [PDR-018](../../practice-core/decision-records/PDR-018-planning-discipline.md),
@@ -401,17 +402,12 @@ primitives**:
 
 The metrics are a generated projection over this graph (§5.2 evidence edges +
 Pillar 1), built later and owner-gated; V0 only ensures the contract _serves_ the
-derivation. Detail: the [repo intent graph plan §Delivery-performance metrics](./future/repo-intent-graph.plan.md).
-
-The **join key** from intent to its realization is the `realized_by` edge
-([§4](#4-typed-edges)) — without it, lead-time and attribution would be
-reconstructed from commit trailers; with it they are a traversal. The
-toolchain-observability DORA's logs-based metrics require is **intrinsic here**
-because the repo already integrates the developer toolchain: GitHub (the change
-axis), Linear (the intent / execution-status axis, via `projects_to`), and Sentry
-with OpenTelemetry spans (the runtime / incident axis, span-IDs correlating logs
-to traces). Those integrations are the external nodes the `evidence` and
-`projects_to` edges point at — the same-repo unity is what makes the join native.
+derivation. The **join key** from intent to its realization is the `realized_by`
+edge ([§4](#4-typed-edges)) — without it, lead-time and attribution would be
+reconstructed from commit trailers; with it they are a traversal. The full
+derivation, the two-altitudes framing, and why the toolchain-observability is
+intrinsic here are the design authority of
+[ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 
 ### 5.5 Closing the loop — returning evidence and the multi-developer transition
 
@@ -429,12 +425,13 @@ reuse the `evidence` family and add no new mechanism:
   stack**. The intent graph, fed by returning evidence, _is_ the continuous-measurement substrate.
 
 Detail and the continuous-measurement gap map:
-[repo intent graph plan — Closing the loop](./future/repo-intent-graph.plan.md).
+[ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 
 These evidence edges are **populated by an evidence-ingestion layer** — connectors drawing directly
 from the sources (Vercel / Sentry / Sonar / GitHub / PostHog), triggers, agentic analysis, and
-validated write-back — named as a required, build-deferred actuation layer in the plan ("From
-structure to system"). V0 only ensures the contract has the typed edges that layer will populate.
+validated write-back — the required, build-deferred actuation layer decided in
+[ADR-201 §5](../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md).
+V0 only ensures the contract has the typed edges that layer will populate.
 
 ---
 
