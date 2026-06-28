@@ -22,11 +22,13 @@ export const commsAppendHelp =
   'comms append --comms-dir <dir> --now <iso> --created-at <iso> ' +
   '--title <title> (--body <body> | --body-file <path>) ' +
   '--platform <platform> --model <model> ' +
-  '--active <path> [--event-id <id>] [--tag <tag>...] ' +
+  '--active <path> [--event-id <id>] [--tag <tag>...] [--in-response-to <id>] ' +
   '(--body and --body-file are mutually exclusive; --body-file is the cure ' +
   'for shell-quoting hazards on bodies that contain backticks or dollar signs; ' +
   '--tag is repeatable, accepts ADR-183 namespace ' +
   '[failure-mode, behaviour-note, heartbeat]; ' +
+  '--in-response-to threads this event to an antecedent event_id of any kind ' +
+  '(e.g. a PDR-064 Moment-2 ack referencing a broadcast pre-position); ' +
   'HEARTBEAT MODE: with --tag heartbeat the body is composed from typed state ' +
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required)';
@@ -35,10 +37,12 @@ export const commsSendHelp =
   'comms send --title <title> (--body <body> | --body-file <path>) ' +
   '--platform <platform> --model <model> ' +
   '[--comms-dir <dir>] [--output <path>] [--active <path>] [--repo-root <path>] [--now <iso>] ' +
-  '[--event-id <id>] [--tag <tag>...] (--body and --body-file are mutually exclusive; ' +
+  '[--event-id <id>] [--tag <tag>...] [--in-response-to <id>] ' +
+  '(--body and --body-file are mutually exclusive; ' +
   '--body-file reads the file literally and bypasses shell interpretation; ' +
   '--tag is repeatable, accepts ADR-183 namespace ' +
   '[failure-mode, behaviour-note, heartbeat]; ' +
+  '--in-response-to threads this event to an antecedent event_id of any kind; ' +
   'HEARTBEAT MODE: with --tag heartbeat the body is composed from typed state ' +
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required) ' +
