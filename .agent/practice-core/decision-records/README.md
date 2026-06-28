@@ -244,3 +244,4 @@ Practice-Core concept ↔ ADR map):
 | [PDR-118](PDR-118-agent-work-state-model.md) | Agent Work-State Model | Accepted |
 | [PDR-119](PDR-119-agent-memory-as-an-event-graph-with-renderers.md) | Agent Memory as an Event Graph with Renderers | Proposed |
 | [PDR-120](PDR-120-runbooks-are-a-content-kind-not-a-surface.md) | Runbooks Are a Content Kind, Delivered Through Existing Surfaces | Accepted |
+| [PDR-121](PDR-121-planning-vocabulary.md) | Planning Vocabulary | Accepted |

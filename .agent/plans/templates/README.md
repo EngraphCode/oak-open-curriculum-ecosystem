@@ -10,6 +10,10 @@ Definitions and relationships for the terms used across the planning
 surface in this repo. The doctrinal anchor is
 [PDR-018: Planning Discipline](/.agent/practice-core/decision-records/PDR-018-planning-discipline.md);
 the operational entrypoint is the [`/oak-plan` command](/.agent/skills/plan/SKILL-CANONICAL.md).
+The **canonical glossary** is
+[PDR-121](/.agent/practice-core/decision-records/PDR-121-planning-vocabulary.md) (portable semantics)
+mirrored by [ADR-209](/docs/architecture/architectural-decisions/209-planning-vocabulary.md) (host
+instantiation); the table below is the quick reference.
 
 | Term | Definition | Authoritative source |
 |------|------------|----------------------|
@@ -22,6 +26,7 @@ the operational entrypoint is the [`/oak-plan` command](/.agent/skills/plan/SKIL
 | **Phase** | An ordered sequence of workstreams within a plan. Phases gate quality-gate runs and reviewer dispatch. Some plans use phases (Phase 0, Phase 1, ...); some plans are single-phase with workstreams flat at top level. | [`quality-fix-plan-template.md`](quality-fix-plan-template.md) |
 | **Workstream (WS)** | A unit within an executable plan, typically scoped to a single concern that one agent can complete in one session. A workstream decomposes into one or more TDD cycle-pairs. Identified as `WS1`, `WS2`, ... within a plan. | [`feature-workstream-template.md`](feature-workstream-template.md) |
 | **Cycle (TDD pair)** | The unit of landing within a workstream: a failing test + the product code that greens it + any refactor, all in one commit. Tests must NEVER be committed ahead of the product code that greens them; product code must NEVER be committed ahead of the tests that prove it. | [`/oak-plan` §Executable Plan Requirements](/.agent/skills/plan/SKILL-CANONICAL.md), [`tdd-phases.md`](components/tdd-phases.md) |
+| **Programme** | A cross-cutting grouping of work spanning collections, recorded as a `*.programme.md` index (which owns membership) plus a `programmes:` frontmatter edge on each member. A view over work, not a home — members keep their collection. Disambiguate the planning programme from a curriculum programme by context; prefix explicitly when a surface is ambiguous. | [PDR-121](/.agent/practice-core/decision-records/PDR-121-planning-vocabulary.md), [ADR-209](/docs/architecture/architectural-decisions/209-planning-vocabulary.md) |
 
 **Lifecycle**: a plan moves through `future/` → `current/` → `active/` → `archive/completed/`. Promotion triggers are named in the `future/` plan; promotion authors a `current/` plan from a template.
 
@@ -102,16 +107,23 @@ future/             → LATER: deferred strategic work
 archive/completed/  → completed, read-only
 ```
 
-When archiving:
+When archiving (see [ADR-117][adr-117] §"When archiving a plan", as amended for
+[ADR-200][adr-200]):
 
 1. Mine completed outcomes into permanent documentation (ADRs,
-   directives, READMEs, reference docs).
-2. Move the plan file to `archive/completed/`.
-3. Add an entry to the [completed plans index](../completed-plans.md)
-   (plan name, date, key outcomes, archive link).
-4. Update all cross-references to point directly to
+   directives, READMEs, reference docs) — durable outcomes live there.
+2. Move the plan file to `archive/completed/` with a one-line
+   outcome/supersession banner in the file itself.
+3. Update all cross-references to point directly to
    `archive/completed/` — clean break, no stubs.
-5. Run `/oak-consolidate-docs`.
+4. Run `/oak-consolidate-docs`.
+
+There is no manually-maintained completed-plans index: ADR-200 retired it and makes
+the relocated archive (`.agent/plans-old-archive/`) and the intent idea-graph the
+discovery surface for completed work.
+
+[adr-117]: ../../../docs/architecture/architectural-decisions/117-plan-templates-and-components.md
+[adr-200]: ../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md
 
 ## How to Use
 
