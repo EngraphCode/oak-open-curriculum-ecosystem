@@ -24,6 +24,21 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+- **Spawn-flow tool handed to a fresh session (2026-06-28, Beluga rides Wave).** The F-98 agent
+  work-state fix settled to the **decoupled spawn-flow tool**: launch a session in its worktree → the
+  binding is *derived* from cwd (owner-confirmed: cwd = the invocation dir, the primary is not special),
+  so the assert-primitive / registry / agent-work-state-ADR path is **dissolved** (PDR-118 OQ2). The
+  owner-approved, ready-to-build plan — with an explicit **Pitfalls** section carrying the originating
+  session's traps (over-building into the substrate; re-litigating the cwd fact; the §B2 primary-pin
+  cowpath; the passback reflex; the 21-hour zombie heartbeat loop) — is
+  [`current/agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md).
+  The next agent reads it + the `feedback_*` memories it names, works in its own worktree, confirms the
+  cwd fact once, then builds friction-sliced. The substrate
+  (`future/knowledge-distribution-substrate.plan.md`) is recorded-future, **not** a build prerequisite;
+  the old `future/agent-work-state-registry.plan.md` brief is **superseded**. Two local commits on
+  `docs/agent-work-state-projection` (NOT pushed): `ed77132ce` (substrate-plan correction), `7704a7bff`
+  (under-the-hood DATA-SOURCES caveat-drop, salvaged from the closed #264 map). Git estate cleaned:
+  19 worktrees → 1.
 - **Intent-graph DORA SSOT + documentation-as-infrastructure (2026-06-28, Ketch turns Fathom, n=2 with Beluga rides Wave).**
   Branch `docs/agent-work-state-projection`, **ahead 2 of `origin/main`, NOT pushed** (owner controls push).
   **`76ad84aec`**: dissolved the `repo-intent-graph` god-document → **ADR-207** (DORA delivery-metrics SSOT) +
