@@ -5,6 +5,17 @@ export interface Options {
   readonly files: readonly string[];
   readonly areaPatterns: readonly string[];
   readonly tags: readonly string[];
+  /**
+   * Bare (non-`--`) tokens after the `<command> <topic>` prefix, in argv
+   * order. The parser captures them rather than rejecting them so a command
+   * spec may opt into a positional argument (`CommandSpec.positional`); the
+   * dispatcher rejects positionals for any command that does not opt in, so a
+   * stray token is still an error on every command-execution path — diagnosed
+   * at dispatch rather than at parse. (Help short-circuits return before
+   * dispatch validation, so a trailing token on a help invocation is ignored,
+   * the conventional CLI behaviour.)
+   */
+  readonly positionals: readonly string[];
 }
 
 /**
@@ -92,12 +103,13 @@ export function parseOptions(argv: readonly string[]): Options {
   const files: string[] = [];
   const areaPatterns: string[] = [];
   const tags: string[] = [];
+  const positionals: string[] = [];
 
   for (let index = 0; index < rest.length; ) {
-    index = parseToken({ rest, index, values, files, areaPatterns, tags });
+    index = parseToken({ rest, index, values, files, areaPatterns, tags, positionals });
   }
 
-  return { command, topic, values, files, areaPatterns, tags };
+  return { command, topic, values, files, areaPatterns, tags, positionals };
 }
 
 export function required(options: Options, key: string): string {
@@ -146,6 +158,7 @@ function parseToken(input: {
   readonly files: string[];
   readonly areaPatterns: string[];
   readonly tags: string[];
+  readonly positionals: string[];
 }): number {
   const token = input.rest[input.index] ?? '';
   const next = input.rest[input.index + 1];
@@ -170,7 +183,11 @@ function parseToken(input: {
     return parseValueOption({ token, next, values: input.values, index: input.index });
   }
 
-  throw new Error(`unknown argument: ${token}`);
+  // A bare token is captured as a positional. The dispatcher (which knows the
+  // command spec) decides whether the command accepts a positional and rejects
+  // it otherwise, so a stray token remains an error.
+  input.positionals.push(token);
+  return input.index + 1;
 }
 
 function parseValueOption(input: {

@@ -105,6 +105,10 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   'comms:show': commandSpec({
     help: commsShowHelp,
     options: ['comms-dir', 'event-id'],
+    // F-80: the event id may be given as a bare positional (`comms show <id>`)
+    // as well as `--event-id <id>`; the dispatcher binds the positional to the
+    // `event-id` option key.
+    positional: 'event-id',
     handler: showComms,
   }),
   'comms:peer-liveness': commandSpec({
