@@ -251,14 +251,19 @@ the operational state index is
 
 ## Identity vs Liveness
 
-Identity is who-I-am-on-this-thread; liveness is when this claim was last
-fresh. Identity rows live in thread records per
+Identity is who-I-am-on-this-thread; liveness is **event-recency** — when the
+role last emitted any event (heartbeat or substantive) within the staleness
+threshold. Identity rows live in thread records per
 [PDR-027](../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md)
 and the
 [`register-identity-on-thread-join`](../rules/register-identity-on-thread-join.md)
-tripwire. Liveness lives on structured claims through `claimed_at`, optional
-`heartbeat_at`, and `freshness_seconds`; stale claims are consolidation noise,
-not blockers. Recipes live in [state conventions][state-conventions] and
+tripwire. **Liveness is read from the heartbeat / event-recency stream (PDR-078),
+NOT computed from a claim's `claimed_at` + `freshness_seconds` window** — that
+window is claim-currency housekeeping that outlives the process, and reading it as
+agent liveness is the F-44 "freshness ≠ liveness" SAFETY bug. A claim itself is an
+**advisory, area-scoped coordination** signal over a mutable area — not the liveness
+(nor presence, nor work-state) surface; those are distinct facets. Stale claims are
+consolidation noise, not blockers. Recipes live in [state conventions][state-conventions] and
 [lifecycle][lifecycle].
 
 ## Bootstrap Fast-Path
