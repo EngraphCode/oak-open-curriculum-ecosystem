@@ -20,6 +20,13 @@ export interface CommandSpec {
   readonly help: string;
   readonly options: ReadonlySet<string>;
   readonly allowsFiles?: boolean;
+  /**
+   * When set, the command accepts a single bare positional argument and the
+   * dispatcher binds it to this option key (so the handler reads it via the
+   * same key as the equivalent `--<key>` flag). Commands without this field
+   * reject any positional. At most one positional is ever accepted.
+   */
+  readonly positional?: string;
 }
 
 /**
@@ -32,12 +39,23 @@ export function commandSpec(input: {
   readonly help: string;
   readonly options: readonly string[];
   readonly allowsFiles?: boolean;
+  readonly positional?: string;
   readonly handler: CliHandler;
 }): CommandSpec {
+  // Closed-shape invariant: the dispatcher binds a positional into
+  // `values[positional]`, which the option allowlist then validates, so a
+  // positional key absent from `options` would fail every positional
+  // invocation with a misleading "unknown option" error. Catch the
+  // misconfiguration at construction (module load) rather than at runtime.
+  if (input.positional !== undefined && !input.options.includes(input.positional)) {
+    throw new Error(`commandSpec: positional '${input.positional}' must also be listed in options`);
+  }
+
   return {
     help: input.help,
     options: new Set(input.options),
     allowsFiles: input.allowsFiles,
+    positional: input.positional,
     handler: input.handler,
   };
 }

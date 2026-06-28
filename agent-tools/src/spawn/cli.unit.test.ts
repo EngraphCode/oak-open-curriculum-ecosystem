@@ -37,7 +37,6 @@ const STUB_WORKTREE: SpawnedWorktree = {
   worktreePath: '/workspace/oak-spawn-flow',
   branch: 'feat/spawn-flow',
   base: 'origin/main',
-  session: { seed: 'seed-value', agentName: 'Test Agent Name', sessionIdPrefix: 'seed-v' },
   resumed: false,
 };
 
@@ -101,8 +100,6 @@ describe('runSpawnCli', () => {
     expect(text).toContain('/workspace/oak-spawn-flow');
     expect(text).toContain('feat/spawn-flow');
     expect(text).toContain('origin/main');
-    expect(text).toContain('Test Agent Name');
-    expect(text).toContain('seed-v');
     expect(text).toContain('draft PR');
     expect(text).toContain(PR_URL);
   });
@@ -309,8 +306,9 @@ describe('runSpawnCli', () => {
     expect(text).toContain('Seat brief');
     expect(text).toContain('/oak-start-right-team');
     // The seat coordinates are derived from the spawn result, not a separate store.
-    expect(text).toContain('Test Agent Name');
     expect(text).toContain('feat/spawn-flow');
+    // Identity is not predicted — the brief defers it to launch.
+    expect(text).toContain('identity: assigned at launch');
     // The brief follows the spawn-result block (the result mentions the branch first).
     expect(text.indexOf('Seat brief')).toBeGreaterThan(text.indexOf('feat/spawn-flow'));
   });

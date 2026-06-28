@@ -17,10 +17,5 @@ export function formatSpawnResult(result: SpawnedWorktree, prUrl: string | undef
         `  branch:   ${result.branch} (from ${result.base})`,
       ];
   const prLine = prUrl === undefined ? [] : [`  draft PR: ${prUrl}`];
-  return [
-    ...header,
-    `  identity: ${result.session.agentName} (${result.session.sessionIdPrefix})`,
-    ...prLine,
-    '',
-  ].join('\n');
+  return [...header, ...prLine, ''].join('\n');
 }
