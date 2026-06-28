@@ -1,5 +1,7 @@
 ---
 name: "Monorepo Workspace Topology — ADR Superseding 108 and Canonical Plan"
+programmes:
+  - generic-foundation-decomposition
 overview: "Strategic programme to author a new ADR superseding ADR-108 with an all-workspace topology: explicit pipeline stages (not monolithic “codegen”), a three-way split between primitive emission, library/package build, and runtime consumption, ADR-154 thin leaves, a stage×workspace matrix with multi-stage membership as a boundary signal, consolidation into one canonical plan, then enforcement handoff."
 todos:
   - id: owner-topology-lock
@@ -236,7 +238,7 @@ Executable child should use **quality-fix** or **adoption-rollout** template per
 
 ## Learning Loop and Lifecycle
 
-Reference @.agent/plans/templates/components/lifecycle-triggers.md on promotion: thread record, consolidation workflow (`/jc-consolidate-docs`) after ADR merge, update `completed-plans` only if this file moves to **archive/completed/**.
+Reference @.agent/plans/templates/components/lifecycle-triggers.md on promotion: thread record, consolidation workflow (`/jc-consolidate-docs`) after ADR merge (ADR-200 retired the completed-plans index; mine outcomes to permanent docs on archival).
 
 ---
 

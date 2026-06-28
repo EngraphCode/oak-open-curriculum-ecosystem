@@ -1,5 +1,7 @@
 ---
 name: "Schema-Change Minimal Adaptation"
+programmes:
+  - generic-foundation-decomposition
 overview: "Drive the hand-adaptation cost of upstream schema changes (OpenAPI spec AND bulk-download schema) to the irreducible minimum: non-breaking changes realign to green via codegen+build alone; breaking changes yield a complete, compile-time-enumerated work list with zero silent and zero runtime-only breakage. Owner-directed 2026-06-03 from the sequences-restructure realignment evidence."
 type: execution
 status: current
