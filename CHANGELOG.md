@@ -1,3 +1,10 @@
+# [1.44.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.43.0...v1.44.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** claims active-path defaults to coordination home ([#274](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/274)) ([c4d2b69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c4d2b6902ae90d65061aa073ed6c499e50cafa45))
+
 # [1.43.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.42.0...v1.43.0) (2026-06-28)
 
 
