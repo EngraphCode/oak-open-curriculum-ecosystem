@@ -14,6 +14,7 @@ export const commsAppendOptions = [
   'intent-id',
   'branch',
   'current-cycle-label',
+  'in-response-to',
 ] as const;
 
 export const commsSendOptions = [
@@ -33,6 +34,7 @@ export const commsSendOptions = [
   'intent-id',
   'branch',
   'current-cycle-label',
+  'in-response-to',
 ] as const;
 
 export const commsWatchOptions = [
