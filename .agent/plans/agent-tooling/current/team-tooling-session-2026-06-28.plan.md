@@ -52,6 +52,11 @@ outcomes and traces every lane to them; the per-lane work lives in the reference
 - **O4 — The composed-liveness model is DECIDED (not built).** A decision record (PDR-118 OQ5
   amendment) specifies the model and its consumer-absent fallback, unblocking the F-44 structural fix
   for a later session. Proof: the record authored and owner-ratified.
+- **O5 — Orientation is discoverable on the MCP (sticking-plaster).** A connected agent finds the
+  `oak-under-the-hood` tool for non-curriculum / mechanism / MCP-app / repo questions — one pointer
+  sentence on the discovery surface, relaxing the over-separation that hid it. Precursor to the
+  architectural fix. Proof: the server-instructions name orientation, and a real-client check routes a
+  "how is this built" query there while curriculum queries still route to the curriculum tools.
 
 ## Cohesion Mechanism (what the worktree-pilot lacked)
 
@@ -102,6 +107,7 @@ companion opener instance — referenced, not duplicated here.
 | Implementer A | O3 | Spawn/binding: spawn-flow Phase 1 → Phase 2 (F-98 binding view) → F-98 heartbeat-age column (critical path) | [`agent-spawn-flow-tool.plan.md`](agent-spawn-flow-tool.plan.md) | launch-in-worktree convention codified *after* the first spawn E2E (its own Phase 0) |
 | Implementer B | O1, O2 | Floor + liveness + ergonomics: F-82 verify (first) → F-101 kill-tree → F-75 → F-85 `--active`→home → comms+claims batch | [frictions register](../frictions-register.md) (batch home); [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md) | F-75 starts *after* F-101 (it makes heartbeat-silence truthful) |
 | O4 (no standing seat) | O4 | OQ5 composed-liveness **decision** only — a late Director+implementer design sidebar | [`cost-of-collaboration.plan.md` §Locked scope](cost-of-collaboration.plan.md) | runs *late*, fed by the build lanes' lived liveness evidence |
+| O5 (compact, flexible) | O5 | One pointer sentence on the MCP discovery surface → `oak-under-the-hood` (non-curriculum / mechanism / repo questions). Tiny + independent (MCP app/SDK domain) — a quick deliverable for whichever implementer has capacity, or Director-routed | [`under-the-hood-mcp-discovery-pointer.plan.md`](../../sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md) | none (independent of the agent-tooling lanes) |
 
 ## Referenced Execution Plans (the work — not restated here)
 
@@ -114,6 +120,9 @@ companion opener instance — referenced, not duplicated here.
   work** (PDR-055 cl.7–10; WS0 Phase-0-gated, whole-surface). The six point-fixes contribute friction
   evidence to it but are **not** homed in it and **not** gated on its WS0 — its Non-Goals forbid the
   friction-fenced shape. See the Non-Goal below.
+- [`under-the-hood-mcp-discovery-pointer.plan.md`](../../sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md)
+  — serves O5 (the MCP orientation-discoverability sticking-plaster; precursor to the
+  tool-taxonomy-and-orientation architectural review).
 
 ## Acceptance Criteria (team-level, outcome-based)
 
@@ -134,6 +143,9 @@ companion opener instance — referenced, not duplicated here.
    cycles landed) *live during the session* (its inputs are transient — comms stream + owner chat);
    qualitative notes may accompany, not replace, the ratio. Record this session as PDR-117
    **second-instance** evidence, folded into the worktree-per-agent transition home.
+7. **O5 proven** — the MCP discovery surface names `oak-under-the-hood` for non-curriculum / mechanism
+   / repo questions; a real-client / MCPJam check routes an orientation or "how is this built" query
+   there while curriculum queries still route to the curriculum tools.
 
 ## Non-Goals (YAGNI)
 

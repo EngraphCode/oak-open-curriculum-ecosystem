@@ -69,6 +69,13 @@ todos:
 > Its first workstream is an architectural review of the MCP stack that resolves the open
 > questions below; the owner then takes a design decision; only then does implementation begin.
 > Per owner direction (2026-06-28) the deep exploration (WS0) is **not yet started**.
+>
+> **Precursor (interim relief):** a one-sentence discovery-surface pointer ships ahead of this review
+> via [`under-the-hood-mcp-discovery-pointer.plan.md`](under-the-hood-mcp-discovery-pointer.plan.md) —
+> an owner-sanctioned sticking-plaster that names `oak-under-the-hood` in the server instructions for
+> non-curriculum / mechanism / repo questions. It delivers immediate discoverability and confirms the
+> gap live; **this review replaces that sentence** with the proper unified surfacing — it does not
+> build on it.
 
 ## End goal
 
