@@ -1842,11 +1842,11 @@ slowness but *corruption* of two things, both of which have bitten us: the Imple
 - **Trustworthy liveness** — the Director's nervous system. The corruption: a live agent read stale
   (or a dead one read fresh) → mis-routing and barged-into active claims. The *minimum* is the cheap mitigations
   that reduce the corruption without redesigning liveness — the structural F-44 code fix is **not** here
-  (see the decision-class note below). (a) **close the F-101 residual** — the basic `timeout`
-  self-termination cure shipped, but the node grandchild still orphans when the pnpm wrapper is
-  signalled (SIGTERM not forwarded), so a dead agent's watcher keeps writing false-liveness
-  heartbeats; cure is the lease-on-`Stop`-hook model + process-group termination + an F-43
-  stale-process census; (b) the **F-82 verify** (below); (c) the **behavioural discipline** —
+  (see the decision-class note below). (a) **F-101 residual — orphan path now CLOSED** (PR #270, `e4549f49b`, merged 2026-06-28):
+  `comms watch --supervisor-pid <pid>` self-exits within one poll cycle of the supervising agent dying,
+  closing the crash/SIGKILL orphan path GNU `timeout`'s group-kill missed. This **supersedes the
+  lease-on-`Stop`-hook model** for the orphan problem. NARROW residual still open: process-group
+  termination (the SIGTERM-not-forwarded grandchild case) + an F-43 stale-process census; (b) the **F-82 verify** (below); (c) the **behavioural discipline** —
   `freshness_status` is input-to-verify, never read as liveness (now encoded in the directive + the
   schema comments). **The structural freshness-vs-liveness code-consumer fix (F-44) is NOT minimum — it
   is decision-class, gated on the OQ5 composed mechanism (see Excellent), because a naive event-recency
