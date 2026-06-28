@@ -1840,15 +1840,18 @@ slowness but *corruption* of two things, both of which have bitten us: the Imple
 ### Minimum — without these the session produces WRONG coordination state (corruption-class)
 
 - **Trustworthy liveness** — the Director's nervous system. The corruption: a live agent read stale
-  (or a dead one read fresh) → mis-routing and barged-into active claims. Two real, tested code
-  changes: (a) the **freshness-is-never-liveness** fix — the `claims list`/liveness read joins the
-  comms heartbeat stream by claim/session instead of computing freshness from `claimed_at +
-  freshness_seconds` (F-44, SAFETY); (b) **close the F-101 residual** — the basic `timeout`
+  (or a dead one read fresh) → mis-routing and barged-into active claims. The *minimum* is the cheap mitigations
+  that reduce the corruption without redesigning liveness — the structural F-44 code fix is **not** here
+  (see the decision-class note below). (a) **close the F-101 residual** — the basic `timeout`
   self-termination cure shipped, but the node grandchild still orphans when the pnpm wrapper is
   signalled (SIGTERM not forwarded), so a dead agent's watcher keeps writing false-liveness
   heartbeats; cure is the lease-on-`Stop`-hook model + process-group termination + an F-43
-  stale-process census. (Discipline, not a build, inside this bundle: derive timestamps with
-  `date -u`, never infer liveness from an mtime display — F-65.)
+  stale-process census; (b) the **F-82 verify** (below); (c) the **behavioural discipline** —
+  `freshness_status` is input-to-verify, never read as liveness (now encoded in the directive + the
+  schema comments). **The structural freshness-vs-liveness code-consumer fix (F-44) is NOT minimum — it
+  is decision-class, gated on the OQ5 composed mechanism (see Excellent), because a naive event-recency
+  swap reads a heartbeat-exempt n=2/solo peer as dead.** (Discipline, not a build: derive timestamps
+  with `date -u`, never infer liveness from an mtime display — F-65.)
 - **Verify the canonical comms watcher actually surfaces events** (F-82 — "SAFETY" is my
   characterisation, not a register tag) — its `^\[` Monitor filter drifted from the emit shape and
   may swallow every event; if so the team coordinates blind. A ~10-minute verify, first.
@@ -1889,8 +1892,10 @@ slowness but *corruption* of two things, both of which have bitten us: the Imple
 ### Excellent — the substrate-coherent operating picture (large; the direction, not the gate)
 
 - **The composed liveness model (PDR-118 OQ5)** — presence vs progress, a derived work-fingerprint,
-  an active probe; the Director reads who is *stalled*, not just who is silent. **Decision-class: OQ5
-  is model-OPEN (undesigned) — it needs design before build, unlike the ready-to-build minimum fixes.**
+  an active probe; the Director reads who is *stalled*, not just who is silent. **This tier is also the
+  home of the structural F-44 freshness-vs-liveness code-consumer fix** (`active-agents.ts`, the
+  watcher-gate, the TUI). Both are decision-class: OQ5 is model-OPEN (undesigned), and the F-44 fix needs
+  its consumer-absent fallback (a naive swap is unsafe) — so both need design before build.
 - **The derived work-state view (F-98)** — the Director reads `(identity → worktree → branch →
   liveness)` from one derived surface; the spawn-flow seat feeds it.
 - **The knowledge-distribution substrate first slice**
@@ -1899,14 +1904,15 @@ slowness but *corruption* of two things, both of which have bitten us: the Imple
 
 ### Recommendation
 
-Do the **minimum** regardless — but it is *not* a day: the F-44 freshness-vs-liveness fix and the
-F-101-residual kill-tree are two real, tested code changes; the F-82 verify, the launch-in-worktree
-convention, and the F-85 `--active` default are the genuinely cheap parts. Then build the
-**spawn-flow tool** as the one substantial "good" (it cures the launch-corruption cluster and its
-seat seeds the excellent tier — that, not per-event leverage, is its keystone claim). The **composed
-liveness model is decision-class** (PDR-118 OQ5 is model-open) — what is concretely pullable forward
-from "excellent" is *more of the F-44 fix*, not the undesigned composed model. The Director's
-liveness read is the one corruption invisible until it has already mis-routed the team.
+Do the **minimum** regardless — but it is *not* a day: the F-101-residual kill-tree is a real, tested
+code change; the F-82 verify, the launch-in-worktree convention, the F-85 `--active` default, and the
+freshness-is-input-to-verify discipline are the genuinely cheap parts. The structural **F-44
+freshness-vs-liveness code-consumer fix is NOT in the minimum — it is decision-class, grouped with the
+composed-liveness model (OQ5) in Excellent**, because a naive event-recency swap reads a heartbeat-exempt
+n=2/solo peer as dead. Then build the **spawn-flow tool** as the one substantial "good" (it cures the
+launch-corruption cluster and its seat seeds the excellent tier — that, not per-event leverage, is its
+keystone claim). The Director's liveness read is the one corruption invisible until it has already
+mis-routed the team.
 
 ### Stress-test verdict (assumptions-expert, 2026-06-28; every claim re-verified first-hand)
 

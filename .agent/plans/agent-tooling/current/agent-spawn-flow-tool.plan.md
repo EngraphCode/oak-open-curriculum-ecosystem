@@ -94,7 +94,8 @@ absent**, verified first-hand: `core/agent-ops.ts` holds only `detectPhaseFromEv
 ### Phase 2 — Reconcile / retire (the binding's share)
 
 - Retire the hand-maintained `cross-worktree-work-state.md` roster → a **derived view** over
-  `git worktree list` + the claims/seat registry.
+  `git worktree list` + the **claims registry** (the seat itself stays derived / carried in the brief
+  per 1D — the view *reads* claims, it does not introduce or depend on a stored "seat registry").
 - **§B2: drop the binary-pin** (see Pitfall 4). Build-at-spawn dissolves it for spawn-created
   worktrees; manual worktrees gracefully soft-fail (existing shim behaviour). Spawn is the *paved* path.
 - Shim consolidation (the two `.mjs` → thin bootstraps) is an optional DRY cleanup, **separate** from

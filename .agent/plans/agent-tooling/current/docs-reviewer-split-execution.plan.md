@@ -16,38 +16,38 @@ lineage:
 todos:
   - id: p1a-frontmatter-schema-validator
     content: "Phase 1 / WS1.1 — build a per-platform subagent frontmatter schema + validator (Zod, TDD) that closes the Claude-wrapper validation gap and enforces the allowed field-set + value enums (color, model, permissionMode); model is OPTIONAL (inherit policy). The schema is the SSOT."
-    status: pending
+    status: completed
   - id: p1b-apply-schema-and-model-policy
     content: "Phase 1 / WS1.2 — apply the schema across the roster: fix the invalid color:amber; remove pinned `model` from Claude + Cursor wrappers so the invoking agent controls the model (inherit); validator green across all wrappers."
-    status: pending
+    status: completed
     depends_on: [p1a-frontmatter-schema-validator]
   - id: p1c-architect-prose-currency
     content: "Phase 1 / WS1.3 — currency-refresh subagent-architect prose: point platform guidance at the schema SSOT (DRY); teach the current Claude field-set (incl. the 9 omitted fields); correct the Cursor section (no `tools` field, model optional/inherit not `auto`, all-optional, is_background, dirs); recommend omit/inherit for model."
-    status: pending
+    status: completed
     depends_on: [p1a-frontmatter-schema-validator]
   - id: p1d-assumptions-and-internal-refs
     content: "Phase 1 / WS1.4 — assumptions-expert currency (probe found it fully current — record, light touch); fix subagent-architect's bare `architecture-expert` in active prose (its own checklist forbids it)."
-    status: pending
+    status: completed
     depends_on: []
   - id: p1e-reconcile-validate-ledger
     content: "Phase 1 / WS1.5 — annotate each platform schema with its official-doc source URL + last-verified date and document the reconcile process (re-run the currency workflow on drift signals); subagents:check + portability:check + new schema unit tests green; disposition ledger complete."
-    status: pending
+    status: completed
     depends_on: [p1a-frontmatter-schema-validator, p1b-apply-schema-and-model-policy, p1c-architect-prose-currency, p1d-assumptions-and-internal-refs]
   - id: gate-owner-confirm-build
     content: "GATE — present Phase 1 outcome (schema cure + currency + ledger); obtain owner confirmation to build the split before any Phase 2 work."
-    status: pending
+    status: completed
     depends_on: [p1e-reconcile-validate-ledger]
   - id: p2-ws1-infrastructure-expert
     content: "Phase 2 / WS2.1 — overhaul docs-adr-expert into the documentation-infrastructure expert (+ ADR-127 §5 design lens); finalise naming (extend-in-place default)."
-    status: pending
+    status: completed
     depends_on: [gate-owner-confirm-build]
   - id: p2-ws2-prose-expert
     content: "Phase 2 / WS2.2 — author the prose-expert (universal Strunk & White craft + scoped Oak editorial voice per editorial-tone.md)."
-    status: pending
+    status: completed
     depends_on: [gate-owner-confirm-build]
   - id: p2-ws3-wire-matrix-and-adapters
     content: "Phase 2 / WS2.3 — wire both reviewers into invoke-code-experts matrix + timing tiers; regenerate platform adapters; subagents:check + portability:check green; worked-review acceptance."
-    status: pending
+    status: completed
     depends_on: [p2-ws1-infrastructure-expert, p2-ws2-prose-expert]
 last_updated: 2026-06-28
 ---

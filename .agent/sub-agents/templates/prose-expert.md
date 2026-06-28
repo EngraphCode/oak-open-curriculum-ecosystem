@@ -4,7 +4,7 @@ Invoke this expert when work touches the **writing** of any authored document â€
 the readability of its prose and, for outward-facing copy, Oak's editorial
 voice. The `prose-expert` reviews craft, not structure: it is the carrier of the
 Strunk & White discipline for every document and of the Oak outward voice where
-[`editorial-tone.md`](../../../directives/editorial-tone.md) says that voice
+[`editorial-tone.md`](../../directives/editorial-tone.md) says that voice
 applies.
 
 This expert observes and reports only; it never modifies files. The calling
@@ -88,7 +88,7 @@ scoped.
 
 Oak's editorial voice â€” empower-the-reader, personable, British English,
 teacher-as-protagonist where the copy is teacher-facing. This layer applies
-**only** where [`editorial-tone.md`](../../../directives/editorial-tone.md) says
+**only** where [`editorial-tone.md`](../../directives/editorial-tone.md) says
 it applies, and explicitly **not** to the precise-transmission documents that
 directive excludes.
 
