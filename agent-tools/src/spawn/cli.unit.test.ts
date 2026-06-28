@@ -43,7 +43,7 @@ function baseInput(overrides: Partial<SpawnCliInput> = {}): SpawnCliInput {
   return {
     args: ['--slug', 'spawn-flow'],
     cwd: '/workspace/oak-spawn-flow',
-    resolveHome: () => HOME,
+    resolveHome: () => ok(HOME),
     createWorktree: () => ok(STUB_WORKTREE),
     ...overrides,
   };
@@ -113,6 +113,26 @@ describe('runSpawnCli', () => {
     expect(cap.errText()).toMatch(/slug/u);
   });
 
+  it('exits non-zero with the error on stderr when the coordination home cannot be resolved', () => {
+    let created = false;
+    const cap = capture();
+    const exitCode = runSpawnCli({
+      ...baseInput(),
+      resolveHome: () => err(new Error('not inside a git working tree')),
+      createWorktree: () => {
+        created = true;
+        return ok(STUB_WORKTREE);
+      },
+      stdout: cap.out,
+      stderr: cap.err,
+    });
+
+    expect(exitCode).toBe(2);
+    expect(cap.errText()).toMatch(/git working tree/u);
+    // home-resolution failure short-circuits before any worktree is created.
+    expect(created).toBe(false);
+  });
+
   it('exits non-zero with the error on stderr when the creator returns err', () => {
     const cap = capture();
     const exitCode = runSpawnCli({
@@ -135,7 +155,7 @@ describe('runSpawnCli', () => {
       cwd: '/workspace/oak-spawn-flow',
       resolveHome: () => {
         resolvedHome = true;
-        return HOME;
+        return ok(HOME);
       },
       createWorktree: () => {
         created = true;

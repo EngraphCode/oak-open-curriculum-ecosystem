@@ -114,6 +114,14 @@ function validateSpawnInputs(
   if (base.length === 0) {
     return err(new Error('spawn: base ref must not be empty (e.g. "origin/main").'));
   }
+  if (base.startsWith('-')) {
+    return err(
+      new Error(
+        `spawn: invalid base ref '${options.base}' — must not start with '-' ` +
+          `(git would read it as an option, not a ref).`,
+      ),
+    );
+  }
 
   return ok({ slug, type, base });
 }

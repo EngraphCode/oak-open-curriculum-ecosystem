@@ -18,8 +18,8 @@ export interface SpawnCliInput {
   readonly cwd: string;
   readonly stdout?: Pick<NodeJS.WriteStream, 'write'>;
   readonly stderr?: Pick<NodeJS.WriteStream, 'write'>;
-  /** Coordination-home resolver seam (defaults to {@link resolveCoordinationHome}). */
-  readonly resolveHome?: (cwd: string) => string;
+  /** Coordination-home resolver seam (defaults to {@link defaultResolveHome}). */
+  readonly resolveHome?: (cwd: string) => Result<string, Error>;
   /** Worktree-creation seam (defaults to {@link createSpawnWorktree}). */
   readonly createWorktree?: (options: CreateSpawnWorktreeOptions) => Result<SpawnedWorktree, Error>;
 }
@@ -109,13 +109,14 @@ function parseSpawnArgs(args: readonly string[]): Result<ParsedSpawnArgs, Error>
   return ok({ slug: state.slug, type: state.type, base: state.base, help: false });
 }
 
-/** Resolve the coordination home, translating the resolver's throw into a Result. */
-function resolveHomeResult(
-  resolveHome: (cwd: string) => string,
-  cwd: string,
-): Result<string, Error> {
+/**
+ * Default coordination-home resolver: wraps {@link resolveCoordinationHome} (which
+ * throws when cwd is outside a git working tree) into a Result at this single
+ * library boundary, so no throw escapes into the spawn flow.
+ */
+function defaultResolveHome(cwd: string): Result<string, Error> {
   try {
-    return ok(resolveHome(cwd));
+    return ok(resolveCoordinationHome(cwd));
   } catch (cause) {
     return err(cause instanceof Error ? cause : new Error(String(cause)));
   }
@@ -148,10 +149,10 @@ function executeSpawn(
   stdout: Pick<NodeJS.WriteStream, 'write'>,
   stderr: Pick<NodeJS.WriteStream, 'write'>,
 ): number {
-  const resolveHome = input.resolveHome ?? resolveCoordinationHome;
+  const resolveHome = input.resolveHome ?? defaultResolveHome;
   const create = input.createWorktree ?? createSpawnWorktree;
 
-  const home = resolveHomeResult(resolveHome, input.cwd);
+  const home = resolveHome(input.cwd);
   if (isErr(home)) {
     stderr.write(`${home.error.message}\n`);
     return 2;

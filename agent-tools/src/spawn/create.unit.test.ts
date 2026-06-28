@@ -172,6 +172,25 @@ describe('createSpawnWorktree', () => {
     expect(calls).toEqual([]);
   });
 
+  it('returns err on a base ref starting with "-" (argument-injection guard) without invoking git', () => {
+    const { runGit, calls } = recordingGit();
+
+    const result = createSpawnWorktree({
+      slug: 'spawn-flow',
+      type: 'feat',
+      base: '--upload-pack=evil',
+      coordinationHome: HOME,
+      runGit,
+      generateSeed: () => SEED,
+    });
+
+    expect(isErr(result)).toBe(true);
+    if (isErr(result)) {
+      expect(result.error.message).toMatch(/base/u);
+    }
+    expect(calls).toEqual([]);
+  });
+
   it('returns err, naming the branch, base, and worktree path, when git fails', () => {
     const failing: SpawnGitRunner = () =>
       err(new Error('fatal: a branch named "feat/spawn-flow" already exists'));
