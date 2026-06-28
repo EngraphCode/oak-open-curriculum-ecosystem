@@ -1,7 +1,5 @@
 ---
-tools: Read, Glob, Grep, LS, Shell, ReadLints
 name: architecture-expert-betty
-model: gemini-3.1-pro
 description: Systems-thinking architecture reviewer focused on cohesion, coupling, and long-term change-cost trade-offs. Use proactively when shaping module ownership, abstraction boundaries, or architectural evolution paths.
 readonly: true
 ---

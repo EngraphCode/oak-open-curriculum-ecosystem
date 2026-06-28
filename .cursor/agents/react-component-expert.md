@@ -1,7 +1,5 @@
 ---
-tools: Read, Glob, Grep, LS, Shell, ReadLints, WebFetch, WebSearch
 name: react-component-expert
-model: claude-opus-4-7
 description: "React component specialist for both read-only review and active-workflow planning, grounded in current official React documentation for hooks correctness, render performance, prop API design, and composition patterns in UI-shipping workspaces."
 readonly: true
 ---

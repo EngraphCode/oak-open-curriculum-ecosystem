@@ -3,7 +3,6 @@ name: react-component-expert
 description: 'React component specialist for both read-only review and active-workflow planning, grounded in current official React documentation for hooks correctness, render performance, prop API design, and composition patterns in UI-shipping workspaces.'
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
-model: opus
 color: green
 permissionMode: plan
 ---

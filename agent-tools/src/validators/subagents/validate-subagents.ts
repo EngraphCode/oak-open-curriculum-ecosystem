@@ -3,8 +3,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+import { parse as parseYaml } from 'yaml';
+
 import { resolveRepoRoot } from '../../core/repo-root.js';
 
+import { frontmatterName, validateFrontmatter } from './frontmatter-schema.js';
 import {
   CODEX_CONFIG_PATH,
   type CodexRegistration,
@@ -15,12 +18,12 @@ import {
 
 const repoRoot = resolveRepoRoot(import.meta.url);
 
+const CLAUDE_WRAPPER_DIR = '.claude/agents';
 const CURSOR_WRAPPER_DIR = '.cursor/agents';
 const CODEX_ADAPTER_DIR = '.codex/agents';
 const TEMPLATE_DIR = '.agent/sub-agents/templates';
 const IDENTITY_COMPONENT_PATH = '.agent/sub-agents/components/behaviours/subagent-identity.md';
 
-const REQUIRED_FRONTMATTER_FIELDS = ['name', 'model', 'description'];
 const TEMPLATE_LOAD_REGEX = /Your first action MUST be to read and internalise `([^`]+)`\./;
 const REQUIRED_IDENTITY_LINE = `Read and apply \`${IDENTITY_COMPONENT_PATH}\`.`;
 
@@ -46,12 +49,31 @@ function extractFrontmatter(content: string): string | null {
   return match?.[1] ?? null;
 }
 
-/** Read a value from a YAML frontmatter block by key. */
-function getFrontmatterValue(frontmatter: string, key: string): string {
-  const escapedKey = key.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
-  const regex = new RegExp(String.raw`^${escapedKey}:\s*(.+)$`, 'm');
-  const match = regex.exec(frontmatter);
-  return match?.[1]?.trim() ?? '';
+/** Validate one Markdown wrapper's frontmatter (schema + name-matches-filename). */
+function collectWrapperIssues(
+  platform: 'claude' | 'cursor',
+  wrapperFile: string,
+  content: string,
+): string[] {
+  const block = extractFrontmatter(content);
+  if (block === null) {
+    return [`${wrapperFile}: missing YAML frontmatter block`];
+  }
+  let frontmatter: unknown;
+  try {
+    frontmatter = parseYaml(block);
+  } catch {
+    return [`${wrapperFile}: unparsable YAML frontmatter block`];
+  }
+  const issues = validateFrontmatter(platform, wrapperFile, frontmatter);
+  const declaredName = frontmatterName(frontmatter);
+  const wrapperBasename = path.basename(wrapperFile, '.md');
+  if (declaredName !== null && declaredName !== wrapperBasename) {
+    issues.push(
+      `${wrapperFile}: frontmatter name "${declaredName}" must match filename "${wrapperBasename}"`,
+    );
+  }
+  return issues;
 }
 
 /** List markdown files in a directory relative to the repo root. */
@@ -79,6 +101,7 @@ if (!(await exists(IDENTITY_COMPONENT_PATH))) {
   addIssue(`Missing required shared component: ${IDENTITY_COMPONENT_PATH}`);
 }
 
+const claudeWrapperFiles = await listMarkdownFiles(CLAUDE_WRAPPER_DIR);
 const wrapperFiles = await listMarkdownFiles(CURSOR_WRAPPER_DIR);
 const codexAdapterFiles = await listFiles(CODEX_ADAPTER_DIR, '.toml');
 const templateFiles = await listMarkdownFiles(TEMPLATE_DIR);
@@ -86,28 +109,18 @@ const cursorReferencedTemplates = new Set<string>();
 const codexReferencedTemplates = new Set<string>();
 const codexRegistrationsByName = new Map<string, CodexRegistration>();
 
+for (const wrapperFile of claudeWrapperFiles) {
+  const content = await readText(wrapperFile);
+  for (const issue of collectWrapperIssues('claude', wrapperFile, content)) {
+    addIssue(issue);
+  }
+}
+
 for (const wrapperFile of wrapperFiles) {
   const content = await readText(wrapperFile);
-  const frontmatter = extractFrontmatter(content);
-  const wrapperBasename = path.basename(wrapperFile, '.md');
 
-  if (!frontmatter) {
-    addIssue(`${wrapperFile}: missing YAML frontmatter block`);
-    continue;
-  }
-
-  for (const field of REQUIRED_FRONTMATTER_FIELDS) {
-    const value = getFrontmatterValue(frontmatter, field);
-    if (!value) {
-      addIssue(`${wrapperFile}: missing required frontmatter field "${field}"`);
-    }
-  }
-
-  const declaredName = getFrontmatterValue(frontmatter, 'name');
-  if (declaredName && declaredName !== wrapperBasename) {
-    addIssue(
-      `${wrapperFile}: frontmatter name "${declaredName}" must match filename "${wrapperBasename}"`,
-    );
+  for (const issue of collectWrapperIssues('cursor', wrapperFile, content)) {
+    addIssue(issue);
   }
 
   const templateLoadMatch = TEMPLATE_LOAD_REGEX.exec(content);
@@ -219,5 +232,5 @@ if (issues.length > 0) {
 }
 
 process.stdout.write(
-  `Sub-agent standards validation passed: ${wrapperFiles.length} Cursor wrappers, ${codexAdapterFiles.length} Codex adapters, and ${templateFiles.length} template files are compliant.\n`,
+  `Sub-agent standards validation passed: ${claudeWrapperFiles.length} Claude wrappers, ${wrapperFiles.length} Cursor wrappers, ${codexAdapterFiles.length} Codex adapters, and ${templateFiles.length} template files are compliant.\n`,
 );

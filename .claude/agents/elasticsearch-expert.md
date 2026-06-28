@@ -3,7 +3,6 @@ name: elasticsearch-expert
 description: 'Elasticsearch specialist for both read-only review and active-workflow planning, grounded in current official Elastic documentation with Elastic Serverless as the default deployment context. Invoke for mappings, analysers, queries, retrievers, ELSER, RRF, reranking, ingest, evaluation, or Elastic Serverless capabilities.'
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
-model: opus
 color: orange
 permissionMode: plan
 ---

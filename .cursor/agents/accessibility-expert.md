@@ -1,7 +1,5 @@
 ---
-tools: Read, Glob, Grep, LS, Shell, ReadLints, WebFetch, WebSearch
 name: accessibility-expert
-model: gpt-5.5
 description: "Accessibility specialist for both read-only review and active-workflow planning, grounded in WCAG 2.2 AA, WAI-ARIA 1.3 Editor's Draft, and the ARIA Authoring Practices Guide for rendered HTML, keyboard interaction, colour contrast, and focus management in UI-shipping workspaces."
 readonly: true
 ---

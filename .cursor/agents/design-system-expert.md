@@ -1,7 +1,5 @@
 ---
-tools: Read, Glob, Grep, LS, Shell, ReadLints, WebFetch, WebSearch
 name: design-system-expert
-model: claude-opus-4-7
 description: "Design token and visual consistency specialist for both read-only review and active-workflow planning, grounded in the DTCG standard, three-tier token model, and CSS custom properties for DTCG JSON, CSS custom properties, colour palettes, spacing scales, and theming in UI-shipping workspaces."
 readonly: true
 ---

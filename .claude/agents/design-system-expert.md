@@ -3,7 +3,6 @@ name: design-system-expert
 description: 'Design token and visual consistency specialist for both read-only review and active-workflow planning, grounded in the DTCG standard, three-tier token model, and CSS custom properties for DTCG JSON, CSS custom properties, colour palettes, spacing scales, and theming in UI-shipping workspaces.'
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
-model: opus
 color: purple
 permissionMode: plan
 ---

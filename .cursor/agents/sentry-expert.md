@@ -1,7 +1,5 @@
 ---
-tools: Read, Glob, Grep, LS, Shell, ReadLints, WebFetch, WebSearch
 name: sentry-expert
-model: gpt-5.5
 description: Sentry and OpenTelemetry specialist for both read-only review and active-workflow planning, grounded in current official Sentry and OpenTelemetry documentation for Oak's Vercel Node.js runtime, HTTP MCP server, and Search CLI observability foundation.
 readonly: true
 ---
