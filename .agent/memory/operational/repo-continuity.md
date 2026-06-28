@@ -38,7 +38,9 @@ todo list — is [`director-handoff.md`](director-handoff.md).
   owner-ratified, build future). **Team settled to n=2 owner-visible:** Pulsar (Director) + **Beluga rides Wave** (curator;
   lane held for #259; ADR-206/207 for Beluga's two ADRs (free — Pulsar's memory-event-graph is
   PDR-119, **not** ADR-206, so no collision) and the approach-C agent-work-state plan queued post-zero). **#264** (Beluga deferred-work
-  map) stays draft until zero. Estate: #259 is the last PR to zero.
+  map) stays draft until zero. **#259 MERGED to `main`** (squash `e30108fe3`, 20:46Z) — estate at **zero**;
+  team session closed, Director seat dissolved (Pulsar stood down). Next-session pickup + the now-due napkin
+  DRAIN: [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md).
 - **Team session — merge train + Director-seat rotation (2026-06-27, Oyster spins Coral, Director).**
   Owner-run n=4 team day. **Five-PR merge train LANDED to `main`** (releases 1.36.2→1.36.4):
   **#248** worktree-hygiene rule, **#250** statusline lane coordination, **#251** sonar thread reconcile,
