@@ -164,8 +164,7 @@ recited from memory):
   `VISION.md` → `docs/domain/curriculum-guide.md` → the newest progress report
   (resolved live), with a pointer to where future reports land.
 - **The planning corpus** is `.agent/plans/high-level-plan.md`, then the shape of
-  the plan estate (list `.agent/plans/` and read `docs/README.md` live);
-  teammates also get `.agent/plans/good-first-issues.md`.
+  the plan estate (list `.agent/plans/` and read `docs/README.md` live).
 - **The data and technical architecture** (engineers, integrators, data analysts
   and scientists) draws on the architecture, SDK, and graph rows in the router at
   the depth the angle wants. Orientation includes how the effort's data is kept
@@ -254,7 +253,6 @@ docs. See the Oak-org rows in the table.
 | `docs/governance/README.md` | Governance orientation — why the guardrail volume exists |
 | `docs/engineering/mcp-servers-for-contributors.md` | Sanctioned MCP set (teammates) |
 | `docs/engineering/sibling-repos.md` | Repos a teammate may clone alongside (teammates) |
-| `.agent/plans/good-first-issues.md` | Curated starter tasks (teammates) |
 | `docs/architecture/README.md`, the SDK READMEs (`packages/sdks/oak-curriculum-sdk`, `packages/sdks/oak-search-sdk`) and the graph packages (`packages/core/graph-core`, `packages/sdks/graph-corpus-sdk`) | The data and technical architecture — SDK, graph stack, semantic search — for engineers, integrators, and data analysts/scientists |
 | `VISION.md`, `ATTRIBUTION.md`, `LICENCE-DATA.md`, ADR-157, and `docs/governance/DATA-SOURCES.md` | Intended impact and data-source provenance/governance, for education and product experts — name the sources and their licences; never describe curriculum content |
 | **Oak-org (public site only, always fetched):** `https://www.thenational.academy/about-us/who-we-are` | Oak's official positioning and pillars — **framing context** for why this repo matters; relay what Oak officially says, never this repo's own derivation |
@@ -274,8 +272,8 @@ restate them in this skill — the README block is the single source, and it win
 Ask whether they are joining the Oak team or exploring from outside **only when it
 changes what you would offer** — setup, the wider working set, or the
 teammate-only parts of the planning corpus — not before. Then adapt silently:
-route external visitors past the teammate-only surfaces (the sanctioned MCP set,
-sibling repos, good-first-issues) without announcing the machinery, and if
+route external visitors past the teammate-only surfaces (the sanctioned MCP set
+and sibling repos) without announcing the machinery, and if
 contribution comes up, relay `CONTRIBUTING.md`'s live statement on external
 contributions plainly and warmly. **This question routes documentation only — it
 never gates secrets or access.**
@@ -370,7 +368,7 @@ When a conversation reaches its end, close with one message suited to the mode:
    items with a one-line reason and the doc to return to; and what was set up this
    visit versus already in place (honest attribution).
 2. Next steps for their angle: engineers → the live `CONTRIBUTING.md` development
-   process, good first issues (teammates), and the two session bookends (open with
+   process and the two session bookends (open with
    a start-right skill, close with `oak-session-handoff`) as the only prescribed
    practices — beyond the bookends the team deliberately does not prescribe how
    anyone works; strategy readers → where new reports land.

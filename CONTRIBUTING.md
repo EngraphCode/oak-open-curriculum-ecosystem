@@ -215,13 +215,6 @@ Before making changes, follow the install and verify steps in the
    pnpm test
    ```
 
-### Picking a first task
-
-For a curated list of starter tasks, see
-[good first issues](.agent/plans/good-first-issues.md) — a thin index that
-points to the live GitHub `good first issue` label plus a short list of stable
-area onramps.
-
 ### Contribution Levels
 
 We support different contribution paths depending on your setup time and
