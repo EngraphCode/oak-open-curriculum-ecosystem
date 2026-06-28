@@ -18,8 +18,8 @@ import {
 const DEFAULT_LIST_TAIL = 20;
 
 /**
- * `comms list [--tail <n>]` — newest-first, one-line summary projection over
- * the comms event directory.
+ * `comms list [--since <iso>] [--tail <n>]` — newest-first, one-line summary
+ * projection over the comms event directory.
  *
  * Read-only orientation surface: unlike `comms inbox` / `comms watch` (which
  * self-exclude against the caller's identity and track a seen-file), `list`
@@ -27,6 +27,13 @@ const DEFAULT_LIST_TAIL = 20;
  * `created_at`, `event_id`, `author/session_prefix`, `[kind]` (plus any
  * `[tags]`), and the title/subject — the fields needed to decide which event
  * to `comms show`.
+ *
+ * `--since <iso>` (F-70) narrows to events at or after the boundary instant
+ * (inclusive), so an agent opening hours into a thread can read exactly the
+ * window since session-open instead of tailing a guessed N and eyeballing
+ * timestamps. The `--since` filter selects the candidate set; `--tail` then
+ * limits it, and the header's denominator counts the post-`--since`
+ * candidates.
  */
 export async function listComms(
   options: Options,
@@ -34,14 +41,31 @@ export async function listComms(
   runtime: CliRuntime,
 ): Promise<string> {
   const commsDir = required(options, 'comms-dir');
+  const since = optional(options, 'since');
+  const sinceMs = parseSince(since);
   const tail = parseTail(optional(options, 'tail'));
   const events = await cliIo(runtime).readCommsEvents(commsDir);
-  const newest = [...events].sort(byCreatedAtDescending).slice(0, tail);
+  const matched =
+    sinceMs === undefined
+      ? events
+      : events.filter((event) => Date.parse(event.created_at) >= sinceMs);
+  const newest = [...matched].sort(byCreatedAtDescending).slice(0, tail);
   if (newest.length === 0) {
-    return 'no comms events\n';
+    return since === undefined ? 'no comms events\n' : `no comms events since ${since}\n`;
   }
-  const header = `comms list — newest ${newest.length} of ${events.length} event(s), most recent first`;
+  const header = `comms list — newest ${newest.length} of ${matched.length} event(s), most recent first`;
   return `${[header, ...newest.map(formatSummaryLine)].join('\n')}\n`;
+}
+
+function parseSince(raw: string | undefined): number | undefined {
+  if (raw === undefined) {
+    return undefined;
+  }
+  const sinceMs = Date.parse(raw);
+  if (Number.isNaN(sinceMs)) {
+    throw new Error(`--since must be an ISO-8601 timestamp (got: ${raw})`);
+  }
+  return sinceMs;
 }
 
 /**
