@@ -9,11 +9,13 @@ lineage:
 
 # Continuity-surface drift prevention (Phase 2)
 
-> **Strategic brief.** Phase 1 (the one-time curation) is
-> [`current/repo-continuity-curation.plan.md`](../current/repo-continuity-curation.plan.md). This
-> brief owns the *recurrence* — keeping `repo-continuity.md` and the thread `*.next-session.md`
-> records in their compact-active-state role without a periodic manual catch-up. Decision-lens
-> resolved (`principles.md` §Decision Lenses); routed into existing homes, not forked.
+> **Strategic brief.** Phase 1 (the one-time curation) was applied this session (commit
+> `6ad02e953`); its reusable runbook now lives embedded in
+> [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md) (per PDR-120,
+> a runbook embedded in the rule it enacts — not a standalone plan). This brief owns the
+> *recurrence* — keeping `repo-continuity.md` and the thread `*.next-session.md` records in their
+> compact-active-state role without a periodic manual catch-up. Decision-lens resolved
+> (`principles.md` §Decision Lenses); routed into existing homes, not forked.
 
 ## Problem and intent
 

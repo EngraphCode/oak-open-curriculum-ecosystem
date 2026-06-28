@@ -89,6 +89,7 @@ last_reviewed: 2026-06-12
   authoritative per-app guide: auto-instrumentation, per-request span, scope enrichment, Express error handler DI wiring, redaction barrier entry points, source-map upload
 - [Sentry Node Library](../packages/libs/sentry-node/README.md) —
   package-level reference for `@oaknational/sentry-node`: modes, shared delegates (hook registry), fixture store, redaction barrier closure
+- [Runbook Index](operations/README.md#runbook-index) — all operational runbooks (ES index lifecycle, deploy, release, UAT, ingest), wherever they live; PDR-120
 - [Sentry Deployment Runbook](operations/sentry-deployment-runbook.md) — deployment-side runbook
 - [Sentry CLI Usage](operations/sentry-cli-usage.md) — `sentry-cli` adoption and `.sentryclirc` composition
 - [ADR-143](architecture/architectural-decisions/143-coherent-structured-fan-out-for-observability.md) — observability boundary

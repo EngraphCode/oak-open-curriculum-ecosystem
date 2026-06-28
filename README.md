@@ -132,7 +132,7 @@ testing, accessibility, security) ·
 provider system) ·
 [Engineering](docs/engineering/README.md) (workflow, tooling,
 extending) ·
-[Operations](docs/operations/README.md) (env vars, troubleshooting) ·
+[Operations](docs/operations/README.md) (env vars, troubleshooting, [runbook index](docs/operations/README.md#runbook-index)) ·
 [Domain](docs/domain/README.md) (curriculum data) ·
 [Docs index](docs/README.md).
 
