@@ -20,9 +20,14 @@ export interface SeatSpecifics {
  * Render the seat brief for a freshly-spawned lane (spawn-flow 1D).
  *
  * The seat — `{worktree, branch, role, task, Director}` — is DERIVED, not stored:
- * worktree, branch, and the minted identity come from the spawn {@link result};
- * role, task, and Director are the per-seat {@link seat} specifics the spawning
- * coordinator supplies. There is no seat-registry surface.
+ * worktree and branch come from the spawn {@link result}; role, task, and Director
+ * are the per-seat {@link seat} specifics the spawning coordinator supplies. There
+ * is no seat-registry surface.
+ *
+ * Identity is deliberately absent: the launched session's identity is derived by
+ * the platform `SessionStart` hook from the harness `session_id` at launch (see
+ * `./launch-command.ts`), so the brief states that rather than printing an
+ * authored prediction the session would not honour.
  *
  * The brief INVOKES `/oak-start-right-team` rather than restating it: the spawned
  * session grounds itself through that skill, and this brief carries only the
@@ -32,9 +37,11 @@ export interface SeatSpecifics {
 export function formatSeatBrief(result: SpawnedWorktree, seat: SeatSpecifics): string {
   const lines = [
     '',
-    `── Seat brief: ${result.session.agentName} (${result.session.sessionIdPrefix}) ──`,
+    '── Seat brief ──',
     `  worktree: ${result.worktreePath}`,
     `  branch:   ${result.branch}`,
+    '  identity: assigned at launch (the SessionStart hook derives it from the harness',
+    '            session_id; run identity preflight in the session to confirm)',
   ];
   if (seat.role !== undefined) {
     lines.push(`  role:     ${seat.role}`);
