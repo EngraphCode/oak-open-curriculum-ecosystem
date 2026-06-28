@@ -61,8 +61,9 @@ export const commsListHelp =
   'for the full body)';
 
 export const commsShowHelp =
-  'comms show --comms-dir <dir> --event-id <id> ' +
+  'comms show --comms-dir <dir> (<event-id> | --event-id <id>) ' +
   '(prints the full canonical JSON event resolved by id, including its body; ' +
+  'the id may be given as a bare positional or via --event-id; ' +
   'read-only; fails non-zero when no event carries the id)';
 
 export const commsPeerLivenessHelp =

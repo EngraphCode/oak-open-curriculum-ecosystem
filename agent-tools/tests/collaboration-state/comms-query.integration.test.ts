@@ -145,4 +145,75 @@ describe('comms show', () => {
     expect(result.exitCode).toBe(2);
     expect(result.stderr).toContain('comms event not found: nope');
   });
+
+  // F-80: `comms show` accepts the event id as a positional argument, not only
+  // as `--event-id`, so the common `comms show <id>` reads as one would type it.
+  it('accepts the event id as a positional argument, identically to --event-id', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const positional = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'show', '--comms-dir', commsDir, 'event-newest'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    const flagged = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const withFlag = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'show', '--comms-dir', commsDir, '--event-id', 'event-newest'],
+      env: {},
+      io: flagged.runtime.io,
+    });
+
+    expect(positional.exitCode).toBe(0);
+    expect(positional.stdout).toBe(withFlag.stdout);
+  });
+
+  it('rejects supplying the event id as both a positional and --event-id', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: [
+        '--',
+        'comms',
+        'show',
+        '--comms-dir',
+        commsDir,
+        'event-newest',
+        '--event-id',
+        'event-oldest',
+      ],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('event-id');
+  });
+
+  it('rejects more than one positional argument', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'show', '--comms-dir', commsDir, 'event-newest', 'event-oldest'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+  });
+});
+
+describe('positional-argument safety (non-positional commands)', () => {
+  // F-80 moves bare-token rejection from parse time to dispatch time so a
+  // command may opt into a positional. Commands that do NOT opt in must still
+  // reject a stray bare token — this guards the whole estate against the
+  // parser change silently swallowing typos.
+  it('rejects a bare token on a command that declares no positional', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, 'stray-token'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('stray-token');
+  });
 });
