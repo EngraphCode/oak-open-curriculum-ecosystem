@@ -24,6 +24,27 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+- **Team-session readiness + the corrected claims model (2026-06-28, Beluga rides Wave, session close; now n=1).**
+  Two pieces, both committed on `docs/agent-work-state-projection` (now on **draft PR #266**, marked ready this
+  session — drive bot-settle + code-owner @jimCresswell review to merge). **(1) Team-session readiness** for the
+  next Director+Implementer session is housed (not forked) in the SSOT controlling plan
+  [`cost-of-collaboration.plan.md` §Team-session readiness](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
+  (`5e78450a8`), as a minimum/good/excellent view pointing at the frictions register + the spawn-flow plan;
+  **stress-tested by assumptions-expert** with every claim re-verified first-hand (F-85 promoted to minimum —
+  blocking-class for the worktree transition; F-94 already shipped; the spawn-flow re-justified; composed-liveness
+  is decision-class). Marked transient (strike after that session). **(2) The corrected claims model** (`574bf70b2`
+  and memory `feedback_claim_is_advisory_area_coordination_not_a_god_object`): a claim is an **optional, advisory,
+  AREA-scoped** coordination signal on a topology-independent durable area — NOT files, NOT presence/liveness/
+  work-state/seat (those re-home to facets); one area-claim serves single-checkout AND worktrees; absolute-path-file
+  claiming is a cowpath. **Replaced** the freshness-as-liveness framing in `agent-collaboration.md`, the schema
+  field comments, and F-44 (which now names the specific liveness consumers + the constraint that the code fix is
+  **decision-class — needs the OQ5 composed mechanism**, not a naive swap). **OWNER-GATED, flagged not edited:**
+  PDR-118 (claim-as-anchor superseded by launch-in-worktree, OQ2 amendment); the schema `role` field (the one
+  genuine claim-as-seat marker, owner-directed 2026-06-12, in tension with "claim is not the seat"); the
+  `director-handoff.md` succession liveness gate (safety-critical). **Remaining integration surfaces** (not yet
+  done): `collaboration-state-conventions.md` (silent that freshness ≠ liveness); the code consumers
+  (`active-agents.ts`, the watcher-gate, the TUI) gated on the OQ5 design; PDR-095 supports the model (cite, don't
+  edit). **MEMORY.md is over-budget** (trim is a standing forward-ask).
 - **docs-reviewer-split COMPLETE + the meta-agent frontmatter schema cure (2026-06-28, Ketch turns Fathom, post-compaction).**
   The `docs-reviewer-split` is **done and pushed** on `docs/agent-work-state-projection` (origin == HEAD, 12
   ahead of `origin/main`). **Phase 1** (the currency prerequisite, owner-escalated to "build the cure"): a new
