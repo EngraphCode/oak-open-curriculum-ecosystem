@@ -1,3 +1,10 @@
+# [1.52.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.51.0...v1.52.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** accept event id as a positional on comms show (F-80) ([5a57026](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5a57026a275c72eb3f5501ffaccb3cac10e726ed))
+
 # [1.51.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.1...v1.51.0) (2026-06-28)
 
 
