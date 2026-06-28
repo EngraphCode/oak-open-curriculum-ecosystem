@@ -4,6 +4,7 @@ import {
   routingKeyFor,
   sameAgentRoutingKey,
 } from './active-agent-routing.js';
+import { parseHeartbeatBody } from './comms-heartbeat-body.js';
 import { type CollaborationAgentId, type CommsEvent } from './types.js';
 
 /**
@@ -39,7 +40,7 @@ export const RETIRED_AT_OR_ABOVE_MS = 10 * 60 * 1000;
  * - `retired`: latest heartbeat `retiredAtOrAboveMs` (default 10 min) or
  *   older — the silence threshold that presumes retirement.
  */
-type PeerLivenessState = 'active' | 'offline' | 'retired';
+export type PeerLivenessState = 'active' | 'offline' | 'retired';
 
 interface PeerLivenessReportBase {
   readonly routingKey: AgentRoutingKey;
@@ -67,7 +68,7 @@ function isHeartbeat(event: CommsEvent): boolean {
   return event.tags?.includes('heartbeat') ?? false;
 }
 
-function classifyState(
+export function classifyState(
   ageMs: number,
   activeBelowMs: number,
   retiredAtOrAboveMs: number,
@@ -81,10 +82,17 @@ function classifyState(
   return 'retired';
 }
 
-interface LatestHeartbeat {
+export interface LatestHeartbeat {
   readonly identity: CollaborationAgentId;
   readonly createdAtMs: number;
   readonly createdAt: string;
+  /**
+   * The `branch` field parsed from the canonical heartbeat body, or `undefined`
+   * when the body is not canonical. This is the only structured agent↔branch
+   * link on the comms stream (claims carry no branch), so the derived
+   * work-state view binds a worktree to its agent through it.
+   */
+  readonly branch?: string;
 }
 
 /**
@@ -135,9 +143,9 @@ interface HeartbeatContribution extends LatestHeartbeat {
  * dropping events that contribute no usable live-peer heartbeat (see
  * {@link heartbeatContribution}).
  */
-function latestHeartbeatByPeer(
+export function latestHeartbeatByPeer(
   events: readonly CommsEvent[],
-  self: CollaborationAgentId | undefined,
+  self?: CollaborationAgentId,
 ): Map<string, LatestHeartbeat> {
   const latestByPeer = new Map<string, LatestHeartbeat>();
   for (const event of events) {
@@ -185,6 +193,7 @@ function heartbeatContribution(
     identity: author,
     createdAtMs,
     createdAt: event.created_at,
+    branch: parseHeartbeatBody(event.body)?.branch,
   };
 }
 

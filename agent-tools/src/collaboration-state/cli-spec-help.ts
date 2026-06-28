@@ -179,6 +179,13 @@ export const claimsStatusHelp = 'claims status --active <path> [--now <iso>]';
 export const claimsActiveAgentsHelp =
   'claims active-agents --active <path> [--closed <path>] [--now <iso>]';
 
+export const claimsWorkStateHelp =
+  'claims work-state [--active <path>] [--closed <path>] [--comms-dir <dir>] [--now <iso>] ' +
+  '[--repo-root <path>] (derived cross-worktree view: one row per git worktree, bound to its ' +
+  'agent via the heartbeat branch, with claim intent and a last-seen recency that is ' +
+  'INPUT-TO-VERIFY, not claim freshness; an agent on a branch with no matching worktree does not ' +
+  'appear; --active/--comms-dir default to the coordination home)';
+
 export const tuiHelp =
   'tui [--format <tui|text>] [--repo-root <path>] [--active <path>] ' +
   '[--closed <path>] [--comms-dir <dir>] [--now <iso>] [--poll-ms <n>]';

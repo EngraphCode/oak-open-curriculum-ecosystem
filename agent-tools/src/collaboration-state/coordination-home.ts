@@ -14,7 +14,7 @@ export interface ResolveCoordinationHomeOptions {
   readonly runGit?: GitRunner;
 }
 
-const defaultRunGit: GitRunner = (args, cwd) =>
+export const defaultRunGit: GitRunner = (args, cwd) =>
   // Execute git by its ABSOLUTE path (resolveTrustedGit) so a writable PATH
   // entry cannot shadow it (the S4036 FIX). Once the binary is addressed
   // absolutely no `env.PATH` override is needed — the absolute path is the
