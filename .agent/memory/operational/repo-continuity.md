@@ -35,10 +35,15 @@ todo list — is [`director-handoff.md`](director-handoff.md).
   The next agent reads it + the `feedback_*` memories it names, works in its own worktree, confirms the
   cwd fact once, then builds friction-sliced. The substrate
   (`future/knowledge-distribution-substrate.plan.md`) is recorded-future, **not** a build prerequisite;
-  the old `future/agent-work-state-registry.plan.md` brief is **superseded**. Two local commits on
-  `docs/agent-work-state-projection` (NOT pushed): `ed77132ce` (substrate-plan correction), `7704a7bff`
-  (under-the-hood DATA-SOURCES caveat-drop, salvaged from the closed #264 map). Git estate cleaned:
-  19 worktrees → 1.
+  the old `future/agent-work-state-registry.plan.md` brief is **superseded**. Branch
+  `docs/agent-work-state-projection` is **9 ahead of `origin/main`, NOT pushed/merged — push it or the
+  session's work is at risk.** My commits: `ed77132ce` (substrate correction), `7704a7bff` (under-the-hood
+  caveat-drop, salvaged from the closed #264 map), `261a0da94` (the spawn-flow handoff package); the rest
+  are Ketch's docs-reviewer-split build (subagent-frontmatter schema + the new prose-expert). Git estate
+  cleaned: **19 worktrees → 1**. **Flags:** an untracked owner-directed
+  `docs/architecture/architectural-decisions/208-no-target-architecture-in-sonarqube.md` (sonar thread)
+  needs committing — confirm ownership; team is now **≥3** (Beluga closing, Ketch back from compaction,
+  Finch wakes Headwind, Starling stale) so the n=2 framing is outdated.
 - **Intent-graph DORA SSOT + documentation-as-infrastructure (2026-06-28, Ketch turns Fathom, n=2 with Beluga rides Wave).**
   Branch `docs/agent-work-state-projection`, **ahead 2 of `origin/main`, NOT pushed** (owner controls push).
   **`76ad84aec`**: dissolved the `repo-intent-graph` god-document → **ADR-207** (DORA delivery-metrics SSOT) +
