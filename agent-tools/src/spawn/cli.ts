@@ -11,6 +11,7 @@ import {
   type CreateSpawnWorktreeOptions,
   type SpawnedWorktree,
 } from './create.js';
+import { formatLaunchCommand } from './launch-command.js';
 import { openDraftPr, type OpenDraftPrOptions } from './open-pr.js';
 
 /**
@@ -88,6 +89,7 @@ function executeSpawn(
       director: parsed.director,
     }),
   );
+  stdout.write(formatLaunchCommand(created.value));
   return 0;
 }
 
