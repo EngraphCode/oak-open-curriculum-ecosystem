@@ -22,7 +22,7 @@ barrier:
 
 When prose re-lists the fields/enums/values of a moving external specification
 so agents can author against it, that enumeration is the drift surface. Replace
-it: make an **enforced, localized schema the single source of truth**, and have
+it: make an **enforced, localised schema the single source of truth**, and have
 the prose **point at the schema** instead of re-listing values that go stale.
 
 A worked instance: the `subagent-architect` prose enumerated each platform's
