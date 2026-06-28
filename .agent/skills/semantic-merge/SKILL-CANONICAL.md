@@ -82,8 +82,19 @@ side is ever dropped to fit a structure or a limit.**
    history that the two divergent lines were reconciled, so git's future merge-base
    calculations know it; a single-parent commit leaves them unaware and the same divergence
    can resurface or be mis-resolved later.
-7. **Verify**: no conflict markers remain; both sides' concepts are present; the commit has
-   both parents; `markdownlint` is clean.
+7. **Verify losslessness mechanically — do not trust the conflict count.** No conflict
+   markers remain; the commit has both parents; `markdownlint` is clean. Then *prove* no
+   concept was lost, because the dangerous files are the **auto-merged** ones (e.g.
+   `distilled.md` emptied by a drain on one side vs full on the other), not the ones that
+   raised a conflict. For each memory file in the merge: (a) **heading/entry set-diff** —
+   diff the entry headings of every clean side against the chosen result; an *empty
+   miss-set* is the proof, the "I merged everything" assertion is not; (b) **merge-base
+   diff** — `git diff $(git merge-base HEAD <other-ref>) <other-ref> -- <file>` to detect
+   post-divergence additions the other side could not have drained. If a side appears to
+   have *removed* entries (a drain), confirm each removed entry is live in its permanent
+   home (or in that side's archive) before accepting the emptied version — a drain is
+   lossless only when the substance reached its home. Sibling:
+   [[ground-convenient-claims]], `verify-dont-trust`.
 
 ## Mechanics that respect the repo rules
 

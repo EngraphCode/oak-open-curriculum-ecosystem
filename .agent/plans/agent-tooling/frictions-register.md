@@ -2188,6 +2188,30 @@ below is a cross-reference index, not a second source of truth.
 - **Target surface**: the markdownlint-cli2 config (`.markdownlint-cli2.*`); the `markdownlint-check:root` / `markdownlint:root` scripts. Relates to F-96 (over-broad gate scope), F-83 (whole-tree pre-commit hostage).
 - **Status**: open — durable config cure identified, owner-surfaced.
 
+### F-104 — F-95 watcher-presence gate false-negatives despite a live heartbeat file
+
+- **Source**: Hawthorn rides Foliage (`a1fb02`) post-#259 handoff, 2026-06-27 — flagged
+  for capture-if-not-homed; this is the inverse of the F-95 gate it created.
+- **Surface**: the F-95 watcher-presence gate — `comms assert-watcher-live` (move-1
+  check) and the `claims open` blind-write backstop; `cli-comms-assert-watcher-live.ts`
+  / `claims-open-watcher-gate.ts`.
+- **Observed**: with the all-channels watcher re-armed (`--heartbeat-file <seen>.heartbeat.json
+  --heartbeat-interval-ms 30000`) and the heartbeat file present at the exact path the gate
+  names with a *fresh mtime*, `claims open` still refused with "no comms watcher heartbeat …
+  watcher not running." A live, event-delivering watcher could not open a claim — a gate
+  false-negative.
+- **Expected**: when a fresh heartbeat file exists at the path the gate inspects, the gate
+  passes; a live watcher is never reported as absent.
+- **Candidate cure**: not root-caused. Two hypotheses — (a) the gate's freshness window is
+  tighter than the file mtime, or (b) a path-derivation mismatch on the spaced display-name
+  (the F-88 quoting/filesystem-id family). Re-arm a watcher, confirm the heartbeat path the
+  watcher writes vs the path the gate reads, and reconcile.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-assert-watcher-live.ts`,
+  `claims-open-watcher-gate.ts`. Adjacent to F-95 (the gate), F-99, and F-88 (display-name
+  vs filesystem-id).
+- **Status**: open — captured from handoff; not root-caused.
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
 ---
 
 ## Mitigated / Addressed Frictions

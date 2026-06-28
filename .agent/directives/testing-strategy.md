@@ -79,6 +79,14 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   the engine while pinning config. Wire posture at the call site.
   (Owner doctrine 2026-06-08; the specialisation of "assert
   effects, not constants" for flags.)
+- **Prove behaviour, never config or content** - The umbrella over
+  the rules above: a test proves observable behaviour *without
+  constraining implementation*. Two corollaries (owner doctrine
+  2026-06-26): hashing a source and pinning the hash is the
+  antithesis — it pins bytes, proves no behaviour, fails loud on a
+  harmless change; and the cure for a **content-quality invariant**
+  (a firewall, e.g. "no curriculum data in this prose") is NOT a
+  grep test but **construction plus human review**.
 - **No useless tests** - Each test must prove something useful
   about the product code. If a test is only testing the test or
   mocks, delete it.
