@@ -38,8 +38,15 @@ forward-asks remain.
   drained; repo-continuity curated to compact-active-state; open-questions driven to zero (Q-009/Q-011
   user-granted keep-open). Recurrence prevention for continuity-surface drift is briefed in
   [`future/continuity-surface-drift-prevention.plan.md`](../../plans/agentic-engineering-enhancements/future/continuity-surface-drift-prevention.plan.md).
-- **Team-tooling session LIVE (2026-06-28).** Director **Firefly binds Slag** (887889); Implementers
-  **Beluga turns Shoal** (581401) + **Pangolin weaves Nightfall** (c680e4). The owner-approved guiding
+- **Team-tooling session LIVE (2026-06-28); the whole owner-approved PR batch #269–#274 LANDED on `main`.**
+  Director seat rotated via clean PDR-064 two-moments handovers: **Firefly binds Slag → Merlin seeks Rainbow →
+  Triton lifts Eternity** (current). Lanes rotated through six implementer seats to **Quasar mends Penumbra**
+  (Lane A, 1C PR #275 inbound to Director) + **Lichen spins Chlorophyll** (Lane B, O2 ergonomics tail). All
+  register lands done; **zero owner-visible coordination escalations across all three Director tenures.** Live
+  pickup is [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md) (Director-owned, refreshed each
+  rotation). **Deep consolidation DUE** — graduate this session's frictions/patterns in the dedicated pass per the
+  NEXT SESSION MANDATE; captures are preserved in `director-handoff.md` + the frictions-register + the comms
+  stream (capture-now-graduate-later). The owner-approved guiding
   plan is
   [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md)
   (cohesion anchor; readiness-reviewed; 5 outcomes O1–O5) over the
