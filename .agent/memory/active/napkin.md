@@ -154,3 +154,93 @@ Drove the team-tooling session open → first cycle (#269 merged) → both imple
 - **My base-branch defect (Director-learning).** My Moment-2 lane brief told implementers to cut feature branches off `coordination/team-tooling-session-2026-06-28`; correct is **off `origin/main`** (pure-diff PRs to main; the coordination branch carries only Director state). Caught + corrected within minutes (both implementers recut), but it cost a rebase each. Lesson: state the branch-class precisely in the opener/Moment-2 (off origin/main, flat, pure-diff) — the opener I wrote already said origin/main; my broadcast contradicted it. Verify the broadcast against the opener before sending.
 - **Shared-checkout contention for the coordination home (friction candidate).** Continuity-file writes (napkin, director-handoff) raced ("modified since read" repeatedly; one `.git/index.lock` collision on commit) because **standby successors registered as operating IN the primary checkout** (the coordination home). The worktree-per-agent model cures lane-source contention but the coordination home is still one shared checkout. Candidate: standby successors must NOT run git / hold the index in the coordination home; they create their own worktree only on adoption, and read (never git-write) the coordination home until then. Append-only buffers tolerate concurrent appends via shell (`cat >>`), but `Edit` (read-state match) and `git commit` (index lock) do not. Sibling: [[feedback_claims_never_block_memory_state_writes]] (writable-always) vs the index-lock reality.
 - **AC6 headline (sharpen for the worktree-per-agent transition evidence home).** The strongest PDR-117 second-instance finding is not just "0 owner-visible coordination prompts" — it is that **a hands-off owner + Director-merge-permission together produced an autonomous, self-continuing team**: the owner intervened only with standing directives/corrections (critical-review reminder, the sequence correction, the merge grant), never with coordination. The cast rotated at velocity — Lane A Beluga→Avocet→Dormouse and Lane B Pangolin→Ingot(→Pegasus standby) in ~one session — via clean PDR-063 handoffs, each with a frozen handoff record, no work lost. 2 cycles landed (#269, #270) + 2 more genuinely-ready (#271, #272) at handoff. This is the continuation-over-neatness model working.
+
+## 2026-06-28 — Lane A spawn-flow + O5 (Avocet tracks Crag, team-member preservation pass)
+
+Retired team-member (PDR-063, Lane A → Dormouse). Owner-directed deep close-out; not the
+closeout owner, so capturing to the napkin (append-safe) and flagging curation items for the
+Director (Firefly) per the Pangolin precedent. These are loss-scanned from my own context —
+items NOT already in the handoff record (`a63ac21a-lane-a-avocet-to-successor-2026-06-28.md`) or
+my closeout broadcast (`0b76bd9d`).
+
+- **STRUCTURAL-CAP THRASH → EXTRACT-DON'T-TRIM (candidate: friction-register + behaviour-note;
+  2 instances same session = strong graduation signal).** Adding a small thing to a file at its
+  structural cap (max-lines 250 / complexity 8 / max-lines-per-function 50) triggers a
+  failed-gate thrash if you respond with incremental trimming. On `create.ts` I burned THREE
+  pre-commit cycles: inline fix → complexity 9; 1-line comment → file 251; strip-in-place →
+  prettier reflowed the chain to 4 lines → file 253. The right move was apparent only after
+  code-expert + architecture-expert-fred both flagged it: **extract the cohesive concern to a
+  sibling module** (`detectExistingWorktree` + the seam type → `existing-worktree.ts`, acyclic;
+  `create.ts` 253→197). **Ingot hit the IDENTICAL thing the same session on `cli-specs.ts`**
+  (extracted a factory to `cli-spec-factory.ts`). Behaviour change: when a file is AT a
+  structural cap, the first response to "add a small thing" is extraction, never trimming —
+  trimming against a hard cap is the anti-pattern. Sub-lesson: **prettier reflow defeats
+  net-zero line-count assumptions** — a "same-line" edit on a long line silently becomes
+  multi-line; never assume a line-count delta on a chain/long line without re-running prettier.
+  Sibling: [[feedback_cowpath_anti_pattern]] (the thrash IS designing around the cap instead of
+  re-homing).
+
+- **INPUT-TO-VERIFY APPLIES UPWARD, not only to subagents (candidate: distilled).** The Director
+  leaned fail-fast for the base-ref fix (error if requested `--base` differs from the worktree's
+  actual base). I assessed first-hand and REFUTED it with git-grounding: git stores no record of
+  a branch's original fork point, and base refs move (main advances), so any base comparison
+  false-errors a legitimate retry after main moves. The Director affirmed I was right. The owner
+  directive (via Merlin) says reviewer/subagent output is input-to-verify — this session shows it
+  applies to a DIRECTOR's lean too. A recommendation from authority is still input-to-verify when
+  the code reality contradicts it. Sibling: [[feedback_reason_from_impact_not_authority]],
+  [[feedback_validate_specialist_findings_before_acting]].
+
+- **NO-REMOVAL-CURE DISSOLVES THE NEED FOR A SAFETY-RULE EXEMPTION (candidate: pattern /
+  distilled — reusable LTAE move).** T1 (orphan-worktree-on-build-failure) seemed to need a
+  narrow exemption from `never-use-git-to-remove-work` (atomic rollback = remove the just-created
+  worktree). The Director declined to self-ratify and reframed (lens-4 / replace-don't-bridge):
+  **dissolve the need for removal** — idempotent retry (detect the existing worktree, resume the
+  build) needs no `git worktree remove` at all, AND is better UX (retry "just works"). The move:
+  *when a fix appears to need a safety-rule exemption, first seek a redesign that dissolves the
+  need for the dangerous operation.* It is the constructive inverse of the cowpath — not
+  designing around the constraint, but redesigning so the constraint never binds. Sibling:
+  [[feedback_inherited_separation_can_be_the_bug]], [[feedback_long_term_architectural_excellence_is_always_the_answer]].
+
+- **RE-VERIFY 0 THREADS *AT* DECLARATION — a bot posts between your fix and your "ready"
+  (candidate: sharpen [[feedback_pr_readiness_requires_comment_triage]] / the PR-readiness
+  rule).** I declared #272 genuinely-ready with a Cursor Bugbot thread that had landed ~30s
+  earlier (the base-ref finding); a second (collision-prefix) landed later. The Director caught
+  both. "0 unresolved threads" is not a property you check once after pushing — it must be
+  re-verified AT THE MOMENT of the ready-declaration, because bot review is asynchronous and can
+  post between your last fix and your claim. Same discipline extends to the PDR-063
+  handoff-readiness judgment: a "done" PR can be made not-done by async review, so re-verify at
+  the handoff boundary, not from an earlier check. (I fixed my own just-introduced base-ref bug
+  rather than handing it off — handing off a bug in my own cure would have been the failure.)
+
+- **COORDINATION-HOME CONTENTION is specifically git-index + Edit-read-match, NOT CLI-append
+  (corroborates Firefly's candidate).** I worked in worktree `oak-spawn-flow` (lane source) but
+  did ALL comms/claims/heartbeat writes against the primary-checkout coordination home, and hit
+  no lock collision myself — because the collaboration-state CLI appends atomically and my git
+  ops were in the worktree, not the home. The contention Firefly saw is on `git commit` (index
+  lock) and `Edit` (read-state match) in the SHARED home. Data point for the candidate cure:
+  append-via-CLI / append-via-shell to the home is safe under concurrency; index-holding git ops
+  and Edit-match writes to the home are not. Sibling: [[feedback_claims_never_block_memory_state_writes]].
+
+- **F-101 watcher 3600s self-terminate fired once mid-work; re-armed clean (known —
+  corroborates [[feedback_comms_watch_cli_can_stall_silently]]).** Dogfooded the exact orphan
+  guard Lane B is hardening; seen-file cursor meant no missed events, only delay.
+
+- **Loss-scan (from my own context, standing down):** O5 #271 + Lane A #272 state conserved in
+  the handoff record (first-hand-verified at write: HEAD 776bd5788, 0 threads, CI green) +
+  closeout broadcast; #271 + #272 both still BEHIND-able if main moves before merge → merge-in
+  not rebase (in the record). The seam type `SpawnGitRunner` now lives in `existing-worktree.ts`
+  (create.ts re-exports) — the 1C gh-seam-as-3rd-consumer hoist-to-core decision should account
+  for that (noted in the record). Nothing else material unconserved.
+
+- **THREAD-IDENTITY (for the Director's team closeout — I did not edit the curated surfaces):**
+  Avocet tracks Crag / claude / Opus 4.8 / 30fe5b touched threads `agent-operability` (Lane A
+  spawn-flow) and `orientation-skills-family` (O5 discovery pointer) on 2026-06-28 — needs
+  `last_session` rows + the repo-continuity identity summary updated by the closeout owner.
+
+### Deep loss-scan pass 2 (Firefly binds Slag, final closeout) — genuinely-new items from a second recursive sweep
+
+- **Director context-economy is itself a Director skill (graduate to the Director brief).** Over my tenure I replied to nearly every routine implementer heartbeat with a one-line acknowledgement. Each was cheap, but in aggregate they spent the long-lived Director's scarcest resource — context — on signals that required no action. A long-lived Director should **stay silent on routine heartbeats and the monitors that carry them, and act only on substantive events** (questions, PR-opens, verdicts, blockers, genuine stalls). Over-narration shortens the very tenure the Director role exists to maximise. This compounds with the monitor-husbandry cost (hourly watcher re-arms) — both are continuous context drains a minimum-action Director must budget. Sibling: PDR-117 minimum-action; [[feedback_comms_ceremony_minimal]].
+- **The handoff-sequence principle is universal across rotating roles, not Director-specific.** The owner's correction (prepare-materials → hand over → close out; continuation over session-neatness) is the SAME shape the implementers already embodied via PDR-063 (freeze the handoff record FIRST, then retire — never finish-the-lane-then-handoff). I violated it AS Director (was finishing merges/pushes before handing over) precisely because the Director-handoff doctrine framed "stop heartbeat / refresh state" as closeout steps without foregrounding "materials BEFORE handover, loose-ends handed-over-in-flight." Refinement for the Director brief Standing Lessons: state the sequence explicitly as `prepare handover materials → hand over (Moment-1 → successor Moment-2) → THEN closeout`, and name the anti-pattern (finish-all-then-handover) — it is one principle with PDR-063, optimising the team's continuation over any one session's tidiness.
+- **GRADUATION DISPOSITION (consolidation is DUE, captured-not-graduated — the correct rotation-closeout boundary).** Per session-handoff step 9–10, deep consolidation is DUE but NOT well-bounded for this closeout (the team is active under Merlin; the durable homes — director-handoff Standing Lessons, `patterns/`, `open-questions.md` — are Merlin's live surfaces; my context is ending). So these are CAPTURED here at full weight and flagged for the dedicated pass, not graduated mid-rotation: (1) the handoff-sequence correction → Director brief Standing Lessons; (2) no-removal-redesign-before-safety-exemption → a `patterns/` entry; (3) Director-merge-permission generalisation → `open-questions.md` Q-NNN; (4) heartbeat-label-from-live-claim-cycle → frictions-register / liveness-heartbeat-cron; (5) Director context-economy → Director brief. Merlin / the dedicated consolidation graduates them; the napkin (this session's entries) is the source.
+- **Thread-record identity fold deferred to arc-end (asked, decided — not skipped).** I held a claim on `agentic-engineering-enhancements` but worked via the `director-handoff.md` surface + comms, not the thread next-session record. My participation + full tenure are durably recorded in `director-handoff.md` CURRENT HANDOFF STATE (names me first Director), the closed-claims archive (claim 3326541a closure), and the comms trail. The thread-record identity-row + repo-continuity identity-summary fold is arc-end closeout-owner work (Merlin, when the team-tooling session concludes), not a mid-session rotation edit — and editing those live surfaces now would race the active team. Recorded so it is a decision, not an omission.
+- **Loss-scan verdict: complete.** After two recursive passes, nothing material that only I hold remains unconserved. Operational state → `director-handoff.md` (committed + pushed e678cff63/cec022942); session learnings → napkin (Director-lens + this pass-2 + the implementers' folded lane entries); decisions/rationale → the comms trail (durable). My context can end.
