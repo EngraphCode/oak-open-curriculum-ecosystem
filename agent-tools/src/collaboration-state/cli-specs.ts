@@ -99,7 +99,7 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     // time-dependent behaviour, so a caller passing `--now` for cross-command
     // symmetry is not rejected by the dispatch-time option allowlist.
     help: commsListHelp,
-    options: ['comms-dir', 'tail', 'now'],
+    options: ['comms-dir', 'tail', 'since', 'now'],
     handler: listComms,
   }),
   'comms:show': commandSpec({
