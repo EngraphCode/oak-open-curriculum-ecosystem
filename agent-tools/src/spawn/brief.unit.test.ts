@@ -7,18 +7,22 @@ const RESULT: SpawnedWorktree = {
   worktreePath: '/workspace/oak-spawn-flow',
   branch: 'feat/spawn-flow',
   base: 'origin/main',
-  session: { seed: 'seed-value', agentName: 'Test Agent Name', sessionIdPrefix: 'seed-v' },
   resumed: false,
 };
 
 describe('formatSeatBrief', () => {
-  it('renders the derived seat coordinates — identity, worktree, branch — from the spawn result', () => {
+  it('renders the derived seat coordinates — worktree and branch — from the spawn result', () => {
     const brief = formatSeatBrief(RESULT, {});
 
-    expect(brief).toContain('Test Agent Name');
-    expect(brief).toContain('seed-v');
     expect(brief).toContain('/workspace/oak-spawn-flow');
     expect(brief).toContain('feat/spawn-flow');
+  });
+
+  it('states identity is assigned at launch rather than printing an authored prediction', () => {
+    const brief = formatSeatBrief(RESULT, {});
+
+    expect(brief).toContain('identity: assigned at launch');
+    expect(brief).toContain('identity preflight');
   });
 
   it('invokes /oak-start-right-team rather than restating the skill (Pitfall 5)', () => {
