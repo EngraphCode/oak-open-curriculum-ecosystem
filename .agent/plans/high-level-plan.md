@@ -62,8 +62,6 @@ the collection-owned plan first, then reconcile this index.
 | Graph & evidence work | [connecting-oak-resources/knowledge-graph-integration/README.md](connecting-oak-resources/knowledge-graph-integration/README.md) | Knowledge-graph integration hub; the live EEF evidence tool is under [sector-engagement/eef/](sector-engagement/eef/README.md) |
 | Agent-readiness discovery | [discovery/README.md](discovery/README.md) | API catalog, Agent Skills, MCP Server Cards, A2A, DNS-AID, WebMCP, Web Bot Auth, robots/sitemaps, and `.well-known` metadata |
 | Observability strategy | [observability/high-level-observability-plan.md](observability/high-level-observability-plan.md) | Five-axis observability plan under ADR-162 |
-| Completed history | [completed-plans.md](completed-plans.md) | Human-readable completed-plan index; archives remain read-only provenance |
-| New teammate onramp | [good-first-issues.md](good-first-issues.md) | Curated starter-task index |
 
 ---
 
@@ -80,7 +78,7 @@ is promoted.
 
 | Milestone | State | Summary | Current Authority |
 |---|---|---|---|
-| M0 - Open Private Alpha | ✅ Complete | Repo made public after secrets/PII and docs remediation; HTTP server remained private alpha. | Archives and [completed-plans.md](completed-plans.md) |
+| M0 - Open Private Alpha | ✅ Complete | Repo made public after secrets/PII and docs remediation; HTTP server remained private alpha. | Relocated archive ([`.agent/plans-old-archive/`](../plans-old-archive/)) |
 | M1 - Invite-Only Alpha | ✅ Complete | Dev Clerk allowlist, Oak/invited users, server live at `curriculum-mcp-alpha.oaknational.dev`. | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) |
 | M2 - Open Public Alpha | 🔄 In progress | Public-alpha readiness across search/index health, MCP Apps migration, graph alignment, observability evidence, and user-facing MCP App experience. | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) plus collection active/current plans |
 | M3 - Public Beta | 📋 Planned / gated | Production Clerk, Cloudflare MCP security gate, operational hardening, alerting, compliance/privacy paperwork, and exemplar UI readiness. | [security-and-privacy/roadmap.md](security-and-privacy/roadmap.md), [compliance/roadmap.md](compliance/roadmap.md), and [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) |
