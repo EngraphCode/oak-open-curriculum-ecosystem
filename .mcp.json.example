@@ -11,7 +11,7 @@
     "mcpjam": {
       "type": "stdio",
       "command": "pnpm",
-      "args": ["dlx", "@mcpjam/cli@latest", "mcp"],
+      "args": ["exec", "mcpjam", "mcp"],
       "env": {}
     },
     "oak-prod": {
