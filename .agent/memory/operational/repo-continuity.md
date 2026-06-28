@@ -24,6 +24,25 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+- **docs-reviewer-split COMPLETE + the meta-agent frontmatter schema cure (2026-06-28, Ketch turns Fathom, post-compaction).**
+  The `docs-reviewer-split` is **done and pushed** on `docs/agent-work-state-projection` (origin == HEAD, 12
+  ahead of `origin/main`). **Phase 1** (the currency prerequisite, owner-escalated to "build the cure"): a new
+  **enforced per-platform subagent frontmatter Zod schema**
+  (`agent-tools/src/validators/subagents/frontmatter-schema.ts`, the SSOT) wired into `validate-subagents` —
+  closes the gap where `.claude/agents` was unvalidated and no platform's frontmatter values were checked.
+  `model` is now **optional (inherit policy** — the invoking agent controls the model; all 44 wrappers' pins
+  removed, incl. stale `claude-opus-4-7`); 3 invalid colours + 22 non-functional Cursor `tools` fields fixed;
+  the architect prose now **points at the schema** instead of re-listing values that drift. **Phase 2**: new
+  **`prose-expert`** (Strunk & White craft for every doc + the Oak voice only where `editorial-tone.md` scopes
+  it) + **`docs-adr-expert`** extended in place into the documentation-infrastructure reviewer (ADR-127 §5
+  lens); both wired into the invoke-code-experts matrix; a worked-review on real content (VISION + an ADR)
+  proved the scoped-voice boundary holds. Commits `dff1ea2b2` / `a0e1b3e3f` / `83c055e02` (+ `338702c15`, the
+  owner's MCPJam fix). Plan `current/docs-reviewer-split-execution.plan.md` (with its disposition ledger) is
+  **complete — safe to archive**. **Owner delegated commit AND push authority to the agent this session**
+  ("commits are your decision"; "push is yours too"); main-MERGE still needs @jimCresswell code-owner —
+  **confirm next session whether this delegation is standing or session-scoped.** Team is now **≥3** (shared
+  branch; Beluga's spawn-flow lane + the sonar ADR-208 `64deca3c5`; the n=2 framing is outdated). **Next
+  agreed step:** the shallow planning-estate re-scan → resuming the intent-graph substrate work.
 - **Spawn-flow tool handed to a fresh session (2026-06-28, Beluga rides Wave).** The F-98 agent
   work-state fix settled to the **decoupled spawn-flow tool**: launch a session in its worktree → the
   binding is *derived* from cwd (owner-confirmed: cwd = the invocation dir, the primary is not special),

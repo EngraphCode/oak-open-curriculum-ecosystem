@@ -2,8 +2,8 @@
 plan_id: docs-reviewer-split-execution
 title: "Execute the docs-reviewer split — enforce subagent frontmatter (schema cure), then the two-reviewer build"
 type: governance-delivery
-status: current
-lifecycle: current
+status: complete
+lifecycle: complete
 lineage:
   serves_thread: agentic-engineering-enhancements
   serves_stream: agentic-framework
@@ -54,6 +54,10 @@ last_updated: 2026-06-28
 
 # Execute the docs-reviewer split — enforce subagent frontmatter (schema cure), then the two-reviewer build
 
+> **✅ COMPLETE (2026-06-28).** Both phases landed and pushed — Phase 1 `dff1ea2b2` + `a0e1b3e3f`, Phase 2
+> `83c055e02`. The disposition ledger below records every decision. Safe to archive per ADR-117 (the commits
+> and the permanent homes are the record).
+>
 > **Executable promotion of the strategic brief
 > [`../future/docs-reviewer-split.plan.md`](../future/docs-reviewer-split.plan.md)** (owner-ratified
 > 2026-06-28). The brief owns the *problem, intent, two-reviewer design, and domain boundaries* — this

@@ -211,3 +211,69 @@ against official docs/guidance BEFORE building it (they author and gate the work
 - **Overclaimed "Sonar architecture not provisioned for our org" from tool-surface absence (2026-06-28).** Writing ADR-208, I concluded the Agentic-Analysis/Context-Augmentation add-ons were not provisioned because: the architecture MCP tools weren't in my session catalogue, SonarQube CLI v0.9.0 has no architecture command, and `/api/webservices/list` (v1) showed no architecture web service. The owner corrected me: both add-ons ARE enabled. Root cause — the SonarQube MCP server runs via the Docker MCP gateway (`MCP_DOCKER`), which **disconnected mid-session** (a system notice flagged it; `ListMcpResourcesTool` then showed only `github` + `oak-prod` live), and the `sonar api` CLI passthrough is **v1-only** (even `/api/v2/analysis/version` 404s), so neither surface could reach the v2 architecture API. Tool-surface/transport absence is NOT a provisioning fact. Lesson: when a capability is "missing", isolate transport-down vs feature-absent BEFORE asserting provisioning; a disconnected MCP gateway looks identical to "not enabled". Sibling: [[feedback_ground_convenient_claims]], [[feedback_evidence_discipline_in_diagnostics]], [[feedback_calibrate_verification_to_stakes]].
 - **A detached `while-true` heartbeat loop survived ~21 hours across compactions and every TaskStop (2026-06-28, Beluga rides Wave).** Resuming post-compaction, the canonical comms stream showed only my own `[heartbeat]` events every ~4 min — emitted by a zsh `while true; do … comms append … sleep 240; done` loop (PID 67763, etime 20:50) launched via the Monitor tool during the D1 lane ~21h earlier. `TaskStop` had cleared the Monitor *task* long ago but NOT the OS process tree; `pgrep "comms watch"` missed it because the command was `comms append`. It published STALE state (title "D1 substrate-taxonomy", branch `docs/state-tier-taxonomy`, worktree `oak-d1-taxonomy`) under my identity the whole time. Killed by explicit PID. Worked instance of the kill-all-watchers + singleton-per-identity forward-ask: detached shell loops are TaskStop-proof and broad-grep-evasive. Cure (not built): an `agent-tools` command that finds + kills ALL heartbeat/watcher process trees for an identity, with singleton-per-identity so a re-arm REPLACES not accumulates. Candidate frictions-register entry. Sibling: [[liveness-heartbeat-cron]], [[check-singleton-per-window]].
 - **Git hygiene: 19 worktrees → 1, and the cleanup tool doesn't cover the prevailing convention (2026-06-28, owner standing directive).** Owner made git hygiene standing: "always clean up stale branches and worktrees; git hygiene is very important in this multi-agent setup." Retired 17 stale worktrees (each content-verified in main or salvaged) + the spent pilot worktree; owner deleted the 18 branch refs. Two structural findings: (1) `claude-agent-ops cleanup` only manages `.claude/worktrees/agent-*`, NOT the prevailing sibling `oak-*` convention — so 17 worktrees were cleanup-invisible and had to be hand-retired (now a build slice in `current/agent-spawn-flow-tool.plan.md`). (2) The auto-mode permission classifier (correctly) blocks bulk `git worktree remove`/`git branch -D` in a shared setup even given a verdict — "content in main ≠ the agent is done with the worktree"; bulk destructive ops need an explicit owner grant. Sibling: [[worktree-hygiene]], [[never-use-git-to-remove-work]]. Candidate: graduate the standing directive into the worktree-hygiene rule.
+
+## 2026-06-28 — docs-reviewer split: schema-as-SSOT cure for vendor-spec drift; model→inherit; first-hand loss-scan (Ketch turns Fathom, post-compaction)
+
+Session arc (post-compaction, all landed; branch `docs/agent-work-state-projection`, **pushed**, ahead of
+`origin/main`): executed the `docs-reviewer-split` — Phase 1 (the currency prerequisite, owner-escalated to
+"build the cure") then Phase 2 (the split). Commits `dff1ea2b2` (schema cure + 44-wrapper cleanup),
+`a0e1b3e3f` (architect prose → schema SSOT + ledger), `83c055e02` (the split: new `prose-expert` +
+`docs-adr-expert` extended to documentation-infrastructure), plus `338702c15` (owner's MCPJam fix, integrated).
+
+- **Schema-as-SSOT is the cure for vendor-spec drift in prose (the keystone learning).** The
+  `subagent-architect` prose enumerated each platform's wrapper frontmatter — and had drifted hard: the
+  official Claude sub-agent spec gained **9 fields** (skills, mcpServers, hooks, memory, maxTurns, effort,
+  isolation, background, initialPrompt), its colour list was incomplete (`amber`/`teal` were invalid and live
+  in 3 wrappers), and **Cursor has no `tools` field at all** (inherit-all; restrict via `readonly`). Cure: an
+  enforced per-platform **Zod frontmatter schema** (`agent-tools/.../frontmatter-schema.ts`) is the SSOT; the
+  prose **points at it** instead of re-listing values that drift. This relocates currency from drift-prone
+  prose into one enforced+localized+auditable file. The reflexive case of ADR-127 §5 (documentation IS
+  infrastructure) applied to agent definitions. **Candidate `patterns/` + possible PDR** (general:
+  "enforce-via-schema, don't enumerate-in-prose, for fast-moving vendor surfaces"). Sibling:
+  [[feedback_documentation_is_infrastructure]], [[feedback_derive_dont_bridge_controlled_surface]].
+- **The enforced gate beats manual/agent review — by a class, not a margin.** Wiring the schema into
+  `validate-subagents` caught **3** invalid colours where the (careful, first-hand) currency review found **1**,
+  plus **22** non-conformant Cursor `tools` fields the review never flagged. "Build the gate; the gate finds the
+  violations" — mechanise the check rather than trusting a read-through. Strong pattern. Sibling:
+  [[verify-dont-trust]], [[feedback_run_the_thing_dont_flag_the_gap]].
+- **`model`→inherit policy (owner directive).** Stop pinning `model` in subagent wrappers; omit it so the
+  **invoking agent controls the model** (resolution order: `CLAUDE_CODE_SUBAGENT_MODEL` env → per-invocation
+  param → frontmatter → main-conversation model; omit ⇒ inherit). Removed pins from all 44 Claude+Cursor
+  wrappers (incl. stale `claude-opus-4-7`). The schema makes `model` optional; the prose recommends omit. A
+  durable agent-authoring policy. Capability preference (e.g. security-expert "uses opus") moves to the agent
+  *description* (invoker chooses), not a frontmatter floor.
+- **Reconcile anchor for a local schema mirroring a moving spec.** The schema carries `FRONTMATTER_SOURCES`
+  (official-doc URL + `lastVerified` date per platform), guarded by a unit test; the documented reconcile is
+  "re-run the currency-check workflow on a platform-release signal" (no brittle fetch-in-CI). A local schema
+  doesn't eliminate currency work — it relocates it to an enforced, auditable, re-runnable surface.
+- **The pre-push gate checks UNTRACKED files (new shared-tree hazard).** `git push` was blocked by an
+  untracked, unformatted **ADR-208** (a *concurrent* session's sonar work) — the full-tree `prettier --check`
+  in the pre-push hook scans untracked files too, so another session's WIP blocks your push. Extends the
+  shared-tree commit hazards above. Cure: commit/push by explicit pathspec is not enough — the gate is
+  whole-tree; surface the foreign blocker rather than touching their WIP. Sibling: [[stage-by-explicit-pathspec]],
+  F-103 family.
+- **Tool-output RENDERING can fake a defect — read the raw bytes.** `rg -i` match-highlighting, captured
+  through the pipe, rendered `security-expert`'s description "Uses claude-opus-4 for deeper threat" as
+  "n-opus-4 for n" — looked like I'd corrupted a committed file. `git show <sha> -- <file>` + a raw `sed -n`
+  proved the file intact; the mangling was the highlighter, not the content. I nearly reported a false
+  regression I'd "introduced". [[verify-dont-trust]] extends to tool output rendering, not just claims.
+- **Supersession ≠ sequencing (owner correction).** I inferred the owner's "shallow-scan next" instruction
+  *superseded* the docs-reviewer-split brief; the owner corrected — "no supersession", it ADDED a downstream
+  goal. The latest owner turn does not always replace; it can extend. Distinguish supersession from
+  sequencing/addition before re-shaping the work. Refines [[feedback_owner_direction_is_a_stream]].
+- **Worked-review on REAL content is the acceptance proof for a new reviewer.** Ran the new `prose-expert`
+  (faithfully — a general-purpose agent told to read+follow its template, since the Agent registry doesn't
+  hot-reload a wrapper created mid-session) on `VISION.md` + an ADR. It classified each, applied craft to both,
+  and **withheld the Oak voice from the ADR — even refusing to flag the ADR's American spellings** because
+  British-English is a scoped voice rule. That refusal IS the boundary working; structural validation alone
+  wouldn't have shown it. [[feedback_verify_on_real_content_not_fixtures]].
+- **Commit AND push authority delegated to me (owner, this session).** "Commits are your decision" then "Push
+  is yours too" — supersedes the prior "owner controls push" / owner-gates-commits posture (main-MERGE still
+  needs @jimCresswell code-owner approval, unchanged). Homed to per-user memory; **scope (standing vs
+  session) is worth confirming next session** — the owner framed push as "yours from here on".
+- **Loss-scan (6e.2, first-hand): what reached no durable surface and is now homed here.** All of the above.
+  Also conserved to the execution plan's disposition ledger (commit `a0e1b3e3f`) and per-user memory. Strongest
+  graduation candidates: the schema-as-SSOT pattern, the enforced-gate-beats-review pattern, the model-inherit
+  policy. **Coordination state for the next agent:** a concurrent session is live on this shared checkout (sonar
+  thread — ADR-208, napkin/continuity edits); Beluga's heartbeats stopped ~08:09Z (apparent retirement); the
+  docs-reviewer-split is COMPLETE; next agreed step is the shallow planning-estate re-scan → intent-graph work.
