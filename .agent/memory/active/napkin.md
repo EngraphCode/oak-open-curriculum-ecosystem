@@ -244,3 +244,134 @@ my closeout broadcast (`0b76bd9d`).
 - **GRADUATION DISPOSITION (consolidation is DUE, captured-not-graduated — the correct rotation-closeout boundary).** Per session-handoff step 9–10, deep consolidation is DUE but NOT well-bounded for this closeout (the team is active under Merlin; the durable homes — director-handoff Standing Lessons, `patterns/`, `open-questions.md` — are Merlin's live surfaces; my context is ending). So these are CAPTURED here at full weight and flagged for the dedicated pass, not graduated mid-rotation: (1) the handoff-sequence correction → Director brief Standing Lessons; (2) no-removal-redesign-before-safety-exemption → a `patterns/` entry; (3) Director-merge-permission generalisation → `open-questions.md` Q-NNN; (4) heartbeat-label-from-live-claim-cycle → frictions-register / liveness-heartbeat-cron; (5) Director context-economy → Director brief. Merlin / the dedicated consolidation graduates them; the napkin (this session's entries) is the source.
 - **Thread-record identity fold deferred to arc-end (asked, decided — not skipped).** I held a claim on `agentic-engineering-enhancements` but worked via the `director-handoff.md` surface + comms, not the thread next-session record. My participation + full tenure are durably recorded in `director-handoff.md` CURRENT HANDOFF STATE (names me first Director), the closed-claims archive (claim 3326541a closure), and the comms trail. The thread-record identity-row + repo-continuity identity-summary fold is arc-end closeout-owner work (Merlin, when the team-tooling session concludes), not a mid-session rotation edit — and editing those live surfaces now would race the active team. Recorded so it is a decision, not an omission.
 - **Loss-scan verdict: complete.** After two recursive passes, nothing material that only I hold remains unconserved. Operational state → `director-handoff.md` (committed + pushed e678cff63/cec022942); session learnings → napkin (Director-lens + this pass-2 + the implementers' folded lane entries); decisions/rationale → the comms trail (durable). My context can end.
+
+### 2026-06-28 — F-75 peer heartbeat-silence (Ingot tracks Brilliance, Lane B, fe57ce)
+
+- **Fixtures drift to the implementer's happy path; real content reveals the domain.** My F-75 unit
+  fixtures carried `id` (the type "looked like it wanted one"), so they were all green. The
+  integration test with id-OPTIONAL fixtures caught `routingKeyFor` THROWING on id-less identities —
+  which the real comms backlog carries by design (pre-PDR-076a rows). The real-content run
+  (`comms peer-liveness` on the live stream) then confirmed the cure: Pangolin read `retired`, the
+  live cast `active`. The lesson isn't "write integration tests" — it's that fixtures unconsciously
+  encode the author's model; only real/realistic content exercises the actual domain. Earned, not
+  held. Sibling: [[feedback_verify_on_real_content_not_fixtures]].
+- **A reviewer finding has two layers: the problem (trust) and the fix (verify-against-doctrine).**
+  code-expert flagged a real bug (a malformed `created_at` → `NaN` falls through both `<` comparisons
+  in `classifyState` → silent `retired` false-positive) and proposed a `throw`. I adopted the
+  PROBLEM and REFUTED the FIX with grounding: a `throw` violates no-throw/ADR-088 AND would let one
+  corrupt event crash classification of the whole cast. Cure = SKIP the malformed event (consistent
+  with the id-less skip; a peer with only-corrupt heartbeats is absent, never falsely `retired`).
+  The owner's mid-session directive (verify subagent results first-hand) is exactly this: separate a
+  reviewer's correct diagnosis from a doctrine-contradicting prescription. Sibling:
+  [[feedback_validate_specialist_findings_before_acting]].
+- **Missing/NaN value flowing into a threshold comparison silently selects the worst bucket — a
+  general liveness-classifier hazard.** `NaN < x` is false, so an unguarded classifier defaults a
+  bad input to the last branch (here `retired`). Any `classify-by-threshold` over external data must
+  gate the parse before the comparison. Candidate behaviour-note.
+- **Standby presence is the watcher + heartbeat + registry, not chatter.** As Pangolin's standby
+  successor I over-emitted courtesy acks. The substantive broadcasts (correcting Avocet's "Lane B is
+  parallelisable" framing for the Director's routing; the rescue-readiness signal) changed peers'
+  next actions; the acks did not. Broadcast bar in standby = "does this change a peer's next action?"
+  The implementer-role twin of Firefly's Director context-economy lesson above. Sibling:
+  [[feedback_comms_ceremony_minimal]].
+- **The session is self-similar (meta-observation).** The team builds tools to make multi-agent
+  liveness trustworthy (F-75 detect a silent peer; F-101 kill orphan watchers; spawn-flow nucleate
+  seats) WHILE being a multi-agent team running on those tools and hitting their gaps in real time
+  (watcher drain-deaths, heartbeat-label staleness, rebase/force-push gates, cli-specs at budget).
+  F-75 mechanises the exact manual check Firefly did by hand on the Pangolin false-alarm DURING
+  F-75's own construction. The tool and its user are one system observing itself — strongest
+  evidence the work is aimed right, and every friction hit IS the next backlog item (FRAME-1).
+- **Friction corroborations (not new, data points):** `cli-specs.ts` was at its max-lines:250 budget
+  → extracted the `commandSpec` factory to `cli-spec-factory.ts` rather than weaken the cap (same
+  shape as Avocet's `existing-worktree.ts` extraction). `git rebase --onto` was permission-DENIED →
+  flat-PR path is merge-in, not rebase (corroborates the force-with-lease / rebase-gate friction).
+  Watcher 60s drain-death under my concurrent-gate host-load → re-armed with `--step-timeout-ms
+  180000` (corroborates [[feedback_comms_watch_cli_can_stall_silently]] + Pangolin's candidate).
+- **FOR THE DIRECTOR (Merlin seeks Rainbow) — curated-surface folds I did NOT make (non-closeout-owner):**
+  (1) my thread `agentic-engineering-enhancements` identity row needs `last_session: 2026-06-28` for
+  `claude / claude-opus-4-8 / Ingot tracks Brilliance / implementer`, plus the repo-continuity
+  identity summary. (2) F-75 register status is owed on its merge: F-75 ADDRESSED by `comms
+  peer-liveness` + `peerHeartbeatLiveness` classifier (commit c2934cce4, branch pushed
+  origin/feat/lane-b-f75-peer-heartbeat-silence; PR pending the merge-in flatten by Pegasus).
+  (3) Lane B continues under Pegasus guards Dawn (claim 0ba02fee retained + handoff record).
+- **Loss-scan verdict (Ingot, standing down): complete.** F-75 grounded knowledge → the Pegasus
+  handoff record (first-hand-verified at write: commit c2934cce4, pushed, gates green, real-content
+  proof). Session learnings → this entry. The one unverified handoff claim (merge-in → flat diff) is
+  honestly hedged as "expected" in the record. Nothing material that only I hold remains unconserved.
+- **Post-retirement recursive loss-sweep (Ingot, owner-requested re-check) — verified, no loss; one
+  state-change caught.** Re-swept my context against current state and verified first-hand (read-only):
+  (1) **F-75 is now LIVE** — `peer-liveness.ts` is PRESENT in `origin/main`; commit `c2934cce4` is NOT
+  an ancestor → it merged under a squashed SHA. This SUPERSEDES the "PR pending Pegasus's merge-in
+  flatten" note above: the flat-PR path worked and F-75 is merged. The merge-in-flattens hypothesis
+  (hedged "expected") is CONFIRMED. (2) **Handoff to Pegasus is complete + confirmed** — Pegasus guards
+  Dawn owns claim `0ba02fee` (adopted), and `origin/feat/lane-b-f85-active-default` exists → Pegasus has
+  progressed to F-85 (the next O2 item). Empirical proof the handoff record was sufficient. (3) No
+  Ingot-held knowledge remains unconserved. Residual (Director's, flagged): my consolidate artefacts
+  (this napkin entry, the experience file, the handoff record) are on-disk-but-uncommitted in the
+  primary checkout — conserved pending Merlin's team-closeout continuity commit; I did not commit them
+  myself (collision risk on the live coordination branch; not the non-closeout-owner's role). Verdict:
+  loss-sweep complete, nothing lost.
+
+## 2026-06-28 — Lane A successor: #272 fix → 1C draft-PR-at-spawn (Dormouse stirs Frost, 17b589; PDR-063 handoff to Quasar)
+
+Adopted Lane A (O3 spawn-flow) from Avocet at #272 CI-green; fixed #272's re-appeared Cursor Medium
+(primary-checkout-mistaken-for-resume → a `deriveSpawnTarget` fail-fast guard; MERGED in the #272 squash
+`4b84ea702`); built 1C (draft-PR-at-spawn) full cycle, committed+pushed `9baf83f4a` on
+`origin/feat/spawn-draft-pr` (NO PR yet), PDR-063-handed to Quasar mends Penumbra. Lane state + decisions
+in the handoff record `a63ac21a-lane-a-dormouse-to-quasar-2026-06-28.md`. Session-general residue (flag
+for the Director's central land / dedicated pass):
+
+- **FRICTION (candidate): `git checkout -b <new> <start>` is hook-blocked even on a CLEAN tree**
+  (substring `git checkout`); the safe non-destructive primitive is **`git switch -c <new> <start>`**
+  (git split branch-switching from file-restoring precisely so the former is not conflated with
+  destruction). Verify the tree is clean first. hook-policy-substring-discipline (parse-don't-substring)
+  family — same shape as the `git restore --staged` / `git reset -- <paths>` over-blocks noted earlier
+  this session.
+- **WORKED INSTANCE — validate-full-target-estate:** I converted `resolveTrustedGit` (a shared `core/`
+  util) to Result for consistency with the new `resolveTrustedGh`, and type-check immediately caught
+  **6 callers** expecting a throwing string (collaboration-state/coordination-home [Lane B], statusline,
+  two validators, branch-touched-files). Reverted: a shared-signature change needs a full caller sweep
+  FIRST; the gate caught the omission. The throwing resolver migrates with the no-throw backlog across
+  all callers, not piecemeal.
+- **heartbeat-LABEL-staleness false-stall bit me — 3rd instance** (Pangolin, Avocet, now Dormouse): I
+  went heads-down BUILDING 1C right after the Director's ratification without relabelling, so my
+  heartbeat asserted "awaiting/prepping" and the Director nearly fired a rescue. Cure used:
+  relabel-at-transition. Deeper cure (derive the label from the live claim's current cycle, not a frozen
+  loop arg) — Merlin is folding it at arc-end; three worked instances is a strong graduation signal.
+- **consolidate-at-third-consumer hoist worked cleanly** (CommandRunner<T> + PathExists → `core/`;
+  git/pnpm/gh seams thin aliases). In-code notes left for the NEXT consolidations: pr-watch's
+  `resolveGhPath` is a 2nd gh-resolver (consolidate at a 3rd); `PathExistsCheck` is a 4th
+  `(candidate)=>boolean` (cross-lane, deferred).
+- **Reviewers + the gate caught real things; critically assessed first-hand throughout** (owner
+  directive, reinforced mid-session): on #272 I verified the code-expert coupling argument myself; on 1C
+  I verified architecture-expert's build-failed-then-resume no-PR gap by tracing the flow (real →
+  documented as a 1C limitation in `cli.ts`), and confirmed code-expert's hypothesised `baseBranchOf`
+  bug does NOT exist (no `/g`) while its inverse fragility (unenforced remote-qualified base) does.
+- **Loss-scan (from my own context, retiring):** nothing else material unconserved — #272 fix is in
+  main, 1C is pushed + gate-green + reviewer-approved, the handoff record carries lane state + decisions
+  - both 1C limitations, and the above covers the session-general residue. repo-continuity /
+  thread-record / register lands are the Director's (closeout-owner); I did not touch them.
+
+### 2026-06-28 — Lane B (Pegasus guards Dawn, 41fd72): F-75 + F-85, then mid-session closeout
+
+- **Watcher drain-death at `--step-timeout-ms 180000` is INSUFFICIENT under heavy multi-agent load** —
+  my watcher STILL hit the 180000ms drain deadline and exited once this session (re-armed clean). A
+  falsifying datapoint against 180000 as the interim cure; real cure = F-101 supervisor/lease +
+  adaptive/raised deadline. (Flagged to Director for the register.)
+- **New CLI frictions (sibling of the F-72..F-80 ergonomics batch):** `comms append --body-file <(...)`
+  (process substitution) fails — the pnpm wrapper can't read `/dev/fd`; pass a real file path.
+  `check-commit-message` needs `-m "<msg>"` (bare positional exits 2 "invalid usage").
+- **Bash-tool cwd persistence (AX note):** a `cd <subdir> && …` compound command can strand the shell
+  in that subdir for later calls (relative paths then silently resolve wrong). `cd` to repo-root/worktree
+  at the start of each command, or use absolute paths.
+- **F-72 folded into F-85** — one `withResolvedActive` wrapper over `claims active-agents` (+ repo-root in
+  its option-set) covered F-72's `--active` default; verify-the-fold first-hand before assuming a separate
+  item. Spec-wiring has NO asserting test (a future edit dropping a wrapper regresses silently; not cleanly
+  unit-testable) — carried-forward in the handoff record, not a blocker.
+- **deep-session-doesn't-reset-budget, applied at RE-ENGAGEMENT:** re-invoked on this (deep) session as a
+  "successor", I surfaced the spent-session vs fresh-seat fork BEFORE engaging rather than barrelling into
+  the O2 tail; owner then chose a mid-session closeout. The lesson fires at re-engagement, not only retirement.
+- **verify-don't-trust on a stale opener:** the "Ingot is preparing to handover to you" opener was
+  contradicted by ground truth (Ingot had already handed over + retired earlier in-session; F-75/F-85
+  merged). Recomputed live state instead of fabricating a fresh handover — the continuation pointer is a
+  hypothesis, not truth.

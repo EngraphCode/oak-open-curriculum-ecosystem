@@ -206,18 +206,38 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (**Firefly binds Slag → Merlin seeks
-> Rainbow** Director rotation, PDR-064). The team-tooling session is LIVE and continues under Merlin.
+> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (**Merlin seeks Rainbow → Triton calls
+> Vastness** Director rotation, PDR-064, owner-directed). The team-tooling session is LIVE and continues under Triton.
 >
-> ### ▶ TEAM-TOOLING SESSION — LIVE (2026-06-28); DIRECTOR ROTATION Firefly → Merlin
+> ### ▶ TEAM-TOOLING SESSION — LIVE (2026-06-28); DIRECTOR ROTATION Merlin → Triton
 >
-> **Incoming Director: Merlin seeks Rainbow** (claude, `5b63d9`). Outgoing: **Firefly binds Slag** (`887889`,
-> first Director — drove session open → through the first cycle + both implementer rotations; retiring on owner
-> direction). **Live implementers:** **Avocet tracks Crag** (`30fe5b`) = Lane A (O3, adopted from Beluga turns
-> Shoal via PDR-063); **Ingot tracks Brilliance** (`fe57ce`) = Lane B (O1/O2, adopted from Pangolin weaves
-> Nightfall via PDR-063). **Retired this session (clean):** Beluga rides Wave (setup), Beluga turns Shoal (Lane A
-> 1A/1B), Pangolin weaves Nightfall (Lane B F-82/F-101). No further pre-positioned A/B successors — Avocet/Ingot
-> ARE the current seats.
+> **Incoming Director: Triton lifts Eternity** (owner-named). Outgoing: **Merlin seeks Rainbow** (`5b63d9`, second
+> Director — took the seat from Firefly via clean PDR-064 two-moments; drove the whole PR batch to main + all
+> register lands + two more implementer rotations + the Lane-B retirement; handing off on owner direction,
+> handover-before-closeout). **Director claim `55141cf9`** (relinquish/replace at Triton's Moment-2).
+> **Live implementer: Dormouse stirs Frost** (`17b589`) = Lane A (O3 spawn-flow, claim `a63ac21a`) — BUILDING 1C
+> (draft-PR-at-spawn) on branch `feat/spawn-draft-pr` off fresh main: slice-1 gh-seam hoist DONE (CommandRunner<T>
+> / PathExists + trusted-gh to `core/`), slice-2 empty-commit `openDraftPr` + cli wiring in progress → will route
+> the flat 1C PR to the Director at CI-green + 0 threads. **Lane B is RETAINED for handoff** (Pegasus guards Dawn
+> retired clean PDR-063; claim `0ba02fee` + handoff record `handoffs/0ba02fee-pegasus-lane-b-to-successor-2026-06-28.md`
+> held for the next Lane B agent). **Resumption gate:** the owner provisions a Lane B successor for the O2 tail —
+> Merlin's Director decision was NOT to spin one now (host-load-aware; the O2 ergonomics tail is non-blocking polish
+> and the core batch has landed); release the retained claim at the owner's/Director's discretion if no pickup.
+> **Standby:** Quasar mends Penumbra (`b66426`) = Lane A successor (for Dormouse). **Retired clean this session:**
+> Beluga rides Wave (setup), Beluga turns Shoal (Lane A 1A/1B), Pangolin weaves Nightfall (Lane B F-82/F-101),
+> Avocet tracks Crag (Lane A + O5), Ingot tracks Brilliance (Lane B F-75), Pegasus guards Dawn (Lane B F-85).
+> Director chain (all clean PDR-064 two-moments): Firefly → Merlin → (Triton).
+>
+> **⚠ THE LIVE CAST IS VOLATILE — recompute it from `active-claims.json` + the comms stream at your readiness
+> gate; this doc is a pointer, not volatile truth (Continuation Pointer Contract).** As of ~21:00Z the cast moved
+> again mid-handover: **Lane A handed Dormouse → Quasar mends Penumbra** (`b66426`, adopted the SAME claim
+> `a63ac21a`) — **1C is COMMITTED + PUSHED** (`origin/feat/spawn-draft-pr`, HEAD `9baf83f4a`, gates green,
+> architecture-expert + code-expert approved); Quasar opens the **flat 1C PR** next (`gh pr create --base main
+> --head feat/spawn-draft-pr`, do NOT rebase — Director updates-at-merge) and routes the merge to you. **Lane B
+> now HAS a named successor: Lichen spins Chlorophyll** (owner-named) — Pegasus guards Dawn is warm until Lichen
+> adopts `0ba02fee`, then Lane B CONTINUES under Lichen for the O2 tail. **This supersedes the host-load Lane-B
+> retention above and RESOLVES owner-action-queue item #3** (the owner provisioned the successor). Quasar's
+> successor is no longer benched (it was promoted from standby); a fresh Lane A successor may be owner-provisioned.
 >
 > **Guiding plan (owner-APPROVED):**
 > [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md);
@@ -231,54 +251,86 @@ first-hand as of 2026-06-25.
 > coordination branch — a base-branch defect I made + corrected early); the coordination branch carries only
 > Director state and merges at arc-end.
 >
-> **PR STATE (first-hand, ~19:36Z):**
-> - **#269** 1A/F-87 (spawn worktree-nucleation) — **MERGED** `a1e9b8585`. The one landed cycle.
-> - **#270** F-101 (watcher supervisor-death cure, Lane B/O1) — **genuinely-ready** (16/16 green, 0 threads,
->   CLEAN, flipped ready). **Drive-to-merge is the DIRECTOR's** (Pangolin delegated). Awaiting **owner automerge-enable**.
-> - **#271** O5 (under-the-hood MCP discovery pointer) — **genuinely-ready** (16/16 green, 0 threads, BEHIND →
->   auto-update clears). Director shepherds (Avocet handed it off). Awaiting **owner automerge-enable**.
-> - **#272** 1B/F-90 (build-at-spawn, Lane A) — Avocet finishing the LAST item: a Cursor Bugbot thread
->   `create.ts:117` (strip `refs/heads/` prefix for symmetric collision message). T1 (orphan-on-build-failure)
->   was cured WITHOUT a never-use-git-to-remove-work exemption — **no-removal idempotent-retry** (probe
->   `git worktree list` → resume/collide/create); T1's follow-on "resume reports wrong base ref" cured via an
->   honest `resumed` flag (NOT fail-fast — base refs move; code-expert-confirmed). Not-ready until that one
->   thread is resolved + 0-threads re-verified at declaration.
+> **PR STATE (first-hand, ~20:50Z) — the whole batch LANDED on `main`:**
 >
-> **OWNER-ACTION QUEUE (constitutively the owner's — surface, don't self-do):**
-> 1. **Enable automerge** on #270 + #271 now (both genuinely-ready); add #272 + Ingot's F-75 PR as they ready.
->    Automerge-enable is the owner's code-owner action (`#269` enabledBy=jimCresswell); agents must not enable via
->    shared creds. "Once genuinely ready it will merge; if it doesn't merge it isn't ready" (owner doctrine).
-> 2. **Org-admin:** the automated `claude` PR-reviewer is **OFF org-wide** ("overage spend limit reached") — every
->    PR this session (Copilot/Bugbot/Sonar/CodeQL + sub-agent reviewers cover it, all critically assessed). Raise
+> - **#269** 1A/F-87 — MERGED `a1e9b8585`.
+> - **#270** F-101 (watcher supervisor-death) — MERGED (Firefly, proved the Director-merge path).
+> - **#271** O5 (under-the-hood discovery pointer) — MERGED `5fe76db8c` (Merlin's first Director merge).
+> - **#272** 1B/F-90 (build-at-spawn; T1 cured WITHOUT a never-use-git-to-remove-work exemption — no-removal
+>   idempotent-retry probing `git worktree list`; base-ref reported via an honest `resumed` flag) — MERGED `4b84ea702`.
+> - **#273** F-75 (comms peer-liveness heartbeat-silence; pull surface + poll recipe, push-integration deferred) — MERGED `0be09bf05`.
+> - **#274** F-85 (claims `--active`→coordination-home; CLOSES F-72) — MERGED `c4d2b6902`.
+> - **OPEN / INBOUND:** Dormouse's flat **1C PR** (not yet opened) → route to the Director at CI-green + 0 threads,
+>   verify first-hand, merge. After 1C: Lane A continues 1D → 1E launch → Phase 2 (F-98 binding view + heartbeat-age
+>   column = input-to-verify, NOT claim freshness) → Phase 0 (owner-gated). 1C design verdicts already given:
+>   Q1 empty-commit RATIFIED (+ a test pinning "draft PR exists at spawn-end on a no-commit branch"); Q2 gh runner-seam
+>   hoist to `core/` ACK'd (architecture-reviewer-gated; A↔B boundary respected).
+>
+> **MERGE MODEL — owner-granted 2026-06-28: the DIRECTOR has merge permission for this session.** Merge a PR
+> directly when CI is green AND every comment is addressed (fix or explicit dismissal) AND resolved. This
+> SUPERSEDES the earlier owner-automerge-enable model — the Director does NOT wait for the owner to enable
+> automerge. Adjudicate via GraphQL `reviewThreads{isResolved}` (re-verify 0-unresolved at merge time; bots post
+> async). #270 mergeable NOW (CLEAN, 16/16, 0 threads); #271 after update-branch (BEHIND); #272 + Ingot's F-75 at
+> their CI-green. (#269 was landed via the owner's automerge before this grant.)
+>
+> **OWNER-ACTION QUEUE (genuinely the owner's; surfaced, not coordination-escalations):**
+>
+> 1. **Org-admin (open):** the automated `claude` PR-reviewer is **OFF org-wide** ("overage spend limit reached") —
+>    affects every PR (Copilot/Bugbot/Sonar/CodeQL + sub-agent reviewers cover it, all critically assessed). Raise
 >    the monthly limit at claude.ai/admin-settings to restore.
-> 3. **O4/OQ5 composed-liveness DECISION** — late sidebar, owner-ratification-gated (not started; run near arc-end).
+> 2. **Host load (open):** ~21.9/14 cores + swap ~4.94/6G (Quasar flagged at registration; above the
+>    `no-unbounded-host-load` threshold; the proximate cause of the recurring watcher drain-deaths). Cast-sizing is
+>    the owner's lever. The team has CONTRACTED (Pegasus retired, Lane B retained-for-handoff) as the healthy
+>    response — Merlin chose park-not-spin to ease load.
+> 3. **Lane B re-staffing decision:** the O2 ergonomics tail (F-89/F-70/F-77/F-79/F-80 + the `--closed` F-NN) needs
+>    a Lane B agent. Provisioning one is the owner's agent-density call (gated against host load). Non-blocking;
+>    warm pickup record set on claim `0ba02fee`.
+> 4. **O4/OQ5 composed-liveness DECISION** — late sidebar, owner-ratification-gated (not started; run near arc-end).
 >
-> **DIRECTOR-OWED REGISTER LANDS (central, on each merge — implementers name F-NN in their merge comms event, do
-> NOT touch the register on feature branches):** F-87 (merged #269); F-90 (#272); **F-101 (#270) — NARROW the
-> supersession**: only the lease-on-Stop-hook is superseded by supervisor-death detection, NOT process-group
-> termination or the F-43 stale-process census (reconcile frictions-register ~2167-2170 + `cost-of-collaboration`
-> ~1845-1848; flagged comms `349315dc`); O5/F-NN (#271); F-75 (Ingot's PR). The F-87 land + this reconciliation
-> were deferred by Firefly to a quiet moment — **still owed**, Merlin inherits.
+> **REGISTER LANDS — all owed lands DONE + pushed** (Director-owned, central; implementers name F-NN in their merge
+> comms event, do NOT touch the register on feature branches): F-101 NARROW-supersession (#270, commit `e8db67ab8`
+> — only the lease-on-Stop-hook superseded, NOT process-group termination or the F-43 census); O5/F-90/F-75
+> (#271/#272/#273, `a758ce381`); F-85 ADDRESSED + F-72 CLOSED-BY-F-85 (#274, `6e13f7895`). All NARROW (each marks
+> exactly what shipped vs deferred). **NEW friction owed to capture (not yet a register entry):** the `--closed`
+> sibling registry default — `claims close` / `archive-stale` / `active-agents` still take a relative `--closed`
+> path that fragments from a worktree, the same F-41 class F-85 cured for `--active`; Pegasus to name it F-NN in a
+> future merge event, the Director lands it. It is a non-blocking O2 follow-on.
 >
-> **LANE NEXT-STEPS:** A (Avocet) → resolve #272's last thread → ready → then 1C draft-PR-at-spawn → 1D → 1E
-> launch → Phase 2 (F-98 binding view + heartbeat-age column) → Phase 0 doc codifications. B (Ingot) → F-75 is
-> IMPLEMENTED + green + real-content-proven (`comms peer-liveness` reads retired peers correctly), in reviewer
-> pass; flat PR after #270 merges (stacked on `feat/lane-b-liveness-ergonomics`, rebase onto fresh main) → then
-> O2 ergonomics batch (F-85 `--active`→home → F-72/89/70/77/79/80).
+> **LANE NEXT-STEPS:** Lane A (Dormouse) → finish + open the flat 1C PR → route to Director → 1D → 1E launch →
+> Phase 2 (F-98 binding view + heartbeat-age column) → Phase 0 (owner-gated) — detail in the PR-STATE block above.
+> Lane B → retained-for-handoff (O2 ergonomics tail awaits a re-staffing decision, see owner-action queue #3).
+> **First Director move for Triton:** verify Dormouse is live (mechanical liveness check — NOTE its CLAIM freshness
+> reads `stale` because the claim `heartbeat_at` is not bumped by comms heartbeats, the freshness≠liveness gap;
+> Dormouse IS live on the comms heartbeat stream), then receive + first-hand-verify + merge the 1C PR when it lands.
 >
 > **AC6 EVIDENCE (PDR-117 second-instance — fold into the worktree-per-agent transition home at arc-end):**
-> **zero owner-visible coordination prompts** across the whole session — every decision resolved at
-> Director/implementer level (base-branch, F-82/F-101/F-75 shapes, register policy, T1 no-removal cure, #269/#272
-> findings, successor routing, two PDR-063 handoffs). Automerge-enables + the claude-review-off flag are
-> mechanical-gate / org-admin items, NOT coordination escalations. 1 cycle landed (#269). Rotating cast worked:
-> two clean PDR-063 handoffs (Beluga→Avocet, Pangolin→Ingot), each with a frozen handoff record.
+> **zero owner-visible coordination prompts across the whole session, sustained through TWO Director tenures**
+> (Firefly + Merlin) — every decision resolved at Director/implementer level (base-branch, F-82/F-101/F-75/F-85
+> shapes, register policy, T1 no-removal cure, base-ref resumed-flag, the `--closed` scope split, F-72-folds-into-F-85,
+> successor routing, the host-load-aware Lane-B park, four clean PDR-063 implementer handoffs +
+> two clean PDR-064 Director rotations). The owner-action items (overage, host load, Lane-B re-staffing, O4/OQ5) are
+> owner-LEVER / infra surfacings, NOT coordination escalations. **Outcome: the entire owner-approved PR batch
+> (#269–#274) LANDED on main** across the two tenures; rotating cast + Director model held shape under a heavy,
+> contracting team. Merge path PROVEN against the @jimCresswell code-owner ruleset (direct `gh pr merge --squash`,
+> no --admin).
 >
 > **STANDING FRICTIONS (route to frictions-register / tooling — captured in napkin; several are live dogfood of
 > THIS session's own F-101/watcher work):**
-> - **Heartbeat LABEL staleness → false-stall** (observed Pangolin + Avocet; nearly fired a false Lane-B rescue):
->   the loop label is frozen at arm-time, so a working agent looks stalled/dead. Director cure used: work-evidence
->   cross-check (git/PR) before pinging. Deeper cure candidate: derive the heartbeat label from the live claim's
->   current cycle, not a frozen loop arg.
+>
+> - **Heartbeat LABEL staleness → false-stall — NOW 3 worked instances (Pangolin, Avocet, Dormouse)**, strong
+>   graduation signal: the loop label is frozen at arm-time, so a working agent looks stalled/dead. Twice it drove a
+>   Director receipt-check (Firefly→Pangolin, Merlin→Dormouse) — both resolved alive after a work-evidence
+>   cross-check (git/PR) preceded the ping (ping-before-escalate held). Deeper cure candidate (strengthened):
+>   derive the heartbeat label from the live claim's current cycle, not a frozen loop arg.
+> - **GitHub auto-merge posts NO comms event → gated lanes can't detect the gate-clear, and the Director can't
+>   stream-detect merges** (Merlin tenure): a lane gated on a PR merging (e.g. Pegasus's F-85 on #273) sat blind
+>   because the auto-merge landed silently. Director-practice cure ADOPTED: poll-monitor each auto-merging PR's
+>   terminal state, and BROADCAST each merge as it lands so gated lanes unblock. Tooling candidate: emit a
+>   comms-event on merge-lifecycle terminal state. Pairs with the existing "no PR monitor covers inline comments +
+>   terminal state" friction.
+> - **structural-cap thrash → extract-don't-trim** (2 instances: Avocet `create.ts`, Ingot `cli-specs.ts`): adding
+>   to a file at its max-lines/complexity cap thrashes the pre-commit gate; the cure is to extract the cohesive
+>   concern to a sibling module, not trim. Strong 2-instance graduation signal (Avocet flagged).
 > - **Watcher self-terminates hourly** (3600s timeout guard) AND **on the 60s drain step-timeout under multi-agent
 >   host load** → comms-blind windows until re-armed (hit Firefly + Pangolin + Avocet). Interim cures: prompt
 >   re-arm on the failure notification; `--step-timeout-ms 180000`. Candidate: raise/adaptive default. This is the
@@ -287,7 +339,7 @@ first-hand as of 2026-06-25.
 >   merge-not-rebase to bring branches up-to-date (no force-push).
 > - The **pre-commit gate + end-to-end observation caught real defects 4 sub-agent reviewers missed** (knip
 >   unused-export, depcruise cycle, composition-root wiring gap) — behaviour-note: reinforces invoke-code-experts
->   + run-the-thing.
+>   - run-the-thing.
 >
 > **OTHER REPO AGENTS (NOT this team — separate concurrent lanes, do not coordinate):** Ketch turns Fathom
 > (`302c58`, docs-reviewer-split), Finch wakes Headwind (`1e413e`, mcpjam fix), Starling calls Aether (`89a30f`,
