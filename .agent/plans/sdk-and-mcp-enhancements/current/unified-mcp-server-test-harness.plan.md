@@ -312,7 +312,7 @@ lifecycle touch points at each cycle land.
 On completion/milestone/archival run `oak-consolidate-docs`: mine the smoke-spawn
 pattern + the port-discovery and real-cred gotchas into a pattern/ADR if they
 recur; archive this plan and the subsumed http-mcp-test-suite-improvements per
-ADR-117; update the completed-plans index.
+ADR-117 (mine outcomes to permanent docs; ADR-200 retired the completed-plans index).
 
 ## Supersession
 

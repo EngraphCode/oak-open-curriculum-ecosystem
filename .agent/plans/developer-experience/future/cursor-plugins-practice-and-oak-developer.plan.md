@@ -105,7 +105,7 @@ Promote when **all** hold:
 
 ## 8. Learning loop
 
-On completion of any promoted executable workstream: run `/jc-consolidate-docs`, update [documentation-sync-log.md](../documentation-sync-log.md), and add outcomes to [completed-plans.md](../../completed-plans.md) when archived.
+On completion of any promoted executable workstream: run `/jc-consolidate-docs`, update [documentation-sync-log.md](../documentation-sync-log.md), and mine outcomes into permanent docs when archived (ADR-200 retired the completed-plans index).
 
 ## 9. References
 

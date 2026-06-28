@@ -3,6 +3,13 @@
 _Date: 2026-02-22_
 _Tags: architecture | documentation | emergence | stewardship_
 
+> **Update 2026-06-28:** the central completed-plans index described below
+> (`.agent/plans/completed-plans.md`) was retired and the file deleted — ADR-200
+> relocated the archive to `.agent/plans-old-archive/` and makes the intent
+> idea-graph the discovery surface, and ADR-117's archival procedure was amended
+> to match. This record is preserved as the 2026-02-22 reflection; read lines 24
+> and 32 below as that date's practice, not current doctrine.
+
 ## What happened (brief)
 
 - Ran the consolidation flow on three documents (prompt, plan, roadmap) after completing WS5 and its adversarial review. Discovered contradictory metrics across documents. Created ADR-117 for plan templates and components, establishing a document hierarchy that prevents duplication.

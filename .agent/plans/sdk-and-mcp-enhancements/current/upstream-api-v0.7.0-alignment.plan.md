@@ -664,7 +664,7 @@ If WS2's verification step reveals a non-trivial variant-info-reconstruction pat
 This plan's archival action (after WS4 lands):
 
 1. Move this file to `.agent/plans/sdk-and-mcp-enhancements/archive/completed/`.
-2. Update `.agent/plans/completed-plans.md` with the entry.
+2. Mine outcomes into permanent docs (ADR-200 retired the completed-plans index — no index entry to add).
 3. Update cross-references (the collection README's `current/` listing).
 4. If A4 or A5 produced an interesting insight (e.g. variant-info reconstruction from `sequenceSlug` suffix is a reusable pattern), capture in napkin for graduation review.
 

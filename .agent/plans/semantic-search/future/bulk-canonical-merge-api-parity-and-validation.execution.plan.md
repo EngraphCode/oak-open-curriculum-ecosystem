@@ -205,4 +205,4 @@ and MCP tool surface.
 
 ## Completion
 
-When done: extract durable behaviour to ADRs and [`apps/oak-search-cli/docs/INDEXING.md`](../../../../apps/oak-search-cli/docs/INDEXING.md); archive this plan to `archive/completed/`; update [completed-plans.md](../completed-plans.md) and [active/README.md](./README.md); run `/jc-consolidate-docs`.
+When done: extract durable behaviour to ADRs and [`apps/oak-search-cli/docs/INDEXING.md`](../../../../apps/oak-search-cli/docs/INDEXING.md); archive this plan to `archive/completed/`; update [active/README.md](./README.md) (ADR-200 retired the completed-plans index); run `/jc-consolidate-docs`.
