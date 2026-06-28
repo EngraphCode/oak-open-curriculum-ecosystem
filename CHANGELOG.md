@@ -1,3 +1,10 @@
+# [1.51.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.1...v1.51.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** accept-and-ignore --now on comms list (F-79) ([bc0bb07](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc0bb07f1f16ecafa2cf3376db20f2ace327e6c4))
+
 ## [1.50.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.0...v1.50.1) (2026-06-28)
 
 
