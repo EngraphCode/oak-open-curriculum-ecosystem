@@ -1,3 +1,22 @@
+# [1.48.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.47.0...v1.48.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** add comms append --in-response-to (F-77) ([2831591](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/283159126d306f1c018d0fd2c0c2b8d2969a25ae))
+
+# [1.47.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.46.0...v1.47.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** alphabetise spawn cli relative imports (1D review nit) ([b4b7e26](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b4b7e26aa9f8175a45295c89cfaa49489d6d948b))
+
+
+### Features
+
+* **agent-tools:** emit a seat brief at spawn (spawn-flow 1D) ([603bd15](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/603bd15cd8f05f78c7125ec7eaaff27b3399144c))
+
 # [1.46.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.45.0...v1.46.0) (2026-06-28)
 
 
