@@ -24,6 +24,11 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+Compact live state only. Finished-session narrative is conserved in its homes
+(commits, ADRs, PDRs, patterns, thread records) and in git history, then drained
+from here per `continuity-practice.md` §Disposition; only live lanes and live
+forward-asks remain.
+
 - **Team-tooling session scope LOCKED + coordination branch created (2026-06-28, Beluga rides Wave).**
   After the dedicated consolidation merged (**#267 → `main`**, HEAD `7e12baeef`), the next effort is a
   serious, long-running **Director + Implementer** session that *builds the agreed team tooling*. The
@@ -38,333 +43,77 @@ todo list — is [`director-handoff.md`](director-handoff.md).
   **Coordination branch: `coordination/team-tooling-session-2026-06-28`** (off `main`) — the team
   coordinates from here. **Still owed before the team session** (director-handoff NEXT SESSION MANDATE,
   consolidation-half now done): a team-session plan from the template + a sharpened Director brief.
-- **Team-session readiness + the corrected claims model (2026-06-28, Beluga rides Wave, session close; now n=1).**
-  Two pieces, both committed on `docs/agent-work-state-projection` (now on **draft PR #266**, marked ready this
-  session — drive bot-settle + code-owner @jimCresswell review to merge). **(1) Team-session readiness** for the
-  next Director+Implementer session is housed (not forked) in the SSOT controlling plan
-  [`cost-of-collaboration.plan.md` §Team-session readiness](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
-  (`5e78450a8`), as a minimum/good/excellent view pointing at the frictions register + the spawn-flow plan;
-  **stress-tested by assumptions-expert** with every claim re-verified first-hand (F-85 promoted to minimum —
-  blocking-class for the worktree transition; F-94 already shipped; the spawn-flow re-justified; composed-liveness
-  is decision-class). Marked transient (strike after that session). **(2) The corrected claims model** (`574bf70b2`
-  and memory `feedback_claim_is_advisory_area_coordination_not_a_god_object`): a claim is an **optional, advisory,
-  AREA-scoped** coordination signal on a topology-independent durable area — NOT files, NOT presence/liveness/
-  work-state/seat (those re-home to facets); one area-claim serves single-checkout AND worktrees; absolute-path-file
-  claiming is a cowpath. **Replaced** the freshness-as-liveness framing in `agent-collaboration.md`, the schema
-  field comments, and F-44 (which now names the specific liveness consumers + the constraint that the code fix is
-  **decision-class — needs the OQ5 composed mechanism**, not a naive swap). **OWNER-GATED, flagged not edited:**
-  PDR-118 (claim-as-anchor superseded by launch-in-worktree, OQ2 amendment); the schema `role` field (the one
-  genuine claim-as-seat marker, owner-directed 2026-06-12, in tension with "claim is not the seat"); the
-  `director-handoff.md` succession liveness gate (safety-critical). **Remaining integration surfaces** (not yet
-  done): `collaboration-state-conventions.md` (silent that freshness ≠ liveness); the code consumers
-  (`active-agents.ts`, the watcher-gate, the TUI) gated on the OQ5 design; PDR-095 supports the model (cite, don't
-  edit). **MEMORY.md is over-budget** (trim is a standing forward-ask).
-- **docs-reviewer-split COMPLETE + the meta-agent frontmatter schema cure (2026-06-28, Ketch turns Fathom, post-compaction).**
-  The `docs-reviewer-split` is **done and pushed** on `docs/agent-work-state-projection` (origin == HEAD, 12
-  ahead of `origin/main`). **Phase 1** (the currency prerequisite, owner-escalated to "build the cure"): a new
-  **enforced per-platform subagent frontmatter Zod schema**
-  (`agent-tools/src/validators/subagents/frontmatter-schema.ts`, the SSOT) wired into `validate-subagents` —
-  closes the gap where `.claude/agents` was unvalidated and no platform's frontmatter values were checked.
-  `model` is now **optional (inherit policy** — the invoking agent controls the model; all 44 wrappers' pins
-  removed, incl. stale `claude-opus-4-7`); 3 invalid colours + 22 non-functional Cursor `tools` fields fixed;
-  the architect prose now **points at the schema** instead of re-listing values that drift. **Phase 2**: new
-  **`prose-expert`** (Strunk & White craft for every doc + the Oak voice only where `editorial-tone.md` scopes
-  it) + **`docs-adr-expert`** extended in place into the documentation-infrastructure reviewer (ADR-127 §5
-  lens); both wired into the invoke-code-experts matrix; a worked-review on real content (VISION + an ADR)
-  proved the scoped-voice boundary holds. Commits `dff1ea2b2` / `a0e1b3e3f` / `83c055e02` (+ `338702c15`, the
-  owner's MCPJam fix). Plan `current/docs-reviewer-split-execution.plan.md` (with its disposition ledger) is
-  **complete — safe to archive**. **Owner delegated commit AND push authority to the agent this session**
-  ("commits are your decision"; "push is yours too"); main-MERGE still needs @jimCresswell code-owner —
-  **confirm next session whether this delegation is standing or session-scoped.** Team is now **≥3** (shared
-  branch; Beluga's spawn-flow lane + the sonar ADR-208 `64deca3c5`; the n=2 framing is outdated). **Next
-  agreed step:** the shallow planning-estate re-scan → resuming the intent-graph substrate work.
-- **Spawn-flow tool handed to a fresh session (2026-06-28, Beluga rides Wave).** The F-98 agent
-  work-state fix settled to the **decoupled spawn-flow tool**: launch a session in its worktree → the
-  binding is *derived* from cwd (owner-confirmed: cwd = the invocation dir, the primary is not special),
-  so the assert-primitive / registry / agent-work-state-ADR path is **dissolved** (PDR-118 OQ2). The
-  owner-approved, ready-to-build plan — with an explicit **Pitfalls** section carrying the originating
-  session's traps (over-building into the substrate; re-litigating the cwd fact; the §B2 primary-pin
-  cowpath; the passback reflex; the 21-hour zombie heartbeat loop) — is
-  [`current/agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md).
-  The next agent reads it + the `feedback_*` memories it names, works in its own worktree, confirms the
-  cwd fact once, then builds friction-sliced. The substrate
-  (`future/knowledge-distribution-substrate.plan.md`) is recorded-future, **not** a build prerequisite;
-  the old `future/agent-work-state-registry.plan.md` brief is **superseded**. Branch
-  `docs/agent-work-state-projection` is **9 ahead of `origin/main`, NOT pushed/merged — push it or the
-  session's work is at risk.** My commits: `ed77132ce` (substrate correction), `7704a7bff` (under-the-hood
-  caveat-drop, salvaged from the closed #264 map), `261a0da94` (the spawn-flow handoff package); the rest
-  are Ketch's docs-reviewer-split build (subagent-frontmatter schema + the new prose-expert). Git estate
-  cleaned: **19 worktrees → 1**. **Flags:** an untracked owner-directed
-  `docs/architecture/architectural-decisions/208-no-target-architecture-in-sonarqube.md` (sonar thread)
-  needs committing — confirm ownership; team is now **≥3** (Beluga closing, Ketch back from compaction,
-  Finch wakes Headwind, Starling stale) so the n=2 framing is outdated.
-- **Intent-graph DORA SSOT + documentation-as-infrastructure (2026-06-28, Ketch turns Fathom, n=2 with Beluga rides Wave).**
-  Branch `docs/agent-work-state-projection`, **ahead 2 of `origin/main`, NOT pushed** (owner controls push).
-  **`76ad84aec`**: dissolved the `repo-intent-graph` god-document → **ADR-207** (DORA delivery-metrics SSOT) +
-  archived the plan to `plans-old-archive/` with a disposition record + repointed 5 dependents (measures,
-  observability plan, plan-node-schema.v0, dora-2025 research, the collection README); an owner-directed
-  comprehensive commit that also carried Beluga's `knowledge-distribution-substrate.plan.md` + agent-tooling
-  README after a shared-index tangle. **`b6d611544`**: made **documentation-is-infrastructure** prominent
-  (ADR-127 §5 + a `principles.md` clause, owner-ratified) and authored the **`docs-reviewer-split`** `future/`
-  plan (overhaul docs-adr-expert into a documentation-infrastructure expert + a new prose expert per Strunk &
-  White + `editorial-tone.md`). **Next safe step (owner-approved, post-compaction):** carry out the
-  docs-reviewer-split — its FIRST, BLOCKING task is the owner-directed prerequisite to **check + update
-  `subagent-architect` and `assumptions-expert` against official docs/guidance** before building it. n=2
-  coordination clean (ArcAngel channel `2026-06-28-...beluga-rides-wave-and-ketch-turns-fathom.md`); Beluga's
-  substrate/work-state lane is live and uncommitted in the shared tree.
-- **Team session continued — Director rotation to Pulsar + #259 continuity reconcile (2026-06-27 evening, Pulsar calls Ether, Director).**
-  The merge-train day continued past the Oyster entry below. **#253 PDR-118 (agent work-state model keystone) LANDED to
-  main** (`bc87c650d`; owner Option A — land honestly, composed-liveness mechanism deferred to OQ5). **Director seat rotated
-  (PDR-064 two-moments each, all clean, no gap):** Chinook turns Halo → **Hearth tracks Tallow → Callisto tracks Vacuum →
-  Cinder spins Scorch → Pulsar calls Ether** (current). **#259** (`chore/director-coordination` → main) is the day's
-  continuity bundle: the Hawthorn 166-line napkin union (CONTENT ∪ archive conservation **verified first-hand** — every
-  main and coord napkin entry conserved, zero silent loss), distilled/pending-graduations drained to **169 pattern homes**
-  (conserved; `merge-base→main` distilled diff empty, so #260 drained exactly main's set), the session experience records,
-  and the day's PR-drain — reconciled to **0-behind `main`** via `/oak-semantic-merge` (never git-line-merge). **PDR-119
-  authored** (agent memory as an event graph with renderers — a Practice graph system alongside ADR-200; shared
-  renderer/projection pattern, substrate per-member; retires semantic-merge for append-only-narrative; direction
-  owner-ratified, build future). **Team settled to n=2 owner-visible:** Pulsar (Director) + **Beluga rides Wave** (curator;
-  lane held for #259; ADR-206/207 for Beluga's two ADRs (free — Pulsar's memory-event-graph is
-  PDR-119, **not** ADR-206, so no collision) and the approach-C agent-work-state plan queued post-zero). **#264** (Beluga deferred-work
-  map) stays draft until zero. **#259 MERGED to `main`** (squash `e30108fe3`, 20:46Z) — estate at **zero**;
-  team session closed, Director seat dissolved (Pulsar stood down). Next-session pickup + the now-due napkin
-  DRAIN: [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md).
-- **Team session — merge train + Director-seat rotation (2026-06-27, Oyster spins Coral, Director).**
-  Owner-run n=4 team day. **Five-PR merge train LANDED to `main`** (releases 1.36.2→1.36.4):
-  **#248** worktree-hygiene rule, **#250** statusline lane coordination, **#251** sonar thread reconcile,
-  **#249** Sonar Phase 2 (regex-safety; 2 fixes + 16 accept-with-rationale), **#247** napkin #244
-  residuals (merged via a hand-resolved `/oak-semantic-merge` napkin union — both sessions' entries
-  conserved; merge commit `9c92e458b`). Owner gated each code-owner click; ADR-204 require-up-to-date
-  serialised them. **Director seat rotated twice** (PDR-064): Cedar lifts Canopy → **Oyster spins
-  Coral** → **Chinook turns Halo** (then-current Director; the chain continued — see the top entry);
-  each handoff had a self-contained record + Moment-1/Moment-2. **Team rotated to fresh successors**: Sonar Gull→**Brazier
-  wakes Crackle**, explain Peony→**Swordfish rides Surf**. **LIVE lanes (owner-directed):** Brazier —
-  Sonar **Phase 3** (test-integrity; **PR #254** open, 12× S5914, driving to merge-ready); Swordfish —
-  oak-under-the-hood **reframe** (first-hand re-assessment; **PR #243** draft, gated on the reframe
-  landing; routes ADR-202 amendment + rename portability to the Director); Cedar — **D1–D6
-  plan-corpus rationalisation** program (owner-authorised; **PR #252** report; **F-98 = PDR-118**
-  agent-work-state model keystone, **PR #253** (then Proposed; since owner-ratified and LANDED to main
-  `bc87c650d` — see the top entry); **D4/D6**
-  GO as separate Director-reviewed PRs — D6 needs config-expert + render-from-worktree verify).
-  **Deferred (NOT done this session, owner-directed):** the napkin DRAIN (napkin over its soft
-  fitness limit but under the ~400 rotation trigger; all session lessons conserved in the napkin +
-  comms + the `handoffs/director-handoff-oyster-to-chinook-2026-06-27.md` record); estate-cleanup
-  deletions (7 dead pilot branches + reclaimable merged worktrees — re-verify content-in-main
-  first-hand per branch + owner attention; `worktree-ws-b-explain` is LIVE, never hygiene-remove);
-  DATA-SOURCES governance (owner-gated, gates explain user-exposure). Director continuity:
-  [`director-handoff.md`](director-handoff.md) + the cross-worktree map.
-- **CI hardening session (2026-06-26, Inferno holds Tongs).** Two gates landed to `main`:
-  **(1) advisory dependency-review PR-gate** (#236, `570750939`): `actions/dependency-review-action`
-  v5.0.0 SHA-pinned, `pull_request`-only, `fail-on-severity: high`. ADR-161 + ADR-121 amended in
-  lockstep — the network-free PR-check boundary is stated as **third-party-vendor** scope, permitting
-  the gate's GitHub-first-party dependency-graph call via the run's `GITHUB_TOKEN` (ADR-204's
-  third-party reasoning preserved); advisory, NOT ruleset-required; RED-green proven (throwaway #237
-  with a critical dep drove the gate FAIL).
-  **(2) CI parallelisation** (#239, `67077cff9`): the serial `run-quality-gates` job split into
-  parallel cacheable jobs (`secret-scan`, `install`, `static-checks`, `build`, `unit-tests`,
-  `knip-depcruise`, `browser-tests`) behind a **fail-closed `run-quality-gates` fan-in** (requires
-  every result `success`; reuses the required-check context, so no ruleset change and `release.yml`'s
-  `workflow_run: [CI]` is untouched). Caching: `install` warms the pnpm store once (no cold stampede),
-  `build` warms the Turbo remote cache, Playwright browsers keyed on the Playwright version, gitleaks
-  moved docker→SHA-pinned-binary; per-ref concurrency cancels superseded PR runs. Reviews folded:
-  Sonar S8264 (per-job permissions), the fail-closed aggregator, the Playwright version cache key.
-  **Next safe step:** report #229 Tier-2/3 security-roadmap items; reconcile the pre-existing
-  widget/a11y pre-push≠CI parity gap (ADR-121 matrix, from #230).
-  **Session closeout (this branch `docs/session-closeout-continuity`):** the two sessions' memory was
-  **semantically merged** (this Inferno entry + Bonfire's #238 entry both kept) — git line-merge would
-  have corrupted it; new **`/oak-semantic-merge` skill** records that concept-preserving method
-  (per `merge_class` frontmatter). **Codex #239 follow-ups — INVESTIGATE against the merge-result code
-  (owner: some may be stale; NO code changed this session):** (P2) `ci.yml` main-run concurrency — rapid
-  main pushes share `ci-refs/heads/main`; a queued run can cancel the *pending* one, dropping an
-  intermediate main CI run + its Release `workflow_run`; consider a per-SHA group for non-PR runs.
-  (P3) ADR-121 changelog row says the Playwright cache keys on the lockfile hash, but the impl keys on
-  the Playwright version — align. (P3) the `setup` composite uses `--frozen-lockfile` not `--offline`
-  downstream — **declined** (graceful registry fallback beats fail-closed on a transient cache miss;
-  stampede-avoidance holds in the warm case). **Attribution format (owner direction 2026-06-26):**
-  `Agent-authored on behalf of \`jimCresswell\` by <Name> (<platform>, <model>)` — simpler, no emoji /
-  no "Generated with" line; apply to PR and comment bodies; the `identify-as-agent` rule canonical form is updated to match.
-- **Statusline two-set display (merged) + canonical MCP-app target platforms (2026-06-26, Bonfire guards Temper).**
-  Statusline coord-branch work **merged** (PR #235, `589d6518c`): the statusline now renders two git-derived
-  location sets (working tree + primary checkout) with **divergence-only dedup** — a coordination token shows
-  only when it diverges from its working-side counterpart (its own lane, not the `statusline-enhancements`
-  logo/indicator thread). **Canonical MCP-app target platforms defined** (delivered via PR #238) — SSOT in
-  [`stream-mcp-app.md`](../../../docs/strategy/stream-mcp-app.md): the four are **ChatGPT, Claude,
-  Copilot, Gemini** (alphabetical, required-minimum, non-exhaustive; *Copilot* = Microsoft's assistant, not
-  GitHub Copilot); K3 initial-release surface re-ratified to add Copilot (owner direction, Option B); root
-  README, VISION, app README, launch-readiness framework, governance plan, and plan-hub READMEs conformed.
-  Forward: extend support to additional popular assistants over time per the support-all principle.
-- **Dependency, security & merge-gate session (2026-06-26, Wombat wakes Eventide).** Merged to
-  main: #227 dep update (`@types/node` held on Node 24 — direct decls + a tree-wide pnpm override;
-  Dependabot `@types/node` major-ignore); #228 `identify-as-agent-under-shared-credentials` rule
-  (agents posting via shared creds must self-identify); #229
-  [code-security & release-safety assessment](../../reports/github-code-security-and-release-safety-2026-06-26.md)
-  (names decisions, doesn't make them); #230 CI a11y/widget suites now gated (WCAG); #231 pnpm
-  `minimumReleaseAge: 1440` (24h supply-chain floor, strict — pnpm default is 0); #232 ci.yml
-  `merge_group` trigger; #233
-  [ADR-204](../../../docs/architecture/architectural-decisions/204-merge-gate-strategy-require-up-to-date-not-merge-queue.md)
-  (merge-gate strategy). Settings (owner + agent): secret-scanning push-protection +
-  non-provider-patterns + validity-checks ON. **Ruleset corrected (owner-authorised):** the
-  owner-enabled `merge_queue` was incompatible with this repo's gates — CodeQL default-setup,
-  SonarCloud app, and Vercel's Git integration do not report on `merge_group`, and the fixes break
-  ADR-161 — so it was removed and `strict_required_status_checks_policy: true` (require-up-to-date)
-  set instead; same merge-skew protection, no queue, no bypass (ADR-204). A session-scoped
-  merge-queue bypass used during the broken-queue window is **provably unneeded** (#233 merged with
-  no `--admin`); the authorisation lapses with the session.
-  **Next safe step — dependency-review PR-gate: DONE 2026-06-26 (Inferno holds Tongs), see the top
-  entry.**
-- **Knowledge-substrate consolidation — PR #226 (2026-06-25, Zephyr mends Bluff).** Register
-  intents sharpened (pending-graduations = learned-doctrine-awaiting-a-home; open-questions =
-  strategic open questions) with belongs/does-not-belong examples; the homing destinations table
-  now names every surface; ripe distilled lessons graduated to patterns / rules /
-  `sonar-disposition-policy`; napkin rotated. **Owner taxonomy captured:** the substrate has three
-  tracking tiers — **memory** (portable knowledge, tracked), **repo state** (repo-specific but
-  checkout-portable: continuity surfaces, tracked), **local state** (per-checkout: claims/comms,
-  git-ignored) — and only local state is git-ignored. Continuity surfaces are repo state, correctly
-  tracked; the future plan
-  [`continuity-surfaces-are-state-not-memory.plan.md`][continuity-state-plan] now captures naming
-  these tiers in doctrine (no file migration). **Next safe step: merge PR #226** (green; all bot
-  findings addressed; owner-authorised). Residual signals (reported, not chased): `distilled`
-  prose-width and `principles.md` char-limit are owner-limit tensions; `repo-continuity` /
-  `director-handoff` are HARD as repo-state continuity surfaces (live work content; not chased).
-- **Operating model: SOLO, no Director seat** (owner direction 2026-06-25). Worktree-pilot CLOSED OUT,
-  team DISSOLVED — PRs #221–#225 all MERGED to main (release 1.35.2); S8707 sites 1-2 + S4036 landed via
-  #223; F-94/F-95 via #225. The Director-model *verdict* (did the pilot's model work) is owned by the
-  [worktree-pilot plan](../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md)
-  §L-Verdict; `director-handoff.md` is largely dormant and reducible under solo. **Live:** S8707 **site-3** DONE — PR #242
-  MERGED (merge commit `3895b3f45`, 2026-06-27; contain-first + `@oaknational/safe-path` SSOT); Phase 2 regex is the next Sonar lane; the
-  **DATA-SOURCES** governance criteria (open); F-96/F-97 tooling backlog; and the stale dissolved-team
-  claims in `active-claims.json` to clear (curator pass). Full pickup: [`director-handoff.md`](director-handoff.md).
-- **Strategy / plan-estate rewrite — LIVE primary lane** (thread
-  [`strategy-and-plan-estate-holistic-review`](threads/strategy-and-plan-estate-holistic-review.next-session.md)).
-  [`ADR-200`](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
-  (intent as a living idea-graph — **Accepted**) +
-  [`ADR-201`](../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
-  (external-evidence — **Proposed**) + the executable plans are committed; **progression GO**. **Next safe
-  step (owner-directed top priority): WS2** — author the idea-node JSON Schema + decide id-minting; the
-  **WS4 thin-slice-proof is a HARD GATE** before the full harvest (WS6). V0 = the form new plans take;
-  forward V0-bridge work is unblocked. Read ADR-200 + the thread record first.
-- **Knowledge-as-graph two-altitude research** landed (ADR-200 amended: realisation edges + family-
-  entailment). The missing **content-structure graph** + renderers-as-projections is open question **Q-009**
-  (owned by the incoming engineer's brief + owner); report `knowledge-as-graph-two-altitudes-2026-06-23.md`.
-- **Practice↔IDE integration plane** — feasibility report landed; **owner decisions pending** (report §11)
-  - a HARD deep-docs-read prerequisite before any build; promote to a thread on owner GO. See §Open
-  Owner-Decision Items.
-- **Onboarding-improvement arc** — PR #199 **merged** (2026-06-12). Follow-ons open: B2/B3 risk-register
-  seeding; the ask-the-repo search decision (B1 awaits owner cost bands; B6 at the M2 gate).
-- **Evals pickup — QUEUED, owner-directed**:
-  [`skill-evals-pilot-start-right-quick.plan.md`](../../plans/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md);
-  the assurance regime (test/evaluate/assure + harm-keyed tiers) is homed in `principles.md` §Agentic
-  Quality + `validation-strategy.md`.
-- **OWNER ROADMAP (owner direction 2026-06-12, sequenced "not all at once") — the forward agenda:**
-  (1) organise the comms-research follow-ons; (2) naming v3 — DECISION-COMPLETE plan
-  [`agent-naming-schema-v3.plan.md`](../../plans/agent-tooling/current/agent-naming-schema-v3.plan.md)
-  (thread [`agent-naming`][agent-naming]; shape C decided; Phase-1 era-pinning cure lands first —
-  full detail in §Next Safe Steps › Agent Naming); (3) protocols/skills for examining production
-  issues in Sentry; (4) organise the Sentry logging improvements those discoveries surface;
-  (5) refine the PostHog plan ([`mcp-product-analytics` thread](threads/paused/mcp-product-analytics.next-session.md));
-  (6) plan integration of the oak-api repo into this ecosystem repo; (7) organise the EEF
-  data-surfacing follow-ons
-  ([gap research](../../plans/sector-engagement/eef/reference/eef-data-surfacing-gap-research-2026-06-12.md));
-  (8) identify high-impact graphs latent in the bulk data not yet extracted; (9) apply the new
-  graph-tool capabilities to the `oak-curriculum-ontology` sibling repo; (10) build the user-facing
-  hybrid-search experience — update the
-  [08-experience-surfaces cluster](../../plans/semantic-search/future/08-experience-surfaces-and-extensions/README.md)
-  intent and integrate into the active
-  [`mcp-app-extension-migration.plan.md`](../../plans/sdk-and-mcp-enhancements/active/mcp-app-extension-migration.plan.md)
-  WS3 rebuild (this item is that intent's owner-agreed gate); (11) keep the plan-discovery surfaces
-  current (`plans/README.md`, `high-level-plan.md`, `good-first-issues.md`, `completed-plans.md`)
-  and analyse then retire `plans/notes/`; (12) the path-sweep code-class follow-on (remaining
-  OS-temp-path carriers, enumerable via `git grep -lF '/tmp/' -- '*.ts' '*.sh'`, plus the
-  no-machine-local-paths CI validator; behaviour changes get their own TDD cycles, never a sweep sed).
-  **Open action:** `docs/graph-team-direction-2026-06-10` carries two unmerged commits (`ae5372e2c`,
-  `c9ff6bb49` — Dawnlit's first-wave snagging evidence); merging it is an open owner/Director action,
-  reconcile the napkin/eef-record content on merge.
-- **Output-schemas plan — 🟢 DECISION-COMPLETE (owner-ratified 2026-06-09).**
-  [`output-schemas-for-mcp-tools.plan.md`](../../plans/sdk-and-mcp-enhancements/current/output-schemas-for-mcp-tools.plan.md):
-  every MCP tool `outputSchema` = `composeEnvelopeSchema(payloadSchema)` (EEF tie type-level, never
-  `satisfies`-on-value). Its execution gate (graph-tools settle) is met. **Next:** execution routing —
-  open Director/owner call. (Cross-cutting: verify load-bearing specialist claims first-hand until the
-  specialist-agent overhaul lands.)
-- **OAK-PROD MCP snagging — write-up landed, fixes deferred.** The structuredContent-only
-  `get-eef-evidence` success is invisible to the Cursor harness:
-  [snag register](../../plans/sdk-and-mcp-enhancements/current/oak-prod-mcp-snagging-2026-06-11.plan.md).
-  **Next:** run S0 (non-Cursor client probe) per §6, then S1 to owner.
-- **no-throw remediation — RESHAPED 2026-06-19; READY (survey-first); PAUSED for the strategy thread.**
-  Controlling plan is now
-  [`no-throw-remediation.plan.md`](../../plans/architecture-and-infrastructure/current/no-throw-remediation.plan.md)
-  (thread [`eslint-no-throw-result-migration`](threads/eslint-no-throw-result-migration.next-session.md)),
-  **superseding the convert-all framing** of `no-throw-statement-result-migration.plan.md`. The owner
-  reopened the work: the ~1000-warning count is an indiscriminate-rule artefact (~6 cause-classes, not
-  1000 problems; ~1/3 tests, ~189 generated from ~10 templates, ~400/811 flagged false-positive by the
-  prior analysis), and the per-site labels proved unreliable (3 mis-labels in one session). The plan is
-  **investigation-first**: WS0 fresh holistic cause-survey → WS1 review fixes-to-date (hacks vs real) →
-  WS2 test-quality triage (priority) → WS3 generator causes (F-74-gated) → WS4 reassess gate (reopens D6).
-  Reviewed READY by assumptions-expert + test-expert (folded). **4 conversions landed so far** (`1556b9191`
-  Merlin; `93beffcfe`/`304b68f8d`/`61bdbc3e4` Siren mends Rudder) — all full-gate-green, ~5 src throws of
-  ~1000. **Unpushed — owner controls push.** **Resume from the remediation plan's WS0** after the strategy
-  work; full resumable state in the thread record.
-- **Current product focus**: `eef` graph-tooling rebuild is the only active product lane. The
-  `agentic-engineering-enhancements` activity is a temporary knowledge-curation lane — its live
-  WS1→2b→2c→WS2 feedback-mechanism work lives in its thread record, not a product thread.
-- **Collaboration-state lifecycle**: `.agent/state/` files are live signal
-  sources, not long-term documentation. Outside explicit owner-directed research
-  windows, process useful substance into memory/docs/plans and clear stale state.
-- **Agentic state (2026-06-21, two sessions)**: Ferret seeks Tunnel ran a dedicated
-  knowledge-curation pass + handoff, then promoted three graduations (PDR-107; the culture Active
-  Principle; the README-index doc convention) and backfilled the PDR index (multiple commits on
-  `docs/planning-and-validation`, **NOT pushed** — `git log` is authoritative; re-verify via `@{u}`).
-  **EXECUTED — practice-lineage clarity-of-purpose restructure** (lineage → the evolution record,
-  855→283 lines; §Learned Principles + the what-it-is/how-to-apply duplicates evacuated by intent;
-  PDR-108/109/110 authored + PDR-002/024 amended; 0 broken refs; docs-adr-expert-assessed, folded
-  first-hand). **18 files committed by the Director, Vesuvius calls Quench** as `e30b987c0`
-  (owner-directed; full-tree knip green after the markdown-links validator was wired, comms
-  `90a0f532`); this continuity handoff is the paired Commit B. **NOT pushed** (owner controls push).
-  Brief:
-  [`current/practice-lineage-principle-graduation.plan.md`](../../plans/agentic-engineering-enhancements/current/practice-lineage-principle-graduation.plan.md).
-  The **multi-agent window settled to n=2 owner-visible** (2026-06-21, owner-directed — the Director role
-  was dissolved). Cast at this continuity write: **Anvil lifts Solder** (34f6b3) holds survey
-  orchestration, **GO-gated** (survey state unchanged — AEE 70/70 Pass-1; remaining = 15 collections +
-  70-AEE back-fill + Pass-2/3); the **V1-fold / Stage-3 lane is UNHELD** (its holder Saffron holds Sepal
-  retired this session after delivering the design — see the strategy thread record's pickup state). Full
-  rotations this window, all clean no-gap handoffs: survey **Pinnace → Aardvark turns Whisper → Anvil**;
-  V1-fold **Ganymede herds Penumbra → Saffron holds Sepal** (Ganymede committed the substance re-aim
-  `14877e8d0`+`61489ce7e`; Saffron authored + hardened the Pass-2 substance specs `2a4df5423`+`e0456a56c`,
-  ran the orphan-commit + stale-state archive-move cleanup, fixed the watcher doctrine bug). Aardvark
-  landed the `coordination-watcher-canonicalisation` monitor-fix plan then retired. The Director chain
-  Cutter holds Reef → Vesuvius calls Quench →
-  **Birch tracks Arbor** ran (PDR-064 two-moments each); Birch coordinated two clean role rotations
-  (Drake→Ganymede, Hobby→Pinnace), folded continuity, then retired as the owner dissolved the seat at n=2.
-  Earlier cast (Cutter, Ferret, Volcano, Drake, Hobby, Vesuvius) all retired cleanly. **No Director unless
-  the owner re-establishes one** (n=2 = PDR-082 owner-visible / consumer-absent). Commit queue empty; owner
-  controls push.
-  Stale decision-thread / sidebar / handoff surfaces under `.agent/state/collaboration/` remain
-  from retired sessions — clearing them is a conservation-gated curator-pass, deferred.
-- **Agent Experience (AX) made first-class (2026-06-21, Nova wakes Genesis)**: owner-directed AX
-  pass over the 82-entry [`frictions-register.md`](../../plans/agent-tooling/frictions-register.md).
-  Landed (gate-green, committed — SHA in thread record): the
-  [cause-class report](../../reports/agent-experience-cause-class-analysis-2026-06-21.md) (82
-  frictions → 8 cause-classes; the drain-gap; the #1 cure is **already homed** in
-  `agent-tools-cli-ergonomics.plan.md`); **PDR-111** (AX is a first-class Practice principle —
-  portable, host adoption in the bridge index); the always-on `agent-experience-review-lens` rule;
-  a `principles.md` standing-concern line; and the umbrella
+- **Claims model + agent-work-state (LIVE, owner-gated).** The corrected claims model — a claim is an
+  optional, advisory, AREA-scoped signal (NOT files; presence/liveness/work-state/seat re-home to
+  facets) — is live in `agent-collaboration.md` + memory
+  `feedback_claim_is_advisory_area_coordination_not_a_god_object`. **Owner-gated, flagged not edited:**
+  PDR-118 (claim-as-anchor superseded by launch-in-worktree, OQ2 amendment); the schema `role` field
+  (the one genuine claim-as-seat marker, in tension with "claim is not the seat"); the
+  `director-handoff.md` succession liveness gate (safety-critical). **Remaining integration (gated on
+  OQ5 composed-liveness):** `collaboration-state-conventions.md` (silent that freshness ≠ liveness); the
+  code consumers (`active-agents.ts`, the watcher-gate, the TUI).
+- **Spawn-flow tool — ready to build (LIVE pickup).** Launch a session in its worktree → the binding is
+  *derived* from cwd; the assert-primitive / registry path is dissolved (PDR-118 OQ2). Owner-approved
+  plan with a Pitfalls section:
+  [`agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md). The
+  substrate ([`future/knowledge-distribution-substrate.plan.md`](../../plans/agent-tooling/future/knowledge-distribution-substrate.plan.md))
+  is recorded-future, not a prerequisite. Next agent: read it + the `feedback_*` memories it names,
+  confirm the cwd fact once, build friction-sliced.
+- **Strategy / plan-estate rewrite — LIVE primary lane.**
+  [ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)
+  (intent as a living idea-graph — Accepted) + ADR-201 (Proposed, external-evidence) + the plans
+  committed; progression GO. **Next (owner top priority): WS2** — author the idea-node JSON Schema +
+  decide id-minting; **WS4 thin-slice-proof is a HARD GATE** before the full harvest (WS6). V0 = the form
+  new plans take. Read ADR-200 + the thread record first. The missing **content-structure graph** is open
+  question **Q-009**.
+- **Sonar AI-profile → zero — LIVE.** Driving `main`'s deliberately-adopted Sonar AI quality-profile
+  backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
+  **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
+  `main-sonar-ai-profile-to-zero`.
+- **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
+  gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
+  widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
+  investigate against the merged code — (P2) `ci.yml` main-run concurrency may drop an intermediate
+  main CI run + its Release `workflow_run` (consider a per-SHA group for non-PR runs); (P3) align the
+  ADR-121 Playwright cache-key changelog row with the impl. **DATA-SOURCES governance** (owner-gated)
+  gates the under-the-hood/explain user-exposure surface.
+- **OWNER ROADMAP (2026-06-12, sequenced "not all at once") — the forward agenda:** (1) comms-research
+  follow-ons; (2) naming v3 (DECISION-COMPLETE plan; Phase-1 era-pinning cure first — §Next Safe Steps);
+  (3) Sentry production-issue protocols/skills; (4) the Sentry logging improvements those surface;
+  (5) refine the PostHog plan; (6) integrate the oak-api repo into this ecosystem; (7) EEF
+  data-surfacing follow-ons; (8) high-impact graphs latent in the bulk data; (9) apply the graph-tool
+  capabilities to the `oak-curriculum-ontology` sibling repo; (10) the user-facing hybrid-search
+  experience (gates the 08-experience-surfaces cluster + the `mcp-app-extension-migration` WS3 rebuild);
+  (11) keep the plan-discovery surfaces current and retire `plans/notes/`; (12) the path-sweep
+  code-class follow-on (TDD cycles, never a sweep sed). **Open action:**
+  `docs/graph-team-direction-2026-06-10` carries two unmerged commits (`ae5372e2c`, `c9ff6bb49`);
+  merging it is an open owner/Director action (reconcile the napkin/eef-record content on merge).
+- **DECISION-COMPLETE plans awaiting execution routing.** Output-schemas for MCP tools (every
+  `outputSchema` = `composeEnvelopeSchema(payloadSchema)`; next = execution routing); the MCP test
+  estate + observability-sinks plans (§Next Safe Steps); MCP product-analytics (owner-gated on
+  legal/privacy). OAK-PROD MCP snagging — next: S0 non-Cursor probe, then S1 to owner.
+- **no-throw remediation — RESHAPED, READY (survey-first), PAUSED for the strategy thread.** Controlling
+  plan [`no-throw-remediation.plan.md`](../../plans/architecture-and-infrastructure/current/no-throw-remediation.plan.md);
+  the ~1000-warning count is an indiscriminate-rule artefact (~6 cause-classes). Investigation-first
+  WS0→WS4; 4 conversions landed. Resume from WS0 after the strategy work.
+- **Practice↔IDE integration plane** — feasibility report landed; **owner decisions pending** (§Open
+  Owner-Decision Items); a HARD deep-docs-read prerequisite before any build.
+- **Onboarding-improvement arc** — PR #199 merged; follow-ons open (B2/B3 risk-register seeding; the
+  ask-the-repo search decision — B1 awaits owner cost bands, B6 at the M2 gate).
+- **Evals pickup — QUEUED, owner-directed**
+  ([`skill-evals-pilot-start-right-quick.plan.md`](../../plans/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md));
+  the assurance regime is homed in `principles.md` §Agentic Quality + `validation-strategy.md`.
+- **AX first-class** — PDR-111 + the `agent-experience-review-lens` rule landed; the live home is
   [`agent-experience-improvement.plan.md`](../../plans/agent-tooling/current/agent-experience-improvement.plan.md)
-  (DRIVES the homed cli-ergonomics + watcher plans; OWNS the structural drain-fix validator,
-  F-41 path-safety, gate-coverage, disposition ledger). Two `future/` briefs (corpus survey; F-75).
-  **Next safe step** below (§Agent Experience). Owner controls push. Detail: `agentic` thread record top.
-- **Plan-estate relocation (2026-06-20, owner-directed)**: the controlling plan + the merged imported
-  analysis docs moved off the planning root into a new `.agent/plans/product-development-governance/`
-  collection — controlling plan at the top (authority), the 6 imports in `suggestions/` (subordinate,
-  statuses downgraded to `proposed`). The `fitness-system-closure-and-role-routing.findings.md` rehomed
-  to `agentic-engineering-enhancements/current/` beside its backbone plan. References rewired and
-  verified 0-broken. Detail + the incoming-materials verdicts (graphs: thin slice; service-authority:
-  forward-design) live in the strategy thread record.
-- **Incoming planning cluster (merged from remote 2026-06-20, not yet integrated)**: a broad
-  repo-intent / service-authority / governed-document-graph / context-preservation set of sibling
-  documents now lives in [`.agent/plans/`](../../plans/). Integration and comparison are pending —
-  protocol in [`fitness-system-closure-and-role-routing.findings.md`](../../plans/agentic-engineering-enhancements/current/fitness-system-closure-and-role-routing.findings.md) §11.
-- **Fitness-system doctrine (agentic lane)**: the Closure & Role-Routing design landed as a findings
-  record + backbone plan (`547d889c9`); next is the plan's WS0 (PDR-106 + ADR-144 amendment) and the
-  §11 comparison. Detail in the `agentic-engineering-enhancements` thread record.
+  (next: WS-1 CLI-ergonomics conformance guard — §Next Safe Steps; WS-4 is the structural drain-fix).
+- **Fitness-system doctrine (agentic lane)** — the Closure & Role-Routing findings record + backbone
+  plan landed (`547d889c9`); next is the plan's WS0 (PDR-106 + ADR-144 amendment) and the §11
+  comparison. Detail in the `agentic-engineering-enhancements` thread record.
+- **Collaboration-state lifecycle**: `.agent/state/` files are live signal sources, not long-term
+  documentation. Outside owner-directed research windows, process useful substance into
+  memory/docs/plans and clear stale state. **Standing residual:** the coordination-tier curator-pass —
+  ~1,707 comms events past the 7d window await body-read disposition before the next archive-move RUN,
+  fired by retention elapse via `consolidate-docs` step 3a / `oak-curator-pass`.
 
 ## Active Threads
 
@@ -374,15 +123,15 @@ each thread record; this table is the repo-level index.
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / claude-opus-4-8[1m] / Seal hunts Offing / fix-before-tooling — F-94 + F-95 MERGED to main (PR #225, e95fb9594); register + live continuity surfaces corrected to fixed; branch continuity-only, 22 ahead/5 behind main, rebase declined / 2026-06-25 ← claude / claude-opus-4-8[1m] / Thyme lifts Compost / team-session-closer — worktree-pilot closed out, team dissolved; guiding plan + director-handoff restructured; orphan branches pushed; F-94–97 captured / 2026-06-25 ← claude-code / Opus 4.8 / Magnolia spins Mulch / 2026-06-23 — MCPJam integration + curriculum-MCP validation + evals doctrine (position report + QUEUED skill-evals-pilot); host-rebinding settled → ADR-122/158 + Host→403 test (thread next step UNCHANGED = WS-1) ← claude / Opus 4.8 (1M) / Petrel stirs Wingspan / 2026-06-22 dedicated consolidation (napkin rotated, 667-line content archived; PDR-113; forced-answer + bottom-up + decision-records graduations; F-83) + the F-84 fix landed (decision-debt false-green: detector `f056285fb` + register reformat `ea633117a`); thread next step UNCHANGED = WS-1 / 2026-06-22 (prior seats: Perseus turns Horizon (substrate de-anon `9abcd7679`), Oyster weaves Surf (WS-3 F-41), Nova wakes Genesis, Ferret seeks Tunnel (PDR-107/108/109/110), Finch binds Halo, Drake lifts Obsidian, Siren guards Reef, Tulip spins Xylem; full history in thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / claude-opus-4-8[1m] / Seal hunts Offing / fix-before-tooling (F-94 + F-95 MERGED, PR #225) / 2026-06-25 (prior seats: Thyme, Magnolia, Petrel, Perseus, Oyster, Nova, Ferret, … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark, session-shape indicators, logo swap; lane in two `current/` plans (session-state, logo-modularisation). Live detail + the `feat/comms-research` divergence to reconcile: thread record | [record][statusline] | claude-code / Opus 4.8 / Vole calls Hollow / live-logo-swap-and-plan-harden / 2026-06-16 (prior identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
-| `strategy-and-plan-estate-holistic-review` | **REFRAMED 2026-06-22 ([ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)): planning-estate REWRITE on a living idea-graph.** Ideas are the fundamental node; the graph is the authoritative machine-readable SSOT (JSON + JSON Schema, built on `graph-core`); documents (vision/strategy/stream/thread/plan) are the co-equal human-navigable embodiment connected by frontmatter edges. The prior survey / Pass-1 / Stage-2 / conformance framing is **SUPERSEDED** (survey corpus archived to `reports/archive/`). Vision + strategy stand. ADR-200 (value/family/vocab/two-direction no-loss) + ADR-201 (Proposed, external-evidence) + the plans **COMMITTED** (`e33a278f9`); the `no-agent-substrate-access` eslint rule adopted + fixed + committed (`a3ca73f1a`); **progression GO**. Next: **WS2** idea-node schema + id-minting (WS1 graph-stack survey DONE, result in ADR-200 §Open; **WS4 thin-slice-proof is a hard gate** before the full harvest WS6). Thread-record curate-and-conserve + the dedicated consolidation (napkin rotation, PDR-113) are **DONE** (this session + Petrel stirs Wingspan). V0 = the form new plans take (the V0-bridge unblocks forward work now). Read ADR-200 + the thread record first. | [record](threads/strategy-and-plan-estate-holistic-review.next-session.md) | claude-code / Opus 4.8 (1M) / **Perseus lifts Umbra** / two-altitude knowledge-as-graph research + ADR-200 realisation-edge & family-entailment amendments (owner-directed) / 2026-06-23 ← claude-code / Opus 4.8 (1M) / **Pelican stirs Buoy** (2026-06-22 — reflected on the starter; curated this thread record; truth-fixed the rewrite plan + repo-continuity; next = WS2) ← **Cinder holds Warmth** (2026-06-22 EOD — architecture converged + committed: ADR-200/201 + plans + adopted eslint rule; progression GO) ← **Cosmos calls Infinity** (survey orchestrator; Pass-1 228/286, 6 collections; doc 08 runbook; window-2 closeout, claim closed) + **V1-fold UNHELD** (Saffron holds Sepal retired ← Ganymede herds Penumbra; design delivered) / n=2 owner-visible — Director seat DISSOLVED (chain Cutter→Vesuvius→Birch tracks Arbor, all retired) / 2026-06-21 (prior seats: Anvil lifts Solder, Pinnace hunts Marsh, Aardvark turns Whisper, Drake hunts Beeswax, Hobby wakes Halo, …Plover wakes Sundog — full table in thread record) |
-| `orientation-skills-family` | Teaching-surface family: a portable agentic-AI primer (lead-in) plus the **one** repo-bound orientation lens (`/oak-explain`) across the PDR-112 portability seam | [record][orientation] | claude-code / Opus 4.8 (1M) / Zenith lifts Firmament / **UNIFICATION IMPLEMENTED 2026-06-23** — WS0–WS6; two lenses → one `/oak-explain` (mode discerned; setup distinct; primer + PDR-112 seam unchanged; PDR-112 NOT amended); 3 mid-flight owner directions folded (clean break / minimise-unique-info / the name); ADR-202; live owner walk done; committed `ca40d98ce` (+ plan-estate archives `689fb9133`/`7ceb1382d`); push-pending / 2026-06-23 (prior: Skipper tracks Reef (plan author), Orbit rides Horizon, Bora lifts Downdraft) |
+| `strategy-and-plan-estate-holistic-review` | **REFRAMED 2026-06-22 ([ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)): planning-estate REWRITE on a living idea-graph.** Ideas are the fundamental node; the graph is the machine-readable SSOT (JSON + JSON Schema on `graph-core`); documents are the co-equal human-navigable embodiment via frontmatter edges. The prior survey/Pass framing is SUPERSEDED. ADR-200 + ADR-201 (Proposed) + plans COMMITTED; progression GO. Next: **WS2** idea-node schema + id-minting; **WS4 thin-slice-proof is a hard gate** before the full harvest (WS6). V0 = the form new plans take. Read ADR-200 + the thread record first. | [record](threads/strategy-and-plan-estate-holistic-review.next-session.md) | claude-code / Opus 4.8 (1M) / Perseus lifts Umbra / two-altitude knowledge-as-graph research + ADR-200 realisation-edge & family-entailment amendments / 2026-06-23 ← Pelican stirs Buoy ← Cinder holds Warmth (ADR-200/201 + plans committed) ← Cosmos calls Infinity (survey orchestrator) / Director seat DISSOLVED / 2026-06-21 (prior seats: full table in thread record) |
+| `orientation-skills-family` | Teaching-surface family: a portable agentic-AI primer (lead-in) plus the **one** repo-bound orientation lens (`/oak-explain`) across the PDR-112 portability seam | [record][orientation] | claude-code / Opus 4.8 (1M) / Zenith lifts Firmament / **UNIFICATION IMPLEMENTED 2026-06-23** — WS0–WS6; two lenses → one `/oak-explain`; ADR-202; committed `ca40d98ce` (+ archives `689fb9133`/`7ceb1382d`); push-pending / 2026-06-23 (prior: Skipper tracks Reef (plan author), Orbit rides Horizon, Bora lifts Downdraft) |
 | `reasoning-grammar` | Structured-reasoning capability: the portable grammar-of-thinking reference + the thin `oak-reason` skill (outward pair to `oak-metacognition`), wired into the metacognition directive, `oak-plan`, and start-right | [record](threads/reasoning-grammar.next-session.md) | claude / Opus 4.8 (1M) / Orbit rides Horizon / **COMPLETE** — landed `3b9836d89`; push pending (owner) / 2026-06-22 |
 | `user-search-not-exposed-until-built` | Gate the unbuilt user-search MCP App tools off `tools/list` behind an opt-in flag (default OFF) until the experience ships | [record](threads/user-search-not-exposed-until-built.next-session.md) | claude-code / Opus 4.8 (1M) / Foehn calls Headwind / **COMPLETE** — Cycle 1 `ac0a98c5b`, Cycle 2 `906cca9b3`, plan fixes `ff26bcf69`; push pending (owner) / 2026-06-23 |
-| `main-sonar-ai-profile-to-zero` | Drive `main`'s Sonar AI quality-profile backlog (398 issues, 48 rule classes) to **zero** — fix or genuine-FP only, no suppression. Owner-directed: deliberately-adopted profile. High-priority lanes: `tssecurity:S8707` agent-CLI path-injection, regex-safety (`S8786`/`S5843`/`S6035`) via per-workspace regex consolidation, test-integrity (`S2699`/`S5914`). Supersedes the retired `main-critical-sonar-remediation` lane | [record][main-sonar-zero] | claude / claude-opus-4-8[1m] / Alder tracks Topsoil / implementer — S8707 site-3 + `@oaknational/safe-path` SSOT + passWithNoTests de-masks; S8707 Phase 1 MERGED via PR #242 (merge commit `3895b3f45`); Phase 2 regex next / 2026-06-27 ← claude / claude-opus-4-8 / Junk tracks Moorings / implementer — S8707 sites 1-2 + S4036 MERGED to main via PR #223 (`9d2e33bb1`); site-3 only remains (Thyme's paused claim `ff3da671`) / 2026-06-25 ← claude / claude-opus-4-8[1m] / Thyme lifts Compost / S8707 site-2 committed (`4c9cfbfc9`) + branch pushed; PAUSED / 2026-06-25 ← claude-code / Opus 4.8 (1M) / Aspen tracks Root / thread-open + first-hand triage / 2026-06-24 |
+| `main-sonar-ai-profile-to-zero` | Drive `main`'s Sonar AI quality-profile backlog (398 issues, 48 rule classes) to **zero** — fix or genuine-FP only, no suppression. Owner-directed: deliberately-adopted profile. Lanes: `tssecurity:S8707` path-injection, regex-safety (`S8786`/`S5843`/`S6035`), test-integrity (`S2699`/`S5914`). Supersedes the retired `main-critical-sonar-remediation` lane | [record][main-sonar-zero] | claude / claude-opus-4-8[1m] / Alder tracks Topsoil / implementer — S8707 Phase 1 MERGED via PR #242 (`3895b3f45`); Phase 2 regex next / 2026-06-27 (prior: Junk tracks Moorings (#223), Thyme lifts Compost, Aspen tracks Root) |
 
 ## Paused Threads
 
@@ -408,15 +157,11 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ### Comms-Corpus Research — RETIRED 2026-06-14
 
-Thread concluded: WS0–WS7 complete, PR #208 merged to main (`a6b14a8a3`). Retired record:
-[`threads/retired/agent-collaboration-research.next-session.md`](threads/retired/agent-collaboration-research.next-session.md)
-(carries the candidate-themes research substrate + the WS7 closeout conserved findings). Findings
-homed in **PDR-094** + **ADR-199**, the `reports/agentic-engineering/` WS2–WS6 synthesis, and the
-rightsizing keystone M4; the deep-convergence pass that was deferred here ran as this dedicated
-consolidation (2026-06-14). **Standing residual** (not a reopened lane): the coordination-tier
-curator-pass — ~1,707 comms events past the 7d window await body-read disposition before the next
-archive-move RUN, fired by retention-window elapse via `consolidate-docs` step 3a / `oak-curator-pass`;
-the work-list + verification recipe live in the retired record's §"WS7 Closeout — Conserved Findings".
+Thread concluded (WS0–WS7, PR #208 merged `a6b14a8a3`); findings homed in **PDR-094** + **ADR-199** + the
+`reports/agentic-engineering/` synthesis + keystone M4. Retired record:
+[`threads/retired/agent-collaboration-research.next-session.md`](threads/retired/agent-collaboration-research.next-session.md).
+**Standing residual** (not a reopened lane): the coordination-tier curator-pass — ~1,707 comms events past
+the 7d window await body-read disposition; work-list + recipe in the retired record's §"WS7 Closeout".
 
 ### Agent Naming (v3 + era-pinning cure)
 
@@ -437,26 +182,15 @@ Umbrella plan
 [`agent-experience-improvement.plan.md`](../../plans/agent-tooling/current/agent-experience-improvement.plan.md)
 (`current/`), evidence
 [report](../../reports/agent-experience-cause-class-analysis-2026-06-21.md), doctrine PDR-111.
-
-**WS-3 (F-41 path-safety) is DONE** (2026-06-21, Oyster weaves Surf): `resolveCoordinationHome` resolves the
-**primary checkout** via `git worktree list`, so any worktree seat shares one coordination home — commits
-`b5408291d` + `c90150ffa` + `4fd640089` (closing F-41 across comms AND commit-queue defaults), gate-green.
-A forward-only merge (`ed0c7f3b2`) then integrated the other checkout's 2 pushed commits (explain-repo
-skill + `jc-`→`oak-` sweep); local is **0 behind** (fully integrated), `pnpm check` green, NOT pushed
-(owner controls push; the branch merges to `main` the normal way — a PR with squash-and-merge — when its
-work is done). B2 (the CLI-tail
-default-via-home migration) deferred → [`future/coordination-home-explicit-targeting-migration.plan.md`](../../plans/agent-tooling/future/coordination-home-explicit-targeting-migration.plan.md).
-
-**Next safe step (owner-chosen 2026-06-22): WS-1 — the CLI-ergonomics conformance guard.** Execute
+**WS-3 (F-41 path-safety) is DONE** (`b5408291d`+`c90150ffa`+`4fd640089`): `resolveCoordinationHome`
+resolves the **primary checkout** via `git worktree list`, so any worktree seat shares one coordination
+home. **Next safe step (owner-chosen 2026-06-22): WS-1 — the CLI-ergonomics conformance guard.** Execute
 [`agent-tools-cli-ergonomics.plan.md`](../../plans/agent-tooling/current/agent-tools-cli-ergonomics.plan.md)
 from **Phase 0** (the convention-audit + scope-ratification gate) → WS6 (the PDR-055 cl.10 conformance
-guard). Retires the largest cause-class (~19 frictions, Class A); the driven plan is already
-`READY FOR EXECUTION`. The umbrella sequences it; the driven plan owns its own cycles.
-
-Subsequent AX items (not this session): **WS-4** (the `frictions-register` drain validator that recomputes
-integrity against fs/git + a generated routing index → **WS-6** disposition ledger — the systemic spine);
-**WS-2** (watcher liveness + canonicalisation — firsthand `drain`-timeout watcher deaths observed
-2026-06-21); and **WS-3 B2** (the deferred F-41 CLI tail, reframed to the git-resolved home).
+guard); retires the largest cause-class (~19 frictions, Class A). Subsequent AX items: **WS-4** (the
+`frictions-register` drain validator that recomputes integrity against fs/git → **WS-6** disposition
+ledger — the systemic spine); **WS-2** (watcher liveness + canonicalisation); **WS-3 B2** (the deferred
+F-41 CLI tail).
 
 ### Agentic Mechanisms Discovery
 
@@ -474,14 +208,13 @@ integrity against fs/git + a generated routing index → **WS-6** disposition le
 
 ### Agentic-Engineering Curation
 
-1. The latest dedicated consolidation is 2026-06-18 (Wisteria spins Bark): bulk done (continuity
-   processed to rest, napkin graduated to 5 patterns, PDR-104 best-effort policy, 7c/7e audits,
-   PDR-098 recurrence-capture wired into consolidate-docs step 7). The remainder is owner-scoped to
-   a fresh session — full pickup: [`agentic` thread record][agentic] §NEXT-SESSION PICKUP.
+1. The latest dedicated consolidation is 2026-06-28 (Clover lifts Root): napkin drained + rotated, the
+   genuinely-new doctrine graduated (tests-prove-behaviour, schema-as-SSOT, lossless-reconciliation,
+   F-104), #267 merged to `main`; `distilled` + `pending-graduations` empty; open-questions Q-009/Q-011
+   user-granted keep-open. Full pickup: [`agentic` thread record][agentic] §NEXT-SESSION PICKUP.
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
-3. Comms-event rotation is the retention-gated curator-pass (ADR-199 / PDR-094; the comms-corpus
-   research is RETIRED — see §Next Safe Steps › Comms-Corpus Research): archive-move events past
+3. Comms-event rotation is the retention-gated curator-pass (ADR-199 / PDR-094): archive-move events past
    their class window, gated on absorption + provenance. Analysis is never gated; fitness is routing
    evidence only — never archive, split, shard, or rename unprocessed content to improve scores.
 
@@ -572,4 +305,3 @@ authority.
 [statusline]: threads/statusline-enhancements.next-session.md
 [agent-naming]: threads/agent-naming.next-session.md
 [orientation]: threads/orientation-skills-family.next-session.md
-[continuity-state-plan]: ../../plans/agentic-engineering-enhancements/future/continuity-surfaces-are-state-not-memory.plan.md

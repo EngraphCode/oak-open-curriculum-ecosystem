@@ -578,6 +578,14 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    - **open** — only when a named constraint still prevents resolution; record
      deferral-honesty evidence and falsifiability in the entry or closeout.
 
+   **In a DEDICATED consolidation, drive this register to zero exactly as
+   pending-graduations is driven** (owner directive 2026-06-28). Every entry must be
+   *decided* this pass — answered, withdrawn, or **explicitly kept open by the user**.
+   `open` as an agent default ("deferral-honesty") does NOT satisfy a dedicated pass:
+   keep-open is a USER-ONLY grant, surfaced via `AskUserQuestion`, and the entry records
+   a `keep-open granted by user, <date>` note as the proof. (Outside a dedicated pass,
+   the lighter answer/withdraw/leave-open disposition above applies.)
+
    Do not convert open questions into pending-graduations entries unless the
    question has become a candidate doctrine, pattern, ADR, or PDR. When both
    surfaces are relevant, cross-link rather than duplicate.
