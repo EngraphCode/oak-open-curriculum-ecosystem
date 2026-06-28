@@ -29,6 +29,15 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **Runbook kind defined + dedicated consolidation done (2026-06-28, Clover lifts Root).** "Runbook"
+  is now a recognised content kind — a repeatable operational procedure, delivered via
+  skills / reference-docs / rule-embedding by the load-budget triage, **not** a new surface
+  ([PDR-120](../../practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md));
+  the [Runbook Index](../../../docs/operations/README.md#runbook-index) lists the corpus and is
+  reachable from AGENT.md + the root/docs READMEs. The dedicated consolidation merged (#267); napkin
+  drained; repo-continuity curated to compact-active-state; open-questions driven to zero (Q-009/Q-011
+  user-granted keep-open). Recurrence prevention for continuity-surface drift is briefed in
+  [`future/continuity-surface-drift-prevention.plan.md`](../../plans/agentic-engineering-enhancements/future/continuity-surface-drift-prevention.plan.md).
 - **Team-tooling session scope LOCKED + coordination branch created (2026-06-28, Beluga rides Wave).**
   After the dedicated consolidation merged (**#267 → `main`**, HEAD `7e12baeef`), the next effort is a
   serious, long-running **Director + Implementer** session that *builds the agreed team tooling*. The
