@@ -108,16 +108,15 @@ the calibrated bands).
 - **Sources.** Change lead time, deployment frequency, change fail rate, and
   failed deployment recovery time are derivable from git, Vercel deploys, and
   Sentry incidents (the Sentry/OTel foundation above is the prerequisite). Deployment
-  rework rate and full planned-vs-rework attribution come from the **repo intent
-  graph** (`serves_strategic_choice` + `kind` + `disposition` joined to commits) —
-  the same-repo unity makes the attribution a graph traversal, not a log
-  reconstruction.
+  rework rate and full planned-vs-rework attribution come from the **intent graph**
+  (`serves_strategic_choice` + `kind` + `disposition` joined to commits) as a graph
+  traversal (the same-repo unity — why it is native — is ADR-207).
 - **Surface.** A generated projection (no hand-maintained dashboard), emitted per
   the [`what-the-system-emits-today`](../../observability/what-the-system-emits-today.md) matrix.
 - **Sequencing.** Extends the `change-failure` seed; gated on the Sentry/OTel
   foundation and (for rework-rate / attribution) on the intent-graph extractor and
   the Linear projection. Design authority:
-  [repo intent graph plan — Delivery-performance metrics](../../product-development-governance/future/repo-intent-graph.plan.md).
+  [ADR-207](../../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 
 ## Current State (verified 2026-04-16)
 

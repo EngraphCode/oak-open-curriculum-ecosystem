@@ -534,3 +534,20 @@ Concretely:
 This is not aspirational; it is a structural constraint. Violations
 cause silent drift: the SDK gets tuned but the app's copy does not,
 producing different behaviour for the same input.
+
+### Documentation Is Infrastructure
+
+Documentation in this repository configures agents and carries durable
+intent — it is infrastructure, not supplementary text. The
+software-design principles therefore apply to documentation **content**
+and to the conceptual and organisational structures it sits within, not
+only to code: **SSOT** (one canonical home per concept; every other
+surface points, never restates), **DRY** (cite the stable interface;
+keep only each document's own-concern content), **single responsibility**
+(no god-documents), **decoupling and well-defined interfaces** (depend on
+a document's stable identity, not its volatile prose; reference direction
+flows toward the more fundamental artefact), and **stable indexes**
+(READMEs and index surfaces point, they do not carry, and must not
+drift). A DRY violation, a stale index, a god-document, or a dangling
+cross-reference is a real defect, not a style nit. Canonical decision:
+[ADR-127](../../docs/architecture/architectural-decisions/127-documentation-as-foundational-infrastructure.md).

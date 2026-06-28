@@ -5,7 +5,17 @@ required by the change profile. Until the taxonomy rename lands,
 `code-expert` remains the current gateway reviewer.
 
 Documentation drift (`docs-adr-expert`) applies whenever behaviour or
-architecture changes, even if no docs are explicitly edited.
+architecture changes, even if no docs are explicitly edited. `docs-adr-expert`
+owns documentation **structure and accuracy** (drift, ADR completeness,
+cross-references, and the ADR-127 §5 design lens — SSOT, DRY, god-documents,
+decoupling, stable indexes); `prose-expert` owns the **craft and voice** of the
+writing. The two compose on one document and do not overlap.
+
+Prose craft (`prose-expert`) applies to the writing of any authored document;
+the Oak outward editorial voice (also `prose-expert`) applies only to
+outward-facing copy, per `editorial-tone.md` scope. Invoke `prose-expert`
+proportionately — for outward copy and significant authored prose, not every
+trivial doc touch.
 
 AGENT.md intentionally points here rather than carrying reviewer rosters or
 timing detail. Reviewers can review intentions before code exists, and long or
@@ -49,6 +59,8 @@ Then route by domain:
 8. Rendered UI, CSS, design tokens, or React components -> UI/Frontend
    cluster: `accessibility-expert`, `design-system-expert`,
    `react-component-expert`
+9. Outward-facing copy (`VISION.md`, strategy, public README narrative) or
+   significant authored prose whose readability matters -> `prose-expert`
 
 ### Layer 3 — Cross-Cutting Concerns
 
@@ -58,7 +70,8 @@ Always check these regardless of category:
 2. Test additions, modifications, or TDD concerns -> `test-expert`
 3. Type complexity, generics, or schema flow -> `type-expert`
 4. Tooling configs or quality gates -> `config-expert`
-5. README, TSDoc, ADR, or docs drift -> `docs-adr-expert`
+5. README, TSDoc, ADR, docs drift, or documentation structure (SSOT/DRY/
+   god-documents, decoupling, stable indexes) -> `docs-adr-expert`
 
 ## Review Depth
 
@@ -155,7 +168,8 @@ Invoke additional specialists when applicable:
 | Type-system complexity or assertion pressure | `type-expert` |
 | Tooling/config quality-gate changes | `config-expert` |
 | Auth/authz, OAuth, secrets, PII, injection, security-sensitive logic | `security-expert` |
-| README/TSDoc/ADR/docs updates or expected documentation drift | `docs-adr-expert` |
+| README/TSDoc/ADR/docs updates, documentation structure (SSOT/DRY/god-documents), or expected documentation drift | `docs-adr-expert` |
+| Outward-facing copy (`VISION.md`, strategy, public README narrative) or significant authored prose | `prose-expert` (craft for any doc; Oak voice only where `editorial-tone.md` applies) |
 | Rendered UI, CSS, design tokens, React components | UI/Frontend cluster: `accessibility-expert`, `design-system-expert`, `react-component-expert` (ADR-149) |
 
 Specialist on-demand (not standard roster -- situational trigger only):
@@ -178,7 +192,17 @@ Specialist on-demand (not standard roster -- situational trigger only):
 
 **Test-only change**: Invoke `code-expert` + `test-expert` immediately.
 
-**Docs/ADR update**: Invoke `code-expert` + `docs-adr-expert` immediately.
+**Docs/ADR update**: Invoke `code-expert` + `docs-adr-expert` immediately. Add
+`prose-expert` when the readability of the authored prose matters (a long ADR,
+a narrative doc); `docs-adr-expert` reviews structure and accuracy, `prose-expert`
+reviews craft.
+
+**Outward copy change** (`VISION.md`, strategy, public README narrative,
+partner-facing material): Invoke `prose-expert` immediately — both its layers
+apply (universal craft plus the Oak voice per `editorial-tone.md`). Add
+`docs-adr-expert` if the change also touches documentation structure or
+cross-references, and `accessibility-expert` if a plain-language WCAG conformance
+verdict is needed (`prose-expert` defers conformance to it).
 
 **Onboarding docs/path update**: Invoke `code-expert` + `docs-adr-expert` immediately. Add `onboarding-expert` when the change affects onboarding journeys (human and/or AI), `start-right` discoverability, or ADR progressive disclosure.
 

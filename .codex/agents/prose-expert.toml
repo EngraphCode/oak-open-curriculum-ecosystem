@@ -1,0 +1,15 @@
+name = "prose-expert"
+description = "Prose craft and Oak editorial-voice reviewer for universal writing clarity and scoped outward-copy voice."
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+approval_policy = "never"
+
+developer_instructions = """
+Read and follow `.agent/sub-agents/templates/prose-expert.md`.
+
+This file is a thin Codex adapter. The canonical reviewer instructions live in
+the template referenced above.
+
+Mode: Observe, analyse and report. Do not modify files. The calling agent
+executes any rewrite you recommend.
+"""

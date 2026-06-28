@@ -1,7 +1,5 @@
 ---
-tools: Read, Glob, Grep, LS, Shell, ReadLints
 name: assumptions-expert
-model: gpt-5.5
 description: "Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Use when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships."
 readonly: true
 ---

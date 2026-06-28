@@ -1320,17 +1320,36 @@ below is a cross-reference index, not a second source of truth.
   agent trusting `freshness_status: stale` would conclude a live peer is dead and
   barge into its active claim — the exact collision `respect-active-agent-claims`
   exists to prevent.
-- **Expected**: freshness incorporates the latest heartbeat for that
-  agent/claim. (`consolidate-docs` step 7e already says "use heartbeat_at if
-  present and more recent" — but neither the claim's heartbeat_at field nor
-  `claims list` reflects the actual heartbeat events.)
-- **Candidate cure**: heartbeat append updates the claim's heartbeat_at, OR
-  `claims list` joins the comms heartbeat stream by claim_id/session and reports
-  freshness from the most recent of {claimed_at, heartbeat_at, last heartbeat
-  event}.
-- **Target surface**: agent-tools collaboration-state claims freshness.
+- **Expected**: **liveness and freshness are SEPARATE signals** (ratified
+  2026-06-27, PDR-118 §4: "its freshness window is retired as a liveness signal and
+  survives only as claim-TTL housekeeping, never read as alive"). Freshness
+  (`claimed_at + freshness_seconds`) stays a staleness predicate for consolidation/
+  archival; **liveness is PDR-078 event-recency** — any event (heartbeat or
+  substantive) from the role within the staleness threshold. The bug is that
+  liveness *consumers* read the freshness field; the fix is to point them at
+  event-recency, **not** to fold heartbeat into freshness (that re-conflates).
+- **Candidate cure**: move every liveness consumer off `freshness_status` onto a
+  PDR-078 event-recency signal **WITH the PDR-118 OQ5 consumer-absent fallback**
+  (when heartbeats are suspended — solo / n=2 / live-conductor, PDR-078 §4 — an
+  actively-claimed agent falls back to claim-presence + direct observation, so it
+  is NOT read dead). **A naive event-recency swap is unsafe**: it reads a
+  heartbeat-exempt n=2/solo peer as dead and would permit the blind claim the
+  watcher-gate exists to prevent (the F-95 founding failure). This makes the code
+  fix **decision-class** — it needs the OQ5 composed mechanism, not a unilateral
+  swap (tracked in `cost-of-collaboration.plan.md` §Team-session-readiness as the
+  "composed liveness" item).
+- **Consumers to fix (grounded 2026-06-28)**: `active-agents.ts` `visibilityStatus`
+  (l.146-165) + `liveAgentIdentities` (l.226-237, filters `freshness_status ===
+  'fresh'`); `claims-open-watcher-gate.ts` (l.37-39, the live-agent test);
+  `cli-claim-query-commands.ts`; the TUI `operator-value.ts` / `snapshot.ts`
+  `visibility_status` consumers. Plus F-98's stale cure-text ("liveness is the
+  watcher heartbeat mtime" — mtime proves only watcher-presence, not agent
+  liveness).
+- **Target surface**: agent-tools collaboration-state claims freshness + the
+  liveness consumers above; the schema field comments are corrected (2026-06-28).
 - **Status**: open (behavioural mitigation: freshness_status is input-to-verify
-  against the heartbeat stream).
+  against the heartbeat stream); the structural code fix is gated on the OQ5
+  composed-liveness design.
 - **Owner direction status**: standing.
 
 ### F-45 — Untracked-by-design registry/dirs do not self-init

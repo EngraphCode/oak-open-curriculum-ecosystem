@@ -3,8 +3,7 @@ name: mcp-expert
 description: 'MCP protocol specification and implementation expert for both read-only review and active-workflow planning. Invoke for MCP tool or resource or prompt definitions, transport or session patterns, MCP best-practice questions, MCP Apps migration planning/work, or general protocol questions.'
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
-model: opus
-color: teal
+color: cyan
 permissionMode: plan
 ---
 

@@ -105,7 +105,7 @@
           "type": "integer",
           "minimum": 60,
           "default": 14400,
-          "$comment_provenance": "First-principles. Liveness signal for stale audit; the default rationale is in collaboration-state-conventions.md §Default freshness_seconds = 14400.",
+          "$comment_provenance": "First-principles. Staleness predicate for claim TTL housekeeping (consolidation/archival audit), NOT a liveness signal — reading freshness as agent liveness is the F-44 conflation PDR-118 §4 structurally forbids (liveness is PDR-078 event-recency). The default rationale is in collaboration-state-conventions.md §Default freshness_seconds = 14400.",
           "description": "How long this claim should be treated as current. After claimed_at + freshness_seconds, the claim is stale (noise to be audited at consolidation, not a blocker that strands other agents). Default 14400 (4 hours)."
         },
         "heartbeat_at": {
@@ -117,8 +117,8 @@
         "sidebar_open": {
           "type": "boolean",
           "default": false,
-          "$comment_provenance": "First-principles. Liveness hint pointing at conversation/sidebar state; the conversation file owns sidebar lifecycle.",
-          "description": "Whether a sidebar conversation is currently open against this claim. The conversation file owns sidebar lifecycle; this field is only a liveness hint."
+          "$comment_provenance": "First-principles. Informational pointer at conversation/sidebar state; the conversation file owns sidebar lifecycle. Not a liveness signal (liveness is PDR-078 event-recency).",
+          "description": "Whether a sidebar conversation is currently open against this claim. The conversation file owns sidebar lifecycle; this field is informational sidebar-state, not a liveness signal."
         },
         "intent": {
           "type": "string",

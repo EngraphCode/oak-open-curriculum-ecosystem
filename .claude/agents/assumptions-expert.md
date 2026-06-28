@@ -3,8 +3,7 @@ name: assumptions-expert
 description: 'Meta-level plan specialist for both read-only review and active-workflow planning support, focused on proportionality, assumption validity, and blocking legitimacy. Invoke when plans are being drafted, marked decision-complete, propose 3+ agents, or assert blocking relationships.'
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
-model: opus
-color: amber
+color: orange
 permissionMode: plan
 ---
 

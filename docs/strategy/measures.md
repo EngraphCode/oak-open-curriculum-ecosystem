@@ -48,5 +48,5 @@ Oak-grounded:
 - **value-stream flow** metrics (lead time, process time, value-add-to-wait ratio).
 
 Mechanism and derivation:
-[repo intent graph plan — Delivery-performance metrics](../../.agent/plans/product-development-governance/future/repo-intent-graph.plan.md);
+[ADR-207 — DORA delivery metrics as a structural property of the intent graph](../architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md);
 operational home: the [observability and quality-metrics plan](../../.agent/plans/architecture-and-infrastructure/future/observability-and-quality-metrics.plan.md).

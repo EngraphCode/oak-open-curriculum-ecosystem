@@ -47,6 +47,18 @@ The foundation document is renamed to eliminate the three-way naming collision. 
 
 The portability validation script (`scripts/validate-portability.ts`) enforces that every canonical rule in `.agent/rules/` has adapters on all supported platforms. This was added as Check 7 in a prior change and prevents future orphaned rules.
 
+### 5. The software-design principles apply to documentation (amendment, 2026-06-28)
+
+Treating documentation "with the same rigour as code" (§1) extends past naming and cross-references to the software-_design_ principles, applied to documentation **content** and to the conceptual and organisational structures it sits within:
+
+- **SSOT** — one canonical home per concept; every other surface points to it, never restates it.
+- **DRY** — duplicated content drifts like copy-paste code; cite the stable interface and keep only each document's own-concern content.
+- **Single responsibility** — no god-documents; a file that many surfaces couple to for many concerns is the documentation equivalent of a god-class, and it drifts under every edit.
+- **Decoupling and well-defined interfaces** — depend on a document's stable identity (its decision, its name), not its volatile prose; reference direction flows toward the more fundamental artefact (PDR-105).
+- **Stable indexes** — READMEs and index surfaces are APIs: they point, they do not carry, and they must stay accurate rather than drift.
+
+A DRY violation, a stale index, a god-document, or a dangling cross-reference is a real defect, not a style nit. The agent-facing reflection of this principle is `principles.md` § "Documentation Is Infrastructure", which points here for the full decision.
+
 ## Rationale
 
 ### Why `principles.md`

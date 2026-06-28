@@ -1,6 +1,6 @@
 ---
 name: "Agent Work-State Registry"
-status: future-strategic
+status: superseded
 overview: >
   One authoritative, mechanically-maintained surface that binds every live
   agent's (PDR-027 identity -> worktree -> branch -> liveness), DERIVED from git
@@ -24,7 +24,11 @@ lineage:
 > stream; derives from the multi-developer-transition strategic choice and
 > friction F-98.
 
-**Status**: 🔵 FUTURE — strategic brief. Not authorised to build now.
+**Status**: ⛔ SUPERSEDED (2026-06-28) — the F-98 fix is **launch-in-worktree**: a session started in
+its worktree has its binding `(identity → worktree → branch)` **derived** from cwd, so the asserted
+anchor / registry / agent-work-state-ADR this brief proposes is **dissolved** (PDR-118 OQ2 sanctioned
+exactly this supersession). The live home is the [agent spawn-flow tool](../current/agent-spawn-flow-tool.plan.md).
+Do not promote or build from this brief — its assert-primitive / registry framing is dead.
 **Source**: F-98 (`.agent/plans/agent-tooling/frictions-register.md`), owner-directed
 capture 2026-06-25.
 **Related** (coordinate, do not duplicate):

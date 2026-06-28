@@ -39,6 +39,10 @@ config_file = "agents/security-expert.toml"
 description = "Documentation and ADR quality reviewer."
 config_file = "agents/docs-adr-expert.toml"
 
+[agents."prose-expert"]
+description = "Prose craft and Oak editorial-voice reviewer for universal writing clarity and scoped outward-copy voice."
+config_file = "agents/prose-expert.toml"
+
 [agents."elasticsearch-expert"]
 description = "Elasticsearch specialist for both read-only review and active-workflow planning around mappings, queries, ELSER, RRF, ingest, and Elastic Serverless capabilities."
 config_file = "agents/elasticsearch-expert.toml"

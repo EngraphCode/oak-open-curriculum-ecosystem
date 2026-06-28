@@ -3,7 +3,6 @@ name: sentry-expert
 description: "Sentry and OpenTelemetry specialist for both read-only review and active-workflow planning, grounded in current official Sentry and OpenTelemetry documentation for Oak's Vercel Node.js runtime, HTTP MCP server, and Search CLI observability foundation."
 tools: Read, Grep, Glob, Bash, WebFetch, WebSearch
 disallowedTools: Write, Edit, NotebookEdit
-model: opus
 color: orange
 permissionMode: plan
 ---

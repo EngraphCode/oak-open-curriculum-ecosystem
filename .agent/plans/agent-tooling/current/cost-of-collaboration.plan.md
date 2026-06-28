@@ -1823,6 +1823,111 @@ refactoring (newly in scope as of this owner direction).
   Verdict needed on whether they count toward the 80k or are
   treated as a separately-budgeted working surface.
 
+## Team-session readiness — the next Director+Implementer session
+
+> Added 2026-06-28 (Beluga rides Wave). A prioritisation VIEW over this plan's thesis
+> (substance > coordination overhead, agent-count-aware) scoped to the imminent serious,
+> long-running session with a long-lived Director over ephemeral Implementers (PDR-117). The
+> items live in the [frictions register](../frictions-register.md) (F-NN refs) and the named
+> plans; this section only sequences them by what a Director+Implementer loop actually needs.
+
+**The loop and where it corrupts.** Director spawns an Implementer (worktree + launch) →
+Implementer works in its worktree (comms / claims / gates / commits) → Director reads liveness
+and routes → Implementer retires → Director cleans up and spawns the next. The risk is not
+slowness but *corruption* of two things, both of which have bitten us: the Implementer's binding
+(does it work in the right tree?) and the Director's liveness read (is who-is-alive trustworthy?).
+
+### Minimum — without these the session produces WRONG coordination state (corruption-class)
+
+- **Trustworthy liveness** — the Director's nervous system. The corruption: a live agent read stale
+  (or a dead one read fresh) → mis-routing and barged-into active claims. The *minimum* is the cheap mitigations
+  that reduce the corruption without redesigning liveness — the structural F-44 code fix is **not** here
+  (see the decision-class note below). (a) **close the F-101 residual** — the basic `timeout`
+  self-termination cure shipped, but the node grandchild still orphans when the pnpm wrapper is
+  signalled (SIGTERM not forwarded), so a dead agent's watcher keeps writing false-liveness
+  heartbeats; cure is the lease-on-`Stop`-hook model + process-group termination + an F-43
+  stale-process census; (b) the **F-82 verify** (below); (c) the **behavioural discipline** —
+  `freshness_status` is input-to-verify, never read as liveness (now encoded in the directive + the
+  schema comments). **The structural freshness-vs-liveness code-consumer fix (F-44) is NOT minimum — it
+  is decision-class, gated on the OQ5 composed mechanism (see Excellent), because a naive event-recency
+  swap reads a heartbeat-exempt n=2/solo peer as dead.** (Discipline, not a build: derive timestamps
+  with `date -u`, never infer liveness from an mtime display — F-65.)
+- **Verify the canonical comms watcher actually surfaces events** (F-82 — "SAFETY" is my
+  characterisation, not a register tag) — its `^\[` Monitor filter drifted from the emit shape and
+  may swallow every event; if so the team coordinates blind. A ~10-minute verify, first.
+- **`claims` resolve the coordination home** (F-85, status *blocking-class for the worktree-per-agent
+  transition*) — from a linked worktree a relative `--active` writes a worktree-local
+  `active-claims.json` **invisible to peers**, so an Implementer's claim the Director cannot see =
+  blind routing + same-branch collisions. The same silent-fragmentation corruption as F-91, on the
+  same premise. Cure: wire `resolveCoordinationHome` as the `--active` default (mirroring comms).
+  *(The stress-test's strongest catch — I first mis-filed this in "good".)*
+- **Launch-in-worktree as a codified convention** (F-87 / F-90 / F-91) — else every Implementer's
+  commands silently run in the shared primary tree (F-91). Zero build; the
+  [spawn-flow plan](agent-spawn-flow-tool.plan.md) carries it. Incomplete alone — pair it with the
+  F-90 bring-up workaround (run the coordination plane from the primary until the worktree is built).
+- **Stage-by-explicit-pathspec discipline** (F-83) — on a shared checkout a peer's uncommitted WIP
+  red-gates your clean commit; explicit pathspec keeps the staged set disjoint.
+
+### Good — removes the per-Implementer friction so the team SCALES (the real builds)
+
+- **The [spawn-flow tool](agent-spawn-flow-tool.plan.md)** — the keystone build. *Not* the
+  highest-per-event-leverage item (by this plan's per-coordination-event metric the comms/claims
+  cluster below wins that); its keystone status is that it **cures the whole launch-corruption
+  cluster** (F-87/F-90/F-91 in one command — worktree+branch+identity → build-at-spawn → draft PR →
+  seat+brief → launch), is **owner-approved and ready-to-build**, and its **seat seeds the excellent
+  work-state view**. Owns the cleanup-coverage slice (extending `claude-agent-ops cleanup` to the
+  sibling `oak-*` convention — sourced from the napkin / spawn-flow plan, *not* F-83). Must handle
+  F-74 (build fetches live schema) + F-51 (bulk-downloads symlink).
+- **Comms + claims ergonomics, batched** — `--active` defaulting (F-72), `--now` defaulting (F-89),
+  the comms consistency cluster (F-70 / F-77 / F-79 / F-80). Each tiny; collectively the per-message
+  tax a long session pays thousands of times — by the plan's own metric the **highest aggregate
+  leverage** item. (F-94 adopt/set-handoff is already shipped, PR #225; F-85's home-resolution is in
+  minimum.)
+- **Silent-retirement alert** (F-75) — surface a peer's heartbeat-silence so a retired Implementer
+  is noticed. Detection-latency, not corruption (the minimum liveness fixes already prevent the
+  corruption), so it sits here.
+- **Trim the over-budget `MEMORY.md`** — only partly loaded today, so every agent starts with
+  degraded recall.
+
+### Excellent — the substrate-coherent operating picture (large; the direction, not the gate)
+
+- **The composed liveness model (PDR-118 OQ5)** — presence vs progress, a derived work-fingerprint,
+  an active probe; the Director reads who is *stalled*, not just who is silent. **This tier is also the
+  home of the structural F-44 freshness-vs-liveness code-consumer fix** (`active-agents.ts`, the
+  watcher-gate, the TUI). Both are decision-class: OQ5 is model-OPEN (undesigned), and the F-44 fix needs
+  its consumer-absent fallback (a naive swap is unsafe) — so both need design before build.
+- **The derived work-state view (F-98)** — the Director reads `(identity → worktree → branch →
+  liveness)` from one derived surface; the spawn-flow seat feeds it.
+- **The knowledge-distribution substrate first slice**
+  ([future plan](../future/knowledge-distribution-substrate.plan.md)) — the convergence target;
+  explicitly NOT a prerequisite for the next session.
+
+### Recommendation
+
+Do the **minimum** regardless — but it is *not* a day: the F-101-residual kill-tree is a real, tested
+code change; the F-82 verify, the launch-in-worktree convention, the F-85 `--active` default, and the
+freshness-is-input-to-verify discipline are the genuinely cheap parts. The structural **F-44
+freshness-vs-liveness code-consumer fix is NOT in the minimum — it is decision-class, grouped with the
+composed-liveness model (OQ5) in Excellent**, because a naive event-recency swap reads a heartbeat-exempt
+n=2/solo peer as dead. Then build the **spawn-flow tool** as the one substantial "good" (it cures the
+launch-corruption cluster and its seat seeds the excellent tier — that, not per-event leverage, is its
+keystone claim). The Director's liveness read is the one corruption invisible until it has already
+mis-routed the team.
+
+### Stress-test verdict (assumptions-expert, 2026-06-28; every claim re-verified first-hand)
+
+**SOUND-WITH-CHANGES — all findings folded above.** The home (this plan) is confirmed correct; the
+liveness-first weighting is justified by multi-session evidence (F-44 SAFETY + F-98 worked instances +
+PDR-117's Director model), not recency bias. Folded: F-85 → minimum (register-confirmed blocking for
+the worktree transition); F-94 removed (shipped 2026-06-25, PR #225); F-101/F-43 scoped to the
+residual; the cleanup-coverage fact re-cited to the spawn-flow plan (not F-83); F-75 → good; the
+spawn-flow keystone re-justified (cure-the-cluster + seeds-excellent, not per-event leverage); the
+composed-liveness recommendation split (concrete F-44 extension vs decision-class OQ5).
+
+> **Transient — strike after the session it readies.** A dated, session-specific prioritisation view
+> inside a permanent controlling plan; once the next Director+Implementer session runs, strike it —
+> the items live durably in the frictions register and the named plans.
+
 ## Sequencing
 
 Strict P-order. P0 is the load-bearing prerequisite. Do not start any

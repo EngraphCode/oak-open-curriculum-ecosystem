@@ -24,6 +24,80 @@ todo list — is [`director-handoff.md`](director-handoff.md).
 
 ## Current State
 
+- **Team-session readiness + the corrected claims model (2026-06-28, Beluga rides Wave, session close; now n=1).**
+  Two pieces, both committed on `docs/agent-work-state-projection` (now on **draft PR #266**, marked ready this
+  session — drive bot-settle + code-owner @jimCresswell review to merge). **(1) Team-session readiness** for the
+  next Director+Implementer session is housed (not forked) in the SSOT controlling plan
+  [`cost-of-collaboration.plan.md` §Team-session readiness](../../plans/agent-tooling/current/cost-of-collaboration.plan.md)
+  (`5e78450a8`), as a minimum/good/excellent view pointing at the frictions register + the spawn-flow plan;
+  **stress-tested by assumptions-expert** with every claim re-verified first-hand (F-85 promoted to minimum —
+  blocking-class for the worktree transition; F-94 already shipped; the spawn-flow re-justified; composed-liveness
+  is decision-class). Marked transient (strike after that session). **(2) The corrected claims model** (`574bf70b2`
+  and memory `feedback_claim_is_advisory_area_coordination_not_a_god_object`): a claim is an **optional, advisory,
+  AREA-scoped** coordination signal on a topology-independent durable area — NOT files, NOT presence/liveness/
+  work-state/seat (those re-home to facets); one area-claim serves single-checkout AND worktrees; absolute-path-file
+  claiming is a cowpath. **Replaced** the freshness-as-liveness framing in `agent-collaboration.md`, the schema
+  field comments, and F-44 (which now names the specific liveness consumers + the constraint that the code fix is
+  **decision-class — needs the OQ5 composed mechanism**, not a naive swap). **OWNER-GATED, flagged not edited:**
+  PDR-118 (claim-as-anchor superseded by launch-in-worktree, OQ2 amendment); the schema `role` field (the one
+  genuine claim-as-seat marker, owner-directed 2026-06-12, in tension with "claim is not the seat"); the
+  `director-handoff.md` succession liveness gate (safety-critical). **Remaining integration surfaces** (not yet
+  done): `collaboration-state-conventions.md` (silent that freshness ≠ liveness); the code consumers
+  (`active-agents.ts`, the watcher-gate, the TUI) gated on the OQ5 design; PDR-095 supports the model (cite, don't
+  edit). **MEMORY.md is over-budget** (trim is a standing forward-ask).
+- **docs-reviewer-split COMPLETE + the meta-agent frontmatter schema cure (2026-06-28, Ketch turns Fathom, post-compaction).**
+  The `docs-reviewer-split` is **done and pushed** on `docs/agent-work-state-projection` (origin == HEAD, 12
+  ahead of `origin/main`). **Phase 1** (the currency prerequisite, owner-escalated to "build the cure"): a new
+  **enforced per-platform subagent frontmatter Zod schema**
+  (`agent-tools/src/validators/subagents/frontmatter-schema.ts`, the SSOT) wired into `validate-subagents` —
+  closes the gap where `.claude/agents` was unvalidated and no platform's frontmatter values were checked.
+  `model` is now **optional (inherit policy** — the invoking agent controls the model; all 44 wrappers' pins
+  removed, incl. stale `claude-opus-4-7`); 3 invalid colours + 22 non-functional Cursor `tools` fields fixed;
+  the architect prose now **points at the schema** instead of re-listing values that drift. **Phase 2**: new
+  **`prose-expert`** (Strunk & White craft for every doc + the Oak voice only where `editorial-tone.md` scopes
+  it) + **`docs-adr-expert`** extended in place into the documentation-infrastructure reviewer (ADR-127 §5
+  lens); both wired into the invoke-code-experts matrix; a worked-review on real content (VISION + an ADR)
+  proved the scoped-voice boundary holds. Commits `dff1ea2b2` / `a0e1b3e3f` / `83c055e02` (+ `338702c15`, the
+  owner's MCPJam fix). Plan `current/docs-reviewer-split-execution.plan.md` (with its disposition ledger) is
+  **complete — safe to archive**. **Owner delegated commit AND push authority to the agent this session**
+  ("commits are your decision"; "push is yours too"); main-MERGE still needs @jimCresswell code-owner —
+  **confirm next session whether this delegation is standing or session-scoped.** Team is now **≥3** (shared
+  branch; Beluga's spawn-flow lane + the sonar ADR-208 `64deca3c5`; the n=2 framing is outdated). **Next
+  agreed step:** the shallow planning-estate re-scan → resuming the intent-graph substrate work.
+- **Spawn-flow tool handed to a fresh session (2026-06-28, Beluga rides Wave).** The F-98 agent
+  work-state fix settled to the **decoupled spawn-flow tool**: launch a session in its worktree → the
+  binding is *derived* from cwd (owner-confirmed: cwd = the invocation dir, the primary is not special),
+  so the assert-primitive / registry / agent-work-state-ADR path is **dissolved** (PDR-118 OQ2). The
+  owner-approved, ready-to-build plan — with an explicit **Pitfalls** section carrying the originating
+  session's traps (over-building into the substrate; re-litigating the cwd fact; the §B2 primary-pin
+  cowpath; the passback reflex; the 21-hour zombie heartbeat loop) — is
+  [`current/agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md).
+  The next agent reads it + the `feedback_*` memories it names, works in its own worktree, confirms the
+  cwd fact once, then builds friction-sliced. The substrate
+  (`future/knowledge-distribution-substrate.plan.md`) is recorded-future, **not** a build prerequisite;
+  the old `future/agent-work-state-registry.plan.md` brief is **superseded**. Branch
+  `docs/agent-work-state-projection` is **9 ahead of `origin/main`, NOT pushed/merged — push it or the
+  session's work is at risk.** My commits: `ed77132ce` (substrate correction), `7704a7bff` (under-the-hood
+  caveat-drop, salvaged from the closed #264 map), `261a0da94` (the spawn-flow handoff package); the rest
+  are Ketch's docs-reviewer-split build (subagent-frontmatter schema + the new prose-expert). Git estate
+  cleaned: **19 worktrees → 1**. **Flags:** an untracked owner-directed
+  `docs/architecture/architectural-decisions/208-no-target-architecture-in-sonarqube.md` (sonar thread)
+  needs committing — confirm ownership; team is now **≥3** (Beluga closing, Ketch back from compaction,
+  Finch wakes Headwind, Starling stale) so the n=2 framing is outdated.
+- **Intent-graph DORA SSOT + documentation-as-infrastructure (2026-06-28, Ketch turns Fathom, n=2 with Beluga rides Wave).**
+  Branch `docs/agent-work-state-projection`, **ahead 2 of `origin/main`, NOT pushed** (owner controls push).
+  **`76ad84aec`**: dissolved the `repo-intent-graph` god-document → **ADR-207** (DORA delivery-metrics SSOT) +
+  archived the plan to `plans-old-archive/` with a disposition record + repointed 5 dependents (measures,
+  observability plan, plan-node-schema.v0, dora-2025 research, the collection README); an owner-directed
+  comprehensive commit that also carried Beluga's `knowledge-distribution-substrate.plan.md` + agent-tooling
+  README after a shared-index tangle. **`b6d611544`**: made **documentation-is-infrastructure** prominent
+  (ADR-127 §5 + a `principles.md` clause, owner-ratified) and authored the **`docs-reviewer-split`** `future/`
+  plan (overhaul docs-adr-expert into a documentation-infrastructure expert + a new prose expert per Strunk &
+  White + `editorial-tone.md`). **Next safe step (owner-approved, post-compaction):** carry out the
+  docs-reviewer-split — its FIRST, BLOCKING task is the owner-directed prerequisite to **check + update
+  `subagent-architect` and `assumptions-expert` against official docs/guidance** before building it. n=2
+  coordination clean (ArcAngel channel `2026-06-28-...beluga-rides-wave-and-ketch-turns-fathom.md`); Beluga's
+  substrate/work-state lane is live and uncommitted in the shared tree.
 - **Team session continued — Director rotation to Pulsar + #259 continuity reconcile (2026-06-27 evening, Pulsar calls Ether, Director).**
   The merge-train day continued past the Oyster entry below. **#253 PDR-118 (agent work-state model keystone) LANDED to
   main** (`bc87c650d`; owner Option A — land honestly, composed-liveness mechanism deferred to OQ5). **Director seat rotated

@@ -7,7 +7,7 @@ derives_from:
   - The DORA 2025 State of AI-assisted Software Development report (Google Cloud)
   - The DORA ROI of AI-assisted Software Development report (2026)
 related:
-  - ../plans/product-development-governance/future/repo-intent-graph.plan.md
+  - ../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md
   - ../plans/product-development-governance/plan-node-schema.v0.md
   - ../directives/metacognition.md
 ---
@@ -28,7 +28,7 @@ surrounding system, not the tools* — and its constructs (the seven AI capabili
 "Continuous AI" as a living pipeline participant; "AI-native collaboration models"
 of agentic workflows and swarming; platform-as-product; VSM) map closely onto the
 Practice and the intent-graph design. Detail and the metric consequences live in
-[`repo-intent-graph.plan.md` §Delivery-performance metrics](../plans/product-development-governance/future/repo-intent-graph.plan.md).
+[ADR-207 — DORA delivery metrics as a structural property of the intent graph](../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md).
 This doc does not re-argue the match.
 
 ## 2. The divergences (the point)
@@ -125,7 +125,7 @@ This doc does not re-argue the match.
 
 Both gaps turned out to be the **same structural move** — wiring evidence back into the intent
 graph — now captured in
-[`repo-intent-graph.plan.md` §Closing the loop](../plans/product-development-governance/future/repo-intent-graph.plan.md):
+[ADR-207 §5 — the continuous-measurement closure](../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md):
 
 - The **cost/usefulness/accuracy gap** closes uniformly: output accuracy (gate-failure + rework
   trend), cost-per-delivered-value (token/seat telemetry via `realized_by`), and the DORA five are
@@ -143,7 +143,7 @@ graph — now captured in
   (Vercel / Sentry / Sonar / GitHub / PostHog), triggers, agentic analysis, and validated
   write-back. The report's "Continuous AI" (perceives events, *constantly measured*) **presupposes**
   exactly this machinery; the Practice has now named it as the required actuation layer (the *how*
-  is TBD). PostHog is the concrete source for the user-value loop's signal. See the
-  repo-intent-graph plan, "From structure to system — the evidence-ingestion requirement".
+  is TBD). PostHog is the concrete source for the user-value loop's signal. See the actuation layer
+  decided in [ADR-201 §5](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md).
 - The convergences remain corroboration of direction, not proof. The divergences — especially the
   gaps, now designed-for — were the more valuable output of the comparison.

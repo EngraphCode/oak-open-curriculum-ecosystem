@@ -371,6 +371,20 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   application-level classification, not an MCP mechanism; the rule — static/public-reference content with
   no user or sensitive data is public, else authenticated — plus an app-local-resource extension
   generalise ADR-057; classifies the Oak: Under the Hood orientation pointer public; Accepted 2026-06-27)
+- [ADR-207: DORA delivery metrics as a structural property of the intent graph](207-dora-delivery-metrics-as-a-structural-property.md)
+  (the DORA delivery metrics fall out of the intent graph as generated projections, not a bolted-on
+  dashboard, for the two products — the MCP app (literal DORA) and the Practice / FRAME framework
+  (DORA-shaped; shape, not calibrated bands); planned-vs-rework attribution is a graph traversal via
+  `serves_strategic_choice` + `kind` + `disposition`; the seven DORA AI-capabilities as leading
+  indicators; design constraint Accepted, the build gated downstream to ADR-201; builds on ADR-200 and
+  ADR-201; owner-directed 2026-06-21, recorded 2026-06-28)
+- [ADR-208: Not specifying a target architecture in SonarQube at this time](208-no-target-architecture-in-sonarqube.md)
+  (the ESLint boundary rules plus the ADR corpus are the architectural source of truth, enforced at import
+  precision in CI; SonarQube's intended architecture is UI-only to author with no as-code/API/MCP write path
+  (the as-code path was deprecated for removal Jan 2026), so authoring it would create a coarser,
+  drift-prone second source of truth; we decline the authored model but adopt the read-only half —
+  current-architecture map, tangle detection, Context Augmentation (both add-ons are enabled for our org) —
+  as an additive check; relates to ADR-040; owner-directed, Accepted 2026-06-28)
 
 ## Key Architectural Decisions
 

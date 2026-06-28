@@ -131,6 +131,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.1.0",
+    "@mcpjam/cli": "3.11.1",
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@playwright/test": "^1.61.1",
     "@semantic-release/changelog": "^6.0.3",

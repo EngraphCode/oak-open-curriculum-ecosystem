@@ -50,13 +50,14 @@ controlling plan and thread record hold the detail.
   plan already holds (informational dependence; three co-equal streams as a system;
   axis separation; product-increments ≠ repo strategy; continuity-orients-not-governs).
   Convergence raises confidence; it is not redundancy to delete.
-- **Graphs — vision ratified 2026-06-21; staged build.** The owner ratified the full
-  intent-graph design (the [repo-intent-graph plan](future/repo-intent-graph.plan.md), six
-  pillars): the whole contract shape is ratified up front and the build is staged node-type by
-  node-type. The smallest slice (the `plan` node-schema + strategic-choice registry +
-  observe-mode extractor) unlocks the Body-3 survey and restructure without compromising the
-  vision. The specific node/edge **taxonomy remains survey-gated**; these `suggestions/`
-  documents are its design input (input-to-verify), not adopted wholesale.
+- **Graphs — architecture Accepted 2026-06-22 ([ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)).**
+  The intent graph is a living idea-graph (ideas the fundamental node; documents the co-equal
+  embodiment), built as a domain instance over `graph-core`; the executable projection is the
+  [planning-estate-rewrite plan](current/planning-estate-rewrite.plan.md) (WS1–WS7). The DORA
+  delivery-metrics design is [ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md);
+  external-evidence integration is [ADR-201](../../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md).
+  The node/edge **vocabularies remain discovery-gated**; these `suggestions/` documents are design
+  input (input-to-verify), not adopted wholesale.
 - **Service authority — forward design, not now.** Linear and Figma are real
   near-term needs (a team is forming; a designer is incoming; Oak uses Figma at the
   org level), so the `projects_to_linear` and Figma-source edge *vocabulary* is worth
