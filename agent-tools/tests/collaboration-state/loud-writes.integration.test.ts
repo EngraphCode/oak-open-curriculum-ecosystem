@@ -353,6 +353,94 @@ describe('claims write commands report their writes and fail loudly on no match'
       await removeDirectory(repoRoot);
     }
   });
+
+  it('claims close defaults --closed to the coordination home when omitted (F-108)', async () => {
+    const repoRoot = await makeTempCollaborationRepo({ seedCommsEvent: false });
+    const activePath = join(repoRoot, '.agent/state/collaboration/active-claims.json');
+    const defaultClosedPath = join(
+      repoRoot,
+      '.agent/state/collaboration/closed-claims.archive.json',
+    );
+    try {
+      await seedActiveClaim(activePath);
+
+      // No --closed; --repo-root makes the home resolution hermetic (the
+      // resolveClosedPath repo-root branch short-circuits git), proving the
+      // dispatcher composes withResolvedClosed onto the close handler — a revert
+      // of that wiring would surface here as a missing-required-option error.
+      const result = await runCollaborationStateCli({
+        argv: [
+          '--',
+          'claims',
+          'close',
+          '--active',
+          activePath,
+          '--repo-root',
+          repoRoot,
+          '--claim-id',
+          seededClaimId,
+          '--summary',
+          'Boundary complete.',
+          '--now',
+          nowIso,
+          '--platform',
+          sender.platform,
+          '--model',
+          sender.model,
+        ],
+        env: senderEnv,
+      });
+
+      expect(result.exitCode).toBe(0);
+      expect(result.stdout).toBe(
+        `closed claim ${seededClaimId} (archived to ${defaultClosedPath})\n`,
+      );
+      expect(parsedClaims(await readText(activePath))).toHaveLength(0);
+      expect(parsedClaims(await readText(defaultClosedPath))).toHaveLength(1);
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
+  it('claims archive-stale defaults --closed to the coordination home when omitted (F-108)', async () => {
+    const repoRoot = await makeTempCollaborationRepo({ seedCommsEvent: false });
+    const activePath = join(repoRoot, '.agent/state/collaboration/active-claims.json');
+    const defaultClosedPath = join(
+      repoRoot,
+      '.agent/state/collaboration/closed-claims.archive.json',
+    );
+    try {
+      await seedActiveClaim(activePath, {
+        claimed_at: '2026-06-01T00:00:00Z',
+        freshness_seconds: 60,
+      });
+
+      const result = await runCollaborationStateCli({
+        argv: [
+          '--',
+          'claims',
+          'archive-stale',
+          '--active',
+          activePath,
+          '--repo-root',
+          repoRoot,
+          '--now',
+          nowIso,
+          '--platform',
+          sender.platform,
+          '--model',
+          sender.model,
+        ],
+        env: senderEnv,
+      });
+
+      expect(result.exitCode).toBe(0);
+      expect(result.stdout).toBe(`archived 1 stale claim to ${defaultClosedPath}\n`);
+      expect(parsedClaims(await readText(defaultClosedPath))).toHaveLength(1);
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
 });
 
 describe('conversation and escalation write commands report their writes', () => {

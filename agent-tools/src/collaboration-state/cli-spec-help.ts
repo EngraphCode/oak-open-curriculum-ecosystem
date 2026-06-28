@@ -159,12 +159,12 @@ export const claimsSetHandoffHelp =
   '(records a handoff-record pointer under .agent/state/collaboration/handoffs/; PDR-063 step 3)';
 
 export const claimsCloseHelp =
-  'claims close --active <path> --closed <path> --claim-id <id> ' +
+  'claims close --active <path> [--closed <path>] --claim-id <id> ' +
   '--summary <text> --now <iso> --platform <platform> --model <model> ' +
   '[--closure-summary <text> alias for --summary]';
 
 export const claimsArchiveStaleHelp =
-  'claims archive-stale --active <path> --closed <path> --now <iso> ' +
+  'claims archive-stale --active <path> [--closed <path>] --now <iso> ' +
   '--platform <platform> --model <model>';
 
 export const claimsListHelp = 'claims list --active <path> [--now <iso>]';

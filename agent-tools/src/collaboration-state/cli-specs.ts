@@ -1,4 +1,5 @@
 import { withResolvedActive } from './claim-active-path.js';
+import { withResolvedClosed } from './claim-closed-path.js';
 import { withResolvedNow } from './claim-now-default.js';
 import { archiveClaims, closeClaim, heartbeatClaim, openClaim } from './cli-claim-commands.js';
 import { adoptClaim, setHandoffClaim } from './cli-claim-handoff-commands.js';
@@ -168,12 +169,12 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   'claims:close': commandSpec({
     help: claimsCloseHelp,
     options: claimsCloseOptions,
-    handler: withResolvedActive(closeClaim),
+    handler: withResolvedActive(withResolvedClosed(closeClaim)),
   }),
   'claims:archive-stale': commandSpec({
     help: claimsArchiveStaleHelp,
     options: ['active', 'closed', 'now', 'platform', 'model', 'repo-root'],
-    handler: withResolvedActive(archiveClaims),
+    handler: withResolvedActive(withResolvedClosed(archiveClaims)),
   }),
   'claims:list': commandSpec({
     help: claimsListHelp,
