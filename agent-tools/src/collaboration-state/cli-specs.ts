@@ -96,7 +96,7 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   }),
   'comms:list': commandSpec({
     help: commsListHelp,
-    options: ['comms-dir', 'tail'],
+    options: ['comms-dir', 'tail', 'since'],
     handler: listComms,
   }),
   'comms:show': commandSpec({
