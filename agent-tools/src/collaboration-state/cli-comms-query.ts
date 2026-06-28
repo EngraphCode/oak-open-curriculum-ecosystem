@@ -51,7 +51,12 @@ export async function listComms(
       : events.filter((event) => Date.parse(event.created_at) >= sinceMs);
   const newest = [...matched].sort(byCreatedAtDescending).slice(0, tail);
   if (newest.length === 0) {
-    return since === undefined ? 'no comms events\n' : `no comms events since ${since}\n`;
+    // An empty directory has no events at all, so the since-framed message
+    // would mislead (it implies events exist but none are recent). The since
+    // message is correct only when events EXIST but `--since` excluded them all.
+    return events.length === 0 || since === undefined
+      ? 'no comms events\n'
+      : `no comms events since ${since}\n`;
   }
   const header = `comms list — newest ${newest.length} of ${matched.length} event(s), most recent first`;
   return `${[header, ...newest.map(formatSummaryLine)].join('\n')}\n`;

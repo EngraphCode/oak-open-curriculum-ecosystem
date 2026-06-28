@@ -172,6 +172,23 @@ describe('comms list', () => {
     expect(result.stdout).toBe('no comms events since 2026-06-05T00:00:00Z\n');
   });
 
+  // An EMPTY directory has no events at all, so the since-framed message would
+  // be misleading (it implies events exist but none are recent). The generic
+  // message is correct regardless of --since. The sibling empty-dir test above
+  // passes no --since and the empty-since test above filters a NON-empty dir, so
+  // this is the case that distinguishes "no events exist" from "none since X".
+  it('reports the generic no-events message for an empty directory even with --since', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: [] } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-04T11:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe('no comms events\n');
+  });
+
   it('rejects a non-ISO --since with a clear error', async () => {
     const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
     const result = await runCollaborationStateCli({
