@@ -1,5 +1,6 @@
 ---
 name: "Context Cost CLI"
+programmes: [agent-systems-awareness]
 overview: "Deliver a vendor-agnostic agent-tools subcommand that estimates token cost over an arbitrary fileset (chars/4 baseline, swap seam for real tokenizer), so an agent or owner can answer 'what is the token cost of these files?' without bespoke shell pipelines."
 todos:
   - id: ws1-cycle-1
@@ -757,6 +758,7 @@ After all six workstreams land and quality gates pass, run `/jc-consolidate-docs
 
 **Related Plans**:
 
+- [session-context-usage-cli.plan.md](session-context-usage-cli.plan.md) — the **session JSONL harvest follow-up this plan deferred** (the explicit out-of-scope "session-log adapters" non-goal). Reads a session's recorded `message.usage` (window / used / remaining), vendor-routed by model — a distinct concern (per-session context *occupancy*, read not estimated) from this plan's per-fileset token *cost*. Both are members of the `agent-systems-awareness` programme.
 - [memetic-immune-system-and-progressive-disclosure.plan.md](../../agentic-engineering-enhancements/future/memetic-immune-system-and-progressive-disclosure.plan.md) — strategic source; this plan delivers §1 of its Scope Expansion Register. §2, §3, and §4 remain in the strategic register and are explicit non-goals here.
 - [cost-of-collaboration.plan.md](cost-of-collaboration.plan.md) — adjacent agent-tooling plan addressing collaboration substrate cost (commit lanes, hooks). Different concern (per-commit / per-coordination cost vs per-file context cost). No dependency in either direction.
 - [practice-context-cost-baseline.md](../../../analysis/practice-context-cost-baseline.md) — the empirical baseline this CLI replaces as the reproducible surface for chars/4 estimates.
