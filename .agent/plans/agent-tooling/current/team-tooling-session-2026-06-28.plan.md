@@ -13,7 +13,7 @@ isProject: true
 # Team-Tooling Session — Director + 2 Implementers (2026-06-28)
 
 **Last Updated**: 2026-06-28
-**Status**: 🟡 PLANNING (awaiting owner sign-off, the companion opener instance, and the readiness review)
+**Status**: 🟡 PLANNING (readiness-reviewed 2026-06-28 — see Lifecycle; awaiting owner sign-off and the Director-authored companion opener instance)
 **Operating model**: Director + 2 implementers, each in its own git worktree (PDR-117).
 
 The cohesion anchor for the next long-running team session. It fixes the team-level impact and
@@ -100,7 +100,7 @@ companion opener instance — referenced, not duplicated here.
 | --- | --- | --- | --- | --- |
 | Director | all | Direct; hold cohesion; route; merge-sequence; state/continuity writes; frame + adjudicate the OQ5 decision | [director brief (PDR-117)](../../../memory/operational/director-handoff.md) | — |
 | Implementer A | O3 | Spawn/binding: spawn-flow Phase 1 → Phase 2 (F-98 binding view) → F-98 heartbeat-age column (critical path) | [`agent-spawn-flow-tool.plan.md`](agent-spawn-flow-tool.plan.md) | launch-in-worktree convention codified *after* the first spawn E2E (its own Phase 0) |
-| Implementer B | O1, O2 | Floor + liveness + ergonomics: F-82 verify (first) → F-101 kill-tree → F-75 → F-85 `--active`→home → comms+claims batch | [frictions register](../frictions-register.md); [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md); [`agent-tools-cli-ergonomics.plan.md`](agent-tools-cli-ergonomics.plan.md) | F-75 starts *after* F-101 (it makes heartbeat-silence truthful) |
+| Implementer B | O1, O2 | Floor + liveness + ergonomics: F-82 verify (first) → F-101 kill-tree → F-75 → F-85 `--active`→home → comms+claims batch | [frictions register](../frictions-register.md) (batch home); [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md) | F-75 starts *after* F-101 (it makes heartbeat-silence truthful) |
 | O4 (no standing seat) | O4 | OQ5 composed-liveness **decision** only — a late Director+implementer design sidebar | [`cost-of-collaboration.plan.md` §Locked scope](cost-of-collaboration.plan.md) | runs *late*, fed by the build lanes' lived liveness evidence |
 
 ## Referenced Execution Plans (the work — not restated here)
@@ -108,10 +108,12 @@ companion opener instance — referenced, not duplicated here.
 - [`agent-spawn-flow-tool.plan.md`](agent-spawn-flow-tool.plan.md) — serves O3 (the binding lane).
 - [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md) — the locked scope and the
   liveness/coordination workstreams (serves O1/O2/O4).
-- [`agent-tools-cli-ergonomics.plan.md`](agent-tools-cli-ergonomics.plan.md) — the comms+claims
-  ergonomics batch (serves O2).
-- [frictions register](../frictions-register.md) — the authoritative state for F-82, F-85, F-101,
-  F-75, F-72, F-89, F-70, F-77, F-79, F-80.
+- [frictions register](../frictions-register.md) — **the home of the comms+claims ergonomics batch**
+  (F-72 / F-89 / F-70 / F-77 / F-79 / F-80) and the authoritative state for F-82, F-85, F-101, F-75.
+- [`agent-tools-cli-ergonomics.plan.md`](agent-tools-cli-ergonomics.plan.md) — **related convention
+  work** (PDR-055 cl.7–10; WS0 Phase-0-gated, whole-surface). The six point-fixes contribute friction
+  evidence to it but are **not** homed in it and **not** gated on its WS0 — its Non-Goals forbid the
+  friction-fenced shape. See the Non-Goal below.
 
 ## Acceptance Criteria (team-level, outcome-based)
 
@@ -121,14 +123,17 @@ companion opener instance — referenced, not duplicated here.
    home; each ergonomics-batch F-NN closed with its gate.
 3. **O3 proven** — `agent spawn <lane>` E2E produces a built, draft-PR'd worktree and a launch command
    that starts a session rendering its *true* worktree; the F-98 view shows `(identity → worktree →
-   branch → last-seen)` for the live team.
+   branch → last-seen)` for the live team, where `last-seen` is the heartbeat-age column (PDR-078
+   event-recency, input-to-verify — owned by the spawn-flow plan's Phase 2).
 4. **O4 proven** — the OQ5 decision record (PDR-118 amendment) authored and owner-ratified, naming the
    model and the consumer-absent fallback; the F-44 structural fix recorded as unblocked.
 5. **Cohesion held** — every lane that ran traced to an outcome; drift was re-routed, not absorbed (a
    closeout assessment, not "the lanes shipped").
-6. **Operating-model evidence** — record whether the Director + 2-implementer worktree model reduced
-   or added coordination cost; fold into the worktree-per-agent transition home (this session also
-   exercises the model).
+6. **Operating-model evidence** — the Director captures PDR-117's defined metric **owner-visible
+   coordination prompts per landed cycle** (owner-directed clarifications + owner-fielded escalations ÷
+   cycles landed) *live during the session* (its inputs are transient — comms stream + owner chat);
+   qualitative notes may accompany, not replace, the ratio. Record this session as PDR-117
+   **second-instance** evidence, folded into the worktree-per-agent transition home.
 
 ## Non-Goals (YAGNI)
 
@@ -138,6 +143,10 @@ companion opener instance — referenced, not duplicated here.
   preserved by spawn-flow being built substrate-aligned.
 - Authoring per-lane execution plans from scratch — they exist and are referenced.
 - A general any-agent spawn surface — spawn is coordinator-launched only (per the spawn-flow plan).
+- **Discharging `agent-tools-cli-ergonomics.plan.md`** — the six ergonomics point-fixes ship now under
+  the locked scope, homed in the frictions register; they do **not** satisfy that plan's whole-surface
+  convention (WS0) or its WS6 conformance guard, which later generalise/absorb them. Its
+  anti-perpetuation Non-Goal is consciously deferred here, not violated.
 
 ## Operating Model and Cadence (referenced, not restated)
 
@@ -147,6 +156,14 @@ companion opener instance — referenced, not duplicated here.
   [team-session-opener](../../../prompts/agentic-engineering/team-session-opener.prompt.md) for this
   session (entry ritual, worktrees + single coordination-home, branch classes, seat briefs, cadence,
   closeout).
+- **Director pre-session move-0 (BLOCKING)**: the Director authors the
+  `team-tooling-session-2026-06-28` opener instance from that template **before any implementer runs
+  the entry ritual** (the opener IS the entry ritual + seat briefs). It MUST populate the A↔B
+  owned-surfaces / must-not-touch boundaries over the shared `agent-tools/src/` CLI surface — the
+  concrete overlap being B's whole-surface ergonomics + liveness edits (collaboration-state CLI,
+  `claim-reports.ts`, `cli-*.ts`) and A's spawn-flow additions to the same tree — with a resolving rule
+  (file-partition or land-order). Worktree isolation + ADR-204 require-up-to-date already prevent
+  silent clobber; this boundary minimises merge conflicts.
 - **Roles**:
   [PDR-117](../../../practice-core/decision-records/PDR-117-director-and-implementer-roles.md);
   the coordinator doctrine in [`agent-collaboration.md`](../../../directives/agent-collaboration.md).
@@ -161,7 +178,7 @@ companion opener instance — referenced, not duplicated here.
 | Bootstrap chicken-and-egg (the tool built during the session that wants it) | The Must-floor is laid first; coordination is correct via explicit `--active <home>` (opener convention) until F-85 lands; the team adopts `agent spawn` as it lands |
 | Implementer B's lane is full (five deliverables) | Named slip-order (F-75 → ergonomics tail); seat rotation for B as context deepens (PDR-063) |
 | Critical-path (A's spawn-flow) overrun | F-98/heartbeat-column is the clean slip (the tail; nothing waits on it) |
-| Stall-detection residual (OQ5 not built) | Brief the Director to verify liveness actively and watch for stalls; the session grounds the OQ5 decision |
+| Stall-detection residual (OQ5 not built) | Director treats freshness / claim-staleness as **input-to-verify only** (F-44), never a liveness verdict; primary live cross-check is **direct comms ping-before-escalate** against the PDR-078 heartbeat-event stream (made deliverable by F-82); the F-98 heartbeat-age column is supporting input-to-verify *when it lands* (it is the clean slip, so the mitigation must not depend on it). The session grounds the OQ5 decision |
 | Code-owner merge gate is the owner's | Director drives each PR to merge-ready; owner clicks; ADR-204 require-up-to-date serialises merges |
 
 ## Lifecycle and Consolidation
@@ -171,5 +188,9 @@ companion opener instance — referenced, not duplicated here.
   `consolidate-docs` **before** the final coordination-branch PR merges (opener §Coordination cadence).
 - **Completion**: outcomes proven (acceptance above); the per-lane plans archived per ADR-117; the
   operating-model evidence folded into the worktree-per-agent transition home.
-- **Readiness review (pending)**: per /oak-plan, invoke `assumptions-expert` (proportionality,
-  blocking-legitimacy, the 2-implementer load split) before this plan is marked ready.
+- **Readiness review (done 2026-06-28)**: a 4-lens review (assumptions-expert proportionality /
+  blocking-legitimacy / load-split; PDR-117 doctrine; outcomes/cohesion; completeness), each finding
+  adversarially verified. 7 confirmed → 5 distinct fixes (1 must-fix + 4 should-fix; the must-fix and
+  two should-fixes converged on the ergonomics-plan citation), 13 refuted. All folded above and
+  assessed first-hand before folding — the must-fix verified against the ergonomics plan's WS0 gate +
+  Non-Goals.
