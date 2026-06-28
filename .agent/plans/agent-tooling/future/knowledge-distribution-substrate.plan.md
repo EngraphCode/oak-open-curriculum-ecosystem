@@ -41,9 +41,10 @@ highest assurance bar because everything rests on it.
 ## The substrate — five axes, each defined once
 
 1. **Location & scope** — `per-session` · `worktree-local (per machine)` ·
-   `checkout-portable` · `cross-machine-tracked`. One model (the #256 three-tier taxonomy,
-   `resolveCoordinationHome` as the per-machine home, and git for tracked), never
-   re-decided per flow.
+   `checkout-portable` · `cross-machine-tracked`. One model (the #256 three-tier taxonomy;
+   per-machine-home **resolution** as a declared property — the [HOME] need
+   `resolveCoordinationHome` serves today, subsumed as a view, not pinned as the definition;
+   git for tracked), never re-decided per flow.
 2. **Record / event shape** — typed, PDR-027 identity-stamped, content-addressed,
    append-only where narrative, with typed edges (`supersedes` / `refines` / `links-to`).
    One schema spine.
@@ -53,8 +54,10 @@ highest assurance bar because everything rests on it.
 4. **Failure semantics** — `loud-write-safety` · `soft-cosmetic` · `fail-fast-validation`
    · `advisory`, **declared per flow** over **one** classified, trusted-git IO boundary.
    (The two worktree parsers and three IO boundaries collapse to one.)
-5. **Resolution** — how a consumer *finds* information: the home (`resolveCoordinationHome`,
-   per machine), git (tracked), or identity-keyed. One resolver.
+5. **Resolution** — how a consumer *finds* information, **declared as a property of the model**:
+   per-machine-home resolution (the [HOME] need `resolveCoordinationHome` serves today, subsumed as
+   one view), tracked-via-git, or identity-keyed. One resolver derived over the model — not the
+   existing function as its definition.
 
 ### Grounded, not invented
 
@@ -73,16 +76,19 @@ The substrate must make explicit a layering that already exists implicitly:
 - **Session identity** (`session_id` → deterministic name; PDR-027): the *running
   process*. Ephemeral — changes on every restart / compaction / succession (the
   Chinook→Hearth→Callisto→Cinder→Pulsar churn is exactly this).
-- **Assignment / seat identity**: the *stable lane* `{worktree, branch, role, task,
-  Director}` a succession of sessions occupies and hands off. **This is the claim** — the
-  Director seat persisted across five names because each session **adopted the same claim**
-  (`60baf0b1`).
+- **Assignment / seat** — the *stable lane* `{worktree, branch, role, task, Director}` a succession of
+  sessions occupies and hands off. This is the **work-state binding** (PDR-118, **derived**) + the role
+  from the brief — **NOT a claim.**
+- **Claim** — **optional and situational**: opened only to coordinate on a *mutable artefact/area* (and,
+  in the Director case, to carry a coordination role across succession — `60baf0b1` adopted, a *special
+  case*). An agent **exists, has a name, is on the team, and holds a seat with NO claim**
+  ([[feedback_collaboration_is_not_claim_coordination]]: claims cover mutable artefacts).
 
-**Verdict on Note 1:** no new ID primitive — the **claim is the seat handle**. The
-session-name is a human-friendly label on the *current occupant*; the **seat is the
-coordination handle**. Treating the ephemeral session-name as the coordination identity is
-the root of the succession-churn we fought all session. `session_id → name` stays as-is
-(it works); we recognise the seat layer (mostly present via claims + PDR-064 adopt).
+**Verdict on Note 1:** identity / presence-membership /
+work-state-seat / role / claim are **distinct facets**, not one (decompose-at-the-tension). No new ID
+primitive is needed; the seat is the derived work-state binding + the role from the brief; the claim is
+an optional coordination flow layered on only when there's mutable-area coordination. The session-name
+is a human-friendly label on the current occupant; the stable handle is the **seat (work-state + role)**.
 
 ## The spawn flow — the first proving instance
 
@@ -92,9 +98,11 @@ A single instance that exercises the substrate end-to-end and dissolves the most
 checkout** (it has the built tooling *and* the context for the new agent), that:
 
 1. creates the worktree + branch + a fresh PDR-027 identity; **builds it** (folds in F-90);
-   opens the draft PR (worktree-hygiene clause 1); **pre-creates the seat** — a claim in a
-   pending-adoption state carrying `{worktree, branch, role, task, Director}` (PDR-064
-   Moment-1 pre-position, generalised);
+   opens the draft PR (worktree-hygiene clause 1); **creates the seat** — the worktree/branch/role/task
+   assignment carried in the brief (the work-state binding the spawned agent derives). **No claim is
+   required** to exist or hold the seat; a claim is opened later only if the agent coordinates on a
+   mutable area (for a Director-style coordination role, that claim is pre-positioned per PDR-064
+   Moment-1);
 2. emits a **copy-paste launch command** that `cd`s into the worktree, sets
    `PRACTICE_AGENT_SESSION_ID`, and starts the agent — **rooting the new session in the
    worktree**;
@@ -124,7 +132,8 @@ checkout** (it has the built tooling *and* the context for the new agent), that:
 - **The substrate** dissolves the per-flow inconsistency: two parsers → one
   `parseWorktreeRecords`; three IO boundaries → one classified boundary; the F-41 claims
   tail → claims default to the home; hand-maintained rosters → a derived view.
-- **The seat = the claim** dissolves the need for a new identity primitive.
+- **The derived seat (work-state binding + role)** dissolves the need for a new identity primitive; the
+  claim stays an optional coordination layer.
 
 ## Flows that re-home as typed instances
 
@@ -170,11 +179,13 @@ Sequence (not authorised to build; recorded for when GO is given):
    substrate ships substrate-agnostic.
 2. **Seat lifecycle** — exact pre-position→adopt mechanics for a coordinator opening a
    pending-adoption claim before the session exists; relation to PDR-064.
-3. **Cross-machine** — the home is per-machine today (`resolveCoordinationHome`); the
-   collaboration filesystem isn't shared across machines. Out of current scope.
-4. **PDR-119 tail** — the index-narrative surfaces (`repo-continuity.md`,
-   `director-handoff.md`) where immutability fails in place; `/oak-semantic-merge` stays
-   load-bearing there.
+3. **Cross-machine** — resolution currently resolves only a **per-machine home** (the [HOME] need
+   `resolveCoordinationHome` serves today); a shared/cross-machine resolution is unbuilt, out of scope.
+4. **PDR-119 tail (open dissolution question)** — do the index-narrative surfaces
+   (`repo-continuity.md`, `director-handoff.md`) **subsume as deterministic renders over the event
+   set** (the substrate's render verb projecting them, dissolving in-place mutation *and* any semantic
+   merge)? PDR-119 currently defers them (immutability fails in place); hold this as the open
+   question of whether the index-narrative surfaces become deterministic renders over the event set.
 
 ## Relationship to existing work (SSOT / decoupling — documentation is infrastructure)
 
@@ -208,5 +219,6 @@ existing homes, never duplicate their content:
 
 - No build authorisation — this is recorded understanding + a plan; the build is owner-GO-
   gated and proceeds via a substrate PDR + a host ADR.
-- No new identity primitive (the claim is the seat).
+- No new identity primitive. **The claim is NOT the seat** — an agent exists, has a name, is on the
+  team, and holds a seat with no claim; a claim is optional, opened only for mutable-area coordination.
 - No cross-machine collaboration filesystem (out of scope).
