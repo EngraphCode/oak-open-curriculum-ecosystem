@@ -1785,7 +1785,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: `--active` defaults to `.agent/state/collaboration/active-claims.json` (overridable), matching how the watcher/inbox default their comms-dir from convention.
 - **Candidate cure**: Default `--active` (and the optional `--closed`) to the canonical paths; keep the flags as overrides.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-claims-commands.ts`.
-- **Status**: open.
+- **Status**: CLOSED-BY-F-85 2026-06-28 (PR #274, squash-merged `c4d2b6902`). F-85's `withResolvedActive` wrapper covers `claims active-agents` and the change added `repo-root` to its option-set, so `--active` now defaults to the coordination home — exactly F-72's expected cure (verified first-hand by the implementer). The optional `--closed` default named in the candidate cure remains open as the new `--closed`-sibling friction (O2 follow-on).
 - **Owner direction status**: standing (owner 2026-06-19, as F-70).
 
 ### F-73 — Heartbeat mode requires a claim, so pre-claim roles (successor-in-waiting / standby / scout) cannot emit a liveness heartbeat
@@ -1965,7 +1965,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: claims resolve the same shared primary home as comms with no per-call ceremony, so a worktree-isolated agent's claims are visible to the team by default.
 - **Candidate cure**: wire `resolveCoordinationHome(cwd)` as the `--active` default (with `--repo-root`/`--active` as the explicit escape hatch), mirroring `cli-comms-send.ts` / `cli-comms-validate.ts`.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (+ option defaulting)
-- **Status**: open — blocking-class for the worktree-per-agent transition; workaround in use (Implementers pass an absolute `--active` to the primary checkout)
+- **Status**: ADDRESSED 2026-06-28 (PR #274 `feat(agent-tools): claims active-path defaults to coordination home`, squash-merged `c4d2b6902`). New `claim-active-path.ts` (`resolveActivePath` / `withActiveDefault` / `withResolvedActive`) wraps all 11 `claims` handlers so `--active` defaults to the coordination home (resolved via `git worktree list`), with a `--repo-root` escape hatch — cures the F-41-class claim fragmentation from worktrees. code-expert + test-expert approved first-hand; full agent-tools suite 1590 green. Also CLOSES F-72 (`active-agents` covered by the same wrapper). **NARROW** — the sibling `--closed` registry default (`claims close` / `archive-stale` / `active-agents`) is the same F-41 class and remains OPEN as a new O2 follow-on friction.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-86 — pnpm script wrapper echoes `$ …` command lines to stdout, unusable for a Monitor watcher
