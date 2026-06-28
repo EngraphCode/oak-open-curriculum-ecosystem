@@ -1,3 +1,10 @@
+# [1.53.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.52.0...v1.53.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** default --closed to coordination home for claims close/archive-stale (F-108) ([64858e4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/64858e4f45f789525e71b9c7499eb6da96dc1e16))
+
 # [1.52.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.51.0...v1.52.0) (2026-06-28)
 
 
