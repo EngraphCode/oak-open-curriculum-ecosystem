@@ -206,23 +206,36 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (Beluga rides Wave) — team-tooling
-> session setup. The Pulsar closeout pickup below is retained; verify each item against the #267 consolidation.
+> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (Beluga rides Wave, setup agent,
+> standing down) — the team-tooling session is now LIVE. The Pulsar closeout pickup further below is historical.
 >
-> ### ▶ TEAM-TOOLING SESSION (next effort, 2026-06-28)
+> ### ▶ TEAM-TOOLING SESSION — LIVE (2026-06-28)
 >
-> The dedicated consolidation **merged (#267 → `main`**, HEAD `7e12baeef`); estate at zero. The next effort is a
-> serious, long-running **Director + Implementer** session that _builds the agreed team tooling_. **Guiding scope**
-> (interim, until a team-session plan is authored):
+> **Director: Firefly binds Slag** (claude, 887889). **Implementers: Beluga turns Shoal** (581401) +
+> **Pangolin weaves Nightfall** (c680e4). Setup agent **Beluga rides Wave** (128ef9) briefed the Director
+> (comms `d4c447b1`) and stood down.
+>
+> **Guiding plan — owner-APPROVED:**
+> [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md)
+> (the cohesion anchor; readiness-reviewed, 4-lens + adversarial-verify, 5 fixes folded). Locked scope:
 > [`cost-of-collaboration.plan.md` §Locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md).
-> Four lanes → four seats: **liveness** (F-82 first → F-101 → F-75); **binding/spawn** (launch-in-worktree
-> convention → spawn-flow Phase 1 → Phase 2 = F-98 binding view → F-98 heartbeat-age column; critical path);
-> **ergonomics/claims** (F-85 `--active`→home → the comms+claims batch); **OQ5 design** (the composed-liveness
-> _decision_ only, run late, owner-ratification-gated). Out: E3 + the OQ5 build. Residual: stall-detection until
-> OQ5 lands — brief the Director to verify liveness actively. **Coordination branch:**
-> `coordination/team-tooling-session-2026-06-28` (off `main`). **Still owed before the team session** (NEXT
-> SESSION MANDATE below, consolidation-half now done): a team-session plan from the template + a sharpened
-> Director brief.
+> **Five outcomes → lanes:** O1 liveness (F-82 first → F-101 → F-75); O2 ergonomics/claims (F-85
+> `--active`→home → comms+claims batch, homed in the frictions register); O3 binding/spawn (spawn-flow
+> Ph1 → Ph2 F-98 view → F-98 heartbeat-age column; critical path;
+> [`agent-spawn-flow-tool.plan.md`](../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md)); O4
+> OQ5 composed-liveness **decision** only (late, owner-ratification-gated); O5 MCP-discoverability
+> sticking-plaster
+> ([`under-the-hood-mcp-discovery-pointer.plan.md`](../../plans/sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md)).
+> Out: E3 + the OQ5 build.
+>
+> **Director move-0 (BLOCKING):** author the opener instance from the template, pinning the A↔B
+> must-not-touch boundary over the shared `agent-tools/src/` surface, before any Implementer source edit.
+> **Coordination home:** branch `coordination/team-tooling-session-2026-06-28`; **draft PR #268** (carries
+> setup + consolidation; ready at arc-end via the @jimCresswell code-owner gate). **Residual:**
+> stall-detection until OQ5 — treat freshness as input-to-verify, cross-check via ping-before-escalate
+> against the heartbeat-event stream. **AC6:** capture owner-visible coordination prompts per landed cycle
+> (PDR-117 second-instance evidence). The NEXT SESSION MANDATE below is **fulfilled** — the team-session
+> plan is authored + owner-approved and the Director is briefed.
 >
 > ---
 > **Prior pickup — Pulsar calls Ether session closeout (2026-06-27 night):**

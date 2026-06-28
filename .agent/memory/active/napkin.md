@@ -38,6 +38,27 @@ are empty. The commits and the homes are the record of where each piece went.
 
 New session observations append below.
 
+## Setup → team-session bridge + the over-separation correction (2026-06-28, Beluga rides Wave)
+
+Setup agent for the team-tooling session: locked the scope (impact×effort → MoSCoW → §Locked scope),
+authored the owner-approved Director+2-Implementer team-session plan (readiness-reviewed — 4-lens +
+adversarial-verify workflow, 5 fixes folded), opened draft PR #268, authored the O5 under-the-hood MCP
+discovery-pointer precursor, briefed Director Firefly binds Slag (comms `d4c447b1`), stood down.
+
+- **Over-separation can be the bug** (graduated → memory `feedback_inherited_separation_can_be_the_bug`).
+  I over-engineered an "app-local, don't entangle" precursor to PRESERVE the curriculum↔orientation
+  firewall — but that over-separation WAS the discoverability bug. Owner cut it to one discovery-surface
+  sentence. Don't design a fix that preserves an inherited boundary that is causing the problem.
+- **F-83 shared-checkout commit-window friction bit ~4× across this multi-agent day** (Clover lifts Root;
+  Clover mends Hedgerow ↔ Badger; me ×2). The serialize-the-commit-window protocol worked cleanly every
+  time but is pure coordination overhead on a shared checkout — live operating-model evidence (AC6) that
+  the worktree-per-agent transition the team session builds is the right cure. Conserved for the
+  Director's AC6 capture + the worktree-transition plan.
+- **never-trim memory** → memory `feedback_never_trim_memory_consolidate_instead`.
+- **Loss-scan (from my own context, standing down):** nothing else material unconserved — the locked
+  scope, the plan + readiness review, the precursor, the two memories, the Director brief (comms
+  `d4c447b1` + director-handoff CURRENT HANDOFF STATE), and the repo-continuity entry cover the session.
+
 ## 2026-06-28 — runbook kind defined; n=2 shared-checkout operational lessons (Clover lifts Root, deep closeout)
 
 Session arc (all committed to `coordination/team-tooling-session-2026-06-28`, n=2 with Beluga rides

@@ -38,20 +38,21 @@ forward-asks remain.
   drained; repo-continuity curated to compact-active-state; open-questions driven to zero (Q-009/Q-011
   user-granted keep-open). Recurrence prevention for continuity-surface drift is briefed in
   [`future/continuity-surface-drift-prevention.plan.md`](../../plans/agentic-engineering-enhancements/future/continuity-surface-drift-prevention.plan.md).
-- **Team-tooling session scope LOCKED + coordination branch created (2026-06-28, Beluga rides Wave).**
-  After the dedicated consolidation merged (**#267 → `main`**, HEAD `7e12baeef`), the next effort is a
-  serious, long-running **Director + Implementer** session that *builds the agreed team tooling*. The
-  owner-decided scope is recorded as
-  [`cost-of-collaboration.plan.md` §Locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md):
-  all low+medium-effort items + spawn-flow **through Phase 2** (= the F-98 binding view) + the F-98
-  heartbeat-age column + F-75 + the OQ5 **decision** (not its build). **Out:** E3 (zero session impact)
-  and the OQ5 *implementation* (decided now, built later onto the F-98 scaffold). Four lanes
-  (liveness / binding-spawn / ergonomics-claims / OQ5-design); natural shape Director + 3 Implementers;
-  residual = stall-detection until OQ5 lands (brief the Director to verify liveness actively). The
-  defective "trim MEMORY.md" item was removed — memory is conserved and consolidated, never trimmed.
-  **Coordination branch: `coordination/team-tooling-session-2026-06-28`** (off `main`) — the team
-  coordinates from here. **Still owed before the team session** (director-handoff NEXT SESSION MANDATE,
-  consolidation-half now done): a team-session plan from the template + a sharpened Director brief.
+- **Team-tooling session LIVE (2026-06-28).** Director **Firefly binds Slag** (887889); Implementers
+  **Beluga turns Shoal** (581401) + **Pangolin weaves Nightfall** (c680e4). The owner-approved guiding
+  plan is
+  [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md)
+  (cohesion anchor; readiness-reviewed; 5 outcomes O1–O5) over the
+  [locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md): all low+medium-effort
+  items + spawn-flow **through Phase 2** (F-98 binding view) + the F-98 heartbeat-age column + F-75 + the
+  OQ5 **decision** (not its build) + the O5 MCP-discoverability sticking-plaster
+  ([`under-the-hood-mcp-discovery-pointer.plan.md`](../../plans/sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md)).
+  **Out:** E3 + the OQ5 build. **Coordination home:** branch `coordination/team-tooling-session-2026-06-28`,
+  **draft PR #268** (setup + consolidation; ready at arc-end via the @jimCresswell code-owner gate).
+  Director move-0 = author the opener instance + pin the A↔B must-not-touch boundary over the shared
+  `agent-tools/src/` surface. **Live Director pickup:**
+  [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md). Setup agent Beluga rides Wave
+  briefed the Director (comms `d4c447b1`) and stood down.
 - **Claims model + agent-work-state (LIVE, owner-gated).** The corrected claims model — a claim is an
   optional, advisory, AREA-scoped signal (NOT files; presence/liveness/work-state/seat re-home to
   facets) — is live in `agent-collaboration.md` + memory
