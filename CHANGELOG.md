@@ -1,3 +1,10 @@
+# [1.46.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.45.0...v1.46.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** default claims open --now to current time (F-89) ([#276](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/276)) ([afcc6bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/afcc6bbedfebd858812796de48391effa1f5f393))
+
 # [1.45.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.44.0...v1.45.0) (2026-06-28)
 
 
