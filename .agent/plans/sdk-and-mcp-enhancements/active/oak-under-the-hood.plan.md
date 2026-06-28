@@ -229,6 +229,92 @@ review is the compensation).
   tool (real client or MCPJam) an orientation trigger calls the tool, the assistant
   fetches the cited canonical and orients, and a curriculum query does not engage.
 
+## Field observation — live discoverability snag (Badger lifts Darkness, 2026-06-28)
+
+> **Re-verification required.** Everything in this section is a field observation from
+> one agent session plus follow-up repo reads. **Do not treat any claim, file path,
+> routing inference, or candidate fix as established fact.** Any agent acting on this
+> note MUST re-verify each item against (a) the live `oak-prod` MCP surface
+> (`tools/list`, `resources/list`, a `tools/call` to `get-curriculum-model`, and the
+> initialize `instructions` payload), and (b) the current repo sources cited below,
+> before scoping work or editing product code.
+
+### What was observed (session claim — re-verify)
+
+In a live session against the deployed `oak-prod` MCP, the user asked to know more
+about "how it is built" (referent assumed to be the live MCP server/app). The agent
+called `get-curriculum-model`, the `getting-started` resource, and the changelog
+tools — **not** `oak-under-the-hood`. The agent later confirmed `oak-under-the-hood`
+was present in the live `tools/list` descriptor cache; the failure was characterised
+as *routing*, not *availability*. **Re-verify:** repeat the user query against prod;
+confirm whether a fresh agent still skips `oak-under-the-hood`.
+
+### Assumptions embedded in the observation (all must be re-checked)
+
+| # | Assumption | Why it might be wrong | Re-verify by |
+| --- | --- | --- | --- |
+| A1 | "How it is built" meant the MCP server/app, not Oak's curriculum content | User may have meant curriculum delivery, repo architecture, or Oak org-wide | Re-read the user thread; ask if ambiguous |
+| A2 | Routing to `get-curriculum-model` was a *mistake* for that query | Curriculum-model may legitimately answer "how the MCP exposes curriculum data" | Judge against the tool's own domain boundary (see `oak-under-the-hood` description) |
+| A3 | `oak-under-the-hood`'s `tools/list` description should have matched the query | Description is effort/repo-scoped; "how the MCP is built" may sit on the boundary | Read live `tools/list` description; compare to user phrasing |
+| A4 | Server `instructions` steered the agent away from `oak-under-the-hood` | Agents may ignore initialize instructions; other surfaces (prompts, client rules) may dominate | Read live initialize `instructions`; observe agent behaviour in a clean session |
+| A5 | Absence from server `instructions` is the highest-leverage fix | App-local tool may be intentionally excluded from SDK-generated instructions (see tension below) | Architecture review before editing metadata |
+| A6 | `get-curriculum-model`'s `agentSupport` category lists only itself | Payload shape may have changed since the observation session | `tools/call` → `get-curriculum-model`; inspect `toolGuidance.toolCategories.agentSupport` |
+| A7 | Cursor's `mcps/.../INSTRUCTIONS.md` reflects live prod | Cache may be stale or from a different deployment | Compare cache to live initialize response |
+| A8 | Adding `oak-under-the-hood` to `AGENT_SUPPORT_TOOL_METADATA` is the right fix for A4/A5 | Crosses the app-local / SDK-metadata boundary the tool was designed around | Read `oak-under-the-hood-tool.ts` header + ADR-041/060; mcp-expert review |
+
+### Sources cited (paths as of 2026-06-28 — re-verify they still exist and match)
+
+**Not a hand-edited `INSTRUCTIONS.md`.** The string agents see as server `instructions`
+is generated, not a standalone markdown file:
+
+| Role | Path (repo) | Claim |
+| --- | --- | --- |
+| Wired at server construction | `apps/oak-curriculum-mcp-streamable-http/src/app/core-endpoints.ts` | `{ instructions: SERVER_INSTRUCTIONS }` on `McpServer` |
+| SDK export | `packages/sdks/oak-curriculum-sdk/src/public/mcp-tools.ts` | re-exports `SERVER_INSTRUCTIONS` |
+| Generated constant | `packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts` | `SERVER_INSTRUCTIONS = generateServerInstructions()` |
+| **Editable metadata (SSOT)** | `packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts` | `AGENT_SUPPORT_TOOL_METADATA` drives `generateServerInstructions()`; at observation time contained **only** `get-curriculum-model` with `callAtStart: true` |
+| Architecture doc | `docs/architecture/architectural-decisions/060-agent-support-metadata-system.md` | documents the metadata → instructions pattern |
+| App-local tool (separate registration) | `apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts` | registered outside the SDK universal-tools loop; **not** in `AGENT_SUPPORT_TOOL_METADATA` at observation time |
+
+**Cursor descriptor cache (read-only snapshot, not source):**
+`~/.cursor/projects/.../mcps/project-0-oak-open-curriculum-ecosystem-oak-prod/INSTRUCTIONS.md`
+— mirrors the live initialize `instructions` field; editing it has no effect.
+
+### Interpreted root causes (hypotheses — not verified fixes)
+
+Ranked by *assumed* leverage; order is the observing agent's inference only:
+
+1. **Absent from generated server `instructions`.** At observation time,
+   `generateServerInstructions()` derived text from `AGENT_SUPPORT_TOOL_METADATA`,
+   which listed only `get-curriculum-model`. An agent's first session prior may
+   therefore never mention `oak-under-the-hood`. **Tension (re-verify before acting):**
+   `oak-under-the-hood` is deliberately app-local (separate `registerTool`, outside
+   the SDK registry). Putting it in SDK metadata may violate the ADR-041 app→`.agent`
+   separation the tool header documents — alternative surfaces (app-level instruction
+   append, cross-reference inside `get-curriculum-model` payload, description triggers)
+   may be required instead.
+2. **No cross-reference from `get-curriculum-model`.** Session claim: its returned
+   `toolGuidance.toolCategories.agentSupport.tools` listed `[get-curriculum-model]`
+   alone, so an agent grounding via curriculum model dead-ends. **Re-verify** via live
+   `tools/call`; if true, candidate surface is `tool-guidance-data.ts` /
+   `get-curriculum-model` payload (SDK), not this plan's worktree.
+3. **Trigger-phrase gap in `tools/list` description.** Session claim: description says
+   "purpose and machinery" but not literal phrasings like "how is it built",
+   "architecture", "under the hood", "tech stack". **Re-verify** live description in
+   `oak-under-the-hood-tool.ts` → prod `tools/list`.
+4. **Domain straddle.** "How the MCP server/app itself is built" may sit between
+   effort/repo orientation (`oak-under-the-hood`) and curriculum-API facts
+   (`get-curriculum-model`, changelog). **Interpretive only** — no code citation
+   resolves this; product decision.
+
+### Scope boundary for this plan
+
+These are projection/surfacing concerns, **not** a change to the W2 pointer-shape
+decision or W3 rename. Candidate fixes touch SDK metadata, curriculum-model payload,
+and/or app instruction wiring — outside this plan's current worktree. Captured as a
+follow-up for a future work-stream; **not yet scoped, not owner-gated, not validated
+by specialist review.**
+
 ## Non-goals
 
 No baked or generated content; no drift gate; no fallback / graceful-degradation /
