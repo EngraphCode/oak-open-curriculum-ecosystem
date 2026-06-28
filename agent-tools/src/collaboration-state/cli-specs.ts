@@ -95,8 +95,11 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     handler: renderComms,
   }),
   'comms:list': commandSpec({
+    // `now` is accepted and ignored (F-79): a read-only projection with no
+    // time-dependent behaviour, so a caller passing `--now` for cross-command
+    // symmetry is not rejected by the dispatch-time option allowlist.
     help: commsListHelp,
-    options: ['comms-dir', 'tail'],
+    options: ['comms-dir', 'tail', 'now'],
     handler: listComms,
   }),
   'comms:show': commandSpec({
