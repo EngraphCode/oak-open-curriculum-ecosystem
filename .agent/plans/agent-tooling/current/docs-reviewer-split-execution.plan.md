@@ -278,6 +278,31 @@ grounding done; collaboration claim **open** (`implementer`, sub-agents + valida
 and Phase 2 completion run `/oak-consolidate-docs` and mine durable learning (the schema-as-SSOT pattern;
 the model-inherit policy) into permanent homes. Archive per ADR-117 when both phases land.
 
+## Phase 1 disposition ledger (2026-06-28)
+
+Every claim the currency check examined, with its decision and first-hand evidence — proof nothing was
+silently dropped. Schema + wrapper cleanup landed in `dff1ea2b2`; the prose-currency follow-up in a
+subsequent docs commit.
+
+| Checked claim | Decision | Evidence |
+| --- | --- | --- |
+| Claude wrapper field-set + value enums (`model`, `permissionMode`, `color`) plus 9 omitted fields | updated | code.claude.com/docs/en/sub-agents (verified first-hand); encoded in `frontmatter-schema.ts` + architect prose |
+| Cursor has a `tools` field / `model: auto` valid / fields required | updated (refuted) | cursor.com/docs/subagents: no `tools` field, `model` inherit/specific not `auto`, all optional |
+| Codex adapter shape + thin-wrapper rule | already-current | developers.openai.com/codex/subagents; existing codex validators accurate |
+| Internal references (paths/agents/skills/ADRs) in both templates | already-current | all resolve (internal-ref scan); one exception below |
+| `subagent-architect` bare `architecture-expert` in active prose (its own checklist forbids it) | updated | changed to `code-expert` and `test-expert` |
+| `assumptions-expert` doctrine + must-reads (ADR-146 inverted hierarchy, seven areas) | already-current | live currency probe by the plan-review agent found no drift |
+| `color: amber` (assumptions-expert) + `color: teal` (ground-truth-designer, mcp-expert) | fixed | invalid vs the official palette → orange / cyan |
+| 22 Cursor wrappers carry a redundant `tools` field | fixed (removed) | Cursor ignores it; `readonly: true` already restricts |
+| 44 Claude + Cursor wrappers pin `model` | fixed (removed → inherit) | owner directive; the invoking agent now controls the model |
+| `security-expert` description claims "uses claude-opus-4" | updated | model now inherits; description guides the invoker to opus |
+| plan-review: Phase-1-blocks-Phase-2 mislabelled as a technical hard-prerequisite | applied | relabelled as an owner-directed quality gate |
+| plan-review: split rationale not discharged in-plan | applied | added the decompose-at-the-tension paragraph |
+
+**Phase 1 status: complete.** All gates green (`subagents:check`, `portability:check`, `tsc`, ESLint,
+unit tests). The enforced schema + the reconcile anchor (`FRONTMATTER_SOURCES` last-verified dates,
+guarded by a unit test) replace the drift-prone prose. Phase 2 awaits owner confirmation (the GATE).
+
 ## Source brief
 
 [`../future/docs-reviewer-split.plan.md`](../future/docs-reviewer-split.plan.md) — strategic owner.

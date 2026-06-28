@@ -166,7 +166,7 @@ description: >-
 
 ### System Prompt Structure
 
-An excellent system prompt follows this structure (matching the patterns established by code-expert and architecture-expert):
+An excellent system prompt follows this structure (matching the patterns established by code-expert and test-expert):
 
 1. **Title and Identity** -- Who is this agent? What is its expertise?
 2. **Mode** -- Read-only observer, or permitted to modify?
@@ -211,26 +211,33 @@ These apply regardless of platform:
 - Output formats must be consistent and structured
 - Delegation flows must reference agents by their actual names (with persona suffixes where applicable)
 
+### The enforced frontmatter schema is the SSOT
+
+The authoritative, **enforced** field-set and value enums for Claude and Cursor wrappers live in
+`agent-tools/src/validators/subagents/frontmatter-schema.ts` (gated by `pnpm subagents:check`). **Do
+not re-enumerate platform fields or their allowed values in prose** — vendor specs change (nine Claude
+frontmatter fields were added after an earlier version of this template was written, and a stale
+`color` list let an invalid value reach a wrapper). The schema is the single source of truth; this
+section gives _authoring guidance_, while the schema rejects anything invalid (unknown fields, bad
+`color`/`model`/`permissionMode` values) at gate time. When a platform spec changes, update the schema
+and its `FRONTMATTER_SOURCES` last-verified date, not a copy in prose.
+
+**Model selection — prefer `inherit`.** Omit `model` from wrappers (or set `inherit`) so the
+**invoking agent controls the model**: the per-invocation model parameter wins, and absent one the
+subagent inherits the calling session's model. Pin a specific model only with a stated capability
+reason; even then a per-invocation override still applies. Codex adapters already inherit.
+
 ### Cursor Wrappers
 
-Cursor wrappers live in `.cursor/agents/*.md` with YAML frontmatter:
+Cursor wrappers live in `.cursor/agents/*.md` (Cursor also reads `.claude/agents/` and
+`.codex/agents/` for cross-tool compatibility). All frontmatter fields are optional at the platform
+level; this repo requires `name` (must match the filename) and `description`. Cursor subagents
+**inherit all tools** — there is no `tools` field; restrict a reviewer with `readonly: true` (the only
+tool-restriction mechanism). `is_background: true` runs the subagent in parallel.
 
-**Required frontmatter fields:**
-
-- `name` -- Unique identifier (lowercase, hyphens only)
-- `model` -- Explicit model selection (`auto` or named model)
-- `description` -- Delegation trigger (be specific)
-
-**Optional frontmatter fields:**
-
-- `tools` -- Comma-separated list of available tools (inherits all if omitted)
-- `readonly` -- Set to `true` to restrict write operations
-
-**Tool selection guidance:**
-
-- **Read-only reviewers** (code-expert, test-expert): Use `readonly: true` and exclude `Write`, `Delete`
-- **Creators/modifiers** (subagent-architect): Include `Write`, `Delete`, omit `readonly`
-- **Research agents**: Include `WebSearch`, `WebFetch` for external lookups
+- **Read-only reviewers** (code-expert, test-expert): set `readonly: true`. Do not list a `tools`
+  allowlist — Cursor ignores it; `readonly` is what restricts writes.
+- **Creators/modifiers** (subagent-architect): omit `readonly` so the subagent keeps write access.
 
 **Wrapper pattern:**
 
@@ -238,8 +245,6 @@ Cursor wrappers live in `.cursor/agents/*.md` with YAML frontmatter:
 ---
 name: agent-name
 description: Specific, actionable trigger conditions. Use proactively when [conditions].
-model: auto
-tools: Read, Glob, Grep, LS, Shell
 readonly: true
 ---
 
@@ -256,17 +261,17 @@ Review and report only. Do not modify code.
 
 ### Claude Wrappers
 
-Claude wrappers live in `.claude/agents/*.md` with extended frontmatter:
+Claude wrappers live in `.claude/agents/*.md`. Only `name` and `description` are required; the schema
+defines the full optional field-set and enums. Beyond the core fields (`tools`, `disallowedTools`,
+`model`, `permissionMode`, `color`), current Claude supports capability fields worth knowing for
+specialised agents — `skills` (preload skills into context), `mcpServers`, `hooks`, `memory`,
+`maxTurns`, `effort`, `isolation`, `background` — see the schema for the authoritative set and the
+official docs it cites.
 
-- `name` -- Unique identifier
-- `description` -- Delegation trigger with examples (benefit from `<example>` tags)
-- `tools` -- Available tools (Glob, Grep, LS, Read, etc.)
-- `disallowedTools` -- Explicit denials (e.g. `Write, Edit` for read-only reviewers)
-- `model` -- Model to use (sonnet, opus, etc.)
-- `color` -- Visual identifier (green, orange, purple, pink, blue)
-- `permissionMode` -- Permission posture (e.g. `plan` for observe-and-report agents)
-
-Claude subagents benefit from detailed examples in the description, a reminder footer about re-invocation, and structured output formats.
+- `description` benefits from `<example>` tags and a re-invocation reminder footer.
+- `disallowedTools` (e.g. `Write, Edit`) makes a reviewer read-only while inheriting other tools.
+- `color` must be one of the official palette (the schema enforces it); `permissionMode: plan` suits
+  observe-and-report agents.
 
 ### Codex Adapters
 
