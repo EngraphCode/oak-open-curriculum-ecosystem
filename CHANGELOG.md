@@ -1,3 +1,11 @@
+# [1.38.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.37.0...v1.38.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** enforce subagent frontmatter with a per-platform schema ([dff1ea2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dff1ea2b23692c3d229b7ccdedab605b9b03aced))
+* **subagents:** split docs reviewer into structure (docs-adr) and craft (prose-expert) ([83c055e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/83c055e021d06768c075521b005dff7736ca80bf))
+
 # [1.37.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.36.4...v1.37.0) (2026-06-27)
 
 
