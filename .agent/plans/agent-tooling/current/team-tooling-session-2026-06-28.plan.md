@@ -1,6 +1,6 @@
 ---
 name: "Team-Tooling Session — Director + 2 Implementers (2026-06-28)"
-status: planning
+status: current
 overview: "Make multi-agent coordination trustworthy and ergonomic — the cheap corruption floor plus the spawn-flow keystone — readying the worktree-per-agent transition."
 lineage:
   serves_thread: agentic-engineering-enhancements
@@ -13,7 +13,7 @@ isProject: true
 # Team-Tooling Session — Director + 2 Implementers (2026-06-28)
 
 **Last Updated**: 2026-06-28
-**Status**: 🟡 PLANNING (readiness-reviewed 2026-06-28 — see Lifecycle; awaiting owner sign-off and the Director-authored companion opener instance)
+**Status**: 🟢 APPROVED (owner-approved 2026-06-28; readiness-reviewed) — awaiting only the Director-authored companion opener instance (a pre-session move-0)
 **Operating model**: Director + 2 implementers, each in its own git worktree (PDR-117).
 
 The cohesion anchor for the next long-running team session. It fixes the team-level impact and
