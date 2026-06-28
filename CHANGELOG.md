@@ -1,3 +1,10 @@
+## [1.50.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.0...v1.50.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** spawn no longer predicts the launched session identity ([429763d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/429763d42f3e9fac66d5a18bc4bf13ff2506ef72))
+
 # [1.50.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.49.0...v1.50.0) (2026-06-28)
 
 
