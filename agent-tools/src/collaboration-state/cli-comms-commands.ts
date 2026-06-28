@@ -91,6 +91,7 @@ export async function appendComms(
 
   const tags = validateCommsEventTags(options.tags);
   const body = await resolveAppendBody({ options, io, tags });
+  const inResponseTo = optional(options, 'in-response-to');
   const baseEvent: NarrativeCommsEvent = {
     schema_version: '2.0.0',
     event_id: valueOrDefault(options, 'event-id', randomUUID()),
@@ -99,6 +100,10 @@ export async function appendComms(
     author: identity.agent_id,
     title: required(options, 'title'),
     body,
+    // `in_response_to` (F-77) threads a narrative append to an antecedent event
+    // of any kind — the machine-readable edge a PDR-064 Moment-2 broadcast
+    // acknowledgement needs (`comms reply` only resolves directed events).
+    ...(inResponseTo === undefined ? {} : { in_response_to: inResponseTo }),
   };
   await writeCommsEventWithReadback({
     nowIso,

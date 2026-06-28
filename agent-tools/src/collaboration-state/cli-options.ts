@@ -46,6 +46,7 @@ const KNOWN_OPTION_KEYS = new Set([
   'heartbeat-file',
   'heartbeat-interval-ms',
   'help',
+  'in-response-to',
   'intent',
   'intent-id',
   'kind',
