@@ -678,7 +678,7 @@ coherent.
   preventing `src/**/*.ts` from importing relative paths into `../e2e-tests/`.
   The seven-consumer recurrence happened without structural enforcement. Add a
   guard in the `@oaknational/eslint-plugin-standards` rules (same fix-up plan
-  or a named follow-up). Per `consolidate-at-third-consumer.md`, seven consumers
+  or a named follow-up). Per `consolidate-at-second-consumer.md`, seven consumers
   is well past the threshold for structural enforcement. Fred recommends in-scope
   of the same step-05 pass. Recorded here; disposition decided at step-05 apply.
 

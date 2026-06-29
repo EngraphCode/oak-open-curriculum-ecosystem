@@ -91,7 +91,7 @@ compiler happy. `// eslint-disable-next-line` would have made the
 linter happy. The substance "worked" in the sense that it produced
 the right runtime output.
 
-I didn't, because the lint rules + the `consolidate-at-third-consumer`
+I didn't, because the lint rules + the `consolidate-at-second-consumer`
 rule + the `honest-restructure-over-band-aid` rule all collectively
 named that as the wrong move. The substrate held me to its own
 standard.

@@ -44,8 +44,30 @@ under context pressure overrides a passively-held lesson (the conservation refle
 even while you document it). So the cure is structural — an external check or a firing
 gate — not self-vigilance.
 
+## Instance: gate-evasion (the escape-hatch screen)
+
+A sharp, recurring instance lives at a quality gate. When a fix that clears a gate
+(SonarCloud duplication density, a lint rule, a failing assertion) arrives *smoothly*,
+that smoothness is the tripwire to run the **escape-hatch screen** before accepting it:
+*does this make the gate's valid signal vanish without delivering the complete fix it
+names?* The failure shape is **gate-evasion** — and its most insidious form is
+**camouflaged duplication**: restructuring a duplicated shape just enough that the
+copy-paste detector stops token-matching it, so the green check returns while the
+coupling it flagged stays (often *worse*, now disguised as two unrelated sites). A green
+checkmark over a worse codebase is not the impact; curing the defect the gate names is.
+Worked instance (2026-06-29, #282): a first fix reshaped a duplicated arg-parser to dodge
+the CPD detector; the cure was the real one the gate pointed at — **extract the shared
+owner** (`core/cli-arg-parser`) and migrate both consumers (consolidate at the second
+consumer). The escape-hatch screen is the specific firing-gate for this instance of the
+general anti-pattern.
+
 ## Related
 
+- The **escape-hatch generative screen** and the **no-cheap-cure** discipline (metacognition
+  directive + per-user memory) — the screen this instance applies: never make a valid signal
+  vanish without the complete fix.
+- [`consolidate-at-second-consumer`](../../../rules/consolidate-at-second-consumer.md) — the
+  real cure for duplication a gate flags (extract the canonical owner, do not disguise the copies).
 - The metacognition directive § "Fluency Is a Warning, Not a Confirmation" — the doctrine source.
 - [`passive-guidance-loses-to-artefact-gravity.md`](passive-guidance-loses-to-artefact-gravity.md)
   — why naming the failure does not inoculate against it; passive lessons need an active firing gate.

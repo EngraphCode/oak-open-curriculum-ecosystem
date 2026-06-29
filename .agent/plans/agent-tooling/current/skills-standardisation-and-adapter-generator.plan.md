@@ -385,7 +385,7 @@ If a reviewer surfaces a question about a closed decision, the brief was misfram
 
 - Does WS2's validator extension respect the existing `validate-portability.ts` boundaries, or does it leak generator-package internals into the script?
 - Does WS3's mechanical migration preserve the ADR-125 amendment shape (e.g. the Layer-2 table accurately describes post-migration state)?
-- Does the proposed boundary between `agent-tools/src/skills-adapter-generate/` and the validator script follow consolidate-at-third-consumer, or does it duplicate logic that should live in one place?
+- Does the proposed boundary between `agent-tools/src/skills-adapter-generate/` and the validator script follow consolidate-at-second-consumer, or does it duplicate logic that should live in one place?
 - Is the WS3.9 strict-flip safe given the cumulative state at that point?
 
 **Out of scope**: re-litigating the two-surface contract or the `SKILL-CANONICAL.md` filename choice — both are owner-locked.
@@ -797,7 +797,7 @@ Each cycle: one commit. After every cycle: `pnpm portability:check` exits 0 agai
 
 ### Cycle 2.3 — Owned/lock consistency via generator delegation
 
-(WS0 remediation 2026-05-09: reshaped from "import consistency.ts from agent-tools or duplicate the XOR logic — decide at write time" to a single-home subprocess delegation. The generator's `--check` mode is the one home for owned/lock consistency logic; the validator delegates by spawning the bin and translating its exit code + structured stderr into portability-issue records. Avoids both (a) the workspace-internal import that would couple a root script to `agent-tools/src/skills-adapter-generate/consistency.ts` and (b) the duplication that would violate `consolidate-at-third-consumer`.)
+(WS0 remediation 2026-05-09: reshaped from "import consistency.ts from agent-tools or duplicate the XOR logic — decide at write time" to a single-home subprocess delegation. The generator's `--check` mode is the one home for owned/lock consistency logic; the validator delegates by spawning the bin and translating its exit code + structured stderr into portability-issue records. Avoids both (a) the workspace-internal import that would couple a root script to `agent-tools/src/skills-adapter-generate/consistency.ts` and (b) the duplication that would violate `consolidate-at-second-consumer`.)
 
 **File scope**: `scripts/validate-portability.ts` (MODIFIED — adds a "consistency" portability check that delegates to the generator); paired test.
 

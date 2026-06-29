@@ -121,7 +121,7 @@ it does not depend on agent recall.
   when executive-memory drift surfaces, the corrective capture
   may seed both per-user memory AND napkin; this rule names the
   flow from one to the other.
-- [`consolidate-at-third-consumer`](consolidate-at-third-consumer.md) —
+- [`consolidate-at-second-consumer`](consolidate-at-second-consumer.md) —
   when the same substance appears in three per-user memories
   across different platforms, the consolidation trigger fires and
   the substance graduates.

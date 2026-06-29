@@ -13,7 +13,7 @@ import { realPnpmRunner } from './build-runner.js';
  * @remarks
  * Aliased to the shared `core/` seam shape, which was hoisted once the gh runner
  * became the third independent consumer (git + pnpm + gh), per
- * consolidate-at-third-consumer.
+ * consolidate-at-second-consumer.
  */
 export type PnpmRunner = CommandRunner<void>;
 

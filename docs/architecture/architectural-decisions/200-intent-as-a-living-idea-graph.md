@@ -364,7 +364,7 @@ direction this architecture is chosen to enable.
   `graph-core` has only dataset CRUD); the frontmatter↔store validator; the harvest pipeline. The idea-graph
   is a **new domain instance over the existing substrate**, parallel to `graph-corpus-sdk` and distinct from
   the curriculum `graph-stack.plan.md` lane.
-  **Lens-resolved direction (2026-06-22, L1 + `consolidate-at-third-consumer`):** build the new idea-graph
+  **Lens-resolved direction (2026-06-22, L1 + `consolidate-at-second-consumer`):** build the new idea-graph
   SDK as a clean parallel instance that _reuses_ `graph-core`'s generic substrate and owns only idea-domain
   specifics; do **not** extract a shared domain-SDK abstraction across `graph-corpus-sdk` and the idea-graph
   SDK now — the family-of-knowledge-graphs (§Future state) is the future third-consumer trigger for that, not

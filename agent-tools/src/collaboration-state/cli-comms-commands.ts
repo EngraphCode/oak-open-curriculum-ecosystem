@@ -25,7 +25,7 @@ import { type CollaborationStateEnvironment, type NarrativeCommsEvent } from './
  * Counts `string.length` (UTF-16 code units), matching what an agent or
  * operator types at the shell.
  *
- * consolidate-at-third-consumer — stays module-local until a second consumer emerges.
+ * consolidate-at-second-consumer — stays module-local until a second consumer emerges.
  */
 const MAX_COMMS_BODY_LENGTH = 1500;
 

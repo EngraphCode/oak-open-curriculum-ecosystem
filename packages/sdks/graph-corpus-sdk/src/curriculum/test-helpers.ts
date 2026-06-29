@@ -4,7 +4,7 @@
  * @remarks
  * Consolidated at the fourth consumer (keyword view, G4b c2 review) from the
  * byte-identical copies the four view integration tests each carried —
- * `consolidate-at-third-consumer`. Test-only: imported exclusively by
+ * `consolidate-at-second-consumer`. Test-only: imported exclusively by
  * `*.integration.test.ts` files; never exported from the package barrels
  * (the `src/**` build compiles it, following the repo's in-`src`
  * test-helpers convention, e.g. `oak-search-sdk/src/admin/lifecycle-test-helpers.ts`).

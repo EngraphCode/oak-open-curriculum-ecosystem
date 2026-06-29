@@ -5,7 +5,7 @@ PDR-058 decomposed the `stop-inventing-optionality` candidate into four
 impact-named surfaces and deliberately left Surface 2 (design optionality) to
 graduate as its own rule once it had its own evidence trail; this rule is that
 graduation. It is the design-time sibling of
-[`consolidate-at-third-consumer.md`](consolidate-at-third-consumer.md): that rule
+[`consolidate-at-second-consumer.md`](consolidate-at-second-consumer.md): that rule
 governs *when to extract* a shared abstraction; this one governs *when to shape*
 one at all.
 
@@ -53,7 +53,7 @@ Drawn from PDR-058 §Surface 2's evidence cluster:
 Author the closed shape. Encode exactly the cases in scope, with the tightest
 types that admit them and nothing more. The configurable or extensible surface
 is deferred until a real second instance forces it — at which point
-[`consolidate-at-third-consumer`](consolidate-at-third-consumer.md) governs the
+[`consolidate-at-second-consumer`](consolidate-at-second-consumer.md) governs the
 extraction. A speculative future instance is not a real second consumer;
 speculative configurability is not consolidation.
 
@@ -83,7 +83,7 @@ Two named instances established the graduation bar PDR-058 required of Surface 2
 
 - [PDR-058 §Surface 2](../practice-core/decision-records/PDR-058-three-tier-optionality-decomposition.md)
   — the authority; this rule graduates Surface 2's cure.
-- [`consolidate-at-third-consumer.md`](consolidate-at-third-consumer.md) — the
+- [`consolidate-at-second-consumer.md`](consolidate-at-second-consumer.md) — the
   extraction-time sibling: when to generalise, once a real second
   consumer forces it.
 - [`replace-dont-bridge.md`](replace-dont-bridge.md) — closing a speculative

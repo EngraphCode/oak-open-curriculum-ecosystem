@@ -128,7 +128,7 @@ The open design-steps were triaged through the decision lenses (`principles.md` 
 (id-minting, store layout, de-duplication, projection-type schemas, the idea-graph SDK boundary). The
 **execution-level** directions, by workstream:
 
-- **WS2 — SDK boundary (L1 + `consolidate-at-third-consumer`):** build the idea-graph SDK as a clean
+- **WS2 — SDK boundary (L1 + `consolidate-at-second-consumer`):** build the idea-graph SDK as a clean
   parallel instance reusing `graph-core`'s generic substrate; do **not** extract a shared domain-SDK
   abstraction now (the family-of-graphs is the future third-consumer trigger). `architecture-expert`
   confirms the boundary (already in §Readiness reviewers).

@@ -10,7 +10,7 @@ import { type CommandRunner } from '../core/command-runner.js';
  * @remarks
  * Aliased to the shared `core/` seam shape, which was hoisted once the gh runner
  * became the third independent consumer of the `(args, cwd) => Result<T, Error>`
- * shape (git + pnpm + gh), per consolidate-at-third-consumer. The alias keeps the
+ * shape (git + pnpm + gh), per consolidate-at-second-consumer. The alias keeps the
  * semantic `SpawnGitRunner` name at its call sites (`create.ts`, `git.ts`) while
  * sharing one declaration of the seam shape rather than redeclaring it.
  */

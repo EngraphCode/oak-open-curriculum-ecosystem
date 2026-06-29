@@ -95,7 +95,7 @@ sequenced *after* EEF's first delivery, which uses the current whole-graph tools
 as-is; prior-knowledge is thus a confirmed-and-sequenced consumer, not yet wired). Two concrete instantiations with different type arguments
 is the opposite of the Surface 2 anti-pattern (a generic where every call site
 instantiates the same concrete type). D4 still adds **no** surface beyond what
-these consumers use (Decision 6). `consolidate-at-third-consumer` governs
+these consumers use (Decision 6). `consolidate-at-second-consumer` governs
 *extracting* shared mechanics across corpora and has **not** fired here (it
 triggers at the third consumer); it is not the basis for this contract, and
 primitive-consolidation across corpora stays a later, third-consumer decision.

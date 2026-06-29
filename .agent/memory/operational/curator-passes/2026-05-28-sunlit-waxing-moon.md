@@ -115,7 +115,7 @@ concrete dangling reference in the reciprocal-dispatch pattern (item 2).
 - It is **not** a mass-disposition on the flawed report base. For any
   irreversible withdrawal, the specific "covered by X" home named in the verdict
   must be confirmed first (most cite a stable principle/rule, e.g. no-hedging,
-  consolidate-at-third-consumer, verify-dont-trust). The ~30 lower-stakes
+  consolidate-at-second-consumer, verify-dont-trust). The ~30 lower-stakes
   "watch / withdraw" verdicts are **recommendations owed independent
   re-verification** before removal — not executed this pass.
 
@@ -179,7 +179,7 @@ Core-PDR, 43 safety-conflict).
 | 42 | Forcing-function read path: reviewer carries the recipes | 1st instance (test-expert); no 2nd domain | owner-gated | **Fold into 41** — it is the mechanism behind "reviewers carry doctrine", not a separate pattern |
 | 43 | Autonomous .git/index.lock interaction forbidden (incl. wait loops) | doctrine in per-user memory + agent-state-observable partial; no repo rule; doctrine CONFLICT with commit-skill bounded lock wait | owner-gated (FORK — SAFETY) | **(1) Resolve the conflict** (owner "no autonomous lock interaction" vs commit-skill bounded physical wait) **then (2) graduate a rule** — load-bearing safety doctrine living only in per-user memory |
 | 44 | Session-close housekeeping ownership | hypothesis P11 live; N≥3 watch (YES) | owner-gated | **Keep — correctly N≥3 watch** (P11 + last-to-leave operationally live) |
-| 45 | Observability directory-survey before plan-stub | single instance, no home, no 2nd (verified) | owner-gated | **Withdraw** — covered by consolidate-at-third-consumer + ordinary diligence |
+| 45 | Observability directory-survey before plan-stub | single instance, no home, no 2nd (verified) | owner-gated | **Withdraw** — covered by consolidate-at-second-consumer + ordinary diligence |
 | 46 | Atomic independent cycles for parallel dispatch | host-local in plan templates (YES); no portable PDR | owner-gated | **Keep watch (2nd repo)** — host adoption live; clean |
 | 47 | napkin + .remember wiring; PDR-011 amendment | amendment not landed (verified) | owner-gated | **Withdraw** — session-handoff/consolidate-docs operationalise it; amendment over-codifies one plugin |
 | 48 | session-handoff entrypoint sweep; PDR-014 amendment | amendment not landed (verified) | owner-gated | **Withdraw** — session-handoff skill operationalises the sweep; amendment duplicates live behaviour |

@@ -62,7 +62,7 @@ Yet `scripts/` currently hosts ~2,335 lines of TypeScript across:
 
 **Evidence**: ADR-041 §Tier table omits `scripts/`. `pnpm-workspace.yaml` contains no `scripts/` entry. `eslint.config.ts:29-32` confirms the only `scripts/`-specific carve-out is `no-console: off`. `vitest.config.ts:7` reaches into `scripts/**/*.test.ts` from the root config rather than via a workspace test task.
 
-**Root cause**: The pattern arose by repetition, not by decision. Each validator added a peer to the previous one's shape; cardinality has crossed the consolidate-at-third-consumer threshold. ADR-168 §Workspace-script-ban (Rule 2) addressed the inverse direction (workspaces calling root scripts) but did not name root-resident validators as a class.
+**Root cause**: The pattern arose by repetition, not by decision. Each validator added a peer to the previous one's shape; cardinality has crossed the consolidate-at-second-consumer threshold. ADR-168 §Workspace-script-ban (Rule 2) addressed the inverse direction (workspaces calling root scripts) but did not name root-resident validators as a class.
 
 **Existing capabilities that solve the underlying problem**:
 

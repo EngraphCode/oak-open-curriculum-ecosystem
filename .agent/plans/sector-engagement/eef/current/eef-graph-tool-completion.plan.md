@@ -1165,7 +1165,7 @@ closed shape for one real consumer; the prerequisite/prior-knowledge DAG is a
 nameable concrete second instantiation (PDR-058 §Surface 2), with the bounding
 mechanism chosen per corpus from the retrieval value — bounded, relevant,
 token-efficient retrieval — not a traversal/non-traversal label.
-`consolidate-at-third-consumer` (extraction across corpora) has not yet fired;
+`consolidate-at-second-consumer` (extraction across corpora) has not yet fired;
 (4) `manifest()`/`GraphManifest` have
 no EEF consumer and are out of the EEF (D5) operation set per Decision 6 (their
 consumer, if any, is a migration tool).

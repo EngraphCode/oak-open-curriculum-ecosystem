@@ -121,7 +121,7 @@ invention)**:
     falsifier);
   - coordination-surface discipline (ground each mechanism in observed need;
     widen the audit before adding a surface) → a **rule** (or a clause on
-    `consolidate-at-third-consumer`), because it fires at an authoring moment;
+    `consolidate-at-second-consumer`), because it fires at an authoring moment;
   - "agents classify risk; humans accept risk" → a **principles.md** line or
     its own PDR if PDR-025 does not already imply it.
 - **M3 — Decompose and retire.** With every unit homed, delete the directives
