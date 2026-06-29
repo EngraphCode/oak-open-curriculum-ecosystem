@@ -63,14 +63,23 @@ ensembles where the expensive error lives).
 
 ### Next action (the one next step)
 
-Execute **`current/large-corpus-analysis-v2-implementation.plan.md`** — build the tested
-deterministic-aggregation module (the recall counter unit test is the fix for the v1
-bug), pin the typed baseline fixture, build the Tier 0+1+2 adversary, then **rerun v2**
-on the napkin corpus and assess within-remit recall. Runbook graduation (PDR-120
-reference runbook + adopting PDR per PDR-035) stays **gated on a passing v2 rerun** — v1
-did not clear the threshold. Architecture note in the plan: the aggregation layer lives
-in a **tested repo module** (the Workflow sandbox cannot import repo code), the cleanest
-expression of the v2 principle.
+**The v2 deterministic layer is BUILT, reviewed (4 expert lenses), and committed** on
+`docs/consolidations` (`5c34af7bc` → `e92cf931d` → `601ab377f`): the atomic-judgment
+schemas, the recall counter (the v1-bug fix), the keep/kill/reroute predicate, the
+tier-0/1/2 quorum state machine, the frozen 18-baseline fixture (10 emergent / 8
+single-window), the cost+coverage gate, and the real-world-signal close — all in
+`agent-tools/src/corpus-analysis/` (89 unit tests, green under all gates). The graduate
+gate is **owner-confirmed Choice B**: strict within-remit ≥ 0.6 AND lenient ≥ 0.85.
+
+**The rerun is PREPARED, NOT run** — owner deferred it this session (2026-06-29, context
+too low for a ~1.3M-token run). The one next step is to **launch the v2 rerun from the
+self-contained runbook**
+[`reports/agentic-engineering/large-corpus-analysis-v2-rerun-runbook-2026-06-29.md`](../../../reports/agentic-engineering/large-corpus-analysis-v2-rerun-runbook-2026-06-29.md)
+in a fresh, execution-authorised session: re-derive the corpus partition, add+run the
+mirror conformance test, run the cost gate (≤ 2M ceiling), run the Workflow
+(map → reduce → validate → meta), feed the judgments to the tsx aggregation driver, then
+graduate-or-decide on the Choice-B verdict. Runbook graduation (PDR-120 + adopting PDR
+per PDR-035) stays gated on a passing v2 rerun.
 
 ### Owner decisions (this session)
 
