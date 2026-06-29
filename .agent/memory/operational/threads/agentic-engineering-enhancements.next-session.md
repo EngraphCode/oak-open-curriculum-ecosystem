@@ -300,151 +300,15 @@ frictions routed to the frictions register (F-60..F-63); and the 2 items that we
 nor reject — TA1 (first-out closeout self-election) and P6 (Director routing-blockage) — recognised
 as open QUESTIONS and routed to a new exploration plan
 `team-autonomy-primitive-decisions-exploration.plan.md` (`1a36c027d`). The drain plan is executed
-(archive it). This supersedes the Lapwing pickup below — that lane is now drained.
+(archive it). The register has stayed at decision-debt 0 since.
 
-## Reference-Direction Doctrine + Deferred Application (2026-06-19, Sandpiper lifts Downdraft)
+## Reference-direction (PDR-105) — COMPLETE (2026-06-19)
 
-PDR-105 (reference-direction invariants — two axes of artefact fundamentality: durability and
-portability; the unifying availability invariant; the stable-index corollary) is **Accepted and
-landed WITH its enforcement** — `validate-reference-direction` (report-first, wired into
-`repo-validators:check`, 22 unit tests, code/test-expert reviewed; commit `8d0297696`). Doctrine
-shipped with a mechanical detector, never prose alone (owner: "doctrine without enforcement masks
-the problem"). Thread records relocated to `threads/paused/` and `threads/retired/`; repo-continuity
-is the single stable index resolving slug → path (commit `44406e502`).
-
-**Deferred — the PDR-105 application burndown (owner-directed, properly sequenced, reviewed):**
-
-1. **Reference-direction debt: ~197 wrong-direction references** the validator now measures (55
-   portability = Core citing repo-specific paths; 142 durability = doctrine citing ephemeral
-   plans/threads). The fix is removal/inversion of doctrine→ephemeral references and routing
-   plan→thread through the continuity index — NOT symptom-repointing. The thread relocation newly
-   broke the subset that pointed at the moved records; these are inside the 142 and are removal
-   targets, not repoint targets. Escalating the validator from report-first to a blocking gate is the
-   owner decision after burndown (`new-rules-start-at-warn`).
-2. **`tracks/` and `workstreams/` removal (owner-directed):** a foundational concept-retirement —
-   the surfaces are woven through PDR-011 (×12), ADR-150 (×10), PDR-027, PDR-030, continuity-practice,
-   orientation, memory READMEs, four skills, and three rules. Retire the concept from each LIVE
-   doctrine surface (leave historical analysis/research/curator-passes/experience untouched), with
-   `docs-adr-expert` review on the PDR/ADR amendments, THEN remove the directories (refs-first, then
-   delete — the order this session got backwards). Both are not-useful-now (harness task-list + napkin
-   - claims/comms cover tracks; thread-record `## Lanes` cover workstreams) — judged by present need,
-   not usage/provenance.
-3. **Wire the operationalising rules to cite PDR-105** (`no-moving-targets-in-permanent-docs` = the
-   durability-axis hook; `practice-core-portability` = the portability axis) and **retire the
-   `consolidate-docs` 7d rule↔plan-citation check** — it validates a rule citing a plan, the exact
-   wrong-direction PDR-105 forbids.
-
-### Burndown progress (2026-06-19, Tulip spins Xylem `34b8e5`) — validator 197 → 145
-
-Four reviewed commits on `docs/planning-and-validation` (NOT pushed — owner controls push):
-
-- **Task 0** (`6eddad013`): PDR-105 §Context wording corrected — the two axes are SDP (depend in
-  the direction of stability), only the stable-index corollary is DIP proper. docs-adr APPROVED.
-- **Task 1a/1b** (`01561d374`, `8601c3d4e`): owner-approved bucket-B cure. The validator now exempts
-  **stable-addressed surfaces** (fixed address, churning content) on the durability axis only —
-  registries (`active-claims.json`, `closed-claims.archive.json`, `shared-comms-log.md`), index
-  READMEs (`patterns/`, `threads/`, `state/`), permanent collaboration dirs (`conversations/`,
-  `escalations/`, `comms/`, `handoffs/`), the patterns dir, and `*.schema.json`. A link to a
-  *specific item inside* such a surface still flags. Allowlists live in a new sibling module; PDR-105
-  body+§Notes amended; a built `--verbose` flag lists `axis source:line -> target` (replaces
-  throwaway triage scripts — ESM/agent-tools). TDD; type/test/code-expert reviewed. **197 → 149 → 145.**
-- **Task 3** (`e75b1e0fd`): `no-moving-targets` + `practice-core-portability` wired to PDR-105 axes;
-  consolidate-docs **step 7d retired** (7e→7d); `dont-break-build-without-fix-plan` **inverted** to OWN
-  the green-gate invariant (was quoting `gate-recovery-cadence.plan.md` as "Authority"); that plan's
-  banner corrected. docs-adr APPROVED. This is the exemplar bucket-A inversion cure.
-
-### Burndown progress (2026-06-19, Siren guards Reef `e0eb7f`) — validator 145 → 0 (Task 1 DONE)
-
-Two reviewed commits on `docs/planning-and-validation` (NOT pushed — owner controls push):
-
-- **Portability axis** (`7ac5fe657`): all 55 portability refs cured across 28 Practice-Core files
-  (PDRs/practice.md/README). docs-adr-expert APPROVED (two passes: PDR-057/056/058 priority, then
-  the remainder).
-- **Durability axis** (`6893962c2`): all 90 durability refs cured across 52 files (62 ADR, 19 rule,
-  9 directive). docs-adr-expert APPROVED-WITH-FIXES (5 MD012 footer-def double-blanks fixed).
-
-**Cure convention (reviewer-ratified, applies to any future ref):** pure **de-link** —
-`[label](target)` → `label` (label verbatim, inline AND reference-style), removing the
-dangling-on-arrival path dependency while conserving the named concept. Provenance blocks
-(Source/Supersedes) keep the de-linked prose; git is the provenance. **De-link is chosen over the
-`(historical reference)` marker** even for ADR→archived-plan refs (PDR-105 "retire, don't maintain";
-the marker only exempts a still-wrong link). napkin/distilled NOT allowlisted (Axis-1 ranks them
-most-ephemeral). Validator flags ONLY markdown links, so backticked/prose concept names are safe.
-
-**Task 2 — tracks/workstreams retirement (IN PROGRESS; all edits UNCOMMITTED, markdownlint exit 0).**
-DONE this session (refs-first, retarget-in-place to avoid numbered-list renumber churn): the
-operational/skill surfaces — `go`, `start-right-quick`, `session-handoff`, `consolidate-docs` (7c dropped
-the expired-track-cards check, renumbered seven→six), `napkin`, `memory/operational/README` (tracks row +
-track-card paragraph + workstream-retired block removed), `orientation`, `continuity-practice`,
-`respect-active-agent-claims`, plus two surfaces the first enumeration MISSED (`practice-bootstrap:463`,
-`register-identity:105`). All route tracks → harness task-list + napkin + claims; workstreams →
-thread-record `## Lanes`. KEY NUANCE: `workstreams/` is already a retired-surface tombstone (README +
-archive/); `tracks/` is empty. "workstream" has two senses — the operational lane-tracking *surface*
-(retired) vs a *scope descriptor* in PDR-027's identity model (RETAINED — do NOT purge). PDR-027 has no
-live dir-refs (no change); PDR-030 + practice.md:358 are retained-sense (no change).
-
-**Remaining work (Drake lifts Obsidian) — ALL RESOLVED 2026-06-19; see the Drake completion section below. The original deliverables:**
-
-1. **PDR-011 body** (lines 49, 421–432 treat track cards as a live compliant surface): retire the live
-   treatment + add a new amendment-log entry recording the tracks retirement. The existing Session-5 and
-   runtime-track-card amendment entries are HISTORY-RECORDS (change-as-subject) — keep them.
-2. **ADR-150 mirror** (8, 38, 204–207, 265): same shape as PDR-011.
-3. **PDR-027:164** (track-card filename convention — light) + **no-moving-targets:133/152** (track-card-path
-   *examples* — replace with a live ephemeral example).
-4. **Delete `tracks/` + `workstreams/` directories** (destructive; confirm at the action moment) and flip
-   `PDR-105 §Notes` "slated for removal (pending)" → past-tense in the deletion commit.
-5. **docs-adr-expert review** on the PDR-011/ADR-150/PDR-027 amendments.
-6. **Escalate `validate-reference-direction` report-only → blocking.** Floor is reached (0). This is the
-   next live decision-and-action: decide the warn→error escalation (`new-rules-start-at-warn`) and wire it.
-7. **Validator-coverage gaps:** `ADR-026:90` (backticked-path citation) and `ADR-093:271` (link to
-   `.agent/analysis/`, a prefix absent from the validator's `EPHEMERAL_PREFIXES`) carry durable→ephemeral
-   refs the validator misses. Both fixes: de-link the two refs AND widen the validator's reach.
-8. **Pre-existing tombstones found this session:** `PDR-058:359` ("the single-rule shape … was wrong
-   because") — a rejection-label tombstone; lead with the positive "distinct impacts demand distinct cures"
-   that already follows it. `register-identity:103` links the retired `../commands/` dir — repoint to
-   `.agent/skills/consolidate-docs/SKILL-CANONICAL.md`.
-
-### Burndown progress (2026-06-19, Drake lifts Obsidian `9258d7`) — PDR-105 COMPLETE, validator now BLOCKING
-
-Successor to Siren guards Reef. The deliverables above are RESOLVED across three reviewed,
-gate-green commits on `docs/planning-and-validation` (unpushed — owner controls push):
-
-- **Tranche A — doctrine cures** (`d8ec8867c`, docs-adr-expert: all sound): de-linked the
-  validator-missed refs (ADR-026 backticked archived-plan path; ADR-093 three `.agent/analysis/`
-  links); retired the live track-card/workstream treatment in PDR-011 + ADR-150 (amendment-log
-  entries; ADR-150 body kept verbatim as the historical decision record per ADR convention);
-  removed PDR-027's stale track-card convention; reframed the PDR-058:359 tombstone. Plus a
-  finding beyond the handoff list: reconciled `no-moving-targets:135`, which still licensed the
-  very ADR→ephemeral refs the burndown removes (PDR-105 §Consequences retires
-  wrong-direction-affirming clauses). `register-identity:103` was already done (verified
-  first-hand — the prior `../commands/` link is gone).
-- **Tranche B — residue removal** (`774a49e5e`, owner-authorised "git is the provenance"):
-  deleted `tracks/` + `workstreams/`; reconciled the PDR-049/050 substrate-contracts manifest
-  (dropped the stale `memory-operational-tracks` `"lifecycle": "live"` contract entry + the
-  `workstreams/` historical_root); flipped PDR-105 §Notes to past-tense. repo-validators:check
-  green. (The "COMMIT STATE: ALL UNCOMMITTED" note that previously sat here was superseded — Siren
-  guards Reef committed the Task-2 work as `631bc5851`/`1fb700017` before standing down.)
-- **Tranche C — enforcement capstone** (`563487f79`, code-expert + test-expert APPROVE; their
-  claims verified first-hand, blocking path proven by a probe): corrected `.agent/analysis/`'s
-  layer (it is ephemeral, was mis-typed `other`); escalated `validate-reference-direction`
-  report-only → **blocking** (exit 1 on any wrong-direction ref; fails repo-validators:check in
-  CI + `pnpm check`). PDR-105 §Consequences mechanical enforcement now holds.
-
-**Design decision recorded (do not re-litigate):** the validator deliberately does NOT detect
-backticked repo-paths — a backtick is a concept-name, not a resolvable dependency; flagging them
-would brick the gate (1030 backticked repo-paths in policed doctrine) and contradict the de-link
-convention ("backticked/prose names are safe"). ADR-026's stray ref was cured by de-linking, not
-by widening detection. A comment in `extractReferences` records this for the next modifier.
-
-**PDR-105 burndown is COMPLETE**: 197→145 (Tulip spins Xylem) → 145→0 (Siren guards Reef) → residue
-deleted + invariant mechanically enforced (Drake lifts Obsidian). No remaining PDR-105 deliverables.
-
-**repo-continuity note:** `repo-continuity.md` was held uncommitted by the no-throw lane
-(Siren mends Rudder) this session, so this thread's §Active threads identity summary was NOT updated
-there (avoiding a collision with their uncommitted edits — constraint, not omission; falsifiable by
-checking repo-continuity reflects PDR-105 complete after the no-throw lane commits it). The next
-agent to commit repo-continuity should add Drake lifts Obsidian (claude / Opus 4.8 / 9258d7 /
-implementer / 2026-06-19) to this thread's `Latest identity` summary.
+PDR-105 (reference-direction invariants — durability + portability axes, the availability invariant,
+the stable-index corollary) is **Accepted and mechanically enforced**: `validate-reference-direction`
+is blocking in `repo-validators:check` + `pnpm check`. The full 197→0 burndown and the
+`tracks/`/`workstreams/` retirement landed across Sandpiper → Tulip → Siren → Drake (de-link cure;
+docs-adr-expert approved each tranche); **no remaining deliverables.** Detail in PDR-105 + git history.
 
 **NEXT-SESSION PICKUP (dedicated consolidation, owner-scoped to a fresh session 2026-06-18):**
 
@@ -480,56 +344,6 @@ Remainder for the fresh session:
    decision session.
 5. `agent-collaboration-research` retired-record prose-width — cosmetic on a historical artefact,
    reported not chased.
-
-## Decision-Debt Lane — Next-Session Pickup (updated 2026-06-16, Lapwing holds Troposphere)
-
-**LANDED + PUSHED this session** (`docs/planning-and-validation`, in sync with origin — commits
-`8665da651` + `3cb64da91`): the fitness enforcement model is now **report-only** — every fitness
-signal (size, decision-debt count, dwell, config findings) is a prioritisation signal that never
-fails a build (validator always exits 0; `getExitCode` removed as **dead** enforcement — verified
-no hook / CI / `check` ever consumed it). Decision-debt uses **discrete ceiling** thresholds (count
-`target 0, soft 2, hard 3`; critical = beyond hard) — NOT the size ratio (fractional ×1.5 is a
-category error on small integers) — plus a **dwell-time axis** (`fitness_item_dwell_*`,
-oldest-undecided age in days; register `2 / 4 / 7`), classified by one axis-agnostic engine
-(`classifyDiscreteZone`). New module `dwell.ts`. ADR-144 reframed (gate→signal, semantics-not-
-severity), PDR-100 Decision 3 reconciled, register frontmatter + agent-tooling plan updated.
-Reviewers RUN (docs-adr, assumptions, config, test); findings absorbed (doc contradictions swept;
-declines reasoned). Prior "add run.unit.test for exit-code folding" is MOOT — the fold was removed
-(report-only). The plan `pending-graduations-schema-and-count-fitness.plan.md` is implemented,
-ready to archive.
-
-Also landed (committed): three structural cures for the fluency/grounding failures this session
-demonstrated — **citation-or-silence** (`verify-dont-trust`), **no-mutable-state-in-memory**
-(`per-user-memory-is-a-buffer`), and the **Second Question** ("would this be simpler if the system
-changed?", owner-added to `AGENT.md`).
-
-**THE UNDONE CORE — DONE 2026-06-16 (Limpet):** the register was drained 72 → 0 under the
-graduation quorum (see the DRAINED pickup at the top of this record). The drain followed exactly
-the discipline this paragraph called for: per-item first-hand decisions, conservation verified
-before each reject, commit per batch, WS-OM not built. Retained here as the brief that the drain
-discharged.
-
-**Open question (cadence anchor — see `open-questions.md` Q-001):** fitness is report-only, so
-nothing *runs* `practice:fitness` at a gate — what cadence anchor ensures the signal is read at
-handoff/closure? Report-only is only as live as its invocation (assumptions-expert flagged).
-
-**Owner answer (2026-06-16):** the abolition is propagated across all knowledge-flow doctrine
-surfaces (briefs, skills, register, continuity, drain plans — done this session). The SEPARATE
-owner-authority concepts that share the word (PDR-006 tool-nomination, plan-promotion / PR-merge
-gates, `--no-verify` / limit-raise / Core-edit safety controls, Sonar authorisation) are surfaced
-to the owner for an explicit scope decision — NOT auto-purged. (The "Core-edit" control is
-subsequently disambiguated by
-[PDR-104](../../../practice-core/decision-records/PDR-104-best-effort-doctrine-authoring-in-consolidation.md):
-its sub-agent-protection sense is kept; its owner-pre-approval-of-each-doctrine-amendment sense is
-relaxed for dedicated consolidation sessions.)
-
-**Antipatterns I enacted (named so the next agent watches for them):** activity-bias /
-mechanical-sequence — I ran a satisfying mechanism sequence and decided 0 items (I literally edited
-`patterns/mechanical-sequence-is-activity-bias-diagnostic.md`, `comprehensive-cataloguing-drift.md`,
-and `feel-state-of-completion-preceding-evidence-of-completion.md` while enacting all three);
-reviewer-skipping under momentum (permanent doctrine committed unreviewed); soft-default (deferred
-the hardest work — draining — behind comfortable machinery). Cure: drain first, build later; get
-the reviews onto what is already committed.
 
 ## Current Continuation
 
@@ -714,7 +528,8 @@ pickup trigger; neither blocks the other.
 >    `action-time-structural-interrupt-design-space.plan.md`; beneficial, not blocking; lowest
 > priority.
 > 5. **Follow-on (not 2a scope):** `toPosix` is duplicated across `max-files-per-dir`,
->    `require-observability-emission`, `no-real-io-in-tests` (consolidate-at-second-consumer); extract to `oak-eslint/src/utils/path.ts`.
+>    `require-observability-emission`, `no-real-io-in-tests` (consolidate-at-second-consumer);
+>    extract to `oak-eslint/src/utils/path.ts`.
 >
 > **Disciplines carried (worked this session):** an `as`-ban + a live multi-writer lockfile turns a
 > mechanism choice into a coordination problem — surface it; ground specialist findings first-hand
