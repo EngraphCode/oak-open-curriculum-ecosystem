@@ -52,4 +52,32 @@ describe('resolveTranscriptPath', () => {
       error: 'unsupported vendor: codex (supported: claude)',
     });
   });
+
+  it('rejects a session id containing path-traversal segments', () => {
+    const result = resolveTranscriptPath({
+      vendor: 'claude',
+      home: '/h',
+      cwd: '/ws',
+      sessionId: '../../../../etc/passwd',
+    });
+
+    expect(result).toStrictEqual({
+      ok: false,
+      error: 'invalid session id (expected [A-Za-z0-9_-]+; rejected to prevent path traversal)',
+    });
+  });
+
+  it('rejects a session id containing a path separator', () => {
+    const result = resolveTranscriptPath({
+      vendor: 'claude',
+      home: '/h',
+      cwd: '/ws',
+      sessionId: 'a/b',
+    });
+
+    expect(result).toStrictEqual({
+      ok: false,
+      error: 'invalid session id (expected [A-Za-z0-9_-]+; rejected to prevent path traversal)',
+    });
+  });
 });

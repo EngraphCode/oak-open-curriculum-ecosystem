@@ -20,6 +20,18 @@ export type TranscriptPathResult =
   | { readonly ok: false; readonly error: string };
 
 /**
+ * Allowlist for a session id: alphanumerics, underscore, and hyphen only.
+ *
+ * @remarks
+ * The session id is concatenated into a filesystem path, so it is validated at
+ * this boundary (strict-validation-at-boundary, fail-fast). The allowlist
+ * rejects `.` (so `..` cannot appear), `/`, and `\`, which prevents a crafted
+ * session id from traversing outside the intended transcript directory. Real
+ * session ids (Claude UUIDs / hex prefixes) match this pattern.
+ */
+const SAFE_SESSION_ID = /^[A-Za-z0-9_-]+$/;
+
+/**
  * Resolve the transcript path for a vendor session.
  *
  * @param input - `vendor`, `home` (user home dir), `cwd` (launch dir), `sessionId`.
@@ -33,6 +45,13 @@ export function resolveTranscriptPath(input: {
 }): TranscriptPathResult {
   if (input.vendor !== 'claude') {
     return { ok: false, error: `unsupported vendor: ${input.vendor} (supported: claude)` };
+  }
+
+  if (!SAFE_SESSION_ID.test(input.sessionId)) {
+    return {
+      ok: false,
+      error: 'invalid session id (expected [A-Za-z0-9_-]+; rejected to prevent path traversal)',
+    };
   }
 
   const projectKey = input.cwd.replaceAll(/[/.\\]/g, '-');
