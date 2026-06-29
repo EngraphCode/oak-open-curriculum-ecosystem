@@ -11,13 +11,14 @@ import {
   type CreateSpawnWorktreeOptions,
   type SpawnedWorktree,
 } from './create.js';
+import { formatLaunchCommand } from './launch-command.js';
 import { openDraftPr, type OpenDraftPrOptions } from './open-pr.js';
 
 /**
  * CLI for `agent-tools spawn` (spawn-flow). Parses the lane slug, branch type, base
  * ref, and per-seat specifics, resolves the coordination home, creates a fresh
- * built draft-PR'd sibling worktree with a minted session seed, and emits its seat
- * brief. Argument parsing lives in `./cli-args`; brief rendering in `./brief`.
+ * built draft-PR'd sibling worktree, and emits its seat brief and launch command.
+ * Argument parsing lives in `./cli-args`; brief rendering in `./brief`.
  */
 export interface SpawnCliInput {
   readonly args: readonly string[];
@@ -88,6 +89,7 @@ function executeSpawn(
       director: parsed.director,
     }),
   );
+  stdout.write(formatLaunchCommand(created.value));
   return 0;
 }
 

@@ -1,35 +1,11 @@
-import { randomUUID } from 'node:crypto';
 import { dirname, join } from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-
-import { deriveIdentity } from '../core/agent-identity/index.js';
 
 import { detectExistingWorktree, type SpawnGitRunner } from './existing-worktree.js';
 import { realGitRunner } from './git.js';
 
 export type { SpawnGitRunner };
-
-/**
- * The session seed minted for a spawned worktree, plus the display name and
- * `session_id_prefix` derived from it.
- *
- * @remarks
- * This is deliberately NOT a full PDR-027 identity record: the spawned session
- * re-derives its complete record (including the stable v5 `id` and naming-schema
- * version) from {@link seed} at launch, so minting those here would be redundant
- * and would cross the collaboration-state boundary (`deriveIdFromSeed` is not
- * exported). The spawn tool needs only the seed (to bake into the launch command)
- * and the display label (for the brief and human-facing output).
- */
-interface SpawnSeed {
-  /** The fresh session seed; becomes the spawned session's `PRACTICE_AGENT_SESSION_ID`. */
-  readonly seed: string;
-  /** The deterministic display name derived from {@link seed}. */
-  readonly agentName: string;
-  /** The first six characters of {@link seed} (the PDR-027 `session_id_prefix`). */
-  readonly sessionIdPrefix: string;
-}
 
 /** Inputs to {@link createSpawnWorktree}. */
 export interface CreateSpawnWorktreeOptions {
@@ -43,8 +19,6 @@ export interface CreateSpawnWorktreeOptions {
   readonly coordinationHome: string;
   /** Git seam (defaults to the real `git` binary; injected as a fake in tests). */
   readonly runGit?: SpawnGitRunner;
-  /** Session-seed generator (defaults to a random UUID; injected for determinism in tests). */
-  readonly generateSeed?: () => string;
 }
 
 /** The worktree created by {@link createSpawnWorktree}. */
@@ -55,8 +29,6 @@ export interface SpawnedWorktree {
   readonly branch: string;
   /** The requested base ref — the branch is cut from it on creation; not re-applied on a resume. */
   readonly base: string;
-  /** The session seed and derived display label for the session that will occupy the worktree. */
-  readonly session: SpawnSeed;
   /** True when an existing matching worktree was resumed rather than newly created. */
   readonly resumed: boolean;
 }
@@ -181,14 +153,17 @@ function deriveSpawnTarget(
 }
 
 /**
- * Create a fresh sibling worktree on a new lane branch and mint the session seed
- * for the session that will occupy it (spawn-flow Phase 1A).
+ * Create a fresh sibling worktree on a new lane branch for the session that will
+ * occupy it (spawn-flow Phase 1A).
  *
  * The worktree is a sibling `oak-<slug>` directory next to the coordination
- * home, on a `<type>/<slug>` branch cut from `base`. Seed/name derivation is
- * deterministic in the generated seed. Validation is strict and fails fast
- * before any git side effect; the result is `err` (never a throw) on invalid
- * input or a git failure, the latter naming the branch, base, and path.
+ * home, on a `<type>/<slug>` branch cut from `base`. The spawned session's
+ * identity is NOT minted here: it is derived by the platform `SessionStart` hook
+ * from the harness `session_id` at launch (see `./launch-command.ts`), so spawn
+ * does not author an identity the launched session would not honour. Validation
+ * is strict and fails fast before any git side effect; the result is `err` (never
+ * a throw) on invalid input or a git failure, the latter naming the branch, base,
+ * and path.
  */
 export function createSpawnWorktree(
   options: CreateSpawnWorktreeOptions,
@@ -205,23 +180,15 @@ export function createSpawnWorktree(
   const { base } = validated.value;
 
   const runGit = options.runGit ?? defaultRunGit;
-  const generateSeed = options.generateSeed ?? randomUUID;
 
-  const seed = generateSeed();
-  const session: SpawnSeed = {
-    seed,
-    agentName: deriveIdentity(seed).displayName,
-    sessionIdPrefix: seed.slice(0, 6),
-  };
-  const worktree: SpawnedWorktree = { worktreePath, branch, base, session, resumed: false };
+  const worktree: SpawnedWorktree = { worktreePath, branch, base, resumed: false };
 
   const existing = detectExistingWorktree(runGit, options.coordinationHome, worktreePath, branch);
   if (existing.kind === 'resumable') {
     // Idempotent retry: a prior spawn created this worktree+branch but its build
     // failed. Resume (the caller re-runs build) — no git mutation, nothing removed.
-    // The worktree was never launched, so a fresh session seed is correct. `base` is
-    // NOT re-applied (the branch already exists), so the result is flagged `resumed`
-    // and must not be reported as a fresh creation from `base`.
+    // `base` is NOT re-applied (the branch already exists), so the result is flagged
+    // `resumed` and must not be reported as a fresh creation from `base`.
     return ok({ ...worktree, resumed: true });
   }
   if (existing.kind === 'collision') {

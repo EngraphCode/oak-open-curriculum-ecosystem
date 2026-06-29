@@ -37,7 +37,6 @@ const STUB_WORKTREE: SpawnedWorktree = {
   worktreePath: '/workspace/oak-spawn-flow',
   branch: 'feat/spawn-flow',
   base: 'origin/main',
-  session: { seed: 'seed-value', agentName: 'Test Agent Name', sessionIdPrefix: 'seed-v' },
   resumed: false,
 };
 
@@ -101,8 +100,6 @@ describe('runSpawnCli', () => {
     expect(text).toContain('/workspace/oak-spawn-flow');
     expect(text).toContain('feat/spawn-flow');
     expect(text).toContain('origin/main');
-    expect(text).toContain('Test Agent Name');
-    expect(text).toContain('seed-v');
     expect(text).toContain('draft PR');
     expect(text).toContain(PR_URL);
   });
@@ -195,6 +192,8 @@ describe('runSpawnCli', () => {
     // A resume is a build-retry: it must NOT re-open the PR, and prints no PR line.
     expect(openPrCalled).toBe(false);
     expect(text).not.toContain('draft PR');
+    // A resumed seat is still launchable — the launch command is emitted on resume too (1E).
+    expect(text).toContain("cd '/workspace/oak-spawn-flow' && claude");
   });
 
   it('exits non-zero with the error on stderr when --slug is missing', () => {
@@ -307,10 +306,26 @@ describe('runSpawnCli', () => {
     expect(text).toContain('Seat brief');
     expect(text).toContain('/oak-start-right-team');
     // The seat coordinates are derived from the spawn result, not a separate store.
-    expect(text).toContain('Test Agent Name');
     expect(text).toContain('feat/spawn-flow');
+    // Identity is not predicted — the brief defers it to launch.
+    expect(text).toContain('identity: assigned at launch');
     // The brief follows the spawn-result block (the result mentions the branch first).
     expect(text.indexOf('Seat brief')).toBeGreaterThan(text.indexOf('feat/spawn-flow'));
+  });
+
+  it('emits the launch command after the seat brief (1E)', () => {
+    const cap = capture();
+    const exitCode = runSpawnCli({ ...baseInput(), stdout: cap.out, stderr: cap.err });
+
+    expect(exitCode).toBe(0);
+    const text = cap.text();
+    expect(text).toContain("cd '/workspace/oak-spawn-flow' && claude");
+    // The launch command is the final actionable line — it follows the seat brief.
+    expect(text.indexOf("cd '/workspace/oak-spawn-flow' && claude")).toBeGreaterThan(
+      text.indexOf('Seat brief'),
+    );
+    // No identity seed is injected — the SessionStart hook owns identity (verified 2026-06-28).
+    expect(text).not.toContain('PRACTICE_AGENT_SESSION_ID');
   });
 
   it('collapses embedded whitespace in a seat specific so the brief stays one line per field', () => {

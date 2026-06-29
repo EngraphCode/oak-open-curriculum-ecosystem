@@ -1,4 +1,5 @@
 import { withResolvedActive } from './claim-active-path.js';
+import { withResolvedClosed } from './claim-closed-path.js';
 import { withResolvedNow } from './claim-now-default.js';
 import { archiveClaims, closeClaim, heartbeatClaim, openClaim } from './cli-claim-commands.js';
 import { adoptClaim, setHandoffClaim } from './cli-claim-handoff-commands.js';
@@ -95,13 +96,20 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     handler: renderComms,
   }),
   'comms:list': commandSpec({
+    // `now` is accepted and ignored (F-79): a read-only projection with no
+    // time-dependent behaviour, so a caller passing `--now` for cross-command
+    // symmetry is not rejected by the dispatch-time option allowlist.
     help: commsListHelp,
-    options: ['comms-dir', 'tail'],
+    options: ['comms-dir', 'tail', 'since', 'now'],
     handler: listComms,
   }),
   'comms:show': commandSpec({
     help: commsShowHelp,
     options: ['comms-dir', 'event-id'],
+    // F-80: the event id may be given as a bare positional (`comms show <id>`)
+    // as well as `--event-id <id>`; the dispatcher binds the positional to the
+    // `event-id` option key.
+    positional: 'event-id',
     handler: showComms,
   }),
   'comms:peer-liveness': commandSpec({
@@ -168,12 +176,12 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
   'claims:close': commandSpec({
     help: claimsCloseHelp,
     options: claimsCloseOptions,
-    handler: withResolvedActive(closeClaim),
+    handler: withResolvedActive(withResolvedClosed(closeClaim)),
   }),
   'claims:archive-stale': commandSpec({
     help: claimsArchiveStaleHelp,
     options: ['active', 'closed', 'now', 'platform', 'model', 'repo-root'],
-    handler: withResolvedActive(archiveClaims),
+    handler: withResolvedActive(withResolvedClosed(archiveClaims)),
   }),
   'claims:list': commandSpec({
     help: claimsListHelp,

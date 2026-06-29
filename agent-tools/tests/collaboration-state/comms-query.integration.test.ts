@@ -117,6 +117,116 @@ describe('comms list', () => {
     expect(result.exitCode).toBe(2);
     expect(result.stderr).toContain('--tail must be a positive integer (got: 0)');
   });
+
+  // F-79: `comms list` accepts `--now` and ignores it, so a caller passing
+  // `--now` for cross-command symmetry (e.g. scripting alongside the many
+  // commands that DO take `--now`) is not rejected by the dispatch-time option
+  // allowlist. `comms list` is a read-only projection with no time-dependent
+  // behaviour, so the flag is a deliberate no-op — accepted, never read.
+  it('accepts and ignores --now, behaving identically to a call without it', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    // Discriminating witness: 11:30 sits BETWEEN the middle (11:00) and newest
+    // (12:00) fixture events, so if `now` were ever wrongly wired to an as-of
+    // filter the newest event would drop and the equality below would fail loud.
+    const withNow = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--now', '2026-06-04T11:30:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    const baseline = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const withoutNow = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir],
+      env: {},
+      io: baseline.runtime.io,
+    });
+
+    expect(withNow.exitCode).toBe(0);
+    expect(withNow.stdout).toBe(withoutNow.stdout);
+  });
+
+  it('filters to events at or after --since, dropping older ones', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      // 11:00:00Z is event-middle's exact created_at — proves the boundary is inclusive.
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-04T11:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    const lines = result.stdout.trimEnd().split('\n');
+    expect(lines[0]).toBe('comms list — newest 2 of 2 event(s), most recent first');
+    expect(result.stdout).toContain('event-newest');
+    expect(result.stdout).toContain('event-middle');
+    expect(result.stdout).not.toContain('event-oldest');
+  });
+
+  it('applies --tail after the --since filter, counting the filtered candidates', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: [
+        '--',
+        'comms',
+        'list',
+        '--comms-dir',
+        commsDir,
+        '--since',
+        '2026-06-04T11:00:00Z',
+        '--tail',
+        '1',
+      ],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    const lines = result.stdout.trimEnd().split('\n');
+    expect(lines[0]).toBe('comms list — newest 1 of 2 event(s), most recent first');
+    expect(lines).toHaveLength(2);
+    expect(lines[1]).toContain('event-newest');
+  });
+
+  it('reports no events since the boundary when the filter excludes everything', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-05T00:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe('no comms events since 2026-06-05T00:00:00Z\n');
+  });
+
+  // An EMPTY directory has no events at all, so the since-framed message would
+  // be misleading (it implies events exist but none are recent). The generic
+  // message is correct regardless of --since. The sibling empty-dir test above
+  // passes no --since and the empty-since test above filters a NON-empty dir, so
+  // this is the case that distinguishes "no events exist" from "none since X".
+  it('reports the generic no-events message for an empty directory even with --since', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: [] } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', '2026-06-04T11:00:00Z'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe('no comms events\n');
+  });
+
+  it('rejects a non-ISO --since with a clear error', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, '--since', 'not-a-date'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('--since must be an ISO-8601 timestamp (got: not-a-date)');
+  });
 });
 
 describe('comms show', () => {
@@ -144,5 +254,76 @@ describe('comms show', () => {
 
     expect(result.exitCode).toBe(2);
     expect(result.stderr).toContain('comms event not found: nope');
+  });
+
+  // F-80: `comms show` accepts the event id as a positional argument, not only
+  // as `--event-id`, so the common `comms show <id>` reads as one would type it.
+  it('accepts the event id as a positional argument, identically to --event-id', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const positional = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'show', '--comms-dir', commsDir, 'event-newest'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    const flagged = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const withFlag = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'show', '--comms-dir', commsDir, '--event-id', 'event-newest'],
+      env: {},
+      io: flagged.runtime.io,
+    });
+
+    expect(positional.exitCode).toBe(0);
+    expect(positional.stdout).toBe(withFlag.stdout);
+  });
+
+  it('rejects supplying the event id as both a positional and --event-id', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: [
+        '--',
+        'comms',
+        'show',
+        '--comms-dir',
+        commsDir,
+        'event-newest',
+        '--event-id',
+        'event-oldest',
+      ],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('event-id');
+  });
+
+  it('rejects more than one positional argument', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'show', '--comms-dir', commsDir, 'event-newest', 'event-oldest'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+  });
+});
+
+describe('positional-argument safety (non-positional commands)', () => {
+  // F-80 moves bare-token rejection from parse time to dispatch time so a
+  // command may opt into a positional. Commands that do NOT opt in must still
+  // reject a stray bare token — this guards the whole estate against the
+  // parser change silently swallowing typos.
+  it('rejects a bare token on a command that declares no positional', async () => {
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'list', '--comms-dir', commsDir, 'stray-token'],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(2);
+    expect(result.stderr).toContain('stray-token');
   });
 });

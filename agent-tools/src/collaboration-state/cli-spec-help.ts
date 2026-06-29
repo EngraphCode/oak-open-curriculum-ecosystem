@@ -54,15 +54,17 @@ export const commsSendHelp =
 export const commsRenderHelp = 'comms render --comms-dir <dir> --output <path>';
 
 export const commsListHelp =
-  'comms list --comms-dir <dir> [--tail <n>] ' +
+  'comms list --comms-dir <dir> [--since <iso>] [--tail <n>] ' +
   '(newest-first one-line summary per event: created_at, event_id, ' +
-  'author/session_prefix, [kind] (plus any [tags]), and title; default tail ' +
-  '20; read-only, no identity seed required; pass an event_id to `comms show` ' +
-  'for the full body)';
+  'author/session_prefix, [kind] (plus any [tags]), and title; --since keeps ' +
+  'events at or after the ISO instant (inclusive); default tail 20; read-only, ' +
+  'no identity seed required; pass an event_id to `comms show` for the full ' +
+  'body)';
 
 export const commsShowHelp =
-  'comms show --comms-dir <dir> --event-id <id> ' +
+  'comms show --comms-dir <dir> (<event-id> | --event-id <id>) ' +
   '(prints the full canonical JSON event resolved by id, including its body; ' +
+  'the id may be given as a bare positional or via --event-id; ' +
   'read-only; fails non-zero when no event carries the id)';
 
 export const commsPeerLivenessHelp =
@@ -158,12 +160,12 @@ export const claimsSetHandoffHelp =
   '(records a handoff-record pointer under .agent/state/collaboration/handoffs/; PDR-063 step 3)';
 
 export const claimsCloseHelp =
-  'claims close --active <path> --closed <path> --claim-id <id> ' +
+  'claims close --active <path> [--closed <path>] --claim-id <id> ' +
   '--summary <text> --now <iso> --platform <platform> --model <model> ' +
   '[--closure-summary <text> alias for --summary]';
 
 export const claimsArchiveStaleHelp =
-  'claims archive-stale --active <path> --closed <path> --now <iso> ' +
+  'claims archive-stale --active <path> [--closed <path>] --now <iso> ' +
   '--platform <platform> --model <model>';
 
 export const claimsListHelp = 'claims list --active <path> [--now <iso>]';
