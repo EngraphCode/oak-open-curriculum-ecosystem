@@ -73,7 +73,7 @@ also a claim).
 | 20 | Fat-baton handoff inline diagnostics | partial | **KEEP** | handoff-messages-self-contained is structural; the concrete tactic (inline the already-run diagnostic so the receiver skips the rerun) is unnamed. |
 | 29 | PR-87 pre-phase adversarial security review | partial | **KEEP** | Security substance fully homed (ADR-158 + safety-and-security.md); the *pre-phase-timing* pattern signal is absent from the adversarial-review component. |
 | 35 | Skill/doc surface audit follow-ups | not-covered | **KEEP** | Five concrete audit heuristics have no landed home; the gating skills-audit plan is NOT STARTED; source napkin is archived. |
-| 45 | directory-survey before plan-stub | not-covered | **KEEP** | consolidate-at-third-consumer governs extraction timing; PDR-045 governs package survey — neither names plan-estate / `future/` survey before stub-spawn. |
+| 45 | directory-survey before plan-stub | not-covered | **KEEP** | consolidate-at-second-consumer governs extraction timing; PDR-045 governs package survey — neither names plan-estate / `future/` survey before stub-spawn. |
 | 47 | napkin + `.remember/` wiring | covered | **WITHDRAW** | session-handoff §232-240 + consolidate-docs fully specify `.remember/` handling; PDR-011's "napkin or equivalent" is the portability-correct abstraction — an amendment would violate `practice-core-portability`. |
 | 48 | session-handoff entrypoint sweep | partial | **KEEP** | The sweep behaviour exists (skill §6d); the *governance question* (promote to PDR-014?) is open and unrecorded in PDR-014. |
 | 49 | operational-seed-per-workstream | not-covered | **KEEP** | Claimed migration "into thread/lane state" never happened; substance lives only in an archived napkin + one plan-specific instantiation. |

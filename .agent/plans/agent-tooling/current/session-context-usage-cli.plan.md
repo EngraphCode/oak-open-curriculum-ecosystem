@@ -139,7 +139,7 @@ Each cycle: failing test first, then product code, then refactor — landing tog
 ## Lifecycle triggers · Consolidation
 
 - Start-right, active-claim on the new topic's file scope, decision-thread only on deviation from ratified decisions, session-handoff per landed cycle, `/oak-consolidate-docs` after WS6. Reference [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md).
-- On completion, evaluate whether the pure-core/IO-edge + vendor-adapter shape has crossed the consolidate-at-third-consumer threshold against context-cost and the spawn-flow runner-seam (pattern candidate).
+- On completion, evaluate whether the pure-core/IO-edge + vendor-adapter shape has crossed the consolidate-at-second-consumer threshold against context-cost and the spawn-flow runner-seam (pattern candidate).
 
 ## Plan-body first-principles check
 

@@ -215,7 +215,7 @@ Evidence and the full grounding trail:
   its last consumer leaves, together with its own unit test. Importer set verified 2026-06-09 as
   the six G1–G3 product files plus `graph-resource-factory.unit.test.ts`; the curriculum-model
   and EEF resources deliberately bypass it; G3 re-greps the importer set at execution. No
-  compatibility shim; any shared anchored-view mechanics are a consolidate-at-third-consumer
+  compatibility shim; any shared anchored-view mechanics are a consolidate-at-second-consumer
   decision at G3, never presupposed.
 
 ### Protocol notes (R2/mcp-expert, 2026-06-09)

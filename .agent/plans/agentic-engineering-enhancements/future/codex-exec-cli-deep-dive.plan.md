@@ -11,7 +11,7 @@ second concrete consumer (the trigger condition below).
 - [ADR-125 — Skill Canonicalisation and Adapter Topology](../../../../docs/architecture/architectural-decisions/125-skill-canonicalisation-and-adapter-topology.md)
 - [ADR-178 — Agent-Tools Build Isolation](../../../../docs/architecture/architectural-decisions/178-agent-tools-build-isolation.md)
 - [`.agent/skills/codex-helper/SKILL-CANONICAL.md`](../../../skills/codex-helper/SKILL-CANONICAL.md)
-- [`.agent/rules/consolidate-at-third-consumer.md`](../../../rules/consolidate-at-third-consumer.md)
+- [`.agent/rules/consolidate-at-second-consumer.md`](../../../rules/consolidate-at-second-consumer.md)
 
 ## Problem and Intent
 
@@ -58,8 +58,8 @@ through the codebase's complexity discipline.
 ## Mechanism
 
 Driven by real consumer demand, not anticipated demand. The
-[`consolidate-at-third-consumer`](../../../rules/consolidate-at-third-consumer.md)
-discipline applies: extract shared mechanism only after the third consumer
+[`consolidate-at-second-consumer`](../../../rules/consolidate-at-second-consumer.md)
+discipline applies: extract shared mechanism when the second consumer
 appears.
 
 ## Means (Candidate Subcommands)
@@ -157,7 +157,7 @@ Acceptance for completed work (when promoted):
   tension. The right reshape may be a much smaller flag surface, not a
   more clever implementation.
 - **Premature abstraction.** Adding subcommands ahead of demand fragments
-  the surface without producing value. The third-consumer rule is the
+  the surface without producing value. The second-consumer rule is the
   guard.
 
 ## Promotion Trigger
@@ -190,6 +190,6 @@ The shape, landing-path, and vendor-literal clauses fire at promotion to
   architectural-excellence-over-expediency (no cheap-cure subcommand
   shapes), strict refactor limits (50-line functions, 250-line files,
   complexity ≤8).
-- `consolidate-at-third-consumer.md` — extract only after demand.
+- `consolidate-at-second-consumer.md` — extract only after demand.
 - `local-broken-code-never-leaves.md` — observed proof of each subcommand
   is required before push.

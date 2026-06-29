@@ -2319,6 +2319,57 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions); owner-directed capture at this closeout.
 
+### F-110 — `gh` calls must route through a rate-limit-aware agent-tools command (batch + jitter + backoff)
+
+- **Source**: owner direction 2026-06-29 (Falcon deep-closeout) — the owner raised a fleet-wide
+  shared-resource broker as "a new concept in agent tooling." NB the triggering incident was
+  **misdiagnosed**: a `403` on a `gh` GraphQL call was initially read as 5,000-budget exhaustion, but the
+  evidence (`rate_limit` showing the *unauthenticated* signature `core.limit 60` / `graphql.limit 0`, and
+  the authenticated budget ~94% free minutes later) showed it was a **transient unauthenticated/token
+  blip**, not volume. So this entry is a **forward capability for genuine fleet shared-limit pressure**,
+  not the cure for that incident.
+- **Surface**: every direct `gh` / `gh api` / `gh api graphql` invocation across the agent estate —
+  PR-checks polling, reviewThreads queries, merge, update-branch. The 5,000/hr authenticated budget is
+  **shared** across all agents AND the Cursor/Sonar/Copilot bots — so genuine many-agent load will hit it.
+- **Observed**: tight `gh` polling is real (a `Monitor` polling `gh pr checks` every 30 s; repeated
+  `reviewThreads` queries) and is poor hygiene with no shared budget-governor — independent polling loops
+  would collectively pressure the shared budget under genuine fleet load, with no graceful degradation.
+  (It did NOT cause the 2026-06-29 incident, which was the transient-auth blip above — but it is the
+  class of behaviour the broker exists to govern.) **Immediate operational lesson** (separate from the
+  broker): read the `rate_limit` SIGNATURE — `limit 60` / `graphql.limit 0` means *unauthenticated*, not
+  *budget exhausted*; on a 401/unauthenticated signature, check `gh auth status` and retry, never assume
+  volume.
+- **Expected**: a single agent-tools command/wrapper that all `gh` access routes through, providing:
+  (a) **request batching** (one GraphQL query for checks + reviewThreads + state instead of three REST
+  calls; batch multi-PR queries); (b) **jitter** on poll cadences so fleet calls don't align;
+  (c) **exponential backoff with respect for the `Retry-After` / `X-RateLimit-Reset` headers** (sleep to
+  reset, never hot-retry a 403); (d) **shared-budget awareness** — read `rate_limit` and back off as the
+  remaining budget falls, reserving headroom; (e) **a long-poll/event alternative to 30 s `gh pr checks`
+  loops** (the Monitor pattern should consume this, not raw `gh`).
+- **Candidate cure**: `agent-tools gh <subcommand>` (or a `gh-budget` guard lib) wrapping the calls the
+  Director/merge flows use most (`pr-status` = checks+threads+state in one GraphQL round-trip;
+  `pr-merge`; `pr-update-branch`), with the backoff/jitter/budget-reservation logic centralised and
+  tested. Replace the `pr-watch` / CI-check Monitor poll loops with it. Pairs with the existing
+  "no PR monitor covers inline comments + terminal state" friction (one budgeted poller serves both).
+- **NEW CONCEPT — fleet-wide shared-resource broker (owner direction, 2026-06-29).** The cure is bigger
+  than a per-agent backoff wrapper: a tool that **collates requests from multiple agents** and serves
+  them from **shared resource pools with shared limits** (one fleet budget, not per-agent ceilings).
+  **The shared budget/pool STATE lives in the PRIMARY CHECKOUT** — the same coordination-home locus as
+  `active-claims.json`, resolved via `git worktree list` (`resolveCoordinationHome`, the F-41/F-85
+  lineage) — so every agent and worktree reads/writes ONE shared ledger instead of each polling blind.
+  Budget reservation is read from that ledger (back off as the *shared* remaining falls; reserve
+  headroom for higher-priority callers). The primitive **generalises beyond `gh`** to any shared
+  rate-limited resource (the LLM API, Sonar, Vercel), with `gh` as the first consumer. This is a new
+  multi-agent capability — a **candidate for its own plan/PDR**, not only a friction fix.
+- **Target surface**: `agent-tools/src/` (a new fleet shared-resource broker + a `gh` budget-aware
+  client over it; shared-ledger state under the primary-checkout coordination home) + the `pr-watch`
+  command + the Monitor recipes in the Director brief.
+- **Status**: open.
+- **Owner direction status**: standing (owner-directed 2026-06-29 — "batch those requests via an
+  agent-tools command with rate-limit handling, jitter, exponential backoff"; expanded same day — "a
+  tool that collates requests from multiple agents and uses shared resource pools and limits; the
+  'shared' part needs to live in the primary checkout").
+
 ---
 
 ## Mitigated / Addressed Frictions

@@ -13,7 +13,7 @@ import { type Result } from '@oaknational/result';
  *
  * This is the single shared seam shape for the spawn lane's git, pnpm, and gh
  * runners. It was hoisted to `core/` once a third independent consumer appeared
- * (git + pnpm + gh), per the consolidate-at-third-consumer discipline — replacing
+ * (git + pnpm + gh), per the consolidate-at-second-consumer discipline — replacing
  * three separate `(args, cwd) => Result<T, Error>` declarations with one
  * parametrised type. The git and pnpm seams keep a named alias for their semantic
  * name (`SpawnGitRunner = CommandRunner<string>`, `PnpmRunner = CommandRunner<void>`);

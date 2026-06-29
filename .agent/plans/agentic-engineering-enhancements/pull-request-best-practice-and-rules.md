@@ -77,7 +77,7 @@ re-verification before routing PR work; ls-remote / RED-first as proof disciplin
 ### Scope note (read before authoring rules)
 
 Most items above are EXISTING rules to consolidate/reference, not re-author
-(`consolidate-at-third-consumer`). The genuine NEW gaps are narrow: COMMIT_EDITMSG message
+(`consolidate-at-second-consumer`). The genuine NEW gaps are narrow: COMMIT_EDITMSG message
 isolation, whole-tree-gate ⇄ commit-scope alignment, and the commit-queue-wrapper tool-fix.
 Whether each becomes a rule, skill clause, tool change, or guidance is THIS plan's decision —
 this section preserves the evidence, deliberately not the conclusion.

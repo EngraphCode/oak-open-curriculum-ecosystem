@@ -640,11 +640,11 @@
 
 ### 45. Observability multi-sink near-miss: directory survey before plan-stub spawning
 **Captured**: 2026-05-02
-**Claimed home(s)**: `distilled.md` §Process entry (target); `consolidate-at-third-consumer.md` amendment (target)
+**Claimed home(s)**: `distilled.md` §Process entry (target); `consolidate-at-second-consumer.md` amendment (target)
 
 **Verified**:
 - `distilled.md` — NO "directory survey before plan-stub spawning" entry found.
-- `consolidate-at-third-consumer.md` (`agent-tools/` — actually `.agent/rules/consolidate-at-third-consumer.md`) — NO plan-stub survey content found.
+- `consolidate-at-second-consumer.md` (`agent-tools/` — actually `.agent/rules/consolidate-at-second-consumer.md`) — NO plan-stub survey content found.
 - Single instance (item confirms: "No second plan-stub-survey instance was found").
 
 **Portable home exists?**: None.

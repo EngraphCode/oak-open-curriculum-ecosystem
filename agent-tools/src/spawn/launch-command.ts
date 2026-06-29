@@ -8,8 +8,8 @@ const SHELL_SINGLE_QUOTE_ESCAPE = String.raw`'\''`;
  *
  * @remarks
  * A second copy of the same primitive lives in `../claude/session-identity-hook.ts`.
- * Two consumers is below the consolidate-at-third-consumer threshold; hoist both to
- * a shared `core/` shell-quote util when a third consumer appears.
+ * Two consumers meets the consolidate-at-second-consumer threshold, so this is
+ * consolidation-debt: hoist both to a shared `core/` shell-quote util.
  */
 function shellSingleQuote(value: string): string {
   return `'${value.replaceAll("'", SHELL_SINGLE_QUOTE_ESCAPE)}'`;

@@ -23,7 +23,7 @@ todos:
     status: done
     depends_on: []
   - id: ws5-lifecycle-conventions
-    content: "WS5: fold the WS3-grounded commit/push/gate/review-merge candidate inputs (see the Evidence base section) into the oak-pr skill (WS2) at their lifecycle stage, with the decided disposition per item — most are EXISTING rules to consolidate/reference (stage-by-explicit-pathspec, no-verify-requires-fresh-authorisation, no-backfill, pin-SHA-when-pre-grounding, PDR-078/ping-before-escalate, PDR-064 two-moments warden), per consolidate-at-third-consumer NOT re-authored. Two genuine NEW gaps land as oak-pr skill clauses (not new always-loaded rules — single-lifecycle-stage scope): (a) COMMIT_EDITMSG message-identity isolation — prescribe a per-intent message file (`git commit -F <file>`) so a peer cannot overwrite `.git/COMMIT_EDITMSG` during the pre-commit window; (b) whole-tree-gate ⇄ commit-scope alignment in shared trees — guidance to diagnose a peer's untracked edits breaking your gate, separating tree-state from branch-content. One item is a TOOL-FIX routed to the agent-tools lane, NOT this plan's build: the `commit-queue`-wrapper captured-hook-output defect (five instances, distilled/napkin) — interim convention is the direct gated commit (Path-B). The push-proof clause (transfer line + `git ls-remote`, never the hook banner) is a graduation candidate already in distilled; reference it from the skill."
+    content: "WS5: fold the WS3-grounded commit/push/gate/review-merge candidate inputs (see the Evidence base section) into the oak-pr skill (WS2) at their lifecycle stage, with the decided disposition per item — most are EXISTING rules to consolidate/reference (stage-by-explicit-pathspec, no-verify-requires-fresh-authorisation, no-backfill, pin-SHA-when-pre-grounding, PDR-078/ping-before-escalate, PDR-064 two-moments warden), per consolidate-at-second-consumer NOT re-authored. Two genuine NEW gaps land as oak-pr skill clauses (not new always-loaded rules — single-lifecycle-stage scope): (a) COMMIT_EDITMSG message-identity isolation — prescribe a per-intent message file (`git commit -F <file>`) so a peer cannot overwrite `.git/COMMIT_EDITMSG` during the pre-commit window; (b) whole-tree-gate ⇄ commit-scope alignment in shared trees — guidance to diagnose a peer's untracked edits breaking your gate, separating tree-state from branch-content. One item is a TOOL-FIX routed to the agent-tools lane, NOT this plan's build: the `commit-queue`-wrapper captured-hook-output defect (five instances, distilled/napkin) — interim convention is the direct gated commit (Path-B). The push-proof clause (transfer line + `git ls-remote`, never the hook banner) is a graduation candidate already in distilled; reference it from the skill."
     status: pending
     depends_on: [ws2-oak-pr-skill]
 isProject: false
@@ -117,7 +117,7 @@ the decision. The decided disposition per candidate input (decision-complete):
 Two-moments warden handoff for the commit/push-window singleton (PDR-064) and
 execution-start re-verification are "what worked" — the skill encourages, not mandates, them.
 Net: the genuine NEW authoring is narrow (two skill clauses); everything else is
-consolidate-and-reference per `consolidate-at-third-consumer`, or a routed tool-fix.
+consolidate-and-reference per `consolidate-at-second-consumer`, or a routed tool-fix.
 
 ## Mechanism — layered cure, strongest first
 

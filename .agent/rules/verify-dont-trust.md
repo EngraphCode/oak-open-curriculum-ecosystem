@@ -166,6 +166,27 @@ The smoother and more convenient the claim, the harder the citation is owed.
   tracked artefacts (a diagnostic `sdk-codegen` once deleted ~100 tracked files
   this way).
 
+## Timestamp-Zone Discipline
+
+Owner-directed, standing (2026-06-29) — all agents, all analysis. A timestamp is a
+load-bearing fact; an unlabelled or mis-zoned one is a verification failure.
+
+- **UTC (`Z`) is the canonical analysis clock.** Host / `pmset` / system logs / the
+  Monitor wall-clock are in the **host's local zone — determine it (`date +%z`), never
+  assume a fixed offset** (it varies by host and by DST). Convert every local source to
+  UTC using that actual offset and **show** the conversion (e.g. on a `+0100` host,
+  `01:06 +0100 = 00:06Z`).
+- **Never compare a `…Z` time against a local-offset time** — the 2026-06-25 false
+  58-minute coordinator-less gap came from reading `07:52Z` against an `~08:50` local
+  clock on a `+0100` (BST) host, where `07:52Z` *is* `08:52` local.
+- **Label every timestamp's zone.** An unlabelled timestamp is a bug.
+- **Never infer a timeline from a truncated log view** (`tail` / `head` / capped grep) —
+  query the full window first (a `tail`-truncated `pmset` read once reported `00:51Z`
+  when the full log gave `00:06Z`).
+
+Composes with the `director-handoff.md` liveness rule (let the tool compute age
+UTC-to-UTC; never a local clock).
+
 ## Composition
 
 - [`respect-active-agent-claims`](respect-active-agent-claims.md) — claims are

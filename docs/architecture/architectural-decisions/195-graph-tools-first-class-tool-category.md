@@ -205,7 +205,7 @@ projection under ADR-191, not relevance judgement.
 - **Runtime budget caps as the bound.** Rejected: budget shapes design (§5); a cap converts a
   scoping bug into silent data loss.
 - **A generic corpus-tool factory from the first tool.** Not taken: each tool is a thin per-view
-  formatter; shared mechanics are a consolidate-at-third-consumer decision, never presupposed.
+  formatter; shared mechanics are a consolidate-at-second-consumer decision, never presupposed.
 
 ## Open questions / future revision
 

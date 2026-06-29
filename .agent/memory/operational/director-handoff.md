@@ -172,6 +172,57 @@ Each lesson is the cure for a churn cause observed in the pilot.
   spends the Director's scarcest resource (context) on signals that needed no
   action and shortens the very tenure the role exists to maximise. A concrete
   application of PDR-117 minimum-action (Firefly + Triton + Kraken all lived it).
+- **Delegate Implementer-class work aggressively; pace context like the warm
+  cache it is.** Sub-agent reviews, spec fetches, mechanical sweeps, and synthesis
+  reconnaissance; do not self-author what a cheaper agent can. Measure your own
+  context at the handoff gate — don't confabulate it (Kraken measured 52%, surfaced
+  it, handed off clean). The spend-rate, not the calendar, is what ends a tenure.
+- **At takeover, registry-freshness ≠ comms-liveness.** The claims registry can
+  read every agent — including the outgoing Director — as `stale` (the 4h claim
+  window) while the comms-heartbeat stream shows them LIVE; they measure different
+  things. Cross-check both before a Moment-2; taking the seat over a live Director
+  is the trap. This is the live **F-44** code defect (`active-agents.ts` reads claim
+  freshness as liveness) — systemic, not incidental. (Falcon lived this at the
+  Trawler handover: a 55-min heartbeat gap was the correct n=1 consumer-absent
+  suspension, not retirement — the owner's correction prevented a false takeover.)
+- **Cadence never goes dark at a handoff.** The PDR-078 §4 consumer-absent exemption
+  ends the moment a successor is named — a named successor IS a consumer. Re-arm
+  watcher + heartbeat when the handoff begins; do not read "n=1" while a successor
+  is inbound.
+- **Ground in the homed plan before designing — most "design" is crosswalk +
+  activation, not greenfield.** Read the plan estate first; launching a design
+  workflow over an already-homed plan risks forking an SSOT.
+- **Director-run workflows (ultracode): flat output schemas** (a nested matrix
+  schema hit the StructuredOutput retry-cap and failed silently), **never seed a
+  contested call as "settled" in a brief** (the agents reflect it and the
+  adversarial verifier cannot catch what you marked settled), and **critically
+  assess every result AND its cited sources first-hand** (a cited SHA was not in
+  main; an "unmeasured 10:1" was a measured 1.59:1).
+- **Reject either/or — climb to the third option / the both.** A binary handed to
+  the Director is the signal to climb (filter-vs-derive dissolved into one object
+  that was both relief and structural cure). Run the five decision lenses before
+  surfacing ANY question; surface only the constitutively-owner one.
+- **Closeout is serial mutation, verified first-hand at the instant.** Re-verify a
+  worktree clean immediately before `git worktree remove` (never `--force`);
+  archive-not-delete (move, count-conserved); patch-id-verify a squash-merged branch
+  before pruning (branch-existence is not preservation); never line-merge
+  memory/state files.
+- **A reserve/standby seat burns the very freshness it exists to preserve** if it
+  cannot filter the heartbeat firehose — reserve-seat watcher filtering (the Lane-C
+  `--exclude-tag heartbeat` work) is load-bearing economics, not a nicety; standby
+  burn shortens the Director tenure the bench exists to extend.
+- **The auto-update-branch babysitter** (reusable release-churn cure): a Monitor
+  that `gh pr update-branch`es any OPEN+BEHIND auto-merge-enabled PR and emits only
+  on a conflict. Safe because `--auto` enforces every merge gate server-side, so it
+  only lets a genuinely-ready PR win the release-churn race — removing per-round
+  babysitting from the Director's context.
+
+The experiential source for the last several lessons is the Trawler-tenure how-to
+brief ([`director-howto-and-pdr117-gaps-2026-06-29.md`](../../reports/agentic-engineering/director-howto-and-pdr117-gaps-2026-06-29.md)).
+Its **Part B (PDR-117 missing axes)** is a queued doctrine-design task — context-budget
+economy as a first-class axis, takeover-verification doctrine, owner-interaction modes,
+Director-as-orchestrator, arc-closeout-as-responsibility, the loss-scan axis — to be
+authored on fresh context (owner-directed), with PDR-117 as the surface to amend.
 
 ## Known friction (route to tooling, not to the brief or the plan)
 
@@ -213,416 +264,51 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ DIRECTOR ROTATION Trawler mends Buoy → Falcon wakes Stratus (2026-06-29, owner-directed at ~74% context)
+> ### ▶ TEAM-TOOLING ARC CLOSED — Director: Falcon wakes Stratus (active, 2026-06-29)
 >
-> **Incoming: Falcon wakes Stratus** (owner-named). **Outgoing: Trawler mends Buoy** (`a9e0a1`, 5th Director; took
-> the seat from Kraken via clean PDR-064). Director claim **`e8e31d89`** (relinquish at Falcon's Moment-2). Chain:
-> Firefly → Merlin → Triton → Kraken → Trawler → (Falcon). My heartbeat is STOPPED and the comms watcher is DOWN
-> (n=1 consumer-absent; watcher died on the archive-move race, not re-armed) — **Falcon move-1 = arm watcher + heartbeat.**
+> **Director: Falcon wakes Stratus** (`adb1f3`, 6th Director; clean PDR-064 from Trawler mends
+> Buoy, Moment-2 `3078f8c6`). Chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon.
+> Watcher + heartbeat live; single Director claim `4180e263`.
 >
-> **THE TEAM-TOOLING ARC IS CLOSED (code fully landed).** All PRs #269–#286 plus #282 MERGED to main; all 4
-> worktrees removed; arc branches pruned (squash branches patch-id-verified before -D); comms archived (469 heartbeats
-> moved-not-deleted via the canonical `comms-archive-move`, count-conserved, owner lifted the hold). Committed this
-> session: 2 continuity docs (`28d1c6797`); the #282 path-traversal fix (`1317e039f`, security-expert RESOLVED, merged `7b7d8155`).
+> **THE TEAM-TOOLING ARC IS CLOSED.** All PRs #269–#286 + #282 merged to main; the arc-end
+> coordination PR **#268 MERGED** (`1b5ce326`, Falcon — 6 review threads resolved: 2 doc fixes,
+> 4 not-defects). All worktrees removed; arc branches pruned; comms archived (count-conserved).
+> Deep consolidation of the arc's captures is in progress on
+> `consolidation/deep-closeout-2026-06-29`.
 >
-> **IN-FLIGHT — PICK UP FIRST (PDR-063 freeze):** a register/continuity reconciliation sub-agent (`af63037886c602775`)
-> is making targeted edits — frictions-register.md (F-70/77/79/80 `open`→ADDRESSED; F-98→partially-addressed, PRESERVE
-> the open decision-class; F-101 SHA `e4549f49b`→`b46089fe4`; F-108 note on the F-72/F-85 trailing lines) and
-> repo-continuity.md (team-tooling entry → arc-closing; agentic-engineering-enhancements identity row → Trawler/2026-06-29).
-> **Its diff is UNCOMMITTED — REVIEW FIRST-HAND before committing** (critically-assess-subagents; the merge SHAs were
-> verified in origin/main by the closeout workflow). Then commit by explicit pathspec.
+> **NEXT WORK — the SYNTHESIS PHASE (owner-directed, fresh-context; not yet started, inputs conserved):**
 >
-> **REMAINING CLOSEOUT:** (1) review+commit the reconciliation diff; (2) **close #268** (coordination PR) —
-> update-branch (now #282 is merged), green gates, `gh pr merge --merge` (**NO --admin**: owner standing direction this
-> session — green gates + all conversations resolved ⇒ the Director merges directly, there is no code-owner-approval gap).
-> Optional/owner: prune ~60 merged local branches (reversible by re-fetch).
+> 1. **Worktree-per-agent / PDR-117 MODEL VERDICT** — the comms/liveness substrate cure is homed
+>    in `collaboration-substrate-coordination-rightsizing` (M1–M4) + `comms-watch-storage-redesign`
+>    WS2 (mtime-watermark) + `comms-watch-liveness-floor`; the live **F-44 freshness≠liveness SAFETY
+>    defect** (`active-agents.ts` reads claim freshness as liveness) is the do-first item.
+> 2. **PDR-117 expansion** — the missing axes seeded in
+>    [`director-howto-and-pdr117-gaps-2026-06-29.md`](../../reports/agentic-engineering/director-howto-and-pdr117-gaps-2026-06-29.md)
+>    Part B (context-budget economy, takeover-verification, owner-interaction modes,
+>    Director-as-orchestrator, arc-closeout responsibility, the loss-scan axis). PDR-117 is the
+>    surface to amend.
+> 3. **do-first efficiency matrix** (2/3 produced; workflow `w5xlcz6iu`) and **rightsizing-plan
+>    M1→M2 activation** (owner decision; the 2026-05-25 archival hold is already lifted).
+> 4. **NEXT TEAM (owner-set):** two co-equal lanes — architecture-efficiency (rightsizing) AND
+>    intent-graph (opens with a broad shallow plan-estate scan); interim = owner deep-consolidation
+>    sessions.
 >
-> **SYNTHESIS PHASE (owner's named shift — the real next work):**
-> (a) draw the **worktree-per-agent / PDR-117 MODEL VERDICT** — headline: the comms/liveness substrate cure is HOMED in
-> `collaboration-substrate-coordination-rightsizing` M1–M4 + `comms-watch-storage-redesign` WS2 (mtime-watermark, NOT a
-> naive cursor) + `comms-watch-liveness-floor`; the both/and = channel-separation (immediate constant-reduction) +
-> derived-liveness register (class-changer) + WS2 drain; a **LIVE F-44 freshness≠liveness SAFETY defect** at
-> `active-agents.ts` (~L232 reads claim freshness as liveness → cure: read `heartbeat_at` recency); lead-with-constant-reduction
-> (O(N²) is forward-not-now, N≲4; deaths were host-load I/O contention not corpus size — Kraken pmset-verified);
-> instrument crossover-N before deeper redesign. The exclude-filter is valid relief (NOT a cowpath) but subsumed by the register.
-> (b) the **do-first efficiency matrix** — workflow `w5xlcz6iu` gave 2/3 matrices (impact-first + effort-skeptic OK;
-> prereq-dependency scorer FAILED on StructuredOutput retry-cap — schema too complex, lesson in memory); do-first-before-
-> intent-graph ≈ **F-44 safety fix + heartbeat-flood removal (channel-separation / derived-register)** (cheap, high
-> team-running impact; one is a live safety bug); the rest co-equal/parallel/later.
-> (c) the **rightsizing-plan ACTIVATION** owner-decision (activate M1→M2; the 2026-05-25 archival hold is ALREADY LIFTED).
+> **OWNER STANDING DIRECTIONS (apply going forward):** green + all-conversations-resolved ⇒ the
+> Director merges directly, no `--admin`; reject every either/or ⇒ third-option / both; run the five
+> decision lenses before surfacing any question (surface only the constitutively-owner one); UTC
+> canonical for every internal timestamp (label zones, convert BST explicitly); archive-not-delete;
+> critically assess ALL subagent results AND their sources.
 >
-> **NEXT TEAM (owner-set):** TWO CO-EQUAL lanes under one shared team-level impact — architecture-efficiency (the
-> rightsizing) AND intent-graph (opens with a broad shallow plan-estate scan); INTERIM = owner runs deep standalone
-> consolidation sessions, so keep the current closeout to LIGHT continuity (NOT deep doctrine consolidation).
+> **OWNER-ACTION QUEUE (genuinely the owner's):** overage limit — the automated `claude` PR-reviewer
+> is OFF org-wide (claude.ai/admin-settings); orientation-MCP lane provisioning
+> (`mcp-tool-taxonomy-and-orientation.plan.md` — no lane owns it); O4/OQ5 composed-liveness decision;
+> the rightsizing M1→M2 activation.
 >
-> **OWNER STANDING DIRECTIONS captured this session (apply going forward):** green+resolved ⇒ Director merges, no-admin;
-> reject every either/or ⇒ third-option/both; run the 5 decision lenses before surfacing any question (surface only the
-> constitutively-owner); UTC canonical for every internal timestamp (label zones, convert BST explicitly, never infer
-> from a truncated log view); archive-not-delete; critically assess ALL subagent results AND their sources.
->
-> **READINESS GATE for Falcon:** answer the five questions + paste the mechanical liveness check (UTC-to-UTC) before
-> Moment-2; then open your Director claim and relinquish Trawler's `e8e31d89`. Live work is the TaskList (#1–#4 done; #5
-> reconciliation in-flight; #6 #268-close, #7 synthesis pending). At n=1 you are the only operator; no other live agents.
->
-> ---
->
-> [PRIOR ROTATIONS retained below as context — recompute live state from active-claims.json + comms at your gate.]
->
-> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (**Triton lifts Eternity → Kraken
-> spins Headland** Director rotation, PDR-064, owner-directed, at Triton's ~50% effectiveness-curve handover
-> point). The team-tooling session is LIVE and continues under Kraken. **The detailed Merlin-tenure blocks
-> BELOW this one are prior-rotation context; this block is the current state — recompute the live cast from
-> `active-claims.json` + the comms stream at your readiness gate (Continuation Pointer Contract).**
->
-> ### ▶ TEAM-TOOLING SESSION — LIVE; DIRECTOR ROTATION Triton → Kraken (2026-06-28)
->
-> **Incoming Director: Kraken spins Headland** (`3bbe48`, owner-named, standing by, ran liveness check on Triton).
-> **Outgoing: Triton lifts Eternity** (`34b9ce`, third Director; clean PDR-064 from Merlin; drove 1C/1D/1E + F-89/F-70/F-77
-> merges, the merge-policy change, the Sirius/Lane-C stream scoping, the context-usage script). **Director claim
-> `17a3ad09`** (relinquish at Kraken's Moment-2; Triton stops its heartbeat at stand-down). Director chain (all clean
-> two-moments): Firefly → Merlin → Triton → (Kraken).
->
-> **LIVE CAST (recompute at your gate):**
->
-> - **Lane A (O3 spawn-flow): Kayak turns Channel** (`2009dd`, claim `a63ac21a`). 1A–1D MERGED; **1E PR #280
->   GENUINELY-READY** (routed, CI-green/0-threads/BEHIND — update-branch then `--merge`); then the **§4.A cleanup PR**
->   (Director-RATIFIED: reshape SpawnSeed/1A + correct the 1D brief identity line to "harness-derived at launch" —
->   Kayak verified the minted seed has ZERO readers and cannot survive the Claude SessionStart hook); then Phase 2
->   (F-98 heartbeat-age = input-to-verify, NOT claim-freshness) → Phase 0 (owner-gated). Standby: **Kingfisher seeks
->   Moorings** (`59a56d`) — holds a standby marker-claim `11fbd4e9` + heartbeats (deviates from the no-claim standby
->   convention; commits to adopt-`a63ac21a`-in-place + close `11fbd4e9` at handoff; left as-is, a convention Q for you).
-> - **Lane B (O2 ergonomics): Hearth herds Sulphur** (`6ad8ea`, claim `0ba02fee`). F-85/F-89/F-70/F-77 SHIPPED; now
->   landing the **late F-70 #278 Cursor finding** (empty-dir+`--since` wrong message — REAL/Low, Peregrine's exact
->   fix); **F-79 committed** (`bc0bb07f1`, PR inbound); then F-80 → `--closed` F-NN. Lane B/C share the comms CLI
->   spec/help/options registries — ADDITIVE-ONLY, coordinate shared-file touches.
-> - **Lane C (NEW agent-tooling stream): Sirius weaves Night** (`aad6cc`, claim `feba5172`). **Goal 2** (session-context
->   CLI `agent-tools session-metadata` — vendor/model/session-id IN, occupancy+effectiveness-zone OUT) **BUILT + green +
->   proven** (matches Triton's statusline-validated script; PR inbound, route + `--merge`); then **Goal 1** (`comms watch`
->   reserve-seat heartbeat-exclude flag — clean Lane C, additive on shared comms dispatch). Standby: **Seraph seeks
->   Quench** (`4beeb3`). Director boundary ruling: event `8e329ac1`.
->
-> **IN-FLIGHT MERGE BOARD (your open verdicts — verify first-hand at the instant: CI + GraphQL reviewThreads + inline):**
->
-> - **#278 (F-70):** auto-merge OFF (owner disabled), BEHIND, **1 unresolved Cursor thread** (Hearth fixing). After the
->   fix → thread resolves → re-arm `--merge --auto` → **land F-70 register** (central).
-> - **#279 (F-77):** MERGED (merge commit `13ce23cc`). **F-77 register land OWED** (central, frictions-register).
-> - **#280 (1E):** OPEN, genuinely-ready → update-branch + `--merge`. (1E is an O3 plan-phase, NOT a frictions F-NN.)
-> - **Inbound:** Sirius Goal-2 PR; Lane B F-79 PR; Kayak §4.A cleanup PR. Verify + `--merge` each as routed.
->
-> **MERGE MODEL — owner direction STANDING (2026-06-28): Director merges via `gh pr merge --merge` (MERGE COMMIT), NOT
-> `--squash`.** Verified `allow_merge_commit=true`. Mechanism: verify first-hand AT the instant; `update-branch` when
-> BEHIND; **`--auto`** handles the stale-Copilot-review-after-update-branch BLOCK (thread-resolution + checks enforced
-> server-side). **Release-churn:** the release-bot commits a `[skip ci]` bump after every merge → each pending PR goes
-> BEHIND → manual `update-branch` loop (cure is tooling: auto-update / merge-queue). #275/#276 landed as squash (prior
-> model); #277/#279 as merge commits (new). Per-merge owner approval NOT needed (code-owner gate count-0 non-blocking;
-> #275–#279 merged with no owner review).
->
-> **OWNER-ACTION QUEUE (genuinely owner's):** (1) overage limit — automated `claude` PR-reviewer OFF org-wide
-> (claude.ai/admin-settings). (2) **host-load = RESOLVED-AS-MISREAD** — owner showed Activity Monitor (macOS healthy:
-> CPU idle 67%, mem-pressure green); the load-avg-vs-cores reading is Linux-shaped and over-reads on macOS; watcher
-> drain-deaths are comms-VOLUME cost, not host starvation (behaviour-note `cfcb19f6`). Cast-sizing is NOT
-> host-constrained. (3) **orientation-MCP follow-on** (`mcp-tool-taxonomy-and-orientation.plan.md`) — NO lane owns it;
-> different domain (MCP/SDK, not agent-tooling); **owner deciding** whether to provision a new lane (Triton surfaced
-> a/b/c; pending). (4) **O4/OQ5 composed-liveness DECISION** — late, owner-gated, not started.
->
-> **TRITON-TENURE CONSERVED INSIGHT (comms behaviour-notes, for the DUE dedicated pass):** effectiveness-curve
-> calibration `d0ef27ce`; host-load-misread + watcher-drain re-diagnosis `cfcb19f6`; **standing-successor throughput
-> hypothesis** (subjective/unmeasured, with mechanism + measurement proposal) `1c5b1238`; context-usage CLI mechanism
-> `98483455` (Sirius built it as Goal 2); merge-policy change `6fa4d57b`; handover metacognition reflexes `09598a78`
-> (--body-file-after-first-fail; cheap-path-before-archaeology; keep-first-hand-thread-verify; release-churn). **DEEP
-> CONSOLIDATION is DUE** (napkin 555+ lines, rotation-due; uncommitted captures from many retirees) — a dedicated session.
->
-> **READINESS GATE for Kraken** (answer all five + paste the mechanical liveness check before Moment-2): live
-> implementers = Kayak(A) / Hearth(B) / Sirius(C) + standbys (Kingfisher/Seraph); open verdicts = the merge board
-> above; owner-gated = Phase-0 / O4-OQ5 / overage / orientation-MCP; next safe step = land the F-77 register, re-arm
-> #278 after Hearth's fix, then process the inbound PRs (#280, Sirius Goal-2, F-79, §4.A cleanup); Triton standing
-> down = YES (owner-directed, this handover). **First Director move:** receive + first-hand-verify + `--merge` #280 (1E).
-
----
-
-> Refresh this whole section at every handoff. [PRIOR ROTATION — Merlin → Triton, retained as context.] Last refreshed 2026-06-28 (**Merlin seeks Rainbow → Triton lifts
-> Eternity** Director rotation, PDR-064, owner-directed). The team-tooling session is LIVE and continues under Triton.
->
-> ### ▶ TEAM-TOOLING SESSION — LIVE (2026-06-28); DIRECTOR ROTATION Merlin → Triton
->
-> **Incoming Director: Triton lifts Eternity** (owner-named). Outgoing: **Merlin seeks Rainbow** (`5b63d9`, second
-> Director — took the seat from Firefly via clean PDR-064 two-moments; drove the whole PR batch to main + all
-> register lands + two more implementer rotations + the Lane-B retirement; handing off on owner direction,
-> handover-before-closeout). **Director claim `55141cf9`** (relinquish/replace at Triton's Moment-2).
-> **Live implementer: Dormouse stirs Frost** (`17b589`) = Lane A (O3 spawn-flow, claim `a63ac21a`) — BUILDING 1C
-> (draft-PR-at-spawn) on branch `feat/spawn-draft-pr` off fresh main: slice-1 gh-seam hoist DONE (CommandRunner<T>
-> / PathExists + trusted-gh to `core/`), slice-2 empty-commit `openDraftPr` + cli wiring in progress → will route
-> the flat 1C PR to the Director at CI-green + 0 threads. **Lane B is RETAINED for handoff** (Pegasus guards Dawn
-> retired clean PDR-063; claim `0ba02fee` + handoff record `handoffs/0ba02fee-pegasus-lane-b-to-successor-2026-06-28.md`
-> held for the next Lane B agent). **Resumption gate:** the owner provisions a Lane B successor for the O2 tail —
-> Merlin's Director decision was NOT to spin one now (host-load-aware; the O2 ergonomics tail is non-blocking polish
-> and the core batch has landed); release the retained claim at the owner's/Director's discretion if no pickup.
-> **Standby:** Quasar mends Penumbra (`b66426`) = Lane A successor (for Dormouse). **Retired clean this session:**
-> Beluga rides Wave (setup), Beluga turns Shoal (Lane A 1A/1B), Pangolin weaves Nightfall (Lane B F-82/F-101),
-> Avocet tracks Crag (Lane A + O5), Ingot tracks Brilliance (Lane B F-75), Pegasus guards Dawn (Lane B F-85).
-> Director chain (all clean PDR-064 two-moments): Firefly → Merlin → (Triton).
->
-> **⚠ THE LIVE CAST IS VOLATILE — recompute it from `active-claims.json` + the comms stream at your readiness
-> gate; this doc is a pointer, not volatile truth (Continuation Pointer Contract).** As of ~21:00Z the cast moved
-> again mid-handover: **Lane A handed Dormouse → Quasar mends Penumbra** (`b66426`, adopted the SAME claim
-> `a63ac21a`) — **1C is COMMITTED + PUSHED** (`origin/feat/spawn-draft-pr`, HEAD `9baf83f4a`, gates green,
-> architecture-expert + code-expert approved); Quasar opens the **flat 1C PR** next (`gh pr create --base main
-> --head feat/spawn-draft-pr`, do NOT rebase — Director updates-at-merge) and routes the merge to you. **Lane B
-> now HAS a named successor: Lichen spins Chlorophyll** (owner-named) — Pegasus guards Dawn is warm until Lichen
-> adopts `0ba02fee`, then Lane B CONTINUES under Lichen for the O2 tail. **This supersedes the host-load Lane-B
-> retention above and RESOLVES owner-action-queue item #3** (the owner provisioned the successor). Quasar's
-> successor is no longer benched (it was promoted from standby); a fresh Lane A successor may be owner-provisioned.
->
-> **Guiding plan (owner-APPROVED):**
-> [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md);
-> opener instance authored at
-> [`team-tooling-session-2026-06-28.prompt.md`](../../prompts/agentic-engineering/team-tooling-session-2026-06-28.prompt.md)
-> (move-0, committed `e46bac0de`; A↔B boundary = A owns greenfield `agent-tools/src/spawn/**`, B owns existing
-> `collaboration-state/**`, bin-dispatch additive-only, A reads B liveness read-only). Locked scope:
-> [`cost-of-collaboration.plan.md` §Locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md).
-> **Coordination home:** `coordination/team-tooling-session-2026-06-28` (17 ahead of `origin/main` d4c4402f1);
-> draft PR #268. Branch model: implementer PRs are **pure diffs direct to main, off `origin/main`** (NOT the
-> coordination branch — a base-branch defect I made + corrected early); the coordination branch carries only
-> Director state and merges at arc-end.
->
-> **PR STATE (first-hand, ~20:50Z) — the whole batch LANDED on `main`:**
->
-> - **#269** 1A/F-87 — MERGED `a1e9b8585`.
-> - **#270** F-101 (watcher supervisor-death) — MERGED (Firefly, proved the Director-merge path).
-> - **#271** O5 (under-the-hood discovery pointer) — MERGED `5fe76db8c` (Merlin's first Director merge).
-> - **#272** 1B/F-90 (build-at-spawn; T1 cured WITHOUT a never-use-git-to-remove-work exemption — no-removal
->   idempotent-retry probing `git worktree list`; base-ref reported via an honest `resumed` flag) — MERGED `4b84ea702`.
-> - **#273** F-75 (comms peer-liveness heartbeat-silence; pull surface + poll recipe, push-integration deferred) — MERGED `0be09bf05`.
-> - **#274** F-85 (claims `--active`→coordination-home; CLOSES F-72) — MERGED `c4d2b6902`.
-> - **OPEN / INBOUND:** Dormouse's flat **1C PR** (not yet opened) → route to the Director at CI-green + 0 threads,
->   verify first-hand, merge. After 1C: Lane A continues 1D → 1E launch → Phase 2 (F-98 binding view + heartbeat-age
->   column = input-to-verify, NOT claim freshness) → Phase 0 (owner-gated). 1C design verdicts already given:
->   Q1 empty-commit RATIFIED (+ a test pinning "draft PR exists at spawn-end on a no-commit branch"); Q2 gh runner-seam
->   hoist to `core/` ACK'd (architecture-reviewer-gated; A↔B boundary respected).
->
-> **MERGE MODEL — owner-granted 2026-06-28: the DIRECTOR has merge permission for this session.** Merge a PR
-> directly when CI is green AND every comment is addressed (fix or explicit dismissal) AND resolved. This
-> SUPERSEDES the earlier owner-automerge-enable model — the Director does NOT wait for the owner to enable
-> automerge. Adjudicate via GraphQL `reviewThreads{isResolved}` (re-verify 0-unresolved at merge time; bots post
-> async). #270 mergeable NOW (CLEAN, 16/16, 0 threads); #271 after update-branch (BEHIND); #272 + Ingot's F-75 at
-> their CI-green. (#269 was landed via the owner's automerge before this grant.)
->
-> **OWNER-ACTION QUEUE (genuinely the owner's; surfaced, not coordination-escalations):**
->
-> 1. **Org-admin (open):** the automated `claude` PR-reviewer is **OFF org-wide** ("overage spend limit reached") —
->    affects every PR (Copilot/Bugbot/Sonar/CodeQL + sub-agent reviewers cover it, all critically assessed). Raise
->    the monthly limit at claude.ai/admin-settings to restore.
-> 2. **Host load (open):** ~21.9/14 cores + swap ~4.94/6G (Quasar flagged at registration; above the
->    `no-unbounded-host-load` threshold; the proximate cause of the recurring watcher drain-deaths). Cast-sizing is
->    the owner's lever. The team has CONTRACTED (Pegasus retired, Lane B retained-for-handoff) as the healthy
->    response — Merlin chose park-not-spin to ease load.
-> 3. **Lane B re-staffing decision:** the O2 ergonomics tail (F-89/F-70/F-77/F-79/F-80 + the `--closed` F-NN) needs
->    a Lane B agent. Provisioning one is the owner's agent-density call (gated against host load). Non-blocking;
->    warm pickup record set on claim `0ba02fee`.
-> 4. **O4/OQ5 composed-liveness DECISION** — late sidebar, owner-ratification-gated (not started; run near arc-end).
->
-> **REGISTER LANDS — all owed lands DONE + pushed** (Director-owned, central; implementers name F-NN in their merge
-> comms event, do NOT touch the register on feature branches): F-101 NARROW-supersession (#270, commit `e8db67ab8`
-> — only the lease-on-Stop-hook superseded, NOT process-group termination or the F-43 census); O5/F-90/F-75
-> (#271/#272/#273, `a758ce381`); F-85 ADDRESSED + F-72 CLOSED-BY-F-85 (#274, `6e13f7895`). All NARROW (each marks
-> exactly what shipped vs deferred). **NEW friction owed to capture (not yet a register entry):** the `--closed`
-> sibling registry default — `claims close` / `archive-stale` / `active-agents` still take a relative `--closed`
-> path that fragments from a worktree, the same F-41 class F-85 cured for `--active`; Pegasus to name it F-NN in a
-> future merge event, the Director lands it. It is a non-blocking O2 follow-on.
->
-> **LANE NEXT-STEPS:** Lane A (Dormouse) → finish + open the flat 1C PR → route to Director → 1D → 1E launch →
-> Phase 2 (F-98 binding view + heartbeat-age column) → Phase 0 (owner-gated) — detail in the PR-STATE block above.
-> Lane B → retained-for-handoff (O2 ergonomics tail awaits a re-staffing decision, see owner-action queue #3).
-> **First Director move for Triton:** verify Dormouse is live (mechanical liveness check — NOTE its CLAIM freshness
-> reads `stale` because the claim `heartbeat_at` is not bumped by comms heartbeats, the freshness≠liveness gap;
-> Dormouse IS live on the comms heartbeat stream), then receive + first-hand-verify + merge the 1C PR when it lands.
->
-> **AC6 EVIDENCE (PDR-117 second-instance — fold into the worktree-per-agent transition home at arc-end):**
-> **zero owner-visible coordination prompts across the whole session, sustained through TWO Director tenures**
-> (Firefly + Merlin) — every decision resolved at Director/implementer level (base-branch, F-82/F-101/F-75/F-85
-> shapes, register policy, T1 no-removal cure, base-ref resumed-flag, the `--closed` scope split, F-72-folds-into-F-85,
-> successor routing, the host-load-aware Lane-B park, four clean PDR-063 implementer handoffs +
-> two clean PDR-064 Director rotations). The owner-action items (overage, host load, Lane-B re-staffing, O4/OQ5) are
-> owner-LEVER / infra surfacings, NOT coordination escalations. **Outcome: the entire owner-approved PR batch
-> (#269–#274) LANDED on main** across the two tenures; rotating cast + Director model held shape under a heavy,
-> contracting team. Merge path PROVEN against the @jimCresswell code-owner ruleset (direct `gh pr merge --squash`,
-> no --admin).
->
-> **STANDING FRICTIONS (route to frictions-register / tooling — captured in napkin; several are live dogfood of
-> THIS session's own F-101/watcher work):**
->
-> - **Heartbeat LABEL staleness → false-stall — NOW 3 worked instances (Pangolin, Avocet, Dormouse)**, strong
->   graduation signal: the loop label is frozen at arm-time, so a working agent looks stalled/dead. Twice it drove a
->   Director receipt-check (Firefly→Pangolin, Merlin→Dormouse) — both resolved alive after a work-evidence
->   cross-check (git/PR) preceded the ping (ping-before-escalate held). Deeper cure candidate (strengthened):
->   derive the heartbeat label from the live claim's current cycle, not a frozen loop arg.
-> - **GitHub auto-merge posts NO comms event → gated lanes can't detect the gate-clear, and the Director can't
->   stream-detect merges** (Merlin tenure): a lane gated on a PR merging (e.g. Pegasus's F-85 on #273) sat blind
->   because the auto-merge landed silently. Director-practice cure ADOPTED: poll-monitor each auto-merging PR's
->   terminal state, and BROADCAST each merge as it lands so gated lanes unblock. Tooling candidate: emit a
->   comms-event on merge-lifecycle terminal state. Pairs with the existing "no PR monitor covers inline comments +
->   terminal state" friction.
-> - **structural-cap thrash → extract-don't-trim** (2 instances: Avocet `create.ts`, Ingot `cli-specs.ts`): adding
->   to a file at its max-lines/complexity cap thrashes the pre-commit gate; the cure is to extract the cohesive
->   concern to a sibling module, not trim. Strong 2-instance graduation signal (Avocet flagged).
-> - **Watcher self-terminates hourly** (3600s timeout guard) AND **on the 60s drain step-timeout under multi-agent
->   host load** → comms-blind windows until re-armed (hit Firefly + Pangolin + Avocet). Interim cures: prompt
->   re-arm on the failure notification; `--step-timeout-ms 180000`. Candidate: raise/adaptive default. This is the
->   exact friction the session's F-101 supervisor-death + watcher-canonicalisation work cures.
-> - **`--force-with-lease` hook-blocked** (over-broad `git push --force` substring; F-102 family) → use
->   merge-not-rebase to bring branches up-to-date (no force-push).
-> - The **pre-commit gate + end-to-end observation caught real defects 4 sub-agent reviewers missed** (knip
->   unused-export, depcruise cycle, composition-root wiring gap) — behaviour-note: reinforces invoke-code-experts
->   - run-the-thing.
->
-> **OTHER REPO AGENTS (NOT this team — separate concurrent lanes, do not coordinate):** Ketch turns Fathom
-> (`302c58`, docs-reviewer-split), Finch wakes Headwind (`1e413e`, mcpjam fix), Starling calls Aether (`89a30f`,
-> main-sonar). Plus stale residue claims from prior teams.
->
-> **DEEP CONSOLIDATION: DUE.** napkin carries this session's captures (Firefly + Pangolin's Lane-B loss-scan,
-> both appended); a dedicated consolidation should graduate the frictions/patterns and drain. Not run inline at
-> this rotation (active team; capture-now-graduate-later).
->
-> The complete first-hand Director pickup remains the git-ignored handoff record
-> `.agent/state/collaboration/handoffs/director-handoff-cinder-to-pulsar-2026-06-27.md` plus the cross-worktree
-> map. The 2026-06-25 NEXT SESSION MANDATE below is retained only as precedent on team-session-plan / director-brief
-> authoring.
-
-### ▶ NEXT SESSION MANDATE (owner-directed 2026-06-25) — read before anything else
-
-The very next session is a **dedicated consolidation session**, and it runs BEFORE
-any team session restarts. It MUST deliver two artefacts; the team session does not
-start until they exist:
-
-1. **A TEAM SESSION PLAN — the cohesion anchor this pilot lacked.** The experiment ran
-   on the owner's initial request plus a Director, with NO overarching team plan in the
-   repo; it held for a while, then **lost cohesion** because nothing anchored the
-   fanning-out lanes and rotating seats to a shared goal. The team session plan fixes
-   exactly that: **absolute clarity on team-level IMPACT and OUTCOME goals**, the seats,
-   the cohesion mechanism, and the **individual execution plans referenced** where
-   appropriate (the per-lane guiding plans, e.g.
-   `current/worktree-pilot-consolidation-and-model-verdict.plan.md`). **The
-   team-session-plan TEMPLATE now exists as a v1 scaffold**
-   (`.agent/plans/templates/team-session-plan-template.md`, created 2026-06-25; registered
-   in the templates README) — the next session REVIEWS and IMPROVES it, it does not author
-   from scratch. What DOES exist, and is the complement to build against,
-   is the team-session-OPENER-PROMPT template
-   (`.agent/prompts/agentic-engineering/team-session-opener.prompt.md`, owner-flagged): it
-   carries the OPERATIONAL structures — entry ritual; Director + N-implementers-each-in-its-
-   own-worktree shape; the single coordination-home convention; the three branch classes;
-   seat briefs with explicit hard sequencing gates; coordination cadence; closeout. Its
-   `Plan authority` line points AT a controlling plan the pilot never had — that absence is
-   the gap to close. So the session: (a) **reviews and improves the v1
-   `team-session-plan` template** (created this session) — the STRATEGIC layer the opener
-   assumes (team-level IMPACT + OUTCOME goals, the cohesion mechanism, the seats, individual
-   execution plans referenced); gather the further structures the owner notes exist and
-   refine it per `/oak-plan` + ADR-117 + readiness reviewers; (b) authors the first team
-   session plan with it; and (c) draws on the opener prompt's structures plus the others the owner notes exist
-   (PDR-117 Director/Implementer roles, the `agent-collaboration` coordinator doctrine, the
-   `session-discipline` component, the worktree-per-agent transition plan).
-2. **A better DIRECTOR BRIEF** — take this `director-handoff.md` as input and sharpen it
-   with what the pilot learned (it is the operational PDR-117 instance).
-
-**The team session itself** (after the consolidation session) will run **one implementer
-seat dedicated to fixing agent-tooling issues AS THE SESSION RUNS** — the default home
-for the remaining F-96/F-97 backlog (F-94 and F-95 were fixed before the team session,
-PR #225 `e95fb9594`) and any new friction.
-
-**Agent-tooling to consider fixing BEFORE the team session** (owner-decision; flagged per
-owner request — none HARD-blocks, since the dedicated seat fixes during and the pilot ran
-with workarounds, but these touch bootstrap / handoff integrity from the start):
-
-- **F-95 (watcher-presence fail-fast gate) — DONE before the team session (PR #225,
-  `e95fb9594`).** It guarded the exact founding failure of this pilot (an implementer
-  skipped the move-1 comms watcher and went blind to a simultaneous identical-branch claim).
-  The gate now stops the next session repeating it: a move-1 `comms assert-watcher-live`
-  check plus a `claims open` blind-write backstop, solo-exempt.
-- **F-94 (`claims` adopt/set-handoff) — DONE before the team session (PR #225,
-  `e95fb9594`).** Rotating-seat PDR-063 handoffs happen from early in a team session;
-  the `claims adopt` + `claims set-handoff` primitives now replace the duplicate-row
-  workaround in a busy multi-writer window.
-- F-96 (continuity-buffer lint hostage) and F-97 (PR inline-comment monitor) — fix-during
-  by the dedicated seat is fine.
-
-- **Merge status — DONE.** PRs **#221** (worktree-pilot: vitest standardisation +
-  Director/Implementer doctrine PDR-117) and **#222** (agent-tools `pr-watch`
-  command, incl. the Proto-dispatch fix) are **MERGED to `main`**. `origin/main`
-  HEAD is `1020001fd chore(release): 1.35.0 [skip ci]`; #222 landed as
-  `8bebfd0a5`, #221 as `132ee59ba`. The coordination→main pilot acceptance is met.
-- **Team — DISSOLVED.** The worktree-pilot team (Director Nightjar; Implementers
-  Juno/Sturgeon/Narwhal/Callisto) has stood down. Only **Thyme lifts Compost**
-  (session `c2b721`) remains, **operating independently under direct owner
-  direction** — not as part of a Director-coordinated team. The Director seat is
-  vacant; the retained Director claim
-  `c6b76ae3-93df-4cd1-8c92-490f83215cbf` (Nightjar weaves Moonbeam, `5f31e4`) is a
-  stale artefact for a successor to replace if and when the seat is re-established.
-  Stale `implementer` claims for `orientation-skills-family` and
-  `agent-tooling-pr-watch` likewise remain in `active-claims.json` from the
-  dissolved team and are not live. (Clearing these is a curator pass — owner-gated
-  alongside the orphan-prevention actions below.)
-- **Sonar S8707 site-3 — PAUSED.** Sites 1-2 **MERGED to `main`** via PR #223
-  (squash `9d2e33bb1`) — `safe-path.ts` canonical-path validator + turbo-report
-  containment (`1329d787a`), commit-msg path containment (`4c9cfbfc9`), plus the
-  S4036 absolute-git fix (`resolveTrustedGit`, fail-loud) and the S4782 union.
-  Remaining: **site-3** (`apps/oak-search-cli` analyze-elser-failures local
-  safe-path helper, TDD, `__dirname`-relative `diagnostics` containment — own
-  local helper, do not cross-import agent-tools), an **integrated
-  security-expert re-review**, then **one PR direct to `main`** via
-  `@jimCresswell` code-owner review. Warm worktree `oak-sonar-p1`.
-- **DATA-SOURCES.md — UNSTARTED.** The file does not exist in the doc tree. ADR-157
-  deliberately lacks review/removal criteria; a governance home was owner-floated
-  but not decided. Authoring it means surfacing
-  suitability/last-reviewed/removal criteria for owner ratification — these are
-  **new governance policy**, an owner decision, not an agent-resolvable task. Not
-  bundled with the pilot; spans multiple threads.
-- **Guiding plan.** The forward guiding plan is
-  `.agent/plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md`
-  — it carries the lane scope and outcome-based acceptance for the remaining arc; this
-  section carries the live status. The pilot's record + Log (the evidence the model
-  verdict consumes) is the active `worktree-pilot-coordination.plan.md`.
-
-### Worktree orphan map
-
-Audited first-hand 2026-06-25 via `git fetch`, then per-worktree `log origin/main..HEAD`
-and `@{u}` upstream checks. Recorded so no work is silently lost when a worktree is
-removed. **The three never-pushed at-risk branches were PUSHED to origin 2026-06-25
-(owner-directed orphan mitigation) — each now tracks an `origin/` upstream, so the
-commits survive any worktree removal.** Worktrees are now safe to remove; each lane
-resumes from its pushed branch in the next team session.
-
-- 🟢 **PRESERVED — `oak-pilot-ws-b-explain`** (branch `pilot/ws-b-explain-resource`,
-  was HIGH): ~9 commits, the WHOLE WS-B explain effort-orientation surface (D1 + D2
-  - drift-gate, top `93d5e266c`; includes `4adea4aca` WS-B D2). **Pushed to
-  `origin/pilot/ws-b-explain-resource`** (pre-push gate passed). Still NOT in main
-  (excluded from #221). The plan's WS-B lane resumes here (D3–D5 + merge to main).
-- 🟢 **PRESERVED — `oak-sonar-p1`** (branch `fix/sonar-s8707-cli-path-injection`,
-  was HIGH): site-1 `1329d787a` + site-2 `4c9cfbfc9`. **Pushed to
-  `origin/fix/sonar-s8707-cli-path-injection`** (pre-push gate passed). Still NOT in
-  main, no PR. The plan's Sonar lane resumes here (site-3 + integrated re-review +
-  one PR to main) in the next team session.
-- 🟢 **PRESERVED — `oak-pilot-ws-a-vitest`** (branch `pilot/ws-d-roles-doctrine`,
-  was MEDIUM): orphan commit `44484d478` (Comet's WS-D experience file, "reflection
-  on PDR-117 governing its author"). **Pushed to `origin/pilot/ws-d-roles-doctrine`**;
-  the rest of WS-D was already in main via the #221 squash. Fold the experience file
-  when convenient.
-- 🟠 **MEDIUM (open) — primary checkout**: ~14 uncommitted continuity buffers
-  (napkin, distilled, director-handoff, repo-continuity, two thread records,
-  frictions-register incl. F-94–97, the PDR-117 edit, daily.md, two experience
-  files, the worktree-pilot coordination plan, the new guiding plan) — lint-blocked.
-  Cure: the dedicated consolidation commit (rotate + lint + commit) — owner-gated;
-  this is the one remaining orphan-prevention action.
-- 🟢 **NONE**: `oak-pilot-ws-c-ci` + `oak-pilot-ws-e` (content in main via the #221
-  squash); `oak-pr-watch` (merged #222 + pushed); `oak-data-sources` (clean, at
-  base, empty — its grounding is the primary's uncommitted data-sources thread
-  record).
-- ⚠️ **PRE-EXISTING (flag, do NOT touch** — `never-use-git-to-remove-work` + owner
-  no-stash preference): ~10 repo-global stashes from old branches (statusline,
-  graph-foundations, eef, PR-115, …). Left as-is.
-
-**VERIFICATION CAVEAT:** "content in main" for a squash-merged branch must be
-diff-confirmed before a worktree is removed; the three at-risk branches are now on
-origin regardless. The one remaining orphan-prevention action is owner-gated: the
-dedicated consolidation commit for the primary checkout's continuity buffers.
+> **READINESS GATE for the next Director:** answer the five questions + paste the mechanical liveness
+> check (UTC-to-UTC) before Moment-2; then open your Director claim and relinquish Falcon's
+> `4180e263`. Prior-rotation detail (the Firefly→…→Trawler tenures, the 2026-06-25 worktree-pilot
+> mandate, the worktree orphan map) is conserved in git history, the handoff records under
+> `.agent/state/collaboration/handoffs/`, and `repo-continuity.md`.
 
 ## Key surfaces
 

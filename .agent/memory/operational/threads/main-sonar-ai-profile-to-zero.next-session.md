@@ -96,7 +96,7 @@ containment fix; the validator extracted to a shared **`@oaknational/safe-path`*
 SSOT package (`packages/core/safe-path`) — the required Sonar
 `new_duplicated_lines_density` gate forced DRY at the **2nd** consumer; both local
 copies deleted; the two `--passWithNoTests` de-masks (graph-ingest, graph-project);
-plan/prompt/napkin/vscode updates; and the `consolidate-at-third-consumer` guidance
+plan/prompt/napkin/vscode updates; and the `consolidate-at-second-consumer` guidance
 correction (extraction is at the **second** consumer — rule content, practice-index,
 and closed-shape descriptions fixed; filename retained as a stable id; a clean rename
 is a tracked follow-up). Worktrees `oak-pr-watch` and `oak-pilot-ws-e`: verified retire-only

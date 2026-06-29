@@ -196,8 +196,8 @@ edges already present in the source). E orders landing, not authoring.
 `createGraphToolExecutor` / `createGraphToolDef` (`graph-resource-factory.ts`) cannot survive — the
 whole-corpus `() => config.sourceData` shape is the problem being removed. Each redesign unit lands
 its own anchored executor; the factory's per-tool consumers leave one by one and **the factory is
-deleted in G3** (replace-don't-bridge; no third-consumer consolidation is presupposed — any shared
-view mechanics are a third-consumer decision at G3).
+deleted in G3** (replace-don't-bridge; no second-consumer consolidation is presupposed — any shared
+view mechanics are a second-consumer decision at G3).
 
 ### 4.7 Identity model (core, mechanism-independent)
 
