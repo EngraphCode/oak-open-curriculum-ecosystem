@@ -349,3 +349,28 @@ the capture edge (both already homed in per-user memory):
 - **Grounded (homed in plan/thread/research, not lost):** `resets_at` is epoch SECONDS (doc-confirmed);
   the `coord:` dedup is the reliable in-worktree classifier (git forbids same branch in two worktrees);
   COLUMNS/LINES make terminal dimensions knowable → responsive layout is a real future lane (theme is NOT).
+
+## Session 0f7718 (Tornado spins Pinnacle) — corpus-analysis v2 build + shared-checkout coordination lessons (2026-06-29)
+
+Built and committed the v2 large-corpus-analysis deterministic layer (4 commits on
+`docs/consolidations`; self-contained launch runbook in
+`reports/agentic-engineering/large-corpus-analysis-v2-rerun-runbook-2026-06-29.md`). Two
+operational lessons reached no other durable home:
+
+- **Shared-checkout branch-switch hazard, and the non-destructive commit-move recipe.** A peer
+  switched the checkout's branch from under me (reflog: `checkout: moving from docs/consolidations
+  to feat/statusline-primary-worktree-rows`) BETWEEN two of my commits, so my later commits landed
+  on the peer's branch. Moved them back with ZERO loss, no reset/rebase/force:
+  `git branch -f <target> <tip>` (fast-forward the intended branch to my commits) then
+  `git switch <target>` (content-identical, so the peer's uncommitted work carries over untouched)
+  then `git branch -f <peer-branch> <clean-base>` (re-point, removing my commits from it). Lesson:
+  in a shared checkout, check `git branch --show-current` before EACH commit — the branch can move
+  under you mid-session.
+- **Whole-tree gate blocks cross-lane commits (F-83 whole-tree-gate-coupling recurrence).** My
+  docs-only commit was red-gated by a peer's mid-edit `statusline-segments.ts` (258/250 max-lines).
+  Do not fix the peer's in-flight code; surface and wait. Cleared once they split it to 217 lines.
+- **candidate:** the corpus-analysis module is a deliberately library-only addition to `agent-tools`
+  (no CLI / gate / package.json / husky wiring) — built convention-stable (schema-first zod, Result,
+  vitest) to stay clear of the undesigned agent-tools CLI/gate surface (Callisto's handoff: "agent-tools
+  has no architectural direction; owner taking it fresh"). It will need to conform to the forthcoming
+  agent-tools architecture (Limpet herds Atoll's lane) — a cross-lane dependency.

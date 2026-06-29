@@ -11,7 +11,7 @@ is in [`large-corpus-analysis-runbook-design-2026-06-29.md`](./large-corpus-anal
 
 ## What is already built (committed on `docs/consolidations`)
 
-The deterministic layer lives in `agent-tools/src/corpus-analysis/` (89 unit tests; green
+The deterministic layer lives in `agent-tools/src/corpus-analysis/` (88 unit tests; green
 under build / type-check / lint / knip):
 
 - **`judgment-schemas.ts`** — the atomic-judgment contract (LEAF, CANDIDATE, VERDICT,
@@ -35,7 +35,7 @@ would fail Choice B on the fidelity leg — refine, not graduate).
 
 ## Corpus partition (re-derive at launch — never trust a frozen count)
 
-Census at 2026-06-29: **100 files, ~4.06 MB, ~1.0M tokens (bytes ÷ 4), 2026-02-16 →
+Census at 2026-06-29: **100 files, ~3.9 MB, ~1.0M tokens (bytes ÷ 4), 2026-02-16 →
 2026-06-29.** Re-derive the date-ordered file list and token-balanced windows at launch:
 
 ```bash
@@ -46,7 +46,9 @@ for f in .agent/memory/active/archive/napkin-*.md; do
 done
 echo "2026-06-29|$(wc -c < .agent/memory/active/napkin.md)|.agent/memory/active/napkin.md"
 # then sort by date and walk, opening a new window when the running byte total would
-# exceed ~300 KB (~75k tokens). ~1.0M tokens / 75k ≈ 14 windows. Largest single file is
+# exceed ~300 KB (~75k tokens). At the 2026-06-29 corpus the greedy walk yields ~14–15 windows
+# (the v1 run was 14; the corpus has grown since — re-derive, never verify against a frozen count).
+# Largest single file is
 # ~203 KB (napkin-2026-05-24) — under one window, so no file is split.
 ```
 
@@ -55,7 +57,7 @@ window→files map in the launch step and pass it to the Workflow as `args`.
 
 ## The rerun pipeline (harness Workflow)
 
-`setup (deterministic, pre-Workflow)` → `map ×14 (Sonnet, low/med)` → `reduce (Opus, high)`
+`setup (deterministic, pre-Workflow)` → `map ×N, one per window (Sonnet, low/med)` → `reduce (Opus, high)`
 → `validate (Opus, tiered adversary)` → `meta (Opus, high)` → emit atomic-judgment JSON →
 `post-run aggregation (tsx driver, imports the repo module)`.
 
@@ -83,6 +85,10 @@ real module — so the only mirrored logic is the small, pure routing core.
   dissent / reroute). Tier-2 voters carry a distinct `lens`
   (correctness-grounding / base-rate / null-reproduction). Absence candidates get the absence
   falsifier (show genuinely absent, not merely unsampled). The voter never emits a disposition.
+  Build the validator with a robust verdict schema and a repair-retry on a StructuredOutput parse
+  failure before recording an unadjudicated outcome — this is the design's PRIMARY C06 cause-cure
+  (v1 lost a candidate to the 5-retry cap); the graceful quorum already in the module (unadjudicated
+  voters excluded from the denominator) is only the symptom-cure.
 - **meta (Opus):** per-baseline RECALL-MATCH `{baselineId, verdict ∈
   subsumes|refines|equal|partial|missed, matchedCandidateId?, note}` against the 18 fixture
   baselines, plus corroboration claims `{candidateId, claimedHomePaths}` naming on-disk
@@ -113,7 +119,8 @@ If the estimate exceeds the ceiling, abort and re-tier.
 
 1. Be on `docs/consolidations` (carries the built module + this runbook), execution-authorised,
    with adequate context budget.
-2. Re-derive the corpus partition (above); confirm ~14 windows, 0 files split.
+2. Re-derive the corpus partition (above); confirm the windows are token-balanced and 0 files
+   split (expect ~14–15 at the current corpus — do not verify against a frozen count).
 3. **Add and run the conformance test** mirroring `classifyVerdict` / `isBorderline` /
    `adjudicate` (assert the Workflow's mirrored copies match the repo module on a shared
    fixture) — do NOT launch with an unverified mirror.
@@ -132,4 +139,12 @@ If the estimate exceeds the ceiling, abort and re-tier.
 - v1's "failure" (0.28/0.56) was mostly measurement error v2 fixes; the honest question the
   rerun answers is whether the method re-finds the emergent spine within Choice B, on numbers
   that are now deterministically computed and stratified.
+- **Expectation-setting (read before interpreting the result):** the Choice-B gate was
+  calibrated knowing v1's within-remit recall was 0.5 strict / 1.0 lenient, and v2's changes
+  are all in the *aggregation* layer, not *extraction* — so v2's strict within-remit is likely
+  to land near 0.5 again. A **refine-again verdict is a plausible and acceptable outcome, not a
+  failure**: the rerun's value is the honest, stratified, deterministically-computed numbers
+  plus the apophenia kill/keep gate and the real-world-signal close. Do not over-read a ~0.5
+  strict result as the method failing; read it against the dual gate and the full run-record.
+  (This is expectation-setting, not a pre-judgement — the per-baseline judgments run honestly.)
 - Quota is the owner's concern; the rerun runs fresh (no cross-session Workflow cache).
