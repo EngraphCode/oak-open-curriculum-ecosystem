@@ -2,7 +2,13 @@
 fitness_line_target: 200
 fitness_line_limit: 320
 fitness_char_limit: 20000
-fitness_line_length: 100
+fitness_line_length: 115
+fitness_line_length_rationale: >-
+  Raised 100 → 115 (owner-authorised 2026-06-29) for this append-heavy
+  narrative/continuity surface. Marginal prose-width drift on appended prose is
+  chronic-cosmetic (99% of breaches were ≤120; median 104) and manual reflow is a
+  transient non-cure on a file that grows by append each session; 115 clears the
+  noise while still flagging genuine over-runs.
 fitness_content_role: reference
 merge_class: index-narrative
 ---
