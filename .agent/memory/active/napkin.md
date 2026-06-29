@@ -46,7 +46,19 @@ New session observations append below.
 - **gh shared rate-limit (5,000/hr) exhausted mid-closeout → #290 merge blocked ~60 min (owner-flagged
   F-110).** Proximate cause was MY `Monitor` polling `gh pr checks 290` every 30 s (~20 calls) + repeated
   `reviewThreads` GraphQL queries, against the budget shared with every agent + the Cursor/Sonar/Copilot
-  bots. Lesson lived: do NOT poll `gh` in a tight Monitor loop. Owner-directed cure → **F-110**
-  (rate-limit-aware agent-tools `gh` wrapper: batch one GraphQL round-trip for checks+threads+state,
-  jitter, exponential backoff honouring `X-RateLimit-Reset`, shared-budget reservation). The CI-check
-  Monitor recipe in the Director brief should consume that wrapper, not raw `gh`.
+  bots. Lesson lived: do NOT poll `gh` in a tight Monitor loop.
+- **NEW AGENT-TOOLING CONCEPT (owner, 2026-06-29) — a fleet-wide SHARED-RESOURCE BROKER. Do not lose
+  this.** The cure is bigger than a per-agent backoff wrapper. It is a tool that **collates requests from
+  multiple agents** and draws them from **shared resource pools with shared limits** — one fleet budget,
+  not per-agent ceilings. Crucially: **the shared budget/pool STATE lives in the PRIMARY CHECKOUT** (the
+  same coordination-home locus as `active-claims.json`, resolved via `git worktree list` per
+  `resolveCoordinationHome` / the F-41/F-85 lineage), so every agent and every worktree reads and writes
+  ONE shared ledger rather than each polling blind. Mechanics: request collation/queueing + batching (one
+  GraphQL round-trip for checks+threads+state), jitter so fleet calls don't align, exponential backoff
+  honouring `Retry-After` / `X-RateLimit-Reset`, and **budget reservation** read from the shared ledger
+  (back off as the shared remaining falls, reserve headroom). It generalises **beyond `gh`** to any
+  shared rate-limited resource (the LLM API, Sonar, Vercel, …) — a general fleet resource-pool primitive,
+  with `gh` as the first consumer. The Monitor / `pr-watch` poll recipes consume the broker, never raw
+  `gh`. Home: **F-110** (expanded); a candidate for its own plan/PDR when prioritised (it is a new
+  multi-agent capability, not just a friction fix). Self-similar with this very session: the team builds
+  shared-state coordination primitives while being throttled by the lack of one in real time (FRAME-1).

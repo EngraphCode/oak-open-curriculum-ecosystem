@@ -2343,11 +2343,24 @@ below is a cross-reference index, not a second source of truth.
   `pr-merge`; `pr-update-branch`), with the backoff/jitter/budget-reservation logic centralised and
   tested. Replace the `pr-watch` / CI-check Monitor poll loops with it. Pairs with the existing
   "no PR monitor covers inline comments + terminal state" friction (one budgeted poller serves both).
-- **Target surface**: `agent-tools/src/` (new `gh` budget-aware client) + the `pr-watch` command + the
-  Monitor recipes in the Director brief.
+- **NEW CONCEPT — fleet-wide shared-resource broker (owner direction, 2026-06-29).** The cure is bigger
+  than a per-agent backoff wrapper: a tool that **collates requests from multiple agents** and serves
+  them from **shared resource pools with shared limits** (one fleet budget, not per-agent ceilings).
+  **The shared budget/pool STATE lives in the PRIMARY CHECKOUT** — the same coordination-home locus as
+  `active-claims.json`, resolved via `git worktree list` (`resolveCoordinationHome`, the F-41/F-85
+  lineage) — so every agent and worktree reads/writes ONE shared ledger instead of each polling blind.
+  Budget reservation is read from that ledger (back off as the *shared* remaining falls; reserve
+  headroom for higher-priority callers). The primitive **generalises beyond `gh`** to any shared
+  rate-limited resource (the LLM API, Sonar, Vercel), with `gh` as the first consumer. This is a new
+  multi-agent capability — a **candidate for its own plan/PDR**, not only a friction fix.
+- **Target surface**: `agent-tools/src/` (a new fleet shared-resource broker + a `gh` budget-aware
+  client over it; shared-ledger state under the primary-checkout coordination home) + the `pr-watch`
+  command + the Monitor recipes in the Director brief.
 - **Status**: open.
 - **Owner direction status**: standing (owner-directed 2026-06-29 — "batch those requests via an
-  agent-tools command with rate-limit handling, jitter, exponential backoff").
+  agent-tools command with rate-limit handling, jitter, exponential backoff"; expanded same day — "a
+  tool that collates requests from multiple agents and uses shared resource pools and limits; the
+  'shared' part needs to live in the primary checkout").
 
 ---
 
