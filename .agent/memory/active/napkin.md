@@ -159,4 +159,49 @@ Standby successor to Sirius weaves Night. Sirius went silent 65+ min past a Dire
 - **Detailed tooling-friction note authored + adversarially verified:** `.agent/reports/comms-watch-drain-timeout-analysis-2026-06-29.md` (companion to F-43; linked from F-43 + the two comms-watch cure plans). Confirms the drain is a per-cycle full-dir O(total) read+parse+validate (source-cited: `state-io.ts` readEventDirectory, `cli-comms-watch.ts` drainComms, `comms-relevant-events.ts`), but **corrects the cause**: this session's drain-deaths at ~2600 files were per-file I/O contention under host load (corpus +1.28% while the exceeded deadline tripled 180→600s), **NOT** corpus size (size→death was FH-retracted, `kern.boottime`-confounded). Cure: keep step-budgets SHORT + fail-fast-restart (NOT climb them — my 180→600 escalation was the wrong move); the safe incremental-read home is `comms-watch-storage-redesign.plan.md` WS2's mtime-watermark, NOT a naive `created_at` cursor (the seen-set only de-dupes READ files → an unread out-of-order event is a SILENT miss).
 - **Discipline worked instance (owner-directed "critically assess all subagent results, including their sources"):** a 4-dimension verification workflow (wf_24a99130-926: mechanism/cure/citations/adversarial) caught **two BLOCKING errors** in my first draft — (1) the size→death causal attribution (arithmetically impossible: +1.28% corpus can't triple the drain time), and (2) a naive incremental-cursor cure mis-justified by a "seen-set backstop" that cannot recover unread files (silent-miss regression of the design's loud-duplicate-safe/silent-miss-unsafe invariant). I re-checked every cited source first-hand before accepting (incl. discovering the omitted sibling plan `comms-watch-storage-redesign.plan.md` WS2). Lesson: a subagent's *refutation* is input-to-verify too, and verifying its CITED SOURCES first-hand is what converts a plausible verdict into a grounded correction — the discipline caught my own overstatements before they shipped.
 
+## 2026-06-29 — Deep consolidation + Director-rotation closeout (Falcon wakes Stratus, adb1f3)
+
+Director #6 (clean PDR-064 from Trawler). Owner-directed deep closeout of the team-tooling arc.
+Graduated the deferred captures to permanent homes (the commits + homes are the record):
+
+- **consolidate-at-third-consumer → consolidate-at-second-consumer** rename + 41-file slug sweep +
+  3 adapters + RULES_INDEX (portability:check green). The Quoll/Seraph-flagged doc-defect is **FIXED**;
+  also corrected a `launch-command.ts` comment that had propagated the same doctrine-by-filename error
+  (two consumers MEETS the threshold — consolidation-debt flagged, hoist deferred).
+- **gate-evasion / escape-hatch screen** → `patterns/fluency-is-a-failure-vector.md` (new instance section).
+- **Director craft** (Kraken's standby-burn / auto-update-branch-babysitter / measure-at-handoff-gate +
+  Trawler Part-A: delegate-aggressively, ground-in-homed-plan, workflow-failure-modes, reject-either-or,
+  closeout-serial-mutation, cadence-never-dark, takeover registry≠liveness) → `director-handoff.md`
+  §Standing lessons; CURRENT HANDOFF STATE refreshed to a compact post-arc block (−365 stale lines).
+- **timestamp-zone discipline** → `verify-dont-trust.md` §Timestamp-Zone Discipline.
+- **discriminating-fixture** → `docs/engineering/testing-patterns.md` §Discriminating Fixtures (honoured the
+  forward-citation; the section was missing).
+- repo-continuity arc-closed + Director=Falcon + synthesis-next; AEE identity row; statusline index drift
+  fixed; `data-sources-governance` indexed (Paused, owner-gated); F-109 conserved (Trawler, committed).
+
+CARRIED-FORWARD (conserved here + in the verify-homed recon; constraint = one-context budget for a
+first-hand pass; falsifiable by a future amend commit): the lighter amends — reviewer-consensus
+briefing-poisoning → `different-lens-reviewer-divergence`; flat-PRs-same-surface worked instance →
+`ship-independent-coordinate-dependent`; help-doc real-affordance → `documentation-hygiene`;
+light-scan-for-build-goals → `scope-from-goal-before-approach`; Implementer-worktree-before-first-edit
+language → PDR-117/start-right-team. Plus the full Practice-Core upstream review (step 8), the
+experience cross-synthesis (step 4c), and Sirius's ws0 architecture findings (harness-% persistence
+primitive — design, not doctrine). The **PDR-117 expansion + the synthesis phase** are owner-routed to a
+fresh-context session.
+
+DEFERRED to a curator pass (registry hygiene, not knowledge — avoids a heartbeat write-race on
+`active-claims.json` mid-pass): clear the 11 dead `commit_queue` entries (all `abandoned`, 2026-06-23,
+landed-via-fallback) and archive the 3 stale non-team claims (Starling/main-sonar 40h, Ketch/docs-reviewer
+20h, Finch/mcpjam 20h — Finch's claim missing its `role` field). Two quiet active threads
+(`agentic-mechanisms-discovery` 2026-06-08, `agent-naming` 2026-06-13) are >14d stale — informational,
+owner-review.
+
+**Recursive loss-scan (2 passes, converged):** every deferred team-tooling capture is graduated to a
+permanent home, carried-forward with a named constraint + falsifiability, or a corroboration already
+homed. Nothing material that only this pass held remains unconserved — the dispositions are in the
+commits + homes; the carry-forwards are in this entry + the verify-homed recon. open-questions
+(Q-009/Q-011) stay user-kept-open (granted 2026-06-28). My context can carry on or hand off cleanly.
+
+### Older session observations (pre-this-pass) retained below
+
 - **Timestamp-zone discipline (owner-directed 2026-06-29, STANDING — all agents, all analysis).** UTC (`Z`) is the canonical analysis clock. Host / `pmset` / system logs / Monitor wall-clock are BST (`+0100` = UTC+1) — convert every BST source explicitly and SHOW the conversion (e.g. `01:06 BST = 00:06Z`); never compare a `Z` time against a `+0100` time; label every timestamp's zone (an unlabelled timestamp is a bug); never infer a timeline from a truncated log view (`tail`/`head`/capped grep) — query the full window first. Composes with the `director-handoff` liveness rule (use the tool, UTC-to-UTC, never a local clock) and the 2026-06-25 false-gap precedent. Worked instance: this discipline caught a real first-sleep-time error in my OWN correction this session (a `tail`-truncated pmset read said 00:51Z; the full log gave 00:06Z). Candidate graduation: a clause in [[verify-dont-trust]] or a dedicated timestamp-zone note. (comms `95a5eb00`)

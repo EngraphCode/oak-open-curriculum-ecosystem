@@ -173,6 +173,19 @@ execution.
   signature), check E2E tests that launch the process directly — they break when the
   entry-point contract changes.
 
+## Discriminating Fixtures
+
+Pick test inputs that maximally **distinguish** the contract from its plausible
+regressions — a fixture that still passes under a wrong implementation is a weak
+tripwire.
+
+- **Place a witness value _between_ events, not after them.** For an as-of / `--now`
+  filter over time-ordered fixtures (e.g. events at 11:00 and 12:00), a `--now` of
+  `11:30` (between) fails loud if the filter couples wrongly and drops an event; a
+  `--now` after all events (e.g. `13:00`) passes green even under a broken filter.
+- The general rule: choose the input that, under the most likely wrong
+  implementation, produces a _different_ observable result from the correct one.
+
 ## Test Isolation
 
 - Replace Express `_router` access with supertest HTTP assertions.
