@@ -164,3 +164,31 @@ Collaboration-state hygiene (step 7d, untracked state): Falcon's named curator-p
 still awaits the retention-gated body-read archive-move pass (tracked in repo-continuity §Next Safe
 Steps / the retired comms-research record's WS7 work-list) — a dedicated curator pass, not
 this one.
+
+**Fitness-residual disposition (grounded for the next consolidation — don't re-investigate or
+re-chase).** After this pass the hard-zone files all carry NO un-homed substance — each is a
+report-not-chase residual per the completion contract:
+
+- `principles.md` (lines + chars): owner-only limit raise; the proper cure is substance-led
+  graduation of elaborated guidance to governance docs (a deliberate future move already documented
+  in its frontmatter). Do not trim the principles to go green.
+- `repo-continuity.md` / AEE thread record / retired comms-research record / `director-handoff.md`
+  (prose-width, and legit continuity growth): chronic **prose-width** on append-heavy narrative
+  surfaces — cosmetic, and it re-accumulates every session, so hand-reflowing is a transient
+  non-cure (the signal→goal inversion). The structural cure is owner-gated: either raise/remove
+  `fitness_line_length` for narrative-role files, or run a `proseWrap` formatter pass over them.
+  Surface that as the decision; don't keep manually wrapping. (The AEE thread-record char-hard +
+  director-handoff size shrink naturally when the owner-routed synthesis prunes them.)
+- `development-practice.md` (3 lines over): minor; a small graduation candidate, not urgent.
+
+**Surprise (close-out) — committed a peer's LIVE WIP as if it were orphaned in-flight work.** I
+committed Schooner's untracked corpus-runbook report into `03c0c8d16` as "conserving in-flight
+work," then at close-out found it modified again on disk (mtime 13:04, after my commit) with new
+design content (keep/kill rule, emergence-reduce, absence-detection) that is not mine — the owner
+or an unregistered Schooner session is still editing it. No fresh claim/comms/worktree flagged the
+liveness (Schooner ran read-only, unregistered). **Lesson:** before committing another session's
+*untracked* file as conservation, check it is not actively being written (mtime vs now, peer
+liveness) — a file being edited *now* is live WIP to leave alone, not orphaned work to conserve.
+An untracked file is not evidence of abandonment. Instance of `verify-dont-trust` + the
+multi-agent staging caution. No harm done (the commit is an additive snapshot; the external edits
+stay uncommitted for their author), but the snapshot was premature.
