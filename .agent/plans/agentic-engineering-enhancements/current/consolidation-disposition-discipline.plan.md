@@ -1,5 +1,5 @@
 ---
-status: current
+status: completed
 kind: executable
 owner_decision_required: false
 lineage:
@@ -18,13 +18,13 @@ todos:
       report-not-chase" verdict on an over-limit file is gated on a content read,
       and so graduating learned lessons is named non-deferrable (distinct from an
       owner-gated decision).
-    status: pending
+    status: completed
   - id: ws2-graduate-and-fix-director-handoff
     content: >-
       Graduate the durable Director-craft Standing Lessons into PDR-117; correct
       the stale CURRENT HANDOFF STATE; prune the FIXED frictions; shrink the
       Standing Lessons section to PDR-117 pointers.
-    status: pending
+    status: completed
     depends_on: [ws1-guardrails]
   - id: ws3-aee-drain
     content: >-
@@ -32,17 +32,25 @@ todos:
       verify-homed then conserve-insight-and-delete the completed/landed arcs to
       pointers, keeping only live lanes, live briefs, recent live sessions, the
       identity table, and cross-links.
-    status: pending
+    status: completed
     depends_on: [ws1-guardrails]
   - id: ws4-meta-pattern
     content: >-
       Capture the "legitimate principle invoked as cover for not doing the work"
       anti-pattern as a patterns/ file (sibling of fluency-is-a-failure-vector).
-    status: pending
+    status: completed
 isProject: false
 ---
 
 # Consolidation Disposition Discipline
+
+> **STATUS: COMPLETE (2026-06-29) — safe to archive.** All four workstreams landed.
+> WS1 (read-gates-verdict + graduation-non-deferrable) + the impact-not-thresholds
+> re-centring → both consolidate skills (`be953fbf3`, `dc5280a21`, M1-fix). WS2 →
+> PDR-117 carries the Director craft; director-handoff shrunk + corrected. WS3 →
+> the AEE record drained to live-content-only (~844→356 lines). WS4 →
+> `patterns/legitimate-principle-as-avoidance-cover.md`. The permanent doctrine lives in
+> the skills + the pattern; this plan is the execution record (archive per ADR-117).
 
 ## Problem (gap, harm, mechanism, success)
 

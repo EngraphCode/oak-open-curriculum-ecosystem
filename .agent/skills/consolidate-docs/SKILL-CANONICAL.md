@@ -88,17 +88,19 @@ completion criteria, and closeout evidence for the pass.
   next actions. A truthful `partial slice landed` verdict is valid here.
 - **`dedicated-knowledge-curation`** - proper curation pass. This is the
   default when the owner sets a curation goal, mentions buffers, asks for a
-  curation pass, or names fitness pressure as work to process. Route
-  documentation/reference surfaces toward healthy-to-soft by preserving and
-  homing substance; process drainable buffers item by item toward empty, deciding each (graduate,
-  reject, or confirm duplicate); what cannot be decided yet is visible
-  decision-debt in the count, decided in a later pass.
+  curation pass, or names fitness pressure as work to process. Place each piece of
+  knowledge in its **highest-impact home** — read the content and ask "where does
+  this do the most good?"; process drainable buffers item by item toward empty,
+  deciding each (graduate, reject, or confirm duplicate); what cannot be decided
+  yet is visible decision-debt in the count, decided in a later pass.
 
-Fitness output is routing evidence in both modes. It is never completion
-evidence by itself. `session-completion` must not imply that all curation
+Fitness output is routing evidence in both modes — never completion evidence and
+never a completion gate. `session-completion` must not imply that all curation
 buffers were drained. `dedicated-knowledge-curation` may claim `complete` only
-when the closeout proof shows both documentation fitness at the agreed
-healthy-to-soft target and every drainable buffer item dispositioned.
+when the knowledge the pass touched lives in its highest-impact home (verified by
+reading the content) and every drainable buffer item is dispositioned — never
+because a fitness number reached a target. A residual signal at rest is reported,
+not chased.
 
 ## Cardinal Rule: Plans, Memory, Logs, Events, and Entry Points Are Not Documentation
 
@@ -846,7 +848,8 @@ For `session-completion`, `partial slice landed` is acceptable when fresh
 learning was captured and obvious substance was routed while larger curation
 buffers remain live. Name those live buffers and next actions honestly.
 
-For `dedicated-knowledge-curation`, `complete` requires two evidence classes:
-documentation/reference surfaces are at the agreed healthy-to-soft target, and
-drainable buffers selected for the pass are empty by ledger evidence. A softer
-fitness report without item-level dispositions is not completion evidence.
+For `dedicated-knowledge-curation`, `complete` requires that the knowledge the pass
+touched lives in its **highest-impact home** (verified by reading the content, not
+by a fitness number) and that every drainable buffer item is dispositioned. A
+softer fitness report is never completion evidence; a residual signal at rest is
+reported, not chased.
