@@ -32,6 +32,7 @@
     "skills-adapter-generate": "tsx src/bin/skills-adapter-generate.ts",
     "repo-check": "cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts",
     "check-blocked-patterns": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-patterns.ts",
+    "check-encoding": "cd .. && node agent-tools/dist/src/encoding/check-encoding.js",
     "check-blocked-content": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-content.ts",
     "check-commit-message": "cd .. && pnpm exec tsx agent-tools/src/commit-advisories/check-commit-message.ts",
     "check-commit-skill-advisories": "cd .. && pnpm exec tsx agent-tools/src/commit-advisories/check-commit-skill-advisories.ts",
