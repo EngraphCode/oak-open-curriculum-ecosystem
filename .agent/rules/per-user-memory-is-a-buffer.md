@@ -122,6 +122,6 @@ it does not depend on agent recall.
   may seed both per-user memory AND napkin; this rule names the
   flow from one to the other.
 - [`consolidate-at-second-consumer`](consolidate-at-second-consumer.md) —
-  when the same substance appears in three per-user memories
-  across different platforms, the consolidation trigger fires and
+  when the same substance appears in a second per-user memory
+  on another platform, the consolidation trigger fires and
   the substance graduates.

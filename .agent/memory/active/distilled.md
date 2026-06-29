@@ -57,4 +57,6 @@ authoring pass (deferred under one-context budget — graduate next consolidatio
 - **Sirius ws0 architecture findings** (the harness already delivers `context_window.used_percentage`
   on the statusline stdin; the missing primitive is session-keyed PERSISTENCE of it; `message.model`
   never records `[1m]`) — design findings for the context-usage / observability follow-on, not doctrine.
-  → conserved in `session-context-usage-cli.plan.md` + the archived napkin.
+  → these findings **supersede** the current draft in `session-context-usage-cli.plan.md` (which still
+  keys variant resolution off `message.model` and treats harness-`%` as a future note); updating that
+  plan is a synthesis-phase task. Conserved here + in the archived napkin.
