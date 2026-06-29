@@ -10,13 +10,9 @@
 import { describe, expect, it } from 'vitest';
 
 import { OAK_LOGO_ROWS } from '../../src/claude/oak-logo';
+import { CYAN, DIM, GREEN, MAGENTA, RESET } from '../../src/claude/statusline-ansi';
 import { renderStatusline, type StatuslineParts } from '../../src/claude/statusline-render';
 import { type SessionShape } from '../../src/claude/statusline-session-shape';
-
-const RESET = '[0m';
-const DIM = '[2m';
-const MAGENTA = '[0;35m';
-const CYAN = '[0;36m';
 
 const SEP = `${DIM} · ${RESET}`;
 
@@ -167,9 +163,6 @@ describe('renderStatusline — session-shape indicators', () => {
 });
 
 describe('renderStatusline — session-shape indicators in the four-row layout', () => {
-  // Raw ESC matches the renderer's GREEN byte-for-byte (same convention as the
-  // RESET/DIM/MAGENTA/CYAN constants above).
-  const GREEN = '[0;32m';
   const SEXTANT = OAK_LOGO_ROWS.sextant;
   const mark = (row: string): string => `${GREEN}${row}${RESET}`;
   const GAP = '  ';
