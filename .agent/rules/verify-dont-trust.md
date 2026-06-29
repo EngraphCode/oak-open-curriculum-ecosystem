@@ -149,6 +149,13 @@ The smoother and more convenient the claim, the harder the citation is owed.
   consumers, siblings, or members of a source set.
 - Declaring a sweep clean while the sweep command carried an exclusion filter
   that removed the very class it was meant to inspect.
+- Concluding "X does not exist / is untested / is missing" from a subtree
+  search. A negative existence claim earns the same whole-package search as a
+  positive assertion — a subtree scope is exactly the path-scope exclusion above,
+  and a convention the subtree omits (e.g. tests living in a `tests/` tree, not
+  colocated in `src/`) is precisely what it misses. The tell is fluency that
+  flatters: "I spotted a gap" arrives smoothly because it flatters a gap-spotter
+  self-image, and that smoothness is what bypasses the whole-package check.
 - Reading a commit's success or failure from the streamed terminal display
   rather than from `git log -1` / `git status`.
 - Asserting a whole-file property (size, line count, "all captured") from a

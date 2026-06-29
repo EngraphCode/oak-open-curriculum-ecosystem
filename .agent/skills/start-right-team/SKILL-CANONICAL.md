@@ -465,6 +465,14 @@ Useful responsibility labels include `controller`, `implementer`, `reviewer`,
 `marshal`, `scout`, `standby`, `consolidator`, and `curator`, but they are
 examples rather than a required ontology.
 
+The **`standby` / successor-in-waiting** seat has a defined liveness
+contract: **watcher + team-start registration, no heartbeat cron, no
+claim** — it is a worked instance of the PDR-078 §4 consumer-absent
+exemption (a standby holds no claim, so its retirement rebalances nothing,
+so its heartbeat has no consumer). It flips to active — adopting the
+retained claim and arming a heartbeat — only at the PDR-063 handoff. See
+[`liveness-heartbeat-cron` §Exemptions](../../rules/liveness-heartbeat-cron.md).
+
 A recurring singleton or critical role earns a definition — its awareness
 surface, its value-delivering behaviour, and its handoff — not just a label
 in this list. A bare label accretes no operational substance and its

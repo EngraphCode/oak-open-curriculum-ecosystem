@@ -165,6 +165,13 @@ Each lesson is the cure for a churn cause observed in the pilot.
   timeline for superseding decisions.
 - **Curate, don't mechanically slice, prose-not-written-to-be-sliced**, and
   drift-guard the projection against source.
+- **Director context-economy: stay silent on routine signals, act only on
+  substance.** A long-lived Director should not reply to routine implementer
+  heartbeats or narrate the monitors that carry them — act only on substantive
+  events (questions, PR-opens, verdicts, blockers, genuine stalls). Over-narration
+  spends the Director's scarcest resource (context) on signals that needed no
+  action and shortens the very tenure the role exists to maximise. A concrete
+  application of PDR-117 minimum-action (Firefly + Triton + Kraken all lived it).
 
 ## Known friction (route to tooling, not to the brief or the plan)
 
@@ -206,7 +213,79 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (**Merlin seeks Rainbow → Triton calls
+> Refresh this whole section at every handoff. Last refreshed 2026-06-28 (**Triton lifts Eternity → Kraken
+> spins Headland** Director rotation, PDR-064, owner-directed, at Triton's ~50% effectiveness-curve handover
+> point). The team-tooling session is LIVE and continues under Kraken. **The detailed Merlin-tenure blocks
+> BELOW this one are prior-rotation context; this block is the current state — recompute the live cast from
+> `active-claims.json` + the comms stream at your readiness gate (Continuation Pointer Contract).**
+>
+> ### ▶ TEAM-TOOLING SESSION — LIVE; DIRECTOR ROTATION Triton → Kraken (2026-06-28)
+>
+> **Incoming Director: Kraken spins Headland** (`3bbe48`, owner-named, standing by, ran liveness check on Triton).
+> **Outgoing: Triton lifts Eternity** (`34b9ce`, third Director; clean PDR-064 from Merlin; drove 1C/1D/1E + F-89/F-70/F-77
+> merges, the merge-policy change, the Sirius/Lane-C stream scoping, the context-usage script). **Director claim
+> `17a3ad09`** (relinquish at Kraken's Moment-2; Triton stops its heartbeat at stand-down). Director chain (all clean
+> two-moments): Firefly → Merlin → Triton → (Kraken).
+>
+> **LIVE CAST (recompute at your gate):**
+>
+> - **Lane A (O3 spawn-flow): Kayak turns Channel** (`2009dd`, claim `a63ac21a`). 1A–1D MERGED; **1E PR #280
+>   GENUINELY-READY** (routed, CI-green/0-threads/BEHIND — update-branch then `--merge`); then the **§4.A cleanup PR**
+>   (Director-RATIFIED: reshape SpawnSeed/1A + correct the 1D brief identity line to "harness-derived at launch" —
+>   Kayak verified the minted seed has ZERO readers and cannot survive the Claude SessionStart hook); then Phase 2
+>   (F-98 heartbeat-age = input-to-verify, NOT claim-freshness) → Phase 0 (owner-gated). Standby: **Kingfisher seeks
+>   Moorings** (`59a56d`) — holds a standby marker-claim `11fbd4e9` + heartbeats (deviates from the no-claim standby
+>   convention; commits to adopt-`a63ac21a`-in-place + close `11fbd4e9` at handoff; left as-is, a convention Q for you).
+> - **Lane B (O2 ergonomics): Hearth herds Sulphur** (`6ad8ea`, claim `0ba02fee`). F-85/F-89/F-70/F-77 SHIPPED; now
+>   landing the **late F-70 #278 Cursor finding** (empty-dir+`--since` wrong message — REAL/Low, Peregrine's exact
+>   fix); **F-79 committed** (`bc0bb07f1`, PR inbound); then F-80 → `--closed` F-NN. Lane B/C share the comms CLI
+>   spec/help/options registries — ADDITIVE-ONLY, coordinate shared-file touches.
+> - **Lane C (NEW agent-tooling stream): Sirius weaves Night** (`aad6cc`, claim `feba5172`). **Goal 2** (session-context
+>   CLI `agent-tools session-metadata` — vendor/model/session-id IN, occupancy+effectiveness-zone OUT) **BUILT + green +
+>   proven** (matches Triton's statusline-validated script; PR inbound, route + `--merge`); then **Goal 1** (`comms watch`
+>   reserve-seat heartbeat-exclude flag — clean Lane C, additive on shared comms dispatch). Standby: **Seraph seeks
+>   Quench** (`4beeb3`). Director boundary ruling: event `8e329ac1`.
+>
+> **IN-FLIGHT MERGE BOARD (your open verdicts — verify first-hand at the instant: CI + GraphQL reviewThreads + inline):**
+>
+> - **#278 (F-70):** auto-merge OFF (owner disabled), BEHIND, **1 unresolved Cursor thread** (Hearth fixing). After the
+>   fix → thread resolves → re-arm `--merge --auto` → **land F-70 register** (central).
+> - **#279 (F-77):** MERGED (merge commit `13ce23cc`). **F-77 register land OWED** (central, frictions-register).
+> - **#280 (1E):** OPEN, genuinely-ready → update-branch + `--merge`. (1E is an O3 plan-phase, NOT a frictions F-NN.)
+> - **Inbound:** Sirius Goal-2 PR; Lane B F-79 PR; Kayak §4.A cleanup PR. Verify + `--merge` each as routed.
+>
+> **MERGE MODEL — owner direction STANDING (2026-06-28): Director merges via `gh pr merge --merge` (MERGE COMMIT), NOT
+> `--squash`.** Verified `allow_merge_commit=true`. Mechanism: verify first-hand AT the instant; `update-branch` when
+> BEHIND; **`--auto`** handles the stale-Copilot-review-after-update-branch BLOCK (thread-resolution + checks enforced
+> server-side). **Release-churn:** the release-bot commits a `[skip ci]` bump after every merge → each pending PR goes
+> BEHIND → manual `update-branch` loop (cure is tooling: auto-update / merge-queue). #275/#276 landed as squash (prior
+> model); #277/#279 as merge commits (new). Per-merge owner approval NOT needed (code-owner gate count-0 non-blocking;
+> #275–#279 merged with no owner review).
+>
+> **OWNER-ACTION QUEUE (genuinely owner's):** (1) overage limit — automated `claude` PR-reviewer OFF org-wide
+> (claude.ai/admin-settings). (2) **host-load = RESOLVED-AS-MISREAD** — owner showed Activity Monitor (macOS healthy:
+> CPU idle 67%, mem-pressure green); the load-avg-vs-cores reading is Linux-shaped and over-reads on macOS; watcher
+> drain-deaths are comms-VOLUME cost, not host starvation (behaviour-note `cfcb19f6`). Cast-sizing is NOT
+> host-constrained. (3) **orientation-MCP follow-on** (`mcp-tool-taxonomy-and-orientation.plan.md`) — NO lane owns it;
+> different domain (MCP/SDK, not agent-tooling); **owner deciding** whether to provision a new lane (Triton surfaced
+> a/b/c; pending). (4) **O4/OQ5 composed-liveness DECISION** — late, owner-gated, not started.
+>
+> **TRITON-TENURE CONSERVED INSIGHT (comms behaviour-notes, for the DUE dedicated pass):** effectiveness-curve
+> calibration `d0ef27ce`; host-load-misread + watcher-drain re-diagnosis `cfcb19f6`; **standing-successor throughput
+> hypothesis** (subjective/unmeasured, with mechanism + measurement proposal) `1c5b1238`; context-usage CLI mechanism
+> `98483455` (Sirius built it as Goal 2); merge-policy change `6fa4d57b`; handover metacognition reflexes `09598a78`
+> (--body-file-after-first-fail; cheap-path-before-archaeology; keep-first-hand-thread-verify; release-churn). **DEEP
+> CONSOLIDATION is DUE** (napkin 555+ lines, rotation-due; uncommitted captures from many retirees) — a dedicated session.
+>
+> **READINESS GATE for Kraken** (answer all five + paste the mechanical liveness check before Moment-2): live
+> implementers = Kayak(A) / Hearth(B) / Sirius(C) + standbys (Kingfisher/Seraph); open verdicts = the merge board
+> above; owner-gated = Phase-0 / O4-OQ5 / overage / orientation-MCP; next safe step = land the F-77 register, re-arm
+> #278 after Hearth's fix, then process the inbound PRs (#280, Sirius Goal-2, F-79, §4.A cleanup); Triton standing
+> down = YES (owner-directed, this handover). **First Director move:** receive + first-hand-verify + `--merge` #280 (1E).
+
+---
+
+> Refresh this whole section at every handoff. [PRIOR ROTATION — Merlin → Triton, retained as context.] Last refreshed 2026-06-28 (**Merlin seeks Rainbow → Triton calls
 > Vastness** Director rotation, PDR-064, owner-directed). The team-tooling session is LIVE and continues under Triton.
 >
 > ### ▶ TEAM-TOOLING SESSION — LIVE (2026-06-28); DIRECTOR ROTATION Merlin → Triton

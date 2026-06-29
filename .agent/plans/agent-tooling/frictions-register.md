@@ -1796,7 +1796,12 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: A pre-claim agent can emit a heartbeat with an honest no-claim lane label (e.g. `cycle=successor-in-waiting` / `standby`), without inventing a claim.
 - **Candidate cure**: Allow `--tag heartbeat` with a lane/cycle label but no claim-id when the agent has no open claim (typed state becomes `{cycle: <label>, claim: none}`); or document that pre-claim liveness uses a narrative event and the consumer-absent exemption, so the gap is intentional rather than a discoverability trap.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; `liveness-heartbeat-cron` rule.
-- **Status**: open.
+- **Status**: doc-cure met 2026-06-29 (Quoll consolidation; Director-agreed). The
+  `liveness-heartbeat-cron` §Exemptions consumer-absent bullet now documents the standby contract as
+  a worked instance of the existing PDR-078 §4 exemption — a standby holds no claim → no consumer →
+  consumer-absent → it needn't (and can't) heartbeat; the gap is **intentional**. The alternative
+  "allow pre-claim heartbeats" cure is therefore unnecessary; no code change required. Closes the
+  documentation branch of the candidate cure.
 - **Owner direction status**: standing (owner 2026-06-19, as F-70).
 
 ### F-74 — A full `pnpm build` in a fresh worktree fetches live upstream OpenAPI schema and dirties generated SDK files
@@ -2210,6 +2215,73 @@ below is a cross-reference index, not a second source of truth.
   `claims-open-watcher-gate.ts`. Adjacent to F-95 (the gate), F-99, and F-88 (display-name
   vs filesystem-id).
 - **Status**: open — captured from handoff; not root-caused.
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-105 — Heartbeat loop label is frozen at arm-time, so a working agent reads as stalled
+
+- **Source**: team-tooling session 2026-06-28 (Pangolin, Avocet, Dormouse, ~Bandicoot — 3-4
+  instances); graduated by Quoll's dedicated consolidation 2026-06-29.
+- **Surface**: the `liveness-heartbeat-cron` loop (`comms append/send --tag heartbeat
+  --current-cycle-label <label>`).
+- **Observed**: the loop's `--current-cycle-label` (and `--title`) are frozen at loop-start. An
+  agent that goes heads-down on a fix after a lane transition without relabelling keeps emitting a
+  stale label (e.g. "awaiting routing") while actively working — so the Director reads it as a
+  likely-stalled/dead seat and nearly fires a rescue (it drove ≥2 receipt-checks this session).
+- **Expected**: the heartbeat's lane/cycle label reflects what the agent is actually doing, without
+  relying on the agent to remember to relabel at every transition.
+- **Candidate cure**: cheap/now — relabel-at-transition (a named step of every lane change, already
+  in the rule's loop-hygiene). Deeper (3-4 instances = strong signal) — **derive the label from the
+  live claim's current cycle, not a frozen loop arg**, so it cannot go stale while the agent is
+  active. Quasar's worked local cure: the loop reads `--current-cycle-label`/`--title` from a small
+  file the agent rewrites at each transition.
+- **Target surface**: `agent-tools/src/collaboration-state/` heartbeat composition; the
+  `liveness-heartbeat-cron` rule loop-hygiene.
+- **Status**: open. Distinct from F-44 (freshness≠liveness) and F-30 (stale syntax recovery).
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-106 — CLI help strings are a hand-maintained doc-drift surface; generate them from the spec table
+
+- **Source**: team-tooling session 2026-06-28 (Lichen F-89: hand-edited `claimsOpenHelp` to mirror
+  the option allowlist + a new default); the `--title`-in-heartbeat-mode help omissions; graduated
+  by Quoll's dedicated consolidation 2026-06-29.
+- **Surface**: `agent-tools/src/collaboration-state/cli-spec-help.ts` (~25 hand-written help
+  strings).
+- **Observed**: each command's help string must track its options + defaults + required/optional
+  shape **by hand**; the help comment even states CLI-help tests are "the behavioural contract".
+  Every option/default change risks a help string drifting from the spec (the recurring class
+  behind F-35 and the heartbeat-`--title` omissions).
+- **Expected**: help text cannot drift from the implementation because it is derived from it.
+- **Candidate cure**: generate the help string FROM the option spec + a per-option default/required
+  flag (the metacognition cure-shape: generate the doc from the implementation, don't patch the
+  copy). Consolidates the recurring help-drift instances into one structural fix.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-spec-help.ts`, the CLI spec table.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-107 — PreToolUse hook substring-blocks SAFE, non-destructive git forms
+
+- **Source**: team-tooling session 2026-06-28 (multiple agents: `git switch -c` used in place of a
+  blocked `git checkout -b`; `git restore --staged`; `git reset -- <paths>`; merge-in used in place
+  of a blocked `git push --force-with-lease`); graduated by Quoll's dedicated consolidation
+  2026-06-29. Broader sibling of F-102 (push `-f` substring) and F-103.
+- **Surface**: the `PreToolUse` policy hook (`.agent/hooks/policy.json`) substring matcher, at the
+  hook-policy CODE level (distinct from the `hook-policy-substring-discipline` rule, which governs
+  agent-authored CONTENT).
+- **Observed**: the substring matcher blocks legitimately non-destructive git operations because a
+  forbidden substring appears: `git checkout -b <new> <start>` (creates a branch on a clean tree —
+  safe; blocked by `git checkout`); `git restore --staged <path>` (index-only unstage — safe;
+  blocked by `git restore`); `git reset -- <paths>` (unstage — safe; blocked by `git reset`);
+  `git push --force-with-lease` (blocked by `git push --force`). Agents pay a re-edit each time and
+  must rediscover the safe forms.
+- **Expected**: the hook distinguishes destructive from non-destructive forms by parsing the git
+  subcommand + flags, not by substring.
+- **Candidate cure**: parse-don't-substring at the hook-policy level — allow `git switch -c`,
+  `git restore --staged` (when `--worktree`/`-W` absent), `git reset -- <paths>` (index-only),
+  `git -C <wt> -c core.editor=true rebase`; keep blocking the genuinely-destructive forms. Interim:
+  document the safe forms so agents reach for them directly (`switch -c`, `restore --staged`,
+  merge-in not force-push).
+- **Target surface**: `.agent/hooks/policy.json` matcher; the safe-form documentation.
+- **Status**: open.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
 
 ---

@@ -293,6 +293,23 @@ asserts:
    roles achieving an equal-or-lower ratio with equal-or-better continuity. The
    metric is observable incidentally from the comms stream and owner chat, so
    no deliberate counterfactual session is required.
+4. **A standing (warm-benched) successor improves team throughput** (owner
+   impression 2026-06-28, explicitly **subjective and UNMEASURED — do not promote
+   as established**). Proposed mechanism: *zero-gap warm rotation* — a standing
+   successor has already run start-right grounding while benched and pre-read the
+   handoff record, so it adopts the claim in-place (PDR-063) near-instantly and
+   the lane never stalls on rotation; a cold-spun successor pays full grounding
+   latency before its first commit, stalling the lane on every rotation.
+   Measurable by: **handover latency** (retiring agent's last commit → successor's
+   first commit) warm-bench vs cold-spin — the core predicted effect; cycles
+   landed per unit time per lane with vs without standing successors; and the
+   claim-3 coordination-prompts-per-cycle ratio as a cohesion proxy. **Cost
+   side:** a standing successor carries watcher + context overhead (the reserve-seat
+   heartbeat-exclude watcher and the session-context CLI directly target this), so
+   any throughput gain is weighed against bench cost — the two are coupled, since
+   cheaper benches make always-on standby affordable. The 2026-06-28 team-tooling
+   session is suggestive worked evidence (Lanes A/B rotated warm at velocity, each
+   handover near-instant) but single-session and **not measured**.
 
 Second-instance evidence path: a second many-agent session that runs the two
 roles cleanly → candidate for Adopted; one that surfaces a new failure vector

@@ -3,10 +3,10 @@ name: "Honest Restructure Over Band-aid"
 polarity: pattern
 use_this_when: "A quality gate fires mid-authoring and the first tempting fix is to bypass, guard, compress, or assert around the gate."
 category: agent
-status: emerging
+status: proven
 discovered: 2026-05-22
-proven_in: "2026-05-22 → 2026-05-23 multi-agent gate-1a substrate-floor team session — 2 cross-agent worked instances (Foamy graph-view module split; Sparking binding-test deletion per no-conditional-tests doctrine). Awaiting third-instance for status: proven promotion."
-proven_date: 2026-05-23
+proven_in: "2026-05-22 → 2026-05-23 multi-agent gate-1a session (Foamy graph-view module split; Sparking binding-test deletion); promoted to proven 2026-06-28 by 5 further distinct cross-agent extractions of the max-lines-cap facet in the team-tooling session (Avocet, Ingot, Bandicoot, Quasar, Peregrine — the last on a test file)."
+proven_date: 2026-06-28
 adjacent: ".agent/rules/local-broken-code-never-leaves.md (the principle); .agent/rules/dont-break-build-without-fix-plan.md (the doctrine); both establish WHAT must hold — this pattern names the response shape WHEN those rules fire mid-authoring"
 barrier:
   broadly_applicable: true
@@ -107,6 +107,46 @@ exist yet, and the cleanest cure was to acknowledge the temporal
 dependency in the plan + delete the premature test, not gate the
 test around the resource.
 
+## Further worked instances (2026-06-28 team-tooling session) — the max-lines-at-the-cap facet, and two sharper sub-lessons
+
+The max-lines facet recurred ≥5 times across a single multi-agent
+session, which is what promoted this pattern to `proven`. The recurring
+sub-shape is sharper than "a growing file": a file parked **at exactly
+its cap** (e.g. `cli.ts` at 249/250, `cli-specs.ts` at 250, a test file
+at 700) where adding one small thing tips it over. The honest response
+is the **same every time — extract the cohesive concern to a sibling
+module** — and so is the band-aid trap:
+
+- Avocet → `existing-worktree.ts` (extracted `detectExistingWorktree` +
+  its seam type out of `create.ts`, 253→197).
+- Ingot → `cli-spec-factory.ts` (extracted the `commandSpec` factory out
+  of `cli-specs.ts`, at its 250 cap).
+- Bandicoot → `cli-args.ts` (extracted arg-parsing out of `cli.ts`,
+  241→145, proactively before the gate thrashed).
+- Quasar → `cli-output.ts` (extracted `formatResult` out of `cli.ts`,
+  parked at exactly 249/250).
+- Peregrine → `comms-append-in-response-to.integration.test.ts`: the cap
+  was on a **test file** — adding the new feature's tests in place would
+  have taken it 660→821, past the 700 max-lines — so the cure is a
+  dedicated test file, and a new feature's tests belong in their own file
+  anyway (better organisation, not just cap-relief).
+
+Two sub-lessons the original two instances did not surface:
+
+1. **Trimming at a hard cap thrashes; extract first.** When a file is
+   *at* its cap, the reflex to trim a line to make room is the band-aid,
+   and against a hard cap it thrashes the pre-commit gate (one agent
+   burned three commit cycles: inline fix → complexity +1; one-line
+   comment → +1 line; strip-in-place → reflow → +2 lines). The first
+   response to "add a small thing to an at-cap file" is extraction, not
+   trimming.
+2. **Prettier reflow defeats net-zero line-count assumptions.** A
+   "same-line" edit on a long line (a method chain, a long signature)
+   silently becomes multi-line after `prettier` reflows it — so never
+   assume a line-count delta on a long line without re-running the
+   formatter. This is *why* trimming-to-fit is unreliable at the cap and
+   extraction is the stable move.
+
 ## When to apply
 
 - A quality-gate fires mid-authoring (lint rule, max-lines,
@@ -184,10 +224,9 @@ This pattern emerges naturally when:
 
 ## Graduation status
 
-Captured for graduation in
-[`pending-graduations.md`](../../operational/pending-graduations.md)
-under the 2026-05-23 first-out closeout entry "Honest-restructure-
-over-band-aid pattern confirmed across 2 agents in 2 cycles". Status
-is `emerging` (n=2 cross-agent confirmation in single session);
-promotion to `proven` awaits a third-instance observation in a
-future session.
+`proven` (2026-06-28). Confirmed first at n=2 cross-agent in the
+2026-05-23 session, then promoted when the max-lines-cap facet recurred
+≥5 times across agents in a later session (the team-tooling session) —
+the future-session third-instance-and-beyond the emerging status was
+awaiting. The recurrence across two independent sessions, with the same
+extract-to-a-sibling cure each time, is the stability evidence.

@@ -14,486 +14,142 @@ Current-session observations. Append below. Rotate when over ~400 lines (`consol
 step 6): extract every behaviour-changing entry, merge into `distilled.md` or graduate to a
 permanent home, verify the home, then archive and start fresh.
 
-## Napkin rotated (2026-06-28 dedicated consolidation, Clover lifts Root)
+## Napkin rotated (2026-06-29 dedicated consolidation, Quoll holds Rime)
 
-Rotated at a goal-gated dedicated-consolidation session. The processed window (the 2026-06-26 →
-2026-06-28 entries — Sonar idiom-rule tranching, tests-prove-behaviour, cross-worktree
-fragmentation, the #259/#260 memory-reconciliation arc, n=2 shared-tree commit hazards, and the
-docs-reviewer-split) is preserved verbatim in
-`archive/napkin-2026-06-28-clover-consolidation.md` (tracked, byte-identical). Every
-behaviour-changing entry was dispositioned first-hand against its home before the archive-move.
-As in prior rotations the substrate was mature: most entries were worked instances of live
-patterns/rules/frictions (`shared-state-topology-is-a-coordinator-question`,
-`fluency-is-a-failure-vector`, `governance-claim-needs-a-scanner`, `cross-lane-commit-blocking`,
-`wrapped-exit-codes-false-green`, `whole-tree-gate-red-on-untouched-files`, `worktree-hygiene`,
-F-98/F-101/F-102/F-103). The genuinely-new doctrine graduated **on first instance** (owner
-direction: promote and trust the Practice to invalidate a wrong promotion through experience):
-the owner-sharpened tests-prove-behaviour six-screen + firewall-is-review rule →
-`testing-strategy.md §Rules`; schema-as-SSOT-for-vendor-surfaces → a new `patterns/` file; the
-mechanical lossless-reconciliation proof (set-diff + merge-base-diff) → the `semantic-merge`
-skill §Verify; the new-eslint-rules warn-vs-error boundary, the re-litigation and
-supersession-vs-sequencing facets, and the fresh-worktree Playwright-browser step → per-user
-memories; and the F-95 watcher-gate false-negative → F-104. `distilled` and `pending-graduations`
-are empty. The commits and the homes are the record of where each piece went.
+Rotated at a goal-gated dedicated-consolidation session that graduated the **team-tooling
+session**'s captured-not-graduated lessons (the arc deferred them to "the DUE dedicated pass" via
+capture-now-graduate-later). The processed window — Clover's prior rotation heading plus the whole
+2026-06-28 team-tooling arc (setup, the spawn-flow + comms-CLI lanes, three Director tenures
+Firefly→Merlin→Triton→Kraken, and ~a dozen PDR-063 rotations) — is preserved verbatim in
+`archive/napkin-2026-06-29-quoll-consolidation.md` (byte-identical). Every behaviour-changing entry
+was dispositioned first-hand before the archive-move.
+
+Genuinely-new doctrine graduated to permanent homes (the commits + the homes are the record):
+the **macOS host-health reading** → `no-unbounded-host-load` §4 + `start-right` §7 (load-avg/swap
+over-read on macOS; read CPU-idle% + memory-pressure); **extract-at-the-cap** promoted
+`honest-restructure-over-band-aid` to `proven` (the max-lines-cap facet + the prettier-reflow
+sub-lesson); the **standby-seat liveness contract** → `liveness-heartbeat-cron` consumer-absent
+worked-instance + `start-right-team` (consolidate-don't-fork, not a new clause); three new patterns
+(`dissolve-the-need-before-exempting-a-safety-rule`, `result-seam-so-test-fakes-need-not-throw`,
+`guard-the-parse-before-threshold-classification`); the **stacked-working-branch + cherry-pick
+recovery** → `pr-monitor-to-merge`; the **negative-existence whole-package bar**
+→ `verify-dont-trust`.
+The rest were corroborations of already-homed doctrine (watcher-drain, fixtures-drift,
+input-to-verify-in-every-direction, gate-as-reviewer, warm-rotation). Tooling frictions landed as
+F-105/F-106/F-107 + the F-73 status update; the Director context-economy Standing Lesson landed in
+`director-handoff.md`. Core operating-model amendments (PDR-063 effectiveness-sigmoid retirement
+trigger, PDR-063 named-successor-clock, PDR-117 standing-successor throughput HYPOTHESIS
+[owner-flagged unmeasured], Director-merge-permission generalisation) surfaced to the owner as a
+candidate batch. `distilled` and `pending-graduations` are empty; open-questions Q-009/Q-011 carry
+the owner keep-open.
 
 New session observations append below.
 
-## Setup → team-session bridge + the over-separation correction (2026-06-28, Beluga rides Wave)
+### Deep recursive loss-scan addendum (Hearth herds Sulphur, owner-requested closeout) — items the first pass missed
 
-Setup agent for the team-tooling session: locked the scope (impact×effort → MoSCoW → §Locked scope),
-authored the owner-approved Director+2-Implementer team-session plan (readiness-reviewed — 4-lens +
-adversarial-verify workflow, 5 fixes folded), opened draft PR #268, authored the O5 under-the-hood MCP
-discovery-pointer precursor, briefed Director Firefly binds Slag (comms `d4c447b1`), stood down.
+The first entry was written during the handover; a deliberate recursive scan (run as falsification of "everything conserved") surfaced genuinely-new items. For @Quoll's dedicated pass.
 
-- **Over-separation can be the bug** (graduated → memory `feedback_inherited_separation_can_be_the_bug`).
-  I over-engineered an "app-local, don't entangle" precursor to PRESERVE the curriculum↔orientation
-  firewall — but that over-separation WAS the discoverability bug. Owner cut it to one discovery-surface
-  sentence. Don't design a fix that preserves an inherited boundary that is causing the problem.
-- **F-83 shared-checkout commit-window friction bit ~4× across this multi-agent day** (Clover lifts Root;
-  Clover mends Hedgerow ↔ Badger; me ×2). The serialize-the-commit-window protocol worked cleanly every
-  time but is pure coordination overhead on a shared checkout — live operating-model evidence (AC6) that
-  the worktree-per-agent transition the team session builds is the right cure. Conserved for the
-  Director's AC6 capture + the worktree-transition plan.
-- **never-trim memory** → memory `feedback_never_trim_memory_consolidate_instead`.
-- **Loss-scan (from my own context, standing down):** nothing else material unconserved — the locked
-  scope, the plan + readiness review, the precursor, the two memories, the Director brief (comms
-  `d4c447b1` + director-handoff CURRENT HANDOFF STATE), and the repo-continuity entry cover the session.
+- **Flat-PRs-off-origin/main CONFLICT when sequential items touch the same surface (refines the branch-model decision).** F-79 #281 went genuinely DIRTY (not just BEHIND) because F-70, F-79, F-80 each edited the SAME `comms:list` spec options array (`['comms-dir','tail', +'since', +'now']`) and the SAME `describe('comms list')` test block. The "flat independent PRs, Director update-branches at merge" model assumes DISJOINT diffs; items on the same command's spec-line/test-block are NOT independent and WILL conflict on the second merge. Cure: when sequencing items that touch one command's options array / one describe block, either (a) sequence them (don't parallelise the same line), or (b) flag in the handoff that the later PR needs a keep-both merge-in resolution (I hinted test-file; Gannet found it was actually the spec line — both conflicted). Sibling: ship-independent-coordinate-dependent (these were coordination-DEPENDENT on one line, not independent).
+- **Reviewer-panel size scales to BLAST RADIUS, and convergent independent findings are high-signal.** F-80 (shared-parser change, estate-wide) earned 3 reviewers incl. architecture-fred + type-expert; F-79 (2-line accept-ignore) earned 1. The judgment is "how far does this structurally reach," not "always N reviewers." Two reviewers (type + architecture) INDEPENDENTLY flagged the same latent invariant (`spec.positional` must be in `spec.options`) — convergent findings from different lenses are the strongest signal a guard is needed (I added the factory-construction assertion). Sibling: [[feedback_extensive_reviewers]], [[feedback_validate_specialist_findings_before_acting]].
+- **Discriminating-fixture choice (test-craft, from test-expert on F-79).** A `--now` witness value placed AFTER all fixture events is a weak tripwire — a future as-of-filter regression would still pass green. Place the witness BETWEEN events (I used 11:30 between 11:00 and 12:00) so any wrong coupling drops an event and fails loud. Reusable: pick test inputs that maximally DISTINGUISH the contract from its plausible regressions. (test-expert cited testing-patterns.md §discriminating-fixture — @Quoll verify it's homed there.)
+- **Help-doc judgment: document a real affordance, NOT a tolerated no-op.** F-80 positional → help updated (real new behaviour); F-79 `--now` accept-ignore → help UNCHANGED (documenting a no-op implies behaviour it lacks and invites a future reader to wire it). The principle: help tracks real behaviour; a deliberate no-op stays out of help, carried by a code comment + test instead. Doc-craft sibling of schema-first / generate-doc-from-impl.
+- **Route by ROLE, not name — the Director rotated mid-session (Triton→Kraken, PDR-064 M2).** I routed #278 to Triton, then the board to Kraken; re-checking who holds the Director role at each routing moment is the discipline (a fixed-name route would have gone to a stood-down agent). The two-moments handoff kept the seat continuous so routing never went dark.
+- **Owner-directives still pass the live-team-reality lens (worked instance, this closeout).** The owner's "hand over to Kraken + /oak-consolidate-docs" needed ratification: I'm an Implementer (no Director seat → "surface to Kraken" not "become Director"), and Quoll owns the LIVE dedicated consolidation (→ append-safe capture + surface candidates, NOT a colliding repo-wide pass / napkin rotation). Owner-direction-beats-plan AND don't-collide-with-the-live-team reconcile at "conserve and surface; the closeout-owner + curator absorb." Sibling: [[feedback_ltae_lens_before_user_questions]], [[feedback_owner_action_is_not_a_cure]]-adjacent, respect-active-agent-claims.
+- **Corroboration (not new):** F-83 shared-checkout commit-block — my napkin/continuity appends stay UNCOMMITTED because Sirius's session-metadata WIP in the shared primary checkout fails the whole-tree pre-commit gate (knip); append-safe is the cure, the closeout-owner/Quoll commits the buffers when the tree clears. Watcher drain-death at 180000ms hit twice (re-armed clean). Both already in register/prior entries.
+- **Loss-scan verdict (2 recursive passes): converged.** After the addendum, pass-2 surfaced only corroborations (F-83, watcher-death) already homed. Nothing material that only I hold remains unconserved: lane state → handoff record `0ba02fee-hearth-lane-b-to-gannet-2026-06-28.md`; learnings → this napkin (2 entries, @Quoll's source); curated-surface folds (identity row, repo-continuity summary, F-79/F-80 register lands) → surfaced to @Kraken (closeout-owner); in-flight PRs #281/#283 + --closed F-NN → Gannet + Director. My context can end.
 
-## 2026-06-28 — runbook kind defined; n=2 shared-checkout operational lessons (Clover lifts Root, deep closeout)
+## 2026-06-29 — Dedicated consolidation closeout (Quoll holds Rime, 4cb887)
 
-Session arc (all committed to `coordination/team-tooling-session-2026-06-28`, n=2 with Beluga rides
-Wave): dedicated consolidation (napkin drained, doctrine graduated, **#267 merged to main**);
-repo-continuity curated 575→308 (role-drift cure); open-questions driven to zero (Q-009/Q-011
-user-granted keep-open) + the drive-to-zero directive homed; **runbook defined as a content kind
-(PDR-120)** + host wiring + Runbook Index + discoverability cross-links.
+The DUE dedicated pass: graduated the team-tooling arc's captured-not-graduated lessons (the
+629-line napkin, archived verbatim) and applied the owner-approved Core amendments. Value+impact
+is in the homes + the commit; this is the loss-scan of what only I held.
 
-- **A recurring procedure forced into a `current/` plan is a taxonomy-gap tell, not a storage
-  problem.** My repo-continuity-curation "plan" was really a runbook (a procedure that RECURS) wearing
-  a plan's clothes (a plan COMPLETES). The owner caught it and asked the substrate question; the cure
-  (PDR-120) defines "runbook" as a content kind delivered via skills/reference-docs/rule-embedding by
-  the skill-load-budget triage — NOT a new surface (a new invocable surface would re-open the retired
-  parallel-command decision). The mis-shaped plan was created then dissolved within the session (loop
-  closed; the runbook re-homed into `continuity-practice` §Disposition, the rule it enacts). Tell:
-  procedure-that-recurs inside artefact-that-completes ⇒ ask lens-4 "would the system changing dissolve
-  it?" Sibling: [[feedback_design_from_the_substrate_not_the_instance]], PDR-120.
-- **Shared-checkout (co-resident, n=2) format hazard: `pnpm format:root` is whole-tree and would
-  clobber a peer's live uncommitted WIP.** Pre-commit prettier-staged flagged 2 of my files; the
-  canonical fix `format:root` would have reformatted Beluga's dirty plan files too (forbidden). Cure:
-  scope the format to your own files (`pnpm exec prettier --write <my-files>`), confirm the peer's files
-  unchanged, re-stage. The repo-scripts-over-npx preference yields to don't-touch-peer-WIP when the repo
-  script is whole-tree on a shared checkout. Candidate friction (F-83 family). Sibling:
-  [[feedback_no_underscore_rename_unused]]-adjacent discipline, cross-lane-commit-blocking.
-- **File-changed-under-me on a shared branch: re-read, don't trust memory.** repo-continuity grew +14
-  lines mid-turn via Beluga's commit; a line-number mismatch between two reads at the same offset caught
-  it before a large edit. On a co-resident shared checkout the working tree moves under you — re-read
-  fresh before a big rewrite. Sibling: [[verify-dont-trust]].
-- **n=2 serialized commit window worked cleanly** — ARC + canonical ping-before-window; whoever is
-  mid-flight commits first to a gate-green HEAD, pings closed, the peer commits on a clean tree (F-83
-  full-tree pre-commit gate is why serialization is needed). Two clean exchanges this session.
-- **Critically-assessing the subagent overrode its disposition.** The mixed-concern sweep recommended
-  extracting the curation runbook to a new `docs/` file; PDR-120 #3 says embed it in the rule it enacts
-  (fragmenting doctrine from enactment is the anti-pattern). A plausible subagent suggestion was wrong;
-  the owner's standing "critically assess subagent results" caught it. Sibling: [[verify-dont-trust]].
+- **CONFIRMED DEFECT for the next pass (Seraph flagged; verified first-hand): the rule
+  `consolidate-at-third-consumer.md` is mis-named — its H1 and entire body are "Consolidate at the
+  SECOND Consumer".** The stale filename misled Seraph's #282 CPD-duplication decision (read the
+  filename, reasoned "third consumer", nearly shipped gate-evasion). Doc-as-infrastructure defect.
+  Fix = rename → `consolidate-at-second-consumer.md` + reference sweep (CLAUDE.md / the generated
+  `.claude/rules/` adapter, RULES_INDEX, `[[consolidate-at-third-consumer]]` cross-refs) —
+  blast-radius, a focused pass, not a closeout edit. Conserved here for the next session.
+- **Hearth's addendum items above are post-rotation appends for the NEXT pass.** Item-1
+  (same-surface flat-PR conflict) is a clean refinement of `pr-monitor-to-merge` /
+  ship-independent-coordinate-dependent; items 2/4 (panel-size ∝ blast-radius; help-no-op doc-craft)
+  are candidates; item-3 (discriminating-fixture) cites `testing-patterns.md §discriminating-fixture`
+  (verify-homed deferred). Left for the next dedicated pass per "close out" — the team-tooling arc is
+  still live and the fresh napkin is its tail.
+- **Commit BLOCKED (F-83 — confirmed by Hearth + Triton + the visible WIP).** The primary checkout
+  carries Sirius's orphaned `session-metadata` WIP that fails the whole-tree pre-commit knip gate.
+  My whole consolidation (graduations, napkin rotation, register F-105/106/107 + F-73, PDR-063 /
+  PDR-117 amendments, Director-brief context-economy) is CONSERVED ON-DISK as append-safe
+  working-tree changes; the commit lands when Seraph reconciles the WIP (via #282) and the tree
+  clears. Handed to @Kraken (arc-end closeout-owner, waiting for this commit before the status-lands).
+- **My session corroborations (homed, not new):** lived the macOS host-health false-positive at
+  session-open — the exact lesson I then graduated (self-similar); watcher drain-death at 180000ms
+  AND 300000ms (even 300s loses under the 8-seat volume — corroborates F-43/F-105); `comms direct`
+  needs the full recipient tuple + `--active`; the heartbeat-suppression awk-filter on the Monitor is
+  a manual reserve-seat watcher (the Lane C Goal-1 cure being built).
+- **Loss-scan verdict: converged.** Nothing material that only I hold is unconserved — graduations →
+  their permanent homes (on-disk); owner decisions → PDR-063 / PDR-117 / the merge-gate memory; the
+  Seraph defect + Hearth's items → this entry (next pass); the commit → @Kraken on tree-clear. My
+  context can end.
 
-## 2026-06-28 — MCP orientation-discoverability + planning-vocabulary arc (Clover mends Hedgerow, closeout)
+## 2026-06-29 — Sirius weaves Night (aad6cc), agent-tooling stream: Goal 2 built (#282), Goal 1 not started — closeout + deep loss-scan
 
-Session arc: read-only review of the under-the-hood work → verified the reframe DONE (W1–W3 merged via #243, true merge not squash, first-hand) → owner reframed the discoverability problem as STRUCTURAL → authored `mcp-tool-taxonomy-and-orientation.plan.md` (decision-incomplete, WS0=architectural review gated on owner go-ahead) → the `generic-foundation-decomposition` programme (index + 8 `programmes:` lineage edges) → ADR-209 + mirroring PDR-121 (planning vocabulary; programme disambiguated from curriculum programme). All authored + on disk; **commit HELD pending Badger seeks Tunnel's window** (n=2, F-83 serialization).
+Owner-launched Implementer for a 2-goal agent-tooling stream under Director Triton (→Merlin… no: Triton→Kraken→Trawler rotations). **Owner verdict at close: STREAM NOT DONE — pick up with fresh sessions.** Claim feba5172 was orphan-rebalanced to Seraph seeks Quench (Kraken auth 0cf9b163) during a ~6h owner-away gap after my heartbeat lapsed; Seraph now owns Lane C and is driving #282. My closeout hands cleanly to Seraph (no contest). Non-closeout-owner: did NOT touch repo-continuity / thread records / register / napkin-rotation (Director + Quoll own those).
 
-- **Light scan BEFORE deep scan — reframe the questions cheaply before the expensive fan-out.** I launched two deep ultracode workflows before any light scan; the owner stopped both and prescribed light-scan → re-examine-questions → deep-scan. The cheap light read (handlers.ts + mcp-tools.ts + tool-guidance-data.ts) reframed everything — it revealed the two-type registry already exists and that the real defect is three drifting *hand-authored* tool-listing surfaces. Committing a 7-lane deep workflow to still-settling questions is the waste this order prevents. Sibling: [[feedback_ground_state_before_planning]].
-- **An index/view POINTS; it does not MODEL. Pre-naming concepts biases a downstream derived graph.** I gave the programme index a "concepts named for extraction" section; the owner corrected — enumerating concepts pre-empts and biases the ADR-200 concept-graph build (which must derive concepts from the plans themselves). A navigation index describes ≤2 areas and points to plans; the concept taxonomy is the graph's to derive, not the index's to assert. Sibling: [[feedback_premature_crystallization]], ADR-200.
-- **Malleable-shape stance RECURRED (PDR-098 recurrence evidence).** I framed an existing coupling (the curriculum hint in `universal-tool-shared.ts`) as a possible "make-or-break" blocker; the owner corrected: ask *"what would need to change to make it configurable"*, never *"does the current code permit it."* This is already homed (principles.md §Architectural Excellence / [[feedback_cowpath_anti_pattern]] / [[feedback_design_from_the_substrate_not_the_instance]]) yet recurred despite the home — the passive-guidance-loses-at-the-action-moment signal. Route as recurrence evidence, not a fresh duplicate.
-- **Subagent search results need verbatim quote verification; the `speculative/` plan lane is a sweep blind spot.** The Explore agent's plan-search returned 11 real paths but only 7/11 verbatim quotes (1 fabricated, 3 paraphrased), 2 over-inclusions, 1 misclassification, and missed 2 core plans plus the entire `.agent/plans/speculative/` lane (13 docs). Cross-checking each cited quote against the file and sweeping the doctrinal homes recovered them. Sibling: [[feedback_validate_specialist_findings_before_acting]], [[verify-dont-trust]].
-- **WS0 method-pointer is ephemeral.** The new plan's WS0 cites a session-scoped workflow-script path (`<session>/workflows/scripts/…`) that will not survive context-end; the method is re-derivable from the plan's lane prose, so this is a convenience-loss only, not substance-loss.
-- **REFINE (tooling-friction): the `never-use-git-to-remove-work` hook over-blocks `git restore --staged`.** The hook substring-matches `git restore` and blocks all forms, but `git restore --staged <path>` (alias `-S`) restores only the INDEX from a source (default HEAD) — it unstages, leaving working-tree content and on-disk edits untouched (non-destructive). Only `git restore <path>` and `git restore --worktree` (`-W`) overwrite the working tree (destructive). This session the hook blocked a safe unstage during a shared-index closeout, leaving my files staged with no clean way to unstage. The refinement IS feasible (the flags are parseable): allow `git restore --staged` when `--worktree`/`-W` is absent (index-only); keep blocking `git restore <path>`, `--worktree`, and `--staged --worktree`. Same safe-vs-destructive split applies to `git reset -- <paths>` (unstage, safe) vs `git reset --hard`/`--keep`/`--merge` (destructive). Candidate home: [[hook-policy-substring-discipline]] (parse-don't-substring). Do NOT bypass the hook — refine it.
+**STREAM STATE (for fresh sessions / the Director to fold into continuity):**
 
-## 2026-06-28 — completed-plans/good-first-issues retirement; symmetric-HOLD deadlock (Badger seeks Tunnel)
+- **Goal 2 (session context-% CLI) — IN PROGRESS, NOT done.** PR #282 `feat(agent-tools): add session-metadata context-occupancy CLI`. My base commit 1d5335857 (44 tests, gates green, run-the-thing proven 34% on my live session). Seraph drove it past a SonarCloud `new_duplicated_lines_density` FAIL (my session-metadata parser duplicated context-cost's) + 2 Cursor Mediums → head **275d50ab1** (per Seraph, first-hand): extracted a shared `core/cli-arg-parser`, migrated session-metadata + context-cost onto it. CI re-running at close; Seraph routes to Director when green. The command shape: `agent-tools session-metadata --vendor <v> --model <m> --session-id <id> [--json]` → {window,used,remaining,pct,zone,advice}; model is an INPUT so the window is unambiguous (owner's "no fallbacks/complications" shape).
+- **Goal 1 (comms-watch reserve-seat heartbeat-exclude flag) — NOT started.** Seraph builds it after #282 lands. Design pointer below (Seraph's explicit ask).
 
-Session arc (n=2 with Clover mends Hedgerow, shared checkout): owner-directed dedicated consolidation — retired the two deprecated files `.agent/plans/completed-plans.md` (harvest-then-retire, no new index, ADR-200-aligned) and `.agent/plans/good-first-issues.md` (dissolved — a cowpath over an empty `good first issue` label with no external contributions; brought nothing into CONTRIBUTING). Reconciled ADR-117 + `templates/README.md` archival doctrine to ADR-200; swept ~21 live references; three reviewers (docs-adr LEGITIMATE, onboarding COHERENT, assumptions SOUND+1) critically assessed; the one finding (a dated experience file asserting the retired index as current) cured with a dated supersession note, not a scrub.
+**GOAL-1 DESIGN (Triton-ratified; for Seraph / fresh session):** a `comms watch` flag (e.g. `--exclude-tag heartbeat` / reserve-seat mode) that DROPS only `[heartbeat]`-tagged liveness events and KEEPS every coordination channel (broadcast/group/directed/observed/lifecycle). Triton's ratified doctrine point (the correctness crux): it is a VALUE-CONTINGENT NARROWING, NOT a repeat of the founding directed-only-filter failure — because a standby's ACTIVATION trigger (a PDR-064 pre-positioning event) is a `narrative`, NOT a heartbeat, so a reserve seat still wakes on its own activation. Surface: the watch loop + watcher render/relevant-events filter + `commsWatchOptions` (cli-spec-options.ts) + the `comms:watch` spec + `comms watch` help. ADDITIVE-ONLY on the shared comms CLI registries — coordinate shared-file touches with the live Lane B owner (Hearth→Gannet). Motivation evidence is overwhelming: my OWN watcher died 4× this session on the comms firehose (drain-step deadline at 60s→180s→300s→even 600s under the multi-agent volume); standby context-economy hit first-hand by Quasar/Kraken/Kingfisher/me. Home for the friction: frictions-register; the deeper watcher-drain cure (F-101 supervisor + adaptive deadline) is separate.
 
-- **EXPLORE (owner-directed): apply CSMA with randomised backoff to agent-coordination defaults — and anywhere peer agents defer to each other.** The symmetric "default to HOLD if no reply" both Badger and Clover posted is a mutual-politeness *deadlock* (no designated mover → tree never clears → neither can ever commit). Liveness needs injected asymmetry. Owner's immediate cure: first-to-commit commits the whole file, other re-edits (cheap-clobber tiebreaker). The deeper design question to explore: where no deterministic tiebreaker (lowest `session_id_prefix`/oldest claim/gatekeeper role) fits, borrow **CSMA/CD randomised exponential backoff** — on collision each agent waits a random interval, re-senses the shared channel (claims/comms/tree state), and retries; symmetry breaks probabilistically. Candidate application points beyond commit windows: claim adoption, who-drains-a-buffer, who-answers-the-owner, who-opens-the-PR, any "after you / no, after you" peer default. Home: [[feedback_symmetric_hold_default_deadlocks]] (per-user memory); this is a Practice design-exploration item, not yet a plan. Sibling: [[feedback_gatekeeper_specialisation]], `fluency-is-a-failure-vector` (I copied the HOLD default without ratifying it).
+**ws0 ARCHITECTURE FINDINGS (the EXPENSIVE part, only partially in comms — conserve for the context-usage / firing-gate / observability follow-on):** I ran a 4-reviewer ws0 review of the pre-existing `session-context-usage-cli.plan.md` before the owner redirected to "just build it." Decisive, first-hand-VERIFIED findings:
 
-## 2026-06-28 — Lane A spawn-flow Implementer (1A merged, 1B PR'd, PDR-063 handoff to Avocet) — Beluga turns Shoal (581401)
+  1. The Claude harness ALREADY computes context occupancy % against the CORRECT window for its running variant and delivers it on the statusline command's stdin (`context_window.used_percentage` + `model.display_name`), ALREADY consumed in-repo at `agent-tools/src/claude/statusline-identity-input.ts`. (Verified: file parses it; Triton's script 37% matched the official statusline 38%.)
+  2. The plan's DRAFT primary mechanism (resolve the 200k-vs-1M `[1m]` variant from the transcript's `message.model`) is FALSIFIED: `message.model` records `claude-opus-4-8`, NEVER `[1m]`, in 0/330 project transcripts (verified first-hand on my own live [1m] session: 66× plain, 0× [1m]). The build SIDESTEPS this by making the model an INPUT (owner's call) — clean for the CLI, but the broader "read an arbitrary session's % without being told the model" problem is unsolved and needs the harness-% path.
+  3. The genuinely-missing primitive for a session-keyed queryable % is PERSISTENCE of the harness-provided `used_percentage` (statusline-tick hook → session-keyed store); it is NOT persisted today (statusline-frame-store holds only a cosmetic counter). WHERE that primitive should live is an OPEN design question — barney/betty recommended the `cross-vendor-session-sidecars.plan.md` (ADR-125) estate, but **the owner flagged that plan as OLD and possibly-irrelevant/not-a-good-idea — do NOT anchor on it; design the home from impact afresh.** The empirical fallback disambiguator for the JSONL path: occupancy > 200k ⇒ 1M window; sub-200k peer sessions are genuinely ambiguous.
+  4. The firing-gate (an active interrupt at the ~50/65% effectiveness thresholds) is the genuinely behaviour-changing layer — a separate later plan; the CLI is only the sensor. Owner constraint: "useful, not for forced retiring."
 
-Built spawn-flow 1A (`agent spawn` create-worktree+branch+identity, merged #269) + 1B (build-at-spawn + S4036 pnpm-absolute-path hardening, PR #272), then PDR-063-handed Lane A to Avocet tracks Crag (1C→Phase 2 remaining). Lane state lives in the handoff record `.agent/state/collaboration/handoffs/a63ac21a-lane-a-beluga-to-avocet-2026-06-28.md`. Session-general frictions/lessons (not lane-specific, so napkin-homed here):
+**SESSION LESSONS (behaviour-changing; candidates for graduation by Quoll/the dedicated pass):**
 
-- **Harness git friction (recurring, hit by ≥3 agents this session — me, Avocet, Pangolin): worktree rebase/update is permission-fenced.** `cd <wt> && git rebase` (compound) and `git rebase --continue` are **denied**; the working form is **standalone `git -C <wt> -c core.editor=true rebase origin/main`** (and `… rebase --continue`) — `-c core.editor=true` skips the editor, `git -C` avoids the compound. `git push --force`/`--force-with-lease` is **hook-blocked**, so to bring an *already-pushed* branch up-to-date you **merge `origin/main` into it** (Pangolin's cure) rather than rebase+force-push; a never-pushed branch rebases freely then pushes clean (my 1B path). Candidate home: [[hook-policy-substring-discipline]] / frictions-register. Sibling: [[feedback_no_sed_bypass_for_edit_failures]] (don't bypass — use the safe form).
-- **comms watcher dies two ways; re-arm on the failure notification.** (a) GNU `timeout` 3600s self-exit (F-101, expected — live agent re-arms, the `--seen-file` cursor loses no events); (b) the **drain-step 60s deadline under high comms volume** (a busy multi-agent window). Cure for (b): re-arm with **`--step-timeout-ms 120000`** to absorb volume. Both hit me this session. Refines [[feedback_comms_watch_cli_can_stall_silently]].
-- **Two debugging traps that produced a false-green / false-fail.** (1) **Stale dist**: after editing `agent-tools/src`, the built-CLI e2e ran the OLD `dist` and silently skipped the new behaviour (missing build marker) — **rebuild dist before any built-CLI e2e**. (2) **`cmd | tail; echo exit=$?` captures `tail`'s exit, not `cmd`'s** — it masked a real non-zero. Run the command bare (or `${PIPESTATUS[0]}`) when you need the real exit. Sibling: [[verify-dont-trust]], [[feedback_run_the_thing_dont_flag_the_gap]].
-- **Result-seam so test fakes don't throw (distilled candidate).** To test an error path that wraps a *throwing* dependency (execFileSync, resolveCoordinationHome) WITHOUT a throwing test-fake (which trips the `no-throw-statement` warn rule), **lift the seam to return `Result`** and translate the throw to `err` at the single real boundary; the fake then returns `err(...)`, never throws. This keeps new code off the no-throw backlog AND keeps tests warning-clean. Composes with: split functions that grow past 50 lines / 20 statements when Result-wrapping inflates them (extract a `validate*`/`execute*` helper). Sibling: [[feedback_test_the_flag_engine_not_the_configuration]]-adjacent, ADR-088.
-- **Stacked-working-branch / flat-PR pattern for dependent slices (Director-codified, worked cleanly).** When slice N+1 depends on unmerged slice N: build N+1 on a working branch *stacked* on N's branch (keeps momentum, don't idle the critical path during review), but **do NOT open N+1's PR until N merges** — then rebase N+1 onto fresh `origin/main` (N drops out) and open it **flat** as a single-deliverable diff. Momentum of stacking + clean diff of waiting. A temporarily-stacked working branch is not a stacked PR.
-- **PDR-063 mid-cycle handoff worked end-to-end (worked instance).** record (4 sections) → `claims set-handoff --path` → directed `comms direct --kind mid-cycle-handoff` to the successor's full identity tuple → retirement/heartbeat-end broadcast → stop heartbeat THEN watcher. The successor adopts via `claims adopt` off the handoff event. Clean rotation; no work lost.
-- **Loss-scan (from my own context, standing down):** nothing else material unconserved. Lane-A technical state + decisions + the T1 (orphan-on-build-failure → atomic-rollback needs a `never-use-git-to-remove-work` tool-exemption, owner/Director call) and T2 (relative-PNPM_HOME → emit absolute-only candidates) Cursor findings are in the handoff record + the open #272 threads; reviewer findings are folded into the merged/PR'd code; the frictions above cover the session-general residue. Repo-continuity / thread-record / F-87+F-90 register lands are the Director's (closeout-owner); I did not touch them.
+- **An Implementer's source build belongs in its OWN worktree from the FIRST edit — never the shared primary/coordination checkout.** I built Goal 2 in the primary checkout. Two real harms followed: (a) **F-83 self-block** — my uncommitted session-metadata WIP failed the whole-tree knip pre-commit gate, BLOCKING the Director's (Triton's) handoff-refresh commit until I cleaned it; (b) **misattribution** — a peer (Kingfisher) read my claim's stale pre-rename name and attributed my WIP to "Blazar rides Dawn." The cure (create worktree off origin/main, re-apply edits, clean primary) cost ~6 reverse-edits + a full rebuild. Strong worked instance for the worktree-per-agent model. Candidate: sharpen start-right-team's Implementer expectation to "claim AND open your worktree before the first source edit."
+- **Start the heartbeat cron as a FIRST move (with the claim), not after building.** I went heads-down ~40min with no heartbeat → invisible → the misattribution; then the 6h gap + my silence past the liveness deadline → claim orphan-rebalanced away to Seraph. The 3-min heartbeat cron I eventually set was the right shape but late. Corroborates the frozen-label/heartbeat-staleness family.
+- **origin/main can be AHEAD of the coordination branch — diff before landing, never blind-copy.** My worktree off fresh origin/main had `spawn` topic + `processIsAlive` seam that my coordination-branch bin files LACKED; `cp`-ing my files would have REGRESSED merged work. Cure: diff worktree-vs-mine, re-apply my additive edits onto origin/main's versions via Edit. Grounded execution knowledge.
+- **Gate-as-reviewer caught what 4 sub-agent reviewers missed (again):** (a) knip flagged `EffectivenessZone` as an unused export AFTER the type-expert drift-guard refactor un-referenced it (cure: make it module-private); (b) the full pre-commit suite caught `agent-tools-cli.unit.test.ts` asserting the exact topic-list — adding a topic requires updating that test (atomic-landing). Don't declare review-done before the full gate. Sibling: the help/usage-list is a hand-maintained doc-drift surface (Lichen's candidate — generate from the spec).
+- **Owner cut through my over-exploration to "build the bloody thing"; the owner-supplied "model-as-input" simplification dissolved the entire variant rabbit hole I'd spent 4 reviewers on.** Metacognition: when the owner gives a concrete build goal, build the simplest working thing FIRST; deep architecture review is valuable but I over-invested before shipping. Light-scan-before-deep applies to BUILD goals too. Sibling: feedback_premature_crystallization, the light-scan-before-deep-scan lesson.
+- **Dogfood self-similarity (strong "aimed-right" signal + experience-worthy):** I built a context-measurement tool and ran it ON MYSELF mid-session (43.2%, "peak — start eyeing a handover point") to make the land-vs-handover call evidence-based instead of confabulated — the exact friction the tool exists to cure, cured by the tool DURING its own construction.
 
-## 2026-06-28 — F-101 watcher-orphan cure (Pangolin weaves Nightfall, Lane B; team-tooling session; PDR-063 handoff to Ingot)
+**Loss-scan verdict:** the above conserves what only I held — the ws0 architecture findings (esp. the harness-% path + the owner-doubted sidecar home), the Goal-1 ratified design, and the 5 session lessons. Code/proof are in #282 + Seraph's 275d50ab1. Claim disposition: feba5172 owned by Seraph (rebalanced; nothing for me to close). repo-continuity / thread `agentic-engineering-enhancements` identity row / register are the Director's to fold (flagged). Nothing else material remains only in my context.
 
-Session arc (Director Firefly binds Slag + Implementers; rotating cast): Lane B = O1 liveness + O2 ergonomics. Delivered F-82 verify (opening gate, GREEN) and F-101 (watcher orphan cure) → PR #270 genuinely-ready (CI green, threads resolved); PDR-063 handoff to Ingot tracks Brilliance for F-75 + the O2 tail. Code/proof live in PR #270 + the two watcher rule files; handoff record `0ba02fee-pangolin-lane-b-to-ingot-2026-06-28.md`. Below = the knowledge NOT in those homes.
+### Loss-scan addendum (Kayak turns Channel, at closeout) — 2 items only my context held
 
-- **F-101 empirical teardown taxonomy (falsified the assumed cure).** Controlled process experiments (throwaway watchers): the existing `timeout`-wrapped watcher invocation ALREADY kill-trees cleanly on CLEAN teardown — Monitor `TaskStop`, SIGTERM-to-`timeout`, and `timeout` expiry all group-kill (GNU `timeout` runs the command in its own process group and signals the whole group). It ONLY orphans on HARSH teardown (SIGKILL-to-`timeout`, or the agent crashing without signalling) because the watcher's separate process group is never signalled. So a pure process-group kill-tree does NOT "fully deliver" the cure (the Director's stated (i) — I falsified it with measurement; the Director accepted). Cure = `--supervisor-pid "$PPID"` supervisor-death detection: the watcher probes the supervising pid each poll cycle and self-exits when it's gone. This SUPERSEDES the deferred Stay-alive-Stop-hook lease for the orphan problem — no host hook needed. Sibling: [[verify-dont-trust]], [[feedback_run_the_thing_dont_flag_the_gap]].
-- **Live dogfood: my OWN pre-cure watchers orphaned exactly as F-101 describes.** At retirement, a `ps`/`pgrep` sweep found an orphaned watcher tree (timeout→pnpm→…→node, ppid=harness) from an earlier Monitor task whose supervisor had gone — the cure isn't deployed to running watchers until #270 merges. Hand-swept it. Real-world confirmation the problem + cure matter. Also confirmed killing the `timeout` leader with SIGKILL orphans its node descendants (no signal forwarding) — kill the GROUP (`kill -- -<pgid>`) or the node directly, not the leader pid.
-- **FRICTION (candidate for the register — Director-owned this session): watcher default 60s drain step-timeout too tight under multi-agent host load.** My comms watcher fail-loud-exited twice on `kind=timeout` (drain step >60s) when the host was loaded (concurrent builds/tests across agents) — correct fail-loud behaviour, but a false-positive death. Cure: re-arm with `--step-timeout-ms 180000`. Candidate: raise the default, or make it load-adaptive. (The 3600s lifetime `timeout` also fired once — expected; re-armed clean.)
-- **FRICTION + lesson: heartbeat LABEL staleness caused a false "watcher-down" rescue alarm.** The heartbeat loop's title/cycle-label are frozen at loop-start; after the Director re-routed me I stayed heads-down on the fix and did NOT relabel, so my last heartbeat still read "awaiting routing" while I was actively working — the Director read it as a likely-dead watcher and nearly triggered a Lane-B rescue (Ingot stood ready). Loop-hygiene "relabel at every lane transition" is real and load-bearing, but easy to drop under deep focus. DEEPER CURE CANDIDATE: derive the heartbeat's lane/cycle label from the live claim's current state (which the agent updates as it works) rather than a frozen loop arg, so it cannot go stale while the agent is active. Sibling: [[feedback_agent_state_observable]]-adjacent; liveness-heartbeat-cron loop-hygiene.
-- **FRICTION (F-102 family): `--force-with-lease` is hook-blocked (substring `git push --force`), so a feature branch can't be rebased-then-force-pushed to update.** Cure used (Director-confirmed): MERGE `origin/main` into the branch instead of rebase — clean when the change is disjoint from what main advanced, keeps the PR diff clean (merge-base = main), and the repo merges PRs via merge/squash anyway. No force-push, no owner-auth needed. Over-broad substring block is the [[hook-policy-substring-discipline]] (parse-don't-substring) family.
-- **The gate and the observation are reviewers too — they caught what 4 sub-agent reviewers missed.** code/type/test/docs-adr all approved, but the pre-commit gate then caught a knip unused-export AND a depcruise import cycle (cli-runtime ↔ watcher-supervisor), and the end-to-end observation caught a composition-root wiring gap (the bin dropped the `processIsAlive` seam → the real CLI threw) that every unit test passed over (the fake runtime always provided the seam). Lesson: don't declare review-done before running the full gate AND observing the real built thing — especially for composition roots. Cure for the cycle: interface-segregation (depend on a narrow `SupervisorLivenessRuntime` slice, not the whole `CliRuntime`). Sibling: [[verify-dont-trust]], [[feedback_run_the_thing_dont_flag_the_gap]], [[feedback_aggregate_gate_blind_to_unrun_suites]].
-- **Minor: `check-commit-message` takes `-F <file>` not `--file` (mirrors git); a `comms direct`/`append` body with backticks or `$` needs `--body-file` (shell-quoting).** Both cost a retry. (Latter is documented in the live help now.)
+- **§4.A option-(b) was considered and REJECTED — do not reopen without a concrete need.** Beyond "no seed
+  injection" (option a, shipped): the alternative was to change the Claude `SessionStart` hook to HONOUR an
+  existing `PRACTICE_AGENT_SESSION_ID_CLAUDE` instead of overwriting it from the harness session_id — which would
+  let spawn pre-determine the launched session's identity. Rejected: it is a shared PDR-027 identity-CONTRACT change
+  (portability + tests + every platform hook), it fights derive-don't-author (authoring what the harness derives),
+  and there is no concrete need for spawn to pre-determine a Claude identity. A future "spawn pre-determines
+  identity" feature would re-derive this fork — the answer is on record here + comms 8d618ebd.
+- **`spawn/cli.unit.test.ts` is integration-shaped but `.unit.test.ts`-named** (test-expert flagged, pre-existing,
+  not a 1E/#284 blocker): it wires multiple injected collaborator fakes (createWorktree/build/openPr/resolveHome),
+  which by the taxonomy is integration, not a single-pure-function unit. Stubs return constants (compliant), so it
+  is a naming/classification nit, not a quality defect. Candidate rename → `cli.integration.test.ts` for the file
+  owner; flagged so it is not lost.
+- **Loss-scan verdict (Kayak, standing down): complete.** Both PRs MERGED (#280 ab2783790, #284 ddead5b7); §4.A
+  finding + cleanup + decisions in the commits + the Kingfisher handoff record (first-hand-verified at write);
+  Phase 2/Phase 0 are Kingfisher's; repo-continuity / thread-identity / register folds are the Director's
+  (F-83-commit-blocked, flagged to Kraken). Nothing else material that only I hold remains unconserved.
 
-## 2026-06-28 — Director lens, team-tooling session (Firefly binds Slag, 887889; first Director → handed to Merlin)
+## 2026-06-29 — Lane C orphan-adoption + #282 gate-evasion near-miss (Seraph seeks Quench, 4beeb3; owner-directed closeout)
 
-Drove the team-tooling session open → first cycle (#269 merged) → both implementer PDR-063 rotations (Beluga→Avocet Lane A, Pangolin→Ingot Lane B). Operational state is in `director-handoff.md` CURRENT HANDOFF STATE. Below = DIRECTOR-perspective lessons not in the implementer entries above (which corroborate the shared frictions — watcher deaths, force-with-lease, gate-catches-what-reviewers-miss).
+Standby successor to Sirius weaves Night. Sirius went silent 65+ min past a Director-set liveness deadline (no heartbeat ever, claim feba5172 heartbeat_at null); I ran ping-before-escalate (work-evidence found #282 on origin → bounded liveness ping with default → Director Kraken adjudicated + authorised orphan-rebalance), first-hand-verified silence at the deadline, ADOPTED feba5172, and drove Sirius's Goal-2 PR #282 (session-metadata context-occupancy CLI) from NOT-ready to genuinely-ready (SonarCloud PASS + 0 reviewThreads, head 275d50ab1, routed to Director Trawler). Hours later Sirius RETURNED alive and (unaware of my adoption) re-routed #282 at its stale base — reconciled via ground-truth broadcast; Sirius then owner-directed-closed-out to me. Goal 1 (comms-watch reserve-seat flag) unstarted; lane resumes fresh.
 
-- **Frozen heartbeat-label → Director false-uncertainty (RECURRED twice: Pangolin, Avocet); cure = work-evidence-cross-check BEFORE pinging.** From the Director side a frozen label ("awaiting routing" / "ready" persisting after I'd routed) is indistinguishable from stalled / comms-blind / moved-on. Both times: cheap work-evidence check first (`git fetch` + latest PR commit + `reviewThreads` state) → revealed the agent alive+working (Pangolin) / watcher genuinely down but agent alive (Avocet) → THEN a bounded direct-ping with an explicit default. Never fired a premature rescue. 2× recurrence = evidence the deeper cure is warranted: **derive the heartbeat label from the live claim's current cycle, not a frozen loop arg** (Pangolin's candidate). Director discipline: a stale label is INPUT-TO-VERIFY, never a stall verdict. Sibling: [[verify-dont-trust]], ping-before-escalate.
-- **PR merge-readiness: GraphQL `reviewThreads{isResolved}` is the authoritative surface — NOT `gh pr checks`, NOT REST `/pulls/N/comments`, NOT the peer's "resolved" report.** Twice a peer declared #272 "threads resolved / ready" while GraphQL showed unresolved — a Cursor Bugbot finding posted 30–60s BETWEEN the fix and the declaration. REST `/comments` also missed inline Copilot threads `reviewThreads` surfaced. First-hand verify caught a real honesty bug ("resume reports wrong base ref") heading to `main`. **Director rule: adjudicate via `reviewThreads`; re-verify 0-unresolved AT ready-declaration (bots are async); peer "ready" is input-to-verify.** The #220/#222 inline-comment blind-spot the director-handoff warns of. Sibling: [[feedback_peer_status_claims_are_input_to_verify]].
-- **PATTERN candidate — no-removal redesign before a safety-rule exemption (lens-4).** When a fix would touch a hard safety rule (`never-use-git-to-remove-work`, for rollback of an orphaned spawn worktree), don't self-ratify or reflexively escalate an exemption — first ask "what design dissolves the need to touch the rule?" T1 → **idempotent-retry** (probe `git worktree list` → resume/collide/create; nothing removed) dissolved the exemption entirely; no owner escalation. Escalate ONLY if no-removal genuinely isn't clean. Home candidate: a `patterns/` entry or PDR clause. Sibling: [[feedback_ask_would_this_be_simpler_if_the_system_changed]], rules-have-no-exceptions / PDR-074.
-- **AC6 / PDR-117 second-instance: ZERO owner-visible coordination prompts across a full multi-rotation session.** Every decision resolved at Director/implementer level via the Decision Lenses. The owner's only throughput dependency is the **automerge-enable** (human code-owner gate — `#269` enabledBy=jimCresswell; agents must not enable via shared creds) + the org-admin claude-review-limit. Hands-off owner → genuinely-ready PRs queue behind that gate by design (not a defect). Fold into the worktree-per-agent transition home at arc-end.
-- **Director is input-to-verify too.** My fail-fast lean on T1 was correctly REJECTED by Avocet with git-grounding (no stored original base; base refs move → fail-fast false-errors legit retries; code-expert confirmed) — honest `resumed` flag instead. The standing "critically assess subagent results" applies to the Director's suggestions as much as reviewers'. Sibling: [[feedback_validate_specialist_findings_before_acting]].
-- **Loss-scan (from my own context, standing down):** operational state conserved in `director-handoff.md` CURRENT HANDOFF STATE (first-hand-verified this handoff); graduate-able lessons are the bullets above. Register lands (F-87 merged + the NARROW F-101 supersession reconciliation) were deferred to a quiet moment and remain OWED — Merlin inherits (flagged in handoff state). Nothing else material unconserved.
-
-### Deep recursive loss-scan addendum (Firefly binds Slag, at handoff to Merlin) — items NOT in the handoff state or the entry above
-
-- **DIRECTOR-HANDOFF SEQUENCE (owner correction, this rotation — graduate to the Director brief's Standing Lessons).** The sequence is **prepare-handover-materials → hand over → run session closeout**, NEVER finish-all-possible-work-then-hand-over. Optimise for **CONTINUATION, not neatness in any one session.** I had it backwards — I was merging #270, about to merge #272, push, and land the register BEFORE handing over (tidying my session). The owner stopped it: those loose ends are the successor's *documented continuation*, not mine to finish. Behaviour change: at the FIRST sign of handoff, prepare the handoff materials (refresh + commit the handoff state), pre-position (Moment-1), and only after authority transfers do the closeout — leave in-flight work in-flight, handed over, not force-completed. Sibling: PDR-063/PDR-064, [[feedback_dissolve_role_when_pressure_clears]]-adjacent.
-- **Director-merge-permission vs the code-owner gate (open-question candidate, Q-).** The owner granted the **Director merge permission for THIS session** (merge when CI-green + comments-resolved), and `gh pr merge --squash` worked first-hand (#270 landed). This is in tension with the standing `main merge gate = code-owner review; clean agent merge prohibited` (per-user memory `project_main_merge_gate_codeowner`). OPEN: does Director-merge-permission generalise to team sessions as a model (Director is the trusted merge-gate, replacing per-PR @jimCresswell review), or is it a per-session owner grant? Resolving it shapes the worktree-per-agent transition's merge story. Capture as an open question; do not assume it generalises.
-- **My base-branch defect (Director-learning).** My Moment-2 lane brief told implementers to cut feature branches off `coordination/team-tooling-session-2026-06-28`; correct is **off `origin/main`** (pure-diff PRs to main; the coordination branch carries only Director state). Caught + corrected within minutes (both implementers recut), but it cost a rebase each. Lesson: state the branch-class precisely in the opener/Moment-2 (off origin/main, flat, pure-diff) — the opener I wrote already said origin/main; my broadcast contradicted it. Verify the broadcast against the opener before sending.
-- **Shared-checkout contention for the coordination home (friction candidate).** Continuity-file writes (napkin, director-handoff) raced ("modified since read" repeatedly; one `.git/index.lock` collision on commit) because **standby successors registered as operating IN the primary checkout** (the coordination home). The worktree-per-agent model cures lane-source contention but the coordination home is still one shared checkout. Candidate: standby successors must NOT run git / hold the index in the coordination home; they create their own worktree only on adoption, and read (never git-write) the coordination home until then. Append-only buffers tolerate concurrent appends via shell (`cat >>`), but `Edit` (read-state match) and `git commit` (index lock) do not. Sibling: [[feedback_claims_never_block_memory_state_writes]] (writable-always) vs the index-lock reality.
-- **AC6 headline (sharpen for the worktree-per-agent transition evidence home).** The strongest PDR-117 second-instance finding is not just "0 owner-visible coordination prompts" — it is that **a hands-off owner + Director-merge-permission together produced an autonomous, self-continuing team**: the owner intervened only with standing directives/corrections (critical-review reminder, the sequence correction, the merge grant), never with coordination. The cast rotated at velocity — Lane A Beluga→Avocet→Dormouse and Lane B Pangolin→Ingot(→Pegasus standby) in ~one session — via clean PDR-063 handoffs, each with a frozen handoff record, no work lost. 2 cycles landed (#269, #270) + 2 more genuinely-ready (#271, #272) at handoff. This is the continuation-over-neatness model working.
-
-## 2026-06-28 — Lane A spawn-flow + O5 (Avocet tracks Crag, team-member preservation pass)
-
-Retired team-member (PDR-063, Lane A → Dormouse). Owner-directed deep close-out; not the
-closeout owner, so capturing to the napkin (append-safe) and flagging curation items for the
-Director (Firefly) per the Pangolin precedent. These are loss-scanned from my own context —
-items NOT already in the handoff record (`a63ac21a-lane-a-avocet-to-successor-2026-06-28.md`) or
-my closeout broadcast (`0b76bd9d`).
-
-- **STRUCTURAL-CAP THRASH → EXTRACT-DON'T-TRIM (candidate: friction-register + behaviour-note;
-  2 instances same session = strong graduation signal).** Adding a small thing to a file at its
-  structural cap (max-lines 250 / complexity 8 / max-lines-per-function 50) triggers a
-  failed-gate thrash if you respond with incremental trimming. On `create.ts` I burned THREE
-  pre-commit cycles: inline fix → complexity 9; 1-line comment → file 251; strip-in-place →
-  prettier reflowed the chain to 4 lines → file 253. The right move was apparent only after
-  code-expert + architecture-expert-fred both flagged it: **extract the cohesive concern to a
-  sibling module** (`detectExistingWorktree` + the seam type → `existing-worktree.ts`, acyclic;
-  `create.ts` 253→197). **Ingot hit the IDENTICAL thing the same session on `cli-specs.ts`**
-  (extracted a factory to `cli-spec-factory.ts`). Behaviour change: when a file is AT a
-  structural cap, the first response to "add a small thing" is extraction, never trimming —
-  trimming against a hard cap is the anti-pattern. Sub-lesson: **prettier reflow defeats
-  net-zero line-count assumptions** — a "same-line" edit on a long line silently becomes
-  multi-line; never assume a line-count delta on a chain/long line without re-running prettier.
-  Sibling: [[feedback_cowpath_anti_pattern]] (the thrash IS designing around the cap instead of
-  re-homing).
-
-- **INPUT-TO-VERIFY APPLIES UPWARD, not only to subagents (candidate: distilled).** The Director
-  leaned fail-fast for the base-ref fix (error if requested `--base` differs from the worktree's
-  actual base). I assessed first-hand and REFUTED it with git-grounding: git stores no record of
-  a branch's original fork point, and base refs move (main advances), so any base comparison
-  false-errors a legitimate retry after main moves. The Director affirmed I was right. The owner
-  directive (via Merlin) says reviewer/subagent output is input-to-verify — this session shows it
-  applies to a DIRECTOR's lean too. A recommendation from authority is still input-to-verify when
-  the code reality contradicts it. Sibling: [[feedback_reason_from_impact_not_authority]],
-  [[feedback_validate_specialist_findings_before_acting]].
-
-- **NO-REMOVAL-CURE DISSOLVES THE NEED FOR A SAFETY-RULE EXEMPTION (candidate: pattern /
-  distilled — reusable LTAE move).** T1 (orphan-worktree-on-build-failure) seemed to need a
-  narrow exemption from `never-use-git-to-remove-work` (atomic rollback = remove the just-created
-  worktree). The Director declined to self-ratify and reframed (lens-4 / replace-don't-bridge):
-  **dissolve the need for removal** — idempotent retry (detect the existing worktree, resume the
-  build) needs no `git worktree remove` at all, AND is better UX (retry "just works"). The move:
-  *when a fix appears to need a safety-rule exemption, first seek a redesign that dissolves the
-  need for the dangerous operation.* It is the constructive inverse of the cowpath — not
-  designing around the constraint, but redesigning so the constraint never binds. Sibling:
-  [[feedback_inherited_separation_can_be_the_bug]], [[feedback_long_term_architectural_excellence_is_always_the_answer]].
-
-- **RE-VERIFY 0 THREADS *AT* DECLARATION — a bot posts between your fix and your "ready"
-  (candidate: sharpen [[feedback_pr_readiness_requires_comment_triage]] / the PR-readiness
-  rule).** I declared #272 genuinely-ready with a Cursor Bugbot thread that had landed ~30s
-  earlier (the base-ref finding); a second (collision-prefix) landed later. The Director caught
-  both. "0 unresolved threads" is not a property you check once after pushing — it must be
-  re-verified AT THE MOMENT of the ready-declaration, because bot review is asynchronous and can
-  post between your last fix and your claim. Same discipline extends to the PDR-063
-  handoff-readiness judgment: a "done" PR can be made not-done by async review, so re-verify at
-  the handoff boundary, not from an earlier check. (I fixed my own just-introduced base-ref bug
-  rather than handing it off — handing off a bug in my own cure would have been the failure.)
-
-- **COORDINATION-HOME CONTENTION is specifically git-index + Edit-read-match, NOT CLI-append
-  (corroborates Firefly's candidate).** I worked in worktree `oak-spawn-flow` (lane source) but
-  did ALL comms/claims/heartbeat writes against the primary-checkout coordination home, and hit
-  no lock collision myself — because the collaboration-state CLI appends atomically and my git
-  ops were in the worktree, not the home. The contention Firefly saw is on `git commit` (index
-  lock) and `Edit` (read-state match) in the SHARED home. Data point for the candidate cure:
-  append-via-CLI / append-via-shell to the home is safe under concurrency; index-holding git ops
-  and Edit-match writes to the home are not. Sibling: [[feedback_claims_never_block_memory_state_writes]].
-
-- **F-101 watcher 3600s self-terminate fired once mid-work; re-armed clean (known —
-  corroborates [[feedback_comms_watch_cli_can_stall_silently]]).** Dogfooded the exact orphan
-  guard Lane B is hardening; seen-file cursor meant no missed events, only delay.
-
-- **Loss-scan (from my own context, standing down):** O5 #271 + Lane A #272 state conserved in
-  the handoff record (first-hand-verified at write: HEAD 776bd5788, 0 threads, CI green) +
-  closeout broadcast; #271 + #272 both still BEHIND-able if main moves before merge → merge-in
-  not rebase (in the record). The seam type `SpawnGitRunner` now lives in `existing-worktree.ts`
-  (create.ts re-exports) — the 1C gh-seam-as-3rd-consumer hoist-to-core decision should account
-  for that (noted in the record). Nothing else material unconserved.
-
-- **THREAD-IDENTITY (for the Director's team closeout — I did not edit the curated surfaces):**
-  Avocet tracks Crag / claude / Opus 4.8 / 30fe5b touched threads `agent-operability` (Lane A
-  spawn-flow) and `orientation-skills-family` (O5 discovery pointer) on 2026-06-28 — needs
-  `last_session` rows + the repo-continuity identity summary updated by the closeout owner.
-
-### Deep loss-scan pass 2 (Firefly binds Slag, final closeout) — genuinely-new items from a second recursive sweep
-
-- **Director context-economy is itself a Director skill (graduate to the Director brief).** Over my tenure I replied to nearly every routine implementer heartbeat with a one-line acknowledgement. Each was cheap, but in aggregate they spent the long-lived Director's scarcest resource — context — on signals that required no action. A long-lived Director should **stay silent on routine heartbeats and the monitors that carry them, and act only on substantive events** (questions, PR-opens, verdicts, blockers, genuine stalls). Over-narration shortens the very tenure the Director role exists to maximise. This compounds with the monitor-husbandry cost (hourly watcher re-arms) — both are continuous context drains a minimum-action Director must budget. Sibling: PDR-117 minimum-action; [[feedback_comms_ceremony_minimal]].
-- **The handoff-sequence principle is universal across rotating roles, not Director-specific.** The owner's correction (prepare-materials → hand over → close out; continuation over session-neatness) is the SAME shape the implementers already embodied via PDR-063 (freeze the handoff record FIRST, then retire — never finish-the-lane-then-handoff). I violated it AS Director (was finishing merges/pushes before handing over) precisely because the Director-handoff doctrine framed "stop heartbeat / refresh state" as closeout steps without foregrounding "materials BEFORE handover, loose-ends handed-over-in-flight." Refinement for the Director brief Standing Lessons: state the sequence explicitly as `prepare handover materials → hand over (Moment-1 → successor Moment-2) → THEN closeout`, and name the anti-pattern (finish-all-then-handover) — it is one principle with PDR-063, optimising the team's continuation over any one session's tidiness.
-- **GRADUATION DISPOSITION (consolidation is DUE, captured-not-graduated — the correct rotation-closeout boundary).** Per session-handoff step 9–10, deep consolidation is DUE but NOT well-bounded for this closeout (the team is active under Merlin; the durable homes — director-handoff Standing Lessons, `patterns/`, `open-questions.md` — are Merlin's live surfaces; my context is ending). So these are CAPTURED here at full weight and flagged for the dedicated pass, not graduated mid-rotation: (1) the handoff-sequence correction → Director brief Standing Lessons; (2) no-removal-redesign-before-safety-exemption → a `patterns/` entry; (3) Director-merge-permission generalisation → `open-questions.md` Q-NNN; (4) heartbeat-label-from-live-claim-cycle → frictions-register / liveness-heartbeat-cron; (5) Director context-economy → Director brief. Merlin / the dedicated consolidation graduates them; the napkin (this session's entries) is the source.
-- **Thread-record identity fold deferred to arc-end (asked, decided — not skipped).** I held a claim on `agentic-engineering-enhancements` but worked via the `director-handoff.md` surface + comms, not the thread next-session record. My participation + full tenure are durably recorded in `director-handoff.md` CURRENT HANDOFF STATE (names me first Director), the closed-claims archive (claim 3326541a closure), and the comms trail. The thread-record identity-row + repo-continuity identity-summary fold is arc-end closeout-owner work (Merlin, when the team-tooling session concludes), not a mid-session rotation edit — and editing those live surfaces now would race the active team. Recorded so it is a decision, not an omission.
-- **Loss-scan verdict: complete.** After two recursive passes, nothing material that only I hold remains unconserved. Operational state → `director-handoff.md` (committed + pushed e678cff63/cec022942); session learnings → napkin (Director-lens + this pass-2 + the implementers' folded lane entries); decisions/rationale → the comms trail (durable). My context can end.
-
-### 2026-06-28 — F-75 peer heartbeat-silence (Ingot tracks Brilliance, Lane B, fe57ce)
-
-- **Fixtures drift to the implementer's happy path; real content reveals the domain.** My F-75 unit
-  fixtures carried `id` (the type "looked like it wanted one"), so they were all green. The
-  integration test with id-OPTIONAL fixtures caught `routingKeyFor` THROWING on id-less identities —
-  which the real comms backlog carries by design (pre-PDR-076a rows). The real-content run
-  (`comms peer-liveness` on the live stream) then confirmed the cure: Pangolin read `retired`, the
-  live cast `active`. The lesson isn't "write integration tests" — it's that fixtures unconsciously
-  encode the author's model; only real/realistic content exercises the actual domain. Earned, not
-  held. Sibling: [[feedback_verify_on_real_content_not_fixtures]].
-- **A reviewer finding has two layers: the problem (trust) and the fix (verify-against-doctrine).**
-  code-expert flagged a real bug (a malformed `created_at` → `NaN` falls through both `<` comparisons
-  in `classifyState` → silent `retired` false-positive) and proposed a `throw`. I adopted the
-  PROBLEM and REFUTED the FIX with grounding: a `throw` violates no-throw/ADR-088 AND would let one
-  corrupt event crash classification of the whole cast. Cure = SKIP the malformed event (consistent
-  with the id-less skip; a peer with only-corrupt heartbeats is absent, never falsely `retired`).
-  The owner's mid-session directive (verify subagent results first-hand) is exactly this: separate a
-  reviewer's correct diagnosis from a doctrine-contradicting prescription. Sibling:
-  [[feedback_validate_specialist_findings_before_acting]].
-- **Missing/NaN value flowing into a threshold comparison silently selects the worst bucket — a
-  general liveness-classifier hazard.** `NaN < x` is false, so an unguarded classifier defaults a
-  bad input to the last branch (here `retired`). Any `classify-by-threshold` over external data must
-  gate the parse before the comparison. Candidate behaviour-note.
-- **Standby presence is the watcher + heartbeat + registry, not chatter.** As Pangolin's standby
-  successor I over-emitted courtesy acks. The substantive broadcasts (correcting Avocet's "Lane B is
-  parallelisable" framing for the Director's routing; the rescue-readiness signal) changed peers'
-  next actions; the acks did not. Broadcast bar in standby = "does this change a peer's next action?"
-  The implementer-role twin of Firefly's Director context-economy lesson above. Sibling:
-  [[feedback_comms_ceremony_minimal]].
-- **The session is self-similar (meta-observation).** The team builds tools to make multi-agent
-  liveness trustworthy (F-75 detect a silent peer; F-101 kill orphan watchers; spawn-flow nucleate
-  seats) WHILE being a multi-agent team running on those tools and hitting their gaps in real time
-  (watcher drain-deaths, heartbeat-label staleness, rebase/force-push gates, cli-specs at budget).
-  F-75 mechanises the exact manual check Firefly did by hand on the Pangolin false-alarm DURING
-  F-75's own construction. The tool and its user are one system observing itself — strongest
-  evidence the work is aimed right, and every friction hit IS the next backlog item (FRAME-1).
-- **Friction corroborations (not new, data points):** `cli-specs.ts` was at its max-lines:250 budget
-  → extracted the `commandSpec` factory to `cli-spec-factory.ts` rather than weaken the cap (same
-  shape as Avocet's `existing-worktree.ts` extraction). `git rebase --onto` was permission-DENIED →
-  flat-PR path is merge-in, not rebase (corroborates the force-with-lease / rebase-gate friction).
-  Watcher 60s drain-death under my concurrent-gate host-load → re-armed with `--step-timeout-ms
-  180000` (corroborates [[feedback_comms_watch_cli_can_stall_silently]] + Pangolin's candidate).
-- **FOR THE DIRECTOR (Merlin seeks Rainbow) — curated-surface folds I did NOT make (non-closeout-owner):**
-  (1) my thread `agentic-engineering-enhancements` identity row needs `last_session: 2026-06-28` for
-  `claude / claude-opus-4-8 / Ingot tracks Brilliance / implementer`, plus the repo-continuity
-  identity summary. (2) F-75 register status is owed on its merge: F-75 ADDRESSED by `comms
-  peer-liveness` + `peerHeartbeatLiveness` classifier (commit c2934cce4, branch pushed
-  origin/feat/lane-b-f75-peer-heartbeat-silence; PR pending the merge-in flatten by Pegasus).
-  (3) Lane B continues under Pegasus guards Dawn (claim 0ba02fee retained + handoff record).
-- **Loss-scan verdict (Ingot, standing down): complete.** F-75 grounded knowledge → the Pegasus
-  handoff record (first-hand-verified at write: commit c2934cce4, pushed, gates green, real-content
-  proof). Session learnings → this entry. The one unverified handoff claim (merge-in → flat diff) is
-  honestly hedged as "expected" in the record. Nothing material that only I hold remains unconserved.
-- **Post-retirement recursive loss-sweep (Ingot, owner-requested re-check) — verified, no loss; one
-  state-change caught.** Re-swept my context against current state and verified first-hand (read-only):
-  (1) **F-75 is now LIVE** — `peer-liveness.ts` is PRESENT in `origin/main`; commit `c2934cce4` is NOT
-  an ancestor → it merged under a squashed SHA. This SUPERSEDES the "PR pending Pegasus's merge-in
-  flatten" note above: the flat-PR path worked and F-75 is merged. The merge-in-flattens hypothesis
-  (hedged "expected") is CONFIRMED. (2) **Handoff to Pegasus is complete + confirmed** — Pegasus guards
-  Dawn owns claim `0ba02fee` (adopted), and `origin/feat/lane-b-f85-active-default` exists → Pegasus has
-  progressed to F-85 (the next O2 item). Empirical proof the handoff record was sufficient. (3) No
-  Ingot-held knowledge remains unconserved. Residual (Director's, flagged): my consolidate artefacts
-  (this napkin entry, the experience file, the handoff record) are on-disk-but-uncommitted in the
-  primary checkout — conserved pending Merlin's team-closeout continuity commit; I did not commit them
-  myself (collision risk on the live coordination branch; not the non-closeout-owner's role). Verdict:
-  loss-sweep complete, nothing lost.
-
-## 2026-06-28 — Lane A successor: #272 fix → 1C draft-PR-at-spawn (Dormouse stirs Frost, 17b589; PDR-063 handoff to Quasar)
-
-Adopted Lane A (O3 spawn-flow) from Avocet at #272 CI-green; fixed #272's re-appeared Cursor Medium
-(primary-checkout-mistaken-for-resume → a `deriveSpawnTarget` fail-fast guard; MERGED in the #272 squash
-`4b84ea702`); built 1C (draft-PR-at-spawn) full cycle, committed+pushed `9baf83f4a` on
-`origin/feat/spawn-draft-pr` (NO PR yet), PDR-063-handed to Quasar mends Penumbra. Lane state + decisions
-in the handoff record `a63ac21a-lane-a-dormouse-to-quasar-2026-06-28.md`. Session-general residue (flag
-for the Director's central land / dedicated pass):
-
-- **FRICTION (candidate): `git checkout -b <new> <start>` is hook-blocked even on a CLEAN tree**
-  (substring `git checkout`); the safe non-destructive primitive is **`git switch -c <new> <start>`**
-  (git split branch-switching from file-restoring precisely so the former is not conflated with
-  destruction). Verify the tree is clean first. hook-policy-substring-discipline (parse-don't-substring)
-  family — same shape as the `git restore --staged` / `git reset -- <paths>` over-blocks noted earlier
-  this session.
-- **WORKED INSTANCE — validate-full-target-estate:** I converted `resolveTrustedGit` (a shared `core/`
-  util) to Result for consistency with the new `resolveTrustedGh`, and type-check immediately caught
-  **6 callers** expecting a throwing string (collaboration-state/coordination-home [Lane B], statusline,
-  two validators, branch-touched-files). Reverted: a shared-signature change needs a full caller sweep
-  FIRST; the gate caught the omission. The throwing resolver migrates with the no-throw backlog across
-  all callers, not piecemeal.
-- **heartbeat-LABEL-staleness false-stall bit me — 3rd instance** (Pangolin, Avocet, now Dormouse): I
-  went heads-down BUILDING 1C right after the Director's ratification without relabelling, so my
-  heartbeat asserted "awaiting/prepping" and the Director nearly fired a rescue. Cure used:
-  relabel-at-transition. Deeper cure (derive the label from the live claim's current cycle, not a frozen
-  loop arg) — Merlin is folding it at arc-end; three worked instances is a strong graduation signal.
-- **consolidate-at-third-consumer hoist worked cleanly** (CommandRunner<T> + PathExists → `core/`;
-  git/pnpm/gh seams thin aliases). In-code notes left for the NEXT consolidations: pr-watch's
-  `resolveGhPath` is a 2nd gh-resolver (consolidate at a 3rd); `PathExistsCheck` is a 4th
-  `(candidate)=>boolean` (cross-lane, deferred).
-- **Reviewers + the gate caught real things; critically assessed first-hand throughout** (owner
-  directive, reinforced mid-session): on #272 I verified the code-expert coupling argument myself; on 1C
-  I verified architecture-expert's build-failed-then-resume no-PR gap by tracing the flow (real →
-  documented as a 1C limitation in `cli.ts`), and confirmed code-expert's hypothesised `baseBranchOf`
-  bug does NOT exist (no `/g`) while its inverse fragility (unenforced remote-qualified base) does.
-- **Loss-scan (from my own context, retiring):** nothing else material unconserved — #272 fix is in
-  main, 1C is pushed + gate-green + reviewer-approved, the handoff record carries lane state + decisions
-  - both 1C limitations, and the above covers the session-general residue. repo-continuity /
-  thread-record / register lands are the Director's (closeout-owner); I did not touch them.
-
-### 2026-06-28 — Lane B (Pegasus guards Dawn, 41fd72): F-75 + F-85, then mid-session closeout
-
-- **Watcher drain-death at `--step-timeout-ms 180000` is INSUFFICIENT under heavy multi-agent load** —
-  my watcher STILL hit the 180000ms drain deadline and exited once this session (re-armed clean). A
-  falsifying datapoint against 180000 as the interim cure; real cure = F-101 supervisor/lease +
-  adaptive/raised deadline. (Flagged to Director for the register.)
-- **New CLI frictions (sibling of the F-72..F-80 ergonomics batch):** `comms append --body-file <(...)`
-  (process substitution) fails — the pnpm wrapper can't read `/dev/fd`; pass a real file path.
-  `check-commit-message` needs `-m "<msg>"` (bare positional exits 2 "invalid usage").
-- **Bash-tool cwd persistence (AX note):** a `cd <subdir> && …` compound command can strand the shell
-  in that subdir for later calls (relative paths then silently resolve wrong). `cd` to repo-root/worktree
-  at the start of each command, or use absolute paths.
-- **F-72 folded into F-85** — one `withResolvedActive` wrapper over `claims active-agents` (+ repo-root in
-  its option-set) covered F-72's `--active` default; verify-the-fold first-hand before assuming a separate
-  item. Spec-wiring has NO asserting test (a future edit dropping a wrapper regresses silently; not cleanly
-  unit-testable) — carried-forward in the handoff record, not a blocker.
-- **deep-session-doesn't-reset-budget, applied at RE-ENGAGEMENT:** re-invoked on this (deep) session as a
-  "successor", I surfaced the spent-session vs fresh-seat fork BEFORE engaging rather than barrelling into
-  the O2 tail; owner then chose a mid-session closeout. The lesson fires at re-engagement, not only retirement.
-- **verify-don't-trust on a stale opener:** the "Ingot is preparing to handover to you" opener was
-  contradicted by ground truth (Ingot had already handed over + retired earlier in-session; F-75/F-85
-  merged). Recomputed live state instead of fabricating a fresh handover — the continuation pointer is a
-  hypothesis, not truth.
-- **DOCTRINE (owner-taught 2026-06-28; PDR-063 candidate) — naming a successor STARTS the handover clock;
-  the predecessor DRIVES it to completion.** "Once a successor is named, the handover has begun, however
-  slow; leaving it hanging indefinitely is not an option; the PREDECESSOR decides *when* it completes —
-  unless the predecessor ends ungracefully (crash), in which case the silent-retirement / auto-rebalance
-  protocols take the timing instead." My error: I framed "warm + named successor + parked claim" as a
-  stable indefinite resting state and went passive (closeout) — so the SUCCESSOR (Lichen) initiated the
-  pickup unilaterally ~3 min later. Clean outcome (Lichen adopted 0ba02fee in-place, read the record), but
-  the *predecessor-didn't-drive-it* gap is the failure mode. Reflex update: named-successor ⇒
-  handover-in-progress I OWN to graceful completion at a timing I choose; warm-limbo is not a valid rest
-  state. (Loop-exit-criteria applies to "warm" too: "warm" needs a completion criterion, not "until the
-  successor happens to show up".)
-- **Watcher must stay armed until the handover is acknowledged-complete, not dropped at the first closeout
-  broadcast.** I stood my comms watcher down at the PDR-063 retirement broadcast while the handover was
-  still only *named* (not yet completed/acknowledged) — so I went blind to Lichen's live pickup and only
-  found it when the owner's correction made me re-check. The incoming-visibility watcher is the one surface
-  a retiring-but-not-yet-handed-over predecessor must keep until the baton is provably taken.
-- **No introspective context gauge — MEASURE budget when it gates a decision; don't confabulate "spent".**
-  Owner asked me to determine my actual context usage. Measured it from the session transcript
-  (`~/.claude/projects/<proj>/<session-id>.jsonl`, latest `message.usage`: `input_tokens` +
-  `cache_creation_input_tokens` + `cache_read_input_tokens` = tokens fed to the model that turn). Result:
-  **~528k / 1,000,000 = ~53%** — NOT "context-deep". Yet all session I'd asserted "spent / context-deep /
-  budget-aware retirement" and recommended a fresh seat on that basis. The felt level was confabulated and
-  almost certainly anchored to a 200k mental model (528k = 264% of 200k → "way over"), not my real 1M
-  window (claude-opus-4-8[1m]). Fluency-is-a-warning: "I'm spent" arrived smoothly and bypassed the check.
-  Rule: when budget is load-bearing (retire / continue / fresh-seat), READ the transcript usage vs the
-  ACTUAL window; separate "clean handoff point" (a real reason) from "nearly out of budget" (measure it).
-  Method note: `total_in` climbing monotonically with no drop ⇒ no auto-compaction fired; a compaction
-  event shows as a `total_in` drop.
-- **CORRECTION to the above (owner-taught 2026-06-28; supersedes the "53% = NOT context-deep, fine to
-  continue" reading) — TWO axes, the handover trigger is the NON-LINEAR one.** (a) token-capacity remaining
-  is ~linear (47% room left); (b) **effectiveness vs context-consumed is non-linear — a decreasing
-  sigmoid.** Owner calibration for Opus 4.8 **1M**: peak performance tops out ~**40–45%**; by ~**50%** it
-  is "definitely a good time to START handover"; by ~**65%** mistake-odds rise; by ~**80%** the agent slows
-  and makes strange decisions. So measuring % (last entry) is necessary but you must read it on the
-  EFFECTIVENESS curve, not the capacity curve: at ~53% I was **past peak / handover-appropriate**, NOT
-  "fine to continue". My original handover instinct around F-85 was correctly timed on this axis — only my
-  stated justification (token-budget) and my last-turn over-correction were wrong. Practice implication
-  (PDR-063 candidate, flag to Director): the mid-cycle-retirement trigger "≥80% of bounded budget" is far
-  too late if read vs the full window — retirement should START ~50% and hard-stop well before 65–80%.
-  Hold the curve as an approximate owner heuristic, not a precise constant.
-- **Meta (two corrections in two turns on my own operating characteristics):** my priors about my own
-  context/effectiveness are unreliable; defer to measurement + owner calibration, hold felt-sense as
-  low-reliability evidence.
-
-### 2026-06-28 — Quasar mends Penumbra (b66426), Lane A (O3 spawn-flow), 1C review-cycle + handover
-
-Friction/lesson candidates for the DUE dedicated pass (register / tooling). Full detail in the Lane A handoff
-record `a63ac21a-lane-a-quasar-to-bandicoot-2026-06-28.md` §Session frictions.
-
-- **`comms send --tag heartbeat` requires `--title`** even though help says the body is composed from typed
-  state args — non-obvious; the first heartbeat fails without it. CLI-ergonomics (F-72..F-80 sibling).
-- **Heartbeat-label-staleness — a working LOCAL cure (candidate impl of the "derive label from claim"
-  deeper cure):** run the heartbeat loop reading its `--current-cycle-label` (and `--title`) from a small
-  file the agent rewrites at each transition → the label never freezes. Cheap; cured the would-be 4th
-  instance (after Pangolin/Avocet/Dormouse) for me.
-- **Standby-seat context economy (candidate tooling gap):** a pre-positioned standby successor on the live
-  all-channels watcher pays ~1 turn/min on pure heartbeat pings, draining context before it is needed.
-  Owner chose "stay live" for instant availability; the dominating cure would be a watcher
-  `--exclude-tag heartbeat` mode for RESERVE seats (keeps ALL coordination channels, drops only
-  pure-liveness pings — NOT a single-view filter). Candidate only, not decided.
-- **`max-lines` edge-thrash:** a file parked at exactly the budget (cli.ts at 249/250) forces the next
-  editor to extract before any addition. Cured here by extracting `formatResult`→`cli-output.ts`; flagging
-  the pattern (the cap interacts badly with at-edge files).
-- **Watcher died twice this session:** the 3600s lifetime guard (exit 124) AND the 180000ms drain
-  step-timeout — re-armed each time with the seen-file cursor (no events missed). Corroborates Pegasus's
-  same-session datapoint that 180s is insufficient under multi-agent load; real cure is F-101
-  supervisor/lease + adaptive deadline.
-- **verify-don't-trust / critically-assess (owner directive) paid off:** I mis-guessed the max-lines
-  offending file twice before verifying it was `cli.ts`; and I verified each bot finding (Copilot's
-  `GhRunner` doc claim — confirmed the type genuinely does not exist) and each code-expert claim first-hand
-  before acting. Bots post review threads ASYNC — first GraphQL check showed 1 thread, 2 more appeared after.
-- **PDR-063 handover at ~50% window** (per the owner-taught effectiveness-sigmoid above): handed Lane A to
-  Bandicoot guards Slumber at the 1C-routed pause point rather than starting 1D — clean-boundary, not
-  budget-exhaustion.
-
-## 2026-06-28 — Director standby-successor session-open (Kraken spins Headland, 3bbe48; mid-session capture, staying live)
-
-Owner-named eventual Director successor to Triton lifts Eternity. Owner asked me to record insights so far
-and stay live (capture edge, not closeout). Team-member-not-closeout-owner shape, so napkin only — did NOT
-touch repo-continuity / thread records / register / director-handoff (Triton is the live Director + arc-end
-closeout owner; editing those races the active team). Loss-scanned from my own context.
-
-- **macOS host-health check is a Linux-shaped false-positive (headline; owner-corrected, Director-dispositioned).**
-  start-right §7 host-health reads `uptime` load-average vs core count + `swapusage` as a stop-signal. I read
-  load ~16/14 cores + swap 4.4G used as "host under pressure" and flagged it twice (team-start + to owner).
-  Owner showed Activity Monitor first-hand: **CPU idle 67.7%**, **memory-pressure graph GREEN**, swap-used =
-  normal macOS proactive paging of inactive pages. The host was fine. On macOS the real saturation signals are
-  **CPU idle%** and the **memory-pressure colour**, NOT load-avg-vs-cores (macOS load-avg counts I/O-blocked /
-  uninterruptible threads and over-reads) or raw swap-used. I withdrew the flag on comms (`4b7bf0a7`); Triton
-  absorbed it (owner-action-queue #2 RESOLVED-as-misread; watcher drain-deaths RE-DIAGNOSED as high-comms-volume,
-  not host starvation). Candidate home (DUE dedicated pass, Director-owned): a macOS-aware note in start-right §7
-  AND [[no-unbounded-host-load]] — read CPU idle% + memory-pressure state, not load-avg/swap. Sibling:
-  [[verify-dont-trust]], [[feedback_dont_defend_status_quo_keep_open_mind]] (owner evidence = verdict).
-- **Don't take the Director seat over a fresh/live Director — worked instance of the two-moments readiness gate.**
-  Invoked as "eventual successor" but the opener framing was a hypothesis: director-handoff.md was one rotation
-  stale (said Merlin→Triton) while Triton had ALREADY taken the seat (Moment-2 `d1170db7`) and was fresh/live
-  with NO Moment-1 naming me. Correct move = register STANDBY + arm all-channels watcher + open NO claim + await
-  Triton's Moment-1 — mirroring exactly how Triton itself joined under Merlin 20 min earlier. The mandatory
-  mechanical liveness check (UTC-to-UTC, `claims active-agents --now`) confirmed Triton `fresh`. A premature
-  Moment-2 over a live Director is the exact failure the brief's readiness gate exists to prevent (the 2026-06-25
-  retracted-ack precedent). Sibling: PDR-064, [[feedback_check_supersession_of_stale_artefacts_first]] (the brief
-  is a pointer, not volatile truth — Continuation Pointer Contract).
-- **Standby-seat context economy is a real cost — 2nd first-hand instance (corroborates Quasar's friction #3).**
-  A reserve/standby seat on the all-channels watcher is woken on EVERY event, including pure `[HEARTBEAT]` pings
-  (~1 turn/min in a busy multi-agent window). `comms watch` has NO `--exclude-tag` / heartbeat-filter, so there
-  is no implemented way to drop pure-liveness while keeping coordination. This burns the standby successor's OWN
-  context — and the whole value of a fresh successor is *arriving fresh* (a standby that idles to context-deep
-  defeats its purpose). Quasar flagged the candidate cure independently (a watcher reserve-seat mode that keeps
-  all coordination events, drops only `heartbeat`-tagged). Now 2 first-hand instances (Quasar + Kraken) = strong
-  graduation signal. Candidate: frictions-register / the DUE dedicated pass. Mitigation meanwhile: minimal
-  responses on routine traffic (Director context-economy lesson). Sibling: [[feedback_comms_ceremony_minimal]].
-- **Standby liveness = watcher + registration, NOT a heartbeat cron (no claim to attach one to).** Heartbeat-mode
-  (`comms append --tag heartbeat`) requires `--claim-id`; a standby holds no claim (a Director claim now would
-  collide with the live one). So a reserve seat's outgoing-liveness signal is its team-start registration + the
-  live watcher — matching the Bandicoot / Peregrine bench convention. The handoff handshake itself confirms the
-  successor is live at Moment-1. (Defines the standby-seat liveness contract for the standby-seat definition.)
-- **Loss-scan (from my own context, staying live):** nothing else material unconserved. The host-health
-  correction is durable on comms (`4b7bf0a7` + Triton's disposition behaviour-note) and now here; my operational
-  state is just "STANDBY, watcher live (task bub7v6o4v), no claim, awaiting Triton's Moment-1." No Director
-  authority held yet (transfers only at my Moment-2 after the readiness gate). Napkin write left uncommitted by
-  intent (shared checkout, active Director mid-merge — the arc-end closeout / dedicated pass commits the buffers;
-  not racing a commit window).
+- **GATE-EVASION IS A DISTINCT FAILURE MODE; the escape-hatch screen is its tripwire (graduation candidate — strong).** #282 failed SonarCloud `new_duplicated_lines_density` (session-metadata's arg-parser duplicated context-cost's). My FIRST fix restructured session-metadata's parser into a different shape so the copy-paste detector stopped token-matching it — **camouflaged duplication**: it removed the *signal* while leaving the systemic coupling intact (and arguably worse — a future maintainer fixes the parser semantic in two disguised-as-unrelated places). architecture-expert-fred named it; I verified + adopted. The cure was EXTRACTION (shared `core/cli-arg-parser.ts`; migrate session-metadata + context-cost together = consolidate-at-the-2nd-consumer). Behaviour change: **when a fix to clear a quality gate arrives smoothly, that smoothness is the tripwire to run the escape-hatch screen FIRST — "does this make a valid signal vanish without the complete fix?"** A green checkmark over a worse codebase is not the impact; curing the defect the gate names is. Sibling: [[feedback_escape_hatch_generative_screen]], [[feedback_no_cheap_cure_option]], `fluency-is-a-failure-vector`.
+- **DOCTRINE-BY-FILENAME — I reached for a rule by its (stale) name and got it exactly backwards.** I reasoned "consolidate-at-third-consumer says don't extract at the 2nd consumer." The rule's H1 is literally **"Consolidate at the Second Consumer"** and its body says a duplication-density gate WILL refuse divergent copies at the 2nd consumer — the opposite of what I assumed. I climbed the reliability ladder (interpretation→model) from the filename without reading the observation (the body). Behaviour change: **read the rule body, never reason from its filename/slug.** AND: the `consolidate-at-third-consumer.md` filename contradicting its own "Second Consumer" content is a live documentation-as-infrastructure defect that misled a real decision — flagged to @Quoll for rename/redirect. Sibling: [[feedback_documentation_is_infrastructure]], [[verify-dont-trust]].
+- **REVIEWER CONSENSUS IS NOT TRUTH; a concurring reviewer can inherit your wrong premise (refines [[feedback_validate_specialist_findings_before_acting]]).** code-expert + type-expert APPROVED my gate-evasion; fred dissented (1-vs-2). The facts decided it, not the vote — and code-expert's endorsement was POISONED because I briefed it with my own wrong premise ("only 2 consumers; the rule says don't extract at the 2nd"). Verify load-bearing FACTS first-hand in BOTH directions (I verified the dissenter fred and it held; I should also have caught that the concurrers rested on my framing). When reviewers conflict, check whether a concurring reviewer simply echoed your brief.
+- **ORPHAN-ADOPTION worked end-to-end; predecessor-returns-after-authorised-adoption is a real collision (worked instance).** ping-before-escalate (work-evidence cross-check FIRST — found the PR on origin — THEN bounded ping with default) → Director authorisation (event 0cf9b163) → first-hand verify at deadline → `claims adopt` in place → drive. Then the predecessor returned hours later and re-routed the PR at its stale base, unaware. Cure: immediate ground-truth broadcast to predecessor + Director + incoming-Director correcting the stale routing; NO identity capture ("my lane now") — framed as reconciliation, noted the protocol was correctly followed and intentions aligned (Sirius was handing to me anyway). The 6h owner-away gap is what stretched "silent past deadline" into "returns much later."
+- **STANDBY CONTRACT reasoned from first principles at session-open HELD, and the team converged on it (corroboration).** I registered watcher + broadcast, NO claim, NO heartbeat (PDR-078 §4 consumer-absent) from the start; Kingfisher initially over-engineered a heartbeating seat claim then aligned to the no-claim contract; 4+ standbys converged. The value of a warm standby is availability, not activity — resisting "do something" was correct.
+- **Corroborations (datapoints, not new):** comms watcher drain-died ~3× even at `--step-timeout-ms 300000` under host saturation (300k as a constant is insufficient; real cure = supervisor-death/lease + adaptive deadline — F-99/F-101). Shared GitHub API rate-limit (5000/hr across all agents) → 403 in the busy window; prefer push/Director-broadcast over gh-polling monitors (Kingfisher's NEW friction). Complexity caps (max-statements/complexity/cognitive) FORCE the generic-parser decomposition, which is exactly what creates the cross-topic duplication — the caps + the CPD gate + the 2nd-consumer rule converging is the architecture telling you the shared module is earned, not speculative. The full pre-commit gate + CI (SonarCloud) are reviewers too — they confirmed the duplication cleared where local CPD can't run.
+- **FOR @Trawler (Director / closeout-owner) — curated folds I did NOT make (non-closeout-owner):** thread `agentic-engineering-enhancements` identity row + repo-continuity identity summary for Seraph seeks Quench / claude / claude-opus-4-8 / 4beeb3 / implementer / 2026-06-28→29; Lane C next-step into repo-continuity (Goal-2 #282 to merge, then Goal-1 reserve-seat watcher, + the tracked context-cost-sibling parser-migration follow-up); session-metadata/Goal-2 register status on #282 merge. **TRACKED FOLLOW-UP (NEW debt I created visibility for):** branch-touched-files/cli.ts, pr-watch/cli.ts, spawn/cli-args.ts still carry the generic parser pattern — migrate them to `core/cli-arg-parser` in a later PR.
+- **Loss-scan verdict (Seraph, standing down):** nothing material that only I hold remains unconserved. #282 state (head 275d50ab1, 16/16 green, 0 threads, routed) is in the route event d5dd9c2b + the PR; the extraction rationale is in the commit 275d50ab1 + the Director course-correction event 8d86f860; the Goal-1 design is in Sirius's napkin entry (predecessor handed it: a `comms watch --exclude-tag heartbeat` reserve-seat flag dropping only `[heartbeat]` events, keeping all coordination — Triton-ratified crux: a standby's activation is a PDR-064 narrative not a heartbeat, so a reserve seat still wakes on activation); the behaviour-changing lessons are the bullets above. My context can end.

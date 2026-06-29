@@ -159,6 +159,8 @@ git log --oneline --decorate -5
 uptime                                      # load averages…
 sysctl -n hw.ncpu 2>/dev/null || nproc      # …vs this core count
 sysctl vm.swapusage 2>/dev/null || free -m 2>/dev/null || true  # swap
+# macOS-correct signals (the load-avg/swap above over-read there — see below):
+top -l1 2>/dev/null | grep -E "CPU usage|PhysMem"; memory_pressure 2>/dev/null | tail -1 || true
 ```
 
 A load average well above the core count, or heavy swap, is a
@@ -166,6 +168,15 @@ stop-and-surface signal before work starts — a starved host corrupts
 gate timings, watcher deadlines, and experiment results, and the cause
 may be leaked processes from an earlier session (see
 [`no-unbounded-host-load`](../../../rules/no-unbounded-host-load.md)).
+
+**Read the signal correctly for your platform.** The load-avg-vs-cores +
+swap-used reading above is Linux-shaped and **over-reads on macOS** (a healthy
+Mac sits above core count with a large swap-"used"). On macOS the saturation
+signal is a **low CPU idle %** (`top -l1`) and a **yellow/red memory-pressure
+colour** (`memory_pressure`), not load-avg or swap; and in a busy multi-agent
+window, watcher drain-step deaths are comms-volume cost, not host starvation.
+Owner-evidenced 2026-06-28; the reasoning is in
+[`no-unbounded-host-load`](../../../rules/no-unbounded-host-load.md) §4.
 
 ### 8. Worktree / fresh-checkout build
 
