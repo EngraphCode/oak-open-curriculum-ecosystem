@@ -1,9 +1,13 @@
+import { dirname, join } from 'node:path';
+
 import { activeAgentReports } from './active-agents.js';
 import { claimReport, sameAgent } from './claim-reports.js';
+import { cliIo, type CliRuntime } from './cli-runtime.js';
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, type Options } from './cli-options.js';
 import { readActiveClaimsFile, readClosedClaimsFile } from './state-io.js';
 import { type CollaborationStateEnvironment } from './types.js';
+import { projectWorkState } from './work-state-view.js';
 
 export async function listClaims(options: Options): Promise<string> {
   const registry = await readActiveClaimsFile(required(options, 'active'));
@@ -66,6 +70,48 @@ export async function activeAgents(options: Options): Promise<string> {
     null,
     2,
   )}\n`;
+}
+
+/**
+ * Render the derived cross-worktree work-state view (F-98, spawn-flow Phase 2):
+ * one row per `git worktree list` worktree, each bound to its agent via the
+ * heartbeat-branch link and enriched with the claim intent and a `lastSeen`
+ * recency. The `--active`/`--comms-dir` paths default to the coordination home
+ * so a worktree-isolated seat sees the whole team. Replaces the hand-maintained
+ * `cross-worktree-work-state.md` roster with a projection over ground truth.
+ */
+export async function workState(
+  options: Options,
+  _env: CollaborationStateEnvironment,
+  runtime: CliRuntime,
+): Promise<string> {
+  const io = cliIo(runtime);
+  const activePath = required(options, 'active');
+  const collaborationDir = dirname(activePath);
+  const commsDir = optional(options, 'comms-dir') ?? join(collaborationDir, 'comms');
+  const nowIso = nowFromOptions(options);
+  const nowMs = Date.parse(nowIso);
+  if (Number.isNaN(nowMs)) {
+    throw new Error(`--now must be an ISO-8601 timestamp (got: ${nowIso})`);
+  }
+
+  const registry = await io.readActiveClaimsFile(activePath);
+  const closedPath = optional(options, 'closed');
+  const closedArchive =
+    closedPath === undefined ? undefined : await io.readClosedClaimsFile(closedPath);
+  const [events, worktrees] = await Promise.all([
+    io.readCommsEvents(commsDir),
+    io.readWorktrees(collaborationDir),
+  ]);
+
+  const rows = projectWorkState({
+    worktrees,
+    events,
+    activeAgents: activeAgentReports(registry, nowIso, closedArchive),
+    nowMs,
+  });
+
+  return `${JSON.stringify(rows, null, 2)}\n`;
 }
 
 function nowFromOptions(options: Options): string {

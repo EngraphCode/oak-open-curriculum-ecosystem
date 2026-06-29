@@ -10,6 +10,7 @@ import {
   mineClaims,
   showClaim,
   statusClaims,
+  workState,
 } from './cli-claim-query-commands.js';
 import { appendComms, migrateComms, renderComms } from './cli-comms-commands.js';
 import { sendComms } from './cli-comms-send.js';
@@ -49,6 +50,7 @@ import {
   claimsSetHandoffHelp,
   claimsShowHelp,
   claimsStatusHelp,
+  claimsWorkStateHelp,
   commsAppendHelp,
   commsAssertWatcherLiveHelp,
   commsDirectHelp,
@@ -207,6 +209,11 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     help: claimsActiveAgentsHelp,
     options: ['active', 'closed', 'now', 'repo-root'],
     handler: withResolvedActive(activeAgents),
+  }),
+  'claims:work-state': commandSpec({
+    help: claimsWorkStateHelp,
+    options: ['active', 'closed', 'comms-dir', 'now', 'repo-root'],
+    handler: withResolvedActive(workState),
   }),
   'tui:': commandSpec({
     help: tuiHelp,

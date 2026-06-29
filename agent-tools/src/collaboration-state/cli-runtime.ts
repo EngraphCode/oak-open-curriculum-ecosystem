@@ -3,6 +3,7 @@ import { appendFile, mkdir, readFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 import { filesystemLegacyCommsIo, migrateLegacyCommsDirectories } from './comms-migration.js';
+import { type GitWorktree, readGitWorktrees } from './git-worktree-list.js';
 import {
   readActiveClaimsFile,
   readClosedClaimsFile,
@@ -51,6 +52,7 @@ export interface CollaborationStateCliIo {
     readonly nowIso: string;
   }) => Promise<void>;
   readonly readCommsEvents: (commsDir: string) => Promise<readonly CommsEvent[]>;
+  readonly readWorktrees: (cwd: string) => Promise<readonly GitWorktree[]>;
   readonly readDirectedCommsMessages: (
     commsDir: string,
   ) => Promise<readonly DirectedCommsMessage[]>;
@@ -75,6 +77,10 @@ const productionIo: CollaborationStateCliIo = {
   readClosedClaimsFile,
   writeCommsEvent,
   readCommsEvents,
+  // `async` so a throwing git read (cwd not in a git tree) rejects rather than
+  // throwing synchronously at the call site, which would orphan a sibling read
+  // in a `Promise.all`.
+  readWorktrees: async (cwd) => readGitWorktrees(cwd),
   readDirectedCommsMessages,
   writeTextFile: (input) => writeTextFileAtomically(input),
   readTextFile: (filePath) => readFile(filePath, 'utf8'),

@@ -4,6 +4,7 @@ import {
   type CliRuntime,
   type CollaborationStateCliIo,
 } from '../../src/collaboration-state/cli-runtime';
+import { type GitWorktree } from '../../src/collaboration-state/git-worktree-list';
 import {
   type ClosedClaimsArchive,
   type CollaborationRegistry,
@@ -26,6 +27,7 @@ interface FakeCollaborationRuntimeInput {
   readonly activeClaims?: CollaborationRegistry;
   readonly closedClaims?: ClosedClaimsArchive;
   readonly comms?: Readonly<Record<string, readonly CommsEvent[]>>;
+  readonly worktrees?: readonly GitWorktree[];
   readonly legacyComms?: Readonly<Record<string, readonly unknown[]>>;
   readonly onWaitForCommsChange?: () => void;
   readonly onWaitForCollaborationStateChange?: () => void;
@@ -49,6 +51,7 @@ interface FakeRuntimeState {
   readonly legacyByDir: Map<string, readonly unknown[]>;
   readonly activeClaims: CollaborationRegistry;
   readonly closedClaims: ClosedClaimsArchive;
+  readonly worktrees: readonly GitWorktree[];
 }
 
 export function createFakeCollaborationRuntime(
@@ -61,6 +64,7 @@ export function createFakeCollaborationRuntime(
     legacyByDir: legacyByDir(input.legacyComms ?? {}),
     activeClaims: input.activeClaims ?? emptyActiveClaims,
     closedClaims: input.closedClaims ?? emptyClosedClaims,
+    worktrees: input.worktrees ?? [],
   };
   seedComms(state, input.comms ?? {});
 
@@ -97,6 +101,7 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
       );
     },
     readCommsEvents: async (commsDir) => readCommsEvents(state, commsDir),
+    readWorktrees: async () => state.worktrees,
     readDirectedCommsMessages: async (commsDir) =>
       readCommsEvents(state, commsDir).filter(isDirectedCommsMessage),
     writeTextFile: async ({ filePath, text }) => {

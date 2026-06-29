@@ -80,6 +80,7 @@ describe('collaboration-state tui CLI integration', () => {
           reads.push(commsDir);
           return [];
         },
+        readWorktrees: async () => [],
         readDirectedCommsMessages: async () => [],
         readSeenIds: async () => new Set<string>(),
         appendSeenMessageIds: async () => undefined,
