@@ -78,6 +78,22 @@ current session:
    and
    [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
    forbid.
+
+   **A "report-not-chase" verdict is the CONCLUSION of a content read, never a
+   substitute for one.** "Don't chase the number" ≠ "don't investigate the
+   number" — the conservation invariant says fitness *routes* work, so an
+   over-limit file is a pointer to open and read, not to wave through. Before
+   recording any file worse than soft as a benign residual, **read its content
+   first-hand** and state what the read found: un-homed substance to graduate,
+   completed-and-homed narrative to drain, or genuinely dense live content. A
+   verdict that cites only size, role, or the limit — "legit growth", "big
+   continuity file", "owner-routed" — is a **metadata-only disposition** and is
+   forbidden; it is the exact shallow-read failure that lets accreted files (a
+   thread record full of landed-arc narrative; a brief carrying un-graduated
+   doctrine) pass as "fine". For a continuity/narrative file, the read checks the
+   content against the file's own `overflow_disposition` / `continuity-practice`
+   §Disposition (leave-if-live; else conserve-insight-and-delete) — if completed
+   substance is still present, the disposition is *drain it now*, not *report it*.
 2. Every live drainable buffer in scope is empty or ready-empty. The
    **open-questions register is driven to zero exactly as pending-graduations is**
    (owner directive 2026-06-28): every entry decided — answered, withdrawn, or
@@ -167,7 +183,17 @@ Repeat this loop until the completion contract is met:
 3. **Read before routing.** Understand the source item before editing. Do not
    infer disposition from filename, age, or fitness status.
 4. **Route substance.** Move knowledge to the correct durable home, update the
-   existing home, or prove the home already contains it.
+   existing home, or prove the home already contains it. **Graduating a learned
+   lesson into its doctrine home is non-deferrable consolidation work — it is the
+   point of the pass, not a future session's job.** "Owner-routed" / "owner-gated"
+   / "deferred to a synthesis session" is valid *only* for a genuinely
+   owner-constitutive **decision** (a verdict, a product-scope call) — never for
+   the **homing** of an already-learned lesson. When a captured note (a Director
+   brief's standing lessons, a session's distilled entry) holds settled craft,
+   learn from it and write it into its permanent home now; do not let an adjacent
+   owner-gated decision's gating bleed onto the graduation. Deferring a homing as
+   "owner-routed" is the deferral-dressed-as-deference failure (see
+   `patterns/legitimate-principle-as-avoidance-cover.md`).
 5. **Classify each item's disposition as you process it** — `graduated`,
    `duplicate`, or `rejected` (`carried-forward` only for an
    interrupted mid-run handoff, and it does not satisfy the completion contract).

@@ -9,7 +9,7 @@ todos:
     content: Method captured in the design report (single home until proven); no separate reference doc yet
     status: completed
   - id: run-discovery-napkins
-    content: Run the first Discovery pass over the 99-napkin corpus (11 windows, uniform), per the report's turnkey config
+    content: Run the first Discovery pass over the napkin corpus (token-balanced uniform windows; re-derive set/count at run time — it drifts), per the report's turnkey config
     status: pending
   - id: calibrate-and-assess
     content: Confirm recall against the known-present baseline; record fidelity discount; assess apophenia-defeat held
@@ -20,7 +20,7 @@ todos:
     status: pending
     depends_on: [calibrate-and-assess]
   - id: graduate-or-decide
-    content: If proven, graduate method to a reference runbook (PDR-032) + author the adopting PDR citing this run; if it reveals defects, name them and route to a fix-and-rerun iteration or an owner decision to discontinue
+    content: If proven, graduate method to a reference runbook homed per PDR-120 (runbook index under docs/operations, NOT the .agent/reference tier) + author the adopting PDR citing this run; if it reveals defects, name them and route to a fix-and-rerun iteration or an owner decision to discontinue
     status: pending
     depends_on: [refine-method]
 ---
@@ -56,19 +56,25 @@ promotion; one that fails has told us so before any doctrine was minted.
 
 1. **Method captured** (done) — held in the design report as the single home until
    proven, per PDR-032 (fresh material does not enter the reference tier).
-2. **Run Discovery** on the 99 napkins, all 11 windows, uniform coverage, per the
-   report's turnkey config. Requires a writeable, execution-authorised session
-   (~1.3M-token Workflow: partition to map to reduce to validate to meta).
+2. **Run Discovery** on the full napkin corpus, uniform coverage, per the report's
+   turnkey config. Re-derive the file set/count at run time (it drifts — 99 → 100
+   during design) and partition by **token budget** into ~13–14 balanced windows,
+   NOT by file count (9-file windows ranged ~60k–141k at audit). Requires a
+   writeable, execution-authorised session (~1.3M-token harness Workflow:
+   partition → map → reduce → validate → meta).
 3. **Calibrate and assess** — confirm the run re-finds the known-present baseline
    (claims-doctrine evolution, collaboration-protocol shifts, validation/TDD arc,
    comms-research arc); record the recall discount; confirm every reported pattern
    is grounded and survived the null.
 4. **Refine** — fold first-run lessons (window size, leaf schema, critic depth)
    back into the method section.
-5. **Graduate or decide** — if proven, graduate the method to a standalone
-   reference runbook (PDR-032 promotion), add it to the runbook index (PDR-120),
-   and author the adopting PDR citing this run as its first worked instance (the
-   PDR-046 birth pattern). If the run reveals defects, record them with evidence
+5. **Graduate or decide** — if proven, graduate the method to a reference runbook
+   homed per **PDR-120** (a section in an operations/governance doc, listed in the
+   runbook index at `docs/operations/README.md#runbook-index` — NOT the
+   `.agent/reference/` tier, which PDR-032 reserves for read-to-learn library
+   material), and author the adopting PDR citing this run as its first worked
+   instance (the PDR-046 birth pattern). If the run reveals defects, record them with
+   evidence
    and route to a fix-and-rerun iteration (named gate: the defect is fixed and the
    run repeats) or to an owner decision to discontinue.
 

@@ -508,6 +508,8 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     them.
 7. **Graduate settled content.** This is the "enforce" edge of the knowledge flow (ADR-131 §Interaction Points, ADR-150 §Decision §5 — capture → distil → **graduate → enforce**). Treat it as a structural step, not a pass-through.
 
+   **Graduating a learned lesson into its doctrine home is non-deferrable — it is the point of the pass.** Learning from a captured note (a Director brief's standing lessons, a session's distilled entry, a curator-pass finding) and writing it into its permanent home (rule / PDR / ADR / pattern / governance doc) IS consolidation; "owner-routed", "owner-gated", or "deferred to a future/synthesis session" is valid *only* for a genuinely owner-constitutive **decision** (a verdict, a product-scope call) — never for the **homing** of an already-settled lesson. Do not let an adjacent owner-gated decision's gating bleed onto a graduation: the model *verdict* may be owner-routed while the *craft lessons* graduate now. The one legitimate graduation-time deferral is **collision avoidance** — when the home is owned by an *active mid-flight thread* (see 7b), defer to that thread rather than author a colliding standalone artefact; a stable doctrine surface (a PDR, a governance doc) is never "mid-flight", so that exemption does not license parking a homing there. Deferring a homing as "owner-routed" when the home is a stable surface is the deferral-dressed-as-deference failure (`patterns/legitimate-principle-as-avoidance-cover.md`).
+
    **Inputs to the graduation scan**:
 
    - `.agent/memory/active/distilled.md` — refined cross-session entries from prior napkin rotations.
@@ -771,7 +773,19 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    For any file in `soft`, `hard`, or `critical`:
 
-   a. **Analyse** — is the content appropriately dense, or has it accumulated low-value entries?
+   a. **Analyse — by reading the content, never from metadata.** A
+   "residual, report-not-chase" verdict is the *conclusion* of a first-hand
+   content read, never a substitute for one. "Don't chase the number" ≠ "don't
+   investigate the number": an over-limit file is a pointer to open and read. Read
+   it and state what the read found — un-homed substance to graduate,
+   completed-and-homed narrative to drain (check it against the file's
+   `overflow_disposition` / `continuity-practice` §Disposition: leave-if-live,
+   else conserve-insight-and-delete), or genuinely dense live content. A verdict
+   resting only on size, role, or the limit ("legit growth", "big continuity
+   file", "owner-routed") is a forbidden metadata-only disposition — the shallow
+   read that lets a thread record full of landed-arc narrative, or a brief
+   carrying un-graduated doctrine, pass as "fine". Is the content appropriately
+   dense, or has it accumulated low-value or already-homed entries?
    b. **Refine** — compress, deduplicate, remove entries covered elsewhere.
    c. **Restructure reference surfaces** — follow `split_strategy` only for
       reference or documentation surfaces where the change is the right

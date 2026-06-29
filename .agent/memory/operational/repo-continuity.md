@@ -87,13 +87,15 @@ forward-asks remain.
 - **Large-corpus analysis runbook — DESIGNED, first run pending (2026-06-29, Schooner hunts Tide).**
   A reusable method for analysing oversized document corpora on a timeseries — one substrate, three
   lenses (Discovery default / Surprises with a model-vs-data fork / Directed catalogue). Governance:
-  a **runbook not a plan** (PDR-120); promotion to a reference runbook (PDR-032) and an adopting PDR
-  (PDR-035) are both **gated on a proving run**, not pre-minted. Design authoritative in
-  [`reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`](reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md);
+  a **runbook not a plan** (PDR-120); promotion to a reference runbook (homed per **PDR-120** in the
+  runbook index, NOT the `.agent/reference/` tier) and an adopting PDR (PDR-035) are both **gated on a
+  proving run**, not pre-minted. Design authoritative in
+  [`reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`](../../reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md);
   forward work in
   [`current/large-corpus-analysis-runbook-build-and-prove.plan.md`](../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md).
-  **Next:** the first **Discovery** pass over the 99-napkin corpus (11 windows, uniform; turnkey
-  config + calibration baseline in the report), in a writeable/execution-authorised session.
+  **Next:** the first **Discovery** pass over the napkin corpus (re-derive set/count at run time — it
+  drifts; partition by token budget into ~13–14 balanced windows, NOT by file count; config +
+  calibration baseline in the report), in a writeable/execution-authorised session.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to

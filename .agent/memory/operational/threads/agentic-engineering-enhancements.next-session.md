@@ -30,8 +30,10 @@ document corpora on a timeseries — **one substrate, three lenses**: Discovery
 (exploratory, the default — "deep dive, see what emerges"), Surprises (deviation
 against an explicit reference model, with a model-versus-data triage), and Directed
 deep-dive (a catalogue of objective cells). Governance settled: it is a **runbook,
-not a plan** (PDR-120); delivered as a **reference runbook** (PDR-032) and backed by
-a **PDR** (PDR-035) **only after a proving run** — both gated, not pre-minted.
+not a plan** (PDR-120); delivered as a **reference runbook** homed per **PDR-120**
+(the runbook index under `docs/operations/`, NOT the `.agent/reference/` tier — a
+handoff-verification correction) and backed by a **PDR** (PDR-035) **only after a
+proving run** — both gated, not pre-minted.
 
 Two artefacts written (uncommitted; commit is owner-gated):
 
@@ -42,8 +44,10 @@ Two artefacts written (uncommitted; commit is owner-gated):
   current/README table).
 
 **Next action:** in a writeable, execution-authorised session, run the first
-**Discovery** pass over the 99-napkin corpus (11 windows of 9, uniform; config and
-calibration baseline in the report). ~1.3M-token Workflow. The run self-calibrates
+**Discovery** pass over the napkin corpus — re-derive the set/count at run time (it
+drifts; ~100 now) and partition by **token budget** into ~13–14 balanced windows,
+NOT by file count (config and calibration baseline in the report). ~1.3M-token
+harness Workflow. The run self-calibrates
 against the existing napkin syntheses; passing earns graduation to reference + PDR.
 Not started here — a discovery run is a real multi-agent operation, not a read-only
 action.
