@@ -151,6 +151,7 @@ function filesystemIo(): CollaborationStateCliIo {
     readClosedClaimsFile,
     writeCommsEvent,
     readCommsEvents,
+    readWorktrees: async () => [],
     readDirectedCommsMessages,
     writeTextFile: writeTextFileAtomically,
     readTextFile: readText,

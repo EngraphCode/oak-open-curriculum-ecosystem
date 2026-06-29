@@ -14,6 +14,7 @@ export const commsAppendOptions = [
   'intent-id',
   'branch',
   'current-cycle-label',
+  'in-response-to',
 ] as const;
 
 export const commsSendOptions = [
@@ -33,6 +34,7 @@ export const commsSendOptions = [
   'intent-id',
   'branch',
   'current-cycle-label',
+  'in-response-to',
 ] as const;
 
 export const commsWatchOptions = [
@@ -50,6 +52,7 @@ export const commsWatchOptions = [
   'no-heartbeat',
   'seed-from-now',
   'no-auto-seed',
+  'supervisor-pid',
 ] as const;
 
 export const commsInboxOptions = [
@@ -96,6 +99,7 @@ export const commsReplyOptions = [
 
 export const claimsOpenOptions = [
   'active',
+  'repo-root',
   'thread',
   'area-kind',
   'area-pattern',
@@ -111,6 +115,7 @@ export const claimsOpenOptions = [
 
 export const claimsCloseOptions = [
   'active',
+  'repo-root',
   'closed',
   'claim-id',
   'summary',
@@ -129,6 +134,6 @@ export const commsAssertWatcherLiveOptions = [
   'model',
 ] as const;
 
-export const claimsAdoptOptions = ['active', 'claim-id', 'platform', 'model'] as const;
+export const claimsAdoptOptions = ['active', 'repo-root', 'claim-id', 'platform', 'model'] as const;
 
-export const claimsSetHandoffOptions = ['active', 'claim-id', 'path'] as const;
+export const claimsSetHandoffOptions = ['active', 'repo-root', 'claim-id', 'path'] as const;

@@ -3,6 +3,7 @@ import { appendFile, mkdir, readFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 import { filesystemLegacyCommsIo, migrateLegacyCommsDirectories } from './comms-migration.js';
+import { type GitWorktree, readGitWorktrees } from './git-worktree-list.js';
 import {
   readActiveClaimsFile,
   readClosedClaimsFile,
@@ -17,6 +18,7 @@ import {
   type CommsEvent,
   type DirectedCommsMessage,
 } from './types.js';
+import { processIsAliveBySignalZero } from './watcher-supervisor.js';
 
 export interface CliRuntime {
   readonly stdout?: Pick<NodeJS.WritableStream, 'write'>;
@@ -31,6 +33,14 @@ export interface CliRuntime {
     readonly commsDir: string;
     readonly pollMs: number;
   }) => Promise<void>;
+  /**
+   * Probe whether a process is alive by pid (F-101 supervisor-death detection).
+   * Production uses a signal-0 `process.kill` probe; tests inject a fake so the
+   * watcher's self-exit-when-supervisor-gone behaviour is exercised without a
+   * real process. Provided by the composition layer when `--supervisor-pid` is
+   * in play.
+   */
+  readonly processIsAlive?: (pid: number) => boolean;
 }
 
 export interface CollaborationStateCliIo {
@@ -42,6 +52,7 @@ export interface CollaborationStateCliIo {
     readonly nowIso: string;
   }) => Promise<void>;
   readonly readCommsEvents: (commsDir: string) => Promise<readonly CommsEvent[]>;
+  readonly readWorktrees: (cwd: string) => Promise<readonly GitWorktree[]>;
   readonly readDirectedCommsMessages: (
     commsDir: string,
   ) => Promise<readonly DirectedCommsMessage[]>;
@@ -66,6 +77,10 @@ const productionIo: CollaborationStateCliIo = {
   readClosedClaimsFile,
   writeCommsEvent,
   readCommsEvents,
+  // `async` so a throwing git read (cwd not in a git tree) rejects rather than
+  // throwing synchronously at the call site, which would orphan a sibling read
+  // in a `Promise.all`.
+  readWorktrees: async (cwd) => readGitWorktrees(cwd),
   readDirectedCommsMessages,
   writeTextFile: (input) => writeTextFileAtomically(input),
   readTextFile: (filePath) => readFile(filePath, 'utf8'),
@@ -124,6 +139,7 @@ export function productionCollaborationStateRuntime(
     io: productionIo,
     waitForCommsChange: waitForDirectoryChange,
     waitForCollaborationStateChange: waitForCollaborationStateChangeFromFiles,
+    processIsAlive: processIsAliveBySignalZero,
   };
 }
 

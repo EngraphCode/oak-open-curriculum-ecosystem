@@ -1,3 +1,6 @@
+import { withResolvedActive } from './claim-active-path.js';
+import { withResolvedClosed } from './claim-closed-path.js';
+import { withResolvedNow } from './claim-now-default.js';
 import { archiveClaims, closeClaim, heartbeatClaim, openClaim } from './cli-claim-commands.js';
 import { adoptClaim, setHandoffClaim } from './cli-claim-handoff-commands.js';
 import { assertWatcherLive } from './cli-comms-assert-watcher-live.js';
@@ -7,18 +10,18 @@ import {
   mineClaims,
   showClaim,
   statusClaims,
+  workState,
 } from './cli-claim-query-commands.js';
 import { appendComms, migrateComms, renderComms } from './cli-comms-commands.js';
 import { sendComms } from './cli-comms-send.js';
 import { inboxComms } from './cli-comms-inbox.js';
-import { listComms, showComms } from './cli-comms-query.js';
+import { listComms, peerLivenessComms, showComms } from './cli-comms-query.js';
 import { directComms, replyComms } from './cli-comms-messages.js';
 import { validateComms } from './cli-comms-validate.js';
 import { watchComms } from './cli-comms-watch.js';
 import { preflightIdentity } from './cli-identity.js';
 import { auditIdentity } from './cli-identity-audit.js';
-import { type Options } from './cli-options.js';
-import { type CliRuntime } from './cli-runtime.js';
+import { commandSpec, type CommandSpec } from './cli-spec-factory.js';
 import { appendJsonEntry, checkState, writeJsonBody } from './cli-json-commands.js';
 import { collaborationTui } from './tui/cli.js';
 import {
@@ -47,12 +50,14 @@ import {
   claimsSetHandoffHelp,
   claimsShowHelp,
   claimsStatusHelp,
+  claimsWorkStateHelp,
   commsAppendHelp,
   commsAssertWatcherLiveHelp,
   commsDirectHelp,
   commsInboxHelp,
   commsListHelp,
   commsMigrateHelp,
+  commsPeerLivenessHelp,
   commsRenderHelp,
   commsReplyHelp,
   commsSendHelp,
@@ -66,20 +71,6 @@ import {
   identityPreflightHelp,
   tuiHelp,
 } from './cli-spec-help.js';
-import { type CollaborationStateEnvironment } from './types.js';
-
-export interface CommandSpec {
-  readonly handler: CliHandler;
-  readonly help: string;
-  readonly options: ReadonlySet<string>;
-  readonly allowsFiles?: boolean;
-}
-type CliHandler = (
-  options: Options,
-  env: CollaborationStateEnvironment,
-  runtime: CliRuntime,
-) => Promise<string> | string;
-
 export const specs: Readonly<Record<string, CommandSpec>> = {
   'identity:preflight': commandSpec({
     help: identityPreflightHelp,
@@ -107,14 +98,26 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     handler: renderComms,
   }),
   'comms:list': commandSpec({
+    // `now` is accepted and ignored (F-79): a read-only projection with no
+    // time-dependent behaviour, so a caller passing `--now` for cross-command
+    // symmetry is not rejected by the dispatch-time option allowlist.
     help: commsListHelp,
-    options: ['comms-dir', 'tail'],
+    options: ['comms-dir', 'tail', 'since', 'now'],
     handler: listComms,
   }),
   'comms:show': commandSpec({
     help: commsShowHelp,
     options: ['comms-dir', 'event-id'],
+    // F-80: the event id may be given as a bare positional (`comms show <id>`)
+    // as well as `--event-id <id>`; the dispatcher binds the positional to the
+    // `event-id` option key.
+    positional: 'event-id',
     handler: showComms,
+  }),
+  'comms:peer-liveness': commandSpec({
+    help: commsPeerLivenessHelp,
+    options: ['comms-dir', 'now'],
+    handler: peerLivenessComms,
   }),
   'comms:migrate': commandSpec({
     help: commsMigrateHelp,
@@ -155,57 +158,62 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     help: claimsOpenHelp,
     options: claimsOpenOptions,
     allowsFiles: true,
-    handler: openClaim,
+    handler: withResolvedActive(withResolvedNow(openClaim)),
   }),
   'claims:heartbeat': commandSpec({
     help: claimsHeartbeatHelp,
-    options: ['active', 'claim-id', 'now'],
-    handler: heartbeatClaim,
+    options: ['active', 'claim-id', 'now', 'repo-root'],
+    handler: withResolvedActive(heartbeatClaim),
   }),
   'claims:adopt': commandSpec({
     help: claimsAdoptHelp,
     options: claimsAdoptOptions,
-    handler: adoptClaim,
+    handler: withResolvedActive(adoptClaim),
   }),
   'claims:set-handoff': commandSpec({
     help: claimsSetHandoffHelp,
     options: claimsSetHandoffOptions,
-    handler: setHandoffClaim,
+    handler: withResolvedActive(setHandoffClaim),
   }),
   'claims:close': commandSpec({
     help: claimsCloseHelp,
     options: claimsCloseOptions,
-    handler: closeClaim,
+    handler: withResolvedActive(withResolvedClosed(closeClaim)),
   }),
   'claims:archive-stale': commandSpec({
     help: claimsArchiveStaleHelp,
-    options: ['active', 'closed', 'now', 'platform', 'model'],
-    handler: archiveClaims,
+    options: ['active', 'closed', 'now', 'platform', 'model', 'repo-root'],
+    handler: withResolvedActive(withResolvedClosed(archiveClaims)),
   }),
   'claims:list': commandSpec({
     help: claimsListHelp,
-    options: ['active', 'now'],
-    handler: listClaims,
+    options: ['active', 'now', 'repo-root'],
+    handler: withResolvedActive(listClaims),
   }),
   'claims:mine': commandSpec({
     help: claimsMineHelp,
-    options: ['active', 'platform', 'model', 'now'],
-    handler: mineClaims,
+    options: ['active', 'platform', 'model', 'now', 'repo-root'],
+    handler: withResolvedActive(mineClaims),
   }),
   'claims:show': commandSpec({
     help: claimsShowHelp,
-    options: ['active', 'claim-id', 'now'],
-    handler: showClaim,
+    options: ['active', 'claim-id', 'now', 'repo-root'],
+    handler: withResolvedActive(showClaim),
   }),
   'claims:status': commandSpec({
     help: claimsStatusHelp,
-    options: ['active', 'now'],
-    handler: statusClaims,
+    options: ['active', 'now', 'repo-root'],
+    handler: withResolvedActive(statusClaims),
   }),
   'claims:active-agents': commandSpec({
     help: claimsActiveAgentsHelp,
-    options: ['active', 'closed', 'now'],
-    handler: activeAgents,
+    options: ['active', 'closed', 'now', 'repo-root'],
+    handler: withResolvedActive(activeAgents),
+  }),
+  'claims:work-state': commandSpec({
+    help: claimsWorkStateHelp,
+    options: ['active', 'closed', 'comms-dir', 'now', 'repo-root'],
+    handler: withResolvedActive(workState),
   }),
   'tui:': commandSpec({
     help: tuiHelp,
@@ -233,17 +241,3 @@ export const specs: Readonly<Record<string, CommandSpec>> = {
     handler: checkState,
   }),
 };
-
-function commandSpec(input: {
-  readonly help: string;
-  readonly options: readonly string[];
-  readonly allowsFiles?: boolean;
-  readonly handler: CliHandler;
-}): CommandSpec {
-  return {
-    help: input.help,
-    options: new Set(input.options),
-    allowsFiles: input.allowsFiles,
-    handler: input.handler,
-  };
-}

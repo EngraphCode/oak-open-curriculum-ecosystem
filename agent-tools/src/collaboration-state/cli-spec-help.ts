@@ -22,11 +22,13 @@ export const commsAppendHelp =
   'comms append --comms-dir <dir> --now <iso> --created-at <iso> ' +
   '--title <title> (--body <body> | --body-file <path>) ' +
   '--platform <platform> --model <model> ' +
-  '--active <path> [--event-id <id>] [--tag <tag>...] ' +
+  '--active <path> [--event-id <id>] [--tag <tag>...] [--in-response-to <id>] ' +
   '(--body and --body-file are mutually exclusive; --body-file is the cure ' +
   'for shell-quoting hazards on bodies that contain backticks or dollar signs; ' +
   '--tag is repeatable, accepts ADR-183 namespace ' +
   '[failure-mode, behaviour-note, heartbeat]; ' +
+  '--in-response-to threads this event to an antecedent event_id of any kind ' +
+  '(e.g. a PDR-064 Moment-2 ack referencing a broadcast pre-position); ' +
   'HEARTBEAT MODE: with --tag heartbeat the body is composed from typed state ' +
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required)';
@@ -35,10 +37,12 @@ export const commsSendHelp =
   'comms send --title <title> (--body <body> | --body-file <path>) ' +
   '--platform <platform> --model <model> ' +
   '[--comms-dir <dir>] [--output <path>] [--active <path>] [--repo-root <path>] [--now <iso>] ' +
-  '[--event-id <id>] [--tag <tag>...] (--body and --body-file are mutually exclusive; ' +
+  '[--event-id <id>] [--tag <tag>...] [--in-response-to <id>] ' +
+  '(--body and --body-file are mutually exclusive; ' +
   '--body-file reads the file literally and bypasses shell interpretation; ' +
   '--tag is repeatable, accepts ADR-183 namespace ' +
   '[failure-mode, behaviour-note, heartbeat]; ' +
+  '--in-response-to threads this event to an antecedent event_id of any kind; ' +
   'HEARTBEAT MODE: with --tag heartbeat the body is composed from typed state ' +
   'args instead — --body and --body-file are rejected, and --claim-id <id> ' +
   '--intent-id <id> --branch <branch> --current-cycle-label <label> are required) ' +
@@ -50,16 +54,27 @@ export const commsSendHelp =
 export const commsRenderHelp = 'comms render --comms-dir <dir> --output <path>';
 
 export const commsListHelp =
-  'comms list --comms-dir <dir> [--tail <n>] ' +
+  'comms list --comms-dir <dir> [--since <iso>] [--tail <n>] ' +
   '(newest-first one-line summary per event: created_at, event_id, ' +
-  'author/session_prefix, [kind] (plus any [tags]), and title; default tail ' +
-  '20; read-only, no identity seed required; pass an event_id to `comms show` ' +
-  'for the full body)';
+  'author/session_prefix, [kind] (plus any [tags]), and title; --since keeps ' +
+  'events at or after the ISO instant (inclusive); default tail 20; read-only, ' +
+  'no identity seed required; pass an event_id to `comms show` for the full ' +
+  'body)';
 
 export const commsShowHelp =
-  'comms show --comms-dir <dir> --event-id <id> ' +
+  'comms show --comms-dir <dir> (<event-id> | --event-id <id>) ' +
   '(prints the full canonical JSON event resolved by id, including its body; ' +
+  'the id may be given as a bare positional or via --event-id; ' +
   'read-only; fails non-zero when no event carries the id)';
+
+export const commsPeerLivenessHelp =
+  'comms peer-liveness --comms-dir <dir> [--now <iso>] ' +
+  '(F-75: classifies each peer from the PDR-078 heartbeat event stream — ' +
+  'active <4m / offline 4-10m / retired >=10m, most-stale-first; read-only, ' +
+  'no identity seed; --now defaults to the real wall clock and is accepted ' +
+  'only for deterministic tests/replay. Pull side of peer heartbeat-silence ' +
+  'detection — see liveness-heartbeat-cron.md for the Monitor/poll alert ' +
+  'recipe; treat output as input-to-verify, never an auto-retirement verdict)';
 
 export const commsMigrateHelp =
   'comms migrate --events-dir <dir> --lifecycle-dir <dir> ' +
@@ -80,7 +95,7 @@ export const commsWatchHelp =
   '[--session-prefix <prefix>] ' +
   '[--poll-ms <n>] [--max-events <n>] [--step-timeout-ms <n>] ' +
   '[--heartbeat-file <path>] [--heartbeat-interval-ms <n>] [--no-heartbeat] ' +
-  '[--seed-from-now] [--no-auto-seed] ' +
+  '[--seed-from-now] [--no-auto-seed] [--supervisor-pid <pid>] ' +
   '(emits every relevant event — broadcast, group, directed, observed, lifecycle — ' +
   'with self-exclusion only; step-timeout-ms (default 60000) is the per-step deadline on ' +
   'drain/emit/markSeen — a step that hangs past it makes the watcher exit non-zero (fail-loud) ' +
@@ -90,7 +105,11 @@ export const commsWatchHelp =
   'auto-seed-on-empty default seeds the seen-file with current events so a fresh ' +
   'watcher starts forward from now rather than replaying full history; ' +
   'pass --no-auto-seed to replay the full event history on an empty seen-file; ' +
-  'pass --seed-from-now to force a seed regardless of existing seen-file content)';
+  'pass --seed-from-now to force a seed regardless of existing seen-file content; ' +
+  'pass --supervisor-pid <pid> to self-exit when that process (the agent session) ' +
+  'is gone — the F-101 crash/SIGKILL orphan cure: the watcher checks the pid once ' +
+  'per poll cycle and exits within one cycle of the supervisor dying, curing the ' +
+  'false-liveness orphan that GNU timeout group-kill misses on a harsh agent death)';
 
 export const commsAssertWatcherLiveHelp =
   'comms assert-watcher-live (--platform <platform> --model <model> | --agent-name <name>) ' +
@@ -121,9 +140,10 @@ export const commsReplyHelp =
 export const claimsOpenHelp =
   'claims open --active <path> --thread <thread> ' +
   '--area-kind <files|workspace|plan|adr|git> ' +
-  '--intent <text> --now <iso> --platform <platform> --model <model> ' +
+  '--intent <text> --platform <platform> --model <model> ' +
   '[--file <path>...] [--area-pattern <pattern>...] [--claim-id <id>] ' +
-  '[--ttl-seconds <n>] [--role <role>] ' +
+  '[--ttl-seconds <n>] [--role <role>] [--now <iso>] ' +
+  '(--now defaults to the current time when omitted — F-89) ' +
   '(use either repeatable --file or repeatable --area-pattern, not both; ' +
   'refuses to open into a populated registry while blind to comms — F-95 — ' +
   'unless this session has a live comms watcher at the canonical comms-seen ' +
@@ -140,12 +160,12 @@ export const claimsSetHandoffHelp =
   '(records a handoff-record pointer under .agent/state/collaboration/handoffs/; PDR-063 step 3)';
 
 export const claimsCloseHelp =
-  'claims close --active <path> --closed <path> --claim-id <id> ' +
+  'claims close --active <path> [--closed <path>] --claim-id <id> ' +
   '--summary <text> --now <iso> --platform <platform> --model <model> ' +
   '[--closure-summary <text> alias for --summary]';
 
 export const claimsArchiveStaleHelp =
-  'claims archive-stale --active <path> --closed <path> --now <iso> ' +
+  'claims archive-stale --active <path> [--closed <path>] --now <iso> ' +
   '--platform <platform> --model <model>';
 
 export const claimsListHelp = 'claims list --active <path> [--now <iso>]';
@@ -159,6 +179,13 @@ export const claimsStatusHelp = 'claims status --active <path> [--now <iso>]';
 
 export const claimsActiveAgentsHelp =
   'claims active-agents --active <path> [--closed <path>] [--now <iso>]';
+
+export const claimsWorkStateHelp =
+  'claims work-state [--active <path>] [--closed <path>] [--comms-dir <dir>] [--now <iso>] ' +
+  '[--repo-root <path>] (derived cross-worktree view: one row per git worktree, bound to its ' +
+  'agent via the heartbeat branch, with claim intent and a last-seen recency that is ' +
+  'INPUT-TO-VERIFY, not claim freshness; an agent on a branch with no matching worktree does not ' +
+  'appear; --active/--comms-dir default to the coordination home)';
 
 export const tuiHelp =
   'tui [--format <tui|text>] [--repo-root <path>] [--active <path>] ' +

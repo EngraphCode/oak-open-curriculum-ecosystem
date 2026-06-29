@@ -1,3 +1,150 @@
+# [1.55.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.54.0...v1.55.0) (2026-06-29)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure session-metadata CLI duplication via shared arg-parser ([275d50a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/275d50ab1425f9264510b981f18ea07332ab3cf7)), closes [#282](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/282)
+* **agent-tools:** validate session id at the transcript-path boundary ([1317e03](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1317e039f09224b2b21f9d45d862a0124ce9f166))
+
+
+### Features
+
+* **agent-tools:** add session-metadata context-occupancy CLI ([1d53358](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1d5335857794457eaa671abd5d113a5c6aafd6b7))
+
+# [1.54.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.53.0...v1.54.0) (2026-06-29)
+
+
+### Features
+
+* **agent-tools:** derive cross-worktree work-state view (F-98) ([9a42746](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9a42746673f744c4ba2b727e40bc43cbf2becd78))
+
+# [1.53.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.52.0...v1.53.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** default --closed to coordination home for claims close/archive-stale (F-108) ([64858e4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/64858e4f45f789525e71b9c7499eb6da96dc1e16))
+
+# [1.52.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.51.0...v1.52.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** accept event id as a positional on comms show (F-80) ([5a57026](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5a57026a275c72eb3f5501ffaccb3cac10e726ed))
+
+# [1.51.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.1...v1.51.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** accept-and-ignore --now on comms list (F-79) ([bc0bb07](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc0bb07f1f16ecafa2cf3376db20f2ace327e6c4))
+
+## [1.50.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.0...v1.50.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** spawn no longer predicts the launched session identity ([429763d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/429763d42f3e9fac66d5a18bc4bf13ff2506ef72))
+
+# [1.50.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.49.0...v1.50.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** generic no-events message for empty dir with --since (F-70) ([b820711](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b820711d0e3cbe401f6fc4587dfc1a71a8cf78ee))
+
+
+### Features
+
+* **agent-tools:** add comms list --since <iso> filter (F-70) ([110217c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/110217cd09aec1aaaaff8bdcf4abe04a3d5aec0d))
+
+# [1.49.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.48.0...v1.49.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** emit the launch command at spawn (spawn-flow 1E) ([aaea42f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aaea42f77552dc5fda20f02b9d6f0108cb8c4855))
+
+# [1.48.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.47.0...v1.48.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** add comms append --in-response-to (F-77) ([2831591](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/283159126d306f1c018d0fd2c0c2b8d2969a25ae))
+
+# [1.47.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.46.0...v1.47.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** alphabetise spawn cli relative imports (1D review nit) ([b4b7e26](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b4b7e26aa9f8175a45295c89cfaa49489d6d948b))
+
+
+### Features
+
+* **agent-tools:** emit a seat brief at spawn (spawn-flow 1D) ([603bd15](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/603bd15cd8f05f78c7125ec7eaaff27b3399144c))
+
+# [1.46.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.45.0...v1.46.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** default claims open --now to current time (F-89) ([#276](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/276)) ([afcc6bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/afcc6bbedfebd858812796de48391effa1f5f393))
+
+# [1.45.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.44.0...v1.45.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** open a draft PR at spawn (spawn-flow 1C) ([#275](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/275)) ([40e654d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/40e654d697d5596c082be44a2a02d1bfd9c4ecff)), closes [#seam](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/seam) [#failure](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/failure)
+
+# [1.44.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.43.0...v1.44.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** claims active-path defaults to coordination home ([#274](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/274)) ([c4d2b69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c4d2b6902ae90d65061aa073ed6c499e50cafa45))
+
+# [1.43.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.42.0...v1.43.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** comms peer-liveness for heartbeat-silence detection (F-75) ([#273](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/273)) ([0be09bf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0be09bf05b6dc1ad68e299ba08120efd4202c392)), closes [#270](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/270) [#270](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/270)
+
+# [1.42.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.41.0...v1.42.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** build spawned worktrees at creation (spawn-flow 1B) ([#272](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/272)) ([4b84ea7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4b84ea702450943aa12262364468d2ebb63a24db))
+
+# [1.41.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.40.0...v1.41.0) (2026-06-28)
+
+
+### Features
+
+* **curriculum-sdk:** surface oak-under-the-hood on the MCP discovery instructions ([#271](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/271)) ([5fe76db](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5fe76db8c27524828a83f425adca07e6360f8a24))
+
+# [1.40.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.39.0...v1.40.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** self-exit orphaned comms watchers on supervisor death (F-101) ([#270](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/270)) ([b46089f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b46089fe45df65292321589720f74543f0cc02e9))
+
+# [1.39.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.38.0...v1.39.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** guard spawn base ref and prove the home-resolution failure path ([ec72e3a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ec72e3a2d3eeb1d0b4460359c52d8b16847c1753)), closes [#269](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/269)
+
+
+### Features
+
+* **agent-tools:** add agent spawn worktree-nucleation CLI (spawn-flow 1A) ([25a8ffb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/25a8ffb9900857f41ee17ddc4a2dbc03d5f6d68d))
+
 # [1.38.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.37.0...v1.38.0) (2026-06-28)
 
 

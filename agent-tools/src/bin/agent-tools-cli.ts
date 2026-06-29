@@ -7,6 +7,8 @@ import {
   runCommitQueueTopic,
   runContextCostTopic,
   runPrWatchTopic,
+  runSessionMetadataTopic,
+  runSpawnTopic,
 } from './agent-tools-cli-topics.js';
 import type {
   AgentToolsCliInput,
@@ -67,7 +69,10 @@ export async function runAgentToolsCli(input: AgentToolsCliInput): Promise<Agent
 export function agentToolsCliEnvironmentFromProcessEnv(
   env: NodeJS.ProcessEnv,
 ): AgentToolsEnvironment {
-  return agentIdentityCliEnvironmentFromProcessEnv(env);
+  return {
+    ...agentIdentityCliEnvironmentFromProcessEnv(env),
+    ...(env.HOME === undefined ? {} : { HOME: env.HOME }),
+  };
 }
 
 function parseAgentToolsArgs(argv: readonly string[]): ParsedAgentToolsArgs {
@@ -113,8 +118,10 @@ const UNIFORM_TOPIC_HANDLERS: Readonly<Record<string, UniformTopicHandler>> = {
   'commit-queue': runCommitQueueTopic,
   'branch-touched-files': runBranchTouchedFilesTopic,
   'context-cost': runContextCostTopic,
+  'session-metadata': runSessionMetadataTopic,
   'codex-exec': runCodexExecTopic,
   'pr-watch': runPrWatchTopic,
+  spawn: runSpawnTopic,
 };
 
 async function dispatchTopic(input: {
@@ -139,6 +146,7 @@ async function dispatchTopic(input: {
       io: runtime.io,
       waitForCommsChange: runtime.waitForCommsChange,
       waitForCollaborationStateChange: runtime.waitForCollaborationStateChange,
+      processIsAlive: runtime.processIsAlive,
     });
   }
 
@@ -200,7 +208,9 @@ function usage(): string {
     '  commit-queue',
     '  branch-touched-files',
     '  context-cost',
+    '  session-metadata',
     '  codex-exec',
     '  pr-watch',
+    '  spawn',
   ].join('\n');
 }

@@ -1,6 +1,7 @@
 import { parseOptions, type Options } from './cli-options.js';
 import { type CliRuntime } from './cli-runtime.js';
-import { specs, type CommandSpec } from './cli-specs.js';
+import { type CommandSpec } from './cli-spec-factory.js';
+import { specs } from './cli-specs.js';
 import { type CollaborationStateEnvironment } from './types.js';
 
 interface CollaborationStateCliInput {
@@ -10,6 +11,7 @@ interface CollaborationStateCliInput {
   readonly io?: CliRuntime['io'];
   readonly waitForCommsChange?: CliRuntime['waitForCommsChange'];
   readonly waitForCollaborationStateChange?: CliRuntime['waitForCollaborationStateChange'];
+  readonly processIsAlive?: NonNullable<CliRuntime['processIsAlive']>;
 }
 
 interface CollaborationStateCliResult {
@@ -31,6 +33,7 @@ export async function runCollaborationStateCli(
         io: input.io,
         waitForCommsChange: input.waitForCommsChange,
         waitForCollaborationStateChange: input.waitForCollaborationStateChange,
+        processIsAlive: input.processIsAlive,
       }),
     );
   } catch (error) {
@@ -63,15 +66,50 @@ async function dispatchCommand(
     return `${spec.help}\n`;
   }
 
-  validateKnownOptions(options, spec);
+  const resolved = bindPositional(options, spec);
+  validateKnownOptions(resolved, spec);
 
   try {
-    return await spec.handler(options, env, runtime);
+    return await spec.handler(resolved, env, runtime);
   } catch (error) {
     throw new Error(commandError(spec, error instanceof Error ? error.message : String(error)), {
       cause: error,
     });
   }
+}
+
+/**
+ * Resolve any bare positional argument against the command spec. A command
+ * with `spec.positional` binds a single positional to that option key (so the
+ * handler reads it via the same key as the `--<key>` flag); a command without
+ * it rejects any positional, preserving stray-token rejection for the whole
+ * estate. At most one positional is accepted, and a positional may not be
+ * combined with the equivalent flag.
+ */
+function bindPositional(options: Options, spec: CommandSpec): Options {
+  if (options.positionals.length === 0) {
+    return options;
+  }
+  if (spec.positional === undefined) {
+    throw new Error(commandError(spec, `unexpected argument: ${options.positionals[0]}`));
+  }
+  if (options.positionals.length > 1) {
+    throw new Error(
+      commandError(spec, `too many positional arguments (expected at most one ${spec.positional})`),
+    );
+  }
+  if (options.values.has(spec.positional)) {
+    throw new Error(
+      commandError(
+        spec,
+        `provide ${spec.positional} as a positional argument or --${spec.positional}, not both`,
+      ),
+    );
+  }
+  const [positional] = options.positionals;
+  const values = new Map(options.values);
+  values.set(spec.positional, positional);
+  return { ...options, values };
 }
 
 function commandSpecForOptions(options: Options): CommandSpec {

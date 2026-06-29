@@ -2,7 +2,11 @@ import type { AgentIdentityCliEnvironment } from './agent-identity-cli.js';
 import type { CollaborationStateEnvironment } from '../collaboration-state/types.js';
 import type { CommitQueueRegistry } from '../commit-queue/types.js';
 
-export type AgentToolsEnvironment = AgentIdentityCliEnvironment & CollaborationStateEnvironment;
+export type AgentToolsEnvironment = AgentIdentityCliEnvironment &
+  CollaborationStateEnvironment & {
+    /** User home directory — locates per-user surfaces such as vendor session transcripts. */
+    readonly HOME?: string;
+  };
 
 export interface AgentToolsCliInput {
   readonly argv: readonly string[];

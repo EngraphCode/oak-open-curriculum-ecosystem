@@ -52,4 +52,40 @@ export function composeHeartbeatBody(state: HeartbeatBodyState): string {
   return `active; claim=${parsed.claimId}; intent=${parsed.intentId}; branch=${parsed.branch}; cycle=${parsed.currentCycleLabel}`;
 }
 
+/**
+ * The canonical heartbeat-body shape as a parser. The first three fields
+ * (claim, intent, branch) are matched non-greedily up to their delimiter;
+ * `cycle` is the rest of the line because a cycle label may itself contain `;`
+ * or `=` (e.g. an `exit=DoD-or-handoff` suffix).
+ */
+const heartbeatBodyPattern = /^active; claim=(.+?); intent=(.+?); branch=(.+?); cycle=(.+)$/;
+
+/**
+ * Parse a canonical heartbeat-event body back into its typed state, or
+ * `undefined` when the string is not a canonical heartbeat body.
+ *
+ * The inverse of {@link composeHeartbeatBody}, kept in this module so the body
+ * format has a single source of truth and parse cannot drift from compose.
+ * Values are validated through the same strict {@link heartbeatBodyStateSchema},
+ * so a malformed or empty field yields `undefined` rather than a partial state —
+ * the read-side counterpart of the typed-origin write-side invariant. Consumers
+ * that need a structured field off the heartbeat stream (e.g. the derived
+ * work-state view's branch binding) parse through here rather than re-splitting
+ * the body string.
+ */
+export function parseHeartbeatBody(body: string): HeartbeatBodyState | undefined {
+  const match = heartbeatBodyPattern.exec(body);
+  if (match === null) {
+    return undefined;
+  }
+  const [, claimId, intentId, branch, currentCycleLabel] = match;
+  const parsed = heartbeatBodyStateSchema.safeParse({
+    claimId,
+    intentId,
+    branch,
+    currentCycleLabel,
+  });
+  return parsed.success ? parsed.data : undefined;
+}
+
 export { heartbeatBodyStateSchema };
