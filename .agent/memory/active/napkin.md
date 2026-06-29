@@ -74,3 +74,39 @@ New session observations append below.
   `gh`. Home: **F-110** (expanded); a candidate for its own plan/PDR when prioritised (it is a new
   multi-agent capability, not just a friction fix). Self-similar with this very session: the team builds
   shared-state coordination primitives while being throttled by the lack of one in real time (FRAME-1).
+
+## 2026-06-29 — Arc team session closeout (Falcon wakes Stratus, adb1f3, Director #6)
+
+Team-tooling arc CLOSED. This session: PDR-064 Director rotation (Trawler → Falcon) + the DUE deep
+dedicated consolidation. Stood down at session-end — heartbeat stopped, Director claim `4180e263`
+relinquished, no retained claim.
+
+**Honest root cause of the PR-#290 churn — my MIS-IDENTIFICATION of issues, not mixing concerns.** A
+one-line goal (the rule's filename should read "second") spun into hours of churn because I:
+
+- mis-diagnosed a transient gh-auth blip as 5,000-budget exhaustion — the `rate_limit` signature in hand
+  (`limit 60` / `graphql 0`) plainly said *unauthenticated*, ~6% used;
+- treated every bot comment as a thing-to-change and ran over-broad `sed` sweeps that corrupted
+  append-only rapid-comms turns, a quoted corroboration record, an archive's date-range (`+`→`-`), and an
+  ordinal ("third **attempt**");
+- resolved review threads mechanically to clear `mergeStateStatus` instead of settling the concern
+  ("resolved" is metadata, not a fix);
+- over-processed simple requests — by the end, simple asks took five minutes and produced confusing,
+  unhelpful changes (owner-named).
+
+Splitting the PR would not have prevented any of it; the earlier "#290 entangles concerns" framing was
+deflection. The cure is the discipline in [[feedback_match_instrument_to_goal_act_simply]]: match the
+instrument's blast radius to the goal, act on the evidence in hand, keep simple requests simple.
+
+**Landed:** arc closed (#268, `1b5ce326`). Deep consolidation graduated the deferred captures to
+permanent homes — gate-evasion → `fluency-is-a-failure-vector`; Director craft → `director-handoff`
+Standing Lessons; timestamp-zone → `verify-dont-trust`; discriminating-fixtures → `testing-patterns`;
+continuity folds; this napkin rotation; the F-110 broker concept.
+
+**Carried to a fresh session:** the synthesis phase (worktree-per-agent / PDR-117 model verdict; do-first
+matrix; rightsizing M1→M2; the live **F-44** freshness≠liveness safety defect) + the PDR-117 expansion
+(seed: `reports/agentic-engineering/director-howto-and-pdr117-gaps-2026-06-29.md`). Five lighter
+rule-amends staged in `distilled.md`. Candidate: graduate "resolved is a metadata state, not a fix" into
+`pr-comments-resolve-and-recheck`.
+
+**Loss-scan (first-hand, converged):** nothing material that only my context held remains unconserved.
