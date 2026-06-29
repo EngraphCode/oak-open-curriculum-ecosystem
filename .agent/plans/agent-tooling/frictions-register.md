@@ -2296,6 +2296,29 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
 
+### F-109 — `claims close` ergonomics: non-obvious required flags + closed registry is `closed-claims.archive.json`
+
+- **Source**: Director closeout 2026-06-29 (Trawler mends Buoy, at the PDR-064 handover to Falcon
+  wakes Stratus).
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims close`.
+- **Observed**: a reasonable relinquish (`claims close --active <path> --claim-id <id> --platform
+  --model --now`) exits 2 with no actionable hint; `close` additionally requires `--closed <path>`
+  AND `--summary <text>`. The `--closed` guess `closed-claims.json` then ENOENTs — the registry is
+  actually `closed-claims.archive.json`. So the relinquish failed twice before succeeding, after the
+  closeout broadcast had already asserted "claim relinquished" (a false-statement window). (This
+  checkout's agent-tools predates F-108's "default `--closed` to coordination home", so `--closed`
+  was mandatory.)
+- **Expected**: `claims close --claim-id <id>` resolves `--active`/`--closed` from the coordination
+  home by default (as F-85/F-108 did for `--active`), derives a default summary, and on a missing
+  required flag prints the exact missing-flag fix rather than a bare exit 2.
+- **Candidate cure**: extend the F-108 coordination-home default to `claims close` (`--closed` →
+  `closed-claims.archive.json`); make `--summary` optional with a derived default; emit an
+  actionable usage line on exit 2. Same F-41/F-85 relative-path + discoverability class.
+- **Target surface**: `agent-tools/src/collaboration-state/` claims-close arg-parsing + path
+  defaulting.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions); owner-directed capture at this closeout.
+
 ---
 
 ## Mitigated / Addressed Frictions

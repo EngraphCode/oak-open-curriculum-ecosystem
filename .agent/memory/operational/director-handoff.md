@@ -340,8 +340,8 @@ first-hand as of 2026-06-25.
 
 ---
 
-> Refresh this whole section at every handoff. [PRIOR ROTATION — Merlin → Triton, retained as context.] Last refreshed 2026-06-28 (**Merlin seeks Rainbow → Triton calls
-> Vastness** Director rotation, PDR-064, owner-directed). The team-tooling session is LIVE and continues under Triton.
+> Refresh this whole section at every handoff. [PRIOR ROTATION — Merlin → Triton, retained as context.] Last refreshed 2026-06-28 (**Merlin seeks Rainbow → Triton lifts
+> Eternity** Director rotation, PDR-064, owner-directed). The team-tooling session is LIVE and continues under Triton.
 >
 > ### ▶ TEAM-TOOLING SESSION — LIVE (2026-06-28); DIRECTOR ROTATION Merlin → Triton
 >

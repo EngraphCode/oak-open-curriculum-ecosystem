@@ -74,8 +74,8 @@ the quality-gate coverage matrix
 ([ADR-121](../architecture/architectural-decisions/121-quality-gate-surfaces.md)).
 
 **Delivered as skills (invocable runbooks):** `oak-gates`, `oak-commit`,
-`semantic-merge`, the `start-right` family — the skill is the runbook's invocation
-packaging.
+`oak-semantic-merge`, the `oak-start-right` family — the skill is the runbook's
+invocation packaging.
 
 ## Relationship to Engineering Docs
 
