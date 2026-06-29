@@ -1,3 +1,43 @@
+# [1.53.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.52.0...v1.53.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** default --closed to coordination home for claims close/archive-stale (F-108) ([64858e4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/64858e4f45f789525e71b9c7499eb6da96dc1e16))
+
+# [1.52.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.51.0...v1.52.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** accept event id as a positional on comms show (F-80) ([5a57026](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5a57026a275c72eb3f5501ffaccb3cac10e726ed))
+
+# [1.51.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.1...v1.51.0) (2026-06-28)
+
+
+### Features
+
+* **agent-tools:** accept-and-ignore --now on comms list (F-79) ([bc0bb07](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc0bb07f1f16ecafa2cf3376db20f2ace327e6c4))
+
+## [1.50.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.50.0...v1.50.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** spawn no longer predicts the launched session identity ([429763d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/429763d42f3e9fac66d5a18bc4bf13ff2506ef72))
+
+# [1.50.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.49.0...v1.50.0) (2026-06-28)
+
+
+### Bug Fixes
+
+* **agent-tools:** generic no-events message for empty dir with --since (F-70) ([b820711](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b820711d0e3cbe401f6fc4587dfc1a71a8cf78ee))
+
+
+### Features
+
+* **agent-tools:** add comms list --since <iso> filter (F-70) ([110217c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/110217cd09aec1aaaaff8bdcf4abe04a3d5aec0d))
+
 # [1.49.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.48.0...v1.49.0) (2026-06-28)
 
 

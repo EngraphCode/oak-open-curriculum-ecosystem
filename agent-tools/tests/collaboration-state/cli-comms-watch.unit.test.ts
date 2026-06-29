@@ -22,6 +22,7 @@ function watchOptions(values: Record<string, string>): Options {
     files: [],
     areaPatterns: [],
     tags: [],
+    positionals: [],
   };
 }
 

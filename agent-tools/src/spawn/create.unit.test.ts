@@ -1,12 +1,9 @@
 import { err, isErr, isOk, ok, unwrap } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
-import { deriveIdentity } from '../core/agent-identity/index.js';
-
 import { createSpawnWorktree, type SpawnGitRunner } from './create.js';
 
 const HOME = '/workspace/oak-open-curriculum-ecosystem';
-const SEED = '11112222-3333-4444-5555-666677778888';
 
 interface GitCall {
   readonly args: readonly string[];
@@ -49,7 +46,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isOk(result)).toBe(true);
@@ -89,7 +85,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isOk(result)).toBe(true);
@@ -114,7 +109,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -148,7 +142,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -157,27 +150,6 @@ describe('createSpawnWorktree', () => {
     }
     // Fails fast: no git probe, no add — the primary checkout is never touched.
     expect(calls).toEqual([]);
-  });
-
-  it('mints the session seed and derives the display name and prefix from it', () => {
-    const { runGit } = recordingGit();
-
-    const worktree = unwrap(
-      createSpawnWorktree({
-        slug: 'spawn-flow',
-        type: 'feat',
-        base: 'origin/main',
-        coordinationHome: HOME,
-        runGit,
-        generateSeed: () => SEED,
-      }),
-    );
-
-    expect(worktree.session.seed).toBe(SEED);
-    expect(worktree.session.sessionIdPrefix).toBe(SEED.slice(0, 6));
-    // The display name is derived through the canonical deterministic deriver,
-    // not asserted as a magic string — behaviour (derived-from-seed), not value.
-    expect(worktree.session.agentName).toBe(deriveIdentity(SEED).displayName);
   });
 
   it('returns err on an empty slug without invoking git', () => {
@@ -189,7 +161,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -208,7 +179,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -227,7 +197,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -246,7 +215,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -265,7 +233,6 @@ describe('createSpawnWorktree', () => {
       base: '',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -284,7 +251,6 @@ describe('createSpawnWorktree', () => {
       base: '--upload-pack=evil',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -314,7 +280,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
@@ -338,7 +303,6 @@ describe('createSpawnWorktree', () => {
       base: 'origin/main',
       coordinationHome: HOME,
       runGit: failing,
-      generateSeed: () => SEED,
     });
 
     expect(isErr(result)).toBe(true);
