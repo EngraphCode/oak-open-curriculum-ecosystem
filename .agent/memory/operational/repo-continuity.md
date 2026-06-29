@@ -186,6 +186,25 @@ not the current session-priority lane. Reactivation is owner-directed.
 
 ## Next Safe Steps
 
+### agent-tools architecture — plan authored; commit + standard deferred (2026-06-29)
+
+`check-encoding` (the new permanent UTF-8/encoding scanner) is **verified-green on its own files**
+(`pnpm encoding:check` 0 critical; type-check / lint / 1748 tests / knip / depcruise / prettier clean,
+after removing 2 knip-flagged dead exports) and consistent with the `skills:check` precedent
+(`pnpm encoding:check`, wired into `pnpm check` + pre-push; canonical `@oaknational/result`).
+The deferred architectural excellence is now a strategic brief —
+[`agent-tools-architecture-standard.plan.md`](../../plans/agent-tooling/future/agent-tools-architecture-standard.plan.md)
+(WS0 the execution-model fork → ADR + enforcement + encoding-engine→`packages/core` + the
+where-supported Write/Edit hook + convergence) — with the analysis at
+[`reports/agent-tools-encoding-guard-and-architecture-2026-06-29.md`](../../reports/agent-tools-encoding-guard-and-architecture-2026-06-29.md)
+and Callisto's handoff at
+[`reports/agentic-engineering/agent-tools-architecture-state-and-check-encoding-handoff-2026-06-29.md`](../../reports/agentic-engineering/agent-tools-architecture-state-and-check-encoding-handoff-2026-06-29.md).
+Owner direction 2026-06-29: **working now, excellence later** — the standard is a dedicated future
+session (promotion runs the plan's WS0 decision pass first). **HELD (owner-gated):** the encoding
+commit + a full `pnpm check` green are blocked by unrelated live WIP — untracked
+`agent-tools/src/corpus-analysis/` (a different lane) currently fails whole-tree knip + lint, and
+`.husky/pre-commit` runs those whole-tree, so no commit lands until that WIP is green or removed.
+
 ### Comms-Corpus Research — RETIRED 2026-06-14
 
 Thread concluded (WS0–WS7, PR #208 merged `a6b14a8a3`); findings homed in **PDR-094** + **ADR-199** + the

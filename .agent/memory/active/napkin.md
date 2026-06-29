@@ -264,3 +264,70 @@ design-panel protocol in `reports/agentic-engineering/`.
 - **Fitness residual (report, don't chase):** this append pushes the napkin toward its soft zone
   (target 220) — routed to the next consolidation, not trimmed (knowledge-preservation). Rotation
   is at ~400 lines; not yet due.
+
+## Session 94fe5d (Callisto lifts Perigee) — check-encoding + the agent-tools architecture gap
+
+- **META-LESSON (owner corrected me 4×): under build-order friction I invented a structural
+  class ("build-free validators") and reached for the closest local fix each time — local Result
+  union → tsx-post-build → shell-`&&`-ordering → a one-off turbo task — instead of grounding the
+  situational fact.** Each fix was a doctrine-by-analogy guess (copy the sibling validators' shape)
+  built on an UNCHECKED model. The facts, once checked, refuted the model: agent-tools imports
+  `@oaknational/result` in 26 files (NOT independent); `prevent-accidental-major-version` is a tsx
+  script that imports the built `@oaknational/safe-path` (so "tsx ⇒ build-free" is FALSE);
+  `skills:check` is an existing `pnpm -s build && node dist/...` gate (the real precedent). Cure
+  (retrospective): when friction appears, **ground the situational facts (what do siblings
+  actually import? what does the gate chain actually sequence?) BEFORE reasoning from a model** —
+  climb the reliability ladder one rung at a time. Fluency (a fix that arrives smoothly by analogy)
+  is the tripwire to re-ground, not a confirmation. [[verify-dont-trust]]
+- **Concrete, reusable:** a gate that imports a BUILT workspace package cannot run in the
+  pre-build phase of `pnpm check` (which is `clean → repo-validators:check → build`). It must run
+  AFTER the build, and the consistent shape is `skills:check`'s `pnpm -s build && node dist/...`.
+  Importing the canonical `@oaknational/result` is correct (don't sever it for a local union), but
+  it pulls a build dependency into whatever runs the tool — so the tool runs from `dist`, not via
+  `tsx`-on-source.
+- **PROJECT: agent-tools has no architectural direction and is badly inconsistent** — invocation
+  (node-dist topics vs tsx-source checks vs build-then-dist), error handling (exit codes vs throw
+  vs Result), workspace-dep usage, and gate-wiring are all undesigned. Owner is handing this to a
+  fresh agent (Limpet herds Atoll). State + my explicit assumptions written up at
+  `.agent/reports/agentic-engineering/agent-tools-architecture-state-and-check-encoding-handoff-2026-06-29.md`.
+- **Owner standing direction:** prefer a suboptimal approach that **works and is consistent** over
+  hacks scattered around; remove every special-case hack (the turbo task was removed). Establish
+  what excellent looks like, but do not necessarily achieve it today.
+
+## Session d04779 (Limpet herds Atoll) — took over check-encoding; working-now, excellence-later
+
+Took over Callisto's check-encoding for a fresh architectural take. Owner set the priority
+explicitly: **working now, architectural excellence later** — a scoped exception to strict/LTAE-first
+(the small tool must not derail the session; the standard is deferred to a dedicated session).
+Tool verified-green on its own files; the excellence is captured as a strategic plan
+(`agent-tooling/future/agent-tools-architecture-standard.plan.md`) + the analysis report. **Commit
+held by owner** pending a repo-fix (the blocker below); the closeout ran as working-tree state.
+
+- **VERIFY-DONT-TRUST reversed my own recommendation — against a governing ADR.** I was about to
+  recommend "simplify check-encoding's gate to run via `tsx` like its siblings." Grounding **ADR-178
+  (agent-tools build isolation)** first showed the opposite: it MANDATES built-`dist` for agent-tools
+  CLIs and FORBIDS documenting `tsx src/...` as the default — the "simplification" would have violated
+  it, and Callisto's `dist` wiring is aligned with it. Lesson: before recommending a "simplify"/consistency
+  move on tooling, ground the GOVERNING decision (the ADR), not the sibling that looks simplest —
+  siblings can themselves be the inconsistency. (ADR-178's verification grep
+  `pnpm.*build && .*node.*agent-tools.*dist` is currently NON-EMPTY — it matches both `skills:check`
+  (pre-existing) and the new `encoding:check`; that gate-family build-prefix tension is the first
+  concrete item the deferred standard must resolve.)
+- **BLOCKER (surfaced, not pushed past): a whole-tree pre-commit gate lets an unrelated session's
+  broken untracked WIP block ALL commits in a shared checkout.** `agent-tools/src/corpus-analysis/`
+  (the large-corpus-analysis v2 aggregation module — a different lane, mtimes minutes old = live WIP)
+  was untracked and mid-write: it failed whole-tree `knip` (~14 unused exported types) and `lint`
+  (2 errors). `.husky/pre-commit` runs knip/depcruise/lint/test **whole-tree** (only prettier/markdownlint
+  are staged-scoped), so it blocks any commit — mine included — regardless of explicit pathspec, until
+  that WIP is green or out of the tree. I did NOT touch it (committing/fixing a peer's live mid-write WIP
+  is the twice-recorded failure mode), did NOT use `--no-verify`, and surfaced it for the owner to clear.
+  Fresh evidence for the **worktree-per-agent transition** (worktree isolation dissolves exactly this
+  shared-checkout coupling) — route there as evidence, not a new PDR.
+- **knip on my own work was load-bearing:** it flagged 2 genuinely-dead exports in the new tool
+  (`reportHasSeverity` unused → deleted; `tallyBySeverity` used-internally-but-over-exported →
+  un-exported). Removing them was the fix, exactly as principles require — run knip before declaring a
+  new tool done.
+- **Loss-scan (first-hand, converged):** the encoding tool, the decision-lens reasoning, the ADR-178
+  finding, the core-package/dev-condition pattern, and the WS0 fork analysis all live in the report +
+  the strategic plan. The three lessons above are the only context-only items; captured here. Nothing
+  material that only my context held remains unconserved.
