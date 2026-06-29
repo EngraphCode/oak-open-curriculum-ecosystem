@@ -2321,16 +2321,24 @@ below is a cross-reference index, not a second source of truth.
 
 ### F-110 — `gh` calls must route through a rate-limit-aware agent-tools command (batch + jitter + backoff)
 
-- **Source**: owner direction 2026-06-29 (Falcon deep-closeout) — "we should NOT be hitting the gh
-  rate limit." A `403 API rate limit exceeded` blocked the #290 merge mid-closeout; GraphQL budget hit
-  0/limit, core dropped to the unauthenticated 60/hr.
+- **Source**: owner direction 2026-06-29 (Falcon deep-closeout) — the owner raised a fleet-wide
+  shared-resource broker as "a new concept in agent tooling." NB the triggering incident was
+  **misdiagnosed**: a `403` on a `gh` GraphQL call was initially read as 5,000-budget exhaustion, but the
+  evidence (`rate_limit` showing the *unauthenticated* signature `core.limit 60` / `graphql.limit 0`, and
+  the authenticated budget ~94% free minutes later) showed it was a **transient unauthenticated/token
+  blip**, not volume. So this entry is a **forward capability for genuine fleet shared-limit pressure**,
+  not the cure for that incident.
 - **Surface**: every direct `gh` / `gh api` / `gh api graphql` invocation across the agent estate —
-  PR-checks polling, reviewThreads queries, merge, update-branch. The 5,000/hr budget is **shared**
-  across all agents AND the Cursor/Sonar/Copilot bots.
-- **Observed**: the proximate cause this session was a `Monitor` polling `gh pr checks 290` every 30 s
-  for ~10 min (~20 calls) plus repeated `reviewThreads` GraphQL queries on #268 and #290, on top of the
-  day's PR work. No single call is wrong; there is no shared budget-governor, so independent polling
-  loops collectively exhaust the limit and every agent gets 403s with no graceful degradation.
+  PR-checks polling, reviewThreads queries, merge, update-branch. The 5,000/hr authenticated budget is
+  **shared** across all agents AND the Cursor/Sonar/Copilot bots — so genuine many-agent load will hit it.
+- **Observed**: tight `gh` polling is real (a `Monitor` polling `gh pr checks` every 30 s; repeated
+  `reviewThreads` queries) and is poor hygiene with no shared budget-governor — independent polling loops
+  would collectively pressure the shared budget under genuine fleet load, with no graceful degradation.
+  (It did NOT cause the 2026-06-29 incident, which was the transient-auth blip above — but it is the
+  class of behaviour the broker exists to govern.) **Immediate operational lesson** (separate from the
+  broker): read the `rate_limit` SIGNATURE — `limit 60` / `graphql.limit 0` means *unauthenticated*, not
+  *budget exhausted*; on a 401/unauthenticated signature, check `gh auth status` and retry, never assume
+  volume.
 - **Expected**: a single agent-tools command/wrapper that all `gh` access routes through, providing:
   (a) **request batching** (one GraphQL query for checks + reviewThreads + state instead of three REST
   calls; batch multi-PR queries); (b) **jitter** on poll cadences so fleet calls don't align;

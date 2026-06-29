@@ -25,8 +25,10 @@ closeouts*. Those appends are now processed and preserved verbatim in
 This deep pass (Director-rotation closeout, owner-directed) graduated the deferred team-tooling
 captures to permanent homes — the commits + the homes are the record:
 
-- the `consolidate-at-second-consumer → consolidate-at-second-consumer` rename + 41-file slug sweep
-  (the Quoll/Seraph doc-defect, **FIXED**); **gate-evasion / escape-hatch screen** →
+- the `consolidate-at-third-consumer` → `consolidate-at-second-consumer` rename + slug sweep
+  (the Quoll/Seraph doc-defect, **FIXED** — but the sweep was too broad: it rewrote append-only
+  rapid-comms turns + a quoted corroboration record, reverted on #290 bot review); **gate-evasion /
+  escape-hatch screen** →
   `patterns/fluency-is-a-failure-vector.md`; **Director craft** (Kraken's standby-burn /
   auto-update-branch-babysitter / measure-at-handoff-gate + Trawler Part-A) → `director-handoff.md`
   §Standing lessons, with the CURRENT HANDOFF STATE refreshed to a compact post-arc block;
@@ -43,14 +45,24 @@ retention-gated archive-move pass.
 
 New session observations append below.
 
-- **gh shared rate-limit (5,000/hr) exhausted mid-closeout → #290 merge blocked ~60 min (owner-flagged
-  F-110).** Proximate cause was MY `Monitor` polling `gh pr checks 290` every 30 s (~20 calls) + repeated
-  `reviewThreads` GraphQL queries, against the budget shared with every agent + the Cursor/Sonar/Copilot
-  bots. Lesson lived: do NOT poll `gh` in a tight Monitor loop.
+- **MISDIAGNOSED a transient gh-auth blip as 5,000-budget exhaustion (verify-dont-trust failure;
+  owner caught it).** A `gh` GraphQL call 403'd ("rate limit exceeded for IP …") then 401'd ("Requires
+  authentication"); I confabulated "I exhausted the shared 5,000/hr budget by polling" — primed by the
+  harness reminder's "5,000 shared" framing. The EVIDENCE in my hand refuted it: `rate_limit` showed the
+  **unauthenticated signature** (`core.limit 60`, `graphql.limit 0`), and minutes later (still the same
+  hour) `core 4935/5000`, `graphql 4721/5000` — I'd used ~279 graphql, ~6% of budget. The real cause was
+  a **transient unauthenticated/token blip** (gh momentarily sent the request without its keyring token;
+  GraphQL is unusable unauthenticated → 403/401), self-recovered. Lessons: (a) read the `rate_limit`
+  SIGNATURE — `limit 60` / `graphql 0` means *unauthenticated*, NOT *budget exhausted at 5,000*; on a
+  401/unauthenticated signature, check `gh auth status` and retry, do not assume volume; (b) the owner's
+  "no way you hit 5,000" is the exact evidence-discipline cure — isolate the layer (auth vs volume) from
+  the data in hand, don't inherit a primed framing. Tight `gh` Monitor polling is still poor hygiene, but
+  it did **not** cause this.
 - **NEW AGENT-TOOLING CONCEPT (owner, 2026-06-29) — a fleet-wide SHARED-RESOURCE BROKER. Do not lose
-  this.** The cure is bigger than a per-agent backoff wrapper. It is a tool that **collates requests from
-  multiple agents** and draws them from **shared resource pools with shared limits** — one fleet budget,
-  not per-agent ceilings. Crucially: **the shared budget/pool STATE lives in the PRIMARY CHECKOUT** (the
+  this.** (A forward capability for *genuine* fleet shared-limit pressure — the LLM API, Sonar, a real
+  many-agent `gh` load — NOT the cure for the transient-auth blip above; the two are independent.) It is
+  a tool that **collates requests from multiple agents** and draws them from **shared resource pools with
+  shared limits** — one fleet budget, not per-agent ceilings. Crucially: **the shared budget/pool STATE lives in the PRIMARY CHECKOUT** (the
   same coordination-home locus as `active-claims.json`, resolved via `git worktree list` per
   `resolveCoordinationHome` / the F-41/F-85 lineage), so every agent and every worktree reads and writes
   ONE shared ledger rather than each polling blind. Mechanics: request collation/queueing + batching (one
