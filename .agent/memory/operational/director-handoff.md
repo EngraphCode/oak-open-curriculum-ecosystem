@@ -213,6 +213,61 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> ### ▶ DIRECTOR ROTATION Trawler mends Buoy → Falcon wakes Stratus (2026-06-29, owner-directed at ~74% context)
+>
+> **Incoming: Falcon wakes Stratus** (owner-named). **Outgoing: Trawler mends Buoy** (`a9e0a1`, 5th Director; took
+> the seat from Kraken via clean PDR-064). Director claim **`e8e31d89`** (relinquish at Falcon's Moment-2). Chain:
+> Firefly → Merlin → Triton → Kraken → Trawler → (Falcon). My heartbeat is STOPPED and the comms watcher is DOWN
+> (n=1 consumer-absent; watcher died on the archive-move race, not re-armed) — **Falcon move-1 = arm watcher + heartbeat.**
+>
+> **THE TEAM-TOOLING ARC IS CLOSED (code fully landed).** All PRs #269–#286 plus #282 MERGED to main; all 4
+> worktrees removed; arc branches pruned (squash branches patch-id-verified before -D); comms archived (469 heartbeats
+> moved-not-deleted via the canonical `comms-archive-move`, count-conserved, owner lifted the hold). Committed this
+> session: 2 continuity docs (`28d1c6797`); the #282 path-traversal fix (`1317e039f`, security-expert RESOLVED, merged `7b7d8155`).
+>
+> **IN-FLIGHT — PICK UP FIRST (PDR-063 freeze):** a register/continuity reconciliation sub-agent (`af63037886c602775`)
+> is making targeted edits — frictions-register.md (F-70/77/79/80 `open`→ADDRESSED; F-98→partially-addressed, PRESERVE
+> the open decision-class; F-101 SHA `e4549f49b`→`b46089fe4`; F-108 note on the F-72/F-85 trailing lines) and
+> repo-continuity.md (team-tooling entry → arc-closing; agentic-engineering-enhancements identity row → Trawler/2026-06-29).
+> **Its diff is UNCOMMITTED — REVIEW FIRST-HAND before committing** (critically-assess-subagents; the merge SHAs were
+> verified in origin/main by the closeout workflow). Then commit by explicit pathspec.
+>
+> **REMAINING CLOSEOUT:** (1) review+commit the reconciliation diff; (2) **close #268** (coordination PR) —
+> update-branch (now #282 is merged), green gates, `gh pr merge --merge` (**NO --admin**: owner standing direction this
+> session — green gates + all conversations resolved ⇒ the Director merges directly, there is no code-owner-approval gap).
+> Optional/owner: prune ~60 merged local branches (reversible by re-fetch).
+>
+> **SYNTHESIS PHASE (owner's named shift — the real next work):**
+> (a) draw the **worktree-per-agent / PDR-117 MODEL VERDICT** — headline: the comms/liveness substrate cure is HOMED in
+> `collaboration-substrate-coordination-rightsizing` M1–M4 + `comms-watch-storage-redesign` WS2 (mtime-watermark, NOT a
+> naive cursor) + `comms-watch-liveness-floor`; the both/and = channel-separation (immediate constant-reduction) +
+> derived-liveness register (class-changer) + WS2 drain; a **LIVE F-44 freshness≠liveness SAFETY defect** at
+> `active-agents.ts` (~L232 reads claim freshness as liveness → cure: read `heartbeat_at` recency); lead-with-constant-reduction
+> (O(N²) is forward-not-now, N≲4; deaths were host-load I/O contention not corpus size — Kraken pmset-verified);
+> instrument crossover-N before deeper redesign. The exclude-filter is valid relief (NOT a cowpath) but subsumed by the register.
+> (b) the **do-first efficiency matrix** — workflow `w5xlcz6iu` gave 2/3 matrices (impact-first + effort-skeptic OK;
+> prereq-dependency scorer FAILED on StructuredOutput retry-cap — schema too complex, lesson in memory); do-first-before-
+> intent-graph ≈ **F-44 safety fix + heartbeat-flood removal (channel-separation / derived-register)** (cheap, high
+> team-running impact; one is a live safety bug); the rest co-equal/parallel/later.
+> (c) the **rightsizing-plan ACTIVATION** owner-decision (activate M1→M2; the 2026-05-25 archival hold is ALREADY LIFTED).
+>
+> **NEXT TEAM (owner-set):** TWO CO-EQUAL lanes under one shared team-level impact — architecture-efficiency (the
+> rightsizing) AND intent-graph (opens with a broad shallow plan-estate scan); INTERIM = owner runs deep standalone
+> consolidation sessions, so keep the current closeout to LIGHT continuity (NOT deep doctrine consolidation).
+>
+> **OWNER STANDING DIRECTIONS captured this session (apply going forward):** green+resolved ⇒ Director merges, no-admin;
+> reject every either/or ⇒ third-option/both; run the 5 decision lenses before surfacing any question (surface only the
+> constitutively-owner); UTC canonical for every internal timestamp (label zones, convert BST explicitly, never infer
+> from a truncated log view); archive-not-delete; critically assess ALL subagent results AND their sources.
+>
+> **READINESS GATE for Falcon:** answer the five questions + paste the mechanical liveness check (UTC-to-UTC) before
+> Moment-2; then open your Director claim and relinquish Trawler's `e8e31d89`. Live work is the TaskList (#1–#4 done; #5
+> reconciliation in-flight; #6 #268-close, #7 synthesis pending). At n=1 you are the only operator; no other live agents.
+>
+> ---
+>
+> [PRIOR ROTATIONS retained below as context — recompute live state from active-claims.json + comms at your gate.]
+>
 > Refresh this whole section at every handoff. Last refreshed 2026-06-28 (**Triton lifts Eternity → Kraken
 > spins Headland** Director rotation, PDR-064, owner-directed, at Triton's ~50% effectiveness-curve handover
 > point). The team-tooling session is LIVE and continues under Kraken. **The detailed Merlin-tenure blocks

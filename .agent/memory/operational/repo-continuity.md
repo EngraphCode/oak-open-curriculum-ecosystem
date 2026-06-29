@@ -38,28 +38,13 @@ forward-asks remain.
   drained; repo-continuity curated to compact-active-state; open-questions driven to zero (Q-009/Q-011
   user-granted keep-open). Recurrence prevention for continuity-surface drift is briefed in
   [`future/continuity-surface-drift-prevention.plan.md`](../../plans/agentic-engineering-enhancements/future/continuity-surface-drift-prevention.plan.md).
-- **Team-tooling session LIVE (2026-06-28); the whole owner-approved PR batch #269–#274 LANDED on `main`.**
-  Director seat rotated via clean PDR-064 two-moments handovers: **Firefly binds Slag → Merlin seeks Rainbow →
-  Triton lifts Eternity** (current). Lanes rotated through six implementer seats to **Quasar mends Penumbra**
-  (Lane A, 1C PR #275 inbound to Director) + **Lichen spins Chlorophyll** (Lane B, O2 ergonomics tail). All
-  register lands done; **zero owner-visible coordination escalations across all three Director tenures.** Live
-  pickup is [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md) (Director-owned, refreshed each
-  rotation). **Deep consolidation DUE** — graduate this session's frictions/patterns in the dedicated pass per the
-  NEXT SESSION MANDATE; captures are preserved in `director-handoff.md` + the frictions-register + the comms
-  stream (capture-now-graduate-later). The owner-approved guiding
-  plan is
-  [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md)
-  (cohesion anchor; readiness-reviewed; 5 outcomes O1–O5) over the
-  [locked scope](../../plans/agent-tooling/current/cost-of-collaboration.plan.md): all low+medium-effort
-  items + spawn-flow **through Phase 2** (F-98 binding view) + the F-98 heartbeat-age column + F-75 + the
-  OQ5 **decision** (not its build) + the O5 MCP-discoverability sticking-plaster
-  ([`under-the-hood-mcp-discovery-pointer.plan.md`](../../plans/sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md)).
-  **Out:** E3 + the OQ5 build. **Coordination home:** branch `coordination/team-tooling-session-2026-06-28`,
-  **draft PR #268** (setup + consolidation; ready at arc-end via the @jimCresswell code-owner gate).
-  Director move-0 = author the opener instance + pin the A↔B must-not-touch boundary over the shared
-  `agent-tools/src/` surface. **Live Director pickup:**
-  [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md). Setup agent Beluga rides Wave
-  briefed the Director (comms `d4c447b1`) and stood down.
+- **Team-tooling arc CLOSED (2026-06-28/29).** The whole owner-approved batch **#269–#286 plus #282**
+  (session-metadata CLI) is **MERGED to `main`**; worktrees closed; the comms rotation/archive ran
+  (469 heartbeats archived 2026-06-29); the dedicated consolidation landed (Quoll). Director seat rotated
+  via clean PDR-064 two-moments handovers across the arc: **Firefly → Merlin → Triton → Kraken → Trawler**
+  (final seat); zero owner-visible coordination escalations. The owner-approved guiding plan is
+  [`team-tooling-session-2026-06-28.plan.md`](../../plans/agent-tooling/current/team-tooling-session-2026-06-28.plan.md);
+  the live Director pickup is [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md).
 - **Claims model + agent-work-state (LIVE, owner-gated).** The corrected claims model — a claim is an
   optional, advisory, AREA-scoped signal (NOT files; presence/liveness/work-state/seat re-home to
   facets) — is live in `agent-collaboration.md` + memory
@@ -140,7 +125,7 @@ each thread record; this table is the repo-level index.
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / claude-opus-4-8[1m] / Seal hunts Offing / fix-before-tooling (F-94 + F-95 MERGED, PR #225) / 2026-06-25 (prior seats: Thyme, Magnolia, Petrel, Perseus, Oyster, Nova, Ferret, … — full history in thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude / claude-opus-4-8 / Trawler mends Buoy / Director — team-tooling arc CLOSED (#269–#286 + #282 MERGED) / 2026-06-29 (prior seat: Seal hunts Offing, fix-before-tooling F-94 + F-95 MERGED PR #225, 2026-06-25; earlier seats: Thyme, Magnolia, Petrel, Perseus, Oyster, Nova, Ferret, … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark, session-shape indicators, logo swap; lane in two `current/` plans (session-state, logo-modularisation). Live detail + the `feat/comms-research` divergence to reconcile: thread record | [record][statusline] | claude-code / Opus 4.8 / Vole calls Hollow / live-logo-swap-and-plan-harden / 2026-06-16 (prior identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
