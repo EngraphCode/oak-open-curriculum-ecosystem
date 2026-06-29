@@ -1,3 +1,10 @@
+# [1.54.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.53.0...v1.54.0) (2026-06-29)
+
+
+### Features
+
+* **agent-tools:** derive cross-worktree work-state view (F-98) ([9a42746](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9a42746673f744c4ba2b727e40bc43cbf2becd78))
+
 # [1.53.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.52.0...v1.53.0) (2026-06-28)
 
 
