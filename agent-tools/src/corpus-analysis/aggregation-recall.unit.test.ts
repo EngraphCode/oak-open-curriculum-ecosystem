@@ -3,8 +3,11 @@ import { describe, expect, it } from 'vitest';
 import {
   countReFoundBaselines,
   findRecallIntegrityViolations,
+  meetsGraduateGate,
   recallReport,
+  type GraduateGate,
   type RecallFraction,
+  type RecallReport,
 } from './aggregation-recall.js';
 import type { Baseline, RecallMatch, RecallVerdict } from './recall-schemas.js';
 
@@ -82,56 +85,71 @@ describe('recallReport', () => {
       ...Array.from({ length: 8 }, (_unused, index) => recallMatch('missed', index + 11)),
     ];
 
-    const report = recallReport({ matches, baselines, threshold: 0.85 });
+    const report = recallReport({ matches, baselines });
 
     expect(report.strictOverall).toEqual({ numerator: 5, denominator: 18, value: 5 / 18 });
     expect(report.looseOverall).toEqual({ numerator: 10, denominator: 18, value: 10 / 18 });
     expect(report.strictWithinRemit).toEqual({ numerator: 5, denominator: 10, value: 0.5 });
     expect(report.looseWithinRemit).toEqual({ numerator: 10, denominator: 10, value: 1 });
-    // 0.28 strict / 0.56 lenient overall — the corrected figures, both below 0.85.
+    // 0.28 strict / 0.56 lenient overall — the corrected figures.
     expect(report.strictOverall.value).toBeCloseTo(0.28, 2);
     expect(report.looseOverall.value).toBeCloseTo(0.56, 2);
-    expect(report.meetsThreshold).toBe(false);
-  });
-
-  it('passes the threshold when within-remit strict recall clears it', () => {
-    const baselines = [baseline('b1', 'emergent'), baseline('b2', 'emergent')];
-    const matches = [recallMatch('equal', 1), recallMatch('subsumes', 2)];
-    const report = recallReport({ matches, baselines, threshold: 0.85 });
-    expect(report.strictWithinRemit.value).toBe(1);
-    expect(report.meetsThreshold).toBe(true);
   });
 
   it('treats a zero emergent denominator as recall 0, not a divide-by-zero', () => {
     const baselines = [baseline('b1', 'single-window')];
-    const report = recallReport({
-      matches: [recallMatch('missed', 1)],
-      baselines,
-      threshold: 0.85,
-    });
+    const report = recallReport({ matches: [recallMatch('missed', 1)], baselines });
     expect(report.strictWithinRemit).toEqual({ numerator: 0, denominator: 0, value: 0 });
-    expect(report.meetsThreshold).toBe(false);
   });
 
   it('ignores a match whose baseline is not in the fixture (no phantom contribution)', () => {
     const baselines = [baseline('b1', 'emergent')];
     const matches = [recallMatch('equal', 1), recallMatch('subsumes', 99)];
-    const report = recallReport({ matches, baselines, threshold: 0.85 });
+    const report = recallReport({ matches, baselines });
     const expected: RecallFraction = { numerator: 1, denominator: 1, value: 1 };
     expect(report.strictOverall).toEqual(expected);
   });
 
   it('penalises an emergent baseline that no match judged (it stays in the denominator)', () => {
     const baselines = [baseline('b1', 'emergent'), baseline('b2', 'emergent')];
-    const report = recallReport({ matches: [recallMatch('equal', 1)], baselines, threshold: 0.85 });
+    const report = recallReport({ matches: [recallMatch('equal', 1)], baselines });
     expect(report.strictWithinRemit).toEqual({ numerator: 1, denominator: 2, value: 0.5 });
   });
 
   it('cannot exceed 1.0 when a baseline is matched more than once', () => {
     const baselines = [baseline('b1', 'emergent')];
     const matches = [recallMatch('subsumes', 1), recallMatch('equal', 1)];
-    const report = recallReport({ matches, baselines, threshold: 0.85 });
+    const report = recallReport({ matches, baselines });
     expect(report.strictWithinRemit).toEqual({ numerator: 1, denominator: 1, value: 1 });
+  });
+});
+
+describe('meetsGraduateGate', () => {
+  // Choice B (owner-confirmed 2026-06-29): strict within-remit >= 0.6 AND lenient >= 0.85.
+  const choiceB: GraduateGate = { minStrictWithinRemit: 0.6, minLooseWithinRemit: 0.85 };
+  const reportAt = (strict: number, loose: number): RecallReport => ({
+    strictOverall: { numerator: 0, denominator: 0, value: 0 },
+    looseOverall: { numerator: 0, denominator: 0, value: 0 },
+    strictWithinRemit: { numerator: 0, denominator: 10, value: strict },
+    looseWithinRemit: { numerator: 0, denominator: 10, value: loose },
+  });
+
+  it('graduates only when both the strict and lenient floors are cleared', () => {
+    expect(meetsGraduateGate(reportAt(0.7, 0.9), choiceB)).toBe(true);
+  });
+
+  it('refuses to graduate when the strict fidelity floor is missed (the v1 verdict)', () => {
+    // v1 within-remit was 0.5 strict / 1.0 lenient — clears coverage, misses fidelity by 0.1.
+    expect(meetsGraduateGate(reportAt(0.5, 1), choiceB)).toBe(false);
+  });
+
+  it('refuses to graduate when the lenient coverage floor is missed', () => {
+    expect(meetsGraduateGate(reportAt(0.9, 0.8), choiceB)).toBe(false);
+  });
+
+  it('is an engine — it honours whatever thresholds it is given, not Choice B specifically', () => {
+    const lenientGate: GraduateGate = { minStrictWithinRemit: 0.5, minLooseWithinRemit: 0.85 };
+    expect(meetsGraduateGate(reportAt(0.5, 1), lenientGate)).toBe(true);
   });
 });
 

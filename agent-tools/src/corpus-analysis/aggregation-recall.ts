@@ -71,8 +71,6 @@ export interface RecallReport {
   /** Re-found over the emergent subset only — Discovery's actual remit (the headline). */
   readonly strictWithinRemit: RecallFraction;
   readonly looseWithinRemit: RecallFraction;
-  /** Whether the headline (strict within-remit) clears the calibration threshold. */
-  readonly meetsThreshold: boolean;
 }
 
 function fraction(numerator: number, denominator: number): RecallFraction {
@@ -80,17 +78,16 @@ function fraction(numerator: number, denominator: number): RecallFraction {
 }
 
 /**
- * Compute the full stratified recall report. The headline (graduation gate) is strict
- * re-found over the emergent subset; single-window misses are out-of-remit and never
- * scored as Discovery misses. Numerators and denominators both count DISTINCT baselines,
- * so recall cannot exceed 1.0 even if the match array is malformed (such malformations are
- * surfaced by `findRecallIntegrityViolations`). A match whose baseline is absent from
- * `baselines` contributes to no total.
+ * Compute the full stratified recall report — the measurement, distinct from the graduate
+ * policy (`meetsGraduateGate`). The headline is re-found over the emergent subset;
+ * single-window misses are out-of-remit and never scored as Discovery misses. Numerators
+ * and denominators both count DISTINCT baselines, so recall cannot exceed 1.0 even if the
+ * match array is malformed (such malformations are surfaced by `findRecallIntegrityViolations`).
+ * A match whose baseline is absent from `baselines` contributes to no total.
  */
 export function recallReport(input: {
   readonly matches: readonly RecallMatch[];
   readonly baselines: readonly Baseline[];
-  readonly threshold: number;
 }): RecallReport {
   const knownIds = new Set(input.baselines.map((baseline) => baseline.id));
   const emergentIds = new Set(
@@ -107,18 +104,35 @@ export function recallReport(input: {
       (match) => population.has(match.baselineId) && refound(match),
     );
 
-  const strictWithinRemitFraction = fraction(
-    distinctReFound(isStrictReFound, emergentIds),
-    emergentIds.size,
-  );
-
   return {
     strictOverall: fraction(distinctReFound(isStrictReFound, knownIds), knownIds.size),
     looseOverall: fraction(distinctReFound(isLooseReFound, knownIds), knownIds.size),
-    strictWithinRemit: strictWithinRemitFraction,
+    strictWithinRemit: fraction(distinctReFound(isStrictReFound, emergentIds), emergentIds.size),
     looseWithinRemit: fraction(distinctReFound(isLooseReFound, emergentIds), emergentIds.size),
-    meetsThreshold: strictWithinRemitFraction.value >= input.threshold,
   };
+}
+
+export interface GraduateGate {
+  /** Minimum strict within-remit recall — the fine-grain fidelity floor. */
+  readonly minStrictWithinRemit: number;
+  /** Minimum lenient within-remit recall — the coverage floor. */
+  readonly minLooseWithinRemit: number;
+}
+
+/**
+ * The graduate-or-refine decision: a DUAL within-remit gate (owner-confirmed Choice B,
+ * 2026-06-29). The method graduates only when it re-finds a majority of the emergent spine
+ * at fine grain AND nearly all of it at some grain — a meaningful bar that pairs a fidelity
+ * floor with a coverage floor, rather than a single strict threshold that holds the method
+ * to an extraction bar the v2 aggregation work did not set out to move. The specific
+ * thresholds (0.6 / 0.85) are the run's configuration, passed by the caller; this function
+ * is the engine.
+ */
+export function meetsGraduateGate(report: RecallReport, gate: GraduateGate): boolean {
+  return (
+    report.strictWithinRemit.value >= gate.minStrictWithinRemit &&
+    report.looseWithinRemit.value >= gate.minLooseWithinRemit
+  );
 }
 
 export interface RecallIntegrityViolation {
