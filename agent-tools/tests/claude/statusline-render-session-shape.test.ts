@@ -31,6 +31,10 @@ function parts(sessionShape: SessionShape | undefined): StatuslineParts {
     dirty: false,
     worktree: undefined,
     usedPercentage: undefined,
+    fiveHourPercentage: undefined,
+    fiveHourResetSeconds: undefined,
+    sevenDayPercentage: undefined,
+    sevenDayResetSeconds: undefined,
     model: undefined,
     sessionShape,
     coordinationBranch: undefined,
@@ -172,11 +176,13 @@ describe('renderStatusline — session-shape indicators in the four-row layout',
       parts(shape({ teamShape: 'directed', ownRole: 'director', arcActive: true })),
       { logo: 'sextant' },
     );
+    // model and context now share row 1, so the bare-dir πρ location lands on
+    // row 2 (identity, empty model+context row, location) rather than row 3.
     expect(out.split('\n').slice(0, 4)).toEqual([
       `${mark(SEXTANT[0])}${GAP}${IDENTITY} ${COMPASS}${SEP}${FAMILY} ${FEATHER}`,
       mark(SEXTANT[1]),
-      mark(SEXTANT[2]),
-      `${mark(SEXTANT[3])}${GAP}${PLACE}`,
+      `${mark(SEXTANT[2])}${GAP}${PLACE}`,
+      mark(SEXTANT[3]),
     ]);
   });
 
