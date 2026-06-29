@@ -157,8 +157,8 @@ indices/line counts/whole-object pins) after owner correction of over-coupled te
 
 **Follow-ons (not blocking, for a future enhancement arc):**
 
-- `statusLine.refreshInterval` is unset, so the countdown only ticks on render
-  events; set it (e.g. 60s) to tick while idle.
+- `statusLine.refreshInterval` set to 10s by the owner (2026-06-29), so the
+  countdown ticks while idle as well as on render events. DONE.
 - Fold the current statusline-docs deltas into
   `.agent/research/statusline-inputs-research.md` (footerLinksRegexes, Windows
   config, "notifications share the row", the `// empty` absence idiom) and bump its
