@@ -16,6 +16,31 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## Corpus-analysis runbook designed; first Discovery run pending (2026-06-29, Schooner hunts Tide)
+
+Read-only design session. Designed a reusable method for analysing oversized
+document corpora on a timeseries — **one substrate, three lenses**: Discovery
+(exploratory, the default — "deep dive, see what emerges"), Surprises (deviation
+against an explicit reference model, with a model-versus-data triage), and Directed
+deep-dive (a catalogue of objective cells). Governance settled: it is a **runbook,
+not a plan** (PDR-120); delivered as a **reference runbook** (PDR-032) and backed by
+a **PDR** (PDR-035) **only after a proving run** — both gated, not pre-minted.
+
+Two artefacts written (uncommitted; commit is owner-gated):
+
+- Design report (authoritative for method, cost model, governance, turnkey first-run
+  config): `.agent/reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`.
+- Build-and-prove plan:
+  `current/large-corpus-analysis-runbook-build-and-prove.plan.md` (also in the
+  current/README table).
+
+**Next action:** in a writeable, execution-authorised session, run the first
+**Discovery** pass over the 99-napkin corpus (11 windows of 9, uniform; config and
+calibration baseline in the report). ~1.3M-token Workflow. The run self-calibrates
+against the existing napkin syntheses; passing earns graduation to reference + PDR.
+Not started here — a discovery run is a real multi-agent operation, not a read-only
+action.
+
 ## Fix-before tooling DONE — F-94 + F-95 merged (2026-06-25, Seal hunts Offing)
 
 Lone session. The two strongest fix-before items the team-closer flagged are **live on
@@ -768,6 +793,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Magnolia spins Mulch` | `claude-code` | `Opus 4.8` | `5c3c64` | `MCPJam integration + curriculum-MCP validation (session home for the MCPJam thread; evals doctrine is the agentic-engineering tie-in): drove a full MCPJam-driven validation that closed the manual-UAT §11/§13/dual-shape gaps (UAT addendum 2026-06-23); settled the host-rebinding conformance finding FROM SOURCE → ADR-122 rewrite + ADR-158 (authed /mcp Host-validated in the auth layer via getPRMUrl→403; Origin deliberately permissive; no-auth dev = accepted residual) + a Host→403 regression test (auth-enforcement.e2e.test.ts); wired MCPJam (.mcp.json + README prereq + UAT-runbook programmatic pointer). Evals doctrine: authored the evals-and-assurance position report (test/evaluate/assure frame; 5 open questions for ratification) + the QUEUED skill-evals-pilot (start-right-quick). Lesson → distilled: trace ALL layers for a security check; a black-box re-run can false-pass; symmetric subagent skepticism. NOT pushed; thread next step UNCHANGED = WS-1` | 2026-06-23 | 2026-06-23 |
 | `Thyme lifts Compost` | `claude` | `claude-opus-4-8[1m]` | `c2b721` | `team-session-closer — worktree-pilot consolidation + team closer: PR #222 proto-dispatch fix merged to main (8bebfd0a5, release 1.35.0; pr-watch lane COMPLETE); placed the guiding plan worktree-pilot-consolidation-and-model-verdict + restructured director-handoff.md (canonical, uncommitted); orphan mitigation DONE (3 at-risk branches pushed to origin, push-not-merge for zero-risk reversible preservation); F-94..F-97 captured; Sonar S8707 sites 2-3 PAUSED (site-3 → next team session). Team DISSOLVED, Director seat vacant; consolidation commit of continuity buffers is the one owner-gated orphan-prevention action remaining` | 2026-06-25 | 2026-06-25 |
 | `Seal hunts Offing` | `claude` | `claude-opus-4-8[1m]` | `8210d6` | `fix-before-tooling — F-94 (claims adopt/set-handoff) + F-95 (watcher-presence gate) built TDD and MERGED to main via PR #225 (e95fb9594); register + live continuity surfaces corrected to fixed (fa2de8f74, 282171f8b); branch is continuity-only, 22 ahead/5 behind main, rebase declined by owner` | 2026-06-25 | 2026-06-25 |
+| `Schooner hunts Tide` | `claude` | `claude-opus-4-8[1m]` | `e07e57` | `corpus-analysis-runbook-design (read-only) — designed the Discovery / Surprises / Directed corpus-analysis method on one substrate; wrote the design report + build-and-prove plan + current/README row + this thread record; first napkin Discovery run pending a writeable/execution-authorised session; no run launched, nothing committed` | 2026-06-29 | 2026-06-29 |
 
 ## Cross-Plan and Cross-Thread Links
 

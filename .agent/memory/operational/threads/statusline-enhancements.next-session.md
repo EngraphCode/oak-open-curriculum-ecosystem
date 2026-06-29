@@ -37,8 +37,8 @@ the agent holds an opinion on owner presence/engagement; **TEAM state** is the
 non-trivial derivation of the collective published session states; the statusline
 projects this session's slice. **Experimental discovery phase — NOT crystallised
 to a PDR/ADR yet.** Its active-agent set unions the published session states
-across claims ∪ comms ∪ ArcAngel ∪ sidebars, deduplicated by the (agent_name, id) identity tuple (PDR-076a, which PDR-095 delegates to),
-so read-only collaborators count. An interim
+across claims ∪ comms ∪ ArcAngel ∪ sidebars, deduplicated by the (agent_name, id) identity tuple
+(PDR-076a, which PDR-095 delegates to), so read-only collaborators count. An interim
 improvement landed 2026-06-14 (Orbit stirs Spectrum) ahead of the register:
 the resolver is now **session-relative** (team shape gated on a fresh own claim),
 a new **`observing`** shape (dim eyes) covers non-member-with-others-active, and

@@ -18,7 +18,12 @@ Whenever a prior act is invoked as the reason for an action:
 - a recorded verdict or continuity prose inherited as the frame;
 - "it has always been done this way" or an inherited shape;
 - who acted, broadcast, or arrived first;
-- the shape of a prior owner intervention.
+- the shape of a prior owner intervention;
+- an agreed plan or next step ("we agreed to run the discovery pass") invoked as
+  authority to *execute* it. Agreeing *what* to do is a design decision; doing it
+  is an action that a standing session constraint (read-only, no-commit) still
+  gates. The smooth "but we agreed to do X" is the `fluency-is-a-failure-vector`
+  tripwire — confirm live execution authority separately from agreeing the plan.
 
 ## The Cure
 

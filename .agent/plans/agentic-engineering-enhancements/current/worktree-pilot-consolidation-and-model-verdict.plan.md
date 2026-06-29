@@ -306,6 +306,26 @@ arc's terminal acceptance.
 **Depends on:** L-Sonar, L-WS-B, L-DATA-SOURCES (the verdict consumes this arc's
 own observations from the lanes it adjudicates).
 
+**Evidence captured for the verdict (2026-06-29 arc — input, not yet adjudicated).**
+The model-verdict decision is owner-routed to a fresh-context synthesis session;
+these observations are conserved here so that session weighs them first-hand:
+
+- **Shared-primary-checkout co-residence is the single upstream cause behind a
+  cluster of symptoms otherwise filed separately.** When an Implementer built in
+  the shared primary checkout rather than its own worktree, four downstream harms
+  followed from one root: (a) a whole-tree pre-commit gate self-block (one
+  session's WIP blocking another's commit — the F-83 class); (b) misattribution
+  (a peer read a stale claim name and attributed WIP to the wrong agent); (c) a
+  lost claim (heads-down with no heartbeat → orphan-rebalanced away); (d) index-lock
+  contention. Each was originally attributed locally; together they point at the
+  shared checkout. This is the strongest single piece of evidence *for* the
+  worktree-per-agent transition — every symptom is one the transition dissolves.
+- **Operational corollary for the verdict / strategy plan:** an Implementer's
+  source build belongs in its **own worktree from the first edit** — claim and
+  open the worktree *before* the first source edit, never the shared
+  primary/coordination checkout. (Whether this becomes standing doctrine depends
+  on the model verdict; captured here as the lane's evidence, not yet ratified.)
+
 ---
 
 ## Acceptance Criteria (Arc-Wide, Outcome-Based)

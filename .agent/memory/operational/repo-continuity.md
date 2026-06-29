@@ -78,6 +78,16 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
+- **Large-corpus analysis runbook — DESIGNED, first run pending (2026-06-29, Schooner hunts Tide).**
+  A reusable method for analysing oversized document corpora on a timeseries — one substrate, three
+  lenses (Discovery default / Surprises with a model-vs-data fork / Directed catalogue). Governance:
+  a **runbook not a plan** (PDR-120); promotion to a reference runbook (PDR-032) and an adopting PDR
+  (PDR-035) are both **gated on a proving run**, not pre-minted. Design authoritative in
+  [`reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`](reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md);
+  forward work in
+  [`current/large-corpus-analysis-runbook-build-and-prove.plan.md`](../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md).
+  **Next:** the first **Discovery** pass over the 99-napkin corpus (11 windows, uniform; turnkey
+  config + calibration baseline in the report), in a writeable/execution-authorised session.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
