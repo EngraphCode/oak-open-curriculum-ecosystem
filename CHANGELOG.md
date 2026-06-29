@@ -1,3 +1,16 @@
+# [1.55.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.54.0...v1.55.0) (2026-06-29)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure session-metadata CLI duplication via shared arg-parser ([275d50a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/275d50ab1425f9264510b981f18ea07332ab3cf7)), closes [#282](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/282)
+* **agent-tools:** validate session id at the transcript-path boundary ([1317e03](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1317e039f09224b2b21f9d45d862a0124ce9f166))
+
+
+### Features
+
+* **agent-tools:** add session-metadata context-occupancy CLI ([1d53358](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1d5335857794457eaa671abd5d113a5c6aafd6b7))
+
 # [1.54.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.53.0...v1.54.0) (2026-06-29)
 
 
