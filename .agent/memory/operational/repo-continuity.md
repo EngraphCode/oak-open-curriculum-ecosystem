@@ -84,18 +84,22 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis runbook — DESIGNED, first run pending (2026-06-29, Schooner hunts Tide).**
-  A reusable method for analysing oversized document corpora on a timeseries — one substrate, three
-  lenses (Discovery default / Surprises with a model-vs-data fork / Directed catalogue). Governance:
-  a **runbook not a plan** (PDR-120); promotion to a reference runbook (homed per **PDR-120** in the
-  runbook index, NOT the `.agent/reference/` tier) and an adopting PDR (PDR-035) are both **gated on a
-  proving run**, not pre-minted. Design authoritative in
-  [`reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`](../../reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md);
-  forward work in
-  [`current/large-corpus-analysis-runbook-build-and-prove.plan.md`](../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-runbook-build-and-prove.plan.md).
-  **Next:** the first **Discovery** pass over the napkin corpus (re-derive set/count at run time — it
-  drifts; partition by token budget into ~13–14 balanced windows, NOT by file count; config +
-  calibration baseline in the report), in a writeable/execution-authorised session.
+- **Large-corpus analysis runbook — v1 PROVEN-with-refinements; v2 designed; rerun pending (2026-06-29,
+  Wren stirs Rainbow).** The first Discovery pass RAN (100 files, 14 windows, full coverage): machinery
+  sound, apophenia gate functioning (9/19 killed, all principled), but recall below threshold —
+  **corrected 0.28 strict / 0.56 lenient** (the run's self-reported 0.72 was a meta-arithmetic defect
+  caught first-hand; all misses are out-of-remit single-window defects). Verdict **refine-and-rerun**.
+  Substance: [`research/.../napkin-discovery-pass-1-2026-06-29.md`](../../research/agentic-engineering/continuity-memory-and-knowledge-flow/napkin-discovery-pass-1-2026-06-29.md);
+  metadata: [`curator-passes/2026-06-29-wren-napkin-discovery-pass.md`](curator-passes/2026-06-29-wren-napkin-discovery-pass.md).
+  The load-bearing meta-lesson — **LLMs judge atomically, deterministic code aggregates** — drives the
+  v2 design ([`reports/.../large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md);
+  deterministic aggregation + full Tier 0+1+2 ensemble (owner-chosen) + typed within-remit recall +
+  real-world-signal close). **Next:** execute the v2 implementation plan
+  [`current/large-corpus-analysis-v2-implementation.plan.md`](../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-v2-implementation.plan.md)
+  (tested aggregation module → typed fixture → tiered adversary → rerun → graduate-or-decide; runbook
+  graduation stays gated on a PASSING v2). A reusable **agentic design-panel protocol** was also
+  captured ([`reports/.../agentic-design-panel-protocol-2026-06-29.md`](../../reports/agentic-engineering/agentic-design-panel-protocol-2026-06-29.md))
+  — owner-directed to be applied + refined elsewhere.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -149,7 +153,7 @@ each thread record; this table is the repo-level index.
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark, session-shape indicators, logo swap; lane in two `current/` plans (session-state, logo-modularisation). Live detail + the `feat/comms-research` divergence to reconcile: thread record | [record][statusline] | claude-code / Opus 4.8 / Andromeda holds Radiance / per-render-logo-cycling + blink-experiment (SGR-5 stripped, animation NO-GO) / 2026-06-17 (prior: Vole calls Hollow, live-logo-swap, 2026-06-16; earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |

@@ -23,34 +23,82 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## Corpus-analysis runbook designed; first Discovery run pending (2026-06-29, Schooner hunts Tide)
+## Corpus-analysis runbook — v1 proven-with-refinements; v2 designed; rerun pending (2026-06-29, Wren stirs Rainbow)
 
-Read-only design session. Designed a reusable method for analysing oversized
-document corpora on a timeseries — **one substrate, three lenses**: Discovery
-(exploratory, the default — "deep dive, see what emerges"), Surprises (deviation
-against an explicit reference model, with a model-versus-data triage), and Directed
-deep-dive (a catalogue of objective cells). Governance settled: it is a **runbook,
-not a plan** (PDR-120); delivered as a **reference runbook** homed per **PDR-120**
-(the runbook index under `docs/operations/`, NOT the `.agent/reference/` tier — a
-handoff-verification correction) and backed by a **PDR** (PDR-035) **only after a
-proving run** — both gated, not pre-minted.
+**Self-contained handoff. The next session needs nothing from the originating conversation.**
 
-Two artefacts written (uncommitted; commit is owner-gated):
+### What happened
 
-- Design report (authoritative for method, cost model, governance, turnkey first-run
-  config): `.agent/reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`.
-- Build-and-prove plan:
-  `current/large-corpus-analysis-runbook-build-and-prove.plan.md` (also in the
-  current/README table).
+Ran the **first Discovery pass** of the large-corpus-analysis method over the napkin
+corpus (the method's proving instance), then designed v2 from the results, then
+captured a reusable design-panel protocol — all conserved durably below.
 
-**Next action:** in a writeable, execution-authorised session, run the first
-**Discovery** pass over the napkin corpus — re-derive the set/count at run time (it
-drifts; ~100 now) and partition by **token budget** into ~13–14 balanced windows,
-NOT by file count (config and calibration baseline in the report). ~1.3M-token
-harness Workflow. The run self-calibrates
-against the existing napkin syntheses; passing earns graduation to reference + PDR.
-Not started here — a discovery run is a real multi-agent operation, not a read-only
-action.
+The run (harness Workflow: setup → calibrate ∥ map×14 → reduce → validate → meta):
+100 files re-derived at run time, 14 token-balanced windows, full coverage, 0 dropped,
+414 signals. **Machinery sound; apophenia gate functioning** (9 of 19 candidates
+killed, all principled — every speculative narrative-arc; 10 kept as grounded recurring
+classes). **Recall below threshold** — corrected **0.28 strict / 0.56 lenient** (the
+run's self-reported 0.72 was a meta-arithmetic defect, caught by first-hand assessment;
+all 8 misses are out-of-remit single-window defects, not Discovery's remit). Verdict:
+**refine-and-rerun** (not graduate, not discontinue).
+
+### Why it matters (impact)
+
+Dogfooding the Practice's agent-as-thinker capabilities (PDR-035). The load-bearing
+meta-lesson generalises far beyond napkins to **any** agentic
+fan-out→validate→synthesise pipeline: **LLMs judge atomically well and aggregate
+faithfully badly — so an LLM should emit only atomic per-item judgments, and
+deterministic code should do every count / fraction / threshold / verdict / route.**
+That is the v2 spine and a standing PDR candidate. The reusable design-panel protocol is
+the same insight applied to *design* (the critic/adversary is the heart; diverse-lens
+ensembles where the expensive error lives).
+
+### Durable artefacts (all committed this session)
+
+- **Substance:** `research/agentic-engineering/continuity-memory-and-knowledge-flow/napkin-discovery-pass-1-2026-06-29.md` (10 validated patterns + grounding, 5 negative-space findings, corrected recall, the discount, what-to-distrust).
+- **Run-record (metadata):** `curator-passes/2026-06-29-wren-napkin-discovery-pass.md`.
+- **v2 design:** `reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md` (deterministic aggregation; full Tier 0+1+2 adversary ensemble — OWNER-CHOSEN; typed within-remit recall over a hand-pinned fixture; real-world-signal close; cost gate; Lens-4 = prose-now/graph-later).
+- **Reusable design-panel protocol:** `reports/agentic-engineering/agentic-design-panel-protocol-2026-06-29.md` (owner-directed to apply + refine elsewhere).
+- **v1 method design (still authoritative for the unchanged spine):** `reports/agentic-engineering/large-corpus-analysis-runbook-design-2026-06-29.md`.
+
+### Next action (the one next step)
+
+Execute **`current/large-corpus-analysis-v2-implementation.plan.md`** — build the tested
+deterministic-aggregation module (the recall counter unit test is the fix for the v1
+bug), pin the typed baseline fixture, build the Tier 0+1+2 adversary, then **rerun v2**
+on the napkin corpus and assess within-remit recall. Runbook graduation (PDR-120
+reference runbook + adopting PDR per PDR-035) stays **gated on a passing v2 rerun** — v1
+did not clear the threshold. Architecture note in the plan: the aggregation layer lives
+in a **tested repo module** (the Workflow sandbox cannot import repo code), the cleanest
+expression of the v2 principle.
+
+### Owner decisions (this session)
+
+Full-corpus straight-through run; resume-now after the rate-limit (quota is owner's
+concern); **v2 adversary = full Tier 0+1+2** (owner chose maximum rigour on the
+asymmetric false-keep error over the recommended minimum tier); **conserve-now, v2 as a
+scoped TDD cycle**.
+
+### What to distrust / open
+
+- The v1 run's self-reported recall (0.72) was WRONG — always recompute aggregates
+  deterministically; the substance report carries the corrected numbers.
+- C06 (1 of 20 candidates) went unadjudicated on a schema retry-cap — a coverage gap v2
+  fixes (schema robustness + the Tier-1 confirmer's graceful quorum).
+- Grounding date-labels can drift (one of four spot-checked was mis-dated) — verify
+  dates before quoting downstream.
+- **Verification done:** a deterministic pass (PII/machine-local-path scan, link
+  integrity, markdownlint) is clean, and a 3-lens cold-reader pass over the artefacts
+  closed every real gap (the build is now startable: the v2 plan's first todo pins the
+  atomic-judgment schemas in `agent-tools`). The cold-reader's one false-positive — that
+  the committed v1 design report is the stale early copy — was **refuted first-hand**
+  (the corrections landed in `be953fbf3`; HEAD is correct); the now-stale §11 warning was
+  resolved in place.
+- **Loss/metaloss scan (first-hand, multi-round, converged):** no material substance,
+  decision, rationale, or impact framing remains only in session context. Non-conserved
+  items are machine-local subagent transcripts (the v1 per-candidate verdicts, the panel
+  facet drafts, the cold-reader detail) — class-level value and the author's
+  critical-assessment verdicts ARE conserved.
 
 ## Reference-direction (PDR-105) — COMPLETE (2026-06-19)
 
@@ -328,6 +376,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Seal hunts Offing` | `claude` | `claude-opus-4-8[1m]` | `8210d6` | `fix-before-tooling — F-94 (claims adopt/set-handoff) + F-95 (watcher-presence gate) built TDD and MERGED to main via PR #225 (e95fb9594); register + live continuity surfaces corrected to fixed (fa2de8f74, 282171f8b); branch is continuity-only, 22 ahead/5 behind main, rebase declined by owner` | 2026-06-25 | 2026-06-25 |
 | `Schooner hunts Tide` | `claude` | `claude-opus-4-8[1m]` | `e07e57` | `corpus-analysis-runbook-design (read-only) — designed the Discovery / Surprises / Directed corpus-analysis method on one substrate; wrote the design report + build-and-prove plan + current/README row + this thread record; first napkin Discovery run pending a writeable/execution-authorised session; no run launched, nothing committed` | 2026-06-29 | 2026-06-29 |
 | `Borealis binds Genesis` | `claude-code` | `claude-opus-4-8[1m]` | `9f7741` | `dedicated-knowledge-curation — graduated Falcon's 6 staged carry-forwards + the napkin's behaviour-changing entries to rule/pattern homes (verify-dont-trust self-state blind-spot + gh-auth signature; pr-comments merge-instant async race; precedence-is-not-approval; reviewer-poisoned-brief; shared-array PR dependence; help-docs-no-op; light-scan-for-builds); drained distilled; verified pending-graduations 0 + open-questions kept-open; vendor surfaces scanned (all homed/superseded); stale claims + dead commit_queue cleared; conserved Schooner's corpus-runbook design. THEN a corrective arc on owner direction: graduated Director-craft → PDR-117 + shrank director-handoff; added consolidation-disposition guardrails (read-gates-verdict, graduation-non-deferrable) then RE-CENTRED both consolidate skills on impact-not-thresholds (\`dc5280a21\`); drained this record's completed arcs (PDR-105 burndown + Lapwing); authored \`patterns/legitimate-principle-as-avoidance-cover\` + \`current/consolidation-disposition-discipline.plan.md\`. Commits 03c0c8d16 → dc5280a21, NOT pushed` | 2026-06-29 | 2026-06-29 |
+| `Wren stirs Rainbow` | `claude-code` | `claude-opus-4-8[1m]` | `093458` | `corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol — ran the first Discovery pass of the large-corpus-analysis method (100 files/14 windows; machinery sound, apophenia gate functioning 9/19 killed; recall below threshold, corrected 0.28/0.56 — the run's self-reported 0.72 was a meta-arithmetic defect caught first-hand; misses all out-of-remit single-window). Designed v2 (deterministic aggregation; full Tier 0+1+2 adversary ensemble OWNER-CHOSEN; typed within-remit recall; real-world-signal close; Lens-4 prose-now/graph-later) via a 4-designer+1-critic design panel; captured a reusable agentic-design-panel protocol (apply+refine elsewhere). Conserved: substance report + curator-pass + 2 design reports + v2 impl plan; napkin + pending-graduations (LLM-judges-deterministic-aggregates PDR candidate) updated. Verdict refine-and-rerun; runbook graduation gated on a passing v2.` | 2026-06-29 | 2026-06-29 |
 
 ## Cross-Plan and Cross-Thread Links
 

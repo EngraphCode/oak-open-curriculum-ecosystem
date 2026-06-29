@@ -78,6 +78,18 @@ edit to `statement`.
   external-evidence work.
 - Do **not** execute during a planning turn; tests assert **effects**, never message-constants.
 
+**Cross-link — the large-corpus-analysis method applies to this estate review (2026-06-29, Wren stirs Rainbow).**
+The proving run of the corpus-analysis method (over the napkin timeseries) generalises to
+this non-timeseries estate — see "Generalisation beyond the timeseries" in
+[`large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md).
+The transfer: parameterise the **partition axis** (subgraph/neighbourhood, weighted by
+leverage/connectivity, not recency) and the **negative-space source** (here **relational
+absence** — orphan plans, unserved goals, undeclared dependencies — which the ADR-200
+idea-graph makes into DETERMINISTIC edge-queries). Applied to the estate, the method
+becomes a renderer over the idea-graph and its highest-value lens (absence detection)
+becomes cheap and exact; the method's graph-substrate future converges with ADR-200's
+deliverable. Apply once WS4 proves the graph end-to-end.
+
 ## Settled corpus-design decisions — do not re-litigate
 
 These protect the restructure from re-opening settled questions (folded from the Kiln guards Patina

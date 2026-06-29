@@ -321,6 +321,10 @@ neither a capturable fact nor existing doctrine). Be suspicious here:
   edits, or re-read the working-tree copy. The corrected facts: token-balanced
   partition (not 11×9), PDR-120 home (not `.agent/reference/`), three calibration arcs
   (not four).
+  **RESOLVED 2026-06-29 (Wren stirs Rainbow), verified first-hand:** the corrections
+  landed in `be953fbf3`; HEAD carries all of them (token-balanced partition, PDR-120
+  home, three arcs). This warning is kept for history but no longer fires — a cold
+  reader misread it as live, so do not re-raise it against the committed tree.
 - **Rejected audit findings — do not re-litigate.** Two verification findings were
   examined and **rejected** with reason: (a) the "§3 ~30k vs §5 ~22k inconsistency"
   is not a contradiction — they are different stages (final primary-context load vs

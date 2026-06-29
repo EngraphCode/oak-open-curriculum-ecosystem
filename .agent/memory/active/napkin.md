@@ -224,3 +224,43 @@ stay uncommitted for their author), but the snapshot was premature.
   (`legitimate-principle-as-avoidance-cover`); the within-session recurrence is PDR-098 evidence
   that a passive pattern loses to the live impulse — the structural cure (the reframed firing-gate
   clauses in the skills) is the right shape, not vigilance.
+
+## 2026-06-29 — Corpus Discovery proving run + v2 design (Wren stirs Rainbow, 093458)
+
+Ran the first Discovery pass (large-corpus-analysis method) over the napkin corpus, then designed
+v2 from the results. Substance: `research/.../napkin-discovery-pass-1-2026-06-29.md`; v2 design +
+design-panel protocol in `reports/agentic-engineering/`.
+
+- **DISCOVERY (the load-bearing meta-result) — LLMs judge atomically well, aggregate faithfully
+  badly.** The Discovery meta agent reported recall 13/18 = 0.72 while its OWN per-baseline
+  judgments summed to 10 (lenient) / 5 strict. The atomic per-item verdicts were sound
+  (spot-checked); only the aggregate was wrong. **Cure (now the v2 design principle): an LLM emits
+  only atomic, local, per-item judgments; deterministic code does every count / fraction /
+  threshold / verdict / routing.** This is `principles.md` "generated state beats authored state"
+  applied to the agentic pipeline, and it generalises to ANY fan-out→validate→synthesise pipeline.
+  Candidate: a PDR (in pending-graduations). The v1 `keptConsistency` JS tripwire already proved
+  the shape; I just hadn't built the analogous one for recall.
+- **MISTAKE (mine) — omitting `effort` in a Workflow fan-out inherits the session tier (xhigh under
+  ultracode) onto the cheap bulk stage.** I omitted `effort`, so all 14 Sonnet map agents (breadth
+  extraction) ran at xhigh → ~4.4M tokens (~3.4× the 1.3M estimate) → tripped a session rate limit
+  mid-validate (recovered by `resumeFromRunId`, cached stages free). **Lesson:** set `effort`
+  EXPLICITLY tiered per stage (map cheap, judgment expensive); cost is deterministic-estimable over
+  the partition × an effort table BEFORE the spend — gate on it. The design's cheap-map/
+  expensive-adversary profile was right; the effort-omission inverted it on the bulk stage.
+- **DISCOVERY (design process) — in an agentic design panel, the adversarial critic is load-bearing;
+  the marginal critic beats the marginal designer.** The critic caught real over-engineering AND
+  what the 4 designers collectively missed (the real-world-signal close; "the unit test is the
+  fix"). Designers over-elaborated in a *correlated* way (all four gold-plated) because "design
+  deeply" rewards thoroughness — the First Question was only enforced by the critic. Improved
+  protocol (homed in `agentic-design-panel-protocol-2026-06-29.md`): restraint-by-default
+  generators, MECE facet cut, and a diverse-lens CRITIC ENSEMBLE (more critics, not more designers)
+  — the panel eating its own dogfood (same fan-out→adversarial-validate→synthesise shape, same
+  asymmetric-ensemble lesson, as the product it designed).
+- **Confirmation — critically assessing subagent output is non-optional and caught the real
+  defects** (the 0.72 recall bug, the C06 unadjudicated gap, a grounding date mis-label). Without
+  the owner's standing "critically assess all subagent results" discipline, the wrong 0.72 ships
+  and the graduate-or-decide gate mis-fires. Subagents verify artefacts; only the context-holder
+  validates loss.
+- **Fitness residual (report, don't chase):** this append pushes the napkin toward its soft zone
+  (target 220) — routed to the next consolidation, not trimmed (knowledge-preservation). Rotation
+  is at ~400 lines; not yet due.

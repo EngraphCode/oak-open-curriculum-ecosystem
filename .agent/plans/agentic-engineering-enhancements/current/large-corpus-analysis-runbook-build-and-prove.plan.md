@@ -9,18 +9,18 @@ todos:
     content: Method captured in the design report (single home until proven); no separate reference doc yet
     status: completed
   - id: run-discovery-napkins
-    content: Run the first Discovery pass over the napkin corpus (token-balanced uniform windows; re-derive set/count at run time — it drifts), per the report's turnkey config
-    status: pending
+    content: "DONE (2026-06-29, Wren stirs Rainbow). First Discovery pass ran over 100 files / 14 token-balanced windows. Substance: research/.../napkin-discovery-pass-1-2026-06-29.md; metadata: curator-passes/2026-06-29-wren-napkin-discovery-pass.md."
+    status: completed
   - id: calibrate-and-assess
-    content: Confirm recall against the known-present baseline; record fidelity discount; assess apophenia-defeat held
-    status: pending
+    content: "DONE. Verdict refine-and-rerun: machinery sound, apophenia gate functioning (9/19 killed, all principled), but recall below threshold (corrected 0.28 strict / 0.56 lenient — the run's self-reported 0.72 was a meta-arithmetic defect caught first-hand). Misses all out-of-remit single-window defects."
+    status: completed
     depends_on: [run-discovery-napkins]
   - id: refine-method
-    content: Fold first-run lessons back into the method section (window size, leaf schema, critic depth)
-    status: pending
+    content: "DONE — folded into the v2 design report (large-corpus-analysis-runbook-v2-design-2026-06-29.md): deterministic aggregation, full Tier 0+1+2 ensemble, typed within-remit recall, real-world-signal close, cost gate. Build sequenced in the v2 implementation plan."
+    status: completed
     depends_on: [calibrate-and-assess]
   - id: graduate-or-decide
-    content: If proven, graduate method to a reference runbook homed per PDR-120 (runbook index under docs/operations, NOT the .agent/reference tier) + author the adopting PDR citing this run; if it reveals defects, name them and route to a fix-and-rerun iteration or an owner decision to discontinue
+    content: "RELOCATED to large-corpus-analysis-v2-implementation.plan.md (graduate-or-decide todo). Graduation to a PDR-120 reference runbook + adopting PDR (PDR-035) stays gated on a PASSING v2 rerun — v1 did not clear the threshold."
     status: pending
     depends_on: [refine-method]
 ---
@@ -62,10 +62,13 @@ promotion; one that fails has told us so before any doctrine was minted.
    NOT by file count (9-file windows ranged ~60k–141k at audit). Requires a
    writeable, execution-authorised session (~1.3M-token harness Workflow:
    partition → map → reduce → validate → meta).
-3. **Calibrate and assess** — confirm the run re-finds the known-present baseline
-   (claims-doctrine evolution, collaboration-protocol shifts, validation/TDD arc,
-   comms-research arc); record the recall discount; confirm every reported pattern
-   is grounded and survived the null.
+3. **Calibrate and assess** — confirm the run re-finds the known-present baseline.
+   THREE attested arcs only — claims-doctrine evolution, collaboration-protocol shifts,
+   validation/TDD — the **comms-research arc is a phantom and is dropped** (it appears
+   in the prior syntheses only as a 2026-05-29 processing-exclusion note, never as a
+   kept validated pattern). The v1 run enumerated **18** discrete baselines (4 / 9 / 5),
+   above the original "~16" floor. Record the recall discount; confirm every reported
+   pattern is grounded and survived the null. (DONE for v1; see the curator-pass.)
 4. **Refine** — fold first-run lessons (window size, leaf schema, critic depth)
    back into the method section.
 5. **Graduate or decide** — if proven, graduate the method to a reference runbook
