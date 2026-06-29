@@ -350,7 +350,7 @@ authored at host-specific shapes only as evidence forces them.
   Surface 3 and Surface 4 cures. Their active layer is a clause on
   the host's existing authoring-time check, not a new rule file
   (rule-vs-clause routing; always-loaded directive budget).
-- Replace consolidate-at-second-consumer. The third-consumer rule
+- Replace consolidate-at-second-consumer. The second-consumer rule
   governs *when to extract*; design-optionality governs *when to
   shape*. They compose; they do not substitute.
 

@@ -65,8 +65,8 @@ The substrate is the **generalisation of the one flow that already works**: comm
 ~1,900 immutable, content-addressed events, git-unioned, archived-not-deleted, never
 needing a semantic merge. PDR-119 already takes the first generalisation step (memory →
 event-graph, retiring `/oak-semantic-merge` for the append-only-narrative class). So the
-substrate is *extracted upward* (comms = consumer one, memory = two, work-state = three —
-the natural "extract at the third consumer" line), strict and tested **because** it rests
+substrate is *extracted upward* (comms = consumer one, memory = two — the natural
+consolidate-at-second-consumer line), strict and tested **because** it rests
 on the working instance.
 
 ## Two-layer identity model (Note 1, 2026-06-28)

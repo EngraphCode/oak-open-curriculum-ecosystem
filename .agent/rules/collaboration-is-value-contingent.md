@@ -83,7 +83,7 @@ not fire (the
 failure). The rule corpus is the active behavioural-modifier layer; this
 rule is that active layer. The portable *contract* substance already lives
 in PDR-082 / PDR-080 / PDR-066 — what was missing is the always-applied
-operational discipline, which is rule-shaped. If a third consumer ever needs
+operational discipline, which is rule-shaped. If a second-consumer ever needs
 the portable contract in a form beyond this repo's rule, the home is a PDR
 parenting PDR-082/080/066 — authored at that third instance, not pre-emptively.
 

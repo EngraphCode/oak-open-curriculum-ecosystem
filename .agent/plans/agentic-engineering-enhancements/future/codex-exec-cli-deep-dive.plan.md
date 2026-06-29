@@ -59,7 +59,7 @@ through the codebase's complexity discipline.
 
 Driven by real consumer demand, not anticipated demand. The
 [`consolidate-at-second-consumer`](../../../rules/consolidate-at-second-consumer.md)
-discipline applies: extract shared mechanism only after the third consumer
+discipline applies: extract shared mechanism when the second consumer
 appears.
 
 ## Means (Candidate Subcommands)
@@ -157,7 +157,7 @@ Acceptance for completed work (when promoted):
   tension. The right reshape may be a much smaller flag surface, not a
   more clever implementation.
 - **Premature abstraction.** Adding subcommands ahead of demand fragments
-  the surface without producing value. The third-consumer rule is the
+  the surface without producing value. The second-consumer rule is the
   guard.
 
 ## Promotion Trigger

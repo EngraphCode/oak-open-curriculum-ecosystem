@@ -585,7 +585,7 @@ The teacher-facing tool is built and fully green. **Holding the commit for your 
   (stale → tool error, no span). No secrets; load-error messages name only the error `kind`.
 - **mcp-expert:** (1) attribution placement — tool-def `_meta.attribution` (registration) +
   `data.attribution` (response envelope, model-visible); I did NOT extend the shared
-  `formatToolResponse` `_meta` for one consumer (consolidate-at-second-consumer) — is response
+  `formatToolResponse` `_meta` for one consumer (consolidate-at-third-consumer) — is response
   `_meta.attribution` worth a shared-formatter change now or a follow-on? (2) `handleEefExploreTool`
   lives in the tool module (not inline in executor.ts) — kept executor.ts under max-lines AND
   keeps the tool self-contained, but diverges from the other 11 inline handlers. Your call on
@@ -614,7 +614,7 @@ Read all 7 tool files + the 4a loader diff + wire-up myself, then ran the panel 
 
 **🟢 type-expert — SAFE, no defects.** Loader early-return narrows correctly (`EefStrandsGraphViewConstructionError` ∈ `LoadEefCorpusError`, no cast); `CitationsSchema.safeParse → Citations` is the correct ADR-038 compile→runtime→compile flow with no cast; zero `as`/`!`/`any`/`@ts-expect-error` in the tool files (only the permitted `as const`); `handleEefExploreTool` conforms exactly to `AggregatedHandler`; `keyStageToPhase`'s `ExploreSpanAttrs['phase']` indexed-access return doubles as a drift sentinel. Clean.
 
-**🟢 mcp-expert — COMPLIANT, 1 doc-fix.** Verified against the SDK schema: `CallToolResult._meta` is reserved for `progressToken`/related-task, so `data.attribution` (model-visible) is the *correct* spec-compliant placement and NOT extending the shared `formatToolResponse._meta` for one consumer is right (consolidate-at-second-consumer). Handler-in-module acceptable (precedent: `handleUserSearchExecution` + 4 other non-inline handlers). Dual securitySchemes is the consistent repo convention. Telemetry seam unwired at gate-1a is fine (optional `recordSpan?.()`, app wires it).
+**🟢 mcp-expert — COMPLIANT, 1 doc-fix.** Verified against the SDK schema: `CallToolResult._meta` is reserved for `progressToken`/related-task, so `data.attribution` (model-visible) is the *correct* spec-compliant placement and NOT extending the shared `formatToolResponse._meta` for one consumer is right (consolidate-at-third-consumer). Handler-in-module acceptable (precedent: `handleUserSearchExecution` + 4 other non-inline handlers). Dual securitySchemes is the consistent repo convention. Telemetry seam unwired at gate-1a is fine (optional `recordSpan?.()`, app wires it).
 
 - **FIX 1 (doc, should-fix):** `tool-definition.ts:16` docstring says attribution "rides once on the envelope `_meta.attribution`" — but the response actually carries it in `data.attribution` (execution.ts:115); the def's `_meta.attribution` is registration-time only. A reader working from the docstring looks in the wrong place. Reword to name `data.attribution` (response) + def `_meta.attribution` (listing). I spotted this independently; mcp-expert confirmed with the SDK schema.
 

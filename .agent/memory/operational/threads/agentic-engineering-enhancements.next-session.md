@@ -678,7 +678,7 @@ pickup trigger; neither blocks the other.
 >    `action-time-structural-interrupt-design-space.plan.md`; beneficial, not blocking; lowest
 > priority.
 > 5. **Follow-on (not 2a scope):** `toPosix` is duplicated across `max-files-per-dir`,
->    `require-observability-emission`, `no-real-io-in-tests` (third consumer → consolidate-at-third-
+>    `require-observability-emission`, `no-real-io-in-tests` (second-consumer → consolidate-at-third-
 >    consumer); extract to `oak-eslint/src/utils/path.ts`.
 >
 > **Disciplines carried (worked this session):** an `as`-ban + a live multi-writer lockfile turns a

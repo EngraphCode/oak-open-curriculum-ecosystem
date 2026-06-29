@@ -97,8 +97,8 @@ is the opposite of the Surface 2 anti-pattern (a generic where every call site
 instantiates the same concrete type). D4 still adds **no** surface beyond what
 these consumers use (Decision 6). `consolidate-at-second-consumer` governs
 *extracting* shared mechanics across corpora and has **not** fired here (it
-triggers at the third consumer); it is not the basis for this contract, and
-primitive-consolidation across corpora stays a later, third-consumer decision.
+triggers at the second consumer); it is not the basis for this contract, and
+primitive-consolidation across corpora stays a later, second-consumer decision.
 
 **The substrate's value is bounded, relevant, token-efficient retrieval** — return
 the subset the agent needs, never a whole corpus. The existing tools today return

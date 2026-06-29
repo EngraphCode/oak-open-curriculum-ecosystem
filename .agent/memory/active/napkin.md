@@ -25,7 +25,7 @@ closeouts*. Those appends are now processed and preserved verbatim in
 This deep pass (Director-rotation closeout, owner-directed) graduated the deferred team-tooling
 captures to permanent homes — the commits + the homes are the record:
 
-- the `consolidate-at-third-consumer → consolidate-at-second-consumer` rename + 41-file slug sweep
+- the `consolidate-at-second-consumer → consolidate-at-second-consumer` rename + 41-file slug sweep
   (the Quoll/Seraph doc-defect, **FIXED**); **gate-evasion / escape-hatch screen** →
   `patterns/fluency-is-a-failure-vector.md`; **Director craft** (Kraken's standby-burn /
   auto-update-branch-babysitter / measure-at-handoff-gate + Trawler Part-A) → `director-handoff.md`

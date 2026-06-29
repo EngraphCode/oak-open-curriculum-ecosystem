@@ -174,7 +174,7 @@ Alternatives rejected:
 
 ### Forbidden
 
-- Third consumer-side workaround attempt on the same producer issue
+- second-consumer-side workaround attempt on the same producer issue
   without a producer-side fix being considered.
 - Removal conditions in comments without a check mechanism.
 - Workaround justifications that invoke rationalisation vocabulary

@@ -130,7 +130,7 @@ The open design-steps were triaged through the decision lenses (`principles.md` 
 
 - **WS2 — SDK boundary (L1 + `consolidate-at-second-consumer`):** build the idea-graph SDK as a clean
   parallel instance reusing `graph-core`'s generic substrate; do **not** extract a shared domain-SDK
-  abstraction now (the family-of-graphs is the future third-consumer trigger). `architecture-expert`
+  abstraction now (the family-of-graphs is the future second-consumer trigger). `architecture-expert`
   confirms the boundary (already in §Readiness reviewers).
 - **WS5 — de-duplication (L1 + the no-loss invariant):** semantic-proposes → deterministic-merge-with-
   reference-rewrite → validator-verifies; conservative, reviewer-confirmed, history-preserving.

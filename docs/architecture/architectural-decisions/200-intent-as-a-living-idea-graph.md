@@ -367,7 +367,7 @@ direction this architecture is chosen to enable.
   **Lens-resolved direction (2026-06-22, L1 + `consolidate-at-second-consumer`):** build the new idea-graph
   SDK as a clean parallel instance that _reuses_ `graph-core`'s generic substrate and owns only idea-domain
   specifics; do **not** extract a shared domain-SDK abstraction across `graph-corpus-sdk` and the idea-graph
-  SDK now — the family-of-knowledge-graphs (§Future state) is the future third-consumer trigger for that, not
+  SDK now — the family-of-knowledge-graphs (§Future state) is the future second-consumer trigger for that, not
   this build. `architecture-expert` confirms the boundary at WS2/WS4.
 - **Harvest-source breadth — RESOLVED (owner, 2026-06-22).** The harvest ingests `VISION.md` +
   `docs/strategy/` in addition to everything under `.agent/plans/` — the graph spans all altitudes

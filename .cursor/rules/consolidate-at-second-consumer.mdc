@@ -1,5 +1,5 @@
 ---
-description: Consolidate duplicated shapes when the third consumer appears.
+description: Consolidate duplicated shapes when the second consumer appears.
 alwaysApply: true
 ---
 

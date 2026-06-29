@@ -380,7 +380,7 @@ Promote from `future/` to `current/` when:
 
 **Principle: No Speed Pressure** (`no-speed-pressure.md`) — This is a strategic brief. Implementation is deferred until a second consumer appears and the owner decides to promote.
 
-**Rule: Consolidate at Third Consumer** (`consolidate-at-second-consumer.md`) — We're designing for extensibility; consolidation happens when three platforms have invokers and patterns emerge.
+**Rule: Consolidate at Second Consumer** (`consolidate-at-second-consumer.md`) — Design for extensibility, but extract shared mechanism when a second consumer appears and the duplication becomes load-bearing; defer platform-specific invokers until real demand.
 
 **Rule: Plan-Body First-Principles Check** — This plan's shape (three-layer architecture) came from first principles: what's platform-specific, what's shared, what already exists. The landing-path (contracts first, then reference implementations) is intentional. Vendor-literal details (Codex event shape, Anthropic SDK features) are deferred to the invoker implementations.
 

@@ -732,7 +732,7 @@ No ADR or directive change is required: this is an internal CLI that does not ch
 
 After all six workstreams land and quality gates pass, run `/jc-consolidate-docs` to:
 
-- record the landed CLI shape under any relevant pattern surfaces if the pure-core / IO-edge subcommand shape has crossed the third-consumer threshold;
+- record the landed CLI shape under any relevant pattern surfaces if the pure-core / IO-edge subcommand shape has crossed The second-consumer threshold;
 - evaluate whether the strategic-source plan items §2/§3/§4 should be re-prioritised with the CLI in hand;
 - update the agent-tooling collection `current/README.md` index entry status from `DECISION-COMPLETE` to `COMPLETE`.
 
