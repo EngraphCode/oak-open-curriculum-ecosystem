@@ -27,14 +27,23 @@ calling the goal complete.
 
 ## Conservation Invariant
 
-The value of this workflow is conserving and correctly homing insight until the
-knowledge substrate is genuinely cared for. Fitness results, line counts, and
-buffer sizes are diagnostic signals, not goals. Do not chase lower numbers, trim
-understanding, or hide buffers to make a report look better. Process the
-knowledge item by item, preserve the learning at full weight, move it to the
-right durable home, and let any fitness improvement happen only as the side
-effect of real curation. "No file worse than soft" is a health condition to
-verify at rest, not the work itself.
+The value of this workflow is that knowledge and understanding come to **exist
+where they do the most good — where they will be read at the moment they change a
+decision.** That is the only goal. "Correctly homing insight" means placing each
+piece where it has the most impact: a lesson in the rule that fires at the action
+moment, not buried in a thread record read once; a portable decision in the PDR
+that travels to every repo, not stranded in a host-local brief; the live next-step
+at the top of the surface the next worker opens, not under landed-arc narrative.
+
+**Thresholds are never what we care about — not ever.** Fitness results, line and
+character counts, and buffer sizes are at most a *crude, partial noticer* that some
+knowledge may be mislocated, and they are blind to the cases that matter most:
+correct-but-buried knowledge, a high-traffic surface diluted by low-impact text, a
+lesson homed where it never fires — none of which trips a limit. Never chase a
+number, trim understanding, or move content to make a report look better. Place the
+knowledge where it has impact; let any fitness change fall out as a side effect.
+"No file worse than soft" is a weak proxy to glance at, never the work and never
+the point.
 
 ## Approach
 
@@ -67,33 +76,29 @@ Before substantive work:
 You may mark the goal complete only when all conditions are verified in the
 current session:
 
-1. **The insight is conserved.** Fitness is a **signal, not a completion gate**
-   (the Conservation Invariant above; reinforced by the owner repeatedly).
-   Run `pnpm practice:fitness:informational` and investigate any file worse than
-   soft: a HARD usually means either un-homed substance still to route, or genuine
-   structural debt (a section exceeding its design). Route the substance or fix
-   the structure — but if no substance is un-homed, a residual signal is
-   **reported, not chased**. Never trim, archive-to-fit, or raise a limit to force
-   the report green; that is the signal→goal inversion the Conservation Invariant
-   and
-   [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
-   forbid.
+1. **The insight lives where it does the most good.** Completion is an
+   **impact-placement** condition, not a threshold condition: for the knowledge this
+   pass touched, is each piece where it will be read at the moment it changes a
+   decision? Run `pnpm practice:fitness:informational`, but treat it as one weak,
+   partial noticer of *possible* mislocation — never as the question or the gate.
 
-   **A "report-not-chase" verdict is the CONCLUSION of a content read, never a
-   substitute for one.** "Don't chase the number" ≠ "don't investigate the
-   number" — the conservation invariant says fitness *routes* work, so an
-   over-limit file is a pointer to open and read, not to wave through. Before
-   recording any file worse than soft as a benign residual, **read its content
-   first-hand** and state what the read found: un-homed substance to graduate,
-   completed-and-homed narrative to drain, or genuinely dense live content. A
-   verdict that cites only size, role, or the limit — "legit growth", "big
-   continuity file", "owner-routed" — is a **metadata-only disposition** and is
-   forbidden; it is the exact shallow-read failure that lets accreted files (a
-   thread record full of landed-arc narrative; a brief carrying un-graduated
-   doctrine) pass as "fine". For a continuity/narrative file, the read checks the
-   content against the file's own `overflow_disposition` / `continuity-practice`
-   §Disposition (leave-if-live; else conserve-insight-and-delete) — if completed
-   substance is still present, the disposition is *drain it now*, not *report it*.
+   **Ask the disposition question of the content, never let a number trigger or
+   answer it.** Open a surface, read it, and ask *"does this knowledge belong here,
+   or where would it have more impact?"* — for every surface the pass touched, not
+   only the ones a limit flags. The most important mislocations trip no limit:
+   correct-but-buried knowledge, a high-traffic surface diluted by low-impact text,
+   a lesson homed where it never fires. A disposition resting only on size, role, or
+   a limit — "legit growth", "big continuity file", "over/under the limit",
+   "owner-routed" — is forbidden: it answers the proxy, not the impact question.
+   When a read finds completed or already-homed narrative diluting a live surface,
+   the move is *relocate it to where it lives / drain it* — because that frees the
+   surface to do its job for the next reader, **not** because a count fell. For a
+   continuity/narrative file, judge the content against the file's own
+   `overflow_disposition` / `continuity-practice` §Disposition (leave-if-live; else
+   conserve-insight-and-delete). Never trim understanding or raise a limit to change
+   a report: both optimise the proxy and leave the impact untouched (and
+   [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+   forbids the report-gaming).
 2. Every live drainable buffer in scope is empty or ready-empty. The
    **open-questions register is driven to zero exactly as pending-graduations is**
    (owner directive 2026-06-28): every entry decided — answered, withdrawn, or
