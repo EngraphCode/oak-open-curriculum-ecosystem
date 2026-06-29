@@ -22,7 +22,7 @@ All clients must call `/mcp`. If you previously targeted the alias, update your 
 ## Related documents
 
 - [ADR-046](./architectural-decisions/046-openai-connector-facades-in-streamable-http.md) – describes the universal tool executor and now notes the completed alias removal.
-- [Plans Index](../../.agent/plans/README.md) – stable planning index for historical/provenance context.
-- [Completed Plans](../../.agent/plans/completed-plans.md) – archive entry point for completed hardening work.
+- [Plans Index](../../../.agent/plans/README.md) – stable planning index for historical/provenance context.
+- [Completed/superseded plans](../../../.agent/plans-old-archive/) – relocated archive for completed work (ADR-200).
 
 The Streamable HTTP deployment now presents a single, standards-compliant entry point with the complete tool catalogue.

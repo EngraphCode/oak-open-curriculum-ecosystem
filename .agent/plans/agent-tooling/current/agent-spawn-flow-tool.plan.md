@@ -96,6 +96,12 @@ absent**, verified first-hand: `core/agent-ops.ts` holds only `detectPhaseFromEv
 - Retire the hand-maintained `cross-worktree-work-state.md` roster → a **derived view** over
   `git worktree list` + the **claims registry** (the seat itself stays derived / carried in the brief
   per 1D — the view *reads* claims, it does not introduce or depend on a stored "seat registry").
+- **The F-98 heartbeat-age column** (the locked-scope deliverable that completes the derived view, and
+  the binding lane's definition-of-done in the team-tooling session): extend the derived view with a
+  `last-seen` column rendering **PDR-078 event-recency** from the comms/heartbeat event stream, labelled
+  **input-to-verify** — NOT the claim's `freshness_status` (that is the F-44 decision-class trap). One
+  friction-sliced TDD cycle; acceptance: the view shows each live agent's last-seen recency. It is the
+  clean slip if Phase 1 overruns.
 - **§B2: drop the binary-pin** (see Pitfall 4). Build-at-spawn dissolves it for spawn-created
   worktrees; manual worktrees gracefully soft-fail (existing shim behaviour). Spawn is the *paved* path.
 - Shim consolidation (the two `.mjs` → thin bootstraps) is an optional DRY cleanup, **separate** from

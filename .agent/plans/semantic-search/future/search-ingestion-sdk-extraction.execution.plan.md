@@ -1,5 +1,7 @@
 ---
 name: "Search ingestion SDK extraction and thin CLI adoption"
+programmes:
+  - generic-foundation-decomposition
 overview: >
   Extract Oak-specific search ingestion runtime from oak-search-cli into a new
   SDK workspace so apps remain thin, oak-search-sdk stays Elasticsearch-only,

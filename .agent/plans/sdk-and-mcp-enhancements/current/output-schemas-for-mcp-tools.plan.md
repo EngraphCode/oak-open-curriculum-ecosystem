@@ -814,7 +814,7 @@ Do not author a summary-of-work doc.
 
 After gates pass and review closes, run `/oak-consolidate-docs`: mine any settled
 contract into permanent docs, rotate the napkin, manage fitness, archive per
-ADR-117, and update `current/README.md` + the completed-plans index.
+ADR-117, and update `current/README.md` (ADR-200 retired the completed-plans index).
 
 ---
 

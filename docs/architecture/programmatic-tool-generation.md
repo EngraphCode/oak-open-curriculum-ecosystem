@@ -370,4 +370,4 @@ if (!result.ok) {
 - [ADR-030: SDK as Single Source of Truth](architectural-decisions/030-sdk-single-source-truth.md)
 - [ADR-031: Generation-Time Extraction Pattern](architectural-decisions/031-generation-time-extraction.md)
 - [Plans Index](../../.agent/plans/README.md)
-- [Completed Plans Index](../../.agent/plans/completed-plans.md)
+- [Completed/superseded plans (relocated archive)](../../.agent/plans-old-archive/) — ADR-200

@@ -2,9 +2,10 @@
 
 **Status**: Accepted
 **Date**: 2026-02-22
-**Related**: [ADR-114][adr-114]
+**Related**: [ADR-114][adr-114], [ADR-200][adr-200]
 
 [adr-114]: 114-layered-sub-agent-prompt-composition-architecture.md
+[adr-200]: 200-intent-as-a-living-idea-graph.md
 
 ## Context
 
@@ -125,19 +126,27 @@ quality gates, and frontmatter todos apply in these lanes.
 When archiving a plan:
 
 1. Mine completed outcomes into permanent documentation (ADRs, directives,
-   READMEs, reference docs) before archival.
-2. Move the file to `archive/completed/`.
-3. Add an entry to the [completed plans index](/.agent/plans/completed-plans.md)
-   (plan name, date, key outcomes, archive link).
-4. Update cross-references by role. Historical citations to the
+   READMEs, reference docs) before archival — this is where durable outcomes live.
+2. Move the file to `archive/completed/`, with a one-line outcome/supersession
+   banner in the archived file itself.
+3. Update cross-references by role. Historical citations to the
    completed plan may point directly to `archive/completed/`. Live
    navigation, current execution instructions, and superseded-plan
    references must stop depending on the archived file: remove the
    link, name the current owner, or reduce the archived mention to
-   plain historical text. The completed plans index is the single
-   sanctioned discovery pointer for where the archived plan went; do
-   not leave stubs, redirects, or live-to-archive dependency chains.
-5. Run the consolidation flow to synchronise all documents.
+   plain historical text. Do not leave stubs, redirects, or
+   live-to-archive dependency chains.
+4. Run the consolidation flow to synchronise all documents.
+
+> **Amended 2026-06-28 (ADR-200 reconciliation).** The previously-mandated
+> manually-maintained completed-plans index (`.agent/plans/completed-plans.md`) is
+> **retired**. [ADR-200][adr-200] relocated the archive to `.agent/plans-old-archive/`
+> and makes the intent idea-graph the discovery surface for completed work; durable
+> outcomes already live in their permanent docs (step 1) and each archived file
+> carries its own banner (step 2). There is no hand-maintained index to update — a
+> single root list was a drift surface, which is exactly what ADR-200 removes.
+> Discovery of an archived plan is via the relocated archive and, in time, the
+> idea-graph — not a curated list.
 
 ### 6. Frontmatter Todo Tracking
 

@@ -23,6 +23,7 @@ This directory contains engineering workflow and implementation documentation fo
 - [Testing TDD Recipes](./testing-tdd-recipes.md) - Worked Red/Green/Refactor examples and common TDD violations
 - [Release and Publishing](./release-and-publishing.md) - npm publishing, versioning, and release automation
 - [Milestone Release Runbook](./milestone-release-runbook.md) - Gate model, snagging protocol, and go/no-go controls for milestone releases
+- [Runbook Index](../operations/README.md#runbook-index) - All operational runbooks across the repo (the cross-cutting index; PDR-120)
 - [Pre-Merge Divergence Analysis](./pre-merge-analysis.md) - Systematic process for merging significantly diverged branches safely
 - [Environment Variables](../operations/environment-variables.md) - Runtime configuration and environment variable management
 - [Production Debugging Runbook](../operations/production-debugging-runbook.md) - Production diagnostics and incident workflows

@@ -83,6 +83,27 @@ same as conserving its insight. Each continuity surface's
 `overflow_disposition` frontmatter field points here; this section is the
 canonical statement for that surface type.
 
+### Runbook — curating a continuity surface
+
+The repeatable operational procedure for disposition #2 (a runbook per
+[PDR-120](../practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md),
+embedded here in the doctrine it enacts; indexed in
+[`docs/operations/README.md`](../../docs/operations/README.md) §Runbook Index):
+
+1. **Per entry, ask "live or finished?"** — never infer from age or fitness status.
+2. **Route by disposition.** Finished and insight-homed → delete the residue, but
+   *verify the home holds it first* (`ground-convenient-claims`; "it's all homed" is a
+   convenient claim to check, not trust). Finished and un-homed → route the insight to
+   its permanent home, *then* delete. Live → keep, compacted (a compact pointer, not the
+   landing narrative). Compact bloated index-table cells to the index shape — lane state
+   lives in the thread record, not here.
+3. **Verify losslessness mechanically** (after the rewrite, before committing): every
+   live-pointer token from the pre-curation file still appears (`grep -F` each); the
+   index-table row count is unchanged; the link-reference count is unchanged;
+   `markdownlint` is clean. An *empty dropped-token set is the proof* — the "I kept
+   everything" assertion is not (the loss-detector mirrors the `semantic-merge` skill
+   §Verify and [PDR-119](../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)).
+
 ## Continuity Questions
 
 ### Operational continuity

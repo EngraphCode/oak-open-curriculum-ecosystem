@@ -212,7 +212,8 @@ Use these links by trigger:
 - UI and design: [Accessibility Practice][accessibility],
   [Design Token Practice][design-tokens], [MCP App Styling][mcp-app-styling]
 - Build and operations: [Build System][build-system],
-  [Troubleshooting][troubleshooting]
+  [Troubleshooting][troubleshooting], [Runbook Index][runbook-index] (operational
+  procedures — ES index lifecycle, deploy, release, UAT, ingest; PDR-120)
 - Vision and domain: [Vision][vision], [Curriculum Guidance][curriculum],
   [Experience Recording](../experience/README.md)
 - Authoring outward copy: [Editorial Tone](./editorial-tone.md) — apply when
@@ -232,6 +233,7 @@ Use these links by trigger:
 [mcp-app-styling]: ../../docs/governance/mcp-app-styling.md
 [build-system]: ../../docs/engineering/build-system.md
 [troubleshooting]: ../../docs/operations/troubleshooting.md
+[runbook-index]: ../../docs/operations/README.md#runbook-index
 [vision]: ../../VISION.md
 [curriculum]: ../../docs/governance/curriculum-tools-guidance-and-playbooks.md
 

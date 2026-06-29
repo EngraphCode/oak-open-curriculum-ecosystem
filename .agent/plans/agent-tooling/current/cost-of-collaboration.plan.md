@@ -1842,11 +1842,11 @@ slowness but *corruption* of two things, both of which have bitten us: the Imple
 - **Trustworthy liveness** — the Director's nervous system. The corruption: a live agent read stale
   (or a dead one read fresh) → mis-routing and barged-into active claims. The *minimum* is the cheap mitigations
   that reduce the corruption without redesigning liveness — the structural F-44 code fix is **not** here
-  (see the decision-class note below). (a) **close the F-101 residual** — the basic `timeout`
-  self-termination cure shipped, but the node grandchild still orphans when the pnpm wrapper is
-  signalled (SIGTERM not forwarded), so a dead agent's watcher keeps writing false-liveness
-  heartbeats; cure is the lease-on-`Stop`-hook model + process-group termination + an F-43
-  stale-process census; (b) the **F-82 verify** (below); (c) the **behavioural discipline** —
+  (see the decision-class note below). (a) **F-101 residual — orphan path now CLOSED** (PR #270, `e4549f49b`, merged 2026-06-28):
+  `comms watch --supervisor-pid <pid>` self-exits within one poll cycle of the supervising agent dying,
+  closing the crash/SIGKILL orphan path GNU `timeout`'s group-kill missed. This **supersedes the
+  lease-on-`Stop`-hook model** for the orphan problem. NARROW residual still open: process-group
+  termination (the SIGTERM-not-forwarded grandchild case) + an F-43 stale-process census; (b) the **F-82 verify** (below); (c) the **behavioural discipline** —
   `freshness_status` is input-to-verify, never read as liveness (now encoded in the directive + the
   schema comments). **The structural freshness-vs-liveness code-consumer fix (F-44) is NOT minimum — it
   is decision-class, gated on the OQ5 composed mechanism (see Excellent), because a naive event-recency
@@ -1886,8 +1886,6 @@ slowness but *corruption* of two things, both of which have bitten us: the Imple
 - **Silent-retirement alert** (F-75) — surface a peer's heartbeat-silence so a retired Implementer
   is noticed. Detection-latency, not corruption (the minimum liveness fixes already prevent the
   corruption), so it sits here.
-- **Trim the over-budget `MEMORY.md`** — only partly loaded today, so every agent starts with
-  degraded recall.
 
 ### Excellent — the substrate-coherent operating picture (large; the direction, not the gate)
 
@@ -1913,6 +1911,48 @@ n=2/solo peer as dead. Then build the **spawn-flow tool** as the one substantial
 launch-corruption cluster and its seat seeds the excellent tier — that, not per-event leverage, is its
 keystone claim). The Director's liveness read is the one corruption invisible until it has already
 mis-routed the team.
+
+### Locked scope (owner-decided 2026-06-28)
+
+The decision taken for the next session — the authoritative build list (it supersedes the
+Recommendation above). Framed on impact × effort with MoSCoW: take everything low- and medium-effort,
+plus spawn-flow *through Phase 2*, plus the OQ5 **decision** (not its build). Coordination branch:
+`coordination/team-tooling-session-2026-06-28`.
+
+**In — by lane:**
+
+- **Liveness** — F-82 watcher-surfaces-events verify (M, *first*; it gates the ergonomics lane);
+  F-101 kill-tree (M); F-75 silent-retirement alert (C, in — *after* F-101, which makes
+  heartbeat-silence truthful); apply the freshness-is-input-to-verify discipline (M, already encoded).
+- **Binding / spawn (critical path)** — launch-in-worktree convention (M, codified *after* the first
+  spawn E2E per the spawn-flow plan's Phase 0, not front-loaded); the
+  [spawn-flow tool](agent-spawn-flow-tool.plan.md) Phase 1 (S); **Phase 2 = the F-98 binding view**
+  (derived over `git worktree list` + the claims registry); **plus the F-98 heartbeat-age column**
+  (render PDR-078 event-recency, labelled input-to-verify — safe from the F-44 decision-class trap
+  because it is a read-surface the Director verifies, not an automated alive/dead consumer). F-98 is
+  this lane's definition-of-done; if Phase 1 overruns it is the clean thing to slip. Apply
+  stage-by-explicit-pathspec (M).
+- **Ergonomics / claims** — F-85 `--active`→coordination-home (M); the comms+claims ergonomics batch
+  (S — F-72 / F-89 / F-70 / F-77 / F-79 / F-80). Independent; can run early in parallel.
+- **Design (no build)** — the OQ5 composed-liveness **decision** (in): produce the model + a decision
+  record (PDR-118 OQ5 amendment, **owner-ratification-gated**). Run it *late*, fed by the session's
+  lived experience of discipline-based liveness — the session is the experiment that grounds it. Its
+  output unblocks the F-44 structural fix + the stall-aware F-98 column for a later session.
+
+**Out:** the knowledge-distribution substrate first slice (E3 — zero session impact; the future arc is
+preserved by spawn-flow being built substrate-aligned); the OQ5 *implementation* (the composed-liveness
+build + the F-44 code-consumer fix + the stall-aware F-98 column — decided now, built later onto the
+F-98 view as its scaffold).
+
+**Residual, bounded:** until OQ5 is built the Director cannot *structurally* tell "working" from
+"wedged" (stall-detection). Mitigation: brief the Director to verify liveness actively and watch for
+stalls; the model is decided this session and the view scaffold is in place, so only one column's
+implementation is deferred.
+
+**Natural team shape:** Director + 3 Implementers (one per build lane), the Director driving the OQ5
+decision late. Degrades gracefully to fewer seats by sequencing lanes instead of parallelising —
+owner's call on team size. The proper cohesion anchor (a team-session plan from the template, per the
+NEXT SESSION MANDATE) is still to be authored on this coordination branch.
 
 ### Stress-test verdict (assumptions-expert, 2026-06-28; every claim re-verified first-hand)
 

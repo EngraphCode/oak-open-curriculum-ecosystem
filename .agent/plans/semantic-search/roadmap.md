@@ -138,7 +138,7 @@ pnpm smoke:dev:stub
 
 1. [semantic-search.prompt.md](../../prompts/semantic-search/archive/semantic-search.prompt.md)
 2. [README.md](README.md)
-3. [completed-plans.md](../completed-plans.md)
+3. [Relocated archive (completed/superseded plans)](../../plans-old-archive/semantic-search/) — ADR-200
 4. [search-acceptance-criteria.md](search-acceptance-criteria.md)
 5. [../sdk-and-mcp-enhancements/roadmap.md](../sdk-and-mcp-enhancements/roadmap.md)
 

@@ -1,5 +1,7 @@
 ---
 name: "Sector reusable components adoption contract"
+programmes:
+  - generic-foundation-decomposition
 overview: "Partner-facing contract for external reuse of Oak's reusable sector-component fabric anchored in VISION.md canonical inventory-playbooks inputs, differentiated from upstream API access and Oak-hosted deployments."
 status: current
 specialist_reviewer: "docs-adr-expert, architecture-expert-betty"

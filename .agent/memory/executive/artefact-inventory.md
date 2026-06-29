@@ -108,3 +108,12 @@ Each adapter reads the canonical template as its first action.
 See existing adapters for platform-specific metadata fields.
 Do not add `.agents/agents/` as a shared sub-agent surface; Antigravity-native
 agent wrappers require a separate platform-specific design and verification.
+
+### New Runbook
+
+A **runbook** (repeatable operational procedure + verification) is a content kind, NOT
+a new surface — [PDR-120](../../practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md).
+Route by the skill-load-budget triage: a **skill** (invocable + frequent), a **reference
+doc** under `docs/operations/` (read on demand), or **embedded** in the rule/directive it
+enacts; then add a pointer to the [Runbook Index](../../../docs/operations/README.md#runbook-index).
+Full routing: [`extending.md` §Adding a Runbook](../../../docs/engineering/extending.md#adding-a-runbook).

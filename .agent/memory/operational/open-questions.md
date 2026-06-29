@@ -5,9 +5,14 @@ fitness_char_limit: 14000
 fitness_line_length: 100
 drain_strategy: >-
   Surface strategic open questions to the owner during consolidate-docs. Answer,
-  withdraw, or leave open with deferral-honesty. A resolved question is removed —
-  its answer lives in the permanent home it produced (PDR/ADR/plan/decision),
-  which is the record. Do not keep a resolved-question ledger.
+  withdraw, or leave open. A resolved question is removed — its answer lives in the
+  permanent home it produced (PDR/ADR/plan/decision), which is the record. Do not
+  keep a resolved-question ledger. During a DEDICATED consolidation this register is
+  driven to zero exactly as pending-graduations is (owner directive 2026-06-28):
+  every entry is decided — answered (graduate → remove), withdrawn, or
+  explicitly kept open. "Leave open with deferral-honesty" is no longer an
+  agent default in a dedicated pass; keep-open is a USER-ONLY grant. An entry kept
+  open carries an explicit "keep-open granted by user, <date>" note as the proof.
 merge_class: mostly-append-register
 fitness_content_role: drainable-buffer
 ---
@@ -77,8 +82,9 @@ to shape, not to pre-decide here. It also depends on the open single-team questi
 identity-join proof); the curriculum-graph-estate synthesis (2026-06-22); paused threads
 `connecting-oak-resources`, `oak-kg-ontology-planning-review`.
 
-**Status:** open — initial landscape research recorded; owned by the incoming engineer's brief and
-owner.
+**Status:** open — **keep-open granted by user, dedicated consolidation 2026-06-28** (genuinely
+strategic, not cheaply resolvable; owned by the incoming engineer's brief + owner; gated on the
+single-team decision, §Open Owner-Decision Items #7). Initial landscape research recorded.
 
 ## Q-011 — Liveness after an ungraceful death (external staleness-reaper / dead-man's-switch)?
 
@@ -102,7 +108,9 @@ unresolved but not blocking.
 pending-graduation entry was removed — a question is not learned doctrine; its home is here, and
 the plan must re-home it here, not lose it, when it archives.)
 
-**Status:** open — architectural; owner-decision.
+**Status:** open — **keep-open granted by user, dedicated consolidation 2026-06-28** (structural
+primitive needing an owner architectural decision; the graceful-case cure is in place, so unresolved
+but not blocking).
 
 [kg-two-altitudes]: ../../reports/knowledge-as-graph-two-altitudes-2026-06-23.md
 [worktree-pilot-plan]: ../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md

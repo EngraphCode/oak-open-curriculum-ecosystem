@@ -384,7 +384,7 @@ composition roots); run lifecycle touch points at each cycle land.
 ## Learning Loop
 
 On completion/milestone/archival run `oak-consolidate-docs`: archive this plan and
-the subsumed damaged plan per ADR-117; update the completed-plans index; mine the
+the subsumed damaged plan per ADR-117 (ADR-200 retired the completed-plans index); mine the
 "forcing-function-for-a-no-functional-gate migration" lesson into a pattern if it
 recurs.
 

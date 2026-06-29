@@ -3,7 +3,15 @@
 Cross-cutting architecture, system quality, and observability plans.
 
 **Status**: 🔄 Active backlog (Milestone 2 and Milestone 3 work)
-**Last Updated**: 2026-04-29
+**Last Updated**: 2026-06-28
+
+---
+
+## Programmes (cross-cutting)
+
+- [generic-foundation-decomposition.programme.md](generic-foundation-decomposition.programme.md) —
+  cross-cutting index of the codegen↔runtime and Oak-specific↔general (framework↔consumer)
+  separation work; points to member plans in their home collections. Owner-ratified 2026-06-28.
 
 ---
 

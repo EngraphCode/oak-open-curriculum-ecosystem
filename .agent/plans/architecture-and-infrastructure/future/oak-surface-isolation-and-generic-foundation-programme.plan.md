@@ -1,5 +1,7 @@
 ---
 name: "Oak Surface Isolation and Generic Foundation Programme"
+programmes:
+  - generic-foundation-decomposition
 overview: "Strategic umbrella for separating Oak-specific surfaces from generic foundations across all affected workspaces, with public rename scope included."
 todos:
   - id: workspace-classification-matrix

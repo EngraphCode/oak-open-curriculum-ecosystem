@@ -8,6 +8,10 @@ All subagent responses, work, claims, sources, and general context MUST be criti
 
 I would like you to prepare for handoff to a successor please, I will name them later. Ultrathink /oak-metacognition /oak-reason /oak-consolidate-docs /oak-session-handoff  and a deep review of the context and what would be lost
 
+please carefully review your context for any information that should be preserved /oak-session-handoff /oak-consolidate-docs after that your session is over
+
+ please pass the Director seat to Merlin, then please carefully review your context for any information that should be preserved ultrathink /oak-metacognition /oak-reason /oak-session-handoff /oak-consolidate-docs after that your session is over
+
 ## Team start
 
 ultrathink /oak-start-right-team /oak-metacognition /oak-reason XXX is the Director, you are an Implementer

@@ -133,6 +133,26 @@ moment, not a defect — surface it to the owner rather than working around it.
 [ADR-131](../architecture/architectural-decisions/131-self-reinforcing-improvement-loop.md)
 (the capture → distil → graduate → enforce loop — new rules cite their ADR).
 
+## Adding a Runbook
+
+A **runbook** is a repeatable, step-by-step operational procedure (the _how_ to do a
+recurring task correctly each time), often with a verification recipe — a content kind
+per [PDR-120](../../.agent/practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md),
+not a new surface. Do **not** create a runbook directory or a parallel invocable surface.
+Route it by the skill-load-budget triage:
+
+1. **Invocable and frequent** → author it as a **skill** (the sole invocable-workflow
+   surface; see "Adding a Rule, Skill, …" above). The skill body _is_ the runbook.
+2. **Read on demand (rare trigger)** → a **reference doc** under `docs/operations/`
+   (or the relevant workspace `docs/`), e.g. the Elasticsearch ingest-lifecycle or
+   deployment runbooks.
+3. **The operational appendage of a constraint** → **embed** the steps in the
+   rule / directive it enacts (e.g. the continuity-curation runbook lives in
+   `continuity-practice.md` §Disposition).
+
+Then **add a pointer to the [Runbook Index](../operations/README.md#runbook-index)** so
+the procedure is discoverable wherever it lives. The index carries pointers, not content.
+
 ## Adding an ADR
 
 ADRs are the architectural source of truth. See the [ADR index

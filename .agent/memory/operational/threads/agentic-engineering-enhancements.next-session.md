@@ -691,9 +691,9 @@ pickup trigger; neither blocks the other.
 
 ## Statusline Session-Shape Indicators Lane (2026-06-12 → 2026-06-13) — DONE
 
-**Owning plan**: archived at
-`.agent/plans/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`
-(status: DONE; lifecycle index entry in `completed-plans.md` § Agent Tooling).
+**Owning plan**: archived (relocated per ADR-200) at
+`.agent/plans-old-archive/agent-tooling/archive/completed/statusline-session-shape-indicators.plan.md`
+(status: DONE).
 **Outcome**: all five workstreams executed by Monsoon guards Cirrus on
 `feat/statusline-enhancements` (commits `ac2901fe1` claim `role` field + singleton-cure,
 `1ac430378` resolver + `isClaimStale` + porcelain primary-root parser, `4270ea49d`

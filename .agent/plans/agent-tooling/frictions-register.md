@@ -1308,6 +1308,18 @@ below is a cross-reference index, not a second source of truth.
   comms-corpus archival path is owner-gated (preservation pause).
 - **Status**: open (partial: timeout-exit in comms-watch-hang-hardening c1).
 - **Owner direction status**: standing.
+- **Long-form analysis**:
+  [`comms-watch-drain-timeout-analysis-2026-06-29.md`](../../reports/comms-watch-drain-timeout-analysis-2026-06-29.md)
+  (Kraken spins Headland; adversarially verified, sources re-checked first-hand) —
+  confirms the per-cycle full-dir O(total) read+parse+validate against source, and
+  **corrects the cause**: a busy session's drain-deaths at ~2600 files were per-file
+  I/O contention under host load (corpus +1.28% while the exceeded deadline tripled),
+  NOT corpus size (the size→death link was FH-retracted — `kern.boottime`-confounded).
+  So cure (c) "dir-size-scaled budget" aims at the wrong variable; the lesson is keep
+  budgets SHORT + fail-fast-restart. The safe incremental-read home is
+  [`comms-watch-storage-redesign.plan.md`](current/comms-watch-storage-redesign.plan.md)
+  WS2's mtime-watermark, not a naive `created_at` cursor (the seen-set does not backstop
+  unread files → silent-miss).
 
 ### F-44 — `claims list` freshness_status ignores the live heartbeat stream (SAFETY)
 
@@ -1763,7 +1775,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: A `--since <iso>` (and/or `--until`) filter on `comms list`, or a `comms recent` alias, so an agent can read exactly the window between session-open and watcher-arm without over-/under-reading.
 - **Candidate cure**: Add `--since`/`--until` ISO filters to `comms list`; optionally a `comms recent` alias for `list --since <session-open>`.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
-- **Status**: open.
+- **Status**: ADDRESSED 2026-06-28 (PR #278, merge commit `04fc5c8d9`; feature `b820711d0` "generic no-events message for empty dir with --since"). `comms list` now accepts the `--since <iso>` filter.
 - **Owner direction status**: standing (owner 2026-06-19: "keep a clear record of all comms issues and other tooling frustrations so that we can fix them"; reinforces Pelagic `2dbd74f6`).
 
 ### F-71 — `pnpm agent-tools:*` wrapper buries the CLI's own error behind `ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL`
@@ -1785,7 +1797,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: `--active` defaults to `.agent/state/collaboration/active-claims.json` (overridable), matching how the watcher/inbox default their comms-dir from convention.
 - **Candidate cure**: Default `--active` (and the optional `--closed`) to the canonical paths; keep the flags as overrides.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-claims-commands.ts`.
-- **Status**: open.
+- **Status**: CLOSED-BY-F-85 2026-06-28 (PR #274, squash-merged `c4d2b6902`). F-85's `withResolvedActive` wrapper covers `claims active-agents` and the change added `repo-root` to its option-set, so `--active` now defaults to the coordination home — exactly F-72's expected cure (verified first-hand by the implementer). The optional `--closed` default named in the candidate cure is the `--closed`-sibling friction (O2 follow-on), captured as **F-108** and ADDRESSED 2026-06-28 (PR #285, merge commit `7d8a1db3a`; feature `64858e4f4` "default --closed to coordination home for claims close/archive-stale").
 - **Owner direction status**: standing (owner 2026-06-19, as F-70).
 
 ### F-73 — Heartbeat mode requires a claim, so pre-claim roles (successor-in-waiting / standby / scout) cannot emit a liveness heartbeat
@@ -1796,7 +1808,12 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: A pre-claim agent can emit a heartbeat with an honest no-claim lane label (e.g. `cycle=successor-in-waiting` / `standby`), without inventing a claim.
 - **Candidate cure**: Allow `--tag heartbeat` with a lane/cycle label but no claim-id when the agent has no open claim (typed state becomes `{cycle: <label>, claim: none}`); or document that pre-claim liveness uses a narrative event and the consumer-absent exemption, so the gap is intentional rather than a discoverability trap.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; `liveness-heartbeat-cron` rule.
-- **Status**: open.
+- **Status**: doc-cure met 2026-06-29 (Quoll consolidation; Director-agreed). The
+  `liveness-heartbeat-cron` §Exemptions consumer-absent bullet now documents the standby contract as
+  a worked instance of the existing PDR-078 §4 exemption — a standby holds no claim → no consumer →
+  consumer-absent → it needn't (and can't) heartbeat; the gap is **intentional**. The alternative
+  "allow pre-claim heartbeats" cure is therefore unnecessary; no code change required. Closes the
+  documentation branch of the candidate cure.
 - **Owner direction status**: standing (owner 2026-06-19, as F-70).
 
 ### F-74 — A full `pnpm build` in a fresh worktree fetches live upstream OpenAPI schema and dirties generated SDK files
@@ -1827,7 +1844,7 @@ below is a cross-reference index, not a second source of truth.
   F-44 (freshness must read the heartbeat stream to be correct) — both want `claims`/`comms` to
   treat the latest heartbeat event as the liveness source of truth.
 - **Target surface**: `agent-tools/src/collaboration-state/` comms-watch / heartbeat read path.
-- **Status**: open.
+- **Status**: ADDRESSED 2026-06-28 (PR #273 `feat(agent-tools): comms peer-liveness for heartbeat-silence detection`, squash-merged `0be09bf05`). Ships a pure `peerHeartbeatLiveness` classifier over the PDR-078 heartbeat comms-event stream (active <4m / offline 4-10m / retired ≥10m) + a standalone `comms peer-liveness` command + a documented poll/Monitor alert recipe in `liveness-heartbeat-cron.md`; real-content-proven (read a retired peer at ~28m). The standalone read-surface + poll-recipe IS the shipped alert mechanism. **NARROW** — the in-loop **push** integration (`comms watch --alert-stale-peers`) was deliberately deferred as a thin follow-on consumer of the same pure function (keeps the event-watcher free of timer/absence concerns); F-44 (freshness must read the heartbeat stream) remains the related open consumer-fix, gated on the OQ5 composed-liveness decision.
 - **Owner direction status**: standing (agent-observed tooling friction is first-class user feedback).
 
 ---
@@ -1866,7 +1883,7 @@ below is a cross-reference index, not a second source of truth.
   Moment 2 and any broadcast→broadcast threading).
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`; interacts with
   PDR-064.
-- **Status**: open.
+- **Status**: ADDRESSED 2026-06-28 (PR #279, merge commit `13ce23cca` "comms append --in-response-to"). `comms append` now accepts `--in-response-to <id>` — the broadest fix named in the candidate cure.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ### F-78 — `check-commit-message` is not an `agent-tools` subcommand; only reachable via the pnpm script
@@ -1899,7 +1916,7 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: Accept-and-ignore `--now` on read-only comms subcommands; composes with F-09
   (full help on invalid flag).
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
-- **Status**: open.
+- **Status**: ADDRESSED 2026-06-28 (PR #281, merge commit `80e1ebc85` "comms list accept-and-ignore --now"). Read-only `comms list` now accepts-and-ignores `--now`.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ### F-80 — `comms show` needs `--event-id <id>`, not a positional id, while `comms list` prints bare ids
@@ -1913,7 +1930,7 @@ below is a cross-reference index, not a second source of truth.
   or errors with "did you mean --event-id?".
 - **Candidate cure**: Accept a positional event-id on `comms show` as an alias for `--event-id`.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts`.
-- **Status**: open.
+- **Status**: ADDRESSED 2026-06-28 (PR #283, merge commit `33f7bc4a2`; feature `5a57026a2` "accept event id as positional on comms show"). `comms show <id>` now accepts a positional event-id.
 - **Owner direction status**: standing (record-all-frictions, owner 2026-06-21).
 
 ---
@@ -1965,7 +1982,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: claims resolve the same shared primary home as comms with no per-call ceremony, so a worktree-isolated agent's claims are visible to the team by default.
 - **Candidate cure**: wire `resolveCoordinationHome(cwd)` as the `--active` default (with `--repo-root`/`--active` as the explicit escape hatch), mirroring `cli-comms-send.ts` / `cli-comms-validate.ts`.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-claim-commands.ts` (+ option defaulting)
-- **Status**: open — blocking-class for the worktree-per-agent transition; workaround in use (Implementers pass an absolute `--active` to the primary checkout)
+- **Status**: ADDRESSED 2026-06-28 (PR #274 `feat(agent-tools): claims active-path defaults to coordination home`, squash-merged `c4d2b6902`). New `claim-active-path.ts` (`resolveActivePath` / `withActiveDefault` / `withResolvedActive`) wraps all 11 `claims` handlers so `--active` defaults to the coordination home (resolved via `git worktree list`), with a `--repo-root` escape hatch — cures the F-41-class claim fragmentation from worktrees. code-expert + test-expert approved first-hand; full agent-tools suite 1590 green. Also CLOSES F-72 (`active-agents` covered by the same wrapper). **NARROW** — the sibling `--closed` registry default (`claims close` / `archive-stale` / `active-agents`) is the same F-41 class, captured as **F-108** and ADDRESSED 2026-06-28 (PR #285, merge commit `7d8a1db3a`; feature `64858e4f4` "default --closed to coordination home for claims close/archive-stale").
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-86 — pnpm script wrapper echoes `$ …` command lines to stdout, unusable for a Monitor watcher
@@ -2010,7 +2027,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: interactive invocations default `--now` to the current time, with the explicit flag retained for deterministic/replay use.
 - **Candidate cure**: default `--now` to `new Date().toISOString()` at the composition edge when the flag is absent; keep it overridable. Audit the whole CLI for one consistent timestamp-defaulting policy.
 - **Target surface**: `agent-tools/src/collaboration-state/` command option defaulting (CLI-wide)
-- **Status**: open
+- **Status**: ADDRESSED 2026-06-28 (PR #276 `feat(agent-tools): claims open defaults --now to current time`, squash-merged `afcc6bbed`). New `claim-now-default.ts` seam defaults `--now` to the current ISO time when omitted on `claims open`, with the explicit flag retained for deterministic/replay use; TDD red-first (TS2307) → green, run-the-thing proof that `claims open` without `--now` stamps a valid current ISO. code-expert + test-expert + type-expert assessed first-hand (a code-expert/test-expert contradiction on F-85 test-coverage was resolved first-hand — F-85 *is* tested). **NARROW** — only `claims open` gained the default; the CLI-wide timestamp-defaulting audit remains open, and its siblings ship as the O2 tail (F-70 `comms list --since`, F-77 `comms append --in-response-to`, F-79 `comms list` accept-ignore `--now`, F-80 `comms show` positional id), each a separate entry. F-79 (`comms list` *rejects* `--now`) is the deliberate inverse and is NOT closed by this.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-90 — fresh git worktree has no `node_modules` / `agent-tools/dist`; gates and the CLI cannot run there until bring-up
@@ -2021,7 +2038,7 @@ below is a cross-reference index, not a second source of truth.
 - **Expected**: a worktree is usable for its workstream (gates + CLI) shortly after creation without a manual, undocumented bring-up dance.
 - **Candidate cure**: a documented worktree bring-up step (`pnpm install` in the worktree, and either build agent-tools there or bless running the CLI from primary); longer term, a worktree-aware launcher that primes `node_modules`/`dist` (or shares them safely) on creation. Pairs with F-87 (launch-in-worktree) and F-85 (claims `--active`).
 - **Target surface**: `worktree-per-agent-transition.plan.md` (lifecycle / bring-up) / launch tooling
-- **Status**: open — worktree-transition evidence
+- **Status**: ADDRESSED for the spawn-created path 2026-06-28 (PR #272 `feat(agent-tools): build spawned worktrees at creation (spawn-flow 1B)`, squash-merged `4b84ea702`). `agent spawn` now installs + builds the worktree at creation (build-at-spawn) — the worktree-aware-launcher priming the candidate cure named — so a spawn-created worktree is immediately usable for gates and the CLI. **NARROW** — a *manually* `git worktree add`-ed tree still needs bring-up; F-90 closes by construction as the spawn tool becomes the paved path for worktree creation (F-87 launch-in-worktree, in progress on the spawn-flow lane: 1C–1E + Phase 2). Pairs with F-91 (cwd-pinning), which remains open.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`)
 
 ### F-91 — session shell cwd resets to the primary checkout after every command (worktree commands silently run in the shared tree)
@@ -2127,7 +2144,7 @@ below is a cross-reference index, not a second source of truth.
   - **Practice-owned, host-implemented** (`principles.md` §Context Specificity Gradient): agent identity / coordination / liveness are Practice-owned capabilities; the doctrine belongs in practice-core, the implementation in `agent-tools`. Relates to the F-10 "identity as a first-class concept" theme and the `agent-state-observable` rule.
   - This cure is **larger than a CLI tweak** and should graduate to a plan (and likely an ADR/PDR for the agent-work-state model) rather than be patched in the register; the register entry **names** the decision, it does not make it.
 - **Target surface**: a redesigned agent-work-state model — candidate home `agent-tools/src/collaboration-state/` for the projection/reconcile logic + a practice-core doctrine record; `active-claims.json` and the heartbeat/watcher surfaces are the inputs to reconcile or subsume. Decision-gated, not yet built.
-- **Status**: open — decision-class (whether/how to build the unified registry). Strongly related to F-10 (identity model), F-69 (stale-state sweep — liveness reconciliation), F-95 (watcher-presence gate — same liveness signal), and the `worktree-per-agent-transition` plan. Resolves Decision Lens #4 ("would it be simpler if the system changed?") with **yes**.
+- **Status**: partially-addressed — the **derived read-view** landed 2026-06-28 (PR #286, merge commit `39526a7e1`; feature `9a4274667` "derive cross-worktree work-state view"), projecting git ground truth (worktree/branch) + watcher-mtime liveness as a single read surface rather than asking agents to author it. The **decision-class unified registry REMAINS OPEN** (whether/how to build the authoritative agent-work-state model that reconciles or retires the divergent surfaces — the register names the decision, it does not make it). Strongly related to F-10 (identity model), F-69 (stale-state sweep — liveness reconciliation), F-95 (watcher-presence gate — same liveness signal), and the `worktree-per-agent-transition` plan. Resolves Decision Lens #4 ("would it be simpler if the system changed?") with **yes**.
 - **Owner direction status**: owner-directed capture 2026-06-25 ("capture it as a friction, in great detail; we can change what/how/when we record, and build a better system from divergent surfaces").
 
 ---
@@ -2164,10 +2181,10 @@ below is a cross-reference index, not a second source of truth.
 - **Surface**: `pnpm agent-tools:collaboration-state -- comms watch` run via the host's persistent background mechanism (`Monitor` on Claude Code); the [`comms-all-channels-watcher`](../../rules/comms-all-channels-watcher.md) rule; host process cleanup on session end.
 - **Observed**: a watcher is a long-running process spawned per session and often re-armed several times. When the agent session ends — or the supervising wrapper is killed but the node grandchild is reparented (pnpm → node, SIGTERM not forwarded) — the watcher process can linger indefinitely. It consumes host resources and, because it keeps writing the F-95 heartbeat file, signals **false liveness** for an agent that has retired. Across a multi-agent day these accumulate, and disambiguating live from dead watchers (per agent) becomes manual and error-prone.
 - **Cure shipped (basic)**: wrap the canonical watcher invocation in GNU `timeout`/`gtimeout` (default 3600 s) — see the [`comms-all-channels-watcher`](../../rules/comms-all-channels-watcher.md) canonical command and the README `timeout` prerequisite. Every watcher self-terminates after a fixed period; a live agent re-arms it on the Monitor exit-notification (the `--seen-file` cursor means no events are missed, only delayed by the re-arm), while a dead agent does not — so orphans cannot outlive the timeout. Runs un-guarded if coreutils is absent (no hard break). Dogfood-verified by re-arming the watcher under the wrapper — which caught a real bug: the first cut used a `${VAR:+$VAR 3600}` prefix that **zsh does not word-split** (it tried to exec a binary literally named `timeout 3600`, exit 127); fixed to a `set -- …; [ -n "$TB" ] && set -- "$TB" 3600 "$@"; exec "$@"` argv build that is zsh-safe, portable, and graceful.
-- **Robust follow-up (the owner's "stay-alive signal" model)**: a renewable **lease** — the watcher self-terminates if an agent-renewed lease file goes stale beyond a TTL, the lease renewed automatically by a `Stop` hook so the agent's turn-completion is the stay-alive signal. This removes the basic timeout's periodic re-arm gap and ties watcher lifetime directly to agent liveness (and makes the F-95 heartbeat truthful again, since the watcher can no longer outlive its agent).
+- **Robust follow-up (the owner's "stay-alive signal" model)**: a renewable **lease** — the watcher self-terminates if an agent-renewed lease file goes stale beyond a TTL, the lease renewed automatically by a `Stop` hook so the agent's turn-completion is the stay-alive signal. This removes the basic timeout's periodic re-arm gap and ties watcher lifetime directly to agent liveness (and makes the F-95 heartbeat truthful again, since the watcher can no longer outlive its agent). **Superseded for the orphan problem by the supervisor-death cure shipped in PR #270 (see Status); retained here as the owner's original model and as a still-valid alternative if the `--supervisor-pid` mechanism ever needs a turn-completion complement.**
 - **Caveat (both cures)**: `timeout` signals only its direct child; verify the pnpm wrapper forwards SIGTERM to the node watcher, else invoke node directly under `timeout` or use process-group termination — otherwise the node grandchild can still orphan when the wrapper is signalled.
 - **Target surface**: [`comms-all-channels-watcher`](../../rules/comms-all-channels-watcher.md) (wrapped command — basic cure shipped here); `agent-tools/src/collaboration-state/cli-comms-commands.ts` (a future `--lease-file` / `--lease-ttl-ms` flag); the host hook layer (`Stop` hook lease renewal). Relates to F-95 (watcher-presence gate — same false-liveness signal) and F-99 (observer mode — same watcher lifecycle).
-- **Status**: open — basic timeout cure shipped; lease+hook follow-up pending.
+- **Status**: ADDRESSED 2026-06-28 (PR #270 `feat(agent-tools): self-exit orphaned comms watchers on supervisor death`, commit `b46089fe4`, squash-merged to `main`). `comms watch --supervisor-pid <pid>` makes the watcher self-exit within one poll cycle of the supervising agent process dying — closing the crash/SIGKILL orphan path that GNU `timeout`'s group-kill misses (clean teardown already group-kills; proven no-regression). This **supersedes the lease-on-`Stop`-hook follow-up above for the orphan problem specifically** (supervisor-death detection ties watcher lifetime to agent liveness more directly than a renewed lease). **NARROW** — NOT superseded, still open: process-group termination (the SIGTERM-forwarding caveat below) and the F-43 stale-process census remain separate concerns. Residual operational friction observed this session: the basic 3600s `timeout` and the 60s drain step-timeout still fire under multi-agent comms volume (re-arm-on-notification + `--step-timeout-ms 180000` are the interim mitigations).
 - **Owner direction status**: owner-directed (2026-06-27) — "write it up as a friction; implement the basic timeout version; add GNU `timeout` install instructions to the root README."
 
 ### F-102 — The `git push` hook substring-matches `-f` from later commands in the same compound
@@ -2211,6 +2228,96 @@ below is a cross-reference index, not a second source of truth.
   vs filesystem-id).
 - **Status**: open — captured from handoff; not root-caused.
 - **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-105 — Heartbeat loop label is frozen at arm-time, so a working agent reads as stalled
+
+- **Source**: team-tooling session 2026-06-28 (Pangolin, Avocet, Dormouse, ~Bandicoot — 3-4
+  instances); graduated by Quoll's dedicated consolidation 2026-06-29.
+- **Surface**: the `liveness-heartbeat-cron` loop (`comms append/send --tag heartbeat
+  --current-cycle-label <label>`).
+- **Observed**: the loop's `--current-cycle-label` (and `--title`) are frozen at loop-start. An
+  agent that goes heads-down on a fix after a lane transition without relabelling keeps emitting a
+  stale label (e.g. "awaiting routing") while actively working — so the Director reads it as a
+  likely-stalled/dead seat and nearly fires a rescue (it drove ≥2 receipt-checks this session).
+- **Expected**: the heartbeat's lane/cycle label reflects what the agent is actually doing, without
+  relying on the agent to remember to relabel at every transition.
+- **Candidate cure**: cheap/now — relabel-at-transition (a named step of every lane change, already
+  in the rule's loop-hygiene). Deeper (3-4 instances = strong signal) — **derive the label from the
+  live claim's current cycle, not a frozen loop arg**, so it cannot go stale while the agent is
+  active. Quasar's worked local cure: the loop reads `--current-cycle-label`/`--title` from a small
+  file the agent rewrites at each transition.
+- **Target surface**: `agent-tools/src/collaboration-state/` heartbeat composition; the
+  `liveness-heartbeat-cron` rule loop-hygiene.
+- **Status**: open. Distinct from F-44 (freshness≠liveness) and F-30 (stale syntax recovery).
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-106 — CLI help strings are a hand-maintained doc-drift surface; generate them from the spec table
+
+- **Source**: team-tooling session 2026-06-28 (Lichen F-89: hand-edited `claimsOpenHelp` to mirror
+  the option allowlist + a new default); the `--title`-in-heartbeat-mode help omissions; graduated
+  by Quoll's dedicated consolidation 2026-06-29.
+- **Surface**: `agent-tools/src/collaboration-state/cli-spec-help.ts` (~25 hand-written help
+  strings).
+- **Observed**: each command's help string must track its options + defaults + required/optional
+  shape **by hand**; the help comment even states CLI-help tests are "the behavioural contract".
+  Every option/default change risks a help string drifting from the spec (the recurring class
+  behind F-35 and the heartbeat-`--title` omissions).
+- **Expected**: help text cannot drift from the implementation because it is derived from it.
+- **Candidate cure**: generate the help string FROM the option spec + a per-option default/required
+  flag (the metacognition cure-shape: generate the doc from the implementation, don't patch the
+  copy). Consolidates the recurring help-drift instances into one structural fix.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-spec-help.ts`, the CLI spec table.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-107 — PreToolUse hook substring-blocks SAFE, non-destructive git forms
+
+- **Source**: team-tooling session 2026-06-28 (multiple agents: `git switch -c` used in place of a
+  blocked `git checkout -b`; `git restore --staged`; `git reset -- <paths>`; merge-in used in place
+  of a blocked `git push --force-with-lease`); graduated by Quoll's dedicated consolidation
+  2026-06-29. Broader sibling of F-102 (push `-f` substring) and F-103.
+- **Surface**: the `PreToolUse` policy hook (`.agent/hooks/policy.json`) substring matcher, at the
+  hook-policy CODE level (distinct from the `hook-policy-substring-discipline` rule, which governs
+  agent-authored CONTENT).
+- **Observed**: the substring matcher blocks legitimately non-destructive git operations because a
+  forbidden substring appears: `git checkout -b <new> <start>` (creates a branch on a clean tree —
+  safe; blocked by `git checkout`); `git restore --staged <path>` (index-only unstage — safe;
+  blocked by `git restore`); `git reset -- <paths>` (unstage — safe; blocked by `git reset`);
+  `git push --force-with-lease` (blocked by `git push --force`). Agents pay a re-edit each time and
+  must rediscover the safe forms.
+- **Expected**: the hook distinguishes destructive from non-destructive forms by parsing the git
+  subcommand + flags, not by substring.
+- **Candidate cure**: parse-don't-substring at the hook-policy level — allow `git switch -c`,
+  `git restore --staged` (when `--worktree`/`-W` absent), `git reset -- <paths>` (index-only),
+  `git -C <wt> -c core.editor=true rebase`; keep blocking the genuinely-destructive forms. Interim:
+  document the safe forms so agents reach for them directly (`switch -c`, `restore --staged`,
+  merge-in not force-push).
+- **Target surface**: `.agent/hooks/policy.json` matcher; the safe-form documentation.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions, event `2dbd74f6`).
+
+### F-109 — `claims close` ergonomics: non-obvious required flags + closed registry is `closed-claims.archive.json`
+
+- **Source**: Director closeout 2026-06-29 (Trawler mends Buoy, at the PDR-064 handover to Falcon
+  wakes Stratus).
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims close`.
+- **Observed**: a reasonable relinquish (`claims close --active <path> --claim-id <id> --platform
+  --model --now`) exits 2 with no actionable hint; `close` additionally requires `--closed <path>`
+  AND `--summary <text>`. The `--closed` guess `closed-claims.json` then ENOENTs — the registry is
+  actually `closed-claims.archive.json`. So the relinquish failed twice before succeeding, after the
+  closeout broadcast had already asserted "claim relinquished" (a false-statement window). (This
+  checkout's agent-tools predates F-108's "default `--closed` to coordination home", so `--closed`
+  was mandatory.)
+- **Expected**: `claims close --claim-id <id>` resolves `--active`/`--closed` from the coordination
+  home by default (as F-85/F-108 did for `--active`), derives a default summary, and on a missing
+  required flag prints the exact missing-flag fix rather than a bare exit 2.
+- **Candidate cure**: extend the F-108 coordination-home default to `claims close` (`--closed` →
+  `closed-claims.archive.json`); make `--summary` optional with a derived default; emit an
+  actionable usage line on exit 2. Same F-41/F-85 relative-path + discoverability class.
+- **Target surface**: `agent-tools/src/collaboration-state/` claims-close arg-parsing + path
+  defaulting.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions); owner-directed capture at this closeout.
 
 ---
 

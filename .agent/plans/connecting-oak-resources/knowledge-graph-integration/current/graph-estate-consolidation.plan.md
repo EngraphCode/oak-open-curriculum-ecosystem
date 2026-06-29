@@ -64,19 +64,18 @@ todos:
 >
 > **Single current-state, no re-stratification.** This plan holds exactly one
 > derived current-state section (§"Current state (verified ground truth)").
-> Session hand-offs that affect it land in the `eef` thread record and
-> `completed-plans.md`, **never as new dated "Inbound from …" sections here** — a
-> plan whose job is to de-stratify the estate must not re-grow a changelog at its
-> own head.
+> Session hand-offs that affect it land in the `eef` thread record, **never as new
+> dated "Inbound from …" sections here** — a plan whose job is to de-stratify the
+> estate must not re-grow a changelog at its own head.
 
 ## Current state (verified ground truth)
 
 Verified 2026-06-01 against code, ADRs, and git (not plan prose). This section
 is the **single derived current-state for the estate**. Session hand-offs that
 affect this plan land in the `eef` thread record (and durable outcomes in
-`completed-plans.md`), **not as new dated "Inbound from …" sections here** — that
-discipline is what stops this consolidation plan from re-growing the stratified
-narrative it exists to remove. Re-verify a fact only if a disposition turns on it.
+permanent docs — ADRs/READMEs), **not as new dated "Inbound from …" sections
+here** — that discipline is what stops this consolidation plan from re-growing the
+stratified narrative it exists to remove. Re-verify a fact only if a disposition turns on it.
 
 - **The first proper graph tool is not finished.** Its completion is the live
   execution plan
@@ -107,8 +106,9 @@ narrative it exists to remove. Re-verify a fact only if a disposition turns on i
 - **The four root graph coordination spines are quarantined**
   (`graph-portfolio-index.md`, `graph-mvp-arc.plan.md`,
   `graph-combinatorial-arc.plan.md`, `feat-mcp-graph-support-foundation-meta.md`)
-  to `archive/completed/` with one-line supersession banners; the single
-  where-did-they-go record is in `completed-plans.md`. Owner-directed quarantine,
+  to `archive/completed/` with one-line supersession banners; the where-did-they-go
+  record is this plan's §Current state and todos, and the four files (banner-marked)
+  were relocated to `.agent/plans-old-archive/` per ADR-200. Owner-directed quarantine,
   not rewrite — a rewritten-live spine would be fresh speculative contamination
   while wider graph work is undefined. **Verified:** no live
   `graph_portfolio_index:` / `spine_plan:` frontmatter pointer keys remain, and no
@@ -183,7 +183,7 @@ in one read.
 | Disposition | Files | Action |
 |---|---|---|
 | **Archive — superseded framing** | `eef/archive/graph-tooling-rebuild.plan.md` (quarantined 2026-05-30); `kg/current/graph-query-layer.plan.md` (old 7-op layer → S2); `kg/current/gate-1a-delivery-parallel-execution-addendum.plan.md`; `kg/current/2026-05-08-graph-mvp-arc-specialist-review-opener.md`; `kg/current/2026-05-08-pr102-graph-decision-complete-closeout.plan.md`; `kg/current/2026-05-11-graph-execution-prep-opener.md`; `kg/current/pr-108-sonar-live-issues-2026-05-24.md` | move to `archive/completed/` + supersession pointer + index entry |
-| **Quarantine — DONE 2026-06-01** | `graph-mvp-arc.plan.md`; `graph-portfolio-index.md`; `graph-combinatorial-arc.plan.md`; **`feat-mcp-graph-support-foundation-meta.md`** (branch-scoped navigation index; its branch merged via PR #108, retiring it) | Owner-directed quarantine — *not* rewrite: rewrite has no live target while wider graph work is undefined until the EEF tool ships, so a rewritten-live spine would be fresh speculative contamination. All four moved to `archive/completed/` with a one-line supersession banner each; one note in `completed-plans.md`; references removed from the live surviving estate and de-linked to plain text in contaminated/pending files. The deeper gate-1a/1b/Inc.3 **concept** decontamination of those contaminated files remains per their own disposition (t1–t7). See §"Current state (verified ground truth)". |
+| **Quarantine — DONE 2026-06-01** | `graph-mvp-arc.plan.md`; `graph-portfolio-index.md`; `graph-combinatorial-arc.plan.md`; **`feat-mcp-graph-support-foundation-meta.md`** (branch-scoped navigation index; its branch merged via PR #108, retiring it) | Owner-directed quarantine — *not* rewrite: rewrite has no live target while wider graph work is undefined until the EEF tool ships, so a rewritten-live spine would be fresh speculative contamination. All four moved to `archive/completed/` with a one-line supersession banner each (since relocated to `.agent/plans-old-archive/` per ADR-200); references removed from the live surviving estate and de-linked to plain text in contaminated/pending files. The deeper gate-1a/1b/Inc.3 **concept** decontamination of those contaminated files remains per their own disposition (t1–t7). See §"Current state (verified ground truth)". |
 | **Update in place — stale but live** | `eef/README.md`; `kg/README.md`; `kg/active/graph-stack.plan.md` (flip landed WS statuses, fix the active/↔current/ link mismatch, and scrub the retired increment-number + gate framing per t7 — graph-stack is the heaviest remaining carrier, and its labels must not be reused elsewhere) | edit |
 | **Archive — completed** | `kg/active/graph-resource-factory.plan.md`; `kg/active/misconception-graph-mcp-surface.plan.md`; `kg/active/graph-stack-ws1.6-vocab-prep.md` | move to `archive/completed/` |
 | **Park as `future/`, blocked-on-EEF** | `kg/active/nc-knowledge-taxonomy-surface.plan.md`; the `future/oak-kg-*` (iri-traverser, programme-navigator, schema-browser, lesson-graph-surface) + `future/oak-misconceptions-*` (cross-corpus, extended-contexts, topic-extraction) + `future/cross-source-journeys.plan.md` | mark *"undefined until the first proper graph tool is finished"*; consolidate the four misconceptions feature plans (incl. the parked bounded-sub-graph plan) into one; `oak-misconceptions-substrate-migration` folds into the Judgement-call-4 unified migration plan |
@@ -301,9 +301,10 @@ proceed independently of it.
 
 ## Mechanism / acceptance
 
-Per ADR-117 archival: mine any live outcome into permanent docs, move to
-`archive/completed/`, add a completed-plans index entry, fix all cross-refs to
-point at the archive (clean break, no stubs). Acceptance = t8: no broken links,
+Per ADR-117 archival (as amended for the ADR-200 relocation): mine any live outcome
+into permanent docs, relocate the archived plan to `.agent/plans-old-archive/` with
+an outcome/supersession banner, fix all cross-refs to point at the relocated archive
+(clean break, no stubs). Acceptance = t8: no broken links,
 READMEs accurate, every archived plan has a pointer, every parked plan states
 its block condition, markdownlint + relevant gates green.
 

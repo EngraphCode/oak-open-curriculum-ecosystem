@@ -73,8 +73,7 @@ Recently archived:
 - Active: [active/README.md](active/README.md)
 - Current: [current/README.md](current/README.md)
 - Future: [future/README.md](future/README.md)
-- Archive: [archive/completed/](archive/completed/)
-- Completed index: [../completed-plans.md](../completed-plans.md)
+- Completed/superseded: relocated to [`.agent/plans-old-archive/semantic-search/`](../../plans-old-archive/semantic-search/) (ADR-200)
 
 ## Foundation (Mandatory)
 

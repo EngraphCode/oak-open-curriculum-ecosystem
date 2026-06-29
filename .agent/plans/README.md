@@ -25,7 +25,6 @@ For the strategic overview, use [high-level-plan.md](high-level-plan.md).
 | [curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md](curriculum-mcp-path-to-ga/future/launch-readiness-and-milestone-redefinition.plan.md) | Future stub: redraft the milestone ladder impact-first and drive launch-readiness to GA (owner-promotion gated) |
 | [discovery/README.md](discovery/README.md) | Agent/web discoverability of Oak machine surfaces |
 | [milestones/](../milestones/) | Per-milestone summaries: audience, value, gates |
-| [completed-plans.md](completed-plans.md) | Completed plan index |
 | [.agent/directives/](../directives/) | Foundation documents and canonical directives |
 | [templates/README.md](templates/README.md) | Current plan templates and reusable components |
 
@@ -98,8 +97,10 @@ Use the lifecycle directory as a status contract before reading a plan body.
 `current/` is not "currently active". It means next-up executable work.
 `active/` is the only lifecycle lane for work in progress.
 Historical citations may link to `archive/completed/`; live navigation
-should point to the current owner or the completed plans index, not make an
-archived plan load-bearing again.
+should point to the current owner, not make an archived plan load-bearing
+again. (There is no manually-maintained completed-plans index — ADR-200 retired
+it; completed work is discovered via the relocated archive and the intent
+idea-graph.)
 
 ---
 

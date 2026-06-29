@@ -1,5 +1,7 @@
 ---
 name: "Practice-Core Portability — Strict Enforcement"
+programmes:
+  - generic-foundation-decomposition
 overview: >
   Add a portability scanner that fails when any file under
   .agent/practice-core/ contains repo paths, ADR references, or

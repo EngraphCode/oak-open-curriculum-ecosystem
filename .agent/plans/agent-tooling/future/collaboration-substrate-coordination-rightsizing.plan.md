@@ -241,3 +241,72 @@ verdicts** — M4 weighs them against the minimal-coordination model.
 - **Rotation is already ratified and homed** (PDR-094 + ADR-199): M4 does not
   re-derive the comms-event retention verdict — it inherits it as settled, the
   same way it inherits the routing sunset above.
+
+### Routed input from the team-tooling-session liveness-economy finding (2026-06-29)
+
+The 2026-06-28/29 team-tooling session surfaced an **aggregate-cost rationale** for the
+heartbeat + liveness + comms-watch cluster — routed as an input to M2, **reconciled
+against this plan's own M1 lean and the SC1 input above, not fresh ground.** Source:
+Gannet herds Altitude (`2f7b3c`), comms event `c1fdf095`; **corrected by an adversarial
+review** that caught real overstatements (recorded honestly below). The finding commits
+to **no build**; its claims are de-escalated to what the evidence supports.
+
+- **What is additive, and what is already leaned.** The immediate, *measured* lever is
+  already this plan's lean — fold the broadcast heartbeat (m1 §4.3 + §5 Tier-2 gate it to
+  n≥4-or-owner-absent), because heartbeats are ~70–74% of comms-event **volume** (the WS6
+  comms-corpus synthesis, carried at the 2026-06-13 routed input above — **not** §4.1,
+  which counts mechanisms). This finding does not re-open that verdict; it adds two things
+  that *sharpen* it: (i) an **aggregate-product rationale** — the per-layer inventory
+  measures each layer alone, but the binding read cost is N readers × broadcast volume;
+  and (ii) a **context-economy instrumentation target** — per-agent coordination tokens
+  against a finite (~80k) budget.
+- **Keep the scaling claim honest — forward-looking, not a wall at today's N.** At the
+  measured operating point N is architecturally bounded (~≤4; 4 concurrent Opus is itself
+  a flagged quota/fold signal, m1 §1), so the binding *measured* pain was per-file drain
+  **contention at fixed corpus** (N-independent; the drain-timeout report) — the scaling
+  **class** is moot there, constants dominate. The O(N²) concern is the **all-to-all
+  heartbeat fan-out** (N producers × N consumers) and it binds only in the **higher-density
+  regime the worktree-per-agent transition is trying to reach**. Lead with the
+  constant-reduction the evidence supports; do not anchor M2 on an asymptote today's
+  context never hits.
+- **For the dominant (liveness) cost the class-changer is the pulled register — not
+  routing.** Liveness is legitimately all-to-all *while broadcast*, so per-consumer routing
+  cannot reduce that fan-out. The lever that changes its class is a **pulled** last-seen
+  signal derived from real activity + on-demand `heartbeat_at`, queried by the few
+  consumers who need it (Director, successor) — **already this plan's M1 §5 Tier-1 / §4.3
+  event-driven-liveness lean**, with the pushed-write record in
+  [`comms-watch-liveness-floor.plan.md`](comms-watch-liveness-floor.plan.md); the open seam
+  is **pull-derive vs push-write**, not a new candidate. It is **not** a free replacement:
+  deriving liveness from bursty activity inherits freshness≠liveness (F-44) and the
+  liveness-floor S3 turn-starvation misread (idle ≠ dead), so it needs the same
+  ping-before-escalate + ground-truth cross-check — absence-of-activity is an ambiguous,
+  not a loud, signal.
+- **For the minority (directed) traffic, per-consumer DELIVERY routing — two forms, do not
+  conflate.** *Pull / consumer-filter* (`--audience` / `--exclude-tag`, consuming the
+  existing `audience` / `addressed_to` fields) still enumerate+read every file, so it does
+  **not** change read class — it relieves context economy with **no new coupling**, and its
+  substrate is **already SC1's M4 enforce-or-remove item above** (weigh it there, as one
+  decision not two). Lane-C `--exclude-tag heartbeat` is this form: valid relief, **not a
+  cowpath** (the first broadcast wrongly called it one). *Push / broker routing* (each
+  agent reads only its slice) is the only form that changes the directed-read class — **but**
+  it adds an always-on routing process: new machinery + producer→consumer coupling + a
+  single point of failure, against §Domain Boundaries' "less, not more" and the
+  text-first/portable/advisory invariants (m1 §2); and it **trades away the substrate's
+  miss-safe-by-construction property** (everyone reads everything; markSeen-after-emit
+  yields a duplicate, never a miss), so a routing-misclassification is a *silent miss with
+  no gap-sweep trigger* — distinct from, and worse than, the cursor hazard. Weigh the
+  class-win against that cost; it is not a free "best lever."
+- **Corrections (the soundest part — all reviewers confirmed).** Drain cost (the O(total)
+  per-cycle read) is **already homed** in
+  [`comms-watch-storage-redesign.plan.md`](../current/comms-watch-storage-redesign.plan.md)
+  WS2 (mtime-watermark); the
+  [drain-timeout analysis](../../../reports/comms-watch-drain-timeout-analysis-2026-06-29.md)
+  proves a naive incremental cursor is a **silent-miss hazard**, so any incremental read
+  must inherit the mtime-keyed design, not a seen-set backstop. Do **not** fold drain
+  (history-dominated, N-independent) into the fan-out term — that is the exact arithmetic
+  the report retracted.
+- **Guardrail — instrument before redesign.** The ~70–74% is a measured event-**volume**
+  share; the per-agent O(N) context bite and its **cost** share are estimates. M2's first
+  instrumentation ask is the **crossover-N**: at what N does per-agent coordinating-context
+  exceed working-context, and is that N inside the architecturally-reachable range? Until
+  shown, the context-economy framing informs but does not anchor the verdict.

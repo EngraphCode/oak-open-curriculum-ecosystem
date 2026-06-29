@@ -78,7 +78,12 @@ current session:
    and
    [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
    forbid.
-2. Every live drainable buffer in scope is empty or ready-empty.
+2. Every live drainable buffer in scope is empty or ready-empty. The
+   **open-questions register is driven to zero exactly as pending-graduations is**
+   (owner directive 2026-06-28): every entry decided — answered, withdrawn, or
+   **explicitly kept open by the user** (a USER-ONLY grant carrying a
+   `keep-open granted by user, <date>` note). An undecided "leave open" does not
+   satisfy this contract in a dedicated pass.
 3. Every split, child, adjacent, dated, or directory-partitioned buffer file is
    included in the buffer inventory. A file does not stop being a buffer
    because it is called a shard, split, window, archive candidate, backlog, or

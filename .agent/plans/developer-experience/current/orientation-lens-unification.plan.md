@@ -3,7 +3,7 @@ title: 'Orientation lens unification — one intent-discerning surface'
 type: plan
 collection: developer-experience
 lane: current
-status: 'SUPERSEDED 2026-06-27 — WS0–WS6 EXECUTED 2026-06-23 (unification landed `ca40d98ce` as `/oak-explain`); the lens is renamed to Oak: Under the Hood (`/oak-under-the-hood`) and gains an MCP pointer projection by the oak-under-the-hood reframe (`../../sdk-and-mcp-enhancements/active/oak-under-the-hood.plan.md`, ADR-202 §Amendment). Only the name is superseded; the design stands. Retained as the unification record — physical archive-move + completed-plans.md row pending (coordinated with the archive lane).'
+status: 'SUPERSEDED 2026-06-27 — WS0–WS6 EXECUTED 2026-06-23 (unification landed `ca40d98ce` as `/oak-explain`); the lens is renamed to Oak: Under the Hood (`/oak-under-the-hood`) and gains an MCP pointer projection by the oak-under-the-hood reframe (`../../sdk-and-mcp-enhancements/active/oak-under-the-hood.plan.md`, ADR-202 §Amendment). Only the name is superseded; the design stands. Retained as the unification record — physical archive-move pending (coordinated with the archive lane; ADR-200 retired the completed-plans index).'
 owning_thread: orientation-skills-family
 design_confirmed_by: owner (2026-06-22 / 2026-06-23 conversation)
 supersedes_reference: ../../../plans-old-archive/developer-experience/archive/completed/orientation-and-agentic-ai-literacy.plan.md

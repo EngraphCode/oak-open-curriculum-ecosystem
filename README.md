@@ -75,7 +75,7 @@ are set out in [What This Repo Provides](#what-this-repo-provides) below.
   lens works out whether you want a quick answer, an overview, or a guided
   hands-on walk that can set up your machine, and meets you there
 - **Developers** — continue to [Quick Start](#quick-start) below
-- **Oak teammates joining via Claude Code (or another AI coding agent)** — Quick Start as above, then [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md) for the sanctioned MCP set, and [good first issues](.agent/plans/good-first-issues.md) for what to pick up first
+- **Oak teammates joining via Claude Code (or another AI coding agent)** — Quick Start as above, then [MCP servers for contributors](docs/engineering/mcp-servers-for-contributors.md) for the sanctioned MCP set
 - **AI agents** — read the [start-right-quick workflow](.agent/skills/start-right-quick/shared/start-right.md), then [AGENT.md](.agent/directives/AGENT.md), then scan the [five foundational ADRs](docs/architecture/architectural-decisions/README.md#start-here-5-adrs-in-15-minutes) — the architectural source of truth
 
 ### Working with agents
@@ -132,7 +132,7 @@ testing, accessibility, security) ·
 provider system) ·
 [Engineering](docs/engineering/README.md) (workflow, tooling,
 extending) ·
-[Operations](docs/operations/README.md) (env vars, troubleshooting) ·
+[Operations](docs/operations/README.md) (env vars, troubleshooting, [runbook index](docs/operations/README.md#runbook-index)) ·
 [Domain](docs/domain/README.md) (curriculum data) ·
 [Docs index](docs/README.md).
 
@@ -258,7 +258,7 @@ See [environment variables guide](docs/operations/environment-variables.md) for 
 
 ### Next steps
 
-The [Architecture](#architecture) section below summarises the schema-first design and key directories. For the development process, commit conventions, and quality expectations, see [CONTRIBUTING.md](CONTRIBUTING.md). For a curated list of starter tasks, see [good first issues](.agent/plans/good-first-issues.md). Each workspace README provides area-specific setup (see links in the capability table above).
+The [Architecture](#architecture) section below summarises the schema-first design and key directories. For the development process, commit conventions, and quality expectations, see [CONTRIBUTING.md](CONTRIBUTING.md). Each workspace README provides area-specific setup (see links in the capability table above).
 
 For the shape of the curriculum data and per-key-stage variance, see the [Curriculum Guide](docs/domain/curriculum-guide.md) and [Data Variances](docs/domain/DATA-VARIANCES.md). For how MCP tools execute against the OpenAPI schema at runtime, see [openapi-pipeline.md → Schema-First Tool Invocation](docs/architecture/openapi-pipeline.md#execution-model-schema-first-tool-invocation).
 

@@ -102,6 +102,22 @@ The 80 % quantitative trigger has priority over the post-commit
 trigger: an agent at 85 % mid-cycle does not get to "push for one
 more commit"; the protocol fires.
 
+**Effectiveness-window refinement** (owner-taught calibration 2026-06-28/29;
+held as an approximate heuristic per model, not a constant). The ≥ 80 % trigger
+reads *token capacity*, which is roughly linear — but **effectiveness vs context
+consumed is non-linear, a decreasing sigmoid**, so 80 % of the bounded budget is
+far too late if read against the full context window. The trigger therefore has
+**two axes**: the hard token-capacity ceiling (≥ 80 % of bounded budget, above)
+AND an **effectiveness-window start** — handover should *start* at ~50 % of the
+full window, well before the ~65 % point where mistake-odds rise. The
+effectiveness-window start is the **primary** handover-start signal under
+rotating-cast operation; the ≥ 80 % ceiling is the hard stop. Owner calibration
+for Opus 4.8 1M: peak ~40–45 %, **start handover ~50 %**, mistake-odds rise
+~65 %, degraded (slows, makes strange decisions) ~80 %. Read the % against the
+**effectiveness** curve, not the capacity curve; measure it (transcript usage vs
+the actual window), do not confabulate it. Hold the curve as an approximate
+owner heuristic, recalibrated by observation per model — not a precise constant.
+
 ### Step 2 — Freeze work-in-progress to a structured handoff record
 
 The retiring agent writes a handoff record naming four sections:
@@ -161,6 +177,24 @@ team-cadence shape, no new event kind required) naming the
 handed-off claim and the receiving agent (if known) so the team
 sees the retirement is not abandonment. The agent then ends their
 session.
+
+### Handover timing — naming a successor starts the clock (owner-taught 2026-06-28)
+
+**Naming a successor STARTS the handover; the predecessor DRIVES it to
+completion at a timing it chooses.** Once a successor is named, the handover has
+begun, however slowly — leaving it hanging indefinitely is not an option, and a
+"warm + named successor + retained claim held open" state is **not a valid
+indefinite rest state**. The predecessor decides *when* the handover completes
+(loop-exit-criteria applies to "warm" too: "warm" needs a completion criterion,
+not "until the successor happens to show up") — **unless** the predecessor ends
+ungracefully (a crash), in which case the silent-retirement / auto-rebalance
+protocols (PDR-078) take the timing instead. The failure mode this cures: a
+predecessor that treats warm-limbo as a stable resting state and goes passive,
+leaving the *successor* to initiate the pickup unilaterally. Corollary: the
+predecessor keeps its **incoming-visibility watcher armed until the handover is
+acknowledged-complete**, not dropped at the first closeout broadcast — a
+retiring-but-not-yet-handed-over predecessor must stay able to see the live
+pickup.
 
 ### Receiving agent's pickup contract
 

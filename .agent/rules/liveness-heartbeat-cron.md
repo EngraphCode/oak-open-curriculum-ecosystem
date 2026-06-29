@@ -267,6 +267,20 @@ not a retirement signal:
   need not run at all. It re-arms the moment a consuming peer appears, the
   conductor goes async, or the cast rotates. n=2 owner-visible mode (PDR-082,
   Adopted) is the special case where chat-visibility makes the consumer absent.
+  - **Worked instance — the standby / successor-in-waiting seat.** A warm
+    standby (a named successor benched until it adopts a claim) is a direct
+    consumer-absent case, not a new exemption: it holds **no claim**, so its
+    retirement rebalances nothing, so its heartbeat has no consumer. The
+    standby-seat liveness contract is therefore **watcher + team-start
+    registration, no heartbeat cron, no claim** — its incoming-visibility
+    watcher and its registration broadcast are its liveness signal, and the
+    PDR-063 handoff handshake confirms it is live at the moment it adopts.
+    (This also matches the tooling reality that heartbeat mode requires a
+    `--claim-id` a standby does not hold — frictions-register F-73 — so the
+    two reasons converge: a standby neither needs nor can emit a heartbeat.)
+    Adopting the claim flips the seat to active and arms the heartbeat in the
+    same move. Minting a marker-claim purely to anchor a heartbeat re-creates
+    the consumer the exemption removes; do not.
 
 ## Worked Instance
 

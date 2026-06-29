@@ -38,6 +38,45 @@ debugging the system.
   (automation) vs the dev `sentry` CLI, `.sentryclirc` composition,
   per-workspace ownership
 
+## Runbook Index
+
+A **runbook** is a repeatable, step-by-step operational procedure (the _how_ to
+execute a recurring task correctly each time), often with a verification recipe —
+a recognised content kind per
+[PDR-120](../../.agent/practice-core/decision-records/PDR-120-runbooks-are-a-content-kind-not-a-surface.md).
+It is delivered through an existing surface, never a new one: a **skill** when it is
+invocable and frequent enough to earn the skill-load budget; a **reference doc** when
+read on demand; or **embedded in the rule/directive it enacts**. This index points to
+runbooks wherever they live (it carries pointers, not content).
+
+**Reference runbooks (read on demand):**
+
+- [Elasticsearch Ingest Lifecycle](./elasticsearch-ingest-lifecycle.md) — blue/green
+  serverless index update/validation/promote procedure (ADR-130).
+- [Production Debugging Runbook](./production-debugging-runbook.md) — incident-response
+  diagnostics for the MCP servers.
+- [Sentry Deployment Runbook](./sentry-deployment-runbook.md) — enable live error
+  capture and tracing, with rollback.
+- [Milestone Release Runbook](../engineering/milestone-release-runbook.md) — R0–R5
+  release-control gates, snagging protocol, go/no-go record.
+- [Release & Publishing Operator Runbook](../engineering/release-and-publishing.md) —
+  npm publish procedure for the SDK.
+- [MCP Server UAT Validation Runbook](../../apps/oak-curriculum-mcp-streamable-http/docs/manual-uat-guide.md) —
+  whole-server black-box validation before a release / after a deploy.
+- [Search CLI Ingestion Guide](../../apps/oak-search-cli/docs/INGESTION-GUIDE.md) and
+  [Ground-Truth Protocol](../../apps/oak-search-cli/docs/ground-truths/ground-truth-protocol.md) —
+  data-ingest and search-quality run procedures.
+
+**Embedded in the rule/directive/ADR they enact:** the continuity-surface curation
+runbook ([`continuity-practice.md`](../../.agent/directives/continuity-practice.md)
+§Disposition); SDK-codegen build order ([build-system.md](../engineering/build-system.md));
+the quality-gate coverage matrix
+([ADR-121](../architecture/architectural-decisions/121-quality-gate-surfaces.md)).
+
+**Delivered as skills (invocable runbooks):** `oak-gates`, `oak-commit`,
+`oak-semantic-merge`, the `oak-start-right` family — the skill is the runbook's
+invocation packaging.
+
 ## Relationship to Engineering Docs
 
 Engineering implementation workflows and build/lifecycle guidance live under

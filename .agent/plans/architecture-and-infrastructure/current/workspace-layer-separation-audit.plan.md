@@ -1,5 +1,7 @@
 ---
 name: "Workspace Layer Separation Audit"
+programmes:
+  - generic-foundation-decomposition
 overview: "Executable audit and migration-preparation plan for enforcing ADR-154: distinct architectural layers must live in distinct workspaces."
 todos:
   - id: phase-0-doctrine-and-inventory

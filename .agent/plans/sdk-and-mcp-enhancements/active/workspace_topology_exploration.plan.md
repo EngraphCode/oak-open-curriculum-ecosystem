@@ -1,5 +1,7 @@
 ---
 name: Workspace Topology Exploration
+programmes:
+  - generic-foundation-decomposition
 overview: "Define a four-tier layered architecture (primitives, infrastructure, codegen-time, runtime), deeply analyse every package down to the function level using knip and dependency-cruiser, determine optimal placement, and move code to minimise coupling and maximise architectural excellence."
 todos:
   - id: define-tier-model

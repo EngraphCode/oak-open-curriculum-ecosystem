@@ -35,6 +35,15 @@ substance at consolidation archival 2026-05-25.
 trilogy. WS1 (CLI auto-seed) landed at `75e47923` and is the load-bearing
 prerequisite for WS2 + WS3.
 
+**Related analysis**:
+[`comms-watch-drain-timeout-analysis-2026-06-29.md`](../../../reports/comms-watch-drain-timeout-analysis-2026-06-29.md)
+(Kraken spins Headland, adversarially verified) names WS2's mtime-watermark as the
+**correct, safe home** for any incremental drain-**read** change (read only files past
+the watermark): the seen-state watermark here is monotonic on FS mtime and already
+defends same-mtime ties (`last_seen_filenames`), unlike a naive `created_at` cursor
+which would silently miss out-of-order events. The drain-read change is a *follow-on*
+to WS2, not yet an executable slice — flag it here so it builds on this watermark.
+
 ---
 
 ## Context

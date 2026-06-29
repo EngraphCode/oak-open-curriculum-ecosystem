@@ -385,6 +385,12 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   drift-prone second source of truth; we decline the authored model but adopt the read-only half —
   current-architecture map, tangle detection, Context Augmentation (both add-ons are enabled for our org) —
   as an additive check; relates to ADR-040; owner-directed, Accepted 2026-06-28)
+- [ADR-209: Planning vocabulary — host instantiation](209-planning-vocabulary.md)
+  (how this repo realises the portable planning vocabulary defined in PDR-121:
+  collection/lane/plan/thread/roadmap/phase/workstream/cycle, and **programme** as a
+  `*.programme.md` index plus a `programmes:` frontmatter edge; disambiguates the
+  planning "programme" from the curriculum "programme"; mirrors PDR-121; relates to
+  ADR-117 and ADR-200; owner-directed, Accepted 2026-06-28)
 
 ## Key Architectural Decisions
 

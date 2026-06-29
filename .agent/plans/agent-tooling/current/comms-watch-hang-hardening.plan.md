@@ -142,6 +142,13 @@ From the synthesis
 ([`.agent/reports/agentic-engineering/2026-06-13-ws6-comms-corpus-synthesis.md`](../../../reports/agentic-engineering/2026-06-13-ws6-comms-corpus-synthesis.md)
 §5, §3.3).
 
+Fresh worked instance corroborating S1/S2 (2026-06-29):
+[`comms-watch-drain-timeout-analysis-2026-06-29.md`](../../../reports/comms-watch-drain-timeout-analysis-2026-06-29.md)
+(Kraken spins Headland, adversarially verified) — a busy session's drain-deaths at
+~2600 files (deadline climbed 180→600s while the corpus grew only +1.28%) are
+arithmetically per-file I/O contention, NOT corpus size, re-confirming the retracted
+size→death link and this plan's "keep budgets SHORT, not a budget raise" constraint.
+
 - **S1/S2 — watcher stall + drain-death are FH-confirmed; the size→health link is
   NOT.** The dramatic swap→0 evidence that once implied "corpus size kills the
   watcher" was **retracted** (reboot-confounded, `kern.boottime`). The evidenced
