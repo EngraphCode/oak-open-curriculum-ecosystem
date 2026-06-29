@@ -1308,6 +1308,18 @@ below is a cross-reference index, not a second source of truth.
   comms-corpus archival path is owner-gated (preservation pause).
 - **Status**: open (partial: timeout-exit in comms-watch-hang-hardening c1).
 - **Owner direction status**: standing.
+- **Long-form analysis**:
+  [`comms-watch-drain-timeout-analysis-2026-06-29.md`](../../reports/comms-watch-drain-timeout-analysis-2026-06-29.md)
+  (Kraken spins Headland; adversarially verified, sources re-checked first-hand) —
+  confirms the per-cycle full-dir O(total) read+parse+validate against source, and
+  **corrects the cause**: a busy session's drain-deaths at ~2600 files were per-file
+  I/O contention under host load (corpus +1.28% while the exceeded deadline tripled),
+  NOT corpus size (the size→death link was FH-retracted — `kern.boottime`-confounded).
+  So cure (c) "dir-size-scaled budget" aims at the wrong variable; the lesson is keep
+  budgets SHORT + fail-fast-restart. The safe incremental-read home is
+  [`comms-watch-storage-redesign.plan.md`](current/comms-watch-storage-redesign.plan.md)
+  WS2's mtime-watermark, not a naive `created_at` cursor (the seen-set does not backstop
+  unread files → silent-miss).
 
 ### F-44 — `claims list` freshness_status ignores the live heartbeat stream (SAFETY)
 
