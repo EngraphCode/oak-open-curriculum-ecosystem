@@ -2319,6 +2319,36 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions); owner-directed capture at this closeout.
 
+### F-110 — `gh` calls must route through a rate-limit-aware agent-tools command (batch + jitter + backoff)
+
+- **Source**: owner direction 2026-06-29 (Falcon deep-closeout) — "we should NOT be hitting the gh
+  rate limit." A `403 API rate limit exceeded` blocked the #290 merge mid-closeout; GraphQL budget hit
+  0/limit, core dropped to the unauthenticated 60/hr.
+- **Surface**: every direct `gh` / `gh api` / `gh api graphql` invocation across the agent estate —
+  PR-checks polling, reviewThreads queries, merge, update-branch. The 5,000/hr budget is **shared**
+  across all agents AND the Cursor/Sonar/Copilot bots.
+- **Observed**: the proximate cause this session was a `Monitor` polling `gh pr checks 290` every 30 s
+  for ~10 min (~20 calls) plus repeated `reviewThreads` GraphQL queries on #268 and #290, on top of the
+  day's PR work. No single call is wrong; there is no shared budget-governor, so independent polling
+  loops collectively exhaust the limit and every agent gets 403s with no graceful degradation.
+- **Expected**: a single agent-tools command/wrapper that all `gh` access routes through, providing:
+  (a) **request batching** (one GraphQL query for checks + reviewThreads + state instead of three REST
+  calls; batch multi-PR queries); (b) **jitter** on poll cadences so fleet calls don't align;
+  (c) **exponential backoff with respect for the `Retry-After` / `X-RateLimit-Reset` headers** (sleep to
+  reset, never hot-retry a 403); (d) **shared-budget awareness** — read `rate_limit` and back off as the
+  remaining budget falls, reserving headroom; (e) **a long-poll/event alternative to 30 s `gh pr checks`
+  loops** (the Monitor pattern should consume this, not raw `gh`).
+- **Candidate cure**: `agent-tools gh <subcommand>` (or a `gh-budget` guard lib) wrapping the calls the
+  Director/merge flows use most (`pr-status` = checks+threads+state in one GraphQL round-trip;
+  `pr-merge`; `pr-update-branch`), with the backoff/jitter/budget-reservation logic centralised and
+  tested. Replace the `pr-watch` / CI-check Monitor poll loops with it. Pairs with the existing
+  "no PR monitor covers inline comments + terminal state" friction (one budgeted poller serves both).
+- **Target surface**: `agent-tools/src/` (new `gh` budget-aware client) + the `pr-watch` command + the
+  Monitor recipes in the Director brief.
+- **Status**: open.
+- **Owner direction status**: standing (owner-directed 2026-06-29 — "batch those requests via an
+  agent-tools command with rate-limit handling, jitter, exponential backoff").
+
 ---
 
 ## Mitigated / Addressed Frictions

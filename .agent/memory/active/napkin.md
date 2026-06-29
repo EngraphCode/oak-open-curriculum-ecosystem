@@ -42,3 +42,11 @@ the 3 stale non-team claims (Starling/Ketch/Finch); the ~2186-event comms dir aw
 retention-gated archive-move pass.
 
 New session observations append below.
+
+- **gh shared rate-limit (5,000/hr) exhausted mid-closeout → #290 merge blocked ~60 min (owner-flagged
+  F-110).** Proximate cause was MY `Monitor` polling `gh pr checks 290` every 30 s (~20 calls) + repeated
+  `reviewThreads` GraphQL queries, against the budget shared with every agent + the Cursor/Sonar/Copilot
+  bots. Lesson lived: do NOT poll `gh` in a tight Monitor loop. Owner-directed cure → **F-110**
+  (rate-limit-aware agent-tools `gh` wrapper: batch one GraphQL round-trip for checks+threads+state,
+  jitter, exponential backoff honouring `X-RateLimit-Reset`, shared-budget reservation). The CI-check
+  Monitor recipe in the Director brief should consume that wrapper, not raw `gh`.
