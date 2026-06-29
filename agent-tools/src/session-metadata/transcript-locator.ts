@@ -4,7 +4,8 @@
  * @remarks
  * Claude Code stores transcripts at
  * `<home>/.claude/projects/<project-key>/<session-id>.jsonl`, where the
- * project-key is the launch directory with `/` and `.` replaced by `-`. The
+ * project-key is the launch directory with `/`, `.`, and `\` replaced by `-`
+ * (the backslash normalisation matters on Windows, where cwd is backslash-separated). The
  * path is derived from the supplied `home` and `cwd` at runtime — never a
  * machine-local literal (which the `no-machine-local-paths` hook blocks and
  * which would leak a username). Only `claude` is supported today; other vendors
@@ -34,7 +35,7 @@ export function resolveTranscriptPath(input: {
     return { ok: false, error: `unsupported vendor: ${input.vendor} (supported: claude)` };
   }
 
-  const projectKey = input.cwd.replaceAll(/[/.]/g, '-');
+  const projectKey = input.cwd.replaceAll(/[/.\\]/g, '-');
   return {
     ok: true,
     path: `${input.home}/.claude/projects/${projectKey}/${input.sessionId}.jsonl`,

@@ -28,6 +28,17 @@ describe('resolveTranscriptPath', () => {
     expect(result).toStrictEqual({ ok: true, path: '/h/.claude/projects/-a-b-c/s.jsonl' });
   });
 
+  it('replaces Windows backslashes in the cwd with hyphens', () => {
+    const result = resolveTranscriptPath({
+      vendor: 'claude',
+      home: '/h',
+      cwd: String.raw`\ws\code\oak`,
+      sessionId: 's',
+    });
+
+    expect(result).toStrictEqual({ ok: true, path: '/h/.claude/projects/-ws-code-oak/s.jsonl' });
+  });
+
   it('returns a typed error for an unsupported vendor', () => {
     const result = resolveTranscriptPath({
       vendor: 'codex',
