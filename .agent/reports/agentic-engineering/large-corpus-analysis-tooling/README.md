@@ -15,12 +15,17 @@ machinery (PDR-014 `consolidate-docs` / `consolidate-until-done`).
   NOT `args` (the harness delivers `args` as a JSON string; inline the data instead). Carries the
   post-reduce **hard-abort re-gate** (aborts before validate if the worst-case spend breaches the
   ceiling) and the actuator-grain + longitudinal map/reduce/vote prompts.
-- **`map-reduce.workflow.template.mjs`** — **checkpoint-1**: map ×N → reduce ONLY, with a
-  `__PARTITION__` placeholder. Returns `leaves` + `candidates` for commit to `data/` so no expensive
-  stage runs until checkpoint-1's output is on disk (the v2 quota-trip mitigation). Also the cheap
-  grain-probe runnable over a 3-window partition. Its map/reduce prompts are kept **byte-identical**
-  to `map-reduce-validate-meta.workflow.mjs` (the `__MAP_REDUCE_PROMPTS_*__` markers bound the block;
-  edit both files together and re-diff at launch).
+- **`map.workflow.template.mjs`** — **checkpoint-1a**: map ×N ONLY (Sonnet/low), `__PARTITION__`
+  placeholder. Returns `leaves` for commit to `data/`. mapPrompt is kept **byte-identical** to
+  `map-reduce-validate-meta.workflow.mjs` (`__MAP_PROMPT_*__` markers; edit both, re-diff at launch).
+- **`reduce.workflow.template.mjs`** — **checkpoint-1b**: reduce ONLY (Opus/high) over the committed
+  leaves (`__LEAVES__` placeholder), returns `candidates`. reducePrompt is byte-identical to the
+  straight-through workflow (`__REDUCE_PROMPT_*__` markers). **Split from map (was one combined
+  template) because the 2026-06-30 grain-probe proved reduce can fail AFTER a successful map
+  (truncation / kind-error), and the Workflow sandbox has no file-write — so only a map→commit→reduce
+  split makes reduce independently resumable without re-spending map.** The reduce prompt bounds
+  output (≤10 representative `supportingLeafIds` per candidate; `groundingCount` carries the true
+  total) and disambiguates candidate-`kind` from leaf-category — both probe-hardened.
 - **`validate-meta.workflow.template.mjs`** — **checkpoint-2**: the reusable validate+meta template
   with `__CANDIDATES_SEED__`, `__RESOLVED_IDS__` (candidate-granular resume — re-validate only the
   unresolved tail), and `__VALIDATE_TOKEN_CEILING__` placeholders, plus `MAX_CONCURRENCY` and a
@@ -34,6 +39,10 @@ machinery (PDR-014 `consolidate-docs` / `consolidate-until-done`).
 - **`data/v2-rerun-corrected-findings-2026-06-30.json`** — the full corrected findings: 50
   candidates, 45 keep / 5 kill dispositions, 182 voter outcomes, 18 recall matches, 31
   corroboration claims. The conservation source for graduating the discovered patterns.
+- **`data/probe-w08-w10-w11-{leaves,candidates}-2026-06-30.json`** — the WS1 grain-probe outputs
+  (167 leaves, 75 candidates over the 3 windows). The candidates file carries the gate verdict
+  (PASS) and the full-run count/cost calibration finding. Probe evidence, NOT validated discovery
+  (map+reduce only — no adversary/recall); survival is re-checked at the full run.
 
 ## The aggregation driver (deterministic post-run layer)
 
