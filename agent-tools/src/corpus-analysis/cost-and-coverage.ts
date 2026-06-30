@@ -71,6 +71,40 @@ export function estimatePipelineCost(input: {
   };
 }
 
+/** Tier-2 diverse-lens ensemble size (mirrors aggregation-adjudication.ts TIER_2_LENSES). */
+const TIER_2_ENSEMBLE_SIZE = 3;
+
+/**
+ * Worst-case voters the validate stage dispatches for one candidate. The adjudication state
+ * machine dispatches at most Tier 0 (1) + Tier 1 (1) + the Tier-2 ensemble (3) = 5 before a
+ * terminal disposition; a Tier-0 kill terminates on 1, so this is a conservative ceiling.
+ */
+export const MAX_VOTERS_PER_CANDIDATE = 1 + 1 + TIER_2_ENSEMBLE_SIZE;
+
+/**
+ * The POST-REDUCE cost re-gate input. Build the validate stage plan from the REAL candidate
+ * count — the number that actually drives validate spend but is unknowable until reduce runs.
+ * Re-run `estimatePipelineCost` with this stage AFTER reduce, never before: the v2 first run
+ * overran (~3.5M against a ~1.7M pre-spend estimate) precisely because validate invocations
+ * were guessed from a prior run's candidate count (~20) rather than recomputed once reduce
+ * produced its actual candidates (50). Worst-case voter count keeps the gate conservative — it
+ * over-warns rather than under-warns, which is the correct asymmetry for a spend gate.
+ */
+export function validateStagePlan(input: {
+  readonly candidateCount: number;
+  readonly tokensPerVoter: number;
+  readonly effort: Effort;
+  readonly maxVotersPerCandidate?: number;
+}): StagePlan {
+  const perCandidate = input.maxVotersPerCandidate ?? MAX_VOTERS_PER_CANDIDATE;
+  return {
+    name: 'validate',
+    invocations: input.candidateCount * perCandidate,
+    tokensPerInvocation: input.tokensPerVoter,
+    effort: input.effort,
+  };
+}
+
 export interface WindowExtraction {
   readonly window: string;
   readonly leafCount: number;

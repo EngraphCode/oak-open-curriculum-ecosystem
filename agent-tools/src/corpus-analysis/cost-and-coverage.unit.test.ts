@@ -4,6 +4,8 @@ import {
   checkMapCoverage,
   DEFAULT_EFFORT_MULTIPLIERS,
   estimatePipelineCost,
+  MAX_VOTERS_PER_CANDIDATE,
+  validateStagePlan,
   type Effort,
   type StageCost,
   type StagePlan,
@@ -55,6 +57,51 @@ describe('estimatePipelineCost', () => {
       effortMultipliers: flat,
     });
     expect(estimate.totalTokens).toBe(14 * 75_000 + 120_000 + 80_000);
+  });
+});
+
+describe('validateStagePlan (the post-reduce cost re-gate)', () => {
+  it('pins the worst-case voters per candidate: Tier 0 + Tier 1 + the Tier-2 ensemble', () => {
+    expect(MAX_VOTERS_PER_CANDIDATE).toBe(5);
+  });
+
+  it('scales validate invocations by the REAL candidate count', () => {
+    const plan = validateStagePlan({ candidateCount: 50, tokensPerVoter: 4_500, effort: 'high' });
+    expect(plan).toEqual({
+      name: 'validate',
+      invocations: 250,
+      tokensPerInvocation: 4_500,
+      effort: 'high',
+    });
+  });
+
+  it('honours an overridden max-voters-per-candidate', () => {
+    const plan = validateStagePlan({
+      candidateCount: 20,
+      tokensPerVoter: 4_500,
+      effort: 'high',
+      maxVotersPerCandidate: 4,
+    });
+    expect(plan.invocations).toBe(80);
+  });
+
+  it('would have caught the overrun: the real 50-candidate count breaches a 2M ceiling a modest run clears', () => {
+    const fixed: readonly StagePlan[] = [
+      { name: 'map', invocations: 15, tokensPerInvocation: 72_000, effort: 'low' },
+      { name: 'reduce', invocations: 1, tokensPerInvocation: 42_000, effort: 'high' },
+      { name: 'meta', invocations: 1, tokensPerInvocation: 12_000, effort: 'high' },
+    ];
+    const validate = (candidateCount: number): StagePlan =>
+      validateStagePlan({ candidateCount, tokensPerVoter: 4_500, effort: 'high' });
+
+    const modest = estimatePipelineCost({ stages: [...fixed, validate(5)], ceiling: 2_000_000 });
+    const real = estimatePipelineCost({ stages: [...fixed, validate(50)], ceiling: 2_000_000 });
+
+    // Worst-case voter accounting is conservative by design: a modest candidate count clears
+    // the ceiling, the real reduce output (50) does not — the gate fires post-reduce.
+    expect(modest.withinCeiling).toBe(true);
+    expect(real.withinCeiling).toBe(false);
+    expect(real.totalTokens).toBeGreaterThan(2_000_000);
   });
 });
 

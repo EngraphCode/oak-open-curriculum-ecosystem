@@ -1,36 +1,68 @@
 import type {
   AdversaryLens,
   AdversaryVerdict,
+  TestJudgment,
   UnadjudicatedReason,
   VoterOutcome,
 } from './judgment-schemas.js';
-import { classifyVerdict, isBorderline, type VerdictDisposition } from './aggregation-verdict.js';
+import type { VerdictDisposition } from './aggregation-verdict.js';
+import type { AdjudicationStep } from './aggregation-adjudication.js';
 
 /**
- * The deterministic adjudication state machine — the heart of "code routes, the LLM
- * judges". Given the voter outcomes gathered so far for ONE candidate, it returns either a
- * terminal disposition or the next tier to dispatch. The orchestrator's only job is to run
- * the voters this function asks for and feed every outcome of a dispatched tier back
- * before re-invoking; it makes no routing decision itself. Tiers 0 and 1 are single-voter
- * (the function reads the first outcome of each); Tier 2 is the full diverse-lens ensemble.
+ * SANDBOX MIRROR of the three in-flight routing functions —
+ * `classifyVerdict`, `isBorderline`, and `adjudicate`.
+ *
+ * The harness Workflow that runs the validate stage executes in a JS sandbox that
+ * CANNOT import repo code, yet it must make the same tier-escalation decisions in-flight
+ * (Tier 0 → Tier 1 → the Tier-2 diverse-lens ensemble). So this file is a faithful,
+ * dependency-free re-implementation of the routing core, written to be pasted verbatim
+ * (minus the `import type` line and the type annotations, which compile/strip away) into
+ * the Workflow script.
+ *
+ * `workflow-routing-mirror.conformance.test.ts` pins this mirror to the source of truth
+ * (`./aggregation-verdict.ts` + `./aggregation-adjudication.ts`): it feeds a
+ * branch-covering fixture through both and asserts identical output. Per the v2 runbook,
+ * the mirror is the one place this logic is duplicated and the conformance test is
+ * non-optional — never launch the Workflow with an unverified mirror. All NON-routing
+ * aggregation (recall, the dual gate, integrity, coverage, corroboration) runs AFTER the
+ * Workflow in the tsx driver against the real module, so only this small pure core is
+ * mirrored, and the driver re-parses every judgment with the real zod boundary parsers.
+ *
+ * Keep this file byte-faithful to the two source modules. If either changes, the
+ * conformance test goes red until this mirror is updated and re-pasted into the Workflow.
  */
 
-type CandidateDisposition = VerdictDisposition | 'held-for-review';
+const TESTS = (verdict: AdversaryVerdict): readonly TestJudgment[] => [
+  verdict.grounded,
+  verdict.baseRateHolds,
+  verdict.survivesNull,
+  verdict.notArtefact,
+];
 
-export type AdjudicationStep =
-  | {
-      readonly kind: 'terminal';
-      readonly disposition: CandidateDisposition;
-      readonly reason?: UnadjudicatedReason;
-    }
-  | {
-      readonly kind: 'dispatch';
-      readonly tier: 'tier-0' | 'tier-1' | 'tier-2';
-      readonly voterCount: number;
-      readonly lenses?: readonly AdversaryLens[];
-    };
+/** Mirror of `classifyVerdict` (aggregation-verdict.ts). */
+export function classifyVerdict(verdict: AdversaryVerdict): VerdictDisposition {
+  if (TESTS(verdict).every((test) => test.pass)) {
+    return 'keep';
+  }
+  const failsOnlyBaseRate =
+    !verdict.baseRateHolds.pass &&
+    verdict.grounded.pass &&
+    verdict.survivesNull.pass &&
+    verdict.notArtefact.pass;
+  if (failsOnlyBaseRate && verdict.importance === 'high') {
+    return 'reroute';
+  }
+  return 'kill';
+}
 
-/** The three diverse lenses of the Tier-2 ensemble — distinct so the votes are uncorrelated. */
+/** Mirror of `isBorderline` (aggregation-verdict.ts). */
+export function isBorderline(verdict: AdversaryVerdict): boolean {
+  if (classifyVerdict(verdict) !== 'keep') {
+    return false;
+  }
+  return TESTS(verdict).some((test) => test.pass && test.confidence !== 'high');
+}
+
 const TIER_2_LENSES: readonly AdversaryLens[] = [
   'correctness-grounding',
   'base-rate',
@@ -52,7 +84,7 @@ const dispatchOne = (tier: 'tier-0' | 'tier-1'): AdjudicationStep => ({
 });
 
 const terminal = (
-  disposition: CandidateDisposition,
+  disposition: VerdictDisposition | 'held-for-review',
   reason?: UnadjudicatedReason,
 ): AdjudicationStep =>
   reason === undefined
@@ -68,11 +100,6 @@ function adjudicatedVerdicts(outcomes: readonly VoterOutcome[]): readonly Advers
     .map((outcome) => outcome.verdict);
 }
 
-/**
- * Tally dispositions exhaustively. The `Record<VerdictDisposition, number>` literal is the
- * compile-time guard: add a member to `VerdictDisposition` and this object stops compiling
- * until the new case is handled here, so the quorum can never silently miscount it.
- */
 function tallyDispositions(
   dispositions: readonly VerdictDisposition[],
 ): Record<VerdictDisposition, number> {
@@ -83,17 +110,6 @@ function tallyDispositions(
   return tally;
 }
 
-/**
- * The Tier-2 quorum over the adjudicated diverse-lens voters. Order matters:
- * 1. Fewer than two adjudicated voters → held for review (`retry-cap`); an availability
- *    failure can never flip a keep.
- * 2. The adjudicated verdicts must carry DISTINCT lenses — the property that licenses a
- *    simple majority (uncorrelated votes). A missing or duplicated lens → held
- *    (`lens-collision`), never a keep, because correlated votes would carry a false keep.
- * 3. Keep iff a strict majority of keep votes; a dead tie → held (`quorum-tie`).
- * 4. Otherwise reroute iff reroute support exists and is not outweighed by outright kills;
- *    else kill.
- */
 function finaliseQuorum(verdicts: readonly AdversaryVerdict[]): AdjudicationStep {
   if (verdicts.length < 2) {
     return terminal('held-for-review', 'retry-cap');
@@ -116,7 +132,6 @@ function finaliseQuorum(verdicts: readonly AdversaryVerdict[]): AdjudicationStep
   return terminal('kill');
 }
 
-/** Decide the next step after a clean (non-borderline) Tier-0 keep, given any Tier-1 outcome. */
 function decideAfterCleanKeep(tier1: readonly VoterOutcome[]): AdjudicationStep {
   if (tier1.length === 0) {
     return dispatchOne('tier-1');
@@ -128,7 +143,6 @@ function decideAfterCleanKeep(tier1: readonly VoterOutcome[]): AdjudicationStep 
   return classifyVerdict(confirmer.verdict) === 'keep' ? terminal('keep') : dispatchTier2From(0);
 }
 
-/** Decide the next step from the Tier-0 outcome and any Tier-1 outcome (pre-ensemble). */
 function decidePreEnsemble(
   tier0Outcome: VoterOutcome,
   tier1: readonly VoterOutcome[],
@@ -138,27 +152,14 @@ function decidePreEnsemble(
   }
   const disposition = classifyVerdict(tier0Outcome.verdict);
   if (disposition === 'kill' || disposition === 'reroute' || isBorderline(tier0Outcome.verdict)) {
-    // A kill is NOT terminal on one voter — it escalates to the Tier-2 diverse-lens quorum,
-    // exactly as a reroute or a borderline keep does. Discarding a grounded candidate is the
-    // irreversible, recall-dropping error (a false keep is visible and prunable; a false kill
-    // vanishes silently), and correlated votes never license a discard — so only the
-    // diverse-lens quorum may kill. Conserve by default.
+    // A kill escalates to the Tier-2 diverse-lens quorum (never terminal on one voter); only a
+    // quorum may discard — conserve by default. Kept byte-faithful to aggregation-adjudication.ts.
     return dispatchTier2From(0);
   }
   return decideAfterCleanKeep(tier1);
 }
 
-/**
- * Tier 0: one voter — a SCREEN, never a terminal discard. A kill, a reroute (base-rate-only
- * fail at high importance), and a borderline keep all escalate to the Tier-2 diverse-lens
- * quorum: discarding a grounded candidate is the irreversible, recall-dropping error (a false
- * keep is visible and prunable; a false kill vanishes silently), so only a quorum may kill —
- * conserve by default. A clean (confident) keep escalates instead to a single Tier-1 confirmer.
- * Tier 1: one blind confirmer — both keep gives a keep; a lone dissent or an unadjudicated
- * confirmer escalates to Tier 2 (the C06 fix: one missing voter no longer strands the
- * candidate). Tier 2: finalised by `finaliseQuorum` only once the FULL ensemble has reported;
- * a partial feed dispatches the remaining voters rather than deciding early.
- */
+/** Mirror of `adjudicate` (aggregation-adjudication.ts). */
 export function adjudicate(input: {
   readonly outcomes: readonly VoterOutcome[];
 }): AdjudicationStep {

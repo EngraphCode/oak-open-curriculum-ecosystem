@@ -57,12 +57,10 @@ describe('adjudicate', () => {
     });
   });
 
-  it('kills on a single Tier-0 kill (kill is final on one)', () => {
+  it('escalates a Tier-0 kill to the Tier-2 diverse-lens quorum — never a terminal discard on one voter', () => {
     const outcomes = [adjudicated('tier-0', 'v0', verdict({ grounded: test(false) }))];
-    expect(adjudicate({ outcomes })).toEqual<AdjudicationStep>({
-      kind: 'terminal',
-      disposition: 'kill',
-    });
+    // Only a diverse-lens quorum may kill (conserve by default); a lone Tier-0 kill is a screen.
+    expect(adjudicate({ outcomes })).toMatchObject({ tier: 'tier-2', voterCount: 3 });
   });
 
   it('dispatches a Tier-1 confirmer after a clean Tier-0 keep', () => {
