@@ -8,7 +8,7 @@ export const schemaBase = {
   "openapi": "3.1.0",
   "info": {
     "title": "Oak OpenAPI",
-    "version": "0.7.0-804d3af3b236626c6add79609c9e45b2b72a29c5"
+    "version": "0.7.0-8eceb702a45a5746af6a407a7a5d377ae7ec0c83"
   },
   "servers": [
     {
@@ -39,6 +39,9 @@ export const schemaBase = {
     },
     {
       "name": "sequences"
+    },
+    {
+      "name": "programmes"
     }
   ],
   "externalDocs": {
@@ -49,7 +52,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getSequences-getSubjectSequence",
         "summary": "Sequencing information for a given sequence slug",
-        "description": "Use when you have a sequence slug and need the sequence-level summary. A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/{subject} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it.\n\nNot for: the programmes within this sequence (GET /sequences/{sequence}/programmes); the unit sequence for one programme (GET /sequences/{sequence}/programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}).\n\nExample: sequence=maths-primary or science-secondary-aqa.",
+        "description": "Use when you have a sequence slug and need the sequence-level summary. A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/{subject} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it.\n\nNot for: the programmes within this sequence (GET /subjects/{subject}/programmes); the unit sequence for one programme (GET /programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}).\n\nExample: sequence=maths-primary or science-secondary-aqa.",
         "tags": [
           "lists",
           "sequences"
@@ -66,7 +69,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The sequence slug identifier",
-              "example": "art-secondary"
+              "example": "english-secondary"
             },
             "required": true,
             "description": "The sequence slug identifier"
@@ -120,7 +123,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getSequences-getSequenceUnits",
         "summary": "Units in a curriculum sequence",
-        "description": "Use when you want every unit across a whole sequence — all programmes combined, in unit sequence order. Returns units grouped by programme (year group) in unit sequence order. If the sequence slug includes an exam board (e.g. science-secondary-aqa), units are scoped to that exam board. Secondary sequences also expose tiers, pathways, and exam subjects where applicable. Pass year as an optional filter to return only that year's units (across all KS4 factor combinations).\n\nNot for: units in a single programme (GET /sequences/{sequence}/programmes/{programme}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/{keyStage}/subject/{subject}/units); the programmes within this sequence (GET /sequences/{sequence}/programmes); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).\n\nExample: sequence=science-secondary-aqa or maths-primary.",
+        "description": "Use when you want every unit across a whole sequence — all programmes combined, in unit sequence order. Returns units grouped by programme (year group) in unit sequence order. If the sequence slug includes an exam board (e.g. science-secondary-aqa), units are scoped to that exam board. Secondary sequences also expose tiers, pathways, and exam subjects where applicable. Pass year as an optional filter to return only that year's units (across all KS4 factor combinations).\n\nNot for: units in a single programme (GET /programmes/{programme}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/{keyStage}/subject/{subject}/units); the programmes within this sequence (GET /subjects/{subject}/programmes); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).\n\nExample: sequence=science-secondary-aqa or maths-primary.",
         "tags": [
           "units",
           "sequences"
@@ -354,7 +357,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getAssets-getSequenceAssets",
         "summary": "Downloadable assets in a sequence",
-        "description": "Use when you need every downloadable asset across a whole sequence — all programmes combined. Returns assets grouped by lesson in unit sequence order, with signed download URLs, asset type, lesson title and slug, and attribution. Pass year as an optional filter. Narrow further with type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets in a single programme (GET /sequences/{sequence}/programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets).",
+        "description": "Use when you need every downloadable asset across a whole sequence — all programmes combined. Returns assets grouped by lesson in unit sequence order, with signed download URLs, asset type, lesson title and slug, and attribution. Pass year as an optional filter. Narrow further with type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets in a single programme (GET /programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets).",
         "tags": [
           "assets",
           "sequences"
@@ -454,7 +457,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getAssets-getSubjectAssets",
         "summary": "Downloadable assets by key stage and subject",
-        "description": "Use when you want every downloadable asset for a key stage + subject, without programme structure or unit sequence order, optionally scoped to a unit or asset type. Returns assets grouped by lesson, each with signed download URLs, asset type, lesson title and slug, and attribution. Pass unit to restrict to one unit and type to restrict to one asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets across a sequence (GET /sequences/{sequence}/assets); assets in one programme (GET /sequences/{sequence}/programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).",
+        "description": "Use when you want every downloadable asset for a key stage + subject, without programme structure or unit sequence order, optionally scoped to a unit or asset type. Returns assets grouped by lesson, each with signed download URLs, asset type, lesson title and slug, and attribution. Pass unit to restrict to one unit and type to restrict to one asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets across a sequence (GET /sequences/{sequence}/assets); assets in one programme (GET /programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).",
         "tags": [
           "assets"
         ],
@@ -527,7 +530,7 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
             }
           },
@@ -589,7 +592,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getAssets-getLessonAssets",
         "summary": "Downloadable assets for a lesson",
-        "description": "Use when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed download URL per asset and attribution. The 9 type values are: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video. Pass type to return only one. Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: streaming the file itself (GET /lessons/{lesson}/assets/{type}); bulk asset retrieval across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/assets), a sequence (GET /sequences/{sequence}/assets), or one programme (GET /sequences/{sequence}/programmes/{programme}/assets); lesson metadata (GET /lessons/{lesson}/summary).",
+        "description": "Use when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed download URL per asset and attribution. The 9 type values are: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video. Pass type to return only one. Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: streaming the file itself (GET /lessons/{lesson}/assets/{type}); bulk asset retrieval across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/assets), a sequence (GET /sequences/{sequence}/assets), or one programme (GET /programmes/{programme}/assets); lesson metadata (GET /lessons/{lesson}/summary).",
         "tags": [
           "assets",
           "lessons"
@@ -627,7 +630,7 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
             }
           }
@@ -639,6 +642,118 @@ export const schemaBase = {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LessonAssetsResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/programmes/{programme}/assets": {
+      "get": {
+        "operationId": "getAssets-getProgrammeAssets",
+        "summary": "Downloadable assets in a programme",
+        "description": "Use when you need every downloadable asset for a single programme (year group) within a subject. Returns assets grouped by lesson with signed download URLs, asset type, lesson title and slug, and attribution. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages. Optionally narrow by asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets across a whole sequence (GET /sequences/{sequence}/assets); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).",
+        "tags": [
+          "assets",
+          "programmes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "programme",
+            "schema": {
+              "type": "string",
+              "description": "The programme slug identifier",
+              "example": "computing-secondary-year-7"
+            },
+            "required": true,
+            "description": "The programme slug identifier"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "number",
+              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 10,
+              "type": "number",
+              "maximum": 100,
+              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "slideDeck",
+                "exitQuiz",
+                "exitQuizAnswers",
+                "starterQuiz",
+                "starterQuizAnswers",
+                "supplementaryResource",
+                "video",
+                "worksheet",
+                "worksheetAnswers"
+              ],
+              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+              "example": "slideDeck"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgrammeAssetsResponseSchema"
                 }
               }
             }
@@ -718,11 +833,11 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
             },
             "required": true,
-            "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint"
+            "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint"
           }
         ],
         "responses": {
@@ -773,7 +888,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getSubjects-getAllSubjects",
         "summary": "All subjects",
-        "description": "Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /sequences/{sequence}/programmes to enumerate them.\n\nNot for: a single subject (GET /subjects/{subject}); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); lessons or units inside a subject (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).",
+        "description": "Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /subjects/{subject}/programmes to enumerate them.\n\nNot for: a single subject (GET /subjects/{subject}); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); lessons or units inside a subject (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).",
         "tags": [
           "lists"
         ],
@@ -830,7 +945,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getSubjects-getSubject",
         "summary": "Single subject with sequences, key stages, and years",
-        "description": "Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /sequences/{sequence}/programmes to enumerate them.\n\nNot for: every subject in one call (GET /subjects); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); subject-scoped lessons or units (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).\n\nExample: subject=maths.",
+        "description": "Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /subjects/{subject}/programmes to enumerate them.\n\nNot for: every subject in one call (GET /subjects); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); subject-scoped lessons or units (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).\n\nExample: subject=maths.",
         "tags": [
           "lists"
         ],
@@ -1154,7 +1269,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getKeyStageSubjectLessons-getKeyStageSubjectLessons",
         "summary": "List lessons in a key stage and subject",
-        "description": "Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units).\n\nExample: keyStage=ks3, subject=maths, unit=perimeter-and-area.",
+        "description": "Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units).\n\nExample: keyStage=ks3, subject=maths, unit=perimeter-and-area.",
         "tags": [
           "lists",
           "lessons"
@@ -1228,7 +1343,7 @@ export const schemaBase = {
               "default": 0,
               "description": "Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.",
               "type": "number",
-              "example": 50
+              "example": 0
             }
           },
           {
@@ -1291,7 +1406,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits",
         "summary": "Units in a key stage and subject",
-        "description": "Use when you want a flat list of every unit with published lessons in a key stage + subject, without programme structure or unit sequence order. Returns units grouped by year slug; units without published lessons are omitted. Pass examBoard to restrict KS4 to one board (one of: aqa, edexcel (Edexcel A), eduqas, ocr, wjec, edexcelb (Edexcel B)); otherwise each unit lists the boards it appears in.\n\nNot for: all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); a single unit (GET /units/{unit}/summary); lessons rather than units (GET /key-stages/{keyStage}/subject/{subject}/lessons); units in a thread (GET /threads/{threadSlug}/units).",
+        "description": "Use when you want a flat list of every unit with published lessons in a key stage + subject, without programme structure or unit sequence order. Returns units grouped by year slug; units without published lessons are omitted. Pass examBoard to restrict KS4 to one board (one of: aqa, edexcel (Edexcel A), eduqas, ocr, wjec, edexcelb (Edexcel B)); otherwise each unit lists the boards it appears in.\n\nNot for: all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary); lessons rather than units (GET /key-stages/{keyStage}/subject/{subject}/lessons); units in a thread (GET /threads/{threadSlug}/units).",
         "tags": [
           "lists",
           "units"
@@ -1372,6 +1487,236 @@ export const schemaBase = {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AllKeyStageAndSubjectUnitsResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subjects/{subject}/programmes": {
+      "get": {
+        "operationId": "getAllProgrammesForSubject-getAllProgrammesForSubject",
+        "summary": "Get all programmes for a subject slug",
+        "description": "Use when you need to discover the programmes within a subject — to get a programme's slug for use with GET /programmes/{programme} or its sub-endpoints. Returns programmes grouped by key stage, each with year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).\n\nNot for: the metadata of one programme (GET /programmes/{programme}); the units, questions, or assets of one programme (GET /programmes/{programme}/units, GET /programmes/{programme}/questions, or GET /programmes/{programme}/assets); the sequence-level summary (GET /sequences/{sequence}).",
+        "tags": [
+          "programmes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "subject",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "art",
+                "citizenship",
+                "computing",
+                "cooking-nutrition",
+                "design-technology",
+                "english",
+                "french",
+                "geography",
+                "german",
+                "history",
+                "maths",
+                "music",
+                "physical-education",
+                "religious-education",
+                "rshe-pshe",
+                "science",
+                "spanish"
+              ],
+              "description": "The subject slug identifier",
+              "example": "english"
+            },
+            "required": true,
+            "description": "The subject slug identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubjectProgrammesResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/programmes/{programme}": {
+      "get": {
+        "operationId": "getAllProgrammesForSubject-getProgramme",
+        "summary": "Get a programme by slug",
+        "description": "Use when you need to get the metadata of one programme. Get programme slugs from GET /subjects/{subject}/programmes. Returns the programme's year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).\n\nNot for: the units, questions, or assets of one programme (GET /programmes/{programme}/units, GET /programmes/{programme}/questions, or GET /programmes/{programme}/assets); the sequence-level summary (GET /sequences/{sequence}); all programmes for a subject (GET /subjects/{subject}/programmes).",
+        "tags": [
+          "programmes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "programme",
+            "schema": {
+              "type": "string",
+              "description": "The programme slug identifier",
+              "example": "english-secondary-year-10-edexcel"
+            },
+            "required": true,
+            "description": "The programme slug identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgrammeResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/programmes/{programme}/units": {
+      "get": {
+        "operationId": "getAllProgrammesForSubject-getProgrammeUnits",
+        "summary": "Units in a programme",
+        "description": "Use when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get programme slugs from GET /subjects/{subject}/programmes. Returns units in unit sequence order with title, slug, and any associated factors.\n\n  Not for: every unit across the whole sequence (GET /sequences/{sequence}/units); a flat list of units for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/units); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).",
+        "tags": [
+          "programmes",
+          "units"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "programme",
+            "schema": {
+              "type": "string",
+              "description": "The programme slug identifier",
+              "example": "english-secondary-year-10-edexcel"
+            },
+            "required": true,
+            "description": "The programme slug identifier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgrammeUnitsResponseSchema"
                 }
               }
             }
@@ -1573,7 +1918,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getQuestions-getQuestionsForLessons",
         "summary": "Quiz questions for a lesson",
-        "description": "Use when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors.\n\nNot for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /sequences/{sequence}/programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).",
+        "description": "Use when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors.\n\nNot for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).",
         "tags": [
           "lessons",
           "questions"
@@ -1655,7 +2000,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getQuestions-getQuestionsForSequence",
         "summary": "Quiz questions across a sequence",
-        "description": "Use when you want every quiz question across a whole sequence — all programmes combined. Returns questions grouped by lesson in unit sequence order. Pass year as an optional filter to return only that year's questions. Supports offset and limit; Link: rel=\"next\" header signals more pages.\n\nNot for: questions in a single programme (GET /sequences/{sequence}/programmes/{programme}/questions); a single lesson's quiz (GET /lessons/{lesson}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).",
+        "description": "Use when you want every quiz question across a whole sequence — all programmes combined. Returns questions grouped by lesson in unit sequence order. Pass year as an optional filter to return only that year's questions. Supports offset and limit; Link: rel=\"next\" header signals more pages.\n\nNot for: questions in a single programme (GET /programmes/{programme}/questions); a single lesson's quiz (GET /lessons/{lesson}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).",
         "tags": [
           "questions",
           "sequences"
@@ -1693,7 +2038,7 @@ export const schemaBase = {
               "default": 0,
               "type": "number",
               "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-              "example": 50
+              "example": 0
             }
           },
           {
@@ -1767,7 +2112,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getQuestions-getQuestionsForKeyStageAndSubject",
         "summary": "Quiz questions by key stage and subject",
-        "description": "Use when you want every quiz question for a key stage + subject, without programme structure or unit sequence order. Returns lessons each with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: a single lesson's quiz (GET /lessons/{lesson}/quiz); questions across a sequence (GET /sequences/{sequence}/questions); questions in one programme (GET /sequences/{sequence}/programmes/{programme}/questions).",
+        "description": "Use when you want every quiz question for a key stage + subject, without programme structure or unit sequence order. Returns lessons each with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: a single lesson's quiz (GET /lessons/{lesson}/quiz); questions across a sequence (GET /sequences/{sequence}/questions); questions in one programme (GET /programmes/{programme}/questions).",
         "tags": [
           "questions"
         ],
@@ -1831,7 +2176,7 @@ export const schemaBase = {
               "default": 0,
               "type": "number",
               "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-              "example": 50
+              "example": 0
             }
           },
           {
@@ -1864,6 +2209,109 @@ export const schemaBase = {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/QuestionsForKeyStageAndSubjectResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "API token not provided or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/programmes/{programme}/questions": {
+      "get": {
+        "operationId": "getQuestions-getQuestionsForProgramme",
+        "summary": "Quiz questions in a programme",
+        "description": "Use when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjects/{subject}/programmes. Returns questions grouped by lesson with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: questions in a single lesson (GET /lessons/{lesson}/quiz); questions across a whole sequence (GET /sequences/{sequence}/questions); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).",
+        "tags": [
+          "questions",
+          "programmes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "programme",
+            "schema": {
+              "type": "string",
+              "description": "The programme slug identifier",
+              "example": "computing-secondary-year-7"
+            },
+            "required": true,
+            "description": "The programme slug identifier"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "number",
+              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 10,
+              "type": "number",
+              "maximum": 100,
+              "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "images"
+              ],
+              "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionsForProgrammeResponseSchema"
                 }
               }
             }
@@ -2098,7 +2546,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getUnits-getUnit",
         "summary": "Unit summary by slug",
-        "description": "Use when you have a unit slug and need the unit summary: title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements, and the lessons inside. Unit variant slugs (ending in -1, -2, etc.) resolve to that specific variant.\n\nNot for: listing every unit in a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/units); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); units in a thread (GET /threads/{threadSlug}/units); lessons inside the unit (GET /key-stages/{keyStage}/subject/{subject}/lessons with unit={unit}).",
+        "description": "Use when you have a unit slug and need the unit summary: title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements, and the lessons inside. Unit variant slugs (ending in -1, -2, etc.) resolve to that specific variant.\n\nNot for: listing every unit in a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/units); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); units in a thread (GET /threads/{threadSlug}/units); lessons inside the unit (GET /key-stages/{keyStage}/subject/{subject}/lessons with unit={unit}).",
         "tags": [
           "units"
         ],
@@ -2276,7 +2724,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getThreads-getThreadUnits",
         "summary": "Units in a thread",
-        "description": "Use when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder.\n\nNot for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); a single unit (GET /units/{unit}/summary).\n\nExample: 'threadSlug=number-and-place-value'.",
+        "description": "Use when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder.\n\nNot for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary).\n\nExample: 'threadSlug=number-and-place-value'.",
         "tags": [
           "lists"
         ],
@@ -4058,7 +4506,7 @@ export const schemaBase = {
                       "worksheet",
                       "worksheetAnswers"
                     ],
-                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                     "example": "slideDeck"
                   },
                   "label": {
@@ -4155,7 +4603,7 @@ export const schemaBase = {
                       "worksheet",
                       "worksheetAnswers"
                     ],
-                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                     "example": "slideDeck"
                   },
                   "label": {
@@ -4248,7 +4696,7 @@ export const schemaBase = {
                     "worksheet",
                     "worksheetAnswers"
                   ],
-                  "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+                  "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                   "example": "slideDeck"
                 },
                 "label": {
@@ -4297,6 +4745,98 @@ export const schemaBase = {
             }
           ]
         }
+      },
+      "ProgrammeAssetsResponseSchema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "lessonSlug": {
+              "type": "string",
+              "description": "The unique slug identifier for the lesson"
+            },
+            "lessonTitle": {
+              "type": "string",
+              "description": "The title for the lesson"
+            },
+            "attribution": {
+              "description": "Licence information for any third-party content contained in the lessons' downloadable resources",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "assets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "slideDeck",
+                      "exitQuiz",
+                      "exitQuizAnswers",
+                      "starterQuiz",
+                      "starterQuizAnswers",
+                      "supplementaryResource",
+                      "video",
+                      "worksheet",
+                      "worksheetAnswers"
+                    ],
+                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+                    "example": "slideDeck"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "The label for the asset"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "The download endpoint for the asset."
+                  }
+                },
+                "required": [
+                  "type",
+                  "label",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              "description": "List of assets"
+            },
+            "oakUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.",
+              "example": "https://www.thenational.academy/teachers/lessons/example-lesson"
+            }
+          },
+          "required": [
+            "lessonSlug",
+            "lessonTitle",
+            "assets"
+          ],
+          "additionalProperties": false
+        },
+        "example": [
+          {
+            "lessonSlug": "variables-and-data-types",
+            "lessonTitle": "Variables and data types",
+            "assets": [
+              {
+                "label": "Worksheet",
+                "type": "worksheet",
+                "url": "https://open-api.thenational.academy/api/v0/lessons/variables-and-data-types/assets/worksheet"
+              },
+              {
+                "label": "Slide Deck",
+                "type": "slideDeck",
+                "url": "https://open-api.thenational.academy/api/v0/lessons/variables-and-data-types/assets/slideDeck"
+              }
+            ]
+          }
+        ]
       },
       "LessonAssetResponseSchema": {
         "example": {}
@@ -4977,6 +5517,198 @@ export const schemaBase = {
             ],
             "yearSlug": "year-3",
             "yearTitle": "Year 3"
+          }
+        ]
+      },
+      "SubjectProgrammesResponseSchema": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "example": [
+          "english-secondary-year-7",
+          "english-secondary-year-8",
+          "english-secondary-year-9",
+          "english-secondary-year-10-aqa",
+          "english-secondary-year-10-edexcel",
+          "english-secondary-year-10-eduqas",
+          "english-secondary-year-11-aqa",
+          "english-secondary-year-11-edexcel",
+          "english-secondary-year-11-eduqas"
+        ]
+      },
+      "ProgrammeResponseSchema": {
+        "type": "object",
+        "properties": {
+          "examboardSlug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "examboardTitle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "keystageSlug": {
+            "type": "string"
+          },
+          "keystageTitle": {
+            "type": "string"
+          },
+          "pathwaySlug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pathwayTitle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "phaseSlug": {
+            "type": "string"
+          },
+          "phaseTitle": {
+            "type": "string"
+          },
+          "subjectSlug": {
+            "type": "string"
+          },
+          "subjectTitle": {
+            "type": "string"
+          },
+          "tierSlug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tierTitle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "yearSlug": {
+            "type": "string"
+          },
+          "yearTitle": {
+            "type": "string"
+          },
+          "oakUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.",
+            "example": "https://www.thenational.academy/teachers/lessons/example-lesson"
+          }
+        },
+        "required": [
+          "examboardSlug",
+          "examboardTitle",
+          "keystageSlug",
+          "keystageTitle",
+          "pathwaySlug",
+          "pathwayTitle",
+          "phaseSlug",
+          "phaseTitle",
+          "subjectSlug",
+          "subjectTitle",
+          "tierSlug",
+          "tierTitle",
+          "yearSlug",
+          "yearTitle"
+        ],
+        "additionalProperties": false,
+        "example": {
+          "examboardSlug": "aqa",
+          "examboardTitle": "AQA",
+          "keystageSlug": "ks4",
+          "keystageTitle": "Key Stage 4",
+          "pathwaySlug": null,
+          "pathwayTitle": null,
+          "phaseSlug": "secondary",
+          "phaseTitle": "Secondary",
+          "subjectSlug": "computing",
+          "subjectTitle": "Computing",
+          "tierSlug": null,
+          "tierTitle": null,
+          "yearSlug": "year-10",
+          "yearTitle": "Year 10"
+        }
+      },
+      "ProgrammeUnitsResponseSchema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "unitSlug": {
+              "type": "string",
+              "description": "The unit slug identifier",
+              "example": "variables-and-data-types"
+            },
+            "unitTitle": {
+              "type": "string",
+              "description": "The unit title",
+              "example": "Variables and data types"
+            },
+            "unitOrder": {
+              "type": "number",
+              "description": "The unit order within the programme",
+              "example": 1
+            },
+            "oakUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.",
+              "example": "https://www.thenational.academy/teachers/lessons/example-lesson"
+            }
+          },
+          "required": [
+            "unitSlug",
+            "unitTitle",
+            "unitOrder"
+          ],
+          "additionalProperties": false
+        },
+        "example": [
+          {
+            "unitSlug": "variables-and-data-types",
+            "unitTitle": "Variables and data types",
+            "unitOrder": 1
+          },
+          {
+            "unitSlug": "algorithms",
+            "unitTitle": "Algorithms",
+            "unitOrder": 2
           }
         ]
       },
@@ -7708,6 +8440,890 @@ export const schemaBase = {
                       "type": "text",
                       "content": "0.72"
                     }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "QuestionsForProgrammeResponseSchema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "lessonSlug": {
+              "type": "string",
+              "description": "The lesson slug identifier"
+            },
+            "lessonTitle": {
+              "type": "string",
+              "description": "The title of the lesson"
+            },
+            "starterQuiz": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "multiple-choice"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                },
+                                "distractor": {
+                                  "type": "boolean",
+                                  "description": "Whether the multiple choice question response is the correct answer (false) or is a distractor (true)"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content",
+                                "distractor"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "image"
+                                },
+                                "content": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "width": {
+                                      "type": "number"
+                                    },
+                                    "height": {
+                                      "type": "number"
+                                    },
+                                    "alt": {
+                                      "type": "string"
+                                    },
+                                    "text": {
+                                      "type": "string",
+                                      "description": "Supplementary text for the image, if any"
+                                    },
+                                    "attribution": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "url",
+                                    "width",
+                                    "height"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "distractor": {
+                                  "type": "boolean",
+                                  "description": "Whether the multiple choice question response is the correct answer (false) or is a distractor (true)"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content",
+                                "distractor"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Multiple choice answer allows for one or more than one answer to be correct as defined by the distractor field being set to false"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "short-answer"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "const": "text",
+                              "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                            },
+                            "content": {
+                              "type": "string",
+                              "description": "Quiz question answer"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "content"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Short answers allow students to enter a free text answer, and the answers array contains a list of acceptable answers"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "match"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "matchOption": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content"
+                              ],
+                              "additionalProperties": false,
+                              "description": "Matching options (LHS)"
+                            },
+                            "correctChoice": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content"
+                              ],
+                              "additionalProperties": false,
+                              "description": "Matching options (RHS), indicating the correct choice"
+                            }
+                          },
+                          "required": [
+                            "matchOption",
+                            "correctChoice"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "The student is offered a list from the `match_option` field in the answers array, and must correctly match them to the `correct_choice` value"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "order"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "allOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "order": {
+                                  "type": "number",
+                                  "description": "Indicates the correct ordering of the response"
+                                }
+                              },
+                              "required": [
+                                "order"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "The student is offered a list of items to order, and must correctly order them according to the `order` field. When presenting the answer options to the student, you should randomise the order of the items"
+                  }
+                ],
+                "type": "object"
+              },
+              "description": "The starter quiz questions - which test prior knowledge"
+            },
+            "exitQuiz": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "multiple-choice"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                },
+                                "distractor": {
+                                  "type": "boolean",
+                                  "description": "Whether the multiple choice question response is the correct answer (false) or is a distractor (true)"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content",
+                                "distractor"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "image"
+                                },
+                                "content": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "width": {
+                                      "type": "number"
+                                    },
+                                    "height": {
+                                      "type": "number"
+                                    },
+                                    "alt": {
+                                      "type": "string"
+                                    },
+                                    "text": {
+                                      "type": "string",
+                                      "description": "Supplementary text for the image, if any"
+                                    },
+                                    "attribution": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "url",
+                                    "width",
+                                    "height"
+                                  ],
+                                  "additionalProperties": false
+                                },
+                                "distractor": {
+                                  "type": "boolean",
+                                  "description": "Whether the multiple choice question response is the correct answer (false) or is a distractor (true)"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content",
+                                "distractor"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ],
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Multiple choice answer allows for one or more than one answer to be correct as defined by the distractor field being set to false"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "short-answer"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "const": "text",
+                              "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                            },
+                            "content": {
+                              "type": "string",
+                              "description": "Quiz question answer"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "content"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Short answers allow students to enter a free text answer, and the answers array contains a list of acceptable answers"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "match"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "matchOption": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content"
+                              ],
+                              "additionalProperties": false,
+                              "description": "Matching options (LHS)"
+                            },
+                            "correctChoice": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content"
+                              ],
+                              "additionalProperties": false,
+                              "description": "Matching options (RHS), indicating the correct choice"
+                            }
+                          },
+                          "required": [
+                            "matchOption",
+                            "correctChoice"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "The student is offered a list from the `match_option` field in the answers array, and must correctly match them to the `correct_choice` value"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "question": {
+                        "type": "string",
+                        "description": "The question text"
+                      },
+                      "questionType": {
+                        "type": "string",
+                        "const": "order"
+                      },
+                      "questionImage": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "number"
+                          },
+                          "height": {
+                            "type": "number"
+                          },
+                          "alt": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string",
+                            "description": "Supplementary text for the image, if any"
+                          },
+                          "attribution": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "width",
+                          "height"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "answers": {
+                        "type": "array",
+                        "items": {
+                          "allOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "order": {
+                                  "type": "number",
+                                  "description": "Indicates the correct ordering of the response"
+                                }
+                              },
+                              "required": [
+                                "order"
+                              ],
+                              "additionalProperties": false
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string",
+                                  "const": "text",
+                                  "description": "The format of the quiz answer \nNote: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available."
+                                },
+                                "content": {
+                                  "type": "string",
+                                  "description": "Quiz question answer"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "content"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "question",
+                      "questionType",
+                      "answers"
+                    ],
+                    "additionalProperties": false,
+                    "description": "The student is offered a list of items to order, and must correctly order them according to the `order` field. When presenting the answer options to the student, you should randomise the order of the items"
+                  }
+                ],
+                "type": "object"
+              },
+              "description": "The exit quiz questions - which test on the knowledge learned in the lesson"
+            },
+            "oakUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.",
+              "example": "https://www.thenational.academy/teachers/lessons/example-lesson"
+            }
+          },
+          "required": [
+            "lessonSlug",
+            "lessonTitle",
+            "starterQuiz",
+            "exitQuiz"
+          ],
+          "additionalProperties": false
+        },
+        "example": [
+          {
+            "lessonTitle": "3D shapes can be composed from 2D nets",
+            "lessonSlug": "3d-shapes-can-be-composed-from-2d-nets",
+            "starterQuiz": [
+              {
+                "question": "Select all of the names of shapes that are polygons.",
+                "questionType": "multiple-choice",
+                "answers": [
+                  {
+                    "type": "text",
+                    "content": "Cube",
+                    "distractor": true
+                  },
+                  {
+                    "type": "text",
+                    "content": "Square",
+                    "distractor": false
+                  },
+                  {
+                    "type": "text",
+                    "content": "Triangle",
+                    "distractor": false
+                  }
+                ]
+              }
+            ],
+            "exitQuiz": [
+              {
+                "question": "What is a net?",
+                "questionType": "multiple-choice",
+                "answers": [
+                  {
+                    "type": "text",
+                    "content": "A 2D shape that folds into a 3D shape.",
+                    "distractor": false
+                  },
+                  {
+                    "type": "text",
+                    "content": "A type of cube.",
+                    "distractor": true
                   }
                 ]
               }
