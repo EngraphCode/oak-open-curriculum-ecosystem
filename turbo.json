@@ -103,6 +103,29 @@
         "!src/**/*.spec.ts"
       ]
     },
+    "@oaknational/oak-curriculum-hub#build": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [".next/**", "!.next/cache/**"],
+      "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
+    },
+    "@oaknational/oak-curriculum-hub#type-check": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
+    },
+    "@oaknational/oak-curriculum-hub#lint": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.next/**",
+        "$TURBO_ROOT$/eslint.config.ts",
+        "$TURBO_ROOT$/tsconfig.base.json"
+      ]
+    },
     "@oaknational/oak-design-tokens#build": {
       "dependsOn": ["^build"],
       "cache": true,

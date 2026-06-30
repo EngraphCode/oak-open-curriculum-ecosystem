@@ -52,6 +52,7 @@
     "**/test-results/**",
     "**/test-artifacts/**",
     ".stryker-tmp/**",
+    "demos/**",
   ],
   "gitignore": false,
 }

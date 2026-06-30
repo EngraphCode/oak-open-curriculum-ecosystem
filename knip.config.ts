@@ -35,6 +35,13 @@ const config: KnipConfig = {
     'apps/oak-curriculum-mcp-streamable-http/src/server.ts': ['duplicates'],
   },
 
+  // `demos/` is a deliberately-temporary prototype zone (see the demo's
+  // README). Demos are registered as workspaces so their `workspace:*` deps
+  // resolve and they can build/type-check/lint, but they are exempt from the
+  // repo-wide unused-code gate — a prototype is expected to carry scaffold the
+  // full app would not.
+  ignoreWorkspaces: ['demos/curriculum-hub-hw/oak-curriculum-hub'],
+
   eslint: true,
   vitest: true,
   typescript: true,

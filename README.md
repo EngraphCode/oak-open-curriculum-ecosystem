@@ -444,6 +444,7 @@ details, citations, and licence terms for each source.
 - **[Education Endowment Foundation](https://educationendowmentfoundation.org.uk/)** — Teaching and Learning Toolkit data. Citation: Higgins, S., Katsipataki, M., Kokotsaki, D., Coleman, R., Major, L.E., & Coe, R. _Teaching and Learning Toolkit_. Education Endowment Foundation.
 - **Mark Hodierne** — [Oak Curriculum Ontology](https://github.com/oaknational/oak-curriculum-ontology), primary author
 - **John Roberts** — EEF MCP server prototype
+- **Heather W** — Oak Curriculum Hub demo web UI (`demos/curriculum-hub-hw`)
 
 ## Contributing
 

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Oak National Academy — design tokens as Tailwind v4 theme.
+   Values mirror the Oak web design system (oak-components): the
+   signature lemon offset shadow, pastel decorative families, thick
+   black borders, and the Lexend type scale. Lexend itself is loaded
+   via next/font/google in layout.tsx and exposed as --font-lexend.
+   ============================================================ */
+@theme {
+  /* Neutrals + brand */
+  --color-oak-black: #222222;
+  --color-oak-grey: #575757;
+  --color-oak-grey-line: #e0ded6;
+  --color-oak-cream: #f4f3ef;
+  --color-oak-green: #287c34;
+  --color-oak-navy: #0d24c4;
+  --color-oak-navy-hover: #0a1d9d;
+
+  /* Signature accent */
+  --color-oak-lemon: #ffe555;
+  --color-oak-lemon-subdued: #fff7cc;
+  --color-oak-notice: #fffdf0;
+
+  /* Decorative pastel families */
+  --color-oak-mint: #bef2bd;
+  --color-oak-mint-subdued: #dff9de;
+  --color-oak-aqua: #b0e2de;
+  --color-oak-lavender: #a0b6f2;
+  --color-oak-lavender-subdued: #e3e9fb;
+  --color-oak-pink: #deb7d5;
+  --color-oak-pink-subdued: #f5e9f2;
+  --color-oak-amber: #ff934e;
+
+  /* Functional */
+  --color-oak-red: #dd0035;
+
+  /* Type — Lexend (next/font sets --font-lexend on <html>) */
+  --font-sans: var(--font-lexend), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Radii (Oak scale) */
+  --radius-oak-s: 4px;
+  --radius-oak-m: 6px;
+  --radius-oak-m2: 8px;
+  --radius-oak-l: 16px;
+
+  /* Signature offset shadows */
+  --shadow-oak-lemon: 2px 2px 0 #ffe555;
+  --shadow-oak-wide-lemon: 4px 4px 0 #ffe555;
+  --shadow-oak-grey: 2px 2px 0 #222222;
+}
+
+/* ============================================================
+   Base resets + Oak defaults
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-oak-black);
+  background: var(--color-oak-cream);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-oak-lemon);
+}
+
+/* Visible keyboard focus — Oak navy, AA-contrast on every surface used here. */
+:focus-visible {
+  outline: 3px solid var(--color-oak-navy);
+  outline-offset: 2px;
+  border-radius: 3px;
+}

@@ -274,3 +274,9 @@ packages/sdks/oak-sdk-codegen/code-generation/utils/ingest-pipeline.md
 # Personal onboarding walkthrough state (individual-scoped, never shared;
 # one checkout = one individual — see .agent/skills/under-the-hood/SKILL-CANONICAL.md)
 .agent/state/onboarding/
+
+# Oak Design System reference, pulled from claude.ai/design for local design
+# reference only. Kept OUT of version control pending a licensing review — Oak
+# trademarks/logos and the bundled brand toolkit are not openly licensed.
+# See demos/curriculum-hub-hw/oak-design-system/README in that folder.
+demos/curriculum-hub-hw/oak-design-system/
