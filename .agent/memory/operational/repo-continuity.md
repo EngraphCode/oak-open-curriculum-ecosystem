@@ -84,8 +84,7 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — v2 rerun RAN; verdict REFINE; design corrected; v3 + conservation next
-  (2026-06-30, Laurel turns Stamen).** v2 ran end-to-end (15 windows, 682 leaves, 50 candidates, 45
+- **Large-corpus analysis — discovery-run plan READY; run WS1 next (2026-06-30, Linnet binds Leeward).** v2 ran end-to-end (15 windows, 682 leaves, 50 candidates, 45
   keep / 5 kill), all aggregation deterministic. **Choice B fails the fidelity leg: strict
   within-remit 0.50 (<0.60), lenient 0.90 — REFINE.** Residual gap is EXTRACTION ALTITUDE (mechanism
   blurred into theme), not measurement (aggregation proven correct, recompute-validated). Landed
@@ -97,10 +96,15 @@ forward-asks remain.
   tooling + full findings:
   [`reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md`](../../reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md)
   and [`.../large-corpus-analysis-tooling/`](../../reports/agentic-engineering/large-corpus-analysis-tooling/).
-  **Next (owner-scoped, next session this thread):** v3 extraction-grain redesign + re-run from the
-  conserved tooling; graduate the 13 un-homed patterns via `consolidate-until-done`; author the
-  conserve-by-default firing rule; promote the tooling to a skill. Full pickup: the
-  `agentic-engineering-enhancements` thread record §NEXT-SESSION PICKUP.
+  **Re-rooted discovery-first this session** (owner-directed): the napkins are the real, only corpus;
+  the END is genuine discovery (mechanisms + longitudinal patterns), conserved; recall is the **tuning
+  instrument**, not the milestone. Live plan
+  [`napkin-corpus-discovery-run.plan.md`](../../plans/agentic-engineering-enhancements/current/napkin-corpus-discovery-run.plan.md)
+  (READY; supersedes v3); sibling
+  [`corpus-analysis-conservation.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-conservation.plan.md)
+  (13 patterns + conserve-by-default rule + tooling promotion). **Next: run WS1** (prompts +
+  orchestration hardening + ~1.2M probe); the **~13M full run is owner-gated** on the probe. Commits
+  `9a4d59d06`→`bfdd51358` (ahead 4, NOT pushed). Full pickup: the AEE thread record §NEXT-SESSION PICKUP.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -154,7 +158,7 @@ each thread record; this table is the repo-level index.
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Linnet binds Leeward / v3+conservation planning → discovery-first re-root + discovery-run plan (supersedes v3) / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Laurel turns Stamen / v2 rerun REFINE + PDR-122 / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |

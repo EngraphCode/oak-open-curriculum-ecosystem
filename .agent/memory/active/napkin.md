@@ -374,3 +374,161 @@ operational lessons reached no other durable home:
   vitest) to stay clear of the undesigned agent-tools CLI/gate surface (Callisto's handoff: "agent-tools
   has no architectural direction; owner taking it fresh"). It will need to conform to the forthcoming
   agent-tools architecture (Limpet herds Atoll's lane) — a cross-lane dependency.
+
+## 2026-06-30 — agent-naming v3 deep-dive + substrate cross-link (Tuna stirs Fathom, 9767ba)
+
+Analysis + insight-conservation session, no source touched. Deep-dived
+`agent-naming-schema-v3.plan.md`; conserved the connections into the plan, the
+`agent-naming` thread record (standing decision #5), the substrate plan, and
+repo-continuity.
+
+- **A local cure can be a system-substrate instance in disguise — make the
+  connection explicit before building.** v3's *derive-don't-cache* (seed+era
+  reproduce the name, so never store the rendered string) is a local
+  rediscovery of the 2026-06-28 knowledge-distribution-substrate's `render`
+  verb. The v3 plan (2026-06-13) predates that direction by 15 days and adds a
+  *second* identity env var (`OAK_AGENT_NAMING_SCHEMA_ID`); the substrate-native
+  cure stamps identity once in an append-only event and renders it. Cross-linked
+  both ways so the env var is named reconciliation-debt, not a later surprise.
+  This is the supersession check (owner memory `check-supersession-of-stale-artefacts-first`)
+  firing on a queued plan that predates a major direction shift — and
+  `design-from-the-substrate-not-the-instance` applied to a small fix.
+- **GAP found by reading the substrate plan first-hand: agent-identity/naming
+  was MISSING from its "Flows that re-home" table** (it had comms/memory/claims/
+  work-state/commit-queue/spawn-brief/roster). Identity is arguably the
+  substrate's *keying* layer, not just another flow. Added the row. (Reading the
+  artefact, not trusting the survey, also caught and retracted my own false
+  claim that identity was under-specified there — the two-layer identity model
+  already covers it.)
+- **clash-rate ≠ live-window distinguishability** (owner confirmed the latter is
+  the design target): strengthened the v3 owner-taste-review to judge 5–10
+  concurrently-derived FULL names, and named "owner legibility of a live agent
+  team" as the shared impact behind naming + statusline + work-state.
+- **Verified first-hand:** v2 subject (300) ∩ object (240) = ∅, union exactly
+  540 — the plan's one flagged unknown; the 64,800 namespace holds. Recorded in
+  the plan; gate retained for defence-in-depth.
+- Fitness (report, don't chase): this append nudges the napkin toward its soft
+  zone (target 220); rotation is ~400, not due — route to the next
+  consolidation per the standing residual disposition, do not trim.
+- **candidate (PDR-shaped, owner principle 2026-06-30): every explicit
+  organising layer or axis requires a REGISTRY and VALIDATION.** Streams,
+  threads, domains, lifecycle states, edge-types — none may be free-text; each
+  needs a controlled enumerable source of truth (registry) and a hard gate
+  enforcing membership + reference-integrity (validation). This is schema-first
+  / strict-validation-at-boundary / closed-union applied to the *planning
+  estate's* organising axes; the in-repo exemplar is the naming-schema registry
+  (ADR-198: `NamingSchemaId` closed union + digest gate). It is the cure for the
+  `serves_stream` proliferation (no registry → 4 labels for one group +
+  template-placeholder leakage) and the orphan `serves_thread: agent-operability`
+  (no plan→thread reference validation). Home: a PDR (portable governance) + a
+  hard acceptance criterion on the ADR-200 idea-graph estate-rewrite (JSON Schema
+  = registry; schema-validation + typed-edge vocabulary = validation; WS2
+  idea-node schema/id-minting is where the estate axes get governed). Host-application
+  FOLDED into `planning-estate-rewrite.plan.md` §Governing invariant (2026-06-30,
+  owner-directed) — defer-to-owning-thread satisfied by homing it in that active
+  thread's own plan; the portable PDR form remains a future graduation.
+  **Consequence:** do NOT slap a new
+  `serves_stream` value (e.g. "agent-team operations") on plans as free-text — it
+  waits for the governed axis, else it re-commits the very defect the principle
+  names.
+
+## 2026-06-30 — corpus-analysis v2 rerun: throughput≠volume, harness footguns (Laurel turns Stamen, fe6101)
+
+Ran the v2 large-corpus-analysis rerun via the harness Workflow (map→reduce→validate→meta).
+Operational lessons, highest-signal first:
+
+- **Throughput is orthogonal to volume AND rigour — tune the RATE, never the analysis.** The
+  first full run died on the session quota mid-validate (3.49M tokens). That was a *rate* failure,
+  not a too-much-work problem. Concurrency only changes wall-clock: every voter is independent and
+  adjudication is deterministic-given-outcomes, so results are provably concurrency-invariant. Two
+  pure rate levers, zero impact/rigour cost: (1) concurrency cap (in-flight agents) for burst
+  limits; (2) cross-window checkpointing (durable per-batch results, resume after reset) for
+  total-per-window quotas. The only trade is latency. Owner-confirmed framing 2026-06-30.
+- **A pre-spend cost gate is blind without a POST-REDUCE re-gate.** v1's estimate guessed validate
+  voters from a prior candidate count (~20→~1.7M est); reduce actually produced **50 genuine**
+  cross-window candidates → ~250 worst-case voters → 3.49M, 1.75× the 2M ceiling. The fix landed:
+  `validateStagePlan(candidateCount,…)` in `cost-and-coverage.ts` rebuilds the validate estimate
+  from the REAL count; re-run `estimatePipelineCost` AFTER reduce. Worst-case voter count is the
+  right (conservative) asymmetry for a spend gate. [[feedback_run_the_thing_dont_flag_the_gap]]
+- **Harness Workflow footguns (verified first-hand):** (a) the `args` global arrives as a JSON
+  **string**, not an object — `args.x` is undefined; inline deterministic data into the script, or
+  `JSON.parse(args)` defensively. (b) The completed-workflow `.output` file wraps the script's
+  return under **`.result`** (alongside summary/agentCount/logs/totalTokens), not at top level.
+  (c) `node --check` flags the script's top-level `return` as illegal — false positive; the runtime
+  wraps the body in an async fn (wrap-then-check to validate).
+- **Seeded-continuation > blind resume for completing/recovering a partial Workflow.** Re-seed a
+  fresh workflow from the committed intermediate outputs (leaves/candidates) so earlier stages are
+  not re-spent and you don't depend on resume's cache-on-failure semantics. Guard the final stage
+  (meta) behind a completeness check so a quota re-trip is recoverable by re-seeding only the held
+  subset.
+- **A sandbox mirror needs a pinned conformance test AND a transcription re-check.** The Workflow
+  JS can't import repo code, so the three routing fns are mirrored. `workflow-routing-mirror.ts` +
+  its conformance test (39 cases) pin the mirror↔source; a 19-case known-answer re-check pins the
+  pasted-into-the-script copy↔mirror before each launch. Non-optional before spending.
+- **What works (v2 method):** map+reduce are sound — 682 leaves, 40-50/window, zero
+  under-extraction; 50 grounded candidates mapping cleanly onto real repo doctrine (C39 = the
+  LLMs-judge-atomically spine itself; C41 = FRAME-1 dogfooding). The cost is inherent: 50 genuine
+  well-grounded patterns don't die cheaply at Tier-0, so the full Tier-0/1/2 ensemble is expensive
+  — a real method-scaling property, not a defect.
+- **Method flag to carry:** a single Tier-0 adversary can KILL a genuine pattern (Tier-0 kill is
+  terminal); C24 (build-artefacts-as-DI, a real pattern) was killed on one vote in the partial run.
+  Worth revisiting whether tier-0 kill should be terminal on n=1.
+
+## 2026-06-30 — v3 + conservation PLANNING (Linnet binds Leeward, cbd113)
+
+Planned both deliverables with /oak-plan (committed `9a4d59d06`: the v3 extraction-grain plan + the
+corpus-analysis-conservation plan, indexed). Highest-signal observations:
+
+- **Reading the ACTUAL stage prompts (not the meta agent's discount note) pinpointed the exact
+  blurring clauses.** v3's diagnosis ("extraction altitude, not measurement") was inherited; reading
+  `map-reduce-validate-meta.workflow.mjs` first-hand located the two levers precisely — reduce's
+  `"Aim for 15-25 candidates"` count-cap and `"a single-window signal is usually NOT an emergent
+  candidate"`, plus a map prompt that extracts themes not actuators. The fix is prompt-only
+  (aggregation untouched). [[verify-dont-trust]] on an inherited diagnosis pays off — the discount
+  note was right but coarse; the prompt text gave the surgical cure.
+- **MISTAKE (mine, caught by assumptions-expert): mis-cited the "apply all of X → disposition
+  ledger" discipline to ADR-117.** It is NOT there (ADR-117 is plan-templates); the discipline lives
+  in the oak-plan plan architecture. A wrong authority citation in a durable artefact is a real
+  defect (documentation-is-infrastructure) — a fresh agent follows the cite, finds nothing, loses
+  trust. Lesson: verify a doctrine citation's actual home before citing, don't cite from memory of
+  "where this kind of thing lives". Fixed before commit.
+- **SURPRISE: the content-guard hook fingerprinted "for owner ratification" in a PLAN STATUS banner
+  as menu-framing.** [[present-verdicts-not-menus]] applies to durable-artefact STATUS lines, not
+  only user-facing questions — if you have a verdict (the plan is reviewed and ready), state it
+  ("READY FOR EXECUTION"); the genuine owner gate (the ~13M rerun spend) is a specific todo-level
+  gate, not the plan's status. Reframed to the verdict.
+- **Reviewer-as-input-to-verify worked, and the corpus's own C04 applied to my own reviewers.** Two
+  independent first-hand checks (mine via grep + docs-adr-expert reading the files) confirmed all
+  four "already-covered" verdicts — clearing the irreversible-discard risk (PDR-122 invariant 2) by
+  evidence, not by a single subagent's say-so. The reviewers did not amplify; they caught a real
+  misattribution and a real `.agents/` tier omission. A fluent "READY" is as suspect as a flag.
+- **METACOGNITION CATCH (owner-surfaced): a tuning instrument was reified into the milestone.** I
+  built the v3 plan with `graduate-or-decide` PASS/FAILing on the recall gate (Choice B vs the
+  golden-baseline dataset). Owner: "tuning against the golden dataset was not the ends, just a means
+  to getting to the ends more effectively." The ends is the genuine DISCOVERY (recurring mechanisms
+  AND longitudinal cross-napkin patterns), conserved. Recall only confirms the pipeline is sensitive
+  enough to TRUST that discovery. The cowpath: a means (recall tuning) hardened into the goal — so
+  the plan could declare false success (high recall, trivial new yield) or false failure (rich new
+  longitudinal insight but a missed narrow baseline → a recall-chasing v4 re-spending ~13M for a
+  tuning point after the discovery was already delivered). Cure landed in the plan: deliverable =
+  conserved discovery; recall = tuning/credibility dial; a recall miss triggers "did it cost real
+  discovery?" assessment, NOT an auto re-run. Instance of [[legitimate-principle-as-avoidance-cover]]
+  /[[cowpath-anti-pattern]] at the success-criterion altitude — and the means-vs-ends screen belongs
+  on any "prove X against a golden set" framing.
+- **Corpus scope clarified (owner):** the napkins are the real, only napkin corpus; the mechanisms
+  (whole or in part) also travel to the comms-events corpus (next, definite) and possibly the
+  planning corpus — so the method graduates as a corpus-parameterised capability, not single-use.
+  v3 is the last FULL napkin run; growth → incremental re-mining, never periodic full re-runs.
+
+## 2026-06-30 — closeout (Linnet binds Leeward): the verification fan-out caught my own C47 gap
+
+Full session closeout (handoff + consolidate-docs session-completion). The loss/metaloss VERIFICATION
+complement (2 fresh-reader Explore agents over the updated continuity surfaces — distinct from the
+first-hand loss-scan, which is mine) caught a REAL gap I had introduced: superseding v3 with the
+discovery-run plan, I updated v3's banner + the README but NOT the chain-origin note's "live carrier"
+pointer (it still named v3). FRAME-1 self-similar — [[the-frame-was-the-fix]]/C47 fired inside the very
+closeout verifying against it, and the verification complement earned its keep. Fixed. First-hand
+loss-scan: the session substance is conserved across 4 commits + these continuity surfaces; nothing
+material remains context-only. Napkin is CRITICAL on lines (521+) — rotation is DUE, routed to the next
+dedicated pass (the conservation plan / a napkin-rotation pass), reported not chased
+(knowledge-preservation).

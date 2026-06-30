@@ -60,3 +60,20 @@ validated work-list for the conservation machinery to graduate. Promote on the n
   "have the napkins actually been processed?" fired exactly the metacognition the corpus had just
   discovered. Reinforces existing doctrine (Decision Lenses, no-cheap-cure, precedence-is-not-approval,
   FRAME-1) as a strong worked instance.
+
+## 2026-06-30 — discovery-first re-rooting + means-vs-ends metacognition (Linnet binds Leeward)
+
+Routed for the next `consolidate-until-done` (the conservation plan's drain). Two cross-session lessons:
+
+- **Run a means-vs-ends screen on any "prove X against a golden/reference set" framing.** The golden set
+  / recall gate TUNES the instrument; the discovery (or whatever the work actually produces) is the end.
+  It is easy to harden the tuning dial into the milestone — the corpus-analysis arc did exactly this
+  (`graduate-or-decide` PASS/FAILed on recall, owner-corrected). Instance of
+  [[legitimate-principle-as-avoidance-cover]] / the cowpath at the success-criterion altitude. Tell: the
+  success criterion measures the instrument's fidelity, not the work's value. Candidate home: a
+  metacognition/reasoning pattern, or an amendment to the cowpath / Decision-Lenses doctrine.
+- **A reshape sweep (C47) must reach the `derives_from` source — and check whether the source was right
+  and the *derivative* drifted.** Reconciling only the leaf plan would have missed that the design report
+  held the truer framing all along while the plan layer inverted it. Refines the
+  reshape-needs-full-sweep pattern: the sweep includes verifying the source, not only propagating the
+  leaf's new shape.

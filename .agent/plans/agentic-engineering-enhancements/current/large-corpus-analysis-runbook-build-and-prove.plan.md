@@ -34,7 +34,8 @@ todos:
 > understanding is the end**, and the reusable capability + golden-baseline recall are the **means**
 > (tuning the pipeline so its genuine discoveries — recurring *and* longitudinal — are trustworthy;
 > the capability also travels to the comms-events and possibly planning corpora). The live carrier of
-> intent is [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-analysis-v3-extraction-grain.plan.md).
+> intent is [`napkin-corpus-discovery-run.plan.md`](./napkin-corpus-discovery-run.plan.md) (which
+> supersedes the interim `large-corpus-analysis-v3-extraction-grain.plan.md`).
 > v1's run, calibration, and refine (todos below) executed; retained as history, not rewritten.
 
 Bounded arc to take a designed-but-unproven corpus-analysis method to a proven,

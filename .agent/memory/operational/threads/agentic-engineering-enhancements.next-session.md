@@ -23,7 +23,38 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## NEXT-SESSION PICKUP — v2 rerun COMPLETE (REFINE); v3 + conservation next (2026-06-30, Laurel turns Stamen)
+## NEXT-SESSION PICKUP — discovery-run plan READY; run WS1 next (2026-06-30, Linnet binds Leeward)
+
+**Self-contained. Run WS1 of the discovery-run plan next.**
+
+This session planned the v3 + conservation deliverables, then — owner-directed — **re-rooted the whole
+corpus-analysis arc to discovery-first**: the napkins are the real, only corpus; the END is genuine
+discovery (recurring **mechanisms** AND **longitudinal** cross-napkin patterns), conserved into durable
+homes; recall against the golden baselines is the **tuning instrument**, not the milestone. The design
+report + this thread's IMPACT statement already framed it that way — the *plan layer* had drifted; the
+chain-origin and v3 plans are reconciled (the drift was plan-layer, the design was right all along).
+
+**The live plan:**
+[`napkin-corpus-discovery-run.plan.md`](../../../plans/agentic-engineering-enhancements/current/napkin-corpus-discovery-run.plan.md)
+(REVIEWED — READY FOR EXECUTION; **supersedes** `large-corpus-analysis-v3-extraction-grain.plan.md`).
+Sibling, decoupled and parallel-safe:
+[`corpus-analysis-conservation.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-conservation.plan.md)
+(graduate the 13 v2 discovered patterns via consolidate-until-done — disposition ledger pre-staged: 4
+already-covered / 4 amend / 5 new; author the `agentic-judgment-conserve-by-default` firing rule;
+promote the tooling to the `oak-corpus-analysis` skill + agent-tools scripts).
+
+**Run WS1 next** (cheap, bounded — execution-authorised session): author the grain + longitudinal
+prompts (prompt-only; aggregation math FROZEN) and harden the run orchestration (checkpointing →
+candidate-granular resume; cost calibration `tokensPerVoter ≈ 50k`; hard-abort the post-reduce re-gate),
+then run the cheap **~1.2M probe** (w08/w10/w11) + gate. WS `full-discovery-run` (the **~13M one-way
+owner-authorised** action) is gated on the probe passing — never run by authoring the plan.
+
+Commits this session (`docs/consolidations`, ahead 4, NOT pushed): `9a4d59d06` initial plans →
+`8f5cf03e3` v3 discovery-first reframe → `c44111228` chain-origin re-root → `bfdd51358` discovery-run
+plan + v3 supersession. The v2 rerun (REFINE) + the conserved tooling + the corrected findings JSON are
+the inputs — detail in the superseded pickup below, the run-record, and `.../large-corpus-analysis-tooling/`.
+
+## NEXT-SESSION PICKUP (SUPERSEDED by the above; work-list now owned by the conservation plan) — v2 rerun COMPLETE (REFINE); v3 + conservation next (2026-06-30, Laurel turns Stamen)
 
 **Self-contained. The next session needs nothing from the originating conversation.**
 
@@ -449,6 +480,8 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Callisto lifts Perigee` | `claude-code` | `claude-opus-4-8[1m]` | `94fe5d` | `built check-encoding (permanent agent-tools UTF-8/encoding scanner; deterministic byte scan + 35 unit tests; reporter + \`--fail-on\` gate); committed the precursor encoding fixes (raw-ESC-bytes in statusline test → SSOT \`\x1b\` import; mojibake doc deleted) as \`96f15f583\`. Wiring the gate surfaced that **agent-tools has no architectural direction** (invocation source-vs-dist, error-handling, dependency, gate-wiring all inconsistent); I thrashed on it (invented a "build-free class", reached for shallow fixes, owner corrected 4×). Landed check-encoding CONSISTENT with the existing \`skills:check\` precedent (build-then-node-dist gate via \`pnpm encoding:check\`, wired into \`pnpm check\` + pre-push), removed the turbo-task hack, kept canonical \`@oaknational/result\`. Wrote the deep state+assumptions handoff for Limpet herds Atoll: \`reports/agentic-engineering/agent-tools-architecture-state-and-check-encoding-handoff-2026-06-29.md\`. Owner is taking agent-tools architecture fresh.` | 2026-06-29 | 2026-06-29 |
 | `Tornado spins Pinnacle` | `claude-code` | `claude-opus-4-8[1m]` | `0f7718` | `corpus-analysis-v2-build — built + committed the v2 deterministic layer (atomic-judgment schemas, the recall counter v1-bug fix, keep/kill/reroute predicate, tier-0/1/2 quorum state machine, frozen 18-baseline fixture 10 emergent/8 single-window, cost+coverage gate, real-world-signal close) in agent-tools/src/corpus-analysis/ — 88 unit tests, reviewed by 4 expert lenses (each critically assessed first-hand). Owner-confirmed the Choice-B dual graduate gate (strict within-remit ≥0.6 AND lenient ≥0.85). Rerun PREPARED, NOT run (owner-deferred on low context): self-contained launch runbook reports/agentic-engineering/large-corpus-analysis-v2-rerun-runbook-2026-06-29.md. Commits 5c34af7bc→33f0484a8 on docs/consolidations, cleanly stacked after a non-destructive branch-move off the peer's statusline branch (no work lost). Deep loss+metaloss handoff scan run first-hand + verification fan-out (3 agents); napkin carries the shared-checkout commit-move recipe + the agent-tools library-only cross-lane dependency.` | 2026-06-29 | 2026-06-29 |
 | `Limpet herds Atoll` | `claude-code` | `claude-opus-4-8[1m]` | `d04779` | `took over Callisto's check-encoding for a fresh architectural take (owner: working-now, excellence-later). Verified the tool green on its own files (encoding:check 0 critical; type-check / lint / 1748 tests / knip / depcruise / prettier clean) AFTER fixing 2 knip-flagged dead exports (reportHasSeverity deleted; tallyBySeverity un-exported). Authored the decision-lens analysis report + the strategic plan agent-tooling/future/agent-tools-architecture-standard.plan.md (WS0 execution-model fork → ADR consolidating ADR-178/168/041/159 + enforcement + engine→packages/core + where-supported hook + convergence); reconciled with Callisto's handoff (ADR-178 grep finding: skills:check + encoding:check both trip the build-prefix verification). Surfaced a commit blocker: live untracked corpus-analysis WIP (different lane) fails whole-tree knip+lint and pre-commit runs those whole-tree, so the commit + full pnpm check green are OWNER-HELD until it clears. Nothing committed/pushed this session.` | 2026-06-29 | 2026-06-29 |
+| `Laurel turns Stamen` | `claude-code` | `claude-opus-4-8[1m]` | `fe6101` | `corpus-analysis-v2-rerun — ran the v2 rerun end-to-end (15 windows, 682 leaves, 50 candidates, 45 keep/5 kill); verdict REFINE (strict within-remit 0.50, lenient 0.90). Landed the quorum-floor adjudication correction (a kill needs the diverse-lens quorum; rescued 4/5 false n=1 kills), the post-reduce cost re-gate (validateStagePlan), and PDR-122; conserved the tooling + corrected-findings JSON + run-record (7e87fbf2b to fe68d5c52). Row reconstructed at the 2026-06-30 Linnet closeout from the pickup + napkin — the rerun session did not self-register.` | 2026-06-30 | 2026-06-30 |
+| `Linnet binds Leeward` | `claude-code` | `claude-opus-4-8[1m]` | `cbd113` | `v3 + conservation planning then discovery-first re-rooting. Authored the v3-extraction-grain + conservation plans, then (owner-directed) re-rooted the arc to discovery-first (recall = tuning, not the milestone) and authored the napkin-corpus-discovery-run plan (supersedes v3; first-class checkpointing, cost reconciliation, longitudinal falsifier, conservation buffer); re-rooted the chain-origin plan; reconciled the lineage. Reviewers (assumptions/docs-adr) + Explore + Plan agents, all assessed first-hand. Commits 9a4d59d06 to bfdd51358 (ahead 4, NOT pushed).` | 2026-06-30 | 2026-06-30 |
 
 ## Cross-Plan and Cross-Thread Links
 
