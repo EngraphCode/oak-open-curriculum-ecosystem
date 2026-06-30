@@ -27,6 +27,16 @@ todos:
 
 # Large-corpus analysis runbook — build and prove
 
+> **CHAIN ORIGIN (generation 1); framing re-rooted 2026-06-30 (Linnet binds Leeward).** This plan
+> centres a *trustworthy, reusable capability proven on a real corpus* — capability-first, with the
+> napkin run as the proving instance and recall-against-baseline as the promotion gate. The owner
+> re-rooted that: the napkin corpus is the real **subject**, the **discovery and conservation of its
+> understanding is the end**, and the reusable capability + golden-baseline recall are the **means**
+> (tuning the pipeline so its genuine discoveries — recurring *and* longitudinal — are trustworthy;
+> the capability also travels to the comms-events and possibly planning corpora). The live carrier of
+> intent is [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-analysis-v3-extraction-grain.plan.md).
+> v1's run, calibration, and refine (todos below) executed; retained as history, not rewritten.
+
 Bounded arc to take a designed-but-unproven corpus-analysis method to a proven,
 correctly-homed Practice capability. The method, cost model, governance decision,
 and turnkey first-run configuration are authoritative in the design report:
