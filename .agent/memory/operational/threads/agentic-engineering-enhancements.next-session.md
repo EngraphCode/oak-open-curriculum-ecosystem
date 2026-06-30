@@ -23,7 +23,67 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## Corpus-analysis runbook — v1 proven-with-refinements; v2 designed; rerun pending (2026-06-29, Wren stirs Rainbow)
+## NEXT-SESSION PICKUP — v2 rerun COMPLETE (REFINE); v3 + conservation next (2026-06-30, Laurel turns Stamen)
+
+**Self-contained. The next session needs nothing from the originating conversation.**
+
+### What happened — the v2 rerun RAN, end to end
+
+Ran via the harness Workflow (map → reduce → validate → meta), all aggregation deterministic.
+**Verdict: REFINE.** Choice B fails the fidelity leg: strict within-remit **5/10 = 0.50** (< 0.60),
+lenient **9/10 = 0.90** (≥ 0.85). Overall 12/18 = 0.667 strict, 16/18 = 0.889 lenient. Corpus: 100
+files, 15 windows, 682 leaves, 50 candidates → 45 keep / 5 kill. Cost: ~13.2M tokens across four runs.
+
+- Run-record: [`reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md`](../../../reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md) (committed `7e87fbf2b`).
+- Full corrected findings (50 candidates, dispositions, 182 voter outcomes, recall matches, corroboration): [`reports/agentic-engineering/large-corpus-analysis-tooling/data/v2-rerun-corrected-findings-2026-06-30.json`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/data/v2-rerun-corrected-findings-2026-06-30.json).
+- Conserved reusable tooling + a README: [`reports/agentic-engineering/large-corpus-analysis-tooling/`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/).
+
+### The design correction (landed, `7e87fbf2b`)
+
+A Tier-0 kill was terminal on ONE voter. The decision was run through the Decision Lenses (it
+survived, mandated by Lens 1): a false kill is the irreversible, recall-dropping error. Cure: **a
+kill escalates to the diverse-lens quorum; only a quorum may discard; conserve by default.** Empirical
+proof: of 5 n=1 kills, re-validation under the quorum **rescued 4 false kills (80%)** — inside the
+~50–83% band candidate C39 itself predicted. Also landed: `validateStagePlan` (the post-reduce cost
+re-gate — the run overran to ~13.2M because reduce produced 50 candidates not ~20, and voters cost
+~50k not ~11k).
+
+### Conserved this session
+
+- **[PDR-122](../../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)** —
+  atomic judgment / deterministic aggregation / conserve-by-default. Homes the spine (C39) + the
+  correction as portable doctrine. **The pipeline is a discovery FEEDER into the conservation
+  machinery (PDR-014 consolidate-docs / consolidate-until-done), never a bespoke graduation.**
+
+### Next steps — v3 + conservation (owner-scoped to the NEXT session in this thread)
+
+The explicit impact is **curation, conservation, discoverability, utility** — homed knowledge
+(PDRs/ADRs/rules/skills/guidance), repeatable (feeders into consolidate-until-done), never heroic.
+
+1. **v3 — extraction grain (the REFINE fix).** The residual within-remit gap is EXTRACTION ALTITUDE,
+   not measurement: candidates capture the theme but blur the mechanism the baseline names — 1 miss
+   (`cron-template-overrides-owner-direction`) + 4 partials (`coordinator-amplifies`,
+   `repo-wide-autofix`, `compaction-is-a-checkpoint`, `peer-primary-topology`). Improve the map/reduce
+   prompts to PRESERVE mechanism specificity (candidate granularity that keeps distinct
+   file-level/lifecycle mechanisms separable), then re-run from the conserved tooling. **Do NOT touch
+   the aggregation layer — it is proven correct (deterministic, recompute-validated).**
+2. **Graduate the discovered patterns via `consolidate-until-done`** (the machinery, not bespoke). The
+   13 un-homed kept patterns below are the work-list (C39 already homed by PDR-122). Triage each:
+   novel → pattern / rule / PDR / guidance; else note already-covered. Full statements in the findings
+   JSON.
+3. **Author the firing rule** `agentic-judgment-conserve-by-default` (operationalises PDR-122
+   invariant 2) + `.claude` adapter + `RULES_INDEX` (net-new; deferred under context pressure).
+4. **Promote the tooling to a skill + agent-tools scripts** (the conserved `.mjs` + the aggregation
+   driver → a repeatable capability; aligns with the agent-tools-architecture lane).
+
+**Un-homed work-list (13 — graduate via consolidate-until-done):** C15 comms-infra-silent-failures ·
+C20 TDD-atomic-breached-by-rush · C21 vendor/SDK-mental-model-wrong-check-docs · C22
+static-analysers-need-shape-changes · C23 turbo/cache-false-green · C24 build-artefacts-as-codegen-DI ·
+C30 shell/markdown-footguns · C33 process-with-no-committed-assets · C35 data-is-the-source-of-truth ·
+C38 context-depth-confabulation · C41 FRAME-1-dogfooding-self-similarity · C47 reshape-needs-full-sweep ·
+C49 schedule-not-scope-reduction. Several are high-value (C24, C33, C38, C20, C35, C47, C49).
+
+## Corpus-analysis runbook — v1 proven-with-refinements; v2 designed; rerun pending (2026-06-29, Wren stirs Rainbow) — SUPERSEDED by the v2-rerun-complete pickup above
 
 **Self-contained handoff. The next session needs nothing from the originating conversation.**
 

@@ -84,22 +84,23 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis runbook — v1 PROVEN-with-refinements; v2 designed; rerun pending (2026-06-29,
-  Wren stirs Rainbow).** The first Discovery pass RAN (100 files, 14 windows, full coverage): machinery
-  sound, apophenia gate functioning (9/19 killed, all principled), but recall below threshold —
-  **corrected 0.28 strict / 0.56 lenient** (the run's self-reported 0.72 was a meta-arithmetic defect
-  caught first-hand; all misses are out-of-remit single-window defects). Verdict **refine-and-rerun**.
-  Substance: [`research/.../napkin-discovery-pass-1-2026-06-29.md`](../../research/agentic-engineering/continuity-memory-and-knowledge-flow/napkin-discovery-pass-1-2026-06-29.md);
-  metadata: [`curator-passes/2026-06-29-wren-napkin-discovery-pass.md`](curator-passes/2026-06-29-wren-napkin-discovery-pass.md).
-  The load-bearing meta-lesson — **LLMs judge atomically, deterministic code aggregates** — drives the
-  v2 design ([`reports/.../large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md);
-  deterministic aggregation + full Tier 0+1+2 ensemble (owner-chosen) + typed within-remit recall +
-  real-world-signal close). **Next:** execute the v2 implementation plan
-  [`current/large-corpus-analysis-v2-implementation.plan.md`](../../plans/agentic-engineering-enhancements/current/large-corpus-analysis-v2-implementation.plan.md)
-  (tested aggregation module → typed fixture → tiered adversary → rerun → graduate-or-decide; runbook
-  graduation stays gated on a PASSING v2). A reusable **agentic design-panel protocol** was also
-  captured ([`reports/.../agentic-design-panel-protocol-2026-06-29.md`](../../reports/agentic-engineering/agentic-design-panel-protocol-2026-06-29.md))
-  — owner-directed to be applied + refined elsewhere.
+- **Large-corpus analysis — v2 rerun RAN; verdict REFINE; design corrected; v3 + conservation next
+  (2026-06-30, Laurel turns Stamen).** v2 ran end-to-end (15 windows, 682 leaves, 50 candidates, 45
+  keep / 5 kill), all aggregation deterministic. **Choice B fails the fidelity leg: strict
+  within-remit 0.50 (<0.60), lenient 0.90 — REFINE.** Residual gap is EXTRACTION ALTITUDE (mechanism
+  blurred into theme), not measurement (aggregation proven correct, recompute-validated). Landed
+  (`7e87fbf2b`): the **quorum-floor adjudication correction** (a kill needs the diverse-lens quorum;
+  conserve by default — found + rescued 4/5 false n=1 kills, 80%), the `validateStagePlan` post-reduce
+  cost re-gate, and **[PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)**
+  (atomic judgment / deterministic aggregation / conserve-by-default; the pipeline is a discovery
+  FEEDER into consolidate-docs/until-done, **never a bespoke graduation**). Run-record + conserved
+  tooling + full findings:
+  [`reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md`](../../reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md)
+  and [`.../large-corpus-analysis-tooling/`](../../reports/agentic-engineering/large-corpus-analysis-tooling/).
+  **Next (owner-scoped, next session this thread):** v3 extraction-grain redesign + re-run from the
+  conserved tooling; graduate the 13 un-homed patterns via `consolidate-until-done`; author the
+  conserve-by-default firing rule; promote the tooling to a skill. Full pickup: the
+  `agentic-engineering-enhancements` thread record §NEXT-SESSION PICKUP.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -155,8 +156,9 @@ each thread record; this table is the repo-level index.
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
-| `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh. Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
-| `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued) | [record][agent-naming] | claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
+| `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
+| `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
+| `agent-operability` | Agents operable in their own worktrees: launch-in-worktree as the derived `(identity→worktree→branch)` binding, worktree lifecycle (create/build/draft-PR/cleanup), seat-in-the-brief. Member of the agent-team-operations cluster. **Controlling plan ready to build (owner-approved 2026-06-28); thread record stood up 2026-06-30 (was an orphan).** Next: the cwd-confirmation smoke-test → Phase 1A. | [record][agent-operability] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / thread-record orphan-fix (no build) / 2026-06-30 |
 | `strategy-and-plan-estate-holistic-review` | **REFRAMED 2026-06-22 ([ADR-200](../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md)): planning-estate REWRITE on a living idea-graph.** Ideas are the fundamental node; the graph is the machine-readable SSOT (JSON + JSON Schema on `graph-core`); documents are the co-equal human-navigable embodiment via frontmatter edges. The prior survey/Pass framing is SUPERSEDED. ADR-200 + ADR-201 (Proposed) + plans COMMITTED; progression GO. Next: **WS2** idea-node schema + id-minting; **WS4 thin-slice-proof is a hard gate** before the full harvest (WS6). V0 = the form new plans take. Read ADR-200 + the thread record first. | [record](threads/strategy-and-plan-estate-holistic-review.next-session.md) | claude-code / Opus 4.8 (1M) / Perseus lifts Umbra / two-altitude knowledge-as-graph research + ADR-200 realisation-edge & family-entailment amendments / 2026-06-23 ← Pelican stirs Buoy ← Cinder holds Warmth (ADR-200/201 + plans committed) ← Cosmos calls Infinity (survey orchestrator) / Director seat DISSOLVED / 2026-06-21 (prior seats: full table in thread record) |
 | `orientation-skills-family` | Teaching-surface family: a portable agentic-AI primer (lead-in) plus the **one** repo-bound orientation lens (`/oak-under-the-hood`) across the PDR-112 portability seam | [record][orientation] | claude-code / Opus 4.8 (1M) / Clover mends Hedgerow / **reframe `/oak-explain`→`/oak-under-the-hood` + MCP pointer projection MERGED via PR #243 (`a0a85f60c`, 2026-06-27); ADR-202 + ADR-205. `oak-under-the-hood.plan.md` DONE→archive; MCP-surfaced discoverability follow-on owned by `current/mcp-tool-taxonomy-and-orientation.plan.md` (decision-incomplete, WS0 not started)** / 2026-06-28 (prior: Zenith lifts Firmament — unification `ca40d98ce`; Swordfish/Seal — reframe build; Skipper tracks Reef, Orbit rides Horizon, Bora lifts Downdraft) |
 | `reasoning-grammar` | Structured-reasoning capability: the portable grammar-of-thinking reference + the thin `oak-reason` skill (outward pair to `oak-metacognition`), wired into the metacognition directive, `oak-plan`, and start-right | [record](threads/reasoning-grammar.next-session.md) | claude / Opus 4.8 (1M) / Orbit rides Horizon / **COMPLETE** — landed `3b9836d89`; push pending (owner) / 2026-06-22 |
@@ -354,4 +356,5 @@ authority.
 [branch-fitness]: threads/paused/branch-fitness-and-push-cadence.next-session.md
 [statusline]: threads/statusline-enhancements.next-session.md
 [agent-naming]: threads/agent-naming.next-session.md
+[agent-operability]: threads/agent-operability.next-session.md
 [orientation]: threads/orientation-skills-family.next-session.md

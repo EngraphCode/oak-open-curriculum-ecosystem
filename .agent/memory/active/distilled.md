@@ -31,4 +31,22 @@ earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
 
-<!-- No staged lessons. New napkin rotations append below; consolidation promotes them out. -->
+## 2026-06-30 — v2 corpus-analysis discovered patterns awaiting graduation (Laurel turns Stamen)
+
+The v2 large-corpus-analysis rerun (a discovery FEEDER per
+[PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)) surfaced a
+validated work-list for the conservation machinery to graduate. Promote on the next
+`consolidate-until-done`:
+
+- **13 un-homed kept patterns** — work-list + full statements in the `agentic-engineering-enhancements`
+  thread record (§NEXT-SESSION PICKUP) and
+  [`reports/agentic-engineering/large-corpus-analysis-tooling/data/v2-rerun-corrected-findings-2026-06-30.json`](../../reports/agentic-engineering/large-corpus-analysis-tooling/data/v2-rerun-corrected-findings-2026-06-30.json).
+  Triage each: novel → pattern / rule / PDR / guidance; else note already-covered. High-value: C24
+  (build-artefacts-as-codegen-DI), C33 (process-with-no-committed-assets), C38 (context-depth
+  confabulation), C20 (TDD-atomic), C35 (data-is-the-source-of-truth), C47 (reshape-needs-full-sweep),
+  C49 (schedule-not-scope-reduction).
+- **Workflow/tooling operational footguns** (args-arrives-as-a-JSON-string; `.output` wraps the return
+  under `.result`; `node --check` false-positives top-level `return`; ~50k tokens/voter at high
+  effort; seeded-continuation > blind resume) — conserved in
+  [`reports/agentic-engineering/large-corpus-analysis-tooling/README.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/README.md);
+  graduate to a harness-workflow guidance/pattern if not already covered.
