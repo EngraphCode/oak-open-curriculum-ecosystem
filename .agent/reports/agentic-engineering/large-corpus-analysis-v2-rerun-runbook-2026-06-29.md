@@ -1,5 +1,10 @@
 # Large-corpus-analysis v2 — rerun readiness & launch runbook
 
+**UPDATE (2026-06-30):** the rerun **RAN** — verdict **REFINE**; the kill-terminal-on-one adversary
+design was superseded by the diverse-lens quorum ([PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)).
+See the run-record [`large-corpus-analysis-v2-rerun-result-2026-06-30.md`](./large-corpus-analysis-v2-rerun-result-2026-06-30.md).
+The 2026-06-29 status below is historical.
+
 **Status (2026-06-29):** the v2 **deterministic layer is built, reviewed, and committed**;
 the **rerun is NOT run** — deferred by owner direction this session ("do not start any
 major runs, the context is too low; finish preparing"). This runbook is the self-contained

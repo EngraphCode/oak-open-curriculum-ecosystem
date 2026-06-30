@@ -50,3 +50,13 @@ validated work-list for the conservation machinery to graduate. Promote on the n
   effort; seeded-continuation > blind resume) — conserved in
   [`reports/agentic-engineering/large-corpus-analysis-tooling/README.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/README.md);
   graduate to a harness-workflow guidance/pattern if not already covered.
+- **Worked example → graduate to a pattern: the Decision Lenses can overturn, refine, AND prune a
+  reviewed-and-committed design.** This session ran the already-committed, four-lens-reviewed
+  kill-terminal-on-one adversary design through `principles.md` §Decision Lenses: **Lens 1 mandated**
+  the change (precedence-is-not-approval), **Lens 3/4 refined** it from a minimal patch to the cleaner
+  quorum-floor, and the matrix **retracted a cost/rigour "knob"** I had been about to offer (a
+  cheap-cure violation caught by the matrix itself). Plus FRAME-1 self-similarity: the session lived
+  candidates C33 (process-with-no-committed-assets) and C41 (dogfooding) in real time — the owner's
+  "have the napkins actually been processed?" fired exactly the metacognition the corpus had just
+  discovered. Reinforces existing doctrine (Decision Lenses, no-cheap-cure, precedence-is-not-approval,
+  FRAME-1) as a strong worked instance.

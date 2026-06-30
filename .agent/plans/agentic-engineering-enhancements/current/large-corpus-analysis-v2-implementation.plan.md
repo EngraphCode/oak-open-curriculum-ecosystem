@@ -43,6 +43,15 @@ todos:
 
 # Large-corpus analysis v2 — implementation
 
+> **STATUS: DONE / SUPERSEDED (2026-06-30).** v2 ran end to end — verdict **REFINE**. Every todo below
+> is complete (the aggregation module, typed fixture, cost gate, and tiered adversary all landed). **The
+> `adversary-tier-ensemble` todo's "kill-final-on-one" design was OVERTURNED** — a kill now requires the
+> diverse-lens quorum (conserve by default), homed in
+> [PDR-122](../../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md). Outcome and
+> next steps (v3 extraction-grain) live in
+> [`reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md`](../../../reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md)
+> and the `agentic-engineering-enhancements` thread record §NEXT-SESSION PICKUP. Retained as executed history.
+
 Build the proving-run-driven v2 of the large-corpus-analysis method, then re-prove it.
 The design is authoritative in the v2 design report
 ([`../../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md`](../../../reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md));
