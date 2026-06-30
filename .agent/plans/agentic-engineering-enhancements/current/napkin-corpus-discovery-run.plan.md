@@ -7,24 +7,24 @@ lineage:
 todos:
   - id: author-grain-and-longitudinal-prompts
     content: "PROMPT-ONLY (cheap) edit of map-reduce-validate-meta.workflow.mjs. MAP: each leaf names its ACTUATOR (file/command/lifecycle-moment/template/tuple) and anchors shift/trajectory signals to their time-point. REDUCE: delete the 'Aim for 15-25 candidates' cap and the 'single-window signal is usually NOT a candidate' clause; cluster BY MECHANISM not theme (distinct actuators stay separable); actively surface trajectory/regime/relational-lagged candidates. VOTE: add a kind-conditional longitudinal falsifier (mirror the isAbsenceClaim conditional) — for kind in {trajectory,regime,relational-lagged,distributional}, grounded/notArtefact require the grounding to separate into early/late corpus sets that DIFFER in the claimed direction; uniform-across-windows = artefact, fail. Fires at every tier (stronger + safer than a Tier-2 lens-swap, which would touch the routing mirror; lens-swap is the fallback only if the probe shows longitudinal grounding still weak). Re-run workflow-routing-mirror.conformance.test.ts (39 cases). NO change to aggregation-recall/adjudication/verdict."
-    status: pending
+    status: done
   - id: harden-run-orchestration
-    content: "TDD code work on the workflow templates + cost call (NOT the frozen aggregation math). (a) validate-meta.workflow.template.mjs: accept an already-resolved candidate-id set and filter CANDIDATES_SEED before runCapped, so a re-seed re-runs only the unresolved tail (candidate-granular resume); add per-voter jitter to flatten burst rate; extend the completeness guard to assert validated.length === candidates.length AND no retry-cap/held-for-review before meta. (b) Wire the post-reduce validateStagePlan re-gate to HARD-ABORT on !withinCeiling (currently only logs). (c) Calibration fix: tokensPerVoter ~= 50k at the validateStagePlan/estimatePipelineCost call sites (the v2 5x-low estimate) without double-applying the high multiplier. Test-first for each."
-    status: pending
+    content: "TDD code work on the workflow templates + cost call (NOT the frozen aggregation math). (a) validate-meta.workflow.template.mjs: accept an already-resolved candidate-id set and filter CANDIDATES_SEED before runCapped, so a re-seed re-runs only the unresolved tail (candidate-granular resume); add per-voter jitter to flatten burst rate; extend the completeness guard to assert validated.length === candidates.length AND no retry-cap/held-for-review before meta. (b) Wire the post-reduce validateStagePlan re-gate to HARD-ABORT on !withinCeiling (currently only logs). (c) Calibration fix: tokensPerVoter ~= 50k at the validateStagePlan/estimatePipelineCost call sites (the v2 5x-low estimate) without double-applying the high multiplier. Test-first for each. DONE 974c8fa04; PLUS probe-iteration-1 (91ee28474): split the combined map+reduce template into map.workflow (commit leaves) + reduce.workflow (resume from leaves) so a reduce failure does not lose the map spend; bound reduce output (<=10 representative supportingLeafIds) + disambiguate candidate-kind from leaf-category."
+    status: done
   - id: cheap-grain-probe
-    content: "Run the cheap probe (~1.2M; map+reduce only over the re-derived w08/w10/w11). PRECONDITION: derive the baseline -> source-napkin -> window provenance trace and re-confirm each of the 5 failing baselines' sources falls in the probe windows against the freshly re-derived partition. Execution action (bounded; execution-authorised session)."
-    status: pending
+    content: "Run the cheap probe (~1.2M; map+reduce only over the re-derived w08/w10/w11). PRECONDITION: derive the baseline -> source-napkin -> window provenance trace and re-confirm each of the 5 failing baselines' sources falls in the probe windows against the freshly re-derived partition. Execution action (bounded; execution-authorised session). DONE 2026-06-30 — first attempt (combined template) stalled in reduce (truncation + kind-confusion); salvaged 167 leaves; re-ran reduce-only over the hardened reduce prompt. Evidence: data/probe-w08-w10-w11-{leaves,candidates}-2026-06-30.json."
+    status: done
     depends_on: [author-grain-and-longitudinal-prompts]
   - id: probe-gate
-    content: "Tests SURFACING only (survival is re-checked at the full run; a probe PASS is never a graduation pre-confirmation). PASS = the 5 failing baselines appear as distinct actuator-naming candidates AND >=1 longitudinal candidate surfaces with a real early/late split AND the broad C01-C03 cluster stays coherent (each retains a candidate; total count within a stated band). FAIL -> iterate author-grain-and-longitudinal-prompts; loop-exit at 3 iterations -> escalate to owner with the probe evidence."
-    status: pending
+    content: "Tests SURFACING only (survival is re-checked at the full run; a probe PASS is never a graduation pre-confirmation). PASS = the 5 failing baselines appear as distinct actuator-naming candidates AND >=1 longitudinal candidate surfaces with a real early/late split AND the broad C01-C03 cluster stays coherent (each retains a candidate; total count within a stated band). FAIL -> iterate author-grain-and-longitudinal-prompts; loop-exit at 3 iterations -> escalate to owner with the probe evidence. PASS 2026-06-30 (1 iteration): all 5 failing baselines as distinct actuator candidates (cron-template MISS -> C65; repo-wide-autofix -> C01/C02/C07/C31; coordinator-amplifies -> C54/C55/C16; compaction -> C57/C13; peer-primary -> C75/C01/C41); >=4 longitudinal with real cross-window splits (C02/C19/C20/C22); broad clusters coherent. PASS surfaces the grain fix, NOT a graduation pre-confirmation."
+    status: done
     depends_on: [cheap-grain-probe]
   - id: launch-preflight-and-cost-reconciliation
-    content: "Re-derive the partition from the LIVE corpus (token-balanced greedy walk; ~15 windows; never trust the frozen PARTITION_WINDOWS). Project candidate count (~50). estimatePipelineCost with the corrected tokensPerVoter. COMPUTE the ceiling = round-up(estimate x 1.35) ~= 16-18M (not the stale 2M literal). Confirm the routing-mirror conformance test is green and the post-reduce re-gate hard-aborts."
+    content: "Re-derive the partition from the LIVE corpus (token-balanced greedy walk; ~15 windows; never trust the frozen PARTITION_WINDOWS). Project candidate count from the PROBE calibration, NOT the v2 50: the probe yielded 75 candidates over 3 dense windows, so the 15-window run likely yields ~80-120 — re-derive VALIDATE_TOKEN_CEILING UP to ~25-30M (worst-case 120 x 5 x ~50k = 30M > the 16M default, which would falsely hard-abort) and/or moderate count. estimatePipelineCost with the corrected ~50k/voter. Confirm the routing-mirror conformance test is green, the post-reduce re-gate hard-aborts, and re-diff the .mjs mirror/prompt blocks (no machine pin yet)."
     status: pending
     depends_on: [probe-gate, harden-run-orchestration]
   - id: full-discovery-run
-    content: "OWNER-AUTHORISED ACTION (~13M, one-way). Checkpointed: (a) map+reduce as one Workflow -> commit leaves.json + candidates.json to the tooling data/ dir (no expensive stage runs until its input is on disk); (b) validate from the seeded template, resumable at candidate granularity, MAX_CONCURRENCY cap + jitter; (c) on quota trip re-seed the unresolved tail only; (d) completeness guard before meta; then meta."
+    content: "OWNER-AUTHORISED ACTION (one-way; likely >13M given the ~80-120-candidate projection — confirm the ceiling first). Checkpointed via the SPLIT (probe-proven: the combined template cannot self-checkpoint, so a reduce failure lost the map spend): (a) run map.workflow.template.mjs -> commit leaves.json to the tooling data/ dir; (b) run reduce.workflow.template.mjs seeded from leaves.json -> commit candidates.json (a reduce failure re-runs from the SAME leaves, no map re-spend); (c) validate from the seeded validate-meta template, resumable at candidate granularity, MAX_CONCURRENCY cap + jitter; (d) on quota trip re-seed the unresolved tail only; (e) completeness guard before meta; then meta."
     status: pending
     depends_on: [launch-preflight-and-cost-reconciliation]
   - id: post-run-driver
@@ -47,12 +47,18 @@ todos:
 
 # Napkin corpus discovery run
 
-> **STATUS: REVIEWED — READY FOR EXECUTION (2026-06-30, Linnet binds Leeward).** Owner-approved in
-> plan mode. Reconnaissance (Explore) + design stress-test (Plan agent) integrated and assessed
-> first-hand. **Supersedes** [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-analysis-v3-extraction-grain.plan.md)
-> — it absorbs that plan's refining steps and re-spines the work around the discovery run, which is
-> the end. WS1–WS4 are cheap/bounded; **WS `full-discovery-run` is the one one-way, owner-authorised
-> ~13M-token action**, not gated on plan readiness.
+> **STATUS: WS1 DONE — grain-probe PASSED (2026-06-30, Flare hunts Obsidian); `full-discovery-run` next
+> (owner-auth + cost reconcile).** WS1 landed on `docs/consolidations` (not pushed): `974c8fa04`
+> (actuator-grain + longitudinal prompts; run-orchestration TDD; aggregation FROZEN) and `91ee28474`
+> (probe-iteration-1 hardening). The cheap probe (w08/w10/w11, reduce-only after a salvage) PASSED:
+> all 5 v2-failing baselines surface as distinct actuator candidates, ≥4 longitudinal with real
+> cross-window splits, broad clusters coherent — a PASS SURFACES the grain fix, it is NOT a graduation
+> pre-confirmation. **NEW full-run constraint the probe surfaced:** 75 candidates / 3 dense windows ⇒
+> the 15-window run likely yields ~80–120 candidates ⇒ trips the 16M hard-abort re-gate; launch-preflight
+> MUST re-derive `VALIDATE_TOKEN_CEILING` UP (~25–30M) and/or moderate count. Run the full discovery via
+> the SPLIT (`map.workflow` → commit leaves → `reduce.workflow` → commit candidates → seeded
+> `validate-meta`). **Supersedes** [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-analysis-v3-extraction-grain.plan.md).
+> **WS `full-discovery-run` is the one one-way, separately owner-authorised action**, not gated on plan readiness.
 
 ## Context
 

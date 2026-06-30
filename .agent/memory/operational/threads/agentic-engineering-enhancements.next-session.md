@@ -23,36 +23,53 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## NEXT-SESSION PICKUP — discovery-run plan READY; run WS1 next (2026-06-30, Linnet binds Leeward)
+## NEXT-SESSION PICKUP — WS1 DONE, probe PASSED; full-discovery-run next (owner-auth + cost reconcile) (2026-06-30, Flare hunts Obsidian)
 
-**Self-contained. Run WS1 of the discovery-run plan next.**
+**Self-contained. WS1 of the discovery-run plan is COMPLETE and the cheap grain-probe PASSED. The next
+step is `full-discovery-run` — separately owner-authorised, with a NEW cost constraint (below).**
 
-This session planned the v3 + conservation deliverables, then — owner-directed — **re-rooted the whole
-corpus-analysis arc to discovery-first**: the napkins are the real, only corpus; the END is genuine
-discovery (recurring **mechanisms** AND **longitudinal** cross-napkin patterns), conserved into durable
-homes; recall against the golden baselines is the **tuning instrument**, not the milestone. The design
-report + this thread's IMPACT statement already framed it that way — the *plan layer* had drifted; the
-chain-origin and v3 plans are reconciled (the drift was plan-layer, the design was right all along).
+**Reframe (held throughout):** the napkins are the real, only corpus; the END is genuine discovery
+(recurring **mechanisms** AND **longitudinal** cross-napkin patterns), conserved into durable homes;
+recall against the golden baselines is the **tuning instrument**, not the milestone. A probe PASS is
+NEVER a graduation pre-confirmation — survival is re-checked at the full run.
 
 **The live plan:**
 [`napkin-corpus-discovery-run.plan.md`](../../../plans/agentic-engineering-enhancements/current/napkin-corpus-discovery-run.plan.md)
-(REVIEWED — READY FOR EXECUTION; **supersedes** `large-corpus-analysis-v3-extraction-grain.plan.md`).
-Sibling, decoupled and parallel-safe:
+(WS1 todos now DONE; `full-discovery-run` + post-run + conservation remain). Sibling, decoupled:
 [`corpus-analysis-conservation.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-conservation.plan.md)
-(graduate the 13 v2 discovered patterns via consolidate-until-done — disposition ledger pre-staged: 4
-already-covered / 4 amend / 5 new; author the `agentic-judgment-conserve-by-default` firing rule;
-promote the tooling to the `oak-corpus-analysis` skill + agent-tools scripts).
+(graduate the v2 discovered patterns; the `agentic-judgment-conserve-by-default` firing rule; promote
+the tooling to the `oak-corpus-analysis` skill — a repo-validator for the `.mjs` mirror/prompt copies
+belongs HERE, see below).
 
-**Run WS1 next** (cheap, bounded — execution-authorised session): author the grain + longitudinal
-prompts (prompt-only; aggregation math FROZEN) and harden the run orchestration (checkpointing →
-candidate-granular resume; cost calibration `tokensPerVoter ≈ 50k`; hard-abort the post-reduce re-gate),
-then run the cheap **~1.2M probe** (w08/w10/w11) + gate. WS `full-discovery-run` (the **~13M one-way
-owner-authorised** action) is gated on the probe passing — never run by authoring the plan.
+**WS1 landed (`docs/consolidations`, NOT pushed):** `974c8fa04` — actuator-grain + longitudinal
+prompts (aggregation math FROZEN, confirmed by diff) and the run-orchestration TDD module
+(`agent-tools/src/corpus-analysis/run-orchestration.ts`: candidate-granular resume, extended
+completeness assertion, post-reduce hard-abort re-gate, `~50k`/voter calibration, deterministic jitter;
+20 unit tests; routing-mirror conformance 39 green; reviewed across 5 lenses, 2 criticals fixed incl. a
+**stale routing mirror** in the straight-through `.mjs` that had drifted from the v2 quorum fix).
+`91ee28474` — probe-iteration-1 hardening (below).
 
-Commits this session (`docs/consolidations`, ahead 4, NOT pushed): `9a4d59d06` initial plans →
-`8f5cf03e3` v3 discovery-first reframe → `c44111228` chain-origin re-root → `bfdd51358` discovery-run
-plan + v3 supersession. The v2 rerun (REFINE) + the conserved tooling + the corrected findings JSON are
-the inputs — detail in the superseded pickup below, the run-record, and `.../large-corpus-analysis-tooling/`.
+**The probe (2026-06-30): the combined map+reduce template STALLED in reduce** — NOT a rate-limit, two
+real flaws: (1) the unbounded reduce output truncated at ~51KB → invalid JSON → retry loop; (2) the
+reduce used leaf categories (tension/surprise/shift) as candidate `kind`s → schema reject. Salvaged the
+167 map leaves; **hardened the reduce** (bounded `supportingLeafIds` to ≤10 representative +
+`groundingCount` true total; explicit KIND-rule disambiguation) and **split the checkpoint** into
+`map.workflow.template.mjs` (commit leaves) + `reduce.workflow.template.mjs` (resume from leaves) —
+the combined template can't self-checkpoint (no sandbox file-write), so a reduce failure lost the map
+spend. Re-run reduce-only PASSED the gate: **all 5 v2-failing baselines surface as distinct actuator
+candidates** (cron-template MISS → C65; repo-wide-autofix → C01/C02/C07/C31; coordinator-amplifies →
+C54/C55/C16; compaction → C57/C13; peer-primary → C75/C01/C41); **≥4 longitudinal with real
+cross-window splits** (C02/C19/C20/C22); broad clusters coherent. Evidence committed:
+`.../large-corpus-analysis-tooling/data/probe-w08-w10-w11-{leaves,candidates}-2026-06-30.json`.
+
+**Full-run cost constraint the probe surfaced (act on this BEFORE launch):** 75 candidates from 3 DENSE
+windows → the 15-window run likely yields **~80–120 candidates** (vs v2's 50) → worst-case validate
+`120 × 5 × ~50k ≈ 30M` **TRIPS the 16M hard-abort re-gate**. `launch-preflight-and-cost-reconciliation`
+MUST re-derive `VALIDATE_TOKEN_CEILING` UP (~25–30M) and/or moderate the candidate count. Run the full
+discovery via the SPLIT: `map.workflow` (→ commit leaves.json) → `reduce.workflow` (→ commit
+candidates.json) → seeded `validate-meta.workflow.template.mjs`. Mirror/prompt `.mjs` copies are NOT
+machine-pinned (a lint-clean conformance fought 4 rules) — a repo-validator is the named home (conservation
+plan WS-C); re-diff the `__ORCH_MIRROR_*__`, `__MAP_PROMPT_*__`, `__REDUCE_PROMPT_*__` blocks at launch.
 
 ## NEXT-SESSION PICKUP (SUPERSEDED by the above; work-list now owned by the conservation plan) — v2 rerun COMPLETE (REFINE); v3 + conservation next (2026-06-30, Laurel turns Stamen)
 
