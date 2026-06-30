@@ -28,10 +28,13 @@ todos:
 
 # Large-corpus analysis v3 — extraction grain
 
-> **STATUS: REVIEWED — READY FOR EXECUTION (2026-06-30, Linnet binds Leeward).**
-> `assumptions-expert`: READY-WITH-AMENDMENTS, all integrated (probe provenance trace,
-> surfacing-vs-survival, three-layer broad-leg guardrail, sandbox-mirror demoted to a launch
-> pre-flight). Successor to the DONE/SUPERSEDED
+> **STATUS: SUPERSEDED → [`napkin-corpus-discovery-run.plan.md`](./napkin-corpus-discovery-run.plan.md) (2026-06-30, Linnet binds Leeward).**
+> The discovery-run plan absorbs this plan's refining steps and re-spines the work around the
+> discovery run (the end), adding first-class checkpointing, cost reconciliation, longitudinal
+> grounding, and the conservation hand-off. Retained as history; the live carrier is the discovery-run
+> plan. (This plan was `assumptions-expert` READY-WITH-AMENDMENTS, all integrated — probe provenance
+> trace, surfacing-vs-survival, three-layer broad-leg guardrail, sandbox-mirror as a launch pre-flight
+> — and those amendments carried forward into the successor.) Successor to the DONE/SUPERSEDED
 > [`large-corpus-analysis-v2-implementation.plan.md`](./large-corpus-analysis-v2-implementation.plan.md).
 > The v2 rerun verdict was **REFINE**; this plan executes that refinement. The full rerun
 > (`full-v3-rerun`) is the one gated step: a one-way ~13.2M-token owner-authorised action, not run
