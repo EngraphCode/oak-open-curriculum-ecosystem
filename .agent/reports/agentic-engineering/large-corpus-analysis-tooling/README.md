@@ -9,14 +9,26 @@ machinery (PDR-014 `consolidate-docs` / `consolidate-until-done`).
 
 ## Files
 
-- **`map-reduce-validate-meta.workflow.mjs`** — the full harness Workflow: map ×N (Sonnet/low)
-  → reduce (Opus/high) → validate (mirror-driven Tier-0/1/2 adversary) → meta. The partition is
-  inlined (re-derive at launch — never trust a frozen count). Pass via `scriptPath`, NOT `args`
-  (the harness delivers `args` as a JSON string; inline the data instead).
-- **`validate-meta.workflow.template.mjs`** — the reusable validate+meta template with a
-  `__CANDIDATES_SEED__` placeholder and a `MAX_CONCURRENCY` throughput knob. Used to seed a
-  validate-only re-run from committed leaves+candidates without re-spending map/reduce, and for the
-  kill top-up. **The mirror in this file is the corrected (quorum-floor) routing.**
+- **`map-reduce-validate-meta.workflow.mjs`** — the full straight-through harness Workflow: map ×N
+  (Sonnet/low) → reduce (Opus/high) → validate (mirror-driven Tier-0/1/2 adversary) → meta. The
+  partition is inlined (re-derive at launch — never trust a frozen count). Pass via `scriptPath`,
+  NOT `args` (the harness delivers `args` as a JSON string; inline the data instead). Carries the
+  post-reduce **hard-abort re-gate** (aborts before validate if the worst-case spend breaches the
+  ceiling) and the actuator-grain + longitudinal map/reduce/vote prompts.
+- **`map-reduce.workflow.template.mjs`** — **checkpoint-1**: map ×N → reduce ONLY, with a
+  `__PARTITION__` placeholder. Returns `leaves` + `candidates` for commit to `data/` so no expensive
+  stage runs until checkpoint-1's output is on disk (the v2 quota-trip mitigation). Also the cheap
+  grain-probe runnable over a 3-window partition. Its map/reduce prompts are kept **byte-identical**
+  to `map-reduce-validate-meta.workflow.mjs` (the `__MAP_REDUCE_PROMPTS_*__` markers bound the block;
+  edit both files together and re-diff at launch).
+- **`validate-meta.workflow.template.mjs`** — **checkpoint-2**: the reusable validate+meta template
+  with `__CANDIDATES_SEED__`, `__RESOLVED_IDS__` (candidate-granular resume — re-validate only the
+  unresolved tail), and `__VALIDATE_TOKEN_CEILING__` placeholders, plus `MAX_CONCURRENCY` and a
+  `JITTER_MS` knob (deterministic per-voter jitter). Seeds a validate run from committed
+  leaves+candidates without re-spending map/reduce. **The routing mirror is the corrected
+  (quorum-floor) routing; the orchestration mirror (`__ORCH_MIRROR_*__`) is the hard-abort re-gate /
+  completeness / resume / jitter logic.** On a resume run, meta is deferred to
+  `meta.workflow.template.mjs` over the MERGED dispositions.
 - **`meta.workflow.template.mjs`** — meta-over-all-candidates with a `__CANDIDATES_FOR_META__`
   placeholder; run after dispositions settle.
 - **`data/v2-rerun-corrected-findings-2026-06-30.json`** — the full corrected findings: 50
@@ -41,7 +53,28 @@ relative path.
   `logs`, `totalTokens`).
 - `node --check` flags the script's top-level `return` as illegal — false positive; wrap the body
   in `async function(){…}` to syntax-check.
-- A sandbox mirror MUST be pinned by `workflow-routing-mirror.conformance.test.ts` AND
-  re-checked against the pasted copy before each launch.
-- Cost reality: ~50k tokens/voter at high effort over grounding-heavy prompts (not ~11k). Re-run
-  the post-reduce cost gate (`validateStagePlan`) with the REAL candidate count.
+- The **routing** mirror is pinned by `workflow-routing-mirror.conformance.test.ts` (39 cases).
+  The **orchestration** mirror (`__ORCH_MIRROR_*__`) is a type-stripped copy of
+  `agent-tools/src/corpus-analysis/run-orchestration.ts` (unit-tested there: resume / completeness /
+  re-gate / jitter); the **map/reduce prompts** are duplicated between the straight-through workflow
+  and the checkpoint-1 template. None of these three pasted/duplicated blocks is machine-pinned by a
+  test (a `.mjs`-reading conformance test fought four lint rules; the right home is a repo-validator
+  added when the tooling is promoted to `agent-tools` scripts). Until then, **re-check each pasted /
+  duplicated block against its source before each launch** (same discipline as the routing mirror).
+- Cost reality: ~50k tokens/voter at high effort over grounding-heavy prompts (not ~11k). The
+  corrected calibration (`OBSERVED_VALIDATE_TOKENS_PER_VOTER = 50_000`, modelled flat — no double
+  multiplier) lives in `run-orchestration.ts`; the post-reduce re-gate now **hard-aborts** (throws)
+  on a ceiling breach instead of only logging. Re-derive the ceiling from the real candidate count
+  at launch.
+- **Ceiling vs the removed count cap.** The v3 reduce removes the 15–25 count cap to surface more
+  distinct-actuator candidates, so a finer-grain reduce legitimately yields MORE candidates than v2's
+  50. Re-derive `VALIDATE_TOKEN_CEILING` UP from the projected count at launch — the hard-abort is the
+  **runaway backstop** (over-fragmentation collapsing recall), NOT a substitute cap. A legitimately
+  larger candidate set should raise the ceiling (or fall back to checkpointed/concurrency-capped
+  validation), never be thrown away after paying the map+reduce spend.
+- **Merged-set completeness before deferred meta.** On a resumed run, meta is deferred to
+  `meta.workflow.template.mjs` over the MERGED candidate set (this run's tail dispositions + the prior
+  run's resolved set). `assessValidateCompleteness` guards each individual validate run, but nothing
+  re-asserts the MERGE. Before injecting `__CANDIDATES_FOR_META__`, the operator MUST verify the merged
+  set has the expected candidate count and no duplicate or missing ids, or meta scores recall over a
+  wrong denominator silently.

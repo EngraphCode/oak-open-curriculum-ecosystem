@@ -87,8 +87,10 @@ function decidePreEnsemble(tier0Outcome, tier1) {
   if (tier0Outcome.status === 'unadjudicated')
     return tier1.length === 0 ? dispatchOne('tier-1') : dispatchTier2From(0);
   const disposition = classifyVerdict(tier0Outcome.verdict);
-  if (disposition === 'kill') return terminal('kill');
-  if (disposition === 'reroute' || isBorderline(tier0Outcome.verdict)) return dispatchTier2From(0);
+  // A kill escalates to the Tier-2 diverse-lens quorum (never terminal on one voter); only a
+  // quorum may discard — conserve by default. Byte-faithful to aggregation-adjudication.ts.
+  if (disposition === 'kill' || disposition === 'reroute' || isBorderline(tier0Outcome.verdict))
+    return dispatchTier2From(0);
   return decideAfterCleanKeep(tier1);
 }
 function adjudicate(input) {
@@ -104,6 +106,55 @@ function adjudicate(input) {
     outcomes.filter((o) => o.tier === 'tier-1'),
   );
 }
+
+// ----------------------------------------------------------------------------
+// ORCHESTRATION MIRROR — type-stripped copy of agent-tools/src/corpus-analysis/
+// run-orchestration.ts (unit-tested THERE; NOT machine-pinned to this paste — re-check before each
+// launch, README §Critical operational notes). postReduceRegate is computed directly here and equals
+// the source's cost-model path only while DEFAULT_EFFORT_MULTIPLIERS.low === 1 (pinned by
+// cost-and-coverage.unit.test.ts).
+// ----------------------------------------------------------------------------
+// __ORCH_MIRROR_START__
+const ORCH_MAX_VOTERS_PER_CANDIDATE = 5; // mirrors cost-and-coverage MAX_VOTERS_PER_CANDIDATE
+const OBSERVED_VALIDATE_TOKENS_PER_VOTER = 50000;
+function resolveResumeSeed(seed, resolvedIds) {
+  const resolved = new Set(resolvedIds);
+  return seed.filter((candidate) => !resolved.has(candidate.id));
+}
+function assessValidateCompleteness(validated, candidates) {
+  const incompleteCandidateIds = validated
+    .filter((entry) => entry.disposition === 'held-for-review')
+    .map((entry) => entry.candidateId);
+  const validatedIds = new Set(validated.map((entry) => entry.candidateId));
+  const missingCandidateIds = candidates
+    .filter((candidate) => !validatedIds.has(candidate.id))
+    .map((candidate) => candidate.id);
+  const complete =
+    incompleteCandidateIds.length === 0 &&
+    missingCandidateIds.length === 0 &&
+    validated.length === candidates.length;
+  return { complete, incompleteCandidateIds, missingCandidateIds };
+}
+function postReduceRegate(input) {
+  const tokensPerVoter = input.tokensPerVoter ?? OBSERVED_VALIDATE_TOKENS_PER_VOTER;
+  const maxVoters = input.maxVotersPerCandidate ?? ORCH_MAX_VOTERS_PER_CANDIDATE;
+  const worstCaseTokens = input.candidateCount * maxVoters * tokensPerVoter;
+  const abort = worstCaseTokens > input.ceiling;
+  const message = abort
+    ? `POST-REDUCE HARD-ABORT: ${input.candidateCount} candidates x ${maxVoters} worst-case voters x ${tokensPerVoter} = ${worstCaseTokens} tokens > ceiling ${input.ceiling}. Re-derive the ceiling or split the run; do NOT dispatch validate.`
+    : `post-reduce re-gate OK: worst-case validate ${worstCaseTokens} tokens <= ceiling ${input.ceiling}`;
+  return { worstCaseTokens, abort, message };
+}
+function deterministicJitterMs(seed, maxMs) {
+  if (maxMs <= 0) return 0;
+  let hash = 2166136261;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % (maxMs + 1);
+}
+// __ORCH_MIRROR_END__
 
 // ----------------------------------------------------------------------------
 // JSON Schemas — match the zod strictObjects in judgment-schemas.ts /
@@ -278,6 +329,9 @@ const BASELINES = [
 // ----------------------------------------------------------------------------
 // Stage prompts
 // ----------------------------------------------------------------------------
+// mapPrompt + reducePrompt — kept byte-identical to map-reduce.workflow.template.mjs (no machine
+// pin yet; re-diff the marked block at launch, README §Critical operational notes). Edit both together.
+// __MAP_REDUCE_PROMPTS_START__
 function mapPrompt(w) {
   return [
     'You are the MAP stage of a corpus-analysis pipeline over an AI engineering agent\'s working-memory "napkin" corpus (dated session notes capturing mistakes, corrections, surprises, and what works).',
@@ -292,28 +346,43 @@ function mapPrompt(w) {
     '  - shift: a change over time, a regime change, an abandoned or adopted approach',
     '  - behavioural-reflex: a repeated agent action or habit (good or bad)',
     '',
+    'GRAIN — name the ACTUATOR, not just the theme. Every leaf statement MUST name the concrete mechanism the signal operates THROUGH: the specific file or path, the command or script, the lifecycle moment (session-open / pre-commit / compaction / closeout / heartbeat / …), the prompt or template, the identity tuple, or the config/flag. "commit hygiene improved" is a theme; "pre-commit promoted peer-owned files into the staged set because format:root auto-fix ran repo-wide" names the actuator. Two signals that share a theme but operate through DIFFERENT actuators are TWO leaves, never one — distinct actuators MUST stay separable downstream.',
+    'TIME-POINT — for a shift or behavioural-reflex that changed over time, the statement MUST name WHEN (the dated entry / this window) the change occurred and in which DIRECTION, and the grounding should cite the time-point(s) that anchor the before/after.',
+    '',
     'Recall over precision — FALSE POSITIVES ARE WELCOME. A typical window yields 20-40 leaves.',
-    'Each leaf: a unique id prefixed with the window (e.g. ' + w.window + '-L01), the window id, the category, a one-sentence statement, grounding (>=1 citation: napkinDate = the dated entry, quote = a short verbatim excerpt that anchors the signal), and your confidence (low/med/high).',
+    'Each leaf: a unique id prefixed with the window (e.g. ' + w.window + '-L01), the window id, the category, a one-sentence statement (naming its actuator per GRAIN above), grounding (>=1 citation: napkinDate = the dated entry, quote = a short verbatim excerpt that anchors the signal), and your confidence (low/med/high).',
     'Emit ONLY leaves for THIS window.',
   ].join('\n');
 }
 
 function reducePrompt(leaves) {
   return [
-    'You are the REDUCE stage. Below are atomic LEAF signals extracted across 15 time-contiguous windows of an AI-agent napkin corpus. Cluster them into CANDIDATE emergent patterns — phenomena that RECUR ACROSS MULTIPLE WINDOWS (cross-window emergence is the whole point; a single-window signal is usually NOT an emergent candidate).',
+    'You are the REDUCE stage. Below are atomic LEAF signals extracted across the time-contiguous windows of an AI-agent napkin corpus (each leaf names the concrete ACTUATOR it operates through). Cluster them into CANDIDATE patterns.',
     '',
-    'For each candidate emit: a unique id (e.g. C01), a one-sentence pattern statement, a kind (recurrence | trajectory | relational-lagged | regime | distributional | behavioural | absence | meta), isAbsenceClaim (true ONLY for negative-space findings), supportingWindows (the DISTINCT window ids it appears in), supportingLeafIds (the leaf ids you clustered into it), and groundingCount (total grounding citations across those leaves).',
+    'CLUSTER BY MECHANISM, NOT THEME. A candidate is ONE coherent mechanism — the specific actuator (file / command / lifecycle-moment / template / identity-tuple / config) a set of leaves share. Keep DISTINCT actuators as SEPARATE candidates even when they share a broad theme: do NOT merge distinct mechanisms into a broad thematic parent — that dissolves the grain this run exists to preserve. Equally, do NOT shatter a single genuinely-broad recurring mechanism into per-window fragments — a real broad pattern that spans many windows stays ONE coherent candidate.',
+    '',
+    'There is NO target candidate count. Emit as many distinct-mechanism candidates as the leaves genuinely support — neither pad nor merge to hit a number. A mechanism strongly attested even within a SINGLE window MAY be a candidate (its remit is judged downstream); cross-window recurrence is valuable but is NOT a precondition for emitting a candidate.',
+    '',
+    'SURFACE LONGITUDINAL PATTERNS as first-class candidates, not only flat recurrences. Use the kind field precisely:',
+    '  - trajectory: a mechanism whose character or strength changes across the corpus timeline (name the direction).',
+    '  - regime: a distinct operating MODE active in some windows and not others (name which windows).',
+    '  - relational-lagged: one mechanism\'s appearance systematically PRECEDING another\'s later.',
+    '  - distributional: a mechanism\'s frequency or spread shifting across the timeline.',
+    'For ANY longitudinal candidate (trajectory / regime / relational-lagged / distributional), supportingWindows MUST span the windows the claim actually covers, and the pattern statement MUST name the direction of change (or which windows the regime is active in) with its time-points. A longitudinal claim whose grounding is UNIFORM across all the windows it spans is an artefact of even sampling — do NOT emit it as longitudinal.',
+    '',
+    'For each candidate emit: a unique id (e.g. C01), a one-sentence pattern statement (naming its actuator and, for longitudinal kinds, its temporal structure), a kind (recurrence | trajectory | relational-lagged | regime | distributional | behavioural | absence | meta), isAbsenceClaim (true ONLY for negative-space findings), supportingWindows (the DISTINCT window ids it appears in), supportingLeafIds (the leaf ids you clustered into it), and groundingCount (total grounding citations across those leaves).',
     '',
     'ALSO run the NEGATIVE-SPACE probe and emit any findings as absence candidates (isAbsenceClaim:true, kind:"absence"):',
     '  - temporal: a pattern clearly present early in the corpus then absent later (or vice-versa).',
     '  - structural: the napkin is declared to track "mistakes, corrections, surprises, and what works" — is any one of those declared categories conspicuously absent from the actual contents?',
     '',
-    'Aim for 15-25 candidates. Output JSON only.',
+    'Output JSON only.',
     '',
     'LEAVES:',
     JSON.stringify(leaves),
   ].join('\n');
 }
+// __MAP_REDUCE_PROMPTS_END__
 
 function votePrompt(candidate, lens, supportingLeaves) {
   const grounding = supportingLeaves
@@ -338,6 +407,9 @@ function votePrompt(candidate, lens, supportingLeaves) {
     '  - notArtefact: a real phenomenon, NOT an artefact of how the corpus was written, sampled, or how leaves were clustered?',
     candidate.isAbsenceClaim
       ? '  (ABSENCE claim: "grounded" means shown GENUINELY ABSENT, not merely unsampled — the falsifier is finding it present somewhere in the corpus.)'
+      : '',
+    ['trajectory', 'regime', 'relational-lagged', 'distributional'].includes(candidate.kind)
+      ? `  (LONGITUDINAL claim (kind=${candidate.kind}): "grounded" and "notArtefact" ADDITIONALLY require the cited grounding to PARTITION across the corpus timeline in a way that MATCHES the claim — a trajectory/distributional must show early-vs-late grounding that DIFFERS in the claimed direction; a regime must show the mode present in some windows and absent in others; a relational-lagged must show one mechanism's windows preceding the other's. Grounding that is UNIFORM across all the windows the candidate spans is an even-sampling artefact, not a longitudinal signal — fail notArtefact (and fail grounded when the temporal structure IS the substance of the claim).)`
       : '',
     '',
     'Also rate the candidate\'s importance (low/med/high). Do NOT emit any keep/kill/reroute decision — only the four test judgments and importance; the disposition is computed deterministically downstream.',
@@ -453,6 +525,17 @@ const reduceResult = await agent(reducePrompt(allLeaves), {
 const candidates = reduceResult ? reduceResult.candidates : [];
 log(`reduce done: ${candidates.length} candidates (${candidates.filter((c) => c.isAbsenceClaim).length} absence)`);
 
+// Post-reduce HARD-ABORT re-gate: now that reduce has produced its REAL candidate count, recompute
+// the worst-case validate spend (corrected ~50k/voter) and abort BEFORE dispatching any voter if it
+// breaches the ceiling. Re-derive VALIDATE_TOKEN_CEILING at launch from the partition (the stale 2M
+// literal is wrong — the v2 run cost ~13.2M); never trust a frozen value.
+const VALIDATE_TOKEN_CEILING = 16_000_000;
+const regate = postReduceRegate({ candidateCount: candidates.length, ceiling: VALIDATE_TOKEN_CEILING });
+log(regate.message);
+if (regate.abort) {
+  throw new Error(regate.message);
+}
+
 phase('validate');
 const validated = (await parallel(candidates.map((c) => () => adjudicateCandidate(c)))).filter(Boolean);
 const dispById = new Map(validated.map((d) => [d.candidateId, d.disposition]));
@@ -463,23 +546,33 @@ const dispCounts = validated.reduce((acc, d) => {
 }, {});
 log(`validate done: ${JSON.stringify(dispCounts)}; ${allOutcomes.length} voter outcomes`);
 
-phase('meta');
-const candidatesForMeta = candidates.map((c) => ({
-  id: c.id,
-  pattern: c.pattern,
-  kind: c.kind,
-  isAbsenceClaim: c.isAbsenceClaim,
-  supportingWindows: c.supportingWindows,
-  disposition: dispById.get(c.id) || 'unknown',
-}));
-const metaResult = await agent(metaPrompt(candidatesForMeta, BASELINES), {
-  label: 'meta',
-  phase: 'meta',
-  model: 'opus',
-  effort: 'high',
-  schema: META_SCHEMA,
-});
-log('meta done');
+// Completeness guard: refuse to score meta (recall calibration) over a PARTIAL validate. A
+// held-for-review of ANY reason, or a candidate silently dropped from `validated`, marks validate
+// INCOMPLETE. Mirrors the gate in validate-meta.workflow.template.mjs so the straight-through path
+// never scores recall over an incomplete run.
+const completeness = assessValidateCompleteness(validated, candidates);
+let metaResult = null;
+if (completeness.complete) {
+  phase('meta');
+  const candidatesForMeta = candidates.map((c) => ({
+    id: c.id,
+    pattern: c.pattern,
+    kind: c.kind,
+    isAbsenceClaim: c.isAbsenceClaim,
+    supportingWindows: c.supportingWindows,
+    disposition: dispById.get(c.id) || 'unknown',
+  }));
+  metaResult = await agent(metaPrompt(candidatesForMeta, BASELINES), {
+    label: 'meta',
+    phase: 'meta',
+    model: 'opus',
+    effort: 'high',
+    schema: META_SCHEMA,
+  });
+  log('meta done');
+} else {
+  log(`validate INCOMPLETE — held=[${completeness.incompleteCandidateIds.join(',')}] missing=[${completeness.missingCandidateIds.join(',')}]; meta SKIPPED (completeness guard). Re-run validate, or seed validate-meta.workflow.template.mjs with RESOLVED_IDS.`);
+}
 
 return {
   partition: partition.map((w) => ({ window: w.window, fileCount: w.files.length })),

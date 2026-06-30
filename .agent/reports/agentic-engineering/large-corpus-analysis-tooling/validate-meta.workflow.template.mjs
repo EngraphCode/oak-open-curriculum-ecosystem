@@ -14,6 +14,18 @@ export const meta = {
 // dispatches at most 3 voters at once (the Tier-2 ensemble), so peak agents ~= MAX_CONCURRENCY * 3.
 const MAX_CONCURRENCY = 3;
 
+// RESUME — candidate ids already resolved in a prior (quota-tripped) run, substituted at launch
+// (default [] = fresh run). resolveResumeSeed filters these from CANDIDATES_SEED so a re-seed
+// re-dispatches ONLY the unresolved tail (~1M), not the whole validate stage (~8.6M).
+const RESOLVED_IDS = __RESOLVED_IDS__;
+// POST-REDUCE HARD-ABORT CEILING — worst-case validate tokens above this abort the run BEFORE any
+// voter is dispatched. Re-derive at launch from the real candidate count (see launch pre-flight).
+// ON A RESUME the re-gate guards only the TAIL spend (the resumed count), so re-derive the ceiling
+// for the TAIL — never reuse a prior full-run ceiling literal, or a small tail will never trip it.
+const VALIDATE_TOKEN_CEILING = __VALIDATE_TOKEN_CEILING__;
+// JITTER — max deterministic per-voter dispatch delay (ms) to flatten the rate burst; 0 disables.
+const JITTER_MS = 250;
+
 // ----------------------------------------------------------------------------
 // SANDBOX MIRROR — verbatim copy of workflow-routing-mirror.ts, pinned to the source by
 // workflow-routing-mirror.conformance.test.ts (39 cases) and re-checked (20 known-answer cases).
@@ -90,6 +102,56 @@ function adjudicate(input) {
     outcomes.filter((o) => o.tier === 'tier-1'),
   );
 }
+
+// ----------------------------------------------------------------------------
+// ORCHESTRATION MIRROR — type-stripped copy of agent-tools/src/corpus-analysis/
+// run-orchestration.ts (the resume / completeness / re-gate / jitter primitives; the sandbox cannot
+// import repo code). Unit-tested THERE; NOT machine-pinned to this paste — re-check before each
+// launch (README §Critical operational notes). postReduceRegate is computed directly here and equals
+// the source's cost-model path only while DEFAULT_EFFORT_MULTIPLIERS.low === 1 (pinned by
+// cost-and-coverage.unit.test.ts).
+// ----------------------------------------------------------------------------
+// __ORCH_MIRROR_START__
+const ORCH_MAX_VOTERS_PER_CANDIDATE = 5; // mirrors cost-and-coverage MAX_VOTERS_PER_CANDIDATE
+const OBSERVED_VALIDATE_TOKENS_PER_VOTER = 50000;
+function resolveResumeSeed(seed, resolvedIds) {
+  const resolved = new Set(resolvedIds);
+  return seed.filter((candidate) => !resolved.has(candidate.id));
+}
+function assessValidateCompleteness(validated, candidates) {
+  const incompleteCandidateIds = validated
+    .filter((entry) => entry.disposition === 'held-for-review')
+    .map((entry) => entry.candidateId);
+  const validatedIds = new Set(validated.map((entry) => entry.candidateId));
+  const missingCandidateIds = candidates
+    .filter((candidate) => !validatedIds.has(candidate.id))
+    .map((candidate) => candidate.id);
+  const complete =
+    incompleteCandidateIds.length === 0 &&
+    missingCandidateIds.length === 0 &&
+    validated.length === candidates.length;
+  return { complete, incompleteCandidateIds, missingCandidateIds };
+}
+function postReduceRegate(input) {
+  const tokensPerVoter = input.tokensPerVoter ?? OBSERVED_VALIDATE_TOKENS_PER_VOTER;
+  const maxVoters = input.maxVotersPerCandidate ?? ORCH_MAX_VOTERS_PER_CANDIDATE;
+  const worstCaseTokens = input.candidateCount * maxVoters * tokensPerVoter;
+  const abort = worstCaseTokens > input.ceiling;
+  const message = abort
+    ? `POST-REDUCE HARD-ABORT: ${input.candidateCount} candidates x ${maxVoters} worst-case voters x ${tokensPerVoter} = ${worstCaseTokens} tokens > ceiling ${input.ceiling}. Re-derive the ceiling or split the run; do NOT dispatch validate.`
+    : `post-reduce re-gate OK: worst-case validate ${worstCaseTokens} tokens <= ceiling ${input.ceiling}`;
+  return { worstCaseTokens, abort, message };
+}
+function deterministicJitterMs(seed, maxMs) {
+  if (maxMs <= 0) return 0;
+  let hash = 2166136261;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0) % (maxMs + 1);
+}
+// __ORCH_MIRROR_END__
 
 // ---- JSON schemas (match the zod strictObjects; downstream re-parses with the real parsers) ----
 const CONFIDENCE = { type: 'string', enum: ['low', 'med', 'high'] };
@@ -198,6 +260,9 @@ function votePrompt(candidate, lens) {
     candidate.isAbsenceClaim
       ? '  (ABSENCE claim: "grounded" means shown GENUINELY ABSENT, not merely unsampled — the falsifier is finding it present somewhere in the corpus.)'
       : '',
+    ['trajectory', 'regime', 'relational-lagged', 'distributional'].includes(candidate.kind)
+      ? `  (LONGITUDINAL claim (kind=${candidate.kind}): "grounded" and "notArtefact" ADDITIONALLY require the cited grounding to PARTITION across the corpus timeline in a way that MATCHES the claim — a trajectory/distributional must show early-vs-late grounding that DIFFERS in the claimed direction; a regime must show the mode present in some windows and absent in others; a relational-lagged must show one mechanism's windows preceding the other's. Grounding that is UNIFORM across all the windows the candidate spans is an even-sampling artefact, not a longitudinal signal — fail notArtefact (and fail grounded when the temporal structure IS the substance of the claim).)`
+      : '',
     '',
     'Also rate the candidate\'s importance (low/med/high). Do NOT emit any keep/kill/reroute decision — only the four test judgments and importance; the disposition is computed deterministically downstream.',
   ].join('\n');
@@ -245,6 +310,10 @@ async function adjudicateCandidate(candidate) {
       Array.from({ length: step.voterCount }, (_, i) => async () => {
         const lens = lenses[i];
         const voterId = `${candidate.id}:${tier}:r${round}:${i}`;
+        // Deterministic per-voter jitter (no Math.random — resume-safe) to flatten the dispatch burst.
+        if (typeof setTimeout === 'function' && JITTER_MS > 0) {
+          await new Promise((done) => setTimeout(done, deterministicJitterMs(voterId, JITTER_MS)));
+        }
         const verdict = await agent(votePrompt(candidate, lens), {
           label: `vote:${candidate.id}:${tier}:${lens || 'plain'}`,
           phase: 'validate',
@@ -276,11 +345,20 @@ async function runCapped(items, limit, fn) {
 }
 
 // ---- Orchestration ----
-const candidates = CANDIDATES_SEED;
-log(`seeded validate: ${candidates.length} candidates, MAX_CONCURRENCY=${MAX_CONCURRENCY}`);
-// Post-reduce cost re-gate (visibility): worst-case voters = candidates * 5 (T0+T1+T2 ensemble).
-const worstVoters = candidates.length * 5;
-log(`post-reduce gate: worst-case validate voters=${worstVoters} (~${Math.round((worstVoters * 4500 * 2.5) / 1000)}k tok worst-case @ high)`);
+// Candidate-granular resume: drop the ids resolved in a prior run; re-validate only the tail.
+const seededCandidates = CANDIDATES_SEED;
+const candidates = resolveResumeSeed(seededCandidates, RESOLVED_IDS);
+const isResume = RESOLVED_IDS.length > 0;
+log(`seeded validate: ${seededCandidates.length} seeded, ${seededCandidates.length - candidates.length} already resolved, ${candidates.length} to validate, MAX_CONCURRENCY=${MAX_CONCURRENCY}`);
+
+// Post-reduce HARD-ABORT re-gate: recompute validate cost from the REAL (resumed) candidate count
+// with the corrected ~50k/voter calibration, and abort BEFORE dispatching any voter if it breaches
+// the ceiling — the v2 run overran to ~13.2M because the old gate only logged.
+const regate = postReduceRegate({ candidateCount: candidates.length, ceiling: VALIDATE_TOKEN_CEILING });
+log(regate.message);
+if (regate.abort) {
+  throw new Error(regate.message);
+}
 
 phase('validate');
 const validated = (await runCapped(candidates, MAX_CONCURRENCY, adjudicateCandidate)).filter(Boolean);
@@ -292,15 +370,20 @@ const dispCounts = validated.reduce((acc, d) => {
 }, {});
 log(`validate done: ${JSON.stringify(dispCounts)}; ${allOutcomes.length} voter outcomes`);
 
-// Completeness guard: a retry-cap hold means a voter failed (quota) — validate is INCOMPLETE.
-// Skip meta in that case; the operator re-seeds the held subset, then runs meta separately.
-const incompleteIds = validated
-  .filter((d) => d.disposition === 'held-for-review' && d.reason === 'retry-cap')
-  .map((d) => d.candidateId);
-const validateComplete = incompleteIds.length === 0;
+// Completeness guard (extended): validate is INCOMPLETE if ANY candidate is held-for-review (for
+// any reason — retry-cap / quorum-tie / lens-collision) OR if a candidate was silently dropped
+// from `validated` (count mismatch). Meta runs ONLY on a fresh, fully-resolved run; a RESUME run
+// validates just the tail, so its meta is deferred to meta.workflow.template.mjs over the MERGED
+// dispositions (this run's tail + the prior run's resolved set).
+const completeness = assessValidateCompleteness(validated, candidates);
+const incompleteIds = completeness.incompleteCandidateIds;
+const validateComplete = completeness.complete;
+if (completeness.missingCandidateIds.length > 0) {
+  log(`validate INCOMPLETE — ${completeness.missingCandidateIds.length} candidates missing from validated: ${completeness.missingCandidateIds.join(',')}`);
+}
 
 let metaResult = null;
-if (validateComplete) {
+if (validateComplete && !isResume) {
   phase('meta');
   const candidatesForMeta = candidates.map((c) => ({
     id: c.id,
@@ -318,13 +401,23 @@ if (validateComplete) {
     schema: META_SCHEMA,
   });
   log('meta done');
+} else if (isResume && validateComplete) {
+  log(`resume tail COMPLETE (${candidates.length} candidates) — meta deferred to meta.workflow.template.mjs over the MERGED dispositions (this tail + the prior resolved set).`);
 } else {
-  log(`validate INCOMPLETE — ${incompleteIds.length} candidates held on retry-cap (quota). Meta skipped; re-seed: ${incompleteIds.join(',')}`);
+  log(`validate INCOMPLETE — ${incompleteIds.length} held, ${completeness.missingCandidateIds.length} missing. Re-seed via RESOLVED_IDS; unresolved this run: ${[...incompleteIds, ...completeness.missingCandidateIds].join(',')}.`);
 }
+
+// Candidates that reached a TERMINAL disposition in THIS run — accumulate into RESOLVED_IDS for any resume.
+const resolvedCandidateIds = validated
+  .filter((d) => d.disposition !== 'held-for-review')
+  .map((d) => d.candidateId);
 
 return {
   validateComplete,
+  isResume,
+  resolvedCandidateIds,
   incompleteCandidateIds: incompleteIds,
+  missingCandidateIds: completeness.missingCandidateIds,
   dispositions: validated.map((d) => ({ candidateId: d.candidateId, disposition: d.disposition, reason: d.reason })),
   voterOutcomes: allOutcomes,
   meta: metaResult,
