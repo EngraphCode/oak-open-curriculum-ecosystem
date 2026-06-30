@@ -6,7 +6,7 @@ lineage:
   derives_from: .agent/reports/agentic-engineering/large-corpus-analysis-v2-rerun-result-2026-06-30.md
 todos:
   - id: author-grain-preserving-prompts
-    content: "Rewrite the MAP and REDUCE stage prompts in the conserved tooling to preserve mechanism specificity. MAP: each leaf statement must name its ACTUATOR (the specific file, command, lifecycle moment, template, or tuple that did it) alongside the theme — not the theme alone. REDUCE: (a) DELETE the hard 'Aim for 15-25 candidates' count cap and replace it with 'emit as many distinct candidates as the leaves support; do NOT merge two signals that name different actuators or lifecycle-moments even when they share a broad theme'; (b) REPLACE 'a single-window signal is usually NOT an emergent candidate' with 'a recurring MECHANISM is a candidate even when it also fits a broader theme — preserve the specific actuator as its own candidate alongside any broad parent'. Keep the negative-space probe unchanged. Edit map-reduce-validate-meta.workflow.mjs only; the deterministic aggregation layer is NOT touched."
+    content: "Rewrite the MAP and REDUCE stage prompts in the conserved tooling to preserve mechanism specificity. MAP: each leaf statement must name its ACTUATOR (the specific file, command, lifecycle moment, template, or tuple that did it) alongside the theme — not the theme alone. REDUCE: (a) DELETE the hard 'Aim for 15-25 candidates' count cap and replace it with 'emit as many distinct candidates as the leaves support; do NOT merge two signals that name different actuators or lifecycle-moments even when they share a broad theme'; (b) REPLACE 'a single-window signal is usually NOT an emergent candidate' with 'a recurring MECHANISM is a candidate even when it also fits a broader theme — preserve the specific actuator as its own candidate alongside any broad parent'; (c) ACTIVELY ELICIT the longitudinal dimension — instruct MAP to anchor each shift/trajectory signal to its time-point, and instruct REDUCE to surface trajectory/regime/relational-lagged candidates (how the practice evolved across the corpus span), so the recurrence emphasis does not suppress over-time patterns. Keep the negative-space probe unchanged. Edit map-reduce-validate-meta.workflow.mjs only; the deterministic aggregation layer is NOT touched."
     status: pending
   - id: cheap-grain-probe
     content: "Run the CHEAP grain probe: NEW map (windows w08, w10, w11) + NEW reduce ONLY. No validate, no meta adversary. ~1.2M tokens (~9% of a full rerun). PRECONDITION: the baselines cite synthesis docs, NOT the raw napkins — so before launch, derive the baseline-id -> source-napkin -> window provenance trace for each of the 5 failing baselines and CONFIRM each source napkin falls inside the probe windows, RE-CONFIRMED against the freshly re-derived partition (a grown/re-balanced corpus can shuffle a source napkin out of w08/w10/w11 and silently test the wrong slice). If a source has moved, adjust the probe window set. Inspect the reduce output against the probe-gate criterion below."
@@ -21,7 +21,7 @@ todos:
     status: pending
     depends_on: [probe-gate]
   - id: graduate-or-decide
-    content: "Compute the Choice-B verdict deterministically (strict within-remit >= 0.6 AND lenient within-remit >= 0.85). Apply the regression guard: confirm within-remit strict recall IMPROVED net (the 5 failing baselines converted to subsumes/refines/equal) AND the broad-cluster baselines did not regress — the fix must not trade narrow-mechanism recall for broad-theme recall. On PASS: graduate the method to a reference runbook (PDR-120) + adopting PDR (PDR-035), and feed any newly-surfaced finer candidates into the conservation machinery (consolidate-until-done). On FAIL: name the residual defect and route it. No holding state."
+    content: "The DELIVERABLE is the discovered understanding (recurring mechanisms + longitudinal patterns), conserved: feed every kept/rerouted candidate into the conservation machinery (consolidate-until-done) — that conservation IS the run's success. Recall is the TUNING/credibility check, computed deterministically (Choice B: strict within-remit >= 0.6 AND lenient >= 0.85) with the regression guard (within-remit strict net-improved AND no broad-cluster baseline regressed). Read the recall verdict as confidence-in-the-instrument, not the milestone: a Choice-B PASS means the pipeline was sensitive enough to trust its novel findings -> graduate the method as a reusable, corpus-parameterised capability (PDR-120 runbook + PDR-035 adopting PDR). A recall MISS does NOT auto-trigger a re-run (owner: tuning is a means, not the end): assess whether the tuning gap actually cost real discovery (did a missed baseline correspond to lost novel understanding?); re-tune-and-re-run ONLY if it did, else graduate with the gap named. This guards against a recall-chasing v4 that re-spends ~13M for a tuning point after the discovery is already delivered. No holding state."
     status: pending
     depends_on: [full-v3-rerun]
 ---
@@ -42,18 +42,26 @@ fidelity: **strict within-remit recall 5/10 = 0.50** (< 0.60). The residual gap 
 altitude, not measurement** — the aggregation layer is proven correct (deterministic,
 recompute-validated; the quorum-floor adjudication is settled by
 [PDR-122](../../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)). This
-plan improves the map/reduce prompts to preserve the specific mechanism each baseline names, then
-re-proves the method.
+plan improves the map/reduce prompts to preserve mechanism specificity AND to elicit longitudinal
+over-time patterns, then does the real, full discovery scan — with golden-baseline recall as the
+tuning instrument that makes the discovery trustworthy, never the end in itself.
 
 ## End goal
 
-A large-corpus-analysis Discovery pass that surfaces specific recurring **mechanisms** as distinct
-candidates — not only the broad themes that subsume them — so the method's within-remit recall
-clears Choice B (strict ≥ 0.60, lenient ≥ 0.85) and the finer-grained, often most actionable
-patterns (the cron-template override, the autofix sweep, the compaction checkpoint) are surfaced
-rather than dissolved into a broad parent. The user impact is the standing one for this thread:
-**the curation, conservation, discoverability and utility of understanding** — a discovery feeder
-whose findings are mechanism-specific enough to home as durable doctrine, repeatable not heroic.
+The real, full Discovery scan of the napkin corpus — the only napkin corpus there is — that **does
+the discovery work**: surfacing the genuine new understanding it holds and conserving it as durable
+doctrine. That understanding has two shapes, and the run must deliver both:
+
+- **specific recurring mechanisms** as distinct candidates (the cron-template override, the autofix
+  sweep, the compaction checkpoint), not dissolved into the broad parents that subsume them; and
+- **longitudinal patterns across napkins** — trajectories, regime shifts, and over-time evolution of
+  the practice across the corpus's 4+ month span — that no single-napkin entry or hand-skim surfaces.
+
+The deliverable is that discovered understanding, conserved — the standing thread impact:
+**the curation, conservation, discoverability and utility of understanding**, repeatable not heroic.
+**Recall against the hand-pinned golden baselines is the means, not the end**: it tunes the pipeline
+and gives confidence it is sensitive enough to trust its *novel* findings (Choice B — strict ≥ 0.60,
+lenient ≥ 0.85 — is the tuning target, not the milestone).
 
 ## Mechanism
 
@@ -71,9 +79,14 @@ two blurring drivers, both at the LLM layer, both prompt-only fixable:
    when it wants to.
 
 The fix removes the compression incentive and adds an actuator-preservation requirement at both
-stages — **changing only the prompts**, which is exactly the lever the owner scoped and leaves the
-proven aggregation layer untouched. A staged cheap probe resolves the key warrant (that
-preserving grain does not shatter the broad-theme cluster) before the one-way full-rerun spend.
+stages, and — for the longitudinal half of the discovery — has the prompts actively elicit
+trajectory / regime-shift / relational-lagged candidates (how the practice *evolved*), so the
+recurrence emphasis does not suppress over-time patterns. **All of this changes only the prompts**,
+the lever the owner scoped; the proven aggregation layer is untouched. A staged cheap probe resolves
+the key warrant (that preserving grain does not shatter the broad-theme cluster) before the one-way
+full-rerun spend. Throughout, recall against the golden baselines is the **tuning dial** — it
+calibrates the pipeline's grain and sensitivity so its genuine discoveries are credible; it is not
+the run's purpose.
 
 ## Means
 
@@ -90,9 +103,14 @@ The workstreams above. WS `author-grain-preserving-prompts` is prompt engineerin
 - **Probe success criterion met** (`probe-gate`): all 5 failing emergent baselines appear as
   distinct actuator-naming candidates in the new reduce output, with the broad-theme cluster still
   coherent. Proof: a value-proxy inspection recorded against the 5 baseline ids + the broad cluster.
-- **Choice B met within-remit** (`graduate-or-decide`): strict ≥ 0.60 AND lenient ≥ 0.85, computed
-  by the existing deterministic `recallReport` + `meetsGraduateGate`. Proof: the aggregation
-  driver's JSON report.
+- **Discovery delivered and conserved** (the actual end): the run surfaces genuine new
+  understanding — recurring mechanisms AND longitudinal patterns — and every kept/rerouted candidate
+  is handed to `consolidate-until-done` for homing. Proof: the kept-candidate set + the conservation
+  run-record. Recall is the tuning instrument below, not this criterion.
+- **Pipeline tuned to confidence** (`graduate-or-decide`): Choice B met within-remit (strict ≥ 0.60
+  AND lenient ≥ 0.85), computed by the existing deterministic `recallReport` + `meetsGraduateGate` —
+  the credibility check on the discovery, not its measure. Proof: the aggregation driver's JSON
+  report.
 - **Regression guard clears**: within-remit strict recall is net-improved AND no previously-passing
   broad baseline regressed to partial/missed. Proof: a baseline-by-baseline diff of v2 vs v3 recall
   matches.
@@ -183,3 +201,10 @@ The conserved tooling and corrected findings are at
 [`.agent/reports/agentic-engineering/large-corpus-analysis-tooling/`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/).
 Graduation lands the runbook in the discovery surfaces seeded by
 [`agentic-corpus-discoverability-and-deep-dive-hub.plan.md`](./agentic-corpus-discoverability-and-deep-dive-hub.plan.md).
+
+The mechanisms are corpus-reusable: **comms events** are the next named consumer (definite), the
+**planning corpus** a possible one — so the runbook graduates as a **corpus-parameterised
+capability** (golden baselines and candidate kinds are per-corpus config), not a napkin-only method.
+For now the live target is the **full napkin scan**. v3 is the last *full* run on the napkin corpus;
+corpus growth is handled by **incremental** re-mining (new windows merged into the conserved
+findings), never a periodic full re-run.
