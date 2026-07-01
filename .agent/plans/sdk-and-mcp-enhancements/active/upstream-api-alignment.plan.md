@@ -57,7 +57,7 @@ spec only.**
   (recursively sorts object keys, preserves array order, falls back to a trimmed string
   compare on non-JSON), unit-tested (5 cases incl. the byte-different-semantically-identical
   case), and wired it into `main()` (replacing `cachedText.trimEnd() === liveText.trimEnd()`).
-  Annotation text fixed (`pnpm sdk-codegen --online`, not "with OAK_API_KEY set"). **Live-verified:**
+  Annotation text fixed (`SDK_CODEGEN_MODE=online pnpm sdk-codegen`, not "with OAK_API_KEY set"). **Live-verified:**
   `pnpm --filter @oaknational/agent-tools ci-schema-drift-check` now prints "up to date" against
   the real cache + live spec (the old byte compare would have cried wolf).
 
@@ -67,14 +67,16 @@ template-authoring defect + the `schema.json`-is-a-superset finding are conserve
 below — mine them into the new `future/` plan.
 
 **WS4 discoverability LANDED (Vanilla stirs Spore):** programmes are now surfaced in
-`get-curriculum-model` — a **Programme** entity in `entityHierarchy` (framed as the
-user-facing parallel to Sequence, not a containment level), a **programmes** tool category
-listing the 5 programme tools, and a **byProgramme** workflow (extracted to
-`tool-guidance-workflows-programmes.ts` to respect the `max-lines` cap, composed back via
-spread). All framed **co-equal** with sequences per D2, and our authored guidance now
-carries the **verified full-form slugs** (`english-primary-year-1`,
-`english-secondary-year-10-edexcel`). 20 relationship-based unit assertions; model assembly
-green.
+`get-curriculum-model` — a **programmes** tool category listing the 5 programme tools and a
+**byProgramme** workflow (extracted to `tool-guidance-workflows-programmes.ts` to respect the
+`max-lines` cap, composed back via spread), framed **co-equal** with sequences per D2
+(sequences not demoted), carrying the **verified full-form slugs** (`english-primary-year-1`,
+`english-secondary-year-10-edexcel`). Programme is represented co-equally by the **existing
+`programmesVsSequences` block, NOT added to the linear `entityHierarchy.levels`** — a review
+finding (Codex) showed a linear level wrongly implies `Sequence → Programme → Unit`, so the
+level was reverted. The byProgramme step-1 return shape was corrected to a flat array of slug
+strings (`SubjectProgrammesResponseSchema = z.array(z.string())`); per-programme factors come
+from `get-programmes` in step 2. Relationship-based unit assertions; model assembly green.
 
 **WS4 slug clarification LANDED — via a declarative additions mechanism.** The upstream `y7`
 slug example is *loose shorthand*, not a versioning artefact (owner, 2026-07-01): the same
@@ -109,6 +111,21 @@ PR**) is now **redundant** — its content is `79364bbd1` on #291 — **safe to 
 thread record + `repo-continuity.md` refresh belong on the primary/main branch (not this
 feature branch, to avoid per-branch `.agent` divergence); the consolidation gate + full
 `pnpm check` were not run in this handoff. See the successor brief.
+
+## Review triage — PR #291 (2026-07-01, all 7 reviewer threads dispositioned)
+
+Bot review (Copilot + Codex) surfaced 7 threads; each fixed or resolved-with-rationale
+(GitHub conversation-resolution state, which gates merge — a reply alone does not resolve):
+
+- **T1/T2** byProgramme step-1 return shape — **fixed**: flat slug-string array, factors from `get-programmes`.
+- **T3** drift-check refresh command — **fixed**: `SDK_CODEGEN_MODE=online pnpm sdk-codegen` (turbo eats a bare `--online`).
+- **T4** Programme in the linear `entityHierarchy` — **fixed**: reverted; represented via `programmesVsSequences`.
+- **T5** `get-programmes-assets` missing the asset-download note — **fixed**: added to the `TOOL_DESCRIPTION_ADDITIONS` map.
+- **T6** pre-push drift `fetch` could hang offline — **fixed**: `AbortSignal.timeout` on the fetch.
+- **T7** `Link: rel="next"` header invisible to MCP clients — **not a regression**: the MCP invoker drops
+  response headers for **all** paginated tools (systemic, pre-existing). Out of scope here; **follow-on** =
+  expose next-page in the tool result, or strip the Link-header line at the generator. Thread resolved with
+  this rationale.
 
 ## Problem (gap · harm · mechanism · constraints · success)
 
@@ -227,7 +244,7 @@ both sides (recursive key sort, array order preserved) so the routine byte misma
 the cache-write pipeline and the raw-fetch pipeline no longer cries wolf, while genuine
 same-version content drift (e.g. the `asset→assets` typo) is still caught; (2) the
 factually-wrong `OAK_API_KEY` docstring + annotation text corrected (the endpoint is public;
-refresh is `pnpm sdk-codegen --online`); (3) the non-blocking pre-push advisory step
+refresh is `SDK_CODEGEN_MODE=online pnpm sdk-codegen`); (3) the non-blocking pre-push advisory step
 (`79364bbd1`, already on #291). The extracted pure function now carries the unit coverage
 the validator previously lacked. Edits no SDK types — type tripwire N/A.
 

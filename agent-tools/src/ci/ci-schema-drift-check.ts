@@ -24,6 +24,14 @@ const CACHE_PATH = resolve(
 const CACHE_FILE_ANNOTATION =
   'file=packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json';
 
+/**
+ * Abort the advisory upstream fetch after this long. Pre-push runs this check
+ * non-blocking, but a stalled connection (offline, captive portal, proxy) would
+ * otherwise hang the fetch and block the push regardless of `|| true`, which only
+ * catches a non-zero exit after the request returns.
+ */
+const SCHEMA_FETCH_TIMEOUT_MS = 5000;
+
 function writeLine(message: string): void {
   process.stdout.write(`${message}\n`);
 }
@@ -53,12 +61,13 @@ function buildDriftAnnotation(liveText: string, cachedText: string): string {
       ? `Both are version ${liveVersion} but content differs (upstream may have fixed descriptions or parameters without a version bump).`
       : `Cached: ${cachedVersion}, live: ${liveVersion}.`;
 
-  return `::warning ${CACHE_FILE_ANNOTATION}::Schema cache has drifted from the live upstream spec. ${versionNote} Run \`pnpm sdk-codegen --online\` to refresh.`;
+  return `::warning ${CACHE_FILE_ANNOTATION}::Schema cache has drifted from the live upstream spec. ${versionNote} Run \`SDK_CODEGEN_MODE=online pnpm sdk-codegen\` to refresh.`;
 }
 
 async function fetchLiveSchema(): Promise<string | null> {
   const response = await fetch(SCHEMA_URL, {
     headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(SCHEMA_FETCH_TIMEOUT_MS),
   });
 
   if (!response.ok) {

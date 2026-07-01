@@ -393,13 +393,6 @@ export const ontologyData = {
         schemaRef: 'SubjectSequenceResponseSchema',
       },
       {
-        entity: 'Programme',
-        example: 'english-secondary-year-10-edexcel',
-        contains: 'Units, questions, and assets for that pathway',
-        note: 'User-facing parallel to Sequence (not a containment level between Sequence and Unit) — a single subject/key-stage/year-group pathway with its tier/exam-board/child-subject context. One sequence generates many programme views; the two are co-equal navigation routes (see programmesVsSequences). Programme slugs are full-form (e.g. english-primary-year-1), not year-group labels like y7.',
-        schemaRef: 'ProgrammeResponseSchema',
-      },
-      {
         entity: 'Unit',
         types: ['simple', 'variant (tier-based)', 'optionality (teacher choice)'],
         example: 'comparing-fractions',

@@ -185,6 +185,8 @@ export const TOOL_DESCRIPTION_ADDITIONS: ReadonlyMap<string, string> = new Map([
   // Programmes tools: clarify the full-form slug against the loose upstream `y7` shorthand.
   ['get-subjects-programmes', PROGRAMME_SLUG_NOTE],
   ['get-programmes', PROGRAMME_SLUG_NOTE],
+  // Programme assets return the same authenticated `url` endpoints as the other asset tools.
+  ['get-programmes-assets', ASSET_DOWNLOAD_NOTE],
 ]);
 
 /**

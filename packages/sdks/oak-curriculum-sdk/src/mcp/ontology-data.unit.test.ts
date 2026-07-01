@@ -52,21 +52,6 @@ describe('ontologyData key stages and KS4 factors', () => {
   });
 });
 
-describe('ontologyData programme entity (co-equal navigation route)', () => {
-  it('names Programme as a first-class entity in the hierarchy alongside Sequence', () => {
-    const entities = ontologyData.entityHierarchy.levels.map((level) => level.entity);
-    expect(entities).toContain('Programme');
-    expect(entities).toContain('Sequence');
-  });
-
-  it('frames the Programme entity as the user-facing parallel to the sequence route', () => {
-    const programme = ontologyData.entityHierarchy.levels.find(
-      (level) => level.entity === 'Programme',
-    );
-    expect(programme?.note).toMatch(/sequence/i);
-  });
-});
-
 describe('ontologyData generation honesty', () => {
   it('version no longer carries the -poc suffix now that lists are schema-derived', () => {
     expect(ontologyData.version).not.toContain('poc');

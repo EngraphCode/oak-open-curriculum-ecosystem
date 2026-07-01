@@ -29,12 +29,13 @@ export const programmeWorkflows = {
     steps: [
       {
         step: 1,
-        action: "Discover a subject's programmes, grouped by key stage",
+        action: "Discover a subject's programmes",
         tool: 'get-subjects-programmes',
         example: 'get-subjects-programmes({ subject: "english" })',
         returns:
-          'Programmes for the subject, each with its full-form slug (e.g. english-primary-year-1, ' +
-          'english-secondary-year-10-edexcel) and programme factors (tier, exam board, child subject)',
+          'A flat array of full-form programme slug strings (e.g. english-primary-year-1, ' +
+          'english-secondary-year-10-edexcel) — slugs only, no per-programme metadata; the year ' +
+          'group and factors (tier, exam board, child subject) come from get-programmes in step 2',
       },
       {
         step: 2,
