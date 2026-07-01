@@ -9,12 +9,15 @@ machinery (PDR-014 `consolidate-docs` / `consolidate-until-done`).
 
 ## Files
 
-- **`map-reduce-validate-meta.workflow.mjs`** — the full straight-through harness Workflow: map ×N
-  (Sonnet/low) → reduce (Opus/high) → validate (mirror-driven Tier-0/1/2 adversary) → meta. The
-  partition is inlined (re-derive at launch — never trust a frozen count). Pass via `scriptPath`,
-  NOT `args` (the harness delivers `args` as a JSON string; inline the data instead). Carries the
-  post-reduce **hard-abort re-gate** (aborts before validate if the worst-case spend breaches the
-  ceiling) and the actuator-grain + longitudinal map/reduce/vote prompts.
+- **`map-reduce-validate-meta.workflow.mjs`** — **RETIRED as a run path** (commit 91ee28474 split it
+  into `map.workflow` + `reduce.workflow`). Kept ONLY as the prompt/mirror source of truth and a
+  complete straight-through reference. **Do NOT run it for the full discovery** — it still carries the
+  stale 16M `VALIDATE_TOKEN_CEILING` literal (the split templates have NO default — fill the placeholder
+  from the probe-calibrated count) and the lost-map-spend risk the split cures. Run the split instead
+  (`map.workflow` → commit leaves → `reduce.workflow` → commit candidates → seeded `validate-meta`).
+  Reference shape: map ×N (Sonnet/low) → reduce (Opus/high) → validate (mirror-driven Tier-0/1/2) →
+  meta; carries the post-reduce hard-abort re-gate and the actuator-grain + longitudinal prompts; the
+  inlined `PARTITION_WINDOWS` is the current valid 15-window partition (corpus byte-unchanged 2026-06-30).
 - **`map.workflow.template.mjs`** — **checkpoint-1a**: map ×N ONLY (Sonnet/low), `__PARTITION__`
   placeholder. Returns `leaves` for commit to `data/`. mapPrompt is kept **byte-identical** to
   `map-reduce-validate-meta.workflow.mjs` (`__MAP_PROMPT_*__` markers; edit both, re-diff at launch).

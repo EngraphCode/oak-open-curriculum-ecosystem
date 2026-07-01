@@ -20,7 +20,7 @@ todos:
     status: done
     depends_on: [cheap-grain-probe]
   - id: launch-preflight-and-cost-reconciliation
-    content: "Re-derive the partition from the LIVE corpus (token-balanced greedy walk; ~15 windows; never trust the frozen PARTITION_WINDOWS). Project candidate count from the PROBE calibration, NOT the v2 50: the probe yielded 75 candidates over 3 dense windows, so the 15-window run likely yields ~80-120 — re-derive VALIDATE_TOKEN_CEILING UP to ~25-30M (worst-case 120 x 5 x ~50k = 30M > the 16M default, which would falsely hard-abort) and/or moderate count. estimatePipelineCost with the corrected ~50k/voter. Confirm the routing-mirror conformance test is green, the post-reduce re-gate hard-aborts, and re-diff the .mjs mirror/prompt blocks (no machine pin yet)."
+    content: "Fill the SPLIT templates' placeholders — they carry NO default (the 16M literal lived ONLY in the now-retired combined map-reduce-validate-meta.workflow.mjs; do not look for a default to 'raise'). PARTITION: the corpus file-set is byte-identical to the frozen PARTITION_WINDOWS (verified 2026-06-30), so the 15-window partition inlined in map-reduce-validate-meta.workflow.mjs is still valid to reuse as map.workflow's __PARTITION__; re-derive (token-balanced greedy-walk) ONLY if the corpus grew — method in large-corpus-analysis-v2-rerun-runbook-2026-06-29.md. CEILING: project candidate count from the PROBE calibration, NOT v2's 50 — 75 candidates / 3 dense windows ⇒ ~80-120 for 15. Set __VALIDATE_TOKEN_CEILING__ = worst-case x headroom, worst-case = candidateCount x MAX_VOTERS_PER_CANDIDATE(=5, cost-and-coverage.ts) x ~50k (OBSERVED_VALIDATE_TOKENS_PER_VOTER, run-orchestration.ts) ⇒ ~25-30M for ~120 (NOT the pre-probe ~16-18M, which would falsely hard-abort) and/or moderate count. Confirm the routing-mirror conformance test (39) is green, the post-reduce re-gate hard-aborts, and re-diff the .mjs ORCH_MIRROR / MAP_PROMPT / REDUCE_PROMPT blocks (no machine pin yet)."
     status: pending
     depends_on: [probe-gate, harden-run-orchestration]
   - id: full-discovery-run
@@ -105,7 +105,7 @@ one-way full-run spend; first-class checkpointing lets the ~13M run complete acr
 
 ## Means
 
-The eleven todos above, in dependency order: the prompt refinement and the orchestration hardening run
+The ten todos above, in dependency order: the prompt refinement and the orchestration hardening run
 first (independent of each other); the cheap probe gates the spend; the launch pre-flight reconciles
 cost and re-derives the partition; the full run executes (owner-authorised, checkpointed); the
 deterministic driver + discovery artefacts + conservation buffer turn the run into homed understanding;
@@ -166,7 +166,7 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 | Removing the count cap over-fragments, collapsing broad recall | Probe broad-leg floor (pre-spend) + post-reduce hard-abort on runaway count + the graduate-or-decide regression guard (backstop) |
 | ~13M run trips the session quota mid-validate (as v2 did) | First-class checkpoints: commit leaves/candidates after map+reduce; candidate-granular resume re-spends only the unresolved tail (~1M, not ~8.6M) |
 | Longitudinal findings are apophenia (v1 killed 9 speculative arcs) | The kind-conditional vote falsifier makes the early/late split falsifiable against window-ordered grounding; the additive temporal-coverage driver check catches narrow-window "regime" claims |
-| Cost gate falsely aborts the legitimate run, or under-estimates and overspends | Ceiling computed from the re-derived partition (~16–18M); `tokensPerVoter` corrected to ~50k; the post-reduce re-gate recomputes on the real candidate count and hard-aborts |
+| Cost gate falsely aborts the legitimate run, or under-estimates and overspends | Ceiling re-derived from the PROBE-CALIBRATED count (**~25-30M**; the pre-probe ~16-18M is SUPERSEDED — the probe's 75 candidates / 3 dense windows implies ~80-120 for 15 windows); `tokensPerVoter` corrected to ~50k; the post-reduce re-gate recomputes on the real candidate count and hard-aborts |
 | Conservation hand-off is a hope not a step | `build-conservation-buffer` makes it an explicit artefact; novelty stratification focuses scrutiny on the genuinely-new yield |
 
 ## Foundation alignment

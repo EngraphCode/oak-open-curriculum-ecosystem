@@ -19,6 +19,7 @@ const OPERATION_ID_BY_METHOD_AND_PATH = {
   "get /sequences/:sequence/assets": "getAssets-getSequenceAssets",
   "get /key-stages/:keyStage/subject/:subject/assets": "getAssets-getSubjectAssets",
   "get /lessons/:lesson/assets": "getAssets-getLessonAssets",
+  "get /programmes/:programme/assets": "getAssets-getProgrammeAssets",
   "get /lessons/:lesson/assets/:type": "getAssets-getLessonAsset",
   "get /subjects": "getSubjects-getAllSubjects",
   "get /subjects/:subject": "getSubjects-getSubject",
@@ -27,10 +28,14 @@ const OPERATION_ID_BY_METHOD_AND_PATH = {
   "get /key-stages": "getKeyStages-getKeyStages",
   "get /key-stages/:keyStage/subject/:subject/lessons": "getKeyStageSubjectLessons-getKeyStageSubjectLessons",
   "get /key-stages/:keyStage/subject/:subject/units": "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits",
+  "get /subjects/:subject/programmes": "getAllProgrammesForSubject-getAllProgrammesForSubject",
+  "get /programmes/:programme": "getAllProgrammesForSubject-getProgramme",
+  "get /programmes/:programme/units": "getAllProgrammesForSubject-getProgrammeUnits",
   "get /keywords": "getKeywords-getKeywords",
   "get /lessons/:lesson/quiz": "getQuestions-getQuestionsForLessons",
   "get /sequences/:sequence/questions": "getQuestions-getQuestionsForSequence",
   "get /key-stages/:keyStage/subject/:subject/questions": "getQuestions-getQuestionsForKeyStageAndSubject",
+  "get /programmes/:programme/questions": "getQuestions-getQuestionsForProgramme",
   "get /lessons/:lesson/summary": "getLessons-getLesson",
   "get /search/lessons": "getLessons-searchByTextSimilarity",
   "get /units/:unit/summary": "getUnits-getUnit",
@@ -48,6 +53,7 @@ const PRIMARY_RESPONSE_STATUS_BY_OPERATION_ID = {
   "getAssets-getSequenceAssets": "200",
   "getAssets-getSubjectAssets": "200",
   "getAssets-getLessonAssets": "200",
+  "getAssets-getProgrammeAssets": "200",
   "getAssets-getLessonAsset": "200",
   "getSubjects-getAllSubjects": "200",
   "getSubjects-getSubject": "200",
@@ -56,10 +62,14 @@ const PRIMARY_RESPONSE_STATUS_BY_OPERATION_ID = {
   "getKeyStages-getKeyStages": "200",
   "getKeyStageSubjectLessons-getKeyStageSubjectLessons": "200",
   "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits": "200",
+  "getAllProgrammesForSubject-getAllProgrammesForSubject": "200",
+  "getAllProgrammesForSubject-getProgramme": "200",
+  "getAllProgrammesForSubject-getProgrammeUnits": "200",
   "getKeywords-getKeywords": "200",
   "getQuestions-getQuestionsForLessons": "200",
   "getQuestions-getQuestionsForSequence": "200",
   "getQuestions-getQuestionsForKeyStageAndSubject": "200",
+  "getQuestions-getQuestionsForProgramme": "200",
   "getLessons-getLesson": "200",
   "getLessons-searchByTextSimilarity": "200",
   "getUnits-getUnit": "200",
@@ -639,6 +649,35 @@ const LessonAssetsResponseSchema = z
       .optional(),
   })
   .strict();
+const ProgrammeAssetsResponseSchema = z.array(
+  z
+    .object({
+      lessonSlug: z.string(),
+      lessonTitle: z.string(),
+      attribution: z.array(z.string()).optional(),
+      assets: z.array(
+        z
+          .object({
+            type: z.enum([
+              "slideDeck",
+              "exitQuiz",
+              "exitQuizAnswers",
+              "starterQuiz",
+              "starterQuizAnswers",
+              "supplementaryResource",
+              "video",
+              "worksheet",
+              "worksheetAnswers",
+            ]),
+            label: z.string(),
+            url: z.string(),
+          })
+          .strict()
+      ),
+      oakUrl: z.url().optional(),
+    })
+    .strict()
+);
 const LessonAssetResponseSchema = z.unknown();
 const AllSubjectsResponseSchema = z.array(
   z.enum([
@@ -751,6 +790,36 @@ const AllKeyStageAndSubjectUnitsResponseSchema = z.array(
           })
           .strict()
       ),
+      oakUrl: z.url().optional(),
+    })
+    .strict()
+);
+const SubjectProgrammesResponseSchema = z.array(z.string());
+const ProgrammeResponseSchema = z
+  .object({
+    examboardSlug: z.union([z.string(), z.null()]),
+    examboardTitle: z.union([z.string(), z.null()]),
+    keystageSlug: z.string(),
+    keystageTitle: z.string(),
+    pathwaySlug: z.union([z.string(), z.null()]),
+    pathwayTitle: z.union([z.string(), z.null()]),
+    phaseSlug: z.string(),
+    phaseTitle: z.string(),
+    subjectSlug: z.string(),
+    subjectTitle: z.string(),
+    tierSlug: z.union([z.string(), z.null()]),
+    tierTitle: z.union([z.string(), z.null()]),
+    yearSlug: z.string(),
+    yearTitle: z.string(),
+    oakUrl: z.url().optional(),
+  })
+  .strict();
+const ProgrammeUnitsResponseSchema = z.array(
+  z
+    .object({
+      unitSlug: z.string(),
+      unitTitle: z.string(),
+      unitOrder: z.number(),
       oakUrl: z.url().optional(),
     })
     .strict()
@@ -1510,6 +1579,259 @@ const QuestionsForKeyStageAndSubjectResponseSchema = z.array(
     })
     .strict()
 );
+const QuestionsForProgrammeResponseSchema = z.array(
+  z
+    .object({
+      lessonSlug: z.string(),
+      lessonTitle: z.string(),
+      starterQuiz: z.array(
+        z.union([
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z.union([
+                  z
+                    .object({
+                      type: z.string(),
+                      content: z.string(),
+                      distractor: z.boolean(),
+                    })
+                    .strict(),
+                  z
+                    .object({
+                      type: z.string(),
+                      content: z
+                        .object({
+                          url: z.string(),
+                          width: z.number(),
+                          height: z.number(),
+                          alt: z.string().optional(),
+                          text: z.string().optional(),
+                          attribution: z.string().optional(),
+                        })
+                        .strict(),
+                      distractor: z.boolean(),
+                    })
+                    .strict(),
+                ])
+              ),
+            })
+            .strict(),
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z.object({ type: z.string(), content: z.string() }).strict()
+              ),
+            })
+            .strict(),
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z
+                  .object({
+                    matchOption: z
+                      .object({ type: z.string(), content: z.string() })
+                      .strict(),
+                    correctChoice: z
+                      .object({ type: z.string(), content: z.string() })
+                      .strict(),
+                  })
+                  .strict()
+              ),
+            })
+            .strict(),
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z
+                  .object({ order: z.number() })
+                  
+                  .and(
+                    z.object({ type: z.string(), content: z.string() })
+                  )
+              ),
+            })
+            .strict(),
+        ])
+      ),
+      exitQuiz: z.array(
+        z.union([
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z.union([
+                  z
+                    .object({
+                      type: z.string(),
+                      content: z.string(),
+                      distractor: z.boolean(),
+                    })
+                    .strict(),
+                  z
+                    .object({
+                      type: z.string(),
+                      content: z
+                        .object({
+                          url: z.string(),
+                          width: z.number(),
+                          height: z.number(),
+                          alt: z.string().optional(),
+                          text: z.string().optional(),
+                          attribution: z.string().optional(),
+                        })
+                        .strict(),
+                      distractor: z.boolean(),
+                    })
+                    .strict(),
+                ])
+              ),
+            })
+            .strict(),
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z.object({ type: z.string(), content: z.string() }).strict()
+              ),
+            })
+            .strict(),
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z
+                  .object({
+                    matchOption: z
+                      .object({ type: z.string(), content: z.string() })
+                      .strict(),
+                    correctChoice: z
+                      .object({ type: z.string(), content: z.string() })
+                      .strict(),
+                  })
+                  .strict()
+              ),
+            })
+            .strict(),
+          z
+            .object({
+              question: z.string(),
+              questionType: z.string(),
+              questionImage: z
+                .object({
+                  url: z.string(),
+                  width: z.number(),
+                  height: z.number(),
+                  alt: z.string().optional(),
+                  text: z.string().optional(),
+                  attribution: z.string().optional(),
+                })
+                .strict()
+                .optional(),
+              answers: z.array(
+                z
+                  .object({ order: z.number() })
+                  
+                  .and(
+                    z.object({ type: z.string(), content: z.string() })
+                  )
+              ),
+            })
+            .strict(),
+        ])
+      ),
+      oakUrl: z.url().optional(),
+    })
+    .strict()
+);
 const LessonSummaryResponseSchema = z
   .object({
     lessonTitle: z.string(),
@@ -1715,6 +2037,7 @@ export const rawCurriculumSchemas = {
   SequenceAssetsResponseSchema,
   SubjectAssetsResponseSchema,
   LessonAssetsResponseSchema,
+  ProgrammeAssetsResponseSchema,
   LessonAssetResponseSchema,
   AllSubjectsResponseSchema,
   SubjectResponseSchema,
@@ -1723,9 +2046,13 @@ export const rawCurriculumSchemas = {
   KeyStageResponseSchema,
   KeyStageSubjectLessonsResponseSchema,
   AllKeyStageAndSubjectUnitsResponseSchema,
+  SubjectProgrammesResponseSchema,
+  ProgrammeResponseSchema,
+  ProgrammeUnitsResponseSchema,
   QuestionForLessonsResponseSchema,
   QuestionsForSequenceResponseSchema,
   QuestionsForKeyStageAndSubjectResponseSchema,
+  QuestionsForProgrammeResponseSchema,
   LessonSummaryResponseSchema,
   LessonSearchResponseSchema,
   UnitSummaryResponseSchema,
@@ -1868,7 +2195,7 @@ Not for: key stages restricted to a subject (GET /subjects/{subject}/key-stages)
     path: "/key-stages/:keyStage/subject/:subject/assets",
     description: `Use when you want every downloadable asset for a key stage + subject, without programme structure or unit sequence order, optionally scoped to a unit or asset type. Returns assets grouped by lesson, each with signed download URLs, asset type, lesson title and slug, and attribution. Pass unit to restrict to one unit and type to restrict to one asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
 
-Not for: assets across a sequence (GET /sequences/{sequence}/assets); assets in one programme (GET /sequences/{sequence}/programmes/{programme}/assets); a single lesson&#x27;s downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).`,
+Not for: assets across a sequence (GET /sequences/{sequence}/assets); assets in one programme (GET /programmes/{programme}/assets); a single lesson&#x27;s downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).`,
     requestFormat: "json",
     parameters: [
       {
@@ -1946,7 +2273,7 @@ Not for: assets across a sequence (GET /sequences/{sequence}/assets); assets in 
     path: "/key-stages/:keyStage/subject/:subject/lessons",
     description: `Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel&#x3D;&quot;next&quot; header signals more pages.
 
-Not for: finding a lesson from a search term (GET /search/lessons); a single lesson&#x27;s metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units).
+Not for: finding a lesson from a search term (GET /search/lessons); a single lesson&#x27;s metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units).
 
 Example: keyStage&#x3D;ks3, subject&#x3D;maths, unit&#x3D;perimeter-and-area.`,
     requestFormat: "json",
@@ -2019,7 +2346,7 @@ Example: keyStage&#x3D;ks3, subject&#x3D;maths, unit&#x3D;perimeter-and-area.`,
     path: "/key-stages/:keyStage/subject/:subject/questions",
     description: `Use when you want every quiz question for a key stage + subject, without programme structure or unit sequence order. Returns lessons each with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel&#x3D;&quot;next&quot; header signals more pages.
 
-Not for: a single lesson&#x27;s quiz (GET /lessons/{lesson}/quiz); questions across a sequence (GET /sequences/{sequence}/questions); questions in one programme (GET /sequences/{sequence}/programmes/{programme}/questions).`,
+Not for: a single lesson&#x27;s quiz (GET /lessons/{lesson}/quiz); questions across a sequence (GET /sequences/{sequence}/questions); questions in one programme (GET /programmes/{programme}/questions).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2090,7 +2417,7 @@ Not for: a single lesson&#x27;s quiz (GET /lessons/{lesson}/quiz); questions acr
     path: "/key-stages/:keyStage/subject/:subject/units",
     description: `Use when you want a flat list of every unit with published lessons in a key stage + subject, without programme structure or unit sequence order. Returns units grouped by year slug; units without published lessons are omitted. Pass examBoard to restrict KS4 to one board (one of: aqa, edexcel (Edexcel A), eduqas, ocr, wjec, edexcelb (Edexcel B)); otherwise each unit lists the boards it appears in.
 
-Not for: all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); a single unit (GET /units/{unit}/summary); lessons rather than units (GET /key-stages/{keyStage}/subject/{subject}/lessons); units in a thread (GET /threads/{threadSlug}/units).`,
+Not for: all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary); lessons rather than units (GET /key-stages/{keyStage}/subject/{subject}/lessons); units in a thread (GET /threads/{threadSlug}/units).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2217,7 +2544,7 @@ Not for: all units across a sequence (GET /sequences/{sequence}/units); units in
     path: "/lessons/:lesson/assets",
     description: `Use when you have a lesson slug and need the list of what&#x27;s downloadable. Returns every available asset type with a signed download URL per asset and attribution. The 9 type values are: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video. Pass type to return only one. Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
 
-Not for: streaming the file itself (GET /lessons/{lesson}/assets/{type}); bulk asset retrieval across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/assets), a sequence (GET /sequences/{sequence}/assets), or one programme (GET /sequences/{sequence}/programmes/{programme}/assets); lesson metadata (GET /lessons/{lesson}/summary).`,
+Not for: streaming the file itself (GET /lessons/{lesson}/assets/{type}); bulk asset retrieval across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/assets), a sequence (GET /sequences/{sequence}/assets), or one programme (GET /programmes/{programme}/assets); lesson metadata (GET /lessons/{lesson}/summary).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2315,7 +2642,7 @@ Not for: listing which asset types a lesson has (GET /lessons/{lesson}/assets); 
     path: "/lessons/:lesson/quiz",
     description: `Use when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors.
 
-Not for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /sequences/{sequence}/programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).`,
+Not for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2398,6 +2725,180 @@ Not for: searching across transcripts (GET /search/transcripts); the video file 
       },
     ],
     response: TranscriptResponseSchema,
+    errors: [
+      {
+        status: 400,
+        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
+        schema: error_BAD_REQUEST,
+      },
+      {
+        status: 401,
+        description: `API token not provided or invalid`,
+        schema: error_UNAUTHORIZED,
+      },
+      {
+        status: 404,
+        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
+        schema: error_NOT_FOUND,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/programmes/:programme",
+    description: `Use when you need to get the metadata of one programme. Get programme slugs from GET /subjects/{subject}/programmes. Returns the programme&#x27;s year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).
+
+Not for: the units, questions, or assets of one programme (GET /programmes/{programme}/units, GET /programmes/{programme}/questions, or GET /programmes/{programme}/assets); the sequence-level summary (GET /sequences/{sequence}); all programmes for a subject (GET /subjects/{subject}/programmes).`,
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "programme",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: ProgrammeResponseSchema,
+    errors: [
+      {
+        status: 400,
+        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
+        schema: error_BAD_REQUEST,
+      },
+      {
+        status: 401,
+        description: `API token not provided or invalid`,
+        schema: error_UNAUTHORIZED,
+      },
+      {
+        status: 404,
+        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
+        schema: error_NOT_FOUND,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/programmes/:programme/assets",
+    description: `Use when you need every downloadable asset for a single programme (year group) within a subject. Returns assets grouped by lesson with signed download URLs, asset type, lesson title and slug, and attribution. Supports offset/limit pagination; Link: rel&#x3D;&quot;next&quot; header signals more pages. Optionally narrow by asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
+
+Not for: assets across a whole sequence (GET /sequences/{sequence}/assets); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets); a single lesson&#x27;s downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).`,
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "programme",
+        type: "Path",
+        schema: z.string(),
+      },
+      {
+        name: "offset",
+        type: "Query",
+        schema: z.number().optional().default(0),
+      },
+      {
+        name: "limit",
+        type: "Query",
+        schema: z.number().lte(100).optional().default(10),
+      },
+      {
+        name: "type",
+        type: "Query",
+        schema: z
+          .enum([
+            "slideDeck",
+            "exitQuiz",
+            "exitQuizAnswers",
+            "starterQuiz",
+            "starterQuizAnswers",
+            "supplementaryResource",
+            "video",
+            "worksheet",
+            "worksheetAnswers",
+          ])
+          .optional(),
+      },
+    ],
+    response: ProgrammeAssetsResponseSchema,
+    errors: [
+      {
+        status: 400,
+        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
+        schema: error_BAD_REQUEST,
+      },
+      {
+        status: 401,
+        description: `API token not provided or invalid`,
+        schema: error_UNAUTHORIZED,
+      },
+      {
+        status: 404,
+        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
+        schema: error_NOT_FOUND,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/programmes/:programme/questions",
+    description: `Use when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjects/{subject}/programmes. Returns questions grouped by lesson with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel&#x3D;&quot;next&quot; header signals more pages.
+
+Not for: questions in a single lesson (GET /lessons/{lesson}/quiz); questions across a whole sequence (GET /sequences/{sequence}/questions); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).`,
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "programme",
+        type: "Path",
+        schema: z.string(),
+      },
+      {
+        name: "offset",
+        type: "Query",
+        schema: z.number().optional().default(0),
+      },
+      {
+        name: "limit",
+        type: "Query",
+        schema: z.number().lte(100).optional().default(10),
+      },
+      {
+        name: "filter",
+        type: "Query",
+        schema: z.literal("images").optional(),
+      },
+    ],
+    response: QuestionsForProgrammeResponseSchema,
+    errors: [
+      {
+        status: 400,
+        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
+        schema: error_BAD_REQUEST,
+      },
+      {
+        status: 401,
+        description: `API token not provided or invalid`,
+        schema: error_UNAUTHORIZED,
+      },
+      {
+        status: 404,
+        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
+        schema: error_NOT_FOUND,
+      },
+    ],
+  },
+  {
+    method: "get",
+    path: "/programmes/:programme/units",
+    description: `Use when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get programme slugs from GET /subjects/{subject}/programmes. Returns units in unit sequence order with title, slug, and any associated factors.
+
+  Not for: every unit across the whole sequence (GET /sequences/{sequence}/units); a flat list of units for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/units); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).`,
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "programme",
+        type: "Path",
+        schema: z.string(),
+      },
+    ],
+    response: ProgrammeUnitsResponseSchema,
     errors: [
       {
         status: 400,
@@ -2550,7 +3051,7 @@ Example queries: the mitochondria are the powerhouse, to be or not to be, carry 
     path: "/sequences/:sequence",
     description: `Use when you have a sequence slug and need the sequence-level summary. A sequence is a subject&#x27;s curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/{subject} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it.
 
-Not for: the programmes within this sequence (GET /sequences/{sequence}/programmes); the unit sequence for one programme (GET /sequences/{sequence}/programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}).
+Not for: the programmes within this sequence (GET /subjects/{subject}/programmes); the unit sequence for one programme (GET /programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}).
 
 Example: sequence&#x3D;maths-primary or science-secondary-aqa.`,
     requestFormat: "json",
@@ -2585,7 +3086,7 @@ Example: sequence&#x3D;maths-primary or science-secondary-aqa.`,
     path: "/sequences/:sequence/assets",
     description: `Use when you need every downloadable asset across a whole sequence — all programmes combined. Returns assets grouped by lesson in unit sequence order, with signed download URLs, asset type, lesson title and slug, and attribution. Pass year as an optional filter. Narrow further with type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
 
-Not for: assets in a single programme (GET /sequences/{sequence}/programmes/{programme}/assets); a single lesson&#x27;s downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets).`,
+Not for: assets in a single programme (GET /programmes/{programme}/assets); a single lesson&#x27;s downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2640,7 +3141,7 @@ Not for: assets in a single programme (GET /sequences/{sequence}/programmes/{pro
     path: "/sequences/:sequence/questions",
     description: `Use when you want every quiz question across a whole sequence — all programmes combined. Returns questions grouped by lesson in unit sequence order. Pass year as an optional filter to return only that year&#x27;s questions. Supports offset and limit; Link: rel&#x3D;&quot;next&quot; header signals more pages.
 
-Not for: questions in a single programme (GET /sequences/{sequence}/programmes/{programme}/questions); a single lesson&#x27;s quiz (GET /lessons/{lesson}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).`,
+Not for: questions in a single programme (GET /programmes/{programme}/questions); a single lesson&#x27;s quiz (GET /lessons/{lesson}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2693,7 +3194,7 @@ Not for: questions in a single programme (GET /sequences/{sequence}/programmes/{
     path: "/sequences/:sequence/units",
     description: `Use when you want every unit across a whole sequence — all programmes combined, in unit sequence order. Returns units grouped by programme (year group) in unit sequence order. If the sequence slug includes an exam board (e.g. science-secondary-aqa), units are scoped to that exam board. Secondary sequences also expose tiers, pathways, and exam subjects where applicable. Pass year as an optional filter to return only that year&#x27;s units (across all KS4 factor combinations).
 
-Not for: units in a single programme (GET /sequences/{sequence}/programmes/{programme}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/{keyStage}/subject/{subject}/units); the programmes within this sequence (GET /sequences/{sequence}/programmes); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).
+Not for: units in a single programme (GET /programmes/{programme}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/{keyStage}/subject/{subject}/units); the programmes within this sequence (GET /subjects/{subject}/programmes); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).
 
 Example: sequence&#x3D;science-secondary-aqa or maths-primary.`,
     requestFormat: "json",
@@ -2746,7 +3247,7 @@ Example: sequence&#x3D;science-secondary-aqa or maths-primary.`,
   {
     method: "get",
     path: "/subjects",
-    description: `Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /sequences/{sequence}/programmes to enumerate them.
+    description: `Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /subjects/{subject}/programmes to enumerate them.
 
 Not for: a single subject (GET /subjects/{subject}); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); lessons or units inside a subject (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).`,
     requestFormat: "json",
@@ -2792,7 +3293,7 @@ Not for: a single subject (GET /subjects/{subject}); the key stages or year grou
   {
     method: "get",
     path: "/subjects/:subject",
-    description: `Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /sequences/{sequence}/programmes to enumerate them.
+    description: `Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /subjects/{subject}/programmes to enumerate them.
 
 Not for: every subject in one call (GET /subjects); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); subject-scoped lessons or units (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).
 
@@ -2897,6 +3398,57 @@ Example: &#x27;subject&#x3D;history&#x27;.`,
   },
   {
     method: "get",
+    path: "/subjects/:subject/programmes",
+    description: `Use when you need to discover the programmes within a subject — to get a programme&#x27;s slug for use with GET /programmes/{programme} or its sub-endpoints. Returns programmes grouped by key stage, each with year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).
+
+Not for: the metadata of one programme (GET /programmes/{programme}); the units, questions, or assets of one programme (GET /programmes/{programme}/units, GET /programmes/{programme}/questions, or GET /programmes/{programme}/assets); the sequence-level summary (GET /sequences/{sequence}).`,
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "subject",
+        type: "Path",
+        schema: z.enum([
+          "art",
+          "citizenship",
+          "computing",
+          "cooking-nutrition",
+          "design-technology",
+          "english",
+          "french",
+          "geography",
+          "german",
+          "history",
+          "maths",
+          "music",
+          "physical-education",
+          "religious-education",
+          "rshe-pshe",
+          "science",
+          "spanish",
+        ]),
+      },
+    ],
+    response: z.array(z.string()),
+    errors: [
+      {
+        status: 400,
+        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
+        schema: error_BAD_REQUEST,
+      },
+      {
+        status: 401,
+        description: `API token not provided or invalid`,
+        schema: error_UNAUTHORIZED,
+      },
+      {
+        status: 404,
+        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
+        schema: error_NOT_FOUND,
+      },
+    ],
+  },
+  {
+    method: "get",
     path: "/subjects/:subject/years",
     description: `Use when you only need the year groups where this subject is available. Returns an array of year numbers, derived from the subject&#x27;s key stages.
 
@@ -2979,7 +3531,7 @@ Not for: the units inside a thread (GET /threads/{threadSlug}/units).`,
     path: "/threads/:threadSlug/units",
     description: `Use when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder.
 
-Not for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); a single unit (GET /units/{unit}/summary).
+Not for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary).
 
 Example: &#x27;threadSlug&#x3D;number-and-place-value&#x27;.`,
     requestFormat: "json",
@@ -3014,7 +3566,7 @@ Example: &#x27;threadSlug&#x3D;number-and-place-value&#x27;.`,
     path: "/units/:unit/summary",
     description: `Use when you have a unit slug and need the unit summary: title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements, and the lessons inside. Unit variant slugs (ending in -1, -2, etc.) resolve to that specific variant.
 
-Not for: listing every unit in a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/units); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); units in a thread (GET /threads/{threadSlug}/units); lessons inside the unit (GET /key-stages/{keyStage}/subject/{subject}/lessons with unit&#x3D;{unit}).`,
+Not for: listing every unit in a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/units); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); units in a thread (GET /threads/{threadSlug}/units); lessons inside the unit (GET /key-stages/{keyStage}/subject/{subject}/lessons with unit&#x3D;{unit}).`,
     requestFormat: "json",
     parameters: [
       {

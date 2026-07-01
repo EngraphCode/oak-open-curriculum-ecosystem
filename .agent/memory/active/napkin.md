@@ -578,3 +578,82 @@ as distinct actuator candidates; ≥4 longitudinal with real splits; broad clust
   jitter/resume/re-gate (knobs, in place) — no new resilience code.
 - **Full-run calibration the probe handed forward:** 75 candidates / 3 dense windows → ~80-120 for 15 →
   worst-case validate ~30M TRIPS the 16M hard-abort → launch-preflight must re-derive the ceiling. (Rotation still DUE.)
+
+## 2026-06-30 — WS1 closeout (Flare hunts Obsidian): a pre-existing RED main gate + closeout findings
+
+- **PRE-EXISTING RED gate on main, owner-acknowledged + routed:** `pnpm check` is red on
+  `@oaknational/sdk-codegen test` — `meta-examples-roundtrip.integration.test.ts` asserts
+  `offset.examples [50]` / `limit [100]` but gets `[0]`. Cause (owner): the UPSTREAM API changed under us
+  (the codegen re-pulls the OpenAPI spec; the pagination examples drifted). NOT WS1 — sdk-codegen is
+  byte-identical main↔HEAD, no sdk-codegen files in my 3 commits, lockfile unchanged. Owner-routed: fix
+  in a FRESH session in a worktree off latest main. Do NOT blind-fix the test expectation ([50]→[0])
+  — that masks the real upstream drift ([[never-disable-checks]]).
+- **`pnpm check 2>&1 | tail` reports TAIL's exit code, not pnpm's** — a green-looking task-notification
+  masked a red gate. Always read the real gate's exit/summary, never trust a piped tail's status. [[verify-dont-trust]]
+- **Closeout verification fan-out earned its keep** (3 fresh-reader lenses VERIFYING continuity — NOT
+  detecting loss, which is first-hand-only): caught a load-bearing stale figure (plan Risks table still
+  said the pre-probe ~16-18M ceiling vs the probe-revised ~25-30M everywhere else → a fresh reader sizing
+  from it would FALSE-ABORT the run), that "raise the 16M" misled (16M was the RETIRED combined's default;
+  the split has no default), and the retired combined template unmarked in the README. All fixed.
+- **Jitter is setTimeout-guarded + UNTESTED:** the validate per-voter jitter no-ops if the sandbox lacks
+  setTimeout (safe — v2 ran validate without jitter); the probe was map+reduce only, so jitter never ran.
+  Re-confirm at full-run launch.
+- `candidate:` **pattern** — "removing a constraint surfaces what it was ALSO bounding" (instance: the
+  reduce count-cap bounded OUTPUT SIZE, not just merge-pressure → its removal truncated the JSON).
+  graduation-target: memory/active/patterns; trigger: a 2nd independent instance.
+- `candidate:` **PDR** (amend PDR-122 or new) — "a multi-stage agentic Workflow-tool pipeline MUST
+  checkpoint between independently-failing stages; the sandbox has no file-write so it cannot
+  self-checkpoint, so map→reduce (and any stage pair where the later can fail after the earlier
+  succeeds) must be SPLIT so a downstream failure never loses the upstream spend." trigger: the
+  comms-events corpus run (the plan's next named consumer) = 2nd instance.
+
+## 2026-07-01 — deep handoff closeout + the lever meta-lesson (Tuna stirs Fathom, 9767ba)
+
+Full deep handoff of the agent-names session (deep-dive → substrate connection → registry+validation
+principle → estate-rewrite invariant → statusline diagnosis+move → spawn-flow orphan-fix). First-hand
+loss-scan homed: the spawn-flow **land-on-main** dependency (agent-operability record), and the
+**cluster-naming open decision** (open-questions Q-012).
+
+- `candidate:` **cross-linking N insights is a tell you haven't found the lever.** I kept drawing
+  pairwise cross-links (v3↔substrate, naming↔statusline↔work-state, registry↔ADR-200) until the owner
+  pushed "reach the underlying lever, not surface symptoms" — at which point they collapsed into ONE
+  lever: the **graph-substrate convergence** (typed schema-governed graph; derived-not-authored;
+  render-not-cache; per-consumer views), with registry+validation as its governance face. **Tell:**
+  many pairwise links = you are treating faces of one lever as separate insights; stop and name the
+  lever. Worked corollary: the statusline recalc "bug" is the render-not-cache lever working CORRECTLY
+  on our side (the staleness is upstream). graduation-target: `patterns/` or `distilled.md`; trigger: a
+  2nd instance. Distinct from `feedback_design_from_the_substrate_not_the_instance` / cowpath — this is
+  a diagnostic *tell*, not the design directive.
+
+**Rotation-due flag (report, not chased):** napkin at ~608 lines (critical zone). **NOT rotated this
+session** — it is a shared surface with ≥2 concurrent sessions (Laurel, Linnet) live-appending; a
+rotation would race their in-flight work (the napkin's own recorded hazard). Route to a quiet
+single-writer dedicated rotation pass.
+
+- **PDR-098 recurrence evidence — the "owner-gated" reflex fired ~3× in one closeout despite its home.**
+  I labelled spawn-flow priority, "land on main", and the broken-links thing "owner-gated" in the
+  handoff; the owner corrected all three. `feedback_ltae_lens_before_user_questions` already says
+  "'owner-gated' is the lazy box, run the five-lens matrix" — so this is a homed lesson **recurring**,
+  i.e. the passive memory is not firing at the write-moment. Run through the matrix, all three resolved
+  with **no owner**: spawn-flow priority + "land on main" are *just true* (entailments, not decisions —
+  the only genuine gate in "land on main" is the code-owner **merge** ruleset, a real ruleset, not a
+  label); the broken links resolved to fix-#3/#5-myself + route-#1/#2/#4-to-the-estate-rewrite. **Cure
+  direction (routes to the doctrine-traction lane):** the matrix must be a *firing gate before writing
+  "owner-gated / flag for owner"*, not a lesson recalled after. graduation-target: the action-time
+  structural-interrupt design space (PDR-098's open quadrant); trigger: this is the 2nd+ recorded
+  recurrence, so it is due.
+
+- **COMMS-ROUTING BUG (F-41 CLI tail) — live worktree-launch instance, 2026-07-01 (Vanilla stirs Spore 807471).**
+  Launched directly IN a linked worktree (oak-upstream-api-alignment): `comms send` routed to the primary
+  home correctly (it resolves `resolveCoordinationHome`), but `comms watch`/`inbox`/`list`/`show`/`peer-liveness`
+  and `claims` `required(...)` an explicit path and DON'T resolve the home — so the canonical watcher rule's
+  worktree-relative `--comms-dir .agent/state/collaboration/comms` watched an empty local dir. **New sharper
+  finding beyond the existing brief:** `cli-comms-watch.ts:86` `ensureDirectory(commsDir)` SILENTLY CREATES a
+  decoy dir + writes a watcher heartbeat, so `assert-watcher-live` AND the `claims open` comms-blindness
+  backstop (the two F-95 guards) both PASS against the decoy — the guard cannot catch the failure it exists
+  for. First recorded worktree-launch instance (priors ran in the primary and masked it). Owner: "would
+  otherwise have been discovered during the Spawn Flow work." **Home (not a new fork):** promoted the canonical
+  `future/coordination-home-explicit-targeting-migration.plan.md` → executable
+  [`agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`](../../plans/agent-tooling/current/coordination-home-cli-path-defaulting.plan.md);
+  indexed in the current-lane README; overlaps `comms-and-worktree-operability.plan.md` §B1 (drive/reference,
+  don't duplicate). Pick up on the primary checkout.

@@ -112,5 +112,31 @@ the plan must re-home it here, not lose it, when it archives.)
 primitive needing an owner architectural decision; the graceful-case cure is in place, so unresolved
 but not blocking).
 
+## Q-012 — Naming the agent-team-operations cluster (a registry-gated organising axis)
+
+**Question:** what is the name — and at what tier (a named sub-stream of the `agentic-framework`
+value stream, vs a thread) — of the five-plan cluster: `agent-naming-schema-v3`,
+`knowledge-distribution-substrate`, `agent-spawn-flow-tool`,
+`session-and-team-state-statusline-icons`, `collaboration-substrate-coordination-rightsizing`? The
+owner leaned "agent teams / agent-team operations" (2026-06-30); "substrate" is avoided in the group
+name to prevent part/whole confusion with the member `knowledge-distribution-substrate` plan.
+
+**Why it shapes future work:** the cluster has no single name and four fragmented `serves_stream`
+labels today. Per the owner's registry+validation principle (2026-06-30, now
+[`planning-estate-rewrite.plan.md`](../../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
+§"Governing invariant"), an organising axis must be a *registered, validated* value — so naming the
+cluster and registering its axis value are **one act**, and that act lives in the estate-rewrite's
+vocabulary work (ADR-200 WS2/WS3). Slapping a free-text `serves_stream` value now would re-commit the
+defect the principle names.
+
+**Why not cheaply answerable now:** the stream/thread axis registry does not exist yet (the
+estate-rewrite builds it).
+
+**Owning artefact:** the estate-rewrite plan (§Governing invariant) + the napkin registry-principle
+candidate.
+
+**Status:** open — resolves when the estate-rewrite's stream/thread axis registry lands (WS2/WS3) and
+the owner ratifies the cluster name as a registered value. Not blocking (spawn-flow proceeds regardless).
+
 [kg-two-altitudes]: ../../reports/knowledge-as-graph-two-altitudes-2026-06-23.md
 [worktree-pilot-plan]: ../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md

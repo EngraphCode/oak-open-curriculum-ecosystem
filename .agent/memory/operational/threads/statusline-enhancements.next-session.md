@@ -142,6 +142,22 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
 - **Refresh `statusline-inputs-research.md`** with the current-page deltas
   (`footerLinksRegexes`, Windows config, "notifications share the status-line row", the
   `// empty` rate-limit absence idiom) and bump its verified-against version.
+- **Statusline trace log (observability — deprioritized below spawn-flow).** Owner observed
+  (2026-06-30) the rate-limit/usage percentages "not recalculating on every re-render". Diagnosed
+  first-hand: the adapter is a **fresh process per render** with no cross-render cache (bar the
+  on-disk logo-frame counter), and `statusline-identity-input.ts` re-parses
+  `rate_limits.*.used_percentage` from the stdin payload every render — so the staleness is
+  **upstream**: Claude Code refreshes its rate-limit snapshot on its own cadence, identical numbers
+  arrive across renders, and the statusline faithfully reflects them (the gauge vanishes when
+  `rate_limits` is absent; the reset countdown ticks every render via the clock read, which reads as
+  the % being stuck). Because the root cause is upstream, **not a current priority** (spawn-flow is).
+  The item: an **env-gated disk trace log** (off by default) capturing the raw `rate_limits` subtree
+  plus the parsed values and a timestamp per render — to (a) confirm the source value is static across renders
+  and (b) give this deliberately-silent soft surface the observability it structurally lacks (every
+  soft-fallback — git-io, the registry read, the experiments listing, each field parse — swallows to
+  absent with no trace; only real *throws* render the loud `⚠ statusline:` token today). Build
+  test-first when prioritised. (Moved here from the now-ready-to-archive
+  `statusline-primary-worktree-rows.plan.md` Follow-ons, 2026-06-30.)
 
 ## Current continuation
 
@@ -260,6 +276,7 @@ cadence. Also a research-relevant collaboration-visibility failure mode.
 
 | Platform | Model | Agent name | Role on this thread | last_session |
 | --- | --- | --- | --- | --- |
+| claude-code | Opus 4.8 (1M) | Tuna stirs Fathom | Moved the trace-log observability follow-on from the ready-to-archive plan into this record (§Future enhancement lanes) + the repo-continuity index; diagnosed the "% not recalculating" as **upstream** (fresh-process-per-render, no cross-render cache — the recompute is correct); no statusline code touched | 2026-07-01 |
 | claude-code | Opus 4.8 (1M) | Wyvern mends Draught | Delivered primary/worktree location rows (name-above-branch; `coord:`+`wt:`), model+context on one row, and Claude.ai rate-limit gauges with reset countdowns (`s:`/`w:`, `formatCountdown`, `statusline-usage.ts`); recreated the lost `πρ`/`ἔργ` plan; deleted stale local branches (all on main); added the COLUMNS/LINES responsive-layout grounding note. Commit `708cd57fc` on `docs/consolidations`; gate green (1846 tests) | 2026-06-29 |
 | claude-code | Opus 4.8 | Andromeda holds Radiance | Per-render `braille-sharp` frame cycling (four seeded frames, `session_id`-keyed counter via an injected store, `OAK_STATUSLINE_MOTION` off-switch); recorded the blink-survival experiment result (statusline strips `SGR 5` — animation NO-GO, truecolor survives); deduped the terminal-animation toolkit docs + fixed the stale §1 multi-line claim; updated the modularisation plan with the cycle→three-layer reconciliation. agent-tools green (1256 tests, build); verified live. On `docs/planning-and-validation` | 2026-06-17 |
 | claude-code | Opus 4.8 | Vole calls Hollow | Owner-directed live logo swap ahead of the modularisation plan: 5×7 sharpened `braille-sharp` default, 4×6 retained as `braille-sharp-compact`, width-matched logo separator rule on by default; reframed the modularisation plan to harden the live swap on execution; updated the plan + this record. On `docs/planning-and-validation` (branch divergence flagged). Green (build, type-check, lint, 1232 tests) | 2026-06-16 |

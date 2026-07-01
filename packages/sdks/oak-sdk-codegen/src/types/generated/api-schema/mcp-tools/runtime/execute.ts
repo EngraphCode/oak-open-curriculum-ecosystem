@@ -378,6 +378,126 @@ async function invokeGetLessonsTranscriptTool(
   return { status: validation.status, data: validation.data };
 }
 
+async function invokeGetProgrammesTool(
+  client: ToolClientForName<'get-programmes'>,
+  rawArgs: unknown,
+): Promise<ToolResultForName<'get-programmes'>> {
+  const descriptor: ToolDescriptorForName<'get-programmes'> = getToolEntryFromToolName('get-programmes').descriptor;
+  const parsed = descriptor.toolMcpFlatInputSchema.safeParse(rawArgs);
+  if (!parsed.success) {
+    throw new TypeError(descriptor.describeToolArgs());
+  }
+  const flatArgs = parsed.data;
+  const nestedArgs = descriptor.transformFlatToNestedArgs(flatArgs);
+  const invokeResult = await descriptor.invoke(client, nestedArgs);
+  if (invokeResult.httpStatus >= 400) {
+    throw new TypeError(DOCUMENTED_ERROR_PREFIX + String(invokeResult.httpStatus), {
+      cause: { httpStatus: invokeResult.httpStatus, payload: invokeResult.payload },
+    });
+  }
+  const validation = descriptor.validateOutput(invokeResult.payload);
+  if (!validation.ok) {
+    throw new TypeError('Output validation error: ' + validation.message, {
+      cause: {
+        raw: invokeResult.payload,
+        issues: validation.issues,
+        attemptedStatuses: validation.attemptedStatuses,
+      },
+    });
+  }
+  return { status: validation.status, data: validation.data };
+}
+
+async function invokeGetProgrammesAssetsTool(
+  client: ToolClientForName<'get-programmes-assets'>,
+  rawArgs: unknown,
+): Promise<ToolResultForName<'get-programmes-assets'>> {
+  const descriptor: ToolDescriptorForName<'get-programmes-assets'> = getToolEntryFromToolName('get-programmes-assets').descriptor;
+  const parsed = descriptor.toolMcpFlatInputSchema.safeParse(rawArgs);
+  if (!parsed.success) {
+    throw new TypeError(descriptor.describeToolArgs());
+  }
+  const flatArgs = parsed.data;
+  const nestedArgs = descriptor.transformFlatToNestedArgs(flatArgs);
+  const invokeResult = await descriptor.invoke(client, nestedArgs);
+  if (invokeResult.httpStatus >= 400) {
+    throw new TypeError(DOCUMENTED_ERROR_PREFIX + String(invokeResult.httpStatus), {
+      cause: { httpStatus: invokeResult.httpStatus, payload: invokeResult.payload },
+    });
+  }
+  const validation = descriptor.validateOutput(invokeResult.payload);
+  if (!validation.ok) {
+    throw new TypeError('Output validation error: ' + validation.message, {
+      cause: {
+        raw: invokeResult.payload,
+        issues: validation.issues,
+        attemptedStatuses: validation.attemptedStatuses,
+      },
+    });
+  }
+  return { status: validation.status, data: validation.data };
+}
+
+async function invokeGetProgrammesQuestionsTool(
+  client: ToolClientForName<'get-programmes-questions'>,
+  rawArgs: unknown,
+): Promise<ToolResultForName<'get-programmes-questions'>> {
+  const descriptor: ToolDescriptorForName<'get-programmes-questions'> = getToolEntryFromToolName('get-programmes-questions').descriptor;
+  const parsed = descriptor.toolMcpFlatInputSchema.safeParse(rawArgs);
+  if (!parsed.success) {
+    throw new TypeError(descriptor.describeToolArgs());
+  }
+  const flatArgs = parsed.data;
+  const nestedArgs = descriptor.transformFlatToNestedArgs(flatArgs);
+  const invokeResult = await descriptor.invoke(client, nestedArgs);
+  if (invokeResult.httpStatus >= 400) {
+    throw new TypeError(DOCUMENTED_ERROR_PREFIX + String(invokeResult.httpStatus), {
+      cause: { httpStatus: invokeResult.httpStatus, payload: invokeResult.payload },
+    });
+  }
+  const validation = descriptor.validateOutput(invokeResult.payload);
+  if (!validation.ok) {
+    throw new TypeError('Output validation error: ' + validation.message, {
+      cause: {
+        raw: invokeResult.payload,
+        issues: validation.issues,
+        attemptedStatuses: validation.attemptedStatuses,
+      },
+    });
+  }
+  return { status: validation.status, data: validation.data };
+}
+
+async function invokeGetProgrammesUnitsTool(
+  client: ToolClientForName<'get-programmes-units'>,
+  rawArgs: unknown,
+): Promise<ToolResultForName<'get-programmes-units'>> {
+  const descriptor: ToolDescriptorForName<'get-programmes-units'> = getToolEntryFromToolName('get-programmes-units').descriptor;
+  const parsed = descriptor.toolMcpFlatInputSchema.safeParse(rawArgs);
+  if (!parsed.success) {
+    throw new TypeError(descriptor.describeToolArgs());
+  }
+  const flatArgs = parsed.data;
+  const nestedArgs = descriptor.transformFlatToNestedArgs(flatArgs);
+  const invokeResult = await descriptor.invoke(client, nestedArgs);
+  if (invokeResult.httpStatus >= 400) {
+    throw new TypeError(DOCUMENTED_ERROR_PREFIX + String(invokeResult.httpStatus), {
+      cause: { httpStatus: invokeResult.httpStatus, payload: invokeResult.payload },
+    });
+  }
+  const validation = descriptor.validateOutput(invokeResult.payload);
+  if (!validation.ok) {
+    throw new TypeError('Output validation error: ' + validation.message, {
+      cause: {
+        raw: invokeResult.payload,
+        issues: validation.issues,
+        attemptedStatuses: validation.attemptedStatuses,
+      },
+    });
+  }
+  return { status: validation.status, data: validation.data };
+}
+
 async function invokeGetRateLimitTool(
   client: ToolClientForName<'get-rate-limit'>,
   rawArgs: unknown,
@@ -618,6 +738,36 @@ async function invokeGetSubjectsKeyStagesTool(
   return { status: validation.status, data: validation.data };
 }
 
+async function invokeGetSubjectsProgrammesTool(
+  client: ToolClientForName<'get-subjects-programmes'>,
+  rawArgs: unknown,
+): Promise<ToolResultForName<'get-subjects-programmes'>> {
+  const descriptor: ToolDescriptorForName<'get-subjects-programmes'> = getToolEntryFromToolName('get-subjects-programmes').descriptor;
+  const parsed = descriptor.toolMcpFlatInputSchema.safeParse(rawArgs);
+  if (!parsed.success) {
+    throw new TypeError(descriptor.describeToolArgs());
+  }
+  const flatArgs = parsed.data;
+  const nestedArgs = descriptor.transformFlatToNestedArgs(flatArgs);
+  const invokeResult = await descriptor.invoke(client, nestedArgs);
+  if (invokeResult.httpStatus >= 400) {
+    throw new TypeError(DOCUMENTED_ERROR_PREFIX + String(invokeResult.httpStatus), {
+      cause: { httpStatus: invokeResult.httpStatus, payload: invokeResult.payload },
+    });
+  }
+  const validation = descriptor.validateOutput(invokeResult.payload);
+  if (!validation.ok) {
+    throw new TypeError('Output validation error: ' + validation.message, {
+      cause: {
+        raw: invokeResult.payload,
+        issues: validation.issues,
+        attemptedStatuses: validation.attemptedStatuses,
+      },
+    });
+  }
+  return { status: validation.status, data: validation.data };
+}
+
 async function invokeGetSubjectsYearsTool(
   client: ToolClientForName<'get-subjects-years'>,
   rawArgs: unknown,
@@ -768,6 +918,14 @@ async function invokeToolByName<TName extends ToolName>(
       return invokeGetLessonsSummaryTool(client, rawArgs);
     case 'get-lessons-transcript':
       return invokeGetLessonsTranscriptTool(client, rawArgs);
+    case 'get-programmes':
+      return invokeGetProgrammesTool(client, rawArgs);
+    case 'get-programmes-assets':
+      return invokeGetProgrammesAssetsTool(client, rawArgs);
+    case 'get-programmes-questions':
+      return invokeGetProgrammesQuestionsTool(client, rawArgs);
+    case 'get-programmes-units':
+      return invokeGetProgrammesUnitsTool(client, rawArgs);
     case 'get-rate-limit':
       return invokeGetRateLimitTool(client, rawArgs);
     case 'get-sequences':
@@ -784,6 +942,8 @@ async function invokeToolByName<TName extends ToolName>(
       return invokeGetSubjectsTool(client, rawArgs);
     case 'get-subjects-key-stages':
       return invokeGetSubjectsKeyStagesTool(client, rawArgs);
+    case 'get-subjects-programmes':
+      return invokeGetSubjectsProgrammesTool(client, rawArgs);
     case 'get-subjects-years':
       return invokeGetSubjectsYearsTool(client, rawArgs);
     case 'get-threads':
@@ -870,6 +1030,30 @@ export function callTool(
   logger?: Logger,
 ): Promise<ToolResultForName<'get-lessons-transcript'>>;
 export function callTool(
+  name: 'get-programmes',
+  client: ToolClientForName<'get-programmes'>,
+  rawArgs: ToolArgsForName<'get-programmes'>,
+  logger?: Logger,
+): Promise<ToolResultForName<'get-programmes'>>;
+export function callTool(
+  name: 'get-programmes-assets',
+  client: ToolClientForName<'get-programmes-assets'>,
+  rawArgs: ToolArgsForName<'get-programmes-assets'>,
+  logger?: Logger,
+): Promise<ToolResultForName<'get-programmes-assets'>>;
+export function callTool(
+  name: 'get-programmes-questions',
+  client: ToolClientForName<'get-programmes-questions'>,
+  rawArgs: ToolArgsForName<'get-programmes-questions'>,
+  logger?: Logger,
+): Promise<ToolResultForName<'get-programmes-questions'>>;
+export function callTool(
+  name: 'get-programmes-units',
+  client: ToolClientForName<'get-programmes-units'>,
+  rawArgs: ToolArgsForName<'get-programmes-units'>,
+  logger?: Logger,
+): Promise<ToolResultForName<'get-programmes-units'>>;
+export function callTool(
   name: 'get-rate-limit',
   client: ToolClientForName<'get-rate-limit'>,
   rawArgs: ToolArgsForName<'get-rate-limit'>,
@@ -917,6 +1101,12 @@ export function callTool(
   rawArgs: ToolArgsForName<'get-subjects-key-stages'>,
   logger?: Logger,
 ): Promise<ToolResultForName<'get-subjects-key-stages'>>;
+export function callTool(
+  name: 'get-subjects-programmes',
+  client: ToolClientForName<'get-subjects-programmes'>,
+  rawArgs: ToolArgsForName<'get-subjects-programmes'>,
+  logger?: Logger,
+): Promise<ToolResultForName<'get-subjects-programmes'>>;
 export function callTool(
   name: 'get-subjects-years',
   client: ToolClientForName<'get-subjects-years'>,

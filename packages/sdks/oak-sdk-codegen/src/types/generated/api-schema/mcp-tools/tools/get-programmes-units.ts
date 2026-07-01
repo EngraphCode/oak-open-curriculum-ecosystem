@@ -7,14 +7,14 @@ import type { OakApiPathBasedClient } from '../../client-types.js';
 /**
  * GENERATED FILE - DO NOT EDIT
  * 
- * Tool: get-threads-units
- * Path: /threads/\{threadSlug\}/units
+ * Tool: get-programmes-units
+ * Path: /programmes/\{programme\}/units
  * Method: GET
  */
 
-const operationId = 'getThreads-getThreadUnits' as const;
-const name = 'get-threads-units' as const;
-const path = '/threads/{threadSlug}/units' as const;
+const operationId = 'getAllProgrammesForSubject-getProgrammeUnits' as const;
+const name = 'get-programmes-units' as const;
+const path = '/programmes/{programme}/units' as const;
 const method = 'GET' as const;
 
 
@@ -22,7 +22,8 @@ const method = 'GET' as const;
  * Path parameters derived from the OpenAPI schema.
  */
 export interface ToolPathParams {
-  readonly threadSlug: string;
+  /** The programme slug identifier */
+  readonly programme: string;
 }
 export interface ToolParams {
   readonly path: ToolPathParams;
@@ -30,11 +31,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"thread":{"type":"string","examples":["number-multiplication-and-division"]}} as const, additionalProperties: false as const, required: ["thread"] };
-export const toolZodSchema = z.object({ params: z.object({ path: z.object({ threadSlug: z.string() }) }) });
-export const toolMcpFlatInputSchema = z.strictObject({ thread: z.string().meta({ examples: ["number-multiplication-and-division"] }) });
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"programme":{"type":"string","description":"The programme slug identifier","examples":["english-secondary-year-10-edexcel"]}} as const, additionalProperties: false as const, required: ["programme"] };
+export const toolZodSchema = z.object({ params: z.object({ path: z.object({ programme: z.string().describe("The programme slug identifier") }) }) });
+export const toolMcpFlatInputSchema = z.strictObject({ programme: z.string().describe("The programme slug identifier").meta({ examples: ["english-secondary-year-10-edexcel"] }) });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"thread":{"type":"string","examples":["number-multiplication-and-division"]}},"additionalProperties":false,"required":["thread"]}\nRequired: thread';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"programme":{"type":"string","description":"The programme slug identifier","examples":["english-secondary-year-10-edexcel"]}},"additionalProperties":false,"required":["programme"]}\nRequired: programme';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.
@@ -48,7 +49,7 @@ export const describeToolArgs = () => toolArgsDescription;
 export function transformFlatToNestedArgs(flatArgs: z.infer<typeof toolMcpFlatInputSchema>): ToolArgs {
   const params: ToolParams = {
     path: {
-      threadSlug: flatArgs.thread,
+      programme: flatArgs.programme,
     },
   };
   return { params };
@@ -60,7 +61,7 @@ const STATUS_DISCRIMINANTS = { '200': 200, '400': 400, '401': 401, '404': 404 } 
 type DocumentedStatusDiscriminant = typeof STATUS_DISCRIMINANTS[DocumentedStatus];
 const primaryResponseDescriptor = responseDescriptors[documentedStatuses[0]];
 if (!primaryResponseDescriptor) {
-  throw new TypeError('Missing response descriptor for documented status 200 on getThreads-getThreadUnits.');
+  throw new TypeError('Missing response descriptor for documented status 200 on getAllProgrammesForSubject-getProgrammeUnits.');
 }
 const resolveDescriptorForStatus = (status: number) => {
   const directKey = String(status);
@@ -81,23 +82,23 @@ const resolveDescriptorForStatus = (status: number) => {
  * @see MCP_TOOLS
  * @remarks Wiring layers (stdio, HTTP, aliases) rely on this metadata for execution and validation.
  */
-export const getThreadsUnits = {
+export const getProgrammesUnits = {
   invoke: async (client: OakApiPathBasedClient, args: ToolArgs) => {
     const validation = toolZodSchema.safeParse(args);
     if (!validation.success) {
       throw new TypeError(describeToolArgs());
     }
-    const endpoint = client["/threads/{threadSlug}/units"];
+    const endpoint = client["/programmes/{programme}/units"];
     const call = endpoint ? endpoint.GET : undefined;
     if (typeof call !== "function") {
-      throw new TypeError('Invalid method on endpoint: GET for /threads/{threadSlug}/units');
+      throw new TypeError('Invalid method on endpoint: GET for /programmes/{programme}/units');
     }
     const response = await call(validation.data);
     const status = response.response.status;
     const descriptorForStatus = resolveDescriptorForStatus(status);
     if (!descriptorForStatus) {
       const responseBody = status >= 200 && status < 300 ? response.data : response.error;
-      throw new UndocumentedResponseError(status, 'getThreads-getThreadUnits', documentedStatuses, responseBody);
+      throw new UndocumentedResponseError(status, 'getAllProgrammesForSubject-getProgrammeUnits', documentedStatuses, responseBody);
     }
     const payload = status >= 200 && status < 300 ? response.data : response.error;
     return { httpStatus: status, payload };
@@ -112,7 +113,7 @@ export const getThreadsUnits = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Units in a thread\n\nUse when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder. Not for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary). Example: 'threadSlug=number-and-place-value'.\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
+  description: "Units in a programme\n\nUse when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get programme slugs from GET /subjects/{subject}/programmes. Returns units in unit sequence order with title, slug, and any associated factors. Not for: every unit across the whole sequence (GET /sequences/{sequence}/units); a flat list of units for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/units); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
   path,
   method,
   documentedStatuses,
@@ -123,7 +124,7 @@ export const getThreadsUnits = {
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
-    title: "Get Threads Units",
+    title: "Get Programmes Units",
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: ['email'] }],

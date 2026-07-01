@@ -7,14 +7,14 @@ import type { OakApiPathBasedClient } from '../../client-types.js';
 /**
  * GENERATED FILE - DO NOT EDIT
  * 
- * Tool: get-lessons-quiz
- * Path: /lessons/\{lesson\}/quiz
+ * Tool: get-programmes-questions
+ * Path: /programmes/\{programme\}/questions
  * Method: GET
  */
 
-const operationId = 'getQuestions-getQuestionsForLessons' as const;
-const name = 'get-lessons-quiz' as const;
-const path = '/lessons/{lesson}/quiz' as const;
+const operationId = 'getQuestions-getQuestionsForProgramme' as const;
+const name = 'get-programmes-questions' as const;
+const path = '/programmes/{programme}/questions' as const;
 const method = 'GET' as const;
 
 
@@ -22,13 +22,17 @@ const method = 'GET' as const;
  * Path parameters derived from the OpenAPI schema.
  */
 export interface ToolPathParams {
-  /** The lesson slug identifier */
-  readonly lesson: string;
+  /** The programme slug identifier */
+  readonly programme: string;
 }
 /**
  * Query parameters derived from the OpenAPI schema.
  */
 export interface ToolQueryParams {
+  /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 */
+  readonly offset?: number;
+  /** Limit the number of lessons, e.g. return a maximum of 100 lessons Default: 10 */
+  readonly limit?: number;
   /** Optional filter for question results. Use `images` to return only questions with a question image or image answer. Allowed values: images */
   readonly filter?: 'images';
 }
@@ -39,11 +43,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"lesson":{"type":"string","description":"The lesson slug identifier","examples":["imagining-you-are-the-characters-the-three-billy-goats-gruff"]},"filter":{"type":"string","description":"Optional filter for question results. Use `images` to return only questions with a question image or image answer.","enum":["images"]}} as const, additionalProperties: false as const, required: ["lesson"] };
-export const toolZodSchema = z.object({ params: z.object({ path: z.object({ lesson: z.string().describe("The lesson slug identifier") }), query: z.object({ filter: z.enum(["images"] as const).describe("Optional filter for question results. Use `images` to return only questions with a question image or image answer.").optional() }).optional() }) });
-export const toolMcpFlatInputSchema = z.strictObject({ lesson: z.string().describe("The lesson slug identifier").meta({ examples: ["imagining-you-are-the-characters-the-three-billy-goats-gruff"] }), filter: z.enum(["images"] as const).describe("Optional filter for question results. Use `images` to return only questions with a question image or image answer.").optional() });
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"programme":{"type":"string","description":"The programme slug identifier","examples":["computing-secondary-year-7"]},"offset":{"type":"number","description":"If limiting results returned, this allows you to return the next set of results, starting at the given offset point","default":0,"examples":[0]},"limit":{"type":"number","description":"Limit the number of lessons, e.g. return a maximum of 100 lessons","default":10,"examples":[10]},"filter":{"type":"string","description":"Optional filter for question results. Use `images` to return only questions with a question image or image answer.","enum":["images"]}} as const, additionalProperties: false as const, required: ["programme"] };
+export const toolZodSchema = z.object({ params: z.object({ path: z.object({ programme: z.string().describe("The programme slug identifier") }), query: z.object({ offset: z.number().describe("If limiting results returned, this allows you to return the next set of results, starting at the given offset point").optional(), limit: z.number().describe("Limit the number of lessons, e.g. return a maximum of 100 lessons").optional(), filter: z.enum(["images"] as const).describe("Optional filter for question results. Use `images` to return only questions with a question image or image answer.").optional() }).optional() }) });
+export const toolMcpFlatInputSchema = z.strictObject({ programme: z.string().describe("The programme slug identifier").meta({ examples: ["computing-secondary-year-7"] }), offset: z.number().describe("If limiting results returned, this allows you to return the next set of results, starting at the given offset point").meta({ examples: [0] }).optional(), limit: z.number().describe("Limit the number of lessons, e.g. return a maximum of 100 lessons").meta({ examples: [10] }).optional(), filter: z.enum(["images"] as const).describe("Optional filter for question results. Use `images` to return only questions with a question image or image answer.").optional() });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"lesson":{"type":"string","description":"The lesson slug identifier","examples":["imagining-you-are-the-characters-the-three-billy-goats-gruff"]},"filter":{"type":"string","description":"Optional filter for question results. Use `images` to return only questions with a question image or image answer.","enum":["images"]}},"additionalProperties":false,"required":["lesson"]}\nRequired: lesson';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"programme":{"type":"string","description":"The programme slug identifier","examples":["computing-secondary-year-7"]},"offset":{"type":"number","description":"If limiting results returned, this allows you to return the next set of results, starting at the given offset point","default":0,"examples":[0]},"limit":{"type":"number","description":"Limit the number of lessons, e.g. return a maximum of 100 lessons","default":10,"examples":[10]},"filter":{"type":"string","description":"Optional filter for question results. Use `images` to return only questions with a question image or image answer.","enum":["images"]}},"additionalProperties":false,"required":["programme"]}\nRequired: programme';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.
@@ -57,9 +61,11 @@ export const describeToolArgs = () => toolArgsDescription;
 export function transformFlatToNestedArgs(flatArgs: z.infer<typeof toolMcpFlatInputSchema>): ToolArgs {
   const params: ToolParams = {
     path: {
-      lesson: flatArgs.lesson,
+      programme: flatArgs.programme,
     },
     query: {
+      offset: flatArgs.offset,
+      limit: flatArgs.limit,
       filter: flatArgs.filter,
     },
   };
@@ -72,7 +78,7 @@ const STATUS_DISCRIMINANTS = { '200': 200, '400': 400, '401': 401, '404': 404 } 
 type DocumentedStatusDiscriminant = typeof STATUS_DISCRIMINANTS[DocumentedStatus];
 const primaryResponseDescriptor = responseDescriptors[documentedStatuses[0]];
 if (!primaryResponseDescriptor) {
-  throw new TypeError('Missing response descriptor for documented status 200 on getQuestions-getQuestionsForLessons.');
+  throw new TypeError('Missing response descriptor for documented status 200 on getQuestions-getQuestionsForProgramme.');
 }
 const resolveDescriptorForStatus = (status: number) => {
   const directKey = String(status);
@@ -93,23 +99,23 @@ const resolveDescriptorForStatus = (status: number) => {
  * @see MCP_TOOLS
  * @remarks Wiring layers (stdio, HTTP, aliases) rely on this metadata for execution and validation.
  */
-export const getLessonsQuiz = {
+export const getProgrammesQuestions = {
   invoke: async (client: OakApiPathBasedClient, args: ToolArgs) => {
     const validation = toolZodSchema.safeParse(args);
     if (!validation.success) {
       throw new TypeError(describeToolArgs());
     }
-    const endpoint = client["/lessons/{lesson}/quiz"];
+    const endpoint = client["/programmes/{programme}/questions"];
     const call = endpoint ? endpoint.GET : undefined;
     if (typeof call !== "function") {
-      throw new TypeError('Invalid method on endpoint: GET for /lessons/{lesson}/quiz');
+      throw new TypeError('Invalid method on endpoint: GET for /programmes/{programme}/questions');
     }
     const response = await call(validation.data);
     const status = response.response.status;
     const descriptorForStatus = resolveDescriptorForStatus(status);
     if (!descriptorForStatus) {
       const responseBody = status >= 200 && status < 300 ? response.data : response.error;
-      throw new UndocumentedResponseError(status, 'getQuestions-getQuestionsForLessons', documentedStatuses, responseBody);
+      throw new UndocumentedResponseError(status, 'getQuestions-getQuestionsForProgramme', documentedStatuses, responseBody);
     }
     const payload = status >= 200 && status < 300 ? response.data : response.error;
     return { httpStatus: status, payload };
@@ -124,7 +130,7 @@ export const getLessonsQuiz = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Quiz questions for a lesson\n\nUse when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors. Not for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
+  description: "Quiz questions in a programme\n\nUse when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjects/{subject}/programmes. Returns questions grouped by lesson with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages. Not for: questions in a single lesson (GET /lessons/{lesson}/quiz); questions across a whole sequence (GET /sequences/{sequence}/questions); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).\n\nPREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand the curriculum domain.",
   path,
   method,
   documentedStatuses,
@@ -135,7 +141,7 @@ export const getLessonsQuiz = {
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: false,
-    title: "Get Lessons Quiz",
+    title: "Get Programmes Questions",
   },
   _meta: {
     securitySchemes: [{ type: 'oauth2', scopes: ['email'] }],
