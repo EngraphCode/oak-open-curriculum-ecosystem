@@ -8,6 +8,7 @@
     "build": "tsc -p tsconfig.build.json && chmod +x dist/src/bin/*.js dist/src/claude/statusline-identity.js && pnpm -s build:workflows",
     "build:workflows": "tsx src/corpus-analysis/workflows/build/build-workflows.ts",
     "build-run-artefact": "tsx src/corpus-analysis/workflows/build/build-run-artefact.ts",
+    "post-run-driver": "tsx src/corpus-analysis/post-run/post-run-driver.ts",
     "clean": "rm -rf dist .turbo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
