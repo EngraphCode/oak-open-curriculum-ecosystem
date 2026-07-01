@@ -19,8 +19,8 @@ todos:
     content: "DESIGN-GATED: settle the bulk type-derivation approach with the owner (WS3.0), then dry-run blast-radius probe (WS3.1, STOP on consumer type errors), then land (WS3.2) — generate bulk Zod/types/predicates from schema.json, retire templates, commit schema.json + manifest.json"
     status: pending
   - id: ws4-ux-discoverability
-    content: Surface programmes in get-curriculum-model (hierarchy level, tool category, byProgramme workflow, steering, idFormat) and fix the get-subjects-programmes slug description at the generator
-    status: pending
+    content: "DONE (discoverability): programmes surfaced in get-curriculum-model — Programme entity in the hierarchy, a programmes tool category, and a byProgramme workflow, framed co-equal with sequences (D2), carrying the verified full-form slugs. REMAINING (owner-decision): the get-subjects-programmes/get-programmes description's wrong 'y7' slug example is UPSTREAM-authored (swagger description, passed through by codegen) — fixing at source is the oak-openapi repo (Open Owner-Decision #6), not a codegen override"
+    status: in_progress
   - id: ws5-live-proof-recipe
     content: Establish the repeatable post-regen live-execution proof (decision needed on a committed network-permitted smoke lane)
     status: pending
@@ -66,10 +66,25 @@ separate plan**, not this session. Compose approach (b) is owner-confirmed; the
 template-authoring defect + the `schema.json`-is-a-superset finding are conserved in §WS3
 below — mine them into the new `future/` plan.
 
-**REMAINING IN-SCOPE:** **WS4** — surface programmes in `get-curriculum-model` (co-equal
-per D2) + fix the `get-subjects-programmes` slug description (verified full-form live:
-`english-secondary-year-10-edexcel`, **not** `y7`). Generated descriptions are fixed at the
-generator, not the output file.
+**WS4 discoverability LANDED (Vanilla stirs Spore):** programmes are now surfaced in
+`get-curriculum-model` — a **Programme** entity in `entityHierarchy` (framed as the
+user-facing parallel to Sequence, not a containment level), a **programmes** tool category
+listing the 5 programme tools, and a **byProgramme** workflow (extracted to
+`tool-guidance-workflows-programmes.ts` to respect the `max-lines` cap, composed back via
+spread). All framed **co-equal** with sequences per D2, and our authored guidance now
+carries the **verified full-form slugs** (`english-primary-year-1`,
+`english-secondary-year-10-edexcel`). 20 relationship-based unit assertions; model assembly
+green.
+
+**WS4 remaining — OWNER-DECISION (surfaced, not actioned):** the wrong `y7` slug example in
+the `get-subjects-programmes` / `get-programmes` tool descriptions is **upstream-authored**
+(it lives in the swagger `description` fields — `api-schema-original.json:1450`/`1537` — and
+codegen passes it through; our generator only *appends* the PREREQUISITE line). Fixing it at
+source is a change to the `oak-openapi` repo, which is **Open Owner-Decision #6**
+(upstream/SDK forks). Correcting it by a codegen-time description *override* would be a
+bridge that masks the upstream error (`replace-dont-bridge`), so it is NOT done here. The
+orientation layer is already correct via our authored guidance above; the upstream
+description remains the source-of-truth to fix upstream.
 
 **DEFERRED (separate/later):** WS5 committed live smoke lane; WS6 runbook graduation.
 

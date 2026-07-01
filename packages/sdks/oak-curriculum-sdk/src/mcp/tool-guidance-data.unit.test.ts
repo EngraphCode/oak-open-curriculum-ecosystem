@@ -34,6 +34,25 @@ describe('toolGuidanceData content quality', () => {
     expect(toolGuidanceData.toolCategories.progression.tools).toContain('get-threads');
   });
 
+  it('programmes category surfaces the programme tools so they are discoverable', () => {
+    expect(toolGuidanceData.toolCategories.programmes.tools).toContain('get-subjects-programmes');
+    expect(toolGuidanceData.toolCategories.programmes.tools).toContain('get-programmes');
+  });
+
+  it('programmes category frames programme and sequence routes as co-equal (D2)', () => {
+    // Co-equal means the programme category explains when to use each route,
+    // and the sequence route is NOT demoted out of the browsing category.
+    expect(toolGuidanceData.toolCategories.programmes.whenToUse).toMatch(/sequence/i);
+    expect(toolGuidanceData.toolCategories.browsing.tools).toContain('get-sequences');
+  });
+
+  it('byProgramme workflow starts at get-subjects-programmes and drills into get-programmes', () => {
+    const workflow = toolGuidanceData.workflows.byProgramme;
+    expect(workflow.steps[0].tool).toBe('get-subjects-programmes');
+    const toolsUsed = workflow.steps.map((step) => step.tool);
+    expect(toolsUsed).toContain('get-programmes');
+  });
+
   it('findLessons workflow starts with search', () => {
     const firstStep = toolGuidanceData.workflows.findLessons.steps[0];
     expect(firstStep.tool).toBe('search');
