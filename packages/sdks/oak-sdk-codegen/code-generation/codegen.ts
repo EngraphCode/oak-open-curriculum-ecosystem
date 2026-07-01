@@ -53,7 +53,7 @@ async function readCachedSchemaOrThrow(): Promise<OpenAPIObject> {
   if (!existsSync(schemaCacheFilePath)) {
     throw new Error(
       `Code generation reads the cached SDK schema by default, but none was found at ${schemaCacheFilePath}. ` +
-        `Run "pnpm sdk-codegen --online" (or set SDK_CODEGEN_MODE=online) to refresh ` +
+        `Run "SDK_CODEGEN_MODE=online pnpm sdk-codegen" to refresh ` +
         `the cache from upstream, then commit the result.`,
     );
   }
