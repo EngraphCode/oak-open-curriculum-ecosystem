@@ -22,6 +22,7 @@ import { generateWidgetConstants, generateSubjectHierarchy } from './typegen/ind
 import { runSitemapValidation } from './typegen/routing/validate-canonical-urls.js';
 import type { OpenAPIObject } from 'openapi3-ts/oas31';
 import { createCodegenLogger } from './create-codegen-logger.js';
+import { resolveSchemaSource } from './resolve-schema-source.js';
 
 const logger = createCodegenLogger('codegen');
 
@@ -30,15 +31,16 @@ const rootDirectory = path.resolve(thisDirectory, '..');
 const outPathFromRoot = 'src/types/generated/api-schema';
 const outDirectory = path.resolve(rootDirectory, outPathFromRoot);
 
-// Determine mode: online (default) vs CI/offline
-// Treat Vercel as an online environment (preview/prod) regardless of CI var
-const args = process.argv.slice(2);
-const isVercel = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
-const forceCi = args.includes('--ci') || process.env.SDK_CODEGEN_MODE === 'ci';
-const isCiEnv = process.env.CI === 'true';
-const isCiMode = forceCi || (isCiEnv && !isVercel);
+// Determine the schema source: the committed cache is the default (hermetic,
+// deterministic, no network); online refresh is opt-in via --online,
+// SDK_CODEGEN_MODE=online, or a Vercel build. See resolve-schema-source.ts.
+const schemaSource = resolveSchemaSource({
+  args: process.argv.slice(2),
+  sdkCodegenMode: process.env.SDK_CODEGEN_MODE,
+  vercel: process.env.VERCEL,
+});
 
-// In offline/CI mode we read the cached original schema
+// The committed cache of the original schema is the default build input
 const schemaCacheFilePath = path.resolve(rootDirectory, 'schema-cache/api-schema-original.json');
 
 interface LoadedSchema {
@@ -50,9 +52,9 @@ interface LoadedSchema {
 async function readCachedSchemaOrThrow(): Promise<OpenAPIObject> {
   if (!existsSync(schemaCacheFilePath)) {
     throw new Error(
-      `CI/offline code-generation requires a cached SDK schema at ${schemaCacheFilePath}. ` +
-        `Run "pnpm -F @oaknational/curriculum-sdk code-generation" locally to refresh ` +
-        `the cache and commit the result.`,
+      `Code generation reads the cached SDK schema by default, but none was found at ${schemaCacheFilePath}. ` +
+        `Run "pnpm sdk-codegen --online" (or set SDK_CODEGEN_MODE=online) to refresh ` +
+        `the cache from upstream, then commit the result.`,
     );
   }
   logger.info('Using cached original OpenAPI schema', { path: schemaCacheFilePath });
@@ -84,7 +86,7 @@ async function fetchValidatedSchema(apiSchemaUrl: string): Promise<OpenAPIObject
 }
 
 async function loadSchema(): Promise<LoadedSchema> {
-  if (isCiMode) {
+  if (schemaSource === 'cached') {
     const cached = await readCachedSchemaOrThrow();
     return createOpenCurriculumSchema(cached);
   }

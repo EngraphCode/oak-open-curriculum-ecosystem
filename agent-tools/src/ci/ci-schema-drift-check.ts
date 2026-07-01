@@ -3,7 +3,7 @@
  * the live upstream spec. Emits a GitHub Actions warning annotation if
  * they differ. Always exits 0 — this is informational, not blocking.
  *
- * Requires OAK_API_KEY in the environment.
+ * The upstream swagger endpoint is public, so no authentication is required.
  *
  * @packageDocumentation
  */

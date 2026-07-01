@@ -75,6 +75,12 @@ if ! pnpm lint:shell; then
   exit 1
 fi
 
+# Advisory only — warns when the committed OpenAPI schema cache is stale versus
+# upstream. Never blocks the push (the check always exits 0; `|| true` is
+# belt-and-braces so a network blip or future change cannot fail pre-push).
+echo "🔭 Checking schema cache staleness (advisory, non-blocking)..."
+pnpm --filter @oaknational/agent-tools ci-schema-drift-check || true
+
 echo "🔤 Running build, type-check, lint, and tests..."
 if ! pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
   echo "❌ Turbo quality gate checks failed!"
