@@ -317,3 +317,25 @@ describe('normaliseUpstreamDescription', () => {
     expect(normaliseUpstreamDescription('  Multi   space\n\ttext  ')).toBe('Multi space text');
   });
 });
+
+describe('appendToolEnhancements — append mechanism (injected additions)', () => {
+  // A fake additions map proves the mechanism without pinning the canonical
+  // content or which real tool is wired (that is reviewed config, not behaviour).
+  const additions = new Map([['tool-with-addition', '\n\nEXTRA GUIDANCE']]);
+
+  it('appends the injected addition after the base description when the tool has one', () => {
+    expect(appendToolEnhancements('Base description', 'tool-with-addition', additions)).toBe(
+      'Base description\n\nEXTRA GUIDANCE',
+    );
+  });
+
+  it('returns the description unchanged when the tool has no addition', () => {
+    expect(appendToolEnhancements('Base description', 'tool-with-none', additions)).toBe(
+      'Base description',
+    );
+  });
+
+  it('returns undefined when there is no base description, whatever the additions', () => {
+    expect(appendToolEnhancements(undefined, 'tool-with-addition', additions)).toBeUndefined();
+  });
+});

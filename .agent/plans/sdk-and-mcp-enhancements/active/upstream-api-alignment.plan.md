@@ -19,8 +19,8 @@ todos:
     content: "DESIGN-GATED: settle the bulk type-derivation approach with the owner (WS3.0), then dry-run blast-radius probe (WS3.1, STOP on consumer type errors), then land (WS3.2) — generate bulk Zod/types/predicates from schema.json, retire templates, commit schema.json + manifest.json"
     status: pending
   - id: ws4-ux-discoverability
-    content: "DONE (discoverability): programmes surfaced in get-curriculum-model — Programme entity in the hierarchy, a programmes tool category, and a byProgramme workflow, framed co-equal with sequences (D2), carrying the verified full-form slugs. REMAINING (owner-decision): the get-subjects-programmes/get-programmes description's wrong 'y7' slug example is UPSTREAM-authored (swagger description, passed through by codegen) — fixing at source is the oak-openapi repo (Open Owner-Decision #6), not a codegen override"
-    status: in_progress
+    content: "DONE: (a) programmes surfaced in get-curriculum-model — Programme entity, programmes tool category, byProgramme workflow, co-equal with sequences (D2), verified full-form slugs; (b) the loose upstream 'y7' slug example is clarified in the get-subjects-programmes/get-programmes tool descriptions via an injected per-tool additions map (declarative config, not a switch string) at codegen — augments, does not contradict, the upstream text. Fixing the upstream description AT SOURCE stays optional (Open Owner-Decision #6, now mitigated at the tool layer)"
+    status: completed
   - id: ws5-live-proof-recipe
     content: Establish the repeatable post-regen live-execution proof (decision needed on a committed network-permitted smoke lane)
     status: pending
@@ -76,15 +76,27 @@ carries the **verified full-form slugs** (`english-primary-year-1`,
 `english-secondary-year-10-edexcel`). 20 relationship-based unit assertions; model assembly
 green.
 
-**WS4 remaining — OWNER-DECISION (surfaced, not actioned):** the wrong `y7` slug example in
-the `get-subjects-programmes` / `get-programmes` tool descriptions is **upstream-authored**
-(it lives in the swagger `description` fields — `api-schema-original.json:1450`/`1537` — and
-codegen passes it through; our generator only *appends* the PREREQUISITE line). Fixing it at
-source is a change to the `oak-openapi` repo, which is **Open Owner-Decision #6**
-(upstream/SDK forks). Correcting it by a codegen-time description *override* would be a
-bridge that masks the upstream error (`replace-dont-bridge`), so it is NOT done here. The
-orientation layer is already correct via our authored guidance above; the upstream
-description remains the source-of-truth to fix upstream.
+**WS4 slug clarification LANDED — via a declarative additions mechanism.** The upstream `y7`
+slug example is *loose shorthand*, not a versioning artefact (owner, 2026-07-01): the same
+endpoint's own response-schema `example` already uses the full form
+(`english-secondary-year-7` … `english-secondary-year-10-edexcel`), so the description text
+and the schema example disagree within the one upstream spec. For the MCP agent audience we
+**add a clarification note** to the `get-subjects-programmes` / `get-programmes` tool
+descriptions — this is schema-first-permitted *additional* metadata at codegen (it augments,
+never contradicts, the upstream text; it references "the short `y7` shorthand used above").
+
+The mechanism was reshaped on owner direction from a hardcoded `switch`-case string into an
+**injected per-tool additions map** (`TOOL_DESCRIPTION_ADDITIONS`, `ReadonlyMap<string,string>`)
+that `appendToolEnhancements(description, toolName, additions?)` takes as an optional argument
+defaulting to the canonical map. The existing hardcoded notes (rate-limit, keywords, asset,
+large-payload) became declarative entries in that map. Tests prove the **append mechanism**
+against an injected fake map (testing-strategy.md "Assert effects, not constants" / "test the
+engine, not the configuration") — not the canonical note content or which tool is wired.
+
+**Still optional — OWNER-DECISION #6:** fixing the loose text *at source* in the `oak-openapi`
+repo (so the swagger `description` matches its own schema example) remains the upstream/SDK-fork
+decision. It is now **mitigated** at both the orientation layer (get-curriculum-model guidance)
+and the tool-description layer (the clarification note), so it is no longer blocking.
 
 **DEFERRED (separate/later):** WS5 committed live smoke lane; WS6 runbook graduation.
 
