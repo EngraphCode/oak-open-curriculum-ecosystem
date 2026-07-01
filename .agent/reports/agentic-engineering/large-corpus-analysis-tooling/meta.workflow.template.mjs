@@ -73,7 +73,7 @@ function metaPrompt(candidatesWithDisposition, baselines) {
     'The run\'s FINDINGS are the candidates with disposition "keep" or "reroute". A baseline matched only by a "kill"/"held-for-review" candidate counts as MISSED (the run did not surface it as a finding).',
     '',
     'For each baseline emit a RECALL-MATCH: baselineId, verdict, matchedCandidateId, note.',
-    '  verdict in subsumes (a finding fully covers and extends the baseline) | refines (captures it at finer grain) | equal (same grain) | partial (overlaps but misses substance) | missed (not re-found among findings).',
+    '  verdict ∈ subsumes (a finding fully covers and extends the baseline) | refines (captures it at finer grain) | equal (same grain) | partial (overlaps but misses substance) | missed (not re-found among findings).',
     '  matchedCandidateId: REQUIRED for any non-missed verdict (name the candidate id); OMIT IT ENTIRELY for "missed".',
     '  note: one sentence.',
     '',

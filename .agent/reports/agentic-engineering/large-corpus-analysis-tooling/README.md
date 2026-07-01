@@ -7,6 +7,53 @@ embody [PDR-122](../../../practice-core/decision-records/PDR-122-agentic-judgmen
 (atomic judgment, deterministic aggregation, conserve-by-default) and feed the conservation
 machinery (PDR-014 `consolidate-docs` / `consolidate-until-done`).
 
+## Launch card — discovery run (pinned 2026-07-01, Flare hunts Obsidian)
+
+Launch-preflight DONE and adversarially verified (7 dimensions, finder + independent skeptic, resumed
+after a quota trip): **GO_WITH_CONDITIONS** for the checkpoint-1a MAP launch. 6/7 dimensions PASS; the
+7th (resume-completeness) is a CONCERN driving the pre-meta gate below. No blockers, no FAIL.
+
+- **Instantiated map run script:** `map.workflow.run-2026-07-01.mjs` — the 15-window partition spliced
+  in, `node --check` clean, mapPrompt + LEAVES schema byte-in-sync with the source of truth.
+- **Corpus pin:** the 100 corpus files are byte-identical to commit `194fdc704`; `napkin.md` (w15) is
+  byte-identical at `194fdc704` and HEAD. This preflight bundle touches no corpus file.
+- **Ceiling:** `VALIDATE_TOKEN_CEILING = 30_000_000` = 120-candidate upper projection x
+  `MAX_VOTERS_PER_CANDIDATE`(5) x `OBSERVED_VALIDATE_TOKENS_PER_VOTER`(50k). Admits <=120 candidates;
+  hard-aborts at 121+ before any voter dispatch. Zero headroom at exactly 120 is deliberate — a
+  legitimately-larger yield hard-aborts and is cheaply recovered by raising the ceiling and resuming
+  validate from the committed candidates (no map/reduce re-spend).
+
+### Launch sequence
+
+1. `Workflow({ scriptPath: map.workflow.run-2026-07-01.mjs })` then commit the returned `leaves` to
+   `data/discovery-run-leaves-2026-07-01.json`.
+2. Instantiate `reduce.workflow.template.mjs` (splice `__LEAVES__` from that file), then commit
+   `candidates` to `data/`.
+3. Instantiate `validate-meta.workflow.template.mjs` (splice `__CANDIDATES_SEED__`, `__RESOLVED_IDS__`
+   = `[]`, `__VALIDATE_TOKEN_CEILING__` = `30000000`), then run.
+4. On a quota trip, re-seed the unresolved tail only (`__RESOLVED_IDS__` = the resolved set).
+5. Instantiate `meta.workflow.template.mjs` (splice `__CANDIDATES_FOR_META__` = the MERGED set), then run.
+
+### Gating conditions
+
+- **Pre-spend (map):** re-verify the tree is clean and the 100 corpus files still match `194fdc704`;
+  re-diff the FOUR unpinned duplicated blocks (mapPrompt / reducePrompt / ORCH_MIRROR / metaPrompt)
+  against the straight-through source; conformance test (39) green.
+- **Pre-validate:** the post-reduce hard-abort re-gate fires on `realCount x 250k > 30M`. If a
+  legitimate 121+ set, raise the ceiling and resume validate from the committed candidates.
+- **Pre-meta (HARD GATE — condition 2 from the verification):** `meta.workflow.template.mjs` currently
+  dispatches meta unconditionally with no code-level completeness gate. Before instantiating it, port
+  `assessValidateCompleteness` plus a merged-set count / duplicate / missing-id assertion (inject the
+  expected candidate-id set), so meta cannot score recall over a wrong denominator. Left as
+  operator-discipline, a partial or held-containing merged set silently flips baselines to MISSED.
+
+### Known limitation (surfaced, owner-dispositioned)
+
+- **w15 self-reference:** `napkin.md` (w15) holds this session's own discovery-tooling notes. Accepted
+  as legitimate agent-engineering corpus content (tooling-dev recurs across all 15 windows; 1 file of
+  100); the post-run novelty-stratification buckets any self-referential pattern as re-confirming-known,
+  not novel yield. Excising only this session's notes would be arbitrary bias. Noted, not excised.
+
 ## Files
 
 - **`map-reduce-validate-meta.workflow.mjs`** — **RETIRED as a run path** (commit 91ee28474 split it
@@ -39,6 +86,10 @@ machinery (PDR-014 `consolidate-docs` / `consolidate-until-done`).
   `meta.workflow.template.mjs` over the MERGED dispositions.
 - **`meta.workflow.template.mjs`** — meta-over-all-candidates with a `__CANDIDATES_FOR_META__`
   placeholder; run after dispositions settle.
+- **`map.workflow.run-2026-07-01.mjs`** — the INSTANTIATED checkpoint-1a map run script (2026-07-01,
+  pinned to `194fdc704`): `map.workflow.template.mjs` with `__PARTITION__` filled by the 15-window
+  array. Launch-ready (`node --check` clean); mapPrompt + schema byte-in-sync with the source.
+  Generated — regenerate by re-splicing the partition if the corpus changes. See the launch card above.
 - **`data/v2-rerun-corrected-findings-2026-06-30.json`** — the full corrected findings: 50
   candidates, 45 keep / 5 kill dispositions, 182 voter outcomes, 18 recall matches, 31
   corroboration claims. The conservation source for graduating the discovered patterns.
@@ -68,11 +119,15 @@ relative path.
 - The **routing** mirror is pinned by `workflow-routing-mirror.conformance.test.ts` (39 cases).
   The **orchestration** mirror (`__ORCH_MIRROR_*__`) is a type-stripped copy of
   `agent-tools/src/corpus-analysis/run-orchestration.ts` (unit-tested there: resume / completeness /
-  re-gate / jitter); the **map/reduce prompts** are duplicated between the straight-through workflow
-  and the checkpoint-1 template. None of these three pasted/duplicated blocks is machine-pinned by a
+  re-gate / jitter); the **map / reduce / meta prompts** are duplicated between the straight-through
+  workflow and the checkpoint templates (map in checkpoint-1; reduce in reduce; metaPrompt in BOTH
+  validate-meta and meta). None of these **four** pasted/duplicated blocks is machine-pinned by a
   test (a `.mjs`-reading conformance test fought four lint rules; the right home is a repo-validator
   added when the tooling is promoted to `agent-tools` scripts). Until then, **re-check each pasted /
   duplicated block against its source before each launch** (same discipline as the routing mirror).
+  **2026-07-01: `metaPrompt` had drifted (ASCII `in` vs the source's `∈`) and was ABSENT from this
+  re-check list — reconciled to source and added here; that omission is exactly why the drift went
+  unpinned until the launch-readiness verification caught it.**
 - Cost reality: ~50k tokens/voter at high effort over grounding-heavy prompts (not ~11k). The
   corrected calibration (`OBSERVED_VALIDATE_TOKENS_PER_VOTER = 50_000`, modelled flat — no double
   multiplier) lives in `run-orchestration.ts`; the post-reduce re-gate now **hard-aborts** (throws)
