@@ -101,3 +101,39 @@ next `consolidate-until-done`:
   The metaPrompt drift and the scratchpad-unreachable-by-subagents flaw were both surfaced by the
   fresh-reader panel, not my own re-diffs — and put launch-ready/verification artefacts IN-REPO (subagents
   cannot read the scratchpad). Candidate: a pattern (pre-spend adversarial verification of a one-way action).
+
+## 2026-07-02 — TS rebuild of the workflow suite + the money-gate fork (Perseus wakes Oblivion)
+
+For the next `consolidate-until-done`:
+
+- **A sandbox constraint is a BUILD instruction, not a licence to hand-write.** "The harness cannot
+  import repo code" was read for weeks as "hand-author plain `.mjs` with pasted mirrors" when the
+  repo's own answer everywhere else is "compile and bundle to a self-contained artefact". The
+  misread propagated into mirrors, hand JSON schemas, splice tokens, and a re-diff checklist — an
+  entire drift ecosystem downstream of one wrong inference. Tell: the moment a surface feels
+  "special" enough to exempt from TypeScript/DRY/strictness, that feeling IS the cowpath signal;
+  the standards exist precisely for the surfaces that feel special. (Owner-corrected 2026-07-01;
+  candidate: pattern, or an amendment to the cowpath doctrine.)
+- **Mirrors drift wherever they are not machine-held — including the "source of truth" itself.**
+  The migration equivalence check found a FIFTH never-pinned duplicated block (votePrompt) that had
+  drifted between the straight-through "source" and the template that actually ran — the SOURCE was
+  the stale copy. Re-diff-by-discipline missed it for weeks because the block was never on the
+  checklist. The cure that ends the class is bundling from one source; checklists only ever pin the
+  blocks someone remembered to list.
+- **Pre-execution review of one-way tooling pays at extreme odds.** Three independent reviewer
+  lenses converged on the same guard hole (wrong-stage seeding), and code-expert's content-blind
+  contract-scan catch (inlined corpus quotes contain `process.env` verbatim) would have stranded
+  the 30M run AFTER the map spend, at the exact moment the pressure would be to weaken the gate.
+  Compact-vs-pretty JSON was the difference between a 363KB artefact and breaching the 524,288-char
+  harness cap. All caught pre-spend for ~450k of review tokens.
+- **Workflow data transport physics:** data passed as `Workflow(args)` rides through the OPERATOR'S
+  context (~120k tokens for a leaves-sized payload) and hand-inlined data competes with code for
+  the 524,288-char script cap. The shape that works: committed checkpoint JSONs → zod-validated at
+  build → stage-projected → compact-inlined into the artefact by the build, with a stage
+  discriminant so wrong-stage seeding is a zero-spend typed failure.
+- **A cost backstop firing is a fork, not a failure — and budget-doubling is owner-scope even under
+  broad overnight authority.** Reduce legitimately yielded 246 candidates (2× projection; verified
+  not-fragmentation by distribution analysis before deciding anything). The right autonomous move
+  was: analyse first-hand, prepare both launch-ready forks, commit the checkpoints, surface with a
+  brief, stop the spend. "Whatever you think is appropriate" covers execution, not re-authorising
+  2× the owner-set ceiling.
