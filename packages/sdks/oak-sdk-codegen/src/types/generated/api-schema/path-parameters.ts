@@ -36,6 +36,10 @@ export const PATHS = {
   '/lessons/{lesson}/quiz': '/lessons/{lesson}/quiz',
   '/lessons/{lesson}/summary': '/lessons/{lesson}/summary',
   '/lessons/{lesson}/transcript': '/lessons/{lesson}/transcript',
+  '/programmes/{programme}': '/programmes/{programme}',
+  '/programmes/{programme}/assets': '/programmes/{programme}/assets',
+  '/programmes/{programme}/questions': '/programmes/{programme}/questions',
+  '/programmes/{programme}/units': '/programmes/{programme}/units',
   '/rate-limit': '/rate-limit',
   '/search/lessons': '/search/lessons',
   '/search/transcripts': '/search/transcripts',
@@ -46,6 +50,7 @@ export const PATHS = {
   '/subjects': '/subjects',
   '/subjects/{subject}': '/subjects/{subject}',
   '/subjects/{subject}/key-stages': '/subjects/{subject}/key-stages',
+  '/subjects/{subject}/programmes': '/subjects/{subject}/programmes',
   '/subjects/{subject}/years': '/subjects/{subject}/years',
   '/threads': '/threads',
   '/threads/{threadSlug}/units': '/threads/{threadSlug}/units',
@@ -139,6 +144,10 @@ export type GetResponseBody =
   | Paths['/lessons/{lesson}/quiz']['get']['responses'][200]['content']['application/json']
   | Paths['/lessons/{lesson}/summary']['get']['responses'][200]['content']['application/json']
   | Paths['/lessons/{lesson}/transcript']['get']['responses'][200]['content']['application/json']
+  | Paths['/programmes/{programme}']['get']['responses'][200]['content']['application/json']
+  | Paths['/programmes/{programme}/assets']['get']['responses'][200]['content']['application/json']
+  | Paths['/programmes/{programme}/questions']['get']['responses'][200]['content']['application/json']
+  | Paths['/programmes/{programme}/units']['get']['responses'][200]['content']['application/json']
   | Paths['/rate-limit']['get']['responses'][200]['content']['application/json']
   | Paths['/search/lessons']['get']['responses'][200]['content']['application/json']
   | Paths['/search/transcripts']['get']['responses'][200]['content']['application/json']
@@ -149,6 +158,7 @@ export type GetResponseBody =
   | Paths['/subjects']['get']['responses'][200]['content']['application/json']
   | Paths['/subjects/{subject}']['get']['responses'][200]['content']['application/json']
   | Paths['/subjects/{subject}/key-stages']['get']['responses'][200]['content']['application/json']
+  | Paths['/subjects/{subject}/programmes']['get']['responses'][200]['content']['application/json']
   | Paths['/subjects/{subject}/years']['get']['responses'][200]['content']['application/json']
   | Paths['/threads']['get']['responses'][200]['content']['application/json']
   | Paths['/threads/{threadSlug}/units']['get']['responses'][200]['content']['application/json']
@@ -285,7 +295,7 @@ export function isValidPathParameter(parameterType: unknown, value: unknown): bo
 /**
  * Path grouping keys
  */
-export type PathGroupingKeys = "NO_PARAMS" | "keyStage_subject" | "lesson" | "lesson_type" | "sequence" | "subject" | "threadSlug" | "unit";
+export type PathGroupingKeys = "NO_PARAMS" | "keyStage_subject" | "lesson" | "lesson_type" | "programme" | "sequence" | "subject" | "threadSlug" | "unit";
 
 
 /**
@@ -407,6 +417,28 @@ export const VALID_PATHS_BY_PARAMETERS: ValidPathGroupings = {
         "paramsKey": "NO_PARAMS"
     }
   },
+  "programme": {
+    "/programmes/{programme}": {
+        "params": "programme",
+        "path": "/programmes/{programme}",
+        "paramsKey": "programme"
+    },
+    "/programmes/{programme}/assets": {
+        "params": "programme",
+        "path": "/programmes/{programme}/assets",
+        "paramsKey": "programme"
+    },
+    "/programmes/{programme}/questions": {
+        "params": "programme",
+        "path": "/programmes/{programme}/questions",
+        "paramsKey": "programme"
+    },
+    "/programmes/{programme}/units": {
+        "params": "programme",
+        "path": "/programmes/{programme}/units",
+        "paramsKey": "programme"
+    }
+  },
   "sequence": {
     "/sequences/{sequence}": {
         "params": "sequence",
@@ -438,6 +470,11 @@ export const VALID_PATHS_BY_PARAMETERS: ValidPathGroupings = {
     "/subjects/{subject}/key-stages": {
         "params": "subject",
         "path": "/subjects/{subject}/key-stages",
+        "paramsKey": "subject"
+    },
+    "/subjects/{subject}/programmes": {
+        "params": "subject",
+        "path": "/subjects/{subject}/programmes",
         "paramsKey": "subject"
     },
     "/subjects/{subject}/years": {
@@ -472,7 +509,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getSequences-getSubjectSequence",
     "summary": "Sequencing information for a given sequence slug",
-    "description": "Use when you have a sequence slug and need the sequence-level summary. A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/{subject} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it.\n\nNot for: the programmes within this sequence (GET /sequences/{sequence}/programmes); the unit sequence for one programme (GET /sequences/{sequence}/programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}).\n\nExample: sequence=maths-primary or science-secondary-aqa.",
+    "description": "Use when you have a sequence slug and need the sequence-level summary. A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/{subject} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it.\n\nNot for: the programmes within this sequence (GET /subjects/{subject}/programmes); the unit sequence for one programme (GET /programmes/{programme}/units); all units across the sequence (GET /sequences/{sequence}/units); subject-level catalogue data (GET /subjects or GET /subjects/{subject}).\n\nExample: sequence=maths-primary or science-secondary-aqa.",
     "parameters": [
       {
         "in": "path",
@@ -482,7 +519,7 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The sequence slug identifier",
-          "example": "art-secondary"
+          "example": "english-secondary"
         }
       }
     ],
@@ -534,7 +571,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getSequences-getSequenceUnits",
     "summary": "Units in a curriculum sequence",
-    "description": "Use when you want every unit across a whole sequence — all programmes combined, in unit sequence order. Returns units grouped by programme (year group) in unit sequence order. If the sequence slug includes an exam board (e.g. science-secondary-aqa), units are scoped to that exam board. Secondary sequences also expose tiers, pathways, and exam subjects where applicable. Pass year as an optional filter to return only that year's units (across all KS4 factor combinations).\n\nNot for: units in a single programme (GET /sequences/{sequence}/programmes/{programme}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/{keyStage}/subject/{subject}/units); the programmes within this sequence (GET /sequences/{sequence}/programmes); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).\n\nExample: sequence=science-secondary-aqa or maths-primary.",
+    "description": "Use when you want every unit across a whole sequence — all programmes combined, in unit sequence order. Returns units grouped by programme (year group) in unit sequence order. If the sequence slug includes an exam board (e.g. science-secondary-aqa), units are scoped to that exam board. Secondary sequences also expose tiers, pathways, and exam subjects where applicable. Pass year as an optional filter to return only that year's units (across all KS4 factor combinations).\n\nNot for: units in a single programme (GET /programmes/{programme}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/{keyStage}/subject/{subject}/units); the programmes within this sequence (GET /subjects/{subject}/programmes); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).\n\nExample: sequence=science-secondary-aqa or maths-primary.",
     "parameters": [
       {
         "in": "path",
@@ -743,7 +780,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getAssets-getSequenceAssets",
     "summary": "Downloadable assets in a sequence",
-    "description": "Use when you need every downloadable asset across a whole sequence — all programmes combined. Returns assets grouped by lesson in unit sequence order, with signed download URLs, asset type, lesson title and slug, and attribution. Pass year as an optional filter. Narrow further with type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets in a single programme (GET /sequences/{sequence}/programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets).",
+    "description": "Use when you need every downloadable asset across a whole sequence — all programmes combined. Returns assets grouped by lesson in unit sequence order, with signed download URLs, asset type, lesson title and slug, and attribution. Pass year as an optional filter. Narrow further with type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets in a single programme (GET /programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets).",
     "parameters": [
       {
         "in": "path",
@@ -834,7 +871,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getAssets-getSubjectAssets",
     "summary": "Downloadable assets by key stage and subject",
-    "description": "Use when you want every downloadable asset for a key stage + subject, without programme structure or unit sequence order, optionally scoped to a unit or asset type. Returns assets grouped by lesson, each with signed download URLs, asset type, lesson title and slug, and attribution. Pass unit to restrict to one unit and type to restrict to one asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets across a sequence (GET /sequences/{sequence}/assets); assets in one programme (GET /sequences/{sequence}/programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).",
+    "description": "Use when you want every downloadable asset for a key stage + subject, without programme structure or unit sequence order, optionally scoped to a unit or asset type. Returns assets grouped by lesson, each with signed download URLs, asset type, lesson title and slug, and attribution. Pass unit to restrict to one unit and type to restrict to one asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets across a sequence (GET /sequences/{sequence}/assets); assets in one programme (GET /programmes/{programme}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).",
     "parameters": [
       {
         "in": "path",
@@ -899,7 +936,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       },
@@ -961,7 +998,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getAssets-getLessonAssets",
     "summary": "Downloadable assets for a lesson",
-    "description": "Use when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed download URL per asset and attribution. The 9 type values are: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video. Pass type to return only one. Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: streaming the file itself (GET /lessons/{lesson}/assets/{type}); bulk asset retrieval across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/assets), a sequence (GET /sequences/{sequence}/assets), or one programme (GET /sequences/{sequence}/programmes/{programme}/assets); lesson metadata (GET /lessons/{lesson}/summary).",
+    "description": "Use when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed download URL per asset and attribution. The 9 type values are: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video. Pass type to return only one. Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: streaming the file itself (GET /lessons/{lesson}/assets/{type}); bulk asset retrieval across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/assets), a sequence (GET /sequences/{sequence}/assets), or one programme (GET /programmes/{programme}/assets); lesson metadata (GET /lessons/{lesson}/summary).",
     "parameters": [
       {
         "in": "path",
@@ -990,7 +1027,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       }
@@ -1002,6 +1039,109 @@ export const PATH_OPERATIONS = [
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/LessonAssetsResponseSchema"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.BAD_REQUEST"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "API token not provided or invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.UNAUTHORIZED"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.NOT_FOUND"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "path": "/programmes/{programme}/assets",
+    "method": "get",
+    "operationId": "getAssets-getProgrammeAssets",
+    "summary": "Downloadable assets in a programme",
+    "description": "Use when you need every downloadable asset for a single programme (year group) within a subject. Returns assets grouped by lesson with signed download URLs, asset type, lesson title and slug, and attribution. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages. Optionally narrow by asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.\n\nNot for: assets across a whole sequence (GET /sequences/{sequence}/assets); assets for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/assets); a single lesson's downloads (GET /lessons/{lesson}/assets); streaming one file (GET /lessons/{lesson}/assets/{type}).",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "programme",
+        "description": "The programme slug identifier",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The programme slug identifier",
+          "example": "computing-secondary-year-7"
+        }
+      },
+      {
+        "in": "query",
+        "name": "offset",
+        "schema": {
+          "default": 0,
+          "type": "number",
+          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+          "example": 0
+        }
+      },
+      {
+        "in": "query",
+        "name": "limit",
+        "schema": {
+          "default": 10,
+          "type": "number",
+          "maximum": 100,
+          "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
+          "example": 10
+        }
+      },
+      {
+        "in": "query",
+        "name": "type",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "slideDeck",
+            "exitQuiz",
+            "exitQuizAnswers",
+            "starterQuiz",
+            "starterQuizAnswers",
+            "supplementaryResource",
+            "video",
+            "worksheet",
+            "worksheetAnswers"
+          ],
+          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+          "example": "slideDeck"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProgrammeAssetsResponseSchema"
             }
           }
         }
@@ -1059,7 +1199,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "path",
         "name": "type",
-        "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+        "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
         "required": true,
         "schema": {
           "type": "string",
@@ -1074,7 +1214,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/asset/{type} endpoint",
+          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       }
@@ -1127,7 +1267,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getSubjects-getAllSubjects",
     "summary": "All subjects",
-    "description": "Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /sequences/{sequence}/programmes to enumerate them.\n\nNot for: a single subject (GET /subjects/{subject}); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); lessons or units inside a subject (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).",
+    "description": "Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /subjects/{subject}/programmes to enumerate them.\n\nNot for: a single subject (GET /subjects/{subject}); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); lessons or units inside a subject (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).",
     "parameters": [],
     "responses": {
       "200": {
@@ -1177,7 +1317,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getSubjects-getSubject",
     "summary": "Single subject with sequences, key stages, and years",
-    "description": "Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /sequences/{sequence}/programmes to enumerate them.\n\nNot for: every subject in one call (GET /subjects); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); subject-scoped lessons or units (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).\n\nExample: subject=maths.",
+    "description": "Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /subjects/{subject}/programmes to enumerate them.\n\nNot for: every subject in one call (GET /subjects); the key stages or year groups for a subject (GET /subjects/{subject}/key-stages or GET /subjects/{subject}/years); subject-scoped lessons or units (GET /key-stages/{keyStage}/subject/{subject}/lessons or GET /key-stages/{keyStage}/subject/{subject}/units); the detail of one sequence (GET /sequences/{sequence}).\n\nExample: subject=maths.",
     "parameters": [
       {
         "in": "path",
@@ -1470,7 +1610,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getKeyStageSubjectLessons-getKeyStageSubjectLessons",
     "summary": "List lessons in a key stage and subject",
-    "description": "Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units).\n\nExample: keyStage=ks3, subject=maths, unit=perimeter-and-area.",
+    "description": "Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/{lesson}/summary); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units).\n\nExample: keyStage=ks3, subject=maths, unit=perimeter-and-area.",
     "parameters": [
       {
         "in": "path",
@@ -1535,7 +1675,7 @@ export const PATH_OPERATIONS = [
           "default": 0,
           "description": "Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.",
           "type": "number",
-          "example": 50
+          "example": 0
         }
       },
       {
@@ -1598,7 +1738,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits",
     "summary": "Units in a key stage and subject",
-    "description": "Use when you want a flat list of every unit with published lessons in a key stage + subject, without programme structure or unit sequence order. Returns units grouped by year slug; units without published lessons are omitted. Pass examBoard to restrict KS4 to one board (one of: aqa, edexcel (Edexcel A), eduqas, ocr, wjec, edexcelb (Edexcel B)); otherwise each unit lists the boards it appears in.\n\nNot for: all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); a single unit (GET /units/{unit}/summary); lessons rather than units (GET /key-stages/{keyStage}/subject/{subject}/lessons); units in a thread (GET /threads/{threadSlug}/units).",
+    "description": "Use when you want a flat list of every unit with published lessons in a key stage + subject, without programme structure or unit sequence order. Returns units grouped by year slug; units without published lessons are omitted. Pass examBoard to restrict KS4 to one board (one of: aqa, edexcel (Edexcel A), eduqas, ocr, wjec, edexcelb (Edexcel B)); otherwise each unit lists the boards it appears in.\n\nNot for: all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary); lessons rather than units (GET /key-stages/{keyStage}/subject/{subject}/lessons); units in a thread (GET /threads/{threadSlug}/units).",
     "parameters": [
       {
         "in": "path",
@@ -1670,6 +1810,211 @@ export const PATH_OPERATIONS = [
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/AllKeyStageAndSubjectUnitsResponseSchema"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.BAD_REQUEST"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "API token not provided or invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.UNAUTHORIZED"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.NOT_FOUND"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "path": "/subjects/{subject}/programmes",
+    "method": "get",
+    "operationId": "getAllProgrammesForSubject-getAllProgrammesForSubject",
+    "summary": "Get all programmes for a subject slug",
+    "description": "Use when you need to discover the programmes within a subject — to get a programme's slug for use with GET /programmes/{programme} or its sub-endpoints. Returns programmes grouped by key stage, each with year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).\n\nNot for: the metadata of one programme (GET /programmes/{programme}); the units, questions, or assets of one programme (GET /programmes/{programme}/units, GET /programmes/{programme}/questions, or GET /programmes/{programme}/assets); the sequence-level summary (GET /sequences/{sequence}).",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "subject",
+        "description": "The subject slug identifier",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "art",
+            "citizenship",
+            "computing",
+            "cooking-nutrition",
+            "design-technology",
+            "english",
+            "french",
+            "geography",
+            "german",
+            "history",
+            "maths",
+            "music",
+            "physical-education",
+            "religious-education",
+            "rshe-pshe",
+            "science",
+            "spanish"
+          ],
+          "description": "The subject slug identifier",
+          "example": "english"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubjectProgrammesResponseSchema"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.BAD_REQUEST"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "API token not provided or invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.UNAUTHORIZED"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.NOT_FOUND"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "path": "/programmes/{programme}",
+    "method": "get",
+    "operationId": "getAllProgrammesForSubject-getProgramme",
+    "summary": "Get a programme by slug",
+    "description": "Use when you need to get the metadata of one programme. Get programme slugs from GET /subjects/{subject}/programmes. Returns the programme's year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).\n\nNot for: the units, questions, or assets of one programme (GET /programmes/{programme}/units, GET /programmes/{programme}/questions, or GET /programmes/{programme}/assets); the sequence-level summary (GET /sequences/{sequence}); all programmes for a subject (GET /subjects/{subject}/programmes).",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "programme",
+        "description": "The programme slug identifier",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The programme slug identifier",
+          "example": "english-secondary-year-10-edexcel"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProgrammeResponseSchema"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.BAD_REQUEST"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "API token not provided or invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.UNAUTHORIZED"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.NOT_FOUND"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "path": "/programmes/{programme}/units",
+    "method": "get",
+    "operationId": "getAllProgrammesForSubject-getProgrammeUnits",
+    "summary": "Units in a programme",
+    "description": "Use when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get programme slugs from GET /subjects/{subject}/programmes. Returns units in unit sequence order with title, slug, and any associated factors.\n\n  Not for: every unit across the whole sequence (GET /sequences/{sequence}/units); a flat list of units for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/units); a single unit (GET /units/{unit}/summary); units in a thread (GET /threads/{threadSlug}/units).",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "programme",
+        "description": "The programme slug identifier",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The programme slug identifier",
+          "example": "english-secondary-year-10-edexcel"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProgrammeUnitsResponseSchema"
             }
           }
         }
@@ -1863,7 +2208,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getQuestions-getQuestionsForLessons",
     "summary": "Quiz questions for a lesson",
-    "description": "Use when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors.\n\nNot for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /sequences/{sequence}/programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).",
+    "description": "Use when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors.\n\nNot for: quiz questions across a sequence (GET /sequences/{sequence}/questions); quiz questions in one programme (GET /programmes/{programme}/questions); across a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/questions); lesson metadata or assets (GET /lessons/{lesson}/summary or GET /lessons/{lesson}/assets).",
     "parameters": [
       {
         "in": "path",
@@ -1936,7 +2281,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getQuestions-getQuestionsForSequence",
     "summary": "Quiz questions across a sequence",
-    "description": "Use when you want every quiz question across a whole sequence — all programmes combined. Returns questions grouped by lesson in unit sequence order. Pass year as an optional filter to return only that year's questions. Supports offset and limit; Link: rel=\"next\" header signals more pages.\n\nNot for: questions in a single programme (GET /sequences/{sequence}/programmes/{programme}/questions); a single lesson's quiz (GET /lessons/{lesson}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).",
+    "description": "Use when you want every quiz question across a whole sequence — all programmes combined. Returns questions grouped by lesson in unit sequence order. Pass year as an optional filter to return only that year's questions. Supports offset and limit; Link: rel=\"next\" header signals more pages.\n\nNot for: questions in a single programme (GET /programmes/{programme}/questions); a single lesson's quiz (GET /lessons/{lesson}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).",
     "parameters": [
       {
         "in": "path",
@@ -1965,7 +2310,7 @@ export const PATH_OPERATIONS = [
           "default": 0,
           "type": "number",
           "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-          "example": 50
+          "example": 0
         }
       },
       {
@@ -2039,7 +2384,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getQuestions-getQuestionsForKeyStageAndSubject",
     "summary": "Quiz questions by key stage and subject",
-    "description": "Use when you want every quiz question for a key stage + subject, without programme structure or unit sequence order. Returns lessons each with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: a single lesson's quiz (GET /lessons/{lesson}/quiz); questions across a sequence (GET /sequences/{sequence}/questions); questions in one programme (GET /sequences/{sequence}/programmes/{programme}/questions).",
+    "description": "Use when you want every quiz question for a key stage + subject, without programme structure or unit sequence order. Returns lessons each with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: a single lesson's quiz (GET /lessons/{lesson}/quiz); questions across a sequence (GET /sequences/{sequence}/questions); questions in one programme (GET /programmes/{programme}/questions).",
     "parameters": [
       {
         "in": "path",
@@ -2095,7 +2440,7 @@ export const PATH_OPERATIONS = [
           "default": 0,
           "type": "number",
           "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-          "example": 50
+          "example": 0
         }
       },
       {
@@ -2128,6 +2473,100 @@ export const PATH_OPERATIONS = [
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/QuestionsForKeyStageAndSubjectResponseSchema"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.BAD_REQUEST"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "API token not provided or invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.UNAUTHORIZED"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/error.NOT_FOUND"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "path": "/programmes/{programme}/questions",
+    "method": "get",
+    "operationId": "getQuestions-getQuestionsForProgramme",
+    "summary": "Quiz questions in a programme",
+    "description": "Use when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjects/{subject}/programmes. Returns questions grouped by lesson with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel=\"next\" header signals more pages.\n\nNot for: questions in a single lesson (GET /lessons/{lesson}/quiz); questions across a whole sequence (GET /sequences/{sequence}/questions); questions for a key stage + subject without programme structure (GET /key-stages/{keyStage}/subject/{subject}/questions).",
+    "parameters": [
+      {
+        "in": "path",
+        "name": "programme",
+        "description": "The programme slug identifier",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The programme slug identifier",
+          "example": "computing-secondary-year-7"
+        }
+      },
+      {
+        "in": "query",
+        "name": "offset",
+        "schema": {
+          "default": 0,
+          "type": "number",
+          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+          "example": 0
+        }
+      },
+      {
+        "in": "query",
+        "name": "limit",
+        "schema": {
+          "default": 10,
+          "type": "number",
+          "maximum": 100,
+          "description": "Limit the number of lessons, e.g. return a maximum of 100 lessons",
+          "example": 10
+        }
+      },
+      {
+        "in": "query",
+        "name": "filter",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "images"
+          ],
+          "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionsForProgrammeResponseSchema"
             }
           }
         }
@@ -2345,7 +2784,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getUnits-getUnit",
     "summary": "Unit summary by slug",
-    "description": "Use when you have a unit slug and need the unit summary: title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements, and the lessons inside. Unit variant slugs (ending in -1, -2, etc.) resolve to that specific variant.\n\nNot for: listing every unit in a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/units); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); units in a thread (GET /threads/{threadSlug}/units); lessons inside the unit (GET /key-stages/{keyStage}/subject/{subject}/lessons with unit={unit}).",
+    "description": "Use when you have a unit slug and need the unit summary: title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements, and the lessons inside. Unit variant slugs (ending in -1, -2, etc.) resolve to that specific variant.\n\nNot for: listing every unit in a key stage + subject (GET /key-stages/{keyStage}/subject/{subject}/units); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); units in a thread (GET /threads/{threadSlug}/units); lessons inside the unit (GET /key-stages/{keyStage}/subject/{subject}/lessons with unit={unit}).",
     "parameters": [
       {
         "in": "path",
@@ -2508,7 +2947,7 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getThreads-getThreadUnits",
     "summary": "Units in a thread",
-    "description": "Use when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder.\n\nNot for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /sequences/{sequence}/programmes/{programme}/units); a single unit (GET /units/{unit}/summary).\n\nExample: 'threadSlug=number-and-place-value'.",
+    "description": "Use when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder.\n\nNot for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/{sequence}/units); units in one programme (GET /programmes/{programme}/units); a single unit (GET /units/{unit}/summary).\n\nExample: 'threadSlug=number-and-place-value'.",
     "parameters": [
       {
         "in": "path",
@@ -2798,26 +3237,31 @@ export const OPERATIONS_BY_ID = {
   "getAssets-getSequenceAssets": PATH_OPERATIONS[4],
   "getAssets-getSubjectAssets": PATH_OPERATIONS[5],
   "getAssets-getLessonAssets": PATH_OPERATIONS[6],
-  "getAssets-getLessonAsset": PATH_OPERATIONS[7],
-  "getSubjects-getAllSubjects": PATH_OPERATIONS[8],
-  "getSubjects-getSubject": PATH_OPERATIONS[9],
-  "getSubjects-getSubjectKeyStages": PATH_OPERATIONS[10],
-  "getSubjects-getSubjectYears": PATH_OPERATIONS[11],
-  "getKeyStages-getKeyStages": PATH_OPERATIONS[12],
-  "getKeyStageSubjectLessons-getKeyStageSubjectLessons": PATH_OPERATIONS[13],
-  "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits": PATH_OPERATIONS[14],
-  "getKeywords-getKeywords": PATH_OPERATIONS[15],
-  "getQuestions-getQuestionsForLessons": PATH_OPERATIONS[16],
-  "getQuestions-getQuestionsForSequence": PATH_OPERATIONS[17],
-  "getQuestions-getQuestionsForKeyStageAndSubject": PATH_OPERATIONS[18],
-  "getLessons-getLesson": PATH_OPERATIONS[19],
-  "getLessons-searchByTextSimilarity": PATH_OPERATIONS[20],
-  "getUnits-getUnit": PATH_OPERATIONS[21],
-  "getThreads-getAllThreads": PATH_OPERATIONS[22],
-  "getThreads-getThreadUnits": PATH_OPERATIONS[23],
-  "changelog-changelog": PATH_OPERATIONS[24],
-  "changelog-latest": PATH_OPERATIONS[25],
-  "getRateLimit-getRateLimit": PATH_OPERATIONS[26]
+  "getAssets-getProgrammeAssets": PATH_OPERATIONS[7],
+  "getAssets-getLessonAsset": PATH_OPERATIONS[8],
+  "getSubjects-getAllSubjects": PATH_OPERATIONS[9],
+  "getSubjects-getSubject": PATH_OPERATIONS[10],
+  "getSubjects-getSubjectKeyStages": PATH_OPERATIONS[11],
+  "getSubjects-getSubjectYears": PATH_OPERATIONS[12],
+  "getKeyStages-getKeyStages": PATH_OPERATIONS[13],
+  "getKeyStageSubjectLessons-getKeyStageSubjectLessons": PATH_OPERATIONS[14],
+  "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits": PATH_OPERATIONS[15],
+  "getAllProgrammesForSubject-getAllProgrammesForSubject": PATH_OPERATIONS[16],
+  "getAllProgrammesForSubject-getProgramme": PATH_OPERATIONS[17],
+  "getAllProgrammesForSubject-getProgrammeUnits": PATH_OPERATIONS[18],
+  "getKeywords-getKeywords": PATH_OPERATIONS[19],
+  "getQuestions-getQuestionsForLessons": PATH_OPERATIONS[20],
+  "getQuestions-getQuestionsForSequence": PATH_OPERATIONS[21],
+  "getQuestions-getQuestionsForKeyStageAndSubject": PATH_OPERATIONS[22],
+  "getQuestions-getQuestionsForProgramme": PATH_OPERATIONS[23],
+  "getLessons-getLesson": PATH_OPERATIONS[24],
+  "getLessons-searchByTextSimilarity": PATH_OPERATIONS[25],
+  "getUnits-getUnit": PATH_OPERATIONS[26],
+  "getThreads-getAllThreads": PATH_OPERATIONS[27],
+  "getThreads-getThreadUnits": PATH_OPERATIONS[28],
+  "changelog-changelog": PATH_OPERATIONS[29],
+  "changelog-latest": PATH_OPERATIONS[30],
+  "getRateLimit-getRateLimit": PATH_OPERATIONS[31]
 } as const;
 
 export type OperationIdToOperationMap = typeof OPERATIONS_BY_ID;

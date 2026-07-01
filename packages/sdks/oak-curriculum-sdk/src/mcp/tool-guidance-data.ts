@@ -112,6 +112,29 @@ export const toolGuidanceData = {
       whenToUse: `When you want to understand how a concept builds from early years to GCSE, or find prerequisite/follow-up content. Use get-thread-progressions anchored by a threadSlug for one thread's year-ordered progression, or by subject + keyStage to discover which of the ${String(threadProgressionStats.threadCount)} threads to anchor. Use get-prior-knowledge-graph with anchor unit slugs for the bounded prior-knowledge (prerequisite) subgraph of those units.`,
     } satisfies ToolCategory,
 
+    programmes: {
+      tools: [
+        'get-subjects-programmes',
+        'get-programmes',
+        'get-programmes-units',
+        'get-programmes-questions',
+        'get-programmes-assets',
+      ],
+      description:
+        'Navigate the curriculum by programme — the contextualised, teacher-facing view of a single ' +
+        "subject / key-stage / year-group pathway (what teachers pick on Oak's website). Discover a " +
+        "subject's programmes, then fetch one programme's metadata, units, questions, or assets.",
+      whenToUse:
+        'When the task is framed the way a teacher navigates — one year group of one subject with its ' +
+        'tier / exam-board / child-subject context (e.g. Year 10 higher-tier AQA biology). Programme and ' +
+        'sequence routes are co-equal, not a replacement for one another: use the programme route for a ' +
+        'single user-facing pathway, and the sequence route (get-sequences) for structural, ' +
+        'cross-programme traversal — one sequence generates many programme views. See the ' +
+        'programmesVsSequences and ks4Complexity sections of get-curriculum-model for the distinction. ' +
+        'Programme slugs are full-form (e.g. english-primary-year-1, english-secondary-year-10-edexcel), ' +
+        'not year-group labels like y7.',
+    } satisfies ToolCategory,
+
     agentSupport: {
       tools: ['get-curriculum-model'],
       description:

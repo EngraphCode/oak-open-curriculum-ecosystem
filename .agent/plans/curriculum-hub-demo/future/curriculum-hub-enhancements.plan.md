@@ -129,7 +129,7 @@ new search engine.
 ## Risks and unknowns
 
 - **E3 scope-creep** (the main risk). *Mitigation:* a focused v1 (semantic search + highlights
-  + result types + example queries), explicitly refinable on owner review; resist gold-plating.
+  - result types + example queries), explicitly refinable on owner review; resist gold-plating.
 - **Which semantic-search features to showcase** — resolve at promotion by reading the live
   search-SDK surface first-hand (what the retrieval service actually exposes) rather than
   assuming; ground the showcase in real SDK capability (schema-first / verify-don't-trust).

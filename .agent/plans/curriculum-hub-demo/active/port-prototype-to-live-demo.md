@@ -158,6 +158,7 @@ functionality**. "Landing feature-complete" is retired as a completion claim. De
 full parity with the canonical export (see End goal), with the two owner-decided specifics below.
 
 **Owner decisions (2026-07-01, via Director — authoritative):**
+
 - **Page set = faithful-to-canonical.** Full block-rendered pages for the surfaces the export
   actually contains: **Hub, Oak Course, Oak Standards, Learning Framework**. **Rubrics = a real
   QS-facet view** (filter the 685 QS by `rubrics`: 299/685; 3 rubric types). **Exemplars + Wiki =
@@ -176,12 +177,13 @@ video/columns/videoimport/sortable/hotspot/download/coursemap). Pages = assembly
 Laurel owns the presentational block union (the seam contract); the data plane emits that union.
 
 **Verified ground truth (first-hand — re-confirmed THIS generation per owner "assume nothing correct"):**
+
 - Oak Course source = **`Oak Course.dc.html`** (4 units / 11 modules / 63 sections / 214 blocks /
   25 QS-coded callouts; 76 distinct QS codes), NOT the stale `Creating lessons at Oak.html` (110
   blocks, 0 QS codes). Discriminator = block-count + QS-code presence.
 - Quality standards = **685** (keys id/text/type/areas/components/rubrics/code/state/subject); 299
   carry a rubric (3 types), 632 carry pedagogy-components. Standards page is data-driven over these
-  + `#qs=<id>` deep-link targets the Course QS-callouts link to.
+  - `#qs=<id>` deep-link targets the Course QS-callouts link to.
 - Export screenshots: **3 of 5 are usable full-page targets** (coursemap/check/framework-img =
   Course + Learning-Framework); standalone/bundle-nav are blank. (Corrected — the earlier
   "all headless-blank" was a false n=1 generalisation.) The live-render need narrows to
@@ -194,6 +196,7 @@ LARGEST content surface, not a stub). The `wf_63fbe427` ultracode content-mappin
 verification — kept as a Director-run-workflow lesson, not a live method.
 
 **Cast + lanes (this generation):**
+
 - **Director — Lantern binds Sulphur:** routing, owner-interface, plan continuity, standards bar,
   coordinated milestone commit; minimum-action.
 - **Styling — Laurel tracks Nectar (cf62bda9):** typed block renderer + 18 block components (TDD),
@@ -233,6 +236,7 @@ exclude the inherited `packages/sdks/oak-sdk-codegen/**` drift; `CI=true git com
 ## Seam contract (Polaris [data] ⇄ Laurel [styling]) — ACCEPTED both sides
 
 The typed content flows into the presentational block renderer, so it is a shared contract:
+
 - **Laurel (styling)** owns the **discriminated-union block prop shapes** (the 18-type union) and
   publishes it as the contract.
 - **Polaris (data)** owns the typed content modules that **emit that union** (Oak Course blocks +
@@ -255,6 +259,7 @@ The typed content flows into the presentational block renderer, so it is a share
 team drives to ALL of these. "Done" is this list, nothing less.**
 
 **A. Pages — all built, visual-matched to the canonical export render (idiomatic React, not DOM-mirror):**
+
 - [ ] **Hub landing** — 6 destination cards (5 canonical Courses/Standards/Rubrics/Exemplars/Wiki + the live "Oak curriculum" search card), hero, unified hub search wired to both search functions.
 - [ ] **Oak Course** — full page, block-rendered from `Oak Course.dc.html` (4 units / 11 modules / 63 sections / 214 blocks), QS-callouts deep-linking Standards (`#qs=<id>`).
 - [ ] **Oak Standards** — filterable catalogue over the 685 QS (facets: type · rubric · area · subject) + `#qs=<id>` anchors that the Course callouts target.
@@ -264,9 +269,11 @@ team drives to ALL of these. "Done" is this list, nothing less.**
 - [ ] **Lesson view** — Oak-faithful shell + additive pedagogy seam.
 
 **B. Components:**
+
 - [ ] All 18 block-type components + the exhaustive `BlockRenderer` (no-throw, closed union, compiler-proven complete).
 
 **C. Search — both functions live, dispatched by the unified hub search:**
+
 - [ ] Live curriculum via Elasticsearch (`useCurriculumSearch`).
 - [ ] Local search over the bundled export content (course sections/quizzes/QS/framework).
 
@@ -283,6 +290,7 @@ team drives to ALL of these. "Done" is this list, nothing less.**
 **I. Landed:** one coordinated milestone commit (explicit pathspec; exclude the inherited `packages/sdks/oak-sdk-codegen/**` drift; `CI=true git commit`).
 
 **J. Web-deployed to show people (owner-directed 2026-07-01):** the finished, excellent demo is deployed to a shareable **public web URL** (Vercel) so the owner can show people.
+
 - [ ] Deployed to a public URL; the app renders + both searches work against live Oak data.
 - [ ] Live API keys / ES credentials run server-side only (no secret in the public bundle). OGL curriculum content + Oak brand assets are cleared for public hosting (§Owner-constitutive residue).
 
@@ -358,7 +366,7 @@ multi-session). These items were **under-scoped** and are now first-class:
 4. **Visual-target dependency (partially resolved; narrowed).** CORRECTED 2026-07-01 (Lantern,
    first-hand): the export's `screenshots/` are NOT all headless-blank — **3 of 5 are usable
    full-page targets** (coursemap/check/framework-img = Oak Course + Learning Framework). So Course
-   + Framework have in-export visual targets NOW. The live-render need NARROWS to the pages lacking a
+   - Framework have in-export visual targets NOW. The live-render need NARROWS to the pages lacking a
    target (Standards / Hub-confirm): the **data seat (Polaris)** headless-renders those `.dc.html`
    pages → `demo-evidence/`. Reading templated `.dc.html` DOM instead of a render remains the
    appearance-match-not-DOM fluency trap for the un-targeted pages.

@@ -148,12 +148,14 @@ baked in AA basics).
   (disproportionate for a demo) — the demo deletes its logger shim and relies on Result → HTTP instead.
 
 ### Surprise (2026-06-30, Herring holds Jetty / curriculum-hub-demo): prototype is a minified multi-page React bundle; DesignSync is chat-scoped; Oak CDN icons 404
+
 - **Context:** owner directed a full-fidelity port of the Oak Curriculum Hub prototype to the live demo (n=3 team: Herring styling, Titan data+decode, Squall joining).
 - **Expected vs found:** expected a restyle of a search demo; found the prototype is a MULTI-PAGE hub (training courses, quality standards, rubrics, exemplars, wiki, pedagogy + search) shipped as a minified React bundle.
 - **Lessons:** (1) Don't reverse-engineer a minified bundle — decode/render it (Titan used headless Playwright + bundle decode to produce prototype-rendered.html + screenshots + data snapshots). (2) The `DesignSync` claude.ai/design reader is CHAT-SCOPED — subagents CANNOT use it (proven 3×), so design-kit pulls route through the main agent's context; batch across turns and rely on compaction + disk persistence. (3) Oak icons are NOT curl-able from Cloudinary anymore (direct URLs 404; the cloud/path moved) and `icons.json` is only a partial map (~60 named + 14 subject examples, not all ~140). (4) n=2→n=3 teaming resolved a hard blocker: my browser extension was down; a peer's render+decode unblocked the visual target.
 - **Routing:** full live plan + asset inventory in handoffs/2026-06-30-curriculum-hub-port-herring-holds-jetty.md; CI=true-on-commit already in user-memory `ci-true-required-for-git-commit-codegen-hook`.
 
 ### Director lessons (2026-07-01, Herring holds Jetty / curriculum-hub-demo, as Director)
+
 - **No manufactured owner-approval gates.** The team (incl. me on rejoin) inherited an
   "AWAITING-OWNER-APPROVAL" frame from the plan + peers and I even escalated "plan approval" via
   AskUserQuestion. Owner correction: there IS no owner-approval step unless decisions have been
@@ -183,7 +185,8 @@ baked in AA basics).
 - **Routing:** Director handoff record at handoffs/2026-07-01-curriculum-hub-director-herring.md.
 
 ### Insight (2026-07-01, Squall wakes Crag / curriculum-hub-demo): match a design prototype from RENDERED screenshots, not its DOM; capture artefacts lie
-- **Context:** owner directive — "where you rework the demo apply React/Next best practice, don't slavishly follow the html demo structure, but the _appearance_ must match."
+
+- **Context:** owner directive — "where you rework the demo apply React/Next best practice, don't slavishly follow the html demo structure, but the *appearance* must match."
 - **Lessons:** (1) **Ground appearance on the rendered visual target (screenshots), not the templated DOM.** I was reconstructing appearance by extracting the prototype's `sc-if`/`sc-for` DOM — a fluency trap (the screenshots were the truth and I hadn't looked); viewing them reshaped the build (hero lemon-band + unified search) and confirmed my chrome/ResultCards already matched. (2) **Distrust capture artefacts:** the prototype screenshot's serif headings = a headless missing-woff2 fallback, NOT design intent (target = Lexend via next/font); matching the pixels naively would reproduce a bug. (3) **Idiomatic React reproduces appearance without DOM-mirroring** — tokens + layout ARE the appearance, not the div-nesting; decomposed components + next/link/image/font give pixel-match AND maintainability. (4) **Honest-stub over fabrication:** verify (first-hand) a section's content exists before shaping it; if none decoded, render an honest empty state — never invent Oak content or counts.
 - **Frame lessons (homed as user-memory):** no manufactured owner-approval gates (`no-manufactured-owner-approval-gates`); an Implementer routes status/questions to the Director, not the owner (`implementer-reports-to-director-not-owner`).
 - **Codification (owner-requested, routed to Director — comms 045c218f, Director owns):** reusable Oak Claude-Design demo process = one versioned kit source-of-truth + an active "build-an-Oak-demo" skill + licence-first governance + version/visual-regression for the evolving kit. Kept light (N=1).
@@ -304,6 +307,7 @@ Successor-session (Frigate holds Estuary, data-plane pickup of Titan's claim) op
   doc `.agent/research/claude-design-integration.md` Ask-2 (update pending).
 
 ### Session 2026-07-01 — Dolphin hunts Moorings (n=3 Implementer, styling/UI): closeout captures
+
 - **MANUFACTURED-OWNER-GATE recurred TWICE in one session (Implementer side); owner corrected sharply
   ("why the fuck would it be deferred to me? The Director directs").** (1) Deferred a Director-GO'd
   decision (item 3) back to the owner + held for turns; (2) relayed "awaiting owner visual review" ~10×
@@ -331,6 +335,7 @@ Successor-session (Frigate holds Estuary, data-plane pickup of Titan's claim) op
   loopback server denied); export screenshots headless-blank → Frigate/Polaris headless-render is the path.
 
 ### Director closeout (2026-07-01, Swordfish holds Shoal → Lantern binds Sulphur): full two-moments succession, both ends
+
 - **Worked instance: a clean PDR-064 succession at BOTH ends in one session.** Took the seat from Herring
   (Moment-1 cdbe9fd5 → my Moment-2 af1ac14f; readiness gate + mechanical UTC liveness check; effort-scoped
   NOT the Falcon director-handoff.md lineage), directed the curriculum-hub program, then handed to Lantern
@@ -348,11 +353,13 @@ Successor-session (Frigate holds Estuary, data-plane pickup of Titan's claim) op
   (verify at the moment), not vigilance.
 - **Director-economy held** (silent on routine heartbeats, acted on substance) but routing REPLIES ran long —
   tighten to verdict+rationale+next. Owner-directed excellence-agenda scope pass → plan §"Scope-completeness
-  + excellence agenda" (body-reconcile, TDD on search logic, architectural placement of local-search, GATING
+  - excellence agenda" (body-reconcile, TDD on search logic, architectural placement of local-search, GATING
   visual-target render, reviewer+WCAG-AA coverage, enumerate curriculum-search integrations); handed to Lantern.
 
 ### Polaris mends Perigee (data-plane successor, curriculum-hub-demo, 2026-07-01) — loss-critical adds
+
 Landed: owner-directed sync-mechanism correction (both durable homes); slice 1 Standards data-view (`lib/standards-view.ts`, 11/11 green) + slice 2 training courseIndex (`lib/static-training-courses.ts`, 7/7 green — fixed the false-premise empty stub). Clean Director-approved boundary relay → Eclipse turns Singularity (record path-set on fd0ee59e). New (the entry above already has the false-liveness / honest-stub / scope-narrowing class + route-to-Director):
+
 - **Recompute your OWN numbers.** Asserted "318 blocks" (noise-inclusive `grep t:'…'` incl. `variant:`/`component:` fragments) for the Oak Course; genuine total is **214** (18 types). Per-type census right; summary total not recomputed from parts. Director caught it. Cure: recompute any total from its components before asserting — "assume nothing correct" includes your own arithmetic. Pairs [[verify-own-explanations-against-full-source]].
 - **Session-length watchers run under `Monitor(persistent)`, NOT `Bash(run_in_background)`.** My comms watcher as background-bash was SIGTERM-reclaimed after ~26 min (silent loss of incoming visibility). Cure: watcher + heartbeat as persistent Monitors (auto-restart wrapper on the watcher). Also filter routine `[HEARTBEAT]` events from the watcher stream (awk block-filter) — per-heartbeat wake is noise; peer retirement = heartbeat *absence*, use `comms peer-liveness`.
 - **A content-absence verdict against a SUPERSEDED source ≠ absence in the authoritative one** (the mechanism behind the parity finding). Prior "no content / honest stub" verdicts were verified against the `reference-prototype/` decode, which the plan declared superseded by the `claude-design-canonical-export`. Cure: re-verify any "no content" verdict against the CURRENT authoritative source. Feeds [[claude-design-always-full-reproduction]].
@@ -360,14 +367,18 @@ Landed: owner-directed sync-mechanism correction (both durable homes); slice 1 S
 - **Design insight (Director's refinement, ADOPTED — candidate for the demo-maintenance plan / a pattern):** a content-extraction generator built **re-runnable** IS the content arm of the canonical-export sync loop (pull fresh export → diff → re-run generator → reconcile) — unifies "content extraction" + "upstream sync" into one mechanism. Applies to slice 3 (the 214-block Course generator).
 
 ### Lantern binds Sulphur (Director, curriculum-hub-demo, 2026-07-01) — Director-seat closeout → Hawthorn herds Loam
+
 Took the seat via clean PDR-064 Moment-2 (from Swordfish); drove the n=3 team (Kite styling / Eclipse data) to a green spine (renderer + 18 block components, 42→52) + Standards data-view (11/11) + a landed AA-fix (19/19). Distinct Director-seat failures (beyond the class logged above):
+
 - **Do NOT spawn implementer sub-agents to drive lane work when the team is owner-launched peers.** When both implementers signalled context-limit I misread it as "both relaying," adopted both claims, and spawned implementer sub-agents — one collided with a peer's still-live slice-2 work and left an orphan (`lib/hub-search.test.ts`) that broke type-check. The owner-launched peers (Kite/Eclipse) reasserted the model by adopting the claims. Cure: **owner-launched PEERS implement; the Director routes + dispatches READ-ONLY reviewers only** — never implementer sub-agents; and **a relay OFFER ("your cadence call") is NOT a stand-down** — verify each lane's ACTUAL state before any broad multi-lane action (a peer kept driving and landed slice 2 while I treated its lane as relayed). Pairs the false-liveness class.
 - **Don't retire/park an implementer lane mid-session for seat-cost.** I approved Polaris's retire-for-seat-cost / PDR-063-staging; owner overrode hard: *"do not retire implementers mid-session unless all work complete; drive the work to COMPLETION."* Cure: **drive-to-completion beats seat-cost optimisation**; context-limited → relay to an IMMEDIATELY-active successor (lane never idles), never park-until-next-session. Completion must be crisply defined in the plan — if missing, author it (I added the DoD §A–I).
 - **Decide-and-drive; idling for owner input is worse than deciding + correcting.** I over-escalated a pacing decision that was mine (accelerate Standards vs not) and held awaiting the owner; owner: *"you could have decided either approach... a hell of a lot better than sitting idle."* Cure: resolve anything the decision-lenses settle; surface ONLY constitutively-owner residue; the owner's scarcest resource is attention. Homed in user-memory `director-operating-model` + `route-go-no-go-to-director-not-owner`.
 - **Positives that held (verify-recompute earned its keep):** the screenshot "all headless-blank" claim was a false n=1 generalisation — 3/5 were rich course renders (checked first-hand); the 214-not-318 block count; and dispatching reviewers at the spine boundary caught an AA-blocking Tabs roving-focus bug (2.4.3/4.1.2) BEFORE 63 sections of pages assembled on the spine.
 
 ### Eclipse turns Singularity (data-plane successor, curriculum-hub-demo, 2026-07-01)
+
 Adopted fd0ee59e from Polaris via clean Director-approved relay; verified slices 1+2 green first-hand; delivered slice 3 (re-runnable Course generator + 214-block compile-time-validated typed module, census matches Polaris first-hand, TDD green) + the QS literal-union tightening. Loss-critical adds:
+
 - **A union/schema built from SAMPLED data must be type-checked against the COMPLETE dataset before it's trusted.** The `Block` union (built during the spine from a content subset) missed 5 real fields — my first full 214-block extraction + the emitted module's `: Course` compile-time gate surfaced them all (title-less callout, callout `attrib`, flip `frontImage`, optional accordion `chip`/`badge`, accordion `img`). Nobody could find them until all content was type-checked at once. Cure: the generator's compile-time validation gate IS the check; run it over the full corpus, don't infer a schema from a sample. Pairs [[verify-own-explanations-against-full-source]].
 - **Build tooling ≠ app code for eslint; route the zone to the Director, don't contort or disable.** A generator (fail-loud `throw`, `Object.keys`/`entries` deep-walk of arbitrary JSON, TS-compiler-API) + generated data (`max-lines`) collide with app-strict rules. Repo PRECEDENT: `oak-sdk-codegen/eslint.config.ts` zones `code-generation/**` + `src/types/generated/**`. Cure: route a SCOPED zone proposal (with the precedent) to the Director (standards bar) — not app-runtime idioms (Result-threading a recursive parser is worse code), not a broad disable. Refinement learned: hand-authored tooling KEEPS `max-lines` (split the file); only generated artefacts get it off.
 - **`Array.isArray` does NOT narrow a `readonly T[]` union member out** (its guard is `arg is any[]`; a readonly array isn't assignable to `any[]`). Cost 2 tsc errors on a JSON walker whose `LiteralValue` used `readonly` arrays. Cure: use MUTABLE array/index types for build-time intermediate representations so `Array.isArray` narrows the negative branch.
@@ -375,14 +386,18 @@ Adopted fd0ee59e from Polaris via clean Director-approved relay; verified slices
 - **Standby→active flip (positive, worked as designed):** held the successor-in-waiting seat (watcher + registration, NO heartbeat/claim — PDR-078 §4 consumer-absent) while Polaris was live; flipped on the Director-approved relay (adopt + arm heartbeat) with the handoff record re-read first. Adopted WITHOUT a fresh approval ask (relay was already Director-approved = no manufactured gate), mirroring Kite's parallel styling pickup. Coordinated every shared-seam change (the tightening broke Kite's `toFilter`; pinged with the exact fix + a tested guard rather than editing Kite's live file).
 
 ### Kite holds Fogbank (styling-lane successor, curriculum-hub-demo, 2026-07-01)
+
 Adopted `cf62bda9` from Laurel (owner-launched successor) at her clean-boundary relay; built the WHOLE `/standards` page — browse (2a: rail w/ context-counts, type/rubric chips, pagination, `#qs=` deep-link focus) + detail/exemplification (2b, faithful per Director Decision A) — §E-SIGNED-OFF DONE (first full DoD §A page with §E locked); extended the `Block` union (5 additive, unblocked Eclipse's generator). Pure view-model + thin React; 116 tests. Relayed to Linnest guards Ridge at complete boundary (PDR-063, record `2026-07-01-curriculum-hub-styling-kite-holds-fogbank.md`). Loss-critical adds (rest is homed in that record + Eclipse's block above):
+
 - **An inherited "deferred" GATE is a risk-flag to RE-RATIFY, not a licence to skip — candidate: distilled/pattern.** Laurel's/Dolphin's handoff called the a11y test-suite deferral "a standing risk." The doctrine-by-analogy trap: read "deferred a11y" as "AA is optional for a demo." I re-ratified against first principles (org WCAG-2.2-AA mandate + owner strict-everywhere) and treated §E as the HARD gate it is — Director-dispatched adversarial review (react/a11y/type) then caught **4 REAL AA blockers** on the headline `#qs=` deep-link path (silent deep-link focus, no live region, nested `<main>`, show-more focus-drop) I'd otherwise have shipped. Cure: an inherited deferral is a hazard inherited unratified, not a settled decision — re-derive whether the gate is actually optional against the live mandate before honouring the deferral. Especially for org-mandated gates. Pairs `never-disable-checks` + AA-gate-earns-its-keep evidence.
 - **AA focus management must move focus on view-change but NEVER on a filter/search keystroke** (would steal focus mid-type = its own AA failure). Mechanism that worked: a `pendingFocus` intent ref set only by view-changing actions (deep-link / pagination / open-close detail), consumed by one post-commit effect — filter/search set nothing. (Grounded exec knowledge; full detail in the styling handoff record for Linnest.)
 - **Corroborates Eclipse's cwd/absolute-path note (hit the same class ~4x this lane):** additional variant — a `--body-file` arg must be the scratchpad's ABSOLUTE path; constructing a relative `../../../` traversal from the repo root up to the scratchpad is unreadable (failed twice). Pass the scratchpad's absolute path verbatim, never a traversal.
 - **Difference-operation at closeout (positive):** most session knowledge was already homed (handoff record = Linnest's exec knowledge; Eclipse's napkin block = the cwd lesson; comms = coordination), so the genuine napkin residue was ~1 lesson. The `oak-reason` pass reframed closeout from "dump everything" to a difference-op (capture only non-derivable + not-already-homed) — prevented duplicating Eclipse's cwd lesson + the handoff record's exec knowledge.
 
 ### Hawthorn herds Loam (Director #4, curriculum-hub-demo, 2026-07-01) — tenure closeout → Sycamore spins Loam (standby)
+
 Took the seat via clean PDR-064 Moment-2 from Lantern (F-44 avoided: registry-stale but comms-live — did not take the seat until the pre-position). Drove Kite+Eclipse to the Standards-page §E sign-off + slice-3 done via per-slice read-only reviewer dispatch; ratified 2 seams (block-union 5-additive schema-first; a-normalization in extractor) + the eslint tooling-zoning; then routed the whole owner-launched successor cast (Cinder data / Linnet styling / Sycamore Director-standby) after both implementers relayed clean. Most tenure lessons are already homed by the retiring agents' blocks above (F-44, don't-park-lanes, owner-peers-implement, union-from-sample, build-tooling-zoning, Monitor-cwd) — applying the difference-op, the genuine residue:
+
 - **Comms bodies with backticks/`$`: ALWAYS `--body-file`, never inline `--body`.** Hit command-substitution 3× this tenure — a `--body "…\`fd0ee59e\`…"` routing correction had its claim IDs STRIPPED by the shell (posted a broken adoption instruction, had to repost clean). Distinct from Kite's absolute-path variant (that's the file PATH; this is the body CONTENT). The `--body-file` cure is IN the rule; I still repeated it. Cure: reflex `--body-file` for any body containing backticks or dollar signs. Candidate: distilled.
 - **Verify the FULL gate scope, never a predecessor's narrow subset.** Cinder's full `eslint .` found 2 `no-throw` warnings in `lib/static-quality-standards.ts` that Eclipse's truthful-but-narrow "0/0" (`scripts/ lib/course/`) hid — and I PROPAGATED that narrow scope when I spot-checked "green". A scoped "0/0" can mask warnings elsewhere; run `eslint .` / `pnpm check` at full scope for a gate verdict. Candidate: distilled. Pairs [[verify-own-explanations-against-full-source]].
 - **A reviewer's read of an actively-edited WIP tree can catch a self-resolving transient — re-verify current state before alarming.** type-expert flagged a `StandardsBrowser onOpen` tsc red; I re-ran the check and it was green (~44s-old edit, mid-wiring). The `ls -lT` local-time (BST=UTC+1) vs `date -u` gap nearly disguised how fresh the edit was. Cure: on a reviewer's out-of-scope tree-state claim, re-ground the CURRENT state first-hand (and read `…Z` vs local-clock correctly — same F-44-adjacent trap). Did NOT broadcast a false alarm to Kite because of this.
@@ -391,6 +406,7 @@ Took the seat via clean PDR-064 Moment-2 from Lantern (F-44 avoided: registry-st
 > **Fitness pressure (recorded, not chased):** napkin over its 300-line limit (already over at session open; this session's rotating cast — Polaris/Lantern/Eclipse/Kite — appended four closeout blocks). Rotation is a `consolidate-docs` job, not a handoff trim; captured at full weight per the conservation invariant.
 
 ### Cinder rides Vapor (data-plane, curriculum-hub-demo, 2026-07-01) — closeout captures
+
 Owner-directed whole-generation rotation (data Cinder→Deneb; styling Linnet→Typhoon; Director Sycamore→Panther eventual). Handoff record: `handoffs/2026-07-01-curriculum-hub-cinder-data-plane.md`. Durable learnings:
 
 - **Generator-first is the cure for a no-throw warning on a VENDORED STATIC-DATA boundary — NOT Result-at-runtime (distilled / pattern candidate).** `qualityStandards = rawData.map(parseQualityStandard)` threw at MODULE-INIT to narrow a JSON import's widened `type`/`state` to closed unions (2 `no-throw` warnings). Result-at-boundary is the reflex fix but WRONG here: it ripples to ~5 consumers AND has no meaningful error consumer at module-init (a drifted vendored asset must fail the BUILD, not be runtime-recovered → you'd unwrap-or-throw anyway, or silently drop rows). Cure = mirror the existing generator (`generate-course`): a `scripts/generate-*.ts` validates the closed sets at GENERATE time (fail-loud, eslint-zoned `scripts/`) and emits `*.generated.ts` whose `: readonly T[]` annotation IS the compile-time gate; the runtime module becomes pure typed data — no throw, no Result, ZERO consumer ripple. The type system enforces what the throw was faking. Pairs schema-first + generator-first-mindset. Reusable for any vendored-JSON no-throw item.
@@ -400,3 +416,43 @@ Owner-directed whole-generation rotation (data Cinder→Deneb; styling Linnet→
 - **Corroborations (verify-first, fired structurally not as vigilance): [[verify-own-explanations-against-full-source]] + [[gated-verification-beats-subagent-workflow-for-content-checks]].** Verified live registry state before reconciling a multiply-directed lane conflict (owner→me=data vs Director→me=styling) → the team self-resolved within 3 min, my flag would've been noise. Verified (a-already-in-Course vs b-net-new) first-hand before an owner-routed "pre-build the Framework content module" → it was (a) (the Oak Course TITLE "Designing high-quality explanation…" matched `framework-img.png`) → STOPPED a duplicate build. A negative needs a search capable of returning the positive (dead-code grep; viewing screenshots vs trusting a metric). Owner-directed idle-capacity work correctly framed "verify-first, no speculative build" prevented the waste.
 
 - **Op friction:** `comms append/direct --body '<text>'` fails (exit 2) on bodies with backticks / brackets / `<>` / em-dash (shell-quoting) — use `--body-file <realfile>`. The all-channels watcher self-heals on its 3600s `timeout` backstop (exit 124) — re-arm on the Monitor exit-notification (the `--seen-file` cursor misses nothing).
+
+## Session: Vanilla stirs Spore (807471) — upstream-api-alignment successor + closeout (2026-07-01)
+
+- **P1 — SYSTEMIC: the MCP invoker drops HTTP response headers, so `Link: rel="next"` pagination
+  guidance is unusable for EVERY paginated tool.** Observation: the generated tool descriptions
+  (upstream-authored) tell agents that a `Link: rel="next"` header signals more pages, but the MCP
+  path reduces the HTTP response to `{ httpStatus, payload }` and `callTool` returns only
+  `{ status, data }` — headers are dropped. So an MCP client can never see the header and will stop
+  after page 1 or hunt for pagination metadata that is never returned. This affects ALL paginated
+  tools (get-*-questions, get-*-assets, get-key-stages-subject-lessons, …), NOT just the programme
+  tools where Codex flagged it on #291. It is pre-existing, not a regression from the programmes
+  work. **Cure (systemic, deferred):** expose the next-page signal IN the tool result (a
+  `nextPageToken`/`nextOffset` field the invoker lifts from the `Link` header or offset math), OR
+  strip the Link-header sentence at the generator for every paginated tool so agents are not sent to
+  an inaccessible header. **Home:** flagged P1 here + open-questions (ADR-shaped: the MCP tool-result
+  pagination contract). Do NOT re-solve per-tool. Owner-directed P1 flag, 2026-07-01.
+- **RECURRENCE (PDR-098 evidence, not a fresh lesson): I declared "done/ready" on a fluent surface
+  signal without grounding the actual gate — three times in one session.** (a) Called #291 "comms
+  triaged, ready for merge" TWICE while 7 bot conversations sat UNRESOLVED — I resolved one thread
+  early and did not re-fetch after two later pushes (bots re-review each push). (b) Suppressed a
+  merge-ready PushNotification inferring "you're clearly watching" from monitor ticks + my own
+  hold-messages — the owner was away. (c) Treated a green-checks state as merge-ready before checking
+  the conversation-resolution gate. The unifying pathogen: a smooth "it's ready" arrived and I acted
+  before grounding the *actual gating state* (all conversations resolved? presence real? which gate
+  is binding?). This is the existing "Fluency Is a Warning" (metacognition directive) +
+  "complete-claimed-on-green-not-observed" (`feedback_pr_readiness_requires_comment_triage`) doctrine
+  RECURRING despite its home → route as recurrence evidence to the doctrine-traction / action-time
+  structural-interrupt lane (the home is passive guidance that loses at the action moment). Cures
+  captured this session: `feedback_notify_at_action_moment_not_inferred_presence` (new) +
+  `feedback_pr_readiness_requires_comment_triage` (reinforced: unresolved conversation is a HARD
+  merge gate; re-fetch after EVERY push). GitHub-state fact for future PR work: "resolved" = the
+  conversation-resolution state (the Resolve button), never a reply.
+- **Verified-fact for the next agent (grounded execution knowledge):** `SubjectProgrammesResponseSchema
+  = z.array(z.string())` — get-subjects-programmes returns a FLAT array of full-form programme slug
+  strings (`english-secondary-year-7`, `english-secondary-year-10-edexcel`), NOT objects with factors;
+  per-programme factors come from `get-programmes`. The upstream description's `y7` slug example and
+  "grouped by key stage" phrasing are LOOSE (the endpoint's own schema `example` uses full-form),
+  clarified via the `TOOL_DESCRIPTION_ADDITIONS` map, not by editing generated output. Root
+  `sdk-codegen` is a turbo wrapper, so a bare `--online` is eaten by turbo — the online refresh is
+  `SDK_CODEGEN_MODE=online pnpm sdk-codegen`.

@@ -52,6 +52,7 @@ Retired implementers (full arc in the handoff records): data Titan→Frigate→P
 - **Promotion watchlist:** `director-operating-model` → PDR-117 amendment (pending-graduations, `due`); block-renderer exhaustive-total-function (definite-assignment pattern = compiler-proven total function) → `patterns/` (pending-graduations); **NEW:** union-inferred-from-sampled-data-must-be-checked-against-complete-corpus (the `: Course` gate caught 5 gaps) → pattern candidate; comms-body backtick shell-quoting → always `--body-file` (this session's repeated failure) → napkin/discipline; gates-green≠DoD-complete (axe not in the gate caught 4 AA-blockers post-green) → distilled.
 
 ## Handoff records (rehydration)
+
 - **Director:** `handoffs/2026-07-01-curriculum-hub-director-swordfish.md` (→Lantern) · `handoffs/2026-07-01-curriculum-hub-director-lantern.md` (→Hawthorn) · `handoffs/2026-07-01-curriculum-hub-director-hawthorn.md` (→Sycamore, self-contained, front-loaded for a fast Moment-2 — CURRENT Director pickup).
 - **Data:** `handoffs/2026-07-01-curriculum-hub-polaris-data-plane.md` (→Eclipse; slices 1+2) · `handoffs/2026-07-01-curriculum-hub-eclipse-data-plane.md` (→Cinder rides Vapor; slice-3 + hub-search DONE, visual-target render next — CURRENT data pickup).
 - **Styling:** `handoffs/2026-07-01-curriculum-hub-styling-laurel-tracks-nectar.md` (→Kite) · `handoffs/2026-07-01-curriculum-hub-styling-kite-holds-fogbank.md` (→Linnet guards Ridge; Standards page §E-DONE + block-union extended, Hub landing next — CURRENT styling pickup).

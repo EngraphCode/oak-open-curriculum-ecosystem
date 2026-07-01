@@ -25,7 +25,9 @@ describe('generated toolMcpFlatInputSchema .meta() round-trip', () => {
   it('z.toJSONSchema() produces examples on number fields with OpenAPI examples', () => {
     const jsonSchema = z.toJSONSchema(toolMcpFlatInputSchema);
 
-    expect(jsonSchema).toHaveProperty('properties.offset.examples', [50]);
+    // Values flow from the upstream OpenAPI schema; upstream set offset's example
+    // to its default (0) — the round-trip mechanism is what this asserts.
+    expect(jsonSchema).toHaveProperty('properties.offset.examples', [0]);
     expect(jsonSchema).toHaveProperty('properties.limit.examples', [10]);
   });
 
