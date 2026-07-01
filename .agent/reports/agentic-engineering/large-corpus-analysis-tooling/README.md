@@ -14,7 +14,9 @@ after a quota trip): **GO_WITH_CONDITIONS** for the checkpoint-1a MAP launch. 6/
 7th (resume-completeness) is a CONCERN driving the pre-meta gate below. No blockers, no FAIL.
 
 - **Instantiated map run script:** `map.workflow.run-2026-07-01.mjs` — the 15-window partition spliced
-  in, `node --check` clean, mapPrompt + LEAVES schema byte-in-sync with the source of truth.
+  in, syntax-clean when the body is wrapped in an async function (a BARE `node --check` flags the
+  intentional top-level `return` as a false positive — see §Critical operational notes; do not read that
+  as a corrupt script), mapPrompt + LEAVES schema byte-in-sync with the source of truth.
 - **Corpus pin:** the 100 corpus files are byte-identical to commit `194fdc704`; `napkin.md` (w15) is
   byte-identical at `194fdc704` and HEAD. This preflight bundle touches no corpus file.
 - **Ceiling:** `VALIDATE_TOKEN_CEILING = 30_000_000` = 120-candidate upper projection x
@@ -27,18 +29,31 @@ after a quota trip): **GO_WITH_CONDITIONS** for the checkpoint-1a MAP launch. 6/
 
 1. `Workflow({ scriptPath: map.workflow.run-2026-07-01.mjs })` then commit the returned `leaves` to
    `data/discovery-run-leaves-2026-07-01.json`.
-2. Instantiate `reduce.workflow.template.mjs` (splice `__LEAVES__` from that file), then commit
-   `candidates` to `data/`.
-3. Instantiate `validate-meta.workflow.template.mjs` (splice `__CANDIDATES_SEED__`, `__RESOLVED_IDS__`
-   = `[]`, `__VALIDATE_TOKEN_CEILING__` = `30000000`), then run.
-4. On a quota trip, re-seed the unresolved tail only (`__RESOLVED_IDS__` = the resolved set).
-5. Instantiate `meta.workflow.template.mjs` (splice `__CANDIDATES_FOR_META__` = the MERGED set), then run.
+2. Instantiate `reduce.workflow.template.mjs` (splice `__LEAVES__` = the raw `leaves` array from that
+   file), then commit `candidates` to `data/discovery-run-candidates-2026-07-01.json`.
+3. Instantiate `validate-meta.workflow.template.mjs` (splice `__CANDIDATES_SEED__` = the reduce
+   `candidates`; **`__LEAVES__` = the SAME leaves array** — voter grounding is assembled from the leaves
+   at vote-time via `leafById`, NOT carried on the candidate (the candidate schema is strict without a
+   grounding field), so BOTH must be spliced or every voter mass-kills on no-grounding; `__RESOLVED_IDS__`
+   = `[]`; `__VALIDATE_TOKEN_CEILING__` = `30000000`), then run. A CLEAN run produces meta INLINE here
+   (validate-meta runs meta itself when `validateComplete && !isResume`); **steps 4-5 are the RESUME-ONLY
+   branch** — skip them on a clean run.
+4. **Only on a quota trip / resume:** re-seed the unresolved tail (`__RESOLVED_IDS__` = the resolved
+   candidate-id set; keep `__LEAVES__` and `__CANDIDATES_SEED__` unchanged). A resumed run DEFERS meta to
+   step 5.
+5. **Only on a resumed run:** FIRST close the Pre-meta HARD GATE (below) by porting
+   `assessValidateCompleteness` + the merged-set assertion into `meta.workflow.template.mjs`, THEN
+   instantiate it (splice `__CANDIDATES_FOR_META__` = the MERGED set = this run's tail dispositions + the
+   prior run's resolved set) and run.
 
 ### Gating conditions
 
-- **Pre-spend (map):** re-verify the tree is clean and the 100 corpus files still match `194fdc704`;
-  re-diff the FOUR unpinned duplicated blocks (mapPrompt / reducePrompt / ORCH_MIRROR / metaPrompt)
-  against the straight-through source; conformance test (39) green.
+- **Pre-spend (map):** re-verify the tree is clean — meaning the 100 corpus files still match `194fdc704`
+  (the pin), NOT that the working tree is empty; pending memory writes to `distilled.md` / continuity /
+  thread records are not corpus drift. Re-diff the FOUR unpinned duplicated blocks (mapPrompt /
+  reducePrompt / ORCH_MIRROR / metaPrompt) against the straight-through source; run the routing-mirror
+  conformance test green (`pnpm agent-tools:test`, or target `workflow-routing-mirror.conformance.test.ts`
+  — 39 cases).
 - **Pre-validate:** the post-reduce hard-abort re-gate fires on `realCount x 250k > 30M`. If a
   legitimate 121+ set, raise the ceiling and resume validate from the committed candidates.
 - **Pre-meta (HARD GATE — condition 2 from the verification):** `meta.workflow.template.mjs` currently

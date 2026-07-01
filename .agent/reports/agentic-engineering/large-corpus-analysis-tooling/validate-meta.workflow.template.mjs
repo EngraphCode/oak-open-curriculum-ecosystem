@@ -232,13 +232,26 @@ const BASELINES = [
   { id: 'reviewer-cycle-split-on-convergence', population: 'single-window', statement: 'when reviewers converge on blocking a planned cycle, scope-narrow to a successor cycle rather than carry known-bad scope forward' },
 ];
 
-// ---- Seeded candidates (the committed reduce output: 50 candidates + resolved grounding) ----
+// ---- Seeded candidates (the committed reduce output) ----
 const CANDIDATES_SEED = __CANDIDATES_SEED__;
+
+// LEAVES — the committed map-only leaves.json (the SAME file reduce was seeded from), substituted at
+// launch. `candidateSchema` (a zod strictObject, judgment-schemas.ts) carries NO grounding field — so
+// voter grounding is assembled HERE at vote-time from each candidate's supportingLeafIds via leafById
+// (the window lives on the LEAF, not the citation), matching the retired straight-through workflow
+// (votePrompt/leafById). WITHOUT this the voters see no grounding, the `grounded` test fails, and
+// candidates mass-kill — silent recall collapse on the one-way run. On a resume, splice the SAME
+// leaves.json. Do NOT instead add grounding to the candidate in reduce: parseCandidate's strict
+// re-parse would reject the extra key.
+const leaves = __LEAVES__;
+const leafById = new Map((leaves || []).map((l) => [l.id, l]));
 
 // ---- Prompts ----
 function votePrompt(candidate, lens) {
-  const grounding = (candidate.grounding || [])
-    .map((g) => `  - [${g.window} ${g.napkinDate}] ${g.quote}`)
+  const grounding = (candidate.supportingLeafIds || [])
+    .map((id) => leafById.get(id))
+    .filter(Boolean)
+    .flatMap((leaf) => (leaf.grounding || []).map((g) => `  - [${leaf.window} ${g.napkinDate}] ${g.quote}`))
     .join('\n');
   return [
     'You are an ADVERSARY voter judging ONE candidate emergent pattern from a corpus-analysis run over an AI engineering agent\'s working-memory "napkin" corpus. Be SKEPTICAL: a FALSE KEEP (ratifying a pattern that is not actually real) is the costly, asymmetric error — when uncertain, fail the test.',

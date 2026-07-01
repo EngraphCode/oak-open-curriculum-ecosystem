@@ -95,7 +95,7 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — discovery-run plan READY; run WS1 next (2026-06-30, Linnet binds Leeward).** v2 ran end-to-end (15 windows, 682 leaves, 50 candidates, 45
+- **Large-corpus analysis — launch-preflight DONE + verified GO_WITH_CONDITIONS; `full-discovery-run` next (owner-authorised) (2026-07-01, Flare hunts Obsidian).** v2 ran end-to-end (15 windows, 682 leaves, 50 candidates, 45
   keep / 5 kill), all aggregation deterministic. **Choice B fails the fidelity leg: strict
   within-remit 0.50 (<0.60), lenient 0.90 — REFINE.** Residual gap is EXTRACTION ALTITUDE (mechanism
   blurred into theme), not measurement (aggregation proven correct, recompute-validated). Landed
@@ -113,9 +113,14 @@ forward-asks remain.
   [`napkin-corpus-discovery-run.plan.md`](../../plans/agentic-engineering-enhancements/current/napkin-corpus-discovery-run.plan.md)
   (READY; supersedes v3); sibling
   [`corpus-analysis-conservation.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-conservation.plan.md)
-  (13 patterns + conserve-by-default rule + tooling promotion). **Next: run WS1** (prompts +
-  orchestration hardening + ~1.2M probe); the **~13M full run is owner-gated** on the probe. Commits
-  `9a4d59d06`→`bfdd51358` (ahead 4, NOT pushed). Full pickup: the AEE thread record §NEXT-SESSION PICKUP.
+  (13 patterns + conserve-by-default rule + tooling promotion). **WS1 + the cheap probe PASSED and the
+  launch-preflight is DONE (`d943d1e58`):** `map.workflow.run-2026-07-01.mjs` instantiated (pinned to a
+  corpus byte-identical to `194fdc704`), `VALIDATE_TOKEN_CEILING` set to **30M**, a 4th unpinned block
+  (metaPrompt drift) reconciled, adversarial launch-readiness = **GO_WITH_CONDITIONS**. **Next: the
+  owner-authorised `full-discovery-run`** via the tooling README **launch card** (pinned run script +
+  launch sequence + gating conditions incl. the pre-meta completeness gate). Reconciliation + preflight
+  commits `2fffb80ff`→`d943d1e58` on `docs/consolidations` (NOT pushed). Full pickup: the AEE thread
+  record §NEXT-SESSION PICKUP.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -170,7 +175,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Flare hunts Obsidian / WS1 DONE — grain-probe PASSED, full-discovery-run next (owner-auth + ceiling re-derive) / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Linnet binds Leeward / v3+conservation planning → discovery-first re-root + discovery-run plan (supersedes v3) / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Laurel turns Stamen / v2 rerun REFINE + PDR-122 / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Flare hunts Obsidian / launch-preflight DONE + GO_WITH_CONDITIONS, full-discovery-run next (owner-auth) / 2026-07-01 ← claude-code / claude-opus-4-8[1m] / Linnet binds Leeward / v3+conservation planning → discovery-first re-root + discovery-run plan (supersedes v3) / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Laurel turns Stamen / v2 rerun REFINE + PDR-122 / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
@@ -276,13 +281,17 @@ F-41 CLI tail).
 
 ### Agentic-Engineering Curation
 
-0. **LIVE: napkin-corpus-discovery-run WS1 DONE — grain-probe PASSED (2026-06-30, Flare hunts Obsidian).**
-   Next is `full-discovery-run` — **separately owner-authorised** (one-way; likely >13M), gated on the
-   probe (passed) and on launch-preflight **re-deriving the 16M hard-abort ceiling UP** (the probe
-   surfaced ~80-120 candidates for the 15-window run). Run via the SPLIT: `map.workflow` → commit
-   leaves → `reduce.workflow` → commit candidates → seeded `validate-meta`. Full pickup + the cost
-   reasoning: [`agentic` thread record][agentic] §NEXT-SESSION PICKUP. 3 commits (974c8fa04, 91ee28474,
-   b2228bc9d), 8 ahead of origin, NOT pushed.
+0. **LIVE: napkin-corpus-discovery-run — launch-preflight DONE + verified GO_WITH_CONDITIONS (2026-07-01,
+   Flare hunts Obsidian).** WS1 + the cheap probe passed; the preflight instantiated
+   `map.workflow.run-2026-07-01.mjs` (pinned to a corpus byte-identical to `194fdc704`), set
+   `VALIDATE_TOKEN_CEILING` = **30M** (admits ≤120 candidates, hard-aborts 121+), and reconciled a 4th
+   unpinned block (metaPrompt drift). Next is `full-discovery-run` — **separately owner-authorised**
+   (one-way; ~30M) — via the tooling README **launch card** (SSOT: pinned run script → commit leaves →
+   `reduce.workflow` → commit candidates → seeded `validate-meta` → meta). **Pre-spend:** re-verify clean
+   tree + corpus == `194fdc704` + re-diff the FOUR duplicated blocks + conformance green. **Pre-meta HARD
+   GATE:** port `assessValidateCompleteness` into `meta.workflow.template.mjs` before the meta stage. Napkin
+   rotation is DUE but DEFERRED until after the run (preserves the pin). Reconciliation + preflight commits
+   `2fffb80ff`→`d943d1e58`, NOT pushed. Full pickup: [`agentic` thread record][agentic] §NEXT-SESSION PICKUP.
 1. The latest dedicated consolidation is 2026-06-28 (Clover lifts Root): napkin drained + rotated, the
    genuinely-new doctrine graduated (tests-prove-behaviour, schema-as-SSOT, lossless-reconciliation,
    F-104), #267 merged to `main`; `distilled` + `pending-graduations` empty; open-questions Q-009/Q-011

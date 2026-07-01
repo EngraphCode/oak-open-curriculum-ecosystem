@@ -77,3 +77,27 @@ Routed for the next `consolidate-until-done` (the conservation plan's drain). Tw
   held the truer framing all along while the plan layer inverted it. Refines the
   reshape-needs-full-sweep pattern: the sweep includes verifying the source, not only propagating the
   leaf's new shape.
+
+## 2026-07-01 — full-run preflight: recurrence-despite-home + unpinned-block drift (Flare hunts Obsidian)
+
+Sharp lessons from instantiating + adversarially verifying the napkin-corpus full-run preflight. For the
+next `consolidate-until-done`:
+
+- **Recurrence-despite-home ([PDR-098](../../practice-core/decision-records/PDR-098-doctrine-traction-firing-detection-response.md)):
+  I re-hit the documented Workflow footguns by authoring the Workflow without reading their home.**
+  [[bounded-structured-output-for-workflows]] already documents args-arrives-unparsed (guard
+  `typeof args==='string'?JSON.parse:args`) AND verifier-quota-death (treat verify results sparse) —
+  also flagged in this file (2026-06-30) and the tooling README. I still passed an object `args` (arrived
+  undefined → verifiers inspected the wrong file → a false NO_GO) and lost verifiers to a quota trip. Three
+  passive homes, none fires at Workflow-authoring time. First-class evidence for the action-time-interrupt
+  lane (PDR-098 empty quadrant / `action-time-structural-interrupt-design-space.plan.md`): a
+  "read the Workflow-footgun pattern before authoring a Workflow" firing gate. Do NOT re-home the footgun.
+- **Unpinned hand-pasted blocks keep drifting — a 4th block found.** metaPrompt had drifted (ASCII `in`
+  vs the source's `∈`) between the straight-through source and the split templates, unguarded by any test
+  (conformance pins only the routing state machine). v2 found the routing mirror drifted; this session
+  found metaPrompt. Reinforces the WS-C repo-validator machine-pin (conservation plan). Until then: re-diff
+  ALL FOUR duplicated blocks (map/reduce/meta prompts + ORCH_MIRROR) against source at each launch.
+- **Adversarial launch-readiness verification of a one-way artefact catches drift self-review misses.**
+  The metaPrompt drift and the scratchpad-unreachable-by-subagents flaw were both surfaced by the
+  fresh-reader panel, not my own re-diffs — and put launch-ready/verification artefacts IN-REPO (subagents
+  cannot read the scratchpad). Candidate: a pattern (pre-spend adversarial verification of a one-way action).

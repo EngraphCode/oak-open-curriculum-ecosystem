@@ -116,6 +116,10 @@ const kindCounts = candidates.reduce((acc, c) => {
 }, {});
 log(`reduce done: ${candidates.length} candidates (${candidates.filter((c) => c.isAbsenceClaim).length} absence); kinds=${JSON.stringify(kindCounts)}`);
 
+// NOTE: candidates carry supportingLeafIds + groundingCount but NO grounding field (`candidateSchema`
+// is a strictObject without one). validate-meta assembles voter grounding from these ids + the
+// committed leaves.json at vote-time (leafById) — do NOT add grounding here or parseCandidate's strict
+// re-parse rejects it. Commit BOTH leaves.json and candidates.json; validate-meta is seeded from both.
 return {
   leafCount: leaves.length,
   candidates,

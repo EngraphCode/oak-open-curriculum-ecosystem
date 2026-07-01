@@ -157,7 +157,13 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 - Tier reduction to cut cost — forbidden (PDR-122 invariant 4; every tier runs). The only cost levers
   are concurrency/checkpointing and not-re-spending-resolved candidates.
 - Trimming grounding passed to voters — rejected for the discovery run (grounding fidelity is what the
-  novel mechanism-grained + longitudinal candidates need to survive the adversary).
+  novel mechanism-grained + longitudinal candidates need to survive the adversary). Corollary (2026-07-01):
+  the split `validate-meta` assembles voter grounding from the committed leaves via `leafById` (the
+  candidate schema carries none), so it MUST be spliced with `__LEAVES__` as well as `__CANDIDATES_SEED__`
+  — a fresh-reader trawl caught that a verbatim splice would strip all grounding and collapse recall.
+- **Writing to `napkin.md` before the run** — it is w15 of the pinned corpus, so any write breaks the
+  `194fdc704` byte-pin. Capture session learnings to `distilled.md` / the thread record / memory instead;
+  rotate the napkin only AFTER the run.
 - The memory event-graph (PDR-119 / ADR-200) — Lens-4 verdict remains defer.
 
 ## Risks
@@ -167,7 +173,7 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 | Removing the count cap over-fragments, collapsing broad recall | Probe broad-leg floor (pre-spend) + post-reduce hard-abort on runaway count + the graduate-or-decide regression guard (backstop) |
 | ~13M run trips the session quota mid-validate (as v2 did) | First-class checkpoints: commit leaves/candidates after map+reduce; candidate-granular resume re-spends only the unresolved tail (~1M, not ~8.6M) |
 | Longitudinal findings are apophenia (v1 killed 9 speculative arcs) | The kind-conditional vote falsifier makes the early/late split falsifiable against window-ordered grounding; the additive temporal-coverage driver check catches narrow-window "regime" claims |
-| Cost gate falsely aborts the legitimate run, or under-estimates and overspends | Ceiling re-derived from the PROBE-CALIBRATED count (**~25-30M**; the pre-probe ~16-18M is SUPERSEDED — the probe's 75 candidates / 3 dense windows implies ~80-120 for 15 windows); `tokensPerVoter` corrected to ~50k; the post-reduce re-gate recomputes on the real candidate count and hard-aborts |
+| Cost gate falsely aborts the legitimate run, or under-estimates and overspends | Ceiling **set to 30M at launch-preflight** (120 × 5 × 50k — admits ≤120, hard-aborts 121+; the pre-probe ~16-18M is SUPERSEDED — the probe's 75 candidates / 3 dense windows implies ~80-120 for 15 windows); `tokensPerVoter` corrected to ~50k; the post-reduce re-gate recomputes on the real candidate count and hard-aborts |
 | Conservation hand-off is a hope not a step | `build-conservation-buffer` makes it an explicit artefact; novelty stratification focuses scrutiny on the genuinely-new yield |
 
 ## Foundation alignment

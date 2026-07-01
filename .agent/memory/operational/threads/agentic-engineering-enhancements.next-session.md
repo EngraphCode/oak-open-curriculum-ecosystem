@@ -23,7 +23,77 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## NEXT-SESSION PICKUP — WS1 DONE, probe PASSED; full-discovery-run next (owner-auth + cost reconcile) (2026-06-30, Flare hunts Obsidian)
+## NEXT-SESSION PICKUP — launch-preflight DONE + verified GO_WITH_CONDITIONS; `full-discovery-run` is the next owner-authorised action (2026-07-01, Flare hunts Obsidian)
+
+**Self-contained. The next session runs the full discovery. Everything it needs is here or in the
+tooling README launch-card (the operational SSOT). The reframe holds: discovery is the END, recall is
+the tuning instrument; a probe/verification PASS is never a graduation pre-confirmation.**
+
+**Since the 2026-06-30 pickup below, two things happened: a reconciliation and the launch-preflight.**
+
+**Reconciliation (the upstream API changed under WS1).** The upstream Oak API changed (breaking
+`sdk-codegen`); it was fixed on `main` via PR #291. Reconciled on `docs/consolidations`: `2fffb80ff`
+(WIP snapshot, owner-run `--no-verify`, all in-flight work incl. paused peers' — to reach a mergeable
+state), `9dbb38cfb` (merge of `origin/main` — took main's authoritative `sdk-codegen` fix; semantic-merged
+napkin + open-questions; both streams conserved), `194fdc704` (markdownlint fix on a peer's plan that rode
+in on the snapshot). Full gate GREEN. `docs/consolidations` now contains all of `origin/main`, unpushed.
+
+**Launch-preflight DONE + verified (`d943d1e58`).** The `launch-preflight-and-cost-reconciliation` todo is
+COMPLETE (plan status: done). Concretely:
+
+- **Instantiated map run script:** `map.workflow.run-2026-07-01.mjs` (in the tooling dir) — the
+  `map.workflow` template with `__PARTITION__` filled by the 15-window array. Syntax-clean when the body
+  is wrapped in an async function (a bare `node --check` flags the intentional top-level `return` — a
+  documented false positive, NOT corruption); mapPrompt + LEAVES schema byte-in-sync with source.
+- **Corpus pin:** the 100 corpus files are byte-identical to commit `194fdc704`; `napkin.md` (w15) is
+  byte-identical at `194fdc704` and HEAD. **Do NOT write to `napkin.md` before the run** (it is w15 — a
+  write breaks the pin). Capture to `distilled.md` / this record / memory instead.
+- **Ceiling DECIDED = `30_000_000`** (120-candidate upper projection × MAX_VOTERS(5) × 50k). Admits ≤120;
+  the post-reduce re-gate hard-aborts 121+ before any voter dispatch. Zero headroom at 120 is deliberate —
+  a legit 121+ set is cheaply recovered (raise ceiling, resume validate from committed candidates; no
+  map/reduce re-spend). This SUPERSEDES the "set ~25-30M at launch" instruction below — it is set.
+- **A 4th unpinned block found + fixed:** `metaPrompt` had drifted (ASCII `in` vs source `∈`) between the
+  straight-through source and BOTH split templates (validate-meta + meta), unguarded by any test.
+  Reconciled to source; added to the README re-diff list (now FOUR blocks: map/reduce/meta prompts +
+  ORCH_MIRROR). The re-diff-at-launch discipline below now covers metaPrompt too.
+
+**Launch-readiness verdict: GO_WITH_CONDITIONS** (adversarial, 7 dimensions, finder + independent skeptic,
+resumed after a quota trip). 6/7 PASS reproduced first-hand; resume-completeness a CONCERN; 0 blockers.
+(The first verification run had an args-undefined bug — object `args` arrived stringified so verifiers
+inspected the templates not the run script; corrected by inlining paths + moving the artefact in-repo.
+This re-hit the documented `bounded-structured-output-for-workflows` footguns — see `distilled.md`
+2026-07-01: recurrence-despite-home, PDR-098.)
+
+**THE OPERATIONAL SSOT is the tooling README launch card**
+([`.../large-corpus-analysis-tooling/README.md` §Launch card](../../../reports/agentic-engineering/large-corpus-analysis-tooling/README.md)):
+the pinned run script, the 30M ceiling, the exact launch sequence, and the gating conditions. **Read it
+before launch.** Conditions carried to the run:
+
+1. **Pre-spend (map):** re-verify the tree is clean and the 100 corpus files still match `194fdc704`;
+   re-diff the FOUR duplicated blocks against source; conformance test (39) green. All currently green.
+2. **Pre-meta HARD GATE:** `meta.workflow.template.mjs` dispatches meta unconditionally with no code-level
+   completeness gate. Before instantiating the meta stage, port `assessValidateCompleteness` + a merged-set
+   count/dup/missing-id assertion (inject the expected candidate-id set) so meta cannot score recall over a
+   wrong denominator. NOT implemented now (needs the concrete post-validate merged-set shape).
+3. **Ceiling zero-headroom-at-120** is deliberate + cheaply recoverable (above).
+
+**Self-reference (owner-dispositioned accept-and-note):** `napkin.md` (w15) holds this session's own
+tooling notes. Kept as legitimate corpus content (tooling-dev recurs across all 15 windows; 1 file of 100);
+the run's post-run **novelty-stratification** buckets any self-referential pattern as re-confirming-known.
+(That is the mechanism — NOT `corroborateAgainstHomes`, corrected 2026-07-01: `corroborateAgainstHomes`
+only flags a candidate corroborated when the META stage NAMES an existing on-disk home path, e.g. the
+pre-existing `bounded-structured-output-for-workflows.md` pattern; capturing this session's insights to
+`distilled.md` conserves the knowledge but does not itself feed that check.) **Napkin
+rotation is DUE (699 lines) but DEFERRED until AFTER the run** — rotating now changes w15's live file and
+spawns a new archive, invalidating the verified corpus pin.
+
+**Commits this arc (on `docs/consolidations`, unpushed):** `2fffb80ff`, `9dbb38cfb`, `194fdc704`,
+`d943d1e58`. Verify the exact ahead/behind + clean tree at launch. **Next safe step: on the owner's go, run
+the launch sequence from the README launch-card** (map → commit leaves → reduce → commit candidates →
+validate-meta → meta), doing the pre-spend re-checks first, then the post-run driver + conservation
+(`consolidate-until-done`) per the plan.
+
+## NEXT-SESSION PICKUP (SUPERSEDED by the above — the preflight it asks for is now DONE + verified) — WS1 DONE, probe PASSED; full-discovery-run next (2026-06-30, Flare hunts Obsidian)
 
 **Self-contained. WS1 of the discovery-run plan is COMPLETE and the cheap grain-probe PASSED. The next
 step is `full-discovery-run` — separately owner-authorised, with a NEW cost constraint (below).**
@@ -501,7 +571,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Limpet herds Atoll` | `claude-code` | `claude-opus-4-8[1m]` | `d04779` | `took over Callisto's check-encoding for a fresh architectural take (owner: working-now, excellence-later). Verified the tool green on its own files (encoding:check 0 critical; type-check / lint / 1748 tests / knip / depcruise / prettier clean) AFTER fixing 2 knip-flagged dead exports (reportHasSeverity deleted; tallyBySeverity un-exported). Authored the decision-lens analysis report + the strategic plan agent-tooling/future/agent-tools-architecture-standard.plan.md (WS0 execution-model fork → ADR consolidating ADR-178/168/041/159 + enforcement + engine→packages/core + where-supported hook + convergence); reconciled with Callisto's handoff (ADR-178 grep finding: skills:check + encoding:check both trip the build-prefix verification). Surfaced a commit blocker: live untracked corpus-analysis WIP (different lane) fails whole-tree knip+lint and pre-commit runs those whole-tree, so the commit + full pnpm check green are OWNER-HELD until it clears. Nothing committed/pushed this session.` | 2026-06-29 | 2026-06-29 |
 | `Laurel turns Stamen` | `claude-code` | `claude-opus-4-8[1m]` | `fe6101` | `corpus-analysis-v2-rerun — ran the v2 rerun end-to-end (15 windows, 682 leaves, 50 candidates, 45 keep/5 kill); verdict REFINE (strict within-remit 0.50, lenient 0.90). Landed the quorum-floor adjudication correction (a kill needs the diverse-lens quorum; rescued 4/5 false n=1 kills), the post-reduce cost re-gate (validateStagePlan), and PDR-122; conserved the tooling + corrected-findings JSON + run-record (7e87fbf2b to fe68d5c52). Row reconstructed at the 2026-06-30 Linnet closeout from the pickup + napkin — the rerun session did not self-register.` | 2026-06-30 | 2026-06-30 |
 | `Linnet binds Leeward` | `claude-code` | `claude-opus-4-8[1m]` | `cbd113` | `v3 + conservation planning then discovery-first re-rooting. Authored the v3-extraction-grain + conservation plans, then (owner-directed) re-rooted the arc to discovery-first (recall = tuning, not the milestone) and authored the napkin-corpus-discovery-run plan (supersedes v3; first-class checkpointing, cost reconciliation, longitudinal falsifier, conservation buffer); re-rooted the chain-origin plan; reconciled the lineage. Reviewers (assumptions/docs-adr) + Explore + Plan agents, all assessed first-hand. Commits 9a4d59d06 to bfdd51358 (ahead 4, NOT pushed).` | 2026-06-30 | 2026-06-30 |
-| `Flare hunts Obsidian` | `claude-code` | `claude-opus-4-8[1m]` | `48caf4` | `WS1 of the napkin-corpus-discovery-run (solo, ultracode). Landed the actuator-grain + longitudinal prompts and the run-orchestration TDD module (resume / completeness / hard-abort re-gate / ~50k calibration / jitter; aggregation FROZEN, diff-confirmed; 5-lens review, 2 criticals fixed incl. a stale routing mirror in the straight-through .mjs) — 974c8fa04. The cheap grain-probe stalled in reduce (output truncation under cap-removal + kind-confusion, NOT rate-limit); salvaged 167 leaves, hardened the reduce (bounded supportingLeafIds + KIND-rule), SPLIT the combined template into map.workflow + reduce.workflow (the combined cannot self-checkpoint) — 91ee28474. Re-run reduce-only PASSED the probe gate (all 5 v2-failing baselines as distinct actuator candidates; ≥4 longitudinal with real splits; broad clusters coherent). Surfaced the full-run cost constraint (~80-120 candidates ⇒ re-derive the 16M ceiling). Continuity b2228bc9d. 3 commits, 8 ahead of origin, NOT pushed.` | 2026-06-30 | 2026-06-30 |
+| `Flare hunts Obsidian` | `claude-code` | `claude-opus-4-8[1m]` | `48caf4` | `WS1 of the napkin-corpus-discovery-run (solo, ultracode). Landed the actuator-grain + longitudinal prompts and the run-orchestration TDD module (resume / completeness / hard-abort re-gate / ~50k calibration / jitter; aggregation FROZEN, diff-confirmed; 5-lens review, 2 criticals fixed incl. a stale routing mirror in the straight-through .mjs) — 974c8fa04. The cheap grain-probe stalled in reduce (output truncation under cap-removal + kind-confusion, NOT rate-limit); salvaged 167 leaves, hardened the reduce (bounded supportingLeafIds + KIND-rule), SPLIT the combined template into map.workflow + reduce.workflow (the combined cannot self-checkpoint) — 91ee28474. Re-run reduce-only PASSED the probe gate (all 5 v2-failing baselines as distinct actuator candidates; ≥4 longitudinal with real splits; broad clusters coherent). Surfaced the full-run cost constraint (~80-120 candidates ⇒ re-derive the 16M ceiling). Continuity b2228bc9d. Then 2026-07-01: reconciled main's upstream fix (merge 9dbb38cfb), ran the launch-preflight (map.workflow.run instantiated, 30M ceiling, metaPrompt drift fixed), verified GO_WITH_CONDITIONS, and a fresh-reader trawl found + fixed a grounding-strip run-collapse blocker plus doc gaps; commits through this closeout, ahead of origin, NOT pushed.` | 2026-06-30 | 2026-07-01 |
 
 ## Cross-Plan and Cross-Thread Links
 
