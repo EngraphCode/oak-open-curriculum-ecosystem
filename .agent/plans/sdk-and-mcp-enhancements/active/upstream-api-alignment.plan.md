@@ -13,7 +13,7 @@ todos:
     content: Invert codegen loadSchema() to cached-by-default with explicit online opt-in
     status: pending
   - id: ws2-staleness-validator
-    content: Harden the existing ci-schema-drift-check (version headline + content advisory; fix docstring) and wire it warn-only into pre-push
+    content: "Wire the existing full-content ci-schema-drift-check into pre-push (warn-only) and fix its misleading OAK_API_KEY docstring; leave the diff behaviour unchanged (D1 corrected)"
     status: pending
   - id: ws3-bulk-schema-derived
     content: "DESIGN-GATED: settle the bulk type-derivation approach with the owner (WS3.0), then dry-run blast-radius probe (WS3.1, STOP on consumer type errors), then land (WS3.2) — generate bulk Zod/types/predicates from schema.json, retire templates, commit schema.json + manifest.json"
@@ -81,13 +81,12 @@ All first-hand or independently-verified this session:
 
 ## Decisions (owner-settled 2026-06-30)
 
-- **D1 — staleness scope: VERSION ONLY.** Compare `info.version`; warn when it differs;
-  do **not** content-diff. A content change without a version bump (e.g. the
-  `asset→assets` typo, which should have produced a patch bump) is an **upstream defect**
-  to surface upstream — not something our validator masks by content-diffing. Adding
-  content-sensitivity would be inventing compensating optionality (forbidden by
-  §Strict-and-Complete / §No-escape-hatches). WS2 therefore **narrows** the existing
-  full-content check to version-only.
+- **D1 — staleness scope: LEAVE the full-content diff** (corrected 2026-07-01). The
+  existing `ci-schema-drift-check` already diffs the entire spec (warn-only) and catches
+  same-version content drift (e.g. the `asset→assets` typo upstream failed to version). The
+  earlier "version-only" call was context-bound to reducing *build* work while deciding what
+  to build; re-applied now that the fuller check exists, narrowing would be a destructive
+  refactor (more work) that removes capability. So the check's behaviour is untouched.
 - **D2 — programmes navigation: CO-EQUAL views.** Programme tools and sequence tools are
   co-equal, serving different use cases. WS4 adds the programme route as first-class
   **without demoting** sequences; the curriculum-model frames *when to use each*.
@@ -140,18 +139,18 @@ the `--ci`/`SDK_CODEGEN_MODE=ci` sentinel (dashboard build command is not greppa
   fetch+refresh; `pnpm sdk-codegen && pnpm build` green. **Proof:** unit + integration.
 - **Prereq:** none. Independent of WS2.
 
-### WS2 — Staleness validator: harden + wire pre-push
+### WS2 — Wire the existing staleness validator into pre-push (+ docstring fix)
 
-Adopt `agent-tools/src/ci/ci-schema-drift-check.ts` (do NOT build new). **Narrow it to a
-version-only comparison** (D1): compare `info.version` cached-vs-live, warn when they
-differ, and **remove the full-content compare** (content-without-version-bump is an
-upstream defect, not ours to mask). Remove the stale `OAK_API_KEY` docstring; keep
-always-exit-0. Add a non-blocking advisory step to `.husky/pre-push` (CI already wired).
-Add the missing unit test (`ci-schema-drift-check.unit.test.ts`): equal versions →
-up-to-date; differing versions → warning naming both; missing/malformed version → "unknown"
-benign warning; non-200 / offline → skip; all exit 0; inject fetch+readFile (no global
-state). This check edits no SDK types — it is consumer-free, so the type tripwire does not
-apply.
+**Leave `agent-tools/src/ci/ci-schema-drift-check.ts`'s diff behaviour untouched** (D1
+corrected: it already full-content-diffs, warn-only, CI-wired). Only two genuine changes,
+both context-independent: (1) fix the factually-wrong `OAK_API_KEY` docstring line (the
+script sends no auth header; the swagger endpoint returns 200 unauthenticated); (2) add a
+non-blocking advisory step to `.husky/pre-push` invoking the existing check (CI already
+runs it). Non-blocking placement: never inside the `if ! …; then exit 1` pattern — the
+check already exits 0, and pre-push must never fail on it (offline/network-blip safe). No
+logic change means no new unit test is required by this change; the pre-existing
+zero-test-coverage of the validator is separate test-debt, noted not fixed here. Edits no
+SDK types — type tripwire N/A.
 
 - **Acceptance:** unit test green; pre-push runs it non-blocking (never fails the push,
   even offline). **Proof:** unit + a manual pre-push observation.

@@ -199,15 +199,18 @@ half-exists:
 makes the resulting staleness *observable* and *gated* (warn). Warn-not-fail initially
 (new checks start at warn). A stale cache must never block unrelated work — only surface.
 
-**Decision (owner-settled 2026-06-30): VERSION ONLY.** Compare `info.version`; warn on
-difference; do **not** content-diff. A content change without a version bump (the
-`asset→assets` typo should have produced a patch bump) is an **upstream defect** to
-surface upstream — not something our validator masks by content-diffing. Adding
-content-sensitivity would be inventing compensating optionality, which the principles
-forbid (§Strict-and-Complete, §No-escape-hatches). So WS2 **narrows** the existing
-full-content check to version-only — that narrowing is the correction, not a regression.
-(My earlier "report both" verdict was the error: it compensated for an upstream bug
-instead of trusting the version contract.)
+**Decision (owner-settled 2026-06-30, corrected 2026-07-01): LEAVE the full-content
+diff.** The existing `ci-schema-drift-check` already diffs the entire spec (warn-only) and
+has an explicit same-version-content-drift branch — which catches real upstream drift like
+the `asset→assets` typo (upstream *should* bump the patch version but does not always). The
+earlier "version-only" call was **context-bound**: it was made while deciding *what to
+build*, to reduce blocking work. Re-applied now — when the fuller check already exists —
+narrowing to version-only would be a **destructive refactor (more work)** that also
+**removes capability**, inverting the decision's own purpose. So the diff behaviour is left
+as-is. WS2's genuine work is only: fix the misleading `OAK_API_KEY` docstring (the script
+sends no auth; the endpoint is public) and wire the existing check into pre-push. The
+meta-lesson (a decision carries its context/purpose; re-derive when circumstances change,
+never mechanically replay the conclusion) is a graduation candidate for the napkin/distilled.
 
 **How it generalises.** Every schema-bearing cache (OpenAPI now; the bulk `schema.json`
 next) gets: committed cache as the build source + a warn-only staleness check (version
