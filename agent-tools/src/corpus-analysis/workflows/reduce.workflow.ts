@@ -14,7 +14,7 @@ import { AGENT_JSON_SCHEMAS } from './agent-schemas.js';
 import type { CandidateStageOutput } from './agent-schemas.js';
 import type { HarnessAgent, HarnessLog, HarnessPhase } from './harness-types.js';
 import { reducePrompt } from './prompts.js';
-import { RUN_DATA } from './run-data.js';
+import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
 import { isReduceRunData, unseededRunDataError } from './stage-guards.js';
 import type { ReduceResult } from './stage-io.js';
 
@@ -25,7 +25,7 @@ declare const log: HarnessLog;
 /** Run the reduce stage over the seeded leaves. */
 export async function main(): Promise<ReduceResult> {
   phase('reduce');
-  if (!isReduceRunData(RUN_DATA)) {
+  if (!isReduceRunData(RUN_DATA, RUN_DATA_STAGE)) {
     return { ok: false, error: unseededRunDataError('reduce') };
   }
   const leaves = RUN_DATA.leaves;
@@ -46,7 +46,9 @@ export async function main(): Promise<ReduceResult> {
   }
 
   const candidates = reduceResult.candidates;
-  const kindCounts = candidates.reduce<Record<string, number>>((acc, candidate) => {
+  const kindCounts = candidates.reduce<
+    Partial<Record<(typeof candidates)[number]['kind'], number>>
+  >((acc, candidate) => {
     acc[candidate.kind] = (acc[candidate.kind] ?? 0) + 1;
     return acc;
   }, {});

@@ -30,12 +30,21 @@ import { parseArgs } from 'node:util';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import type { ValidateResult } from '../stage-io.js';
+import type {
+  MapRunData,
+  MetaRunData,
+  ReduceRunData,
+  ValidateResult,
+  ValidateRunData,
+} from '../stage-io.js';
 import {
   parseMapResult,
   parseMapRunData,
+  parseMetaRunData,
   parseReduceResult,
+  parseReduceRunData,
   parseValidateResult,
+  parseValidateRunData,
 } from '../stage-io.js';
 import { metaRunDataFrom, reduceRunDataFrom, validateRunDataFrom } from '../run-inputs.js';
 import { buildStageArtefact, STAGE_DEFINITIONS, WORKFLOW_OUT_DIR } from './workflow-builder.js';
@@ -77,23 +86,34 @@ async function readAnd<T>(
   return json.ok ? parse(json.value) : json;
 }
 
-async function deriveRunData(flags: CliFlags): Promise<Result<unknown, Error>> {
+/** Every stage's run data, as the concrete union — never widened back to unknown. */
+type StageRunData = MapRunData | ReduceRunData | ValidateRunData | MetaRunData;
+
+/**
+ * Derive and RE-VALIDATE the stage's run data. The derivation functions return typed
+ * data already, but the final parse through the stage contract is the boundary
+ * guarantee `stage-io.ts` promises ("validated before inlining") — it also catches
+ * flag-level slips the derivations cannot (e.g. a fractional `--ceiling` surviving
+ * `Number()`), and runs the merged-set duplicate-id refine for meta.
+ */
+async function deriveRunData(flags: CliFlags): Promise<Result<StageRunData, Error>> {
   if (flags.stage === 'map') {
     return readAnd(flags.partition, '--partition', parseMapRunData);
   }
   if (flags.stage === 'reduce') {
     const mapResult = await readAnd(flags.mapResult, '--map-result', parseMapResult);
-    return mapResult.ok ? reduceRunDataFrom(mapResult.value) : mapResult;
+    if (!mapResult.ok) {
+      return mapResult;
+    }
+    const derived = reduceRunDataFrom(mapResult.value);
+    return derived.ok ? parseReduceRunData(derived.value) : derived;
   }
   if (flags.stage === 'validate') {
-    return deriveValidateRunData(flags);
+    const derived = await deriveValidateRunData(flags);
+    return derived.ok ? parseValidateRunData(derived.value) : derived;
   }
-  if (flags.stage === 'meta') {
-    return deriveMetaRunData(flags);
-  }
-  return err(
-    new Error(`Unknown stage "${flags.stage}" — expected map | reduce | validate | meta.`),
-  );
+  const derived = await deriveMetaRunData(flags);
+  return derived.ok ? parseMetaRunData(derived.value) : derived;
 }
 
 async function readValidateResults(
@@ -110,7 +130,7 @@ async function readValidateResults(
   return ok(results);
 }
 
-async function deriveValidateRunData(flags: CliFlags): Promise<Result<unknown, Error>> {
+async function deriveValidateRunData(flags: CliFlags): Promise<Result<ValidateRunData, Error>> {
   const mapResult = await readAnd(flags.mapResult, '--map-result', parseMapResult);
   if (!mapResult.ok) {
     return mapResult;
@@ -134,7 +154,7 @@ async function deriveValidateRunData(flags: CliFlags): Promise<Result<unknown, E
   });
 }
 
-async function deriveMetaRunData(flags: CliFlags): Promise<Result<unknown, Error>> {
+async function deriveMetaRunData(flags: CliFlags): Promise<Result<MetaRunData, Error>> {
   const reduceResult = await readAnd(flags.reduceResult, '--reduce-result', parseReduceResult);
   if (!reduceResult.ok) {
     return reduceResult;
@@ -152,42 +172,67 @@ async function deriveMetaRunData(flags: CliFlags): Promise<Result<unknown, Error
   });
 }
 
-const { values } = parseArgs({
-  options: {
-    stage: { type: 'string' },
-    partition: { type: 'string' },
-    'map-result': { type: 'string' },
-    'reduce-result': { type: 'string' },
-    'validate-result': { type: 'string', multiple: true },
-    ceiling: { type: 'string' },
-  },
-});
+function parseCliFlags(): Result<CliFlags, Error> {
+  try {
+    const { values } = parseArgs({
+      options: {
+        stage: { type: 'string' },
+        partition: { type: 'string' },
+        'map-result': { type: 'string' },
+        'reduce-result': { type: 'string' },
+        'validate-result': { type: 'string', multiple: true },
+        ceiling: { type: 'string' },
+      },
+    });
+    return ok({
+      stage: values.stage ?? '',
+      partition: values.partition,
+      mapResult: values['map-result'],
+      reduceResult: values['reduce-result'],
+      validateResults: values['validate-result'] ?? [],
+      ceiling: values.ceiling === undefined ? undefined : Number(values.ceiling),
+    });
+  } catch (cause) {
+    return err(
+      new Error(`Invalid flags: ${cause instanceof Error ? cause.message : String(cause)}`, {
+        cause,
+      }),
+    );
+  }
+}
 
-const flags: CliFlags = {
-  stage: values.stage ?? '',
-  partition: values.partition,
-  mapResult: values['map-result'],
-  reduceResult: values['reduce-result'],
-  validateResults: values['validate-result'] ?? [],
-  ceiling: values.ceiling === undefined ? undefined : Number(values.ceiling),
-};
+async function resolveRunData(): Promise<
+  Result<{ stage: (typeof STAGE_DEFINITIONS)[number]; data: StageRunData }, Error>
+> {
+  const flags = parseCliFlags();
+  if (!flags.ok) {
+    return flags;
+  }
+  const stage = STAGE_DEFINITIONS.find((definition) => definition.name === flags.value.stage);
+  if (stage === undefined) {
+    return err(
+      new Error(`Unknown stage "${flags.value.stage}" — expected map | reduce | validate | meta.`),
+    );
+  }
+  const data = await deriveRunData(flags.value);
+  return data.ok ? ok({ stage, data: data.value }) : data;
+}
 
-const stageDefinition = STAGE_DEFINITIONS.find((stage) => stage.name === flags.stage);
-const runData =
-  stageDefinition === undefined
-    ? err(new Error(`Unknown stage "${flags.stage}" — expected map | reduce | validate | meta.`))
-    : await deriveRunData(flags);
+const resolved = await resolveRunData();
 
-if (!runData.ok || stageDefinition === undefined) {
-  process.stderr.write(`${runData.ok ? 'Unknown stage.' : runData.error.message}\n`);
+if (!resolved.ok) {
+  process.stderr.write(`${resolved.error.message}\n`);
   process.exitCode = 1;
 } else {
-  const artefact = await buildStageArtefact({ stage: stageDefinition, runData: runData.value });
+  const artefact = await buildStageArtefact({
+    stage: resolved.value.stage,
+    runData: resolved.value.data,
+  });
   if (!artefact.ok) {
     process.stderr.write(`${artefact.error.message}\n`);
     process.exitCode = 1;
   } else {
-    const outPath = path.join(WORKFLOW_OUT_DIR, `${flags.stage}.workflow.seeded.mjs`);
+    const outPath = path.join(WORKFLOW_OUT_DIR, `${resolved.value.stage.name}.workflow.seeded.mjs`);
     await mkdir(WORKFLOW_OUT_DIR, { recursive: true });
     await writeFile(outPath, artefact.value, 'utf8');
     process.stdout.write(

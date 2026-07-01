@@ -11,11 +11,11 @@ import {
 } from './run-orchestration.js';
 
 /**
- * The orchestration layer the harness Workflow templates mirror: candidate-granular resume,
- * the completeness assertion, the post-reduce hard-abort re-gate, the cost calibration, and
- * deterministic per-voter jitter. Pure functions; the templates paste a type-stripped copy that
- * is re-checked against this source before each launch (not machine-pinned — see the module
- * docstring and README). No aggregation math is touched.
+ * The orchestration layer the workflow stage entries value-import: candidate-granular
+ * resume, the completeness assertions, the post-reduce hard-abort re-gate, the cost
+ * calibration, the shared concurrency cap, and deterministic per-voter jitter. Pure
+ * functions, bundled into the harness artefacts by the workflow build — one source,
+ * no mirrors. No aggregation math is touched.
  */
 
 const candidate = (id: string): { id: string; pattern: string } => ({

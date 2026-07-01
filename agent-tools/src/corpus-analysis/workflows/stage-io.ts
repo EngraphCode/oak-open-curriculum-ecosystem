@@ -21,7 +21,6 @@ import {
   candidateSchema,
   leafSignalSchema,
   parseWithSchema,
-  patternKindSchema,
   voterOutcomeSchema,
 } from '../judgment-schemas.js';
 import { metaOutputSchema } from '../recall-schemas.js';
@@ -56,14 +55,15 @@ const dispositionSchema = z.enum(['keep', 'kill', 'reroute', 'held-for-review'])
 export type Disposition = z.infer<typeof dispositionSchema>;
 
 /** A candidate as the meta stage judges it: the reduce fields plus its disposition. */
-const dispositionedCandidateSchema = z.strictObject({
-  id: nonEmptyString,
-  pattern: nonEmptyString,
-  kind: patternKindSchema,
-  isAbsenceClaim: z.boolean(),
-  supportingWindows: z.array(nonEmptyString),
-  disposition: terminalDispositionSchema,
-});
+const dispositionedCandidateSchema = candidateSchema
+  .pick({
+    id: true,
+    pattern: true,
+    kind: true,
+    isAbsenceClaim: true,
+    supportingWindows: true,
+  })
+  .extend({ disposition: terminalDispositionSchema });
 export type DispositionedCandidate = z.infer<typeof dispositionedCandidateSchema>;
 
 // ---------------------------------------------------------------------------
@@ -114,24 +114,37 @@ const stageFailureSchema = z.strictObject({
   error: nonEmptyString,
 });
 
-const mapSuccessSchema = z.strictObject({
-  ok: z.literal(true),
-  partition: z.array(z.strictObject({ window: nonEmptyString, fileCount: countInt })),
-  coverage: z.array(z.strictObject({ window: nonEmptyString, leafCount: countInt })),
-  /** False when any window produced zero leaves — a partial map must never pass silently. */
-  mapComplete: z.boolean(),
-  incompleteWindows: z.array(nonEmptyString),
-  leafCount: countInt,
-  leaves: z.array(leafSignalSchema),
-});
+/** Reject id collisions at the checkpoint boundary — downstream `Map` lookups are last-win. */
+const uniqueIds = (ids: readonly string[]): boolean => new Set(ids).size === ids.length;
+
+const mapSuccessSchema = z
+  .strictObject({
+    ok: z.literal(true),
+    partition: z.array(z.strictObject({ window: nonEmptyString, fileCount: countInt })),
+    coverage: z.array(z.strictObject({ window: nonEmptyString, leafCount: countInt })),
+    /** False when any window produced zero leaves — a partial map must never pass silently. */
+    mapComplete: z.boolean(),
+    incompleteWindows: z.array(nonEmptyString),
+    leafCount: countInt,
+    leaves: z.array(leafSignalSchema),
+  })
+  .refine((result) => uniqueIds(result.leaves.map((entry) => entry.id)), {
+    error:
+      'map result contains duplicate leaf ids across windows — voter grounding lookups would silently mis-attribute quotes',
+  });
 const mapResultSchema = z.discriminatedUnion('ok', [mapSuccessSchema, stageFailureSchema]);
 export type MapResult = z.infer<typeof mapResultSchema>;
 
-const reduceSuccessSchema = z.strictObject({
-  ok: z.literal(true),
-  leafCount: countInt,
-  candidates: z.array(candidateSchema),
-});
+const reduceSuccessSchema = z
+  .strictObject({
+    ok: z.literal(true),
+    leafCount: countInt,
+    candidates: z.array(candidateSchema),
+  })
+  .refine((result) => uniqueIds(result.candidates.map((entry) => entry.id)), {
+    error:
+      'reduce result contains duplicate candidate ids — adjudication and the meta merge would double-count',
+  });
 const reduceResultSchema = z.discriminatedUnion('ok', [reduceSuccessSchema, stageFailureSchema]);
 export type ReduceResult = z.infer<typeof reduceResultSchema>;
 

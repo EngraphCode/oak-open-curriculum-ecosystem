@@ -1,23 +1,18 @@
 /**
- * Run-orchestration layer for the large-corpus-analysis harness Workflow templates.
+ * Run-orchestration layer for the corpus-analysis workflow stages.
  *
- * These pure functions harden the ~13M one-way discovery run against a session quota trip
+ * These pure functions harden the one-way discovery run against a session quota trip
  * (the v2 failure mode): candidate-granular resume re-spends only the unresolved tail, the
- * completeness assertion refuses to run meta over a partial validate, the post-reduce re-gate
- * recomputes cost from the REAL candidate count and hard-aborts before the expensive validate
- * spend, and deterministic jitter flattens the dispatch burst without a non-deterministic
- * clock (the sandbox forbids Math.random / Date — they break Workflow resume).
+ * completeness assertions refuse to run a stage over partial upstream output, the post-reduce
+ * re-gate recomputes cost from the REAL candidate count and refuses to dispatch any voter over
+ * the ceiling, the concurrency cap and deterministic jitter throttle fan-out without a
+ * non-deterministic clock (the sandbox forbids Math.random / Date — they break Workflow resume).
  *
- * The harness Workflow runs in a sandbox that cannot import repo code, so each template pastes a
- * type-stripped copy of the functions below. That copy is unit-tested HERE
- * (run-orchestration.unit.test.ts) but is NOT machine-pinned to the pasted `.mjs` — re-check each
- * pasted block against this source before each launch (README §Critical operational notes). A
- * repo-validator is the named home for machine-pinning when this tooling is promoted to agent-tools
- * scripts (corpus-analysis-conservation plan WS-C). The `.mjs` `postReduceRegate` computes the
- * worst-case directly (candidateCount x maxVoters x tokensPerVoter); it equals this module's
- * cost-model path only while `DEFAULT_EFFORT_MULTIPLIERS.low === 1` (pinned by
- * cost-and-coverage.unit.test.ts). NONE of this touches the frozen aggregation math
- * (`aggregation-recall.ts` / `aggregation-adjudication.ts` / `aggregation-verdict.ts`).
+ * The workflow stage entries (`workflows/<stage>.workflow.ts`) value-import these functions and
+ * the build (`workflows/build/`) bundles them into the self-contained harness artefacts — one
+ * source, unit-tested here, machine-held by the build's output contract (no mirrors, no pasted
+ * copies). NONE of this touches the frozen aggregation math (`aggregation-recall.ts` /
+ * `aggregation-adjudication.ts` / `aggregation-verdict.ts`).
  */
 
 import {
@@ -123,7 +118,7 @@ export function assessMapCompleteness(
  * the "~5x-low" estimate that let the run overrun to ~13.2M). This is the high-effort actual
  * cost, so the cost model takes it FLAT (effort `low`, multiplier 1) — applying the high
  * multiplier on top would double-count it. Module-private: the public surface is
- * `postReduceRegate` (which defaults `tokensPerVoter` to this); the `.mjs` mirrors the literal.
+ * `postReduceRegate` (which defaults `tokensPerVoter` to this).
  */
 const OBSERVED_VALIDATE_TOKENS_PER_VOTER = 50_000;
 
@@ -200,8 +195,7 @@ export function deterministicJitterMs(seed: string, maxMs: number): number {
  * hit the server rate limit in a single burst.
  *
  * The parallel primitive is INJECTED (`runParallel`) so this stays pure and unit-testable without the
- * harness `parallel` global; the `.mjs` templates that mirror this function pass that global at the
- * call site. `runParallel` mirrors the harness contract — it returns results in input order and
+ * harness `parallel` global; the stage entries pass that global at the call site. `runParallel` mirrors the harness contract — it returns results in input order and
  * substitutes `null` for any thunk that throws or whose agent dies. `runCapped` is a TRANSPARENT
  * CONDUIT: it pushes those results (nulls and all) straight through, positionally. Callers rely on
  * that positional alignment (e.g. `mapResults[i]` ↔ `partition[i]`), so `runCapped` MUST NOT filter

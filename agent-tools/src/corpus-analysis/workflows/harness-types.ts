@@ -21,8 +21,8 @@
 
 import type { DerivedJsonSchema } from './agent-schemas.js';
 
-/** Options for one sandbox `agent()` dispatch. */
-interface HarnessAgentOptions {
+/** Options for one sandbox `agent()` dispatch; `T` is the schema's output shape. */
+export interface HarnessAgentOptions<T = unknown> {
   /** Display label for the harness progress tree. */
   readonly label: string;
   /** Progress group — must match a `phases[].title` in the workflow meta. */
@@ -32,7 +32,7 @@ interface HarnessAgentOptions {
   /** Reasoning effort for this agent call. */
   readonly effort: 'low' | 'medium' | 'high';
   /** JSON Schema the agent's structured output is validated against by the harness. */
-  readonly schema: DerivedJsonSchema;
+  readonly schema: DerivedJsonSchema<T>;
 }
 
 /**
@@ -40,7 +40,7 @@ interface HarnessAgentOptions {
  * the agent dies terminally (retry-cap, quota) — callers must treat `null` as a
  * first-class unadjudicated outcome, never filter it away positionally.
  */
-export type HarnessAgent = <T>(prompt: string, opts: HarnessAgentOptions) => Promise<T | null>;
+export type HarnessAgent = <T>(prompt: string, opts: HarnessAgentOptions<T>) => Promise<T | null>;
 
 /**
  * Run thunks concurrently. Returns results in input order, substituting `null` for any

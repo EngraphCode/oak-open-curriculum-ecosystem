@@ -17,7 +17,7 @@ import { AGENT_JSON_SCHEMAS } from './agent-schemas.js';
 import type { LeafStageOutput } from './agent-schemas.js';
 import type { HarnessAgent, HarnessLog, HarnessParallel, HarnessPhase } from './harness-types.js';
 import { mapPrompt } from './prompts.js';
-import { RUN_DATA } from './run-data.js';
+import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
 import { isMapRunData, unseededRunDataError } from './stage-guards.js';
 import type { MapResult, PartitionWindow } from './stage-io.js';
 import { assessMapCompleteness, deterministicJitterMs, runCapped } from '../run-orchestration.js';
@@ -48,7 +48,7 @@ async function mapWindow(w: PartitionWindow): Promise<LeafStageOutput | null> {
 /** Run the map stage over the seeded partition. */
 export async function main(): Promise<MapResult> {
   phase('map');
-  if (!isMapRunData(RUN_DATA)) {
+  if (!isMapRunData(RUN_DATA, RUN_DATA_STAGE)) {
     return { ok: false, error: unseededRunDataError('map') };
   }
   const partition = RUN_DATA.windows;

@@ -12,9 +12,23 @@
  * @packageDocumentation
  */
 
+import { checkHarnessArtefactContract } from './output-contract.js';
 import { buildStageArtefact, STAGE_DEFINITIONS } from './workflow-builder.js';
 
 let failed = false;
+
+// Contract canary: prove the REAL parser leg rejects a known-bad artefact (a redeclared
+// injected global + a dynamic import) before trusting the green verdicts below. A green
+// gate that cannot go red proves nothing.
+const canary = checkHarnessArtefactContract(
+  'export const meta = {};\nlet log = 1;\nasync function main() {\n  return import("x");\n}\nreturn await main();\n',
+);
+if (canary.ok) {
+  process.stderr.write('output-contract canary FAILED: a known-bad artefact passed the contract\n');
+  failed = true;
+} else {
+  process.stdout.write('output-contract canary green (known-bad artefact rejected)\n');
+}
 
 for (const stage of STAGE_DEFINITIONS) {
   const outcome = await buildStageArtefact({ stage });

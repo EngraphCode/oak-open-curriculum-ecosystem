@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import { deriveAgentJsonSchemas } from '../agent-schemas.js';
 import {
+  AGENT_SCHEMAS_MODULE_FILTER,
+  RUN_DATA_MODULE_FILTER,
   agentSchemasModuleSource,
   agentSchemasInlinePlugin,
   runDataModuleSource,
@@ -9,12 +11,43 @@ import {
 } from './schema-inline-plugin.js';
 
 /**
- * The schema-inline plugin substitutes the real `agent-schemas.ts` module (which
- * value-imports zod to derive the JSON Schemas) with a precomputed literal module when
- * bundling sandbox artefacts — same exported name, zod-free source, derived from the
- * same SSOT at build time. Node-side code (tests, the post-run driver) imports the real
- * module; the sandbox gets the literal; neither can drift from the zod schemas.
+ * The inline plugins substitute two modules when bundling sandbox artefacts: the real
+ * `agent-schemas.ts` (which value-imports zod) with a precomputed zod-free literal, and
+ * the unseeded `run-data.ts` sentinel with the stage-tagged validated payload. The
+ * exported filters and module-source builders ARE the substitution contract — the
+ * plugins compose exactly these values, so the tests assert the product, not copies.
+ * (A mis-wired substitution cannot ship regardless: the sandbox purity scan fails the
+ * build if zod survives, and an unseeded artefact fails its stage guard at zero spend.)
  */
+
+describe('module filters (the substitution targets)', () => {
+  it('the schema filter matches exactly the workflows agent-schemas module', () => {
+    expect(
+      AGENT_SCHEMAS_MODULE_FILTER.test(
+        '/repo/agent-tools/src/corpus-analysis/workflows/agent-schemas.ts',
+      ),
+    ).toBe(true);
+    expect(
+      AGENT_SCHEMAS_MODULE_FILTER.test('/repo/agent-tools/src/corpus-analysis/judgment-schemas.ts'),
+    ).toBe(false);
+  });
+
+  it('the run-data filter matches exactly the workflows run-data module', () => {
+    expect(
+      RUN_DATA_MODULE_FILTER.test('/repo/agent-tools/src/corpus-analysis/workflows/run-data.ts'),
+    ).toBe(true);
+    expect(
+      RUN_DATA_MODULE_FILTER.test(
+        '/repo/agent-tools/src/corpus-analysis/workflows/agent-schemas.ts',
+      ),
+    ).toBe(false);
+  });
+
+  it('the plugins carry their registered names', () => {
+    expect(agentSchemasInlinePlugin().name).toBe('inline-derived-agent-schemas');
+    expect(runDataInlinePlugin('map', { windows: [] }).name).toBe('inline-run-data');
+  });
+});
 
 describe('agentSchemasModuleSource', () => {
   const source = agentSchemasModuleSource();
@@ -33,44 +66,24 @@ describe('agentSchemasModuleSource', () => {
   });
 });
 
-describe('agentSchemasInlinePlugin', () => {
-  it('targets exactly the workflows agent-schemas module', () => {
-    const plugin = agentSchemasInlinePlugin();
-    expect(plugin.name).toBe('inline-derived-agent-schemas');
-    // The load filter must match the module's resolved path and nothing else.
-    const filter = /workflows[/\\]agent-schemas\.ts$/;
-    expect(filter.test('/repo/agent-tools/src/corpus-analysis/workflows/agent-schemas.ts')).toBe(
-      true,
-    );
-    expect(filter.test('/repo/agent-tools/src/corpus-analysis/judgment-schemas.ts')).toBe(false);
-  });
-});
-
 describe('runDataModuleSource', () => {
-  it('exports RUN_DATA as a literal that round-trips to the seeded data', () => {
+  it('exports the stage discriminant and RUN_DATA as compact literals that round-trip', () => {
     const data = { windows: [{ window: 'w01', files: ['a.md'] }] };
-    const source = runDataModuleSource(data);
+    const source = runDataModuleSource('map', data);
     if (!source.ok) {
       expect.fail(`expected generated source, got: ${source.error.message}`);
     }
-    const literalJson = source.value.replace('export const RUN_DATA = ', '').replace(/;\s*$/, '');
-    expect(JSON.parse(literalJson)).toEqual(data);
+    const lines = source.value.trimEnd().split('\n');
+    expect(lines[0]).toBe('export const RUN_DATA_STAGE = "map";');
+    expect(
+      JSON.parse((lines[1] ?? '').replace('export const RUN_DATA = ', '').replace(/;$/, '')),
+    ).toEqual(data);
+    // Compact serialisation — the payload competes with code for the harness size cap.
+    expect(source.value).not.toContain('  "windows"');
   });
 
   it('refuses unserialisable data (undefined) — an unseeded build must stay unseeded loudly', () => {
-    const source = runDataModuleSource(undefined);
+    const source = runDataModuleSource('map', undefined);
     expect(!source.ok && source.error.message).toMatch(/run data/i);
-  });
-});
-
-describe('runDataInlinePlugin', () => {
-  it('targets exactly the workflows run-data module', () => {
-    const plugin = runDataInlinePlugin({ payload: 'x' });
-    expect(plugin.name).toBe('inline-run-data');
-    const filter = /workflows[/\\]run-data\.ts$/;
-    expect(filter.test('/repo/agent-tools/src/corpus-analysis/workflows/run-data.ts')).toBe(true);
-    expect(filter.test('/repo/agent-tools/src/corpus-analysis/workflows/agent-schemas.ts')).toBe(
-      false,
-    );
   });
 });

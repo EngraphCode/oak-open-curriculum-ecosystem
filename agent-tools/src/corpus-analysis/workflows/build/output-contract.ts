@@ -9,6 +9,14 @@
  * fails `pnpm build`, never a launch checklist. Each check returns a `Result`; the
  * build composition root refuses to write an artefact on any `err`.
  *
+ * Two contract tiers: {@link checkHarnessArtefactContract} (everything, run against the
+ * UNSEEDED emission — the executable surface) and {@link checkSeededArtefactShape}
+ * (shape / size / syntax only, run against the seeded artefact that will launch).
+ * The split exists because seeded run data carries verbatim corpus quotes that
+ * legitimately contain strings like `process.env` or `z.` — content the pattern scans
+ * must reject in CODE but never in DATA; the code is identical in both emissions by
+ * construction (only the run-data module differs).
+ *
  * @packageDocumentation
  */
 
@@ -42,6 +50,18 @@ const MODULE_SYSTEM_PATTERNS = [
 
 /** Runtime schema libraries must never enter the sandbox bundle (derived at build). */
 const PURITY_PATTERNS = [/\bz\./, /\bsafeParse\b/, /\bZod/, /@oaknational\/result/];
+
+/** Parse a source string, reporting syntax errors as a Result; injectable for tests (ADR-078). */
+export type SyntaxValidator = (source: string) => Result<undefined, Error>;
+
+const esbuildSyntaxValidator: SyntaxValidator = (source) => {
+  try {
+    transformSync(source, { loader: 'js' });
+    return ok(undefined);
+  } catch (cause) {
+    return err(new Error(cause instanceof Error ? cause.message : String(cause), { cause }));
+  }
+};
 
 /** The artefact must open with the statically-parsed meta export. */
 export function checkBeginsWithMetaExport(artefact: string): Result<undefined, Error> {
@@ -109,43 +129,80 @@ export function checkWithinHarnessSizeCap(artefact: string): Result<undefined, E
 }
 
 /**
- * Validate the artefact's syntax exactly the way the harness runs it: the body (minus
- * the meta export line) wrapped as an async function whose parameters are the sandbox
- * globals. Uses esbuild's parser — pure syntax validation, no code execution — and
- * catches what `node --check` cannot (it rejects the top-level `return` outright),
+ * The exact source the harness effectively compiles: the body (minus the meta export
+ * line) wrapped as an async function whose parameters are the sandbox globals. Pure —
+ * unit-testable without touching a parser.
+ */
+export function buildHarnessWrapSource(artefact: string): string {
+  const body = artefact.replace(/^export const meta = \{[\s\S]*?\};\n/, '');
+  return `async function harnessBody(${HARNESS_GLOBALS.join(', ')}) {\n${body}\n}`;
+}
+
+/**
+ * Validate the artefact's syntax exactly the way the harness runs it. The default
+ * validator is esbuild's parser (pure syntax validation, no code execution); it catches
+ * what `node --check` cannot (the top-level `return` is rejected outright there),
  * including a stage redeclaring an injected global.
  */
-export function checkCompilesUnderHarness(artefact: string): Result<undefined, Error> {
-  const body = artefact.replace(/^export const meta = \{[\s\S]*?\};\n/, '');
-  const wrapped = `async function harnessBody(${HARNESS_GLOBALS.join(', ')}) {\n${body}\n}`;
-  try {
-    transformSync(wrapped, { loader: 'js' });
-    return ok(undefined);
-  } catch (cause) {
+export function checkCompilesUnderHarness(
+  artefact: string,
+  validate: SyntaxValidator = esbuildSyntaxValidator,
+): Result<undefined, Error> {
+  const validated = validate(buildHarnessWrapSource(artefact));
+  if (!validated.ok) {
     return err(
       new Error(
-        `Artefact body does not compile under the harness async wrap: ${cause instanceof Error ? cause.message : String(cause)}`,
-        { cause },
+        `Artefact body does not compile under the harness async wrap: ${validated.error.message}`,
+        {
+          cause: validated.error,
+        },
       ),
     );
   }
+  return ok(undefined);
 }
 
-/** Run the full output contract over one emitted artefact, aggregating every failure. */
-export function checkHarnessArtefactContract(artefact: string): Result<undefined, Error> {
-  const failures = [
-    checkBeginsWithMetaExport(artefact),
-    checkEndsWithHarnessReturn(artefact),
-    checkNoForbiddenTimeSources(artefact),
-    checkNoModuleSystem(artefact),
-    checkSandboxPurity(artefact),
-    checkWithinHarnessSizeCap(artefact),
-    checkCompilesUnderHarness(artefact),
-  ].flatMap((result) => (result.ok ? [] : [result.error.message]));
+function aggregate(results: readonly Result<undefined, Error>[]): Result<undefined, Error> {
+  const failures = results.flatMap((result) => (result.ok ? [] : [result.error.message]));
   if (failures.length > 0) {
     return err(
       new Error(`Artefact violates the harness output contract:\n- ${failures.join('\n- ')}`),
     );
   }
   return ok(undefined);
+}
+
+/**
+ * The full output contract — run against the UNSEEDED emission, whose content is
+ * entirely executable code.
+ */
+export function checkHarnessArtefactContract(
+  artefact: string,
+  validate?: SyntaxValidator,
+): Result<undefined, Error> {
+  return aggregate([
+    checkBeginsWithMetaExport(artefact),
+    checkEndsWithHarnessReturn(artefact),
+    checkNoForbiddenTimeSources(artefact),
+    checkNoModuleSystem(artefact),
+    checkSandboxPurity(artefact),
+    checkWithinHarnessSizeCap(artefact),
+    checkCompilesUnderHarness(artefact, validate),
+  ]);
+}
+
+/**
+ * The shape tier only — run against the SEEDED artefact, whose run-data literal may
+ * legitimately contain any string content (verbatim corpus quotes included).
+ */
+export function checkSeededArtefactShape(
+  artefact: string,
+  validate?: SyntaxValidator,
+): Result<undefined, Error> {
+  return aggregate([
+    checkBeginsWithMetaExport(artefact),
+    checkEndsWithHarnessReturn(artefact),
+    checkWithinHarnessSizeCap(artefact),
+    checkCompilesUnderHarness(artefact, validate),
+  ]);
 }

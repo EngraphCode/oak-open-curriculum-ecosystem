@@ -1,8 +1,10 @@
-import { isErr, isOk } from '@oaknational/result';
+import { err, isErr, isOk, ok } from '@oaknational/result';
 import type { Result } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import type { SyntaxValidator } from './output-contract.js';
 import {
+  buildHarnessWrapSource,
   checkBeginsWithMetaExport,
   checkCompilesUnderHarness,
   checkEndsWithHarnessReturn,
@@ -10,6 +12,7 @@ import {
   checkNoForbiddenTimeSources,
   checkNoModuleSystem,
   checkSandboxPurity,
+  checkSeededArtefactShape,
   checkWithinHarnessSizeCap,
 } from './output-contract.js';
 
@@ -115,37 +118,71 @@ describe('checkWithinHarnessSizeCap', () => {
   });
 });
 
-describe('checkCompilesUnderHarness', () => {
-  it('accepts the valid artefact (meta line + body with top-level return compile as an async body)', () => {
-    expect(isOk(checkCompilesUnderHarness(validArtefact))).toBe(true);
+describe('buildHarnessWrapSource (the exact source the harness compiles)', () => {
+  it('strips the meta export and wraps the body as an async function over the sandbox globals', () => {
+    const wrapped = buildHarnessWrapSource(validArtefact);
+    expect(
+      wrapped.startsWith('async function harnessBody(agent, parallel, phase, log, args) {'),
+    ).toBe(true);
+    expect(wrapped).not.toContain('export const meta');
+    expect(wrapped).toContain('return await main();');
+    expect(wrapped.trimEnd().endsWith('}')).toBe(true);
+  });
+});
+
+describe('checkCompilesUnderHarness (validator injected — the real parser runs at build time)', () => {
+  it('passes the wrap source to the validator and accepts when it accepts', () => {
+    const seen: string[] = [];
+    const recording: SyntaxValidator = (wrapSource) => {
+      seen.push(wrapSource);
+      return ok(undefined);
+    };
+    expect(isOk(checkCompilesUnderHarness(validArtefact, recording))).toBe(true);
+    expect(seen).toEqual([buildHarnessWrapSource(validArtefact)]);
   });
 
-  it('rejects an artefact whose body is not syntactically valid', () => {
-    const broken = validArtefact.replace('return { result: true };', 'return { result: true ;');
-    expect(errorMessage(checkCompilesUnderHarness(broken))).toMatch(/compile/i);
-  });
-
-  it('rejects an artefact that redeclares an injected sandbox global', () => {
-    const colliding = validArtefact.replace(
-      'async function main() {',
-      'let log = 1;\nasync function main() {',
-    );
-    expect(errorMessage(checkCompilesUnderHarness(colliding))).toMatch(/compile/i);
+  it('translates a validator rejection into a typed contract failure', () => {
+    const rejecting: SyntaxValidator = () => err(new Error('Unexpected token'));
+    expect(errorMessage(checkCompilesUnderHarness(validArtefact, rejecting))).toMatch(/compile/i);
   });
 });
 
 describe('checkHarnessArtefactContract', () => {
+  const acceptAll: SyntaxValidator = () => ok(undefined);
+
   it('passes the valid artefact through every check', () => {
-    expect(isOk(checkHarnessArtefactContract(validArtefact))).toBe(true);
+    expect(isOk(checkHarnessArtefactContract(validArtefact, acceptAll))).toBe(true);
   });
 
   it('aggregates every violation into one error', () => {
     const doublyBroken = `var x = Date.now();\n${validArtefact.replace('return await main();', '')}`;
-    const result = checkHarnessArtefactContract(doublyBroken);
+    const result = checkHarnessArtefactContract(doublyBroken, acceptAll);
     expect(isErr(result)).toBe(true);
     const message = errorMessage(result);
     expect(message).toMatch(/meta/);
     expect(message).toMatch(/forbidden/i);
     expect(message).toMatch(/return await main/);
+  });
+});
+
+describe('checkSeededArtefactShape (data may contain anything; code rules stay on the unseeded tier)', () => {
+  const acceptAll: SyntaxValidator = () => ok(undefined);
+  const seeded = validArtefact.replace(
+    'async function main() {',
+    'var RUN_DATA = {"leaves":[{"quote":"we read process.env and z.strictObject via node:fs"}]};\nasync function main() {',
+  );
+
+  it('accepts a seeded artefact whose run data carries verbatim code-like corpus quotes', () => {
+    // The full contract MUST reject this content in code position…
+    expect(isErr(checkHarnessArtefactContract(seeded, acceptAll))).toBe(true);
+    // …while the seeded shape tier accepts it: quotes are data, and the executable
+    // surface was already checked on the unseeded emission.
+    expect(isOk(checkSeededArtefactShape(seeded, acceptAll))).toBe(true);
+  });
+
+  it('still rejects a seeded artefact with a broken shape', () => {
+    expect(
+      errorMessage(checkSeededArtefactShape(seeded.replace('return await main();', ''), acceptAll)),
+    ).toMatch(/return await main/);
   });
 });

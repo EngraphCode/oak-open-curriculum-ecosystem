@@ -19,7 +19,7 @@ import { z } from 'zod';
 import type { JSONSchema } from 'zod/v4/core';
 
 import { adversaryVerdictSchema, candidateSchema, leafSignalSchema } from '../judgment-schemas.js';
-import { metaOutputSchema } from '../recall-schemas.js';
+import { metaOutputSchema, type MetaOutput } from '../recall-schemas.js';
 
 /**
  * MAP stage agent contract: the window's extracted leaves.
@@ -45,23 +45,31 @@ export type CandidateStageOutput = z.infer<typeof candidateStageOutputSchema>;
 const voterJudgmentSchema = adversaryVerdictSchema.omit({ lens: true });
 export type VoterJudgment = z.infer<typeof voterJudgmentSchema>;
 
-/** A derived, fully-inlined JSON Schema ready for the harness `agent()` schema param. */
-export type DerivedJsonSchema = JSONSchema.BaseSchema;
+/**
+ * A derived, fully-inlined JSON Schema ready for the harness `agent()` schema param,
+ * phantom-typed with the output shape it validates: `agent()` infers its return type
+ * FROM the schema, so a schema/type mismatch at a call site is uncompilable rather
+ * than an unproven claim. The `_output` property never exists at runtime.
+ */
+export interface DerivedJsonSchema<T = unknown> extends JSONSchema.BaseSchema {
+  readonly _output?: T;
+}
 
 /** The four stage agent schemas, keyed by stage contract. */
 export interface AgentJsonSchemas {
-  readonly leafStage: DerivedJsonSchema;
-  readonly candidateStage: DerivedJsonSchema;
-  readonly voterJudgment: DerivedJsonSchema;
-  readonly metaStage: DerivedJsonSchema;
+  readonly leafStage: DerivedJsonSchema<LeafStageOutput>;
+  readonly candidateStage: DerivedJsonSchema<CandidateStageOutput>;
+  readonly voterJudgment: DerivedJsonSchema<VoterJudgment>;
+  readonly metaStage: DerivedJsonSchema<MetaOutput>;
 }
 
 /**
  * Derive one schema with everything inlined (`reused: 'inline'` — no `$defs`/`$ref`,
  * which the harness cannot resolve) and the `$schema` dialect marker stripped. The
- * fully-inlined and strict-everywhere invariants are pinned by the unit tests.
+ * fully-inlined and strict-everywhere invariants are pinned by the unit tests. The
+ * phantom output type carries the zod schema's output shape into the harness call.
  */
-function deriveInlined(schema: z.ZodType): DerivedJsonSchema {
+function deriveInlined<T>(schema: z.ZodType<T>): DerivedJsonSchema<T> {
   const derived = { ...z.toJSONSchema(schema, { reused: 'inline' }) };
   delete derived.$schema;
   return derived;

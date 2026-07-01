@@ -16,7 +16,7 @@
 import { AGENT_JSON_SCHEMAS } from './agent-schemas.js';
 import type { HarnessAgent, HarnessLog, HarnessPhase } from './harness-types.js';
 import { metaPrompt } from './prompts.js';
-import { RUN_DATA } from './run-data.js';
+import { RUN_DATA, RUN_DATA_STAGE } from './run-data.js';
 import { isMetaRunData, unseededRunDataError } from './stage-guards.js';
 import type { MetaResult } from './stage-io.js';
 import type { MetaOutput } from '../recall-schemas.js';
@@ -29,7 +29,7 @@ declare const log: HarnessLog;
 /** Run the meta stage over the merged dispositioned candidates. */
 export async function main(): Promise<MetaResult> {
   phase('meta');
-  if (!isMetaRunData(RUN_DATA)) {
+  if (!isMetaRunData(RUN_DATA, RUN_DATA_STAGE)) {
     return { ok: false, error: unseededRunDataError('meta') };
   }
   const baselines = RECALL_BASELINES.map((baseline) => ({

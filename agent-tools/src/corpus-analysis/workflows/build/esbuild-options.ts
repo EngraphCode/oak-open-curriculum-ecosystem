@@ -16,17 +16,24 @@ import type { BuildOptions } from 'esbuild';
 
 import { agentSchemasInlinePlugin, runDataInlinePlugin } from './schema-inline-plugin.js';
 
+/** A stage-tagged, already-validated run-data payload to inline into the bundle. */
+export interface RunDataSeed<TData> {
+  /** The stage the data was validated FOR — checked by every sandbox guard. */
+  readonly stage: string;
+  readonly data: TData;
+}
+
 /** Build one in-memory ESM bundle per stage entry, ready for the harness emitter. */
 export function createWorkflowEsbuildOptions<TData>(input: {
   readonly entryPoints: Readonly<Record<string, string>>;
   /** Shapes `outputFiles[].path` (nothing is written — `write: false`). */
   readonly outdir: string;
   /**
-   * Seed the run-data module with this stage-projected, already-validated data. Omit
-   * for a verification build — the artefact then carries the unseeded sentinel and its
+   * Seed the run-data module with stage-tagged, already-validated data. Omit for a
+   * verification build — the artefact then carries the unseeded sentinel and its
    * stage guard fails fast if run.
    */
-  readonly runData?: TData;
+  readonly seed?: RunDataSeed<TData>;
 }): BuildOptions {
   return {
     entryPoints: { ...input.entryPoints },
@@ -40,7 +47,7 @@ export function createWorkflowEsbuildOptions<TData>(input: {
     legalComments: 'none',
     plugins: [
       agentSchemasInlinePlugin(),
-      ...(input.runData === undefined ? [] : [runDataInlinePlugin(input.runData)]),
+      ...(input.seed === undefined ? [] : [runDataInlinePlugin(input.seed.stage, input.seed.data)]),
     ],
   };
 }
