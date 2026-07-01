@@ -112,5 +112,29 @@ the plan must re-home it here, not lose it, when it archives.)
 primitive needing an owner architectural decision; the graceful-case cure is in place, so unresolved
 but not blocking).
 
+## Q-012 — MCP tool-result pagination contract (response headers are dropped, so `Link: rel="next"` is unusable)
+
+**Context:** many upstream tool descriptions tell agents that a `Link: rel="next"` header signals
+more pages, but the MCP invoker reduces the HTTP response to `{ httpStatus, payload }` and `callTool`
+returns only `{ status, data }` — response headers are dropped. So an MCP client can never observe
+the pagination header. This affects **every** paginated tool (`get-*-questions`, `get-*-assets`,
+`get-key-stages-subject-lessons`, …), not just the programme tools where Cursor/Codex flagged it on
+PR #291. It is pre-existing and systemic, not a regression from the programmes work.
+
+**Why it shapes future work:** agents stop after the first page or hunt for pagination metadata that
+is never returned, silently truncating multi-page curriculum data. It is flagged P1 in the napkin
+(2026-07-01).
+
+**Why not cheaply answerable now:** it needs an architectural decision on the MCP tool-result
+contract — expose the next-page signal IN the result (a `nextPageToken`/`nextOffset` the invoker
+lifts from the `Link` header or offset math) vs. strip the Link-header sentence at the generator for
+every paginated tool. **ADR-shaped** (the MCP tool-result pagination contract). Do not re-solve
+per-tool.
+
+**Owning artefact:** [`upstream-api-alignment` thread record](threads/upstream-api-alignment.next-session.md)
+§Next safe step; #291's review-triage ledger. No owning plan yet — a candidate ADR / small plan.
+
+**Status:** open — surfaced during the #291 review triage (2026-07-01); not blocking #291.
+
 [kg-two-altitudes]: ../../reports/knowledge-as-graph-two-altitudes-2026-06-23.md
 [worktree-pilot-plan]: ../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md
