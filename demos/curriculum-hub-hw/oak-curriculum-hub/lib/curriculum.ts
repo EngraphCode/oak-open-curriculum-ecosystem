@@ -10,12 +10,33 @@
  */
 import 'server-only';
 import { createOakClient, type OakApiClient } from '@oaknational/curriculum-sdk';
+import type { SearchLessonSummary } from '@oaknational/curriculum-sdk/types';
 import { ok, err, type Result } from '@oaknational/result';
 import { serverEnv, contentConfigured } from './env';
 
 /* ---------- read-surface of the SDK responses (only the fields the page uses) ---------- */
 
-export interface LessonSummaryFields {
+/**
+ * Fields the lesson page reads from `/lessons/{lesson}/summary`.
+ *
+ * The additive pedagogy fields (C4 seam — subject/key-stage/unit context,
+ * keywords, key learning points) are DERIVED from the SDK's generated
+ * `SearchLessonSummary` via `Pick`, so their shapes cannot drift from the
+ * schema by construction (generator-first). They stay optional because the live
+ * API may omit them for a given lesson, so the page guards each field defensively.
+ *
+ * `getLesson` passes the full SDK summary object through (see {@link getLesson}),
+ * so these fields are already present at runtime when the API returns them — this
+ * interface only widens what is *type-visible*. No change to the stable
+ * `{summary,quiz,assets}` contract the page consumes.
+ */
+export interface LessonSummaryFields
+  extends Partial<
+    Pick<
+      SearchLessonSummary,
+      'subjectTitle' | 'keyStageTitle' | 'units' | 'lessonKeywords' | 'keyLearningPoints'
+    >
+  > {
   title?: string | null;
   lessonTitle?: string | null;
   pupilLessonOutcome?: string | null;
@@ -83,15 +104,4 @@ export async function getLesson(slug: string): Promise<Result<LessonContent, Con
       message: error instanceof Error ? error.message : String(error),
     });
   }
-}
-
-/**
- * Runtime guard for the `/api/lesson/[slug]` JSON response at the client trust
- * boundary, so the page narrows without a type assertion.
- */
-export function isLessonContent(value: unknown): value is LessonContent {
-  if (typeof value !== 'object' || value === null) {
-    return false;
-  }
-  return 'summary' in value && 'quiz' in value && 'assets' in value;
 }

@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
     "oak-local-dev": {
       "type": "http",
       "url": "http://localhost:3333/mcp"

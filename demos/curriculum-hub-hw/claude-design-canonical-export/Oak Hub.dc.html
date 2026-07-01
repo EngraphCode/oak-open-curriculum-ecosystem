@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="data/quality-standards.json" data-resource-id="qsData" />
+<script src="./support.js"></script>
+</head>
+<template id="__bundler_thumbnail" data-bg-color="#fff7cc">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#fff7cc"/>
+    <circle cx="600" cy="330" r="150" fill="#ffffff" stroke="#222222" stroke-width="12"/>
+    <path d="M600 230l34 70 76 11-55 53 13 76-68-36-68 36 13-76-55-53 76-11z" fill="#ffe555" stroke="#222222" stroke-width="10" stroke-linejoin="round"/>
+    <rect x="430" y="540" width="340" height="26" rx="13" fill="#222222"/>
+    <rect x="490" y="595" width="220" height="20" rx="10" fill="#9a8a3a"/>
+  </svg>
+</template>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/tokens/fig-tokens.css">
+  <link rel="stylesheet" href="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/colors_and_type.css">
+  <link rel="stylesheet" href="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/styles.css">
+  <script src="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/_ds_bundle.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#f4f3ef}
+    :focus-visible{outline:3px solid #0d24c4;outline-offset:2px;border-radius:3px}
+    ::selection{background:#ffe555}
+    @keyframes oakIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes oakFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(-3deg)}}
+    .oak-card{transition:transform .14s ease, box-shadow .14s ease}
+    .oak-card:hover{transform:translateY(-3px)}
+    .oak-navlink{transition:background .12s ease}
+    .oak-navlink:hover{background:#f0efe9}
+  </style>
+</helmet>
+
+<div style="font-family:'Lexend',system-ui,sans-serif;color:#222;background:#f4f3ef;min-height:100vh">
+
+  <!-- ===================== TOP NAV ===================== -->
+  <header style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:3px solid #222">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:14px 28px">
+      <a href="Oak Hub.dc.html" style="display:flex;align-items:center;flex:0 0 auto;text-decoration:none">
+        <img src="assets/logo-full-official.svg" alt="Oak National Academy" style="height:34px;width:auto" />
+      </a>
+      <nav style="display:flex;align-items:center;gap:2px;margin-left:14px">
+        <a class="oak-navlink" href="Oak Course.dc.html" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Training courses</a>
+        <a class="oak-navlink" href="Oak Standards.dc.html" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Quality standards</a>
+        <a class="oak-navlink" href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Rubrics</a>
+        <a class="oak-navlink" href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Exemplars</a>
+        <a class="oak-navlink" href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Wiki</a>
+      </nav>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:14px">
+        <div style="display:flex;align-items:center;gap:8px;border:2px solid #222;border-radius:100px;background:#fff;padding:7px 14px;width:230px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#575757" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search the hub" aria-label="Search the hub" style="border:none;outline:none;font:300 15px/1 'Lexend';color:#222;background:transparent;width:100%" />
+        </div>
+        <div style="width:40px;height:40px;border-radius:100px;border:2px solid #222;background:#bef2bd;display:flex;align-items:center;justify-content:center;font:700 14px/1 'Lexend';flex:0 0 auto" title="Your account">CT</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section style="background:#fff7cc;border-bottom:3px solid #222;position:relative;overflow:hidden">
+    <div style="max-width:1240px;margin:0 auto;padding:56px 28px 60px;position:relative">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#222;color:#fff;border-radius:100px;padding:7px 15px;font:700 12px/1 'Lexend';letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px">Single source of truth</div>
+      <h1 style="font:600 52px/58px 'Lexend';letter-spacing:.0115rem;margin:0 0 18px;max-width:18ch;text-wrap:balance">Oak Curriculum and Lesson Creation</h1>
+      <p style="font:300 21px/31px 'Lexend';letter-spacing:-.005rem;margin:0 0 30px;max-width:60ch;color:#222">Everything you need to create high-quality lessons at Oak, connected in one place. Training, quality standards, rubrics, exemplars and our shared wiki — so the way we work is always clear, current and joined up.</p>
+      <div style="display:flex;align-items:center;gap:10px;border:3px solid #222;border-radius:100px;background:#fff;padding:9px 12px 9px 20px;max-width:620px;box-shadow:4px 4px 0 #ffe555">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#575757" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search courses, standards, rubrics, exemplars…" aria-label="Search everything" style="border:none;outline:none;font:300 18px/1 'Lexend';color:#222;background:transparent;width:100%" />
+        <button onClick="{{ noop }}" style="flex:0 0 auto;border:2px solid #222;border-radius:100px;background:#222;color:#fff;font:700 15px/1 'Lexend';padding:11px 20px;cursor:pointer">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DESTINATIONS ===================== -->
+  <main style="max-width:1240px;margin:0 auto;padding:48px 28px 24px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap">
+      <h2 style="font:600 30px/36px 'Lexend';letter-spacing:.0115rem;margin:0">{{ sectionHeading }}</h2>
+      <sc-if value="{{ isSearching }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ clearSearch }}" style="border:2px solid #222;border-radius:100px;background:#fff;font:600 14px/1 'Lexend';padding:9px 16px;cursor:pointer;box-shadow:2px 2px 0 #ffe555">Clear search</button>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ hasDest }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px">
+      <sc-for list="{{ destinations }}" as="d" hint-placeholder-count="5">
+        <a class="oak-card" href="{{ d.href }}" style="{{ d.cardStyle }}">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+            <div style="{{ d.iconWrapStyle }}">{{ d.iconEl }}</div>
+            <sc-if value="{{ d.hasCount }}" hint-placeholder-val="{{ true }}">
+              <span style="margin-left:auto;background:#fff;border:2px solid #222;border-radius:100px;font:700 13px/1 'Lexend';padding:6px 12px">{{ d.count }}</span>
+            </sc-if>
+          </div>
+          <h3 style="font:600 23px/28px 'Lexend';letter-spacing:.0115rem;margin:0 0 8px">{{ d.title }}</h3>
+          <p style="font:300 16px/24px 'Lexend';margin:0 0 18px;color:#222;flex:1">{{ d.desc }}</p>
+          <span style="display:inline-flex;align-items:center;gap:8px;font:700 15px/1 'Lexend';color:#222">{{ d.cta }} <span style="font-size:18px">→</span></span>
+        </a>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <!-- TRAINING (eLearning) RESULTS -->
+    <sc-if value="{{ hasCourse }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:36px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span style="width:34px;height:34px;border-radius:9px;border:2px solid #222;background:#bef2bd;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"></path><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"></path></svg></span>
+          <h3 style="font:600 20px/26px 'Lexend';letter-spacing:.0115rem;margin:0">In the training courses</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ courseHits }}" as="c" hint-placeholder-count="2">
+            <a href="{{ c.href }}" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#222;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:15px 18px">
+              <span style="flex:0 0 auto;font:700 11px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;color:#575757;background:#ebfbeb;border:2px solid #222;border-radius:100px;padding:6px 11px">{{ c.module }}</span>
+              <span style="flex:1;font:600 17px/23px 'Lexend'">{{ c.title }}</span>
+              <span style="flex:0 0 auto;font:700 14px/1 'Lexend';color:#575757">Open →</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- QUALITY STANDARDS RESULTS -->
+    <sc-if value="{{ hasStd }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:36px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span style="width:34px;height:34px;border-radius:9px;border:2px solid #222;background:#a0b6f2;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
+          <h3 style="font:600 20px/26px 'Lexend';letter-spacing:.0115rem;margin:0">Quality standards</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ stdHits }}" as="s" hint-placeholder-count="3">
+            <a href="{{ s.href }}" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#222;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:15px 18px">
+              <span style="flex:0 0 auto;font:700 12px/1 'Lexend';color:#143b78;background:#e7f0fd;border:2px solid #2a6fdb;border-radius:6px;padding:6px 9px">{{ s.id }}</span>
+              <span style="flex:1;font:300 16px/23px 'Lexend'">{{ s.text }}</span>
+              <sc-if value="{{ s.hasArea }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto;font:700 11px/1 'Lexend';color:#575757;border:1px solid #e0ded6;border-radius:100px;padding:6px 10px">{{ s.area }}</span></sc-if>
+            </a>
+          </sc-for>
+          <sc-if value="{{ hasStdMore }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ stdMoreHref }}" style="text-decoration:none;color:#143b78;font:700 15px/1 'Lexend';padding:6px 2px">See {{ stdMore }} more in quality standards →</a>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div style="border:2px dashed #cacaca;border-radius:16px;background:#fff;padding:44px;text-align:center;margin-top:8px">
+        <div style="font:600 20px/26px 'Lexend';margin-bottom:6px">Nothing matches "{{ query }}"</div>
+        <p style="font:300 16px/24px 'Lexend';color:#575757;margin:0">Try a different word, or browse all sections.</p>
+      </div>
+    </sc-if>
+  </main>
+
+  <!-- ===================== HOW IT CONNECTS ===================== -->
+  <sc-if value="{{ showConnect }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1240px;margin:0 auto;padding:28px 28px 56px">
+    <div style="border:3px solid #222;border-radius:20px;background:#e3e9fb;box-shadow:4px 4px 0 #222;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:0">
+        <div style="padding:40px 40px 40px">
+          <div style="font:700 12px/1 'Lexend';letter-spacing:.06em;text-transform:uppercase;color:#575757;margin-bottom:14px">Everything's connected</div>
+          <h2 style="font:600 32px/38px 'Lexend';letter-spacing:.0115rem;margin:0 0 14px;text-wrap:balance">Content that links to itself</h2>
+          <p style="font:300 18px/27px 'Lexend';margin:0 0 16px">As you move through a training course, related guidance surfaces right where you need it. When a lesson touches a quality standard, you'll see a link straight to that standard and its exemplification — no hunting required.</p>
+          <p style="font:300 18px/27px 'Lexend';margin:0">Update a standard once, and every page that references it stays in step. One source of truth, joined up.</p>
+        </div>
+        <div style="background:#fff;border-left:3px solid #222;padding:36px 34px;display:flex;flex-direction:column;gap:16px;justify-content:center">
+          <div style="font:300 16px/24px 'Lexend';color:#575757">In a training page, you'll see:</div>
+          <!-- the linked-standard box demo -->
+          <a href="#" style="display:block;text-decoration:none;border:2px solid #2a6fdb;border-radius:12px;background:#e7f0fd;padding:16px 18px;box-shadow:3px 3px 0 #bcd5f7">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2a6fdb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"></path><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"></path></svg>
+              <span style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#2a6fdb">Linked quality standard</span>
+            </div>
+            <div style="font:600 17px/23px 'Lexend';color:#143b78;margin-bottom:3px">Writing questions for checks for understanding</div>
+            <div style="font:300 14px/20px 'Lexend';color:#2a6fdb">View the standard and exemplification →</div>
+          </a>
+          <div style="font:300 13px/19px 'Lexend';color:#575757">Pastel-blue boxes always signal a link out to a connected standard or exemplar.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background:#222;color:#fff;border-top:3px solid #222">
+    <div style="max-width:1240px;margin:0 auto;padding:34px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:14px">
+        <img src="assets/logo-acorn-official.svg" alt="" style="height:30px;width:auto;filter:brightness(0) invert(1)" />
+        <span style="font:300 15px/21px 'Lexend';color:#cacaca;max-width:46ch">Oak Curriculum and Lesson Creation — the internal hub for creating high-quality lessons at Oak.</span>
+      </div>
+      <div style="font:300 14px/20px 'Lexend';color:#9a9a9a">Internal use · Oak National Academy</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { query: "", standards: null };
+
+  componentDidMount() {
+    this._installBundleNav();
+    fetch((window.__resources && window.__resources.qsData) || "data/quality-standards.json")
+      .then(r => r.json())
+      .then(standards => this.setState({ standards }))
+      .catch(() => this.setState({ standards: [] }));
+  }
+
+  // In the bundled single-file build, rewrite cross-page links (incl. dynamic
+  // and deep-linked ones) to the bundler's internal hash route. No-op live.
+  _installBundleNav() {
+    if (typeof window === "undefined" || !window.__bundler_pages) return;
+    if (window.__oakBundleNav) return;
+    window.__oakBundleNav = true;
+    document.addEventListener("click", function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      var m = href.match(/^([^#]+\.dc)\.html(?:#.*)?$/);
+      if (m && window.__bundler_pages.indexOf(m[1]) >= 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        try { parent.location.hash = "#/" + m[1]; } catch (err) { location.hash = "#/" + m[1]; }
+      }
+    }, true);
+  }
+
+  // searchable index of training-course sections (eLearning)
+  courseIndex() {
+    return [
+      { sid: "u1m1s1", module: "Oak lessons", title: "Why Oak lessons matter", kw: "purpose reach classrooms" },
+      { sid: "u1m1s2", module: "Oak lessons", title: "The eight lesson components", kw: "slide deck worksheet quiz video components" },
+      { sid: "u1m1s4", module: "Oak lessons", title: "Lesson structure & vocabulary", kw: "learning cycle outcome outline key learning points" },
+      { sid: "u1m2s1", module: "Curriculum information", title: "What is curriculum information?", kw: "fit it cat curriculum authoring tool" },
+      { sid: "u1m2s3", module: "Curriculum information", title: "Review, create or iterate", kw: "misconceptions outcome cat" },
+      { sid: "u1m3s1", module: "Core considerations", title: "Five areas to consider", kw: "safety safeguarding accessibility" },
+      { sid: "u1m3s2", module: "Core considerations", title: "Accessibility & scaffolding", kw: "send wcag contrast scaffold accessible accessibility" },
+      { sid: "u1m3s3", module: "Core considerations", title: "Diversity", kw: "diversity diverse inclusive language gender stereotypes representation protected characteristics inclusion" },
+      { sid: "u1m3s4", module: "Core considerations", title: "Safety, safeguarding & content guidance", kw: "safeguarding safety content guidance external links age appropriate" },
+      { sid: "m1s2", module: "The learning framework", title: "What is the learning framework?", kw: "learning framework mccrea evidence" },
+      { sid: "m1s3", module: "The learning framework", title: "The seven stages", kw: "fit own frame get use keep check stages" },
+      { sid: "m2s1", module: "High-quality explanation", title: "What is explanation?", kw: "explanation explaining teaching strategy" },
+      { sid: "m2s2", module: "High-quality explanation", title: "Types of knowledge", kw: "declarative procedural conditional knowledge" },
+      { sid: "m2s3", module: "High-quality explanation", title: "Three principles", kw: "connected chunked clear explanation principles" },
+      { sid: "m2s4", module: "High-quality explanation", title: "Delivering explanations", kw: "simple to complex part whole cognitive load small steps" },
+      { sid: "m3s1", module: "Enriching explanation", title: "Six ways to enrich", kw: "examples non-examples images discussion modelling stories analogies" },
+      { sid: "m3s2", module: "Enriching explanation", title: "Worked examples in depth", kw: "worked examples expertise reversal" },
+      { sid: "m4s1", module: "Checks for understanding", title: "What is a check for understanding?", kw: "checks for understanding cfu cfus check responsiveness" },
+      { sid: "m4s2", module: "Checks for understanding", title: "Principles of good CfUs", kw: "checks for understanding cfu cfus mini-whiteboard guessing misconceptions" },
+      { sid: "m4s3", module: "Checks for understanding", title: "Question types", kw: "multiple choice short answer true false why checks cfu" },
+      { sid: "m4s4", module: "Checks for understanding", title: "Feedback", kw: "feedback model response praise checks cfu" },
+    ];
+  }
+
+  renderVals() {
+    const q = (this.state.query || "").trim().toLowerCase();
+    const isSearching = q.length > 0;
+
+    const navLinks = [
+      { label: "Training courses", href: "Oak Course.dc.html" },
+      { label: "Quality standards", href: "Oak Standards.dc.html" },
+      { label: "Rubrics", href: "#" },
+      { label: "Exemplars", href: "#" },
+      { label: "Wiki", href: "#" },
+    ];
+
+    const icon = (paths) => React.createElement("svg", {
+      width: 26, height: 26, viewBox: "0 0 24 24", fill: "none",
+      stroke: "#222", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round"
+    }, paths.map((d, i) => React.createElement("path", { key: i, d })));
+    const iconShapes = (els) => React.createElement("svg", {
+      width: 26, height: 26, viewBox: "0 0 24 24", fill: "none",
+      stroke: "#222", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round"
+    }, els);
+
+    const defs = [
+      {
+        key: "courses", title: "eLearning training courses", bg: "#ebfbeb", iconBg: "#bef2bd",
+        href: "Oak Course.dc.html", count: "1 live", cta: "Start learning",
+        desc: "Self-paced professional courses on how we create lessons — starting with Creating lessons at Oak.",
+        kw: "training course elearning learning module professional development cpd creating lessons",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M22 10L12 5 2 10l10 5 10-5z" }),
+          React.createElement("path", { key: 1, d: "M6 12v5c0 1 3 3 6 3s6-2 6-3v-5" }),
+        ]),
+      },
+      {
+        key: "standards", title: "Quality standards", bg: "#e3e9fb", iconBg: "#a0b6f2",
+        href: "Oak Standards.dc.html", count: "685", cta: "Browse standards",
+        desc: "The benchmarks every piece of content is held to — each with clear exemplification of what good looks like.",
+        kw: "quality standards benchmark checks for understanding writing questions criteria",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M9 11l3 3L22 4" }),
+          React.createElement("path", { key: 1, d: "M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" }),
+        ]),
+      },
+      {
+        key: "rubrics", title: "Rubrics", bg: "#e7f6f5", iconBg: "#b0e2de",
+        href: "#", count: "Hub", cta: "Open rubrics",
+        desc: "Structured grids for reviewing and grading work consistently against agreed criteria.",
+        kw: "rubric grid grading review assessment criteria marking",
+        iconEl: iconShapes([
+          React.createElement("rect", { key: 0, x: 3, y: 3, width: 18, height: 18, rx: 2 }),
+          React.createElement("path", { key: 1, d: "M3 9h18M3 15h18M9 3v18" }),
+        ]),
+      },
+      {
+        key: "exemplars", title: "Exemplars", bg: "#f5e9f2", iconBg: "#deb7d5",
+        href: "#", count: "Hub", cta: "See exemplars",
+        desc: "Worked examples of high-quality content, annotated to show exactly why they work.",
+        kw: "exemplar example worked annotated model best practice",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M12 2l2.4 5 5.6.8-4 3.9 1 5.5L12 19.6 6 17.2l1-5.5-4-3.9L8.6 7z" }),
+        ]),
+      },
+      {
+        key: "wiki", title: "Wiki", bg: "#fff7cc", iconBg: "#ffe555",
+        href: "#", count: "Hub", cta: "Open the wiki",
+        desc: "Shared knowledge, how-tos and definitions — the living reference for how we work at Oak.",
+        kw: "wiki knowledge base reference glossary how to definitions documentation",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M4 19.5A2.5 2.5 0 0 1 6.5 17H20" }),
+          React.createElement("path", { key: 1, d: "M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" }),
+        ]),
+      },
+    ];
+
+    const filtered = isSearching
+      ? defs.filter(d => (d.title.toLowerCase() + " " + d.desc.toLowerCase() + " " + d.kw).includes(q))
+      : defs;
+
+    const destinations = filtered.map(d => ({
+      title: d.title, desc: d.desc, href: d.href, cta: d.cta,
+      count: d.count, hasCount: true,
+      iconEl: d.iconEl,
+      cardStyle: `display:flex;flex-direction:column;text-decoration:none;color:#222;border:3px solid #222;border-radius:18px;background:${d.bg};box-shadow:4px 4px 0 #222;padding:24px 24px 26px;min-height:240px`,
+      iconWrapStyle: `width:54px;height:54px;border-radius:14px;border:2px solid #222;background:${d.iconBg};display:flex;align-items:center;justify-content:center;flex:0 0 auto`,
+    }));
+
+    // ---- global search across training sections + quality standards ----
+    const courseHits = isSearching
+      ? this.courseIndex()
+          .filter(c => (c.title + " " + c.module + " " + c.kw).toLowerCase().includes(q))
+          .map(c => ({ title: c.title, module: c.module, href: `Oak Course.dc.html#section=${c.sid}` }))
+      : [];
+
+    const stds = this.state.standards || [];
+    const stdAll = isSearching
+      ? stds.filter(s => (s.text + " " + s.areas.join(" ") + " " + (s.code || "")).toLowerCase().includes(q))
+      : [];
+    const stdHits = stdAll.slice(0, 8).map(s => ({
+      id: s.id, text: s.text,
+      area: (s.areas[0] || "").replace(/\s*\(CfUs\)/, ""),
+      hasArea: s.areas.length > 0,
+      href: `Oak Standards.dc.html#qs=${s.id}`,
+    }));
+    const stdMoreHref = `Oak Standards.dc.html#q=${encodeURIComponent(this.state.query.trim())}`;
+    const stdMore = stdAll.length > stdHits.length ? (stdAll.length - stdHits.length) : 0;
+
+    const totalResults = filtered.length + courseHits.length + stdAll.length;
+
+    return {
+      query: this.state.query,
+      navLinks,
+      destinations, hasDest: destinations.length > 0,
+      courseHits, hasCourse: courseHits.length > 0,
+      stdHits, hasStd: stdHits.length > 0,
+      stdMore, hasStdMore: stdMore > 0, stdMoreHref,
+      stdLoading: isSearching && this.state.standards === null,
+      isSearching,
+      noResults: isSearching && totalResults === 0 && this.state.standards !== null,
+      showConnect: !isSearching,
+      sectionHeading: isSearching ? `Results for "${this.state.query.trim()}"` : "Explore the hub",
+      onSearch: (e) => this.setState({ query: e.target.value }),
+      clearSearch: () => this.setState({ query: "" }),
+      noop: (e) => { e && e.preventDefault && e.preventDefault(); },
+    };
+  }
+}
+</script>
+</body>
+</html>

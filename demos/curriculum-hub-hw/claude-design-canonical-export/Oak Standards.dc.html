@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="data/quality-standards.json" data-resource-id="qsData" />
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/tokens/fig-tokens.css">
+  <link rel="stylesheet" href="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/colors_and_type.css">
+  <link rel="stylesheet" href="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/styles.css">
+  <script src="_ds/oak-national-academy-design-system-3ddccf31-dab4-48b3-a189-fbd0a03fb423/_ds_bundle.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#f4f3ef}
+    :focus-visible{outline:3px solid #0d24c4;outline-offset:2px;border-radius:3px}
+    ::selection{background:#ffe555}
+    .oak-scroll{scrollbar-width:thin;scrollbar-color:#cacaca transparent}
+    .qs-area{transition:background .12s ease}
+    .qs-area:hover{background:#f0efe9}
+    .qs-card{transition:box-shadow .14s ease, transform .14s ease}
+    .qs-card:hover{transform:translateY(-2px);box-shadow:4px 4px 0 #ffe555}
+  </style>
+</helmet>
+
+<div style="font-family:'Lexend',system-ui,sans-serif;color:#222;background:#f4f3ef;min-height:100vh;display:flex;flex-direction:column">
+
+  <!-- ===== TOP NAV ===== -->
+  <header style="flex:0 0 auto;background:#fff;border-bottom:3px solid #222;z-index:60">
+    <div style="max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:11px 28px">
+      <a href="Oak Hub.dc.html" style="display:flex;align-items:center;flex:0 0 auto;text-decoration:none"><img src="assets/logo-full-official.svg" alt="Oak National Academy" style="height:30px;width:auto" /></a>
+      <a href="Oak Hub.dc.html" style="display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#222;font:600 14px/1 'Lexend';border:2px solid #222;border-radius:100px;background:#fff;padding:8px 14px;box-shadow:2px 2px 0 #ffe555;margin-left:4px"><span style="font-size:16px">←</span> Hub</a>
+      <nav style="display:flex;align-items:center;gap:2px;margin-left:8px">
+        <a href="Oak Course.dc.html" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Training courses</a>
+        <a href="Oak Standards.dc.html" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;background:#f0efe9;white-space:nowrap">Quality standards</a>
+        <a href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Rubrics</a>
+        <a href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Exemplars</a>
+        <a href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Wiki</a>
+      </nav>
+      <div style="margin-left:auto;width:40px;height:40px;border-radius:100px;border:2px solid #222;background:#bef2bd;display:flex;align-items:center;justify-content:center;font:700 14px/1 'Lexend';flex:0 0 auto" title="Your account">CT</div>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HEAD ===== -->
+  <div style="background:#e3e9fb;border-bottom:3px solid #222">
+    <div style="max-width:1320px;margin:0 auto;padding:34px 28px 30px">
+      <div style="font:700 12px/1 'Lexend';letter-spacing:.06em;text-transform:uppercase;color:#575757;margin-bottom:12px">Single source of truth</div>
+      <h1 style="font:600 42px/48px 'Lexend';letter-spacing:.0115rem;margin:0 0 12px;text-wrap:balance">Quality standards</h1>
+      <p style="font:300 19px/28px 'Lexend';letter-spacing:-.005rem;margin:0 0 22px;max-width:72ch">The benchmarks every Oak lesson is held to. Browse and filter by guidance area, rubric and resource — each standard shows exactly where it applies. Links from training courses bring you straight here.</p>
+      <div style="display:flex;align-items:center;gap:10px;border:3px solid #222;border-radius:100px;background:#fff;padding:9px 12px 9px 18px;max-width:560px;box-shadow:3px 3px 0 #ffe555">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#575757" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search standards…" aria-label="Search standards" style="border:none;outline:none;font:300 17px/1 'Lexend';color:#222;background:transparent;width:100%" />
+        <sc-if value="{{ query }}" hint-placeholder-val="{{ false }}"><button onClick="{{ clearQuery }}" aria-label="Clear search" style="flex:0 0 auto;border:none;background:#eee;border-radius:100px;width:26px;height:26px;cursor:pointer;font:700 15px/1 'Lexend';color:#575757">×</button></sc-if>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BODY ===== -->
+  <sc-if value="{{ noDetail }}" hint-placeholder-val="{{ true }}">
+  <div style="max-width:1320px;margin:0 auto;width:100%;display:flex;gap:0;flex:1;min-height:0">
+
+    <!-- FILTER RAIL -->
+    <aside class="oak-scroll" style="flex:0 0 290px;border-right:2px solid #e0ded6;padding:26px 20px 60px;align-self:stretch">
+      <div style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin:0 0 12px">Guidance area</div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ areas }}" as="a" hint-placeholder-count="12">
+          <button class="qs-area" onClick="{{ a.onClick }}" aria-pressed="{{ a.active }}" style="{{ a.style }}">
+            <span style="flex:1;text-align:left">{{ a.label }}</span>
+            <span style="{{ a.countStyle }}">{{ a.count }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </aside>
+
+    <!-- RESULTS -->
+    <main class="oak-scroll" style="flex:1;min-width:0;padding:26px 28px 80px">
+      <!-- focus banner (deep-linked from training) -->
+      <sc-if value="{{ focusMode }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:14px;border:2px solid #2a6fdb;border-radius:12px;background:#e7f0fd;padding:14px 18px;margin-bottom:18px">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a6fdb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"></path><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"></path></svg>
+          <span style="flex:1;font:600 15px/21px 'Lexend';color:#143b78">You followed a link from a training course. Showing the linked quality standard(s) below.</span>
+          <button onClick="{{ returnToTraining }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;border:2px solid #2a6fdb;border-radius:100px;background:#2a6fdb;font:700 13px/1 'Lexend';color:#fff;padding:10px 16px;cursor:pointer"><span style="font-size:16px">←</span> Return to training</button>
+          <button onClick="{{ clearFocus }}" style="flex:0 0 auto;border:2px solid #2a6fdb;border-radius:100px;background:#fff;font:700 13px/1 'Lexend';color:#143b78;padding:9px 15px;cursor:pointer">Browse all standards</button>
+        </div>
+      </sc-if>
+
+      <!-- toolbar -->
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:8px">
+        <div style="font:600 16px/1 'Lexend'">{{ resultLabel }}</div>
+        <sc-if value="{{ hasFilters }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ resetAll }}" style="border:2px solid #222;border-radius:100px;background:#fff;font:600 13px/1 'Lexend';padding:7px 14px;cursor:pointer;box-shadow:2px 2px 0 #ffe555">Reset filters</button>
+        </sc-if>
+      </div>
+
+      <!-- type + rubric chips -->
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0 22px">
+        <span style="font:700 12px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;color:#575757;margin-right:2px">Type</span>
+        <sc-for list="{{ typeChips }}" as="c" hint-placeholder-count="2">
+          <button onClick="{{ c.onClick }}" aria-pressed="{{ c.active }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+        <span style="width:2px;height:22px;background:#e0ded6;margin:0 6px"></span>
+        <span style="font:700 12px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;color:#575757;margin-right:2px">Rubric</span>
+        <sc-for list="{{ rubricChips }}" as="c" hint-placeholder-count="3">
+          <button onClick="{{ c.onClick }}" aria-pressed="{{ c.active }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+
+      <!-- list -->
+      <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:60px;text-align:center;font:300 17px/1 'Lexend';color:#575757">Loading standards…</div>
+      </sc-if>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ results }}" as="r" hint-placeholder-count="6">
+          <div class="qs-card" onClick="{{ r.onOpen }}" role="button" tabindex="0" style="border:2px solid #222;border-radius:14px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:18px 20px;cursor:pointer">
+            <div style="display:flex;align-items:flex-start;gap:14px">
+              <span style="flex:0 0 auto;font:700 12px/1 'Lexend';color:#143b78;background:#e7f0fd;border:2px solid #2a6fdb;border-radius:6px;padding:6px 9px">{{ r.qsId }}</span>
+              <span style="{{ r.typeStyle }}">{{ r.typeLabel }}</span>
+              <p style="flex:1;font:300 18px/26px 'Lexend';letter-spacing:-.005rem;margin:0">{{ r.text }}</p>
+              <sc-if value="{{ r.hasCode }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto;font:700 12px/1 'Lexend';color:#575757;border:2px solid #e0ded6;border-radius:6px;padding:5px 8px">{{ r.code }}</span></sc-if>
+              <span style="flex:0 0 auto;align-self:center;color:#575757;font-size:22px;font-weight:700">›</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:13px;padding-top:13px;border-top:1px dashed #e0ded6">
+              <sc-for list="{{ r.areaTags }}" as="t" hint-placeholder-count="1">
+                <span style="{{ t.style }}">{{ t.label }}</span>
+              </sc-for>
+              <sc-for list="{{ r.compTags }}" as="t" hint-placeholder-count="2">
+                <span style="display:inline-flex;align-items:center;gap:5px;font:300 12px/1 'Lexend';color:#575757;border:1px solid #e0ded6;border-radius:100px;padding:5px 10px">{{ t }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:22px">
+          <button onClick="{{ loadMore }}" style="border:2px solid #222;border-radius:100px;background:#222;color:#fff;font:700 15px/1 'Lexend';padding:12px 22px;cursor:pointer;box-shadow:2px 2px 0 #ffe555">{{ moreLabel }}</button>
+          <button onClick="{{ showAll }}" style="border:2px solid #222;border-radius:100px;background:#fff;color:#222;font:700 15px/1 'Lexend';padding:12px 22px;cursor:pointer">{{ showAllLabel }}</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+        <div style="border:2px dashed #cacaca;border-radius:16px;background:#fff;padding:44px;text-align:center">
+          <div style="font:600 20px/26px 'Lexend';margin-bottom:6px">No standards match your filters</div>
+          <p style="font:300 16px/24px 'Lexend';color:#575757;margin:0 0 16px">Try clearing a filter or searching for a different term.</p>
+          <button onClick="{{ resetAll }}" style="border:2px solid #222;border-radius:100px;background:#222;color:#fff;font:700 14px/1 'Lexend';padding:10px 18px;cursor:pointer">Reset filters</button>
+        </div>
+      </sc-if>
+    </main>
+  </div>
+  </sc-if>
+
+  <!-- ===== DETAIL / EXEMPLIFICATION VIEW ===== -->
+  <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+    <div class="oak-scroll" style="flex:1;min-height:0;overflow-y:auto">
+      <div style="max-width:980px;margin:0 auto;padding:24px 28px 90px">
+
+        <button onClick="{{ closeDetail }}" style="display:inline-flex;align-items:center;gap:8px;border:2px solid #222;border-radius:100px;background:#fff;font:700 14px/1 'Lexend';padding:10px 16px;cursor:pointer;box-shadow:2px 2px 0 #ffe555;margin-bottom:22px"><span style="font-size:16px">←</span> Back to results</button>
+
+        <!-- statement card -->
+        <div style="border:3px solid #222;border-radius:18px;background:#fff;box-shadow:4px 4px 0 #222;overflow:hidden">
+          <div style="background:#e3e9fb;border-bottom:3px solid #222;padding:24px 30px">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+              <span style="font:700 13px/1 'Lexend';color:#143b78;background:#fff;border:2px solid #2a6fdb;border-radius:8px;padding:7px 11px">{{ detail.id }}</span>
+              <span style="{{ detail.typeStyle }}">{{ detail.typeLabel }}</span>
+              <sc-if value="{{ detail.hasCode }}" hint-placeholder-val="{{ false }}"><span style="font:700 12px/1 'Lexend';color:#575757;background:#fff;border:2px solid #e0ded6;border-radius:6px;padding:6px 9px">Rubric code · {{ detail.code }}</span></sc-if>
+            </div>
+            <div style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:8px">The standard</div>
+            <p style="font:600 26px/34px 'Lexend';letter-spacing:.0115rem;margin:0;text-wrap:pretty">{{ detail.text }}</p>
+          </div>
+
+          <!-- meta grid -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border-bottom:2px solid #e0ded6">
+            <div style="padding:18px 22px;border-right:2px solid #e0ded6">
+              <div style="font:700 11px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:10px">Guidance area</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ detail.areaTags }}" as="t" hint-placeholder-count="1"><span style="{{ t.style }}">{{ t.label }}</span></sc-for>
+              </div>
+            </div>
+            <div style="padding:18px 22px;border-right:2px solid #e0ded6">
+              <div style="font:700 11px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:10px">Applies to</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ detail.components }}" as="c" hint-placeholder-count="2"><span style="font:300 13px/1 'Lexend';color:#222;border:1px solid #e0ded6;border-radius:100px;padding:6px 11px">{{ c }}</span></sc-for>
+              </div>
+            </div>
+            <div style="padding:18px 22px">
+              <div style="font:700 11px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:10px">Assessed in rubric</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ detail.rubrics }}" as="rb" hint-placeholder-count="1"><span style="font:600 13px/1 'Lexend';color:#222;background:#fff7cc;border:2px solid #222;border-radius:100px;padding:6px 11px">{{ rb }}</span></sc-for>
+              </div>
+            </div>
+          </div>
+
+          <!-- exemplification -->
+          <div style="padding:28px 30px 32px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <h2 style="font:600 24px/30px 'Lexend';letter-spacing:.0115rem;margin:0">Exemplification</h2>
+              <span style="font:700 11px/1 'Lexend';letter-spacing:.03em;text-transform:uppercase;color:#8a6d00;background:#fff7cc;border:2px solid #fbd60e;border-radius:100px;padding:5px 10px">To be added</span>
+            </div>
+            <p style="font:300 16px/24px 'Lexend';color:#575757;margin:0 0 22px;max-width:70ch">This is where the worked exemplification lives — what meeting this standard looks like in practice. The placeholders below show the shape; drop in real guidance, annotated examples and media as you build it out.</p>
+
+            <div style="border:2px solid #222;border-radius:14px;background:#ebfbeb;padding:18px 20px;margin-bottom:16px">
+              <div style="font:700 12px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;color:#287c34;margin-bottom:8px">What good looks like</div>
+              <p style="font:300 16px/24px 'Lexend';color:#222;margin:0">Add a short description of how this standard is met well — the key things a reviewer should see.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+              <div style="border:2px solid #287c34;border-radius:14px;overflow:hidden">
+                <div style="background:#287c34;color:#fff;font:700 14px/1 'Lexend';padding:11px 16px">✓ Example</div>
+                <div style="padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:150px;background:#f4fbf4;text-align:center;gap:8px">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#287c34" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.6"></circle><path d="M21 15l-5-5L5 21"></path></svg>
+                  <span style="font:300 13px/19px 'Lexend';color:#575757">Annotated example of the standard met</span>
+                </div>
+              </div>
+              <div style="border:2px solid #dd0035;border-radius:14px;overflow:hidden">
+                <div style="background:#dd0035;color:#fff;font:700 14px/1 'Lexend';padding:11px 16px">✕ Non-example</div>
+                <div style="padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:150px;background:#fdf2f5;text-align:center;gap:8px">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#dd0035" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.6"></circle><path d="M21 15l-5-5L5 21"></path></svg>
+                  <span style="font:300 13px/19px 'Lexend';color:#575757">What falling short looks like</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="border:2px dashed #cacaca;border-radius:14px;background:#fff;padding:18px 20px">
+              <div style="font:700 12px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;color:#575757;margin-bottom:8px">Guidance notes</div>
+              <p style="font:300 16px/24px 'Lexend';color:#575757;margin:0">Add any nuance, edge cases or subject-specific notes here — and link out to relevant exemplar lessons or the wiki.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- related -->
+        <sc-if value="{{ detail.hasRelated }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:30px">
+            <h2 style="font:600 20px/26px 'Lexend';letter-spacing:.0115rem;margin:0 0 14px">Related standards in this area</h2>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ detail.related }}" as="rel" hint-placeholder-count="3">
+                <button onClick="{{ rel.onOpen }}" style="display:flex;align-items:center;gap:14px;text-align:left;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:14px 16px;cursor:pointer">
+                  <span style="flex:0 0 auto;font:700 12px/1 'Lexend';color:#143b78;background:#e7f0fd;border:2px solid #2a6fdb;border-radius:6px;padding:6px 9px">{{ rel.id }}</span>
+                  <span style="flex:1;font:300 16px/22px 'Lexend'">{{ rel.text }}</span>
+                  <span style="flex:0 0 auto;color:#575757;font-size:20px;font-weight:700">›</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { all: null, query: "", area: "all", type: "all", rubric: "all", qsIds: null, openId: null, limit: 100 };
+
+  _installBundleNav() {
+    if (typeof window === "undefined" || !window.__bundler_pages) return;
+    if (window.__oakBundleNav) return;
+    window.__oakBundleNav = true;
+    document.addEventListener("click", function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      var m = href.match(/^([^#]+\.dc)\.html(?:#.*)?$/);
+      if (m && window.__bundler_pages.indexOf(m[1]) >= 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        try { parent.location.hash = "#/" + m[1]; } catch (err) { location.hash = "#/" + m[1]; }
+      }
+    }, true);
+  }
+
+  componentDidMount() {
+    this._installBundleNav();
+    // deep links from training: #qs=QS-460,QS-390  or  #area=Checks for Understanding (CfUs)
+    try {
+      const h = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+      const mq = h.match(/qs=([^&]+)/);
+      if (mq) this.setState({ qsIds: mq[1].split(",").map(s => s.trim()).filter(Boolean) });
+      const mquery = h.match(/q=([^&]+)/);
+      if (mquery) this.setState({ query: mquery[1] });
+      const ma = h.match(/area=(.+)/);
+      if (ma) this.setState({ area: ma[1] });
+    } catch (e) {}
+    fetch((window.__resources && window.__resources.qsData) || "data/quality-standards.json")
+      .then(r => r.json())
+      .then(all => this.setState({ all }))
+      .catch(() => this.setState({ all: [] }));
+  }
+
+  _palette(i) {
+    const p = ["#bef2bd", "#a0b6f2", "#b0e2de", "#deb7d5", "#fff2aa", "#ffc8a6", "#cdbdf2", "#93e892", "#7cd8d0"];
+    return p[i % p.length];
+  }
+
+  renderVals() {
+    const st = this.state;
+    const loading = st.all === null;
+    const all = st.all || [];
+    const q = st.query.trim().toLowerCase();
+
+    // build guidance-area list with stable colour index
+    const areaOrder = [];
+    const areaColor = {};
+    all.forEach(r => r.areas.forEach(a => { if (!(a in areaColor)) { areaColor[a] = this._palette(areaOrder.length); areaOrder.push(a); } }));
+    areaOrder.sort((a, b) => a.localeCompare(b));
+
+    // active-area filter predicate
+    const matchArea = (r) => st.area === "all" || r.areas.includes(st.area) || (st.area === "_none" && r.areas.length === 0);
+    const matchType = (r) => st.type === "all" || r.type === st.type;
+    const matchRubric = (r) => st.rubric === "all" || r.rubrics.includes(st.rubric);
+    const matchQ = (r) => !q || (r.text.toLowerCase().includes(q) || r.code.toLowerCase().includes(q) || r.areas.join(" ").toLowerCase().includes(q));
+
+    const focusIds = (st.qsIds && st.qsIds.length) ? st.qsIds : null;
+    const filtered = focusIds
+      ? all.filter(r => focusIds.includes(r.id)).sort((a, b) => focusIds.indexOf(a.id) - focusIds.indexOf(b.id))
+      : all.filter(r => matchArea(r) && matchType(r) && matchRubric(r) && matchQ(r));
+
+    // area rail counts respect type+rubric+query but not area itself
+    const baseForCounts = all.filter(r => matchType(r) && matchRubric(r) && matchQ(r));
+    const areaCount = {};
+    baseForCounts.forEach(r => r.areas.forEach(a => { areaCount[a] = (areaCount[a] || 0) + 1; }));
+
+    const areaBtnStyle = (active) => `display:flex;align-items:center;gap:8px;width:100%;border:none;background:${active ? "#222" : "transparent"};color:${active ? "#fff" : "#222"};border-radius:8px;padding:9px 11px;cursor:pointer;font:${active ? 700 : 300} 14px/18px 'Lexend';text-align:left`;
+    const countStyle = (active) => `flex:0 0 auto;font:700 11px/1 'Lexend';border-radius:100px;padding:4px 8px;background:${active ? "rgba(255,255,255,.2)" : "#eceae3"};color:${active ? "#fff" : "#575757"}`;
+
+    const areas = [
+      { label: "All standards", count: baseForCounts.length, active: st.area === "all", onClick: () => this.setState({ area: "all", qsIds: null, limit: 100 }), style: areaBtnStyle(st.area === "all"), countStyle: countStyle(st.area === "all") },
+      ...areaOrder.map(a => ({
+        label: a.replace(/\s*\(CfUs\)/, ""), count: areaCount[a] || 0, active: st.area === a,
+        onClick: () => this.setState({ area: a, qsIds: null, limit: 100 }), style: areaBtnStyle(st.area === a), countStyle: countStyle(st.area === a),
+      })),
+    ];
+
+    const chipStyle = (active) => `border:2px solid #222;border-radius:100px;background:${active ? "#222" : "#fff"};color:${active ? "#fff" : "#222"};font:700 13px/1 'Lexend';padding:8px 14px;cursor:pointer`;
+    const typeChips = [
+      { label: "All", active: st.type === "all", onClick: () => this.setState({ type: "all", qsIds: null, limit: 100 }), style: chipStyle(st.type === "all") },
+      { label: "Required standard", active: st.type === "Required standard", onClick: () => this.setState({ type: "Required standard", qsIds: null, limit: 100 }), style: chipStyle(st.type === "Required standard") },
+      { label: "Model practice", active: st.type === "Model Practice", onClick: () => this.setState({ type: "Model Practice", qsIds: null, limit: 100 }), style: chipStyle(st.type === "Model Practice") },
+    ];
+    const rubricList = ["Pedagogical Rubric", "Technical Rubric", "Curriculum and Lesson Specification - Annex B"];
+    const rubricChips = [
+      { label: "All", active: st.rubric === "all", onClick: () => this.setState({ rubric: "all", qsIds: null, limit: 100 }), style: chipStyle(st.rubric === "all") },
+      ...rubricList.map(rb => ({ label: rb.replace("Curriculum and Lesson Specification - ", "").replace(" Rubric", ""), active: st.rubric === rb, onClick: () => this.setState({ rubric: rb, qsIds: null, limit: 100 }), style: chipStyle(st.rubric === rb) })),
+    ];
+
+    const limit = focusIds ? filtered.length : st.limit;
+    const shown = filtered.slice(0, limit);
+    const hasMore = filtered.length > shown.length;
+    const remaining = filtered.length - shown.length;
+    const nextStep = Math.min(100, remaining);
+    const results = shown.map(r => {
+      const isReq = r.type === "Required standard";
+      return {
+        text: r.text,
+        qsId: r.id,
+        onOpen: () => { try { window.scrollTo(0, 0); } catch (e) {} this.setState({ openId: r.id }); },
+        code: r.code, hasCode: !!r.code,
+        typeLabel: isReq ? "Required" : (r.type === "Model Practice" ? "Model" : "—"),
+        typeStyle: `flex:0 0 auto;font:700 11px/1 'Lexend';letter-spacing:.03em;text-transform:uppercase;border-radius:100px;padding:6px 10px;border:2px solid #222;${isReq ? "background:#ffe555;color:#222" : "background:#e3e9fb;color:#222"}`,
+        areaTags: r.areas.map(a => ({ label: a.replace(/\s*\(CfUs\)/, ""), style: `font:700 12px/1 'Lexend';border:2px solid #222;border-radius:100px;padding:5px 10px;background:${areaColor[a] || "#eee"}` })),
+        compTags: r.components,
+      };
+    });
+
+    const hasFilters = st.area !== "all" || st.type !== "all" || st.rubric !== "all" || !!q;
+
+    // ---- detail / exemplification view ----
+    let detail = null;
+    if (st.openId) {
+      const r = all.find(x => x.id === st.openId);
+      if (r) {
+        const isReq = r.type === "Required standard";
+        const related = all
+          .filter(x => x.id !== r.id && x.areas.some(a => r.areas.includes(a)))
+          .slice(0, 6)
+          .map(x => ({ id: x.id, text: x.text, onOpen: () => { try { window.scrollTo(0, 0); } catch (e) {} this.setState({ openId: x.id }); } }));
+        detail = {
+          id: r.id,
+          text: r.text,
+          typeLabel: isReq ? "Required standard" : (r.type === "Model Practice" ? "Model practice" : "Standard"),
+          typeStyle: `font:700 11px/1 'Lexend';letter-spacing:.03em;text-transform:uppercase;border-radius:100px;padding:7px 12px;border:2px solid #222;${isReq ? "background:#ffe555" : "background:#e3e9fb"};color:#222`,
+          code: r.code, hasCode: !!r.code,
+          state: r.state,
+          areas: r.areas.length ? r.areas : ["—"],
+          areaTags: r.areas.map(a => ({ label: a.replace(/\s*\(CfUs\)/, ""), style: `font:700 13px/1 'Lexend';border:2px solid #222;border-radius:100px;padding:7px 12px;background:${areaColor[a] || "#eee"}` })),
+          components: r.components.length ? r.components : ["—"],
+          rubrics: r.rubrics.length ? r.rubrics : ["—"],
+          hasSubject: !!r.subject, subject: r.subject,
+          related, hasRelated: related.length > 0,
+        };
+      }
+    }
+
+    return {
+      loading,
+      query: st.query,
+      areas, typeChips, rubricChips,
+      results,
+      detail, hasDetail: !!detail, noDetail: !detail,
+      closeDetail: () => this.setState({ openId: null }),
+      focusMode: !!focusIds,
+      noResults: !loading && filtered.length === 0,
+      hasFilters,
+      hasMore,
+      moreLabel: `Show ${nextStep} more`,
+      showAllLabel: `Show all ${filtered.length}`,
+      loadMore: () => this.setState(s => ({ limit: s.limit + 100 })),
+      showAll: () => this.setState({ limit: Infinity }),
+      resultLabel: loading ? "Loading…" : (focusIds ? `Linked from training · ${filtered.length} standard${filtered.length === 1 ? "" : "s"}` : (hasMore ? `Showing ${shown.length} of ${filtered.length} standards` : `${filtered.length} standard${filtered.length === 1 ? "" : "s"}`)),
+      onSearch: (e) => this.setState({ query: e.target.value, limit: 100 }),
+      clearQuery: () => this.setState({ query: "" }),
+      clearFocus: () => { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} this.setState({ qsIds: null }); },
+      returnToTraining: () => { if (window.__bundler_pages && window.__bundler_pages.indexOf("Oak Course.dc") >= 0) { try { parent.location.hash = "#/Oak Course.dc"; } catch (e) { location.hash = "#/Oak Course.dc"; } return; } const ref = document.referrer || ""; if (window.history.length > 1 && /Oak(%20| )Course/.test(ref)) { history.back(); } else { location.href = "Oak Course.dc.html"; } },
+      resetAll: () => { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {} this.setState({ query: "", area: "all", type: "all", rubric: "all", qsIds: null }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -60,3 +60,14 @@ authoring pass (deferred under one-context budget — graduate next consolidatio
   → these findings **supersede** the current draft in `session-context-usage-cli.plan.md` (which still
   keys variant resolution off `message.model` and treats harness-`%` as a future note); updating that
   plan is a synthesis-phase task. Conserved here + in the archived napkin.
+- **A gate verdict needs the FULL gate scope, never a predecessor's narrow subset.** A truthful
+  "lint 0/0" / "green" scoped to a subset (e.g. `eslint scripts/ lib/course/`) can hide warnings a
+  full `eslint .` / `pnpm check` surfaces — and the narrow scope PROPAGATES agent-to-agent (one
+  reports it narrow, the next re-runs the same narrow scope). Run the full-scope gate before asserting
+  green or counting a slice done. (curriculum-hub-demo 2026-07-01: 2 `no-throw` warnings hidden by a
+  narrow subset, caught only on a successor's full `eslint .`.) Sibling of [[verify-own-explanations-against-full-source]].
+- **Comms/CLI bodies with backticks or `$`: reflex `--body-file`, never inline `--body`.** The shell
+  runs command-substitution inside a double-quoted `--body "…\`x\`…"` and silently STRIPS the
+  backticked tokens — corrupting the written content (worst case: claim IDs stripped from an adoption
+  instruction). The `--body-file` cure is documented but recurs under time pressure; make it the
+  default for any body with backticks/dollar signs.

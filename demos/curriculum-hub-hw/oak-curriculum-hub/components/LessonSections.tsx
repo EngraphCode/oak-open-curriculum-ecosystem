@@ -1,0 +1,81 @@
+import type { ReactElement } from 'react';
+
+/** A single lesson keyword and its pupil-facing definition (C4 pedagogy seam). */
+export interface LessonKeyword {
+  keyword: string;
+  description: string;
+}
+
+/**
+ * Subject · key stage · unit kicker shown above the lesson title. Renders nothing when no
+ * context is available (all fields absent) — the lesson view degrades cleanly to just the title.
+ */
+export function ContextStrip({
+  subject,
+  keyStage,
+  unit,
+}: {
+  subject: string | null;
+  keyStage: string | null;
+  unit: string | null;
+}): ReactElement | null {
+  const parts = [subject, keyStage, unit].filter((p): p is string => p !== null);
+  if (parts.length === 0) {
+    return null;
+  }
+  return (
+    <p className="mt-[18px] flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-bold uppercase tracking-[0.05em] text-oak-navy">
+      {parts.map((part, i) => (
+        <span key={part} className="flex items-center gap-2">
+          {part}
+          {i < parts.length - 1 && (
+            <span aria-hidden className="text-oak-grey-line">
+              /
+            </span>
+          )}
+        </span>
+      ))}
+    </p>
+  );
+}
+
+/** The lesson's key learning points as a bulleted list. Rendered only when non-empty. */
+export function KeyLearningPoints({ points }: { points: readonly string[] }): ReactElement {
+  return (
+    <section className="mb-6">
+      <h2 className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">
+        Key learning points
+      </h2>
+      <ul className="flex flex-col gap-2">
+        {points.map((point) => (
+          <li
+            key={point}
+            className="flex gap-2.5 text-[15px] font-light leading-relaxed text-oak-black"
+          >
+            <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-oak-navy" />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** The lesson's keyword glossary as a definition list. Rendered only when non-empty. */
+export function Keywords({ items }: { items: readonly LessonKeyword[] }): ReactElement {
+  return (
+    <section className="mb-6">
+      <h2 className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">Keywords</h2>
+      <dl className="flex flex-col gap-3 rounded-xl border-2 border-oak-black bg-white px-5 py-4">
+        {items.map((k) => (
+          <div key={k.keyword} className="flex flex-col gap-0.5">
+            <dt className="text-[15px] font-semibold text-oak-black">{k.keyword}</dt>
+            <dd className="m-0 text-[14px] font-light leading-relaxed text-oak-grey">
+              {k.description}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}

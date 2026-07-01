@@ -1,6 +1,12 @@
 import type { ReactElement } from 'react';
 import Link from 'next/link';
-import { isLessonContent, type LessonContent } from '@/lib/curriculum';
+import { getLesson, type LessonContent } from '@/lib/curriculum';
+import {
+  ContextStrip,
+  KeyLearningPoints,
+  Keywords,
+  type LessonKeyword,
+} from '@/components/LessonSections';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,16 +17,15 @@ type Assets = LessonContent['assets'];
 interface LessonView {
   title: string;
   hasContent: boolean;
+  subject: string | null;
+  keyStage: string | null;
+  unit: string | null;
   outcome: string | null;
+  keyLearningPoints: readonly string[];
+  keywords: readonly LessonKeyword[];
   quiz: { starter: number; exit: number } | null;
   assets: readonly { type: string; label: string }[];
   oakUrl: string | undefined;
-}
-
-async function fetchLesson(slug: string, base: string): Promise<unknown> {
-  const res = await fetch(`${base}/api/lesson/${slug}`, { cache: 'no-store' });
-  const json: unknown = await res.json();
-  return json;
 }
 
 function resolveTitle(summary: Summary, slug: string): string {
@@ -29,6 +34,22 @@ function resolveTitle(summary: Summary, slug: string): string {
 
 function resolveOutcome(summary: Summary): string | null {
   return summary?.pupilLessonOutcome ?? null;
+}
+
+// The pedagogy fields (C4 seam) are optional at the top level and typed-not-runtime-validated,
+// so each is guarded for absence; `.at(0)` yields `T | undefined` so the unit chain stays honest.
+function resolveUnit(summary: Summary): string | null {
+  return summary?.units?.at(0)?.unitTitle ?? null;
+}
+
+function resolveKeyLearningPoints(summary: Summary): readonly string[] {
+  return (summary?.keyLearningPoints ?? [])
+    .map((k) => k.keyLearningPoint)
+    .filter((point) => point.trim() !== '');
+}
+
+function resolveKeywords(summary: Summary): readonly LessonKeyword[] {
+  return (summary?.lessonKeywords ?? []).filter((k) => k.keyword.trim() !== '');
 }
 
 // Oak gates downloads behind signed URLs, so the demo links out to the lesson
@@ -48,15 +69,36 @@ function resolveAssets(assets: Assets): readonly { type: string; label: string }
   return assets?.assets ?? [];
 }
 
-function buildLessonView(data: unknown, slug: string): LessonView {
-  const lesson = isLessonContent(data) ? data : null;
-  const summary = lesson?.summary ?? null;
-  const assets = lesson?.assets ?? null;
+function resolveSubject(summary: Summary): string | null {
+  return summary?.subjectTitle ?? null;
+}
+
+function resolveKeyStage(summary: Summary): string | null {
+  return summary?.keyStageTitle ?? null;
+}
+
+// Split the lesson content into its three parts once, so buildLessonView stays a thin
+// assembler over the resolvers (keeps its cyclomatic complexity within the strict ceiling).
+function splitLesson(lesson: LessonContent | null): { summary: Summary; quiz: Quiz; assets: Assets } {
+  return {
+    summary: lesson?.summary ?? null,
+    quiz: lesson?.quiz ?? null,
+    assets: lesson?.assets ?? null,
+  };
+}
+
+function buildLessonView(data: LessonContent | null, slug: string): LessonView {
+  const { summary, quiz, assets } = splitLesson(data);
   return {
     title: resolveTitle(summary, slug),
     hasContent: summary !== null,
+    subject: resolveSubject(summary),
+    keyStage: resolveKeyStage(summary),
+    unit: resolveUnit(summary),
     outcome: resolveOutcome(summary),
-    quiz: resolveQuiz(lesson?.quiz ?? null),
+    keyLearningPoints: resolveKeyLearningPoints(summary),
+    keywords: resolveKeywords(summary),
+    quiz: resolveQuiz(quiz),
     assets: resolveAssets(assets),
     oakUrl: resolveOakUrl(summary, assets),
   };
@@ -68,9 +110,12 @@ export default async function LessonPage({
   params: Promise<{ slug: string }>;
 }): Promise<ReactElement> {
   const { slug } = await params;
-  // Server component → call our own route via absolute URL.
-  const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3010';
-  const view = buildLessonView(await fetchLesson(slug, base), slug);
+  // Server Component: read the data layer directly. Both react.dev and Next.js 16
+  // direct a Server Component to call its data function (credentials stay server-side),
+  // not to HTTP-fetch its own Route Handler — which adds a needless hop and breaks off
+  // localhost. A failed Result degrades to the "content unavailable" state.
+  const result = await getLesson(slug);
+  const view = buildLessonView(result.ok ? result.value : null, slug);
 
   return (
     <main className="mx-auto max-w-[760px] px-6 pt-10 pb-20">
@@ -78,7 +123,9 @@ export default async function LessonPage({
         ← Back to search
       </Link>
 
-      <h1 className="mt-[18px] mb-2.5 text-[30px] font-semibold leading-tight">{view.title}</h1>
+      <ContextStrip subject={view.subject} keyStage={view.keyStage} unit={view.unit} />
+
+      <h1 className="mt-2.5 mb-2.5 text-[30px] font-semibold leading-tight">{view.title}</h1>
 
       {!view.hasContent && (
         <p className="text-[15px] font-light leading-relaxed text-oak-grey">
@@ -89,6 +136,10 @@ export default async function LessonPage({
       {view.outcome && (
         <p className="mb-6 text-[17px] font-light leading-relaxed text-oak-black">{view.outcome}</p>
       )}
+
+      {view.keyLearningPoints.length > 0 && <KeyLearningPoints points={view.keyLearningPoints} />}
+
+      {view.keywords.length > 0 && <Keywords items={view.keywords} />}
 
       {view.quiz && <QuizStats starter={view.quiz.starter} exit={view.quiz.exit} />}
 

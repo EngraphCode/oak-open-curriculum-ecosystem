@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<script src="3bf02c4a-4153-4a04-a33d-2db027397525"></script>
+</head>
+
+<body>
+<x-dc>
+<helmet>
+  <style>/* Generated from Figma Variables. First mode = :root default.
+   FLOAT tokens are unitless — multiply by 1px in calc() where a length is needed. */
+
+:root {
+  --border-radius-border-radius-circle: 100;
+  --border-radius-border-radius-l: 16;
+  --border-radius-border-radius-m2: 8;
+  --border-radius-border-radius-m: 6;
+  --border-radius-border-radius-s: 4;
+  --border-radius-border-radius-square: 0;
+  --border-radius-border-radius-xl: 24;
+  --border-radius-border-radius-xs: 2;
+  --border-width-border-solid-l: 3; /* @kind spacing */
+  --border-width-border-solid-m: 2; /* @kind spacing */
+  --border-width-border-solid-s: 1; /* @kind spacing */
+  --border-width-border-solid-xl: 4; /* @kind spacing */
+  --border-width-border-solid-xxl: 6; /* @kind spacing */
+  --border-width-border-solid-xxxl: 8; /* @kind spacing */
+  --border-width-border-solid-xxxxl: 10; /* @kind spacing */
+  --border-width-border-width-none: 0; /* @kind spacing */
+  --grey-80: rgb(27,27,27); /* @kind color */
+  --lesson-variables-lesson-count: "Lesson 1"; /* @kind other */
+  --opaque: rgb(34,34,34); /* @kind color */
+  --primitives-brand-aqua110: rgb(124,216,208); /* @kind color */
+  --primitives-brand-aqua30: rgb(231,246,245); /* @kind color */
+  --primitives-brand-aqua50: rgb(215,241,239); /* @kind color */
+  --primitives-brand-aqua: rgb(176,226,222); /* @kind color */
+  --primitives-brand-black: rgb(34,34,34); /* @kind color */
+  --primitives-brand-blacksemitransparent: rgba(34,34,34,0.25); /* @kind color */
+  --primitives-brand-dark-amber110: rgb(133,68,27); /* @kind color */
+  --primitives-brand-dark-amber30: rgb(72,47,32); /* @kind color */
+  --primitives-brand-dark-amber50: rgb(80,50,32); /* @kind color */
+  --primitives-brand-dark-amber: rgb(102,56,29); /* @kind color */
+  --primitives-brand-dark-aqua110: rgb(0,116,106); /* @kind color */
+  --primitives-brand-dark-aqua30: rgb(22,45,42); /* @kind color */
+  --primitives-brand-dark-aqua50: rgb(22,54,50); /* @kind color */
+  --primitives-brand-dark-aqua: rgb(12,86,81); /* @kind color */
+  --primitives-brand-dark-lavendar110: rgb(35,67,165); /* @kind color */
+  --primitives-brand-dark-lavendar30: rgb(48,52,68); /* @kind color */
+  --primitives-brand-dark-lavendar50: rgb(55,64,97); /* @kind color */
+  --primitives-brand-dark-lavendar: rgb(56,72,139); /* @kind color */
+  --primitives-brand-dark-lemon110: rgb(122,105,0); /* @kind color */
+  --primitives-brand-dark-lemon30: rgb(60,56,32); /* @kind color */
+  --primitives-brand-dark-lemon50: rgb(73,66,26); /* @kind color */
+  --primitives-brand-dark-lemon: rgb(100,88,17); /* @kind color */
+  --primitives-brand-dark-mint110: rgb(48,109,65); /* @kind color */
+  --primitives-brand-dark-mint30: rgb(32,43,35); /* @kind color */
+  --primitives-brand-dark-mint50: rgb(37,55,42); /* @kind color */
+  --primitives-brand-dark-mint: rgb(46,83,56); /* @kind color */
+  --primitives-brand-dark-pink110: rgb(140,22,109); /* @kind color */
+  --primitives-brand-dark-pink30: rgb(63,33,55); /* @kind color */
+  --primitives-brand-dark-pink50: rgb(79,35,65); /* @kind color */
+  --primitives-brand-dark-pink: rgb(114,34,92); /* @kind color */
+  --primitives-brand-grey10: rgb(249,249,249); /* @kind color */
+  --primitives-brand-grey20: rgb(242,242,242); /* @kind color */
+  --primitives-brand-grey30: rgb(228,228,228); /* @kind color */
+  --primitives-brand-grey40: rgb(202,202,202); /* @kind color */
+  --primitives-brand-grey50: rgb(128,128,128); /* @kind color */
+  --primitives-brand-grey60: rgb(87,87,87); /* @kind color */
+  --primitives-brand-grey70: rgb(45,45,45); /* @kind color */
+  --primitives-brand-lavender110: rgb(124,154,236); /* @kind color */
+  --primitives-brand-lavender30: rgb(227,233,251); /* @kind color */
+  --primitives-brand-lavender50: rgb(189,205,245); /* @kind color */
+  --primitives-brand-lavender: rgb(160,182,242); /* @kind color */
+  --primitives-brand-lemon110: rgb(251,214,14); /* @kind color */
+  --primitives-brand-lemon30: rgb(255,247,204); /* @kind color */
+  --primitives-brand-lemon50: rgb(255,242,170); /* @kind color */
+  --primitives-brand-lemon: rgb(255,229,85); /* @kind color */
+  --primitives-brand-mint110: rgb(147,232,146); /* @kind color */
+  --primitives-brand-mint30: rgb(235,251,235); /* @kind color */
+  --primitives-brand-mint50: rgb(223,249,222); /* @kind color */
+  --primitives-brand-mint: rgb(190,242,189); /* @kind color */
+  --primitives-brand-pink110: rgb(207,156,195); /* @kind color */
+  --primitives-brand-pink30: rgb(245,233,242); /* @kind color */
+  --primitives-brand-pink50: rgb(239,219,234); /* @kind color */
+  --primitives-brand-pink: rgb(222,183,213); /* @kind color */
+  --primitives-brand-white: rgb(255,255,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-blue: rgb(158,232,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-green: rgb(148,249,175); /* @kind color */
+  --primitives-code-only-rpf-syntax-grey: rgb(251,251,251); /* @kind color */
+  --primitives-code-only-rpf-syntax-pink: rgb(238,204,255); /* @kind color */
+  --primitives-functional-amber30: rgb(255,236,224); /* @kind color */
+  --primitives-functional-amber50: rgb(255,200,166); /* @kind color */
+  --primitives-functional-amber: rgb(255,147,78); /* @kind color */
+  --primitives-functional-green: rgb(40,124,52); /* @kind color */
+  --primitives-functional-navy110: rgb(10,29,157); /* @kind color */
+  --primitives-functional-navy120: rgb(8,22,118); /* @kind color */
+  --primitives-functional-navy: rgb(13,36,196); /* @kind color */
+  --primitives-functional-red30: rgb(248,216,224); /* @kind color */
+  --primitives-functional-red50: rgb(238,128,154); /* @kind color */
+  --primitives-functional-red: rgb(221,0,53); /* @kind color */
+  --primitives-spacing-spacing-0: 0;
+  --primitives-spacing-spacing-100: 100;
+  --primitives-spacing-spacing-120: 120;
+  --primitives-spacing-spacing-1280: 1280;
+  --primitives-spacing-spacing-12: 12;
+  --primitives-spacing-spacing-1360: 1360;
+  --primitives-spacing-spacing-160: 160;
+  --primitives-spacing-spacing-16: 16;
+  --primitives-spacing-spacing-180: 180;
+  --primitives-spacing-spacing-20: 20;
+  --primitives-spacing-spacing-240: 240;
+  --primitives-spacing-spacing-24: 24;
+  --primitives-spacing-spacing-2: 2;
+  --primitives-spacing-spacing-32: 32;
+  --primitives-spacing-spacing-360: 360;
+  --primitives-spacing-spacing-40: 40;
+  --primitives-spacing-spacing-480: 480;
+  --primitives-spacing-spacing-48: 48;
+  --primitives-spacing-spacing-4: 4;
+  --primitives-spacing-spacing-56: 56;
+  --primitives-spacing-spacing-640: 640;
+  --primitives-spacing-spacing-64: 64;
+  --primitives-spacing-spacing-72: 72;
+  --primitives-spacing-spacing-80: 80;
+  --primitives-spacing-spacing-8: 8;
+  --primitives-spacing-spacing-92: 92;
+  --primitives-spacing-spacing-960: 960;
+  --primitives-teaching-resources-only-blue-2: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-blue: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-magenta-2: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-magenta: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-purple: rgb(132,90,217); /* @kind color */
+  --primitives-teaching-resources-only-teal: rgb(3,123,125); /* @kind color */
+  --savecountnav: 0; /* @kind other */
+  --semi-opaque: rgba(34,34,34,0.5); /* @kind color */
+  --semi-transparent: rgba(34,34,34,0.25); /* @kind color */
+  --string: "String value"; /* @kind other */
+  --tokens-background-bg-btn-primary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-primary-hover: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-btn-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-btn-secondary-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-btn-secondary-hover: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-btn-secondary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-correct: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-main: var(--primitives-brand-mint); /* @kind color */
+  --tokens-background-bg-decorative1-subdued: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-very-subdued: var(--primitives-brand-mint30); /* @kind color */
+  --tokens-background-bg-decorative2-main: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-background-bg-decorative2-subdued: var(--primitives-brand-aqua50); /* @kind color */
+  --tokens-background-bg-decorative2-very-subdued: var(--primitives-brand-aqua30); /* @kind color */
+  --tokens-background-bg-decorative3-main: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-background-bg-decorative3-subdued: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-background-bg-decorative3-very-subdued: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-background-bg-decorative4-main: var(--primitives-brand-pink); /* @kind color */
+  --tokens-background-bg-decorative4-subdued: var(--primitives-brand-pink50); /* @kind color */
+  --tokens-background-bg-decorative4-very-subdued: var(--primitives-brand-pink30); /* @kind color */
+  --tokens-background-bg-decorative5-main: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-background-bg-decorative5-subdued: var(--primitives-brand-lemon50); /* @kind color */
+  --tokens-background-bg-decorative5-very-subdued: var(--primitives-brand-lemon30); /* @kind color */
+  --tokens-background-bg-decorative6-main: var(--primitives-functional-amber); /* @kind color */
+  --tokens-background-bg-decorative6-subdued: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-background-bg-decorative6-very-subdued: var(--primitives-functional-amber30); /* @kind color */
+  --tokens-background-bg-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-background-bg-icon: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-incorrect: var(--primitives-functional-red30); /* @kind color */
+  --tokens-background-bg-interactive-element1: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-interactive-element2: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-background-bg-inverted-semi-transparent: rgba(34,34,34,0.25); /* @kind color */
+  --tokens-background-bg-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-neutral-stronger: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-neutral: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-decorative1-stronger: var(--primitives-brand-mint110); /* @kind color */
+  --tokens-border-border-decorative1: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-decorative2-stronger: var(--primitives-brand-aqua110); /* @kind color */
+  --tokens-border-border-decorative2: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-border-border-decorative3-stronger: var(--primitives-brand-lavender110); /* @kind color */
+  --tokens-border-border-decorative3: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-border-border-decorative4-stronger: var(--primitives-brand-pink110); /* @kind color */
+  --tokens-border-border-decorative4: var(--primitives-brand-pink); /* @kind color */
+  --tokens-border-border-decorative5-stronger: var(--primitives-brand-lemon110); /* @kind color */
+  --tokens-border-border-decorative5: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-border-border-decorative6-stronger: var(--primitives-functional-amber); /* @kind color */
+  --tokens-border-border-decorative6: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-border-border-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-border-border-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-border-border-neutral-lighter: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-border-border-neutral-stronger: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-border-border-neutral: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-border-border-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-border-border-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-border-border-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-code-code-blue: var(--primitives-code-only-rpf-syntax-blue); /* @kind color */
+  --tokens-code-code-green: var(--primitives-code-only-rpf-syntax-green); /* @kind color */
+  --tokens-code-code-grey: var(--primitives-code-only-rpf-syntax-grey); /* @kind color */
+  --tokens-code-code-pink: var(--primitives-code-only-rpf-syntax-pink); /* @kind color */
+  --tokens-gaps-spacing-0: 0;
+  --tokens-gaps-spacing-12: 12;
+  --tokens-gaps-spacing-16: 16;
+  --tokens-gaps-spacing-20: 20;
+  --tokens-gaps-spacing-24: 24;
+  --tokens-gaps-spacing-2: 2;
+  --tokens-gaps-spacing-32: 32;
+  --tokens-gaps-spacing-40: 40;
+  --tokens-gaps-spacing-48: 48;
+  --tokens-gaps-spacing-4: 4;
+  --tokens-gaps-spacing-56: 56;
+  --tokens-gaps-spacing-64: 64;
+  --tokens-gaps-spacing-72: 72;
+  --tokens-gaps-spacing-80: 80;
+  --tokens-gaps-spacing-8: 8;
+  --tokens-icon-icon-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative1: var(--primitives-brand-mint110); /* @kind color */
+  --tokens-icon-icon-decorative2: var(--primitives-brand-aqua110); /* @kind color */
+  --tokens-icon-icon-decorative3: var(--primitives-brand-lavender110); /* @kind color */
+  --tokens-icon-icon-decorative4: var(--primitives-brand-pink110); /* @kind color */
+  --tokens-icon-icon-decorative5: var(--primitives-brand-lemon110); /* @kind color */
+  --tokens-icon-icon-decorative6: var(--primitives-functional-amber); /* @kind color */
+  --tokens-icon-icon-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-icon-icon-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-icon-icon-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-icon-icon-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-icon-icon-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-main: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-icon-icon-subdued: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-icon-icon-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-inner-padding-inner-padding-xl2: var(--primitives-spacing-spacing-32);
+  --tokens-padding-spacing-0: 0;
+  --tokens-padding-spacing-12: 12;
+  --tokens-padding-spacing-16: 16;
+  --tokens-padding-spacing-20: 20;
+  --tokens-padding-spacing-24: 24;
+  --tokens-padding-spacing-2: 2;
+  --tokens-padding-spacing-32: 32;
+  --tokens-padding-spacing-40: 40;
+  --tokens-padding-spacing-48: 48;
+  --tokens-padding-spacing-4: 4;
+  --tokens-padding-spacing-56: 56;
+  --tokens-padding-spacing-64: 64;
+  --tokens-padding-spacing-72: 72;
+  --tokens-padding-spacing-80: 80;
+  --tokens-padding-spacing-8: 8;
+  --tokens-text-text-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-text-text-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-text-text-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-text-text-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-text-text-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-text-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-text-text-subdued: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-text-text-success: var(--primitives-functional-green); /* @kind color */
+  --transparent: rgba(34,34,34,0); /* @kind color */
+  --unit-variables-unit-count: "Unit 4"; /* @kind other */
+}
+
+:root[data-theme="dark"], .dark {
+  --grey-80: rgb(27,27,27); /* @kind color */
+  --primitives-brand-aqua110: rgb(124,216,208); /* @kind color */
+  --primitives-brand-aqua30: rgb(231,246,245); /* @kind color */
+  --primitives-brand-aqua50: rgb(215,241,239); /* @kind color */
+  --primitives-brand-aqua: rgb(176,226,222); /* @kind color */
+  --primitives-brand-black: rgb(34,34,34); /* @kind color */
+  --primitives-brand-blacksemitransparent: rgba(255,255,255,0.25); /* @kind color */
+  --primitives-brand-dark-amber110: rgb(133,68,27); /* @kind color */
+  --primitives-brand-dark-amber30: rgb(72,47,32); /* @kind color */
+  --primitives-brand-dark-amber50: rgb(80,50,32); /* @kind color */
+  --primitives-brand-dark-amber: rgb(102,56,29); /* @kind color */
+  --primitives-brand-dark-aqua110: rgb(0,116,106); /* @kind color */
+  --primitives-brand-dark-aqua30: rgb(22,45,42); /* @kind color */
+  --primitives-brand-dark-aqua50: rgb(22,54,50); /* @kind color */
+  --primitives-brand-dark-aqua: rgb(12,86,81); /* @kind color */
+  --primitives-brand-dark-lavendar110: rgb(35,67,165); /* @kind color */
+  --primitives-brand-dark-lavendar30: rgb(48,52,68); /* @kind color */
+  --primitives-brand-dark-lavendar50: rgb(55,64,97); /* @kind color */
+  --primitives-brand-dark-lavendar: rgb(56,72,139); /* @kind color */
+  --primitives-brand-dark-lemon110: rgb(122,105,0); /* @kind color */
+  --primitives-brand-dark-lemon30: rgb(60,56,32); /* @kind color */
+  --primitives-brand-dark-lemon50: rgb(73,66,26); /* @kind color */
+  --primitives-brand-dark-lemon: rgb(100,88,17); /* @kind color */
+  --primitives-brand-dark-mint110: rgb(48,109,65); /* @kind color */
+  --primitives-brand-dark-mint30: rgb(32,43,35); /* @kind color */
+  --primitives-brand-dark-mint50: rgb(37,55,42); /* @kind color */
+  --primitives-brand-dark-mint: rgb(46,83,56); /* @kind color */
+  --primitives-brand-dark-pink110: rgb(140,22,109); /* @kind color */
+  --primitives-brand-dark-pink30: rgb(63,33,55); /* @kind color */
+  --primitives-brand-dark-pink50: rgb(79,35,65); /* @kind color */
+  --primitives-brand-dark-pink: rgb(114,34,92); /* @kind color */
+  --primitives-brand-grey10: rgb(249,249,249); /* @kind color */
+  --primitives-brand-grey20: rgb(242,242,242); /* @kind color */
+  --primitives-brand-grey30: rgb(228,228,228); /* @kind color */
+  --primitives-brand-grey40: rgb(202,202,202); /* @kind color */
+  --primitives-brand-grey50: rgb(128,128,128); /* @kind color */
+  --primitives-brand-grey60: rgb(87,87,87); /* @kind color */
+  --primitives-brand-grey70: rgb(45,45,45); /* @kind color */
+  --primitives-brand-lavender110: rgb(124,154,236); /* @kind color */
+  --primitives-brand-lavender30: rgb(227,233,251); /* @kind color */
+  --primitives-brand-lavender50: rgb(189,205,245); /* @kind color */
+  --primitives-brand-lavender: rgb(160,182,242); /* @kind color */
+  --primitives-brand-lemon110: rgb(251,214,14); /* @kind color */
+  --primitives-brand-lemon30: rgb(255,247,204); /* @kind color */
+  --primitives-brand-lemon50: rgb(255,242,170); /* @kind color */
+  --primitives-brand-lemon: rgb(255,229,85); /* @kind color */
+  --primitives-brand-mint110: rgb(147,232,146); /* @kind color */
+  --primitives-brand-mint30: rgb(235,251,235); /* @kind color */
+  --primitives-brand-mint50: rgb(223,249,222); /* @kind color */
+  --primitives-brand-mint: rgb(190,242,189); /* @kind color */
+  --primitives-brand-pink110: rgb(207,156,195); /* @kind color */
+  --primitives-brand-pink30: rgb(245,233,242); /* @kind color */
+  --primitives-brand-pink50: rgb(239,219,234); /* @kind color */
+  --primitives-brand-pink: rgb(222,183,213); /* @kind color */
+  --primitives-brand-white: rgb(255,255,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-blue: rgb(158,232,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-green: rgb(148,249,175); /* @kind color */
+  --primitives-code-only-rpf-syntax-grey: rgb(251,251,251); /* @kind color */
+  --primitives-code-only-rpf-syntax-pink: rgb(238,204,255); /* @kind color */
+  --primitives-functional-amber30: rgb(255,236,224); /* @kind color */
+  --primitives-functional-amber50: rgb(255,200,166); /* @kind color */
+  --primitives-functional-amber: rgb(255,147,78); /* @kind color */
+  --primitives-functional-green: rgb(40,124,52); /* @kind color */
+  --primitives-functional-navy110: rgb(10,29,157); /* @kind color */
+  --primitives-functional-navy120: rgb(8,22,118); /* @kind color */
+  --primitives-functional-navy: rgb(13,36,196); /* @kind color */
+  --primitives-functional-red30: rgb(248,216,224); /* @kind color */
+  --primitives-functional-red50: rgb(238,128,154); /* @kind color */
+  --primitives-functional-red: rgb(221,0,53); /* @kind color */
+  --primitives-teaching-resources-only-blue-2: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-blue: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-magenta-2: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-magenta: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-purple: rgb(132,90,217); /* @kind color */
+  --primitives-teaching-resources-only-teal: rgb(3,123,125); /* @kind color */
+  --tokens-background-bg-btn-primary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-primary-hover: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-btn-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-btn-secondary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-secondary-hover: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-btn-secondary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-correct: var(--primitives-brand-mint30); /* @kind color */
+  --tokens-background-bg-decorative1-main: var(--primitives-brand-dark-mint); /* @kind color */
+  --tokens-background-bg-decorative1-subdued: var(--primitives-brand-dark-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-very-subdued: var(--primitives-brand-dark-mint30); /* @kind color */
+  --tokens-background-bg-decorative2-main: var(--primitives-brand-dark-aqua); /* @kind color */
+  --tokens-background-bg-decorative2-subdued: var(--primitives-brand-dark-aqua50); /* @kind color */
+  --tokens-background-bg-decorative2-very-subdued: var(--primitives-brand-dark-aqua30); /* @kind color */
+  --tokens-background-bg-decorative3-main: var(--primitives-brand-dark-lavendar); /* @kind color */
+  --tokens-background-bg-decorative3-subdued: var(--primitives-brand-dark-lavendar50); /* @kind color */
+  --tokens-background-bg-decorative3-very-subdued: var(--primitives-brand-dark-lavendar30); /* @kind color */
+  --tokens-background-bg-decorative4-main: var(--primitives-brand-dark-pink); /* @kind color */
+  --tokens-background-bg-decorative4-subdued: var(--primitives-brand-dark-pink50); /* @kind color */
+  --tokens-background-bg-decorative4-very-subdued: var(--primitives-brand-dark-pink30); /* @kind color */
+  --tokens-background-bg-decorative5-main: var(--primitives-brand-dark-lemon); /* @kind color */
+  --tokens-background-bg-decorative5-subdued: var(--primitives-brand-dark-lemon50); /* @kind color */
+  --tokens-background-bg-decorative5-very-subdued: var(--primitives-brand-dark-lemon30); /* @kind color */
+  --tokens-background-bg-decorative6-main: var(--primitives-brand-dark-amber); /* @kind color */
+  --tokens-background-bg-decorative6-subdued: var(--primitives-brand-dark-amber50); /* @kind color */
+  --tokens-background-bg-decorative6-very-subdued: var(--primitives-brand-dark-amber30); /* @kind color */
+  --tokens-background-bg-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-background-bg-icon: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-incorrect: var(--primitives-functional-red30); /* @kind color */
+  --tokens-background-bg-interactive-element1: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-interactive-element2: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-inverted-semi-transparent: rgba(255,255,255,0.25); /* @kind color */
+  --tokens-background-bg-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-neutral-stronger: var(--primitives-brand-grey70); /* @kind color */
+  --tokens-background-bg-neutral: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-success: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-brand: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-decorative1-stronger: var(--primitives-brand-dark-mint110); /* @kind color */
+  --tokens-border-border-decorative1: var(--primitives-brand-dark-mint); /* @kind color */
+  --tokens-border-border-decorative2-stronger: var(--primitives-brand-dark-aqua110); /* @kind color */
+  --tokens-border-border-decorative2: var(--primitives-brand-dark-aqua); /* @kind color */
+  --tokens-border-border-decorative3-stronger: var(--primitives-brand-dark-lavendar110); /* @kind color */
+  --tokens-border-border-decorative3: var(--primitives-brand-dark-lavendar); /* @kind color */
+  --tokens-border-border-decorative4-stronger: var(--primitives-brand-dark-pink110); /* @kind color */
+  --tokens-border-border-decorative4: var(--primitives-brand-dark-pink); /* @kind color */
+  --tokens-border-border-decorative5-stronger: var(--primitives-brand-dark-lemon110); /* @kind color */
+  --tokens-border-border-decorative5: var(--primitives-brand-dark-lemon); /* @kind color */
+  --tokens-border-border-decorative6-stronger: var(--primitives-brand-dark-amber110); /* @kind color */
+  --tokens-border-border-decorative6: var(--primitives-brand-dark-amber); /* @kind color */
+  --tokens-border-border-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-border-border-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-border-border-neutral-lighter: var(--primitives-brand-grey70); /* @kind color */
+  --tokens-border-border-neutral-stronger: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-border-border-neutral: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-border-border-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-border-border-success: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-text-link-pressed: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-border-border-warning: var(--primitives-brand-dark-amber); /* @kind color */
+  --tokens-code-code-blue: var(--primitives-code-only-rpf-syntax-blue); /* @kind color */
+  --tokens-code-code-green: var(--primitives-code-only-rpf-syntax-green); /* @kind color */
+  --tokens-code-code-grey: var(--primitives-code-only-rpf-syntax-grey); /* @kind color */
+  --tokens-code-code-pink: var(--primitives-code-only-rpf-syntax-pink); /* @kind color */
+  --tokens-icon-icon-brand: var(--primitives-brand-mint); /* @kind color */
+  --tokens-icon-icon-decorative1: var(--primitives-brand-dark-mint110); /* @kind color */
+  --tokens-icon-icon-decorative2: var(--primitives-brand-dark-aqua110); /* @kind color */
+  --tokens-icon-icon-decorative3: var(--primitives-brand-dark-lavendar110); /* @kind color */
+  --tokens-icon-icon-decorative4: var(--primitives-brand-dark-pink110); /* @kind color */
+  --tokens-icon-icon-decorative5: var(--primitives-brand-dark-lemon110); /* @kind color */
+  --tokens-icon-icon-decorative6: var(--primitives-brand-dark-amber110); /* @kind color */
+  --tokens-icon-icon-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-icon-icon-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-icon-icon-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-link-active: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-icon-icon-link-hover: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-icon-icon-link-pressed: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-icon-icon-link-visited: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-icon-icon-main: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-promo: var(--primitives-brand-dark-lemon110); /* @kind color */
+  --tokens-icon-icon-subdued: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-icon-icon-success: var(--primitives-brand-mint); /* @kind color */
+  --tokens-icon-icon-warning: var(--primitives-brand-dark-amber110); /* @kind color */
+  --tokens-text-text-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-text-text-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-text-text-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-link-active: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-text-text-link-hover: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-text-text-link-pressed: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-text-text-link-visited: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-text-text-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-text-text-promo: var(--primitives-brand-lemon50); /* @kind color */
+  --tokens-text-text-subdued: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-text-text-success: var(--primitives-brand-mint); /* @kind color */
+}
+
+:root[data-mode="oakcattheme"] {
+  --grey-80: rgb(27,27,27); /* @kind color */
+  --primitives-brand-aqua110: rgb(124,216,208); /* @kind color */
+  --primitives-brand-aqua30: rgb(231,246,245); /* @kind color */
+  --primitives-brand-aqua50: rgb(215,241,239); /* @kind color */
+  --primitives-brand-aqua: rgb(176,226,222); /* @kind color */
+  --primitives-brand-black: rgb(34,34,34); /* @kind color */
+  --primitives-brand-blacksemitransparent: rgba(34,34,34,0.25); /* @kind color */
+  --primitives-brand-dark-amber110: rgb(133,68,27); /* @kind color */
+  --primitives-brand-dark-amber30: rgb(72,47,32); /* @kind color */
+  --primitives-brand-dark-amber50: rgb(80,50,32); /* @kind color */
+  --primitives-brand-dark-amber: rgb(102,56,29); /* @kind color */
+  --primitives-brand-dark-aqua110: rgb(0,116,106); /* @kind color */
+  --primitives-brand-dark-aqua30: rgb(22,45,42); /* @kind color */
+  --primitives-brand-dark-aqua50: rgb(22,54,50); /* @kind color */
+  --primitives-brand-dark-aqua: rgb(12,86,81); /* @kind color */
+  --primitives-brand-dark-lavendar110: rgb(35,67,165); /* @kind color */
+  --primitives-brand-dark-lavendar30: rgb(48,52,68); /* @kind color */
+  --primitives-brand-dark-lavendar50: rgb(55,64,97); /* @kind color */
+  --primitives-brand-dark-lavendar: rgb(56,72,139); /* @kind color */
+  --primitives-brand-dark-lemon110: rgb(122,105,0); /* @kind color */
+  --primitives-brand-dark-lemon30: rgb(60,56,32); /* @kind color */
+  --primitives-brand-dark-lemon50: rgb(73,66,26); /* @kind color */
+  --primitives-brand-dark-lemon: rgb(100,88,17); /* @kind color */
+  --primitives-brand-dark-mint110: rgb(48,109,65); /* @kind color */
+  --primitives-brand-dark-mint30: rgb(32,43,35); /* @kind color */
+  --primitives-brand-dark-mint50: rgb(37,55,42); /* @kind color */
+  --primitives-brand-dark-mint: rgb(46,83,56); /* @kind color */
+  --primitives-brand-dark-pink110: rgb(140,22,109); /* @kind color */
+  --primitives-brand-dark-pink30: rgb(63,33,55); /* @kind color */
+  --primitives-brand-dark-pink50: rgb(79,35,65); /* @kind color */
+  --primitives-brand-dark-pink: rgb(114,34,92); /* @kind color */
+  --primitives-brand-grey10: rgb(249,249,249); /* @kind color */
+  --primitives-brand-grey20: rgb(242,242,242); /* @kind color */
+  --primitives-brand-grey30: rgb(228,228,228); /* @kind color */
+  --primitives-brand-grey40: rgb(202,202,202); /* @kind color */
+  --primitives-brand-grey50: rgb(128,128,128); /* @kind color */
+  --primitives-brand-grey60: rgb(87,87,87); /* @kind color */
+  --primitives-brand-grey70: rgb(45,45,45); /* @kind color */
+  --primitives-brand-lavender110: rgb(124,154,236); /* @kind color */
+  --primitives-brand-lavender30: rgb(227,233,251); /* @kind color */
+  --primitives-brand-lavender50: rgb(189,205,245); /* @kind color */
+  --primitives-brand-lavender: rgb(160,182,242); /* @kind color */
+  --primitives-brand-lemon110: rgb(251,214,14); /* @kind color */
+  --primitives-brand-lemon30: rgb(255,247,204); /* @kind color */
+  --primitives-brand-lemon50: rgb(255,242,170); /* @kind color */
+  --primitives-brand-lemon: rgb(255,229,85); /* @kind color */
+  --primitives-brand-mint110: rgb(147,232,146); /* @kind color */
+  --primitives-brand-mint30: rgb(235,251,235); /* @kind color */
+  --primitives-brand-mint50: rgb(223,249,222); /* @kind color */
+  --primitives-brand-mint: rgb(190,242,189); /* @kind color */
+  --primitives-brand-pink110: rgb(207,156,195); /* @kind color */
+  --primitives-brand-pink30: rgb(245,233,242); /* @kind color */
+  --primitives-brand-pink50: rgb(239,219,234); /* @kind color */
+  --primitives-brand-pink: rgb(222,183,213); /* @kind color */
+  --primitives-brand-white: rgb(255,255,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-blue: rgb(158,232,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-green: rgb(148,249,175); /* @kind color */
+  --primitives-code-only-rpf-syntax-grey: rgb(251,251,251); /* @kind color */
+  --primitives-code-only-rpf-syntax-pink: rgb(238,204,255); /* @kind color */
+  --primitives-functional-amber30: rgb(255,236,224); /* @kind color */
+  --primitives-functional-amber50: rgb(255,200,166); /* @kind color */
+  --primitives-functional-amber: rgb(255,147,78); /* @kind color */
+  --primitives-functional-green: rgb(40,124,52); /* @kind color */
+  --primitives-functional-navy110: rgb(10,29,157); /* @kind color */
+  --primitives-functional-navy120: rgb(8,22,118); /* @kind color */
+  --primitives-functional-navy: rgb(13,36,196); /* @kind color */
+  --primitives-functional-red30: rgb(248,216,224); /* @kind color */
+  --primitives-functional-red50: rgb(238,128,154); /* @kind color */
+  --primitives-functional-red: rgb(221,0,53); /* @kind color */
+  --primitives-teaching-resources-only-blue-2: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-blue: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-magenta-2: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-magenta: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-purple: rgb(132,90,217); /* @kind color */
+  --primitives-teaching-resources-only-teal: rgb(3,123,125); /* @kind color */
+  --tokens-background-bg-btn-primary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-primary-hover: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-btn-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-btn-secondary-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-btn-secondary-hover: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-btn-secondary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-correct: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-main: var(--primitives-brand-mint); /* @kind color */
+  --tokens-background-bg-decorative1-subdued: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-very-subdued: var(--primitives-brand-mint30); /* @kind color */
+  --tokens-background-bg-decorative2-main: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-background-bg-decorative2-subdued: var(--primitives-brand-aqua50); /* @kind color */
+  --tokens-background-bg-decorative2-very-subdued: var(--primitives-brand-aqua30); /* @kind color */
+  --tokens-background-bg-decorative3-main: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-background-bg-decorative3-subdued: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-background-bg-decorative3-very-subdued: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-background-bg-decorative4-main: var(--primitives-brand-pink); /* @kind color */
+  --tokens-background-bg-decorative4-subdued: var(--primitives-brand-pink50); /* @kind color */
+  --tokens-background-bg-decorative4-very-subdued: var(--primitives-brand-pink30); /* @kind color */
+  --tokens-background-bg-decorative5-main: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-background-bg-decorative5-subdued: var(--primitives-brand-lemon50); /* @kind color */
+  --tokens-background-bg-decorative5-very-subdued: var(--primitives-brand-lemon30); /* @kind color */
+  --tokens-background-bg-decorative6-main: var(--primitives-functional-amber); /* @kind color */
+  --tokens-background-bg-decorative6-subdued: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-background-bg-decorative6-very-subdued: var(--primitives-functional-amber30); /* @kind color */
+  --tokens-background-bg-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-background-bg-icon: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-incorrect: var(--primitives-functional-red30); /* @kind color */
+  --tokens-background-bg-interactive-element1: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-interactive-element2: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-background-bg-inverted-semi-transparent: rgba(34,34,34,0.25); /* @kind color */
+  --tokens-background-bg-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-neutral-stronger: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-neutral: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-decorative1-stronger: var(--primitives-brand-mint110); /* @kind color */
+  --tokens-border-border-decorative1: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-decorative2-stronger: var(--primitives-brand-aqua110); /* @kind color */
+  --tokens-border-border-decorative2: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-border-border-decorative3-stronger: var(--primitives-brand-lavender110); /* @kind color */
+  --tokens-border-border-decorative3: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-border-border-decorative4-stronger: var(--primitives-brand-pink110); /* @kind color */
+  --tokens-border-border-decorative4: var(--primitives-brand-pink); /* @kind color */
+  --tokens-border-border-decorative5-stronger: var(--primitives-brand-lemon110); /* @kind color */
+  --tokens-border-border-decorative5: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-border-border-decorative6-stronger: var(--primitives-functional-amber); /* @kind color */
+  --tokens-border-border-decorative6: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-border-border-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-border-border-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-border-border-neutral-lighter: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-border-border-neutral-stronger: var(--primitives-brand-black); /* @kind color */
+  --tokens-border-border-neutral: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-border-border-primary: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-border-border-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-border-border-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-code-code-blue: var(--primitives-code-only-rpf-syntax-blue); /* @kind color */
+  --tokens-code-code-green: var(--primitives-code-only-rpf-syntax-green); /* @kind color */
+  --tokens-code-code-grey: var(--primitives-code-only-rpf-syntax-grey); /* @kind color */
+  --tokens-code-code-pink: var(--primitives-code-only-rpf-syntax-pink); /* @kind color */
+  --tokens-icon-icon-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative1: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative2: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative3: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative4: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative5: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative6: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-icon-icon-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-icon-icon-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-icon-icon-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-icon-icon-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-main: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-primary: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-icon-icon-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-icon-icon-subdued: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-text-text-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-text-text-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-text-text-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-text-text-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-text-text-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-text-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-text-text-subdued: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-success: var(--primitives-functional-green); /* @kind color */
+}
+</style>
+  <style>/* ============================================================
+   Oak National Academy - Colors, Type & Foundations
+   Source: oaknational/oak-components (src/styles/theme/*)
+   Font: Lexend (Google Fonts substitute - originals not received)
+   ============================================================ */
+
+/* Lexend - variable font, local file. Weights 100–900. */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("9129fe8c-17b9-471c-adfa-7896381fac20") format("truetype-variations"),
+       url("9129fe8c-17b9-471c-adfa-7896381fac20") format("truetype");
+}
+
+/* Roboto Mono - not uploaded; still from Google Fonts as a fallback for code contexts. */
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("399d2c95-d036-4892-a879-e64ead9c15b1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("7321334a-9631-4e05-86f4-46d3d5ad4780") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("9c2b13e5-2640-4ca9-8679-d2438046b810") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ee5b1f14-f487-4725-a8c6-264683c0eac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("cc1a7fce-2818-49d0-adee-0b0393496385") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("35404184-18c8-4a06-8079-70957a2c5af6") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("399d2c95-d036-4892-a879-e64ead9c15b1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("7321334a-9631-4e05-86f4-46d3d5ad4780") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("9c2b13e5-2640-4ca9-8679-d2438046b810") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("ee5b1f14-f487-4725-a8c6-264683c0eac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("cc1a7fce-2818-49d0-adee-0b0393496385") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("35404184-18c8-4a06-8079-70957a2c5af6") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("399d2c95-d036-4892-a879-e64ead9c15b1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("7321334a-9631-4e05-86f4-46d3d5ad4780") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("9c2b13e5-2640-4ca9-8679-d2438046b810") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("ee5b1f14-f487-4725-a8c6-264683c0eac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("cc1a7fce-2818-49d0-adee-0b0393496385") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("35404184-18c8-4a06-8079-70957a2c5af6") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+:root {
+  /* --- Neutral / grey scale --- */
+  --oak-white: #ffffff;
+  --oak-grey10: #f9f9f9;
+  --oak-grey20: #f2f2f2;
+  --oak-grey30: #e4e4e4;
+  --oak-grey40: #cacaca;
+  --oak-grey50: #808080;
+  --oak-grey60: #575757;
+  --oak-grey70: #2d2d2d;
+  --oak-grey80: #1b1b1b;
+  --oak-black: #222222;
+
+  /* --- Brand primary (oak green) --- */
+  --oak-green: #287c34;
+
+  /* --- Decorative palette (pastels + 110 hovers + 50/30 tints) --- */
+  --oak-mint: #bef2bd;
+  --oak-mint30: #ebfbeb;
+  --oak-mint50: #dff9de;
+  --oak-mint110: #93e892;
+
+  --oak-aqua: #b0e2de;
+  --oak-aqua30: #e7f6f5;
+  --oak-aqua50: #d7f1ef;
+  --oak-aqua110: #7cd8d0;
+
+  --oak-lavender: #a0b6f2;
+  --oak-lavender30: #e3e9fb;
+  --oak-lavender50: #bdcdf5;
+  --oak-lavender110: #7c9aec;
+
+  --oak-pink: #deb7d5;
+  --oak-pink30: #f5e9f2;
+  --oak-pink50: #efdbea;
+  --oak-pink110: #cf9cc3;
+
+  --oak-lemon: #ffe555;
+  --oak-lemon30: #fff7cc;
+  --oak-lemon50: #fff2aa;
+  --oak-lemon110: #fbd60e;
+
+  /* --- Functional --- */
+  --oak-amber: #ff934e;
+  --oak-amber30: #ffece0;
+  --oak-amber50: #ffc8a6;
+  --oak-red: #dd0035;
+  --oak-red30: #f8d8e0;
+  --oak-red50: #ee809a;
+  --oak-navy: #0d24c4;
+  --oak-navy110: #0a1d9d;
+  --oak-navy120: #081676;
+
+  /* --- Teaching resources only (slides etc) --- */
+  --oak-blue: #374cf1;
+  --oak-magenta: #d02aa7;
+  --oak-purple: #845ad9;
+  --oak-teal: #037b7d;
+
+  /* --- Semantic role tokens (default theme) --- */
+  --text-primary: var(--oak-black);
+  --text-subdued: var(--oak-grey60);
+  --text-error: var(--oak-red);
+  --text-disabled: var(--oak-grey50);
+  --text-link: var(--oak-navy);
+  --text-link-hover: var(--oak-navy110);
+  --text-link-visited: var(--oak-navy120);
+  --text-inverted: var(--oak-white);
+  --text-success: var(--oak-green);
+
+  --bg-primary: var(--oak-white);
+  --bg-inverted: var(--oak-black);
+  --bg-neutral: var(--oak-grey20);
+  --bg-neutral-stronger: var(--oak-grey30);
+  --bg-btn-primary: var(--oak-black);
+  --bg-btn-primary-hover: var(--oak-grey60);
+  --bg-btn-secondary: var(--oak-white);
+  --bg-btn-secondary-hover: var(--oak-grey20);
+
+  --bg-correct: var(--oak-mint50);
+  --bg-incorrect: var(--oak-red30);
+  --bg-success: var(--oak-green);
+  --bg-error: var(--oak-red);
+
+  --border-primary: var(--oak-black);
+  --border-neutral: var(--oak-grey50);
+  --border-neutral-lighter: var(--oak-grey40);
+  --border-brand: var(--oak-green);
+  --border-error: var(--oak-red);
+  --border-warning: var(--oak-amber);
+
+  /* --- Border widths --- */
+  --border-solid-none: 0; /* @kind spacing */
+  --border-solid-s: 1px;
+  --border-solid-m: 2px;
+  --border-solid-l: 3px;
+  --border-solid-xl: 4px;
+  --border-solid-xxl: 6px;
+  --border-solid-xxxl: 8px;
+  --border-solid-xxxxl: 10px;
+
+  /* --- Border radii --- */
+  --radius-square: 0;
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-m2: 8px;
+  --radius-l: 16px;
+  --radius-xl: 24px;
+  --radius-circle: 100px;
+
+  /* --- Spacing (primitives, px) - Oak's full 0→1360 scale --- */
+  --space-0: 0;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+  --space-80: 80px;
+  --space-92: 92px;
+  --space-100: 100px;
+  --space-120: 120px;
+  --space-160: 160px;
+  --space-180: 180px;
+  --space-240: 240px;
+  --space-360: 360px;
+  --space-480: 480px;
+  --space-640: 640px;
+  --space-960: 960px;
+  --space-1280: 1280px;
+  --space-1360: 1360px;
+
+  /* --- Drop shadows (Oak's signature "offset solid" shadows) --- */
+  --shadow-standard: 0 0.5rem 0.5rem rgba(92, 92, 92, 0.2);
+  --shadow-lemon: 0.125rem 0.125rem 0 #ffe555;
+  --shadow-wide-lemon: 0.25rem 0.25rem 0 #ffe555;
+  --shadow-centered-lemon: 0 0 0 0.125rem #ffe555;
+  --shadow-grey: 0.25rem 0.25rem 0 #575757;
+  --shadow-centered-grey: 0 0 0 0.3rem #575757;
+  --shadow-black: 0.063rem 0.125rem 0 #000;
+
+  /* --- Type family --- */
+  --font-sans: "Lexend", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Font sizes (px) --- */
+  --font-size-1: 12px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 20px;
+  --font-size-6: 24px;
+  --font-size-7: 32px;
+  --font-size-8: 40px;
+  --font-size-9: 48px;
+  --font-size-10: 56px;
+}
+
+/* --- Base --- */
+html, body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Semantic type classes (match oakFontTokens).
+   Use as className or via @extend in your CSS.
+   ============================================================ */
+
+.oak-heading-1 { font: 600 56px/64px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-2 { font: 600 48px/56px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-3 { font: 600 40px/48px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-4 { font: 600 32px/40px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-5 { font: 600 24px/32px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-6 { font: 600 20px/24px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-7 { font: 600 16px/20px var(--font-sans); letter-spacing: 0.0115rem; }
+
+.oak-heading-light-1 { font: 400 56px/64px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-2 { font: 400 48px/56px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-3 { font: 400 40px/48px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-4 { font: 400 32px/40px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-5 { font: 400 24px/32px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-6 { font: 400 20px/24px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-7 { font: 400 16px/20px var(--font-sans); letter-spacing: 0.0115rem; }
+
+.oak-body-1 { font: 300 18px/28px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-2 { font: 300 16px/24px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-3 { font: 300 14px/20px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-4 { font: 300 12px/16px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-1-bold { font: 700 18px/28px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-2-bold { font: 700 16px/24px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-3-bold { font: 700 14px/20px var(--font-sans); letter-spacing: -0.005rem; }
+
+.oak-code-2 { font: 300 18px/24px var(--font-mono); letter-spacing: 0.0115rem; }
+.oak-code-2-bold { font: 700 18px/24px var(--font-mono); letter-spacing: 0.0115rem; }
+
+/* ============================================================
+   Native element defaults - apply "oak-scope" to a root to opt in
+   without globally restyling every host page.
+   ============================================================ */
+.oak-scope h1 { font: 600 48px/56px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 24px; }
+.oak-scope h2 { font: 600 40px/48px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 20px; }
+.oak-scope h3 { font: 600 32px/40px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 16px; }
+.oak-scope h4 { font: 600 24px/32px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 12px; }
+.oak-scope h5 { font: 600 20px/24px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 8px; }
+.oak-scope p  { font: 300 18px/28px var(--font-sans); letter-spacing: -0.005rem; margin: 0 0 16px; color: var(--text-primary); }
+.oak-scope a  { color: var(--text-link); text-decoration: underline; text-underline-offset: 2px; }
+.oak-scope a:hover { color: var(--text-link-hover); }
+
+/* Oak's signature: thick black borders + offset yellow shadow for interactive things */
+.oak-interactive {
+  border: var(--border-solid-m) solid var(--oak-black);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-lemon);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.oak-interactive:hover { box-shadow: var(--shadow-wide-lemon); }
+.oak-interactive:active { transform: translate(2px, 2px); box-shadow: 0 0 0 #ffe555; }
+</style>
+  <style>/* ============================================================
+   Oak National Academy — Design System root stylesheet
+   This is the global-CSS entry point the design-system compiler reads.
+   ------------------------------------------------------------
+   1. fig-tokens.css  — the COMPLETE token system extracted verbatim
+      from the Oak Design Kit Figma Variables (572 vars):
+      primitives, semantic Tokens/*, spacing, borders, opacity —
+      across all theme modes (oakDefaultTheme :root, oakDarkTheme
+      [data-theme="dark"]/.dark, oakCatTheme [data-mode="oakcattheme"]).
+      These are the source-of-truth values.
+   2. colors_and_type.css — the hand-authored, human-friendly layer:
+      short --oak-* aliases, --text/-bg/-border semantic names used by
+      the preview cards & UI kits, type scale, font-face, helper classes.
+      Its values are reconciled 1:1 against fig-tokens.css.
+   ============================================================ */
+
+/* Generated from Figma Variables. First mode = :root default.
+   FLOAT tokens are unitless — multiply by 1px in calc() where a length is needed. */
+
+:root {
+  --border-radius-border-radius-circle: 100;
+  --border-radius-border-radius-l: 16;
+  --border-radius-border-radius-m2: 8;
+  --border-radius-border-radius-m: 6;
+  --border-radius-border-radius-s: 4;
+  --border-radius-border-radius-square: 0;
+  --border-radius-border-radius-xl: 24;
+  --border-radius-border-radius-xs: 2;
+  --border-width-border-solid-l: 3; /* @kind spacing */
+  --border-width-border-solid-m: 2; /* @kind spacing */
+  --border-width-border-solid-s: 1; /* @kind spacing */
+  --border-width-border-solid-xl: 4; /* @kind spacing */
+  --border-width-border-solid-xxl: 6; /* @kind spacing */
+  --border-width-border-solid-xxxl: 8; /* @kind spacing */
+  --border-width-border-solid-xxxxl: 10; /* @kind spacing */
+  --border-width-border-width-none: 0; /* @kind spacing */
+  --grey-80: rgb(27,27,27); /* @kind color */
+  --lesson-variables-lesson-count: "Lesson 1"; /* @kind other */
+  --opaque: rgb(34,34,34); /* @kind color */
+  --primitives-brand-aqua110: rgb(124,216,208); /* @kind color */
+  --primitives-brand-aqua30: rgb(231,246,245); /* @kind color */
+  --primitives-brand-aqua50: rgb(215,241,239); /* @kind color */
+  --primitives-brand-aqua: rgb(176,226,222); /* @kind color */
+  --primitives-brand-black: rgb(34,34,34); /* @kind color */
+  --primitives-brand-blacksemitransparent: rgba(34,34,34,0.25); /* @kind color */
+  --primitives-brand-dark-amber110: rgb(133,68,27); /* @kind color */
+  --primitives-brand-dark-amber30: rgb(72,47,32); /* @kind color */
+  --primitives-brand-dark-amber50: rgb(80,50,32); /* @kind color */
+  --primitives-brand-dark-amber: rgb(102,56,29); /* @kind color */
+  --primitives-brand-dark-aqua110: rgb(0,116,106); /* @kind color */
+  --primitives-brand-dark-aqua30: rgb(22,45,42); /* @kind color */
+  --primitives-brand-dark-aqua50: rgb(22,54,50); /* @kind color */
+  --primitives-brand-dark-aqua: rgb(12,86,81); /* @kind color */
+  --primitives-brand-dark-lavendar110: rgb(35,67,165); /* @kind color */
+  --primitives-brand-dark-lavendar30: rgb(48,52,68); /* @kind color */
+  --primitives-brand-dark-lavendar50: rgb(55,64,97); /* @kind color */
+  --primitives-brand-dark-lavendar: rgb(56,72,139); /* @kind color */
+  --primitives-brand-dark-lemon110: rgb(122,105,0); /* @kind color */
+  --primitives-brand-dark-lemon30: rgb(60,56,32); /* @kind color */
+  --primitives-brand-dark-lemon50: rgb(73,66,26); /* @kind color */
+  --primitives-brand-dark-lemon: rgb(100,88,17); /* @kind color */
+  --primitives-brand-dark-mint110: rgb(48,109,65); /* @kind color */
+  --primitives-brand-dark-mint30: rgb(32,43,35); /* @kind color */
+  --primitives-brand-dark-mint50: rgb(37,55,42); /* @kind color */
+  --primitives-brand-dark-mint: rgb(46,83,56); /* @kind color */
+  --primitives-brand-dark-pink110: rgb(140,22,109); /* @kind color */
+  --primitives-brand-dark-pink30: rgb(63,33,55); /* @kind color */
+  --primitives-brand-dark-pink50: rgb(79,35,65); /* @kind color */
+  --primitives-brand-dark-pink: rgb(114,34,92); /* @kind color */
+  --primitives-brand-grey10: rgb(249,249,249); /* @kind color */
+  --primitives-brand-grey20: rgb(242,242,242); /* @kind color */
+  --primitives-brand-grey30: rgb(228,228,228); /* @kind color */
+  --primitives-brand-grey40: rgb(202,202,202); /* @kind color */
+  --primitives-brand-grey50: rgb(128,128,128); /* @kind color */
+  --primitives-brand-grey60: rgb(87,87,87); /* @kind color */
+  --primitives-brand-grey70: rgb(45,45,45); /* @kind color */
+  --primitives-brand-lavender110: rgb(124,154,236); /* @kind color */
+  --primitives-brand-lavender30: rgb(227,233,251); /* @kind color */
+  --primitives-brand-lavender50: rgb(189,205,245); /* @kind color */
+  --primitives-brand-lavender: rgb(160,182,242); /* @kind color */
+  --primitives-brand-lemon110: rgb(251,214,14); /* @kind color */
+  --primitives-brand-lemon30: rgb(255,247,204); /* @kind color */
+  --primitives-brand-lemon50: rgb(255,242,170); /* @kind color */
+  --primitives-brand-lemon: rgb(255,229,85); /* @kind color */
+  --primitives-brand-mint110: rgb(147,232,146); /* @kind color */
+  --primitives-brand-mint30: rgb(235,251,235); /* @kind color */
+  --primitives-brand-mint50: rgb(223,249,222); /* @kind color */
+  --primitives-brand-mint: rgb(190,242,189); /* @kind color */
+  --primitives-brand-pink110: rgb(207,156,195); /* @kind color */
+  --primitives-brand-pink30: rgb(245,233,242); /* @kind color */
+  --primitives-brand-pink50: rgb(239,219,234); /* @kind color */
+  --primitives-brand-pink: rgb(222,183,213); /* @kind color */
+  --primitives-brand-white: rgb(255,255,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-blue: rgb(158,232,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-green: rgb(148,249,175); /* @kind color */
+  --primitives-code-only-rpf-syntax-grey: rgb(251,251,251); /* @kind color */
+  --primitives-code-only-rpf-syntax-pink: rgb(238,204,255); /* @kind color */
+  --primitives-functional-amber30: rgb(255,236,224); /* @kind color */
+  --primitives-functional-amber50: rgb(255,200,166); /* @kind color */
+  --primitives-functional-amber: rgb(255,147,78); /* @kind color */
+  --primitives-functional-green: rgb(40,124,52); /* @kind color */
+  --primitives-functional-navy110: rgb(10,29,157); /* @kind color */
+  --primitives-functional-navy120: rgb(8,22,118); /* @kind color */
+  --primitives-functional-navy: rgb(13,36,196); /* @kind color */
+  --primitives-functional-red30: rgb(248,216,224); /* @kind color */
+  --primitives-functional-red50: rgb(238,128,154); /* @kind color */
+  --primitives-functional-red: rgb(221,0,53); /* @kind color */
+  --primitives-spacing-spacing-0: 0;
+  --primitives-spacing-spacing-100: 100;
+  --primitives-spacing-spacing-120: 120;
+  --primitives-spacing-spacing-1280: 1280;
+  --primitives-spacing-spacing-12: 12;
+  --primitives-spacing-spacing-1360: 1360;
+  --primitives-spacing-spacing-160: 160;
+  --primitives-spacing-spacing-16: 16;
+  --primitives-spacing-spacing-180: 180;
+  --primitives-spacing-spacing-20: 20;
+  --primitives-spacing-spacing-240: 240;
+  --primitives-spacing-spacing-24: 24;
+  --primitives-spacing-spacing-2: 2;
+  --primitives-spacing-spacing-32: 32;
+  --primitives-spacing-spacing-360: 360;
+  --primitives-spacing-spacing-40: 40;
+  --primitives-spacing-spacing-480: 480;
+  --primitives-spacing-spacing-48: 48;
+  --primitives-spacing-spacing-4: 4;
+  --primitives-spacing-spacing-56: 56;
+  --primitives-spacing-spacing-640: 640;
+  --primitives-spacing-spacing-64: 64;
+  --primitives-spacing-spacing-72: 72;
+  --primitives-spacing-spacing-80: 80;
+  --primitives-spacing-spacing-8: 8;
+  --primitives-spacing-spacing-92: 92;
+  --primitives-spacing-spacing-960: 960;
+  --primitives-teaching-resources-only-blue-2: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-blue: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-magenta-2: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-magenta: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-purple: rgb(132,90,217); /* @kind color */
+  --primitives-teaching-resources-only-teal: rgb(3,123,125); /* @kind color */
+  --savecountnav: 0; /* @kind other */
+  --semi-opaque: rgba(34,34,34,0.5); /* @kind color */
+  --semi-transparent: rgba(34,34,34,0.25); /* @kind color */
+  --string: "String value"; /* @kind other */
+  --tokens-background-bg-btn-primary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-primary-hover: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-btn-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-btn-secondary-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-btn-secondary-hover: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-btn-secondary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-correct: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-main: var(--primitives-brand-mint); /* @kind color */
+  --tokens-background-bg-decorative1-subdued: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-very-subdued: var(--primitives-brand-mint30); /* @kind color */
+  --tokens-background-bg-decorative2-main: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-background-bg-decorative2-subdued: var(--primitives-brand-aqua50); /* @kind color */
+  --tokens-background-bg-decorative2-very-subdued: var(--primitives-brand-aqua30); /* @kind color */
+  --tokens-background-bg-decorative3-main: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-background-bg-decorative3-subdued: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-background-bg-decorative3-very-subdued: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-background-bg-decorative4-main: var(--primitives-brand-pink); /* @kind color */
+  --tokens-background-bg-decorative4-subdued: var(--primitives-brand-pink50); /* @kind color */
+  --tokens-background-bg-decorative4-very-subdued: var(--primitives-brand-pink30); /* @kind color */
+  --tokens-background-bg-decorative5-main: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-background-bg-decorative5-subdued: var(--primitives-brand-lemon50); /* @kind color */
+  --tokens-background-bg-decorative5-very-subdued: var(--primitives-brand-lemon30); /* @kind color */
+  --tokens-background-bg-decorative6-main: var(--primitives-functional-amber); /* @kind color */
+  --tokens-background-bg-decorative6-subdued: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-background-bg-decorative6-very-subdued: var(--primitives-functional-amber30); /* @kind color */
+  --tokens-background-bg-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-background-bg-icon: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-incorrect: var(--primitives-functional-red30); /* @kind color */
+  --tokens-background-bg-interactive-element1: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-interactive-element2: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-background-bg-inverted-semi-transparent: rgba(34,34,34,0.25); /* @kind color */
+  --tokens-background-bg-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-neutral-stronger: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-neutral: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-decorative1-stronger: var(--primitives-brand-mint110); /* @kind color */
+  --tokens-border-border-decorative1: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-decorative2-stronger: var(--primitives-brand-aqua110); /* @kind color */
+  --tokens-border-border-decorative2: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-border-border-decorative3-stronger: var(--primitives-brand-lavender110); /* @kind color */
+  --tokens-border-border-decorative3: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-border-border-decorative4-stronger: var(--primitives-brand-pink110); /* @kind color */
+  --tokens-border-border-decorative4: var(--primitives-brand-pink); /* @kind color */
+  --tokens-border-border-decorative5-stronger: var(--primitives-brand-lemon110); /* @kind color */
+  --tokens-border-border-decorative5: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-border-border-decorative6-stronger: var(--primitives-functional-amber); /* @kind color */
+  --tokens-border-border-decorative6: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-border-border-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-border-border-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-border-border-neutral-lighter: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-border-border-neutral-stronger: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-border-border-neutral: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-border-border-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-border-border-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-border-border-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-code-code-blue: var(--primitives-code-only-rpf-syntax-blue); /* @kind color */
+  --tokens-code-code-green: var(--primitives-code-only-rpf-syntax-green); /* @kind color */
+  --tokens-code-code-grey: var(--primitives-code-only-rpf-syntax-grey); /* @kind color */
+  --tokens-code-code-pink: var(--primitives-code-only-rpf-syntax-pink); /* @kind color */
+  --tokens-gaps-spacing-0: 0;
+  --tokens-gaps-spacing-12: 12;
+  --tokens-gaps-spacing-16: 16;
+  --tokens-gaps-spacing-20: 20;
+  --tokens-gaps-spacing-24: 24;
+  --tokens-gaps-spacing-2: 2;
+  --tokens-gaps-spacing-32: 32;
+  --tokens-gaps-spacing-40: 40;
+  --tokens-gaps-spacing-48: 48;
+  --tokens-gaps-spacing-4: 4;
+  --tokens-gaps-spacing-56: 56;
+  --tokens-gaps-spacing-64: 64;
+  --tokens-gaps-spacing-72: 72;
+  --tokens-gaps-spacing-80: 80;
+  --tokens-gaps-spacing-8: 8;
+  --tokens-icon-icon-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative1: var(--primitives-brand-mint110); /* @kind color */
+  --tokens-icon-icon-decorative2: var(--primitives-brand-aqua110); /* @kind color */
+  --tokens-icon-icon-decorative3: var(--primitives-brand-lavender110); /* @kind color */
+  --tokens-icon-icon-decorative4: var(--primitives-brand-pink110); /* @kind color */
+  --tokens-icon-icon-decorative5: var(--primitives-brand-lemon110); /* @kind color */
+  --tokens-icon-icon-decorative6: var(--primitives-functional-amber); /* @kind color */
+  --tokens-icon-icon-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-icon-icon-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-icon-icon-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-icon-icon-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-icon-icon-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-main: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-icon-icon-subdued: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-icon-icon-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-inner-padding-inner-padding-xl2: var(--primitives-spacing-spacing-32);
+  --tokens-padding-spacing-0: 0;
+  --tokens-padding-spacing-12: 12;
+  --tokens-padding-spacing-16: 16;
+  --tokens-padding-spacing-20: 20;
+  --tokens-padding-spacing-24: 24;
+  --tokens-padding-spacing-2: 2;
+  --tokens-padding-spacing-32: 32;
+  --tokens-padding-spacing-40: 40;
+  --tokens-padding-spacing-48: 48;
+  --tokens-padding-spacing-4: 4;
+  --tokens-padding-spacing-56: 56;
+  --tokens-padding-spacing-64: 64;
+  --tokens-padding-spacing-72: 72;
+  --tokens-padding-spacing-80: 80;
+  --tokens-padding-spacing-8: 8;
+  --tokens-text-text-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-text-text-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-text-text-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-text-text-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-text-text-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-text-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-text-text-subdued: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-text-text-success: var(--primitives-functional-green); /* @kind color */
+  --transparent: rgba(34,34,34,0); /* @kind color */
+  --unit-variables-unit-count: "Unit 4"; /* @kind other */
+}
+
+:root[data-theme="dark"], .dark {
+  --grey-80: rgb(27,27,27); /* @kind color */
+  --primitives-brand-aqua110: rgb(124,216,208); /* @kind color */
+  --primitives-brand-aqua30: rgb(231,246,245); /* @kind color */
+  --primitives-brand-aqua50: rgb(215,241,239); /* @kind color */
+  --primitives-brand-aqua: rgb(176,226,222); /* @kind color */
+  --primitives-brand-black: rgb(34,34,34); /* @kind color */
+  --primitives-brand-blacksemitransparent: rgba(255,255,255,0.25); /* @kind color */
+  --primitives-brand-dark-amber110: rgb(133,68,27); /* @kind color */
+  --primitives-brand-dark-amber30: rgb(72,47,32); /* @kind color */
+  --primitives-brand-dark-amber50: rgb(80,50,32); /* @kind color */
+  --primitives-brand-dark-amber: rgb(102,56,29); /* @kind color */
+  --primitives-brand-dark-aqua110: rgb(0,116,106); /* @kind color */
+  --primitives-brand-dark-aqua30: rgb(22,45,42); /* @kind color */
+  --primitives-brand-dark-aqua50: rgb(22,54,50); /* @kind color */
+  --primitives-brand-dark-aqua: rgb(12,86,81); /* @kind color */
+  --primitives-brand-dark-lavendar110: rgb(35,67,165); /* @kind color */
+  --primitives-brand-dark-lavendar30: rgb(48,52,68); /* @kind color */
+  --primitives-brand-dark-lavendar50: rgb(55,64,97); /* @kind color */
+  --primitives-brand-dark-lavendar: rgb(56,72,139); /* @kind color */
+  --primitives-brand-dark-lemon110: rgb(122,105,0); /* @kind color */
+  --primitives-brand-dark-lemon30: rgb(60,56,32); /* @kind color */
+  --primitives-brand-dark-lemon50: rgb(73,66,26); /* @kind color */
+  --primitives-brand-dark-lemon: rgb(100,88,17); /* @kind color */
+  --primitives-brand-dark-mint110: rgb(48,109,65); /* @kind color */
+  --primitives-brand-dark-mint30: rgb(32,43,35); /* @kind color */
+  --primitives-brand-dark-mint50: rgb(37,55,42); /* @kind color */
+  --primitives-brand-dark-mint: rgb(46,83,56); /* @kind color */
+  --primitives-brand-dark-pink110: rgb(140,22,109); /* @kind color */
+  --primitives-brand-dark-pink30: rgb(63,33,55); /* @kind color */
+  --primitives-brand-dark-pink50: rgb(79,35,65); /* @kind color */
+  --primitives-brand-dark-pink: rgb(114,34,92); /* @kind color */
+  --primitives-brand-grey10: rgb(249,249,249); /* @kind color */
+  --primitives-brand-grey20: rgb(242,242,242); /* @kind color */
+  --primitives-brand-grey30: rgb(228,228,228); /* @kind color */
+  --primitives-brand-grey40: rgb(202,202,202); /* @kind color */
+  --primitives-brand-grey50: rgb(128,128,128); /* @kind color */
+  --primitives-brand-grey60: rgb(87,87,87); /* @kind color */
+  --primitives-brand-grey70: rgb(45,45,45); /* @kind color */
+  --primitives-brand-lavender110: rgb(124,154,236); /* @kind color */
+  --primitives-brand-lavender30: rgb(227,233,251); /* @kind color */
+  --primitives-brand-lavender50: rgb(189,205,245); /* @kind color */
+  --primitives-brand-lavender: rgb(160,182,242); /* @kind color */
+  --primitives-brand-lemon110: rgb(251,214,14); /* @kind color */
+  --primitives-brand-lemon30: rgb(255,247,204); /* @kind color */
+  --primitives-brand-lemon50: rgb(255,242,170); /* @kind color */
+  --primitives-brand-lemon: rgb(255,229,85); /* @kind color */
+  --primitives-brand-mint110: rgb(147,232,146); /* @kind color */
+  --primitives-brand-mint30: rgb(235,251,235); /* @kind color */
+  --primitives-brand-mint50: rgb(223,249,222); /* @kind color */
+  --primitives-brand-mint: rgb(190,242,189); /* @kind color */
+  --primitives-brand-pink110: rgb(207,156,195); /* @kind color */
+  --primitives-brand-pink30: rgb(245,233,242); /* @kind color */
+  --primitives-brand-pink50: rgb(239,219,234); /* @kind color */
+  --primitives-brand-pink: rgb(222,183,213); /* @kind color */
+  --primitives-brand-white: rgb(255,255,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-blue: rgb(158,232,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-green: rgb(148,249,175); /* @kind color */
+  --primitives-code-only-rpf-syntax-grey: rgb(251,251,251); /* @kind color */
+  --primitives-code-only-rpf-syntax-pink: rgb(238,204,255); /* @kind color */
+  --primitives-functional-amber30: rgb(255,236,224); /* @kind color */
+  --primitives-functional-amber50: rgb(255,200,166); /* @kind color */
+  --primitives-functional-amber: rgb(255,147,78); /* @kind color */
+  --primitives-functional-green: rgb(40,124,52); /* @kind color */
+  --primitives-functional-navy110: rgb(10,29,157); /* @kind color */
+  --primitives-functional-navy120: rgb(8,22,118); /* @kind color */
+  --primitives-functional-navy: rgb(13,36,196); /* @kind color */
+  --primitives-functional-red30: rgb(248,216,224); /* @kind color */
+  --primitives-functional-red50: rgb(238,128,154); /* @kind color */
+  --primitives-functional-red: rgb(221,0,53); /* @kind color */
+  --primitives-teaching-resources-only-blue-2: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-blue: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-magenta-2: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-magenta: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-purple: rgb(132,90,217); /* @kind color */
+  --primitives-teaching-resources-only-teal: rgb(3,123,125); /* @kind color */
+  --tokens-background-bg-btn-primary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-primary-hover: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-btn-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-btn-secondary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-secondary-hover: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-btn-secondary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-correct: var(--primitives-brand-mint30); /* @kind color */
+  --tokens-background-bg-decorative1-main: var(--primitives-brand-dark-mint); /* @kind color */
+  --tokens-background-bg-decorative1-subdued: var(--primitives-brand-dark-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-very-subdued: var(--primitives-brand-dark-mint30); /* @kind color */
+  --tokens-background-bg-decorative2-main: var(--primitives-brand-dark-aqua); /* @kind color */
+  --tokens-background-bg-decorative2-subdued: var(--primitives-brand-dark-aqua50); /* @kind color */
+  --tokens-background-bg-decorative2-very-subdued: var(--primitives-brand-dark-aqua30); /* @kind color */
+  --tokens-background-bg-decorative3-main: var(--primitives-brand-dark-lavendar); /* @kind color */
+  --tokens-background-bg-decorative3-subdued: var(--primitives-brand-dark-lavendar50); /* @kind color */
+  --tokens-background-bg-decorative3-very-subdued: var(--primitives-brand-dark-lavendar30); /* @kind color */
+  --tokens-background-bg-decorative4-main: var(--primitives-brand-dark-pink); /* @kind color */
+  --tokens-background-bg-decorative4-subdued: var(--primitives-brand-dark-pink50); /* @kind color */
+  --tokens-background-bg-decorative4-very-subdued: var(--primitives-brand-dark-pink30); /* @kind color */
+  --tokens-background-bg-decorative5-main: var(--primitives-brand-dark-lemon); /* @kind color */
+  --tokens-background-bg-decorative5-subdued: var(--primitives-brand-dark-lemon50); /* @kind color */
+  --tokens-background-bg-decorative5-very-subdued: var(--primitives-brand-dark-lemon30); /* @kind color */
+  --tokens-background-bg-decorative6-main: var(--primitives-brand-dark-amber); /* @kind color */
+  --tokens-background-bg-decorative6-subdued: var(--primitives-brand-dark-amber50); /* @kind color */
+  --tokens-background-bg-decorative6-very-subdued: var(--primitives-brand-dark-amber30); /* @kind color */
+  --tokens-background-bg-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-background-bg-icon: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-incorrect: var(--primitives-functional-red30); /* @kind color */
+  --tokens-background-bg-interactive-element1: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-interactive-element2: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-inverted-semi-transparent: rgba(255,255,255,0.25); /* @kind color */
+  --tokens-background-bg-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-neutral-stronger: var(--primitives-brand-grey70); /* @kind color */
+  --tokens-background-bg-neutral: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-success: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-brand: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-decorative1-stronger: var(--primitives-brand-dark-mint110); /* @kind color */
+  --tokens-border-border-decorative1: var(--primitives-brand-dark-mint); /* @kind color */
+  --tokens-border-border-decorative2-stronger: var(--primitives-brand-dark-aqua110); /* @kind color */
+  --tokens-border-border-decorative2: var(--primitives-brand-dark-aqua); /* @kind color */
+  --tokens-border-border-decorative3-stronger: var(--primitives-brand-dark-lavendar110); /* @kind color */
+  --tokens-border-border-decorative3: var(--primitives-brand-dark-lavendar); /* @kind color */
+  --tokens-border-border-decorative4-stronger: var(--primitives-brand-dark-pink110); /* @kind color */
+  --tokens-border-border-decorative4: var(--primitives-brand-dark-pink); /* @kind color */
+  --tokens-border-border-decorative5-stronger: var(--primitives-brand-dark-lemon110); /* @kind color */
+  --tokens-border-border-decorative5: var(--primitives-brand-dark-lemon); /* @kind color */
+  --tokens-border-border-decorative6-stronger: var(--primitives-brand-dark-amber110); /* @kind color */
+  --tokens-border-border-decorative6: var(--primitives-brand-dark-amber); /* @kind color */
+  --tokens-border-border-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-border-border-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-border-border-neutral-lighter: var(--primitives-brand-grey70); /* @kind color */
+  --tokens-border-border-neutral-stronger: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-border-border-neutral: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-border-border-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-border-border-success: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-text-link-pressed: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-border-border-warning: var(--primitives-brand-dark-amber); /* @kind color */
+  --tokens-code-code-blue: var(--primitives-code-only-rpf-syntax-blue); /* @kind color */
+  --tokens-code-code-green: var(--primitives-code-only-rpf-syntax-green); /* @kind color */
+  --tokens-code-code-grey: var(--primitives-code-only-rpf-syntax-grey); /* @kind color */
+  --tokens-code-code-pink: var(--primitives-code-only-rpf-syntax-pink); /* @kind color */
+  --tokens-icon-icon-brand: var(--primitives-brand-mint); /* @kind color */
+  --tokens-icon-icon-decorative1: var(--primitives-brand-dark-mint110); /* @kind color */
+  --tokens-icon-icon-decorative2: var(--primitives-brand-dark-aqua110); /* @kind color */
+  --tokens-icon-icon-decorative3: var(--primitives-brand-dark-lavendar110); /* @kind color */
+  --tokens-icon-icon-decorative4: var(--primitives-brand-dark-pink110); /* @kind color */
+  --tokens-icon-icon-decorative5: var(--primitives-brand-dark-lemon110); /* @kind color */
+  --tokens-icon-icon-decorative6: var(--primitives-brand-dark-amber110); /* @kind color */
+  --tokens-icon-icon-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-icon-icon-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-icon-icon-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-link-active: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-icon-icon-link-hover: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-icon-icon-link-pressed: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-icon-icon-link-visited: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-icon-icon-main: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-promo: var(--primitives-brand-dark-lemon110); /* @kind color */
+  --tokens-icon-icon-subdued: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-icon-icon-success: var(--primitives-brand-mint); /* @kind color */
+  --tokens-icon-icon-warning: var(--primitives-brand-dark-amber110); /* @kind color */
+  --tokens-text-text-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-text-text-error: var(--primitives-functional-red50); /* @kind color */
+  --tokens-text-text-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-link-active: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-text-text-link-hover: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-text-text-link-pressed: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-text-text-link-visited: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-text-text-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-text-text-promo: var(--primitives-brand-lemon50); /* @kind color */
+  --tokens-text-text-subdued: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-text-text-success: var(--primitives-brand-mint); /* @kind color */
+}
+
+:root[data-mode="oakcattheme"] {
+  --grey-80: rgb(27,27,27); /* @kind color */
+  --primitives-brand-aqua110: rgb(124,216,208); /* @kind color */
+  --primitives-brand-aqua30: rgb(231,246,245); /* @kind color */
+  --primitives-brand-aqua50: rgb(215,241,239); /* @kind color */
+  --primitives-brand-aqua: rgb(176,226,222); /* @kind color */
+  --primitives-brand-black: rgb(34,34,34); /* @kind color */
+  --primitives-brand-blacksemitransparent: rgba(34,34,34,0.25); /* @kind color */
+  --primitives-brand-dark-amber110: rgb(133,68,27); /* @kind color */
+  --primitives-brand-dark-amber30: rgb(72,47,32); /* @kind color */
+  --primitives-brand-dark-amber50: rgb(80,50,32); /* @kind color */
+  --primitives-brand-dark-amber: rgb(102,56,29); /* @kind color */
+  --primitives-brand-dark-aqua110: rgb(0,116,106); /* @kind color */
+  --primitives-brand-dark-aqua30: rgb(22,45,42); /* @kind color */
+  --primitives-brand-dark-aqua50: rgb(22,54,50); /* @kind color */
+  --primitives-brand-dark-aqua: rgb(12,86,81); /* @kind color */
+  --primitives-brand-dark-lavendar110: rgb(35,67,165); /* @kind color */
+  --primitives-brand-dark-lavendar30: rgb(48,52,68); /* @kind color */
+  --primitives-brand-dark-lavendar50: rgb(55,64,97); /* @kind color */
+  --primitives-brand-dark-lavendar: rgb(56,72,139); /* @kind color */
+  --primitives-brand-dark-lemon110: rgb(122,105,0); /* @kind color */
+  --primitives-brand-dark-lemon30: rgb(60,56,32); /* @kind color */
+  --primitives-brand-dark-lemon50: rgb(73,66,26); /* @kind color */
+  --primitives-brand-dark-lemon: rgb(100,88,17); /* @kind color */
+  --primitives-brand-dark-mint110: rgb(48,109,65); /* @kind color */
+  --primitives-brand-dark-mint30: rgb(32,43,35); /* @kind color */
+  --primitives-brand-dark-mint50: rgb(37,55,42); /* @kind color */
+  --primitives-brand-dark-mint: rgb(46,83,56); /* @kind color */
+  --primitives-brand-dark-pink110: rgb(140,22,109); /* @kind color */
+  --primitives-brand-dark-pink30: rgb(63,33,55); /* @kind color */
+  --primitives-brand-dark-pink50: rgb(79,35,65); /* @kind color */
+  --primitives-brand-dark-pink: rgb(114,34,92); /* @kind color */
+  --primitives-brand-grey10: rgb(249,249,249); /* @kind color */
+  --primitives-brand-grey20: rgb(242,242,242); /* @kind color */
+  --primitives-brand-grey30: rgb(228,228,228); /* @kind color */
+  --primitives-brand-grey40: rgb(202,202,202); /* @kind color */
+  --primitives-brand-grey50: rgb(128,128,128); /* @kind color */
+  --primitives-brand-grey60: rgb(87,87,87); /* @kind color */
+  --primitives-brand-grey70: rgb(45,45,45); /* @kind color */
+  --primitives-brand-lavender110: rgb(124,154,236); /* @kind color */
+  --primitives-brand-lavender30: rgb(227,233,251); /* @kind color */
+  --primitives-brand-lavender50: rgb(189,205,245); /* @kind color */
+  --primitives-brand-lavender: rgb(160,182,242); /* @kind color */
+  --primitives-brand-lemon110: rgb(251,214,14); /* @kind color */
+  --primitives-brand-lemon30: rgb(255,247,204); /* @kind color */
+  --primitives-brand-lemon50: rgb(255,242,170); /* @kind color */
+  --primitives-brand-lemon: rgb(255,229,85); /* @kind color */
+  --primitives-brand-mint110: rgb(147,232,146); /* @kind color */
+  --primitives-brand-mint30: rgb(235,251,235); /* @kind color */
+  --primitives-brand-mint50: rgb(223,249,222); /* @kind color */
+  --primitives-brand-mint: rgb(190,242,189); /* @kind color */
+  --primitives-brand-pink110: rgb(207,156,195); /* @kind color */
+  --primitives-brand-pink30: rgb(245,233,242); /* @kind color */
+  --primitives-brand-pink50: rgb(239,219,234); /* @kind color */
+  --primitives-brand-pink: rgb(222,183,213); /* @kind color */
+  --primitives-brand-white: rgb(255,255,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-blue: rgb(158,232,255); /* @kind color */
+  --primitives-code-only-rpf-syntax-green: rgb(148,249,175); /* @kind color */
+  --primitives-code-only-rpf-syntax-grey: rgb(251,251,251); /* @kind color */
+  --primitives-code-only-rpf-syntax-pink: rgb(238,204,255); /* @kind color */
+  --primitives-functional-amber30: rgb(255,236,224); /* @kind color */
+  --primitives-functional-amber50: rgb(255,200,166); /* @kind color */
+  --primitives-functional-amber: rgb(255,147,78); /* @kind color */
+  --primitives-functional-green: rgb(40,124,52); /* @kind color */
+  --primitives-functional-navy110: rgb(10,29,157); /* @kind color */
+  --primitives-functional-navy120: rgb(8,22,118); /* @kind color */
+  --primitives-functional-navy: rgb(13,36,196); /* @kind color */
+  --primitives-functional-red30: rgb(248,216,224); /* @kind color */
+  --primitives-functional-red50: rgb(238,128,154); /* @kind color */
+  --primitives-functional-red: rgb(221,0,53); /* @kind color */
+  --primitives-teaching-resources-only-blue-2: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-blue: rgb(55,76,241); /* @kind color */
+  --primitives-teaching-resources-only-magenta-2: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-magenta: rgb(208,42,167); /* @kind color */
+  --primitives-teaching-resources-only-purple: rgb(132,90,217); /* @kind color */
+  --primitives-teaching-resources-only-teal: rgb(3,123,125); /* @kind color */
+  --tokens-background-bg-btn-primary-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-btn-primary-hover: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-background-bg-btn-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-btn-secondary-disabled: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-btn-secondary-hover: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-btn-secondary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-correct: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-main: var(--primitives-brand-mint); /* @kind color */
+  --tokens-background-bg-decorative1-subdued: var(--primitives-brand-mint50); /* @kind color */
+  --tokens-background-bg-decorative1-very-subdued: var(--primitives-brand-mint30); /* @kind color */
+  --tokens-background-bg-decorative2-main: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-background-bg-decorative2-subdued: var(--primitives-brand-aqua50); /* @kind color */
+  --tokens-background-bg-decorative2-very-subdued: var(--primitives-brand-aqua30); /* @kind color */
+  --tokens-background-bg-decorative3-main: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-background-bg-decorative3-subdued: var(--primitives-brand-lavender50); /* @kind color */
+  --tokens-background-bg-decorative3-very-subdued: var(--primitives-brand-lavender30); /* @kind color */
+  --tokens-background-bg-decorative4-main: var(--primitives-brand-pink); /* @kind color */
+  --tokens-background-bg-decorative4-subdued: var(--primitives-brand-pink50); /* @kind color */
+  --tokens-background-bg-decorative4-very-subdued: var(--primitives-brand-pink30); /* @kind color */
+  --tokens-background-bg-decorative5-main: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-background-bg-decorative5-subdued: var(--primitives-brand-lemon50); /* @kind color */
+  --tokens-background-bg-decorative5-very-subdued: var(--primitives-brand-lemon30); /* @kind color */
+  --tokens-background-bg-decorative6-main: var(--primitives-functional-amber); /* @kind color */
+  --tokens-background-bg-decorative6-subdued: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-background-bg-decorative6-very-subdued: var(--primitives-functional-amber30); /* @kind color */
+  --tokens-background-bg-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-background-bg-icon: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-incorrect: var(--primitives-functional-red30); /* @kind color */
+  --tokens-background-bg-interactive-element1: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-background-bg-interactive-element2: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-background-bg-inverted-semi-transparent: rgba(34,34,34,0.25); /* @kind color */
+  --tokens-background-bg-inverted: var(--primitives-brand-black); /* @kind color */
+  --tokens-background-bg-neutral-stronger: var(--primitives-brand-grey30); /* @kind color */
+  --tokens-background-bg-neutral: var(--primitives-brand-grey20); /* @kind color */
+  --tokens-background-bg-primary: var(--primitives-brand-white); /* @kind color */
+  --tokens-background-bg-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-decorative1-stronger: var(--primitives-brand-mint110); /* @kind color */
+  --tokens-border-border-decorative1: var(--primitives-brand-mint); /* @kind color */
+  --tokens-border-border-decorative2-stronger: var(--primitives-brand-aqua110); /* @kind color */
+  --tokens-border-border-decorative2: var(--primitives-brand-aqua); /* @kind color */
+  --tokens-border-border-decorative3-stronger: var(--primitives-brand-lavender110); /* @kind color */
+  --tokens-border-border-decorative3: var(--primitives-brand-lavender); /* @kind color */
+  --tokens-border-border-decorative4-stronger: var(--primitives-brand-pink110); /* @kind color */
+  --tokens-border-border-decorative4: var(--primitives-brand-pink); /* @kind color */
+  --tokens-border-border-decorative5-stronger: var(--primitives-brand-lemon110); /* @kind color */
+  --tokens-border-border-decorative5: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-border-border-decorative6-stronger: var(--primitives-functional-amber); /* @kind color */
+  --tokens-border-border-decorative6: var(--primitives-functional-amber50); /* @kind color */
+  --tokens-border-border-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-border-border-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-border-border-neutral-lighter: var(--primitives-brand-grey40); /* @kind color */
+  --tokens-border-border-neutral-stronger: var(--primitives-brand-black); /* @kind color */
+  --tokens-border-border-neutral: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-border-border-primary: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-border-border-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-border-border-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-border-border-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-code-code-blue: var(--primitives-code-only-rpf-syntax-blue); /* @kind color */
+  --tokens-code-code-green: var(--primitives-code-only-rpf-syntax-green); /* @kind color */
+  --tokens-code-code-grey: var(--primitives-code-only-rpf-syntax-grey); /* @kind color */
+  --tokens-code-code-pink: var(--primitives-code-only-rpf-syntax-pink); /* @kind color */
+  --tokens-icon-icon-brand: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative1: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative2: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative3: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative4: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative5: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-decorative6: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-icon-icon-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-icon-icon-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-icon-icon-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-icon-icon-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-icon-icon-main: var(--primitives-brand-white); /* @kind color */
+  --tokens-icon-icon-primary: var(--primitives-brand-grey60); /* @kind color */
+  --tokens-icon-icon-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-icon-icon-subdued: var(--primitives-brand-black); /* @kind color */
+  --tokens-icon-icon-success: var(--primitives-functional-green); /* @kind color */
+  --tokens-icon-icon-warning: var(--primitives-functional-amber); /* @kind color */
+  --tokens-text-text-disabled: var(--primitives-brand-grey50); /* @kind color */
+  --tokens-text-text-error: var(--primitives-functional-red); /* @kind color */
+  --tokens-text-text-inverted: var(--primitives-brand-white); /* @kind color */
+  --tokens-text-text-link-active: var(--primitives-functional-navy); /* @kind color */
+  --tokens-text-text-link-hover: var(--primitives-functional-navy110); /* @kind color */
+  --tokens-text-text-link-pressed: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-link-visited: var(--primitives-functional-navy120); /* @kind color */
+  --tokens-text-text-primary: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-promo: var(--primitives-brand-lemon); /* @kind color */
+  --tokens-text-text-subdued: var(--primitives-brand-black); /* @kind color */
+  --tokens-text-text-success: var(--primitives-functional-green); /* @kind color */
+}
+
+/* ============================================================
+   Oak National Academy - Colors, Type & Foundations
+   Source: oaknational/oak-components (src/styles/theme/*)
+   Font: Lexend (Google Fonts substitute - originals not received)
+   ============================================================ */
+
+/* Lexend - variable font, local file. Weights 100–900. */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("9129fe8c-17b9-471c-adfa-7896381fac20") format("truetype-variations"),
+       url("9129fe8c-17b9-471c-adfa-7896381fac20") format("truetype");
+}
+
+/* Roboto Mono - not uploaded; still from Google Fonts as a fallback for code contexts. */
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("399d2c95-d036-4892-a879-e64ead9c15b1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("7321334a-9631-4e05-86f4-46d3d5ad4780") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("9c2b13e5-2640-4ca9-8679-d2438046b810") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("ee5b1f14-f487-4725-a8c6-264683c0eac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("cc1a7fce-2818-49d0-adee-0b0393496385") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("35404184-18c8-4a06-8079-70957a2c5af6") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("399d2c95-d036-4892-a879-e64ead9c15b1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("7321334a-9631-4e05-86f4-46d3d5ad4780") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("9c2b13e5-2640-4ca9-8679-d2438046b810") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("ee5b1f14-f487-4725-a8c6-264683c0eac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("cc1a7fce-2818-49d0-adee-0b0393496385") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("35404184-18c8-4a06-8079-70957a2c5af6") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("399d2c95-d036-4892-a879-e64ead9c15b1") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("7321334a-9631-4e05-86f4-46d3d5ad4780") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("9c2b13e5-2640-4ca9-8679-d2438046b810") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("ee5b1f14-f487-4725-a8c6-264683c0eac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("cc1a7fce-2818-49d0-adee-0b0393496385") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("35404184-18c8-4a06-8079-70957a2c5af6") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+:root {
+  /* --- Neutral / grey scale --- */
+  --oak-white: #ffffff;
+  --oak-grey10: #f9f9f9;
+  --oak-grey20: #f2f2f2;
+  --oak-grey30: #e4e4e4;
+  --oak-grey40: #cacaca;
+  --oak-grey50: #808080;
+  --oak-grey60: #575757;
+  --oak-grey70: #2d2d2d;
+  --oak-grey80: #1b1b1b;
+  --oak-black: #222222;
+
+  /* --- Brand primary (oak green) --- */
+  --oak-green: #287c34;
+
+  /* --- Decorative palette (pastels + 110 hovers + 50/30 tints) --- */
+  --oak-mint: #bef2bd;
+  --oak-mint30: #ebfbeb;
+  --oak-mint50: #dff9de;
+  --oak-mint110: #93e892;
+
+  --oak-aqua: #b0e2de;
+  --oak-aqua30: #e7f6f5;
+  --oak-aqua50: #d7f1ef;
+  --oak-aqua110: #7cd8d0;
+
+  --oak-lavender: #a0b6f2;
+  --oak-lavender30: #e3e9fb;
+  --oak-lavender50: #bdcdf5;
+  --oak-lavender110: #7c9aec;
+
+  --oak-pink: #deb7d5;
+  --oak-pink30: #f5e9f2;
+  --oak-pink50: #efdbea;
+  --oak-pink110: #cf9cc3;
+
+  --oak-lemon: #ffe555;
+  --oak-lemon30: #fff7cc;
+  --oak-lemon50: #fff2aa;
+  --oak-lemon110: #fbd60e;
+
+  /* --- Functional --- */
+  --oak-amber: #ff934e;
+  --oak-amber30: #ffece0;
+  --oak-amber50: #ffc8a6;
+  --oak-red: #dd0035;
+  --oak-red30: #f8d8e0;
+  --oak-red50: #ee809a;
+  --oak-navy: #0d24c4;
+  --oak-navy110: #0a1d9d;
+  --oak-navy120: #081676;
+
+  /* --- Teaching resources only (slides etc) --- */
+  --oak-blue: #374cf1;
+  --oak-magenta: #d02aa7;
+  --oak-purple: #845ad9;
+  --oak-teal: #037b7d;
+
+  /* --- Semantic role tokens (default theme) --- */
+  --text-primary: var(--oak-black);
+  --text-subdued: var(--oak-grey60);
+  --text-error: var(--oak-red);
+  --text-disabled: var(--oak-grey50);
+  --text-link: var(--oak-navy);
+  --text-link-hover: var(--oak-navy110);
+  --text-link-visited: var(--oak-navy120);
+  --text-inverted: var(--oak-white);
+  --text-success: var(--oak-green);
+
+  --bg-primary: var(--oak-white);
+  --bg-inverted: var(--oak-black);
+  --bg-neutral: var(--oak-grey20);
+  --bg-neutral-stronger: var(--oak-grey30);
+  --bg-btn-primary: var(--oak-black);
+  --bg-btn-primary-hover: var(--oak-grey60);
+  --bg-btn-secondary: var(--oak-white);
+  --bg-btn-secondary-hover: var(--oak-grey20);
+
+  --bg-correct: var(--oak-mint50);
+  --bg-incorrect: var(--oak-red30);
+  --bg-success: var(--oak-green);
+  --bg-error: var(--oak-red);
+
+  --border-primary: var(--oak-black);
+  --border-neutral: var(--oak-grey50);
+  --border-neutral-lighter: var(--oak-grey40);
+  --border-brand: var(--oak-green);
+  --border-error: var(--oak-red);
+  --border-warning: var(--oak-amber);
+
+  /* --- Border widths --- */
+  --border-solid-none: 0; /* @kind spacing */
+  --border-solid-s: 1px;
+  --border-solid-m: 2px;
+  --border-solid-l: 3px;
+  --border-solid-xl: 4px;
+  --border-solid-xxl: 6px;
+  --border-solid-xxxl: 8px;
+  --border-solid-xxxxl: 10px;
+
+  /* --- Border radii --- */
+  --radius-square: 0;
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-m2: 8px;
+  --radius-l: 16px;
+  --radius-xl: 24px;
+  --radius-circle: 100px;
+
+  /* --- Spacing (primitives, px) - Oak's full 0→1360 scale --- */
+  --space-0: 0;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+  --space-80: 80px;
+  --space-92: 92px;
+  --space-100: 100px;
+  --space-120: 120px;
+  --space-160: 160px;
+  --space-180: 180px;
+  --space-240: 240px;
+  --space-360: 360px;
+  --space-480: 480px;
+  --space-640: 640px;
+  --space-960: 960px;
+  --space-1280: 1280px;
+  --space-1360: 1360px;
+
+  /* --- Drop shadows (Oak's signature "offset solid" shadows) --- */
+  --shadow-standard: 0 0.5rem 0.5rem rgba(92, 92, 92, 0.2);
+  --shadow-lemon: 0.125rem 0.125rem 0 #ffe555;
+  --shadow-wide-lemon: 0.25rem 0.25rem 0 #ffe555;
+  --shadow-centered-lemon: 0 0 0 0.125rem #ffe555;
+  --shadow-grey: 0.25rem 0.25rem 0 #575757;
+  --shadow-centered-grey: 0 0 0 0.3rem #575757;
+  --shadow-black: 0.063rem 0.125rem 0 #000;
+
+  /* --- Type family --- */
+  --font-sans: "Lexend", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Font sizes (px) --- */
+  --font-size-1: 12px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 20px;
+  --font-size-6: 24px;
+  --font-size-7: 32px;
+  --font-size-8: 40px;
+  --font-size-9: 48px;
+  --font-size-10: 56px;
+}
+
+/* --- Base --- */
+html, body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Semantic type classes (match oakFontTokens).
+   Use as className or via @extend in your CSS.
+   ============================================================ */
+
+.oak-heading-1 { font: 600 56px/64px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-2 { font: 600 48px/56px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-3 { font: 600 40px/48px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-4 { font: 600 32px/40px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-5 { font: 600 24px/32px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-6 { font: 600 20px/24px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-7 { font: 600 16px/20px var(--font-sans); letter-spacing: 0.0115rem; }
+
+.oak-heading-light-1 { font: 400 56px/64px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-2 { font: 400 48px/56px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-3 { font: 400 40px/48px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-4 { font: 400 32px/40px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-5 { font: 400 24px/32px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-6 { font: 400 20px/24px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-7 { font: 400 16px/20px var(--font-sans); letter-spacing: 0.0115rem; }
+
+.oak-body-1 { font: 300 18px/28px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-2 { font: 300 16px/24px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-3 { font: 300 14px/20px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-4 { font: 300 12px/16px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-1-bold { font: 700 18px/28px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-2-bold { font: 700 16px/24px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-3-bold { font: 700 14px/20px var(--font-sans); letter-spacing: -0.005rem; }
+
+.oak-code-2 { font: 300 18px/24px var(--font-mono); letter-spacing: 0.0115rem; }
+.oak-code-2-bold { font: 700 18px/24px var(--font-mono); letter-spacing: 0.0115rem; }
+
+/* ============================================================
+   Native element defaults - apply "oak-scope" to a root to opt in
+   without globally restyling every host page.
+   ============================================================ */
+.oak-scope h1 { font: 600 48px/56px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 24px; }
+.oak-scope h2 { font: 600 40px/48px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 20px; }
+.oak-scope h3 { font: 600 32px/40px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 16px; }
+.oak-scope h4 { font: 600 24px/32px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 12px; }
+.oak-scope h5 { font: 600 20px/24px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 8px; }
+.oak-scope p  { font: 300 18px/28px var(--font-sans); letter-spacing: -0.005rem; margin: 0 0 16px; color: var(--text-primary); }
+.oak-scope a  { color: var(--text-link); text-decoration: underline; text-underline-offset: 2px; }
+.oak-scope a:hover { color: var(--text-link-hover); }
+
+/* Oak's signature: thick black borders + offset yellow shadow for interactive things */
+.oak-interactive {
+  border: var(--border-solid-m) solid var(--oak-black);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-lemon);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.oak-interactive:hover { box-shadow: var(--shadow-wide-lemon); }
+.oak-interactive:active { transform: translate(2px, 2px); box-shadow: 0 0 0 #ffe555; }
+
+</style>
+  <script src="1a4c4fa6-c298-4caf-9c5a-f9eccab0b8f1"></script>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#f4f3ef}
+    :focus-visible{outline:3px solid #0d24c4;outline-offset:2px;border-radius:3px}
+    ::selection{background:#ffe555}
+    @keyframes oakIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes oakFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(-3deg)}}
+    .oak-card{transition:transform .14s ease, box-shadow .14s ease}
+    .oak-card:hover{transform:translateY(-3px)}
+    .oak-navlink{transition:background .12s ease}
+    .oak-navlink:hover{background:#f0efe9}
+  </style>
+</helmet>
+
+<div style="font-family:'Lexend',system-ui,sans-serif;color:#222;background:#f4f3ef;min-height:100vh">
+
+  <!-- ===================== TOP NAV ===================== -->
+  <header style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:3px solid #222">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:14px 28px">
+      <a href="Oak Hub.dc.html" style="display:flex;align-items:center;flex:0 0 auto;text-decoration:none">
+        <img src="eb503978-3894-4202-817f-f0fbe09145ad" alt="Oak National Academy" style="height:34px;width:auto">
+      </a>
+      <nav style="display:flex;align-items:center;gap:2px;margin-left:14px">
+        <a class="oak-navlink" href="Oak Course.dc.html" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Training courses</a>
+        <a class="oak-navlink" href="Oak Standards.dc.html" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Quality standards</a>
+        <a class="oak-navlink" href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Rubrics</a>
+        <a class="oak-navlink" href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Exemplars</a>
+        <a class="oak-navlink" href="#" style="text-decoration:none;color:#222;font:600 15px/1 'Lexend';padding:9px 13px;border-radius:8px;white-space:nowrap">Wiki</a>
+      </nav>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:14px">
+        <div style="display:flex;align-items:center;gap:8px;border:2px solid #222;border-radius:100px;background:#fff;padding:7px 14px;width:230px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#575757" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+          <input value="{{ query }}" oninput="{{ onSearch }}" placeholder="Search the hub" aria-label="Search the hub" style="border:none;outline:none;font:300 15px/1 'Lexend';color:#222;background:transparent;width:100%">
+        </div>
+        <div style="width:40px;height:40px;border-radius:100px;border:2px solid #222;background:#bef2bd;display:flex;align-items:center;justify-content:center;font:700 14px/1 'Lexend';flex:0 0 auto" title="Your account">CT</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section style="background:#fff7cc;border-bottom:3px solid #222;position:relative;overflow:hidden">
+    <div style="max-width:1240px;margin:0 auto;padding:56px 28px 60px;position:relative">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#222;color:#fff;border-radius:100px;padding:7px 15px;font:700 12px/1 'Lexend';letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px">Single source of truth</div>
+      <h1 style="font:600 52px/58px 'Lexend';letter-spacing:.0115rem;margin:0 0 18px;max-width:18ch;text-wrap:balance">Oak Curriculum and Lesson Creation</h1>
+      <p style="font:300 21px/31px 'Lexend';letter-spacing:-.005rem;margin:0 0 30px;max-width:60ch;color:#222">Everything you need to create high-quality lessons at Oak, connected in one place. Training, quality standards, rubrics, exemplars and our shared wiki — so the way we work is always clear, current and joined up.</p>
+      <div style="display:flex;align-items:center;gap:10px;border:3px solid #222;border-radius:100px;background:#fff;padding:9px 12px 9px 20px;max-width:620px;box-shadow:4px 4px 0 #ffe555">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#575757" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg>
+        <input value="{{ query }}" oninput="{{ onSearch }}" placeholder="Search courses, standards, rubrics, exemplars…" aria-label="Search everything" style="border:none;outline:none;font:300 18px/1 'Lexend';color:#222;background:transparent;width:100%">
+        <button onclick="{{ noop }}" style="flex:0 0 auto;border:2px solid #222;border-radius:100px;background:#222;color:#fff;font:700 15px/1 'Lexend';padding:11px 20px;cursor:pointer">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DESTINATIONS ===================== -->
+  <main style="max-width:1240px;margin:0 auto;padding:48px 28px 24px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap">
+      <h2 style="font:600 30px/36px 'Lexend';letter-spacing:.0115rem;margin:0">{{ sectionHeading }}</h2>
+      <sc-if value="{{ isSearching }}" hint-placeholder-val="{{ false }}">
+        <button onclick="{{ clearSearch }}" style="border:2px solid #222;border-radius:100px;background:#fff;font:600 14px/1 'Lexend';padding:9px 16px;cursor:pointer;box-shadow:2px 2px 0 #ffe555">Clear search</button>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ hasDest }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px">
+      <sc-for list="{{ destinations }}" as="d" hint-placeholder-count="5">
+        <a class="oak-card" href="{{ d.href }}" target="{{ d.target }}" style="{{ d.cardStyle }}">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+            <div style="{{ d.iconWrapStyle }}">{{ d.iconEl }}</div>
+            <sc-if value="{{ d.hasCount }}" hint-placeholder-val="{{ true }}">
+              <span style="margin-left:auto;background:#fff;border:2px solid #222;border-radius:100px;font:700 13px/1 'Lexend';padding:6px 12px">{{ d.count }}</span>
+            </sc-if>
+          </div>
+          <h3 style="font:600 23px/28px 'Lexend';letter-spacing:.0115rem;margin:0 0 8px">{{ d.title }}</h3>
+          <p style="font:300 16px/24px 'Lexend';margin:0 0 18px;color:#222;flex:1">{{ d.desc }}</p>
+          <span style="display:inline-flex;align-items:center;gap:8px;font:700 15px/1 'Lexend';color:#222">{{ d.cta }} <span style="font-size:18px">→</span></span>
+        </a>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <!-- ===== OAK CURRICULUM (live connector data) ===== -->
+    <sc-if value="{{ hasCurriculum }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:40px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap">
+          <span style="width:34px;height:34px;border-radius:9px;border:2px solid #222;background:#bdeee9;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 8l10 5 10-5-10-5z"></path><path d="M2 13l10 5 10-5"></path><path d="M2 18l10 5 10-5"></path></svg></span>
+          <h3 style="font:600 20px/26px 'Lexend';letter-spacing:.0115rem;margin:0">From the Oak curriculum</h3>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:#bef2bd;border:2px solid #222;border-radius:100px;font:700 11px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;padding:5px 10px"><span style="width:7px;height:7px;border-radius:100px;background:#287c34"></span>Live</span>
+          <span style="font:300 14px/20px 'Lexend';color:#575757">Lessons, units and threads from thenational.academy</span>
+        </div>
+
+        <sc-if value="{{ hasLesson }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:16px">
+            <div style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:10px">Lessons</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px">
+              <sc-for list="{{ lessonHits }}" as="l" hint-placeholder-count="3">
+                <a href="{{ l.href }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;gap:9px;text-decoration:none;color:#222;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:15px 17px">
+                  <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                    <span style="{{ l.subjectChipStyle }}">{{ l.subjectName }}</span>
+                    <span style="font:700 11px/1 'Lexend';color:#575757;border:1px solid #e0ded6;border-radius:100px;padding:5px 9px">{{ l.stage }}</span>
+                  </div>
+                  <span style="font:600 16px/22px 'Lexend'">{{ l.title }}</span>
+                  <span style="font:300 13px/18px 'Lexend';color:#575757">{{ l.unitLine }}</span>
+                  <span style="font:700 13px/1 'Lexend';color:#143b78;margin-top:2px">Open lesson on Oak ↗</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ hasUnit }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px">
+            <div style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:10px">Units</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ unitHits }}" as="u" hint-placeholder-count="2">
+                <a href="{{ u.href }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#222;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:14px 18px">
+                  <span style="{{ u.subjectChipStyle }}">{{ u.subjectName }}</span>
+                  <span style="flex:1;font:600 16px/22px 'Lexend'">{{ u.title }}</span>
+                  <span style="flex:0 0 auto;font:700 12px/1 'Lexend';color:#575757;border:1px solid #e0ded6;border-radius:100px;padding:6px 10px">{{ u.meta }}</span>
+                  <span style="flex:0 0 auto;font:700 13px/1 'Lexend';color:#143b78">↗</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ hasThread }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px">
+            <div style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#575757;margin-bottom:10px">Learning threads</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ threadHits }}" as="th" hint-placeholder-count="2">
+                <a href="{{ th.href }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#222;border:2px solid #222;border-radius:100px;background:#f5e9f2;box-shadow:2px 2px 0 #222;padding:9px 16px">
+                  <span style="font:600 15px/1 'Lexend'">{{ th.title }}</span>
+                  <span style="font:700 12px/1 'Lexend';color:#575757">{{ th.meta }}</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- TRAINING (eLearning) RESULTS -->
+    <sc-if value="{{ hasCourse }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:36px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span style="width:34px;height:34px;border-radius:9px;border:2px solid #222;background:#bef2bd;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"></path><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"></path></svg></span>
+          <h3 style="font:600 20px/26px 'Lexend';letter-spacing:.0115rem;margin:0">In the training courses</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ courseHits }}" as="c" hint-placeholder-count="2">
+            <a href="{{ c.href }}" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#222;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:15px 18px">
+              <span style="flex:0 0 auto;font:700 11px/1 'Lexend';letter-spacing:.04em;text-transform:uppercase;color:#575757;background:#ebfbeb;border:2px solid #222;border-radius:100px;padding:6px 11px">{{ c.module }}</span>
+              <span style="flex:1;font:600 17px/23px 'Lexend'">{{ c.title }}</span>
+              <span style="flex:0 0 auto;font:700 14px/1 'Lexend';color:#575757">Open →</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- QUALITY STANDARDS RESULTS -->
+    <sc-if value="{{ hasStd }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:36px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span style="width:34px;height:34px;border-radius:9px;border:2px solid #222;background:#a0b6f2;display:flex;align-items:center;justify-content:center;flex:0 0 auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
+          <h3 style="font:600 20px/26px 'Lexend';letter-spacing:.0115rem;margin:0">Quality standards</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ stdHits }}" as="s" hint-placeholder-count="3">
+            <a href="{{ s.href }}" style="display:flex;align-items:flex-start;gap:14px;text-decoration:none;color:#222;border:2px solid #222;border-radius:12px;background:#fff;box-shadow:2px 2px 0 #ffe555;padding:15px 18px">
+              <span style="flex:0 0 auto;font:700 12px/1 'Lexend';color:#143b78;background:#e7f0fd;border:2px solid #2a6fdb;border-radius:6px;padding:6px 9px">{{ s.id }}</span>
+              <span style="flex:1;font:300 16px/23px 'Lexend'">{{ s.text }}</span>
+              <sc-if value="{{ s.hasArea }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 auto;font:700 11px/1 'Lexend';color:#575757;border:1px solid #e0ded6;border-radius:100px;padding:6px 10px">{{ s.area }}</span></sc-if>
+            </a>
+          </sc-for>
+          <sc-if value="{{ hasStdMore }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ stdMoreHref }}" style="text-decoration:none;color:#143b78;font:700 15px/1 'Lexend';padding:6px 2px">See {{ stdMore }} more in quality standards →</a>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div style="border:2px dashed #cacaca;border-radius:16px;background:#fff;padding:44px;text-align:center;margin-top:8px">
+        <div style="font:600 20px/26px 'Lexend';margin-bottom:6px">Nothing matches "{{ query }}"</div>
+        <p style="font:300 16px/24px 'Lexend';color:#575757;margin:0">Try a different word, or browse all sections.</p>
+      </div>
+    </sc-if>
+  </main>
+
+  <!-- ===================== HOW IT CONNECTS ===================== -->
+  <sc-if value="{{ showConnect }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1240px;margin:0 auto;padding:28px 28px 56px">
+    <div style="border:3px solid #222;border-radius:20px;background:#e3e9fb;box-shadow:4px 4px 0 #222;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:0">
+        <div style="padding:40px 40px 40px">
+          <div style="font:700 12px/1 'Lexend';letter-spacing:.06em;text-transform:uppercase;color:#575757;margin-bottom:14px">Everything's connected</div>
+          <h2 style="font:600 32px/38px 'Lexend';letter-spacing:.0115rem;margin:0 0 14px;text-wrap:balance">Content that links to itself</h2>
+          <p style="font:300 18px/27px 'Lexend';margin:0 0 16px">As you move through a training course, related guidance surfaces right where you need it. When a lesson touches a quality standard, you'll see a link straight to that standard and its exemplification — no hunting required.</p>
+          <p style="font:300 18px/27px 'Lexend';margin:0">Update a standard once, and every page that references it stays in step. One source of truth, joined up.</p>
+        </div>
+        <div style="background:#fff;border-left:3px solid #222;padding:36px 34px;display:flex;flex-direction:column;gap:16px;justify-content:center">
+          <div style="font:300 16px/24px 'Lexend';color:#575757">In a training page, you'll see:</div>
+          <!-- the linked-standard box demo -->
+          <a href="#" style="display:block;text-decoration:none;border:2px solid #2a6fdb;border-radius:12px;background:#e7f0fd;padding:16px 18px;box-shadow:3px 3px 0 #bcd5f7">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2a6fdb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"></path><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"></path></svg>
+              <span style="font:700 12px/1 'Lexend';letter-spacing:.05em;text-transform:uppercase;color:#2a6fdb">Linked quality standard</span>
+            </div>
+            <div style="font:600 17px/23px 'Lexend';color:#143b78;margin-bottom:3px">Writing questions for checks for understanding</div>
+            <div style="font:300 14px/20px 'Lexend';color:#2a6fdb">View the standard and exemplification →</div>
+          </a>
+          <div style="font:300 13px/19px 'Lexend';color:#575757">Pastel-blue boxes always signal a link out to a connected standard or exemplar.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background:#222;color:#fff;border-top:3px solid #222">
+    <div style="max-width:1240px;margin:0 auto;padding:34px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:14px">
+        <img src="54b85bd1-7faf-40a6-ada3-4a536a4b3130" alt="" style="height:30px;width:auto;filter:brightness(0) invert(1)">
+        <span style="font:300 15px/21px 'Lexend';color:#cacaca;max-width:46ch">Oak Curriculum and Lesson Creation — the internal hub for creating high-quality lessons at Oak.</span>
+      </div>
+      <div style="font:300 14px/20px 'Lexend';color:#9a9a9a">Internal use · Oak National Academy</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="">
+class Component extends DCLogic {
+  state = { query: "", standards: null, curriculum: null };
+
+  componentDidMount() {
+    this._installBundleNav();
+    fetch((window.__resources && window.__resources.qsData) || "data/quality-standards.json")
+      .then(r => r.json())
+      .then(standards => this.setState({ standards }))
+      .catch(() => this.setState({ standards: [] }));
+    fetch((window.__resources && window.__resources.curriculum) || "data/curriculum.json")
+      .then(r => r.json())
+      .then(curriculum => this.setState({ curriculum }))
+      .catch(() => this.setState({ curriculum: { lessons: [], units: [], threads: [] } }));
+  }
+
+  // In the bundled single-file build, rewrite cross-page links (incl. dynamic
+  // and deep-linked ones) to the bundler's internal hash route. No-op live.
+  _installBundleNav() {
+    if (typeof window === "undefined" || !window.__bundler_pages) return;
+    if (window.__oakBundleNav) return;
+    window.__oakBundleNav = true;
+    document.addEventListener("click", function (e) {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a) return;
+      var href = a.getAttribute("href") || "";
+      var m = href.match(/^([^#]+\.dc)\.html(?:#.*)?$/);
+      if (m && window.__bundler_pages.indexOf(m[1]) >= 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        try { parent.location.hash = "#/" + m[1]; } catch (err) { location.hash = "#/" + m[1]; }
+      }
+    }, true);
+  }
+
+  // searchable index of training-course sections (eLearning)
+  courseIndex() {
+    return [
+      { sid: "u1m1s1", module: "Oak lessons", title: "Why Oak lessons matter", kw: "purpose reach classrooms" },
+      { sid: "u1m1s2", module: "Oak lessons", title: "The eight lesson components", kw: "slide deck worksheet quiz video components" },
+      { sid: "u1m1s4", module: "Oak lessons", title: "Lesson structure & vocabulary", kw: "learning cycle outcome outline key learning points" },
+      { sid: "u1m2s1", module: "Curriculum information", title: "What is curriculum information?", kw: "fit it cat curriculum authoring tool" },
+      { sid: "u1m2s3", module: "Curriculum information", title: "Review, create or iterate", kw: "misconceptions outcome cat" },
+      { sid: "u1m3s1", module: "Core considerations", title: "Five areas to consider", kw: "safety safeguarding accessibility" },
+      { sid: "u1m3s2", module: "Core considerations", title: "Accessibility & scaffolding", kw: "send wcag contrast scaffold accessible accessibility" },
+      { sid: "u1m3s3", module: "Core considerations", title: "Diversity", kw: "diversity diverse inclusive language gender stereotypes representation protected characteristics inclusion" },
+      { sid: "u1m3s4", module: "Core considerations", title: "Safety, safeguarding & content guidance", kw: "safeguarding safety content guidance external links age appropriate" },
+      { sid: "m1s2", module: "The learning framework", title: "What is the learning framework?", kw: "learning framework mccrea evidence" },
+      { sid: "m1s3", module: "The learning framework", title: "The seven stages", kw: "fit own frame get use keep check stages" },
+      { sid: "m2s1", module: "High-quality explanation", title: "What is explanation?", kw: "explanation explaining teaching strategy" },
+      { sid: "m2s2", module: "High-quality explanation", title: "Types of knowledge", kw: "declarative procedural conditional knowledge" },
+      { sid: "m2s3", module: "High-quality explanation", title: "Three principles", kw: "connected chunked clear explanation principles" },
+      { sid: "m2s4", module: "High-quality explanation", title: "Delivering explanations", kw: "simple to complex part whole cognitive load small steps" },
+      { sid: "m3s1", module: "Enriching explanation", title: "Six ways to enrich", kw: "examples non-examples images discussion modelling stories analogies" },
+      { sid: "m3s2", module: "Enriching explanation", title: "Worked examples in depth", kw: "worked examples expertise reversal" },
+      { sid: "m4s1", module: "Checks for understanding", title: "What is a check for understanding?", kw: "checks for understanding cfu cfus check responsiveness" },
+      { sid: "m4s2", module: "Checks for understanding", title: "Principles of good CfUs", kw: "checks for understanding cfu cfus mini-whiteboard guessing misconceptions" },
+      { sid: "m4s3", module: "Checks for understanding", title: "Question types", kw: "multiple choice short answer true false why checks cfu" },
+      { sid: "m4s4", module: "Checks for understanding", title: "Feedback", kw: "feedback model response praise checks cfu" },
+    ];
+  }
+
+  renderVals() {
+    const q = (this.state.query || "").trim().toLowerCase();
+    const isSearching = q.length > 0;
+
+    const navLinks = [
+      { label: "Training courses", href: "Oak Course.dc.html" },
+      { label: "Quality standards", href: "Oak Standards.dc.html" },
+      { label: "Rubrics", href: "#" },
+      { label: "Exemplars", href: "#" },
+      { label: "Wiki", href: "#" },
+    ];
+
+    const icon = (paths) => React.createElement("svg", {
+      width: 26, height: 26, viewBox: "0 0 24 24", fill: "none",
+      stroke: "#222", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round"
+    }, paths.map((d, i) => React.createElement("path", { key: i, d })));
+    const iconShapes = (els) => React.createElement("svg", {
+      width: 26, height: 26, viewBox: "0 0 24 24", fill: "none",
+      stroke: "#222", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round"
+    }, els);
+
+    const defs = [
+      {
+        key: "courses", title: "eLearning training courses", bg: "#ebfbeb", iconBg: "#bef2bd",
+        href: "Oak Course.dc.html", count: "1 live", cta: "Start learning",
+        desc: "Self-paced professional courses on how we create lessons — starting with Creating lessons at Oak.",
+        kw: "training course elearning learning module professional development cpd creating lessons",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M22 10L12 5 2 10l10 5 10-5z" }),
+          React.createElement("path", { key: 1, d: "M6 12v5c0 1 3 3 6 3s6-2 6-3v-5" }),
+        ]),
+      },
+      {
+        key: "curriculum", title: "Oak curriculum", bg: "#e7f6f5", iconBg: "#bdeee9",
+        href: "https://www.thenational.academy/teachers", target: "_blank", count: "Live", cta: "Search the curriculum",
+        desc: "Search live lessons, units and learning threads from Oak's published national curriculum \u2014 straight from thenational.academy.",
+        kw: "curriculum lessons units threads thread programme programmes national curriculum thenational subjects key stage live oak content connector",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M12 3L2 8l10 5 10-5-10-5z" }),
+          React.createElement("path", { key: 1, d: "M2 13l10 5 10-5" }),
+          React.createElement("path", { key: 2, d: "M2 18l10 5 10-5" }),
+        ]),
+      },
+      {
+        key: "standards", title: "Quality standards", bg: "#e3e9fb", iconBg: "#a0b6f2",
+        href: "Oak Standards.dc.html", count: "685", cta: "Browse standards",
+        desc: "The benchmarks every piece of content is held to — each with clear exemplification of what good looks like.",
+        kw: "quality standards benchmark checks for understanding writing questions criteria",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M9 11l3 3L22 4" }),
+          React.createElement("path", { key: 1, d: "M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" }),
+        ]),
+      },
+      {
+        key: "rubrics", title: "Rubrics", bg: "#e7f6f5", iconBg: "#b0e2de",
+        href: "#", count: "Hub", cta: "Open rubrics",
+        desc: "Structured grids for reviewing and grading work consistently against agreed criteria.",
+        kw: "rubric grid grading review assessment criteria marking",
+        iconEl: iconShapes([
+          React.createElement("rect", { key: 0, x: 3, y: 3, width: 18, height: 18, rx: 2 }),
+          React.createElement("path", { key: 1, d: "M3 9h18M3 15h18M9 3v18" }),
+        ]),
+      },
+      {
+        key: "exemplars", title: "Exemplars", bg: "#f5e9f2", iconBg: "#deb7d5",
+        href: "#", count: "Hub", cta: "See exemplars",
+        desc: "Worked examples of high-quality content, annotated to show exactly why they work.",
+        kw: "exemplar example worked annotated model best practice",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M12 2l2.4 5 5.6.8-4 3.9 1 5.5L12 19.6 6 17.2l1-5.5-4-3.9L8.6 7z" }),
+        ]),
+      },
+      {
+        key: "wiki", title: "Wiki", bg: "#fff7cc", iconBg: "#ffe555",
+        href: "#", count: "Hub", cta: "Open the wiki",
+        desc: "Shared knowledge, how-tos and definitions — the living reference for how we work at Oak.",
+        kw: "wiki knowledge base reference glossary how to definitions documentation",
+        iconEl: iconShapes([
+          React.createElement("path", { key: 0, d: "M4 19.5A2.5 2.5 0 0 1 6.5 17H20" }),
+          React.createElement("path", { key: 1, d: "M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" }),
+        ]),
+      },
+    ];
+
+    const filtered = isSearching
+      ? defs.filter(d => (d.title.toLowerCase() + " " + d.desc.toLowerCase() + " " + d.kw).includes(q))
+      : defs;
+
+    const destinations = filtered.map(d => ({
+      title: d.title, desc: d.desc, href: d.href, cta: d.cta,
+      target: d.target || "_self",
+      count: d.count, hasCount: true,
+      iconEl: d.iconEl,
+      cardStyle: `display:flex;flex-direction:column;text-decoration:none;color:#222;border:3px solid #222;border-radius:18px;background:${d.bg};box-shadow:4px 4px 0 #222;padding:24px 24px 26px;min-height:240px`,
+      iconWrapStyle: `width:54px;height:54px;border-radius:14px;border:2px solid #222;background:${d.iconBg};display:flex;align-items:center;justify-content:center;flex:0 0 auto`,
+    }));
+
+    // ---- global search across training sections + quality standards ----
+    const courseHits = isSearching
+      ? this.courseIndex()
+          .filter(c => (c.title + " " + c.module + " " + c.kw).toLowerCase().includes(q))
+          .map(c => ({ title: c.title, module: c.module, href: `Oak Course.dc.html#section=${c.sid}` }))
+      : [];
+
+    // ---- Oak curriculum search (real data from the curriculum connector) ----
+    const SUBJ = { maths:"Maths", history:"History", science:"Science", english:"English", geography:"Geography", computing:"Computing", "religious-education":"Religious education", "design-technology":"Design and technology", "cooking-nutrition":"Cooking and nutrition", german:"German" };
+    const SUBJ_BG = { maths:"#bef2bd", history:"#ffd59e", science:"#b0e2de", english:"#cdbaf0", geography:"#bfe3a8", computing:"#f4b8d0", "religious-education":"#ffe555", "design-technology":"#f0c8a0", "cooking-nutrition":"#f0c8a0", german:"#c8d4dc" };
+    const KSL = { ks1:"KS1", ks2:"KS2", ks3:"KS3", ks4:"KS4" };
+    const subjName = (s) => SUBJ[s] || s;
+    const chipStyle = (s) => `font:700 11px/1 'Lexend';color:#222;background:${SUBJ_BG[s] || '#eee'};border:2px solid #222;border-radius:100px;padding:5px 10px`;
+    const phaseOf = (ks) => (ks === "ks1" || ks === "ks2") ? "primary" : "secondary";
+    const cur = this.state.curriculum || { lessons: [], units: [], threads: [] };
+    const hit = (hay) => hay.toLowerCase().includes(q);
+
+    const lessonAll = isSearching
+      ? (cur.lessons || []).filter(l => hit(`${l.t} ${(l.kw||[]).join(" ")} ${l.unit||""} ${(l.threads||[]).join(" ")} ${l.outcome||""} ${subjName(l.subject)}`))
+      : [];
+    const lessonHits = lessonAll.slice(0, 9).map(l => ({
+      title: l.t,
+      subjectName: subjName(l.subject),
+      subjectChipStyle: chipStyle(l.subject),
+      stage: KSL[l.ks] + (l.years && l.years.length ? " \u00b7 Year " + l.years.join(", ") : ""),
+      unitLine: "Unit: " + (l.unit || "\u2014"),
+      href: "https://www.thenational.academy/teachers/lessons/" + l.slug,
+    }));
+
+    const unitAll = isSearching
+      ? (cur.units || []).filter(u => hit(`${u.t} ${(u.threads||[]).join(" ")} ${subjName(u.subject)}`))
+      : [];
+    const unitHits = unitAll.slice(0, 6).map(u => ({
+      title: u.t,
+      subjectName: subjName(u.subject),
+      subjectChipStyle: chipStyle(u.subject),
+      meta: KSL[u.ks] + " \u00b7 " + u.lessons + " lessons",
+      href: "https://www.thenational.academy/teachers/curriculum/" + u.subject + "-" + phaseOf(u.ks) + "/units/" + u.slug,
+    }));
+
+    const threadAll = isSearching
+      ? (cur.threads || []).filter(t => hit(`${t.t} ${(t.subjects||[]).join(" ")}`))
+      : [];
+    const threadHits = threadAll.slice(0, 8).map(t => ({
+      title: t.t,
+      meta: t.units ? t.units + " units" : "",
+      href: "https://www.thenational.academy/teachers/curriculum/" + t.subjects[0] + "-" + (t.phase || "primary") + "/units?threads=" + t.slug,
+    }));
+
+    const curriculumCount = lessonAll.length + unitAll.length + threadAll.length;
+
+    const stds = this.state.standards || [];
+    const stdAll = isSearching
+      ? stds.filter(s => (s.text + " " + s.areas.join(" ") + " " + (s.code || "")).toLowerCase().includes(q))
+      : [];
+    const stdHits = stdAll.slice(0, 8).map(s => ({
+      id: s.id, text: s.text,
+      area: (s.areas[0] || "").replace(/\s*\(CfUs\)/, ""),
+      hasArea: s.areas.length > 0,
+      href: `Oak Standards.dc.html#qs=${s.id}`,
+    }));
+    const stdMoreHref = `Oak Standards.dc.html#q=${encodeURIComponent(this.state.query.trim())}`;
+    const stdMore = stdAll.length > stdHits.length ? (stdAll.length - stdHits.length) : 0;
+
+    const totalResults = filtered.length + courseHits.length + stdAll.length + curriculumCount;
+
+    return {
+      query: this.state.query,
+      navLinks,
+      destinations, hasDest: destinations.length > 0,
+      courseHits, hasCourse: courseHits.length > 0,
+      stdHits, hasStd: stdHits.length > 0,
+      stdMore, hasStdMore: stdMore > 0, stdMoreHref,
+      stdLoading: isSearching && this.state.standards === null,
+      lessonHits, hasLesson: lessonHits.length > 0,
+      unitHits, hasUnit: unitHits.length > 0,
+      threadHits, hasThread: threadHits.length > 0,
+      hasCurriculum: curriculumCount > 0,
+      isSearching,
+      noResults: isSearching && totalResults === 0 && this.state.standards !== null && this.state.curriculum !== null,
+      showConnect: !isSearching,
+      sectionHeading: isSearching ? `Results for "${this.state.query.trim()}"` : "Explore the hub",
+      onSearch: (e) => this.setState({ query: e.target.value }),
+      clearSearch: () => this.setState({ query: "" }),
+      noop: (e) => { e && e.preventDefault && e.preventDefault(); },
+    };
+  }
+}
+</script>
+
+
+</body></html>

@@ -64,4 +64,33 @@ export default [
       '@typescript-eslint/no-unsafe-member-access': 'off',
     },
   },
+  {
+    // Build tooling (Director-ratified 2026-07-01, mirroring the verified
+    // `oak-sdk-codegen` `code-generation/**` precedent): the Course generator
+    // fails loud on malformed vendored data — the correct control flow for a
+    // build script (ADR-088's Result pattern is app-runtime, not build tooling)
+    // — and deep-walks arbitrary JSON, where `Object.keys` is unavoidable.
+    // `max-lines` deliberately stays ON: hand-authored tooling holds the length
+    // bar (the generator is split into `course-extract.ts` + `generate-course.ts`
+    // rather than exempted). App code + real logic keep the full ruleset.
+    files: ['scripts/**/*.ts'],
+    // Tests OF the tooling hold full strict — a tooling relaxation must never reach a test file
+    // (config-expert note, 2026-07-01). Only the tooling itself gets the relaxations.
+    ignores: ['scripts/**/*.test.ts'],
+    rules: {
+      '@oaknational/no-throw-statement': 'off',
+      'no-restricted-properties': 'off',
+    },
+  },
+  {
+    // Generated data (Director-ratified 2026-07-01, mirroring the codegen
+    // `src/types/generated/**` precedent): a machine-emitted content module is
+    // not hand-authored, so a hand-authored line budget is a category error.
+    // Only `max-lines` is relaxed; the CONSUMER of this data holds full strict,
+    // and the `: Course` annotation still compile-time-validates every block.
+    files: ['lib/**/*.generated.ts'],
+    rules: {
+      'max-lines': 'off',
+    },
+  },
 ];

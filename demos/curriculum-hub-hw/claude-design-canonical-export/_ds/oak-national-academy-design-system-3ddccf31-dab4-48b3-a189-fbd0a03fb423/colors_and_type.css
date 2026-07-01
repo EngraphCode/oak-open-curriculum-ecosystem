@@ -1,0 +1,248 @@
+/* ============================================================
+   Oak National Academy - Colors, Type & Foundations
+   Source: oaknational/oak-components (src/styles/theme/*)
+   Font: Lexend (Google Fonts substitute - originals not received)
+   ============================================================ */
+
+/* Lexend - variable font, local file. Weights 100–900. */
+@font-face {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/Lexend-VariableFont_wght.ttf") format("truetype-variations"),
+       url("fonts/Lexend-VariableFont_wght.ttf") format("truetype");
+}
+
+/* Roboto Mono - not uploaded; still from Google Fonts as a fallback for code contexts. */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap");
+
+:root {
+  /* --- Neutral / grey scale --- */
+  --oak-white: #ffffff;
+  --oak-grey10: #f9f9f9;
+  --oak-grey20: #f2f2f2;
+  --oak-grey30: #e4e4e4;
+  --oak-grey40: #cacaca;
+  --oak-grey50: #808080;
+  --oak-grey60: #575757;
+  --oak-grey70: #2d2d2d;
+  --oak-grey80: #1b1b1b;
+  --oak-black: #222222;
+
+  /* --- Brand primary (oak green) --- */
+  --oak-green: #287c34;
+
+  /* --- Decorative palette (pastels + 110 hovers + 50/30 tints) --- */
+  --oak-mint: #bef2bd;
+  --oak-mint30: #ebfbeb;
+  --oak-mint50: #dff9de;
+  --oak-mint110: #93e892;
+
+  --oak-aqua: #b0e2de;
+  --oak-aqua30: #e7f6f5;
+  --oak-aqua50: #d7f1ef;
+  --oak-aqua110: #7cd8d0;
+
+  --oak-lavender: #a0b6f2;
+  --oak-lavender30: #e3e9fb;
+  --oak-lavender50: #bdcdf5;
+  --oak-lavender110: #7c9aec;
+
+  --oak-pink: #deb7d5;
+  --oak-pink30: #f5e9f2;
+  --oak-pink50: #efdbea;
+  --oak-pink110: #cf9cc3;
+
+  --oak-lemon: #ffe555;
+  --oak-lemon30: #fff7cc;
+  --oak-lemon50: #fff2aa;
+  --oak-lemon110: #fbd60e;
+
+  /* --- Functional --- */
+  --oak-amber: #ff934e;
+  --oak-amber30: #ffece0;
+  --oak-amber50: #ffc8a6;
+  --oak-red: #dd0035;
+  --oak-red30: #f8d8e0;
+  --oak-red50: #ee809a;
+  --oak-navy: #0d24c4;
+  --oak-navy110: #0a1d9d;
+  --oak-navy120: #081676;
+
+  /* --- Teaching resources only (slides etc) --- */
+  --oak-blue: #374cf1;
+  --oak-magenta: #d02aa7;
+  --oak-purple: #845ad9;
+  --oak-teal: #037b7d;
+
+  /* --- Semantic role tokens (default theme) --- */
+  --text-primary: var(--oak-black);
+  --text-subdued: var(--oak-grey60);
+  --text-error: var(--oak-red);
+  --text-disabled: var(--oak-grey50);
+  --text-link: var(--oak-navy);
+  --text-link-hover: var(--oak-navy110);
+  --text-link-visited: var(--oak-navy120);
+  --text-inverted: var(--oak-white);
+  --text-success: var(--oak-green);
+
+  --bg-primary: var(--oak-white);
+  --bg-inverted: var(--oak-black);
+  --bg-neutral: var(--oak-grey20);
+  --bg-neutral-stronger: var(--oak-grey30);
+  --bg-btn-primary: var(--oak-black);
+  --bg-btn-primary-hover: var(--oak-grey60);
+  --bg-btn-secondary: var(--oak-white);
+  --bg-btn-secondary-hover: var(--oak-grey20);
+
+  --bg-correct: var(--oak-mint50);
+  --bg-incorrect: var(--oak-red30);
+  --bg-success: var(--oak-green);
+  --bg-error: var(--oak-red);
+
+  --border-primary: var(--oak-black);
+  --border-neutral: var(--oak-grey50);
+  --border-neutral-lighter: var(--oak-grey40);
+  --border-brand: var(--oak-green);
+  --border-error: var(--oak-red);
+  --border-warning: var(--oak-amber);
+
+  /* --- Border widths --- */
+  --border-solid-none: 0; /* @kind spacing */
+  --border-solid-s: 1px;
+  --border-solid-m: 2px;
+  --border-solid-l: 3px;
+  --border-solid-xl: 4px;
+  --border-solid-xxl: 6px;
+  --border-solid-xxxl: 8px;
+  --border-solid-xxxxl: 10px;
+
+  /* --- Border radii --- */
+  --radius-square: 0;
+  --radius-xs: 2px;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-m2: 8px;
+  --radius-l: 16px;
+  --radius-xl: 24px;
+  --radius-circle: 100px;
+
+  /* --- Spacing (primitives, px) - Oak's full 0→1360 scale --- */
+  --space-0: 0;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+  --space-80: 80px;
+  --space-92: 92px;
+  --space-100: 100px;
+  --space-120: 120px;
+  --space-160: 160px;
+  --space-180: 180px;
+  --space-240: 240px;
+  --space-360: 360px;
+  --space-480: 480px;
+  --space-640: 640px;
+  --space-960: 960px;
+  --space-1280: 1280px;
+  --space-1360: 1360px;
+
+  /* --- Drop shadows (Oak's signature "offset solid" shadows) --- */
+  --shadow-standard: 0 0.5rem 0.5rem rgba(92, 92, 92, 0.2);
+  --shadow-lemon: 0.125rem 0.125rem 0 #ffe555;
+  --shadow-wide-lemon: 0.25rem 0.25rem 0 #ffe555;
+  --shadow-centered-lemon: 0 0 0 0.125rem #ffe555;
+  --shadow-grey: 0.25rem 0.25rem 0 #575757;
+  --shadow-centered-grey: 0 0 0 0.3rem #575757;
+  --shadow-black: 0.063rem 0.125rem 0 #000;
+
+  /* --- Type family --- */
+  --font-sans: "Lexend", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Font sizes (px) --- */
+  --font-size-1: 12px;
+  --font-size-2: 14px;
+  --font-size-3: 16px;
+  --font-size-4: 18px;
+  --font-size-5: 20px;
+  --font-size-6: 24px;
+  --font-size-7: 32px;
+  --font-size-8: 40px;
+  --font-size-9: 48px;
+  --font-size-10: 56px;
+}
+
+/* --- Base --- */
+html, body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Semantic type classes (match oakFontTokens).
+   Use as className or via @extend in your CSS.
+   ============================================================ */
+
+.oak-heading-1 { font: 600 56px/64px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-2 { font: 600 48px/56px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-3 { font: 600 40px/48px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-4 { font: 600 32px/40px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-5 { font: 600 24px/32px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-6 { font: 600 20px/24px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-7 { font: 600 16px/20px var(--font-sans); letter-spacing: 0.0115rem; }
+
+.oak-heading-light-1 { font: 400 56px/64px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-2 { font: 400 48px/56px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-3 { font: 400 40px/48px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-4 { font: 400 32px/40px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-5 { font: 400 24px/32px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-6 { font: 400 20px/24px var(--font-sans); letter-spacing: 0.0115rem; }
+.oak-heading-light-7 { font: 400 16px/20px var(--font-sans); letter-spacing: 0.0115rem; }
+
+.oak-body-1 { font: 300 18px/28px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-2 { font: 300 16px/24px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-3 { font: 300 14px/20px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-4 { font: 300 12px/16px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-1-bold { font: 700 18px/28px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-2-bold { font: 700 16px/24px var(--font-sans); letter-spacing: -0.005rem; }
+.oak-body-3-bold { font: 700 14px/20px var(--font-sans); letter-spacing: -0.005rem; }
+
+.oak-code-2 { font: 300 18px/24px var(--font-mono); letter-spacing: 0.0115rem; }
+.oak-code-2-bold { font: 700 18px/24px var(--font-mono); letter-spacing: 0.0115rem; }
+
+/* ============================================================
+   Native element defaults - apply "oak-scope" to a root to opt in
+   without globally restyling every host page.
+   ============================================================ */
+.oak-scope h1 { font: 600 48px/56px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 24px; }
+.oak-scope h2 { font: 600 40px/48px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 20px; }
+.oak-scope h3 { font: 600 32px/40px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 16px; }
+.oak-scope h4 { font: 600 24px/32px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 12px; }
+.oak-scope h5 { font: 600 20px/24px var(--font-sans); letter-spacing: 0.0115rem; margin: 0 0 8px; }
+.oak-scope p  { font: 300 18px/28px var(--font-sans); letter-spacing: -0.005rem; margin: 0 0 16px; color: var(--text-primary); }
+.oak-scope a  { color: var(--text-link); text-decoration: underline; text-underline-offset: 2px; }
+.oak-scope a:hover { color: var(--text-link-hover); }
+
+/* Oak's signature: thick black borders + offset yellow shadow for interactive things */
+.oak-interactive {
+  border: var(--border-solid-m) solid var(--oak-black);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-lemon);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.oak-interactive:hover { box-shadow: var(--shadow-wide-lemon); }
+.oak-interactive:active { transform: translate(2px, 2px); box-shadow: 0 0 0 #ffe555; }

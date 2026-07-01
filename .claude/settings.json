@@ -184,7 +184,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "node .claude/scripts/statusline-identity.mjs"
+    "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs\""
   },
   "skillListingBudgetFraction": 0.03,
   "enabledPlugins": {

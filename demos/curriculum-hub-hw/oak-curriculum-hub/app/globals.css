@@ -12,6 +12,8 @@
   --color-oak-black: #222222;
   --color-oak-grey: #575757;
   --color-oak-grey-line: #e0ded6;
+  /* Oak grey40 — AA-safe muted text on dark surfaces (footer chrome). */
+  --color-oak-grey-40: #cacaca;
   --color-oak-cream: #f4f3ef;
   --color-oak-green: #287c34;
   --color-oak-navy: #0d24c4;
@@ -47,7 +49,7 @@
   /* Signature offset shadows */
   --shadow-oak-lemon: 2px 2px 0 #ffe555;
   --shadow-oak-wide-lemon: 4px 4px 0 #ffe555;
-  --shadow-oak-grey: 2px 2px 0 #222222;
+  --shadow-oak-grey: 4px 4px 0 #575757;
 }
 
 /* ============================================================
@@ -69,7 +71,7 @@ body {
   font-family: var(--font-sans);
   color: var(--color-oak-black);
   background: var(--color-oak-cream);
-  font-weight: 300;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

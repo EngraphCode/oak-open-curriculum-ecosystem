@@ -264,7 +264,42 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ TEAM-TOOLING ARC CLOSED — Director: Falcon wakes Stratus (active, 2026-06-29)
+> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — Director: Sycamore spins Loam (#5, active 2026-07-01)
+>
+> The current Director-led multi-session effort is the **Curriculum Hub program**: reproduce the
+> ENTIRE Oak Curriculum Hub from the Claude Design canonical export — ALL pages + ALL components,
+> visual-matched — + two-search + 6 cards, to the guiding plan's **DoD §A–I**. No stubs/hedging/
+> fabrication. Branch `feat/curriculum-hub-demo` — NOT pushed (owner: local).
+>
+> **A successor rehydrates from** (detail lives here, not duplicated): the thread record
+> `threads/curriculum-hub-demo.next-session.md` (cast, lane state, tracked follow-ups), the Director
+> handoff record `handoffs/2026-07-01-curriculum-hub-director-hawthorn.md`, and the guiding plan
+> `.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`.
+>
+> **Director:** Sycamore spins Loam (`551fb6`, #5; PDR-064 Moment-2 `6e9f39ba` from Hawthorn's
+> Moment-1 `676403a6`; readiness gate passed w/ pasted UTC liveness check). Chain: Herring → Swordfish
+> → Lantern → Hawthorn → Sycamore. Director claim `35d9c8f2`; watcher `bmgqrapnp` + heartbeat
+> `b86ta7zlt` live. **Live cast** (owner-launched peers — Director routes + READ-ONLY reviewers only,
+> never implementer sub-agents): Cinder rides Vapor (`ee38ca`, data `fd0ee59e`), Linnet guards Ridge
+> (`2700b3`, styling `cf62bda9`).
+>
+> **Owner-gated (constitutive only):** git PUSH (branch local) · the owner's final visual sign-off vs
+> the canonical export once §A–I green · launching further successor peer sessions.
+>
+> **Named eventual successor:** **Panther calls Gloaming** (Director #6, owner-named 2026-07-01) — not
+> yet arrived; pre-position via PDR-064 Moment-1 when it registers as standby / when my context deepens.
+> The owner naming IS the authorisation (no fresh sign-off at Moment-2). **Whole-generation rotation
+> (owner, 2026-07-01):** data Cinder rides Vapor → **Deneb mends Perigee** (`fd0ee59e`, PDR-063); styling
+> Linnet guards Ridge → **Typhoon turns Aether** (`cf62bda9`, PDR-063). Successors adopt the retained
+> claims on arrival (read the per-lane handoff records end-to-end first).
+>
+> **Readiness gate before any Moment-2:** five questions + a pasted mechanical UTC liveness check
+> (comms-live, not registry-stale — F-44); then adopt `35d9c8f2`, arm heartbeat, stop the outgoing
+> heartbeat.
+>
+> ---
+>
+> ### ▶ TEAM-TOOLING ARC CLOSED (prior effort, conserved) — Director: Falcon wakes Stratus (2026-06-29)
 >
 > **Director: Falcon wakes Stratus** (`adb1f3`, 6th Director; clean PDR-064 from Trawler mends
 > Buoy, Moment-2 `3078f8c6`). Chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon.

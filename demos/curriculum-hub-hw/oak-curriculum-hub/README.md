@@ -48,3 +48,20 @@ types in `packages/sdks/` and adjust those two files only.
    `apps/oak-curriculum-hub` to `pnpm-workspace.yaml`.
 2. Register in `turbo.json` pipelines (`build`, `type-check`, `lint`).
 3. Decide Vercel deployment alongside the MCP server.
+
+## Licence
+
+This demo needs no separate licence — it is covered by the repository's root licences:
+
+- **Code** — [`LICENCE`](../../../LICENCE) (MIT).
+- **Oak curriculum content** (live search + lesson data, and the quality-standards data) —
+  [`LICENCE-DATA.md`](../../../LICENCE-DATA.md), which places curriculum content under the Open
+  Government Licence v3.0. Attribution is required:
+  *"Contains public sector information licensed under the Open Government Licence v3.0."*
+- **Oak brand assets** (fonts, logos, and the design-system kit under
+  [`../oak-design-kit/`](../oak-design-kit/)) — the MIT licence covers source code only and does
+  not grant trademark or brand rights, and this is Oak's own repository, so no separate grant is
+  made or needed.
+
+The root [`LICENCE`](../../../LICENCE) and [`LICENCE-DATA.md`](../../../LICENCE-DATA.md) are the
+authoritative terms.

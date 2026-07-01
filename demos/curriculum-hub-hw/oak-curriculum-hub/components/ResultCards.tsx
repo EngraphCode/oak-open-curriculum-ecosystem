@@ -77,18 +77,30 @@ export function UnitCard({ hit }: { hit: Hit }): ReactElement {
   );
 }
 
+// Threads frequently have no canonical url (the live contract: thread url is often ""),
+// so render a non-link chip in that case rather than an <a> pointing nowhere.
+const threadChipClass =
+  'inline-flex items-center gap-2.5 rounded-full border-2 border-oak-black bg-oak-pink-subdued px-4 py-[9px] text-oak-black shadow-oak-grey';
+
 export function ThreadCard({ hit }: { hit: Hit }): ReactElement {
-  return (
-    <a
-      href={hit.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2.5 rounded-full border-2 border-oak-black bg-oak-pink-subdued px-4 py-[9px] text-oak-black no-underline shadow-oak-grey transition-transform duration-150 active:translate-x-0.5 active:translate-y-0.5"
-    >
+  const inner = (
+    <>
       <span className="text-[15px] font-semibold leading-none">{hit.title}</span>
       {typeof hit.unitCount === 'number' && (
         <span className="text-xs font-bold text-oak-grey">{hit.unitCount} units</span>
       )}
+    </>
+  );
+  return hit.url ? (
+    <a
+      href={hit.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${threadChipClass} no-underline transition-transform duration-150 active:translate-x-0.5 active:translate-y-0.5`}
+    >
+      {inner}
     </a>
+  ) : (
+    <span className={threadChipClass}>{inner}</span>
   );
 }
