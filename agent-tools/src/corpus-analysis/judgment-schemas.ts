@@ -76,7 +76,7 @@ export const leafSignalSchema = z.strictObject({
   grounding: z.array(groundingCitationSchema).min(1),
   confidence: confidenceSchema,
 });
-type LeafSignal = z.infer<typeof leafSignalSchema>;
+export type LeafSignal = z.infer<typeof leafSignalSchema>;
 
 /**
  * CANDIDATE — a cross-window emergent pattern (or negative-space finding) from the reduce

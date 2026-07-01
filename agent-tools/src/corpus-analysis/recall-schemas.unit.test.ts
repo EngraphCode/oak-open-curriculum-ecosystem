@@ -76,12 +76,25 @@ describe('metaOutputSchema', () => {
     recallMatches: [
       { baselineId: 'b1', verdict: 'subsumes', matchedCandidateId: 'c1', note: 'ok' },
     ],
+    corroborationClaims: [
+      { candidateId: 'c1', claimedHomePaths: ['.agent/memory/active/patterns/example.md'] },
+    ],
     discountNote: 'treat the validated set as the recurring spine, not a complete inventory',
     synthesisNotes: ['the enforce-edge recurs across the series'],
   };
 
-  it('parses a well-formed meta envelope of atomic judgments and prose', () => {
+  it('parses a well-formed meta envelope of atomic judgments, corroboration claims, and prose', () => {
     expect(isOk(parseMetaOutput(valid))).toBe(true);
+  });
+
+  it('requires corroborationClaims — the meta stage contract carries the real-world-signal leg', () => {
+    // The corroboration claims feed corroborateAgainstHomes; a meta output without the
+    // field is an incomplete stage result, not a smaller valid one. An empty array is
+    // valid (no kept pattern claimed a home); an absent field is not.
+    const { corroborationClaims, ...withoutClaims } = valid;
+    expect(corroborationClaims).toBeDefined();
+    expect(metaOutputSchema.safeParse(withoutClaims).success).toBe(false);
+    expect(metaOutputSchema.safeParse({ ...valid, corroborationClaims: [] }).success).toBe(true);
   });
 
   it('rejects a smuggled aggregate — the exact shape of the v1 defect', () => {

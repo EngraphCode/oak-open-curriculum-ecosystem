@@ -89,6 +89,31 @@ export function assessValidateCompleteness(
 }
 
 // ---------------------------------------------------------------------------
+// Map completeness — the loud partial-map surface
+// ---------------------------------------------------------------------------
+
+export interface MapCompletenessReport {
+  /** True iff every window produced at least one leaf. */
+  readonly mapComplete: boolean;
+  /** Windows whose map agent produced zero leaves (died or extracted nothing). */
+  readonly incompleteWindows: readonly string[];
+}
+
+/**
+ * Assess per-window map coverage so a partial map is first-class in the stage result
+ * rather than a silent `leaves: []`. A dead map agent and a rate-limited one both
+ * surface here; the operator must not commit a partial map as full coverage.
+ */
+export function assessMapCompleteness(
+  coverage: readonly { readonly window: string; readonly leafCount: number }[],
+): MapCompletenessReport {
+  const incompleteWindows = coverage
+    .filter((entry) => entry.leafCount === 0)
+    .map((entry) => entry.window);
+  return { mapComplete: incompleteWindows.length === 0, incompleteWindows };
+}
+
+// ---------------------------------------------------------------------------
 // Post-reduce cost re-gate + corrected calibration
 // ---------------------------------------------------------------------------
 
@@ -162,4 +187,39 @@ export function deterministicJitterMs(seed: string, maxMs: number): number {
     hash = Math.imul(hash, 16777619);
   }
   return (hash >>> 0) % (maxMs + 1);
+}
+
+// ---------------------------------------------------------------------------
+// Concurrency cap (chunked barrier) — shared by the map and validate stages
+// ---------------------------------------------------------------------------
+
+/**
+ * Run `fn` over `items` in chunks of at most `limit`, awaiting each chunk fully before starting the
+ * next — a chunked BARRIER, not a sliding-window pool (the peak-agent math depends on it: peak
+ * in-flight equals the chunk size, at most `limit`). This throttles a fan-out stage so it does not
+ * hit the server rate limit in a single burst.
+ *
+ * The parallel primitive is INJECTED (`runParallel`) so this stays pure and unit-testable without the
+ * harness `parallel` global; the `.mjs` templates that mirror this function pass that global at the
+ * call site. `runParallel` mirrors the harness contract — it returns results in input order and
+ * substitutes `null` for any thunk that throws or whose agent dies. `runCapped` is a TRANSPARENT
+ * CONDUIT: it pushes those results (nulls and all) straight through, positionally. Callers rely on
+ * that positional alignment (e.g. `mapResults[i]` ↔ `partition[i]`), so `runCapped` MUST NOT filter
+ * or reorder — a filtered null would mis-attribute every later result. `runParallel` is a required
+ * parameter with no default: a `Promise.all` fallback would be unbounded (silently defeating the cap)
+ * and reject-on-throw (the wrong contract).
+ */
+export async function runCapped<T, R>(
+  items: readonly T[],
+  limit: number,
+  fn: (item: T) => Promise<R>,
+  runParallel: (thunks: readonly (() => Promise<R>)[]) => Promise<readonly (R | null)[]>,
+): Promise<(R | null)[]> {
+  const out: (R | null)[] = [];
+  for (let i = 0; i < items.length; i += limit) {
+    const chunk = items.slice(i, i + limit);
+    const results = await runParallel(chunk.map((item) => () => fn(item)));
+    out.push(...results);
+  }
+  return out;
 }

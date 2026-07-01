@@ -24,7 +24,7 @@ todos:
     status: done
     depends_on: [probe-gate, harden-run-orchestration]
   - id: full-discovery-run
-    content: "OWNER-AUTHORISED ACTION (one-way; likely >13M given the ~80-120-candidate projection — confirm the ceiling first). Checkpointed via the SPLIT (probe-proven: the combined template cannot self-checkpoint, so a reduce failure lost the map spend): (a) run map.workflow.template.mjs -> commit leaves.json to the tooling data/ dir; (b) run reduce.workflow.template.mjs seeded from leaves.json -> commit candidates.json (a reduce failure re-runs from the SAME leaves, no map re-spend); (c) validate from the seeded validate-meta template, resumable at candidate granularity, MAX_CONCURRENCY cap + jitter; (d) on quota trip re-seed the unresolved tail only; (e) completeness guard before meta; then meta."
+    content: "OWNER-AUTHORISED ACTION (one-way; likely >13M given the ~80-120-candidate projection). Four checkpointed stages on the REBUILT TypeScript tooling, each seeded from committed checkpoints by `pnpm build-run-artefact` (zod-validated; typed-envelope results committed back to the tooling data/ dir): (a) map (throttled MAP_CONCURRENCY=4 + jitter; result carries mapComplete — a partial map cannot seed reduce) -> commit map-result; (b) reduce from the map-result -> commit reduce-result (a reduce failure re-runs from the SAME checkpoint, no map re-spend); (c) validate --ceiling 30000000 (hard-abort is a typed pre-dispatch refusal; candidate-granular resume derives resolved ids from prior committed validate-results) -> commit validate-result(s); (d) meta over the merged dispositions (the merged-set completeness gate is structural in the builder) -> commit meta-result. Runbook: the tooling README."
     status: pending
     depends_on: [launch-preflight-and-cost-reconciliation]
   - id: post-run-driver
@@ -47,18 +47,19 @@ todos:
 
 # Napkin corpus discovery run
 
-> **STATUS: launch-preflight DONE + verified GO_WITH_CONDITIONS (2026-07-01, Flare hunts Obsidian);
-> `full-discovery-run` is the next (owner-authorised) action — pinned run script, 30M ceiling, launch
-> sequence, and gating conditions are in the tooling README launch-card.** WS1 landed on `docs/consolidations` (not pushed): `974c8fa04`
-> (actuator-grain + longitudinal prompts; run-orchestration TDD; aggregation FROZEN) and `91ee28474`
-> (probe-iteration-1 hardening). The cheap probe (w08/w10/w11, reduce-only after a salvage) PASSED:
-> all 5 v2-failing baselines surface as distinct actuator candidates, ≥4 longitudinal with real
-> cross-window splits, broad clusters coherent — a PASS SURFACES the grain fix, it is NOT a graduation
-> pre-confirmation. **NEW full-run constraint the probe surfaced:** 75 candidates / 3 dense windows ⇒
-> the 15-window run likely yields ~80–120 candidates ⇒ trips the 16M hard-abort re-gate; launch-preflight
-> MUST re-derive `VALIDATE_TOKEN_CEILING` UP (~25–30M) and/or moderate count. Run the full discovery via
-> the SPLIT (`map.workflow` → commit leaves → `reduce.workflow` → commit candidates → seeded
-> `validate-meta`). **Supersedes** [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-analysis-v3-extraction-grain.plan.md).
+> **STATUS: tooling REBUILT as standard TypeScript (2026-07-01/02, Perseus wakes Oblivion) on the
+> owner's direction; `full-discovery-run` is the next (owner-authorised) action.** The hand-authored
+> `.mjs` templates, mirrors, and launch-time splicing are deleted: the four stages compile from
+> `agent-tools/src/corpus-analysis/workflows/` and are seeded from committed checkpoint JSONs by
+> `pnpm build-run-artefact` (zod-validated at the boundary; the partial-map refusal, the resume-id
+> derivation, and the pre-meta merged-set gate are now structural code, not operator discipline).
+> The old preflight's GO_WITH_CONDITIONS evidence carries over: corpus pin `194fdc704`, ceiling
+> 30,000,000 (`--ceiling`, no default anywhere), probe PASS (all 5 v2-failing baselines as distinct
+> actuator candidates; ≥4 longitudinal with real splits) — a PASS SURFACES the grain fix, it is NOT
+> a graduation pre-confirmation. Migration equivalence was proven before deletion: prompts
+> byte-identical to the ran-and-proven text, schemas identical modulo two named strengthenings,
+> baselines corrected for two lossy apostrophes. Runbook: the tooling README. **Supersedes**
+> [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-analysis-v3-extraction-grain.plan.md).
 > **WS `full-discovery-run` is the one one-way, separately owner-authorised action**, not gated on plan readiness.
 
 ## Context
@@ -96,10 +97,11 @@ one-way full-run spend; first-class checkpointing lets the ~13M run complete acr
 
 - **FROZEN** — recall-counting (`aggregation-recall.ts`) and the quorum-floor adjudication math
   (`aggregation-adjudication.ts`, `aggregation-verdict.ts`). Recompute-validated and settled (PDR-122).
-- **PROMPT-ONLY** — the map/reduce/vote prompts in the workflow `.mjs` (mechanism grain + longitudinal
+- **PROMPT-ONLY** — the map/reduce/vote prompts (now the single TS home
+  `agent-tools/src/corpus-analysis/workflows/prompts.ts`; mechanism grain + longitudinal
   elicitation + the longitudinal falsifier). Per PDR-122 §Non-goals, lenses/prompts are per-pipeline config.
 - **ORCHESTRATION** — checkpoint commit-points, candidate-granular resume, concurrency cap + jitter,
-  completeness guard, hard-abort wiring of the post-reduce re-gate (template code, not the math).
+  completeness guard, hard-abort wiring of the post-reduce re-gate (stage composition code, not the math).
 - **CALIBRATION** — `tokensPerVoter ≈ 50k` at the cost call sites (the v2 5×-low estimate).
 - **ADDITIVE** — a deterministic temporal-coverage check + novelty stratification in the post-run
   driver (new checks alongside `checkMapCoverage`; they do not alter recall/adjudication).
@@ -116,7 +118,8 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 
 - **Refining (prompt-only) — boundary held.** `git diff --stat` for `author-grain-and-longitudinal-prompts`
   shows **no change** under `aggregation-recall.ts` / `aggregation-adjudication.ts` / `aggregation-verdict.ts`;
-  the 39-case routing-mirror conformance test is green.
+  the corpus-analysis unit tests and the in-build harness output contract are green (`pnpm --filter
+  @oaknational/agent-tools build`).
 - **Orchestration hardened, test-first.** Candidate-granular resume, the completeness assertion, the
   hard-abort re-gate, and the cost calibration each land with a paired unit test (red→green); `pnpm
   agent-tools:test` green.
@@ -133,7 +136,7 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 
 | Acceptance id | Proof level | Command / observation |
 | --- | --- | --- |
-| prompts-only boundary | non-code | `git diff --stat` excludes the three aggregation files; conformance test green |
+| prompts-only boundary | non-code | `git diff --stat` excludes the three aggregation files; agent-tools tests + in-build output contract green |
 | orchestration TDD | unit | paired red→green tests for resume-skip / completeness / hard-abort / calibration; `pnpm agent-tools:test` |
 | probe gate | value-proxy | inspection of reduce candidates vs the 5 baselines + a longitudinal split + broad-cluster floor |
 | full run trustworthy | integration | driver report: integrity empty, recall, Choice B, coverage, recompute diff = 0 |
@@ -144,11 +147,15 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 - **Blocking** — an execution-authorised session for `cheap-grain-probe` (bounded ~1.2M), and a
   **separately** owner-authorised session for `full-discovery-run` (the one-way ~13M). A corpus run is
   an action, not a read; execution authority is confirmed independently of agreeing *what* to run.
-- **Launch pre-flight invariant** (not a plan-readiness blocker) — `workflow-routing-mirror.conformance.test.ts`
-  (39 cases) green before each launch (PDR-122 invariant 3).
-- **Beneficial** — the `oak-corpus-analysis` skill + agent-tools scripts (conservation plan WS-C).
-  Minimum shippable without it: run from the conserved `.mjs` + the README's documented driver shape,
-  as the v2 rerun did.
+- **Launch pre-flight invariant** (not a plan-readiness blocker) — `pnpm --filter
+  @oaknational/agent-tools build` green before each launch: it bundles the REAL `adjudicate` into
+  every stage artefact and machine-enforces the harness output contract (the routing-mirror
+  conformance test is retired with the mirror it pinned; the corpus-analysis unit tests carry the
+  routing branches). PDR-122 invariant 3 holds by construction — judgments cross the boundary
+  through the zod stage contracts.
+- **Superseded** — the conservation plan's WS-C mirror-validator: the rebuild deleted the mirrors
+  and prompt copies it would have pinned; the tooling-promotion half of WS-C landed as
+  `agent-tools/src/corpus-analysis/workflows/` itself.
 
 ## Non-goals
 
@@ -157,10 +164,11 @@ graduate-or-decide reads recall as confidence-in-the-instrument.
 - Tier reduction to cut cost — forbidden (PDR-122 invariant 4; every tier runs). The only cost levers
   are concurrency/checkpointing and not-re-spending-resolved candidates.
 - Trimming grounding passed to voters — rejected for the discovery run (grounding fidelity is what the
-  novel mechanism-grained + longitudinal candidates need to survive the adversary). Corollary (2026-07-01):
-  the split `validate-meta` assembles voter grounding from the committed leaves via `leafById` (the
-  candidate schema carries none), so it MUST be spliced with `__LEAVES__` as well as `__CANDIDATES_SEED__`
-  — a fresh-reader trawl caught that a verbatim splice would strip all grounding and collapse recall.
+  novel mechanism-grained + longitudinal candidates need to survive the adversary). Corollary
+  (2026-07-01, now structural): voter grounding is assembled from the map result's leaves via the
+  `groundingLeaves` projection, which `validateRunDataSchema` REQUIRES — a validate artefact cannot
+  be seeded without it, so the grounding-strip run-collapse a fresh-reader trawl once caught is no
+  longer expressible.
 - **Writing to `napkin.md` before the run** — it is w15 of the pinned corpus, so any write breaks the
   `194fdc704` byte-pin. Capture session learnings to `distilled.md` / the thread record / memory instead;
   rotate the napkin only AFTER the run.

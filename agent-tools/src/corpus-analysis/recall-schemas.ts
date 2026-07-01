@@ -2,6 +2,7 @@ import type { Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema, patternKindSchema } from './judgment-schemas.js';
+import { corroborationClaimSchema } from './real-world-signal.js';
 
 /**
  * Calibration-leg schemas for the large-corpus-analysis method (v2): the recall baselines
@@ -63,14 +64,19 @@ export const recallMatchSchema = z
 export type RecallMatch = z.infer<typeof recallMatchSchema>;
 
 /**
- * META — the meta stage envelope. It carries the per-baseline recall matches and
- * qualitative synthesis prose only, and deliberately NO aggregate numbers: the recall
- * fractions, discount, and threshold verdict are all computed downstream. `z.strictObject`
- * is load-bearing — it rejects a smuggled aggregate (the exact shape of the v1 defect, a
- * self-reported recall field), so the LLM cannot even emit the number it once got wrong.
+ * META — the meta stage envelope: per-baseline recall matches, per-candidate
+ * corroboration claims (the real-world-signal leg consumed by
+ * `corroborateAgainstHomes`), and qualitative synthesis prose — and deliberately NO
+ * aggregate numbers: the recall fractions, discount, and threshold verdict are all
+ * computed downstream. `z.strictObject` is load-bearing — it rejects a smuggled
+ * aggregate (the exact shape of the v1 defect, a self-reported recall field), so the
+ * LLM cannot even emit the number it once got wrong. This is THE meta stage contract;
+ * consumers project the fields they need (recall aggregation reads `recallMatches`,
+ * the real-world-signal check reads `corroborationClaims`) — never a narrower parse.
  */
 export const metaOutputSchema = z.strictObject({
   recallMatches: z.array(recallMatchSchema),
+  corroborationClaims: z.array(corroborationClaimSchema),
   discountNote: nonEmptyString,
   synthesisNotes: z.array(nonEmptyString),
 });

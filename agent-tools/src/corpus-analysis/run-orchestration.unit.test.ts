@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  assessMapCompleteness,
   assessValidateCompleteness,
   deterministicJitterMs,
   postReduceRegate,
   resolveResumeSeed,
+  runCapped,
   type ValidatedCandidate,
 } from './run-orchestration.js';
 
@@ -126,6 +128,30 @@ describe('assessValidateCompleteness (the extended completeness guard)', () => {
   });
 });
 
+describe('assessMapCompleteness (the loud partial-map surface)', () => {
+  it('is complete when every window produced leaves', () => {
+    expect(
+      assessMapCompleteness([
+        { window: 'w01', leafCount: 35 },
+        { window: 'w02', leafCount: 28 },
+      ]),
+    ).toEqual({ mapComplete: true, incompleteWindows: [] });
+  });
+
+  it('names every zero-leaf window — a dead map agent must never pass silently', () => {
+    // The 2026-07-01 run returned "completed" with 9 of 15 windows rate-limited to
+    // zero leaves; only inspecting coverage caught it. This surface makes that state
+    // first-class in the result.
+    const report = assessMapCompleteness([
+      { window: 'w01', leafCount: 35 },
+      { window: 'w02', leafCount: 0 },
+      { window: 'w03', leafCount: 0 },
+    ]);
+    expect(report.mapComplete).toBe(false);
+    expect(report.incompleteWindows).toEqual(['w02', 'w03']);
+  });
+});
+
 describe('postReduceRegate (calibration + hard-abort decision)', () => {
   it('models worst-case validate at the calibrated 50k all-in figure: 50 candidates x 5 voters x 50k = 12.5M, no double multiplier', () => {
     const regate = postReduceRegate({ candidateCount: 50, ceiling: 20_000_000 });
@@ -187,5 +213,136 @@ describe('deterministicJitterMs (no Math.random — resume-safe in the Workflow 
     expect(ms).toBe(25);
     expect(ms).toBeGreaterThanOrEqual(0);
     expect(ms).toBeLessThanOrEqual(400);
+  });
+});
+
+describe('runCapped (chunked-barrier concurrency cap, injected parallel)', () => {
+  // A fake of the harness `parallel`: runs a chunk's thunks concurrently, returns results in order,
+  // and substitutes `null` for a thunk that throws (the harness null-on-throw contract).
+  const fakeParallel = async <R>(
+    thunks: readonly (() => Promise<R>)[],
+  ): Promise<readonly (R | null)[]> =>
+    Promise.all(
+      thunks.map(async (t) => {
+        try {
+          return await t();
+        } catch {
+          return null;
+        }
+      }),
+    );
+
+  it('preserves global output order == input order across chunk boundaries', async () => {
+    const out = await runCapped([1, 2, 3, 4, 5], 2, async (n) => n * 10, fakeParallel);
+    expect(out).toEqual([10, 20, 30, 40, 50]);
+  });
+
+  it('chunks at the limit: 5 items, limit 2 → runParallel called 3× with sizes [2,2,1]', async () => {
+    const sizes: number[] = [];
+    const spyParallel = async <R>(
+      thunks: readonly (() => Promise<R>)[],
+    ): Promise<readonly (R | null)[]> => {
+      sizes.push(thunks.length);
+      return fakeParallel(thunks);
+    };
+    await runCapped([1, 2, 3, 4, 5], 2, async (n) => n, spyParallel);
+    expect(sizes).toEqual([2, 2, 1]);
+  });
+
+  it('never exceeds the limit in flight, and the barrier holds (chunk N+1 waits for chunk N)', async () => {
+    let inFlight = 0;
+    let peak = 0;
+    const entries: number[] = [];
+    const fn = async (n: number): Promise<number> => {
+      inFlight += 1;
+      peak = Math.max(peak, inFlight);
+      entries.push(n);
+      await Promise.resolve();
+      await Promise.resolve();
+      inFlight -= 1;
+      return n;
+    };
+    await runCapped([1, 2, 3, 4, 5, 6], 2, fn, fakeParallel);
+    expect(peak).toBeLessThanOrEqual(2);
+    expect(entries).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  it('passes null through at the exact failing position (mirrors the parallel null-on-throw contract)', async () => {
+    const fn = (n: number): Promise<number> =>
+      n === 3 ? Promise.reject(new Error('boom')) : Promise.resolve(n * 10);
+    const out = await runCapped([1, 2, 3, 4, 5], 2, fn, fakeParallel);
+    expect(out).toEqual([10, 20, null, 40, 50]);
+  });
+
+  it('returns [] and never calls runParallel for empty input', async () => {
+    let calls = 0;
+    const spyParallel = async <R>(
+      thunks: readonly (() => Promise<R>)[],
+    ): Promise<readonly (R | null)[]> => {
+      calls += 1;
+      return fakeParallel(thunks);
+    };
+    const out = await runCapped([], 3, async (n: number) => n, spyParallel);
+    expect(out).toEqual([]);
+    expect(calls).toBe(0);
+  });
+
+  it('runs a single chunk when limit exceeds the item count', async () => {
+    const sizes: number[] = [];
+    const spyParallel = async <R>(
+      thunks: readonly (() => Promise<R>)[],
+    ): Promise<readonly (R | null)[]> => {
+      sizes.push(thunks.length);
+      return fakeParallel(thunks);
+    };
+    await runCapped([1, 2, 3], 10, async (n) => n, spyParallel);
+    expect(sizes).toEqual([3]);
+  });
+
+  it('runs a single chunk at the exact limit === length boundary (off-by-one guard)', async () => {
+    const sizes: number[] = [];
+    const spyParallel = async <R>(
+      thunks: readonly (() => Promise<R>)[],
+    ): Promise<readonly (R | null)[]> => {
+      sizes.push(thunks.length);
+      return fakeParallel(thunks);
+    };
+    await runCapped([1, 2, 3], 3, async (n) => n, spyParallel);
+    expect(sizes).toEqual([3]);
+  });
+
+  it('applies fn to each item exactly once, in order', async () => {
+    const seen: number[] = [];
+    await runCapped(
+      [1, 2, 3, 4],
+      2,
+      async (n) => {
+        seen.push(n);
+        return n;
+      },
+      fakeParallel,
+    );
+    expect(seen).toEqual([1, 2, 3, 4]);
+  });
+
+  it('runs fully serially when the limit is 1', async () => {
+    const sizes: number[] = [];
+    const spyParallel = async <R>(
+      thunks: readonly (() => Promise<R>)[],
+    ): Promise<readonly (R | null)[]> => {
+      sizes.push(thunks.length);
+      return fakeParallel(thunks);
+    };
+    const out = await runCapped([1, 2, 3], 1, async (n) => n * 2, spyParallel);
+    expect(sizes).toEqual([1, 1, 1]);
+    expect(out).toEqual([2, 4, 6]);
+  });
+
+  it('rejects if runParallel itself rejects (a conduit — distinct from null-on-throw)', async () => {
+    const rejectingParallel = (): Promise<readonly (number | null)[]> =>
+      Promise.reject(new Error('runParallel failed'));
+    await expect(runCapped([1, 2], 2, async (n: number) => n, rejectingParallel)).rejects.toThrow(
+      'runParallel failed',
+    );
   });
 });
