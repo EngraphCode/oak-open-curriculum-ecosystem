@@ -31,6 +31,58 @@ todos:
 
 # Upstream API Alignment — and a repeatable, observable alignment process
 
+## Handoff status — 2026-07-01 (Bonfire turns Basalt → Vanilla stirs Spore)
+
+**Session scope (owner-narrowed 2026-07-01): adapt the repo to the changed upstream API
+spec only.**
+
+**DONE & shipped (PR #291, draft):**
+
+- **WS0** — programmes regen (SDK + 5 MCP tools), live-verified (real 200s; regenerated
+  zod output-validates). Fresh cache `8eceb70`.
+- **Cached-default codegen + pre-push staleness advisory** (`79364bbd1`, cherry-picked
+  onto #291 — the coherent home, since #291 carries the *fresh* cache). `resolveSchemaSource`
+  is pure + unit-tested. The `--online` / `SDK_CODEGEN_MODE=online` / `VERCEL` opt-in is
+  **retained** (the owner **withdrew** the `USE_LIVE_API_SCHEMA` switch change).
+
+**DECIDED + DIAGNOSED, NOT YET IMPLEMENTED — successor's first task:**
+
+- **The drift-check must compare SEMANTICALLY** (canonical / sorted-key), not raw bytes
+  (owner-confirmed 2026-07-01). **Diagnostic (first-hand, do not re-derive):** two
+  consecutive raw swagger fetches are **byte-identical** → upstream is deterministic; the
+  cache↔fetch byte difference is our **two-pipeline mismatch** (the cache is written from
+  `validateOpenApiDocument(live)` via `writeSchemaCacheIfChanged`'s stringify, while the
+  drift-check stringifies the **raw** fetch) — `jq -S` confirms semantic identity. So a
+  byte compare cries wolf; semantic compare is right. **Fix:** `agent-tools/src/ci/
+  ci-schema-drift-check.ts` `main()` comparison (currently `cachedText.trimEnd() ===
+  liveText.trimEnd()`, ~line 104) → extract a pure `evaluateSchemaDrift(cachedText,
+  liveText)` that canonicalises (recursively sort object keys, preserve array order) both
+  sides before comparing; unit-test it; wire `main()`. Also fix the annotation's stale
+  "Run `pnpm sdk-codegen` with OAK_API_KEY set" (the endpoint is public; the refresh path
+  is `--online`). The `OAK_API_KEY` docstring line is already corrected in `79364bbd1`.
+
+**MOVED OUT (owner directive):** bulk-types-schema-derivation (was WS3) → **its own
+separate plan**, not this session. Compose approach (b) is owner-confirmed; the
+template-authoring defect + the `schema.json`-is-a-superset finding are conserved in §WS3
+below — mine them into the new `future/` plan.
+
+**REMAINING IN-SCOPE:** **WS4** — surface programmes in `get-curriculum-model` (co-equal
+per D2) + fix the `get-subjects-programmes` slug description (verified full-form live:
+`english-secondary-year-10-edexcel`, **not** `y7`). Generated descriptions are fixed at the
+generator, not the output file.
+
+**DEFERRED (separate/later):** WS5 committed live smoke lane; WS6 runbook graduation.
+
+**Worktree estate:** `oak-upstream-api-alignment` = #291 (this adaptation).
+`oak-schema-staleness-validator` (`feat/cached-schema-default`, `0677e8916`, **pushed, no
+PR**) is now **redundant** — its content is `79364bbd1` on #291 — **safe to delete**
+(owner-gated destructive removal; content-verified in #291).
+
+**Continuity/consolidation still owed (surfaced, not done):** a `upstream-api-alignment`
+thread record + `repo-continuity.md` refresh belong on the primary/main branch (not this
+feature branch, to avoid per-branch `.agent` divergence); the consolidation gate + full
+`pnpm check` were not run in this handoff. See the successor brief.
+
 ## Problem (gap · harm · mechanism · constraints · success)
 
 - **Gap.** The upstream Oak API surface evolves (this instance: a new `programmes`

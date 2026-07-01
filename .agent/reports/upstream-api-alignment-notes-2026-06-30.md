@@ -278,3 +278,16 @@ should be the single source both consume.
   the plan.
 - Whether the staleness validator should ever escalate from warn to fail (default:
   start at warn, per `feedback_new_eslint_rules_start_warn`).
+- **Decision records carry invalidation criteria (owner question 2026-07-01 — evaluated,
+  not actioned).** The D1 replay error (a context-bound decision mechanically re-applied
+  after circumstances changed) prompts: capture *invalidation criteria / valid-while*
+  conditions with session-scoped decisions. Evaluation verdict: the gap is real, but the
+  proportionate cure is a **required "valid-while / invalidated-if" field + the reason
+  Move-3 (name-the-falsifier) discipline on the decision surfaces we already have**
+  (napkin decision entries, plan `Decisions` blocks) — plus recognising a "decision event"
+  as a candidate **node type in the ADR-200 intent-graph**, NOT a new standalone artefact
+  type (which would add a new organising axis needing registry+validation per the
+  2026-06-30 principle, and risks being a cowpath the intent-graph later absorbs). Larger
+  decisions still route straight to ADR/PDR. Route at consolidation to the
+  strategy-and-plan-estate/intent-graph thread + the reasoning-grammar/metacognition
+  doctrine. Not actioned in this thread.
