@@ -23,6 +23,55 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## OWNER DECISION PENDING — discovery run PAUSED at the validate money-gate (2026-07-02, Perseus wakes Oblivion)
+
+**Self-contained. The run is mid-flight, healthy, and stopped deliberately at a genuine owner fork.**
+
+**What happened overnight (owner-authorised autonomous session):** (1) On the owner's direction the
+whole corpus-analysis workflow tooling was REBUILT as compiled TypeScript — the hand-authored `.mjs`
+templates, mirrors, hand JSON schemas, and splice tokens are deleted; four stage entries in
+`agent-tools/src/corpus-analysis/workflows/` bundle via esbuild to self-contained harness artefacts
+behind a machine-enforced output contract; run data inlines from zod-validated committed checkpoints
+via `pnpm build-run-artefact`. Migration equivalence was proven before deletion (prompts
+byte-identical to the ran-and-proven text — including a FIFTH never-pinned drifted block the check
+itself caught in votePrompt; schemas equal modulo two named strengthenings; baselines = the two
+apostrophe corrections). Four reviewer lenses ran; every critical fixed (content-blind contract
+scans would have stranded the run post-map; compact JSON saved the size cap — the seeded reduce
+artefact is 363KB vs a 524KB limit; a stage discriminant closed a guard hole; the adjudication loop
+is extracted + tested). Live proofs: an emitted artefact ran end-to-end (450KB payload fingerprint
+exact), and the hard-abort money-guard fired live (typed refusal, 0 agents, 10ms). Commits
+`2586151c1` (rebuild), `a4ec3f0da` (review fix set). (2) The RUN then launched: **map completed
+15/15 windows, 580 leaves, zero deaths** (the MAP_CONCURRENCY=4 throttle cured the burst that
+killed 9/15 that morning) — checkpoint `f9bcf2700`; **reduce completed: 246 candidates** (186
+recurrence, 55 trajectory, 1 regime, 1 relational-lagged, 2 distributional, 1 absence; unique ids;
+broad clusters coherent) — checkpoint `8f6729491` with the post-run driver.
+
+**THE FORK (decide one):** 246 candidates ≫ the ~80–120 projection, so validate's worst case is
+246 × 5 × 50k = **61.5M vs the authorised 30M ceiling** (expected ≈ 43M at the v2-observed ~3.5
+voters/candidate). First-hand analysis says this is **legitimately finer grain, not fragmentation**
+(single-window samples are distinct real mechanisms; the broad clusters held together). Options:
+
+1. **Validate all 246** — re-seed with `--ceiling 62000000` (worst) — expected ≈ 43M spend.
+2. **Validate the 132 multi-window candidates** (the Discovery remit; carries every cross-window
+   recall baseline) — needs `--ceiling 33000000`, expected ≈ 23M. The 114 single-window candidates
+   stay conserved un-adjudicated in the committed checkpoint for a later tail run; meta's
+   denominator then needs a deliberate subset derivation (a small `run-inputs` change — the
+   merged-set gate correctly refuses a partial denominator today).
+3. **Anything else** — the checkpoints lose nothing; validate re-seeds in one command.
+
+**Launch command (fork 1):** from `agent-tools/`:
+`pnpm build-run-artefact --stage validate --map-result ../.agent/reports/agentic-engineering/large-corpus-analysis-tooling/data/discovery-run-map-result-2026-07-02.json --reduce-result ../.agent/reports/agentic-engineering/large-corpus-analysis-tooling/data/discovery-run-reduce-result-2026-07-02.json --ceiling 62000000`
+then `Workflow({scriptPath: agent-tools/dist/corpus-analysis/workflows/validate.workflow.seeded.mjs})`
+(from the repo root). On a quota trip: re-seed with `--validate-result <committed partial>` —
+resume ids derive from the committed results. Then meta via `--stage meta`, then
+`pnpm post-run-driver` (all four checkpoint flags), then the discovery artefacts + conservation
+buffer + `consolidate-until-done` per the plan. **Napkin rotation stays deferred until after the
+map-stage corpus reads are certainly done — they are (map is complete), so napkin writes are safe
+now; rotation itself still belongs after the run per the standing instruction.**
+
+**Spend so far:** ≈ 2.5M (map 2.3M + reduce 0.17M) of the 30M authorisation. Corpus pin `194fdc704`
+held through map. Branch `docs/consolidations`, unpushed (owner's call).
+
 ## NEXT-SESSION PICKUP — launch-preflight DONE + verified GO_WITH_CONDITIONS; `full-discovery-run` is the next owner-authorised action (2026-07-01, Flare hunts Obsidian)
 
 **Self-contained. The next session runs the full discovery. Everything it needs is here or in the
