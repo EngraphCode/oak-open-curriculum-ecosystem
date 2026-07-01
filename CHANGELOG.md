@@ -1,3 +1,20 @@
+# [1.56.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.55.0...v1.56.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* address PR review — programme guidance accuracy and drift-check robustness ([7577203](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/757720329146d3c45d3dea9eb1650e495436bde6))
+* **sdk-codegen:** compare schema drift semantically, not raw bytes ([df2dbea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/df2dbeabd3fb5aab1f7b2844a22317b15194d41c))
+* **sdk-codegen:** use the env-var form in the missing-cache refresh hint ([0dc71a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0dc71a9f786e0763a3641723788ec0e8df618e09))
+
+
+### Features
+
+* **curriculum-sdk:** align SDK and MCP tools to upstream programmes endpoints ([f02a7ba](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f02a7ba1b7987b6153afd904225fcc2834596154))
+* **curriculum-sdk:** surface programmes in get-curriculum-model, co-equal with sequences ([4f4a7ea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4f4a7ea3ad822720241222ef2b327ccab14c03ee))
+* **sdk-codegen:** default to cached OpenAPI schema, wire pre-push staleness advisory ([79364bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/79364bbd186134a1669a58ba8e457e455f3f15ee))
+* **sdk-codegen:** inject per-tool description additions; clarify programme slug ([874af6f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/874af6fd865c8cc414692061551643b10e4b0e21))
+
 # [1.55.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.54.0...v1.55.0) (2026-06-29)
 
 
