@@ -13,8 +13,8 @@ todos:
     content: Invert codegen loadSchema() to cached-by-default with explicit online opt-in
     status: pending
   - id: ws2-staleness-validator
-    content: "Wire the existing full-content ci-schema-drift-check into pre-push (warn-only) and fix its misleading OAK_API_KEY docstring; leave the diff behaviour unchanged (D1 corrected)"
-    status: pending
+    content: "DONE: ci-schema-drift-check now compares semantically (pure evaluateSchemaDrift + unit tests), annotation/docstring corrected, pre-push advisory wired; live-verified 'up to date'"
+    status: completed
   - id: ws3-bulk-schema-derived
     content: "DESIGN-GATED: settle the bulk type-derivation approach with the owner (WS3.0), then dry-run blast-radius probe (WS3.1, STOP on consumer type errors), then land (WS3.2) — generate bulk Zod/types/predicates from schema.json, retire templates, commit schema.json + manifest.json"
     status: pending
@@ -45,21 +45,21 @@ spec only.**
   is pure + unit-tested. The `--online` / `SDK_CODEGEN_MODE=online` / `VERCEL` opt-in is
   **retained** (the owner **withdrew** the `USE_LIVE_API_SCHEMA` switch change).
 
-**DECIDED + DIAGNOSED, NOT YET IMPLEMENTED — successor's first task:**
+**LANDED THIS SESSION (Vanilla stirs Spore, successor) — semantic drift-check:**
 
-- **The drift-check must compare SEMANTICALLY** (canonical / sorted-key), not raw bytes
-  (owner-confirmed 2026-07-01). **Diagnostic (first-hand, do not re-derive):** two
-  consecutive raw swagger fetches are **byte-identical** → upstream is deterministic; the
-  cache↔fetch byte difference is our **two-pipeline mismatch** (the cache is written from
+- **The drift-check now compares SEMANTICALLY** (canonical / sorted-key), not raw bytes
+  (owner-confirmed 2026-07-01). **Diagnostic (first-hand):** two consecutive raw swagger
+  fetches are **byte-identical** → upstream is deterministic; the cache↔fetch byte
+  difference is our **two-pipeline mismatch** (the cache is written from
   `validateOpenApiDocument(live)` via `writeSchemaCacheIfChanged`'s stringify, while the
-  drift-check stringifies the **raw** fetch) — `jq -S` confirms semantic identity. So a
-  byte compare cries wolf; semantic compare is right. **Fix:** `agent-tools/src/ci/
-  ci-schema-drift-check.ts` `main()` comparison (currently `cachedText.trimEnd() ===
-  liveText.trimEnd()`, ~line 104) → extract a pure `evaluateSchemaDrift(cachedText,
-  liveText)` that canonicalises (recursively sort object keys, preserve array order) both
-  sides before comparing; unit-test it; wire `main()`. Also fix the annotation's stale
-  "Run `pnpm sdk-codegen` with OAK_API_KEY set" (the endpoint is public; the refresh path
-  is `--online`). The `OAK_API_KEY` docstring line is already corrected in `79364bbd1`.
+  drift-check stringified the **raw** fetch). **Done:** extracted a pure side-effect-free
+  `evaluateSchemaDrift(cachedText, liveText)` into `agent-tools/src/ci/ci-schema-drift-eval.ts`
+  (recursively sorts object keys, preserves array order, falls back to a trimmed string
+  compare on non-JSON), unit-tested (5 cases incl. the byte-different-semantically-identical
+  case), and wired it into `main()` (replacing `cachedText.trimEnd() === liveText.trimEnd()`).
+  Annotation text fixed (`pnpm sdk-codegen --online`, not "with OAK_API_KEY set"). **Live-verified:**
+  `pnpm --filter @oaknational/agent-tools ci-schema-drift-check` now prints "up to date" against
+  the real cache + live spec (the old byte compare would have cried wolf).
 
 **MOVED OUT (owner directive):** bulk-types-schema-derivation (was WS3) → **its own
 separate plan**, not this session. Compose approach (b) is owner-confirmed; the
@@ -191,22 +191,23 @@ the `--ci`/`SDK_CODEGEN_MODE=ci` sentinel (dashboard build command is not greppa
   fetch+refresh; `pnpm sdk-codegen && pnpm build` green. **Proof:** unit + integration.
 - **Prereq:** none. Independent of WS2.
 
-### WS2 — Wire the existing staleness validator into pre-push (+ docstring fix)
+### WS2 — Staleness validator: semantic compare + pre-push wiring (LANDED)
 
-**Leave `agent-tools/src/ci/ci-schema-drift-check.ts`'s diff behaviour untouched** (D1
-corrected: it already full-content-diffs, warn-only, CI-wired). Only two genuine changes,
-both context-independent: (1) fix the factually-wrong `OAK_API_KEY` docstring line (the
-script sends no auth header; the swagger endpoint returns 200 unauthenticated); (2) add a
-non-blocking advisory step to `.husky/pre-push` invoking the existing check (CI already
-runs it). Non-blocking placement: never inside the `if ! …; then exit 1` pattern — the
-check already exits 0, and pre-push must never fail on it (offline/network-blip safe). No
-logic change means no new unit test is required by this change; the pre-existing
-zero-test-coverage of the validator is separate test-debt, noted not fixed here. Edits no
-SDK types — type tripwire N/A.
+Superseded the earlier "leave the byte diff untouched" call (owner-confirmed 2026-07-01,
+after the fuller two-pipeline diagnostic). Three changes, all landed: (1) the comparison is
+now **semantic** — a pure `evaluateSchemaDrift` (`ci-schema-drift-eval.ts`) canonicalises
+both sides (recursive key sort, array order preserved) so the routine byte mismatch between
+the cache-write pipeline and the raw-fetch pipeline no longer cries wolf, while genuine
+same-version content drift (e.g. the `asset→assets` typo) is still caught; (2) the
+factually-wrong `OAK_API_KEY` docstring + annotation text corrected (the endpoint is public;
+refresh is `pnpm sdk-codegen --online`); (3) the non-blocking pre-push advisory step
+(`79364bbd1`, already on #291). The extracted pure function now carries the unit coverage
+the validator previously lacked. Edits no SDK types — type tripwire N/A.
 
-- **Acceptance:** unit test green; pre-push runs it non-blocking (never fails the push,
-  even offline). **Proof:** unit + a manual pre-push observation.
-- **Prereq:** none. Ship before WS1 so staleness is observable before the default flips.
+- **Acceptance:** unit test green (5 cases); live check prints "up to date" against the real
+  cache+spec; pre-push runs it non-blocking (never fails the push, even offline). **Proof:**
+  unit + live run observed.
+- **Prereq:** none.
 
 ### WS3 — Bulk types schema-derived (the schema-first fix) — DESIGN-GATED on owner
 

@@ -14,6 +14,8 @@ import { resolve } from 'node:path';
 import { isJsonObject } from '../collaboration-state/json.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 
+import { evaluateSchemaDrift } from './ci-schema-drift-eval.js';
+
 const SCHEMA_URL = 'https://open-api.thenational.academy/api/v0/swagger.json';
 const CACHE_PATH = resolve(
   resolveRepoRoot(import.meta.url),
@@ -51,7 +53,7 @@ function buildDriftAnnotation(liveText: string, cachedText: string): string {
       ? `Both are version ${liveVersion} but content differs (upstream may have fixed descriptions or parameters without a version bump).`
       : `Cached: ${cachedVersion}, live: ${liveVersion}.`;
 
-  return `::warning ${CACHE_FILE_ANNOTATION}::Schema cache has drifted from the live upstream spec. ${versionNote} Run \`pnpm sdk-codegen\` with OAK_API_KEY set to refresh.`;
+  return `::warning ${CACHE_FILE_ANNOTATION}::Schema cache has drifted from the live upstream spec. ${versionNote} Run \`pnpm sdk-codegen --online\` to refresh.`;
 }
 
 async function fetchLiveSchema(): Promise<string | null> {
@@ -101,7 +103,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  if (cachedText.trimEnd() === liveText.trimEnd()) {
+  if (!evaluateSchemaDrift(cachedText, liveText).drifted) {
     writeLine('Schema cache is up to date with the live upstream spec.');
     return;
   }
