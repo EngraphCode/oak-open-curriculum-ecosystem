@@ -10,7 +10,7 @@ export interface paths {
          * Sequencing information for a given sequence slug
          * Use when you have a sequence slug and need the sequence-level summary. A sequence is a subject's curriculum across a phase (e.g. maths-primary, science-secondary-aqa); it spans one or more National Curriculum schemes and contains one programme per year group. Get sequence slugs from GET /subjects or GET /subjects/\{subject\} (the sequenceSlugs field). Returns slug, phase, key stages, years, and any KS4 programme factors (exam board, tier, child subject, pathway) needed to interpret the programmes within it.
          *
-         *     Not for: the programmes within this sequence (GET /sequences/\{sequence\}/programmes); the unit sequence for one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/units); all units across the sequence (GET /sequences/\{sequence\}/units); subject-level catalogue data (GET /subjects or GET /subjects/\{subject\}).
+         *     Not for: the programmes within this sequence (GET /subjects/\{subject\}/programmes); the unit sequence for one programme (GET /programmes/\{programme\}/units); all units across the sequence (GET /sequences/\{sequence\}/units); subject-level catalogue data (GET /subjects or GET /subjects/\{subject\}).
          *
          *     Example: sequence=maths-primary or science-secondary-aqa.
          */
@@ -34,7 +34,7 @@ export interface paths {
          * Units in a curriculum sequence
          * Use when you want every unit across a whole sequence — all programmes combined, in unit sequence order. Returns units grouped by programme (year group) in unit sequence order. If the sequence slug includes an exam board (e.g. science-secondary-aqa), units are scoped to that exam board. Secondary sequences also expose tiers, pathways, and exam subjects where applicable. Pass year as an optional filter to return only that year's units (across all KS4 factor combinations).
          *
-         *     Not for: units in a single programme (GET /sequences/\{sequence\}/programmes/\{programme\}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/\{keyStage\}/subject/\{subject\}/units); the programmes within this sequence (GET /sequences/\{sequence\}/programmes); a single unit (GET /units/\{unit\}/summary); units in a thread (GET /threads/\{threadSlug\}/units).
+         *     Not for: units in a single programme (GET /programmes/\{programme\}/units); a flat list of units for a key stage + subject without programme structure or unit sequence order (GET /key-stages/\{keyStage\}/subject/\{subject\}/units); the programmes within this sequence (GET /subjects/\{subject\}/programmes); a single unit (GET /units/\{unit\}/summary); units in a thread (GET /threads/\{threadSlug\}/units).
          *
          *     Example: sequence=science-secondary-aqa or maths-primary.
          */
@@ -104,7 +104,7 @@ export interface paths {
          * Downloadable assets in a sequence
          * Use when you need every downloadable asset across a whole sequence — all programmes combined. Returns assets grouped by lesson in unit sequence order, with signed download URLs, asset type, lesson title and slug, and attribution. Pass year as an optional filter. Narrow further with type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
          *
-         *     Not for: assets in a single programme (GET /sequences/\{sequence\}/programmes/\{programme\}/assets); a single lesson's downloads (GET /lessons/\{lesson\}/assets); streaming one file (GET /lessons/\{lesson\}/assets/\{type\}); assets for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/assets).
+         *     Not for: assets in a single programme (GET /programmes/\{programme\}/assets); a single lesson's downloads (GET /lessons/\{lesson\}/assets); streaming one file (GET /lessons/\{lesson\}/assets/\{type\}); assets for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/assets).
          */
         get: operations["getAssets-getSequenceAssets"];
         put?: never;
@@ -126,7 +126,7 @@ export interface paths {
          * Downloadable assets by key stage and subject
          * Use when you want every downloadable asset for a key stage + subject, without programme structure or unit sequence order, optionally scoped to a unit or asset type. Returns assets grouped by lesson, each with signed download URLs, asset type, lesson title and slug, and attribution. Pass unit to restrict to one unit and type to restrict to one asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
          *
-         *     Not for: assets across a sequence (GET /sequences/\{sequence\}/assets); assets in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/assets); a single lesson's downloads (GET /lessons/\{lesson\}/assets); streaming one file (GET /lessons/\{lesson\}/assets/\{type\}).
+         *     Not for: assets across a sequence (GET /sequences/\{sequence\}/assets); assets in one programme (GET /programmes/\{programme\}/assets); a single lesson's downloads (GET /lessons/\{lesson\}/assets); streaming one file (GET /lessons/\{lesson\}/assets/\{type\}).
          */
         get: operations["getAssets-getSubjectAssets"];
         put?: never;
@@ -148,9 +148,31 @@ export interface paths {
          * Downloadable assets for a lesson
          * Use when you have a lesson slug and need the list of what's downloadable. Returns every available asset type with a signed download URL per asset and attribution. The 9 type values are: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video. Pass type to return only one. Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
          *
-         *     Not for: streaming the file itself (GET /lessons/\{lesson\}/assets/\{type\}); bulk asset retrieval across a key stage + subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/assets), a sequence (GET /sequences/\{sequence\}/assets), or one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/assets); lesson metadata (GET /lessons/\{lesson\}/summary).
+         *     Not for: streaming the file itself (GET /lessons/\{lesson\}/assets/\{type\}); bulk asset retrieval across a key stage + subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/assets), a sequence (GET /sequences/\{sequence\}/assets), or one programme (GET /programmes/\{programme\}/assets); lesson metadata (GET /lessons/\{lesson\}/summary).
          */
         get: operations["getAssets-getLessonAssets"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/programmes/{programme}/assets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Downloadable assets in a programme
+         * Use when you need every downloadable asset for a single programme (year group) within a subject. Returns assets grouped by lesson with signed download URLs, asset type, lesson title and slug, and attribution. Supports offset/limit pagination; Link: rel="next" header signals more pages. Optionally narrow by asset type (one of: slideDeck, starterQuiz, starterQuizAnswers, exitQuiz, exitQuizAnswers, worksheet, worksheetAnswers, supplementaryResource, video). Lesson content is under OGL v3.0; assets are either Oak-owned or third-party under an OGL-compatible licence. Attribution required — see https://open-api.thenational.academy/docs/about-oaks-api/terms.
+         *
+         *     Not for: assets across a whole sequence (GET /sequences/\{sequence\}/assets); assets for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/assets); a single lesson's downloads (GET /lessons/\{lesson\}/assets); streaming one file (GET /lessons/\{lesson\}/assets/\{type\}).
+         */
+        get: operations["getAssets-getProgrammeAssets"];
         put?: never;
         post?: never;
         delete?: never;
@@ -190,7 +212,7 @@ export interface paths {
         };
         /**
          * All subjects
-         * Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /sequences/\{sequence\}/programmes to enumerate them.
+         * Use when you need every subject in one call — the entry point for a subject picker or for crawling the whole curriculum. Returns subjects alphabetically, each with subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for that subject; each sequence contains one programme per year group — call GET /subjects/\{subject\}/programmes to enumerate them.
          *
          *     Not for: a single subject (GET /subjects/\{subject\}); the key stages or year groups for a subject (GET /subjects/\{subject\}/key-stages or GET /subjects/\{subject\}/years); lessons or units inside a subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/lessons or GET /key-stages/\{keyStage\}/subject/\{subject\}/units); the detail of one sequence (GET /sequences/\{sequence\}).
          */
@@ -212,7 +234,7 @@ export interface paths {
         };
         /**
          * Single subject with sequences, key stages, and years
-         * Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /sequences/\{sequence\}/programmes to enumerate them.
+         * Use when you have a subject slug. Returns subjectTitle, subjectSlug, sequenceSlugs, keyStages, and years. sequenceSlugs lists the sequences available for this subject; each sequence contains one programme per year group — call GET /subjects/\{subject\}/programmes to enumerate them.
          *
          *     Not for: every subject in one call (GET /subjects); the key stages or year groups for a subject (GET /subjects/\{subject\}/key-stages or GET /subjects/\{subject\}/years); subject-scoped lessons or units (GET /key-stages/\{keyStage\}/subject/\{subject\}/lessons or GET /key-stages/\{keyStage\}/subject/\{subject\}/units); the detail of one sequence (GET /sequences/\{sequence\}).
          *
@@ -308,7 +330,7 @@ export interface paths {
          * List lessons in a key stage and subject
          * Use when you want every published lesson in a key stage + subject, grouped by unit, without programme structure or unit sequence order. Returns an array of units, each with slug, title, and the lessons inside. Pass unit to restrict to one. Supports offset/limit pagination; Link: rel="next" header signals more pages.
          *
-         *     Not for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/\{lesson\}/summary); all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/units).
+         *     Not for: finding a lesson from a search term (GET /search/lessons); a single lesson's metadata (GET /lessons/\{lesson\}/summary); all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /programmes/\{programme\}/units).
          *
          *     Example: keyStage=ks3, subject=maths, unit=perimeter-and-area.
          */
@@ -332,9 +354,75 @@ export interface paths {
          * Units in a key stage and subject
          * Use when you want a flat list of every unit with published lessons in a key stage + subject, without programme structure or unit sequence order. Returns units grouped by year slug; units without published lessons are omitted. Pass examBoard to restrict KS4 to one board (one of: aqa, edexcel (Edexcel A), eduqas, ocr, wjec, edexcelb (Edexcel B)); otherwise each unit lists the boards it appears in.
          *
-         *     Not for: all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/units); a single unit (GET /units/\{unit\}/summary); lessons rather than units (GET /key-stages/\{keyStage\}/subject/\{subject\}/lessons); units in a thread (GET /threads/\{threadSlug\}/units).
+         *     Not for: all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /programmes/\{programme\}/units); a single unit (GET /units/\{unit\}/summary); lessons rather than units (GET /key-stages/\{keyStage\}/subject/\{subject\}/lessons); units in a thread (GET /threads/\{threadSlug\}/units).
          */
         get: operations["getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/subjects/{subject}/programmes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get all programmes for a subject slug
+         * Use when you need to discover the programmes within a subject — to get a programme's slug for use with GET /programmes/\{programme\} or its sub-endpoints. Returns programmes grouped by key stage, each with year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).
+         *
+         *     Not for: the metadata of one programme (GET /programmes/\{programme\}); the units, questions, or assets of one programme (GET /programmes/\{programme\}/units, GET /programmes/\{programme\}/questions, or GET /programmes/\{programme\}/assets); the sequence-level summary (GET /sequences/\{sequence\}).
+         */
+        get: operations["getAllProgrammesForSubject-getAllProgrammesForSubject"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/programmes/{programme}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get a programme by slug
+         * Use when you need to get the metadata of one programme. Get programme slugs from GET /subjects/\{subject\}/programmes. Returns the programme's year group, slug (e.g. y7, y10-biology-foundation), and applicable programme factors (exam board, tier, child subject).
+         *
+         *     Not for: the units, questions, or assets of one programme (GET /programmes/\{programme\}/units, GET /programmes/\{programme\}/questions, or GET /programmes/\{programme\}/assets); the sequence-level summary (GET /sequences/\{sequence\}); all programmes for a subject (GET /subjects/\{subject\}/programmes).
+         */
+        get: operations["getAllProgrammesForSubject-getProgramme"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/programmes/{programme}/units": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Units in a programme
+         * Use when you need the unit sequence for one programme — units as an ordered arrangement designed to build knowledge progressively. Get programme slugs from GET /subjects/\{subject\}/programmes. Returns units in unit sequence order with title, slug, and any associated factors.
+         *
+         *       Not for: every unit across the whole sequence (GET /sequences/\{sequence\}/units); a flat list of units for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/units); a single unit (GET /units/\{unit\}/summary); units in a thread (GET /threads/\{threadSlug\}/units).
+         */
+        get: operations["getAllProgrammesForSubject-getProgrammeUnits"];
         put?: never;
         post?: never;
         delete?: never;
@@ -374,7 +462,7 @@ export interface paths {
          * Quiz questions for a lesson
          * Use when you have a lesson slug and need its starter and exit quiz questions with correct answers marked. Returns two arrays, starterQuiz and exitQuiz; each question includes the prompt, the answers (with correct ones flagged), and which answers are distractors.
          *
-         *     Not for: quiz questions across a sequence (GET /sequences/\{sequence\}/questions); quiz questions in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/questions); across a key stage + subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/questions); lesson metadata or assets (GET /lessons/\{lesson\}/summary or GET /lessons/\{lesson\}/assets).
+         *     Not for: quiz questions across a sequence (GET /sequences/\{sequence\}/questions); quiz questions in one programme (GET /programmes/\{programme\}/questions); across a key stage + subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/questions); lesson metadata or assets (GET /lessons/\{lesson\}/summary or GET /lessons/\{lesson\}/assets).
          */
         get: operations["getQuestions-getQuestionsForLessons"];
         put?: never;
@@ -396,7 +484,7 @@ export interface paths {
          * Quiz questions across a sequence
          * Use when you want every quiz question across a whole sequence — all programmes combined. Returns questions grouped by lesson in unit sequence order. Pass year as an optional filter to return only that year's questions. Supports offset and limit; Link: rel="next" header signals more pages.
          *
-         *     Not for: questions in a single programme (GET /sequences/\{sequence\}/programmes/\{programme\}/questions); a single lesson's quiz (GET /lessons/\{lesson\}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/questions).
+         *     Not for: questions in a single programme (GET /programmes/\{programme\}/questions); a single lesson's quiz (GET /lessons/\{lesson\}/quiz); questions for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/questions).
          */
         get: operations["getQuestions-getQuestionsForSequence"];
         put?: never;
@@ -418,9 +506,31 @@ export interface paths {
          * Quiz questions by key stage and subject
          * Use when you want every quiz question for a key stage + subject, without programme structure or unit sequence order. Returns lessons each with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel="next" header signals more pages.
          *
-         *     Not for: a single lesson's quiz (GET /lessons/\{lesson\}/quiz); questions across a sequence (GET /sequences/\{sequence\}/questions); questions in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/questions).
+         *     Not for: a single lesson's quiz (GET /lessons/\{lesson\}/quiz); questions across a sequence (GET /sequences/\{sequence\}/questions); questions in one programme (GET /programmes/\{programme\}/questions).
          */
         get: operations["getQuestions-getQuestionsForKeyStageAndSubject"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/programmes/{programme}/questions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Quiz questions in a programme
+         * Use when you want every quiz question in a single programme (year group) within a subject. Get programme slugs from GET /subjects/\{subject\}/programmes. Returns questions grouped by lesson with starter and exit quiz questions and answers. Supports offset/limit pagination; Link: rel="next" header signals more pages.
+         *
+         *     Not for: questions in a single lesson (GET /lessons/\{lesson\}/quiz); questions across a whole sequence (GET /sequences/\{sequence\}/questions); questions for a key stage + subject without programme structure (GET /key-stages/\{keyStage\}/subject/\{subject\}/questions).
+         */
+        get: operations["getQuestions-getQuestionsForProgramme"];
         put?: never;
         post?: never;
         delete?: never;
@@ -488,7 +598,7 @@ export interface paths {
          * Unit summary by slug
          * Use when you have a unit slug and need the unit summary: title, description, key stage, subject, year, threads, prior-knowledge requirements, national-curriculum statements, and the lessons inside. Unit variant slugs (ending in -1, -2, etc.) resolve to that specific variant.
          *
-         *     Not for: listing every unit in a key stage + subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/units); all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/units); units in a thread (GET /threads/\{threadSlug\}/units); lessons inside the unit (GET /key-stages/\{keyStage\}/subject/\{subject\}/lessons with unit=\{unit\}).
+         *     Not for: listing every unit in a key stage + subject (GET /key-stages/\{keyStage\}/subject/\{subject\}/units); all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /programmes/\{programme\}/units); units in a thread (GET /threads/\{threadSlug\}/units); lessons inside the unit (GET /key-stages/\{keyStage\}/subject/\{subject\}/lessons with unit=\{unit\}).
          */
         get: operations["getUnits-getUnit"];
         put?: never;
@@ -532,7 +642,7 @@ export interface paths {
          * Units in a thread
          * Use when you want every unit in a thread. A thread is an attribute on a unit that groups units across the curriculum to build a common body of knowledge — for example, number and place value or scientific method. Units in a thread span multiple programmes and key stages; thread order is independent of unit sequence order within any individual programme. Returns units in thread order with unitTitle, unitSlug, and unitOrder.
          *
-         *     Not for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /sequences/\{sequence\}/programmes/\{programme\}/units); a single unit (GET /units/\{unit\}/summary).
+         *     Not for: the catalogue of threads (GET /threads); all units across a sequence (GET /sequences/\{sequence\}/units); units in one programme (GET /programmes/\{programme\}/units); a single unit (GET /units/\{unit\}/summary).
          *
          *     Example: 'threadSlug=number-and-place-value'.
          */
@@ -1224,7 +1334,7 @@ export interface components {
             /** List of assets */
             assets: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/asset/\{type\} endpoint
+                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1276,7 +1386,7 @@ export interface components {
             /** List of assets */
             assets: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/asset/\{type\} endpoint
+                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1330,7 +1440,7 @@ export interface components {
             /** List of assets */
             assets?: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/asset/\{type\} endpoint
+                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1341,6 +1451,53 @@ export interface components {
                 url: string;
             }[];
         };
+        /**
+         * @example [
+         *       \{
+         *         "lessonSlug": "variables-and-data-types",
+         *         "lessonTitle": "Variables and data types",
+         *         "assets": [
+         *           \{
+         *             "label": "Worksheet",
+         *             "type": "worksheet",
+         *             "url": "https://open-api.thenational.academy/api/v0/lessons/variables-and-data-types/assets/worksheet"
+         *           \},
+         *           \{
+         *             "label": "Slide Deck",
+         *             "type": "slideDeck",
+         *             "url": "https://open-api.thenational.academy/api/v0/lessons/variables-and-data-types/assets/slideDeck"
+         *           \}
+         *         ]
+         *       \}
+         *     ]
+         */
+        ProgrammeAssetsResponseSchema: {
+            /** The unique slug identifier for the lesson */
+            lessonSlug: string;
+            /** The title for the lesson */
+            lessonTitle: string;
+            /** Licence information for any third-party content contained in the lessons' downloadable resources */
+            attribution?: string[];
+            /** List of assets */
+            assets: {
+                /**
+                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
+                 * @example slideDeck
+
+                 */
+                type: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
+                /** The label for the asset */
+                label: string;
+                /** The download endpoint for the asset. */
+                url: string;
+            }[];
+            /**
+             * Format: uri
+             * The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.
+             * @example https://www.thenational.academy/teachers/lessons/example-lesson
+             */
+            oakUrl?: string;
+        }[];
         /** @example \{\} */
         LessonAssetResponseSchema: unknown;
         /**
@@ -1771,6 +1928,97 @@ export interface components {
                     slug: string;
                 }[];
             }[];
+            /**
+             * Format: uri
+             * The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.
+             * @example https://www.thenational.academy/teachers/lessons/example-lesson
+             */
+            oakUrl?: string;
+        }[];
+        /**
+         * @example [
+         *       "english-secondary-year-7",
+         *       "english-secondary-year-8",
+         *       "english-secondary-year-9",
+         *       "english-secondary-year-10-aqa",
+         *       "english-secondary-year-10-edexcel",
+         *       "english-secondary-year-10-eduqas",
+         *       "english-secondary-year-11-aqa",
+         *       "english-secondary-year-11-edexcel",
+         *       "english-secondary-year-11-eduqas"
+         *     ]
+         */
+        SubjectProgrammesResponseSchema: string[];
+        /**
+         * @example \{
+         *       "examboardSlug": "aqa",
+         *       "examboardTitle": "AQA",
+         *       "keystageSlug": "ks4",
+         *       "keystageTitle": "Key Stage 4",
+         *       "pathwaySlug": null,
+         *       "pathwayTitle": null,
+         *       "phaseSlug": "secondary",
+         *       "phaseTitle": "Secondary",
+         *       "subjectSlug": "computing",
+         *       "subjectTitle": "Computing",
+         *       "tierSlug": null,
+         *       "tierTitle": null,
+         *       "yearSlug": "year-10",
+         *       "yearTitle": "Year 10"
+         *     \}
+         */
+        ProgrammeResponseSchema: {
+            examboardSlug: string | null;
+            examboardTitle: string | null;
+            keystageSlug: string;
+            keystageTitle: string;
+            pathwaySlug: string | null;
+            pathwayTitle: string | null;
+            phaseSlug: string;
+            phaseTitle: string;
+            subjectSlug: string;
+            subjectTitle: string;
+            tierSlug: string | null;
+            tierTitle: string | null;
+            yearSlug: string;
+            yearTitle: string;
+            /**
+             * Format: uri
+             * The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.
+             * @example https://www.thenational.academy/teachers/lessons/example-lesson
+             */
+            oakUrl?: string;
+        };
+        /**
+         * @example [
+         *       \{
+         *         "unitSlug": "variables-and-data-types",
+         *         "unitTitle": "Variables and data types",
+         *         "unitOrder": 1
+         *       \},
+         *       \{
+         *         "unitSlug": "algorithms",
+         *         "unitTitle": "Algorithms",
+         *         "unitOrder": 2
+         *       \}
+         *     ]
+         */
+        ProgrammeUnitsResponseSchema: {
+            /**
+             * The unit slug identifier
+             * @example variables-and-data-types
+             */
+            unitSlug: string;
+            /**
+             * The unit title
+             * @example Variables and data types
+             */
+            unitTitle: string;
+            /**
+             * The unit order within the programme
+             * @example 1
+             */
+            unitOrder: number;
             /**
              * Format: uri
              * The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.
@@ -2566,6 +2814,329 @@ export interface components {
          *     ]
          */
         QuestionsForKeyStageAndSubjectResponseSchema: {
+            /** The lesson slug identifier */
+            lessonSlug: string;
+            /** The title of the lesson */
+            lessonTitle: string;
+            /** The starter quiz questions - which test prior knowledge */
+            starterQuiz: ({
+                /** The question text */
+                question: string;
+
+                questionType: "multiple-choice";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: ({
+                    /**
+                     * The format of the quiz answer
+                     *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                     */
+                    type: "text";
+                    /** Quiz question answer */
+                    content: string;
+                    /** Whether the multiple choice question response is the correct answer (false) or is a distractor (true) */
+                    distractor: boolean;
+                } | {
+
+                    type: "image";
+                    content: {
+                        url: string;
+                        width: number;
+                        height: number;
+                        alt?: string;
+                        /** Supplementary text for the image, if any */
+                        text?: string;
+                        attribution?: string;
+                    };
+                    /** Whether the multiple choice question response is the correct answer (false) or is a distractor (true) */
+                    distractor: boolean;
+                })[];
+            } | {
+                /** The question text */
+                question: string;
+
+                questionType: "short-answer";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: {
+                    /**
+                     * The format of the quiz answer
+                     *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                     */
+                    type: "text";
+                    /** Quiz question answer */
+                    content: string;
+                }[];
+            } | {
+                /** The question text */
+                question: string;
+
+                questionType: "match";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: {
+                    /** Matching options (LHS) */
+                    matchOption: {
+                        /**
+                         * The format of the quiz answer
+                         *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                         */
+                        type: "text";
+                        /** Quiz question answer */
+                        content: string;
+                    };
+                    /** Matching options (RHS), indicating the correct choice */
+                    correctChoice: {
+                        /**
+                         * The format of the quiz answer
+                         *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                         */
+                        type: "text";
+                        /** Quiz question answer */
+                        content: string;
+                    };
+                }[];
+            } | {
+                /** The question text */
+                question: string;
+
+                questionType: "order";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: ({
+                    /** Indicates the correct ordering of the response */
+                    order: number;
+                } & {
+                    /**
+                     * The format of the quiz answer
+                     *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                     */
+                    type: "text";
+                    /** Quiz question answer */
+                    content: string;
+                })[];
+            })[];
+            /** The exit quiz questions - which test on the knowledge learned in the lesson */
+            exitQuiz: ({
+                /** The question text */
+                question: string;
+
+                questionType: "multiple-choice";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: ({
+                    /**
+                     * The format of the quiz answer
+                     *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                     */
+                    type: "text";
+                    /** Quiz question answer */
+                    content: string;
+                    /** Whether the multiple choice question response is the correct answer (false) or is a distractor (true) */
+                    distractor: boolean;
+                } | {
+
+                    type: "image";
+                    content: {
+                        url: string;
+                        width: number;
+                        height: number;
+                        alt?: string;
+                        /** Supplementary text for the image, if any */
+                        text?: string;
+                        attribution?: string;
+                    };
+                    /** Whether the multiple choice question response is the correct answer (false) or is a distractor (true) */
+                    distractor: boolean;
+                })[];
+            } | {
+                /** The question text */
+                question: string;
+
+                questionType: "short-answer";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: {
+                    /**
+                     * The format of the quiz answer
+                     *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                     */
+                    type: "text";
+                    /** Quiz question answer */
+                    content: string;
+                }[];
+            } | {
+                /** The question text */
+                question: string;
+
+                questionType: "match";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: {
+                    /** Matching options (LHS) */
+                    matchOption: {
+                        /**
+                         * The format of the quiz answer
+                         *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                         */
+                        type: "text";
+                        /** Quiz question answer */
+                        content: string;
+                    };
+                    /** Matching options (RHS), indicating the correct choice */
+                    correctChoice: {
+                        /**
+                         * The format of the quiz answer
+                         *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                         */
+                        type: "text";
+                        /** Quiz question answer */
+                        content: string;
+                    };
+                }[];
+            } | {
+                /** The question text */
+                question: string;
+
+                questionType: "order";
+                questionImage?: {
+                    url: string;
+                    width: number;
+                    height: number;
+                    alt?: string;
+                    /** Supplementary text for the image, if any */
+                    text?: string;
+                    attribution?: string;
+                };
+                answers: ({
+                    /** Indicates the correct ordering of the response */
+                    order: number;
+                } & {
+                    /**
+                     * The format of the quiz answer
+                     *     Note: currently, we are only returning text-based quiz answers. In the future, we will also have image-based questions available.
+
+                     */
+                    type: "text";
+                    /** Quiz question answer */
+                    content: string;
+                })[];
+            })[];
+            /**
+             * Format: uri
+             * The Oak URL for this resource — a direct, slug-based URL generated by the SDK. Distinct from canonicalUrl, which encodes full curriculum context.
+             * @example https://www.thenational.academy/teachers/lessons/example-lesson
+             */
+            oakUrl?: string;
+        }[];
+        /**
+         * @example [
+         *       \{
+         *         "lessonTitle": "3D shapes can be composed from 2D nets",
+         *         "lessonSlug": "3d-shapes-can-be-composed-from-2d-nets",
+         *         "starterQuiz": [
+         *           \{
+         *             "question": "Select all of the names of shapes that are polygons.",
+         *             "questionType": "multiple-choice",
+         *             "answers": [
+         *               \{
+         *                 "type": "text",
+         *                 "content": "Cube",
+         *                 "distractor": true
+         *               \},
+         *               \{
+         *                 "type": "text",
+         *                 "content": "Square",
+         *                 "distractor": false
+         *               \},
+         *               \{
+         *                 "type": "text",
+         *                 "content": "Triangle",
+         *                 "distractor": false
+         *               \}
+         *             ]
+         *           \}
+         *         ],
+         *         "exitQuiz": [
+         *           \{
+         *             "question": "What is a net?",
+         *             "questionType": "multiple-choice",
+         *             "answers": [
+         *               \{
+         *                 "type": "text",
+         *                 "content": "A 2D shape that folds into a 3D shape.",
+         *                 "distractor": false
+         *               \},
+         *               \{
+         *                 "type": "text",
+         *                 "content": "A type of cube.",
+         *                 "distractor": true
+         *               \}
+         *             ]
+         *           \}
+         *         ]
+         *       \}
+         *     ]
+         */
+        QuestionsForProgrammeResponseSchema: {
             /** The lesson slug identifier */
             lessonSlug: string;
             /** The title of the lesson */
@@ -3651,6 +4222,52 @@ export interface operations {
             };
         };
     };
+    "getAssets-getProgrammeAssets": {
+        parameters: {
+            query?: {
+                offset?: number;
+                limit?: number;
+                type?: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
+            };
+            header?: never;
+            path: {
+                /** The programme slug identifier */
+                programme: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** Successful response */
+            200: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["ProgrammeAssetsResponseSchema"];
+                };
+            };
+            /** Bad request - e.g. "Content is blocked for copyright reasons" */
+            400: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.BAD_REQUEST"];
+                };
+            };
+            /** API token not provided or invalid */
+            401: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.UNAUTHORIZED"];
+                };
+            };
+            /** Detail of the request causing the 404, e.g. "Lesson not found" */
+            404: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.NOT_FOUND"];
+                };
+            };
+        };
+    };
     "getAssets-getLessonAsset": {
         parameters: {
             query?: never;
@@ -3658,7 +4275,7 @@ export interface operations {
             path: {
                 /** The lesson slug */
                 lesson: string;
-                /** Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/asset/\{type\} endpoint */
+                /** Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint */
                 type: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
             };
             cookie?: never;
@@ -3993,6 +4610,132 @@ export interface operations {
             };
         };
     };
+    "getAllProgrammesForSubject-getAllProgrammesForSubject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** The subject slug identifier */
+                subject: "art" | "citizenship" | "computing" | "cooking-nutrition" | "design-technology" | "english" | "french" | "geography" | "german" | "history" | "maths" | "music" | "physical-education" | "religious-education" | "rshe-pshe" | "science" | "spanish";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** Successful response */
+            200: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["SubjectProgrammesResponseSchema"];
+                };
+            };
+            /** Bad request - e.g. "Content is blocked for copyright reasons" */
+            400: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.BAD_REQUEST"];
+                };
+            };
+            /** API token not provided or invalid */
+            401: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.UNAUTHORIZED"];
+                };
+            };
+            /** Detail of the request causing the 404, e.g. "Lesson not found" */
+            404: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.NOT_FOUND"];
+                };
+            };
+        };
+    };
+    "getAllProgrammesForSubject-getProgramme": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** The programme slug identifier */
+                programme: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** Successful response */
+            200: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["ProgrammeResponseSchema"];
+                };
+            };
+            /** Bad request - e.g. "Content is blocked for copyright reasons" */
+            400: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.BAD_REQUEST"];
+                };
+            };
+            /** API token not provided or invalid */
+            401: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.UNAUTHORIZED"];
+                };
+            };
+            /** Detail of the request causing the 404, e.g. "Lesson not found" */
+            404: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.NOT_FOUND"];
+                };
+            };
+        };
+    };
+    "getAllProgrammesForSubject-getProgrammeUnits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** The programme slug identifier */
+                programme: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** Successful response */
+            200: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["ProgrammeUnitsResponseSchema"];
+                };
+            };
+            /** Bad request - e.g. "Content is blocked for copyright reasons" */
+            400: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.BAD_REQUEST"];
+                };
+            };
+            /** API token not provided or invalid */
+            401: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.UNAUTHORIZED"];
+                };
+            };
+            /** Detail of the request causing the 404, e.g. "Lesson not found" */
+            404: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.NOT_FOUND"];
+                };
+            };
+        };
+    };
     "getKeywords-getKeywords": {
         parameters: {
             query?: {
@@ -4161,6 +4904,52 @@ export interface operations {
                 headers?: never;
                 content: {
                     "application/json": components["schemas"]["QuestionsForKeyStageAndSubjectResponseSchema"];
+                };
+            };
+            /** Bad request - e.g. "Content is blocked for copyright reasons" */
+            400: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.BAD_REQUEST"];
+                };
+            };
+            /** API token not provided or invalid */
+            401: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.UNAUTHORIZED"];
+                };
+            };
+            /** Detail of the request causing the 404, e.g. "Lesson not found" */
+            404: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["error.NOT_FOUND"];
+                };
+            };
+        };
+    };
+    "getQuestions-getQuestionsForProgramme": {
+        parameters: {
+            query?: {
+                offset?: number;
+                limit?: number;
+                filter?: "images";
+            };
+            header?: never;
+            path: {
+                /** The programme slug identifier */
+                programme: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** Successful response */
+            200: {
+                headers?: never;
+                content: {
+                    "application/json": components["schemas"]["QuestionsForProgrammeResponseSchema"];
                 };
             };
             /** Bad request - e.g. "Content is blocked for copyright reasons" */

@@ -12,6 +12,7 @@
  * @see `./tool-guidance-types.ts` for type definitions
  */
 
+import { programmeWorkflows } from './tool-guidance-workflows-programmes.js';
 import type { Workflow } from './tool-guidance-types.js';
 
 /**
@@ -234,4 +235,6 @@ export const toolGuidanceWorkflows = {
       },
     ],
   } satisfies Workflow,
+
+  ...programmeWorkflows,
 } as const;
