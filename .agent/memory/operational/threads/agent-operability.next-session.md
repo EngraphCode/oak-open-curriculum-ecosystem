@@ -12,11 +12,18 @@ F-98 / F-87 / F-90 / F-91.
 
 ## Current Continuation
 
-- **Branch**: none yet. The builder creates its **own worktree off `main`** and
-  dogfoods launch-in-worktree (the tool it is building automates this):
-  `git worktree add ../oak-spawn-flow -b feat/agent-spawn-flow main`, **build it
-  before launching** (a worktree shows no statusline unless built before the
-  session starts), then `cd ../oak-spawn-flow && claude`.
+- **Branch / where to ground (updated 2026-07-01)**: this record, the
+  repo-continuity entries, and the controlling plan are **committed on
+  `docs/consolidations`** (`2fffb80ff`; the branch is 35 ahead of `origin/main`
+  with `origin/main` merged in, release 1.56.0). **Ground on `docs/consolidations`**
+  — a fresh worktree off a clean `main` would not yet see this record (it reaches
+  `main` only when `docs/consolidations` merges). Create the build worktree off
+  `docs/consolidations` so it inherits the enablers and the latest main, dogfooding
+  launch-in-worktree (the tool it is building automates this):
+  `git worktree add ../oak-spawn-flow -b feat/agent-spawn-flow docs/consolidations`,
+  **build it before launching** (a worktree shows no statusline unless built before
+  the session starts), then `cd ../oak-spawn-flow && claude`. (The plan's
+  how-to-start says `main`; that becomes literal once `docs/consolidations` merges.)
 - **Invocation pointer**: continue `agent-operability` from this record.
 - **Controlling plan**:
   [`agent-spawn-flow-tool.plan.md`](../../../plans/agent-tooling/current/agent-spawn-flow-tool.plan.md)
@@ -40,14 +47,11 @@ F-98 / F-87 / F-90 / F-91.
 - **Team expectation**: single-owner build lane by default; coordinate with the
   `statusline-enhancements` lane only if both touch `statusline-identity.ts`
   (Layer 0 needs no statusline change — the binding already derives from cwd).
-- **Landing dependency (circular, resolve first)**: the plan tells the builder to
-  branch off `main`, so a fresh worktree off main will **not** see this record, its
-  repo-continuity row, or (if not yet on main) the controlling plan until they are
-  **committed to `main`**. Before a next session can ground here, these continuity
-  artefacts must land on main — a commit/merge step (owner-gated; the shared tree
-  at handoff carried other sessions' staged work + an in-flight SDK-codegen regen,
-  so it may need clearing first). If they are not yet on main, the builder must
-  base off the branch that carries them instead.
+- **Reaching `main`**: the continuity artefacts and the eventual
+  `feat/agent-spawn-flow` work reach `main` when `docs/consolidations` merges — a
+  code-owner-ruleset merge (`@jimCresswell` review; `--admin` forbidden). This is
+  **not a blocker for pickup** (you ground and build off `docs/consolidations`); it
+  is the finalization step.
 
 ## Standing decisions this thread carries forward (from the plan — do not re-litigate)
 
@@ -84,4 +88,4 @@ joining adds a row, never replaces.
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| `Tuna stirs Fathom` | `claude` | `Opus 4.8 (1M)` | `9767ba` | created this thread record (orphan-fix; no spawn-flow build) | 2026-06-30 | 2026-06-30 |
+| `Tuna stirs Fathom` | `claude` | `Opus 4.8 (1M)` | `9767ba` | created this thread record (orphan-fix); reconciled the branch/ground instruction to the post-merge git reality (enablers committed on `docs/consolidations`); no spawn-flow build | 2026-06-30 | 2026-07-01 |
