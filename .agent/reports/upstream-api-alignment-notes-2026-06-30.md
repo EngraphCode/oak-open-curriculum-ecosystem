@@ -291,3 +291,37 @@ should be the single source both consume.
   decisions still route straight to ADR/PDR. Route at consolidation to the
   strategy-and-plan-estate/intent-graph thread + the reasoning-grammar/metacognition
   doctrine. Not actioned in this thread.
+
+## Handoff loss-scan — 2026-07-01 (Bonfire turns Basalt, first-hand)
+
+Context-held findings not otherwise in a durable artefact, conserved here before context ends:
+
+- **Flaky test that intermittently blocks pushes (pre-existing, out-of-scope, real).**
+  `apps/oak-curriculum-mcp-streamable-http/src/correlation/middleware.integration.test.ts`
+  → *"uses the client-provided X-Correlation-ID for the tag value"* times out (~5s) under
+  full-gate parallel load; passes deterministically in isolation (23ms). It blocked a
+  pre-push once this session (cleared on re-run). Assessed against `testing-strategy.md`:
+  the whole file drives the app via **`supertest`** (loopback HTTP), which the doc
+  classifies as an **E2E tool** and forbids in in-process integration tests ("integration
+  tests DO NOT trigger IO") — so it is **misclassified + mis-shaped**, and the flakiness is
+  the symptom. Correct fix: invoke the middleware directly with injected fake
+  `req`/`res`/`next`. A separate test-shape remediation lane, not the alignment.
+
+- **The session's meta-pattern (metaloss).** The owner corrected ~5 times — version-only
+  (context-bound), over-fragmentation (splitting cached-default into a stale-cache branch),
+  the `USE_LIVE_API_SCHEMA` switch, byte-vs-semantic, and scope. The single generator:
+  **applying a heuristic or prior decision mechanically without re-checking it against the
+  current goal's coherence.** Every cure was the same shape — re-derive from purpose in the
+  current circumstances. Graduation candidate (reasoning-grammar / metacognition doctrine):
+  a pre-structure check "does this heuristic still serve the goal *here*, or am I replaying
+  a conclusion?"
+
+- **Verified facts a successor would otherwise re-derive:** cached-default
+  `pnpm sdk-codegen` on #291's fresh `8eceb70` cache regenerates the programme tools with
+  **no diff** (coherent); two consecutive raw swagger fetches are **byte-identical**
+  (upstream deterministic → the drift false-positive is our two-pipeline mismatch, fixed by
+  semantic compare).
+
+- **Successor trust caveat:** I mis-scoped several times this session (see the meta-pattern
+  above), so re-ground the load-bearing claims first-hand rather than trusting this handoff
+  blindly — a verification workflow ran at handoff time as the confidence complement.
