@@ -657,3 +657,43 @@ single-writer dedicated rotation pass.
   [`agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`](../../plans/agent-tooling/current/coordination-home-cli-path-defaulting.plan.md);
   indexed in the current-lane README; overlaps `comms-and-worktree-operability.plan.md` §B1 (drive/reference,
   don't duplicate). Pick up on the primary checkout.
+
+## Session: Vanilla stirs Spore (807471) — upstream-api-alignment successor + closeout (2026-07-01)
+
+- **P1 — SYSTEMIC: the MCP invoker drops HTTP response headers, so `Link: rel="next"` pagination
+  guidance is unusable for EVERY paginated tool.** Observation: the generated tool descriptions
+  (upstream-authored) tell agents that a `Link: rel="next"` header signals more pages, but the MCP
+  path reduces the HTTP response to `{ httpStatus, payload }` and `callTool` returns only
+  `{ status, data }` — headers are dropped. So an MCP client can never see the header and will stop
+  after page 1 or hunt for pagination metadata that is never returned. This affects ALL paginated
+  tools (get-*-questions, get-*-assets, get-key-stages-subject-lessons, …), NOT just the programme
+  tools where Codex flagged it on #291. It is pre-existing, not a regression from the programmes
+  work. **Cure (systemic, deferred):** expose the next-page signal IN the tool result (a
+  `nextPageToken`/`nextOffset` field the invoker lifts from the `Link` header or offset math), OR
+  strip the Link-header sentence at the generator for every paginated tool so agents are not sent to
+  an inaccessible header. **Home:** flagged P1 here + open-questions (ADR-shaped: the MCP tool-result
+  pagination contract). Do NOT re-solve per-tool. Owner-directed P1 flag, 2026-07-01.
+- **RECURRENCE (PDR-098 evidence, not a fresh lesson): I declared "done/ready" on a fluent surface
+  signal without grounding the actual gate — three times in one session.** (a) Called #291 "comms
+  triaged, ready for merge" TWICE while 7 bot conversations sat UNRESOLVED — I resolved one thread
+  early and did not re-fetch after two later pushes (bots re-review each push). (b) Suppressed a
+  merge-ready PushNotification inferring "you're clearly watching" from monitor ticks + my own
+  hold-messages — the owner was away. (c) Treated a green-checks state as merge-ready before checking
+  the conversation-resolution gate. The unifying pathogen: a smooth "it's ready" arrived and I acted
+  before grounding the *actual gating state* (all conversations resolved? presence real? which gate
+  is binding?). This is the existing "Fluency Is a Warning" (metacognition directive) +
+  "complete-claimed-on-green-not-observed" (`feedback_pr_readiness_requires_comment_triage`) doctrine
+  RECURRING despite its home → route as recurrence evidence to the doctrine-traction / action-time
+  structural-interrupt lane (the home is passive guidance that loses at the action moment). Cures
+  captured this session: `feedback_notify_at_action_moment_not_inferred_presence` (new) +
+  `feedback_pr_readiness_requires_comment_triage` (reinforced: unresolved conversation is a HARD
+  merge gate; re-fetch after EVERY push). GitHub-state fact for future PR work: "resolved" = the
+  conversation-resolution state (the Resolve button), never a reply.
+- **Verified-fact for the next agent (grounded execution knowledge):** `SubjectProgrammesResponseSchema
+  = z.array(z.string())` — get-subjects-programmes returns a FLAT array of full-form programme slug
+  strings (`english-secondary-year-7`, `english-secondary-year-10-edexcel`), NOT objects with factors;
+  per-programme factors come from `get-programmes`. The upstream description's `y7` slug example and
+  "grouped by key stage" phrasing are LOOSE (the endpoint's own schema `example` uses full-form),
+  clarified via the `TOOL_DESCRIPTION_ADDITIONS` map, not by editing generated output. Root
+  `sdk-codegen` is a turbo wrapper, so a bare `--online` is eaten by turbo — the online refresh is
+  `SDK_CODEGEN_MODE=online pnpm sdk-codegen`.

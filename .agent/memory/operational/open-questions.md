@@ -138,5 +138,29 @@ candidate.
 **Status:** open — resolves when the estate-rewrite's stream/thread axis registry lands (WS2/WS3) and
 the owner ratifies the cluster name as a registered value. Not blocking (spawn-flow proceeds regardless).
 
+## Q-013 — MCP tool-result pagination contract (response headers are dropped, so `Link: rel="next"` is unusable)
+
+**Context:** many upstream tool descriptions tell agents that a `Link: rel="next"` header signals
+more pages, but the MCP invoker reduces the HTTP response to `{ httpStatus, payload }` and `callTool`
+returns only `{ status, data }` — response headers are dropped. So an MCP client can never observe
+the pagination header. This affects **every** paginated tool (`get-*-questions`, `get-*-assets`,
+`get-key-stages-subject-lessons`, …), not just the programme tools where Cursor/Codex flagged it on
+PR #291. It is pre-existing and systemic, not a regression from the programmes work.
+
+**Why it shapes future work:** agents stop after the first page or hunt for pagination metadata that
+is never returned, silently truncating multi-page curriculum data. It is flagged P1 in the napkin
+(2026-07-01).
+
+**Why not cheaply answerable now:** it needs an architectural decision on the MCP tool-result
+contract — expose the next-page signal IN the result (a `nextPageToken`/`nextOffset` the invoker
+lifts from the `Link` header or offset math) vs. strip the Link-header sentence at the generator for
+every paginated tool. **ADR-shaped** (the MCP tool-result pagination contract). Do not re-solve
+per-tool.
+
+**Owning artefact:** [`upstream-api-alignment` thread record](threads/upstream-api-alignment.next-session.md)
+§Next safe step; #291's review-triage ledger. No owning plan yet — a candidate ADR / small plan.
+
+**Status:** open — surfaced during the #291 review triage (2026-07-01); not blocking #291. (Renumbered Q-012 → Q-013 on the 2026-07-01 main merge — Q-number collision with the cluster-naming Q-012.)
+
 [kg-two-altitudes]: ../../reports/knowledge-as-graph-two-altitudes-2026-06-23.md
 [worktree-pilot-plan]: ../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md

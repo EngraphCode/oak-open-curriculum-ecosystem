@@ -35,6 +35,17 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **Upstream API alignment (programmes family) — SHIPPED on PR #291, awaiting owner merge (2026-07-01,
+  Vanilla stirs Spore, successor to Bonfire turns Basalt).** #291 is `merge=CLEAN` (all checks green, all
+  review conversations resolved): WS0/WS1 (regen + cached-default), WS2 (semantic schema-drift check), WS4
+  (programmes discoverability + injected `TOOL_DESCRIPTION_ADDITIONS` map), review triage (6 bot findings),
+  WS6 (permanent alignment runbook, PDR-120). WS3 (bulk types) moved to a future plan; WS5 (live smoke lane)
+  deferred. Thread record [`upstream-api-alignment`](threads/upstream-api-alignment.next-session.md).
+  **Post-merge next safe steps:** (1) author the `bulk-types-schema-derivation` future plan — NOT yet
+  authored (bulk types still template-authored; `schema.json` not committed); (2) the **MCP
+  pagination-header P1** — the invoker drops response headers so `Link: rel="next"` guidance is unusable for
+  ALL paginated tools (open-question, ADR-shaped); (3) the comms-routing CLI fix
+  (`agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`) awaits pickup on the primary.
 - **Runbook kind defined + dedicated consolidation done (2026-06-28, Clover lifts Root).** "Runbook"
   is now a recognised content kind — a repeatable operational procedure, delivered via
   skills / reference-docs / rule-embedding by the load-budget triage, **not** a new surface
@@ -157,6 +168,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
+| `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
 | `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-opus-4-8[1m] / Flare hunts Obsidian / WS1 DONE — grain-probe PASSED, full-discovery-run next (owner-auth + ceiling re-derive) / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Linnet binds Leeward / v3+conservation planning → discovery-first re-root + discovery-run plan (supersedes v3) / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Laurel turns Stamen / v2 rerun REFINE + PDR-122 / 2026-06-30 ← claude-code / claude-opus-4-8[1m] / Wren stirs Rainbow / corpus-discovery-proving-run + v2-design + reusable-design-panel-protocol / 2026-06-29 ← claude-code / claude-opus-4-8[1m] / Borealis binds Genesis / dedicated consolidation — staged carry-forwards graduated + buffers drained (`03c0c8d16`, NOT pushed) / 2026-06-29 ← Schooner hunts Tide (corpus-runbook design, read-only, 2026-06-29) ← Falcon wakes Stratus / Director #6 — arc closeout + deep consolidation (#268 merged; synthesis phase next) (Director chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon; the team-tooling cast Kayak/Hearth/Sirius/Seraph/Kingfisher/Gannet/Quoll + … — full history in thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
