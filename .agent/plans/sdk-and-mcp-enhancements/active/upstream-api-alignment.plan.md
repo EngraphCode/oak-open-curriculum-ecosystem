@@ -25,8 +25,8 @@ todos:
     content: Establish the repeatable post-regen live-execution proof (decision needed on a committed network-permitted smoke lane)
     status: pending
   - id: ws6-runbook
-    content: Graduate the process notes into a permanent "aligning to an evolving upstream surface" runbook
-    status: pending
+    content: "DONE: graduated the process notes into the permanent docs/engineering/upstream-api-alignment-runbook.md (PDR-120 reference runbook, rare-trigger), registered in the docs/operations Runbook Index; report de-duped to the worked instance"
+    status: completed
 ---
 
 # Upstream API Alignment — and a repeatable, observable alignment process
@@ -100,7 +100,12 @@ repo (so the swagger `description` matches its own schema example) remains the u
 decision. It is now **mitigated** at both the orientation layer (get-curriculum-model guidance)
 and the tool-description layer (the clarification note), so it is no longer blocking.
 
-**DEFERRED (separate/later):** WS5 committed live smoke lane; WS6 runbook graduation.
+**WS6 runbook graduation LANDED (owner-directed 2026-07-01):** the generalised procedure is
+now the permanent [`docs/engineering/upstream-api-alignment-runbook.md`](../../../../docs/engineering/upstream-api-alignment-runbook.md)
+(PDR-120 reference runbook — rare trigger, so a reference doc not a skill), registered in the
+[Runbook Index](../../../../docs/operations/README.md#runbook-index); the notes report's draft
+section was de-duped to a pointer, retaining the report as the worked 2026-06-30 instance.
+**WS5 (committed live smoke lane) remains DEFERRED** (owner-confirmed 2026-07-01).
 
 **Worktree estate:** `oak-upstream-api-alignment` = #291 (this adaptation).
 `oak-schema-staleness-validator` (`feat/cached-schema-default`, `0677e8916`, **pushed, no

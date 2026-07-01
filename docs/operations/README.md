@@ -59,6 +59,10 @@ runbooks wherever they live (it carries pointers, not content).
   capture and tracing, with rollback.
 - [Milestone Release Runbook](../engineering/milestone-release-runbook.md) — R0–R5
   release-control gates, snagging protocol, go/no-go record.
+- [Upstream API Alignment Runbook](../engineering/upstream-api-alignment-runbook.md) — how
+  to realign the SDK/MCP surface (and bulk export) when the upstream Oak API changes: diff
+  the schema delta, regenerate, confirm registration + type-check, live-verify, surface
+  discoverability, land.
 - [Release & Publishing Operator Runbook](../engineering/release-and-publishing.md) —
   npm publish procedure for the SDK.
 - [MCP Server UAT Validation Runbook](../../apps/oak-curriculum-mcp-streamable-http/docs/manual-uat-guide.md) —

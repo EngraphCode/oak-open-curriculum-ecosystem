@@ -258,19 +258,13 @@ ground-truth parser (`bulk-data-parser.ts`, tolerates extra fields) disagree on 
 "valid"; a shape change passes the latter and fails the former. The schema-derived Zod
 should be the single source both consume.
 
-## Generalised runbook (draft) — "the upstream surface changed, now what?"
+## Generalised runbook — graduated (WS6)
 
-1. New worktree off `main`; `pnpm install && pnpm build`.
-2. Refresh the cached schema (online opt-in) → **diff the delta** (Step 2 recipe);
-   classify additive vs breaking.
-3. `pnpm sdk-codegen && pnpm build` → confirm registry moved + `type-check` green
-   across consumers.
-4. Refresh the bulk download → **diff `schema.json`** (tracked) for shape change →
-   regenerate bulk types (schema-derived) → confirm parse over real data.
-5. Verify representative tools **execute** against the live API.
-6. Assess discoverability/UX (does `get-curriculum-model` teach the new concept?).
-7. Gates green → commit (explicit pathspec) → draft PR → owner review → merge →
-   remove worktree.
+The generalised, repeatable procedure has graduated to the permanent
+[Upstream API Alignment Runbook](../../docs/engineering/upstream-api-alignment-runbook.md)
+(registered in the [Runbook Index](../../docs/operations/README.md#runbook-index)); it is
+the source of truth for the process. This report is retained as the worked 2026-06-30
+instance — the programmes-family alignment that exercised the procedure first-hand.
 
 ## Open questions / decisions
 
