@@ -23,6 +23,26 @@ describe('isSearchResults', () => {
     expect(isSearchResults({ lessons: [], units: [], threads: [] })).toBe(true);
   });
 
+  it('accepts the E3 showcase envelope carrying highlights and per-scope meta', () => {
+    const envelope = {
+      lessons: [
+        {
+          id: 'l1',
+          title: 'Comparing fractions',
+          url: 'https://example.org/l1',
+          highlights: ['first <em>match</em>', 'second <em>match</em>'],
+        },
+      ],
+      units: [],
+      threads: [],
+      meta: { lessons: { total: 42, took: 7 }, units: { total: 0, took: 3 } },
+    };
+    expect(isSearchResults(envelope)).toBe(true);
+  });
+
+});
+
+describe('isSearchResults rejections', () => {
   it('rejects null and non-object values', () => {
     expect(isSearchResults(null)).toBe(false);
     expect(isSearchResults(undefined)).toBe(false);

@@ -16,9 +16,10 @@ import type {
   LessonResult,
   UnitResult,
   ThreadResult,
+  SearchResultMeta,
 } from '@oaknational/oak-search-sdk/read';
 import { ok, err, isOk, type Result } from '@oaknational/result';
-import type { Hit, SearchResults } from './search-types';
+import type { Hit, ScopeMeta, SearchResults, SearchSizes } from './search-types';
 
 /** Error surface for a scoped search. Translated to an HTTP status by the route. */
 export type SearchError = { kind: 'not_configured' } | { kind: 'failed'; message: string };
@@ -34,6 +35,7 @@ const mapLesson = (r: LessonResult): Hit => ({
   years: r.lesson.years,
   unitTitle: r.lesson.unit_titles[0],
   snippet: r.highlights[0],
+  highlights: r.highlights,
 });
 
 // A unit result's index doc can be null when the source was unavailable.
@@ -47,6 +49,7 @@ const mapUnit = (r: UnitResult): Hit | null =>
         keyStage: r.unit.key_stage,
         lessonCount: r.unit.lesson_count,
         snippet: r.highlights[0],
+        highlights: r.highlights,
       }
     : null;
 
@@ -60,6 +63,29 @@ const mapThread = (r: ThreadResult): Hit => ({
 
 /* ---------- public API ---------- */
 
+/** Hub defaults; the showcase page may request different sizes per scope. */
+const DEFAULT_SIZES = { lessons: 9, units: 6, threads: 8 } as const;
+
+const scopeMeta = (m: SearchResultMeta): ScopeMeta => ({ total: m.total, took: m.took });
+
+const resolvedSizes = (sizes?: SearchSizes): Required<SearchSizes> => ({
+  lessons: sizes?.lessons ?? DEFAULT_SIZES.lessons,
+  units: sizes?.units ?? DEFAULT_SIZES.units,
+  threads: sizes?.threads ?? DEFAULT_SIZES.threads,
+});
+
+// A meta entry is present only for scopes that succeeded — its absence is the
+// honest "scope unavailable" signal, distinct from a zero-hit total.
+const buildMeta = (
+  lessonsRes: Result<SearchResultMeta, unknown>,
+  unitsRes: Result<SearchResultMeta, unknown>,
+  threadsRes: Result<SearchResultMeta, unknown>,
+): SearchResults['meta'] => ({
+  ...(isOk(lessonsRes) ? { lessons: scopeMeta(lessonsRes.value) } : {}),
+  ...(isOk(unitsRes) ? { units: scopeMeta(unitsRes.value) } : {}),
+  ...(isOk(threadsRes) ? { threads: scopeMeta(threadsRes.value) } : {}),
+});
+
 /**
  * Run one query across the three search scopes and map the results into the
  * local view model. Never emits `not_configured` — configuration is the
@@ -68,12 +94,14 @@ const mapThread = (r: ThreadResult): Hit => ({
 export async function runScopedSearch(
   retrieval: Pick<RetrievalService, 'searchLessons' | 'searchUnits' | 'searchThreads'>,
   q: string,
+  sizes?: SearchSizes,
 ): Promise<Result<SearchResults, SearchError>> {
   try {
+    const size = resolvedSizes(sizes);
     const [lessonsRes, unitsRes, threadsRes] = await Promise.all([
-      retrieval.searchLessons({ query: q, size: 9, highlight: true }),
-      retrieval.searchUnits({ query: q, size: 6 }),
-      retrieval.searchThreads({ query: q, size: 8 }),
+      retrieval.searchLessons({ query: q, size: size.lessons, highlight: true }),
+      retrieval.searchUnits({ query: q, size: size.units, highlight: true }),
+      retrieval.searchThreads({ query: q, size: size.threads }),
     ]);
 
     // Per-scope degradation: an empty/failed single scope (e.g. a thread index
@@ -85,7 +113,7 @@ export async function runScopedSearch(
       : [];
     const threads = isOk(threadsRes) ? threadsRes.value.results.map(mapThread) : [];
 
-    return ok({ lessons, units, threads });
+    return ok({ lessons, units, threads, meta: buildMeta(lessonsRes, unitsRes, threadsRes) });
   } catch (error: unknown) {
     // Translate a thrown ES/transport error into a Result at this single
     // boundary (use-result-pattern / ADR-088: wrap the library that throws).

@@ -16,16 +16,40 @@ export interface Hit {
   subjectSlugs?: readonly string[]; // threads can span subjects
   keyStage?: string;
   years?: readonly string[]; // index stores years as strings
-  snippet?: string; // ES unified highlight
+  snippet?: string; // ES unified highlight (first of `highlights`)
+  highlights?: readonly string[]; // full ES highlight set; threads have none (E3 showcase)
   lessonCount?: number; // units
   unitCount?: number; // threads
   unitTitle?: string; // lessons
+}
+
+/** Per-scope search statistics from the SDK result meta (E3 showcase). */
+export interface ScopeMeta {
+  total: number; // ES total hits for the scope (beyond the returned page)
+  took: number; // ES query latency in ms
 }
 
 export interface SearchResults {
   lessons: Hit[];
   units: Hit[];
   threads: Hit[];
+  /**
+   * Per-scope stats. An entry is PRESENT only when that scope succeeded —
+   * an absent entry means "scope unavailable" (degraded), distinct from a
+   * genuine zero-hit `total: 0`.
+   */
+  meta?: {
+    lessons?: ScopeMeta;
+    units?: ScopeMeta;
+    threads?: ScopeMeta;
+  };
+}
+
+/** Optional per-scope result sizes; absent scopes use the hub defaults (9/6/8). */
+export interface SearchSizes {
+  lessons?: number;
+  units?: number;
+  threads?: number;
 }
 
 /**

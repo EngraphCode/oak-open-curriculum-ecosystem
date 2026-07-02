@@ -15,7 +15,7 @@ import { Client } from '@elastic/elasticsearch';
 import { createRetrievalService, type RetrievalService } from '@oaknational/oak-search-sdk/read';
 import { err, type Result } from '@oaknational/result';
 import { runScopedSearch, type SearchError } from './search-core';
-import type { SearchResults } from './search-types';
+import type { SearchResults, SearchSizes } from './search-types';
 import { serverEnv, searchConfigured } from './env';
 
 // The view models (Hit, SearchResults) and the client-safe `isSearchResults`
@@ -47,7 +47,10 @@ function getRetrieval(): RetrievalService {
 
 /* ---------- public API ---------- */
 
-export async function search(q: string): Promise<Result<SearchResults, SearchError>> {
+export async function search(
+  q: string,
+  sizes?: SearchSizes,
+): Promise<Result<SearchResults, SearchError>> {
   if (!searchConfigured()) {
     return err({ kind: 'not_configured' });
   }
@@ -56,7 +59,7 @@ export async function search(q: string): Promise<Result<SearchResults, SearchErr
     // The try also guards ES Client construction inside getRetrieval, so a
     // bad node URL surfaces as err({kind: 'failed'}) exactly as before the
     // core extraction.
-    return await runScopedSearch(getRetrieval(), q);
+    return await runScopedSearch(getRetrieval(), q, sizes);
   } catch (error: unknown) {
     return err({
       kind: 'failed',
