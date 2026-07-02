@@ -30,7 +30,7 @@ function MenuPanel({
         <HubNavLink key={item.label} item={item} className={menuLinkClass} onChoose={onChoose} />
       ))}
       <div className="mt-2">
-        <HubSearch />
+        <HubSearch label="Hub search (menu)" />
       </div>
     </nav>
   );

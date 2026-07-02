@@ -47,7 +47,7 @@ function StandardsList({ standards }: { standards: readonly CalloutStandard[] })
           <Link href={`/standards#qs=${standard.qs}`} className={QS_CHIP}>
             {standard.qs}
           </Link>
-          <span className="font-light leading-snug">{standard.text}</span>
+          <span className="min-w-0 flex-1 font-light leading-snug break-words">{standard.text}</span>
         </li>
       ))}
     </ul>

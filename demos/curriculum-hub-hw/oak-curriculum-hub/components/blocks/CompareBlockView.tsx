@@ -13,6 +13,8 @@ import type { CompareBlock } from '@/lib/blocks/types';
 export function CompareBlockView({ block }: { block: CompareBlock }): ReactElement {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {/* aria-label (matching the visible bar exactly) rather than aria-labelledby: this is a
+          server component, so useId is unavailable and blocks carry no stable per-block id. */}
       <section
         aria-label="Example"
         className="overflow-hidden rounded-[14px] border-2 border-oak-green bg-oak-green-subdued"

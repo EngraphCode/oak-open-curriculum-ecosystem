@@ -64,12 +64,14 @@ export default function SiteNav(): ReactElement {
           <div className="hidden w-[230px] md:block">
             <HubSearch />
           </div>
+          {/* role=img: aria-label on a generic span is prohibited (axe aria-prohibited-attr);
+              the avatar is one named graphic to AT, its initials decorative. */}
           <span
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-oak-black bg-oak-mint text-[14px] font-bold leading-none"
-            title="Your account"
+            role="img"
             aria-label="Your account"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-oak-black bg-oak-mint text-[14px] font-bold leading-none"
           >
-            CT
+            <span aria-hidden="true">CT</span>
           </span>
           <MobileHubNav items={navItems} />
         </div>
