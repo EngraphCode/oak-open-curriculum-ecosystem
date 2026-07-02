@@ -4,7 +4,7 @@ import { pathToFileURL } from 'node:url';
 
 import { z } from 'zod';
 
-import { isJsonObject } from '../collaboration-state/json.js';
+import { isJsonObject } from '../core/json.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 
 import {

@@ -11,7 +11,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-import { isJsonObject } from '../collaboration-state/json.js';
+import { isJsonObject } from '../core/json.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 
 import { evaluateSchemaDrift } from './ci-schema-drift-eval.js';

@@ -11,7 +11,7 @@
  * @packageDocumentation
  */
 
-import { type JsonObject, isJsonObject } from '../collaboration-state/json.js';
+import { type JsonObject, isJsonObject } from '../core/json.js';
 
 import type { ParseResult, TurboSummary, TurboTask } from './ci-turbo-report-types.js';
 

@@ -1,4 +1,4 @@
-import { isJsonObject } from '../collaboration-state/json.js';
+import { isJsonObject } from '../core/json.js';
 
 import {
   PRE_TOOL_USE_EVENT_NAME,
