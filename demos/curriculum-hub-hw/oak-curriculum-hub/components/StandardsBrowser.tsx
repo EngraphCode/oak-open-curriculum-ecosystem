@@ -122,8 +122,9 @@ function BrowseView({
   readonly onOpen: (id: string) => void;
 }): ReactElement {
   return (
-    <div className="mx-auto flex w-full max-w-[1320px] gap-0">
-      <aside className="shrink-0 basis-[290px] self-stretch border-r-2 border-oak-grey-line px-5 pb-[60px] pt-[26px]">
+    <div className="mx-auto flex w-full max-w-[1320px] flex-col gap-0 md:flex-row">
+      {/* The rail stacks above the results below md: (290px beside results reflow-fails at 320). */}
+      <aside className="self-stretch border-b-2 border-oak-grey-line px-5 pb-6 pt-[26px] md:shrink-0 md:basis-[290px] md:border-b-0 md:border-r-2 md:pb-[60px]">
         <AreaRail items={view.rail} onPick={(area) => onFilter({ area })} />
       </aside>
       {/* A labelled region (not a second <main>: layout.tsx already owns the main landmark); it is

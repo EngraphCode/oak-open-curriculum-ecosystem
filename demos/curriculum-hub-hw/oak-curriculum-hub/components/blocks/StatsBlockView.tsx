@@ -29,7 +29,8 @@ export function StatsBlockView({ block }: { block: StatsBlock }): ReactElement {
   return (
     <section aria-label="Statistics">
       {block.intro !== undefined && <p className="mb-4 text-[17px] font-light leading-[27px]">{block.intro}</p>}
-      <ul className={`grid grid-cols-2 gap-3 ${mdGridCols(block.items.length, 4)}`}>
+      {/* One column below 380px: two 94px tiles cannot hold a 26px "102,000" (1.4.10 reflow). */}
+      <ul className={`grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 ${mdGridCols(block.items.length, 4)}`}>
         {block.items.map((item, index) => (
           <li
             key={item.label}

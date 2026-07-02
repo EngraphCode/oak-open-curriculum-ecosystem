@@ -71,12 +71,12 @@ export function StandardCard({
       onClick={() => onOpen(card.id)}
       className="w-full rounded-oak-l border-2 border-oak-black bg-white px-5 py-[18px] text-left shadow-oak-lemon transition-transform hover:-translate-y-0.5 hover:shadow-oak-wide-lemon"
     >
-      <span className="flex items-start gap-3.5">
+      <span className="flex flex-wrap items-start gap-3.5">
         <span className="shrink-0 rounded-oak-m border-2 border-oak-navy bg-oak-lavender-subdued px-2.5 py-1.5 text-[12px] font-bold text-oak-navy">
           {card.id}
         </span>
         <TypePill card={card} />
-        <span className="flex-1 text-[18px] leading-[26px]">{card.text}</span>
+        <span className="min-w-0 flex-1 text-[18px] leading-[26px] break-words">{card.text}</span>
         {card.hasCode && (
           <span className="shrink-0 rounded-oak-m border-2 border-oak-grey-line px-2 py-1.5 text-[12px] font-bold text-oak-grey">
             {card.code}

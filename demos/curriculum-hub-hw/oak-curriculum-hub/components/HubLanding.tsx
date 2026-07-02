@@ -41,7 +41,7 @@ function HubSearchForm({
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="Search courses, standards, rubrics, exemplars…"
         aria-label="Search the hub"
-        className="flex-1 scroll-mt-24 border-none bg-transparent text-[16px] font-light leading-none text-oak-black outline-none placeholder:text-oak-grey"
+        className="min-w-0 flex-1 scroll-mt-24 border-none bg-transparent text-[16px] font-light leading-none text-oak-black outline-none placeholder:text-oak-grey"
       />
       <button
         type="submit"

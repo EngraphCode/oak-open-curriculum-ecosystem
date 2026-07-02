@@ -28,11 +28,13 @@ function SectionView({ section }: { section: CourseSection }): ReactElement {
   return (
     <PlayerSection sectionId={section.id}>
       {/* Export-exact heading: 600 38/46 balanced + the 64×6 accent bar. The h3 is the player's
-          programmatic focus target (SC 2.4.3): screen readers announce "<title>, heading, level 3". */}
+          programmatic focus target (SC 2.4.3): screen readers announce "<title>, heading, level 3".
+          One size step below 380px: a long single word ("understanding?") at 38px exceeds the
+          272px content column and reflow-fails the page at 320 (SC 1.4.10). */}
       <h3
         id={`section-h-${section.id}`}
         tabIndex={-1}
-        className="mb-7 text-[38px] font-semibold leading-[46px] tracking-[0.0115rem] text-balance"
+        className="mb-7 text-[30px] leading-[38px] font-semibold tracking-[0.0115rem] text-balance min-[380px]:text-[38px] min-[380px]:leading-[46px]"
       >
         {section.title}
         <span aria-hidden="true" className="mt-1.5 block h-1.5 w-16 rounded-full bg-oak-black" />
