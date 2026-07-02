@@ -2,7 +2,7 @@
 name: corpus-meta
 description: Read-only recall-calibration synthesist for the corpus-analysis meta workflow stage. Dispatched exclusively via the Workflow agent() agentType option; never invoke for interactive delegation. Judges per-baseline recall matches and verifies corroboration home paths on disk before claiming them, answering through the schema-forced structured output call.
 tools: Glob, Grep, Read
-disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch
+disallowedTools: Bash, Write, Edit, NotebookEdit, WebFetch, WebSearch, Agent, Skill, ToolSearch, ReportFindings
 maxTurns: 40
 ---
 

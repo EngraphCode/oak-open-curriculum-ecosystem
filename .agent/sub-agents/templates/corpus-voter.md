@@ -30,7 +30,10 @@ also shrinks the per-turn context the tool definitions would occupy.
   omission as inherit-all, and `tools: []` was observed live to fall back the
   same way (the registry reported "All tools"), so a single harmless
   read-only tool is the deterministic floor. The prompt directs the voter
-  never to use it.
+  never to use it. `disallowedTools: *` is NOT a shortcut: the SDK deny-rule
+  glob (`disallowed_tools=["*"]`) lives in the SDK options layer; the
+  frontmatter field parses plain tool names, and a fresh-registration probe
+  (2026-07-02) confirmed a bare `*` leaves the full inherited surface.
 - `disallowedTools` belts everything else by name (no Bash, no mutation, no
   network, no search, no sub-spawning).
 - `maxTurns: 4` — the deterministic cap on the measured cost driver (turn

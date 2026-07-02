@@ -18,7 +18,9 @@ counts are re-verified deterministically at the checkpoint boundary.
   (its entire input is inlined), but the docs define `tools` omission as
   inherit-all and an empty list was observed live to fall back the same way,
   so a single harmless read-only tool is the deterministic floor. The prompt
-  directs the reducer never to use it.
+  directs the reducer never to use it. A bare `disallowedTools: *` is not
+  honored in frontmatter (probe-verified 2026-07-02; the `*` glob belongs to
+  the SDK deny-rule layer) — see the corpus-voter template.
 - `disallowedTools` belts everything else by name (no Bash, no mutation, no
   network, no search, no sub-spawning).
 - `maxTurns: 6` — one synthesis turn plus structured-output retry headroom
