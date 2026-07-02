@@ -4,6 +4,16 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-02 — PDR-123 authored: agentic design panels (dedicated consolidation, Rosemary stirs Bracken)
+
+New `pdr_kind: pattern` PDR graduating the design-panel protocol from its founding worked
+instance (the corpus-analysis v2 design panel, report 2026-06-29): independent
+restraint-by-default generators, a MECE facet cut, a diverse-lens critic **ensemble** (the
+marginal critic beats the marginal designer), orchestrator-held synthesis, proportionality,
+and the self-improvement loop (each application refines the PDR). Promoted on first instance
+per owner direction; PDR-122 cross-referenced as the adjudicative sibling. The
+decision-records index also gained the missing PDR-122 row.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-02 — PDR-122 extended with checkpointing, calibration-first, and fleet economics (dedicated consolidation, Rosemary stirs Bracken)
 
 Amended PDR-122 (Agentic Judgment Pipelines) from the 2026-07-01/02 discovery-run worked

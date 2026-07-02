@@ -109,12 +109,4 @@ backtick-wrapped inline `[…]` block (may wrap across lines) with pipe-separate
 finding). `target` must name a doctrine surface (rule / PDR / ADR / pattern /
 governance doc); if it names a plan or report, the item belongs elsewhere.
 
-- **Agentic design-panel protocol + its iterative self-improvement loop** `[captured: 2026-06-29 |
-  source: agentic-design-panel-protocol-2026-06-29.md (first worked instance: the corpus-analysis
-  v2 design panel) | target: a PDR (Practice substance) and/or a PDR-120 reference runbook — the
-  reusable fan-out-generation → diverse-lens-critic-ensemble → orchestrator-synthesis protocol,
-  INCLUDING its self-improving property (each application yields both the design AND a refined
-  protocol-for-running-panels) | trigger: applied + refined on a SECOND design elsewhere
-  (owner-directed: apply + refine in other places) | size: M | status: pending]`
-
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->

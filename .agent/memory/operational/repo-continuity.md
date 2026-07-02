@@ -43,7 +43,8 @@ forward-asks remain.
   (1) the **pre-existing RED gate on `main`** — `sdk-codegen`'s pagination-examples test fails on
   upstream spec drift; fix in a fresh session off latest `main`, never by blind-editing the
   expectation; (2) author the `bulk-types-schema-derivation` future plan (does not exist yet);
-  (3) the **MCP pagination-header P1** (Q-013, ADR-shaped); (4) the comms-routing CLI fix
+  (3) the **MCP pagination-header P1** (ADR-shaped; the thread record's item is the owning
+  record); (4) the comms-routing CLI fix
   (`agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`) on the primary.
 - **Runbook kind** — a repeatable operational procedure is a recognised content kind delivered via
   skills / reference-docs / rule-embedding
@@ -272,8 +273,9 @@ F-41 CLI tail).
    §Current State large-corpus entry; full pickup: [`agentic` thread record][agentic] §RUN COMPLETE.
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
-   PDR-122 amended, the conserve-by-default rule landed; `distilled` empty; pending-graduations
-   holds one owner-triggered item (the design-panel PDR).
+   PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;
+   `distilled` + `pending-graduations` empty; open-questions holds only the two user-granted
+   keep-opens (Q-009/Q-011).
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
 2a. `agent-collaboration.md` is hard-over on lines (377/360) after the injected-asymmetry doctrine

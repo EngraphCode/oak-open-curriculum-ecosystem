@@ -1,13 +1,11 @@
-# Agentic design-panel protocol (v1 — fresh, to be re-proven elsewhere)
+# Agentic design-panel protocol (v1 — the founding worked instance)
 
 *Author: Wren stirs Rainbow (claude / claude-opus-4-8[1m] / 093458) — 2026-06-29.*
-*Status: fresh material (PDR-032 — reports/ is the home until proven). A reusable*
-*protocol for running a multi-agent design panel, captured from its first worked*
-*instance (the large-corpus-analysis v2 design). Owner-directed to be "applied and*
-*refined again in other places" — so it is explicitly forward-design with consumers in*
-*mind (YAGNI does not apply to innovation). Graduate to a reference runbook (PDR-120)*
-*or a Practice pattern after ≥2 instances confirm it. Portable by construction: nothing*
-*here is Oak-specific.*
+*Status: GRADUATED — the portable doctrine is
+[PDR-123](../../practice-core/decision-records/PDR-123-agentic-design-panel-protocol.md)
+(2026-07-02, promoted on first instance). This report remains the founding instance
+record and effectiveness assessment; future applications record theirs the same way and
+refine PDR-123 in place.*
 
 ## What this is
 

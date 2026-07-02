@@ -100,6 +100,16 @@ is ungoverned free-text — four different labels for one five-plan cluster, plu
 an orphan reference to a thread with no record (there is no plan→thread reference-integrity gate). The
 rewrite must not reproduce ungoverned axes.
 
+**Pending naming decision this invariant owns (re-homed from the open-questions register,
+2026-07-02):** the five-plan agent-team-operations cluster (`agent-naming-schema-v3`,
+`knowledge-distribution-substrate`, `agent-spawn-flow-tool`,
+`session-and-team-state-statusline-icons`, `collaboration-substrate-coordination-rightsizing`)
+gets its name — and its tier (sub-stream vs thread) — **minted as a registered axis value at
+WS2/WS3 and owner-ratified there**, in one act. The owner leaned "agent teams / agent-team
+operations" (2026-06-30); "substrate" is avoided in the group name to prevent part/whole
+confusion with the member `knowledge-distribution-substrate` plan. Do not mint a free-text
+`serves_stream` value ahead of the registry.
+
 **Binds:** WS2 (close the node schema's axis vocabularies; do not leave them free-text), WS3 (the
 closed vocabularies *are* the registries), WS5 (projection-type schemas validate stream / thread /
 lifecycle membership), WS4 (the validator enforces membership **and** reference-integrity — a

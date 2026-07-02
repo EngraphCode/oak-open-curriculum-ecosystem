@@ -49,9 +49,15 @@ section (2026-07-01).
   2. **Author the `bulk-types-schema-derivation` future plan — it does NOT yet exist.** The
      runbook and the active plan both reference it as future; the bulk types are still
      template-authored (a schema-first violation) and the bulk `schema.json` is not committed.
-  3. **MCP pagination-header gap (P1)** — the MCP invoker drops response headers, so the
-     `Link: rel="next"` guidance is unusable for ALL paginated tools. Systemic; open-question
-     Q-013 (ADR-shaped: the MCP tool-result pagination contract). Do not re-solve per-tool.
+  3. **MCP pagination-header gap (P1, ADR-shaped — this item is the owning record).** The MCP
+     invoker reduces the HTTP response to `{ httpStatus, payload }` and `callTool` returns only
+     `{ status, data }`, so the generated `Link: rel="next"` guidance is unusable for ALL
+     paginated tools — agents stop after page 1 or hunt for metadata that never arrives,
+     silently truncating multi-page curriculum data. The fork for the ADR (a design session,
+     not a per-tool fix): **expose the next-page signal IN the tool result** (a
+     `nextPageToken`/`nextOffset` the invoker lifts from the `Link` header or offset math), or
+     **strip the Link-header sentences at the generator** for every paginated tool. Pre-existing
+     and systemic, surfaced during the #291 review triage (2026-07-01). Do not re-solve per-tool.
   4. Comms-routing CLI fix — the F-41-tail plan
      (`agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`) awaits pickup on
      the **primary checkout**.
