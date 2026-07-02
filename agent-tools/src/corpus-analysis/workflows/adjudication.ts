@@ -77,6 +77,10 @@ async function dispatchVoter(
     // and the bounded post-run assurance leg. Recall calibration measures the regime.
     model: 'sonnet',
     effort: 'high',
+    // The no-tools voter agent type: measured free-tool voters burned ~7 tool calls
+    // and 350-800k input tokens each re-verifying supplied grounding; that check is
+    // deterministic code in the post-run driver instead. Harness-enforced allow-list.
+    agentType: 'corpus-voter',
     schema: AGENT_JSON_SCHEMAS.voterJudgment,
   });
   if (judgment === null) {

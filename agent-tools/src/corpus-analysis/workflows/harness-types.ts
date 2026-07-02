@@ -31,6 +31,13 @@ export interface HarnessAgentOptions<T = unknown> {
   readonly model: 'haiku' | 'sonnet' | 'opus' | 'fable';
   /** Reasoning effort for this agent call. */
   readonly effort: 'low' | 'medium' | 'high';
+  /**
+   * Custom subagent type from the agent registry (`.claude/agents/`). The type's
+   * `tools` frontmatter is a harness-enforced allow-list — the deterministic way to
+   * constrain a dispatched agent's tool surface. Composes with `schema` (the harness
+   * appends the structured-output instruction to the custom agent's system prompt).
+   */
+  readonly agentType?: string;
   /** JSON Schema the agent's structured output is validated against by the harness. */
   readonly schema: DerivedJsonSchema<T>;
 }

@@ -63,12 +63,13 @@ const fakeParallel: HarnessParallel = async (thunks) =>
 interface AgentCall {
   readonly label: string;
   readonly prompt: string;
+  readonly agentType: string | undefined;
 }
 
 function fakeAgent(script: readonly (VoterJudgment | null)[], calls: AgentCall[]): VoterAgent {
   let cursor = 0;
   return async (prompt, opts) => {
-    calls.push({ label: opts.label, prompt });
+    calls.push({ label: opts.label, prompt, agentType: opts.agentType });
     const next = script[cursor] ?? null;
     cursor += 1;
     return next;
@@ -94,6 +95,9 @@ describe('createCandidateAdjudicator', () => {
       'vote:C01:tier-1:plain',
     ]);
     expect(calls[0]?.prompt).toContain('[w01 2026-05-06] q');
+    // Every voter dispatches as the no-tools corpus-voter agent type — the tool
+    // restriction is harness-enforced, not prompt compliance.
+    expect(calls.every((call) => call.agentType === 'corpus-voter')).toBe(true);
   });
 
   it('escalates a tier-0 kill to the full diverse-lens ensemble and attaches each lens to its verdict', async () => {
