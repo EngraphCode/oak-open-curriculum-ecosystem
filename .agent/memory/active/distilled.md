@@ -137,3 +137,29 @@ For the next `consolidate-until-done`:
   was: analyse first-hand, prepare both launch-ready forks, commit the checkpoints, surface with a
   brief, stop the spend. "Whatever you think is appropriate" covers execution, not re-authorising
   2× the owner-set ceiling.
+
+## 2026-07-02 evening — run economics + calibration-first doctrine candidates (Perseus wakes Oblivion)
+
+For the next `consolidate-until-done`:
+
+- **Measure judgment quality at the first spend checkpoint, not only cost.** A fleet checkpoint
+  that reads burn-rate but not verdict-calibration ratifies an uncalibrated regime at scale. The
+  cure is structural, not vigilance: known-answer canaries seeded FIRST in the stream + a
+  deterministic abort breaker (redesign plan D1), and a ~1/10th pilot before any full run (D4).
+  Candidate: pattern or PDR-122 amendment.
+- **Tool-surface bloat dominates fleet cost.** Turns × context (each tool call re-reads the
+  agent's whole context) outweighs model tier by an order of magnitude. Least-privilege agent
+  types are an ECONOMIC primitive, not just a safety one: no-tools single-turn voters cost 7–17x
+  less and run 3x faster. Deterministic lockdown findings (null-value `tools:` = zero tools;
+  empty list/omission = inherit-all; `disallowedTools` wildcard not honored bare or quoted;
+  `maxTurns` as the cap on the real cost driver) are homed in the corpus-voter/-reducer canonical
+  templates. Candidate: harness-workflow guidance graduation.
+- **Model-judgment regimes are NOT interchangeable at the voter tier.** Same candidates, prompts,
+  and quorum math: Opus free-tool quorums kept 47%, Sonnet no-tools kept 10.6%; 40% quorum-level
+  disagreement, one-directional toward kill; the misses were found-then-killed (recall gate
+  proved it). A regime change is a design change requiring recalibration, never a drop-in swap.
+  The banked paired-comparison corpus is committed (banked-freetool-verdicts checkpoint).
+- **Subscription quota exhaustion silently overflows to API billing** for subagent fleets — a
+  budget decision the operator never made. Pre-run declaration (agents/tokens/points/dollars,
+  redesign D5) plus dollar-denominated budgets are the cure. Meter calibration + counter biases:
+  burn-analysis-2026-07-02.md.

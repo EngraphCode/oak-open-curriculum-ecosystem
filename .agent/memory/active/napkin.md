@@ -697,3 +697,38 @@ single-writer dedicated rotation pass.
   clarified via the `TOOL_DESCRIPTION_ADDITIONS` map, not by editing generated output. Root
   `sdk-codegen` is a turbo wrapper, so a bare `--online` is eaten by turbo — the online refresh is
   `SDK_CODEGEN_MODE=online pnpm sdk-codegen`.
+
+## 2026-07-02 — discovery run executed: economics rebuilt live, judgment regime failed calibrated (Perseus wakes Oblivion)
+
+- **SURPRISE (the session's biggest): tool-surface bloat, not model choice, was the run's cost
+  driver.** Free-tool voters spent ~7 tool calls each re-verifying supplied grounding; every call
+  re-read ~50k of their own context. Locking the agent type to no-tools single-turn cut per-voter
+  cost 7–17x AND tripled throughput. The measured lever ordering: turns × context ≫ model tier ≫
+  everything else. Home: burn-analysis-2026-07-02.md (unit-cost table + meter calibration).
+- **MISTAKE (owner-corrected, mine): at the 30-voter checkpoint I measured COST and not JUDGMENT,
+  while holding 18 known baselines and 202 banked Opus verdicts a one-script diff would have
+  compared before ~950 more voters ran.** The Sonnet no-tools regime then killed 11/18 known-real
+  baselines the run had correctly found (map/reduce worked; validate over-killed; kill verdicts
+  failed 3–4 conjunctive tests at once — wholesale skepticism, NOT a grounded-verification
+  handicap). Cure homed as the redesign plan's D1/D4 (canary-first batches + 1/10th pilot). Owner:
+  "we could have reached the same conclusion by running 1/10th of the corpus" — correct.
+- **CORRECTION (owner-taught, twice): my "definitive" probe verdicts were stale-registry reads.**
+  Agent-definition changes register at TURN BOUNDARIES; a probe in the same turn as the edit tests
+  the OLD definition. The owner's `disallowedTools: *` was condemned on bad evidence; the clean
+  retest separated the real finding (frontmatter parses plain names; the `["*"]` glob is
+  SDK-options-layer only) from the artefact. Two-form findings map now lives in the corpus-voter
+  canonical template. The owner then FOUND the true zero-tools shape (`tools:` with a null value) —
+  probe-verified, adopted. Lesson: evidence discipline includes the instrument's refresh semantics.
+- **SURPRISE: exceeding the 5h subscription window did not stop the fleet — subagents silently
+  moved to API billing (~$448 API-equivalent this session).** Budget in dollars AND meter points;
+  the workflow token displays exclude cache reads (4x under-read) — only transcript-summed raw
+  usage matches the meter (~1M raw/point). Home: burn-analysis report §Counters.
+- **WORKS: candidate-granular resume + journal cache survived a mid-run TaskStop and a concurrency
+  change with zero loss** (35 cached verdicts replayed free); concurrency 10 ran 984 voters with
+  zero deaths (8 now set as the queue-depth sweet spot). The typed-envelope discipline held
+  end-to-end: every stage's ok/completeness fields inspected before commit.
+- **WORKS: the banked failed-regime verdicts became the calibration corpus** — 202 Opus + 31
+  Sonnet free-tool verdicts, now committed as
+  data/discovery-run-banked-freetool-verdicts-2026-07-02.json (were transcript-dir-only, a real
+  loss risk caught at closeout). Salvage tiers A–E defined in the
+  corpus-analysis-salvage-and-topology-redesign plan, ws1 executable without any re-run.

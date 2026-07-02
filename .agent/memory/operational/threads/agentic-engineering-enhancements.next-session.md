@@ -23,7 +23,54 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## OWNER DECIDED: FORK 1 — validate ALL 246, ceiling 62M (2026-07-02, Perseus wakes Oblivion; session compacted mid-flight)
+## RUN COMPLETE — salvage ws1 is the next action (2026-07-02 evening, Perseus wakes Oblivion; supersedes the FORK 1 pickup below)
+
+**Self-contained. The discovery run EXECUTED to a green deterministic close and a FAILED
+calibration verdict; the owner has directed salvage-not-rerun. Next session: execute ws1 of
+[`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md).**
+
+**State (all committed, branch `docs/consolidations`, unpushed — owner's call):**
+
+1. **Checkpoints in `reports/agentic-engineering/large-corpus-analysis-tooling/data/`**: partition
+   (15w/100f), map (580 leaves), reduce (246 candidates), validate
+   (`discovery-run-validate-result-2026-07-02.json`: 26 keep / 220 kill, 984 voters all
+   adjudicated), meta (`discovery-run-meta-result-2026-07-02.json`: 2 subsumes / 5 partial / 11
+   missed over 18 baselines), and the banked paired-comparison corpus
+   (`discovery-run-banked-freetool-verdicts-2026-07-02.json`: 202 Opus + 31 Sonnet free-tool
+   verdicts mapped to candidate ids — tier-C evidence, conserved from the transcript dir).
+2. **The calibration verdict**: Choice-B MISS (strict within-remit 0.2, lenient 0.6); the meta
+   notes name the missed baselines' matching candidates as found-then-KILLED — the Sonnet
+   no-tools voter regime over-killed (kill verdicts failed 3–4 conjunctive tests at once;
+   `grounded` was the LEAST-failed test, so machine-verified grounding would NOT have cured it).
+   Integrity 0, recompute 246/246 zero-diff — the mechanics are trustworthy; the survivors list
+   is not a complete discovery set.
+3. **Economics**: `burn-analysis-2026-07-02.md` is the method of record (transcript-summed raw
+   usage; ~1M raw tokens per 5h-meter point; unit costs per agent type; agent-count formulas
+   incl. validate worst case 4C; quota overflow silently moves subagents to API billing —
+   ~$448 API-equivalent this session). Owner directives now standing in the plan: never re-run
+   the full validate; ~1/10th pilots first; every run pre-declares agents/tokens/dollars.
+4. **Tooling state**: all four stage dispatches use least-privilege agent types (corpus-mapper /
+   -reducer / -voter / -meta; findings map in the canonical templates — null-value `tools:` is
+   the zero-tools shape); validate MAX_CONCURRENCY=8; the post-run driver has a KNOWN BUG (ws1
+   fixes it): corroboration `existsSync` resolves repo-relative claims against the agent-tools
+   cwd, reporting 0/18 corroborated when the meta agent had disk-verified real homes.
+
+**ws1 salvage (executable now, zero validate spend):** fix the driver cwd bug (TDD); compute the
+tier table — A: Sonnet-keeps ∩ (corroborated ∪ Opus-quorum-keep); B: remaining Sonnet keeps;
+C: Opus-keep/Sonnet-kill disagreements (recompute from the banked-verdicts checkpoint: quorum =
+strict-majority keep over the 3 lensed verdicts per candidate; 18 candidates incl. C03–C05, C07,
+C10, C11, C15, C18–C21, C25, C33, C35, C37, C45, C47, C52; C36 is the lone reverse); D: kills
+named in meta recall notes as baseline-matching (proven-real false kills); E: remaining kills
+ranked by window span + groundingCount for the owner's manual round. Then the discovery report
+with novelty stratification (corroboration claims in the meta checkpoint; triage bands in the
+driver output) → conservation buffer → tasks #6/#7 (consolidate-until-done + napkin rotation).
+Napkin writes are safe (map long done); rotation belongs to the consolidate-until-done.
+
+**Operator discipline unchanged:** typed envelopes inspected before trust; never `--no-verify`;
+lean pathspec commits sanctioned for checkpoints; `.claude/settings.json` working-tree mod is
+pre-existing and NOT ours.
+
+## OWNER DECIDED: FORK 1 — validate ALL 246, ceiling 62M (2026-07-02, Perseus wakes Oblivion; session compacted mid-flight — SUPERSEDED by the section above)
 
 **Self-contained. The run is mid-flight and healthy. The owner decided fork 1 ("scanning the full
 corpus is a rare or even singular event — check everything") AND requested a deterministic
