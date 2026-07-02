@@ -7,7 +7,7 @@
  *
  * WHY a SEPARATE tool from render-canonical-targets.cjs (do not merge them):
  *  - That tool serves the static .dc.html export over local HTTP and waits for `networkidle`.
- *  - THIS tool drives the RUNNING demo (default http://127.0.0.1:3010, `pnpm dev --webpack`).
+ *  - THIS tool drives the RUNNING demo (default http://localhost:3010, `pnpm dev --webpack`).
  *    `next dev` holds an HMR websocket open for the page's lifetime, so `networkidle` NEVER fires
  *    and a networkidle wait times out. The cure (verified first-hand, carried across the data-lane
  *    cast — was loss-prone scratchpad-only until this file) is `waitUntil: 'domcontentloaded'`
@@ -38,7 +38,7 @@
  *   # start the demo first (from the app dir): pnpm dev   (serves :3010)
  *   node demos/curriculum-hub-hw/tools/capture-live-demo.cjs
  *   node demos/curriculum-hub-hw/tools/capture-live-demo.cjs --routes /course,/standards --width 1440
- *   BASE_URL=http://127.0.0.1:3011 node demos/curriculum-hub-hw/tools/capture-live-demo.cjs
+ *   BASE_URL=http://localhost:3011 node demos/curriculum-hub-hw/tools/capture-live-demo.cjs
  */
 const fs = require('fs');
 const path = require('path');
@@ -71,11 +71,15 @@ function resolveWidth(argv, env) {
   return width;
 }
 
-/** Resolve the base URL of the running demo (default :3010). Override: `--base <url>` or BASE_URL. */
+/** Resolve the base URL of the running demo (default localhost:3010). Override: `--base <url>` or
+ *  BASE_URL. The default host is `localhost`, NOT `127.0.0.1`: `next dev` blocks cross-origin dev
+ *  resources from 127.0.0.1, so hydration chunks never load and any hydration-dependent surface
+ *  (the /course paginated player) silently renders its SSR all-sections fallback — a wrong §D
+ *  target the blank-classifier cannot catch (team finding, 2026-07-02). */
 function resolveBase(argv, env) {
   const flagIdx = argv.indexOf('--base');
   const fromFlag = flagIdx !== -1 ? argv[flagIdx + 1] : undefined;
-  return (fromFlag ?? env.BASE_URL ?? 'http://127.0.0.1:3010').replace(/\/+$/, '');
+  return (fromFlag ?? env.BASE_URL ?? 'http://localhost:3010').replace(/\/+$/, '');
 }
 
 /** Resolve the route list (default DEFAULT_ROUTES). Override: `--routes /a,/b`. */
@@ -94,6 +98,19 @@ function resolveRoutes(argv) {
  *  Returns true when the capture is SUSPECT (looks blank / a placeholder). Pure — the self-check. */
 function isSuspect(status, bodyHeight, textLength) {
   return !(status === 200 && bodyHeight > 400 && textLength > 200);
+}
+
+/** Routes whose §D capture depends on client hydration. The /course paginated player HIDES the
+ *  inactive sections post-hydration, while its SSR fallback ships ZERO `hidden` attributes by
+ *  design (proven by the shell's renderToString test) — so the presence of `[hidden]` elements is
+ *  the hydration witness. An unhydrated player page is full of text and passes the blank
+ *  classifier, which is exactly why this separate check exists. */
+const HYDRATION_GATED_ROUTES = ['/course'];
+
+/** Hydration classifier for HYDRATION_GATED_ROUTES: SUSPECT when no element is `[hidden]`
+ *  (the player never mounted — e.g. a 127.0.0.1 base blocking the dev chunks). Pure. */
+function isUnhydrated(route, hiddenCount) {
+  return HYDRATION_GATED_ROUTES.includes(route) && hiddenCount === 0;
 }
 
 async function assertServerUp(base) {
@@ -136,10 +153,18 @@ async function main() {
       const m = await page.evaluate(() => ({
         h: document.body.scrollHeight,
         len: (document.body.innerText || '').length,
+        hidden: document.querySelectorAll('[hidden]').length,
       }));
       const status = resp ? resp.status() : 0;
-      const bad = isSuspect(status, m.h, m.len);
-      console.log(`${route}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${bad ? 'SUSPECT (blank/placeholder?)' : 'OK'}`);
+      const blank = isSuspect(status, m.h, m.len);
+      const unhydrated = isUnhydrated(route, m.hidden);
+      const bad = blank || unhydrated;
+      const verdict = blank
+        ? 'SUSPECT (blank/placeholder?)'
+        : unhydrated
+          ? 'SUSPECT (UNHYDRATED — player never mounted; use a localhost base, 127.0.0.1 blocks dev chunks)'
+          : 'OK';
+      console.log(`${route}: HTTP=${status} bodyH=${m.h} textLen=${m.len} hidden=${m.hidden} -> ${verdict}`);
       if (bad) suspect = true;
       await page.screenshot({ path: path.join(OUT_DIR, `${b}-live.png`), fullPage: true });
       await page.screenshot({ path: path.join(OUT_DIR, `${b}-live-abovefold.png`), fullPage: false });
@@ -156,7 +181,7 @@ async function main() {
   console.log('live capture complete -> demo-evidence/');
 }
 
-module.exports = { routeToBase, resolveWidth, resolveBase, resolveRoutes, isSuspect };
+module.exports = { routeToBase, resolveWidth, resolveBase, resolveRoutes, isSuspect, isUnhydrated };
 
 if (require.main === module) {
   main().catch((e) => {
