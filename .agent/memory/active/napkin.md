@@ -516,3 +516,40 @@ Difference-op: most is homed — grounded exec knowledge (SDK result/index-doc s
 
 - **A reviewer's prescribed CURE can itself violate a gate — run the gate's lens over the prescription before implementing (new variant of reviewer-consensus-is-not-truth).** The slice-1 review prescribed "hold previous resolvedTarget in a REF read during render" (fold-item 2); the demo's `react-hooks/refs` rule categorically forbids ref-reads during render — the prescription was lint-invalid as written. Caught from a neighbouring lane's full-scope gate run BEFORE the peer finished implementing it; Director amended the instruction (behaviour stands, mechanism becomes state-not-ref). Cure: treat a reviewer's mechanism-level prescription as a hypothesis to check against the gates, not a spec; the behaviour it protects is the binding part. Pairs [[verify-own-explanations-against-full-source]] + `patterns/different-lens-reviewer-divergence.md`.
 - **Parametric fakes earned a bounded admission (test-expert ruling, 2026-07-02, curriculum-hub E3):** constant-return fakes stay the default; a params-dependent fake is legitimate ONLY when (a) the param is contract data flow (not a hardcoded internal), (b) the collaborator semantics it models are documented in a comment, (c) it is a single branch-free pure expression, (d) assertions are output-shaped (never call inspection), (e) fixture sizes discriminate. Pre-flagging the deviation + rationale in the READY report is what made the admission cheap. → graduate to the tdd/mocking doctrine home next consolidation.
+
+## 2026-07-02 ~06:55Z — Birch mends Petal (Director #7, RETIRED) — closeout captures
+
+- **Lesson (cross-session, behaviour-changing — distilled-candidate): the Director proposes
+  landing points; un-landed reviewed work is risk.** Reviewed-green work accumulated uncommitted
+  for hours until the owner prompted "please commit"; the accumulation then met a validator
+  blockade (below) and mixed-slice trees. Cure: propose a Director-run commit train at EVERY
+  reviewed slice boundary — landing cadence is the Director's to drive, not the owner's to
+  request.
+- **Friction (register-candidate): a tracked-file DELETION in any live worktree blocks ALL
+  estate commits** — `validate-no-machine-local-paths` fail-louds on tracked-but-missing files.
+  Cure = landing ORDER (the deleting lane's cycle commits first), never file resurrection (the
+  repo hooks block every restore-shaped command in comms text, and they are right: the deletions
+  are forward motion). Worked instance 2026-07-02 ~05:54Z.
+- **Grounded technique (in the Birch→Comet handoff record §Operating protocol): multi-cycle
+  commit trains on one index** — pathspec-commit (cycle A, worktree state) → plain-commit (cycle
+  B's pre-staged index snapshot survives untouched) → add+commit (cycle C delta). Lands three
+  cycles from one mixed tree without unstaging anything.
+- **Behaviour-note (from Galago, comms 06:47Z): a heartbeat gap equal to the cadence is a DUE
+  beat, not a dead loop** — check gap-vs-cadence before re-arming or you mint a duplicate loop.
+  Same class as one-missed-heartbeat≠retirement.
+- **Team finding (route to the capture-tool docs / WS2): captures against `127.0.0.1` never
+  hydrate** — use `localhost` for live-capture targets (Galago, comms 06:01Z).
+- **Doctrine artefact (pending-graduations): the parametric-fake 5-condition admissibility
+  boundary** (test-expert ruling 2026-07-02, relayed comms `8024962a`): constant fakes DEFAULT;
+  parametric only when (a) contract data flow (b) documented collaborator semantics in a comment
+  (c) single branch-free pure expression (d) output-shaped assertions (e) discriminating fixture
+  sizes; argument-reflector fakes only where the seam's contract IS forwarding. Target:
+  testing-strategy/tdd-recipes amendment.
+
+### Session 2026-07-02 — Comet hunts Lightyear (Director #8, curriculum-hub-demo): mid-session captures
+
+- **Hedging vocabulary leaked into COMMS because the trip-list hook covers only Edit/Write on doctrine surfaces — comms is upstream of doctrine and needs the same immune layer (owner-caught, 2026-07-02).** Four agents (me included) circulated "carve-out" in coordination events (grant/accept/close between hygiene+data lanes; my window-open broadcast). The write-hook can't see comms appends, but consolidation copies comms language forward into thread records/plans where the hook then fights the consolidator — and the vocabulary distorts the claims model itself (a claim is an advisory area signal, not ownership needing exceptions). Correction broadcast 77a4cf4a. **Structural-cure candidate (route to agent-tooling, don't hand-build):** run the PDR-044 trip-list + indefinite-deferral regex over `comms append/direct` bodies in the CLI (same recursive-exclusion discipline). Until then: the honest replacement is describing the coordination directly ("scoped area handover for the cycle, returns after"). PDR-089 shape: the vocabulary bred precisely on the one shared surface with no structural enforcement.
+- **I repeated two RECORDED napkin failure classes in one window (PDR-089 traction evidence, not fresh lessons):** (a) `--body-file /dev/stdin` heredoc — exit 2; the "real readable file, never process substitution/stdin" lesson was already in Zinnia's block; (b) cwd drift — `cd demos/…` in a staging command silently broke the next repo-root command; the "absolute paths / cd inside the loop" lesson was already in Eclipse's block. Both cured in-seconds BECAUSE the napkin named them (recognition was instant) — the read DID pay for diagnosis speed even though it failed as prevention. Supports the action-time structural-interrupt lane over more passive text.
+- **Whole-worktree gate + one mid-cycle lane = no commit can land; the cure is a tree-green checkpoint, not waiting for slice completion.** The pre-commit turbo stage (build/type-check/lint/test) reads the WORKTREE; with the demo in the graph, Galago's mid-cycle WIP blocked even the urgent deletion-bearing hygiene commit (which itself blocked ALL estate commits — compounding). Resolved by luck (slice-3a went READY minutes later), but the general move stands: ask the in-flight lane for a compile/lint-green CHECKPOINT (their green unstaged WIP sits in the tree while the train runs; their commit lands later). Landing-order for tracked deletions composes with this: deletion-bearing bundle first WITHIN the train.
+- **A reviewer must-fix bound to "the same landing" is actionable when it arrives BEFORE the commit — pause the one bundle, route the one-file fold, land paired (worked instance).** test-expert's flip-swap assertion arrived while slice-3a sat staged; Galago folded one file in ~2 min; the commit landed atomic. The parallel-reviews-with-train protocol means reviews don't BLOCK the train, not that pre-landing must-fixes are deferred.
+- **Next 16 `next dev` DAEMONISES when its wrapper detaches — TaskStop kills only the wrapper; the server outlives it as an orphan (Limpet, 2026-07-02).** A detached background run printed "Run kill <pid> to stop it" and kept listening after the task died; a piped-through-grep run can also exit immediately post-Ready. Cures: (a) after ANY dev-server teardown, verify the port actually released (`lsof -iTCP:<port> -sTCP:LISTEN`) — never trust the task state alone; (b) prefer the attached pipe form for session-scoped servers. Update the data-lane handoff dev-server discipline with this at consolidation. Pairs `no-unbounded-host-load` (leaked processes from an earlier session).

@@ -329,6 +329,20 @@ vars enumerated). The live-ES path is PROVEN locally (real smoke vs real Oak ES,
   curriculum content + Oak brand assets are cleared for public hosting (§Owner-constitutive
   residue — confirm at deploy time).
 
+**§J Vercel settings (conserved from the verified deploy proposal, Junk 2026-07-02 — the comms
+tier is untracked, so the owner-facing detail lives here):** Framework preset **Next.js** · Root
+Directory `demos/curriculum-hub-hw/oak-curriculum-hub` with **"Include files outside the root
+directory" ENABLED** · Build Command explicit for determinism:
+`turbo run build --filter=@oaknational/oak-curriculum-hub` (from repo root; turbo `^build` builds
+the 4 workspace SDK deps first — dry-run verified; the `development→src` condition is dev-only,
+NOT a deploy risk) · Install = default `pnpm install` · Output `.next` · Node runtime (the API
+route pins `runtime='nodejs'` for the ES client; no edge). **Env vars (Production+Preview,
+server-side, none `NEXT_PUBLIC_`):** `ELASTICSEARCH_URL` (required) · `ELASTICSEARCH_API_KEY`
+(required, read key) · `SEARCH_INDEX_TARGET` (optional, defaults `primary`) ·
+`SEARCH_INDEX_VERSION` (optional) · `OAK_API_KEY` (for the curriculum SDK seam). The live path is
+already PROVEN locally against real Oak ES (2026-07-01/02 smokes); the deploy smoke also proves
+the units-highlight change live (a recorded higher-scale test obligation).
+
 **Near-term completion bar (owner, 2026-07-01 late): §A–I + E1–E3 green → milestone commit →
 push → PR → MERGE TO MAIN.** §J follows from main. Owner sign-off is a visual review against the
 canonical export — pre-merge against the local build, and again on the deployed URL.
