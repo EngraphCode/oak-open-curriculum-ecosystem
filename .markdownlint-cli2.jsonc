@@ -52,7 +52,9 @@
     "**/test-results/**",
     "**/test-artifacts/**",
     ".stryker-tmp/**",
-    "demos/**",
   ],
-  "gitignore": false,
+  // Lint scope = tracked repo files: gitignored content (untracked vendor
+  // reference data, local state) is not repo documentation (owner-ratified
+  // 2026-07-02).
+  "gitignore": true,
 }

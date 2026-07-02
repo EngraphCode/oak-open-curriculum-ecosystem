@@ -35,18 +35,18 @@ const config: KnipConfig = {
     'apps/oak-curriculum-mcp-streamable-http/src/server.ts': ['duplicates'],
   },
 
-  // `demos/` is a deliberately-temporary prototype zone (see the demo's
-  // README). Demos are registered as workspaces so their `workspace:*` deps
-  // resolve and they can build/type-check/lint, but they are exempt from the
-  // repo-wide unused-code gate — a prototype is expected to carry scaffold the
-  // full app would not.
-  ignoreWorkspaces: ['demos/oak-curriculum-hub'],
-
   eslint: true,
   vitest: true,
   typescript: true,
   compilers: {
-    css: () => '',
+    // Surface CSS @import statements as import declarations so knip sees
+    // CSS-first dependency consumption (e.g. Tailwind v4's
+    // `@import 'tailwindcss'` in globals.css); everything else in the file
+    // is not dependency-bearing and is dropped.
+    css: (text: string) =>
+      [...text.matchAll(/@import\s+['"]([^'"]+)['"]/g)]
+        .map(([, specifier]) => `import '${String(specifier)}';`)
+        .join('\n'),
   },
 
   workspaces: {
@@ -127,9 +127,6 @@ const config: KnipConfig = {
         // in src/auth/mcp-auth/mcp-auth.ts and src/correlation/middleware.ts.
         // Knip cannot detect module augmentation as dependency usage.
         '@types/express-serve-static-core',
-        // Consumed via CSS @import in widget/src/index.css, not a TS/JS import.
-        // Knip cannot detect CSS @import as dependency usage.
-        '@oaknational/oak-design-tokens',
       ],
       vite: {
         config: 'widget/vite.config.ts',

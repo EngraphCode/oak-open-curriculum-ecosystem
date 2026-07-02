@@ -25,10 +25,11 @@
     "@oaknational/curriculum-sdk": "workspace:*",
     "@oaknational/oak-search-sdk": "workspace:*",
     "@oaknational/result": "workspace:*",
-    "@oaknational/search-contracts": "workspace:*",
     "next": "16.2.9",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "server-only": "^0.0.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
@@ -43,6 +44,7 @@
     "happy-dom": "^20.10.6",
     "jest-axe": "^10.0.0",
     "postcss": "^8.5.10",
+    "prettier": "^3.8.4",
     "tailwindcss": "^4.2.2",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",

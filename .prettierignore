@@ -80,8 +80,3 @@ apps/oak-search-cli/bulk-downloads/**
 .claude/skills/
 .agents/skills/
 
-# Prototype zone — `demos/` is a deliberately-temporary tier (owner decision),
-# exempt from the repo-wide formatting gate. Demos build/type-check and pass
-# their own ESLint, but are not held to the repo-wide format/markdownlint/knip
-# validators. Pairs with the demos entries in knip.config.ts + .markdownlint-cli2.jsonc.
-demos/

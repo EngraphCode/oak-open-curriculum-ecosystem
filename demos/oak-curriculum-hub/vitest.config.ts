@@ -19,7 +19,7 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
-    include: ['{components,lib,app,scripts}/**/*.test.{ts,tsx}'],
+    include: ['{components,lib,app,scripts,tools}/**/*.test.{ts,tsx}'],
     exclude: ['node_modules', 'dist', '.next'],
   },
   resolve: {
