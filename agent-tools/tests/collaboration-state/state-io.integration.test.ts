@@ -147,6 +147,7 @@ function narrativeEvent(input: { readonly event_id: string; readonly body?: stri
 
 function filesystemIo(): CollaborationStateCliIo {
   return {
+    loadCommsConceptGateBlocks: async () => [],
     readActiveClaimsFile,
     readClosedClaimsFile,
     writeCommsEvent,

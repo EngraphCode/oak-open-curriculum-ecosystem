@@ -193,6 +193,32 @@ export interface ScopedBlockMatch {
 }
 
 /**
+ * Find the first scoped-block group with a pattern present in a free-standing
+ * text — no file-path scoping, because the text is not a file. The comms
+ * concept gate is the second consumer of this machinery: comms events carry
+ * no path, so the CALLER owns concept selection and this function owns
+ * matching, with {@link findAddedScopedBlock}'s ordering and exclusions.
+ */
+export function findScopedBlockInText(
+  text: string,
+  groups: readonly ScopedContentBlockGroup[],
+): ScopedBlockMatch | null {
+  for (const group of groups) {
+    for (const pattern of group.patterns) {
+      const matchedText =
+        group.kind === 'regex'
+          ? regexMatchAdded(text, '', group, pattern)
+          : literalMatchAdded(text, '', pattern);
+      if (matchedText !== null) {
+        return { group, matchedText };
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
  * Find the first scoped-block group with a pattern being ADDED — present in
  * new content but absent from prior content — when the target file matches
  * the group's include/exclude paths. Groups and the patterns within each

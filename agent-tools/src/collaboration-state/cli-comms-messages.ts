@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
 
-import { resolveCommsBody } from './cli-comms-commands.js';
+import { enforceCommsConceptGates, resolveCommsBody } from './cli-comms-commands.js';
 import {
   createDirectedCommsMessage,
   replyToDirectedCommsMessage,
@@ -43,6 +43,11 @@ export async function directComms(
     body: await resolveNonEmptyBody(options, io),
     tags,
   });
+  await enforceCommsConceptGates(io, {
+    title: message.subject,
+    body: message.body,
+    tags: message.tags,
+  });
 
   return writeDirectedMessage({
     commsDir: required(options, 'comms-dir'),
@@ -63,6 +68,11 @@ export async function replyComms(
   const io = cliIo(runtime);
   const eventId = valueOrDefault(options, 'event-id', randomUUID());
   const nowIso = valueOrDefault(options, 'now', new Date().toISOString());
+  // `--tag` on reply exists so the concept-gate's capture-tag exemption is
+  // EXECUTABLE on this surface: replying to a legitimately-exempt capture
+  // event whose subject quotes a pathogen inherits that subject ("re: ..."),
+  // and without a tag option the refusal would prescribe a cure the surface
+  // cannot apply.
   const message = replyToDirectedCommsMessage({
     sourceMessages: await sourceMessagesForReply(options, io),
     sourceEventId: nonEmptyRequired(options, 'to-event-id'),
@@ -72,6 +82,12 @@ export async function replyComms(
     messageKind: nonEmptyRequired(options, 'kind'),
     subject: optional(options, 'subject'),
     body: await resolveNonEmptyBody(options, io),
+    tags: validateCommsEventTags(options.tags),
+  });
+  await enforceCommsConceptGates(io, {
+    title: message.subject,
+    body: message.body,
+    tags: message.tags,
   });
 
   return writeDirectedMessage({

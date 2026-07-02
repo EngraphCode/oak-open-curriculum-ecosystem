@@ -68,6 +68,7 @@ describe('collaboration-state tui CLI integration', () => {
     const reads: string[] = [];
     const runtime: CliRuntime = {
       io: {
+        loadCommsConceptGateBlocks: async () => [],
         readActiveClaimsFile: async (filePath) => {
           reads.push(filePath);
           return activeClaims();
