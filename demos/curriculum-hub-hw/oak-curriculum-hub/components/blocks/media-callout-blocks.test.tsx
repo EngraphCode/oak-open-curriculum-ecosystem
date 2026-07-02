@@ -75,13 +75,25 @@ describe('VideoBlockView', () => {
 });
 
 describe('VideoImportBlockView', () => {
-  it('renders the duration labelled by caption and marks the embed', () => {
+  it('renders a described media slot (duration labelled by caption) for a generic embed', () => {
+    render(
+      <VideoImportBlockView
+        block={{ t: 'videoimport', embed: 'clip', filename: 'intro.mp4', duration: '2:02', caption: 'Course introduction clip.' }}
+      />,
+    );
+    expect(screen.getByRole('img', { name: 'Course introduction clip.' })).toBeTruthy();
+    expect(screen.getByText('2:02')).toBeTruthy();
+  });
+
+  it('reproduces the interactive LearningFramework for the learningframework embed (Option A)', () => {
     render(
       <VideoImportBlockView
         block={{ t: 'videoimport', embed: 'learningframework', filename: 'lf.mp4', duration: '2:02', caption: 'The learning framework explained.' }}
       />,
     );
-    expect(screen.getByRole('img', { name: 'The learning framework explained.' })).toBeTruthy();
-    expect(screen.getByText('2:02')).toBeTruthy();
+    // The framework mounts its static, accessible baseline (reduced-motion defaults true in tests);
+    // the described-media-slot fallback is NOT rendered for this embed.
+    expect(screen.getByRole('list', { name: 'The seven stages' })).toBeTruthy();
+    expect(screen.queryByRole('img', { name: 'The learning framework explained.' })).toBeNull();
   });
 });

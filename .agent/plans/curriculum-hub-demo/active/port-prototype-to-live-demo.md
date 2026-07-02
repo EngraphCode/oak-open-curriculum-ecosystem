@@ -8,11 +8,10 @@ lineage:
   strategic_choice: null
   derives_from: .agent/state/collaboration/handoffs/2026-06-30-curriculum-hub-port-herring-holds-jetty.md
 owners:
-  - Swordfish holds Shoal (eb8ff4) — Director (succeeded Herring holds Jetty via PDR-064, 2026-07-01): routing, owner-interface, asset-supply (director claim 35d9c8f2 + 643bac6e)
-  - Dolphin hunts Moorings (97ba16) — Implementer: styling/UI + full page/component reproduction (claim cf62bda9)
-  - Frigate holds Estuary (e733ab) — Implementer: data plane, two-search, canonical-export content/glyph extraction (claim fd0ee59e)
-  - Lantern binds Sulphur — owner-DESIGNATED next Director (eventual successor; pre-position via PDR-064 Moment 1 at handoff)
-  - Retired cast: Herring holds Jetty (Director #1 this effort), Titan weaves Ether (data), Squall wakes Crag (styling)
+  - Panther calls Gloaming (ddfd10) — Director #6 (PAUSED for owner restart 2026-07-01; holds 35d9c8f2): routing, owner-interface
+  - Typhoon turns Aether (8d5dc3) — Implementer, styling/UI (claim cf62bda9; PAUSED, retained w/ handoff pointer)
+  - Deneb mends Perigee (6286a1) — Implementer, data plane / two-search / §D captures (claim fd0ee59e; PAUSED, retained w/ handoff pointer)
+  - Director chain (all clean PDR-064/PDR-063) - Herring #1 → Swordfish #2 → Lantern #3 → Hawthorn #4 → Sycamore #5 → Panther #6; data Titan→Frigate→Polaris→Eclipse→Cinder→Deneb; styling Squall→Dolphin→Laurel→Kite→Linnet→Typhoon
 branch: feat/curriculum-hub-demo  # not yet pushed (no owner constraint either way)
 todos:
   # Re-cast 2026-07-01 (Director Lantern) to TRUE-PARITY scope + owner decisions. Prior "landing
@@ -69,10 +68,23 @@ todos:
   - id: c6-verify
     content: "Verify — CI=true pnpm check green; owner visual review vs the canonical render; WCAG 2.2 AA (test suite RE-ACTIVATED — org mandate + owner strict-everywhere over the larger surface; ratify with accessibility-expert); no secret leakage."
     status: pending
-    depends_on: [page-hub, page-course, page-standards, page-rubrics, page-framework, dest-exemplars-wiki, page-lesson, two-search]
+    depends_on: [page-hub, page-course, page-standards, page-rubrics, page-framework, dest-exemplars-wiki, page-lesson, two-search, block-styling-pass, e1-e2-enhancements, e3-curriculum-showcase]
   - id: c7-licence-finalise
     content: "RESOLVED (owner-confirmed 2026-07-01): root LICENCE (MIT, code) + LICENCE-DATA.md (OGL v3.0, curriculum content incl. quality-standards.json) + official logos cover it; C7 uncommitted-gate DISSOLVED; push still held local. [re-verify] the licence files first-hand before any asset commit per owner 'assume nothing correct'."
     status: completed
+  # Added 2026-07-01 ~21:45Z (Director Birch, per owner ratifications + assumptions-expert F3):
+  - id: block-styling-pass
+    content: "Block-view STYLING PASS (§D core; ratified decision 5): all 18 block views get their export-matched Oak visual treatment — Tailwind utilities inline, data-variant attributes RETAINED; render-ground each treatment against the full export render (render-canonical-targets.cjs), never inference; fold the tracked block a11y follow-ups into the same per-file pass. Callout done 2026-07-01 (tip verified; warning/quote variant colours INFERRED — export-verify before §D/§E sign-off)."
+    status: in_progress
+    depends_on: [block-renderer, page-course]
+  - id: e1-e2-enhancements
+    content: "E1 (SiteNav WWW link-out to thenational.academy) + E2 (live-curriculum results secondary/below local training+standards in HubResults) — owner-ratified PRE-merge; S-sized; styling lane; detail in future/curriculum-hub-enhancements.plan.md."
+    status: pending
+    depends_on: [block-styling-pass]
+  - id: e3-curriculum-showcase
+    content: "E3 — /curriculum semantic-search showcase page + 6th-card re-target — owner-ratified PRE-merge; M–L; JOINT (data lane: search-SDK exposure seam; styling lane: page UI); no canonical export target → design to tokens + design-system-expert review (no §D capture)."
+    status: pending
+    depends_on: [two-search, block-styling-pass]
 ---
 
 # Port the Oak Curriculum Hub prototype to a live, full-fidelity demo
@@ -116,12 +128,12 @@ EXCELLENCE — and get the demo onto the WEB so we can show people.**
 - **Web-delivered to show people.** The finished demo is deployed to a shareable
   public URL (see DoD §J) — the audience is "people" the owner shows.
 
-Priority note (Director, five-lens matrix): the "live ecosystem / SDK proof"
-reading two implementers independently converged on is a true *sub-component*,
-not the primary frame; the deferred E3 `/curriculum` search-SDK showcase stays
-deferred (its promotion was contingent on that reading, which is not the owner's
-primary frame). Success measure: an excellent, faithful, LIVE, web-visible demo
-that stands as repeatable-pipeline evidence.
+Priority note (Director, five-lens matrix; E3 clause SUPERSEDED 2026-07-01 ~21:30Z): the "live
+ecosystem / SDK proof" reading two implementers independently converged on is a true
+*sub-component*, not the primary frame. E3's placement was re-decided by the owner the same
+evening: **E1+E2+E3 all land pre-merge** (see §Ratified decisions + §E-series enhancements).
+Success measure: an excellent, faithful, LIVE, web-visible demo that stands as
+repeatable-pipeline evidence.
 
 ## Mechanism
 
@@ -248,8 +260,9 @@ The typed content flows into the presentational block renderer, so it is a share
 ## Prerequisite classification
 
 - C1 (design kit) is **blocking** for C2/C3 visual fidelity. Minimum shippable without the full
-  icon set: build with the decoded tokens/fonts + the 2 brand SVGs, leave icon placeholders, fill
-  icons as DesignSync delivers them.
+  icon set: build with the decoded tokens/fonts + the 2 brand SVGs. (DesignSync remnant retired
+  2026-07-01: the ratified mechanism records DesignSync considered-and-rejected; glyphs come
+  inline from the export HTML.)
 - C0 is **beneficial** (done); pages 2–3 pixel-exact visuals are **beneficial** not blocking —
   content is in hand.
 
@@ -281,7 +294,7 @@ team drives to ALL of these. "Done" is this list, nothing less.**
 
 **E. Accessibility (org mandate):** WCAG 2.2 AA on all rendered UI, verified — axe clean + keyboard/ARIA/focus on every interactive block (quiz/tabs/accordion/flip/sortable/hotspot/coursemap); `prefers-reduced-motion` on the animated framework.
 
-**F. Quality gates:** `CI=true pnpm check` green across the demo (type-check, full-strict lint, test, `next build`); real logic (searches, generator, data modules) is TDD-covered — the `demos/` exemption is knip/format/markdownlint scope only.
+**F. Quality gates:** `CI=true pnpm check` green across the demo (type-check, full-strict lint, test, `next build`); real logic (searches, generator, data modules) is TDD-covered — the `demos/` exemption is knip/format/markdownlint/depcruise scope only (all four verified 2026-07-01; the depcruise omission is the root script's arg allowlist). The exemption ends post-merge per ratified decision 3 (the demos-tier gate-parity graduation, owned by `../current/productionisation-and-reuse.plan.md` WS0).
 
 **G. Reviews cleared:** code-expert, type-expert, react-component-expert, design-system-expert, accessibility-expert passes on the built surface.
 
@@ -289,22 +302,72 @@ team drives to ALL of these. "Done" is this list, nothing less.**
 
 **I. Landed:** one coordinated milestone commit (explicit pathspec; exclude the inherited `packages/sdks/oak-sdk-codegen/**` drift; `CI=true git commit`).
 
-**J. Web-deployed to show people (owner-directed 2026-07-01):** the finished, excellent demo is deployed to a shareable **public web URL** (Vercel) so the owner can show people.
+**J. Web-deployed to show people (owner-directed 2026-07-01; RESEQUENCED post-merge, owner
+2026-07-01 ~21:30Z):** the finished, excellent demo is deployed to a shareable **public web URL**
+(Vercel) so the owner can show people. **The owner sets up hosting themself, tomorrow
+(2026-07-02), from `main` post-merge — no Vercel work for the cast; local checks suffice
+pre-merge.** The deploy-orchestration proposal is DONE and verified (comms, Junk 2026-07-01: turbo
+`^build` builds the 4 SDK workspace deps before `next build`, dry-run verified; the
+`development→src` defect is dev-only, not a deploy risk; Vercel settings + the 5 server-side env
+vars enumerated). The live-ES path is PROVEN locally (real smoke vs real Oak ES, 2026-07-01).
 
 - [ ] Deployed to a public URL; the app renders + both searches work against live Oak data.
-- [ ] Live API keys / ES credentials run server-side only (no secret in the public bundle). OGL curriculum content + Oak brand assets are cleared for public hosting (§Owner-constitutive residue).
+- [ ] Live API keys / ES credentials run server-side only (no secret in the public bundle). OGL
+  curriculum content + Oak brand assets are cleared for public hosting (§Owner-constitutive
+  residue — confirm at deploy time).
 
-Owner sign-off is a visual review against the canonical export once A–J are green.
+**Near-term completion bar (owner, 2026-07-01 late): §A–I + E1–E3 green → milestone commit →
+push → PR → MERGE TO MAIN.** §J follows from main. Owner sign-off is a visual review against the
+canonical export — pre-merge against the local build, and again on the deployed URL.
 
-## Deferred enhancements (post-completeness — owner-directed 2026-07-01)
+## Ratified decisions (owner, 2026-07-01 ~21:30Z — via Director Birch's four-question decision surface)
 
-Three owner-directed enhancements are **strictly enhancements, to be addressed AFTER this
-DoD §A–I (feature + visual completeness) is complete and the milestone commit has landed** —
-they do NOT interleave with the core reproduction. They are captured as a deferred strategic
-brief: [`../future/curriculum-hub-enhancements.plan.md`](../future/curriculum-hub-enhancements.plan.md)
+Recorded here because each supersedes or resolves text elsewhere in this plan; the post-merge
+execution detail lives in
+[`../current/productionisation-and-reuse.plan.md`](../current/productionisation-and-reuse.plan.md).
+
+1. **§J deploy = post-merge, owner-hosted.** "I haven't set up hosting yet, I am happy to rely on
+   local checks for now, and to get this work tested, checked, and merged into main, and I will
+   set up hosting tomorrow." Near-term bar = merge to main; §J from main on 2026-07-02.
+2. **E1+E2+E3 = ALL pre-merge** (supersedes the post-completeness deferral; §E-series below).
+3. **Topology = first-class `demos/` tier ratified** (the previously owner-gated hold is
+   RESOLVED): gate parity for demos (knip/prettier/markdownlint/depcruise exemptions removed), a
+   one-way depcruise boundary (apps/packages never depend on demos), directory renames — all
+   POST-merge, owned by the productionisation plan. No dir renames pre-merge (implementers are
+   live in those paths; 5 literal-path config consumers verified).
+4. **Extraction trigger = items 8/9 of the owner brief constitute the named second consumer** →
+   staged extraction POST-merge (tokens → block-kit → web-ui → standards-after-data-inversion),
+   each package at full estate conventions. Pre-merge only the zero-regret hygiene (ResultCards
+   `Hit` type-import retarget to `search-types`).
+5. **Block-view styling pass = pre-merge MUST** (§D core; discovered 2026-07-01 late: the course
+   SHELL visual-matches the export but the 18 block views are structure-first/visually-minimal —
+   a11y-complete with `data-variant` hooks, no visual treatment). Ruled approach: Tailwind
+   utilities inline (app-consistent) + KEEP the `data-variant` attributes (preserves extraction
+   optionality — extraction ships compiled CSS regardless). Styling lane owns it; fold the
+   tracked block a11y follow-ups into the same per-file pass.
+6. **Export disposition corrected** (§Pre-push below): the canonical export STAYS COMMITTED —
+   the prior gitignore directive contradicted the ratified ingest mechanism.
+7. **/course presents as a PAGINATED PLAYER (Director-ruled 2026-07-01 ~21:50Z under the owner's
+   standing full-reproduction principle; owner may override).** The export's course page is a
+   one-section-per-view player with sidebar navigation (render-grounded 2026-07-01); a
+   single-scroll page does not visual-match it. Implementation shape: keep the server-rendered
+   all-sections DOM (SSR/a11y/deep-links preserved) + a client active-section presentation layer
+   (hash/state-driven, composing with the existing `#section=` focus handler); sidebar + prev/next
+   navigate sections. §D captures are per-section at the player presentation.
+
+## E-series enhancements — RESEQUENCED PRE-MERGE (owner-ratified 2026-07-01 late)
+
+**Superseding re-decision (owner, 2026-07-01 ~21:30Z, via the Director's decision surface):**
+E1, E2, AND E3 land **pre-merge** — "All three pre-merge" was the owner's explicit answer.
+The prior post-completeness deferral above is superseded; the strategic detail remains in
+[`../future/curriculum-hub-enhancements.plan.md`](../future/curriculum-hub-enhancements.plan.md)
 (E1 nav "WWW" link-out; E2 live-curriculum results secondary/below in the hub search; E3 a new
 `/curriculum` semantic-search / search-SDK showcase page, to which the 6th "Oak curriculum" card
-re-targets). Promotion trigger: core DoD §A–I complete + milestone commit landed.
+re-targets). Sequencing within pre-merge: after the block-view styling pass and page completion
+(they are polish/additions over completed surfaces); E1+E2 = S (styling lane); E3 = M–L (joint:
+data lane owns the search-SDK exposure seam, styling lane owns the page UI; no canonical export
+target exists for E3, so §D-style fidelity review does not apply — design to tokens + first-hand
+design-system review instead).
 
 ## Pre-push directory organisation (owner-CONFIRMED 2026-07-01 — NOT an enhancement)
 
@@ -315,14 +378,30 @@ Director runs it as part of the commit workstream. **Re-verify each "unused" neg
 right before deleting** (a delete needs a fresh capable search). Confirmed dispositions:
 
 - **DELETE** `reference-prototype/` (tracked → reversible; superseded by the canonical export;
-  unused) and `oak-design-system/` (gitignored orphan; unused; superseded).
+  unused — verified zero code refs repo-wide 2026-07-01; fix the dangling link at
+  `oak-design-kit/PROVENANCE.md:19` in the same change) and `oak-design-system/` (**gitignored
+  orphan, 0 tracked files → `rm` is permanently destructive and needs explicit owner
+  authorisation at execution time** per never-use-git-to-remove-work; re-pullable per its own
+  PROVENANCE.md; also tidy the stale `.gitignore` comment pointing at its non-existent README).
 - **PRUNE** `oak-design-kit/` → keep only its provenance docs (`PROVENANCE.md`,
   `PROVENANCE-designsync.md`, `LIVE-DATA-CONTRACT.md`) in a clearly-named location; delete the
   redundant asset copies **after verifying `oak-curriculum-hub/public/` already holds them**.
-- **GITIGNORE + document** `claude-design-canonical-export/` (39M) and `demo-evidence/` (7.6M) as
-  regenerable build source / output (the ingest pipeline re-pulls / re-renders; add `.gitignore`
-  entries + a short README noting they are regenerable). They do NOT ship — only the app + its
-  committed generated data do.
+- **EXPORT STAYS COMMITTED (corrected 2026-07-01 late, Director Birch — supersedes the prior
+  GITIGNORE disposition):** the prior directive to gitignore `claude-design-canonical-export/`
+  contradicted the owner-ratified change-ingest mechanism
+  ([`../future/demo-maintenance-and-structure.md`](../future/demo-maintenance-and-structure.md)
+  §Mechanism: "each export is committed as an immutable, versioned snapshot… a real, diffable
+  artefact in git") — gitignoring would delete the diff baseline the pipeline depends on, and the
+  export is NOT regenerable by the pipeline (the acquire step is the owner producing a fresh
+  export). Ruling: the current 62-file snapshot stays tracked intact (its 35M `uploads/` cost is
+  already sunk in history); **future snapshots exclude `uploads/`** (provenance-only, zero build
+  consumers — the diff-bearing set is the page `.dc.html`/`.html` files + `_ds/` + `data/` +
+  `assets/` + `embeds/` + `screenshots/`, ~4M), per the acquire runbook. Normalise the dir perms
+  (700 → 755).
+- **GITIGNORE `demo-evidence/`** (7.6M, re-renderable outputs) — needs `git rm --cached` (11 files
+  currently tracked). **First move `token-fidelity-audit.mjs` to `tools/`** and keep/repoint its
+  token-authority input (`oak-design-kit/from-prototype/oak-figma-tokens.css` — the audit dies
+  with the design-kit prune otherwise).
 - **CORRECTNESS — ensure TRACKED in the milestone commit:** the runtime-required generated data
   (`oak-curriculum-hub/lib/data/*.generated.ts` and any generated `.json` the app imports at
   runtime), or the pushed app is broken.
@@ -417,8 +496,8 @@ with `CI=true git commit`**, else codegen re-fetches the drifted live schema; me
   this is Oak's own repository. The redundant `oak-design-kit/LICENSE.md` was removed; assets are
   committable under the root `LICENCE` + `LICENCE-DATA.md` (OGL v3.0, attribution).
 - **Scale/context:** multi-page, multi-asset → multi-session + parallelise; phase by page.
-- **DesignSync is chat-scoped** to one agent + READ-ONLY remote → icon delivery is a serialisation
-  point; mitigate with placeholders (C1 minimum shippable).
+  (DesignSync serialisation risk retired 2026-07-01 — mechanism rejected; glyphs inline from the
+  export.)
 - **Cross-agent file sharing:** agents cannot read each other's scratchpads → shared assets live in
   the repo working tree (done for the decode).
 

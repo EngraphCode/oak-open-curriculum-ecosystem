@@ -264,34 +264,42 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — Director: Sycamore spins Loam (#5, active 2026-07-01)
+> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — Director: Birch mends Petal (#7, ACTIVE since 2026-07-01 ~20:30Z)
 >
 > The current Director-led multi-session effort is the **Curriculum Hub program**: reproduce the
 > ENTIRE Oak Curriculum Hub from the Claude Design canonical export — ALL pages + ALL components,
-> visual-matched — + two-search + 6 cards, to the guiding plan's **DoD §A–I**. No stubs/hedging/
-> fabrication. Branch `feat/curriculum-hub-demo` — NOT pushed (owner: local).
+> visual-matched — + two-search + 6 cards, to the guiding plan's **DoD §A–J**. Branch
+> `feat/curriculum-hub-demo`, PUSHED. **Near-term bar (owner, 2026-07-01 late): §A–I + E1–E3 →
+> milestone commit → push → PR → MERGE TO MAIN; §J = owner-hosted from main 2026-07-02.**
 >
-> **A successor rehydrates from** (detail lives here, not duplicated): the thread record
-> `threads/curriculum-hub-demo.next-session.md` (cast, lane state, tracked follow-ups), the Director
-> handoff record `handoffs/2026-07-01-curriculum-hub-director-hawthorn.md`, and the guiding plan
-> `.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`.
+> **A successor rehydrates from** (detail lives there, not duplicated): the thread record
+> `threads/curriculum-hub-demo.next-session.md` (refreshed 2026-07-01 ~22:25Z — cast, the evening
+> arc, the fully-specified per-lane successor pickups), the Panther→Birch record
+> `handoffs/2026-07-01-curriculum-hub-director-panther.md`, the guiding plan
+> `.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md` (§Ratified decisions —
+> the owner's four calls 2026-07-01 ~21:30Z + the paginated-player ruling #7), and the NEW
+> post-merge plan `.agent/plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md`
+> (WS0–WS6, assumptions-expert-reviewed, all fixes applied).
 >
-> **Director:** Sycamore spins Loam (`551fb6`, #5; PDR-064 Moment-2 `6e9f39ba` from Hawthorn's
-> Moment-1 `676403a6`; readiness gate passed w/ pasted UTC liveness check). Chain: Herring → Swordfish
-> → Lantern → Hawthorn → Sycamore. Director claim `35d9c8f2`; watcher `bmgqrapnp` + heartbeat
-> `b86ta7zlt` live. **Live cast** (owner-launched peers — Director routes + READ-ONLY reviewers only,
-> never implementer sub-agents): Cinder rides Vapor (`ee38ca`, data `fd0ee59e`), Linnet guards Ridge
-> (`2700b3`, styling `cf62bda9`).
+> **Director:** Birch mends Petal (`5b5574`, #7; owner-directed succession from Panther; Moment-2
+> `7a8d5b1c` 2026-07-01T20:30Z with the pasted UTC liveness check + the F-44 comms-live
+> cross-check — Panther comms-silent ~66 min, heartbeat off, owner-named outgoing). Chain:
+> Herring → Swordfish → Lantern → Hawthorn → Sycamore → Panther → Birch. Holds `35d9c8f2`;
+> watcher + heartbeat live.
 >
-> **Owner-gated (constitutive only):** git PUSH (branch local) · the owner's final visual sign-off vs
-> the canonical export once §A–I green · launching further successor peer sessions.
+> **Cast state (2026-07-01 ~22:25Z):** BOTH implementer lanes HOLDING-WARM on pristine PDR-063
+> handoffs awaiting OWNER successor launches (the double-launch ask is with the owner) — data
+> `fd0ee59e` retained (Junk turns Seabed retired 21:19Z; turnkey: the BINDING test-expert
+> search-seam TDD cycle + §D captures); styling `cf62bda9` warm-held (Zinnia guards Spore;
+> turnkey: paginated-player layer + export-grounded sidebar spec + SPA-drive grounding + 17
+> block-view treatments). The evening arc (the 11-point owner brief, the 17-agent verified
+> analysis, four ratified decisions, slice 2b/2c landings, the live-ES real-Oak proof, §F
+> cleared, both plans written + reviewed) lives in the thread record's CURRENT STATE block.
 >
-> **Named eventual successor:** **Panther calls Gloaming** (Director #6, owner-named 2026-07-01) — not
-> yet arrived; pre-position via PDR-064 Moment-1 when it registers as standby / when my context deepens.
-> The owner naming IS the authorisation (no fresh sign-off at Moment-2). **Whole-generation rotation
-> (owner, 2026-07-01):** data Cinder rides Vapor → **Deneb mends Perigee** (`fd0ee59e`, PDR-063); styling
-> Linnet guards Ridge → **Typhoon turns Aether** (`cf62bda9`, PDR-063). Successors adopt the retained
-> claims on arrival (read the per-lane handoff records end-to-end first).
+> **Owner-gated (constitutive only):** launching the two successor sessions · §J hosting setup
+> (owner, 2026-07-02) · final visual sign-off vs the canonical export · the `oak-design-system/`
+> destructive-delete authorisation at pre-push-tidy time · the WS6 SSO decision set (named in the
+> new plan).
 >
 > **Readiness gate before any Moment-2:** five questions + a pasted mechanical UTC liveness check
 > (comms-live, not registry-stale — F-44); then adopt `35d9c8f2`, arm heartbeat, stop the outgoing

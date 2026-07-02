@@ -67,6 +67,11 @@ body {
   padding: 0;
 }
 
+html {
+  /* Anchor + programmatic-focus scrolls clear the ~71px sticky SiteNav (SC 2.4.11, no obscuring). */
+  scroll-padding-top: 5.5rem;
+}
+
 body {
   font-family: var(--font-sans);
   color: var(--color-oak-black);

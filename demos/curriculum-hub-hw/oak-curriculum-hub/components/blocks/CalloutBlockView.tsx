@@ -4,11 +4,10 @@ import type { ReactElement } from 'react';
 import type { CalloutBlock, CalloutStandard } from '@/lib/blocks/types';
 
 /**
- * Normalises a callout's quality-standard content to a bullet list. A
- * single-standard callout (`qs` + `text`) and a multi-standard callout
- * (`items`) both render as QS-chip-led bullets, per the export authoring rule
- * (canonical-export `CLAUDE.md`). A non-standard callout (tip/quote/warning with
- * only `text`) yields no bullets.
+ * Normalises a callout's quality-standard content to a bullet list. A single-standard callout
+ * (`qs` + `text`) and a multi-standard callout (`items`) both render as QS-chip-led bullets, per the
+ * export authoring rule (canonical-export `CLAUDE.md`). A non-standard callout (tip/quote/warning
+ * with only `text`) yields no bullets.
  */
 function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
   if (block.items !== undefined) {
@@ -22,34 +21,68 @@ function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
 }
 
 /**
- * Renders a {@link CalloutBlock}. Quality-standard callouts show each standard
- * as a QS-code chip (deep-linking `/standards#qs=<id>`) followed by its verbatim
- * wording; other variants show their prose. Some source callouts carry no title
- * (the title `<p>` is then omitted) and a `quote` variant may carry an `attrib`,
- * rendered as a `<cite>` citation. `variant` drives colour in the styling pass
- * (kept as `data-variant` here); `role="note"` keeps it announced without colour.
+ * The per-variant colour treatment (border accent + tint), matched to the canonical export: `tip` is
+ * green (the "Welcome" box), `info` is navy/blue (the quality-standard callout — border + QS chip per
+ * the export `CLAUDE.md`), `warning` is red on the notice tint, `quote` is a neutral grey rule. The
+ * `data-variant` attribute is retained (Director ruling) so a post-merge CSS extraction can key off it.
+ */
+function variantClass(variant: CalloutBlock['variant']): string {
+  let className: string;
+  switch (variant) {
+    case 'tip':
+      className = 'border-oak-green bg-oak-mint-subdued';
+      break;
+    case 'info':
+      className = 'border-oak-navy bg-oak-lavender-subdued';
+      break;
+    case 'warning':
+      className = 'border-oak-red bg-oak-notice';
+      break;
+    case 'quote':
+      className = 'border-oak-grey-line bg-white';
+      break;
+  }
+  return className;
+}
+
+/**
+ * Renders a {@link CalloutBlock} as a tinted, left-accented box. Quality-standard callouts show each
+ * standard as a QS-code chip (deep-linking `/standards#qs=<id>`) followed by its verbatim wording;
+ * other variants show their prose. Some source callouts carry no title (the title is then omitted) and
+ * a `quote` variant may carry an `attrib`. A styled `<div>` (not a landmark/`role="note"`): with ~76
+ * callouts on the course page, a note/complementary role each would flood the landmark map — the bold
+ * title carries the meaning.
  */
 export function CalloutBlockView({ block }: { block: CalloutBlock }): ReactElement {
   const standards = toStandards(block);
   return (
-    <aside role="note" aria-label={block.title} data-variant={block.variant}>
-      {block.title !== undefined && <p>{block.title}</p>}
+    <div
+      data-variant={block.variant}
+      className={`rounded-xl border-2 border-l-[6px] px-5 py-4 ${variantClass(block.variant)}`}
+    >
+      {block.title !== undefined && <p className="mb-1.5 font-bold leading-tight">{block.title}</p>}
       {standards.length > 0 ? (
-        <ul>
+        <ul className="flex flex-col gap-2">
           {standards.map((standard) => (
-            <li key={standard.qs}>
-              <Link href={`/standards#qs=${standard.qs}`}>{standard.qs}</Link> {standard.text}
+            <li key={standard.qs} className="flex items-baseline gap-2">
+              <Link
+                href={`/standards#qs=${standard.qs}`}
+                className="shrink-0 rounded-md border-2 border-oak-navy bg-white px-1.5 py-0.5 text-[12px] font-bold text-oak-navy no-underline"
+              >
+                {standard.qs}
+              </Link>
+              <span className="font-light leading-snug">{standard.text}</span>
             </li>
           ))}
         </ul>
       ) : (
-        block.text !== undefined && <p>{block.text}</p>
+        block.text !== undefined && <p className="font-light leading-relaxed">{block.text}</p>
       )}
       {block.attrib !== undefined && (
-        <p>
+        <p className="mt-2 text-[14px] font-light text-oak-grey">
           <cite>— {block.attrib}</cite>
         </p>
       )}
-    </aside>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 ---
 title: Curriculum Hub demo — post-completeness enhancements (E1 nav-WWW, E2 curriculum-results-secondary, E3 curriculum-search showcase page)
-status: STRATEGIC (future/) — DEFERRED. Strictly enhancements, to be addressed AFTER the core DoD §A–I (feature + visual completeness) of port-prototype-to-live-demo.md is COMPLETE and the milestone commit has landed (owner-directed 2026-07-01). Not executable yet; execution decisions finalise at promotion to current/.
+status: STRATEGIC (future/) — RESEQUENCED PRE-MERGE (owner re-decision 2026-07-01 ~21:30Z, superseding the same-day deferral). E1+E2+E3 now execute PRE-merge as part of the active plan's drive to main; the active plan §"E-series enhancements" owns sequencing and lane assignment. This brief remains the strategic detail source (problem/intent/means per item); it archives when E1–E3 land.
 lane: future
 lineage:
   serves_thread: curriculum-hub-demo

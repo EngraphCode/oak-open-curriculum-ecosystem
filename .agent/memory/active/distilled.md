@@ -31,6 +31,12 @@ earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
 
+## From the 2026-07-01 Curriculum Hub Director session (Panther calls Gloaming) — Director-craft + recurrence evidence
+
+- **Reactivity is the symptom of being unmoored from the impact; the cure is anchoring in it, not a "pause" rule.** Converting every input into an action (a gate to run, a framing to elaborate, a task to execute) — each judged locally, none against "does this serve what we're for" — is reactivity. A Director anchored in the impact is calm because the impact is a stable measure: most inputs need a *judgment* (often "no action"), not a reaction. The owner stopped me twice and challenged trust before this landed. Home candidate: PDR-117 Director-craft (minimum-action has an inward face — anchor, don't thrash). Recurrence of no-speed-pressure / invented-urgency.
+- **The `--no-verify` reflex is gate-evasion; commit THROUGH the hook — the hook IS the gate.** When gates "won't pass", don't reach for `--no-verify` (bypass, un-analysed); run `CI=true git commit` (no `--no-verify`) and let the pre-commit hook run the gates as the verification — green confirmed by the hook, not asserted; if red you see what's wrong and FIX, never bypass. The reach for the escape hatch is itself the tripwire to stop and analyse. Recurrence/reinforcement of never-disable-checks + fluency-is-a-failure-vector.
+- **Fluency-is-a-warning recurred 3× in one session** — a fabricated deploy "tension"; a "branch stays local" owner-direction I propagated through the plan that the owner NEVER gave (verify-don't-trust on inherited "owner said X"); the `--no-verify` reflex. A smoothly-arriving framing is the trigger to ground the situational fact first-hand, hardest when it conveniently licenses the action. Route as recurrence evidence to the action-time structural-interrupt lane.
+
 ## From the 2026-06-29 team-tooling rotation (Falcon) — carry-forward, homes mapped
 
 These lessons are settled and their homes are identified (verify-homed recon); they await an
