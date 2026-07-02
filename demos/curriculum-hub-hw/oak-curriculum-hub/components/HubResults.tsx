@@ -4,19 +4,10 @@ import type { ReactElement } from 'react';
 import { useCurriculumSearch, type CurriculumSearchState } from '@/lib/use-curriculum-search';
 import { searchHub } from '@/lib/hub-search';
 import type { SearchResults } from '@/lib/search-types';
-import { GroupHeader, mutedClass, TrainingGroup, StandardsGroup } from './HubLocalGroups';
+import { GroupHeader, Notice, mutedClass, TrainingGroup, StandardsGroup } from './HubLocalGroups';
 import { LessonCard, UnitCard, ThreadCard } from './ResultCards';
 
 const groupLabelClass = 'mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey';
-
-function Notice({ title, body }: { title: string; body: string }): ReactElement {
-  return (
-    <div className="max-w-[560px] rounded-[10px] border-2 border-l-[6px] border-oak-black bg-oak-notice px-[18px] py-4">
-      <div className="mb-1 text-base font-semibold leading-tight">{title}</div>
-      <div className="text-sm leading-[1.55] text-oak-grey">{body}</div>
-    </div>
-  );
-}
 
 function CurriculumBody({ results }: { results: SearchResults }): ReactElement {
   return (
@@ -24,7 +15,7 @@ function CurriculumBody({ results }: { results: SearchResults }): ReactElement {
       {results.lessons.length > 0 && (
         <div>
           <div className={groupLabelClass}>Lessons</div>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(330px,1fr))] gap-3">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(330px,100%),1fr))] gap-3">
             {results.lessons.map((h) => (
               <LessonCard key={h.id} hit={h} />
             ))}

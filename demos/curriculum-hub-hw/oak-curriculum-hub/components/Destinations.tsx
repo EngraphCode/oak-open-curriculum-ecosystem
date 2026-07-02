@@ -95,9 +95,9 @@ const destinations: readonly Destination[] = [
   },
   {
     title: 'Oak curriculum',
-    desc: "Search live lessons, units and learning threads from Oak's published national curriculum — powered by the live search above.",
-    cta: 'Search the curriculum',
-    href: '#hub-search',
+    desc: "Search live lessons, units and learning threads from Oak's published national curriculum — matched by meaning, not just keywords.",
+    cta: 'Explore curriculum search',
+    href: '/curriculum',
     badge: 'Live',
     cardTint: 'bg-oak-cream',
     tileTint: 'bg-oak-amber',

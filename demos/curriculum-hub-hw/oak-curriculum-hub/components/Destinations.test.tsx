@@ -20,10 +20,10 @@ describe('Destinations — the hub landing card grid', () => {
     }
   });
 
-  it('points the live Oak-curriculum card at the in-hub search (the live-SDK USP), not away from the demo', () => {
+  it('points the live Oak-curriculum card at the dedicated /curriculum showcase (E3)', () => {
     render(<Destinations />);
     const card = screen.getByRole('link', { name: /Oak curriculum/ });
-    expect(card.getAttribute('href')).toBe('#hub-search');
-    expect(screen.getByText('Search the curriculum')).toBeTruthy();
+    expect(card.getAttribute('href')).toBe('/curriculum');
+    expect(screen.getByText('Explore curriculum search')).toBeTruthy();
   });
 });

@@ -5,6 +5,17 @@ import type { CourseHit, StandardHit } from '@/lib/hub-search';
 
 export const mutedClass = 'text-[14px] text-oak-grey';
 
+/** Cream notice card for search states that need a sentence, not a result list.
+ *  Shared by the hub's live group and the /curriculum showcase. */
+export function Notice({ title, body }: { title: string; body: string }): ReactElement {
+  return (
+    <div className="max-w-[560px] rounded-[10px] border-2 border-l-[6px] border-oak-black bg-oak-notice px-[18px] py-4">
+      <div className="mb-1 text-base font-semibold leading-tight">{title}</div>
+      <div className="text-sm leading-[1.55] text-oak-grey">{body}</div>
+    </div>
+  );
+}
+
 /** A clickable result row: black-bordered white pill with a lemon hover shadow, matching the
  *  card affordance elsewhere on the hub. Used by both local-search groups below. */
 const rowLinkClass =

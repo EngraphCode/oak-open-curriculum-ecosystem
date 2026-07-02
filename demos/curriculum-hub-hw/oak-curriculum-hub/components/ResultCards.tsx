@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { highlightToNodes } from '@/components/highlight-marks';
 import type { Hit } from '@/lib/search-client';
 import { subjectName, subjectBg, keyStageLabel } from './subjects';
 
@@ -44,11 +45,11 @@ export function LessonCard({ hit }: { hit: Hit }): ReactElement {
         </span>
       )}
       {hit.snippet && (
-        <span
-          className="text-[13px] font-light leading-[18px] text-oak-grey"
-          // ES highlight markup is trusted server content; render emphasis.
-          dangerouslySetInnerHTML={{ __html: hit.snippet }}
-        />
+        <span className="text-[13px] font-light leading-[18px] text-oak-grey">
+          {/* Only the ES highlighter's <em> pair is interpreted (as <mark>); any other
+              markup in the API fragment stays literal text — never raw HTML injection. */}
+          {highlightToNodes(hit.snippet)}
+        </span>
       )}
       <span className="mt-0.5 text-[13px] font-bold text-oak-navy">Open lesson on Oak ↗</span>
     </a>
