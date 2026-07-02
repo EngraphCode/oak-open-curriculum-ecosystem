@@ -29,7 +29,7 @@ work brief and the recent identity stretch, per
 calibration verdict; the owner has directed salvage-not-rerun. Next session: execute ws1 of
 [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md).**
 
-**State (all committed, branch `docs/consolidations`, unpushed — owner's call):**
+**State (all on `main` — merged via PR #296, 2026-07-02, Sonar gate green):**
 
 1. **Checkpoints in `reports/agentic-engineering/large-corpus-analysis-tooling/data/`**: partition
    (15w/100f), map (580 leaves), reduce (246 candidates), validate
