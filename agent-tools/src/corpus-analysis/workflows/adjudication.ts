@@ -72,7 +72,10 @@ async function dispatchVoter(
   const judgment = await deps.agent(votePrompt({ candidate, lens, groundingLines }), {
     label: `vote:${candidate.id}:${tier}:${lens ?? 'plain'}`,
     phase: 'validate',
-    model: 'opus',
+    // Sonnet-5 voters (owner-decided 2026-07-02): the rigor lives in the deterministic
+    // quorum structure and conjunctive tests; Opus is reserved for the synthesis stages
+    // and the bounded post-run assurance leg. Recall calibration measures the regime.
+    model: 'sonnet',
     effort: 'high',
     schema: AGENT_JSON_SCHEMAS.voterJudgment,
   });

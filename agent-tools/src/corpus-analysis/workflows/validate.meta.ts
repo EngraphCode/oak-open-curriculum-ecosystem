@@ -11,11 +11,12 @@ import type { WorkflowMeta } from './workflow-meta.js';
 export const meta = {
   name: 'napkin-corpus-analysis-validate',
   description:
-    'Checkpoint-2: tiered adversary validation (Opus/high, mirror-free — the real adjudication state machine is bundled in) over the seeded candidates, at a concurrency cap with deterministic jitter. Candidate-granular resume via resolvedIds; the post-reduce cost re-gate refuses to dispatch any voter over the explicit token ceiling. Meta always runs as its own separate stage over the merged dispositions.',
+    'Checkpoint-2: tiered adversary validation (Sonnet-5/high voters, mirror-free — the real adjudication state machine is bundled in) over the seeded candidates, at a concurrency cap with deterministic jitter. Candidate-granular resume via resolvedIds; the post-reduce cost re-gate refuses to dispatch any voter over the explicit token ceiling. Meta always runs as its own separate stage over the merged dispositions.',
   phases: [
     {
       title: 'validate',
-      detail: 'Opus/high — tiered adversary over seeded candidates, capped at 3 loops in flight',
+      detail:
+        'Sonnet-5/high voters — tiered adversary over seeded candidates, capped at 3 loops in flight',
     },
   ],
 } as const satisfies WorkflowMeta;
