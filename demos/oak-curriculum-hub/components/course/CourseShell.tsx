@@ -19,7 +19,7 @@ import { toPlayerEntries } from './course-player';
  * the landmark map — the module `<article>` is the landmark; a section is a plain container the
  * player reveals.
  */
-function SectionView({ section }: { section: CourseSection }): ReactElement {
+function SectionView({ section }: { readonly section: CourseSection }): ReactElement {
   // Blocks carry no id of their own; pairing each with `<section id>-<position>` yields a key that is
   // unique across the page AND stable across renders (the generated block list is static, never
   // reordered) — proven by construction, so react/no-array-index-key holds without a raw index in the
@@ -59,12 +59,12 @@ function ModuleView({
   unitCrumb,
   sections,
 }: {
-  id: string;
-  eyebrow: string;
-  color: string;
+  readonly id: string;
+  readonly eyebrow: string;
+  readonly color: string;
   /** "Unit N · unit title" for unit modules; absent for the intro (export-grounded header). */
-  unitCrumb?: string;
-  sections: readonly CourseSection[];
+  readonly unitCrumb?: string;
+  readonly sections: readonly CourseSection[];
 }): ReactElement {
   return (
     <PlayerModule moduleId={id} labelledBy={`module-h-${id}`} accent={color}>
@@ -105,7 +105,13 @@ function ModuleView({
  * Oak Course) and the framework-module view. A server component — the nav projections are computed
  * once; the player gates and interactive block views are the client boundaries below.
  */
-export function CourseShell({ course, title }: { course: Course; title: string }): ReactElement {
+export function CourseShell({
+  course,
+  title,
+}: {
+  readonly course: Course;
+  readonly title: string;
+}): ReactElement {
   const modules = toCourseNavModules(course);
   const tree = toCourseNavTree(course);
   return (

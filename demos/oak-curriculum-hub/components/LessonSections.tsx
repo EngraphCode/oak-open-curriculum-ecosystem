@@ -15,9 +15,9 @@ export function ContextStrip({
   keyStage,
   unit,
 }: {
-  subject: string | null;
-  keyStage: string | null;
-  unit: string | null;
+  readonly subject: string | null;
+  readonly keyStage: string | null;
+  readonly unit: string | null;
 }): ReactElement | null {
   const parts = [subject, keyStage, unit].filter((p): p is string => p !== null);
   if (parts.length === 0) {
@@ -40,7 +40,11 @@ export function ContextStrip({
 }
 
 /** The lesson's key learning points as a bulleted list. Rendered only when non-empty. */
-export function KeyLearningPoints({ points }: { points: readonly string[] }): ReactElement {
+export function KeyLearningPoints({
+  points,
+}: {
+  readonly points: readonly string[];
+}): ReactElement {
   return (
     <section className="mb-6">
       <h2 className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">
@@ -62,7 +66,7 @@ export function KeyLearningPoints({ points }: { points: readonly string[] }): Re
 }
 
 /** The lesson's keyword glossary as a definition list. Rendered only when non-empty. */
-export function Keywords({ items }: { items: readonly LessonKeyword[] }): ReactElement {
+export function Keywords({ items }: { readonly items: readonly LessonKeyword[] }): ReactElement {
   return (
     <section className="mb-6">
       <h2 className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">

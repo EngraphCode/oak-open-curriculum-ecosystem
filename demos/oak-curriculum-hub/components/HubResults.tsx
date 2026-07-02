@@ -9,7 +9,7 @@ import { LessonCard, UnitCard, ThreadCard } from './ResultCards';
 
 const groupLabelClass = 'mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey';
 
-function CurriculumBody({ results }: { results: SearchResults }): ReactElement {
+function CurriculumBody({ results }: { readonly results: SearchResults }): ReactElement {
   return (
     <div className="flex flex-col gap-6">
       {results.lessons.length > 0 && (
@@ -69,7 +69,11 @@ function curriculumAnnouncement(state: CurriculumSearchState): string {
 
 /** The live "From the Oak curriculum" group — lessons, units and threads via the SDK seam. A polite
  *  live region announces the async search state. Exported for direct component tests. */
-export function CurriculumGroup({ state }: { state: CurriculumSearchState }): ReactElement {
+export function CurriculumGroup({
+  state,
+}: {
+  readonly state: CurriculumSearchState;
+}): ReactElement {
   return (
     <section>
       <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">
@@ -109,8 +113,8 @@ export function ResultsHeader({
   query,
   onClear,
 }: {
-  query: string;
-  onClear: () => void;
+  readonly query: string;
+  readonly onClear: () => void;
 }): ReactElement {
   return (
     <div className="mb-6 flex items-center justify-between gap-4">
@@ -146,9 +150,9 @@ export function HubResultsView({
   onClear,
   curriculum,
 }: {
-  query: string;
-  onClear: () => void;
-  curriculum: CurriculumSearchState;
+  readonly query: string;
+  readonly onClear: () => void;
+  readonly curriculum: CurriculumSearchState;
 }): ReactElement {
   const { courseHits, stdHits } = searchHub(query);
   return (
@@ -168,8 +172,8 @@ export default function HubResults({
   query,
   onClear,
 }: {
-  query: string;
-  onClear: () => void;
+  readonly query: string;
+  readonly onClear: () => void;
 }): ReactElement {
   return <HubResultsView query={query} onClear={onClear} curriculum={useCurriculumSearch(query)} />;
 }

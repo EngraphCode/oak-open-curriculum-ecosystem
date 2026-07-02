@@ -9,7 +9,7 @@ import type { VideoBlock } from '@/lib/blocks/types';
  * box with a black VIDEO pill and the play chip (no media ships in the
  * export), captioned below.
  */
-export function VideoBlockView({ block }: { block: VideoBlock }): ReactElement {
+export function VideoBlockView({ block }: { readonly block: VideoBlock }): ReactElement {
   return (
     <figure>
       <MediaBox pill="VIDEO" pillTone="black" glyph={<PlayChip />} label={block.placeholder} />

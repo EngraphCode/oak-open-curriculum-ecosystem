@@ -34,7 +34,7 @@ function FileChip(): ReactElement {
  * asset, not an app route; the data's relative `href` resolves from the site
  * root (`/assets/…`).
  */
-export function DownloadBlockView({ block }: { block: DownloadBlock }): ReactElement {
+export function DownloadBlockView({ block }: { readonly block: DownloadBlock }): ReactElement {
   return (
     <a
       href={`/${block.href}`}

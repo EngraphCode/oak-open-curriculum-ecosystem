@@ -14,12 +14,12 @@ export function MediaBox({
   label,
   ariaLabel,
 }: {
-  pill: string;
-  pillTone: 'lemon' | 'black';
-  glyph: ReactNode;
-  label: string;
+  readonly pill: string;
+  readonly pillTone: 'lemon' | 'black';
+  readonly glyph: ReactNode;
+  readonly label: string;
   /** Overrides the accessible name when it should differ from the visible label. */
-  ariaLabel?: string;
+  readonly ariaLabel?: string;
 }): ReactElement {
   return (
     <div

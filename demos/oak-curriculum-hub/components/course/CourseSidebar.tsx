@@ -14,8 +14,8 @@ function SidebarHeader({
   title,
   sectionTotal,
 }: {
-  title: string;
-  sectionTotal: number;
+  readonly title: string;
+  readonly sectionTotal: number;
 }): ReactElement {
   return (
     <>
@@ -50,9 +50,9 @@ function IntroItem({
   title,
   active,
 }: {
-  introId: string;
-  title: string;
-  active: boolean;
+  readonly introId: string;
+  readonly title: string;
+  readonly active: boolean;
 }): ReactElement {
   return (
     <a
@@ -79,8 +79,8 @@ export function CourseSidebar({
   tree,
   title,
 }: {
-  tree: CourseNavTree;
-  title: string;
+  readonly tree: CourseNavTree;
+  readonly title: string;
 }): ReactElement {
   const { activeSectionId, entries } = useCoursePlayer();
   const activeModuleId = activeModuleIdOf(activeSectionId, entries) ?? tree.intro.id;

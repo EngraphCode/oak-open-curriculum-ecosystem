@@ -12,11 +12,11 @@ export function DashedMediaSlot({
   badge,
   compact = false,
 }: {
-  label: string;
+  readonly label: string;
   /** The small lemon corner badge (e.g. "IMAGE"); omitted on compact slots. */
-  badge?: string;
+  readonly badge?: string;
   /** Compact slots (flip fronts) shrink the glyph and minimum height. */
-  compact?: boolean;
+  readonly compact?: boolean;
 }): ReactElement {
   return (
     <span

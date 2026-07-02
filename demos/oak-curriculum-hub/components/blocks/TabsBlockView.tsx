@@ -31,7 +31,13 @@ export function nextTabIndex(key: string, index: number, count: number): number 
  * The active tab's panel: `role="tabpanel"` labelled by its owning tab. Export-exact body copy and
  * the green "✓ Example" callout box.
  */
-function TabPanelView({ panel, panelKey }: { panel: TabPanel; panelKey: string }): ReactElement {
+function TabPanelView({
+  panel,
+  panelKey,
+}: {
+  readonly panel: TabPanel;
+  readonly panelKey: string;
+}): ReactElement {
   return (
     <div
       role="tabpanel"
@@ -67,7 +73,7 @@ function TabPanelView({ panel, panelKey }: { panel: TabPanel; panelKey: string }
  * strands on a `tabIndex=-1` element. `.at()` keeps the active-panel lookup
  * honest.
  */
-export function TabsBlockView({ block }: { block: TabsBlock }): ReactElement {
+export function TabsBlockView({ block }: { readonly block: TabsBlock }): ReactElement {
   const [active, setActive] = useState(0);
   const panel = block.tabs.at(active);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -131,12 +137,12 @@ function TabButton({
   onSelect,
   onKeyNav,
 }: {
-  label: string;
-  tabKey: string;
-  selected: boolean;
-  refCallback: (node: HTMLButtonElement | null) => void;
-  onSelect: () => void;
-  onKeyNav: (event: KeyboardEvent<HTMLButtonElement>) => void;
+  readonly label: string;
+  readonly tabKey: string;
+  readonly selected: boolean;
+  readonly refCallback: (node: HTMLButtonElement | null) => void;
+  readonly onSelect: () => void;
+  readonly onKeyNav: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }): ReactElement {
   return (
     <button

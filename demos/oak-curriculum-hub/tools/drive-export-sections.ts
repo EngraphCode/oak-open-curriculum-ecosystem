@@ -211,9 +211,8 @@ async function main(): Promise<Result<void, string>> {
   }
   const failures = await driveExport(portRes.value, outDirRes.value);
   server.close();
-  process.stdout.write(
-    `${failures === 0 ? 'RESULT: ALL CAPTURED' : `RESULT: ${failures} FAILURES`}\n`,
-  );
+  const resultLine = failures === 0 ? 'RESULT: ALL CAPTURED' : `RESULT: ${failures} FAILURES`;
+  process.stdout.write(`${resultLine}\n`);
   process.exitCode = failures === 0 ? 0 : 1;
   return ok(undefined);
 }

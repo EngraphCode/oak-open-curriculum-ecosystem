@@ -25,9 +25,9 @@ export function HubNavLink({
   className,
   onChoose,
 }: {
-  item: HubNavItem;
-  className: string;
-  onChoose?: () => void;
+  readonly item: HubNavItem;
+  readonly className: string;
+  readonly onChoose?: () => void;
 }): ReactElement {
   if (item.href.startsWith('https://')) {
     return (

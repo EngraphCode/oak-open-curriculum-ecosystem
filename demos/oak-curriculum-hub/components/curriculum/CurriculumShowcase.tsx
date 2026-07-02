@@ -20,8 +20,8 @@ function HeroSearchInput({
   query,
   onQueryChange,
 }: {
-  query: string;
-  onQueryChange: (next: string) => void;
+  readonly query: string;
+  readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
     <div className="mt-6 flex max-w-[560px] items-center gap-2.5 rounded-full border-[3px] border-oak-black bg-white px-4 py-2.5 shadow-oak-wide-lemon">
@@ -56,8 +56,8 @@ function ShowcaseHero({
   query,
   onQueryChange,
 }: {
-  query: string;
-  onQueryChange: (next: string) => void;
+  readonly query: string;
+  readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
     <div className="border-b-[3px] border-oak-black bg-oak-amber-subdued">
@@ -101,9 +101,9 @@ export function CurriculumShowcaseView({
   onQueryChange,
   state,
 }: {
-  query: string;
-  onQueryChange: (next: string) => void;
-  state: CurriculumSearchState;
+  readonly query: string;
+  readonly onQueryChange: (next: string) => void;
+  readonly state: CurriculumSearchState;
 }): ReactElement {
   return (
     <>

@@ -16,10 +16,10 @@ function SectionRow({
   accent,
   active,
 }: {
-  sectionId: string;
-  title: string;
-  accent: string;
-  active: boolean;
+  readonly sectionId: string;
+  readonly title: string;
+  readonly accent: string;
+  readonly active: boolean;
 }): ReactElement {
   return (
     <li>
@@ -55,11 +55,11 @@ function ModuleHeaderButton({
   activeModule,
   onToggle,
 }: {
-  module: CourseNavUnitModule;
-  ordinal: number;
-  open: boolean;
-  activeModule: boolean;
-  onToggle: () => void;
+  readonly module: CourseNavUnitModule;
+  readonly ordinal: number;
+  readonly open: boolean;
+  readonly activeModule: boolean;
+  readonly onToggle: () => void;
 }): ReactElement {
   return (
     <button
@@ -96,12 +96,12 @@ function NavModule({
   activeSectionId,
   onToggle,
 }: {
-  module: CourseNavUnitModule;
-  ordinal: number;
-  open: boolean;
-  activeModule: boolean;
-  activeSectionId: string | null;
-  onToggle: () => void;
+  readonly module: CourseNavUnitModule;
+  readonly ordinal: number;
+  readonly open: boolean;
+  readonly activeModule: boolean;
+  readonly activeSectionId: string | null;
+  readonly onToggle: () => void;
 }): ReactElement {
   return (
     <li className="mb-1.5">
@@ -137,11 +137,11 @@ export function NavUnitGroup({
   openModuleId,
   onToggle,
 }: {
-  unit: CourseNavUnit;
-  activeModuleId: string;
-  activeSectionId: string | null;
-  openModuleId: string | null;
-  onToggle: (moduleId: string) => void;
+  readonly unit: CourseNavUnit;
+  readonly activeModuleId: string;
+  readonly activeSectionId: string | null;
+  readonly openModuleId: string | null;
+  readonly onToggle: (moduleId: string) => void;
 }): ReactElement {
   return (
     <li className="mb-2">

@@ -7,7 +7,7 @@ import type { TextBlock } from '@/lib/blocks/types';
  * scale (light 18/29, slightly tightened tracking). Keyed by content
  * (paragraphs are distinct prose; `no-array-index-key` forbids the index).
  */
-export function TextBlockView({ block }: { block: TextBlock }): ReactElement {
+export function TextBlockView({ block }: { readonly block: TextBlock }): ReactElement {
   return (
     <>
       {block.paras.map((para) => (

@@ -10,7 +10,7 @@ import type { CompareBlock } from '@/lib/blocks/types';
  * slot is not reproduced — no compare block in the course corpus carries
  * `goodImg`/`badImg` (the bindings exist only in the template).
  */
-export function CompareBlockView({ block }: { block: CompareBlock }): ReactElement {
+export function CompareBlockView({ block }: { readonly block: CompareBlock }): ReactElement {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {/* aria-label (matching the visible bar exactly) rather than aria-labelledby: this is a

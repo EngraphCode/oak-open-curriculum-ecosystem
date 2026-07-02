@@ -22,12 +22,12 @@ export function PlayerModule({
   accent,
   children,
 }: {
-  moduleId: string;
-  labelledBy: string;
+  readonly moduleId: string;
+  readonly labelledBy: string;
   /** The module's accent colour, exposed as `--module-accent` so SERVER-rendered block views
       (accordion chips, flip backs) inherit it without a client context (export: `b.chip ?? accent`). */
-  accent: string;
-  children: ReactNode;
+  readonly accent: string;
+  readonly children: ReactNode;
 }): ReactElement {
   const { activeSectionId, entries } = useCoursePlayer();
   const activeModuleId = activeModuleIdOf(activeSectionId, entries);
@@ -51,7 +51,7 @@ export function PlayerModule({
  * header; n/N are within the module, not the whole course). Renders nothing pre-hydration or while
  * another module is active — the parent module is hidden then anyway.
  */
-export function ModulePosition({ moduleId }: { moduleId: string }): ReactElement | null {
+export function ModulePosition({ moduleId }: { readonly moduleId: string }): ReactElement | null {
   const { activeSectionId, entries } = useCoursePlayer();
   if (activeSectionId === null || activeModuleIdOf(activeSectionId, entries) !== moduleId) {
     return null;
@@ -79,8 +79,8 @@ export function PlayerSection({
   sectionId,
   children,
 }: {
-  sectionId: string;
-  children: ReactNode;
+  readonly sectionId: string;
+  readonly children: ReactNode;
 }): ReactElement {
   const { activeSectionId } = useCoursePlayer();
   const playerActive = activeSectionId !== null;

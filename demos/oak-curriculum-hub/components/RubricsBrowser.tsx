@@ -17,7 +17,7 @@ const rowLinkClass =
   'flex items-center gap-3 rounded-xl border-2 border-oak-black bg-white px-4 py-3 text-oak-black no-underline transition-shadow hover:shadow-oak-lemon';
 
 /** One quality-standard row under the selected rubric, linking to its /standards detail. */
-function RubricStandardRow({ standard }: { standard: QualityStandard }): ReactElement {
+function RubricStandardRow({ standard }: { readonly standard: QualityStandard }): ReactElement {
   const badge = standard.code !== '' ? standard.code : standard.id;
   const area = standard.areas[0];
   return (
@@ -43,10 +43,10 @@ function RubricFacet({
   pressed,
   onSelect,
 }: {
-  label: string;
-  count: number;
-  pressed: boolean;
-  onSelect: () => void;
+  readonly label: string;
+  readonly count: number;
+  readonly pressed: boolean;
+  readonly onSelect: () => void;
 }): ReactElement {
   const tint = pressed ? 'bg-oak-black text-white' : 'bg-white text-oak-black';
   return (

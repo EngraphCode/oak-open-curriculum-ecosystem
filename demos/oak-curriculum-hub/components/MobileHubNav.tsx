@@ -1,7 +1,7 @@
 'use client';
 
-import { useId, useRef, useState } from 'react';
-import type { FocusEvent, KeyboardEvent, ReactElement } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import type { ReactElement, RefObject } from 'react';
 
 import { HubNavLink } from '@/components/HubNavLink';
 import type { HubNavItem } from '@/components/HubNavLink';
@@ -16,9 +16,9 @@ function MenuPanel({
   items,
   onChoose,
 }: {
-  id: string;
-  items: readonly HubNavItem[];
-  onChoose: () => void;
+  readonly id: string;
+  readonly items: readonly HubNavItem[];
+  readonly onChoose: () => void;
 }): ReactElement {
   return (
     <nav
@@ -37,6 +37,46 @@ function MenuPanel({
 }
 
 /**
+ * Widget-level dismissal for an open disclosure (APG disclosure-navigation),
+ * attached as native listeners on the root WHILE OPEN rather than as JSX
+ * interaction props — the wrapper is not an interactive element, and
+ * interaction props on it would misdeclare its contract (Sonar S6848).
+ * Escape closes and returns focus to the toggle; focus leaving the disclosure
+ * closes WITHOUT pulling focus back — the user is already moving on.
+ */
+function useDisclosureDismissal(
+  rootRef: RefObject<HTMLDivElement | null>,
+  toggleRef: RefObject<HTMLButtonElement | null>,
+  open: boolean,
+  close: () => void,
+): void {
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!open || root === null) {
+      return undefined;
+    }
+    const onKeyDown = (event: globalThis.KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        close();
+        toggleRef.current?.focus();
+      }
+    };
+    const onFocusOut = (event: globalThis.FocusEvent): void => {
+      const next = event.relatedTarget;
+      if (!(next instanceof Node && root.contains(next))) {
+        close();
+      }
+    };
+    root.addEventListener('keydown', onKeyDown);
+    root.addEventListener('focusout', onFocusOut);
+    return () => {
+      root.removeEventListener('keydown', onKeyDown);
+      root.removeEventListener('focusout', onFocusOut);
+    };
+  }, [open, close, rootRef, toggleRef]);
+}
+
+/**
  * Small-viewport hub navigation (`md:hidden`; the inline nav and search hide
  * below `md:`): a disclosure button toggling a full-width panel with the
  * section links and the hub search. A disclosure, not a modal — no focus trap;
@@ -44,26 +84,17 @@ function MenuPanel({
  * APG disclosure-navigation shape). Cures the SC 1.4.10 reflow failure of the
  * inline nav at 320px.
  */
-export function MobileHubNav({ items }: { items: readonly HubNavItem[] }): ReactElement {
+export function MobileHubNav({ items }: { readonly items: readonly HubNavItem[] }): ReactElement {
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
-  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>): void => {
-    if (event.key === 'Escape' && open) {
-      setOpen(false);
-      toggleRef.current?.focus();
-    }
-  };
-  // Close when focus leaves the disclosure entirely (APG disclosure-navigation);
-  // unlike Escape, focus is NOT pulled back — the user is already moving on.
-  const onFocusOut = (event: FocusEvent<HTMLDivElement>): void => {
-    const next = event.relatedTarget;
-    if (open && !(next instanceof Node && event.currentTarget.contains(next))) {
-      setOpen(false);
-    }
-  };
+  const close = useCallback(() => {
+    setOpen(false);
+  }, []);
+  useDisclosureDismissal(rootRef, toggleRef, open, close);
   return (
-    <div className="md:hidden" onKeyDown={onKeyDown} onBlur={onFocusOut}>
+    <div ref={rootRef} className="md:hidden">
       <button
         ref={toggleRef}
         type="button"

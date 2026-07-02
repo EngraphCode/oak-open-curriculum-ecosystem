@@ -21,9 +21,9 @@ function QuizQuestionView({
   number,
   stemId,
 }: {
-  question: QuizQuestion;
-  number: number;
-  stemId: string;
+  readonly question: QuizQuestion;
+  readonly number: number;
+  readonly stemId: string;
 }): ReactElement {
   // Roving state (selection, focus target, keyboard contract) lives in the
   // hook; `focusIndex` keeps the first radio tabbable before anything is
@@ -59,7 +59,7 @@ function QuizQuestionView({
  * 4px lemon shadow), the lemon "?" chip beside the bold title, then each question as an
  * independently answerable ARIA radio group.
  */
-export function QuizBlockView({ block }: { block: QuizBlock }): ReactElement {
+export function QuizBlockView({ block }: { readonly block: QuizBlock }): ReactElement {
   const baseId = useId();
   // Stable per-question identities so duplicate stems do not drop or
   // mis-associate answer state (a content key would collide on repeated stems).

@@ -7,7 +7,7 @@ import type { SummaryBlock } from '@/lib/blocks/types';
  * card of green-ticked points over the lemon "Reflect as you design" box with
  * its ? chip. The ticks and chip are decorative.
  */
-export function SummaryBlockView({ block }: { block: SummaryBlock }): ReactElement {
+export function SummaryBlockView({ block }: { readonly block: SummaryBlock }): ReactElement {
   return (
     <section aria-label="Summary" className="flex flex-col gap-4">
       <div className="shadow-oak-lemon rounded-[14px] border-2 border-oak-black bg-white p-[20px_22px_22px]">

@@ -7,7 +7,7 @@ import type { ReactElement } from 'react';
  * landmark instances (axe landmark-unique — only one is ever CSS-exposed, but
  * distinct names cost nothing and read better in a rotor either way).
  */
-export function HubSearch({ label = 'Hub search' }: { label?: string }): ReactElement {
+export function HubSearch({ label = 'Hub search' }: { readonly label?: string }): ReactElement {
   return (
     <div
       role="search"

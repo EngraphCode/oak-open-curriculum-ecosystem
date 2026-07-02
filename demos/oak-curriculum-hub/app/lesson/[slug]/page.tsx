@@ -111,7 +111,7 @@ function buildLessonView(data: LessonContent | null, slug: string): LessonView {
 export default async function LessonPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  readonly params: Promise<{ slug: string }>;
 }): Promise<ReactElement> {
   const { slug } = await params;
   // Server Component: read the data layer directly. Both react.dev and Next.js 16
@@ -153,7 +153,13 @@ export default async function LessonPage({
   );
 }
 
-function QuizStats({ starter, exit }: { starter: number; exit: number }): ReactElement {
+function QuizStats({
+  starter,
+  exit,
+}: {
+  readonly starter: number;
+  readonly exit: number;
+}): ReactElement {
   return (
     <div className="mb-6 flex gap-3">
       <Stat n={starter} label="Starter quiz questions" />
@@ -166,8 +172,8 @@ function LessonResources({
   items,
   oakUrl,
 }: {
-  items: readonly { type: string; label: string }[];
-  oakUrl: string | undefined;
+  readonly items: readonly { type: string; label: string }[];
+  readonly oakUrl: string | undefined;
 }): ReactElement {
   return (
     <section>
@@ -198,7 +204,7 @@ function LessonResources({
   );
 }
 
-function Stat({ n, label }: { n: number; label: string }): ReactElement {
+function Stat({ n, label }: { readonly n: number; readonly label: string }): ReactElement {
   return (
     <div className="shadow-oak-lemon min-w-[120px] rounded-xl border-2 border-oak-black bg-white px-[18px] py-3">
       <div className="text-[28px] font-bold leading-none">{n}</div>

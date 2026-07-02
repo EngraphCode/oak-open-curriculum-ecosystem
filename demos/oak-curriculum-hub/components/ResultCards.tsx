@@ -17,7 +17,7 @@ const lemonCardClass =
   'transition-[box-shadow,transform] duration-150 hover:shadow-oak-wide-lemon ' +
   'active:translate-x-0.5 active:translate-y-0.5 active:shadow-none';
 
-export function LessonCard({ hit }: { hit: Hit }): ReactElement {
+export function LessonCard({ hit }: { readonly hit: Hit }): ReactElement {
   return (
     <a
       href={hit.url}
@@ -56,7 +56,7 @@ export function LessonCard({ hit }: { hit: Hit }): ReactElement {
   );
 }
 
-export function UnitCard({ hit }: { hit: Hit }): ReactElement {
+export function UnitCard({ hit }: { readonly hit: Hit }): ReactElement {
   return (
     <a
       href={hit.url}
@@ -83,7 +83,7 @@ export function UnitCard({ hit }: { hit: Hit }): ReactElement {
 const threadChipClass =
   'inline-flex items-center gap-2.5 rounded-full border-2 border-oak-black bg-oak-pink-subdued px-4 py-[9px] text-oak-black shadow-oak-grey';
 
-export function ThreadCard({ hit }: { hit: Hit }): ReactElement {
+export function ThreadCard({ hit }: { readonly hit: Hit }): ReactElement {
   const inner = (
     <>
       <span className="text-[15px] font-semibold leading-none">{hit.title}</span>

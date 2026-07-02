@@ -176,7 +176,7 @@ function renderInteractive(block: InteractiveBlock): ReactElement {
  * exhaustive over the closed union (see the note above); malformed data cannot
  * reach here — the data plane validates against the union at its parse boundary.
  */
-export function BlockRenderer({ block }: { block: Block }): ReactElement {
+export function BlockRenderer({ block }: { readonly block: Block }): ReactElement {
   if (isInteractive(block)) {
     return renderInteractive(block);
   }

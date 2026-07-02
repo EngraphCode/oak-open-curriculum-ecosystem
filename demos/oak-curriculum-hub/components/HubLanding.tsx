@@ -12,8 +12,8 @@ function HubSearchForm({
   query,
   onQueryChange,
 }: {
-  query: string;
-  onQueryChange: (next: string) => void;
+  readonly query: string;
+  readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
     <form
@@ -58,8 +58,8 @@ function HubHero({
   query,
   onQueryChange,
 }: {
-  query: string;
-  onQueryChange: (next: string) => void;
+  readonly query: string;
+  readonly onQueryChange: (next: string) => void;
 }): ReactElement {
   return (
     <section className="border-b-[3px] border-oak-black bg-oak-lemon-subdued">

@@ -110,8 +110,8 @@ export function CoursePlayerProvider({
   entries,
   children,
 }: {
-  entries: readonly PlayerEntry[];
-  children: ReactNode;
+  readonly entries: readonly PlayerEntry[];
+  readonly children: ReactNode;
 }): ReactElement {
   const store = useMemo(() => createPlayerStore(entries), [entries]);
   const { activeSectionId, focusTargetId } = useSyncExternalStore(

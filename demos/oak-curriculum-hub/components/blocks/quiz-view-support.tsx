@@ -48,10 +48,10 @@ function OptionChip({
   isSelected,
   isCorrect,
 }: {
-  letter: string;
-  answered: boolean;
-  isSelected: boolean;
-  isCorrect: boolean;
+  readonly letter: string;
+  readonly answered: boolean;
+  readonly isSelected: boolean;
+  readonly isCorrect: boolean;
 }): ReactElement {
   if (answered && isCorrect) {
     return (
@@ -89,9 +89,9 @@ export function QuizStem({
   stemId,
   stem,
 }: {
-  number: number;
-  stemId: string;
-  stem: string;
+  readonly number: number;
+  readonly stemId: string;
+  readonly stem: string;
 }): ReactElement {
   return (
     <p id={stemId} className="mb-3 flex gap-2.5">
@@ -117,14 +117,14 @@ export function QuizOptionsGroup({
   onPick,
   onKeyNav,
 }: {
-  question: QuizQuestion;
-  keys: readonly string[];
-  stemId: string;
-  selected: number | null;
-  focusIndex: number;
-  optionRefs: RefObject<(HTMLButtonElement | null)[]>;
-  onPick: (index: number) => void;
-  onKeyNav: (event: KeyboardEvent<HTMLButtonElement>) => void;
+  readonly question: QuizQuestion;
+  readonly keys: readonly string[];
+  readonly stemId: string;
+  readonly selected: number | null;
+  readonly focusIndex: number;
+  readonly optionRefs: RefObject<(HTMLButtonElement | null)[]>;
+  readonly onPick: (index: number) => void;
+  readonly onKeyNav: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }): ReactElement {
   return (
     <div
@@ -162,14 +162,14 @@ function OptionRow({
   onPick,
   onKeyNav,
 }: {
-  option: QuizOption;
-  index: number;
-  selected: number | null;
-  tabbable: boolean;
-  row: boolean;
-  refCallback: (node: HTMLButtonElement | null) => void;
-  onPick: (index: number) => void;
-  onKeyNav: (event: KeyboardEvent<HTMLButtonElement>) => void;
+  readonly option: QuizOption;
+  readonly index: number;
+  readonly selected: number | null;
+  readonly tabbable: boolean;
+  readonly row: boolean;
+  readonly refCallback: (node: HTMLButtonElement | null) => void;
+  readonly onPick: (index: number) => void;
+  readonly onKeyNav: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }): ReactElement {
   const answered = selected !== null;
   const isSelected = index === selected;
@@ -207,8 +207,8 @@ export function QuizExplainStatus({
   answered,
   explain,
 }: {
-  answered: boolean;
-  explain: string | undefined;
+  readonly answered: boolean;
+  readonly explain: string | undefined;
 }): ReactElement {
   const visible = answered && explain !== undefined;
   return (

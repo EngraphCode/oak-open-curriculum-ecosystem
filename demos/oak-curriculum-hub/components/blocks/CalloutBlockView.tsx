@@ -43,7 +43,11 @@ const QS_CHIP =
   'shrink-0 rounded-full border-2 border-[#2a6fdb] bg-white px-[9px] py-[5px] text-[11px] leading-none font-bold tracking-[0.03em] text-[#143b78] no-underline';
 
 /** The QS-chip-led bullet list: each standard verbatim behind its deep-linking code chip. */
-function StandardsList({ standards }: { standards: readonly CalloutStandard[] }): ReactElement {
+function StandardsList({
+  standards,
+}: {
+  readonly standards: readonly CalloutStandard[];
+}): ReactElement {
   return (
     <ul className="flex flex-col gap-2">
       {standards.map((standard) => (
@@ -61,7 +65,7 @@ function StandardsList({ standards }: { standards: readonly CalloutStandard[] })
 }
 
 /** The export's "View in quality standards →" call to action, deep-linking every code. */
-function QsCta({ standards }: { standards: readonly CalloutStandard[] }): ReactElement {
+function QsCta({ standards }: { readonly standards: readonly CalloutStandard[] }): ReactElement {
   const codes = standards.map((standard) => standard.qs).join(',');
   return (
     <Link
@@ -82,7 +86,7 @@ function QsCta({ standards }: { standards: readonly CalloutStandard[] }): ReactE
  * role each would flood the landmark map — the bold title carries the meaning. `data-variant` is
  * retained (Director ruling) so a post-merge CSS extraction can key off it.
  */
-export function CalloutBlockView({ block }: { block: CalloutBlock }): ReactElement {
+export function CalloutBlockView({ block }: { readonly block: CalloutBlock }): ReactElement {
   const standards = toStandards(block);
   const qsLed = standards.length > 0;
   const variant = VARIANTS[block.variant];

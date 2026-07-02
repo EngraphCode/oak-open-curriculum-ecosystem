@@ -118,7 +118,7 @@ const destinations: readonly Destination[] = [
 const cardClass =
   'relative flex min-h-[240px] flex-col gap-3 rounded-[18px] border-[3px] border-oak-black px-6 pb-[26px] pt-6 text-oak-black no-underline shadow-[4px_4px_0_#222222] transition-transform duration-150 hover:-translate-y-1';
 
-function CardBody({ d }: { d: Destination }): ReactElement {
+function CardBody({ d }: { readonly d: Destination }): ReactElement {
   return (
     <>
       <div className="flex items-start justify-between gap-3">
@@ -153,7 +153,7 @@ function CardBody({ d }: { d: Destination }): ReactElement {
   );
 }
 
-function DestinationCard({ d }: { d: Destination }): ReactElement {
+function DestinationCard({ d }: { readonly d: Destination }): ReactElement {
   return (
     <Link href={d.href} className={`${cardClass} ${d.cardTint}`}>
       <CardBody d={d} />

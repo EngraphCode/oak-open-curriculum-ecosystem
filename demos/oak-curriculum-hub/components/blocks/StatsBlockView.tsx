@@ -25,7 +25,7 @@ const TILE_PALETTE = [
  * behaviour), up to four from `md:`. Semantic list retained — the value leads each item so it
  * reads first.
  */
-export function StatsBlockView({ block }: { block: StatsBlock }): ReactElement {
+export function StatsBlockView({ block }: { readonly block: StatsBlock }): ReactElement {
   return (
     <section aria-label="Statistics">
       {block.intro !== undefined && (

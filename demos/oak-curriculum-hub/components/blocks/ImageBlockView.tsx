@@ -38,9 +38,9 @@ function FramedImage({
   src,
   dims,
 }: {
-  block: ImageBlock;
-  src: string;
-  dims: { width: number; height: number };
+  readonly block: ImageBlock;
+  readonly src: string;
+  readonly dims: { width: number; height: number };
 }): ReactElement {
   return (
     <Image
@@ -64,7 +64,7 @@ function FramedImage({
  * as the export's framed image; everything else renders the corner-pilled
  * placeholder box, faithful to the export (most course images ship undecoded).
  */
-export function ImageBlockView({ block }: { block: ImageBlock }): ReactElement {
+export function ImageBlockView({ block }: { readonly block: ImageBlock }): ReactElement {
   const dims = block.src !== undefined ? ASSET_DIMENSIONS.get(block.src) : undefined;
   return (
     <figure>

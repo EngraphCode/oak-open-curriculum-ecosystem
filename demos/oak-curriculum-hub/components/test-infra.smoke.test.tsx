@@ -10,7 +10,7 @@ import { subjectName } from '@/components/subjects';
  * `@/*` path alias resolves exactly as the app imports. Deleted once real
  * component tests (C1+) exercise the same pipeline.
  */
-function Greeting({ name }: { name: string }): ReactElement {
+function Greeting({ name }: { readonly name: string }): ReactElement {
   return <p>Hello {name}</p>;
 }
 

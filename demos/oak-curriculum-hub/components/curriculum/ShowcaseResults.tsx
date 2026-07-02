@@ -14,9 +14,9 @@ function ScopeHeader({
   count,
   meta,
 }: {
-  title: string;
-  count: number;
-  meta: ScopeMeta;
+  readonly title: string;
+  readonly count: number;
+  readonly meta: ScopeMeta;
 }): ReactElement {
   return (
     <div className="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -42,11 +42,11 @@ function ScopeSection({
   emptyCopy,
   children,
 }: {
-  title: string;
-  count: number;
-  meta: ScopeMeta;
-  emptyCopy: string;
-  children: ReactNode;
+  readonly title: string;
+  readonly count: number;
+  readonly meta: ScopeMeta;
+  readonly emptyCopy: string;
+  readonly children: ReactNode;
 }): ReactElement {
   return (
     <section>
@@ -67,7 +67,7 @@ function combinedLatency(results: SearchResults): number | null {
   return tooks.length > 0 ? Math.max(...tooks) : null;
 }
 
-function OkResults({ results }: { results: SearchResults }): ReactElement {
+function OkResults({ results }: { readonly results: SearchResults }): ReactElement {
   const latency = combinedLatency(results);
   return (
     <div className="flex flex-col gap-10">
@@ -145,7 +145,7 @@ function showcaseAnnouncement(state: CurriculumSearchState): string {
 }
 
 /** The state-appropriate body below the announcement. */
-function ShowcaseBody({ state }: { state: CurriculumSearchState }): ReactElement {
+function ShowcaseBody({ state }: { readonly state: CurriculumSearchState }): ReactElement {
   switch (state.status) {
     case 'idle':
       return (
@@ -181,7 +181,11 @@ function ShowcaseBody({ state }: { state: CurriculumSearchState }): ReactElement
  * meta stats (total / shown / took, the failed-scope state on absent meta) and the
  * max-latency line. A polite live region announces state changes (WCAG 2.2 SC 4.1.3).
  */
-export function ShowcaseResults({ state }: { state: CurriculumSearchState }): ReactElement {
+export function ShowcaseResults({
+  state,
+}: {
+  readonly state: CurriculumSearchState;
+}): ReactElement {
   return (
     <div>
       <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">

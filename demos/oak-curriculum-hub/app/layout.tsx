@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "Search Oak's free, fully sequenced curriculum: lessons, units and threads.",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }): ReactElement {
+export default function RootLayout({ children }: { readonly children: ReactNode }): ReactElement {
   return (
     <html lang="en-GB" className={lexend.variable}>
       <body>

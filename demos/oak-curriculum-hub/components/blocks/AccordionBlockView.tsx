@@ -9,8 +9,8 @@ function AccordionItemView({
   item,
   chip,
 }: {
-  item: AccordionItem;
-  chip: string | undefined;
+  readonly item: AccordionItem;
+  readonly chip: string | undefined;
 }): ReactElement {
   return (
     <details className="overflow-hidden rounded-xl border-2 border-oak-black bg-white shadow-oak-lemon">
@@ -49,7 +49,7 @@ function AccordionItemView({
 }
 
 /** The export's green-ticked "In Oak lessons" feature list inside an opened accordion item. */
-function FeatureList({ features }: { features: readonly string[] }): ReactElement {
+function FeatureList({ features }: { readonly features: readonly string[] }): ReactElement {
   return (
     <div className="mt-1.5">
       <p className="mb-2 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-oak-green">
@@ -78,7 +78,7 @@ function FeatureList({ features }: { features: readonly string[] }): ReactElemen
  * white cards with lemon shadow, chip badges tinted `block.chip` or the module accent
  * (`--module-accent`, set by the player's module gate), dashed body divider, green feature ticks.
  */
-export function AccordionBlockView({ block }: { block: AccordionBlock }): ReactElement {
+export function AccordionBlockView({ block }: { readonly block: AccordionBlock }): ReactElement {
   return (
     <div className="flex flex-col gap-3">
       {block.items.map((item) => (

@@ -7,7 +7,13 @@ export const mutedClass = 'text-[14px] text-oak-grey';
 
 /** Cream notice card for search states that need a sentence, not a result list.
  *  Shared by the hub's live group and the /curriculum showcase. */
-export function Notice({ title, body }: { title: string; body: string }): ReactElement {
+export function Notice({
+  title,
+  body,
+}: {
+  readonly title: string;
+  readonly body: string;
+}): ReactElement {
   return (
     <div className="max-w-[560px] rounded-[10px] border-2 border-l-[6px] border-oak-black bg-oak-notice px-[18px] py-4">
       <div className="mb-1 text-base font-semibold leading-tight">{title}</div>
@@ -30,10 +36,10 @@ export function GroupHeader({
   live = false,
   subtitle,
 }: {
-  title: string;
-  tint: string;
-  live?: boolean;
-  subtitle?: string;
+  readonly title: string;
+  readonly tint: string;
+  readonly live?: boolean;
+  readonly subtitle?: string;
 }): ReactElement {
   return (
     <div className="mb-3 flex flex-wrap items-center gap-2.5">
@@ -56,7 +62,7 @@ export function GroupHeader({
 
 /** Local "In the training courses" group: bundled course sections matched via `searchHub`, each
  *  deep-linking into the course player. Exported for component tests. */
-export function TrainingGroup({ hits }: { hits: readonly CourseHit[] }): ReactElement {
+export function TrainingGroup({ hits }: { readonly hits: readonly CourseHit[] }): ReactElement {
   return (
     <section>
       <GroupHeader title="In the training courses" tint="bg-oak-aqua" />
@@ -80,7 +86,7 @@ export function TrainingGroup({ hits }: { hits: readonly CourseHit[] }): ReactEl
 
 /** Local "Quality standards" group: bundled standards matched via `searchHub`, each deep-linking to
  *  `/standards#qs=<id>` (the same focus mode Course callouts target). Exported for component tests. */
-export function StandardsGroup({ hits }: { hits: readonly StandardHit[] }): ReactElement {
+export function StandardsGroup({ hits }: { readonly hits: readonly StandardHit[] }): ReactElement {
   return (
     <section>
       <GroupHeader title="Quality standards" tint="bg-oak-lavender" />

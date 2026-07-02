@@ -10,9 +10,9 @@ export function PageHeader({
   intro,
   tint,
 }: {
-  title: string;
-  intro: ReactNode;
-  tint: string;
+  readonly title: string;
+  readonly intro: ReactNode;
+  readonly tint: string;
 }): ReactElement {
   return (
     <header className={`border-b-2 border-oak-black ${tint}`}>
@@ -37,8 +37,8 @@ export function HonestEmptyNotice({
   title,
   children,
 }: {
-  title: string;
-  children: ReactNode;
+  readonly title: string;
+  readonly children: ReactNode;
 }): ReactElement {
   return (
     <div className="mx-auto max-w-[1080px] px-6 pb-20 pt-8">

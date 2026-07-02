@@ -42,10 +42,10 @@ function SortableRow({
   count,
   onMove,
 }: {
-  text: string;
-  index: number;
-  count: number;
-  onMove: (delta: number) => void;
+  readonly text: string;
+  readonly index: number;
+  readonly count: number;
+  readonly onMove: (delta: number) => void;
 }): ReactElement {
   const atTop = index === 0;
   const atBottom = index === count - 1;
@@ -89,8 +89,8 @@ function CheckRow({
   checked,
   onCheck,
 }: {
-  checked: 'correct' | 'wrong' | null;
-  onCheck: () => void;
+  readonly checked: 'correct' | 'wrong' | null;
+  readonly onCheck: () => void;
 }): ReactElement {
   return (
     <div className="flex flex-wrap items-center gap-3.5">
@@ -119,7 +119,7 @@ function CheckRow({
  * `role="status"` region (WCAG 2.2 AA 4.1.3), coloured AND worded by outcome.
  * Reordering clears a shown result (export behaviour).
  */
-export function SortableBlockView({ block }: { block: SortableBlock }): ReactElement {
+export function SortableBlockView({ block }: { readonly block: SortableBlock }): ReactElement {
   const [order, setOrder] = useState<readonly string[]>(() => block.items.map((item) => item.id));
   const [checked, setChecked] = useState<'correct' | 'wrong' | null>(null);
   // Derive an id -> text lookup once (O(n)) rather than an O(n) find per row per

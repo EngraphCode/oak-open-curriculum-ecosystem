@@ -8,7 +8,7 @@ import type { ColumnsBlock } from '@/lib/blocks/types';
  * under the lemon shadow, a module-accent header bar per column, and the
  * green-ticked point list, up to three columns from `md`.
  */
-export function ColumnsBlockView({ block }: { block: ColumnsBlock }): ReactElement {
+export function ColumnsBlockView({ block }: { readonly block: ColumnsBlock }): ReactElement {
   return (
     <div className={`grid grid-cols-1 gap-4 ${mdGridCols(block.cols.length, 3)}`}>
       {block.cols.map((col) => (

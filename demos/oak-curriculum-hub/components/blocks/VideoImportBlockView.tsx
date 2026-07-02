@@ -14,7 +14,11 @@ import type { VideoImportBlock } from '@/lib/blocks/types';
  * machine, unreachable from course data). The duration joins the accessible name — visible-only
  * content inside a `role="img"` is never announced.
  */
-export function VideoImportBlockView({ block }: { block: VideoImportBlock }): ReactElement {
+export function VideoImportBlockView({
+  block,
+}: {
+  readonly block: VideoImportBlock;
+}): ReactElement {
   if (block.embed === 'learningframework') {
     return <LearningFramework />;
   }

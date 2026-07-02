@@ -23,9 +23,9 @@ function FlipCardView({
   chip,
   frontImage,
 }: {
-  card: FlipCard;
-  chip: string;
-  frontImage: boolean;
+  readonly card: FlipCard;
+  readonly chip: string;
+  readonly frontImage: boolean;
 }): ReactElement {
   const [flipped, setFlipped] = useState(false);
   const titleId = useId();
@@ -59,10 +59,10 @@ function CardFront({
   frontImage,
   titleId,
 }: {
-  card: FlipCard;
-  chip: string;
-  frontImage: boolean;
-  titleId: string;
+  readonly card: FlipCard;
+  readonly chip: string;
+  readonly frontImage: boolean;
+  readonly titleId: string;
 }): ReactElement {
   return (
     <>
@@ -96,7 +96,7 @@ function CardFront({
  * export's own mobile behaviour), up to three from `md:`. `chip` tints the badge and the revealed
  * back.
  */
-export function FlipBlockView({ block }: { block: FlipBlock }): ReactElement {
+export function FlipBlockView({ block }: { readonly block: FlipBlock }): ReactElement {
   // Stable per-card keys so duplicate front text does not drop or mis-associate
   // flip state (a content key would collide on repeated fronts).
   const keys = useMemo(() => block.cards.map((_card, index) => `card-${index}`), [block.cards]);

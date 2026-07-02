@@ -23,10 +23,10 @@ function HotspotMarker({
   active,
   onSelect,
 }: {
-  index: number;
-  title: string;
-  active: boolean;
-  onSelect: () => void;
+  readonly index: number;
+  readonly title: string;
+  readonly active: boolean;
+  readonly onSelect: () => void;
 }): ReactElement {
   return (
     <button
@@ -52,9 +52,9 @@ function SpotDetail({
   title,
   text,
 }: {
-  num: number;
-  title: string;
-  text: string;
+  readonly num: number;
+  readonly title: string;
+  readonly text: string;
 }): ReactElement {
   return (
     <div
@@ -82,7 +82,7 @@ function SpotDetail({
  * are real buttons in DOM order (keyboard-operable, `aria-pressed`); their
  * accessible names carry the visible number AND the spot title.
  */
-export function HotspotBlockView({ block }: { block: HotspotBlock }): ReactElement {
+export function HotspotBlockView({ block }: { readonly block: HotspotBlock }): ReactElement {
   const [active, setActive] = useState(0);
   const spot = block.spots.at(active);
   // Stable per-spot keys so duplicate titles do not drop or mis-associate
