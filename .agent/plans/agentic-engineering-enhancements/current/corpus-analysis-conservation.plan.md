@@ -7,10 +7,10 @@ lineage:
 todos:
   - id: graduate-discovered-buffer
     content: "Drain the distilled buffer (the v2 corpus-analysis discoveries) to durable homes via consolidate-until-done — the shared conservation machinery, NOT a bespoke graduation step (PDR-122: the pipeline is a FEEDER into PDR-014 capture->distil->graduate->enforce). Drive from the pre-staged disposition ledger below; the run VERIFIES each disposition first-hand (the triage is a starting hypothesis, not the authority). Every buffer item ends with a recorded decision. The distilled buffer ends empty or owner-decision-gated."
-    status: pending
+    status: completed
   - id: author-conserve-by-default-rule
     content: "Author the always-applied firing rule agentic-judgment-conserve-by-default (operationalises PDR-122 invariant 2; PDR-122 Consequences names it). ONE commit lands the canonical rule + THREE platform forwarders + the index entry: .agent/rules/agentic-judgment-conserve-by-default.md (canonical body, opening with a one-paragraph gist AND an explicit sentence justifying always-on over trigger-loaded — the irreversible-discard harm class), .claude/rules/...md (forwarder), .cursor/rules/...mdc (alwaysApply frontmatter + pointer), .agents/rules/...md (one-line forwarder), and the RULES_INDEX.md entry (carrying the same always-on rationale). Verify the live adapter-tier count and exact index format first-hand against an exemplar (verify-dont-trust has all four tiers — .agent/.claude/.cursor/.agents) before authoring; reconcile the index's own three-vs-four-on-disk-forms wording while there."
-    status: pending
+    status: completed
   - id: promote-tooling-to-skill-and-scripts
     content: "Promote the conserved corpus-analysis tooling to a repeatable capability: the oak-corpus-analysis skill (drives one run end-to-end: cost gate -> launch Workflow -> aggregation driver -> graduate-or-decide -> hand kept candidates to consolidate-until-done) + agent-tools scripts (corpus-analysis-aggregate, corpus-analysis-cost-gate, corpus-analysis-partition) built as tested library code with thin bin entries. TOUCHES THE AGENT-TOOLS SUBSTRATE: the CLI invocation model (tsx-on-source vs built-dist) is a CROSS-LANE decision DEFERRED to the agent-tools-architecture-standard WS0 — do NOT pre-commit it here; build the driver ADR-178-neutral and document an interim invocation matching the nearest settled precedent. The skill carries the harness-Workflow operational footguns."
     status: pending
@@ -23,7 +23,17 @@ todos:
 
 # Corpus-analysis conservation — graduate the discoveries, fire the doctrine, make the tooling repeatable
 
-> **STATUS: REVIEWED — READY FOR EXECUTION (2026-06-30, Linnet binds Leeward).**
+> **STATUS: WS-A + WS-B LANDED (2026-07-02 dedicated consolidation, Rosemary stirs Bracken); WS-C
+> (tooling promotion) + WS-D (discoverability sweep) remain.** WS-A executed via
+> `consolidate-until-done`: all 13 dispositions re-verified first-hand — 4 already-covered
+> confirmed; 4 amendments landed (the watcher rule's silent-failure class, the vendor rule's
+> mental-model-drift clause, `harness-shell-and-commit-edge-cases`, the reframing pattern's
+> mid-execution-reshape section); 5 new patterns landed and indexed; the Workflow footguns homed in
+> `bounded-structured-output-for-workflows`; the Decision-Lenses worked example homed in
+> `precedence-is-not-approval`. WS-B landed the rule + three forwarders + the always-on RULES_INDEX
+> row + the four-forms index wording fix.
+>
+> Prior banner: REVIEWED — READY FOR EXECUTION (2026-06-30, Linnet binds Leeward).
 > `assumptions-expert` + `docs-adr-expert`: READY-WITH-AMENDMENTS, all integrated (ledger-discipline
 > citation corrected from ADR-117; honest 13+2 denominator; `.agents/` fourth adapter tier added to
 > WS-B; always-on rationale carried into the rule body; WS-C ship-now-on-interim clarified;

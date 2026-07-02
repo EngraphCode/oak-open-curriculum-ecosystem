@@ -6,6 +6,8 @@ pdr_kind: pattern
 
 **Status**: Accepted
 **Date**: 2026-06-30
+**Amended**: 2026-07-02 — invariants 5–6 and the invariant-4 economics/spend-governance
+extension, from the 2026-07-01/02 napkin-corpus discovery-run worked instances.
 **Related**:
 [PDR-035](PDR-035-agent-work-capabilities-belong-to-the-practice.md)
 (agent-work capabilities are Practice substance — this is the construction doctrine for one
@@ -42,7 +44,7 @@ generalise to every pipeline of this shape:
 
 ## Decision
 
-Pipelines of this shape are built to four invariants.
+Pipelines of this shape are built to six invariants.
 
 1. **Atomic judgment, deterministic aggregation.** An LLM stage emits *only* local, per-item,
    typed qualitative judgments. **Every count, fraction, threshold, verdict, and routing decision
@@ -74,6 +76,36 @@ Pipelines of this shape are built to four invariants.
    built on a guessed count is blind. **Throughput (concurrency, batching, cross-window
    checkpointing) is tuned independently of volume and rigour**: every item, tier, and test still
    runs; only wall-clock changes. Rate is never traded for rigour.
+
+   The dominant fleet cost lever is **turns × context**, not model tier: every tool call re-reads
+   the agent's whole context, so a free-tool voter costs an order of magnitude more than a
+   no-tools single-turn voter on the same judgment (measured 7–17× cheaper and ~3× faster,
+   2026-07-02) — least-privilege agent types are an *economic* primitive as much as a safety one.
+   Budget is declared **pre-run in every denomination that bills** (tokens, meter points,
+   dollars): subscription-quota exhaustion can silently overflow a subagent fleet onto API
+   billing — a budget decision the operator never made. A cost backstop firing mid-run is a
+   **fork, not a failure**: analyse the real number first-hand, prepare the launch-ready forks,
+   commit the checkpoints, surface with a brief, and stop the spend. Broad execution authority
+   ("whatever you think appropriate") covers execution — it never re-authorises a multiple of an
+   owner-set ceiling.
+
+5. **Stages that can fail independently are split and checkpointed.** A multi-stage pipeline
+   checkpoints durable intermediate outputs between independently-failing stages, so a downstream
+   failure never loses the upstream spend. A sandboxed stage that cannot write files cannot
+   self-checkpoint — so a stage pair where the later can fail after the earlier succeeds
+   (map→reduce, reduce→validate) is **split** into separately-launched steps whose outputs are
+   committed before the next launches. Recovery is **seeded continuation from the committed
+   checkpoint** — validated at build with a stage discriminant so wrong-stage seeding is a
+   zero-spend typed failure — never a blind resume that depends on cache-on-failure semantics.
+
+6. **Calibrate judgment before scaling spend.** The first spend checkpoint measures **judgment
+   quality, not only cost** — a checkpoint that reads burn-rate but not verdict calibration
+   ratifies an uncalibrated regime at scale. The cure is structural, not vigilance: seed
+   known-answer canaries **first** in the stream behind a deterministic abort breaker, and pilot
+   ~1/10th of the corpus before any full run. A judgment-regime change (model tier, tool
+   surface, turn budget) is a **design change requiring recalibration**, never a drop-in swap:
+   with candidates, prompts, and quorum math held constant, two regimes kept 47% vs 10.6% —
+   40% quorum-level disagreement, one-directional toward kill (2026-07-02).
 
 ## Consequences
 

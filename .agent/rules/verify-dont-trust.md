@@ -104,6 +104,19 @@ inherited prose define the question you are answering, re-test the verdict
 against the live artefact: is this still the right frame, or am I inheriting a
 stale diagnosis as my starting premise?
 
+The same discipline covers authorities you are about to cite or copy. Before
+writing "this discipline lives in ADR-NNN" into a durable artefact, open the
+claimed home and confirm the substance is actually there — citing from a memory
+of "where this kind of thing lives" plants a wrong authority that a future
+reader follows to nothing (worked failure 2026-06-30: a plan cited ADR-117 for
+a discipline that lives in the plan architecture; caught pre-commit). And
+before recommending a consistency or "simplify" move on tooling, ground the
+**governing** decision (the ADR/PDR that owns the surface), never the sibling
+that looks simplest — siblings can themselves be the inconsistency (worked
+instance 2026-06-29: "run it via tsx like its siblings" would have violated
+ADR-178, which mandates built-`dist` for agent-tools CLIs; the simplest-looking
+siblings were the outliers).
+
 The proactive form: before editing *around* an inherited story to repair it,
 find the fact that would **falsify** the proposed repair. Locate the fact that
 would break your fix before you build it — the diagnostic counterpart to "a

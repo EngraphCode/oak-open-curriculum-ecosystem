@@ -102,7 +102,11 @@ the lowest general layer, consumed by two permanent thin surfaces.
 - **WS5 — Converge the existing tools (depends on WS1+WS2; incremental, TDD, per-tool).** Bring the
   rest of `agent-tools` to the standard: the `tsx`-vs-`dist` sibling inconsistency (including
   `skills:check`), test-artefacts-in-`dist`, and naming/placement (`check-encoding` in `src/encoding/`
-  vs the `validate-*` / `src/validators/` sibling convention). Crosswalk
+  vs the `validate-*` / `src/validators/` sibling convention). Include
+  `src/corpus-analysis/` — built deliberately library-only (no CLI / gate / husky wiring,
+  convention-stable: schema-first zod, Result, vitest) precisely to stay clear of the undesigned CLI
+  surface; it must conform once the standard lands (its CLI/driver shape is the cross-lane dependency
+  the corpus-analysis-conservation plan's WS-C defers to this plan's WS0). Crosswalk
   [`agent-infrastructure-coherence-audit.plan.md`][cca] (artefact coherence — a complementary axis,
   not this one), [`../current/agent-tools-cli-ergonomics.plan.md`][clierg], and
   [`../current/agent-tools-test-io-compliance.plan.md`][tio].

@@ -33,6 +33,14 @@ authority — the named home read and confirmed to carry the substance, or the
 owner's live decision. Approval must be present and locatable, never inferred
 from the existence of a prior act.
 
+The constructive face: run the Decision Lenses over an
+already-committed, already-reviewed design when a correction signal arrives —
+"committed and four-lens-reviewed" is precedence, not immunity. Worked
+instance (2026-06-30, the kill-terminal-on-one adjudication): Lens 1 *mandated*
+overturning the committed design, lenses 3/4 *refined* the fix from a minimal
+patch to the cleaner quorum-floor, and the matrix *retracted* a cost/rigour
+"knob" about to be offered (a cheap-cure option caught by the matrix itself).
+
 ## Composition
 
 - [`verify-dont-trust`](verify-dont-trust.md) — a claim is true only when its

@@ -160,7 +160,9 @@ per-tool.
 **Owning artefact:** [`upstream-api-alignment` thread record](threads/upstream-api-alignment.next-session.md)
 §Next safe step; #291's review-triage ledger. No owning plan yet — a candidate ADR / small plan.
 
-**Status:** open — surfaced during the #291 review triage (2026-07-01); not blocking #291. (Renumbered Q-012 → Q-013 on the 2026-07-01 main merge — Q-number collision with the cluster-naming Q-012.)
+**Status:** open — surfaced during the #291 review triage (2026-07-01); not blocking #291.
+(Renumbered Q-012 → Q-013 on the 2026-07-01 main merge — Q-number collision with the
+cluster-naming Q-012.)
 
 [kg-two-altitudes]: ../../reports/knowledge-as-graph-two-altitudes-2026-06-23.md
 [worktree-pilot-plan]: ../../plans/agentic-engineering-enhancements/current/worktree-pilot-consolidation-and-model-verdict.plan.md
