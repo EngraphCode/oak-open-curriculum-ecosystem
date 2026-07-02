@@ -68,6 +68,8 @@
       "Skill(oak-commit:*)",
       "Skill(oak-complex-merge)",
       "Skill(oak-complex-merge:*)",
+      "Skill(oak-pr-lifecycle)",
+      "Skill(oak-pr-lifecycle:*)",
       "Skill(oak-ground-truth-design)",
       "Skill(oak-ground-truth-design:*)",
       "Skill(oak-ground-truth-evaluation)",
