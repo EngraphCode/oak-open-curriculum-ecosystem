@@ -23,9 +23,54 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## OWNER DECISION PENDING — discovery run PAUSED at the validate money-gate (2026-07-02, Perseus wakes Oblivion)
+## OWNER DECIDED: FORK 1 — validate ALL 246, ceiling 62M (2026-07-02, Perseus wakes Oblivion; session compacted mid-flight)
 
-**Self-contained. The run is mid-flight, healthy, and stopped deliberately at a genuine owner fork.**
+**Self-contained. The run is mid-flight and healthy. The owner decided fork 1 ("scanning the full
+corpus is a rare or even singular event — check everything") AND requested a deterministic
+strength-of-evidence triage signal for a later manual round. The validate artefact is ALREADY
+SEEDED and contract-green at `agent-tools/dist/corpus-analysis/workflows/validate.workflow.seeded.mjs`
+(293,182 chars; 246 candidates + grounding projection + ceiling 62,000,000). It was held unlaunched
+only for this compaction.**
+
+**Immediate pickup sequence:**
+
+1. **Launch validate**: `Workflow({scriptPath: <repo>/agent-tools/dist/corpus-analysis/workflows/validate.workflow.seeded.mjs})`.
+   Expect long wall-clock (~5h at MAX_CONCURRENCY=3, ~246 candidates × 2–5 Opus voters; expected
+   ~43M tokens) and a possible quota trip — that is what candidate-granular resume is FOR: commit
+   the partial result envelope, re-seed with `--validate-result <partial.json>` added (resume ids
+   derive from committed results), launch the new seeded artefact, repeat until
+   `validateComplete: true` across the merged results.
+2. **Critically assess + commit** each result envelope (extract `.result` from the task output
+   JSON; it must be `ok: true`) to
+   `data/discovery-run-validate-result-2026-07-02[.N].json`, committed (lean pathspec commits are
+   sanctioned for checkpoints).
+3. **While validate runs, build the owner-requested TRIAGE leg** (`post-run/triage.ts`, pure +
+   tested, wired into the post-run driver): per KEPT/rerouted candidate emit an evidence vector —
+   window span + groundingCount (reduce), adjudication path (clean-keep vs quorum-keep vs
+   quorum-reroute, quorum margin, min/median voter test-confidences, importance) (validate),
+   novelty (no corroborated home) + recall-matched (meta), longitudinal-suspect (temporal report) —
+   and a documented deterministic banding (strong / moderate / review-first; e.g. 2–1 quorum keeps,
+   low-confidence passes, and suspect longitudinals go review-first). NEVER an LLM-emitted score
+   (PDR-122: agents judge atomically, code computes aggregates).
+4. **Meta stage** (only after validateComplete over the merged set):
+   `pnpm build-run-artefact --stage meta --reduce-result <reduce ckpt> --validate-result <each>`,
+   launch, commit `data/discovery-run-meta-result-2026-07-02.json`.
+5. **Post-run driver**: `pnpm post-run-driver --map-result … --reduce-result … --validate-result …
+   --meta-result …` — integrity must be empty, disposition recompute diff zero; Choice-B is a
+   verdict to report, never an auto-rerun trigger.
+6. **Discovery artefacts** (substance report with novelty stratification + triage table +
+   curator-pass run-record) → **conservation buffer** → **consolidate-until-done** — the
+   conservation IS the run's success. Napkin rotation only after the run. Also note for closeout:
+   a docs-adr pass over the rewritten tooling README is an open minor follow-up, and code-expert's
+   open question (does harness resume-cache key on agent label? duplicate `vote:` labels can recur
+   across rounds) is bounded-harmless but worth putting to the harness owner.
+
+**Operator discipline that must survive compaction:** treat every Workflow "completed" as
+suspect until the typed envelope is inspected (`ok`, completeness fields, counts); a failure is a
+typed value, not an exception; never `--no-verify`; commit-queue ceremony for source commits (the
+documented stream-truncation fallback is a direct `git commit -F` with output redirected, hooks
+intact); the `.claude/settings.json` working-tree modification is pre-existing and NOT ours — leave
+it; branch `docs/consolidations` stays unpushed (owner's call).
 
 **What happened overnight (owner-authorised autonomous session):** (1) On the owner's direction the
 whole corpus-analysis workflow tooling was REBUILT as compiled TypeScript — the hand-authored `.mjs`
