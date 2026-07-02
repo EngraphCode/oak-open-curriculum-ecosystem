@@ -19,15 +19,18 @@ permanent home, verify the home, then archive and start fresh.
 Rotated at a goal-gated dedicated-consolidation session. The processed window (2026-06-29 →
 2026-07-02: the Falcon arc-closeout tail, Borealis's dedicated pass, the corpus-analysis arc
 Wren→Laurel→Linnet→Flare→Tornado→Perseus, the check-encoding sessions Callisto→Limpet, the
-statusline session Wyvern, the agent-naming deep-dive Tuna, and the upstream-alignment closeout
+statusline session Wyvern, the agent-naming deep-dive Tuna, and the upstream-alignment
+closeout
 Vanilla) is preserved verbatim in `archive/napkin-2026-07-02-rosemary-consolidation.md`
 (byte-identical). Every behaviour-changing entry was dispositioned first-hand before the
 archive-move; the commits and the homes are the record. Highlights: the shared-checkout
 branch-ops and untracked-live-WIP disciplines → `worktree-hygiene` §5; the instrument-to-goal
 and owner-granted-sequencing-exception disciplines → `user-collaboration.md`; rendered-output
-test craft → `testing-patterns.md`; notify-at-the-action-moment → `owner-attention-at-action-moments`;
+test craft → `testing-patterns.md`; notify-at-the-action-moment →
+`owner-attention-at-action-moments`;
 authority-grounding (cite/govern) → `verify-dont-trust`; status-lines-are-verdicts →
-`present-verdicts-not-menus`; two new patterns (`removing-a-constraint-surfaces-what-it-also-bounded`,
+`present-verdicts-not-menus`; two new patterns
+(`removing-a-constraint-surfaces-what-it-also-bounded`,
 `many-pairwise-links-mean-one-unnamed-lever`); the 2026-07-01/02 recurrence cluster →
 the action-time-structural-interrupt pathogen inventory; F-111 (Bash sandbox / zsh dialect) →
 the frictions register; the pre-existing red `sdk-codegen` gate + programmes execution facts →
@@ -36,3 +39,27 @@ the `upstream-api-alignment` thread record (#291 is MERGED). PDR-122-shaped cand
 pass's distilled drain.
 
 New session observations append below.
+
+## 2026-07-02 — the consolidation session's own observations (Rosemary stirs Bracken)
+
+- **The patterns-README index is GENERATED — never hand-edit it.** I hand-added index lines +
+  category counts; the pre-commit `validate-patterns-index` gate refused the commit and named the
+  fix (`pnpm --filter @oaknational/agent-tools validate-patterns-index:fix`), which regenerated the
+  index from pattern frontmatter (including `use_this_when` verbatim). Lesson: before hand-editing
+  ANY index, check for its generator/validator first — the repo's own generate-don't-hand-maintain
+  doctrine, lived. (New pattern files still need authoring by hand; only the README index is
+  derived.)
+- **zsh no-word-split bit live, minutes after I documented it as F-111** — `for f in $(echo
+  "$FILES")` passed one joined string, silently emptying a commit-queue enqueue whose error my own
+  `2>/dev/null | jq` pipe then swallowed. Corroborates F-111 and
+  `harness-shell-and-commit-edge-cases`;
+  the deeper tell: piping a CLI's output to jq with stderr suppressed hides the failure completely —
+  run state-mutating CLIs bare first, parse later.
+- **The commit-queue `commit` workflow still dies at the documented depcruise→turbo stream
+  truncation (2 attempts, 2026-07-02)** — the commit skill's documented cure (direct
+  `git commit -F <msgfile>` with output redirected, hooks intact, then manual `complete` + claim
+  close) worked exactly as written. Falsifiability datapoint for the skill: the spawned-commit path
+  remains unreliable; keep the workaround.
+- **`claims close` requires `--now`; `claims open` defaults it** — inconsistent option surface
+  (F-72..F-80 sibling; cost one retry). A body/summary containing an apostrophe also exits 2
+  (shell-quoting through the pnpm wrapper) — use apostrophe-free summaries or `--body-file`.

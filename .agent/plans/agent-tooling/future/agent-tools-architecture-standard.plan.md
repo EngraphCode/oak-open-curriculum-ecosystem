@@ -102,7 +102,10 @@ the lowest general layer, consumed by two permanent thin surfaces.
 - **WS5 — Converge the existing tools (depends on WS1+WS2; incremental, TDD, per-tool).** Bring the
   rest of `agent-tools` to the standard: the `tsx`-vs-`dist` sibling inconsistency (including
   `skills:check`), test-artefacts-in-`dist`, and naming/placement (`check-encoding` in `src/encoding/`
-  vs the `validate-*` / `src/validators/` sibling convention). Include
+  vs the `validate-*` / `src/validators/` sibling convention). Include the **tracked parser-migration
+  debt** (2026-06-29, the #282 CPD extraction): `branch-touched-files/cli.ts`, `pr-watch/cli.ts`, and
+  `spawn/cli-args.ts` still carry the generic arg-parser pattern that `session-metadata` +
+  `context-cost` already migrated onto `core/cli-arg-parser` — migrate them in a later PR. Include
   `src/corpus-analysis/` — built deliberately library-only (no CLI / gate / husky wiring,
   convention-stable: schema-first zod, Result, vitest) precisely to stay clear of the undesigned CLI
   surface; it must conform once the standard lands (its CLI/driver shape is the cross-lane dependency

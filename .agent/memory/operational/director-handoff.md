@@ -276,7 +276,8 @@ first-hand as of 2026-06-25.
 >
 > **READINESS GATE for the next Director:** answer the five questions + paste the mechanical liveness
 > check (UTC-to-UTC) before Moment-2; then open your Director claim (Falcon's `4180e263` is already
-> relinquished — there is no live claim to take over). Prior-rotation detail (the Firefly→…→Trawler tenures, the 2026-06-25 worktree-pilot
+> relinquished — there is no live claim to take over). Prior-rotation detail (the
+> Firefly→…→Trawler tenures, the 2026-06-25 worktree-pilot
 > mandate, the worktree orphan map) is conserved in git history, the handoff records under
 > `.agent/state/collaboration/handoffs/`, and `repo-continuity.md`.
 

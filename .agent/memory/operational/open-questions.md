@@ -124,9 +124,11 @@ name to prevent part/whole confusion with the member `knowledge-distribution-sub
 **Why it shapes future work:** the cluster has no single name and four fragmented `serves_stream`
 labels today. Per the owner's registry+validation principle (2026-06-30, now
 [`planning-estate-rewrite.plan.md`](../../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
-§"Governing invariant"), an organising axis must be a *registered, validated* value — so naming the
+§"Governing invariant"), an organising axis must be a *registered, validated* value — so naming
+the
 cluster and registering its axis value are **one act**, and that act lives in the estate-rewrite's
-vocabulary work (ADR-200 WS2/WS3). Slapping a free-text `serves_stream` value now would re-commit the
+vocabulary work (ADR-200 WS2/WS3). Slapping a free-text `serves_stream` value now would re-commit
+the
 defect the principle names.
 
 **Why not cheaply answerable now:** the stream/thread axis registry does not exist yet (the
@@ -135,13 +137,16 @@ estate-rewrite builds it).
 **Owning artefact:** the estate-rewrite plan (§Governing invariant) + the napkin registry-principle
 candidate.
 
-**Status:** open — resolves when the estate-rewrite's stream/thread axis registry lands (WS2/WS3) and
-the owner ratifies the cluster name as a registered value. Not blocking (spawn-flow proceeds regardless).
+**Status:** open — resolves when the estate-rewrite's stream/thread axis registry lands (WS2/WS3)
+and
+the owner ratifies the cluster name as a registered value. Not blocking (spawn-flow proceeds
+regardless).
 
-## Q-013 — MCP tool-result pagination contract (response headers are dropped, so `Link: rel="next"` is unusable)
+## Q-013 — MCP tool-result pagination contract (`Link: rel="next"` headers are dropped)
 
 **Context:** many upstream tool descriptions tell agents that a `Link: rel="next"` header signals
-more pages, but the MCP invoker reduces the HTTP response to `{ httpStatus, payload }` and `callTool`
+more pages, but the MCP invoker reduces the HTTP response to `{ httpStatus, payload }` and
+`callTool`
 returns only `{ status, data }` — response headers are dropped. So an MCP client can never observe
 the pagination header. This affects **every** paginated tool (`get-*-questions`, `get-*-assets`,
 `get-key-stages-subject-lessons`, …), not just the programme tools where Cursor/Codex flagged it on

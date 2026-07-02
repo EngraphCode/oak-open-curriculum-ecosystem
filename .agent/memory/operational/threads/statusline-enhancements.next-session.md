@@ -150,10 +150,13 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
   **upstream**: Claude Code refreshes its rate-limit snapshot on its own cadence, identical numbers
   arrive across renders, and the statusline faithfully reflects them (the gauge vanishes when
   `rate_limits` is absent; the reset countdown ticks every render via the clock read, which reads as
-  the % being stuck). Because the root cause is upstream, **not a current priority** (spawn-flow is).
+  the % being stuck). Because the root cause is upstream, **not a current priority**
+  (spawn-flow is).
   The item: an **env-gated disk trace log** (off by default) capturing the raw `rate_limits` subtree
-  plus the parsed values and a timestamp per render — to (a) confirm the source value is static across renders
-  and (b) give this deliberately-silent soft surface the observability it structurally lacks (every
+  plus the parsed values and a timestamp per render — to (a) confirm the source value is static
+  across renders
+  and (b) give this deliberately-silent soft surface the observability it structurally lacks
+  (every
   soft-fallback — git-io, the registry read, the experiments listing, each field parse — swallows to
   absent with no trace; only real *throws* render the loud `⚠ statusline:` token today). Build
   test-first when prioritised. (Moved here from the now-ready-to-archive
