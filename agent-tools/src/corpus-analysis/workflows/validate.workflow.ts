@@ -37,10 +37,13 @@ declare const log: HarnessLog;
 
 /**
  * Max candidate adjudication loops in flight. Each loop dispatches at most the 3-voter
- * Tier-2 ensemble at once, so peak in-flight agents ≈ 9 — sized deliberately below the
- * 15-way burst that tripped the server rate limit on 2026-07-01.
+ * Tier-2 ensemble at once, so peak requested agents ≈ 30 — the harness's own
+ * per-workflow cap (min(16, cores-2)) queues the excess harmlessly. Re-derived
+ * 2026-07-02 (owner-decided, was 3): single-turn no-tools voters make ~1 API call each
+ * instead of 5-10, so the request pressure that originally forced the low cap is gone;
+ * a rate-limited voter dies as a first-class unadjudicated outcome and resumes cheaply.
  */
-const MAX_CONCURRENCY = 3;
+const MAX_CONCURRENCY = 10;
 /** Max deterministic per-voter dispatch delay (ms) to flatten the burst. */
 const JITTER_MS = 250;
 /** Safety cap on adjudication rounds per candidate (the state machine terminates well before). */
