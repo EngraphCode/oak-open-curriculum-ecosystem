@@ -31,8 +31,9 @@ status: active
 | Zinnia guards Spore | claude | claude-opus-4-8[1m] | e7c85d | implementer — styling/UI (cf62bda9, adopted from Typhoon) — HOLDING-WARM at a pristine handoff (record `handoffs/2026-07-01-curriculum-hub-styling-zinnia-guards-spore.md`); relays on styling-successor register | 2026-07-01 | 2026-07-01 |
 | Birch mends Petal | claude | claude-opus-4-8[1m] | 5b5574 | director #7 (ACTIVE — owner-directed succession; PDR-064 Moment-2 `7a8d5b1c` 20:30Z with pasted F-44 comms-live cross-check; holds 35d9c8f2) | 2026-07-01 | 2026-07-01 |
 | Thyme guards Dewfall | claude | claude-fable-5 | d1572a | implementer — hygiene & repo-parity (NEW lane, fresh claim 16be897b; Director-routed 06:07Z; peers Limpet herds Marsh 34e191 data / Galago turns Footfall 685da6 styling register their own rows per PDR-027) | 2026-07-02 | 2026-07-02 |
+| Comet hunts Lightyear | claude | claude-fable-5 | e7f728 | director #8 (ACTIVE — owner-named succession from Birch; PDR-064 Moment-2 `a43d3f2e` 2026-07-02T06:46Z with pasted F-44 comms-live cross-check; adopted 35d9c8f2) | 2026-07-02 | 2026-07-02 |
 
-Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→Eclipse→Cinder→Deneb→Junk→**(owner-launched successor pending)**; styling Squall→Dolphin→Laurel→Kite→Linnet→Typhoon→**Zinnia (holding-warm)**→(successor pending). Director chain: Herring→Swordfish→Lantern→Hawthorn→Sycamore→Panther→**Birch mends Petal (#7, ACTIVE)**. All transfers clean PDR-064/PDR-063.
+Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→Eclipse→Cinder→Deneb→Junk→**(owner-launched successor pending)**; styling Squall→Dolphin→Laurel→Kite→Linnet→Typhoon→**Zinnia (holding-warm)**→(successor pending). Director chain: Herring→Swordfish→Lantern→Hawthorn→Sycamore→Panther→Birch→**Comet hunts Lightyear (#8, ACTIVE — Moment-2 `a43d3f2e` 2026-07-02T06:46Z)**. All transfers clean PDR-064/PDR-063.
 
 ## Lane state
 

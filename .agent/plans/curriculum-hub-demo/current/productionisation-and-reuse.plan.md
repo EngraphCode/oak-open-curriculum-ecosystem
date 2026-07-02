@@ -59,6 +59,13 @@ costs a fraction of this one: it scaffolds against extracted, fully-gated worksp
 design export through committed tooling instead of hand-archaeology, inherits one token authority,
 and lands at full repo standards by construction.
 
+## Value streams (owner, 2026-07-02)
+
+The owner's three co-equal value streams map onto this plan's workstreams: **stream 1** (Heather's
+work web-visible for user testing) = the merge + §J hosting; **stream 2** (the agent-driven
+ingestion pipeline) = WS2; **stream 3** (rapid web-app capability — the Oak Innovation Kit) =
+WS0 + WS3 + WS4. Streams 2 and 3 are not riders on stream 1.
+
 ## Mechanism
 
 The demo proved the design→data→code pipeline end-to-end by hand. Each workstream converts one

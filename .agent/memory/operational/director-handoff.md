@@ -264,7 +264,7 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — Director: Birch mends Petal (#7, ACTIVE since 2026-07-01 ~20:30Z)
+> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — Director: Comet hunts Lightyear (#8, ACTIVE since 2026-07-02 06:46Z)
 >
 > The current Director-led multi-session effort is the **Curriculum Hub program**: reproduce the
 > ENTIRE Oak Curriculum Hub from the Claude Design canonical export — ALL pages + ALL components,
@@ -273,33 +273,36 @@ first-hand as of 2026-06-25.
 > milestone commit → push → PR → MERGE TO MAIN; §J = owner-hosted from main 2026-07-02.**
 >
 > **A successor rehydrates from** (detail lives there, not duplicated): the thread record
-> `threads/curriculum-hub-demo.next-session.md` (refreshed 2026-07-01 ~22:25Z — cast, the evening
-> arc, the fully-specified per-lane successor pickups), the Panther→Birch record
-> `handoffs/2026-07-01-curriculum-hub-director-panther.md`, the guiding plan
-> `.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md` (§Ratified decisions —
-> the owner's four calls 2026-07-01 ~21:30Z + the paginated-player ruling #7), and the NEW
-> post-merge plan `.agent/plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md`
-> (WS0–WS6, assumptions-expert-reviewed, all fixes applied).
+> `threads/curriculum-hub-demo.next-session.md` (identity table + lane state current), the
+> Birch→Comet record `handoffs/2026-07-02-curriculum-hub-director-birch.md` (self-contained:
+> completion bar, remaining pre-merge map, the proven operating protocol, tracked debts), the
+> guiding plan `.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`
+> (§Ratified decisions — the owner's four calls 2026-07-01 ~21:30Z + the paginated-player ruling
+> #7), and the post-merge plan
+> `.agent/plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md` (WS0–WS6 + the
+> 2026-07-02 three-co-equal-value-streams mapping — uncommitted delta rides Thyme's config
+> window).
 >
-> **Director:** Birch mends Petal (`5b5574`, #7; owner-directed succession from Panther; Moment-2
-> `7a8d5b1c` 2026-07-01T20:30Z with the pasted UTC liveness check + the F-44 comms-live
-> cross-check — Panther comms-silent ~66 min, heartbeat off, owner-named outgoing). Chain:
-> Herring → Swordfish → Lantern → Hawthorn → Sycamore → Panther → Birch. Holds `35d9c8f2`;
-> watcher + heartbeat live.
+> **Director:** Comet hunts Lightyear (`e7f728`, #8, claude / claude-fable-5; owner-named
+> succession from Birch; Moment-2 `a43d3f2e` 2026-07-02T06:46:22Z with the pasted UTC liveness
+> check + the F-44 comms-live cross-check; Birch stood down cleanly 06:49:25Z — heartbeat-end +
+> closeout, nothing retained). Chain: Herring → Swordfish → Lantern → Hawthorn → Sycamore →
+> Panther → Birch → Comet. Holds `35d9c8f2`; watcher + heartbeat live.
 >
-> **Cast state (2026-07-01 ~22:25Z):** BOTH implementer lanes HOLDING-WARM on pristine PDR-063
-> handoffs awaiting OWNER successor launches (the double-launch ask is with the owner) — data
-> `fd0ee59e` retained (Junk turns Seabed retired 21:19Z; turnkey: the BINDING test-expert
-> search-seam TDD cycle + §D captures); styling `cf62bda9` warm-held (Zinnia guards Spore;
-> turnkey: paginated-player layer + export-grounded sidebar spec + SPA-drive grounding + 17
-> block-view treatments). The evening arc (the 11-point owner brief, the 17-agent verified
-> analysis, four ratified decisions, slice 2b/2c landings, the live-ES real-Oak proof, §F
-> cleared, both plans written + reviewed) lives in the thread record's CURRENT STATE block.
+> **Cast state (2026-07-02 ~06:50Z):** three ACTIVE implementer lanes — **Galago turns Footfall**
+> (`685da6`, styling `cf62bda9`): block render-grounding + the 17-view styling pass (the §D
+> bulk), then Framework → Exemplars/Wiki → Lesson → E1/E2 → E3-UI; one `aria-current` fold owed.
+> **Limpet herds Marsh** (`34e191`, data `fd0ee59e`): both cycles landed; holding for the §D
+> capture window (:3010 coordination with Galago). **Thyme guards Dewfall** (`d1572a`, hygiene
+> `16be897b`): executing config-window cycles (WS5.1 ESLint-pin centralisation + package.json
+> conformance + audit-script relocation + the owner's 5 read-nextjs-docs rule paths); surfaces
+> READY and the Director runs the commit window. The 06:37Z commit train landed 4 commits
+> (styling slices 1+2, search-core TDD seam, E3 widening, docs/strategy).
 >
-> **Owner-gated (constitutive only):** launching the two successor sessions · §J hosting setup
-> (owner, 2026-07-02) · final visual sign-off vs the canonical export · the `oak-design-system/`
-> destructive-delete authorisation at pre-push-tidy time · the WS6 SSO decision set (named in the
-> new plan).
+> **Owner-gated (constitutive only):** §J hosting setup (owner, 2026-07-02) · final visual
+> sign-off vs the canonical export · the `oak-design-system/` destructive-delete authorisation at
+> pre-push-tidy time · the WS6 SSO decision set (named in the productionisation plan) · the
+> fourth-stream strategy question (open decision row in `docs/strategy/README.md`).
 >
 > **Readiness gate before any Moment-2:** five questions + a pasted mechanical UTC liveness check
 > (comms-live, not registry-stale — F-44); then adopt `35d9c8f2`, arm heartbeat, stop the outgoing
