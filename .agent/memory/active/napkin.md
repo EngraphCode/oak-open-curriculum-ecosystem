@@ -553,3 +553,33 @@ Difference-op: most is homed — grounded exec knowledge (SDK result/index-doc s
 - **Whole-worktree gate + one mid-cycle lane = no commit can land; the cure is a tree-green checkpoint, not waiting for slice completion.** The pre-commit turbo stage (build/type-check/lint/test) reads the WORKTREE; with the demo in the graph, Galago's mid-cycle WIP blocked even the urgent deletion-bearing hygiene commit (which itself blocked ALL estate commits — compounding). Resolved by luck (slice-3a went READY minutes later), but the general move stands: ask the in-flight lane for a compile/lint-green CHECKPOINT (their green unstaged WIP sits in the tree while the train runs; their commit lands later). Landing-order for tracked deletions composes with this: deletion-bearing bundle first WITHIN the train.
 - **A reviewer must-fix bound to "the same landing" is actionable when it arrives BEFORE the commit — pause the one bundle, route the one-file fold, land paired (worked instance).** test-expert's flip-swap assertion arrived while slice-3a sat staged; Galago folded one file in ~2 min; the commit landed atomic. The parallel-reviews-with-train protocol means reviews don't BLOCK the train, not that pre-landing must-fixes are deferred.
 - **Next 16 `next dev` DAEMONISES when its wrapper detaches — TaskStop kills only the wrapper; the server outlives it as an orphan (Limpet, 2026-07-02).** A detached background run printed "Run kill <pid> to stop it" and kept listening after the task died; a piped-through-grep run can also exit immediately post-Ready. Cures: (a) after ANY dev-server teardown, verify the port actually released (`lsof -iTCP:<port> -sTCP:LISTEN`) — never trust the task state alone; (b) prefer the attached pipe form for session-scoped servers. Update the data-lane handoff dev-server discipline with this at consolidation. Pairs `no-unbounded-host-load` (leaked processes from an earlier session).
+
+### Galago turns Footfall (styling-lane Implementer, curriculum-hub-demo, 2026-07-02) — mid-cycle PDR-063 closeout captures
+
+Slices 1-3a committed (f5d58e4a9, 780248557); 3b WIP green + relayed to Peregrine lifts Cirrus
+(record `2026-07-02-curriculum-hub-styling-galago-turns-footfall.md` — carries ALL remaining
+export-grounded treatments + the ruled sequence). Difference-op residue only (the record, comms
+events, and code docblocks hold the rest):
+
+- **The export SOURCE bindings beat its renders as fidelity ground truth** (→ demo-maintenance plan /
+  pattern candidate at next consolidation; also stream-2 pipeline doctrine). State-dependent
+  treatments (quiz answered-states, flip backs, hotspot active markers) exist ONLY in the template's
+  `enrich()` style strings — no capture of a resting page can show them, and the render can LIE
+  (missing-font serif artefact class). Order of authority learned this session: export JS bindings >
+  export template wrappers > SPA-driven per-state captures > static screenshots.
+- **A lint-rule pincer is a design signal, not an obstacle** (candidate: `patterns/`). Twice this
+  session two rules jointly banned every in-component shape (react-hooks/refs + set-state-in-effect
+  around hash stickiness) and the escape was moving state OUT of React (a useSyncExternalStore
+  store owning the state machine) — the constraint produced the better architecture. Same class:
+  max-lines forcing the quiz state/presentation split.
+- **Cadence-boundary false-death** (already comms-captured 06:47Z + Limpet's flag; napkin-mirror per
+  the untrack safety net): a heartbeat exactly ONE cadence old is DUE, not dead — compare gap vs
+  cadence before re-arming; a duplicate loop alternates labels and confuses peers.
+- **cwd drift corroborated ~4× in one session** (reinforces Eclipse's 2026-07-01 absolute-path note;
+  worst instance: a "full gate" ran against the WHOLE ESTATE from repo root and reported alien
+  failures as mine). Cure now in the handoff record's standing rules: explicit `cd <demo-dir>` per
+  gate invocation, never inherited cwd.
+- **Two agents, one wrong assumption, two opposite failures** (watcher filter keyed on `^\[`): mine
+  LEAKED heartbeats, Thyme's MUTED everything — the render's only stable anchor is the
+  `^--- NEW` marker line (trailing-space form in the actual filter). Proven filter shared on comms 06:50Z; rule-worthy at consolidation
+  (comms-watch-mechanism reference already names the test-each-shape step that both of us skipped).
