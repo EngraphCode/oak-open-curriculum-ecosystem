@@ -160,12 +160,12 @@ function triageOne(input: {
   const tier2Verdicts = adjudicatedVerdicts(
     outcomes.filter((outcome) => outcome.tier === 'tier-2'),
   );
-  const path: AdjudicationPath =
-    disposition === 'reroute'
-      ? 'quorum-reroute'
-      : tier2Verdicts.length > 0
-        ? 'quorum-keep'
-        : 'clean-keep';
+  let path: AdjudicationPath = 'clean-keep';
+  if (disposition === 'reroute') {
+    path = 'quorum-reroute';
+  } else if (tier2Verdicts.length > 0) {
+    path = 'quorum-keep';
+  }
   const quorumMargin = path === 'clean-keep' ? null : quorumMarginFor(disposition, tier2Verdicts);
   const tests = ordinalStats(passingTestConfidences(verdicts));
   const importance = ordinalStats(verdicts.map((verdict) => verdict.importance)).median;

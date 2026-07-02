@@ -30,7 +30,7 @@ leaf-signal inputs.
   zero-tools shape — probed live: no visible tools, and the schema-forced
   structured output still arrives. Do not "tidy" the field: `tools: []` and
   omitting it both fall back to inherit-all, and `disallowedTools: *` is
-  not honored in frontmatter in bare or quoted form — the full findings
+  not honoured in frontmatter in bare or quoted form — the full findings
   live in the corpus-voter template.
 - `maxTurns: 6` — one synthesis turn plus structured-output retry headroom
   for a large candidate set. A capped reducer returns null and the stage

@@ -16,7 +16,7 @@ export const meta = {
     {
       title: 'validate',
       detail:
-        'Sonnet-5/high voters — tiered adversary over seeded candidates, capped at 3 loops in flight',
+        'Sonnet-5/high voters — tiered adversary over seeded candidates, capped at 8 in flight',
     },
   ],
 } as const satisfies WorkflowMeta;

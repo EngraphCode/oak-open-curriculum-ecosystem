@@ -44,7 +44,7 @@ also shrinks the per-turn context the tool definitions would occupy.
   arrives (`{"visibleTools":[],"structuredOutputWorks":true}`, ~14.9k probe
   tokens vs ~29k unrestricted). Do not "tidy" the field: `tools: []` and
   omitting the field both fall back to inherit-all (probed), and
-  `disallowedTools: *` is not honored in frontmatter in either bare or
+  `disallowedTools: *` is not honoured in frontmatter in either bare or
   quoted form (probed; the `["*"]` deny-glob lives in the SDK options
   layer, not frontmatter). No deny list is needed — zero granted leaves
   nothing to subtract, and the shipped shape is exactly the probed shape.

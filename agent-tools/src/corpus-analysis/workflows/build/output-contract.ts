@@ -41,7 +41,7 @@ const FORBIDDEN_TIME_SOURCES = [/\bDate\.now\s*\(/, /\bnew Date\s*\(/, /\bMath\.
  * cannot false-positive; a statement-position `import` is what a real leak looks like.
  */
 const MODULE_SYSTEM_PATTERNS = [
-  /^\s*import[\s({"']/m,
+  /^[ \t]*import[\s({"']/m,
   /\bimport\s*\(/,
   /\brequire\s*\(/,
   /["']node:/,
@@ -84,7 +84,7 @@ export function checkEndsWithHarnessReturn(artefact: string): Result<undefined, 
 /** No wall-clock or randomness — they break harness resume determinism. */
 export function checkNoForbiddenTimeSources(artefact: string): Result<undefined, Error> {
   for (const pattern of FORBIDDEN_TIME_SOURCES) {
-    const match = artefact.match(pattern);
+    const match = pattern.exec(artefact);
     if (match) {
       return err(new Error(`Artefact uses forbidden non-deterministic source: ${match[0]}`));
     }
@@ -95,7 +95,7 @@ export function checkNoForbiddenTimeSources(artefact: string): Result<undefined,
 /** No imports, require, node: builtins, or process — the sandbox has none of them. */
 export function checkNoModuleSystem(artefact: string): Result<undefined, Error> {
   for (const pattern of MODULE_SYSTEM_PATTERNS) {
-    const match = artefact.match(pattern);
+    const match = pattern.exec(artefact);
     if (match) {
       return err(
         new Error(`Artefact must be self-contained; found module-system / Node usage: ${match[0]}`),
@@ -108,7 +108,7 @@ export function checkNoModuleSystem(artefact: string): Result<undefined, Error> 
 /** No zod / schema-library runtime in the sandbox — schemas are derived at build time. */
 export function checkSandboxPurity(artefact: string): Result<undefined, Error> {
   for (const pattern of PURITY_PATTERNS) {
-    const match = artefact.match(pattern);
+    const match = pattern.exec(artefact);
     if (match) {
       return err(new Error(`Artefact violates sandbox purity; found: ${match[0]}`));
     }

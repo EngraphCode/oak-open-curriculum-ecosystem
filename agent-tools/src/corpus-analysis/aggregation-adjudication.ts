@@ -99,7 +99,7 @@ function finaliseQuorum(verdicts: readonly AdversaryVerdict[]): AdjudicationStep
     return terminal('held-for-review', 'retry-cap');
   }
   const lenses = verdicts.map((verdict) => verdict.lens);
-  if (lenses.some((lens) => lens === undefined) || new Set(lenses).size !== lenses.length) {
+  if (lenses.includes(undefined) || new Set(lenses).size !== lenses.length) {
     return terminal('held-for-review', 'lens-collision');
   }
   const tally = tallyDispositions(verdicts.map(classifyVerdict));

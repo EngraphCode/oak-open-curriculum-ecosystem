@@ -25,10 +25,16 @@ const USAGE_HIGH_PERCENT = 70;
  * {@link USAGE_HIGH_PERCENT}. Shared by every consumed-percentage gauge so they
  * read uniformly (higher = closer to the limit).
  */
+function usageColour(pct: number): string {
+  if (pct >= USAGE_HIGH_PERCENT) {
+    return RED;
+  }
+  return pct >= USAGE_ELEVATED_PERCENT ? YELLOW : GREEN;
+}
+
 function colouredUsage(label: string, usedPercentage: number): string {
   const pct = Math.round(usedPercentage);
-  const colour = pct >= USAGE_HIGH_PERCENT ? RED : pct >= USAGE_ELEVATED_PERCENT ? YELLOW : GREEN;
-  return `${colour}${label}:${pct}%${RESET}`;
+  return `${usageColour(pct)}${label}:${pct}%${RESET}`;
 }
 
 /** Context-window usage, e.g. `ctx:33%`. */

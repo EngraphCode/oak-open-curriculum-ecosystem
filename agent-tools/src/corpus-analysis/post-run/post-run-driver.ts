@@ -31,6 +31,9 @@ import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 
 import { err, ok, type Result } from '@oaknational/result';
+import { assertPathWithinBase } from '@oaknational/safe-path';
+
+import { resolveRepoRoot } from '../../core/repo-root.js';
 
 import { checkMapCoverage } from '../cost-and-coverage.js';
 import {
@@ -53,6 +56,8 @@ import { triageDispositions } from './triage.js';
 /** The Choice-B graduate gate (owner-confirmed). */
 const CHOICE_B = { minStrictWithinRemit: 0.6, minLooseWithinRemit: 0.85 } as const;
 
+const repoRoot = resolveRepoRoot(import.meta.url);
+
 async function readCheckpoint<T>(
   filePath: string | undefined,
   label: string,
@@ -62,7 +67,11 @@ async function readCheckpoint<T>(
     return err(new Error(`Missing required checkpoint flag: ${label}.`));
   }
   try {
-    return parse(JSON.parse(await readFile(filePath, 'utf8')));
+    // Checkpoint envelopes are committed repo artefacts; anchoring the
+    // flag-supplied path inside the repo root blocks `../` traversal and
+    // symlink escapes from a faulty CLI invocation (tssecurity:S8707).
+    const safePath = assertPathWithinBase(filePath, repoRoot);
+    return parse(JSON.parse(await readFile(safePath, 'utf8')));
   } catch (cause) {
     return err(
       new Error(
@@ -148,10 +157,7 @@ function requireSuccess(checkpoints: Checkpoints): Result<undefined, Error> {
 }
 
 const checkpoints = await readCheckpoints();
-if (!checkpoints.ok) {
-  process.stderr.write(`${checkpoints.error.message}\n`);
-  process.exitCode = 1;
-} else {
+if (checkpoints.ok) {
   const successes = requireSuccess(checkpoints.value);
   if (!successes.ok) {
     process.stderr.write(`${successes.error.message}\n`);
@@ -224,4 +230,7 @@ if (!checkpoints.ok) {
       );
     }
   }
+} else {
+  process.stderr.write(`${checkpoints.error.message}\n`);
+  process.exitCode = 1;
 }

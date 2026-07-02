@@ -118,7 +118,7 @@ export function createCandidateAdjudicator(
         };
       }
       const lenses = step.lenses ?? [];
-      const voterIndexes = [...Array(step.voterCount).keys()];
+      const voterIndexes = Array.from({ length: step.voterCount }, (_, index) => index);
       const voters = await deps.parallel(
         voterIndexes.map(
           (index) => () =>

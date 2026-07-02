@@ -220,23 +220,23 @@ async function resolveRunData(): Promise<
 
 const resolved = await resolveRunData();
 
-if (!resolved.ok) {
-  process.stderr.write(`${resolved.error.message}\n`);
-  process.exitCode = 1;
-} else {
+if (resolved.ok) {
   const artefact = await buildStageArtefact({
     stage: resolved.value.stage,
     runData: resolved.value.data,
   });
-  if (!artefact.ok) {
-    process.stderr.write(`${artefact.error.message}\n`);
-    process.exitCode = 1;
-  } else {
+  if (artefact.ok) {
     const outPath = path.join(WORKFLOW_OUT_DIR, `${resolved.value.stage.name}.workflow.seeded.mjs`);
     await mkdir(WORKFLOW_OUT_DIR, { recursive: true });
     await writeFile(outPath, artefact.value, 'utf8');
     process.stdout.write(
       `seeded ${outPath} (${artefact.value.length} chars, contract green) — launch with Workflow({scriptPath}) from the repo root.\n`,
     );
+  } else {
+    process.stderr.write(`${artefact.error.message}\n`);
+    process.exitCode = 1;
   }
+} else {
+  process.stderr.write(`${resolved.error.message}\n`);
+  process.exitCode = 1;
 }

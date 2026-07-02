@@ -54,7 +54,8 @@ interface ParsedArgs {
 }
 
 function isSeverity(value: string): value is EncodingSeverity {
-  return SEVERITY_ORDER.some((severity) => severity === value);
+  const severities: readonly string[] = SEVERITY_ORDER;
+  return severities.includes(value);
 }
 
 function parseFailOnValue(value: string | undefined): Result<EncodingSeverity, string> {

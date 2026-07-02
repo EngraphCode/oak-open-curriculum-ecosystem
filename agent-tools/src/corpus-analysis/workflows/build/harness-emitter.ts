@@ -24,8 +24,45 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import type { WorkflowMeta } from '../workflow-meta.js';
 
-/** esbuild's trailing ESM export footer, e.g. `export {\n  main\n};`. */
-const EXPORT_FOOTER = /\nexport\s*\{[^}]*\};\s*$/;
+/** Single-character whitespace probe (linear scanning; no regex backtracking). */
+function isWhitespaceChar(character: string): boolean {
+  return character === ' ' || character === '\t' || character === '\n' || character === '\r';
+}
+
+/**
+ * Locate the start of esbuild's trailing ESM export footer — a final
+ * `\nexport { … };` (no inner braces) followed only by whitespace — returning
+ * the index of its leading newline, or -1 when absent. Implemented as linear
+ * string scanning: the regex form (`/\nexport\s*\{[^}]*\};\s*$/`) had
+ * super-linear backtracking on adversarial whitespace runs (typescript:S8786).
+ */
+function exportFooterStart(bundleSource: string): number {
+  const trimmed = bundleSource.trimEnd();
+  if (!trimmed.endsWith('};')) {
+    return -1;
+  }
+  const braceOpen = trimmed.lastIndexOf('{');
+  if (braceOpen === -1 || trimmed.indexOf('}', braceOpen) !== trimmed.length - 2) {
+    return -1;
+  }
+  return exportKeywordStart(trimmed, braceOpen);
+}
+
+/**
+ * Walk back from the footer's `{` over whitespace to confirm a newline-led
+ * `export` keyword; returns the leading newline's index, or -1.
+ */
+function exportKeywordStart(trimmed: string, braceOpen: number): number {
+  let cursor = braceOpen - 1;
+  while (cursor >= 0 && isWhitespaceChar(trimmed.charAt(cursor))) {
+    cursor -= 1;
+  }
+  const keywordStart = cursor - 'export'.length + 1;
+  if (keywordStart < 1 || trimmed.slice(keywordStart, cursor + 1) !== 'export') {
+    return -1;
+  }
+  return trimmed.charAt(keywordStart - 1) === '\n' ? keywordStart - 1 : -1;
+}
 
 /** Any `meta` binding in the bundle body would collide with the prepended meta export. */
 const META_BINDING = /^\s*(?:var|let|const|function)\s+meta\b/m;
@@ -36,14 +73,15 @@ const META_BINDING = /^\s*(?:var|let|const|function)\s+meta\b/m;
  * `main` and the build is malformed.
  */
 export function stripExportFooter(bundleSource: string): Result<string, Error> {
-  if (!EXPORT_FOOTER.test(bundleSource)) {
+  const footerStart = exportFooterStart(bundleSource);
+  if (footerStart === -1) {
     return err(
       new Error(
         'Bundle has no trailing export footer — the stage entry must `export async function main()`.',
       ),
     );
   }
-  return ok(bundleSource.replace(EXPORT_FOOTER, '\n'));
+  return ok(`${bundleSource.slice(0, footerStart)}\n`);
 }
 
 /**
