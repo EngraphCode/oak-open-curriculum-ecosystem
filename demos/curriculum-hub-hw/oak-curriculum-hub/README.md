@@ -2,52 +2,60 @@
 
 Oak-styled web UI over the live curriculum **search** (Elasticsearch Serverless
 via `oak-search-sdk`) and **content** (Open Curriculum REST API via
-`oak-curriculum-sdk`) stacks.
+`oak-curriculum-sdk`) stacks, built as a full-fidelity reproduction of a Claude
+Design export. **Demo by Heather W**, re-platformed from the original HTML
+prototype and wired to the live SDKs.
 
-See [`../PROJECT-BRIEF.md`](../PROJECT-BRIEF.md) for the full brief, architecture
-and conventions.
-
-**Demo by Heather W**, re-platformed from the original HTML prototype and wired
-to the live SDKs. This is a deliberately temporary prototype (`demos/` tier):
-it builds, type-checks, and passes its own ESLint, but full production standards
-and an accessibility pass are deferred.
+This is a `demos/`-tier workspace at **full repo standards** — strict
+TypeScript, the shared full-strict ESLint ruleset, TDD, and WCAG 2.2 AA (see
+the [demos tier README](../../README.md)). The design source of truth is the
+committed Claude Design canonical export; the surrounding project directory is
+mapped in the [project README](../README.md). The original brief is
+[`../PROJECT-BRIEF.md`](../PROJECT-BRIEF.md) (historical — paths in it predate
+the `demos/` placement).
 
 ## Quick start
 
 ```bash
-pnpm install                       # from the monorepo root
-cp .env.example .env.local         # then fill in ES_* and OAK_API_KEY
-pnpm -C apps/oak-curriculum-hub dev # http://localhost:3010
+pnpm install                                        # from the monorepo root
+cp .env.example .env.local                          # in this directory; fill in the values below
+pnpm -C demos/curriculum-hub-hw/oak-curriculum-hub dev   # http://localhost:3010
 ```
 
-No credentials yet? The app still boots — the search route returns `503` and the
-UI shows a "search backend not configured" state.
+Required env: `ELASTICSEARCH_URL`, `ELASTICSEARCH_API_KEY`, `OAK_API_KEY`,
+`SEARCH_INDEX_TARGET` (optional `SEARCH_INDEX_VERSION`). Without credentials
+the app still boots — the search route returns `503` and the UI shows a
+"search backend not configured" state.
 
-## The two SDK seams
+## Pages
 
-All SDK calls live in exactly two files, so the rest of the app is decoupled
-from the (verify-before-shipping) SDK surface:
+| Route | Content source |
+| --- | --- |
+| `/` | Hub: two-search (live Elasticsearch + local static) and destination cards |
+| `/course` | The 214-block Oak Course, generated from the canonical export, rendered as a paginated player |
+| `/standards` | Quality-standards browse + detail (685 standards, local data) |
+| `/rubrics`, `/exemplars`, `/wiki` | Sections reproduced from the export |
+| `/lesson/[slug]` | Live lesson detail: summary, quizzes, assets via the REST SDK |
 
-- `lib/search-client.ts` — `@oaknational/oak-search-sdk/read`
-- `lib/curriculum.ts` — `@oaknational/curriculum-sdk`
+## The two data planes
 
-Each guessed export/method is marked `// VERIFY`. Confirm against the package
-types in `packages/sdks/` and adjust those two files only.
+Both backends hold secrets, so both are server-side only; the browser sees
+only our own routes and server-rendered pages.
 
-## Routes
+- **Discovery plane** — `GET /api/search?q=` (the only API route). The route
+  handler is built by `lib/search-handler.ts` over `lib/search-core.ts` (a
+  dependency-injected seam with contract tests); `lib/search-client.ts` is the
+  only file that touches `@oaknational/oak-search-sdk/read`.
+- **Content plane** — `lib/curriculum.ts` is the only file that touches
+  `@oaknational/curriculum-sdk`. The lesson page calls it server-side
+  directly; there is no `/api/lesson` route. Asset downloads link out to
+  `thenational.academy` (the API's asset URL is an authenticated endpoint,
+  not a browser-usable signed URL).
 
-| Route                          | Plane     | SDK                                       |
-| ------------------------------ | --------- | ----------------------------------------- |
-| `GET /api/search?q=`           | discovery | `oak-search-sdk/read`                     |
-| `GET /api/lesson/[slug]`       | content   | `curriculum-sdk`                          |
-| `GET /api/asset/[slug]/[type]` | content   | `curriculum-sdk` (signed-URL passthrough) |
-
-## Add to the workspace
-
-1. Add `apps/*` is already globbed in most setups; otherwise add
-   `apps/oak-curriculum-hub` to `pnpm-workspace.yaml`.
-2. Register in `turbo.json` pipelines (`build`, `type-check`, `lint`).
-3. Decide Vercel deployment alongside the MCP server.
+Local-search data (`lib/static-quality-standards.ts`,
+`lib/static-training-courses.ts`, `lib/course/`) is generated from the
+committed canonical export by re-runnable extractors in `scripts/` and
+compile-time validated against the block-type union.
 
 ## Licence
 
