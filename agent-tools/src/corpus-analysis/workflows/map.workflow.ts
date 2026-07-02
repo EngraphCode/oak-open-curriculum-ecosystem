@@ -41,6 +41,9 @@ async function mapWindow(w: PartitionWindow): Promise<LeafStageOutput | null> {
     phase: 'map',
     model: 'sonnet',
     effort: 'low',
+    // Read-only agent type (Read allow-list, capped turns): the stage's whole
+    // purpose is reading the window's named files; nothing else is granted.
+    agentType: 'corpus-mapper',
     schema: AGENT_JSON_SCHEMAS.leafStage,
   });
 }

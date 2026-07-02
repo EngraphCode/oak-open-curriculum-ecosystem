@@ -36,6 +36,9 @@ export async function main(): Promise<ReduceResult> {
     phase: 'reduce',
     model: 'opus',
     effort: 'high',
+    // No-tools agent type (minimal Read floor, capped turns): the reducer's
+    // entire input is inlined in the prompt; it never needs the repo.
+    agentType: 'corpus-reducer',
     schema: AGENT_JSON_SCHEMAS.candidateStage,
   });
   if (reduceResult === null) {
