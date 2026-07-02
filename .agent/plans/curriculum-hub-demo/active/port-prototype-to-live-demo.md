@@ -286,22 +286,22 @@ team drives to ALL of these. "Done" is this list, nothing less.**
 
 **A. Pages — all built, visual-matched to the canonical export render (idiomatic React, not DOM-mirror):**
 
-- [ ] **Hub landing** — 6 destination cards (5 canonical Courses/Standards/Rubrics/Exemplars/Wiki + the live "Oak curriculum" search card), hero, unified hub search wired to both search functions.
-- [ ] **Oak Course** — full page, block-rendered from `Oak Course.dc.html` (4 units / 11 modules / 63 sections / 214 blocks), QS-callouts deep-linking Standards (`#qs=<id>`).
-- [ ] **Oak Standards** — filterable catalogue over the 685 QS (facets: type · rubric · area · subject) + `#qs=<id>` anchors that the Course callouts target.
-- [ ] **Learning Framework** — reproduction of `embeds/LearningFramework.jsx`.
-- [ ] **Rubrics** — real QS-facet view (the 299 rubric-bearing QS; 3 rubric types).
-- [ ] **Exemplars + Wiki** — canonical-faithful destinations (card + inline mention as the export has them; NO fabricated page).
-- [ ] **Lesson view** — Oak-faithful shell + additive pedagogy seam.
+- [x] **Hub landing** — 6 destination cards (5 canonical Courses/Standards/Rubrics/Exemplars/Wiki + the live "Oak curriculum" search card), hero, unified hub search wired to both search functions.
+- [x] **Oak Course** — full page, block-rendered from `Oak Course.dc.html` (4 units / 11 modules / 63 sections / 214 blocks), QS-callouts deep-linking Standards (`#qs=<id>`), paginated-player presentation (ratified decision 7).
+- [x] **Oak Standards** — filterable catalogue over the 685 QS (facets: type · rubric · area · subject) + `#qs=<id>` anchors that the Course callouts target.
+- [x] **Learning Framework** — SUPERSEDED, not built (Director-ruled 2026-07-02, two-lane corroboration): the canonical hub has five destinations; framework exists in the export only as search-index rows deep-linking into course unit 2, which the demo delivers with search parity. The standalone-player artefacts are the superseded 2-unit era.
+- [x] **Rubrics** — real QS-facet view (the 299 rubric-bearing QS; 3 rubric types).
+- [x] **Exemplars + Wiki** — canonical-faithful destinations (card + inline mention as the export has them; NO fabricated page).
+- [x] **Lesson view** — Oak-faithful shell + additive pedagogy seam.
 
 **B. Components:**
 
-- [ ] All 18 block-type components + the exhaustive `BlockRenderer` (no-throw, closed union, compiler-proven complete).
+- [x] All 18 block-type components + the exhaustive `BlockRenderer` (no-throw, closed union, compiler-proven complete).
 
 **C. Search — both functions live, dispatched by the unified hub search:**
 
-- [ ] Live curriculum via Elasticsearch (`useCurriculumSearch`).
-- [ ] Local search over the bundled export content (course sections/quizzes/QS/framework).
+- [x] Live curriculum via Elasticsearch (`useCurriculumSearch`).
+- [x] Local search over the bundled export content (course sections/quizzes/QS/framework).
 
 **D. Fidelity:** each page visual-matched to the canonical render (in-export screenshots where present — coursemap/check/framework-img; live-rendered targets generated for Standards/Hub and any others lacking one).
 
@@ -346,6 +346,17 @@ the units-highlight change live (a recorded higher-scale test obligation).
 **Near-term completion bar (owner, 2026-07-01 late): §A–I + E1–E3 green → milestone commit →
 push → PR → MERGE TO MAIN.** §J follows from main. Owner sign-off is a visual review against the
 canonical export — pre-merge against the local build, and again on the deployed URL.
+
+**MILESTONE VERIFICATION (Director Comet, 2026-07-02, n=1 drive):** §A–I + E1–E3 VERIFIED
+first-hand at `81e8effd4` — 272/272 tests (jest-axe §E backstop included), full-scope
+`eslint .` clean, tsc clean, production build clean, and the two-state 320px reflow pass
+(no-JS + hydrated, all 6 routes + the open-menu state) ALL CLEAN on the committed tree.
+§I landed as gated incremental windows (~30 commits through the full pre-commit hook, never
+`--no-verify`) rather than one bundle — every slice reviewer-gated at landing. The tracked
+§E follow-ups are cured or superseded by reviewed alternate designs (recorded in the thread
+record). Remaining before merge: the owner's visual sign-off against the canonical export.
+The `oak-design-system/` reference is untracked/disk-only — its removal is local hygiene,
+NOT a merge gate. §J remains post-merge, owner-hosted.
 
 ## Ratified decisions (owner, 2026-07-01 ~21:30Z — via Director Birch's four-question decision surface)
 
