@@ -318,17 +318,16 @@ first-hand as of 2026-06-25.
 > closeout, nothing retained). Chain: Herring → Swordfish → Lantern → Hawthorn → Sycamore →
 > Panther → Birch → Comet. Holds `35d9c8f2`; watcher + heartbeat live.
 >
-> **Cast state (2026-07-02 ~09:50Z):** three ACTIVE implementer lanes — **Peregrine lifts
-> Cirrus** (`fc1fc8`, styling `cf62bda9`, adopted from Galago via clean PDR-063 at 07:34Z):
-> block pass COMPLETE (all 18 views), items 8+10 CURED, Exemplars/Wiki + Lesson polish landed;
-> remaining: E1+E2 → joint E3-UI. **Limpet herds Marsh** (`34e191`, data `fd0ee59e`): per-page
-> section-d evidence set COMPLETE; captures-as-pages-land + the E3 search-SDK seam + item-11
-> coursemap seam on demand. **Thyme guards Dewfall** (`d1572a`, hygiene `16be897b`): all routed
-> cycles landed (concept gate, json.ts move, READMEs, WS5.1); gate-locked until the milestone
-> tidy + post-merge WS0. Seven Director-run commit windows landed ~20 commits this seat (concept
-> gate live on comms; Framework page DROPPED as superseded, Director-ruled with two-lane
-> corroboration). The owner-ratified comms concept gate means hedging/deferral vocabulary is now
-> mechanically refused at the comms write path (capture-tagged events exempt).
+> **Cast state (2026-07-02 ~15:00Z, supersedes the ~09:50Z three-active-lanes snapshot):** all
+> three implementer sessions are CLOSED — **Peregrine lifts Cirrus** (styling, full closeout,
+> `cf62bda9` retained with the pickup record refreshed), **Limpet herds Marsh** (data, full
+> closeout, `fd0ee59e` retained likewise), **Thyme guards Dewfall** (hygiene, session ended
+> without a closeout broadcast; `16be897b` unchanged pause-retained). Their build work was
+> complete at the pause; every lane deliverable is landed and pushed. Nine Director-run commit
+> windows landed ~26 commits through the earlier seat (concept gate live on comms; Framework
+> page DROPPED as superseded, Director-ruled with two-lane corroboration). The owner-ratified
+> comms concept gate means hedging/deferral vocabulary is mechanically refused at the comms
+> write path (capture-tagged events exempt).
 >
 > **Owner-gated (constitutive only):** §J hosting setup (owner, 2026-07-02) · final visual
 > sign-off vs the canonical export · the `oak-design-system/` destructive-delete authorisation at

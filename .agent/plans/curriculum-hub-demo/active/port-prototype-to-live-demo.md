@@ -392,6 +392,19 @@ execution detail lives in
    all-sections DOM (SSR/a11y/deep-links preserved) + a client active-section presentation layer
    (hash/state-driven, composing with the existing `#section=` focus handler); sidebar + prev/next
    navigate sections. §D captures are per-section at the player presentation.
+8. **RESTRUCTURE + export disposition REVERSED — executed PRE-merge (owner, 2026-07-02
+   ~afternoon, during the PR #295 review; supersedes decisions 3's "no dir renames pre-merge"
+   and 6's "export STAYS COMMITTED").** The owner's ruling: the only legitimate folder in the
+   demo tier is the app workspace itself. Executed the same day: `demos/curriculum-hub-hw/` is
+   dissolved — the workspace is `demos/oak-curriculum-hub/`; the canonical export is an
+   UNTRACKED vendor-reference folder inside the workspace (generated vendor output, brand
+   assets not openly licensed, re-obtainable via the claude-design MCP);
+   `reference-prototype/` and `oak-design-kit/` left tracking (git history retains them;
+   `vendor-reference/oak-figma-tokens.css` recovered untracked for the token audit);
+   `demo-evidence/` is an untracked regenerable output dir; `oak-design-system/` deleted;
+   the tools are TypeScript inside the workspace (run via tsx package scripts) under the full
+   strict gates. Consequence: the export-diff ingest baseline moves from "committed zip diffs"
+   to the claude-design MCP pull (the WS2 crosswalk in the productionisation plan).
 
 ## E-series enhancements — RESEQUENCED PRE-MERGE (owner-ratified 2026-07-01 late)
 

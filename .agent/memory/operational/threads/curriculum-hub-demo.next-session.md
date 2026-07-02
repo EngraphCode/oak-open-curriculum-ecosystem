@@ -85,7 +85,23 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   - **`searchHub` placement = DEMO-LOCAL (Director-ratified 2026-07-01, second-consumer rule).** It is pure mechanism with exactly ONE consumer (this demo) → `consolidate-at-second-consumer`; extracting to a reusable lib now is premature generalisation. Keeping it demo-local means it is NOT calcifying as a mis-placed reusable lib, so the plan item-3 "route to arch reviewers before it calcifies" concern is satisfied by NOT promoting it. **Extraction trigger = a real SECOND consumer** (then route to the architecture reviewers). Do not re-litigate demo-local-vs-lib before that trigger.
   - **Course-assembly exec-knowledge (react-component-expert forward-note, from a now-gone sub-agent — home it before it re-derives):** at Course-assembly, feed `CourseNavProvider` a **memoised/hoisted** module array (`useMemo(() => mapUnitsToModules(course), [course])` at the provider, or a module-level constant if static) — a freshly-constructed array literal per render re-renders all 214 block descendants that read the context. Also render the 214 blocks through a `.map` with **stable per-block keys (block id, not index)** so the memoised-provider win isn't undone by a churning list above it. The context shape (`CourseNavContext.ts` = `readonly CourseNavModule[]`) already supports this cleanly.
 - **Commit / codegen note (UPDATED — drift class RESOLVED):** main #291's codegen **cached-schema-default** (merged in `39a3aaf50`) means `pnpm sdk-codegen` now uses the cached schema by default, so it no longer re-fetches live and re-pollutes. Keep `CI=true` on commits (belt-and-suspenders). Commits go through the FULL pre-commit gate (**no `--no-verify`** — the hook IS the gate; the reflex to bypass is the signal to stop and analyse). Branch is PUSHED to origin.
-- **Next safe step (~09:50Z snapshot — SUPERSEDED by the TEAM PAUSE FREEZE note above for everything after E1/E2: E1+E2+E3 and the jest-axe backstop are now DONE/frozen-READY; kept for the Framework-supersession rationale and the milestone run-in shape):**
+- **Next safe step (REFRESHED 2026-07-02 evening — Director Comet #8, n=1 to merge by owner direction):**
+  PR #295 is OPEN to main; window #10 + the milestone marker landed and pushed. The owner ruled
+  mid-review: (a) the `demos/curriculum-hub-hw/` layout was wrong — restructured same-day per the
+  active plan's ratified decision 8 (workspace = `demos/oak-curriculum-hub/`; the canonical export
+  - evidence untracked INSIDE the workspace; reference-prototype/oak-design-kit left tracking —
+  git history retains them; tools converted to TypeScript under the workspace's strict gates, run
+  via tsx package scripts); (b) every PR review comment is addressed — the six Codex P2s fixed in
+  code (quiz non-nav-key answer bug + per-block tab ids, both TDD'd; degraded-scope zero-hit
+  honesty; returned-count copy; comms-reply `--tag` allowlist; turbo search-env passthrough), the
+  CodeQL `decodeHtml` double-unescape fixed with a RED-proven test, next bumped 16.2.4→16.2.9
+  (three high advisories cleared; 16.2.10 rejected by the minimumReleaseAge guard).
+  **Remaining to merge:** land the restructure+fix train through the full gates → CodeQL
+  vendored-alert dismissals + Sonar per-issue dispositions (owner-gated surfaces; MobileHubNav
+  S6848 = FALSE_POSITIVE owed server-side — container-level disclosure delegation, axe-clean) →
+  re-scan (the vendored Sonar/CodeQL mass leaves with the untracked files) → owner visual
+  sign-off → MERGE. §J owner-hosted from main.
+- **Prior next-safe-step (~09:50Z snapshot — SUPERSEDED; kept for the Framework-supersession rationale and the milestone run-in shape):**
   All prior successor-pickup turnkeys are EXECUTED: the paginated player, export-grounded sidebar,
   SPA-drive grounding, ALL 18 block-view treatments, the search-core TDD cycle, section-d captures
   (per-page evidence set COMPLETE), items 8+10 cured, Exemplars/Wiki closed (verbatim alignment —
@@ -102,7 +118,7 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   main. **Monitor-re-arm protocol at gate boundaries** stands (agent-tools/dist rebuilds
   TASK-reclaim Monitors; re-arm + catch-up after; watcher drain-timeouts under volume — re-arm
   with `--step-timeout-ms 120000`).
-- **DoD §A–I snapshot:** DONE — Standards page (browse+detail, §E-signed-off); Course generator + 214-block module; hub-search local dispatch; 18 block components + exhaustive BlockRenderer. PENDING — remaining pages (above), live-search wiring into the hub, per-page visual-fidelity + WCAG AA, jest-axe, tracked a11y follow-ups, the milestone commit. Full demo suite was 116/116 green in-lane at cast rotation.
+- **DoD §A–I snapshot (REFRESHED 2026-07-02 — the earlier PENDING list is fully landed):** §A–I + E1–E3 VERIFIED first-hand at the milestone marker `b6a8ab830` (see the active plan's §MILESTONE VERIFICATION): every page, all 18 block components, both searches wired, per-page §D fidelity, WCAG 2.2 AA with the jest-axe backstop + the two-state 320px gate, all tracked a11y follow-ups cured or superseded-by-reviewed-design. 276/276 tests after the PR-review fix train. Remaining = the merge run-in in §Next safe step.
 - **Promotion watchlist:** `director-operating-model` → PDR-117 amendment (pending-graduations, `due`); block-renderer exhaustive-total-function (definite-assignment pattern = compiler-proven total function) → `patterns/` (pending-graduations); **NEW:** union-inferred-from-sampled-data-must-be-checked-against-complete-corpus (the `: Course` gate caught 5 gaps) → pattern candidate; comms-body backtick shell-quoting → always `--body-file` (this session's repeated failure) → napkin/discipline; gates-green≠DoD-complete (axe not in the gate caught 4 AA-blockers post-green) → distilled.
 
 ## Handoff records (rehydration)
