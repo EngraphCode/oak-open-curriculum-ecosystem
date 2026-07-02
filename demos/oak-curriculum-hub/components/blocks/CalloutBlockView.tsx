@@ -28,7 +28,11 @@ function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
  */
 const VARIANTS = {
   tip: { accent: 'border-l-[#93e892] bg-oak-green-subdued', icon: '★', iconBg: 'bg-oak-mint' },
-  info: { accent: 'border-l-oak-lavender bg-oak-lavender-subdued', icon: 'i', iconBg: 'bg-oak-lavender' },
+  info: {
+    accent: 'border-l-oak-lavender bg-oak-lavender-subdued',
+    icon: 'i',
+    iconBg: 'bg-oak-lavender',
+  },
   warning: { accent: 'border-l-oak-amber bg-oak-amber-subdued', icon: '!', iconBg: 'bg-oak-amber' },
   quote: { accent: 'border-l-oak-lemon bg-oak-lemon-subdued', icon: '“', iconBg: 'bg-oak-lemon' },
 } as const;
@@ -47,7 +51,9 @@ function StandardsList({ standards }: { standards: readonly CalloutStandard[] })
           <Link href={`/standards#qs=${standard.qs}`} className={QS_CHIP}>
             {standard.qs}
           </Link>
-          <span className="min-w-0 flex-1 font-light leading-snug break-words">{standard.text}</span>
+          <span className="min-w-0 flex-1 font-light leading-snug break-words">
+            {standard.text}
+          </span>
         </li>
       ))}
     </ul>

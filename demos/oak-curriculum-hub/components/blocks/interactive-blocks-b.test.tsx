@@ -42,7 +42,15 @@ describe('reorder / isCorrectOrder', () => {
 
 describe('FlipBlockView', () => {
   it('keeps the pinned front-title name and sets aria-expanded when toggled (both faces stay in the DOM)', () => {
-    render(<FlipBlockView block={{ t: 'flip', chip: '#ffc8a6', cards: [{ badge: '1', front: 'Resources', back: 'For teachers.' }] }} />);
+    render(
+      <FlipBlockView
+        block={{
+          t: 'flip',
+          chip: '#ffc8a6',
+          cards: [{ badge: '1', front: 'Resources', back: 'For teachers.' }],
+        }}
+      />,
+    );
     const button = screen.getByRole('button', { name: /Resources/ });
     expect(button.getAttribute('aria-expanded')).toBe('false');
     // Both faces persist in the DOM; the back starts hidden, so it is not announced.
@@ -59,7 +67,12 @@ describe('FlipBlockView', () => {
   it('renders the front-image slot on card fronts when frontImage is set', () => {
     render(
       <FlipBlockView
-        block={{ t: 'flip', chip: '#ffc8a6', frontImage: true, cards: [{ badge: '1', front: 'Card', back: 'Reveal.' }] }}
+        block={{
+          t: 'flip',
+          chip: '#ffc8a6',
+          frontImage: true,
+          cards: [{ badge: '1', front: 'Card', back: 'Reveal.' }],
+        }}
       />,
     );
     // The export's dashed "Drop image" slot renders on the unflipped front (was a data-attribute

@@ -39,7 +39,7 @@ summary, quizzes, transcript and downloadable resources.
 Both backends hold secrets, so both sit behind Next.js server routes. The
 browser only ever calls our own `/api/*`.
 
-```
+```text
 Browser (Oak-styled hub UI)
    │  /api/search?q=…                 /api/lesson/[slug]
    ▼                                   ▼
@@ -61,7 +61,7 @@ Elasticsearch Serverless            Oak Open Curriculum REST API
 
 ## 4. What's in this package
 
-```
+```text
 oak-curriculum-hub/
 ├── package.json            workspace:* deps
 ├── next.config.ts          transpiles workspace packages

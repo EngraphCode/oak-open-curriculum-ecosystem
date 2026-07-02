@@ -31,7 +31,10 @@ function QuizQuestionView({
   const roving = useQuizQuestionRoving(question.options.length);
   // Stable per-option keys so duplicate option text does not drop or
   // mis-associate roving state (a content key would collide on repeats).
-  const keys = useMemo(() => question.options.map((_option, index) => `opt-${index}`), [question.options]);
+  const keys = useMemo(
+    () => question.options.map((_option, index) => `opt-${index}`),
+    [question.options],
+  );
 
   return (
     <div>
@@ -60,7 +63,10 @@ export function QuizBlockView({ block }: { block: QuizBlock }): ReactElement {
   const baseId = useId();
   // Stable per-question identities so duplicate stems do not drop or
   // mis-associate answer state (a content key would collide on repeated stems).
-  const keys = useMemo(() => block.questions.map((_question, index) => `${baseId}-q-${index}`), [block.questions, baseId]);
+  const keys = useMemo(
+    () => block.questions.map((_question, index) => `${baseId}-q-${index}`),
+    [block.questions, baseId],
+  );
   return (
     <section
       aria-label={block.title}

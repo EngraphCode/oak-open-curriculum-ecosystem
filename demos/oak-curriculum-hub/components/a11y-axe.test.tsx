@@ -30,7 +30,11 @@ const results: SearchResults = {
   ],
   units: [{ id: 'u1', title: 'Fractions', url: 'https://www.thenational.academy/u' }],
   threads: [{ id: 't1', title: 'Number', url: '' }],
-  meta: { lessons: { total: 9, took: 41 }, units: { total: 6, took: 87 }, threads: { total: 2, took: 12 } },
+  meta: {
+    lessons: { total: 9, took: 41 },
+    units: { total: 6, took: 87 },
+    threads: { total: 2, took: 12 },
+  },
 };
 
 describe('axe backstop — the demo surfaces render with no WCAG violations (DoD §E)', () => {
@@ -40,15 +44,31 @@ describe('axe backstop — the demo surfaces render with no WCAG violations (DoD
     [
       'Hub results (ok state)',
       () => (
-        <HubResultsView query="fractions" onClear={() => undefined} curriculum={{ status: 'ok', results }} />
+        <HubResultsView
+          query="fractions"
+          onClear={() => undefined}
+          curriculum={{ status: 'ok', results }}
+        />
       ),
     ] as const,
-    ['Course shell (player)', () => <CourseShell course={courseFixture} title="Creating lessons at Oak" />] as const,
+    [
+      'Course shell (player)',
+      () => <CourseShell course={courseFixture} title="Creating lessons at Oak" />,
+    ] as const,
     [
       'Curriculum showcase (idle)',
-      () => <CurriculumShowcaseView query="" onQueryChange={() => undefined} state={{ status: 'idle' }} />,
+      () => (
+        <CurriculumShowcaseView
+          query=""
+          onQueryChange={() => undefined}
+          state={{ status: 'idle' }}
+        />
+      ),
     ] as const,
-    ['Curriculum results (ok)', () => <ShowcaseResults state={{ status: 'ok', results }} />] as const,
+    [
+      'Curriculum results (ok)',
+      () => <ShowcaseResults state={{ status: 'ok', results }} />,
+    ] as const,
     ['Curriculum results (error)', () => <ShowcaseResults state={{ status: 'error' }} />] as const,
   ])('%s has no axe violations', async (_name, make) => {
     const { container } = render(make());

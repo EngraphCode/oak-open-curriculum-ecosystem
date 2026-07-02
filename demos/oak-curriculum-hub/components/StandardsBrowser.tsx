@@ -25,7 +25,17 @@ function SearchField({
   const id = useId();
   return (
     <div className="flex max-w-[560px] items-center gap-2.5 rounded-full border-[3px] border-oak-black bg-white px-4 py-2.5 shadow-oak-wide-lemon">
-      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" className="shrink-0 text-oak-grey">
+      <svg
+        aria-hidden="true"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        className="shrink-0 text-oak-grey"
+      >
         <circle cx="11" cy="11" r="7" />
         <path d="M21 21l-4.3-4.3" />
       </svg>
@@ -57,7 +67,9 @@ function PageHead({
         <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.06em] text-oak-grey">
           Single source of truth
         </p>
-        <h1 className="mb-3 text-[42px] font-semibold leading-[48px] text-balance">Quality standards</h1>
+        <h1 className="mb-3 text-[42px] font-semibold leading-[48px] text-balance">
+          Quality standards
+        </h1>
         <p className="mb-[22px] max-w-[72ch] text-[19px] leading-[28px] text-oak-black">
           The benchmarks every Oak lesson is held to. Browse and filter by guidance area, rubric and
           resource — each standard shows exactly where it applies. Links from training courses bring
@@ -78,7 +90,9 @@ function AreaRail({
 }): ReactElement {
   return (
     <nav aria-label="Filter by guidance area" className="flex flex-col gap-0.5">
-      <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">Guidance area</p>
+      <p className="mb-3 text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+        Guidance area
+      </p>
       {items.map((item) => (
         <button
           key={item.value}

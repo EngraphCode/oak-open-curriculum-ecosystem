@@ -83,7 +83,9 @@ export function CurriculumGroup({ state }: { state: CurriculumSearchState }): Re
       />
       {state.status === 'loading' && <p className={mutedClass}>Searching…</p>}
       {state.status === 'ok' && <CurriculumBody results={state.results} />}
-      {state.status === 'empty' && <p className={mutedClass}>No matching lessons, units or threads.</p>}
+      {state.status === 'empty' && (
+        <p className={mutedClass}>No matching lessons, units or threads.</p>
+      )}
       {state.status === 'unconfigured' && (
         <Notice
           title="Search backend not configured"
@@ -91,7 +93,10 @@ export function CurriculumGroup({ state }: { state: CurriculumSearchState }): Re
         />
       )}
       {state.status === 'error' && (
-        <Notice title="Something went wrong" body="The curriculum search request failed. Check the server logs." />
+        <Notice
+          title="Something went wrong"
+          body="The curriculum search request failed. Check the server logs."
+        />
       )}
     </section>
   );
@@ -100,7 +105,13 @@ export function CurriculumGroup({ state }: { state: CurriculumSearchState }): Re
 /** Results header: a polite live region (WCAG 2.2 SC 4.1.3) announcing the results view for the
  *  query — the destinations→results toggle is otherwise silent to AT users — plus a clear-search
  *  control. Focus is deliberately NOT moved. Exported for direct component tests. */
-export function ResultsHeader({ query, onClear }: { query: string; onClear: () => void }): ReactElement {
+export function ResultsHeader({
+  query,
+  onClear,
+}: {
+  query: string;
+  onClear: () => void;
+}): ReactElement {
   return (
     <div className="mb-6 flex items-center justify-between gap-4">
       <p

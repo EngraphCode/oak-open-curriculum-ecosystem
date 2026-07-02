@@ -65,7 +65,9 @@ export function KeyLearningPoints({ points }: { points: readonly string[] }): Re
 export function Keywords({ items }: { items: readonly LessonKeyword[] }): ReactElement {
   return (
     <section className="mb-6">
-      <h2 className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">Keywords</h2>
+      <h2 className="mb-2.5 text-xs font-bold uppercase tracking-[0.05em] text-oak-grey">
+        Keywords
+      </h2>
       <dl className="shadow-oak-lemon flex flex-col gap-3 rounded-xl border-2 border-oak-black bg-white px-5 py-4">
         {items.map((k) => (
           <div key={k.keyword} className="flex flex-col gap-0.5">

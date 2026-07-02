@@ -93,11 +93,7 @@ export default function HubLanding(): ReactElement {
   return (
     <>
       <HubHero query={query} onQueryChange={setQuery} />
-      {searching ? (
-        <HubResults query={query} onClear={() => setQuery('')} />
-      ) : (
-        <Destinations />
-      )}
+      {searching ? <HubResults query={query} onClear={() => setQuery('')} /> : <Destinations />}
       <ContentLinks />
     </>
   );

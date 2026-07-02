@@ -1,6 +1,13 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from 'react';
 import type { ReactElement, ReactNode } from 'react';
 
 import { resolveActiveSection } from './course-player';

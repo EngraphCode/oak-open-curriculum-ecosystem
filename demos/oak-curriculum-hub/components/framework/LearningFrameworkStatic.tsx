@@ -60,10 +60,18 @@ function RingDiagram({ activeStage }: { readonly activeStage?: number }): ReactE
 }
 
 /** One stage as an accessible card: number badge, name, phase, summary, fuller text, and features. */
-function StageCard({ stage, active }: { readonly stage: FrameworkStage; readonly active: boolean }): ReactElement {
+function StageCard({
+  stage,
+  active,
+}: {
+  readonly stage: FrameworkStage;
+  readonly active: boolean;
+}): ReactElement {
   const emphasis = active ? 'ring-2 ring-oak-black shadow-oak-lemon' : '';
   return (
-    <li className={`rounded-xl border-2 border-oak-black bg-white p-5 transition-shadow ${emphasis}`}>
+    <li
+      className={`rounded-xl border-2 border-oak-black bg-white p-5 transition-shadow ${emphasis}`}
+    >
       <div className="mb-2 flex items-center gap-3">
         <span
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-oak-black text-[15px] font-bold"
@@ -82,7 +90,10 @@ function StageCard({ stage, active }: { readonly stage: FrameworkStage; readonly
       <ul className="flex flex-col gap-1.5">
         {stage.features.map((feature) => (
           <li key={feature} className="flex items-start gap-2 text-[13px] text-oak-black">
-            <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-oak-green" />
+            <span
+              aria-hidden="true"
+              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-oak-green"
+            />
             {feature}
           </li>
         ))}
@@ -97,7 +108,11 @@ function StageCard({ stage, active }: { readonly stage: FrameworkStage; readonly
  * `prefers-reduced-motion` fallback. The animated client island renders this same component with a
  * stepping `activeStage` to walk through the stages when motion is allowed.
  */
-export function LearningFrameworkStatic({ activeStage }: { readonly activeStage?: number }): ReactElement {
+export function LearningFrameworkStatic({
+  activeStage,
+}: {
+  readonly activeStage?: number;
+}): ReactElement {
   return (
     <div className="flex flex-col gap-8">
       <RingDiagram activeStage={activeStage} />

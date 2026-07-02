@@ -45,7 +45,11 @@ export const courseFixture: Course = {
       colorStrong: '#cccccc',
       outcomes: [],
       sections: [
-        { id: 'u2m1s1', title: 'Section three', blocks: [{ t: 'text', paras: ['Gamma paragraph'] }] },
+        {
+          id: 'u2m1s1',
+          title: 'Section three',
+          blocks: [{ t: 'text', paras: ['Gamma paragraph'] }],
+        },
       ],
     },
   ],

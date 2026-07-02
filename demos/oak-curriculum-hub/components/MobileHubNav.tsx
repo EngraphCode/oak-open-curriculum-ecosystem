@@ -83,11 +83,7 @@ export function MobileHubNav({ items }: { items: readonly HubNavItem[] }): React
           strokeLinecap="round"
           aria-hidden="true"
         >
-          {open ? (
-            <path d="M6 6l12 12M18 6L6 18" />
-          ) : (
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          )}
+          {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
         </svg>
       </button>
       {open && <MenuPanel id={panelId} items={items} onChoose={() => setOpen(false)} />}

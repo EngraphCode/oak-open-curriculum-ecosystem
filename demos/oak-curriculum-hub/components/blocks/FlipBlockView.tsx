@@ -103,7 +103,12 @@ export function FlipBlockView({ block }: { block: FlipBlock }): ReactElement {
   return (
     <ul className={`grid grid-cols-1 gap-4 ${mdGridCols(block.cards.length, 3)}`}>
       {block.cards.map((card, index) => (
-        <FlipCardView key={keys[index]} card={card} chip={block.chip} frontImage={block.frontImage ?? false} />
+        <FlipCardView
+          key={keys[index]}
+          card={card}
+          chip={block.chip}
+          frontImage={block.frontImage ?? false}
+        />
       ))}
     </ul>
   );

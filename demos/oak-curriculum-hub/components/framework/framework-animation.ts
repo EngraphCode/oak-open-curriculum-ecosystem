@@ -15,7 +15,12 @@
  * serialised into an SVG attribute (`d`, `x`, `y`, `transform`) then hydration-mismatches. Rounding
  * is IEEE-exact, so every engine serialises the same string.
  */
-export function polar(cx: number, cy: number, r: number, degrees: number): readonly [number, number] {
+export function polar(
+  cx: number,
+  cy: number,
+  r: number,
+  degrees: number,
+): readonly [number, number] {
   const radians = (degrees * Math.PI) / 180;
   return [round2(cx + r * Math.cos(radians)), round2(cy + r * Math.sin(radians))];
 }

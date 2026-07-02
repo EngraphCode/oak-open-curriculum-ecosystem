@@ -69,11 +69,19 @@ describe('HubResults — StandardsGroup (local quality-standards search results)
 describe('HubResults — group ordering (E2: live curriculum is secondary)', () => {
   it('renders training and standards first, the live curriculum group below them', () => {
     render(
-      <HubResultsView query="fractions" onClear={() => undefined} curriculum={{ status: 'idle' }} />,
+      <HubResultsView
+        query="fractions"
+        onClear={() => undefined}
+        curriculum={{ status: 'idle' }}
+      />,
     );
     const headers = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent ?? '');
     // Presence first, so the index comparisons can never pass vacuously on -1.
-    for (const title of ['In the training courses', 'Quality standards', 'From the Oak curriculum']) {
+    for (const title of [
+      'In the training courses',
+      'Quality standards',
+      'From the Oak curriculum',
+    ]) {
       expect(headers).toContain(title);
     }
     expect(headers.indexOf('In the training courses')).toBeLessThan(

@@ -88,7 +88,9 @@ describe('useCurriculumSearch degraded-scope honesty', () => {
       threads: [],
       meta: { lessons: scopeMeta, units: scopeMeta, threads: scopeMeta },
     };
-    const { rerender } = render(<Probe query="zzz-no-hits" fetchFn={envelopeFetch(genuineEmpty)} />);
+    const { rerender } = render(
+      <Probe query="zzz-no-hits" fetchFn={envelopeFetch(genuineEmpty)} />,
+    );
     rerender(<Probe query="zzz-no-hits" fetchFn={envelopeFetch(genuineEmpty)} />);
     await waitFor(() => expect(document.querySelector('output')?.textContent).toBe('empty'), {
       timeout: 2000,

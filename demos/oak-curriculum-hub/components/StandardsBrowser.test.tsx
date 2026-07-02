@@ -59,16 +59,12 @@ describe('StandardsBrowser — filtering', () => {
   });
 
   // Rendering the full 685-standard corpus needs more than the 5s default on shared CI runners.
-  it(
-    'reveals the whole corpus via "Show all" and drops the pagination controls',
-    () => {
-      render(<StandardsBrowser />);
-      fireEvent.click(screen.getByRole('button', { name: 'Show all 685' }));
-      expect(screen.getByText('685 standards')).toBeTruthy();
-      expect(screen.queryByRole('button', { name: 'Show all 685' })).toBeNull();
-    },
-    20_000,
-  );
+  it('reveals the whole corpus via "Show all" and drops the pagination controls', () => {
+    render(<StandardsBrowser />);
+    fireEvent.click(screen.getByRole('button', { name: 'Show all 685' }));
+    expect(screen.getByText('685 standards')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Show all 685' })).toBeNull();
+  }, 20_000);
 
   it('clears every filter via reset', () => {
     render(<StandardsBrowser />);
@@ -85,7 +81,9 @@ describe('StandardsBrowser — deep-link focus mode', () => {
     render(<StandardsBrowser />);
     expect(screen.getByText(/You followed a link from a training course/)).toBeTruthy();
     expect(screen.getByText('Linked from training · 2 standards')).toBeTruthy();
-    expect(screen.getByRole('link', { name: /Return to training/ }).getAttribute('href')).toBe('/course');
+    expect(screen.getByRole('link', { name: /Return to training/ }).getAttribute('href')).toBe(
+      '/course',
+    );
   });
 
   it('leaves focus mode when the visitor chooses "Browse all standards"', () => {

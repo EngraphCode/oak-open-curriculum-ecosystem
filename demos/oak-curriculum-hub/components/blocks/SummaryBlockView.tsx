@@ -16,7 +16,10 @@ export function SummaryBlockView({ block }: { block: SummaryBlock }): ReactEleme
         </p>
         <ul className="flex flex-col gap-[13px]">
           {block.points.map((point) => (
-            <li key={point} className="flex items-start gap-3 text-[17px] leading-[26px] font-light">
+            <li
+              key={point}
+              className="flex items-start gap-3 text-[17px] leading-[26px] font-light"
+            >
               <span
                 aria-hidden="true"
                 className="shrink-0 text-[19px] leading-[26px] font-bold text-oak-green"

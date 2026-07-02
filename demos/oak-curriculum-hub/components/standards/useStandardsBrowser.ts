@@ -70,7 +70,10 @@ export function useStandardsBrowser(): StandardsBrowserModel {
     pendingFocus.current = 'region';
     setState((prev) => ({ ...prev, limit }));
   };
-  const setPendingThen = (patch: Partial<StandardsBrowseState>, focus: 'region' | 'detail'): void => {
+  const setPendingThen = (
+    patch: Partial<StandardsBrowseState>,
+    focus: 'region' | 'detail',
+  ): void => {
     pendingFocus.current = focus;
     setState((prev) => ({ ...prev, ...patch }));
   };

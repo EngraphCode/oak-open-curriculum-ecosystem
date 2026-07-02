@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ============================================================
    Oak National Academy — design tokens as Tailwind v4 theme.
@@ -41,7 +41,7 @@
   --color-oak-red-subdued: #f8d8e0;
 
   /* Type — Lexend (next/font sets --font-lexend on <html>) */
-  --font-sans: var(--font-lexend), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-lexend), system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Radii (Oak scale) */
   --radius-oak-s: 4px;

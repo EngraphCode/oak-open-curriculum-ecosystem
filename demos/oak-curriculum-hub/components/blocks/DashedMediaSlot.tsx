@@ -46,7 +46,9 @@ export function DashedMediaSlot({
         <circle cx="8.5" cy="8.5" r="1.6" />
         <path d="M21 15l-5-5L5 21" />
       </svg>
-      <span className={`font-light text-oak-grey ${compact ? 'text-[12px] leading-4' : 'text-[13px] leading-[18px]'}`}>
+      <span
+        className={`font-light text-oak-grey ${compact ? 'text-[12px] leading-4' : 'text-[13px] leading-[18px]'}`}
+      >
         {label}
       </span>
     </span>

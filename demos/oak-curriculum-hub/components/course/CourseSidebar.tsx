@@ -10,7 +10,13 @@ import { useCoursePlayer } from './CoursePlayerContext';
 import { NavUnitGroup } from './CourseSidebarNav';
 
 /** The rail head: decorative logo, grey eyebrow, the page `h1`, and the section-progress zero-state. */
-function SidebarHeader({ title, sectionTotal }: { title: string; sectionTotal: number }): ReactElement {
+function SidebarHeader({
+  title,
+  sectionTotal,
+}: {
+  title: string;
+  sectionTotal: number;
+}): ReactElement {
   return (
     <>
       <div className="px-[22px] pb-4 pt-6">
@@ -27,7 +33,10 @@ function SidebarHeader({ title, sectionTotal }: { title: string; sectionTotal: n
             0 of {sectionTotal} done
           </span>
         </div>
-        <div className="h-3 overflow-hidden rounded-full border-2 border-oak-black bg-white" aria-hidden="true">
+        <div
+          className="h-3 overflow-hidden rounded-full border-2 border-oak-black bg-white"
+          aria-hidden="true"
+        >
           <div className="h-full w-0 bg-oak-mint" />
         </div>
       </div>
@@ -36,13 +45,23 @@ function SidebarHeader({ title, sectionTotal }: { title: string; sectionTotal: n
 }
 
 /** The starred intro item: a lemon-shadow box when current, per the export's introNav treatment. */
-function IntroItem({ introId, title, active }: { introId: string; title: string; active: boolean }): ReactElement {
+function IntroItem({
+  introId,
+  title,
+  active,
+}: {
+  introId: string;
+  title: string;
+  active: boolean;
+}): ReactElement {
   return (
     <a
       href={`#${introId}`}
       aria-current={active ? 'location' : undefined}
       className={`flex items-center gap-[11px] rounded-[10px] border-2 px-3 py-[11px] text-[15px] font-bold leading-[19px] ${
-        active ? 'border-oak-black bg-white shadow-oak-lemon' : 'border-transparent hover:bg-oak-lemon-subdued'
+        active
+          ? 'border-oak-black bg-white shadow-oak-lemon'
+          : 'border-transparent hover:bg-oak-lemon-subdued'
       }`}
     >
       <span
@@ -56,7 +75,13 @@ function IntroItem({ introId, title, active }: { introId: string; title: string;
   );
 }
 
-export function CourseSidebar({ tree, title }: { tree: CourseNavTree; title: string }): ReactElement {
+export function CourseSidebar({
+  tree,
+  title,
+}: {
+  tree: CourseNavTree;
+  title: string;
+}): ReactElement {
   const { activeSectionId, entries } = useCoursePlayer();
   const activeModuleId = activeModuleIdOf(activeSectionId, entries) ?? tree.intro.id;
   const sectionTotal = entries.filter((entry) => entry.moduleId !== tree.intro.id).length;
@@ -69,7 +94,10 @@ export function CourseSidebar({ tree, title }: { tree: CourseNavTree; title: str
       ? openOverride.openId
       : activeModuleId;
   const toggleModule = (moduleId: string): void => {
-    setOpenOverride({ anchor: activeModuleId, openId: openModuleId === moduleId ? null : moduleId });
+    setOpenOverride({
+      anchor: activeModuleId,
+      openId: openModuleId === moduleId ? null : moduleId,
+    });
   };
   return (
     <div className="shrink-0 border-r-2 border-oak-black bg-white md:w-[320px]">

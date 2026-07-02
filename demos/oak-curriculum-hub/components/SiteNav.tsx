@@ -46,7 +46,11 @@ export default function SiteNav(): ReactElement {
     // sticky is itself a positioned ancestor — the disclosure panel anchors to it directly.
     <header className="sticky top-0 z-50 border-b-[3px] border-oak-black bg-white">
       <div className="mx-auto flex max-w-[1240px] items-center gap-5 px-4 py-3.5 md:px-7">
-        <Link href="/" aria-label="Oak Curriculum Hub — home" className="flex shrink-0 items-center">
+        <Link
+          href="/"
+          aria-label="Oak Curriculum Hub — home"
+          className="flex shrink-0 items-center"
+        >
           {/* Official Oak logo (full lockup) from the canonical Claude Design export,
               served from public/. */}
           <Image

@@ -50,7 +50,8 @@ describe('buildStandardsView — facet filtering', () => {
     expect(view.totalMatched).toBeLessThan(REQUIRED_COUNT);
     expect(
       view.results.every(
-        (card) => card.typeVariant === 'required' && card.areaTags.some((t) => t.label === 'Explanation'),
+        (card) =>
+          card.typeVariant === 'required' && card.areaTags.some((t) => t.label === 'Explanation'),
       ),
     ).toBe(true);
   });
@@ -133,7 +134,11 @@ describe('buildStandardsView — detail view', () => {
 describe('buildStandardsView — filter chips', () => {
   it('offers the closed type set with the active chip marked', () => {
     const view = buildStandardsView(stateWith({ type: 'Model Practice' }));
-    expect(view.typeChips.map((c) => c.value)).toEqual([ALL, 'Required standard', 'Model Practice']);
+    expect(view.typeChips.map((c) => c.value)).toEqual([
+      ALL,
+      'Required standard',
+      'Model Practice',
+    ]);
     expect(view.typeChips.find((c) => c.value === 'Model Practice')?.active).toBe(true);
     expect(view.typeChips.find((c) => c.value === ALL)?.active).toBe(false);
   });

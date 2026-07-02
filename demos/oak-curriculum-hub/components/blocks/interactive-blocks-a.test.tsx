@@ -68,7 +68,9 @@ describe('TabsBlockView', () => {
   it('shows the first panel and marks its tab selected', () => {
     render(<TabsBlockView block={block} />);
     expect(screen.getByText('The aim of the lesson.')).toBeTruthy();
-    expect(screen.getByRole('tab', { name: 'Lesson outcome' }).getAttribute('aria-selected')).toBe('true');
+    expect(screen.getByRole('tab', { name: 'Lesson outcome' }).getAttribute('aria-selected')).toBe(
+      'true',
+    );
   });
 
   it('switches panel on tab click', () => {
@@ -96,7 +98,6 @@ describe('TabsBlockView', () => {
     expect(outcome.getAttribute('aria-selected')).toBe('true');
     expect(document.activeElement).toBe(outcome);
   });
-
 });
 
 describe('TabsBlockView — id uniqueness across blocks', () => {
@@ -164,9 +165,11 @@ describe('QuizBlockView', () => {
   it('checks the chosen radio, reveals correctness in text, and announces the explanation', () => {
     render(<QuizBlockView block={block} />);
     fireEvent.click(screen.getByRole('radio', { name: 'Five' }));
-    expect(screen.getByRole('radio', { name: /Five — your answer, incorrect/ }).getAttribute('aria-checked')).toBe(
-      'true',
-    );
+    expect(
+      screen
+        .getByRole('radio', { name: /Five — your answer, incorrect/ })
+        .getAttribute('aria-checked'),
+    ).toBe('true');
     expect(screen.getByRole('radio', { name: /Eight — correct/ })).toBeTruthy();
     expect(screen.getByRole('status').textContent).toBe('Eight components make up a lesson.');
   });
@@ -178,7 +181,6 @@ describe('QuizBlockView', () => {
     expect(eight.getAttribute('aria-checked')).toBe('true');
     expect(document.activeElement).toBe(eight);
   });
-
 });
 
 describe('QuizBlockView — non-navigation keys', () => {

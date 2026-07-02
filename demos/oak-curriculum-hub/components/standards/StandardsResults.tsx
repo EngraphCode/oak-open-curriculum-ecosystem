@@ -20,7 +20,9 @@ function ChipRow({
 }): ReactElement {
   return (
     <div role="group" aria-label={label} className="flex flex-wrap items-center gap-2">
-      <span className="mr-0.5 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey">{label}</span>
+      <span className="mr-0.5 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey">
+        {label}
+      </span>
       {chips.map((chip) => (
         <button
           key={chip.value}
@@ -28,7 +30,9 @@ function ChipRow({
           aria-pressed={chip.active}
           onClick={() => onPick(chip.value)}
           className={`rounded-full border-2 border-oak-black px-3.5 py-2 text-[13px] font-bold ${
-            chip.active ? 'bg-oak-black text-white' : 'bg-white text-oak-black hover:shadow-oak-lemon'
+            chip.active
+              ? 'bg-oak-black text-white'
+              : 'bg-white text-oak-black hover:shadow-oak-lemon'
           }`}
         >
           {chip.label}
@@ -64,7 +68,9 @@ function FocusBanner({ onBrowseAll }: { readonly onBrowseAll: () => void }): Rea
 function NoResults({ onReset }: { readonly onReset: () => void }): ReactElement {
   return (
     <div className="rounded-oak-l border-2 border-dashed border-oak-grey-40 bg-white p-11 text-center">
-      <p className="mb-1.5 text-[20px] font-semibold leading-[26px]">No standards match your filters</p>
+      <p className="mb-1.5 text-[20px] font-semibold leading-[26px]">
+        No standards match your filters
+      </p>
       <p className="mb-4 text-[16px] leading-[24px] text-oak-grey">
         Try clearing a filter or searching for a different term.
       </p>
@@ -95,7 +101,12 @@ function ResultsHeader({
     <>
       {view.focusMode && <FocusBanner onBrowseAll={onReset} />}
       <div className="mb-2 flex flex-wrap items-center gap-4">
-        <p role="status" aria-live="polite" aria-atomic="true" className="text-[16px] font-semibold">
+        <p
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="text-[16px] font-semibold"
+        >
           {view.resultLabel}
         </p>
         {view.hasFilters && (
@@ -170,7 +181,12 @@ export function StandardsResults({
 }): ReactElement {
   return (
     <>
-      <ResultsHeader view={view} onPickType={onPickType} onPickRubric={onPickRubric} onReset={onReset} />
+      <ResultsHeader
+        view={view}
+        onPickType={onPickType}
+        onPickRubric={onPickRubric}
+        onReset={onReset}
+      />
       {view.noResults ? (
         <NoResults onReset={onReset} />
       ) : (

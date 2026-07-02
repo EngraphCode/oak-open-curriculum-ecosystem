@@ -5,7 +5,13 @@ import type { AccordionBlock, AccordionItem } from '@/lib/blocks/types';
 import { DashedMediaSlot } from './DashedMediaSlot';
 
 /** One accordion item: an export-exact white card `<details>` with chip badge, dashed divider body. */
-function AccordionItemView({ item, chip }: { item: AccordionItem; chip: string | undefined }): ReactElement {
+function AccordionItemView({
+  item,
+  chip,
+}: {
+  item: AccordionItem;
+  chip: string | undefined;
+}): ReactElement {
   return (
     <details className="overflow-hidden rounded-xl border-2 border-oak-black bg-white shadow-oak-lemon">
       <summary className="flex cursor-pointer list-none items-center gap-3 px-[18px] py-4 text-[18px] font-bold leading-6 [&::-webkit-details-marker]:hidden">
@@ -51,7 +57,10 @@ function FeatureList({ features }: { features: readonly string[] }): ReactElemen
       </p>
       <ul className="flex flex-col gap-1.5">
         {features.map((feature) => (
-          <li key={feature} className="flex items-start gap-[9px] text-[16px] font-light leading-[23px]">
+          <li
+            key={feature}
+            className="flex items-start gap-[9px] text-[16px] font-light leading-[23px]"
+          >
             <span aria-hidden="true" className="shrink-0 font-bold text-oak-green">
               ✓
             </span>

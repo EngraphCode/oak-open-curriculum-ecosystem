@@ -42,7 +42,12 @@ const tree: CourseNavTree = {
       label: 'Unit 2',
       title: 'Second unit',
       modules: [
-        { id: 'u2m1', title: 'Module B', color: '#ddeeff', sections: [{ id: 'u2m1s1', title: 'Section three' }] },
+        {
+          id: 'u2m1',
+          title: 'Module B',
+          color: '#ddeeff',
+          sections: [{ id: 'u2m1s1', title: 'Section three' }],
+        },
       ],
     },
   ],
@@ -52,7 +57,12 @@ const entries = toPlayerEntries(tree);
 
 describe('toPlayerEntries — the ordered section sequence', () => {
   it('orders the intro sections first, then every module section in tree order', () => {
-    expect(entries.map((entry) => entry.sectionId)).toEqual(['introMain', 'u1m1s1', 'u1m1s2', 'u2m1s1']);
+    expect(entries.map((entry) => entry.sectionId)).toEqual([
+      'introMain',
+      'u1m1s1',
+      'u1m1s2',
+      'u2m1s1',
+    ]);
   });
 
   it('pairs every section with the id of the module that owns it', () => {

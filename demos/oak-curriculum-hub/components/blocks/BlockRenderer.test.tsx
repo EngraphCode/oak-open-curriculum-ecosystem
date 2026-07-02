@@ -11,9 +11,17 @@ describe('BlockRenderer', () => {
   });
 
   it('dispatches a callout block to its QS deep-link', () => {
-    const block: Block = { t: 'callout', variant: 'info', title: 'Quality standard', qs: ['QS-87'], text: 'Small steps.' };
+    const block: Block = {
+      t: 'callout',
+      variant: 'info',
+      title: 'Quality standard',
+      qs: ['QS-87'],
+      text: 'Small steps.',
+    };
     render(<BlockRenderer block={block} />);
-    expect(screen.getByRole('link', { name: 'QS-87' }).getAttribute('href')).toBe('/standards#qs=QS-87');
+    expect(screen.getByRole('link', { name: 'QS-87' }).getAttribute('href')).toBe(
+      '/standards#qs=QS-87',
+    );
   });
 
   it('dispatches a quiz block to an interactive radio-group option', () => {

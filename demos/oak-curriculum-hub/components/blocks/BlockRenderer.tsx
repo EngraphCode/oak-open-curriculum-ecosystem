@@ -51,9 +51,27 @@ import { VideoImportBlockView } from './VideoImportBlockView';
  * runtime surprise. The grouping is by complexity budget, not domain meaning.
  */
 
-type ContentBlock = TextBlock | HeadingBlock | CalloutBlock | SummaryBlock | StatsBlock | ColumnsBlock;
-type EmbedBlock = CompareBlock | ImageBlock | VideoBlock | VideoImportBlock | DownloadBlock | CoursemapBlock;
-type InteractiveBlock = QuizBlock | TabsBlock | AccordionBlock | FlipBlock | SortableBlock | HotspotBlock;
+type ContentBlock =
+  | TextBlock
+  | HeadingBlock
+  | CalloutBlock
+  | SummaryBlock
+  | StatsBlock
+  | ColumnsBlock;
+type EmbedBlock =
+  | CompareBlock
+  | ImageBlock
+  | VideoBlock
+  | VideoImportBlock
+  | DownloadBlock
+  | CoursemapBlock;
+type InteractiveBlock =
+  | QuizBlock
+  | TabsBlock
+  | AccordionBlock
+  | FlipBlock
+  | SortableBlock
+  | HotspotBlock;
 
 function isInteractive(block: Block): block is InteractiveBlock {
   return (

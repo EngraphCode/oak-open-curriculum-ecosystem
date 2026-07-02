@@ -42,7 +42,6 @@ describe('SiteNav — hub sections disclosure', () => {
     expect(screen.queryByRole('navigation', { name: 'Hub sections menu' })).toBeNull();
     expect(document.activeElement).not.toBe(toggle);
   });
-
 });
 
 describe('SiteNav — inline chrome', () => {
@@ -67,8 +66,6 @@ describe('SiteNav — inline chrome', () => {
     expect(www.getAttribute('rel') ?? '').toContain('noopener');
     fireEvent.click(screen.getByRole('button', { name: 'Hub sections' }));
     const menu = screen.getByRole('navigation', { name: 'Hub sections menu' });
-    expect(
-      within(menu).getByRole('link', { name: 'Oak website (opens in new tab)' }),
-    ).toBeTruthy();
+    expect(within(menu).getByRole('link', { name: 'Oak website (opens in new tab)' })).toBeTruthy();
   });
 });

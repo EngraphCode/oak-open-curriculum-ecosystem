@@ -37,9 +37,7 @@ function getRetrieval(): RetrievalService {
     });
     _retrieval = createRetrievalService(esClient, {
       indexTarget: serverEnv.SEARCH_INDEX_TARGET,
-      ...(serverEnv.SEARCH_INDEX_VERSION
-        ? { indexVersion: serverEnv.SEARCH_INDEX_VERSION }
-        : {}),
+      ...(serverEnv.SEARCH_INDEX_VERSION ? { indexVersion: serverEnv.SEARCH_INDEX_VERSION } : {}),
     });
   }
   return _retrieval;

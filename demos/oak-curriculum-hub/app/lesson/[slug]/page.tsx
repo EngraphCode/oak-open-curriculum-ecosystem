@@ -79,7 +79,11 @@ function resolveKeyStage(summary: Summary): string | null {
 
 // Split the lesson content into its three parts once, so buildLessonView stays a thin
 // assembler over the resolvers (keeps its cyclomatic complexity within the strict ceiling).
-function splitLesson(lesson: LessonContent | null): { summary: Summary; quiz: Quiz; assets: Assets } {
+function splitLesson(lesson: LessonContent | null): {
+  summary: Summary;
+  quiz: Quiz;
+  assets: Assets;
+} {
   return {
     summary: lesson?.summary ?? null,
     quiz: lesson?.quiz ?? null,

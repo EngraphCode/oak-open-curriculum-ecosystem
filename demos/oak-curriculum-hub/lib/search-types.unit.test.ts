@@ -39,7 +39,6 @@ describe('isSearchResults', () => {
     };
     expect(isSearchResults(envelope)).toBe(true);
   });
-
 });
 
 describe('isSearchResults rejections', () => {

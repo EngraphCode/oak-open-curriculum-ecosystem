@@ -108,9 +108,9 @@ describe('CourseShell — sidebar (export-grounded spec)', () => {
     const nav = screen.getByRole('navigation', { name: 'Course navigation' });
     const introLink = within(nav).getByRole('link', { name: 'Welcome & overview' });
     expect(introLink.getAttribute('aria-current')).toBe('location');
-    expect(within(nav).getByRole('button', { name: 'Module A' }).getAttribute('aria-expanded')).toBe(
-      'false',
-    );
+    expect(
+      within(nav).getByRole('button', { name: 'Module A' }).getAttribute('aria-expanded'),
+    ).toBe('false');
     expect(within(nav).queryByRole('link', { name: 'Section one' })).toBeNull();
   });
 });
@@ -128,7 +128,9 @@ describe('CourseShell — sidebar disclosure and current-marking', () => {
     expect(moduleA.getAttribute('aria-expanded')).toBe('true');
     const rowOne = within(nav).getByRole('link', { name: 'Section one' });
     expect(rowOne.getAttribute('aria-current')).toBe('location');
-    expect(within(nav).getByRole('link', { name: 'Section two' }).getAttribute('aria-current')).toBeNull();
+    expect(
+      within(nav).getByRole('link', { name: 'Section two' }).getAttribute('aria-current'),
+    ).toBeNull();
     expect(
       within(nav).getByRole('link', { name: 'Welcome & overview' }).getAttribute('aria-current'),
     ).toBeNull();
