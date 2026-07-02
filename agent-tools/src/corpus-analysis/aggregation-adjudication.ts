@@ -93,8 +93,11 @@ function tallyDispositions(
  * 3. Keep iff a strict majority of keep votes; a dead tie → held (`quorum-tie`).
  * 4. Otherwise reroute iff reroute support exists and is not outweighed by outright kills;
  *    else kill.
+ *
+ * Exported (visibility only — the semantics are frozen) for the salvage stratification
+ * layer, which replays banked diverse-lens ensembles offline against the same quorum.
  */
-function finaliseQuorum(verdicts: readonly AdversaryVerdict[]): AdjudicationStep {
+export function finaliseQuorum(verdicts: readonly AdversaryVerdict[]): AdjudicationStep {
   if (verdicts.length < 2) {
     return terminal('held-for-review', 'retry-cap');
   }

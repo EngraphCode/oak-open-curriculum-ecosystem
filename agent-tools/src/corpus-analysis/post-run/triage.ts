@@ -25,7 +25,7 @@ import type { TemporalCoverageEntry } from './post-run-analysis.js';
 import { bandFor } from './triage-banding.js';
 import type { AdjudicationPath, ReviewFirstTrigger, TriageBand } from './triage-banding.js';
 
-type ValidateSuccess = Extract<ValidateResult, { ok: true }>;
+export type ValidateSuccess = Extract<ValidateResult, { ok: true }>;
 
 /** One surviving candidate's evidence vector and its computed band. */
 export interface TriageEntry {
@@ -95,7 +95,7 @@ function passingTestConfidences(verdicts: readonly AdversaryVerdict[]): readonly
 }
 
 /** One candidate's last terminal disposition and the resolving result's testimony. */
-interface TerminalResolution {
+export interface TerminalResolution {
   readonly disposition: 'keep' | 'kill' | 'reroute';
   readonly outcomes: readonly VoterOutcome[];
 }
@@ -106,8 +106,11 @@ interface TerminalResolution {
  * INCLUDING a kill, supersedes an earlier one, so a cross-result contradiction can
  * never present a superseded keep as a survivor; holds are non-terminal and never
  * supersede.
+ *
+ * Exported for the salvage stratification layer — the second consumer of the identical
+ * supersession semantics; a re-derivation there could silently disagree with triage.
  */
-function terminalResolutions(
+export function terminalResolutions(
   validateResults: readonly ValidateSuccess[],
 ): ReadonlyMap<string, TerminalResolution> {
   const resolutions = new Map<string, TerminalResolution>();

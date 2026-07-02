@@ -18,7 +18,9 @@ import { z } from 'zod';
  * truth. Types flow from the schemas — the schema IS the type. Building-block schemas
  * (the enums and citation shapes composed into the top-level judgments) are kept private;
  * only the top-level judgment schemas, the types consumed across modules, and the
- * boundary parsers are exported.
+ * boundary parsers are exported. One named exception: `adversaryLensSchema` is exported
+ * because the salvage layer's banked-verdict boundary schema composes it directly —
+ * a private duplicate enum there would fork the lens source of truth.
  *
  * Design authority:
  * `.agent/reports/agentic-engineering/large-corpus-analysis-runbook-v2-design-2026-06-29.md`;
@@ -107,7 +109,11 @@ export type TestJudgment = z.infer<typeof testJudgmentSchema>;
  * refuters), so their votes are uncorrelated — the property that licenses the simple
  * majority quorum.
  */
-const adversaryLensSchema = z.enum(['correctness-grounding', 'base-rate', 'null-reproduction']);
+export const adversaryLensSchema = z.enum([
+  'correctness-grounding',
+  'base-rate',
+  'null-reproduction',
+]);
 export type AdversaryLens = z.infer<typeof adversaryLensSchema>;
 
 /**
