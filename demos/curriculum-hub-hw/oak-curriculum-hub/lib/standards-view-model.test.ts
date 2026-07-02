@@ -162,4 +162,16 @@ describe('parseFocusIds', () => {
     expect(parseFocusIds('')).toBeNull();
     expect(parseFocusIds('#qs=')).toBeNull();
   });
+
+  it('decodes percent-encoded hashes (an encoded comma still splits)', () => {
+    expect(parseFocusIds('#qs=QS-1%2CQS-2')).toEqual(['QS-1', 'QS-2']);
+  });
+
+  it('never throws on malformed percent-encoding — the raw text is matched instead', () => {
+    // location.hash is user-controlled; '#qs=%' would throw URIError through a bare
+    // decodeURIComponent and crash the page. The undecodable id is harmless (matches
+    // no standard -> the deep-link finds nothing).
+    expect(parseFocusIds('#qs=%')).toEqual(['%']);
+    expect(parseFocusIds('#qs=QS-1,%E0%A4%A')).toEqual(['QS-1', '%E0%A4%A']);
+  });
 });

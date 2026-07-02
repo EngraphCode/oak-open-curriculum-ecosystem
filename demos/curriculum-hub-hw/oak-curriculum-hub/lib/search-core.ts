@@ -26,10 +26,19 @@ export type SearchError = { kind: 'not_configured' } | { kind: 'failed'; message
 
 /* ---------- mappers (SDK result -> view model) ---------- */
 
+/**
+ * URL trust boundary: only http(s) URLs cross the seam. A poisoned index
+ * document must not deliver a click-activated `javascript:`/`data:` URL to the
+ * cards — the same trust chain the snippet mark-parser defends, so the defence
+ * is applied consistently at the mapping. Non-conforming values become `''`,
+ * the UI's established no-link fallback (threads already ship it).
+ */
+const safeUrl = (raw: string): string => (/^https?:\/\//i.test(raw) ? raw : '');
+
 const mapLesson = (r: LessonResult): Hit => ({
   id: r.id,
   title: r.lesson.lesson_title,
-  url: r.lesson.lesson_url,
+  url: safeUrl(r.lesson.lesson_url),
   subjectSlug: r.lesson.subject_slug,
   keyStage: r.lesson.key_stage,
   years: r.lesson.years,
@@ -44,7 +53,7 @@ const mapUnit = (r: UnitResult): Hit | null =>
     ? {
         id: r.id,
         title: r.unit.unit_title,
-        url: r.unit.unit_url,
+        url: safeUrl(r.unit.unit_url),
         subjectSlug: r.unit.subject_slug,
         keyStage: r.unit.key_stage,
         lessonCount: r.unit.lesson_count,
@@ -56,7 +65,7 @@ const mapUnit = (r: UnitResult): Hit | null =>
 const mapThread = (r: ThreadResult): Hit => ({
   id: r.id,
   title: r.thread.thread_title,
-  url: r.thread.thread_url ?? '',
+  url: safeUrl(r.thread.thread_url ?? ''),
   subjectSlugs: r.thread.subject_slugs,
   unitCount: r.thread.unit_count,
 });

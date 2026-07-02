@@ -15,7 +15,7 @@
  * `search-client.ts` (which would drag `node:*` into the client bundle).
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { isSearchResults, type SearchResults } from '@/lib/search-types';
 
 /** The render states of a live curriculum search. `idle` is derived from an empty query. */
@@ -47,10 +47,11 @@ async function performSearch(
   query: string,
   signal: AbortSignal,
   setState: (next: CurriculumSearchState) => void,
+  fetchFn: typeof fetch,
 ): Promise<void> {
   setState({ status: 'loading' });
   try {
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`, { signal });
+    const res = await fetchFn(`/api/search?q=${encodeURIComponent(query)}`, { signal });
     setState(await responseToState(res));
   } catch (e) {
     if (e instanceof Error && e.name !== 'AbortError') {
@@ -62,32 +63,36 @@ async function performSearch(
 /**
  * Debounced (250ms) live curriculum search. `idle` is DERIVED from an empty
  * query rather than stored, so the effect never sets state synchronously during
- * render. Each new query aborts the prior in-flight request.
+ * render. The controller is aborted in the effect CLEANUP, which covers both
+ * lifecycles with one mechanism: a query change aborts the prior in-flight
+ * request (cleanup runs before the next effect), and unmount aborts whatever
+ * is still in flight (nothing survives the component).
  *
  * @param query - the live search string (owned by the caller, e.g. the hero input)
+ * @param fetchFn - the fetch implementation; injectable so the lifecycle
+ *   contract is testable with an inline fake (defaults to the global fetch)
  * @returns the current {@link CurriculumSearchState} for the caller to render
  */
-export function useCurriculumSearch(query: string): CurriculumSearchState {
+export function useCurriculumSearch(
+  query: string,
+  fetchFn: typeof fetch = fetch,
+): CurriculumSearchState {
   const [state, setState] = useState<CurriculumSearchState>({ status: 'idle' });
-  const acRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     const trimmed = query.trim();
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    if (trimmed !== '') {
-      acRef.current?.abort();
-      const ac = new AbortController();
-      acRef.current = ac;
-      timer = setTimeout(() => {
-        void performSearch(trimmed, ac.signal, setState);
-      }, 250);
+    if (trimmed === '') {
+      return undefined;
     }
+    const ac = new AbortController();
+    const timer = setTimeout(() => {
+      void performSearch(trimmed, ac.signal, setState, fetchFn);
+    }, 250);
     return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
+      clearTimeout(timer);
+      ac.abort();
     };
-  }, [query]);
+  }, [query, fetchFn]);
 
   return query.trim() === '' ? { status: 'idle' } : state;
 }

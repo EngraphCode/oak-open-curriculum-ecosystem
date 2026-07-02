@@ -5,6 +5,8 @@ import { runScopedSearch } from './search-core';
 import { isSearchResults } from './search-types';
 import {
   type Retrieval,
+  lessonDoc,
+  threadDoc,
   lessonResult,
   unitResult,
   nullUnitResult,
@@ -114,5 +116,47 @@ describe('runScopedSearch failure handling', () => {
 
     expect(isOk(result)).toBe(false);
     expect(result).toMatchObject({ error: { kind: 'failed' } });
+  });
+});
+
+describe('runScopedSearch url trust boundary', () => {
+  // A poisoned index document must not deliver a click-activated javascript:/data:
+  // URL through the seam — the same trust chain the snippet mark-parser defends.
+  // Non-http(s) urls map to '' (the UI's established no-link fallback).
+  it('maps a non-http(s) lesson url to the empty no-link fallback', async () => {
+    const poisoned = {
+      ...lessonResult,
+      lesson: { ...lessonDoc(), lesson_url: 'javascript:alert(1)' },
+    };
+    const retrieval: Retrieval = {
+      searchLessons: () => Promise.resolve(ok(lessonsOk([poisoned]))),
+      searchUnits: () => Promise.resolve(ok(unitsOk([]))),
+      searchThreads: () => Promise.resolve(ok(threadsOk([]))),
+    };
+
+    const result = await runScopedSearch(retrieval, 'fractions');
+
+    expect(result).toMatchObject({ value: { lessons: [{ id: 'l-1', url: '' }] } });
+  });
+
+  it('keeps https urls and empties a poisoned thread url', async () => {
+    const poisonedThread = {
+      ...threadResult,
+      thread: { ...threadDoc(), thread_url: 'data:text/html,<script>1</script>' },
+    };
+    const retrieval: Retrieval = {
+      searchLessons: () => Promise.resolve(ok(lessonsOk([lessonResult]))),
+      searchUnits: () => Promise.resolve(ok(unitsOk([]))),
+      searchThreads: () => Promise.resolve(ok(threadsOk([poisonedThread]))),
+    };
+
+    const result = await runScopedSearch(retrieval, 'fractions');
+
+    expect(result).toMatchObject({
+      value: {
+        lessons: [{ url: lessonHit.url }],
+        threads: [{ id: 't-1', url: '' }],
+      },
+    });
   });
 });

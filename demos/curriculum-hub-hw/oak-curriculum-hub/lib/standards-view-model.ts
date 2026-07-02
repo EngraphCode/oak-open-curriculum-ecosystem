@@ -75,8 +75,22 @@ export function initialBrowseState(): StandardsBrowseState {
  *
  * @param hash - `location.hash`, with or without the leading `#`
  */
+/**
+ * Decode a hash, tolerating malformed percent-encoding: `location.hash` is
+ * user-controlled and a bare `decodeURIComponent('#qs=%')` throws URIError —
+ * the raw text is matched instead (an undecodable id matches no standard, so
+ * the deep-link harmlessly finds nothing).
+ */
+function safeDecode(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export function parseFocusIds(hash: string): readonly string[] | null {
-  const match = /qs=([^&]+)/.exec(decodeURIComponent(hash.replace(/^#/, '')));
+  const match = /qs=([^&]+)/.exec(safeDecode(hash.replace(/^#/, '')));
   if (match === null) {
     return null;
   }

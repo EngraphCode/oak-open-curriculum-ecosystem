@@ -28,7 +28,10 @@ const path = require('path');
 const { chromium } = require('@playwright/test');
 
 const OUT_DIR = path.resolve(__dirname, '..', 'demo-evidence');
-const DEFAULT_ROUTES = ['/', '/course', '/standards', '/exemplars', '/wiki'];
+// NOTE (recorded gap): every route is measured in its IDLE state — no query is
+// seeded, so results-state reflow (e.g. /curriculum with live hits) is NOT
+// covered by this tool; the per-slice live drives carry that verification.
+const DEFAULT_ROUTES = ['/', '/course', '/standards', '/exemplars', '/wiki', '/curriculum'];
 // The toggle's accessible name (kept distinct from the panel landmark 'Hub sections menu' —
 // item-10 backlog fold). Update BOTH here and in SiteNav.test.tsx if the name ever moves again.
 const MENU_TOGGLE_NAME = 'Hub sections';
