@@ -25,13 +25,16 @@ registry by semver alone.
 Source-executed TypeScript entrypoints are part of the workspace contract.
 Invoke source-executed TS tooling through workspace-owned package scripts, such
 as `pnpm --filter @oaknational/agent-tools <command>` or the corresponding root
-wrapper. Running through `pnpm exec` within the owning workspace enables the
-workspace `development` export condition while loading `tsx`, so packages
-participating in source execution must publish matching `development` export
-entries for their supported subpaths instead of assuming `dist/` already
-exists. `clean` must remove build artefacts only; if generated files are
-committed source, keep them in `clean` and reserve destructive regeneration
-steps for explicit package-local commands such as `generate:clean`.
+wrapper. Workspace package `exports` maps advertise **standard conditions only**
+(`types`, `import`, `default`) and always resolve to built `dist/` output — there
+is no `development` export condition, so every consumer (tsx tooling, Vitest,
+Next.js/Turbopack) resolves the same built artefacts. Turbo's `^build` dependency
+guarantees `dist/` exists before dependent build, lint, test, and type-check
+tasks run; when invoking a workspace script directly (outside turbo), build its
+workspace dependencies first. `clean` must remove build artefacts only; if
+generated files are committed source, keep them in `clean` and reserve
+destructive regeneration steps for explicit package-local commands such as
+`generate:clean`.
 
 `allowBuilds` in `pnpm-workspace.yaml` is an **intentional** allowlist: only
 packages mapped to `true` may run install lifecycle scripts (pnpm v11

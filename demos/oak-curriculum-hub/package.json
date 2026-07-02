@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Oak-styled web UI over the live curriculum search + content stack. Demo by Heather W.",
   "scripts": {
-    "dev": "next dev --webpack -p 3010",
+    "dev": "next dev -p 3010",
     "build": "next build",
     "clean": "rm -rf .next .turbo",
     "start": "next start -p 3010",

@@ -163,7 +163,11 @@ const config: KnipConfig = {
       ],
     },
     'packages/core/oak-eslint': {
-      entry: ['scripts/**/*.ts'],
+      // Compiled package: the exports map points at dist/, so the source entry
+      // behind it is declared explicitly (exports-map auto-detection resolved
+      // the former `development` condition, removed with the built-code-only
+      // ruling). src/index.ts reaches the plugin, configs, and shared graph.
+      entry: ['src/index.ts', 'scripts/**/*.ts'],
       project: ['src/**/*.ts', 'scripts/**/*.ts'],
       ignoreDependencies: [
         // ESLint plugins are peer dependencies used at runtime
@@ -189,12 +193,19 @@ const config: KnipConfig = {
       project: ['src/**/*.ts'],
     },
     'packages/design/oak-design-tokens': {
+      // Source entry behind the dist-pointing `./terminal-theme` export
+      // (see oak-eslint note on the removed `development` condition).
+      entry: ['src/terminal-theme.ts'],
       project: ['src/**/*.ts'],
     },
     'packages/libs/env-resolution': {
       project: ['src/**/*.ts'],
     },
     'packages/libs/graph-ingest': {
+      // Source entries behind the dist-pointing exports map (see oak-eslint
+      // note on the removed `development` condition). Only the subpaths not
+      // already reachable from knip's default entries need declaring.
+      entry: ['src/turtle/index.ts', 'src/source-path/index.ts'],
       project: ['src/**/*.ts'],
     },
     'packages/libs/graph-project': {
@@ -217,10 +228,10 @@ const config: KnipConfig = {
       ],
     },
     'packages/sdks/graph-corpus-sdk': {
-      // Sub-path entries are auto-detected via package.json `exports` map
-      // (knip-v5 resolves the `development` condition); no explicit `entry:`
-      // override required. Empty barrels at sub-path indexes ship until
-      // adapter cycles land (see those files for workstream pointers).
+      // Source entries behind the dist-pointing exports map, one per subpath
+      // (see oak-eslint note on the removed `development` condition — the
+      // former exports-map auto-detection resolved that condition to src).
+      entry: ['src/index.ts', 'src/eef-strands/index.ts', 'src/curriculum/index.ts'],
       project: ['src/**/*.ts'],
     },
     'packages/sdks/oak-curriculum-sdk': {
@@ -249,7 +260,12 @@ const config: KnipConfig = {
     },
     'packages/sdks/oak-search-sdk': {
       // Knip cannot resolve entries through createSdkConfig() factory.
+      // src/index|read|admin are the source entries behind the dist-pointing
+      // exports map (see oak-eslint note on the removed `development` condition).
       entry: [
+        'src/index.ts',
+        'src/read.ts',
+        'src/admin.ts',
         'src/create-search-sdk.ts',
         'src/create-search-retrieval.ts',
         'src/types/**/*.ts',

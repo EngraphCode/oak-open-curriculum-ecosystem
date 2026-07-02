@@ -7,8 +7,8 @@ import { createSdkConfig } from '../../../tsup.config.base.js';
 // files that were never written to dist. Each exported subpath (`.`,
 // `./eef-strands`, `./curriculum`) therefore needs its tree globbed — a subtree
 // omitted here ships `.d.ts` only and its `default` condition resolves to a
-// non-existent `.js` (the monorepo `development` condition masks this by
-// resolving to `src/`). Globbing the trees emits each module.
+// non-existent `.js`, failing at first import. Globbing the trees emits each
+// module.
 export default createSdkConfig(
   [
     'src/*.ts',

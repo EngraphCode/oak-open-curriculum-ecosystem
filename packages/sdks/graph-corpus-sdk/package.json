@@ -16,17 +16,14 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "development": "./src/index.ts",
       "default": "./dist/index.js"
     },
     "./eef-strands": {
       "types": "./dist/eef-strands/index.d.ts",
-      "development": "./src/eef-strands/index.ts",
       "default": "./dist/eef-strands/index.js"
     },
     "./curriculum": {
       "types": "./dist/curriculum/index.d.ts",
-      "development": "./src/curriculum/index.ts",
       "default": "./dist/curriculum/index.js"
     }
   },

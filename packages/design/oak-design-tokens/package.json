@@ -8,7 +8,6 @@
     "./index.css": "./dist/index.css",
     "./terminal-theme": {
       "types": "./dist/terminal-theme.d.ts",
-      "development": "./src/terminal-theme.ts",
       "import": "./dist/terminal-theme.js"
     }
   },

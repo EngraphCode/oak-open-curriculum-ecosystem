@@ -7,22 +7,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "development": "./src/index.ts",
       "import": "./dist/index.js"
     },
     "./property-graph": {
       "types": "./dist/property-graph/index.d.ts",
-      "development": "./src/property-graph/index.ts",
       "import": "./dist/property-graph/index.js"
     },
     "./projection": {
       "types": "./dist/projection/index.d.ts",
-      "development": "./src/projection/index.ts",
       "import": "./dist/projection/index.js"
     },
     "./adjacency": {
       "types": "./dist/adjacency/index.d.ts",
-      "development": "./src/adjacency/index.ts",
       "import": "./dist/adjacency/index.js"
     }
   },
