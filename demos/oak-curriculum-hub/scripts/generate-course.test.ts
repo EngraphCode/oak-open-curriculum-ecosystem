@@ -1,14 +1,15 @@
+import { isErr, isOk } from '@oaknational/result';
 import { describe, it, expect } from 'vitest';
 
-import { extractCourse } from './course-extract';
-import { emitModule, generateFromHtml } from './generate-course';
+import { generateFromHtml } from './generate-course';
 
 /**
- * The generator's emit + orchestration half. `emitModule` must produce a `: Course`-annotated module
- * (the compile-time validation gate), and `generateFromHtml` must turn export HTML into that module —
- * the pure core the IO shell `generate()` and the `--check` CI staleness guard (DoD §F) build on.
- * Real-IO freshness (committed module vs a fresh regenerate) is the `--check` CLI's job, not a unit
- * test's (ADR-078 no-real-io-in-tests).
+ * The Course generator turns export HTML into schema-validated JSON content
+ * (`lib/course/oak-course.json`). These tests pin the generation-time belt: extracted content is
+ * validated against the course schema BEFORE any JSON is emitted, so a drifted export — an unknown
+ * block kind, an absolute asset path — fails the generate run loud, naming the offending path and
+ * value, and never reaches the app. Real-IO freshness (committed JSON vs a fresh regenerate) is
+ * the `--check` CLI's job, not a unit test's (ADR-078 no-real-io-in-tests).
  */
 const SYNTHETIC_HTML = `<html><script type="text/x-dc" data-dc-script>
 class Component {
@@ -22,34 +23,39 @@ class Component {
 }
 </script></html>`;
 
-describe('emitModule', () => {
-  it('emits a Course-annotated module so tsc validates every block at build', () => {
-    const source = emitModule(
-      extractCourse(
-        `class C { constructor(){ this.units = []; } buildIntro(){ return { id:'intro', sections:[] }; } buildCourse(){ return []; } }`,
-      ),
-    );
-    expect(source).toContain("import type { Course } from './types';");
-    expect(source).toContain('export const oakCourse: Course =');
-    expect(source).toContain('"id": "intro"');
+/** Parse an emitted JSON document for structural assertions. */
+const parseEmitted = (json: string): unknown => JSON.parse(json);
+
+describe('generateFromHtml (extract + validate + emit orchestration, pure)', () => {
+  it('turns export HTML into schema-validated course JSON carrying the extracted content', () => {
+    const emitted = generateFromHtml(SYNTHETIC_HTML);
+    expect(isOk(emitted)).toBe(true);
+    if (isOk(emitted)) {
+      expect(parseEmitted(emitted.value)).toEqual({
+        units: [{ id: 'u1', label: 'Unit 1', title: 'Planning' }],
+        intro: { id: 'intro', title: 'Welcome', color: '#fff', sections: [] },
+        modules: [
+          {
+            id: 'u1m1',
+            unit: 'u1',
+            title: 'M',
+            color: '#a',
+            colorStrong: '#b',
+            outcomes: ['learn'],
+            sections: [{ id: 'u1m1s1', title: 'S', blocks: [{ t: 'heading', text: 'H' }] }],
+          },
+        ],
+      });
+    }
+  });
+
+  it('fails loud when the export has no extractable script', () => {
+    const emitted = generateFromHtml('<html><body>no script</body></html>');
+    expect(isErr(emitted)).toBe(true);
   });
 });
 
-describe('generateFromHtml (extract + emit orchestration, pure)', () => {
-  it('turns export HTML into a Course-annotated module carrying the extracted content', () => {
-    const source = generateFromHtml(SYNTHETIC_HTML);
-    expect(source).toContain('export const oakCourse: Course =');
-    expect(source).toContain('"id": "intro"');
-    expect(source).toContain('"t": "heading"');
-  });
-});
-
-/**
- * Asset-path boundary: the views render `/${block.href}` and `/${block.src}`, so the generator
- * guarantees every extracted href/src is RELATIVE (no leading slash, no scheme) — an absolute or
- * protocol path in a fresh export must fail the generate run loud, never reach the views as a
- * protocol-relative URL (strict-validation-at-boundary; the boundary is generation, not JSX).
- */
+/** Wrap a single block value in a schema-complete course for boundary cases. */
 const htmlWithBlock = (block: string): string => `<html><script type="text/x-dc" data-dc-script>
 class Component {
   constructor(){ this.units = [{id:'u1', label:'Unit 1', title:'Planning'}]; }
@@ -62,28 +68,65 @@ class Component {
 }
 </script></html>`;
 
-describe('generateFromHtml asset-path boundary', () => {
+describe('generateFromHtml schema belt', () => {
   it('passes relative asset paths through unchanged', () => {
-    const source = generateFromHtml(
-      htmlWithBlock(`{t:'download', label:'Tool', href:'assets/tool.pdf'}`),
+    const emitted = generateFromHtml(
+      htmlWithBlock(`{t:'download', title:'Tool', desc:'D', meta:'PDF', href:'assets/tool.pdf'}`),
     );
-    expect(source).toContain('"href": "assets/tool.pdf"');
-  });
-
-  it('fails loud on a leading-slash src, naming the field and value', () => {
-    expect(() =>
-      generateFromHtml(htmlWithBlock(`{t:'image', src:'/assets/x.png', alt:'x'}`)),
-    ).toThrow(/src.*\/assets\/x\.png/);
-  });
-
-  it('fails loud on a scheme/protocol href, naming the field and value', () => {
-    let message = '';
-    try {
-      generateFromHtml(htmlWithBlock(`{t:'download', label:'Tool', href:'https://example.org/x.pdf'}`));
-    } catch (error) {
-      message = error instanceof Error ? error.message : String(error);
+    expect(isOk(emitted)).toBe(true);
+    if (isOk(emitted)) {
+      expect(emitted.value).toContain('"href": "assets/tool.pdf"');
     }
-    expect(message).toContain('href');
-    expect(message).toContain('https://example.org/x.pdf');
+  });
+
+  it('normalises a bare-string accordion answer to a paragraph array at the boundary', () => {
+    const emitted = generateFromHtml(
+      htmlWithBlock(`{t:'accordion', items:[{q:'Q?', a:'one paragraph'}]}`),
+    );
+    expect(isOk(emitted)).toBe(true);
+    if (isOk(emitted)) {
+      expect(parseEmitted(emitted.value)).toMatchObject({
+        modules: [
+          {
+            sections: [
+              { blocks: [{ t: 'accordion', items: [{ q: 'Q?', a: ['one paragraph'] }] }] },
+            ],
+          },
+        ],
+      });
+    }
+  });
+});
+
+describe('generateFromHtml schema belt — fail-loud diagnostics', () => {
+  it('fails loud on a leading-slash src, naming the field path and value', () => {
+    const emitted = generateFromHtml(
+      htmlWithBlock(`{t:'image', placeholder:'P', src:'/assets/x.png', alt:'x'}`),
+    );
+    expect(isErr(emitted)).toBe(true);
+    if (isErr(emitted)) {
+      expect(emitted.error).toMatch(/src.*\/assets\/x\.png/);
+    }
+  });
+
+  it('fails loud on a scheme/protocol href, naming the field path and value', () => {
+    const emitted = generateFromHtml(
+      htmlWithBlock(
+        `{t:'download', title:'Tool', desc:'D', meta:'PDF', href:'https://example.org/x.pdf'}`,
+      ),
+    );
+    expect(isErr(emitted)).toBe(true);
+    if (isErr(emitted)) {
+      expect(emitted.error).toContain('href');
+      expect(emitted.error).toContain('https://example.org/x.pdf');
+    }
+  });
+
+  it('fails loud on a block kind outside the closed union, naming the path', () => {
+    const emitted = generateFromHtml(htmlWithBlock(`{t:'marquee', text:'nope'}`));
+    expect(isErr(emitted)).toBe(true);
+    if (isErr(emitted)) {
+      expect(emitted.error).toContain('modules.0.sections.0.blocks.0');
+    }
   });
 });

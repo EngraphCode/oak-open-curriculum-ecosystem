@@ -1,12 +1,14 @@
+import { isErr, isOk } from '@oaknational/result';
 import { describe, it, expect } from 'vitest';
 
 import { extractScript, extractCourse } from './course-extract';
 
 /**
- * The Oak Course extractor evaluates course content authored as JavaScript object literals inside the
- * canonical export. These tests pin the extraction contract on synthetic input: literal shapes are
- * evaluated faithfully, and any non-literal value is a loud failure (never a silent mis-read) — the
- * property that lets the emitted module be trusted as compile-time-validated data.
+ * The Oak Course extractor evaluates course content authored as JavaScript object literals inside
+ * the canonical export. These tests pin the extraction contract on synthetic input: literal shapes
+ * are evaluated faithfully, and any non-literal value is a loud `err` (never a silent mis-read) —
+ * the property that lets the emitted JSON be trusted as schema-validated data. Extraction is
+ * shape-agnostic: content validation belongs to the course schema in `generate-course.ts`.
  */
 
 /** A minimal export-shaped script: the class fields + methods the extractor reads. */
@@ -44,32 +46,33 @@ function scriptWithBlock(block: string): string {
 describe('extractCourse', () => {
   it('extracts units, intro, and modules as faithful literal data', () => {
     const course = extractCourse(SYNTHETIC_SCRIPT);
-    expect(course.units).toEqual([{ id: 'u1', label: 'Unit 1', title: 'Planning' }]);
-    expect(course.intro).toMatchObject({ id: 'intro' });
-    expect(course.modules).toMatchObject([
-      { id: 'u1m1', sections: [{ blocks: [{ t: 'heading', text: 'H' }, { t: 'coursemap' }] }] },
-    ]);
+    expect(isOk(course)).toBe(true);
+    if (isOk(course)) {
+      expect(course.value.units).toEqual([{ id: 'u1', label: 'Unit 1', title: 'Planning' }]);
+      expect(course.value.intro).toMatchObject({ id: 'intro' });
+      expect(course.value.modules).toMatchObject([
+        { id: 'u1m1', sections: [{ blocks: [{ t: 'heading', text: 'H' }, { t: 'coursemap' }] }] },
+      ]);
+    }
   });
 
   it('evaluates string concatenation in literal values', () => {
     const course = extractCourse(SYNTHETIC_SCRIPT);
-    expect(course.intro).toMatchObject({
-      sections: [{ blocks: [{ paras: ['Hello world'] }] }],
-    });
-  });
-
-  it('normalises a bare-string accordion answer to a single-element array', () => {
-    const course = extractCourse(
-      scriptWithBlock(`{t:'accordion', items:[{q:'Q', a:'one paragraph'}]}`),
-    );
-    expect(course.modules).toMatchObject([
-      { blocks: [{ t: 'accordion', items: [{ q: 'Q', a: ['one paragraph'] }] }] },
-    ]);
+    expect(isOk(course)).toBe(true);
+    if (isOk(course)) {
+      expect(course.value.intro).toMatchObject({
+        sections: [{ blocks: [{ paras: ['Hello world'] }] }],
+      });
+    }
   });
 
   it('fails loud when a required method or field is absent', () => {
     const script = `class Component { buildIntro(){ return {}; } buildCourse(){ return []; } }`;
-    expect(() => extractCourse(script)).toThrow(/this\.units/);
+    const course = extractCourse(script);
+    expect(isErr(course)).toBe(true);
+    if (isErr(course)) {
+      expect(course.error).toMatch(/this\.units/);
+    }
   });
 });
 
@@ -79,18 +82,30 @@ describe('extractCourse fail-loud on non-literals', () => {
     ['a variable-reference value', `{t:'text', paras: someVar}`],
     ['a non-string concatenation', `{t:'stats', items: 1 + 2}`],
     ['a computed property key', `{['t']:'text'}`],
-  ])('throws on %s', (_label, block) => {
-    expect(() => extractCourse(scriptWithBlock(block))).toThrow(/non-literal|unsupported|concatenation/);
+  ])('returns err on %s', (_label, block) => {
+    const course = extractCourse(scriptWithBlock(block));
+    expect(isErr(course)).toBe(true);
+    if (isErr(course)) {
+      expect(course.error).toMatch(/non-literal|unsupported|concatenation/);
+    }
   });
 });
 
 describe('extractScript', () => {
   it('pulls the text/x-dc script body from the export HTML', () => {
     const html = '<html><script type="text/x-dc" data-dc-script>const x = 1;</script></html>';
-    expect(extractScript(html)).toContain('const x = 1;');
+    const script = extractScript(html);
+    expect(isOk(script)).toBe(true);
+    if (isOk(script)) {
+      expect(script.value).toContain('const x = 1;');
+    }
   });
 
   it('fails loud when the export has no text/x-dc script block', () => {
-    expect(() => extractScript('<html><body>no script</body></html>')).toThrow(/no <script/);
+    const script = extractScript('<html><body>no script</body></html>');
+    expect(isErr(script)).toBe(true);
+    if (isErr(script)) {
+      expect(script.error).toMatch(/no <script/);
+    }
   });
 });

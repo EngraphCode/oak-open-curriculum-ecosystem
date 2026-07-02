@@ -1,13 +1,13 @@
 /**
  * Public API for the static "Quality standards" content. Demo by Heather W.
  *
- * The shape + closed-set guards live in `./quality-standards-types`; the concrete data is GENERATED
- * (`./data/quality-standards.generated`, 685 items) from `./data/quality-standards.json` by
- * `scripts/generate-quality-standards.ts` and compile-time-validated against
- * {@link QualityStandard} — so the closed `type`/`state` sets are sound by construction with NO
- * runtime narrowing (a drifted vendored value is a build error at generate/compile time, not a
- * runtime throw). This module re-exports the shape + data and adds the search helper; it is the
- * static complement to the live curriculum group (`useCurriculumSearch`) in the unified hub search.
+ * The shape — a zod schema, the single source of truth — and the closed-set guards live in
+ * `./quality-standards-types`; the concrete data is the committed JSON snapshot
+ * (`./data/quality-standards.json`, 685 rows), schema-validated twice: by
+ * `scripts/generate-quality-standards.ts` before it is (re-)written and by
+ * `./data/load-quality-standards` at module initialisation. This module re-exports the shape +
+ * data and adds the search helper; it is the static complement to the live curriculum group
+ * (`useCurriculumSearch`) in the unified hub search.
  *
  * Licensing: this is Oak quality-standards content, placed under the OGL by `LICENCE-DATA.md`.
  */
@@ -19,11 +19,10 @@ export {
   isQualityStandardState,
   type QualityStandard,
   type QualityStandardType,
-  type QualityStandardState,
 } from './quality-standards-types';
 
 import type { QualityStandard } from './quality-standards-types';
-import { qualityStandards } from './data/quality-standards.generated';
+import { qualityStandards } from './data/load-quality-standards';
 
 export { qualityStandards };
 

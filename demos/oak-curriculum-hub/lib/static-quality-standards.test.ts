@@ -9,13 +9,14 @@ import {
 } from './static-quality-standards';
 
 /**
- * The quality-standards data is GENERATED (`data/quality-standards.generated.ts`) from the vendored
- * snapshot and compile-time-validated against the closed `type`/`state` value sets (the generator's
- * fail-loud boundary is pinned in `scripts/generate-quality-standards.test.ts`). These tests pin the
- * public shape the Standards filter UI builds against — the loaded set and the boundary guards.
+ * The quality-standards data is the committed JSON snapshot (`data/quality-standards.json`),
+ * schema-validated at load (`data/load-quality-standards.ts`) against the closed `type`/`state`
+ * value sets (the generator's fail-loud boundary is pinned in
+ * `scripts/generate-quality-standards.test.ts`). These tests pin the public shape the Standards
+ * filter UI builds against — the loaded set and the boundary guards.
  */
 describe('quality-standards closed value sets', () => {
-  it('every generated standard carries a known type and state (685 rows)', () => {
+  it('every loaded standard carries a known type and state (685 rows)', () => {
     expect(qualityStandards).toHaveLength(685);
     const types: ReadonlySet<string> = new Set(QUALITY_STANDARD_TYPES);
     const states: ReadonlySet<string> = new Set(QUALITY_STANDARD_STATES);

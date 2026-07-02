@@ -1,11 +1,14 @@
+import { isErr, isOk } from '@oaknational/result';
 import { describe, it, expect } from 'vitest';
 
-import { emitModule, generate, parseQualityStandard } from './generate-quality-standards';
+import { normaliseSnapshot } from './generate-quality-standards';
 
 /**
- * The QS generator validates the vendored snapshot's closed `type`/`state` value sets at BUILD time
- * and emits the compile-time-typed module. These tests pin the fail-loud boundary (a drifted
- * vendored value halts the build rather than reaching the runtime) and the emitted-module shape.
+ * The QS generator validates the vendored snapshot against the quality-standard schema (the single
+ * source of truth, `lib/quality-standards-types.ts`) and re-emits it as normalised JSON. These
+ * tests pin the fail-loud boundary — a drifted `type`/`state` value or an unknown field halts the
+ * generate run with diagnostics naming the offending path and value, never reaching the runtime —
+ * and the normalised emission shape.
  */
 const validRow = {
   id: 'QS-1',
@@ -19,32 +22,51 @@ const validRow = {
   subject: 'English',
 };
 
-describe('parseQualityStandard (build-time boundary validator)', () => {
-  it('returns the row narrowed to the closed value sets for valid data', () => {
-    const parsed = parseQualityStandard(validRow);
-    expect(parsed.type).toBe('Required standard');
-    expect(parsed.state).toBe('Active');
+const snapshotOf = (rows: readonly unknown[]): string => JSON.stringify(rows);
+
+describe('normaliseSnapshot (schema validation boundary)', () => {
+  it('accepts a valid snapshot and emits it as normalised two-space JSON', () => {
+    const emitted = normaliseSnapshot(snapshotOf([validRow]));
+    expect(isOk(emitted)).toBe(true);
+    if (isOk(emitted)) {
+      expect(JSON.parse(emitted.value)).toEqual([validRow]);
+      expect(emitted.value.endsWith('\n')).toBe(true);
+    }
   });
 
-  it('fails loud on a type outside the closed set (drifted vendored data)', () => {
-    expect(() => parseQualityStandard({ ...validRow, type: 'Requird standard' })).toThrow(/type/);
+  it('is idempotent: normalising its own output is a fixed point', () => {
+    const once = normaliseSnapshot(snapshotOf([validRow]));
+    expect(isOk(once)).toBe(true);
+    if (isOk(once)) {
+      const twice = normaliseSnapshot(once.value);
+      expect(isOk(twice)).toBe(true);
+      if (isOk(twice)) {
+        expect(twice.value).toBe(once.value);
+      }
+    }
+  });
+
+  it('fails loud on a type outside the closed set, naming the path and received value', () => {
+    const emitted = normaliseSnapshot(snapshotOf([{ ...validRow, type: 'Requird standard' }]));
+    expect(isErr(emitted)).toBe(true);
+    if (isErr(emitted)) {
+      expect(emitted.error).toMatch(/0\.type/);
+      expect(emitted.error).toContain('Requird standard');
+    }
   });
 
   it('fails loud on a state outside the closed set (drifted vendored data)', () => {
-    expect(() => parseQualityStandard({ ...validRow, state: 'Retired' })).toThrow(/state/);
-  });
-});
-
-describe('emitModule + generate', () => {
-  it('generates the typed, compile-time-validated module from the real snapshot', () => {
-    const source = generate();
-    expect(source).toContain("import type { QualityStandard } from '../quality-standards-types'");
-    expect(source).toContain('export const qualityStandards: readonly QualityStandard[]');
+    const emitted = normaliseSnapshot(snapshotOf([{ ...validRow, state: 'Retired' }]));
+    expect(isErr(emitted)).toBe(true);
+    if (isErr(emitted)) {
+      expect(emitted.error).toMatch(/0\.state/);
+      expect(emitted.error).toContain('Retired');
+    }
   });
 
-  it('emits a row as a literal under the compile-time-annotated export', () => {
-    const source = emitModule([parseQualityStandard(validRow)]);
-    expect(source).toContain(': readonly QualityStandard[]');
-    expect(source).toContain('"id": "QS-1"');
+  it('fails loud on an unknown field (strict shape) and on non-JSON input', () => {
+    const unknownField = normaliseSnapshot(snapshotOf([{ ...validRow, tier: 'gold' }]));
+    expect(isErr(unknownField)).toBe(true);
+    expect(isErr(normaliseSnapshot('not json'))).toBe(true);
   });
 });

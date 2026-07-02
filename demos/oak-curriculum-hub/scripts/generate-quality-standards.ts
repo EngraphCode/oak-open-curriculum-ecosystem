@@ -1,101 +1,60 @@
 /**
  * Re-runnable Oak quality-standards generator — the QS-content arm of the canonical-export sync
- * mechanism. Reads the vendored snapshot (`lib/data/quality-standards.json`, 685 rows), validates the
- * closed `type`/`state` value sets at BUILD time (fail loud on vendored-data drift — the right place
- * for a build-time correctness invariant), and emits the compile-time-validated typed module
- * (`lib/data/quality-standards.generated.ts`).
+ * mechanism. Validates the vendored snapshot (`lib/data/quality-standards.json`, 685 rows) against
+ * the quality-standard schema (`lib/quality-standards-types.ts`, the single source of truth) and
+ * re-emits it as normalised, prettier-stable JSON in place.
  *
- * WHY generate rather than narrow at runtime: a JSON import widens `type`/`state` to `string`, so the
- * compiler alone does NOT check the closed sets. Emitting a `.ts` literal annotated
- * `: readonly QualityStandard[]` makes tsc validate every row's `type`/`state` against the literal
- * unions at build — a drifted value is a compile error here — so the runtime module is pure typed
- * data with NO throw and NO Result ripple across consumers. Mirrors `scripts/generate-course.ts`.
+ * Content is DATA, not code: the schema validates every row's closed `type`/`state` sets BEFORE
+ * the JSON is (re-)written (the generation-time belt), and `lib/data/load-quality-standards.ts`
+ * re-validates the committed JSON at module initialisation (the runtime belt) — a drifted vendored
+ * value fails the generate run or the build loud, never the runtime filter UI.
  *
- * Build tooling: lives in `scripts/` (never bundled by Next; eslint-zoned for `no-throw`). Usage:
- * `pnpm tsx scripts/generate-quality-standards.ts`; `--check` verifies the committed module is fresh.
+ * Build tooling: lives in `scripts/` (never bundled by Next). Usage:
+ * `pnpm tsx scripts/generate-quality-standards.ts`; `--check` verifies the committed JSON is
+ * schema-valid and normalised.
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import {
-  isQualityStandardType,
-  isQualityStandardState,
-  type QualityStandard,
-} from '../lib/quality-standards-types';
-import rawData from '../lib/data/quality-standards.json';
+import { err, flatMap, isErr, ok, type Result } from '@oaknational/result';
 
-const OUTPUT_MODULE = resolve(
+import { qualityStandardsSchema } from '../lib/quality-standards-types';
+import {
+  formatValidationError,
+  parseJsonText,
+  readTextFile,
+  runGeneratorCli,
+} from './generator-cli';
+
+const SNAPSHOT_JSON = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  '../lib/data/quality-standards.generated.ts',
+  '../lib/data/quality-standards.json',
 );
 
-/** A snapshot row before the closed-set fields are narrowed (JSON widens them to `string`). */
-interface RawQualityStandard extends Omit<QualityStandard, 'type' | 'state'> {
-  type: string;
-  state: string;
-}
-
 /**
- * Validate one snapshot row and narrow its closed `type`/`state`. Throws (build-time, in `scripts/`)
- * on an out-of-set value: that means the vendored asset has drifted, a build-time correctness
- * violation to fix at source, not a runtime-recoverable condition.
+ * Validate the snapshot text against the schema and produce the normalised JSON document — the
+ * pure core the IO shell and the `--check` freshness guard build on. A drifted value is an `err`
+ * carrying fail-loud diagnostics (path + message + received value); nothing throws.
  */
-export function parseQualityStandard(row: RawQualityStandard): QualityStandard {
-  if (!isQualityStandardType(row.type)) {
-    throw new Error(`quality-standards.json: unexpected type ${JSON.stringify(row.type)} (id ${row.id})`);
+export function normaliseSnapshot(text: string): Result<string, string> {
+  const raw = parseJsonText(text);
+  if (isErr(raw)) {
+    return raw;
   }
-  if (!isQualityStandardState(row.state)) {
-    throw new Error(`quality-standards.json: unexpected state ${JSON.stringify(row.state)} (id ${row.id})`);
+  const standards = qualityStandardsSchema.safeParse(raw.value, { reportInput: true });
+  if (!standards.success) {
+    return err(
+      formatValidationError('vendored snapshot failed schema validation', standards.error),
+    );
   }
-  return { ...row, type: row.type, state: row.state };
-}
-
-/**
- * Render the emitted, compile-time-validated content module source. The `: readonly QualityStandard[]`
- * annotation on the source literal is the validation gate: a row whose `type`/`state` is off the
- * closed set is a build error here (a JSON import + typed alias would widen them to `string` and lose
- * the check — so keep it `.ts`). The generated file is eslint-zoned for `max-lines`.
- */
-export function emitModule(standards: readonly QualityStandard[]): string {
-  return `/**
- * Oak quality-standards content — GENERATED by \`scripts/generate-quality-standards.ts\` from the
- * vendored snapshot (\`lib/data/quality-standards.json\`). Do not edit by hand: re-run the generator.
- *
- * The \`: readonly QualityStandard[]\` annotation makes this a compile-time validation gate — a row
- * whose \`type\`/\`state\` is off the closed set is a build error here, so the closed value sets are
- * sound by construction with no runtime narrowing.
- */
-
-import type { QualityStandard } from '../quality-standards-types';
-
-export const qualityStandards: readonly QualityStandard[] = ${JSON.stringify(standards, null, 2)};
-`;
-}
-
-/** Produce the module source from the vendored snapshot — the pure core (no IO). */
-export function generate(): string {
-  return emitModule(rawData.map(parseQualityStandard));
-}
-
-function main(): void {
-  const check = process.argv.includes('--check');
-  const generated = generate();
-  if (check) {
-    const current = readFileSync(OUTPUT_MODULE, 'utf8');
-    if (current !== generated) {
-      throw new Error(
-        `quality-standards generate --check: ${OUTPUT_MODULE} is stale; re-run \`pnpm tsx scripts/generate-quality-standards.ts\``,
-      );
-    }
-    process.stdout.write('quality-standards generate --check: up to date\n');
-    return;
-  }
-  writeFileSync(OUTPUT_MODULE, generated);
-  process.stdout.write(`quality-standards generate: wrote ${OUTPUT_MODULE}\n`);
+  return ok(`${JSON.stringify(standards.data, null, 2)}\n`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  await runGeneratorCli({
+    label: 'quality-standards generate',
+    outputPath: SNAPSHOT_JSON,
+    produce: () => flatMap(readTextFile(SNAPSHOT_JSON), normaliseSnapshot),
+  });
 }

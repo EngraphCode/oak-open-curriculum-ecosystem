@@ -1,12 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
-import { oakCourse } from './oak-course.generated';
+import { oakCourse } from './load-course';
 
 /**
- * Census of the generated Oak Course content module against the canonical `Oak Course.dc.html`.
- * These counts are the verified fixtures (4 units · 11 modules + intro · 63 module-sections + 1 intro
- * section · 214 blocks) — a discriminating guard that the generator extracted the whole course, not a
- * subset. A drift here means the export changed or the extractor regressed; either is worth a look.
+ * Census of the loaded Oak Course content (`oak-course.json`, schema-validated at load) against
+ * the canonical `Oak Course.dc.html`. These counts are the verified fixtures (4 units · 11 modules
+ * + intro · 63 module-sections + 1 intro section · 214 blocks) — a discriminating guard that the
+ * generator extracted the whole course, not a subset. A drift here means the export changed or the
+ * extractor regressed; either is worth a look.
  */
 const allModules = [oakCourse.intro, ...oakCourse.modules];
 const allSections = allModules.flatMap((m) => m.sections);
