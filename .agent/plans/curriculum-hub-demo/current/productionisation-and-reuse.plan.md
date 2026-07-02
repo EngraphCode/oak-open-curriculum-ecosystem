@@ -131,7 +131,16 @@ Build the owner-ratified six-stage pipeline (mechanism SSOT:
 [`../future/demo-maintenance-and-structure.md`](../future/demo-maintenance-and-structure.md) —
 the second-consumer guard is owner-dis-applied for this capability) in a **dedicated tooling
 workspace** (shape precedent: `agent-tools`; name settled at activation, e.g.
-`packages/tools/claude-design-ingest`), at full estate conventions:
+`packages/tools/claude-design-ingest`), at full estate conventions.
+
+**Owner design input (2026-07-02, co-equal-streams direction):** the pipeline is stream 2 of
+three CO-EQUAL value streams (not a rider on the demo), it is **skill and agent-tools driven**,
+and UPDATE-INTEGRATION into existing demos is explicitly **agent-judged** — "careful, intelligent
+integration, there is likely no deterministic route and that will be something for an agent to
+handle." At activation, name the reconcile step as a first-class AGENT stage (skill-driven
+judgment over the diff/classify output), not tool residue; the CLIs feed it, they do not replace
+it. Residue for owner re-ratification at activation: whether any "heavier reusable-skill
+codification gated on demo #2" note survives co-equality.
 
 1. **Census/currency tool** — per-page block/section/qs counts, data hashes, asset inventory
    (mechanises the stale-bundle-trap cure). TDD against the committed export snapshot.

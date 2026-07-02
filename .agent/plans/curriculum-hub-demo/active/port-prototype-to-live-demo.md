@@ -135,6 +135,19 @@ evening: **E1+E2+E3 all land pre-merge** (see §Ratified decisions + §E-series 
 Success measure: an excellent, faithful, LIVE, web-visible demo that stands as
 repeatable-pipeline evidence.
 
+**Impact sharpened + recalibrated (owner direction 2026-07-02, relayed via the hygiene lane —
+PDR-117 downward-flow):** the work carries THREE CO-EQUAL value streams — (1) Heather's work
+web-visible **for USER TESTING** (sharper than "show people"); (2) a reusable, skill/agent-tools
+driven pipeline for ingesting Claude Design exports into standards-compliant web apps with no
+loss of functionality or visual fidelity — covering new demos AND update-integration into
+existing demos, where the owner names update integration as agent-judged ("likely no
+deterministic route"); (3) rapid user-facing web-app capability — together the **"Oak Innovation
+Kit"** (well-encapsulated, single-purpose workspaces at full repo standards). Streams 2+3 are
+NOT riders on the demo. The pre-merge execution path is unchanged; the post-merge plan
+(`../current/productionisation-and-reuse.plan.md`) carries the stream-2/3 build. Open owner
+question (routed 2026-07-02): whether the Innovation Kit is a fourth strategy stream vs a
+capabilities-tier entry.
+
 ## Mechanism
 
 The **canonical export is the authoritative source** for page fidelity, content, and assets — it
