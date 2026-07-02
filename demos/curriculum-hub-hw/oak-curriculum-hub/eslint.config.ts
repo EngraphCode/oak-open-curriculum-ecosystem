@@ -6,9 +6,10 @@
  * so this workspace lints with ESLint directly via `eslint .`.
  *
  * The demo meets the repo's full strict ruleset — no production-doctrine
- * relaxations. The only overrides below are genuinely contextual: a known
- * upstream plugin/ESLint-10 incompatibility, framework-callback typing in
- * config files, and the Next-provided `server-only` virtual module.
+ * relaxations. The only overrides below are genuinely contextual:
+ * framework-callback typing in config files and the Next-provided
+ * `server-only` virtual module. (The former ESLint-10 react-version pin
+ * moved into the shared `configs.react` — one canonical workaround.)
  */
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
@@ -28,15 +29,6 @@ export default [
   // parser). Both are needed for a TS + React workspace.
   ...configs.strict,
   ...configs.next,
-  {
-    // FLAGGED WORKAROUND for an upstream defect (not a relaxation): the shared
-    // `configs.next` sets `react.version: 'detect'`, but eslint-plugin-react@7.37.5's
-    // auto-detect calls a context API removed in ESLint 10 and crashes on every
-    // file. Pinning a literal skips detection. The proper fix is bumping
-    // eslint-plugin-react in packages/core/oak-eslint (first React workspace to
-    // exercise configs.next under ESLint 10). Unfiltered so it covers .mjs too.
-    settings: { react: { version: '19.2' } },
-  },
   {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
