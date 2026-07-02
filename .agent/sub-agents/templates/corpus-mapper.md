@@ -1,7 +1,9 @@
 # Corpus Mapper: Read-Only Leaf-Signal Extractor
 
-Vendor-agnostic canonical definition. The Claude wrapper is
-`.claude/agents/corpus-mapper.md`.
+Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
+`.claude/agents/corpus-mapper.md` (carries the System prompt block verbatim), the
+Cursor wrapper `.cursor/agents/corpus-mapper.md`, and the Codex adapter
+`.codex/agents/corpus-mapper.toml` (both load this template).
 
 ## Purpose
 
@@ -12,6 +14,17 @@ extracting high-recall atomic leaf signals under the five spanning
 categories. The schema-forced structured output carries the leaves; the
 deterministic completeness verdict (`assessMapCompleteness`) surfaces any
 window that returns empty.
+
+## Reading Requirements (loader-capable platform variants)
+
+Read and apply `.agent/sub-agents/components/behaviours/reading-discipline.md`.
+Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
+
+These fire where the platform variant loads this template (the Cursor wrapper
+and the Codex adapter). The Claude wrapper deliberately does not load it: its
+dispatch carries the System prompt block verbatim so the stage spends its
+turns on corpus reads, not grounding reads — every dispatch supplies the
+complete task inputs.
 
 ## Capability envelope (least privilege, 2026-07-02)
 

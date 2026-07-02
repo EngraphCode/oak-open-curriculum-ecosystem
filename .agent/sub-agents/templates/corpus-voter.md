@@ -1,7 +1,9 @@
 # Corpus Voter: Single-Turn No-Tools Adversary
 
-Vendor-agnostic canonical definition. The Claude wrapper is
-`.claude/agents/corpus-voter.md`.
+Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
+`.claude/agents/corpus-voter.md` (carries the System prompt block verbatim), the
+Cursor wrapper `.cursor/agents/corpus-voter.md`, and the Codex adapter
+`.codex/agents/corpus-voter.toml` (both load this template).
 
 ## Purpose
 
@@ -11,6 +13,16 @@ candidate pattern plus its verbatim grounding excerpts and requests four
 conjunctive apophenia-test judgments via a schema-forced structured output
 call. The deterministic adjudication state machine makes every routing
 decision; the voter judges exactly one candidate and emits nothing else.
+
+## Reading Requirements (loader-capable platform variants)
+
+Read and apply `.agent/sub-agents/components/behaviours/reading-discipline.md`.
+Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
+
+These fire where the platform variant loads this template (the Cursor wrapper
+and the Codex adapter). The Claude wrapper deliberately cannot load it: a
+zero-tools role cannot `Read`, and every dispatch supplies the complete
+candidate + grounding evidence — the role's economics forbid extra turns.
 
 ## Why no tools (measured, 2026-07-02)
 

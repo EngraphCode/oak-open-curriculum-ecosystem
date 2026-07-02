@@ -1,7 +1,9 @@
 # Corpus Reducer: No-Tools Clustering Synthesist
 
-Vendor-agnostic canonical definition. The Claude wrapper is
-`.claude/agents/corpus-reducer.md`.
+Vendor-agnostic canonical definition. Platform adapters: the Claude wrapper
+`.claude/agents/corpus-reducer.md` (carries the System prompt block verbatim), the
+Cursor wrapper `.cursor/agents/corpus-reducer.md`, and the Codex adapter
+`.codex/agents/corpus-reducer.toml` (both load this template).
 
 ## Purpose
 
@@ -11,6 +13,16 @@ clustering the map stage's leaf signals (inlined verbatim in the dispatch
 prompt) into mechanism-grained and longitudinal candidate patterns. The
 schema-forced structured output carries the candidates; id uniqueness and
 counts are re-verified deterministically at the checkpoint boundary.
+
+## Reading Requirements (loader-capable platform variants)
+
+Read and apply `.agent/sub-agents/components/behaviours/reading-discipline.md`.
+Read and apply `.agent/sub-agents/components/behaviours/subagent-identity.md`.
+
+These fire where the platform variant loads this template (the Cursor wrapper
+and the Codex adapter). The Claude wrapper deliberately cannot load it: a
+zero-tools role cannot `Read`, and every dispatch inlines the complete
+leaf-signal inputs.
 
 ## Capability envelope (least privilege, probe-verified 2026-07-02)
 
