@@ -1,16 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useId, useRef, useState } from 'react';
 import type { FocusEvent, KeyboardEvent, ReactElement } from 'react';
 
+import { HubNavLink } from '@/components/HubNavLink';
+import type { HubNavItem } from '@/components/HubNavLink';
 import { HubSearch } from '@/components/HubSearch';
-
-/** One hub section entry: label plus a route (`/…`) or same-page href. */
-export interface HubNavItem {
-  readonly label: string;
-  readonly href: string;
-}
 
 const menuLinkClass =
   'block rounded-oak-m2 px-[13px] py-[11px] text-[15px] font-semibold leading-none text-oak-black no-underline transition-colors hover:bg-oak-cream';
@@ -32,9 +27,7 @@ function MenuPanel({
       className="shadow-oak-grey absolute inset-x-0 top-full flex flex-col gap-1 border-b-[3px] border-oak-black bg-white p-4"
     >
       {items.map((item) => (
-        <Link key={item.label} href={item.href} className={menuLinkClass} onClick={onChoose}>
-          {item.label}
-        </Link>
+        <HubNavLink key={item.label} item={item} className={menuLinkClass} onChoose={onChoose} />
       ))}
       <div className="mt-2">
         <HubSearch />

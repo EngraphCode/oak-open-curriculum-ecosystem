@@ -1,7 +1,8 @@
 import { render, screen, cleanup } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { TrainingGroup, StandardsGroup, ResultsHeader, CurriculumGroup } from '@/components/HubResults';
+import { TrainingGroup, StandardsGroup } from '@/components/HubLocalGroups';
+import { HubResultsView, ResultsHeader, CurriculumGroup } from '@/components/HubResults';
 import type { CourseHit, StandardHit } from '@/lib/hub-search';
 
 afterEach(cleanup);
@@ -62,5 +63,24 @@ describe('HubResults — StandardsGroup (local quality-standards search results)
     render(<StandardsGroup hits={[]} />);
     expect(screen.getByText(/No matching quality standards/)).toBeTruthy();
     expect(screen.queryByRole('link')).toBeNull();
+  });
+});
+
+describe('HubResults — group ordering (E2: live curriculum is secondary)', () => {
+  it('renders training and standards first, the live curriculum group below them', () => {
+    render(
+      <HubResultsView query="fractions" onClear={() => undefined} curriculum={{ status: 'idle' }} />,
+    );
+    const headers = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent ?? '');
+    // Presence first, so the index comparisons can never pass vacuously on -1.
+    for (const title of ['In the training courses', 'Quality standards', 'From the Oak curriculum']) {
+      expect(headers).toContain(title);
+    }
+    expect(headers.indexOf('In the training courses')).toBeLessThan(
+      headers.indexOf('From the Oak curriculum'),
+    );
+    expect(headers.indexOf('Quality standards')).toBeLessThan(
+      headers.indexOf('From the Oak curriculum'),
+    );
   });
 });

@@ -2,18 +2,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactElement } from 'react';
 
+import { HubNavLink } from '@/components/HubNavLink';
+import type { HubNavItem } from '@/components/HubNavLink';
 import { HubSearch } from '@/components/HubSearch';
 import { MobileHubNav } from '@/components/MobileHubNav';
-import type { HubNavItem } from '@/components/MobileHubNav';
 
 // Hub top-level sections, mirroring the reference prototype's header nav.
-// Every entry resolves to a live app route.
+// Every entry resolves to a live app route, except the E1 WWW link-out.
 const navItems: readonly HubNavItem[] = [
   { label: 'Training courses', href: '/course' },
   { label: 'Quality standards', href: '/standards' },
   { label: 'Rubrics', href: '/rubrics' },
   { label: 'Exemplars', href: '/exemplars' },
   { label: 'Wiki', href: '/wiki' },
+  { label: 'Oak website', href: 'https://www.thenational.academy' },
 ];
 
 const navLinkClass =
@@ -24,9 +26,7 @@ function HubNav(): ReactElement {
   return (
     <nav aria-label="Hub sections" className="ml-3.5 hidden items-center gap-0.5 md:flex">
       {navItems.map((item) => (
-        <Link key={item.label} href={item.href} className={navLinkClass}>
-          {item.label}
-        </Link>
+        <HubNavLink key={item.label} item={item} className={navLinkClass} />
       ))}
     </nav>
   );

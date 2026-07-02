@@ -56,4 +56,19 @@ describe('SiteNav — inline chrome', () => {
     expect(screen.getByRole('search', { name: 'Hub search' })).toBeTruthy();
     expect(screen.getByRole('searchbox', { name: 'Search the hub' })).toBeTruthy();
   });
+
+  it('links out to the Oak website from both navs, announcing the new tab (E1)', () => {
+    render(<SiteNav />);
+    const inline = screen.getByRole('navigation', { name: 'Hub sections' });
+    // The sr-only suffix joins the accessible name — new-tab is announced, not colour/glyph-only.
+    const www = within(inline).getByRole('link', { name: 'Oak website (opens in new tab)' });
+    expect(www.getAttribute('href')).toBe('https://www.thenational.academy');
+    expect(www.getAttribute('target')).toBe('_blank');
+    expect(www.getAttribute('rel') ?? '').toContain('noopener');
+    fireEvent.click(screen.getByRole('button', { name: 'Hub sections' }));
+    const menu = screen.getByRole('navigation', { name: 'Hub sections menu' });
+    expect(
+      within(menu).getByRole('link', { name: 'Oak website (opens in new tab)' }),
+    ).toBeTruthy();
+  });
 });
