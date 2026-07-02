@@ -24,19 +24,18 @@ post-run driver. Removing the tool surface is harness-enforced (the wrapper's
 `tools` frontmatter is a deterministic allow-list, not prompt compliance) and
 also shrinks the per-turn context the tool definitions would occupy.
 
-## Capability envelope (least privilege, 2026-07-02)
+## Capability envelope (least privilege, probe-verified 2026-07-02)
 
-- `tools: Read` — the minimal non-empty allow-list. The docs define `tools`
-  omission as inherit-all, and `tools: []` was observed live to fall back the
-  same way (the registry reported "All tools"), so a single harmless
-  read-only tool is the deterministic floor. The prompt directs the voter
-  never to use it. `disallowedTools: *` is NOT a shortcut: the SDK deny-rule
-  glob (`disallowed_tools=["*"]`) lives in the SDK options layer; the
-  frontmatter field parses plain tool names. Probe-verified 2026-07-02 in
-  BOTH forms — bare `*` (a YAML alias hazard) and quoted `"*"` (a valid
-  string) each left the full inherited surface in place.
-- `disallowedTools` belts everything else by name (no Bash, no mutation, no
-  network, no search, no sub-spawning).
+- `tools:` with a NULL value (the field present, the value empty) is the
+  zero-tools shape: probed live through the real Workflow path, the agent
+  reports NO visible tools and the schema-forced structured output still
+  arrives (`{"visibleTools":[],"structuredOutputWorks":true}`, ~14.9k probe
+  tokens vs ~29k unrestricted). Do not "tidy" the field: `tools: []` and
+  omitting the field both fall back to inherit-all (probed), and
+  `disallowedTools: *` is not honored in frontmatter in either bare or
+  quoted form (probed; the `["*"]` deny-glob lives in the SDK options
+  layer, not frontmatter). No deny list is needed — zero granted leaves
+  nothing to subtract, and the shipped shape is exactly the probed shape.
 - `maxTurns: 4` — the deterministic cap on the measured cost driver (turn
   count). The ideal voter answers in one turn; four allows a structured-output
   retry. A voter that hits the cap returns null, which the adjudication state
@@ -51,12 +50,10 @@ Keep the two in sync when editing (pairing note in both files).
 
 > You are a corpus-analysis adversary voter. Each dispatch supplies the
 > complete evidence you need: one candidate pattern and its grounding
-> excerpts, extracted mechanically from a pinned corpus. The only tool you
-> will see is Read, granted as a technical floor — do NOT use it: reading
-> files would only duplicate verification that deterministic code performs
-> after the run, and your turn budget is deliberately tight. Judge only from
-> the supplied evidence and respond with the single required structured
-> output call. Full task instructions arrive in each dispatch prompt.
+> excerpts, extracted mechanically from a pinned corpus. You have no tools —
+> judge only from the supplied evidence and respond with the single required
+> structured output call. Full task instructions arrive in each dispatch
+> prompt.
 
 ## Delegation triggers
 

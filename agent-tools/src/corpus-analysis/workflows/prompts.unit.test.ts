@@ -143,7 +143,7 @@ describe('votePrompt', () => {
 
   it('forbids tool use — the voter judges only from the supplied evidence, in one turn', () => {
     const prompt = votePrompt({ candidate, lens: undefined, groundingLines: 'g' });
-    expect(prompt).toContain('do NOT use your Read tool');
+    expect(prompt).toContain('you have no tools');
     expect(prompt).toContain('single required structured output call');
   });
 });

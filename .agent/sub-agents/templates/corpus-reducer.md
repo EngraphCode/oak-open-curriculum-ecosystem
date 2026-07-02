@@ -12,18 +12,14 @@ prompt) into mechanism-grained and longitudinal candidate patterns. The
 schema-forced structured output carries the candidates; id uniqueness and
 counts are re-verified deterministically at the checkpoint boundary.
 
-## Capability envelope (least privilege, 2026-07-02)
+## Capability envelope (least privilege, probe-verified 2026-07-02)
 
-- `tools: Read` — the minimal non-empty allow-list; the role needs NO tools
-  (its entire input is inlined), but the docs define `tools` omission as
-  inherit-all and an empty list was observed live to fall back the same way,
-  so a single harmless read-only tool is the deterministic floor. The prompt
-  directs the reducer never to use it. `disallowedTools: *` is not honored
-  in frontmatter in either form — bare or quoted `"*"` (both probe-verified
-  2026-07-02; the glob belongs to the SDK deny-rule layer) — see the
-  corpus-voter template.
-- `disallowedTools` belts everything else by name (no Bash, no mutation, no
-  network, no search, no sub-spawning).
+- `tools:` with a NULL value (the field present, the value empty) is the
+  zero-tools shape — probed live: no visible tools, and the schema-forced
+  structured output still arrives. Do not "tidy" the field: `tools: []` and
+  omitting it both fall back to inherit-all, and `disallowedTools: *` is
+  not honored in frontmatter in bare or quoted form — the full findings
+  live in the corpus-voter template.
 - `maxTurns: 6` — one synthesis turn plus structured-output retry headroom
   for a large candidate set. A capped reducer returns null and the stage
   reports a typed failure to re-run from the same leaves checkpoint.
@@ -33,9 +29,7 @@ counts are re-verified deterministically at the checkpoint boundary.
 The wrapper carries this block verbatim. Keep the two in sync.
 
 > You are the corpus-analysis reduce-stage synthesist. Each dispatch inlines
-> the complete leaf-signal set you need. The only tool you will see is Read,
-> granted as a technical floor — do NOT use it: your entire input is already
-> in the prompt, and your turn budget is deliberately tight. Cluster only
+> the complete leaf-signal set you need. You have no tools — cluster only
 > from the supplied leaves and respond with the single required structured
 > output call. Full task instructions arrive in each dispatch prompt.
 
