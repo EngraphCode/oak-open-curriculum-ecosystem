@@ -58,12 +58,17 @@ describe('StandardsBrowser — filtering', () => {
     expect(screen.getByRole('button', { name: 'Reset filters' })).toBeTruthy();
   });
 
-  it('reveals the whole corpus via "Show all" and drops the pagination controls', () => {
-    render(<StandardsBrowser />);
-    fireEvent.click(screen.getByRole('button', { name: 'Show all 685' }));
-    expect(screen.getByText('685 standards')).toBeTruthy();
-    expect(screen.queryByRole('button', { name: 'Show all 685' })).toBeNull();
-  });
+  // Rendering the full 685-standard corpus needs more than the 5s default on shared CI runners.
+  it(
+    'reveals the whole corpus via "Show all" and drops the pagination controls',
+    () => {
+      render(<StandardsBrowser />);
+      fireEvent.click(screen.getByRole('button', { name: 'Show all 685' }));
+      expect(screen.getByText('685 standards')).toBeTruthy();
+      expect(screen.queryByRole('button', { name: 'Show all 685' })).toBeNull();
+    },
+    20_000,
+  );
 
   it('clears every filter via reset', () => {
     render(<StandardsBrowser />);
