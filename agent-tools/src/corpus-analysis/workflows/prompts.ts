@@ -111,7 +111,7 @@ export function votePrompt(input: {
       ? `Judge PRIMARILY through the "${lens}" lens (correctness-grounding = is it truly anchored in the cited entries; base-rate = would it appear in any comparable corpus by chance; null-reproduction = does a plausible null hypothesis reproduce it).`
       : 'Judge across all four tests evenly.',
     '',
-    "You have no tools and need none: the grounding above was extracted mechanically from the pinned corpus, and survivors' quotes are re-verified deterministically after the run. Judge ONLY from the evidence supplied in this prompt, and respond with the single required structured output call — nothing else.",
+    "Judge ONLY from the evidence supplied in this prompt — do NOT use your Read tool (it is a technical floor, not an invitation): the grounding above was extracted mechanically from the pinned corpus, survivors' quotes are re-verified deterministically after the run, and your turn budget is tight. Respond with the single required structured output call — nothing else.",
     '',
     'Emit, for EACH of the four conjunctive apophenia tests, pass (boolean) + confidence (low/med/high):',
     '  - grounded: genuinely anchored in the cited corpus entries (quotes real and on-point, not hallucinated or mis-attributed)?',
