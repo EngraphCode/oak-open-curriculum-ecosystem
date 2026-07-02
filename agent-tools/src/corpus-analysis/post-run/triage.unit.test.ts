@@ -4,7 +4,7 @@ import type { AdversaryVerdict, Candidate, VoterOutcome } from '../judgment-sche
 import type { MetaOutput } from '../recall-schemas.js';
 import type { Corroboration } from '../real-world-signal.js';
 import type { ValidateResult } from '../workflows/stage-io.js';
-import { temporalCoverageReport } from './post-run-analysis.js';
+import type { TemporalCoverageEntry } from './post-run-analysis.js';
 import { triageDispositions } from './triage.js';
 
 /**
@@ -100,12 +100,13 @@ function triageOne(input: {
   results: readonly Extract<ValidateResult, { ok: true }>[];
   meta?: MetaOutput;
   corroborations?: readonly Corroboration[];
+  temporal?: readonly TemporalCoverageEntry[];
 }) {
   return triageDispositions({
     candidates: [input.candidateEntry],
     validateResults: input.results,
     meta: input.meta ?? emptyMeta,
-    temporal: temporalCoverageReport([input.candidateEntry]),
+    temporal: input.temporal ?? [],
     corroborations: input.corroborations ?? [],
   });
 }
@@ -203,6 +204,16 @@ describe('triageDispositions banding', () => {
           ],
         ),
       ],
+      temporal: [
+        {
+          candidateId: 'C05',
+          kind: 'trajectory',
+          distinctWindows: 1,
+          earliest: 'w07',
+          latest: 'w07',
+          suspect: true,
+        },
+      ],
     });
     expect(entries[0]?.longitudinalSuspect).toBe(true);
     expect(entries[0]?.band).toBe('review-first');
@@ -225,8 +236,75 @@ describe('triageDispositions banding', () => {
       ],
     });
     expect(entries[0]?.path).toBe('quorum-reroute');
+    // Reroute margin is reroute-votes minus kills: 2 reroutes, 1 kill.
+    expect(entries[0]?.quorumMargin).toBe(1);
     expect(entries[0]?.band).toBe('review-first');
     expect(entries[0]?.reviewFirstTriggers).toContain('reroute');
+  });
+
+  it('accumulates every firing trigger — a narrow quorum with a low-confidence pass reports both', () => {
+    const lowConfidenceKeep: AdversaryVerdict = { ...allHighVerdict, grounded: lowPass };
+    const entries = triageOne({
+      candidateEntry: candidate('C20'),
+      results: [
+        validateSuccess(
+          [{ candidateId: 'C20', disposition: 'keep' }],
+          tier2Trio('C20', [lowConfidenceKeep, allHighVerdict, killVerdict]),
+        ),
+      ],
+    });
+    expect(entries[0]?.reviewFirstTriggers).toEqual(['narrow-quorum', 'low-confidence-pass']);
+    expect(entries[0]?.band).toBe('review-first');
+  });
+
+  it('bands a 2-0 quorum keep moderate — a quorum with an unavailable voter never bands strong', () => {
+    const twoAdjudicated = tier2Trio('C21', [allHighVerdict, allHighVerdict]);
+    const unavailable: VoterOutcome = {
+      status: 'unadjudicated',
+      candidateId: 'C21',
+      voterId: 'C21:t2:2',
+      tier: 'tier-2',
+      reason: 'retry-cap',
+    };
+    const entries = triageOne({
+      candidateEntry: candidate('C21'),
+      results: [
+        validateSuccess(
+          [{ candidateId: 'C21', disposition: 'keep' }],
+          [...twoAdjudicated, unavailable],
+        ),
+      ],
+    });
+    expect(entries[0]?.path).toBe('quorum-keep');
+    expect(entries[0]?.quorumMargin).toBe(2);
+    expect(entries[0]?.band).toBe('moderate');
+  });
+
+  it('recomputes window spread — duplicate self-reported windows earn no cross-window credit', () => {
+    const entries = triageOne({
+      candidateEntry: candidate('C22', { supportingWindows: ['w07', 'w07'] }),
+      results: [
+        validateSuccess(
+          [{ candidateId: 'C22', disposition: 'keep' }],
+          [
+            adjudicated('C22', 'tier-0', 'C22:t0', allHighVerdict),
+            adjudicated('C22', 'tier-1', 'C22:t1', allHighVerdict),
+          ],
+        ),
+      ],
+    });
+    expect(entries[0]?.distinctWindows).toBe(1);
+    expect(entries[0]?.band).toBe('moderate');
+  });
+
+  it('routes a keep with no recorded testimony review-first — empty evidence reads as low', () => {
+    const entries = triageOne({
+      candidateEntry: candidate('C23'),
+      results: [validateSuccess([{ candidateId: 'C23', disposition: 'keep' }], [])],
+    });
+    expect(entries[0]?.minTestConfidence).toBe('low');
+    expect(entries[0]?.band).toBe('review-first');
+    expect(entries[0]?.reviewFirstTriggers).toContain('low-confidence-pass');
   });
 
   it('bands a single-window clean keep moderate — never strong without cross-window spread', () => {
@@ -294,34 +372,52 @@ describe('triageDispositions evidence assembly', () => {
   });
 
   it('takes the resolving result on a resumed run — the last terminal disposition wins', () => {
-    const partial = validateSuccess(
-      [{ candidateId: 'C13', disposition: 'held-for-review' }],
-      [adjudicated('C13', 'tier-0', 'C13:t0', allHighVerdict)],
+    // Both results are TERMINAL keeps with different quorum shapes: only a last-wins
+    // implementation reads the narrow 2-1 margin; a first-wins one would read 3-0.
+    const first = validateSuccess(
+      [{ candidateId: 'C13', disposition: 'keep' }],
+      tier2Trio('C13', [allHighVerdict, allHighVerdict, allHighVerdict]),
     );
     const resumed = validateSuccess(
       [{ candidateId: 'C13', disposition: 'keep' }],
       tier2Trio('C13', [allHighVerdict, allHighVerdict, killVerdict]),
     );
-    const entries = triageOne({ candidateEntry: candidate('C13'), results: [partial, resumed] });
+    const entries = triageOne({ candidateEntry: candidate('C13'), results: [first, resumed] });
     expect(entries[0]?.path).toBe('quorum-keep');
     expect(entries[0]?.quorumMargin).toBe(1);
+    expect(entries[0]?.band).toBe('review-first');
   });
 
-  it('marks recall-matched and corroborated candidates in the evidence vector', () => {
+  it('never resurrects a held candidate — a hold after a keep does not supersede it', () => {
+    const kept = validateSuccess(
+      [{ candidateId: 'C16', disposition: 'keep' }],
+      tier2Trio('C16', [allHighVerdict, allHighVerdict, allHighVerdict]),
+    );
+    const heldLater = validateSuccess([{ candidateId: 'C16', disposition: 'held-for-review' }], []);
+    const entries = triageOne({ candidateEntry: candidate('C16'), results: [kept, heldLater] });
+    expect(entries[0]?.quorumMargin).toBe(3);
+  });
+
+  it('excludes a candidate whose keep is superseded by a later kill', () => {
+    const kept = validateSuccess(
+      [{ candidateId: 'C17', disposition: 'keep' }],
+      tier2Trio('C17', [allHighVerdict, allHighVerdict, allHighVerdict]),
+    );
+    const killedLater = validateSuccess(
+      [{ candidateId: 'C17', disposition: 'kill' }],
+      tier2Trio('C17', [killVerdict, killVerdict, killVerdict]),
+    );
+    const entries = triageOne({ candidateEntry: candidate('C17'), results: [kept, killedLater] });
+    expect(entries).toEqual([]);
+  });
+
+  it('marks a re-found baseline recall-matched while staying novel without an on-disk home', () => {
     const meta: MetaOutput = {
       ...emptyMeta,
       recallMatches: [
         { baselineId: 'B01', verdict: 'equal', matchedCandidateId: 'C14', note: 'refound' },
       ],
     };
-    const corroborations: Corroboration[] = [
-      {
-        candidateId: 'C14',
-        corroboratedBy: ['.agent/rules/some-rule.md'],
-        missingClaims: [],
-        isCorroborated: true,
-      },
-    ];
     const entries = triageOne({
       candidateEntry: candidate('C14'),
       results: [
@@ -334,9 +430,34 @@ describe('triageDispositions evidence assembly', () => {
         ),
       ],
       meta,
-      corroborations,
     });
     expect(entries[0]?.recallMatched).toBe(true);
+    expect(entries[0]?.novel).toBe(true);
+  });
+
+  it('marks a corroborated candidate not novel independently of recall matching', () => {
+    const corroborations: Corroboration[] = [
+      {
+        candidateId: 'C18',
+        corroboratedBy: ['.agent/rules/some-rule.md'],
+        missingClaims: [],
+        isCorroborated: true,
+      },
+    ];
+    const entries = triageOne({
+      candidateEntry: candidate('C18'),
+      results: [
+        validateSuccess(
+          [{ candidateId: 'C18', disposition: 'keep' }],
+          [
+            adjudicated('C18', 'tier-0', 'C18:t0', allHighVerdict),
+            adjudicated('C18', 'tier-1', 'C18:t1', allHighVerdict),
+          ],
+        ),
+      ],
+      corroborations,
+    });
+    expect(entries[0]?.recallMatched).toBe(false);
     expect(entries[0]?.novel).toBe(false);
   });
 

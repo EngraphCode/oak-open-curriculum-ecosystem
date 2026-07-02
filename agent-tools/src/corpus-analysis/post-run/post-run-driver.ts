@@ -19,6 +19,10 @@
  *   --validate-result <file> [--validate-result <file> ...] --meta-result <file>
  * ```
  *
+ * `--validate-result` files are consumed in flag order; on resumed runs pass them
+ * chronologically — the triage leg resolves each candidate from its LAST terminal
+ * disposition.
+ *
  * @packageDocumentation
  */
 

@@ -11,7 +11,8 @@
  *   precisely to be looked at).
  * - **strong** when NO trigger fires AND every passing test in the resolving testimony
  *   is high-confidence AND the candidate spans two or more distinct windows AND the
- *   path was a clean keep (screen + confirmer) or a unanimous quorum.
+ *   path was a clean keep (screen + confirmer) or a full-ensemble unanimous quorum
+ *   (3–0); a quorum reached with an unavailable voter never bands strong.
  * - **moderate** otherwise.
  *
  * Pure policy over already-computed evidence; `./triage.ts` assembles the evidence.
