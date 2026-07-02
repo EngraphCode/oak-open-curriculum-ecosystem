@@ -43,3 +43,42 @@ describe('generateFromHtml (extract + emit orchestration, pure)', () => {
     expect(source).toContain('"t": "heading"');
   });
 });
+
+/**
+ * Asset-path boundary: the views render `/${block.href}` and `/${block.src}`, so the generator
+ * guarantees every extracted href/src is RELATIVE (no leading slash, no scheme) — an absolute or
+ * protocol path in a fresh export must fail the generate run loud, never reach the views as a
+ * protocol-relative URL (strict-validation-at-boundary; the boundary is generation, not JSX).
+ */
+const htmlWithBlock = (block: string): string => `<html><script type="text/x-dc" data-dc-script>
+class Component {
+  constructor(){ this.units = [{id:'u1', label:'Unit 1', title:'Planning'}]; }
+  buildIntro(){ return { id:'intro', title:'Welcome', color:'#fff', sections:[] }; }
+  buildCourse(){ return [
+    { id:'u1m1', unit:'u1', title:'M', color:'#a', colorStrong:'#b', outcomes:['learn'], sections:[
+      { id:'u1m1s1', title:'S', blocks:[ ${block} ] }
+    ]}
+  ]; }
+}
+</script></html>`;
+
+describe('generateFromHtml asset-path boundary', () => {
+  it('passes relative asset paths through unchanged', () => {
+    const source = generateFromHtml(
+      htmlWithBlock(`{t:'download', label:'Tool', href:'assets/tool.pdf'}`),
+    );
+    expect(source).toContain('"href": "assets/tool.pdf"');
+  });
+
+  it('fails loud on a leading-slash src, naming the field and value', () => {
+    expect(() =>
+      generateFromHtml(htmlWithBlock(`{t:'image', src:'/assets/x.png', alt:'x'}`)),
+    ).toThrow(/src.*\/assets\/x\.png/);
+  });
+
+  it('fails loud on a scheme/protocol href, naming the field and value', () => {
+    expect(() =>
+      generateFromHtml(htmlWithBlock(`{t:'download', label:'Tool', href:'https://example.org/x.pdf'}`)),
+    ).toThrow(/href.*https:\/\/example\.org\/x\.pdf/);
+  });
+});

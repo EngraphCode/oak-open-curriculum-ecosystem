@@ -155,7 +155,10 @@ async function main() {
         len: (document.body.innerText || '').length,
         hidden: document.querySelectorAll('[hidden]').length,
       }));
-      const status = resp ? resp.status() : 0;
+      // A null goto response means SAME-DOCUMENT navigation (a #hash route on an already-loaded
+      // page) — Playwright returns null there rather than an HTTP response, and a genuine load
+      // failure throws instead. Treat it as the already-delivered 200, not an HTTP=0 suspect.
+      const status = resp ? resp.status() : 200;
       const blank = isSuspect(status, m.h, m.len);
       const unhydrated = isUnhydrated(route, m.hidden);
       const bad = blank || unhydrated;

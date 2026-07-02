@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { extractScript, extractCourse, type RawCourse } from './course-extract';
+import { extractScript, extractCourse, type LiteralValue, type RawCourse } from './course-extract';
 
 const EXPORT_HTML = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -47,9 +47,53 @@ export const oakCourse: Course = ${JSON.stringify(course, null, 2)};
 `;
 }
 
+/** Block fields the views render as `/${value}` — the shape contract this boundary protects. */
+const ASSET_PATH_FIELDS = new Set(['href', 'src']);
+
+/** Fail loud when one `href`/`src` field value is absolute or carries a URI scheme. */
+function assertRelativeAssetPath(key: string, entry: LiteralValue, path: string): void {
+  if (!ASSET_PATH_FIELDS.has(key) || typeof entry !== 'string') {
+    return;
+  }
+  if (entry.startsWith('/') || /^[a-z][a-z0-9+.-]*:/i.test(entry)) {
+    throw new Error(
+      `course generate: ${path}.${key} = ${JSON.stringify(entry)} is not a relative asset path ` +
+        '(the views render `/${' +
+        key +
+        '}`); fix the export content or extend this boundary deliberately',
+    );
+  }
+}
+
+/**
+ * Asset-path boundary (strict-validation-at-boundary): every extracted `href`/`src` must be a
+ * RELATIVE path — no leading slash, no URI scheme — because the views prefix `/` at render. An
+ * absolute or protocol value in a fresh export would silently become a broken/protocol-relative
+ * URL in the app, so it fails the GENERATE run loud instead, naming the field and value.
+ */
+export function assertRelativeAssetPaths(value: LiteralValue, path: string): void {
+  if (Array.isArray(value)) {
+    value.forEach((entry, index) => {
+      assertRelativeAssetPaths(entry, `${path}[${index}]`);
+    });
+    return;
+  }
+  if (typeof value !== 'object' || value === null) {
+    return;
+  }
+  for (const [key, entry] of Object.entries(value)) {
+    assertRelativeAssetPath(key, entry, path);
+    assertRelativeAssetPaths(entry, `${path}.${key}`);
+  }
+}
+
 /** Produce the module source from the export HTML string — the pure core (no IO). */
 export function generateFromHtml(html: string): string {
-  return emitModule(extractCourse(extractScript(html)));
+  const course = extractCourse(extractScript(html));
+  assertRelativeAssetPaths(course.units, 'units');
+  assertRelativeAssetPaths(course.intro, 'intro');
+  assertRelativeAssetPaths(course.modules, 'modules');
+  return emitModule(course);
 }
 
 /** Read the export and produce the module source (the IO shell; the `--check` CLI verifies freshness). */
