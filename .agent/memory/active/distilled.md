@@ -77,3 +77,38 @@ authoring pass (deferred under one-context budget — graduate next consolidatio
   backticked tokens — corrupting the written content (worst case: claim IDs stripped from an adoption
   instruction). The `--body-file` cure is documented but recurs under time pressure; make it the
   default for any body with backticks/dollar signs.
+
+## From the 2026-07-02 curriculum-hub hygiene-Implementer closeout (Thyme guards Dewfall)
+
+- **A gate's exit code is the verdict — never pipe it away.** `gate | tail`/`| grep` returns the
+  last pipe stage's exit, so a red gate reads green and every narration downstream inherits the
+  lie (three instances, three agents, one day: two self-caught verifications + a Director's false
+  push broadcast). Cure: run gate commands unpiped and check `$?` (or `set -o pipefail`); quote
+  ground truth from POST-ACTION state, and never let a relayed claim ride inside a sentence
+  labelled "verified first-hand" — the label covers only what the check could see. Home candidate:
+  `verify-dont-trust.md` amendment (§evidence discipline) — the phrase-level cure belongs beside
+  the timestamp-zone clause already there.
+
+## From the 2026-07-02 Curriculum Hub data-plane session (Limpet herds Marsh) — the epistemic boundary of a briefing
+
+- **A briefing fact's confidence must drop at the author's lane boundary — the facts you verified are the ones your own cycles exercised; everything beyond that is "inferred" until re-grounded.** Worked instance: an 8-fact seam briefing labelled "all first-hand" carried two inferred items (a tag vocabulary taken from fixture convention; a consumer's rendering mechanism inferred from a type shape) and those two were exactly the load-bearing ones — one hid a live `dangerouslySetInnerHTML` injection surface. Not a coincidence: the verification boundary WAS the lane boundary. Cure: tag every briefing fact `verified-live / from-fixtures / inferred` in seam handoffs, and treat any claim about another lane's surface or an unexercised config as inferred by default. The consumer's verify-don't-trust caught this instance; the tag discipline makes the catch unnecessary. Home candidate: sharpen [[verify-own-explanations-against-full-source]] + the reviewer-brief-poisoning entry in `patterns/different-lens-reviewer-divergence.md`. Source: napkin 2026-07-02 (committed `1461e5cb4`) + the closeout metacognition pass.
+
+## From the 2026-07-02 curriculum-hub styling session (Peregrine lifts Cirrus) — one promoted lesson + rotation pressure
+
+- **Load-bearing BRIEFING FACTS get verify-before-build, same as work items — and a briefing fact
+  must carry its epistemic status.** Two halves of one lesson, both worked 2026-07-02: (consumer)
+  I premise-checked inherited WORK (the Framework page dissolved against the canonical export)
+  but built a parser on a relayed "em-tagged highlights" seam fact when a 10-second first-hand
+  check (`curl` the live API) would have shown the payload emits `<mark>` — caught only at the
+  live drive; (producer, Limpet's capture) the relayed fact was fixture-derived but carried a
+  first-hand label — briefing facts must state their status: *from-fixtures / inferred /
+  verified-live*. Home candidate: `verify-dont-trust.md` amendment (the briefing/seam-handoff
+  clause) at the next dedicated pass. Sibling of reviewer-consensus-is-not-truth (a consumer can
+  inherit a poisoned premise from ANY trusted source, including a careful peer).
+
+> **Rotation pressure (recorded, not chased):** napkin at 673 lines (limit 300) after THREE
+> simultaneous session closeouts appended (Peregrine, Limpet, Thyme — the owner-pause
+> convergence). Rotation deferred from this session-completion pass — constraint: a rotation is
+> thread-scoped curation across three sessions' fresh captures, two of which this agent lacks the
+> context to merge losslessly; trade-off: conservation over tidiness. Falsifiable: the next
+> dedicated pass finds all three closeout blocks intact and rotates with full context.

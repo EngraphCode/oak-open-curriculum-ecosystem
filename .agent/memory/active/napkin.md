@@ -591,3 +591,87 @@ events, and code docblocks hold the rest):
 
 - **Stale `.next/types` breaks the estate type-check after a dev-server teardown races type generation — cure = regenerate via `next build`, never delete (2026-07-02, Comet).** `.next/types/validator.ts` referenced a missing `routes.js`; the demo's gitignored build output is an INPUT to the pre-push turbo type-check, so any lane's dev-server lifecycle can wedge the estate's push gate. One `pnpm --filter <demo> build` regenerates consistently. Candidate: a note in the demo README's dev-server discipline (the teardown checklist already exists from the daemonisation lesson — this joins it).
 - **A briefing fact must carry its actual epistemic status — two inferred items under a "first-hand" label were exactly the load-bearing ones (Limpet, 2026-07-02, E3 seam handoff).** My 8-gotcha envelope briefing said "all first-hand"; six were, but the em-tag vocabulary came from fixture convention (never checked against the live highlighter config — the real payload emits `<mark>`) and the "hub renders snippets as plain text" claim was inferred from the Hit shape (the reality was `dangerouslySetInnerHTML` — an injection surface the consumer found and cured, testing it RED first). The consumer's verify-don't-trust caught the reviewer-brief-poisoning before it propagated. Cure: tag each briefing fact "verified-live / from-fixtures / inferred" in seam handoffs; a consumer builds on exactly the facts you mark trustworthy. Pairs [[verify-own-explanations-against-full-source]] + the reviewer-brief-poisoning entry in `patterns/different-lens-reviewer-divergence.md` + this session's inherited-verified-label instance (origin-claim).
+
+## Session 2026-07-02 — Thyme guards Dewfall (hygiene & repo-parity Implementer, curriculum-hub-demo): closeout captures
+
+Lane outcome is in the thread record + commits; comms-tagged capture `4b68eb00` (watcher muted-filter)
+already fired real-time and bred the corpus-tested filter team-wide. The residue that is MINE and
+un-homed:
+
+- **Pipe-masked exit codes: THREE instances in one day, three agents (me ×2 self-caught, the
+  Director's false PUSHED broadcast).** `cmd | tail` / `| grep` reports the LAST pipe stage's exit —
+  a red gate reads green and the narration inherits the lie. Cure discipline: never pipe a GATE
+  command's output when its exit code is the verdict — run unpiped and `echo $?`, or `set -o
+  pipefail`, or write to a file and inspect. The second-order variant: a relayed claim must not ride
+  inside a sentence labelled "verified first-hand" (my origin-at-082388be7 inheritance) — the
+  verified label covers only what the check could see. → distilled (promoted this closeout).
+- **Acting is not communicating (my named personal pattern — the Director delivery-checked me TWICE
+  in one hour).** I received routed work, opened the claim, built the thing — and posted no
+  acceptance ack either time; peers read the stream, not the registry, so silence-while-working is
+  indistinguishable from a missed delivery. Cure: the ack posts BEFORE the work starts, and the
+  heartbeat relabels at the SAME moment the lane state changes (stop-loop + re-arm in one move —
+  Peregrine's stop-without-rearm and Galago's duplicate-loop are the two failure shapes of splitting
+  it). → user-memory feedback entry written this closeout.
+- **`comms append --in-response-to` accepts any string (unvalidated) — I fabricated a uuid suffix
+  from memory and shipped a dangling threading edge; `comms reply --to-event-id` validates, append
+  does not.** Cure at write time: resolve every event id from the artefact (`ls` the comms dir),
+  never from recall. Tooling candidate: resolve-or-refuse on append's threading edge (flagged to the
+  Director in the correction event `aeb611d8`). → pending-graduations.
+- **Process-liveness is not delivery-liveness: `assert-watcher-live` passed for 40 minutes while my
+  watcher delivered ZERO events (untested filter muted everything after the first heartbeat).** The
+  assert reads the watcher's own heartbeat file; nothing checks events-delivered against
+  stream-activity. Cure applied: corpus-test any hand-rolled filter against a real inbox snapshot
+  BEFORE arming (381/381 pass + 0/791 leak proven, then armed); the rule's "test the filter" clause
+  existed and did not fire — the mechanical-check amendment is the graduation candidate. →
+  pending-graduations.
+- **Concept-gate follow-on list (conserving Comet's ruling `f4a2fdf0` next-cycle set out of the
+  untracked comms tier):** (1) policy-load failure polarity made deliberate + tested — missing/
+  malformed policy.json currently fails CLOSED with a raw non-teaching error, a policy missing
+  scoped_blocks fails OPEN silently; name the cure in the error and pin all three behaviours via the
+  DI seam; (2) heartbeat-refusal visibility — a gate refusal on an unattended cron heartbeat
+  presents as a dead agent; route refusals to a visible surface or document in the heartbeat lane;
+  (3) small test pins (tag-exactness "failure-mode-analysis" still gates; `as const` tuple for the
+  concept list; call `scanLinesForRegex` directly instead of the empty-prior trick).
+- **Positive, worked 4× (config trio, .gitignore, capture tools, jest-axe dep): the scoped area
+  handover** — claim globs capture files their intent never owned; a one-line grant on the stream
+  (conditions + return point), honoured and returned, beats claim surgery or Director round-trips
+  every time. The written condition earns its keep: "inputs stay repo-root-relative" was verified
+  honoured on return, first-hand.
+
+### Session 2026-07-02 — Peregrine lifts Cirrus (styling Implementer, curriculum-hub-demo): closeout captures
+
+Difference-op: the session's exec knowledge + seam facts are in my handoff record
+(`handoffs/2026-07-02-curriculum-hub-styling-peregrine-lifts-cirrus.md` — the CURRENT styling
+pickup); coordination + finds are on the comms record (READY chain listed there); the
+dangerouslySetInnerHTML cure + mark-vs-em correction are code-comment + test-pinned. Genuine residue:
+
+- **Load-bearing BRIEFING FACTS get the same verify-before-build as work items (consumer-side of
+  Limpet's epistemic-status lesson).** I premise-checked inherited WORK (the Framework page —
+  dissolved against the canonical export) but built the highlight parser on a relayed "em-tagged"
+  seam fact when one 10-second `curl` would have grounded it (live payload = `<mark>`). The live
+  drive caught it; the parser now accepts both pairs. Cure: when a briefing fact is load-bearing,
+  cheap to check, and checkable first-hand — check it BEFORE building, not at verification.
+  Pairs Limpet's producer-side capture (briefing facts carry epistemic status: from-fixtures /
+  inferred / verified-live).
+- **cwd-drift hit 7× in one session (recurrence evidence, PDR-089 class) — and my adopted
+  vigilance cure ("always prefix cd") still leaked twice.** Two trips ran WHOLE-ESTATE gates that
+  read as demo failures (30 unrelated smoke fails; misleading under time pressure); one killed a
+  comms send. Structural-cure candidate (tooling, don't hand-build in-lane): root-level
+  `pnpm demo:gates`-style scripts that own their own cd — the gate command becomes
+  location-independent. `candidate:` tooling proposal.
+- **Bind the lane-transition checklist to the GO/READY moment.** Heartbeat relabel + task-list
+  update fired only on Director nudges (twice: a dark 14-min gap from stop-without-rearm; a label
+  stale through four lanes). The stop and the re-arm must be ONE action block, and the GO
+  acknowledgement IS the relabel moment — not a separately-remembered step.
+- **Reviewer-mechanism-vs-gate recurred twice in ONE day** (fold-item-2 ref-during-render, AM,
+  Limpet's catch; "inline the keys" vs `react/no-array-index-key`, PM, mine). The lesson is live
+  doctrine now: a reviewer's prescribed MECHANISM is a hypothesis to run through the gates; the
+  BEHAVIOUR it protects is the binding part. Flag mechanism deviations in the re-READY.
+- **Exec crumbs:** vitest path args with `[slug]` are GLOB CLASSES (match nothing — run the dir
+  instead); `getByText` fails on glyph-split text (match the pieces or the accessible name);
+  Playwright strict-mode needs NAMED role queries when two searchboxes exist; a JSX comment
+  before the root element in a `return (` is a parse error (twice this session).
+- **Relabel-at-lane-transition slips exactly when heads-down — bind it to the task transition, not to memory (Limpet closeout, 2026-07-02).** I executed the relabel discipline three times, then missed it once mid-build and drew a Director stall-ping; knowing the rule did not fire it (PDR-089 class). Structural cure candidate: make the heartbeat relabel part of the task-start move itself (mark-in-progress and relabel are ONE action, like adopt+arm-heartbeat already is). candidate: pattern/rule amendment at consolidation.
+- **candidate: hydration-honesty pattern family (Limpet, 2026-07-02) —** three tools now defend the same trust boundary from three sides: the capture witness (SSR ships zero `[hidden]`; presence = mounted player), the interaction proof (click-until-aria-expanded-flips; a pre-hydration click silently no-ops), and the two-state measurement (deterministic no-JS pass + hydrated pass; a fast run otherwise races the boundary and measures an arbitrary state). One pattern: any check against a progressively-enhanced page must PIN which enhancement state it measures and prove that state was reached. Homes: the two tools' headers carry the mechanism; the pattern file at consolidation.
+- **Concurrent-closeout same-file contention has a clean cure: settle-wait on mtime, then a tight read-edit (Limpet closeout, 2026-07-02).** Three agents closing simultaneously edited ONE memory file (the thread record) on one tree; the Edit modified-since-read guard correctly refused each stale write. Cure that worked: an until-loop waiting for the file's mtime to be stable >20s, then re-read + edit immediately. Distinct from oak-semantic-merge (that is for DIVERGED copies across branches; this is live-write contention on one tree). Candidate: one line in the semantic-merge or collaboration reference at consolidation.
+- **candidate: rulings-as-artefacts (Limpet, 2026-07-02, PDR-shaped) —** a crisply-shaped reviewer ruling with a worked instance propagates through a rotating cast WITHOUT a carrier: the DI-seam ruling (search seam) was cited by name in two later verdicts on other lanes ("the search-seam class") and self-applied in a third, all within one day. The propagation medium is the comms stream + the verdict events; the enabling shape is (defect-class name + structural cure + worked instance + must-not list). Graduation target: PDR-117 amendment or the reviewer-dispatch doctrine — the practice should NAME ruling-shape as a first-class output of reviewer dispatch.
