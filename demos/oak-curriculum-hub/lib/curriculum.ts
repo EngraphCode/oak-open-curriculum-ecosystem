@@ -30,24 +30,23 @@ import { serverEnv, contentConfigured } from './env';
  * interface only widens what is *type-visible*. No change to the stable
  * `{summary,quiz,assets}` contract the page consumes.
  */
-export interface LessonSummaryFields
-  extends Partial<
-    Pick<
-      SearchLessonSummary,
-      'subjectTitle' | 'keyStageTitle' | 'units' | 'lessonKeywords' | 'keyLearningPoints'
-    >
-  > {
+interface LessonSummaryFields extends Partial<
+  Pick<
+    SearchLessonSummary,
+    'subjectTitle' | 'keyStageTitle' | 'units' | 'lessonKeywords' | 'keyLearningPoints'
+  >
+> {
   title?: string | null;
   lessonTitle?: string | null;
   pupilLessonOutcome?: string | null;
   oakUrl?: string | null;
   canonicalUrl?: string | null;
 }
-export interface LessonQuizFields {
+interface LessonQuizFields {
   starterQuiz?: readonly unknown[] | null;
   exitQuiz?: readonly unknown[] | null;
 }
-export interface LessonAssetFields {
+interface LessonAssetFields {
   assets?: readonly { type: string; label: string }[] | null;
   oakUrl?: string | null;
 }

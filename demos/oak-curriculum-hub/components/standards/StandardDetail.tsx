@@ -35,7 +35,13 @@ function AreaTags({ tags }: { readonly tags: readonly AreaTag[] }): ReactElement
 }
 
 /** A comma-free chip list of plain strings, or an em-dash when empty. */
-function ChipList({ values, tint }: { readonly values: readonly string[]; readonly tint: string }): ReactElement {
+function ChipList({
+  values,
+  tint,
+}: {
+  readonly values: readonly string[];
+  readonly tint: string;
+}): ReactElement {
   if (values.length === 0) {
     return <span className="text-oak-grey">—</span>;
   }
@@ -81,7 +87,9 @@ function StatementHeader({ vm }: { readonly vm: StandardDetailVM }): ReactElemen
           </span>
         )}
       </div>
-      <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">The standard</p>
+      <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+        The standard
+      </p>
       <p className="m-0 text-[26px] font-semibold leading-[34px] text-pretty">{vm.text}</p>
     </div>
   );
@@ -92,13 +100,17 @@ function MetaGrid({ vm }: { readonly vm: StandardDetailVM }): ReactElement {
   return (
     <dl className="m-0 grid grid-cols-1 gap-0 border-b-2 border-oak-grey-line sm:grid-cols-3">
       <div className="border-oak-grey-line px-[22px] py-[18px] sm:border-r-2">
-        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">Guidance area</dt>
+        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+          Guidance area
+        </dt>
         <dd className="m-0">
           <AreaTags tags={vm.areaTags} />
         </dd>
       </div>
       <div className="border-oak-grey-line px-[22px] py-[18px] sm:border-r-2">
-        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">Applies to</dt>
+        <dt className="mb-2.5 text-[11px] font-bold uppercase tracking-[0.05em] text-oak-grey">
+          Applies to
+        </dt>
         <dd className="m-0">
           <ChipList values={vm.components} tint="border border-oak-grey-line text-oak-black" />
         </dd>
@@ -108,7 +120,10 @@ function MetaGrid({ vm }: { readonly vm: StandardDetailVM }): ReactElement {
           Assessed in rubric
         </dt>
         <dd className="m-0">
-          <ChipList values={vm.rubrics} tint="border-2 border-oak-black bg-oak-lemon-subdued font-semibold text-oak-black" />
+          <ChipList
+            values={vm.rubrics}
+            tint="border-2 border-oak-black bg-oak-lemon-subdued font-semibold text-oak-black"
+          />
         </dd>
       </div>
     </dl>

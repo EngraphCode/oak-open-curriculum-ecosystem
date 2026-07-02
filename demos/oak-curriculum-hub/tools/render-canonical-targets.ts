@@ -30,6 +30,9 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
+import { ok, err, type Result } from '@oaknational/result';
+
+import { describeThrown, runTool } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const EXPORT_DIR = path.resolve(TOOLS_DIR, '..', 'claude-design-canonical-export');
@@ -63,19 +66,22 @@ const TARGETS: readonly RenderTarget[] = [
  * §D matched-width standard so the canonical targets compare apples-to-apples with a 1440 live capture.
  * Override: `--width 1280` or `RENDER_WIDTH=1280`.
  */
-function resolveWidth(): number {
+function resolveWidth(): Result<number, string> {
   const flagIdx = process.argv.indexOf('--width');
   const fromFlag = flagIdx === -1 ? undefined : process.argv.at(flagIdx + 1);
   const raw = fromFlag ?? process.env.RENDER_WIDTH;
   const width = raw !== undefined && raw !== '' ? Number.parseInt(raw, 10) : 1440;
   if (!Number.isInteger(width) || width < 320 || width > 5000) {
-    console.error(`invalid --width ${JSON.stringify(raw)} (expected 320..5000)`);
-    process.exit(1);
+    return err(`invalid --width ${JSON.stringify(raw)} (expected 320..5000)`);
   }
-  return width;
+  return ok(width);
 }
 
-function handleStaticRequest(dir: string, req: http.IncomingMessage, res: http.ServerResponse): void {
+function handleStaticRequest(
+  dir: string,
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+): void {
   const rawUrl = req.url ?? '/';
   const queryIdx = rawUrl.indexOf('?');
   const urlPath = decodeURIComponent(queryIdx === -1 ? rawUrl : rawUrl.slice(0, queryIdx));
@@ -94,7 +100,8 @@ function handleStaticRequest(dir: string, req: http.IncomingMessage, res: http.S
     return;
   }
   res.writeHead(200, {
-    'content-type': CONTENT_TYPES.get(path.extname(resolved).toLowerCase()) ?? 'application/octet-stream',
+    'content-type':
+      CONTENT_TYPES.get(path.extname(resolved).toLowerCase()) ?? 'application/octet-stream',
   });
   fs.createReadStream(resolved).pipe(res);
 }
@@ -111,12 +118,12 @@ function serveDir(dir: string): Promise<http.Server> {
 }
 
 /** The bound TCP port of a listening server, narrowed from Node's address union. */
-function portOf(server: http.Server): number {
+function portOf(server: http.Server): Result<number, Error> {
   const address = server.address();
   if (address === null || typeof address === 'string') {
-    throw new Error('static server did not bind a TCP port');
+    return err(new Error('static server did not bind a TCP port'));
   }
-  return address.port;
+  return ok(address.port);
 }
 
 /** Render one export page (full-page + above-the-fold PNGs); returns true when it looks blank. */
@@ -135,30 +142,31 @@ async function renderTarget(page: Page, base: string, target: RenderTarget): Pro
     len: document.body.innerText.length,
   }));
   const status = resp === null ? 0 : resp.status();
-  const ok = status === 200 && m.h > 400 && m.len > 200;
-  console.log(`${target.file}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${ok ? 'OK' : 'SUSPECT (blank?)'}`);
+  const good = status === 200 && m.h > 400 && m.len > 200;
+  process.stdout.write(
+    `${target.file}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${good ? 'OK' : 'SUSPECT (blank?)'}\n`,
+  );
   await page.screenshot({ path: path.join(OUT_DIR, `${target.base}.png`), fullPage: true });
-  await page.screenshot({ path: path.join(OUT_DIR, `${target.base}-abovefold.png`), fullPage: false });
-  console.log(`  wrote ${target.base}.png + ${target.base}-abovefold.png`);
-  return !ok;
+  await page.screenshot({
+    path: path.join(OUT_DIR, `${target.base}-abovefold.png`),
+    fullPage: false,
+  });
+  process.stdout.write(`  wrote ${target.base}.png + ${target.base}-abovefold.png\n`);
+  return !good;
 }
 
-function assertExportDir(): void {
+function assertExportDir(): Result<void, string> {
   if (!fs.existsSync(EXPORT_DIR)) {
-    console.error(`export dir not found: ${EXPORT_DIR}`);
-    process.exit(1);
+    return err(`export dir not found: ${EXPORT_DIR}`);
   }
+  return ok(undefined);
 }
 
-async function main(): Promise<void> {
-  assertExportDir();
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  const server = await serveDir(EXPORT_DIR);
-  const base = `http://127.0.0.1:${portOf(server)}`;
-  console.log(`serving ${EXPORT_DIR} at ${base}`);
-
-  const width = resolveWidth();
-  console.log(`viewport CSS width = ${width}px (deviceScaleFactor 2 → ${width * 2}px PNGs)`);
+/** Launch the browser and render every target; true when any render looked blank. */
+async function renderAll(base: string, width: number): Promise<boolean> {
+  process.stdout.write(
+    `viewport CSS width = ${width}px (deviceScaleFactor 2 → ${width * 2}px PNGs)\n`,
+  );
   const browser = await chromium.launch({ headless: true });
   const ctx = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
@@ -167,17 +175,36 @@ async function main(): Promise<void> {
     suspect = (await renderTarget(page, base, target)) || suspect;
   }
   await browser.close();
-  server.close();
-  if (suspect) {
-    console.error('RENDER SUSPECT: a target looked blank (low bodyH/textLen) — investigate before trusting the PNGs');
-    process.exit(1);
-  }
-  console.log('render complete -> demo-evidence/');
+  return suspect;
 }
 
-try {
-  await main();
-} catch (error: unknown) {
-  console.error('RENDER FAIL:', error instanceof Error ? (error.stack ?? error.message) : error);
-  process.exit(1);
+async function main(): Promise<Result<void, string>> {
+  const exportDirRes = assertExportDir();
+  if (!exportDirRes.ok) {
+    return exportDirRes;
+  }
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  const server = await serveDir(EXPORT_DIR);
+  const portRes = portOf(server);
+  if (!portRes.ok) {
+    return err(`RENDER FAIL: ${describeThrown(portRes.error)}`);
+  }
+  const base = `http://127.0.0.1:${portRes.value}`;
+  process.stdout.write(`serving ${EXPORT_DIR} at ${base}\n`);
+
+  const widthRes = resolveWidth();
+  if (!widthRes.ok) {
+    return widthRes;
+  }
+  const suspect = await renderAll(base, widthRes.value);
+  server.close();
+  if (suspect) {
+    return err(
+      'RENDER SUSPECT: a target looked blank (low bodyH/textLen) — investigate before trusting the PNGs',
+    );
+  }
+  process.stdout.write('render complete -> demo-evidence/\n');
+  return ok(undefined);
 }
+
+await runTool(main, (error) => `RENDER FAIL: ${describeThrown(error)}`);

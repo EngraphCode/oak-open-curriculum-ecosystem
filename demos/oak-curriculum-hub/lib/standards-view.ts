@@ -5,8 +5,8 @@
  * a whole-corpus listing, conjunctive facet filtering (type / rubric / area / subject), live facet
  * counts for the filter rail, and by-id resolution for `#qs=<id>` deep-links.
  *
- * Pure functions over the vendored 685-item snapshot; validation is the compile-time typed import
- * (see `static-quality-standards.ts`) — no runtime guard at this controlled, build-time boundary.
+ * Pure functions over the vendored 685-item snapshot, schema-validated at load
+ * (see `static-quality-standards.ts`) — no further guard needed past that boundary.
  */
 
 import {
@@ -16,7 +16,7 @@ import {
 } from './static-quality-standards';
 
 /** A facet value and how many standards carry it. */
-export interface StandardsFacet {
+interface StandardsFacet {
   readonly value: string;
   readonly count: number;
 }

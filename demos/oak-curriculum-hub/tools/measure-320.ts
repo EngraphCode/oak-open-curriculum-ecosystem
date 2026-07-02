@@ -30,61 +30,20 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from '@playwright/test';
 import type { Browser, Page } from '@playwright/test';
+import { ok, err, type Result } from '@oaknational/result';
+
+import {
+  argValue,
+  HYDRATION_GATED_ROUTES,
+  MENU_TOGGLE_NAME,
+  overflows,
+  resolveRoutes,
+  resolveWidth,
+} from './measure-checks';
+import { describeThrown, runTool, stripTrailing } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
-// NOTE (recorded gap): every route is measured in its IDLE state — no query is
-// seeded, so results-state reflow (e.g. /curriculum with live hits) is NOT
-// covered by this tool; the per-slice live drives carry that verification.
-const DEFAULT_ROUTES = ['/', '/course', '/standards', '/exemplars', '/wiki', '/curriculum'];
-// The toggle's accessible name (kept distinct from the panel landmark 'Hub sections menu' —
-// item-10 backlog fold). Update BOTH here and in SiteNav.test.tsx if the name ever moves again.
-const MENU_TOGGLE_NAME = 'Hub sections';
-
-function argValue(argv: readonly string[], flag: string): string | undefined {
-  const idx = argv.indexOf(flag);
-  return idx === -1 ? undefined : argv.at(idx + 1);
-}
-
-/** Strip every trailing occurrence of `char` — a linear scan, replacing the backtracking-prone
- *  `x+$` regex-trim idiom (Sonar S8786). */
-function stripTrailing(value: string, char: string): string {
-  let end = value.length;
-  while (end > 0 && value.charAt(end - 1) === char) {
-    end -= 1;
-  }
-  return value.slice(0, end);
-}
-
-export function resolveWidth(argv: readonly string[]): number {
-  const width = Number.parseInt(argValue(argv, '--width') ?? '320', 10);
-  if (!Number.isInteger(width) || width < 240 || width > 5000) {
-    throw new Error(`invalid --width (expected integer 240..5000, got ${width})`);
-  }
-  return width;
-}
-
-export function resolveRoutes(argv: readonly string[]): string[] {
-  const raw = argValue(argv, '--routes');
-  if (raw === undefined || raw === '') {
-    return DEFAULT_ROUTES;
-  }
-  return raw
-    .split(',')
-    .map((r) => r.trim())
-    .filter((r) => r !== '')
-    .map((r) => (r.startsWith('/') ? r : `/${r}`));
-}
-
-/** True when the measured widths overflow the viewport (the WCAG 1.4.10 failure signal). Pure. */
-export function overflows(docWidth: number, bodyWidth: number, innerWidth: number): boolean {
-  return docWidth > innerWidth || bodyWidth > innerWidth;
-}
-
-/** Routes whose hydrated layout differs from SSR (the paginated player gates its sections). The
- *  hydrated pass WAITS for the gating witness on these, so the measurement never races the
- *  hydration boundary (the nondeterminism that let a no-JS-only overflow slip past a fast run). */
-const HYDRATION_GATED_ROUTES: ReadonlySet<string> = new Set(['/course']);
 
 interface WidthMetrics {
   doc: number;
@@ -92,7 +51,12 @@ interface WidthMetrics {
   inner: number;
 }
 
-async function measureRoute(page: Page, base: string, route: string, hydrated: boolean): Promise<WidthMetrics> {
+async function measureRoute(
+  page: Page,
+  base: string,
+  route: string,
+  hydrated: boolean,
+): Promise<WidthMetrics> {
   await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await page.evaluate(async () => {
     await document.fonts.ready;
@@ -100,9 +64,11 @@ async function measureRoute(page: Page, base: string, route: string, hydrated: b
   if (hydrated && HYDRATION_GATED_ROUTES.has(route)) {
     // Deterministic hydrated state: the gates add [hidden] attributes on mount.
     await page
-      .waitForFunction(() => document.querySelectorAll('[hidden]').length > 0, undefined, { timeout: 10000 })
+      .waitForFunction(() => document.querySelectorAll('[hidden]').length > 0, undefined, {
+        timeout: 10000,
+      })
       .catch(() => {
-        console.error(`${route}: hydration witness never appeared — check the base host`);
+        process.stderr.write(`${route}: hydration witness never appeared — check the base host\n`);
       });
   }
   await page.waitForTimeout(400);
@@ -124,7 +90,10 @@ interface PassOptions {
 /** One measurement pass over every route in a single browser context. The NO-JS pass measures the
  *  SSR fallback (a designed user state — progressive enhancement); the HYDRATED pass measures the
  *  enhanced state. Both must be reflow-clean: a failure in either is a real WCAG 1.4.10 failure. */
-async function measurePass(browser: Browser, { js, label, base, routes, width }: PassOptions): Promise<boolean> {
+async function measurePass(
+  browser: Browser,
+  { js, label, base, routes, width }: PassOptions,
+): Promise<boolean> {
   const ctx = await browser.newContext({
     viewport: { width, height: 900 },
     deviceScaleFactor: 2,
@@ -139,8 +108,8 @@ async function measurePass(browser: Browser, { js, label, base, routes, width }:
       if (bad) {
         failed = true;
       }
-      console.log(
-        `${route} [${label}]: docScrollW=${m.doc} bodyScrollW=${m.body} innerW=${m.inner} -> ${bad ? 'OVERFLOW' : 'OK'}`,
+      process.stdout.write(
+        `${route} [${label}]: docScrollW=${m.doc} bodyScrollW=${m.body} innerW=${m.inner} -> ${bad ? 'OVERFLOW' : 'OK'}\n`,
       );
     }
   } finally {
@@ -169,7 +138,9 @@ async function measureOpenMenu(page: Page, width: number): Promise<boolean> {
     inner: globalThis.innerWidth,
   }));
   const bad = open.doc > open.inner;
-  console.log(`/ (menu open) [hydrated]: docScrollW=${open.doc} innerW=${open.inner} -> ${bad ? 'OVERFLOW' : 'OK'}`);
+  process.stdout.write(
+    `/ (menu open) [hydrated]: docScrollW=${open.doc} innerW=${open.inner} -> ${bad ? 'OVERFLOW' : 'OK'}\n`,
+  );
   await page.screenshot({ path: path.join(OUT_DIR, `home-live-${width}-menu-open.png`) });
   await page.getByRole('button', { name: MENU_TOGGLE_NAME }).click();
   await page.screenshot({ path: path.join(OUT_DIR, `home-live-${width}.png`) });
@@ -178,7 +149,11 @@ async function measureOpenMenu(page: Page, width: number): Promise<boolean> {
 
 /** Header disclosure open state (home page): hydrated by definition — proven via the
  *  click-until-flipped loop, then measured + captured. True when the check failed. */
-async function measureMenuOpenState(browser: Browser, base: string, width: number): Promise<boolean> {
+async function measureMenuOpenState(
+  browser: Browser,
+  base: string,
+  width: number,
+): Promise<boolean> {
   const ctx = await browser.newContext({
     viewport: { width, height: 900 },
     deviceScaleFactor: 2,
@@ -192,45 +167,53 @@ async function measureMenuOpenState(browser: Browser, base: string, width: numbe
   if (await openMenuHydrated(page)) {
     failed = await measureOpenMenu(page, width);
   } else {
-    console.error('menu never opened — hydration never attached the handler (check the base host)');
+    process.stderr.write(
+      'menu never opened — hydration never attached the handler (check the base host)\n',
+    );
     failed = true;
   }
   await ctx.close();
   return failed;
 }
 
-async function main(): Promise<void> {
+async function main(): Promise<Result<void, string>> {
   const argv = process.argv.slice(2);
-  const width = resolveWidth(argv);
-  const base = stripTrailing(argValue(argv, '--base') ?? process.env.BASE_URL ?? 'http://localhost:3010', '/');
+  const widthRes = resolveWidth(argv);
+  if (!widthRes.ok) {
+    return err(`MEASURE FAIL: ${describeThrown(widthRes.error)}`);
+  }
+  const width = widthRes.value;
+  const base = stripTrailing(
+    argValue(argv, '--base') ?? process.env.BASE_URL ?? 'http://localhost:3010',
+    '/',
+  );
   const routes = resolveRoutes(argv);
 
-  console.log(`base = ${base}; viewport CSS width = ${width}px; routes = ${routes.join(', ')}`);
+  process.stdout.write(
+    `base = ${base}; viewport CSS width = ${width}px; routes = ${routes.join(', ')}\n`,
+  );
   const browser = await chromium.launch({ headless: true });
   let failed = false;
   try {
     // Two deterministic passes: the SSR fallback first (no JS — nothing to race),
     // then the hydrated state (with the gating witness awaited where it applies).
-    failed = (await measurePass(browser, { js: false, label: 'no-js', base, routes, width })) || failed;
-    failed = (await measurePass(browser, { js: true, label: 'hydrated', base, routes, width })) || failed;
+    failed =
+      (await measurePass(browser, { js: false, label: 'no-js', base, routes, width })) || failed;
+    failed =
+      (await measurePass(browser, { js: true, label: 'hydrated', base, routes, width })) || failed;
     failed = (await measureMenuOpenState(browser, base, width)) || failed;
   } finally {
     await browser.close();
   }
 
   if (failed) {
-    console.error(`REFLOW FAILURE at ${width}px`);
-    process.exit(1);
+    return err(`REFLOW FAILURE at ${width}px`);
   }
-  console.log(`ALL ROUTES REFLOW CLEAN AT ${width}`);
+  process.stdout.write(`ALL ROUTES REFLOW CLEAN AT ${width}\n`);
+  return ok(undefined);
 }
 
 const invokedPath = process.argv.at(1);
 if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
-  try {
-    await main();
-  } catch (error: unknown) {
-    console.error('MEASURE FAIL:', error instanceof Error ? (error.stack ?? error.message) : error);
-    process.exit(1);
-  }
+  await runTool(main, (error) => `MEASURE FAIL: ${describeThrown(error)}`);
 }

@@ -24,10 +24,15 @@ function ExampleTile({
   return (
     <div className={`overflow-hidden rounded-oak-l border-2 ${border}`}>
       <p className={`m-0 px-4 py-3 text-[14px] font-bold text-white ${headBg}`}>{heading}</p>
-      <div className={`flex min-h-[150px] flex-col items-center justify-center gap-2 p-4 text-center ${bodyBg}`}>
+      <div
+        className={`flex min-h-[150px] flex-col items-center justify-center gap-2 p-4 text-center ${bodyBg}`}
+      >
         {/* Decorative swatch: the visible caption below is the single announcement —
             role="img" + aria-label duplicated it for screen readers. */}
-        <span aria-hidden="true" className="block h-8 w-8 rounded-oak-s border-2 border-current opacity-70" />
+        <span
+          aria-hidden="true"
+          className="block h-8 w-8 rounded-oak-s border-2 border-current opacity-70"
+        />
         <span className="text-[13px] leading-[19px] text-oak-grey">{caption}</span>
       </div>
     </div>
@@ -55,15 +60,22 @@ export function StandardExemplification(): ReactElement {
           What good looks like
         </p>
         <p className="m-0 text-[16px] leading-[24px] text-oak-black">
-          Add a short description of how this standard is met well — the key things a reviewer should see.
+          Add a short description of how this standard is met well — the key things a reviewer
+          should see.
         </p>
       </div>
       <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <ExampleTile tone="good" heading="✓ Example" caption="Annotated example of the standard met" />
+        <ExampleTile
+          tone="good"
+          heading="✓ Example"
+          caption="Annotated example of the standard met"
+        />
         <ExampleTile tone="bad" heading="✕ Non-example" caption="What falling short looks like" />
       </div>
       <div className="rounded-oak-l border-2 border-dashed border-oak-grey-40 bg-white px-5 py-[18px]">
-        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey">Guidance notes</p>
+        <p className="mb-2 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey">
+          Guidance notes
+        </p>
         <p className="m-0 text-[16px] leading-[24px] text-oak-grey">
           Add any nuance, edge cases or subject-specific notes here — and link out to relevant
           exemplar lessons or the wiki.

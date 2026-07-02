@@ -2,7 +2,7 @@ import type { Course, CourseSection } from '@/lib/course/types';
 import type { CourseNavModule } from '@/components/blocks/CourseNavContext';
 
 /** One section projected for the sidebar nav; `id` is the `#section=<id>` deep-link anchor. */
-export interface CourseNavSection {
+interface CourseNavSection {
   readonly id: string;
   readonly title: string;
 }

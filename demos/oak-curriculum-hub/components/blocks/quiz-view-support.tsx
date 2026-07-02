@@ -8,7 +8,7 @@ import type { QuizOption, QuizQuestion } from '@/lib/blocks/types';
  * Answer-state suffix conveyed as TEXT (not colour alone) so correctness is
  * perceivable without relying on colour — WCAG 2.2 AA (1.4.1 Use of Colour).
  */
-export function optionSuffix(answered: boolean, isSelected: boolean, isCorrect: boolean): string {
+function optionSuffix(answered: boolean, isSelected: boolean, isCorrect: boolean): string {
   if (!answered) {
     return '';
   }
@@ -55,27 +55,44 @@ function OptionChip({
 }): ReactElement {
   if (answered && isCorrect) {
     return (
-      <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-green bg-oak-green text-[12px] font-bold text-white">
+      <span
+        aria-hidden="true"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-green bg-oak-green text-[12px] font-bold text-white"
+      >
         ✓
       </span>
     );
   }
   if (answered && isSelected) {
     return (
-      <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-red bg-oak-red text-[12px] font-bold text-white">
+      <span
+        aria-hidden="true"
+        className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-red bg-oak-red text-[12px] font-bold text-white"
+      >
         ✕
       </span>
     );
   }
   return (
-    <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-black bg-white text-[12px] font-bold uppercase">
+    <span
+      aria-hidden="true"
+      className="grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 border-oak-black bg-white text-[12px] font-bold uppercase"
+    >
       {letter}
     </span>
   );
 }
 
 /** The export's stem row: the grey Q-number label beside the semibold stem (the group's label). */
-export function QuizStem({ number, stemId, stem }: { number: number; stemId: string; stem: string }): ReactElement {
+export function QuizStem({
+  number,
+  stemId,
+  stem,
+}: {
+  number: number;
+  stemId: string;
+  stem: string;
+}): ReactElement {
   return (
     <p id={stemId} className="mb-3 flex gap-2.5">
       <span className="shrink-0 text-[16px] font-bold leading-6 text-oak-grey">Q{number}</span>

@@ -19,7 +19,12 @@ import {
   matchedStandards,
   toCardVM,
 } from './standards-view-builders';
-import { ALL, DEFAULT_LIMIT, type StandardsBrowseState, type StandardsView } from './standards-view-model-types';
+import {
+  ALL,
+  DEFAULT_LIMIT,
+  type StandardsBrowseState,
+  type StandardsView,
+} from './standards-view-model-types';
 
 export {
   ALL,
@@ -27,11 +32,9 @@ export {
   type AreaRailItem,
   type AreaTag,
   type FilterChip,
-  type RelatedStandard,
   type StandardCardVM,
   type StandardDetailVM,
   type StandardsBrowseState,
-  type StandardTypeVariant,
   type StandardsView,
 } from './standards-view-model-types';
 
@@ -66,7 +69,15 @@ export function buildStandardsView(state: StandardsBrowseState): StandardsView {
 
 /** The initial browse state (no filters, no focus, default page size). */
 export function initialBrowseState(): StandardsBrowseState {
-  return { query: '', area: ALL, type: ALL, rubric: ALL, focusIds: null, openId: null, limit: DEFAULT_LIMIT };
+  return {
+    query: '',
+    area: ALL,
+    type: ALL,
+    rubric: ALL,
+    focusIds: null,
+    openId: null,
+    limit: DEFAULT_LIMIT,
+  };
 }
 
 /**

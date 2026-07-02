@@ -20,10 +20,7 @@ import type {
 
 import type { runScopedSearch } from './search-core';
 
-export type Retrieval = Pick<
-  RetrievalService,
-  'searchLessons' | 'searchUnits' | 'searchThreads'
->;
+export type Retrieval = Pick<RetrievalService, 'searchLessons' | 'searchUnits' | 'searchThreads'>;
 
 /* ---------- typed doc factories (full valid docs) ---------- */
 
@@ -49,7 +46,7 @@ export function lessonDoc(): LessonDoc {
   };
 }
 
-export function unitDoc(): UnitDoc {
+function unitDoc(): UnitDoc {
   return {
     unit_id: 'unit-0001',
     unit_slug: 'fractions',
@@ -168,21 +165,21 @@ export const threadHit = {
 
 /* ---------- size-semantics pools + fake ---------- */
 
-export const lessonPool: readonly LessonResult[] = Array.from({ length: 12 }, (_, i) => ({
+const lessonPool: readonly LessonResult[] = Array.from({ length: 12 }, (_, i) => ({
   id: `l-${i}`,
   rankScore: 12 - i,
   lesson: lessonDoc(),
   highlights: [],
 }));
 
-export const unitPool: readonly UnitResult[] = Array.from({ length: 8 }, (_, i) => ({
+const unitPool: readonly UnitResult[] = Array.from({ length: 8 }, (_, i) => ({
   id: `u-${i}`,
   rankScore: 8 - i,
   unit: unitDoc(),
   highlights: [],
 }));
 
-export const threadPool: readonly ThreadResult[] = Array.from({ length: 10 }, (_, i) => ({
+const threadPool: readonly ThreadResult[] = Array.from({ length: 10 }, (_, i) => ({
   id: `t-${i}`,
   rankScore: 10 - i,
   thread: threadDoc(),

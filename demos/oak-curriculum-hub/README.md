@@ -14,13 +14,12 @@ the [demos tier README](../README.md)). The original brief is
 
 ## Structure
 
-| Path | Role |
-| --- | --- |
-| `app/`, `components/`, `lib/`, `scripts/` | The Next.js app — source, block components, data seams, and the re-runnable export extractors. |
-| `tools/` | Evidence + verification tooling (live-demo capture, canonical-target rendering, the 320px reflow gate, the token-fidelity audit). Run from the repo root with `node demos/oak-curriculum-hub/tools/<tool>`. |
-| `claude-design-canonical-export/` | **Untracked vendor reference** — the Claude Design canonical export this app visual-matches. Generated vendor output with non-openly-licensed Oak brand assets; deliberately outside git (see `.gitignore`). Re-obtain a fresh copy via the claude-design MCP (`mcp__claude-design__*` — list the project, read its files) or a Claude Design export download. |
-| `vendor-reference/` | **Untracked vendor reference** — decoded token sources (e.g. `oak-figma-tokens.css`) consumed by the token-fidelity audit. Recoverable from git history (pre-restructure `oak-design-kit/`) or re-derived from a fresh export. |
-| `demo-evidence/` | **Untracked, regenerable output** — visual-fidelity captures and audit results produced by `tools/`; recreate on demand. |
+| Path                                      | Role                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `app/`, `components/`, `lib/`, `scripts/` | The Next.js app — source, block components, data seams, and the re-runnable export extractors.                                                                                                                                                                                                                                                                                                                                                |
+| `tools/`                                  | Evidence + verification tooling (live-demo capture, canonical-target rendering, the 320px reflow gate, the token-fidelity audit). Run from the repo root with `node demos/oak-curriculum-hub/tools/<tool>`.                                                                                                                                                                                                                                   |
+| `claude-design-canonical-export/`         | **Untracked vendor reference** — the Claude Design canonical export this app visual-matches; its `_ds/*` token files are also the authority the token-fidelity audit reads. Generated vendor output with non-openly-licensed Oak brand assets; deliberately outside git (see `.gitignore`). Re-obtain a fresh copy via the claude-design MCP (`mcp__claude-design__*` — list the project, read its files) or a Claude Design export download. |
+| `demo-evidence/`                          | **Untracked, regenerable output** — visual-fidelity captures and audit results produced by `tools/`; recreate on demand.                                                                                                                                                                                                                                                                                                                      |
 
 ## Quick start
 
@@ -37,13 +36,13 @@ the app still boots — the search route returns `503` and the UI shows a
 
 ## Pages
 
-| Route | Content source |
-| --- | --- |
-| `/` | Hub: two-search (live Elasticsearch + local static) and destination cards |
-| `/course` | The 214-block Oak Course, generated from the canonical export, rendered as a paginated player |
-| `/standards` | Quality-standards browse + detail (685 standards, local data) |
-| `/rubrics`, `/exemplars`, `/wiki` | Sections reproduced from the export |
-| `/lesson/[slug]` | Live lesson detail: summary, quizzes, assets via the REST SDK |
+| Route                             | Content source                                                                                |
+| --------------------------------- | --------------------------------------------------------------------------------------------- |
+| `/`                               | Hub: two-search (live Elasticsearch + local static) and destination cards                     |
+| `/course`                         | The 214-block Oak Course, generated from the canonical export, rendered as a paginated player |
+| `/standards`                      | Quality-standards browse + detail (685 standards, local data)                                 |
+| `/rubrics`, `/exemplars`, `/wiki` | Sections reproduced from the export                                                           |
+| `/lesson/[slug]`                  | Live lesson detail: summary, quizzes, assets via the REST SDK                                 |
 
 ## The two data planes
 
@@ -60,12 +59,18 @@ only our own routes and server-rendered pages.
   `thenational.academy` (the API's asset URL is an authenticated endpoint,
   not a browser-usable signed URL).
 
-Local-search data (`lib/static-quality-standards.ts`,
-`lib/static-training-courses.ts`, `lib/course/`) is generated from the
-canonical export (untracked vendor reference — see §Structure) by re-runnable
-extractors in `scripts/` and compile-time validated against the block-type
-union. The generated modules are committed, so the app builds without the
-export present; re-running the extractors requires re-obtaining it.
+Local content (`lib/course/oak-course.json`, `lib/data/quality-standards.json`)
+is DATA, not code: committed JSON produced from the canonical export (untracked
+vendor reference — see §Structure) by re-runnable generators in `scripts/`.
+The zod schemas (`lib/blocks/schema.ts`, `lib/course/schema.ts`,
+`lib/quality-standards-types.ts`) are the single source of truth: the
+generators validate against them before writing, and the loaders
+(`lib/course/load-course.ts`, `lib/data/load-quality-standards.ts`)
+re-validate the committed JSON at module initialisation. The JSON is
+committed, so the app builds without the export present; re-running the
+generators requires re-obtaining it. The small training-course index
+(`lib/static-training-courses.ts`, 21 rows) stays a hand-vendored typed
+literal.
 
 ## Licence
 
@@ -75,7 +80,7 @@ This demo needs no separate licence — it is covered by the repository's root l
 - **Oak curriculum content** (live search + lesson data, and the quality-standards data) —
   [`LICENCE-DATA.md`](../../LICENCE-DATA.md), which places curriculum content under the Open
   Government Licence v3.0. Attribution is required:
-  *"Contains public sector information licensed under the Open Government Licence v3.0."*
+  _"Contains public sector information licensed under the Open Government Licence v3.0."_
 - **Oak brand assets** (fonts, logos, token sources) — the MIT licence covers source code only
   and grants no trademark or brand rights; the asset-bearing vendor reference material is
   deliberately untracked (see §Structure), and this is Oak's own repository, so no separate

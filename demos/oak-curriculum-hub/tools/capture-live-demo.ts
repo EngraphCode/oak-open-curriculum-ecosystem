@@ -45,117 +45,34 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
+import { ok, err, type Result } from '@oaknational/result';
+
+import {
+  isSuspect,
+  isUnhydrated,
+  resolveBase,
+  resolveRoutes,
+  resolveWidth,
+  routeToBase,
+} from './capture-checks';
+import { describeThrown, runTool } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
 
-/** The stable content routes that exist and are §D-capturable by default. /course (hydration-
- *  witnessed player) and /curriculum (the E3 showcase) joined at build-complete; /lesson/[slug]
- *  stays opt-in via --routes (needs a live slug). Evidence lands at the tool-relative OUT_DIR —
- *  never write screenshots to cwd-relative paths (a run from another directory nests them in the
- *  wrong tree; a train had to relocate exactly that, 2026-07-02). */
-const DEFAULT_ROUTES = ['/', '/standards', '/rubrics', '/exemplars', '/wiki', '/course', '/curriculum'];
-
-/** Strip every leading and trailing occurrence of `char` — a linear scan, replacing the
- *  backtracking-prone `^x+|x+$` regex-trim idiom (Sonar S8786). */
-function trimEdges(value: string, char: string): string {
-  let start = 0;
-  let end = value.length;
-  while (start < end && value.charAt(start) === char) {
-    start += 1;
-  }
-  while (end > start && value.charAt(end - 1) === char) {
-    end -= 1;
-  }
-  return value.slice(start, end);
-}
-
-/** Strip every trailing occurrence of `char` — linear scan, same S8786 rationale. */
-function stripTrailing(value: string, char: string): string {
-  let end = value.length;
-  while (end > 0 && value.charAt(end - 1) === char) {
-    end -= 1;
-  }
-  return value.slice(0, end);
-}
-
-/** Slug a route into an output basename: '/' → 'home', '/standards' → 'standards',
- *  '/lesson/[slug]' → 'lesson-slug'. */
-export function routeToBase(route: string): string {
-  const trimmed = trimEdges(route, '/');
-  if (trimmed === '') {
-    return 'home';
-  }
-  return trimEdges(trimmed.replaceAll(/[^a-zA-Z0-9]+/g, '-'), '-').toLowerCase();
-}
-
-/** Resolve the viewport CSS width (§D standard 1440). Override: `--width 1280` or WIDTH=1280. */
-export function resolveWidth(argv: readonly string[], env: NodeJS.ProcessEnv): number {
-  const flagIdx = argv.indexOf('--width');
-  const fromFlag = flagIdx === -1 ? undefined : argv.at(flagIdx + 1);
-  const raw = fromFlag ?? env.WIDTH;
-  const width = raw !== undefined && raw !== '' ? Number.parseInt(raw, 10) : 1440;
-  if (!Number.isInteger(width) || width < 320 || width > 5000) {
-    throw new Error(`invalid --width ${JSON.stringify(raw)} (expected integer 320..5000)`);
-  }
-  return width;
-}
-
-/** Resolve the base URL of the running demo (default localhost:3010). Override: `--base <url>` or
- *  BASE_URL. The default host is `localhost`, NOT `127.0.0.1`: `next dev` blocks cross-origin dev
- *  resources from 127.0.0.1, so hydration chunks never load and any hydration-dependent surface
- *  (the /course paginated player) silently renders its SSR all-sections fallback — a wrong §D
- *  target the blank-classifier cannot catch (team finding, 2026-07-02). */
-export function resolveBase(argv: readonly string[], env: NodeJS.ProcessEnv): string {
-  const flagIdx = argv.indexOf('--base');
-  const fromFlag = flagIdx === -1 ? undefined : argv.at(flagIdx + 1);
-  return stripTrailing(fromFlag ?? env.BASE_URL ?? 'http://localhost:3010', '/');
-}
-
-/** Resolve the route list (default DEFAULT_ROUTES). Override: `--routes /a,/b`. */
-export function resolveRoutes(argv: readonly string[]): string[] {
-  const flagIdx = argv.indexOf('--routes');
-  const raw = flagIdx === -1 ? undefined : argv.at(flagIdx + 1);
-  if (raw === undefined || raw === '') {
-    return DEFAULT_ROUTES;
-  }
-  return raw
-    .split(',')
-    .map((r) => r.trim())
-    .filter((r) => r !== '')
-    .map((r) => (r.startsWith('/') ? r : `/${r}`));
-}
-
-/** Blank-render classifier: a real page is HTTP 200 with meaningful body height AND visible text.
- *  Returns true when the capture is SUSPECT (looks blank / a placeholder). Pure — the self-check. */
-export function isSuspect(status: number, bodyHeight: number, textLength: number): boolean {
-  return !(status === 200 && bodyHeight > 400 && textLength > 200);
-}
-
-/** Routes whose §D capture depends on client hydration. The /course paginated player HIDES the
- *  inactive sections post-hydration, while its SSR fallback ships ZERO `hidden` attributes by
- *  design (proven by the shell's renderToString test) — so the presence of `[hidden]` elements is
- *  the hydration witness. An unhydrated player page is full of text and passes the blank
- *  classifier, which is exactly why this separate check exists. */
-const HYDRATION_GATED_ROUTES: ReadonlySet<string> = new Set(['/course']);
-
-/** Hydration classifier for HYDRATION_GATED_ROUTES: SUSPECT when no element is `[hidden]`
- *  (the player never mounted — e.g. a 127.0.0.1 base blocking the dev chunks). Pure. */
-export function isUnhydrated(route: string, hiddenCount: number): boolean {
-  return HYDRATION_GATED_ROUTES.has(route) && hiddenCount === 0;
-}
-
-async function assertServerUp(base: string): Promise<number> {
+async function assertServerUp(base: string): Promise<Result<number, Error>> {
   try {
     const res = await fetch(base, { method: 'GET' });
     // any HTTP response (even a 404 for '/') proves something is listening
-    return res.status;
+    return ok(res.status);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    throw new Error(
-      `no demo server reachable at ${base}. Start it first (from the app dir: pnpm dev -> :3010) ` +
-        `and coordinate the port with the styling lane, or pass --base <url>. cause: ${message}`,
-      { cause: error },
+    return err(
+      new Error(
+        `no demo server reachable at ${base}. Start it first (from the app dir: pnpm dev -> :3010) ` +
+          `and coordinate the port with the styling lane, or pass --base <url>. cause: ${message}`,
+        { cause: error },
+      ),
     );
   }
 }
@@ -174,7 +91,10 @@ function verdictFor(blank: boolean, unhydrated: boolean): string {
 async function captureRoute(page: Page, base: string, route: string): Promise<boolean> {
   const outBase = routeToBase(route);
   // domcontentloaded, NOT networkidle — next dev's HMR websocket keeps the network busy forever.
-  const resp = await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  const resp = await page.goto(`${base}${route}`, {
+    waitUntil: 'domcontentloaded',
+    timeout: 60000,
+  });
   await page.evaluate(async () => {
     await document.fonts.ready;
   });
@@ -191,31 +111,32 @@ async function captureRoute(page: Page, base: string, route: string): Promise<bo
   const status = resp === null ? 200 : resp.status();
   const blank = isSuspect(status, m.h, m.len);
   const unhydrated = isUnhydrated(route, m.hidden);
-  console.log(
-    `${route}: HTTP=${status} bodyH=${m.h} textLen=${m.len} hidden=${m.hidden} -> ${verdictFor(blank, unhydrated)}`,
+  process.stdout.write(
+    `${route}: HTTP=${status} bodyH=${m.h} textLen=${m.len} hidden=${m.hidden} -> ${verdictFor(blank, unhydrated)}\n`,
   );
   await page.screenshot({ path: path.join(OUT_DIR, `${outBase}-live.png`), fullPage: true });
-  await page.screenshot({ path: path.join(OUT_DIR, `${outBase}-live-abovefold.png`), fullPage: false });
-  console.log(`  wrote ${outBase}-live.png + ${outBase}-live-abovefold.png`);
+  await page.screenshot({
+    path: path.join(OUT_DIR, `${outBase}-live-abovefold.png`),
+    fullPage: false,
+  });
+  process.stdout.write(`  wrote ${outBase}-live.png + ${outBase}-live-abovefold.png\n`);
   return blank || unhydrated;
 }
 
 function logRunHeader(base: string, width: number, routes: readonly string[]): void {
-  console.log(`live demo base = ${base}`);
-  console.log(`viewport CSS width = ${width}px (deviceScaleFactor 2 -> ${width * 2}px PNGs)`);
-  console.log(`routes = ${routes.join(', ')}`);
+  process.stdout.write(`live demo base = ${base}\n`);
+  process.stdout.write(
+    `viewport CSS width = ${width}px (deviceScaleFactor 2 -> ${width * 2}px PNGs)\n`,
+  );
+  process.stdout.write(`routes = ${routes.join(', ')}\n`);
 }
 
-async function main(): Promise<void> {
-  const argv = process.argv.slice(2);
-  const width = resolveWidth(argv, process.env);
-  const base = resolveBase(argv, process.env);
-  const routes = resolveRoutes(argv);
-
-  await assertServerUp(base);
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  logRunHeader(base, width, routes);
-
+/** Drive every route through one browser context; true when any capture is bad. */
+async function runCaptures(
+  base: string,
+  width: number,
+  routes: readonly string[],
+): Promise<boolean> {
   const browser = await chromium.launch({ headless: true });
   const ctx = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
@@ -227,20 +148,36 @@ async function main(): Promise<void> {
   } finally {
     await browser.close();
   }
+  return suspect;
+}
 
-  if (suspect) {
-    console.error('CAPTURE SUSPECT: a target looked blank/placeholder — investigate before trusting the PNGs');
-    process.exit(1);
+async function main(): Promise<Result<void, string>> {
+  const argv = process.argv.slice(2);
+  const widthRes = resolveWidth(argv, process.env);
+  if (!widthRes.ok) {
+    return err(`CAPTURE FAIL: ${describeThrown(widthRes.error)}`);
   }
-  console.log('live capture complete -> demo-evidence/');
+  const base = resolveBase(argv, process.env);
+  const routes = resolveRoutes(argv);
+
+  const up = await assertServerUp(base);
+  if (!up.ok) {
+    return err(`CAPTURE FAIL: ${describeThrown(up.error)}`);
+  }
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  logRunHeader(base, widthRes.value, routes);
+
+  const suspect = await runCaptures(base, widthRes.value, routes);
+  if (suspect) {
+    return err(
+      'CAPTURE SUSPECT: a target looked blank/placeholder — investigate before trusting the PNGs',
+    );
+  }
+  process.stdout.write('live capture complete -> demo-evidence/\n');
+  return ok(undefined);
 }
 
 const invokedPath = process.argv.at(1);
 if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
-  try {
-    await main();
-  } catch (error: unknown) {
-    console.error('CAPTURE FAIL:', error instanceof Error ? (error.stack ?? error.message) : error);
-    process.exit(1);
-  }
+  await runTool(main, (error) => `CAPTURE FAIL: ${describeThrown(error)}`);
 }

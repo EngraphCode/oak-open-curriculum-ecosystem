@@ -4,9 +4,18 @@
  * (`standards-view.ts`), side-effect-free and unit-testable via the `standards-view-model.ts` entry.
  */
 
-import { areaColour, AREA_FALLBACK_COLOUR, AREA_ORDER, displayArea } from './standards-area-palette';
+import {
+  areaColour,
+  AREA_FALLBACK_COLOUR,
+  AREA_ORDER,
+  displayArea,
+} from './standards-area-palette';
 import { browseStandards, getStandard, type StandardsFilter } from './standards-view';
-import { isQualityStandardType, qualityStandards, type QualityStandard } from './static-quality-standards';
+import {
+  isQualityStandardType,
+  qualityStandards,
+  type QualityStandard,
+} from './static-quality-standards';
 import {
   ALL,
   type AreaRailItem,
@@ -23,7 +32,7 @@ import {
 const MAX_RELATED = 6;
 
 /** Classify a standard's raw `type` value into its render variant. */
-export function typeVariantOf(type: string): StandardTypeVariant {
+function typeVariantOf(type: string): StandardTypeVariant {
   if (type === 'Required standard') {
     return 'required';
   }
@@ -128,7 +137,11 @@ export function buildRail(state: StandardsBrowseState): readonly AreaRailItem[] 
 /** The type filter chips (the closed type value set), with the active one marked. */
 export function buildTypeChips(activeType: string): readonly FilterChip[] {
   const values: readonly FilterChip[] = [
-    { value: 'Required standard', label: 'Required standard', active: activeType === 'Required standard' },
+    {
+      value: 'Required standard',
+      label: 'Required standard',
+      active: activeType === 'Required standard',
+    },
     { value: 'Model Practice', label: 'Model practice', active: activeType === 'Model Practice' },
   ];
   return [{ value: ALL, label: 'All', active: activeType === ALL }, ...values];

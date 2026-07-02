@@ -40,7 +40,9 @@ function buildAreaColours(): ReadonlyMap<string, string> {
 const AREA_COLOURS = buildAreaColours();
 
 /** Distinct guidance areas, alphabetically ordered, for the filter rail. */
-export const AREA_ORDER: readonly string[] = [...AREA_COLOURS.keys()].sort((a, b) => a.localeCompare(b));
+export const AREA_ORDER: readonly string[] = [...AREA_COLOURS.keys()].sort((a, b) =>
+  a.localeCompare(b),
+);
 
 /** Drop the "(CfUs)" qualifier for a compact display label. */
 export function displayArea(area: string): string {

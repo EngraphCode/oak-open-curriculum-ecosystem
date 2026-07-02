@@ -9,7 +9,7 @@ import type { KeyboardEvent, RefObject } from 'react';
  * untouched: on an unanswered group, treating "any key" as navigation selected
  * option 0 and revealed correctness just by tabbing through the page.
  */
-export const RADIO_NAV_KEYS: ReadonlySet<string> = new Set([
+const RADIO_NAV_KEYS: ReadonlySet<string> = new Set([
   'ArrowDown',
   'ArrowRight',
   'ArrowUp',

@@ -1,5 +1,5 @@
 // Subject slug → display label + pastel chip colour (Oak decorative palette).
-export const SUBJECTS: Record<string, { name: string; bg: string }> = {
+const SUBJECTS: Record<string, { name: string; bg: string }> = {
   maths: { name: 'Maths', bg: '#bef2bd' },
   english: { name: 'English', bg: '#cdbaf0' },
   science: { name: 'Science', bg: '#b0e2de' },
@@ -20,16 +20,22 @@ export const SUBJECTS: Record<string, { name: string; bg: string }> = {
 };
 
 export function subjectName(slug?: string): string {
-  if (!slug) {return '';}
+  if (!slug) {
+    return '';
+  }
   return SUBJECTS[slug]?.name ?? slug;
 }
 
 export function subjectBg(slug?: string): string {
-  if (!slug) {return '#eeeeee';}
+  if (!slug) {
+    return '#eeeeee';
+  }
   return SUBJECTS[slug]?.bg ?? '#eeeeee';
 }
 
 export function keyStageLabel(ks?: string): string {
-  if (!ks) {return '';}
+  if (!ks) {
+    return '';
+  }
   return ks.toUpperCase();
 }
