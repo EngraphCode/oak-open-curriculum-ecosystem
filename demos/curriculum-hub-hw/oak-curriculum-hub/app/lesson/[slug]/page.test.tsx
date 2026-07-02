@@ -54,3 +54,19 @@ describe('LessonPage — sources data via the direct data function (no self-fetc
     expect(globalThis.fetch).not.toHaveBeenCalled();
   });
 });
+
+describe('LessonPage — landmarks', () => {
+  it('brings no main landmark of its own (the app layout owns main)', async () => {
+    getLesson.mockResolvedValue(
+      ok({
+        summary: { lessonTitle: 'Comparing fractions', pupilLessonOutcome: 'Outcome.' },
+        quiz: null,
+        assets: null,
+      }),
+    );
+
+    await renderPage('comparing-fractions');
+
+    expect(screen.queryByRole('main')).toBeNull();
+  });
+});

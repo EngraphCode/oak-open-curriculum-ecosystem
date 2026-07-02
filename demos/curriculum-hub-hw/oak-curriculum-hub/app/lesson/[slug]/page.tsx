@@ -118,7 +118,8 @@ export default async function LessonPage({
   const view = buildLessonView(result.ok ? result.value : null, slug);
 
   return (
-    <main className="mx-auto max-w-[760px] px-6 pt-10 pb-20">
+    // No landmark of its own — the app layout owns <main> (the CourseShell nested-main class).
+    <div className="mx-auto max-w-[760px] px-6 pt-10 pb-20">
       <Link href="/" className="text-[13px] font-bold text-oak-navy hover:text-oak-navy-hover">
         ← Back to search
       </Link>
@@ -144,7 +145,7 @@ export default async function LessonPage({
       {view.quiz && <QuizStats starter={view.quiz.starter} exit={view.quiz.exit} />}
 
       {view.assets.length > 0 && <LessonResources items={view.assets} oakUrl={view.oakUrl} />}
-    </main>
+    </div>
   );
 }
 
@@ -173,7 +174,7 @@ function LessonResources({
         {items.map((a) => (
           <span
             key={a.type}
-            className="inline-flex items-center rounded-full border border-oak-grey-line px-3 py-[7px] text-[13px] font-semibold text-oak-grey"
+            className="inline-flex items-center rounded-full border-2 border-oak-grey-line px-3 py-[7px] text-[13px] font-semibold text-oak-grey"
           >
             {a.label}
           </span>
@@ -195,7 +196,7 @@ function LessonResources({
 
 function Stat({ n, label }: { n: number; label: string }): ReactElement {
   return (
-    <div className="min-w-[120px] rounded-xl border-2 border-oak-black bg-white px-[18px] py-3">
+    <div className="shadow-oak-lemon min-w-[120px] rounded-xl border-2 border-oak-black bg-white px-[18px] py-3">
       <div className="text-[28px] font-bold leading-none">{n}</div>
       <div className="mt-1 text-xs font-light leading-snug text-oak-grey">{label}</div>
     </div>
