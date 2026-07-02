@@ -6,9 +6,8 @@ import { HubSearch } from '@/components/HubSearch';
 import { MobileHubNav } from '@/components/MobileHubNav';
 import type { HubNavItem } from '@/components/MobileHubNav';
 
-// Hub top-level sections, mirroring the reference prototype's header nav. Only
-// the first two currently resolve to routes (built in C5); Rubrics/Exemplars/Wiki
-// are same-page placeholders in the prototype too.
+// Hub top-level sections, mirroring the reference prototype's header nav.
+// Every entry resolves to a live app route.
 const navItems: readonly HubNavItem[] = [
   { label: 'Training courses', href: '/course' },
   { label: 'Quality standards', href: '/standards' },
@@ -24,17 +23,11 @@ const navLinkClass =
 function HubNav(): ReactElement {
   return (
     <nav aria-label="Hub sections" className="ml-3.5 hidden items-center gap-0.5 md:flex">
-      {navItems.map((item) =>
-        item.href.startsWith('/') ? (
-          <Link key={item.label} href={item.href} className={navLinkClass}>
-            {item.label}
-          </Link>
-        ) : (
-          <a key={item.label} href={item.href} className={navLinkClass}>
-            {item.label}
-          </a>
-        ),
-      )}
+      {navItems.map((item) => (
+        <Link key={item.label} href={item.href} className={navLinkClass}>
+          {item.label}
+        </Link>
+      ))}
     </nav>
   );
 }
@@ -50,7 +43,8 @@ function HubNav(): ReactElement {
  */
 export default function SiteNav(): ReactElement {
   return (
-    <header className="relative sticky top-0 z-50 border-b-[3px] border-oak-black bg-white">
+    // sticky is itself a positioned ancestor — the disclosure panel anchors to it directly.
+    <header className="sticky top-0 z-50 border-b-[3px] border-oak-black bg-white">
       <div className="mx-auto flex max-w-[1240px] items-center gap-5 px-4 py-3.5 md:px-7">
         <Link href="/" aria-label="Oak Curriculum Hub — home" className="flex shrink-0 items-center">
           {/* Official Oak logo (full lockup) from the canonical Claude Design export,

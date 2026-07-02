@@ -4,8 +4,8 @@ import type { ReactElement } from 'react';
  * The export's dashed media-placeholder slot: an optional badge, the image glyph, and one visible
  * label. Decorative by construction — the glyph is `aria-hidden` and the label is ordinary visible
  * text, so screen readers hear it exactly once (never a `role="img"` double-announce). Shared by the
- * accordion item images, the flip card fronts, and the compare panels (the second consumer arrived,
- * so the treatment consolidated here).
+ * accordion item images and the flip card fronts (the second consumer is why it consolidated here;
+ * compare panels carry no images in the course corpus).
  */
 export function DashedMediaSlot({
   label,
@@ -20,8 +20,10 @@ export function DashedMediaSlot({
 }): ReactElement {
   return (
     <span
-      className={`relative flex w-full flex-col items-center justify-center gap-1.5 rounded-[10px] border-2 border-dashed border-oak-grey bg-oak-black/[.03] text-center ${
-        compact ? 'min-h-[92px] p-3' : 'min-h-[150px] max-w-[440px] gap-2 rounded-xl p-[18px]'
+      className={`relative flex w-full flex-col items-center justify-center border-2 border-dashed border-oak-grey bg-oak-black/[.03] text-center ${
+        compact
+          ? 'min-h-[92px] gap-1.5 rounded-[10px] p-3'
+          : 'min-h-[150px] max-w-[440px] gap-2 rounded-xl p-[18px]'
       }`}
     >
       {badge !== undefined && (

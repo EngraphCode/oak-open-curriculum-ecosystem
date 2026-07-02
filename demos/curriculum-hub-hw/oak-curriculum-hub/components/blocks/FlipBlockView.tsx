@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import type { ReactElement } from 'react';
 
 import type { FlipBlock, FlipCard } from '@/lib/blocks/types';
@@ -12,7 +12,9 @@ import { mdGridCols } from './md-grid-cols';
  * One flip card: a button swapping between the export's two faces — front: white card, chip badge,
  * bold title, "Tap to reveal ↻" hint; back: the chip tint with the detail text and a black offset
  * shadow. BOTH faces stay in the DOM (`hidden` swaps them), so content persists for assistive tech
- * instead of vanishing on toggle; `aria-expanded` announces the state. The swap is state-driven (no
+ * instead of vanishing on toggle; `aria-expanded` announces the state. The button's accessible name
+ * is PINNED to the front title via `aria-labelledby` (a hidden reference still names) — without it
+ * the name churned to the whole back text on flip (SC 4.1.2 quality). The swap is state-driven (no
  * 3D animation), so it is perceivable and operable without motion. The visible "Tap to reveal"
  * wording is the export's copy, kept for fidelity (full-reproduction principle).
  */
@@ -26,11 +28,13 @@ function FlipCardView({
   frontImage: boolean;
 }): ReactElement {
   const [flipped, setFlipped] = useState(false);
+  const titleId = useId();
   return (
     <li className="flex">
       <button
         type="button"
         aria-expanded={flipped}
+        aria-labelledby={titleId}
         onClick={() => setFlipped((value) => !value)}
         style={flipped ? { backgroundColor: chip } : undefined}
         className={`flex min-h-[210px] w-full flex-col items-start rounded-[14px] border-2 border-oak-black p-[18px] text-left ${
@@ -41,28 +45,49 @@ function FlipCardView({
           {card.back}
         </span>
         <span hidden={flipped} className="flex w-full flex-1 flex-col items-start">
-          <span
-            aria-hidden="true"
-            style={{ backgroundColor: chip }}
-            className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-oak-black text-[15px] font-bold"
-          >
-            {card.badge}
-          </span>
-          <span className="mt-3 text-[20px] font-bold leading-[26px]">{card.front}</span>
-          {frontImage && (
-            <span className="mt-3 flex w-full flex-1">
-              <DashedMediaSlot label="Drop image" compact />
-            </span>
-          )}
-          <span className="mt-auto flex items-center gap-1.5 pt-3 text-[13px] font-light text-oak-grey">
-            Tap to reveal{' '}
-            <span aria-hidden="true" className="text-[15px]">
-              ↻
-            </span>
-          </span>
+          <CardFront card={card} chip={chip} frontImage={frontImage} titleId={titleId} />
         </span>
       </button>
     </li>
+  );
+}
+
+/** The unflipped face: chip badge, the naming title, optional image slot, reveal hint. */
+function CardFront({
+  card,
+  chip,
+  frontImage,
+  titleId,
+}: {
+  card: FlipCard;
+  chip: string;
+  frontImage: boolean;
+  titleId: string;
+}): ReactElement {
+  return (
+    <>
+      <span
+        aria-hidden="true"
+        style={{ backgroundColor: chip }}
+        className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-oak-black text-[15px] font-bold"
+      >
+        {card.badge}
+      </span>
+      <span id={titleId} className="mt-3 text-[20px] font-bold leading-[26px]">
+        {card.front}
+      </span>
+      {frontImage && (
+        <span className="mt-3 flex w-full flex-1">
+          <DashedMediaSlot label="Drop image" compact />
+        </span>
+      )}
+      <span className="mt-auto flex items-center gap-1.5 pt-3 text-[13px] font-light text-oak-grey">
+        Tap to reveal{' '}
+        <span aria-hidden="true" className="text-[15px]">
+          ↻
+        </span>
+      </span>
+    </>
   );
 }
 

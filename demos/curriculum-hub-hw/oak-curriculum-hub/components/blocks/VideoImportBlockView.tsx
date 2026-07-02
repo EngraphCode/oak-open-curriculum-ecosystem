@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
 import { MediaBox } from '@/components/blocks/MediaBox';
-import { PlayChip } from '@/components/blocks/VideoBlockView';
+import { PlayChip } from '@/components/blocks/PlayChip';
 import { LearningFramework } from '@/components/framework/LearningFramework';
 import type { VideoImportBlock } from '@/lib/blocks/types';
 
@@ -11,7 +11,8 @@ import type { VideoImportBlock } from '@/lib/blocks/types';
  * be wired without new schema); the course corpus carries exactly that one videoimport. Any other
  * embed renders a described media slot under the export's black IMPORT VIDEO pill (the export's
  * empty-stage upload wireframe is deliberately not reproduced — it is the prototype's fake state
- * machine, unreachable from course data).
+ * machine, unreachable from course data). The duration joins the accessible name — visible-only
+ * content inside a `role="img"` is never announced.
  */
 export function VideoImportBlockView({ block }: { block: VideoImportBlock }): ReactElement {
   if (block.embed === 'learningframework') {
@@ -24,7 +25,7 @@ export function VideoImportBlockView({ block }: { block: VideoImportBlock }): Re
         pillTone="black"
         glyph={<PlayChip />}
         label={block.duration}
-        ariaLabel={block.caption}
+        ariaLabel={`${block.caption} — ${block.duration}`}
       />
       <figcaption className="mt-2.5 text-sm leading-5 font-light text-oak-grey">
         {block.caption}

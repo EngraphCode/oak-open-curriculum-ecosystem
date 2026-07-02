@@ -30,8 +30,10 @@ const RESULT_TEXT = {
 } as const;
 
 // h-6: 24px min target height so the stacked pair meets WCAG 2.5.8 (20px circles intersected).
+// aria-disabled (not disabled) at the edges: the button stays focusable, so moving an item to the
+// top/bottom never drops keyboard focus to <body> — activation is a guarded no-op instead.
 const ARROW_BUTTON =
-  'flex h-6 w-7 items-center justify-center rounded-md border-2 border-oak-black bg-white text-[11px] disabled:opacity-40';
+  'flex h-6 w-7 items-center justify-center rounded-md border-2 border-oak-black bg-white text-[11px] aria-disabled:opacity-40';
 
 /** One white row: the item text plus its stacked ▲▼ move buttons. */
 function SortableRow({
@@ -45,6 +47,8 @@ function SortableRow({
   count: number;
   onMove: (delta: number) => void;
 }): ReactElement {
+  const atTop = index === 0;
+  const atBottom = index === count - 1;
   return (
     <li className="flex items-center gap-3 rounded-[10px] border-2 border-oak-black bg-white p-[11px_13px]">
       <span className="flex-1 text-base leading-[22px] font-light">{text}</span>
@@ -52,18 +56,26 @@ function SortableRow({
         <button
           type="button"
           aria-label={`Move ${text} up`}
-          disabled={index === 0}
+          aria-disabled={atTop}
           className={ARROW_BUTTON}
-          onClick={() => onMove(-1)}
+          onClick={() => {
+            if (!atTop) {
+              onMove(-1);
+            }
+          }}
         >
           ▲
         </button>
         <button
           type="button"
           aria-label={`Move ${text} down`}
-          disabled={index === count - 1}
+          aria-disabled={atBottom}
           className={ARROW_BUTTON}
-          onClick={() => onMove(1)}
+          onClick={() => {
+            if (!atBottom) {
+              onMove(1);
+            }
+          }}
         >
           ▼
         </button>

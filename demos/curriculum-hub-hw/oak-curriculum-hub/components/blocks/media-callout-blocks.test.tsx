@@ -52,6 +52,48 @@ describe('CalloutBlockView', () => {
     expect(screen.getByText('Small steps win.')).toBeTruthy();
     expect(screen.getByText('— Rosenshine')).toBeTruthy();
   });
+
+});
+
+describe('CalloutBlockView — export structure (item 10)', () => {
+  it('leads every variant with its decorative icon chip', () => {
+    const cases = [
+      { variant: 'tip', icon: '★' },
+      { variant: 'info', icon: 'i' },
+      { variant: 'warning', icon: '!' },
+      { variant: 'quote', icon: '“' },
+    ] as const;
+    for (const { variant, icon } of cases) {
+      const { unmount } = render(
+        <CalloutBlockView block={{ t: 'callout', variant, text: 'Prose.' }} />,
+      );
+      expect(screen.getByText(icon).getAttribute('aria-hidden')).toBe('true');
+      unmount();
+    }
+  });
+
+  it('gives a quality-standard callout the view-in-standards call to action (all codes deep-linked)', () => {
+    render(
+      <CalloutBlockView
+        block={{
+          t: 'callout',
+          variant: 'info',
+          title: 'Quality standard',
+          items: [
+            { qs: 'QS-87', text: 'Small steps.' },
+            { qs: 'QS-85', text: 'Key points evident.' },
+          ],
+        }}
+      />,
+    );
+    const cta = screen.getByRole('link', { name: /View in quality standards/ });
+    expect(cta.getAttribute('href')).toBe('/standards#qs=QS-87,QS-85');
+  });
+
+  it('renders no view-in-standards call to action on a non-standard callout', () => {
+    render(<CalloutBlockView block={{ t: 'callout', variant: 'tip', text: 'Plain tip.' }} />);
+    expect(screen.queryByRole('link', { name: /View in quality standards/ })).toBeNull();
+  });
 });
 
 describe('ImageBlockView', () => {
@@ -103,13 +145,14 @@ describe('VideoBlockView', () => {
 });
 
 describe('VideoImportBlockView', () => {
-  it('renders a described media slot (duration labelled by caption) for a generic embed', () => {
+  it('renders a described media slot named by caption plus duration for a generic embed', () => {
     render(
       <VideoImportBlockView
         block={{ t: 'videoimport', embed: 'clip', filename: 'intro.mp4', duration: '2:02', caption: 'Course introduction clip.' }}
       />,
     );
-    expect(screen.getByRole('img', { name: 'Course introduction clip.' })).toBeTruthy();
+    // The duration rides the accessible name — visible-only content inside role="img" is silent.
+    expect(screen.getByRole('img', { name: 'Course introduction clip. — 2:02' })).toBeTruthy();
     expect(screen.getByText('2:02')).toBeTruthy();
   });
 

@@ -45,9 +45,10 @@ function FramedImage({
   return (
     <Image
       src={`/${src}`}
-      alt={block.alt ?? block.caption ?? ''}
+      alt={block.alt ?? block.caption ?? block.placeholder}
       width={dims.width}
       height={dims.height}
+      sizes="(min-width: 768px) 426px, 100vw"
       className="shadow-oak-wide-lemon h-auto w-full rounded-2xl border-[3px] border-oak-black"
       style={
         block.maxWidth !== undefined

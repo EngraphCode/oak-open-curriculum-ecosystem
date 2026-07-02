@@ -41,7 +41,7 @@ describe('reorder / isCorrectOrder', () => {
 });
 
 describe('FlipBlockView', () => {
-  it('swaps the announced face and sets aria-expanded when toggled (both faces stay in the DOM)', () => {
+  it('keeps the pinned front-title name and sets aria-expanded when toggled (both faces stay in the DOM)', () => {
     render(<FlipBlockView block={{ t: 'flip', chip: '#ffc8a6', cards: [{ badge: '1', front: 'Resources', back: 'For teachers.' }] }} />);
     const button = screen.getByRole('button', { name: /Resources/ });
     expect(button.getAttribute('aria-expanded')).toBe('false');
@@ -50,10 +50,10 @@ describe('FlipBlockView', () => {
     fireEvent.click(button);
     expect(button.getAttribute('aria-expanded')).toBe('true');
     expect(screen.getByText('For teachers.').hidden).toBe(false);
-    // The flip is a face SWAP (export behaviour): the accessible name now reflects the back —
-    // the hidden front (title + reveal hint) no longer contributes to it.
-    expect(screen.queryByRole('button', { name: /Resources/ })).toBeNull();
-    expect(screen.getByRole('button', { name: /For teachers/ })).toBeTruthy();
+    // The name is PINNED to the front title via aria-labelledby (SC 4.1.2 quality) —
+    // it never churns to the whole back text on flip; the back is CONTENT, not the name.
+    expect(screen.getByRole('button', { name: 'Resources' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /For teachers/ })).toBeNull();
   });
 
   it('renders the front-image slot on card fronts when frontImage is set', () => {
@@ -110,6 +110,12 @@ describe('SortableBlockView', () => {
 
   it('reports the not-quite copy on a wrong order and hints only the arrow affordance', () => {
     render(<SortableBlockView block={block} />);
+    // Edge arrows stay focusable no-ops (aria-disabled): activating one keeps focus in place.
+    const topUp = screen.getByRole('button', { name: 'Move Own it up' });
+    expect(topUp.getAttribute('aria-disabled')).toBe('true');
+    topUp.focus();
+    fireEvent.click(topUp);
+    expect(document.activeElement).toBe(topUp);
     fireEvent.click(screen.getByRole('button', { name: 'Check order' }));
     expect(screen.getByRole('status').textContent).toBe('Not quite — adjust and check again.');
     expect(screen.getByText('ACTIVITY')).toBeTruthy();

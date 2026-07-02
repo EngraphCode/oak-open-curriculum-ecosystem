@@ -9,6 +9,7 @@ export function HubSearch(): ReactElement {
   return (
     <div
       role="search"
+      aria-label="Hub search"
       className="flex items-center gap-2 rounded-full border-2 border-oak-black bg-white px-3.5 py-[7px]"
     >
       <svg

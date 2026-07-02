@@ -5,7 +5,7 @@ import type { ReactElement, ReactNode } from 'react';
  * frame on the paper tint under the wide lemon shadow, a corner pill naming
  * the media kind, a centred glyph, and the placeholder description. Shared by
  * the image, video and video-import placeholder branches (the dashed
- * equivalent is {@link DashedMediaSlot}).
+ * equivalent is `DashedMediaSlot`).
  */
 export function MediaBox({
   pill,
@@ -18,12 +18,13 @@ export function MediaBox({
   pillTone: 'lemon' | 'black';
   glyph: ReactNode;
   label: string;
-  ariaLabel: string;
+  /** Overrides the accessible name when it should differ from the visible label. */
+  ariaLabel?: string;
 }): ReactElement {
   return (
     <div
       role="img"
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? label}
       className="shadow-oak-wide-lemon relative flex min-h-[230px] flex-col items-center justify-center rounded-2xl border-[3px] border-oak-black bg-[#f9f9f9] p-6 text-center"
     >
       <span

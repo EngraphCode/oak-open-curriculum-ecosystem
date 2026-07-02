@@ -6,7 +6,7 @@ import SiteNav from '@/components/SiteNav';
 describe('SiteNav — hub sections disclosure', () => {
   it('opens the menu with every section link and the hub search, and closes on a link choose', () => {
     render(<SiteNav />);
-    const toggle = screen.getByRole('button', { name: 'Hub sections menu' });
+    const toggle = screen.getByRole('button', { name: 'Hub sections' });
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
     expect(screen.queryByRole('navigation', { name: 'Hub sections menu' })).toBeNull();
     fireEvent.click(toggle);
@@ -25,7 +25,7 @@ describe('SiteNav — hub sections disclosure', () => {
 
   it('closes on Escape and returns focus to the toggle', () => {
     render(<SiteNav />);
-    const toggle = screen.getByRole('button', { name: 'Hub sections menu' });
+    const toggle = screen.getByRole('button', { name: 'Hub sections' });
     fireEvent.click(toggle);
     const menu = screen.getByRole('navigation', { name: 'Hub sections menu' });
     fireEvent.keyDown(menu, { key: 'Escape' });
@@ -35,7 +35,7 @@ describe('SiteNav — hub sections disclosure', () => {
 
   it('closes when focus leaves the disclosure, without pulling focus back', () => {
     render(<SiteNav />);
-    const toggle = screen.getByRole('button', { name: 'Hub sections menu' });
+    const toggle = screen.getByRole('button', { name: 'Hub sections' });
     fireEvent.click(toggle);
     expect(screen.getByRole('navigation', { name: 'Hub sections menu' })).toBeTruthy();
     fireEvent.focusOut(toggle, { relatedTarget: document.body });
@@ -43,13 +43,17 @@ describe('SiteNav — hub sections disclosure', () => {
     expect(document.activeElement).not.toBe(toggle);
   });
 
+});
+
+describe('SiteNav — inline chrome', () => {
   it('keeps the inline sections nav complete, with the search outside any menu', () => {
     render(<SiteNav />);
     const inline = screen.getByRole('navigation', { name: 'Hub sections' });
     for (const label of ['Training courses', 'Quality standards', 'Rubrics', 'Exemplars', 'Wiki']) {
       expect(within(inline).getByRole('link', { name: label })).toBeTruthy();
     }
-    // Menu closed: exactly one searchbox, in the header row (not inside a panel).
+    // Menu closed: exactly one searchbox, inside the named search landmark in the header row.
+    expect(screen.getByRole('search', { name: 'Hub search' })).toBeTruthy();
     expect(screen.getByRole('searchbox', { name: 'Search the hub' })).toBeTruthy();
   });
 });

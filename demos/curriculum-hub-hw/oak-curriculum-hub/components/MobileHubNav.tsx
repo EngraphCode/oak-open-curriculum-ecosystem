@@ -31,17 +31,11 @@ function MenuPanel({
       aria-label="Hub sections menu"
       className="shadow-oak-grey absolute inset-x-0 top-full flex flex-col gap-1 border-b-[3px] border-oak-black bg-white p-4"
     >
-      {items.map((item) =>
-        item.href.startsWith('/') ? (
-          <Link key={item.label} href={item.href} className={menuLinkClass} onClick={onChoose}>
-            {item.label}
-          </Link>
-        ) : (
-          <a key={item.label} href={item.href} className={menuLinkClass} onClick={onChoose}>
-            {item.label}
-          </a>
-        ),
-      )}
+      {items.map((item) => (
+        <Link key={item.label} href={item.href} className={menuLinkClass} onClick={onChoose}>
+          {item.label}
+        </Link>
+      ))}
       <div className="mt-2">
         <HubSearch />
       </div>
@@ -82,8 +76,8 @@ export function MobileHubNav({ items }: { items: readonly HubNavItem[] }): React
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label="Hub sections menu"
-        className="flex h-10 w-10 items-center justify-center rounded-oak-m2 border-2 border-oak-black bg-white"
+        aria-label="Hub sections"
+        className="flex h-10 w-10 items-center justify-center rounded-oak-m2 border-2 border-oak-black bg-white text-oak-black"
         onClick={() => setOpen((current) => !current)}
       >
         <svg
@@ -91,7 +85,7 @@ export function MobileHubNav({ items }: { items: readonly HubNavItem[] }): React
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#222222"
+          stroke="currentColor"
           strokeWidth="2.4"
           strokeLinecap="round"
           aria-hidden="true"
