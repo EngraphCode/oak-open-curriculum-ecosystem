@@ -64,15 +64,54 @@ function overflows(docWidth, bodyWidth, innerWidth) {
   return docWidth > innerWidth || bodyWidth > innerWidth;
 }
 
-async function measureRoute(page, base, route) {
+/** Routes whose hydrated layout differs from SSR (the paginated player gates its sections). The
+ *  hydrated pass WAITS for the gating witness on these, so the measurement never races the
+ *  hydration boundary (the nondeterminism that let a no-JS-only overflow slip past a fast run). */
+const HYDRATION_GATED_ROUTES = ['/course'];
+
+async function measureRoute(page, base, route, hydrated) {
   await page.goto(`${base}${route}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await page.evaluate(() => (document.fonts ? document.fonts.ready : null));
+  if (hydrated && HYDRATION_GATED_ROUTES.includes(route)) {
+    // Deterministic hydrated state: the gates add [hidden] attributes on mount.
+    await page
+      .waitForFunction(() => document.querySelectorAll('[hidden]').length > 0, { timeout: 10000 })
+      .catch(() => {
+        console.error(`${route}: hydration witness never appeared — check the base host`);
+      });
+  }
   await page.waitForTimeout(400);
   return page.evaluate(() => ({
     doc: document.documentElement.scrollWidth,
     body: document.body.scrollWidth,
     inner: window.innerWidth,
   }));
+}
+
+/** One measurement pass over every route in a single browser context. The NO-JS pass measures the
+ *  SSR fallback (a designed user state — progressive enhancement); the HYDRATED pass measures the
+ *  enhanced state. Both must be reflow-clean: a failure in either is a real WCAG 1.4.10 failure. */
+async function measurePass(browser, { js, label, base, routes, width }) {
+  const ctx = await browser.newContext({
+    viewport: { width, height: 900 },
+    deviceScaleFactor: 2,
+    javaScriptEnabled: js,
+  });
+  const page = await ctx.newPage();
+  let failed = false;
+  try {
+    for (const route of routes) {
+      const m = await measureRoute(page, base, route, js);
+      const bad = overflows(m.doc, m.body, m.inner);
+      if (bad) failed = true;
+      console.log(
+        `${route} [${label}]: docScrollW=${m.doc} bodyScrollW=${m.body} innerW=${m.inner} -> ${bad ? 'OVERFLOW' : 'OK'}`,
+      );
+    }
+  } finally {
+    await ctx.close();
+  }
+  return failed;
 }
 
 /** Click the disclosure toggle until aria-expanded flips (bounded) — the vacuous-click cure. */
@@ -99,22 +138,20 @@ async function main() {
 
   console.log(`base = ${base}; viewport CSS width = ${width}px; routes = ${routes.join(', ')}`);
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({
-    viewport: { width, height: 900 },
-    deviceScaleFactor: 2,
-  });
   let failed = false;
   try {
-    for (const route of routes) {
-      const m = await measureRoute(page, base, route);
-      const bad = overflows(m.doc, m.body, m.inner);
-      if (bad) failed = true;
-      console.log(
-        `${route}: docScrollW=${m.doc} bodyScrollW=${m.body} innerW=${m.inner} -> ${bad ? 'OVERFLOW' : 'OK'}`,
-      );
-    }
+    // Two deterministic passes: the SSR fallback first (no JS — nothing to race),
+    // then the hydrated state (with the gating witness awaited where it applies).
+    failed = (await measurePass(browser, { js: false, label: 'no-js', base, routes, width })) || failed;
+    failed = (await measurePass(browser, { js: true, label: 'hydrated', base, routes, width })) || failed;
 
-    // Header disclosure open state (home page): hydration-proven, then measured + captured.
+    // Header disclosure open state (home page): hydrated by definition — proven
+    // via the click-until-flipped loop, then measured + captured.
+    const ctx = await browser.newContext({
+      viewport: { width, height: 900 },
+      deviceScaleFactor: 2,
+    });
+    const page = await ctx.newPage();
     await page.goto(`${base}/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.evaluate(() => (document.fonts ? document.fonts.ready : null));
     if (!(await openMenuHydrated(page))) {
@@ -127,11 +164,12 @@ async function main() {
       }));
       const bad = open.doc > open.inner;
       if (bad) failed = true;
-      console.log(`/ (menu open): docScrollW=${open.doc} innerW=${open.inner} -> ${bad ? 'OVERFLOW' : 'OK'}`);
+      console.log(`/ (menu open) [hydrated]: docScrollW=${open.doc} innerW=${open.inner} -> ${bad ? 'OVERFLOW' : 'OK'}`);
       await page.screenshot({ path: path.join(OUT_DIR, `home-live-${width}-menu-open.png`) });
       await page.getByRole('button', { name: MENU_TOGGLE_NAME }).click();
       await page.screenshot({ path: path.join(OUT_DIR, `home-live-${width}.png`) });
     }
+    await ctx.close();
   } finally {
     await browser.close();
   }

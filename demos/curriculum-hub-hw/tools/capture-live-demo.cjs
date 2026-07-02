@@ -46,10 +46,12 @@ const { chromium } = require('@playwright/test');
 
 const OUT_DIR = path.resolve(__dirname, '..', 'demo-evidence');
 
-/** The stable content routes that exist and are §D-capturable by default. Dynamic/placeholder
- *  routes (/course pre-assembly, /lesson/[slug]) are opt-in via --routes so a default run never
- *  silently captures a placeholder as if it were the real page. */
-const DEFAULT_ROUTES = ['/', '/standards', '/rubrics', '/exemplars', '/wiki'];
+/** The stable content routes that exist and are §D-capturable by default. /course (hydration-
+ *  witnessed player) and /curriculum (the E3 showcase) joined at build-complete; /lesson/[slug]
+ *  stays opt-in via --routes (needs a live slug). Evidence lands at the tool-relative OUT_DIR —
+ *  never write screenshots to cwd-relative paths (a run from another directory nests them in the
+ *  wrong tree; a train had to relocate exactly that, 2026-07-02). */
+const DEFAULT_ROUTES = ['/', '/standards', '/rubrics', '/exemplars', '/wiki', '/course', '/curriculum'];
 
 /** Slug a route into an output basename: '/' -> 'home', '/standards' -> 'standards',
  *  '/lesson/[slug]' -> 'lesson-slug'. */
