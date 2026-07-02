@@ -35,7 +35,10 @@ export const COMMS_GATED_CONCEPTS: readonly string[] = [
  * flag: the tags are namespace-validated and visible to every watcher, so
  * mis-tagging to bypass the gate is observable on the stream.
  */
-const COMMS_CONCEPT_GATE_EXEMPT_TAGS: readonly string[] = ['failure-mode', 'behaviour-note'];
+const COMMS_CONCEPT_GATE_EXEMPT_TAGS: ReadonlySet<string> = new Set([
+  'failure-mode',
+  'behaviour-note',
+]);
 
 /**
  * Select the comms-gated subset of the policy's scoped blocks by concept
@@ -94,7 +97,7 @@ export function checkCommsTextAgainstConceptGates(input: {
   readonly groups: readonly ScopedContentBlockGroup[];
 }): Result<undefined, CommsConceptGateRefusal> {
   const tags = input.tags ?? [];
-  if (tags.some((tag) => COMMS_CONCEPT_GATE_EXEMPT_TAGS.includes(tag))) {
+  if (tags.some((tag) => COMMS_CONCEPT_GATE_EXEMPT_TAGS.has(tag))) {
     return ok(undefined);
   }
   const match = findScopedBlockInText(`${input.title}\n${input.body}`, input.groups);

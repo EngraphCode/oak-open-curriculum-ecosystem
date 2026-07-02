@@ -195,8 +195,9 @@ export function QuizExplainStatus({
 }): ReactElement {
   const visible = answered && explain !== undefined;
   return (
-    <p role="status" className={visible ? 'mt-2.5 text-[15px] font-light leading-[22px]' : ''}>
+    // Native <output> carries the implicit status role (WCAG 4.1.3 live region).
+    <output className={visible ? 'mt-2.5 block text-[15px] font-light leading-[22px]' : 'block'}>
       {visible ? explain : ''}
-    </p>
+    </output>
   );
 }

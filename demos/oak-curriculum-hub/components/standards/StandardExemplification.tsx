@@ -25,7 +25,9 @@ function ExampleTile({
     <div className={`overflow-hidden rounded-oak-l border-2 ${border}`}>
       <p className={`m-0 px-4 py-3 text-[14px] font-bold text-white ${headBg}`}>{heading}</p>
       <div className={`flex min-h-[150px] flex-col items-center justify-center gap-2 p-4 text-center ${bodyBg}`}>
-        <span role="img" aria-label={caption} className="block h-8 w-8 rounded-oak-s border-2 border-current opacity-70" />
+        {/* Decorative swatch: the visible caption below is the single announcement —
+            role="img" + aria-label duplicated it for screen readers. */}
+        <span aria-hidden="true" className="block h-8 w-8 rounded-oak-s border-2 border-current opacity-70" />
         <span className="text-[13px] leading-[19px] text-oak-grey">{caption}</span>
       </div>
     </div>

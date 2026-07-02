@@ -109,9 +109,7 @@ export default function RubricsBrowser(): ReactElement {
             />
           ))}
         </nav>
-        <p role="status" className="mb-4 text-[14px] text-oak-grey">
-          {countLabel}
-        </p>
+        <output className="mb-4 block text-[14px] text-oak-grey">{countLabel}</output>
         <div className="flex flex-col gap-2.5">
           {results.map((standard) => (
             <RubricStandardRow key={standard.id} standard={standard} />

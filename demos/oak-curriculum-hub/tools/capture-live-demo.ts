@@ -137,12 +137,12 @@ export function isSuspect(status: number, bodyHeight: number, textLength: number
  *  design (proven by the shell's renderToString test) — so the presence of `[hidden]` elements is
  *  the hydration witness. An unhydrated player page is full of text and passes the blank
  *  classifier, which is exactly why this separate check exists. */
-const HYDRATION_GATED_ROUTES = ['/course'];
+const HYDRATION_GATED_ROUTES: ReadonlySet<string> = new Set(['/course']);
 
 /** Hydration classifier for HYDRATION_GATED_ROUTES: SUSPECT when no element is `[hidden]`
  *  (the player never mounted — e.g. a 127.0.0.1 base blocking the dev chunks). Pure. */
 export function isUnhydrated(route: string, hiddenCount: number): boolean {
-  return HYDRATION_GATED_ROUTES.includes(route) && hiddenCount === 0;
+  return HYDRATION_GATED_ROUTES.has(route) && hiddenCount === 0;
 }
 
 async function assertServerUp(base: string): Promise<number> {
@@ -237,8 +237,10 @@ async function main(): Promise<void> {
 
 const invokedPath = process.argv.at(1);
 if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
-  main().catch((error: unknown) => {
+  try {
+    await main();
+  } catch (error: unknown) {
     console.error('CAPTURE FAIL:', error instanceof Error ? (error.stack ?? error.message) : error);
     process.exit(1);
-  });
+  }
 }

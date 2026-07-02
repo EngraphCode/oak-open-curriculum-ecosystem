@@ -179,7 +179,9 @@ async function main(): Promise<void> {
   process.exitCode = failures === 0 ? 0 : 1;
 }
 
-main().catch((error: unknown) => {
+try {
+  await main();
+} catch (error: unknown) {
   console.error(`ERROR: ${error instanceof Error ? error.message : String(error)}`);
   process.exit(1);
-});
+}

@@ -84,7 +84,7 @@ export function overflows(docWidth: number, bodyWidth: number, innerWidth: numbe
 /** Routes whose hydrated layout differs from SSR (the paginated player gates its sections). The
  *  hydrated pass WAITS for the gating witness on these, so the measurement never races the
  *  hydration boundary (the nondeterminism that let a no-JS-only overflow slip past a fast run). */
-const HYDRATION_GATED_ROUTES = ['/course'];
+const HYDRATION_GATED_ROUTES: ReadonlySet<string> = new Set(['/course']);
 
 interface WidthMetrics {
   doc: number;
@@ -97,7 +97,7 @@ async function measureRoute(page: Page, base: string, route: string, hydrated: b
   await page.evaluate(async () => {
     await document.fonts.ready;
   });
-  if (hydrated && HYDRATION_GATED_ROUTES.includes(route)) {
+  if (hydrated && HYDRATION_GATED_ROUTES.has(route)) {
     // Deterministic hydrated state: the gates add [hidden] attributes on mount.
     await page
       .waitForFunction(() => document.querySelectorAll('[hidden]').length > 0, undefined, { timeout: 10000 })
@@ -227,8 +227,10 @@ async function main(): Promise<void> {
 
 const invokedPath = process.argv.at(1);
 if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
-  main().catch((error: unknown) => {
+  try {
+    await main();
+  } catch (error: unknown) {
     console.error('MEASURE FAIL:', error instanceof Error ? (error.stack ?? error.message) : error);
     process.exit(1);
-  });
+  }
 }

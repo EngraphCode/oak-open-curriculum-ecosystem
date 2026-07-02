@@ -101,12 +101,11 @@ function CheckRow({
       >
         Check order
       </button>
-      <p
-        role="status"
-        className={`text-[15px] leading-[1.3] font-bold ${checked === 'wrong' ? 'text-oak-red' : 'text-oak-green'}`}
+      <output
+        className={`block text-[15px] leading-[1.3] font-bold ${checked === 'wrong' ? 'text-oak-red' : 'text-oak-green'}`}
       >
         {checked === null ? '' : RESULT_TEXT[checked]}
-      </p>
+      </output>
     </div>
   );
 }

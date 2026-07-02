@@ -50,14 +50,20 @@ function ChipList({ values, tint }: { readonly values: readonly string[]; readon
   );
 }
 
+/** Pill tint per statement type (default white for the unmapped case). */
+function pillTintOf(typeVariant: StandardDetailVM['typeVariant']): string {
+  if (typeVariant === 'required') {
+    return 'bg-oak-lemon';
+  }
+  if (typeVariant === 'model') {
+    return 'bg-oak-lavender-subdued';
+  }
+  return 'bg-white';
+}
+
 /** The statement card header: id badge, long type label, and optional rubric code. */
 function StatementHeader({ vm }: { readonly vm: StandardDetailVM }): ReactElement {
-  const pillTint =
-    vm.typeVariant === 'required'
-      ? 'bg-oak-lemon'
-      : vm.typeVariant === 'model'
-        ? 'bg-oak-lavender-subdued'
-        : 'bg-white';
+  const pillTint = pillTintOf(vm.typeVariant);
   return (
     <div className="border-b-[3px] border-oak-black bg-oak-lavender-subdued px-[30px] py-6">
       <div className="mb-4 flex flex-wrap items-center gap-2.5">

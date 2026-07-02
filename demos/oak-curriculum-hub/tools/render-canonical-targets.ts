@@ -175,7 +175,9 @@ async function main(): Promise<void> {
   console.log('render complete -> demo-evidence/');
 }
 
-main().catch((error: unknown) => {
+try {
+  await main();
+} catch (error: unknown) {
   console.error('RENDER FAIL:', error instanceof Error ? (error.stack ?? error.message) : error);
   process.exit(1);
-});
+}
