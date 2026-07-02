@@ -82,6 +82,30 @@ This plan does not execute until a **fresh session** has critically reviewed it.
 - Ratify or revise D1–D7 and answer Q1–Q4.
 - Re-run the discoverable-unknown check at execution time (a third context-measurement surface may have landed since).
 
+### ws0 input — quota-vs-occupancy scope finding (Perseus wakes Oblivion, 2026-07-02)
+
+Live use this session exposed a second consumer and a scope gap, both
+input-to-verify at ws0:
+
+- **The drafted sensor answers "how full is my context?" (latest-turn
+  occupancy); the question that actually recurred was "how much 5h QUOTA has
+  this session consumed?"** — which needs usage SUMMED over a time window
+  across the session's transcript AND all its subagent/workflow transcripts
+  (`<session>/subagents/**/agent-*.jsonl`), not the latest turn of one file.
+  The ad-hoc harvest ran twice this session (voter forensics + quota
+  verification); the method and calibration (~1M raw tokens/meter point;
+  which counters exclude cache reads) are recorded in
+  `reports/agentic-engineering/large-corpus-analysis-tooling/burn-analysis-2026-07-02.md`,
+  and the redesign plan's ws3 wants the same summing as a permanent
+  accounting command — ws0 should decide whether occupancy and window-summed
+  quota are one command with two modes or siblings.
+- **The account-level meter is unreachable from records**: the harness
+  delivers `rate_limits.five_hour/seven_day` only to the statusline stdin,
+  per-render, unpersisted — so no agent can self-serve the authoritative
+  percentage and the owner hand-relays it. A small statusline tee of the
+  last `rate_limits` frame to a per-session state file would close this;
+  candidate scope for this plan or a sibling.
+
 ### ws0 input — superseding findings (Sirius ws0 recon, 2026-06-29)
 
 These findings are **input-to-verify** that materially supersede the PROPOSED
