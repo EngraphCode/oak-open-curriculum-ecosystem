@@ -24,6 +24,21 @@ post-run driver. Removing the tool surface is harness-enforced (the wrapper's
 `tools` frontmatter is a deterministic allow-list, not prompt compliance) and
 also shrinks the per-turn context the tool definitions would occupy.
 
+## Capability envelope (least privilege, 2026-07-02)
+
+- `tools: Read` — the minimal non-empty allow-list. The docs define `tools`
+  omission as inherit-all, and `tools: []` was observed live to fall back the
+  same way (the registry reported "All tools"), so a single harmless
+  read-only tool is the deterministic floor. The prompt directs the voter
+  never to use it.
+- `disallowedTools` belts everything else by name (no Bash, no mutation, no
+  network, no search, no sub-spawning).
+- `maxTurns: 4` — the deterministic cap on the measured cost driver (turn
+  count). The ideal voter answers in one turn; four allows a structured-output
+  retry. A voter that hits the cap returns null, which the adjudication state
+  machine already handles as a first-class `unadjudicated` outcome — never a
+  silent drop, never a stranded candidate.
+
 ## System prompt
 
 The wrapper carries this block verbatim — it cannot point here because a

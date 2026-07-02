@@ -46,6 +46,9 @@ export async function main(): Promise<MetaResult> {
     phase: 'meta',
     model: 'opus',
     effort: 'high',
+    // Read-only-search agent type (Glob/Grep/Read, capped turns): corroboration
+    // claims are verified against disk before naming, and nothing can mutate.
+    agentType: 'corpus-meta',
     schema: AGENT_JSON_SCHEMAS.metaStage,
   });
   if (metaOutput === null) {

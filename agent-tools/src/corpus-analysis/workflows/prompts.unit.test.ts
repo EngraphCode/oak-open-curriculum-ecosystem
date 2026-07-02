@@ -175,4 +175,8 @@ describe('metaPrompt', () => {
   it('asks for corroboration claims against on-disk homes (the real-world-signal leg)', () => {
     expect(prompt).toContain('claimedHomePaths');
   });
+
+  it('directs the meta agent to verify claimed homes with its read-only search tools', () => {
+    expect(prompt).toContain('Verify with Glob/Grep/Read before naming');
+  });
 });
