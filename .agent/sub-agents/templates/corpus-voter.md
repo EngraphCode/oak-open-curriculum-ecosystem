@@ -32,8 +32,9 @@ also shrinks the per-turn context the tool definitions would occupy.
   read-only tool is the deterministic floor. The prompt directs the voter
   never to use it. `disallowedTools: *` is NOT a shortcut: the SDK deny-rule
   glob (`disallowed_tools=["*"]`) lives in the SDK options layer; the
-  frontmatter field parses plain tool names, and a fresh-registration probe
-  (2026-07-02) confirmed a bare `*` leaves the full inherited surface.
+  frontmatter field parses plain tool names. Probe-verified 2026-07-02 in
+  BOTH forms — bare `*` (a YAML alias hazard) and quoted `"*"` (a valid
+  string) each left the full inherited surface in place.
 - `disallowedTools` belts everything else by name (no Bash, no mutation, no
   network, no search, no sub-spawning).
 - `maxTurns: 4` — the deterministic cap on the measured cost driver (turn
