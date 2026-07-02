@@ -8,8 +8,9 @@
  * ≥ 0.85 — a verdict to report, never an auto-rerun trigger) → map coverage → the
  * additive temporal-coverage report → corroboration of claimed on-disk homes →
  * recompute of every disposition by replaying the real `adjudicate` (the diff must be
- * zero). Exits non-zero on integrity violations or recompute mismatches; a recall MISS
- * is reported, not failed.
+ * zero) → the deterministic strength-of-evidence triage of every survivor (see
+ * `./triage.ts` for the documented banding). Exits non-zero on integrity violations or
+ * recompute mismatches; a recall MISS is reported, not failed.
  *
  * Usage (cwd = the agent-tools workspace):
  *
@@ -43,6 +44,7 @@ import {
 } from '../workflows/stage-io.js';
 import type { MapResult, MetaResult, ReduceResult, ValidateResult } from '../workflows/stage-io.js';
 import { recomputeDispositions, temporalCoverageReport } from './post-run-analysis.js';
+import { triageDispositions } from './triage.js';
 
 /** The Choice-B graduate gate (owner-confirmed). */
 const CHOICE_B = { minStrictWithinRemit: 0.6, minLooseWithinRemit: 0.85 } as const;
@@ -179,6 +181,13 @@ if (!checkpoints.ok) {
     });
     const recomputes = recomputeDispositions(validateSuccesses);
     const recomputeMismatches = recomputes.filter((entry) => !entry.matches);
+    const triage = triageDispositions({
+      candidates: reduceResult.candidates,
+      validateResults: validateSuccesses,
+      meta,
+      temporal,
+      corroborations: corroboration,
+    });
 
     process.stdout.write(
       `${JSON.stringify(
@@ -193,6 +202,7 @@ if (!checkpoints.ok) {
             total: recomputes.length,
             mismatches: recomputeMismatches,
           },
+          triage,
         },
         null,
         2,
