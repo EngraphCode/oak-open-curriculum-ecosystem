@@ -16,6 +16,7 @@
   --color-oak-grey-40: #cacaca;
   --color-oak-cream: #f4f3ef;
   --color-oak-green: #287c34;
+  --color-oak-green-subdued: #ebfbeb;
   --color-oak-navy: #0d24c4;
   --color-oak-navy-hover: #0a1d9d;
 
@@ -33,6 +34,7 @@
   --color-oak-pink: #deb7d5;
   --color-oak-pink-subdued: #f5e9f2;
   --color-oak-amber: #ff934e;
+  --color-oak-amber-subdued: #ffece0;
 
   /* Functional */
   --color-oak-red: #dd0035;
@@ -51,6 +53,7 @@
   --shadow-oak-lemon: 2px 2px 0 #ffe555;
   --shadow-oak-wide-lemon: 4px 4px 0 #ffe555;
   --shadow-oak-grey: 4px 4px 0 #575757;
+  --shadow-oak-black: 2px 2px 0 #222222;
 }
 
 /* ============================================================

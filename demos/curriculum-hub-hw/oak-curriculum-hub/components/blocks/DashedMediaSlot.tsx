@@ -1,0 +1,52 @@
+import type { ReactElement } from 'react';
+
+/**
+ * The export's dashed media-placeholder slot: an optional badge, the image glyph, and one visible
+ * label. Decorative by construction — the glyph is `aria-hidden` and the label is ordinary visible
+ * text, so screen readers hear it exactly once (never a `role="img"` double-announce). Shared by the
+ * accordion item images, the flip card fronts, and the compare panels (the second consumer arrived,
+ * so the treatment consolidated here).
+ */
+export function DashedMediaSlot({
+  label,
+  badge,
+  compact = false,
+}: {
+  label: string;
+  /** The small lemon corner badge (e.g. "IMAGE"); omitted on compact slots. */
+  badge?: string;
+  /** Compact slots (flip fronts) shrink the glyph and minimum height. */
+  compact?: boolean;
+}): ReactElement {
+  return (
+    <span
+      className={`relative flex w-full flex-col items-center justify-center gap-1.5 rounded-[10px] border-2 border-dashed border-oak-grey bg-oak-black/[.03] text-center ${
+        compact ? 'min-h-[92px] p-3' : 'min-h-[150px] max-w-[440px] gap-2 rounded-xl p-[18px]'
+      }`}
+    >
+      {badge !== undefined && (
+        <span className="absolute left-2 top-2 rounded-full border-2 border-oak-black bg-oak-lemon px-[9px] py-1 text-[10px] font-bold tracking-[0.03em]">
+          {badge}
+        </span>
+      )}
+      <svg
+        aria-hidden="true"
+        width={compact ? 28 : 34}
+        height={compact ? 28 : 34}
+        viewBox="0 0 24 24"
+        fill="none"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="stroke-oak-grey"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8.5" cy="8.5" r="1.6" />
+        <path d="M21 15l-5-5L5 21" />
+      </svg>
+      <span className={`font-light text-oak-grey ${compact ? 'text-[12px] leading-4' : 'text-[13px] leading-[18px]'}`}>
+        {label}
+      </span>
+    </span>
+  );
+}

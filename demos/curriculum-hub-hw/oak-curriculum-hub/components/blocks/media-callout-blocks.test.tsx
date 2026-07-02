@@ -64,6 +64,34 @@ describe('ImageBlockView', () => {
     expect(screen.getByRole('img', { name: 'Lesson creation diagram' })).toBeTruthy();
     expect(screen.getByText('The suggested order.')).toBeTruthy();
   });
+
+  it('renders a bundled asset as a real framed image named by its alt text', () => {
+    render(
+      <ImageBlockView
+        block={{
+          t: 'image',
+          placeholder: 'Learning framework diagram',
+          src: 'assets/learning-framework.png',
+          maxWidth: '56%',
+          alt: 'Framework diagram',
+          caption: 'The framework.',
+        }}
+      />,
+    );
+    const img = screen.getByRole('img', { name: 'Framework diagram' });
+    expect(img.getAttribute('src') ?? '').toContain('learning-framework');
+    expect(screen.getByText('The framework.')).toBeTruthy();
+  });
+
+  it('renders the placeholder box (never a broken <img>) for an asset without known dimensions', () => {
+    render(
+      <ImageBlockView
+        block={{ t: 'image', placeholder: 'Mystery diagram', src: 'assets/unknown.png' }}
+      />,
+    );
+    const box = screen.getByRole('img', { name: 'Mystery diagram' });
+    expect(box.tagName).toBe('DIV');
+  });
 });
 
 describe('VideoBlockView', () => {

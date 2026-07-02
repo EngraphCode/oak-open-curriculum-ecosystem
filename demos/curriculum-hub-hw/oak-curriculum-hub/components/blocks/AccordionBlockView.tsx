@@ -2,32 +2,7 @@ import type { ReactElement } from 'react';
 
 import type { AccordionBlock, AccordionItem } from '@/lib/blocks/types';
 
-/** The export's dashed image-placeholder slot (badge + glyph + label), used when no src exists. */
-function ImagePlaceholder({ label }: { label: string }): ReactElement {
-  return (
-    <div className="relative flex min-h-[150px] max-w-[440px] flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-oak-grey bg-oak-black/[.03] p-[18px] text-center">
-      <span className="absolute left-2 top-2 rounded-full border-2 border-oak-black bg-oak-lemon px-[9px] py-1 text-[10px] font-bold tracking-[0.03em]">
-        IMAGE
-      </span>
-      <svg
-        aria-hidden="true"
-        width="34"
-        height="34"
-        viewBox="0 0 24 24"
-        fill="none"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="stroke-oak-grey"
-      >
-        <rect x="3" y="3" width="18" height="18" rx="2" />
-        <circle cx="8.5" cy="8.5" r="1.6" />
-        <path d="M21 15l-5-5L5 21" />
-      </svg>
-      <span className="text-[13px] font-light leading-[18px] text-oak-grey">{label}</span>
-    </div>
-  );
-}
+import { DashedMediaSlot } from './DashedMediaSlot';
 
 /** One accordion item: an export-exact white card `<details>` with chip badge, dashed divider body. */
 function AccordionItemView({ item, chip }: { item: AccordionItem; chip: string | undefined }): ReactElement {
@@ -58,7 +33,7 @@ function AccordionItemView({ item, chip }: { item: AccordionItem; chip: string |
         ))}
         {item.img !== undefined && (
           <figure className="mb-3.5 mt-1">
-            <ImagePlaceholder label={item.img.placeholder} />
+            <DashedMediaSlot label={item.img.placeholder} badge="IMAGE" />
           </figure>
         )}
         {item.features !== undefined && <FeatureList features={item.features} />}

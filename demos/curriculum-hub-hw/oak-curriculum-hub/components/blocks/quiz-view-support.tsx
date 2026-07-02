@@ -100,13 +100,9 @@ function OptionChip({
 /** The export's stem row: the grey Q-number label beside the semibold stem (the group's label). */
 export function QuizStem({ number, stemId, stem }: { number: number; stemId: string; stem: string }): ReactElement {
   return (
-    <p className="mb-3 flex gap-2.5">
-      <span aria-hidden="true" className="shrink-0 text-[16px] font-bold leading-6 text-oak-grey">
-        Q{number}
-      </span>
-      <span id={stemId} className="text-[18px] font-semibold leading-[25px]">
-        {stem}
-      </span>
+    <p id={stemId} className="mb-3 flex gap-2.5">
+      <span className="shrink-0 text-[16px] font-bold leading-6 text-oak-grey">Q{number}</span>
+      <span className="text-[18px] font-semibold leading-[25px]">{stem}</span>
     </p>
   );
 }

@@ -37,6 +37,18 @@ describe('CourseShell — structure and content rendering', () => {
     expect(within(courseMap).getByText('Module A')).toBeTruthy();
     expect(within(courseMap).getByText('Module B')).toBeTruthy();
   });
+
+  it('gives each coursemap module card a Start module link to its module anchor', () => {
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    const courseMap = screen.getByRole('navigation', { name: 'Course map' });
+    const links = within(courseMap).getAllByRole('link', { name: 'Start module' });
+    // One pill per module; each targets its module's in-page anchor (the enclosing
+    // card carries the module title, giving each identically-named link its context).
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
+      expect(link.getAttribute('href') ?? '').toMatch(/^#/);
+    }
+  });
 });
 
 describe('CourseShell — landmarks, deep-link targets and progress', () => {

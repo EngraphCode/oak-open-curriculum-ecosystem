@@ -20,6 +20,20 @@ describe('AccordionBlockView', () => {
     expect(screen.getByText('Unit and lesson detail.')).toBeTruthy();
   });
 
+  it('renders item features under the export "In Oak lessons" label', () => {
+    render(
+      <AccordionBlockView
+        block={{
+          t: 'accordion',
+          chip: '#ffc8a6',
+          items: [{ q: 'Own it', badge: '1', a: ['Motivation.'], features: ['Starter quiz'] }],
+        }}
+      />,
+    );
+    expect(screen.getByText('In Oak lessons')).toBeTruthy();
+    expect(screen.getByText('Starter quiz')).toBeTruthy();
+  });
+
   it('renders a badgeless item and an item image placeholder (no chip)', () => {
     render(
       <AccordionBlockView
@@ -99,7 +113,10 @@ describe('QuizBlockView', () => {
   it('models options as a radio group labelled by the stem, empty status region before answering', () => {
     render(<QuizBlockView block={block} />);
     expect(screen.getByText('How many components make up a lesson?')).toBeTruthy();
-    const group = screen.getByRole('radiogroup', { name: 'How many components make up a lesson?' });
+    // AT hears the visible Q-number as part of the group's name (stem row = the label).
+    const group = screen.getByRole('radiogroup', {
+      name: 'Q1 How many components make up a lesson?',
+    });
     expect(group).toBeTruthy();
     const five = screen.getByRole('radio', { name: 'Five' });
     expect(five.getAttribute('aria-checked')).toBe('false');

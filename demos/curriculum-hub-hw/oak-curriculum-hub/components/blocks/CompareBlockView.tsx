@@ -3,20 +3,53 @@ import type { ReactElement } from 'react';
 import type { CompareBlock } from '@/lib/blocks/types';
 
 /**
- * Renders a {@link CompareBlock} as an example / non-example pair. The
- * green-vs-red side-by-side treatment and icons land in the styling pass; the
- * `aria-label`s keep the two halves distinguishable without colour.
+ * Renders a {@link CompareBlock} as the export's example / non-example pair:
+ * a green "✓ Example" and red "✕ Non-example" bar heading each tinted panel,
+ * side by side from `md`. Each panel's accessible name matches its visible
+ * bar text; the bar glyphs are decorative. The export template's dashed image
+ * slot is not reproduced — no compare block in the course corpus carries
+ * `goodImg`/`badImg` (the bindings exist only in the template).
  */
 export function CompareBlockView({ block }: { block: CompareBlock }): ReactElement {
   return (
-    <div>
-      <section aria-label="Example">
-        <p>{block.goodText}</p>
-        {block.goodNote !== undefined && <p>{block.goodNote}</p>}
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <section
+        aria-label="Example"
+        className="overflow-hidden rounded-[14px] border-2 border-oak-green bg-oak-green-subdued"
+      >
+        <p className="flex items-center gap-2 bg-oak-green p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
+          <span aria-hidden="true" className="text-lg">
+            ✓
+          </span>{' '}
+          Example
+        </p>
+        <div className="p-[16px_18px]">
+          <p className="mb-2.5 text-base leading-6 font-light">{block.goodText}</p>
+          {block.goodNote !== undefined && (
+            <p className="mt-2.5 text-sm leading-[21px] font-light text-oak-grey">
+              {block.goodNote}
+            </p>
+          )}
+        </div>
       </section>
-      <section aria-label="Non-example">
-        <p>{block.badText}</p>
-        {block.badNote !== undefined && <p>{block.badNote}</p>}
+      <section
+        aria-label="Non-example"
+        className="overflow-hidden rounded-[14px] border-2 border-oak-red bg-oak-red-subdued"
+      >
+        <p className="flex items-center gap-2 bg-oak-red p-[10px_16px] text-[15px] leading-[1.3] font-bold text-white">
+          <span aria-hidden="true" className="text-lg">
+            ✕
+          </span>{' '}
+          Non-example
+        </p>
+        <div className="p-[16px_18px]">
+          <p className="mb-2.5 text-base leading-6 font-light">{block.badText}</p>
+          {block.badNote !== undefined && (
+            <p className="mt-2.5 text-sm leading-[21px] font-light text-oak-grey">
+              {block.badNote}
+            </p>
+          )}
+        </div>
       </section>
     </div>
   );

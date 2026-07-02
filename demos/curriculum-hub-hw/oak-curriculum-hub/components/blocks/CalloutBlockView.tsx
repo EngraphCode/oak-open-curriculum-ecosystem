@@ -23,7 +23,8 @@ function toStandards(block: CalloutBlock): readonly CalloutStandard[] {
 /**
  * The per-variant colour treatment (border accent + tint), matched to the canonical export: `tip` is
  * green (the "Welcome" box), `info` is navy/blue (the quality-standard callout — border + QS chip per
- * the export `CLAUDE.md`), `warning` is red on the notice tint, `quote` is a neutral grey rule. The
+ * the export `CLAUDE.md`), `warning` is amber on its subdued tint and `quote` is lemon on
+ * lemon-subdued (both read from the export's variant map, source lines ~1882-1886). The
  * `data-variant` attribute is retained (Director ruling) so a post-merge CSS extraction can key off it.
  */
 function variantClass(variant: CalloutBlock['variant']): string {
@@ -36,10 +37,10 @@ function variantClass(variant: CalloutBlock['variant']): string {
       className = 'border-oak-navy bg-oak-lavender-subdued';
       break;
     case 'warning':
-      className = 'border-oak-red bg-oak-notice';
+      className = 'border-oak-amber bg-oak-amber-subdued';
       break;
     case 'quote':
-      className = 'border-oak-grey-line bg-white';
+      className = 'border-oak-lemon bg-oak-lemon-subdued';
       break;
   }
   return className;
@@ -76,7 +77,17 @@ export function CalloutBlockView({ block }: { block: CalloutBlock }): ReactEleme
           ))}
         </ul>
       ) : (
-        block.text !== undefined && <p className="font-light leading-relaxed">{block.text}</p>
+        block.text !== undefined && (
+          <p
+            className={
+              block.variant === 'quote'
+                ? 'text-[20px] leading-[29px] font-normal italic'
+                : 'font-light leading-relaxed'
+            }
+          >
+            {block.text}
+          </p>
+        )
       )}
       {block.attrib !== undefined && (
         <p className="mt-2 text-[14px] font-light text-oak-grey">

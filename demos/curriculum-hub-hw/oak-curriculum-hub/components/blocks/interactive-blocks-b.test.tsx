@@ -41,18 +41,19 @@ describe('reorder / isCorrectOrder', () => {
 });
 
 describe('FlipBlockView', () => {
-  it('reveals the back and sets aria-expanded when toggled', () => {
+  it('swaps the announced face and sets aria-expanded when toggled (both faces stay in the DOM)', () => {
     render(<FlipBlockView block={{ t: 'flip', chip: '#ffc8a6', cards: [{ badge: '1', front: 'Resources', back: 'For teachers.' }] }} />);
     const button = screen.getByRole('button', { name: /Resources/ });
     expect(button.getAttribute('aria-expanded')).toBe('false');
-    expect(screen.queryByText('For teachers.')).toBeNull();
+    // Both faces persist in the DOM; the back starts hidden, so it is not announced.
+    expect(screen.getByText('For teachers.').hidden).toBe(true);
     fireEvent.click(button);
     expect(button.getAttribute('aria-expanded')).toBe('true');
-    expect(screen.getByText('For teachers.')).toBeTruthy();
-    // The flip is a face SWAP (export behaviour): the front — title, badge, reveal hint — is
-    // replaced by the back, not merely appended to.
-    expect(screen.queryByText(/Tap to reveal/)).toBeNull();
-    expect(screen.queryByText('Resources')).toBeNull();
+    expect(screen.getByText('For teachers.').hidden).toBe(false);
+    // The flip is a face SWAP (export behaviour): the accessible name now reflects the back —
+    // the hidden front (title + reveal hint) no longer contributes to it.
+    expect(screen.queryByRole('button', { name: /Resources/ })).toBeNull();
+    expect(screen.getByRole('button', { name: /For teachers/ })).toBeTruthy();
   });
 
   it('renders the front-image slot on card fronts when frontImage is set', () => {
@@ -76,10 +77,14 @@ describe('HotspotBlockView', () => {
       { title: 'Within', text: 'Own it, Frame it.' },
     ],
   };
-  it('shows the first spot by default and switches on selection', () => {
+  it('shows the first spot by default and switches on a numbered marker', () => {
     render(<HotspotBlockView block={block} />);
     expect(screen.getByText('Fit it happens before.')).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Within' }));
+    // Markers show their number; the accessible name carries number AND title.
+    const second = screen.getByRole('button', { name: '2: Within' });
+    expect(second.getAttribute('aria-pressed')).toBe('false');
+    fireEvent.click(second);
+    expect(second.getAttribute('aria-pressed')).toBe('true');
     expect(screen.getByText('Own it, Frame it.')).toBeTruthy();
   });
 });
@@ -94,10 +99,24 @@ describe('SortableBlockView', () => {
     ],
     correct: ['fit', 'own'],
   };
-  it('reorders via the Down button and reports the result', () => {
+  it('reorders via the Down button and reports the export correct copy', () => {
     render(<SortableBlockView block={block} />);
     fireEvent.click(screen.getByRole('button', { name: 'Move Own it down' }));
     fireEvent.click(screen.getByRole('button', { name: 'Check order' }));
-    expect(screen.getByRole('status').textContent).toBe('Correct order');
+    expect(screen.getByRole('status').textContent).toBe(
+      '✓ Correct — that’s the order learning happens.',
+    );
+  });
+
+  it('reports the not-quite copy on a wrong order and hints only the arrow affordance', () => {
+    render(<SortableBlockView block={block} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Check order' }));
+    expect(screen.getByRole('status').textContent).toBe('Not quite — adjust and check again.');
+    expect(screen.getByText('ACTIVITY')).toBeTruthy();
+    // The demo has no drag; the hint must describe the affordance that exists.
+    expect(screen.getByText('Use the arrow buttons to reorder')).toBeTruthy();
+    // Reordering after a check clears the shown result (export behaviour).
+    fireEvent.click(screen.getByRole('button', { name: 'Move Own it down' }));
+    expect(screen.getByRole('status').textContent).toBe('');
   });
 });

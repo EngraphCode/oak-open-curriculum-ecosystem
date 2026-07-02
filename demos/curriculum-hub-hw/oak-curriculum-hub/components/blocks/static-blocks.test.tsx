@@ -25,7 +25,7 @@ describe('HeadingBlockView', () => {
 });
 
 describe('SummaryBlockView', () => {
-  it('renders each point and the reflection question', () => {
+  it('renders each point and the reflection question under the export labels', () => {
     render(
       <SummaryBlockView
         block={{ t: 'summary', points: ['Lessons scale.'], question: 'What changes for you?' }}
@@ -33,6 +33,8 @@ describe('SummaryBlockView', () => {
     );
     expect(screen.getByText('Lessons scale.')).toBeTruthy();
     expect(screen.getByText('What changes for you?')).toBeTruthy();
+    expect(screen.getByText('Key takeaways')).toBeTruthy();
+    expect(screen.getByText('Reflect as you design')).toBeTruthy();
   });
 });
 
@@ -66,24 +68,39 @@ describe('ColumnsBlockView', () => {
     expect(screen.getByRole('heading', { name: 'Starter quiz' })).toBeTruthy();
     expect(screen.getByText('Six questions')).toBeTruthy();
   });
+
+  it('marks every point with the green tick, excluded from the accessible tree', () => {
+    render(
+      <ColumnsBlockView
+        block={{
+          t: 'columns',
+          cols: [{ title: 'Starter quiz', points: ['Six questions', 'Activates prior knowledge'] }],
+        }}
+      />,
+    );
+    const ticks = screen.getAllByText('✓');
+    expect(ticks).toHaveLength(2);
+    expect(ticks.every((tick) => tick.getAttribute('aria-hidden') === 'true')).toBe(true);
+  });
 });
 
 describe('DownloadBlockView', () => {
-  it('renders a download link to the asset with its title and meta', () => {
+  it('renders a root-resolved download card with title, meta and the Download pill', () => {
     render(
       <DownloadBlockView
         block={{
           t: 'download',
           title: 'Planning tool',
           desc: 'A step-by-step template.',
-          meta: 'PDF',
+          meta: 'PDF · 1 page',
           href: 'assets/plan.pdf',
         }}
       />,
     );
     const link = screen.getByRole('link', { name: /Planning tool/ });
-    expect(link.getAttribute('href')).toBe('assets/plan.pdf');
-    expect(screen.getByText('PDF')).toBeTruthy();
+    expect(link.getAttribute('href')).toBe('/assets/plan.pdf');
+    expect(screen.getByText('PDF · 1 page')).toBeTruthy();
+    expect(screen.getByText('Download')).toBeTruthy();
   });
 });
 
@@ -103,5 +120,23 @@ describe('CompareBlockView', () => {
     expect(screen.getByText('Plain white background.')).toBeTruthy();
     expect(screen.getByText('Coloured background.')).toBeTruthy();
     expect(screen.getByText('Meets 4.5:1 contrast.')).toBeTruthy();
+  });
+
+  it('heads each panel with its visible bar, and names the panel to match', () => {
+    render(
+      <CompareBlockView
+        block={{
+          t: 'compare',
+          goodText: 'Plain white background.',
+          badText: 'Coloured background.',
+        }}
+      />,
+    );
+    expect(screen.getByText('Example')).toBeTruthy();
+    expect(screen.getByText('Non-example')).toBeTruthy();
+    expect(screen.getByText('✓').getAttribute('aria-hidden')).toBe('true');
+    expect(screen.getByText('✕').getAttribute('aria-hidden')).toBe('true');
+    expect(screen.getByRole('region', { name: 'Example' })).toBeTruthy();
+    expect(screen.getByRole('region', { name: 'Non-example' })).toBeTruthy();
   });
 });
