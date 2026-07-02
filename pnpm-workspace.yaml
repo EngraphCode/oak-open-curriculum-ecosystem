@@ -2,9 +2,9 @@ packages:
   - agent-tools
   - apps/oak-curriculum-mcp-streamable-http
   - apps/oak-search-cli
-  # Temporary demo: Oak-styled web UI over the live search + content stack.
+  # Demo: Oak-styled web UI over the live search + content stack.
   # Registered so workspace:* deps resolve and turbo can build/type-check it.
-  - demos/curriculum-hub-hw/oak-curriculum-hub
+  - demos/oak-curriculum-hub
   - packages/core/oak-eslint
   - packages/core/observability
   - packages/core/openapi-zod-client-adapter

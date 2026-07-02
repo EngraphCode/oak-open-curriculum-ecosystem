@@ -1,0 +1,85 @@
+# oak-curriculum-hub
+
+Oak-styled web UI over the live curriculum **search** (Elasticsearch Serverless
+via `oak-search-sdk`) and **content** (Open Curriculum REST API via
+`oak-curriculum-sdk`) stacks, built as a full-fidelity reproduction of a Claude
+Design export. **Demo by Heather W**, re-platformed from the original HTML
+prototype and wired to the live SDKs.
+
+This is a `demos/`-tier workspace at **full repo standards** — strict
+TypeScript, the shared full-strict ESLint ruleset, TDD, and WCAG 2.2 AA (see
+the [demos tier README](../README.md)). The original brief is
+[`PROJECT-BRIEF.md`](PROJECT-BRIEF.md) (historical — paths in it predate the
+`demos/` placement).
+
+## Structure
+
+| Path | Role |
+| --- | --- |
+| `app/`, `components/`, `lib/`, `scripts/` | The Next.js app — source, block components, data seams, and the re-runnable export extractors. |
+| `tools/` | Evidence + verification tooling (live-demo capture, canonical-target rendering, the 320px reflow gate, the token-fidelity audit). Run from the repo root with `node demos/oak-curriculum-hub/tools/<tool>`. |
+| `claude-design-canonical-export/` | **Untracked vendor reference** — the Claude Design canonical export this app visual-matches. Generated vendor output with non-openly-licensed Oak brand assets; deliberately outside git (see `.gitignore`). Re-obtain a fresh copy via the claude-design MCP (`mcp__claude-design__*` — list the project, read its files) or a Claude Design export download. |
+| `vendor-reference/` | **Untracked vendor reference** — decoded token sources (e.g. `oak-figma-tokens.css`) consumed by the token-fidelity audit. Recoverable from git history (pre-restructure `oak-design-kit/`) or re-derived from a fresh export. |
+| `demo-evidence/` | **Untracked, regenerable output** — visual-fidelity captures and audit results produced by `tools/`; recreate on demand. |
+
+## Quick start
+
+```bash
+pnpm install                                        # from the monorepo root
+cp .env.example .env.local                          # in this directory; fill in the values below
+pnpm -C demos/oak-curriculum-hub dev   # http://localhost:3010
+```
+
+Required env: `ELASTICSEARCH_URL`, `ELASTICSEARCH_API_KEY`, `OAK_API_KEY`,
+`SEARCH_INDEX_TARGET` (optional `SEARCH_INDEX_VERSION`). Without credentials
+the app still boots — the search route returns `503` and the UI shows a
+"search backend not configured" state.
+
+## Pages
+
+| Route | Content source |
+| --- | --- |
+| `/` | Hub: two-search (live Elasticsearch + local static) and destination cards |
+| `/course` | The 214-block Oak Course, generated from the canonical export, rendered as a paginated player |
+| `/standards` | Quality-standards browse + detail (685 standards, local data) |
+| `/rubrics`, `/exemplars`, `/wiki` | Sections reproduced from the export |
+| `/lesson/[slug]` | Live lesson detail: summary, quizzes, assets via the REST SDK |
+
+## The two data planes
+
+Both backends hold secrets, so both are server-side only; the browser sees
+only our own routes and server-rendered pages.
+
+- **Discovery plane** — `GET /api/search?q=` (the only API route). The route
+  handler is built by `lib/search-handler.ts` over `lib/search-core.ts` (a
+  dependency-injected seam with contract tests); `lib/search-client.ts` is the
+  only file that touches `@oaknational/oak-search-sdk/read`.
+- **Content plane** — `lib/curriculum.ts` is the only file that touches
+  `@oaknational/curriculum-sdk`. The lesson page calls it server-side
+  directly; there is no `/api/lesson` route. Asset downloads link out to
+  `thenational.academy` (the API's asset URL is an authenticated endpoint,
+  not a browser-usable signed URL).
+
+Local-search data (`lib/static-quality-standards.ts`,
+`lib/static-training-courses.ts`, `lib/course/`) is generated from the
+canonical export (untracked vendor reference — see §Structure) by re-runnable
+extractors in `scripts/` and compile-time validated against the block-type
+union. The generated modules are committed, so the app builds without the
+export present; re-running the extractors requires re-obtaining it.
+
+## Licence
+
+This demo needs no separate licence — it is covered by the repository's root licences:
+
+- **Code** — [`LICENCE`](../../LICENCE) (MIT).
+- **Oak curriculum content** (live search + lesson data, and the quality-standards data) —
+  [`LICENCE-DATA.md`](../../LICENCE-DATA.md), which places curriculum content under the Open
+  Government Licence v3.0. Attribution is required:
+  *"Contains public sector information licensed under the Open Government Licence v3.0."*
+- **Oak brand assets** (fonts, logos, token sources) — the MIT licence covers source code only
+  and grants no trademark or brand rights; the asset-bearing vendor reference material is
+  deliberately untracked (see §Structure), and this is Oak's own repository, so no separate
+  grant is made or needed.
+
+The root [`LICENCE`](../../LICENCE) and [`LICENCE-DATA.md`](../../LICENCE-DATA.md) are the
+authoritative terms.

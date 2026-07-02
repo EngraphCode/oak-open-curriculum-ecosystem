@@ -18,7 +18,7 @@ or debugging Next-specific behaviour.
 Before coding, find and read the relevant doc under the **consuming
 workspace's** `node_modules/next/dist/docs/` — pnpm resolves per workspace,
 so the path is the workspace's own `node_modules`, never the repo root's
-(e.g. `demos/curriculum-hub-hw/oak-curriculum-hub/node_modules/next/dist/docs/`).
+(e.g. `demos/oak-curriculum-hub/node_modules/next/dist/docs/`).
 Layout: `01-app/` is the App Router (this repo's default), `02-pages/` the
 legacy Pages Router, `03-architecture/` the internals; start from `index.md`
 when unsure.

@@ -40,7 +40,7 @@ const config: KnipConfig = {
   // resolve and they can build/type-check/lint, but they are exempt from the
   // repo-wide unused-code gate — a prototype is expected to carry scaffold the
   // full app would not.
-  ignoreWorkspaces: ['demos/curriculum-hub-hw/oak-curriculum-hub'],
+  ignoreWorkspaces: ['demos/oak-curriculum-hub'],
 
   eslint: true,
   vitest: true,

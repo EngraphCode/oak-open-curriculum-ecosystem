@@ -125,7 +125,7 @@ Pull a real sequenced structure from the **Oak Curriculum MCP** (`get-curriculum
 
 - [`../plans/curriculum-hub-demo/future/demo-maintenance-and-structure.md`](../plans/curriculum-hub-demo/future/demo-maintenance-and-structure.md) — the forward brief this completes (Ask 2).
 - [`../plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`](../plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md) — the demo this arose from.
-- [`../../demos/curriculum-hub-hw/oak-design-kit/PROVENANCE-designsync.md`](../../demos/curriculum-hub-hw/oak-design-kit/PROVENANCE-designsync.md) — how the kit was pulled.
+- `oak-design-kit/PROVENANCE-designsync.md` — how the kit was pulled. The kit left tracking in the 2026-07-02 demo restructure (vendor-reference class); the record is retrievable from git history at `demos/curriculum-hub-hw/oak-design-kit/`.
 
 ## Sources (primary, author-verified first-hand unless noted)
 
