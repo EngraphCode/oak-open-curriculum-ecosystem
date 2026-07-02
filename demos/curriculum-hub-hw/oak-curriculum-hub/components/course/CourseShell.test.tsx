@@ -1,58 +1,9 @@
-import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { CourseShell } from '@/components/course/CourseShell';
-import type { Course } from '@/lib/course/types';
 
-/**
- * A discriminating fixture: the intro (one section, one coursemap block so the provider wiring is
- * observable), two units, and two modules — module A under u1 with two sections, module B under u2
- * with one. It describes the shell's structure, not the real course's counts, so the tests stay
- * stable as the generated data changes.
- */
-const fixture: Course = {
-  units: [
-    { id: 'u1', label: 'Unit 1', title: 'First unit' },
-    { id: 'u2', label: 'Unit 2', title: 'Second unit' },
-  ],
-  intro: {
-    id: 'intro',
-    title: 'Welcome & overview',
-    color: '#fff2aa',
-    sections: [
-      {
-        id: 'introMain',
-        title: 'Welcome to the course',
-        blocks: [{ t: 'coursemap' }],
-      },
-    ],
-  },
-  modules: [
-    {
-      id: 'u1m1',
-      unit: 'u1',
-      title: 'Module A',
-      color: '#eeeeee',
-      colorStrong: '#cccccc',
-      outcomes: ['Understand small steps'],
-      sections: [
-        { id: 'u1m1s1', title: 'Section one', blocks: [{ t: 'text', paras: ['Alpha paragraph'] }] },
-        { id: 'u1m1s2', title: 'Section two', blocks: [{ t: 'heading', text: 'Beta heading' }] },
-      ],
-    },
-    {
-      id: 'u2m1',
-      unit: 'u2',
-      title: 'Module B',
-      color: '#eeeeee',
-      colorStrong: '#cccccc',
-      outcomes: [],
-      sections: [
-        { id: 'u2m1s1', title: 'Section three', blocks: [{ t: 'text', paras: ['Gamma paragraph'] }] },
-      ],
-    },
-  ],
-};
+import { courseFixture as fixture } from './course-shell.test-fixtures';
 
 describe('CourseShell — structure and content rendering', () => {
   it('renders the course title as the single h1', () => {
@@ -108,20 +59,95 @@ describe('CourseShell — landmarks, deep-link targets and progress', () => {
     expect(screen.getByRole('region', { name: 'Course content' })).toBeTruthy();
   });
 
-  it('renders a static module-progress indicator (fixed zero-state, no role=progressbar)', () => {
+  it('renders a static section-progress indicator (fixed zero-state, no role=progressbar)', () => {
     render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
-    // The fixture carries two modules (Module A + Module B); the demo persists no progress.
-    expect(screen.getByText('0 of 2 modules complete')).toBeTruthy();
+    // Export-grounded: progress counts MODULE sections ("0 of 63 done" on the real course — the
+    // intro's section is excluded). The fixture carries three module sections; no persisted progress.
+    expect(screen.getByText('0 of 3 done')).toBeTruthy();
     expect(screen.queryByRole('progressbar')).toBeNull();
   });
+});
 
-  it('moves focus to the deep-linked section on arrival at #section=<id> (SC 2.4.3)', () => {
+describe('CourseShell — sidebar (export-grounded spec)', () => {
+  afterEach(() => {
+    globalThis.location.hash = '';
+  });
+
+  it('renders each unit as a dark pill + visible title label (a group header, not a numbered badge)', () => {
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    const nav = screen.getByRole('navigation', { name: 'Course navigation' });
+    expect(within(nav).getByText('Unit 1')).toBeTruthy();
+    expect(within(nav).getByText('First unit')).toBeTruthy();
+    expect(within(nav).getByText('Unit 2')).toBeTruthy();
+  });
+
+  it('numbers module badges PER UNIT (each unit restarts at 1)', () => {
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    const nav = screen.getByRole('navigation', { name: 'Course navigation' });
+    const moduleA = within(nav).getByRole('button', { name: 'Module A' });
+    const moduleB = within(nav).getByRole('button', { name: 'Module B' });
+    expect(within(moduleA).getByText('1')).toBeTruthy();
+    expect(within(moduleB).getByText('1')).toBeTruthy();
+  });
+
+  it('marks the intro item current on a plain arrival, with every module collapsed', () => {
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    // Scoped to the nav landmark: the in-content coursemap block renders same-named links.
+    const nav = screen.getByRole('navigation', { name: 'Course navigation' });
+    const introLink = within(nav).getByRole('link', { name: 'Welcome & overview' });
+    expect(introLink.getAttribute('aria-current')).toBe('true');
+    expect(within(nav).getByRole('button', { name: 'Module A' }).getAttribute('aria-expanded')).toBe(
+      'false',
+    );
+    expect(within(nav).queryByRole('link', { name: 'Section one' })).toBeNull();
+  });
+});
+
+describe('CourseShell — sidebar disclosure and current-marking', () => {
+  afterEach(() => {
+    globalThis.location.hash = '';
+  });
+
+  it("expands the active section's module after a deep-link arrival and marks its row current", () => {
     globalThis.location.hash = '#section=u1m1s1';
-    try {
-      render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
-      expect(document.activeElement?.id).toBe('section-u1m1s1');
-    } finally {
-      globalThis.location.hash = '';
-    }
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    const nav = screen.getByRole('navigation', { name: 'Course navigation' });
+    const moduleA = within(nav).getByRole('button', { name: 'Module A' });
+    expect(moduleA.getAttribute('aria-expanded')).toBe('true');
+    const rowOne = within(nav).getByRole('link', { name: 'Section one' });
+    expect(rowOne.getAttribute('aria-current')).toBe('true');
+    expect(within(nav).getByRole('link', { name: 'Section two' }).getAttribute('aria-current')).toBeNull();
+    expect(
+      within(nav).getByRole('link', { name: 'Welcome & overview' }).getAttribute('aria-current'),
+    ).toBeNull();
+  });
+
+  it('toggles a module open to browse its section rows without navigating', () => {
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    const nav = screen.getByRole('navigation', { name: 'Course navigation' });
+    const moduleB = within(nav).getByRole('button', { name: 'Module B' });
+    fireEvent.click(moduleB);
+    expect(moduleB.getAttribute('aria-expanded')).toBe('true');
+    const row = within(nav).getByRole('link', { name: 'Section three' });
+    expect(row.getAttribute('href')).toBe('#section=u2m1s1');
+    // Browsing does not navigate: the intro stays the current item.
+    expect(
+      within(nav).getByRole('link', { name: 'Welcome & overview' }).getAttribute('aria-current'),
+    ).toBe('true');
+    fireEvent.click(moduleB);
+    expect(within(nav).queryByRole('link', { name: 'Section three' })).toBeNull();
+  });
+});
+
+describe('CourseShell — content eyebrow pills (export-grounded)', () => {
+  it('renders the intro eyebrow as "Course overview", not the intro module title', () => {
+    render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    expect(screen.getByText('Course overview')).toBeTruthy();
+  });
+
+  it("tints each module's eyebrow pill with the module accent colour (not hardcoded lemon)", () => {
+    const { container } = render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
+    const pill = container.querySelector<HTMLElement>('#module-h-u1m1');
+    expect(pill?.style.backgroundColor).toBe('#aabbcc');
   });
 });

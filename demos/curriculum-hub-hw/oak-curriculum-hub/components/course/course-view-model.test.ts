@@ -74,4 +74,10 @@ describe('toCourseNavTree — the sidebar units → modules → sections tree', 
     expect(tree.intro.id).toBe('intro');
     expect(tree.intro.sections.map((s) => s.id)).toEqual(['introMain']);
   });
+
+  it("carries each module's accent colour for the sidebar badges (export-grounded)", () => {
+    const tree = toCourseNavTree(fixture);
+    expect(tree.intro.color).toBe('#ffffff');
+    expect(tree.units.find((u) => u.id === 'u1')?.modules[0]?.color).toBe('#eeeeee');
+  });
 });

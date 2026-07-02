@@ -7,10 +7,14 @@ export interface CourseNavSection {
   readonly title: string;
 }
 
-/** A module projected for the sidebar nav: id, title, and its sections (ids preserved for deep-linking). */
+/**
+ * A module projected for the sidebar nav: id, title, accent colour (the export-grounded sidebar
+ * badge + content eyebrow tint), and its sections (ids preserved for deep-linking).
+ */
 export interface CourseNavUnitModule {
   readonly id: string;
   readonly title: string;
+  readonly color: string;
   readonly sections: readonly CourseNavSection[];
 }
 
@@ -58,6 +62,7 @@ export function toCourseNavTree(course: Course): CourseNavTree {
   const intro: CourseNavUnitModule = {
     id: course.intro.id,
     title: course.intro.title,
+    color: course.intro.color,
     sections: toNavSections(course.intro.sections),
   };
   const units = course.units.map((unit) => ({
@@ -66,7 +71,12 @@ export function toCourseNavTree(course: Course): CourseNavTree {
     title: unit.title,
     modules: course.modules
       .filter((module) => module.unit === unit.id)
-      .map((module) => ({ id: module.id, title: module.title, sections: toNavSections(module.sections) })),
+      .map((module) => ({
+        id: module.id,
+        title: module.title,
+        color: module.color,
+        sections: toNavSections(module.sections),
+      })),
   }));
   return { intro, units };
 }

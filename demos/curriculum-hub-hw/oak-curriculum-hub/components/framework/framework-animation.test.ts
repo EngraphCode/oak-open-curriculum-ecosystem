@@ -11,6 +11,15 @@ describe('polar', () => {
     expect(x90).toBeCloseTo(100);
     expect(y90).toBeCloseTo(150);
   });
+
+  it('returns fixed-precision coordinates so server and client serialise identically', () => {
+    // Math.cos/sin are not spec-pinned: engines may differ in the last ulp, and a raw double
+    // serialised into an SVG attribute then hydration-mismatches. 2dp is sub-pixel on the 500-unit
+    // ring canvas.
+    const [x, y] = polar(250, 250, 118, -107.143);
+    expect(x).toBe(Math.round(x * 100) / 100);
+    expect(y).toBe(Math.round(y * 100) / 100);
+  });
 });
 
 describe('chevronPath', () => {
@@ -27,6 +36,19 @@ describe('chevronPath', () => {
     expect(d.startsWith('M')).toBe(true);
     expect(d.trimEnd().endsWith('Z')).toBe(true);
     expect((d.match(/A/g) ?? []).length).toBe(2);
+  });
+
+  it('serialises every coordinate at fixed precision (no engine-dependent double tails)', () => {
+    const d = chevronPath({
+      cx: 250,
+      cy: 250,
+      innerR: 118,
+      outerR: 232,
+      startDeg: -150,
+      endDeg: -107.5,
+      pointDeg: 18,
+    });
+    expect(/\d+\.\d{3,}/.test(d)).toBe(false);
   });
 });
 

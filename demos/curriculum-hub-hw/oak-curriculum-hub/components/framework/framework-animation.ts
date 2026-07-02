@@ -9,10 +9,19 @@
 /**
  * A cartesian point on a circle of radius `r` centred at `(cx, cy)`. Screen-space angles: 0deg points
  * right, 90deg points down. Used to place the seven ring segments and their labels.
+ *
+ * Coordinates are rounded to 2dp (sub-pixel on the 500-unit ring canvas): `Math.cos`/`Math.sin` are
+ * not spec-pinned, so the server and browser engines can differ in the last ulp, and a raw double
+ * serialised into an SVG attribute (`d`, `x`, `y`, `transform`) then hydration-mismatches. Rounding
+ * is IEEE-exact, so every engine serialises the same string.
  */
 export function polar(cx: number, cy: number, r: number, degrees: number): readonly [number, number] {
   const radians = (degrees * Math.PI) / 180;
-  return [cx + r * Math.cos(radians), cy + r * Math.sin(radians)];
+  return [round2(cx + r * Math.cos(radians)), round2(cy + r * Math.sin(radians))];
+}
+
+function round2(value: number): number {
+  return Math.round(value * 100) / 100;
 }
 
 /** Geometry for one ring chevron: inner/outer radii, start/end angles (deg), and the chevron point. */
