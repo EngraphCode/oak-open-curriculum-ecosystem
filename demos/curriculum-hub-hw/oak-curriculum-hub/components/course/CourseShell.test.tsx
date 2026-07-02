@@ -95,7 +95,7 @@ describe('CourseShell — sidebar (export-grounded spec)', () => {
     // Scoped to the nav landmark: the in-content coursemap block renders same-named links.
     const nav = screen.getByRole('navigation', { name: 'Course navigation' });
     const introLink = within(nav).getByRole('link', { name: 'Welcome & overview' });
-    expect(introLink.getAttribute('aria-current')).toBe('true');
+    expect(introLink.getAttribute('aria-current')).toBe('location');
     expect(within(nav).getByRole('button', { name: 'Module A' }).getAttribute('aria-expanded')).toBe(
       'false',
     );
@@ -115,7 +115,7 @@ describe('CourseShell — sidebar disclosure and current-marking', () => {
     const moduleA = within(nav).getByRole('button', { name: 'Module A' });
     expect(moduleA.getAttribute('aria-expanded')).toBe('true');
     const rowOne = within(nav).getByRole('link', { name: 'Section one' });
-    expect(rowOne.getAttribute('aria-current')).toBe('true');
+    expect(rowOne.getAttribute('aria-current')).toBe('location');
     expect(within(nav).getByRole('link', { name: 'Section two' }).getAttribute('aria-current')).toBeNull();
     expect(
       within(nav).getByRole('link', { name: 'Welcome & overview' }).getAttribute('aria-current'),
@@ -133,7 +133,7 @@ describe('CourseShell — sidebar disclosure and current-marking', () => {
     // Browsing does not navigate: the intro stays the current item.
     expect(
       within(nav).getByRole('link', { name: 'Welcome & overview' }).getAttribute('aria-current'),
-    ).toBe('true');
+    ).toBe('location');
     fireEvent.click(moduleB);
     expect(within(nav).queryByRole('link', { name: 'Section three' })).toBeNull();
   });

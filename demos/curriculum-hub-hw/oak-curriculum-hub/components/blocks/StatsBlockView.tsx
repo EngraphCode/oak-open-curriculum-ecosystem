@@ -3,22 +3,44 @@ import type { ReactElement } from 'react';
 import type { StatsBlock } from '@/lib/blocks/types';
 
 /**
- * Renders a {@link StatsBlock} as an optional intro, a list of value/label
- * statistics, and an optional note. The stat-card grid fidelity lands in the
- * styling pass; the value leads each item so it reads first.
+ * The export's stat-tile palette, cycled by position (`palette[i % 7]` — the data carries no
+ * per-item colour). Export-exact values, all present in the Oak token set.
+ */
+const TILE_PALETTE = [
+  '#bef2bd',
+  '#a0b6f2',
+  '#b0e2de',
+  '#deb7d5',
+  '#fff2aa',
+  '#ffc8a6',
+  '#cdbdf2',
+] as const;
+
+/**
+ * Renders a {@link StatsBlock} as the export's pastel tile grid (max 4 across; 2px black border,
+ * 12px radius, lemon offset shadow; big bold value over a light label), with the optional intro and
+ * note as plain paragraphs. Semantic list retained — the value leads each item so it reads first.
  */
 export function StatsBlockView({ block }: { block: StatsBlock }): ReactElement {
+  const columns = Math.min(block.items.length, 4);
   return (
     <section aria-label="Statistics">
-      {block.intro !== undefined && <p>{block.intro}</p>}
-      <ul>
-        {block.items.map((item) => (
-          <li key={item.label}>
-            <strong>{item.value}</strong> {item.label}
+      {block.intro !== undefined && <p className="mb-4 text-[17px] font-light leading-[27px]">{block.intro}</p>}
+      <ul className="grid gap-3" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+        {block.items.map((item, index) => (
+          <li
+            key={item.label}
+            style={{ backgroundColor: TILE_PALETTE[index % TILE_PALETTE.length] }}
+            className="rounded-xl border-2 border-oak-black px-4 pb-[18px] pt-4 shadow-oak-lemon"
+          >
+            <strong className="block text-[26px] font-bold leading-tight">{item.value}</strong>
+            <span className="mt-1 block text-[14px] font-light leading-snug">{item.label}</span>
           </li>
         ))}
       </ul>
-      {block.note !== undefined && <p>{block.note}</p>}
+      {block.note !== undefined && (
+        <p className="mt-3 text-[13px] font-light leading-[18px] text-oak-grey">{block.note}</p>
+      )}
     </section>
   );
 }

@@ -27,14 +27,32 @@ export function nextTabIndex(key: string, index: number, count: number): number 
   return index;
 }
 
-/** The active tab's panel: `role="tabpanel"` labelled by its owning tab. */
+/**
+ * The active tab's panel: `role="tabpanel"` labelled by its owning tab. Export-exact body copy and
+ * the green "✓ Example" callout box.
+ */
 function TabPanelView({ panel, panelKey }: { panel: TabPanel; panelKey: string }): ReactElement {
   return (
-    <div role="tabpanel" id={`panel-${panelKey}`} aria-labelledby={`tab-${panelKey}`} tabIndex={0}>
+    <div
+      role="tabpanel"
+      id={`panel-${panelKey}`}
+      aria-labelledby={`tab-${panelKey}`}
+      tabIndex={0}
+      className="px-[22px] pb-6 pt-[22px]"
+    >
       {panel.paras.map((para) => (
-        <p key={para}>{para}</p>
+        <p key={para} className="mb-3 max-w-[64ch] text-[17px] font-light leading-[27px]">
+          {para}
+        </p>
       ))}
-      {panel.example !== undefined && <p>{panel.example}</p>}
+      {panel.example !== undefined && (
+        <div className="mt-2 rounded-[10px] border-2 border-oak-green bg-oak-mint-subdued px-4 py-3.5">
+          <p className="mb-1.5 text-[13px] font-bold uppercase leading-none tracking-[0.04em] text-oak-green">
+            ✓ Example
+          </p>
+          <p className="text-[16px] font-light leading-6">{panel.example}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -70,8 +88,8 @@ export function TabsBlockView({ block }: { block: TabsBlock }): ReactElement {
   }, [active]);
 
   return (
-    <div>
-      <div role="tablist">
+    <div className="overflow-hidden rounded-[14px] border-2 border-oak-black bg-white shadow-oak-lemon">
+      <div role="tablist" className="flex flex-wrap border-b-2 border-oak-black bg-oak-black/[.03]">
         {block.tabs.map((tab, index) => (
           <button
             key={keys[index]}
@@ -89,6 +107,7 @@ export function TabsBlockView({ block }: { block: TabsBlock }): ReactElement {
               focusOnSelect.current = true;
               setActive((current) => nextTabIndex(event.key, current, count));
             }}
+            className={tabClasses(index === active)}
           >
             {tab.label}
           </button>
@@ -97,4 +116,12 @@ export function TabsBlockView({ block }: { block: TabsBlock }): ReactElement {
       {panel !== undefined && <TabPanelView panel={panel} panelKey={keys[active] ?? ''} />}
     </div>
   );
+}
+
+/** Export-exact tab treatment: a 4px underline + white wash marks the selected tab. */
+function tabClasses(selected: boolean): string {
+  const base = 'border-b-4 px-[18px] py-3.5 text-[15px] leading-[1.3]';
+  return selected
+    ? `${base} border-oak-black bg-white font-bold`
+    : `${base} border-transparent font-normal`;
 }

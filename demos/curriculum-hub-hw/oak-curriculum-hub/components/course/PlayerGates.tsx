@@ -1,9 +1,14 @@
 'use client';
 
-import type { ReactElement, ReactNode } from 'react';
+import type { CSSProperties, ReactElement, ReactNode } from 'react';
 
 import { activeModuleIdOf } from './course-player';
 import { useCoursePlayer } from './CoursePlayerContext';
+
+/** CSSProperties plus the module-accent custom property (the react types predate `--*` keys). */
+interface ModuleAccentStyle extends CSSProperties {
+  readonly '--module-accent': string;
+}
 
 /**
  * The module landmark (`<article id={moduleId}>`, the coursemap `#<moduleId>` anchor scheme), hidden
@@ -14,17 +19,28 @@ import { useCoursePlayer } from './CoursePlayerContext';
 export function PlayerModule({
   moduleId,
   labelledBy,
+  accent,
   children,
 }: {
   moduleId: string;
   labelledBy: string;
+  /** The module's accent colour, exposed as `--module-accent` so SERVER-rendered block views
+      (accordion chips, flip backs) inherit it without a client context (export: `b.chip ?? accent`). */
+  accent: string;
   children: ReactNode;
 }): ReactElement {
   const { activeSectionId, entries } = useCoursePlayer();
   const activeModuleId = activeModuleIdOf(activeSectionId, entries);
   const hidden = activeModuleId !== null && activeModuleId !== moduleId;
+  const accentStyle: ModuleAccentStyle = { '--module-accent': accent };
   return (
-    <article id={moduleId} aria-labelledby={labelledBy} hidden={hidden} className="scroll-mt-6">
+    <article
+      id={moduleId}
+      aria-labelledby={labelledBy}
+      hidden={hidden}
+      style={accentStyle}
+      className="scroll-mt-6"
+    >
       {children}
     </article>
   );

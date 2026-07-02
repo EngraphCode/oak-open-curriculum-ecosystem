@@ -40,7 +40,7 @@ function IntroItem({ introId, title, active }: { introId: string; title: string;
   return (
     <a
       href={`#${introId}`}
-      aria-current={active ? 'true' : undefined}
+      aria-current={active ? 'location' : undefined}
       className={`flex items-center gap-[11px] rounded-[10px] border-2 px-3 py-[11px] text-[15px] font-bold leading-[19px] ${
         active ? 'border-oak-black bg-white shadow-oak-lemon' : 'border-transparent hover:bg-oak-lemon-subdued'
       }`}

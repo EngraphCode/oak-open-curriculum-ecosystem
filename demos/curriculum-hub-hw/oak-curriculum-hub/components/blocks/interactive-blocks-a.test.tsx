@@ -33,7 +33,10 @@ describe('AccordionBlockView', () => {
       />,
     );
     expect(screen.getByText('Simple question')).toBeTruthy();
-    expect(screen.getByRole('img', { name: 'Fit it — add image' })).toBeTruthy();
+    // The placeholder is a decorative slot with ONE visible label — no img role, so screen
+    // readers hear the label once (the old role="img" + figcaption double-announced it).
+    expect(screen.getByText('Fit it — add image')).toBeTruthy();
+    expect(screen.queryByRole('img')).toBeNull();
   });
 });
 

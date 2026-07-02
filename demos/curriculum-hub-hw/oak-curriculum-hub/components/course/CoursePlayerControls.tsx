@@ -5,15 +5,15 @@ import type { ReactElement } from 'react';
 import { playerPosition } from './course-player';
 import { useCoursePlayer } from './CoursePlayerContext';
 
-const buttonClasses =
-  'rounded-full border-2 border-oak-black bg-white px-5 py-1.5 text-[15px] font-bold ' +
-  'hover:bg-oak-lemon-subdued disabled:opacity-40 disabled:hover:bg-white';
-
 /**
- * The player's section navigation: previous/next plus a "Section n of N" position line. Renders
- * nothing pre-hydration — the server-rendered fallback is the full single-scroll document, which
- * needs no paging controls. Navigation writes the `#section=<id>` hash via the provider, so prev/next,
- * sidebar anchors, and hub-search deep-links all move the player through one mechanism.
+ * The player's section navigation, export-exact: a hairline above, "← Previous" as a white pill on
+ * the left and "Complete & continue →" as a black pill on the right (both lemon-shadowed). No
+ * position line here — the export carries position in the content header ("Section n of N", the
+ * {@link ModulePosition} piece). Renders nothing pre-hydration: the server-rendered fallback is the
+ * full single-scroll document, which needs no paging controls. The demo persists no progress, so
+ * "Complete & continue" advances without recording completion (the sidebar progress is a fixed
+ * zero-state, reviewed as such). Buttons disable at the sequence ends rather than disappearing, so
+ * the control surface is stable for assistive tech.
  */
 export function CoursePlayerControls(): ReactElement | null {
   const { activeSectionId, entries, navigate } = useCoursePlayer();
@@ -28,7 +28,7 @@ export function CoursePlayerControls(): ReactElement | null {
   return (
     <nav
       aria-label="Section navigation"
-      className="mt-12 flex items-center justify-between gap-4 border-t-2 border-oak-black pt-6"
+      className="mt-12 flex items-center justify-between gap-4 border-t border-oak-grey-line pt-7"
     >
       <button
         type="button"
@@ -38,13 +38,11 @@ export function CoursePlayerControls(): ReactElement | null {
             navigate(previousId);
           }
         }}
-        className={buttonClasses}
+        className="rounded-[10px] border-2 border-oak-black bg-white px-4 py-2.5 text-[15px] font-bold leading-none shadow-oak-lemon disabled:opacity-40 disabled:shadow-none"
       >
-        Previous section
+        <span aria-hidden="true">← </span>
+        Previous
       </button>
-      <p className="text-[13px] font-bold uppercase tracking-[0.06em]">
-        Section {position.index + 1} of {position.total}
-      </p>
       <button
         type="button"
         disabled={nextId === null}
@@ -53,9 +51,10 @@ export function CoursePlayerControls(): ReactElement | null {
             navigate(nextId);
           }
         }}
-        className={buttonClasses}
+        className="rounded-[10px] border-2 border-oak-black bg-oak-black px-5 py-2.5 text-[15px] font-bold leading-none text-white shadow-oak-lemon disabled:opacity-40 disabled:shadow-none"
       >
-        Next section
+        Complete & continue
+        <span aria-hidden="true"> →</span>
       </button>
     </nav>
   );

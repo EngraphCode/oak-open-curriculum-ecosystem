@@ -25,7 +25,7 @@ function SectionRow({
     <li>
       <a
         href={`#section=${sectionId}`}
-        aria-current={active ? 'true' : undefined}
+        aria-current={active ? 'location' : undefined}
         style={active ? { backgroundColor: accent } : undefined}
         className={`ml-3.5 flex items-center gap-2.5 rounded-r-lg border-l-[3px] py-[9px] pl-3.5 pr-3 text-[14px] leading-[19px] ${
           active ? 'border-oak-black font-semibold' : 'border-oak-grey-line font-light'

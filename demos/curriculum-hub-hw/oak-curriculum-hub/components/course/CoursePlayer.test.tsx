@@ -70,24 +70,27 @@ describe('CoursePlayer — navigation', () => {
     globalThis.location.hash = '';
   });
 
-  it('navigates to the next section with the controls, writing the hash and moving focus', () => {
+  it('advances with "Complete & continue", writing the hash, moving focus, showing header position', () => {
     const { container } = render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
-    expect(screen.getByText('Section 1 of 4')).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Next section' }));
+    // The intro carries no position line (export: position renders for unit modules only).
+    expect(screen.queryByText(/^Section \d+ of \d+$/)).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Complete & continue' }));
     expect(globalThis.location.hash).toBe('#section=u1m1s1');
     expect(document.activeElement?.id).toBe('section-h-u1m1s1');
-    expect(screen.getByText('Section 2 of 4')).toBeTruthy();
+    // Module A has two sections; the header position is per-module (export-exact).
+    expect(screen.getByText('Section 1 of 2')).toBeTruthy();
     expect(container.querySelector<HTMLElement>('#section-introMain')?.hidden).toBe(true);
   });
 
-  it('disables Previous at the start of the sequence and Next at the end', () => {
+  it('disables Previous at the start of the sequence and Complete & continue at the end', () => {
     render(<CourseShell course={fixture} title="Creating lessons at Oak" />);
-    expect(screen.getByRole('button', { name: 'Previous section' }).hasAttribute('disabled')).toBe(true);
-    const next = screen.getByRole('button', { name: 'Next section' });
+    expect(screen.getByRole('button', { name: 'Previous' }).hasAttribute('disabled')).toBe(true);
+    const next = screen.getByRole('button', { name: 'Complete & continue' });
     fireEvent.click(next);
     fireEvent.click(next);
     fireEvent.click(next);
-    expect(screen.getByText('Section 4 of 4')).toBeTruthy();
+    // The last section is Module B's only one.
+    expect(screen.getByText('Section 1 of 1')).toBeTruthy();
     expect(next.hasAttribute('disabled')).toBe(true);
   });
 

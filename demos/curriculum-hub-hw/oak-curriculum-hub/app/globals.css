@@ -36,6 +36,7 @@
 
   /* Functional */
   --color-oak-red: #dd0035;
+  --color-oak-red-subdued: #f8d8e0;
 
   /* Type — Lexend (next/font sets --font-lexend on <html>) */
   --font-sans: var(--font-lexend), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -90,4 +91,17 @@ body {
   outline: 3px solid var(--color-oak-navy);
   outline-offset: 2px;
   border-radius: 3px;
+}
+
+/* Motion is decorative everywhere in this demo (chevron rotates, tab washes, the framework
+   walk-through); honour the user's reduced-motion preference globally (WCAG 2.2 — DoD §E). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

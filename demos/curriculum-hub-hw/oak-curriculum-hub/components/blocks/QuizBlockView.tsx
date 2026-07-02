@@ -3,61 +3,27 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-import type { QuizBlock, QuizOption, QuizQuestion } from '@/lib/blocks/types';
+import type { QuizBlock, QuizQuestion } from '@/lib/blocks/types';
+
+import { QuizExplainStatus, QuizOptionsGroup, QuizStem, nextRadioIndex } from './quiz-view-support';
 
 /**
- * Answer-state suffix conveyed as TEXT (not colour alone) so correctness is
- * perceivable without relying on colour — WCAG 2.2 AA (1.4.1 Use of Colour).
+ * One quiz question modelled as an ARIA radio group (ARIA APG Radio Group), rendered by
+ * {@link QuizOptionsGroup}: the group is labelled by the question stem; each option is
+ * `role="radio"` with `aria-checked`. Roving `tabIndex` plus arrow, Home, and End keys move
+ * selection, and keyboard selection moves DOM focus to the chosen radio (WCAG 2.2 AA 2.4.3 /
+ * 4.1.2). A single always-present `role="status"` region announces the explanation on answer
+ * (4.1.3). Correctness is conveyed in text as well as colour.
  */
-function optionSuffix(answered: boolean, isSelected: boolean, isCorrect: boolean): string {
-  if (!answered) {
-    return '';
-  }
-  if (isCorrect) {
-    return ' — correct';
-  }
-  if (isSelected) {
-    return ' — your answer, incorrect';
-  }
-  return '';
-}
-
-/**
- * Next selected option for an arrow, Home, or End keypress within a radio group,
- * or the current index for any other key. Down/Right advance, Up/Left retreat
- * (both wrap), Home selects the first and End the last (ARIA APG Radio Group).
- * Pure + module-scope so the JSX handler stays a single inline arrow
- * (`jsx-no-bind`) and so it is unit-testable.
- */
-export function nextRadioIndex(key: string, index: number, count: number): number {
-  if (key === 'ArrowDown' || key === 'ArrowRight') {
-    return (index + 1) % count;
-  }
-  if (key === 'ArrowUp' || key === 'ArrowLeft') {
-    return (index - 1 + count) % count;
-  }
-  if (key === 'Home') {
-    return 0;
-  }
-  if (key === 'End') {
-    return count - 1;
-  }
-  return index;
-}
-
-/**
- * One quiz question modelled as an ARIA radio group (ARIA APG Radio Group): the
- * group is `role="radiogroup"` labelled by the question stem (`aria-labelledby`);
- * each option is `role="radio"` with `aria-checked`. Exactly one option can be
- * chosen (answer-set semantics — a bare list of `aria-pressed` buttons would let
- * multiple be visibly selected). Roving `tabIndex` plus arrow, Home, and End
- * keys move selection, and keyboard selection moves DOM focus to the chosen
- * radio (WCAG 2.2 AA 2.4.3 Focus Order / 4.1.2 Name, Role, Value). A single
- * always-present `role="status"` region announces the explanation on answer
- * (WCAG 2.2 AA 4.1.3 Status Messages — a conditionally-mounted region can be
- * missed by assistive tech). Correctness is conveyed in TEXT, not colour.
- */
-function QuizQuestionView({ question, stemId }: { question: QuizQuestion; stemId: string }): ReactElement {
+function QuizQuestionView({
+  question,
+  number,
+  stemId,
+}: {
+  question: QuizQuestion;
+  number: number;
+  stemId: string;
+}): ReactElement {
   const [selected, setSelected] = useState<number | null>(null);
   const answered = selected !== null;
   const count = question.options.length;
@@ -80,37 +46,29 @@ function QuizQuestionView({ question, stemId }: { question: QuizQuestion; stemId
 
   return (
     <div>
-      <p id={stemId}>{question.stem}</p>
-      <div role="radiogroup" aria-labelledby={stemId}>
-        {question.options.map((option: QuizOption, index) => (
-          <button
-            key={keys[index]}
-            ref={(node) => {
-              optionRefs.current[index] = node;
-            }}
-            type="button"
-            role="radio"
-            aria-checked={index === selected}
-            tabIndex={index === focusIndex ? 0 : -1}
-            onClick={() => setSelected(index)}
-            onKeyDown={(event) => {
-              focusOnSelect.current = true;
-              setSelected((current) => nextRadioIndex(event.key, current ?? 0, count));
-            }}
-          >
-            {option.text}
-            {optionSuffix(answered, index === selected, option.correct === true)}
-          </button>
-        ))}
-      </div>
-      <p role="status">{answered && question.explain !== undefined ? question.explain : ''}</p>
+      <QuizStem number={number} stemId={stemId} stem={question.stem} />
+      <QuizOptionsGroup
+        question={question}
+        keys={keys}
+        stemId={stemId}
+        selected={selected}
+        focusIndex={focusIndex}
+        optionRefs={optionRefs}
+        onPick={(index) => setSelected(index)}
+        onKeyNav={(event) => {
+          focusOnSelect.current = true;
+          setSelected((current) => nextRadioIndex(event.key, current ?? 0, count));
+        }}
+      />
+      <QuizExplainStatus answered={answered} explain={question.explain} />
     </div>
   );
 }
 
 /**
- * Renders a {@link QuizBlock} as an interactive knowledge check: a titled group
- * of questions, each an independently answerable ARIA radio group.
+ * Renders a {@link QuizBlock} as the export's knowledge-check card: a heavy white card (3px border,
+ * 4px lemon shadow), the lemon "?" chip beside the bold title, then each question as an
+ * independently answerable ARIA radio group.
  */
 export function QuizBlockView({ block }: { block: QuizBlock }): ReactElement {
   const baseId = useId();
@@ -118,11 +76,29 @@ export function QuizBlockView({ block }: { block: QuizBlock }): ReactElement {
   // mis-associate answer state (a content key would collide on repeated stems).
   const keys = useMemo(() => block.questions.map((_question, index) => `${baseId}-q-${index}`), [block.questions, baseId]);
   return (
-    <section aria-label={block.title}>
-      <p>{block.title}</p>
-      {block.questions.map((question, index) => (
-        <QuizQuestionView key={keys[index]} question={question} stemId={`${keys[index]}-stem`} />
-      ))}
+    <section
+      aria-label={block.title}
+      className="rounded-2xl border-[3px] border-oak-black bg-white p-[22px] pb-6 shadow-[4px_4px_0_#ffe555]"
+    >
+      <p className="mb-[18px] flex items-center gap-2.5">
+        <span
+          aria-hidden="true"
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border-2 border-oak-black bg-oak-lemon text-[18px]"
+        >
+          ?
+        </span>
+        <span className="text-[20px] font-bold leading-[26px]">{block.title}</span>
+      </p>
+      <div className="flex flex-col gap-6">
+        {block.questions.map((question, index) => (
+          <QuizQuestionView
+            key={keys[index]}
+            question={question}
+            number={index + 1}
+            stemId={`${keys[index]}-stem`}
+          />
+        ))}
+      </div>
     </section>
   );
 }

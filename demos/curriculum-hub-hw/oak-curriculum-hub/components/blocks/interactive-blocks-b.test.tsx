@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { FlipBlockView } from '@/components/blocks/FlipBlockView';
 import { HotspotBlockView } from '@/components/blocks/HotspotBlockView';
-import { nextRadioIndex } from '@/components/blocks/QuizBlockView';
+import { nextRadioIndex } from '@/components/blocks/quiz-view-support';
 import { SortableBlockView, isCorrectOrder, reorder } from '@/components/blocks/SortableBlockView';
 import { nextTabIndex } from '@/components/blocks/TabsBlockView';
 
@@ -49,16 +49,21 @@ describe('FlipBlockView', () => {
     fireEvent.click(button);
     expect(button.getAttribute('aria-expanded')).toBe('true');
     expect(screen.getByText('For teachers.')).toBeTruthy();
+    // The flip is a face SWAP (export behaviour): the front — title, badge, reveal hint — is
+    // replaced by the back, not merely appended to.
+    expect(screen.queryByText(/Tap to reveal/)).toBeNull();
+    expect(screen.queryByText('Resources')).toBeNull();
   });
 
-  it('marks card fronts for the image treatment when frontImage is set', () => {
+  it('renders the front-image slot on card fronts when frontImage is set', () => {
     render(
       <FlipBlockView
         block={{ t: 'flip', chip: '#ffc8a6', frontImage: true, cards: [{ badge: '1', front: 'Card', back: 'Reveal.' }] }}
       />,
     );
-    const item = screen.getByRole('button', { name: /Card/ }).closest('li');
-    expect(item?.getAttribute('data-front-image')).toBe('true');
+    // The export's dashed "Drop image" slot renders on the unflipped front (was a data-attribute
+    // hook in the structure-first phase; the treatment is now real).
+    expect(screen.getByText('Drop image')).toBeTruthy();
   });
 });
 

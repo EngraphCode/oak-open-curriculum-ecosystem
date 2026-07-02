@@ -65,7 +65,7 @@ function ModuleView({
   sections: readonly CourseSection[];
 }): ReactElement {
   return (
-    <PlayerModule moduleId={id} labelledBy={`module-h-${id}`}>
+    <PlayerModule moduleId={id} labelledBy={`module-h-${id}`} accent={color}>
       {unitCrumb !== undefined && (
         <p className="mb-[11px] text-[12px] font-bold uppercase tracking-[0.05em] text-oak-grey">
           {unitCrumb}
