@@ -82,30 +82,23 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   - **`searchHub` placement = DEMO-LOCAL (Director-ratified 2026-07-01, second-consumer rule).** It is pure mechanism with exactly ONE consumer (this demo) → `consolidate-at-second-consumer`; extracting to a reusable lib now is premature generalisation. Keeping it demo-local means it is NOT calcifying as a mis-placed reusable lib, so the plan item-3 "route to arch reviewers before it calcifies" concern is satisfied by NOT promoting it. **Extraction trigger = a real SECOND consumer** (then route to the architecture reviewers). Do not re-litigate demo-local-vs-lib before that trigger.
   - **Course-assembly exec-knowledge (react-component-expert forward-note, from a now-gone sub-agent — home it before it re-derives):** at Course-assembly, feed `CourseNavProvider` a **memoised/hoisted** module array (`useMemo(() => mapUnitsToModules(course), [course])` at the provider, or a module-level constant if static) — a freshly-constructed array literal per render re-renders all 214 block descendants that read the context. Also render the 214 blocks through a `.map` with **stable per-block keys (block id, not index)** so the memoised-provider win isn't undone by a churning list above it. The context shape (`CourseNavContext.ts` = `readonly CourseNavModule[]`) already supports this cleanly.
 - **Commit / codegen note (UPDATED — drift class RESOLVED):** main #291's codegen **cached-schema-default** (merged in `39a3aaf50`) means `pnpm sdk-codegen` now uses the cached schema by default, so it no longer re-fetches live and re-pollutes. Keep `CI=true` on commits (belt-and-suspenders). Commits go through the FULL pre-commit gate (**no `--no-verify`** — the hook IS the gate; the reflex to bypass is the signal to stop and analyse). Branch is PUSHED to origin.
-- **Next safe step (SUCCESSOR PICKUP, 2026-07-01 ~22:25Z — Director Birch #7 LIVE; both implementer lanes warm-held on owner launches):**
-  **Styling successor** → adopt `cf62bda9` (Zinnia relays live if still present, else the record
-  is self-sufficient: `handoffs/2026-07-01-curriculum-hub-styling-zinnia-guards-spore.md`). Fully
-  specified sequence: (1) the PAGINATED-PLAYER presentation layer (active-section client state
-  over the surviving SSR DOM, composing with the `#section=` focus handler — ratified decision
-  #7); (2) sidebar rework to the export-grounded spec (unit pills / per-unit accent badges /
-  0-of-63-sections progress / active-item treatment; the `bg-oak-lemon` ModuleView hardcode is a
-  confirmed bug); (3) SPA-drive the export to capture the interactive-block sections (extend the
-  render recipe); (4) the 17 remaining block-view treatments, render-grounded, a11y follow-ups
-  folded per-file; (5) Framework page route via the shared shell; (6) Exemplars/Wiki rework +
-  Lesson polish; (7) E1+E2; then E3 UI (joint).
-  **Data successor** → adopt `fd0ee59e` (record:
-  `handoffs/2026-07-01-curriculum-hub-junk-data-plane.md`). Turnkey: (1) the BINDING test-expert
-  TDD cycle (search-core DI extraction + `createSearchHandler` + 3 contract-test files — spec in
-  comms `08ef36f6`; milestone-blocking); (2) §D captures @1440 as pages land (tool committed-ready
-  at `tools/capture-live-demo.cjs` — git-add it); (3) E3 data seam (search-SDK exposure; ping
-  styling before any `use-curriculum-search` change).
-  **Director (Birch or successor via the readiness gate)** → route the above; per-slice read-only
-  reviewer dispatch at every slice-green; jest-axe wiring before final §E; then the pre-push tidy
-  (per the corrected plan §Pre-push — export STAYS committed; `oak-design-system` delete needs
-  explicit owner authorisation) + the MILESTONE COMMIT (explicit pathspec, `CI=true`, full gate)
-  → push → PR → MERGE. §J = owner-hosted from main 2026-07-02. **Monitor-re-arm protocol at gate
-  boundaries** (an agent-tools/dist rebuild during a repo-wide gate TASK-reclaims Monitors — no
-  self-heal; re-arm + catch-up after).
+- **Next safe step (REFRESHED 2026-07-02 ~09:50Z — Director Comet #8; live cast Peregrine styling / Limpet data / Thyme hygiene):**
+  All prior successor-pickup turnkeys are EXECUTED: the paginated player, export-grounded sidebar,
+  SPA-drive grounding, ALL 18 block-view treatments, the search-core TDD cycle, section-d captures
+  (per-page evidence set COMPLETE), items 8+10 cured, Exemplars/Wiki closed (verbatim alignment —
+  the honest-empty pages were already canonical-faithful), Lesson polish landed (nested-main §E
+  fix, CourseShell-class). **Framework page DROPPED as SUPERSEDED (Director-ruled 2026-07-02,
+  two-lane corroboration):** the canonical hub has five destinations — framework exists only as
+  search index rows deep-linking into course unit 2, which the demo already delivers with search
+  parity; the "framework page" artefacts are the superseded 2-unit-era standalone player.
+  **Remaining sequence:** E1 (WWW nav link-out) + E2 (live-results secondary in hub search) →
+  joint E3-UI (styling owns page UI, data owns the search-SDK seam; coordinate via the Director)
+  → jest-axe wiring + `tools/measure-320.cjs` as the final §E backstops → final §D/§E passes →
+  pre-push tidy (export STAYS committed; `oak-design-system` delete needs explicit owner
+  authorisation at that moment) → MILESTONE COMMIT → push → PR → MERGE. §J = owner-hosted from
+  main. **Monitor-re-arm protocol at gate boundaries** stands (agent-tools/dist rebuilds
+  TASK-reclaim Monitors; re-arm + catch-up after; watcher drain-timeouts under volume — re-arm
+  with `--step-timeout-ms 120000`).
 - **DoD §A–I snapshot:** DONE — Standards page (browse+detail, §E-signed-off); Course generator + 214-block module; hub-search local dispatch; 18 block components + exhaustive BlockRenderer. PENDING — remaining pages (above), live-search wiring into the hub, per-page visual-fidelity + WCAG AA, jest-axe, tracked a11y follow-ups, the milestone commit. Full demo suite was 116/116 green in-lane at cast rotation.
 - **Promotion watchlist:** `director-operating-model` → PDR-117 amendment (pending-graduations, `due`); block-renderer exhaustive-total-function (definite-assignment pattern = compiler-proven total function) → `patterns/` (pending-graduations); **NEW:** union-inferred-from-sampled-data-must-be-checked-against-complete-corpus (the `: Course` gate caught 5 gaps) → pattern candidate; comms-body backtick shell-quoting → always `--body-file` (this session's repeated failure) → napkin/discipline; gates-green≠DoD-complete (axe not in the gate caught 4 AA-blockers post-green) → distilled.
 
