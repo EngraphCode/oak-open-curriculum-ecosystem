@@ -405,6 +405,22 @@ execution detail lives in
    the tools are TypeScript inside the workspace (run via tsx package scripts) under the full
    strict gates. Consequence: the export-diff ingest baseline moves from "committed zip diffs"
    to the claude-design MCP pull (the WS2 crosswalk in the productionisation plan).
+9. **STRICT EVERYWHERE, NOTHING DEFERRED (owner, 2026-07-02 evening — supersedes decision 3's
+   post-merge gate-parity sequencing and every demo exemption everywhere).** The demo tier is
+   ordinary repo code under the strictest repo standards; lint/gate exceptions are errors —
+   withdrawn ratification included. Executed same-evening: all prettier/markdownlint/knip/
+   depcruise demo exemptions removed; every demo ESLint rule-off deleted and the code fixed
+   (webpack hook typed, tools decomposed at responsibility seams, generators Result-based);
+   tsconfig extends base; the **content-is-data redesign executed pre-merge** (zod schemas as
+   SSOT with types inferred, generators emit schema-validated JSON, loaders re-validate at
+   load, both `.generated.ts` content modules deleted — content-equality proven); untracked
+   vendor data excluded from checks by each tool's gitignore-awareness mechanism (owner-ratified),
+   never per-path exceptions; `vendor-reference/` dissolved (the export's own token files are
+   the audit authority); `.next/` excluded in depcruise as build output beside `dist`. The
+   canonical-export byte-integrity discipline and the whole conversion method are recorded in
+   `docs/engineering/claude-design-conversion-playbook.md` (the owner's notes-for-demo-#2 ask).
+   Full gate suite green with zero exceptions: 286 tests, eslint max-warnings 0, knip/depcruise/
+   format/markdownlint all exit 0.
 
 ## E-series enhancements — RESEQUENCED PRE-MERGE (owner-ratified 2026-07-01 late)
 

@@ -85,7 +85,20 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   - **`searchHub` placement = DEMO-LOCAL (Director-ratified 2026-07-01, second-consumer rule).** It is pure mechanism with exactly ONE consumer (this demo) → `consolidate-at-second-consumer`; extracting to a reusable lib now is premature generalisation. Keeping it demo-local means it is NOT calcifying as a mis-placed reusable lib, so the plan item-3 "route to arch reviewers before it calcifies" concern is satisfied by NOT promoting it. **Extraction trigger = a real SECOND consumer** (then route to the architecture reviewers). Do not re-litigate demo-local-vs-lib before that trigger.
   - **Course-assembly exec-knowledge (react-component-expert forward-note, from a now-gone sub-agent — home it before it re-derives):** at Course-assembly, feed `CourseNavProvider` a **memoised/hoisted** module array (`useMemo(() => mapUnitsToModules(course), [course])` at the provider, or a module-level constant if static) — a freshly-constructed array literal per render re-renders all 214 block descendants that read the context. Also render the 214 blocks through a `.map` with **stable per-block keys (block id, not index)** so the memoised-provider win isn't undone by a churning list above it. The context shape (`CourseNavContext.ts` = `readonly CourseNavModule[]`) already supports this cleanly.
 - **Commit / codegen note (UPDATED — drift class RESOLVED):** main #291's codegen **cached-schema-default** (merged in `39a3aaf50`) means `pnpm sdk-codegen` now uses the cached schema by default, so it no longer re-fetches live and re-pollutes. Keep `CI=true` on commits (belt-and-suspenders). Commits go through the FULL pre-commit gate (**no `--no-verify`** — the hook IS the gate; the reflex to bypass is the signal to stop and analyse). Branch is PUSHED to origin.
-- **Next safe step (REFRESHED 2026-07-02 evening — Director Comet #8, n=1 to merge by owner direction):**
+- **Next safe step (REFRESHED 2026-07-02 late evening — Director Comet #8, n=1; ratified decision 9 EXECUTED):**
+  The owner ruled STRICT EVERYWHERE, NOTHING DEFERRED mid-review: every demo gate exemption
+  removed repo-wide (prettier/markdownlint/knip/depcruise/eslint — withdrawn ratification
+  included), the content-is-data redesign executed pre-merge (zod SSOT, JSON emission, validated
+  loaders, both `.generated.ts` deleted, content-equality proven), tools decomposed under the
+  line cap, vendor-reference/ dissolved, the export excluded from checks via each tool's
+  gitignore-awareness (owner-ratified), the export's byte-integrity restored after a formatter
+  incident (all 62 files cmp-verified vs history) — full method in
+  `docs/engineering/claude-design-conversion-playbook.md`. Full gate suite green with ZERO
+  exceptions: 286 tests, eslint --max-warnings 0, knip/depcruise/format/markdownlint exit 0.
+  **Remaining:** land the strictness train → push → PR #295 re-scan (Sonar duplication +
+  smells should clear on the merits) → sweep + resolve any new review comments → owner visual
+  sign-off → MERGE. §J owner-hosted from main.
+- **Prior next-safe-step (2026-07-02 evening, superseded above):**
   PR #295 is OPEN to main; window #10 + the milestone marker landed and pushed. The owner ruled
   mid-review: (a) the `demos/curriculum-hub-hw/` layout was wrong — restructured same-day per the
   active plan's ratified decision 8 (workspace = `demos/oak-curriculum-hub/`; the canonical export
