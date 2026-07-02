@@ -17,7 +17,7 @@ export default function ExemplarsPage(): ReactElement {
     <>
       <PageHeader
         title="Exemplars"
-        intro="Worked examples of the quality standards in practice."
+        intro="Worked examples of high-quality content, annotated to show exactly why they work."
         tint="bg-oak-pink-subdued"
       />
       <HonestEmptyNotice title="Not included in this demo">

@@ -17,7 +17,7 @@ export default function WikiPage(): ReactElement {
     <>
       <PageHeader
         title="Wiki"
-        intro="Shared guidance and ways of working for creating high-quality lessons."
+        intro="Shared knowledge, how-tos and definitions — the living reference for how we work at Oak."
         tint="bg-oak-lemon-subdued"
       />
       <HonestEmptyNotice title="Not included in this demo">
