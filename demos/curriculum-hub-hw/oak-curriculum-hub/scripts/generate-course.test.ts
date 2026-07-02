@@ -77,8 +77,13 @@ describe('generateFromHtml asset-path boundary', () => {
   });
 
   it('fails loud on a scheme/protocol href, naming the field and value', () => {
-    expect(() =>
-      generateFromHtml(htmlWithBlock(`{t:'download', label:'Tool', href:'https://example.org/x.pdf'}`)),
-    ).toThrow(/href.*https:\/\/example\.org\/x\.pdf/);
+    let message = '';
+    try {
+      generateFromHtml(htmlWithBlock(`{t:'download', label:'Tool', href:'https://example.org/x.pdf'}`));
+    } catch (error) {
+      message = error instanceof Error ? error.message : String(error);
+    }
+    expect(message).toContain('href');
+    expect(message).toContain('https://example.org/x.pdf');
   });
 });

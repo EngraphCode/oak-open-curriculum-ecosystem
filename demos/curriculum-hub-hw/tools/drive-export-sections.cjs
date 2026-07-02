@@ -55,8 +55,10 @@ const TARGETS = [
 function serveExport() {
   const server = http.createServer((req, res) => {
     const urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-    const filePath = path.join(EXPORT_DIR, urlPath === '/' ? 'Oak Course.dc.html' : urlPath);
-    if (!filePath.startsWith(EXPORT_DIR) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+    // resolve() normalises any ../ segments; the sep-suffixed prefix check also
+    // rejects sibling-directory names that share EXPORT_DIR as a string prefix.
+    const filePath = path.resolve(EXPORT_DIR, `.${urlPath === '/' ? '/Oak Course.dc.html' : urlPath}`);
+    if (!filePath.startsWith(EXPORT_DIR + path.sep) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
       res.writeHead(404).end('not found');
       return;
     }
