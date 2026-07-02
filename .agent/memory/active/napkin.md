@@ -82,6 +82,28 @@ New session observations append below.
   the second scan surfaced a sibling regex (META_BINDING) my first sweep missed — I fixed the
   reported instances and swept one file's class but not the other's ("fix the class" applies
   per-class across ALL files, not per-file). Homed: the skill + commit messages.
+- **Reviewer contradiction is a gift — the cheap empirical check beat both verdicts (2026-07-02,
+  salvage ws1 pre-execution panel).** code-expert said "reuse the exported adjudicate()" and even
+  claimed it "verified equivalent on the real data"; test-expert said adjudicate() cannot evaluate
+  a bare 3-lens quorum (tier-0 gate at the function head). My own first-hand read of
+  aggregation-adjudication.ts settled it in seconds: test-expert right, code-expert's mechanism
+  broken-as-stated (its NUMBERS were still correct and became pre-declared predictions). Worked
+  instance of both `feedback_validate_specialist_findings_before_acting` clauses in one panel: a
+  claim pre-stamped with its own verification, and contradiction-as-cheap-check-trigger. Also:
+  test-expert's blocking find (47/54 banked candidates carry a 4th lens-null verdict that would
+  lens-collision every quorum) was real and became the discriminating fixture.
+- **jq on a driver-output capture file fails if the driver appends prose after the JSON** — the
+  post-run driver prints the JSON then a one-line close verdict to stdout; strip the trailing
+  line (`sed '$d'`) before conserving as a .json artefact or parsing.
+- **Critically-assess-all-subagent-output reinforced again (2026-07-02, salvage session)** — the
+  owner re-issued the standing directive ("always critically assess all subagent findings, claims,
+  and sources") pre-emptively, mid-panel, post-compaction. This is now roughly the ninth
+  reinforcement since 2026-05-27 of a discipline homed in per-user memory
+  (`feedback_validate_specialist_findings_before_acting`) + the `verify-dont-trust` rule.
+  Recurrence-despite-home (PDR-098): at the next consolidation pass, assess whether the always-on
+  rule surface needs an explicit subagent-output clause (ground findings, verdicts, "confirmed"
+  claims, cited sources, and recommendations first-hand before absorbing), or whether the
+  reinforcements are the owner exercising normal emphasis rather than evidence of a home gap.
 - **pnpm overrides rewrite DIRECT deps' effective specifiers** — adding esbuild as a direct dep
   desynced the lockfile against the pre-existing `>=0.28.1` security floor; no local gate runs
   a frozen install, so CI was the first catch. Homed: troubleshooting §Lockfile desync via pnpm

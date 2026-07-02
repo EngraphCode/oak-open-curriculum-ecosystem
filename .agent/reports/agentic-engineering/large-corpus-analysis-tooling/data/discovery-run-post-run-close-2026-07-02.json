@@ -1,0 +1,1154 @@
+{
+  "recallIntegrityViolations": [],
+  "recallReport": {
+    "strictOverall": {
+      "numerator": 2,
+      "denominator": 18,
+      "value": 0.1111111111111111
+    },
+    "looseOverall": {
+      "numerator": 7,
+      "denominator": 18,
+      "value": 0.3888888888888889
+    },
+    "strictWithinRemit": {
+      "numerator": 2,
+      "denominator": 10,
+      "value": 0.2
+    },
+    "looseWithinRemit": {
+      "numerator": 6,
+      "denominator": 10,
+      "value": 0.6
+    }
+  },
+  "choiceB": {
+    "gate": {
+      "minStrictWithinRemit": 0.6,
+      "minLooseWithinRemit": 0.85
+    },
+    "pass": false
+  },
+  "mapCoverage": {
+    "medianLeafCount": 36,
+    "underExtracting": []
+  },
+  "temporalCoverage": [
+    {
+      "candidateId": "C04",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w07",
+      "latest": "w10",
+      "suspect": false
+    },
+    {
+      "candidateId": "C05",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w06",
+      "latest": "w09",
+      "suspect": false
+    },
+    {
+      "candidateId": "C08",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w07",
+      "latest": "w07",
+      "suspect": true
+    },
+    {
+      "candidateId": "C15",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w03",
+      "latest": "w03",
+      "suspect": true
+    },
+    {
+      "candidateId": "C16",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w03",
+      "latest": "w03",
+      "suspect": true
+    },
+    {
+      "candidateId": "C20",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w03",
+      "latest": "w03",
+      "suspect": true
+    },
+    {
+      "candidateId": "C28",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w01",
+      "latest": "w01",
+      "suspect": true
+    },
+    {
+      "candidateId": "C36",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w04",
+      "latest": "w09",
+      "suspect": false
+    },
+    {
+      "candidateId": "C48",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w06",
+      "latest": "w06",
+      "suspect": true
+    },
+    {
+      "candidateId": "C49",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w04",
+      "latest": "w04",
+      "suspect": true
+    },
+    {
+      "candidateId": "C51",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w01",
+      "latest": "w03",
+      "suspect": false
+    },
+    {
+      "candidateId": "C70",
+      "kind": "relational-lagged",
+      "distinctWindows": 1,
+      "earliest": "w05",
+      "latest": "w05",
+      "suspect": true
+    },
+    {
+      "candidateId": "C74",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w04",
+      "latest": "w04",
+      "suspect": true
+    },
+    {
+      "candidateId": "C76",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w04",
+      "latest": "w05",
+      "suspect": false
+    },
+    {
+      "candidateId": "C90",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w01",
+      "latest": "w01",
+      "suspect": true
+    },
+    {
+      "candidateId": "C92",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w02",
+      "latest": "w02",
+      "suspect": true
+    },
+    {
+      "candidateId": "C102",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w04",
+      "latest": "w09",
+      "suspect": false
+    },
+    {
+      "candidateId": "C107",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w01",
+      "latest": "w07",
+      "suspect": false
+    },
+    {
+      "candidateId": "C108",
+      "kind": "trajectory",
+      "distinctWindows": 11,
+      "earliest": "w02",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C109",
+      "kind": "trajectory",
+      "distinctWindows": 4,
+      "earliest": "w08",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C112",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w03",
+      "latest": "w03",
+      "suspect": true
+    },
+    {
+      "candidateId": "C113",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w02",
+      "latest": "w02",
+      "suspect": true
+    },
+    {
+      "candidateId": "C116",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w10",
+      "latest": "w12",
+      "suspect": false
+    },
+    {
+      "candidateId": "C123",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w08",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C127",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w06",
+      "latest": "w06",
+      "suspect": true
+    },
+    {
+      "candidateId": "C130",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w09",
+      "latest": "w09",
+      "suspect": true
+    },
+    {
+      "candidateId": "C139",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w11",
+      "latest": "w11",
+      "suspect": true
+    },
+    {
+      "candidateId": "C148",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w14",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C152",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w10",
+      "latest": "w14",
+      "suspect": false
+    },
+    {
+      "candidateId": "C153",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w11",
+      "latest": "w11",
+      "suspect": true
+    },
+    {
+      "candidateId": "C156",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w07",
+      "latest": "w07",
+      "suspect": true
+    },
+    {
+      "candidateId": "C160",
+      "kind": "trajectory",
+      "distinctWindows": 5,
+      "earliest": "w02",
+      "latest": "w09",
+      "suspect": false
+    },
+    {
+      "candidateId": "C163",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w06",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C166",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w15",
+      "latest": "w15",
+      "suspect": true
+    },
+    {
+      "candidateId": "C183",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w05",
+      "latest": "w14",
+      "suspect": false
+    },
+    {
+      "candidateId": "C184",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w05",
+      "latest": "w14",
+      "suspect": false
+    },
+    {
+      "candidateId": "C186",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w05",
+      "latest": "w07",
+      "suspect": false
+    },
+    {
+      "candidateId": "C187",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w05",
+      "latest": "w05",
+      "suspect": true
+    },
+    {
+      "candidateId": "C188",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w05",
+      "latest": "w13",
+      "suspect": false
+    },
+    {
+      "candidateId": "C189",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w05",
+      "latest": "w14",
+      "suspect": false
+    },
+    {
+      "candidateId": "C190",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "earliest": "w05",
+      "latest": "w09",
+      "suspect": false
+    },
+    {
+      "candidateId": "C191",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w13",
+      "latest": "w13",
+      "suspect": true
+    },
+    {
+      "candidateId": "C192",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w01",
+      "latest": "w07",
+      "suspect": false
+    },
+    {
+      "candidateId": "C193",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w05",
+      "latest": "w07",
+      "suspect": false
+    },
+    {
+      "candidateId": "C194",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w05",
+      "latest": "w07",
+      "suspect": false
+    },
+    {
+      "candidateId": "C195",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w01",
+      "latest": "w01",
+      "suspect": true
+    },
+    {
+      "candidateId": "C196",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w01",
+      "latest": "w01",
+      "suspect": true
+    },
+    {
+      "candidateId": "C206",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w05",
+      "latest": "w05",
+      "suspect": true
+    },
+    {
+      "candidateId": "C211",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w14",
+      "latest": "w14",
+      "suspect": true
+    },
+    {
+      "candidateId": "C213",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w10",
+      "latest": "w11",
+      "suspect": false
+    },
+    {
+      "candidateId": "C224",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w02",
+      "latest": "w04",
+      "suspect": false
+    },
+    {
+      "candidateId": "C228",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w04",
+      "latest": "w04",
+      "suspect": true
+    },
+    {
+      "candidateId": "C229",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w08",
+      "latest": "w08",
+      "suspect": true
+    },
+    {
+      "candidateId": "C230",
+      "kind": "trajectory",
+      "distinctWindows": 1,
+      "earliest": "w09",
+      "latest": "w09",
+      "suspect": true
+    },
+    {
+      "candidateId": "C231",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w07",
+      "latest": "w10",
+      "suspect": false
+    },
+    {
+      "candidateId": "C232",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "earliest": "w11",
+      "latest": "w12",
+      "suspect": false
+    },
+    {
+      "candidateId": "C244",
+      "kind": "regime",
+      "distinctWindows": 4,
+      "earliest": "w05",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C245",
+      "kind": "distributional",
+      "distinctWindows": 10,
+      "earliest": "w01",
+      "latest": "w15",
+      "suspect": false
+    },
+    {
+      "candidateId": "C246",
+      "kind": "distributional",
+      "distinctWindows": 6,
+      "earliest": "w01",
+      "latest": "w15",
+      "suspect": false
+    }
+  ],
+  "corroboration": [
+    {
+      "candidateId": "C01",
+      "corroboratedBy": [
+        ".agent/rules/stage-by-explicit-pathspec.md",
+        ".agent/memory/active/patterns/peer-commit-absorption-third-direction.md",
+        ".agent/memory/active/patterns/stage-what-you-commit.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C02",
+      "corroboratedBy": [
+        ".agent/memory/active/patterns/whole-tree-gate-red-on-untouched-files.md",
+        ".agent/memory/active/patterns/untracked-wip-whole-tree-lint-blocker.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C06",
+      "corroboratedBy": [
+        ".agent/rules/never-use-git-to-remove-work.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C38",
+      "corroboratedBy": [
+        ".agent/rules/no-global-state-in-tests.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C39",
+      "corroboratedBy": [
+        ".agent/rules/no-global-state-in-tests.md",
+        ".agent/memory/active/patterns/cli-flag-env-precedence.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C42",
+      "corroboratedBy": [
+        ".agent/rules/test-immediate-fails.md",
+        ".agent/memory/active/patterns/prove-the-checker-with-a-negative-control.md",
+        ".agent/memory/active/patterns/check-driven-development.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C63",
+      "corroboratedBy": [
+        ".agent/memory/active/patterns/wrapped-exit-codes-false-green.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C65",
+      "corroboratedBy": [
+        ".agent/rules/check-singleton-per-window.md",
+        ".agent/rules/no-unbounded-host-load.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C88",
+      "corroboratedBy": [
+        ".agent/memory/active/patterns/governance-claim-needs-a-scanner.md",
+        ".agent/memory/active/patterns/monotonic-counter-is-not-quality-indicator.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C89",
+      "corroboratedBy": [
+        ".agent/rules/verify-dont-trust.md",
+        ".agent/memory/active/patterns/verify-before-propagating.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C98",
+      "corroboratedBy": [
+        ".agent/rules/verify-dont-trust.md",
+        ".agent/memory/active/patterns/reviewer-widening-is-always-wrong.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C102",
+      "corroboratedBy": [
+        ".agent/rules/no-verify-requires-fresh-authorisation.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C103",
+      "corroboratedBy": [
+        ".agent/rules/hook-policy-substring-discipline.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C108",
+      "corroboratedBy": [
+        ".agent/rules/knowledge-preservation-over-fitness-warnings.md",
+        ".agent/memory/active/patterns/substance-before-fitness.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C118",
+      "corroboratedBy": [
+        ".agent/rules/no-tombstones-for-removed-ideas.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C134",
+      "corroboratedBy": [
+        ".agent/rules/use-monitor-for-event-driven-wake.md",
+        ".agent/rules/comms-all-channels-watcher.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C146",
+      "corroboratedBy": [
+        ".agent/memory/active/patterns/feel-state-of-completion-preceding-evidence-of-completion.md",
+        ".agent/memory/active/patterns/re-derive-session-persistent-state.md",
+        ".agent/rules/verify-dont-trust.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    },
+    {
+      "candidateId": "C185",
+      "corroboratedBy": [
+        ".agent/memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md",
+        ".agent/memory/active/patterns/plan-as-artefact-gravity.md"
+      ],
+      "missingClaims": [],
+      "isCorroborated": true
+    }
+  ],
+  "dispositionRecompute": {
+    "total": 246,
+    "mismatches": []
+  },
+  "triage": [
+    {
+      "candidateId": "C01",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 9,
+      "groundingCount": 22,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "high",
+      "importance": "high",
+      "recallMatched": true,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C02",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 9,
+      "groundingCount": 19,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C06",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 6,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C36",
+      "disposition": "keep",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "groundingCount": 3,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "med",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C38",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 3,
+      "groundingCount": 3,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "med",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C39",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 4,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C42",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 4,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C46",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 11,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "med",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum"
+      ]
+    },
+    {
+      "candidateId": "C54",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 5,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "med",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C63",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 7,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "high",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C64",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 5,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C65",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 3,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": true,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C88",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 3,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "med",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C89",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 8,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C98",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 5,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C102",
+      "disposition": "keep",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "groundingCount": 5,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum"
+      ]
+    },
+    {
+      "candidateId": "C103",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 5,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C108",
+      "disposition": "keep",
+      "kind": "trajectory",
+      "distinctWindows": 11,
+      "groundingCount": 22,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum"
+      ]
+    },
+    {
+      "candidateId": "C116",
+      "disposition": "keep",
+      "kind": "trajectory",
+      "distinctWindows": 3,
+      "groundingCount": 3,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum"
+      ]
+    },
+    {
+      "candidateId": "C118",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 3,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "med",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C123",
+      "disposition": "keep",
+      "kind": "trajectory",
+      "distinctWindows": 2,
+      "groundingCount": 5,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C129",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 4,
+      "groundingCount": 6,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "moderate",
+      "reviewFirstTriggers": []
+    },
+    {
+      "candidateId": "C134",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 2,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum",
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C135",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 4,
+      "path": "quorum-keep",
+      "quorumMargin": 3,
+      "minTestConfidence": "low",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": false,
+      "novel": true,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "low-confidence-pass"
+      ]
+    },
+    {
+      "candidateId": "C146",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 5,
+      "groundingCount": 8,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": true,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum"
+      ]
+    },
+    {
+      "candidateId": "C185",
+      "disposition": "keep",
+      "kind": "recurrence",
+      "distinctWindows": 2,
+      "groundingCount": 2,
+      "path": "quorum-keep",
+      "quorumMargin": 1,
+      "minTestConfidence": "med",
+      "medianTestConfidence": "med",
+      "importance": "high",
+      "recallMatched": true,
+      "novel": false,
+      "longitudinalSuspect": false,
+      "band": "review-first",
+      "reviewFirstTriggers": [
+        "narrow-quorum"
+      ]
+    }
+  ]
+}

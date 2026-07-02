@@ -3,7 +3,7 @@ name: "Corpus-Analysis Salvage and Topology Redesign"
 plan_id: corpus-analysis-salvage-and-topology-redesign
 collection: agentic-engineering-enhancements
 lane: current
-status: "DRAFT — ws1 (salvage) is executable now; ws2+ (topology redesign) requires a fresh-session readiness review before build. Authored 2026-07-02 by Perseus wakes Oblivion at high context, post-run."
+status: "ws1 EXECUTED 2026-07-02 (Rosemary stirs Bracken): the corroboration cwd bug is fixed (18/18 corroborated), the salvage tooling is TDD-landed in agent-tools (salvage-driver + four modules), and the tier table + discovery report are committed — A=18 B=8 C=18 D=18 E=187 residual=0, tier C matching this plan's named ids exactly. Next: the rescued-concept disposition pass (fresh seat) + the owner's tier-E manual round. ws2+ (topology redesign) still requires a fresh-session readiness review before build. Authored 2026-07-02 by Perseus wakes Oblivion at high context, post-run."
 created: 2026-07-02
 owner_thread: agentic-engineering-enhancements
 overview: >-
@@ -16,7 +16,7 @@ overview: >-
 todos:
   - id: ws1-salvage
     content: "WS1 (executable now): stratified salvage report from committed checkpoints — no new validate spend. Tiers: A = Sonnet-keeps that are corroborated or Opus-quorum-keeps (highest confidence); B = remaining Sonnet keeps (survived the harshest filter); C = Opus-quorum-keep / Sonnet-kill disagreements (18 named candidates); D = killed candidates named in meta recall notes as baseline-matching (proven-real, false kills); E = remaining kills ranked by triage-style evidence (window span, grounding count) for the owner's manual round. Deterministic code over existing JSONs + the banked verdict corpora; fix the post-run driver corroboration cwd bug (existsSync resolved against agent-tools/ — resolve claimed paths against the repo root, TDD; note the driver's readCheckpoint already anchors its flag paths with assertPathWithinBase(repoRoot) since the S8707 fix on PR #296 — follow that precedent, the corroboration site is separate and still unfixed) so tier A is computable. Output: discovery report with novelty stratification + the full tier table, conserved per the run plan."
-    status: pending
+    status: completed
   - id: ws2-readiness-review
     content: "WS2 GATE: fresh-session readiness review of the topology redesign (D1-D6 below are PROPOSED, authored post-peak). Dispatch assumptions-expert + architecture expert; ratify or revise; the burn-analysis report is the evidence base."
     status: pending

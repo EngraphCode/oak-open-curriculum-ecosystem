@@ -23,52 +23,52 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## RUN COMPLETE — salvage ws1 is the next action (2026-07-02 evening, Perseus wakes Oblivion)
+## SALVAGE ws1 COMPLETE — next: the disposition pass + the owner's tier-E round (2026-07-02 late evening, Rosemary stirs Bracken)
 
-**Self-contained. The discovery run EXECUTED to a green deterministic close and a FAILED
-calibration verdict; the owner has directed salvage-not-rerun. Next session: execute ws1 of
-[`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md).**
+**Self-contained.** The 2026-07-02 discovery run's salvage (ws1 of
+[`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md))
+is EXECUTED and committed on branch `chore/rescue_findings`:
 
-**State (all on `main` — merged via PR #296, 2026-07-02, Sonar gate green):**
+1. **The deliverable**: the discovery report
+   [`discovery-run-salvage-report-2026-07-02.md`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/discovery-run-salvage-report-2026-07-02.md)
+   — the full tier table with pattern text plus the novelty stratification. Machine-readable:
+   `data/discovery-run-salvage-tiers-2026-07-02.json` (tier table) and
+   `data/discovery-run-post-run-close-2026-07-02.json` (repaired close: 18/18 corroborated,
+   0 missing claims). All checkpoints live under
+   `.agent/reports/agentic-engineering/large-corpus-analysis-tooling/data/` (note the
+   `.agent/` prefix — an earlier version of this record omitted it).
+2. **The numbers** (conservation-checked 246/246): A=18 (corroborated or quorum-kept keeps),
+   B=8 (uncorroborated keeps; incl. C36 the lone reverse and C54 the sole incomplete quorum),
+   C=18 (opus-quorum-keep vs sonnet-kill — recomputed from the banked corpus; equals the
+   plan's named ids exactly), D=18 (proven-real false kills, all note-named), C∩D=3
+   (C03/C04/C07), E=187 ranked kills for the OWNER'S MANUAL ROUND (C245 at 10 windows leads),
+   residual=0. Eight of the 26 survivors are genuinely novel (no on-disk home).
+3. **The tooling** (TDD, panel-reviewed pre- and post-execution): `pnpm salvage-driver` in
+   agent-tools over the post-run/ modules salvage-tiers / salvage-strata / banked-verdicts /
+   disposition-partition / recall-named-kills / checkpoint-io. The corroboration cwd bug is
+   FIXED (`e18516265`); the salvage stack landed as `f5fd2e5b2`. `finaliseQuorum`,
+   `terminalResolutions`, and `adversaryLensSchema` are exported (visibility only — the
+   adjudication semantics stay frozen).
+4. **Economics and regime doctrine unchanged**: `burn-analysis-2026-07-02.md` remains the
+   method of record; never re-run the full validate; ~1/10th pilots first; every run
+   pre-declares agents/tokens/dollars.
 
-1. **Checkpoints in `reports/agentic-engineering/large-corpus-analysis-tooling/data/`**: partition
-   (15w/100f), map (580 leaves), reduce (246 candidates), validate
-   (`discovery-run-validate-result-2026-07-02.json`: 26 keep / 220 kill, 984 voters all
-   adjudicated), meta (`discovery-run-meta-result-2026-07-02.json`: 2 subsumes / 5 partial / 11
-   missed over 18 baselines), and the banked paired-comparison corpus
-   (`discovery-run-banked-freetool-verdicts-2026-07-02.json`: 202 Opus + 31 Sonnet free-tool
-   verdicts mapped to candidate ids — tier-C evidence, conserved from the transcript dir).
-2. **The calibration verdict**: Choice-B MISS (strict within-remit 0.2, lenient 0.6); the meta
-   notes name the missed baselines' matching candidates as found-then-KILLED — the Sonnet
-   no-tools voter regime over-killed (kill verdicts failed 3–4 conjunctive tests at once;
-   `grounded` was the LEAST-failed test, so machine-verified grounding would NOT have cured it).
-   Integrity 0, recompute 246/246 zero-diff — the mechanics are trustworthy; the survivors list
-   is not a complete discovery set.
-3. **Economics**: `burn-analysis-2026-07-02.md` is the method of record (transcript-summed raw
-   usage; ~1M raw tokens per 5h-meter point; unit costs per agent type; agent-count formulas
-   incl. validate worst case 4C; quota overflow silently moves subagents to API billing —
-   ~$448 API-equivalent this session). Owner directives now standing in the plan: never re-run
-   the full validate; ~1/10th pilots first; every run pre-declares agents/tokens/dollars.
-4. **Tooling state**: all four stage dispatches use least-privilege agent types (corpus-mapper /
-   -reducer / -voter / -meta; findings map in the canonical templates — null-value `tools:` is
-   the zero-tools shape); validate MAX_CONCURRENCY=8; the post-run driver has a KNOWN BUG (ws1
-   fixes it): corroboration `existsSync` resolves repo-relative claims against the agent-tools
-   cwd, reporting 0/18 corroborated when the meta agent had disk-verified real homes.
+**Next actions, in order:**
 
-**ws1 salvage (executable now, zero validate spend):** fix the driver cwd bug (TDD); compute the
-tier table — A: Sonnet-keeps ∩ (corroborated ∪ Opus-quorum-keep); B: remaining Sonnet keeps;
-C: Opus-keep/Sonnet-kill disagreements (recompute from the banked-verdicts checkpoint: quorum =
-strict-majority keep over the 3 lensed verdicts per candidate; 18 candidates incl. C03–C05, C07,
-C10, C11, C15, C18–C21, C25, C33, C35, C37, C45, C47, C52; C36 is the lone reverse); D: kills
-named in meta recall notes as baseline-matching (proven-real false kills); E: remaining kills
-ranked by window span + groundingCount for the owner's manual round. Then the discovery report
-with novelty stratification (corroboration claims in the meta checkpoint; triage bands in the
-driver output) → conservation buffer → tasks #6/#7 (consolidate-until-done + napkin rotation).
-Napkin writes are safe (map long done); rotation belongs to the consolidate-until-done.
+1. **The rescued-concept disposition pass** (fresh seat, dedicated): run the conservation
+   machinery (consolidate-until-done) over the report's rescue set — the 8 novel survivors,
+   the 15 C-only and 15 D-only rescues, and the tier A/B re-find confirmations. The report is
+   the intake work-list; the committed tier JSON carries every pattern's full text. Graduate
+   or record-disposition each; the buffers were empty at pass-open.
+2. **The owner's tier-E manual round** — 187 ranked kills in the report §Tier E; nothing was
+   deleted, every kill is conserved in the committed checkpoints.
+3. **The ws2 readiness review** (fresh seat) — the unchanged gate on the topology redesign
+   (D1–D6 remain PROPOSED).
 
 **Operator discipline unchanged:** typed envelopes inspected before trust; never `--no-verify`;
-lean pathspec commits sanctioned for checkpoints; `.claude/settings.json` working-tree mod is
-pre-existing and NOT ours.
+lean pathspec commits sanctioned for checkpoints; the commit-queue spawned-commit workflow died
+twice more this session at the documented depcruise→turbo truncation — the commit skill's direct
+`git commit -F` cure works exactly as written.
 
 ## Current Continuation
 
@@ -311,7 +311,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Linnet binds Leeward` | `claude-code` | `claude-opus-4-8[1m]` | `cbd113` | `v3 + conservation planning then discovery-first re-rooting. Authored the v3-extraction-grain + conservation plans, then (owner-directed) re-rooted the arc to discovery-first (recall = tuning, not the milestone) and authored the napkin-corpus-discovery-run plan (supersedes v3; first-class checkpointing, cost reconciliation, longitudinal falsifier, conservation buffer); re-rooted the chain-origin plan; reconciled the lineage. Reviewers (assumptions/docs-adr) + Explore + Plan agents, all assessed first-hand. Commits 9a4d59d06 to bfdd51358 (ahead 4, NOT pushed).` | 2026-06-30 | 2026-06-30 |
 | `Flare hunts Obsidian` | `claude-code` | `claude-opus-4-8[1m]` | `48caf4` | `WS1 of the napkin-corpus-discovery-run (solo, ultracode). Landed the actuator-grain + longitudinal prompts and the run-orchestration TDD module (resume / completeness / hard-abort re-gate / ~50k calibration / jitter; aggregation FROZEN, diff-confirmed; 5-lens review, 2 criticals fixed incl. a stale routing mirror in the straight-through .mjs) — 974c8fa04. The cheap grain-probe stalled in reduce (output truncation under cap-removal + kind-confusion, NOT rate-limit); salvaged 167 leaves, hardened the reduce (bounded supportingLeafIds + KIND-rule), SPLIT the combined template into map.workflow + reduce.workflow (the combined cannot self-checkpoint) — 91ee28474. Re-run reduce-only PASSED the probe gate (all 5 v2-failing baselines as distinct actuator candidates; ≥4 longitudinal with real splits; broad clusters coherent). Surfaced the full-run cost constraint (~80-120 candidates ⇒ re-derive the 16M ceiling). Continuity b2228bc9d. Then 2026-07-01: reconciled main's upstream fix (merge 9dbb38cfb), ran the launch-preflight (map.workflow.run instantiated, 30M ceiling, metaPrompt drift fixed), verified GO_WITH_CONDITIONS, and a fresh-reader trawl found + fixed a grounding-strip run-collapse blocker plus doc gaps; commits through this closeout, ahead of origin, NOT pushed.` | 2026-06-30 | 2026-07-01 |
 | `Perseus wakes Oblivion` | `claude-code` | `claude-fable-5` | `89ccb2` | `TS rebuild of the workflow suite (2586151c1 + a4ec3f0da: compiled/bundled artefacts end the mirror-drift class) then the EXECUTED discovery run: map (580 leaves, f9bcf2700) → reduce (246 candidates + deterministic post-run driver, 8f6729491) → the money-gate fork (owner decided validate-all at 62M) → validate (26 keep / 220 kill, 820d03a25) → meta (420081c9c). Validate regime FAILED calibration (11/18 known-real baselines found-then-killed); banked 202 Opus + 31 Sonnet verdicts as the paired-comparison corpus; least-privilege agent types (null-tools shape, owner-probed); burn accounting + the salvage-and-topology-redesign plan (ebaf06491); closeout 0cd116fa7. §RUN COMPLETE above is this session's pickup.` | 2026-07-01 | 2026-07-02 |
-| `Rosemary stirs Bracken` | `claude-code` | `claude-fable-5` | `9f59e1` | `Dedicated consolidation to contract-complete (4fd9ce47b, ef96b4a03, 1be4669c9, 17be1890c): napkin rotated; distilled + pending-graduations + open-questions ALL EMPTY; the v2 13-pattern work-list executed per the conservation-plan ledger (WS-A/WS-B landed); PDR-122 amended (invariants 5-6 + economics); PDR-123 authored (design panels); agentic-judgment-conserve-by-default rule (four forms); 2 prior archives re-verified with 4 survivor gaps cured; owner voided recorded keep-open grants → grants-are-live-per-pass doctrine into precedence-is-not-approval + both consolidate skills. Then corpus-subagent full adapter set + null-tools schema (49389bf0c); PR #296 opened and shepherded to MERGED (lockfile-override fix 9a71735bd; 16 Sonar findings fixed at source incl. the S8707 vulnerability, b606fc86f + d0693acd2; all Copilot threads settled); the /oak-pr-lifecycle skill authored from the shepherding (first slice of its plan). On chore/rescue_findings: pickup staleness fixes for salvage ws1.` | 2026-07-02 | 2026-07-02 |
+| `Rosemary stirs Bracken` | `claude-code` | `claude-fable-5` | `9f59e1` | `Dedicated consolidation to contract-complete (4fd9ce47b, ef96b4a03, 1be4669c9, 17be1890c): napkin rotated; distilled + pending-graduations + open-questions ALL EMPTY; the v2 13-pattern work-list executed per the conservation-plan ledger (WS-A/WS-B landed); PDR-122 amended (invariants 5-6 + economics); PDR-123 authored (design panels); agentic-judgment-conserve-by-default rule (four forms); 2 prior archives re-verified with 4 survivor gaps cured; owner voided recorded keep-open grants → grants-are-live-per-pass doctrine into precedence-is-not-approval + both consolidate skills. Then corpus-subagent full adapter set + null-tools schema (49389bf0c); PR #296 opened and shepherded to MERGED (lockfile-override fix 9a71735bd; 16 Sonar findings fixed at source incl. the S8707 vulnerability, b606fc86f + d0693acd2; all Copilot threads settled); the /oak-pr-lifecycle skill authored from the shepherding (first slice of its plan). On chore/rescue_findings: pickup staleness fixes, then post-compaction SALVAGE ws1 EXECUTED — corroboration cwd fix (`e18516265`, 0/18→18/18), the deterministic salvage stack (`f5fd2e5b2`: salvage-driver + 5 modules, TDD, dual expert panels with a grounded reviewer-contradiction catch), tier table A=18 B=8 C=18 D=18 E=187 residual=0 conservation-checked, and the discovery report conserved.` | 2026-07-02 | 2026-07-02 |
 
 ## Cross-Plan and Cross-Thread Links
 
