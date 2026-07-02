@@ -101,10 +101,12 @@ current session:
    forbids the report-gaming).
 2. Every live drainable buffer in scope is empty or ready-empty. The
    **open-questions register is driven to zero exactly as pending-graduations is**
-   (owner directive 2026-06-28): every entry decided — answered, withdrawn, or
-   **explicitly kept open by the user** (a USER-ONLY grant carrying a
-   `keep-open granted by user, <date>` note). An undecided "leave open" does not
-   satisfy this contract in a dedicated pass.
+   (owner directive 2026-06-28): every entry decided — answered, withdrawn, re-homed
+   into its owning artefact, or **explicitly kept open by the user, live, in this
+   pass**. A recorded `keep-open granted by user, <date>` note from a prior session
+   is a claim to re-verify, never a standing satisfier (`precedence-is-not-approval`;
+   owner correction 2026-07-02). An undecided "leave open" does not satisfy this
+   contract in a dedicated pass.
 3. Every split, child, adjacent, dated, or directory-partitioned buffer file is
    included in the buffer inventory. A file does not stop being a buffer
    because it is called a shard, split, window, archive candidate, backlog, or

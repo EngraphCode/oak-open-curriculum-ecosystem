@@ -589,11 +589,18 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    **In a DEDICATED consolidation, drive this register to zero exactly as
    pending-graduations is driven** (owner directive 2026-06-28). Every entry must be
-   *decided* this pass — answered, withdrawn, or **explicitly kept open by the user**.
-   `open` as an agent default ("deferral-honesty") does NOT satisfy a dedicated pass:
-   keep-open is a USER-ONLY grant, surfaced via `AskUserQuestion`, and the entry records
-   a `keep-open granted by user, <date>` note as the proof. (Outside a dedicated pass,
-   the lighter answer/withdraw/leave-open disposition above applies.)
+   *decided* this pass — answered, withdrawn, re-homed into its owning artefact, or
+   **explicitly kept open by the user, LIVE, in this pass**. `open` as an agent default
+   ("deferral-honesty") does NOT satisfy a dedicated pass, and neither does a recorded
+   `keep-open granted by user, <date>` note from a prior session — a recorded grant is
+   a claim to re-verify with the owner, never standing authority
+   (`precedence-is-not-approval`; owner correction 2026-07-02 after two recorded grants
+   were found not to carry the owner's agreement). Keep-open is a USER-ONLY grant,
+   surfaced via `AskUserQuestion`, consumed by the pass it is given in. For genuinely
+   long-lived questions, prefer re-homing into the owning artefact (a plan, a PDR's
+   open-questions section, a thread record) over holding them here under a grant.
+   (Outside a dedicated pass, the lighter answer/withdraw/leave-open disposition above
+   applies.)
 
    Do not convert open questions into pending-graduations entries unless the
    question has become a candidate doctrine, pattern, ADR, or PDR. When both

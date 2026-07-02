@@ -63,3 +63,14 @@ New session observations append below.
 - **`claims close` requires `--now`; `claims open` defaults it** — inconsistent option surface
   (F-72..F-80 sibling; cost one retry). A body/summary containing an apostrophe also exits 2
   (shell-quoting through the pnpm wrapper) — use apostrophe-free summaries or `--body-file`.
+- **OWNER CORRECTION (the session's sharpest): recorded "keep-open granted by user" notes were
+  NOT the owner's grants** — "those are not _my_ grants, they are grants made in my name, and I
+  do not agree to them." I had treated the 2026-06-28 notes on Q-009/Q-011 as standing
+  satisfiers; a recorded grant is a prior session's CLAIM, re-verified live each pass. Same
+  correction one layer up: I first held the design-panel item behind a 2026-06-29 trigger
+  against TODAY'S "everything graduated" — an older directive invoked against a later one
+  (owner direction is a stream). Both homed: `precedence-is-not-approval` (recorded-grant +
+  older-directive clauses), the consolidate-docs 7b.1 + consolidate-until-done contract
+  (grants are live-per-pass; prefer re-homing long-lived questions into owning artefacts),
+  and the register's own drain_strategy. Outcome: Q-009 → the two-altitudes report +
+  repo-continuity strategy entry; Q-011 → PDR-118 open question 6; register EMPTY.

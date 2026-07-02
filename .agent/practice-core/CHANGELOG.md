@@ -4,6 +4,13 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-02 — PDR-118 gains open question 6: the external staleness-reaper (dedicated consolidation, Rosemary stirs Bracken)
+
+The ungraceful-death liveness question (self-emitted signals cannot be stopped by a dead
+session; a dead-man's-switch primitive that reaps from outside is likely needed; owner
+architectural decision) re-homed from the host open-questions register into PDR-118's
+model-level open questions, beside the composed-liveness question it extends.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-02 — PDR-123 authored: agentic design panels (dedicated consolidation, Rosemary stirs Bracken)
 
 New `pdr_kind: pattern` PDR graduating the design-panel protocol from its founding worked

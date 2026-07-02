@@ -23,7 +23,15 @@ Whenever a prior act is invoked as the reason for an action:
   authority to *execute* it. Agreeing *what* to do is a design decision; doing it
   is an action that a standing session constraint (read-only, no-commit) still
   gates. The smooth "but we agreed to do X" is the `fluency-is-a-failure-vector`
-  tripwire — confirm live execution authority separately from agreeing the plan.
+  tripwire — confirm live execution authority separately from agreeing the plan;
+- a recorded owner-grant note ("keep-open granted by user, <date>") treated as
+  standing authority in a later pass. The note records that a prior session
+  *claimed* a grant; the owner's approval is live and per-pass (worked failure
+  2026-07-02: two recorded keep-open grants were found not to carry the owner's
+  agreement — "grants made in my name, and I do not agree to them"). An older
+  owner directive also yields to a later one: owner direction is a stream, and
+  invoking an earlier trigger against today's explicit instruction is precedence
+  dressed as deference.
 
 ## The Cure
 

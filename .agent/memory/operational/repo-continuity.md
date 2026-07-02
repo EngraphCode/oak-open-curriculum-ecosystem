@@ -86,8 +86,10 @@ forward-asks remain.
   (intent as a living idea-graph — Accepted) + ADR-201 (Proposed, external-evidence) + the plans
   committed; progression GO. **Next (owner top priority): WS2** — author the idea-node JSON Schema +
   decide id-minting; **WS4 thin-slice-proof is a HARD GATE** before the full harvest (WS6). V0 = the form
-  new plans take. Read ADR-200 + the thread record first. The missing **content-structure graph** is open
-  question **Q-009**.
+  new plans take. Read ADR-200 + the thread record first. The missing **content-structure graph**'s
+  decision inventory is [`knowledge-as-graph-two-altitudes-2026-06-23.md`](../../reports/knowledge-as-graph-two-altitudes-2026-06-23.md);
+  its design is owned by the incoming engineer's brief + the owner, gated on the single-team
+  decision (§Open Owner-Decision Items #7).
 - **Sonar AI-profile → zero — LIVE.** Driving `main`'s deliberately-adopted Sonar AI quality-profile
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
@@ -274,8 +276,9 @@ F-41 CLI tail).
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
    PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;
-   `distilled` + `pending-graduations` empty; open-questions holds only the two user-granted
-   keep-opens (Q-009/Q-011).
+   `distilled` + `pending-graduations` + `open-questions` all empty (the long-lived questions
+   re-homed into their owning artefacts; recorded keep-open grants voided by the owner —
+   grants are live-per-pass, never carried).
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
 2a. `agent-collaboration.md` is hard-over on lines (377/360) after the injected-asymmetry doctrine
