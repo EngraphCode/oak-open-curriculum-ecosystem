@@ -74,7 +74,7 @@ describe('buildStandardsView — facet filtering', () => {
 describe('buildStandardsView — pagination', () => {
   it('caps the default page and reports more remaining', () => {
     const view = buildStandardsView(initialBrowseState());
-    expect(view.results.length).toBe(DEFAULT_LIMIT);
+    expect(view.results).toHaveLength(DEFAULT_LIMIT);
     expect(view.hasMore).toBe(true);
     expect(view.nextStep).toBe(DEFAULT_LIMIT);
     expect(view.showAllCount).toBe(TOTAL);
@@ -83,7 +83,7 @@ describe('buildStandardsView — pagination', () => {
 
   it('shows the whole corpus and drops the more control when the limit covers it', () => {
     const view = buildStandardsView(stateWith({ limit: TOTAL }));
-    expect(view.results.length).toBe(TOTAL);
+    expect(view.results).toHaveLength(TOTAL);
     expect(view.hasMore).toBe(false);
     expect(view.resultLabel).toBe(`${TOTAL} standards`);
   });

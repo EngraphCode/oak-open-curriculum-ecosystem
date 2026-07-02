@@ -99,7 +99,7 @@ function matchesFacets(s: QualityStandard, filter: StandardsFilter): boolean {
     filter.rubric === undefined || s.rubrics.includes(filter.rubric),
     filter.area === undefined || s.areas.includes(filter.area),
   ];
-  return checks.every((ok) => ok);
+  return checks.every(Boolean);
 }
 
 /** Whether a standard satisfies the facet filter and the free-text query. */

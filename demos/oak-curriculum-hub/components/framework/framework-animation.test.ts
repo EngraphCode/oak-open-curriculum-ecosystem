@@ -35,7 +35,7 @@ describe('chevronPath', () => {
     });
     expect(d.startsWith('M')).toBe(true);
     expect(d.trimEnd().endsWith('Z')).toBe(true);
-    expect((d.match(/A/g) ?? []).length).toBe(2);
+    expect(d.match(/A/g) ?? []).toHaveLength(2);
   });
 
   it('serialises every coordinate at fixed precision (no engine-dependent double tails)', () => {

@@ -19,26 +19,36 @@ function ChipRow({
   readonly onPick: (value: string) => void;
 }): ReactElement {
   return (
-    <div role="group" aria-label={label} className="flex flex-wrap items-center gap-2">
-      <span className="mr-0.5 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey">
-        {label}
-      </span>
-      {chips.map((chip) => (
-        <button
-          key={chip.value}
-          type="button"
-          aria-pressed={chip.active}
-          onClick={() => onPick(chip.value)}
-          className={`rounded-full border-2 border-oak-black px-3.5 py-2 text-[13px] font-bold ${
-            chip.active
-              ? 'bg-oak-black text-white'
-              : 'bg-white text-oak-black hover:shadow-oak-lemon'
-          }`}
+    // Native form-control grouping: the chips are aria-pressed buttons, so
+    // fieldset/legend is the native structure (Sonar S6819). The legend names
+    // the group for AT; the aria-hidden span carries the visible label inside
+    // the flex row (a floated legend cannot join flex layout).
+    <fieldset className="m-0 min-w-0 border-0 p-0">
+      <legend className="sr-only">{label}</legend>
+      <div className="flex flex-wrap items-center gap-2">
+        <span
+          aria-hidden="true"
+          className="mr-0.5 text-[12px] font-bold uppercase tracking-[0.04em] text-oak-grey"
         >
-          {chip.label}
-        </button>
-      ))}
-    </div>
+          {label}
+        </span>
+        {chips.map((chip) => (
+          <button
+            key={chip.value}
+            type="button"
+            aria-pressed={chip.active}
+            onClick={() => onPick(chip.value)}
+            className={`rounded-full border-2 border-oak-black px-3.5 py-2 text-[13px] font-bold ${
+              chip.active
+                ? 'bg-oak-black text-white'
+                : 'bg-white text-oak-black hover:shadow-oak-lemon'
+            }`}
+          >
+            {chip.label}
+          </button>
+        ))}
+      </div>
+    </fieldset>
   );
 }
 

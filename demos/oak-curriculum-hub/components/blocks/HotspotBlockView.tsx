@@ -57,11 +57,11 @@ function SpotDetail({
   readonly text: string;
 }): ReactElement {
   return (
-    <div
-      role="status"
-      className="mt-3.5 min-h-[90px] rounded-xl border-2 border-oak-black bg-white p-[16px_18px]"
-    >
-      <p className="mb-1.5 flex items-center gap-2.5">
+    // Native <output> carries the implicit status role; the inner rows are
+    // block-styled phrasing elements (output's content model) — a live region
+    // announcing title + text needs no paragraph semantics.
+    <output className="mt-3.5 block min-h-[90px] rounded-xl border-2 border-oak-black bg-white p-[16px_18px]">
+      <span className="mb-1.5 flex items-center gap-2.5">
         <span
           aria-hidden="true"
           className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-oak-black text-sm leading-none font-bold text-white"
@@ -69,9 +69,9 @@ function SpotDetail({
           {num}
         </span>
         <span className="text-[17px] leading-[22px] font-bold">{title}</span>
-      </p>
-      <p className="max-w-[64ch] text-base leading-6 font-light">{text}</p>
-    </div>
+      </span>
+      <span className="block max-w-[64ch] text-base leading-6 font-light">{text}</span>
+    </output>
   );
 }
 

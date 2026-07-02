@@ -18,7 +18,7 @@ const rowLinkClass =
 
 /** One quality-standard row under the selected rubric, linking to its /standards detail. */
 function RubricStandardRow({ standard }: { readonly standard: QualityStandard }): ReactElement {
-  const badge = standard.code !== '' ? standard.code : standard.id;
+  const badge = standard.code === '' ? standard.id : standard.code;
   const area = standard.areas[0];
   return (
     <Link href={`/standards#qs=${standard.id}`} className={rowLinkClass}>

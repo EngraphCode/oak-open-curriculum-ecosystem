@@ -78,10 +78,10 @@ function displayRubric(rubric: string): string {
 function toFilter(state: StandardsBrowseState): StandardsFilter {
   const text = state.query.trim();
   return {
-    ...(text !== '' ? { text } : {}),
+    ...(text === '' ? {} : { text }),
     ...(isQualityStandardType(state.type) ? { type: state.type } : {}),
-    ...(state.rubric !== ALL ? { rubric: state.rubric } : {}),
-    ...(state.area !== ALL ? { area: state.area } : {}),
+    ...(state.rubric === ALL ? {} : { rubric: state.rubric }),
+    ...(state.area === ALL ? {} : { area: state.area }),
   };
 }
 

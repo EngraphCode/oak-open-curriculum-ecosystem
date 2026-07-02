@@ -51,9 +51,9 @@ function FramedImage({
       sizes="(min-width: 768px) 426px, 100vw"
       className="shadow-oak-wide-lemon h-auto w-full rounded-2xl border-[3px] border-oak-black"
       style={
-        block.maxWidth !== undefined
-          ? { maxWidth: block.maxWidth, display: 'block', margin: '0 auto' }
-          : undefined
+        block.maxWidth === undefined
+          ? undefined
+          : { maxWidth: block.maxWidth, display: 'block', margin: '0 auto' }
       }
     />
   );
@@ -65,7 +65,7 @@ function FramedImage({
  * placeholder box, faithful to the export (most course images ship undecoded).
  */
 export function ImageBlockView({ block }: { readonly block: ImageBlock }): ReactElement {
-  const dims = block.src !== undefined ? ASSET_DIMENSIONS.get(block.src) : undefined;
+  const dims = block.src === undefined ? undefined : ASSET_DIMENSIONS.get(block.src);
   return (
     <figure>
       {block.src !== undefined && dims !== undefined ? (
