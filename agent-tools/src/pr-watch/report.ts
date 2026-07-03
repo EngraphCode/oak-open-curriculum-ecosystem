@@ -1,4 +1,5 @@
 import type { ChecksSummary, CommentRef, PrSnapshot } from './index.js';
+import type { ReviewThreadsSummary } from './review-threads.js';
 
 /**
  * Presentation for `pr-watch`: render a {@link PrSnapshot} to one human line,
@@ -16,6 +17,10 @@ function describeChecks(checks: ChecksSummary): string {
   return `${checks.passed}✓ ${checks.failed}✗ ${checks.pending}⋯`;
 }
 
+function describeThreads(threads: ReviewThreadsSummary): string {
+  return `${threads.unresolved}/${threads.total}`;
+}
+
 function shortSha(sha: string): string {
   return sha.slice(0, SHORT_SHA_LENGTH);
 }
@@ -28,6 +33,7 @@ export function formatSnapshot(snapshot: PrSnapshot): string {
     `review=${reviewLabel(snapshot.reviewDecision)} · ` +
     `checks ${describeChecks(snapshot.checks)} · ` +
     `comments ${snapshot.reviewComments.length}r/${snapshot.issueComments.length}i · ` +
+    `unresolved ${describeThreads(snapshot.reviewThreads)} · ` +
     `head ${shortSha(snapshot.headRefOid)}`
   );
 }
@@ -70,6 +76,14 @@ export function diffSnapshots(previous: PrSnapshot, next: PrSnapshot): string[] 
     ),
     ...headChange(previous.headRefOid, next.headRefOid),
     ...fieldChange('checks', describeChecks(previous.checks), describeChecks(next.checks)),
+    // Rendered-pair comparison fires in BOTH directions: a thread arriving or becoming
+    // unresolved AND a thread being resolved each produce a line (the REST comment
+    // surfaces are blind to resolution state, so this is the only wake signal for it).
+    ...fieldChange(
+      'unresolved threads',
+      describeThreads(previous.reviewThreads),
+      describeThreads(next.reviewThreads),
+    ),
     ...newCommentLines('review', previous.reviewComments, next.reviewComments),
     ...newCommentLines('issue', previous.issueComments, next.issueComments),
   ];

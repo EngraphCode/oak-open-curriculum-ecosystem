@@ -122,7 +122,42 @@ const EXEC_OPTIONS: ExecFileSyncOptionsWithStringEncoding = {
   maxBuffer: MAX_GH_OUTPUT_BYTES,
 };
 
-/** Fetch the two `gh` surfaces for a PR and build a {@link PrSnapshot}. */
+// The `$endCursor` variable plus `after: $endCursor` are what let `gh api graphql
+// --paginate` follow the cursor itself; `--slurp` wraps the pages into one JSON array.
+const REVIEW_THREADS_QUERY = `query($owner: String!, $name: String!, $number: Int!, $endCursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      reviewThreads(first: 100, after: $endCursor) {
+        totalCount
+        pageInfo { hasNextPage endCursor }
+        nodes { isResolved }
+      }
+    }
+  }
+}`;
+
+// `-F` values support the same `{owner}` / `{repo}` placeholder substitution from the
+// current repository as REST paths, and become GraphQL variables (verified live,
+// gh 2.95.0, 2026-07-03).
+function reviewThreadsArgs(prNumber: string, repo: string | undefined): string[] {
+  const [owner, name] = repo === undefined ? ['{owner}', '{repo}'] : repo.split('/');
+  return [
+    'api',
+    'graphql',
+    '--paginate',
+    '--slurp',
+    '-f',
+    `query=${REVIEW_THREADS_QUERY}`,
+    '-F',
+    `owner=${owner}`,
+    '-F',
+    `name=${name}`,
+    '-F',
+    `number=${prNumber}`,
+  ];
+}
+
+/** Fetch the three `gh` surfaces for a PR and build a {@link PrSnapshot}. */
 export function readPrSnapshot(options: ReadPrSnapshotOptions): PrSnapshot {
   const run = options.execFileSync ?? execFileSync;
   const gh = resolveGhPath(options.ghPath, options.exists);
@@ -141,7 +176,11 @@ export function readPrSnapshot(options: ReadPrSnapshotOptions): PrSnapshot {
 
   const prViewRaw = parseGhJson(run(gh, prViewArgs, EXEC_OPTIONS), 'pr view');
   const reviewCommentsRaw = parseGhJson(run(gh, apiArgs, EXEC_OPTIONS), 'api pulls comments');
-  return buildSnapshot(prViewRaw, reviewCommentsRaw);
+  const reviewThreadPagesRaw = parseGhJson(
+    run(gh, reviewThreadsArgs(prNumber, repo), EXEC_OPTIONS),
+    'api graphql reviewThreads',
+  );
+  return buildSnapshot(prViewRaw, reviewCommentsRaw, reviewThreadPagesRaw);
 }
 
 // `gh` writes JSON to stdout; if it instead emits a non-JSON line (e.g. an auth

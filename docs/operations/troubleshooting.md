@@ -132,6 +132,19 @@ relocations**, and several report stale or silently-green results:
 - `rg` / `fd` skip dotdirs by default — pass `--hidden` when sweeping
   `.agent/` or other dot-directories, and mind `rg -r` (replace) vs `-n`.
 
+### Lockfile desync via pnpm overrides
+
+pnpm overrides (the `overrides:` section of `pnpm-workspace.yaml`, mostly
+security floors) rewrite the **effective specifier of direct dependencies**
+too, not just transitive pins. Adding a direct dependency that matches an
+existing override desyncs the lockfile — the lockfile must record the
+override's specifier, not the manifest's — and nothing local catches it,
+because no local gate runs a frozen install; CI's
+`pnpm install --frozen-lockfile` is the first surface that does
+(`ERR_PNPM_OUTDATED_LOCKFILE`, worked instance: esbuild vs the `>=0.28.1`
+floor, PR #296). Cure: run `pnpm install` and commit the lockfile; when
+adding a direct dep, grep the overrides for its name first.
+
 ### Cache false-greens
 
 Turbo and pre-commit caching can mask failures: a cached result replays green

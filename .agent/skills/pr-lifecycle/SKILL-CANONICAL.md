@@ -88,9 +88,12 @@ surfaces. Partial reads produce false "no problems" verdicts:
 
 Run the repo's budgeted watcher in the background:
 `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
-change, including new comments by author. Never hand-roll tight `gh` polling
-loops (the shared 5,000/hr API budget; frictions F-110). Between events,
-continue other work or hold; the watcher wakes you.
+change, including new comments by author and the unresolved review-thread
+count moving in EITHER direction (a thread arriving or being resolved). The
+watcher's thread count is the wake signal; the Phase 3 GraphQL harvest remains
+the authoritative read for which threads and what they say. Never hand-roll
+tight `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
+Between events, continue other work or hold; the watcher wakes you.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 

@@ -94,22 +94,23 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — the full discovery run EXECUTED (2026-07-02, Perseus wakes Oblivion);
-  salvage ws1 is the live pickup.** Map + reduce ran sound (246 genuine candidates); the validate
-  stage's Sonnet no-tools regime **failed calibration** — it killed 11/18 known-real baselines the
-  run had correctly found (regime change = design change, PDR-122 invariant 6). The 202 Opus +
-  31 Sonnet free-tool verdicts are **banked and committed**
-  (`data/discovery-run-banked-freetool-verdicts-2026-07-02.json`), so
-  **salvage ws1 runs without any re-spend**: recompute quorums from the banked checkpoint, rank
-  the remaining kills, produce the discovery report. Live plan:
-  [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md)
-  (+ burn-analysis-2026-07-02 for the economics). The run's doctrine lessons are graduated:
-  [PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md) invariants
-  5–6 + economics (2026-07-02 amendment), the `agentic-judgment-conserve-by-default` rule, and the
-  `sandbox-constraint-is-a-build-instruction` / `adversarial-pre-spend-verification` patterns.
-  Conservation of the v2 discoveries is DONE (the conservation plan's WS-A/WS-B landed 2026-07-02);
+- **Large-corpus analysis — SALVAGE ws1 EXECUTED (2026-07-02, Rosemary stirs Bracken, on
+  `chore/rescue_findings`); next: the rescued-concept disposition pass + the owner's tier-E
+  round.** The corroboration cwd bug is fixed (18/18 corroborated) and the deterministic salvage
+  stack is TDD-landed (`e18516265` + `f5fd2e5b2`: `pnpm salvage-driver` over the committed
+  checkpoints, zero re-spend). The stratification is conservation-checked 246/246: **A=18 B=8
+  C=18 D=18 (C∩D=3) E=187 residual=0**; tier C recomputed from the banked corpus equals the
+  plan's named ids exactly; 8 survivors are genuinely novel. The owner-facing deliverable is
+  [`discovery-run-salvage-report-2026-07-02.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/discovery-run-salvage-report-2026-07-02.md)
+  (tier E is the owner's manual round). Next: a fresh-seat consolidate-until-done disposition
+  pass over the rescue set, then the ws2 topology readiness review. Live plan:
+  [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md).
+  The run's doctrine lessons remain graduated
+  ([PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)
+  invariants 5–6 + economics, the `agentic-judgment-conserve-by-default` rule, the
+  `sandbox-constraint-is-a-build-instruction` / `adversarial-pre-spend-verification` patterns);
   WS-C tooling promotion awaits the agent-tools-architecture WS0. Full pickup: the AEE thread
-  record §RUN COMPLETE.
+  record §SALVAGE ws1 COMPLETE.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -270,9 +271,10 @@ F-41 CLI tail).
 
 ### Agentic-Engineering Curation
 
-0. **LIVE: corpus-analysis salvage ws1** (the discovery run executed 2026-07-02; the validate
-   regime failed calibration; verdicts are banked, so salvage runs with zero re-spend) — see the
-   §Current State large-corpus entry; full pickup: [`agentic` thread record][agentic] §RUN COMPLETE.
+0. **LIVE: the rescued-concept disposition pass** (salvage ws1 EXECUTED 2026-07-02 — tier table +
+   discovery report committed on `chore/rescue_findings`; next a fresh-seat consolidate-until-done
+   over the rescue set, plus the owner's tier-E manual round) — see the §Current State
+   large-corpus entry; full pickup: [`agentic` thread record][agentic] §SALVAGE ws1 COMPLETE.
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
    PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;

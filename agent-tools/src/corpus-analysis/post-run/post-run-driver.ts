@@ -26,12 +26,9 @@
  * @packageDocumentation
  */
 
-import { existsSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 
 import { err, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import { resolveRepoRoot } from '../../core/repo-root.js';
 
@@ -50,6 +47,8 @@ import {
   parseValidateResult,
 } from '../workflows/stage-io.js';
 import type { MapResult, MetaResult, ReduceResult, ValidateResult } from '../workflows/stage-io.js';
+import { makeCheckpointReader } from './checkpoint-io.js';
+import { existingClaimedHomePaths } from './claimed-home-existence.js';
 import { recomputeDispositions, temporalCoverageReport } from './post-run-analysis.js';
 import { triageDispositions } from './triage.js';
 
@@ -57,32 +56,7 @@ import { triageDispositions } from './triage.js';
 const CHOICE_B = { minStrictWithinRemit: 0.6, minLooseWithinRemit: 0.85 } as const;
 
 const repoRoot = resolveRepoRoot(import.meta.url);
-
-async function readCheckpoint<T>(
-  filePath: string | undefined,
-  label: string,
-  parse: (value: unknown) => Result<T, Error>,
-): Promise<Result<T, Error>> {
-  if (filePath === undefined) {
-    return err(new Error(`Missing required checkpoint flag: ${label}.`));
-  }
-  try {
-    // Checkpoint envelopes are committed repo artefacts; anchoring the
-    // flag-supplied path inside the repo root blocks `../` traversal and
-    // symlink escapes from a faulty CLI invocation (tssecurity:S8707).
-    const safePath = assertPathWithinBase(filePath, repoRoot);
-    return parse(JSON.parse(await readFile(safePath, 'utf8')));
-  } catch (cause) {
-    return err(
-      new Error(
-        `Cannot read checkpoint ${filePath}: ${cause instanceof Error ? cause.message : String(cause)}`,
-        {
-          cause,
-        },
-      ),
-    );
-  }
-}
+const readCheckpoint = makeCheckpointReader(repoRoot);
 
 interface Checkpoints {
   readonly mapResult: MapResult;
@@ -183,11 +157,12 @@ if (checkpoints.ok) {
     const temporal = temporalCoverageReport(reduceResult.candidates);
     const corroboration = corroborateAgainstHomes({
       claims: meta.corroborationClaims,
-      existingHomePaths: new Set(
-        meta.corroborationClaims
-          .flatMap((claim) => claim.claimedHomePaths)
-          .filter((home) => existsSync(home)),
-      ),
+      // Claimed homes are repo-relative; anchor them at the repo root (a bare
+      // existsSync would resolve against the agent-tools cwd and miss every one).
+      existingHomePaths: existingClaimedHomePaths({
+        claims: meta.corroborationClaims,
+        repoRoot,
+      }),
     });
     const recomputes = recomputeDispositions(validateSuccesses);
     const recomputeMismatches = recomputes.filter((entry) => !entry.matches);
