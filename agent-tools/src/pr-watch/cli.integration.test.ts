@@ -15,6 +15,7 @@ function makeSnapshot(overrides: Partial<PrSnapshot> = {}): PrSnapshot {
     checks: { total: 1, passed: 1, failed: 0, pending: 0 },
     reviewComments: [],
     issueComments: [],
+    reviewThreads: { total: 1, unresolved: 0 },
     ...overrides,
   };
 }
@@ -154,6 +155,24 @@ describe('runPrWatchCli — watch', () => {
     });
     expect(io.out()).toContain('new review comment from bugbot');
     expect(io.out()).toContain('CLOSED — watch ending');
+  });
+
+  it('emits a change line when a review thread becomes unresolved with nothing else changing', async () => {
+    // The REST-blind error class this surface exists to kill: no new comment, no check
+    // change — only a thread flipping to unresolved must still wake the reader.
+    const io = capture();
+    await runPrWatchCli({
+      args: ['221', '--watch'],
+      stdout: io.stdout,
+      stderr: io.stderr,
+      sleep: noSleep,
+      readSnapshot: sequenceReader([
+        makeSnapshot({ reviewThreads: { total: 2, unresolved: 1 } }),
+        makeSnapshot({ reviewThreads: { total: 2, unresolved: 2 } }),
+        makeSnapshot({ state: 'CLOSED', reviewThreads: { total: 2, unresolved: 2 } }),
+      ]),
+    });
+    expect(io.out()).toContain('unresolved threads: 1/2 → 2/2');
   });
 
   it('stops at max-polls when the PR never reaches a terminal state', async () => {

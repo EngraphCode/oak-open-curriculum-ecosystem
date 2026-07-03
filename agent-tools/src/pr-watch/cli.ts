@@ -239,7 +239,7 @@ function usage(): string {
   return [
     'pr-watch <pr-number|github-pull-url> [--repo <owner/repo>] [--json] [--watch] [--interval <seconds>] [--max-polls <n>] [--gh <absolute-path>]',
     '',
-    'Reports a pull request CI / review / mergeable state, plus review (inline) and issue comments.',
+    'Reports a pull request CI / review / mergeable state, comments, and unresolved review threads.',
     'Default: a one-shot snapshot. --json prints the structured snapshot.',
     '--watch polls (default every 30s) and emits one line per state change — including a new',
     '  review/bot comment naming its author — exiting on merged/closed or after --max-polls',
