@@ -17,6 +17,7 @@
     "tool:capture": "tsx tools/capture-live-demo.ts",
     "tool:capture-sections": "tsx tools/capture-live-sections.ts",
     "tool:drive-export": "tsx tools/drive-export-sections.ts",
+    "tool:fidelity": "tsx tools/fidelity-review.ts",
     "tool:measure-320": "tsx tools/measure-320.ts",
     "tool:render-targets": "tsx tools/render-canonical-targets.ts",
     "tool:token-audit": "tsx tools/token-fidelity-audit.ts"

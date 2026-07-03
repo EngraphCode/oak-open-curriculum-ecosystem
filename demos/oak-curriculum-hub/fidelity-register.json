@@ -25,6 +25,20 @@
       "rationale": "Recorded section-D debt (2026-07-02): the tip variant was export-verified, warning and quote were inferred from the palette. Verify each against the export course render, then move to matched or fix.",
       "author": "director-9",
       "date": "2026-07-03"
+    },
+    {
+      "id": "hub-home-fold/sixth-destination-card-fold",
+      "pairId": "hub-home-fold",
+      "kind": "feature",
+      "summary": "The above-the-fold hub capture shows the sixth destination card the export's five-card hub lacks \u2014 the same ratified divergence as hub-home-full, visible in this crop.",
+      "evidence": [
+        "demo-evidence/home-live-abovefold.png",
+        "demo-evidence/fidelity-report/diff-hub-home-fold.png"
+      ],
+      "disposition": "deliberate",
+      "rationale": "Ratified requirement: six destination cards. Fold-level record so the fold pair's triage ratio reads with the known cause attached.",
+      "author": "director-9",
+      "date": "2026-07-03"
     }
   ]
 }
