@@ -237,6 +237,22 @@ New session observations append below.
 
 ## 2026-07-03 — F-112 execution session (Mistral seeks Jetstream)
 
+- **F-112 mechanism pinned (trace-verified): a Node socketpair on the spawned git's stderr
+  poisons the pre-commit hook chain.** Node's child-stdio "pipes" are libuv socketpairs (not
+  FIFOs — `isFIFO()` misses them; check `isSocket()` too). With one on git's stderr, the hook
+  shell takes SIGPIPE at the depcruise→turbo handover and its `set -e` turns the failed echo
+  into a silent exit 1 — no ❌ line, no status file, git exits 1. Probe triangle: hook-without-
+  git through the same seam GREEN; both-streams-piped RED (capture-and-tee is NOT a cure);
+  full-inherit GREEN. Pure-shell 300KB through the same socketpair is GREEN, so the poison
+  needs the hook's own pnpm/node children sharing the descriptor. Cure: file-backed child
+  stdio + replay-on-completion (immune by construction). Diagnostic craft that paid: file-based
+  trace markers + signal traps in the hook (immune to stream loss) beat theorising; and a
+  scratch `--registry` (basename must be `active-claims.json` — the collaboration JSON
+  validator routes schema by basename) kept five failure-abandons out of the real registry.
+- **Bash fd-restore anomaly under SIGPIPE (observed, not load-bearing):** with fd1 broken, the
+  statement after a `>> file` redirect wrote INTO that file — macOS bash 3.2 sh-mode restored
+  fds oddly around the signal. Treat trace-file content position with care in future hook
+  forensics.
 - **comms-seen path derivation diverges between the CLI and the rule doc's convention.**
   `assert-watcher-live` and the `claims open` F-95 backstop derive the heartbeat path from the
   DISPLAY name verbatim (`Mistral seeks Jetstream.json.heartbeat.json`); the

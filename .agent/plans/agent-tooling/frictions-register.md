@@ -2418,8 +2418,17 @@ below is a cross-reference index, not a second source of truth.
   commit-queue workflow (likely backpressure on the live-piped child stream at the
   point turbo takes over the tty; capture the child's output to a buffer/file and
   replay, rather than live-piping). TDD cycle against a long-output child process.
-- **Status**: open — **blocks all queue-workflow commits from Claude Code**; priority
-  raised by `claude-memory-buffer-drain.plan.md`, which needs a commit per drain loop.
+- **Status**: fixed 2026-07-03 at `b2ae96898` (per
+  `f-112-commit-workflow-stream-truncation-fix.plan.md`). Mechanism pinned by
+  instrumented runs: Node's child-stdio pipes are libuv socketpairs; one on the spawned
+  git's stderr poisons the hook chain (hook shell takes SIGPIPE at the depcruise→turbo
+  handover; `set -e` exits 1 silently). Cure: `runInheritedProcess` gives children
+  file-backed stdio and replays the conserved streams on completion, reporting exit code
+  and signal distinctly. Proof: the blocked reconciliation bundle landed through the
+  workflow (`c14866649`), then the fix commit itself (`b2ae96898`, exit 0, hook output
+  conserved end-to-end); two real gate failures during landing surfaced with full
+  output — the truncation used to swallow exactly these. Queue-workflow commits from
+  Claude Code are unblocked, including the memory-drain plan's loop commits.
 
 ---
 

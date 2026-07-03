@@ -466,9 +466,14 @@ layer.)
 
 ## Stream truncation at the depcruise → turbo handover — workaround
 
-**Scope**: Cursor Shell tool sessions, AND the `commit-queue -- commit`
-workflow's spawned git-commit in Claude Code (observed 2026-06-17). Both
-stream the pre-commit hook's output live and both hit the same artefact.
+**Scope**: Cursor Shell tool sessions only, since 2026-07-03. The
+`commit-queue -- commit` workflow's spawned git-commit case in Claude Code
+(observed 2026-06-17) was FIXED at `b2ae96898` per F-112: the mechanism was
+a Node child-stdio socketpair on the spawned git's stderr poisoning the hook
+chain (hook shell SIGPIPE at the handover; `set -e` silent exit 1); the
+workflow's `runInheritedProcess` now gives children file-backed stdio and
+replays the conserved output on completion, reporting exit code and signal
+distinctly. The workflow is the proper path and works from Claude Code.
 A plain `git commit` typed at a direct terminal is unaffected.
 
 **Observation (active 2026-04-23, Cursor)**: when `git commit` is invoked from
@@ -479,16 +484,17 @@ exact same hook directly via `bash .husky/pre-commit` exits 0 with full
 output, and running the same `git commit` invocation with stdout/stderr
 redirected to a file completes cleanly with the commit landing.
 
-**Observation (2026-06-17, reproduced 2026-07-03, Claude Code commit-queue)**:
-the same truncation hits the `pnpm agent-tools:commit-queue -- commit` workflow
-— its internally-spawned `git commit` streams the hook live and dies at the
-`depcruise → turbo` handover with `git commit exited with code 1`, output
-truncated mid-hook, no commit landing. It reproduces across retries and ALSO
-with the parent command's output redirected to a file (verified 2026-07-03), so
-the redirect workaround below does not reach the spawned-child case. The
-disambiguation is the same: `bash .husky/pre-commit` exits 0 standalone,
-proving the gates are green and the failure is the workflow's child-stream
-handling, not the hook.
+**Observation (2026-06-17, reproduced and FIXED 2026-07-03, Claude Code
+commit-queue)**: the same truncation hit the
+`pnpm agent-tools:commit-queue -- commit` workflow — its internally-spawned
+`git commit` died at the `depcruise → turbo` handover with
+`git commit exited with code 1`, output truncated mid-hook, no commit landing,
+including with the parent's output redirected to a file. Instrumented runs
+(F-112 plan, 2026-07-03) pinned the mechanism named in the Scope note above;
+the fix landed at `b2ae96898` and the workflow now lands commits from Claude
+Code with hook output conserved. If this section's symptom ever recurs on the
+workflow path, that is a regression of F-112 — stop and surface it; the
+no-fallback posture below still applies.
 
 **No fallback (owner directive 2026-07-03; `principles.md` §Strict and
 Complete — "No shims, no hacks, no workarounds — do it properly or do not")**:
