@@ -110,9 +110,32 @@ ready to launch**: pasteable opener at
 `.agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md`; the four
 pending owner decisions are repo-continuity §Open Owner-Decision Items 8–10.
 
-## SALVAGE ws1 COMPLETE — next: the disposition pass + the owner's tier-E round (2026-07-02)
+## SALVAGE ws1 + ws1b COMPLETE — remaining: the owner's tier-E round (2026-07-02/03)
 
-Session identity: Rosemary stirs Bracken, late evening.
+Session identity: Rosemary stirs Bracken (ws1, late evening 2026-07-02); Vega mends Oblivion
+(ws1b disposition, 2026-07-03).
+
+**ws1b EXECUTED 2026-07-03 (Vega mends Oblivion, consolidate-until-done on
+`feat/corpus_research_enhancements`).** All 59 A–D rescue entries dispositioned first-hand:
+graduations/enrichments landed in `user-collaboration.md` (hedge ≠ authorisation, from C205),
+`agent-collaboration.md` (peer-sidebar preference, C154), PDR-060 (convergence corollary,
+C149), PDR-122 (measurement-corpus clause), the commit skill (intent-scoped message file, C07;
+preflight parsing fix), `testing-strategy.md` + `testing-patterns.md` +
+`test-coverage-review-lens.md` (C36 supertest classification reconciled to the 2026-05-21
+owner ratification), `build-system.md` (filtered-gates + serial-chain sections, C64/C45),
+`development-practice.md` (markdownlint autofix fragmentation, C46),
+`semantic-search-architecture.md` (field-population check, C25), the sonarqube rule (C18),
+`mcp-app-styling.md` (C15), `collaboration-state-conventions.md` (parallel-session design
+constraint, C116; stale comms-preservation paragraph reconciled to ADR-199/PDR-094),
+`check-singleton-per-window` (clean-deletes-dist, C65), the whole-tree-gate pattern
+(owner-ratified full-tree resolution, C02), and two new patterns (`zero-match-false-green`
+C35/C47; `atomic-relocation-of-shared-substrate` C10). C183/C184/C214 routed to the
+action-time-structural-interrupt inventory as corpus-scale recurrence evidence (temporal
+qualifier verified: instances straddle PDR-098's landing). The remaining entries verified
+duplicate against live homes. The ninth-reinforcement question was DECIDED: no new
+subagent-output clause — the textual home (`verify-dont-trust`) is complete; the gap is
+firing, not text; the firing-moment candidate is routed to the same inventory. Frictions
+F-113–F-115 registered (+F-109 corroboration).
 
 **Self-contained.** The 2026-07-02 discovery run's salvage (ws1 of
 [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md))
@@ -144,23 +167,20 @@ is EXECUTED and committed on branch `chore/rescue_findings`:
 
 **Next actions, in order:**
 
-1. **The rescued-concept disposition pass** (fresh seat, dedicated): now DECISION-COMPLETE as
-   the salvage plan's **ws1b** — run consolidate-until-done with the report + tier JSON as the
-   plan-carried intake work-list, per the new canonical intake class
-   (consolidate-docs §Discovery-Run Rescue Sets, owner-directed 2026-07-03). The ws1b todo
-   carries the full evidence-tiered order and per-tier disposition shapes; done = all 59 A–D
-   entries dispositioned, buffers empty at close.
-2. **The owner's tier-E manual round** — 187 ranked kills in the report §Tier E; nothing was
-   deleted, every kill is conserved in the committed checkpoints.
-3. **The ws2 readiness review** (fresh seat) — the topology redesign (D1–D6 remain PROPOSED).
+1. **The owner's tier-E manual round** — 187 ranked kills in the report §Tier E; nothing was
+   deleted, every kill is conserved in the committed checkpoints. (ws1b — the rescued-concept
+   disposition pass — is DONE, 2026-07-03; see above.)
+2. **The ws2 readiness review** (fresh seat) — the topology redesign (D1–D6 remain PROPOSED).
    **Now folds into the corpus-generalisation Phase 0 design session** (see the section above):
    D1–D6 are the shape of the general kernel, so the topology review and the generalisation design
    are one decision, not two.
 
-**Operator discipline unchanged:** typed envelopes inspected before trust; never `--no-verify`;
-lean pathspec commits sanctioned for checkpoints; the commit-queue spawned-commit workflow died
-twice more this session at the documented depcruise→turbo truncation — the commit skill's direct
-`git commit -F` cure works exactly as written.
+**Operator discipline:** typed envelopes inspected before trust; never `--no-verify`; lean
+pathspec commits sanctioned for checkpoints. (Historical note: the ws1 session twice hit the
+commit-workflow truncation and used the then-documented direct `git commit -F` route; that
+route was withdrawn 2026-07-03 by the owner's no-fallbacks correction, and the underlying
+defect is FIXED as F-112 at `b2ae96898` — queue-workflow commits are the only sanctioned
+path.)
 
 ## Current Continuation
 
@@ -405,6 +425,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Perseus wakes Oblivion` | `claude-code` | `claude-fable-5` | `89ccb2` | `TS rebuild of the workflow suite (2586151c1 + a4ec3f0da: compiled/bundled artefacts end the mirror-drift class) then the EXECUTED discovery run: map (580 leaves, f9bcf2700) → reduce (246 candidates + deterministic post-run driver, 8f6729491) → the money-gate fork (owner decided validate-all at 62M) → validate (26 keep / 220 kill, 820d03a25) → meta (420081c9c). Validate regime FAILED calibration (11/18 known-real baselines found-then-killed); banked 202 Opus + 31 Sonnet verdicts as the paired-comparison corpus; least-privilege agent types (null-tools shape, owner-probed); burn accounting + the salvage-and-topology-redesign plan (ebaf06491); closeout 0cd116fa7. §RUN COMPLETE above is this session's pickup.` | 2026-07-01 | 2026-07-02 |
 | `Rosemary stirs Bracken` | `claude-code` | `claude-fable-5` | `9f59e1` | `Dedicated consolidation to contract-complete (4fd9ce47b, ef96b4a03, 1be4669c9, 17be1890c): napkin rotated; distilled + pending-graduations + open-questions ALL EMPTY; the v2 13-pattern work-list executed per the conservation-plan ledger (WS-A/WS-B landed); PDR-122 amended (invariants 5-6 + economics); PDR-123 authored (design panels); agentic-judgment-conserve-by-default rule (four forms); 2 prior archives re-verified with 4 survivor gaps cured; owner voided recorded keep-open grants → grants-are-live-per-pass doctrine into precedence-is-not-approval + both consolidate skills. Then corpus-subagent full adapter set + null-tools schema (49389bf0c); PR #296 opened and shepherded to MERGED (lockfile-override fix 9a71735bd; 16 Sonar findings fixed at source incl. the S8707 vulnerability, b606fc86f + d0693acd2; all Copilot threads settled); the /oak-pr-lifecycle skill authored from the shepherding (first slice of its plan). On chore/rescue_findings: pickup staleness fixes, then post-compaction SALVAGE ws1 EXECUTED — corroboration cwd fix (`e18516265`, 0/18→18/18), the deterministic salvage stack (`f5fd2e5b2`: salvage-driver + 5 modules, TDD, dual expert panels with a grounded reviewer-contradiction catch), tier table A=18 B=8 C=18 D=18 E=187 residual=0 conservation-checked, and the discovery report conserved.` | 2026-07-02 | 2026-07-02 |
 | `Hazel rides Orchard` | `claude-code` | `claude-fable-5` | `de9f72` | `adversarial-review+corrections+further-research: review verdict landed (8290cec0b), R1-R3 corrections applied in place (a8ee0c033), further research completed the interrupted programme (3b4cdfda3 — quorum diversity MEASURED at ≈1.4 effective votes; five gap lenses; owner observation 6 captured), four owner decisions recorded (724392b6c), ws1b opener authored (663ea0bde+5540d5dd9)` | 2026-07-03 | 2026-07-03 |
+| `Vega mends Oblivion` | `claude-code` | `claude-fable-5` | `ee28f9` | `ws1b rescued-knowledge disposition via consolidate-until-done: all 59 A–D entries dispositioned first-hand (graduations into user-collaboration/agent-collaboration/testing-strategy directives, PDR-060+PDR-122 amendments, commit skill, build-system/development-practice/testing-patterns/semantic-search docs, sonarqube rule, collaboration-state-conventions, 2 new patterns; C36 supertest contradiction reconciled across 3 surfaces; C183/C184/C214 + the ninth-reinforcement verdict routed to the action-time-structural-interrupt inventory); frictions F-113–F-115 registered; ws1b todo completed; tier-B novelty claim checked (5/8 had homes)` | 2026-07-03 | 2026-07-03 |
 
 ## Cross-Plan and Cross-Thread Links
 

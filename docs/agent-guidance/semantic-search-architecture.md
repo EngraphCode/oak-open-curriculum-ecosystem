@@ -10,6 +10,8 @@ The bulk data is the source of truth for the semantic search system. It is the d
 
 When validating Elasticsearch state, distinguish **alias topology** from **document counts**. The `oaksearch admin validate-aliases` command proves that read aliases exist and point at versioned physical indexes; it does not prove that indexed data matches the latest bulk snapshot. True parent counts come from `oaksearch admin count`. See [`apps/oak-search-cli/docs/INDEXING.md`](../../apps/oak-search-cli/docs/INDEXING.md) (_Operational CLI: `validate-aliases` vs `admin count`_) and [ADR-130](../architecture/architectural-decisions/130-blue-green-index-swapping.md).
 
+Also distinguish **mapping presence** from **field population**. A field defined in the mapping but never set at ingest is silent: queries against it match nothing and hybrid retrieval degrades to the remaining retrievers with no error (a mapped-but-never-populated ELSER field once degraded 2-way RRF to BM25-only for months — see [ADR-110](../architecture/architectural-decisions/110-thread-search-architecture.md)). When verifying a retriever's inputs, prove population — count documents where the field is non-null — never just the mapping.
+
 ## Protocol
 
 If you can't follow proper protocol while tuning search, STOP, and explain why, DO NOT work around the protocol.

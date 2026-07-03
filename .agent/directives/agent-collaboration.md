@@ -108,6 +108,15 @@ symptom, not an agent count; calibration of any numerical threshold
 is held in the friction register and napkin so it can move as
 evidence accumulates.
 
+**For design and decision work, peer-pair sidebars beat
+coordinator-mediated hub-and-spoke.** The worked evidence: a four-plus-agent
+coordinator+helpers window ground to a halt — mutual waiting, thirty-one
+directed broadcasts, almost no decisions — while peer-pair sidebars resolved
+the same class of design decisions in minutes. Route logistics (commit order,
+claim scarcity, gate scheduling) through a coordinator when the chain symptom
+appears; route design and decision substance through a focused sidebar between
+the two agents closest to it.
+
 The role is a *commitment to coordinate*, not a new primitive. Any
 agent observing the chain claims it by posting a shared-comms-log
 entry naming the role and the chain symptom. Authority is bounded:

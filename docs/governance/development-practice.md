@@ -237,7 +237,10 @@ the current understanding.
 - A wrapped prose line that begins with a list marker (`+`, `-`,
   `*` then a space) trips MD004/MD032 — markdownlint reads it as a
   nested list item. Never let a marker char start a wrapped line;
-  reword, rewrap, or use commas.
+  reword, rewrap, or use commas. On this misfire, `--fix` is
+  destructive: it fragments the continuous prose into a broken
+  list. Cure by rewording or rewrapping the source line yourself;
+  never blind-run the autofix over prose that trips these rules.
 - A bare `|` inside a table cell breaks MD056 column counting —
   even inside inline-code backticks, even as TS union syntax
   (`<EefStrand \| EefStrandHeadline>`). Escape it as `\|`.

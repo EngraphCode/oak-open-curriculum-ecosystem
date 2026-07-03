@@ -30,3 +30,14 @@ agent and wait event-driven for their atomic cycle to heal the tree.
 Patching their in-flight work is a collision. Multi-developer /
 shared-checkout territory (F-83). Sibling:
 [`respect-active-agent-claims`](../../../rules/respect-active-agent-claims.md).
+
+## The gate's scope is settled — do not propose narrowing it
+
+The whole-tree scope is **intentional and owner-ratified** (2026-05-22):
+the worst bugs are emergent *outside* changed files — a change in
+workspace A regressing workspace B — and staged-only gating would hide
+exactly that class. Proposals to narrow pre-commit to staged-only
+(lint-staged and equivalents) are wrong-shape and were explicitly
+rejected; the cure for multi-writer pain lives at the coordination layer
+(commit queue, ordering, sequential commit windows, comms), never at the
+gate's scope.

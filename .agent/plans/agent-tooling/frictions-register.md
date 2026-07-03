@@ -2314,6 +2314,11 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: extend the F-108 coordination-home default to `claims close` (`--closed` →
   `closed-claims.archive.json`); make `--summary` optional with a derived default; emit an
   actionable usage line on exit 2. Same F-41/F-85 relative-path + discoverability class.
+- **Corroboration (2026-07-02, Rosemary stirs Bracken)**: two further asymmetries in the same
+  surface — `claims close` requires `--now` while `claims open` defaults it (the F-89 fix landed
+  one-sided), and a `--summary` containing an apostrophe exits 2 through the pnpm wrapper (no
+  `--summary-file` escape; use apostrophe-free summaries meanwhile). Fold both into the cure:
+  default `--now` on close as on open; add a `--summary-file` option or fix the wrapper quoting.
 - **Target surface**: `agent-tools/src/collaboration-state/` claims-close arg-parsing + path
   defaulting.
 - **Status**: open.
@@ -2429,6 +2434,67 @@ below is a cross-reference index, not a second source of truth.
   conserved end-to-end); two real gate failures during landing surfaced with full
   output — the truncation used to swallow exactly these. Queue-workflow commits from
   Claude Code are unblocked, including the memory-drain plan's loop commits.
+
+### F-113 — `commit-queue enqueue`/`guard` usage text omits required `--id`; `guard` error names the claim kind but not the re-enqueue cure
+
+- **Source**: napkin 2026-07-03 (Mistral seeks Jetstream, F-112 execution session) — each
+  omission cost one retry.
+- **Surface**: `pnpm agent-tools:commit-queue -- enqueue` and `-- guard`.
+- **Observed**: both commands require `--id` (the PDR-027 UUID, PDR-076a) but their usage
+  text omits it — "missing required --id" surfaces only on failure. Separately, `guard`
+  binds to the INTENT's claim, so an intent enqueued against a files-boundary claim fails
+  guard; the error names the claim kind but not the cure (re-enqueue the intent against
+  the `git:index/head` claim).
+- **Expected**: usage text lists every required flag; the guard error names the
+  re-enqueue-against-commit-window-claim cure.
+- **Candidate cure**: add `--id` to both usage strings; extend the guard claim-kind error
+  with the one-line cure. F-72..F-80 option-surface sibling.
+- **Target surface**: `agent-tools/src/` commit-queue arg-parsing usage/error strings.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-114 — `commit-queue verify-staged` cannot represent a staged rename
+
+- **Source**: napkin 2026-07-03 (Mistral seeks Jetstream) — a staged `git mv` during the
+  F-112 landing.
+- **Surface**: `commit-queue` intent/staged bundle comparison (`verify-staged`,
+  pathspec-scoped commit).
+- **Observed**: a staged rename records an `R100\told\tnew` name-status line which the
+  bundle comparison parses as one path, so an intent naming both rename sides fails
+  verify ("missing: <old>") and an intent naming only the new side would split the
+  rename at pathspec-commit time.
+- **Expected**: a staged rename verifies against an intent naming both sides (or the
+  documented canonical side) and commits atomically.
+- **Candidate cure**: teach the bundle parser and pathspec narrowing the `R` name-status
+  entry shape. Lossless workaround used this instance: two workflow commits (add the
+  copy, then delete the original) — proper-path, no bypass.
+- **Target surface**: `agent-tools/src/` commit-queue staged-bundle parsing.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-115 — comms-seen heartbeat path derivation diverges: CLI uses the display name verbatim; the rule doc and legacy files model kebab-case
+
+- **Source**: napkin 2026-07-03 (Mistral seeks Jetstream); corroborated by rescued
+  discovery candidate C140 (2026-07-02 salvage — coordination surfaces keying on display
+  name corrupt under rename/same-name sessions; instances post-date the PDR-027
+  name-plus-UUID amendment, a fires-despite-home signal at the tooling layer).
+- **Surface**: `comms assert-watcher-live`, the `claims open` F-95 backstop, the
+  `comms-all-channels-watcher` rule §Seen-file convention, `comms-seen/` legacy files.
+- **Observed**: the CLI derives the heartbeat path from the DISPLAY name verbatim
+  (`Mistral seeks Jetstream.json.heartbeat.json`) while the rule doc's convention section
+  and every pre-existing seen-file model kebab-case (`vanilla-stirs-spore.json`).
+  `claims open` has no path override by design, so a kebab-case-armed watcher passes
+  assert (via `--heartbeat-file`) yet still blocks the claim.
+- **Expected**: one convention, derived in one place, keyed on the stable identity (the
+  PDR-027 UUID or a deterministic slug), not the mutable display name.
+- **Candidate cure**: either the CLI kebab-cases (and migrates legacy files) or the rule
+  doc + legacy files adopt display-name — decided once, with the rename-stability
+  argument favouring a UUID-anchored or slug-derived path. Working cure until then: arm
+  the watcher with the display-name `--seen-file` (quoted).
+- **Target surface**: `agent-tools/src/collaboration-state/` seen-path derivation +
+  `comms-all-channels-watcher.md` §Seen-file convention.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
 
 ---
 

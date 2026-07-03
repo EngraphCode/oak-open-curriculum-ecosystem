@@ -232,11 +232,15 @@ direct CLI commands for inspection and recovery.
    fingerprint.
 
    ```bash
-   # Resolve the session's UUID v5 id once (PDR-076a):
+   # Resolve the session's UUID v5 id once (PDR-076a). Suppress stderr
+   # rather than tail-skipping lines: the pnpm banner goes to stderr on
+   # some harnesses, so `tail -n +2` can eat the JSON's first line.
    AGENT_ID=$(pnpm -s agent-tools:collaboration-state -- identity preflight \
      --platform "<platform>" --model "<model>" \
-     | tail -n +2 | jq -r '.agent_id.id')
+     2>/dev/null | jq -r '.agent_id.id')
 
+   # Note: enqueue prints a bare intent UUID (not JSON) — capture it
+   # directly, do not pipe it to jq.
    pnpm agent-tools:commit-queue -- enqueue \
      --claim-id "<claim-id>" \
      --agent-name "<name>" --platform "<platform>" --model "<model>" \
@@ -264,15 +268,21 @@ direct CLI commands for inspection and recovery.
    creates a fingerprint-recursion loop.
 
 3. **Land the commit** via the workflow primitive. Write the drafted
-   message to a file (typically `.git/COMMIT_EDITMSG`), then invoke a
-   single command that composes verify-staged → advisory orchestrator
-   → phase `pre_commit` → verify-staged-again → `git commit` →
-   `complete` intent:
+   message to an **intent-scoped scratch file** — never the shared
+   `.git/COMMIT_EDITMSG`, which is single-writer state: under
+   concurrent commits a peer's message overwrites yours and a
+   wrong-attribution commit lands (the proven multi-agent failure the
+   intent-scoped path cures). Then invoke a single command that
+   composes verify-staged → advisory orchestrator → phase
+   `pre_commit` → verify-staged-again → `git commit` → `complete`
+   intent:
 
    ```bash
+   MSGFILE="$(mktemp -t "commit-msg-<intent-id>")"
+   # write the drafted message to "$MSGFILE", then:
    pnpm agent-tools:commit-queue -- commit \
      --intent-id "<intent-id>" \
-     --message-file .git/COMMIT_EDITMSG
+     --message-file "$MSGFILE"
    ```
 
    The two verify-staged checks book-end the advisory orchestrator so

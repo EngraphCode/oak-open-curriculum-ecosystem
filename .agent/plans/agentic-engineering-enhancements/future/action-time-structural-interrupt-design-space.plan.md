@@ -638,6 +638,51 @@ moment, tool call) — they move the t3 empty-quadrant question from "can any
 class be occupied?" to "three classes have obvious occupation shapes awaiting
 the design session."
 
+**Addendum (2026-07-03, Hazel rides Orchard):** a fourth same-window
+instance — the pasteable-content-as-code-blocks rule (graduated 2026-07-02
+to `user-collaboration.md` §Feedback and Verification, its per-user index
+pointer still live) did not fire when an opener excerpt was presented as a
+blockquote; the owner re-issued the correction. Post-dates its home, so the
+temporal qualifier holds. Firing signature: presenting pasteable content is
+a detectable output moment (a paste-intended block in an owner-facing
+message) — the same declaration-moment class as (b) above.
+
+## Worked Instance — 2026-07-02 Corpus-Scale Confirmation (deterministic discovery run)
+
+The 2026-07-02 napkin-corpus discovery run (the PDR-122 pipeline over fifteen
+windows spanning 2026-02-16 → 2026-06-29) independently re-derived this plan's
+two core theses as multi-window trajectory candidates, from the napkin archives
+alone: (a) owner metacognition intervention is the only observed mechanism that
+surfaces deep misframes — across the whole corpus no self-firing instance was
+found, so the catch-loop is owner-mediated, not autonomous; and (b) passive
+doctrine loses to artefact-gravity at the action moment across dozens of
+agents, and naming a failure mode does not inoculate against re-enacting it
+same-session. Both trajectories carry instances on either side of this lane's
+own homes landing (PDR-098, 2026-06-15; this inventory) — the recurrence
+persisted across the cure's landing, which is the fires-despite-home signal at
+corpus scale rather than anecdote scale.
+
+The same run adds one firing-moment candidate to t3's list: **the compaction
+boundary**. Post-compaction re-grounding is doctrine (the comms-watcher and
+heartbeat rules re-arm there; PDR-011 clause (b) makes context-loss detection
+holder-exclusive), yet nothing auto-fires it — agents resume editing on the
+stale summary frame. A compaction/resume event is harness-observable, making
+it a mechanical firing moment of the same class as the tool-call and
+declaration moments in the 2026-07-01/02 cluster above.
+
+A second firing-moment candidate from the same evidence family: **the
+subagent/reviewer result-return**. The owner has re-issued
+"critically assess all subagent findings, claims, and sources" roughly nine
+times since 2026-05-27 — each recent instance *pre-emptive at a fan-out
+moment*, none correcting an observed absorption failure — while the textual
+home (`verify-dont-trust`: the sub-agent-summary clause, the reviewer-output
+paragraph, the absorb-trigger, the cited-source anti-pattern) is complete
+and always-on. Assessed at the 2026-07-03 ws1b consolidation: the gap is
+**firing, not text** — the reinforcements are the owner manually supplying
+the action-time cue at exactly the moment a mechanical interrupt could fire
+(a subagent result arriving is harness-observable). A ninth textual
+restatement was rejected as the t6 self-referential trap.
+
 ## Note on Scope Discipline
 
 This is a strategic design-space plan. It contains no executable workstreams or

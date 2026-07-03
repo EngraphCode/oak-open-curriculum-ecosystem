@@ -169,6 +169,14 @@ surface that makes later governance or enforcement honest.
 
 **Source code** is concrete: a specific const map for specific HTTP status codes. **Patterns** are abstract: the principle of using const maps to replace runtime conversions that mirror compile-time type transformations. Patterns describe the shape of the solution, not the domain-specific implementation.
 
+## Index Maintenance
+
+The entire Pattern Index section below — headings, per-category lists,
+and counts — is **GENERATED from pattern frontmatter**. Never hand-edit
+it: the pre-commit `validate-patterns-index` gate refuses hand-edited
+drift. After adding or changing a pattern file, regenerate with
+`pnpm --filter @oaknational/agent-tools validate-patterns-index:fix`.
+
 ## Pattern Index
 
 ### Code (24)
@@ -213,7 +221,7 @@ surface that makes later governance or enforcement honest.
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (98)
+### Process (99)
 
 - **A Fidelity Audit Is Not a Currency Audit** *(anti-pattern)* -- Use this when: Verifying a claim that rests on an inherited surface (a record, a thread note, a prior session's framing) before relying on it. → [fidelity-audit-is-not-currency-audit.md](fidelity-audit-is-not-currency-audit.md)
 - **A Freshly-Landed Enforcement Gate's First Burndown Is Doctrine Co-Design, Not Mechanical Data-Entry** -- Use this when: Burning down the violations a newly-landed enforcement gate (validator, lint rule, scanner) reports for the first time — the impulse is to 'watch the count fall to zero', but the first burndown is where the gate's doctrine meets reality. → [report-first-gate-burndown-is-doctrine-application.md](report-first-gate-burndown-is-doctrine-application.md)
@@ -229,6 +237,7 @@ surface that makes later governance or enforcement honest.
 - **Adversarial Pre-Spend Verification of One-Way Actions** -- Use this when: About to take a one-way, costly, or unrecoverable action — launching a large fleet/workflow run, an irreversible migration, a bulk send — whose artefacts you authored yourself. → [adversarial-pre-spend-verification-of-one-way-actions.md](adversarial-pre-spend-verification-of-one-way-actions.md)
 - **Adversarially Verify Your Own Synthesis in Long Analytical Work** -- Use this when: Deep, multi-turn analytical / research / survey work where you are building a synthesis over many sources and about to present conclusions as settled. → [adversarially-verify-own-synthesis.md](adversarially-verify-own-synthesis.md)
 - **An Indiscriminate-Rule Warning Count Is Cause-Classes, Not N Problems** -- Use this when: A broad or indiscriminate lint/analysis rule reports a large count (hundreds/thousands of warnings) and you are deciding how to remediate. → [indiscriminate-rule-count-is-cause-classes.md](indiscriminate-rule-count-is-cause-classes.md)
+- **Atomic Relocation of Shared Substrate** -- Use this when: Moving a directory, workspace, or state surface that other agents' tooling reads live (comms dirs, registries, built CLIs) — plan the move, the repoint of every reader, and the rebuild as one atomic change. → [atomic-relocation-of-shared-substrate.md](atomic-relocation-of-shared-substrate.md)
 - **Breadth as Evasion** *(anti-pattern)* → [breadth-as-evasion.md](breadth-as-evasion.md)
 - **ChatGPT report normalisation** -- Use this when: Recovering an LLM-exported report from markdown, DOCX, and PDF copies into durable repo-quality markdown. → [chatgpt-report-normalisation.md](chatgpt-report-normalisation.md)
 - **Check Driven Development** -- Use this when: Writing TDD RED-phase assertions in a codebase with multiple quality gates. → [check-driven-development.md](check-driven-development.md)
@@ -379,7 +388,8 @@ surface that makes later governance or enforcement honest.
 
 - **Production Factories In Tests Are Ceremony Unless They ARE The Subject** *(anti-pattern)* -- Use this when: Writing or reviewing a test that imports a production factory (config loader, observability factory, SDK initialiser) to satisfy a downstream call's signature. → [production-factories-in-tests-are-ceremony.md](production-factories-in-tests-are-ceremony.md)
 
-### Build System (2)
+### Build System (3)
 
 - **pnpm Strict Hoisting Blocks Transitive Type Resolution** *(anti-pattern)* → [pnpm-strict-hoisting-type-resolution.md](pnpm-strict-hoisting-type-resolution.md)
 - **Turbo / Pre-Commit Cache False-Green** *(anti-pattern)* -- Use this when: A gate result disagrees with observed behaviour, a hook finds drift a task reported clean, or you are about to cite a cached gate run as evidence. → [turbo-cache-false-green.md](turbo-cache-false-green.md)
+- **Zero-Match False-Green** *(anti-pattern)* -- Use this when: Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets. → [zero-match-false-green.md](zero-match-false-green.md)

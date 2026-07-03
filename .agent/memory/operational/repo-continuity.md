@@ -94,16 +94,19 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — SALVAGE ws1 EXECUTED (2026-07-02, Rosemary stirs Bracken, on
-  `chore/rescue_findings`); next: the rescued-concept disposition pass + the owner's tier-E
-  round.** The corroboration cwd bug is fixed (18/18 corroborated) and the deterministic salvage
-  stack is TDD-landed (`e18516265` + `f5fd2e5b2`: `pnpm salvage-driver` over the committed
-  checkpoints, zero re-spend). The stratification is conservation-checked 246/246: **A=18 B=8
-  C=18 D=18 (C∩D=3) E=187 residual=0**; tier C recomputed from the banked corpus equals the
-  plan's named ids exactly; 8 survivors are genuinely novel. The owner-facing deliverable is
-  [`discovery-run-salvage-report-2026-07-02.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/discovery-run-salvage-report-2026-07-02.md)
-  (tier E is the owner's manual round). Next: a fresh-seat consolidate-until-done disposition
-  pass over the rescue set, then the ws2 topology readiness review. Live plan:
+- **Large-corpus analysis — ws1b DISPOSITION EXECUTED (2026-07-03, Vega mends Oblivion);
+  remaining: the owner's tier-E manual round, then the ws2 topology readiness review.** All 59
+  A–D rescue entries dispositioned first-hand via consolidate-until-done: graduations and
+  enrichments landed across rules, PDR-060/PDR-122, two new patterns (`zero-match-false-green`,
+  `atomic-relocation-of-shared-substrate`), directives (user-collaboration hedge clause,
+  agent-collaboration sidebar preference, testing-strategy supertest classification), and
+  engineering docs; the rest verified duplicate against live homes (tier-B note: 5 of the 8
+  "genuinely novel" survivors had partial or full homes — novelty was unmeasured, as suspected).
+  The C36 supertest contradiction was reconciled across three surfaces to the 2026-05-21
+  owner ratification. The salvage stack and stratification are unchanged (**A=18 B=8 C=18 D=18
+  (C∩D=3) E=187 residual=0**;
+  [`discovery-run-salvage-report-2026-07-02.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/discovery-run-salvage-report-2026-07-02.md);
+  tier E is the owner's manual round). Live plan:
   [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md).
   The run's doctrine lessons remain graduated
   ([PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)
@@ -212,7 +215,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Hazel rides Orchard / adversarial review of the corpus-generalisation work — verdict needs-targeted-revision-core-sound, R1–R3 corrections applied, gap research follow-on / 2026-07-03 ← claude-code / claude-fable-5 / Rosemary stirs Bracken / dedicated consolidation — buffers drained, v2 discoveries graduated, PDR-122 amended / 2026-07-02 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Vega mends Oblivion / ws1b rescued-knowledge disposition — all 59 A–D entries dispositioned, ws1b todo completed, F-113–F-115 registered / 2026-07-03 ← Hazel rides Orchard / adversarial review of the corpus-generalisation work / 2026-07-03 (full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
@@ -320,10 +323,10 @@ F-41 CLI tail).
 
 ### Agentic-Engineering Curation
 
-0. **LIVE: the rescued-concept disposition pass** (salvage ws1 EXECUTED 2026-07-02 — tier table +
-   discovery report committed on `chore/rescue_findings`; next a fresh-seat consolidate-until-done
-   over the rescue set, plus the owner's tier-E manual round) — see the §Current State
-   large-corpus entry; full pickup: [`agentic` thread record][agentic] §SALVAGE ws1 COMPLETE.
+0. **DONE 2026-07-03: the rescued-concept disposition pass** (ws1b executed by Vega mends
+   Oblivion via consolidate-until-done; all 59 A–D entries dispositioned, ws1b todo completed).
+   Remaining in this lane: the owner's tier-E manual round (owner-gated) — see the §Current
+   State large-corpus entry.
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
    PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;
@@ -332,10 +335,20 @@ F-41 CLI tail).
    grants are live-per-pass, never carried).
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
-2a. `agent-collaboration.md` is hard-over on lines (377/360) after the injected-asymmetry doctrine
-   landed (justified substance; the file was already at 359). The named remediation is its own
-   `split_strategy`: create `agent-collaboration-channels.md` and extract the per-channel protocol
-   detail — a focused future extraction, not a trim.
+2a. `agent-collaboration.md` is hard-over on lines (380/360) after the injected-asymmetry doctrine
+   and the ws1b sidebar-preference clause landed (justified substance; the file was already at
+   359). The named remediation is its own `split_strategy`: create
+   `agent-collaboration-channels.md` and extract the per-channel protocol detail — a focused
+   future extraction, not a trim.
+2b. **Post-ws1b hard-fitness remediation lane (2026-07-03).** The ws1b graduations pushed four
+   further surfaces marginally past hard — `testing-strategy.md` (459/450 lines),
+   `docs/engineering/testing-patterns.md` (232/200), `docs/governance/development-practice.md`
+   (286/280), `collaboration-state-conventions.md` (12045/12000 chars) — each from
+   correctly-placed substance, never to be trimmed. Structural responses per each file's own
+   `split_strategy` at the next natural boundary (testing-patterns' gotcha lists are the natural
+   extraction; development-practice's markdown-authoring bullets likewise). Acceptance: the
+   substance survives verbatim in a home at least as read-proximate, and the source returns
+   within hard. `principles.md` and this file's char pressure pre-date the pass.
 3. Comms-event rotation is the retention-gated curator-pass (ADR-199 / PDR-094): archive-move events past
    their class window, gated on absorption + provenance. Analysis is never gated; fitness is routing
    evidence only — never archive, split, shard, or rename unprocessed content to improve scores.

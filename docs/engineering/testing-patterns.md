@@ -179,6 +179,18 @@ under normal churn (any drift looks like baseline error rather than
 proxy error). Reject the framing at plan-author time, not at WS
 execution.
 
+## Testability Seams Must Not Bypass the Gate Under Test
+
+A convenience seam added to make a guarded surface testable — a CLI
+override flag, a mode env var, a directory redirect — can itself become a
+bypass of the very gate or backstop the test exists to prove, or a leak
+path for ambient disk state (`.env.local` via global `process.env`) into
+tests. When adding a testability seam to a protective surface, review it
+as product attack surface: can the seam disable the protection in
+production invocations, and does the test still prove the gate fires with
+the seam present? Inject configuration explicitly (DI) rather than adding
+ambient overrides — see `no-global-state-in-tests`.
+
 ## Test Configuration Gotchas
 
 - `tsconfig.json` `include` patterns `**/*.test.ts` and `**/*.spec.ts` do NOT match

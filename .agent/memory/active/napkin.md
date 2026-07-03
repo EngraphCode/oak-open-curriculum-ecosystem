@@ -280,3 +280,30 @@ New session observations append below.
   blocks the claim. Cure: arm the watcher with the display-name `--seen-file` (quoted). Either
   the CLI should kebab-case or the rule doc + legacy files should be display-name; F-class
   friction, register candidate.
+
+## 2026-07-03 — ws1b rescued-knowledge disposition pass (Vega mends Oblivion)
+
+- **The ninth-reinforcement question DECIDED: no new clause; the gap is firing, not text.**
+  `verify-dont-trust` already carries an explicit multi-clause subagent-output discipline
+  (sub-agent-summary clause, reviewer-output paragraph, absorb-trigger, cited-source
+  anti-pattern, worked instances); the recent reinforcements are pre-emptive at fan-out
+  moments, none correcting an observed absorption failure, and the record shows the
+  discipline firing (the 2026-07-02 panel contradiction settled first-hand; this pass's
+  home-by-home verification). A ninth restatement is the t6 self-referential trap. The
+  constructive residue — subagent result-return as a mechanical firing-moment candidate — is
+  routed to the action-time-structural-interrupt inventory.
+- **Tier B's "genuinely novel" claim collapsed on checking: 5 of 8 had partial or full
+  homes** (C36 owner-ratified in testing-patterns; C54 the honest-restructure pattern; C123
+  the semantic-merge skill; C129 the F-41 lane; C135 the watcher rule). Novelty-unmeasured
+  is confirmed as a standing caveat on any "no corroborating home" claim — recall of the
+  corroboration scan, not just the discovery pipeline, bounds it.
+- **A rescued trajectory can flag a live doc contradiction the estate missed:** C36's
+  endpoint (owner ratified supertest IS e2e, 2026-05-21) was recorded in testing-patterns.md
+  while testing-strategy.md and test-coverage-review-lens.md still carried the superseded
+  classification (the pattern's proven_date 2026-05-17 pre-dates the ratification).
+  Reconciled all three to the ratified position. Corpus rescue sets double as
+  doc-consistency probes.
+- **Registry hygiene observation:** the commit queue carried 7 abandoned/expired F-112-era
+  rows at session open (real-registry failure-abandons from Sardine and Mistral, despite the
+  F-112 session's scratch-registry discipline for its probe runs). Historical rows, not
+  blockers; cleanup belongs to the 7d stale-entry audit of a full dedicated pass.

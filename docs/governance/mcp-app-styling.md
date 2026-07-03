@@ -199,6 +199,13 @@ function MyApp() {
     if (app) setHostContext(app.getHostContext());
   }, [app]);
 
+  // NOTE: `app.onhostcontextchanged` is a single convenience slot — a
+  // second assignment anywhere in the app silently replaces the first
+  // subscriber. When more than one consumer needs the notification,
+  // subscribe with `app.addEventListener('hostcontextchanged', handler)`
+  // (paired with `removeEventListener` on cleanup); listeners compose,
+  // the setter does not.
+
   // Apply host styling imperatively
   useEffect(() => {
     if (hostContext?.theme) applyDocumentTheme(hostContext.theme);

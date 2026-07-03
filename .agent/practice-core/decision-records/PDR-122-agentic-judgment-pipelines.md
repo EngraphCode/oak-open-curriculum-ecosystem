@@ -97,6 +97,11 @@ Pipelines of this shape are built to six invariants.
    committed before the next launches. Recovery is **seeded continuation from the committed
    checkpoint** — validated at build with a stage discriminant so wrong-stage seeding is a
    zero-spend typed failure — never a blind resume that depends on cache-on-failure semantics.
+   The committed checkpoints are also a **measurement corpus**: before scoping new
+   instrumentation for an "unmeasured" quantity, check whether deterministic code over the
+   already-banked judgments yields it — "unmeasured" often means "unanalysed" (a ~100-line
+   script over committed checkpoints measured inter-lens vote correlation in minutes,
+   2026-07-03, where new instrumentation had been assumed necessary).
 
 6. **Calibrate judgment before scaling spend.** The first spend checkpoint measures **judgment
    quality, not only cost** — a checkpoint that reads burn-rate but not verdict calibration

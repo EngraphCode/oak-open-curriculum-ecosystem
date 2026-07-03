@@ -4,6 +4,21 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-03 — PDR-060 gains corollary 4: independent convergence is the strongest signal (ws1b rescue disposition, Vega mends Oblivion)
+
+Amended PDR-060 (Tooling Friction Is First-Class User Feedback) with a fourth operational
+corollary, graduated from a proven-real rescued discovery candidate: when multiple agents
+independently converge on the same emergent workaround for a tooling gap, the convergence
+itself is evidence the capability belongs natively in the tool — route it as a
+native-support candidate on the owning tooling backlog, not as another friction anecdote.
+
+## [oak-open-curriculum-ecosystem] 2026-07-03 — PDR-122 invariant 5 gains the measurement-corpus clause (ws1b rescue disposition, Vega mends Oblivion)
+
+Committed checkpoints are also a measurement corpus: before scoping new instrumentation for
+an "unmeasured" quantity, check whether deterministic code over the already-banked judgments
+yields it — "unmeasured" often means "unanalysed" (worked instance: inter-lens vote
+correlation measured in minutes from committed checkpoints, 2026-07-03).
+
 ## [oak-open-curriculum-ecosystem] 2026-07-02 — PDR-118 gains open question 6: the external staleness-reaper (dedicated consolidation, Rosemary stirs Bracken)
 
 The ungraceful-death liveness question (self-emitted signals cannot be stopped by a dead

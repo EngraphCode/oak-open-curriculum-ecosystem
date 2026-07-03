@@ -36,6 +36,18 @@ barrier:
   `git checkout --ours` (blocked by the worktree-destruction guard,
   correctly). Verify the conflict's content subsumption first — "take
   ours" may lose nothing if local already migrated the other side.
+- **Run state-mutating CLIs bare first; parse later.** Piping a CLI's
+  stdout to `jq` with stderr suppressed (`cmd 2>/dev/null | jq …`) hides
+  a failure completely — the write silently didn't happen and the parse
+  of empty output looks like a clean no-op (bit live 2026-07-02: an
+  emptied commit-queue enqueue whose error the pipe swallowed). Invoke
+  the mutating command bare, read its output, then parse in a second
+  step.
+- **Strip trailing prose before parsing captured JSON.** A driver that
+  prints its JSON result followed by a one-line close verdict on the
+  same stream breaks `jq` on the capture file — `sed '$d'` the trailing
+  line (or capture the JSON artefact separately) before parsing or
+  conserving as a `.json` file.
 
 ## See also (homed elsewhere, not duplicated)
 

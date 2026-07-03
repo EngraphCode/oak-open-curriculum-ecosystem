@@ -473,6 +473,36 @@ README.md (root, including the Quick Start section)
   for `SKILL.md` presence, so empty skill directories without
   `SKILL.md` cause false positives.
 
+## Filtered Gates Certify Less Than They Appear To
+
+A green gate run certifies only the suites it actually ran, against the
+artefacts it actually resolved:
+
+- **A filtered `pnpm --filter X type-check` can pass on stale types**:
+  `tsc` resolves workspace dependencies via their built `dist/*.d.ts`,
+  while vitest resolves `src` — so a filtered type-check can go green
+  against stale dist types (or red against types a rebuild would fix)
+  while tests see different code. When a filtered result is
+  load-bearing, rebuild the producer workspaces first (the full
+  `pnpm check` orders `^build` ahead of `type-check` for exactly this
+  reason).
+- **A fresh checkout or worktree cannot lint until producer workspaces
+  are built** — see the start-right worktree-build discipline; ESLint's
+  flat config imports a workspace plugin resolved from `dist/`.
+- **`pnpm check` does not run every suite** (e.g. `test:smoke` and
+  experiment suites are outside it) — verify the aggregate actually
+  exercises the suites your change touches before citing it as proof.
+
+## Serial Gate Chains Unmask Downstream Failures
+
+`pnpm check`'s serial chain (e.g. knip → depcruise → markdownlint →
+format-check) hides downstream failures behind upstream ones: a gate
+that exits red stops the chain, so everything after it is unobserved,
+and clearing one gate routinely unmasks previously-latent failures in
+the next. Treat each newly-green gate as a magnifying glass on the one
+after it — a red gate appearing after you fixed a different gate is
+usually unmasking, not regression.
+
 ## Linting and Auto-Fix Safety
 
 - **`lint:fix` can silently revert manual edits**: `pnpm check`
