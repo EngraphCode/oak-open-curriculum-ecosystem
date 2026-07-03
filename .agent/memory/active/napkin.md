@@ -347,3 +347,13 @@ New session observations append below.
 - **`commit-queue phase` returned a transient exit 1 on first invocation** (immediately
   after enqueue), succeeded unchanged on retry; likely a same-instant registry-write race
   with the claims CLI. Single observation; watch for recurrence before registering.
+- **A `/goal` Stop-hook condition whose scope exceeds one session deadlocks against an
+  owner-directed handoff.** The session-open goal ("complete the knowledge rescue") was
+  later re-scoped by the owner in-session (author the ws1c–ws1g plan; "another session
+  will implement it"; deep closeout) — but the goal hook kept enforcing the original
+  wording and blocked every stop, even while its own analysis acknowledged the owner's
+  deferral. No phrasing can satisfy it (the remaining work is a 3–6-session arc) and the
+  agent cannot clear a goal itself. Sibling of `feedback_templated_loops_need_exit_criteria`
+  at the harness layer: a goal condition wants an exit criterion for
+  owner-superseded-in-session, or goals want re-issuing when the owner re-scopes mid-flight.
+  Harness-level observation (the /goal feature), not a repo defect.
