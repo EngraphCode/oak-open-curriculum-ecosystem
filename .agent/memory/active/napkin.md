@@ -110,3 +110,19 @@ New session observations append below.
   overrides. Sibling doc-defect fixed: the commit skill's adapter-regeneration command was the
   filtered form, which fails (cwd-relative scandir) — corrected to the root-invoked built form,
   verified first-hand.
+- **A research Workflow lens agent wrote an ORPHAN synthesis file to disk despite a
+  schema-forced StructuredOutput brief (2026-07-03).** A six-lens `Workflow` fan-out (default
+  all-tools agentType, each agent given `schema: FINDINGS_SCHEMA`) left a truncated 136-line
+  `corpus-analysis-generalisation-research-2026-07-03.md` on disk with a dangling plan reference
+  — a strict subset of the context-holder's own report, found only because `git status` showed
+  two report files at commit time. Lesson: the schema forces the RETURN VALUE, not the tool
+  surface — an all-tools workflow agent can still Write files as a side effect. After any research
+  workflow, `git status` for orphan artefacts before committing; and prefer pinning read/analysis
+  lens agents to a read-only `agentType` (or an explicit no-Write allow-list) so they cannot mint
+  disk artefacts. Worked cure this instance: conserve the orphan's one unique element (a
+  five-layer table) into the complete report, then remove the duplicate (SSOT).
+- **Model switched claude-fable-5 → claude-opus-4-8 mid-session (2026-07-03), identity stable.**
+  The PDR-027 UUID id (`206a5880-…`) is derived from the session seed, NOT the model, so it held
+  across the switch; only the display model field changed (`identity preflight --model
+  claude-opus-4-8` confirmed the same id). Commit trailers switched to `Co-Authored-By: Claude
+  Opus 4.8` from that point.
