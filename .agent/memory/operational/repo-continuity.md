@@ -111,6 +111,26 @@ forward-asks remain.
   `sandbox-constraint-is-a-build-instruction` / `adversarial-pre-spend-verification` patterns);
   WS-C tooling promotion awaits the agent-tools-architecture WS0. Full pickup: the AEE thread
   record §SALVAGE ws1 COMPLETE.
+- **Corpus GENERALISATION — research complete, design not yet ratified (2026-07-03, Rosemary
+  stirs Bracken).** Owner-directed deep research on generalising the corpus instrument (general
+  core vs napkin-specific; model/effort as a calibration-stamped regime registry; comms + planning
+  corpora; graph-native optional outputs; the packages/ stratum). Verdict: a calibrated measurement
+  instrument (compiler-shaped, graph = optional downstream backend), generalised by
+  configuration-reification, with the salvage plan's D1–D6 topology redesign folded in as the
+  kernel's shape (one thread, not two). Evidence:
+  [`corpus-generalisation-research-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md);
+  forward design (`future/`):
+  [`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md).
+  **Owner conviction (2026-07-03):** the corpus tooling has become a knowledge-curation-and-
+  expression layer belonging in `packages/` along seams, agent-tools reduced to a thin CLI (memory
+  `project_corpus_instrument_is_a_knowledge_layer`; reshapes the agent-tools-architecture-standard
+  WS0 packaging question). **Two forensic/correctness items to surface at the design session:**
+  (1) the archived ~1,707-event comms residual is absent from live disk but intact in git at
+  `255117a43^` — the standing curator work-list points at a disk state that no longer exists;
+  re-materialise from git and correct the wording; (2) the tier-2 quorum's three lenses all run on
+  one model — a candidate PDR-122 invariant-2 amendment (unmeasured vote independence). Next: an
+  owner-scheduled fresh-seat Phase 0 design session (absorbs salvage ws2). Full pickup: the AEE
+  thread record §CORPUS GENERALISATION.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to

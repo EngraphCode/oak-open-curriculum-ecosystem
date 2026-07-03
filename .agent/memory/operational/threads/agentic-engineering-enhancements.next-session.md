@@ -23,6 +23,55 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## CORPUS GENERALISATION — research complete, design not yet ratified (2026-07-03, Rosemary stirs Bracken; model switched claude-fable-5 → claude-opus-4-8 mid-session for this review-and-record pass)
+
+**Self-contained. Research-and-record only; nothing reshaped.** Owner asked how to generalise the
+corpus-analysis pipeline, apply it to the comms and planning corpora, decouple model/effort,
+handle graph-native outputs, and where it belongs in the strata — then added two direction-setting
+observations. Eight research lenses ran (~894k subagent tokens); load-bearing claims re-verified
+first-hand per owner direction. Durable homes:
+
+- **Evidence report** (the anchor):
+  [`corpus-generalisation-research-2026-07-03.md`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md)
+  — five-layer decomposition, regime registry, cross-field precedents, the quorum-diversity
+  correctness finding, comms + planning-corpus + graph analysis, alternatives/identity verdict,
+  Practice feeder seat, stratum/packaging verdict, ten open questions (the design-session agenda).
+- **Strategic plan** (`future/`):
+  [`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
+  — Phase 0 design-ratify (ABSORBS salvage ws2), Phase 1 comms (extraction trigger), Phase 2
+  planning corpus + graph; cross-cutting knowledge-layer reframe.
+
+**The load-bearing conclusions:**
+
+1. **Identity:** a calibrated measurement instrument (recall/novelty diff of a corpus against the
+   Practice knowledge base), compiler-shaped, graph = one optional downstream backend. NOT an
+   indexer, NOT a KG-builder (both ruled out with evidence).
+2. **One thread, not two:** the salvage plan's D1–D6 topology redesign IS the shape of the general
+   kernel, so the generalisation *contains* it; **salvage ws2 folds into Phase 0.**
+3. **Generalisation = configuration-reification, not an engine rewrite.** Three collapse surfaces:
+   hardcoded composition roots, napkin vocabulary leaks (enumerated), and the un-reified judgment
+   **regime** → a calibration-stamped **regime registry** (the model/effort decoupling answer).
+4. **Comms is the forcing second consumer** (extraction trigger; composition of existing strata;
+   mechanical grounding; PDR-094 disposition enum). **Forensic finding to surface:** the archived
+   ~1,707-event residual is GONE from live disk but intact in git at `255117a43^` (5,202 events) —
+   the standing curator work-list points at a disk state that no longer exists; re-materialise from
+   git; correct the stale wording in `repo-continuity.md` and the retired thread.
+5. **Sharpest correctness finding (candidate PDR-122 amendment, NOT amended):** the tier-2 quorum's
+   three lenses all run on ONE model, so invariant 2's "uncorrelated votes license a majority" is
+   unmeasured; external evidence + the repo's own 40% regime divergence suggest ~1–2 effective
+   votes. Measure effective-vote count on canaries; pursue cross-model heterogeneity.
+6. **Owner observations (2026-07-03):** [candidate goal] a general document→knowledge-graph
+   pipeline; [conviction, stronger] agent-tools has become a **knowledge-curation-and-expression
+   layer** belonging in `packages/` along seams, agent-tools reduced to a **thin CLI** — the
+   *destination*, gated on (second consumer + topology gate + WS0 fork); reshapes the
+   agent-tools-architecture-standard WS0 packaging question. Homed in memory
+   `project_corpus_instrument_is_a_knowledge_layer`.
+
+**Next action:** an owner-scheduled fresh-seat **Phase 0 design session** (the plan's promotion
+trigger) that ratifies identity + five-layer decomposition + D1–D6 + regime registry + the
+quorum-diversity disposition, absorbing salvage ws2. WS2/WS4 of ADR-200 and salvage ws1b proceed
+independently and must NOT wait.
+
 ## SALVAGE ws1 COMPLETE — next: the disposition pass + the owner's tier-E round (2026-07-02 late evening, Rosemary stirs Bracken)
 
 **Self-contained.** The 2026-07-02 discovery run's salvage (ws1 of
@@ -63,8 +112,10 @@ is EXECUTED and committed on branch `chore/rescue_findings`:
    entries dispositioned, buffers empty at close.
 2. **The owner's tier-E manual round** — 187 ranked kills in the report §Tier E; nothing was
    deleted, every kill is conserved in the committed checkpoints.
-3. **The ws2 readiness review** (fresh seat) — the unchanged gate on the topology redesign
-   (D1–D6 remain PROPOSED).
+3. **The ws2 readiness review** (fresh seat) — the topology redesign (D1–D6 remain PROPOSED).
+   **Now folds into the corpus-generalisation Phase 0 design session** (see the section above):
+   D1–D6 are the shape of the general kernel, so the topology review and the generalisation design
+   are one decision, not two.
 
 **Operator discipline unchanged:** typed envelopes inspected before trust; never `--no-verify`;
 lean pathspec commits sanctioned for checkpoints; the commit-queue spawned-commit workflow died
