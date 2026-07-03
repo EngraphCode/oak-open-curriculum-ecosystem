@@ -307,7 +307,7 @@ this plan commits directly rather than surfacing as a menu:
 - **Marshal seat surfaces fitness on every commit**. Named directly
   by owner in napkin 🔆 HIGHLIGHT direction. Cycle 12 implements.
 - **Hook output is one line per signal class**. Constrained by the
-  ~80k reliable-context budget (per memory `project_80k_reliably_loaded_context_budget`)
+  ~80k reliably-loaded context budget (PDR-124 §Context)
   and `feedback_hook_failures_are_questions` ("hook output is a
   question not a nag; threshold framing matters").
 

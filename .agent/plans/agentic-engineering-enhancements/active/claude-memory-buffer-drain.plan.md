@@ -26,8 +26,8 @@ todos:
     content: Verify and retire the already-marked-graduated entries (8 verified in homes, lines retired 2026-07-03; index 232/240)
     status: completed
   - id: stratum-b-project-reference
-    content: Disposition 25 project_* and 3 reference_* entries (supersession at delete-stakes)
-    status: pending
+    content: Disposition 25 project_* and 3 reference_* entries (done 2026-07-03 — 27 retired; 13 duplicates verified in homes, 6 superseded at delete-stakes, 8 enriched/re-homed; 1 kept live pending the PDR-052-gated editorial-tone fold)
+    status: completed
   - id: stratum-c-feedback-batches
     content: Feedback duplicate/enrichment batches, alphabetical, ~25-30 entries/loop (revisable down)
     status: pending

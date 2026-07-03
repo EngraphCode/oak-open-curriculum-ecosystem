@@ -102,6 +102,16 @@ one family is a design constraint: a shared **renderer/projection pattern** (the
 engines. The shared thing is the event→render shape, not necessarily `graph-core`'s
 RDF triple-store.
 
+The family's scope is the whole active Practice substrate (owner direction,
+2026-06-27: "the graph approach is where every aspect of the active Practice is
+heading"): memory, intent, comms, claims, agent-work-state, liveness — each a
+subgraph or view with a renderer, none exempt at the domain level (per-class
+adoption order and deliberate per-class deferrals within a domain remain
+§Scope's and §Sequencing's concern). A member's sources being
+non-graph-native (a git worktree listing, a claims JSON registry) is a design
+input — derive it into the family — never a boundary that exempts the domain
+from it.
+
 ## Rough design
 
 - **Event.** One immutable file per entry — `napkin/<utc-timestamp>-<slug>.md` (or

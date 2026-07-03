@@ -38,6 +38,21 @@ used**. A second tier — agent bodies and templates, rule bodies, skill
 bodies, per-entry memory files — loads only **at invocation**, when the
 thing is actually used.
 
+The **~80K reliably-loaded budget** this PDR measures against is the
+repo's named ceiling for the *automatic + reliable* tier
+(owner-proposed 2026-05-15): everything the harness injects without
+agent action, plus everything the always-on rules direct a compliant
+agent to read at session open (the `AGENT.md` chain, the active memory
+pair, the start-right chain). Invocation-time loads are excluded. Any
+proposal that grows the reliably-loaded tier — a new always-on rule,
+always-active skill, `AGENT.md` addition, or session-hook output — is
+measured against the ceiling first, and resolves one of three ways:
+shrink something already in the tier, move the addition on-demand with
+a falsifiable trigger, or surface a ceiling revision to the owner. The
+corpus never accretes past the ceiling silently. (Complementary to the
+30% processing-window budget in `directive-file-context-budget`, which
+governs the live working window, not the static session-open surface.)
+
 Measured in this repo's Claude Code host (2026-07-03): ~71K tokens of
 session-open load against the ~80K reliably-loaded budget. The two
 largest controllable contributors shared one mechanism:

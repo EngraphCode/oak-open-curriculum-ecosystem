@@ -72,8 +72,9 @@ first-hand per owner direction. Durable homes:
    pipeline; [conviction, stronger] agent-tools has become a **knowledge-curation-and-expression
    layer** belonging in `packages/` along seams, agent-tools reduced to a **thin CLI** — the
    *destination*, gated on (second consumer + topology gate + WS0 fork); reshapes the
-   agent-tools-architecture-standard WS0 packaging question. Homed in memory
-   `project_corpus_instrument_is_a_knowledge_layer`.
+   agent-tools-architecture-standard WS0 packaging question. Homed in the
+   [`future/corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md)
+   brief and the repo-continuity corpus entry.
 
 **Adversarial review COMPLETE (2026-07-03, Hazel rides Orchard `de9f72`) — verdict: needs
 targeted revision, core sound; corrections APPLIED in place.** Every sampled `[V]` fact
@@ -239,6 +240,19 @@ pickup trigger; neither blocks the other.
   the ~80k reliably-loaded context budget — the evidence needed to move inert rules
   on-demand or retire them. Lane A's 2b reappraisal-cartography pass remains the
   prose-rule rationalisation vehicle.
+- **Lane E — specialist sub-agent design overhaul (owner-directed 2026-06-09; queued).**
+  Redesign ALL specialist reviewer sub-agents from the accumulated performance corpus, not
+  per-finding patching. Recurring failure modes: over-escalated severity; library/code shapes
+  asserted from assumption instead of the installed `.d.ts`/source (worked instance: a
+  type-expert blocker claim about Zod 4 `z.enum` literal-type widening, refuted first-hand
+  2026-06-09); drifting outside the decided-scope brief. Bake into every specialist prompt:
+  ground load-bearing claims in the installed artefact, calibrate severity, honour the brief.
+  First named target (owner, 2026-06-12): `mcp-expert` — deep review + update (its worked
+  knowledge predates the 2025-11-25 MCP spec revision; fetch-live discipline is sound).
+  Failure corpus: the 2026-06-09 output-schemas session's reviewer transcripts (workflow run
+  `wf_e52b0464-454` — host-local transcripts, not repo-resolvable; treat as corroboration only
+  if still present) and `verify-dont-trust`'s worked instances. Until the overhaul lands,
+  every load-bearing specialist claim is verified first-hand (the standing rule).
 
 - **Branch**: `feat/graph-tooling-tidyup` — **clean and pushed** at HEAD `934d5c21`
   (re-derive git first-hand).

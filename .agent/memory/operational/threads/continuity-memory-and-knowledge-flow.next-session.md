@@ -18,19 +18,31 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/active/claude-memory-buffer-drain.plan.md)
   (`active/`). Mode: `dedicated-knowledge-curation` under
   `/oak-consolidate-until-done`, owner-scoped to the Claude per-user buffer.
-- **Next safe step**: **Stratum B** — disposition the 25 `project_*` + 3
-  `reference_*` entries (supersession verified at delete-stakes before any
-  file deletion; live state re-homed pointer-form into this record or
-  `repo-continuity.md`). Read the index from disk, never the injected copy.
-  Then Stratum C (alphabetical `feedback_*` batches, ~25–30 per loop, smaller
-  is fine).
+- **Next safe step**: **Stratum C** — alphabetical `feedback_*` batches
+  (~25–30 per loop, smaller is fine; 212 entries remain). Per entry: read the
+  file, read the candidate home, then duplicate (recurrence-checked) /
+  duplicate-with-enrichment / route to Stratum D. Read the index from disk,
+  never the injected copy.
 - **Completed prerequisites**: PDR-124 landed + 15 agent descriptions
   converged (`6b7c496ab`); drain plan + Loop 0 landed (`d0003293b`) — index
   reconciled to whole (17 orphan lines appended; directory listing is the
   authoritative census); no-fallback reconciliation landed (`c14866649`);
   F-112 commit-workflow fix landed and archived (unblocks per-loop commits);
   **Stratum A complete 2026-07-03** — 8 graduated entries verified in their
-  homes first-hand, index lines retired, index at 232 lines / 240 files.
+  homes first-hand, index lines retired, index at 232 lines / 240 files;
+  **Stratum B complete 2026-07-03** — all 28 `project_*`/`reference_*` entries
+  dispositioned first-hand: 13 duplicates (homes verified), 6 superseded
+  (evidence read at delete-stakes), 8 enriched/re-homed (PDR-124 §Context 80k
+  budget definition; PDR-119 family-scope owner direction; collab-protocol
+  plan §Status M4-crosswalk note; pr-lifecycle Phase 4/7 merge-gate and
+  CI-diagnosis clauses; shared-credentials rule forensics clause; AEE thread
+  Lane E specialist-overhaul re-home; agent-operability four-facet collation
+  re-home), 27 index lines retired (memory-side retirement executed
+  immediately after the batch commit landed, per the order-of-operations
+  standing decision); **1 kept live**:
+  `feedback`-adjacent `project_oak_three_strategic_pillars` → its home is
+  `.agent/directives/editorial-tone.md` (a directive; PDR-052 defers the fold
+  to a fresh-context <30% moment — first fold action of a fresh loop).
 - **Acceptance bar**: the drain plan's five acceptance criteria (every entry
   file dispositioned; index live-only and untruncated; substance conserved;
   per-loop commits green; honest value-and-impact closeout).
@@ -66,6 +78,15 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
+- **2026-07-03 — Ginger guards Xylem (claude-code / fable-5 / 563bfb)**:
+  Stratum B executed (n=2 window with Gust hunts Headwind on the disjoint
+  salvage lane; Gust closed out mid-session at `2b57fff52`). All 28
+  project_*/reference_* entries read and dispositioned first-hand; 8
+  repo-side enrichments/re-homes landed in one batch commit; 6 live
+  dangling memory-pointer references repaired (repo-continuity, AEE record,
+  eef record, main-sonar record, two plans); 27 memory entries + index
+  lines retired after the commit; pillars entry deliberately kept live
+  (PDR-052 gate).
 - **2026-07-03 — Sardine spins Estuary (claude-code / fable-5 / 69af8c)**:
   thread opened. PDR-124 + agent-description convergence + lifecycle
   amendment; drain plan authored (plan-mode + assumptions-expert readiness
@@ -81,3 +102,4 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
+| Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-03 |

@@ -83,6 +83,12 @@ surfaces. Partial reads produce false "no problems" verdicts:
   source constant convention.
 - Sonar reflects fixes only after the next pushed scan — verify fixes with
   local gates at source; never poll Sonar immediately after an edit.
+- Diagnose a failed CI run from the failed **step name**
+  (`gh run view <id> --json jobs -q '.jobs[].steps[] |
+  select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
+  `if: always()` advisory step that runs last can misattribute the real
+  failure (observed 2026-06-24: the tail blamed a drift check; the failure
+  was format-check).
 
 ## Phase 5 — Wait without burning budget
 
@@ -114,8 +120,20 @@ AND zero unresolved review threads AND the Sonar quality gate passing. Then:
   approval; a clean agent merge is prohibited; `--admin` is forbidden).
   Notify the owner at this action moment (send the notification; never
   suppress it on inferred presence — `owner-attention-at-action-moments`).
+- The gate is author-dependent (verified 2026-06-24): a bot-authored PR shows
+  `BLOCKED` and needs the code-owner approval; a PR authored under the owner's
+  own auth shows `CLEAN` and merges directly — GitHub auto-satisfies the
+  code-owner requirement when the author IS the sole code owner, and forbids
+  self-approval.
+- An owner grant of merge authority (for example to a team session's
+  Director) is per-session, never standing (owner, 2026-06-29); absent a
+  fresh grant, the code-owner gate above is the default.
 - When merging is authorised, prefer a **merge commit** (`--merge`), never
-  squash (standing owner preference, 2026-06-28).
+  squash (standing owner preference, 2026-06-28). Verify the allowed merge
+  METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,
+  allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
+  silently reverted before (2026-06-27). If merge commits are disabled,
+  surface it to the owner; never fall back to squash.
 
 ## Phase 8 — After merge
 

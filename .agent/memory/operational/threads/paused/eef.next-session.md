@@ -157,7 +157,8 @@ merge_class: index-narrative-tables
      `output-schemas-for-mcp-tools.plan.md`.
   2. **Critically assess ALL reviewer feedback first-hand.** Reviewers over-escalate / misdiagnose
      (a parallel agent flagged a type-reviewer over-escalation on a wrong Zod signature this
-     session — see auto-memory `project_specialist_agent_design_overhaul`); ground every finding
+     session — see the `agentic-engineering-enhancements` thread record Lane E, the specialist
+     sub-agent design overhaul); ground every finding
      against the real code/data before acting (`validate-specialist-findings-before-acting`,
      `first-hand-means-me-not-subagents`). Verdict-not-relay.
   3. Run a **gap analysis**, an **underspecified-items check**, and a **decision-completeness
