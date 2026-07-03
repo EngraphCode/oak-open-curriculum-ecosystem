@@ -198,6 +198,22 @@ with the knowledge-layer framing.
   every downstream disposition surface until a manual set-difference recomputed them. The
   generalised pipeline's close must account every extraction-stage output — leaves without a
   candidate are a first-class residual stratum in the close report, not silence.
+- **Keep-filter kind-bias is measured, not hypothesised (routed 2026-07-03, ws1f).** The meta
+  stage's synthesis notes name the bias (the run under-weights trajectory / protocol-evolution /
+  single-window kinds; positive-value reviewer patterns and emergent-coordination baselines fared
+  worst), and the deterministic mine of the banked verdict corpora
+  (`data/banked-verdict-structural-mine-2026-07-03.json`) quantifies the regime texture: the
+  no-tools Sonnet run failed `grounded` on 46.7% of verdicts vs free-tool Opus's 11.9% and
+  `baseRateHolds` 59.3% vs 7.9% — **tool access (the voter's ability to verify grounding
+  first-hand) is the dominant regime variable**, while `notArtefact` is the discriminating blade
+  in every regime (involved in 99% of run kills, the sole failing test 23× vs 2-3× for the
+  others). `baseRateHolds` carries the highest low-confidence rate in both main regimes (11.4% /
+  9.9%) — voters lack base-rate evidence, so P0 should weigh computing base rates
+  deterministically instead of asking voters to intuit them. Cross-regime disagreement is
+  one-directional (18 of 20 disagreements are opus-keep/run-kill) and kind-skewed (trajectory
+  5/11 vs recurrence 15/43), corroborating the kind-bias with numbers. Caveat: the
+  sonnet-freetool bank (31 verdicts, 8 candidates) is a biased re-run sample, not a regime
+  baseline.
 - **The seventeen open questions (report §Open questions: ten original, three restored by the
   review, four from the further-research pass) are the P0 agenda** — unknowns to resolve, not
   risks to mitigate here. The further-research pass (report §Further research) supplies measured
