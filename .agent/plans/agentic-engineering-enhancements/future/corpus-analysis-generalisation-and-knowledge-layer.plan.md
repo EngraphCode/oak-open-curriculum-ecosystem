@@ -191,6 +191,13 @@ with the knowledge-layer framing.
   says "all preserved on disk"; no record accounts for the removal). Mitigation: re-materialise
   from `255117a43^`; the owner receives this as a safety-story gap, not a benign consequence; P0
   weighs a tracked count/watermark manifest for the untracked tier.
+- **Leaf-coverage accounting is a P0 pipeline requirement (routed 2026-07-03, ws1e).** The
+  2026-07-02 run's deterministic close reported `residual=0`, but that accounting was
+  candidate-scoped: it proved every reduce candidate had a disposition and never accounted the
+  leaf-to-candidate seam. 83 of 580 map leaves (14%) entered no candidate and were invisible to
+  every downstream disposition surface until a manual set-difference recomputed them. The
+  generalised pipeline's close must account every extraction-stage output — leaves without a
+  candidate are a first-class residual stratum in the close report, not silence.
 - **The seventeen open questions (report §Open questions: ten original, three restored by the
   review, four from the further-research pass) are the P0 agenda** — unknowns to resolve, not
   risks to mitigate here. The further-research pass (report §Further research) supplies measured

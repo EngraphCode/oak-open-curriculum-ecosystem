@@ -102,7 +102,11 @@ label tells you what a prior mind concluded — it does not tell you the role,
 meaning, or current correctness of the thing it describes. Before letting
 inherited prose define the question you are answering, re-test the verdict
 against the live artefact: is this still the right frame, or am I inheriting a
-stale diagnosis as my starting premise?
+stale diagnosis as my starting premise? Hedged prose in the artefact —
+"arguably", "loosely covers", "should be" — is itself the tell that the
+writer's classification was uncertain: read the object, not the hedge (a
+hedged thread-record link once caused a required brief to go unread because
+the hedge was absorbed as the verdict; owner-surfaced 2026-04-21).
 
 The same discipline covers authorities you are about to cite or copy. Before
 writing "this discipline lives in ADR-NNN" into a durable artefact, open the

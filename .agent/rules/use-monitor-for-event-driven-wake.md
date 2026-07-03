@@ -112,6 +112,12 @@ filter for noise, anchor on the real emit
 each shape" discipline). The canonical invocation lives in
 [`comms-all-channels-watcher.md`](comms-all-channels-watcher.md).
 
+Never route a monitor's stderr to `/dev/null`: a monitor that swallows its
+own stderr makes its failures undiagnosable — a transient emit failure
+surfaces only as a bare `FAILED` line with no cause attached (worked
+instance 2026-06-11). Keep `2>&1` (as in the reference shape above) so the
+failure cause reaches the output file even when it does not notify.
+
 ## Why This Is a Rule, Not a Preference
 
 A single instance landed as a behavioural surface

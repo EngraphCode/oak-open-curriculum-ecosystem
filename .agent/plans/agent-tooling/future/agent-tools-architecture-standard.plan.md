@@ -86,9 +86,14 @@ the lowest general layer, consumed by two permanent thin surfaces.
   [ADR-041][adr041] (workspace structure), [ADR-159][adr159] (per-workspace vendor CLI ownership) —
   into one explicit standard covering: the invocation model (from WS0); one error-handling convention
   (Result everywhere vs exit-codes-at-the-boundary-with-Result-internally); permitted workspace
-  dependencies; test-artefact placement (no `*.test.js` in `dist`); gate wiring and ordering; and
+  dependencies; test-artefact placement (no `*.test.js` in `dist`); gate wiring and ordering;
   **where a pure, consumer-general mechanism lives (a `packages/core` package) versus an Oak-repo
-  policy (agent-tools)** — the framework/consumer split from `principles.md`.
+  policy (agent-tools)** — the framework/consumer split from `principles.md`; and the **workflow-
+  command shape already converged in practice**: a pure orchestrator with dependency-injected
+  primitives and no real I/O, plus a sibling runtime-wiring file (established by
+  `check-commit-skill-advisories.ts`, reapplied by `commit-workflow.ts` / `commit-workflow-runtime.ts`
+  as the default shape for new workflow commands, 2026-05-22) — the standard should ratify or
+  supersede it explicitly rather than leave it tacit.
 
 - **WS2 — Structural enforcement (depends on WS1; "absolute adherence").** Encode the standard in
   ESLint architectural rules / dependency-cruiser / repo-validators / the `config-expert` gate so a

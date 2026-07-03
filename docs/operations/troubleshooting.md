@@ -145,6 +145,15 @@ because no local gate runs a frozen install; CI's
 floor, PR #296). Cure: run `pnpm install` and commit the lockfile; when
 adding a direct dep, grep the overrides for its name first.
 
+### Type-check undercounts a migration surface
+
+`pnpm type-check` is not the full failure surface for a type or schema
+migration: Zod-runtime parse errors on fixtures and recorded data surface only
+when the test suite runs. Sizing a migration from the type-check failure count
+alone undercounted the real surface roughly 3× on the Result-migration
+workstreams (two independent sessions, 2026-05-15 and 2026-05-21) — run the
+full test suite before sizing or declaring a migration surface.
+
 ### Cache false-greens
 
 Turbo and pre-commit caching can mask failures: a cached result replays green

@@ -2518,6 +2518,24 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open (skill-side mitigated 2026-07-03).
 - **Owner direction status**: standing (record-all-frictions).
 
+### F-117 — `commit-queue enqueue --claim-id` rejects a mistyped UUID with an opaque `unknown claim_id`
+
+- **Source**: napkin 2026-05-22 window, rescued via the 2026-07-02 discovery run's
+  unclustered-leaf stratum (w10-L10), dispositioned 2026-07-03 (Gust hunts Headwind).
+- **Surface**: `commit-queue enqueue` (claim-id validation).
+- **Observed**: copying a claim UUID assembled from the first half of one claim id and the
+  second half of another produces a plausible-looking but nonexistent UUID; enqueue fails
+  with only `unknown claim_id`, and finding the transposition took manual character-level
+  string comparison against the registry.
+- **Expected**: the error names the nearest active claim id(s) (prefix match or edit
+  distance) or at least echoes the active claim ids for the agent's identity, so a
+  near-miss is visible without manual diffing.
+- **Candidate cure**: on unknown claim_id, list the caller's active claim ids in the error;
+  optionally flag a close prefix match as a likely copy error.
+- **Target surface**: `agent-tools/src/commit-queue/` claim resolution error path.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
 ---
 
 ## Mitigated / Addressed Frictions
