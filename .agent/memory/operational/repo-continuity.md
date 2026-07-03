@@ -94,20 +94,23 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — ws1b EXECUTED; FULL-PROCESSING ws1c–ws1g READY (2026-07-03, Vega
-  mends Oblivion).** All 59 A–D rescue entries dispositioned first-hand via
-  consolidate-until-done (graduations across rules, PDR-060/PDR-122, two new patterns,
-  three directives, engineering docs; the C36 supertest contradiction reconciled to the
-  2026-05-21 owner ratification; tier-B note: 5 of 8 "genuinely novel" survivors had homes).
-  **Owner direction 2026-07-03: the prior "owner-gated / owner's manual round" framing on the
-  remaining strata was NEVER ratified and is withdrawn** (`precedence-is-not-approval`;
-  recurrence evidence in the action-time-structural-interrupt inventory). Every remaining
-  stratum is now plan-carried work: **ws1c** (deterministic estate inventory), **ws1d**
-  (tier E, 187 ranked kills, 8 batches), **ws1e** (83 unclustered map leaves), **ws1f**
-  (8 meta synthesis notes + the structured-only banked-verdict corpus), **ws1g** (v2 31
-  re-finds verify-and-enrich, 5 v2 kills, 9 v1 kills + v1 C06, probe supersession proof) —
-  assumptions-expert-reviewed, ~3–6 sessions, opener:
+- **Large-corpus analysis — FULL-PROCESSING IN EXECUTION: ws1c + ws1e + ws1f + ws1d/E-b1 DONE
+  (2026-07-03, Gust hunts Headwind; commits `6708fb8eb`→`89208e0d2`).** ws1c recomputed every
+  stratum first-hand (tierE 187, leaves 83, notes 8, banked 202+31, v2 50, probe 75/167;
+  kill accounting reconciles; recorded verdict: the v1 stratum's committed base is the
+  napkin-discovery-pass-1 report — no per-item JSON exists). ws1e dispositioned all 83
+  unclustered leaves (6 enrichments incl. verify-dont-trust read-side hedge clause, F-117;
+  leaf-coverage accounting gap routed to the generalisation P0 agenda — 83/580 leaves were
+  invisible to candidate-scoped residual accounting). ws1f verified all 8 synthesis notes
+  and mechanically mined the banked verdict corpus
+  (`data/banked-verdict-structural-mine-2026-07-03.json`: tool access is the dominant regime
+  variable; notArtefact the discriminating blade; baseRateHolds least-confident — compute
+  base rates deterministically; disagreement one-directional, trajectory-skewed). ws1d E-b1
+  (ranks 1–25): 22 verified duplicates + 3 enrichments, 0 rejects. **NEXT: ws1d E-b2 (ranks
+  26–50) onward, then ws1g (ws1c dependency satisfied)** — fresh seat, opener:
   [`rescued-knowledge-full-processing-session.md`](../../prompts/agentic-engineering/rescued-knowledge-full-processing-session.md).
+  Owner direction 2026-07-03 stands: every remaining stratum processed in full; the prior
+  "owner-gated" framing was never ratified and is withdrawn (`precedence-is-not-approval`).
   Comms events alone are owner-routed to a separate plan. Then the ws2 topology readiness
   review (folds into Phase 0). Live plan:
   [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md)
@@ -219,7 +222,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Vega mends Oblivion / ws1b dispositioned (59 A–D) + owner correction absorbed (gating labels never ratified) + full-processing plan ws1c–ws1g authored + F-113–F-116 registered / 2026-07-03 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Gust hunts Headwind / full-processing first seat: ws1c+ws1e+ws1f+ws1d/E-b1 executed (6708fb8eb→89208e0d2); next E-b2 onward then ws1g / 2026-07-03 (full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
