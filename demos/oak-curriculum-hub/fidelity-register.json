@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "hub-home-full/sixth-destination-card",
+      "pairId": "hub-home-full",
+      "kind": "feature",
+      "summary": "The live hub shows six destination cards; the canonical export's hub shows five.",
+      "evidence": ["demo-evidence/home-live.png", "demo-evidence/hub-canonical-render.png"],
+      "disposition": "deliberate",
+      "rationale": "Ratified requirement for the demo: two-search plus six destination cards. Recorded in the productionisation plan as the worked example of a divergence that must not be re-flagged on export re-ingest.",
+      "author": "director-9",
+      "date": "2026-07-03"
+    },
+    {
+      "id": "ref-coursemap/callout-warning-quote-variant-colours",
+      "pairId": "ref-coursemap",
+      "kind": "visual",
+      "summary": "The callout warning and quote variant colours were inferred during the block styling pass, not export-verified.",
+      "evidence": [
+        "components/blocks/CalloutBlockView.tsx",
+        "demo-evidence/course-export-full.png"
+      ],
+      "disposition": "investigate",
+      "rationale": "Recorded section-D debt (2026-07-02): the tip variant was export-verified, warning and quote were inferred from the palette. Verify each against the export course render, then move to matched or fix.",
+      "author": "director-9",
+      "date": "2026-07-03"
+    }
+  ]
+}
