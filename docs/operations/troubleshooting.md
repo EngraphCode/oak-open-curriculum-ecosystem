@@ -129,6 +129,10 @@ relocations**, and several report stale or silently-green results:
   `--dot` (and note `--fix` can corrupt literal `+` / `#` / `-` characters in
   prose; review its diff before committing).
 - knip ignores root-level entries unless `workspaces['.']` is configured.
+- knip runs in `pnpm check` / pre-push but NOT the pre-commit hook, so a new
+  tsx-spawned or CLI entry file unregistered in `knip.config.ts` passes commit
+  and goes red only at closeout — register every new entry point with the
+  scaffold, or full-tree knip blocks the next committer.
 - `rg` / `fd` skip dotdirs by default — pass `--hidden` when sweeping
   `.agent/` or other dot-directories, and mind `rg -r` (replace) vs `-n`.
 

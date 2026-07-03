@@ -357,3 +357,22 @@ New session observations append below.
   at the harness layer: a goal condition wants an exit criterion for
   owner-superseded-in-session, or goals want re-issuing when the owner re-scopes mid-flight.
   Harness-level observation (the /goal feature), not a repo defect.
+
+## 2026-07-03 — rescued-knowledge full processing ws1c–ws1f + ws1d E-b1 (Gust hunts Headwind)
+
+- **`rg -r` fired three times in one session DESPITE reading its home the same hour** — I
+  used `rg -rln` (where `-r` is --replace, silently mangling output) three times while
+  running disposition sweeps, having read troubleshooting's "mind `rg -r` (replace) vs
+  `-n`" bullet earlier in the SAME session (it entered that doc 2026-07-01ish; my
+  instances post-date the home). Clean PDR-098 fires-despite-home instance at the
+  muscle-memory layer: the flag collision is mechanical, the home is passive prose, and
+  the failure is visible only if you inspect the output shape (matches silently replaced).
+  Candidate cure is action-time, not text: a shell-lint/hook fingerprint on `rg -r` in
+  agent invocations, or the habit of `--replace=` never `-r`. Routed as texture to the
+  action-time inventory only if it recurs cross-session; napkin-first per the temporal
+  qualifier discipline.
+- **A batch disposition pass wants the failure-class greps EXCLUDING the corpus data dir**
+  (`-g '!**/large-corpus-analysis-tooling/data/**'`) — the committed checkpoints contain the
+  leaf/candidate text itself, so any grep for a lesson's key phrase self-matches the corpus
+  being dispositioned and buries the real homes (bit twice before the exclusion became
+  standard practice this session).

@@ -129,6 +129,17 @@ roughly six days (2026-05-30 onward) re-diagnosing this same insufficiency
 That recurrence is the cross-session evidence that promoted this item to an
 owner-greenlit design lane.
 
+The napkin-corpus discovery run adds a longitudinal regime observation
+(candidate C244, routed 2026-07-03): executable-code coordination
+infrastructure (thread-register spine, active tripwire scripts,
+validators-as-tests) was a live build target early-to-mid corpus (~w05), was
+then displaced by markdown-first ritual-moment steps through the middle
+windows, and only by w13–w15 did the pendulum swing back toward mechanical
+action-time enforcement (hooks, schema gates). The design lane is therefore
+not greenfield: the estate has already tried executable enforcement once and
+let it lapse — the design should name what made the first attempt lapse so
+the second installs to stay.
+
 ## The Reconciliation (the distinct value)
 
 The register item demands reconciliation with metacognition and immune-system

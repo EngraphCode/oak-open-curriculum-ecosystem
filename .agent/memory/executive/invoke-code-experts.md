@@ -92,6 +92,12 @@ Use `focused` when:
 - the question is binary or narrow
 - a deep pass would mostly repeat known context
 
+Multi-reviewer tranches converge in 2–3 rounds (each round can introduce its
+own regressions needing one more); budget for that shape rather than a single
+pass. Convergence of independent reviewers on the same finding is the
+strongest act-decisively signal a review can produce — treat it as a verdict,
+not one more input (corpus-proven across w-window sessions, 2026-05→06).
+
 ## Delegation Snapshot
 
 Every bounded reviewer or worker lane should receive this minimum snapshot:
