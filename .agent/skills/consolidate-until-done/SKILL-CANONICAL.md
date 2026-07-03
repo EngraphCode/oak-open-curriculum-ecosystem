@@ -113,8 +113,11 @@ current session:
    carry-forward surface.
 4. Additional capture/source buffers named by `consolidate-docs` are accounted
    for when they are in scope: the minimum platform-memory set (Claude, Codex,
-   Cursor, Gemini), non-repo plans, entry-point drift, and any explicitly named
-   comms-event evidence. Platform file lifecycle may be external, but
+   Cursor, Gemini), non-repo plans, entry-point drift, any explicitly named
+   comms-event evidence, and any **discovery-run rescue set** named as intake
+   for the pass (a plan-carried work-list per `consolidate-docs`
+   §Discovery-Run Rescue Sets — every entry dispositioned, the owning plan's
+   workstream completed). Platform file lifecycle may be external, but
    the knowledge disposition is not optional.
 5. Every decidable item has been decided (graduated, rejected, or duplicate). An
    item that genuinely cannot be decided this pass remains a live decision-debt
@@ -172,8 +175,9 @@ Repeat this loop until the completion contract is met:
    files. Include pending-graduations directories, active/recent memory
    buffers, open-questions, relevant practice boxes, the minimum platform-memory
    set named by `consolidate-docs` (Claude, Codex, Cursor, Gemini), non-repo
-   plans, entry-point drift, and collaboration comms only when those surfaces
-   are in scope. For platform-owned files, inventory the learning items and
+   plans, entry-point drift, any discovery-run rescue set named as intake for
+   the pass (`consolidate-docs` §Discovery-Run Rescue Sets), and collaboration
+   comms only when those surfaces are in scope. For platform-owned files, inventory the learning items and
    record knowledge disposition without taking over file rotation, archival, or
    deletion; if a required platform surface is absent or inaccessible, record
    that as an explicit inventory disposition.

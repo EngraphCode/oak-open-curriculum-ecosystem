@@ -278,6 +278,36 @@ performed primarily to change the fitness category are self-delusion, not
 curation. Curation is verified by the homed substance and the commit, never by an
 accounting record of what was moved.
 
+## Discovery-Run Rescue Sets Are Intake Work-Lists
+
+The corpus-analysis pipeline ([PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md))
+produces, per run, a committed discovery/salvage report plus a machine-readable
+keep-set (a tier table). Those rescue sets are **first-class consolidation
+intake**, equal to the capture buffers above, with one structural difference:
+the report is an immutable point-in-time record, so its drain state lives in
+the **owning plan's disposition workstream** (a plan-carried work-list), never
+in edits to the report and never by copying the set into `distilled.md` — the
+buffer cannot hold a corpus-scale set, and the committed table is already
+durable.
+
+- **Per-item protocol**: identical to the Drainable Buffer Protocol — read the
+  entry (the tier table carries full pattern text), route the substance,
+  classify `graduated` / `duplicate` / `rejected` as you go. A corroborated
+  re-find is recurrence evidence by construction — apply the PDR-098 recurrence
+  check before treating it as a routine duplicate.
+- **Evidence-tiered order**: work the highest-evidence strata first —
+  proven-real false kills and cross-regime disagreements, then novel keeps,
+  then corroborated re-finds (whose `corroboratedBy` field names the exact home
+  to verify-and-enrich).
+- **Done**: every entry of the named rescue set dispositioned and the owning
+  plan's workstream marked completed; any owner-gated stratum (e.g. a manual
+  review tier) named explicitly as outside the workstream's done. Homes and
+  commits are the record, as everywhere.
+
+Worked instance: the 2026-07-02 salvage —
+`discovery-run-salvage-report-2026-07-02.md` with its tier table, work-listed
+by `corpus-analysis-salvage-and-topology-redesign.plan.md`.
+
 ## Plan supersession discipline
 
 When a plan is narrowed, reframed, or superseded, the same change set

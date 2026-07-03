@@ -55,11 +55,12 @@ is EXECUTED and committed on branch `chore/rescue_findings`:
 
 **Next actions, in order:**
 
-1. **The rescued-concept disposition pass** (fresh seat, dedicated): run the conservation
-   machinery (consolidate-until-done) over the report's rescue set — the 8 novel survivors,
-   the 15 C-only and 15 D-only rescues, and the tier A/B re-find confirmations. The report is
-   the intake work-list; the committed tier JSON carries every pattern's full text. Graduate
-   or record-disposition each; the buffers were empty at pass-open.
+1. **The rescued-concept disposition pass** (fresh seat, dedicated): now DECISION-COMPLETE as
+   the salvage plan's **ws1b** — run consolidate-until-done with the report + tier JSON as the
+   plan-carried intake work-list, per the new canonical intake class
+   (consolidate-docs §Discovery-Run Rescue Sets, owner-directed 2026-07-03). The ws1b todo
+   carries the full evidence-tiered order and per-tier disposition shapes; done = all 59 A–D
+   entries dispositioned, buffers empty at close.
 2. **The owner's tier-E manual round** — 187 ranked kills in the report §Tier E; nothing was
    deleted, every kill is conserved in the committed checkpoints.
 3. **The ws2 readiness review** (fresh seat) — the unchanged gate on the topology redesign
