@@ -144,3 +144,14 @@ New session observations append below.
   reviewer-contradiction-is-a-gift entry above.
 - **Advisor tool unavailable this session** (returned "unavailable" on first call); proceeded on
   first-hand verification alone. Harness observation, not a repo defect.
+- **"Unmeasured" often means "unanalysed" — the data was already committed.** The quorum-diversity
+  finding said vote independence was unmeasured; a 100-line deterministic script over the
+  already-committed checkpoints measured it in minutes (phi≈0.55, ≈1.4 effective votes of 3, both
+  regimes; cross-regime quorum agreement 59.6%). Before scoping new instrumentation for an
+  "unmeasured" quantity, check whether the banked artefacts already carry the measurement
+  (PDR-122 invariant-1 style: deterministic code over recorded judgments). Banked:
+  `data/lens-correlation-measurement-2026-07-03.json`.
+- **Owner observation captured (2026-07-03, mid-session):** estate-wide markdown→knowledge-graph
+  definition-layer inversion, markdown retained as the two-way representation layer (render AND
+  human input). Homed: `project_graph_approach_is_practice_convergence_target` (sharpening) + the
+  research report's owner-observation record; a dedicated research lens ran on it.

@@ -191,8 +191,11 @@ with the knowledge-layer framing.
   says "all preserved on disk"; no record accounts for the removal). Mitigation: re-materialise
   from `255117a43^`; the owner receives this as a safety-story gap, not a benign consequence; P0
   weighs a tracked count/watermark manifest for the untracked tier.
-- **The thirteen open questions (report §Open questions, three restored by the review) are the P0
-  agenda** — unknowns to resolve, not risks to mitigate here.
+- **The seventeen open questions (report §Open questions: ten original, three restored by the
+  review, four from the further-research pass) are the P0 agenda** — unknowns to resolve, not
+  risks to mitigate here. The further-research pass (report §Further research) supplies measured
+  quorum-correlation figures, the two-hash stamp design, the linking-layer blueprint, the
+  standing-audit statistics, and the estate-inversion ADR direction as P0 inputs.
 
 ## Promotion trigger into `current/`
 

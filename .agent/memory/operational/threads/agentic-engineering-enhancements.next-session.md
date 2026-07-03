@@ -62,7 +62,9 @@ first-hand per owner direction. Durable homes:
 5. **Sharpest correctness finding (candidate PDR-122 amendment, NOT amended):** the tier-2 quorum's
    three lenses all run on ONE model, so invariant 2's "uncorrelated votes license a majority" is
    unmeasured; external evidence + the repo's own 40% regime divergence suggest ~1–2 effective
-   votes. Measure effective-vote count on canaries; pursue cross-model heterogeneity.
+   votes. NOW MEASURED (see the further-research entry below): ≈1.4 effective votes of 3; the
+   remedy ladder is dependence-aware aggregation + corrected boundaries + cross-tier concurrence
+   as the bias gate (cross-family diversity verified as a weak independence lever).
 6. **Owner observations (2026-07-03):** [candidate goal] a general document→knowledge-graph
    pipeline; [conviction, stronger] agent-tools has become a **knowledge-curation-and-expression
    layer** belonging in `packages/` along seams, agent-tools reduced to a **thin CLI** — the
@@ -76,9 +78,26 @@ reproduced first-hand; both workflow journals cross-checked; the seven design co
 owner-observation capture ratified; the candidate PDR-122 invariant-2 amendment judged warranted
 in the recorded shape. Corrections: R1 (comms-residual removal is unexplained, not benign — see
 item 4), R2 (a fourth, behavioural leak point: `temporalCoverageReport` window-id collation), R3
-(three restored open questions → the agenda is now thirteen). Review report:
+(three restored open questions). Review report:
 [`corpus-generalisation-review-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md).
 Method lesson: lens `openQuestions` are the synthesis drop zone.
+
+**Further research COMPLETE (2026-07-03, same session, owner-directed — the model switch had cut
+the programme short).** (1) **The quorum-diversity gap is now MEASURED**, from the committed
+checkpoints (deterministic code; banked at `data/lens-correlation-measurement-2026-07-03.json`):
+inter-lens phi ≈0.548/0.544 in BOTH regimes → ≈1.4 effective votes of 3; cross-regime quorum
+agreement 59.6%, 18/19 one-directional. Regime dominates lens, measured. (2) Gap lenses landed:
+the two-hash calibration stamp (prompt IS stamped) + three-tier enforcement; the linking layer as
+Fellegi–Sunter three-band + reconciliation-API surface + minting-unified-with-resolution; the
+standing audit (cross-regime elusion + alpha-and-n_eff pair + PRISMA render + tracked watermark
+manifest = the R1 cure); the estate-wide markdown→graph inversion needs its OWN proposed ADR
+(three round-trip classes; §8 reconciler must be PDR-122-bound, with the merge behind
+dependence-aware aggregation + a corrected boundary + cross-tier concurrence). (3) **Owner
+observation 6 captured**: markdown → two-way representation layer; the graph is the definition
+layer, estate-wide. (4) The quorum-remedy ladder A–F (report §Quorum heterogeneity; keystone
+sources fetch-verified): dependence-aware aggregation first, e-process/deflated boundaries,
+cross-tier concurrence gate, then input-diversity / human-tail experiments. All in the report
+§Further research; the P0 agenda is now seventeen questions.
 
 **Next action:** an owner-scheduled fresh-seat **Phase 0 design session** (the plan's promotion
 trigger) that ratifies identity + five-layer decomposition + D1–D6 + regime registry + the

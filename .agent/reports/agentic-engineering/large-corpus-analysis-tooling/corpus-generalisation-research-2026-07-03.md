@@ -81,6 +81,18 @@ learning loop? What are the alternative framings we have not explored?
    to a **thin CLI**. Open to other approaches. This substantially sharpens the stratum destination
    (below), while the *path* still respects the standing sequencing gates.
 
+6. **Owner observation [O], 2026-07-03 (added at the further-research pass):** "the emergent
+   subtext seems to me to be that everywhere we are moving from markdown as the knowledge
+   definition layer, to a knowledge graph as the knowledge definition layer, while retaining the
+   markdown representation layer as both a rendering and an input layer that works well for
+   humans." This is the estate-wide generalisation of what ADR-200 ratifies for the intent corpus
+   (graph authoritative; documents the co-equal human embodiment; §8 reconciliation for
+   human-edited prose), with one sharpening: markdown's role is precisely **two-way
+   representation** — render target AND human input surface — while definition/authority moves to
+   the graph. The corpus instrument is the migration engine for the shift. Homed in memory
+   `project_graph_approach_is_practice_convergence_target`; a dedicated research lens covers the
+   precedents and the genuinely-new decisions (§Further research).
+
 ## General vs corpus-specific vs regime vs run (the decomposition)
 
 The cartography lens classified every module; the load-bearing boundaries were re-verified.
@@ -249,7 +261,7 @@ gaps. [L unless marked]
   non-participant — renderable deterministically from the existing `disposition-partition.ts` for
   near-zero cost.
 
-## Sharpest correctness finding — the quorum's diversity is unmeasured
+## Sharpest correctness finding — quorum diversity was asserted; now measured at ≈1.4 effective votes
 
 **Two independent lenses (cross-field and alternatives) converged on this, and the repo-internal
 half is verified [V].** PDR-122 invariant 2 asserts the tier-2 lenses are "distinct so they are
@@ -264,6 +276,21 @@ aggregation closes ≤11% of the gap when judges correlate. The repo's own data 
 [V]: the 47% vs 10.6% keep-rate divergence between regimes (PDR-122:106-108) shows **regime
 dominates lens** — prompt-lens diversity on one model may be ~1–2 effective votes.
 
+**MEASURED (2026-07-03, further-research pass) — no longer an estimate [V].** Deterministic code
+over the committed checkpoints (banked at
+[`data/lens-correlation-measurement-2026-07-03.json`](data/lens-correlation-measurement-2026-07-03.json);
+vote = the four conjunctive tests all pass): mean pairwise inter-lens phi is **0.548** in the
+Sonnet locked regime (246 complete three-lens quorums) and **0.544** in the banked Opus free-tool
+quorums (54) — **≈1.4 effective votes out of 3, identically in both regimes**, so the correlation
+is a property of prompt-lens-on-one-model, not of a tier. Cross-regime, the same candidates'
+2-of-3 quorum outcomes agree only **59.6%** (47 comparable candidates; 18 of 19 disagreements
+one-directional, Sonnet-kill/Opus-keep — the salvage tier-C set exactly). Within-regime voters
+agree ~90% pairwise while cross-regime *majorities* barely beat a coin flip: **regime dominates
+lens, measured**. Method caveat, honestly held: phi over live candidates conflates true-signal
+agreement with error correlation (no per-candidate ground truth), so the canary-based measurement
+stays the P0 instrument for error correlation specifically — but the invariant-2 derivation
+("distinct lenses, therefore uncorrelated") is now *measured* as unsupported, not just argued.
+
 This is a genuine gap in *ratified doctrine*, not just the tooling. **Disposition: recorded as a
 candidate PDR-122 amendment; NOT amended this session** (recording, not reshaping). The design
 session should: (a) measure inter-lens error correlation / effective-vote count on the canaries
@@ -271,7 +298,10 @@ session should: (a) measure inter-lens error correlation / effective-vote count 
 prompts alone — the salvage layer already cross-checks against an Opus banked quorum, so the
 heterogeneity remedy exists but only post-hoc; (c) consider the weak-supervision label model as a
 second-order upgrade (it cannot manufacture independence, so it is downstream of fixing the
-diversity axis).
+diversity axis). **Refined by the further-research pass (§Quorum heterogeneity): cross-family
+diversity is itself a weak independence lever (verified source: cross-family error correlations
+can exceed same-family); the first moves are dependence-aware aggregation over the banked phi and
+corrected quorum boundaries, with cross-tier concurrence as the irreversible-discard bias gate.**
 
 ## The comms-event corpus — the forcing second instance
 
@@ -540,6 +570,208 @@ Seven-plus competing identities were steelmanned; the verdict on which compose v
     inherently corpus-specific (baselines are napkin memory docs); the five-layer table places the
     recall *engine* in the kernel — Phase 0 should ratify the engine-kernel / baselines-family
     split explicitly, since the leaf/candidate schemas hang off the same boundary.
+
+## Further research (2026-07-03, post-review pass)
+
+The model switch interrupted the research *programme* (no workflow died mid-run — the two named
+runs completed; five other same-session workflows were reviewer panels for other lanes [V]).
+Five gap lenses ran in a second fan-out (Hazel rides Orchard; read-only agents; ~420k tokens).
+The load-bearing repo claims below were spot-checked first-hand; external claims carry URLs and
+are [L]. The measured quorum figures feeding this pass are in §Sharpest correctness finding and
+banked at `data/lens-correlation-measurement-2026-07-03.json`.
+
+### Regime registry — the stamp resolves to two co-stamped hashes plus measured figures
+
+- **Prompt version IS stamped — the open question 11 resolves decisively [L+V].** Internal:
+  invariant 6's own 47%-vs-10.6% measurement held prompts constant, so a prompt edit is a regime
+  change by the same evidence that motivates stamping the model. External: 2025–26 LLMOps practice
+  co-versions prompt-hash + model + eval run as one lineage node (MLflow 3.0, Braintrust). Clean
+  shape given the five-layer table (prompts are *family*, model/effort are *regime*): **one stamp
+  binding two hashes** — `regimeHash{model, effort, agentType, maxTurns, toolSurface}` +
+  `promptHash{family prompt builders}` — with the quality figures valid only for the
+  (regimeHash × promptHash × corpusFamily) triple; a change to either invalidates.
+- **`resolvedModelId` is the digest-pin and cannot live in the build hash [L+V].** Snakemake/
+  Nextflow pin executors by resolved digest because a symbolic tag silently re-resolves — exactly
+  the harness's `'sonnet'` symbol. Only knowable post-run from transcripts → recorded field,
+  checked at runtime by the invariant-6 canaries, not hashed at build.
+- **The stamp gains the measured quorum figures**: `measuredEffectiveVotes` / `measuredInterLensPhi`
+  join `measuredTokensPerAgent` and `measuredQualityFigure` — the effective-vote count is the
+  quantity that licenses (or refuses) a majority vote, and stamping it makes the diversity gap
+  machine-visible. Whether a minimum effective-vote count *gates* a regime from owning terminal
+  discards is a P0 decision (question 14).
+- **Enforcement is three-tier, each with a live precedent [V]:** (1) build-time stamp-freshness
+  refusal at artefact emit — the `--ceiling` "no default, ever" refusal shape
+  (`build-run-artefact.ts:146-147` [V]); (2) test-time mirror-conformance asserting the four TS
+  dispatch literals + template frontmatter + platform adapters equal the registry — this catches
+  the live TOML drift, and the drift's true nature is now confirmed: **pipeline dispatch is
+  Claude-harness-only; the `corpus-*.toml` Codex adapters are unwired parity artefacts** (zero
+  Codex references in the corpus-analysis TS [V]), so conform-or-regenerate the adapters from the
+  registry; (3) runtime canary drift detection for `resolvedModelId`. Cross-field anchors [L]:
+  DVC `dvc.lock` (params are hashed first-class dependencies; any change re-invalidates the
+  stage), Great Expectations as the *cautionary* precedent (validation without owned invalidation
+  — the stamp must be a lineage lock, not a checkpoint operators remember to re-run), and
+  MLflow/SageMaker/W&B eval-gated promotion: the quality figure is a **comparative promotion gate
+  against the incumbent stamp on the shared canary set**, not a passive record.
+
+### Construction/linking layer — a solved external shape that maps 1:1 onto ratified grammar
+
+- **Fellegi–Sunter is the blueprint [L]:** deterministic blocking (candidate generation) →
+  deterministic scoring → a **three-band decision** (auto-link / clerical-review / non-match).
+  The three bands are conserve-by-default expressed as arithmetic: auto-merge only above the high
+  threshold AND quorum-confirmed; the middle band held for review; below = keep-distinct/mint-
+  novel. Measured LLM entity-linking precision is materially below auto-merge-safe on its own [L]
+  (EntGPT ~+2.1% avg over supervised baselines; 54.1-vs-86.5 F1 method spread) — quantitative
+  backing for putting the merge, not the keep, behind the quorum (ADR-200's own "a wrong merge
+  silently loses a distinct idea").
+- **The OpenRefine / W3C reconciliation API is the propose-confirm wire protocol [L]:**
+  query → scored candidates `{id, name, type, score, match}` → confirm. Shape the shared layer's
+  public surface as a reconciliation-style service so the harvest, ADR-200 §8 prose
+  reconciliation, and the corpus pipeline call **one interface**.
+- **Id-minting and entity resolution are one mechanism viewed twice [V-doctrine].** ADR-200
+  requires minting idempotent-across-re-harvest AND a de-dup mechanism as two §Open items — they
+  are the same layer: resolve every (re-)harvested candidate against the existing-node index
+  first; a matched candidate reuses the existing id; **minting a fresh id is the terminal "novel"
+  branch**. This closes both §Open items at once and means linking runs at harvest time. Wikidata's
+  QID model (opaque, never reassigned, label separate and mutable, alias set accumulating
+  superseded labels) directly validates ADR-200's lens-resolved id direction [L]; content hashing
+  stays OUT of identity but IN blocking as a cheap fingerprint predicate.
+- **The merge decision cannot rest on a same-model prompt-lens majority.** The measured phi
+  applies to merge/novel calls exactly as to keep/kill (both are regime-governed semantic
+  dispositions); ≈1.4 effective votes is too weak for the irreversible merge. Per §Quorum
+  heterogeneity, the cure is dependence-aware aggregation + a corrected boundary + cross-tier
+  concurrence as the bias gate — not simply adding another model family.
+- **The repo embryo is verified [V]:** `post-run/claimed-home-existence.ts` (LLM names candidate
+  homes atomically; code verifies each against a repo-anchored index; misses reported, never
+  crash) — the layer is a generalisation of a tested pattern, not greenfield. The audit trail must
+  checkpoint: the blocking candidate set + admitting predicate, each atomic per-pair judgment
+  (never the merge decision), the deterministic band + thresholds, and per merge the quorum votes
+  + reference-rewrite manifest + retained superseded node — all under a stamped regime with
+  same-idea/known-distinct canary pairs (blocking-recall misses are silent false-novels).
+
+### Standing calibration and incremental operation
+
+- **Elusion audit over the kill pile [L]:** sample the kills, re-judge with a quorum, report the
+  Clopper–Pearson one-sided upper bound on the false-kill rate (never normal-approximation point
+  estimates — poor coverage, Webber 2013), and translate it into a **recall lower bound**
+  (elusion is not recall — the low-prevalence trap). Sample-size formulas for the design session:
+  zero-defect n = ln(1−C)/ln(1−p0) (95%/5% → 59; 95%/1% → 299); estimation regime n≈100 → ±10%,
+  n≈385 → ±5% at p=0.5. Given ~870 events/day, accumulate kills into a **rolling regime-keyed
+  pool** so the per-cadence sample reaches adequacy. **The audit quorum must be cross-regime** —
+  an audit drawn from the production regime shares the correlation and one-directional bias it is
+  meant to detect (direct consequence of the 59.6% / 18-of-19 measurement).
+- **The IRR calibration figure is a PAIR [L+V]:** Krippendorff's alpha (the only standard
+  statistic tolerating our >2-rater, missing-vote shape — Cohen is two-rater, Fleiss needs fixed
+  counts) for agreement, AND n_eff = n/(1+(n−1)·phi) for independence. High alpha with high phi
+  means the quorum agrees because it is *redundant*, not corroborating — reporting agreement alone
+  would ratify a correlated echo.
+- **PRISMA-2020 flow render is a pure formatter [V]:** `disposition-partition.ts` already carries
+  keeps/kills/residual with typed reason states; add elusion-audit and canary-recovery boxes.
+- **Incremental substrate = a tracked watermark manifest** keyed by (git commit SHA, processed
+  event-UUID set, corpus-family, **regime hash**), generalising PDR-014's marker ledger [V], with
+  a declared lookback window for late arrivals (comms threads are *derived* — only 4/2,213 events
+  carry `in_reply_to`, so a late event silently changes an already-processed window's context) and
+  MERGE-upsert idempotent re-judgment. The regime hash in the key makes invariant-6 recalibration
+  mechanical (a regime change invalidates the fold), and **the tracked manifest is the R1 cure**:
+  silent bulk removal of the untracked tier trips a validator instead of a forensic accident.
+
+### The markdown→graph inversion, estate-wide (owner observation 6)
+
+- **The inversion is already instantiated twice, in two different round-trip shapes [V]:** ADR-200
+  (plan corpus: graph authoritative, prose co-equal, §8 semantic reconciler) and PDR-119 (memory
+  as an immutable event graph with deterministic renderers and **no reconciler at all** — status
+  Proposed, direction owner-ratified 2026-06-27). The estate-wide inversion is genuinely NOT
+  ratified — ADR-200 scopes itself to the plan corpus and forbids the family expanding it — so the
+  estate move needs its **own proposed ADR** that generalises ADR-200 + PDR-119: a surface-class
+  taxonomy, per-surface round-trip assignment, PDR-122 binding, and cross-graph identity.
+- **The round-trip verdict from precedents is unambiguous [L]:** deterministic bidirectional sync
+  works only for the structured projection (bidirectional lenses/Boomerang; JetBrains MPS
+  projectional editing; DITA / headless-CMS author-in-structure). Free prose has no deterministic
+  put-back; CRDTs (Automerge/Peritext) converge concurrent edits but cannot decide whether an
+  edited sentence still means what the node asserts. Three round-trip classes follow: (a)
+  append-only → events + renderers, no reconciler (PDR-119); (b) free prose → the §8 semantic
+  reconciler; (c) **new content → author-graph-first (the default going forward)**. The estate
+  occupies a graph-shapedness gradient [V]: comms events are already pure graph; memory patterns
+  the most graph-shaped markdown (typed frontmatter); PDRs/rules are edge-rich but their edges
+  live in prose links; **reports are prose-first and should NOT invert** — the feeder machinery
+  graduates their claims instead.
+- **The sharpest new finding: ADR-200 §8's reconciler and dedup matcher predate PDR-122.** A
+  supersede/merge is an irreversible discard-equivalent (ADR-200's own no-loss-breach wording), so
+  it falls under invariant 2's quorum — and the measured phi means that quorum must be
+  **model-regime-diverse**, a constraint neither ratified record carries. The estate ADR must bind
+  the reconciler to PDR-122 (atomic proposal → deterministic evolution op → recomputing validator,
+  merge behind a regime-diverse stamped quorum).
+- **The silent-projection failure mode has a named precedent [L]:** the Wikidata↔Wikipedia infobox
+  governance revolt — auto-projecting graph values into human documents without editor review.
+  ADR-200's co-equal + active-gate stance is the proven counter; the estate ADR must forbid silent
+  auto-projection.
+- **Cheap first increments:** lift PDR `Related` sections and rule `Operationalises` pointers into
+  typed frontmatter edges (the governance graph is *entailed* by ADR-200's realisation edges —
+  every PDR/ADR must be a resolvable node); render `practice-index.md` (49.6k hand-authored
+  consolidated store [V] — exactly the merge-conflict magnet ADR-200's L1 lens rejected) as a
+  projection over the doctrine graph. Reconciliation *frequency* is the estate cost driver (~98
+  rules, 123 PDRs [V]) → a per-surface rigour policy, risk-tiered by reversibility (ties to
+  question 9).
+
+### Quorum heterogeneity — independence is engineered at the aggregator, not bought by families
+
+The repo half first [V]: pipeline dispatch is Claude-harness-only (models
+`'sonnet' | 'opus' | 'haiku' | 'fable'` at the dispatch seam; the Codex TOMLs are unwired parity
+adapters), so live cross-*provider* voting requires a new dispatch seam. The external half
+delivered the pass's second direction-bending result — **the two keystone sources were verified
+first-hand this session** (titles and every quoted number reproduced by direct fetch):
+
+- **Cross-family diversity does NOT manufacture independence, and can be anti-correlated with it
+  [L, source verified].** "Nine Judges, Two Effective Votes" (arXiv 2605.29800): a 9-judge panel
+  across 7 model families carried n_eff = 2.18 (mean pairwise phi 0.391); the *highest* error
+  correlations were cross-family (Claude×Gemini 0.603, GPT-4o×Claude 0.588) vs same-family
+  OpenAI×OpenAI 0.437; restricting to one judge per family *lowered* n_eff to 1.93; human
+  annotators reached n_eff 4.0–5.8. Correlation is driven by shared pretraining data and shared
+  item difficulty, not vendor. Our measured 1.43 at phi≈0.548 is near the structural ceiling for
+  same-model lenses, and swapping in another family is a weak lever.
+- **Accuracy-weighting provably cannot fix correlation [L, source verified].** The Ising
+  label-model paper (arXiv 2601.22336): a conditional-independence aggregator fed *correct*
+  per-voter marginals can assign ~96.8% to the wrong label where the true posterior is ~3.8%, and
+  Theorem 1 shows the risk gap does not vanish as judges → ∞. Dependence-aware (class-dependent
+  Ising) aggregation gains +7–8pp over weighted majority vote. Snorkel/Dawid–Skene weighting on
+  top of our correlated lenses would over-count agreement — the banked pairwise phi is exactly the
+  second-order statistic a dependence-aware aggregator consumes.
+- **A k-of-n quorum over correlated votes overstates confidence [L]:** SPRT-style validity assumes
+  independent evidence; the mature corrections are group-sequential/alpha-spending boundaries or
+  anytime-valid e-processes (valid under arbitrary dependence and optional stopping).
+
+**The reconciled remedy ladder for Phase 0** (refining this report's earlier "seek cross-family
+heterogeneity" phrasing — heterogeneity's real value is *bias-asymmetry detection and
+self-preference washing*, not independence): (A) **dependence-aware deterministic aggregation**
+over the existing lenses, consuming the banked phi — no new voters, PDR-122-native, the measured
++7–8pp class of gain; (B) **correlation-deflated or e-process quorum boundaries** so the discard
+threshold reflects ≈1.4 effective votes rather than a nominal 3; (C) **cross-tier concurrence as
+the irreversible-discard safety gate** — the measured 18-of-19 one-directional Sonnet-kill/
+Opus-keep asymmetry is exactly what a require-the-conservative-regime-to-concur gate catches
+(this is the refined form of "the merge/audit quorum is cross-regime": a bias probe, not an
+independence source); (D) cross-provider judges only for self-preference decorrelation, costed
+against the new dispatch seam; (E) **input/evidence diversity across lenses** (different evidence
+views, not different prompts on the same context) — the only lever the literature shows
+materially lowers phi; (F) a small **human quorum reserved for the irreversible-discard tail**
+(the only voters measured at n_eff 4–6). Recommended sequence: A+B first, C as the discard gate,
+D/E/F as scoped experiments.
+
+### New Phase 0 questions from this pass (extending §Open questions)
+
+14. Stamp membership details to ratify: promptHash co-stamping (research direction: **yes**);
+    lens/quorum-set identity in the stamp; `resolvedModelId` recorded-not-hashed; and does a
+    minimum `measuredEffectiveVotes` gate a regime from owning terminal discards?
+15. Linking-layer specifics: are the two three-band thresholds per-corpus-family calibrated
+    artefacts; is blocking deterministic-only or embedding-based (an embedding model is itself a
+    stamped regime member); constrained multiple-choice vs per-pair relation judgments; and what
+    recovers a blocking miss on re-harvest (a periodic re-blocking sweep as the elusion-audit
+    analogue)?
+16. Standing-audit specifics: cadence and rolling-pool boundary (reset on regime-hash change?);
+    the recall-floor gate threshold and its home (stamp vs run manifest); alpha over binary
+    keep/kill vs the three-category nominal.
+17. Estate-inversion specifics (feeds the proposed estate ADR, not this plan): which round-trip
+    class do PDRs/rules take; one estate graph vs N graphs with cross-graph id-namespacing and a
+    cross-graph referential validator; the earn-its-graph trigger per surface; whether
+    `practice-index.md` renders now as the cheap proof.
 
 ## What must NOT be built / must NOT wait
 
