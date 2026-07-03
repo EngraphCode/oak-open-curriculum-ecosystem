@@ -372,6 +372,18 @@ this section; create a thread record when execution is scheduled.
    the Open Curriculum API, the Curriculum Ontology, and Atomic Concepts under one team for ~6 months.
    See [`curriculum-graph-estate-synthesis-2026-06-22.md`](../../reports/curriculum-graph-estate-synthesis-2026-06-22.md);
    an SLT brief is held local (reference-local, not version-controlled).
+8. **Corpus-generalisation Phase 0 scheduling** (posed 2026-07-03): when/what shape — recommended
+   soon, fresh-seat, allowed to span multiple sittings (seventeen-question agenda; absorbs salvage
+   ws2). The plan's promotion trigger; nothing else blocks on it.
+9. **Comms forensics depth + live-event PII posture** (posed 2026-07-03): (a) how much further
+   effort on the unexplained untracked-tier removal — recommended accept-and-rely-on-the-watermark-
+   cure (data recoverable at `255117a43^`); (b) the 21+ live comms events embedding machine-local
+   paths — recommended rely on the mandatory pre-fan-out PII screen rather than mutating immutable
+   event records (a redact and/or write-time-guard option was offered).
+10. **Estate-wide markdown→graph inversion ADR timing** (posed 2026-07-03): a Proposed ADR
+    generalising ADR-200 + PDR-119 (surface-class taxonomy; PDR-122-bound reconciler) —
+    recommended a dedicated authoring session soon; alternatives: after Phase 0, or after ADR-200
+    WS2/WS4. Evidence: the research report §Further research (markdown→graph subsection).
 
 ## Repo-Wide Invariants / Non-Goals
 
