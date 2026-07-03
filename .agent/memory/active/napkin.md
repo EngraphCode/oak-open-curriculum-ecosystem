@@ -402,6 +402,39 @@ New session observations append below.
   §Repo-Wide Invariants preamble says every line has a canonical home, but this one's
   didn't exist until ws1g graduated it into `agent-collaboration.md`. When auditing
   invariant lists, spot-check that the claimed canonical homes actually exist
+
+## 2026-07-03 — memory-buffer drain Stratum B (Ginger guards Xylem)
+
+- **F-112 fix held under real load** — the first post-fix production commit through
+  `commit-queue -- commit` from Claude Code (`68159951c`, 14-file bundle) landed green with
+  full hook output conserved. Falsifiability datapoint for the commit skill's Scope note:
+  the workflow path is reliable again; the Cursor-only residual stands.
+- **`comms send --tag` accepts only the ADR-183 namespace** (failure-mode / behaviour-note /
+  heartbeat) — a `--tag team-start` exits 2 with the error easy to eat via `tail`. Usage-probe
+  before ceremony (again); `--body-file` is the robust route for multi-line bodies and
+  apostrophes.
+- **The Edit tool's stale-read guard is what makes claims-never-block-memory-writes safe in
+  practice**: repo-continuity changed under me (live peer closeout) between read and edit; the
+  guard refused, a fresh re-read + re-apply landed both edits with zero loss. Concurrent
+  memory/state writing works BECAUSE the write path detects staleness, not because collisions
+  are rare.
+- **docs-adr-expert batch review earned the dispatch** — five real findings on a
+  "documentation-only" batch, including a class easy to self-miss: committed state claims
+  written in completed tense for actions that execute AFTER the commit (the memory-side
+  retirement), and a normative clause added outside its rule's declared §Scope. Its proposed
+  fix for the first ("retire before committing") contradicted the drain plan's
+  order-of-operations — finding accepted, fix re-derived (sequencing-honest phrasing instead
+  of reordering). validate-specialist-findings, lived.
+- **The machine-local-path write hook fired twice on scratchpad files** (the plan file, the
+  retirement script) on the hardcoded Claude project-slug string; both rewrites were genuinely
+  better (tilde form; derive the slug from the repo root at runtime). The hook does real work
+  outside the repo tree — reappraise-don't-rephrase held.
+- **Stratum B shape**: of 28 project_/reference_ entries, 21 were verified duplicates of
+  existing homes and 6 were dead mutable state — ~75% of the buffer's project tier was index
+  weight with no unique substance. The enrichment yield concentrated in operational surfaces
+  (the pr-lifecycle skill gained four merge-gate/CI clauses) and PDR context (the 80k budget
+  definition had NO authoritative home until now — it lived only in per-user memory since
+  2026-05-15).
   (`verify-dont-trust` §cite-or-silence applied to invariant indexes).
 
 ### Session close: exploring context usage → drain Stratum A (2026-07-03, Sardine spins Estuary)
