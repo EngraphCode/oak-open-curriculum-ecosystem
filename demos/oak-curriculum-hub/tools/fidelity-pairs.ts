@@ -71,7 +71,7 @@ export const PairingMapSchema = z
     message: 'pair ids must be unique',
   });
 
-type FidelityPair = z.infer<typeof PairSchema>;
+export type FidelityPair = z.infer<typeof PairSchema>;
 export type PairingMap = z.infer<typeof PairingMapSchema>;
 
 /** One representative section per interactive block type (mirrors the
