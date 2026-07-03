@@ -124,13 +124,19 @@ forward-asks remain.
   **Owner conviction (2026-07-03):** the corpus tooling has become a knowledge-curation-and-
   expression layer belonging in `packages/` along seams, agent-tools reduced to a thin CLI (memory
   `project_corpus_instrument_is_a_knowledge_layer`; reshapes the agent-tools-architecture-standard
-  WS0 packaging question). **Two forensic/correctness items to surface at the design session:**
-  (1) the archived ~1,707-event comms residual is absent from live disk but intact in git at
-  `255117a43^` — the standing curator work-list points at a disk state that no longer exists;
-  re-materialise from git and correct the wording; (2) the tier-2 quorum's three lenses all run on
-  one model — a candidate PDR-122 invariant-2 amendment (unmeasured vote independence). Next: an
-  owner-scheduled fresh-seat Phase 0 design session (absorbs salvage ws2). Full pickup: the AEE
-  thread record §CORPUS GENERALISATION.
+  WS0 packaging question). **Adversarially REVIEWED and corrected in place 2026-07-03 (Hazel rides
+  Orchard): verdict needs-targeted-revision-core-sound; review report
+  [`corpus-generalisation-review-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md).**
+  **Two forensic/correctness items to surface at the design session:**
+  (1) **(owner attention)** the archived ~1,707-event comms residual is absent from live disk but
+  intact in git at `255117a43^`; the removal is **UNEXPLAINED, not benign** (the untrack commit
+  says "all preserved on disk"; no record accounts for it) — a live untracked-tier loss-detection
+  gap; re-materialise from git (wordings corrected 2026-07-03); P0 weighs a tracked watermark
+  manifest for the untracked tier; (2) every voter at every tier runs on one model — a candidate
+  PDR-122 invariant-2 amendment (unmeasured vote independence), judged warranted by the review in
+  the recorded measure-first shape. Next: an owner-scheduled fresh-seat Phase 0 design session
+  (absorbs salvage ws2; agenda = the thirteen open questions). Full pickup: the AEE thread record
+  §CORPUS GENERALISATION.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -173,8 +179,11 @@ forward-asks remain.
 - **Collaboration-state lifecycle**: `.agent/state/` files are live signal sources, not long-term
   documentation. Outside owner-directed research windows, process useful substance into
   memory/docs/plans and clear stale state. **Standing residual:** the coordination-tier curator-pass —
-  ~1,707 comms events past the 7d window await body-read disposition before the next archive-move RUN,
-  fired by retention elapse via `consolidate-docs` step 3a / `oak-curator-pass`.
+  the ~1,707-event residual awaits body-read disposition before the next archive-move RUN, fired by
+  retention elapse via `consolidate-docs` step 3a / `oak-curator-pass`. **Substrate correction
+  (2026-07-03):** those events are no longer on live disk (removal unexplained — see the
+  corpus-generalisation review report, R1); the corpus substrate is the git tree at `255117a43^`
+  (5,202 events) — re-materialise before the pass.
 
 ## Active Threads
 
@@ -185,7 +194,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Rosemary stirs Bracken / dedicated consolidation — buffers drained, v2 discoveries graduated, PDR-122 amended / 2026-07-02 ← claude-code / claude-fable-5 / Perseus wakes Oblivion / discovery run EXECUTED, validate regime failed calibration, verdicts banked, salvage plan authored / 2026-07-02 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Hazel rides Orchard / adversarial review of the corpus-generalisation work — verdict needs-targeted-revision-core-sound, R1–R3 corrections applied, gap research follow-on / 2026-07-03 ← claude-code / claude-fable-5 / Rosemary stirs Bracken / dedicated consolidation — buffers drained, v2 discoveries graduated, PDR-122 amended / 2026-07-02 (full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
@@ -243,8 +252,10 @@ commit + a full `pnpm check` green are blocked by unrelated live WIP — untrack
 Thread concluded (WS0–WS7, PR #208 merged `a6b14a8a3`); findings homed in **PDR-094** + **ADR-199** + the
 `reports/agentic-engineering/` synthesis + keystone M4. Retired record:
 [`threads/retired/agent-collaboration-research.next-session.md`](threads/retired/agent-collaboration-research.next-session.md).
-**Standing residual** (not a reopened lane): the coordination-tier curator-pass — ~1,707 comms events past
-the 7d window await body-read disposition; work-list + recipe in the retired record's §"WS7 Closeout".
+**Standing residual** (not a reopened lane): the coordination-tier curator-pass — the ~1,707-event
+residual awaits body-read disposition; work-list + recipe in the retired record's §"WS7 Closeout".
+**Substrate correction (2026-07-03):** the events are no longer on live disk (removal unexplained —
+corpus-generalisation review R1); re-materialise from the git tree at `255117a43^` before the pass.
 
 ### Agent Naming (v3 + era-pinning cure)
 

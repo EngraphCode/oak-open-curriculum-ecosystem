@@ -4,9 +4,12 @@ plan_id: corpus-analysis-generalisation-and-knowledge-layer
 collection: agentic-engineering-enhancements
 lane: future
 status: "STRATEGIC BRIEF — research complete (2026-07-03), design not yet ratified. Evidence base:
-  reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md.
-  Promotion trigger: an owner-scheduled fresh-seat design session (Phase 0) that also absorbs the
-  salvage plan's ws2 readiness review. No execution until then."
+  reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md,
+  adversarially reviewed and corrected in place 2026-07-03 (review verdict: needs-targeted-revision,
+  core sound — corpus-generalisation-review-2026-07-03.md; R1 comms-residual reinterpretation, R2
+  leak inventory, R3 three restored open questions). Promotion trigger: an owner-scheduled
+  fresh-seat design session (Phase 0) that also absorbs the salvage plan's ws2 readiness review.
+  No execution until then."
 created: 2026-07-03
 owner_thread: agentic-engineering-enhancements
 lineage:
@@ -17,6 +20,7 @@ lineage:
   derives_from:
     - .agent/plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md
     - .agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md
+    - .agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md
     - docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md
     - .agent/practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md
 overview: >-
@@ -182,10 +186,13 @@ with the knowledge-layer framing.
   `knowledge-flow-pipeline-mechanisms.plan.md` rather than re-deciding its frame.
 - **Regime drift shipping silently.** Mitigation: the calibration-stamp hash + conformance test
   make a regime change without recalibration a typed failure.
-- **Comms residual provenance.** The archived residual is git-history-only (report §Comms forensic
-  finding); mitigation: re-materialise from `255117a43^`; surface the disk-absence to the owner.
-- **The ten open questions (report §Open questions) are the P0 agenda** — unknowns to resolve, not
-  risks to mitigate here.
+- **Comms residual provenance — and an untracked-tier loss-detection gap.** The archived residual
+  is git-history-only, and its removal from live disk is UNEXPLAINED (review R1: the untrack commit
+  says "all preserved on disk"; no record accounts for the removal). Mitigation: re-materialise
+  from `255117a43^`; the owner receives this as a safety-story gap, not a benign consequence; P0
+  weighs a tracked count/watermark manifest for the untracked tier.
+- **The thirteen open questions (report §Open questions, three restored by the review) are the P0
+  agenda** — unknowns to resolve, not risks to mitigate here.
 
 ## Promotion trigger into `current/`
 

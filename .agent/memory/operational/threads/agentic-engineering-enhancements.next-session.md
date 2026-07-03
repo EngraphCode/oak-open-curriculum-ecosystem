@@ -52,10 +52,13 @@ first-hand per owner direction. Durable homes:
    hardcoded composition roots, napkin vocabulary leaks (enumerated), and the un-reified judgment
    **regime** → a calibration-stamped **regime registry** (the model/effort decoupling answer).
 4. **Comms is the forcing second consumer** (extraction trigger; composition of existing strata;
-   mechanical grounding; PDR-094 disposition enum). **Forensic finding to surface:** the archived
-   ~1,707-event residual is GONE from live disk but intact in git at `255117a43^` (5,202 events) —
-   the standing curator work-list points at a disk state that no longer exists; re-materialise from
-   git; correct the stale wording in `repo-continuity.md` and the retired thread.
+   mechanical grounding; PDR-094 disposition enum). **Forensic finding (owner attention; corrected
+   by the review):** the archived ~1,707-event residual is GONE from live disk but intact in git at
+   `255117a43^` (5,202 events). The removal is **UNEXPLAINED, not benign** — the untrack commit
+   says "all preserved on disk", the checkout pre-dates it, and no record accounts for the
+   removal: a live untracked-tier loss-detection gap (post-untrack events removed the same way are
+   unrecoverable). Re-materialise from git; the stale work-list wordings in `repo-continuity.md`
+   and the retired thread are corrected (2026-07-03); P0 weighs a tracked watermark manifest.
 5. **Sharpest correctness finding (candidate PDR-122 amendment, NOT amended):** the tier-2 quorum's
    three lenses all run on ONE model, so invariant 2's "uncorrelated votes license a majority" is
    unmeasured; external evidence + the repo's own 40% regime divergence suggest ~1–2 effective
@@ -67,10 +70,20 @@ first-hand per owner direction. Durable homes:
    agent-tools-architecture-standard WS0 packaging question. Homed in memory
    `project_corpus_instrument_is_a_knowledge_layer`.
 
+**Adversarial review COMPLETE (2026-07-03, Hazel rides Orchard `de9f72`) — verdict: needs
+targeted revision, core sound; corrections APPLIED in place.** Every sampled `[V]` fact
+reproduced first-hand; both workflow journals cross-checked; the seven design conclusions and the
+owner-observation capture ratified; the candidate PDR-122 invariant-2 amendment judged warranted
+in the recorded shape. Corrections: R1 (comms-residual removal is unexplained, not benign — see
+item 4), R2 (a fourth, behavioural leak point: `temporalCoverageReport` window-id collation), R3
+(three restored open questions → the agenda is now thirteen). Review report:
+[`corpus-generalisation-review-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md).
+Method lesson: lens `openQuestions` are the synthesis drop zone.
+
 **Next action:** an owner-scheduled fresh-seat **Phase 0 design session** (the plan's promotion
 trigger) that ratifies identity + five-layer decomposition + D1–D6 + regime registry + the
-quorum-diversity disposition, absorbing salvage ws2. WS2/WS4 of ADR-200 and salvage ws1b proceed
-independently and must NOT wait.
+quorum-diversity disposition (plus the three restored questions), absorbing salvage ws2. WS2/WS4
+of ADR-200 and salvage ws1b proceed independently and must NOT wait.
 
 ## SALVAGE ws1 COMPLETE — next: the disposition pass + the owner's tier-E round (2026-07-02 late evening, Rosemary stirs Bracken)
 

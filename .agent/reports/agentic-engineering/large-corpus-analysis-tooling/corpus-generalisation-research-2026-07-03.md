@@ -5,6 +5,11 @@ claude-fable-5, model switched to claude-opus-4-8 mid-session for this review-an
 **Status**: Research complete; no reshaping performed. This report is the durable evidence base
 for the strategic plan
 [`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md).
+**Revised 2026-07-03** (Hazel rides Orchard, `de9f72`) per the first-hand adversarial review
+[`corpus-generalisation-review-2026-07-03.md`](corpus-generalisation-review-2026-07-03.md), which
+reproduced every sampled `[V]` claim and applied three corrections in place: the comms-residual
+interpretation (R1), the leak-inventory completeness (R2), and three restored open questions (R3).
+The review report preserves the pre-correction wording and the evidence for each change.
 
 ## Provenance and verification legend
 
@@ -116,10 +121,16 @@ pure kernel from the general harness kit):
 | REGIME | per-stage model/effort/agentType/turn-budget + unit-cost calibration | unreified — smeared across three estates |
 | RUN | ceiling, checkpoint paths, resume ids, concurrency/jitter | per-run; `--ceiling` already no-default |
 
-**The three napkin leak points** (enumerable, complete by construction): the `napkinDate` field;
-the four prompt builders (hardcoded corpus description; the meta prompt hardcodes the baseline
-count "18" twice); and the workflow meta names. Window ids are already opaque strings, so the
-**partition axis itself does not leak** — a key enabler for the comms/planning families. [V]
+**The napkin leak points** — three *vocabulary* leaks (enumerable): the `napkinDate` field; the
+four prompt builders (hardcoded corpus description; the meta prompt hardcodes the baseline count
+"18" twice); and the workflow meta names. Plus one *behavioural* leak the review restored from the
+cartography lens (R2): `temporalCoverageReport` (`post-run/post-run-analysis.ts:89`) sorts window
+ids by `localeCompare` and derives `earliest`/`latest` from that ordering — silently assuming ids
+collate chronologically, true for date-ranged napkin windows, not guaranteed for another family.
+Window ids are opaque strings in the *schemas*, so the partition axis does not leak at the type
+level [V] — but it does leak in that module's semantics; the cure is that window ordering comes
+from the partition (family layer), never string collation in the kernel, and the partition deriver
+is a declared plug-point of every corpus family.
 
 **The implicit general protocol, written out** (the reusable contract): (1) partition
 `{window, files[]}`; (2) per stage: strict zod re-parse of committed checkpoints at the Node
@@ -242,9 +253,11 @@ gaps. [L unless marked]
 
 **Two independent lenses (cross-field and alternatives) converged on this, and the repo-internal
 half is verified [V].** PDR-122 invariant 2 asserts the tier-2 lenses are "distinct so they are
-uncorrelated, which is what licenses a simple majority." But **all three tier-2 voters run on the
-same model** (`adjudication.ts:78-79`: every voter `model: 'sonnet', effort: 'high'`; lenses differ
-only by prompt [V]). Condorcet's jury theorem and ensemble theory license a majority vote *only*
+uncorrelated, which is what licenses a simple majority." But **every voter at every tier runs on
+the same model** — the single `dispatchVoter` serves tiers 0–2 with `model: 'sonnet', effort:
+'high'` (`adjudication.ts:78-79`; the review sharpened the original tier-2-only phrasing); lenses
+differ only by prompt [V]. The inline dispatch comment records the Sonnet choice as owner-decided
+2026-07-02 — the finding is about the *doctrine's independence derivation*, not that choice. Condorcet's jury theorem and ensemble theory license a majority vote *only*
 when voter errors are uncorrelated; correlation destroys the guarantee. External 2026 evidence [L]:
 nine frontier judges from different families delivered only ~2 effective independent votes;
 aggregation closes ≤11% of the gap when judges correlate. The repo's own data points the same way
@@ -291,7 +304,8 @@ the natural **extraction trigger** (`consolidate-at-second-consumer`). [V unless
   after stage-0.
 - **PII/identity posture [V]:** authors are pseudonymous agent identities; zero human-name mentions
   in live bodies; the owner appears by role only. The one real leak channel is a machine-local home
-  path — **17 live events embed a `/Users/<user>/…` path** [V]. Responsible analysis requires a
+  path — **17 live events embedded a `/Users/<user>/…` path at research time; 21 files matched by
+  the 2026-07-03 review — the channel is live and growing** [V]. Responsible analysis requires a
   deterministic pre-fan-out PII screen (emails, machine-local paths, human-name patterns) before
   bodies reach voters or any artefact, and published findings should aggregate by role/pattern, not
   build per-agent dossiers without owner sign-off.
@@ -301,12 +315,20 @@ the natural **extraction trigger** (`consolidate-at-second-consumer`). [V unless
   `3cc1fb93` is **absent from live disk but intact in git at `255117a43^`** (2026-05-21, full body).
   `git ls-tree 255117a43^ -- .agent/state/collaboration/comms/ | wc -l` = **5,202** [V]. The
   residual is fully recoverable and immutable in git (events were tracked until the WS7 untrack at
-  `255117a43`). This is the *expected consequence* of the untrack decision (comms events are
-  gitignored local state that does not travel across checkouts), so it is most likely benign-by-
-  design — but the standing curator obligation and `repo-continuity.md` point agents at a disk state
-  that no longer exists. **Surface to owner; correct the stale work-list wording;** the correct
-  corpus substrate for the archived residual is the **git tree at `255117a43^`**, which is a better
-  substrate anyway (immutable, complete, mechanically groundable, no live-watcher risk).
+  `255117a43`). **The removal from live disk is UNEXPLAINED, not benign-by-design** (R1 — the
+  review corrected this report's original interpretation): the untrack commit itself says "all
+  preserved on disk", this checkout pre-dates the untrack (git directory born March 2026; the
+  `comms/` directory inode 2026-05-13), and no manifest row, curator record, or comms event
+  accounts for the removal — the 06-21 sweep explicitly deferred the residual and the 06-18/06-29
+  passes moved only newer heartbeats. Candidates: an unrecorded `git clean` / checkout reset of the
+  untracked tier. **This is a live gap in the untracked-state safety story**: the pre-untrack
+  window is recoverable only because it happens to be in git; a post-untrack event removed the same
+  way has no recovery path, and the archive-move harness (the intended safety mechanism) was
+  bypassed. **Surface to owner; correct the stale work-list wording;** the correct corpus substrate
+  for the archived residual is the **git tree at `255117a43^`** (immutable, complete, mechanically
+  groundable, no live-watcher risk). Cure candidate for the design session: a tracked count/
+  watermark manifest for the untracked tier, so silent bulk removal trips a validator instead of a
+  forensic accident.
 - **Channel coverage caveat [L]:** the canonical stream has a proven blind spot — during WS7 it was
   silent ~4h while all design dialogue ran on the ArcAngel rapid-comms channel. The corpus
   definition must either include the rapid-comms markdown channels (+ `conversations/`,
@@ -505,6 +527,19 @@ Seven-plus competing identities were steelmanned; the verdict on which compose v
    judge (vocabulary grounding is reversible, so risk-tiering may licence cheaper)?
 10. Is a graph-delta proposal a new checkpoint *kind* in the stage grammar, or strictly a post-run
     artefact outside it — where exactly does the pipeline end and the construction layer begin?
+11. *(restored by the review, R3)* Does the calibration stamp cover the **prompt version**?
+    Invariant 6's own 47%-vs-10.6% measurement held "candidates, prompts, and quorum math"
+    constant — so a prompt edit can shift the judgment regime exactly as a model edit can, yet the
+    proposed `RegimeBinding` tuple omits it. Decide whether prompt-builder versions are stamped
+    members.
+12. *(restored, R3)* **Novelty-direction calibration**: "no corroborating home" is evidence of
+    novelty only if the home-naming stage has measured recall over the doctrine estate — seed
+    known-homed canaries through the corroboration stage, or "genuinely novel" claims carry
+    unmeasured false-novelty risk.
+13. *(restored, R3)* Is **`aggregation-recall` kernel or family**? Recall calibration may be
+    inherently corpus-specific (baselines are napkin memory docs); the five-layer table places the
+    recall *engine* in the kernel — Phase 0 should ratify the engine-kernel / baselines-family
+    split explicitly, since the leaf/candidate schemas hang off the same boundary.
 
 ## What must NOT be built / must NOT wait
 
