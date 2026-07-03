@@ -97,8 +97,8 @@ disposition`, never auto-moved (absorption gate: body-read required; the `3cc1fb
 on live disk — the removal is unexplained and unrecorded (the WS7 untrack preserved them on disk;
 no later record accounts for it). The work-list stands; the corpus substrate is the git tree at
 `255117a43^` (5,202 events) — re-materialise before the curator pass. Evidence:
-`.agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md`.]** The next archive-move RUN is the
-coordination tier, post-body-read; verification recipe + the `comms-archive/.gitkeep` dir-anchor fact +
+`.agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md`.]**
+The next archive-move RUN is the coordination tier, post-body-read; verification recipe + the `comms-archive/.gitkeep` dir-anchor fact +
 the git-independence of the move are conserved below (§"WS7 closeout — conserved findings"). The archived
 2,390 live on-disk-only (gitignored) per ADR-199's archive-retained-never-tracked end state; their signal
 is conserved in the 2b cadence aggregate `.agent/reference/comms-heartbeat-cadence.md`.

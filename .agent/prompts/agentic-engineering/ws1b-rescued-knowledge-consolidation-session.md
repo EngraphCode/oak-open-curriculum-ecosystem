@@ -58,7 +58,9 @@ Done = all 59 A–D entries dispositioned (graduated / enriched / duplicate / re
 buffers empty or explicitly owner-gated, the ws1b todo completed, closeout reporting value and
 impact, never accounting. Conserve-by-default throughout (PDR-122): rejection needs a named
 reason; when in doubt, hold for review rather than drop. Operator notes: the spawned commit-queue
-`commit` workflow dies at the depcruise→turbo truncation (three reproductions) — use the
-documented direct `git commit -F <msgfile>` fallback with output redirected, then `complete` the
-intent and close the claim manually; zsh does not word-split unquoted variables (use arrays or
+`commit` workflow is BROKEN from Claude Code sessions (F-112, frictions register; the
+depcruise→turbo stream truncation) — per the owner directive 2026-07-03 ("no fallbacks, ever —
+do it properly or error") its failure is an ERROR to stop on and surface, never a trigger for a
+direct-`git commit` equivalent route; check F-112's status and the commit skill's current
+guidance before your first commit. zsh does not word-split unquoted variables (use arrays or
 explicit arguments); never `--no-verify`.

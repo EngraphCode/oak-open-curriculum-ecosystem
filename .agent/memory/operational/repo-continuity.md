@@ -133,14 +133,17 @@ forward-asks remain.
   says "all preserved on disk"; no record accounts for it) — a live untracked-tier loss-detection
   gap; re-materialise from git (wordings corrected 2026-07-03); P0 weighs a tracked watermark
   manifest for the untracked tier; (2) every voter at every tier runs on one model — a candidate
-  PDR-122 invariant-2 amendment (unmeasured vote independence), judged warranted by the review in
-  the recorded measure-first shape — and now MEASURED (2026-07-03 further-research pass): inter-lens
+  PDR-122 invariant-2 amendment, judged warranted by the review in the recorded measure-first
+  shape, and now MEASURED (2026-07-03 further-research pass): inter-lens
   phi ≈0.55 in both regimes → ≈1.4 effective votes of 3; cross-regime quorum agreement 59.6%.
   Further-research lenses (report §Further research) add the two-hash calibration stamp, the
   linking-layer blueprint, the standing cross-regime audit + tracked watermark manifest (the item-1
   cure), and the estate-wide markdown→graph inversion direction (owner observation; needs its own
   ADR). Next: an owner-scheduled fresh-seat Phase 0 design session (absorbs salvage ws2; agenda =
-  the seventeen open questions). Full pickup: the AEE thread record §CORPUS GENERALISATION.
+  the seventeen open questions); **the ws1b disposition pass is launch-ready now** (fresh seat on
+  this branch; pasteable opener:
+  `.agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md`). Full
+  pickup: the AEE thread record §CORPUS GENERALISATION.
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
