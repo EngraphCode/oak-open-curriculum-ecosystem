@@ -8,6 +8,9 @@ pdr_kind: pattern
 **Date**: 2026-06-30
 **Amended**: 2026-07-02 — invariants 5–6 and the invariant-4 economics/spend-governance
 extension, from the 2026-07-01/02 napkin-corpus discovery-run worked instances.
+**Amended**: 2026-07-03 — invariant-1 tiered-evidence-reporting extension (headline numbers
+tier match strength, never fold; evidence inputs fail fast), from the ws1g probe-containment
+proof review.
 **Related**:
 [PDR-035](PDR-035-agent-work-capabilities-belong-to-the-practice.md)
 (agent-work capabilities are Practice substance — this is the construction doctrine for one
@@ -50,7 +53,14 @@ Pipelines of this shape are built to six invariants.
    typed qualitative judgments. **Every count, fraction, threshold, verdict, and routing decision
    is computed in deterministic code** from those judgments. No agent is ever asked to produce a
    number that is a function of more than one item it is also judging. Qualitative synthesis prose
-   is welcome from the LLM; aggregates and dispositions are not.
+   is welcome from the LLM; aggregates and dispositions are not. The deterministic artefact's
+   *reporting* carries the same duty: when matches or verdicts have unequal evidence strength,
+   the headline numbers are **tiered by strength, never folded** — a weaker tier absorbed into a
+   headline count overclaims exactly the property the artefact exists to prove (worked instance
+   2026-07-03: a containment proof's headline read 86% until an independent review re-tiered it
+   to 43% strict + 43% partial; the pre-banking review predicted the corrected numbers exactly).
+   Evidence-input fields are validated fail-fast — a missing field in evidence input throws
+   rather than defaulting toward the favourable outcome.
 
 2. **Conserve by default; corroborate the irreversible disposition.** No high-stakes irreversible
    disposition (a discard / kill / withdrawal) rests on a single voter. A discard requires a

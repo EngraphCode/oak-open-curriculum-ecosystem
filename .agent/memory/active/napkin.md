@@ -381,6 +381,29 @@ New session observations append below.
   being dispositioned and buries the real homes (bit twice before the exclusion became
   standard practice this session).
 
+## 2026-07-03 — ws1g same-seat continuation (Gust hunts Headwind, late session)
+
+- **A code-expert review re-tiered my own proof artefact pre-banking — the catch was real
+  and material.** My probe-containment script folded a weaker match tier (one 8-word
+  fragment found) into the headline "contained" count: 143/167 claimed vs 72/167 strict.
+  The reviewer measured the gap first-hand and named the principle: folding a weak evidence
+  tier into a headline overclaims exactly the property the artefact exists to prove. Cure
+  shipped as rev 2 (tiered strict/partial/none + fail-fast on missing evidence fields).
+  Candidate PDR-122 amendment captured in pending-graduations (evidence artefacts report
+  tiered match strength). Worked instance of review-before-banking on evidence artefacts —
+  the reviewer predicted the exact post-fix numbers (72/52) before I re-ran.
+- **A slice commit missed one of its own edits** — the precedence-rule enrichment landed
+  after the slice-1 bundle was enqueued and sat uncommitted until slice-3's `git status`
+  caught it. Cheap cure applied ad hoc (separate commit); the general discipline: before
+  enqueueing a slice bundle, diff the tree against the slice's OWN edit list, not memory
+  of it (the enqueue file-list is a contract — build it from `git status`, not recall).
+- **An invariant line can outlive (or precede) its canonical home**: repo-continuity's
+  "shared memory/state files are always writable" invariant pointed at no authority — the
+  §Repo-Wide Invariants preamble says every line has a canonical home, but this one's
+  didn't exist until ws1g graduated it into `agent-collaboration.md`. When auditing
+  invariant lists, spot-check that the claimed canonical homes actually exist
+  (`verify-dont-trust` §cite-or-silence applied to invariant indexes).
+
 ### Session close: exploring context usage → drain Stratum A (2026-07-03, Sardine spins Estuary)
 
 - **comms-watcher heartbeat path is derived from the DISPLAY codename verbatim** (spaces,
