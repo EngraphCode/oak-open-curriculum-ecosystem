@@ -15,7 +15,6 @@
  *   (default out: demos/oak-curriculum-hub/demo-evidence/export-sections)
  */
 import fs from 'node:fs';
-import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -23,10 +22,10 @@ import { chromium } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
+import { EXPORT_DIR, portOf, serveDir } from './export-server';
 import { runTool } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const EXPORT_DIR = path.resolve(TOOLS_DIR, '..', 'claude-design-canonical-export');
 
 function resolveOutDir(argv: readonly string[]): Result<string, Error> {
   const outFlag = argv.indexOf('--out');
@@ -39,17 +38,6 @@ function resolveOutDir(argv: readonly string[]): Result<string, Error> {
   }
   return ok(path.resolve(value));
 }
-
-const CONTENT_TYPES = new Map<string, string>([
-  ['.html', 'text/html; charset=utf-8'],
-  ['.js', 'text/javascript; charset=utf-8'],
-  ['.css', 'text/css; charset=utf-8'],
-  ['.json', 'application/json; charset=utf-8'],
-  ['.ttf', 'font/ttf'],
-  ['.woff2', 'font/woff2'],
-  ['.svg', 'image/svg+xml'],
-  ['.png', 'image/png'],
-]);
 
 interface SectionTarget {
   module: string;
@@ -74,46 +62,6 @@ const TARGETS: readonly SectionTarget[] = [
   { module: 'The learning framework', section: 'Order the stages', slug: 'm1s3check-sortable' },
   { module: 'The learning framework', section: 'When do the stages happen?', slug: 'm1s4-hotspot' },
 ];
-
-function handleExportRequest(req: http.IncomingMessage, res: http.ServerResponse): void {
-  const urlPath = decodeURIComponent(new URL(req.url ?? '/', 'http://localhost').pathname);
-  const requested = urlPath === '/' ? '/Oak Course.dc.html' : urlPath;
-  // Canonicalise FIRST (resolve() normalises any ../ segments), then validate against the export
-  // root in its own step BEFORE any filesystem use of the path. The sep-suffixed prefix check
-  // also rejects sibling-directory names that share EXPORT_DIR as a string prefix.
-  const resolved = path.resolve(EXPORT_DIR, `.${requested}`);
-  if (!resolved.startsWith(EXPORT_DIR + path.sep)) {
-    res.writeHead(404).end('not found');
-    return;
-  }
-  if (!fs.existsSync(resolved) || fs.statSync(resolved).isDirectory()) {
-    res.writeHead(404).end('not found');
-    return;
-  }
-  res.writeHead(200, {
-    'content-type':
-      CONTENT_TYPES.get(path.extname(resolved).toLowerCase()) ?? 'application/octet-stream',
-  });
-  fs.createReadStream(resolved).pipe(res);
-}
-
-function serveExport(): Promise<http.Server> {
-  const server = http.createServer(handleExportRequest);
-  return new Promise((resolve) => {
-    server.listen(0, '127.0.0.1', () => {
-      resolve(server);
-    });
-  });
-}
-
-/** The bound TCP port of a listening server, narrowed from Node's address union. */
-function portOf(server: http.Server): Result<number, Error> {
-  const address = server.address();
-  if (address === null || typeof address === 'string') {
-    return err(new Error('static server did not bind a TCP port'));
-  }
-  return ok(address.port);
-}
 
 /** Open the target's module in the sidebar, click the section row, capture #main.
  *  Returns true on failure (logged; the run continues to the next target). */
@@ -198,23 +146,40 @@ async function driveExport(port: number, outDir: string): Promise<number> {
   return failures;
 }
 
+/** Serve the export and capture every section target into `outDir` — the
+ *  importable core the fidelity orchestrator composes. Returns the failure
+ *  count as a Result value so callers decide the exit semantics. */
+export async function driveExportSections(outDir: string): Promise<Result<number, string>> {
+  fs.mkdirSync(outDir, { recursive: true });
+  const server = await serveDir(EXPORT_DIR);
+  const portRes = portOf(server);
+  if (!portRes.ok) {
+    return err(`ERROR: ${portRes.error.message}`);
+  }
+  const failures = await driveExport(portRes.value, outDir);
+  server.close();
+  const resultLine = failures === 0 ? 'RESULT: ALL CAPTURED' : `RESULT: ${failures} FAILURES`;
+  process.stdout.write(`${resultLine}\n`);
+  return ok(failures);
+}
+
 async function main(): Promise<Result<void, string>> {
   const outDirRes = resolveOutDir(process.argv.slice(2));
   if (!outDirRes.ok) {
     return err(`ERROR: ${outDirRes.error.message}`);
   }
-  fs.mkdirSync(outDirRes.value, { recursive: true });
-  const server = await serveExport();
-  const portRes = portOf(server);
-  if (!portRes.ok) {
-    return err(`ERROR: ${portRes.error.message}`);
+  const failures = await driveExportSections(outDirRes.value);
+  if (!failures.ok) {
+    return failures;
   }
-  const failures = await driveExport(portRes.value, outDirRes.value);
-  server.close();
-  const resultLine = failures === 0 ? 'RESULT: ALL CAPTURED' : `RESULT: ${failures} FAILURES`;
-  process.stdout.write(`${resultLine}\n`);
-  process.exitCode = failures === 0 ? 0 : 1;
+  process.exitCode = failures.value === 0 ? 0 : 1;
   return ok(undefined);
 }
 
-await runTool(main, (error) => `ERROR: ${error instanceof Error ? error.message : String(error)}`);
+const invokedPath = process.argv.at(1);
+if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
+  await runTool(
+    main,
+    (error) => `ERROR: ${error instanceof Error ? error.message : String(error)}`,
+  );
+}

@@ -60,7 +60,7 @@ import { describeThrown, runTool } from './support';
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
 
-async function assertServerUp(base: string): Promise<Result<number, Error>> {
+export async function assertServerUp(base: string): Promise<Result<number, Error>> {
   try {
     const res = await fetch(base, { method: 'GET' });
     // any HTTP response (even a 404 for '/') proves something is listening
@@ -132,7 +132,7 @@ function logRunHeader(base: string, width: number, routes: readonly string[]): v
 }
 
 /** Drive every route through one browser context; true when any capture is bad. */
-async function runCaptures(
+export async function runCaptures(
   base: string,
   width: number,
   routes: readonly string[],

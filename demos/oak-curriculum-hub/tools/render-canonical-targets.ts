@@ -24,7 +24,6 @@
  *   tsx demos/oak-curriculum-hub/tools/render-canonical-targets.ts
  */
 import fs from 'node:fs';
-import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -32,23 +31,11 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
+import { assertExportDir, EXPORT_DIR, portOf, serveDir } from './export-server';
 import { describeThrown, runTool } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const EXPORT_DIR = path.resolve(TOOLS_DIR, '..', 'claude-design-canonical-export');
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
-
-const CONTENT_TYPES = new Map<string, string>([
-  ['.html', 'text/html; charset=utf-8'],
-  ['.js', 'text/javascript; charset=utf-8'],
-  ['.css', 'text/css; charset=utf-8'],
-  ['.json', 'application/json; charset=utf-8'],
-  ['.ttf', 'font/ttf'],
-  ['.woff2', 'font/woff2'],
-  ['.svg', 'image/svg+xml'],
-  ['.png', 'image/png'],
-  ['.pdf', 'application/pdf'],
-]);
 
 interface RenderTarget {
   file: string;
@@ -75,55 +62,6 @@ function resolveWidth(): Result<number, string> {
     return err(`invalid --width ${JSON.stringify(raw)} (expected 320..5000)`);
   }
   return ok(width);
-}
-
-function handleStaticRequest(
-  dir: string,
-  req: http.IncomingMessage,
-  res: http.ServerResponse,
-): void {
-  const rawUrl = req.url ?? '/';
-  const queryIdx = rawUrl.indexOf('?');
-  const urlPath = decodeURIComponent(queryIdx === -1 ? rawUrl : rawUrl.slice(0, queryIdx));
-  // Canonicalise FIRST (resolve() normalises any ../ segments), then validate against the served
-  // root in its own step BEFORE any filesystem use of the path. The sep-suffixed prefix check
-  // also rejects sibling-directory names that share `dir` as a string prefix.
-  const resolved = path.resolve(dir, `.${urlPath}`);
-  if (!resolved.startsWith(dir + path.sep)) {
-    res.writeHead(404);
-    res.end();
-    return;
-  }
-  if (!fs.existsSync(resolved) || fs.statSync(resolved).isDirectory()) {
-    res.writeHead(404);
-    res.end();
-    return;
-  }
-  res.writeHead(200, {
-    'content-type':
-      CONTENT_TYPES.get(path.extname(resolved).toLowerCase()) ?? 'application/octet-stream',
-  });
-  fs.createReadStream(resolved).pipe(res);
-}
-
-function serveDir(dir: string): Promise<http.Server> {
-  const server = http.createServer((req, res) => {
-    handleStaticRequest(dir, req, res);
-  });
-  return new Promise((resolve) => {
-    server.listen(0, '127.0.0.1', () => {
-      resolve(server);
-    });
-  });
-}
-
-/** The bound TCP port of a listening server, narrowed from Node's address union. */
-function portOf(server: http.Server): Result<number, Error> {
-  const address = server.address();
-  if (address === null || typeof address === 'string') {
-    return err(new Error('static server did not bind a TCP port'));
-  }
-  return ok(address.port);
 }
 
 /** Render one export page (full-page + above-the-fold PNGs); returns true when it looks blank. */
@@ -155,13 +93,6 @@ async function renderTarget(page: Page, base: string, target: RenderTarget): Pro
   return !good;
 }
 
-function assertExportDir(): Result<void, string> {
-  if (!fs.existsSync(EXPORT_DIR)) {
-    return err(`export dir not found: ${EXPORT_DIR}`);
-  }
-  return ok(undefined);
-}
-
 /** Launch the browser and render every target; true when any render looked blank. */
 async function renderAll(base: string, width: number): Promise<boolean> {
   process.stdout.write(
@@ -178,7 +109,9 @@ async function renderAll(base: string, width: number): Promise<boolean> {
   return suspect;
 }
 
-async function main(): Promise<Result<void, string>> {
+/** Serve the export and render every canonical target at `width` CSS px —
+ *  the importable core the fidelity orchestrator composes. */
+export async function renderCanonicalTargets(width: number): Promise<Result<void, string>> {
   const exportDirRes = assertExportDir();
   if (!exportDirRes.ok) {
     return exportDirRes;
@@ -192,11 +125,7 @@ async function main(): Promise<Result<void, string>> {
   const base = `http://127.0.0.1:${portRes.value}`;
   process.stdout.write(`serving ${EXPORT_DIR} at ${base}\n`);
 
-  const widthRes = resolveWidth();
-  if (!widthRes.ok) {
-    return widthRes;
-  }
-  const suspect = await renderAll(base, widthRes.value);
+  const suspect = await renderAll(base, width);
   server.close();
   if (suspect) {
     return err(
@@ -207,4 +136,15 @@ async function main(): Promise<Result<void, string>> {
   return ok(undefined);
 }
 
-await runTool(main, (error) => `RENDER FAIL: ${describeThrown(error)}`);
+async function main(): Promise<Result<void, string>> {
+  const widthRes = resolveWidth();
+  if (!widthRes.ok) {
+    return widthRes;
+  }
+  return renderCanonicalTargets(widthRes.value);
+}
+
+const invokedPath = process.argv.at(1);
+if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
+  await runTool(main, (error) => `RENDER FAIL: ${describeThrown(error)}`);
+}
