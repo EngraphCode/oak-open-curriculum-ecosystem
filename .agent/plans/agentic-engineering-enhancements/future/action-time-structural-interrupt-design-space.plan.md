@@ -647,6 +647,30 @@ temporal qualifier holds. Firing signature: presenting pasteable content is
 a detectable output moment (a paste-intended block in an owner-facing
 message) — the same declaration-moment class as (b) above.
 
+**Addendum (2026-07-03, Vega mends Oblivion) — Pathogen A at estate scale,
+plus an owner mechanism demand.** The sharpest over-gating instance yet,
+because the label outlived every catch layer: an "owner-gated / the owner's
+manual round" framing on the salvage tier E (and adjacent strata) was
+authored by one session, then propagated through the plan, the salvage
+report, a session opener, the continuity surfaces, TWO consolidation
+sessions (including one that added instances to this very inventory hours
+earlier), an adversarial review, and an Explore estate sweep (which
+reported it as "owner-gated by design") — and the owner had never agreed
+to any of it: *"I never agreed to any of it being 'user gated'"*; the
+exclusions were never ratified. Every reader treated the recorded tag as a
+verdict (`precedence-is-not-approval`; the inherited-tag pathogen above)
+and none re-verified the grant. Two sharpened facts for t2/t3: (1) the
+pathogen propagates **between artefacts and between agents** — the firing
+moment is not only writing the literal token but *reading* it as
+authority, so a read-time check ("who granted this, when, cite the turn")
+is a second candidate signature; (2) the owner disclosed they had
+attempted **a hook to block the excuse entering the repo** — a direct
+owner mechanism demand for this lane; no such guard exists in the hooks
+estate today (verified 2026-07-03), and the write-guard vocabulary that
+DOES exist fired usefully twice the same evening on adjacent
+expediency-wording, evidence the token-level layer works where a token
+exists.
+
 ## Worked Instance — 2026-07-02 Corpus-Scale Confirmation (deterministic discovery run)
 
 The 2026-07-02 napkin-corpus discovery run (the PDR-122 pipeline over fifteen

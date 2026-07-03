@@ -232,6 +232,12 @@ direct CLI commands for inspection and recovery.
    fingerprint.
 
    ```bash
+   # Open the commit-window claim FIRST with the pattern spelled bare:
+   #   claims open --area-kind git --area-pattern "index/head" ...
+   # The composed label "git:index/head" is kind + pattern; guard's
+   # matcher wants the bare pattern and rejects the composed spelling
+   # (frictions F-116).
+   #
    # Resolve the session's UUID v5 id once (PDR-076a). Suppress stderr
    # rather than tail-skipping lines: the pnpm banner goes to stderr on
    # some harnesses, so `tail -n +2` can eat the JSON's first line.

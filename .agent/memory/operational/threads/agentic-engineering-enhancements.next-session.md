@@ -110,7 +110,7 @@ ready to launch**: pasteable opener at
 `.agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md`; the four
 pending owner decisions are repo-continuity §Open Owner-Decision Items 8–10.
 
-## SALVAGE ws1 + ws1b COMPLETE — remaining: the owner's tier-E round (2026-07-02/03)
+## SALVAGE ws1 + ws1b COMPLETE — next: FULL PROCESSING ws1c–ws1g (2026-07-02/03)
 
 Session identity: Rosemary stirs Bracken (ws1, late evening 2026-07-02); Vega mends Oblivion
 (ws1b disposition, 2026-07-03).
@@ -167,9 +167,17 @@ is EXECUTED and committed on branch `chore/rescue_findings`:
 
 **Next actions, in order:**
 
-1. **The owner's tier-E manual round** — 187 ranked kills in the report §Tier E; nothing was
-   deleted, every kill is conserved in the committed checkpoints. (ws1b — the rescued-concept
-   disposition pass — is DONE, 2026-07-03; see above.)
+1. **The full-processing pass ws1c–ws1g** (owner-directed 2026-07-03: EVERY remaining
+   rescued-knowledge stratum is processed in full — the prior "owner-gated / owner's manual
+   round" framing was never ratified and is withdrawn, `precedence-is-not-approval`). Scope:
+   ws1c deterministic estate inventory; ws1d tier E (187 ranked kills, 8 batches, commit per
+   batch); ws1e the 83 unclustered map leaves; ws1f the 8 meta synthesis notes + the
+   structured-only banked-verdict corpus (no prose exists — verified twice 2026-07-03);
+   ws1g the v2/v1/probe strata (31 re-finds verify-and-enrich, 5 v2 kills, 9 v1 kills +
+   v1 C06, probe supersession proof). ~3–6 sessions; plan §Full-processing mandate carries
+   the acceptance contract; opener:
+   `.agent/prompts/agentic-engineering/rescued-knowledge-full-processing-session.md`.
+   Comms events alone are owner-routed to a separate plan.
 2. **The ws2 readiness review** (fresh seat) — the topology redesign (D1–D6 remain PROPOSED).
    **Now folds into the corpus-generalisation Phase 0 design session** (see the section above):
    D1–D6 are the shape of the general kernel, so the topology review and the generalisation design
@@ -425,7 +433,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Perseus wakes Oblivion` | `claude-code` | `claude-fable-5` | `89ccb2` | `TS rebuild of the workflow suite (2586151c1 + a4ec3f0da: compiled/bundled artefacts end the mirror-drift class) then the EXECUTED discovery run: map (580 leaves, f9bcf2700) → reduce (246 candidates + deterministic post-run driver, 8f6729491) → the money-gate fork (owner decided validate-all at 62M) → validate (26 keep / 220 kill, 820d03a25) → meta (420081c9c). Validate regime FAILED calibration (11/18 known-real baselines found-then-killed); banked 202 Opus + 31 Sonnet verdicts as the paired-comparison corpus; least-privilege agent types (null-tools shape, owner-probed); burn accounting + the salvage-and-topology-redesign plan (ebaf06491); closeout 0cd116fa7. §RUN COMPLETE above is this session's pickup.` | 2026-07-01 | 2026-07-02 |
 | `Rosemary stirs Bracken` | `claude-code` | `claude-fable-5` | `9f59e1` | `Dedicated consolidation to contract-complete (4fd9ce47b, ef96b4a03, 1be4669c9, 17be1890c): napkin rotated; distilled + pending-graduations + open-questions ALL EMPTY; the v2 13-pattern work-list executed per the conservation-plan ledger (WS-A/WS-B landed); PDR-122 amended (invariants 5-6 + economics); PDR-123 authored (design panels); agentic-judgment-conserve-by-default rule (four forms); 2 prior archives re-verified with 4 survivor gaps cured; owner voided recorded keep-open grants → grants-are-live-per-pass doctrine into precedence-is-not-approval + both consolidate skills. Then corpus-subagent full adapter set + null-tools schema (49389bf0c); PR #296 opened and shepherded to MERGED (lockfile-override fix 9a71735bd; 16 Sonar findings fixed at source incl. the S8707 vulnerability, b606fc86f + d0693acd2; all Copilot threads settled); the /oak-pr-lifecycle skill authored from the shepherding (first slice of its plan). On chore/rescue_findings: pickup staleness fixes, then post-compaction SALVAGE ws1 EXECUTED — corroboration cwd fix (`e18516265`, 0/18→18/18), the deterministic salvage stack (`f5fd2e5b2`: salvage-driver + 5 modules, TDD, dual expert panels with a grounded reviewer-contradiction catch), tier table A=18 B=8 C=18 D=18 E=187 residual=0 conservation-checked, and the discovery report conserved.` | 2026-07-02 | 2026-07-02 |
 | `Hazel rides Orchard` | `claude-code` | `claude-fable-5` | `de9f72` | `adversarial-review+corrections+further-research: review verdict landed (8290cec0b), R1-R3 corrections applied in place (a8ee0c033), further research completed the interrupted programme (3b4cdfda3 — quorum diversity MEASURED at ≈1.4 effective votes; five gap lenses; owner observation 6 captured), four owner decisions recorded (724392b6c), ws1b opener authored (663ea0bde+5540d5dd9)` | 2026-07-03 | 2026-07-03 |
-| `Vega mends Oblivion` | `claude-code` | `claude-fable-5` | `ee28f9` | `ws1b rescued-knowledge disposition via consolidate-until-done: all 59 A–D entries dispositioned first-hand (graduations into user-collaboration/agent-collaboration/testing-strategy directives, PDR-060+PDR-122 amendments, commit skill, build-system/development-practice/testing-patterns/semantic-search docs, sonarqube rule, collaboration-state-conventions, 2 new patterns; C36 supertest contradiction reconciled across 3 surfaces; C183/C184/C214 + the ninth-reinforcement verdict routed to the action-time-structural-interrupt inventory); frictions F-113–F-115 registered; ws1b todo completed; tier-B novelty claim checked (5/8 had homes)` | 2026-07-03 | 2026-07-03 |
+| `Vega mends Oblivion` | `claude-code` | `claude-fable-5` | `ee28f9` | `ws1b rescued-knowledge disposition via consolidate-until-done: all 59 A–D entries dispositioned first-hand (graduations into user-collaboration/agent-collaboration/testing-strategy directives, PDR-060+PDR-122 amendments, commit skill, build-system/development-practice/testing-patterns/semantic-search docs, sonarqube rule, collaboration-state-conventions, 2 new patterns; C36 supertest contradiction reconciled across 3 surfaces; C183/C184/C214 + the ninth-reinforcement verdict routed to the action-time-structural-interrupt inventory); frictions F-113–F-116 registered; ws1b todo completed; tier-B novelty claim checked (5/8 had homes). THEN owner correction absorbed (the gating labels were never ratified) and the FULL-PROCESSING plan authored: ws1c–ws1g added to the salvage plan (assumptions-expert-reviewed; its B1 falsified the rationale-prose premise pre-execution), successor opener written, ws1b opener superseded, estate-scale Pathogen-A addendum landed` | 2026-07-03 | 2026-07-03 |
 
 ## Cross-Plan and Cross-Thread Links
 

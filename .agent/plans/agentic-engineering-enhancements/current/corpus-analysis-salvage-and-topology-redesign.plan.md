@@ -3,7 +3,7 @@ name: "Corpus-Analysis Salvage and Topology Redesign"
 plan_id: corpus-analysis-salvage-and-topology-redesign
 collection: agentic-engineering-enhancements
 lane: current
-status: "ws1b EXECUTED 2026-07-03 (Vega mends Oblivion, consolidate-until-done): all 59 A-D rescue entries dispositioned into canonical homes — the graduations and enrichments landed across rules, PDRs (060, 122), patterns (two new: zero-match-false-green, atomic-relocation-of-shared-substrate), directives (user-collaboration, agent-collaboration, testing-strategy), and engineering docs; the rest verified duplicates against live homes; the C36 supertest classification contradiction reconciled across three surfaces. The owner's tier-E manual round remains separate and owner-gated. ws1 EXECUTED 2026-07-02 (Rosemary stirs Bracken): corroboration cwd bug fixed (18/18), salvage tooling TDD-landed, tier table + discovery report committed — A=18 B=8 C=18 D=18 E=187 residual=0. ws2+ (topology redesign) still requires a fresh-session readiness review before build."
+status: "FULL-PROCESSING workstreams ws1c-ws1g ADDED 2026-07-03 (Vega mends Oblivion, owner-directed): EVERY remaining rescued-knowledge stratum is processed in full — the prior 'owner-gated manual round' framing was NEVER owner-ratified (precedence-is-not-approval) and is withdrawn; tier E (187), the 83 unclustered leaves, the 8 meta synthesis notes, the structured banked-verdict corpus, and the v2/v1/probe strata are all in scope; comms events alone are owner-routed to a separate plan. ws1b EXECUTED 2026-07-03 (Vega): all 59 A-D rescue entries dispositioned into canonical homes; C36 supertest contradiction reconciled across three surfaces. ws1 EXECUTED 2026-07-02 (Rosemary stirs Bracken): corroboration cwd bug fixed (18/18), salvage tooling TDD-landed, tier table + discovery report committed — A=18 B=8 C=18 D=18 E=187 residual=0. ws2+ (topology redesign) still requires a fresh-session readiness review before build. Session opener for ws1c-ws1g: .agent/prompts/agentic-engineering/rescued-knowledge-full-processing-session.md"
 created: 2026-07-02
 owner_thread: agentic-engineering-enhancements
 overview: >-
@@ -22,6 +22,22 @@ todos:
       session opener: .agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md,
       run on feat/corpus_research_enhancements): disposition every ws1 rescue-set entry into the canonical surfaces via consolidate-until-done, with the salvage report + data/discovery-run-salvage-tiers-2026-07-02.json as the plan-carried intake work-list (consolidate-docs §Discovery-Run Rescue Sets governs the mechanics). Evidence-tiered order: (1) tier D — 18 proven-real false kills; each entry's namingBaselineIds pre-addresses its knowledge lane (the capture-does-not-cure pair C183/C184 routes to the action-time-structural-interrupt design lane as PDR-098 recurrence evidence; C139/C140 to the identity doctrine; C154 to the peer-sidebar doctrine; C163 to definition-of-delivery). (2) tier C — the 15 non-D cross-regime rescues, judged individually against existing homes (graduate, enrich, or reject-as-subsumed with reason). (3) tier B — the 8 uncorroborated keeps as novel-discovery candidates for new pattern files or rule clauses (C36 supertest-classification trajectory; C46/C54/C64/C129/C135 tooling findings; C116 memory-plugin post-mortem; C123 semantic-merge — check partial homes first). (4) tier A — 18 corroborated re-finds: verify-and-enrich the homes each corroboratedBy names; a pure re-find is a duplicate disposition confirming pipeline recall, a nuance-adding re-find amends the home. Tier E (187 ranked kills) stays OWNER-GATED (the manual round) and is outside this workstream's done. Done = all 59 A-D entries dispositioned (graduated/duplicate/rejected), buffers empty at close, this todo completed; closeout reports value and impact, never accounting."
     status: completed
+  - id: ws1c-estate-inventory
+    content: "ws1c (one sitting): deterministic estate inventory. Recompute every stratum's count + disposition trail with jq/rg — tierE length; the unclustered-leaf set difference (map leaves minus unique supportingLeafIds; 83 as of 2026-07-03); synthesisNotes length (8); banked verdict counts (202+31, structured-only); v2 findings (50=45+5); v1 items (10 kept, 9 killed, plus C06 recorded neither-kept-nor-killed); probe windows vs the full-run partition. Confirm every item carries full text in the committed artefacts (zero re-spend). Output = the completeness base for ws1g (ws1d/e/f recompute their own strata directly and do not wait on this); an absent stratum is a recorded verdict, not a gap. Counts are derivation-anchored, never trusted from plan text. Comms-corpus artefacts are OUT (owner-routed separate plan, 2026-07-03)."
+    status: pending
+  - id: ws1d-tier-e-disposition
+    content: "ws1d: tier E full disposition, 187 ranked kills, rank-ordered batches of ~25 (E-b1 ranks 1-25 ... E-b8 ranks 176-187), one commit per batch. Per-item protocol = ws1b's: read the full pattern text; judge against existing homes first-hand; graduate / enrich / duplicate / reject-with-named-reason; conserve-by-default (PDR-122); PDR-098 recurrence check with the temporal qualifier (an instance is fires-despite-home evidence only if it post-dates the home). Subagents may propose home candidates; every disposition is adjudicated first-hand by the context-holder (owner standing directive: critically assess all subagent output). Every entry receives one of the four dispositions in this pass: an entry hinging on an undecided design question routes INTO the owning artefact (e.g. the Phase-0 agenda in the generalisation plan) as content — routing to the owning artefact IS its disposition. Expect 2-4 sessions; batch boundary = handoff boundary. Rank tiebreak fields: distinctWindows, supportingLeafCount, candidateId."
+    status: pending
+  - id: ws1e-unclustered-leaves
+    content: "ws1e (independent of ws1d): disposition the unclustered map leaves (recompute the set; 83 as of 2026-07-03). Body-read all; disposition each (duplicate against A-E homes / graduate novel singles / reject noise with reason; conserve-by-default). Route the structural finding — the deterministic close's residual=0 was candidate-scoped and never accounted the leaf-to-candidate seam — into the ws2/Phase-0 agenda as a leaf-coverage accounting requirement. One or two commits."
+    status: pending
+  - id: ws1f-synthesis-notes-and-verdict-corpus
+    content: "ws1f (independent): (a) verify each of the meta stage's 8 synthesisNotes against live homes; route the keep-filter kind-bias note (the run under-weights trajectory/protocol-evolution/single-window kinds) into the Phase-0/ws2 agenda + the corpus-generalisation future plan. (b) The banked verdict corpus (202 Opus + 31 Sonnet) is STRUCTURED-ONLY, no prose (verified 2026-07-03, twice — key union {candidateId, lens, regime, verdict}, verdict fields {grounded, baseRateHolds, survivesNull, notArtefact, importance}; the validate result's 246 reason fields are all null; voter transcripts were session-temp and never conserved, so the committed corpus is the totality): run a bounded deterministic read of the unconsumed structured signal — per-test kill drivers per regime, confidence textures, cross-regime disagreement by candidate kind — beyond the committed lens-correlation measurement, routing findings to the Phase-0/ws2 agenda as calibration input. The corpus's disposition: committed evidence corpus, mechanically mined (a recorded decision)."
+    status: pending
+  - id: ws1g-prior-generation-strata
+    content: "ws1g (after ws1c): (a) verify-and-enrich the 31 v2 corroborated re-finds against their named homes (tier-A protocol — path-existence corroboration hides enrichments, 3/18 rate on tier A; a pure re-find is a duplicate confirming recall, nuance amends the home); (b) body-read the 5 v2 kills for false-kill substance; (c) per-item supersession verification of the 9 v1 kills PLUS v1's C06 (recorded neither-kept-nor-killed — undisposed; a v1 item absent from both later runs' candidate sets earns a body-read, not an assertion); (d) deterministic supersession proof for the probe candidates (probe windows subset of the full-run partition over the same corpus files); (e) any ws1c residue. Completes only when the re-run inventory shows no stratum without a per-item disposition."
+    status: pending
+    depends_on: [ws1c-estate-inventory]
   - id: ws2-readiness-review
     content: "WS2 GATE: fresh-session readiness review of the topology redesign (D1-D6 below are PROPOSED, authored post-peak). Dispatch assumptions-expert + architecture expert; ratify or revise; the burn-analysis report is the evidence base."
     status: pending
@@ -69,6 +85,46 @@ isProject: false
   ~2x and measured after; extraction noise is reduced by overlap; expensive
   models touch only the candidates whose disposition is contested or
   high-stakes.
+
+## Full-processing mandate (ws1c–ws1g; owner-directed 2026-07-03)
+
+The owner directed (2026-07-03, verbatim intent): ALL rescued knowledge is
+processed and critically assessed — the prior "owner's manual round" /
+"owner-gated" framing on tier E and the adjacent strata was **never ratified by
+the owner** and is withdrawn (`precedence-is-not-approval`: a recorded gate is
+a prior session's claim, re-verified live, never standing authority). The sole
+owner-stated boundary: comms events are handled in a separate session under a
+separate plan. The reports stay immutable point-in-time records; this plan is
+where the supersession lives.
+
+**Acceptance (outcome-level)** for ws1c–ws1g as a set:
+
+1. Re-running the ws1c inventory at the end shows every stratum with every
+   item dispositioned — the falsifier is any item lacking a home/commit trail.
+2. All five todos completed; this status line carries no un-ratified gating
+   language.
+3. Each executing session's closeout reports value and impact (what knowledge
+   reached which home, what behaviour it changes), never accounting.
+
+**Method invariants** (every workstream): first-hand, critically assessed
+(`verify-dont-trust` — subagent findings verified before absorption);
+conserve-by-default with named-reason rejections (PDR-122); the PDR-098
+recurrence check with the temporal qualifier; no ledgers
+(`permanent-doc-is-the-consolidation-record` — the batch todos carry drain
+state, homes + commits are the per-item record); commits via the commit-queue
+workflow only (F-112 fixed at `b2ae96898`; a workflow failure is an error to
+stop on, never a trigger for an equivalent route); buffers empty at each
+session close; fitness signals route structure work and never license
+trimming. Whole-set effort estimate: roughly 3–6 sessions (tier E is ~3×
+ws1b's volume; ws1c/e/f/g are single-sitting scale); ws1d/e/f are mutually
+independent, ws1g depends on ws1c.
+
+**Out of scope for ws1c–ws1g**: re-running any judgment stage; building
+pipeline code (the leaf-coverage accounting gap and the keep-filter kind-bias
+are design input routed to ws2/Phase-0); comms-event processing (separate
+owner-routed plan); the v2 conservation plan's WS-C/WS-D tail (tooling
+promotion / discoverability, owned there); the pre-2026-02-15
+experience-corpus backlog (a different corpus family with its own plan).
 
 ## Evidence base
 

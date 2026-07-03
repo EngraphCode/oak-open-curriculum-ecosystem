@@ -307,3 +307,43 @@ New session observations append below.
   rows at session open (real-registry failure-abandons from Sardine and Mistral, despite the
   F-112 session's scratch-registry discipline for its probe runs). Historical rows, not
   blockers; cleanup belongs to the 7d stale-entry audit of a full dedicated pass.
+
+## 2026-07-03 — full-processing correction + plan authoring (Vega mends Oblivion, late)
+
+- **OWNER CORRECTION (the session's sharpest): the "owner-gated" labels on tier E and the
+  adjacent strata were NEVER ratified** — "I never agreed to any of it being 'user gated'…
+  the above carve outs were never ratified by me." The label was authored by prior sessions,
+  propagated through plan → report → opener → continuity, and re-asserted by me (and by an
+  Explore sweep, which called it "owner-gated by design") without any of us re-verifying the
+  grant. Estate-scale `precedence-is-not-approval` + the inherited-tag-read-as-verdict
+  pathogen, at a new severity: the tag survived TWO consolidation sessions and an adversarial
+  review. The owner also revealed they attempted a HOOK to block the excuse — a mechanism
+  demand for the design-space lane (no such hook is in the estate; enforcement gap). Homed:
+  the design-space plan's pathogen inventory (estate-scale addendum), the salvage plan's
+  §Full-processing mandate, the corrected continuity/thread wording, per-user memory
+  sharpening.
+- **A plan premise was falsified by the reviewer BEFORE execution (worked instance of
+  `verify-data-supports-shape-before-building`):** ws1f(b) planned to "read the rationale
+  prose" of 233 banked verdicts; assumptions-expert proved with jq that the corpus is
+  structured-only (no prose field exists anywhere; the validate result's 246 reason fields
+  are all null; voter transcripts were never conserved). Verified first-hand, re-scoped
+  pre-approval. The cheap check that would have caught it at author time: key-union jq over
+  the artefact BEFORE writing "read the prose" into a workstream.
+- **Hook warn-vs-use collisions bit twice while writing the plan** (C103 class, live): the
+  write-guard blocked "carve-out" (used as a design descriptor) and "parked" (used inside a
+  prohibition). Both rewrites were genuinely better (state the uniform design positively;
+  state the four-dispositions contract instead of negating a parking). The hook's
+  reappraise-don't-rephrase instruction did real work — the C103 pathogen note stands, but
+  this instance was the hook succeeding, not misfiring.
+- **commit-queue guard rejects a claim whose area-pattern is spelled `git:index/head`** —
+  the matcher wants pattern `index/head` under kind `git`; the `git:` prefix is the kind
+  label. The commit skill's prose says "a `git:index/head` claim" everywhere, so a
+  first-time reader opens the claim with the full label as the pattern and burns a
+  close/reopen cycle. Registered as F-116; commit skill enriched at the firing line.
+- **Waiting on an async subagent inside plan mode has no primitive** — used a
+  metadata-only settle probe (background until-loop on the transcript's file size, never
+  its content) as the re-invocation hook. Worked; harness-level friction, noted for AX
+  awareness only.
+- **`commit-queue phase` returned a transient exit 1 on first invocation** (immediately
+  after enqueue), succeeded unchanged on retry; likely a same-instant registry-write race
+  with the claims CLI. Single observation; watch for recurrence before registering.

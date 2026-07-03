@@ -2496,6 +2496,28 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
 
+### F-116 — `commit-queue guard` rejects the commit-window claim when its area-pattern is spelled `git:index/head`
+
+- **Source**: napkin 2026-07-03 (Vega mends Oblivion, ws1b landing) — cost one claim
+  close/reopen cycle.
+- **Surface**: `claims open` (area shape) × `commit-queue guard` (`claimCoversGitIndexHead`,
+  `agent-tools/src/commit-queue/guard.ts`).
+- **Observed**: the guard matches `area.kind === 'git'` AND normalized patterns containing
+  exactly `index/head`; a claim opened with `--area-pattern "git:index/head"` (the label the
+  commit skill's prose uses throughout) fails with "is not an active git:index/head claim" —
+  the error repeats the very label that caused the mismatch.
+- **Expected**: either the guard accepts the composed `git:index/head` spelling, or
+  `claims open` normalises it, or the error names the cure ("open the claim with
+  --area-kind git --area-pattern index/head").
+- **Candidate cure**: normalise the `git:` prefix off patterns under `kind: git` at
+  claims-open or guard time; extend the guard error with the exact open command. Skill-side
+  mitigation landed 2026-07-03 (the commit skill now states the flag spelling at the
+  ceremony step).
+- **Target surface**: `agent-tools/src/commit-queue/guard.ts` + claims-open normalisation;
+  commit skill (mitigated).
+- **Status**: open (skill-side mitigated 2026-07-03).
+- **Owner direction status**: standing (record-all-frictions).
+
 ---
 
 ## Mitigated / Addressed Frictions

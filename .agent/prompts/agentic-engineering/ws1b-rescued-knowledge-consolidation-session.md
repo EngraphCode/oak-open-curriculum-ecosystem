@@ -1,6 +1,14 @@
 <!-- User scratchpad: a starting statement for the fresh-seat ws1b rescued-knowledge
 consolidation session. Not doctrine; a pasteable opener. -->
 
+> **CONSUMED + SUPERSEDED (2026-07-03).** ws1b was executed (all 59 A–D entries
+> dispositioned; commit `1cfbb4e10`). Do not paste this opener again. Two of its
+> statements were later corrected: the commit-workflow guidance (F-112 is FIXED
+> at `b2ae96898`; the queue workflow is the working path) and the "tier E is
+> OUT of scope / the owner's manual round" framing (never owner-ratified;
+> withdrawn 2026-07-03). The live successor opener is
+> [`rescued-knowledge-full-processing-session.md`](rescued-knowledge-full-processing-session.md).
+
 # ws1b Rescued-Knowledge Consolidation — Session Opener
 
 ## Paste this
