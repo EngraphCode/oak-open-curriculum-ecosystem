@@ -253,6 +253,24 @@ New session observations append below.
   statement after a `>> file` redirect wrote INTO that file — macOS bash 3.2 sh-mode restored
   fds oddly around the signal. Treat trace-file content position with care in future hook
   forensics.
+- **Cross-experience read (consolidation step 4, this session × Hazel's measurement-collapse):**
+  both sessions watched a hedged/silent claim collapse under ONE cheap direct observation
+  ("unmeasured" → a 100-line script over committed JSON; three weeks of "dies at the handover"
+  theory → one trace line), and both noticed trust concentrating in the negative signal (doubt-
+  conserving openQuestions; red gate failures proving more than the green). Corroborates
+  `verify-dont-trust` + `feedback_run_the_thing_dont_flag_the_gap` rather than needing a new
+  home; noted as recurrence texture, not a candidate.
+- **commit-queue `enqueue` and `guard` require `--id` (the PDR-027 UUID) but their usage text
+  omits it** — "missing required --id" costs a retry each; sibling of the F-72..F-80
+  option-surface class. Also: `guard` binds to the INTENT's claim, so the intent must be
+  enqueued against the `git:index/head` claim, not the files-boundary claim — the error
+  message names the claim kind but not the re-enqueue cure. Register candidates.
+- **commit-queue verify-staged cannot represent a rename**: a staged `git mv` records an
+  `R100\told\tnew` name-status line, and the intent/staged file-list comparison parses it as one
+  path, so an intent naming both rename sides fails verify ("missing: <old>") and one naming only
+  the new side would split the rename at pathspec-commit time. Cure this session: two workflow
+  commits (add the copy, then delete the original) — lossless, proper-path. Register candidate:
+  teach the bundle parser + pathspec narrowing the R entry shape.
 - **comms-seen path derivation diverges between the CLI and the rule doc's convention.**
   `assert-watcher-live` and the `claims open` F-95 backstop derive the heartbeat path from the
   DISPLAY name verbatim (`Mistral seeks Jetstream.json.heartbeat.json`); the

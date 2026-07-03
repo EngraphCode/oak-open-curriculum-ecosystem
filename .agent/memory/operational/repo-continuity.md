@@ -144,6 +144,17 @@ forward-asks remain.
   this branch; pasteable opener:
   `.agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md`). Full
   pickup: the AEE thread record §CORPUS GENERALISATION.
+- **Commit-workflow F-112 FIXED (2026-07-03, Mistral seeks Jetstream, `b2ae96898`).** The
+  commit-queue workflow's spawned-child stream truncation is cured: Node child-stdio pipes are libuv
+  socketpairs, and one on the spawned git's stderr poisoned the pre-commit hook chain (hook shell
+  SIGPIPE at the depcruise→turbo handover; `set -e` silent exit 1). `runInheritedProcess` now gives
+  children file-backed stdio and replays conserved output, reporting exit code and signal distinctly.
+  **Queue-workflow commits from Claude Code are UNBLOCKED**, including the memory-drain plan's loop
+  commits. Landed through itself on `feat/corpus_research_enhancements`: `c14866649` (the blocked
+  no-fallback reconciliation bundle) → `b2ae96898` (fix + 7 invariant tests) → `e07afb01b` (register
+  close + commit-skill narrowing to the Cursor-only residual). Branch unpushed — owner push decision.
+  Completed plan (evidence + pinned mechanism):
+  [`f-112-commit-workflow-stream-truncation-fix.plan.md`](../../plans/agent-tooling/current/f-112-commit-workflow-stream-truncation-fix.plan.md).
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to

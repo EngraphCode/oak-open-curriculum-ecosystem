@@ -171,7 +171,7 @@ surface that makes later governance or enforcement honest.
 
 ## Pattern Index
 
-### Code (23)
+### Code (24)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Throw That Only Narrows a Too-Wide Return Type → Strengthen the Type, Not Route to Result** -- Use this when: Migrating a throw to a Result type (or auditing error handling) and the throw exists only to narrow a too-wide upstream return type — its error arm would be permanently unreachable. → [throw-as-narrowing-artifact-strengthen-the-type.md](throw-as-narrowing-artifact-strengthen-the-type.md)
@@ -181,6 +181,7 @@ surface that makes later governance or enforcement honest.
 - **Const Map as Type Guard** -- Use this when: a runtime conversion mirrors a compile-time type transformation and all possible values are known at generation or build time. → [const-map-as-type-guard.md](const-map-as-type-guard.md)
 - **Drift Detection Test** -- Use this when: A manually maintained list should match a canonical source but cannot be derived due to structural constraints, or repo-state drift needs detecting between maintained copies and canonical sources. → [drift-detection-test.md](drift-detection-test.md)
 - **Explicit DI Over Ambient State** -- Use this when: You are tempted to use AsyncLocalStorage, module-level singletons, or thread-local context to propagate request-scoped data through a call chain. → [explicit-di-over-ambient-state.md](explicit-di-over-ambient-state.md)
+- **File-Backed Stdio for Spawned Gate-Running Children** -- Use this when: Spawning git commit or any hook/gate-running child from Node and its output truncates or the chain dies silently mid-hook. → [file-backed-stdio-for-spawned-gate-children.md](file-backed-stdio-for-spawned-gate-children.md)
 - **Generic Factory for DI Composition** -- Use this when: A DI interface exposes multiple factory functions that callers always compose in the same order. → [generic-factory-for-di-composition.md](generic-factory-for-di-composition.md)
 - **Guard the Parse Before a Threshold Classification** -- Use this when: Classifying external or parsed data by a numeric threshold (age buckets, liveness states, severity bands) — gate the value's validity before any comparison, because a NaN or missing value makes every < and > false and silently selects the last/worst branch. → [guard-the-parse-before-threshold-classification.md](guard-the-parse-before-threshold-classification.md)
 - **Guarded Fire-and-Forget Cleanup** -- Use this when: You have async cleanup (close, flush, disconnect) that runs after the response is sent and cannot be awaited by the caller. → [guarded-fire-and-forget-cleanup.md](guarded-fire-and-forget-cleanup.md)

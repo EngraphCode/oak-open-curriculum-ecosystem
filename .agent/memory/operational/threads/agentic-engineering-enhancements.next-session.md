@@ -23,7 +23,10 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
-## CORPUS GENERALISATION — research complete, design not yet ratified (2026-07-03, Rosemary stirs Bracken; model switched claude-fable-5 → claude-opus-4-8 mid-session for this review-and-record pass)
+## CORPUS GENERALISATION — research complete, design not yet ratified (2026-07-03)
+
+Session identity: Rosemary stirs Bracken; model switched claude-fable-5 → claude-opus-4-8
+mid-session for this review-and-record pass.
 
 **Self-contained. Research-and-record only; nothing reshaped.** Owner asked how to generalise the
 corpus-analysis pipeline, apply it to the comms and planning corpora, decouple model/effort,
@@ -107,7 +110,9 @@ ready to launch**: pasteable opener at
 `.agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md`; the four
 pending owner decisions are repo-continuity §Open Owner-Decision Items 8–10.
 
-## SALVAGE ws1 COMPLETE — next: the disposition pass + the owner's tier-E round (2026-07-02 late evening, Rosemary stirs Bracken)
+## SALVAGE ws1 COMPLETE — next: the disposition pass + the owner's tier-E round (2026-07-02)
+
+Session identity: Rosemary stirs Bracken, late evening.
 
 **Self-contained.** The 2026-07-02 discovery run's salvage (ws1 of
 [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md))
