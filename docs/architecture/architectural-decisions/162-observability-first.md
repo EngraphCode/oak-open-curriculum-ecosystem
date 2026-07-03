@@ -351,8 +351,7 @@ Phased execution remains implementation follow-through. In summary:
   move behind a `ServerInstrumenter` port injected from
   `@oaknational/observability`. This is scheduled as part of
   `observability-events-workspace.plan.md` / the vendor-independence
-  conformance plan in Phase 2; the decision is out of scope for Phase
-  1.
+  conformance plan in Phase 2; the decision is out of scope for Phase 1.
 
 ## History
 

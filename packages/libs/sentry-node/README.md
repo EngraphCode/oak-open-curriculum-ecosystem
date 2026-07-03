@@ -39,12 +39,12 @@ to every consuming runtime.
 - **Configuration**: `createSentryConfig`, `resolveSentryEnvironment`,
   `resolveSentryRegistrationPolicy`, `resolveSentryRelease` — strict
   parsing returns a discriminated `ParsedSentryConfig` (`SentryOffConfig
-  | SentryFixtureConfig | SentryLiveConfig`, tagged by `mode: 'off' |
+| SentryFixtureConfig | SentryLiveConfig`, tagged by `mode: 'off' |
 'fixture' | 'sentry'`). `SentryConfigEnvironment` is the env-var input
   interface consumed by `createSentryConfig`.
   `resolveSentryRegistrationPolicy` implements the ADR-163 §3 truth
   table (environment + `VERCEL_GIT_COMMIT_REF` → `{registerRelease,
-  warning?}`) plus §4 override-pair validation for local-dev release
+warning?}`) plus §4 override-pair validation for local-dev release
   registration. The deploy-time orchestrator in the MCP app consumes
   this sibling resolver; the runtime does not.
 - **Error mapping**: `describeConfigError`, `mapCloseError`, `mapFlushError`

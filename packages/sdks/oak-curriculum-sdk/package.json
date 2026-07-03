@@ -95,12 +95,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest run",
-    "test:watch": "vitest watch",
-    "docs:api": "typedoc --options typedoc.json --skipErrorChecking",
-    "docs:api:html": "typedoc --options typedoc.ai.json --skipErrorChecking",
-    "docs:api:json": "typedoc --options typedoc.json --json docs/api/typedoc.json --skipErrorChecking",
-    "docs:api:json:ai": "typedoc --options typedoc.ai.json --json docs/api/typedoc.json --skipErrorChecking",
-    "docs:mcp": "typedoc --options typedoc.mcp.json --skipErrorChecking"
+    "test:watch": "vitest watch"
   },
   "peerDependencies": {
     "@elastic/elasticsearch": "^9.3.4"
@@ -120,10 +115,8 @@
     "@elastic/elasticsearch": "^9.4.2",
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@types/node": "^24.13.2",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "tsup": "^8.5.1",
-    "typedoc": "^0.28.19",
-    "typedoc-plugin-markdown": "^4.12.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
   },
