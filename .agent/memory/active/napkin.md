@@ -155,3 +155,27 @@ New session observations append below.
   definition-layer inversion, markdown retained as the two-way representation layer (render AND
   human input). Homed: `project_graph_approach_is_practice_convergence_target` (sharpening) + the
   research report's owner-observation record; a dedicated research lens ran on it.
+
+## 2026-07-03 — exploring context usage (Sardine spins Estuary)
+
+- **Session-open load measured at ~71K of the ~80K reliably-loaded budget.** The two largest
+  controllable contributors shared one mechanism (session-injected definition surfaces carry no
+  budget while invocation-time surfaces are effectively free): 15 verbose `.claude/agents`
+  descriptions with embedded `<example>` blocks (~25KB of a ~33KB description tier), and the
+  44KB/241-entry `MEMORY.md` index being harness-truncated at load. Homed: PDR-124
+  (definition-surface context economy) + amended `per-user-memory-is-a-buffer` (index-line
+  retirement on graduation). Drain of the 241-entry backlog deliberately NOT run — owner-directed
+  as a separate dedicated `consolidate-docs` pass.
+- **The lean shape was already ratified in the estate — the Cursor adapters.** The `.cursor/agents`
+  descriptions for the same 15 agents were already compact and example-free; the verbose Claude
+  copies were cross-platform divergence, not design. Before designing a new shape for a surface,
+  check the sibling platform's adapter for an already-converged form (cheap convergence beats
+  invention; also a divergence-detection signal for the canonical-first architecture).
+- **Graduated memory entries double-tax the index.** An entry graduated to a rule kept its
+  `MEMORY.md` index line, so the substance loaded twice per session (rule stub + dead index line)
+  while crowding live entries past the truncation point. Cure is lifecycle (retire the line, keep
+  the per-entry audit file), not trimming.
+- **PDR-052 vs PDR-124 boundary held under the new-rule-vs-pdr-clause classifier.** Checked
+  clause-vs-new-PDR before authoring: PDR-052 governs _editing_ directives under context pressure;
+  nothing owned the standing _injection_ cost of definition registries. The classifier run
+  changed the artefact's scope (from "subagent design" to the two-tier surface contract).

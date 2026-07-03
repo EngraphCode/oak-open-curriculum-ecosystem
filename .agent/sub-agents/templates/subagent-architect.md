@@ -268,7 +268,12 @@ specialised agents — `skills` (preload skills into context), `mcpServers`, `ho
 `maxTurns`, `effort`, `isolation`, `background` — see the schema for the authoritative set and the
 official docs it cites.
 
-- `description` benefits from `<example>` tags and a re-invocation reminder footer.
+- `description` is a session-injected surface
+  ([PDR-124](../../practice-core/decision-records/PDR-124-definition-surface-context-economy.md)):
+  every agent's description loads into every session's context at open. It carries identity plus
+  firing conditions only — compact prose, a single quoted line, on the order of 500 bytes. Never
+  embed `<example>` dialogue blocks, method, or doctrine in a description; that depth lives here in
+  the invocation-time template, and richer dispatch guidance lives in the `invoke-*` rules.
 - `disallowedTools` (e.g. `Write, Edit`) makes a reviewer read-only while inheriting other tools.
 - `color` must be one of the official palette (the schema enforces it); `permissionMode: plan` suits
   observe-and-report agents.
