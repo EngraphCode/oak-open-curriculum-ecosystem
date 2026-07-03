@@ -21,10 +21,10 @@ lineage:
 todos:
   - id: loop-0-setup
     content: Land plan, reconcile work-list (17 orphans), verified inventory, fitness snapshot
-    status: in_progress
+    status: completed
   - id: stratum-a-graduated
-    content: Verify and retire the ~9 already-marked-graduated entries
-    status: pending
+    content: Verify and retire the already-marked-graduated entries (8 verified in homes, lines retired 2026-07-03; index 232/240)
+    status: completed
   - id: stratum-b-project-reference
     content: Disposition 25 project_* and 3 reference_* entries (supersession at delete-stakes)
     status: pending

@@ -2536,6 +2536,36 @@ below is a cross-reference index, not a second source of truth.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
 
+### F-118 — comms-watcher heartbeat path convention: the assert derives the display-codename path; kebab seen-files fail the liveness check
+
+- **Source**: Sardine spins Estuary, 2026-07-03 (n=2 re-entry) — three watcher
+  restarts before `assert-watcher-live` went green.
+- **Surface**: `comms watch` + `comms assert-watcher-live` + the `claims open`
+  comms-blind refusal gate (all key on the heartbeat location).
+- **Observed**: `assert-watcher-live` derives the expected heartbeat from the
+  session display codename verbatim — `comms-seen/Sardine spins
+  Estuary.json.heartbeat.json` (spaces, capitals) — while a watcher started
+  with a kebab-case `--seen-file` writes its heartbeat elsewhere, so the
+  assert reports "watcher not running" against a running watcher. Peer
+  sessions' seen-files in the same directory are kebab-case
+  (`vanilla-stirs-spore.json`), so the convention is inconsistent across
+  sessions or the assert derivation changed. Adjacent paper cut: `comms send`
+  accepts no `--kind` / `--session-prefix` flags (title/body/platform/model +
+  `--tag` only); nearby examples drift from the live CLI surface.
+- **Expected**: one canonical seen-file/heartbeat naming, derived by a single
+  shared function in the watcher, the assert, and the claims gate — or
+  `comms watch` defaults its seen-file to the assert's derived path so
+  conformance is automatic.
+- **Workaround (verified)**: start the watcher with the display-name seen-file
+  (`--seen-file ".../comms-seen/<Display Name>.json"`), or pass
+  `--heartbeat-file` explicitly to the assert.
+- **Candidate cure**: shared path-derivation function consumed by watcher,
+  assert, and claims gate; align legacy kebab files at the next curator pass.
+- **Target surface**: `agent-tools/src/collaboration-state/` comms watch /
+  assert-watcher-live path derivation.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
 ---
 
 ## Mitigated / Addressed Frictions

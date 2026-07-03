@@ -376,3 +376,22 @@ New session observations append below.
   leaf/candidate text itself, so any grep for a lesson's key phrase self-matches the corpus
   being dispositioned and buries the real homes (bit twice before the exclusion became
   standard practice this session).
+
+### Session close: exploring context usage → drain Stratum A (2026-07-03, Sardine spins Estuary)
+
+- **comms-watcher heartbeat path is derived from the DISPLAY codename verbatim** (spaces,
+  capitals): `assert-watcher-live` expects `comms-seen/Sardine spins Estuary.json.heartbeat.json`;
+  a kebab-case seen-file fails the assert with a "watcher not running" that IS running. Cost three
+  watcher restarts. Cure: start `comms watch` with the display-name seen-file (or pass
+  `--heartbeat-file` to the assert). Registered as F-118 (F-113..117 were taken by the F-112 execution and salvage sessions). Also: `comms send` takes no `--kind` or
+  `--session-prefix` flags (title/body/platform/model + `--tag`); usage-probe before ceremony.
+- **The continuity substrate carried a six-arc session across compaction boundaries.** Re-entering
+  after a multi-hour gap cost ~3 reads (claims registry → queue → git log) to recompute team truth
+  — Gust's window, F-112's fix, my landed bundle all recovered from artefacts, not memory. Positive
+  instance of claims/comms/plan-as-externalised-state; the inverse lesson: the session ran
+  measurement → doctrine → application → planning → execution → team re-entry in ONE context, and
+  tail-quality risk grows with each arc — prefer closing at a doctrine-landing boundary and letting
+  a fresh session take execution (the owner effectively enforced this by directing closeout).
+- **Stratum A shape held**: verify-home-first-then-retire worked cleanly; 8/8 homes carried the
+  substance (one needed a deeper grep past the section head before confirming — read past the
+  heading before declaring coverage).
