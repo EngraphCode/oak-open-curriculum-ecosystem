@@ -126,3 +126,21 @@ New session observations append below.
   across the switch; only the display model field changed (`identity preflight --model
   claude-opus-4-8` confirmed the same id). Commit trailers switched to `Co-Authored-By: Claude
   Opus 4.8` from that point.
+
+## 2026-07-03 — corpus-generalisation review session (Hazel rides Orchard)
+
+- **Lens `openQuestions` are the synthesis drop zone.** Adversarial review of the 2026-07-03
+  research-and-record pass (journal cross-check against the report): all three revision findings
+  traced to lens `openQuestions` content the synthesis dropped or softened, while `findings`
+  arrays were conserved faithfully. When synthesising structured lens output, give `openQuestions`
+  the same conservation discipline as `findings`. Homed: the review verdict report
+  (`corpus-generalisation-review-2026-07-03.md`) carries the instances.
+- **Check a "benign-by-design" interpretation against the originating commit's own contract.**
+  The report interpreted the comms-residual disk absence as the expected consequence of the WS7
+  untrack; the untrack commit (`255117a43`) itself says "all preserved on disk", the checkout
+  pre-dates the untrack, and no record accounts for the removal — the lens said "unexplained", the
+  synthesis softened it to "benign". The cheap decisive check (read the commit message the
+  interpretation leans on) took one `git show`. Sibling of `verify-dont-trust` and the
+  reviewer-contradiction-is-a-gift entry above.
+- **Advisor tool unavailable this session** (returned "unavailable" on first call); proceeded on
+  first-hand verification alone. Harness observation, not a repo defect.
