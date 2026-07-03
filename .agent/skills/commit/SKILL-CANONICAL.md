@@ -479,17 +479,29 @@ exact same hook directly via `bash .husky/pre-commit` exits 0 with full
 output, and running the same `git commit` invocation with stdout/stderr
 redirected to a file completes cleanly with the commit landing.
 
-**Observation (active 2026-06-17, Claude Code commit-queue)**: the same
-truncation hits the `pnpm agent-tools:commit-queue -- commit` workflow — its
-internally-spawned `git commit` streams the hook live and dies at the
+**Observation (2026-06-17, reproduced 2026-07-03, Claude Code commit-queue)**:
+the same truncation hits the `pnpm agent-tools:commit-queue -- commit` workflow
+— its internally-spawned `git commit` streams the hook live and dies at the
 `depcruise → turbo` handover with `git commit exited with code 1`, output
-truncated mid-hook, no commit landing. It reproduces across retries (it is not
-a cold-cache timeout). The disambiguation is the same: `bash .husky/pre-commit`
-exits 0 standalone, proving the gates are green and the failure is the spawned
-live-stream, not the hook. Cure: fall back to a direct `git commit -F <msgfile>`
-with output redirected to a file (hooks intact, no `--no-verify`); then record
-the queue intent's outcome and close the `git:index/head` claim manually with
-the landed SHA, since the workflow's own `complete` step never ran.
+truncated mid-hook, no commit landing. It reproduces across retries and ALSO
+with the parent command's output redirected to a file (verified 2026-07-03), so
+the redirect workaround below does not reach the spawned-child case. The
+disambiguation is the same: `bash .husky/pre-commit` exits 0 standalone,
+proving the gates are green and the failure is the workflow's child-stream
+handling, not the hook.
+
+**No fallback (owner directive 2026-07-03; `principles.md` §Strict and
+Complete — "No shims, no hacks, no workarounds — do it properly or do not")**:
+when `commit-queue -- commit` fails here, that is an ERROR to stop on and
+surface to the owner — do NOT land the commit by an equivalent-effect route
+(direct `git commit`, manual index surgery). Transition the intent to
+`abandoned` with stage-named notes, close the commit-window claim with the
+failure reason, and surface the defect. The defect is tracked as
+[F-112](../../plans/agent-tooling/frictions-register.md) — the cure is fixing
+the workflow's spawned-process stdio handling, not routing around it. (A prior
+revision of this section documented a direct-commit fallback; that guidance is
+withdrawn — it was the equivalent-effect workaround the no-fallback principle
+forbids.)
 
 **Workaround**: redirect stdout/stderr to a temporary file and inspect
 the tail after the command completes:

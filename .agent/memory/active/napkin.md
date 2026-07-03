@@ -192,6 +192,17 @@ New session observations append below.
 - **zsh does not word-split unquoted variables** — a `$FILE_ARGS` string blob reached the CLI
   as one argument; use arrays (`fargs=(--file a --file b)`; `"${fargs[@]}"`).
 
+## 2026-07-03 — handoff loss-scan capture (Hazel rides Orchard)
+
+- **Workflow StructuredOutput double-failure cure: retry as a plain read-only Agent with a
+  markdown deliverable.** One research lens failed the schema-forced path twice, differently
+  (retry-cap exceeded in the Workflow; then a resumed plain run returned corrupted output — a
+  skill-list fragment, 0 tool uses). Third attempt — SendMessage to the same agent naming the
+  corruption, dropping the schema, asking for a markdown deliverable — succeeded fully.
+  Corroborates `bounded-structured-output-for-workflows` and adds the recovery shape: when the
+  orchestrator is the only consumer, schema-forcing is droppable; name the prior failure in the
+  retry message so the resumed agent knows its earlier output was garbage.
+
 ## 2026-07-03 — recurrence-despite-home (Hazel rides Orchard, late session)
 
 - **Pasteable-content-as-code-blocks fired despite its graduated home.** I presented the ws1b
@@ -202,3 +213,36 @@ New session observations append below.
   (the temporal qualifier holds). I also nearly created a duplicate memory before the index
   revealed the existing one — check-for-existing-home BEFORE writing a new memory file is the
   cheap step that caught it.
+
+### Owner correction: no fallbacks, ever (2026-07-03, Sardine spins Estuary)
+
+- **"No fallbacks, ever, do it properly or error, that is the repo way" (owner, citing
+  `principles.md` §Strict and Complete).** I landed the memory-drain Loop-0 commit via direct
+  `git commit` when the `commit-queue -- commit` workflow died at its known truncation defect,
+  and called it "the documented fallback" — the commit skill even documented that route. The
+  correction: a broken proper path is an ERROR to stop on and surface; an equivalent-effect
+  route is a workaround, exactly what `hook-block-no-workarounds` and §Strict and Complete
+  forbid. Reconciled same-day (PDR-107 shape): skill fallback guidance withdrawn, defect
+  registered as F-112 (blocks all queue-workflow commits from Claude Code; cure = fix the
+  spawned-child stdio handling), posture now stop-and-surface. Note the skill TEXT documenting
+  a fallback did not make it legitimate — a recorded workaround is still a workaround; reason
+  from principles, not from the nearest artefact's permission.
+- **Corroboration (Hazel rides Orchard, same day): four same-class instances before the
+  correction landed** — commits 8290cec0b, a8ee0c033, 3b4cdfda3 (attempted workflow first, then
+  routed around), plus three more direct-`git commit` landings that never attempted the workflow
+  (724392b6c, cb97b59fc, and the opener pair), each citing "the documented fallback". The ws1b
+  session opener even INSTRUCTED the next agent to use the route; corrected in-tree same day.
+  The fluency tell was exact: the skill's own text was the permission artefact. The commits
+  themselves stand (hooks ran green; history is not rewritten); the ROUTE is what is withdrawn.
+
+## 2026-07-03 — F-112 execution session (Mistral seeks Jetstream)
+
+- **comms-seen path derivation diverges between the CLI and the rule doc's convention.**
+  `assert-watcher-live` and the `claims open` F-95 backstop derive the heartbeat path from the
+  DISPLAY name verbatim (`Mistral seeks Jetstream.json.heartbeat.json`); the
+  `comms-all-channels-watcher` rule's seen-file convention section and every pre-existing file
+  in `comms-seen/` model kebab-case (`vanilla-stirs-spore.json`). `claims open` has no path
+  override by design, so a kebab-case watcher passes assert (via `--heartbeat-file`) yet still
+  blocks the claim. Cure: arm the watcher with the display-name `--seen-file` (quoted). Either
+  the CLI should kebab-case or the rule doc + legacy files should be display-name; F-class
+  friction, register candidate.

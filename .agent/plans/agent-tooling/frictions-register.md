@@ -2394,6 +2394,33 @@ below is a cross-reference index, not a second source of truth.
   non-empty file.
 - **Status**: open (documentation-level; behaviour is the platform's).
 
+### F-112 — `commit-queue -- commit` spawned `git commit` dies at the depcruise→turbo stream handover; the proper commit path is broken
+
+- **Source**: first observed 2026-06-17; reproduced twice 2026-07-03 (Sardine spins
+  Estuary) — once with the hook streaming live, once with the parent command's
+  stdout/stderr redirected to a file, so the redirect does NOT cure the spawned-child
+  case. `bash .husky/pre-commit` exits 0 standalone each time: the gates are green and
+  the failure is the workflow's child-process stream handling, not the hooks.
+- **Surface**: every `pnpm agent-tools:commit-queue -- commit` invocation from a
+  Claude Code session — the move-3 landing step of the commit skill's four-move
+  protocol.
+- **Observed**: the internally-spawned `git commit` exits 1 with output truncated at
+  the `depcruise → turbo` handover; no commit lands; the workflow's verify-staged
+  bookends and auto-complete never run.
+- **Expected**: the workflow lands the commit, or fails with the child's real error.
+- **Posture (owner directive 2026-07-03, "no fallbacks, ever — do it properly or
+  error"; `principles.md` §Strict and Complete, "No shims, no hacks, no workarounds —
+  do it properly or do not")**: the workflow's failure is an ERROR to stop on and
+  surface — never a trigger for an equivalent-effect route (direct `git commit`,
+  manual staging surgery). The commit skill's former fallback guidance is withdrawn
+  (amended same commit as this entry).
+- **Candidate cure**: fix the spawned-process stdio handling in the agent-tools
+  commit-queue workflow (likely backpressure on the live-piped child stream at the
+  point turbo takes over the tty; capture the child's output to a buffer/file and
+  replay, rather than live-piping). TDD cycle against a long-output child process.
+- **Status**: open — **blocks all queue-workflow commits from Claude Code**; priority
+  raised by `claude-memory-buffer-drain.plan.md`, which needs a commit per drain loop.
+
 ---
 
 ## Mitigated / Addressed Frictions
