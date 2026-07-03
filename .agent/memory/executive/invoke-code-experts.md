@@ -97,6 +97,13 @@ own regressions needing one more); budget for that shape rather than a single
 pass. Convergence of independent reviewers on the same finding is the
 strongest act-decisively signal a review can produce — treat it as a verdict,
 not one more input (corpus-proven across w-window sessions, 2026-05→06).
+**Independence is the load-bearing condition**: reviewers handed the same
+framing or premise converge by amplification, not corroboration — panels
+systematically amplify the premise in the brief and approve artefacts that
+violate always-on rules (the same corpus proves both polarities). Convergence
+counts only when the lenses were genuinely distinct and the brief non-leading
+(`non-leading-reviewer-prompts`); convergence on a shared handed premise
+counts for nothing.
 
 ## Delegation Snapshot
 

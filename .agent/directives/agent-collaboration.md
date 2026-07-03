@@ -128,6 +128,21 @@ is the durable record.
 
 ### Coordination Surface Discipline
 
+**Shared memory/state files are writable and committable by any agent, at any
+time, unconditionally.** The napkin, `distilled.md`, continuity surfaces,
+thread records, claims, comms events, and every other shared record of
+knowledge or coordination state accept writes from anyone — a
+memory-preservation or closeout write is never blocked by a claim, a
+coordination collision, or a fitness signal. These surfaces are append- and
+merge-tolerant by design, so committing a dirty shared file conserves every
+agent's appends; the deliberate trade-off accepts git-blame attribution
+ambiguity to prevent write logjams and mutual-politeness deadlocks. When two
+agents hold appends to the same file, the first to commit commits the whole
+file and the other re-edits (the injected-asymmetry tiebreaker). The
+respect-staged-bundle caveat applies to code and product artefacts only,
+never to these surfaces. (Canonical home of the repo-continuity
+"always writable and commit-includable" invariant line.)
+
 Before adding a new always-visible coordination surface, widen the regular
 state audit first. Active claims, closure history, decision threads,
 unresolved decision requests, evidence bundles, and schema validation became

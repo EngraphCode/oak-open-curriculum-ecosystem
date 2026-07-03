@@ -16,7 +16,12 @@ in order to reject it. The warning is gravity, not absence — a sentence that
 says "we did not do X" re-instantiates X in the reader's head and invites the
 next author to weigh it again. This reflex recurs across sessions and agents
 and slips past vocabulary and structural checks precisely because it reads as
-diligence rather than as preservation.
+diligence rather than as preservation. It fires hardest **during
+tombstone-removal work itself**: negation-contrast memorials get written in
+the very act of executing a tombstone-removal task, and the no-monuments
+doctrine has itself nearly landed carrying a pointer-tombstone — so a removal
+pass re-reads its own output for the reflex before landing (corpus-proven
+recursive instances, 2026-05→06).
 
 ## Rule
 

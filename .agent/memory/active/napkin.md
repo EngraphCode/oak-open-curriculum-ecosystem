@@ -370,7 +370,11 @@ New session observations append below.
   Candidate cure is action-time, not text: a shell-lint/hook fingerprint on `rg -r` in
   agent invocations, or the habit of `--replace=` never `-r`. Routed as texture to the
   action-time inventory only if it recurs cross-session; napkin-first per the temporal
-  qualifier discipline.
+  qualifier discipline. UPDATE (same session, ws1g): a FOURTH instance fired minutes
+  after writing this entry — writing the napkin capture did not stop the muscle-memory
+  either (capture-does-not-cure, lived). The action-time fingerprint cure graduates from
+  "candidate" to "warranted on next recurrence"; if any future session logs a fifth, take
+  it straight to the hook-policy lane.
 - **A batch disposition pass wants the failure-class greps EXCLUDING the corpus data dir**
   (`-g '!**/large-corpus-analysis-tooling/data/**'`) — the committed checkpoints contain the
   leaf/candidate text itself, so any grep for a lesson's key phrase self-matches the corpus

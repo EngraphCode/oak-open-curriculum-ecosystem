@@ -128,6 +128,16 @@ the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claim
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
 lands worktree-local.
 
+Worktree isolation is weaker than it looks — three proven leak paths: a **nested**
+worktree gives false-clean dependency runs (Node resolution walks up into the parent
+checkout's `node_modules`, so a missing dependency passes locally and fails everywhere
+else); parallel `isolation: worktree` subagents can inherit the **wrong base commit**
+and write to main-repo **absolute paths**, so verify a spawned worktree's HEAD and keep
+paths worktree-relative; and `pnpm check`'s opening clean step deletes shared build
+output from under every sibling (the
+[`check-singleton-per-window`](check-singleton-per-window.md) hazard). Isolation is a
+property to verify per-seam, never an assumption.
+
 ## Failure mode this prevents
 
 Orphaned worktrees: branches with commits that never reach `main`, no PR, invisible
