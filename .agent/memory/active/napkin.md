@@ -179,3 +179,15 @@ New session observations append below.
   clause-vs-new-PDR before authoring: PDR-052 governs _editing_ directives under context pressure;
   nothing owned the standing _injection_ cost of definition registries. The classifier run
   changed the artefact's scope (from "subagent design" to the two-tier surface contract).
+
+### Commit-ceremony tool feedback (2026-07-03, Sardine spins Estuary)
+
+- **commit-queue `commit` stream-truncation reproduced again** (third observation, per the
+  skill's 2026-06-17 note): died at the depcruise→turbo handover even with parent output
+  redirected to a file; the documented direct `git commit -F` fallback landed cleanly
+  (`6b7c496ab`). The redirect-the-parent variant does NOT cure the spawned-child case.
+- **SKILL-CANONICAL commit example's `tail -n +2` breaks identity preflight parsing** under
+  Claude Code's shell (the pnpm echo goes to stderr, so `tail` eats the JSON's first line);
+  `2>/dev/null | jq` is the working shape. Also: `enqueue` prints a bare UUID, not JSON.
+- **zsh does not word-split unquoted variables** — a `$FILE_ARGS` string blob reached the CLI
+  as one argument; use arrays (`fargs=(--file a --file b)`; `"${fargs[@]}"`).
