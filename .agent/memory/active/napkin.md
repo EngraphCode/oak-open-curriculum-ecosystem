@@ -191,3 +191,14 @@ New session observations append below.
   `2>/dev/null | jq` is the working shape. Also: `enqueue` prints a bare UUID, not JSON.
 - **zsh does not word-split unquoted variables** — a `$FILE_ARGS` string blob reached the CLI
   as one argument; use arrays (`fargs=(--file a --file b)`; `"${fargs[@]}"`).
+
+## 2026-07-03 — recurrence-despite-home (Hazel rides Orchard, late session)
+
+- **Pasteable-content-as-code-blocks fired despite its graduated home.** I presented the ws1b
+  opener excerpt as a blockquote; the owner re-issued the correction. The rule was graduated
+  2026-07-02 to `user-collaboration.md` §Feedback and Verification (line ~190: "fenced code
+  block, never quoted prose") and the per-user memory index still carries the pointer — yet it
+  did not fire at the action moment. A PDR-098 fires-despite-home instance, post-dating the home
+  (the temporal qualifier holds). I also nearly created a duplicate memory before the index
+  revealed the existing one — check-for-existing-home BEFORE writing a new memory file is the
+  cheap step that caught it.
