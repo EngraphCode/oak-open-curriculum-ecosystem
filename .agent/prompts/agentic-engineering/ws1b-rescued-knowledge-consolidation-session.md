@@ -16,7 +16,8 @@ do not build, do not reshape Phase-0-gated design, never re-run the 2026-07-02 v
 
 ### Ground (verify first-hand, do not skip)
 
-Stay on branch `feat/corpus_research_enhancements` (expect HEAD `cb97b59fc`, clean tree) — it
+Stay on branch `feat/corpus_research_enhancements` (expect a clean tree, HEAD at or after
+`663ea0bde` — the commit that added this opener) — it
 carries the review-corrected continuity surfaces; do not ground on `main`'s stale wordings. The
 comms-residual work-list correction matters if you touch comms curation: the residual lives in
 git at `255117a43^`, not on live disk (removal unexplained — see the review report, R1).
