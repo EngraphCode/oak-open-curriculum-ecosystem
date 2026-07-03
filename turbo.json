@@ -42,21 +42,6 @@
       "env": ["SDK_CODEGEN_MODE", "VERCEL"],
       "passThroughEnv": ["OAK_API_KEY"]
     },
-    "doc-gen": {
-      "dependsOn": ["^build"],
-      "cache": true,
-      "outputs": ["**/docs/api/**", "**/docs/api-md/**"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/code-generation/**/*.ts",
-        "**/scripts/**/*.ts",
-        "src/**/*.ts",
-        "src/types/generated/**/*.ts",
-        "src/types/generated/**/*.d.ts",
-        "!src/**/*.test.ts",
-        "!src/**/*.spec.ts"
-      ]
-    },
     "build": {
       "dependsOn": ["^build"],
       "cache": true,

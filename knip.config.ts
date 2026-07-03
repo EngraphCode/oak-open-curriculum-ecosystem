@@ -139,11 +139,6 @@ const config: KnipConfig = {
         'scripts/**/*.ts',
         'evaluation/**/*.ts',
         'ground-truths/generation/**/*.ts',
-        // TypeDoc entry points (typedoc.json) — types re-exported for API documentation
-        'src/lib/elastic-http.ts',
-        'src/adapters/oak-adapter.ts',
-        'src/adapters/oak-adapter-types.ts',
-        'src/adapters/sdk-guards.ts',
       ],
       project: [
         'bin/**/*.ts',
@@ -156,7 +151,6 @@ const config: KnipConfig = {
       ignoreDependencies: [
         // Used via CLI tooling, not direct imports
         '@asteasolutions/zod-to-openapi',
-        'typedoc-plugin-markdown',
         'vite-tsconfig-paths',
         // prettier is needed for eslint-plugin-prettier
         'prettier',

@@ -27,7 +27,7 @@ export interface EsSearchRequest {
   from?: number;
 }
 
-export interface EsHit<TDoc> {
+interface EsHit<TDoc> {
   _index: string;
   _id: string;
   _score: number | null;

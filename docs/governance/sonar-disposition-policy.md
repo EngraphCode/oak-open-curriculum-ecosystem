@@ -165,7 +165,7 @@ analyser.
 **Decision criteria**: SAFE if and only if all hold:
 
 - Site runs at codegen time (`pnpm sdk-codegen`), build time
-  (`pnpm doc-gen`, `pnpm build`), or in a data-pipeline / admin CLI —
+  (`pnpm build`), or in a data-pipeline / admin CLI —
   never inside a request handler.
 - Input is upstream-controlled: OpenAPI schema, generated TypeScript
   source, sitemap XML from allowlisted hosts (`isAllowedSitemapUrl` or

@@ -55,7 +55,6 @@ apps/oak-search-cli/bulk-downloads/**
 
 # Generated docs
 **/docs/api/
-**/docs/api-md/index.md
 
 
 # Test output and cache

@@ -271,7 +271,6 @@ pnpm clean
 pnpm sdk-codegen
 pnpm build
 pnpm type-check
-pnpm doc-gen
 pnpm format:root
 pnpm markdownlint:root
 pnpm subagents:check

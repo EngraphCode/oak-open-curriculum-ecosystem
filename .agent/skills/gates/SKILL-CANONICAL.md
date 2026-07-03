@@ -37,7 +37,6 @@ pnpm repo-validators:check
 pnpm sdk-codegen
 pnpm build
 pnpm type-check
-pnpm doc-gen
 pnpm lint
 pnpm test
 pnpm test:widget

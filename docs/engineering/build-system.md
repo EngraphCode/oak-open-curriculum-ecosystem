@@ -119,7 +119,7 @@ for the matrix, the per-check rationale, and the verify-vs-mutate rule.
 
 **Key principle**: pre-push and CI run the same check set. A CI-only failure
 indicates an environmental or configuration issue, not a missing check.
-`pnpm check` is the broadest surface, adding clean rebuild, doc-gen, widget
+`pnpm check` is the broadest surface, adding clean rebuild, widget
 tests, a11y tests, and fix-mode commands. See ADR-121 for the full rationale.
 
 ## Quality Gate Commands
@@ -133,7 +133,7 @@ this file in the same change whenever command names or gate membership change.
 Prepares the codebase by building, checking, and auto-fixing issues:
 
 ```bash
-pnpm i && turbo run build type-check doc-gen lint:fix && pnpm subagents:check && pnpm portability:check && pnpm practice:fitness:informational && pnpm markdownlint:root && pnpm format:root
+pnpm i && turbo run build type-check lint:fix && pnpm subagents:check && pnpm portability:check && pnpm practice:fitness:informational && pnpm markdownlint:root && pnpm format:root
 ```
 
 **Flow**:
@@ -142,7 +142,6 @@ pnpm i && turbo run build type-check doc-gen lint:fix && pnpm subagents:check &&
 2. Single turbo run:
    - `build` - compile all workspaces (triggers `sdk-codegen` first)
    - `type-check` - TypeScript validation
-   - `doc-gen` - generate documentation
    - `lint:fix` - auto-fix linting issues
 3. Root-only fixes:
    - `subagents:check` - validate sub-agent wrapper/template standards
@@ -243,7 +242,7 @@ See [ADR 065: Turbo Task Dependencies](../architecture/architectural-decisions/0
 ```text
 sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
               ▼
-          build → test, type-check, lint / lint:fix, doc-gen  (via ^build)
+          build → test, type-check, lint / lint:fix  (via ^build)
                ↘ test:e2e, test:ui  (via same-package build)
 ```
 
@@ -255,7 +254,6 @@ sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
 | `type-check`        | `^build`              | Upstream `.d.ts` files must exist for type checking   |
 | `lint` / `lint:fix` | `^build`              | ESLint plugin must be built before linting            |
 | `test`              | `^build`              | SDK must be built before tests run                    |
-| `doc-gen`           | `^build`              | Source must be built before doc generation            |
 | `test:e2e`          | `build`               | Same-package build needed for built-server tests      |
 | `test:ui`           | `build`               | Same-package build needed for Playwright tests        |
 
@@ -272,7 +270,6 @@ sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
 | `test`        | ✅     | Re-runs only when source/tests change           |
 | `test:e2e`    | ✅     | Re-runs only when e2e tests change              |
 | `test:ui`     | ✅     | Re-runs only when UI tests change               |
-| `doc-gen`     | ✅     | Regenerates only when source changes            |
 
 ### A task's declared outputs must cover its full write-set
 

@@ -19,25 +19,8 @@ import type {
 } from './oak-adapter-types';
 
 export type { LessonGroupResponse, LessonsPaginationOptions, SubjectSequenceEntry };
-export type {
-  GetUnitsFn,
-  GetTranscriptFn,
-  GetLessonSummaryFn,
-  GetUnitSummaryFn,
-} from './oak-adapter-types';
-export type {
-  GetSubjectDetailFn,
-  GetSequenceUnitsFn,
-  GetLessonsByKeyStageAndSubjectFn,
-} from './oak-adapter-types';
-export type { GetSubjectAssetsFn } from './oak-adapter-types';
-export type { OakClient, CacheStats } from './oak-adapter-types';
-export type {
-  ThreadEntry,
-  ThreadUnitEntry,
-  GetAllThreadsFn,
-  GetThreadUnitsFn,
-} from './oak-adapter-threads';
+export type { OakClient } from './oak-adapter-types';
+export type { ThreadEntry } from './oak-adapter-threads';
 
 /** Environment config required to create an Oak client. */
 export interface OakClientEnv {
