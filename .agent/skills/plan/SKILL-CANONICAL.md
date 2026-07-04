@@ -138,6 +138,20 @@ Every non-trivial plan, strategic or executable, MUST define:
    register. (Open-questions are for the genuinely not-yet-decidable, never a
    scheduling or holding surface for work that has a home.)
 
+### Pre-Author Scope-Vocabulary Check
+
+Before saving any forward-looking framing in a plan body (`Cycle N`,
+`Phase N`, `Round N`, `Wave N`, `Next session`, `Follow-on`), ask: *am I
+authoring vocabulary that implies scope or commitments the owner did not
+authorise?* A series that exists in no owner direction or ratified
+artefact is invented obligation — future readers treat "Cycle 2" as
+ratified scope and plan accordingly. Strip it and use neutral language
+naming only what is authorised ("the bundle executed on <date>"); where
+a future commitment IS authorised, cite the authorising source inline.
+The check runs at compose time — especially under coordination rush,
+where parallel-structure framing feels clean — never left to review
+time.
+
 ### Disposition Ledger For "Apply All Of X" Inputs
 
 When a plan's input is *"apply all of X"* — every audit finding,

@@ -161,6 +161,17 @@ The expanded examples and cures live in
   not instantiate loggers or log internally. Pass results up; the
   app inspects and logs via its own logger instance.
 
+### Coordination Topology
+
+- **Design for many checkouts on many machines by default** - for any
+  coordination-state, path-resolution, or identity feature, the
+  multi-checkout worktree topology (ADR-197) is the case to satisfy
+  first; a single checkout is the degenerate case that satisfies it
+  trivially. Resolving a path by walking up from the current directory
+  lands in the LOCAL checkout — in a many-checkout world, the wrong
+  registry. When tempted to simplify with "currently we run one
+  checkout", that framing is the tripwire to re-ground, not a licence.
+
 ## Refactoring Principles
 
 - **Replace, don't layer** - NEVER create compatibility layers, replace old code with new code

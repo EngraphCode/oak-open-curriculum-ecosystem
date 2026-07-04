@@ -123,7 +123,16 @@ the same judgement you would apply if no owner were present:
    - **Two or three**: `AskUserQuestion` is legitimate if the choice still
      belongs to the owner under the legitimate-use criteria above.
 
-Options that fail this screen are not respectful alternatives. They are
+One further screen on the survivors (owner-sharpened 2026-06-13: "if there
+is a recommended answer I will choose that, so just assume I already have"):
+a **recommendation-bearing decision is not a question**, even when several
+options are defensible. If you can name a recommended option, state it as
+the settled disposition and proceed — the owner overrides if they disagree.
+Only genuine no-recommendation forks, where the owner's preference is the
+deciding input (feature shaping, release taste), survive to the question
+surface.
+
+Options that fail these screens are not respectful alternatives. They are
 anti-shapes offered as owner work.
 
 ## What to Do Instead
@@ -153,9 +162,15 @@ The sharpest costume is **precedent- or source-framing used as cover**: hunting
 for a precedent, or framing a recommendation as merely "one source's view", to
 manufacture a fork where none exists. A unanimous reviewer recommendation plus
 clear owner intent makes a decision gate a **confirmation, not a fork** — do not
-re-open it as a menu. And when a correction lands, generalise the **root** on the
-*first* correction and re-audit in-flight work for siblings, rather than patching
-the single instance and waiting to be corrected again.
+re-open it as a menu. The same invention recurs one layer down after a genuine
+dissolution: when the architecture removes a conflict outright (e.g. layering by
+degree of coupling removes "optimise for X vs Y" choices), do not hunt a smaller
+"residual" trade-off beneath it to hand the owner. The balanced-residual frame
+arrives smoothly precisely because it bypasses the no-conflict check; the
+simplest correct answer is often that there is no decision to make. And when
+a correction lands, generalise the **root** on the *first* correction and
+re-audit in-flight work for siblings, rather than patching the single
+instance and waiting to be corrected again.
 
 ## Doctrinal Anchors
 
