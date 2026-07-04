@@ -151,6 +151,17 @@ This is the rendered-output specialisation of testing-strategy's "test
 behaviour through public interfaces; assert effects, not internal
 constants". (Owner-corrected twice in one session, 2026-06-29.)
 
+The same discipline covers **owner-tunable values** (a separator glyph, a
+colour, a cosmetic label, a display string): a test that hard-codes one
+asserts configuration, not behaviour, and breaks on every free owner
+change. The cure is DI-for-testability (ADR-078): make the value a
+parameter with a default, have the test **inject a probe value and assert
+the probe renders** — default-independent — and keep the default as
+editable config no test references. Verify by grepping the tests for the
+default value: zero matches (worked instance 2026-06-15: a statusline
+separator pinned literally across a suite broke on every glyph change;
+the probe-injection cure ended the churn).
+
 ## Flaky-Test Disposition
 
 Evaluate a flaky test before silencing it: is it a good test (describes a
