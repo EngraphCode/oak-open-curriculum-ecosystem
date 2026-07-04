@@ -94,6 +94,18 @@ jq 'select(.message == "auth.bootstrap.step.error")' vercel-logs.txt
 
 ## Common Scenarios
 
+Before any scenario below: **rule out a stale deployment.** A
+behaviour/regression report against production is not evidence of a code bug
+until the running deployment is confirmed to include the relevant fix — a
+category-filter regression was once traced to a production deployment 13 days
+behind the fix (plus client-side `_meta` caching), not to code. Two cheap
+checks first: compare the deployed build's commit/release identity against
+the fix's commit (Vercel deployment metadata or the build-info surface), and
+run the same query differentially against local and production (e.g. the same
+MCP tool call against `oak-local` and `oak-prod`) — divergence with identical
+code isolates the issue to the deploy/data layer, matching results move
+suspicion back to code.
+
 ### Scenario 1: Slow Request Investigation
 
 **Situation**: Client reports a request taking over 5 seconds, or you notice increased latency in monitoring.

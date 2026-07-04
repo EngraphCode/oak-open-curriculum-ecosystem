@@ -116,8 +116,8 @@ issues, ADRs, and active plans before assuming local setup problems.
 
 ### Static-analyser gotchas
 
-Static analysers want **shape and data-flow changes, not runtime guards or
-relocations**, and several report stale or silently-green results:
+Static analysers and tooling want **shape and data-flow changes, not runtime
+guards or relocations**, and several report stale or silently-green results:
 
 - CodeQL ReDoS findings need a statically-safe regex shape — a runtime guard
   around the same regex does not clear them.
@@ -140,6 +140,14 @@ relocations**, and several report stale or silently-green results:
   — both silently rewrite match output. Spell flags separately; the Bash
   hook policy fingerprints the r-first cluster shape (the observed one),
   not the trailing-r shapes, so those still rest on this habit.
+- Invisible bytes survive agent tools unreliably: raw ANSI `ESC` (0x1B)
+  control bytes render invisibly in the Read tool and do not round-trip
+  Write/Edit dependably, so escape sequences composed from read context can
+  silently diverge while tests pass; ChatGPT DOCX exports similarly wrap
+  citation markers in invisible Unicode PUA characters (U+E200–U+E202).
+  Detect with `cat -v` (or `od -c`) against the raw file, never by eye in
+  tool output; generate escape sequences from code (`\x1b` literals), not by
+  copying rendered context.
 
 ### Lockfile desync via pnpm overrides
 

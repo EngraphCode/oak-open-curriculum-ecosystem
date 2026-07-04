@@ -509,3 +509,18 @@ New session observations append below.
   surface at once; the transient index.lock I hit minutes later resolved itself (lock gone on
   inspection, no process live) and the queue ceremony resumed cleanly without touching the
   lock — the no-autonomous-lock-contact posture held and cost nothing.
+
+### E-b3 continuation (2026-07-04, Otter hunts Jetty, same seat owner-directed)
+
+- **E-b3 profile: 23 duplicates / 2 enrichments / 0 rejects** — third consecutive batch at the
+  same shape; deeper into the kill ranks the duplicates increasingly resolve to ALWAYS-APPLIED
+  rules (handoff-self-contained, ping-before-escalate, rules-have-no-exceptions) rather than
+  docs, i.e. the pipeline is re-finding the rule corpus itself. Enrichment yield concentrated
+  in operations surfaces (stale-deployment triage; invisible-bytes detection) — the corpus
+  window's operational gotchas were the least-well-homed class.
+- **C78 (pipe-masked verdicts) is live recurrence**: its home (verify-dont-trust
+  read-the-failure-surface + wrapped-exit-codes-false-green) pre-dates today's three fresh
+  instances in THIS session — same fires-despite-home shape as the ripgrep flag, one layer up
+  (shell composition habits). If the next consolidation sees more, the hook-policy lane wants
+  a composition-shape fingerprint too (a pipe after a state-mutating CLI, a gate through
+  tail); napkin-first per the temporal qualifier.
