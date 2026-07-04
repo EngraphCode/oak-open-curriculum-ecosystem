@@ -109,6 +109,17 @@ the interpretation as the question (worked instance 2026-06-08: a
 a no-PII directive; the owner reversed it). The more the reading eases
 the work, the more suspect it is.
 
+The same boundary governs citable owner gates from the other side: a
+genuine owner-owned transition (a go-ahead, a prerequisite declared
+ready) cannot be manufactured by working — doing the gated work yourself
+is a category error, not acceleration. And the more decision-complete the
+brief, the stronger the false pull to read completeness as permission:
+completeness is a rush-amplifier, and the smoothness of "it's this
+detailed — just run it" is the fluency tripwire to re-check the gate, not
+confirmation to proceed (the general doctrine is
+[`metacognition.md`](../directives/metacognition.md) §Fluency Is a
+Warning).
+
 ## Pre-Pose Viability Check
 
 Before presenting any `AskUserQuestion` options, run the option list through

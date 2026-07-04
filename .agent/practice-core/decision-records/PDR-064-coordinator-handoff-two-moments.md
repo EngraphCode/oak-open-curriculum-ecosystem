@@ -12,7 +12,8 @@ in the 2026-06-12 amendment below)
 **Date**: 2026-05-22 (amended 2026-06-12 — pre-positioning matured from a
 single event into a shadow-period process; standing-successor authorisation
 and the citable-gate test added, resolving deferred open question 4;
-Director-session closeout obligations added per owner-standing direction)
+Director-session closeout obligations added per owner-standing direction;
+amended 2026-07-04 — owner-probe semantics during a protocol window)
 **Related**:
 [PDR-027](PDR-027-threads-sessions-and-agent-identity.md)
 (threads, sessions, identity — coordinator identity travels
@@ -219,6 +220,30 @@ reservation is an invented gate.** The test supersedes a bare
 "fire and let the owner interrupt" framing, which over-corrects at
 genuinely owner-owned moments — the discipline asks for the citation, not
 for boldness.
+
+### Owner-probe semantics during a protocol window (2026-07-04 amendment)
+
+When the owner has installed a defined multi-party process (this PDR's
+two-moments handoff, or any gated choreography), an owner probe ("what's
+the status?", "should this be moving?") means **advance your own next
+defined step** — confirm readiness to the counterparty, fix the transport
+blocking them, fire the prepared moment. The two failure modes are
+symmetric substitutes for that step: passive waiting for an authorisation
+the owner considers given, and unilateral seizure of authority the
+choreography has not yet transferred (owner-corrected in both directions
+within one hour, 2026-06-10). The defined step does neither: it asks for
+no re-validation of the destination and skips none of the choreography.
+
+On the **second** owner probe in the same area, stop answering narrowly:
+present the full protocol state, name the fork and who owns it, state
+your default, and name the trigger for the other branch. Repeated probes
+at a protocol gap signal the owner expects movement or a surfaced fork,
+not another literal answer — and a relayed owner directive (read via
+another agent's event) is an interpretation surface the live owner can
+override: act on it as the standing default, holding it override-open
+rather than re-asking. In waiting
+or shadow roles, passivity is also a choice that needs surfacing: drive
+the named readiness criteria rather than observing heartbeats.
 
 ### Director-session closeout obligations (2026-06-12 amendment)
 
