@@ -89,3 +89,24 @@ describe('canonical policy: a matched command teaches a reappraisal end-to-end',
     expect(reason).toContain('Citation: .agent/rules/never-use-git-to-remove-work.md');
   });
 });
+
+describe('canonical policy: ripgrep clustered-replace fingerprint', () => {
+  it('blocks the clustered and bare short-replace forms that silently rewrite match output', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    for (const command of ['rg -riln "pattern" .agent/', 'rg -r il "pattern" docs/']) {
+      const entry = findBlockedPattern(command, patterns);
+      expect(entry).toMatchObject({ concept: 'silent-output-mangling' });
+      // The block must TEACH, not only refuse: a non-empty reappraisal travels to the agent.
+      expect(entry?.reappraisal?.trim()).toBeTruthy();
+    }
+  });
+
+  it('does not block separated flags or the explicit long-form replace', async () => {
+    const patterns = await loadBlockedPatterns();
+
+    expect(findBlockedPattern('rg -i -l -n "pattern" docs/', patterns)).toBeNull();
+    expect(findBlockedPattern('rg -in --no-messages "pattern" docs/', patterns)).toBeNull();
+    expect(findBlockedPattern('rg --replace=X "pattern" docs/', patterns)).toBeNull();
+  });
+});
