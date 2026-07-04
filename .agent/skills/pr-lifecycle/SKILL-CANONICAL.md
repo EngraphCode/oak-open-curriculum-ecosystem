@@ -24,8 +24,10 @@ per-finding discipline. Every gate constraint here inherits
 
 The one-sentence contract: **a PR is done when it is live** — opened is not
 done, green checks are not done, "ready for review" is not done; done is
-merged with every finding genuinely settled
-(memory: `feedback_pr_not_done_until_live`).
+merged with every finding genuinely settled. Standing down (closeout,
+claim-close, monitor-stop) while the work is unmerged is the error: a
+feature branch with an open PR is one cleanup away from gone, and the
+owner's merge signoff is a gate, never a handoff of ownership.
 
 ## Phase 1 — Before opening
 
@@ -86,6 +88,10 @@ surfaces. Partial reads produce false "no problems" verdicts:
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention.
+- Disposition is content-based and binary — a comment's timestamp is
+  irrelevant. "This predates my change" / "nothing new since T" is not
+  addressed, and a fresh finding introduced by the fix commit itself is an
+  open finding, never a side-tangent.
 - Sonar reflects fixes only after the next pushed scan — verify fixes with
   local gates at source; never poll Sonar immediately after an edit.
 - Diagnose a failed CI run from the failed **step name**
@@ -159,6 +165,8 @@ update continuity surfaces; close claims.
   threads and a failed quality gate.
 - Truncated comment skims triaged as "noise".
 - Ready/merge-ready declared without re-fetching after the latest push.
+- Findings dismissed by timestamp ("predates my change") instead of
+  dispositioned on content.
 - A failed check's downstream echoes debugged before its root cause.
 - A Sonar gate treated as an opaque red badge instead of an issue list to fix
   at source.

@@ -306,7 +306,13 @@ direct CLI commands for inspection and recovery.
    full.
 
    The verify-staged checks protect the authorial bundle — they do
-   not replace the repository's whole-tree quality gates.
+   not replace the repository's whole-tree quality gates. Full-tree
+   gating is intentional and correct (owner-settled 2026-05-22): the
+   worst bugs are emergent outside the changed files, so never propose
+   staged-only gating or `lint-staged`-style scope-narrowing as a cure
+   for multi-writer coordination pain — that pain is cured at the
+   queue/ordering/comms layer (sequential commit windows, the commit
+   queue), never by narrowing what the gate sees.
 
 4. **Close the commit-window claim** after every exit once opened:
    success, staging failure, message-validation failure, hook

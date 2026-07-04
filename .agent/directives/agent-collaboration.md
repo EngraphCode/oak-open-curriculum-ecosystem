@@ -169,6 +169,11 @@ themselves.
 
 Operating shape: **bounded-deadline + default-action format** on the
 comms-event; agent posts, polls briefly, acts on default if silent.
+Inter-agent communication is agent-owned and never owner-gated — never ask
+the owner for permission to message or poll another agent. Asking for help is
+a first-class use of the channel: a substantive "please do this thing I
+cannot or should not do myself" request to a capable peer, not only
+coordination or state notification.
 Owner-mediation remains the right channel for **owner-owned decisions**
 (authorisation chain lifts on owner-directed deferrals; strategic
 redirection; cross-thread scope changes). The discipline: route through the

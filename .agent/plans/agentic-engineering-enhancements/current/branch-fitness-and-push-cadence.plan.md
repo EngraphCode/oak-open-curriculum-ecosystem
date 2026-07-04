@@ -514,8 +514,9 @@ doctrine, the plan body must surface where the rule fires:
   vs lefthook before implementing.
 - **Vendor-literal clause fires**: at Cycle 10 (gh pr checks) and
   Cycle 11 (SonarCloud) — confirm vendor APIs work as cited before
-  building bespoke poller (per `feedback_build_vs_buy_first` and
-  `feedback_platform_features_check_official_docs`).
+  building bespoke poller (per `feedback_build_vs_buy_first` and the
+  official-docs-are-the-only-source-of-truth clause in
+  [`cross-platform-agent-surface-matrix.md`](../../../memory/executive/cross-platform-agent-surface-matrix.md)).
 
 ## Readiness reviewers (per oak-plan SKILL §11)
 
