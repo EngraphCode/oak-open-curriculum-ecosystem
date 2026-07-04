@@ -139,6 +139,39 @@ token-fidelity audit (demo tokens vs the export's `_ds/…/tokens/fig-tokens.css
 authorities not present in the export are inlined in the audit's consumer
 config with a provenance citation, not carried as extra vendor files).
 
+## Fidelity review and the divergence register
+
+Comparison is a workflow, not a gate. One orchestrator
+(`tool:fidelity` in conversion #1) serves the canonical export, ensures the
+dev server (attach when up, spawn with bounded ready-wait and process-group
+teardown when free), captures both sides at matched geometry, perceptually
+diffs every pair a schema-validated **pairing map** declares (page pairs,
+per-block section pairs, reference-only pairs that are never pixel-diffed,
+and the exempt surfaces that HAVE no export target — absence is recorded,
+never silent), and renders a self-contained side-by-side report
+(export | live | diff, WCAG 2.2 AA itself).
+
+Three rules make it honest:
+
+- **Diff magnitude never gates.** Changed-pixel ratios triage attention;
+  §D-class acceptance stays human/agent judgment over the report. The tool
+  exits non-zero only on mechanical failure (blank capture, invalid
+  register, server never ready, teardown failure).
+- **Every finding gets a disposition** in the app's tracked
+  `fidelity-register.json`: `fix` / `deliberate` (cite the ratified
+  decision) / `investigate` (name the next check) / `matched` /
+  `superseded`. Entries are keyed `<pairId>/<finding-slug>` (stable across
+  export refreshes) and carry evidence, rationale, a role-handle author,
+  and a date — the register is the divergence register the ingestion
+  pipeline's diff stage reads so ratified divergences are not re-flagged on
+  a refresh (productionisation plan WS2 stage 2).
+- **The workflow is skill-carried**: the
+  [`fidelity-review` skill](../../.agent/skills/fidelity-review/SKILL-CANONICAL.md)
+  owns the review loop (run → read report highest-ratio-first → judge →
+  record → re-run `--report-only`); this playbook owns the porting method
+  (copy the pairing-map + capture-arms + diff-core + report + register
+  pattern into the new conversion's `tools/`).
+
 ## Accessibility bar
 
 WCAG 2.2 AA is a hard gate, not a review note: jest-axe over every surface

@@ -81,6 +81,13 @@ repeatable capability that enables future instances, built as real work (not hel
   The `reference-prototype/` decode is **superseded** as the upstream representation.
 - **Why this is trustworthy:** each export is committed as an immutable, versioned snapshot, so
   "the previous version" is a real, diffable artefact in git — the comparison the owner asked for.
+- **The apply-and-verify half now has a working consumer (landed 2026-07-03, owner-directed):**
+  the fidelity review (`tool:fidelity` + the tracked `fidelity-register.json` divergence
+  register + the `fidelity-review` skill) compares the RESULT of any reconcile against the
+  export at matched geometry and records a disposition per divergence — so a sync's "did the
+  apply preserve fidelity, and is every remaining difference judged?" question has a standing
+  answer surface. Ratified divergences live in the register and are not re-flagged on the next
+  pull (the productionisation plan WS2 stage-2 contract).
 - **Enablement value:** a repeatable author-update path makes the demo family sustainable; build the
   capability rather than wait for the first update to arrive.
 

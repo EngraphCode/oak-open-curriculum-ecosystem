@@ -149,6 +149,17 @@ judgment over the diff/classify output), not tool residue; the CLIs feed it, the
 it. Residue for owner re-ratification at activation: whether any "heavier reusable-skill
 codification gated on demo #2" note survives co-equality.
 
+**SEEDED PRE-MERGE (2026-07-03, owner-directed):** the reconcile stage and stage 5 now have a
+working first realisation in the demo — the fidelity review (`tool:fidelity`: export server +
+dev-server lifecycle + both capture arms + pixelmatch triage + a side-by-side report) with the
+**divergence register BUILT** as `demos/oak-curriculum-hub/fidelity-register.json`
+(zod-validated; dispositions fix/deliberate/investigate/matched/superseded; keys stable across
+export refreshes) and the workflow carried by the `fidelity-review` skill
+(`.agent/skills/fidelity-review/SKILL-CANONICAL.md`). Stage 2's reader consumes that register;
+stage 5 generalises the demo's `tools/image-diff.ts`; stage 6's runbook extends the skill. The
+playbook §"Fidelity review and the divergence register" carries the porting method. WS2
+activation lifts these into the dedicated tooling workspace rather than re-deriving them.
+
 1. **Census/currency tool** — per-page block/section/qs counts, data hashes, asset inventory
    (mechanises the stale-bundle-trap cure). TDD against the committed export snapshot.
 2. **Diff/classify** — git-diff previous snapshot + census-delta → typed report (content /
