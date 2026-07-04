@@ -346,6 +346,22 @@ standing requirement, 2026-06-10):
   grep the pattern repo-wide rather than patching the flagged line. Twice in
   one window (2026-06-10) a bot found a second instance after a first
   single-line fix.
+- **Owner scratchpad and convenience files are the owner's per-scenario
+  choice, not doctrine to reconcile.** A finding that reads such a file
+  (an owner prompt file, a personal settings file) as "misaligned
+  instructions" against a skill or contract is a lens misread to REJECT —
+  not a defect to fix, and not something to "surface for the owner to
+  adjust" as though it were one (owner clarification 2026-06-26).
+  Distinguish doctrine surfaces (enforce alignment) from owner scratchpads
+  (their content is automatically the owner's deliberate choice).
+- **Grade a peer-owned PR against its pinned head SHA, never the peer's
+  live worktree.** A live tree embodies the peer's in-flight response —
+  including their uncommitted fix to the very finding under adjudication —
+  so between-turn drift is guaranteed. Ground on
+  `git show <head-sha>:<path>`, cite the SHA in any held verdict, and
+  re-verify against that SHA at post time (worked instance 2026-06-10:
+  a held "refute" graded on a live worktree was wrong — the tree already
+  carried the cure).
 - **Thread-resolution gotcha**: cursor[bot] auto-resolves threads on
   re-review; Copilot threads need manual GraphQL `resolveReviewThread`.
   Verify zero-unresolved via GraphQL (REST does not expose resolved state)

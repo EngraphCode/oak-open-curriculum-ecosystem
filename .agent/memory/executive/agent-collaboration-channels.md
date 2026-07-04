@@ -61,6 +61,22 @@ Need to communicate something to another agent?
     └── Owner question via AskUserQuestion (5b)
 ```
 
+## Peer or Helper — The Routing Diagnostic
+
+Design and decision substance routes to a **peer** sidebar (channels 3/4);
+parallelisable execution of pre-decided tasks routes to **helpers** —
+sub-agent or platform-orchestrator dispatch (see §Platform-Orchestrator
+Handoff below, and the delegation clauses in
+[`agent-collaboration.md`](../../directives/agent-collaboration.md)
+§Convergence and Delegation Discipline). The diagnostic: if the brief is
+already detailed enough to constrain the answer, the work is execution —
+helpers fit; if it is not, you need a peer, not a helper. Do not try to
+coerce design out of a helper with ever-more-detailed briefs — emergent
+shape comes from collision between comparable-authority minds, not
+delegation (worked evidence:
+[`agent-collaboration.md`](../../directives/agent-collaboration.md)
+§Coordinator Role).
+
 ## Read-Only Support Assignments
 
 For read-only scout or review support, send two notes:

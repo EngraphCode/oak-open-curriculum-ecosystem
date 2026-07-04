@@ -281,6 +281,12 @@ the current understanding.
 - A bare `|` inside a table cell breaks MD056 column counting —
   even inside inline-code backticks, even as TS union syntax
   (`<EefStrand \| EefStrandHeadline>`). Escape it as `\|`.
+- Write the plain meaning, not coined status-jargon: "safe to
+  delete", not "reclaimable". Before using a coined adjective or
+  status term, ask what it actually means for the reader and write
+  that instead (or alongside, if the term is load-bearing jargon the
+  reader already knows). Agent-authored artefacts accrete invented
+  vocabulary that reads as ceremony and forces decoding.
 - For prose artefacts (READMEs, ADR/PDR/governance bodies,
   runbooks), acceptance criteria name the _decision_ and the
   _audience outcome_ — discoverability and accuracy, not exact
