@@ -10,7 +10,8 @@ description: >-
 
 **Scope**: **THREAD-SCOPED** (cross-session). This workflow acts on
 artefacts that accumulate across multiple sessions on one or more
-threads — pattern candidates reaching the repeats bar, distilled
+threads — pattern candidates ready to graduate (single-instance
+suffices per PDR-100; there is no repeats bar), distilled
 entries reaching stability, napkin reaching its rotation threshold,
 Practice Core drifting from current practice, fitness pressure
 accumulating. Session-scoped capture (surprises, ADR/PDR

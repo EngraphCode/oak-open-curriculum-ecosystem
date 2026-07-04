@@ -250,9 +250,7 @@ The suggestion is surfaced **once**, at the moment intent first clears:
 Never surface `/rename` in closeout summaries — by then the title
 either matches the work (no-op) or no longer matches because the work
 shifted (in which case the rename is too late to inform the title's
-audience). The standing rule lives in user-memory entry
-`feedback_rename_suggestion_at_session_open_only`; this section is its
-repo-visible doctrine surface.
+audience). This section is the standing rule's doctrine home.
 
 ## Work Shape and Simple Plan
 

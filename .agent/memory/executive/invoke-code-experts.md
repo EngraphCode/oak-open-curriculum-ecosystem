@@ -360,6 +360,11 @@ standing requirement, 2026-06-10):
   adjust" as though it were one (owner clarification 2026-06-26).
   Distinguish doctrine surfaces (enforce alignment) from owner scratchpads
   (their content is automatically the owner's deliberate choice).
+- **A result carrying a "safety classifier was unavailable" note is
+  extra-unverified.** Rerun the same sub-agent with the same brief, or
+  independently ground each load-bearing claim first-hand, before folding
+  the findings (owner direction 2026-06-28) — the note raises the
+  verification bar; it never lowers trust silently.
 - **Grade a peer-owned PR against its pinned head SHA, never the peer's
   live worktree.** A live tree embodies the peer's in-flight response —
   including their uncommitted fix to the very finding under adjudication —

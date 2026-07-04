@@ -48,6 +48,16 @@ authority — the named home read and confirmed to carry the substance, or the
 owner's live decision. Approval must be present and locatable, never inferred
 from the existence of a prior act.
 
+When two doctrine surfaces appear to conflict, the same discipline
+applies: do not adjudicate by precedence, corpus-consistency, or
+who-ratified-what. Usually there is no conflict — there is an error.
+Reason from purpose and impact (what is each surface FOR; what concretely
+happens under each reading), and let that decide which side is correct
+and which is the mistake to fix. "N instances of an error" is N
+violations, not precedent (worked instance 2026-06-27: twelve PDRs
+carrying repo-bound references were twelve portability violations, not
+licence for a thirteenth).
+
 The constructive face: run the Decision Lenses over an
 already-committed, already-reviewed design when a correction signal arrives —
 "committed and four-lens-reviewed" is precedence, not immunity. Worked
