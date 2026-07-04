@@ -130,6 +130,22 @@ Team member closeout:
 Then clean up any claims, queue entries, or comms obligations you own. Stop
 there unless the owner or closeout owner gives a further assignment.
 
+## Mid-Session Light Update (distinct, lighter cadence)
+
+Between session open and this skill's close-out sits an intermediate cadence:
+the **mid-session light update**, an autosave for a long session. Run it when
+the owner asks for a checkpoint, at a natural pause between phases (commits
+landed, more to do), before a long reviewer batch, or when approaching a
+context threshold with work remaining — so a disconnect, agent swap, or
+context loss lands the next reader on coherent surfaces.
+
+Additive only, never rewrites: append a short comms entry under the session's
+identity (commits landed, decisions, next step); light-append the touched
+thread record's current waypoint and SHAs; refresh a claim only if its scope
+materially changed. Do NOT run consolidation moves at this cadence — no
+napkin/distilled promotion, no pattern graduation, no plan lifecycle moves,
+no retrospective memos; those are close-out work, this skill's §Steps.
+
 ## Steps
 
 1. **Record the landed outcome (or unlanded case).** Report against
