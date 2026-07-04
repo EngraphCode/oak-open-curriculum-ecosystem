@@ -18,11 +18,15 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/active/claude-memory-buffer-drain.plan.md)
   (`active/`). Mode: `dedicated-knowledge-curation` under
   `/oak-consolidate-until-done`, owner-scoped to the Claude per-user buffer.
-- **Next safe step**: **Stratum C batch C-2** — alphabetical `feedback_*`
-  batches continue from `feedback_artefact_annotation_is_not_rationale.md`
-  (200 feedback entries remain undispositioned; C-1 processed the 12
-  alphabetically first, through `feedback_arcangel_monitor_pairs_with_comms_monitor`).
-  Per entry: read the file, read the candidate home, then duplicate
+- **Next safe step**: **COMPLETE Stratum C in one dedicated session**
+  (owner-directed 2026-07-04) — from
+  `feedback_artefact_annotation_is_not_rationale.md` through the alphabet
+  (200 feedback entries remain; C-1 processed the 12 alphabetically first).
+  The binding brief is the plan's **§Stratum C completion rulings**
+  (decision-complete): session head runs the principles.md *unless*-tell fold
+  (PDR-052, verified absent), the watchlist dispositions are pre-decided,
+  routed-to-D lines stay live, compaction boundaries continue the goal. Per
+  entry: read the file, read the candidate home, then duplicate
   (recurrence-checked) / duplicate-with-enrichment / route to Stratum D. Read
   the index from disk, never the injected copy.
 - **Completed prerequisites**: PDR-124 landed + 15 agent descriptions

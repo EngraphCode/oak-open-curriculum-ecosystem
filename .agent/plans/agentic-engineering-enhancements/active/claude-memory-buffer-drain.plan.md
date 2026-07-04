@@ -29,7 +29,7 @@ todos:
     content: Disposition 25 project_* and 3 reference_* entries (done 2026-07-03 — 27 retired; 13 duplicates verified in homes, 6 superseded at delete-stakes, 8 enriched/re-homed; 1 kept live pending the PDR-052-gated editorial-tone fold)
     status: completed
   - id: stratum-c-feedback-batches
-    content: Feedback duplicate/enrichment batches, alphabetical, ~25-30 entries/loop (revisable down; C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; next C-2 from feedback_artefact_annotation_is_not_rationale, 200 remain)
+    content: Feedback duplicate/enrichment batches, alphabetical, ~25-30 entries/loop (C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; next session COMPLETES Stratum C from feedback_artefact_annotation_is_not_rationale, 200 remain — see §Stratum C completion rulings)
     status: in_progress
   - id: stratum-d-novel-doctrine
     content: Classifier-routed doctrine authoring for uncovered entries; docs-adr-expert per batch
@@ -127,6 +127,73 @@ batch and end cleanly.
 - `pending-graduations.md`: verified empty (no live inline-bracket entries).
 - Napkin: live, owned by its own rotation pass (not in scope).
 - Codex/Cursor/Gemini surfaces: RUN AT EXECUTION — see status below.
+
+## Stratum C completion rulings (decision-complete, owner-directed 2026-07-04)
+
+The next dedicated session's goal is **Stratum C complete**: every remaining
+`feedback_*` entry (C-2 onward from
+`feedback_artefact_annotation_is_not_rationale.md`) dispositioned, including
+the watchlist items below. The rulings here remove every known judgment call
+so the session executes without re-analysis or owner round-trips.
+
+Pre-decided here is the ANALYSIS only, never the verification:
+first-hand-only still applies in full — the session reads each named home
+itself before marking (the fold edit, the `verify-dont-trust` read, the
+`start-right-team` §3 read). All "verified … 2026-07-04" notes below are
+plan-author-time routing evidence; the session's own read at execution time
+is the disposition's verification, and if a home has moved since 2026-07-04
+the session verifies the substance wherever it now lives rather than
+stalling.
+
+- **Session shape**: loop-by-loop per the Loop close above; a context
+  summarisation/compaction boundary does not end the goal — re-ground by
+  reading, in order: (1) this plan (§Binding doctrine and this section),
+  (2) the thread record
+  `.agent/memory/operational/threads/continuity-memory-and-knowledge-flow.next-session.md`
+  §Current Continuation, (3) a fresh disk listing of the memory directory
+  plus `MEMORY.md` (never the injected copy). The resume point is the
+  alphabetically-first `feedback_*` file carrying neither a disposition
+  marker nor a routed-to-D note; per-loop commits make everything before it
+  durable. If the session is
+  genuinely forced to end early, the standing loop-close handoff applies and
+  the completion goal carries to the immediate successor unchanged — the goal
+  is never re-scoped downward.
+- **Directive-target folds run at the session head.** One is already known:
+  fold the *unless*-tell (2026-06-06 — an "unless you'd rather…" clause
+  appended to an answer the principle has already forced, reopening it as a
+  trade-off; when excellence has forced the answer there is nothing to
+  surface, only something to settle) into
+  `principles.md` §Architectural Excellence Over Expediency, verified absent
+  2026-07-04. Execute it as the first post-grounding action (PDR-052; the
+  pillars-fold precedent `46ff52892`), then disposition
+  `feedback_no_cheap_cure_option` as duplicate-with-enrichment. Any further
+  directive-target enrichment discovered mid-session defers to the next
+  fresh-context boundary, or to the immediate successor's head with a live
+  index line (deferral honesty) — never edited under context pressure. "Next
+  fresh-context boundary" means the first subsequent moment that passes the
+  PDR-052 <30% check (a post-compaction re-grounding qualifies if it passes);
+  if no such moment occurs before session end, the successor's head takes it.
+- **`feedback_validate_specialist_findings_before_acting`**: recurrence-checked
+  DUPLICATE against `verify-dont-trust`'s multi-clause subagent-output
+  discipline, per the ws1b DECIDED verdict (2026-07-03, Vega mends Oblivion:
+  no new clause; the gap is firing, not text; a ninth restatement is the t6
+  self-referential trap). Read `verify-dont-trust` first-hand as for any
+  duplicate; cite that verdict in the marker; do not re-run the recurrence
+  analysis.
+- **`feedback_opus_team_quota_ceiling`**: expected duplicate of
+  `start-right-team` §3's seat-cost discipline (name the seat cost;
+  fold-check on high seat count; cheaper sub-agent routes), verified
+  substantively present 2026-07-04. Residual check: the
+  Sonnet-default-for-reviewer-subagents point — verify
+  `.agent/memory/executive/invoke-code-experts.md` carries it; enrich there
+  if absent.
+- **Routed-to-Stratum-D is not a terminal disposition**: the entry file gains
+  a routed-to-D note, and its index line STAYS LIVE for the D pass.
+- **C-complete acceptance**: every `feedback_*` file on disk carries either a
+  disposition marker (duplicate / duplicate-with-enrichment /
+  rejected-with-reason) or a routed-to-D note; index lines retired for every
+  dispositioned entry; per-loop commits green; the orphan reconciliation
+  (line-less files all marker-verified) re-run at the final loop close.
 
 ## Acceptance criteria
 
