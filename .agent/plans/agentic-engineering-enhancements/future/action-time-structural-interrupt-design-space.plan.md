@@ -726,3 +726,26 @@ correct shape (PDR-018 §planning discipline; the closure-pressure precedent) is
 to stop at the reconciliation, the located gap, the coordination decision, and
 the promotion trigger — and let the mechanism be chosen against evidence at
 promotion.
+
+## Worked Instance — 2026-07-04 Tier-E Drain Session: two mechanical muscle-memory classes, one cured in-session, one accumulating
+
+Two surface-signature (NOT semantic) pathogen classes fired repeatedly in one session, giving the
+mechanism lane a matched pair — one with the cure landed, one still passive — to compare traction:
+
+- **The ripgrep clustered-replace flag**: fifth and sixth lifetime instances fired minutes after
+  the agent READ the documented home, and a third stray cluster was typed even after authoring the
+  napkin escalation entry (capture-does-not-cure and read-does-not-cure both measured in-session).
+  The action-time cure LANDED the same day as a Bash hook-policy fingerprint (concept
+  silent-output-mangling) with integration tests; it then fired correctly three times within hours
+  — twice on reviewers' genuinely malformed commands, once on a probe whose search pattern
+  contained the literal. This is the empty-quadrant occupation working for a surface-signature
+  pathogen: mechanical firing, advisory teaching response, zero vigilance required.
+- **Pipe-masked verdicts** (a state-mutating CLI piped to jq/tail with stderr suppressed; a gate
+  read through a pipe's exit code; an echo after a pipeline): THREE fresh instances in the same
+  session, all post-dating the homes (verify-dont-trust read-the-failure-surface;
+  wrapped-exit-codes-false-green), all caught only by output inspection. Same class shape as the
+  ripgrep flag — literal surface signatures exist (pipe-after-collaboration-CLI, gate-through-tail,
+  exit-code-echo-after-pipeline) — so the same innate-layer fingerprint mechanism is a candidate
+  cure; the composition variety is wider, so the fingerprint set needs design rather than one
+  pattern. Napkin-first discipline held: this note graduates the recurrence evidence at the
+  consolidation the capture promised.

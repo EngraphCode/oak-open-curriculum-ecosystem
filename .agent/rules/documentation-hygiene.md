@@ -4,7 +4,7 @@ Operationalises [ADR-127 (Documentation as Foundational Infrastructure)](../../d
 and the **Misleading docs are blocking** principle in
 [`.agent/directives/principles.md` § Code Quality](../directives/principles.md).
 
-Three surfaces operationalised by this rule:
+Five surfaces operationalised by this rule:
 
 ## 1. Misleading-doc detection
 
@@ -76,3 +76,17 @@ Rules, PDRs, ADRs, commands, and READMEs must state enough "why" for a
 future reader to re-derive the rule under novel conditions. What-only
 doctrine decays into ritual: it is followed when convenient and broken
 under pressure.
+
+## 5. Runnable examples are run
+
+Any example command, code snippet, or diagnostic check added to a doc is
+RUN (or compile-probed) against the real surface before the edit lands —
+a cure written from recall is not a cure. Twice in one session
+(2026-07-04) a documented check failed exactly where it claimed to help:
+a lockfile "parse check" that false-passes with exit 0 AND destroys the
+evidence by rewriting the file, and a type-level fix snippet that
+silently reproduces the trap it warns about (an inline conditional type
+does not distribute). Both were caught only because a reviewer executed
+them. The check for a diagnostic example is that it FAILS on the failure
+it diagnoses, not merely that it runs; verify-on-real-content applies to
+the documented cure itself, not just the claim it supports.

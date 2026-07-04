@@ -2635,3 +2635,24 @@ into the appropriate lifecycle directory:
 
 When an item is addressed by a commit, update its `Status` line with the
 commit SHA and the closing plan reference.
+
+### F-119 — `claims open` writes rows with no `status` field, so status-keyed jq probes silently miss live claims
+
+- **Source**: Mistral holds Cumulus, 2026-07-04 (memory-drain Stratum C) — a
+  `jq 'select(.status=="active")'` over `active-claims.json` returned nothing
+  while a live claim existed; cost one failed close and a registry probe.
+  Conserved from that session's napkin capture at the 2026-07-04 rotation.
+- **Surface**: `claims open` (row shape) vs ad-hoc registry reads (jq probes,
+  peer scripts, glance surfaces).
+- **Observed**: active rows carry no `status` key (reads as `null`); rows in
+  `closed-claims.archive.json` DO carry status-like closure fields, so an
+  agent generalising from the archive shape filters the active registry on a
+  key that never matches and concludes no claims exist — the blind spot is
+  silent (empty result, exit 0).
+- **Expected**: either active rows carry an explicit `status: "active"` at
+  open time, or the schema/docs state plainly that liveness is the row's
+  presence in `active-claims.json` (and freshness is `claimed_at`/
+  `heartbeat_at`), never a status key.
+- **Workaround (verified)**: select on presence — match by
+  `agent_id.session_id_prefix` or filter `.status == null or .status ==
+  "active"`; treat presence-in-file as the liveness signal.
