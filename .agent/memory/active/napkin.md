@@ -585,3 +585,12 @@ New session observations append below.
   design). The passive troubleshooting bullet now names the trailing-r shapes; if a trailing-r
   cluster ever MANGLES real output (rather than twitching harmlessly), extend the policy
   entry per that finding rather than minting a new concept.
+- **Twice in one session a reviewer proved my documented cure fails exactly where it claims to
+  help**: the lockfile parse-check (pnpm false-passes and destroys evidence) and now the
+  keyof-union distribution snippet (an inline conditional does not distribute — my written
+  cure silently reproduces the documented trap; compile-probe proof). The class: a cure
+  written from recall, not from a run. Standing correction adopted: any example command or
+  code snippet added to a doc gets RUN (or compile-probed) before the edit lands —
+  verify-on-real-content applies to the cure itself, not just the claim. Also accepted the
+  reviewer's out-of-scope catch: ws1c's "rank fields present" contradicted the JSON (rank is
+  positional) — fixed in the same bundle.
