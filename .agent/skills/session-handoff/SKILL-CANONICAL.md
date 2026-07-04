@@ -470,6 +470,14 @@ there unless the owner or closeout owner gives a further assignment.
    counts, use the branch's own upstream — `git rev-list --count @{u}..HEAD` —
    never `origin/main..HEAD`, which counts divergence-from-main: a different
    and much larger number, misreported at exactly the push-decision moment.
+   Never hand-construct the remote ref (`origin/<branch>`): branch names carry
+   slashes, and a typo yields a non-existent ref that errors or silently reads
+   as false-unpushed — `@{u}` is resolved and slash-safe, and a "ref unknown /
+   not an ancestor" result is suspect until the ref is confirmed to exist.
+   Never escalate a push/sync discrepancy to the owner before it is confirmed
+   against the authoritative ref (a self-caused false alarm costs owner
+   attention and trust; worked instance 2026-06-08: a hyphen-for-slash ref
+   typo escalated a "5 commits unpushed" alarm on a fully-synced branch).
 
    **6e.2 Run the loss-scan from inside your own context — it cannot be delegated.**
    After the categorical edges (6a–6d), sweep *against the grain of "it is all

@@ -42,7 +42,12 @@ not a box to tick.
    statement already contains a solution ("we need X"), you have skipped the problem.
 3. **Surface the warrant — and its falsifier.** For the key claim or chosen option, what unstated
    assumption carries the weight? What observation would surprise you if it were wrong? The real
-   disagreement and the real risk both live in the warrant.
+   disagreement and the real risk both live in the warrant. The commonest warrant gap at
+   doctrine-application time: a sound general rule applied by surface analogy — state the rule's
+   *precondition* out loud and verify the situation's actual structure meets it before asserting
+   the finding (a motion rule whose trigger is unattended motion does not fire on self-limiting
+   script-driven motion; a single-source-of-truth rule whose trigger is a living surface does not
+   fire on a frozen snapshot).
 4. **Decide proportionately to reversibility and stakes.** One-way door or two-way? Reversible →
    move and learn; irreversible → preserve options and reason harder. What is the cheapest probe
    that resolves the key uncertainty? What is the cost of waiting versus acting, and who bears the

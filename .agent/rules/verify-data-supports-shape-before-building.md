@@ -26,7 +26,14 @@ Three recurring faces:
 - **Fingerprint the data before deciding the shape of a fix or migration.** Run a
   cheap scan of the actual corpus to test the premise the fix rests on *before*
   code lands. A premise the data refutes is redirected at the source, not
-  engineered around.
+  engineered around. Fingerprint the **source**, not a projection: for Oak
+  curriculum data the ground truth is the in-repo bulk export
+  (`apps/oak-search-cli/bulk-downloads/schema.json` plus `manifest.json`); the
+  generated vocab corpora are lossy projections that routinely flatten away
+  structure the source carries. Check the bulk schema before declaring a
+  relationship "must be sourced" / "deferred" / "not present" (verified worked
+  instance 2026-06-04: the flat misconception corpus dropped unit/thread
+  linkage the bulk source carries in full).
 - **Cite the governing assignment before adding a design surface.** Every
   contract, tool, resource, prompt, envelope field, or reviewer condition must
   cite the plan text, ADR, PDR, schema, or data fact that assigns that role. If

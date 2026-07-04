@@ -125,6 +125,14 @@ This document is the command source of truth that AGENT.md links to. Root
 `package.json` remains the executable source of truth for script names; update
 this file in the same change whenever command names or gate membership change.
 
+Validate through these canonical root commands, never ad-hoc per-package
+invocations from the repo root (e.g. `pnpm vitest run <path>` at root). Ad-hoc
+runs bypass per-package config (vitest `globals`, setup files) and the
+workspace boundary, producing failures (`describe is not defined`, foreign
+worktree copies pulled in) that are artefacts of the wrong command, not the
+code — and a red result from the wrong command is still yours to trace to that
+root cause, never to dismiss as a harness quirk.
+
 ### `pnpm make` - Build and fix
 
 Prepares the codebase by building, checking, and auto-fixing issues:

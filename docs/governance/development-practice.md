@@ -132,6 +132,17 @@ The expanded examples and cures live in
 
 [arch-excellence]: ../../.agent/directives/principles.md#architectural-excellence-over-expediency
 
+- **Survey the workspace before proposing new infrastructure** - Before
+  proposing a new schema, validation pipeline, parsing helper, env-loading
+  mechanism, or observability primitive, survey the existing workspace
+  packages: `ls packages/core/ packages/libs/`, read each README whose name
+  plausibly matches the capability, and grep for existing usage sites. The
+  repo has dedicated `core/`/`libs/` packages for many capabilities
+  (env schema contracts, env resolution, `Result`, build metadata, logging);
+  the right proposal is usually an extension of one of them, not a parallel
+  implementation (worked instance 2026-04-25: a proposed app-local Sentry env
+  schema duplicated `@oaknational/env` and `@oaknational/env-resolution`; the
+  correct fix was a new schema inside the existing package).
 - **SOLID principles** (loosely) - Focus on single responsibility and dependency inversion
 - **Clean Architecture** (loosely) - Separate concerns into layers
 - **Strict boundaries** - Clear interfaces between modules, no leaky abstractions
