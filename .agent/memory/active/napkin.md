@@ -524,3 +524,19 @@ New session observations append below.
   (shell composition habits). If the next consolidation sees more, the hook-policy lane wants
   a composition-shape fingerprint too (a pipe after a state-mutating CLI, a gate through
   tail); napkin-first per the temporal qualifier.
+
+### E-b4 continuation (2026-07-04, Otter hunts Jetty)
+
+- **E-b4: 22 duplicates / 2 enrichments / 1 reject** — the drain's first reject (C90
+  stale-repo-name: cause removed at the rename, reflex homed, no live surface). The
+  single-window tail behaves as predicted: weaker items are mostly self-citing their own
+  graduated endpoints (no-warning-toleration's recorded falsification IS C70; C219 cites
+  PDR-089; C73 cites ADR-159) — the pipeline confirming the estate rather than teaching it.
+- **Enrichment homes this batch were WORKSPACE surfaces** (oak-eslint README, build-system) —
+  first batch where the firing surface was engineering docs rather than agent doctrine;
+  the type-affecting-idiom-autofix caution and the concurrency-clamp-masks-missing-deps
+  lesson had no home anywhere until now.
+- **n=2 window with Mistral holds Cumulus opened cleanly mid-batch** — their team-start
+  read my six dirty files and asked before assuming; commit-intent broadcasts are flowing;
+  boundaries disjoint (memory-drain Stratum C vs tier-E drain). The registered-peer contrast
+  with this morning's unregistered seat is the protocol working as designed.

@@ -256,6 +256,14 @@ sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
 | `test:e2e`          | `build`               | Same-package build needed for built-server tests      |
 | `test:ui`           | `build`               | Same-package build needed for Playwright tests        |
 
+**Undeclared dependencies present as race-shaped failures — never mask them
+with concurrency clamps.** A `--concurrency=N` flag added to "stabilise" a
+flaky pipeline once turned out to be hiding missing `devDependency`
+declarations: serialisation made the undeclared producer happen to build
+first. If reducing concurrency "fixes" a build, the real defect is a missing
+dependency edge — declare it (in the workspace `package.json` and, where
+task-level, `turbo.json`) and remove the clamp.
+
 ## Caching
 
 ### Cached tasks (fast on repeat runs)
@@ -492,6 +500,9 @@ artefacts it actually resolved:
 - **`pnpm check` does not run every suite** (e.g. `test:smoke` and
   experiment suites are outside it) — verify the aggregate actually
   exercises the suites your change touches before citing it as proof.
+  When reporting, distinguish **run-verified** (the gate exercised the
+  change) from **construction-verified** (a behaviour-preserving no-op
+  the gate never ran) — a green aggregate says nothing about the latter.
 
 ## Serial Gate Chains Unmask Downstream Failures
 
