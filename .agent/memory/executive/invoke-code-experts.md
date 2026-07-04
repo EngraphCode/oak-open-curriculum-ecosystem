@@ -278,6 +278,14 @@ Before marking the work complete, record:
 
 Invoke each specialist as a read-only sub-agent, giving it specific context about what changed and what to focus on.
 
+Default reviewer sub-agents to a cheaper model tier (Sonnet-class): reviewer
+passes, spec fetches, and single-question consultations are well-bounded work
+that does not need a premium seat, and concurrent premium seats share one
+quota envelope (owner direction 2026-05-24 — scale via efficient methods, not
+more premium seats). Escalate an individual dispatch to a premium model only
+when the review genuinely needs deeper judgement (e.g. `security-expert`
+threat analysis), and name that choice in the dispatch.
+
 ### Codex Reviewer Adapter Preflight
 
 When running reviewer workflows in Codex, do not assume the runtime has

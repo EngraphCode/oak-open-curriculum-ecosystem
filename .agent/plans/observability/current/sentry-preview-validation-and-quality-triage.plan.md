@@ -212,7 +212,7 @@ mcp__plugin_vercel_vercel__list_deployments({
 **Dependency degradation**: if the Vercel MCP is unavailable, fall back
 to `gh pr checks 87` for state and the GitHub commit-status API for the
 deployment URL. The Vercel CLI is forbidden — see
-`feedback_no_vercel_cli`.
+[MCP servers for contributors](../../../../docs/engineering/mcp-servers-for-contributors.md).
 
 **Acceptance**: deployment is `READY`; SHA matches branch head;
 expected-release-name literal captured.

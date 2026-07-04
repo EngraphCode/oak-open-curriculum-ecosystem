@@ -30,9 +30,11 @@ its own MCP server for end users — see the
 
 ## Forbidden / out-of-scope tooling
 
-- **Vercel CLI** — never use directly. All Vercel operations go through the
-  project-scoped MCP plugin. See the relevant rule under
-  [`.agent/rules/`](../../.agent/rules/) and the per-user feedback memory.
+- **Vercel CLI** — never use directly (`vercel`, `npx vercel`), for any
+  purpose. The CLI carries full project authority and can take destructive
+  actions across deployments and configuration; the project-scoped MCP
+  plugin is the only sanctioned surface. If a Vercel-shaped task cannot be
+  done via the MCP, surface that to the owner — never fall back to the CLI.
 
 ## Verifying setup
 
