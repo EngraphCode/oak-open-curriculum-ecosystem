@@ -34,3 +34,22 @@ remains empty; pending-graduations holds two trigger-gated entries (the shared-s
 candidate; the sequence-first owner reframe awaiting the owner's standing-doctrine word).
 
 New session observations append below.
+
+## 2026-07-04 — C-1 session closeout addendum (Mistral holds Cumulus)
+
+- **Two session-open disciplines dropped under team-bootstrap load (same session, same
+  cause):** the `/rename` suggestion was never surfaced at its coordination-resolution moment,
+  and no PDR-026 landing-target declaration was made at session open — both displaced by the
+  n=2 bootstrap sequence (watcher, broadcasts, gate coordination) consuming the session-open
+  window. Both rules held at their OTHER edge (rename correctly NOT surfaced at closeout;
+  landing reported against the de-facto target honestly). Texture for the session-open
+  ordering: the team First Moves list absorbs attention past the solo-shaped obligations that
+  fire in the same window; a future start-right-team pass could name them as explicit moves.
+- **The hook-policy write-guard's reappraise-don't-rephrase instruction did real work again**
+  (completion-brief drafting): the blocked trip-phrase forced a positive restatement of the
+  unless-tell that reads better than the quoted vocabulary would have. Same class as the
+  C103 warn-vs-use notes — this instance was the hook succeeding.
+- **Consolidation-gate verdict at this closeout:** napkin rotation already executed this window
+  (`06c5b8146`, Otter); distilled empty; open-questions empty; practice inbox empty;
+  pending-graduations holds only its two trigger-gated entries; per-user Claude memory drain
+  owned by the active drain plan (§Stratum C completion rulings). Nothing further due.
