@@ -38,6 +38,14 @@ Where the quality gates reveal an issue, the issue must be fixed,
 regardless of the location or cause. There is no such thing as an
 acceptable failure, ever.
 
+An enforcement-scope gap is not a requirement gap. Repo-wide standards
+(Result over throw, strict types, the rule corpus) govern every workspace
+regardless of where a lint rule happens to be wired; "not enforced here"
+never implies "not required here". A missing or narrowly-scoped binding is
+itself a defect — flag it and prefer the structural cure (extend the
+enforcement), and never read an inherited non-conforming local convention as
+ratified exemption.
+
 NEVER disable any quality gates or Git hooks.
 
 Session-local tool reports are evidence only inside the session that produced

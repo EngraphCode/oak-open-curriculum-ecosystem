@@ -664,6 +664,15 @@ Roles can dissolve when their pressure disappears. A scout can become an
 implementer only after a new route, claim, and evidence expectation are posted.
 A marshal role should end when the shared scarcity it owns is clear.
 
+Apply the dissolution test to your OWN seat, at every team-size change — not
+only to roles you would dissolve in others. "Performing the role more
+quietly" is still preserving overhead the team shape no longer needs; a
+coordinator seat at n=2 owner-visible is default-absent (per
+[PDR-082](../../practice-core/decision-records/PDR-082-n2-collaboration-mode.md)'s
+n=2 owner-visible mode, explicit owner opt-in aside), and the right move is
+to propose dissolving it yourself rather than waiting for the owner to make
+the call.
+
 If multiple viable routes remain, use a bounded proposal:
 
 ```text

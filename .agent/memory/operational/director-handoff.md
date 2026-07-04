@@ -120,9 +120,16 @@ the seat, not to any one pilot.
    never goes dark between the two moments) and the outgoing Director stops it
    after transfer (step 7); stop it yourself only as a backstop if it is still
    emitting well after authority has transferred.
-5. **Operate the seat.** Route durable **lanes**; do not choreograph individual
-   pickups (implementers self-organise faster than fine-grained routing — and that
-   routing races them). Before routing to a specific agent, **verify its current
+5. **Operate the seat.** Live routing is the seat's first duty: a monitor
+   event carrying an implementer team-start, routing request, or decision is a
+   **pre-emption signal, not background** — pause the current process-task and
+   route (or at least acknowledge with a next step) before continuing.
+   Continuity paperwork (seeds, task lists, consolidation) happens in the gaps
+   between live coordination, never ahead of it; if you cannot keep up, that
+   is the hand-off-to-a-fresh-Director signal, not a push-through. Route
+   durable **lanes**; do not choreograph individual pickups (implementers
+   self-organise faster than fine-grained routing — and that routing races
+   them). Before routing to a specific agent, **verify its current
    state right then** (its claim freshness via the same mechanical check above),
    not the state from minutes prior. Route **nothing** to an agent that has been
    told to close out or is high-context — route to its successor; check "has this
