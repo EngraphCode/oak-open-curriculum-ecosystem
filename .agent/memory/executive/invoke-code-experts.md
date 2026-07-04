@@ -20,7 +20,13 @@ trivial doc touch.
 AGENT.md intentionally points here rather than carrying reviewer rosters or
 timing detail. Reviewers can review intentions before code exists, and long or
 multi-phase work should re-invoke the relevant specialist at natural phase
-boundaries so feedback shapes the work while it is still live.
+boundaries so feedback shapes the work while it is still live. Reviews are
+real-time at every lifecycle stage — ideation, planning, implementation,
+retrospective, and remediation (where reviewers cover the remediation plan
+itself, not only the corrective code). A backfill review (running reviewers
+after the fact) is the best recovery when a review was missed, never a valid
+workflow choice: live review shapes decisions, backfill finds problems
+already embedded. After any backfill, name which gate was missed and why.
 
 ## Layered Triage (First 2 Minutes)
 
