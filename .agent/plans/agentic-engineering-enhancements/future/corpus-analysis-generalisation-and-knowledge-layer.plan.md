@@ -219,6 +219,16 @@ with the knowledge-layer framing.
   risks to mitigate here. The further-research pass (report §Further research) supplies measured
   quorum-correlation figures, the two-hash stamp design, the linking-layer blueprint, the
   standing-audit statistics, and the estate-inversion ADR direction as P0 inputs.
+- **Routed in from the conservation plan's superseded WS-C (owner-ratified 2026-07-04) — the
+  repeatable-not-heroic acceptance criterion**: whatever instrument P0 ratifies must ship as a
+  driveable, documented capability — a skill or equivalent that runs one analysis end to end
+  (cost gate → dispatch → deterministic aggregation → keep-set) and hands kept candidates to
+  `consolidate-until-done` — never a hand-assembled run. The tested deterministic modules to
+  adopt (not rebuild) are in `agent-tools/src/corpus-analysis/`
+  (aggregation-adjudication/recall/verdict, cost-and-coverage; the lane currently fails
+  whole-tree knip and lint — bring into conformance at adoption). Run-artefact identity note
+  from the drain: candidate IDs are per-run, never stable across corpora — any cross-run
+  linking needs run-scoped identity.
 
 ## Promotion trigger into `current/`
 

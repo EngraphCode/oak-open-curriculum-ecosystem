@@ -13,18 +13,30 @@ todos:
     status: completed
   - id: promote-tooling-to-skill-and-scripts
     content: "Promote the conserved corpus-analysis tooling to a repeatable capability: the oak-corpus-analysis skill (drives one run end-to-end: cost gate -> launch Workflow -> aggregation driver -> graduate-or-decide -> hand kept candidates to consolidate-until-done) + agent-tools scripts (corpus-analysis-aggregate, corpus-analysis-cost-gate, corpus-analysis-partition) built as tested library code with thin bin entries. TOUCHES THE AGENT-TOOLS SUBSTRATE: the CLI invocation model (tsx-on-source vs built-dist) is a CROSS-LANE decision DEFERRED to the agent-tools-architecture-standard WS0 — do NOT pre-commit it here; build the driver ADR-178-neutral and document an interim invocation matching the nearest settled precedent. The skill carries the harness-Workflow operational footguns."
-    status: pending
+    status: completed
     depends_on: [author-conserve-by-default-rule]
+    closure: "SUPERSEDED-WITH-ROUTING (owner-ratified 2026-07-04, Otter hunts Jetty): the library half already exists as tested modules (agent-tools/src/corpus-analysis aggregation-adjudication/recall/verdict + cost-and-coverage — the salvage sessions built on them); the SKILL half would have automated the v2 topology whose validate regime failed calibration and whose shape the corpus-generalisation Phase 0 now owns. The deliverable is superseded; the REQUIREMENT (corpus analysis is repeatable not heroic, and the feeder hands kept candidates to consolidate-until-done) is routed into the generalisation plan's Phase 0 agenda as an acceptance criterion. See the Supersession Mapping appendix."
   - id: sweep-discoverability-surfaces
     content: "Presence is not discoverability (C45): sweep the current/README index (this plan + the v3 plan), the agentic-engineering-enhancements thread record, and link the reference hub (agentic-corpus-discoverability-and-deep-dive-hub) so the graduated patterns, the new rule, and the skill are reachable from fresh-agent navigation."
-    status: pending
+    status: completed
     depends_on: [graduate-discovered-buffer, author-conserve-by-default-rule, promote-tooling-to-skill-and-scripts]
+    closure: "ABSORBED into the 2026-07-04 supersession pass: the graduated patterns and the rule were index-verified at their landing commits (WS-A/WS-B); the skill no longer exists to index (superseded above); the current/README rows for this plan, the discovery-run plan, and the v3 plan now carry their closed/superseded statuses, which IS the discoverability this step protected."
 ---
 
 # Corpus-analysis conservation — graduate the discoveries, fire the doctrine, make the tooling repeatable
 
-> **STATUS: WS-A + WS-B LANDED (2026-07-02 dedicated consolidation, Rosemary stirs Bracken); WS-C
-> (tooling promotion) + WS-D (discoverability sweep) remain.** WS-A executed via
+> **STATUS: CLOSED (2026-07-04, Otter hunts Jetty, owner-ratified supersession pass). WS-A +
+> WS-B LANDED (2026-07-02, Rosemary stirs Bracken) — they are this plan's delivered value and
+> stand. WS-C (tooling promotion) + WS-D (discoverability sweep) are SUPERSEDED-WITH-ROUTING:
+> the v2-shaped skill would have automated the topology whose validate regime failed
+> calibration; the corpus-generalisation Phase 0 now owns the instrument's shape, and WS-C's
+> requirement travels there (see the Supersession Mapping appendix at the end of this plan).
+> The tested library modules WS-C wrapped are conserved as-is in
+> `agent-tools/src/corpus-analysis/` for Phase 0 to adopt.**
+>
+> Prior banner (historical): WS-A + WS-B LANDED (2026-07-02 dedicated consolidation, Rosemary
+> stirs Bracken); WS-C
+> (tooling promotion) + WS-D (discoverability sweep) remain. WS-A executed via
 > `consolidate-until-done`: all 13 dispositions re-verified first-hand — 4 already-covered
 > confirmed; 4 amendments landed (the watcher rule's silent-failure class, the vendor rule's
 > mental-model-drift clause, `harness-shell-and-commit-edge-cases`, the reframing pattern's
@@ -235,3 +247,29 @@ Sibling to [`large-corpus-analysis-v3-extraction-grain.plan.md`](./large-corpus-
 [`../../agent-tooling/future/agent-tools-architecture-standard.plan.md`](../../agent-tooling/future/agent-tools-architecture-standard.plan.md)
 (WS0 invocation model) and lands discovery via
 [`agentic-corpus-discoverability-and-deep-dive-hub.plan.md`](./agentic-corpus-discoverability-and-deep-dive-hub.plan.md).
+
+## Supersession Mapping (2026-07-04, owner-ratified)
+
+Per the consolidate-docs plan-supersession discipline, every dropped scope item:
+
+1. **Item moved**: `promote-tooling-to-skill-and-scripts` (WS-C) — the `oak-corpus-analysis`
+   skill + thin bin wrappers deliverable.
+   **New owner plan**:
+   [`../future/corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../future/corpus-analysis-generalisation-and-knowledge-layer.plan.md).
+   **Acceptance lane**: the Phase 0 design-session agenda — carried as the
+   repeatable-not-heroic acceptance criterion (any ratified instrument ships as a driveable,
+   documented capability whose keep-set hands off to `consolidate-until-done`; never a
+   hand-assembled run).
+   **Rationale**: the deliverable would have automated the v2 topology whose validate regime
+   failed calibration (11/18 known-real baselines found-then-killed) and whose shape Phase 0
+   now owns; promoting first would mint a surface the redesign immediately supersedes. The
+   tested library modules the skill would have wrapped are conserved unchanged in
+   `agent-tools/src/corpus-analysis/` for Phase 0 to adopt.
+2. **Item moved**: `sweep-discoverability-surfaces` (WS-D).
+   **New owner**: this supersession pass itself (no follow-on owner needed).
+   **Acceptance lane**: the current/README index rows for this plan, the discovery-run plan,
+   and the v3 plan carrying closed/superseded statuses; the thread record and repo-continuity
+   pointing successors at the generalisation Phase 0.
+   **Rationale**: the artefacts WS-D would have indexed either landed with their own index
+   rows (WS-A patterns, the WS-B rule) or no longer exist to index (the superseded skill);
+   the remaining discoverability need IS the supersession record.
