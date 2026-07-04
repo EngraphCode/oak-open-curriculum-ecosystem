@@ -67,6 +67,16 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Promotion watchlist (Stratum C forward notes)
 
+- **`feedback_validate_specialist_findings_before_acting` carries a DECIDED recurrence
+  verdict**: the ws1b pass (Vega mends Oblivion, 2026-07-03 napkin entry "ninth-reinforcement
+  question DECIDED") concluded no new clause is needed — `verify-dont-trust` already carries the
+  multi-clause subagent-output discipline and the gap is firing, not text. When Stratum C reaches
+  this entry, disposition against THAT verdict (recurrence-checked duplicate), not a fresh
+  analysis.
+- **The index may still truncate at injection until Stratum C progresses** (205 lines /
+  ~39KB is near the harness threshold) — the read-from-disk standing decision covers
+  correctness; expect the injected copy to be partial.
+
 - `feedback_no_cheap_cure_option` and `feedback_opus_team_quota_ceiling`
   carry in-body graduation/home mentions WITHOUT index markers (old
   2026-05-02 graduation note to `principles.md §Architectural Excellence Over
@@ -102,4 +112,4 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
-| Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-03 |
+| Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |

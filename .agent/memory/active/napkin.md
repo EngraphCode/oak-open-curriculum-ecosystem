@@ -429,6 +429,11 @@ New session observations append below.
   retirement script) on the hardcoded Claude project-slug string; both rewrites were genuinely
   better (tilde form; derive the slug from the repo root at runtime). The hook does real work
   outside the repo tree — reappraise-don't-rephrase held.
+- **`claims open` writes rows with NO `status` field** — a `jq 'select(.status=="active")'`
+  over `active-claims.json` silently misses live claims (mine showed `status: null`); the
+  closed archive rows DO carry status. Select on the absence (`.status == null or
+  .status == "active"`) or match by `agent_id.session_id_prefix`. Cost one failed close and a
+  registry probe; F-72..F-80 option/schema-surface sibling, register candidate.
 - **Stratum B shape**: of 28 project_/reference_ entries, 21 were verified duplicates of
   existing homes and 6 were dead mutable state — ~75% of the buffer's project tier was index
   weight with no unique substance. The enrichment yield concentrated in operational surfaces
@@ -455,3 +460,16 @@ New session observations append below.
 - **Stratum A shape held**: verify-home-first-then-retire worked cleanly; 8/8 homes carried the
   substance (one needed a deeper grep past the section head before confirming — read past the
   heading before declaring coverage).
+
+## 2026-07-04 — ws1d tier-E drain E-b2 onward (Otter hunts Jetty)
+
+- **`rg -r` FIFTH instance, cross-session, minutes after reading the lesson** — I wrote
+  `rg -riln "..."` in an E-b2 home-verification sweep; rg parsed the cluster as `-r iln`
+  (--replace with argument "iln"), silently substituting "iln" over every match in the
+  C190/C216 output. Caught only because the mangled text read wrongly ("the owner flagged at
+  iln"). This is the escalation trigger Gust's fourth-instance entry named ("a fifth → take it
+  straight to the hook-policy lane"): the trap now spans two sessions and two agents, both
+  post-home, both post-reading-the-home in-session. Capture-does-not-cure and
+  read-does-not-cure are both now measured; the cure is action-time (a hook fingerprint on
+  `rg\s+-[a-z]*r` in Bash tool input, or agent habit `--replace=` never bare `-r`). Routing to
+  the hook-policy/action-time lane this session.
