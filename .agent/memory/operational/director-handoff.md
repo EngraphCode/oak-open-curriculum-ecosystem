@@ -264,79 +264,35 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — Director: Comet hunts Lightyear (#8, RESUMED 2026-07-02 post-compaction; n=1 to MERGE by owner direction)
+> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Hyena #9's full closeout (2026-07-04)
 >
-> **SESSION SHAPE (owner-set, 2026-07-02 ~afternoon — read this first):** the Director session
-> was compacted and RESUMED with restored context (resume broadcast `284a65a5`); the owner ruled
-> **n=1 — Director only — until `feat/curriculum-hub-demo` merges to main**. No successor agents
-> launch before merge; the degenerate-team clause applies (the sole member executes directly).
-> All three implementers CLOSED OUT 2026-07-02 ~14:55Z: Limpet (data) and Peregrine (styling)
-> with full closeout broadcasts, `pnpm check` green, claims `fd0ee59e` / `cf62bda9` retained
-> with pickup records REFRESHED (`handoffs/2026-07-02-curriculum-hub-limpet-data-plane.md` /
-> `…-styling-peregrine-lifts-cirrus.md` — the stale Junk/Galago pointers are cured); Thyme
-> (hygiene) ended WITHOUT a closeout broadcast on the stream (experience + register writes on
-> disk; `16be897b` unchanged, pause-retained). Heartbeats stay down (PDR-078 §4 consumer-absent
-> at n=1); the Director watcher is live. THE BUILD IS COMPLETE and pushed to origin `1461e5cb4`
-> (every page, all 18 block components, both searches, six cards, E1–E3). Window #10 (this
-> train) lands the frozen set — verified first-hand 272/272 / lint 0 / tsc 0 before staging:
-> Peregrine's jest-axe §E backstop + the proven /course no-JS 320 cure; Thyme's jest-axe dep
-> pair; Limpet's 14 evidence PNGs + the two-state measure-320 hardening (completion confirmed
-> in their heartbeat-end `fb0f5610`); the owner's `.mcp.json.example` claude-design entry; the
-> triple-closeout continuity writes. Then: final §D/§E passes, pre-push tidy (the
-> `oak-design-system/` delete needs the owner's explicit authorisation AT that moment),
-> milestone commit, PR, MERGE; §J = owner-hosted from main. Post-merge re-assessment (team
-> shape, deep consolidation — napkin over threshold, the WS2 crosswalk) is owner-scheduled.
+> **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #9
+> (Hyena stirs Lamplight, `d62788`) closed out fully on owner direction 2026-07-04; claim
+> `35d9c8f2` RETAINED for the restart successor. Chain: Herring → Swordfish → Lantern →
+> Hawthorn → Sycamore → Panther → Birch → Comet → Hyena.
 >
-> **NEW CAPABILITY (owner, 2026-07-02 ~11:15Z): the claude-design MCP is NOW AVAILABLE**
-> (project listing/reading/writing, file access, render-preview — see the `mcp__claude-design__*`
-> tool set). The owner expects this to LIKELY CHANGE the approach for pulling down projects and
-> project updates — i.e. the stream-2 ingestion pipeline (productionisation plan WS2) and the
-> `future/demo-maintenance-and-structure.md` canonical-export-sync mechanism were designed
-> around committed export zips; re-evaluate both against direct MCP pull BEFORE executing
-> either as written. Owner-context decision, not unilateral: surface the crosswalk to the owner.
+> **A successor rehydrates from** (detail lives there, not duplicated):
+> `handoffs/2026-07-04-curriculum-hub-director-hyena.md` (CURRENT pickup — state, the landed
+> trains, the remaining map, owner gates, operating notes) · the thread record
+> `threads/curriculum-hub-demo.next-session.md` · the guiding plan
+> `active/port-prototype-to-live-demo.md` (§Ratified decisions 1–9) · the post-merge plan
+> `current/productionisation-and-reuse.plan.md`.
 >
-> The current Director-led multi-session effort is the **Curriculum Hub program**: reproduce the
-> ENTIRE Oak Curriculum Hub from the Claude Design canonical export — ALL pages + ALL components,
-> visual-matched — + two-search + 6 cards, to the guiding plan's **DoD §A–J**. Branch
-> `feat/curriculum-hub-demo`, PUSHED. **Near-term bar (owner, 2026-07-01 late): §A–I + E1–E3 →
-> milestone commit → push → PR → MERGE TO MAIN; §J = owner-hosted from main 2026-07-02.**
+> **The one-line state:** PR #295 all-green (Sonar PASSES); ~14 commits LOCAL behind the
+> standing owner push gate ("pause before push"); the fidelity-review mechanism is BUILT and
+> proven (tool:fidelity + tracked fidelity-register.json + the fidelity-review skill +
+> playbook §Fidelity review); remaining = push release → Copilot-thread resolution + reviewer
+> passes → the SEMANTIC main-merge (7 knowledge-surface conflicts, /oak-semantic-merge +
+> ultrathink, owner-directed) → owner visual sign-off (aided by the fidelity report; 14
+> UNREGISTERED findings to judge) → MERGE → §J owner-hosted from main.
 >
-> **A successor rehydrates from** (detail lives there, not duplicated): the thread record
-> `threads/curriculum-hub-demo.next-session.md` (identity table + lane state current), the
-> Birch→Comet record `handoffs/2026-07-02-curriculum-hub-director-birch.md` (self-contained:
-> completion bar, remaining pre-merge map, the proven operating protocol, tracked debts), the
-> guiding plan `.agent/plans/curriculum-hub-demo/active/port-prototype-to-live-demo.md`
-> (§Ratified decisions — the owner's four calls 2026-07-01 ~21:30Z + the paginated-player ruling
-> #7), and the post-merge plan
-> `.agent/plans/curriculum-hub-demo/current/productionisation-and-reuse.plan.md` (WS0–WS6 + the
-> 2026-07-02 three-co-equal-value-streams mapping — uncommitted delta rides Thyme's config
-> window).
+> **Owner-gated:** the push release · visual sign-off · WS6 SSO set · fourth-stream row ·
+> WS2 stage-naming at activation · deep consolidation (napkin ~700/300, pending-graduations
+> 9 items — a DEDICATED fresh-context pass, registered, not absorbed).
 >
-> **Director:** Comet hunts Lightyear (`e7f728`, #8, claude / claude-fable-5; owner-named
-> succession from Birch; Moment-2 `a43d3f2e` 2026-07-02T06:46:22Z with the pasted UTC liveness
-> check + the F-44 comms-live cross-check; Birch stood down cleanly 06:49:25Z — heartbeat-end +
-> closeout, nothing retained). Chain: Herring → Swordfish → Lantern → Hawthorn → Sycamore →
-> Panther → Birch → Comet. Holds `35d9c8f2`; watcher + heartbeat live.
->
-> **Cast state (2026-07-02 ~15:00Z, supersedes the ~09:50Z three-active-lanes snapshot):** all
-> three implementer sessions are CLOSED — **Peregrine lifts Cirrus** (styling, full closeout,
-> `cf62bda9` retained with the pickup record refreshed), **Limpet herds Marsh** (data, full
-> closeout, `fd0ee59e` retained likewise), **Thyme guards Dewfall** (hygiene, session ended
-> without a closeout broadcast; `16be897b` unchanged pause-retained). Their build work was
-> complete at the pause; every lane deliverable is landed and pushed. Nine Director-run commit
-> windows landed ~26 commits through the earlier seat (concept gate live on comms; Framework
-> page DROPPED as superseded, Director-ruled with two-lane corroboration). The owner-ratified
-> comms concept gate means hedging/deferral vocabulary is mechanically refused at the comms
-> write path (capture-tagged events exempt).
->
-> **Owner-gated (constitutive only):** §J hosting setup (owner, 2026-07-02) · final visual
-> sign-off vs the canonical export · the `oak-design-system/` destructive-delete authorisation at
-> pre-push-tidy time · the WS6 SSO decision set (named in the productionisation plan) · the
-> fourth-stream strategy question (open decision row in `docs/strategy/README.md`).
->
-> **Readiness gate before any Moment-2:** five questions + a pasted mechanical UTC liveness check
-> (comms-live, not registry-stale — F-44); then adopt `35d9c8f2`, arm heartbeat, stop the outgoing
-> heartbeat.
+> **Readiness gate before any Moment-2:** unchanged — five questions + the pasted mechanical
+> UTC liveness check; then `claims adopt 35d9c8f2`, arm the watcher (move 1), heartbeat per
+> PDR-078 §4 value-contingency.
 >
 > ---
 >

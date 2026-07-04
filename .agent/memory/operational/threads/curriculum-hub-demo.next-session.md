@@ -32,7 +32,7 @@ status: active
 | Birch mends Petal | claude | claude-opus-4-8[1m] | 5b5574 | director #7 (RETIRED — clean PDR-064 handover to Comet #8 at their Moment-2 2026-07-02 ~06:46Z; record `handoffs/2026-07-02-curriculum-hub-director-birch.md`) | 2026-07-01 | 2026-07-02 |
 | Thyme guards Dewfall | claude | claude-fable-5 | d1572a | implementer — hygiene & repo-parity (16be897b RETAINED at the owner pause + session closeout; all executable items landed+pushed — READMEs, package.json conformance, WS5.1 pin, nextjs rule, app-README rewrite, comms concept gate `09b576704`, json.ts core move `eb7ca5c7a`; remaining = the sequence-locked set in the pause-freeze note below) | 2026-07-02 | 2026-07-02 |
 | Comet hunts Lightyear | claude | claude-fable-5 | e7f728 | director #8 (RETIRED — session ended at the owner boundary after the strictness train landed+pushed to `5cf288dfd`; seat → Hyena via owner-directed PDR-064 Moment-2 `7488d0c9` 2026-07-02T21:14Z, no Moment-1 pre-position existed) | 2026-07-02 | 2026-07-02 |
-| Hyena stirs Lamplight | claude | claude-fable-5 | d62788 | director #9 (ACTIVE — owner-named succession from Comet; Moment-2 `7488d0c9` 2026-07-02T21:14Z with pasted mechanical liveness check; adopted 35d9c8f2; n=1 Director-only to MERGE per the standing owner ruling) | 2026-07-02 | 2026-07-02 |
+| Hyena stirs Lamplight | claude | claude-fable-5 | d62788 | director #9 (CLOSED OUT fully 2026-07-04 on owner direction; 35d9c8f2 RETAINED, pickup record `handoffs/2026-07-04-curriculum-hub-director-hyena.md`; tenure landed the merge run-in trains + the fidelity-review mechanism; push remains owner-gated) | 2026-07-02 | 2026-07-04 |
 | Galago turns Footfall | claude | claude-fable-5 | 685da6 | implementer — styling/UI (cf62bda9, adopted COLD from Zinnia's record; slices 1–3a committed `f5d58e4a9`+`780248557`, 3b WIP green) — RETIRED-relayed PDR-063 ~07:35Z (owner-brought-forward at 69% context) → Peregrine lifts Cirrus (registered standby fc1fc8; record `handoffs/2026-07-02-curriculum-hub-styling-galago-turns-footfall.md`; cf62bda9 retained open) | 2026-07-02 | 2026-07-02 |
 | Peregrine lifts Cirrus | claude | claude-fable-5 | fc1fc8 | implementer — styling/UI (cf62bda9, standby→adopted at Galago's relay 07:34Z; drove windows #3–#9: the 3b block pass, item-8 header + demo-wide 320 reflow, item-10 callout fidelity + backlog, lesson nested-main polish, exemplars/wiki alignment, E1+E2, the E3 showcase + dangerouslySetInnerHTML cure, the jest-axe backstop frozen READY for window #10) — session CLOSED at the owner pause 2026-07-02; claim RETAINED, CURRENT pickup record `handoffs/2026-07-02-curriculum-hub-styling-peregrine-lifts-cirrus.md` | 2026-07-02 | 2026-07-02 |
 | Limpet herds Marsh | claude | claude-fable-5 | 34e191 | implementer — data plane (fd0ee59e, adopted from Junk's retained relay; 11 cycles committed through window #9: the DI-seam extraction `f9f71c6a5` whose ruling became house doctrine, the E3 seam `fb1852bfa`, §D capture hardening + evidence `ad4730ed2`, measure-320 `50fb7ed81` + the two-state hardening in-tree, data batch #2 in `902866437`) — SESSION COMPLETE (owner-directed full closeout at the pause 2026-07-02; fd0ee59e RETAINED, CURRENT pickup record `handoffs/2026-07-02-curriculum-hub-limpet-data-plane.md`, pointer set via claims set-handoff) | 2026-07-02 | 2026-07-02 |
@@ -86,7 +86,17 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   - **`searchHub` placement = DEMO-LOCAL (Director-ratified 2026-07-01, second-consumer rule).** It is pure mechanism with exactly ONE consumer (this demo) → `consolidate-at-second-consumer`; extracting to a reusable lib now is premature generalisation. Keeping it demo-local means it is NOT calcifying as a mis-placed reusable lib, so the plan item-3 "route to arch reviewers before it calcifies" concern is satisfied by NOT promoting it. **Extraction trigger = a real SECOND consumer** (then route to the architecture reviewers). Do not re-litigate demo-local-vs-lib before that trigger.
   - **Course-assembly exec-knowledge (react-component-expert forward-note, from a now-gone sub-agent — home it before it re-derives):** at Course-assembly, feed `CourseNavProvider` a **memoised/hoisted** module array (`useMemo(() => mapUnitsToModules(course), [course])` at the provider, or a module-level constant if static) — a freshly-constructed array literal per render re-renders all 214 block descendants that read the context. Also render the 214 blocks through a `.map` with **stable per-block keys (block id, not index)** so the memoised-provider win isn't undone by a churning list above it. The context shape (`CourseNavContext.ts` = `readonly CourseNavModule[]`) already supports this cleanly.
 - **Commit / codegen note (UPDATED — drift class RESOLVED):** main #291's codegen **cached-schema-default** (merged in `39a3aaf50`) means `pnpm sdk-codegen` now uses the cached schema by default, so it no longer re-fetches live and re-pollutes. Keep `CI=true` on commits (belt-and-suspenders). Commits go through the FULL pre-commit gate (**no `--no-verify`** — the hook IS the gate; the reflex to bypass is the signal to stop and analyse). Branch is PUSHED to origin.
-- **Next safe step (REFRESHED 2026-07-03 — Director Hyena #9, n=1):** SonarCloud PASSES on PR #295
+- **Next safe step (REFRESHED 2026-07-04 at Hyena #9's full closeout):** the successor's map is
+  §3 of `handoffs/2026-07-04-curriculum-hub-director-hyena.md` — in one line: owner releases the
+  push (~14 local commits incl. the FIDELITY-REVIEW MECHANISM: `tool:fidelity`, the tracked
+  `fidelity-register.json` divergence register, the `fidelity-review` skill, playbook §Fidelity
+  review, WS2/maintenance-plan pointers) → verify Vercel (bootstrap fix `857652094` is the
+  cure) and Sonar → resolve the two Copilot threads (fix `e4310a1b0`) + run the owed reviewer passes →
+  SEMANTIC main-merge (7 knowledge-surface conflicts; /oak-semantic-merge + ultrathink,
+  owner-directed; re-enumerate at merge time) → owner visual sign-off aided by the fidelity
+  report (14 UNREGISTERED findings at 7–28% triage ratios await judgment into the register) →
+  MERGE → §J owner-hosted from main.
+- **Prior next-safe-step (2026-07-03 — Director Hyena #9, superseded above):** SonarCloud PASSES on PR #295
   (the last-13-findings train `e993dbb1d` + the development-condition removal `2b950aaba`, both
   pushed). Landed LOCALLY since, **push OWNER-GATED ("pause before push", 2026-07-03)**: generated
   API docs removed owner-directed (`0eb7653d5`, plan at
@@ -101,7 +111,16 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   /oak-metacognition; 7 conflicts enumerated, ALL knowledge/config surfaces — napkin, distilled,
   director-handoff, pending-graduations, repo-continuity, .claude/settings.json, RULES_INDEX.md;
   zero source conflicts; main is 73 commits ahead of the merge-base) → owner visual sign-off →
-  MERGE. §J owner-hosted from main.
+  MERGE. §J owner-hosted from main. **PR-surface facts (verified 2026-07-03):** Codex is at
+  usage limits (no further Codex reviews will arrive); the owner's "@claude please review"
+  (2026-07-02 17:02Z) was never serviced (org automated reviewer OFF) — reviewer passes over the
+  final diff are OWED pre-merge; the Dependency Review bot comment is STALE (ran on `b6a8ab830`;
+  `pnpm audit` clean as of `21fdff136`). **NEW LANE (owner-directed + plan-approved 2026-07-03):**
+  the fidelity-review mechanism — serve export + dev server, perceptual-diff triage,
+  side-by-side report, tracked `fidelity-register.json` disposition ledger
+  (fix/deliberate/investigate/matched/superseded; the seed of WS2 stage 2's divergence
+  register) plus the canonical skill and playbook section; builds on this branch pre-merge;
+  A1–A7 dispositions recorded in the Comet handoff record's successor addendum.
 - **Prior next-safe-step (2026-07-02 late evening — Director Comet #8, superseded above; ratified decision 9 EXECUTED):**
   The owner ruled STRICT EVERYWHERE, NOTHING DEFERRED mid-review: every demo gate exemption
   removed repo-wide (prettier/markdownlint/knip/depcruise/eslint — withdrawn ratification
