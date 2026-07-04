@@ -115,8 +115,11 @@ the seat, not to any one pilot.
    active-acknowledgement, and re-arm awareness: the all-channels comms watcher
    as **move 1, before any coordination** (it is constitutive team-membership,
    not discretionary — it recurs on a drain-timeout, so keep a foreground-sweep
-   fallback), a heartbeat loop **with an exit criterion**, and **stop the
-   outgoing Director's heartbeat** if it is still emitting (false-liveness risk).
+   fallback), and a heartbeat loop **with an exit criterion**. The outgoing
+   Director's heartbeat legitimately runs until this moment (PDR-064: the seat
+   never goes dark between the two moments) and the outgoing Director stops it
+   after transfer (step 7); stop it yourself only as a backstop if it is still
+   emitting well after authority has transferred.
 5. **Operate the seat.** Route durable **lanes**; do not choreograph individual
    pickups (implementers self-organise faster than fine-grained routing — and that
    routing races them). Before routing to a specific agent, **verify its current
@@ -133,11 +136,23 @@ the seat, not to any one pilot.
    parked with a durable handoff, every team-doable item done, only owner-gated
    items remaining. At completion, pause and **wind down your own heartbeat
    explicitly** — its exit is COMPLETION, not N-idle.
-7. **Hand off when your context deepens.** Refresh `CURRENT HANDOFF STATE` below
-   and **commit it** (do not leave the seed uncommitted); pre-position your
-   successor; stop your own heartbeat first; and require the successor's
-   readiness gate (step 3, including the pasted mechanical check) before its
-   Moment-2. The continuity-commit may be blocked by pre-existing markdownlint
+7. **Hand off when your context deepens — and hand off BEFORE your own
+   closeout, never after** (owner direction 2026-06-28: optimise for team
+   continuity and health, not any one session's tidiness — a sequencing and
+   altitude instruction, not a speed one). When the PDR-063 80% /
+   post-commit re-evaluation fires, the FIRST wind-down move is to start the
+   handover: refresh `CURRENT HANDOFF STATE` below and **commit it** (do not
+   leave the seed uncommitted); pre-position your successor (PDR-064
+   Moment 1); require the successor's readiness gate (step 3, including the
+   pasted mechanical check) before its Moment-2; and keep your own heartbeat
+   running until the successor's Moment-2 lands — the seat never goes dark
+   between the two moments (PDR-064; the liveness rule) — stopping it only
+   once authority has transferred. Only AFTER the successor holds authority
+   do you run your own team-member closeout; do not begin closeout
+   housekeeping (consolidation, final summary) while still holding the live
+   seat with no successor landed. At a genuine arc-end where the whole cast
+   dissolves there is no successor — closeout is the terminal act. The
+   continuity-commit may be blocked by pre-existing markdownlint
    debt in shared multi-agent buffers — the proper path is a dedicated
    consolidation pass (rotate + lint, then commit), never a destructive git
    workaround or a narrow-commit dodge.

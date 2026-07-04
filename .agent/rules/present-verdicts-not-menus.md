@@ -54,6 +54,15 @@ alternatives non-viable.
 - "Do these look fine?" after analysing them oneself.
 - Quizzing the owner to ratify a verdict already evidenced in context.
 - Asking what to prioritise when the brief already names the priority.
+- Asking permission to EXECUTE work the owner already directed. Directed work
+  is self-authorising: the trigger to execute it is the boundary reached
+  (budget spent, work complete, successor pre-positioned), not a fresh go.
+  A clear owner directive also covers its sub-cases — apply it; a real
+  nuance in a sub-case is worth noting, not gating on a re-confirmation.
+  (The inverse guard still holds: a hedged owner statement is not execution
+  authorisation — see
+  [`user-collaboration.md`](../directives/user-collaboration.md) §"A hedged
+  owner statement is not execution authorisation".)
 - Writing a durable artefact's STATUS line as a deferral ("for owner
   ratification", "awaiting owner review") when the verdict exists. A
   reviewed, execution-ready plan's status is "READY FOR EXECUTION"; a

@@ -29,7 +29,7 @@ todos:
     content: Disposition 25 project_* and 3 reference_* entries (done 2026-07-03 — 27 retired; 13 duplicates verified in homes, 6 superseded at delete-stakes, 8 enriched/re-homed; 1 kept live pending the PDR-052-gated editorial-tone fold)
     status: completed
   - id: stratum-c-feedback-batches
-    content: Feedback duplicate/enrichment batches, alphabetical, ~25-30 entries/loop (C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; next session COMPLETES Stratum C from feedback_artefact_annotation_is_not_rationale, 200 remain — see §Stratum C completion rulings)
+    content: Feedback duplicate/enrichment batches, alphabetical (C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; completion session running 2026-07-04, Hedgehog stirs Rime — head unless-tell fold b21bafa39, C-2 15 entries 7920215df, C-3 10 entries d227a46a1, C-4 in flight; census corrected +9 pre-dispositioned old-marker files and 1 straggler line retired; D-queue so far — build-vs-buy, cowpath+design-from-substrate rule, crosswalk pattern, derive-controlled-surface pattern; PDR-052-deferred directive folds — agent-collaboration claims-model topology, metacognition overcorrection-swing, agent-collaboration channels cursor-handoff)
     status: in_progress
   - id: stratum-d-novel-doctrine
     content: Classifier-routed doctrine authoring for uncovered entries; docs-adr-expert per batch

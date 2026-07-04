@@ -22,6 +22,21 @@ The Oak MCP Servers are designed with security and privacy as core principles. T
 - **No Logging**: API keys are never logged, even at debug level
 - **Local Env Files**: Use `.env` and `.env.local` for local credentials. Keep these files untracked.
 
+### Agent Tool Choice When Reading Credential-Bearing Files
+
+For any file that may hold credentials (`~/.claude.json`, `.env*`, auth
+configs, MCP server settings, service-account files), agents default to the
+`Read` tool rather than Bash `grep`/`cat`/`head`. The repo's secrets-scan
+`PreToolUse` hook covers `Read` only; the Bash hook is a command-pattern
+blocker, not a content scanner — so a Bash read drives through the gap
+between the two defences (worked instance 2026-04-24: a `grep -i sonar
+~/.claude.json | head` surfaced a real-looking token into the transcript).
+When Bash is genuinely required (line counts, directory walks), structure the
+command so value-bearing lines never reach stdout — `grep -l` / `grep -c`, or
+exclude token-like lines before printing. The same discipline applies to
+sub-agent briefs: never ask a sub-agent to "grep the config" when it can
+`Read` it under the scanner.
+
 ### Line-Specific Exceptions
 
 The repo is scanned with `gitleaks` in CI and pre-push. Broad allowlisting is not
