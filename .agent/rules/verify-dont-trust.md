@@ -37,7 +37,11 @@ absorb. Convergence is not a substitute: N reviewers independently surfacing
 the same shape can be N agents inventing the same optionality — convergence
 raises scrutiny, it never waives it (worked instance 2026-06-27: four
 reviewers converged on a "graceful-degradation floor" the owner killed as
-invented optionality).
+invented optionality). And "first-hand" means the main agent's own read: run
+a fan-out for breadth or second opinion, but read the load-bearing sources
+yourself and form your own verdicts first — sub-agent reports corroborate or
+challenge your reading, never substitute for it, and the first-hand pass is
+never deferred to "after the agents finish".
 
 Fix verification must also return to the original defect location. A patch that
 adds intended cure text elsewhere but leaves the contradicting source text in

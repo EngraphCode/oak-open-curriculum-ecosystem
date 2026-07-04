@@ -59,6 +59,9 @@ alternatives non-viable.
   (budget spent, work complete, successor pre-positioned), not a fresh go.
   A clear owner directive also covers its sub-cases — apply it; a real
   nuance in a sub-case is worth noting, not gating on a re-confirmation.
+  (Applying a directive within its plain scope is this item; a reading
+  that EXTENDS its scope is the forced-verdict boundary in §Diagnostic —
+  surface that as the question.)
   (The inverse guard still holds: a hedged owner statement is not execution
   authorisation — see
   [`user-collaboration.md`](../directives/user-collaboration.md) §"A hedged
@@ -70,12 +73,35 @@ alternatives non-viable.
   todo-level gate inside the artefact, never the artefact's status.
   This rule applies to durable-artefact status lines, not only
   user-facing questions.
+- Writing "owner directs X" / "owner sign-off required for X" into any
+  coordination artefact (handoff, plan, pre-positioning brief) without
+  citing where the owner reserved X — an uncited reservation is an
+  invented gate (worked instance 2026-06-11: an invented "owner directs
+  transfer timing" idled a grounded successor ~5 hours; the standing
+  successor naming WAS the authorisation). At reading time an uncited
+  gate is a question to resolve, not an obligation to obey. The genuine
+  owner-gate is rare (see §Legitimate Uses — e.g. feature/product
+  shaping, a spend authorisation, a genuinely-unforced value call), and
+  an existing mechanism (owner-controls-push) is often the real citable
+  gate; what ratified doctrine already mandates is executed, not
+  re-asked.
 
 ## Diagnostic
 
 The reliable tell: *could the agent rank these options by evidence
 already in context?* If yes, the quiz is evasion. Either commit to the
 verdict, or do the missing analysis until ranking is possible.
+
+The boundary runs the other way too: before stamping a verdict "forced",
+ask what is forcing it. A verdict is genuinely forced only when value and
+the surface's function leave one option. If the forcing rests on your own
+interpretation of an owner or org directive's scope, or on inherited
+artefacts (landed code, a convergent handoff, a green test), it is not
+forced — interpreting the directive's scope is the owner's call; surface
+the interpretation as the question (worked instance 2026-06-08: a
+"forced" attribution-stripping verdict rested on a convenient reading of
+a no-PII directive; the owner reversed it). The more the reading eases
+the work, the more suspect it is.
 
 ## Pre-Pose Viability Check
 
