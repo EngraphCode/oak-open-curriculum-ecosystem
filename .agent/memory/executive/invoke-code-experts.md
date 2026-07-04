@@ -316,6 +316,17 @@ standing requirement, 2026-06-10):
   claims with source grounding (encode refutations as regression tests where
   the claim is testable); apply true ones. Reply with the verdicts on the PR
   so the adjudication is visible.
+- **Assess the finding's LENS, not only its cited facts.** A reviewer can be
+  factually right and model-wrong: screen whether the risk model presupposed
+  by a finding fits the artefact's nature before accepting it (worked
+  instance 2026-06-22: a "loop risk" P1 on an orientation-skill family
+  imported control-flow framing onto a knowledge surface that is curated by
+  a judging agent, not executed — the facts checked out, the model did not).
+  Knowledge, teaching, and doctrine surfaces are suggestions curated by a
+  judging agent; control-flow risks (loops, cycles, dead-ends,
+  state-machine completeness) apply only to mechanically-executed systems.
+  Valid points can sit next to a misframed one — separate them, keep the
+  valid, drop the misframed.
 - **A finding names one location of a defect CLASS — sweep the whole corpus.**
   When a comment reveals a stale cross-reference, wrong number, or mislabel,
   grep the pattern repo-wide rather than patching the flagged line. Twice in

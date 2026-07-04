@@ -308,7 +308,7 @@ observed consumers. n=2 owner-visible mode is now the *special case* of that
 general exemption (chat-visibility makes the async-detection consumer
 absent); the heartbeat-drop is contract-backed, not a standalone hypothesis.
 
-**Scope of this adoption (honest residual).** Adoption rests on the
+**Scope of this adoption.** Adoption rests on the
 consumer-presence generalisation: the heartbeat-overhead reduction — the cost
 the owner flagged at first instance and the mode's dominant one — is now
 contract-backed by the graduated PDR-078 §4 exemption on two distinct

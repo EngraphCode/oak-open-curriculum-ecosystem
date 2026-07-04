@@ -41,7 +41,13 @@ alternatives non-viable.
    agent genuinely has no strong basis for a position (early planning,
    ambiguous scope, novel domain), surfacing 2–3 approaches with
    trade-offs is the right move. This is the case the `oak-plan` skill's
-   §Before Writing item 1 is written for.
+   §Before Writing item 1 is written for. One shape-check within this
+   case: when the owner has framed the work as joint reflection —
+   thinking a doctrine or design question through *together* — even the
+   2–3-approaches form is wrong; discuss in prose (the analysis, your
+   lean, the genuine uncertainties, the real tension) and leave room for
+   the owner to reframe. The discriminator is the work's shape, not any
+   keyword.
 
 ## Illegitimate Uses (the trip-list shapes)
 

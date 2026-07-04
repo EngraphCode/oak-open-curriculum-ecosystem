@@ -12,6 +12,18 @@ dressing. Vocabulary is not the trigger; *intent* is. If the
 substance reads "the rule doesn't apply here", the candidate is
 suspect regardless of vocabulary.
 
+The sibling class is **validity-asserting** vocabulary — *legitimately X*,
+*an honest residual*, *this legitimately stays* — which asserts a validity
+the writer has not earned, dressing up not-finishing as principle (owner,
+2026-06-27: "any time I see the word legitimate I know you don't actually
+believe what you are saying"). As with the class above, the trigger is the
+self-defensive use, not the word — a ratified taxonomic label ("legitimate
+uses of a tool") is not the pathogen. The word arriving in defence of your
+own unfinished state is the tell: ask the real question ("should this be
+done now?") and do it, or state what is true plainly. This class is
+currently advisory doctrine only — it carries no write-time hook patterns
+pending graduation.
+
 ## The Rule
 
 When authoring on doctrine surfaces (PDRs, plans, ADRs, governance
