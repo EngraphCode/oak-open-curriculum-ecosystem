@@ -96,7 +96,12 @@ definition of done yet deliver nothing: the undelivered spans hide in the
 plan's non-goals section and in successor plans (a proof landed behind a
 gate whose flip is a non-goal is LANDED, not RELEASED). Read those
 surfaces explicitly before certifying "this delivers value" — certifying
-honesty needs the same evidence discipline as finding faults.
+honesty needs the same evidence discipline as finding faults. And walking
+the bridge beats flagging it: when the runtime proof is within reach
+(start the system, exercise the path end-to-end, observe real output),
+repeatedly flagging the proof as "open" is deferral dressed as diligence
+— tests-green proves the units, never that the assembled running thing
+delivers.
 
 **Instrument and discovery deliverables (2026-06-12 amendment).** Work whose
 purpose is to enable exploration or measurement — an evaluation instrument, a

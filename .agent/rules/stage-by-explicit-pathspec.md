@@ -65,6 +65,15 @@ ambiguous file's diff, never by filename (worked instance 2026-06-13: a
 commit-all-except sweep nearly committed the excluded agent's own napkin
 entry; the diff read caught it).
 
+When a shared index carries a deliberately-staged bundle (e.g. crash-safety
+staging of comms/state files), two resolutions are both owner-sanctioned
+(2026-06-13): commit only the wanted subset by pathspec — the
+`never-use-git-to-remove-work` hook blocks even soft `git restore
+--staged`, so the pathspec-subset commit is the no-restore exclusion, and
+the rest stays staged, untouched — or commit the bundle and acknowledge
+the deliberate extras in the commit body. Do not over-engineer index
+isolation or block on index purity.
+
 The discipline cuts one way only: it never justifies refusing to **run** the
 canonical fix commands (`pnpm format:root`, `pnpm lint:fix`, markdownlint
 fix) in a shared dirty tree. Reformatting a peer's uncommitted file is

@@ -152,6 +152,23 @@ The check runs at compose time — especially under coordination rush,
 where parallel-structure framing feels clean — never left to review
 time.
 
+### Schedule It, Sequence It — No Imaginary Flows
+
+Plans commit to concrete scheduled sequence positions, never conditional
+triggers ("when X ships", "depends on Y future", "tripwire fires on Z").
+Conditional-trigger soup creates the illusion of activation flow while
+quietly stalling; work happens on definite ordering ("after gate-1 lands,
+next sequenced work is Inc.2"), not imagined event chains. Where genuine
+schedule uncertainty exists, name it as a real owner decision needing
+resolution now, not a deferred trigger (owner-ratified 2026-05-11 across
+the plan estate). The ban is on conditional flows standing in for a
+plan's own sequence; three shapes remain legitimate: automatic firing
+conditions for maintenance and meta items whose timing no owner should
+own, `future/` promotion triggers (estate-level selection criteria a
+judging agent evaluates at promotion time, per §Promotion Workflow — not
+activation flows inside a plan body), and intra-plan `depends_on` cycle
+ordering (which IS the definite-sequence shape, not a banned trigger).
+
 ### A Boundary Move Reshapes Every Surface It Lived On
 
 When the owner moves a plan boundary (a non-goal into scope, a scope item

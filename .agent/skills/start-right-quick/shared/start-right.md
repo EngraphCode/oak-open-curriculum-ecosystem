@@ -227,6 +227,14 @@ Bounded exceptions: deep-consolidation, Core-trinity refinement, and
 root-cause investigation sessions. Any other no-landing session is
 drift.
 
+The deep-consolidation and Core-trinity shapes are owner-named, never
+menu items: when offering landing options at session open, list only
+lanes that land code or settle an architectural question. Describe
+consolidation pressure as state ("napkin over threshold") or, when it
+genuinely blocks forward motion, as a blocker — never as an alternative
+lane. The owner names those sessions when they want them; root-cause
+investigation is incident-driven rather than menu-driven.
+
 ## Session Title — `/rename` Suggestion
 
 As soon as the session intent is clear and BEFORE any significant

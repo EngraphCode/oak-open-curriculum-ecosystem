@@ -278,6 +278,17 @@ Before marking the work complete, record:
 
 Invoke each specialist as a read-only sub-agent, giving it specific context about what changed and what to focus on.
 
+When the owner has fixed a direction, brief reviewers on **execution
+legitimacy given that direction**, never on re-validating the closed
+decision: enumerate the owner-fixed decisions (scope, direction, vendor
+choice, blocking relationships) as explicitly out of scope, and reframe
+"is X the right shape?" to "given X is the shape, is the execution
+legitimate?". When a reviewer nonetheless returns a reshape verdict on a
+closed decision, record it as a written disposition (per §Reporting
+Requirement — owner-visible, in case the decision re-opens) and proceed —
+never relay it to the owner as an open question (owner correction
+2026-05-06: "I have already decided we are going this route").
+
 Default reviewer sub-agents to a cheaper model tier (Sonnet-class): reviewer
 passes, spec fetches, and single-question consultations are well-bounded work
 that does not need a premium seat, and concurrent premium seats share one
