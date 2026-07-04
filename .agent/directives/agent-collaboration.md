@@ -299,8 +299,20 @@ window is claim-currency housekeeping that outlives the process, and reading it 
 agent liveness is the F-44 "freshness ≠ liveness" SAFETY bug. A claim itself is an
 **advisory, area-scoped coordination** signal over a mutable area — not the liveness
 (nor presence, nor work-state) surface; those are distinct facets. Stale claims are
-consolidation noise, not blockers. Recipes live in [state conventions][state-conventions] and
-[lifecycle][lifecycle].
+consolidation noise, not blockers.
+
+The claimed **area is a durable, repo-relative, topology-independent identity** —
+which is why claims key on `areas` while file-level mechanical coordination (the
+shared single-checkout index) belongs to the **commit queue**, which keys on
+files. One area-claim therefore serves both permanent topologies — multiple
+agents in one checkout, and multiple agents in separate worktrees — because the
+shared durable artefact is the same in both. Never regress the identity to
+copies: claiming files by absolute worktree path makes the claim
+topology-dependent and hides the shared artefact and merge-overlap it exists to
+surface; the cure for "which copy?" is raising identity to the area, not naming
+the copies. And the claim is **not the seat**: succession and seat-binding
+derive from work-state and role, never from holding a claim. Recipes live in
+[state conventions][state-conventions] and [lifecycle][lifecycle].
 
 ## Bootstrap Fast-Path
 

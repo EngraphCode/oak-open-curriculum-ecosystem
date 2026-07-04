@@ -67,8 +67,8 @@ forward-asks remain.
   the live Director pickup is [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md).
 - **Claims model + agent-work-state (LIVE, owner-gated).** The corrected claims model — a claim is an
   optional, advisory, AREA-scoped signal (NOT files; presence/liveness/work-state/seat re-home to
-  facets) — is live in `agent-collaboration.md` + memory
-  `feedback_claim_is_advisory_area_coordination_not_a_god_object`. **Owner-gated, flagged not edited:**
+  facets) — is live in `agent-collaboration.md` §Identity vs Liveness (topology-independent area
+  identity; absolute-path refusal; claim-is-not-the-seat). **Owner-gated, flagged not edited:**
   PDR-118 (claim-as-anchor superseded by launch-in-worktree, OQ2 amendment); the schema `role` field
   (the one genuine claim-as-seat marker, in tension with "claim is not the seat"); the
   `director-handoff.md` succession liveness gate (safety-critical). **Remaining integration (gated on

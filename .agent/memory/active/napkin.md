@@ -71,3 +71,21 @@ New session observations append below.
 - **Transient `index.lock` cleared itself under the no-contact posture again** (second
   instance this window; C-1 recorded the first). Diagnose-without-touching then retry is
   holding as the correct shape.
+- **Marker regexes must be line-anchored, not bare-word** (post-compaction re-ground): a
+  case-insensitive bare-word sweep for disposition markers false-matched 22 entry files whose
+  *prose* contains words like "disposition A" or "duplicate", under-counting the work-list
+  93 → 71. Markers are line-anchored bold (`**DUPLICATE…`); the sweep regex must anchor on
+  `^\*\*(disposition|duplicate|rejected|routed-to-d|graduated|deferred)`. Third refinement of
+  the same census lesson: the two-generation miss over-counted, the bare-word miss
+  under-counts — the work-list regex is load-bearing state and earns a verification read
+  against a known-unmarked file before trusting its count.
+- **A directive at its fitness line limit met a fold set; the future decomposition plan
+  resolved the split without a new home.** `user-collaboration.md` (214/220) could not absorb
+  four folds; its split_strategy was generic, but
+  `collaboration-directive-decomposition.plan.md` (future) had already named the decision:
+  §Owner Working Style is owner-specific context mis-homed in a nominally portable directive,
+  destination open (repo-local / per-user vs executive memory — possibly an owner decision at
+  its M2). This session took the executive-memory arm as a reversible pre-decision
+  (`.agent/memory/executive/owner-working-style.md`, pointer kept) and surfaced the home
+  choice to the owner at landing. Craft: before inventing a split shape, grep for a plan that
+  has already classified the content.

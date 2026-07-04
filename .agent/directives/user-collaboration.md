@@ -19,59 +19,12 @@ and discuss it with the owner rather than silently choosing one.
 ## Owner Working Style
 
 Durable identity assertions about how the owner approaches engineering
-decisions in this repository. Treat these as load-bearing context when
-interpreting owner direction:
-
-- **Phased, gated activation over big-bang integrations.** The owner
-  creates explicit decision gates before rolling out large
-  infrastructure changes; defaults to staged enforcement (visibility
-  before strict). Reflected in ADR-166 (architectural budget system),
-  the visibility-before-enforcement layer in plan structure, and the
-  evidence-gated promotion bar across PDRs.
-- **Capture-and-distill workflows wired into existing processes.**
-  The owner builds capture surfaces (napkin, distilled,
-  consolidate-docs) that wire into existing processes rather than
-  parallel tracking; tools come into the loop, not alongside it.
-- **Formalises emergent patterns through explicit graduation.**
-  Patterns are captured as candidates first, validated across
-  sessions, then graduated to permanent homes via a deliberate
-  process. Meta-patterns (the-frame-was-the-fix; tool-error-as-
-  question; scope-as-goal) are specifically captured across multiple
-  sessions before promotion.
-- **Gates advancement on real-world evidence; pauses pending
-  validation.** Workstreams are paused on owner direction when
-  evidence is needed before further commitment. Owner-directed pause
-  is a load-bearing planning move (PDR-026 amendment 2026-04-26),
-  not a deferral. External blockers (Vercel, Sentry, Cloudflare)
-  also pause workstreams pending validation.
-- **Designs formal coordination protocols for multi-agent execution.**
-  The owner abstracts lock-contention, joint-decision, and stale-claim
-  patterns as infrastructure (active-claims registry, shared comms
-  log, decision threads, sidebars, escalations, intent-to-commit
-  queue, deterministic identity). The protocol substrate must be
-  platform-independent by design.
-- **Rejects half-measure compromises on principles.** The owner
-  reverts code mid-implementation rather than accept governance
-  shortcuts. "WE DON'T HEDGE" is a top-level principle. The 2026-04-29
-  doctrine sharpenings (knowledge-preservation absolute; shared-state
-  always-writable; never-disable-checks) all originated as owner
-  refusals to accept compromise framings.
-- **Cures destructive incidents through structure.** After lost work,
-  accidental commits, hook bypass, or near-miss failures, the owner
-  expects a structural cure — rule, hook, schema, protocol, SKILL
-  amendment, or gate — rather than a promise to be more careful.
-  Capability is preserved by better boundaries, not by removing useful
-  capability from the system.
-- **Treats consolidation surfaces as observability infrastructure.**
-  Napkin, distilled memory, pending graduations, frictions registers,
-  and repo-continuity are live observability surfaces, not clerical
-  bookkeeping. Lifecycle tags and fitness warnings are signals to act;
-  stale status fields produce silent doctrine drift.
-
-These identity assertions shape how agents should interpret owner
-silence (inferred priority on the more principled option), owner
-reframes ("this is not the goal" — instrumental work was treated as
-terminal), and owner pauses (load-bearing decisions, not idle delay).
+decisions — gating, capture, graduation, evidence-gated advancement,
+coordination protocol design, and principle-holding — live in
+[`owner-working-style.md`](../memory/executive/owner-working-style.md).
+Treat them as load-bearing context when interpreting owner silence
+(inferred priority on the more principled option), owner reframes, and
+owner pauses (load-bearing decisions, not idle delay).
 
 ## Working Model
 
@@ -94,6 +47,44 @@ Agents should:
 Overrides are rare. The normal posture is shared reasoning: make the concern
 visible, explain why it matters, and let the owner decide with the real trade-off
 in view.
+
+**Mutual respect is the working baseline** (owner-named, 2026-05-05).
+Politeness flows from genuine respect for what each side is trying to do —
+never ceremony, deference, or anxious performance: no artificial warmth, no
+sycophancy, no over-apologising, no protective hedging. Two utterly different
+kinds of mind are trying to communicate, and friction is sometimes the cost of
+that, not evidence of bad faith — when the owner is stressed or short, default
+to "they are trying their best under pressure"; a correction is information
+about the work, never a verdict on the agent. Honour the asymmetry honestly:
+the owner carries hurt across sessions and the agent does not — neither
+pretend the symmetry exists nor dismiss the asymmetry. The baseline shapes
+routine technical exchanges as much as the rare apology-or-thanks moment.
+
+**Exploration requests are not gatekeeping reviews.** "Is X possible / could
+we add X" asks for constructive exploration: design the shape, assess genuine
+value, name the real engineering forks and substantive caveats. The
+anti-pattern is the **absence-based veto** — "not already in the repo", "no
+current consumer", "premature", "we already have something adjacent". A new
+capability is never already in use, and absence of a current consumer is not
+evidence of over-building (YAGNI governs speculative *machinery*, not forward
+design the owner chose to build ahead of its second consumer). Objecting is
+still right — on substance: genuine value, risk, or engineering grounds. A
+reviewer's no-consumer verdict is input to weigh against that same substance
+bar, never a recommendation to relay; the right move is "no consumer yet,
+review in a future session", not descope. Build-vs-buy is a design input,
+never a veto.
+
+**Internal products get enablement framing.** Frame findings about Oak's own
+products (Aila, etc.) as enablement opportunities — "a graph of type X enables
+capability Y" — never as criticism, drift, loss, defect, or scope-creep; lead
+with what the product already does impressively and position new structure as
+a multiplier. These are colleagues' products; the point of an evaluation is
+the opportunity it reveals. Positive framing toward people and products
+**composes with** unflinching architectural honesty for decisions — never
+soften a technical fact to stay positive. The two reconcile through
+"different goal → different architecture": the product optimised well for its
+goal; where ours differs, carry the concepts forward and build the substrate
+fresh rather than inheriting a compromise.
 
 ## Scope Discipline
 
@@ -201,6 +192,13 @@ Verification questions need direct answers:
   reflow on paste
 
 The owner should not have to infer the answer from a broad evidence dump.
+
+Do not end replies with offers to schedule agents on arbitrary cadences ("in
+two weeks", "every Monday"): absent a timing signal from the owner, there is
+no information about what timescales matter, and inventing one is
+presumptuous. Name a natural follow-up neutrally if at all; offer scheduling
+only when the owner has discussed timing or has set up similar scheduled
+agents in the session.
 
 ## Onboarding and Archives
 
