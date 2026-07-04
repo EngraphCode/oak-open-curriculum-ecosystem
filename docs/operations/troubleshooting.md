@@ -120,7 +120,9 @@ Static analysers and tooling want **shape and data-flow changes, not runtime
 guards or relocations**, and several report stale or silently-green results:
 
 - CodeQL ReDoS findings need a statically-safe regex shape — a runtime guard
-  around the same regex does not clear them.
+  around the same regex does not clear them. CodeQL also RE-KEYS an alert to
+  a new number when a fix moves the flagged line: a vanished-plus-new alert
+  pair after a refactor is the SAME finding renumbered, not a new finding.
 - SonarCloud findings can be stale snapshots of an older analysis — re-check
   against the current branch state before fixing "live" issues.
 - dependency-cruiser fires on orphan empty barrels (an `index.ts` left behind

@@ -8,7 +8,7 @@ split_strategy: 'Extract growing sections to dedicated governance docs by respon
 
 # Development Practice
 
-**Last Updated**: 2026-02-28  
+**Last Updated**: 2026-07-04  
 **Status**: Active guidance
 
 NEVER disable checks of any kind, ever.
@@ -284,6 +284,21 @@ the current understanding.
   build steps. Say "codegen time" for SDK generation pipeline
   steps, "runtime build" for app compilation. Never use "build
   time" unqualified.
+
+## Code That Generates Code Is Product Code
+
+Codegen, vocab-gen, and generator directories are repeatedly
+misclassified as build-scripts exempt from logger and lint
+discipline, and corrected each time: **a generator's output is
+product code, so the generator is product code** — full `no-console`
+/ logger discipline, lint, and type strictness apply. The
+script-vs-src boundary itself is governed by
+[ADR-168](../architecture/architectural-decisions/168-typescript-6-baseline-and-workspace-script-architectural-rules.md):
+workspace `scripts/` directories sit outside the unit-test surface
+with narrow, declared lint relaxations only (still TypeScript,
+type-checked, and knip-covered); complexity forces promotion into
+`src/`; and the repo root has no scripts zone at all (§5a dissolved
+it — repo validators live in `src/` as tested modules).
 
 ## Related Documentation
 

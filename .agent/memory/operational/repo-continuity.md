@@ -95,8 +95,9 @@ forward-asks remain.
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
 - **Large-corpus analysis — FULL-PROCESSING nearly complete: ws1c + ws1e + ws1f + ws1g +
-  ws1d/E-b1 ALL DONE (2026-07-03, Gust hunts Headwind; commits `6708fb8eb`→`d79b56c63`).**
-  Every rescued-knowledge stratum except tier-E ranks 26–187 now carries per-item disposition
+  ws1d/E-b1 DONE 2026-07-03 (Gust hunts Headwind; commits `6708fb8eb`→`d79b56c63`), E-b2..E-b6
+  DONE 2026-07-04 (Otter hunts Jetty).**
+  Every rescued-knowledge stratum except tier-E ranks 151–187 now carries per-item disposition
   trails: the estate inventory, the 83 unclustered leaves, the meta synthesis notes + banked
   verdict corpus (mechanically mined —
   `data/banked-verdict-structural-mine-2026-07-03.json`), the v2/v1/probe strata (probe
@@ -116,10 +117,12 @@ forward-asks remain.
   troubleshooting); E-b4 22/2/1 (activating-new-rules caution into the oak-eslint README;
   concurrency-clamps-mask-missing-deps into build-system; first reject — the resolved
   stale-repo-name arc); E-b5 23/1/1 (keyof-union silent-trap note into the type-helpers
-  README; reject — the compiler-loud TS-semantics sibling). **SOLE REMAINING WORK: ws1d
-  batches E-b6..E-b8 (62 items, ~25/batch, one commit per batch)** — fresh seat, opener:
+  README; reject — the compiler-loud TS-semantics sibling); E-b6 22/2/1 (generators-are-
+  product-code section into development-practice; CodeQL-re-keying clause into
+  troubleshooting; reject — lint-loud nullish-chain craft). **SOLE REMAINING WORK: ws1d
+  batches E-b7 + E-b8 (37 items: one 25 batch + one 12 batch, one commit per batch)** — fresh seat, opener:
   [`rescued-knowledge-full-processing-session.md`](../../prompts/agentic-engineering/rescued-knowledge-full-processing-session.md)
-  (the plan's ws1d todo carries the E-b6 pickup and worked shape). The set-level acceptance
+  (the plan's ws1d todo carries the E-b7 pickup and worked shape). The set-level acceptance
   fires when ws1d finishes.
   Comms events alone are owner-routed to a separate plan. Then the ws2 topology readiness
   review (folds into the corpus-generalisation Phase 0). Live plan:
@@ -232,7 +235,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Otter hunts Jetty / tier-E drain seat: E-b2..E-b5 executed (de001662d, b6af3e0bd, 1d32ff917, fb29ff2ef, 558f046af + the E-b5 commit); sole remainder E-b6..E-b8 / 2026-07-04 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Otter hunts Jetty / tier-E drain seat: E-b2..E-b6 executed (de001662d, b6af3e0bd, 1d32ff917, fb29ff2ef, 558f046af, 0fd8e57a7 + the E-b6 commit); sole remainder E-b7 + E-b8 / 2026-07-04 (full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |

@@ -594,3 +594,37 @@ New session observations append below.
   verify-on-real-content applies to the cure itself, not just the claim. Also accepted the
   reviewer's out-of-scope catch: ws1c's "rank fields present" contradicted the JSON (rank is
   positional) — fixed in the same bundle.
+
+### E-b6 continuation (2026-07-04, Otter hunts Jetty)
+
+- **E-b6: 22 duplicates / 2 enrichments / 1 reject.** Two enrichments were both
+  repeated-correction classes with NO home until now (generators-are-product-code;
+  CodeQL alert re-keying) — at the thinnest evidence tier the discriminator that
+  worked was "is this a correction the owner/reviewers have had to repeat?", not
+  window/leaf counts.
+- **A stale entry-HEADER survived four review rounds because it sat outside every diff
+  hunk** — repo-continuity's large-corpus header still said "except tier-E ranks 26-187"
+  while the lines I kept updating below it moved through E-b2..E-b5; caught only when a
+  harness file-view showed the whole entry. Lesson: when updating a long entry
+  repeatedly, re-read the ENTRY from its first line before each commit, not just the
+  lines the previous edit touched — diff-context review systematically misses
+  the unchanged-but-invalidated frame above the hunk.
+- **C49-class check: a trajectory entry's endpoint claim can be STALE against the live
+  estate** (knip "blocking on all four surfaces incl. pre-commit" vs troubleshooting's
+  verified "NOT in pre-commit") — for trajectory kills, verify the endpoint against
+  current authority (ADR-121 matrix), never absorb the trajectory's own final frame.
+- **My E-b6 enrichment absorbed the corpus item's STALE frame — the exact failure my own
+  same-batch napkin lesson named.** I wrote "scripts/ is the only deliberate no-checks zone"
+  into development-practice from the corpus text (and from the standing per-user memory), and
+  the reviewer proved it dissolved: ADR-168 §5a removed the root scripts/ zone entirely
+  (validators live in src/ as tested modules), and workspace scripts/ dirs get narrow lint
+  relaxations, never "no checks". Writing the lesson down did not stop me re-enacting it in
+  the SAME batch — corroborates capture-does-not-cure at the within-session distance. Fixed
+  to defer to ADR-168; also deleted the root eslint.config.ts scripts/** carve-out (dead
+  config against a nonexistent directory, gate-verified). FLAG for the memory-drain lane
+  (Stratum C+): per-user memory feedback_scripts_dir_is_no_checks_zone is stale against
+  ADR-168 — needs the same correction at its buffer home.
+- **development-practice.md is over its own declared line limit** (was pre-existing;
+  +new section) — fitness signal to route at the next structure pass, split_strategy
+  declared in its frontmatter; substance was written at full weight per
+  learning-preservation-overrides-fitness.
