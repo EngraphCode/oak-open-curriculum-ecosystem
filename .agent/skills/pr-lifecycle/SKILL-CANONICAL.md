@@ -133,6 +133,13 @@ AND zero unresolved review threads AND the Sonar quality gate passing. Then:
 - An owner grant of merge authority (for example to a team session's
   Director) is per-session, never standing (owner, 2026-06-29); absent a
   fresh grant, the code-owner gate above is the default.
+- **Never run `gh pr merge --delete-branch` while the local checkout carries
+  uncommitted changes**: the flag switches the local checkout to the base
+  branch as cleanup, and with a dirty tree the local fast-forward aborts —
+  the remote merge has already succeeded, leaving the local tree stranded
+  mid-cleanup in a confusing half-switched state (edits preserved but
+  displaced onto the base branch). Commit or relocate local work first, or
+  merge without the flag and delete the branch separately.
 - When merging is authorised, prefer a **merge commit** (`--merge`), never
   squash (standing owner preference, 2026-06-28). Verify the allowed merge
   METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,

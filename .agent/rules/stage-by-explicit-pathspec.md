@@ -56,6 +56,7 @@ Three concrete consequences:
 | "Stage everything I changed" | `git add -A` | `git status --short`, then `git add <each path>` |
 | "Stage every file in this directory" | `git add packages/foo/.` | `git add packages/foo/file-a.ts packages/foo/file-b.ts` |
 | "I already added too much; I want only these paths in this commit" | `git reset` then re-stage | `git commit -F <msg> -- path/to/file` (commit-by-pathspec is the cleanest cure when peer-staged work sits in the index) |
+| "I need to stage MY hunk in a file that also carries a peer's uncommitted WIP" | `git add <file>` (sweeps their WIP) or discarding their edits | `git apply --cached <patch>` with a matching-HEAD-context patch of your hunk — stages your change into the index while leaving the peer's working-tree WIP untouched |
 
 The discipline cuts one way only: it never justifies refusing to **run** the
 canonical fix commands (`pnpm format:root`, `pnpm lint:fix`, markdownlint

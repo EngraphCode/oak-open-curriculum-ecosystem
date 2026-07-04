@@ -628,3 +628,14 @@ New session observations append below.
   +new section) — fitness signal to route at the next structure pass, split_strategy
   declared in its frontmatter; substance was written at full weight per
   learning-preservation-overrides-fitness.
+
+### E-b7 continuation (2026-07-04, Otter hunts Jetty)
+
+- **E-b7: 22 duplicates / 3 enrichments / 0 rejects** — all three enrichments were
+  multi-agent/operational craft with no prior home (merge-flag-on-dirty-checkout hazard;
+  hook-blocked-secrets surgical-jq recipe; git-apply-cached surgical staging). The last one
+  closes the loop on TODAY'S shared-doc sweep: the technique that prevents it now lives in
+  the staging rule's cure table, in the row exactly matching the impulse that caused it.
+- **The coordination-doctrine corpus (PDR-064/101/117/118, worktree-hygiene) absorbed 5+
+  E-b7 items verbatim** — the Director/coordination arcs of May-June are now so thoroughly
+  graduated that their corpus echoes disposition in seconds.

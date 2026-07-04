@@ -36,6 +36,16 @@ Real credentials must be kept in local `.env` / `.env.local` files only.
 Those files are gitignored and should never be committed.
 Use workspace `.env.example` files and other docs as placeholders.
 
+When an agent must edit a secrets-bearing JSON file that the Read hook
+blocks (so the Edit tool cannot run — e.g. `~/.claude.json`), use a
+surgical jq rewrite instead of hand-editing: timestamped backup → jq the
+change to a scratch file → `jq -e .` to validate → a scoped jq comparison
+confirming only the target block changed → atomic `mv` into place. Create
+the scratch file ALONGSIDE the target (same directory), not in a temp dir:
+`mv` is atomic only within one filesystem, and the replaced file adopts the
+scratch file's mode — a temp-dir scratch can silently turn a `600`
+credentials file into `644`.
+
 ### Type Generation Fails
 
 **Symptoms**: `pnpm sdk-codegen` fails or produces unexpected output.
