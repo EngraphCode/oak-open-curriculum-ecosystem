@@ -106,10 +106,15 @@ forward-asks remain.
   worktree-hygiene, precedence-is-not-approval, no-tombstones, register-at-session-open,
   agent-collaboration (the unconditional shared-state-writes doctrine's canonical home),
   invoke-code-experts, PDR-122 (tiered-evidence-reporting amendment), consolidate-docs,
-  troubleshooting, and the frictions register (F-117). **SOLE REMAINING WORK: ws1d batches
-  E-b2..E-b8 (162 items, ~25/batch, one commit per batch)** — fresh seat, opener:
+  troubleshooting, and the frictions register (F-117). E-b2 EXECUTED 2026-07-04 (Otter hunts
+  Jetty, commits `de001662d` + `b6af3e0bd`): 22 duplicates / 3 enrichments (reviewer-conflict
+  authority-scope clause, PR-scoped-for-review clause, corrupted-lockfile diagnostic) / 0
+  rejects, plus the session-emergent ripgrep clustered-replace hook-policy fingerprint (the
+  six-instance recurrence graduated to action-time enforcement). **SOLE REMAINING WORK: ws1d
+  batches E-b3..E-b8 (137 items, ~25/batch, one commit per batch)** — fresh seat, opener:
   [`rescued-knowledge-full-processing-session.md`](../../prompts/agentic-engineering/rescued-knowledge-full-processing-session.md)
-  (refreshed to the E-b2 pickup). The set-level acceptance fires when ws1d finishes.
+  (the plan's ws1d todo carries the E-b3 pickup and worked shape). The set-level acceptance
+  fires when ws1d finishes.
   Comms events alone are owner-routed to a separate plan. Then the ws2 topology readiness
   review (folds into the corpus-generalisation Phase 0). Live plan:
   [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md)
@@ -221,7 +226,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Gust hunts Headwind / full-processing seat: ws1c+ws1e+ws1f+ws1g+E-b1 all executed (6708fb8eb→d79b56c63); sole remainder E-b2..E-b8 / 2026-07-03 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Otter hunts Jetty / tier-E drain seat: E-b2 executed (de001662d + the hook-policy fingerprint b6af3e0bd); sole remainder E-b3..E-b8 / 2026-07-04 (full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |

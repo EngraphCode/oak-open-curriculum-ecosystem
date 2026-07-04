@@ -500,3 +500,12 @@ New session observations append below.
   (verify-on-real-content applies to docs), and this batch hit THREE pipe-masked exit codes in
   one hour (2>/dev/null|jq, |head after grep, echo after pipe) — read the failure surface, never
   the pipeline's exit.
+- **A peer commit (976fb6621, stratum-b handoff) landed mid-window from the shared checkout
+  with NO comms registration, claim, or event** — invisible to my registry read, team-start
+  window, and watcher; discovered only because git log showed a commit I did not make. It
+  carried my in-flight napkin appends, which is the DESIGNED lossless behaviour
+  (first-to-commit commits the whole file; all appends conserved) — nothing lost, no action
+  needed on content. The gap worth noting: an unregistered seat defeats every awareness
+  surface at once; the transient index.lock I hit minutes later resolved itself (lock gone on
+  inspection, no process live) and the queue ceremony resumed cleanly without touching the
+  lock — the no-autonomous-lock-contact posture held and cost nothing.
