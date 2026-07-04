@@ -18,11 +18,13 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/active/claude-memory-buffer-drain.plan.md)
   (`active/`). Mode: `dedicated-knowledge-curation` under
   `/oak-consolidate-until-done`, owner-scoped to the Claude per-user buffer.
-- **Next safe step**: **Stratum C** — alphabetical `feedback_*` batches
-  (~25–30 per loop, smaller is fine; 212 entries remain). Per entry: read the
-  file, read the candidate home, then duplicate (recurrence-checked) /
-  duplicate-with-enrichment / route to Stratum D. Read the index from disk,
-  never the injected copy.
+- **Next safe step**: **Stratum C batch C-2** — alphabetical `feedback_*`
+  batches continue from `feedback_artefact_annotation_is_not_rationale.md`
+  (200 feedback entries remain undispositioned; C-1 processed the 12
+  alphabetically first, through `feedback_arcangel_monitor_pairs_with_comms_monitor`).
+  Per entry: read the file, read the candidate home, then duplicate
+  (recurrence-checked) / duplicate-with-enrichment / route to Stratum D. Read
+  the index from disk, never the injected copy.
 - **Completed prerequisites**: PDR-124 landed + 15 agent descriptions
   converged (`6b7c496ab`); drain plan + Loop 0 landed (`d0003293b`) — index
   reconciled to whole (17 orphan lines appended; directory listing is the
@@ -42,7 +44,18 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   standing decision); **1 kept live**:
   `feedback`-adjacent `project_oak_three_strategic_pillars` → its home is
   `.agent/directives/editorial-tone.md` (a directive; PDR-052 defers the fold
-  to a fresh-context <30% moment — first fold action of a fresh loop).
+  to a fresh-context <30% moment — first fold action of a fresh loop);
+  **Stratum B fully closed 2026-07-04**: the pillars fold landed
+  (`46ff52892`, editorial-tone §"The strategic frame — imply, never state")
+  and the entry retired; **Stratum C C-1 complete 2026-07-04** (`8f788c837`
+  plus one clause via `558f046af` — peer staging race, lossless, provenance
+  in comms): 12 entries dispositioned, 7 duplicates verified, 6 enrichments
+  landed (session-handoff 6e.1 upstream-ref craft;
+  dont-break-build fix-regardless-of-location; testing-patterns flaky-test
+  disposition; stage-by-explicit-pathspec run-the-fix-freely; napkin skill
+  never-withhold; build-system run-vs-construction-verified),
+  docs-adr-expert reviewed pre-commit; index at 192 lines / 234 files, zero
+  unmarked orphans.
 - **Acceptance bar**: the drain plan's five acceptance criteria (every entry
   file dispositioned; index live-only and untruncated; substance conserved;
   per-loop commits green; honest value-and-impact closeout).
@@ -88,6 +101,16 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
+- **2026-07-04 — Mistral holds Cumulus (claude-code / fable-5 / 3cfe8f)**:
+  Stratum C opened (n=2 window with Otter hunts Jetty on the disjoint ws1d
+  tier-E lane, sharing the branch). PDR-052 pillars fold executed as first
+  post-grounding action (`46ff52892`); batch C-1 dispositioned 12 entries
+  (`8f788c837`; one clause landed via the peer's `558f046af`). Coordination
+  notes for successors: a peer's live commit-intent naming a path is a hold
+  on new edits to that path; an intent file-list built from `git status`
+  does not re-check content arriving before `git add` (re-diff `--cached`
+  on shared docs between add and record-staged); one transient `index.lock`
+  cleared itself under the no-contact posture.
 - **2026-07-03 — Ginger guards Xylem (claude-code / fable-5 / 563bfb)**:
   Stratum B executed (n=2 window with Gust hunts Headwind on the disjoint
   salvage lane; Gust closed out mid-session at `2b57fff52`). All 28
@@ -113,3 +136,4 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 | --- | --- | --- | --- | --- | --- | --- |
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
+| Mistral holds Cumulus | claude-code | fable-5 | 3cfe8f | curator | 2026-07-04 | 2026-07-04 |

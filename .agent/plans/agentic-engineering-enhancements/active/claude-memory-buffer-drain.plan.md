@@ -29,8 +29,8 @@ todos:
     content: Disposition 25 project_* and 3 reference_* entries (done 2026-07-03 — 27 retired; 13 duplicates verified in homes, 6 superseded at delete-stakes, 8 enriched/re-homed; 1 kept live pending the PDR-052-gated editorial-tone fold)
     status: completed
   - id: stratum-c-feedback-batches
-    content: Feedback duplicate/enrichment batches, alphabetical, ~25-30 entries/loop (revisable down)
-    status: pending
+    content: Feedback duplicate/enrichment batches, alphabetical, ~25-30 entries/loop (revisable down; C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; next C-2 from feedback_artefact_annotation_is_not_rationale, 200 remain)
+    status: in_progress
   - id: stratum-d-novel-doctrine
     content: Classifier-routed doctrine authoring for uncovered entries; docs-adr-expert per batch
     status: pending
