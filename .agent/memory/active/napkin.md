@@ -540,3 +540,48 @@ New session observations append below.
   read my six dirty files and asked before assuming; commit-intent broadcasts are flowing;
   boundaries disjoint (memory-drain Stratum C vs tier-E drain). The registered-peer contrast
   with this morning's unregistered seat is the protocol working as designed.
+- **First real n=2 shared-DOC sweep, both agents following protocol** — Mistral's
+  build-system.md clause landed in the gap between my pre-stage window check and my git add;
+  their URGENT broadcast arrived seconds after my commit. Outcome: clause conserved intact in
+  my commit (558f046af), named with provenance on comms, their batch record cites my SHA. The
+  protocol gap is precise: intent-broadcast + window-check covers COMMITTED state and queue
+  entries, but a peer's working-tree edit to a shared PRODUCT DOC is invisible to both. Cheap
+  cure adopted for the overlap: re-diff any shared doc in the bundle immediately before
+  git add (memory/state files excepted — they commit whole by doctrine). Candidate general
+  cure if it recurs: the guard step could diff the staged blob against the enqueue-time
+  fingerprint per file and name additions that post-date the intent.
+
+## 2026-07-04 — memory-drain Stratum C batch C-1 (Mistral holds Cumulus)
+
+- **Intent-window race, lossless by convergence:** my working-tree enrichment to a shared doc
+  landed ~30s before a peer's commit-intent broadcast; their status-read→git-add gap swept the
+  clause into their commit (`558f046af`) unnamed, and both agents' warning events crossed
+  mid-window. Nothing lost (append conserved; provenance durably named in the peer's follow-up
+  comms event) but the mechanism is real: an enqueue file-list built from `git status` does not
+  re-check CONTENT arriving between the status read and `git add`, and record-staged
+  fingerprints what IS staged, not what the author reviewed. Cheap cure adopted for the window
+  (both agents): re-run `git diff --cached` on shared docs between add and record-staged; treat
+  a peer's live commit-intent naming a path as a hold on NEW edits to that path. Corollary: an
+  urgent comms event cannot reach a peer inside their commit ceremony (mid-ceremony agents do
+  not drain comms) — never rely on broadcast latency beating a sub-3-minute window.
+- **PDR-052 gate run honestly at fold time:** the pillars fold into editorial-tone.md ran as
+  the session's first post-grounding action (`46ff52892`); the <30% check's input (window size)
+  is not directly observable from inside the session — the check was satisfied on its purpose
+  (full-depth reads of entry + directive + frame, no truncation pressure) and the
+  design-intent reading ("first fold action of a fresh loop"). If a future session can read
+  its true context ratio, run the arithmetic form.
+
+### E-b5 continuation (2026-07-04, Otter hunts Jetty)
+
+- **E-b5: 23 duplicates / 1 enrichment / 1 reject.** The single-leaf tail is now mostly
+  embodied-in-code endpoints (settings.json guardrails, ci.yml fan-in, derived tool-name
+  types, split workflows) — verification shifts from doc-greps to artefact-existence checks.
+  The one enrichment was the silent-failure screen doing its job: C22 (keyof-union
+  intersection, silent) homed; C23 (compiler-loud sibling) rejected — loudness of the failure
+  mode is a good disposition discriminator at this evidence tier.
+- **The hook fingerprint's known FN shape fired in my own hands** — typed a stray `-rn`
+  cluster mid-flag-sequence (harmless, --version short-circuit); "rg -i -rn" strips to a form
+  the r-first fingerprint deliberately does not match (config-expert finding 4(ii), by
+  design). The passive troubleshooting bullet now names the trailing-r shapes; if a trailing-r
+  cluster ever MANGLES real output (rather than twitching harmlessly), extend the policy
+  entry per that finding rather than minting a new concept.

@@ -466,7 +466,10 @@ there unless the owner or closeout owner gives a further assignment.
    source (the git command, the file, the gate output) AS YOU WRITE IT, never from
    memory (`verify-dont-trust` on your own banner). Worked instance 2026-06-07: a
    handoff's "branch unpushed" was false (4 ahead of a live origin) and its
-   executor.ts citations were off — both asserted from memory.
+   executor.ts citations were off — both asserted from memory. For unpushed
+   counts, use the branch's own upstream — `git rev-list --count @{u}..HEAD` —
+   never `origin/main..HEAD`, which counts divergence-from-main: a different
+   and much larger number, misreported at exactly the push-decision moment.
 
    **6e.2 Run the loss-scan from inside your own context — it cannot be delegated.**
    After the categorical edges (6a–6d), sweep *against the grain of "it is all

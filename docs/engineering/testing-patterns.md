@@ -151,6 +151,19 @@ This is the rendered-output specialisation of testing-strategy's "test
 behaviour through public interfaces; assert effects, not internal
 constants". (Owner-corrected twice in one session, 2026-06-29.)
 
+## Flaky-Test Disposition
+
+Evaluate a flaky test before silencing it: is it a good test (describes a
+system state per `tdd-as-design`)? A good-intent test with a fragile,
+environment-coupled assertion gets its **assertion fixed to prove visible
+behaviour** (e.g. strip ANSI and assert the visible text — a colour-support
+split once made the same source green in a no-colour run and red in a colour
+one); a genuinely bad test (proves types, mirrors implementation, tests the
+mock) gets **deleted**. Never skip, retry-wrap, or loosen a flake — the
+wrapper silences the signal without curing the coupling; the only
+dispositions are fix-the-assertion or delete (see
+[`no-skipped-tests`](../../.agent/rules/no-skipped-tests.md)).
+
 ## Acceptance Value-Proxies
 
 Acceptance value-proxies must compare against independent ground-truth

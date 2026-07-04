@@ -57,6 +57,12 @@ Three concrete consequences:
 | "Stage every file in this directory" | `git add packages/foo/.` | `git add packages/foo/file-a.ts packages/foo/file-b.ts` |
 | "I already added too much; I want only these paths in this commit" | `git reset` then re-stage | `git commit -F <msg> -- path/to/file` (commit-by-pathspec is the cleanest cure when peer-staged work sits in the index) |
 
+The discipline cuts one way only: it never justifies refusing to **run** the
+canonical fix commands (`pnpm format:root`, `pnpm lint:fix`, markdownlint
+fix) in a shared dirty tree. Reformatting a peer's uncommitted file is
+cosmetic and safe — the footgun is *staging* it, and this rule is the cure.
+Run the fix freely; protect peers at the staging step.
+
 ## Pre-Stage Re-Ground for Long Sessions
 
 If a session has been running for roughly an hour, or if the all-channel
