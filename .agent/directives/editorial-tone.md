@@ -2,7 +2,7 @@
 title: Editorial Tone of Voice
 type: directive
 status: active
-last_updated: 2026-06-17
+last_updated: 2026-07-04
 ---
 
 # Editorial Tone of Voice
@@ -94,6 +94,27 @@ The audiences this repository writes for:
 
 Add others as a document needs them. The voice qualities and anti-patterns hold
 across every audience; only the emphasis and the entry point change.
+
+## The strategic frame — imply, never state
+
+Oak's strategy stands on three pillars: **supporting schools, supporting
+teachers, and supporting the wider ecosystem** — with "ecosystem" read widely:
+the education sector, edtech, and the AI players' work in education. Oak is
+publicly funded, so providing public goods and services is the obligation and
+the privilege behind the work.
+
+When writing or reviewing audience-facing content, check whether the value
+claim can ladder up to a pillar, and tie the repository's value and impact
+back to the pillars wherever it naturally can. Then **imply, never state**:
+
+- Never quote the pillar formula, the funding rationale, or the
+  obligation-and-privilege line verbatim in published copy. Organise the
+  content so teachers, schools, and the wider ecosystem are visibly served, in
+  that spirit.
+- Prefer ecosystem-framing phrases ("supporting and building on the
+  innovations of the wider ecosystem") over naming specific partner datasets
+  in timeless documents — named sources date the copy and pre-empt
+  owner-shaped source strategy.
 
 ## "We", not "Oak"
 
