@@ -50,7 +50,8 @@ set -- pnpm agent-tools:collaboration-state -- comms watch \
   --seen-file .agent/state/collaboration/comms-seen/<agent-codename>.json \
   --platform <claude|codex|cursor> \
   --model <model-id> \
-  --supervisor-pid "$PPID"
+  --supervisor-pid "$PPID" \
+  --step-timeout-ms 120000
 TIMEOUT_BIN="$(command -v timeout || command -v gtimeout || true)"
 [ -n "$TIMEOUT_BIN" ] && set -- "$TIMEOUT_BIN" 3600 "$@"
 exec "$@"
@@ -114,6 +115,19 @@ the `fs.watch` subscriptions, so a dropped FSEvents subscription delays a wake
 by at most `pollMs` instead of stalling forever. The liveness self-check below
 covers any residual hang path that a deadline cannot reach (a hung process
 cannot exit-non-zero if the hang sits where no deadline is armed).
+
+Under load the deaths concentrate at the drain step, and raising
+`--step-timeout-ms` does not converge — 60s/180s/300s/540s budgets all died
+alike in the 2026-06-12 evidence window (six deaths across two sessions; one
+nine-minute wedge at moderate load on a stable ~3.1k-event dir). Keep the
+step timeout SHORT — the ~120s in the canonical invocation above, an
+order-100s budget as against 300–600s climbs — so wedges die cheap; expect
+deaths in gate-heavy windows and restart on the same seen-file, where the
+mandated post-restart foreground sweep (below) is the recovery path for
+events the dead drain never marked seen. The structural cure —
+batched/incremental drain with per-batch deadlines, or moving the scan off
+the deadline path — is homed in the
+`agent-tooling/current/comms-watch-storage-redesign.plan.md` plan.
 
 ### Liveness self-check (cycle boundaries)
 

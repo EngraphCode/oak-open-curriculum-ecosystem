@@ -58,6 +58,13 @@ Three concrete consequences:
 | "I already added too much; I want only these paths in this commit" | `git reset` then re-stage | `git commit -F <msg> -- path/to/file` (commit-by-pathspec is the cleanest cure when peer-staged work sits in the index) |
 | "I need to stage MY hunk in a file that also carries a peer's uncommitted WIP" | `git add <file>` (sweeps their WIP) or discarding their edits | `git apply --cached <patch>` with a matching-HEAD-context patch of your hunk — stages your change into the index while leaving the peer's working-tree WIP untouched |
 
+An owner exclusion ("commit everything except X's work") is **semantic, not
+path-based**: a shared append-only file that is normally yours to commit can
+carry the excluded agent's in-flight entry. Resolve membership by reading each
+ambiguous file's diff, never by filename (worked instance 2026-06-13: a
+commit-all-except sweep nearly committed the excluded agent's own napkin
+entry; the diff read caught it).
+
 The discipline cuts one way only: it never justifies refusing to **run** the
 canonical fix commands (`pnpm format:root`, `pnpm lint:fix`, markdownlint
 fix) in a shared dirty tree. Reformatting a peer's uncommitted file is

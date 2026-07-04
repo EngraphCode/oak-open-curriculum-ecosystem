@@ -53,3 +53,21 @@ New session observations append below.
   (`06c5b8146`, Otter); distilled empty; open-questions empty; practice inbox empty;
   pending-graduations holds only its two trigger-gated entries; per-user Claude memory drain
   owned by the active drain plan (§Stratum C completion rulings). Nothing further due.
+
+## 2026-07-04 — Stratum C completion session (Hedgehog stirs Rime)
+
+- **Seen-file naming: the convention check I skipped, the mechanical gate caught.** Armed the
+  comms watcher with a kebab-case seen-file; `assert-watcher-live` expects the display-name
+  form (`Hedgehog stirs Rime.json`). The watcher rule says "pre-existing seen-files model the
+  convention" — reading one `ls` of the directory first would have got it right. F-95's
+  mechanical check surfaced it in seconds; re-armed clean. The rule text worked as designed;
+  my miss was not consulting the modelled convention before choosing a name.
+- **Disposition markers exist in two generations; a one-generation regex over-counts the
+  work-list.** A directory-side work-list built from the C-1 bold-uppercase marker shape
+  (`**DUPLICATE…**`) missed nine files carrying Stratum-A-era `**Disposition (…)**` markers
+  and over-counted the remaining census by nine. The index IS the work-list (plan design);
+  any supplementary directory-side sweep must match every marker generation or it
+  manufactures phantom work. Same class as audit-sweep-filters-against-live-referent.
+- **Transient `index.lock` cleared itself under the no-contact posture again** (second
+  instance this window; C-1 recorded the first). Diagnose-without-touching then retry is
+  holding as the correct shape.
