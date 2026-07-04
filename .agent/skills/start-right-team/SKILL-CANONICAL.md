@@ -528,6 +528,16 @@ warden with no contending `git:index/head` claim or queue entry uses the
 lean explicit-pathspec path (`git add -- <paths>` then commit by pathspec) —
 the same value-contingency discipline applied to the commit window.
 
+The warden also owns **coordination-substrate hygiene** (owner direction
+2026-05-23): accumulated comms event files, comms-seen files, the rendered
+shared log, claims and queue archives, handoff records whose claims have
+closed, and memory-state files not under another agent's open claim are
+queued and committed opportunistically when tree-green permits and no
+higher-priority cycle waits. Coordination by-products have no other owner;
+without active warden hygiene they pile up across the session (the founding
+instance: 140+ untracked comms events accumulating while every agent's
+bundle stayed scoped to its own product work).
+
 **Coordinator delegates sub-agent launches.** The coordinator role is
 to **route** work, not to **execute** it. Sub-agent launches —
 Agent-tool invocations of reviewer agents (architecture-expert-fred,
