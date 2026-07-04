@@ -72,6 +72,13 @@ surfacing options to the owner or a peer agent, do not include a
 if it were a legitimate trade-off; presenting it as one is
 itself the failure mode.
 
+The same failure mode has a quieter tell: a deferential opt-out
+clause appended to an answer the principle has already forced,
+reopening the forced answer as if it were a trade-off. When
+excellence has forced the answer there is nothing to surface,
+only something to settle — state the move and the reasoning, and
+settle it.
+
 The doctrine is operationalised through composing structural
 defences:
 
