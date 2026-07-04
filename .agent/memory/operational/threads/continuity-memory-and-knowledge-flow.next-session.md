@@ -105,35 +105,32 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
-- **2026-07-04 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), MID-SESSION WAYPOINT
-  (pre-compaction; session continues)**: Stratum C completion seat. Landed so far: the
-  session-head principles.md unless-tell fold (`b21bafa39`) plus fourteen loop commits
-  (`7920215df` C-2 … `d3e1b6fed` C-15), 107 entries dispositioned first-hand; index 191 → 109
-  lines; **93 `feedback_*` files remain unmarked** — resume point is the alphabetically-first
-  unmarked file (work-list = disk scan for files without
-  Disposition/DUPLICATE/REJECTED/ROUTED-TO-D/GRADUATED/DEFERRED markers; markers exist in TWO
-  generations, match case-insensitively). Docs-adr-expert reviewed every enrichment batch
-  pre-commit. **Partial verdicts held in context for the next three entries (re-verify homes
-  first-hand at pickup)**: `no_masking_of_empty_or_absent_tests` — residuals are
-  mask-removal-and-fill-as-ONE-move and the owner-demonstrated-action-is-a-directive kernel
-  (check never-disable-checks and the test-expert charter before folding);
-  `no_pii_in_tests_delete_on_sight` — residuals are delete-on-sight-never-narrate and
-  fake-values-with-DI (check no-machine-local-paths rule + testing-strategy);
-  `no_plus_sign_in_prose` — unhomed markdown-authoring craft (candidate:
-  development-practice's markdown-authoring bullets; the MD004 dash-pin half is landed
-  tooling). **PDR-052-deferred directive folds** (next fresh-context boundary or successor
-  head; each entry file carries a DEFERRED marker with the fold spec): metacognition
-  stance-family {overcorrection-swing via consolidate_estate; dont_defend_status_quo;
-  learning_frame}; user-collaboration {explore_means, frame_product, mutual_respect,
-  no_arbitrary_schedule}; agent-collaboration {claim_is_advisory topology clauses PLUS the
-  repo-continuity claims-model line that cites that memory as co-home; cursor_multitask via
-  the planned channels extraction}. **Stratum-D queue** (ROUTED-TO-D markers, lines live):
-  build_vs_buy; the cowpath + design_from_substrate + inherited_separation rule unit;
-  crosswalk pattern; derive_controlled_surface pattern; graphs_as_method (feeds the OQ-10
-  markdown-to-graph inversion ADR). Coordination: solo window, curator claim open, watcher
-  live (re-armed once at its 3600s backstop; re-verify with assert-watcher-live after any
-  boundary), heartbeat under the PDR-078 s4 consumer-absent exemption; one transient foreign
-  index.lock cleared itself under the no-contact posture.
+- **2026-07-04 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), MID-SESSION WAYPOINT 2
+  (post-compaction; session continues)**: Stratum C completion seat. Landed: the session-head
+  principles.md unless-tell fold (`b21bafa39`), loops C-2…C-15 (`7920215df`…`d3e1b6fed`, 107
+  entries), then post-compaction ALL NINE PDR-052-deferred directive folds executed at the
+  fresh boundary (`e8b3eb986` — metacognition §Stance Under Correction; user-collaboration
+  gained four folds with §Owner Working Style extracted to
+  `.agent/memory/executive/owner-working-style.md` (home choice surfaced to the owner as a
+  reversible pre-decision per the decomposition plan's flagged M2 call); agent-collaboration
+  claims-model residual; repo-continuity repoint; channels-card platform-orchestrator handoff
+  with Cursor 3.2 re-verification) plus loops C-16…C-21 (`74eaecd6b`, `d39bd05bc`,
+  `04fe9944c`, `5447a3e82`, `3ec41b8ed`, `aba5b72cd`), 41 more entries dispositioned
+  first-hand; index at 62 lines; **52 `feedback_*` files remain unmarked** — resume at the
+  alphabetically-first unmarked file (work-list = disk scan for files without
+  LINE-ANCHORED case-insensitive markers `^\*\*(disposition|duplicate|rejected|routed-to-d|`
+  `graduated|deferred)` — a bare-word grep false-matches prose and under-counts).
+  Docs-adr-expert reviewed every batch pre-commit. **Routing constraints**:
+  user-collaboration.md sits 7 content-lines under its fitness hard limit — the NEXT fold
+  targeting it executes its split_strategy first; deferred-to-that-fold-set entries (DEFERRED
+  markers, lines live): no_ritual_framing, owner_direction_is_a_stream,
+  owner_direction_scope. **Stratum-D queue** (ROUTED-TO-D markers, lines live): build_vs_buy;
+  the cowpath + design_from_substrate + inherited_separation rule unit; crosswalk pattern;
+  derive_controlled_surface pattern; graphs_as_method (feeds the OQ-10 markdown-to-graph
+  inversion ADR). Coordination: solo window, curator claim open (refresh if past its
+  fresh_until), watcher live (re-armed twice at the 3600s backstop, same seen-file;
+  re-verify with assert-watcher-live after any boundary), heartbeat under the PDR-078 s4
+  consumer-absent exemption.
 
 - **2026-07-04 — Mistral holds Cumulus (claude-code / fable-5 / 3cfe8f)**:
   Stratum C opened (n=2 window with Otter hunts Jetty on the disjoint ws1d
