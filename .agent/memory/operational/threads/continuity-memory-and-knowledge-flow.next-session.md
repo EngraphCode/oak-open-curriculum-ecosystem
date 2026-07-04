@@ -105,6 +105,36 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
+- **2026-07-04 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), MID-SESSION WAYPOINT
+  (pre-compaction; session continues)**: Stratum C completion seat. Landed so far: the
+  session-head principles.md unless-tell fold (`b21bafa39`) plus fourteen loop commits
+  (`7920215df` C-2 … `d3e1b6fed` C-15), 107 entries dispositioned first-hand; index 191 → 109
+  lines; **93 `feedback_*` files remain unmarked** — resume point is the alphabetically-first
+  unmarked file (work-list = disk scan for files without
+  Disposition/DUPLICATE/REJECTED/ROUTED-TO-D/GRADUATED/DEFERRED markers; markers exist in TWO
+  generations, match case-insensitively). Docs-adr-expert reviewed every enrichment batch
+  pre-commit. **Partial verdicts held in context for the next three entries (re-verify homes
+  first-hand at pickup)**: `no_masking_of_empty_or_absent_tests` — residuals are
+  mask-removal-and-fill-as-ONE-move and the owner-demonstrated-action-is-a-directive kernel
+  (check never-disable-checks and the test-expert charter before folding);
+  `no_pii_in_tests_delete_on_sight` — residuals are delete-on-sight-never-narrate and
+  fake-values-with-DI (check no-machine-local-paths rule + testing-strategy);
+  `no_plus_sign_in_prose` — unhomed markdown-authoring craft (candidate:
+  development-practice's markdown-authoring bullets; the MD004 dash-pin half is landed
+  tooling). **PDR-052-deferred directive folds** (next fresh-context boundary or successor
+  head; each entry file carries a DEFERRED marker with the fold spec): metacognition
+  stance-family {overcorrection-swing via consolidate_estate; dont_defend_status_quo;
+  learning_frame}; user-collaboration {explore_means, frame_product, mutual_respect,
+  no_arbitrary_schedule}; agent-collaboration {claim_is_advisory topology clauses PLUS the
+  repo-continuity claims-model line that cites that memory as co-home; cursor_multitask via
+  the planned channels extraction}. **Stratum-D queue** (ROUTED-TO-D markers, lines live):
+  build_vs_buy; the cowpath + design_from_substrate + inherited_separation rule unit;
+  crosswalk pattern; derive_controlled_surface pattern; graphs_as_method (feeds the OQ-10
+  markdown-to-graph inversion ADR). Coordination: solo window, curator claim open, watcher
+  live (re-armed once at its 3600s backstop; re-verify with assert-watcher-live after any
+  boundary), heartbeat under the PDR-078 s4 consumer-absent exemption; one transient foreign
+  index.lock cleared itself under the no-contact posture.
+
 - **2026-07-04 — Mistral holds Cumulus (claude-code / fable-5 / 3cfe8f)**:
   Stratum C opened (n=2 window with Otter hunts Jetty on the disjoint ws1d
   tier-E lane, sharing the branch). PDR-052 pillars fold executed as first
@@ -141,3 +171,4 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
 | Mistral holds Cumulus | claude-code | fable-5 | 3cfe8f | curator | 2026-07-04 | 2026-07-04 |
+| Hedgehog stirs Rime | claude-code | fable-5 | da727a | curator | 2026-07-04 | 2026-07-04 |
