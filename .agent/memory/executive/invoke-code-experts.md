@@ -105,6 +105,20 @@ counts only when the lenses were genuinely distinct and the brief non-leading
 (`non-leading-reviewer-prompts`); convergence on a shared handed premise
 counts for nothing.
 
+**Conflicting verdicts resolve by authority scope, not reviewer tier.** A
+domain specialist (`sentry-expert`, `mcp-expert`, `elasticsearch-expert`,
+`clerk-expert`, ...) has final say over generalist architecture reviewers on
+the domain's SDK/vendor semantics — the generalists stay authoritative on repo
+boundaries and structure. When two generalists give opposite *lens-correct*
+verdicts (strict-decision-record compliance vs simplification), the conflict
+usually lives in the governing ADR/PDR, not the reviewers: amend the decision
+record to the position the evidence supports, then re-review against it. An
+always-applied Practice rule outranks any reviewer verdict
+(`rules-have-no-exceptions`). And when opposing verdicts can be settled by a
+cheap first-hand check, run the check before adjudicating — reviewer
+contradiction is a gift (a 2026-07-02 panel's opposite claims about an
+exported function were settled by one direct read of the source).
+
 ## Delegation Snapshot
 
 Every bounded reviewer or worker lane should receive this minimum snapshot:

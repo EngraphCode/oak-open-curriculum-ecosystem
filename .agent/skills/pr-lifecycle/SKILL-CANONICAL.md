@@ -38,6 +38,11 @@ merged with every finding genuinely settled
    re-run gates just to re-confirm it.
 3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
    its first commit (`worktree-hygiene` §1); this skill takes it to ready.
+4. **Scope the PR for review, not for tidiness**: an artefact that invites
+   deep review in its own right (a forward-design plan, a doctrine rewrite)
+   bundled into a closeout PR multiplies asynchronous bot-review rounds
+   without bound (a worked instance ran 5+ rounds before the bundle was
+   split); give such an artefact its own PR with its own review story.
 
 ## Phase 2 — Open with a reviewer-facing description
 

@@ -135,6 +135,11 @@ relocations**, and several report stale or silently-green results:
   scaffold, or full-tree knip blocks the next committer.
 - `rg` / `fd` skip dotdirs by default — pass `--hidden` when sweeping
   `.agent/` or other dot-directories, and mind `rg -r` (replace) vs `-n`.
+  The replace flag also hides inside clusters at ANY position: `-riln`
+  parses as `--replace iln`, and `-inr`/`-ilr` parse as `-i -n --replace …`
+  — both silently rewrite match output. Spell flags separately; the Bash
+  hook policy fingerprints the r-first cluster shape (the observed one),
+  not the trailing-r shapes, so those still rest on this habit.
 
 ### Lockfile desync via pnpm overrides
 
@@ -148,6 +153,18 @@ because no local gate runs a frozen install; CI's
 (`ERR_PNPM_OUTDATED_LOCKFILE`, worked instance: esbuild vs the `>=0.28.1`
 floor, PR #296). Cure: run `pnpm install` and commit the lockfile; when
 adding a direct dep, grep the overrides for its name first.
+
+A lockfile can also be outright corrupted rather than desynced — a bad merge
+once left two concatenated YAML documents in `pnpm-lock.yaml`, surfacing as a
+baffling remote (Vercel) build failure that invited runtime-shaped
+speculation. When a remote build fails mysteriously, check the lockfile is a
+single YAML document first: `grep -n '^---' pnpm-lock.yaml` — a healthy pnpm
+lockfile has no document separator, so ANY hit means concatenated documents
+(this repo's parsers, node `yaml` and python `pyyaml`, are not resolvable at
+the root, so the grep is the dependency-free check). Do NOT use
+`pnpm install` as the parse check: on this exact corruption it prints
+`WARN Ignoring broken lockfile`, exits 0, and silently REWRITES the lockfile
+— a false pass that also destroys the diagnostic evidence.
 
 ### Type-check undercounts a migration surface
 

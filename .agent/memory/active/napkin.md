@@ -473,3 +473,30 @@ New session observations append below.
   read-does-not-cure are both now measured; the cure is action-time (a hook fingerprint on
   `rg\s+-[a-z]*r` in Bash tool input, or agent habit `--replace=` never bare `-r`). Routing to
   the hook-policy/action-time lane this session.
+- **rg clustered-replace cure LANDED as a hook-policy entry** (same session as the fifth/sixth
+  instances above): Bash preToolUse blocked-pattern with concept silent-output-mangling +
+  teaching reappraisal, paired with integration tests (clustered and bare short forms blocked;
+  separated flags and the explicit long form pass). The policy is runtime-loaded so no rebuild
+  needed. This is the capture→enforce edge closing on a six-instance recurrence; watch for the
+  block firing (each firing is the cure working, not new recurrence).
+- **candidateId is NOT unique across corpora** — E-b2's C34 (vitest-config E2E leak) is a
+  different candidate from ws1g's v2 C34 (worktree isolation). IDs are per-run; always judge an
+  entry on its own pattern text, never on a remembered verdict for the same ID.
+- **E-b2 profile matched E-b1 exactly (22 duplicates / 3 enrichments / 0 rejects)** — the
+  rank-ordering prediction held at ranks 26-50; several "duplicates" are homes BUILT from these
+  very arcs (ADR-144 from the advisory drift, pr-lifecycle from PR #296), so tier E is largely
+  the discovery pipeline re-finding the estate's own formation history. No fires-despite-home
+  routing (temporal qualifier: instances pre-date homes).
+- **Comms watcher died at the drain-step 60s deadline mid-session and failed LOUD** (WATCHER
+  ERROR kind=timeout via Monitor notification); re-arm + assert + gap sweep took under a minute
+  with zero missed events (seen-file cursor). Falsifiability datapoint for the fail-loud watch
+  design: the silent-stall class stayed cured under real failure.
+- **A reviewer empirically falsified my documented diagnostic command before it landed** —
+  docs-adr-expert reproduced the two-document lockfile corruption in the scratchpad and proved
+  my suggested check (a pnpm lockfile-only install) WARNs, exits 0, and silently rewrites the
+  corrupt lockfile (false pass + evidence destroyed). My replacement example then failed too
+  (no yaml parser resolvable at root) until a dependency-free grep for the document separator
+  proved out on the real lockfile. Lesson pair: run every example command you document
+  (verify-on-real-content applies to docs), and this batch hit THREE pipe-masked exit codes in
+  one hour (2>/dev/null|jq, |head after grep, echo after pipe) — read the failure surface, never
+  the pipeline's exit.
