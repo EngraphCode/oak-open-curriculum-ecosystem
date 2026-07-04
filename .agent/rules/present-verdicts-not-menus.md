@@ -129,7 +129,11 @@ the same judgement you would apply if no owner were present:
 2. Ask whether you would actually take that option yourself.
 3. Remove every option you would refuse to take.
 4. Count the survivors:
-   - **Zero**: keep analysing; you do not yet have a viable action.
+   - **Zero**: keep analysing; you do not yet have a viable action. When
+     zero arises because every variant presupposes a freshly-forbidden
+     pattern, the question is never "which violation" — it is "how does
+     the work-shape adopt the new insight": reshape the workstream rather
+     than asking the owner to authorise a violation.
    - **One**: state the verdict and invite correction, not selection.
    - **Two or three**: `AskUserQuestion` is legitimate if the choice still
      belongs to the owner under the legitimate-use criteria above.

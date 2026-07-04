@@ -152,6 +152,16 @@ The check runs at compose time — especially under coordination rush,
 where parallel-structure framing feels clean — never left to review
 time.
 
+### A Boundary Move Reshapes Every Surface It Lived On
+
+When the owner moves a plan boundary (a non-goal into scope, a scope item
+out), it is never a single-spot patch: search the artefact for every
+assertion the old boundary was holding up — non-goals, definition-of-done,
+end-state, risks, lifecycle, owner-scope — and move them coherently, then
+report the blast radius transparently when the ask named only one section.
+Editing only the named section leaves live contradictions on every other
+surface the old boundary touched.
+
 ### Disposition Ledger For "Apply All Of X" Inputs
 
 When a plan's input is *"apply all of X"* — every audit finding,

@@ -181,6 +181,18 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    An unlanded case MUST propagate to step 2's `Next safe step` so
    the commitment persists across the session boundary.
 
+   When the landing completes (or archives) a plan, analyse its user
+   stories rather than blind-copying or dropping them: disposition each
+   as **served** (conserve its value-narrative — the "so that…" clause
+   naming who benefits and to what end — into the permanent home: the
+   skill description, the ADR Context section, the README purpose line),
+   **deferred** (carry forward as intent), or **obsoleted** (record as a
+   learning, never harvest as if true). Delivered work has three
+   knowledge layers — that it works, how it works, why it matters — and
+   archival reliably conserves the first two while dropping the third;
+   the why is the most valuable and most easily lost layer (owner
+   direction 2026-06-22).
+
 2. **Refresh the canonical continuity contract.** Update
    `.agent/memory/operational/repo-continuity.md` using its documented field set:
 

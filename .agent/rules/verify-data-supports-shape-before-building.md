@@ -16,7 +16,7 @@ system, contract, or governing plan supports.
 ## Action
 
 Before building or shaping, verify the data actually supports the intended shape.
-Three recurring faces:
+Recurring faces:
 
 - **Trace value end-to-end before designing a tool or feature.** Walk the user
   journey and the value it delivers hop by hop, and at each hop ask "does the data
@@ -39,6 +39,15 @@ Three recurring faces:
   cite the plan text, ADR, PDR, schema, or data fact that assigns that role. If
   the rationale has to be invented from generic ecosystem knowledge, strike the
   surface instead of justifying it.
+- **Verify cardinality before treating a present key as identity.** A field
+  present on every record is a content key, not automatically a unique node
+  identity: check whether uniqueness is *guaranteed* by the source contract or
+  merely observed in the current snapshot — observed-unique is the trap, since
+  the model then corrupts silently on the rare multi-placement case. Separate
+  entity identity (a stable, authoritative id) from placement or membership,
+  which is a relationship/edge, never part of identity (worked instance
+  2026-06-04: a lesson can be placed in more than one unit, so a lesson slug
+  is not a guaranteed identity and unit-membership is an edge).
 
 If the data, contract, or governing plan does not support the shape, the shape
 is wrong — correct it at the data contract, governing plan, or design; do not

@@ -194,8 +194,10 @@ gate surface, this rule's zero-warning requirement applies unchanged.
 ## Cross-references
 
 - Pattern: `acknowledged-warnings-deferred-to-the-stage-they-explode-in`
-  (napkin 2026-04-23, first hard instance; pattern file pending
-  promotion at instance #2 per the existing pattern-bar).
+  (napkin 2026-04-23, first hard instance; no pattern file yet — the
+  napkin archive is the record. Graduation-eligible per PDR-100's
+  single-instance bar; this rule already carries the doctrine, so the
+  pattern file adds value only if the shape recurs outside warnings).
 - Adjacent: `passive-guidance-loses-to-artefact-gravity`
   (`patterns/passive-guidance-loses-to-artefact-gravity.md`) —
   why prose about warnings does not survive without an

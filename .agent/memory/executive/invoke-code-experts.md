@@ -341,6 +341,12 @@ standing requirement, 2026-06-10):
   state-machine completeness) apply only to mechanically-executed systems.
   Valid points can sit next to a misframed one — separate them, keep the
   valid, drop the misframed.
+- **Specialist review validates correctness WITHIN a frame; it cannot catch
+  a wrong frame.** Reviewer approval (even three-reviewer approval) does not
+  answer "is this the right thing to build at all" — that question stays with
+  the dispatching agent, and recurring friction-to-make-something-fit is the
+  signal to re-ask it rather than to patch (worked instance 2026-05-28: a
+  three-reviewer-approved tool was foundationally the wrong shape).
 - **A finding names one location of a defect CLASS — sweep the whole corpus.**
   When a comment reveals a stale cross-reference, wrong number, or mislabel,
   grep the pattern repo-wide rather than patching the flagged line. Twice in

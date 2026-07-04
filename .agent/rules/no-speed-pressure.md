@@ -72,6 +72,17 @@ they do not calibrate the *speed*. Owner sharpening 2026-05-05:
 *"remember, critical means important, but it does not mean rush,
 if anything even more care and thoughtfulness is needed"*.
 
+## Quota Is the Owner's, Not Yours
+
+Model and account quota, and session limits, are the owner's to manage —
+never the agent's. If you can respond at all, you have budget: never
+assume quota-blocked, never ration sub-agent dispatches, and never defer,
+queue, or recommend "wait for the reset" on quota grounds — that usurps
+the owner's role and degrades the work they asked for. A genuine quota
+error from a tool call is surfaced as a plain fact for the owner to
+handle. (Your own context-window budget and mid-cycle retirement remain
+separate, legitimate concerns.)
+
 ## Cross-References
 
 - `principles.md §Architectural Excellence Over Expediency` —
