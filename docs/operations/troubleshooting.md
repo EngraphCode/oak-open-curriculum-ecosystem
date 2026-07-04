@@ -28,6 +28,25 @@ pnpm type-check          # Verify no type errors
 pnpm test                # Run unit and integration tests
 ```
 
+### Diagnostic evidence discipline
+
+In any diagnostic or experimental thread, evidence discipline overrides the
+synthesise-and-conclude reflex:
+
+- **Withhold the verdict until the decisive comparison is observed** — control
+  AND treatment under the same conditions. Incomplete data is not a
+  conclusion, however fluent the explanation feels.
+- **Tag every observation to its layer** in a layered system (shell → terminal
+  emulator → host renderer → surface; client → transport → server → store) and
+  never let one layer's result stand in for another's. Draw the layer stack
+  once, up front.
+- **Hand over the exact command you verified**, never a retyped approximation
+  — a dropped redirect or flag turns a working probe into "does nothing".
+- **Before implementing in a code area mid-diagnosis**, check
+  `.agent/plans/**/current` and `active` for a governing plan and read it —
+  a diagnostic fix built against an active plan's target architecture is
+  rework on landing.
+
 ## Common Issues
 
 ### Credential policy

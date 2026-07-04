@@ -33,7 +33,11 @@ Generic confirmations like "done", "still true", "looks good", "green",
 Reviewer output is also evidence to test, not another substrate pointer to
 trust. When absorbing reviewer findings, verify the highest-stakes claims
 against live artefacts, identify reviewer blind spots, and then decide what to
-absorb.
+absorb. Convergence is not a substitute: N reviewers independently surfacing
+the same shape can be N agents inventing the same optionality — convergence
+raises scrutiny, it never waives it (worked instance 2026-06-27: four
+reviewers converged on a "graceful-degradation floor" the owner killed as
+invented optionality).
 
 Fix verification must also return to the original defect location. A patch that
 adds intended cure text elsewhere but leaves the contradicting source text in
