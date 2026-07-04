@@ -119,3 +119,14 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
   blame-ambiguity accepted to prevent logjams; first-to-commit-commits-whole-file tiebreaker |
   trigger: next consolidation pass or the next Practice-hydrating repo needing the doctrine |
   size: S | status: pending]`
+
+- **Sequence-first over smallest-first shipping (owner reframe)** —
+  `[captured: 2026-07-04 | source: tier-E drain E-b8 item C230 (single corpus window): the
+  owner reframed "smallest impactful thing to ship first" as sequence-first — the full
+  interface, architectural home, and envelope exist from day one and only implementation
+  timing varies — accepting roughly 10-15 percent more total work for earlier first delivery
+  without future drift | target: PDR-018 amendment (planning discipline) | trigger: owner
+  ratification that the sequence-first reframe is standing doctrine — owner direction is
+  session-scoped until declared standing, and this reframe is known only from one corpus
+  window; PDR-101's reviewer quorum then applies at minting time as it does to every
+  graduation | size: S | status: pending]`

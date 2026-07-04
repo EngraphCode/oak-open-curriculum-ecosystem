@@ -2,6 +2,14 @@
 full-processing sessions (ws1d batches E-b2..E-b8 — the arc's sole remaining work).
 Not doctrine; a pasteable opener. -->
 
+> **CONSUMED — do not paste again.** The full-processing arc completed
+> 2026-07-04 (Otter hunts Jetty): ws1d batches E-b2..E-b8 all executed, tier E
+> 187/187 dispositioned, the ws1d todo completed, and the mandate's set-level
+> acceptance verified in the plan status line. The successor work is the ws2
+> topology readiness review, which folds into the corpus-generalisation
+> Phase 0 design session (see the corpus-analysis-salvage-and-topology-redesign
+> plan status and the agentic-engineering-enhancements thread record).
+
 # Rescued-Knowledge Full Processing (ws1d E-b2..E-b8) — Session Opener
 
 ## Paste this

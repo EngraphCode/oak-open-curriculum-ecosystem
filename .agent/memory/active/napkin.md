@@ -639,3 +639,22 @@ New session observations append below.
 - **The coordination-doctrine corpus (PDR-064/101/117/118, worktree-hygiene) absorbed 5+
   E-b7 items verbatim** — the Director/coordination arcs of May-June are now so thoroughly
   graduated that their corpus echoes disposition in seconds.
+
+### E-b8 FINAL batch and ws1d completion (2026-07-04, Otter hunts Jetty)
+
+- **E-b8: 11 duplicates / 1 routed / 0 rejects — TIER E DRAIN COMPLETE (187/187), ws1d
+  todo completed, set-level acceptance verified.** The one routed item (C230 sequence-first
+  owner reframe) is the register's designed use: owner-ratified once but SESSION-SCOPED until
+  the owner declares it standing — trigger-gated capture in pending-graduations IS the
+  disposition. The reviewer corrected my first framing of this, which had re-manufactured the
+  abolished wait-for-a-second-instance gate and mis-cited PDR-101 (a reviewer-quorum protocol
+  at minting time, never an evidence bar) — against the promote-on-first-instance owner
+  direction my own E-b2 record cites. Owner-direction SCOPE is the honest constraint;
+  evidence-count gates stay abolished.
+- **Whole-drain shape (E-b2..E-b8, 162 items, one session):** 145 verified duplicates /
+  13 enrichments (counting split-facets once) / 3 rejects / 1 routed — an ~8% genuine-value
+  yield from the kill tier, concentrated in operational craft and workspace surfaces the
+  doctrine corpus never covered. The rank ordering tracked value: enrichment density stayed
+  roughly flat but shifted character (doctrine nuances at high ranks → ops/workspace gotchas
+  at low ranks). The discovery pipeline's kills were overwhelmingly RIGHT about doctrine
+  (the estate had it) and wrong mostly about operational gotchas (nobody had homed them).

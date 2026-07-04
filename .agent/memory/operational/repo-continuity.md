@@ -94,22 +94,22 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — FULL-PROCESSING nearly complete: ws1c + ws1e + ws1f + ws1g +
-  ws1d/E-b1 DONE 2026-07-03 (Gust hunts Headwind; commits `6708fb8eb`→`d79b56c63`), E-b2..E-b7
-  DONE 2026-07-04 (Otter hunts Jetty).**
-  Every rescued-knowledge stratum except tier-E ranks 176–187 now carries per-item disposition
+- **Large-corpus analysis — FULL-PROCESSING COMPLETE 2026-07-04: every workstream executed
+  and the set-level acceptance verified** (ws1c/e/f/g + E-b1 2026-07-03, Gust hunts Headwind,
+  `6708fb8eb`→`d79b56c63`; E-b2..E-b8 2026-07-04, Otter hunts Jetty — tier E 187/187).
+  Every rescued-knowledge stratum now carries per-item disposition
   trails: the estate inventory, the 83 unclustered leaves, the meta synthesis notes + banked
   verdict corpus (mechanically mined —
   `data/banked-verdict-structural-mine-2026-07-03.json`), the v2/v1/probe strata (probe
   containment proof banked at `data/probe-supersession-proof-2026-07-03.json`,
-  code-expert-re-tiered pre-banking), and tier-E batch E-b1. Calibration outputs route to the
+  code-expert-re-tiered pre-banking), and tier E in full (E-b1..E-b8, 187/187). Calibration outputs route to the
   generalisation plan's P0 agenda; graduations landed across verify-dont-trust, use-monitor,
   worktree-hygiene, precedence-is-not-approval, no-tombstones, register-at-session-open,
   agent-collaboration (the unconditional shared-state-writes doctrine's canonical home),
   invoke-code-experts, PDR-122 (tiered-evidence-reporting amendment), consolidate-docs,
-  troubleshooting, and the frictions register (F-117). E-b2..E-b4 EXECUTED 2026-07-04 (Otter
-  hunts Jetty, commits `de001662d` + `b6af3e0bd` + `1d32ff917` + `fb29ff2ef` + the E-b4
-  commit): E-b2 22/3/0
+  troubleshooting, and the frictions register (F-117). E-b2..E-b8 EXECUTED 2026-07-04 (Otter
+  hunts Jetty; commits `de001662d`, `b6af3e0bd`, `1d32ff917`, `fb29ff2ef`, `558f046af`,
+  `0fd8e57a7`, `f0b754f9c`, `1be79fa62` + the E-b8 commit): E-b2 22/3/0
   (reviewer-conflict authority-scope clause, PR-scoped-for-review clause, corrupted-lockfile
   diagnostic) plus the session-emergent ripgrep clustered-replace hook-policy fingerprint (the
   six-instance recurrence graduated to action-time enforcement); E-b3 23/2/0 (stale-deployment
@@ -121,14 +121,16 @@ forward-asks remain.
   product-code section into development-practice; CodeQL-re-keying clause into
   troubleshooting; reject — lint-loud nullish-chain craft); E-b7 22/3/0 (merge-flag-on-dirty-
   checkout hazard into pr-lifecycle; hook-blocked-secrets surgical-jq recipe into
-  troubleshooting; git-apply-cached surgical-staging row into stage-by-explicit-pathspec).
-  **SOLE REMAINING WORK: ws1d
-  batch E-b8 (ranks 176-187, 12 items, one commit)** — fresh seat, opener:
-  [`rescued-knowledge-full-processing-session.md`](../../prompts/agentic-engineering/rescued-knowledge-full-processing-session.md)
-  (the plan's ws1d todo carries the E-b8 pickup and worked shape). The set-level acceptance
-  (inventory re-run) fires when E-b8 lands.
-  Comms events alone are owner-routed to a separate plan. Then the ws2 topology readiness
-  review (folds into the corpus-generalisation Phase 0). Live plan:
+  troubleshooting; git-apply-cached surgical-staging row into stage-by-explicit-pathspec);
+  E-b8 11/0/0 + 1 routed (C230 sequence-first owner reframe → pending-graduations as a
+  trigger-gated PDR-018 amendment candidate). Whole-drain yield: 145 duplicates / 13
+  enrichments / 3 rejects / 1 routed — the kills were overwhelmingly right about doctrine
+  and wrong mostly about unhomed operational craft. **ws1d COMPLETE and the set-level
+  acceptance VERIFIED (the inventory re-run is recorded in the plan status line); the
+  rescued-knowledge full-processing arc is closed.**
+  Comms events alone are owner-routed to a separate plan. SOLE REMAINING WORK IN THE PLAN:
+  the ws2 topology readiness
+  review (fresh seat; folds into the corpus-generalisation Phase 0). Live plan:
   [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md)
   (§Full-processing mandate carries the owner direction, acceptance, and method invariants).
   The run's doctrine lessons remain graduated
@@ -238,7 +240,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Otter hunts Jetty / tier-E drain seat: E-b2..E-b7 executed (de001662d, b6af3e0bd, 1d32ff917, fb29ff2ef, 558f046af, 0fd8e57a7, f0b754f9c + the E-b7 commit); sole remainder E-b8 (12 items) / 2026-07-04 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Otter hunts Jetty / tier-E drain seat: E-b2..E-b8 ALL executed, ws1d COMPLETE, acceptance verified (de001662d, b6af3e0bd, 1d32ff917, fb29ff2ef, 558f046af, 0fd8e57a7, f0b754f9c, 1be79fa62 + the E-b8 commit); plan remainder = ws2 readiness review only / 2026-07-04 (full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
