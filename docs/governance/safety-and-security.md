@@ -93,6 +93,31 @@ export function scrubEmailLikeValue(value: string): string {
 }
 ```
 
+### PII in the Repository Estate
+
+The org policy — never include PII — binds the repository estate itself
+(paths, test fixtures, docs, memory files, tool-output dumps), not only
+runtime payloads:
+
+- **Delete on sight, never narrate.** On finding PII in any versioned or
+  shared artefact, remove it immediately and report the removal as done —
+  never present the find as an interesting artefact or keep it visible
+  while discussing it.
+- **Test fixtures use obviously-fake values via dependency injection**
+  (placeholder names, `example.org`) — never a real username, home path,
+  or host, even as a positive-control fixture in the very test that
+  guards against such values. A behaviour-proving test proves the same
+  behaviour with a fake value passed as data; the
+  `no-machine-local-paths` validator and write hook mechanically catch
+  the user-home and flattened project-id carrier forms.
+- **A coarse location tied to a principal (a timezone, a region) is not
+  automatically identifying.** Surface borderline references for the
+  data-subject's judgement rather than auto-classifying them as
+  must-remove — and rather than shipping them silently.
+- **Never ship a "PII-clean" verdict from a regex sweep plus a skim.** A
+  clean verdict needs a real read of the surfaces at stake; borderline
+  finds are surfaced, not adjudicated by the scanner.
+
 ## Access Control
 
 ### Read-Only Operations (Phase 2)

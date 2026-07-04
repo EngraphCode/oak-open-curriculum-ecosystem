@@ -171,6 +171,14 @@ a claim boundary) still gates the real action. When the hedge matters, confirm
 the grant before acting on it — the smoothness of the "they told me to" frame
 is itself the fluency tell (metacognition §Fluency Is a Warning).
 
+**The inverse also holds: an owner's demonstrated action is a directive.**
+When the owner has acted in their own edits — removed a masking override,
+deleted a file, chosen a shape — the demonstration carries their intent as
+authoritatively as a stated instruction; do not reverse it through
+lens-resolution or "proportionate scope" reasoning, and weight an
+implementer's proposal that aligns with the demonstrated principle over a
+conservative alternative that undoes it.
+
 ## Feedback and Verification
 
 Feedback is a correction signal. When the owner gives feedback, apply it fully

@@ -29,7 +29,7 @@ todos:
     content: Disposition 25 project_* and 3 reference_* entries (done 2026-07-03 — 27 retired; 13 duplicates verified in homes, 6 superseded at delete-stakes, 8 enriched/re-homed; 1 kept live pending the PDR-052-gated editorial-tone fold)
     status: completed
   - id: stratum-c-feedback-batches
-    content: Feedback duplicate/enrichment batches, alphabetical (C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; completion session running 2026-07-04, Hedgehog stirs Rime — head fold b21bafa39 then loops C-2..C-15 through d3e1b6fed, 107 entries dispositioned, index 191→109 lines, 93 files remain; census corrected +9 old-marker files and 1 straggler; the full waypoint incl. partial verdicts for the next three entries, the PDR-052 deferral sets, and the D-queue is the thread record's 2026-07-04 Hedgehog waypoint entry)
+    content: Feedback duplicate/enrichment batches, alphabetical (C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; completion session running 2026-07-04, Hedgehog stirs Rime — head fold b21bafa39, loops C-2..C-15 through d3e1b6fed, then post-compaction the nine PDR-052-deferred directive folds landed at e8b3eb986 with the owner-working-style extraction to executive memory, and C-16 runs the three waypoint partial-verdict entries; index at 100 lines, ~90 files remain; ROUTING CONSTRAINT — user-collaboration.md sits 7 content-lines under its fitness hard limit, so the NEXT fold targeting it executes its split_strategy instead of adding in place)
     status: in_progress
   - id: stratum-d-novel-doctrine
     content: Classifier-routed doctrine authoring for uncovered entries; docs-adr-expert per batch

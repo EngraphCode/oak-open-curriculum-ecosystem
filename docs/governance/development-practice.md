@@ -260,6 +260,13 @@ the current understanding.
   destructive: it fragments the continuous prose into a broken
   list. Cure by rewording or rewrapping the source line yourself;
   never blind-run the autofix over prose that trips these rules.
+- `+` is never a prose connector ("model + fixture") — write "and",
+  or "&" in tight labels. Bullets are pinned to `-` by MD004, but the
+  gate misdiagnoses a prose `+` at line-start as a mis-styled bullet
+  (previous bullet), and a mid-line `+` is invisible until a rewrap
+  moves it — so rewording connectors is a self-check before declaring
+  authored markdown done. Reserve `+` for genuine syntax inside
+  fenced code blocks.
 - A bare `|` inside a table cell breaks MD056 column counting —
   even inside inline-code backticks, even as TS union syntax
   (`<EefStrand \| EefStrandHeadline>`). Escape it as `\|`.
