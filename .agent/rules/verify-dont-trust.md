@@ -37,7 +37,9 @@ absorb. Convergence is not a substitute: N reviewers independently surfacing
 the same shape can be N agents inventing the same optionality — convergence
 raises scrutiny, it never waives it (worked instance 2026-06-27: four
 reviewers converged on a "graceful-degradation floor" the owner killed as
-invented optionality). And "first-hand" means the main agent's own read: run
+invented optionality) — and when your own brief seeded the premise,
+reviewers "confirming" it is amplification of your frame, never independent
+corroboration. And "first-hand" means the main agent's own read: run
 a fan-out for breadth or second opinion, but read the load-bearing sources
 yourself and form your own verdicts first — sub-agent reports corroborate or
 challenge your reading, never substitute for it, and the first-hand pass is
