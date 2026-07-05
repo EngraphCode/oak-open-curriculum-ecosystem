@@ -186,6 +186,29 @@ Minor changes (single typo/comment-only edits with no behaviour impact) may use 
 | Before merge | Before the branch merges | Any applicable specialists not yet invoked during implementation |
 | Situational trigger | When the specific context arises | On-demand agents (see below) -- not tied to every change |
 
+**Front-load the strategic reviewers; don't only close them out at the
+end.** Reviewers split by what they challenge, and each class has a
+correct phase:
+
+- **Plan-time, pre-ExitPlanMode** — `assumptions-expert`, a
+  build-vs-buy challenger, an ADR intent-vs-implementation reviewer.
+  These challenge *solution class* and are free to act on before code
+  has weight.
+- **Mid-cycle, during execution** — `test-expert`, `type-expert`, the
+  architecture reviewers. These challenge *solution execution*.
+- **Close, post-code** — `docs-adr-expert`, `release-readiness-expert`.
+  These verify *coherence*.
+
+A schedule that places every tranche post-commitment makes shape
+findings maximally expensive to act on. Reviewers operate inside the
+frame the caller sets: for a net-new vendor integration, at least one
+invocation must explicitly challenge solution-class ("should this
+exist?"), not just solution-execution ("is this well-structured?") —
+see the plan skill §Build-vs-Buy Before Build-Shape for the gate this
+serves. An owner asking mid-session for an "extra tranche" signals the
+scheduling is wrong in kind, not just volume — fix the phase, not the
+count.
+
 ## Required Reviewer Matrix
 
 Always invoke:

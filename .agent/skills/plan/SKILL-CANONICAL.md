@@ -146,6 +146,38 @@ Every non-trivial plan, strategic or executable, MUST define:
    register. (Open-questions are for the genuinely not-yet-decidable, never a
    scheduling or holding surface for work that has a home.)
 
+### Build-vs-Buy Before Build-Shape
+
+Before exiting plan mode on any work that integrates with a vendor
+(Sentry, Vercel, Clerk, etc.), answer first: **which first-party
+integrations does the vendor ship (plugin, SDK, managed flow, official
+GitHub Action), and why are we not choosing one of them?** Name the
+vendor's first-party ecosystem explicitly in the plan. Build-vs-buy is
+a different question from build-shape and must be answered first — once
+the plan is weighing bespoke shapes (`.ts` vs `.mjs` vs `.sh`), the
+cheapest option has already been lost (worked instance 2026-04-20: a
+~900-line bespoke Sentry orchestrator built before anyone asked about
+`@sentry/esbuild-plugin`, which was ~5 lines).
+
+Two companion disciplines:
+
+- **ADR intent-vs-implementation audit.** An ADR that names specific
+  CLI commands, argv shapes, or per-step error postures is
+  implementation spec in ADR form, foreclosing alternatives without
+  evaluating them. ADRs state WHAT outcome the vendor must reach; HOW
+  belongs in the plan.
+- **Friction ratchet — stop the line at three.** Count signals against
+  the solution *shape* (not against individual tactics): a lint
+  size/complexity cap, a dependency cycle, a reviewer finding that
+  requires more code, an ADR amendment to match implementation, a
+  vendor-rule exception. When three or more have fired, the next
+  response is a shape-reconsideration pause, never another tactical
+  fix. Sunk-cost detector phrases in your own reasoning — "we'd have
+  to throw away…", "we'd need to verify X supports Y exactly" (where Y
+  is something we chose), "the current implementation is valuable
+  because it's tested" — are paid costs, not reasons to continue;
+  future maintenance cost is the only cost that matters.
+
 ### Pre-Author Scope-Vocabulary Check
 
 Before saving any forward-looking framing in a plan body (`Cycle N`,

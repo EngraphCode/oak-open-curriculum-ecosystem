@@ -11,7 +11,8 @@ correction 2026-06-01; post-acceptance hygiene 2026-06-01 (stale
 pre-promotion sections cleared; Inc.3 adapter-sequencing retired).
 
 **Date**: 2026-05-07; amended 2026-05-10; amended 2026-05-11; amended 2026-05-21;
-amended 2026-06-01
+amended 2026-06-01; amended 2026-07-05 (§The estate is plural by design —
+owner-corrected doctrine, 2026-06-22: graphs are a method, not one artefact)
 
 **2026-05-11 amendment summary** (Flamebright Burning Lava session,
 reviewer absorption against architecture-expert-betty,
@@ -455,6 +456,41 @@ promotion blockers. Q1 and Q2 are resolved (history retained); Q3 remains open.
    unchanged; only the home moved.
 3. Confirm Mark Hodierne's author addition is required at ratification or
    only on first ontology ingestion.
+
+## The estate is plural by design — graphs are a method, not one artefact (2026-07-05 amendment)
+
+Owner-corrected doctrine (five corrections in one session, 2026-06-22),
+recorded here because the topology ADR is where an agent looks before
+proposing graph-estate consolidation:
+
+- **The curriculum-data estate already has its single source of truth —
+  the underlying curriculum data.** The graphs above it (the curriculum
+  ontology, aila-atomic-concepts, the ecosystem MCP graphs, the EEF
+  evidence graph, and — on the planning side — the ADR-200 idea-graph)
+  are deliberately plural _derivations_ of that one source: diversity,
+  not divergence.
+- **"They all use graphs" is evidence of a shared method, not a latent
+  single artefact.** There is no one graph; there is the approach of
+  using graphs — exactly as many markdown documents sharing markdown are
+  not one document. A shared engine (`graph-core`) is shared tooling,
+  not a merged graph. Hand-curated high-trust graphs and AI-generated
+  graphs are complementary and learn from each other; the durable asset
+  is the _capability_, not a master graph.
+- **Integration happens at the source and the surface, with diverse
+  exploration deliberately in the middle.** Cross-source matching (e.g.
+  slugs added to the ontology) exists to enable complementary surfacing
+  in the MCP app, not to collapse graphs into one; cross-source value is
+  already shipped (the EEF evidence graph).
+- **Precondition check before importing SSOT doctrine.** The
+  consolidation/SSOT doctrine that is load-bearing in the _planning_
+  estate (ADR-200, the consolidation skills) does not transfer by
+  analogy to an estate whose SSOT already exists at the data layer —
+  there, the layers above are healthy plurality. A tidy "one system"
+  synthesis arriving smoothly is the tripwire to re-ground, not
+  confirmation of the synthesis.
+
+This section is decision input for the pending estate-wide
+markdown→graph inversion ADR and the content-structure-graph design.
 
 ## Notes for future revision
 

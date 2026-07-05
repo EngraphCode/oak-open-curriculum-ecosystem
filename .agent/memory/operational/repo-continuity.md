@@ -442,7 +442,10 @@ this section; create a thread record when execution is scheduled.
 10. **Estate-wide markdown→graph inversion ADR timing** (posed 2026-07-03): a Proposed ADR
     generalising ADR-200 + PDR-119 (surface-class taxonomy; PDR-122-bound reconciler) —
     recommended a dedicated authoring session soon; alternatives: after Phase 0, or after ADR-200
-    WS2/WS4. Evidence: the research report §Further research (markdown→graph subsection).
+    WS2/WS4. Evidence: the research report §Further research (markdown→graph subsection). Decision
+    input landed 2026-07-05: ADR-173 §"The estate is plural by design" carries the owner-corrected
+    graphs-are-a-method doctrine (data-layer SSOT; deliberate plurality above; integration at
+    source and surface) that the authoring session must honour.
 
 ## Repo-Wide Invariants / Non-Goals
 
