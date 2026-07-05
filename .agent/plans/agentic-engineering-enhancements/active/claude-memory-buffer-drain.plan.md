@@ -29,10 +29,10 @@ todos:
     content: Disposition 25 project_* and 3 reference_* entries (done 2026-07-03 — 27 retired; 13 duplicates verified in homes, 6 superseded at delete-stakes, 8 enriched/re-homed; 1 kept live pending the PDR-052-gated editorial-tone fold)
     status: completed
   - id: stratum-c-feedback-batches
-    content: Feedback duplicate/enrichment batches, alphabetical (C-1 done 2026-07-04 — 12 entries, 46ff52892 + 8f788c837; completion session running 2026-07-04, Hedgehog stirs Rime — head fold b21bafa39, loops C-2..C-15 through d3e1b6fed, then post-compaction the nine PDR-052-deferred directive folds landed at e8b3eb986 with the owner-working-style extraction to executive memory, and C-16 runs the three waypoint partial-verdict entries; index at 100 lines, ~90 files remain; ROUTING CONSTRAINT — user-collaboration.md sits 7 content-lines under its fitness hard limit, so the NEXT fold targeting it executes its split_strategy instead of adding in place)
-    status: in_progress
+    content: "Feedback duplicate/enrichment batches, alphabetical — COMPLETE 2026-07-05 (Hedgehog stirs Rime): C-1 46ff52892 + 8f788c837; head fold b21bafa39; loops C-2..C-15 through d3e1b6fed; the nine PDR-052-deferred directive folds at e8b3eb986 (incl. the owner-working-style extraction to executive memory); loops C-16..C-25 (74eaecd6b, d39bd05bc, 04fe9944c, 5447a3e82, 3ec41b8ed, aba5b72cd, 2450e36ee, 645a10b8b, 0f2c7df99, 46b50e24e). All 212 feedback_* files dispositioned; index at 12 live-only lines mapping one-to-one to the ROUTED-TO-D/DEFERRED set; final orphan reconciliation exact"
+    status: completed
   - id: stratum-d-novel-doctrine
-    content: Classifier-routed doctrine authoring for uncovered entries; docs-adr-expert per batch
+    content: "Classifier-routed doctrine authoring for the routed queue (build_vs_buy; the design-agency rule unit: cowpath + design_from_substrate + inherited_separation + value_first_existing_is_malleable; crosswalk pattern; derive_controlled_surface pattern; graphs_as_method feeding the OQ-10 inversion ADR); docs-adr-expert per batch. PLUS the deferred directive folds at a fresh-context head: the user-collaboration set (no_ritual_framing, owner_direction_is_a_stream, owner_direction_scope — execute that directive's split_strategy FIRST, it sits 7 content-lines under its hard limit) and the principles.md §Decision Lenses fold (reject_either_or_find_third_option)"
     status: pending
   - id: closeout
     content: Final index verification (live-only, untruncated); value-and-impact closeout with honest verdict

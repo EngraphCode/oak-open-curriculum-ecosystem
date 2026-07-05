@@ -18,17 +18,21 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/active/claude-memory-buffer-drain.plan.md)
   (`active/`). Mode: `dedicated-knowledge-curation` under
   `/oak-consolidate-until-done`, owner-scoped to the Claude per-user buffer.
-- **Next safe step**: **COMPLETE Stratum C in one dedicated session**
-  (owner-directed 2026-07-04) — from
-  `feedback_artefact_annotation_is_not_rationale.md` through the alphabet
-  (200 feedback entries remain; C-1 processed the 12 alphabetically first).
-  The binding brief is the plan's **§Stratum C completion rulings**
-  (decision-complete): session head runs the principles.md *unless*-tell fold
-  (PDR-052, verified absent), the watchlist dispositions are pre-decided,
-  routed-to-D lines stay live, compaction boundaries continue the goal. Per
-  entry: read the file, read the candidate home, then duplicate
-  (recurrence-checked) / duplicate-with-enrichment / route to Stratum D. Read
-  the index from disk, never the injected copy.
+- **Next safe step**: **Stratum D** — (1) at a fresh-context head, FIRST
+  execute user-collaboration.md's split_strategy (it sits 7 content-lines
+  under its fitness hard limit), then fold its deferred set
+  (no_ritual_framing; owner_direction_is_a_stream;
+  owner_direction_scope) and the principles.md §Decision Lenses fold
+  (reject_either_or_find_third_option) — each entry file carries a
+  DEFERRED marker with its fold spec; (2) run the routed-to-D queue with
+  docs-adr-expert per batch: build_vs_buy; the design-agency rule unit
+  (cowpath + design_from_substrate + inherited_separation +
+  value_first_existing_is_malleable); crosswalk pattern;
+  derive_controlled_surface pattern; graphs_as_method (feeds the OQ-10
+  markdown-to-graph inversion ADR). Work-list = the 12 MEMORY.md lines,
+  which map one-to-one to the files whose latest marker is ROUTED-TO-D or
+  DEFERRED. Retire each line on landing. Then the plan's closeout todo
+  (final index verification; value-and-impact closeout).
 - **Completed prerequisites**: PDR-124 landed + 15 agent descriptions
   converged (`6b7c496ab`); drain plan + Loop 0 landed (`d0003293b`) — index
   reconciled to whole (17 orphan lines appended; directory listing is the
@@ -105,6 +109,20 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
+- **2026-07-05 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), STRATUM C COMPLETE**:
+  the completion goal landed. All 212 `feedback_*` files dispositioned first-hand across the
+  session's 12 commits (`b21bafa39` head fold; `7920215df`…`d3e1b6fed` C-2..C-15;
+  `e8b3eb986` the nine PDR-052-deferred directive folds at the post-compaction fresh
+  boundary; `74eaecd6b`…`46b50e24e` C-16..C-25 plus the waypoint refreshes). Index at 12
+  live-only lines mapping ONE-TO-ONE to the ROUTED-TO-D/DEFERRED files; final orphan
+  reconciliation exact; every batch docs-adr-expert-reviewed pre-commit except C-25, whose
+  reviewer died on the org monthly spend limit carrying the classifier-unavailable note —
+  per the just-folded doctrine its partial verdict was not folded, every claim was
+  independently grounded first-hand, and its one recovered finding was confirmed and
+  applied. Spend-limit fact surfaced to the owner. The owner-working-style extraction's
+  home choice (executive memory vs per-user) remains surfaced as a reversible
+  pre-decision. Stratum D queue and the deferred directive folds are the Next safe step
+  above.
 - **2026-07-04 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), MID-SESSION WAYPOINT 2
   (post-compaction; session continues)**: Stratum C completion seat. Landed: the session-head
   principles.md unless-tell fold (`b21bafa39`), loops C-2…C-15 (`7920215df`…`d3e1b6fed`, 107

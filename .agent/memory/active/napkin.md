@@ -89,3 +89,18 @@ New session observations append below.
   (`.agent/memory/executive/owner-working-style.md`, pointer kept) and surfaced the home
   choice to the owner at landing. Craft: before inventing a split shape, grep for a plan that
   has already classified the content.
+- **A doctrine folded at hour N fired at hour N+6, on its own drain.** The
+  classifier-unavailable rule (folded into invoke-code-experts at `645a10b8b`) and the
+  quota-is-the-owner's section (no-speed-pressure, `2450e36ee`) both fired within the same
+  session when the C-25 reviewer dispatch died on the org monthly spend limit carrying the
+  classifier-unavailable note: the partial verdict was not folded, every load-bearing claim was
+  independently grounded first-hand instead, the one recovered finding (UTC doctrine already
+  canonical in verify-dont-trust §Timestamp-Zone Discipline) was CONFIRMED and applied as a
+  pointer-collapse, and the spend-limit fact was surfaced to the owner plainly. The drain's own
+  folds acting as the session's live doctrine is the learning loop closing at its shortest
+  radius.
+- **Stratum C completion shape held for ~200 entries**: read entry + home first-hand →
+  disposition → markdownlint → docs-adr-expert (or independent grounding when the reviewer
+  died) → commit by pathspec → THEN memory-side markers and index retirement. The final
+  reconciliation came out exact (12 live lines = 12 routed/deferred files) with zero orphans —
+  the per-loop memory-side-last ordering is what made the census self-proving.
