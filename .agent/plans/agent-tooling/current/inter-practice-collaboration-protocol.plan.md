@@ -168,6 +168,19 @@ practice flow back. WS6 exercises that flow as the plan's proof of value.
    portable PDR each Practice repo transplants and ratifies on its own
    schedule, declaring the protocol version it speaks. No repo implements
    another repo's phenotype.
+7. **Exchange handshake — concepts and pointers are distinct layers**
+   (owner-ratified 2026-07-05, from two live guard catches). A box file
+   carries a SELF-CONTAINED concept payload: substance that needs no
+   dereference, no commit pins, no moving targets — a SHA appearing in
+   exchange material is the symptom of a pointer masquerading as a concept
+   (material not yet re-interpreted for the receiver). The paired comms
+   event carries the TIME-BOUND layer: provenance pins, sender identity,
+   approval references, sequencing, the box path. The exchange lifecycle
+   (delivered → acknowledged → integrated or rejected) threads on the comms
+   stream via `in_response_to`; the receiver's integration ledger joins
+   file ↔ event ↔ execution-time pin. The two host rule families
+   (SHA-required in collaboration content; SHA-forbidden in permanent docs)
+   are this one layering rule seen from its two sides.
 
 ---
 

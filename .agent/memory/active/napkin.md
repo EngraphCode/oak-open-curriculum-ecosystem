@@ -216,3 +216,18 @@ New session observations append below.
   25ece9 identity mapping, contact-vector-is-their-surfaces, schema-divergence fail-loud
   posture, inbound material via their practice-core incoming box. Plan authored:
   .agent/plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md.
+- **Concepts vs pointers in Practice exchange (owner diagnosis, 2026-07-05)**: my first
+  teaching-bundle draft put commit pins in a practice-core box file — the write-time
+  moving-targets guard blocked it, and the owner named the root cause: conflating
+  exchanging CONCEPTS (self-contained substance, no dereference, timeless) with
+  exchanging POINTERS (time-bound "read X at state Y", needs pins, expires). A SHA in
+  exchange material is the symptom of a pointer masquerading as an un-reinterpreted
+  concept. The layering cure, ratified into the protocol plan as clause 7: box file =
+  concept payload (pin-free); paired comms event = time-bound layer (pins, approvals,
+  sequencing); receiver's integration ledger joins file ↔ event ↔ execution-time pin;
+  exchange lifecycle (delivered → acked → integrated/rejected) threads on the comms
+  stream. The host rule pair sha-prefix-in-collaboration-content vs
+  no-moving-targets-in-permanent-docs is ONE layering rule seen from both sides. Also:
+  BOTH estates' guards fired correctly on the same artefact during the live exchange
+  (their PDR-127, our moving-targets) — immune systems screening travelling material is
+  the designed behaviour of live plasmid exchange, not friction.
