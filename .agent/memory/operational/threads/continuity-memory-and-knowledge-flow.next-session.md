@@ -211,4 +211,4 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 | Sardine spins Estuary | claude-code | fable-5 | 69af8c | curator | 2026-07-03 | 2026-07-03 |
 | Ginger guards Xylem | claude-code | fable-5 | 563bfb | curator | 2026-07-03 | 2026-07-04 |
 | Mistral holds Cumulus | claude-code | fable-5 | 3cfe8f | curator | 2026-07-04 | 2026-07-04 |
-| Hedgehog stirs Rime | claude-code | fable-5 | da727a | curator | 2026-07-04 | 2026-07-04 |
+| Hedgehog stirs Rime | claude-code | fable-5 | da727a | curator | 2026-07-04 | 2026-07-05 |

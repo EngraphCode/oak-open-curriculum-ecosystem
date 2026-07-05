@@ -120,3 +120,12 @@ New session observations append below.
   texture worth keeping: my drain instinct was mechanism-shaped (find the rule-home); the
   owner's two turns re-lensed the same material as system-level intent — the buffer was the
   system communicating its intent-gap through misfiled memories.
+- **Fitness-debt trail from the drain's folds (consolidation-candidate routing, 2026-07-05)**:
+  `present-verdicts-not-menus` absorbed roughly sixty lines across five batches this session
+  (recommendation screen, dissolved-residual costume, owner-gate boundary, reshape arm,
+  owner-question form) — it is now the drain's most-accreted rule and the next accretion
+  should ask whether its §Pre-Pose/§Proportionate material wants a companion split, the same
+  question already flagged for verify-dont-trust's reviewer paragraph. `testing-patterns`
+  (already over its 200 hard limit) gained two sections and `agent-collaboration` (hard-over,
+  split_strategy authored) gained ~20 lines — both knowledge-preservation-sanctioned lands
+  whose cures are their own split strategies, tracked by fitness.
