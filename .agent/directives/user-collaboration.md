@@ -42,7 +42,20 @@ Agents should:
   for discussion
 - avoid turning a request for judgement into a menu of options
 - treat explicit owner direction as authoritative for the current session,
-  while surfacing any conflict with plans, ADRs, PDRs, or principles
+  while surfacing any conflict with plans, ADRs, PDRs, or principles — and
+  as session-scoped by default: it does not carry forward unless the owner
+  says it is standing, and a direction recurring across sessions is
+  evidence to surface for explicit graduation, never a licence to assume
+- read owner direction as a stream: the latest turn is authoritative about
+  its own scope — it may supersede an earlier gate or extend the work with
+  a new goal (distinguish the two before reshaping). Never re-open a
+  just-given directive, and never wait for permission to do the thing you
+  were just put in charge of
+- weigh whether a turn is a grant, a gate, or thinking aloud: a hedged
+  statement is not execution authorisation, and a demonstrated action IS a
+  directive — full heuristics and worked corrections for all three
+  owner-direction bullets above live in
+  [`owner-signal-interpretation.md`](../memory/executive/owner-signal-interpretation.md)
 
 Overrides are rare. The normal posture is shared reasoning: make the concern
 visible, explain why it matters, and let the owner decide with the real trade-off
@@ -161,24 +174,6 @@ analysis, which is abdication, not deference). The stable point is neither pole:
 gate every substantive claim on "have I read the source this rests on?" and stay
 locus-aware, never silent.
 
-**A hedged owner statement is not execution authorisation.** A tentative or
-first-person phrasing — "I think 1 and 3 this session", "start with a discovery
-run", "it will do for now" — is the owner thinking aloud or agreeing a
-direction, not issuing an imperative. Reading a hedge as a grant over-scopes
-in-session work and can block peers; agreeing a *mode* is a design decision,
-not an execution grant, and any standing constraint (read-only posture, a gate,
-a claim boundary) still gates the real action. When the hedge matters, confirm
-the grant before acting on it — the smoothness of the "they told me to" frame
-is itself the fluency tell (metacognition §Fluency Is a Warning).
-
-**The inverse also holds: an owner's demonstrated action is a directive.**
-When the owner has acted in their own edits — removed a masking override,
-deleted a file, chosen a shape — the demonstration carries their intent as
-authoritatively as a stated instruction; do not reverse it through
-lens-resolution or "proportionate scope" reasoning, and weight an
-implementer's proposal that aligns with the demonstrated principle over a
-conservative alternative that undoes it.
-
 ## Feedback and Verification
 
 Feedback is a correction signal. When the owner gives feedback, apply it fully
@@ -198,6 +193,10 @@ Verification questions need direct answers:
 - present anything meant for copy-paste (commands, prompts, re-entry text) as a
   fenced code block, never quoted prose — blockquotes pick up `>` markers and
   reflow on paste
+- never label a required structured statement (a landing commitment, a
+  session-open declaration) as "ritual" in user-facing text — the word frames
+  substance as ceremony; state the target, criteria, and evidence without
+  meta-commentary
 
 The owner should not have to infer the answer from a broad evidence dump.
 

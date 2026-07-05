@@ -70,8 +70,8 @@ alternatives non-viable.
   surface that as the question.)
   (The inverse guard still holds: a hedged owner statement is not execution
   authorisation — see
-  [`user-collaboration.md`](../directives/user-collaboration.md) §"A hedged
-  owner statement is not execution authorisation".)
+  [`owner-signal-interpretation.md`](../memory/executive/owner-signal-interpretation.md)
+  §"A Hedged Owner Statement Is Not Execution Authorisation".)
 - Writing a durable artefact's STATUS line as a deferral ("for owner
   ratification", "awaiting owner review") when the verdict exists. A
   reviewed, execution-ready plan's status is "READY FOR EXECUTION"; a
