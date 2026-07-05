@@ -288,3 +288,31 @@ New session observations append below.
   content-producing step out of any `&&` chain with a git op that might be blocked (a block
   loses the content silently); and to WRITE about a guarded token, use the Edit/Write tools,
   not a Bash heredoc — the Bash blocked-patterns guard scans the whole command string.
+
+## 2026-07-05 — Successor session, exchange lane adopted + WS6 landed (Cricket lifts Echo)
+
+- **Succession identity lessons, proven live at the join** (durable home: the WS6 report's
+  evidence appendix): (1) pre-positioning records assert FUTURE facts about a successor that
+  only the successor's own team-start proves — the handoff named me "(Opus) under the 25ece9
+  prefix"; truth was Fable under 2fffa2. Names AND prefixes change across succession; the
+  handoff record is the durable join. (2) The platform tuple field showed three vocabulary
+  variants on one stream (claude / claude_code / claude-code) — pin one canonical value,
+  normalise reads. (3) **A watcher is a writer**: my donor-CLI watcher's heartbeat file
+  tripped the host's strict schema (unknown key `naming_schema_version`) and their claims-open
+  backstop correctly refused my claim as blind-to-comms. Cure: home tooling for ALL writes
+  into a home substrate, liveness files included. Doubles as a live version-family-compat
+  instance for WS0e (strict validator refused an unknown field rather than ignoring
+  additive-optional).
+- **The standby seat contract ran clean end-to-end**: watcher + team-start registration, no
+  claim, no heartbeat (consumer-absent) → Moment-2 adoption event → claim + heartbeat armed
+  in the same move. The host-side lane holder verified the contract from outside ("textbook").
+- **Napkin insertion craft**: my first edit dropped my session section ABOVE a predecessor's
+  still-latest entries, silently re-attributing them under my heading — an append-only
+  narrative surface appends at the TAIL; anchor insertions on the file end, not on the last
+  entry read before a peer's commit landed.
+- **WS6 adoption assessment landed** (handoff task 1): workers+verification transplant
+  (strongest candidate, new sub-agent-estate lane); recomputable proofs adopt the CONCEPT
+  into ADR-200 WS2 and decline the prose-plan tool (don't tool the shape being replaced);
+  team-state join sequenced on OQ5/F-44; exchange pattern folds into WS0b; §5 reconciles
+  into WS0 — the tier ladder (Tier 0 box-only / Tier 1 hosting) is the recommended answer to
+  owner gate (b) on v1 conformance strictness.

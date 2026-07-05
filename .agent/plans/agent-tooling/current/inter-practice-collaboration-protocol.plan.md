@@ -70,8 +70,8 @@ todos:
     status: pending
     depends_on: [ws0-protocol-pdr]
   - id: ws6-knowledge-flow-probe
-    content: "WS6 — First cross-Practice knowledge-flow probe: read resonance's recomputable plan/team-state doctrine (its PDR-128/129) and its high-context-efficiency worker-agent material; produce an adoption assessment for oak routed to the owning surfaces."
-    status: pending
+    content: "WS6 — First cross-Practice knowledge-flow probe: read resonance's recomputable plan/team-state doctrine (its PDR-128/129) and its high-context-efficiency worker-agent material; produce an adoption assessment for oak routed to the owning surfaces. DONE 2026-07-05 (Cricket lifts Echo): .agent/reports/agentic-engineering/resonance-bundle-adoption-assessment-2026-07-05.md — §3 workers transplant (new sub-agent-estate lane), §1 proofs into ADR-200 WS2, §2 sequenced on OQ5/F-44, §4 folds into WS0b, §5 reconciles into WS0 (tier ladder answers owner gate b)."
+    status: done
   - id: ws7-docs-and-gates
     content: "WS7 — Documentation propagation (worktree-hygiene rule cross-reference, agent-collaboration directive, frictions register) and full quality gates on the integrated delivery."
     status: pending
