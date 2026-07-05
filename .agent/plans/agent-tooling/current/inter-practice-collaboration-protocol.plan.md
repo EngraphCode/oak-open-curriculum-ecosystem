@@ -33,8 +33,20 @@ first_instance: >
 last_updated: 2026-07-05
 todos:
   - id: ws0-protocol-pdr
-    content: "WS0 — Author the inter-Practice collaboration protocol v1 as a practice-core PDR (next free number; 125 at plan-author time) plus the oak ADR phenotype note. Six clauses: repo-reference vocabulary, coordination-home declaration, join ceremony, foreign-substrate discipline, identity display, adoption/versioning model."
+    content: "WS0 — Author the inter-Practice collaboration protocol v1 as a practice-core PDR that TRAVELS ON THE PLASMID (portable, repo-neutral, placed in the propagating decision-records/ set so every transplant receives it by construction) plus the oak ADR phenotype note. Frames conjugation as the Core exchange model's second mode alongside transformation. Clauses: repo-reference vocabulary, coordination-home declaration, join ceremony, foreign-substrate discipline, identity display, adoption/versioning model, exchange handshake (concepts-vs-pointers layering)."
     status: pending
+  - id: ws0b-two-exchange-modes
+    content: "WS0b — Amend the Core exchange model (practice-lineage.md / practice.md portable surfaces) to name TWO modes of horizontal Practice transfer: transformation (existing dead-material uptake at a pin — the transplant/manifest machinery) and conjugation (live bidirectional negotiated exchange — this protocol). Name their shared substrate (incoming box, provenance chains) and complementary lifecycles. This is the reframe that makes inter-Practice comms an extension of an existing Core model, not a bolt-on."
+    status: pending
+    depends_on: [ws0-protocol-pdr]
+  - id: ws0c-conformance-and-versioning
+    content: "WS0c — Define the minimum conformance contract that makes a repo 'speak the protocol' (incoming box; threadable comms substrate; the two-sided concepts-vs-pointers layering guard; identity-with-prefix; a declared coordination-home mechanism) and a self-reporting conformance+version check (practice-verification.md phenotype). Each repo declares the protocol version it speaks; the join ceremony negotiates version. This is what lets the ecosystem evolve without lockstep — portable spec, local phenotype, conformance gate, exactly as PDR→ADR already works."
+    status: pending
+    depends_on: [ws0-protocol-pdr]
+  - id: ws0d-discoverability
+    content: "WS0d — Make the protocol discoverable-by-construction: a portable rule that FIRES on the cross-repo condition (worktree-repo ≠ coordination-home-repo, or joining any foreign substrate) pointing at the join-ceremony skill, plus an AGENT.md/entry-point pointer — both in the propagating Core set so a fresh agent in a freshly-transplanted repo finds the ceremony without being told."
+    status: pending
+    depends_on: [ws0-protocol-pdr, ws4-skill]
   - id: ws1-cycle-1-env-override
     content: "WS1 cycle 1: failing unit test for PRACTICE_COORDINATION_HOME resolution order (explicit flag > env > git-native) + loud rejection of a missing/substrate-less path, then the resolveCoordinationHome product change. One commit. Tree green at end."
     status: pending
@@ -126,6 +138,42 @@ practice flow back. WS6 exercises that flow as the plan's proof of value.
   estate (claims, comms events, conversations, escalations).
 
 ---
+
+## Making It First-Class Across the Ecosystem (the framing)
+
+"First-class in all Practice repos" cannot mean identical code everywhere —
+that is the clone-pressure the ecosystem principle forbids. It means the same
+thing every other Core capability means: a **portable spec that propagates on
+the plasmid, a local phenotype per repo, and a conformance gate that keeps the
+phenotypes interoperable** — exactly how a portable PDR becomes a per-repo ADR
+today. First-classness has four load-bearing properties, and today's live run
+retired the expensive uncertainty behind each:
+
+1. **It travels by construction.** The protocol is a Core PDR in the
+   propagating `decision-records/` set. A freshly-transplanted repo receives
+   inter-Practice capability without re-deriving it (WS0).
+2. **It is discoverable.** A portable rule fires on the cross-repo condition
+   and points at the join-ceremony skill; an entry-point pointer names it. A
+   fresh agent finds the ceremony without being told (WS0d).
+3. **It is conformance-checkable and versioned.** A minimum contract defines
+   "speaks the protocol"; each repo self-reports conformance and the version
+   it speaks; the join ceremony negotiates version. The ecosystem evolves
+   without lockstep (WS0c).
+4. **It is mechanised at recurrence, not before.** The manual handshake
+   becomes a `practice-exchange` CLI once a second exchange exists — which it
+   now does (the return bundle is authoring live). Each repo generates its own
+   phenotype of the CLI from the portable spec.
+
+**The deeper reframe: conjugation is the Core exchange model's missing mode.**
+The Practice Core already models one kind of horizontal transfer between
+instances — *transformation*: dead material taken up at a pin, one direction,
+integrated later (the transplant manifest, the incoming box, provenance
+chains). Today introduced the second — *conjugation*: two live agents on two
+living estates, material negotiated and receipted in-session, both directions
+in one window. They are the same class (Practice-to-Practice transfer) and
+share substrate (the incoming box and provenance chains serve both). So this
+protocol is not a new subsystem bolted onto the Core — it *completes* the
+Core's exchange model. WS0b makes that explicit on the portable surfaces.
 
 ## The Protocol (v1 design — WS0 ratifies as a PDR)
 
