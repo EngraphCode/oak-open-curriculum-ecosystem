@@ -1,6 +1,6 @@
 ---
 name: "Claude Per-User Memory Buffer Drain"
-status: active
+status: completed
 overview: >
   Dedicated-knowledge-curation pass draining the Claude Code per-user memory
   buffer (240 entry files plus a truncated 223-line MEMORY.md index) into
@@ -32,11 +32,11 @@ todos:
     content: "Feedback duplicate/enrichment batches, alphabetical — COMPLETE 2026-07-05 (Hedgehog stirs Rime): C-1 46ff52892 + 8f788c837; head fold b21bafa39; loops C-2..C-15 through d3e1b6fed; the nine PDR-052-deferred directive folds at e8b3eb986 (incl. the owner-working-style extraction to executive memory); loops C-16..C-25 (74eaecd6b, d39bd05bc, 04fe9944c, 5447a3e82, 3ec41b8ed, aba5b72cd, 2450e36ee, 645a10b8b, 0f2c7df99, 46b50e24e). All 212 feedback_* files dispositioned; index at 12 live-only lines mapping one-to-one to the ROUTED-TO-D/DEFERRED set; final orphan reconciliation exact"
     status: completed
   - id: stratum-d-novel-doctrine
-    content: "IN PROGRESS 2026-07-05 (Hedgehog stirs Rime). DONE: user-collaboration split_strategy executed + its deferred fold set landed (no_ritual_framing, owner_direction_is_a_stream, owner_direction_scope) at 7f4988c63 — owner-signal-interpretation.md is the new executive-memory companion; principles.md §Decision Lenses fold (reject_either_or_find_third_option) lands with this tracker refresh. REMAINING: classifier-routed doctrine authoring for the routed queue (build_vs_buy; the design-agency rule unit: cowpath + design_from_substrate + inherited_separation + value_first_existing_is_malleable, gaining the attribute-system-properties-to-the-system clause; crosswalk pattern; derive_controlled_surface pattern; graphs_as_method feeding the OQ-10 inversion ADR); the owner-working-style fold-and-retire + interpretive residue; the intent-doctrine candidates (PDR-038 complement; mechanism-without-intent twin); docs-adr-expert per batch"
-    status: in_progress
+    content: "COMPLETE 2026-07-05 (Hedgehog stirs Rime), five commits: user-collaboration split_strategy + its deferred fold set at 7f4988c63 (owner-signal-interpretation.md is the new executive-memory companion); principles.md §Decision Lenses fold at b10d90dc0; the design-agency rule unit authored as design-from-impact-not-the-cowpath at 35cf09bf9 (four entries; attribute-system-properties-to-the-system clause included); the intent-and-mechanism doctrine at b839fe03d (mechanism-without-legible-intent pattern with the eight assertions as ADR-200 intent-layer seed; PDR-038 bidirectional amendment; owner-working-style retired per the owner's 2026-07-05 reframe); the final four dispositions at 7d424cc9d (crosswalk + derive-controlled-surface patterns; build_vs_buy into the plan skill + invoke-code-experts; graphs_as_method into ADR-173 §The estate is plural by design, cited by OQ-10). Batches 1-2 docs-adr-expert-reviewed pre-commit; batches 3-4 independently grounded first-hand after the reviewer died on the org monthly spend limit (the sanctioned classifier-unavailable fallback)"
+    status: completed
   - id: closeout
-    content: Final index verification (live-only, untruncated); value-and-impact closeout with honest verdict
-    status: pending
+    content: "COMPLETE 2026-07-05: final census exact — 212 feedback_* files all carry terminal line-anchored markers across three marker generations (Disposition / DUPLICATE-family / Retired-from-index), 21 project_*/reference_* files carry Stratum B retirement markers, zero unmarked, zero live ROUTED-TO-D/DEFERRED; MEMORY.md at zero lines, live-only and untruncated. Verdict in §Closeout"
+    status: completed
 ---
 
 # Claude Per-User Memory Buffer Drain
@@ -224,6 +224,29 @@ at delete-stakes).
 `plan-body-first-principles-check` fires before each stratum's first batch and
 before any Stratum-D doctrine authoring: re-verify the entry's claim against
 the current repo — rules and PDRs may have moved since capture.
+
+## Closeout (2026-07-05, Hedgehog stirs Rime)
+
+**Verdict: complete.** Every entry file in the buffer is dispositioned
+first-hand and the index is empty, live-only, and untruncated. The drain's
+value landed in three shapes: (1) **conserved doctrine** — every entry's
+insight is in a permanent home (directive fold, rule, pattern, PDR clause,
+ADR section, skill clause, or executive-memory card) or honestly rejected
+with reason, with the home read or authored first-hand at disposition; (2)
+**structural doctrine the drain itself generated** — the
+intent-and-mechanism-are-co-equal frame (owner-ratified 2026-07-05) became
+PDR-038's bidirectional amendment, the mechanism-without-legible-intent
+pattern, and the design-from-impact rule's
+attribute-system-properties-to-the-system clause, with the eight
+working-style assertions re-expressed as ADR-200 intent-layer seed
+statements; (3) **a proven buffer lifecycle** — the
+per-user-memory-is-a-buffer drainage contract ran end-to-end (index as
+work-list, per-loop commits before memory-side retirement, line-anchored
+multi-generation marker census), and the buffer is ready to accrete again.
+Impact is honest: the doctrine homes are landed and gate-checked, but the
+generative-intent cure direction (the ADR-200 intent layer) is seeded, not
+built — that work belongs to the ADR-200 rewrite and the OQ-10 authoring
+session, not to this plan.
 
 ## Lifecycle
 

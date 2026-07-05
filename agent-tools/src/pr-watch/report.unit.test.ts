@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { PrSnapshot } from './index.js';
-import { diffSnapshots, formatSnapshot, isTerminalState } from './report.js';
+import { diffSnapshots, formatSnapshot, isAllGreen, isTerminalState } from './report.js';
 
 function makeSnapshot(overrides: Partial<PrSnapshot> = {}): PrSnapshot {
   return {
@@ -84,5 +84,47 @@ describe('isTerminalState', () => {
 
   it('is false while the PR is open', () => {
     expect(isTerminalState(makeSnapshot())).toBe(false);
+  });
+});
+
+describe('isAllGreen', () => {
+  const allGreen = {
+    checks: { total: 3, passed: 3, failed: 0, pending: 0 },
+    reviewThreads: { total: 2, unresolved: 0 },
+  };
+
+  it('is true when every check passed AND every review thread is resolved', () => {
+    expect(isAllGreen(makeSnapshot(allGreen))).toBe(true);
+  });
+
+  it('is false while any review thread is unresolved, even with all checks passed', () => {
+    expect(
+      isAllGreen(makeSnapshot({ ...allGreen, reviewThreads: { total: 2, unresolved: 1 } })),
+    ).toBe(false);
+  });
+
+  it('is false while any check is pending or failed', () => {
+    expect(
+      isAllGreen(
+        makeSnapshot({ ...allGreen, checks: { total: 3, passed: 2, failed: 0, pending: 1 } }),
+      ),
+    ).toBe(false);
+    expect(
+      isAllGreen(
+        makeSnapshot({ ...allGreen, checks: { total: 3, passed: 2, failed: 1, pending: 0 } }),
+      ),
+    ).toBe(false);
+  });
+
+  it('is false with zero checks (never vacuously green)', () => {
+    expect(
+      isAllGreen(
+        makeSnapshot({ ...allGreen, checks: { total: 0, passed: 0, failed: 0, pending: 0 } }),
+      ),
+    ).toBe(false);
+  });
+
+  it('is false once the PR is no longer open (terminal states are their own exit)', () => {
+    expect(isAllGreen(makeSnapshot({ ...allGreen, state: 'MERGED' }))).toBe(false);
   });
 });

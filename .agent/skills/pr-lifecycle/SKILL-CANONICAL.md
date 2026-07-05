@@ -68,7 +68,7 @@ surfaces. Partial reads produce false "no problems" verdicts:
 2. **Issue comments and reviews** — full bodies, never truncated skims; a
    Sonar gate summary or a bot capability notice lives here.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
-   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's *first* failure is
+   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's _first_ failure is
    the root to chase: a 20-second `install` failure cascades into skipped
    builds and a failed deployment — fix the root, not the echoes.
 4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
@@ -96,7 +96,7 @@ surfaces. Partial reads produce false "no problems" verdicts:
   local gates at source; never poll Sonar immediately after an edit.
 - Diagnose a failed CI run from the failed **step name**
   (`gh run view <id> --json jobs -q '.jobs[].steps[] |
-  select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
+select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   `if: always()` advisory step that runs last can misattribute the real
   failure (observed 2026-06-24: the tail blamed a drift check; the failure
   was format-check).
@@ -107,10 +107,13 @@ Run the repo's budgeted watcher in the background:
 `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
 change, including new comments by author and the unresolved review-thread
 count moving in EITHER direction (a thread arriving or being resolved). The
-watcher's thread count is the wake signal; the Phase 3 GraphQL harvest remains
-the authoritative read for which threads and what they say. Never hand-roll
-tight `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
-Between events, continue other work or hold; the watcher wakes you.
+watch ENDS on merged/closed and on ALL GREEN — every check passed AND every
+review thread resolved; passing checks alone are not green, because an
+unresolved thread blocks merge-readiness just as hard. That exit is the wake
+signal; the Phase 3 GraphQL harvest remains the authoritative read for which
+threads and what they say. Never hand-roll tight `gh` polling loops (the
+shared 5,000/hr API budget; frictions F-110). Between events, continue other
+work or hold; the watcher wakes you.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
@@ -149,7 +152,7 @@ AND zero unresolved review threads AND the Sonar quality gate passing. Then:
 - When merging is authorised, prefer a **merge commit** (`--merge`), never
   squash (standing owner preference, 2026-06-28). Verify the allowed merge
   METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,
-  allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
+allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   silently reverted before (2026-06-27). If merge commits are disabled,
   surface it to the owner; never fall back to squash.
 
