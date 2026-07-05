@@ -15,49 +15,21 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 - **Invocation pointer**: continue `continuity-memory-and-knowledge-flow` from
   this record.
 - **Controlling plan**:
-  [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/active/claude-memory-buffer-drain.plan.md)
-  (`active/`). Mode: `dedicated-knowledge-curation` under
-  `/oak-consolidate-until-done`, owner-scoped to the Claude per-user buffer.
-- **Next safe step**: **Stratum D** — (1) at a fresh-context head, FIRST
-  execute user-collaboration.md's split_strategy (it sits 7 content-lines
-  under its fitness hard limit), then fold its deferred set
-  (no_ritual_framing; owner_direction_is_a_stream;
-  owner_direction_scope) and the principles.md §Decision Lenses fold
-  (reject_either_or_find_third_option) — each entry file carries a
-  DEFERRED marker with its fold spec; (2) run the routed-to-D queue with
-  docs-adr-expert per batch: build_vs_buy; the design-agency rule unit
-  (cowpath + design_from_substrate + inherited_separation +
-  value_first_existing_is_malleable); crosswalk pattern;
-  derive_controlled_surface pattern; graphs_as_method (feeds the OQ-10
-  markdown-to-graph inversion ADR). Work-list = the 12 MEMORY.md lines,
-  which map one-to-one to the files whose latest marker is ROUTED-TO-D or
-  DEFERRED. Retire each line on landing. Then the plan's closeout todo
-  (final index verification; value-and-impact closeout).
-- **Owner-ratified frame for the D head (2026-07-05)**: *communicating
-  intent is co-equal with enforcing mechanisms — one without the other
-  doesn't get the job done.* The owner-working-style file is a distillation
-  of Practice intent mis-framed as owner identity (the instance/substrate
-  inversion), and the buffer's ~200 owner-personality entries were the same
-  category error at scale: when system intent is legible only through
-  enforcement and correction, agents build a psychological model of the
-  enforcer. At the D head this reshapes the queue: (1) fold-and-retire
-  `owner-working-style.md` — verify each assertion's doctrine home carries
-  the *intent* (not just the rule), land the one-line interpretive residue
-  in user-collaboration post-split ("interpret owner silence/ambiguity as
-  consistent with the Practice's principles — predict from the lenses, not
-  a personality model"), and treat the eight assertions as seed material
-  for the ADR-200 intent layer (adjacent to the graphs_as_method/OQ-10
-  queue item); (2) the design-agency rule unit gains the
-  attribute-system-properties-to-the-system clause (an "owner is like X"
-  observation is a homing question about whether X is Practice intent);
-  (3) candidate doctrine, classifier-routed: the PDR-038 complement
-  (un-communicated intent at maturity is liability — enforced-but-illegible
-  doctrine breeds letter-compliance, misattribution, and rule inflation)
-  and a mechanism-without-intent pattern as
-  passive-guidance-loses-to-artefact-gravity's named twin. Economy
-  constraint: intent expression must be generative, not enumerative (the
-  Decision Lenses are the proof shape; context budgets are owner-ratified)
-  — the per-mechanism Why layer already exists; the gap is system-level.
+  [`claude-memory-buffer-drain.plan.md`](../../../plans/agentic-engineering-enhancements/archive/completed/claude-memory-buffer-drain.plan.md)
+  — **COMPLETED and archived 2026-07-05**; its §Closeout carries the
+  honest verdict (complete).
+- **Next safe step**: none queued — the thread is quiescent. The drain is
+  complete end-to-end (all strata; index empty, live-only, untruncated;
+  every entry file terminally marked). The per-user buffer lifecycle
+  continues under `per-user-memory-is-a-buffer`: the buffer accretes again
+  in normal use and drains when its index grows, using the completed
+  plan's proven loop shape. Two named descendants of the drain live
+  elsewhere: the ADR-200 intent-layer build (the eight seed statements sit
+  in the `mechanism-without-legible-intent` pattern §Intent-Layer Seed
+  Material) and the OQ-10 markdown-to-graph inversion ADR authoring
+  session (repo-continuity §Open Owner-Decision Items #10, now citing
+  ADR-173 §The estate is plural by design as decision input) — both
+  belong to the strategy-and-plan-estate lane, not this thread.
 - **Completed prerequisites**: PDR-124 landed + 15 agent descriptions
   converged (`6b7c496ab`); drain plan + Loop 0 landed (`d0003293b`) — index
   reconciled to whole (17 orphan lines appended; directory listing is the
@@ -134,6 +106,27 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
 
 ## Session history
 
+- **2026-07-05 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), STRATUM D COMPLETE —
+  DRAIN COMPLETE, PLAN ARCHIVED** (second session at this seat, post-compaction head): the full
+  Stratum D queue landed in five commits. `7f4988c63` — user-collaboration split_strategy
+  executed (owner-signal-interpretation.md is the new executive-memory companion carrying
+  hedged-statement, demonstrated-action, and the full depth of direction-is-a-stream +
+  direction-scope) plus the three deferred folds; `b10d90dc0` — principles.md §Decision Lenses
+  either/or coda; `35cf09bf9` — design-from-impact-not-the-cowpath rule authored (four-entry
+  design-agency unit + adapters + RULES_INDEX; the owner-named term "cowpath" carried; the rule
+  NAME is open to owner re-ratification); `b839fe03d` — the intent-and-mechanism doctrine
+  (mechanism-without-legible-intent pattern with the eight assertions as ADR-200 seed; PDR-038
+  §Un-communicated intent bidirectional amendment; owner-working-style.md RETIRED per the
+  owner's reframe — the home pre-decision resolved by dissolution; user-collaboration §Owner
+  Signals Express Practice Intent carries the interpretive residue); `7d424cc9d` — crosswalk +
+  derive-controlled-surface patterns, build_vs_buy into plan-skill §Build-vs-Buy Before
+  Build-Shape + invoke-code-experts reviewer-scheduling, graphs_as_method into ADR-173 §The
+  estate is plural by design (OQ-10 cites it). Final census exact (three marker generations;
+  zero unmarked; index at zero lines). Batches 1-2 docs-adr-expert-reviewed; the reviewer died
+  on the org monthly spend limit at batch 3 — batches 3-4 grounded first-hand per the
+  classifier-unavailable clause. PDR-105 reference-direction validator caught one
+  doctrine→ephemeral link pre-commit (cure: cite the durable home). Plan archived to
+  `archive/completed/` with the closeout verdict: complete.
 - **2026-07-05 — Hedgehog stirs Rime (claude-code / fable-5 / da727a), STRATUM C COMPLETE**:
   the completion goal landed. All 212 `feedback_*` files dispositioned first-hand across the
   session's 12 commits (`b21bafa39` head fold; `7920215df`…`d3e1b6fed` C-2..C-15;

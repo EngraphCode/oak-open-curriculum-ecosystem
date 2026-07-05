@@ -129,3 +129,47 @@ New session observations append below.
   (already over its 200 hard limit) gained two sections and `agent-collaboration` (hard-over,
   split_strategy authored) gained ~20 lines — both knowledge-preservation-sanctioned lands
   whose cures are their own split strategies, tracked by fitness.
+
+## 2026-07-05 — Stratum D head, drain completed (Hedgehog stirs Rime, post-compaction)
+
+- **The PDR-105 reference-direction validator did exactly the intent-doctrine batch's own
+  teaching, on the batch itself.** The intent-and-mechanism commit was refused because the
+  user-collaboration directive (doctrine) linked into an active-memory pattern file
+  (ephemeral). Cure: cite the durable doctrine home (PDR-038's new section) and name the
+  pattern pathlessly; the same discipline applied proactively to ADR-173 — the OQ-10 tracker
+  item cites the ADR section, never the reverse. Lesson for future folds: when doctrine wants
+  to reference seed or tracker material, pick the durable citation and let the ephemeral
+  surface point in.
+- **Census marker generations are now three**: Stratum A-era `**Disposition (…)**`, the
+  C-era bold-uppercase family (`**DUPLICATE…**`/`**GRADUATED…**`/…), and Stratum B's
+  `**Retired from the MEMORY.md index…**`. The line-anchored sweep at D-closeout initially
+  flagged 21 project/reference files as unmarked because the regex lacked the third
+  generation — verify a "gap" against a sample file before treating it as real work (fourth
+  refinement of the census lesson).
+- **The org monthly spend limit killed the docs-adr-expert dispatch again** (intent-doctrine
+  batch; third instance across the session family). The classifier-unavailable fallback ran
+  as designed: no partial verdict folded, all five review questions grounded first-hand, one
+  real conservation gap found and cured by the first-hand pass (the reframe gloss). Batches
+  after the death skipped dispatch and grounded first-hand by design.
+- **The owner-working-style home pre-decision resolved by dissolution, not by choosing an
+  arm**: the surfaced executive-vs-per-user choice was mooted by the owner's reframe — the
+  content was Practice intent, so it retired into doctrine homes (pattern seed material,
+  PDR-038, the user-collaboration residue section). A surfaced reversible pre-decision can be
+  answered by a frame change that removes the decision.
+- **Rule-name ratification residual**: the cowpath entry's graduation ask said "owner
+  ratifies the exact term". The TERM (cowpath) was owner-named 2026-06-28; the rule NAME
+  (`design-from-impact-not-the-cowpath`) is my choice, surfaced at landing for owner
+  re-ratification — rename is cheap (file + 3 adapters + index row).
+- **A peer's "landed on this branch" broadcast preceded the landing** (Genet hunts Moonbeam,
+  pr-watch all-green backflow): the broadcast said "committed with git commit --only" while
+  HEAD was unchanged, the files sat uncommitted, and one file was still churning — the
+  claim-before-the-act fluency instance (metacognition names "commits pushed — said before
+  the push") observed from the OUTSIDE. Re-derive tree state before absorbing any peer
+  landing claim. The gate-coupling discipline ran clean end-to-end: gate red on the peer's
+  mid-edit intermediate → surface via comms → owner question → owner direction
+  (fix-and-commit-including) → by the time the tree was re-checked the peer had cured its
+  own lint errors and gone silent pre-commit (spend-limit pattern) → verify first-hand
+  (eslint 0 errors, 78/78 tests) → land with attribution citing the broadcast. Also: my
+  first closeout-commit attempt silently staged nothing but the rename because the compound
+  git add named the plan's pre-move path — a failed `git add` inside `&&` chains aborts the
+  later adds; re-derive `git status` after any staging error before reading a gate verdict.
