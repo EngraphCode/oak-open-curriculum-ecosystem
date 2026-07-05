@@ -65,7 +65,7 @@ evolves (rarely).
 - [`executive/agent-collaboration-channels.md`](executive/agent-collaboration-channels.md) — at-a-glance register of communication and coordination channels.
 - [`executive/agent-capability-vocabulary.md`](executive/agent-capability-vocabulary.md) — audience and governance vocabulary for agent-facing capability surfaces.
 - [`executive/collaboration-state-placement-contract.md`](executive/collaboration-state-placement-contract.md) — which substance-kind belongs in which collaboration-state file.
-- [`executive/owner-working-style.md`](executive/owner-working-style.md) — durable owner identity assertions consulted when interpreting owner direction.
+- [`executive/owner-signal-interpretation.md`](executive/owner-signal-interpretation.md) — channel semantics for owner direction: hedges, demonstrated actions, supersession vs extension, session-scoped defaults, silence and pauses.
 
 **Read trigger**: ad-hoc lookup when performing an action the surface
 governs (adding an artefact, picking a reviewer, checking platform

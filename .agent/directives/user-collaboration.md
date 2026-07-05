@@ -16,15 +16,19 @@ It complements, but does not replace, [principles.md](principles.md). If a
 collaboration habit conflicts with a repository principle, surface the conflict
 and discuss it with the owner rather than silently choosing one.
 
-## Owner Working Style
+## Owner Signals Express Practice Intent
 
-Durable identity assertions about how the owner approaches engineering
-decisions — gating, capture, graduation, evidence-gated advancement,
-coordination protocol design, and principle-holding — live in
-[`owner-working-style.md`](../memory/executive/owner-working-style.md).
-Treat them as load-bearing context when interpreting owner silence
-(inferred priority on the more principled option), owner reframes, and
-owner pauses (load-bearing decisions, not idle delay).
+Interpret owner silence, ambiguity, reframes, and pauses as consistent
+with the Practice's principles — predict from the Decision Lenses, not
+from a personality model (silence implies the more principled option; a
+reframe like "this is not the goal" signals instrumental work was
+treated as terminal; a pause is a load-bearing decision, not idle
+delay). What reads as
+personal working style is Practice intent — the pairing doctrine is
+[PDR-038](../practice-core/decision-records/PDR-038-stated-principles-require-structural-enforcement.md)
+§Un-communicated intent at maturity, and the system-level intent
+statements are seeded in the pattern library
+(`mechanism-without-legible-intent` §Intent-Layer Seed Material).
 
 ## Working Model
 

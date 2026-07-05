@@ -339,7 +339,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Test Coverage Review Lens** -- Use this when: Reviewing the test surface around a product feature — auditing an `.e2e.test.ts` or `.integration.test.ts` file, triaging a flaky test suite, or deciding what coverage to keep when collapsing a feature's tests after refactor. → [test-coverage-review-lens.md](test-coverage-review-lens.md)
 - **test-claim-assertion-parity** → [test-claim-assertion-parity.md](test-claim-assertion-parity.md)
 
-### Agent (28)
+### Agent (29)
 
 - **Agentic Surface Separation** -- Use this when: Designing or refactoring agent infrastructure that spans skills, rules, commands, subagents, or platform adapters. → [agentic-surface-separation.md](agentic-surface-separation.md)
 - **Audit Rule Body When Extending With a New Prohibition** -- Use this when: Adding a new "X is forbidden" / "X must not appear" / "do not Y" clause to an existing rule, ADR, governance doc, or directive. → [audit-rule-body-on-prohibition-extension.md](audit-rule-body-on-prohibition-extension.md)
@@ -355,6 +355,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Honest Restructure Over Band-aid** -- Use this when: A quality gate fires mid-authoring and the first tempting fix is to bypass, guard, compress, or assert around the gate. → [honest-restructure-over-band-aid.md](honest-restructure-over-band-aid.md)
 - **Inter-Agent Sidebar with Default Action** → [inter-agent-sidebar-with-default-action.md](inter-agent-sidebar-with-default-action.md)
 - **Live Dogfooding as Directional Confirmation** -- Use this when: While building a capability, the team hits — in real time — exactly the gap or friction that capability exists to cure, and the impulse is to read the friction as a setback. → [live-dogfooding-as-directional-confirmation.md](live-dogfooding-as-directional-confirmation.md)
+- **Mechanism Without Legible Intent** *(anti-pattern)* -- Use this when: Landing or auditing an enforcement surface (rule, hook, gate, review lens) — ask where its system-level intent is legible; when agents comply with the letter, misattribute the why to a person, or cannot derive the next rule themselves, the mechanism has outrun its intent. → [mechanism-without-legible-intent.md](mechanism-without-legible-intent.md)
 - **Non-Leading Reviewer Prompts** → [non-leading-reviewer-prompts.md](non-leading-reviewer-prompts.md)
 - **Owner Course-Correct Vocabulary** -- Use this when: Receiving an owner message that contains a course-correct token, or noticing a self-trigger phrase in your own draft prose; both signal a re-grounding moment that maps to a specific canonical doctrine surface. → [owner-course-correct-vocabulary.md](owner-course-correct-vocabulary.md)
 - **Parallel `isolation:\"worktree\"` Dispatch Is Unreliable; Prefer Sequential** *(anti-pattern)* -- Use this when: Considering a parallel `Agent` batch with `isolation:\"worktree\"` for non-trivial work that depends on a specific branch HEAD or specific repo state. → [parallel-worktree-dispatch-unreliable.md](parallel-worktree-dispatch-unreliable.md)
