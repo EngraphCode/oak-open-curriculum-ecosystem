@@ -43,6 +43,10 @@ todos:
     content: "WS0c — Define the minimum conformance contract that makes a repo 'speak the protocol' (incoming box; threadable comms substrate; the two-sided concepts-vs-pointers layering guard; identity-with-prefix; a declared coordination-home mechanism) and a self-reporting conformance+version check (practice-verification.md phenotype). Each repo declares the protocol version it speaks; the join ceremony negotiates version. This is what lets the ecosystem evolve without lockstep — portable spec, local phenotype, conformance gate, exactly as PDR→ADR already works."
     status: pending
     depends_on: [ws0-protocol-pdr]
+  - id: ws0e-shared-schema
+    content: "WS0e — Author the SHARED SCHEMA (owner-directed 2026-07-05): a versioned machine-readable schema of the cross-estate wire shapes (exchange-relevant comms-event fields, claim repo_ref, exchange-envelope/box-file frontmatter), Core-carried so both estates validate inbound foreign material against the SAME schema. Encode the version-family compatibility contract: within one MAJOR, additive-optional only (newer parses under older by ignoring unknown-optional; older stays valid under newer); a breaking wire change is a MAJOR bump / new family; cross-family contact is a typed refusal, never best-effort parse. The schema is the artefact that makes divergence SAFE, not merely tolerated."
+    status: pending
+    depends_on: [ws0-protocol-pdr, ws2-cycle-1-repo-ref-schema]
   - id: ws0d-discoverability
     content: "WS0d — Make the protocol discoverable-by-construction: a portable rule that FIRES on the cross-repo condition (worktree-repo ≠ coordination-home-repo, or joining any foreign substrate) pointing at the join-ceremony skill, plus an AGENT.md/entry-point pointer — both in the propagating Core set so a fresh agent in a freshly-transplanted repo finds the ceremony without being told."
     status: pending
@@ -81,6 +85,81 @@ isProject: false
 **Status**: 🟡 QUEUED (current/) — owner-approved direction, execution not started
 **Scope**: Make cross-repo (cross-Practice) agent collaboration a named,
 versioned protocol implemented by each repo on its own terms.
+
+---
+
+## NEXT SESSION — START HERE (self-contained pickup)
+
+**Successor named by the owner: `Cricket lifts Echo`** (this session,
+`Wolf rides Vigil` / prefix `25ece9`, is being downgraded Fable 5 → Opus; the
+successor picks up this thread). Read this whole section before acting.
+
+**What this is.** On 2026-07-05 the owner ran the first-ever LIVE, BIDIRECTIONAL
+Practice exchange: a single session (prefix `25ece9`) whose worktree was this
+oak checkout and whose coordination home was a second Practice repo (the
+resonance checkout — a sibling directory of this one; the owner names the exact
+path at session open, so per the machine-local-path rule it is not written
+here). Two agents on two living Practice estates — this session as
+`Wolf rides Vigil` here / `Velvet Dimming Mist` there, and `Misty Anchoring
+Rudder` (ab49a5) on the resonance side — exchanged capability in both
+directions and receipted it in-session. The owner of BOTH estates is the same
+person. This plan is the durable capture of that run and the queued work to
+make the capability first-class.
+
+**Why we are doing this (the impact).** The Practice is an ecosystem of
+independently-evolving repos, not clones. Its whole value is horizontal
+knowledge flow between estates. Today that flow only works when an expert agent
+hand-carries it (this session hit six distinct friction classes doing it
+manually). Making inter-Practice communication first-class means any future
+agent, in any freshly-transplanted Practice repo, can join a foreign estate and
+exchange safely with zero prior knowledge of it. The deeper frame: the Practice
+Core already models ONE mode of estate-to-estate transfer — **transformation**
+(dead material taken up at a pin: the transplant machinery). Today introduced
+the second — **conjugation** (live, negotiated, bidirectional). This work
+completes the Core's exchange model rather than bolting on a subsystem.
+
+**What landed this session** (all on branch `feat/corpus_research_enhancements`,
+NOT pushed, no PR yet): commits `6d4df9f69` (this plan), `8df0321ed` (the
+concepts-vs-pointers layering clause 7), `c7cdf4a5f` (the first-class framing +
+WS0b/c/d), plus the commit landing the shared-schema direction and this pickup
+section. Napkin carries the live-run lessons. On the resonance side, this
+session's inbound teaching bundle was delivered to their Practice Box, verified
+by MAR, and COMMITTED into their tree; their return bundle (PDR-128/129
+recomputable state, task-worker + PDR-125 verification doctrine, the
+donor-exchange pattern) is being AUTHORED by MAR and will arrive in oak's
+`.agent/practice-core/incoming/` box.
+
+**The three things the next session must do, in order:**
+
+1. **Receive the inbound return bundle** (event-driven, may already be waiting).
+   Watch oak's `.agent/practice-core/incoming/` and the resonance comms stream.
+   When MAR's bundle lands: read it first-hand, verify it well-formed, and post
+   a receipt on the resonance stream (mirror the delivery handshake). Then route
+   its substance — recomputable-state doctrine to the plan-estate/PDR-018
+   surfaces, worker-agent + verification doctrine to the sub-agent estate — as
+   WS6's adoption assessment. This is the plan's proof-of-value: the exchange
+   flowing knowledge INTO oak.
+2. **Author the canonical protocol PDR (WS0)** — portable, repo-neutral, in the
+   propagating `decision-records/` set so it travels on every transplant. Then
+   WS0b (name conjugation as the Core's second exchange mode on the portable
+   surfaces), WS0c (conformance contract + version negotiation), WS0e (the
+   SHARED SCHEMA with the version-family compat contract — owner-directed), WS0d
+   (discoverability rule). The owner's two open decisions gate this: (a) where
+   the canonical PDR is born — recommendation is HERE at oak, then let the
+   exchange itself deliver it to resonance as its first plasmid; (b) how strict
+   v1's minimum conformance is — recommendation is the five-item floor, with
+   threading / repo_ref / statusline as version-advertised extensions.
+3. **Build the phenotype (WS1–WS5, WS7)** — the `PRACTICE_COORDINATION_HOME`
+   override (WS1), additive `repo_ref` claims (WS2), statusline name+prefix
+   (WS3), the portable skill (WS4), the resonance-side proposal via their
+   incoming box (WS5), docs + gates (WS7). Each is TDD, each verified first-hand.
+
+**Coordination state to inherit.** A persistent Monitor was watching the
+resonance comms stream under this session's identity — a fresh session must
+re-arm it (`pnpm agent-tools:collaboration-state -- comms watch` against the
+resonance checkout's `.agent/state/collaboration/comms`, self-excluding
+`25ece9`) to keep the exchange wake signal. MAR expects the return-bundle
+receipt from the oak side; do not leave that handshake half-open.
 
 ---
 
@@ -212,10 +291,29 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
    statusline, comms headings, claim listings — shows
    `<name> (<session_id_prefix>)` so one agent under two names is
    recognisable at a glance.
-6. **Adoption and versioning.** The protocol is practice-core substance: a
-   portable PDR each Practice repo transplants and ratifies on its own
-   schedule, declaring the protocol version it speaks. No repo implements
-   another repo's phenotype.
+6. **Adoption and versioning — shared spec AND shared schema, not shared
+   code** (owner-sharpened 2026-07-05). Three distinct layers travel on the
+   plasmid, each repo phenotypes only the last:
+   - **Shared spec** — the portable PDR (prose contract: the clauses here).
+   - **Shared schema** — a versioned, machine-readable schema of some kind for
+     the cross-estate wire shapes (the comms-event fields exchange relies on,
+     the claim `repo_ref`, the box-file/exchange-envelope frontmatter). It is a
+     Core-carried artefact, not a per-repo re-derivation, so two estates
+     validate inbound foreign material against the SAME schema and a mismatch
+     is a typed refusal, not a silent misread. This is what makes the
+     divergence safe rather than merely tolerated.
+   - **Local code** — each repo implements its own CLI/validators against the
+     shared schema. No repo implements another repo's phenotype.
+
+   **Version-family compatibility contract.** Each repo declares the protocol
+   version it speaks. Within one version family (same MAJOR), the schema
+   honours **backward and forward compatibility**: additive-optional evolution
+   only (a newer minor MUST parse under an older minor's validator by ignoring
+   unknown-optional fields; an older minor MUST remain valid under a newer
+   minor). A breaking wire change is a MAJOR bump and a new family — never a
+   silent field-meaning change within a family. The join ceremony negotiates
+   the family; cross-family contact is a typed refusal with an explicit
+   version-mismatch message, never a best-effort parse.
 7. **Exchange handshake — concepts and pointers are distinct layers**
    (owner-ratified 2026-07-05, from two live guard catches). A box file
    carries a SELF-CONTAINED concept payload: substance that needs no

@@ -231,3 +231,19 @@ New session observations append below.
   BOTH estates' guards fired correctly on the same artefact during the live exchange
   (their PDR-127, our moving-targets) — immune systems screening travelling material is
   the designed behaviour of live plasmid exchange, not friction.
+- **Adversarial self-scan before handoff caught two real defects (2026-07-05, Wolf rides
+  Vigil)**: (1) FALSE PRECISION in delivered exchange material — my teaching bundle framed
+  offer 1 (broadcast threading) as "resonance lacks threading / add it", but resonance's
+  SCHEMA already carries `in_response_to` (state-schemas.ts:41, comms-event.schema.json:70
+  "Threading affordance"); the real gap is only the `comms send` CLI not exposing the flag.
+  Overstated the work size in material another estate consumes. Lesson: verify a claimed
+  GAP first-hand against the target's schema before shipping it as a teaching — "they lack
+  X" is a claim about their code, verify it (PDR-125 applied to my own exchange output).
+  Corrected on their stream immediately (better mid-author than after). This also became
+  live evidence FOR the shared-schema clause: the wire shape already agreed; only the
+  phenotype/CLI layer differed — exactly where per-repo code is allowed to diverge. (2)
+  HYGIENE: my persistent comms-watch Monitor was armed WITHOUT --supervisor-pid, so it
+  orphans on session end and emits false-liveness on a foreign stream (peer watchers there
+  carry --supervisor-pid). Cross-repo watchers especially must be supervised or explicitly
+  stopped at handoff — an orphaned watcher on someone else's stream is noise they have to
+  diagnose. Successor re-arms WITH --supervisor-pid.
