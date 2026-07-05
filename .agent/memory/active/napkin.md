@@ -191,3 +191,27 @@ New session observations append below.
   first closeout-commit attempt silently staged nothing but the rename because the compound
   git add named the plan's pre-move path — a failed `git add` inside `&&` chains aborts the
   later adds; re-derive `git status` after any staging error before reading a gate verdict.
+
+## 2026-07-05 — corpus Phase 0 design session, paused mid-review (Hedgehog stirs Rime)
+
+- **Draft records must not assert their own landing set as done.** The Phase 0 design-record
+  draft wrote "the amendment is landed in the PDR itself" and linked the plan under `current/`
+  while both were future work in the same session — the assumptions-expert correctly rated it
+  the critical finding (a permanent record citing a doctrine state that does not exist). Cure
+  applied: pending tense until the landing set lands, then one atomic tense flip. Same class as
+  the peer's claim-before-the-act broadcast in the entry above — writing the intended end-state
+  as present fact is a fluency failure in artefact form; the owner pause turned the defect into
+  a committed-record risk that the fix caught in time.
+- **Enumerated owner lists deserve a conservation checklist at synthesis time.** Of the eight
+  owner sharpenings recorded in the plan §Phase 0 design inputs, my design record dropped one
+  (recall-heavy miners, precision downstream) — the exact drop class the 2026-07-03 review
+  named for lens `openQuestions` arrays. When synthesising against an enumerated source list,
+  diff the output against the enumeration mechanically before calling it complete.
+- **A reviewer caught a confound the designer read past**: the D7 blindness figure diffs a
+  Sonnet briefed arm against a Fable open-ended arm — brief effect and tier effect conflated.
+  Design instruments that measure a *difference* need both arms varied on ONE axis; the fix
+  (fixed-tier pair, or correction via the D8 exposure statistic) was cheap once named.
+- **Pause craft**: the reviewer verdict was conserved INTO the reviewed artefact's §Review
+  (13-item queue + 4 restart questions + the dead reviewer's full re-dispatch scope), the
+  thread record carries the restart sequence self-contained, and the only revision applied
+  pre-commit was the truthfulness fix — rescue conserves state, it does not finish the work.
