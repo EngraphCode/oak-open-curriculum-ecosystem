@@ -33,6 +33,31 @@ owns the *memory/context substrate* lane it spawned from the 2026-07-03
   which map one-to-one to the files whose latest marker is ROUTED-TO-D or
   DEFERRED. Retire each line on landing. Then the plan's closeout todo
   (final index verification; value-and-impact closeout).
+- **Owner-ratified frame for the D head (2026-07-05)**: *communicating
+  intent is co-equal with enforcing mechanisms — one without the other
+  doesn't get the job done.* The owner-working-style file is a distillation
+  of Practice intent mis-framed as owner identity (the instance/substrate
+  inversion), and the buffer's ~200 owner-personality entries were the same
+  category error at scale: when system intent is legible only through
+  enforcement and correction, agents build a psychological model of the
+  enforcer. At the D head this reshapes the queue: (1) fold-and-retire
+  `owner-working-style.md` — verify each assertion's doctrine home carries
+  the *intent* (not just the rule), land the one-line interpretive residue
+  in user-collaboration post-split ("interpret owner silence/ambiguity as
+  consistent with the Practice's principles — predict from the lenses, not
+  a personality model"), and treat the eight assertions as seed material
+  for the ADR-200 intent layer (adjacent to the graphs_as_method/OQ-10
+  queue item); (2) the design-agency rule unit gains the
+  attribute-system-properties-to-the-system clause (an "owner is like X"
+  observation is a homing question about whether X is Practice intent);
+  (3) candidate doctrine, classifier-routed: the PDR-038 complement
+  (un-communicated intent at maturity is liability — enforced-but-illegible
+  doctrine breeds letter-compliance, misattribution, and rule inflation)
+  and a mechanism-without-intent pattern as
+  passive-guidance-loses-to-artefact-gravity's named twin. Economy
+  constraint: intent expression must be generative, not enumerative (the
+  Decision Lenses are the proof shape; context budgets are owner-ratified)
+  — the per-mechanism Why layer already exists; the gap is system-level.
 - **Completed prerequisites**: PDR-124 landed + 15 agent descriptions
   converged (`6b7c496ab`); drain plan + Loop 0 landed (`d0003293b`) — index
   reconciled to whole (17 orphan lines appended; directory listing is the

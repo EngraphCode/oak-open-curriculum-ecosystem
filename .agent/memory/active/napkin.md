@@ -104,3 +104,19 @@ New session observations append below.
   died) → commit by pathspec → THEN memory-side markers and index retirement. The final
   reconciliation came out exact (12 live lines = 12 routed/deferred files) with zero orphans —
   the per-loop memory-side-last ordering is what made the census self-proving.
+- **Intent and mechanism are co-equal carriers; the Practice built out only one half**
+  (owner-ratified 2026-07-05, post-drain reflection). The estate has a named, tripwired
+  pattern for intent-without-mechanism (passive-guidance-loses-to-artefact-gravity; PDR-029;
+  PDR-038 "un-enforced doctrine at maturity is liability") but no named twin for
+  mechanism-without-intent — whose phenotypes are hook-as-obstacle, gate-narrowing,
+  rule-corpus inflation (agents cannot derive the next rule), wrong-lens reviews, and the
+  drain's headline: ~200 memories where agents reconstructed illegible system intent
+  inductively and filed it as owner personality. Mechanism yields reliability without
+  generalisation; intent yields generalisation without reliability; the job needs judgment
+  held to account. Cure direction is generative intent at system level (Decision-Lenses-shaped
+  compact generators; ADR-200's intent graph; the eight working-style assertions as seed
+  nodes), never more prose per mechanism — the Why layer already exists and context budgets
+  are real. Doctrine candidates routed to the Stratum D head via the thread record. Inward
+  texture worth keeping: my drain instinct was mechanism-shaped (find the rule-home); the
+  owner's two turns re-lensed the same material as system-level intent — the buffer was the
+  system communicating its intent-gap through misfiled memories.
