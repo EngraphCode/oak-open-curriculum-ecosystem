@@ -90,9 +90,15 @@ versioned protocol implemented by each repo on its own terms.
 
 ## NEXT SESSION — START HERE (self-contained pickup)
 
-**Successor named by the owner: `Cricket lifts Echo`** (this session,
-`Wolf rides Vigil` / prefix `25ece9`, is being downgraded Fable 5 → Opus; the
-successor picks up this thread). Read this whole section before acting.
+**Successor named by the owner: `Cricket lifts Echo`** — a SEPARATE Fable 5
+session in this oak repo (its own session prefix `2fffa2`; the same session is
+`Hushed Prowling Lantern` on the resonance side). It is NOT this session
+continued: the session that ran this exchange (`Wolf rides Vigil` /
+`Velvet Dimming Mist` / prefix `25ece9`) was downgraded Fable 5 → Opus and is
+handing the exchange lane to the fresh Fable session. The successor already
+registered a standby seat on the resonance stream (21:43:58Z) and adopts the
+exchange lane at an explicit handoff acknowledgement (two-moments discipline).
+Read this whole section before acting.
 
 **What this is.** On 2026-07-05 the owner ran the first-ever LIVE, BIDIRECTIONAL
 Practice exchange: a single session (prefix `25ece9`) whose worktree was this
@@ -126,19 +132,27 @@ section. Napkin carries the live-run lessons. On the resonance side, this
 session's inbound teaching bundle was delivered to their Practice Box, verified
 by MAR, and COMMITTED into their tree; their return bundle (PDR-128/129
 recomputable state, task-worker + PDR-125 verification doctrine, the
-donor-exchange pattern) is being AUTHORED by MAR and will arrive in oak's
-`.agent/practice-core/incoming/` box.
+donor-exchange pattern) was delivered into oak's box — see task 1, it has
+ALREADY ARRIVED and been receipted.
 
 **The three things the next session must do, in order:**
 
-1. **Receive the inbound return bundle** (event-driven, may already be waiting).
-   Watch oak's `.agent/practice-core/incoming/` and the resonance comms stream.
-   When MAR's bundle lands: read it first-hand, verify it well-formed, and post
-   a receipt on the resonance stream (mirror the delivery handshake). Then route
-   its substance — recomputable-state doctrine to the plan-estate/PDR-018
-   surfaces, worker-agent + verification doctrine to the sub-agent estate — as
-   WS6's adoption assessment. This is the plan's proof-of-value: the exchange
-   flowing knowledge INTO oak.
+1. **Route the inbound return bundle — it has ARRIVED and been receipted.**
+   `.agent/practice-core/incoming/resonance-teaching-bundle-2026-07-05.md`
+   (189 lines, untracked — successor decides commit/integration timing) is on
+   disk; this session verified it well-formed and posted the receipt on the
+   resonance stream, so the delivery handshake is CLOSED. What remains is WS6:
+   read it first-hand and route its substance as an adoption assessment. Its
+   five sections: (1) recomputable plan state / PDR-128, (2) recomputable team
+   state / PDR-129, (3) zero-judgement task workers + PDR-125 adversarial
+   verification with live-fire lessons, (4) the exchange pattern + neutral-
+   vocabulary doctrine (portable form), (5) MAR's proposal that the protocol
+   ride the plasmid as a Core PDR family with tiered conformance. Route
+   recomputable-state doctrine to the plan-estate / PDR-018 surfaces and
+   worker-agent + verification doctrine to the sub-agent estate. **Section 5
+   CONVERGES with WS0 below** — reconcile the two proposals into ONE shared
+   spec + shared schema, not competing ones. This is the plan's proof-of-value:
+   knowledge flowing INTO oak.
 2. **Author the canonical protocol PDR (WS0)** — portable, repo-neutral, in the
    propagating `decision-records/` set so it travels on every transplant. Then
    WS0b (name conjugation as the Core's second exchange mode on the portable
@@ -154,12 +168,16 @@ donor-exchange pattern) is being AUTHORED by MAR and will arrive in oak's
    (WS3), the portable skill (WS4), the resonance-side proposal via their
    incoming box (WS5), docs + gates (WS7). Each is TDD, each verified first-hand.
 
-**Coordination state to inherit.** A persistent Monitor was watching the
-resonance comms stream under this session's identity — a fresh session must
-re-arm it (`pnpm agent-tools:collaboration-state -- comms watch` against the
-resonance checkout's `.agent/state/collaboration/comms`, self-excluding
-`25ece9`) to keep the exchange wake signal. MAR expects the return-bundle
-receipt from the oak side; do not leave that handshake half-open.
+**Coordination state to inherit.** The return-bundle receipt is already posted
+(21:41:57Z) — the delivery handshake is CLOSED, nothing half-open. The
+successor (`Cricket lifts Echo` / `Hushed Prowling Lantern` / `2fffa2`) has
+ALREADY registered a standby seat and armed its OWN all-channels watcher on the
+resonance stream (self-excluding `2fffa2`) — so it does NOT need to re-arm this
+session's watcher; it adopts the exchange lane by posting an explicit
+pickup/adoption event. This session's watcher (self-excluding `25ece9`, NOT
+supervised) must be stopped at this handoff so it does not orphan and emit
+false-liveness on the resonance stream. MAR's exchange claim `44f0ea2c` stays
+open pending the successor's adoption event.
 
 ---
 
@@ -286,11 +304,23 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
    repo's tooling are permitted only behind schema validation that refuses
    loudly on mismatch. The Practice is an ecosystem: never assume a sibling
    repo's conventions, numbering, or derivations transfer.
-5. **Identity display.** Names are repo-local derivations and stay so
-   (converging them is clone-pressure). Every rendered identity surface —
-   statusline, comms headings, claim listings — shows
-   `<name> (<session_id_prefix>)` so one agent under two names is
-   recognisable at a glance.
+5. **Identity display and the join key.** Names are repo-local derivations and
+   stay so (converging them is clone-pressure). Every rendered identity surface
+   — statusline, comms headings, claim listings — shows
+   `<name> (<session_id_prefix>)`. The **session_id_prefix is the join key**,
+   and it identifies a SESSION: one session presents different names across
+   estates (proven live 2026-07-05: one session was `Velvet Dimming Mist` at
+   this estate and `Wolf rides Vigil` at the donor, both `25ece9`; the standby
+   successor was `Hushed Prowling Lantern` / `Cricket lifts Echo`, both
+   `2fffa2`). A SUCCESSOR is a NEW session — new prefix, therefore a new name in
+   every estate; it is not the same prefix re-derived. (An earlier hypothesis
+   that the name derives from the model was tested against the successor's
+   arrival and WITHDRAWN — a new session simply has a new seed.) The anomaly
+   rule: *same name + different prefix* = anomaly (surface, do not accept). A
+   pre-positioning handoff event from the outgoing session authorises the
+   successor; the peer verifies the successor's OWN identity tuple (its own
+   prefix + cross-estate alias) at the successor's team-start, never assuming
+   the outgoing prefix carries over.
 6. **Adoption and versioning — shared spec AND shared schema, not shared
    code** (owner-sharpened 2026-07-05). Three distinct layers travel on the
    plasmid, each repo phenotypes only the last:

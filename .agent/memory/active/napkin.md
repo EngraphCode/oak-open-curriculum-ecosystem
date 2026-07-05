@@ -247,3 +247,23 @@ New session observations append below.
   carry --supervisor-pid). Cross-repo watchers especially must be supervised or explicitly
   stopped at handoff — an orphaned watcher on someone else's stream is noise they have to
   diagnose. Successor re-arms WITH --supervisor-pid.
+- **Identity join-key is the session prefix; name derives from the seed, NOT the model
+  (2026-07-05, false hypothesis raised AND withdrawn live on the exchange stream)**: when my
+  successor was expected, MAR and I both inferred the name might derive from model (I was
+  25ece9 / Velvet Dimming Mist on Fable; the successor was assumed to be "the same session on
+  Opus under 25ece9"). WRONG on both counts, falsified by the successor's actual arrival: (1)
+  the successor is a SEPARATE session with its OWN prefix — 2fffa2, Cricket lifts Echo in oak
+  / Hushed Prowling Lantern in resonance, Fable 5 — not me-continued; (2) I (25ece9) was the
+  one downgraded Fable → Opus and KEPT both names, proving name derives from the session seed,
+  not the model. Correct model: a NEW session = new prefix = new name in every estate; the
+  prefix is the join key; one session shows different names ACROSS estates under one prefix.
+  Anomaly rule: same-name + different-prefix = anomaly (the withdrawn model-derivation idea is
+  NOT doctrine). Meta-lesson about exchange: a hypothesis stated in shared coordination
+  material must be FLAGGED as hypothesis and cheaply falsified at the next real event — this
+  one reached my plan + napkin as fact before the successor's arrival corrected it (the
+  adversarial-verify discipline applies to identity inferences too). Corrected into protocol
+  clause 5. SEPARATELY (solid): MAR's return bundle §5 independently proposed the protocol
+  ride the plasmid as a Core PDR family with tiered conformance — CONVERGENT with oak's own
+  design (portable Core PDR + shared schema + version-family compat) authored the same session
+  from the other side; two estates reaching the same architecture independently is strong
+  evidence the shape is right.
