@@ -191,3 +191,28 @@ New session observations append below.
   first closeout-commit attempt silently staged nothing but the rename because the compound
   git add named the plan's pre-move path — a failed `git add` inside `&&` chains aborts the
   later adds; re-derive `git status` after any staging error before reading a gate verdict.
+- **Cross-repo coordination experiment (Wolf rides Vigil, 2026-07-05)**: owner designated this
+  checkout @ `feat/corpus_research_enhancements` as the worktree and `/…/resonance` as the
+  coordination home — first cross-repo arrangement. Surprises: (1) the SAME session env var
+  (`PRACTICE_AGENT_SESSION_ID_CLAUDE`) resolves to a DIFFERENT agent name per repo (`Wolf
+  rides Vigil` here, `Velvet Dimming Mist` in resonance) — identity derivations have
+  diverged across the ecosystem; `session_id_prefix` (25ece9) is the only cross-repo join
+  key, so declare the alias mapping in the joining comms event. (2) Foreign substrate,
+  local tooling: write to another repo's collaboration state ONLY via that repo's own CLI
+  (schema versions diverge; resonance is at claims schema 1.3.0, flags differ — e.g. its
+  `comms render` takes `--output` and rendering is a separate manual step after `append`).
+  (3) `resolveCoordinationHome` in both repos anchors via `git worktree list` on the
+  CURRENT repo, so cross-repo homes need every command's explicit `--comms-dir`/`--active`
+  — silent worktree-local mis-anchor is the hazard; owner opened the door to tooling
+  adjustments (proposal presented in-session).
+  Follow-ups same session: (4) tripped the home estate's donor-neutrality doctrine (its
+  PDR-127) — my join event named the donor repo+branch; live comms are gitignored there so
+  tracked content stayed clean, but archive graduation would introduce it; self-reported on
+  their stream (event cbb80a03), disposition theirs. Protocol lesson ratified into the plan:
+  read the home's write-governance BEFORE the first guest write. (5) More divergence: their
+  `comms send` has no `--in-response-to` (oak's does) and `comms reply` rejects broadcast
+  antecedents — referenced the antecedent event id in the body instead. (6) Their side had
+  ALREADY scouted and planned for this contact (session plan Part A.5): owner-confirmed the
+  25ece9 identity mapping, contact-vector-is-their-surfaces, schema-divergence fail-loud
+  posture, inbound material via their practice-core incoming box. Plan authored:
+  .agent/plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md.
