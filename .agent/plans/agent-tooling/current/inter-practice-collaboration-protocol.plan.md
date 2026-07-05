@@ -52,15 +52,15 @@ todos:
     status: pending
     depends_on: [ws0-protocol-pdr, ws4-skill]
   - id: ws1-cycle-1-env-override
-    content: "WS1 cycle 1: failing unit test for PRACTICE_COORDINATION_HOME resolution order (explicit flag > env > git-native) + loud rejection of a missing/substrate-less path, then the resolveCoordinationHome product change. One commit. Tree green at end."
-    status: pending
+    content: "WS1 cycle 1: failing unit test for PRACTICE_COORDINATION_HOME resolution order (explicit flag > env > git-native) + loud rejection of a missing/substrate-less path, then the resolveCoordinationHome product change. One commit. Tree green at end. DONE 2026-07-05 (Cricket lifts Echo, f31faec62): seam + loud validation landed incl. reviewer-raised absolute-path guard; test file re-classified integration; explicit-flag wiring test + one composition-edge wrapper routed to coordination-home-cli-path-defaulting."
+    status: done
   - id: ws2-cycle-1-repo-ref-schema
     content: "WS2 cycle 1: schema-first additive repo_ref (origin + branch; checkout path stays machine-local) on claims/heartbeat surfaces + origin-normalisation helper, test+code in one commit."
     status: pending
     depends_on: [ws0-protocol-pdr]
   - id: ws3-cycle-1-statusline-prefix
-    content: "WS3 cycle 1: statusline displays agent name WITH session_id_prefix — failing render test + product change in one commit."
-    status: pending
+    content: "WS3 cycle 1: statusline displays agent name WITH session_id_prefix — failing render test + product change in one commit. DONE 2026-07-05 (Cricket lifts Echo): identityPrefix on StatuslineParts (required — compile-forced at every composer); formatIdentity renders name (prefix) with the PDR-027 unknown fallback; raw name still feeds session-shape matching; the slice(0,6) derivation consolidated to one canonical sessionIdPrefix helper across its three literal sites; live adapter run renders Cricket lifts Echo (2fffa2)."
+    status: done
   - id: ws4-skill
     content: "WS4 — Author the portable inter-practice-collaboration skill (SKILL-CANONICAL + .claude adapter): join ceremony checklist, foreign-substrate discipline, home declaration, alias mapping, worked example from the 2026-07-05 first instance."
     status: pending

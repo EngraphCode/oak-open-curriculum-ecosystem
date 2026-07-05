@@ -26,6 +26,7 @@ const FEATHER = '\u{1FAB6}';
 function parts(sessionShape: SessionShape | undefined): StatuslineParts {
   return {
     identity: 'Monsoon guards Cirrus',
+    identityPrefix: 'a1b2c3',
     dir: 'repo',
     branch: undefined,
     dirty: false,
@@ -47,7 +48,8 @@ function shape(overrides: Partial<SessionShape>): SessionShape {
   return { ownRole: undefined, teamShape: 'solo', arcActive: false, ...overrides };
 }
 
-const IDENTITY = `${MAGENTA}Monsoon guards Cirrus${RESET}`;
+// Name + session_id_prefix: the identity segment carries the cross-repo join key (WS3).
+const IDENTITY = `${MAGENTA}Monsoon guards Cirrus (a1b2c3)${RESET}`;
 const PLACE = `${CYAN}repo${RESET}`;
 
 describe('renderStatusline — session-shape indicators', () => {
