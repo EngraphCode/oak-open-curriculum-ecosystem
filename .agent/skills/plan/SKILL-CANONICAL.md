@@ -20,6 +20,14 @@ and the plan architecture defined in
    intent, constraints, and trade-offs before committing to a plan
    structure. Do not skip this step for non-trivial work.
 
+   When "plan X" spans **altitudes** — the downstream product/strategy
+   vs synthesising our own plan estate; future strategy vs immediate
+   executable work — surface the altitude fork (or state the
+   lighter/immediate verdict) BEFORE drafting; never default to the
+   heavier altitude, and never bake an open decision in as a
+   load-bearing thesis. A reviewer can validate a plan's facts but
+   cannot catch a wrong altitude — the frame is the owner's to set.
+
    **Verdict-vs-menu discipline** (per
    [`.agent/rules/present-verdicts-not-menus.md`](../../rules/present-verdicts-not-menus.md)):
 

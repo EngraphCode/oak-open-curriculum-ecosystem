@@ -119,6 +119,15 @@ indicates an environmental or configuration issue, not a missing check.
 `pnpm check` is the broadest surface, adding clean rebuild, doc-gen, widget
 tests, a11y tests, and fix-mode commands. See ADR-121 for the full rationale.
 
+The full gate is authoritative in both directions. A **successful push has
+already run the entire pre-push gate** — the push cannot succeed otherwise —
+so do not offer `pnpm check` or CI-watching merely to "confirm green" after
+a push succeeds. Conversely, a green declared on a **partial local subset**
+(e.g. lint + type-check + tests, but not format-check) is never proof the
+commit or push will pass: the gates are independent, so enumerate the
+actual gate set the boundary will run and run that set, never the
+convenient subset.
+
 ## Quality Gate Commands
 
 This document is the command source of truth that AGENT.md links to. Root

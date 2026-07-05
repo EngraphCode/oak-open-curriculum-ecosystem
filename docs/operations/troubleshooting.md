@@ -40,6 +40,11 @@ synthesise-and-conclude reflex:
   emulator → host renderer → surface; client → transport → server → store) and
   never let one layer's result stand in for another's. Draw the layer stack
   once, up front.
+- **Apply the timestamp-zone discipline** —
+  [`verify-dont-trust`](../../.agent/rules/verify-dont-trust.md)
+  §Timestamp-Zone Discipline: UTC is the canonical analysis clock, every
+  timestamp's zone labelled, conversions shown, and never a timeline
+  inferred from a truncated log view.
 - **Hand over the exact command you verified**, never a retyped approximation
   — a dropped redirect or flag turns a working probe into "does nothing".
 - **Before implementing in a code area mid-diagnosis**, check
@@ -331,6 +336,37 @@ positional args instead:
 Reviewer sub-agents dispatched near the end of a conversation
 turn may be lost when the turn completes. Re-invoke in the
 next session.
+
+### Recovering a Failed Sub-Agent's Work
+
+When a sub-agent terminates mid-task (credits, timeout, error), its full
+transcript — every tool call and result — is preserved on disk:
+
+```text
+~/.claude/projects/<project>/<session-uuid>/subagents/agent-<agentId>.jsonl
+~/.claude/projects/<project>/<session-uuid>/subagents/agent-<agentId>.meta.json
+```
+
+`<agentId>` is the 17-char id in the agent's final message. Inspect what
+the prior agent already read, then brief a fresh dispatch with the
+original task PLUS a "prior agent already read these files" preamble —
+the retry warm-starts instead of repeating the reads (worked instance
+2026-04-25: a credit-exhausted reviewer's retry delivered in 3 tool uses
+after the transcript showed what was already grounded). Useful jq:
+
+```bash
+# Every tool call, truncated input
+jq -r 'select(.message.role == "assistant") | .message.content[]?
+  | select(.type == "tool_use")
+  | "TOOL: \(.name)\nINPUT: \(.input | tostring | .[0:200])\n---"' \
+  agent-<id>.jsonl
+# The agent's own text output
+jq -r 'select(.message.role == "assistant") | .message.content[]?
+  | select(.type == "text") | .text' agent-<id>.jsonl
+```
+
+Prefer `SendMessage` with the agent id to resume when available; the
+transcript recovery is the equivalent when it is not.
 
 ### MCP App UI Not Rendering in Client
 

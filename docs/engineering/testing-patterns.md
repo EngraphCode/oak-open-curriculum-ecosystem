@@ -89,6 +89,30 @@ Compliant tests to use as templates:
 
 ---
 
+## A Test That Needs Real IO Is a Product Defect
+
+When a unit or integration test seems to need real IO, the product code
+lacks a dependency-injection seam (ADR-078) — a product defect, not a
+test-writing inconvenience. The fix is to refactor the product to be
+testable (route the read/write through an injectable dependency, as
+sibling modules already do) and inject an in-memory fake — never to leave
+the IO in the test, and never to treat the refactor as out-of-scope
+("if you need to refactor code to make it testable that is a good thing —
+that is surfacing an architectural issue and fixing it"; owner,
+2026-06-13).
+
+## Real-Content Backstops for Transforms
+
+For any generator, transform, extractor, or content firewall, **green
+fixtures are not proof**: fixtures encode the cases you already thought
+of, and the real source carries the ones you didn't. Add a backstop that
+runs on the real source — a generation-time assertion or a real-content
+test — and inspect the real output before calling the transform done
+(worked instances 2026-06-30: fixtures passed twice while the real
+generated body carried a routing coupling and a structure leak that only
+grepping the real content caught). For a separation or firewall that
+encodes a principle, the real-content check IS the proof.
+
 ## Test File Classification
 
 Test classification is based on what the test actually does,

@@ -201,6 +201,14 @@ statusline-resolution bug). Building mid-session does not restore the current
 session's statusline. So build every new worktree **before** opening the session,
 not after.
 
+`pnpm install` also does NOT fetch Playwright browser binaries, so a fresh
+worktree's pre-push `test:ui`/`test:e2e` legs die with "Executable doesn't
+exist at …chrome-headless-shell" until you run
+`pnpm --filter <app> exec playwright install chromium-headless-shell` once in
+the worktree. Read the log before assuming a known flake — this failure is
+not the oauth-proxy concurrency flake. Full fresh-worktree setup is install,
+build, AND the Playwright browser install before the browser-test gates run.
+
 ## Practice Box
 
 Check `.agent/practice-core/incoming/` for practice-core files. If

@@ -150,6 +150,16 @@ surface.
 Options that fail these screens are not respectful alternatives. They are
 anti-shapes offered as owner work.
 
+The form for what survives: once something IS a genuine owner decision,
+pose it as an explicit question (AskUserQuestion) with the recommended
+option first and the analysis attached — never as a recommendation
+embedded in a prose report the owner must notice. The question form is
+the owner's "I am needed" signal (owner-stated 2026-06-11), and in team
+sessions it is the only reliably-seen channel: a fork buried in a dense
+comms window drowns (owner-corrected 2026-06-27, "surface questions as
+QUESTIONS, or they become lost"). Ratified sign-off classes carry no
+default.
+
 ## What to Do Instead
 
 1. **State the verdict** in the first sentence. Sound / concern /
