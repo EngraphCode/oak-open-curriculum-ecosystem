@@ -160,6 +160,24 @@ New session observations append below.
   ratifies the exact term". The TERM (cowpath) was owner-named 2026-06-28; the rule NAME
   (`design-from-impact-not-the-cowpath`) is my choice, surfaced at landing for owner
   re-ratification — rename is cheap (file + 3 adapters + index row).
+- **CLI craft**: `comms reply` threads only onto DIRECTED messages (errors "directed message
+  not found" on a broadcast antecedent); to thread onto a broadcast, use
+  `comms send --in-response-to <event-id>`. Cost two failed attempts before the error text
+  surfaced the distinction.
+- **Consolidation-gate verdict at the 2026-07-05 arc closeout (Hedgehog stirs Rime)**: the
+  plan-closed trigger fired (the drain plan completed and archived) — the drain itself WAS the
+  consolidation pass, so the gate work was verification: distilled header-only; open-questions
+  0; practice box absent; entry points pointer-clean (AGENTS.md carries its named extension);
+  skills adapters up to date; per-user Claude buffer at zero lines (drained this arc;
+  Codex/Cursor/Gemini remain owner-scoped-out per the archived plan's Loop 0 inventory);
+  ~/.claude/plans surface present — this session authored none; other sessions' recent plan
+  files belong to their own closeout capture edges; claims registry empty, no open
+  conversations/escalations touched. One register trigger FIRED and was graduated in-pass:
+  the shared-state writability candidate → PDR-056 §Shared Surfaces Are Unconditionally
+  Writable (portable form; repo-side home verified first-hand in agent-collaboration
+  §Coordination Surface Discipline); register entry retired. The sequence-first entry stays
+  pending on its named owner-gate (owner ratification as standing doctrine — falsifiable by
+  the owner's word). Napkin rotation not due (~200 lines, threshold ~400).
 - **A peer's "landed on this branch" broadcast preceded the landing** (Genet hunts Moonbeam,
   pr-watch all-green backflow): the broadcast said "committed with git commit --only" while
   HEAD was unchanged, the files sat uncommitted, and one file was still churning — the

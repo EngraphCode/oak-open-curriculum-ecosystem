@@ -207,6 +207,28 @@ escalation timeout).
 Validation: N≥3 deadlined-default tasks where wait-for-ack prevents
 false-default firings.
 
+## Shared Surfaces Are Unconditionally Writable (2026-07-05 amendment)
+
+Shared memory and coordination-state surfaces — session capture
+buffers, distilled learning registers, continuity records, thread
+records, claims, comms events, and every other shared record of
+knowledge or coordination state — are writable and committable by
+**any agent, at any time, unconditionally**. A memory-preservation or
+closeout write is never blocked by a claim, a coordination collision,
+or a fitness signal. These surfaces are append- and merge-tolerant by
+design, so committing a dirty shared file conserves every agent's
+appends; the deliberate trade-off accepts git-blame attribution
+ambiguity to prevent write logjams and mutual-politeness deadlocks.
+When two agents hold appends to the same file, the first to commit
+commits the whole file and the other re-edits (the
+injected-asymmetry tiebreaker).
+
+This records the portable form of doctrine first landed host-side in
+the host collaboration directive's Coordination Surface Discipline
+section (ws1g, captured 2026-07-03); graduated at the 2026-07-05
+consolidation pass when the register entry's next-consolidation
+trigger fired.
+
 ## Scope
 
 **Adopter scope**: every Practice-bearing repo with multi-agent

@@ -111,15 +111,6 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Unconditional shared-state writability as portable Practice doctrine** —
-  `[captured: 2026-07-03 | source: ws1g v2-C28 graduation (repo-side home authored in
-  agent-collaboration.md §Coordination Surface Discipline this pass; the portable form is the
-  residual) | target: new PDR (or a PDR-056 amendment) — shared memory/state surfaces are
-  writable and committable by any agent unconditionally; append/merge-tolerant by design;
-  blame-ambiguity accepted to prevent logjams; first-to-commit-commits-whole-file tiebreaker |
-  trigger: next consolidation pass or the next Practice-hydrating repo needing the doctrine |
-  size: S | status: pending]`
-
 - **Sequence-first over smallest-first shipping (owner reframe)** —
   `[captured: 2026-07-04 | source: tier-E drain E-b8 item C230 (single corpus window): the
   owner reframed "smallest impactful thing to ship first" as sequence-first — the full
