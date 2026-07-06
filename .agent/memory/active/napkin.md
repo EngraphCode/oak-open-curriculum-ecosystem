@@ -447,6 +447,78 @@ Frictions worth curing at the tool layer:
   machine-local-path guard (correctly) blocks it. Pass the path as argv.
 - `comm` needs sorted inputs; newest-first lists mean `tail` silently cuts the NEWEST rows.
 
+## 2026-07-06 — statusline/footer diagnostic session (Wyvern seeks Clinker)
+
+Light diagnostic session: /statusline request → found the statusline is repo-owned, then
+diagnosed a missing native footer PR badge. No code changed; owner fixed the bricked hooks
+mid-session (dist rebuild). Two capture-worthy items:
+
+- **Corroborating instance of the dist-brick above** (same day, different seat): session
+  opened with every Bash call fail-closed on "canonical hook policy did not contain
+  hooks.preToolUse.blocked_patterns" — the stale-dist guard-vs-policy schema mismatch the
+  Cricket lifts Echo entry documents. PLUS a new observability gap: the statusline-setup
+  sub-agent read `.claude/logs/hook-errors.log` and found only a fail-OPEN entry (2026-07-05,
+  missing artefact) — the live fail-CLOSED brick left NO log trace. The guard runner logs the
+  degrade path but not the crash path; a future brick is invisible in the log designed to
+  record it. Strengthens the "guard self-heal / fail-open on schema-parse miss" candidate.
+- **Grounded facts on the Claude Code native footer PR badge** (for whoever hits this next):
+  the badge is Claude Code's own chrome, NOT the statusline command's output — a custom
+  statusLine renders in its own row ABOVE the footer badges and cannot suppress them (docs:
+  code.claude.com/docs/en/statusline). PreToolUse hooks gate only the model's tool calls,
+  not the CLI's internal PR lookup. Verified 2026-07-06 with ALL preconditions met — PR #304
+  open non-draft for `feat/corpus_research_enhancements` (binding recorded in `.git/config`
+  `github-pr-owner-number`), `gh` auth green, upstream tracking set — yet the badge was
+  absent, so the cause is Claude-Code-internal (stale session state or version/surface
+  support). Repo config exonerated first-hand; next probe is a fresh session on a current CLI
+  version, then /bug with this evidence.
+
+Closeout bookkeeping (owner-scoped light handoff): no new ADR/PDR candidate (the guard
+self-heal candidate already exists in the Cricket entry; this session only strengthens it),
+no open
+questions, no claim to close (none registered — diagnostic session). Entry-point sweep clean
+(CLAUDE/AGENTS/GEMINI canonical). Per-user Claude MEMORY.md not present post-drain; platform
+plan surface present, nothing authored this session. Consolidation gate: napkin now ~490
+lines — past its ~400 rotation threshold from the two 2026-07-06 sessions' appends; deep
+consolidation due on the next dedicated pass (owner scoped THIS close to light notes), not
+run here. pnpm check verdict recorded below when the run completes.
+
+## 2026-07-06 — Session closeout: PR-304 shepherded to merge + recursive loss/metaloss scan (Cricket lifts Echo)
+
+Landed: PR #304 merged to main as a merge commit (`562a73b0f`), release cut to 1.59.0
+(`b41ae2233`). The inter-Practice semantic merge, the confident-and-wrong doctrine, the
+ripgrep-guard fix, and the tooling-capture entry above are all in main. Shepherded green
+(CI 16/16, 2 review threads resolved, mergeState CLEAN); owner merged; local repo updated;
+`feat/graph-tooling-tidyup` archived as tag `archive/graph-tooling-tidyup` (a month-stale
+superseded WIP — EEF is live on main).
+
+Recursive loss/metaloss scan:
+
+- **The dist-brick graduated to a STRUCTURAL cure candidate (frictions F-120), NOT a fourth
+  passive capture.** It was documented in three places and recurred within hours anyway
+  (Cricket + Wyvern, same day) — `passive-guidance-loses-to-artefact-gravity` demonstrating
+  itself. Capturing it a fourth time would BE the metaloss; the anti-metaloss move is the
+  frictions entry naming the structural cure (pre-merge-commit rebuild / guard fail-open on a
+  whole-schema miss / log the fail-closed path) with PDR-098 recurrence evidence. Routed to the
+  frictions register, not pending-graduations, because a tooling gap is not doctrine (and a
+  "remember to rebuild dist" rule would be exactly the passive guidance that already failed).
+- Reusable craft worth a durable home later (could graduate to a pattern or an agent-tools
+  command):
+  - **Judging whether an unmerged branch holds unique work.** SHA-ancestry alone lies on a
+    squash. Use `git cherry` (patch-id — catches cherry-picks, not squashes) plus per-file
+    `git cat-file -e main:<path>` classification (absorbed / differs-but-main-newer=stale /
+    branch-only), then sub-categorise branch-only into transient `.agent/state/` vs historical
+    `archive/` vs durable-unique, then check the durable-unique against main under DIFFERENT
+    paths — a month-stale branch's "unique" files are often superseded or renamed on main.
+  - **Archive-before-delete for an unmerged branch.** Annotated tag at the tip → verify the tip
+    is reachable via the tag → THEN `git branch -D`. The tag makes the force-delete lossless.
+
+Closeout bookkeeping: napkin rotation DUE (past ~400; deferred with honesty — Wyvern's
+uncommitted entry is entangled in the working tree and the owner scoped this to a bounded
+housekeeping PR; next dedicated pass rotates once the entanglement clears). No ADR/PDR
+candidate (F-120 is a tooling gap, correctly routed to the frictions register). No open
+questions. No claim to close (exchange claim `d0e453a3` closed at the prior handoff). pnpm
+check verdict recorded at the housekeeping commit.
+
 ## 2026-07-06 — Sonar Phase 5B session (Katydid seeks Moonbeam)
 
 - **ESLint↔Sonar same-rule-id divergence is a real class**: unicorn v69's
