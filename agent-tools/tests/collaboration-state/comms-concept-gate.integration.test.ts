@@ -4,6 +4,15 @@ import {
   checkCommsTextAgainstConceptGates,
   loadCommsConceptGateBlocks,
 } from '../../src/collaboration-state/comms-concept-gate.js';
+import type { ScopedContentBlockGroup } from '../../src/hook-policy/types.js';
+
+/** Unwrap the fail-closed loader; the live policy must satisfy it. */
+async function loadLiveBlocks(): Promise<readonly ScopedContentBlockGroup[]> {
+  const loaded = await loadCommsConceptGateBlocks();
+  expect(loaded.ok).toBe(true);
+  // The expect above fails the test on err; the fallback is unreachable.
+  return loaded.ok ? loaded.value : [];
+}
 
 /**
  * SSOT proof: the comms concept gate reads the SAME trip-list and regex
@@ -16,8 +25,8 @@ import {
  */
 
 describe('comms concept gate against the live hook policy', () => {
-  it('loads exactly the ratified concepts from the live policy', async () => {
-    const blocks = await loadCommsConceptGateBlocks();
+  it('loads exactly the ratified concepts from the live policy (satisfying the fail-closed check)', async () => {
+    const blocks = await loadLiveBlocks();
 
     expect(blocks.map((group) => group.concept).toSorted((a, b) => a.localeCompare(b))).toEqual([
       'expediency-hedging',
@@ -26,7 +35,7 @@ describe('comms concept gate against the live hook policy', () => {
   });
 
   it('fires the live hedging trip-list on a comms body', async () => {
-    const blocks = await loadCommsConceptGateBlocks();
+    const blocks = await loadLiveBlocks();
 
     const result = checkCommsTextAgainstConceptGates({
       title: 'coordination',
@@ -43,7 +52,7 @@ describe('comms concept gate against the live hook policy', () => {
   });
 
   it('fires the live indefinite-deferral family on a comms body', async () => {
-    const blocks = await loadCommsConceptGateBlocks();
+    const blocks = await loadLiveBlocks();
 
     const result = checkCommsTextAgainstConceptGates({
       title: 'status',
@@ -59,7 +68,7 @@ describe('comms concept gate against the live hook policy', () => {
   });
 
   it('never false-positives on agent display names containing family substrings', async () => {
-    const blocks = await loadCommsConceptGateBlocks();
+    const blocks = await loadLiveBlocks();
 
     const result = checkCommsTextAgainstConceptGates({
       title: 'Team start report: Sparking Melting Magma',

@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
 
+import { type ScopedContentBlockGroup } from '../hook-policy/types.js';
 import {
   checkCommsTextAgainstConceptGates,
   formatCommsConceptGateRefusal,
@@ -156,13 +157,23 @@ export async function enforceCommsConceptGates(
   io: Pick<CollaborationStateCliIo, 'loadCommsConceptGateBlocks'>,
   input: { readonly title: string; readonly body: string; readonly tags?: readonly string[] },
 ): Promise<void> {
-  const gate = checkCommsTextAgainstConceptGates({
-    ...input,
-    groups: await io.loadCommsConceptGateBlocks(),
-  });
-  if (!gate.ok) {
-    throw new Error(formatCommsConceptGateRefusal(gate.error));
+  const loaded = await io.loadCommsConceptGateBlocks();
+  // A loader err (a policy missing a ratified concept group) fails the write
+  // closed exactly like a refusal — a gate that silently passes every event
+  // is enforcement disabled.
+  const failure = loaded.ok ? gateRefusalMessage(input, loaded.value) : loaded.error;
+  if (failure !== undefined) {
+    throw new Error(failure);
   }
+}
+
+/** The refusal's teaching payload, or undefined when the text passes the gate. */
+function gateRefusalMessage(
+  input: { readonly title: string; readonly body: string; readonly tags?: readonly string[] },
+  groups: readonly ScopedContentBlockGroup[],
+): string | undefined {
+  const gate = checkCommsTextAgainstConceptGates({ ...input, groups });
+  return gate.ok ? undefined : formatCommsConceptGateRefusal(gate.error);
 }
 
 /**

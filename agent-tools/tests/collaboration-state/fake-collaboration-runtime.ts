@@ -1,3 +1,5 @@
+import { ok } from '@oaknational/result';
+
 import { createCommsEvent } from '../../src/collaboration-state';
 import { migrateLegacyCommsDirectories } from '../../src/collaboration-state/comms-migration';
 import {
@@ -127,7 +129,7 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
     // per ratified comms-gated concept, so gate behaviour is observable in
     // integration tests while their pass/fail stays decoupled from
     // `.agent/hooks/policy.json` content (the DI seam's whole point).
-    loadCommsConceptGateBlocks: async () => FAKE_COMMS_CONCEPT_GATE_BLOCKS,
+    loadCommsConceptGateBlocks: async () => ok(FAKE_COMMS_CONCEPT_GATE_BLOCKS),
   };
 }
 

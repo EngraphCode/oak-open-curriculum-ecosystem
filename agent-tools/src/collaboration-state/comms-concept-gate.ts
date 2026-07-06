@@ -52,12 +52,42 @@ export function selectCommsGatedBlocks(
 }
 
 /**
- * Load the comms-gated concept blocks from the hook policy (the SSOT).
+ * The fail-closed check on the selected comms-gated blocks: every ratified
+ * concept in {@link COMMS_GATED_CONCEPTS} must be present, because a policy
+ * file missing `scoped_blocks` (or one of the two groups) would otherwise
+ * yield an empty/partial group list and the gate would silently pass every
+ * comms event — enforcement disabled with no signal.
+ */
+export function requireCommsGatedBlocks(
+  groups: readonly ScopedContentBlockGroup[],
+): Result<readonly ScopedContentBlockGroup[], string> {
+  const selected = selectCommsGatedBlocks(groups);
+  const present = new Set(selected.map((group) => group.concept));
+  const missing = COMMS_GATED_CONCEPTS.filter((concept) => !present.has(concept));
+  if (missing.length > 0) {
+    return err(
+      `comms concept gate: the canonical hook policy is missing the ratified concept group(s) ${missing.join(
+        ', ',
+      )} under hooks.preToolUseContent.scoped_blocks — the gate fails closed rather than silently passing every comms event ungated. Restore the group(s) in .agent/hooks/policy.json (the SSOT for patterns, citations, and reappraisals).`,
+    );
+  }
+  return ok(selected);
+}
+
+/**
+ * Load the comms-gated concept blocks from the hook policy (the SSOT),
+ * failing closed (via {@link requireCommsGatedBlocks}) when a ratified
+ * concept group is absent. An unreadable or malformed policy file still
+ * REJECTS — the shared `loadScopedContentBlocks` boundary wraps fs/zod,
+ * which throw — and that rejection reaches the same CLI throw boundary as
+ * the `err` channel, so every failure mode blocks the write; the `err`
+ * channel is reserved for the present-but-incomplete policy only this gate
+ * can judge.
  */
 export async function loadCommsConceptGateBlocks(
   policyUrl: URL = POLICY_URL,
-): Promise<readonly ScopedContentBlockGroup[]> {
-  return selectCommsGatedBlocks(await loadScopedContentBlocks(policyUrl));
+): Promise<Result<readonly ScopedContentBlockGroup[], string>> {
+  return requireCommsGatedBlocks(await loadScopedContentBlocks(policyUrl));
 }
 
 /**

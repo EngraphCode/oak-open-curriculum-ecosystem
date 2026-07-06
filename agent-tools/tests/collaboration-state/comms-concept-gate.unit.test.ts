@@ -1,9 +1,12 @@
+import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { enforceCommsConceptGates } from '../../src/collaboration-state/cli-comms-commands.js';
 import {
   COMMS_GATED_CONCEPTS,
   checkCommsTextAgainstConceptGates,
   formatCommsConceptGateRefusal,
+  requireCommsGatedBlocks,
   selectCommsGatedBlocks,
 } from '../../src/collaboration-state/comms-concept-gate.js';
 import type { ScopedContentBlockGroup } from '../../src/hook-policy/types.js';
@@ -53,6 +56,48 @@ describe('selectCommsGatedBlocks', () => {
     ]);
     // The exported constant is the same closed set the selection encodes.
     expect(COMMS_GATED_CONCEPTS).toEqual(['expediency-hedging', 'indefinite-deferral']);
+  });
+});
+
+describe('requireCommsGatedBlocks (fail closed)', () => {
+  it('returns the selected gated blocks when every ratified concept is present', () => {
+    const result = requireCommsGatedBlocks([
+      block('expediency-hedging'),
+      block('sha-in-permanent-doc'),
+      block('indefinite-deferral'),
+    ]);
+
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.map((group) => group.concept)).toEqual([
+        'expediency-hedging',
+        'indefinite-deferral',
+      ]);
+    }
+  });
+
+  it('refuses a policy missing one ratified concept group, naming it', () => {
+    // A partial group list would gate one concept and silently wave the other
+    // through — enforcement half-disabled with no signal.
+    const result = requireCommsGatedBlocks([block('expediency-hedging')]);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toContain('indefinite-deferral');
+      expect(result.error).not.toContain('expediency-hedging');
+      expect(result.error).toContain('fails closed');
+      expect(result.error).toContain('.agent/hooks/policy.json');
+    }
+  });
+
+  it('refuses an empty group list (policy without scoped_blocks), naming every missing concept', () => {
+    const result = requireCommsGatedBlocks([]);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toContain('expediency-hedging');
+      expect(result.error).toContain('indefinite-deferral');
+    }
   });
 });
 
@@ -119,6 +164,29 @@ describe('checkCommsTextAgainstConceptGates', () => {
     });
 
     expect(result.ok).toBe(false);
+  });
+});
+
+describe('enforceCommsConceptGates (CLI write boundary)', () => {
+  it('fails the write closed when the loader reports missing concept groups', async () => {
+    await expect(
+      enforceCommsConceptGates(
+        {
+          loadCommsConceptGateBlocks: async () =>
+            err('comms concept gate: missing indefinite-deferral'),
+        },
+        { title: 'coordination', body: 'clean body', tags: [] },
+      ),
+    ).rejects.toThrow('missing indefinite-deferral');
+  });
+
+  it('lets clean text through when the loader succeeds', async () => {
+    await expect(
+      enforceCommsConceptGates(
+        { loadCommsConceptGateBlocks: async () => ok([block('expediency-hedging')]) },
+        { title: 'coordination', body: 'clean body', tags: [] },
+      ),
+    ).resolves.toBeUndefined();
   });
 });
 

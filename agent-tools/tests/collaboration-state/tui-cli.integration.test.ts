@@ -1,3 +1,4 @@
+import { ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -68,7 +69,9 @@ describe('collaboration-state tui CLI integration', () => {
     const reads: string[] = [];
     const runtime: CliRuntime = {
       io: {
-        loadCommsConceptGateBlocks: async () => [],
+        // ok([]) deliberately disables the gate — this test exercises path
+        // defaults, not gate behaviour.
+        loadCommsConceptGateBlocks: async () => ok([]),
         readActiveClaimsFile: async (filePath) => {
           reads.push(filePath);
           return activeClaims();

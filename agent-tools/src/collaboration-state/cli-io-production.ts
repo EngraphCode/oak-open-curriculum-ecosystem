@@ -1,5 +1,7 @@
 import { appendFile, mkdir, readFile } from 'node:fs/promises';
 
+import { type Result } from '@oaknational/result';
+
 import { type ScopedContentBlockGroup } from '../hook-policy/types.js';
 import { loadCommsConceptGateBlocks } from './comms-concept-gate.js';
 import { filesystemLegacyCommsIo, migrateLegacyCommsDirectories } from './comms-migration.js';
@@ -55,9 +57,12 @@ export interface CollaborationStateCliIo {
    * Load the comms-gated PDR-044 concept blocks. Injected (rather than the
    * write paths reading the hook policy directly) so tests supply fixture
    * blocks and never couple to the live `.agent/hooks/policy.json` content;
-   * the production implementation is the policy-file SSOT loader.
+   * the production implementation is the policy-file SSOT loader, which
+   * fails closed (`err`) when a ratified concept group is missing.
    */
-  readonly loadCommsConceptGateBlocks: () => Promise<readonly ScopedContentBlockGroup[]>;
+  readonly loadCommsConceptGateBlocks: () => Promise<
+    Result<readonly ScopedContentBlockGroup[], string>
+  >;
 }
 
 export const productionIo: CollaborationStateCliIo = {
