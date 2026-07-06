@@ -1,3 +1,13 @@
+## [1.59.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.1...v1.59.2) (2026-07-06)
+
+
+### Bug Fixes
+
+* **sonar:** clear phase 5B idiom residuals (S7773/S7772/S7770/S7765/S7764) ([db97022](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/db97022c48fed5989d58f199754827e15a1a8647))
+* **sonar:** convert six type-guards to ReadonlySet membership; reconcile thread record ([1bee647](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1bee6475b0de2d58515192322d74b4262cc9f4b0))
+* **sonar:** dedupe search command registration and harden the size parser; session closeout ([f592b90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f592b9013966f3cd4ef67d2a41b9381321129ee3))
+* **sonar:** reinstate ADR-153 guard forms; parse numeric CLI options at the boundary ([4bff3b8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bff3b85aaeb3dff678003b7acb2e8fa225dd946))
+
 ## [1.59.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.0...v1.59.1) (2026-07-06)
 
 
