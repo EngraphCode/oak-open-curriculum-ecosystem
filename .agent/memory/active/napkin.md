@@ -470,3 +470,12 @@ Frictions worth curing at the tool layer:
 - Closed PRs #103–#105 (sonarqube-agent auto-remediation, May) were already dispositioned —
   owner applied still-relevant hunks via #108. Their classes (S7784/S7773/node:-prefix)
   partially persisted; this session's batch clears the S7773/S7772 residue.
+- **Owner correction (retrospective metacognition): fix properly, don't dismiss.** I dispositioned
+  the six ADR-153 type-guard S7765 sites ACCEPT-with-rationale, leaning on the phase-5A recorded
+  deferral ("kept as .some"). The owner pushed back citing principles.md — and a proper fix
+  existed: `ReadonlySet<string>` membership is type-sound where `.includes()` is not, and I had
+  ALREADY used that exact shape for `isFoundationLibPackage` in the same session. The fluent frame
+  "a recorded deferral licenses ACCEPT" bypassed the check "does a clean fix exist NOW?". Lesson:
+  an ACCEPT disposition needs a genuine architectural tension at the site TODAY — a prior
+  deferral of an unsound AUTOFIX is not a deferral of a sound hand fix. All six converted; the
+  Sonar transitions reversed (reopen + supersession comment).

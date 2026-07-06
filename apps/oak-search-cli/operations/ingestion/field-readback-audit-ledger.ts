@@ -39,8 +39,10 @@ const SUPPORTED_READBACK_STATUSES = [
 
 export type ReadbackStatus = (typeof SUPPORTED_READBACK_STATUSES)[number];
 
+const READBACK_STATUS_SET: ReadonlySet<string> = new Set(SUPPORTED_READBACK_STATUSES);
+
 function isReadbackStatus(status: string): status is ReadbackStatus {
-  return SUPPORTED_READBACK_STATUSES.some((value) => value === status);
+  return READBACK_STATUS_SET.has(status);
 }
 
 /**

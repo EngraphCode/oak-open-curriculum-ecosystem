@@ -179,8 +179,10 @@ const LIB_SDK_BOUNDARY_MESSAGE =
 const SEARCH_CONTRACTS_SDK_EXCEPTION_MESSAGE =
   'Foundation library search-contracts may consume approved @oaknational/sdk-codegen subpath exports only; it must not depend on other SDK packages, the root sdk-codegen package, or deep internal SDK paths.';
 
+const LIB_PACKAGE_SET: ReadonlySet<string> = new Set(LIB_PACKAGES);
+
 function isLibPackage(libName: string): libName is LibPackage {
-  return LIB_PACKAGES.some((knownLibName) => knownLibName === libName);
+  return LIB_PACKAGE_SET.has(libName);
 }
 
 function isFoundationLibPackage(libName: LibPackage): boolean {

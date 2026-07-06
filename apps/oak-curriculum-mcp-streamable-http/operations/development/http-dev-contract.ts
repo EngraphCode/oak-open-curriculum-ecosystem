@@ -142,8 +142,10 @@ export function formatLogTimestamp(date: Date): string {
   ].join('');
 }
 
+const HTTP_DEV_MODE_SET: ReadonlySet<string> = new Set(HTTP_DEV_MODES);
+
 function isHttpDevMode(input: string): input is HttpDevMode {
-  return HTTP_DEV_MODES.some((mode) => mode === input);
+  return HTTP_DEV_MODE_SET.has(input);
 }
 
 function resolveServerEnv(parentEnv: NodeJS.ProcessEnv, mode: HttpDevMode): NodeJS.ProcessEnv {

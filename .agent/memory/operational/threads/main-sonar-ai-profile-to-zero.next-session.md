@@ -26,17 +26,33 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 | claude | claude-opus-4-8[1m] | c2b721 | Thyme lifts Compost | team-session-closer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8 | 3b1f1c | Junk tracks Moorings | implementer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8[1m] | 547586 | Alder tracks Topsoil | implementer | 2026-06-26 | 2026-06-26 |
+| claude | unknown | 483d97 | Gull tracks Eyrie | implementer | 2026-06-27 | 2026-06-27 |
 | claude-code | claude-fable-5 | 477cba | Katydid seeks Moonbeam | implementer | 2026-07-06 | 2026-07-06 |
+
+(Gull tracks Eyrie's row reconstructed 2026-07-06 from this record's own lane-state prose —
+the 2026-06-27 session omitted it; model not recorded there, so marked unknown.)
 
 ## Landing Target For Next Session
 
-**Phases 1 and 2 COMPLETE; the BLOCKER and all HIGH/regex classes are dispositioned.**
-Phase 1 (S8707 ×3 + S4036) merged via PR #223 + #242 (`3895b3f45`); the S2699 test-assertion
-BLOCKER + the S101 ×3 ACCEPT via **PR #246** (`5054cd9a0`); **Phase 2 (18 regex findings) via
-PR #249** (`fix/sonar-phase2-regex-safety`, merge-ready 2026-06-27). **NEXT: Phase 3
-(test-integrity).** Authoritative pickup is the §"2026-06-27 (Gull tracks Eyrie)" block and the
-§"Next safe step — PHASE 3" block in the Lane State section below. Re-fetch live Sonar at start —
-counts here drift.
+**Phases 1, 2, 3a, 3b, and 5A are COMPLETE and MERGED** (#223+#242 `3895b3f45`; #246
+`5054cd9a0`; #249; #254 S5914 ×12; #255 S5906 ×34; #257 idiom lock-at-error + autofix).
+**Phase 5B (per-site idiom residuals) COMMITTED 2026-07-06** (Katydid seeks Moonbeam,
+`db97022c4` on `fix/sonar-phase5b-idiom-residuals`, PR pending): S7773 ×12 (11 hand sites +
+the sdk-error-types generator template), S7772 ×2 (root `eslint.config.ts` — outside every
+workspace lint run), S7770 ×3, S7765 per-site (ALL 9 genuinely fixed — the six ADR-153
+type-guards converted to `ReadonlySet<string>` membership, which is type-sound where
+`.includes()` is not; an initial ACCEPT disposition of those six was reversed on owner
+review — fix properly, do not dismiss), S7764 ×2 (widget tokens.html). **Key mechanism lesson**:
+unicorn v69's `prefer-number-properties` deliberately exempts radix-10/no-radix `parseInt`,
+so a locked-at-error ESLint rule can structurally never clear its Sonar S7773 counterpart —
+when a lock tranche leaves Sonar survivors, diff the two engines' rule criteria first
+(napkin 2026-07-06). **NEXT: the remaining large classes, per-site:** S7763 ×34
+(`export…from` re-exports — many vitest.config.ts + generated contract files; per-site
+judgement), S7785 ×17 (top-level await, MAJOR — script refactors, own batch), S6594 ×15
+(prefer-regexp-exec — generated overlap), S7786 ×14 (`new TypeError` — 9 sites in
+`agent-tools/`: coordinate with the AEE tool-building lanes before touching), then the
+design-MAJOR Phase 4 (S107 ×7, S4323 ×7, S3358 ×4, S6564 ×4 …). Re-fetch live Sonar at
+start — counts here drift. Live backlog at 2026-07-06 fetch: 174 OPEN before the 5B batch.
 
 ## Lane State
 
