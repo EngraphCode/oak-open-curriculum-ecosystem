@@ -573,3 +573,17 @@ check verdict recorded at the housekeeping commit.
   frame: adversarially verify their load-bearing claims (the reviewer's "respects the house
   pattern" was ungrounded). Also: use repo gate commands (`pnpm check`, `pnpm type-check`), never
   ad-hoc `npx tsc --ignoreConfig` probes whose noise invites misreading.
+- **Session-close craft additions (Sonar/PR tooling)**: (1) sonarqube-cli v0.9.0 diverges from
+  the plugin skill doc — no `--statuses`/`--severities`; it has `--severity`, and `sonar api
+  <method> <endpoint> -d '{json}'` is the general escape hatch (used for
+  `/api/issues/do_transition` + `/api/issues/add_comment` dispositions and
+  `/api/duplications/show` block-level diagnosis). (2) `claims open` requires `--now` (its error
+  is terse; the skill example carries it — read the example fully). (3) Two recurring
+  self-inflicted Bash hazards this session: cwd drift after `cd`-ing into a workspace makes
+  `pnpm agent-tools:*` root scripts fail with "command not found" (always `cd` to repo root
+  first), and chaining `cmd | tail && next` masks cmd's real exit code — a failed commit
+  workflow ran straight into a push. Run load-bearing steps bare, one at a time.
+- **S1940 trap on the "opposite operator" suggestion**: Sonar suggested `parsed < 1` over
+  `!(parsed >= 1)` — blindly applying it would have introduced a NaN hole (`NaN < 1` is false).
+  The cure was restructuring so the NaN path cannot exist (regex gate first, then compare).
+  Sonar suggestions are rule-local; verify value-domain safety before applying.

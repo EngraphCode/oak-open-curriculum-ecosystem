@@ -32,6 +32,25 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 (Gull tracks Eyrie's row reconstructed 2026-07-06 from this record's own lane-state prose —
 the 2026-06-27 session omitted it; model not recorded there, so marked unknown.)
 
+## Current Continuation
+
+- Branch: `fix/sonar-phase5b-idiom-residuals` (PR #308, open, mergeState BLOCKED = the
+  author-dependent code-owner gate; all review threads resolved; merge is the owner's).
+- Next safe step: **shepherd PR #308 to green and owner merge.** Restart the budgeted watcher
+  (`pnpm agent-tools:pr-watch 308 --watch --interval 60` — the prior session's watcher died with
+  its session); on the post-push Sonar scan confirm the duplication condition cleared (the
+  lessons/units registrar dedup + S1940 fix landed in the final commit) and re-harvest all four
+  feedback surfaces before any merge-ready declaration. The six guard-site S7765 issues are
+  ACCEPTED server-side with the ADR-153 §Membership Without Widening citation — do not re-open.
+- After merge: cut the next batch DOCTRINE-FIRST (map each rule class to its governing
+  ADR/decision before touching a site): S7763 ×34 (`export…from` — note principles.md already
+  bans `export *` via no-restricted-syntax; the flagged sites are named re-exports in
+  vitest.config.ts files + generated contracts — per-site), S7785 ×17 (top-level await, MAJOR),
+  S6594 ×15 (prefer-regexp-exec — generated overlap), S7786 ×14 (9 sites in `agent-tools/` —
+  coordinate with AEE lanes), then Phase 4 design-MAJORs.
+- Acceptance bar: PR #308 merged; Sonar gate green; zero unresolved threads; every disposition
+  evidenced.
+
 ## Landing Target For Next Session
 
 **Phases 1, 2, 3a, 3b, and 5A are COMPLETE and MERGED** (#223+#242 `3895b3f45`; #246

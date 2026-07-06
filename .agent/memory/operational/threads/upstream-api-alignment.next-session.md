@@ -10,6 +10,7 @@ endpoints + 5 schemas).
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | Vanilla stirs Spore | claude | claude-opus-4-8[1m] | 807471 | implementer | 2026-07-01 | 2026-07-01 |
+| Katydid seeks Moonbeam | claude-code | claude-fable-5 | 477cba | status-verifier (drive-by) | 2026-07-06 | 2026-07-06 |
 
 **Predecessor (identity fields not fully recorded):** *Bonfire turns Basalt* authored the
 plan + process notes and landed WS0 (programmes regen) and WS1 (cached-schema-default,
@@ -39,6 +40,12 @@ section (2026-07-01).
     live smoke lane) DEFERRED** (owner-confirmed 2026-07-01).
 - **Blockers / low-confidence areas**: none blocking.
 - **Next safe step** (#291 is merged; these are live):
+  1. **RESOLVED-in-passing check (Katydid seeks Moonbeam, 2026-07-06): the RED gate below now
+     PASSES on latest `main`** — `meta-examples-roundtrip.integration.test.ts` ran 3/3 green
+     first-hand (and full `pnpm check` was green the same day on a branch cut from `main`).
+     Whether it was fixed deliberately or the upstream examples drifted back was not
+     established — verify cause before deleting this item; the runbook instance may already
+     cover it. Original item retained below for that verification:
   1. **Pre-existing RED gate on `main` — upstream pagination-examples drift.** `pnpm check`
      fails on `@oaknational/sdk-codegen test`: `meta-examples-roundtrip.integration.test.ts`
      asserts `offset.examples [50]` / `limit [100]` but gets `[0]` — the upstream OpenAPI

@@ -17,7 +17,9 @@
  */
 
 import { Command } from 'commander';
+import type { Result } from '@oaknational/result';
 import { createRetrievalService } from '@oaknational/oak-search-sdk/read';
+import type { RetrievalService, RetrievalError } from '@oaknational/oak-search-sdk/read';
 import type { CliObservability } from '../../observability/index.js';
 import {
   createEsClient,
@@ -49,68 +51,49 @@ interface SubjectKeyStageOpts {
 }
 
 /**
- * Register the `search lessons` subcommand.
- *
- * @param parent - The parent Commander command to register under
- * @param cliEnv - Validated CLI environment values
+ * Parameters the subject/key-stage registrar passes to a search handler.
  */
-function registerLessonsCmd(
-  parent: Command,
-  cliEnvLoader: SearchCliEnvLoader,
-  observability?: CliObservability,
-): void {
-  parent
-    .command('lessons')
-    .description('Search lessons using hybrid BM25 + ELSER retrieval')
-    .argument('<query>', 'Search query text')
-    .option('-s, --subject <subject>', 'Filter by subject slug')
-    .option('-k, --key-stage <keyStage>', 'Filter by key stage (ks1-ks4)')
-    .option('--size <n>', 'Maximum results to return', parsePositiveIntOption, 25)
-    .action(
-      withLoadedCliEnv(
-        cliEnvLoader,
-        async (cliEnv: CliSdkEnv, query: string, opts: SubjectKeyStageOpts) => {
-          const esClient = createEsClient(cliEnv);
-          await withEsClient(
-            esClient,
-            async () => {
-              const retrieval = createRetrievalService(esClient, buildSearchSdkConfig(cliEnv));
-              const result = await handleSearchLessons(retrieval, {
-                query,
-                subject: validateSubject(opts.subject),
-                keyStage: validateKeyStage(opts.keyStage),
-                size: opts.size,
-              });
-              if (!result.ok) {
-                searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);
-                printError(`${result.error.type}: ${result.error.message}`);
-                searchDeps.setExitCode(1);
-                return;
-              }
-              printJson(result.value);
-            },
-            searchDeps,
-          );
-        },
-        observability ? { observability, commandName: 'search.lessons' } : undefined,
-      ),
-    );
+interface SubjectKeyStageSearchParams {
+  readonly query: string;
+  readonly subject: ReturnType<typeof validateSubject>;
+  readonly keyStage: ReturnType<typeof validateKeyStage>;
+  readonly size: number;
 }
 
 /**
- * Register the `search units` subcommand.
+ * Specification for one subject/key-stage search subcommand.
+ */
+interface SubjectKeyStageCmdSpec<TResult> {
+  readonly name: string;
+  readonly description: string;
+  readonly commandName: string;
+  readonly handler: (
+    retrieval: RetrievalService,
+    params: SubjectKeyStageSearchParams,
+  ) => Promise<Result<TResult, RetrievalError>>;
+}
+
+/**
+ * Register one subject/key-stage search subcommand (`lessons`, `units`).
+ *
+ * The two commands are structurally identical — same options, same
+ * validation, same output handling — differing only in name, description,
+ * handler, and observability command name, so one registrar serves both.
  *
  * @param parent - The parent Commander command to register under
- * @param cliEnv - Validated CLI environment values
+ * @param cliEnvLoader - Cached loader for validated CLI environment values
+ * @param spec - The per-command name, description, handler, and span name
+ * @param observability - Optional CLI observability for span wrapping
  */
-function registerUnitsCmd(
+function registerSubjectKeyStageCmd<TResult>(
   parent: Command,
   cliEnvLoader: SearchCliEnvLoader,
+  spec: SubjectKeyStageCmdSpec<TResult>,
   observability?: CliObservability,
 ): void {
   parent
-    .command('units')
-    .description('Search units using hybrid BM25 + ELSER retrieval')
+    .command(spec.name)
+    .description(spec.description)
     .argument('<query>', 'Search query text')
     .option('-s, --subject <subject>', 'Filter by subject slug')
     .option('-k, --key-stage <keyStage>', 'Filter by key stage (ks1-ks4)')
@@ -124,7 +107,7 @@ function registerUnitsCmd(
             esClient,
             async () => {
               const retrieval = createRetrievalService(esClient, buildSearchSdkConfig(cliEnv));
-              const result = await handleSearchUnits(retrieval, {
+              const result = await spec.handler(retrieval, {
                 query,
                 subject: validateSubject(opts.subject),
                 keyStage: validateKeyStage(opts.keyStage),
@@ -141,7 +124,7 @@ function registerUnitsCmd(
             searchDeps,
           );
         },
-        observability ? { observability, commandName: 'search.units' } : undefined,
+        observability ? { observability, commandName: spec.commandName } : undefined,
       ),
     );
 }
@@ -207,8 +190,28 @@ export function searchCommand(
     'Query lessons, units, sequences, threads, and suggestions',
   );
 
-  registerLessonsCmd(cmd, cliEnvLoader, observability);
-  registerUnitsCmd(cmd, cliEnvLoader, observability);
+  registerSubjectKeyStageCmd(
+    cmd,
+    cliEnvLoader,
+    {
+      name: 'lessons',
+      description: 'Search lessons using hybrid BM25 + ELSER retrieval',
+      commandName: 'search.lessons',
+      handler: handleSearchLessons,
+    },
+    observability,
+  );
+  registerSubjectKeyStageCmd(
+    cmd,
+    cliEnvLoader,
+    {
+      name: 'units',
+      description: 'Search units using hybrid BM25 + ELSER retrieval',
+      commandName: 'search.units',
+      handler: handleSearchUnits,
+    },
+    observability,
+  );
   registerSequencesCmd(cmd, cliEnvLoader, observability);
   registerThreadsCmd(cmd, cliEnvLoader);
   registerSuggestCmd(cmd, cliEnvLoader);

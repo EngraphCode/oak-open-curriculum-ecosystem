@@ -80,8 +80,11 @@ export function validateScope(value: string): SearchScope {
  * ```
  */
 export function parsePositiveIntOption(value: string): number {
-  const parsed = /^\d+$/.test(value) ? Number.parseInt(value, 10) : Number.NaN;
-  if (!(parsed >= 1)) {
+  if (!/^\d+$/.test(value)) {
+    throw new InvalidArgumentError(`Expected a positive integer, got "${value}".`);
+  }
+  const parsed = Number.parseInt(value, 10);
+  if (parsed < 1) {
     throw new InvalidArgumentError(`Expected a positive integer, got "${value}".`);
   }
   return parsed;
