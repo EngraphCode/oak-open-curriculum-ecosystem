@@ -70,7 +70,7 @@ function registerTelemetryCmd(
             async () => {
               const obsService = createObservabilityService(esClient, buildSearchSdkConfig(cliEnv));
               const result = await handleTelemetry(obsService, {
-                limit: parseInt(opts.limit, 10),
+                limit: Number.parseInt(opts.limit, 10),
               });
               if (!result.ok) {
                 observeLogger.error(`${result.error.type}: ${result.error.message}`, result.error);

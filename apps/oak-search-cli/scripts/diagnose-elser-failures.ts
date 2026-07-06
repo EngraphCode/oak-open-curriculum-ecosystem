@@ -50,7 +50,7 @@ function parseArgs(): { limit: number | undefined; subject: string | undefined }
   let subject: string | undefined;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--limit' && args[i + 1]) {
-      limit = parseInt(args[i + 1] ?? '', 10);
+      limit = Number.parseInt(args[i + 1] ?? '', 10);
       i++;
     } else if (args[i] === '--subject' && args[i + 1]) {
       subject = args[i + 1];

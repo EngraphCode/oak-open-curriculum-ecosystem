@@ -68,7 +68,7 @@ function iterOperations(
     return out;
   }
   for (const [path, pathItem] of Object.entries(schema.paths)) {
-    if (SKIPPED_PATHS.some((skipped) => path === skipped)) {
+    if (SKIPPED_PATHS.includes(path)) {
       continue;
     }
     if (!isPathItemObject(pathItem)) {

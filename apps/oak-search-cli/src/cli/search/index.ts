@@ -78,7 +78,7 @@ function registerLessonsCmd(
                 query,
                 subject: validateSubject(opts.subject),
                 keyStage: validateKeyStage(opts.keyStage),
-                size: parseInt(opts.size, 10),
+                size: Number.parseInt(opts.size, 10),
               });
               if (!result.ok) {
                 searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);
@@ -127,7 +127,7 @@ function registerUnitsCmd(
                 query,
                 subject: validateSubject(opts.subject),
                 keyStage: validateKeyStage(opts.keyStage),
-                size: parseInt(opts.size, 10),
+                size: Number.parseInt(opts.size, 10),
               });
               if (!result.ok) {
                 searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);
@@ -174,7 +174,7 @@ function registerSequencesCmd(
               const result = await handleSearchSequences(retrieval, {
                 query,
                 subject: validateSubject(opts.subject),
-                size: parseInt(opts.size, 10),
+                size: Number.parseInt(opts.size, 10),
               });
               if (!result.ok) {
                 searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);

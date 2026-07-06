@@ -52,7 +52,7 @@ export function registerThreadsCmd(parent: Command, cliEnvLoader: SearchCliEnvLo
               const result = await handleSearchThreads(retrieval, {
                 query,
                 subject: validateSubject(opts.subject),
-                size: parseInt(opts.size, 10),
+                size: Number.parseInt(opts.size, 10),
               });
               if (!result.ok) {
                 searchDeps.logger.error(

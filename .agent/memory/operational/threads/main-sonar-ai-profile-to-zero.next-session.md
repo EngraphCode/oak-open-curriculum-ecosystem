@@ -26,6 +26,7 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 | claude | claude-opus-4-8[1m] | c2b721 | Thyme lifts Compost | team-session-closer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8 | 3b1f1c | Junk tracks Moorings | implementer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8[1m] | 547586 | Alder tracks Topsoil | implementer | 2026-06-26 | 2026-06-26 |
+| claude-code | claude-fable-5 | 477cba | Katydid seeks Moonbeam | implementer | 2026-07-06 | 2026-07-06 |
 
 ## Landing Target For Next Session
 

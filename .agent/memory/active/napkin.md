@@ -446,3 +446,27 @@ Frictions worth curing at the tool layer:
 - **Never hardcode the `/Users/...` scratchpad path in written script CONTENT** — the
   machine-local-path guard (correctly) blocks it. Pass the path as argv.
 - `comm` needs sorted inputs; newest-first lists mean `tail` silently cuts the NEWEST rows.
+
+## 2026-07-06 — Sonar Phase 5B session (Katydid seeks Moonbeam)
+
+- **ESLint↔Sonar same-rule-id divergence is a real class**: unicorn v69's
+  `prefer-number-properties` (mapped to S7773 in #257's lock) deliberately EXEMPTS
+  `parseInt(x, 10)` / no-radix calls (`rules/prefer-number-properties.js` line ~151,
+  `isBase10OrNoRadixParseIntCall`), while Sonar S7773 still flags them. So a locked-at-error
+  ESLint rule can structurally never clear its Sonar counterpart. Lesson: when a
+  lock-at-error+autofix tranche leaves Sonar survivors, diff the two engines' rule criteria
+  before assuming stale scan or config gap — the residual may need a hand pass.
+- **The lint config estate is not self-linted**: the two S7772 survivors were the root
+  `eslint.config.ts` itself (bare `path`/`url` imports). Root-level config files sit outside
+  every workspace lint run.
+- **RED-gate note**: the `meta-examples-roundtrip.integration.test.ts` pagination gate recorded
+  RED in repo-continuity/upstream-api-alignment (owner-diagnosed 2026-06-30) now PASSES on
+  latest `main` (verified first-hand 2026-07-06). The continuity entries are stale; correct
+  them at the next touch of those records.
+- **Thread-record identity gap spotted (not mine to reconstruct)**: the
+  `main-sonar-ai-profile-to-zero` identity table lacks a row for Gull tracks Eyrie (483d97,
+  2026-06-27) whose work the record's own lane-state prose describes. Add from the prose facts
+  at the next record refresh.
+- Closed PRs #103–#105 (sonarqube-agent auto-remediation, May) were already dispositioned —
+  owner applied still-relevant hunks via #108. Their classes (S7784/S7773/node:-prefix)
+  partially persisted; this session's batch clears the S7773/S7772 residue.
