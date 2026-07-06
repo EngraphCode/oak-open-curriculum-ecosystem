@@ -4,6 +4,31 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-06 — Inter-Practice collaboration protocol: PDR-125 + join-ceremony skill; exchange model gains its second mode (Lapwing herds Eyrie, cross-estate session)
+
+- PDR-125 authored (`pdr_kind: governance`): the inter-Practice
+  collaboration protocol — the verification-scarce-testimony-economy
+  preamble (recombination as the anti-ratchet), the seven clauses
+  (repo-reference vocabulary; coordination-home declaration; join
+  ceremony; foreign-substrate discipline incl. a-watcher-is-a-writer;
+  join-key identity display; shared-spec + shared-schema versioning
+  with the version-family compat contract; concepts-vs-pointers
+  exchange layering), the owner-ratified v1 conformance floor
+  (Tier-0 box / Tier-1 hosting, proof-typed), the third-estate
+  falsifier, and the second-consumer non-goal boundary. Authored in
+  BOTH estates in one coordinated cross-estate session per the owner's
+  birthplace ruling; the peer copy differs only in number and
+  phenotype note.
+- New portable skill `inter-practice-collaboration` — the runnable
+  join ceremony (the PDR's enactment); new portable rule
+  `cross-repo-sessions-run-the-join-ceremony` — its discoverability
+  trigger. Host phenotype ADR-210 records the WHAT of the local
+  mechanics (declared-home override, statusline join key).
+- `practice.md` and `practice-lineage.md` §Plasmid Exchange amended:
+  exchange named as two modes of one class on shared substrate —
+  transformation (dead material at a pin) and conjugation (live,
+  negotiated, bidirectional) — completing the Core exchange model.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-03 — PDR-060 gains corollary 4: independent convergence is the strongest signal (ws1b rescue disposition, Vega mends Oblivion)
 
 Amended PDR-060 (Tooling Friction Is First-Class User Feedback) with a fourth operational

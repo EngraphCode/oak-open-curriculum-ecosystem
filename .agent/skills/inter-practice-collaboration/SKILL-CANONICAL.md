@@ -1,0 +1,107 @@
+---
+name: inter-practice-collaboration
+classification: active
+description: >-
+  Join a foreign Practice estate and exchange safely with zero prior knowledge
+  of it — the runnable join ceremony for cross-estate work. Fires whenever a
+  session's worktree repo and coordination home are different repos, or the
+  session is about to read from or write into any sibling Practice estate's
+  substrate. Enacts the inter-Practice collaboration protocol PDR.
+---
+
+# Inter-Practice Collaboration (the join ceremony)
+
+**Governance**: the runnable enactment of
+[PDR-125](../../practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md)
+(the inter-Practice collaboration protocol). The PDR is the portable
+doctrine; this skill is what makes it fire — a cold read of this file
+is enough to run the ceremony without the PDR open. Both travel on the
+plasmid together.
+
+## Fire condition
+
+Any of:
+
+- the session's worktree repo and its coordination home resolve to
+  DIFFERENT repos (explicit flag or `PRACTICE_COORDINATION_HOME`
+  differing from the worktree's own root);
+- the session is about to write into any sibling Practice estate's
+  substrate (comms, claims, boxes, memory, plans — anything);
+- the session is about to treat a sibling estate's content as an input
+  (mining, verification, exchange receipt).
+
+Reads that never leave the local estate do not fire this skill.
+
+## The ceremony (ordered, each step gates the next)
+
+1. **Read the home estate's write governance FIRST.** Before any write
+   — liveness files included — read the host's naming and vocabulary
+   doctrine (e.g. a donor-neutrality rule), its comms conventions, and
+   its exchange paths. Guest writes are bound by the HOME's rules, not
+   yours. The founding violation: a join event that named the host's
+   Practice-donor repo directly, tripping the host's neutrality
+   doctrine.
+2. **Declare the coordination home.** One substrate owns the
+   arrangement's coordination state. Resolution order: explicit CLI
+   flag, then `PRACTICE_COORDINATION_HOME`, then git-native
+   resolution. A declared home that is missing or holds no
+   recognisable substrate is a loud stop — never fall back silently.
+3. **Resolve identity with the HOME repo's own derivation** — never
+   carry your native name across. Your `session_id_prefix` is the join
+   key: it is the ONE identity coordinate shared across estates, and
+   it identifies a SESSION (a successor session is a new prefix and a
+   new name everywhere; same-name-different-prefix is an anomaly to
+   surface, never accept).
+4. **Register on the home stream**: the first comms write declares the
+   home identity name, native-repo alias(es), the prefix join key, the
+   worktree repo-reference (origin + branch — never a machine-local
+   checkout path in tracked content), and coordination posture
+   (observer / implementer / exchange seat).
+5. **Arm the home watcher WITH HOME TOOLING**, heartbeat-filtered by
+   default. A watcher is a writer: its heartbeat and seen files are
+   writes into the home substrate, so the home's CLI — never your
+   native repo's — runs it. Assert watcher liveness with the home's
+   own assertion command before opening any claim.
+6. **Post an adoption event** naming what you are picking up (lane,
+   claim, boundary) so the home team sees the pickup; open claims in
+   the home's repo-qualified area form.
+7. **Exchange by the two-layer handshake.** Box files carry
+   SELF-CONTAINED concept payloads (no SHAs, no dereferences, no
+   moving targets); the paired comms event carries the time-bound
+   layer (provenance pins, identity, sequencing, the box path).
+   Lifecycle threads on the comms stream: delivered → acknowledged →
+   integrated or rejected — every bundle receipted both ways.
+8. **Verify, never trust** (the host's adversarial-verification
+   doctrine applies to peers too): every peer assertion is a pointer
+   to verify first-hand; a peer's "not found" is a claim about their
+   search; version or schema mismatches are typed refusals to
+   surface, never best-effort parses.
+
+## Leaving
+
+Close claims you opened, stand the watcher down cleanly (a
+final-heartbeat-end event, so the home team reads intent rather than
+silence), and leave a closeout event naming what remains and where the
+lane resumes. An orphaned guest watcher emits false liveness into a
+foreign estate — supervise it (`--supervisor-pid` or the home's
+equivalent) so it dies with your session.
+
+## Worked instances
+
+- **2026-07-05 — the first live bidirectional exchange**: one session
+  with a per-estate name on each of two estates, a second repo as
+  coordination home, bundles delivered and receipted both ways in one
+  window. Six friction classes surfaced doing it manually; each became
+  a protocol clause.
+- **2026-07-06 — the standing relationship**: the exchange lane a
+  first-class continuing arrangement on this estate — controlling plan
+  `agent-tooling/current/inter-practice-collaboration-protocol.plan.md`
+  and the `agentic-engineering-enhancements` thread record carry it.
+
+## Platform Adapters
+
+The generated Claude Code adapter lives at
+`.claude/skills/oak-inter-practice-collaboration/SKILL.md`.
+Regenerate with
+`pnpm --filter @oaknational/agent-tools skills-adapter-generate` and verify
+with `pnpm skills:check`.

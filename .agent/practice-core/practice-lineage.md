@@ -154,6 +154,16 @@ The previous `.agent/practice-context/` peer companion ephemeral exchange surfac
 2026-04-29 (PDR-007 amendment); inbound substance now arrives via `decision-records/incoming/` and
 outbound substance routes by shape per PDR-024.
 
+Estate-to-estate exchange runs in **two modes of one class, on shared substrate** (named
+2026-07-06): **transformation** — dead material taken up at a pin, one direction, integrated later
+(the transplant machinery, the Practice Box, provenance chains) — and **conjugation** — live,
+negotiated, bidirectional exchange between agents on two living estates, receipted in-session.
+Transformation founds an estate; conjugation keeps peers repairing each other's drift. The
+inter-Practice collaboration protocol PDR (in `decision-records/`) carries the conjugation
+contract: coordination-home declaration, the join ceremony, foreign-substrate discipline, the
+join-key identity display, versioned shared spec + shared schema, and the concepts-vs-pointers
+exchange layering.
+
 ### The Practice Box
 
 Every repo with a Practice has a canonical location for incoming material:
