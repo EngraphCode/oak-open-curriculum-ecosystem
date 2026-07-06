@@ -472,8 +472,9 @@ mid-session (dist rebuild). Two capture-worthy items:
   support). Repo config exonerated first-hand; next probe is a fresh session on a current CLI
   version, then /bug with this evidence.
 
-Closeout bookkeeping (owner-scoped light handoff): no ADR/PDR candidate (the guard self-heal
-candidate pre-exists in the Cricket entry; this session only strengthens it), no open
+Closeout bookkeeping (owner-scoped light handoff): no new ADR/PDR candidate (the guard
+self-heal candidate already exists in the Cricket entry; this session only strengthens it),
+no open
 questions, no claim to close (none registered — diagnostic session). Entry-point sweep clean
 (CLAUDE/AGENTS/GEMINI canonical). Per-user Claude MEMORY.md not present post-drain; platform
 plan surface present, nothing authored this session. Consolidation gate: napkin now ~490
