@@ -7,11 +7,14 @@ trigger of
 (in `future/` at this pause; the promotion to `current/` is restart work — see §Review), fired
 2026-07-05. This session ABSORBS the salvage plan's ws2 readiness review (D1–D6 were PROPOSED
 there; this record is their ratification).
-**State**: PAUSED 2026-07-05 (owner-directed) mid-review-absorption. The draft verdicts below
-stand as drafted; the assumptions-expert verdict is recorded in §Review with its revision queue
-UNAPPLIED (except the landing-order truth fixes); the architecture review re-dispatches at
-restart. Nothing in this record is decision-complete until the §Review queue is worked and the
-landing set (PDR-122 amendment + plan promotion + salvage routing) lands.
+**State**: STABLE POINT 2026-07-06 (owner-directed). Both reviews are COMPLETE and conserved in
+§Review — assumptions-expert (ratify-with-revisions, 13 items) and architecture-expert-wilma
+(sound-with-revisions, 18 findings; the three criticals amend ratified text). The draft
+verdicts stand as drafted with the revision queues UNAPPLIED (except the landing-order truth
+fixes). Nothing in this record is decision-complete until the queues are worked and the landing
+set (PDR-122 amendment + companion-rule + code-site derivation text + plan promotion + salvage
+routing) lands — that work continues on a NEW BRANCH after the current branch's PR merges
+(owner direction 2026-07-06; the owner holds relevant developments to share post-merge).
 **Evidence base**:
 [`corpus-generalisation-research-2026-07-03.md`](corpus-generalisation-research-2026-07-03.md)
 (adversarially reviewed — [`corpus-generalisation-review-2026-07-03.md`](corpus-generalisation-review-2026-07-03.md),
@@ -319,11 +322,40 @@ the triple gate; no extraction of napkin-instance policy (prompts, vocabularies,
 tier definitions, drivers); no re-run of the 2026-07-02 validate under any regime; no
 action-time doctrine-traction mechanism (consolidation-time telemetry only).
 
+## Restart notes for the promotion author (conserved 2026-07-06 loss-scan)
+
+Two pieces of session-context that reached no other durable surface; both are input to the
+`current/` plan authoring, non-binding on its final shape:
+
+- **The frozen-math reconciliation.** The salvage plan's non-goal "changing the frozen
+  adjudication math or the four conjunctive tests" is NOT in tension with the amended
+  invariant 2: the freeze governs **replay of banked ensembles** (banked verdicts re-enter
+  `finaliseQuorum` under their original math — the salvage layer's comparability guarantee),
+  while dependence-aware aggregation and deflated boundaries land as a **new stamped regime**
+  (a design change requiring recalibration, exactly per invariant 6) and are never
+  retro-applied to banked verdict corpora. The promoted plan must state this so the quorum-math
+  workstream does not read the non-goal as a blocker, and the salvage tooling does not read the
+  amendment as licence to re-derive banked outcomes.
+- **P1 workstream sketch** (one decomposition that satisfies the ratified decisions; the
+  promotion author re-derives freely): (ws-layering) kernel/family intra-workspace split along
+  the ratified five-layer boundaries, partition-deriver plug-point, window-ordering cure,
+  recall engine/baseline split — boundary pinned by conformance tests; (ws-registry) regime
+  registry + two-hash calibration stamp + three-tier enforcement + effort-vocabulary
+  unification; (ws-calibration) D1 canary-first + D4 pilot-first + D6 batch-sequential —
+  absorbs salvage ws4 and part of ws5; (ws-power) D2 cellular extraction + D3 progressive
+  power — absorbs the rest of salvage ws5; (ws-declaration) D5 pre-run declaration + permanent
+  burn accounting — absorbs salvage ws3; (ws-quorum) the amended quorum math as deterministic
+  code (dependence-aware aggregation, deflated boundaries, cross-tier concurrence gate);
+  (ws-comms) the comms family module — stage-0 partitioner composition, mechanical grounding,
+  PII screen, watermark manifest, D7 profiling pass + blindness-probe pilot, full run gated on
+  pilot + owner go; (ws-package) repeatable-not-heroic packaging — the driveable skill,
+  leaf-coverage close, PRISMA render, standing elusion audit.
+
 ## Review
 
-Dispatched on this draft 2026-07-05: assumptions-expert (completed); architecture-expert-wilma
-(did not complete — no partial verdict folded, per `verify-dont-trust`; re-dispatch at restart
-with the scope recorded below).
+Dispatched on this draft: assumptions-expert (2026-07-05, completed);
+architecture-expert-wilma (first dispatch 2026-07-05 did not complete — no partial verdict
+folded, per `verify-dont-trust`; restarted 2026-07-06 and completed — verdict below).
 
 ### assumptions-expert verdict (2026-07-05) — ratify-with-revisions
 
@@ -400,17 +432,104 @@ judged legitimate with named owners/triggers; proportionality judged sound apart
 the stamp field set and three-tier enforcement judged NOT over-engineered (each tier catches a
 distinct first-hand-verified drift channel).
 
-### architecture-expert re-dispatch scope (restart work)
+### architecture-expert-wilma verdict (2026-07-06, restarted dispatch) — sound-with-revisions
 
-Adversarial architecture review (resilience / failure modes / hidden coupling lens) of this
-record against the live `agent-tools/src/corpus-analysis/` code: (A) boundary robustness — hunt
-further behavioural family-semantics leaks in kernel modules beyond the R2 instance
-(ordering / format / vocabulary / path assumption classes); (B) regime-registry three-tier
-enforcement bypass analysis, including the generated-agent-type-file drift class (generated file
-hand-edited; generator not run); (C) D7/D8/D9 stress — the failure modes they CANNOT catch
-(blindness shared by the profiling pass and the briefs derived from it; overflow-slot
-saturation) and their cost; (D) amended quorum-math edges (n_eff below 1.5; cold-start regime
-with no banked phi; canary sets too small for a stable phi estimate); (E) Claude-harness
-coupling honesty (dispatch is Claude-harness-only; Codex TOMLs are unwired parity artefacts);
-(F) operational safety — D1 breaker races, mid-batch abort disk state, watermark-manifest
-resume correctness.
+Overall: "the five-layer split, the D1–D9 features, and the invariant-2 amendment are genuinely
+grounded in the code — every load-bearing claim I re-verified first-hand held… None of my
+findings re-opens a ratified direction. The gaps are all *interaction* failures between
+ratified pieces — the individual decisions are sound." The context-holder spot-checked the
+critical claims at source before absorbing (all held; two cited paths corrected to their
+`workflows/` locations). The findings below are UNAPPLIED at this stable point; findings 1–3
+amend ratified text and are worked FIRST at restart, before the landing set lands.
+
+**Critical (block decision-completeness until cured):**
+
+1. **F1 — the abort/partial-result envelope grammar is missing; D6's ratified warrant
+   ("candidate-granular resume already supports the shape") is contradicted by the code.** The
+   failure envelope is `{ok:false, error}` only (`workflows/stage-io.ts:112-115`) and resume
+   derivation rejects any `ok:false` prior wholesale, deriving `resolvedIds` from successes
+   only (`workflows/run-inputs.ts:63-68,111`) — so a D1/D6 breaker firing between batches
+   after committed spend either loses every resolved disposition (ok:false) or is
+   indistinguishable from a clean partial (ok:true). Cure: a third envelope kind — partial
+   success with a typed abort marker (`aborted: 'canary-breaker'`, batches completed,
+   dispositions so far) that resume accepts and the regime machinery refuses to resume under
+   the same regimeHash. (Amends (c) D6's warrant sentence.)
+2. **D-1 — the stamped tuple omits the aggregation-math version; remedies A/B mutate the
+   frozen replay substrate with no invalidation key.** `aggregation-adjudication.ts:97`
+   declares the semantics frozen; the recompute close and salvage replay banked ensembles
+   through the same function; RegimeBinding carries no quorum-math member, so the ratified
+   cross-hash merge refusal never fires on a math change. Cure: co-stamp a kernel
+   aggregation-math version and version the recompute close so replay uses the math recorded
+   in the envelope. (Amends (d)'s RegimeBinding tuple; sharpens this record's §Restart-notes
+   frozen-math reconciliation with the concrete mechanism.)
+3. **B-1 — stale-artefact launch bypasses enforcement tiers 1 and 2 together.** Tier 1 fires
+   at emit (`workflows/build/build-run-artefact.ts` writes the seeded artefact) but launch is
+   decoupled (`Workflow({scriptPath})` over the old file re-launches forever); tier 2 conforms
+   source, not the launched bundle. Cure: inline the regimeHash into the seeded artefact and
+   check it in-sandbox (the stage-discriminant precedent) + at close; fold
+   regeneration-and-hash-compare into the tier-1 emit refusal (which also closes both
+   generated-file drift modes: hand-edited generated file; registry edited, generator not
+   run). (Sharpens (d) tier 1/2 without changing direction.)
+
+**Important:**
+
+4. **A-1** — a second behavioural family leak in the same kernel module as R2:
+   `post-run/post-run-analysis.ts:65` hardcodes the napkin longitudinal kind-set
+   (`LONGITUDINAL_KINDS`), used at :87, as an UNPINNED mirror of the identical inline list in
+   `workflows/prompts.ts:124` — the exact mirror class invariant 3 requires a conformance pin
+   for. (Spot-verified first-hand at both sites.)
+5. **D-3** — cold-start phi default direction unratified: a regime with no banked phi must
+   default phi→1 (one effective vote, no discards licensed) until the pilot's canaries bank
+   the first measurement; phi→0 reproduces the pre-amendment failure as a config default.
+6. **D-2** — an honestly deflated boundary at n_eff≈1.4 may be unsatisfiable by 3 correlated
+   voters → every kill-leaning candidate lands held-for-review → validate completeness never
+   reads complete and meta refuses to seed (completeness deadlock). Ratify the terminal
+   semantics: likely a distinct `conserved-unlicensed` terminal state that closes the run.
+7. **C-2** — the D7/D8 diff operator is unspecified and is a judgment in disguise (free-text
+   claim matching = the deferred P2 linking problem). Cure inside D8: pin the diff as
+   deterministic span-overlap matching and require the open-ended arm to emit the same
+   span-anchored schema.
+8. **A-2** — `OBSERVED_VALIDATE_TOKENS_PER_VOTER = 50_000` (`run-orchestration.ts:123`) is
+   napkin/Sonnet regime calibration baked in as the silent default of the post-reduce money
+   re-gate (:148); make unit costs required, stamp-sourced (the `--ceiling` no-default shape).
+   Same class, milder: `cost-and-coverage.ts:19` DEFAULT_EFFORT_MULTIPLIERS.
+   (Spot-verified first-hand.)
+9. **F-2** — the D1 breaker must fail closed on missing canaries: the denominator is canaries
+   SEEDED, never canaries returned (dead agents' nulls otherwise shrink it to vacuous success).
+10. **D-4** — phi-estimator degeneracy: minimum-n and variance gates before a stamp is
+    promotion-eligible; clamp negative phi (zero-variance canary sets are the expected good
+    case and leave sample phi undefined).
+11. **B-3** — cross-platform conformance is projection, not equality (Codex has no `maxTurns`
+    analogue — verified); a registry member with no target representation is a typed
+    conformance failure, never a silent omission.
+12. **E-2** — three kernel code sites carry the retracted independence derivation verbatim
+    (`judgment-schemas.ts:108-111`, `aggregation-adjudication.ts:33,90-92` — spot-verified)
+    and are missing from the amendment landing set; add them.
+13. **F-4** — watermark manifest: derive it from committed checkpoints (a pure fold — the
+    validators-must-recompute shape), never write it independently; and record the partition
+    each event folded under so a late arrival invalidates affected WINDOWS, not just its own
+    event-grain row.
+
+**Moderate / observations:** **E-1** the "fully general" harness-kit label overstates —
+`workflows/harness-types.ts:31` types the model axis as Claude vocabulary; remedy D requires
+re-typing the kit's public contract. **C-3** overflow-slot saturation needs a `truncated` flag
++ a close-report saturation stratum (saturation above threshold invalidates the blindness
+figure). **C-4** D9 completion ≠ coverage at cell grain — the existing detectors don't
+generalise (zero-only completeness; median floors assume comparable windows); D2's overlap is
+the real low-yield detector, so the overlap-degree decision (assumptions item 8) and D9 are
+COUPLED and must be decided together; re-dispatch needs a structural-impossibility branch and
+an exit bound. **A-4** the extraction seam cuts through `workflows/adjudication.ts:28` (kernel
+value-imports family prompt builders — they become injected deps). **A-5** path-anchoring
+posture inconsistency between `build-run-artefact.ts` (unanchored reads) and
+`post-run/checkpoint-io.ts:44` (assertPathWithinBase).
+
+**Structural blind spot named honestly (C-1, not curable by D7 itself):** briefs derive from a
+Fable profiling pass and the open-ended probe arm is also Fable over the same pilot windows —
+signal invisible to the Fable tier (or absent from the pilot sample) is invisible to BOTH arms,
+so `blindnessFigure` is a **lower bound on loss** relative to the profiling model's ceiling,
+and the stamp-field semantics must say so. The levers above the ceiling are remedy E (evidence
+diversity) and human spot-audit.
+
+**Reviewer routing recommendations for the restart:** dispatch architecture-expert-fred on the
+conformance-test design when the registry/generator land (B-3 is his territory);
+architecture-expert-betty on the `adjudication.ts` boundary refactor at extraction time (A-4).

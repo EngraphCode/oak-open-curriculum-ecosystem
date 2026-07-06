@@ -3,13 +3,18 @@ name: "Corpus-Analysis Generalisation and the Knowledge-Curation Layer"
 plan_id: corpus-analysis-generalisation-and-knowledge-layer
 collection: agentic-engineering-enhancements
 lane: future
-status: "STRATEGIC BRIEF — research complete (2026-07-03), design not yet ratified. Evidence base:
-  reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md,
-  adversarially reviewed and corrected in place 2026-07-03 (review verdict: needs-targeted-revision,
-  core sound — corpus-generalisation-review-2026-07-03.md; R1 comms-residual reinterpretation, R2
-  leak inventory, R3 three restored open questions). Promotion trigger: an owner-scheduled
-  fresh-seat design session (Phase 0) that also absorbs the salvage plan's ws2 readiness review.
-  No execution until then."
+status: "STRATEGIC BRIEF — Phase 0 design session EXECUTED to a STABLE POINT 2026-07-05/06
+  (Hedgehog stirs Rime; owner-directed pause-then-stabilise). The design record
+  reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md
+  carries drafted verdicts on the full p0 agenda ((a)-(e), D1-D9, seventeen questions) plus BOTH
+  review verdicts conserved in its Review section (assumptions ratify-with-revisions 13 items;
+  architecture sound-with-revisions 18 findings) and restart notes. NOT yet decision-complete:
+  the revision queues are unapplied and the landing set (PDR-122 amendment + companion rule +
+  code-site derivation text + promotion of THIS plan to current/ absorbing salvage ws3-ws5) is
+  unlanded. The restart runs on a NEW BRANCH after the feat/corpus_research_enhancements PR
+  merges (owner-directed 2026-07-06). Self-contained restart brief: the AEE thread record
+  §PHASE 0. Evidence base unchanged: corpus-generalisation-research-2026-07-03.md (reviewed,
+  corrections applied) + corpus-generalisation-review-2026-07-03.md + burn-analysis-2026-07-02.md."
 created: 2026-07-03
 owner_thread: agentic-engineering-enhancements
 lineage:

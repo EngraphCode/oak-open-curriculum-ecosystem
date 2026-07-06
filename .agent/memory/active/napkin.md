@@ -215,3 +215,30 @@ New session observations append below.
   (13-item queue + 4 restart questions + the dead reviewer's full re-dispatch scope), the
   thread record carries the restart sequence self-contained, and the only revision applied
   pre-commit was the truthfulness fix — rescue conserves state, it does not finish the work.
+
+## 2026-07-06 — stable point + PR session (Hedgehog stirs Rime, same seat continued)
+
+- **Conserving a dead reviewer's dispatch SCOPE paid off exactly as designed**: the restarted
+  architecture review ran from the §Review scope verbatim and returned sound-with-revisions
+  with 18 findings — including three criticals that AMEND ratified text (abort-envelope
+  grammar, aggregation-math stamp member, stale-artefact bypass). All were interaction
+  failures BETWEEN individually-sound ratified decisions; a design record's per-decision
+  soundness does not compose into system soundness, and the adversarial lens is what finds
+  the seams. Spot-verified the criticals at source before absorbing; two cited paths lacked
+  their `workflows/` segment — reviewer file:line citations get re-anchored, not trusted.
+- **The two reviews were complementary, not redundant**: assumptions found evidence/mandate
+  gaps (dropped owner sharpening, confounded instrument, re-scoped deliverable); architecture
+  found mechanism/interaction gaps (envelope grammar, hash-tuple omission, enforcement
+  bypass). Neither found the other's class. Worth carrying into reviewer-routing craft: a
+  design record wants BOTH lenses before decision-completeness, not either.
+- **Wilma's D-1 independently converged on the loss-scan's frozen-math note** (conserved an
+  hour earlier in §Restart notes) and sharpened it with the concrete mechanism (co-stamped
+  math version + versioned recompute close) — the loss-scan conserving a subtle in-context
+  reconciliation gave the reviewer something to sharpen rather than re-derive.
+- **Consolidation-gate verdict at this closeout (2026-07-06)**: not due — napkin 217 lines
+  (threshold ~400, rotated 2026-07-04); distilled header-only; open-questions empty; practice
+  inbox empty; per-user Claude MEMORY.md zero lines; pending-graduations two trigger-gated
+  entries untouched this session; no plan closed this session (the Phase 0 stable point closes
+  nothing — the generalisation plan stays live with its restart brief). Entry-point sweep
+  clean (CLAUDE/AGENTS/GEMINI at canonical pointer shape). pnpm check green at the stable
+  point (RC=0, 2026-07-06). Platform-plan surface checked: this session authored none.
