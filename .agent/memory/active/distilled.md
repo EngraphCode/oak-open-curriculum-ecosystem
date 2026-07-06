@@ -30,3 +30,21 @@ point. Apply judgment about *which* home, not about *whether* the lesson has
 earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
+
+## 2026-07-06 — Sonar Phase 5B session (Katydid seeks Moonbeam), session-close conservation
+
+- **Ground in the governing doctrine BEFORE dispositioning or fixing a static-analysis
+  finding.** The session's three-swing arc (under-grounded ACCEPT → ADR-violating "proper fix"
+  → reinstatement) had one generator: acting from the nearest plausible frame without reading
+  the repo's own decision for the flagged construct. ADR-153 was one read away throughout, and
+  a code-expert approved the wrong form because the dispatch never named it. Operational form:
+  (a) at any `value is X` / literal-tuple site, read ADR-153 first; (b) generally, grep the
+  ADR estate for the construct before choosing a fix shape; (c) reviewer dispatches name the
+  governing ADR(s) and require the reviewer to cite what it read; (d) subagent verdicts are
+  hypotheses — first-hand-verify each load-bearing claim before acting (owner directive
+  2026-07-06). Corollary: at sites with house doctrine, the fluency of the common idiom
+  (Set.has over .some) is a WARNING to check for a governing decision, not a confirmation.
+  Routing: proposed as clauses on `sonarqube-mcp-instructions` rule + `invoke-code-experts`
+  executive memory (pending-graduations entry, owner-approval trigger); inline ADR citations
+  already landed at the two most-flagged sites; the sonar thread record carries the
+  batch-planning form.

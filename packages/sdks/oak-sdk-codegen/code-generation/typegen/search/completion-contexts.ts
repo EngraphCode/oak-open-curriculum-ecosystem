@@ -49,7 +49,8 @@ export function isValidCompletionContext(value: unknown): value is CompletionCon
   if (typeof value !== 'string') {
     return false;
   }
-  // Check against the known context names without type assertion
+  // Equality-form membership per ADR-153 §Membership Without Widening —
+  // no assertion, no widening; each literal compares against the input.
   return ALL_COMPLETION_CONTEXTS.some((ctx) => ctx === value);
 }
 

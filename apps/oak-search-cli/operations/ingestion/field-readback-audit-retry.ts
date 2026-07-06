@@ -1,4 +1,4 @@
-const RETRYABLE_STATUS_CODES = [429, 502, 503, 504] as const;
+const RETRYABLE_STATUS_CODES: ReadonlySet<number> = new Set([429, 502, 503, 504]);
 
 function getMetaStatusCode(meta: unknown): number | undefined {
   if (typeof meta !== 'object' || meta === null) {
@@ -33,7 +33,7 @@ export function isRetryableStatusCode(statusCode: number | undefined): boolean {
   if (statusCode === undefined) {
     return false;
   }
-  return RETRYABLE_STATUS_CODES.some((code) => code === statusCode);
+  return RETRYABLE_STATUS_CODES.has(statusCode);
 }
 
 /**
