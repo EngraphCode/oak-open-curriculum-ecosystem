@@ -100,6 +100,33 @@ registered a standby seat on the resonance stream (21:43:58Z) and adopts the
 exchange lane at an explicit handoff acknowledgement (two-moments discipline).
 Read this whole section before acting.
 
+**UPDATE — 2026-07-06 (Cricket lifts Echo / `2fffa2`; lane adopted, ungated work
+landed, gated work awaiting the two owner decisions).** The successor named
+below DID adopt the lane (Moment-2 acknowledgement on the resonance stream) and
+executed everything that does not need an owner decision. **Landed on
+`feat/corpus_research_enhancements` (9 ahead of
+`origin/feat/corpus_research_enhancements`, unpushed — owner push decision):**
+`cf05fe95a` (WS6 adoption assessment), `f31faec62` (WS1
+`PRACTICE_COORDINATION_HOME` override), `4b9683be1` (WS3 statusline
+`name (prefix)` join key + `sessionIdPrefix` consolidation). Full estate suite
+green at each landing. **Task 1 (WS6) DONE; task 3 PARTLY done (WS1, WS3
+landed).** **What genuinely REMAINS — the two owner gates in task 2 are BOTH NOW ANSWERED
+by the owner 2026-07-06** (gate a: where the PDR is born — **author it in BOTH
+repos**, one coordinated cross-estate session; gate b: v1 conformance
+strictness — **the five-item floor with the Tier-0-box / Tier-1-hosting
+ladder**, and threading / repo_ref / statusline as version-advertised
+extensions). With both gates cleared the WS0 family is UNBLOCKED and is the next
+session's work (the owner has asked for its opening statement, pairing WS0 with
+the WS4 join-ceremony skill authored alongside it): the WS0 family (WS0 / WS0b / WS0c / WS0e / WS0d), then WS2 (`repo_ref`,
+depends WS0), WS4 (skill), WS5 (the resonance-side proposal — MAR awaits it in
+resonance's incoming box after the owner's word), WS7 (docs + gates). **Exchange
+claim `d0e453a3` (Hushed Prowling Lantern, resonance) was CLOSED at this
+session's handoff; the lane resumes when the owner answers the two gates, by a
+fresh session opening a new claim and posting an adoption event. MAR's claim
+`44f0ea2c` stays open on the resonance side (their choice).** The watcher and
+claim-heartbeat were torn down cleanly after a final-heartbeat-end +
+team-member-closeout broadcast on the resonance stream.
+
 **What this is.** On 2026-07-05 the owner ran the first-ever LIVE, BIDIRECTIONAL
 Practice exchange: a single session (prefix `25ece9`) whose worktree was this
 oak checkout and whose coordination home was a second Practice repo (the

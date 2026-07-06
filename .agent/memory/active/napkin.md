@@ -331,3 +331,22 @@ New session observations append below.
   moves down, and to keep the guards absolute exactly when the drive says skip them. The
   guards were right 5/5; the fault was reaching for the fluent move at the finish line.
   Full subjective account + the loss/metaloss reflection: `.agent/experience/2026-07-06-first-live-bidirectional-practice-exchange.md`.
+
+## 2026-07-06 — Exchange lane closeout (Cricket lifts Echo / `2fffa2`)
+
+- **Two liveness mechanisms on one seat diverge silently — a live watcher does NOT imply a
+  fresh claim.** My all-channels comms watcher stayed live all session (hourly GNU-`timeout`
+  re-arms), but the CLAIM's `heartbeat_at` went stale (~8h): the claim-heartbeat cron and the
+  watcher-heartbeat are independent writers. At closeout, verify (and refresh-or-archive) the
+  claim heartbeat SEPARATELY from watcher liveness; never read watcher-alive as claim-fresh.
+  (Immaterial here — the claim was being archived — but a false "my claim is fresh" read from
+  watcher liveness would be a real bug in a lane that stays live.)
+- **Inbound Core doctrine to reconcile, arriving mid-closeout (the protocol's own proof of
+  value).** The resonance owner canonicalised `[HEARTBEAT]`-filtered watchers as the DEFAULT
+  (resonance `021fe93` in the shared portable rule `comms-all-channels-watcher.md`, 2026-07-06):
+  arm filtered by default; run unfiltered only under named warranting conditions (Director
+  liveness-ownership, a handoff awaiting a specific heartbeat, stall diagnosis, owner/team
+  request). This directly cures the heartbeat-flood friction I absorbed all session (hundreds
+  of routine `[HEARTBEAT]` wake-ups). It is a portable-rule change on the OTHER estate; oak's
+  copy should reconcile to it — routed to the exchange lane as an inbound conjugation item.
+  Worked evidence that doctrine flows INTO oak through the exchange, not just out.
