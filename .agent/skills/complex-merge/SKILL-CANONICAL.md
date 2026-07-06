@@ -28,6 +28,11 @@ Load `.agent/skills/complex-merge/shared/complex-merge.md` and enforce its
 2. Resolve and read the referenced documents:
    - `.agent/rules/pre-merge-divergence-analysis.md`
    - `docs/engineering/pre-merge-analysis.md`
+   - [`semantic-merge` skill](../semantic-merge/SKILL-CANONICAL.md) — MANDATORY for any
+     diverged agent memory/state file in the set (`napkin.md`, `repo-continuity.md`, thread
+     `*.next-session.md` records, registers, anything with a `merge_class:` key). Git
+     line-merges corrupt their meaning even with no conflict marker, and both git and the
+     merging agent can be "confident and wrong"; reconcile those by concept, not lines.
 3. Execute the 7-phase process from the shared workflow:
    - Phase 1: Measure divergence
    - Phase 2: Identify all conflicts (text and structural)
