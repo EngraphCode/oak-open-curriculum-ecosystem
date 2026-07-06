@@ -4,6 +4,17 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-06 — PDR-049 gains the sequential-identifier collision clause (PR #295 merge run-in, Hyena spins Lamplight)
+
+Amended PDR-049 (Memory and State File Merge Semantics) with §Sequential-identifier
+collisions: when two branches independently mint the same next number for different
+artefacts (frictions, ADRs, PDRs, numbered patterns), the trunk-landed copy keeps the
+number, the other side renumbers to the next free number re-derived at merge-execution
+time, every index and in-content reference updates in the same change, and both sides'
+substance survives in full. Owner-ratified Practice-wide standard; founding instance the
+PR #295 F-111 collision (main's sandbox/zsh friction vs the branch's comms
+threading-edge friction).
+
 ## [oak-open-curriculum-ecosystem] 2026-07-03 — PDR-060 gains corollary 4: independent convergence is the strongest signal (ws1b rescue disposition, Vega mends Oblivion)
 
 Amended PDR-060 (Tooling Friction Is First-Class User Feedback) with a fourth operational
