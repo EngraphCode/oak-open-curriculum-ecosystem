@@ -1,3 +1,11 @@
+## [1.59.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.0...v1.59.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* **hooks:** fix two pre-push secret-scan range bugs; extract tested TS module ([5cfb5de](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5cfb5de89c14a741f6fc6730007fc904ea56b738))
+* **hooks:** scan only pushed commits in pre-push secret scan, not full history ([e2ac2b3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e2ac2b3f903210a102259a16ad5285dc191dfb59))
+
 # [1.59.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.58.0...v1.59.0) (2026-07-06)
 
 
