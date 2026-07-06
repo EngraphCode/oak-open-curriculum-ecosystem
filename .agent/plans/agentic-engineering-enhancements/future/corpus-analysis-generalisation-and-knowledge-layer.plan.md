@@ -3,13 +3,18 @@ name: "Corpus-Analysis Generalisation and the Knowledge-Curation Layer"
 plan_id: corpus-analysis-generalisation-and-knowledge-layer
 collection: agentic-engineering-enhancements
 lane: future
-status: "STRATEGIC BRIEF — research complete (2026-07-03), design not yet ratified. Evidence base:
-  reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md,
-  adversarially reviewed and corrected in place 2026-07-03 (review verdict: needs-targeted-revision,
-  core sound — corpus-generalisation-review-2026-07-03.md; R1 comms-residual reinterpretation, R2
-  leak inventory, R3 three restored open questions). Promotion trigger: an owner-scheduled
-  fresh-seat design session (Phase 0) that also absorbs the salvage plan's ws2 readiness review.
-  No execution until then."
+status: "STRATEGIC BRIEF — Phase 0 design session EXECUTED to a STABLE POINT 2026-07-05/06
+  (Hedgehog stirs Rime; owner-directed pause-then-stabilise). The design record
+  reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md
+  carries drafted verdicts on the full p0 agenda ((a)-(e), D1-D9, seventeen questions) plus BOTH
+  review verdicts conserved in its Review section (assumptions ratify-with-revisions 13 items;
+  architecture sound-with-revisions 18 findings) and restart notes. NOT yet decision-complete:
+  the revision queues are unapplied and the landing set (PDR-122 amendment + companion rule +
+  code-site derivation text + promotion of THIS plan to current/ absorbing salvage ws3-ws5) is
+  unlanded. The restart runs on a NEW BRANCH after the feat/corpus_research_enhancements PR
+  merges (owner-directed 2026-07-06). Self-contained restart brief: the AEE thread record
+  §PHASE 0. Evidence base unchanged: corpus-generalisation-research-2026-07-03.md (reviewed,
+  corrections applied) + corpus-generalisation-review-2026-07-03.md + burn-analysis-2026-07-02.md."
 created: 2026-07-03
 owner_thread: agentic-engineering-enhancements
 lineage:
@@ -229,6 +234,42 @@ with the knowledge-layer framing.
   whole-tree knip and lint — bring into conformance at adoption). Run-artefact identity note
   from the drain: candidate IDs are per-run, never stable across corpora — any cross-run
   linking needs run-scoped identity.
+
+## Phase 0 design inputs (owner-directed, 2026-07-05)
+
+Owner-stated core concept for the design session, recorded verbatim in
+substance; Phase 0 ratifies these as kernel invariants alongside items
+(a)-(e) in the p0 todo:
+
+- **Model-tier economy is a kernel invariant.** Quota limits mean the bulk of
+  data mining is done by Sonnet-5-or-equivalent models — and that works only
+  when each miner is handed an utterly clear and NARROW brief (the narrower
+  the better). Synthesis belongs to powerful models (Fable-tier).
+- **Powerful models must have direct raw-material exposure.** Otherwise
+  everything is lost by filtering through the mining tier: a Fable-tier agent
+  spot-checks some source files AND shallow-scans many files, to understand
+  the corpus and to calibrate how the synthesis agents handle the mined data.
+- **Mining subagents are context-minimal by construction.** Main-repo rules
+  and skills are NOT loaded for miners; no tool access beyond Read; at
+  hundreds of agents even the smallest per-agent context optimisation is
+  worthwhile.
+
+Session-dialogue sharpenings accepted into the same agenda (Hedgehog stirs
+Rime, 2026-07-05): make exposure measurable via paired blind duplication
+(Fable re-mines a stratified random sample of Sonnet-mined windows; the diff
+is the calibration statistic the stamp records); treat brief-induced
+blindness as a first-class risk (briefs derived FROM a Fable profiling pass,
+versioned in the regime registry, pilot includes an open-ended Fable pass as
+the blindness probe, schemas carry a bounded overflow slot); miners are
+recall-heavy with precision downstream (include-when-uncertain, flagged —
+the validate quorum supplies precision); every mined claim carries file:line
+plus a verbatim quote so synthesis drops to raw source on demand;
+output-side context is the fleet-scale bottleneck (hard-bounded structured
+output, sharded hierarchical reduce, deterministic stages in workflow code);
+per-window completion tracking so dead miners are re-dispatched rather than
+becoming silent recall holes; and a token audit of one real miner dispatch
+as a Phase 0 deliverable so "minimal context" is a measured budget line, not
+an assumption.
 
 ## Promotion trigger into `current/`
 

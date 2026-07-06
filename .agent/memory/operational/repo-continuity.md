@@ -171,11 +171,18 @@ forward-asks remain.
   Further-research lenses (report §Further research) add the two-hash calibration stamp, the
   linking-layer blueprint, the standing cross-regime audit + tracked watermark manifest (the item-1
   cure), and the estate-wide markdown→graph inversion direction (owner observation; needs its own
-  ADR). Next: an owner-scheduled fresh-seat Phase 0 design session (absorbs salvage ws2; agenda =
-  the seventeen open questions); **the ws1b disposition pass is launch-ready now** (fresh seat on
-  this branch; pasteable opener:
-  `.agent/prompts/agentic-engineering/ws1b-rescued-knowledge-consolidation-session.md`). Full
-  pickup: the AEE thread record §CORPUS GENERALISATION.
+  ADR). **Phase 0 EXECUTED to a paused stable point (2026-07-05/06, Hedgehog stirs Rime,
+  owner-directed pause):** the design record
+  [`corpus-generalisation-phase0-design-record-2026-07-05.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md)
+  carries drafted verdicts on the full agenda — (a)–(e) incl. the PDR-122 invariant-2 amendment
+  RATIFIED-not-yet-landed, D1–D6 plus the owner-directed D7–D9, seventeen question verdicts —
+  with the assumptions-expert verdict (ratify-with-revisions, 13-item queue) and the
+  architecture-review absorption in its §Review, plus restart notes (frozen-math reconciliation;
+  P1 workstream sketch). **Restart = the revision queue + the atomic landing set (PDR-122
+  amendment + companion-rule touch + plan promotion `future/`→`current/` absorbing salvage
+  ws3–ws5 + salvage close) on a NEW BRANCH post-merge** (owner-directed 2026-07-06; the owner
+  holds relevant developments to share post-merge). Full pickup: the AEE thread record
+  §CORPUS GENERALISATION / §PHASE 0.
 - **Commit-workflow F-112 FIXED (2026-07-03, Mistral seeks Jetstream, `b2ae96898`).** The
   commit-queue workflow's spawned-child stream truncation is cured: Node child-stdio pipes are libuv
   socketpairs, and one on the spawned git's stderr poisoned the pre-commit hook chain (hook shell
@@ -244,7 +251,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Wolf rides Vigil / **inter-Practice exchange lane (NEW)**: ran the first LIVE BIDIRECTIONAL Practice exchange (oak worktree ↔ resonance coordination home, one session, prefix 25ece9, peer Misty Anchoring Rudder ab49a5, shared owner); authored `agent-tooling/current/inter-practice-collaboration-protocol.plan.md` (4 commits, unpushed, no PR) + delivered a teaching bundle to resonance (committed their side); return bundle received + committed to oak's `.agent/practice-core/incoming/`. **Lane now held by Cricket lifts Echo** (2fffa2, separate Fable-5 oak session = Hushed Prowling Lantern on resonance; claim d0e453a3): adopted 2026-07-05, landed WS1 declared-home override (f31faec62), WS3 statusline join-key (4b9683be1), WS6 bundle adoption assessment (cf05fe95a); both owner gates ANSWERED 2026-07-06 (author the PDR in BOTH repos; v1 = the five-item floor + Tier-0/Tier-1 ladder) so the WS0 family is UNBLOCKED — next is the owner-requested WS0+WS4 authoring session (opener written 2026-07-06); exchange claim d0e453a3 CLOSED at handoff with final-heartbeat-end + team-member-closeout, MAR closed 44f0ea2c symmetrically (eefd4ef), watcher + claim-heartbeat torn down. My seat (25ece9) downgraded Fable→Opus at handoff, then final-closed with the loss/metaloss scan (kept its names — name derives from seed not model); durable homes: the plan, `.agent/experience/2026-07-06-first-live-bidirectional-practice-exchange.md`, napkin. Branch feat/corpus_research_enhancements, unpushed, no PR / 2026-07-06 (prior seat: Otter hunts Jetty, tier-E drain — thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / **multi-lane thread — two concurrent lanes, both 2026-07-06.** **LANE 1 — inter-Practice exchange:** Wolf rides Vigil / ran the first LIVE BIDIRECTIONAL Practice exchange (oak worktree ↔ resonance coordination home, one session, prefix 25ece9, peer Misty Anchoring Rudder ab49a5, shared owner); authored `agent-tooling/current/inter-practice-collaboration-protocol.plan.md` (4 commits, unpushed, no PR) + delivered a teaching bundle to resonance (committed their side); return bundle received + committed to oak's `.agent/practice-core/incoming/`. **Lane held by Cricket lifts Echo** (2fffa2, separate Fable-5 oak session = Hushed Prowling Lantern on resonance; claim d0e453a3): adopted 2026-07-05, landed WS1 declared-home override (f31faec62), WS3 statusline join-key (4b9683be1), WS6 bundle adoption assessment (cf05fe95a); both owner gates ANSWERED 2026-07-06 (author the PDR in BOTH repos; v1 = the five-item floor + Tier-0/Tier-1 ladder) so the WS0 family is UNBLOCKED — next is the owner-requested WS0+WS4 authoring session (opener written 2026-07-06); exchange claim d0e453a3 CLOSED at handoff with final-heartbeat-end + team-member-closeout, MAR closed 44f0ea2c symmetrically (eefd4ef), watcher + claim-heartbeat torn down. Seat 25ece9 downgraded Fable→Opus at handoff, then final-closed with the loss/metaloss scan (kept its names — name derives from seed not model); durable homes: the plan, `.agent/experience/2026-07-06-first-live-bidirectional-practice-exchange.md`, napkin. **LANE 2 — corpus phase-0 design:** Hedgehog stirs Rime / design record drafted + reviews absorbed to a paused stable point (ba9c88cc9 →); branch pushed + PR to green; restart = revision queue + landing set on a new branch post-merge. Branch feat/corpus_research_enhancements, unpushed, no PR / 2026-07-06 (prior seat: Otter hunts Jetty, tier-E drain; full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
@@ -354,11 +361,10 @@ F-41 CLI tail).
 
 ### Agentic-Engineering Curation
 
-0. **ws1b DONE 2026-07-03; NEXT: the full-processing pass ws1c–ws1g** (owner-directed
-   2026-07-03: every remaining rescued-knowledge stratum processed in full; the prior
-   gating framing was never ratified and is withdrawn) — see the §Current State
-   large-corpus entry; opener:
-   `.agent/prompts/agentic-engineering/rescued-knowledge-full-processing-session.md`.
+0. **Full processing DONE 2026-07-04; Phase 0 design PAUSED at a stable point 2026-07-06.
+   NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
+   landing set) — see the §Current State corpus-generalisation entry; the self-contained
+   restart brief is the AEE thread record §PHASE 0.
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
    PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;

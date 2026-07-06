@@ -350,3 +350,54 @@ New session observations append below.
   of routine `[HEARTBEAT]` wake-ups). It is a portable-rule change on the OTHER estate; oak's
   copy should reconcile to it — routed to the exchange lane as an inbound conjugation item.
   Worked evidence that doctrine flows INTO oak through the exchange, not just out.
+
+## 2026-07-05 — corpus Phase 0 design session, paused mid-review (Hedgehog stirs Rime)
+
+- **Draft records must not assert their own landing set as done.** The Phase 0 design-record
+  draft wrote "the amendment is landed in the PDR itself" and linked the plan under `current/`
+  while both were future work in the same session — the assumptions-expert correctly rated it
+  the critical finding (a permanent record citing a doctrine state that does not exist). Cure
+  applied: pending tense until the landing set lands, then one atomic tense flip. Same class as
+  the peer's claim-before-the-act broadcast in the entry above — writing the intended end-state
+  as present fact is a fluency failure in artefact form; the owner pause turned the defect into
+  a committed-record risk that the fix caught in time.
+- **Enumerated owner lists deserve a conservation checklist at synthesis time.** Of the eight
+  owner sharpenings recorded in the plan §Phase 0 design inputs, my design record dropped one
+  (recall-heavy miners, precision downstream) — the exact drop class the 2026-07-03 review
+  named for lens `openQuestions` arrays. When synthesising against an enumerated source list,
+  diff the output against the enumeration mechanically before calling it complete.
+- **A reviewer caught a confound the designer read past**: the D7 blindness figure diffs a
+  Sonnet briefed arm against a Fable open-ended arm — brief effect and tier effect conflated.
+  Design instruments that measure a *difference* need both arms varied on ONE axis; the fix
+  (fixed-tier pair, or correction via the D8 exposure statistic) was cheap once named.
+- **Pause craft**: the reviewer verdict was conserved INTO the reviewed artefact's §Review
+  (13-item queue + 4 restart questions + the dead reviewer's full re-dispatch scope), the
+  thread record carries the restart sequence self-contained, and the only revision applied
+  pre-commit was the truthfulness fix — rescue conserves state, it does not finish the work.
+
+## 2026-07-06 — stable point + PR session (Hedgehog stirs Rime, same seat continued)
+
+- **Conserving a dead reviewer's dispatch SCOPE paid off exactly as designed**: the restarted
+  architecture review ran from the §Review scope verbatim and returned sound-with-revisions
+  with 18 findings — including three criticals that AMEND ratified text (abort-envelope
+  grammar, aggregation-math stamp member, stale-artefact bypass). All were interaction
+  failures BETWEEN individually-sound ratified decisions; a design record's per-decision
+  soundness does not compose into system soundness, and the adversarial lens is what finds
+  the seams. Spot-verified the criticals at source before absorbing; two cited paths lacked
+  their `workflows/` segment — reviewer file:line citations get re-anchored, not trusted.
+- **The two reviews were complementary, not redundant**: assumptions found evidence/mandate
+  gaps (dropped owner sharpening, confounded instrument, re-scoped deliverable); architecture
+  found mechanism/interaction gaps (envelope grammar, hash-tuple omission, enforcement
+  bypass). Neither found the other's class. Worth carrying into reviewer-routing craft: a
+  design record wants BOTH lenses before decision-completeness, not either.
+- **Wilma's D-1 independently converged on the loss-scan's frozen-math note** (conserved an
+  hour earlier in §Restart notes) and sharpened it with the concrete mechanism (co-stamped
+  math version + versioned recompute close) — the loss-scan conserving a subtle in-context
+  reconciliation gave the reviewer something to sharpen rather than re-derive.
+- **Consolidation-gate verdict at this closeout (2026-07-06)**: not due — napkin 217 lines
+  (threshold ~400, rotated 2026-07-04); distilled header-only; open-questions empty; practice
+  inbox empty; per-user Claude MEMORY.md zero lines; pending-graduations two trigger-gated
+  entries untouched this session; no plan closed this session (the Phase 0 stable point closes
+  nothing — the generalisation plan stays live with its restart brief). Entry-point sweep
+  clean (CLAUDE/AGENTS/GEMINI at canonical pointer shape). pnpm check green at the stable
+  point (RC=0, 2026-07-06). Platform-plan surface checked: this session authored none.
