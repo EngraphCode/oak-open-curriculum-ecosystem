@@ -143,6 +143,7 @@ without proportional value.
 | `.agent/rules/ship-independent-coordinate-dependent.md`                    | always-on      | —                                                                                                |
 | `.agent/rules/sonarqube-mcp-instructions.md`                               | trigger-loaded | SonarQube MCP server usage                                                                       |
 | `.agent/rules/source-curriculum-content-via-api-not-cdn.md`                | always-on      | —                                                                                                |
+| `.agent/rules/source-is-typescript-esm-only.md`                            | always-on      | —                                                                                                |
 | `.agent/rules/stage-by-explicit-pathspec.md`                               | always-on      | —                                                                                                |
 | `.agent/rules/strict-validation-at-boundary.md`                            | always-on      | —                                                                                                |
 | `.agent/rules/subagent-practice-core-protection.md`                        | always-on      | —                                                                                                |

@@ -518,3 +518,46 @@ housekeeping PR; next dedicated pass rotates once the entanglement clears). No A
 candidate (F-120 is a tooling gap, correctly routed to the frictions register). No open
 questions. No claim to close (exchange claim `d0e453a3` closed at the prior handoff). pnpm
 check verdict recorded at the housekeeping commit.
+
+## 2026-07-06 — Session closeout: gitleaks fix + Sonar disposition + n=2 worktree de-confliction (Cricket lifts Echo)
+
+Landed: #306 (gitleaks pushed-range fix, `62208200`) + #305 (docs closeout, `d14a989a`) merged; #300–302
+closed by owner; `main` FF'd to `d14a989a`. Full detail + the remaining doctrine PR in the homed plan
+`.agent/plans/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md`.
+
+Reusable learnings (loss-scan conserved):
+
+- **A "dead" MCP tool via the Docker MCP gateway can be a URL typo, not a disconnect.** The Sonar MCP
+  returned `UnknownHostException: sonarcould.io` — a one-char typo (`sonarcould` for `sonarcloud`) in
+  the gateway's `sonarqube` server config (`~/.docker/mcp/mcp-toolkit.db`), token + org intact. Cure:
+  `mcp__MCP_DOCKER__mcp-config-set {server:"sonarqube", config:{org, url:"https://sonarcloud.io"}}`. The
+  `sonarqube-mcp-instructions` rule's "disconnected gateway masquerades as feature-absence" note should
+  gain "OR a typo'd URL in the gateway config" — candidate amendment.
+
+- **S4036 (spawn-by-name PATH resolution) on LOCAL DEV TOOLING is a context false-positive.** A pre-push
+  hook spawning `gitleaks` by name is not an exploitable PATH-injection vector: the dev controls their
+  own PATH, and an attacker able to write an earlier PATH dir already holds code-exec as that user. A
+  PATH-walk "fix" is mitigation theatre — it re-implements `execvp`'s own search with the identical trust
+  assumption and leaves the transitive `git` resolution unpinned. Disposition: grounded per-site ACCEPT,
+  not a code change. Both code-expert and security-expert ratified.
+
+- **Merge gate, confirmed twice (#306, #305):** truly-green (all checks green AND all review threads
+  resolved — fixed or rejected-as-inaccurate) → a NORMAL non-admin `gh pr merge` works; `--admin` stays
+  FORBIDDEN. This is the Strand D2 doctrine correction queued for the pr-lifecycle skill's Phase 7.
+
+- **Two agents in one checkout → worktree-isolate immediately.** Pre-commit/pre-push here run the FULL
+  turbo gate, so a commit holds the `.git/index` for minutes — two concurrent committers on one index
+  collide (my commit timed out at 2 min under contention). Cure: one agent per working tree (owner moved
+  the peer to a worktree). Self-isolating is more robust than waiting for the peer (it's in your control),
+  BUT a branch already checked out in the primary can't be reused in a worktree, so if you're mid-flight
+  on a PR branch it's cleaner for the PEER to take the worktree.
+
+- **`git add -- .agent/…` trips the `stage-by-explicit-pathspec` hook's substring matcher** (it matches
+  the literal `git add .`). Workaround: commit the path directly with `git commit -m … -- <pathspec>`
+  (stages+commits one path, no `git add`). Candidate: `hook-policy-substring-discipline` refinement.
+
+Successor: **Zodiac herds Spectrum (72dd40)** picks up the doctrine PR (Strand D). Peer **Orchid binds
+Verdure (51a331)** worked the whole session in a separate worktree on **#308** (sonar phase-5B idiom
+residuals) — independent lane. Napkin near rotation (~515 lines) — flag for next consolidation.
+
+— Cricket lifts Echo (2fffa2)
