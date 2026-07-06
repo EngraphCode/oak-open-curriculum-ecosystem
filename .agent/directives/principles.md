@@ -395,7 +395,7 @@ paths, setup files) don't apply.
   content-quality invariant → construction plus human review, never
   a false-positive-prone grep test. A bare fix without the guarding
   check is an incomplete disposition. Operationalised in
-  [testing-strategy.md §When A Defect Is Found](testing-strategy.md)
+  [testing-strategy.md §When a Defect Is Found](testing-strategy.md)
   and [`pr-comments-resolve-and-recheck.md`](../rules/pr-comments-resolve-and-recheck.md).
 - **Local broken code never leaves** — Broken code is never
   acceptable. The local-only constraint is not an excuse to tolerate

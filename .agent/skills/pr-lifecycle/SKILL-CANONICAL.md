@@ -5,9 +5,9 @@ description: >-
   Open a pull request and shepherd it to merge-ready: reviewer-facing
   description, full-surface harvesting (GraphQL review threads, all comments,
   all checks, Sonar issues), root-cause-first triage, budgeted watching,
-  re-fetch after every push, and an honest merge-ready declaration at the
-  code-owner gate. Use whenever a branch reaches PR closeout or an open PR
-  needs driving to live.
+  re-fetch after every push, and an honest truly-green merge — all checks
+  green, every thread resolved, normal non-admin merge. Use whenever a
+  branch reaches PR closeout or an open PR needs driving to live.
 ---
 
 # Pull Request Lifecycle
@@ -125,7 +125,7 @@ work or hold; the watcher wakes you.
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
 
-## Phase 7 — Merge-ready is a declaration with a gate, then the owner
+## Phase 7 — Merge-ready is a declaration with a gate
 
 Merge-ready means, re-verified at the declaration instant: all checks green
 AND zero unresolved review threads AND the Sonar quality gate passing. Then:
@@ -148,7 +148,8 @@ AND zero unresolved review threads AND the Sonar quality gate passing. Then:
   sole code owner, and forbids self-approval.
 - An owner grant of merge authority (for example to a team session's
   Director) is per-session, never standing (owner, 2026-06-29); absent a
-  fresh grant, the code-owner gate above is the default.
+  fresh grant, the truly-green gate above governs unchanged — the merge
+  waits on whichever leg is genuinely unsatisfied.
 - **Never run `gh pr merge --delete-branch` while the local checkout carries
   uncommitted changes**: the flag switches the local checkout to the base
   branch as cleanup, and with a dirty tree the local fast-forward aborts —

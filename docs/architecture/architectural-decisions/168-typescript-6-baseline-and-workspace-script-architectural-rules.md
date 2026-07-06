@@ -74,7 +74,8 @@ build step), but it had spread to scripts that had no such constraint.
 
 ## Decision
 
-This ADR ratifies four rules plus a pre-existing Husky carve-out, all
+This ADR ratifies four rules plus a shell-scope exception (originally a
+Husky-entry-points carve-out; widened 2026-07-06), all
 of which the `fix/build_issues` branch's five preceding commits have
 already implemented (`a34f8402`, `d9018628`, `72bf1d90`, `72c3fe89`,
 `1f991a4b` — see History below for the per-commit mapping). The rules
@@ -374,3 +375,13 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
   `vitest.config.base.ts` include line makes it discoverable at the point of
   confusion; Future Work #4 notes a possible mechanical check. Captured per
   ADR-150's surprise pipeline on two-instance recurrence.
+
+- **2026-07-06** — widened the shell-scope exception by owner directive: from
+  "the only `.sh` exception is the Husky entry points" to "shell is permitted
+  where it significantly reduces effort", Husky's hook entry points remaining
+  the canonical instance. §"Pre-existing exception: Husky entry points" is
+  retitled §"Shell-scope exception"; §5 promotion-overdue signals still govern
+  shell scripts that accrete logic. The agent-firing companion rule
+  `.agent/rules/source-is-typescript-esm-only.md` (TypeScript unless absolutely
+  impractical; required JS compiled from TS; ESM only, no CJS; this shell
+  scope) landed in the same change.

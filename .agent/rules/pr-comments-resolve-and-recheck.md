@@ -43,16 +43,6 @@ a re-check bound to the merge instant (the merging agent's responsibility), neve
 "I was diligent last push". Re-fetch all threads immediately before declaring
 ready or merging; if any is unresolved, return to step 2.
 
-## A real issue is fixed only when a check guards it
-
-A comment identifying a **real** issue is "fixed" only when the code is corrected AND a
-check of the appropriate kind exists that would have caught the issue and its class
-([`principles.md` §Code Quality "Every issue earns a check"](../directives/principles.md);
-for behaviour defects the operational shape is testing-strategy.md §When A Defect Is Found —
-the reproducing test lands with the fix). A bare fix without the guarding check is an
-incomplete disposition: the reply names the fix AND the check, or states why the class is
-already guarded.
-
 Resolving a thread is **metadata, not a fix.** Marking threads resolved to clear
 `mergeStateStatus` (or any merge-readiness signal) without settling the concern
 the comment raised is the inverse of this rule: it makes the PR *look* ready
@@ -64,6 +54,17 @@ Worked instance (2026-06-27, PR #244): fixing five review comments and pushing �
 time spawned a fresh bot comment on the very change that resolved the prior one (a too-broad
 lint ignore; then a plan over-generalisation; then a missing gitignore pairing). Assuming the
 first correction was sufficient would have merged over an unaddressed comment each time.
+
+## A real issue is fixed only when a check guards it
+
+A comment identifying a **real** issue is "fixed" only when the code is corrected AND a
+check of the appropriate kind exists that would have caught the issue and its class
+([`principles.md` §Code Quality "Every issue earns a check"](../directives/principles.md);
+for behaviour defects the operational shape is
+[testing-strategy.md §When a Defect Is Found](../directives/testing-strategy.md) — the
+reproducing test lands with the fix). A bare fix without the guarding check is an
+incomplete disposition: the reply names the fix AND the check, or states why the class is
+already guarded.
 
 Under shared gh credentials an agent's replies are attributed to the repo owner; identify as
 the agent in the reply body (`identify-as-agent-under-shared-credentials`).
