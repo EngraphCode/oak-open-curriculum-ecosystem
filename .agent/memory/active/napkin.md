@@ -652,7 +652,8 @@ check (prevents the 300–302 gate-suppressed-bot-PR class). Capture-worthy:
   the push-side twin of the merge-instant re-check doctrine D2 itself landed.
 - **`closed-claims.archive.json` is untracked-tier and absent on this disk** (untracked at
   `255117a43`); `claims close` fails ENOENT rather than creating it. Re-materialise the empty
-  `{schema_version: "1.3.0", claims: []}` container and closures append normally.
+  container — exactly `{"schema_version": "1.3.0", "claims": []}` — and closures append
+  normally.
 - **Copilot tilde-path finding disposition**: the machine-local-paths validator deliberately
   permits tilde forms (permitted shape 2, no PII), but the rule's historical-prose convention
   still forbids a concrete per-session filename under `~/` — name the artefact by class. The
@@ -663,8 +664,8 @@ check (prevents the 300–302 gate-suppressed-bot-PR class). Capture-worthy:
 - **Frictions-register candidate (loss-scan yield): `claims close` fails ENOENT rather than
   creating the untracked closed-claims archive container.** A fresh disk (post the `255117a43`
   untrack) cannot close a claim without knowing the empty-container shape by hand. Candidate
-  cure: `claims close` auto-creates the `{schema_version, claims: []}` container when the
-  `--closed` target is absent (same absent-artefact family as F-120).
+  cure: `claims close` auto-creates the empty container (`{"schema_version": "1.3.0",
+  "claims": []}`) when the `--closed` target is absent (same absent-artefact family as F-120).
 - **PDR-082 trigger texture (loss-scan yield): two same-day sessions independently read "a
   third agent joining re-activates the full protocol" as counting ACTIVE participants
   (claim-holding / source-editing), not registered presences.** My standby registration

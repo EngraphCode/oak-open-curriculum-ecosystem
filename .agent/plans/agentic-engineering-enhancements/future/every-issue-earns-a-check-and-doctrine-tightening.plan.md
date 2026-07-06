@@ -11,12 +11,14 @@ lineage:
 
 # Every issue earns a check + PR-lifecycle & source-policy doctrine tightening
 
-> **Decision-complete plan.** Authored 2026-07-06 (Cricket lifts Echo, 2fffa2) during a
-> PR-lifecycle closeout session. Strands A/B/C/E landed this session; **Strand D (the doctrine
-> PR) and Strand D-reflexive remain** and are the executable content for the next session
-> (successor: **Zodiac herds Spectrum, 72dd40**). The owner approved the original plan and issued
-> the escalating foundational directive that D1 encodes. This is a self-contained doctrine PR — no
-> product code, all `.agent/` doctrine + one ADR.
+> **Decision-complete plan — now EXECUTED.** Authored 2026-07-06 (Cricket lifts Echo, 2fffa2)
+> during a PR-lifecycle closeout session: Strands A/B/C/E landed that session, and Strand D
+> plus Strand D-reflexive were handed to the successor (**Zodiac herds Spectrum, 72dd40**), who
+> executed them the same day — **merged to `main` via PR 310 (`18a2d8c17`)**. The one open
+> residual is the Strand D-reflexive owner/admin ruleset action (`run-quality-gates` as a
+> REQUIRED status check). The owner approved the original plan and issued the escalating
+> foundational directive that D1 encodes. This was a self-contained doctrine PR — no product
+> code, all `.agent/` doctrine + one ADR.
 
 ## Context (why this exists)
 
