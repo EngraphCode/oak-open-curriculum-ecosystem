@@ -55,5 +55,16 @@ time spawned a fresh bot comment on the very change that resolved the prior one 
 lint ignore; then a plan over-generalisation; then a missing gitignore pairing). Assuming the
 first correction was sufficient would have merged over an unaddressed comment each time.
 
+## A real issue is fixed only when a check guards it
+
+A comment identifying a **real** issue is "fixed" only when the code is corrected AND a
+check of the appropriate kind exists that would have caught the issue and its class
+([`principles.md` §Code Quality "Every issue earns a check"](../directives/principles.md);
+for behaviour defects the operational shape is
+[testing-strategy.md §When a Defect Is Found](../directives/testing-strategy.md) — the
+reproducing test lands with the fix). A bare fix without the guarding check is an
+incomplete disposition: the reply names the fix AND the check, or states why the class is
+already guarded.
+
 Under shared gh credentials an agent's replies are attributed to the repo owner; identify as
 the agent in the reply body (`identify-as-agent-under-shared-credentials`).
