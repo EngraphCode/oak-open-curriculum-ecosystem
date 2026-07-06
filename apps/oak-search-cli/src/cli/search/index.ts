@@ -29,6 +29,7 @@ import {
   printError,
   validateSubject,
   validateKeyStage,
+  parsePositiveIntOption,
 } from '../shared/index.js';
 import { buildSearchSdkConfig } from '../shared/build-search-sdk-config.js';
 import { handleSearchLessons, handleSearchUnits, handleSearchSequences } from './handlers.js';
@@ -44,7 +45,7 @@ import { searchLogger } from '../../lib/logger.js';
 interface SubjectKeyStageOpts {
   readonly subject?: string;
   readonly keyStage?: string;
-  readonly size: string;
+  readonly size: number;
 }
 
 /**
@@ -64,7 +65,7 @@ function registerLessonsCmd(
     .argument('<query>', 'Search query text')
     .option('-s, --subject <subject>', 'Filter by subject slug')
     .option('-k, --key-stage <keyStage>', 'Filter by key stage (ks1-ks4)')
-    .option('--size <n>', 'Maximum results to return', '25')
+    .option('--size <n>', 'Maximum results to return', parsePositiveIntOption, 25)
     .action(
       withLoadedCliEnv(
         cliEnvLoader,
@@ -78,7 +79,7 @@ function registerLessonsCmd(
                 query,
                 subject: validateSubject(opts.subject),
                 keyStage: validateKeyStage(opts.keyStage),
-                size: Number.parseInt(opts.size, 10),
+                size: opts.size,
               });
               if (!result.ok) {
                 searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);
@@ -113,7 +114,7 @@ function registerUnitsCmd(
     .argument('<query>', 'Search query text')
     .option('-s, --subject <subject>', 'Filter by subject slug')
     .option('-k, --key-stage <keyStage>', 'Filter by key stage (ks1-ks4)')
-    .option('--size <n>', 'Maximum results to return', '25')
+    .option('--size <n>', 'Maximum results to return', parsePositiveIntOption, 25)
     .action(
       withLoadedCliEnv(
         cliEnvLoader,
@@ -127,7 +128,7 @@ function registerUnitsCmd(
                 query,
                 subject: validateSubject(opts.subject),
                 keyStage: validateKeyStage(opts.keyStage),
-                size: Number.parseInt(opts.size, 10),
+                size: opts.size,
               });
               if (!result.ok) {
                 searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);
@@ -161,11 +162,11 @@ function registerSequencesCmd(
     .description('Search sequences (subject-phase programmes)')
     .argument('<query>', 'Search query text')
     .option('-s, --subject <subject>', 'Filter by subject slug')
-    .option('--size <n>', 'Maximum results to return', '25')
+    .option('--size <n>', 'Maximum results to return', parsePositiveIntOption, 25)
     .action(
       withLoadedCliEnv(
         cliEnvLoader,
-        async (cliEnv: CliSdkEnv, query: string, opts: { subject?: string; size: string }) => {
+        async (cliEnv: CliSdkEnv, query: string, opts: { subject?: string; size: number }) => {
           const esClient = createEsClient(cliEnv);
           await withEsClient(
             esClient,
@@ -174,7 +175,7 @@ function registerSequencesCmd(
               const result = await handleSearchSequences(retrieval, {
                 query,
                 subject: validateSubject(opts.subject),
-                size: Number.parseInt(opts.size, 10),
+                size: opts.size,
               });
               if (!result.ok) {
                 searchLogger.error(`${result.error.type}: ${result.error.message}`, result.error);

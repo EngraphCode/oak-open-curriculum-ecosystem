@@ -22,6 +22,7 @@ import {
   type SearchCliEnvLoader,
   printJson,
   validateSubject,
+  parsePositiveIntOption,
 } from '../shared/index.js';
 import { buildSearchSdkConfig } from '../shared/build-search-sdk-config.js';
 import { handleSearchThreads } from './handlers.js';
@@ -39,11 +40,11 @@ export function registerThreadsCmd(parent: Command, cliEnvLoader: SearchCliEnvLo
     .description('Search threads (conceptual progression strands)')
     .argument('<query>', 'Search query text')
     .option('-s, --subject <subject>', 'Filter by subject slug')
-    .option('--size <n>', 'Maximum results to return', '25')
+    .option('--size <n>', 'Maximum results to return', parsePositiveIntOption, 25)
     .action(
       withLoadedCliEnv(
         cliEnvLoader,
-        async (cliEnv: CliSdkEnv, query: string, opts: { subject?: string; size: string }) => {
+        async (cliEnv: CliSdkEnv, query: string, opts: { subject?: string; size: number }) => {
           const esClient = createEsClient(cliEnv);
           await withEsClient(
             esClient,
@@ -52,7 +53,7 @@ export function registerThreadsCmd(parent: Command, cliEnvLoader: SearchCliEnvLo
               const result = await handleSearchThreads(retrieval, {
                 query,
                 subject: validateSubject(opts.subject),
-                size: Number.parseInt(opts.size, 10),
+                size: opts.size,
               });
               if (!result.ok) {
                 searchDeps.logger.error(

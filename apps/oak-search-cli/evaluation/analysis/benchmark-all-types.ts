@@ -18,10 +18,8 @@ export interface IndexResult {
 export const VALID_INDEXES = ['lessons', 'units', 'threads', 'sequences'] as const;
 export type IndexName = (typeof VALID_INDEXES)[number];
 
-const VALID_INDEX_SET: ReadonlySet<string> = new Set(VALID_INDEXES);
-
 export function isValidIndex(value: string): value is IndexName {
-  return VALID_INDEX_SET.has(value);
+  return VALID_INDEXES.some((v) => v === value);
 }
 
 /** Compute average metrics from a collection of per-query metrics. */

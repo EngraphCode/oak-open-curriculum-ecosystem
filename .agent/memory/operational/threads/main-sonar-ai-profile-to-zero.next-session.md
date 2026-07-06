@@ -39,10 +39,17 @@ the 2026-06-27 session omitted it; model not recorded there, so marked unknown.)
 **Phase 5B (per-site idiom residuals) COMMITTED 2026-07-06** (Katydid seeks Moonbeam,
 `db97022c4` on `fix/sonar-phase5b-idiom-residuals`, PR pending): S7773 ×12 (11 hand sites +
 the sdk-error-types generator template), S7772 ×2 (root `eslint.config.ts` — outside every
-workspace lint run), S7770 ×3, S7765 per-site (ALL 9 genuinely fixed — the six ADR-153
-type-guards converted to `ReadonlySet<string>` membership, which is type-sound where
-`.includes()` is not; an initial ACCEPT disposition of those six was reversed on owner
-review — fix properly, do not dismiss), S7764 ×2 (widget tokens.html). **Key mechanism lesson**:
+workspace lint run), S7770 ×3, S7765 per-site (3 container fixes; the six ADR-153 `value is X`
+type-guards KEEP the `.some` equality form — **ADR-153 §Membership Without Widening explicitly
+forbids `new Set<string>` / `readonly string[]` widening inside these guards**; a mid-PR Set
+conversion was landed then restored to main's exact forms after Copilot cited the ADR, so
+Sonar's `.includes()` suggestion is rejected-as-incorrect at those six sites with the ADR as
+evidence), S7764 ×2 (widget tokens.html). Follow-on round from PR feedback: the failed
+`new_duplicated_lines_density` condition cured by parsing `--size`/`--limit` once at the
+commander option boundary (`parsePositiveIntOption`, unit-tested, `InvalidArgumentError`
+house precedent) instead of per-handler `parseInt`; S7776 fixed (`SKIPPED_PATHS` → Set — no
+literal-union types involved). **Standing warning for future Sonar rounds on guard sites:
+read ADR-153 BEFORE dispositioning or fixing any `value is X` site.** **Key mechanism lesson**:
 unicorn v69's `prefer-number-properties` deliberately exempts radix-10/no-radix `parseInt`,
 so a locked-at-error ESLint rule can structurally never clear its Sonar S7773 counterpart —
 when a lock tranche leaves Sonar survivors, diff the two engines' rule criteria first

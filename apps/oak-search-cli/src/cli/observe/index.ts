@@ -27,6 +27,7 @@ import {
   printJson,
   printError,
   registerPassThrough,
+  parsePositiveIntOption,
   type CliSdkEnv,
   type SearchCliEnvLoader,
 } from '../shared/index.js';
@@ -59,18 +60,18 @@ function registerTelemetryCmd(
   parent
     .command('telemetry')
     .description('Fetch persisted zero-hit telemetry from Elasticsearch')
-    .option('-l, --limit <n>', 'Maximum number of events to return', '50')
+    .option('-l, --limit <n>', 'Maximum number of events to return', parsePositiveIntOption, 50)
     .action(
       withLoadedCliEnv(
         cliEnvLoader,
-        async (cliEnv: CliSdkEnv, opts: { limit: string }) => {
+        async (cliEnv: CliSdkEnv, opts: { limit: number }) => {
           const esClient = createEsClient(cliEnv);
           await withEsClient(
             esClient,
             async () => {
               const obsService = createObservabilityService(esClient, buildSearchSdkConfig(cliEnv));
               const result = await handleTelemetry(obsService, {
-                limit: Number.parseInt(opts.limit, 10),
+                limit: opts.limit,
               });
               if (!result.ok) {
                 observeLogger.error(`${result.error.type}: ${result.error.message}`, result.error);

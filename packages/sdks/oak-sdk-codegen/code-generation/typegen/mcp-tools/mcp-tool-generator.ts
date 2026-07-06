@@ -28,11 +28,11 @@ import { compareCodeUnits } from '../../code-unit-order.js';
 const HTTP_METHODS = ['get', 'post', 'put', 'delete', 'patch'] as const;
 
 /** Paths excluded from MCP tool generation — superseded by ES search or non-transportable. */
-const SKIPPED_PATHS: readonly string[] = [
+const SKIPPED_PATHS: ReadonlySet<string> = new Set([
   '/search/lessons',
   '/search/transcripts',
   '/lessons/{lesson}/assets/{type}',
-];
+]);
 
 function isPathItemObject(value: unknown): value is PathItemObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value) && !('$ref' in value);
@@ -68,7 +68,7 @@ function iterOperations(
     return out;
   }
   for (const [path, pathItem] of Object.entries(schema.paths)) {
-    if (SKIPPED_PATHS.includes(path)) {
+    if (SKIPPED_PATHS.has(path)) {
       continue;
     }
     if (!isPathItemObject(pathItem)) {

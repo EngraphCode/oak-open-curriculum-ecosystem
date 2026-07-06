@@ -32,8 +32,6 @@ export const ALL_COMPLETION_CONTEXTS = ['subject', 'key_stage', 'sequence', 'pha
  */
 export type CompletionContextName = (typeof ALL_COMPLETION_CONTEXTS)[number];
 
-const COMPLETION_CONTEXT_SET: ReadonlySet<string> = new Set(ALL_COMPLETION_CONTEXTS);
-
 /**
  * Type guard to check if a value is a valid completion context name.
  *
@@ -51,8 +49,9 @@ export function isValidCompletionContext(value: unknown): value is CompletionCon
   if (typeof value !== 'string') {
     return false;
   }
-  // Check against the known context names without type assertion
-  return COMPLETION_CONTEXT_SET.has(value);
+  // Equality-form membership per ADR-153 §Membership Without Widening —
+  // no assertion, no widening; each literal compares against the input.
+  return ALL_COMPLETION_CONTEXTS.some((ctx) => ctx === value);
 }
 
 /**

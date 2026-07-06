@@ -560,3 +560,16 @@ check verdict recorded at the housekeeping commit.
   emitted lines join" wired into `repo-validators:check` — NOT an fs-reading test (in-process
   tests must not do IO; a new allowlist entry would weaken the gate boundary). Route: next
   touch of the sonar thread or the sdk-codegen estate; small, self-contained.
+- **The ADR-153 guard arc, final state (the session's core lesson).** Sequence: (1) dispositioned
+  six `value is X` S7765 sites ACCEPT citing a prior deferral — under-grounded; (2) owner said fix
+  properly → converted them to `ReadonlySet<string>.has()` — WRONG, ADR-153 §Membership Without
+  Widening forbids exactly that form (and `readonly string[]` views) in guards, prescribing
+  `.some((el) => el === value)`; a code-expert review approved the wrong form (it did not read the
+  ADR either); (3) Copilot's PR review cited the ADR; verified first-hand; restored main's exact
+  forms via forward edits. Terminal state: Sonar's suggestion is rejected-as-incorrect at guard
+  sites WITH the ADR citation. Generator of all three misses: acting from the nearest plausible
+  frame without grounding in the repo's canonical doctrine first — the ADR was one read away the
+  whole time, and #257's deferral note even named it. Subagent verdicts share the dispatcher's
+  frame: adversarially verify their load-bearing claims (the reviewer's "respects the house
+  pattern" was ungrounded). Also: use repo gate commands (`pnpm check`, `pnpm type-check`), never
+  ad-hoc `npx tsc --ignoreConfig` probes whose noise invites misreading.
