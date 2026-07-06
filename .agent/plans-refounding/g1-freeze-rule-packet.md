@@ -1,0 +1,121 @@
+# G1 packet — freeze-rule ratification (DRAFT for the owner sitting)
+
+> Decision-complete briefing for the owner's G1 sitting, per
+> [`plan-corpus-refounding.plan.md`](../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+> §Owner-gate register (G1 row) and the
+> [design record](../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md).
+> Drafted 2026-07-06 by Stoat rides Gloaming (432a41). Every measured number below is
+> **indicative at draft time**; the binding denominator is recomputed by `refound-freeze`
+> at S0 (P2). The machine form of §1 is [`freeze-rule.json`](./freeze-rule.json) (v1 draft,
+> `ratifiedBy: null` until this sitting; the freeze script refuses to run on an
+> unratified rule).
+
+## 1. Surface-class verdict table (ratification item 1)
+
+Semantics: any file matching no declared class is **out** by default; `out` rows are
+recorded so deliberate exclusions stay checkable (kit-10 discipline).
+
+| Class id | Globs | Verdict | Sub-reason (kit-10 discipline) | Indicative measure (2026-07-06, worktree tip c8314eed0) |
+| --- | --- | --- | --- | --- |
+| `plans` | `.agent/plans/**` (ALL extensions) | **in** | The estate being refounded. No extension filter — extension filtering is a per-file judgement; non-md files conserve by byte-identity + whole-file ledger rows. | 619 md / 165,574 lines; 29 non-md; 336 `*.plan.md`; 22 top-level dirs |
+| `milestones` | `.agent/milestones/**` | **in** | Intent-bearing plan-adjacent surface; trivial cost; excluding needs a reason, including needs none. | 5 md / 363 lines |
+| `proposals` | `.agent/proposals/**` (ALL extensions) | **in** | Recorded proposals awaiting triage ARE conservable planning concepts; the refounding's disposition machinery is their triage. | 6 md + 9 non-md (15 files) |
+| `plans-old-archive` | `.agent/plans-old-archive/**` | **sweep** | Sub-reason (a) re-derivable-from-structure: immutable-by-convention relocated archive. Non-terminal concepts caught by the scripted sweep; hits promote via denominator amendment (the archive is never modified in place). | 571 md |
+| `prompts` | `.agent/prompts/**` | **sweep** | Live operational surface (session entry points); freezing would perturb running-session tooling. Sub-reason (a): entry-point prose re-derives from the plans it points at. Bounded leakage caught by sweep. | 66 md (+1 since design time — the R0 session opener itself: live proof of the sanctioned-writer need) |
+| `thread-records` | `.agent/memory/operational/threads/**` | **sweep** | History records, not intent carriers; annotate-never-rewrite (I12). Sweep catches plan-shaped intent parked in records. | — |
+| `reports-research-evals` | `.agent/reports/**`, `.agent/research/**`, `.agent/evaluations/**` | **out** | Assessment inputs, not plans (the plans README already routes them so). Sub-reason (a): referenced BY plans — the ledger conserves the referencing lines; the referenced documents stay live and untouched. | — |
+| (default) | everything else | **out** | Not a planning surface. Freezing non-planning surfaces copies live doctrine/code out from under active lanes for zero conservation gain. | — |
+
+Owner question 1: ratify the class table + verdicts + sub-reasons as
+`freeze-rule.json` v1 (closed schema; unknown keys rejected).
+
+## 2. Net-C keyword list (ratification item 2)
+
+Case-insensitive MATCH, verbatim CAPTURE, closed list versioned inside the inventory
+script (per-line application is mechanical; this list is the placed judgement, J1):
+
+`status:`, `todo`, `next step`, `pending`, `blocked`, `depends`, `serves_`,
+`supersede`, `thread`, `gate`, `owner`, `decision`, `acceptance`,
+`definition of done`, `dod`, `follow-up`, `deferred`, `promotion trigger`
+
+Derivation: the donor estate's keyword-class net ported to oak's observed corpus
+vocabulary (two status vocabularies, V0 axes, PDR-018 gate/promotion language).
+Changes after ratification = versioned amendment + re-ratification +
+discrimination-proof re-run.
+
+Owner question 2: ratify the Net-C list.
+
+## 3. Residue-orphan bounds (ratification item 3)
+
+An anchored block is an orphan candidate iff (F1 §9):
+
+- (a) it is a `file-preamble` block containing any non-blank line; or
+- (b) its non-blank line count exceeds **25**; or
+- (c) its file's anchor ratio is below **5%**.
+
+Run-level sanity: whole-corpus anchor ratio outside **20–70%** = automatic
+halt-and-inspect (net mis-fit signal, never pushed through).
+
+Owner question 3: ratify bounds (a)/(b)/(c) + the sanity band as declared starting
+values (re-examined at SP3; any change re-runs the discrimination proofs).
+
+## 4. Destination-corpus rooting (ratification item 4 — design-record row 14)
+
+**Recommendation (verdict): destination lanes root INSIDE `.agent/plans/` as new lane
+directories, covered by the `new-lane-directories` sanctioned-writer class.** The
+refounded corpus is the plan estate's next form, not a parallel estate — a separate
+root would mint the competing-taxonomy risk ADR-200 §Consequences names, and the
+coexistence machinery (P2 sanctioned classes + accretion log + merge-recheck) exists
+precisely so protocol-authored writes inside the denominator are never self-noise
+arrivals. A paired red gate (design row 14) rejects non-conforming content under the
+new lane roots.
+
+Alternative considered and not recommended: a separate `.agent/plans-refounded/` root
+— cleaner freeze arithmetic, but it creates a second estate during coexistence and a
+mass-move at cutover (higher retirement risk, and the competing-taxonomy smell).
+
+Owner question 4: ratify the rooting class (or rule the alternative).
+
+## 5. Sanctioned-writer classes (ratification item 5 — P2)
+
+Writes inside the frozen denominator that are protocol-authored, never arrivals:
+
+1. **new-lane-directories** — destination plans authored by the refounding (V0.1,
+   proof-typed, accretion-logged) under the Walk-A-ratified lane roots.
+2. **ratified-banner-diff** — the two scripted additive banner classes on live
+   originals (banner text dry-run through validators pre-use; banners land AFTER
+   freeze so frozen copies stay banner-free).
+3. **accretion-logged-plans** — sanctioned owner additions to not-yet-ratified
+   destination plans during the coexistence window, each logged to the accretion
+   log (kit item 8).
+
+Everything else arriving on `in` surfaces post-S0 is an arrival: `refound-merge-recheck`
+flags it; the G3 routing table disposes it.
+
+Owner question 5: ratify the three classes.
+
+## 6. Sweep single-net residue (ratification item 6 — design row 12, P4)
+
+The sweep surfaces (~59% of in-scope text: old-archive + prompts + thread records)
+sit behind ONE keyword net. **Recommendation (verdict): adopt the reader-sample cure**
+— a declared-rate sample of NON-hit sweep windows runs through `refound-reader` as a
+second blind net (rate declared in the R0c cost ledger; candidate 10% of non-hit
+windows, re-priced at SP3) — rather than signing the bare single-net residue. Either
+way the marker-free work-bearing paraphrase plant (P4) must be CAUGHT before any
+sweep zero is trusted.
+
+Sweep-net candidate marker set (J1, drafted; ratify with this packet):
+`todo`, `next step`, `not yet`, `pending`, `blocked`, `open question`, `unresolved`,
+`follow-up`, `deferred`, `still needs`, `remaining`, `incomplete`, `carry-over`,
+`promotion trigger`, `reopen`.
+
+Owner question 6: reader-sample cure at declared rate, OR sign the single-net residue
+declaration knowingly.
+
+## 7. What G1 does NOT decide (already ratified or later gates)
+
+G-ADR/V0.1: done (2026-07-06). G2 (S0 landing sanction: denominator totals, scoped
+gate exclusions with reasons, secret-scan attestation, commit window) and G3
+(arrivals-routing table) follow R0a; Walk A owns lane taxonomy; OG-2 (status-mapping
+table v1) and OG-3 (warn→enforce escalation) ride their own packets per the F5
+design (OG-1 was signed as part of V0.1).
