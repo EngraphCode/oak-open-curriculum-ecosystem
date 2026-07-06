@@ -4,7 +4,7 @@ kind: strategic
 owner_decision_required: false
 lineage:
   serves_thread: agentic-engineering-enhancements
-  derives_from: ~/.claude/plans/spicy-tickling-puppy.md (machine-local plan-mode artefact, 2026-07-06, Cricket lifts Echo — homed here so it survives the session)
+  derives_from: a machine-local Claude plan-mode artefact under ~/.claude/plans/ (host-local and transient; 2026-07-06, Cricket lifts Echo — homed here so it survives the session)
 ---
 
 # Every issue earns a check + PR-lifecycle & source-policy doctrine tightening
