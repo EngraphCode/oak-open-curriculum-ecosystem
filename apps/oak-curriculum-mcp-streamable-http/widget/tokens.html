@@ -261,11 +261,13 @@
         <script>
           /* Detect and display current theme */
           function updateTheme() {
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
             document.getElementById('current-theme').textContent = isDark ? 'dark' : 'light';
           }
           updateTheme();
-          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
+          globalThis
+            .matchMedia('(prefers-color-scheme: dark)')
+            .addEventListener('change', updateTheme);
         </script>
       </div>
     </main>

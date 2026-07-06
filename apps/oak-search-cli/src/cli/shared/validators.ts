@@ -6,6 +6,7 @@
  * type-safe values are passed to the Search SDK.
  */
 
+import { InvalidArgumentError } from 'commander';
 import { isSubject, isKeyStage, SUBJECTS, KEY_STAGES } from '@oaknational/curriculum-sdk';
 import { isSearchScope, SEARCH_SCOPES } from '@oaknational/sdk-codegen/search';
 import type { SearchSubjectSlug, SearchScope } from '@oaknational/sdk-codegen/search';
@@ -60,4 +61,31 @@ export function validateScope(value: string): SearchScope {
     throw new Error(`Invalid scope "${value}". Valid scopes: ${valid}`);
   }
   return value;
+}
+
+/**
+ * Parse a positive-integer CLI option value at the option boundary.
+ *
+ * Commander argParser for numeric options (`--size`, `--limit`): validates
+ * that the raw string is a positive decimal integer and returns the parsed
+ * number, so command handlers receive `number` and never re-parse.
+ *
+ * @param value - The raw option string from Commander
+ * @returns The parsed positive integer
+ * @throws InvalidArgumentError if the value is not a positive decimal integer
+ *
+ * @example
+ * ```typescript
+ * command.option('--size <n>', 'Maximum results to return', parsePositiveIntOption, 25);
+ * ```
+ */
+export function parsePositiveIntOption(value: string): number {
+  if (!/^\d+$/.test(value)) {
+    throw new InvalidArgumentError(`Expected a positive integer, got "${value}".`);
+  }
+  const parsed = Number.parseInt(value, 10);
+  if (parsed < 1) {
+    throw new InvalidArgumentError(`Expected a positive integer, got "${value}".`);
+  }
+  return parsed;
 }

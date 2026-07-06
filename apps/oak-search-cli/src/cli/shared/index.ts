@@ -7,7 +7,12 @@
 export { createEsClient } from './create-cli-sdk.js';
 export type { CliSdkEnv } from './create-cli-sdk.js';
 export { printSuccess, printError, printInfo, printJson, printHeader } from './output.js';
-export { validateSubject, validateKeyStage, validateScope } from './validators.js';
+export {
+  validateSubject,
+  validateKeyStage,
+  validateScope,
+  parsePositiveIntOption,
+} from './validators.js';
 export { APP_ROOT, registerPassThrough } from './pass-through.js';
 export { withEsClient } from './with-es-client.js';
 export { withLoadedCliEnv } from './with-loaded-cli-env.js';

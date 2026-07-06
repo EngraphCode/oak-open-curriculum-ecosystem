@@ -561,3 +561,72 @@ Verdure (51a331)** worked the whole session in a separate worktree on **#308** (
 residuals) — independent lane. Napkin near rotation (~515 lines) — flag for next consolidation.
 
 — Cricket lifts Echo (2fffa2)
+
+## 2026-07-06 — Sonar Phase 5B session (Katydid seeks Moonbeam)
+
+- **ESLint↔Sonar same-rule-id divergence is a real class**: unicorn v69's
+  `prefer-number-properties` (mapped to S7773 in #257's lock) deliberately EXEMPTS
+  `parseInt(x, 10)` / no-radix calls (`rules/prefer-number-properties.js` line ~151,
+  `isBase10OrNoRadixParseIntCall`), while Sonar S7773 still flags them. So a locked-at-error
+  ESLint rule can structurally never clear its Sonar counterpart. Lesson: when a
+  lock-at-error+autofix tranche leaves Sonar survivors, diff the two engines' rule criteria
+  before assuming stale scan or config gap — the residual may need a hand pass.
+- **The lint config estate is not self-linted**: the two S7772 survivors were the root
+  `eslint.config.ts` itself (bare `path`/`url` imports). Root-level config files sit outside
+  every workspace lint run.
+- **RED-gate note**: the `meta-examples-roundtrip.integration.test.ts` pagination gate recorded
+  RED in repo-continuity/upstream-api-alignment (owner-diagnosed 2026-06-30) now PASSES on
+  latest `main` (verified first-hand 2026-07-06). The continuity entries are stale; correct
+  them at the next touch of those records.
+- **Thread-record identity gap spotted (not mine to reconstruct)**: the
+  `main-sonar-ai-profile-to-zero` identity table lacks a row for Gull tracks Eyrie (483d97,
+  2026-06-27) whose work the record's own lane-state prose describes. Add from the prose facts
+  at the next record refresh.
+- Closed PRs #103–#105 (sonarqube-agent auto-remediation, May) were already dispositioned —
+  owner applied still-relevant hunks via #108. Their classes (S7784/S7773/node:-prefix)
+  partially persisted; this session's batch clears the S7773/S7772 residue.
+- **Owner correction (retrospective metacognition): fix properly, don't dismiss.** I dispositioned
+  the six ADR-153 type-guard S7765 sites ACCEPT-with-rationale, leaning on the phase-5A recorded
+  deferral ("kept as .some"). The owner pushed back citing principles.md — and a proper fix
+  existed: `ReadonlySet<string>` membership is type-sound where `.includes()` is not, and I had
+  ALREADY used that exact shape for `isFoundationLibPackage` in the same session. The fluent frame
+  "a recorded deferral licenses ACCEPT" bypassed the check "does a clean fix exist NOW?". Lesson:
+  an ACCEPT disposition needs a genuine architectural tension at the site TODAY — a prior
+  deferral of an unsound AUTOFIX is not a deferral of a sound hand fix. All six converted; the
+  Sonar transitions reversed (reopen + supersession comment).
+- **Thorough re-grounding pass (owner-invoked, principles + testing-strategy) surfaced one
+  standing gap**: the graph-corpus generated `index.ts` mirror has NO standing drift guard —
+  `graph-corpus-emitted.integration.test.ts` pins data counts, not module source. The 5B
+  hand-mirror was verified byte-identical once (reviewer's programmatic check), but nothing
+  catches future template↔mirror desync. Right cure shape: a repo-validator that recomputes
+  (`validators-must-recompute`), i.e. "committed vocab index module contains exactly the
+  emitted lines join" wired into `repo-validators:check` — NOT an fs-reading test (in-process
+  tests must not do IO; a new allowlist entry would weaken the gate boundary). Route: next
+  touch of the sonar thread or the sdk-codegen estate; small, self-contained.
+- **The ADR-153 guard arc, final state (the session's core lesson).** Sequence: (1) dispositioned
+  six `value is X` S7765 sites ACCEPT citing a prior deferral — under-grounded; (2) owner said fix
+  properly → converted them to `ReadonlySet<string>.has()` — WRONG, ADR-153 §Membership Without
+  Widening forbids exactly that form (and `readonly string[]` views) in guards, prescribing
+  `.some((el) => el === value)`; a code-expert review approved the wrong form (it did not read the
+  ADR either); (3) Copilot's PR review cited the ADR; verified first-hand; restored main's exact
+  forms via forward edits. Terminal state: Sonar's suggestion is rejected-as-incorrect at guard
+  sites WITH the ADR citation. Generator of all three misses: acting from the nearest plausible
+  frame without grounding in the repo's canonical doctrine first — the ADR was one read away the
+  whole time, and #257's deferral note even named it. Subagent verdicts share the dispatcher's
+  frame: adversarially verify their load-bearing claims (the reviewer's "respects the house
+  pattern" was ungrounded). Also: use repo gate commands (`pnpm check`, `pnpm type-check`), never
+  ad-hoc `npx tsc --ignoreConfig` probes whose noise invites misreading.
+- **Session-close craft additions (Sonar/PR tooling)**: (1) sonarqube-cli v0.9.0 diverges from
+  the plugin skill doc — no `--statuses`/`--severities`; it has `--severity`, and `sonar api
+  <method> <endpoint> -d '{json}'` is the general escape hatch (used for
+  `/api/issues/do_transition` + `/api/issues/add_comment` dispositions and
+  `/api/duplications/show` block-level diagnosis). (2) `claims open` requires `--now` (its error
+  is terse; the skill example carries it — read the example fully). (3) Two recurring
+  self-inflicted Bash hazards this session: cwd drift after `cd`-ing into a workspace makes
+  `pnpm agent-tools:*` root scripts fail with "command not found" (always `cd` to repo root
+  first), and chaining `cmd | tail && next` masks cmd's real exit code — a failed commit
+  workflow ran straight into a push. Run load-bearing steps bare, one at a time.
+- **S1940 trap on the "opposite operator" suggestion**: Sonar suggested `parsed < 1` over
+  `!(parsed >= 1)` — blindly applying it would have introduced a NaN hole (`NaN < 1` is false).
+  The cure was restructuring so the NaN path cannot exist (regex gate first, then compare).
+  Sonar suggestions are rule-local; verify value-domain safety before applying.
