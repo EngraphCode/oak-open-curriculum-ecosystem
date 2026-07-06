@@ -148,10 +148,13 @@ export interface RunPreToolUseContentGuardOptions {
 
 /**
  * Zod schema for the object arm of a blocked Bash-command policy entry: a
- * `pattern` (matched as a token subsequence by default, or as a
- * case-insensitive substring when `match: 'substring'` — needed for shapes
- * that hide inside one quoted token, e.g. inline busy-loops) plus optional
- * doctrine metadata surfaced in the deny payload —
+ * `pattern` (matched as a token subsequence by default; as a case-insensitive
+ * substring when `match: 'substring'` — needed for shapes that hide inside one
+ * quoted token, e.g. inline busy-loops; or as a case-insensitive regular
+ * expression over the raw command when `match: 'regex'` — needed when a
+ * whitespace-stripped substring would collide with unrelated tokens, e.g. a
+ * command-plus-flag fingerprint that must anchor on a token boundary) plus
+ * optional doctrine metadata surfaced in the deny payload —
  * - `citation` — the doctrinal anchor (the rule, principle, ADR, or PDR);
  * - `concept` — the pattern family the command is a fingerprint of (e.g.
  *   `history-destruction`), so the deny message frames a concept to reappraise;
@@ -169,6 +172,14 @@ export interface RunPreToolUseContentGuardOptions {
  * deny builder defaults a generic reappraisal if one is ever absent.
  * `.readonly()` derives the readonly contract on the entry.
  */
+/**
+ * The known Bash-guard match kinds — the single source both the runtime
+ * schema and the commit-time known-kind enforcement consume, so the two can
+ * never drift (a kind known to the enforcement but not the schema would
+ * degrade entries silently in production while the enforcement test passed).
+ */
+export const BLOCKED_PATTERN_MATCH_KINDS = ['token-subsequence', 'substring', 'regex'] as const;
+
 const BlockedPatternEntrySchema = z
   .object({
     // min(1): an empty pattern would match every command (substring mode
@@ -177,7 +188,19 @@ const BlockedPatternEntrySchema = z
     citation: z.string().optional(),
     concept: z.string().optional(),
     reappraisal: z.string().optional(),
-    match: z.enum(['token-subsequence', 'substring']).optional(),
+    // 'regex' compiles fail-open at match time (an invalid pattern never
+    // bricks the worktree); the canonical-policy integration test makes an
+    // uncompilable regex a commit-time failure instead of a dead entry.
+    // `.catch(undefined)` extends the fail-open posture to UNKNOWN match
+    // kinds: a policy newer than the built dist (or a typo) degrades the
+    // entry to the default token-subsequence mode instead of failing the
+    // whole schema — a schema failure here fails the guard closed, which
+    // bricks every Bash command including the rebuild (lived instance
+    // 2026-07-06: the live guard's stale dist met a policy naming the then
+    // unknown 'regex' kind). The canonical-policy integration test enforces
+    // known kinds at commit-time, so the degradation window is only ever
+    // stale-dist-vs-new-policy, never a silently landed typo.
+    match: z.enum(BLOCKED_PATTERN_MATCH_KINDS).optional().catch(undefined),
   })
   .readonly();
 
