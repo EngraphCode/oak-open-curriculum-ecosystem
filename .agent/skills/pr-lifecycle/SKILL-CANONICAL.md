@@ -124,11 +124,20 @@ work or hold; the watcher wakes you.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **Confirm the PR is still OPEN in the same re-fetch.** A push to a
+  just-merged PR's branch SUCCEEDS but is not inclusion — the commit
+  silently misses the base branch (worked instance 2026-07-06: a review
+  fix landed on #310's branch minutes after the owner merged; rescued by
+  cherry-pick). If the PR state is MERGED, verify tip ancestry
+  (`git merge-base --is-ancestor <tip> origin/<base>`) before treating any
+  post-merge work as landed; strand-rescue is a cherry-pick to a follow-up
+  branch, never a branch delete.
 
 ## Phase 7 — Merge-ready is a declaration with a gate
 
 Merge-ready means, re-verified at the declaration instant: all checks green
-AND zero unresolved review threads AND the Sonar quality gate passing. Then:
+AND zero unresolved review threads AND the Sonar quality gate passing AND any
+genuinely required review landed (the author-dependent leg below). Then:
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — all checks green AND every review thread resolved (fixed, or
@@ -157,6 +166,14 @@ AND zero unresolved review threads AND the Sonar quality gate passing. Then:
   mid-cleanup in a confusing half-switched state (edits preserved but
   displaced onto the base branch). Commit or relocate local work first, or
   merge without the flag and delete the branch separately.
+- **A deferred or denied merge does not end shepherding.** "Truly green" has
+  a shelf life: bots re-review every push asynchronously, so comment-clean
+  verified at one instant expires at the next event. When the merge is handed
+  to the owner (authorisation gate, harness denial, or explicit ask), the PR
+  is still live surface — keep the harvest loop running and re-disposition
+  new comments until the merge actually LANDS; hand over a state, never a
+  standing claim (worked instance 2026-07-06: a "truly green" #312 handover
+  accrued three unresolved bot threads while the agent stood down).
 - When merging is authorised, prefer a **merge commit** (`--merge`), never
   squash (standing owner preference, 2026-06-28). Verify the allowed merge
   METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,
