@@ -31,6 +31,17 @@ that case directly.
 | `typeSafeHas(obj, key)`        | `Reflect.has(obj, key)`        | `key is keyof T`             |
 | `typeSafeHasOwn(obj, key)`     | `Object.hasOwn(obj, key)`      | `key is keyof T`             |
 
+**`keyof` over a union is the INTERSECTION of keys, not the union.** For a
+union type `U`, `keyof U` yields only the keys present on _every_ member, so
+key-typed operations over union-typed values silently drop members' own
+methods/properties (a proven silent failure in this repo — no compile error,
+the keys just vanish). When you need the union of keys, distribute via a
+generic helper — `type KeysOfUnion<T> = T extends unknown ? keyof T : never;`
+then `KeysOfUnion<U>`. Distribution only occurs over a bare type parameter:
+writing the conditional inline against a concrete union alias
+(`U extends unknown ? keyof U : never`) does NOT distribute and silently
+yields the intersection again.
+
 ## Usage
 
 ```typescript

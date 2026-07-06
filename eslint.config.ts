@@ -8,8 +8,8 @@
 
 import { defineConfig } from 'eslint/config';
 import { configs, ignores } from '@oaknational/eslint-plugin-standards';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const thisDir = dirname(fileURLToPath(import.meta.url));
 
@@ -23,12 +23,6 @@ const config = defineConfig(
       parserOptions: {
         tsconfigRootDir: thisDir,
       },
-    },
-  },
-  {
-    files: ['scripts/**/*.ts'],
-    rules: {
-      'no-console': 'off',
     },
   },
 );

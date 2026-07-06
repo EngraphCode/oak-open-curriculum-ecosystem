@@ -33,7 +33,17 @@ Generic confirmations like "done", "still true", "looks good", "green",
 Reviewer output is also evidence to test, not another substrate pointer to
 trust. When absorbing reviewer findings, verify the highest-stakes claims
 against live artefacts, identify reviewer blind spots, and then decide what to
-absorb.
+absorb. Convergence is not a substitute: N reviewers independently surfacing
+the same shape can be N agents inventing the same optionality — convergence
+raises scrutiny, it never waives it (worked instance 2026-06-27: four
+reviewers converged on a "graceful-degradation floor" the owner killed as
+invented optionality) — and when your own brief seeded the premise,
+reviewers "confirming" it is amplification of your frame, never independent
+corroboration. And "first-hand" means the main agent's own read: run
+a fan-out for breadth or second opinion, but read the load-bearing sources
+yourself and form your own verdicts first — sub-agent reports corroborate or
+challenge your reading, never substitute for it, and the first-hand pass is
+never deferred to "after the agents finish".
 
 Fix verification must also return to the original defect location. A patch that
 adds intended cure text elsewhere but leaves the contradicting source text in
@@ -77,6 +87,18 @@ the class under test invalidates the sweep. The same discipline covers your own
 summarised verdicts: a conclusion you recorded earlier is a claim to re-test at
 the point of action, not a fact to inherit.
 
+**Self-state is the category where this discipline is most often skipped.** Agents
+reliably verify a peer's, a sub-agent's, or a bot's claim first-hand, then accept
+a reading of *their own* state — "I'm context-spent", "the host is under load",
+"I exhausted the rate-limit budget", "I spotted a gap nobody else saw" — without
+the same check. The reason is structural: a self-reading arrives *fluently* (it
+feels true from the inside), and fluency is exactly what bypasses the situational
+check (`fluency-is-a-failure-vector`). The observable cures are the data already
+in hand, not introspection: read the harness/`rate_limit`/Activity-Monitor
+figure, not the felt level. Treat any claim whose subject is your own capacity,
+budget, or completeness as the *highest*-priority claim to verify against an
+external artefact, not the one to wave through.
+
 A gate's *green* is itself a claim, not proof the gate works. A completion gate,
 validator, or count can read green while silently failing on the very input it
 exists to catch — most dangerously at the moment you cite its green as evidence
@@ -87,10 +109,43 @@ assumed. This applies hardest to your own completion gates.
 Verification reaches the *meaning* of an inherited frame, not only its
 existence. A recorded verdict, a continuity note's diagnosis, or a status
 label tells you what a prior mind concluded — it does not tell you the role,
-meaning, or current correctness of the thing it describes. Before letting
+meaning, or current correctness of the thing it describes. For any artefact
+authored weeks or more ago — an open PR, plan, or proposal — **supersession is
+the first-order question, before internal merits**: check the ADRs/PDRs
+ratified since its date, recent merges, and active plans for anything that has
+already decided its scope (worked instance 2026-06-23: a four-week-old
+proposal earned "merge-but-trim" on its merits when a nine-day-old ADR had
+settled the same ground; the true verdict was close-as-overtaken). Before letting
 inherited prose define the question you are answering, re-test the verdict
 against the live artefact: is this still the right frame, or am I inheriting a
-stale diagnosis as my starting premise?
+stale diagnosis as my starting premise? Hedged prose in the artefact —
+"arguably", "loosely covers", "should be" — is itself the tell that the
+writer's classification was uncertain: read the object, not the hedge (a
+hedged thread-record link once caused a required brief to go unread because
+the hedge was absorbed as the verdict; owner-surfaced 2026-04-21).
+
+An artefact's annotation — a code comment, docstring, schema description,
+ontology comment — is evidence of what the thing **is to a consumer**, never of
+**why it was added**. Rationale belongs to the decision-maker, and they are
+authoritative on their own decision: when an annotation and a decision-maker's
+account conflict on *why* something exists, do not resolve the conflict in the
+direction convenient to your narrative — mark it owner-held and surface the
+question (worked instance 2026-06-23: an ontology field's comment was used to
+"correct" a peer report and downgrade a designed identity-join to "emergent";
+the owner had added the field specifically to enable the join).
+
+The same discipline covers authorities you are about to cite or copy. Before
+writing "this discipline lives in ADR-NNN" into a durable artefact, open the
+claimed home and confirm the substance is actually there — citing from a memory
+of "where this kind of thing lives" plants a wrong authority that a future
+reader follows to nothing (worked failure 2026-06-30: a plan cited ADR-117 for
+a discipline that lives in the plan architecture; caught pre-commit). And
+before recommending a consistency or "simplify" move on tooling, ground the
+**governing** decision (the ADR/PDR that owns the surface), never the sibling
+that looks simplest — siblings can themselves be the inconsistency (worked
+instance 2026-06-29: "run it via tsx like its siblings" would have violated
+ADR-178, which mandates built-`dist` for agent-tools CLIs; the simplest-looking
+siblings were the outliers).
 
 The proactive form: before editing *around* an inherited story to repair it,
 find the fact that would **falsify** the proposed repair. Locate the fact that
@@ -159,6 +214,22 @@ surface. The consumer side of the same discipline: a load-bearing, cheap-to-
 check briefing fact gets verified first-hand BEFORE building on it, not at
 verification time (a 10-second `curl` beats a parser built on a relayed
 vocabulary).
+
+## Calibrate Verification to Stakes
+
+This rule prescribes *calibrated* verification, not maximal distrust. The
+default posture is **trust and verify**: accept the stated or likely state,
+then run ONE light, targeted check of the load-bearing fact — not an
+exhaustive re-derivation of everything in sight. Over-verification is not free
+safety; it is a real cost (friction, rework, held progress) that must be
+justified by stakes. Reserve exhaustive distrust and first-hand re-derivation
+for genuinely novel, irreversible, or high-risk moves. The craft is choosing
+the *right* single check: cheap and load-bearing (a `git fetch` before
+asserting remote state — `@{u}` is only truth-bearing after a fetch) beats
+both stale-cache trust and elaborate theory-building on an unverified premise
+(worked instance 2026-06-14, owner-corrected: an unfetched `@{u}` read as
+"push blocked" grew a multi-layer push-blocker edifice; the branch was fully
+in sync and one fetch would have shown it).
 
 ## Anti-Patterns
 
@@ -286,3 +357,12 @@ UTC-to-UTC; never a local clock).
   "replace with SHA" trigger reads "fixed" for work that may never have
   committed. Before acting on any status, recompute against the current
   code / data / state, not the marker.
+- 2026-06-29 `gh` rate-limit signature: a `403` then `401` on a `gh` GraphQL
+  call was confabulated as "I exhausted the shared 5,000/hr budget" — primed by
+  the harness reminder's "5,000 shared" framing — when the `rate_limit` evidence
+  in hand showed the *unauthenticated* signature (`core.limit 60` /
+  `graphql.limit 0`, authenticated budget ~94% free minutes later): a transient
+  token blip, ~6% used. The durable check is to read the signature in the data
+  you already hold and isolate the layer (auth vs volume) before adopting a
+  primed frame; on a `401`/unauthenticated signature check `gh auth status` and
+  retry, never assume volume. (Tooling cure lives at frictions F-110.)

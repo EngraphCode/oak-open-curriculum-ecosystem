@@ -4,6 +4,15 @@ Operational truth for supported and unsupported agent platform mappings
 in this repository. When the Practice Core or local docs reference
 platform support, this file is the authoritative local source.
 
+For what each platform itself supports, the platform's **official
+documentation is the only source of truth** — feature support varies by
+platform and changes rapidly, and in-repo adapter shapes (including this
+matrix's rows) reflect when they were written, not necessarily what the
+platform currently supports or requires. Before asserting that a feature
+exists or that an adapter shape is correct on platform X, check the
+current official docs; never generalise across platforms or treat in-repo
+precedent as a substitute.
+
 ## Adapter Families
 
 | Surface        | Cursor              | Claude Code                                            | Gemini / Antigravity CLI                          | GitHub Copilot    | Codex                                      | `.agents/`             |

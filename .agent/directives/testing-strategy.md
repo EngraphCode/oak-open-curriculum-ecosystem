@@ -228,13 +228,23 @@ net, and may produce side effects locally and in external systems.
   environment. E2E tests CAN have side effects strictly attributable
   to the running system itself, contain minimal mocks (largely around
   network IO inside the system), and MUST NOT spawn additional
-  processes — only the runner harness boots the system. Naming
-  alone (a `.e2e.test.ts` filename) does NOT exempt a test from
-  in-process restrictions; classification is by **behaviour shape**
-  (does the test exchange protocol with a separate running system?),
-  not by filename suffix. A test that imports product code into the
-  test process is an integration test even if named `.e2e.test.ts`.
-  These constraints are to allow E2E tests to be safely run in CI/CD.
+  processes — only the runner harness boots the system. For
+  HTTP-transport systems the protocol channel is real socket IO to a
+  listening server: a supertest run against an `app.listen()`-booted
+  server exchanges genuine HTTP, so supertest tests are E2E, not
+  integration (owner-ratified 2026-05-21; the supertest harness IS the
+  runner harness — see
+  [`testing-patterns.md`](../../docs/engineering/testing-patterns.md)).
+  Note supertest exercises the HTTP/JSON-RPC exchange but not SSE
+  transport serialisation; keep MCP-client-SDK E2E tests alongside it
+  for transport fidelity. Naming alone (a `.e2e.test.ts` filename)
+  does NOT exempt a test from in-process restrictions; classification
+  is by **behaviour shape** (does the test drive a booted system over
+  its protocol channel?), not by filename suffix. A test that imports
+  product code and calls it directly — no protocol channel, no
+  listening server — is an integration test even if named
+  `.e2e.test.ts`. These constraints are to allow E2E tests to be
+  safely run in CI/CD.
 
 - **Smoke test**: A test that verifies the behaviour of a running
   system, locally or deployed. Smoke tests CAN trigger all IO
@@ -393,6 +403,19 @@ FIRST, before changing implementation — within the same landing.
 
 This ensures tests remain specifications and that every commit
 leaves the tree in a green state.
+
+## When a Defect Is Found
+
+Every issue earns a check
+([principles.md §Code Quality](principles.md)). For a real defect in
+product behaviour the check is a test: write the test that reproduces
+the defect (Red) BEFORE the fix, at the same level as the defective
+behaviour, then land test + fix in one commit (Green). Describe the
+class the defect generalises to — parametrise or add sibling cases —
+not only the reported instance.
+
+When the issue is not product behaviour, the check is the appropriate
+kind instead; the spectrum lives in principles.md §Code Quality.
 
 ## Refactoring TDD
 

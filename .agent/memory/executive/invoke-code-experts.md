@@ -20,7 +20,13 @@ trivial doc touch.
 AGENT.md intentionally points here rather than carrying reviewer rosters or
 timing detail. Reviewers can review intentions before code exists, and long or
 multi-phase work should re-invoke the relevant specialist at natural phase
-boundaries so feedback shapes the work while it is still live.
+boundaries so feedback shapes the work while it is still live. Reviews are
+real-time at every lifecycle stage — ideation, planning, implementation,
+retrospective, and remediation (where reviewers cover the remediation plan
+itself, not only the corrective code). A backfill review (running reviewers
+after the fact) is the best recovery when a review was missed, never a valid
+workflow choice: live review shapes decisions, backfill finds problems
+already embedded. After any backfill, name which gate was missed and why.
 
 ## Layered Triage (First 2 Minutes)
 
@@ -92,6 +98,33 @@ Use `focused` when:
 - the question is binary or narrow
 - a deep pass would mostly repeat known context
 
+Multi-reviewer tranches converge in 2–3 rounds (each round can introduce its
+own regressions needing one more); budget for that shape rather than a single
+pass. Convergence of independent reviewers on the same finding is the
+strongest act-decisively signal a review can produce — treat it as a verdict,
+not one more input (corpus-proven across w-window sessions, 2026-05→06).
+**Independence is the load-bearing condition**: reviewers handed the same
+framing or premise converge by amplification, not corroboration — panels
+systematically amplify the premise in the brief and approve artefacts that
+violate always-on rules (the same corpus proves both polarities). Convergence
+counts only when the lenses were genuinely distinct and the brief non-leading
+(`non-leading-reviewer-prompts`); convergence on a shared handed premise
+counts for nothing.
+
+**Conflicting verdicts resolve by authority scope, not reviewer tier.** A
+domain specialist (`sentry-expert`, `mcp-expert`, `elasticsearch-expert`,
+`clerk-expert`, ...) has final say over generalist architecture reviewers on
+the domain's SDK/vendor semantics — the generalists stay authoritative on repo
+boundaries and structure. When two generalists give opposite *lens-correct*
+verdicts (strict-decision-record compliance vs simplification), the conflict
+usually lives in the governing ADR/PDR, not the reviewers: amend the decision
+record to the position the evidence supports, then re-review against it. An
+always-applied Practice rule outranks any reviewer verdict
+(`rules-have-no-exceptions`). And when opposing verdicts can be settled by a
+cheap first-hand check, run the check before adjudicating — reviewer
+contradiction is a gift (a 2026-07-02 panel's opposite claims about an
+exported function were settled by one direct read of the source).
+
 ## Delegation Snapshot
 
 Every bounded reviewer or worker lane should receive this minimum snapshot:
@@ -152,6 +185,29 @@ Minor changes (single typo/comment-only edits with no behaviour impact) may use 
 | Design-pressure checkpoint | Before implementing high-risk type/boundary changes | Relevant specialist(s) to review intended approach (for example `type-expert` before touching external-signal parsing) |
 | Before merge | Before the branch merges | Any applicable specialists not yet invoked during implementation |
 | Situational trigger | When the specific context arises | On-demand agents (see below) -- not tied to every change |
+
+**Front-load the strategic reviewers; don't only close them out at the
+end.** Reviewers split by what they challenge, and each class has a
+correct phase:
+
+- **Plan-time, pre-ExitPlanMode** — `assumptions-expert`, a
+  build-vs-buy challenger, an ADR intent-vs-implementation reviewer.
+  These challenge *solution class* and are free to act on before code
+  has weight.
+- **Mid-cycle, during execution** — `test-expert`, `type-expert`, the
+  architecture reviewers. These challenge *solution execution*.
+- **Close, post-code** — `docs-adr-expert`, `release-readiness-expert`.
+  These verify *coherence*.
+
+A schedule that places every tranche post-commitment makes shape
+findings maximally expensive to act on. Reviewers operate inside the
+frame the caller sets: for a net-new vendor integration, at least one
+invocation must explicitly challenge solution-class ("should this
+exist?"), not just solution-execution ("is this well-structured?") —
+see the plan skill §Build-vs-Buy Before Build-Shape for the gate this
+serves. An owner asking mid-session for an "extra tranche" signals the
+scheduling is wrong in kind, not just volume — fix the phase, not the
+count.
 
 ## Required Reviewer Matrix
 
@@ -245,6 +301,25 @@ Before marking the work complete, record:
 
 Invoke each specialist as a read-only sub-agent, giving it specific context about what changed and what to focus on.
 
+When the owner has fixed a direction, brief reviewers on **execution
+legitimacy given that direction**, never on re-validating the closed
+decision: enumerate the owner-fixed decisions (scope, direction, vendor
+choice, blocking relationships) as explicitly out of scope, and reframe
+"is X the right shape?" to "given X is the shape, is the execution
+legitimate?". When a reviewer nonetheless returns a reshape verdict on a
+closed decision, record it as a written disposition (per §Reporting
+Requirement — owner-visible, in case the decision re-opens) and proceed —
+never relay it to the owner as an open question (owner correction
+2026-05-06: "I have already decided we are going this route").
+
+Default reviewer sub-agents to a cheaper model tier (Sonnet-class): reviewer
+passes, spec fetches, and single-question consultations are well-bounded work
+that does not need a premium seat, and concurrent premium seats share one
+quota envelope (owner direction 2026-05-24 — scale via efficient methods, not
+more premium seats). Escalate an individual dispatch to a premium model only
+when the review genuinely needs deeper judgement (e.g. `security-expert`
+threat analysis), and name that choice in the dispatch.
+
 ### Codex Reviewer Adapter Preflight
 
 When running reviewer workflows in Codex, do not assume the runtime has
@@ -289,11 +364,49 @@ standing requirement, 2026-06-10):
   claims with source grounding (encode refutations as regression tests where
   the claim is testable); apply true ones. Reply with the verdicts on the PR
   so the adjudication is visible.
+- **Assess the finding's LENS, not only its cited facts.** A reviewer can be
+  factually right and model-wrong: screen whether the risk model presupposed
+  by a finding fits the artefact's nature before accepting it (worked
+  instance 2026-06-22: a "loop risk" P1 on an orientation-skill family
+  imported control-flow framing onto a knowledge surface that is curated by
+  a judging agent, not executed — the facts checked out, the model did not).
+  Knowledge, teaching, and doctrine surfaces are suggestions curated by a
+  judging agent; control-flow risks (loops, cycles, dead-ends,
+  state-machine completeness) apply only to mechanically-executed systems.
+  Valid points can sit next to a misframed one — separate them, keep the
+  valid, drop the misframed.
+- **Specialist review validates correctness WITHIN a frame; it cannot catch
+  a wrong frame.** Reviewer approval (even three-reviewer approval) does not
+  answer "is this the right thing to build at all" — that question stays with
+  the dispatching agent, and recurring friction-to-make-something-fit is the
+  signal to re-ask it rather than to patch (worked instance 2026-05-28: a
+  three-reviewer-approved tool was foundationally the wrong shape).
 - **A finding names one location of a defect CLASS — sweep the whole corpus.**
   When a comment reveals a stale cross-reference, wrong number, or mislabel,
   grep the pattern repo-wide rather than patching the flagged line. Twice in
   one window (2026-06-10) a bot found a second instance after a first
   single-line fix.
+- **Owner scratchpad and convenience files are the owner's per-scenario
+  choice, not doctrine to reconcile.** A finding that reads such a file
+  (an owner prompt file, a personal settings file) as "misaligned
+  instructions" against a skill or contract is a lens misread to REJECT —
+  not a defect to fix, and not something to "surface for the owner to
+  adjust" as though it were one (owner clarification 2026-06-26).
+  Distinguish doctrine surfaces (enforce alignment) from owner scratchpads
+  (their content is automatically the owner's deliberate choice).
+- **A result carrying a "safety classifier was unavailable" note is
+  extra-unverified.** Rerun the same sub-agent with the same brief, or
+  independently ground each load-bearing claim first-hand, before folding
+  the findings (owner direction 2026-06-28) — the note raises the
+  verification bar; it never lowers trust silently.
+- **Grade a peer-owned PR against its pinned head SHA, never the peer's
+  live worktree.** A live tree embodies the peer's in-flight response —
+  including their uncommitted fix to the very finding under adjudication —
+  so between-turn drift is guaranteed. Ground on
+  `git show <head-sha>:<path>`, cite the SHA in any held verdict, and
+  re-verify against that SHA at post time (worked instance 2026-06-10:
+  a held "refute" graded on a live worktree was wrong — the tree already
+  carried the cure).
 - **Thread-resolution gotcha**: cursor[bot] auto-resolves threads on
   re-review; Copilot threads need manual GraphQL `resolveReviewThread`.
   Verify zero-unresolved via GraphQL (REST does not expose resolved state)

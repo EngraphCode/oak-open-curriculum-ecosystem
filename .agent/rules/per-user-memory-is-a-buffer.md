@@ -1,5 +1,9 @@
 # Platform-Specific Per-User Memory Is a Buffer
 
+Operationalises
+[PDR-124 (Definition-Surface Context Economy) §Decision 4](../practice-core/decision-records/PDR-124-definition-surface-context-economy.md)
+in the index-line retirement step of §Per-User Memory Lifecycle.
+
 Vendor-managed per-user memory surfaces — Claude Code
 `~/.claude/projects/<project>/memory/`, Cursor `~/.cursor/chats/`
 plus `prompt_history.json`, Codex `~/.codex/memories/` — are
@@ -74,8 +78,9 @@ produces either:
 
 - **A positive finding** — substance mirrored to `napkin.md` /
   `distilled.md` / pattern / PDR with a named in-repo
-  destination. The per-user memory entry may be marked
-  "Graduated to <path>" as an audit trail.
+  destination. The per-entry memory file may be marked
+  "Graduated to <path>" as an audit trail; its `MEMORY.md` index
+  line is retired (§Per-User Memory Lifecycle step 3).
 - **A justified empty result** — the per-user surface contained
   only platform-local craft notes (keyboard preferences, output
   formatting personal tastes, transient context-specific fixes
@@ -90,8 +95,9 @@ At session open, the agent reads **only its own platform's
 surface**. Reading another platform's per-user memory for insight
 is a consolidation-time activity (`oak-consolidate-docs` step 3),
 not a session-open activity. The reason: session-open grounding is
-bounded by the directive-file-context-budget rule; sweeping all
-platforms' memories at every open would exhaust the budget. At
+bounded by the session-open context budget (PDR-124's injected-tier
+economy); sweeping all platforms' memories at every open would
+exhaust it. At
 consolidation depth, the agent is already in a wider-context mode
 and the cross-platform sweep produces value rather than noise.
 
@@ -104,19 +110,31 @@ When per-user memory entries are graduated to in-repo homes:
 2. Update the per-user memory file's body with a "Graduated to
    <repo-path>" marker; keep the original substance as audit
    trail.
-3. Update the per-user `MEMORY.md` index entry's description with
-   a similar marker.
+3. **Retire the entry's `MEMORY.md` index line.** The index is a
+   session-injected surface
+   ([PDR-124](../practice-core/decision-records/PDR-124-definition-surface-context-economy.md)):
+   every line loads in every session. Once the substance lives in a
+   repo home, an index line pointing at it is a double tax — the
+   repo home already loads (or is read on demand), and the dead line
+   crowds live entries toward the harness truncation point. The
+   per-entry file (step 2) keeps the full audit trail; the index
+   carries live, ungraduated entries only.
 
-This pattern is already in use (see entries marked "Graduated to
-…" in any platform's MEMORY.md). This rule names the discipline so
-it does not depend on agent recall.
+Entries graduated before this lifecycle was amended (2026-07-03,
+PDR-124) may still hold "Graduated to …" index lines; retire them
+on encounter during any sweep. This rule names the discipline so it
+does not depend on agent recall.
 
 ## Composition
 
+- [PDR-124 (definition-surface context economy)](../practice-core/decision-records/PDR-124-definition-surface-context-economy.md) —
+  the two-tier contract this rule's index-line retirement step
+  operationalises; truncation of the index is the defect signal it
+  names.
 - [`directive-file-context-budget`](directive-file-context-budget.md) —
-  session-open grounding budget. Cross-platform per-user sweeps
-  are explicitly excluded from the budget and deferred to
-  consolidation.
+  the sibling context-economy rule (directive-file *editing* below
+  30% context, per PDR-052). Cross-platform per-user sweeps are
+  session-open-budget work deferred to consolidation per PDR-124.
 - [`executive-memory-drift-capture`](executive-memory-drift-capture.md) —
   when executive-memory drift surfaces, the corrective capture
   may seed both per-user memory AND napkin; this rule names the

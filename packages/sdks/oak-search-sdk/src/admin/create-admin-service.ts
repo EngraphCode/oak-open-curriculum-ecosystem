@@ -159,7 +159,8 @@ async function listIndexes(client: Client): Promise<Result<readonly IndexInfo[],
       response.map((entry) => ({
         index: typeof entry.index === 'string' ? entry.index : '',
         health: typeof entry.health === 'string' ? entry.health : 'unknown',
-        docsCount: typeof entry['docs.count'] === 'string' ? parseInt(entry['docs.count'], 10) : 0,
+        docsCount:
+          typeof entry['docs.count'] === 'string' ? Number.parseInt(entry['docs.count'], 10) : 0,
       })),
     );
   } catch (error: unknown) {

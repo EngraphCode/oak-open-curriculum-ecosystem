@@ -123,10 +123,15 @@ quality gates, and frontmatter todos apply in these lanes.
 5. Move the executable plan to `active/` only when implementation starts.
 6. Mine outcomes into permanent documentation, then archive on completion.
 
-When archiving a plan:
+Archiving fires equally for **superseded or obsolete** plans, not only
+completed ones. A supersession banner left on a plan in the live estate is an
+annotation, not a resolution; the move is the resolution — a superseded plan
+left in `current/`/`future/` bloats the estate, misleads discovery, and
+consumes context as a giant tombstone. When archiving a plan:
 
-1. Mine completed outcomes into permanent documentation (ADRs, directives,
-   READMEs, reference docs) before archival — this is where durable outcomes live.
+1. Mine outcomes (where the plan produced any) into permanent documentation
+   (ADRs, directives, READMEs, reference docs) before archival — this is where
+   durable outcomes live.
 2. Move the file to `archive/completed/`, with a one-line outcome/supersession
    banner in the archived file itself.
 3. Update cross-references by role. Historical citations to the

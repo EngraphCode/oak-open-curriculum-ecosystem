@@ -74,7 +74,7 @@ function hasExpectedTypeContracts(
     mappingType(properties.previous_version) === expected.previous_version.type,
     propertyNormalizer(properties.previous_version) === expected.previous_version.normalizer,
   ];
-  return checks.every((check) => check);
+  return checks.every(Boolean);
 }
 
 function hasStrictMappingContract(mapping: estypes.MappingTypeMapping | undefined): boolean {

@@ -109,6 +109,8 @@ backtick-wrapped inline `[…]` block (may wrap across lines) with pipe-separate
 finding). `target` must name a doctrine surface (rule / PDR / ADR / pattern /
 governance doc); if it names a plan or report, the item belongs elsewhere.
 
+<!-- New pending-graduation capture appends below as inline-bracket entries. -->
+
 - **Director operating model — drive via owner-launched peers + READ-ONLY reviewers (never implementer sub-agents); don't park/retire lanes mid-session (relay to an immediately-active successor); decide-and-drive, surface only constitutively-owner residue** `[captured: 2026-07-01 | source: napkin Lantern Director-closeout + comms 497f39cd/201cd6ef + user-memory director-operating-model | target: PDR-117 (Director & Implementer roles) amendment | trigger: owner-corrected 3x and validated this session (curriculum-hub-demo) | size: M | status: due]`
   - **Amendment nuance (Hawthorn #4, 2026-07-01):** the SKILL's degenerate "one-agent team" exception to Director-doesn't-execute is for a coordinator doing a *small* bit of work with *no successor coming* — it does NOT license the Director to seize a large remaining workload when the whole implementer cast relays at once. In a rotating-cast pause with substantial work left, the doctrine-right move is to **pause clean + surface the cast-replenish to the owner** (launching peer sessions is constitutively-owner; the Director cannot launch peers and must not grind the build via implementer sub-agents), not collapse into implementer mode. Worked instance: both curriculum-hub implementers retired simultaneously (PDR-063); Director surfaced the need, owner launched Cinder/Linnet + pre-provisioned Sycamore. Include in the PDR-117 expansion (Part B: Director-as-orchestrator / arc-closeout axis).
   - **Amendment nuance (Birch #7, 2026-07-02): the Director PROPOSES landing points.** Reviewed-green work accumulating uncommitted across a multi-agent tree is risk (validator blockades, mixed-slice trees); landing cadence is the Director's to drive — propose a Director-run commit train at every reviewed slice boundary, don't wait for the owner to request commits. Worked instance: 2026-07-02 four-window train.
@@ -135,3 +137,26 @@ Birch nuances and rulings-as-artefacts) · exhaustive total-function renderer �
 `patterns/multi-writer-landing-order.md` · comms concept gate → ADR-210 · process-liveness ≠
 delivery-liveness → `comms-all-channels-watcher.md` §Process-liveness is not delivery-liveness ·
 view-binder DI seam → `patterns/view-binder-di-seam.md`.
+
+- **Sequence-first over smallest-first shipping (owner reframe)** —
+  `[captured: 2026-07-04 | source: tier-E drain E-b8 item C230 (single corpus window): the
+  owner reframed "smallest impactful thing to ship first" as sequence-first — the full
+  interface, architectural home, and envelope exist from day one and only implementation
+  timing varies — accepting roughly 10-15 percent more total work for earlier first delivery
+  without future drift | target: PDR-018 amendment (planning discipline) | trigger: owner
+  ratification that the sequence-first reframe is standing doctrine — owner direction is
+  session-scoped until declared standing, and this reframe is known only from one corpus
+  window; PDR-101's reviewer quorum then applies at minting time as it does to every
+  graduation | size: S | status: pending]`
+
+- **Doctrine-lookup tripwires at disposition and review-dispatch time** —
+  `[captured: 2026-07-06 | source: PR-308 ADR-153 guard arc (napkin 2026-07-06 + distilled):
+  two structural cures proposed in the session reflection and appreciated but not yet
+  explicitly approved by the owner — (1) a sonarqube-mcp-instructions rule clause requiring a
+  governing-doctrine lookup (grep the ADR estate; ADR-153 by name for value-is-X sites) before
+  any finding is fixed or dispositioned; (2) an invoke-code-experts clause requiring reviewer
+  dispatches to name the governing ADRs and reviewers to cite what they read, plus first-hand
+  verification of load-bearing subagent claims before acceptance | target: rule amendment
+  (sonarqube-mcp-instructions) + executive-memory amendment (invoke-code-experts) | trigger:
+  owner approval of the 2026-07-06 reflection proposals, or the next consolidation pass
+  judging them settled | size: S | status: pending]`

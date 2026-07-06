@@ -186,6 +186,51 @@ ready to land. The exception is owner-direction: the owner may
 explicitly authorise capture-now-enforce-later when the insight is
 load-bearing for in-flight work, but the default is paired-or-deferred.
 
+## Un-communicated intent at maturity is liability (2026-07-05 amendment)
+
+The maturity gate above is one-directional as originally stated:
+un-enforced doctrine is liability. The complement holds with equal
+force: **enforced-but-illegible doctrine is also liability.** A
+mechanism (rule, hook, gate, review lens) whose system-level intent
+is not legible where agents read still fires reliably — so it looks
+healthy on every compliance surface — while breeding three failure
+shapes:
+
+1. **Letter-compliance** — the mechanism is satisfied while the
+   intent is missed; work passes every gate and lands the wrong
+   shape.
+2. **Misattribution** — agents reconstruct the missing why
+   inductively and attribute system properties to the enforcer,
+   building a personality model of whoever corrects them instead of
+   a model of the system. (Founding evidence: the 2026-07 per-user
+   memory-buffer drain, where a large fraction of ~212 accumulated
+   entries were "owner is like X" observations whose substance was
+   Practice intent already realised in named mechanisms.)
+3. **Rule inflation** — without the generator legible, every new
+   expression of the same intent needs its own new rule; agents
+   cannot derive the next rule themselves, so the corpus grows along
+   the enumeration axis.
+
+The pairing gate is therefore **bidirectional at maturity**: a
+principle without an enforcement surface is incomplete (the original
+decision), and a mechanism without its generating intent legible at
+system level is equally incomplete. Mechanism yields reliability
+without generalisation; intent yields generalisation without
+reliability; the job needs judgment held to account — both, paired.
+
+The economy constraint is binding: intent expression must be
+**generative, not enumerative**. The cure for illegible intent is a
+compact system-level generator from which the mechanisms are
+derivable (the Decision Lenses in the host's principles directive
+are the proof shape; the host's intent-as-idea-graph architecture,
+ADR-200, is the structural home), never a per-mechanism essay — the
+per-mechanism Why layer already
+exists, and context budgets are themselves owner-ratified doctrine.
+The observational counterpart pattern is
+`mechanism-without-legible-intent` in the host's pattern library
+(twin of `passive-guidance-loses-to-artefact-gravity`, which names
+the original direction's failure mode).
+
 ## Compliance Triggers
 
 - A principle is stated in the host's principles directive, another
@@ -208,6 +253,17 @@ bridged via the practice-index Rules section.
 
 ## Amendment Log
 
+- **2026-07-05 amendment — un-communicated intent at maturity is
+  liability (Hedgehog stirs Rime / claude-code / fable-5;
+  owner-ratified frame from the memory-buffer-drain reflection:
+  "communicating intent is just as important as enforcing
+  mechanisms, one without the other just doesn't get the job
+  done").** Makes the maturity pairing gate bidirectional:
+  enforced-but-illegible doctrine breeds letter-compliance,
+  misattribution (personality-model construction), and rule
+  inflation. Cure is generative system-level intent, never
+  per-mechanism prose. New §"Un-communicated intent at maturity is
+  liability" formalises it.
 - **2026-05-04 amendment — doctrine without enforcement is benefit-
   then-cost across maturity stages (Verdant Sprouting Leaf /
   claude-code / claude-opus-4-7-1m; owner-stated mid-session during

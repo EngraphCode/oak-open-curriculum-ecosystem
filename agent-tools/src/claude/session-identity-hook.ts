@@ -1,3 +1,4 @@
+import { sessionIdPrefix } from '../collaboration-state/identity.js';
 import { deriveIdentity } from '../core/agent-identity/index.js';
 
 const SHELL_SINGLE_QUOTE_ESCAPE = String.raw`'\''`;
@@ -123,10 +124,6 @@ function readSessionId(stdinText: string): string | undefined {
   }
   const trimmed = candidate.trim();
   return trimmed.length === 0 ? undefined : trimmed;
-}
-
-function sessionIdPrefix(sessionId: string): string {
-  return sessionId.length >= 6 ? sessionId.slice(0, 6) : sessionId;
 }
 
 function identityContext(input: { readonly displayName: string; readonly prefix: string }): string {

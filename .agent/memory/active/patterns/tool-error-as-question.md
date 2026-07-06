@@ -106,6 +106,15 @@ question: "am I about to write code that makes this signal go away
 without addressing what it was flagging?" If yes, stop and re-read
 the signal as a question.
 
+Two boundary notes from the sed-bypass surface: `sed` stays legitimate
+for truly bulk content-addressed replacements (tens of files, same
+exact string) — it is never a fallback for an individual-file Edit
+failure, where Read-then-retry is the entire flow ("I just read it
+five calls ago" is not an exception; the error says the view is
+stale). And a stop rule across all surfaces: reaching for a workaround
+for the SAME tool error twice in one session is itself the signal —
+pause and name the pattern rather than bypass it a third time.
+
 ## Cross-References
 
 - [`hook-as-question-not-obstacle.md`](hook-as-question-not-obstacle.md) — instance pattern at the pre-commit-hook surface.

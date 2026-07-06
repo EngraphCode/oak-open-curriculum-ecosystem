@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+import { parseReviewThreadPages } from './review-threads.js';
+import type { ReviewThreadsSummary } from './review-threads.js';
+
 /**
  * Pure core for the `pr-watch` command: parse the `gh pr view` JSON surface
  * into a normalized {@link PrSnapshot}, summarise its checks, diff two
@@ -46,6 +49,8 @@ export interface PrSnapshot {
   readonly reviewComments: readonly CommentRef[];
   /** Top-level issue comments on the PR conversation. */
   readonly issueComments: readonly CommentRef[];
+  /** Review-thread counts — resolution state exists only on the GraphQL surface. */
+  readonly reviewThreads: ReviewThreadsSummary;
 }
 
 // One lenient shape covering both rollup item kinds: a `CheckRun`
@@ -202,14 +207,19 @@ export function parseReviewComments(raw: unknown): CommentRef[] {
 }
 
 /**
- * Build a {@link PrSnapshot} from the two `gh` surfaces: the `gh pr view --json`
- * object (state, checks, issue comments) and the `gh api …/pulls/<n>/comments`
- * array (inline review comments — where bots post findings).
+ * Build a {@link PrSnapshot} from the three `gh` surfaces: the `gh pr view --json`
+ * object (state, checks, issue comments), the `gh api …/pulls/<n>/comments`
+ * array (inline review comments — where bots post findings), and the slurped
+ * GraphQL `reviewThreads` pages (the only surface carrying resolution state).
  *
- * @throws a ZodError when either input does not match the expected gh shape
+ * @throws a ZodError when any input does not match the expected gh shape
  *   (strict validation at the external-input boundary).
  */
-export function buildSnapshot(prViewRaw: unknown, reviewCommentsRaw: unknown): PrSnapshot {
+export function buildSnapshot(
+  prViewRaw: unknown,
+  reviewCommentsRaw: unknown,
+  reviewThreadPagesRaw: unknown,
+): PrSnapshot {
   const parsed = prStateSchema.parse(prViewRaw);
   return {
     number: parsed.number,
@@ -221,5 +231,6 @@ export function buildSnapshot(prViewRaw: unknown, reviewCommentsRaw: unknown): P
     checks: summariseChecks(parsed.statusCheckRollup),
     issueComments: parsed.comments.map((comment) => ({ id: comment.id, author: comment.author })),
     reviewComments: parseReviewComments(reviewCommentsRaw),
+    reviewThreads: parseReviewThreadPages(reviewThreadPagesRaw),
   };
 }

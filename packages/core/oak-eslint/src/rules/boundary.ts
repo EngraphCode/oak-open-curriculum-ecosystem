@@ -171,6 +171,7 @@ export const ADAPTER_LIB_PACKAGES = ['sentry-node'] as const;
 export const LIB_PACKAGES = [...FOUNDATION_LIB_PACKAGES, ...ADAPTER_LIB_PACKAGES] as const;
 
 type LibPackage = (typeof LIB_PACKAGES)[number];
+const FOUNDATION_LIB_PACKAGE_SET: ReadonlySet<LibPackage> = new Set(FOUNDATION_LIB_PACKAGES);
 type DesignPackage = 'design-tokens-core' | 'oak-design-ink' | 'oak-design-tokens';
 const SEARCH_CONTRACTS_LIB = 'search-contracts' as const;
 const LIB_SDK_BOUNDARY_MESSAGE =
@@ -179,11 +180,13 @@ const SEARCH_CONTRACTS_SDK_EXCEPTION_MESSAGE =
   'Foundation library search-contracts may consume approved @oaknational/sdk-codegen subpath exports only; it must not depend on other SDK packages, the root sdk-codegen package, or deep internal SDK paths.';
 
 function isLibPackage(libName: string): libName is LibPackage {
+  // Equality-form membership per ADR-153 §Membership Without Widening: a
+  // `value is X` guard must not widen its tuple to string (Set or array view).
   return LIB_PACKAGES.some((knownLibName) => knownLibName === libName);
 }
 
 function isFoundationLibPackage(libName: LibPackage): boolean {
-  return FOUNDATION_LIB_PACKAGES.some((foundationLibName) => foundationLibName === libName);
+  return FOUNDATION_LIB_PACKAGE_SET.has(libName);
 }
 
 /**

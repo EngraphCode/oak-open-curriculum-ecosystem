@@ -307,7 +307,7 @@ this plan commits directly rather than surfacing as a menu:
 - **Marshal seat surfaces fitness on every commit**. Named directly
   by owner in napkin 🔆 HIGHLIGHT direction. Cycle 12 implements.
 - **Hook output is one line per signal class**. Constrained by the
-  ~80k reliable-context budget (per memory `project_80k_reliably_loaded_context_budget`)
+  ~80k reliably-loaded context budget (PDR-124 §Context)
   and `feedback_hook_failures_are_questions` ("hook output is a
   question not a nag; threshold framing matters").
 
@@ -514,8 +514,9 @@ doctrine, the plan body must surface where the rule fires:
   vs lefthook before implementing.
 - **Vendor-literal clause fires**: at Cycle 10 (gh pr checks) and
   Cycle 11 (SonarCloud) — confirm vendor APIs work as cited before
-  building bespoke poller (per `feedback_build_vs_buy_first` and
-  `feedback_platform_features_check_official_docs`).
+  building bespoke poller (per `feedback_build_vs_buy_first` and the
+  official-docs-are-the-only-source-of-truth clause in
+  [`cross-platform-agent-surface-matrix.md`](../../../memory/executive/cross-platform-agent-surface-matrix.md)).
 
 ## Readiness reviewers (per oak-plan SKILL §11)
 

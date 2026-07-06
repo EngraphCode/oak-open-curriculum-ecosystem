@@ -201,6 +201,14 @@ statusline-resolution bug). Building mid-session does not restore the current
 session's statusline. So build every new worktree **before** opening the session,
 not after.
 
+`pnpm install` also does NOT fetch Playwright browser binaries, so a fresh
+worktree's pre-push `test:ui`/`test:e2e` legs die with "Executable doesn't
+exist at …chrome-headless-shell" until you run
+`pnpm --filter <app> exec playwright install chromium-headless-shell` once in
+the worktree. Read the log before assuming a known flake — this failure is
+not the oauth-proxy concurrency flake. Full fresh-worktree setup is install,
+build, AND the Playwright browser install before the browser-test gates run.
+
 ## Practice Box
 
 Check `.agent/practice-core/incoming/` for practice-core files. If
@@ -227,6 +235,14 @@ Bounded exceptions: deep-consolidation, Core-trinity refinement, and
 root-cause investigation sessions. Any other no-landing session is
 drift.
 
+The deep-consolidation and Core-trinity shapes are owner-named, never
+menu items: when offering landing options at session open, list only
+lanes that land code or settle an architectural question. Describe
+consolidation pressure as state ("napkin over threshold") or, when it
+genuinely blocks forward motion, as a blocker — never as an alternative
+lane. The owner names those sessions when they want them; root-cause
+investigation is incident-driven rather than menu-driven.
+
 ## Session Title — `/rename` Suggestion
 
 As soon as the session intent is clear and BEFORE any significant
@@ -250,9 +266,7 @@ The suggestion is surfaced **once**, at the moment intent first clears:
 Never surface `/rename` in closeout summaries — by then the title
 either matches the work (no-op) or no longer matches because the work
 shifted (in which case the rename is too late to inform the title's
-audience). The standing rule lives in user-memory entry
-`feedback_rename_suggestion_at_session_open_only`; this section is its
-repo-visible doctrine surface.
+audience). This section is the standing rule's doctrine home.
 
 ## Work Shape and Simple Plan
 

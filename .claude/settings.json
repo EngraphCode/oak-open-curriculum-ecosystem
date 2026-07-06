@@ -70,6 +70,8 @@
       "Skill(oak-commit:*)",
       "Skill(oak-complex-merge)",
       "Skill(oak-complex-merge:*)",
+      "Skill(oak-pr-lifecycle)",
+      "Skill(oak-pr-lifecycle:*)",
       "Skill(oak-ground-truth-design)",
       "Skill(oak-ground-truth-design:*)",
       "Skill(oak-ground-truth-evaluation)",
@@ -186,18 +188,16 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs\""
+    "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs\"",
+    "refreshInterval": 10
   },
   "skillListingBudgetFraction": 0.03,
   "enabledPlugins": {
     "sentry@claude-plugins-official": true,
-    "remember@claude-plugins-official": false,
     "mcp-server-dev@claude-plugins-official": true,
-    "sonarqube@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
+    "sonarqube@claude-plugins-official": true
   },
   "skillOverrides": {
-    "sentry-<platform>-sdk": "off",
     "sentry-android-sdk": "off",
     "sentry-cocoa-sdk": "off",
     "sentry-dotnet-sdk": "off",
@@ -208,19 +208,11 @@
     "sentry-ruby-sdk": "off",
     "sentry-svelte-sdk": "off",
     "sentry-react-native-sdk": "off",
-    "sentry-cloudflare-sdk": "off",
-    "sentry-browser-sdk": "off",
     "sentry-tanstack-start-sdk": "off",
     "sentry-nestjs-sdk": "off",
-    "sentry-react-router-framework-sdk": "off",
-    "sentry-react-sdk": "off",
     "sentry-sdk-skill-creator": "off",
     "chat-sdk": "off",
     "next-forge": "off",
-    "vercel-sandbox": "off",
-    "vercel-firewall": "off",
-    "shadcn": "off",
-    "react-best-practices": "off",
     "ai-gateway": "off",
     "ai-sdk": "off"
   }

@@ -44,6 +44,22 @@ under context pressure overrides a passively-held lesson (the conservation refle
 even while you document it). So the cure is structural — an external check or a firing
 gate — not self-vigilance.
 
+## The escape-hatch generative screen (general form)
+
+The escape-hatch reflex re-skins per situation but is always one move — make
+the friction vanish without doing the complete correct thing. Four observed
+faces: **deferral** ("a later gate"), **menu** (a forced conclusion offered as
+an A/B choice), **list-op** (rank-and-cut where a complete result is
+required), **suppress-the-signal** (exclude a path from a check, raise a
+threshold, mark a hotspot safe without review). Cataloguing costumes does not
+immunise — the reflex finds new ones faster than they can be listed — so the
+cure is the generative question, run before surfacing ANY disposition,
+options list, or "we could also…": *does this make a valid signal or
+requirement go away without the complete correct fix?* If yes, strike it and
+state the single valid cure as a verdict; padding a forced answer with a
+cheap co-equal is itself the failure (owner-caught four times in one
+2026-05-28 session, including immediately after the lesson was written down).
+
 ## Instance: gate-evasion (the escape-hatch screen)
 
 A sharp, recurring instance lives at a quality gate. When a fix that clears a gate
@@ -63,9 +79,12 @@ general anti-pattern.
 
 ## Related
 
-- The **escape-hatch generative screen** and the **no-cheap-cure** discipline (metacognition
-  directive + per-user memory) — the screen this instance applies: never make a valid signal
-  vanish without the complete fix.
+- [`legitimate-principle-as-avoidance-cover`](legitimate-principle-as-avoidance-cover.md) — the
+  sibling failure where the over-trusted justification is *true* (a real principle bent to license
+  an omission it does not actually cover), not merely fluent.
+- The **escape-hatch generative screen** (general form above) and the **no-cheap-cure**
+  discipline (`principles.md` §Architectural Excellence Over Expediency) — the screen this
+  instance applies: never make a valid signal vanish without the complete fix.
 - [`consolidate-at-second-consumer`](../../../rules/consolidate-at-second-consumer.md) — the
   real cure for duplication a gate flags (extract the canonical owner, do not disguise the copies).
 - The metacognition directive § "Fluency Is a Warning, Not a Confirmation" — the doctrine source.

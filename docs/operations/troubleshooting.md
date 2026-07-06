@@ -28,6 +28,30 @@ pnpm type-check          # Verify no type errors
 pnpm test                # Run unit and integration tests
 ```
 
+### Diagnostic evidence discipline
+
+In any diagnostic or experimental thread, evidence discipline overrides the
+synthesise-and-conclude reflex:
+
+- **Withhold the verdict until the decisive comparison is observed** — control
+  AND treatment under the same conditions. Incomplete data is not a
+  conclusion, however fluent the explanation feels.
+- **Tag every observation to its layer** in a layered system (shell → terminal
+  emulator → host renderer → surface; client → transport → server → store) and
+  never let one layer's result stand in for another's. Draw the layer stack
+  once, up front.
+- **Apply the timestamp-zone discipline** —
+  [`verify-dont-trust`](../../.agent/rules/verify-dont-trust.md)
+  §Timestamp-Zone Discipline: UTC is the canonical analysis clock, every
+  timestamp's zone labelled, conversions shown, and never a timeline
+  inferred from a truncated log view.
+- **Hand over the exact command you verified**, never a retyped approximation
+  — a dropped redirect or flag turns a working probe into "does nothing".
+- **Before implementing in a code area mid-diagnosis**, check
+  `.agent/plans/**/current` and `active` for a governing plan and read it —
+  a diagnostic fix built against an active plan's target architecture is
+  rework on landing.
+
 ## Common Issues
 
 ### Credential policy
@@ -35,6 +59,16 @@ pnpm test                # Run unit and integration tests
 Real credentials must be kept in local `.env` / `.env.local` files only.
 Those files are gitignored and should never be committed.
 Use workspace `.env.example` files and other docs as placeholders.
+
+When an agent must edit a secrets-bearing JSON file that the Read hook
+blocks (so the Edit tool cannot run — e.g. `~/.claude.json`), use a
+surgical jq rewrite instead of hand-editing: timestamped backup → jq the
+change to a scratch file → `jq -e .` to validate → a scoped jq comparison
+confirming only the target block changed → atomic `mv` into place. Create
+the scratch file ALONGSIDE the target (same directory), not in a temp dir:
+`mv` is atomic only within one filesystem, and the replaced file adopts the
+scratch file's mode — a temp-dir scratch can silently turn a `600`
+credentials file into `644`.
 
 ### Type Generation Fails
 
@@ -111,10 +145,88 @@ operations guide:
 
 ## Known Gate Caveats
 
-No standing `pnpm check` caveats are currently recorded here.
-
 If `pnpm check` fails, run the affected suite directly and check the latest
 issues, ADRs, and active plans before assuming local setup problems.
+
+### Static-analyser gotchas
+
+Static analysers and tooling want **shape and data-flow changes, not runtime
+guards or relocations**, and several report stale or silently-green results:
+
+- CodeQL ReDoS findings need a statically-safe regex shape — a runtime guard
+  around the same regex does not clear them. CodeQL also RE-KEYS an alert to
+  a new number when a fix moves the flagged line: a vanished-plus-new alert
+  pair after a refactor is the SAME finding renumbered, not a new finding.
+- SonarCloud findings can be stale snapshots of an older analysis — re-check
+  against the current branch state before fixing "live" issues.
+- dependency-cruiser fires on orphan empty barrels (an `index.ts` left behind
+  by a refactor) — delete the barrel, don't exempt it.
+- markdownlint silently passes zero files when the glob misses dotdirs — pass
+  `--dot` (and note `--fix` can corrupt literal `+` / `#` / `-` characters in
+  prose; review its diff before committing).
+- knip ignores root-level entries unless `workspaces['.']` is configured.
+- knip runs in `pnpm check` / pre-push but NOT the pre-commit hook, so a new
+  tsx-spawned or CLI entry file unregistered in `knip.config.ts` passes commit
+  and goes red only at closeout — register every new entry point with the
+  scaffold, or full-tree knip blocks the next committer.
+- `rg` / `fd` skip dotdirs by default — pass `--hidden` when sweeping
+  `.agent/` or other dot-directories, and mind `rg -r` (replace) vs `-n`.
+  The replace flag also hides inside clusters at ANY position: `-riln`
+  parses as `--replace iln`, and `-inr`/`-ilr` parse as `-i -n --replace …`
+  — both silently rewrite match output. Spell flags separately; the Bash
+  hook policy fingerprints the r-first cluster shape (the observed one),
+  not the trailing-r shapes, so those still rest on this habit.
+- Invisible bytes survive agent tools unreliably: raw ANSI `ESC` (0x1B)
+  control bytes render invisibly in the Read tool and do not round-trip
+  Write/Edit dependably, so escape sequences composed from read context can
+  silently diverge while tests pass; ChatGPT DOCX exports similarly wrap
+  citation markers in invisible Unicode PUA characters (U+E200–U+E202).
+  Detect with `cat -v` (or `od -c`) against the raw file, never by eye in
+  tool output; generate escape sequences from code (`\x1b` literals), not by
+  copying rendered context.
+
+### Lockfile desync via pnpm overrides
+
+pnpm overrides (the `overrides:` section of `pnpm-workspace.yaml`, mostly
+security floors) rewrite the **effective specifier of direct dependencies**
+too, not just transitive pins. Adding a direct dependency that matches an
+existing override desyncs the lockfile — the lockfile must record the
+override's specifier, not the manifest's — and nothing local catches it,
+because no local gate runs a frozen install; CI's
+`pnpm install --frozen-lockfile` is the first surface that does
+(`ERR_PNPM_OUTDATED_LOCKFILE`, worked instance: esbuild vs the `>=0.28.1`
+floor, PR #296). Cure: run `pnpm install` and commit the lockfile; when
+adding a direct dep, grep the overrides for its name first.
+
+A lockfile can also be outright corrupted rather than desynced — a bad merge
+once left two concatenated YAML documents in `pnpm-lock.yaml`, surfacing as a
+baffling remote (Vercel) build failure that invited runtime-shaped
+speculation. When a remote build fails mysteriously, check the lockfile is a
+single YAML document first: `grep -n '^---' pnpm-lock.yaml` — a healthy pnpm
+lockfile has no document separator, so ANY hit means concatenated documents
+(this repo's parsers, node `yaml` and python `pyyaml`, are not resolvable at
+the root, so the grep is the dependency-free check). Do NOT use
+`pnpm install` as the parse check: on this exact corruption it prints
+`WARN Ignoring broken lockfile`, exits 0, and silently REWRITES the lockfile
+— a false pass that also destroys the diagnostic evidence.
+
+### Type-check undercounts a migration surface
+
+`pnpm type-check` is not the full failure surface for a type or schema
+migration: Zod-runtime parse errors on fixtures and recorded data surface only
+when the test suite runs. Sizing a migration from the type-check failure count
+alone undercounted the real surface roughly 3× on the Result-migration
+workstreams (two independent sessions, 2026-05-15 and 2026-05-21) — run the
+full test suite before sizing or declaring a migration surface.
+
+### Cache false-greens
+
+Turbo and pre-commit caching can mask failures: a cached result replays green
+while the underlying task would now fail, remote-cache poisoning replays stale
+errors, and a cached `format:root` reports clean while the hook finds drift.
+When diagnosing a gate discrepancy, **never trust a cached result** — re-run
+the task with `--force` (or via the authoritative hook) before concluding
+anything. See also `docs/engineering/build-system.md` on cache inputs.
 
 ## Quick Fixes
 
@@ -224,6 +336,37 @@ positional args instead:
 Reviewer sub-agents dispatched near the end of a conversation
 turn may be lost when the turn completes. Re-invoke in the
 next session.
+
+### Recovering a Failed Sub-Agent's Work
+
+When a sub-agent terminates mid-task (credits, timeout, error), its full
+transcript — every tool call and result — is preserved on disk:
+
+```text
+~/.claude/projects/<project>/<session-uuid>/subagents/agent-<agentId>.jsonl
+~/.claude/projects/<project>/<session-uuid>/subagents/agent-<agentId>.meta.json
+```
+
+`<agentId>` is the 17-char id in the agent's final message. Inspect what
+the prior agent already read, then brief a fresh dispatch with the
+original task PLUS a "prior agent already read these files" preamble —
+the retry warm-starts instead of repeating the reads (worked instance
+2026-04-25: a credit-exhausted reviewer's retry delivered in 3 tool uses
+after the transcript showed what was already grounded). Useful jq:
+
+```bash
+# Every tool call, truncated input
+jq -r 'select(.message.role == "assistant") | .message.content[]?
+  | select(.type == "tool_use")
+  | "TOOL: \(.name)\nINPUT: \(.input | tostring | .[0:200])\n---"' \
+  agent-<id>.jsonl
+# The agent's own text output
+jq -r 'select(.message.role == "assistant") | .message.content[]?
+  | select(.type == "text") | .text' agent-<id>.jsonl
+```
+
+Prefer `SendMessage` with the agent id to resume when available; the
+transcript recovery is the equivalent when it is not.
 
 ### MCP App UI Not Rendering in Client
 

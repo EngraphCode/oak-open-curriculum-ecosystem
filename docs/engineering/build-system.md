@@ -122,11 +122,28 @@ indicates an environmental or configuration issue, not a missing check.
 `pnpm check` is the broadest surface, adding clean rebuild, widget
 tests, a11y tests, and fix-mode commands. See ADR-121 for the full rationale.
 
+The full gate is authoritative in both directions. A **successful push has
+already run the entire pre-push gate** — the push cannot succeed otherwise —
+so do not offer `pnpm check` or CI-watching merely to "confirm green" after
+a push succeeds. Conversely, a green declared on a **partial local subset**
+(e.g. lint + type-check + tests, but not format-check) is never proof the
+commit or push will pass: the gates are independent, so enumerate the
+actual gate set the boundary will run and run that set, never the
+convenient subset.
+
 ## Quality Gate Commands
 
 This document is the command source of truth that AGENT.md links to. Root
 `package.json` remains the executable source of truth for script names; update
 this file in the same change whenever command names or gate membership change.
+
+Validate through these canonical root commands, never ad-hoc per-package
+invocations from the repo root (e.g. `pnpm vitest run <path>` at root). Ad-hoc
+runs bypass per-package config (vitest `globals`, setup files) and the
+workspace boundary, producing failures (`describe is not defined`, foreign
+worktree copies pulled in) that are artefacts of the wrong command, not the
+code — and a red result from the wrong command is still yours to trace to that
+root cause, never to dismiss as a harness quirk.
 
 ### `pnpm make` - Build and fix
 
@@ -256,6 +273,14 @@ sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
 | `test`              | `^build`              | SDK must be built before tests run                    |
 | `test:e2e`          | `build`               | Same-package build needed for built-server tests      |
 | `test:ui`           | `build`               | Same-package build needed for Playwright tests        |
+
+**Undeclared dependencies present as race-shaped failures — never mask them
+with concurrency clamps.** A `--concurrency=N` flag added to "stabilise" a
+flaky pipeline once turned out to be hiding missing `devDependency`
+declarations: serialisation made the undeclared producer happen to build
+first. If reducing concurrency "fixes" a build, the real defect is a missing
+dependency edge — declare it (in the workspace `package.json` and, where
+task-level, `turbo.json`) and remove the clamp.
 
 ## Caching
 
@@ -472,6 +497,39 @@ README.md (root, including the Quick Start section)
   after deleting the last file. The portability validator checks
   for `SKILL.md` presence, so empty skill directories without
   `SKILL.md` cause false positives.
+
+## Filtered Gates Certify Less Than They Appear To
+
+A green gate run certifies only the suites it actually ran, against the
+artefacts it actually resolved:
+
+- **A filtered `pnpm --filter X type-check` can pass on stale types**:
+  `tsc` resolves workspace dependencies via their built `dist/*.d.ts`,
+  while vitest resolves `src` — so a filtered type-check can go green
+  against stale dist types (or red against types a rebuild would fix)
+  while tests see different code. When a filtered result is
+  load-bearing, rebuild the producer workspaces first (the full
+  `pnpm check` orders `^build` ahead of `type-check` for exactly this
+  reason).
+- **A fresh checkout or worktree cannot lint until producer workspaces
+  are built** — see the start-right worktree-build discipline; ESLint's
+  flat config imports a workspace plugin resolved from `dist/`.
+- **`pnpm check` does not run every suite** (e.g. `test:smoke` and
+  experiment suites are outside it) — verify the aggregate actually
+  exercises the suites your change touches before citing it as proof.
+  When reporting, distinguish **run-verified** (the gate exercised the
+  change) from **construction-verified** (a behaviour-preserving no-op
+  the gate never ran) — a green aggregate says nothing about the latter.
+
+## Serial Gate Chains Unmask Downstream Failures
+
+`pnpm check`'s serial chain (e.g. knip → depcruise → markdownlint →
+format-check) hides downstream failures behind upstream ones: a gate
+that exits red stops the chain, so everything after it is unobserved,
+and clearing one gate routinely unmasks previously-latent failures in
+the next. Treat each newly-green gate as a magnifying glass on the one
+after it — a red gate appearing after you fixed a different gate is
+usually unmasking, not regression.
 
 ## Linting and Auto-Fix Safety
 

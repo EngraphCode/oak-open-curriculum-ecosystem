@@ -70,6 +70,25 @@ Three reasons, in increasing order of consequence:
 | "Delete the needless complexity" | `git checkout HEAD -- .` | `rm` the files that should not exist; `Edit` the files that should exist but in simpler form; capture the realisation in the napkin |
 | "I went down a wrong path; reset" | `git reset --hard HEAD` | `Edit` the files back toward where you want them; this is slower and that is the point — slow is the rate at which the realisation travels with the action |
 
+## A Block Is a Question, Never a Detour
+
+When the hook blocks — or would block — one of these commands, do NOT
+achieve the blocked effect by equivalent means — wholesale forward-writing
+of `git show HEAD:<file>` content, a sibling command, manual file surgery —
+even when a prior general owner direction appears to authorise the outcome.
+Wholesale restoration of a working tree's prior state is never a self-serve
+move, whether or not the blocked command was actually attempted. The block's
+purpose is to force the stop-and-surface moment; a workaround deletes that
+moment and with it the owner's chance to catch a wrong premise (worked
+instance 2026-06-12: a blocked `git restore` on generated drift was
+recreated by forward-writing the HEAD content; owner: "never do that
+without my express permission"). General intent is not permission for a
+specific blocked operation: stop, surface the block and the intended
+effect, and proceed only on express per-instance instruction (the owner
+may run the command themselves via `!`). The table's "read HEAD, then
+Edit what you want to keep" row is selective forward judgment, not this —
+the line is wholesale restoration of the blocked effect.
+
 ## Exceptions
 
 There are none for working-tree edits. Once a change is committed, the

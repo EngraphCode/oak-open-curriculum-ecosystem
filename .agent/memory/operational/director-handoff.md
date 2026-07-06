@@ -2,7 +2,13 @@
 fitness_line_target: 200
 fitness_line_limit: 320
 fitness_char_limit: 20000
-fitness_line_length: 100
+fitness_line_length: 115
+fitness_line_length_rationale: >-
+  Raised 100 → 115 (owner-authorised 2026-06-29) for this append-heavy
+  narrative/continuity surface. Marginal prose-width drift on appended prose is
+  chronic-cosmetic (99% of breaches were ≤120; median 104) and manual reflow is a
+  transient non-cure on a file that grows by append each session; 115 clears the
+  noise while still flagging genuine over-runs.
 fitness_content_role: reference
 merge_class: index-narrative
 ---
@@ -109,11 +115,21 @@ the seat, not to any one pilot.
    active-acknowledgement, and re-arm awareness: the all-channels comms watcher
    as **move 1, before any coordination** (it is constitutive team-membership,
    not discretionary — it recurs on a drain-timeout, so keep a foreground-sweep
-   fallback), a heartbeat loop **with an exit criterion**, and **stop the
-   outgoing Director's heartbeat** if it is still emitting (false-liveness risk).
-5. **Operate the seat.** Route durable **lanes**; do not choreograph individual
-   pickups (implementers self-organise faster than fine-grained routing — and that
-   routing races them). Before routing to a specific agent, **verify its current
+   fallback), and a heartbeat loop **with an exit criterion**. The outgoing
+   Director's heartbeat legitimately runs until this moment (PDR-064: the seat
+   never goes dark between the two moments) and the outgoing Director stops it
+   after transfer (step 7); stop it yourself only as a backstop if it is still
+   emitting well after authority has transferred.
+5. **Operate the seat.** Live routing is the seat's first duty: a monitor
+   event carrying an implementer team-start, routing request, or decision is a
+   **pre-emption signal, not background** — pause the current process-task and
+   route (or at least acknowledge with a next step) before continuing.
+   Continuity paperwork (seeds, task lists, consolidation) happens in the gaps
+   between live coordination, never ahead of it; if you cannot keep up, that
+   is the hand-off-to-a-fresh-Director signal, not a push-through. Route
+   durable **lanes**; do not choreograph individual pickups (implementers
+   self-organise faster than fine-grained routing — and that routing races
+   them). Before routing to a specific agent, **verify its current
    state right then** (its claim freshness via the same mechanical check above),
    not the state from minutes prior. Route **nothing** to an agent that has been
    told to close out or is high-context — route to its successor; check "has this
@@ -127,11 +143,23 @@ the seat, not to any one pilot.
    parked with a durable handoff, every team-doable item done, only owner-gated
    items remaining. At completion, pause and **wind down your own heartbeat
    explicitly** — its exit is COMPLETION, not N-idle.
-7. **Hand off when your context deepens.** Refresh `CURRENT HANDOFF STATE` below
-   and **commit it** (do not leave the seed uncommitted); pre-position your
-   successor; stop your own heartbeat first; and require the successor's
-   readiness gate (step 3, including the pasted mechanical check) before its
-   Moment-2. The continuity-commit may be blocked by pre-existing markdownlint
+7. **Hand off when your context deepens — and hand off BEFORE your own
+   closeout, never after** (owner direction 2026-06-28: optimise for team
+   continuity and health, not any one session's tidiness — a sequencing and
+   altitude instruction, not a speed one). When the PDR-063 80% /
+   post-commit re-evaluation fires, the FIRST wind-down move is to start the
+   handover: refresh `CURRENT HANDOFF STATE` below and **commit it** (do not
+   leave the seed uncommitted); pre-position your successor (PDR-064
+   Moment 1); require the successor's readiness gate (step 3, including the
+   pasted mechanical check) before its Moment-2; and keep your own heartbeat
+   running until the successor's Moment-2 lands — the seat never goes dark
+   between the two moments (PDR-064; the liveness rule) — stopping it only
+   once authority has transferred. Only AFTER the successor holds authority
+   do you run your own team-member closeout; do not begin closeout
+   housekeeping (consolidation, final summary) while still holding the live
+   seat with no successor landed. At a genuine arc-end where the whole cast
+   dissolves there is no successor — closeout is the terminal act. The
+   continuity-commit may be blocked by pre-existing markdownlint
    debt in shared multi-agent buffers — the proper path is a dedicated
    consolidation pass (rotate + lint, then commit), never a destructive git
    workaround or a narrow-commit dodge.
@@ -140,19 +168,19 @@ the seat, not to any one pilot.
 
 Each lesson is the cure for a churn cause observed in the pilot.
 
+**The durable role doctrine has graduated to
+[PDR-117](../../practice-core/decision-records/PDR-117-director-and-implementer-roles.md)
+§The Director role** — minimum-action / context-economy (stay silent on routine
+signals), routing craft (verify-state-before-routing, durable-lanes-not-pickups,
+never route to a closing-out agent), and takeover verification (registry-freshness
+≠ comms-liveness; the highest verification bar for authority actions). Read PDR-117
+for those; the lessons below are the **operational craft** of running the seat in
+this repo that PDR-117 does not carry.
+
 - **Arm the comms watcher as move 1, before any coordination** — it is
   constitutive team-visibility, not discretionary infrastructure; an
   un-armed watcher went blind to a simultaneous identical-branch claim. n=2
   retains it; only the heartbeat is in the drop-set.
-- **Verify a target agent's current state right before routing**, and route
-  durable lanes rather than real-time pickups that race the implementers — a
-  three-direction reversal in five minutes (and a finding routed to an agent that
-  retired one second later) both came from routing on minutes-old state.
-- **Route nothing to an agent told to close out / high-context** — route to its
-  successor; that is what successors are for.
-- **Authority/coordination actions get the highest verification bar** — confirm
-  load-bearing facts first-hand and let the tool compute liveness age in UTC
-  (never a local clock) before acting. Ground convenient premises hardest.
 - **Stop your own heartbeat at stand-down** or it asserts false "active" liveness
   — a heartbeat loop with no exit ran ~8h of false liveness across an outage.
 - **Verify a PR's inline review comments first-hand**, not just `gh pr checks` —
@@ -165,30 +193,6 @@ Each lesson is the cure for a churn cause observed in the pilot.
   timeline for superseding decisions.
 - **Curate, don't mechanically slice, prose-not-written-to-be-sliced**, and
   drift-guard the projection against source.
-- **Director context-economy: stay silent on routine signals, act only on
-  substance.** A long-lived Director should not reply to routine implementer
-  heartbeats or narrate the monitors that carry them — act only on substantive
-  events (questions, PR-opens, verdicts, blockers, genuine stalls). Over-narration
-  spends the Director's scarcest resource (context) on signals that needed no
-  action and shortens the very tenure the role exists to maximise. A concrete
-  application of PDR-117 minimum-action (Firefly + Triton + Kraken all lived it).
-- **Delegate Implementer-class work aggressively; pace context like the warm
-  cache it is.** Sub-agent reviews, spec fetches, mechanical sweeps, and synthesis
-  reconnaissance; do not self-author what a cheaper agent can. Measure your own
-  context at the handoff gate — don't confabulate it (Kraken measured 52%, surfaced
-  it, handed off clean). The spend-rate, not the calendar, is what ends a tenure.
-- **At takeover, registry-freshness ≠ comms-liveness.** The claims registry can
-  read every agent — including the outgoing Director — as `stale` (the 4h claim
-  window) while the comms-heartbeat stream shows them LIVE; they measure different
-  things. Cross-check both before a Moment-2; taking the seat over a live Director
-  is the trap. This is the live **F-44** code defect (`active-agents.ts` reads claim
-  freshness as liveness) — systemic, not incidental. (Falcon lived this at the
-  Trawler handover: a 55-min heartbeat gap was the correct n=1 consumer-absent
-  suspension, not retirement — the owner's correction prevented a false takeover.)
-- **Cadence never goes dark at a handoff.** The PDR-078 §4 consumer-absent exemption
-  ends the moment a successor is named — a named successor IS a consumer. Re-arm
-  watcher + heartbeat when the handoff begins; do not read "n=1" while a successor
-  is inbound.
 - **Ground in the homed plan before designing — most "design" is crosswalk +
   activation, not greenfield.** Read the plan estate first; launching a design
   workflow over an already-homed plan risks forking an SSOT.
@@ -231,22 +235,10 @@ backlog (`.agent/plans/agent-tooling/frictions-register.md`), named here only so
 successor recognises them rather than rediscovers them. Register state below is
 first-hand as of 2026-06-25.
 
-- **`claims` CLI has no adopt/transfer and cannot set `handoff_record_path`** —
-  PDR-063 hand-off requires retaining a claim for the successor and the successor
-  adopting it, but the CLI lacks `claims adopt --claim-id <id>` and
-  `claims set-handoff --claim-id <id> --path <path>`. Hand-editing the registry is
-  unsafe in a busy window, and reusing `--claim-id` created a duplicate row. Work
-  around it out-of-band; do not treat the friction as a brief or plan defect.
-  **F-94 in the register; FIXED in PR #225 (`e95fb9594`)** — `claims adopt` +
-  `claims set-handoff` now exist.
-- **No start-right watcher-presence fail-fast gate** — the "arm the watcher as
-  move 1" rule is prose; it was skipped once under ceremony-aversion, going blind
-  to a simultaneous identical-branch claim. The structural cure is a
-  session-open / `start-right-team` check that fails fast when invoked without a
-  live comms watcher, so the prose rule is backed by a mechanical gate rather than
-  agent diligence. **F-95 in the register; FIXED in PR #225 (`e95fb9594`)** — the
-  gate now exists (move-1 `comms assert-watcher-live` check + `claims open`
-  blind-write backstop, solo-exempt), backing the prose rule mechanically.
+- **FIXED (PR #225, `e95fb9594`) — `claims adopt` + `claims set-handoff` (F-94) and the
+  watcher-presence fail-fast gate (F-95, move-1 `comms assert-watcher-live` + `claims open`
+  blind-write backstop, solo-exempt) now exist.** The PDR-063 handoff primitives and the mechanical
+  backing for "arm the watcher as move 1" are available — use them; no workaround needed.
 - **Continuity-buffer handoff commit blocked by markdownlint** — a mid-arc handoff
   commit can hit a markdownlint wall on shared multi-agent buffers; the interim
   cure is the dedicated consolidation pass (rotate + lint, then commit), but a
@@ -321,15 +313,15 @@ first-hand as of 2026-06-25.
 >
 > ### ▶ TEAM-TOOLING ARC CLOSED (prior effort, conserved) — Director: Falcon wakes Stratus (2026-06-29)
 >
-> **Director: Falcon wakes Stratus** (`adb1f3`, 6th Director; clean PDR-064 from Trawler mends
-> Buoy, Moment-2 `3078f8c6`). Chain: Firefly → Merlin → Triton → Kraken → Trawler → Falcon.
-> Watcher + heartbeat live; single Director claim `4180e263`.
+> **No Director is live.** Falcon wakes Stratus (`adb1f3`, 6th Director; chain Firefly → Merlin →
+> Triton → Kraken → Trawler → Falcon) **stood down 2026-06-29** — heartbeat stopped, Director claim
+> `4180e263` relinquished, no retained claim (owner-directed session-end, not a stall). A successor
+> takes the seat via the readiness gate below; there is no live Director to take it over.
 >
 > **THE TEAM-TOOLING ARC IS CLOSED.** All PRs #269–#286 + #282 merged to main; the arc-end
 > coordination PR **#268 MERGED** (`1b5ce326`, Falcon — 6 review threads resolved: 2 doc fixes,
 > 4 not-defects). All worktrees removed; arc branches pruned; comms archived (count-conserved).
-> Deep consolidation of the arc's captures is in progress on
-> `consolidation/deep-closeout-2026-06-29`.
+> The deep consolidation of the arc's captures **MERGED** (PR #290).
 >
 > **NEXT WORK — the SYNTHESIS PHASE (owner-directed, fresh-context; not yet started, inputs conserved):**
 >
@@ -360,8 +352,9 @@ first-hand as of 2026-06-25.
 > the rightsizing M1→M2 activation.
 >
 > **READINESS GATE for the next Director:** answer the five questions + paste the mechanical liveness
-> check (UTC-to-UTC) before Moment-2; then open your Director claim and relinquish Falcon's
-> `4180e263`. Prior-rotation detail (the Firefly→…→Trawler tenures, the 2026-06-25 worktree-pilot
+> check (UTC-to-UTC) before Moment-2; then open your Director claim (Falcon's `4180e263` is already
+> relinquished — there is no live claim to take over). Prior-rotation detail (the
+> Firefly→…→Trawler tenures, the 2026-06-25 worktree-pilot
 > mandate, the worktree orphan map) is conserved in git history, the handoff records under
 > `.agent/state/collaboration/handoffs/`, and `repo-continuity.md`.
 

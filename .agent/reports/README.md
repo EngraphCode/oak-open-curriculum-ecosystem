@@ -11,6 +11,14 @@ research notes or investigation logs.
 - **Reports** in this directory own promoted audits and formal synthesis
   documents once they are stable enough to stand alone.
 
+Research and pre-decision outputs **name decisions and surface
+considerations**; they never make, recommend, or steer a call that belongs
+to a later owner-ratified deliverable. The test is line-level, not
+section-level: for each line, does it pick an answer to a call reserved
+for that later deliverable, or lay out the factors? Restating a plan-settled constraint is fine when attributed to
+the plan; asserting a new preference is the over-reach — even when the
+brief's own section titles ask for "recommendations".
+
 ## Current Structure
 
 - [agentic-engineering/README.md](./agentic-engineering/README.md) — formal

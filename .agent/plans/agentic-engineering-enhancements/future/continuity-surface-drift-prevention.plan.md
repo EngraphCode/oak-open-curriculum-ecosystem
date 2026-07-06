@@ -39,7 +39,7 @@ Three candidate cures, resolved through the lenses in order:
   drain-fix validator for the sibling frictions register, with a "drain-lag" class. Extend its scope
   to continuity surfaces rather than build new.
 - Lens 4 (simpler if the system changed): **(c)** dissolves it — the convergence target
-  ([[project_graph_approach_is_practice_convergence_target]]).
+  (PDR-119's one-family constraint; owner direction 2026-06-27, every Practice aspect).
 
 **Verdict — three routed workstreams (no fork; each homes in an existing surface):**
 

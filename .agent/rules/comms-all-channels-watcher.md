@@ -50,7 +50,8 @@ set -- pnpm agent-tools:collaboration-state -- comms watch \
   --seen-file .agent/state/collaboration/comms-seen/<agent-codename>.json \
   --platform <claude|codex|cursor> \
   --model <model-id> \
-  --supervisor-pid "$PPID"
+  --supervisor-pid "$PPID" \
+  --step-timeout-ms 120000
 TIMEOUT_BIN="$(command -v timeout || command -v gtimeout || true)"
 [ -n "$TIMEOUT_BIN" ] && set -- "$TIMEOUT_BIN" 3600 "$@"
 exec "$@"
@@ -114,6 +115,19 @@ the `fs.watch` subscriptions, so a dropped FSEvents subscription delays a wake
 by at most `pollMs` instead of stalling forever. The liveness self-check below
 covers any residual hang path that a deadline cannot reach (a hung process
 cannot exit-non-zero if the hang sits where no deadline is armed).
+
+Under load the deaths concentrate at the drain step, and raising
+`--step-timeout-ms` does not converge — 60s/180s/300s/540s budgets all died
+alike in the 2026-06-12 evidence window (six deaths across two sessions; one
+nine-minute wedge at moderate load on a stable ~3.1k-event dir). Keep the
+step timeout SHORT — the ~120s in the canonical invocation above, an
+order-100s budget as against 300–600s climbs — so wedges die cheap; expect
+deaths in gate-heavy windows and restart on the same seen-file, where the
+mandated post-restart foreground sweep (below) is the recovery path for
+events the dead drain never marked seen. The structural cure —
+batched/incremental drain with per-batch deadlines, or moving the scan off
+the deadline path — is homed in the
+`agent-tooling/current/comms-watch-storage-redesign.plan.md` plan.
 
 ### Liveness self-check (cycle boundaries)
 
@@ -339,3 +353,27 @@ mechanical gates so it cannot be skipped by forgetting it (F-95):
 Both gates classify liveness from the watcher's `<seen-file>.heartbeat.json`
 (stale past 3× its interval). Mid-session watcher death is a separate concern
 (the cycle-boundary staleness check), not this session-open gate.
+
+## Known Silent-Failure Class
+
+Comms infrastructure has a recurring class of failures that report nothing
+wrong. Check these before trusting a quiet channel:
+
+- **The rendered log is a full constructive overwrite** — `comms render`
+  regenerates `shared-comms-log.md` wholesale; never hand-edit the rendered
+  view (edits are destroyed on the next render) and never treat it as the
+  event source (it lags — the canonical `comms/*.json` event files are truth).
+- **First run without a `--seen-file` replays the entire history**, burying
+  live events under the backlog; always pass the seen-file cursor.
+- **Self-exclusion filters can drop directed events** — a filter meant to skip
+  the agent's own broadcasts can also skip events *addressed to* the agent;
+  verify inclusion with a known directed event before relying on a filter.
+- **Events can land in a retired or decoy directory** — a worktree-launched
+  watcher that resolves a local `.agent/state/collaboration/comms` watches an
+  empty decoy (the CLI silently creates it), and writes to a retired dir are
+  equally silent. Verify the watch/send dir is the primary coordination home
+  (`resolveCoordinationHome`) — the F-41 family; the cure plan is
+  `agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`.
+- **The CLI can exit 0 while transferring or parsing nothing** — read the
+  failure surface (event counts, the written file), never the exit code
+  (`wrapped-exit-codes-false-green`).

@@ -78,6 +78,7 @@ const config: KnipConfig = {
         'src/repo-check/repo-check.ts',
         'src/commit-advisories/check-commit-message.ts',
         'src/commit-advisories/check-commit-skill-advisories.ts',
+        'src/secret-scan/run-push-secret-scan.ts',
         'src/version-guard/prevent-accidental-major-version.ts',
         'src/validators/fitness-vocabulary/validate-fitness-vocabulary.ts',
         'src/validators/collaboration-state/validate-collaboration-state.ts',
@@ -94,6 +95,10 @@ const config: KnipConfig = {
         'src/practice-fitness/validate-practice-fitness.ts',
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
+        // Corpus-analysis workflow stage entries: consumed by esbuild as string
+        // entry points in workflows/build/workflow-builder.ts (bundled into
+        // self-contained harness artefacts), which knip cannot trace as imports.
+        'src/corpus-analysis/workflows/*.workflow.ts',
       ],
       project: ['src/**/*.{ts,tsx}'],
     },

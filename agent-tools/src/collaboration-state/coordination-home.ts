@@ -1,4 +1,6 @@
 import { execFileSync } from 'node:child_process';
+import { statSync } from 'node:fs';
+import { isAbsolute, join } from 'node:path';
 
 import { resolveTrustedGit } from '../core/trusted-git.js';
 
@@ -12,7 +14,37 @@ export interface ResolveCoordinationHomeOptions {
    * tests so the resolution is exercised without a real repository.
    */
   readonly runGit?: GitRunner;
+  /**
+   * The declared coordination home: the value of `PRACTICE_COORDINATION_HOME`,
+   * injected at the composition edge (ADR-078 — neither this module nor its
+   * tests read `process.env`). When present it wins over git-native resolution
+   * and is validated loudly (existence + a recognisable collaboration
+   * substrate); `undefined` preserves git-native behaviour byte-for-byte. An
+   * empty string is a malformed declaration, not absence — it fails loudly.
+   * The inter-Practice protocol's resolution order is
+   * explicit flag, then declared home, then git-native — the explicit-flag
+   * leg lives at call sites (`repoRoot ?? resolveCoordinationHome(...)`),
+   * which never consult this resolver when an explicit value is given.
+   */
+  readonly coordinationHomeEnv?: string;
+  /**
+   * Directory-existence seam for validating a declared home. Defaults to a
+   * real filesystem probe. Injected in tests so validation is exercised
+   * without touching the filesystem.
+   */
+  readonly directoryExists?: (path: string) => boolean;
 }
+
+/** The directory a coordination home must contain to be recognisable as one. */
+const COLLABORATION_SUBSTRATE_REL = '.agent/state/collaboration';
+
+const defaultDirectoryExists = (path: string): boolean => {
+  try {
+    return statSync(path).isDirectory();
+  } catch {
+    return false;
+  }
+};
 
 export const defaultRunGit: GitRunner = (args, cwd) =>
   // Execute git by its ABSOLUTE path (resolveTrustedGit) so a writable PATH
@@ -46,16 +78,29 @@ export const defaultRunGit: GitRunner = (args, cwd) =>
  * shared at all, so cross-machine coordination is a separate concern. No
  * machine-local path is baked in — the home is discovered via git at call time.
  *
+ * A **declared** home (`PRACTICE_COORDINATION_HOME`, injected via
+ * `options.coordinationHomeEnv`) wins over git-native resolution — the
+ * inter-Practice arrangement where the session's worktree lives in one repo
+ * while its coordination home lives in another. A declared home that does not
+ * exist or holds no recognisable collaboration substrate is a loud failure,
+ * never a silent fallback to git-native resolution.
+ *
  * @param cwd - the directory git resolution runs from (typically `process.cwd()`
  *   at the composition edge, or a runtime-injected value).
- * @param options - the git-runner seam.
- * @throws when `cwd` is not inside a git working tree, or git reports no
- *   worktree — refusing loudly rather than silently writing to a wrong location.
+ * @param options - the git-runner, declared-home, and filesystem seams.
+ * @throws when a declared home is missing or substrate-less; when `cwd` is not
+ *   inside a git working tree; or when git reports no worktree — refusing
+ *   loudly rather than silently writing to a wrong location.
  */
 export function resolveCoordinationHome(
   cwd: string,
   options: ResolveCoordinationHomeOptions = {},
 ): string {
+  const declaredHome = options.coordinationHomeEnv;
+  if (declaredHome !== undefined) {
+    return validateDeclaredHome(declaredHome, options.directoryExists ?? defaultDirectoryExists);
+  }
+
   const runGit = options.runGit ?? defaultRunGit;
 
   let porcelain: string;
@@ -76,6 +121,42 @@ export function resolveCoordinationHome(
     );
   }
   return primary;
+}
+
+/**
+ * Validate a declared coordination home: it must exist as a directory and
+ * contain the collaboration substrate. Returns the home on success; throws a
+ * message naming the variable, the path, and the fix on failure — the
+ * protocol's no-silent-fallback clause.
+ */
+function validateDeclaredHome(
+  declaredHome: string,
+  directoryExists: (path: string) => boolean,
+): string {
+  if (!isAbsolute(declaredHome)) {
+    throw new Error(
+      `PRACTICE_COORDINATION_HOME must be an absolute path, got '${declaredHome}'. A relative ` +
+        `declared home resolves against the invoking process's working directory — a different ` +
+        `location per invocation — so it cannot name the one shared coordination home. Fix or ` +
+        `unset the variable — there is no silent fallback to git-native resolution.`,
+    );
+  }
+  if (!directoryExists(declaredHome)) {
+    throw new Error(
+      `PRACTICE_COORDINATION_HOME points at '${declaredHome}', which does not exist or is not a directory. ` +
+        `A declared coordination home must be the root of a checkout; fix or unset the variable — ` +
+        `there is no silent fallback to git-native resolution.`,
+    );
+  }
+  const substrate = join(declaredHome, COLLABORATION_SUBSTRATE_REL);
+  if (!directoryExists(substrate)) {
+    throw new Error(
+      `PRACTICE_COORDINATION_HOME points at '${declaredHome}', but it holds no recognisable ` +
+        `collaboration substrate ('${COLLABORATION_SUBSTRATE_REL}' is missing). Fix or unset the ` +
+        `variable — there is no silent fallback to git-native resolution.`,
+    );
+  }
+  return declaredHome;
 }
 
 const WORKTREE_LINE_PREFIX = 'worktree ';

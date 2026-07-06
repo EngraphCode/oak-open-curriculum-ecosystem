@@ -1,0 +1,201 @@
+---
+name: pr-lifecycle
+classification: active
+description: >-
+  Open a pull request and shepherd it to merge-ready: reviewer-facing
+  description, full-surface harvesting (GraphQL review threads, all comments,
+  all checks, Sonar issues), root-cause-first triage, budgeted watching,
+  re-fetch after every push, and an honest truly-green merge — all checks
+  green, every thread resolved, normal non-admin merge. Use whenever a
+  branch reaches PR closeout or an open PR needs driving to live.
+---
+
+# Pull Request Lifecycle
+
+**Governance**: executes the first slice of the `pr-lifecycle-skill` strategic
+plan (owner-requested). Operationalises
+[`pr-comments-resolve-and-recheck`](../../rules/pr-comments-resolve-and-recheck.md),
+composes with the [`commit` skill](../commit/SKILL-CANONICAL.md) (which owns
+landing commits), [`worktree-hygiene`](../../rules/worktree-hygiene.md) (which
+owns the branch/worktree lifecycle around the PR), and the
+[`sonarqube-mcp-instructions`](../../rules/sonarqube-mcp-instructions.md)
+per-finding discipline. Every gate constraint here inherits
+`never-disable-checks` and `all quality gates blocking, always`.
+
+The one-sentence contract: **a PR is done when it is live** — opened is not
+done, green checks are not done, "ready for review" is not done; done is
+merged with every finding genuinely settled. Standing down (closeout,
+claim-close, monitor-stop) while the work is unmerged is the error: a
+feature branch with an open PR is one cleanup away from gone, and the
+owner's merge signoff is a gate, never a handoff of ownership.
+
+## Phase 1 — Before opening
+
+1. **Divergence**: `git fetch origin main`; if behind, merge `origin/main`
+   into the branch (never rebase-and-force-push an already-pushed branch).
+   When the update touches agent memory/state files, author the union by hand
+   per the `semantic-merge` skill — a git line-merge silently corrupts them.
+2. **Tree and gates**: working tree clean; a successful push already ran the
+   full pre-push gate suite, so a clean push IS the local-green proof — do not
+   re-run gates just to re-confirm it.
+3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
+   its first commit (`worktree-hygiene` §1); this skill takes it to ready.
+4. **Scope the PR for review, not for tidiness**: an artefact that invites
+   deep review in its own right (a forward-design plan, a doctrine rewrite)
+   bundled into a closeout PR multiplies asynchronous bot-review rounds
+   without bound (a worked instance ran 5+ rounds before the bundle was
+   split); give such an artefact its own PR with its own review story.
+
+## Phase 2 — Open with a reviewer-facing description
+
+Read `.github/pull_request_template.md` and fill it as a **communication
+artefact for reviewers**, never a file list: what changed, why it matters,
+what reviewers should focus on, what was deliberately left out, and what
+evidence supports merge readiness. Update the description whenever the review
+story materially changes (a reshaped scope, a new commit class).
+
+## Phase 3 — Harvest EVERY feedback surface (the step most often botched)
+
+Immediately after opening — and again after every push — pull all four
+surfaces. Partial reads produce false "no problems" verdicts:
+
+1. **Review threads (the authoritative comment surface)** — GraphQL
+   `pullRequest.reviewThreads { isResolved, path, comments }`. REST issue
+   comments MISS inline bot threads (Copilot, Bugbot); a REST-only read is the
+   canonical way to falsely conclude "no comments". Worked failure 2026-07-02:
+   two REST comments were triaged as "noise" while four unresolved Copilot
+   threads and a failed Sonar gate sat unread.
+2. **Issue comments and reviews** — full bodies, never truncated skims; a
+   Sonar gate summary or a bot capability notice lives here.
+3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
+   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's _first_ failure is
+   the root to chase: a 20-second `install` failure cascades into skipped
+   builds and a failed deployment — fix the root, not the echoes.
+4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
+   (`search_sonar_issues_in_projects` with `pullRequestId`, per the
+   `sonarqube-mcp-instructions` rule) and read each flagged site. The gate
+   summary names conditions; only the issue list names the work.
+
+## Phase 4 — Triage by blocking force; fix at source
+
+- Order by blocking force and risk, not by tool order; root causes before
+  echoes.
+- Every finding ends in exactly one state: **fixed at source**,
+  **owner-dispositioned with evidence** (per-site, e.g. a Sonar
+  false-positive with rationale at that site), or **proven irrelevant at the
+  specific site**. Never dismissed by category, never gate-narrowed, never
+  warning-downgraded, never suppressed.
+- Fix the class, not the instance: a spelling finding on two lines gets a
+  repo-wide sweep of the class; a stale literal gets checked against its
+  source constant convention.
+- Disposition is content-based and binary — a comment's timestamp is
+  irrelevant. "This predates my change" / "nothing new since T" is not
+  addressed, and a fresh finding introduced by the fix commit itself is an
+  open finding, never a side-tangent.
+- Sonar reflects fixes only after the next pushed scan — verify fixes with
+  local gates at source; never poll Sonar immediately after an edit.
+- Diagnose a failed CI run from the failed **step name**
+  (`gh run view <id> --json jobs -q '.jobs[].steps[] |
+select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
+  `if: always()` advisory step that runs last can misattribute the real
+  failure (observed 2026-06-24: the tail blamed a drift check; the failure
+  was format-check).
+
+## Phase 5 — Wait without burning budget
+
+Run the repo's budgeted watcher in the background:
+`pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
+change, including new comments by author and the unresolved review-thread
+count moving in EITHER direction (a thread arriving or being resolved). The
+watch ENDS on merged/closed and on ALL GREEN — every check passed AND every
+review thread resolved; passing checks alone are not green, because an
+unresolved thread blocks merge-readiness just as hard. That exit is the wake
+signal; the Phase 3 GraphQL harvest remains the authoritative read for which
+threads and what they say. Never hand-roll tight `gh` polling loops (the
+shared 5,000/hr API budget; frictions F-110). Between events, continue other
+work or hold; the watcher wakes you.
+
+## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
+
+- Bots re-review each push asynchronously: **"0 unresolved" is a moment, not
+  a state.** Re-fetch `reviewThreads` and checks after every push and again
+  at the instant of any ready/merge-ready declaration — a finding can land
+  seconds after your last look.
+- Reply to each thread with the fix evidence (commit SHA + what changed),
+  then resolve it. "Resolved" is a settled-concern state, never a button
+  clicked to clear `mergeStateStatus`.
+- **Confirm the PR is still OPEN in the same re-fetch.** A push to a
+  just-merged PR's branch SUCCEEDS but is not inclusion — the commit
+  silently misses the base branch (worked instance 2026-07-06: a review
+  fix landed on #310's branch minutes after the owner merged; rescued by
+  cherry-pick). If the PR state is MERGED, verify tip ancestry
+  (`git merge-base --is-ancestor <tip> origin/<base>`) before treating any
+  post-merge work as landed; strand-rescue is a cherry-pick to a follow-up
+  branch, never a branch delete.
+
+## Phase 7 — Merge-ready is a declaration with a gate
+
+Merge-ready means, re-verified at the declaration instant: all checks green
+AND zero unresolved review threads AND the Sonar quality gate passing AND any
+genuinely required review landed (the author-dependent leg below). Then:
+
+- **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
+  PR — all checks green AND every review thread resolved (fixed, or
+  rejected as inaccurate with rationale) — merges via a normal non-admin
+  `gh pr merge`. `--admin` is FORBIDDEN: it bypasses the gate instead of
+  satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
+  once threads resolved). Notify the owner at this action moment (send the
+  notification; never suppress it on inferred presence —
+  `owner-attention-at-action-moments`).
+- `BLOCKED` means the gate is genuinely unsatisfied — unresolved threads, a
+  failing or pending check, or a genuinely required review that has not
+  landed. It never means "any agent merge is prohibited". The
+  required-review leg is author-dependent (verified 2026-06-24): a
+  bot-authored PR shows `BLOCKED` until the code-owner approval lands; a PR
+  authored under the owner's own auth shows `CLEAN` and merges directly —
+  GitHub auto-satisfies the code-owner requirement when the author IS the
+  sole code owner, and forbids self-approval.
+- An owner grant of merge authority (for example to a team session's
+  Director) is per-session, never standing (owner, 2026-06-29); absent a
+  fresh grant, the truly-green gate above governs unchanged — the merge
+  waits on whichever leg is genuinely unsatisfied.
+- **Never run `gh pr merge --delete-branch` while the local checkout carries
+  uncommitted changes**: the flag switches the local checkout to the base
+  branch as cleanup, and with a dirty tree the local fast-forward aborts —
+  the remote merge has already succeeded, leaving the local tree stranded
+  mid-cleanup in a confusing half-switched state (edits preserved but
+  displaced onto the base branch). Commit or relocate local work first, or
+  merge without the flag and delete the branch separately.
+- **A deferred or denied merge does not end shepherding.** "Truly green" has
+  a shelf life: bots re-review every push asynchronously, so comment-clean
+  verified at one instant expires at the next event. When the merge is handed
+  to the owner (authorisation gate, harness denial, or explicit ask), the PR
+  is still live surface — keep the harvest loop running and re-disposition
+  new comments until the merge actually LANDS; hand over a state, never a
+  standing claim (worked instance 2026-07-06: a "truly green" #312 handover
+  accrued three unresolved bot threads while the agent stood down).
+- When merging is authorised, prefer a **merge commit** (`--merge`), never
+  squash (standing owner preference, 2026-06-28). Verify the allowed merge
+  METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,
+allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
+  silently reverted before (2026-06-27). If merge commits are disabled,
+  surface it to the owner; never fall back to squash.
+
+## Phase 8 — After merge
+
+`worktree-hygiene` §3/§6 owns the cleanup: remove the worktree and delete the
+branch (content-verified, owner-authorisation-gated for destructive ops);
+update continuity surfaces; close claims.
+
+## Failure modes this skill exists to prevent (all observed)
+
+- REST-only comment reads declaring "no comments" over unresolved inline
+  threads and a failed quality gate.
+- Truncated comment skims triaged as "noise".
+- Ready/merge-ready declared without re-fetching after the latest push.
+- Findings dismissed by timestamp ("predates my change") instead of
+  dispositioned on content.
+- A failed check's downstream echoes debugged before its root cause.
+- A Sonar gate treated as an opaque red badge instead of an issue list to fix
+  at source.
+- Tight `gh` polling loops in place of the budgeted watcher.

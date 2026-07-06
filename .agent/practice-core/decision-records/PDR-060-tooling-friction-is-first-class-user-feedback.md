@@ -52,7 +52,7 @@ Agent-observed friction with any agent-tooling surface is **first-class
 user feedback** in this Practice, and routes into one or more of
 **napkin / plan / docs / tooling-backlog**, never chat-only.
 
-The doctrine has three operational corollaries:
+The doctrine has four operational corollaries:
 
 1. **Capture, not just observe.** When a session encounters friction
    — a CLI error message that omits help text, a script that rebuilds
@@ -71,6 +71,16 @@ The doctrine has three operational corollaries:
    minimum surface is a one-line napkin entry naming the friction;
    distillation can happen later. The discipline is *that* capture
    happens, not that capture is well-shaped on first pass.
+4. **Independent convergence is the strongest signal.** When multiple
+   agents, without seeing each other's work, converge on the same
+   emergent workaround for a tooling gap — intent-scoped scratch
+   commit-message files instead of a shared single-writer path,
+   `--body-file` for bodies that shell-quoting mangles,
+   workspace-first search before proposing new infrastructure — the
+   convergence itself is evidence the capability belongs natively in
+   the tool. Route a convergently-reinvented workaround as a
+   native-support candidate on the owning tooling backlog, not as
+   another friction anecdote.
 
 ## Rationale
 

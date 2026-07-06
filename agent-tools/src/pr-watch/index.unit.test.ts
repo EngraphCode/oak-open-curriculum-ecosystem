@@ -21,9 +21,26 @@ const prViewJson = {
 // REST-shaped review comments (numeric id, user.login) — the gh api surface.
 const reviewCommentsJson = [{ id: 3465383611, user: { login: 'Copilot' } }];
 
+// One slurped GraphQL reviewThreads page — the third gh surface.
+const reviewThreadPagesJson = [
+  {
+    data: {
+      repository: {
+        pullRequest: {
+          reviewThreads: {
+            totalCount: 2,
+            pageInfo: { hasNextPage: false, endCursor: null },
+            nodes: [{ isResolved: true }, { isResolved: false }],
+          },
+        },
+      },
+    },
+  },
+];
+
 describe('buildSnapshot', () => {
-  it('normalises both gh surfaces into one snapshot with bucketed checks and comment refs', () => {
-    expect(buildSnapshot(prViewJson, reviewCommentsJson)).toStrictEqual({
+  it('normalises the three gh surfaces into one snapshot with checks, comments, and thread counts', () => {
+    expect(buildSnapshot(prViewJson, reviewCommentsJson, reviewThreadPagesJson)).toStrictEqual({
       number: 221,
       state: 'OPEN',
       mergeable: 'MERGEABLE',
@@ -33,6 +50,7 @@ describe('buildSnapshot', () => {
       checks: { total: 4, passed: 2, failed: 1, pending: 1 },
       issueComments: [{ id: 'IC_kwDO1', author: 'vercel' }],
       reviewComments: [{ id: '3465383611', author: 'Copilot' }],
+      reviewThreads: { total: 2, unresolved: 1 },
     } satisfies PrSnapshot);
   });
 
@@ -40,6 +58,7 @@ describe('buildSnapshot', () => {
     const bare = buildSnapshot(
       { ...prViewJson, statusCheckRollup: undefined, comments: undefined },
       [],
+      reviewThreadPagesJson,
     );
     expect(bare.checks).toStrictEqual({ total: 0, passed: 0, failed: 0, pending: 0 });
     expect(bare.issueComments).toStrictEqual([]);
@@ -47,16 +66,22 @@ describe('buildSnapshot', () => {
   });
 
   it('treats a null statusCheckRollup (PR with no checks) as zero checks', () => {
-    const snap = buildSnapshot({ ...prViewJson, statusCheckRollup: null }, []);
+    const snap = buildSnapshot(
+      { ...prViewJson, statusCheckRollup: null },
+      [],
+      reviewThreadPagesJson,
+    );
     expect(snap.checks).toStrictEqual({ total: 0, passed: 0, failed: 0, pending: 0 });
   });
 
   it('fails loud on a genuinely malformed (non-array) statusCheckRollup', () => {
-    expect(() => buildSnapshot({ ...prViewJson, statusCheckRollup: 'broken' }, [])).toThrow();
+    expect(() =>
+      buildSnapshot({ ...prViewJson, statusCheckRollup: 'broken' }, [], reviewThreadPagesJson),
+    ).toThrow();
   });
 
   it('normalises a null reviewDecision (repo with no required-review policy) to an empty string', () => {
-    const snap = buildSnapshot({ ...prViewJson, reviewDecision: null }, []);
+    const snap = buildSnapshot({ ...prViewJson, reviewDecision: null }, [], reviewThreadPagesJson);
     expect(snap.reviewDecision).toBe('');
   });
 
@@ -64,6 +89,7 @@ describe('buildSnapshot', () => {
     const withNullAuthor = buildSnapshot(
       { ...prViewJson, comments: [{ id: 'IC_x', author: null }] },
       [{ id: 9, user: null }],
+      reviewThreadPagesJson,
     );
     expect(withNullAuthor.issueComments).toStrictEqual([{ id: 'IC_x', author: 'unknown' }]);
     expect(withNullAuthor.reviewComments).toStrictEqual([{ id: '9', author: 'unknown' }]);
@@ -79,13 +105,18 @@ describe('buildSnapshot', () => {
       statusCheckRollup: [],
       comments: [],
     };
-    expect(() => buildSnapshot(withoutMergeable, [])).toThrow();
+    expect(() => buildSnapshot(withoutMergeable, [], reviewThreadPagesJson)).toThrow();
+  });
+
+  it('fails loud on a malformed review-threads surface rather than degrading to zero', () => {
+    expect(() => buildSnapshot(prViewJson, reviewCommentsJson, 'broken')).toThrow();
   });
 
   it('counts an unrecognised rollup item type as pending rather than rejecting it', () => {
     const snap = buildSnapshot(
       { ...prViewJson, statusCheckRollup: [{ __typename: 'SomeFutureCheckType', whatever: true }] },
       [],
+      reviewThreadPagesJson,
     );
     expect(snap.checks).toStrictEqual({ total: 1, passed: 0, failed: 0, pending: 1 });
   });

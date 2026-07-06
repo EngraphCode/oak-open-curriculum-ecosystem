@@ -15,8 +15,20 @@ if ! command -v gitleaks >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "🛡️ Running secret scan..."
-if ! pnpm secrets:scan; then
+echo "🛡️ Running secret scan (pushed commits only; CI scans full history)..."
+# git feeds pre-push the destination remote name as $1 and, on stdin, one
+# "<local_ref> <local_sha> <remote_ref> <remote_sha>" line per pushed ref. The
+# tested range logic lives in agent-tools/src/secret-scan/; here we only capture
+# git's ref lines into a temp file (a clean single-token path survives pnpm's
+# argument handling) and hand them to the scanner, which scans ONLY the pushed
+# commits. The CI secret-scan job runs the full `--branches --tags` scan as the
+# comprehensive backstop, so no history goes unscanned.
+secret_scan_refs="$(mktemp)"
+[ -t 0 ] || cat > "$secret_scan_refs"   # capture git's ref lines (empty on a manual/TTY run)
+pnpm agent-tools:secret-scan --remote "$1" --refs-file "$secret_scan_refs"
+secret_scan_status=$?
+rm -f "$secret_scan_refs"
+if [ "$secret_scan_status" -ne 0 ]; then
   echo "❌ Secret scan failed."
   echo "Remove or scrub secret-like values before pushing."
   echo "Use local placeholders for .env.example and real credentials only in .env files."
@@ -84,6 +96,12 @@ pnpm --filter @oaknational/agent-tools ci-schema-drift-check || true
 echo "🔤 Running build, type-check, lint, and tests..."
 if ! pnpm turbo run --continue sdk-codegen build type-check lint test test:e2e test:ui; then
   echo "❌ Turbo quality gate checks failed!"
+  exit 1
+fi
+
+echo "🔤 Scanning file encoding (builds agent-tools, then runs the built scanner)..."
+if ! pnpm encoding:check; then
+  echo "❌ Encoding scan found a critical finding (invalid UTF-8, BOM, bidi/control byte, or U+FFFD)!"
   exit 1
 fi
 

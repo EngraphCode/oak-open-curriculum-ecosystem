@@ -41,10 +41,10 @@ function extractRateLimitInfo(response: Response): RateLimitInfo | null {
   }
 
   return {
-    limit: limit ? parseInt(limit, 10) : null,
-    remaining: remaining ? parseInt(remaining, 10) : null,
-    reset: reset ? parseInt(reset, 10) * 1000 : null, // Convert to ms
-    resetDate: reset ? new Date(parseInt(reset, 10) * 1000) : null,
+    limit: limit ? Number.parseInt(limit, 10) : null,
+    remaining: remaining ? Number.parseInt(remaining, 10) : null,
+    reset: reset ? Number.parseInt(reset, 10) * 1000 : null, // Convert to ms
+    resetDate: reset ? new Date(Number.parseInt(reset, 10) * 1000) : null,
     lastChecked: new Date(),
   };
 }

@@ -4,7 +4,11 @@ Only **one** agent runs a whole-repo gate sweep (`pnpm check`,
 `pnpm test`, large `turbo` invocations) per coordination window.
 Multiple parallel runs duplicate ~30s+ of work per run, produce no
 marginal signal, and can collide on advisory-orchestrator file
-outputs.
+outputs. The sharpest hazard: `pnpm check`'s opening `clean` step
+deletes shared build output (e.g. `agent-tools/dist/`) from under
+every concurrent peer — their CLIs (heartbeats, comms, marshal
+commands) and watchers die for the rebuild window (~90s). A
+whole-repo sweep is a shared-substrate mutation, not a private read.
 
 This rule complements `session-handoff` step §11 (which directs every
 closing agent to run `pnpm check`) by adding an N-agent constraint:

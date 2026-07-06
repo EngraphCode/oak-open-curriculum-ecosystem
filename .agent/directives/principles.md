@@ -35,6 +35,13 @@ is constitutively the owner's (for example product or feature scope):
    dissolves the problem, rather than solving it inside the current shape.
 5. **Optimise for user value.**
 
+A question arriving as an either/or is usually a false frame (owner standing
+directive, 2026-06-29): reject the binary out of hand, run the lenses over the
+real problem, and find the third option that transcends both — or do both
+(immediate relief and the structural cure are a sequence, not a choice). When
+a lens genuinely excludes one side, the third option captures the excluded
+side's *intent* without building it.
+
 These resolve *questions*. They sit alongside standing concerns that are never
 traded away — excellent developer experience, excellent **agent experience** (the
 agent-facing substrate is a product whose users are agents; see
@@ -71,6 +78,13 @@ surfacing options to the owner or a peer agent, do not include a
 "cheap cure" / "quick fix" / "land it then iterate" option as
 if it were a legitimate trade-off; presenting it as one is
 itself the failure mode.
+
+The same failure mode has a quieter tell: a deferential opt-out
+clause appended to an answer the principle has already forced,
+reopening the forced answer as if it were a trade-off. When
+excellence has forced the answer there is nothing to surface,
+only something to settle — state the move and the reasoning, and
+settle it.
 
 The doctrine is operationalised through composing structural
 defences:
@@ -371,6 +385,18 @@ paths, setup files) don't apply.
   Sentry runtime/uptime surfaces).
 - **Fix things** - All quality gates are blocking at all times,
   regardless of location, cause, or context.
+- **Every issue earns a check** - An issue, however discovered —
+  exploration, exercise, review, external comment — is not resolved
+  until a check of the appropriate kind exists that would catch the
+  instance AND its class. The kind fits the class: behaviour → a
+  unit/integration/E2E test; types → the type-check gate or a
+  `satisfies` anchor; structural → an ESLint/boundary rule;
+  process/CI coverage → a required status check or validator;
+  content-quality invariant → construction plus human review, never
+  a false-positive-prone grep test. A bare fix without the guarding
+  check is an incomplete disposition. Operationalised in
+  [testing-strategy.md §When a Defect Is Found](testing-strategy.md)
+  and [`pr-comments-resolve-and-recheck.md`](../rules/pr-comments-resolve-and-recheck.md).
 - **Local broken code never leaves** — Broken code is never
   acceptable. The local-only constraint is not an excuse to tolerate
   brokenness; it is the discipline that prevents brokenness from

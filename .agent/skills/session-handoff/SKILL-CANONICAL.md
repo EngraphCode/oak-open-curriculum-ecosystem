@@ -130,6 +130,22 @@ Team member closeout:
 Then clean up any claims, queue entries, or comms obligations you own. Stop
 there unless the owner or closeout owner gives a further assignment.
 
+## Mid-Session Light Update (distinct, lighter cadence)
+
+Between session open and this skill's close-out sits an intermediate cadence:
+the **mid-session light update**, an autosave for a long session. Run it when
+the owner asks for a checkpoint, at a natural pause between phases (commits
+landed, more to do), before a long reviewer batch, or when approaching a
+context threshold with work remaining — so a disconnect, agent swap, or
+context loss lands the next reader on coherent surfaces.
+
+Additive only, never rewrites: append a short comms entry under the session's
+identity (commits landed, decisions, next step); light-append the touched
+thread record's current waypoint and SHAs; refresh a claim only if its scope
+materially changed. Do NOT run consolidation moves at this cadence — no
+napkin/distilled promotion, no pattern graduation, no plan lifecycle moves,
+no retrospective memos; those are close-out work, this skill's §Steps.
+
 ## Steps
 
 1. **Record the landed outcome (or unlanded case).** Report against
@@ -164,6 +180,18 @@ there unless the owner or closeout owner gives a further assignment.
 
    An unlanded case MUST propagate to step 2's `Next safe step` so
    the commitment persists across the session boundary.
+
+   When the landing completes (or archives) a plan, analyse its user
+   stories rather than blind-copying or dropping them: disposition each
+   as **served** (conserve its value-narrative — the "so that…" clause
+   naming who benefits and to what end — into the permanent home: the
+   skill description, the ADR Context section, the README purpose line),
+   **deferred** (carry forward as intent), or **obsoleted** (record as a
+   learning, never harvest as if true). Delivered work has three
+   knowledge layers — that it works, how it works, why it matters — and
+   archival reliably conserves the first two while dropping the third;
+   the why is the most valuable and most easily lost layer (owner
+   direction 2026-06-22).
 
 2. **Refresh the canonical continuity contract.** Update
    `.agent/memory/operational/repo-continuity.md` using its documented field set:
@@ -466,7 +494,18 @@ there unless the owner or closeout owner gives a further assignment.
    source (the git command, the file, the gate output) AS YOU WRITE IT, never from
    memory (`verify-dont-trust` on your own banner). Worked instance 2026-06-07: a
    handoff's "branch unpushed" was false (4 ahead of a live origin) and its
-   executor.ts citations were off — both asserted from memory.
+   executor.ts citations were off — both asserted from memory. For unpushed
+   counts, use the branch's own upstream — `git rev-list --count @{u}..HEAD` —
+   never `origin/main..HEAD`, which counts divergence-from-main: a different
+   and much larger number, misreported at exactly the push-decision moment.
+   Never hand-construct the remote ref (`origin/<branch>`): branch names carry
+   slashes, and a typo yields a non-existent ref that errors or silently reads
+   as false-unpushed — `@{u}` is resolved and slash-safe, and a "ref unknown /
+   not an ancestor" result is suspect until the ref is confirmed to exist.
+   Never escalate a push/sync discrepancy to the owner before it is confirmed
+   against the authoritative ref (a self-caused false alarm costs owner
+   attention and trust; worked instance 2026-06-08: a hyphen-for-slash ref
+   typo escalated a "5 commits unpushed" alarm on a fully-synced branch).
 
    **6e.2 Run the loss-scan from inside your own context — it cannot be delegated.**
    After the categorical edges (6a–6d), sweep *against the grain of "it is all

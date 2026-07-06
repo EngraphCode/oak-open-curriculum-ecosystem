@@ -1,0 +1,81 @@
+{
+  "generated": "2026-07-03",
+  "revision": 2,
+  "method": "Per-quote whitespace-normalised verbatim search over the 2026-07-01 full-run partition file union. Tiers: strict = full quote found OR both 8-word head+tail fragments found; partial = exactly one 8-word end-fragment found verbatim (source region present, quote mutated by extraction); none = no verbatim evidence. A leaf holds the weakest tier of its quotes; a candidate holds the strongest tier of its supporting leaves. quoteModeTally is PER-QUOTE (174 grounding quotes across 167 leaves). Probe window file lists were never conserved, so a strict window-file-set subset check is not computable. Corpus-stability argument: the corpus was 100 files at the v1 run (2026-06-29, per its committed report), the probe ran 2026-06-30, and the 2026-07-01 full-run partition is the same 100 files spanning the same 2026-02-16..2026-06-29 range with full map coverage - the full run read the entire corpus family the probe sampled.",
+  "partitionFiles": 100,
+  "missingFiles": [],
+  "dateSpan": {
+    "min": "2026-02-16",
+    "max": "2026-06-29"
+  },
+  "leaves": {
+    "total": 167,
+    "strict": 72,
+    "partial": 71,
+    "none": 24,
+    "datesInSpan": 167,
+    "datesExactFileMatch": 117,
+    "quoteModeTallyPerQuote": {
+      "partial-single-fragment": 75,
+      "strict-fragments": 41,
+      "none": 24,
+      "strict-full": 34
+    },
+    "byWindow": {
+      "w11": {
+        "leaves": 48,
+        "strict": 18,
+        "partial": 21,
+        "none": 9
+      },
+      "w10": {
+        "leaves": 59,
+        "strict": 21,
+        "partial": 28,
+        "none": 10
+      },
+      "w08": {
+        "leaves": 60,
+        "strict": 33,
+        "partial": 22,
+        "none": 5
+      }
+    },
+    "noneLeafIds": [
+      "w11-L03",
+      "w11-L06",
+      "w11-L16",
+      "w11-L18",
+      "w11-L20",
+      "w11-L28",
+      "w11-L31",
+      "w11-L36",
+      "w11-L47",
+      "w10-L11",
+      "w10-L12",
+      "w10-L15",
+      "w10-L16",
+      "w10-L23",
+      "w10-L25",
+      "w10-L29",
+      "w10-L37",
+      "w10-L38",
+      "w10-L50",
+      "w08-L03",
+      "w08-L19",
+      "w08-L31",
+      "w08-L35",
+      "w08-L52"
+    ]
+  },
+  "candidates": {
+    "total": 75,
+    "coveredStrict": 52,
+    "coveredPartialOnly": 20,
+    "uncovered": [
+      "C56",
+      "C58",
+      "C64"
+    ]
+  }
+}

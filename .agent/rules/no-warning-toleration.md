@@ -18,6 +18,14 @@ plugins, lint, type-check, test runners, dependency-cruiser, CI,
 pre-commit hooks, Vercel build output, Sentry runtime — a
 **warning is the cheap, early version of the failure it names.**
 
+A signal is information about an architectural tension — before any
+response, interrogate what produced it (a bug, a half-finished change, a
+misplaced abstraction, a leaky boundary), and cross-check where else the
+same shape appears un-flagged. Where a reasoned false-positive dismissal
+is genuinely warranted, prefer per-site dismissal with rationale over a
+rule-level disable — per-site forces a fresh interrogation when the shape
+recurs.
+
 If a system we control emits a warning, the rule is:
 
 1. **Fix the root cause** in the same work-item that surfaced the
@@ -186,8 +194,10 @@ gate surface, this rule's zero-warning requirement applies unchanged.
 ## Cross-references
 
 - Pattern: `acknowledged-warnings-deferred-to-the-stage-they-explode-in`
-  (napkin 2026-04-23, first hard instance; pattern file pending
-  promotion at instance #2 per the existing pattern-bar).
+  (napkin 2026-04-23, first hard instance; no pattern file yet — the
+  napkin archive is the record. Graduation-eligible per PDR-100's
+  single-instance bar; this rule already carries the doctrine, so the
+  pattern file adds value only if the shape recurs outside warnings).
 - Adjacent: `passive-guidance-loses-to-artefact-gravity`
   (`patterns/passive-guidance-loses-to-artefact-gravity.md`) —
   why prose about warnings does not survive without an

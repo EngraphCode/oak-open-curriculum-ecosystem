@@ -1,3 +1,87 @@
+## [1.59.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.1...v1.59.2) (2026-07-06)
+
+
+### Bug Fixes
+
+* **sonar:** clear phase 5B idiom residuals (S7773/S7772/S7770/S7765/S7764) ([db97022](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/db97022c48fed5989d58f199754827e15a1a8647))
+* **sonar:** convert six type-guards to ReadonlySet membership; reconcile thread record ([1bee647](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1bee6475b0de2d58515192322d74b4262cc9f4b0))
+* **sonar:** dedupe search command registration and harden the size parser; session closeout ([f592b90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f592b9013966f3cd4ef67d2a41b9381321129ee3))
+* **sonar:** reinstate ADR-153 guard forms; parse numeric CLI options at the boundary ([4bff3b8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bff3b85aaeb3dff678003b7acb2e8fa225dd946))
+
+## [1.59.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.0...v1.59.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* **hooks:** fix two pre-push secret-scan range bugs; extract tested TS module ([5cfb5de](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5cfb5de89c14a741f6fc6730007fc904ea56b738))
+* **hooks:** scan only pushed commits in pre-push secret scan, not full history ([e2ac2b3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e2ac2b3f903210a102259a16ad5285dc191dfb59))
+
+# [1.59.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.58.0...v1.59.0) (2026-07-06)
+
+
+### Bug Fixes
+
+* **agent-tools:** anchor the ripgrep replace-flag guard with a regex match mode ([c2e2181](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c2e2181bdc4ac4ce8bd255017520226bc469bf04))
+* **agent-tools:** give commit-workflow children file-backed stdio to cure F-112 ([b2ae968](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2ae9689861ca2a4e6d5d2ef619667da2ace16f9)), closes [hi#volume](https://github.com/hi/issues/volume)
+
+
+### Features
+
+* **agent-tools:** add the practice-coordination-home declared-home override to home resolution ([f31faec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f31faec62828d0ab59b1d85043a77af87fe7ee10))
+* **agent-tools:** end pr-watch --watch on all green - checks passed and threads resolved ([20d84b4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/20d84b44e1762b6960e8c53f0773b7693955a4bd))
+* **agent-tools:** statusline identity renders the session join key beside the name ([4b9683b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4b9683be1922cca9cf0f72e3f1486a708e610b78))
+* **hooks:** fingerprint ripgrep clustered replace flag at the bash guard ([b6af3e0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b6af3e0bd385287b89f834d22305c0d30b108835))
+
+# [1.58.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.57.0...v1.58.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* **agent-tools:** anchor corroboration home claims at the repo root ([e185162](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e1851626516e53c68abd51749e22cf709a21b4c4))
+
+
+### Features
+
+* **agent-tools:** deterministic salvage tier stratification (salvage ws1) ([f5fd2e5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f5fd2e5b2d0a6a43ed3a774cdb1a99eb8ede08c9))
+* **agent-tools:** pr-watch tracks unresolved review threads ([1ce3f4e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1ce3f4ea85cd8925aee19928db395381799e6e76)), closes [#296](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/296)
+
+# [1.57.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.56.0...v1.57.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* **agent-tools:** clear the Sonar quality gate and the Copilot review findings ([b606fc8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b606fc86fece14e6c93a7656f1da2d1f26377d40)), closes [String#match](https://github.com/String/issues/match) [RegExp#exec](https://github.com/RegExp/issues/exec)
+* **agent-tools:** harden the triage leg per the code-expert and test-expert review ([27294f0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/27294f02b8cb17422505ca6942c9adcb44f02d0d))
+* **agent-tools:** make the meta-binding guard regex linear (the remaining S8786) ([d0693ac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d0693acd255d5d149af105c5fc82013144e96de0))
+* **agent-tools:** pin the probe-verified lockdown shape after testing the disallowedTools wildcard ([d746260](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d746260ee17a504be49533be2f49b451704b2364))
+* **agent-tools:** tell each pipeline agent truthfully what tools it holds and why ([ad82b67](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ad82b67104f695fede756831a1d6f185938f8f67))
+* **agentic-engineering:** harden corpus reduce stage, split map/reduce checkpoint (probe iter 1) ([91ee284](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/91ee284748b4bcfc111c0ea489d27f1c8d9a9119))
+* **deps:** reconcile the lockfile with the esbuild security-floor override ([9a71735](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9a71735bd95704da9a09d1969a67daa4cb99fc5c))
+
+
+### Features
+
+* **agent-tools:** add check-encoding scanner and gate critical findings ([5848cad](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5848cad51d95e55db41e01f0d79d35695d519e87))
+* **agent-tools:** add corpus-analysis v2 deterministic-aggregation core ([5c34af7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5c34af7bc7c87e69b25a7da9041f58789b3245d4))
+* **agent-tools:** add corpus-analysis v2 recall fixture, cost model, real-world signal ([e92cf93](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e92cf931d7483719ed3639b001f5672319feed04))
+* **agent-tools:** add least-privilege corpus-mapper and corpus-reducer agent types ([e89782b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e89782bca2ec5f96926f06d103ad1d8da9cc8118))
+* **agent-tools:** add the deterministic strength-of-evidence triage leg to the post-run driver ([cf58ffa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cf58ffa24db67d5a54aa4d690fef606d831d8326))
+* **agent-tools:** adopt the owner-found null-tools shape for the zero-tool voter and reducer ([042cdec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/042cdecec4c610495864d654356238b560067f6c))
+* **agent-tools:** apply owner-confirmed Choice B dual graduate gate ([601ab37](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/601ab377ff06918559a28df60999344f4e3a16ff))
+* **agent-tools:** burn accounting, concurrency 8, and the salvage-and-topology-redesign plan ([ebaf064](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ebaf06491c2c80533ed62cd4d6bea7d150c6741c))
+* **agent-tools:** commit the meta checkpoint - recall calibration over the merged dispositions ([420081c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/420081c9cfcc98e5d3a509607ed8e513292072e9))
+* **agent-tools:** commit the validate checkpoint - 246 of 246 resolved, 26 keep and 220 kill ([820d03a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/820d03a25801d90728f141f0a54b194c46612d0f))
+* **agent-tools:** corpus-analysis quorum-kill adjudication and post-reduce cost gate ([7e87fbf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7e87fbf2b3a2e090e9f214b67a2c65a98d5f0098))
+* **agent-tools:** dispatch validate voters as the no-tools corpus-voter agent type ([d3d21ff](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d3d21ffdaee7eafb96e6e546411ce29fccebdae8))
+* **agent-tools:** full adapter set for the corpus subagents and the zero-tools schema shape ([49389bf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/49389bf0c5588fdb919d26c653daf41632def82b))
+* **agent-tools:** land the reduce checkpoint (246 candidates) and the deterministic post-run driver ([8f67294](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8f67294919abd5bedc367e931675a6e2fe38338d))
+* **agent-tools:** lock every pipeline agent to least privilege per the sub-agents docs ([3057afb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3057afbef0ed88a8d6ef24514a6bed244b73f209))
+* **agent-tools:** raise validate candidate concurrency to 10 for single-turn voters ([6526872](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/652687267ed4ae266737f06fb8acc831116fbfca))
+* **agent-tools:** statusline primary/worktree rows and rate-limit gauges ([708cd57](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/708cd57fc79bf68624702e68bb6eb751d2c071e7))
+* **agent-tools:** switch validate voters to Sonnet 5 (owner-decided quota economics) ([2580720](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2580720114aeebb1443d5b271bca73418b4bcadf))
+* **agentic-engineering:** harden discovery-run orchestration and grain prompts (WS1) ([974c8fa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/974c8fa04b30943be1c12eac02976eaa84835d00))
+* **skills:** pr-lifecycle skill - open a PR and shepherd it to merge-ready ([d0281f2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d0281f2bc33fe1f8d4f888b7af2fb82dd5f56434)), closes [#296](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/296)
+
 # [1.56.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.55.0...v1.56.0) (2026-07-01)
 
 

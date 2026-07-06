@@ -92,7 +92,11 @@ concepts and knowledge."
 ## Continuous Updates
 
 Update the napkin as you work, not just at session start and
-end. Write to it whenever you learn something worth recording:
+end. Writing is always safe: never withhold a capture out of
+peer-contention caution (the Edit fails safe on mismatch and entries are
+additive), and never skip it because a specific home already holds the
+lesson — a lesson that generalises beyond that home earns the napkin
+too. Write to it whenever you learn something worth recording:
 
 - **You hit an error and figure out why.** Log it immediately.
 - **The user corrects you.** Log what you did and what they

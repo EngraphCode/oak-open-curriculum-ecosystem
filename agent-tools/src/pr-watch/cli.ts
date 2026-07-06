@@ -1,5 +1,5 @@
 import type { PrSnapshot } from './index.js';
-import { diffSnapshots, formatSnapshot, isTerminalState } from './report.js';
+import { emitChanges, formatSnapshot, watchEndLine } from './report.js';
 import { parsePrTarget, readPrSnapshot, type PrTarget } from './gh.js';
 
 /**
@@ -209,24 +209,20 @@ async function runWatch(input: {
   const { target, parsed, read, sleep, stdout } = input;
   let previous = read(target, parsed.ghPath);
   stdout.write(`${formatSnapshot(previous)}\n`);
-  if (isTerminalState(previous)) {
-    stdout.write(`PR #${previous.number} ${previous.state} — watch ending.\n`);
+  const initialEnd = watchEndLine(previous);
+  if (initialEnd !== undefined) {
+    stdout.write(initialEnd);
     return 0;
   }
 
   for (let poll = 0; poll < parsed.maxPolls; poll += 1) {
     await sleep(parsed.intervalSeconds * MILLIS_PER_SECOND);
     const next = read(target, parsed.ghPath);
-    const changes = diffSnapshots(previous, next);
-    if (changes.length > 0) {
-      for (const change of changes) {
-        stdout.write(`${change}\n`);
-      }
-      stdout.write(`${formatSnapshot(next)}\n`);
-    }
+    emitChanges(stdout, previous, next);
     previous = next;
-    if (isTerminalState(next)) {
-      stdout.write(`PR #${next.number} ${next.state} — watch ending.\n`);
+    const end = watchEndLine(next);
+    if (end !== undefined) {
+      stdout.write(end);
       return 0;
     }
   }
@@ -239,10 +235,12 @@ function usage(): string {
   return [
     'pr-watch <pr-number|github-pull-url> [--repo <owner/repo>] [--json] [--watch] [--interval <seconds>] [--max-polls <n>] [--gh <absolute-path>]',
     '',
-    'Reports a pull request CI / review / mergeable state, plus review (inline) and issue comments.',
+    'Reports a pull request CI / review / mergeable state, comments, and unresolved review threads.',
     'Default: a one-shot snapshot. --json prints the structured snapshot.',
     '--watch polls (default every 30s) and emits one line per state change — including a new',
-    '  review/bot comment naming its author — exiting on merged/closed or after --max-polls',
+    '  review/bot comment naming its author — exiting on merged/closed, on ALL GREEN (every',
+    '  check passed AND every review thread resolved — passing checks alone are not green),',
+    '  or after --max-polls',
     `  (default ${DEFAULT_MAX_POLLS}). It runs under a background-task supervisor; PR state has no push primitive, so polling is unavoidable (not an event-wake violation).`,
     '--gh sets the gh binary path when gh is installed outside the probed locations.',
     '',

@@ -20,6 +20,14 @@ barrier:
 - **zsh does not expand a glob held in a variable** — inline the glob
   literally rather than storing the pattern in a variable and expecting
   expansion.
+- **zsh backtick command-substitution inside quoted search/comms strings
+  mangles** — prefer `$(...)`, and pass bodies containing backticks or `$`
+  via `--body-file`, never inline.
+- **zsh does not word-split an unquoted `$var`** (`cat $files` passes one
+  joined string → "No such file") and lacks `local -n` namerefs — use zsh
+  arrays and `${(P)name}`.
+- **`rg -r` is replace, not line numbers** — `-n` is line numbers; the two
+  are one typo apart and `-r` silently rewrites the match in the output.
 - **A custom `Merge origin/...` header fails commitlint** — only
   `Merge branch …` / `… into …` are auto-ignored. Resolve a merge with a
   conventional `chore:` header instead, or the default `Merge branch` form.
@@ -28,6 +36,18 @@ barrier:
   `git checkout --ours` (blocked by the worktree-destruction guard,
   correctly). Verify the conflict's content subsumption first — "take
   ours" may lose nothing if local already migrated the other side.
+- **Run state-mutating CLIs bare first; parse later.** Piping a CLI's
+  stdout to `jq` with stderr suppressed (`cmd 2>/dev/null | jq …`) hides
+  a failure completely — the write silently didn't happen and the parse
+  of empty output looks like a clean no-op (bit live 2026-07-02: an
+  emptied commit-queue enqueue whose error the pipe swallowed). Invoke
+  the mutating command bare, read its output, then parse in a second
+  step.
+- **Strip trailing prose before parsing captured JSON.** A driver that
+  prints its JSON result followed by a one-line close verdict on the
+  same stream breaks `jq` on the capture file — `sed '$d'` the trailing
+  line (or capture the JSON artefact separately) before parsing or
+  conserving as a `.json` file.
 
 ## See also (homed elsewhere, not duplicated)
 

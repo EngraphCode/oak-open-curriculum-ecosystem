@@ -178,6 +178,22 @@ handed-off claim and the receiving agent (if known) so the team
 sees the retirement is not abandonment. The agent then ends their
 session.
 
+Where no session-scoped completion goal exists, the session simply ends.
+Where the handing-off session carries one — any host mechanism that
+evaluates that session's own terminal state (a stop-hook goal, a
+terminal-state assertion) — clearing or transferring that goal is a named
+handoff step. The goal is satisfied by the TEAM via the successor's work,
+but a session-terminal evaluator cannot see the transfer: it reads the
+handing session's disk state, which a correctly handed-off agent can no
+longer satisfy (the successor holds the work under an active claim).
+Surface the clear/transfer to the owner at the handoff; the handing
+agent's correct terminal state is then: handoff verified live, the
+clear/transfer surfaced to the owner, holding for the owner's resolution.
+Do not resume the handed-off work to satisfy the evaluator, do not
+re-argue it per fire, and do not re-check the surfaced request at the
+evaluator's fire cadence (fires are far faster than the successor's
+progress on the handed-off work).
+
 ### Handover timing — naming a successor starts the clock (owner-taught 2026-06-28)
 
 **Naming a successor STARTS the handover; the predecessor DRIVES it to

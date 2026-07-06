@@ -82,6 +82,18 @@ sidebar for a short focused exchange, a joint decision when agents need a
 shared commitment with recorder or actor follow-through, and an owner
 escalation when peer agreement cannot resolve the block.
 
+**Liveness needs injected asymmetry.** Two peers both defaulting to
+"HOLD if no reply" is a mutual-politeness deadlock — no designated
+mover, so the shared resource never clears (worked instance
+2026-06-28, a commit window). Break symmetry with a deterministic
+tiebreaker: first-to-commit commits the whole file and the other
+re-edits (the owner's standing cure), lowest `session_id_prefix`,
+oldest claim, or a gatekeeper seat. Where none fits, randomised
+backoff (wait a random interval, re-sense the shared state, retry)
+breaks symmetry probabilistically — an owner-directed design
+direction for claim adoption, buffer-drain ownership, and any
+"after you / no, after you" peer default.
+
 ### Coordinator Role
 
 Peer collaboration is the default. A **coordinator role** is an opt-in
@@ -96,6 +108,15 @@ symptom, not an agent count; calibration of any numerical threshold
 is held in the friction register and napkin so it can move as
 evidence accumulates.
 
+**For design and decision work, peer-pair sidebars beat
+coordinator-mediated hub-and-spoke.** The worked evidence: a four-plus-agent
+coordinator+helpers window ground to a halt — mutual waiting, thirty-one
+directed broadcasts, almost no decisions — while peer-pair sidebars resolved
+the same class of design decisions in minutes. Route logistics (commit order,
+claim scarcity, gate scheduling) through a coordinator when the chain symptom
+appears; route design and decision substance through a focused sidebar between
+the two agents closest to it.
+
 The role is a *commitment to coordinate*, not a new primitive. Any
 agent observing the chain claims it by posting a shared-comms-log
 entry naming the role and the chain symptom. Authority is bounded:
@@ -106,6 +127,21 @@ chain clears the role dissolves; the opening shared-comms-log entry
 is the durable record.
 
 ### Coordination Surface Discipline
+
+**Shared memory/state files are writable and committable by any agent, at any
+time, unconditionally.** The napkin, `distilled.md`, continuity surfaces,
+thread records, claims, comms events, and every other shared record of
+knowledge or coordination state accept writes from anyone — a
+memory-preservation or closeout write is never blocked by a claim, a
+coordination collision, or a fitness signal. These surfaces are append- and
+merge-tolerant by design, so committing a dirty shared file conserves every
+agent's appends; the deliberate trade-off accepts git-blame attribution
+ambiguity to prevent write logjams and mutual-politeness deadlocks. When two
+agents hold appends to the same file, the first to commit commits the whole
+file and the other re-edits (the injected-asymmetry tiebreaker). The
+respect-staged-bundle caveat applies to code and product artefacts only,
+never to these surfaces. (Canonical home of the repo-continuity
+"always writable and commit-includable" invariant line.)
 
 Before adding a new always-visible coordination surface, widen the regular
 state audit first. Active claims, closure history, decision threads,
@@ -133,6 +169,11 @@ themselves.
 
 Operating shape: **bounded-deadline + default-action format** on the
 comms-event; agent posts, polls briefly, acts on default if silent.
+Inter-agent communication is agent-owned and never owner-gated — never ask
+the owner for permission to message or poll another agent. Asking for help is
+a first-class use of the channel: a substantive "please do this thing I
+cannot or should not do myself" request to a capable peer, not only
+coordination or state notification.
 Owner-mediation remains the right channel for **owner-owned decisions**
 (authorisation chain lifts on owner-directed deferrals; strategic
 redirection; cross-thread scope changes). The discipline: route through the
@@ -263,8 +304,20 @@ window is claim-currency housekeeping that outlives the process, and reading it 
 agent liveness is the F-44 "freshness ≠ liveness" SAFETY bug. A claim itself is an
 **advisory, area-scoped coordination** signal over a mutable area — not the liveness
 (nor presence, nor work-state) surface; those are distinct facets. Stale claims are
-consolidation noise, not blockers. Recipes live in [state conventions][state-conventions] and
-[lifecycle][lifecycle].
+consolidation noise, not blockers.
+
+The claimed **area is a durable, repo-relative, topology-independent identity** —
+which is why claims key on `areas` while file-level mechanical coordination (the
+shared single-checkout index) belongs to the **commit queue**, which keys on
+files. One area-claim therefore serves both permanent topologies — multiple
+agents in one checkout, and multiple agents in separate worktrees — because the
+shared durable artefact is the same in both. Never regress the identity to
+copies: claiming files by absolute worktree path makes the claim
+topology-dependent and hides the shared artefact and merge-overlap it exists to
+surface; the cure for "which copy?" is raising identity to the area, not naming
+the copies. And the claim is **not the seat**: succession and seat-binding
+derive from work-state and role, never from holding a claim. Recipes live in
+[state conventions][state-conventions] and [lifecycle][lifecycle].
 
 ## Bootstrap Fast-Path
 

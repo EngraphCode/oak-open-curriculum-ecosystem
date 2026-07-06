@@ -19,6 +19,7 @@ of truth.
 | PCS | [plan-collection-structural-consistency.plan.md](plan-collection-structural-consistency.plan.md) | Bring all plan collections to canonical lifecycle structure (ADR-117) | 📋 Planned (audit complete, execution deferred) |
 | OAC | [operational-awareness-and-continuity-surface-separation.plan.md](operational-awareness-and-continuity-surface-separation.plan.md) | Repo-local awareness plane: separate canonical continuity contract, workstream resumption briefs, and thread-aware tactical track cards | 🔄 ACTIVE (promoted 2026-04-20) |
 | PC | ~~practice-convergence.plan.md~~ | Align Practice Core, local surfaces, and outgoing Context so documented standards are enforced | ✅ Complete (deleted) |
+| CMD | [claude-memory-buffer-drain.plan.md](claude-memory-buffer-drain.plan.md) | Dedicated knowledge-curation drain of the Claude per-user memory buffer (240 entries) into repo doctrine homes, executing the PDR-124 backlog | 🔄 ACTIVE (2026-07-03) |
 
 Strategic context: [roadmap.md](../roadmap.md)
 
