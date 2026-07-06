@@ -446,3 +446,37 @@ Frictions worth curing at the tool layer:
 - **Never hardcode the `/Users/...` scratchpad path in written script CONTENT** — the
   machine-local-path guard (correctly) blocks it. Pass the path as argv.
 - `comm` needs sorted inputs; newest-first lists mean `tail` silently cuts the NEWEST rows.
+
+## 2026-07-06 — statusline/footer diagnostic session (Wyvern seeks Clinker)
+
+Light diagnostic session: /statusline request → found the statusline is repo-owned, then
+diagnosed a missing native footer PR badge. No code changed; owner fixed the bricked hooks
+mid-session (dist rebuild). Two capture-worthy items:
+
+- **Corroborating instance of the dist-brick above** (same day, different seat): session
+  opened with every Bash call fail-closed on "canonical hook policy did not contain
+  hooks.preToolUse.blocked_patterns" — the stale-dist guard-vs-policy schema mismatch the
+  Cricket lifts Echo entry documents. PLUS a new observability gap: the statusline-setup
+  sub-agent read `.claude/logs/hook-errors.log` and found only a fail-OPEN entry (2026-07-05,
+  missing artefact) — the live fail-CLOSED brick left NO log trace. The guard runner logs the
+  degrade path but not the crash path; a future brick is invisible in the log designed to
+  record it. Strengthens the "guard self-heal / fail-open on schema-parse miss" candidate.
+- **Grounded facts on the Claude Code native footer PR badge** (for whoever hits this next):
+  the badge is Claude Code's own chrome, NOT the statusline command's output — a custom
+  statusLine renders in its own row ABOVE the footer badges and cannot suppress them (docs:
+  code.claude.com/docs/en/statusline). PreToolUse hooks gate only the model's tool calls,
+  not the CLI's internal PR lookup. Verified 2026-07-06 with ALL preconditions met — PR #304
+  open non-draft for `feat/corpus_research_enhancements` (binding recorded in `.git/config`
+  `github-pr-owner-number`), `gh` auth green, upstream tracking set — yet the badge was
+  absent, so the cause is Claude-Code-internal (stale session state or version/surface
+  support). Repo config exonerated first-hand; next probe is a fresh session on a current CLI
+  version, then /bug with this evidence.
+
+Closeout bookkeeping (owner-scoped light handoff): no ADR/PDR candidate (the guard self-heal
+candidate pre-exists in the Cricket entry; this session only strengthens it), no open
+questions, no claim to close (none registered — diagnostic session). Entry-point sweep clean
+(CLAUDE/AGENTS/GEMINI canonical). Per-user Claude MEMORY.md not present post-drain; platform
+plan surface present, nothing authored this session. Consolidation gate: napkin now ~490
+lines — past its ~400 rotation threshold from the two 2026-07-06 sessions' appends; deep
+consolidation due on the next dedicated pass (owner scoped THIS close to light notes), not
+run here. pnpm check verdict recorded below when the run completes.
