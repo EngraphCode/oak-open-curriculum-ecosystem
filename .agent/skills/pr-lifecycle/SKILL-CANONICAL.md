@@ -128,7 +128,8 @@ work or hold; the watcher wakes you.
 ## Phase 7 — Merge-ready is a declaration with a gate
 
 Merge-ready means, re-verified at the declaration instant: all checks green
-AND zero unresolved review threads AND the Sonar quality gate passing. Then:
+AND zero unresolved review threads AND the Sonar quality gate passing AND any
+genuinely required review landed (the author-dependent leg below). Then:
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — all checks green AND every review thread resolved (fixed, or
