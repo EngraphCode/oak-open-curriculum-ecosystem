@@ -15,6 +15,19 @@ You are authoring or editing a document, comment, plan, or code that makes a
 claim about the EEF corpus — a field, value, vocabulary, mapping, relationship,
 or cardinality — or you are otherwise touching `EEF_TOOLKIT_DATA`.
 
+## Source Strategy Is Owner-Shaped
+
+When a new authoritative source overlaps this corpus (owner-settled
+2026-06-12, the DfE statistics API): the repo's posture is **multi-source
+complementarity** — each source stays whole and authoritative for what it
+is (an evidence synthesis and a statistics estate are different epistemic
+objects even where fields overlap). Never frame an overlapping source as
+a replacement: which sources a product draws on is source strategy, an
+owner decision like feature shaping. Sweep drafts for "replacement",
+"supersede", or "relieve X of carrying" framing before presenting; flag
+any genuine supersession question as an owner decision to ask, never
+assert.
+
 ## Action
 
 The EEF corpus (`EEF_TOOLKIT_DATA`, declared `as const` in

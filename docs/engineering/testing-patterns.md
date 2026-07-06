@@ -89,6 +89,30 @@ Compliant tests to use as templates:
 
 ---
 
+## A Test That Needs Real IO Is a Product Defect
+
+When a unit or integration test seems to need real IO, the product code
+lacks a dependency-injection seam (ADR-078) — a product defect, not a
+test-writing inconvenience. The fix is to refactor the product to be
+testable (route the read/write through an injectable dependency, as
+sibling modules already do) and inject an in-memory fake — never to leave
+the IO in the test, and never to treat the refactor as out-of-scope
+("if you need to refactor code to make it testable that is a good thing —
+that is surfacing an architectural issue and fixing it"; owner,
+2026-06-13).
+
+## Real-Content Backstops for Transforms
+
+For any generator, transform, extractor, or content firewall, **green
+fixtures are not proof**: fixtures encode the cases you already thought
+of, and the real source carries the ones you didn't. Add a backstop that
+runs on the real source — a generation-time assertion or a real-content
+test — and inspect the real output before calling the transform done
+(worked instances 2026-06-30: fixtures passed twice while the real
+generated body carried a routing coupling and a structure leak that only
+grepping the real content caught). For a separation or firewall that
+encodes a principle, the real-content check IS the proof.
+
 ## Test File Classification
 
 Test classification is based on what the test actually does,
@@ -151,6 +175,30 @@ This is the rendered-output specialisation of testing-strategy's "test
 behaviour through public interfaces; assert effects, not internal
 constants". (Owner-corrected twice in one session, 2026-06-29.)
 
+The same discipline covers **owner-tunable values** (a separator glyph, a
+colour, a cosmetic label, a display string): a test that hard-codes one
+asserts configuration, not behaviour, and breaks on every free owner
+change. The cure is DI-for-testability (ADR-078): make the value a
+parameter with a default, have the test **inject a probe value and assert
+the probe renders** — default-independent — and keep the default as
+editable config no test references. Verify by grepping the tests for the
+default value: zero matches (worked instance 2026-06-15: a statusline
+separator pinned literally across a suite broke on every glyph change;
+the probe-injection cure ended the churn).
+
+## Flaky-Test Disposition
+
+Evaluate a flaky test before silencing it: is it a good test (describes a
+system state per `tdd-as-design`)? A good-intent test with a fragile,
+environment-coupled assertion gets its **assertion fixed to prove visible
+behaviour** (e.g. strip ANSI and assert the visible text — a colour-support
+split once made the same source green in a no-colour run and red in a colour
+one); a genuinely bad test (proves types, mirrors implementation, tests the
+mock) gets **deleted**. Never skip, retry-wrap, or loosen a flake — the
+wrapper silences the signal without curing the coupling; the only
+dispositions are fix-the-assertion or delete (see
+[`no-skipped-tests`](../../.agent/rules/no-skipped-tests.md)).
+
 ## Acceptance Value-Proxies
 
 Acceptance value-proxies must compare against independent ground-truth
@@ -178,6 +226,18 @@ naming an independent ground-truth measure are tautological and fail
 under normal churn (any drift looks like baseline error rather than
 proxy error). Reject the framing at plan-author time, not at WS
 execution.
+
+## Testability Seams Must Not Bypass the Gate Under Test
+
+A convenience seam added to make a guarded surface testable — a CLI
+override flag, a mode env var, a directory redirect — can itself become a
+bypass of the very gate or backstop the test exists to prove, or a leak
+path for ambient disk state (`.env.local` via global `process.env`) into
+tests. When adding a testability seam to a protective surface, review it
+as product attack surface: can the seam disable the protection in
+production invocations, and does the test still prove the gate fires with
+the seam present? Inject configuration explicitly (DI) rather than adding
+ambient overrides — see `no-global-state-in-tests`.
 
 ## Test Configuration Gotchas
 

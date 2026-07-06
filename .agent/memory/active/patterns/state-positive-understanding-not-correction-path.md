@@ -21,10 +21,11 @@ barrier:
 After being corrected, the failure is to write the correction path into
 the copy: a tombstone ("isn't X, doesn't need to be X"), over-explaining
 that reuses your own contemplative imagery, narrating a journey to a
-reader who never held the misconception. A sibling failure: reaching for
-validity-asserting hedges — "legitimately", "honest residual", "this
-legitimately stays" — to *defend* a state you don't actually believe is
-right, instead of stating what is true or changing it.
+reader who never held the misconception. A sibling failure is reaching for
+validity-asserting hedges to defend a state you don't actually believe is
+right — the canonical catalogue and discipline live in
+[`no-hedging-vocabulary`](../../../rules/no-hedging-vocabulary.md)
+§validity-asserting vocabulary.
 
 ## The cure
 

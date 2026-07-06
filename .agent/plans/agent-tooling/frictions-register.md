@@ -2314,6 +2314,11 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: extend the F-108 coordination-home default to `claims close` (`--closed` →
   `closed-claims.archive.json`); make `--summary` optional with a derived default; emit an
   actionable usage line on exit 2. Same F-41/F-85 relative-path + discoverability class.
+- **Corroboration (2026-07-02, Rosemary stirs Bracken)**: two further asymmetries in the same
+  surface — `claims close` requires `--now` while `claims open` defaults it (the F-89 fix landed
+  one-sided), and a `--summary` containing an apostrophe exits 2 through the pnpm wrapper (no
+  `--summary-file` escape; use apostrophe-free summaries meanwhile). Fold both into the cure:
+  default `--now` on close as on open; add a `--summary-file` option or fix the wrapper quoting.
 - **Target surface**: `agent-tools/src/collaboration-state/` claims-close arg-parsing + path
   defaulting.
 - **Status**: open.
@@ -2394,6 +2399,173 @@ below is a cross-reference index, not a second source of truth.
   non-empty file.
 - **Status**: open (documentation-level; behaviour is the platform's).
 
+### F-112 — `commit-queue -- commit` spawned `git commit` dies at the depcruise→turbo stream handover; the proper commit path is broken
+
+- **Source**: first observed 2026-06-17; reproduced twice 2026-07-03 (Sardine spins
+  Estuary) — once with the hook streaming live, once with the parent command's
+  stdout/stderr redirected to a file, so the redirect does NOT cure the spawned-child
+  case. `bash .husky/pre-commit` exits 0 standalone each time: the gates are green and
+  the failure is the workflow's child-process stream handling, not the hooks.
+- **Surface**: every `pnpm agent-tools:commit-queue -- commit` invocation from a
+  Claude Code session — the move-3 landing step of the commit skill's four-move
+  protocol.
+- **Observed**: the internally-spawned `git commit` exits 1 with output truncated at
+  the `depcruise → turbo` handover; no commit lands; the workflow's verify-staged
+  bookends and auto-complete never run.
+- **Expected**: the workflow lands the commit, or fails with the child's real error.
+- **Posture (owner directive 2026-07-03, "no fallbacks, ever — do it properly or
+  error"; `principles.md` §Strict and Complete, "No shims, no hacks, no workarounds —
+  do it properly or do not")**: the workflow's failure is an ERROR to stop on and
+  surface — never a trigger for an equivalent-effect route (direct `git commit`,
+  manual staging surgery). The commit skill's former fallback guidance is withdrawn
+  (amended same commit as this entry).
+- **Candidate cure**: fix the spawned-process stdio handling in the agent-tools
+  commit-queue workflow (likely backpressure on the live-piped child stream at the
+  point turbo takes over the tty; capture the child's output to a buffer/file and
+  replay, rather than live-piping). TDD cycle against a long-output child process.
+- **Status**: fixed 2026-07-03 at `b2ae96898` (per
+  `f-112-commit-workflow-stream-truncation-fix.plan.md`). Mechanism pinned by
+  instrumented runs: Node's child-stdio pipes are libuv socketpairs; one on the spawned
+  git's stderr poisons the hook chain (hook shell takes SIGPIPE at the depcruise→turbo
+  handover; `set -e` exits 1 silently). Cure: `runInheritedProcess` gives children
+  file-backed stdio and replays the conserved streams on completion, reporting exit code
+  and signal distinctly. Proof: the blocked reconciliation bundle landed through the
+  workflow (`c14866649`), then the fix commit itself (`b2ae96898`, exit 0, hook output
+  conserved end-to-end); two real gate failures during landing surfaced with full
+  output — the truncation used to swallow exactly these. Queue-workflow commits from
+  Claude Code are unblocked, including the memory-drain plan's loop commits.
+
+### F-113 — `commit-queue enqueue`/`guard` usage text omits required `--id`; `guard` error names the claim kind but not the re-enqueue cure
+
+- **Source**: napkin 2026-07-03 (Mistral seeks Jetstream, F-112 execution session) — each
+  omission cost one retry.
+- **Surface**: `pnpm agent-tools:commit-queue -- enqueue` and `-- guard`.
+- **Observed**: both commands require `--id` (the PDR-027 UUID, PDR-076a) but their usage
+  text omits it — "missing required --id" surfaces only on failure. Separately, `guard`
+  binds to the INTENT's claim, so an intent enqueued against a files-boundary claim fails
+  guard; the error names the claim kind but not the cure (re-enqueue the intent against
+  the `git:index/head` claim).
+- **Expected**: usage text lists every required flag; the guard error names the
+  re-enqueue-against-commit-window-claim cure.
+- **Candidate cure**: add `--id` to both usage strings; extend the guard claim-kind error
+  with the one-line cure. F-72..F-80 option-surface sibling.
+- **Target surface**: `agent-tools/src/` commit-queue arg-parsing usage/error strings.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-114 — `commit-queue verify-staged` cannot represent a staged rename
+
+- **Source**: napkin 2026-07-03 (Mistral seeks Jetstream) — a staged `git mv` during the
+  F-112 landing.
+- **Surface**: `commit-queue` intent/staged bundle comparison (`verify-staged`,
+  pathspec-scoped commit).
+- **Observed**: a staged rename records an `R100\told\tnew` name-status line which the
+  bundle comparison parses as one path, so an intent naming both rename sides fails
+  verify ("missing: <old>") and an intent naming only the new side would split the
+  rename at pathspec-commit time.
+- **Expected**: a staged rename verifies against an intent naming both sides (or the
+  documented canonical side) and commits atomically.
+- **Candidate cure**: teach the bundle parser and pathspec narrowing the `R` name-status
+  entry shape. Lossless workaround used this instance: two workflow commits (add the
+  copy, then delete the original) — proper-path, no bypass.
+- **Target surface**: `agent-tools/src/` commit-queue staged-bundle parsing.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-115 — comms-seen heartbeat path derivation diverges: CLI uses the display name verbatim; the rule doc and legacy files model kebab-case
+
+- **Source**: napkin 2026-07-03 (Mistral seeks Jetstream); corroborated by rescued
+  discovery candidate C140 (2026-07-02 salvage — coordination surfaces keying on display
+  name corrupt under rename/same-name sessions; instances post-date the PDR-027
+  name-plus-UUID amendment, a fires-despite-home signal at the tooling layer).
+- **Surface**: `comms assert-watcher-live`, the `claims open` F-95 backstop, the
+  `comms-all-channels-watcher` rule §Seen-file convention, `comms-seen/` legacy files.
+- **Observed**: the CLI derives the heartbeat path from the DISPLAY name verbatim
+  (`Mistral seeks Jetstream.json.heartbeat.json`) while the rule doc's convention section
+  and every pre-existing seen-file model kebab-case (`vanilla-stirs-spore.json`).
+  `claims open` has no path override by design, so a kebab-case-armed watcher passes
+  assert (via `--heartbeat-file`) yet still blocks the claim.
+- **Expected**: one convention, derived in one place, keyed on the stable identity (the
+  PDR-027 UUID or a deterministic slug), not the mutable display name.
+- **Candidate cure**: either the CLI kebab-cases (and migrates legacy files) or the rule
+  doc + legacy files adopt display-name — decided once, with the rename-stability
+  argument favouring a UUID-anchored or slug-derived path. Working cure until then: arm
+  the watcher with the display-name `--seen-file` (quoted).
+- **Target surface**: `agent-tools/src/collaboration-state/` seen-path derivation +
+  `comms-all-channels-watcher.md` §Seen-file convention.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-116 — `commit-queue guard` rejects the commit-window claim when its area-pattern is spelled `git:index/head`
+
+- **Source**: napkin 2026-07-03 (Vega mends Oblivion, ws1b landing) — cost one claim
+  close/reopen cycle.
+- **Surface**: `claims open` (area shape) × `commit-queue guard` (`claimCoversGitIndexHead`,
+  `agent-tools/src/commit-queue/guard.ts`).
+- **Observed**: the guard matches `area.kind === 'git'` AND normalized patterns containing
+  exactly `index/head`; a claim opened with `--area-pattern "git:index/head"` (the label the
+  commit skill's prose uses throughout) fails with "is not an active git:index/head claim" —
+  the error repeats the very label that caused the mismatch.
+- **Expected**: either the guard accepts the composed `git:index/head` spelling, or
+  `claims open` normalises it, or the error names the cure ("open the claim with
+  --area-kind git --area-pattern index/head").
+- **Candidate cure**: normalise the `git:` prefix off patterns under `kind: git` at
+  claims-open or guard time; extend the guard error with the exact open command. Skill-side
+  mitigation landed 2026-07-03 (the commit skill now states the flag spelling at the
+  ceremony step).
+- **Target surface**: `agent-tools/src/commit-queue/guard.ts` + claims-open normalisation;
+  commit skill (mitigated).
+- **Status**: open (skill-side mitigated 2026-07-03).
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-117 — `commit-queue enqueue --claim-id` rejects a mistyped UUID with an opaque `unknown claim_id`
+
+- **Source**: napkin 2026-05-22 window, rescued via the 2026-07-02 discovery run's
+  unclustered-leaf stratum (w10-L10), dispositioned 2026-07-03 (Gust hunts Headwind).
+- **Surface**: `commit-queue enqueue` (claim-id validation).
+- **Observed**: copying a claim UUID assembled from the first half of one claim id and the
+  second half of another produces a plausible-looking but nonexistent UUID; enqueue fails
+  with only `unknown claim_id`, and finding the transposition took manual character-level
+  string comparison against the registry.
+- **Expected**: the error names the nearest active claim id(s) (prefix match or edit
+  distance) or at least echoes the active claim ids for the agent's identity, so a
+  near-miss is visible without manual diffing.
+- **Candidate cure**: on unknown claim_id, list the caller's active claim ids in the error;
+  optionally flag a close prefix match as a likely copy error.
+- **Target surface**: `agent-tools/src/commit-queue/` claim resolution error path.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-118 — comms-watcher heartbeat path convention: the assert derives the display-codename path; kebab seen-files fail the liveness check
+
+- **Source**: Sardine spins Estuary, 2026-07-03 (n=2 re-entry) — three watcher
+  restarts before `assert-watcher-live` went green.
+- **Surface**: `comms watch` + `comms assert-watcher-live` + the `claims open`
+  comms-blind refusal gate (all key on the heartbeat location).
+- **Observed**: `assert-watcher-live` derives the expected heartbeat from the
+  session display codename verbatim — `comms-seen/Sardine spins
+  Estuary.json.heartbeat.json` (spaces, capitals) — while a watcher started
+  with a kebab-case `--seen-file` writes its heartbeat elsewhere, so the
+  assert reports "watcher not running" against a running watcher. Peer
+  sessions' seen-files in the same directory are kebab-case
+  (`vanilla-stirs-spore.json`), so the convention is inconsistent across
+  sessions or the assert derivation changed. Adjacent paper cut: `comms send`
+  accepts no `--kind` / `--session-prefix` flags (title/body/platform/model +
+  `--tag` only); nearby examples drift from the live CLI surface.
+- **Expected**: one canonical seen-file/heartbeat naming, derived by a single
+  shared function in the watcher, the assert, and the claims gate — or
+  `comms watch` defaults its seen-file to the assert's derived path so
+  conformance is automatic.
+- **Workaround (verified)**: start the watcher with the display-name seen-file
+  (`--seen-file ".../comms-seen/<Display Name>.json"`), or pass
+  `--heartbeat-file` explicitly to the assert.
+- **Candidate cure**: shared path-derivation function consumed by watcher,
+  assert, and claims gate; align legacy kebab files at the next curator pass.
+- **Target surface**: `agent-tools/src/collaboration-state/` comms watch /
+  assert-watcher-live path derivation.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
 ---
 
 ## Mitigated / Addressed Frictions
@@ -2463,3 +2635,24 @@ into the appropriate lifecycle directory:
 
 When an item is addressed by a commit, update its `Status` line with the
 commit SHA and the closing plan reference.
+
+### F-119 — `claims open` writes rows with no `status` field, so status-keyed jq probes silently miss live claims
+
+- **Source**: Mistral holds Cumulus, 2026-07-04 (memory-drain Stratum C) — a
+  `jq 'select(.status=="active")'` over `active-claims.json` returned nothing
+  while a live claim existed; cost one failed close and a registry probe.
+  Conserved from that session's napkin capture at the 2026-07-04 rotation.
+- **Surface**: `claims open` (row shape) vs ad-hoc registry reads (jq probes,
+  peer scripts, glance surfaces).
+- **Observed**: active rows carry no `status` key (reads as `null`); rows in
+  `closed-claims.archive.json` DO carry status-like closure fields, so an
+  agent generalising from the archive shape filters the active registry on a
+  key that never matches and concludes no claims exist — the blind spot is
+  silent (empty result, exit 0).
+- **Expected**: either active rows carry an explicit `status: "active"` at
+  open time, or the schema/docs state plainly that liveness is the row's
+  presence in `active-claims.json` (and freshness is `claimed_at`/
+  `heartbeat_at`), never a status key.
+- **Workaround (verified)**: select on presence — match by
+  `agent_id.session_id_prefix` or filter `.status == null or .status ==
+  "active"`; treat presence-in-file as the liveness signal.

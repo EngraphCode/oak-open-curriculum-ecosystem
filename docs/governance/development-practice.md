@@ -8,7 +8,7 @@ split_strategy: 'Extract growing sections to dedicated governance docs by respon
 
 # Development Practice
 
-**Last Updated**: 2026-02-28  
+**Last Updated**: 2026-07-04  
 **Status**: Active guidance
 
 NEVER disable checks of any kind, ever.
@@ -37,6 +37,14 @@ convenience workflows for local human development.
 Where the quality gates reveal an issue, the issue must be fixed,
 regardless of the location or cause. There is no such thing as an
 acceptable failure, ever.
+
+An enforcement-scope gap is not a requirement gap. Repo-wide standards
+(Result over throw, strict types, the rule corpus) govern every workspace
+regardless of where a lint rule happens to be wired; "not enforced here"
+never implies "not required here". A missing or narrowly-scoped binding is
+itself a defect — flag it and prefer the structural cure (extend the
+enforcement), and never read an inherited non-conforming local convention as
+ratified exemption.
 
 NEVER disable any quality gates or Git hooks.
 
@@ -132,6 +140,17 @@ The expanded examples and cures live in
 
 [arch-excellence]: ../../.agent/directives/principles.md#architectural-excellence-over-expediency
 
+- **Survey the workspace before proposing new infrastructure** - Before
+  proposing a new schema, validation pipeline, parsing helper, env-loading
+  mechanism, or observability primitive, survey the existing workspace
+  packages: `ls packages/core/ packages/libs/`, read each README whose name
+  plausibly matches the capability, and grep for existing usage sites. The
+  repo has dedicated `core/`/`libs/` packages for many capabilities
+  (env schema contracts, env resolution, `Result`, build metadata, logging);
+  the right proposal is usually an extension of one of them, not a parallel
+  implementation (worked instance 2026-04-25: a proposed app-local Sentry env
+  schema duplicated `@oaknational/env` and `@oaknational/env-resolution`; the
+  correct fix was a new schema inside the existing package).
 - **SOLID principles** (loosely) - Focus on single responsibility and dependency inversion
 - **Clean Architecture** (loosely) - Separate concerns into layers
 - **Strict boundaries** - Clear interfaces between modules, no leaky abstractions
@@ -141,6 +160,17 @@ The expanded examples and cures live in
   results; the app layer is responsible for observability. SDKs must
   not instantiate loggers or log internally. Pass results up; the
   app inspects and logs via its own logger instance.
+
+### Coordination Topology
+
+- **Design for many checkouts on many machines by default** - for any
+  coordination-state, path-resolution, or identity feature, the
+  multi-checkout worktree topology (ADR-197) is the case to satisfy
+  first; a single checkout is the degenerate case that satisfies it
+  trivially. Resolving a path by walking up from the current directory
+  lands in the LOCAL checkout — in a many-checkout world, the wrong
+  registry. When tempted to simplify with "currently we run one
+  checkout", that framing is the tripwire to re-ground, not a licence.
 
 ## Refactoring Principles
 
@@ -237,10 +267,26 @@ the current understanding.
 - A wrapped prose line that begins with a list marker (`+`, `-`,
   `*` then a space) trips MD004/MD032 — markdownlint reads it as a
   nested list item. Never let a marker char start a wrapped line;
-  reword, rewrap, or use commas.
+  reword, rewrap, or use commas. On this misfire, `--fix` is
+  destructive: it fragments the continuous prose into a broken
+  list. Cure by rewording or rewrapping the source line yourself;
+  never blind-run the autofix over prose that trips these rules.
+- `+` is never a prose connector ("model + fixture") — write "and",
+  or "&" in tight labels. Bullets are pinned to `-` by MD004, but the
+  gate misdiagnoses a prose `+` at line-start as a mis-styled bullet
+  (previous bullet), and a mid-line `+` is invisible until a rewrap
+  moves it — so rewording connectors is a self-check before declaring
+  authored markdown done. Reserve `+` for genuine syntax inside
+  fenced code blocks.
 - A bare `|` inside a table cell breaks MD056 column counting —
   even inside inline-code backticks, even as TS union syntax
   (`<EefStrand \| EefStrandHeadline>`). Escape it as `\|`.
+- Write the plain meaning, not coined status-jargon: "safe to
+  delete", not "reclaimable". Before using a coined adjective or
+  status term, ask what it actually means for the reader and write
+  that instead (or alongside, if the term is load-bearing jargon the
+  reader already knows). Agent-authored artefacts accrete invented
+  vocabulary that reads as ceremony and forces decoding.
 - For prose artefacts (READMEs, ADR/PDR/governance bodies,
   runbooks), acceptance criteria name the _decision_ and the
   _audience outcome_ — discoverability and accuracy, not exact
@@ -281,6 +327,21 @@ the current understanding.
   build steps. Say "codegen time" for SDK generation pipeline
   steps, "runtime build" for app compilation. Never use "build
   time" unqualified.
+
+## Code That Generates Code Is Product Code
+
+Codegen, vocab-gen, and generator directories are repeatedly
+misclassified as build-scripts exempt from logger and lint
+discipline, and corrected each time: **a generator's output is
+product code, so the generator is product code** — full `no-console`
+/ logger discipline, lint, and type strictness apply. The
+script-vs-src boundary itself is governed by
+[ADR-168](../architecture/architectural-decisions/168-typescript-6-baseline-and-workspace-script-architectural-rules.md):
+workspace `scripts/` directories sit outside the unit-test surface
+with narrow, declared lint relaxations only (still TypeScript,
+type-checked, and knip-covered); complexity forces promotion into
+`src/`; and the repo root has no scripts zone at all (§5a dissolved
+it — repo validators live in `src/` as tested modules).
 
 ## Related Documentation
 

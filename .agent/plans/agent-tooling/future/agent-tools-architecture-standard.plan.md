@@ -68,14 +68,32 @@ the lowest general layer, consumed by two permanent thin surfaces.
   `assumptions-expert`. Frame the decision against ADR-178's *rationale* (drift in frequently-invoked
   session CLIs) versus a once-per-check gate, which behaves differently.
 
+  **Incoming reframe (owner conviction, 2026-07-03).** The WS0/WS1 packaging question — "where a
+  pure, consumer-general mechanism lives (`packages/core`) versus an Oak-repo policy" — should be
+  framed not only as "extract a pure kernel" but as **"recognise and re-home a mislabelled product
+  layer."** The owner's assessment is that the corpus-analysis / salvage / rescue-funnel /
+  conservation / regime / construction / graph-emission estate has become a **knowledge curation
+  and expression layer** belonging in `packages/` along seams, with agent-tools reduced to a **thin
+  CLI**, while the genuinely agent-operational subset (`pr-watch`, `hook-policy`, `commit-queue`,
+  `collaboration-state`, `validators`) stays behind that CLI. Carry this framing into WS0. Evidence
+  and the strata analysis:
+  [`corpus-generalisation-research-2026-07-03.md`](../../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md)
+  §Stratum; memory `project_corpus_instrument_is_a_knowledge_layer`. Still gated on the workspace-
+  topology decision (owner, 2026-05-09; resumes after the graph MVP tranche).
+
 - **WS1 — Author the standard as an ADR (depends on WS0).** Consolidate and extend the existing
   partial decisions — [ADR-178][adr178] (build isolation), [ADR-168][adr168] (workspace script rules),
   [ADR-041][adr041] (workspace structure), [ADR-159][adr159] (per-workspace vendor CLI ownership) —
   into one explicit standard covering: the invocation model (from WS0); one error-handling convention
   (Result everywhere vs exit-codes-at-the-boundary-with-Result-internally); permitted workspace
-  dependencies; test-artefact placement (no `*.test.js` in `dist`); gate wiring and ordering; and
+  dependencies; test-artefact placement (no `*.test.js` in `dist`); gate wiring and ordering;
   **where a pure, consumer-general mechanism lives (a `packages/core` package) versus an Oak-repo
-  policy (agent-tools)** — the framework/consumer split from `principles.md`.
+  policy (agent-tools)** — the framework/consumer split from `principles.md`; and the **workflow-
+  command shape already converged in practice**: a pure orchestrator with dependency-injected
+  primitives and no real I/O, plus a sibling runtime-wiring file (established by
+  `check-commit-skill-advisories.ts`, reapplied by `commit-workflow.ts` / `commit-workflow-runtime.ts`
+  as the default shape for new workflow commands, 2026-05-22) — the standard should ratify or
+  supersede it explicitly rather than leave it tacit.
 
 - **WS2 — Structural enforcement (depends on WS1; "absolute adherence").** Encode the standard in
   ESLint architectural rules / dependency-cruiser / repo-validators / the `config-expert` gate so a

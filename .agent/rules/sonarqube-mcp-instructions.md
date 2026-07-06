@@ -55,6 +55,10 @@ SonarQube/SonarCloud requires USER tokens (not project tokens). When `SonarQube 
 
 Use `search_my_sonarqube_projects` to enumerate accessible projects. Verify project-key spelling and the organisation prefix.
 
+### Tool prefix and gateway provisioning
+
+The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-scope server entry (in `~/.claude.json`), not from the plugin manifest — renaming or removing that server entry silently breaks the plugin's skills even though the plugin itself is untouched. Symmetrically, a disconnected Docker MCP gateway masquerades as feature-absence: the tools simply do not appear, which reads as "not supported" rather than "not connected". Before concluding a Sonar capability is missing, check the server entry and gateway connection state.
+
 ### Code analysis issues
 
 Ensure the language parameter is correct when invoking `analyze_code_snippet`. Snippet analysis does not replace full project scans — it is best for one-off snippet reasoning, not gate clearance.

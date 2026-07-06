@@ -72,6 +72,7 @@ without proportional value.
 | `.agent/rules/comms-all-channels-watcher.md`                               | trigger-loaded | Team session bootstrap                                                                           |
 | `.agent/rules/consolidate-at-second-consumer.md`                           | always-on      | —                                                                                                |
 | `.agent/rules/continuity-surface-commits-as-orphans.md`                    | always-on      | —                                                                                                |
+| `.agent/rules/design-from-impact-not-the-cowpath.md`                       | always-on      | —                                                                                                |
 | `.agent/rules/directive-file-context-budget.md`                            | always-on      | —                                                                                                |
 | `.agent/rules/documentation-hygiene.md`                                    | always-on      | —                                                                                                |
 | `.agent/rules/dont-break-build-without-fix-plan.md`                        | always-on      | —                                                                                                |

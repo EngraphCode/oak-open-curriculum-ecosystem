@@ -62,6 +62,10 @@ evolves (rarely).
 - [`executive/invoke-code-experts.md`](executive/invoke-code-experts.md) — reviewer catalogue, triage ladder, worked examples.
 - [`executive/cross-platform-agent-surface-matrix.md`](executive/cross-platform-agent-surface-matrix.md) — platform-adapter surface matrix.
 - [`executive/memory-state-substrate-contracts.md`](executive/memory-state-substrate-contracts.md) — human-facing host-local substrate instance for `.agent/state/`, `.agent/memory/`, generated read models, and historical roots; strict data lives beside it in `memory-state-substrate-contracts.manifest.json` and `memory-state-substrate-contracts.schema.json`; portable specification lives in PDR-050.
+- [`executive/agent-collaboration-channels.md`](executive/agent-collaboration-channels.md) — at-a-glance register of communication and coordination channels.
+- [`executive/agent-capability-vocabulary.md`](executive/agent-capability-vocabulary.md) — audience and governance vocabulary for agent-facing capability surfaces.
+- [`executive/collaboration-state-placement-contract.md`](executive/collaboration-state-placement-contract.md) — which substance-kind belongs in which collaboration-state file.
+- [`executive/owner-signal-interpretation.md`](executive/owner-signal-interpretation.md) — channel semantics for owner direction: hedges, demonstrated actions, supersession vs extension, session-scoped defaults, silence and pauses.
 
 **Read trigger**: ad-hoc lookup when performing an action the surface
 governs (adding an artefact, picking a reviewer, checking platform

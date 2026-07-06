@@ -41,7 +41,13 @@ alternatives non-viable.
    agent genuinely has no strong basis for a position (early planning,
    ambiguous scope, novel domain), surfacing 2–3 approaches with
    trade-offs is the right move. This is the case the `oak-plan` skill's
-   §Before Writing item 1 is written for.
+   §Before Writing item 1 is written for. One shape-check within this
+   case: when the owner has framed the work as joint reflection —
+   thinking a doctrine or design question through *together* — even the
+   2–3-approaches form is wrong; discuss in prose (the analysis, your
+   lean, the genuine uncertainties, the real tension) and leave room for
+   the owner to reframe. The discriminator is the work's shape, not any
+   keyword.
 
 ## Illegitimate Uses (the trip-list shapes)
 
@@ -54,6 +60,18 @@ alternatives non-viable.
 - "Do these look fine?" after analysing them oneself.
 - Quizzing the owner to ratify a verdict already evidenced in context.
 - Asking what to prioritise when the brief already names the priority.
+- Asking permission to EXECUTE work the owner already directed. Directed work
+  is self-authorising: the trigger to execute it is the boundary reached
+  (budget spent, work complete, successor pre-positioned), not a fresh go.
+  A clear owner directive also covers its sub-cases — apply it; a real
+  nuance in a sub-case is worth noting, not gating on a re-confirmation.
+  (Applying a directive within its plain scope is this item; a reading
+  that EXTENDS its scope is the forced-verdict boundary in §Diagnostic —
+  surface that as the question.)
+  (The inverse guard still holds: a hedged owner statement is not execution
+  authorisation — see
+  [`owner-signal-interpretation.md`](../memory/executive/owner-signal-interpretation.md)
+  §"A Hedged Owner Statement Is Not Execution Authorisation".)
 - Writing a durable artefact's STATUS line as a deferral ("for owner
   ratification", "awaiting owner review") when the verdict exists. A
   reviewed, execution-ready plan's status is "READY FOR EXECUTION"; a
@@ -61,12 +79,46 @@ alternatives non-viable.
   todo-level gate inside the artefact, never the artefact's status.
   This rule applies to durable-artefact status lines, not only
   user-facing questions.
+- Writing "owner directs X" / "owner sign-off required for X" into any
+  coordination artefact (handoff, plan, pre-positioning brief) without
+  citing where the owner reserved X — an uncited reservation is an
+  invented gate (worked instance 2026-06-11: an invented "owner directs
+  transfer timing" idled a grounded successor ~5 hours; the standing
+  successor naming WAS the authorisation). At reading time an uncited
+  gate is a question to resolve, not an obligation to obey. The genuine
+  owner-gate is rare (see §Legitimate Uses — e.g. feature/product
+  shaping, a spend authorisation, a genuinely-unforced value call), and
+  an existing mechanism (owner-controls-push) is often the real citable
+  gate; what ratified doctrine already mandates is executed, not
+  re-asked.
 
 ## Diagnostic
 
 The reliable tell: *could the agent rank these options by evidence
 already in context?* If yes, the quiz is evasion. Either commit to the
 verdict, or do the missing analysis until ranking is possible.
+
+The boundary runs the other way too: before stamping a verdict "forced",
+ask what is forcing it. A verdict is genuinely forced only when value and
+the surface's function leave one option. If the forcing rests on your own
+interpretation of an owner or org directive's scope, or on inherited
+artefacts (landed code, a convergent handoff, a green test), it is not
+forced — interpreting the directive's scope is the owner's call; surface
+the interpretation as the question (worked instance 2026-06-08: a
+"forced" attribution-stripping verdict rested on a convenient reading of
+a no-PII directive; the owner reversed it). The more the reading eases
+the work, the more suspect it is.
+
+The same boundary governs citable owner gates from the other side: a
+genuine owner-owned transition (a go-ahead, a prerequisite declared
+ready) cannot be manufactured by working — doing the gated work yourself
+is a category error, not acceleration. And the more decision-complete the
+brief, the stronger the false pull to read completeness as permission:
+completeness is a rush-amplifier, and the smoothness of "it's this
+detailed — just run it" is the fluency tripwire to re-check the gate, not
+confirmation to proceed (the general doctrine is
+[`metacognition.md`](../directives/metacognition.md) §Fluency Is a
+Warning).
 
 ## Pre-Pose Viability Check
 
@@ -77,13 +129,36 @@ the same judgement you would apply if no owner were present:
 2. Ask whether you would actually take that option yourself.
 3. Remove every option you would refuse to take.
 4. Count the survivors:
-   - **Zero**: keep analysing; you do not yet have a viable action.
+   - **Zero**: keep analysing; you do not yet have a viable action. When
+     zero arises because every variant presupposes a freshly-forbidden
+     pattern, the question is never "which violation" — it is "how does
+     the work-shape adopt the new insight": reshape the workstream rather
+     than asking the owner to authorise a violation.
    - **One**: state the verdict and invite correction, not selection.
    - **Two or three**: `AskUserQuestion` is legitimate if the choice still
      belongs to the owner under the legitimate-use criteria above.
 
-Options that fail this screen are not respectful alternatives. They are
+One further screen on the survivors (owner-sharpened 2026-06-13: "if there
+is a recommended answer I will choose that, so just assume I already have"):
+a **recommendation-bearing decision is not a question**, even when several
+options are defensible. If you can name a recommended option, state it as
+the settled disposition and proceed — the owner overrides if they disagree.
+Only genuine no-recommendation forks, where the owner's preference is the
+deciding input (feature shaping, release taste), survive to the question
+surface.
+
+Options that fail these screens are not respectful alternatives. They are
 anti-shapes offered as owner work.
+
+The form for what survives: once something IS a genuine owner decision,
+pose it as an explicit question (AskUserQuestion) with the recommended
+option first and the analysis attached — never as a recommendation
+embedded in a prose report the owner must notice. The question form is
+the owner's "I am needed" signal (owner-stated 2026-06-11), and in team
+sessions it is the only reliably-seen channel: a fork buried in a dense
+comms window drowns (owner-corrected 2026-06-27, "surface questions as
+QUESTIONS, or they become lost"). Ratified sign-off classes carry no
+default.
 
 ## What to Do Instead
 
@@ -112,9 +187,15 @@ The sharpest costume is **precedent- or source-framing used as cover**: hunting
 for a precedent, or framing a recommendation as merely "one source's view", to
 manufacture a fork where none exists. A unanimous reviewer recommendation plus
 clear owner intent makes a decision gate a **confirmation, not a fork** — do not
-re-open it as a menu. And when a correction lands, generalise the **root** on the
-*first* correction and re-audit in-flight work for siblings, rather than patching
-the single instance and waiting to be corrected again.
+re-open it as a menu. The same invention recurs one layer down after a genuine
+dissolution: when the architecture removes a conflict outright (e.g. layering by
+degree of coupling removes "optimise for X vs Y" choices), do not hunt a smaller
+"residual" trade-off beneath it to hand the owner. The balanced-residual frame
+arrives smoothly precisely because it bypasses the no-conflict check; the
+simplest correct answer is often that there is no decision to make. And when
+a correction lands, generalise the **root** on the *first* correction and
+re-audit in-flight work for siblings, rather than patching the single
+instance and waiting to be corrected again.
 
 ## Doctrinal Anchors
 

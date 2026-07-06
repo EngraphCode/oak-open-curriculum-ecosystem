@@ -35,6 +35,13 @@ is constitutively the owner's (for example product or feature scope):
    dissolves the problem, rather than solving it inside the current shape.
 5. **Optimise for user value.**
 
+A question arriving as an either/or is usually a false frame (owner standing
+directive, 2026-06-29): reject the binary out of hand, run the lenses over the
+real problem, and find the third option that transcends both — or do both
+(immediate relief and the structural cure are a sequence, not a choice). When
+a lens genuinely excludes one side, the third option captures the excluded
+side's *intent* without building it.
+
 These resolve *questions*. They sit alongside standing concerns that are never
 traded away — excellent developer experience, excellent **agent experience** (the
 agent-facing substrate is a product whose users are agents; see
@@ -71,6 +78,13 @@ surfacing options to the owner or a peer agent, do not include a
 "cheap cure" / "quick fix" / "land it then iterate" option as
 if it were a legitimate trade-off; presenting it as one is
 itself the failure mode.
+
+The same failure mode has a quieter tell: a deferential opt-out
+clause appended to an answer the principle has already forced,
+reopening the forced answer as if it were a trade-off. When
+excellence has forced the answer there is nothing to surface,
+only something to settle — state the move and the reasoning, and
+settle it.
 
 The doctrine is operationalised through composing structural
 defences:

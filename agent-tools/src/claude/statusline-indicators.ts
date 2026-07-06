@@ -31,19 +31,24 @@ const TEAM_OBSERVING_ICON = '\u{1F440}';
 const ARC_WING = '\u{1FAB6}';
 
 /**
- * Format the identity segment, suffixing the Director demark when this session's
- * fresh claim carries the director role. Undefined identity drops the segment
- * (and the demark with it — a directorship needs an identity to resolve).
+ * Format the identity segment as `<name> (<session_id_prefix>)`, suffixing the
+ * Director demark when this session's fresh claim carries the director role.
+ * The prefix is the cross-repo join key (names are per-estate derivations —
+ * inter-Practice protocol, identity-display clause); a missing prefix renders
+ * `unknown` per PDR-027 rather than dropping silently. Undefined identity drops
+ * the whole segment (and the demark with it — a directorship needs an identity
+ * to resolve).
  */
 export function formatIdentity(
   identity: string | undefined,
+  identityPrefix: string | undefined,
   ownRole: string | undefined,
 ): string | undefined {
   if (identity === undefined) {
     return undefined;
   }
   const demark = ownRole === 'director' ? ` ${DIRECTOR_MARK}` : '';
-  return `${MAGENTA}${identity}${RESET}${demark}`;
+  return `${MAGENTA}${identity} (${identityPrefix ?? 'unknown'})${RESET}${demark}`;
 }
 
 /**

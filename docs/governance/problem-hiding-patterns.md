@@ -17,6 +17,15 @@ Both are instances of the broader rule: fix it or delete it. Adapters,
 compatibility layers, and half measures are problem-hiding patterns when their
 purpose is to make old or dead shapes appear acceptable.
 
+An unused symbol is a useful entropy signal; suppressing it preserves the
+entropy while removing the alarm. Investigate the root cause before choosing a
+cure: often the missing wiring is the bug (use it), or the dead branch is the
+bug (remove it) — and where retention is genuinely justified, document the
+explicit architectural tension (e.g. conformance to a generated signature)
+rather than renaming. When a reviewer, sub-agent, or auto-fix suggests the
+underscore rename, push back — the auto-fix is the wrong shape for this
+codebase.
+
 Concrete cures:
 
 - When a destructure-rest produces an unused capture, build the fixture

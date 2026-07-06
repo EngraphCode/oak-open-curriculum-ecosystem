@@ -43,13 +43,34 @@ function normaliseEntry(entry: RawBlockedPattern): BlockedPatternEntry {
 }
 
 /**
+ * Compile a regex-mode pattern fail-open: an invalid pattern yields `null`
+ * (no match) rather than an exception, because a throwing guard bricks the
+ * worktree on a stale-dist/new-policy mismatch — the same posture as the
+ * optional doctrine fields. The canonical-policy integration test enforces
+ * compilability at commit-time, so this branch is a safety net, not the
+ * intended path.
+ */
+function compileRegexPattern(pattern: string): RegExp | null {
+  try {
+    return new RegExp(pattern, 'iu');
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Match a blocked pattern against a command — by token subsequence by
- * default, or by case-insensitive substring for entries with
- * `match: 'substring'`.
+ * default, by case-insensitive substring for entries with
+ * `match: 'substring'`, or by case-insensitive regex over the raw command for
+ * entries with `match: 'regex'`.
  *
  * Token subsequence catches reordered Git arguments such as
  * `git push origin HEAD --force` for the policy pattern `git push --force`;
- * substring mode catches shapes hidden inside one quoted token. Each entry may be a bare pattern
+ * substring mode catches shapes hidden inside one quoted token; regex mode
+ * exists for fingerprints that must anchor on a token boundary — a
+ * whitespace-stripped substring for a command-plus-flag shape collides with
+ * unrelated tokens (the PR #304 Bugbot instance: a needle of `rg` + `-r`
+ * matching inside `xorg -restart`). Each entry may be a bare pattern
  * string or an object carrying a doctrinal citation; the citation is surfaced
  * in the deny payload so the agent learns *why* the pattern is forbidden, not
  * only *that* it is.
@@ -66,31 +87,53 @@ export function findBlockedPattern(
   for (const blockedPattern of blockedPatterns) {
     const entry = normaliseEntry(blockedPattern);
 
-    // Substring mode exists because token equality cannot see inside quoted
-    // arguments: the 2026-06-11 founding DOS command carried its busy-loop as
-    // one quoted token, sailing past a token-sequence trip for the same shape.
-    if (entry.match === 'substring') {
-      if (strippedCommand.includes(entry.pattern.toLowerCase().replaceAll(/\s+/gu, ''))) {
-        return entry;
-      }
-      continue;
-    }
-
-    const patternTokens = tokenizeCommand(entry.pattern);
-    let patternIndex = 0;
-
-    for (const commandToken of commandTokens) {
-      if (commandToken === patternTokens[patternIndex]) {
-        patternIndex += 1;
-      }
-
-      if (patternIndex === patternTokens.length) {
-        return entry;
-      }
+    if (entryMatchesCommand(entry, command, strippedCommand, commandTokens)) {
+      return entry;
     }
   }
 
   return null;
+}
+
+/** Dispatch one entry to its match strategy. */
+function entryMatchesCommand(
+  entry: BlockedPatternEntry,
+  command: string,
+  strippedCommand: string,
+  commandTokens: readonly string[],
+): boolean {
+  // Substring mode exists because token equality cannot see inside quoted
+  // arguments: the 2026-06-11 founding DOS command carried its busy-loop as
+  // one quoted token, sailing past a token-sequence trip for the same shape.
+  if (entry.match === 'substring') {
+    return strippedCommand.includes(entry.pattern.toLowerCase().replaceAll(/\s+/gu, ''));
+  }
+
+  // Regex mode probes the RAW command: whitespace is load-bearing for
+  // boundary-anchored fingerprints, so no stripping here.
+  if (entry.match === 'regex') {
+    return compileRegexPattern(entry.pattern)?.test(command) === true;
+  }
+
+  return matchesTokenSubsequence(entry.pattern, commandTokens);
+}
+
+/** Token-subsequence match: pattern tokens appear in order among command tokens. */
+function matchesTokenSubsequence(pattern: string, commandTokens: readonly string[]): boolean {
+  const patternTokens = tokenizeCommand(pattern);
+  let patternIndex = 0;
+
+  for (const commandToken of commandTokens) {
+    if (commandToken === patternTokens[patternIndex]) {
+      patternIndex += 1;
+    }
+
+    if (patternIndex === patternTokens.length) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**

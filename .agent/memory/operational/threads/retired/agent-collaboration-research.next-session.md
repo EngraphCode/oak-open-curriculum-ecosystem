@@ -92,8 +92,14 @@ keep hard-fail). **Cast for the closeout:** Galleon calls Surf → Whirlwind rid
 claim `c6ba82c8`, relinquished at closeout). **Remaining (ongoing curator work, NOT this session):** the
 **1,707 coordination events** past the 7d window stay LIVE in `comms/` — they are `awaiting curator
 disposition`, never auto-moved (absorption gate: body-read required; the `3cc1fb93` falsifier protection;
-37 of them are `body-read-required` long-bodied heartbeat-ends). The next archive-move RUN is the
-coordination tier, post-body-read; verification recipe + the `comms-archive/.gitkeep` dir-anchor fact +
+37 of them are `body-read-required` long-bodied heartbeat-ends).
+**[Substrate correction 2026-07-03 (corpus-generalisation review, R1): these events are no longer
+on live disk — the removal is unexplained and unrecorded (the WS7 untrack preserved them on disk;
+no later record accounts for it). The work-list stands; the corpus substrate is the git tree at
+`255117a43^` (5,202 events) — re-materialise before the curator pass. Evidence:
+`.agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md`.]**
+The next archive-move RUN is the coordination tier, post-body-read; verification recipe +
+the `comms-archive/.gitkeep` dir-anchor fact +
 the git-independence of the move are conserved below (§"WS7 closeout — conserved findings"). The archived
 2,390 live on-disk-only (gitignored) per ADR-199's archive-retained-never-tracked end state; their signal
 is conserved in the 2b cadence aggregate `.agent/reference/comms-heartbeat-cadence.md`.
@@ -517,6 +523,9 @@ curation obligation the untrack relies on; the live-instance lesson is exactly t
 - **Grounded knowledge for the next curator pass (the coordination tier).** The remaining work is the
   **1,707 coordination events** past the 7d window: `awaiting curator disposition`, never auto-moved
   (absorption gate — body-read required; 37 are `body-read-required` long-bodied heartbeat-ends).
+  **[Substrate correction 2026-07-03: no longer on live disk (unexplained, unrecorded removal —
+  corpus-generalisation review R1); re-materialise from the git tree at `255117a43^` first. The
+  pre-count step below then runs against the re-materialised snapshot, not the live dir.]**
   Verification recipe for any future `--execute`: pre-count `comms/*.json` + `comms-archive/*.json`; run;
   re-count and assert `count(comms)+count(comms-archive)==pre-move`; `git status` must show ZERO tracked
   diff (both dirs gitignored); spot-check one moved id present-in-archive/absent-in-comms; assert manifest

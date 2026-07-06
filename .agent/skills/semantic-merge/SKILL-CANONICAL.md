@@ -20,6 +20,43 @@ incoherently, drop one session's entry, or duplicate content. The result satisfi
 but corrupts the knowledge. **A human-level reconciliation of the concepts is required —
 you must do it, git cannot.**
 
+## Both the tool AND the merger can be confident and wrong
+
+"Git cannot" (above) invites a false inference — that the *agent* doing the hand-merge is
+the reliable party. It is not, and trusting it as such is how a careful semantic merge still
+loses meaning. Both parties fail the same way: **confident and wrong.**
+
+- **Git** is confident and wrong when a clean auto-merge — few or no conflict markers —
+  combines the *text* fine but breaks the *meaning*: two `Current State` blocks, a duplicated
+  identity row, entries out of order, a now-dangling link. Absence of a marker is not evidence
+  of correctness.
+- **The merging agent** is confident and wrong when its loss-scan is bounded by the invariant
+  classes it *thought to check*. An empty heading set-diff (step 7) proves no *entry* was
+  dropped; it does **not** prove no *invariant* was violated, and it cannot enumerate the
+  checks the agent never ran. "I merged everything" is the agent's version of the missing
+  conflict marker — a felt completeness that was never grounded. Completeness here is
+  **structurally unprovable**, for the same reason a handoff author cannot self-verify its own
+  loss-scan
+  ([PDR-011](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md),
+  `verify-dont-trust`, [[ground-convenient-claims]]): the party who performed the merge shares
+  the frame whose gaps it would have to stand outside to see.
+
+So neither the conflict-marker set nor the agent's own set-diff is a completeness certificate.
+Two mandatory consequences:
+
+1. **The safeguard is a reviewable diff read by someone who holds the invariants** — a second
+   agent or the owner — never the merge algorithm and never the author's own scan. Emit the
+   merge as a reviewable diff (never a silent `gh pr merge`); the review is the catch.
+2. **State the verdict as "no *known* invariant violated," never "provably complete."** The
+   known classes to check beyond dropped entries (non-exhaustive by construction — extend it):
+   a duplicated index block or table/identity row; an additive-identity row that should have
+   coalesced; an ADR/PDR/plan/friction **numbering collision** (different filenames make it
+   invisible to the merge); a moved/deleted-file **reference cascade** (navigation or
+   prescription mode); **cross-file coupling** where a one-side file depends on the other's
+   continuity edit; a **silent compile break** in adjacent code that text-merged clean — only
+   `pnpm type-check` and the tests on the *merged tree* settle that, never the textual
+   `merge-tree`.
+
 ## When this fires
 
 Whenever a memory or state file has diverged on two branches or sessions and a merge,

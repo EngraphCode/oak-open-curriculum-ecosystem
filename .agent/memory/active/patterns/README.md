@@ -169,9 +169,17 @@ surface that makes later governance or enforcement honest.
 
 **Source code** is concrete: a specific const map for specific HTTP status codes. **Patterns** are abstract: the principle of using const maps to replace runtime conversions that mirror compile-time type transformations. Patterns describe the shape of the solution, not the domain-specific implementation.
 
+## Index Maintenance
+
+The entire Pattern Index section below — headings, per-category lists,
+and counts — is **GENERATED from pattern frontmatter**. Never hand-edit
+it: the pre-commit `validate-patterns-index` gate refuses hand-edited
+drift. After adding or changing a pattern file, regenerate with
+`pnpm --filter @oaknational/agent-tools validate-patterns-index:fix`.
+
 ## Pattern Index
 
-### Code (23)
+### Code (24)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Throw That Only Narrows a Too-Wide Return Type → Strengthen the Type, Not Route to Result** -- Use this when: Migrating a throw to a Result type (or auditing error handling) and the throw exists only to narrow a too-wide upstream return type — its error arm would be permanently unreachable. → [throw-as-narrowing-artifact-strengthen-the-type.md](throw-as-narrowing-artifact-strengthen-the-type.md)
@@ -181,6 +189,7 @@ surface that makes later governance or enforcement honest.
 - **Const Map as Type Guard** -- Use this when: a runtime conversion mirrors a compile-time type transformation and all possible values are known at generation or build time. → [const-map-as-type-guard.md](const-map-as-type-guard.md)
 - **Drift Detection Test** -- Use this when: A manually maintained list should match a canonical source but cannot be derived due to structural constraints, or repo-state drift needs detecting between maintained copies and canonical sources. → [drift-detection-test.md](drift-detection-test.md)
 - **Explicit DI Over Ambient State** -- Use this when: You are tempted to use AsyncLocalStorage, module-level singletons, or thread-local context to propagate request-scoped data through a call chain. → [explicit-di-over-ambient-state.md](explicit-di-over-ambient-state.md)
+- **File-Backed Stdio for Spawned Gate-Running Children** -- Use this when: Spawning git commit or any hook/gate-running child from Node and its output truncates or the chain dies silently mid-hook. → [file-backed-stdio-for-spawned-gate-children.md](file-backed-stdio-for-spawned-gate-children.md)
 - **Generic Factory for DI Composition** -- Use this when: A DI interface exposes multiple factory functions that callers always compose in the same order. → [generic-factory-for-di-composition.md](generic-factory-for-di-composition.md)
 - **Guard the Parse Before a Threshold Classification** -- Use this when: Classifying external or parsed data by a numeric threshold (age buckets, liveness states, severity bands) — gate the value's validity before any comparison, because a NaN or missing value makes every < and > false and silently selects the last/worst branch. → [guard-the-parse-before-threshold-classification.md](guard-the-parse-before-threshold-classification.md)
 - **Guarded Fire-and-Forget Cleanup** -- Use this when: You have async cleanup (close, flush, disconnect) that runs after the response is sent and cannot be awaited by the caller. → [guarded-fire-and-forget-cleanup.md](guarded-fire-and-forget-cleanup.md)
@@ -197,10 +206,11 @@ surface that makes later governance or enforcement honest.
 - **Unknown Until Validated** -- Use this when: a function produces data whose type cannot be statically verified and a validation boundary exists downstream. → [unknown-until-validated.md](unknown-until-validated.md)
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)
 
-### Architecture (12)
+### Architecture (13)
 
 - **A Sandbox Constraint Is a Build Instruction, Not a Hand-Authoring Licence** -- Use this when: A runtime surface cannot import or reuse repo code (a sandbox, an embedded script, a config DSL, a remote executor) and the impulse is to hand-write a parallel copy of logic, schemas, or prompts for it. → [sandbox-constraint-is-a-build-instruction.md](sandbox-constraint-is-a-build-instruction.md)
 - **check-code-invariants-before-designing-a-field** -- Use this when: Adding a new field, enum, taxonomy, or discriminator to existing code — enumerate the invariants the surrounding code already maintains first, then choose the new shape's axis to preserve them (the invariant-safe axis is often non-obvious). → [check-code-invariants-before-designing-a-field.md](check-code-invariants-before-designing-a-field.md)
+- **Derive a Controlled Surface From the Authoritative Data** -- Use this when: A surface you control (an enum, a parameter value space, a type, a listing page) mismatches an authoritative data source and the tempting move is a crosswalk or mapping layer between them. → [derive-controlled-surface-from-authoritative-data.md](derive-controlled-surface-from-authoritative-data.md)
 - **Explicit Missing Resource State** -- Use this when: A numeric or boolean result can be confused with a missing upstream resource, causing fail-open behaviour. → [explicit-missing-resource-state.md](explicit-missing-resource-state.md)
 - **Multi-Layer Schema Synchronisation** -- Use this when: a code generator produces multiple schema representations (JSON schema, Zod, transforms) from a single source and a change to input handling must be reflected across all layers. → [multi-layer-schema-sync.md](multi-layer-schema-sync.md)
 - **Prefer Native SDK Over Custom Plumbing** → [prefer-native-sdk-over-custom-plumbing.md](prefer-native-sdk-over-custom-plumbing.md)
@@ -212,7 +222,7 @@ surface that makes later governance or enforcement honest.
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (98)
+### Process (101)
 
 - **A Fidelity Audit Is Not a Currency Audit** *(anti-pattern)* -- Use this when: Verifying a claim that rests on an inherited surface (a record, a thread note, a prior session's framing) before relying on it. → [fidelity-audit-is-not-currency-audit.md](fidelity-audit-is-not-currency-audit.md)
 - **A Freshly-Landed Enforcement Gate's First Burndown Is Doctrine Co-Design, Not Mechanical Data-Entry** -- Use this when: Burning down the violations a newly-landed enforcement gate (validator, lint rule, scanner) reports for the first time — the impulse is to 'watch the count fall to zero', but the first burndown is where the gate's doctrine meets reality. → [report-first-gate-burndown-is-doctrine-application.md](report-first-gate-burndown-is-doctrine-application.md)
@@ -228,6 +238,7 @@ surface that makes later governance or enforcement honest.
 - **Adversarial Pre-Spend Verification of One-Way Actions** -- Use this when: About to take a one-way, costly, or unrecoverable action — launching a large fleet/workflow run, an irreversible migration, a bulk send — whose artefacts you authored yourself. → [adversarial-pre-spend-verification-of-one-way-actions.md](adversarial-pre-spend-verification-of-one-way-actions.md)
 - **Adversarially Verify Your Own Synthesis in Long Analytical Work** -- Use this when: Deep, multi-turn analytical / research / survey work where you are building a synthesis over many sources and about to present conclusions as settled. → [adversarially-verify-own-synthesis.md](adversarially-verify-own-synthesis.md)
 - **An Indiscriminate-Rule Warning Count Is Cause-Classes, Not N Problems** -- Use this when: A broad or indiscriminate lint/analysis rule reports a large count (hundreds/thousands of warnings) and you are deciding how to remediate. → [indiscriminate-rule-count-is-cause-classes.md](indiscriminate-rule-count-is-cause-classes.md)
+- **Atomic Relocation of Shared Substrate** -- Use this when: Moving a directory, workspace, or state surface that other agents' tooling reads live (comms dirs, registries, built CLIs) — plan the move, the repoint of every reader, and the rebuild as one atomic change. → [atomic-relocation-of-shared-substrate.md](atomic-relocation-of-shared-substrate.md)
 - **Breadth as Evasion** *(anti-pattern)* → [breadth-as-evasion.md](breadth-as-evasion.md)
 - **ChatGPT report normalisation** -- Use this when: Recovering an LLM-exported report from markdown, DOCX, and PDF copies into durable repo-quality markdown. → [chatgpt-report-normalisation.md](chatgpt-report-normalisation.md)
 - **Check Driven Development** -- Use this when: Writing TDD RED-phase assertions in a codebase with multiple quality gates. → [check-driven-development.md](check-driven-development.md)
@@ -240,9 +251,11 @@ surface that makes later governance or enforcement honest.
 - **Contamination Scan Method** -- Use this when: A plan, report, or memory estate may contain contaminated current-truth claims and needs a repeatable scan that separates live residue from historical mention. → [contamination-scan-method.md](contamination-scan-method.md)
 - **cross-branch-consolidation-re-derive-full-workstream** -- Use this when: Consolidating a lane or workstream from one branch onto another — drive completeness from the workstream's full definition (code plus the activating skills, rules, tests, and lessons), not just the source files you copied across. → [cross-branch-consolidation-re-derive-full-workstream.md](cross-branch-consolidation-re-derive-full-workstream.md)
 - **Cross-Session Pattern Emergence** -- Use this when: Running consolidation after multiple sessions on the same workstream, or when a user observes that insights from separate sessions form a larger picture. → [cross-session-pattern-emergence.md](cross-session-pattern-emergence.md)
+- **Crosswalk Before Reconciling Drifted Docs** -- Use this when: Two documents appear to conflict (an older brief vs a ratified plan, two doctrine surfaces describing one mechanism) and the tempting move is a bulk rewrite of one to match the other. → [crosswalk-before-reconciling-drifted-docs.md](crosswalk-before-reconciling-drifted-docs.md)
 - **Current Plan Promotion** -- Use this when: A review or planning pass has resolved 'what comes next' and the repo needs a concrete next-session entry point rather than a mere intended future direction. → [current-plan-promotion.md](current-plan-promotion.md)
 - **Deferred-at-Write-Time Is an Unmade Load-Bearing Decision** *(anti-pattern)* -- Use this when: A plan or design defers a substantive decision to implementation time ("decide at write time", "the cycle author chooses", "TBD in the implementation slice") — check whether the deferral is real flexibility or a load-bearing decision the plan owner has declined to make. → [deferred-at-write-time-is-unmade-load-bearing-decision.md](deferred-at-write-time-is-unmade-load-bearing-decision.md)
 - **Delivering a Reframing Is a Consumer-Walk, Not a Phrase-Sweep** -- Use this when: Delivering a reframing, supersession, rename, or any conceptual change across a documentation / plan estate — especially after a foundational doc moves or a controlling decision changes. → [delivering-a-reframing-is-a-consumer-walk.md](delivering-a-reframing-is-a-consumer-walk.md)
+- **Diff-Context Review Misses the Frame Above the Hunk** *(anti-pattern)* -- Use this when: Repeatedly editing one long entry, record, or section across a session (status lines, continuity entries, batch records) — before each commit, and when reviewing a diff whose hunks sit inside a larger semantic unit. → [diff-context-review-misses-the-frame-above-the-hunk.md](diff-context-review-misses-the-frame-above-the-hunk.md)
 - **Disambiguate an Overloaded Term Before Canonicalising or Sweeping** -- Use this when: Defining a canonical list for a term, running a find-and-replace sweep, or collapsing a classification axis — any time one label is about to be treated as one thing. → [disambiguate-overloaded-term-before-canonicalising.md](disambiguate-overloaded-term-before-canonicalising.md)
 - **Dissolve the Need Before Exempting a Safety Rule** -- Use this when: A fix appears to require an exemption from a hard safety rule (never-use-git-to-remove-work, the verify-skip flag, a destructive-op guard) — before self-ratifying or escalating the exemption, seek a redesign that dissolves the need for the dangerous operation entirely. → [dissolve-the-need-before-exempting-a-safety-rule.md](dissolve-the-need-before-exempting-a-safety-rule.md)
 - **Dogma Vocabulary Closes Inquiry** *(anti-pattern)* → [dogma-vocabulary-closes-inquiry.md](dogma-vocabulary-closes-inquiry.md)
@@ -328,7 +341,7 @@ surface that makes later governance or enforcement honest.
 - **Test Coverage Review Lens** -- Use this when: Reviewing the test surface around a product feature — auditing an `.e2e.test.ts` or `.integration.test.ts` file, triaging a flaky test suite, or deciding what coverage to keep when collapsing a feature's tests after refactor. → [test-coverage-review-lens.md](test-coverage-review-lens.md)
 - **test-claim-assertion-parity** → [test-claim-assertion-parity.md](test-claim-assertion-parity.md)
 
-### Agent (28)
+### Agent (29)
 
 - **Agentic Surface Separation** -- Use this when: Designing or refactoring agent infrastructure that spans skills, rules, commands, subagents, or platform adapters. → [agentic-surface-separation.md](agentic-surface-separation.md)
 - **Audit Rule Body When Extending With a New Prohibition** -- Use this when: Adding a new "X is forbidden" / "X must not appear" / "do not Y" clause to an existing rule, ADR, governance doc, or directive. → [audit-rule-body-on-prohibition-extension.md](audit-rule-body-on-prohibition-extension.md)
@@ -344,6 +357,7 @@ surface that makes later governance or enforcement honest.
 - **Honest Restructure Over Band-aid** -- Use this when: A quality gate fires mid-authoring and the first tempting fix is to bypass, guard, compress, or assert around the gate. → [honest-restructure-over-band-aid.md](honest-restructure-over-band-aid.md)
 - **Inter-Agent Sidebar with Default Action** → [inter-agent-sidebar-with-default-action.md](inter-agent-sidebar-with-default-action.md)
 - **Live Dogfooding as Directional Confirmation** -- Use this when: While building a capability, the team hits — in real time — exactly the gap or friction that capability exists to cure, and the impulse is to read the friction as a setback. → [live-dogfooding-as-directional-confirmation.md](live-dogfooding-as-directional-confirmation.md)
+- **Mechanism Without Legible Intent** *(anti-pattern)* -- Use this when: Landing or auditing an enforcement surface (rule, hook, gate, review lens) — ask where its system-level intent is legible; when agents comply with the letter, misattribute the why to a person, or cannot derive the next rule themselves, the mechanism has outrun its intent. → [mechanism-without-legible-intent.md](mechanism-without-legible-intent.md)
 - **Non-Leading Reviewer Prompts** → [non-leading-reviewer-prompts.md](non-leading-reviewer-prompts.md)
 - **Owner Course-Correct Vocabulary** -- Use this when: Receiving an owner message that contains a course-correct token, or noticing a self-trigger phrase in your own draft prose; both signal a re-grounding moment that maps to a specific canonical doctrine surface. → [owner-course-correct-vocabulary.md](owner-course-correct-vocabulary.md)
 - **Parallel `isolation:\"worktree\"` Dispatch Is Unreliable; Prefer Sequential** *(anti-pattern)* -- Use this when: Considering a parallel `Agent` batch with `isolation:\"worktree\"` for non-trivial work that depends on a specific branch HEAD or specific repo state. → [parallel-worktree-dispatch-unreliable.md](parallel-worktree-dispatch-unreliable.md)
@@ -378,7 +392,8 @@ surface that makes later governance or enforcement honest.
 
 - **Production Factories In Tests Are Ceremony Unless They ARE The Subject** *(anti-pattern)* -- Use this when: Writing or reviewing a test that imports a production factory (config loader, observability factory, SDK initialiser) to satisfy a downstream call's signature. → [production-factories-in-tests-are-ceremony.md](production-factories-in-tests-are-ceremony.md)
 
-### Build System (2)
+### Build System (3)
 
 - **pnpm Strict Hoisting Blocks Transitive Type Resolution** *(anti-pattern)* → [pnpm-strict-hoisting-type-resolution.md](pnpm-strict-hoisting-type-resolution.md)
 - **Turbo / Pre-Commit Cache False-Green** *(anti-pattern)* -- Use this when: A gate result disagrees with observed behaviour, a hook finds drift a task reported clean, or you are about to cite a cached gate run as evidence. → [turbo-cache-false-green.md](turbo-cache-false-green.md)
+- **Zero-Match False-Green** *(anti-pattern)* -- Use this when: Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets. → [zero-match-false-green.md](zero-match-false-green.md)

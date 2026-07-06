@@ -7,6 +7,14 @@ on either side, or 10+ conflicts in a dry-run merge), follow the
 [Pre-Merge Divergence Analysis](../../docs/engineering/pre-merge-analysis.md)
 guide before attempting the merge.
 
+The scope is set by the trigger above, not by branch topology: two
+long-lived diverged branches (feature-vs-feature, or a stale branch against a
+fast-moving `main`) that trip the thresholds. A routine feature-vs-main
+ready-check that trips no threshold is a standard pre-merge sanity check
+(enumerate the branch's unique commits, check what landed on `main` since the
+cut, dry-run the merge) — call it that, and reserve "divergence analysis" for
+the threshold-tripping scenario this rule and the `complex-merge` skill own.
+
 Standard text-level conflict resolution misses:
 
 - **Deleted-file import cascades** — a file auto-merges from your branch but
@@ -35,4 +43,12 @@ from how many files appear in a name-status listing. The raw list is a
 discovery hint; the verdict comes from the content.
 
 For the full agent-executable workflow, use the
-[complex-merge skill](../skills/complex-merge/SKILL.md).
+[complex-merge skill](../skills/complex-merge/SKILL-CANONICAL.md).
+
+For **agent memory and state files** (`napkin.md`, `repo-continuity.md`, thread
+`*.next-session.md` records, registers — anything carrying a `merge_class:`
+frontmatter key), the hazard is different in kind: git line-merges silently
+corrupt the *meaning* even when no conflict marker appears, and both git AND the
+merging agent can be "confident and wrong". Reconcile those by CONCEPT via the
+[semantic-merge skill](../skills/semantic-merge/SKILL-CANONICAL.md), never by
+trusting the conflict count.

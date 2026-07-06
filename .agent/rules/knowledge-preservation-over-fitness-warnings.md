@@ -85,6 +85,18 @@ screen, and it carries its own discipline:
   it, and the reason the correct move is mine-then-verify — neither a
   blind delete (which can drop a live-only learning) nor blind retention
   (which lets the mirror re-introduce superseded shapes).
+- **Harvesting from FAILED or superseded content inverts the default:
+  save nothing.** The mine-then-verify discipline above is for retiring a
+  mirror of *valid* substance; when the artefact being deleted is
+  erroneous, failed, or superseded, the harvest itself is a contamination
+  vector — an ungrounded concept rides out of the dead artefact into a
+  canonical doc dressed as diligence (worked instance: a fabricated
+  data-mapping carried from a deleted transitional prompt into a ratified
+  plan, cross-cited to look grounded; owner-caught by chance). Any
+  fragment kept must independently re-ground against the source of truth
+  — "it was in the old thing" is never the bar — and the screen applies
+  hardest to fragments that fit the tidy worth-carrying frame. Detection
+  is unreliable; prevention is the only dependable control.
 
 Worked twice in 2026: the `.remember` retirement (~1,400 lines mined →
 zero orphans) and a cross-platform memory read (Codex / Cursor / Gemini
@@ -162,3 +174,8 @@ move. Never:
   clause (`.remember` retirement + cross-platform memory read as the two
   worked instances): mine-then-verify-against-canon, near-empty-harvest-
   is-success, unversioned-mirror-is-a-liability.
+- 2026-07-04 — the failed-content harvest screen graduated from per-user
+  memory (the deleted-transitional-prompt fabricated-mapping worked
+  instance): harvesting from erroneous/failed/superseded content inverts
+  the default to save-nothing, with an independent re-grounding bar for
+  any fragment kept.

@@ -35,7 +35,13 @@ on the same gates passing on the same working tree.
 - A named workstream / TDD slice you are actively working through;
 - Recoverable in the current session for small issues — formatting,
   markdownlint, lint autofix, generated read-model refresh, and similarly
-  mechanical repairs are fixed immediately;
+  mechanical repairs are fixed immediately — and fixed **regardless of
+  location**: "pre-existing", "another workspace", or "a peer's area" is not
+  an exception (respect a peer's *uncommitted in-flight substance* — the
+  canonical mechanical fix commands may touch their files freely, per
+  [`stage-by-explicit-pathspec`](stage-by-explicit-pathspec.md) — but a
+  committed red gate is yours to fix). Surface-and-wait replaces fixing only
+  when the response is a genuinely owner-gated decision;
 - Surfaced to other agents through the shared communication log
   (`.agent/state/collaboration/shared-comms-log.md`) when the breakage will outlive
   the immediate edit;

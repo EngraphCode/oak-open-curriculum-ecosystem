@@ -1,0 +1,130 @@
+{
+  "generated": "2026-07-03",
+  "source": "committed checkpoints, deterministic counts",
+  "regimes": {
+    "sonnet-notools-run": {
+      "verdicts": 984,
+      "candidates": 246,
+      "killVerdicts": 860,
+      "killVerdictRatePct": 87.4,
+      "perTestFailRatePct": {
+        "grounded": 46.7,
+        "baseRateHolds": 59.3,
+        "survivesNull": 79.9,
+        "notArtefact": 86.5
+      },
+      "failDriverAmongKillsPct": {
+        "grounded": 53.5,
+        "baseRateHolds": 67.9,
+        "survivesNull": 91.4,
+        "notArtefact": 99
+      },
+      "soleDriverCounts": {
+        "grounded": 2,
+        "baseRateHolds": 3,
+        "survivesNull": 2,
+        "notArtefact": 23
+      },
+      "lowConfidenceRatePctByTest": {
+        "grounded": 2.1,
+        "baseRateHolds": 11.4,
+        "survivesNull": 3.8,
+        "notArtefact": 4.4
+      },
+      "importanceDist": {
+        "high": 216,
+        "med": 517,
+        "low": 251
+      }
+    },
+    "opus-freetool": {
+      "verdicts": 202,
+      "candidates": 54,
+      "killVerdicts": 96,
+      "killVerdictRatePct": 47.5,
+      "perTestFailRatePct": {
+        "grounded": 11.9,
+        "baseRateHolds": 7.9,
+        "survivesNull": 36.1,
+        "notArtefact": 40.6
+      },
+      "failDriverAmongKillsPct": {
+        "grounded": 25,
+        "baseRateHolds": 16.7,
+        "survivesNull": 76,
+        "notArtefact": 85.4
+      },
+      "soleDriverCounts": {
+        "grounded": 0,
+        "baseRateHolds": 0,
+        "survivesNull": 11,
+        "notArtefact": 16
+      },
+      "lowConfidenceRatePctByTest": {
+        "grounded": 3.5,
+        "baseRateHolds": 9.9,
+        "survivesNull": 6.4,
+        "notArtefact": 7.4
+      },
+      "importanceDist": {
+        "high": 51,
+        "med": 127,
+        "low": 24
+      }
+    },
+    "sonnet-freetool": {
+      "verdicts": 31,
+      "candidates": 8,
+      "killVerdicts": 17,
+      "killVerdictRatePct": 54.8,
+      "perTestFailRatePct": {
+        "grounded": 48.4,
+        "baseRateHolds": 45.2,
+        "survivesNull": 51.6,
+        "notArtefact": 54.8
+      },
+      "failDriverAmongKillsPct": {
+        "grounded": 88.2,
+        "baseRateHolds": 82.4,
+        "survivesNull": 94.1,
+        "notArtefact": 100
+      },
+      "soleDriverCounts": {
+        "grounded": 0,
+        "baseRateHolds": 0,
+        "survivesNull": 0,
+        "notArtefact": 0
+      },
+      "lowConfidenceRatePctByTest": {
+        "grounded": 0,
+        "baseRateHolds": 0,
+        "survivesNull": 0,
+        "notArtefact": 3.2
+      },
+      "importanceDist": {
+        "high": 16,
+        "med": 13,
+        "low": 2
+      }
+    }
+  },
+  "crossRegime": {
+    "method": "candidate majority-of-verdicts keep/kill per regime (all-four-tests-pass per verdict); NOT the frozen tiered adjudication - a coarse disagreement lens only",
+    "sharedCandidates": 54,
+    "byKind": {
+      "trajectory": {
+        "n": 11,
+        "disagree": 5,
+        "opusKeepRunKill": 4,
+        "opusKillRunKeep": 1
+      },
+      "recurrence": {
+        "n": 43,
+        "disagree": 15,
+        "opusKeepRunKill": 14,
+        "opusKillRunKeep": 1
+      }
+    },
+    "totalDisagree": 20
+  }
+}

@@ -73,6 +73,20 @@ todos:
 
 ## Status: WS4A + Commit-Window Refinement Complete; WS3B Implemented (2026-04-26)
 
+**Status update (2026-06-14, owner direction at the comms-research closeout):**
+the pause-on-evidence over WS3+/WS4/WS5 is LIFTED — the evidence harvest
+completed (comms-corpus thread retired; PDR-094 + ADR-199 landed). But the
+evidence redirected the work: the rightsizing keystone M4
+([`collaboration-substrate-coordination-rightsizing.plan.md`](../future/collaboration-substrate-coordination-rightsizing.plan.md))
+now owns minimal-substrate derivation and consumes the failure-mode taxonomy.
+The owner chose a dedicated REVIEW of the remaining workstreams against M4's
+cull/fold list — keep what M4 does not cover, retire what it supersedes — not a
+verbatim resume. That crosswalk session is this plan's live next step; do not
+execute WS3+/WS4/WS5 as written below without it. The "WS5 remains paused" /
+"stays paused indefinitely" prose further down, and the ws5 todo's
+`paused-post-ws4a-observation-harvest` status, are the superseded 2026-04-26
+historical state — the crosswalk session owns restating them.
+
 WS0 (`63c66c88`), WS1 (`a5d33519`), and WS2 (`293742cd`) have landed.
 WS3 has been split under owner direction after the WS5 evidence harvest:
 

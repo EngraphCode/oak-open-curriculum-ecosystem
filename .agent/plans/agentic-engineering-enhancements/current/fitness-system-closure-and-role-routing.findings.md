@@ -348,7 +348,7 @@ proportionality, blocking legitimacy).
    inferior because it would hide the prompt to finish the retirement curation.
 6. **Plan-todo metric wiring** — verify in execution whether `item-count.ts` already
    applies to plans or needs new config; do not assume.
-7. **Closure frontier (honest residual)** — the findings/report/research genre is
+7. **Closure frontier (unmeasured by design)** — the findings/report/research genre is
    currently unmeasured by design (role = evidence). If that genre ever became a
    dumping pattern to keep buffers green, closure would need extending to it. Logged,
    not actioned.

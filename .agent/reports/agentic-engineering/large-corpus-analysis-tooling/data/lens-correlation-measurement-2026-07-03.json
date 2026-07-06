@@ -1,0 +1,166 @@
+{
+ "description": "Deterministic inter-lens vote-correlation measurement over the committed 2026-07-02 checkpoints (validate voterOutcomes + banked free-tool verdicts). Vote = all four conjunctive tests pass. phi = binary Pearson correlation per lens pair; effectiveVotesOf3 = 3 / (1 + 2*meanPairwisePhi), the design-effect approximation. Computed 2026-07-03 (Hazel rides Orchard, de9f72) as the first measurement of the PDR-122 invariant-2 independence assumption; method caveat: phi over live candidates conflates true-signal agreement with error correlation - canary-based measurement remains the instrument for error correlation specifically. Cross-regime figures use the three named lenses only, majority 2-of-3 per regime.",
+ "method": {
+  "inputs": [
+   ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/data/discovery-run-validate-result-2026-07-02.json",
+   ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/data/discovery-run-banked-freetool-verdicts-2026-07-02.json"
+  ],
+  "vote": "conjunctive keep: grounded AND baseRateHolds AND survivesNull AND notArtefact all pass",
+  "crossRegimeMajority": "2-of-3 over the named lenses (correctness-grounding, base-rate, null-reproduction); opus 'plain' votes excluded"
+ },
+ "results": {
+  "tierCounts": {
+   "tier-0": 246,
+   "tier-2": 738
+  },
+  "sonnetTier2": {
+   "lenses": {
+    "correctness-grounding": 246,
+    "base-rate": 246,
+    "null-reproduction": 246
+   },
+   "candidatesWithLensVotes": 246,
+   "pairs": [
+    {
+     "pair": "base-rate x correctness-grounding",
+     "n": 246,
+     "keepRateA": 0.093,
+     "keepRateB": 0.13,
+     "observedAgreement": 0.898,
+     "independenceExpected": 0.801,
+     "excess": 0.098,
+     "phi": 0.498
+    },
+    {
+     "pair": "base-rate x null-reproduction",
+     "n": 246,
+     "keepRateA": 0.093,
+     "keepRateB": 0.13,
+     "observedAgreement": 0.907,
+     "independenceExpected": 0.801,
+     "excess": 0.106,
+     "phi": 0.54
+    },
+    {
+     "pair": "correctness-grounding x null-reproduction",
+     "n": 246,
+     "keepRateA": 0.13,
+     "keepRateB": 0.13,
+     "observedAgreement": 0.911,
+     "independenceExpected": 0.774,
+     "excess": 0.137,
+     "phi": 0.605
+    }
+   ],
+   "meanPairwisePhi": 0.548,
+   "effectiveVotesOf3": 1.43
+  },
+  "opusFreetoolBanked": {
+   "lenses": {
+    "null-reproduction": 47,
+    "correctness-grounding": 48,
+    "plain": 54,
+    "base-rate": 48
+   },
+   "candidatesWithLensVotes": 54,
+   "pairs": [
+    {
+     "pair": "base-rate x correctness-grounding",
+     "n": 48,
+     "keepRateA": 0.458,
+     "keepRateB": 0.562,
+     "observedAgreement": 0.729,
+     "independenceExpected": 0.495,
+     "excess": 0.234,
+     "phi": 0.474
+    },
+    {
+     "pair": "base-rate x null-reproduction",
+     "n": 47,
+     "keepRateA": 0.447,
+     "keepRateB": 0.447,
+     "observedAgreement": 0.787,
+     "independenceExpected": 0.506,
+     "excess": 0.282,
+     "phi": 0.57
+    },
+    {
+     "pair": "base-rate x plain",
+     "n": 48,
+     "keepRateA": 0.458,
+     "keepRateB": 0.521,
+     "observedAgreement": 0.729,
+     "independenceExpected": 0.498,
+     "excess": 0.231,
+     "phi": 0.464
+    },
+    {
+     "pair": "correctness-grounding x null-reproduction",
+     "n": 47,
+     "keepRateA": 0.553,
+     "keepRateB": 0.447,
+     "observedAgreement": 0.723,
+     "independenceExpected": 0.494,
+     "excess": 0.229,
+     "phi": 0.463
+    },
+    {
+     "pair": "correctness-grounding x plain",
+     "n": 48,
+     "keepRateA": 0.562,
+     "keepRateB": 0.521,
+     "observedAgreement": 0.833,
+     "independenceExpected": 0.503,
+     "excess": 0.331,
+     "phi": 0.667
+    },
+    {
+     "pair": "null-reproduction x plain",
+     "n": 47,
+     "keepRateA": 0.447,
+     "keepRateB": 0.511,
+     "observedAgreement": 0.809,
+     "independenceExpected": 0.499,
+     "excess": 0.31,
+     "phi": 0.623
+    }
+   ],
+   "meanPairwisePhi": 0.544,
+   "effectiveVotesOf3": 1.44
+  },
+  "crossRegime": {
+   "comparableCandidates": 48,
+   "majorityAgreement": 0.542,
+   "disagreements": [
+    "C03",
+    "C04",
+    "C05",
+    "C07",
+    "C10",
+    "C11",
+    "C14",
+    "C15",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C21",
+    "C25",
+    "C30",
+    "C33",
+    "C35",
+    "C37",
+    "C43",
+    "C45",
+    "C47",
+    "C52"
+   ]
+  }
+ },
+ "crossRegimeNamedLensesOnly": {
+  "n": 47,
+  "majorityAgreement": 0.596,
+  "sonnetKillOpusKeep": 18,
+  "sonnetKeepOpusKill": 1
+ }
+}

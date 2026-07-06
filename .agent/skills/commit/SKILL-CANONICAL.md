@@ -232,11 +232,21 @@ direct CLI commands for inspection and recovery.
    fingerprint.
 
    ```bash
-   # Resolve the session's UUID v5 id once (PDR-076a):
+   # Open the commit-window claim FIRST with the pattern spelled bare:
+   #   claims open --area-kind git --area-pattern "index/head" ...
+   # The composed label "git:index/head" is kind + pattern; guard's
+   # matcher wants the bare pattern and rejects the composed spelling
+   # (frictions F-116).
+   #
+   # Resolve the session's UUID v5 id once (PDR-076a). Suppress stderr
+   # rather than tail-skipping lines: the pnpm banner goes to stderr on
+   # some harnesses, so `tail -n +2` can eat the JSON's first line.
    AGENT_ID=$(pnpm -s agent-tools:collaboration-state -- identity preflight \
      --platform "<platform>" --model "<model>" \
-     | tail -n +2 | jq -r '.agent_id.id')
+     2>/dev/null | jq -r '.agent_id.id')
 
+   # Note: enqueue prints a bare intent UUID (not JSON) — capture it
+   # directly, do not pipe it to jq.
    pnpm agent-tools:commit-queue -- enqueue \
      --claim-id "<claim-id>" \
      --agent-name "<name>" --platform "<platform>" --model "<model>" \
@@ -264,15 +274,21 @@ direct CLI commands for inspection and recovery.
    creates a fingerprint-recursion loop.
 
 3. **Land the commit** via the workflow primitive. Write the drafted
-   message to a file (typically `.git/COMMIT_EDITMSG`), then invoke a
-   single command that composes verify-staged → advisory orchestrator
-   → phase `pre_commit` → verify-staged-again → `git commit` →
-   `complete` intent:
+   message to an **intent-scoped scratch file** — never the shared
+   `.git/COMMIT_EDITMSG`, which is single-writer state: under
+   concurrent commits a peer's message overwrites yours and a
+   wrong-attribution commit lands (the proven multi-agent failure the
+   intent-scoped path cures). Then invoke a single command that
+   composes verify-staged → advisory orchestrator → phase
+   `pre_commit` → verify-staged-again → `git commit` → `complete`
+   intent:
 
    ```bash
+   MSGFILE="$(mktemp -t "commit-msg-<intent-id>")"
+   # write the drafted message to "$MSGFILE", then:
    pnpm agent-tools:commit-queue -- commit \
      --intent-id "<intent-id>" \
-     --message-file .git/COMMIT_EDITMSG
+     --message-file "$MSGFILE"
    ```
 
    The two verify-staged checks book-end the advisory orchestrator so
@@ -290,7 +306,13 @@ direct CLI commands for inspection and recovery.
    full.
 
    The verify-staged checks protect the authorial bundle — they do
-   not replace the repository's whole-tree quality gates.
+   not replace the repository's whole-tree quality gates. Full-tree
+   gating is intentional and correct (owner-settled 2026-05-22): the
+   worst bugs are emergent outside the changed files, so never propose
+   staged-only gating or `lint-staged`-style scope-narrowing as a cure
+   for multi-writer coordination pain — that pain is cured at the
+   queue/ordering/comms layer (sequential commit windows, the commit
+   queue), never by narrowing what the gate sees.
 
 4. **Close the commit-window claim** after every exit once opened:
    success, staging failure, message-validation failure, hook
@@ -466,9 +488,14 @@ layer.)
 
 ## Stream truncation at the depcruise → turbo handover — workaround
 
-**Scope**: Cursor Shell tool sessions, AND the `commit-queue -- commit`
-workflow's spawned git-commit in Claude Code (observed 2026-06-17). Both
-stream the pre-commit hook's output live and both hit the same artefact.
+**Scope**: Cursor Shell tool sessions only, since 2026-07-03. The
+`commit-queue -- commit` workflow's spawned git-commit case in Claude Code
+(observed 2026-06-17) was FIXED at `b2ae96898` per F-112: the mechanism was
+a Node child-stdio socketpair on the spawned git's stderr poisoning the hook
+chain (hook shell SIGPIPE at the handover; `set -e` silent exit 1); the
+workflow's `runInheritedProcess` now gives children file-backed stdio and
+replays the conserved output on completion, reporting exit code and signal
+distinctly. The workflow is the proper path and works from Claude Code.
 A plain `git commit` typed at a direct terminal is unaffected.
 
 **Observation (active 2026-04-23, Cursor)**: when `git commit` is invoked from
@@ -479,17 +506,30 @@ exact same hook directly via `bash .husky/pre-commit` exits 0 with full
 output, and running the same `git commit` invocation with stdout/stderr
 redirected to a file completes cleanly with the commit landing.
 
-**Observation (active 2026-06-17, Claude Code commit-queue)**: the same
-truncation hits the `pnpm agent-tools:commit-queue -- commit` workflow — its
-internally-spawned `git commit` streams the hook live and dies at the
-`depcruise → turbo` handover with `git commit exited with code 1`, output
-truncated mid-hook, no commit landing. It reproduces across retries (it is not
-a cold-cache timeout). The disambiguation is the same: `bash .husky/pre-commit`
-exits 0 standalone, proving the gates are green and the failure is the spawned
-live-stream, not the hook. Cure: fall back to a direct `git commit -F <msgfile>`
-with output redirected to a file (hooks intact, no `--no-verify`); then record
-the queue intent's outcome and close the `git:index/head` claim manually with
-the landed SHA, since the workflow's own `complete` step never ran.
+**Observation (2026-06-17, reproduced and FIXED 2026-07-03, Claude Code
+commit-queue)**: the same truncation hit the
+`pnpm agent-tools:commit-queue -- commit` workflow — its internally-spawned
+`git commit` died at the `depcruise → turbo` handover with
+`git commit exited with code 1`, output truncated mid-hook, no commit landing,
+including with the parent's output redirected to a file. Instrumented runs
+(F-112 plan, 2026-07-03) pinned the mechanism named in the Scope note above;
+the fix landed at `b2ae96898` and the workflow now lands commits from Claude
+Code with hook output conserved. If this section's symptom ever recurs on the
+workflow path, that is a regression of F-112 — stop and surface it; the
+no-fallback posture below still applies.
+
+**No fallback (owner directive 2026-07-03; `principles.md` §Strict and
+Complete — "No shims, no hacks, no workarounds — do it properly or do not")**:
+when `commit-queue -- commit` fails here, that is an ERROR to stop on and
+surface to the owner — do NOT land the commit by an equivalent-effect route
+(direct `git commit`, manual index surgery). Transition the intent to
+`abandoned` with stage-named notes, close the commit-window claim with the
+failure reason, and surface the defect. The defect is tracked as
+[F-112](../../plans/agent-tooling/frictions-register.md) — the cure is fixing
+the workflow's spawned-process stdio handling, not routing around it. (A prior
+revision of this section documented a direct-commit fallback; that guidance is
+withdrawn — it was the equivalent-effect workaround the no-fallback principle
+forbids.)
 
 **Workaround**: redirect stdout/stderr to a temporary file and inspect
 the tail after the command completes:

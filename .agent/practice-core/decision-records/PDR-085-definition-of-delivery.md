@@ -5,7 +5,8 @@ pdr_kind: governance
 # PDR-085: Definition of Delivery
 
 **Status**: Accepted (amended 2026-06-12 — instrument and discovery
-deliverables named; owner-approved at the 2026-06-11 register walk)
+deliverables named; owner-approved at the 2026-06-11 register walk;
+amended 2026-07-04 — certification reads the non-goals)
 **Date**: 2026-05-27 (Proposed); 2026-05-27 (Accepted — owner-elevated after
 the first application exercised the doctrine on the EEF gate-1a delivery plan)
 **Related**:
@@ -86,6 +87,21 @@ immediate consumer has not delivered, regardless of what it produced.
 **The not-delivery list (pointed):** merged code, a green gate, an open
 review, a checked plan item, code on a branch, and a registered-but-orphaned
 surface are NOT delivery. They are scaffolding or producer milestones.
+
+**Certification reads the non-goals (2026-07-04 amendment).** When asked
+whether completing a deliverable delivers its value, trace the runtime
+bridge from the deliverable to the named beneficiary — never only the
+deliverable's own acceptance criteria. A plan can be complete per its
+definition of done yet deliver nothing: the undelivered spans hide in the
+plan's non-goals section and in successor plans (a proof landed behind a
+gate whose flip is a non-goal is LANDED, not RELEASED). Read those
+surfaces explicitly before certifying "this delivers value" — certifying
+honesty needs the same evidence discipline as finding faults. And walking
+the bridge beats flagging it: when the runtime proof is within reach
+(start the system, exercise the path end-to-end, observe real output),
+repeatedly flagging the proof as "open" is deferral dressed as diligence
+— tests-green proves the units, never that the assembled running thing
+delivers.
 
 **Instrument and discovery deliverables (2026-06-12 amendment).** Work whose
 purpose is to enable exploration or measurement — an evaluation instrument, a

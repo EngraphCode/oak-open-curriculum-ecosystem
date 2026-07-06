@@ -85,17 +85,25 @@ New shared-state writes use the
 - keep lifecycle writes sequential unless the helper provides a transaction;
 - keep hooks as later polish. TTL cleanup is the portable baseline.
 
-The canonical communication-event directory is `comms-events/`; the older
-`comms/events/` path is legacy historical state. Do not create new events in
-the legacy path. Merges reconcile both eras as `exclusive-create-fragments`.
+The canonical communication-event directory is
+`.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
+fragments as `exclusive-create-fragments`.
 
-Comms events are owner-preserved pending a dedicated comms research plan. Routine
-consolidation must not process or delete event files by calendar age; age is no
-longer a lifecycle trigger for `.agent/state/collaboration/comms/`. When the
-owner opens explicit comms-corpus research / retention work, process before any
-deletion: read the event body, route durable substance to napkin, distilled,
-patterns, pending graduations, or permanent docs, record item-level disposition
-evidence, and remove source events only if that approved plan authorises it.
+Comms-event rotation is the class-tiered, archive-not-delete curator pass
+ratified by ADR-199 / PDR-094 (the earlier blanket preservation hold ended
+when the comms-corpus research plan's WS7 executed the first rotation,
+2026-06-14). Rotation never deletes: events past their class retention window
+archive-move into the gitignored `comms-archive/`, gated on a recorded
+per-event disposition (absorption), the provenance check, and the class
+tiers — see `consolidate-docs` step 3a for the operative gates.
+
+**Design constraint — every shared memory/state surface assumes
+parallel-session reality.** Surfaces are versioned, append/merge-tolerant,
+and multi-slot; a single-session-baton design (one slot handed between
+sessions, consumed on read) is a proven failure shape — write-clobber,
+consume-wipe, and wrong-project scoping retired the `.remember` plugin
+(owner-directed, 2026-06-04) in favour of the versioned multi-slot canonical
+surfaces this file indexes.
 
 ## Session-Close and Resume Semantics
 

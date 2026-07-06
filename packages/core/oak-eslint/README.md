@@ -87,6 +87,22 @@ declarations. When `strict.ts` overrides a rule from `recommended.ts`, all
 entries from the recommended declaration are silently lost. The `strict`
 config must replicate all restricted type entries from `recommended`.
 
+### Activating new rules
+
+"Autofixable" idiom rules are not automatically safe: Sonar idiom rules
+(S7765 prefer-includes, S7755 prefer-at — implemented in this repo via the
+matching `unicorn/*` rules, see `recommended.ts`) are **type-affecting, not
+stylistic** — their autofixes can force type-unsound rewrites (one broke an
+ADR-153 `value is X` type-guard). When activating a new rule:
+
+- Land it at `error` only when the same commit clears every violation with
+  **type-sound** fixes — review each autofix's type effect, never bulk-apply.
+- If the violation surface cannot be cleared soundly in one commit, wire the
+  new rule at `warn` initially; escalating to `error` is a separate, later
+  decision (standing owner preference). This applies to NEW rules only —
+  downgrading an existing `error` rule to `warn` remains forbidden
+  (`never-disable-checks`).
+
 ## Usage
 
 This plugin is consumed internally by workspaces in this monorepo via

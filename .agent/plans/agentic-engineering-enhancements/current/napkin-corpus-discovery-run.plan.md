@@ -24,31 +24,50 @@ todos:
     status: done
     depends_on: [probe-gate, harden-run-orchestration]
   - id: full-discovery-run
-    content: "OWNER-AUTHORISED ACTION (one-way; likely >13M given the ~80-120-candidate projection). Four checkpointed stages on the REBUILT TypeScript tooling, each seeded from committed checkpoints by `pnpm build-run-artefact` (zod-validated; typed-envelope results committed back to the tooling data/ dir): (a) map (throttled MAP_CONCURRENCY=4 + jitter; result carries mapComplete — a partial map cannot seed reduce) -> commit map-result; (b) reduce from the map-result -> commit reduce-result (a reduce failure re-runs from the SAME checkpoint, no map re-spend); (c) validate --ceiling 30000000 (hard-abort is a typed pre-dispatch refusal; candidate-granular resume derives resolved ids from prior committed validate-results) -> commit validate-result(s); (d) meta over the merged dispositions (the merged-set completeness gate is structural in the builder) -> commit meta-result. Runbook: the tooling README."
-    status: pending
+    content: "OWNER-AUTHORISED ACTION (one-way; likely >13M given the ~80-120-candidate projection). Four checkpointed stages on the REBUILT TypeScript tooling, each seeded from committed checkpoints by `pnpm build-run-artefact` (zod-validated; typed-envelope results committed back to the tooling data/ dir): (a) map (throttled MAP_CONCURRENCY=4 + jitter; result carries mapComplete — a partial map cannot seed reduce) -> commit map-result; (b) reduce from the map-result -> commit reduce-result (a reduce failure re-runs from the SAME checkpoint, no map re-spend); (c) validate --ceiling 30000000 (hard-abort is a typed pre-dispatch refusal; candidate-granular resume derives resolved ids from prior committed validate-results) -> commit validate-result(s); (d) meta over the merged dispositions (the merged-set completeness gate is structural in the builder) -> commit meta-result. Runbook: the tooling README. EXECUTED 2026-07-01/02 (Perseus wakes Oblivion; owner authorised the validate-all fork at 62M): map f9bcf2700, reduce 8f6729491, validate 820d03a25, meta 420081c9c — all four checkpoints committed. The validate regime failed calibration; aftermath owned by the salvage plan (closure recorded 2026-07-04)."
+    status: done
     depends_on: [launch-preflight-and-cost-reconciliation]
   - id: post-run-driver
     content: "Deterministic post-run driver (reconstructed from the module; FROZEN math, calls only). Strict re-parse (parseVoterOutcome/parseCandidate/parseMetaOutput) -> findRecallIntegrityViolations (must be empty) -> recallReport -> meetsGraduateGate({minStrictWithinRemit:0.6,minLooseWithinRemit:0.85}) -> checkMapCoverage -> ADDITIVE temporal-coverage check (each longitudinal candidate's supportingWindows actually span the breadth it claims) -> corroborateAgainstHomes -> independently recompute every disposition by replaying adjudicate."
-    status: pending
+    status: done
     depends_on: [full-discovery-run]
+    closure: "RAN during salvage ws1 (2026-07-02, Rosemary stirs Bracken): the corroboration cwd defect fixed first (e18516265, 0/18 -> 18/18), then the deterministic driver produced the salvage tier table (A18/B8/C18/D18/E187, residual 0) — the recall report and gate evaluation are in the discovery/salvage report; the FAILED gate routed the arc to salvage rather than graduation."
   - id: discovery-artefacts
     content: "Substance report (napkin-discovery-pass-1-2026-06-29.md shape) WITH novelty stratification — separate the novel-and-uncorroborated kept candidates (the actual discovery yield) from those re-confirming existing homes. Plus a curator-pass run-record (2026-06-29-wren-napkin-discovery-pass.md metadata shape)."
-    status: pending
+    status: done
     depends_on: [post-run-driver]
+    closure: "DELIVERED as the salvage report with novelty stratification plus the committed tier table (discovery-run-salvage-report-2026-07-02.md and data/discovery-run-salvage-tiers-2026-07-02.json)."
   - id: build-conservation-buffer
     content: "The named hand-off step: one entry per kept/rerouted candidate carrying its grounding, its corroborateAgainstHomes result (does a durable home exist?), and a routing hint (new home vs enrich existing). Makes the conservation hand-off a step, not a hope."
-    status: pending
+    status: done
     depends_on: [post-run-driver]
+    closure: "DELIVERED in evolved form: the salvage tier table IS the conservation buffer (per-candidate grounding, corroboratedBy, tier routing), consumed as the plan-carried rescue-set work-list per consolidate-docs Discovery-Run Rescue Sets."
   - id: conserve-and-graduate-or-decide
     content: "Feed the buffer to consolidate-until-done — THAT conservation is the run's success. Read the Choice-B verdict as confidence-in-the-instrument: PASS -> graduate the method as a corpus-parameterised capability (PDR-120 runbook + PDR-035 adopting PDR; the capability travels to the comms-events corpus next, possibly planning). A recall MISS does NOT auto-trigger a re-run — assess whether the tuning gap cost real discovery; re-tune-and-rerun only if it did, else graduate with the gap named. No holding state."
-    status: pending
+    status: done
     depends_on: [discovery-artefacts, build-conservation-buffer]
+    closure: "DELIVERED via the salvage plan's full-processing mandate: ws1b (A-D, 59) plus ws1c-ws1g plus ws1d tier E (187/187), complete 2026-07-04 with the set-level acceptance verified. The Choice-B instrument verdict: the validate regime failed calibration, and the method's future is SUPERSEDED into the corpus-generalisation Phase 0 (the knowledge-curation-platform re-rooting) rather than graduated as a v2-shaped capability; the calibration evidence is banked as Phase 0 input."
 ---
 
 # Napkin corpus discovery run
 
-> **STATUS: tooling REBUILT as standard TypeScript (2026-07-01/02, Perseus wakes Oblivion) on the
-> owner's direction; `full-discovery-run` is the next (owner-authorised) action.** The hand-authored
+> **STATUS: CLOSED — the run EXECUTED and its aftermath is fully dispositioned (recorded
+> 2026-07-04, Otter hunts Jetty, owner-ratified supersession pass).** The owner-authorised
+> `full-discovery-run` HAPPENED 2026-07-01/02 (Perseus wakes Oblivion): map 580 leaves →
+> reduce 246 candidates → validate 26 keep / 220 kill → meta, all checkpoints committed under
+> the tooling `data/` dir. The validate regime **FAILED calibration** (11/18 known-real
+> baselines found-then-killed), so the aftermath ran through the salvage-and-topology-redesign
+> plan instead of this plan's graduate leg: the deterministic driver ran (corroboration cwd
+> fix landed), the salvage tiers became the conservation buffer, and the full-processing
+> mandate dispositioned every stratum (complete 2026-07-04, tier E 187/187). The
+> method-graduation step is SUPERSEDED by the corpus-generalisation re-rooting (the owner's
+> knowledge-curation-platform conviction; Phase 0 owns the instrument's future shape). Do NOT
+> re-run the >13M action from this plan — it is spent and its evidence is banked. Per-todo
+> truthful closures below; this banner supersedes the pre-run banner retained beneath it.
+>
+> Pre-run banner (historical): tooling REBUILT as standard TypeScript (2026-07-01/02, Perseus
+> wakes Oblivion) on the
+> owner's direction; `full-discovery-run` is the next (owner-authorised) action. The hand-authored
 > `.mjs` templates, mirrors, and launch-time splicing are deleted: the four stages compile from
 > `agent-tools/src/corpus-analysis/workflows/` and are seeded from committed checkpoint JSONs by
 > `pnpm build-run-artefact` (zod-validated at the boundary; the partial-map refusal, the resume-id

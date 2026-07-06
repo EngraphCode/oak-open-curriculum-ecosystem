@@ -56,3 +56,25 @@ barrier:
   at build → stage-projected → compact-inlined into the artefact by the
   build, with a stage discriminant so wrong-stage seeding is a
   zero-spend typed failure (PDR-122 invariant 5).
+- **The schema forces the RETURN VALUE, not the tool surface.** An
+  all-tools workflow agent given `agent({schema})` can still `Write`
+  files as a side effect — one research lens left a truncated orphan
+  synthesis file on disk (a stale subset of the real report, with a
+  dangling reference), caught only by `git status` at commit time
+  (2026-07-03). Pin read/analysis lens agents to a read-only
+  `agentType` (or an explicit no-Write allow-list), and sweep
+  `git status` for orphan artefacts after any research workflow before
+  committing.
+- **`openQuestions` are the synthesis drop zone.** When synthesising
+  structured lens output, doubt-carrying fields (`openQuestions`,
+  caveats, dissents) get the same conservation discipline as
+  `findings` — an adversarial journal cross-check (2026-07-03) traced
+  every revision finding to `openQuestions` content the synthesis
+  dropped or softened, while `findings` arrays were conserved
+  faithfully.
+- **Double-failure recovery: drop the schema.** When a schema-forced
+  lens fails twice differently (retry-cap exhaustion, then corrupted
+  output on a plain resume), the working third shape is a message to
+  the same agent that NAMES the prior corruption, drops the schema,
+  and asks for a markdown deliverable — schema-forcing is droppable
+  whenever the orchestrator is the only consumer (2026-07-03).

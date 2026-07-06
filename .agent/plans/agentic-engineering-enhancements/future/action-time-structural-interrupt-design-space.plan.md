@@ -129,6 +129,17 @@ roughly six days (2026-05-30 onward) re-diagnosing this same insufficiency
 That recurrence is the cross-session evidence that promoted this item to an
 owner-greenlit design lane.
 
+The napkin-corpus discovery run adds a longitudinal regime observation
+(candidate C244, routed 2026-07-03): executable-code coordination
+infrastructure (thread-register spine, active tripwire scripts,
+validators-as-tests) was a live build target early-to-mid corpus (~w05), was
+then displaced by markdown-first ritual-moment steps through the middle
+windows, and only by w13–w15 did the pendulum swing back toward mechanical
+action-time enforcement (hooks, schema gates). The design lane is therefore
+not greenfield: the estate has already tried executable enforcement once and
+let it lapse — the design should name what made the first attempt lapse so
+the second installs to stay.
+
 ## The Reconciliation (the distinct value)
 
 The register item demands reconciliation with metacognition and immune-system
@@ -638,6 +649,75 @@ moment, tool call) — they move the t3 empty-quadrant question from "can any
 class be occupied?" to "three classes have obvious occupation shapes awaiting
 the design session."
 
+**Addendum (2026-07-03, Hazel rides Orchard):** a fourth same-window
+instance — the pasteable-content-as-code-blocks rule (graduated 2026-07-02
+to `user-collaboration.md` §Feedback and Verification, its per-user index
+pointer still live) did not fire when an opener excerpt was presented as a
+blockquote; the owner re-issued the correction. Post-dates its home, so the
+temporal qualifier holds. Firing signature: presenting pasteable content is
+a detectable output moment (a paste-intended block in an owner-facing
+message) — the same declaration-moment class as (b) above.
+
+**Addendum (2026-07-03, Vega mends Oblivion) — Pathogen A at estate scale,
+plus an owner mechanism demand.** The sharpest over-gating instance yet,
+because the label outlived every catch layer: an "owner-gated / the owner's
+manual round" framing on the salvage tier E (and adjacent strata) was
+authored by one session, then propagated through the plan, the salvage
+report, a session opener, the continuity surfaces, TWO consolidation
+sessions (including one that added instances to this very inventory hours
+earlier), an adversarial review, and an Explore estate sweep (which
+reported it as "owner-gated by design") — and the owner had never agreed
+to any of it: *"I never agreed to any of it being 'user gated'"*; the
+exclusions were never ratified. Every reader treated the recorded tag as a
+verdict (`precedence-is-not-approval`; the inherited-tag pathogen above)
+and none re-verified the grant. Two sharpened facts for t2/t3: (1) the
+pathogen propagates **between artefacts and between agents** — the firing
+moment is not only writing the literal token but *reading* it as
+authority, so a read-time check ("who granted this, when, cite the turn")
+is a second candidate signature; (2) the owner disclosed they had
+attempted **a hook to block the excuse entering the repo** — a direct
+owner mechanism demand for this lane; no such guard exists in the hooks
+estate today (verified 2026-07-03), and the write-guard vocabulary that
+DOES exist fired usefully twice the same evening on adjacent
+expediency-wording, evidence the token-level layer works where a token
+exists.
+
+## Worked Instance — 2026-07-02 Corpus-Scale Confirmation (deterministic discovery run)
+
+The 2026-07-02 napkin-corpus discovery run (the PDR-122 pipeline over fifteen
+windows spanning 2026-02-16 → 2026-06-29) independently re-derived this plan's
+two core theses as multi-window trajectory candidates, from the napkin archives
+alone: (a) owner metacognition intervention is the only observed mechanism that
+surfaces deep misframes — across the whole corpus no self-firing instance was
+found, so the catch-loop is owner-mediated, not autonomous; and (b) passive
+doctrine loses to artefact-gravity at the action moment across dozens of
+agents, and naming a failure mode does not inoculate against re-enacting it
+same-session. Both trajectories carry instances on either side of this lane's
+own homes landing (PDR-098, 2026-06-15; this inventory) — the recurrence
+persisted across the cure's landing, which is the fires-despite-home signal at
+corpus scale rather than anecdote scale.
+
+The same run adds one firing-moment candidate to t3's list: **the compaction
+boundary**. Post-compaction re-grounding is doctrine (the comms-watcher and
+heartbeat rules re-arm there; PDR-011 clause (b) makes context-loss detection
+holder-exclusive), yet nothing auto-fires it — agents resume editing on the
+stale summary frame. A compaction/resume event is harness-observable, making
+it a mechanical firing moment of the same class as the tool-call and
+declaration moments in the 2026-07-01/02 cluster above.
+
+A second firing-moment candidate from the same evidence family: **the
+subagent/reviewer result-return**. The owner has re-issued
+"critically assess all subagent findings, claims, and sources" roughly nine
+times since 2026-05-27 — each recent instance *pre-emptive at a fan-out
+moment*, none correcting an observed absorption failure — while the textual
+home (`verify-dont-trust`: the sub-agent-summary clause, the reviewer-output
+paragraph, the absorb-trigger, the cited-source anti-pattern) is complete
+and always-on. Assessed at the 2026-07-03 ws1b consolidation: the gap is
+**firing, not text** — the reinforcements are the owner manually supplying
+the action-time cue at exactly the moment a mechanical interrupt could fire
+(a subagent result arriving is harness-observable). A ninth textual
+restatement was rejected as the t6 self-referential trap.
+
 ## Note on Scope Discipline
 
 This is a strategic design-space plan. It contains no executable workstreams or
@@ -646,3 +726,26 @@ correct shape (PDR-018 §planning discipline; the closure-pressure precedent) is
 to stop at the reconciliation, the located gap, the coordination decision, and
 the promotion trigger — and let the mechanism be chosen against evidence at
 promotion.
+
+## Worked Instance — 2026-07-04 Tier-E Drain Session: two mechanical muscle-memory classes, one cured in-session, one accumulating
+
+Two surface-signature (NOT semantic) pathogen classes fired repeatedly in one session, giving the
+mechanism lane a matched pair — one with the cure landed, one still passive — to compare traction:
+
+- **The ripgrep clustered-replace flag**: fifth and sixth lifetime instances fired minutes after
+  the agent READ the documented home, and a third stray cluster was typed even after authoring the
+  napkin escalation entry (capture-does-not-cure and read-does-not-cure both measured in-session).
+  The action-time cure LANDED the same day as a Bash hook-policy fingerprint (concept
+  silent-output-mangling) with integration tests; it then fired correctly three times within hours
+  — twice on reviewers' genuinely malformed commands, once on a probe whose search pattern
+  contained the literal. This is the empty-quadrant occupation working for a surface-signature
+  pathogen: mechanical firing, advisory teaching response, zero vigilance required.
+- **Pipe-masked verdicts** (a state-mutating CLI piped to jq/tail with stderr suppressed; a gate
+  read through a pipe's exit code; an echo after a pipeline): THREE fresh instances in the same
+  session, all post-dating the homes (verify-dont-trust read-the-failure-surface;
+  wrapped-exit-codes-false-green), all caught only by output inspection. Same class shape as the
+  ripgrep flag — literal surface signatures exist (pipe-after-collaboration-CLI, gate-through-tail,
+  exit-code-echo-after-pipeline) — so the same innate-layer fingerprint mechanism is a candidate
+  cure; the composition variety is wider, so the fingerprint set needs design rather than one
+  pattern. Napkin-first discipline held: this note graduates the recurrence evidence at the
+  consolidation the capture promised.

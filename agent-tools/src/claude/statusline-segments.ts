@@ -34,6 +34,14 @@ import { formatContext, rateLimitGauge } from './statusline-usage.js';
 export interface StatuslineParts {
   /** Deterministic agent-identity display name (PDR-027). */
   readonly identity: string | undefined;
+  /**
+   * The session_id_prefix (first 6 of the session id, PDR-027) rendered beside
+   * the name. Names are per-estate derivations — one agent can carry a
+   * different name per repo — so the prefix is the cross-repo join key
+   * (inter-Practice protocol, identity-display clause). Absent renders as
+   * `unknown` per PDR-027; it never drops silently while a name shows.
+   */
+  readonly identityPrefix: string | undefined;
   /** Current workspace directory basename. */
   readonly dir: string;
   /** Current git branch (or short SHA), if inside a repository. */
@@ -111,7 +119,7 @@ const COORDINATION_LABEL = 'coord:';
 /** Format each {@link StatuslineParts} value into its coloured segment. */
 export function buildSegments(parts: StatuslineParts): Segments {
   return {
-    identity: formatIdentity(parts.identity, parts.sessionShape?.ownRole),
+    identity: formatIdentity(parts.identity, parts.identityPrefix, parts.sessionShape?.ownRole),
     indicators: formatSessionIndicators(parts.sessionShape),
     rateLimits: formatRateLimits(parts),
     model: parts.model === undefined ? undefined : `${DIM}${parts.model}${RESET}`,

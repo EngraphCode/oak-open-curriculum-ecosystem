@@ -43,6 +43,16 @@ function deriveIdFromSeed(seed: string): UuidV5 {
 }
 
 /**
+ * The PDR-027 `session_id_prefix`: the first 6 characters of the session id.
+ * The one canonical derivation — the prefix is the cross-repo join key
+ * (per-estate name derivations diverge; the prefix does not), so every
+ * display and write site must slice identically or the join silently breaks.
+ */
+export function sessionIdPrefix(sessionId: string): string {
+  return sessionId.slice(0, 6);
+}
+
+/**
  * Derive the PDR-027 identity block used by collaboration-state writes from
  * the Practice session-id environment seed. Returns a
  * `CollaborationAgentIdWrite` (id required) so missing-id is caught at
@@ -66,7 +76,7 @@ export function deriveCollaborationIdentity(input: {
     agent_name: identity.displayName,
     platform: input.platform,
     model: input.model,
-    session_id_prefix: seed.value.slice(0, 6),
+    session_id_prefix: sessionIdPrefix(seed.value),
     id: deriveIdFromSeed(seed.value),
     naming_schema_version: identity.namingSchemaVersion,
   };

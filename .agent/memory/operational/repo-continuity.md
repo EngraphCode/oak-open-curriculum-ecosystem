@@ -67,8 +67,8 @@ forward-asks remain.
   the live Director pickup is [`director-handoff.md` §CURRENT HANDOFF STATE](director-handoff.md).
 - **Claims model + agent-work-state (LIVE, owner-gated).** The corrected claims model — a claim is an
   optional, advisory, AREA-scoped signal (NOT files; presence/liveness/work-state/seat re-home to
-  facets) — is live in `agent-collaboration.md` + memory
-  `feedback_claim_is_advisory_area_coordination_not_a_god_object`. **Owner-gated, flagged not edited:**
+  facets) — is live in `agent-collaboration.md` §Identity vs Liveness (topology-independent area
+  identity; absolute-path refusal; claim-is-not-the-seat). **Owner-gated, flagged not edited:**
   PDR-118 (claim-as-anchor superseded by launch-in-worktree, OQ2 amendment); the schema `role` field
   (the one genuine claim-as-seat marker, in tension with "claim is not the seat"); the
   `director-handoff.md` succession liveness gate (safety-critical). **Remaining integration (gated on
@@ -94,23 +94,106 @@ forward-asks remain.
   backlog to zero (fix or genuine-FP only, no suppression). S8707 Phase 1 merged (#242, `3895b3f45`);
   **Phase 2 regex/ReDoS next**, then test-integrity, design-MAJOR, idiom-MINOR. Thread:
   `main-sonar-ai-profile-to-zero`.
-- **Large-corpus analysis — SALVAGE ws1 EXECUTED (2026-07-02, Rosemary stirs Bracken, on
-  `chore/rescue_findings`); next: the rescued-concept disposition pass + the owner's tier-E
-  round.** The corroboration cwd bug is fixed (18/18 corroborated) and the deterministic salvage
-  stack is TDD-landed (`e18516265` + `f5fd2e5b2`: `pnpm salvage-driver` over the committed
-  checkpoints, zero re-spend). The stratification is conservation-checked 246/246: **A=18 B=8
-  C=18 D=18 (C∩D=3) E=187 residual=0**; tier C recomputed from the banked corpus equals the
-  plan's named ids exactly; 8 survivors are genuinely novel. The owner-facing deliverable is
-  [`discovery-run-salvage-report-2026-07-02.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/discovery-run-salvage-report-2026-07-02.md)
-  (tier E is the owner's manual round). Next: a fresh-seat consolidate-until-done disposition
-  pass over the rescue set, then the ws2 topology readiness review. Live plan:
-  [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md).
+- **Large-corpus analysis — FULL-PROCESSING COMPLETE 2026-07-04: every workstream executed
+  and the set-level acceptance verified** (ws1c/e/f/g + E-b1 2026-07-03, Gust hunts Headwind,
+  `6708fb8eb`→`d79b56c63`; E-b2..E-b8 2026-07-04, Otter hunts Jetty — tier E 187/187).
+  Every rescued-knowledge stratum now carries per-item disposition
+  trails: the estate inventory, the 83 unclustered leaves, the meta synthesis notes + banked
+  verdict corpus (mechanically mined —
+  `data/banked-verdict-structural-mine-2026-07-03.json`), the v2/v1/probe strata (probe
+  containment proof banked at `data/probe-supersession-proof-2026-07-03.json`,
+  code-expert-re-tiered pre-banking), and tier E in full (E-b1..E-b8, 187/187). Calibration outputs route to the
+  generalisation plan's P0 agenda; graduations landed across verify-dont-trust, use-monitor,
+  worktree-hygiene, precedence-is-not-approval, no-tombstones, register-at-session-open,
+  agent-collaboration (the unconditional shared-state-writes doctrine's canonical home),
+  invoke-code-experts, PDR-122 (tiered-evidence-reporting amendment), consolidate-docs,
+  troubleshooting, and the frictions register (F-117). E-b2..E-b8 EXECUTED 2026-07-04 (Otter
+  hunts Jetty; commits `de001662d`, `b6af3e0bd`, `1d32ff917`, `fb29ff2ef`, `558f046af`,
+  `0fd8e57a7`, `f0b754f9c`, `1be79fa62` + the E-b8 commit): E-b2 22/3/0
+  (reviewer-conflict authority-scope clause, PR-scoped-for-review clause, corrupted-lockfile
+  diagnostic) plus the session-emergent ripgrep clustered-replace hook-policy fingerprint (the
+  six-instance recurrence graduated to action-time enforcement); E-b3 23/2/0 (stale-deployment
+  triage into the production-debugging runbook; invisible-bytes detection into
+  troubleshooting); E-b4 22/2/1 (activating-new-rules caution into the oak-eslint README;
+  concurrency-clamps-mask-missing-deps into build-system; first reject — the resolved
+  stale-repo-name arc); E-b5 23/1/1 (keyof-union silent-trap note into the type-helpers
+  README; reject — the compiler-loud TS-semantics sibling); E-b6 22/2/1 (generators-are-
+  product-code section into development-practice; CodeQL-re-keying clause into
+  troubleshooting; reject — lint-loud nullish-chain craft); E-b7 22/3/0 (merge-flag-on-dirty-
+  checkout hazard into pr-lifecycle; hook-blocked-secrets surgical-jq recipe into
+  troubleshooting; git-apply-cached surgical-staging row into stage-by-explicit-pathspec);
+  E-b8 11/0/0 + 1 routed (C230 sequence-first owner reframe → pending-graduations as a
+  trigger-gated PDR-018 amendment candidate). Whole-drain yield: 145 duplicates / 13
+  enrichments / 3 rejects / 1 routed — the kills were overwhelmingly right about doctrine
+  and wrong mostly about unhomed operational craft. **ws1d COMPLETE and the set-level
+  acceptance VERIFIED (the inventory re-run is recorded in the plan status line); the
+  rescued-knowledge full-processing arc is closed. The owner-ratified supersession pass then
+  closed the plan tail (`e0c639bc6`): the discovery-run plan's spent >13M run no longer reads
+  as pending, the conservation plan's WS-C/WS-D route to the generalisation Phase 0 (mapping
+  appendix on the plan), and the physical archive-moves of the four closed corpus plans are
+  deferred lifecycle hygiene (inbound-link sweep required; thread record carries the note).**
+  Comms events alone are owner-routed to a separate plan. SOLE REMAINING WORK IN THE PLAN:
+  the ws2 topology readiness
+  review (fresh seat; folds into the corpus-generalisation Phase 0). Live plan:
+  [`corpus-analysis-salvage-and-topology-redesign.plan.md`](../../plans/agentic-engineering-enhancements/current/corpus-analysis-salvage-and-topology-redesign.plan.md)
+  (§Full-processing mandate carries the owner direction, acceptance, and method invariants).
   The run's doctrine lessons remain graduated
   ([PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md)
   invariants 5–6 + economics, the `agentic-judgment-conserve-by-default` rule, the
   `sandbox-constraint-is-a-build-instruction` / `adversarial-pre-spend-verification` patterns);
   WS-C tooling promotion awaits the agent-tools-architecture WS0. Full pickup: the AEE thread
   record §SALVAGE ws1 COMPLETE.
+- **Corpus GENERALISATION — research complete, design not yet ratified (2026-07-03, Rosemary
+  stirs Bracken).** Owner-directed deep research on generalising the corpus instrument (general
+  core vs napkin-specific; model/effort as a calibration-stamped regime registry; comms + planning
+  corpora; graph-native optional outputs; the packages/ stratum). Verdict: a calibrated measurement
+  instrument (compiler-shaped, graph = optional downstream backend), generalised by
+  configuration-reification, with the salvage plan's D1–D6 topology redesign folded in as the
+  kernel's shape (one thread, not two). Evidence:
+  [`corpus-generalisation-research-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md);
+  forward design (`future/`):
+  [`corpus-analysis-generalisation-and-knowledge-layer.plan.md`](../../plans/agentic-engineering-enhancements/future/corpus-analysis-generalisation-and-knowledge-layer.plan.md).
+  **Owner conviction (2026-07-03):** the corpus tooling has become a knowledge-curation-and-
+  expression layer belonging in `packages/` along seams, agent-tools reduced to a thin CLI (homed
+  in the generalisation `future/` brief above; reshapes the agent-tools-architecture-standard
+  WS0 packaging question). **Adversarially REVIEWED and corrected in place 2026-07-03 (Hazel rides
+  Orchard): verdict needs-targeted-revision-core-sound; review report
+  [`corpus-generalisation-review-2026-07-03.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-review-2026-07-03.md).**
+  **Two forensic/correctness items to surface at the design session:**
+  (1) **(owner attention)** the archived ~1,707-event comms residual is absent from live disk but
+  intact in git at `255117a43^`; the removal is **UNEXPLAINED, not benign** (the untrack commit
+  says "all preserved on disk"; no record accounts for it) — a live untracked-tier loss-detection
+  gap; re-materialise from git (wordings corrected 2026-07-03); P0 weighs a tracked watermark
+  manifest for the untracked tier; (2) every voter at every tier runs on one model — a candidate
+  PDR-122 invariant-2 amendment, judged warranted by the review in the recorded measure-first
+  shape, and now MEASURED (2026-07-03 further-research pass): inter-lens
+  phi ≈0.55 in both regimes → ≈1.4 effective votes of 3; cross-regime quorum agreement 59.6%.
+  Further-research lenses (report §Further research) add the two-hash calibration stamp, the
+  linking-layer blueprint, the standing cross-regime audit + tracked watermark manifest (the item-1
+  cure), and the estate-wide markdown→graph inversion direction (owner observation; needs its own
+  ADR). **Phase 0 EXECUTED to a paused stable point (2026-07-05/06, Hedgehog stirs Rime,
+  owner-directed pause):** the design record
+  [`corpus-generalisation-phase0-design-record-2026-07-05.md`](../../reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md)
+  carries drafted verdicts on the full agenda — (a)–(e) incl. the PDR-122 invariant-2 amendment
+  RATIFIED-not-yet-landed, D1–D6 plus the owner-directed D7–D9, seventeen question verdicts —
+  with the assumptions-expert verdict (ratify-with-revisions, 13-item queue) and the
+  architecture-review absorption in its §Review, plus restart notes (frozen-math reconciliation;
+  P1 workstream sketch). **Restart = the revision queue + the atomic landing set (PDR-122
+  amendment + companion-rule touch + plan promotion `future/`→`current/` absorbing salvage
+  ws3–ws5 + salvage close) on a NEW BRANCH post-merge** (owner-directed 2026-07-06; the owner
+  holds relevant developments to share post-merge). Full pickup: the AEE thread record
+  §CORPUS GENERALISATION / §PHASE 0.
+- **Commit-workflow F-112 FIXED (2026-07-03, Mistral seeks Jetstream, `b2ae96898`).** The
+  commit-queue workflow's spawned-child stream truncation is cured: Node child-stdio pipes are libuv
+  socketpairs, and one on the spawned git's stderr poisoned the pre-commit hook chain (hook shell
+  SIGPIPE at the depcruise→turbo handover; `set -e` silent exit 1). `runInheritedProcess` now gives
+  children file-backed stdio and replays conserved output, reporting exit code and signal distinctly.
+  **Queue-workflow commits from Claude Code are UNBLOCKED**, including the memory-drain plan's loop
+  commits. Landed through itself on `feat/corpus_research_enhancements`: `c14866649` (the blocked
+  no-fallback reconciliation bundle) → `b2ae96898` (fix + 7 invariant tests) → `e07afb01b` (register
+  close + commit-skill narrowing to the Cursor-only residual). Branch unpushed — owner push decision.
+  Completed plan (evidence + pinned mechanism):
+  [`f-112-commit-workflow-stream-truncation-fix.plan.md`](../../plans/agent-tooling/current/f-112-commit-workflow-stream-truncation-fix.plan.md).
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -153,8 +236,11 @@ forward-asks remain.
 - **Collaboration-state lifecycle**: `.agent/state/` files are live signal sources, not long-term
   documentation. Outside owner-directed research windows, process useful substance into
   memory/docs/plans and clear stale state. **Standing residual:** the coordination-tier curator-pass —
-  ~1,707 comms events past the 7d window await body-read disposition before the next archive-move RUN,
-  fired by retention elapse via `consolidate-docs` step 3a / `oak-curator-pass`.
+  the ~1,707-event residual awaits body-read disposition before the next archive-move RUN, fired by
+  retention elapse via `consolidate-docs` step 3a / `oak-curator-pass`. **Substrate correction
+  (2026-07-03):** those events are no longer on live disk (removal unexplained — see the
+  corpus-generalisation review report, R1); the corpus substrate is the git tree at `255117a43^`
+  (5,202 events) — re-materialise before the pass.
 
 ## Active Threads
 
@@ -165,7 +251,7 @@ each thread record; this table is the repo-level index.
 | --- | --- | --- | --- |
 | `upstream-api-alignment` | Realign SDK/MCP (and bulk export) to the evolving upstream Oak API + a repeatable observable process. Programmes-family instance shipped on PR #291 (`merge=CLEAN`, awaiting owner merge); process graduated to a permanent runbook | [record](threads/upstream-api-alignment.next-session.md) | claude / claude-opus-4-8[1m] / Vanilla stirs Spore / implementer — successor to Bonfire turns Basalt; WS2+WS4+WS6 landed, review triage cleared / 2026-07-01 |
 | `agentic-mechanisms-discovery` | Web-based agent discovery mechanisms for Oak data and tools | [record][agentic-mechanisms-discovery] | claude / Opus 4.8 / Zephyrous Buffeting Falcon / skills-lane-relocated-to-educator-end-users / 2026-06-08 (prior identities: thread record) |
-| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / Rosemary stirs Bracken / dedicated consolidation — buffers drained, v2 discoveries graduated, PDR-122 amended / 2026-07-02 ← claude-code / claude-fable-5 / Perseus wakes Oblivion / discovery run EXECUTED, validate regime failed calibration, verdicts banked, salvage plan authored / 2026-07-02 (full identity history: thread record) |
+| `agentic-engineering-enhancements` | Practice continuity and temporary curation | [record][agentic] | claude-code / claude-fable-5 / **multi-lane thread — two concurrent lanes, both 2026-07-06.** **LANE 1 — inter-Practice exchange:** Wolf rides Vigil / ran the first LIVE BIDIRECTIONAL Practice exchange (oak worktree ↔ resonance coordination home, one session, prefix 25ece9, peer Misty Anchoring Rudder ab49a5, shared owner); authored `agent-tooling/current/inter-practice-collaboration-protocol.plan.md` (4 commits, unpushed, no PR) + delivered a teaching bundle to resonance (committed their side); return bundle received + committed to oak's `.agent/practice-core/incoming/`. **Lane held by Cricket lifts Echo** (2fffa2, separate Fable-5 oak session = Hushed Prowling Lantern on resonance; claim d0e453a3): adopted 2026-07-05, landed WS1 declared-home override (f31faec62), WS3 statusline join-key (4b9683be1), WS6 bundle adoption assessment (cf05fe95a); both owner gates ANSWERED 2026-07-06 (author the PDR in BOTH repos; v1 = the five-item floor + Tier-0/Tier-1 ladder) so the WS0 family is UNBLOCKED — next is the owner-requested WS0+WS4 authoring session (opener written 2026-07-06); exchange claim d0e453a3 CLOSED at handoff with final-heartbeat-end + team-member-closeout, MAR closed 44f0ea2c symmetrically (eefd4ef), watcher + claim-heartbeat torn down. Seat 25ece9 downgraded Fable→Opus at handoff, then final-closed with the loss/metaloss scan (kept its names — name derives from seed not model); durable homes: the plan, `.agent/experience/2026-07-06-first-live-bidirectional-practice-exchange.md`, napkin. **LANE 2 — corpus phase-0 design:** Hedgehog stirs Rime / design record drafted + reviews absorbed to a paused stable point (ba9c88cc9 →); branch pushed + PR to green; restart = revision queue + landing set on a new branch post-merge. Branch feat/corpus_research_enhancements, unpushed, no PR / 2026-07-06 (prior seat: Otter hunts Jetty, tier-E drain; full identity history: thread record) |
 | `eslint-no-throw-result-migration` | Migrate every throw to Result (ADR-088); drive the ~1000 warnings to zero; promote the rule. In execution on `docs/planning-and-validation`; cheap WS2 done, residue is design-laden (tier map in record) | [record](threads/eslint-no-throw-result-migration.next-session.md) | claude / Opus 4.8 (1M) / Siren mends Rudder / execution — observability+graph-core+logger landed (`93beffcfe`,`304b68f8d`,`61bdbc3e4`) / 2026-06-19 (prior: Merlin spins Cirrus `1556b9191`; Vanilla weaves Undergrowth, plan-author) |
 | `statusline-enhancements` | Claude Code statusline: Oak-mark + session-shape indicators (complete); **primary/worktree location rows + rate-limit gauges with reset countdowns DELIVERED 2026-06-29** (`708cd57fc`); logo lane PAUSED (owner). Future lanes: COLUMNS/LINES responsive layout, research-doc refresh, trace-log observability (deprioritized — root cause upstream). Branch divergence RESOLVED (stale local branches deleted; all on main). Detail: thread record | [record][statusline] | claude-code / Opus 4.8 (1M) / Wyvern mends Draught / delivered location-rows + rate-limit gauges & countdowns / 2026-06-29 (earlier identities: thread record) |
 | `agent-naming` | PDR-027 display-name derivation: versioned schema registry, session-hook identity surfaces, wordlist eras (v2 landed; v3 + era-pinning cure queued; v3 plan now cross-linked to the knowledge-distribution-substrate direction) | [record][agent-naming] | claude / Opus 4.8 (1M) / Tuna stirs Fathom / v3-plan deep-dive + substrate-connection cross-link (no source touched) / 2026-06-30 ← claude / Opus 4.8 / Squall hunts Troposphere / thread-open + v3-plan-author / 2026-06-13 (prior identities: thread record) |
@@ -175,6 +261,8 @@ each thread record; this table is the repo-level index.
 | `reasoning-grammar` | Structured-reasoning capability: the portable grammar-of-thinking reference + the thin `oak-reason` skill (outward pair to `oak-metacognition`), wired into the metacognition directive, `oak-plan`, and start-right | [record](threads/reasoning-grammar.next-session.md) | claude / Opus 4.8 (1M) / Orbit rides Horizon / **COMPLETE** — landed `3b9836d89`; push pending (owner) / 2026-06-22 |
 | `user-search-not-exposed-until-built` | Gate the unbuilt user-search MCP App tools off `tools/list` behind an opt-in flag (default OFF) until the experience ships | [record](threads/user-search-not-exposed-until-built.next-session.md) | claude-code / Opus 4.8 (1M) / Foehn calls Headwind / **COMPLETE** — Cycle 1 `ac0a98c5b`, Cycle 2 `906cca9b3`, plan fixes `ff26bcf69`; push pending (owner) / 2026-06-23 |
 | `main-sonar-ai-profile-to-zero` | Drive `main`'s Sonar AI quality-profile backlog (398 issues, 48 rule classes) to **zero** — fix or genuine-FP only, no suppression. Owner-directed: deliberately-adopted profile. Lanes: `tssecurity:S8707` path-injection, regex-safety (`S8786`/`S5843`/`S6035`), test-integrity (`S2699`/`S5914`). Supersedes the retired `main-critical-sonar-remediation` lane | [record][main-sonar-zero] | claude / claude-opus-4-8[1m] / Alder tracks Topsoil / implementer — S8707 Phase 1 MERGED via PR #242 (`3895b3f45`); Phase 2 regex next / 2026-06-27 (prior: Junk tracks Moorings (#223), Thyme lifts Compost, Aspen tracks Root) |
+
+| `continuity-memory-and-knowledge-flow` | Memory/context substrate: PDR-124 definition-surface economy LANDED (`6b7c496ab`); **Claude per-user buffer drain COMPLETE 2026-07-05 and the plan ARCHIVED** to `archive/completed/claude-memory-buffer-drain.plan.md` (Hedgehog stirs Rime: all strata; Stratum D landed the owner-ratified intent-and-mechanism frame in five commits `7f4988c63`…`7d424cc9d` — owner-signal-interpretation companion, Decision Lenses either/or coda, the design-from-impact-not-the-cowpath rule, the mechanism-without-legible-intent pattern with the eight ADR-200 seed statements, PDR-038 bidirectional amendment, owner-working-style retired, two reconciliation patterns, build_vs_buy homes, ADR-173 §estate-plurality; final census exact, MEMORY.md at zero lines). **Thread quiescent — no queued next step**; buffer lifecycle continues under `per-user-memory-is-a-buffer`; the drain's descendants (ADR-200 intent layer; OQ-10 inversion ADR) belong to the strategy-and-plan-estate lane | [record](threads/continuity-memory-and-knowledge-flow.next-session.md) | claude-code / fable-5 / Hedgehog stirs Rime / curator — drain complete / 2026-07-05 |
 
 ## Paused Threads
 
@@ -223,8 +311,10 @@ commit + a full `pnpm check` green are blocked by unrelated live WIP — untrack
 Thread concluded (WS0–WS7, PR #208 merged `a6b14a8a3`); findings homed in **PDR-094** + **ADR-199** + the
 `reports/agentic-engineering/` synthesis + keystone M4. Retired record:
 [`threads/retired/agent-collaboration-research.next-session.md`](threads/retired/agent-collaboration-research.next-session.md).
-**Standing residual** (not a reopened lane): the coordination-tier curator-pass — ~1,707 comms events past
-the 7d window await body-read disposition; work-list + recipe in the retired record's §"WS7 Closeout".
+**Standing residual** (not a reopened lane): the coordination-tier curator-pass — the ~1,707-event
+residual awaits body-read disposition; work-list + recipe in the retired record's §"WS7 Closeout".
+**Substrate correction (2026-07-03):** the events are no longer on live disk (removal unexplained —
+corpus-generalisation review R1); re-materialise from the git tree at `255117a43^` before the pass.
 
 ### Agent Naming (v3 + era-pinning cure)
 
@@ -271,10 +361,10 @@ F-41 CLI tail).
 
 ### Agentic-Engineering Curation
 
-0. **LIVE: the rescued-concept disposition pass** (salvage ws1 EXECUTED 2026-07-02 — tier table +
-   discovery report committed on `chore/rescue_findings`; next a fresh-seat consolidate-until-done
-   over the rescue set, plus the owner's tier-E manual round) — see the §Current State
-   large-corpus entry; full pickup: [`agentic` thread record][agentic] §SALVAGE ws1 COMPLETE.
+0. **Full processing DONE 2026-07-04; Phase 0 design PAUSED at a stable point 2026-07-06.
+   NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
+   landing set) — see the §Current State corpus-generalisation entry; the self-contained
+   restart brief is the AEE thread record §PHASE 0.
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
    PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;
@@ -283,10 +373,20 @@ F-41 CLI tail).
    grants are live-per-pass, never carried).
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
-2a. `agent-collaboration.md` is hard-over on lines (377/360) after the injected-asymmetry doctrine
-   landed (justified substance; the file was already at 359). The named remediation is its own
-   `split_strategy`: create `agent-collaboration-channels.md` and extract the per-channel protocol
-   detail — a focused future extraction, not a trim.
+2a. `agent-collaboration.md` is hard-over on lines (380/360) after the injected-asymmetry doctrine
+   and the ws1b sidebar-preference clause landed (justified substance; the file was already at
+   359). The named remediation is its own `split_strategy`: create
+   `agent-collaboration-channels.md` and extract the per-channel protocol detail — a focused
+   future extraction, not a trim.
+2b. **Post-ws1b hard-fitness remediation lane (2026-07-03).** The ws1b graduations pushed four
+   further surfaces marginally past hard — `testing-strategy.md` (459/450 lines),
+   `docs/engineering/testing-patterns.md` (232/200), `docs/governance/development-practice.md`
+   (286/280), `collaboration-state-conventions.md` (12045/12000 chars) — each from
+   correctly-placed substance, never to be trimmed. Structural responses per each file's own
+   `split_strategy` at the next natural boundary (testing-patterns' gotcha lists are the natural
+   extraction; development-practice's markdown-authoring bullets likewise). Acceptance: the
+   substance survives verbatim in a home at least as read-proximate, and the source returns
+   within hard. `principles.md` and this file's char pressure pre-date the pass.
 3. Comms-event rotation is the retention-gated curator-pass (ADR-199 / PDR-094): archive-move events past
    their class window, gated on absorption + provenance. Analysis is never gated; fitness is routing
    evidence only — never archive, split, shard, or rename unprocessed content to improve scores.
@@ -337,6 +437,21 @@ this section; create a thread record when execution is scheduled.
    the Open Curriculum API, the Curriculum Ontology, and Atomic Concepts under one team for ~6 months.
    See [`curriculum-graph-estate-synthesis-2026-06-22.md`](../../reports/curriculum-graph-estate-synthesis-2026-06-22.md);
    an SLT brief is held local (reference-local, not version-controlled).
+8. **Corpus-generalisation Phase 0 scheduling** (posed 2026-07-03): when/what shape — recommended
+   soon, fresh-seat, allowed to span multiple sittings (seventeen-question agenda; absorbs salvage
+   ws2). The plan's promotion trigger; nothing else blocks on it.
+9. **Comms forensics depth + live-event PII posture** (posed 2026-07-03): (a) how much further
+   effort on the unexplained untracked-tier removal — recommended accept-and-rely-on-the-watermark-
+   cure (data recoverable at `255117a43^`); (b) the 21+ live comms events embedding machine-local
+   paths — recommended rely on the mandatory pre-fan-out PII screen rather than mutating immutable
+   event records (a redact and/or write-time-guard option was offered).
+10. **Estate-wide markdown→graph inversion ADR timing** (posed 2026-07-03): a Proposed ADR
+    generalising ADR-200 + PDR-119 (surface-class taxonomy; PDR-122-bound reconciler) —
+    recommended a dedicated authoring session soon; alternatives: after Phase 0, or after ADR-200
+    WS2/WS4. Evidence: the research report §Further research (markdown→graph subsection). Decision
+    input landed 2026-07-05: ADR-173 §"The estate is plural by design" carries the owner-corrected
+    graphs-are-a-method doctrine (data-layer SSOT; deliberate plurality above; integration at
+    source and surface) that the authoring session must honour.
 
 ## Repo-Wide Invariants / Non-Goals
 

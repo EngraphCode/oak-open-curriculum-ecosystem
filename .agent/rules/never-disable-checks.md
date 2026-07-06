@@ -84,7 +84,7 @@ state.
 
 When a gate fires on a backlog of pre-existing debt the current
 work-item cannot fully clear, the legitimate response is **escalate
-the gate, not disable it.** Two shapes:
+the gate, not disable it.** Three shapes:
 
 1. **Same-commit escalation** — fix what you can, escalate the
    remaining warnings to errors in the same commit so the next
@@ -111,6 +111,15 @@ the gate, not disable it.** Two shapes:
    findings to address in one work-item, sequence the work itself
    (one finding at a time, one commit at a time, gate green at each
    step), but never sequence the gate.
+
+The same discipline applies in reverse on **finding a gate already
+masked** — a `passWithNoTests: true` hiding empty suites, a skipped
+test, an ignore-list entry concealing findings. Removing the mask and
+fixing what it hid are ONE work-item, never "remove now, fill later",
+and never a deferral candidate on scope or ship-independence grounds:
+the governing principle for a masking override is
+[`no-warning-toleration.md`](no-warning-toleration.md), not scope
+discipline.
 
 ## Definition of "check" / "gate"
 

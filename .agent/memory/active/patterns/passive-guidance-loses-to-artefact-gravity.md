@@ -169,6 +169,13 @@ concrete firing cadence:
   / `start-right-thorough` names in their grounding order and the
   agent must read before acting.
 
+The authoring-time corollary: a doubt about how doctrine text will make
+future agents *behave* is doctrine-design input — a pointer to a missing
+sentence — never a nuance to flag to the owner in chat. Chat changes zero
+future-agent behaviour; only the written substrate fires. Metabolise the
+doubt into the artefact (name the failure mode, forbid it with a positive
+construction), then show the owner the landed artefact, not a fork.
+
 The **variety-across-layers** principle (from the 2026-04-20
 perturbation-mechanism register entry) still applies: install at
 least two complementary tripwires so no single failure mode

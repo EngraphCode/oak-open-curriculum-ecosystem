@@ -10,7 +10,8 @@ description: >-
 
 **Scope**: **THREAD-SCOPED** (cross-session). This workflow acts on
 artefacts that accumulate across multiple sessions on one or more
-threads — pattern candidates reaching the repeats bar, distilled
+threads — pattern candidates ready to graduate (single-instance
+suffices per PDR-100; there is no repeats bar), distilled
 entries reaching stability, napkin reaching its rotation threshold,
 Practice Core drifting from current practice, fitness pressure
 accumulating. Session-scoped capture (surprises, ADR/PDR
@@ -346,7 +347,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    simulation scores stay a live direction-of-travel signal. Neither check
    publishes anything by itself; both convert staleness from silent decay
    into a named consolidation output.
-2. Make sure all plans and prompts are fully up to date (status lines, completion markers, cross-references). After archive/delete moves, explicitly sweep for the two most common stale-link classes: `active/` or `current/` plan paths that should now point at `archive/completed/`, and deleted platform-plan paths such as `.cursor/plans/*.plan.md` that should now point at the canonical repo artefact they delivered.
+2. Make sure all plans and prompts are fully up to date (status lines, completion markers, cross-references). After archive/delete moves, explicitly sweep for the two most common stale-link classes: `active/` or `current/` plan paths that should now point at `archive/completed/`, and deleted platform-plan paths such as `.cursor/plans/*.plan.md` that should now point at the canonical repo artefact they delivered. Sweep both reference **modes**, not just links: plans reference a surface in *navigation* mode (a pointer to read) and in *prescription* mode (an edit instruction targeting the file) — a link-only sweep after a deletion silently leaves prescriptive references instructing "do impossible thing" against the deleted surface (worked instance 2026-04-21).
 3. **Sweep ephemeral surfaces and home settled content.** Identify
    any content in ephemeral locations that now functions as settled
    documentation, and home it per the

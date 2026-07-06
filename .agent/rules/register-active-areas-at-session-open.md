@@ -8,6 +8,14 @@ artefact** that proves you consulted (consultation must be observable
 post-hoc; an unwritten consultation is indistinguishable from no
 consultation at all):
 
+**The first edit of a session that opened as pure reading is a second firing
+moment for this rule.** Registration is skipped most often not at session
+open but at the silent transition where a light audit or review session grows
+into substantive edits — nothing at that moment forces the registration the
+session-open moment would have produced (corpus-proven recurrence,
+2026-05→06). When a read-only session reaches for its first Write/Edit, run
+this rule then, as though the session were opening.
+
 Before writing the claim, run identity preflight or an equivalent wrapper.
 Codex sessions with `CODEX_THREAD_ID` available must derive a named
 `agent_name` and `session_id_prefix`; new Codex claim writes must not use

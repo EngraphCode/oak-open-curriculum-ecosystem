@@ -47,6 +47,17 @@ private re-implementation. If a one-off shell pipeline gets you unblocked now,
 that is fine; the standing rule is that the **gap gets recorded**, so the fork is
 never the silent end-state.
 
+The same discipline has a create-side face (owner standing instruction,
+2026-06-24): when you find yourself writing a script, loop, or helper to do a
+job, first check whether an agent-tools command already does it (use it), and
+if not and the capability is likely to recur, surface to the owner whether it
+should become a permanent agent-tools command — a TypeScript command under
+`agent-tools/src/`, TDD'd, with the hard-won lesson baked in — rather than
+leaving it as a scratchpad one-off. A per-session script is a once-cure that
+gets re-derived (often re-derived wrong); the permanent command amortises
+across every future agent. The owner decides build-now vs backlog vs
+keep-scratchpad.
+
 ## Why This Rule Exists
 
 Observed live 2026-05-05: Pelagic Swimming Rudder was refactoring

@@ -57,6 +57,7 @@ The faces of the one error:
 | who acted, broadcast, or arrived first | an ordering convention; never authority over the decision itself |
 | the shape of a prior owner intervention | classified as evidence, not copied as a standing cure |
 | my interpretation of an owner or org directive, applied to a case the directive does not name | the owner's live answer for the interpreted case — an interpretation is a question owed, never an authority held (2026-06-11 amendment) |
+| an apparent conflict between two doctrine surfaces, adjudicated by precedence, corpus-consistency, or who-ratified-what | purpose-and-impact reasoning — usually there is no conflict, there is an error; what is each surface FOR, and what happens under each reading? N instances of an error are N violations, not precedent (2026-07-04 amendment) |
 
 The diagnostic: **whenever "it was already decided / done / marked" is the reason
 for an action, that is precedence talking — stop and locate the live approval.**

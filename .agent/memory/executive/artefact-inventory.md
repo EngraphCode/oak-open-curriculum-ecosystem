@@ -71,6 +71,9 @@ Run `pnpm portability:check` after adding to verify parity.
 
 ### New Skill
 
+Every active skill spends the finite discovery budget — see the
+budget mechanics under §New Runbook before adding one.
+
 1. **Canonical**: `.agent/skills/<name>/SKILL-CANONICAL.md` (with
    `classification: active | passive` frontmatter)
 2. **Adapters (generated)**: `.agents/skills/oak-<name>/SKILL.md` and
@@ -117,3 +120,11 @@ Route by the skill-load-budget triage: a **skill** (invocable + frequent), a **r
 doc** under `docs/operations/` (read on demand), or **embedded** in the rule/directive it
 enacts; then add a pointer to the [Runbook Index](../../../docs/operations/README.md#runbook-index).
 Full routing: [`extending.md` §Adding a Runbook](../../../docs/engineering/extending.md#adding-a-runbook).
+
+The budget is empirical, not theoretical: every active skill's frontmatter
+costs discovery tokens, and past roughly a hundred active skills Claude
+Code silently drops late-listed skill metadata (observed 2026-05-06 at
+~112 active skills). Treat the total active-skill count as a budgeted
+ceiling, never an unbounded list: count the skills a plugin ships before
+installing it, and once a plugin's content is canonicalised and locked,
+removing the plugin is the default.

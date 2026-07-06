@@ -8,6 +8,7 @@ const YELLOW = '\x1b[0;33m';
 
 const base: StatuslineParts = {
   identity: undefined,
+  identityPrefix: undefined,
   dir: 'repo',
   branch: undefined,
   dirty: false,
@@ -143,6 +144,37 @@ describe('renderStatusline — error and context usage', () => {
 
   it('omits the context segment when usage is absent', () => {
     expect(renderStatusline({ ...base, usedPercentage: undefined })).not.toContain('ctx:');
+  });
+});
+
+describe('renderStatusline — identity shows the session join key (inter-Practice WS3)', () => {
+  // One agent can carry a different name per estate (per-repo derivations); the
+  // session_id_prefix is the only cross-repo join key, so the identity segment
+  // renders it beside the name (protocol clause 5: identity display).
+  it('renders the name with the session_id_prefix', () => {
+    const out = renderStatusline({
+      ...base,
+      identity: 'Cricket lifts Echo',
+      identityPrefix: '2fffa2',
+    });
+    expect(stripAnsi(lineWith(out, 'Cricket lifts Echo'))).toContain('Cricket lifts Echo (2fffa2)');
+  });
+
+  it('renders a missing prefix as unknown (PDR-027), never a bare name', () => {
+    const out = renderStatusline({
+      ...base,
+      identity: 'Cricket lifts Echo',
+      identityPrefix: undefined,
+    });
+    expect(stripAnsi(lineWith(out, 'Cricket lifts Echo'))).toContain(
+      'Cricket lifts Echo (unknown)',
+    );
+  });
+
+  it('drops the identity segment entirely when the name is absent, prefix or not', () => {
+    const out = renderStatusline({ ...base, identity: undefined, identityPrefix: '2fffa2' });
+    expect(out).not.toContain('2fffa2');
+    expect(out).not.toContain('(unknown)');
   });
 });
 

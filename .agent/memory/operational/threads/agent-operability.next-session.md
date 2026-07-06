@@ -53,6 +53,20 @@ F-98 / F-87 / F-90 / F-91.
   **not a blocker for pickup** (you ground and build off `docs/consolidations`); it
   is the finalization step.
 
+## Queued: four-facet plan-estate collation (owner-directed 2026-06-27, not yet run)
+
+Owner-directed lane (2026-06-27; the named session instead executed the ws-b-explain D0
+work, so the lane never ran): assess, collate, and sanitise the scattered plans covering
+four facets of one concern — the statusline, agent working locations (worktrees), agent
+tooling/state resolution, and team-state records. Partially realised since: the statusline
+lane delivered its location rows and collates its members in its own thread record;
+PDR-117/PDR-118 and the spawn-flow plan own the worktree/work-state facets; standing
+decision 3 below dissolved the §B2 binary-pin slice. Residual when picked up: verify the
+remaining overlap across `comms-and-worktree-operability.plan.md`, the rightsizing plan and
+its M1 inventory, and `future/coordination-home-explicit-targeting-migration.plan.md`, then
+collate to one SSOT per facet and sanitise (dedupe, status clarity). Approach stays
+research-names-the-rationalisation; the owner decides the shape.
+
 ## Standing decisions this thread carries forward (from the plan — do not re-litigate)
 
 1. **The cwd = launch-directory fact is settled** (owner-confirmed 2026-06-28);

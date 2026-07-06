@@ -7,11 +7,12 @@
  * at runtime, and keeps cli.ts focused on command dispatch.
  *
  * Advisory polarity is preserved by construction: the advisory
- * orchestrator's stdout/stderr stream through to the caller's terminal
- * via `stdio: 'inherit'` (parent stdio binding), and the workflow does
- * not change its path on non-zero advisory exit. The blocking authority
- * remains `.husky/pre-commit` + `.husky/commit-msg`. See PDR-053 and
- * ADR-176.
+ * orchestrator's stdout/stderr are conserved in full and replayed to
+ * the caller's terminal on completion (file-capture-and-replay in
+ * `runInheritedProcess` — never live Node pipes, which poison the
+ * spawned git's hook chain; F-112), and the workflow does not change
+ * its path on non-zero advisory exit. The blocking authority remains
+ * `.husky/pre-commit` + `.husky/commit-msg`. See PDR-053 and ADR-176.
  */
 
 import { execFileSync } from 'node:child_process';

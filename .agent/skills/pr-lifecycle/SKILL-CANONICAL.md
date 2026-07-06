@@ -24,8 +24,10 @@ per-finding discipline. Every gate constraint here inherits
 
 The one-sentence contract: **a PR is done when it is live** — opened is not
 done, green checks are not done, "ready for review" is not done; done is
-merged with every finding genuinely settled
-(memory: `feedback_pr_not_done_until_live`).
+merged with every finding genuinely settled. Standing down (closeout,
+claim-close, monitor-stop) while the work is unmerged is the error: a
+feature branch with an open PR is one cleanup away from gone, and the
+owner's merge signoff is a gate, never a handoff of ownership.
 
 ## Phase 1 — Before opening
 
@@ -38,6 +40,11 @@ merged with every finding genuinely settled
    re-run gates just to re-confirm it.
 3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
    its first commit (`worktree-hygiene` §1); this skill takes it to ready.
+4. **Scope the PR for review, not for tidiness**: an artefact that invites
+   deep review in its own right (a forward-design plan, a doctrine rewrite)
+   bundled into a closeout PR multiplies asynchronous bot-review rounds
+   without bound (a worked instance ran 5+ rounds before the bundle was
+   split); give such an artefact its own PR with its own review story.
 
 ## Phase 2 — Open with a reviewer-facing description
 
@@ -61,7 +68,7 @@ surfaces. Partial reads produce false "no problems" verdicts:
 2. **Issue comments and reviews** — full bodies, never truncated skims; a
    Sonar gate summary or a bot capability notice lives here.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
-   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's *first* failure is
+   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's _first_ failure is
    the root to chase: a 20-second `install` failure cascades into skipped
    builds and a failed deployment — fix the root, not the echoes.
 4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
@@ -81,8 +88,18 @@ surfaces. Partial reads produce false "no problems" verdicts:
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
   source constant convention.
+- Disposition is content-based and binary — a comment's timestamp is
+  irrelevant. "This predates my change" / "nothing new since T" is not
+  addressed, and a fresh finding introduced by the fix commit itself is an
+  open finding, never a side-tangent.
 - Sonar reflects fixes only after the next pushed scan — verify fixes with
   local gates at source; never poll Sonar immediately after an edit.
+- Diagnose a failed CI run from the failed **step name**
+  (`gh run view <id> --json jobs -q '.jobs[].steps[] |
+select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
+  `if: always()` advisory step that runs last can misattribute the real
+  failure (observed 2026-06-24: the tail blamed a drift check; the failure
+  was format-check).
 
 ## Phase 5 — Wait without burning budget
 
@@ -90,10 +107,13 @@ Run the repo's budgeted watcher in the background:
 `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
 change, including new comments by author and the unresolved review-thread
 count moving in EITHER direction (a thread arriving or being resolved). The
-watcher's thread count is the wake signal; the Phase 3 GraphQL harvest remains
-the authoritative read for which threads and what they say. Never hand-roll
-tight `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
-Between events, continue other work or hold; the watcher wakes you.
+watch ENDS on merged/closed and on ALL GREEN — every check passed AND every
+review thread resolved; passing checks alone are not green, because an
+unresolved thread blocks merge-readiness just as hard. That exit is the wake
+signal; the Phase 3 GraphQL harvest remains the authoritative read for which
+threads and what they say. Never hand-roll tight `gh` polling loops (the
+shared 5,000/hr API budget; frictions F-110). Between events, continue other
+work or hold; the watcher wakes you.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
@@ -114,8 +134,27 @@ AND zero unresolved review threads AND the Sonar quality gate passing. Then:
   approval; a clean agent merge is prohibited; `--admin` is forbidden).
   Notify the owner at this action moment (send the notification; never
   suppress it on inferred presence — `owner-attention-at-action-moments`).
+- The gate is author-dependent (verified 2026-06-24): a bot-authored PR shows
+  `BLOCKED` and needs the code-owner approval; a PR authored under the owner's
+  own auth shows `CLEAN` and merges directly — GitHub auto-satisfies the
+  code-owner requirement when the author IS the sole code owner, and forbids
+  self-approval.
+- An owner grant of merge authority (for example to a team session's
+  Director) is per-session, never standing (owner, 2026-06-29); absent a
+  fresh grant, the code-owner gate above is the default.
+- **Never run `gh pr merge --delete-branch` while the local checkout carries
+  uncommitted changes**: the flag switches the local checkout to the base
+  branch as cleanup, and with a dirty tree the local fast-forward aborts —
+  the remote merge has already succeeded, leaving the local tree stranded
+  mid-cleanup in a confusing half-switched state (edits preserved but
+  displaced onto the base branch). Commit or relocate local work first, or
+  merge without the flag and delete the branch separately.
 - When merging is authorised, prefer a **merge commit** (`--merge`), never
-  squash (standing owner preference, 2026-06-28).
+  squash (standing owner preference, 2026-06-28). Verify the allowed merge
+  METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,
+allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
+  silently reverted before (2026-06-27). If merge commits are disabled,
+  surface it to the owner; never fall back to squash.
 
 ## Phase 8 — After merge
 
@@ -129,6 +168,8 @@ update continuity surfaces; close claims.
   threads and a failed quality gate.
 - Truncated comment skims triaged as "noise".
 - Ready/merge-ready declared without re-fetching after the latest push.
+- Findings dismissed by timestamp ("predates my change") instead of
+  dispositioned on content.
 - A failed check's downstream echoes debugged before its root cause.
 - A Sonar gate treated as an opaque red badge instead of an issue list to fix
   at source.

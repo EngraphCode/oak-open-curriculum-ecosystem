@@ -120,6 +120,10 @@ describe('runPrWatchCli — watch', () => {
     };
   }
 
+  // Waiting-state snapshots keep one check pending: an all-green open PR is
+  // itself a watch exit since the all-green standardisation.
+  const waiting = { checks: { total: 1, passed: 0, failed: 0, pending: 1 } };
+
   it('emits the initial snapshot, change lines, and ends on a terminal state', async () => {
     const io = capture();
     const code = await runPrWatchCli({
@@ -128,9 +132,9 @@ describe('runPrWatchCli — watch', () => {
       stderr: io.stderr,
       sleep: noSleep,
       readSnapshot: sequenceReader([
-        makeSnapshot(),
-        makeSnapshot({ mergeStateStatus: 'BLOCKED' }),
-        makeSnapshot({ state: 'MERGED', mergeStateStatus: 'BLOCKED' }),
+        makeSnapshot(waiting),
+        makeSnapshot({ ...waiting, mergeStateStatus: 'BLOCKED' }),
+        makeSnapshot({ ...waiting, state: 'MERGED', mergeStateStatus: 'BLOCKED' }),
       ]),
     });
     expect(code).toBe(0);
@@ -148,9 +152,13 @@ describe('runPrWatchCli — watch', () => {
       stderr: io.stderr,
       sleep: noSleep,
       readSnapshot: sequenceReader([
-        makeSnapshot(),
-        makeSnapshot({ reviewComments: [{ id: '9', author: 'bugbot' }] }),
-        makeSnapshot({ state: 'CLOSED', reviewComments: [{ id: '9', author: 'bugbot' }] }),
+        makeSnapshot(waiting),
+        makeSnapshot({ ...waiting, reviewComments: [{ id: '9', author: 'bugbot' }] }),
+        makeSnapshot({
+          ...waiting,
+          state: 'CLOSED',
+          reviewComments: [{ id: '9', author: 'bugbot' }],
+        }),
       ]),
     });
     expect(io.out()).toContain('new review comment from bugbot');
@@ -182,7 +190,7 @@ describe('runPrWatchCli — watch', () => {
       stdout: io.stdout,
       stderr: io.stderr,
       sleep: noSleep,
-      readSnapshot: () => makeSnapshot(),
+      readSnapshot: () => makeSnapshot(waiting),
     });
     expect(code).toBe(0);
     expect(io.out()).toMatch(/max polls \(2\) reached/u);
@@ -199,7 +207,7 @@ describe('runPrWatchCli — watch', () => {
       readSnapshot: () => {
         calls += 1;
         if (calls === 1) {
-          return makeSnapshot();
+          return makeSnapshot(waiting);
         }
         throw new Error('gh: token expired');
       },
@@ -215,12 +223,73 @@ describe('runPrWatchCli — watch', () => {
       stdout: io.stdout,
       stderr: io.stderr,
       sleep: noSleep,
-      readSnapshot: () => makeSnapshot(),
+      readSnapshot: () => makeSnapshot(waiting),
     });
     const lines = io.out().split('\n').filter(Boolean);
     expect(lines).toHaveLength(2);
     expect(lines[0]).toContain('PR #221');
     expect(lines[1]).toMatch(/max polls \(3\) reached/u);
+  });
+
+  it('ends the watch when the initial snapshot is already all green (checks + threads)', async () => {
+    const io = capture();
+    const code = await runPrWatchCli({
+      args: ['221', '--watch'],
+      stdout: io.stdout,
+      stderr: io.stderr,
+      sleep: noSleep,
+      readSnapshot: () => makeSnapshot(),
+    });
+    expect(code).toBe(0);
+    expect(io.out()).toContain('all green');
+    expect(io.out()).toContain('watch ending');
+  });
+
+  it('ends the watch when a poll turns all green', async () => {
+    const io = capture();
+    const code = await runPrWatchCli({
+      args: ['221', '--watch'],
+      stdout: io.stdout,
+      stderr: io.stderr,
+      sleep: noSleep,
+      readSnapshot: sequenceReader([
+        makeSnapshot({ checks: { total: 1, passed: 0, failed: 0, pending: 1 } }),
+        makeSnapshot(),
+      ]),
+    });
+    expect(code).toBe(0);
+    expect(io.out()).toContain('checks: 0✓ 0✗ 1⋯ → 1✓ 0✗ 0⋯');
+    expect(io.out()).toContain('all green');
+  });
+
+  it('keeps watching on green checks while review threads stay unresolved', async () => {
+    // The standardisation this exit exists for: 'green' REQUIRES thread
+    // resolution — passing checks alone must not end the watch.
+    const io = capture();
+    const code = await runPrWatchCli({
+      args: ['221', '--watch', '--max-polls', '2'],
+      stdout: io.stdout,
+      stderr: io.stderr,
+      sleep: noSleep,
+      readSnapshot: () => makeSnapshot({ reviewThreads: { total: 2, unresolved: 1 } }),
+    });
+    expect(code).toBe(0);
+    expect(io.out()).not.toContain('all green');
+    expect(io.out()).toMatch(/max polls \(2\) reached/u);
+  });
+
+  it('never treats a zero-check PR as all green', async () => {
+    const io = capture();
+    const code = await runPrWatchCli({
+      args: ['221', '--watch', '--max-polls', '2'],
+      stdout: io.stdout,
+      stderr: io.stderr,
+      sleep: noSleep,
+      readSnapshot: () => makeSnapshot({ checks: { total: 0, passed: 0, failed: 0, pending: 0 } }),
+    });
+    expect(code).toBe(0);
+    expect(io.out()).not.toContain('all green');
+    expect(io.out()).toMatch(/max polls \(2\) reached/u);
   });
 
   it('rejects a non-positive --interval', async () => {

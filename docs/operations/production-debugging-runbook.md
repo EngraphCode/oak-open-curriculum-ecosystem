@@ -94,6 +94,18 @@ jq 'select(.message == "auth.bootstrap.step.error")' vercel-logs.txt
 
 ## Common Scenarios
 
+Before any scenario below: **rule out a stale deployment.** A
+behaviour/regression report against production is not evidence of a code bug
+until the running deployment is confirmed to include the relevant fix — a
+category-filter regression was once traced to a production deployment 13 days
+behind the fix (plus client-side `_meta` caching), not to code. Two cheap
+checks first: compare the deployed build's commit/release identity against
+the fix's commit (Vercel deployment metadata or the build-info surface), and
+run the same query differentially against local and production (e.g. the same
+MCP tool call against `oak-local` and `oak-prod`) — divergence with identical
+code isolates the issue to the deploy/data layer, matching results move
+suspicion back to code.
+
 ### Scenario 1: Slow Request Investigation
 
 **Situation**: Client reports a request taking over 5 seconds, or you notice increased latency in monitoring.
@@ -114,13 +126,12 @@ curl -i https://your-server.com/mcp \
 # X-Correlation-ID: req_1699123456789_a3f2c9
 ```
 
-Or find slow requests in logs:
+Or find slow requests in logs (fetch runtime logs via the project-scoped
+Vercel MCP — the Vercel CLI is forbidden; see
+[MCP servers for contributors](../engineering/mcp-servers-for-contributors.md)):
 
 ```bash
-# Vercel CLI (if available)
-vercel logs --follow | grep '"slowRequest":true'
-
-# Downloaded logs
+# Downloaded/exported logs
 grep '"slowRequest":true' vercel-logs.txt | tail -10
 ```
 
@@ -476,19 +487,15 @@ Document findings:
 
 ## Tools and Commands Reference
 
-### Vercel CLI Log Filtering
+### Vercel Log Access
+
+Fetch runtime logs, deployment state, and build logs through the
+project-scoped Vercel MCP tools (runtime logs — including error-level
+filtering — and deployment build logs). The Vercel CLI is forbidden — see
+[MCP servers for contributors](../engineering/mcp-servers-for-contributors.md).
 
 ```bash
-# Follow logs in real-time
-vercel logs --follow
-
-# Filter by project
-vercel logs --follow --project=oak-mcp-http
-
-# Download logs for analysis
-vercel logs --since=2024-11-06 > logs.txt
-
-# Filter downloaded logs
+# Filter logs exported from the MCP or the Vercel dashboard
 grep '"level":"error"' logs.txt | jq .
 grep '"correlationId":"req_123"' logs.txt | jq .
 ```

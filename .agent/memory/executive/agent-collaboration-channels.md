@@ -61,6 +61,22 @@ Need to communicate something to another agent?
     └── Owner question via AskUserQuestion (5b)
 ```
 
+## Peer or Helper — The Routing Diagnostic
+
+Design and decision substance routes to a **peer** sidebar (channels 3/4);
+parallelisable execution of pre-decided tasks routes to **helpers** —
+sub-agent or platform-orchestrator dispatch (see §Platform-Orchestrator
+Handoff below, and the delegation clauses in
+[`agent-collaboration.md`](../../directives/agent-collaboration.md)
+§Convergence and Delegation Discipline). The diagnostic: if the brief is
+already detailed enough to constrain the answer, the work is execution —
+helpers fit; if it is not, you need a peer, not a helper. Do not try to
+coerce design out of a helper with ever-more-detailed briefs — emergent
+shape comes from collision between comparable-authority minds, not
+delegation (worked evidence:
+[`agent-collaboration.md`](../../directives/agent-collaboration.md)
+§Coordinator Role).
+
 ## Read-Only Support Assignments
 
 For read-only scout or review support, send two notes:
@@ -72,6 +88,25 @@ For read-only scout or review support, send two notes:
 
 This gives the controller a routable signal without turning the support
 assignment into an implementation claim.
+
+## Platform-Orchestrator Handoff
+
+The comms surfaces above assume a poll-and-pickup agent: a session with a
+comms-polling loop that discovers and claims work. Platform-native
+orchestrators do not share that assumption. Cursor's Multitask mode
+(re-verified against Cursor 3.2's `/multitask`, 2026-07-04) decomposes a
+request and dispatches its own internal subagents; it does not poll a comms
+directory, so narrative comms-events whose `audience` entries name a
+cursor-platform agent are durable record only, never a delivery mechanism. Hand such an orchestrator **one
+consolidated message**: a short shared context block, then a numbered list of
+parallel-safe, self-contained task briefs (scope, deliverable, constraints,
+expected output shape), and let it run its own team spin-up and spin-down.
+Treat comms as the Claude-Code/Codex inter-agent channel by default; treat
+platform orchestrators as spawn-with-prompt targets unless evidence shows a
+polling loop. If a platform orchestrator becomes a standing consumer, the
+protocol needs either a tasklist-export helper (producing the
+consolidated-message shape from brief records) or a push-style integration
+with the platform's task intake.
 
 ## Repeated Routing Pitfalls
 

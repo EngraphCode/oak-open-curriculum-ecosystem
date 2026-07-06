@@ -78,6 +78,12 @@ the PDR-027 name+UUID identity that
 carries on internal collaboration state. Outward posts via shared credentials
 had no equivalent; this rule closes that gap.
 
+The same asymmetry governs *reading*: for who-did-what questions, consult the
+comms event stream and claim dispositions, never a GitHub actor field
+(`mergedBy`, PR author, commit pusher) — the login identifies the shared
+credential, not the actor (worked instance: PR #160's merge mis-attributed to
+the owner from `mergedBy` alone, 2026-06-10).
+
 ## Scope Nuance
 
 - **In scope:** outward, human-visible artefacts authored via shared human
@@ -87,6 +93,9 @@ had no equivalent; this rule closes that gap.
   (carry PDR-027 name+UUID by construction).
 - **Not in scope:** content authored under the agent's *own* distinct account
   (where the actor is already visible) — though a marker there is harmless.
+- **In scope (reading side):** attributing past actions performed under shared
+  credentials — use the comms stream and claim dispositions, never the GitHub
+  actor field (see §Why).
 
 ## Enforcement
 

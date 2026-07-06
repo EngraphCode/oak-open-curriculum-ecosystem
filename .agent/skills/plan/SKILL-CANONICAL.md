@@ -20,6 +20,14 @@ and the plan architecture defined in
    intent, constraints, and trade-offs before committing to a plan
    structure. Do not skip this step for non-trivial work.
 
+   When "plan X" spans **altitudes** — the downstream product/strategy
+   vs synthesising our own plan estate; future strategy vs immediate
+   executable work — surface the altitude fork (or state the
+   lighter/immediate verdict) BEFORE drafting; never default to the
+   heavier altitude, and never bake an open decision in as a
+   load-bearing thesis. A reviewer can validate a plan's facts but
+   cannot catch a wrong altitude — the frame is the owner's to set.
+
    **Verdict-vs-menu discipline** (per
    [`.agent/rules/present-verdicts-not-menus.md`](../../rules/present-verdicts-not-menus.md)):
 
@@ -137,6 +145,79 @@ Every non-trivial plan, strategic or executable, MUST define:
    the derivation explicit so work is homed where it is driven, not parked on a
    register. (Open-questions are for the genuinely not-yet-decidable, never a
    scheduling or holding surface for work that has a home.)
+
+### Build-vs-Buy Before Build-Shape
+
+Before exiting plan mode on any work that integrates with a vendor
+(Sentry, Vercel, Clerk, etc.), answer first: **which first-party
+integrations does the vendor ship (plugin, SDK, managed flow, official
+GitHub Action), and why are we not choosing one of them?** Name the
+vendor's first-party ecosystem explicitly in the plan. Build-vs-buy is
+a different question from build-shape and must be answered first — once
+the plan is weighing bespoke shapes (`.ts` vs `.mjs` vs `.sh`), the
+cheapest option has already been lost (worked instance 2026-04-20: a
+~900-line bespoke Sentry orchestrator built before anyone asked about
+`@sentry/esbuild-plugin`, which was ~5 lines).
+
+Two companion disciplines:
+
+- **ADR intent-vs-implementation audit.** An ADR that names specific
+  CLI commands, argv shapes, or per-step error postures is
+  implementation spec in ADR form, foreclosing alternatives without
+  evaluating them. ADRs state WHAT outcome the vendor must reach; HOW
+  belongs in the plan.
+- **Friction ratchet — stop the line at three.** Count signals against
+  the solution *shape* (not against individual tactics): a lint
+  size/complexity cap, a dependency cycle, a reviewer finding that
+  requires more code, an ADR amendment to match implementation, a
+  vendor-rule exception. When three or more have fired, the next
+  response is a shape-reconsideration pause, never another tactical
+  fix. Sunk-cost detector phrases in your own reasoning — "we'd have
+  to throw away…", "we'd need to verify X supports Y exactly" (where Y
+  is something we chose), "the current implementation is valuable
+  because it's tested" — are paid costs, not reasons to continue;
+  future maintenance cost is the only cost that matters.
+
+### Pre-Author Scope-Vocabulary Check
+
+Before saving any forward-looking framing in a plan body (`Cycle N`,
+`Phase N`, `Round N`, `Wave N`, `Next session`, `Follow-on`), ask: *am I
+authoring vocabulary that implies scope or commitments the owner did not
+authorise?* A series that exists in no owner direction or ratified
+artefact is invented obligation — future readers treat "Cycle 2" as
+ratified scope and plan accordingly. Strip it and use neutral language
+naming only what is authorised ("the bundle executed on <date>"); where
+a future commitment IS authorised, cite the authorising source inline.
+The check runs at compose time — especially under coordination rush,
+where parallel-structure framing feels clean — never left to review
+time.
+
+### Schedule It, Sequence It — No Imaginary Flows
+
+Plans commit to concrete scheduled sequence positions, never conditional
+triggers ("when X ships", "depends on Y future", "tripwire fires on Z").
+Conditional-trigger soup creates the illusion of activation flow while
+quietly stalling; work happens on definite ordering ("after gate-1 lands,
+next sequenced work is Inc.2"), not imagined event chains. Where genuine
+schedule uncertainty exists, name it as a real owner decision needing
+resolution now, not a deferred trigger (owner-ratified 2026-05-11 across
+the plan estate). The ban is on conditional flows standing in for a
+plan's own sequence; three shapes remain legitimate: automatic firing
+conditions for maintenance and meta items whose timing no owner should
+own, `future/` promotion triggers (estate-level selection criteria a
+judging agent evaluates at promotion time, per §Promotion Workflow — not
+activation flows inside a plan body), and intra-plan `depends_on` cycle
+ordering (which IS the definite-sequence shape, not a banned trigger).
+
+### A Boundary Move Reshapes Every Surface It Lived On
+
+When the owner moves a plan boundary (a non-goal into scope, a scope item
+out), it is never a single-spot patch: search the artefact for every
+assertion the old boundary was holding up — non-goals, definition-of-done,
+end-state, risks, lifecycle, owner-scope — and move them coherently, then
+report the blast radius transparently when the ask named only one section.
+Editing only the named section leaves live contradictions on every other
+surface the old boundary touched.
 
 ### Disposition Ledger For "Apply All Of X" Inputs
 

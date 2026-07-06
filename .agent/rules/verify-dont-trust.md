@@ -33,7 +33,17 @@ Generic confirmations like "done", "still true", "looks good", "green",
 Reviewer output is also evidence to test, not another substrate pointer to
 trust. When absorbing reviewer findings, verify the highest-stakes claims
 against live artefacts, identify reviewer blind spots, and then decide what to
-absorb.
+absorb. Convergence is not a substitute: N reviewers independently surfacing
+the same shape can be N agents inventing the same optionality — convergence
+raises scrutiny, it never waives it (worked instance 2026-06-27: four
+reviewers converged on a "graceful-degradation floor" the owner killed as
+invented optionality) — and when your own brief seeded the premise,
+reviewers "confirming" it is amplification of your frame, never independent
+corroboration. And "first-hand" means the main agent's own read: run
+a fan-out for breadth or second opinion, but read the load-bearing sources
+yourself and form your own verdicts first — sub-agent reports corroborate or
+challenge your reading, never substitute for it, and the first-hand pass is
+never deferred to "after the agents finish".
 
 Fix verification must also return to the original defect location. A patch that
 adds intended cure text elsewhere but leaves the contradicting source text in
@@ -99,10 +109,30 @@ assumed. This applies hardest to your own completion gates.
 Verification reaches the *meaning* of an inherited frame, not only its
 existence. A recorded verdict, a continuity note's diagnosis, or a status
 label tells you what a prior mind concluded — it does not tell you the role,
-meaning, or current correctness of the thing it describes. Before letting
+meaning, or current correctness of the thing it describes. For any artefact
+authored weeks or more ago — an open PR, plan, or proposal — **supersession is
+the first-order question, before internal merits**: check the ADRs/PDRs
+ratified since its date, recent merges, and active plans for anything that has
+already decided its scope (worked instance 2026-06-23: a four-week-old
+proposal earned "merge-but-trim" on its merits when a nine-day-old ADR had
+settled the same ground; the true verdict was close-as-overtaken). Before letting
 inherited prose define the question you are answering, re-test the verdict
 against the live artefact: is this still the right frame, or am I inheriting a
-stale diagnosis as my starting premise?
+stale diagnosis as my starting premise? Hedged prose in the artefact —
+"arguably", "loosely covers", "should be" — is itself the tell that the
+writer's classification was uncertain: read the object, not the hedge (a
+hedged thread-record link once caused a required brief to go unread because
+the hedge was absorbed as the verdict; owner-surfaced 2026-04-21).
+
+An artefact's annotation — a code comment, docstring, schema description,
+ontology comment — is evidence of what the thing **is to a consumer**, never of
+**why it was added**. Rationale belongs to the decision-maker, and they are
+authoritative on their own decision: when an annotation and a decision-maker's
+account conflict on *why* something exists, do not resolve the conflict in the
+direction convenient to your narrative — mark it owner-held and surface the
+question (worked instance 2026-06-23: an ontology field's comment was used to
+"correct" a peer report and downgrade a designed identity-join to "emergent";
+the owner had added the field specifically to enable the join).
 
 The same discipline covers authorities you are about to cite or copy. Before
 writing "this discipline lives in ADR-NNN" into a durable artefact, open the
@@ -156,6 +186,22 @@ intention cannot catch. The missing citation can: it is a visible feature of
 the sentence, observable to you as you write and to a reader as they read. Gate
 on the artefact the fluent claim omits, not on the feeling you hoped to notice.
 The smoother and more convenient the claim, the harder the citation is owed.
+
+## Calibrate Verification to Stakes
+
+This rule prescribes *calibrated* verification, not maximal distrust. The
+default posture is **trust and verify**: accept the stated or likely state,
+then run ONE light, targeted check of the load-bearing fact — not an
+exhaustive re-derivation of everything in sight. Over-verification is not free
+safety; it is a real cost (friction, rework, held progress) that must be
+justified by stakes. Reserve exhaustive distrust and first-hand re-derivation
+for genuinely novel, irreversible, or high-risk moves. The craft is choosing
+the *right* single check: cheap and load-bearing (a `git fetch` before
+asserting remote state — `@{u}` is only truth-bearing after a fetch) beats
+both stale-cache trust and elaborate theory-building on an unverified premise
+(worked instance 2026-06-14, owner-corrected: an unfetched `@{u}` read as
+"push blocked" grew a multi-layer push-blocker edifice; the branch was fully
+in sync and one fetch would have shown it).
 
 ## Anti-Patterns
 

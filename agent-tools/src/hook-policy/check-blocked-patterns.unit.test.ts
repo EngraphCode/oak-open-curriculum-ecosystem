@@ -75,6 +75,56 @@ describe('findBlockedPattern', () => {
     expect(findBlockedPattern('for i in 1 2 3; do echo $i; done', blockedPatterns)).toBeNull();
   });
 
+  it('regex-mode matches the pattern against the raw command, boundary-aware', () => {
+    const ripgrepReplace = {
+      pattern: String.raw`(?:^|[^\w-])rg\s+(?:-\S+\s+)*-r`,
+      match: 'regex' as const,
+    };
+
+    // The shapes the fingerprint exists to catch: clustered replace-flag
+    // first, bare short-replace, a later clustered flag, and the pathed,
+    // piped, and quoted invocation forms.
+    expect(findBlockedPattern('rg -riln "pattern" .agent/', [ripgrepReplace])).toStrictEqual(
+      ripgrepReplace,
+    );
+    expect(findBlockedPattern('rg -r il "pattern" docs/', [ripgrepReplace])).toStrictEqual(
+      ripgrepReplace,
+    );
+    expect(findBlockedPattern('rg -i -rn "pattern" docs/', [ripgrepReplace])).toStrictEqual(
+      ripgrepReplace,
+    );
+    expect(findBlockedPattern('cat file | rg -r foo', [ripgrepReplace])).toStrictEqual(
+      ripgrepReplace,
+    );
+    expect(findBlockedPattern('sh -c "rg -riln pattern ."', [ripgrepReplace])).toStrictEqual(
+      ripgrepReplace,
+    );
+    expect(findBlockedPattern('./tools/rg -r foo docs/', [ripgrepReplace])).toStrictEqual(
+      ripgrepReplace,
+    );
+  });
+
+  it('regex-mode does not fire on unrelated tokens that a whitespace-stripped substring would hit', () => {
+    const ripgrepReplace = {
+      pattern: String.raw`(?:^|[^\w-])rg\s+(?:-\S+\s+)*-r`,
+      match: 'regex' as const,
+    };
+
+    // The founding false-positive class (PR #304 Bugbot): a token merely
+    // ENDING in "rg" followed by a -r flag is not a ripgrep invocation.
+    expect(findBlockedPattern('xorg -restart config', [ripgrepReplace])).toBeNull();
+    expect(findBlockedPattern('pnpm --filter org -r build', [ripgrepReplace])).toBeNull();
+    // The taught safe forms stay allowed: separated flags; the explicit long form.
+    expect(findBlockedPattern('rg -i -l -n "pattern" docs/', [ripgrepReplace])).toBeNull();
+    expect(findBlockedPattern('rg --replace=X "pattern" docs/', [ripgrepReplace])).toBeNull();
+  });
+
+  it('regex-mode fails open on an invalid pattern instead of bricking the guard', () => {
+    const invalidRegex = { pattern: '(unclosed', match: 'regex' as const };
+
+    expect(findBlockedPattern('rg -riln "pattern" .agent/', [invalidRegex])).toBeNull();
+  });
+
   it('limits guardrail-bypass flags to git commands when the policy requires git', () => {
     expect(findBlockedPattern('git commit --no-verify', ['git --no-verify'])).toStrictEqual({
       pattern: 'git --no-verify',
@@ -198,6 +248,21 @@ describe('parseBlockedPatternPolicy', () => {
     expect(() => parseBlockedPatternPolicy({ hooks: {} })).toThrow(
       'The canonical hook policy did not contain hooks.preToolUse.blocked_patterns.',
     );
+  });
+
+  it('degrades an unknown match kind to the default mode instead of failing the guard closed', () => {
+    // A policy newer than the built dist must not brick every Bash command
+    // (lived instance 2026-07-06: a stale-dist guard met a policy naming a
+    // then-unknown match kind and denied everything, including the rebuild).
+    const parsed = parseBlockedPatternPolicy({
+      hooks: {
+        preToolUse: {
+          blocked_patterns: [{ pattern: 'rg -r', match: 'some-future-mode' }],
+        },
+      },
+    });
+
+    expect(parsed).toStrictEqual([{ pattern: 'rg -r', match: undefined }]);
   });
 });
 
