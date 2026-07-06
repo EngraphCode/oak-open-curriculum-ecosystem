@@ -1,3 +1,16 @@
+# [1.58.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.57.0...v1.58.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* **agent-tools:** anchor corroboration home claims at the repo root ([e185162](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e1851626516e53c68abd51749e22cf709a21b4c4))
+
+
+### Features
+
+* **agent-tools:** deterministic salvage tier stratification (salvage ws1) ([f5fd2e5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f5fd2e5b2d0a6a43ed3a774cdb1a99eb8ede08c9))
+* **agent-tools:** pr-watch tracks unresolved review threads ([1ce3f4e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1ce3f4ea85cd8925aee19928db395381799e6e76)), closes [#296](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/296)
+
 # [1.57.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.56.0...v1.57.0) (2026-07-02)
 
 
