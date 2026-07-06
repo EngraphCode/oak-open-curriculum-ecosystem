@@ -1318,3 +1318,55 @@ keep their entries with additive home-pointers.
   sources conserved; open-questions register untouched this pass (2 entries hold 2026-06-28
   keep-open grants; the MCP-pagination entry is another thread's ADR-shaped design question,
   surfaced to the owner in the handoff record §4).
+
+## 2026-07-06 — PR-295 review + merge run-in + PDR-049 collision doctrine (Hyena spins Lamplight)
+
+Landed: PR 295 reviewed (39-agent ultracode fan-out, every finding adversarially verified),
+234-commit divergence resolved as 2-parent merge `1731d29e9` (12 semantic unions per PDR-049 +
+the semantic-merge skill, losslessness proofs empty or drain-verified), first full CI
+attestation green (run-quality-gates), owner merged (`e7e1e1b84`, release 1.60.0). PDR-049
+gained §Sequential-identifier collisions (owner-ratified, PR 313 merged) with F-111→F-121 as
+its founding worked instance. Capture:
+
+- **Stale continuity claim repeated to the owner twice before verification (owner-corrected).**
+  "Make run-quality-gates a REQUIRED check" was inherited from the predecessor's napkin entry
+  AND their closeout broadcast, and repeated while my own live evidence already contradicted it
+  (PR `mergeStateStatus: BLOCKED` during checks IS what a required check produces). First-hand
+  `gh api repos/…/rules/branches/main` shows run-quality-gates + CodeQL + SonarCloud required.
+  Lesson: an "owner action still pending" line in continuity surfaces is a dated claim to
+  recompute BEFORE handing back to the owner — twice-relayed does not mean current, and a
+  BLOCKED merge state is itself the counter-evidence.
+- **Merge commits cannot ride the commit-queue workflow.** `git commit <pathspec>` is illegal
+  mid-merge ("cannot do a partial commit during a merge") and the queue's inner commit is
+  pathspec-scoped by design. Shape used: first-hand staged-set verification, then a plain
+  `git commit -F` with the full pre-commit gate, in a sole-agent window with the git claim
+  open. Candidate registered: commit-skill amendment naming the merge-commit path.
+- **Two mechanical merge-commit bounce classes, both fix-immediately-and-retry:** prettier
+  (a python-spliced RULES_INDEX table needed a reflow pass) and MD049 emphasis-style (the
+  branch's napkin content carried asterisk emphasis; `markdownlint-cli2 --fix` is
+  content-safe for that rule).
+- **A "final" closeout broadcast is not a liveness guarantee.** The peer's post-closeout coda
+  (a Copilot-fix commit round + main FF + branch deletes) ran in this checkout 60 seconds
+  after my `git switch -c`, and their fresh commit-window claim surfaced only on my
+  post-open registry read. No loss (disjoint pathspecs; reflog + PR state re-derived the
+  interleaving first-hand). Lessons: (a) re-read the registry in the same breath as
+  `claims open`, not minutes before; (b) after any peer closeout, treat their return as
+  possible until the session-end signal is corroborated by quiet surfaces.
+- **Resolver-fleet semantic merge held.** Eight parallel resolvers, each with clean-side
+  snapshots + a per-file recipe + a mandatory heading set-diff proof; my independent
+  second-reader sweep agreed (only explained absences: main's napkin rotation drain, verified
+  token-identical in two archives). In the review fleet, adversarial verification killed one
+  severity-inflated finding (the dep-bump "major" — the esbuild `>=` range pre-existed at
+  base), which is the owner's "critically assess all subagent responses" paying for itself.
+- **Name near-collision hazard observed:** this thread's Director #9 was "Hyena stirs
+  Lamplight" (0479df); this session is "Hyena spins Lamplight" (27cb6f). One verb apart, both
+  live on the same thread's records. Identity rows are additive and the prefix is the join
+  key — read the prefix, never match on the name at a glance.
+- **CLI craft:** `claims close` requires explicit `--now` (`open` defaults it — F-89 fixed
+  open only; asymmetry friction); `claims open` prints the pnpm banner on stdout so pipe
+  through `pnpm -s` before JSON-parsing; `closed-claims.archive.json` ENOENT recurrence
+  confirmed (re-materialise the empty 1.3.0 container and closures append normally).
+- **Fitness debt conserved at the merge, drain owed:** napkin ~1320 lines, repo-continuity
+  568, distilled 204, director-handoff 378, pending-graduations 11 live items — all
+  conserved-not-trimmed per PDR-049/PDR-046; the dedicated consolidation drain is DUE and
+  owner-acknowledged as post-merge debt.

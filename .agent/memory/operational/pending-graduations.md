@@ -160,3 +160,15 @@ view-binder DI seam → `patterns/view-binder-di-seam.md`.
   (sonarqube-mcp-instructions) + executive-memory amendment (invoke-code-experts) | trigger:
   owner approval of the 2026-07-06 reflection proposals, or the next consolidation pass
   judging them settled | size: S | status: pending]`
+
+- **Commit skill needs the merge-commit path named** —
+  `[captured: 2026-07-06 | source: PR-295 merge run-in (napkin 2026-07-06, Hyena spins
+  Lamplight): merge commits cannot ride the commit-queue workflow — a pathspec-scoped git
+  commit is illegal mid-merge and the queue's inner commit is pathspec-scoped by design; the
+  shape used (first-hand staged-set verification, then a plain whole-index git commit with
+  the full pre-commit gate, sole-agent window, git claim open) worked but is undocumented,
+  and PDR-049 prescribes exactly this merge topology for memory-file reconciliation | target:
+  skill amendment (commit SKILL-CANONICAL — a merge-commits subsection naming the
+  plain-commit path, its preconditions, and why the queue workflow does not apply) | trigger:
+  next touch of the commit skill, or the next PDR-049-class merge | size: S | status:
+  pending]`

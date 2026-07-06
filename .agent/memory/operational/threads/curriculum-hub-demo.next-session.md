@@ -62,6 +62,7 @@ status: active
 | Peregrine lifts Cirrus | claude | claude-fable-5 | fc1fc8 | implementer — styling/UI (cf62bda9, standby→adopted at Galago's relay 07:34Z; drove windows #3–#9: the 3b block pass, item-8 header + demo-wide 320 reflow, item-10 callout fidelity + backlog, lesson nested-main polish, exemplars/wiki alignment, E1+E2, the E3 showcase + dangerouslySetInnerHTML cure, the jest-axe backstop frozen READY for window #10) — session CLOSED at the owner pause 2026-07-02; claim RETAINED, CURRENT pickup record `handoffs/2026-07-02-curriculum-hub-styling-peregrine-lifts-cirrus.md` | 2026-07-02 | 2026-07-02 |
 | Limpet herds Marsh | claude | claude-fable-5 | 34e191 | implementer — data plane (fd0ee59e, adopted from Junk's retained relay; 11 cycles committed through window #9: the DI-seam extraction `f9f71c6a5` whose ruling became house doctrine, the E3 seam `fb1852bfa`, §D capture hardening + evidence `ad4730ed2`, measure-320 `50fb7ed81` + the two-state hardening in-tree, data batch #2 in `902866437`) — SESSION COMPLETE (owner-directed full closeout at the pause 2026-07-02; fd0ee59e RETAINED, CURRENT pickup record `handoffs/2026-07-02-curriculum-hub-limpet-data-plane.md`, pointer set via claims set-handoff) | 2026-07-02 | 2026-07-02 |
 | Nettle tracks Acorn | claude | claude-fable-5 | dfddd4 | director #10 (CLOSED OUT fully 2026-07-06 on owner direction; 35d9c8f2 RETAINED, pickup record `handoffs/2026-07-06-curriculum-hub-director-nettle.md`; tenure: Sonar cures + all eight PR threads fixed-and-resolved + owed reviewer passes serviced + the deep documentation arc + append-only consolidation; a FRESH session continues) | 2026-07-06 | 2026-07-06 |
+| Hyena spins Lamplight | claude-code | claude-fable-5 | 27cb6f | reviewer + merge-integrator (DISTINCT from director #9 "Hyena stirs Lamplight" d62788 — one verb apart, different session): ran the 39-agent adversarially-verified PR-295 review, the semantic main-merge run-in `1731d29e9` (12 unions per PDR-049, F-111→F-121 renumber), first green run-quality-gates attestation; owner merged `e7e1e1b84` (1.60.0). Session closed 2026-07-06, no claims retained | 2026-07-06 | 2026-07-06 |
 
 Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→Eclipse→Cinder→Deneb→Junk→**Limpet herds Marsh (session complete at the pause; fd0ee59e retained, pickup record current)**; styling Squall→Dolphin→Laurel→Kite→Linnet→Typhoon→Zinnia→Galago→**Peregrine lifts Cirrus (adopted 07:34Z; session closed at the owner pause, claim retained for the restart)**. Director chain: Herring→Swordfish→Lantern→Hawthorn→Sycamore→Panther→Birch→Comet→**Hyena stirs Lamplight (#9 — ACTIVE, Moment-2 `7488d0c9` 2026-07-02T21:14Z)**. All transfers clean PDR-064/PDR-063; the whole team paused in formation (pause broadcast 42b25684).
 
@@ -112,7 +113,29 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   - **`searchHub` placement = DEMO-LOCAL (Director-ratified 2026-07-01, second-consumer rule).** It is pure mechanism with exactly ONE consumer (this demo) → `consolidate-at-second-consumer`; extracting to a reusable lib now is premature generalisation. Keeping it demo-local means it is NOT calcifying as a mis-placed reusable lib, so the plan item-3 "route to arch reviewers before it calcifies" concern is satisfied by NOT promoting it. **Extraction trigger = a real SECOND consumer** (then route to the architecture reviewers). Do not re-litigate demo-local-vs-lib before that trigger.
   - **Course-assembly exec-knowledge (react-component-expert forward-note, from a now-gone sub-agent — home it before it re-derives):** at Course-assembly, feed `CourseNavProvider` a **memoised/hoisted** module array (`useMemo(() => mapUnitsToModules(course), [course])` at the provider, or a module-level constant if static) — a freshly-constructed array literal per render re-renders all 214 block descendants that read the context. Also render the 214 blocks through a `.map` with **stable per-block keys (block id, not index)** so the memoised-provider win isn't undone by a churning list above it. The context shape (`CourseNavContext.ts` = `readonly CourseNavModule[]`) already supports this cleanly.
 - **Commit / codegen note (UPDATED — drift class RESOLVED):** main #291's codegen **cached-schema-default** (merged in `39a3aaf50`) means `pnpm sdk-codegen` now uses the cached schema by default, so it no longer re-fetches live and re-pollutes. Keep `CI=true` on commits (belt-and-suspenders). Commits go through the FULL pre-commit gate (**no `--no-verify`** — the hook IS the gate; the reflex to bypass is the signal to stop and analyse). Branch is PUSHED to origin.
-- **Next safe step (REFRESHED 2026-07-06 at Nettle #10's full closeout):** the successor's map
+- **Next safe step (REFRESHED 2026-07-06 post-merge — Hyena spins Lamplight):** **PR #295 IS
+  MERGED to main** (`e7e1e1b84`, release 1.60.0) after the semantic main-merge run-in landed as
+  2-parent merge `1731d29e9` (12 concept-union conflict resolutions per PDR-049 + the
+  semantic-merge skill; F-111 renumbered F-121 per PDR-049 §Sequential-identifier collisions;
+  run-quality-gates GREEN — the branch's first full CI attestation since `f8902d5c4`).
+  Remaining, in order: (1) **§J owner-hosted deploy from main** (Vercel settings + env vars
+  enumerated in the active plan's §J); (2) **fidelity-register judgments** — 14 unregistered
+  `tool:fidelity` findings await disposition into `fidelity-register.json`; (3) **post-merge
+  follow-ups from the verified 2026-07-06 review** (none blocking): dangling references to the
+  removed api-md docs (`.gitignore`, the oak-eslint shared config, `docs-pipeline.md`); an
+  uncaught `URIError` on malformed percent-encoding in the export-server path decode
+  (dev-only); the demos dependency boundary documented but not machine-enforced in
+  dependency-cruiser; three test minors (lesson-page `vi.mock` call-inspection, the
+  LearningFrameworkAnimation cancelAnimationFrame mechanism-audit pair, census tests coupled
+  to bundled content whose cited verification sources are untracked); (4) **merge-boundary
+  sweep of retained claims** (Peregrine `cf62bda9`, Limpet `fd0ee59e`, Thyme `16be897b`,
+  director seat `35d9c8f2` — owner-gated dispositions now the branch is merged and deleted);
+  (5) **local branch deletions** (owner-run: `feat/curriculum-hub-demo`,
+  `docs/pdr-049-sequential-id-collision`, `docs/every-issue-earns-a-check-doctrine` — remote
+  copies already deleted/merged); (6) the **dedicated consolidation drain** (napkin ~1370
+  lines, repo-continuity 568, distilled 204, director-handoff 378, pending-graduations 11
+  items — all conserved-not-trimmed at the merge, owner-acknowledged debt).
+- **Prior next-safe-step (REFRESHED 2026-07-06 at Nettle #10's full closeout, superseded above):** the successor's map
   is §3 of `handoffs/2026-07-06-curriculum-hub-director-nettle.md` — in one line: **PR #295 is
   ALL-GREEN at `70f6d25df` with ZERO unresolved threads and reviewer passes DONE**; remaining =
   owner releases the LOCAL SEMANTIC main-merge (re-enumerate conflicts at merge time — the
