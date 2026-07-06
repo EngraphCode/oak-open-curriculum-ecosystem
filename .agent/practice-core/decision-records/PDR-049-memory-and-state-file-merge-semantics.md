@@ -236,6 +236,49 @@ parallel-action; resolve by preserving both pieces of evidence and
 adopting the substantively-correct view, never by silently discarding
 either side.
 
+### Sequential-identifier collisions (numbered artefacts) — amendment 2026-07-06
+
+Registers and record corpora keyed by human-sequential identifiers —
+friction registers (F-N), ADRs, PDRs, numbered patterns, and any other
+next-number-allocated artefact — carry a collision class distinct from
+the UUID duplicate-key case above: two branches independently allocate
+the **same next number to different substance**. Unlike a UUID
+duplicate this signals nothing wrong — the next free number is a shared
+counter with no coordination surface, so parallel branches will
+occasionally both claim it. It is invisible to git when the number
+lives in two different filenames, so it must be checked for explicitly
+at merge time.
+
+Resolution (owner-ratified 2026-07-06 as a Practice-wide standard):
+
+1. **The copy already landed on the shared trunk** (main, or the merge
+   target) **keeps the contested number.**
+2. **The other side's artefact takes the next free number**, re-derived
+   at merge-execution time across the union of both sides — never from
+   an earlier analysis snapshot, because the trunk may have moved.
+3. **Every index and reference updates in the same change**: the
+   filename where the number is part of it, the title line, the
+   register's sequence position, README/index rows, and every
+   in-content cross-reference to the old identifier on the renumbered
+   side (grep the whole tree for the old id before declaring done).
+4. **Both artefacts survive in full.** Renumbering is an identity move,
+   never a licence to drop, fold, or truncate either side's substance.
+5. **Verify mechanically**: after resolution the identifier sequence is
+   collision-free and gap-honest (gaps are acceptable; duplicates are
+   not), and no reference to the renumbered artefact still resolves to
+   the old number.
+
+Falsifiability: a post-merge sweep finding two artefacts under one
+identifier, or a dangling reference to a renumbered artefact's old
+identifier, shows the resolution was misapplied.
+
+Founding worked instance: the PR #295 merge run-in (2026-07-06) — F-111
+was minted independently on main (Bash-environment sandbox/zsh
+friction) and on the feature branch (comms `--in-response-to`
+dangling-threading-edge friction). Main's F-111 keeps the number; the
+branch's entry renumbers to the next free F-number at merge execution,
+with its register position and any references moving with it.
+
 ## Investment Staircase
 
 This PDR commits the Practice to the *minimum doctrine* that prevents

@@ -51,7 +51,11 @@ Two mandatory consequences:
    known classes to check beyond dropped entries (non-exhaustive by construction — extend it):
    a duplicated index block or table/identity row; an additive-identity row that should have
    coalesced; an ADR/PDR/plan/friction **numbering collision** (different filenames make it
-   invisible to the merge); a moved/deleted-file **reference cascade** (navigation or
+   invisible to the merge) — resolve per
+   [PDR-049 §Sequential-identifier collisions](../../practice-core/decision-records/PDR-049-memory-and-state-file-merge-semantics.md):
+   the trunk side keeps the number, the other side renumbers to the next free number
+   re-derived at merge time, and every index and reference updates in the same change; a
+   moved/deleted-file **reference cascade** (navigation or
    prescription mode); **cross-file coupling** where a one-side file depends on the other's
    continuity edit; a **silent compile break** in adjacent code that text-merged clean — only
    `pnpm type-check` and the tests on the *merged tree* settle that, never the textual
