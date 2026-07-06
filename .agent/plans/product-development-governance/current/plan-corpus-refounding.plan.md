@@ -27,12 +27,17 @@ todos:
       deterministic nets, verbatim byte capture with per-line digests, sorted
       inventory.jsonl), tile (granularity-agnostic exact-cover arithmetic), plant-orphan
       (planted-defect discrimination proofs INCLUDING a marker-free work-bearing paraphrase
-      for the sweep net), sweep (archive/prompts/thread-record keyword net), merge-recheck
-      (denominator re-derivation, banner-aware byte comparison), batch-status (recomputes,
-      never reads run-state), claim-census (mapped status instances + completion-keyword
-      lines, closed and counted). Acceptance: every detector passes its scripted
-      discrimination proof (gapped/overlapped tiling fixtures, flipped frozen byte,
-      synthetic arrival, planted orphans incl. the marker-free plant); determinism tests
+      for the sweep net), plant-challenge-canary (the P4 sealed planted-loss rows for every
+      batch's challenge stream: known-dropped spec-detail plants at a declared rate, keys
+      sealed by hash-commit-then-reveal — sha256 of the key set committed before the batch,
+      revealed and scored after; the challenge layer's own prove-it-fires tooling per
+      cross-estate review B1), sweep (archive/prompts/thread-record keyword net),
+      merge-recheck (denominator re-derivation, banner-aware byte comparison), batch-status
+      (recomputes, never reads run-state), claim-census (mapped status instances +
+      completion-keyword lines, closed and counted). Acceptance: every detector passes its
+      scripted discrimination proof (gapped/overlapped tiling fixtures, flipped frozen
+      byte, synthetic arrival, planted orphans incl. the marker-free plant, AND a
+      planted-loss challenge canary sealed-then-revealed end-to-end); determinism tests
       prove byte-stable output; freeze+inventory scripts may land and RUN as soon as their
       own proofs pass — not gated on the rest of R0.
     status: pending
