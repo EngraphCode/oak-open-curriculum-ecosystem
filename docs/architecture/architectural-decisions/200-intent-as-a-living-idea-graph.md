@@ -270,9 +270,11 @@ amends the Decision-level boundary above, explicitly rather than by silent re-se
    graph will validate, landed earlier.
 5. **The V0.1 additive schema extension is owner-signed** (same ratification): optional
    proof-typed todos (`proof` + `spec_ref`, six-kind closed taxonomy; required at refounding
-   authoring), the seventh conserving disposition class `permanent-home-routed`, and the
-   `pending`-sentinel-valid-only-in-the-holding-lane rule. Additive over V0; recorded as the
-   owner-signed V0.1 block in `plan-node-schema.v0.md`.
+   authoring), `permanent-home-routed` as the refounding conservation-ledger's seventh
+   conserving class (a ledger disposition, distinct from the plan-node schema's four-value
+   terminal-disposition enum), and the `pending`-sentinel-valid-only-in-the-holding-lane
+   rule. Additive over V0; recorded as the owner-signed V0.1 block in
+   `plan-node-schema.v0.md`.
 
 WS2 (idea-node schema) and WS4 (thin-slice proof) are unaffected and proceed in parallel; the
 refounding must not wait on them, nor they on it.
@@ -339,6 +341,13 @@ scope for the harvest regardless of file form. The exact count is **re-derived a
 auditing recall against a stale snapshot would itself be a loss path). Out of scope by location only: the
 relocated archive (`.agent/plans-old-archive/`, harvested later) and `.cursor/plans/` (Cursor's ephemeral
 namespace). No method-doc "non-goal" overrides this; the filesystem boundary is the scope.
+
+> **Scope alignment (2026-07-06, follows the §Consequences Amendment):** once the corpus refounding
+> runs, the harvest's substrate is the **refounded corpus plus the frozen pre-refounding archive via
+> binding-clause provenance edges** — the frozen copies stay reachable for idea-level detail rather
+> than being bulk-harvested; and `.agent/plans-old-archive/` participates through the refounding's
+> sweep-promotion path (promoted hits join the denominator) rather than a separate "harvested later"
+> pass. The paragraph above stands as the pre-refounding scope statement.
 
 ## Future state (owner intent; explicitly beyond this work's scope)
 

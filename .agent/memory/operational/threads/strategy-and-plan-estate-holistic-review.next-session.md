@@ -68,6 +68,14 @@ freeze-rule packet for the owner sitting); (2) R0b plan-state tool + R0c registe
 (3) the G1 owner sitting when the packet is ready; (4) WS2 (idea-node schema) continues
 in parallel, unchanged, per the section below.
 
+**Successor (owner-named, 2026-07-06): Stoat rides Gloaming.** The pasteable R0 session
+opener is
+[`prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md`](../../../prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md)
+— grounding order, the R0 work breakdown, the G1-packet deliverable, and the operational
+craft (background commits per F-123; the F-122 merge-ready discipline; the built
+worktree). The conserved design-panel corpus (full script contracts) is at
+`reports/agentic-engineering/plan-estate-refounding-design-panel-2026-07-06/`.
+
 ## Where We Were (2026-06-22, Pelican stirs Buoy — continuity curated; architecture committed; next = WS2)
 
 The architecture has **converged and is committed**; progression is **GO** for the substrate build.

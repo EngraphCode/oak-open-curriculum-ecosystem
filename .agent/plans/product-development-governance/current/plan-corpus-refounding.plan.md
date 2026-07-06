@@ -179,7 +179,7 @@ incoming box synthesis
   quorum-governed; every detector proves it can fire before its zero is trusted; batches
   close on recomputed loss checks; retirement happens only behind a green conservation
   ledger and a challenge record.
-- **Means.** The seven todos above (R0a–R6), gated as declared.
+- **Means.** The nine todos above (R0a–R0c, R1–R6), gated as declared.
 
 ## The protocol invariants (P1–P14)
 
@@ -396,8 +396,9 @@ learning-loop consolidation runs at every stable point close and at archive
 ## The long-term road (context, authoritative in the rewrite plan + ADR-200)
 
 Current estate → **this refounding** (destination lanes, conserved content, recomputable
-state, V0+ext form) → ADR-200 WS6 deep harvest over the REFOUNDED corpus (mechanical,
-because provenance/edges/registries are born clean) → WS7 synthesis completes on the graph →
+state, V0+ext form) → ADR-200 WS6 deep harvest over the REFOUNDED corpus PLUS the frozen
+pre-refounding archive via binding-clause provenance edges (mechanical, because
+provenance/edges/registries are born clean) → WS7 synthesis completes on the graph →
 the intent graph becomes the SSOT with documents as co-equal projections. WS2 (idea-node
 schema) and WS4 (thin-slice proof) proceed in parallel throughout and must not wait on this
 plan; the refounding must not wait on them.

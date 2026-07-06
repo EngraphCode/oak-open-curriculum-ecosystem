@@ -50,10 +50,12 @@ historical context, not the active method.
 >    REQUIRED at authoring for every plan produced by the corpus refounding, enforced by its
 >    authoring gate. Recorded status remains a claim; the plan-state recomputation tool holds
 >    claim and recomputation equal in both divergence directions.
-> 2. **Seventh terminal-disposition value: `permanent-home-routed`** (conserving) — doctrine-
->    grade content routed, with provenance and a frozen binding clause, INTO the existing
->    consolidation machinery (never a bespoke graduation path); requires the destination
->    reference on the disposition.
+> 2. **`permanent-home-routed` — the refounding conservation-ledger's seventh conserving
+>    class** (a row-granular ledger disposition, NOT a member of this schema's §3.3
+>    terminal-disposition enum, which stands at four values; the plan-level analogue in
+>    §3.3 remains `extracted-and-archived`): doctrine-grade content routed, with provenance
+>    and a frozen binding clause, INTO the existing consolidation machinery (never a
+>    bespoke graduation path); requires the destination reference on the ledger row.
 > 3. **`serves_strategic_choice: "pending"` is valid only in the holding lane** once the
 >    refounding's lane registry lands; outside it, an executable plan resolves a published
 >    choice ID or carries a `gate` with `expires` (§3.4). This narrows §4 authority

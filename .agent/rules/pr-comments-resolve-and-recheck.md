@@ -6,6 +6,18 @@ rationale**, then **replied to and resolved**. No comment is ever left unaddress
 checks alone are never sufficient: a PR is done only when it is mergeable AND every comment
 is dispositioned.
 
+**Binding moment: opening (or taking over) a PR binds that session to this rule.** The
+first "merge-ready" / "ready for merge" claim to the owner or a peer is itself a step-5
+declaration and must follow a fresh full-surface harvest run in that same turn — **a CI
+checks table is not a harvest**. Worked instance (2026-07-06, PR #315): "fully green —
+ready for your merge" was declared from the checks table alone while a High-Severity
+Bugbot thread sat unresolved; the owner caught it, not the author. Per §"A real issue is
+fixed only when a check guards it", this class's guarding check is a mechanical
+merge-ready verifier (checks green AND zero unresolved threads AND zero pending bot
+reviews, recomputed at the declaration instant) — registered as F-122 in the frictions
+register; until it lands, the harvest queries below ARE the check and must be cited in
+the declaration.
+
 "Every comment" spans every surface and every author — pull the full set first-hand, never
 from memory of what you think was raised:
 
