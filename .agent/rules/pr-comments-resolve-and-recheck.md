@@ -43,6 +43,16 @@ a re-check bound to the merge instant (the merging agent's responsibility), neve
 "I was diligent last push". Re-fetch all threads immediately before declaring
 ready or merging; if any is unresolved, return to step 2.
 
+## A real issue is fixed only when a check guards it
+
+A comment identifying a **real** issue is "fixed" only when the code is corrected AND a
+check of the appropriate kind exists that would have caught the issue and its class
+([`principles.md` §Code Quality "Every issue earns a check"](../directives/principles.md);
+for behaviour defects the operational shape is testing-strategy.md §When A Defect Is Found —
+the reproducing test lands with the fix). A bare fix without the guarding check is an
+incomplete disposition: the reply names the fix AND the check, or states why the class is
+already guarded.
+
 Resolving a thread is **metadata, not a fix.** Marking threads resolved to clear
 `mergeStateStatus` (or any merge-readiness signal) without settling the concern
 the comment raised is the inverse of this rule: it makes the PR *look* ready

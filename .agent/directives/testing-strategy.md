@@ -391,6 +391,21 @@ FIRST, before changing implementation — within the same landing.
 This ensures tests remain specifications and that every commit
 leaves the tree in a green state.
 
+## When A Defect Is Found
+
+Every issue earns a check
+([principles.md §Code Quality](principles.md)). For a real defect in
+product behaviour the check is a test: write the test that reproduces
+the defect (Red) BEFORE the fix, at the same level as the defective
+behaviour, then land test + fix in one commit (Green). Describe the
+class the defect generalises to — parametrise or add sibling cases —
+not only the reported instance.
+
+When the issue is not product behaviour, the check is the appropriate
+kind instead — a type-level anchor, a lint/boundary rule, a required
+CI status check or validator, or construction-plus-review for
+content-quality invariants. The full spectrum lives in principles.md.
+
 ## Refactoring TDD
 
 For refactoring that does not change public API (runtime behaviour
