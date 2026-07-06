@@ -11,6 +11,31 @@ status: active
 > **Definition of Done (§A–J)** (§J = web-deployed to show people). Multi-session, rotating
 > Director + Implementer cast on `feat/curriculum-hub-demo` (**PUSHED to origin 2026-07-01**).
 
+## Lane identity (owner-directed clarity statement, 2026-07-06, Director #10)
+
+- **What this lane IS:** branch `feat/curriculum-hub-demo` / PR #295 — the complete reproduction
+  of Heather W's Claude-Design Curriculum Hub export as a live, WCAG 2.2 AA, two-search Next.js
+  app at `demos/oak-curriculum-hub/`, PLUS everything the reproduction forced into existence:
+  the fidelity-review mechanism (`tool:fidelity` + tracked `fidelity-register.json` + the
+  `fidelity-review` skill), the strict-everywhere demo-tier gate parity, and the Claude-Design
+  conversion playbook (`docs/engineering/claude-design-conversion-playbook.md`).
+- **Why it exists (three co-equal value streams, owner-stated 2026-07-02):** (1) Heather's work
+  web-visible **for user testing**; (2) a reusable **agent-driven Claude-Design ingestion
+  pipeline** (new demos AND update-pulls; update integration agent-judged); (3) rapid
+  user-facing web-app capability as part of the **Oak Innovation Kit**. Strategy record:
+  `docs/strategy/README.md` §Building capabilities (fourth-stream question OPEN there).
+- **Where it stands:** THE BUILD IS COMPLETE — DoD §A–I verified; PR #295 all-green
+  (Sonar re-passed 2026-07-06 at `345497062`); §J (web deploy) is owner-hosted POST-merge.
+- **Explicit next steps, in order:** (1) resolve the six live Codex P2 threads (in flight);
+  (2) owed reviewer passes over the final diff; (3) deep pre-merge record + consolidation +
+  loss/metaloss scan (owner-directed 2026-07-06); (4) LOCAL SEMANTIC main-merge
+  (/oak-semantic-merge, knowledge/config surfaces, re-enumerated at merge time) — **only on
+  owner release** (owner is landing work on main); (5) owner visual sign-off aided by the
+  fidelity report (14 unregistered findings await judgment into the register); (6) MERGE
+  (standing ruling: green + all-conversations-resolved ⇒ Director merges directly);
+  (7) post-merge: continuation on a FRESH branch; productionisation plan WS0+ takes over
+  (`current/productionisation-and-reuse.plan.md`).
+
 ## Participating agent identities (PDR-027, additive)
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
@@ -36,6 +61,7 @@ status: active
 | Galago turns Footfall | claude | claude-fable-5 | 685da6 | implementer — styling/UI (cf62bda9, adopted COLD from Zinnia's record; slices 1–3a committed `f5d58e4a9`+`780248557`, 3b WIP green) — RETIRED-relayed PDR-063 ~07:35Z (owner-brought-forward at 69% context) → Peregrine lifts Cirrus (registered standby fc1fc8; record `handoffs/2026-07-02-curriculum-hub-styling-galago-turns-footfall.md`; cf62bda9 retained open) | 2026-07-02 | 2026-07-02 |
 | Peregrine lifts Cirrus | claude | claude-fable-5 | fc1fc8 | implementer — styling/UI (cf62bda9, standby→adopted at Galago's relay 07:34Z; drove windows #3–#9: the 3b block pass, item-8 header + demo-wide 320 reflow, item-10 callout fidelity + backlog, lesson nested-main polish, exemplars/wiki alignment, E1+E2, the E3 showcase + dangerouslySetInnerHTML cure, the jest-axe backstop frozen READY for window #10) — session CLOSED at the owner pause 2026-07-02; claim RETAINED, CURRENT pickup record `handoffs/2026-07-02-curriculum-hub-styling-peregrine-lifts-cirrus.md` | 2026-07-02 | 2026-07-02 |
 | Limpet herds Marsh | claude | claude-fable-5 | 34e191 | implementer — data plane (fd0ee59e, adopted from Junk's retained relay; 11 cycles committed through window #9: the DI-seam extraction `f9f71c6a5` whose ruling became house doctrine, the E3 seam `fb1852bfa`, §D capture hardening + evidence `ad4730ed2`, measure-320 `50fb7ed81` + the two-state hardening in-tree, data batch #2 in `902866437`) — SESSION COMPLETE (owner-directed full closeout at the pause 2026-07-02; fd0ee59e RETAINED, CURRENT pickup record `handoffs/2026-07-02-curriculum-hub-limpet-data-plane.md`, pointer set via claims set-handoff) | 2026-07-02 | 2026-07-02 |
+| Nettle tracks Acorn | claude | claude-fable-5 | dfddd4 | director #10 (ACTIVE — seat adopted from Hyena's retained 35d9c8f2 via claims adopt; PDR-064 Moment-2 `0a4eb351` 2026-07-06T07:24:36Z; readiness gate met incl. the mechanical UTC liveness check) | 2026-07-06 | 2026-07-06 |
 
 Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→Eclipse→Cinder→Deneb→Junk→**Limpet herds Marsh (session complete at the pause; fd0ee59e retained, pickup record current)**; styling Squall→Dolphin→Laurel→Kite→Linnet→Typhoon→Zinnia→Galago→**Peregrine lifts Cirrus (adopted 07:34Z; session closed at the owner pause, claim retained for the restart)**. Director chain: Herring→Swordfish→Lantern→Hawthorn→Sycamore→Panther→Birch→Comet→**Hyena stirs Lamplight (#9 — ACTIVE, Moment-2 `7488d0c9` 2026-07-02T21:14Z)**. All transfers clean PDR-064/PDR-063; the whole team paused in formation (pause broadcast 42b25684).
 

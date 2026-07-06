@@ -112,3 +112,75 @@ authoring pass (deferred under one-context budget — graduate next consolidatio
 > thread-scoped curation across three sessions' fresh captures, two of which this agent lacks the
 > context to merge losslessly; trade-off: conservation over tidiness. Falsifiable: the next
 > dedicated pass finds all three closeout blocks intact and rotates with full context.
+
+## Homes authored 2026-07-06 (dedicated pass) — entries above CONSERVED (owner-directed)
+
+The pipe-masking/exit-code discipline (Thyme's block) and the briefing-fact epistemic-status
+discipline (Limpet's + Peregrine's blocks, producer + consumer halves) are now ALSO written into
+`verify-dont-trust.md` (§A Gate's Exit Code Is the Verdict; §Briefing Facts Carry Their
+Epistemic Status). The Panther Director-craft block's anchor-in-impact lesson is now ALSO
+PDR-117 §Amendment clause 6. Entries stay here per the owner's keep-all-information direction.
+
+## Recurrence-evidence ledger (PDR-098 — homes exist; the mechanism is not firing)
+
+These classes recurred DESPITE their homes and route to the action-time structural-interrupt
+lane as traction evidence, not as fresh lessons: the no-verify reflex (never-disable-checks
+recurrence); fluency-is-a-warning (3x in one Director session; naming a lesson did not inoculate
+minutes later); route-go-no-go-to-Director (4+ consecutive sessions, corrected each time); cwd
+drift (7x in one session even under an adopted vigilance cure — structural-cure candidate:
+root-level location-independent gate scripts, e.g. `pnpm demo:gates`, routed to tooling);
+relabel-heartbeat-at-lane-transition (slips exactly when heads-down; cure candidate: relabel IS
+part of the task-start move, like adopt+arm already is).
+
+## From the 2026-07-06 pass (Nettle tracks Acorn, Director #10) — merged additively
+
+Execution knowledge from the 2026-06-29 to 2026-07-06 napkin window (the napkin keeps the full
+originals; these are the cross-session distillations):
+
+- **`gh` rate-limit signature reading:** `core.limit 60` / `graphql.limit 0` = an UNAUTHENTICATED
+  request (transient token blip — check `gh auth status`, retry), NOT budget exhaustion at 5,000.
+  Isolate the layer (auth vs volume) from the data in hand before diagnosing.
+- **Client-boundary guards/view-models must not live in a `server-only` module** — a client
+  component importing the runtime value pulls server-only into the client bundle and `next build`
+  fails. Shared guards go in a client-safe `*-types.ts`; SDK/secret wiring stays server-only.
+- **Watcher seen-file = the agent codename VERBATIM (spaces and all)** — `assert-watcher-live`
+  derives the heartbeat path from the display name. Two instances (2026-07-01, 2026-07-06): a
+  kebab-case guess leaves the watcher running and the assert red. `ls comms-seen/` first.
+- **An additive optional-field widen reverses "held-until-ping"** — it cannot break the stable
+  contract, so the consumer waits on the producer, not vice versa. Verify field shapes against the
+  GENERATED schema and derive via `Partial<Pick<SdkType,...>>`, never hand-restate (shadow schema).
+- **A negative claim needs a search CAPABLE of returning a positive** — state the search used and
+  confirm it would surface the artefact shape (glob depth, nested-pkg vs group-dir) before tagging
+  any negative "verified". Absence-of-evidence from an incapable search is not evidence-of-absence.
+- **Recompute your own numbers** — any total asserted must be recomputed from its parts (a
+  noise-inclusive grep asserted 318 blocks; the genuine total was 214).
+- **A Server Component reads its data layer DIRECTLY** — never HTTP-fetch its own Route Handler
+  (waterfall + a latent localhost deploy bug); the typed direct call is inside the boundary, so
+  the unknown-narrowing apparatus deletes too. Verify framework practice against LIVE docs.
+- **Verify-before-build:** a tracked "PENDING"/"build X" pointer may already be DONE — ground X's
+  current state first (two redundant builds avoided in one session). Sibling: an inherited
+  "deferred" gate is a risk-flag to RE-RATIFY against the live mandate, never a licence to skip.
+- **Calibrate caution to reversibility x cost-of-checking:** cheap-to-check reversible uncertainty
+  means verify eagerly first-hand; expensive-to-reverse decisions on an INFERRED signal route up,
+  never self-resolve. Repeated option-oscillation is the tell that evidence has not forced a
+  choice.
+- **Dev-server discipline (demo README candidate):** Next `dev` DAEMONISES when its wrapper
+  detaches — after ANY teardown verify the port released (`lsof -iTCP:<port> -sTCP:LISTEN`);
+  stale `.next/types` after a teardown race breaks the ESTATE type-check — regenerate via
+  `next build`, never delete. Captures: `localhost` not `127.0.0.1` (the latter never hydrates);
+  any check against a progressively-enhanced page must PIN which enhancement state it measures
+  (SSR-witness / interaction-proof / two-state measurement — the hydration-honesty family).
+- **pnpm overrides rewrite EVERY transitive contract** — an override earns its place only when the
+  transitive resolution is itself the problem; otherwise package.json ranges alone. And
+  `pnpm check` opens with `clean`: after any red estate run, rebuild the tree
+  (`sdk-codegen` + `build`) before iterating.
+- **A gate whose config is DERIVED from a contract surface (exports maps, tsconfig, lockfile)
+  breaks silently when that surface changes** — list re-derivation in the surface's change
+  checklist (knip lost its entries when exports went dist-only: 44 phantom "unused" findings).
+- **Sonar PR conditions aggregate severity across the whole delta** — one MINOR finding can tip a
+  threshold-edge gate red even though every local gate passed; a green local suite and a green PR
+  scan are two different verdicts, verify both.
+- **As-of stamps on volatile counts:** a handoff record's externally-mutable facts (PR threads,
+  check states) need their evidence timestamp + a recount-at-pickup instruction — "the two
+  Copilot threads" was true on 2026-07-03 evidence and silently false (eight) by pickup.
+  Candidate PDR-063/ADR-182 amendment.

@@ -42,6 +42,19 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   mocks, and indicate that product code needs refactoring and
   simplification in order to be easily testable.
 - ALL mocks MUST be simple fakes, passed as arguments to the function under test.
+- **Constant object-literal fakes are the DEFAULT; a parametric
+  (params-dependent) fake is admissible only when ALL five conditions
+  hold** (test-expert ruling, 2026-07-02, curriculum-hub E3): (a) the
+  parameter is contract data flowing through the seam, not a hardcoded
+  internal; (b) the fake models the collaborator's DOCUMENTED
+  semantics, stated in a comment; (c) it is a single branch-free pure
+  expression of its params; (d) assertions stay output-shaped — never
+  call-inspection; (e) fixtures are sized to discriminate.
+  Argument-reflector fakes are admissible only where the seam's
+  contract IS forwarding. Collaborator semantics that would need a
+  BRANCH in the fake belong to a higher test scale, not a cleverer
+  fake. Pre-flagging a parametric-fake deviation with its rationale in
+  the review request is what makes the admission cheap.
 - NEVER test external functionality, that is not under our control
 - NEVER add complex logic to tests - it risks testing the test code rather than the code under test
 - Always ask what a test is proving - it should prove something useful about the code under test

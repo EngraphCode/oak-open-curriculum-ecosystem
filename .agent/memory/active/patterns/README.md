@@ -171,13 +171,14 @@ surface that makes later governance or enforcement honest.
 
 ## Pattern Index
 
-### Code (23)
+### Code (25)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Throw That Only Narrows a Too-Wide Return Type → Strengthen the Type, Not Route to Result** -- Use this when: Migrating a throw to a Result type (or auditing error handling) and the throw exists only to narrow a too-wide upstream return type — its error arm would be permanently unreachable. → [throw-as-narrowing-artifact-strengthen-the-type.md](throw-as-narrowing-artifact-strengthen-the-type.md)
 - **Additive-Only Schema Decoration** -- Use this when: a decorator or enrichment pass modifies a third-party schema and must not overwrite properties that the upstream source already defines. → [additive-only-schema-decoration.md](additive-only-schema-decoration.md)
 - **Boundary Narrowing for Schema Types** -- Use this when: a schema type is optional but at a specific call site the value is known to exist, and a non-null assertion or runtime throw is tempting. → [boundary-narrowing-for-schema-types.md](boundary-narrowing-for-schema-types.md)
 - **CLI Flag Over Env Precedence** -- Use this when: A CLI command accepts both explicit flags and environment defaults for the same setting, and hidden defaults previously caused ambiguous behaviour. → [cli-flag-env-precedence.md](cli-flag-env-precedence.md)
+- **Closed Union + No-Throw Forces an Exhaustive Total-Function Renderer** -- Use this when: Rendering (or otherwise dispatching over) a closed discriminated union — content blocks, event kinds, state variants — under the repo's no-throw and no-silent-skip disciplines. → [exhaustive-total-function-renderer.md](exhaustive-total-function-renderer.md)
 - **Const Map as Type Guard** -- Use this when: a runtime conversion mirrors a compile-time type transformation and all possible values are known at generation or build time. → [const-map-as-type-guard.md](const-map-as-type-guard.md)
 - **Drift Detection Test** -- Use this when: A manually maintained list should match a canonical source but cannot be derived due to structural constraints, or repo-state drift needs detecting between maintained copies and canonical sources. → [drift-detection-test.md](drift-detection-test.md)
 - **Explicit DI Over Ambient State** -- Use this when: You are tempted to use AsyncLocalStorage, module-level singletons, or thread-local context to propagate request-scoped data through a call chain. → [explicit-di-over-ambient-state.md](explicit-di-over-ambient-state.md)
@@ -195,14 +196,16 @@ surface that makes later governance or enforcement honest.
 - **String-Based Codegen Type-Safety Gap** *(anti-pattern)* -- Use this when: A code generator emits code as string templates rather than AST nodes, and the output includes API calls with specific argument names or shapes. → [string-codegen-type-safety-gap.md](string-codegen-type-safety-gap.md)
 - **Template Literal Derived Union with Builder** -- Use this when: A string union type is the cross-product of two smaller unions joined by a separator, and code constructs members at runtime via template literals. → [template-literal-derived-union.md](template-literal-derived-union.md)
 - **Unknown Until Validated** -- Use this when: a function produces data whose type cannot be statically verified and a validation boundary exists downstream. → [unknown-until-validated.md](unknown-until-validated.md)
+- **Validate a Sampled Schema Against the Complete Corpus** -- Use this when: A type, union, schema, or universal claim was derived from a SAMPLE of the data it describes — and you are about to trust it for the whole corpus (build on it, verify with it, or assert it). → [validate-sampled-schema-against-complete-corpus.md](validate-sampled-schema-against-complete-corpus.md)
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)
 
-### Architecture (11)
+### Architecture (12)
 
 - **check-code-invariants-before-designing-a-field** -- Use this when: Adding a new field, enum, taxonomy, or discriminator to existing code — enumerate the invariants the surrounding code already maintains first, then choose the new shape's axis to preserve them (the invariant-safe axis is often non-obvious). → [check-code-invariants-before-designing-a-field.md](check-code-invariants-before-designing-a-field.md)
 - **Explicit Missing Resource State** -- Use this when: A numeric or boolean result can be confused with a missing upstream resource, causing fail-open behaviour. → [explicit-missing-resource-state.md](explicit-missing-resource-state.md)
 - **Multi-Layer Schema Synchronisation** -- Use this when: a code generator produces multiple schema representations (JSON schema, Zod, transforms) from a single source and a change to input handling must be reflected across all layers. → [multi-layer-schema-sync.md](multi-layer-schema-sync.md)
 - **Prefer Native SDK Over Custom Plumbing** → [prefer-native-sdk-over-custom-plumbing.md](prefer-native-sdk-over-custom-plumbing.md)
+- **Principled ESLint Zoning for Build Tooling and Generated Artefacts** -- Use this when: A workspace's build tooling (generators, extractors) or generated artefacts collide with app-strict lint rules and the reflex is to disable rules or contort the tooling into app-runtime idioms. → [principled-eslint-zoning.md](principled-eslint-zoning.md)
 - **provider-neutral-types-at-boundaries** → [provider-neutral-types-at-boundaries.md](provider-neutral-types-at-boundaries.md)
 - **Rate-Limit Upstream Amplification Vectors** -- Use this when: A route produces an upstream request (API call, redirect, proxy fetch) as a side effect of handling an inbound request. → [rate-limit-upstream-amplification-vectors.md](rate-limit-upstream-amplification-vectors.md)
 - **SDK-Owned Retriever Delegation** -- Use this when: An app-layer module builds an Elasticsearch retriever shape that the SDK already owns as a shared capability. → [sdk-owned-retriever-delegation.md](sdk-owned-retriever-delegation.md)
@@ -211,7 +214,7 @@ surface that makes later governance or enforcement honest.
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (92)
+### Process (93)
 
 - **A Fidelity Audit Is Not a Currency Audit** *(anti-pattern)* -- Use this when: Verifying a claim that rests on an inherited surface (a record, a thread note, a prior session's framing) before relying on it. → [fidelity-audit-is-not-currency-audit.md](fidelity-audit-is-not-currency-audit.md)
 - **A Freshly-Landed Enforcement Gate's First Burndown Is Doctrine Co-Design, Not Mechanical Data-Entry** -- Use this when: Burning down the violations a newly-landed enforcement gate (validator, lint rule, scanner) reports for the first time — the impulse is to 'watch the count fall to zero', but the first burndown is where the gate's doctrine meets reality. → [report-first-gate-burndown-is-doctrine-application.md](report-first-gate-burndown-is-doctrine-application.md)
@@ -265,6 +268,7 @@ surface that makes later governance or enforcement honest.
 - **Mechanical Sequence Is the Activity-Bias Diagnostic, Not Its Justification** *(anti-pattern)* -- Use this when: A sequence of tool calls, edits, dispositions, or commits has become procedurally identical and the impulse is to continue because each step is "easy. → [mechanical-sequence-is-activity-bias-diagnostic.md](mechanical-sequence-is-activity-bias-diagnostic.md)
 - **migrate-dont-drop-on-deletion** -- Use this when: About to delete a directory or collection (a staging/holding pen, a 'to-supersede' area, a cleanup) — verify per-file whether each item is live forward-intent (migrate to its value-home) or genuinely spent (drop); on any judgment call, migrate, because deletion is the only irreversible move. → [migrate-dont-drop-on-deletion.md](migrate-dont-drop-on-deletion.md)
 - **Monotonic Counter Is Not a Quality Indicator** *(anti-pattern)* -- Use this when: Comparing two versions of a document or artefact that each carry a sequence counter. → [monotonic-counter-is-not-quality-indicator.md](monotonic-counter-is-not-quality-indicator.md)
+- **Multi-Writer Landing Order: Deletion-Bearing Bundles Commit First** -- Use this when: Multiple lanes share one checkout (or one estate gate) and any lane's work-in-progress DELETES a tracked file — and commits are queuing. → [multi-writer-landing-order.md](multi-writer-landing-order.md)
 - **Nothing Unplanned Without a Promotion Trigger** → [nothing-unplanned-without-a-promotion-trigger.md](nothing-unplanned-without-a-promotion-trigger.md)
 - **Over-Caution's Root Is Perfectionism; the Cure Is the Frame, Not Willpower** *(anti-pattern)* -- Use this when: Noticing hesitation, deferral dressed as prudence, repeated re-litigation of a decision, or 'I'll surface this rather than decide it' — especially when the work is yours to decide and the lenses give an answer. → [over-caution-root-is-perfectionism.md](over-caution-root-is-perfectionism.md)
 - **Parsing Parallel/Interleaved Tool Output: Key by a Stable Prefix, Cross-Check Sums** -- Use this when: Parsing stateful logs from a concurrent/interleaved runner — turbo, a parallel test runner, multi-workspace gate output — to attribute lines to a source. → [parsing-parallel-tool-output-key-by-prefix.md](parsing-parallel-tool-output-key-by-prefix.md)
@@ -306,7 +310,7 @@ surface that makes later governance or enforcement honest.
 - **When External Research Flatters the Repo, the Value Is in the Divergence** -- Use this when: Comparing the repo/Practice against authoritative external research, a benchmark, or a best-practice source. → [spend-effort-on-the-divergence.md](spend-effort-on-the-divergence.md)
 - **Wrapped Exit Codes False-Green** *(anti-pattern)* -- Use this when: Reading success from any piped, redirected, background-wrapped, or hook-bannered invocation — especially git push, aggregate gate runs, and collaboration-CLI writes. → [wrapped-exit-codes-false-green.md](wrapped-exit-codes-false-green.md)
 
-### Testing (12)
+### Testing (13)
 
 - **A Compile-Time-Only Helper Has No Standalone Runtime Test — Co-Land It With Its First Consumer** -- Use this when: Authoring a helper whose entire value is a compile-time guarantee (exhaustiveness, type narrowing) and TDD pressure wants a standalone unit test for it before any consumer exists. → [compile-time-helper-lands-with-consumer.md](compile-time-helper-lands-with-consumer.md)
 - **Accessibility as a Blocking Gate** -- Use this when: A project ships user-facing HTML and needs to prove WCAG compliance automatically. → [accessibility-as-blocking-gate.md](accessibility-as-blocking-gate.md)
@@ -320,6 +324,7 @@ surface that makes later governance or enforcement honest.
 - **Test Complexity Signals Wrong Level** *(anti-pattern)* -- Use this when: A test requires elaborate scaffolding (type predicate hacks, mock capture arrays, wrapper functions, eslint-disable) to reach the code under test. → [test-complexity-signals-wrong-level.md](test-complexity-signals-wrong-level.md)
 - **Test Coverage Review Lens** -- Use this when: Reviewing the test surface around a product feature — auditing an `.e2e.test.ts` or `.integration.test.ts` file, triaging a flaky test suite, or deciding what coverage to keep when collapsing a feature's tests after refactor. → [test-coverage-review-lens.md](test-coverage-review-lens.md)
 - **test-claim-assertion-parity** → [test-claim-assertion-parity.md](test-claim-assertion-parity.md)
+- **Views Take State as Props; a Two-Line Binder Owns the Hook** -- Use this when: A React component both fetches/derives async state (via a hook) and renders it — and its tests are reaching for vi.mock, module mocking, or fetch stubbing to control what renders. → [view-binder-di-seam.md](view-binder-di-seam.md)
 
 ### Agent (27)
 

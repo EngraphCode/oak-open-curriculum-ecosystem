@@ -706,15 +706,3 @@ dangerouslySetInnerHTML cure + mark-vs-em correction are code-comment + test-pin
   Vercel PASS (bootstrap fix confirmed), Sonar FAIL fresh on the new head (S4036 dev-server.ts:88
   - S4624 bootstrap.ts:82, each ONE point over its gate threshold), PR #295 CONFLICTING with main
   (owner landing work there). Recomputing first-hand changed the next safe step entirely.
-
-## 2026-07-06 dedicated pass (Nettle tracks Acorn) — homes AUTHORED, sources CONSERVED (owner-directed)
-
-Owner direction mid-pass: keep ALL information in the sources; do not condense, rotate, or
-process-out; consolidation writes to homes ADDITIVELY. The rotation performed earlier this pass
-was reversed (this napkin restored verbatim); the authored homes stand: PDR-117 Director-craft
-amendment (six clauses); patterns/ exhaustive-total-function-renderer,
-validate-sampled-schema-against-complete-corpus, principled-eslint-zoning,
-multi-writer-landing-order, view-binder-di-seam; testing-strategy.md parametric-fake boundary;
-ADR-210 (comms write-path concept gate); comms-all-channels-watcher.md delivery-liveness
-clauses; verify-dont-trust.md exit-code + briefing-fact sections. The register and distilled
-keep their entries with additive home-pointers.

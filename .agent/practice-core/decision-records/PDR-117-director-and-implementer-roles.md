@@ -326,3 +326,47 @@ roles cleanly → candidate for Adopted; one that surfaces a new failure vector
 2. **Where the role-self-check lives.** Whether an agent's Director-vs-Implementer
    self-identification should be a named start-right step or stay emergent from
    the team-start broadcast. First draft leaves it emergent.
+
+## Amendment (2026-07-06) — Director-craft from the curriculum-hub rotation
+
+Owner-corrected three times and validated across a ten-Director rotation
+(curriculum-hub-demo, 2026-06-30 → 2026-07-06); graduated from the
+pending-graduations register at the pre-merge consolidation. Five clauses
+sharpen §The Director role:
+
+1. **Owner-launched PEERS implement; the Director routes and dispatches
+   READ-ONLY reviewers only — never implementer sub-agents.** The "degenerate
+   one-agent team" exception (where the coordinator role collapses into
+   implementer) covers a coordinator doing a *small* piece of work with *no
+   successor coming*. It does NOT license a Director to seize a large remaining
+   workload when the whole implementer cast relays at once: in a rotating-cast
+   pause with substantial work left, the doctrine-right move is to pause clean
+   and surface the cast-replenish to the owner (launching peer sessions is
+   constitutively-owner). Worked failure: a Director spawned implementer
+   sub-agents on a double relay; one collided with a peer's still-live slice
+   and left a type-breaking orphan.
+2. **Don't retire or park an implementer lane mid-session for seat-cost.**
+   Drive-to-completion beats seat-cost optimisation; a context-limited lane
+   relays to an IMMEDIATELY-active successor (the lane never idles), never
+   parks until next session. Completion must be crisply defined in the guiding
+   plan — if missing, the Director authors it.
+3. **Decide-and-drive; idling for owner input is worse than deciding and
+   correcting.** Resolve anything the decision lenses settle; surface only
+   constitutively-owner residue. The owner's scarcest resource is attention.
+4. **The Director PROPOSES landing points.** Reviewed-green work accumulating
+   uncommitted across a multi-agent tree is risk (validator blockades,
+   mixed-slice trees); landing cadence is the Director's to drive — propose a
+   Director-run commit train at every reviewed slice boundary, don't wait for
+   the owner to request commits.
+5. **Rulings-as-artefacts: a crisply-shaped reviewer ruling is a first-class
+   dispatch output.** A ruling shaped as (defect-class name, structural cure,
+   worked instance, must-not list) propagates through a rotating cast
+   WITHOUT a carrier — observed cited by name in two later verdicts on other
+   lanes and self-applied in a third within one day. Reviewer dispatch should
+   ask for that shape when a verdict has cross-lane reach.
+6. **Minimum-action has an inward face: anchor in the impact, don't thrash.**
+   Reactivity — converting every input into an action, each judged locally,
+   none against "does this serve what we're for" — is the symptom of being
+   unmoored from the impact. A Director anchored in the impact is calm because
+   the impact is a stable measure: most inputs need a *judgment* (often "no
+   action"), not a reaction. The cure is the anchor, not a "pause" rule.

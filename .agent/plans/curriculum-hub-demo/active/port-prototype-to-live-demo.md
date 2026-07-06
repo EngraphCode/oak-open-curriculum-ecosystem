@@ -1,6 +1,6 @@
 ---
 title: Build the full Oak Curriculum Hub from the Claude Design canonical export (multi-session program)
-status: EXECUTING — multi-session PROGRAM (owner-directed 2026-07-01). The team + Director successors build EVERYTHING from the canonical export (demos/curriculum-hub-hw/claude-design-canonical-export) — ALL pages + ALL components, visual-matched to the export render — plus a handful of curriculum-search integrations. Full reproduction, NO stubs, NO hedging ("honest-empty" language retired per owner). Standing owner principle: for any Claude Design project, always visual-match + reproduce all pages/components. Decisions matrix-resolved; only constitutively-owner residue escalates.
+status: EXECUTING — multi-session PROGRAM (owner-directed 2026-07-01). The team + Director successors build EVERYTHING from the canonical export (demos/oak-curriculum-hub/claude-design-canonical-export, untracked per ratified decision 8) — ALL pages + ALL components, visual-matched to the export render — plus a handful of curriculum-search integrations. Full reproduction, NO stubs, NO hedging ("honest-empty" language retired per owner). Standing owner principle: for any Claude Design project, always visual-match + reproduce all pages/components. Decisions matrix-resolved; only constitutively-owner residue escalates.
 lane: active
 lineage:
   serves_thread: curriculum-hub-demo
@@ -96,7 +96,7 @@ and updated with owner decisions taken after it. **Co-equal, no lanes:** Titan w
 ## End goal
 
 Reproduce the **entire Oak Curriculum Hub** from the **Claude Design canonical export**
-(`demos/curriculum-hub-hw/claude-design-canonical-export`): **every page and every component**,
+(`demos/oak-curriculum-hub/claude-design-canonical-export`): **every page and every component**,
 visual-matched to the export render. Two search functions feed the unified hub search —
 (1) **live curriculum** via the existing Elasticsearch connection (indexes from the bulk data),
 and (2) **local search** over the bundled export data (quality-standards.json + training/course
@@ -303,7 +303,7 @@ team drives to ALL of these. "Done" is this list, nothing less.**
 - [x] Live curriculum via Elasticsearch (`useCurriculumSearch`).
 - [x] Local search over the bundled export content (course sections/quizzes/QS/framework).
 
-**D. Fidelity:** each page visual-matched to the canonical render (in-export screenshots where present — coursemap/check/framework-img; live-rendered targets generated for Standards/Hub and any others lacking one).
+**D. Fidelity:** each page visual-matched to the canonical render (in-export screenshots where present — coursemap/check/framework-img; live-rendered targets generated for Standards/Hub and any others lacking one). **Mechanism (landed 2026-07-04, Director #9):** `pnpm --filter @oaknational/oak-curriculum-hub tool:fidelity` serves both sides, captures at matched geometry, perceptually diffs every declared pair, renders `demo-evidence/fidelity-report/index.html`, and reads/writes the tracked `fidelity-register.json` divergence ledger (dispositions fix/deliberate/investigate/matched/superseded — the diff never gates; judgment does). The canonical workflow is the `fidelity-review` skill; playbook §Fidelity review is the doctrine surface.
 
 **E. Accessibility (org mandate):** WCAG 2.2 AA on all rendered UI, verified — axe clean + keyboard/ARIA/focus on every interactive block (quiz/tabs/accordion/flip/sortable/hotspot/coursemap); `prefers-reduced-motion` on the animated framework.
 
@@ -330,9 +330,10 @@ vars enumerated). The live-ES path is PROVEN locally (real smoke vs real Oak ES,
   residue — confirm at deploy time).
 
 **§J Vercel settings (conserved from the verified deploy proposal, Junk 2026-07-02 — the comms
-tier is untracked, so the owner-facing detail lives here):** Framework preset **Next.js** · Root
-Directory `demos/curriculum-hub-hw/oak-curriculum-hub` with **"Include files outside the root
-directory" ENABLED** · Build Command explicit for determinism:
+tier is untracked, so the owner-facing detail lives here; Root Directory refreshed 2026-07-06
+post-restructure — the original proposal predated ratified decision 8's rename):** Framework
+preset **Next.js** · Root Directory `demos/oak-curriculum-hub` with **"Include files outside the
+root directory" ENABLED** · Build Command explicit for determinism:
 `turbo run build --filter=@oaknational/oak-curriculum-hub` (from repo root; turbo `^build` builds
 the 4 workspace SDK deps first — dry-run verified; the `development→src` condition is dev-only,
 NOT a deploy risk) · Install = default `pnpm install` · Output `.next` · Node runtime (the API
@@ -437,6 +438,13 @@ target exists for E3, so §D-style fidelity review does not apply — design to 
 design-system review instead).
 
 ## Pre-push directory organisation (owner-CONFIRMED 2026-07-01 — NOT an enhancement)
+
+> **SUPERSEDED (marked 2026-07-06, Director #10):** ratified decision 8 (2026-07-02) executed a
+> stricter restructure than this section planned — `demos/curriculum-hub-hw/` is dissolved, the
+> workspace is `demos/oak-curriculum-hub/`, the export and `demo-evidence/` are untracked inside
+> it, and the tidy items below either executed or dissolved with the rename. Kept for the
+> dispositions' rationale (the licensing and never-use-git-to-remove-work reasoning still binds);
+> the paths below are the pre-restructure layout and are NOT operative.
 
 A pre-push must-do: make `demos/curriculum-hub-hw/` neat + understandable + correct-to-push.
 **Sequencing:** executes **immediately before the milestone commit (§I)**, i.e. AFTER Linnet +
