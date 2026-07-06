@@ -1,0 +1,152 @@
+import { describe, expect, it } from 'vitest';
+
+import {
+  BINARY_SNIFF_WINDOW_BYTES,
+  classifyInventoryMode,
+  compareByCodeUnit,
+  countLines,
+  parseDenominator,
+  parseFreezeIdentityProof,
+  sha256Hex,
+} from './refounding-artefacts.js';
+
+const SHA256_EMPTY = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+const SHA256_ABC = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad';
+
+describe('sha256Hex', () => {
+  it('matches known SHA-256 vectors', () => {
+    expect(sha256Hex(Buffer.from(''))).toBe(SHA256_EMPTY);
+    expect(sha256Hex(Buffer.from('abc'))).toBe(SHA256_ABC);
+  });
+});
+
+describe('compareByCodeUnit', () => {
+  it('orders by UTF-16 code units, where locale order disagrees', () => {
+    // 'B' (0x42) precedes 'a' (0x61) by code units; localeCompare orders
+    // lowercase first. A localeCompare regression flips these expectations.
+    expect(compareByCodeUnit('B', 'a')).toBe(-1);
+    expect(compareByCodeUnit('a', 'B')).toBe(1);
+    expect(compareByCodeUnit('same', 'same')).toBe(0);
+    expect('B'.localeCompare('a')).toBeGreaterThan(0);
+  });
+});
+
+describe('countLines', () => {
+  it('counts by LF-split of raw bytes, not counting a trailing empty split', () => {
+    expect(countLines(Buffer.from(''))).toBe(0);
+    expect(countLines(Buffer.from('a'))).toBe(1);
+    expect(countLines(Buffer.from('a\n'))).toBe(1);
+    expect(countLines(Buffer.from('a\nb'))).toBe(2);
+    expect(countLines(Buffer.from('a\nb\n'))).toBe(2);
+    expect(countLines(Buffer.from('\n'))).toBe(1);
+  });
+
+  it('treats CRLF as content plus LF (no EOL normalisation)', () => {
+    expect(countLines(Buffer.from('a\r\nb\r\n'))).toBe(2);
+  });
+});
+
+describe('classifyInventoryMode', () => {
+  it('classifies markdown text as lines', () => {
+    expect(classifyInventoryMode('plans/a.md', Buffer.from('# hi\n'))).toBe('lines');
+  });
+
+  it('classifies non-markdown text as whole-file', () => {
+    expect(classifyInventoryMode('plans/a.ts', Buffer.from('export {};\n'))).toBe('whole-file');
+    expect(classifyInventoryMode('plans/a.tsv', Buffer.from('x\ty\n'))).toBe('whole-file');
+  });
+
+  it('classifies a null byte in the sniff window as opaque, even for .md', () => {
+    expect(classifyInventoryMode('plans/a.md', Buffer.from([0x61, 0x00, 0x62]))).toBe('opaque');
+    expect(classifyInventoryMode('plans/a.bin', Buffer.from([0x00]))).toBe('opaque');
+  });
+
+  it('only sniffs the first window for null bytes', () => {
+    const bytes = Buffer.alloc(BINARY_SNIFF_WINDOW_BYTES + 100, 0x61);
+    bytes[BINARY_SNIFF_WINDOW_BYTES + 50] = 0x00;
+    expect(classifyInventoryMode('plans/a.txt', bytes)).toBe('whole-file');
+  });
+});
+
+/** A minimal valid denominator document, spreadable per-test. */
+const validDenominator = (): Record<string, unknown> => ({
+  version: 1,
+  generatedFrom: { freezeRuleVersion: 1, ratifiedBy: '.agent/decisions/g1.md' },
+  files: [
+    {
+      path: 'plans/a.md',
+      bytes: 5,
+      sha256: SHA256_ABC,
+      lines: 1,
+      inventory_mode: 'lines',
+    },
+  ],
+  totals: { files: 1, lines: 1, bytes: 5 },
+});
+
+describe('parseDenominator', () => {
+  it('parses a valid denominator', () => {
+    const result = parseDenominator(validDenominator());
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.totals.files).toBe(1);
+      expect(result.value.files[0].inventory_mode).toBe('lines');
+    }
+  });
+
+  it('rejects unknown keys at every level (closed shape)', () => {
+    expect(parseDenominator({ ...validDenominator(), extra: 1 }).ok).toBe(false);
+    const withBadFile = validDenominator();
+    withBadFile.files = [
+      {
+        path: 'plans/a.md',
+        bytes: 5,
+        sha256: SHA256_ABC,
+        lines: 1,
+        inventory_mode: 'lines',
+        note: 'nope',
+      },
+    ];
+    expect(parseDenominator(withBadFile).ok).toBe(false);
+  });
+
+  it('rejects a malformed sha256 and an unknown inventory_mode', () => {
+    const badSha = validDenominator();
+    badSha.files = [
+      { path: 'plans/a.md', bytes: 5, sha256: 'abc123', lines: 1, inventory_mode: 'lines' },
+    ];
+    expect(parseDenominator(badSha).ok).toBe(false);
+
+    const badMode = validDenominator();
+    badMode.files = [
+      { path: 'plans/a.md', bytes: 5, sha256: SHA256_ABC, lines: 1, inventory_mode: 'text' },
+    ];
+    expect(parseDenominator(badMode).ok).toBe(false);
+  });
+});
+
+describe('parseFreezeIdentityProof', () => {
+  it('parses a valid proof array', () => {
+    const result = parseFreezeIdentityProof([
+      { path: 'plans/a.md', source_sha256: SHA256_ABC, copy_sha256: SHA256_ABC, bytes: 3 },
+    ]);
+    expect(result.ok).toBe(true);
+  });
+
+  it('rejects an entry with unknown keys or a missing hash', () => {
+    expect(
+      parseFreezeIdentityProof([
+        {
+          path: 'plans/a.md',
+          source_sha256: SHA256_ABC,
+          copy_sha256: SHA256_ABC,
+          bytes: 3,
+          spare: true,
+        },
+      ]).ok,
+    ).toBe(false);
+    expect(
+      parseFreezeIdentityProof([{ path: 'plans/a.md', source_sha256: SHA256_ABC, bytes: 3 }]).ok,
+    ).toBe(false);
+  });
+});

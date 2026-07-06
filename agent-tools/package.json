@@ -35,6 +35,8 @@
     "codex-reviewer-resolve": "tsx src/bin/codex-reviewer-resolve.ts",
     "skills-adapter-generate": "tsx src/bin/skills-adapter-generate.ts",
     "repo-check": "cd .. && pnpm exec tsx agent-tools/src/repo-check/repo-check.ts",
+    "refound-freeze": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-freeze.ts",
+    "refound-verify-freeze": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-verify-freeze.ts",
     "check-blocked-patterns": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-patterns.ts",
     "check-encoding": "cd .. && node agent-tools/dist/src/encoding/check-encoding.js",
     "check-blocked-content": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-content.ts",

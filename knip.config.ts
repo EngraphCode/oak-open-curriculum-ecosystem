@@ -95,6 +95,10 @@ const config: KnipConfig = {
         'src/practice-fitness/validate-practice-fitness.ts',
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
+        // Refounding mechanical-instrument CLIs (plan-corpus-refounding R0a):
+        // invoked via `pnpm exec tsx` package scripts, not imported.
+        'src/refounding/refound-freeze.ts',
+        'src/refounding/refound-verify-freeze.ts',
         // Corpus-analysis workflow stage entries: consumed by esbuild as string
         // entry points in workflows/build/workflow-builder.ts (bundled into
         // self-contained harness artefacts), which knip cannot trace as imports.
