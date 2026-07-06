@@ -264,7 +264,30 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Hyena #9's full closeout (2026-07-04)
+> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Nettle #10's full closeout (2026-07-06)
+>
+> **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #10
+> (Nettle tracks Acorn, `dfddd4`) closed out fully on owner direction 2026-07-06; claim
+> `35d9c8f2` RETAINED with pickup record
+> `handoffs/2026-07-06-curriculum-hub-director-nettle.md` (state, the landed trains, the
+> remaining map, owner gates, operating notes — incl. TWO standing owner corrections:
+> append-only consolidation with sources conserved; no directive-tier edits from inferred
+> generalisations). Chain: Herring → … → Comet → Hyena → Nettle. A FRESH session continues.
+>
+> **The one-line state:** PR #295 ALL-GREEN at `70f6d25df`, ZERO unresolved threads, reviewer
+> passes DONE (verdicts + adopted fixes in the record); remaining = owner-released LOCAL
+> semantic main-merge (re-enumerate; conservation direction governs memory-file merges) →
+> owner visual sign-off via a fresh `tool:fidelity` run (14 unregistered findings to judge) →
+> MERGE → fresh-branch continuation + WS0+ → the merge-boundary sweep (retained claims /
+> stale stashes / gone-upstream branches — owner-gated dispositions, enumerated in the
+> loss/metaloss scan report).
+>
+> **Readiness gate before any Moment-2:** unchanged — five questions + the pasted mechanical
+> UTC liveness check; then `claims adopt 35d9c8f2`, watcher move 1, heartbeat per PDR-078 §4.
+>
+> ---
+>
+> ### ▶ PRIOR (superseded 2026-07-06): seat RETAINED at Hyena #9's full closeout (2026-07-04)
 >
 > **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #9
 > (Hyena stirs Lamplight, `d62788`) closed out fully on owner direction 2026-07-04; claim

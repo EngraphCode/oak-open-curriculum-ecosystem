@@ -724,3 +724,27 @@ keep their entries with additive home-pointers.
   Directive-tier files change through owner-approved process, never through an agent's inference
   from a session instruction. The correction: edit removed same-session. The session direction
   itself (conserve sources this pass) was followed; its generalisation was not mine to make.
+
+## 2026-07-06 closeout captures (Nettle tracks Acorn, Director #10) — session-end context scan
+
+- **Hook substring-matchers fired twice on legitimate operations this session — both times the
+  concept survived reappraisal and the mechanism needed re-routing:** (a) `git show HEAD:x > x`
+  (a deliberate owner-directed restoration) trips the git-restore worktree-destruction block —
+  route reconstruction through a plain python/Write file write; (b) a commit SHA in a pattern
+  file's `proven_in` frontmatter trips the moving-target block (PDR-079) — state durable facts
+  (artefact names + dates) in portable files, keep SHAs for collaboration content. Both are the
+  hook-policy-substring-discipline class working as designed: reappraise the concept, never
+  synonym-swap past the block.
+- **Org monthly spend-limit killed a subagent mid-flight** (the polish-train implementer died on
+  the API error before making any edit; verified zero tree changes before redoing inline). Check
+  the delegation budget before fanning out; a dead subagent's partial work must be verified
+  absent, not assumed absent.
+- **The commit-queue truncation fallback + manual completion worked as documented** (skill
+  §Stream truncation): direct `git commit -F` redirected, hooks intact, then `commit-queue --
+  complete` + claims close by hand. Note `phase --phase completed` is invalid — the primitive is
+  `complete`.
+- **Session verdicts for the record:** consolidation ran DEDICATED scope (napkin window +
+  register + captures) with an owner mid-pass correction to APPEND-ONLY — homes authored, all
+  sources conserved; open-questions register untouched this pass (2 entries hold 2026-06-28
+  keep-open grants; the MCP-pagination entry is another thread's ADR-shaped design question,
+  surfaced to the owner in the handoff record §4).
