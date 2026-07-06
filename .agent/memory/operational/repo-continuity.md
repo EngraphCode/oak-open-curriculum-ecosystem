@@ -43,11 +43,11 @@ forward-asks remain.
   (merge-button-active-for-a-non-admin; `--admin` forbidden), the dated ADR-168 shell-scope amendment,
   and the new 4-form `source-is-typescript-esm-only` rule. Executed plan:
   [`every-issue-earns-a-check-and-doctrine-tightening.plan.md`](../../plans/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md)
-  (Strand D complete; the archive-move is deferred lifecycle hygiene). **Residuals:** (1) **owner
-  action pending** — make `run-quality-gates` a REQUIRED status check (prevents the #300–302
-  gate-suppressed-bot-PR class); (2) a Bugbot merge-ready-definition fix missed the #310 merge window
-  (owner merged mid-gate; a post-merge push to a PR branch is not inclusion) and rides a follow-up PR
-  from `docs/pr-lifecycle-merge-ready-review-leg` together with this continuity bundle.
+  (Strand D complete; the archive-move is deferred lifecycle hygiene). **Residuals:** (1) RESOLVED
+  as stale — `run-quality-gates` (+ CodeQL + SonarCloud) is ALREADY a required check
+  (first-hand `gh api …/rules/branches/main`, 2026-07-06; the "owner action pending" line was a
+  twice-relayed dated claim); (2) the Bugbot merge-ready-definition fix landed via follow-up
+  PR #312 (MERGED).
 - **Inter-Practice exchange lane + corpus phase-0 + practice doctrine — MERGED (#304, 2026-07-06).**
   PR #304 landed to `main` (release 1.59.0, `b41ae2233`): the inter-Practice collaboration protocol
   plan + WS1/WS3/WS6, the semantic-merge "confident-and-wrong" doctrine, the corpus phase-0 design
@@ -105,9 +105,10 @@ forward-asks remain.
   (permanent alignment runbook, PDR-120) are live on `main`. **Live next safe steps** (detail +
   grounded execution facts in the
   [`upstream-api-alignment` thread record](threads/upstream-api-alignment.next-session.md)):
-  (1) the **pre-existing RED gate on `main`** — `sdk-codegen`'s pagination-examples test fails on
-  upstream spec drift; fix in a fresh session off latest `main`, never by blind-editing the
-  expectation; (2) author the `bulk-types-schema-derivation` future plan (does not exist yet);
+  (1) the pagination-examples gate recorded RED on `main` now PASSES on latest `main`
+  (verified first-hand 2026-07-06, Katydid) — the RED-gate entry here and in the thread record
+  was stale; correct the thread record at its next touch; (2) author the
+  `bulk-types-schema-derivation` future plan (does not exist yet);
   (3) the **MCP pagination-header P1** (ADR-shaped; the thread record's item is the owning
   record); (4) the comms-routing CLI fix
   (`agent-tooling/current/coordination-home-cli-path-defaulting.plan.md`) on the primary.
@@ -430,23 +431,16 @@ F-41 CLI tail).
    NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
    landing set) — see the §Current State corpus-generalisation entry; the self-contained
    restart brief is the AEE thread record §PHASE 0.
-0a. **Deep consolidation status: due — re-reconfirmed 2026-07-06 post-merge (Hyena spins Lamplight): the
-   PR-295 semantic merge UNIONED both sides' capture surfaces per PDR-049 — napkin ~1370/300,
-   repo-continuity 568/525, distilled 204/180, director-handoff 378/320, pending-graduations 11 live
-   items; all conserved-not-trimmed by design; still a dedicated fresh-context job (this closeout is
-   session-completion scope — the union is too large to drain honestly inside it; falsifiable by the
-   napkin line count).** Prior register: reconfirmed at Hyena #9 full closeout 2026-07-04 (napkin grew past
-   700/300 with the merge-run-in + fidelity-build lessons; still a dedicated fresh-context job). Original
-   register: napkin at 673/300 after the THREE simultaneous owner-pause closeouts (Peregrine + Limpet + Thyme,
-   2026-07-02) landed their capture blocks on top of the already-due rotation; distilled + pending-graduations
-   both CRITICAL on the informational signal; `due` register items now include director-operating-model, the
-   sampled-data pattern (trigger fired), the watcher delivery-liveness rule amendment, and the DI-views pattern
-   (three instances + a second consumer — bar met). Not well-bounded for the pause-convergence closeouts
-   themselves (each agent lacks context for the other two sessions' fresh captures — lossless rotation needs one
-   fresh-context pass over all three); a dedicated pass picks it up at or after the team restart.** (Refreshed
-   per consolidate-docs session-completion, Peregrine lifts Cirrus, 2026-07-02; previously set by Birch
-   same-day. Branch-local register from `feat/curriculum-hub-demo` — the main-side 2026-07-02 dedicated
-   consolidation in item 1 predates this reconfirmation and does not cover the branch napkin's growth.)
+0a. **Deep consolidation status: EXECUTED 2026-07-06 (Zenith wakes Perigee, dedicated pass,
+   branch `docs/zenith-dedicated-consolidation`).** The post-merge union debt (napkin ~1385,
+   distilled, pending-graduations 12 live items, this file's char pressure) was processed
+   bottom-up: pending-graduations drained to ZERO by decision (nine homes verified first-hand,
+   three tail items graduated incl. the owner-ratified sequence-first PDR-018 amendment);
+   distilled drained to header (window graduated to verified homes); the napkin processed
+   item-by-item then rotated (verbatim archive
+   `archive/napkin-2026-07-06-zenith-dedicated-consolidation.md`); open-questions confirmed
+   empty; both graduation batches PDR-101 quorum-reviewed. Next deep consolidation fires on
+   the ordinary triggers, not on inherited debt.
 1. The latest dedicated consolidation is 2026-07-02 (Rosemary stirs Bracken): napkin rotated, the
    distilled buffer + the v2 13-pattern work-list fully graduated (conservation plan WS-A/WS-B),
    PDR-122 amended, PDR-123 (design panels) authored, the conserve-by-default rule landed;

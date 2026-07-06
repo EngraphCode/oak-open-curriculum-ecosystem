@@ -401,7 +401,13 @@ topology for memory-file reconciliation):
    everything staged, so this is the one sanctioned exception to
    [`stage-by-explicit-pathspec`](../../rules/stage-by-explicit-pathspec.md)
    — its safety rests entirely on the sole-agent window plus the first-hand
-   staged-set verification below.
+   staged-set verification below. **Claim scope is per working tree**: the
+   bare `git:index/head` label names the primary/shared checkout's index;
+   an agent committing from its own worktree (PDR-117) claims
+   `git:index/head@<worktree-name>` instead, and this merge path's
+   sole-agent precondition reads only SAME-TREE claims plus the queue —
+   a peer's worktree gate run neither blocks nor is blocked by a
+   primary-tree merge window.
 2. **Verify the staged set first-hand**: mid-merge, the index IS the merge
    resolution — read `git status` and `git diff --cached --stat` and confirm
    every path belongs to the merge (conflict resolutions plus the merge's own

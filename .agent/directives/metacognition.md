@@ -114,6 +114,12 @@ re-ground, and the smoother the move, the harder the check must be. See
 `passive-guidance-loses-to-artefact-gravity`:
 a passive lesson needs an active firing gate.
 
+Fluency failures **cluster at the finish line**. Under completion drive — the self-supplied
+"just finish and hand off" pressure of a session's last stretch — fluent-but-wrong moves fire
+in a burst (five in one closing stretch, each caught by a guard or a peer, none self-caught;
+worked instance 2026-07-06). The felt urge to wrap up is itself the tripwire: slow the last
+moves down, and keep the guards absolute exactly when the drive says skip them.
+
 ## Stance Under Correction
 
 Three stance defaults for retrospective mode — how to *hold* a correction

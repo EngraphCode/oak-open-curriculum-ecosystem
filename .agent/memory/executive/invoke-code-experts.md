@@ -385,6 +385,14 @@ standing requirement, 2026-06-10):
   state-machine completeness) apply only to mechanically-executed systems.
   Valid points can sit next to a misframed one — separate them, keep the
   valid, drop the misframed.
+- **A reviewer's prescribed MECHANISM is a hypothesis to run through the
+  gates; the BEHAVIOUR it protects is the binding part.** A prescribed cure
+  can itself violate a gate (twice in one day, 2026-07-02: a "hold state in a
+  ref read during render" prescription forbidden by `react-hooks/refs`; an
+  "inline the keys" prescription tripping `react/no-array-index-key`). Run
+  the gate's lens over the prescription before implementing; keep the
+  protected behaviour, amend the mechanism, and flag the deviation in the
+  re-review.
 - **Specialist review validates correctness WITHIN a frame; it cannot catch
   a wrong frame.** Reviewer approval (even three-reviewer approval) does not
   answer "is this the right thing to build at all" — that question stays with

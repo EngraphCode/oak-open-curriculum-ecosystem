@@ -85,6 +85,17 @@ New shared-state writes use the
 - keep lifecycle writes sequential unless the helper provides a transaction;
 - keep hooks as later polish. TTL cleanup is the portable baseline.
 
+**CLI body-writes: reflex `--body-file`, never inline `--body`, for any body
+carrying backticks, `$`, brackets, or angle-brackets.** The shell runs
+command-substitution inside a double-quoted ``--body "…`id`…"`` and silently
+STRIPS the backticked tokens (worst case observed: claim IDs stripped from an
+adoption instruction, 2026-07-01) — and unquoted metacharacters exit 2. The
+`--body-file` argument must be a REAL readable file at an ABSOLUTE path: process
+substitution (`<(printf …)`), `/dev/stdin` heredocs, and repo-root-relative
+traversals into a scratchpad all fail. Resolve every referenced event id from
+the artefact (`ls` the comms dir), never from recall — `append
+--in-response-to` does not validate its antecedent (frictions F-121).
+
 The canonical communication-event directory is
 `.agent/state/collaboration/comms/`. Merges reconcile any legacy-era event
 fragments as `exclusive-create-fragments`.

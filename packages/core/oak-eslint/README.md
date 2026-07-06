@@ -103,6 +103,21 @@ ADR-153 `value is X` type-guard). When activating a new rule:
   downgrading an existing `error` rule to `warn` remains forbidden
   (`never-disable-checks`).
 
+### Flat-config gotchas (verified in-repo)
+
+- **`typescript-eslint`'s `projectService` is a per-run singleton — use ONE
+  options object for the whole config.** Two flat-config blocks with different
+  `projectService` values (`true` for ts/tsx; `{allowDefaultProject: ['*.mjs']}`
+  for mjs) fail non-obviously: the service is created from the FIRST options
+  seen, so a full `eslint .` run drops the mjs allowance ("not found by the
+  project service") while linting the mjs file alone passes. Cure: one files
+  block `['**/*.ts', '**/*.tsx', '**/*.mjs']` with a single `projectService`
+  object (verified 2026-07-02, demos/oak-curriculum-hub).
+- **`includeIgnoreFile` ships in ESLint core (`eslint/config`)** — do not add
+  `@eslint/compat` for it; `@typescript-eslint/no-deprecated` flags the compat
+  export as deprecated and names the core replacement (verified against
+  eslint ≥10.5; re-verified on the installed 10.6.0).
+
 ## Usage
 
 This plugin is consumed internally by workspaces in this monorepo via

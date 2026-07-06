@@ -80,6 +80,16 @@ judgement), S7785 ×17 (top-level await, MAJOR — script refactors, own batch),
 design-MAJOR Phase 4 (S107 ×7, S4323 ×7, S3358 ×4, S6564 ×4 …). Re-fetch live Sonar at
 start — counts here drift. Live backlog at 2026-07-06 fetch: 174 OPEN before the 5B batch.
 
+**Small self-contained follow-on (from the 5B thorough re-grounding pass, 2026-07-06):** the
+graph-corpus generated `index.ts` mirror has NO standing drift guard —
+`graph-corpus-emitted.integration.test.ts` pins data counts, not module source; the 5B
+hand-mirror was verified byte-identical once, but nothing catches future template↔mirror
+desync. Right cure shape: a repo-validator that RECOMPUTES ("committed vocab index module
+contains exactly the emitted lines join") wired into `repo-validators:check`
+(`validators-must-recompute-not-just-record`) — NOT an fs-reading in-process test (in-process tests must not
+do IO; a new allowlist entry would weaken the gate boundary). Owns here or the sdk-codegen
+estate, whichever touches first.
+
 ## Lane State
 
 **Objective**: drive `main`'s Sonar AI quality-profile backlog to **zero** —

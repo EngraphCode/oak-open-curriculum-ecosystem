@@ -141,7 +141,16 @@ the awareness (Director, minimum action).**
 - **Worktree isolation.** Each Implementer works in its **own git worktree** on
   a branch off the coordination branch — own working tree, own index, own
   build output, own gate runs. The doing is isolated; shared-tree collisions
-  dissolve.
+  dissolve. The isolation starts at the **first source edit**: claim AND open
+  the worktree before editing, never "move to a worktree later" from the
+  shared primary/coordination checkout — full pre-commit/pre-push gates hold
+  the shared `.git/index` for minutes, so two committers on one tree collide
+  (worked instances 2026-06-29 and 2026-07-06; in the latter the owner moved
+  the peer mid-collision). If one seat is already mid-flight on a PR branch
+  in the primary (a checked-out branch cannot be reused in a worktree), the
+  OTHER seat takes the worktree. If you discover yourself
+  edited-but-unworktree'd, stop and coordinate the move via the Director
+  before any commit — never commit from the shared tree to "finish first".
 - **Runs its own gates; proves behaviour.** Full pre-commit gate green, no
   `--no-verify`; value is proven by observed behaviour, not "it compiles."
 - **Reports compressed verdicts.** Returns distilled conclusions to the

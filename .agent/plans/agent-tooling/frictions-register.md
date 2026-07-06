@@ -2677,7 +2677,9 @@ commit SHA and the closing plan reference.
   future brick is invisible in the log meant to record it.
 - **Expected**: a merge changing hook-policy source rebuilds the dist before the
   guard runs; the guard fails OPEN on a whole-schema parse miss (not only on an
-  unknown match KIND); and the fail-closed path logs.
+  unknown match KIND); and the fail-closed path logs. (Any F-124-style
+  pre-resolved-binary cure must not recreate this class: a decoupled copy needs
+  atomic refresh after rebuild.)
 - **Candidate cure**: a `.husky/pre-merge-commit` hook that rebuilds agent-tools
   dist when the merge touched hook-policy source; OR extend the guard fail-open
   to an unknown top-level schema shape; OR guard-runner self-heal (rebuild on a
@@ -2711,3 +2713,130 @@ commit SHA and the closing plan reference.
   resolution).
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions); captured at session closeout.
+
+### F-122 — `claims close` fails ENOENT rather than creating the untracked closed-claims archive container
+
+- **Source**: doctrine-PR session 2026-07-06 (Zodiac herds Spectrum) + recurrence same day
+  (Hyena spins Lamplight — "ENOENT recurrence confirmed").
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims close --closed <path>`.
+- **Observed**: `closed-claims.archive.json` is untracked-tier and absent on a fresh disk
+  (post the untrack of `.agent/state/`); `claims close` fails ENOENT instead of creating the
+  container, so a fresh checkout cannot close a claim without knowing the empty-container
+  shape by hand (`{"schema_version": "1.3.0", "claims": []}`).
+- **Expected / candidate cure**: `claims close` auto-creates the empty container ONLY when
+  `--closed` resolves to the canonical/default path; for any non-canonical explicit path it
+  fails with the empty-container shape printed in the error (or requires an explicit
+  `--create` flag), and creates the file only — never `mkdir -p` arbitrary parents. Blind
+  auto-create would make a typo'd path fork the untracked closed-claims history silently
+  (the archive is the canonical historical record, unlike F-120's derived build output).
+- **Target surface**: `agent-tools/src/collaboration-state/` claims-close path.
+- **Status**: open — recurrence-confirmed (two sessions, same day).
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-123 — `claims open` can crash AFTER writing the claim (exit 1, claim landed)
+
+- **Source**: PR-295 merge session closeout 2026-07-06 (Hyena spins Lamplight, loss-scan yield).
+- **Surface**: `pnpm agent-tools:collaboration-state -- claims open`.
+- **Observed**: exit 1 with a Node uncaught-exception footer AFTER the JSON output, while the
+  claim had landed in the registry — an agent reading the exit code and retrying mints a
+  duplicate claim. Corollary (same yield): a write-path command is never a probe — a
+  diagnostic claims-open "probe" wrote a junk claim that then needed closing.
+- **Expected / candidate cure**: fix the post-write crash; until then, doctrine is read the
+  registry, never the exit code, before retrying any claims write.
+- **Target surface**: `agent-tools/src/collaboration-state/` claims-open path.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-124 — a repo-wide gate that rebuilds `agent-tools/dist` task-reclaims persistent Monitors; inner restart loops cannot recover a whole-task reclaim
+
+- **Source**: curriculum-hub sessions 2026-07-01 (Deneb + Typhoon — a ~2h fleet blind gap,
+  owner-caught); cure directions routed to the tooling lane on comms `31a99250`.
+- **Surface**: `Monitor(persistent)` tasks shelling out to `pnpm agent-tools:*` during any
+  gate that rebuilds `agent-tools/dist` (owner commit, `pnpm check`).
+- **Observed**: the rebuild can reclaim the whole Monitor task; an inner `while true` loop
+  only recovers an inner-command exit (dist transiently absent), not a task-level reclaim —
+  the watcher/heartbeat is dead until manual re-arm, and in-window silence reads as
+  retirement.
+- **Candidate cures** (from the routed comms event): decouple monitors from a live
+  `agent-tools/dist` during rebuilds (pre-resolved binary / copy); OR a task-level supervisor
+  re-arming the whole task; OR don't rebuild dist under live monitors. Interim protocol
+  (ratified in-window): after any repo-wide gate, re-arm watcher + heartbeat + post a
+  catch-up sweep; treat in-window silence as reclaim, not retirement.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-125 — cwd drift breaks root pnpm scripts and whole-estate gate runs; the cure is location-independent root-level gate scripts
+
+- **Source**: recurrence ledger — 7 instances in one session (Peregrine, 2026-07-02) even
+  under an adopted vigilance cure; ×4 (Galago), ×3 (Hyena stirs Lamplight), plus the
+  Monitor-loop variant (heartbeat restarted from a workspace cwd fails root scripts —
+  false-liveness risk).
+- **Observed**: `cd demos/…` in one command silently breaks the next repo-root `pnpm
+  agent-tools:*` call ("command not found"), and a "full gate" run from the wrong cwd reads
+  alien whole-estate failures as lane failures. Vigilance ("always prefix cd") demonstrably
+  leaks under load — PDR-089 class.
+- **Candidate cure**: root-level location-independent gate scripts (e.g. `pnpm demo:gates`)
+  that own their own `cd`; Monitor loops carry an explicit `cd <repo-root>` inside the loop.
+- **Status**: open — structural cure not built; three independent data points recorded.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-126 — semantic-merge losslessness proof is hand-rolled every time; wants a verifier command
+
+- **Source**: PR-304 shepherding 2026-07-06 (Cricket lifts Echo — owner asked that ad-hoc
+  scripts be noted for graduation into agent-tools); used 3× in that merge and again at the
+  PR-295 resolver-fleet merge.
+- **Observed**: the skill-mandated losslessness proof (preserve clean sides via
+  `git show :1:/:2:/:3:`, then `comm -23` heading sets and identity-row key sets against the
+  merged file — an empty miss-set IS the proof) is exactly where a silent drop could hide
+  when done by hand; `comm` needs sorted inputs (newest-first lists silently cut the newest
+  rows).
+- **Expected**: the skill's mandated losslessness proof runs as one command per merged file.
+- **Candidate cure**: `agent-tools memory-merge verify --base --mine --theirs --merged`
+  emitting per-merge_class miss-sets, so the mandated proof step is one command. A scaffold
+  for `index-narrative-tables` (extract-conflict-region / splice-resolved-block, then run the
+  verifier) would remove the fiddly part while leaving the semantic judgment hand-authored.
+- **Target surface**: `agent-tools` CLI (new `memory-merge` command family).
+- **Status**: open — tooling candidate.
+- **Owner direction status**: standing (capture-practice-tool-feedback).
+
+### F-127 — PR review-thread state needs GraphQL every time; wants `agent-tools pr review-threads <n>`
+
+- **Source**: PR-304 shepherding 2026-07-06 (Cricket lifts Echo; scratch `parse_threads.py`).
+- **Observed**: every PR shepherd under `pr-comments-resolve-and-recheck` needs the
+  resolved/unresolved worklist, which only GraphQL `reviewThreads` exposes (REST does not
+  carry resolved state); each session re-rolls the same query + parser.
+- **Expected**: the resolved/unresolved review-thread worklist for any PR is one command.
+- **Candidate cure**: `agent-tools pr review-threads <n>` emitting the worklist
+  (thread id, path, resolved state, author, first line), consumed by the pr-lifecycle skill.
+- **Target surface**: `agent-tools` CLI (new `pr` command family).
+- **Status**: open — tooling candidate.
+- **Owner direction status**: standing (capture-practice-tool-feedback).
+
+### F-128 — the lint config estate is not self-linted (root-level config files sit outside every workspace lint run)
+
+- **Source**: Sonar Phase 5B session 2026-07-06 (Katydid seeks Moonbeam): the two S7772
+  survivors were the root `eslint.config.ts` itself (bare `path`/`url` imports); root `lint`
+  is `turbo run lint` (per-workspace) + shell lint, so root-level TS config files are outside
+  every lint boundary.
+- **Expected**: root-level config files (`eslint.config.ts` and siblings) are covered by a
+  lint gate like any other TypeScript in the estate.
+- **Candidate cure**: a root lint leg (or a root pseudo-workspace lint entry) that lints the
+  root config estate; wire into `pnpm check`.
+- **Target surface**: root `package.json` scripts + the lint gate topology.
+- **Status**: open. Diagnosis also recorded at
+  `docs/engineering/quality-tooling-mcp-coupling.md` §ESLint↔Sonar divergence.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-129 — comms concept gate: two next-cycle residuals from the founding review
+
+- **Source**: hygiene-Implementer closeout 2026-07-02 (Thyme guards Dewfall), conserving the
+  founding reviewer ruling's next-cycle set; the fail-closed-on-partial-policy half was
+  hardened 2026-07-06 (ADR-210 §Decision item 5) — these two remain.
+- **Observed / expected**: (1) a gate refusal on an unattended cron heartbeat presents as a
+  dead agent — refusals need routing to a visible surface or documenting in the heartbeat
+  lane; (2) small test pins owed: tag-exactness ("failure-mode-analysis" still gates), the
+  `as const` tuple for the concept list, and calling `scanLinesForRegex` directly instead of
+  the empty-prior trick.
+- **Target surface**: `agent-tools/src/collaboration-state/comms-concept-gate.ts` + its tests.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).

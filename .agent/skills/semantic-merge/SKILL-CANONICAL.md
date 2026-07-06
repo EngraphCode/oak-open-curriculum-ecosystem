@@ -69,6 +69,15 @@ scope (non-exhaustive): `repo-continuity.md`, `napkin.md`, `distilled.md`,
 `director-handoff.md`, thread `*.next-session.md` records, `pending-graduations.md`,
 `open-questions`, and any file carrying a `merge_class:` frontmatter key.
 
+**Live-write contention on ONE tree is a different, lighter problem** — this skill is
+for DIVERGED copies. When several agents concurrently edit the same memory file in one
+working tree (e.g. simultaneous closeouts appending to a thread record), the Edit-tool
+modified-since-read guard correctly refuses each stale write; the clean cure is a
+settle-wait — an until-loop waiting for the file's mtime to be stable >20s, BOUNDED (give up
+after ~3 minutes and coordinate the ordering explicitly on comms, per
+`loop-exit-criteria-required`) — then an immediate re-read + edit (worked instance: three
+agents closing on one thread record, 2026-07-02).
+
 ## The `merge_class` taxonomy
 
 Each memory/state file declares its merge shape in frontmatter (`merge_class:`). Resolve
@@ -76,7 +85,12 @@ per class:
 
 - **`append-only-narrative`** (e.g. `napkin.md`): timestamped, attributed observations.
   Merge = UNION of every entry from both sides; never drop one. Order by append/recency.
-  If both sides recorded the same lesson, keep one and note both sessions.
+  If both sides recorded the same lesson, keep one and note both sessions. The union is a
+  git builtin — `git merge-file -p --union ours base theirs` — verified by the heading
+  set-diff proof plus exact line arithmetic (base + mine-appends + theirs-appends =
+  merged line count); no hand-splicing needed for this class. The arithmetic proof applies
+  to the RAW `--union` output, before any same-lesson dedup pass — deduplication breaks the
+  arithmetic by design.
 - **`index-narrative-tables`** (e.g. `repo-continuity.md`): a compact index of
   per-session / per-thread entries plus tables. Merge = UNION of entries, grouped by
   session, most-recent-session first; keep tables intact (never split a row); and

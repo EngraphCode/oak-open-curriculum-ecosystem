@@ -42,6 +42,15 @@ replaced the older `onlyBuiltDependencies` list with this map). Security
 `overrides` and `peerDependencyRules` also belong in `pnpm-workspace.yaml`,
 not in root `package.json` — see the current file for examples.
 
+**pnpm `overrides` rewrite EVERY transitive contract, not just your pins.** An
+override earns its place only when the transitive resolution is itself the
+problem (a CVE floor = yes; a format-tool version pin = no — package.json
+ranges alone are the correct pin). Worked failure (2026-07-03): a
+belt-and-braces `prettier: '~3.8.4'` override reached inside
+`openapi-zod-client` (which declares `prettier: ^2.7.1` and calls prettier 2's
+synchronous `format()`), so the generator passed a Promise to writeFile and
+codegen died, cascading 30 tasks.
+
 **Project `.npmrc` is optional.** Use it for npm-compatible registry and auth
 only (`registry`, scoped registry maps, tokens). Avoid pnpm-only keys in
 `.npmrc`: npm 9+ warns on unknown project config, and a future npm major may
@@ -490,6 +499,15 @@ README.md (root, including the Quick Start section)
 - **Root workspace requires `workspaces["."]`**: top-level
   `entry`/`project` fields are ignored when `workspaces` is
   defined. Must use `workspaces["."]` for root entries.
+- **A gate whose config is DERIVED from a contract surface breaks
+  silently when that surface changes.** knip auto-detected workspace
+  entry points by resolving the `development` condition in package.json
+  exports; when exports went dist-only (2026-07-03) knip silently lost
+  its source entries — 44 phantom "unused" findings. Cure: explicit
+  source `entry` declarations mirroring each exports map
+  (knip.config.ts), and generally: when changing a contract surface
+  (exports maps, tsconfig, lockfile), list the gates that derive config
+  from it in the change's checklist and re-derive them.
 
 ## File Cleanup After Deletion
 
@@ -530,6 +548,13 @@ and clearing one gate routinely unmasks previously-latent failures in
 the next. Treat each newly-green gate as a magnifying glass on the one
 after it — a red gate appearing after you fixed a different gate is
 usually unmasking, not regression.
+
+**`pnpm check` opens with `clean` — every red run leaves a STRIPPED tree**
+(no dist, and possibly no generated code if the red hit mid-codegen). After any red estate run, restore
+buildability (`pnpm sdk-codegen` + `pnpm build`) before the next
+iteration, and prefer single-gate iteration over whole-chain reruns —
+iterating check-fix-check in a shared checkout otherwise hands the next
+reader a broken `pnpm build`.
 
 ## Linting and Auto-Fix Safety
 

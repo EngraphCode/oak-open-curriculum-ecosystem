@@ -61,7 +61,7 @@ Use `search_my_sonarqube_projects` to enumerate accessible projects. Verify proj
 
 ### Tool prefix and gateway provisioning
 
-The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-scope server entry (in `~/.claude.json`), not from the plugin manifest — renaming or removing that server entry silently breaks the plugin's skills even though the plugin itself is untouched. Symmetrically, a disconnected Docker MCP gateway masquerades as feature-absence: the tools simply do not appear, which reads as "not supported" rather than "not connected". Before concluding a Sonar capability is missing, check the server entry and gateway connection state.
+The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-scope server entry (in `~/.claude.json`), not from the plugin manifest — renaming or removing that server entry silently breaks the plugin's skills even though the plugin itself is untouched. Symmetrically, a disconnected Docker MCP gateway masquerades as feature-absence: the tools simply do not appear, which reads as "not supported" rather than "not connected". A "dead" tool can also be a URL typo in the gateway's server config rather than a disconnect — an `UnknownHostException: sonarcould.io` (one-char typo, token and org intact) was fixed via `mcp-config-set {server:"sonarqube", config:{org, url:"https://sonarcloud.io"}}` (2026-07-06). Before concluding a Sonar capability is missing, check the server entry, the gateway connection state, and the configured URL.
 
 ### Code analysis issues
 
