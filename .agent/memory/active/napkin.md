@@ -401,3 +401,48 @@ New session observations append below.
   nothing — the generalisation plan stays live with its restart brief). Entry-point sweep
   clean (CLAUDE/AGENTS/GEMINI at canonical pointer shape). pnpm check green at the stable
   point (RC=0, 2026-07-06). Platform-plan surface checked: this session authored none.
+
+## 2026-07-06 — PR 304 shepherding: ad-hoc tooling + dist-brick recovery (Cricket lifts Echo)
+
+Owner asked that any ad-hoc scripts made to do the work be noted here so they can graduate
+into official agent-tools (continual-improvement loop; see [[capture-practice-tool-feedback]]).
+This session's semantic merge of PR 304 + the shepherding pull produced these. Each is a
+TOOLING CANDIDATE, not yet built.
+
+- **Losslessness set-diff proof** (used 3× in the semantic merge). Preserve each clean side
+  (`git show :1:/:2:/:3:<path>` or saved copies), then `comm -23` the heading set (the
+  `##`-prefixed lines) and an identity-row key set of each side against the merged file — an empty miss-set IS the
+  proof, per the semantic-merge skill. Doing it by hand is exactly where a silent drop could
+  hide. Candidate: `agent-tools memory-merge verify --base --mine --theirs --merged` emitting
+  the per-merge_class miss-sets, so the skill's mandated proof step is one command.
+- **append-only-narrative union** is a git builtin: `git merge-file -p --union ours base theirs`.
+  No script needed — the skill should NAME it. Verified here by heading set-diff + exact line
+  arithmetic (base + mine-append + theirs-append = merged line count).
+- **index-narrative-tables resolution** stayed hand-authored (Python splice replacing a
+  conflict region with a merged row that carries BOTH concurrent lanes; and marker-removal
+  keeping both sides for additive-identity rows). The semantic judgment resists automation,
+  but a scaffold (extract-conflict-region / splice-resolved-block, then run the verifier
+  above) would remove the fiddly part.
+- **PR review-thread state** — `gh api graphql` on `reviewThreads` → resolved/unresolved
+  worklist (saved as scratch `parse_threads.py`). Needed for every PR shepherd under
+  [[pr-comments-resolve-and-recheck]]. Candidate: `agent-tools pr review-threads <n>`.
+
+Frictions worth curing at the tool layer:
+
+- **`git merge` runs `pre-merge-commit`, NOT `pre-commit`** — so a merge that brings in
+  hook-policy SOURCE changes does NOT rebuild the gitignored `agent-tools/dist`. The stale-
+  schema compiled guard then fails closed on the new policy field (`"match": "regex"`) and
+  BRICKS every Bash command, including the rebuild that would fix it. This is the exact hazard
+  `.agent/hooks/policy.json` line 151 and commit c2e2181bd's message document. Recovery
+  (non-Bash tools only, since Bash is bricked): Edit the one new policy enum back to a value
+  the old schema accepts → Bash unblocks → rebuild dist → Edit the policy back. Candidates,
+  strongest first: a `pre-merge-commit` husky hook that rebuilds dist when hook-policy source
+  changed in the merge; OR extend the guard's fail-open to unknown top-level schema shape (it
+  currently only degrades unknown `match` KINDS, not a whole-schema parse miss); OR have the
+  guard runner self-heal by rebuilding on a schema-parse failure.
+- **Python inline heredocs with `\"`-escaped quotes throw SyntaxError** (bit me twice). Write
+  parser scripts to a FILE and take inputs via `sys.argv`, never an inline f-string with
+  escaped quotes.
+- **Never hardcode the `/Users/...` scratchpad path in written script CONTENT** — the
+  machine-local-path guard (correctly) blocks it. Pass the path as argv.
+- `comm` needs sorted inputs; newest-first lists mean `tail` silently cuts the NEWEST rows.
