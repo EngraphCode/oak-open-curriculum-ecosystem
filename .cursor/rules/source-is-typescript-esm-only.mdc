@@ -1,0 +1,6 @@
+---
+description: All source code MUST be TypeScript unless absolutely impractical; any required JavaScript file is compiled from a TypeScript source, never hand-authored; all JavaScript is ESM with CJS absolutely disallowed (ADR-001); shell is permitted only where it significantly reduces effort (ADR-168 shell-scope exception, Husky entry points the canonical instance).
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/source-is-typescript-esm-only.md`.

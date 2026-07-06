@@ -1,0 +1,32 @@
+# Source Is TypeScript, ESM Only
+
+All source code in this repository MUST be TypeScript unless absolutely
+impractical. If an action requires a JavaScript file, that file MUST be
+compiled from a TypeScript source — never hand-authored. All JavaScript
+MUST be ESM; CJS modules are absolutely not allowed
+([ADR-001](../../docs/architecture/architectural-decisions/001-esm-only-package.md)).
+Shell is permitted only where it significantly reduces effort
+([ADR-168 §Shell-scope exception](../../docs/architecture/architectural-decisions/168-typescript-6-baseline-and-workspace-script-architectural-rules.md),
+amended 2026-07-06; Husky's hook entry points are the canonical
+instance). Owner directive 2026-07-06.
+
+## Trigger
+
+Creating any source or executable file; scaffolding tooling, hooks, or
+scripts; reviewing a diff that adds `.js`, `.mjs`, `.cjs`, or `.sh`
+files.
+
+## Action
+
+- New logic → a `.ts` module in a workspace `src/`, typed, linted, and
+  unit-tested (ADR-168 §5).
+- A runtime that demands a JS file (a hook target, a no-compile
+  pre-install constraint) → compile it from TypeScript (the
+  bootstrap-built `agent-tools/dist` pattern) or use the
+  explicitly-authorised per-workspace `runtime-only-scripts/` tier
+  (ADR-168 §4); never hand-author the JS.
+- Never author a `.cjs` file or CJS-shaped module code (`require`,
+  `module.exports`) anywhere — ESM only (ADR-001).
+- Shell only where it significantly reduces effort. A shell script that
+  accretes parsing or branching logic carries ADR-168 §5's
+  promotion-overdue signals; port it to TypeScript.
