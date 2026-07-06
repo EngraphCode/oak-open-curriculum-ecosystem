@@ -166,6 +166,14 @@ genuinely required review landed (the author-dependent leg below). Then:
   mid-cleanup in a confusing half-switched state (edits preserved but
   displaced onto the base branch). Commit or relocate local work first, or
   merge without the flag and delete the branch separately.
+- **A deferred or denied merge does not end shepherding.** "Truly green" has
+  a shelf life: bots re-review every push asynchronously, so comment-clean
+  verified at one instant expires at the next event. When the merge is handed
+  to the owner (authorisation gate, harness denial, or explicit ask), the PR
+  is still live surface — keep the harvest loop running and re-disposition
+  new comments until the merge actually LANDS; hand over a state, never a
+  standing claim (worked instance 2026-07-06: a "truly green" #312 handover
+  accrued three unresolved bot threads while the agent stood down).
 - When merging is authorised, prefer a **merge commit** (`--merge`), never
   squash (standing owner preference, 2026-06-28). Verify the allowed merge
   METHODS first — `gh api repos/<owner>/<repo> --jq '{allow_merge_commit,
