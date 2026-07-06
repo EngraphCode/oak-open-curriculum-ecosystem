@@ -479,3 +479,12 @@ Frictions worth curing at the tool layer:
   an ACCEPT disposition needs a genuine architectural tension at the site TODAY — a prior
   deferral of an unsound AUTOFIX is not a deferral of a sound hand fix. All six converted; the
   Sonar transitions reversed (reopen + supersession comment).
+- **Thorough re-grounding pass (owner-invoked, principles + testing-strategy) surfaced one
+  standing gap**: the graph-corpus generated `index.ts` mirror has NO standing drift guard —
+  `graph-corpus-emitted.integration.test.ts` pins data counts, not module source. The 5B
+  hand-mirror was verified byte-identical once (reviewer's programmatic check), but nothing
+  catches future template↔mirror desync. Right cure shape: a repo-validator that recomputes
+  (`validators-must-recompute`), i.e. "committed vocab index module contains exactly the
+  emitted lines join" wired into `repo-validators:check` — NOT an fs-reading test (in-process
+  tests must not do IO; a new allowlist entry would weaken the gate boundary). Route: next
+  touch of the sonar thread or the sdk-codegen estate; small, self-contained.
