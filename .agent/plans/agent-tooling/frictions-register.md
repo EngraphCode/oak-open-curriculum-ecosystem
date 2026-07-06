@@ -2656,3 +2656,38 @@ commit SHA and the closing plan reference.
 - **Workaround (verified)**: select on presence — match by
   `agent_id.session_id_prefix` or filter `.status == null or .status ==
   "active"`; treat presence-in-file as the liveness signal.
+
+### F-120 — `git merge` leaves a stale agent-tools dist that fail-CLOSES the Bash guard and bricks the worktree (recurrence-confirmed)
+
+- **Source**: napkin 2026-07-06 (Cricket lifts Echo `2fffa2`) + a corroborating
+  same-day instance (Wyvern seeks Clinker). Already documented in three places
+  before it recurred — `policy.json` line 151, the `c2e2181bd` commit message,
+  and the Cricket napkin entry — a live `passive-guidance-loses-to-artefact-gravity`
+  demonstration: passive docs did not fire at the merge action-moment.
+- **Surface**: `git merge` + `.claude/hooks/run-pretooluse-guard.mjs` →
+  `agent-tools/dist/src/hook-policy/check-blocked-patterns.js` (the dist is
+  gitignored, so it is not carried in the merge).
+- **Observed**: a merge that brings hook-policy SOURCE changes runs the
+  `pre-merge-commit` hook, NOT `pre-commit`, so the dist is not rebuilt. The
+  stale compiled guard then fail-CLOSES on the new policy field (e.g. a new
+  `match: "regex"` kind its old schema rejects), bricking EVERY Bash command —
+  including the rebuild that would fix it. Recurred within hours (two instances
+  same day). Compounded: the fail-closed crash path leaves NO entry in
+  `.claude/logs/hook-errors.log` (only the fail-OPEN degrade path logs), so a
+  future brick is invisible in the log meant to record it.
+- **Expected**: a merge changing hook-policy source rebuilds the dist before the
+  guard runs; the guard fails OPEN on a whole-schema parse miss (not only on an
+  unknown match KIND); and the fail-closed path logs.
+- **Candidate cure**: a `.husky/pre-merge-commit` hook that rebuilds agent-tools
+  dist when the merge touched hook-policy source; OR extend the guard fail-open
+  to an unknown top-level schema shape; OR guard-runner self-heal (rebuild on a
+  schema-parse failure). Plus: log the fail-closed crash path in the guard runner.
+- **Recovery (verified, Bash-bricked)**: with non-Bash tools only — Edit the one
+  new policy enum back to a value the old schema accepts → Bash unblocks →
+  rebuild dist → Edit the policy back.
+- **Target surface**: `.husky/pre-merge-commit` (new) and/or
+  `agent-tools/src/hook-policy` fail-open logic + `run-pretooluse-guard.mjs` logging.
+- **Status**: open — recurrence-confirmed (PDR-098; two instances same day),
+  structural cure not yet built.
+- **Owner direction status**: standing (Pelagic `2dbd74f6` — agent-tooling
+  friction is first-class user feedback).
