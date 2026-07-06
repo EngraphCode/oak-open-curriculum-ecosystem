@@ -480,3 +480,40 @@ plan surface present, nothing authored this session. Consolidation gate: napkin 
 lines — past its ~400 rotation threshold from the two 2026-07-06 sessions' appends; deep
 consolidation due on the next dedicated pass (owner scoped THIS close to light notes), not
 run here. pnpm check verdict recorded below when the run completes.
+
+## 2026-07-06 — Session closeout: PR-304 shepherded to merge + recursive loss/metaloss scan (Cricket lifts Echo)
+
+Landed: PR #304 merged to main as a merge commit (`562a73b0f`), release cut to 1.59.0
+(`b41ae2233`). The inter-Practice semantic merge, the confident-and-wrong doctrine, the
+ripgrep-guard fix, and the tooling-capture entry above are all in main. Shepherded green
+(CI 16/16, 2 review threads resolved, mergeState CLEAN); owner merged; local repo updated;
+`feat/graph-tooling-tidyup` archived as tag `archive/graph-tooling-tidyup` (a month-stale
+superseded WIP — EEF is live on main).
+
+Recursive loss/metaloss scan:
+
+- **The dist-brick graduated to a STRUCTURAL cure candidate (frictions F-120), NOT a fourth
+  passive capture.** It was documented in three places and recurred within hours anyway
+  (Cricket + Wyvern, same day) — `passive-guidance-loses-to-artefact-gravity` demonstrating
+  itself. Capturing it a fourth time would BE the metaloss; the anti-metaloss move is the
+  frictions entry naming the structural cure (pre-merge-commit rebuild / guard fail-open on a
+  whole-schema miss / log the fail-closed path) with PDR-098 recurrence evidence. Routed to the
+  frictions register, not pending-graduations, because a tooling gap is not doctrine (and a
+  "remember to rebuild dist" rule would be exactly the passive guidance that already failed).
+- Reusable craft worth a durable home later (could graduate to a pattern or an agent-tools
+  command):
+  - **Judging whether an unmerged branch holds unique work.** SHA-ancestry alone lies on a
+    squash. Use `git cherry` (patch-id — catches cherry-picks, not squashes) plus per-file
+    `git cat-file -e main:<path>` classification (absorbed / differs-but-main-newer=stale /
+    branch-only), then sub-categorise branch-only into transient `.agent/state/` vs historical
+    `archive/` vs durable-unique, then check the durable-unique against main under DIFFERENT
+    paths — a month-stale branch's "unique" files are often superseded or renamed on main.
+  - **Archive-before-delete for an unmerged branch.** Annotated tag at the tip → verify the tip
+    is reachable via the tag → THEN `git branch -D`. The tag makes the force-delete lossless.
+
+Closeout bookkeeping: napkin rotation DUE (past ~400; deferred with honesty — Wyvern's
+uncommitted entry is entangled in the working tree and the owner scoped this to a bounded
+housekeeping PR; next dedicated pass rotates once the entanglement clears). No ADR/PDR
+candidate (F-120 is a tooling gap, correctly routed to the frictions register). No open
+questions. No claim to close (exchange claim `d0e453a3` closed at the prior handoff). pnpm
+check verdict recorded at the housekeeping commit.

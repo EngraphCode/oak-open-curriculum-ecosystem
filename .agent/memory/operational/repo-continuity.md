@@ -35,6 +35,15 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **Inter-Practice exchange lane + corpus phase-0 + practice doctrine — MERGED (#304, 2026-07-06).**
+  PR #304 landed to `main` (release 1.59.0, `b41ae2233`): the inter-Practice collaboration protocol
+  plan + WS1/WS3/WS6, the semantic-merge "confident-and-wrong" doctrine, the corpus phase-0 design
+  record, and the ripgrep-guard fix (`c2e2181bd`). Branch archived-clean; `feat/graph-tooling-tidyup`
+  archived as tag `archive/graph-tooling-tidyup` (superseded WIP). **Live next:** the owner-requested
+  **WS0+WS4 authoring session** (portable protocol PDR in both estates + join-ceremony skill; opener
+  written) — see the [`agentic-engineering-enhancements` thread record](threads/agentic-engineering-enhancements.next-session.md).
+  Tooling follow-up: **frictions F-120** (the `git merge` stale-dist guard-brick — recurrence-confirmed,
+  structural cure not yet built).
 - **Upstream API alignment (programmes family) — MERGED (#291, 2026-07-01).** WS0/WS1 (regen +
   cached-default), WS2 (semantic schema-drift check), WS4 (programmes discoverability), WS6
   (permanent alignment runbook, PDR-120) are live on `main`. **Live next safe steps** (detail +
