@@ -79,7 +79,8 @@ function runStep(label: string, binPath: string, args: readonly string[], cwd: s
     status: result.status,
   });
   if (verdict.failed) {
-    writeErrorLine(`[bootstrap-agent-tools] ${verdict.reason ?? `${label} failed`}`);
+    const reason = verdict.reason ?? `${label} failed`;
+    writeErrorLine(`[bootstrap-agent-tools] ${reason}`);
     process.exit(verdict.exitCode);
   }
 }
