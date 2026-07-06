@@ -1,3 +1,19 @@
+# [1.59.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.58.0...v1.59.0) (2026-07-06)
+
+
+### Bug Fixes
+
+* **agent-tools:** anchor the ripgrep replace-flag guard with a regex match mode ([c2e2181](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c2e2181bdc4ac4ce8bd255017520226bc469bf04))
+* **agent-tools:** give commit-workflow children file-backed stdio to cure F-112 ([b2ae968](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2ae9689861ca2a4e6d5d2ef619667da2ace16f9)), closes [hi#volume](https://github.com/hi/issues/volume)
+
+
+### Features
+
+* **agent-tools:** add the practice-coordination-home declared-home override to home resolution ([f31faec](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f31faec62828d0ab59b1d85043a77af87fe7ee10))
+* **agent-tools:** end pr-watch --watch on all green - checks passed and threads resolved ([20d84b4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/20d84b44e1762b6960e8c53f0773b7693955a4bd))
+* **agent-tools:** statusline identity renders the session join key beside the name ([4b9683b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4b9683be1922cca9cf0f72e3f1486a708e610b78))
+* **hooks:** fingerprint ripgrep clustered replace flag at the bash guard ([b6af3e0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b6af3e0bd385287b89f834d22305c0d30b108835))
+
 # [1.58.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.57.0...v1.58.0) (2026-07-03)
 
 
