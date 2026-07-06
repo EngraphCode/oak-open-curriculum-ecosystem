@@ -19,7 +19,49 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-06-22, Pelican stirs Buoy — continuity curated; architecture committed; next = WS2)
+## Where We Are (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
+
+**Owner direction (2026-07-06, in-session):** losslessly re-found the plan corpus around
+intent FIRST — the donor-estate (resonance) method at oak scale — as an independently
+valuable intermediate step on the road to the ADR-200 intent graph. Not instead of the
+graph: the refounded corpus becomes WS6's harvest substrate; WS2/WS4 proceed in parallel
+and must not wait.
+
+**What landed this session (branch `docs/plan-corpus-refounding`):**
+
+- The executable protocol plan
+  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+  — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
+  placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
+  verification; the consolidated owner-gate register (G0..Walk C — **next action: the
+  G1 + G-ADR owner sitting**: freeze-rule ratification + the Decision-level ADR-200
+  amendment + the V0.1 proof-typed-todos sign-off); corrected economics (40–60M tokens /
+  25–45 seat-sessions, pre-pilot bands re-priced at SP3).
+- The design record
+  [`plan-estate-refounding-design-2026-07-06.md`](../../../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md)
+  — 6-facet design panel + 4-lens adversarial critique (22 critical findings, every one
+  dispositioned) + the donor-seat cross-estate review (sound-with-revisions, zero
+  overturns; B1 planted-loss challenge canaries and B2 the WS6 substrate statement both
+  absorbed) + the resonance mechanism adopt/adapt/reject/invert table.
+- The dated additive amendment to
+  [`planning-estate-rewrite.plan.md`](../../../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
+  — `ws-r-corpus-refounding` gates ws6; WS6's substrate = refounded corpus + frozen
+  archive via binding-clause provenance edges; ADR-200's text stands UNEDITED until the
+  G-ADR gate (honesty boundary).
+
+**Provenance of the method:** the first live cross-estate design collaboration under the
+inter-practice protocol — the resonance exchange seat (oak-side name Kiln tracks Basalt,
+prefix 2a5066) delivered the refounding synthesis + ten-item kit to the incoming box,
+corrected its own invariant mid-exchange (challenge-every-class), and adversarially
+reviewed the synthesis. The exchange dialogue is conserved in
+`.agent/collaboration/rapid-comms/wildfire-herds-sulphur-and-kiln-tracks-basalt.md`.
+
+**Next safe steps (in order):** (1) the G1+G-ADR owner sitting (the plan's owner-gate
+register names the packet contents); (2) R0a mechanical instrument build (scripts +
+discrimination proofs — freeze may land the moment its own proofs pass); (3) WS2
+(idea-node schema) continues in parallel, unchanged, per the section below.
+
+## Where We Were (2026-06-22, Pelican stirs Buoy — continuity curated; architecture committed; next = WS2)
 
 The architecture has **converged and is committed**; progression is **GO** for the substrate build.
 Read, in order:
@@ -150,3 +192,4 @@ loss-scan):
 | Pelican stirs Buoy | claude-code | claude-opus-4-8[1m] | 7a3b43 | reflected on the session-starter; curated this thread record (conserve-and-delete the finished session history per continuity-practice §Disposition); fixed the rewrite plan's frozen-estate prerequisite; reframed repo-continuity to ADR-200; next = WS2 | 2026-06-22 | 2026-06-22 |
 | Skipper tracks Reef | claude-code | claude-opus-4-8[1m] | 87a7bb | capability-framing copy ("building capabilities") into VISION/README/strategy (`ac7870f4f`); authored the cross-effort curriculum graph estate synthesis report (`40d514fde`) and an SLT single-team brief (held local, not version-controlled); landed the prior session's uncommitted continuity edits (`7fb21e9ae`); did NOT advance the WS2 rewrite lane | 2026-06-22 | 2026-06-22 |
 | Perseus lifts Umbra | claude-code | claude-opus-4-8[1m] | 5af536 | two-altitude knowledge-as-graph research (report `knowledge-as-graph-two-altitudes-2026-06-23.md`, initial-research → incoming engineer's brief); **amended ADR-200 (owner-directed): realisation edges §5 + family-entailment §Future state**; live Aila adaptation experiment + LTAE build-vs-reuse read of Aila's code (evidence in reference-local); added Q-009; did NOT advance the WS2 rewrite lane (WS2 remains the next step) | 2026-06-23 | 2026-06-23 |
+| Wildfire herds Sulphur | claude-code | claude-fable-5 | 839565 | **corpus-refounding commission → protocol design → landing** (owner-directed 2026-07-06): estate-wide identification sweep; cross-estate design collaboration with the resonance exchange seat (Kiln tracks Basalt, 2a5066) under the inter-practice protocol; 6-designer + 4-critic PDR-123 panel; authored `plan-corpus-refounding.plan.md` (P1–P14, J1–J9, owner-gate register incl. G-ADR) + the design record + the dated `planning-estate-rewrite` amendment (`ws-r-corpus-refounding` gates ws6); donor-seat adversarial review absorbed (sound-with-revisions, zero overturns; B1 planted-loss challenge canaries, B2 WS6 substrate statement); WS2 untouched and unchanged as next parallel step | 2026-07-06 | 2026-07-06 |
