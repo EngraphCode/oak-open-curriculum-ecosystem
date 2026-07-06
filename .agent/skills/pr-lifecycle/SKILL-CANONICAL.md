@@ -124,6 +124,14 @@ work or hold; the watcher wakes you.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **Confirm the PR is still OPEN in the same re-fetch.** A push to a
+  just-merged PR's branch SUCCEEDS but is not inclusion — the commit
+  silently misses the base branch (worked instance 2026-07-06: a review
+  fix landed on #310's branch minutes after the owner merged; rescued by
+  cherry-pick). If the PR state is MERGED, verify tip ancestry
+  (`git merge-base --is-ancestor <tip> origin/<base>`) before treating any
+  post-merge work as landed; strand-rescue is a cherry-pick to a follow-up
+  branch, never a branch delete.
 
 ## Phase 7 — Merge-ready is a declaration with a gate
 
