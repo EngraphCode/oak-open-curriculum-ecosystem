@@ -718,3 +718,9 @@ multi-writer-landing-order, view-binder-di-seam; testing-strategy.md parametric-
 ADR-210 (comms write-path concept gate); comms-all-channels-watcher.md delivery-liveness
 clauses; verify-dont-trust.md exit-code + briefing-fact sections. The register and distilled
 keep their entries with additive home-pointers.
+
+- **MISTAKE (mine, owner-corrected sharply): I generalised a one-off owner direction into a
+  PERMANENT PRINCIPLE in principles.md without asking — no due process, no owner ratification.**
+  Directive-tier files change through owner-approved process, never through an agent's inference
+  from a session instruction. The correction: edit removed same-session. The session direction
+  itself (conserve sources this pass) was followed; its generalisation was not mine to make.

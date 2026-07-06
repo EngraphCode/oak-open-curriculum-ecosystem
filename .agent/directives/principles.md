@@ -551,16 +551,3 @@ flows toward the more fundamental artefact), and **stable indexes**
 drift). A DRY violation, a stale index, a god-document, or a dangling
 cross-reference is a real defect, not a style nit. Canonical decision:
 [ADR-127](../../docs/architecture/architectural-decisions/127-documentation-as-foundational-infrastructure.md).
-
-## Knowledge Work Is Append-First; Sources Are Conserved (owner-directed 2026-07-06)
-
-Consolidation, curation, and knowledge processing WRITE knowledge into permanent homes
-additively; they do not remove it from the sources that carried it. Keep all information in the
-source surfaces — do not condense them, do not rotate them away, do not treat "processed into a
-final home" as licence to delete, drain, or prune the source entry. A buffer entry whose home
-has been authored gains an additive home-pointer and stays; the napkin, distilled, and register
-histories remain intact in place. Fitness pressure on a conserved source routes to structure
-work (targets, splits agreed with the owner) — never to removal of information. The homes are
-copies that fire at read time; the sources are the record of how the knowledge arrived. When an
-established workflow (rotation, drain, prune steps in a consolidation skill) conflicts with this
-principle, this principle wins and the workflow is the surface to amend.
