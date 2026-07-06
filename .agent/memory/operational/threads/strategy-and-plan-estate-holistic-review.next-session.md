@@ -56,10 +56,17 @@ corrected its own invariant mid-exchange (challenge-every-class), and adversaria
 reviewed the synthesis. The exchange dialogue is conserved in
 `.agent/collaboration/rapid-comms/wildfire-herds-sulphur-and-kiln-tracks-basalt.md`.
 
-**Next safe steps (in order):** (1) the G1+G-ADR owner sitting (the plan's owner-gate
-register names the packet contents); (2) R0a mechanical instrument build (scripts +
-discrimination proofs — freeze may land the moment its own proofs pass); (3) WS2
-(idea-node schema) continues in parallel, unchanged, per the section below.
+**Owner ratifications (2026-07-06, same sitting, formal questions put and answered):**
+G-ADR RATIFIED (the ADR-200 Decision amendment is landed — §Consequences Amendment +
+§Sequence note); V0.1 SIGNED in full (proof-typed todos + `permanent-home-routed` +
+the pending/holding-lane rule — landed in the V0 schema spec); **R0 execution
+AUTHORISED**; branch push + PR approved.
+
+**Next safe steps (in order):** (1) R0a mechanical instrument build (scripts +
+discrimination proofs — freeze may land the moment its own proofs pass; produces the G1
+freeze-rule packet for the owner sitting); (2) R0b plan-state tool + R0c registers;
+(3) the G1 owner sitting when the packet is ready; (4) WS2 (idea-node schema) continues
+in parallel, unchanged, per the section below.
 
 ## Where We Were (2026-06-22, Pelican stirs Buoy — continuity curated; architecture committed; next = WS2)
 

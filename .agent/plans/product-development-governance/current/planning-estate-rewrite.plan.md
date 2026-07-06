@@ -27,7 +27,7 @@ todos:
     status: pending
     depends_on: [ws2-idea-schema-structure]
   - id: ws-r-corpus-refounding
-    content: "INSERTED (owner-directed 2026-07-06): the plan-corpus refounding — the provably lossless, intent-aligned transformation of the planning corpus into owner-ratified destination lanes, executed under its own plan (product-development-governance/current/plan-corpus-refounding.plan.md: scripted mechanical substrate, zero-judgement workers, placed judgement, recomputable state, conservation chain). Produces the refounded corpus ws6 harvests. The ADR-200 Decision-level amendment (Q3 boundary re-ruling + audit-composition ruling + V0.1 sign-off) is owner-ratified at that plan's G-ADR gate before its freeze lands."
+    content: "INSERTED (owner-directed 2026-07-06): the plan-corpus refounding — the provably lossless, intent-aligned transformation of the planning corpus into owner-ratified destination lanes, executed under its own plan (product-development-governance/current/plan-corpus-refounding.plan.md: scripted mechanical substrate, zero-judgement workers, placed judgement, recomputable state, conservation chain). Produces the refounded corpus ws6 harvests. The ADR-200 Decision-level amendment (Q3 boundary re-ruling + audit-composition ruling + V0.1 sign-off) was OWNER-RATIFIED 2026-07-06 and is landed in ADR-200 + the V0 schema spec; execution is authorised (R0 go)."
     status: pending
   - id: ws6-deep-harvest
     content: "GATED on ws4 + ws3 + ws-r-corpus-refounding: deep harvest of the REFOUNDED plan corpus (count re-derived at harvest, NOT frozen) PLUS VISION.md + docs/strategy/ (owner-ratified 2026-06-22; substrate re-pointed to the refounded corpus per the owner-directed 2026-07-06 re-sequencing) to the finalised schema -> the preserved idea-graph spanning all altitudes (the existing thin Pass-1 idea data is re-derived/enriched, not relied on). Acceptance: every in-scope doc harvested; every idea has provenance + class; coverage logged; the graph validates against the schema; vocabulary-friction logged as a first-class output (forced-misfit ideas, missing facets/domains/edges, scale-misfit) -> feeds ws6b."
@@ -248,12 +248,12 @@ provenance, and typed state make the harvest mechanical.
 - **WS2/WS4 are unaffected and must not wait** (owner direction stands): write-surface
   disjointness, additive authoring under denominator re-derivation, V0 schema pinning,
   and Director-scheduled owner gates keep the two arcs non-interfering.
-- **ADR-200 honesty**: this re-sequencing touches ADR-200's Decision-level Q3 boundary
-  (the estate rewrite was gated on the idea-graph). It is owner-directed but not yet
-  ADR-ratified — the explicit Decision-level amendment (Q3 re-ruling + audit-composition
-  ruling + the V0.1 proof-typed-todos sign-off) is the refounding plan's **G-ADR owner
-  gate**, cleared before its freeze lands. Until then this section records the owner
-  direction; ADR-200's text stands unedited.
+- **ADR-200 status**: the Decision-level amendment (Q3 re-ruling + audit-composition
+  ruling + the V0.1 sign-off) was **RATIFIED by the owner on 2026-07-06** (formal question
+  put and answered, same day as the commission) and is landed in ADR-200 §Consequences
+  Amendment + §Sequence note, with the V0.1 block in the V0 schema spec. The refounding
+  plan's G-ADR gate is closed; its remaining owner gates (G1 freeze-rule packet onward)
+  proceed per its register.
 
 ## Incremental delivery (the boundary — ADR-200 §Consequences)
 

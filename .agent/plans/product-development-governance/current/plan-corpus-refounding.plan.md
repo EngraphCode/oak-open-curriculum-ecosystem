@@ -291,7 +291,7 @@ Segmentation, classification, summary wording, and disposition are NOT worker wo
 | --- | --- | --- |
 | G0 | Commission — recorded 2026-07-06 (this plan); gate content settles at G1 | done |
 | G1 | Freeze-rule ratification: surface-class verdict table with sub-reasons; Net-C keyword list; residue-orphan bounds; destination-corpus rooting as a named freeze-rule class; sanctioned-writer classes; the sweep single-net residue declaration (signed knowingly or cured by the reader sample) | R0→R1 boundary |
-| G-ADR | **Decision-level ADR-200 amendment** (owner re-ratification, not a silent sequence insert): the Q3 boundary re-ruling (corpus refounding precedes the graph; WS6 harvests the refounded corpus PLUS the frozen archive via binding-clause provenance edges — the substrate statement that makes the transitive audit composition hold at idea granularity), the §5 audit-composition ruling, and the V0.1 sign-off (proof-typed todos additive extension; the `pending`-sentinel/lane interaction; the seventh conserving disposition class `permanent-home-routed`) | with G1 |
+| G-ADR | **Decision-level ADR-200 amendment — RATIFIED (owner, 2026-07-06, formal question put and answered)**: the Q3 boundary re-ruling (corpus refounding precedes the graph; WS6 harvests the refounded corpus PLUS the frozen archive via binding-clause provenance edges), the audit-composition ruling, and the V0.1 sign-off (proof-typed todos; the `pending`-sentinel/lane rule; `permanent-home-routed`) — all three V0.1 items signed. Landed: ADR-200 §Consequences Amendment + §Sequence note; V0 schema V0.1 block | done |
 | G2 | S0 landing sanction: denominator totals, scoped gate exclusions with reasons, secret-scan attestation, declared commit window | R1 |
 | G3 | Arrivals-routing table (what auto-freezes vs per-arrival ruling) | R1 |
 | Walk A | Lane-taxonomy ratification from staged evidence (pilot + top-down seed; non-pilot lanes candidate-status) + escalation-thinning policy tables | R2 |
@@ -387,8 +387,9 @@ plan-state tool join `repo-validators`; `test-expert` on the script/tool test es
 
 ## Lifecycle
 
-Lives in `current/` (executable, queued: R0 may start on owner go). Promotes to `active/`
-when R0a starts. On R6 completion this plan archives with `disposition: done`; the
+Lives in `current/` (executable). **Execution AUTHORISED (owner, 2026-07-06): R0 is go**,
+with WS2 proceeding in parallel; the branch push + PR were owner-approved the same sitting.
+Promotes to `active/` when R0a starts. On R6 completion this plan archives with `disposition: done`; the
 learning-loop consolidation runs at every stable point close and at archive
 (`lifecycle-triggers` component applies in full).
 
