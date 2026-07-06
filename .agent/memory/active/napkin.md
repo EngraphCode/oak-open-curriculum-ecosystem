@@ -316,3 +316,18 @@ New session observations append below.
   team-state join sequenced on OQ5/F-44; exchange pattern folds into WS0b; §5 reconciles
   into WS0 — the tier ladder (Tier 0 box-only / Tier 1 hosting) is the recommended answer to
   owner gate (b) on v1 conformance strictness.
+- **Fluency-under-completion-pressure is a CLUSTER, not five separate slips (2026-07-06
+  meta-observation, Wolf rides Vigil, at session close)**: this session's guard/peer catches
+  were not independent — `--no-verify` reach, substring re-trip documenting it, machine-local
+  path in a plan edit, dating an ARC file that wanted no date, and stating the
+  name-derives-from-model hypothesis as fact — ALL fired in the last stretch, under an
+  end-of-session "just finish and hand off" pressure I was supplying myself (no external
+  clock). Each was a FLUENT move (the smooth, obvious next action) and each was wrong; each
+  was caught by a guard or a peer, never by me first. This is the metacognition directive's
+  "fluency is a warning, not a confirmation" observed as a time-clustered phenomenon: the
+  completion-drive is a specific high-risk window where the substrate MUST catch you and
+  (here) did. Cure is not "be more careful" (a passive lesson that loses to artefact
+  gravity) — it is to treat the felt urge to wrap up as itself the tripwire to slow the last
+  moves down, and to keep the guards absolute exactly when the drive says skip them. The
+  guards were right 5/5; the fault was reaching for the fluent move at the finish line.
+  Full subjective account + the loss/metaloss reflection: `.agent/experience/2026-07-06-first-live-bidirectional-practice-exchange.md`.
