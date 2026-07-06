@@ -2,7 +2,7 @@
 
 Operationalises the SonarSource MCP server's official usage guidance for this repo. Cross-references the broader playbook at [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) for the workflow context (when to use Sonar MCP alongside CodeQL and Sentry MCP).
 
-These guidelines are advisory and do not override repo instructions in `principles.md` or any rule under `.agent/rules/`.
+The vendor-usage guidelines in this file are advisory and do not override repo instructions in `principles.md` or any rule under `.agent/rules/`; the §Ground in the governing doctrine section below is repo discipline, not vendor guidance.
 
 ## Basic usage
 
@@ -33,6 +33,10 @@ After fixing issues in code, the Sonar server will not reflect the change until 
 The cardinal anti-pattern with Sonar is the rule-level disable (a `sonar.issue.ignore.multicriteria` block — a sonar-scanner-CLI feature this repo does not use, and which SonarCloud automatic analysis ignores). Each rule fires at distinct sites with distinct contexts; the disposition right for one site can be wrong for another. Per `principles.md` §Code Quality "NEVER disable any quality gates", per-rule disables are forbidden in this repo; dispositions are made per-site, server-side. This repo has no `sonar-project.properties`.
 
 Per-issue dismissals via `change_sonar_issue_status` (status `accept` / `falsepositive`) are acceptable when each disposition is grounded in a specific architectural tension at that site, not a labelled category. The full discipline is documented in [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) §Per-finding investigation discipline.
+
+## Ground in the governing doctrine before fixing or dispositioning
+
+Operationalises [PDR-018 §Disposition drift at phase boundaries](../practice-core/decision-records/PDR-018-planning-discipline.md) and [`verify-dont-trust`](verify-dont-trust.md)'s governing-decision grounding at the Sonar surface. Before choosing a fix shape for — or dispositioning — any Sonar finding, look up the repo's own decision for the flagged construct: grep the ADR estate (and PDRs/rules) before acting. At any `value is X` type-guard or literal-tuple site, read [ADR-153](../../docs/architecture/architectural-decisions/153-constant-type-predicate-pattern.md) by name first — the fluency of the common idiom (e.g. `Set.has` over `.some`) at a site with house doctrine is a warning to check for a governing decision, not a confirmation (`patterns/fluency-is-a-failure-vector`; worked instance: the PR #308 ADR-153 three-swing arc, 2026-07-06, where the governing ADR was one read away throughout). When dispatching a reviewer on a Sonar finding, apply the brief-construction discipline in [`invoke-code-experts`](../memory/executive/invoke-code-experts.md) §Delegation Snapshot (the dispatch names the governing decision records); absorb verdicts per `verify-dont-trust` — reviewer output is evidence to test, not a verdict to adopt.
 
 ## Hotspot review
 

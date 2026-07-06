@@ -385,6 +385,37 @@ If git reports an index lock, treat it as a commit-window collision: inspect
 the queue, active claims, and the log. Do not delete `.git/index.lock` unless
 the owner authorises it after you have proved no git process is active.
 
+### Merge commits — the queue workflow does not apply
+
+Merge commits CANNOT ride the `commit-queue -- commit` workflow: a
+pathspec-scoped `git commit` is illegal mid-merge, and the queue's inner
+commit is pathspec-scoped by design. This is a structural mismatch, not a
+defect — do not treat the workflow's refusal as an F-112-class failure or
+reach for `--no-verify`. The merge-commit path (worked and verified at the
+PR-295 semantic main-merge, 2026-07-06; PDR-049 prescribes exactly this merge
+topology for memory-file reconciliation):
+
+1. **Preconditions**: sole-agent commit window (no fresh peer
+   `git:index/head` claim or queue entry), and a `git:index/head` claim
+   opened for the merge window as in move 1. The whole-index commit absorbs
+   everything staged, so this is the one sanctioned exception to
+   [`stage-by-explicit-pathspec`](../../rules/stage-by-explicit-pathspec.md)
+   — its safety rests entirely on the sole-agent window plus the first-hand
+   staged-set verification below.
+2. **Verify the staged set first-hand**: mid-merge, the index IS the merge
+   resolution — read `git status` and `git diff --cached --stat` and confirm
+   every path belongs to the merge (conflict resolutions plus the merge's own
+   union writes). There is no queue fingerprint; the first-hand read is the
+   verification.
+3. **Commit the whole index plainly**: `git commit` (message via `-F`, no
+   pathspec, no `--no-verify`) so the full pre-commit gate runs and the hook
+   is the green verdict.
+4. **Close the claim** with the merge SHA as usual (move 4).
+
+For the semantic-merge topology itself (which branches merge where, and how
+memory files reconcile as unions), PDR-049 and the `oak-semantic-merge` skill
+govern; this subsection owns only the commit mechanics.
+
 ### Foreign index lock — no autonomous contact, including waits
 
 Any autonomous interaction with `.git/index.lock` is forbidden — deletion

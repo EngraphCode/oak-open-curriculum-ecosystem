@@ -141,7 +141,7 @@ This keeps reintegration cheaper and reduces clarification loops. Mailbox
 delivery alone is not reintegration; the parent lane must absorb the outcome
 back into the authoritative plan or dialogue.
 
-Two brief-construction disciplines (per PDR-015 reviewer authority):
+Brief-construction disciplines (per PDR-015 reviewer authority):
 
 - **Mandate the full gate set, not one gate.** A verification brief's *Required
   evidence* is the whole gate set, never a single gate — `lintClean` is not
@@ -154,6 +154,16 @@ Two brief-construction disciplines (per PDR-015 reviewer authority):
   explicitly owner-settled artefact sections) — plan-authored elaborations
   remain refutable. Protecting a whole sweep wholesale suppresses the legitimate
   findings the owner's own settlement would surface.
+- **The dispatch names the governing decision records; the reviewer cites what
+  it read.** At sites with house doctrine (type-guard idioms → ADR-153; Result
+  vs throw → ADR-088; and so on), a dispatch that omits the governing ADR/PDR
+  invites an approval of the common idiom over the repo's own decision — a
+  code-expert approved an ADR-153-violating "fix" exactly because the dispatch
+  never named it (PR #308, 2026-07-06). Grep the ADR estate for the flagged
+  construct while composing the brief, name what governs, and require the
+  reviewer's verdict to cite the doctrine it read. Absorb the verdict per
+  `verify-dont-trust` §Reviewer output is evidence to test — never adopt a
+  load-bearing claim unverified.
 
 ## Reviewer Dispatch vs Peer Collaboration
 

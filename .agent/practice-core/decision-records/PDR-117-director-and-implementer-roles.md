@@ -354,7 +354,7 @@ roles cleanly → candidate for Adopted; one that surfaces a new failure vector
 
 Owner-corrected three times and validated across a ten-Director rotation
 (curriculum-hub-demo, 2026-06-30 → 2026-07-06); graduated from the
-pending-graduations register at the pre-merge consolidation. Five clauses
+pending-graduations register at the pre-merge consolidation. These clauses
 sharpen §The Director role:
 
 1. **Owner-launched PEERS implement; the Director routes and dispatches
