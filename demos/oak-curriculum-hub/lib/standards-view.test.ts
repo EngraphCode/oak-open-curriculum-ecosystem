@@ -68,6 +68,20 @@ describe('browseStandards', () => {
     expect(r.length).toBeGreaterThan(0);
     expect(r.some((s) => s.id === 'QS-68')).toBe(true);
   });
+
+  it('matches a standard id copied from the UI, case-insensitively', () => {
+    const r = browseStandards({ text: 'qs-68' });
+    expect(r.some((s) => s.id === 'QS-68')).toBe(true);
+    expect(r.every((s) => s.id.toLowerCase().includes('qs-68'))).toBe(true);
+  });
+
+  it('matches a rubric code copied from a rubric row badge', () => {
+    // 'PV4' appears only in the `code` field (verified first-hand against the
+    // snapshot: 2 items carry it, none mention it in any prose field).
+    const r = browseStandards({ text: 'pv4' });
+    expect(r).toHaveLength(2);
+    expect(r.every((s) => s.code.includes('PV4'))).toBe(true);
+  });
 });
 
 describe('getStandard', () => {

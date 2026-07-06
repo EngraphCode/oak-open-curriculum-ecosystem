@@ -78,10 +78,13 @@ async function performSearch(
 /**
  * Debounced (250ms) live curriculum search. `idle` is DERIVED from an empty
  * query rather than stored, so the effect never sets state synchronously during
- * render. The controller is aborted in the effect CLEANUP, which covers both
- * lifecycles with one mechanism: a query change aborts the prior in-flight
- * request (cleanup runs before the next effect), and unmount aborts whatever
- * is still in flight (nothing survives the component).
+ * render. The stored state is KEYED by the query that produced it, so an
+ * outcome from a previous query is never reported under a new one — during the
+ * debounce window after the query changes the hook reports `loading`, not the
+ * stale ok/empty result. The controller is aborted in the effect CLEANUP,
+ * which covers both lifecycles with one mechanism: a query change aborts the
+ * prior in-flight request (cleanup runs before the next effect), and unmount
+ * aborts whatever is still in flight (nothing survives the component).
  *
  * @param query - the live search string (owned by the caller, e.g. the hero input)
  * @param fetchFn - the fetch implementation; injectable so the lifecycle
@@ -92,7 +95,10 @@ export function useCurriculumSearch(
   query: string,
   fetchFn: typeof fetch = fetch,
 ): CurriculumSearchState {
-  const [state, setState] = useState<CurriculumSearchState>({ status: 'idle' });
+  const [settled, setSettled] = useState<{
+    query: string;
+    state: CurriculumSearchState;
+  }>({ query: '', state: { status: 'loading' } });
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -101,7 +107,12 @@ export function useCurriculumSearch(
     }
     const ac = new AbortController();
     const timer = setTimeout(() => {
-      void performSearch(trimmed, ac.signal, setState, fetchFn);
+      void performSearch(
+        trimmed,
+        ac.signal,
+        (state) => setSettled({ query: trimmed, state }),
+        fetchFn,
+      );
     }, 250);
     return () => {
       clearTimeout(timer);
@@ -109,5 +120,9 @@ export function useCurriculumSearch(
     };
   }, [query, fetchFn]);
 
-  return query.trim() === '' ? { status: 'idle' } : state;
+  const trimmed = query.trim();
+  if (trimmed === '') {
+    return { status: 'idle' };
+  }
+  return settled.query === trimmed ? settled.state : { status: 'loading' };
 }

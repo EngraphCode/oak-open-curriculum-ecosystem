@@ -100,6 +100,22 @@ describe('TabsBlockView', () => {
   });
 });
 
+describe('TabsBlockView — keyboard default suppression', () => {
+  it('suppresses the browser default only for handled navigation keys', () => {
+    // Without preventDefault, End/Home also scroll the viewport while the
+    // tablist changes selection. fireEvent returns false when the handler
+    // called preventDefault.
+    render(<TabsBlockView block={tabsBlock} />);
+    const tab = screen.getByRole('tab', { name: 'Lesson outcome' });
+    for (const key of ['ArrowRight', 'ArrowLeft', 'Home', 'End']) {
+      expect(fireEvent.keyDown(screen.getByRole('tab', { selected: true }), { key })).toBe(false);
+    }
+    // Unhandled keys stay with the browser (Tab must keep traversing the page).
+    expect(fireEvent.keyDown(tab, { key: 'Tab' })).toBe(true);
+    expect(fireEvent.keyDown(tab, { key: 'a' })).toBe(true);
+  });
+});
+
 describe('TabsBlockView — id uniqueness across blocks', () => {
   it('keeps ids unique when several tabs blocks render on one page', () => {
     // The course page renders many tabs blocks; index-derived ids would repeat

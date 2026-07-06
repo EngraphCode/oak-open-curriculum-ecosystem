@@ -97,3 +97,27 @@ describe('useCurriculumSearch degraded-scope honesty', () => {
     });
   });
 });
+
+describe('useCurriculumSearch state-per-query honesty', () => {
+  it('reports loading, never the previous outcome, the moment the query changes', async () => {
+    // The stored state is keyed by the query that produced it: after a
+    // completed search, a new query's debounce window must not show the old
+    // query's ok/empty state as if it belonged to the new text.
+    const genuineEmpty = {
+      lessons: [],
+      units: [],
+      threads: [],
+      meta: { lessons: scopeMeta, units: scopeMeta, threads: scopeMeta },
+    };
+    const fetchFn = envelopeFetch(genuineEmpty);
+    const { rerender } = render(<Probe query="photosynthesis" fetchFn={fetchFn} />);
+    await waitFor(() => expect(document.querySelector('output')?.textContent).toBe('empty'), {
+      timeout: 2000,
+    });
+
+    rerender(<Probe query="fractions" fetchFn={fetchFn} />);
+
+    // Synchronous read, inside the 250ms debounce window of the new query.
+    expect(document.querySelector('output')?.textContent).toBe('loading');
+  });
+});

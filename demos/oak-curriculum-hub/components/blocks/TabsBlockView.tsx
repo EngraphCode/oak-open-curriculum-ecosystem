@@ -1,9 +1,18 @@
 'use client';
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import type { KeyboardEvent, ReactElement } from 'react';
+import type { Dispatch, KeyboardEvent, ReactElement, SetStateAction } from 'react';
 
 import type { TabPanel, TabsBlock } from '@/lib/blocks/types';
+
+/**
+ * The keys the tablist roving contract handles (ARIA APG Tabs). Only these
+ * suppress the browser default (the radio-group roving contract in
+ * `quiz-keyboard.ts` is the precedent): without the guard, End/Home also
+ * scroll the viewport, and any other key — Tab, characters — must fall
+ * through to the browser untouched.
+ */
+const TAB_NAV_KEYS: ReadonlySet<string> = new Set(['ArrowRight', 'ArrowLeft', 'Home', 'End']);
 
 /**
  * Next active tab for an arrow, Home, or End keypress, or the current index for
@@ -25,6 +34,27 @@ export function nextTabIndex(key: string, index: number, count: number): number 
     return count - 1;
   }
   return index;
+}
+
+/**
+ * The tablist keydown contract, module-scope so the JSX handler stays a thin
+ * inline arrow: handled navigation keys suppress the browser default (End/Home
+ * would otherwise also scroll the viewport), mark the change as
+ * keyboard-driven, and move selection; every other key falls through to the
+ * browser untouched.
+ */
+function handleTabKeyNav(
+  event: KeyboardEvent<HTMLButtonElement>,
+  count: number,
+  focusOnSelect: { current: boolean },
+  setActive: Dispatch<SetStateAction<number>>,
+): void {
+  if (!TAB_NAV_KEYS.has(event.key)) {
+    return;
+  }
+  event.preventDefault();
+  focusOnSelect.current = true;
+  setActive((current) => nextTabIndex(event.key, current, count));
 }
 
 /**
@@ -111,10 +141,9 @@ export function TabsBlockView({ block }: { readonly block: TabsBlock }): ReactEl
               tabRefs.current[index] = node;
             }}
             onSelect={() => setActive(index)}
-            onKeyNav={(event) => {
-              focusOnSelect.current = true;
-              setActive((current) => nextTabIndex(event.key, current, block.tabs.length));
-            }}
+            onKeyNav={(event) =>
+              handleTabKeyNav(event, block.tabs.length, focusOnSelect, setActive)
+            }
           />
         ))}
       </div>

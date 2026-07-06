@@ -10,21 +10,24 @@ const chipClass =
 const ksChipClass =
   'inline-flex items-center rounded-full border border-oak-grey-line px-[9px] py-[5px] text-[11px] font-bold text-oak-grey';
 
-// Oak's signature interaction: lemon offset shadow that widens on hover and
-// collapses as the card translates +2/+2 on press.
+// The static card frame; the interactive variant below adds Oak's signature
+// interaction — a lemon offset shadow that widens on hover and collapses as
+// the card translates +2/+2 on press.
+const cardFrameClass = 'flex text-oak-black border-2 border-oak-black bg-white shadow-oak-lemon';
 const lemonCardClass =
-  'flex no-underline text-oak-black border-2 border-oak-black bg-white shadow-oak-lemon ' +
+  `${cardFrameClass} no-underline ` +
   'transition-[box-shadow,transform] duration-150 hover:shadow-oak-wide-lemon ' +
   'active:translate-x-0.5 active:translate-y-0.5 active:shadow-none';
 
+const lessonCardLayoutClass = 'flex-col gap-[9px] rounded-xl px-[17px] py-[15px]';
+
+// Lesson and unit hits share the thread cards' url contract: `safeUrl` maps a
+// malformed or poisoned index url to '', so an empty url renders a non-link
+// card (no hover affordance, no CTA) rather than an <a href=""> that
+// navigates nowhere.
 export function LessonCard({ hit }: { readonly hit: Hit }): ReactElement {
-  return (
-    <a
-      href={hit.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${lemonCardClass} flex-col gap-[9px] rounded-xl px-[17px] py-[15px]`}
-    >
+  const inner = (
+    <>
       <div className="flex flex-wrap items-center gap-[7px]">
         {hit.subjectSlug && (
           <span className={chipClass} style={{ backgroundColor: subjectBg(hit.subjectSlug) }}>
@@ -51,19 +54,28 @@ export function LessonCard({ hit }: { readonly hit: Hit }): ReactElement {
           {highlightToNodes(hit.snippet)}
         </span>
       )}
-      <span className="mt-0.5 text-[13px] font-bold text-oak-navy">Open lesson on Oak ↗</span>
-    </a>
+    </>
   );
-}
-
-export function UnitCard({ hit }: { readonly hit: Hit }): ReactElement {
-  return (
+  return hit.url ? (
     <a
       href={hit.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${lemonCardClass} items-center gap-[14px] rounded-xl px-[18px] py-[14px]`}
+      className={`${lemonCardClass} ${lessonCardLayoutClass}`}
     >
+      {inner}
+      <span className="mt-0.5 text-[13px] font-bold text-oak-navy">Open lesson on Oak ↗</span>
+    </a>
+  ) : (
+    <div className={`${cardFrameClass} ${lessonCardLayoutClass}`}>{inner}</div>
+  );
+}
+
+const unitCardLayoutClass = 'items-center gap-[14px] rounded-xl px-[18px] py-[14px]';
+
+export function UnitCard({ hit }: { readonly hit: Hit }): ReactElement {
+  const inner = (
+    <>
       {hit.subjectSlug && (
         <span className={chipClass} style={{ backgroundColor: subjectBg(hit.subjectSlug) }}>
           {subjectName(hit.subjectSlug)}
@@ -73,8 +85,20 @@ export function UnitCard({ hit }: { readonly hit: Hit }): ReactElement {
       {typeof hit.lessonCount === 'number' && (
         <span className={`${ksChipClass} flex-none`}>{hit.lessonCount} lessons</span>
       )}
+    </>
+  );
+  return hit.url ? (
+    <a
+      href={hit.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${lemonCardClass} ${unitCardLayoutClass}`}
+    >
+      {inner}
       <span className="flex-none text-[13px] font-bold text-oak-navy">↗</span>
     </a>
+  ) : (
+    <div className={`${cardFrameClass} ${unitCardLayoutClass}`}>{inner}</div>
   );
 }
 

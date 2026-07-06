@@ -8,16 +8,19 @@
  */
 import 'server-only';
 
-/** Narrow the index-target env value to its closed set (no type assertion). */
-function resolveIndexTarget(value: string | undefined): 'primary' | 'sandbox' {
-  return value === 'sandbox' ? 'sandbox' : 'primary';
-}
+import { unwrap } from '@oaknational/result';
+
+import { resolveIndexTarget } from './env-index-target';
 
 export const serverEnv = {
   // Discovery plane — Elasticsearch Serverless (read credentials).
   ELASTICSEARCH_URL: process.env.ELASTICSEARCH_URL ?? '',
   ELASTICSEARCH_API_KEY: process.env.ELASTICSEARCH_API_KEY ?? '',
-  SEARCH_INDEX_TARGET: resolveIndexTarget(process.env.SEARCH_INDEX_TARGET),
+  // Module-scope config validation, the same deliberate fail-loud boundary as
+  // `data/load-quality-standards.ts`: there is no runtime caller to hand a
+  // Result to, and a mistyped index target must fail server start loud, never
+  // silently search the primary index.
+  SEARCH_INDEX_TARGET: unwrap(resolveIndexTarget(process.env.SEARCH_INDEX_TARGET)),
   SEARCH_INDEX_VERSION: process.env.SEARCH_INDEX_VERSION ?? '',
   // Content plane — Oak Open Curriculum REST API.
   OAK_API_KEY: process.env.OAK_API_KEY ?? '',

@@ -80,9 +80,15 @@ export function standardsFacets(): StandardsFacets {
   };
 }
 
-/** Case-insensitive free-text match across text/subject/areas/components/rubrics. */
+/**
+ * Case-insensitive free-text match across id/code/text/subject/areas/components/rubrics.
+ * The id (`QS-<n>`) and rubric code are shown on cards and rubric rows, so an identifier a
+ * user copies from the UI must resolve here, not return an empty result.
+ */
 function matchesText(s: QualityStandard, q: string): boolean {
   return (
+    s.id.toLowerCase().includes(q) ||
+    s.code.toLowerCase().includes(q) ||
     s.text.toLowerCase().includes(q) ||
     s.subject.toLowerCase().includes(q) ||
     s.areas.some((a) => a.toLowerCase().includes(q)) ||
