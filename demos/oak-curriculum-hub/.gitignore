@@ -1,0 +1,18 @@
+.next/
+node_modules/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+
+# Vendor reference material — the reference-only copy this app is grounded on:
+# the Claude Design canonical export it visual-matches (also the token
+# authority the fidelity audit reads). Deliberately untracked: generated
+# vendor output whose bundled Oak brand assets are not openly licensed; a
+# fresh export is re-obtainable via the claude-design MCP. See README.md.
+claude-design-canonical-export/
+
+# Regenerable evidence output — tools/ recreates the capture set on demand
+# (byte-identical reproduction proven); evidence is a capability, not a payload.
+demo-evidence/

@@ -484,13 +484,13 @@ parameters:
 parameters:
   - name: year
     schema:
-      type: number  # ← Different type!
+      type: number # ← Different type!
 
 # Response schemas - MIXED
 year:
   anyOf:
     - type: number
-    - type: string  # Too broad!
+    - type: string # Too broad!
 ```
 
 **Impact**:

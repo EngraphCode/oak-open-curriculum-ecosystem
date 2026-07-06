@@ -3,7 +3,7 @@ title: 'Strategy'
 type: strategy
 doc_role: index
 status: active
-last_updated: 2026-06-20
+last_updated: 2026-07-02
 audience: 'Oak leadership (decide) and the delivery team (build)'
 governed_by:
   - .agent/plans/product-development-governance/vision-strategy-and-plan-estate.plan.md
@@ -50,6 +50,15 @@ Beneath the three streams, we're building capabilities that outlast any single p
 Representing knowledge as graphs is one — applied across Oak's curriculum, the sector evidence we
 bring in, AI-enhanced development, and our own processes.
 
+The **Oak Innovation Kit** is another (owner-named, 2026-07-02): the tools and knowledge to
+create an Oak product to production standards at pace — rapid user-facing web apps alongside our
+ability to spin up MCP apps, APIs, and SDKs — so that product exploration through user-facing
+experimentation is not just realistic but highly productive. It rests on well-encapsulated,
+single-purpose workspaces at full repo standards, and on a reusable, skill-and-agent-tools-driven
+pipeline for ingesting Claude Design exports (new builds and agent-judged update integration).
+The Curriculum Hub programme is its first worked instance. Whether the kit is a fourth stream in
+its own right is an open decision below.
+
 ## Strategic choices (the traceability spine)
 
 Every plan in the estate traces to a **strategic choice** here, every choice to a vision
@@ -84,15 +93,16 @@ The strategy lists the choices; governance owns the contract.
 
 ## Open decisions
 
-| Decision                                          | Owner                                          | Status / note                                                                                                                             |
-| ------------------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| The diagnosis                                     | Owner                                          | **Settled** — "deliver Oak's rigour at reach and at pace" ([diagnosis](diagnosis.md))                                                     |
-| Strategic-choice granularity                      | Owner                                          | **Settled** — per-stream choices                                                                                                          |
-| How we win, per stream                            | Owner ("the advantages" — a larger discussion) | **Signed off** — owner 2026-06-20 (each stream)                                                                                           |
-| What we won't do, per stream                      | Owner                                          | **Signed off** — owner 2026-06-20 (each stream)                                                                                           |
-| Measures                                          | Owner + Oak analytics/research                 | Open — [measures](measures.md)                                                                                                            |
-| Search / graph / EEF — external vs internal-reuse | Owner                                          | **Settled** 2026-06-20 — general reuse, both faces; layered architecture, no trade-off ([engineering tools](stream-engineering-tools.md)) |
-| Internal-transformation alignment rationale       | Owner                                          | **Settled** 2026-06-20 — internal improvement maps to the external goals ([agentic framework](stream-agentic-framework.md))               |
+| Decision                                          | Owner                                          | Status / note                                                                                                                                                                                                                        |
+| ------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| The diagnosis                                     | Owner                                          | **Settled** — "deliver Oak's rigour at reach and at pace" ([diagnosis](diagnosis.md))                                                                                                                                                |
+| Strategic-choice granularity                      | Owner                                          | **Settled** — per-stream choices                                                                                                                                                                                                     |
+| How we win, per stream                            | Owner ("the advantages" — a larger discussion) | **Signed off** — owner 2026-06-20 (each stream)                                                                                                                                                                                      |
+| What we won't do, per stream                      | Owner                                          | **Signed off** — owner 2026-06-20 (each stream)                                                                                                                                                                                      |
+| Measures                                          | Owner + Oak analytics/research                 | Open — [measures](measures.md)                                                                                                                                                                                                       |
+| Search / graph / EEF — external vs internal-reuse | Owner                                          | **Settled** 2026-06-20 — general reuse, both faces; layered architecture, no trade-off ([engineering tools](stream-engineering-tools.md))                                                                                            |
+| Internal-transformation alignment rationale       | Owner                                          | **Settled** 2026-06-20 — internal improvement maps to the external goals ([agentic framework](stream-agentic-framework.md))                                                                                                          |
+| Oak Innovation Kit — fourth stream or capability? | Owner                                          | Open (raised 2026-07-02) — aligns as much with product creation as with engineering; currently recorded as a capability (above); graduation trigger: a committed family of user-facing products with their own audience and measures |
 
 ## Related
 

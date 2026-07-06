@@ -1,0 +1,6 @@
+---
+description: Before any Next.js work, read the relevant doc in the consuming workspace's node_modules/next/dist/docs/ — the vendored docs are the source of truth for the installed version; training data is outdated.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/read-nextjs-docs-before-coding.md`.

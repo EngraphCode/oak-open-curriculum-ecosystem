@@ -102,6 +102,7 @@ export function replyToDirectedCommsMessage(input: {
   readonly messageKind: string;
   readonly subject?: string;
   readonly body: string;
+  readonly tags?: readonly string[];
 }): DirectedCommsMessage {
   const source = input.sourceMessages.find((message) => message.event_id === input.sourceEventId);
   if (source === undefined) {
@@ -117,6 +118,7 @@ export function replyToDirectedCommsMessage(input: {
     to: collaborationAgentIdWriteSchema.parse(source.from),
     subject: input.subject ?? defaultReplySubject(source.subject),
     body: input.body,
+    tags: input.tags,
   });
 }
 

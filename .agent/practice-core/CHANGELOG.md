@@ -4,6 +4,15 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-06 — PDR-117 Director-craft amendment (Nettle tracks Acorn)
+
+Best-effort authored (PDR-104) at the dedicated consolidation, graduating the
+pending-graduations register's Director-operating-model item (owner-corrected three times,
+validated across the ten-Director curriculum-hub rotation). Six clauses appended to PDR-117:
+owner-launched peers implement / Director dispatches read-only reviewers only (with the
+narrowed degenerate-team exception); don't park lanes mid-session; decide-and-drive; the
+Director proposes landing points; rulings-as-artefacts as a first-class dispatch output; and
+minimum-action's inward face (anchor in the impact).
 ## [oak-open-curriculum-ecosystem] 2026-07-06 — PDR-049 gains the sequential-identifier collision clause (PR #295 merge run-in, Hyena spins Lamplight)
 
 Amended PDR-049 (Memory and State File Merge Semantics) with §Sequential-identifier

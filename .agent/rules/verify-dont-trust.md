@@ -187,6 +187,34 @@ the sentence, observable to you as you write and to a reader as they read. Gate
 on the artefact the fluent claim omits, not on the feeling you hoped to notice.
 The smoother and more convenient the claim, the harder the citation is owed.
 
+## A Gate's Exit Code Is the Verdict — Never Pipe It Away
+
+`gate | tail` / `| grep` returns the LAST pipe stage's exit, so a red gate
+reads green and every narration downstream inherits the lie (three instances,
+three agents, one day — 2026-07-02 — including a false push broadcast that a
+peer then "verified" from local refs). Run gate commands unpiped and check
+`$?` (or `set -o pipefail`, or write to a file with the exit code appended
+INSIDE the artefact: `; echo "EXIT: $?" >> log`). Any broadcast asserting a
+remote-state change (pushed / merged / deployed) quotes POST-action ground
+truth (`git status -sb`, `gh pr view`) captured after an unmasked exit —
+assert-from-evidence, never from intent. And a relayed claim must never ride
+inside a sentence labelled "verified first-hand": the verified label covers
+only what the check could see.
+
+## Briefing Facts Carry Their Epistemic Status
+
+A briefing fact's confidence drops at the author's lane boundary: the facts
+you verified are the ones your own cycles exercised; everything beyond is
+"inferred" until re-grounded. Tag every fact in a seam handoff or reviewer
+brief `verified-live / from-fixtures / inferred` — a consumer builds on
+exactly the facts you mark trustworthy. Worked instance (2026-07-02): an
+8-fact seam briefing labelled "all first-hand" carried two inferred items —
+the load-bearing two — one hiding a live `dangerouslySetInnerHTML` injection
+surface. The consumer side of the same discipline: a load-bearing, cheap-to-
+check briefing fact gets verified first-hand BEFORE building on it, not at
+verification time (a 10-second `curl` beats a parser built on a relayed
+vocabulary).
+
 ## Calibrate Verification to Stakes
 
 This rule prescribes *calibrated* verification, not maximal distrust. The

@@ -36,7 +36,7 @@ export interface ThreadEntry {
  * upstream and is therefore not surfaced here. Curriculum-level units
  * (in other endpoints) still expose `unitOrder` per their own schemas.
  */
-export interface ThreadUnitEntry {
+interface ThreadUnitEntry {
   readonly unitSlug: string;
   readonly unitTitle: string;
   readonly oakUrl?: null;

@@ -95,6 +95,10 @@ export const commsReplyOptions = [
   'subject',
   'event-id',
   'now',
+  // The concept-gate refusal prescribes adding a capture tag; replyComms
+  // applies the exemption from options.tags, so the dispatcher must accept
+  // --tag here or the prescribed recovery path is not executable.
+  'tag',
 ] as const;
 
 export const claimsOpenOptions = [

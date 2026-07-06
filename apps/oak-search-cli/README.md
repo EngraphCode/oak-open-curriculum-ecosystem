@@ -135,7 +135,7 @@ See [ADR-074: Elastic-Native-First Philosophy](../../docs/architecture/architect
 - **Suggestions**: Completion + `search_as_you_type` endpoints with cache tagging tied to `SEARCH_INDEX_VERSION`.
 - **Observability**: Structured logging for ingestion batches, zero-hit events, cache version rotation; optional webhook for zero hits.
 - **Type safety**: Generated SDK types + shared `parseSchema` helper for requests/responses, no unsafe assertions.
-- **Documentation**: Authored guides in `docs/`, generated TypeDoc under `docs/api/`.
+- **Documentation**: Authored guides in `docs/`.
 
 ---
 
@@ -215,8 +215,8 @@ Consult `docs/ARCHITECTURE.md` for the full system diagram.
 3. **Run the standard quality gates**
 
    ```bash
-   pnpm make    # install → build/code-generation → type-check → doc-gen → lint:fix → subagents:check → portability:check → practice:fitness:informational → markdownlint:root → format:root
-   pnpm check   # secrets:scan → clean → repo-validators:check → sdk-codegen → build → type-check → doc-gen → lint:fix → unit/int/ui/e2e/a11y/widget tests → lint:shell → subagents:check → portability:check → skills:check → knip → depcruise → markdownlint:root → format:root
+   pnpm make    # install → build/code-generation → type-check → lint:fix → subagents:check → portability:check → practice:fitness:informational → markdownlint:root → format:root
+   pnpm check   # secrets:scan → clean → repo-validators:check → sdk-codegen → build → type-check → lint:fix → unit/int/ui/e2e/a11y/widget tests → lint:shell → subagents:check → portability:check → skills:check → knip → depcruise → markdownlint:root → format:root
    ```
 
 4. **Bootstrap Elasticsearch (mappings, synonyms, indices)**
@@ -254,7 +254,6 @@ Consult `docs/ARCHITECTURE.md` for the full system diagram.
 - Monitor structured logs for ingestion retries, zero-hit counts, and cache version rotation.
 - Update `SEARCH_INDEX_VERSION` whenever ingestion/rollup runs.
 - Keep `scripts/synonyms.json` fresh; rerun `es:setup` after synonym or mapping changes.
-- Regenerate TypeDoc after schema updates with `pnpm -C apps/oak-search-cli doc-gen`.
 
 For deeper explanations see:
 

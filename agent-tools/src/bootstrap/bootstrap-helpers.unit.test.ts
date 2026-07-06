@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { interpretTscOutcome } from './bootstrap-helpers.js';
+import {
+  binPathFromManifest,
+  interpretSpawnOutcome,
+  interpretTscOutcome,
+} from './bootstrap-helpers.js';
 
 describe('interpretTscOutcome', () => {
   it('treats a clean exit (status 0, no signal, no error) as success', () => {
@@ -30,5 +34,60 @@ describe('interpretTscOutcome', () => {
       failed: true,
       exitCode: 2,
     });
+  });
+});
+
+describe('interpretSpawnOutcome', () => {
+  it('names the spawned tool in every failure reason', () => {
+    const spawnError = interpretSpawnOutcome('tsup (result)', {
+      error: new Error('ENOENT'),
+      signal: null,
+      status: null,
+    });
+    const signalKill = interpretSpawnOutcome('tsup (result)', {
+      error: undefined,
+      signal: 'SIGKILL',
+      status: null,
+    });
+    const nonZero = interpretSpawnOutcome('tsup (result)', {
+      error: undefined,
+      signal: null,
+      status: 2,
+    });
+
+    expect(spawnError.reason).toContain('tsup (result)');
+    expect(signalKill.reason).toContain('tsup (result)');
+    expect(nonZero.reason).toContain('tsup (result)');
+  });
+
+  it('treats a clean exit as success with no reason', () => {
+    expect(
+      interpretSpawnOutcome('tsup (result)', { error: undefined, signal: null, status: 0 }),
+    ).toStrictEqual({ failed: false, exitCode: 0, reason: undefined });
+  });
+});
+
+describe('binPathFromManifest', () => {
+  it('resolves a string-shaped bin field relative to the package dir', () => {
+    expect(binPathFromManifest('/pkgs/tsup', { bin: './dist/cli-default.js' }, 'tsup')).toBe(
+      '/pkgs/tsup/dist/cli-default.js',
+    );
+  });
+
+  it('resolves a record-shaped bin field by bin name', () => {
+    expect(
+      binPathFromManifest('/pkgs/tsup', { bin: { tsup: 'dist/cli-default.js' } }, 'tsup'),
+    ).toBe('/pkgs/tsup/dist/cli-default.js');
+  });
+
+  it('returns undefined for a missing bin name so the caller can fail loudly', () => {
+    expect(binPathFromManifest('/pkgs/tsup', { bin: { other: 'x.js' } }, 'tsup')).toBeUndefined();
+  });
+
+  it('returns undefined for malformed manifests rather than asserting on untrusted JSON', () => {
+    expect(binPathFromManifest('/pkgs/tsup', undefined, 'tsup')).toBeUndefined();
+    expect(binPathFromManifest('/pkgs/tsup', 42, 'tsup')).toBeUndefined();
+    expect(binPathFromManifest('/pkgs/tsup', {}, 'tsup')).toBeUndefined();
+    expect(binPathFromManifest('/pkgs/tsup', { bin: { tsup: '' } }, 'tsup')).toBeUndefined();
   });
 });

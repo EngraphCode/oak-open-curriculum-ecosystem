@@ -39,11 +39,7 @@
     "redis:status": "docker compose ps",
     "cache:reset-ttls": "pnpm exec tsx bin/oaksearch.ts admin cache-reset",
     "sandbox:ingest": "pnpm exec tsx bin/oaksearch.ts admin sandbox-ingest",
-    "zero-hit:purge": "pnpm exec tsx bin/oaksearch.ts observe purge",
-    "docs:api:html": "typedoc --options typedoc.json",
-    "docs:api:json": "typedoc --options typedoc.json --json docs/api/typedoc.json",
-    "docs:verify": "node -e \"const fs=require('node:fs'); const ok = fs.existsSync('docs/api/typedoc.json'); if(!ok){console.error('typedoc.json missing'); process.exit(1)}; console.log('Docs OK')\"",
-    "doc-gen": "pnpm -s docs:api:html && pnpm -s docs:api:json && pnpm -s docs:verify"
+    "zero-hit:purge": "pnpm exec tsx bin/oaksearch.ts observe purge"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^9.4.2",
@@ -72,14 +68,12 @@
     "@oaknational/search-contracts": "workspace:*",
     "@types/unzipper": "^0.10.11",
     "dotenv": "^17.4.2",
-    "eslint": "^10.5.0",
-    "prettier": "^3.8.4",
+    "eslint": "^10.6.0",
+    "prettier": "~3.8.4",
     "tsup": "^8.5.1",
     "tsx": "^4.22.4",
-    "typedoc": "^0.28.19",
-    "typedoc-plugin-markdown": "^4.12.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.0",
+    "typescript-eslint": "^8.62.1",
     "unzipper": "^0.12.5",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.9"

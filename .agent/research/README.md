@@ -88,6 +88,7 @@ Research on AI integration, MCP tools, and agent patterns.
 | [openai-app-ui.research.md](openai-app-ui.research.md) | OpenAI app UI | |
 | [openai-apps-sdk-data-return-optimization.md](openai-apps-sdk-data-return-optimization.md) | Data return patterns | |
 | **[openapi-app-sdk/](openapi-app-sdk/)** | OpenAPI app SDK patterns | |
+| [claude-design-integration.md](claude-design-integration.md) | Claude Design nature + Claude Code integration | MCP server (`/v1/design/mcp`), `/design-sync` (code→design), design→code handoff, DesignSync tool surface, kit-reconcile + integration proposals |
 
 ### 🧭 Developer Experience & Agentic Engineering
 
@@ -155,6 +156,12 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-07-01)
+
+| Document | Summary |
+|----------|---------|
+| [claude-design-integration.md](claude-design-integration.md) | Deep, source-validated research on Claude Design (nature, project/design-system model, research-preview status) and its **Claude Code integration surface** — the MCP server (`https://api.anthropic.com/v1/design/mcp`), `/design-sync` (code→design), the design→code handoff, the shared usage pool, and the DesignSync tool + `/design-sync` skill mechanics (read first-hand on disk). Includes six labelled integration/reconcile proposals grounded in first-hand-verified capabilities. Author: Frigate holds Estuary. |
 
 ## Recent Additions (2026-04-06)
 

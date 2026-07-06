@@ -16,7 +16,7 @@
  * @packageDocumentation
  */
 
-import { isJsonObject, type JsonObject } from '../collaboration-state/json.js';
+import { isJsonObject, type JsonObject } from '../core/json.js';
 
 /** Outcome of comparing the cached schema against the live upstream spec. */
 export interface SchemaDriftResult {

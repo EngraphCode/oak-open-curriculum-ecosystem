@@ -1,4 +1,4 @@
-import { isJsonObject, type JsonObject } from '../collaboration-state/json.js';
+import { isJsonObject, type JsonObject } from '../core/json.js';
 
 import type { ContentChange } from './types.js';
 

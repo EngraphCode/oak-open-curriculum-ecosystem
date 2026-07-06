@@ -6,7 +6,6 @@
     "module": "ESNext",
     "lib": ["ES2023"],
     "moduleResolution": "bundler",
-    "customConditions": ["development"],
     "types": ["node"],
     "resolveJsonModule": true,
     "declaration": true,

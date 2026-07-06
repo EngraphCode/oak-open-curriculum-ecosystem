@@ -16,8 +16,8 @@
  * locked skills against the canonical `.agent/skills/` directory.
  */
 
-import type { JsonObject } from '../../collaboration-state/json.js';
-import { isJsonObject } from '../../collaboration-state/json.js';
+import type { JsonObject } from '../../core/json.js';
+import { isJsonObject } from '../../core/json.js';
 import { DEFAULT_CODEX_PROJECT_DOC_MAX_BYTES, RULES_INDEX_PATH } from './portability-constants.js';
 
 /**

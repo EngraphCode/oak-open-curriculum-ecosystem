@@ -25,13 +25,16 @@ registry by semver alone.
 Source-executed TypeScript entrypoints are part of the workspace contract.
 Invoke source-executed TS tooling through workspace-owned package scripts, such
 as `pnpm --filter @oaknational/agent-tools <command>` or the corresponding root
-wrapper. Running through `pnpm exec` within the owning workspace enables the
-workspace `development` export condition while loading `tsx`, so packages
-participating in source execution must publish matching `development` export
-entries for their supported subpaths instead of assuming `dist/` already
-exists. `clean` must remove build artefacts only; if generated files are
-committed source, keep them in `clean` and reserve destructive regeneration
-steps for explicit package-local commands such as `generate:clean`.
+wrapper. Workspace package `exports` maps advertise **standard conditions only**
+(`types`, `import`, `default`) and always resolve to built `dist/` output — there
+is no `development` export condition, so every consumer (tsx tooling, Vitest,
+Next.js/Turbopack) resolves the same built artefacts. Turbo's `^build` dependency
+guarantees `dist/` exists before dependent build, lint, test, and type-check
+tasks run; when invoking a workspace script directly (outside turbo), build its
+workspace dependencies first. `clean` must remove build artefacts only; if
+generated files are committed source, keep them in `clean` and reserve
+destructive regeneration steps for explicit package-local commands such as
+`generate:clean`.
 
 `allowBuilds` in `pnpm-workspace.yaml` is an **intentional** allowlist: only
 packages mapped to `true` may run install lifecycle scripts (pnpm v11
@@ -116,7 +119,7 @@ for the matrix, the per-check rationale, and the verify-vs-mutate rule.
 
 **Key principle**: pre-push and CI run the same check set. A CI-only failure
 indicates an environmental or configuration issue, not a missing check.
-`pnpm check` is the broadest surface, adding clean rebuild, doc-gen, widget
+`pnpm check` is the broadest surface, adding clean rebuild, widget
 tests, a11y tests, and fix-mode commands. See ADR-121 for the full rationale.
 
 The full gate is authoritative in both directions. A **successful push has
@@ -147,7 +150,7 @@ root cause, never to dismiss as a harness quirk.
 Prepares the codebase by building, checking, and auto-fixing issues:
 
 ```bash
-pnpm i && turbo run build type-check doc-gen lint:fix && pnpm subagents:check && pnpm portability:check && pnpm practice:fitness:informational && pnpm markdownlint:root && pnpm format:root
+pnpm i && turbo run build type-check lint:fix && pnpm subagents:check && pnpm portability:check && pnpm practice:fitness:informational && pnpm markdownlint:root && pnpm format:root
 ```
 
 **Flow**:
@@ -156,7 +159,6 @@ pnpm i && turbo run build type-check doc-gen lint:fix && pnpm subagents:check &&
 2. Single turbo run:
    - `build` - compile all workspaces (triggers `sdk-codegen` first)
    - `type-check` - TypeScript validation
-   - `doc-gen` - generate documentation
    - `lint:fix` - auto-fix linting issues
 3. Root-only fixes:
    - `subagents:check` - validate sub-agent wrapper/template standards
@@ -257,7 +259,7 @@ See [ADR 065: Turbo Task Dependencies](../architecture/architectural-decisions/0
 ```text
 sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
               ▼
-          build → test, type-check, lint / lint:fix, doc-gen  (via ^build)
+          build → test, type-check, lint / lint:fix  (via ^build)
                ↘ test:e2e, test:ui  (via same-package build)
 ```
 
@@ -269,7 +271,6 @@ sdk-codegen ──┐ (package-specific override on sdk-codegen#build only)
 | `type-check`        | `^build`              | Upstream `.d.ts` files must exist for type checking   |
 | `lint` / `lint:fix` | `^build`              | ESLint plugin must be built before linting            |
 | `test`              | `^build`              | SDK must be built before tests run                    |
-| `doc-gen`           | `^build`              | Source must be built before doc generation            |
 | `test:e2e`          | `build`               | Same-package build needed for built-server tests      |
 | `test:ui`           | `build`               | Same-package build needed for Playwright tests        |
 
@@ -294,7 +295,6 @@ task-level, `turbo.json`) and remove the clamp.
 | `test`        | ✅     | Re-runs only when source/tests change           |
 | `test:e2e`    | ✅     | Re-runs only when e2e tests change              |
 | `test:ui`     | ✅     | Re-runs only when UI tests change               |
-| `doc-gen`     | ✅     | Regenerates only when source changes            |
 
 ### A task's declared outputs must cover its full write-set
 

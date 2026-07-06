@@ -17,6 +17,8 @@
       "Skill(oak-under-the-hood:*)",
       "Skill(oak-working-with-agentic-ai)",
       "Skill(oak-working-with-agentic-ai:*)",
+      "Skill(oak-fidelity-review)",
+      "Skill(oak-fidelity-review:*)",
       "Skill(oak-reason)",
       "Skill(oak-reason:*)",
       "Skill(oak-plan)",
@@ -186,7 +188,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "node ${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs",
+    "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/scripts/statusline-identity.mjs\"",
     "refreshInterval": 10
   },
   "skillListingBudgetFraction": 0.03,

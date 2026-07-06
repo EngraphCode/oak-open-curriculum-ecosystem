@@ -67,8 +67,7 @@ The SDK exports validation helpers, type guards, and parsing functions. To add n
 1. Write unit tests first (TDD)
 2. Implement the helper as a pure function
 3. Export from the appropriate `index.ts` (e.g., `src/validation/index.ts` for validators)
-4. Run `pnpm doc-gen` to generate API documentation
-5. Update the SDK README if the helper is part of the public API
+4. Update the SDK README if the helper is part of the public API
 
 **Key patterns**:
 

@@ -175,6 +175,8 @@ export default {
       path: [
         'node_modules',
         'dist',
+        // Next.js build output — same build-output class as `dist` (owner-ratified 2026-07-02)
+        '\\.next/',
         '\\.turbo',
         'src/types/generated/',
         '\\.cursor/',
@@ -185,11 +187,18 @@ export default {
         'docs/_typedoc_src/',
         // Non-workspace stale residue (no package.json)
         'packages/docs/',
+        // Untracked vendor reference data — the Claude Design canonical export the
+        // demo visual-matches; outside git and outside the analysis corpus
+        // (owner-ratified 2026-07-02; see demos/oak-curriculum-hub/.gitignore)
+        'demos/oak-curriculum-hub/claude-design-canonical-export/',
       ],
     },
     tsPreCompilationDeps: true,
     tsConfig: {
-      fileName: 'tsconfig.base.json',
+      // Resolution config only — adds the demo's `@/*` alias (the repo's sole
+      // alias user, verified) so aliased imports resolve and no-orphans judges
+      // real reachability.
+      fileName: 'tsconfig.depcruise.json',
     },
     enhancedResolveOptions: {
       exportsFields: ['exports'],

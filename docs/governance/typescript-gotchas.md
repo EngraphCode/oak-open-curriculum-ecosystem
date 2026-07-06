@@ -112,11 +112,12 @@ type safety.
 
 ## Package Export Contracts
 
-- **Green gates do not prove a package's export contract.** The
-  `development` export condition resolves to `src/`, so a subpath
-  whose `default` points at a never-built `dist/` file passes
-  build+test+e2e while broken for real consumers. tsup entry
-  globs are per-subtree; verify subpaths at the `default` level.
+- **Exports resolve built `dist/` via standard conditions only**
+  (`types`, `import`, `default`) — so a subpath whose `default`
+  points at a file tsup never emits fails at first import instead
+  of hiding behind a source-resolving condition. tsup entry globs
+  are per-subtree; when adding a subpath, confirm its `default`
+  target is actually emitted.
 
 ## Test Double Typing
 

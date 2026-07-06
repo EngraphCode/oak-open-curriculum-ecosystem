@@ -9,7 +9,7 @@
  * file content and passing it in.
  */
 
-import { isJsonObject } from '../../collaboration-state/json.js';
+import { isJsonObject } from '../../core/json.js';
 import { CLAUDE_HOOK_ARTEFACT } from './portability-constants.js';
 
 /**

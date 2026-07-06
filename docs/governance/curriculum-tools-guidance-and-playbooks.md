@@ -64,4 +64,4 @@
 
 ## Quality Gates
 
-- After relevant changes, run from repo root: `pnpm i`, `pnpm sdk-codegen`, `pnpm build`, `pnpm type-check`, `pnpm lint:fix`, `pnpm doc-gen`, `pnpm format:root`, `pnpm markdownlint:root`, `pnpm test`, `pnpm test:e2e` (when appropriate).
+- After relevant changes, run from repo root: `pnpm i`, `pnpm sdk-codegen`, `pnpm build`, `pnpm type-check`, `pnpm lint:fix`, `pnpm format:root`, `pnpm markdownlint:root`, `pnpm test`, `pnpm test:e2e` (when appropriate).

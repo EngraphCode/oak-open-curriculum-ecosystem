@@ -22,6 +22,11 @@ ultrathink /oak-start-right-team /oak-metacognition /oak-reason XXX is the curre
 
 You are the eventual successor to XXX
 
+ really great work, please start preparing
+  for handover to a successor, ultrathink
+  /oak-metacognition /oak-reason
+  /oak-semantic-merge /oak-consolidate-docs
+
 ## Closeout
 
 Really great work, thank you. Please perform a full session closeout, ultrathink /oak-metacognition

@@ -13,6 +13,8 @@
     "DANGEROUSLY_DISABLE_AUTH",
     "ELASTICSEARCH_URL",
     "ELASTICSEARCH_API_KEY",
+    "SEARCH_INDEX_TARGET",
+    "SEARCH_INDEX_VERSION",
     "SENTRY_AUTH_TOKEN",
     "SENTRY_DSN",
     "SENTRY_MODE",
@@ -39,21 +41,6 @@
       ],
       "env": ["SDK_CODEGEN_MODE", "VERCEL"],
       "passThroughEnv": ["OAK_API_KEY"]
-    },
-    "doc-gen": {
-      "dependsOn": ["^build"],
-      "cache": true,
-      "outputs": ["**/docs/api/**", "**/docs/api-md/**"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/code-generation/**/*.ts",
-        "**/scripts/**/*.ts",
-        "src/**/*.ts",
-        "src/types/generated/**/*.ts",
-        "src/types/generated/**/*.d.ts",
-        "!src/**/*.test.ts",
-        "!src/**/*.spec.ts"
-      ]
     },
     "build": {
       "dependsOn": ["^build"],
@@ -101,6 +88,29 @@
         "src/**/*.ts",
         "!src/**/*.test.ts",
         "!src/**/*.spec.ts"
+      ]
+    },
+    "@oaknational/oak-curriculum-hub#build": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [".next/**", "!.next/cache/**"],
+      "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
+    },
+    "@oaknational/oak-curriculum-hub#type-check": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
+    },
+    "@oaknational/oak-curriculum-hub#lint": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!.next/**",
+        "$TURBO_ROOT$/eslint.config.ts",
+        "$TURBO_ROOT$/tsconfig.base.json"
       ]
     },
     "@oaknational/oak-design-tokens#build": {

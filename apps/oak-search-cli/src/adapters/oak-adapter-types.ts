@@ -24,13 +24,13 @@ import type { SdkFetchError, createOakBaseClient } from '@oaknational/curriculum
 // ============================================================================
 
 /** Unit listing entry. */
-export interface UnitListEntry {
+interface UnitListEntry {
   readonly unitSlug: string;
   readonly unitTitle: string;
 }
 
 /** Transcript response shape. */
-export interface TranscriptResponse {
+interface TranscriptResponse {
   readonly transcript: string;
   readonly vtt: string;
 }
@@ -62,7 +62,7 @@ export type SubjectSequenceEntry = SubjectDetail['sequenceSlugs'][number];
  * Asset entry from subject assets endpoint.
  * Used to determine video availability for lessons.
  */
-export interface SubjectAssetEntry {
+interface SubjectAssetEntry {
   readonly lessonSlug: string;
   readonly lessonTitle: string;
   readonly assets: readonly {

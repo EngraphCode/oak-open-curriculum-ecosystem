@@ -1,4 +1,4 @@
-import { getJsonValue, isJsonObject } from './json.js';
+import { getJsonValue, isJsonObject } from '../core/json.js';
 import { validateCollaborationJsonFileText } from './collaboration-json-validation.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
 import { optional, required, type Options } from './cli-options.js';

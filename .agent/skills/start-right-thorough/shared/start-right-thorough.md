@@ -178,7 +178,6 @@ Run after making changes. Note: some gates trigger earlier ones; caching prevent
 pnpm sdk-codegen        # Makes changes
 pnpm build              # Makes changes
 pnpm type-check
-pnpm doc-gen            # Makes changes (after TSDoc/public API changes)
 pnpm lint:fix           # Makes changes
 pnpm format:root        # Makes changes
 pnpm markdownlint:root  # Makes changes

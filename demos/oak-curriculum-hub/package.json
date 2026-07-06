@@ -1,0 +1,75 @@
+{
+  "name": "@oaknational/oak-curriculum-hub",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Oak-styled web UI over the live curriculum search + content stack. Demo by Heather W.",
+  "scripts": {
+    "dev": "next dev -p 3010",
+    "build": "next build",
+    "clean": "rm -rf .next .turbo",
+    "start": "next start -p 3010",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "tool:capture": "tsx tools/capture-live-demo.ts",
+    "tool:capture-sections": "tsx tools/capture-live-sections.ts",
+    "tool:drive-export": "tsx tools/drive-export-sections.ts",
+    "tool:fidelity": "tsx tools/fidelity-review.ts",
+    "tool:measure-320": "tsx tools/measure-320.ts",
+    "tool:render-targets": "tsx tools/render-canonical-targets.ts",
+    "tool:token-audit": "tsx tools/token-fidelity-audit.ts"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^9.4.2",
+    "@oaknational/curriculum-sdk": "workspace:*",
+    "@oaknational/oak-search-sdk": "workspace:*",
+    "@oaknational/result": "workspace:*",
+    "next": "16.2.10",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "server-only": "^0.0.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@playwright/test": "^1.61.1",
+    "@tailwindcss/postcss": "^4.3.2",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest-axe": "^3.5.9",
+    "@types/node": "^24.13.2",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.6.0",
+    "happy-dom": "^20.10.6",
+    "jest-axe": "^10.0.0",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "postcss": "^8.5.16",
+    "prettier": "~3.8.4",
+    "tailwindcss": "^4.3.2",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oaknational/oak-open-curriculum-ecosystem.git",
+    "directory": "demos/oak-curriculum-hub"
+  },
+  "bugs": {
+    "url": "https://github.com/oaknational/oak-open-curriculum-ecosystem/issues"
+  },
+  "homepage": "https://github.com/oaknational/oak-open-curriculum-ecosystem/tree/main/demos/oak-curriculum-hub#readme",
+  "contributors": [
+    {
+      "name": "Oak National Academy",
+      "email": "help@thenational.academy",
+      "url": "https://www.thenational.academy"
+    }
+  ],
+  "license": "MIT"
+}

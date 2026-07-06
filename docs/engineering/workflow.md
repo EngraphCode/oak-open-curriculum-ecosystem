@@ -53,7 +53,7 @@ pnpm fix   # format:root → markdownlint:root → lint:fix
 **Full pipeline** (before committing):
 
 ```bash
-pnpm make  # install → build → type-check → doc-gen → lint:fix → subagents:check → portability:check → practice:fitness:informational → markdownlint:root → format:root
+pnpm make  # install → build → type-check → lint:fix → subagents:check → portability:check → practice:fitness:informational → markdownlint:root → format:root
 ```
 
 **Full verification** (before pushing):
@@ -114,7 +114,7 @@ indicates an environmental or configuration issue, not a missing check. Both
 surfaces cover secrets, build, formatting, markdown, sub-agents, portability,
 knip (unused code detection), depcruise (circular deps, orphans, layer
 violations), workspace-owned repo validators, lint, type-check, unit tests,
-E2E, UI, and smoke tests. `pnpm check` adds widget tests, a11y tests, doc-gen,
+E2E, UI, and smoke tests. `pnpm check` adds widget tests, a11y tests,
 clean rebuild, and fix-mode commands.
 
 ## 8. AI Sub-Agent Review

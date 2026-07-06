@@ -1,4 +1,4 @@
-import { isJsonObject } from '../../collaboration-state/json.js';
+import { isJsonObject } from '../../core/json.js';
 
 /**
  * Detect scoped-block groups in the canonical hook policy that lack a usable

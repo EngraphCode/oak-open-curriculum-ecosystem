@@ -2691,3 +2691,23 @@ commit SHA and the closing plan reference.
   structural cure not yet built.
 - **Owner direction status**: standing (Pelagic `2dbd74f6` — agent-tooling
   friction is first-class user feedback).
+
+### F-121 — `comms append --in-response-to` accepts any string; a fabricated event id ships a dangling threading edge
+
+- **Source**: hygiene-Implementer closeout 2026-07-02 (Thyme guards Dewfall, curriculum-hub-demo);
+  worked instance: comms event `625eba5d` shipped `in_response_to` pointing at a non-existent id (a
+  uuid suffix typed from memory), corrected by follow-up event `aeb611d8`.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms append --in-response-to <id>`.
+- **Observed**: `comms reply` validates `--to-event-id` against the store (a wrong id fails loud:
+  "directed message not found"), but `append` writes whatever `--in-response-to` string it is given
+  — the F-77 threading edge machine readers rely on (e.g. PDR-064 Moment-2 acknowledgements) can be
+  silently dangling.
+- **Expected**: symmetric validation — append resolves the antecedent id against the comms dir and
+  refuses (with the near-miss prefix if one matches) when it does not exist.
+- **Candidate cure**: a resolve-or-refuse check in the append path mirroring reply's lookup; accept
+  a full id only (prefix expansion could mis-thread). One unit + one CLI integration test per the
+  comms-concept-gate test shapes.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-commands.ts` (append options
+  resolution).
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions); captured at session closeout.
