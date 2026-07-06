@@ -127,7 +127,11 @@ Cast arc (full detail in the handoff records): data Titan→Frigate→Polaris→
   (dev-only); the demos dependency boundary documented but not machine-enforced in
   dependency-cruiser; three test minors (lesson-page `vi.mock` call-inspection, the
   LearningFrameworkAnimation cancelAnimationFrame mechanism-audit pair, census tests coupled
-  to bundled content whose cited verification sources are untracked); (4) **merge-boundary
+  to bundled content whose cited verification sources are untracked — the verified cure
+  shape: keep ONE extraction-completeness census guard per dataset, decouple the rest from
+  exact content values); plus one coverage pointer: BlockRenderer exhaustiveness is
+  compiler-proven but only 4 of 18 dispatch paths are exercised at the dispatch level;
+  (4) **merge-boundary
   sweep of retained claims** (Peregrine `cf62bda9`, Limpet `fd0ee59e`, Thyme `16be897b`,
   director seat `35d9c8f2` — owner-gated dispositions now the branch is merged and deleted);
   (5) **local branch deletions** (owner-run: `feat/curriculum-hub-demo`,

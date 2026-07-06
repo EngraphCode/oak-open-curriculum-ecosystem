@@ -1370,3 +1370,15 @@ its founding worked instance. Capture:
   568, distilled 204, director-handoff 378, pending-graduations 11 live items — all
   conserved-not-trimmed per PDR-049/PDR-046; the dedicated consolidation drain is DUE and
   owner-acknowledged as post-merge debt.
+- **Closeout addendum (loss-scan yield):** (a) `claims open` can CRASH AFTER WRITING the
+  claim (exit 1, claim landed, Node uncaught-exception footer after the JSON) — read the
+  registry, never the exit code, before retrying, or a duplicate claim lands; friction
+  candidate for the register. (b) Corollary self-catch: while diagnosing it I ran a
+  claims-open "probe" that wrote a junk claim (closed immediately) — a write-path command is
+  never a probe; the commit skill's never-test-the-checker lesson generalises to every
+  mutating CLI. (c) Merge-resolution choice surfaced for the record: the merged distilled.md
+  keeps the full Falcon section per the owner's recorded keep-all direction while six of its
+  bullets are also homed on main — duplication-by-design that the consolidation drain
+  dedupes; two conserved napkin entries ("the gh-auth misdiagnosis above", "the
+  MCP-pagination entry") now point at referents living in the rosemary archive, not this
+  file — re-anchor or accept at the drain.
