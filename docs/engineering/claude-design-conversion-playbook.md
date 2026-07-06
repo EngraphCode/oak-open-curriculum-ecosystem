@@ -119,7 +119,13 @@ re-runs the extractors and diffs as _data_.
 - depcruise: the workspace's `@/*` alias needs a resolution mapping
   (`tsconfig.depcruise.json`) or every aliased import dangles and all
   components report as `no-orphans` false positives; `.next/` sits in the
-  exclude set with `dist` (build-output class).
+  exclude set with `dist` (build-output class). **The root mapping is
+  single-occupancy**: `tsconfig.depcruise.json` can hold exactly one `@/*`
+  entry, and `demos/oak-curriculum-hub` holds it (recorded in the file's
+  comment). Conversion #2 must either adopt a distinct alias (e.g.
+  `@<demo-name>/*` in its own tsconfig AND the depcruise mapping) or move
+  depcruise to per-workspace configs — plan for this at scaffold time
+  rather than discovering it as a gate failure.
 - knip/prettier/markdownlint: NO workspace exemptions.
 - Tools/scripts: TypeScript in the workspace, run via `tsx` package scripts
   (`tool:*`), under the workspace gates; stdout via `process.stdout.write`
