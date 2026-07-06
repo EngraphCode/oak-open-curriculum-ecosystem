@@ -130,15 +130,22 @@ work or hold; the watcher wakes you.
 Merge-ready means, re-verified at the declaration instant: all checks green
 AND zero unresolved review threads AND the Sonar quality gate passing. Then:
 
-- **The merge itself is the code-owner gate** (`main` requires code-owner
-  approval; a clean agent merge is prohibited; `--admin` is forbidden).
-  Notify the owner at this action moment (send the notification; never
-  suppress it on inferred presence — `owner-attention-at-action-moments`).
-- The gate is author-dependent (verified 2026-06-24): a bot-authored PR shows
-  `BLOCKED` and needs the code-owner approval; a PR authored under the owner's
-  own auth shows `CLEAN` and merges directly — GitHub auto-satisfies the
-  code-owner requirement when the author IS the sole code owner, and forbids
-  self-approval.
+- **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
+  PR — all checks green AND every review thread resolved (fixed, or
+  rejected as inaccurate with rationale) — merges via a normal non-admin
+  `gh pr merge`. `--admin` is FORBIDDEN: it bypasses the gate instead of
+  satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
+  once threads resolved). Notify the owner at this action moment (send the
+  notification; never suppress it on inferred presence —
+  `owner-attention-at-action-moments`).
+- `BLOCKED` means the gate is genuinely unsatisfied — unresolved threads, a
+  failing or pending check, or a genuinely required review that has not
+  landed. It never means "any agent merge is prohibited". The
+  required-review leg is author-dependent (verified 2026-06-24): a
+  bot-authored PR shows `BLOCKED` until the code-owner approval lands; a PR
+  authored under the owner's own auth shows `CLEAN` and merges directly —
+  GitHub auto-satisfies the code-owner requirement when the author IS the
+  sole code owner, and forbids self-approval.
 - An owner grant of merge authority (for example to a team session's
   Director) is per-session, never standing (owner, 2026-06-29); absent a
   fresh grant, the code-owner gate above is the default.
