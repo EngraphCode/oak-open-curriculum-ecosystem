@@ -2,23 +2,50 @@ import { render, screen, cleanup } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { TrainingGroup, StandardsGroup } from '@/components/HubLocalGroups';
-import { HubResultsView, ResultsHeader, CurriculumGroup } from '@/components/HubResults';
+import {
+  HubResultsView,
+  ResultsHeader,
+  CurriculumGroup,
+  curriculumAnnouncement,
+} from '@/components/HubResults';
 import type { CourseHit, StandardHit } from '@/lib/hub-search';
+import type { CurriculumSearchState } from '@/lib/use-curriculum-search';
 
 afterEach(cleanup);
 
-describe('HubResults — results announcement (WCAG 2.2 SC 4.1.3)', () => {
-  it('announces the results view in a polite live region naming the query', () => {
+describe('HubResults — search-state announcement (WCAG 2.2 SC 4.1.3)', () => {
+  it('keeps the visible results heading free of live-region semantics', () => {
     render(<ResultsHeader query="fractions" onClear={() => undefined} />);
-    expect(screen.getByRole('status').textContent).toContain('fractions');
+    expect(screen.queryByRole('status')).toBeNull();
+    expect(screen.getByText(/Results for/).textContent).toContain('fractions');
   });
 
-  it('announces the live-curriculum search state as it resolves', () => {
+  it('renders the curriculum group without its own live region (HubLanding owns the region)', () => {
     render(<CurriculumGroup state={{ status: 'loading' }} />);
-    expect(screen.getByRole('status').textContent).toMatch(/Searching/);
-    cleanup();
-    render(<CurriculumGroup state={{ status: 'empty' }} />);
-    expect(screen.getByRole('status').textContent).toMatch(/No matching/);
+    expect(screen.queryByRole('status')).toBeNull();
+    expect(screen.getByText('Searching…')).toBeTruthy();
+  });
+
+  it('announces a constant loading string, silence when idle, and the query when settled', () => {
+    expect(curriculumAnnouncement({ status: 'loading' }, 'f')).toBe('Searching the Oak curriculum');
+    expect(curriculumAnnouncement({ status: 'loading' }, 'fr')).toBe(
+      'Searching the Oak curriculum',
+    );
+    expect(curriculumAnnouncement({ status: 'idle' }, '')).toBe('');
+    const oneLesson: CurriculumSearchState = {
+      status: 'ok',
+      results: {
+        lessons: [{ id: 'l1', title: 'Comparing fractions', url: 'https://example.test/l1' }],
+        units: [],
+        threads: [],
+      },
+    };
+    expect(curriculumAnnouncement(oneLesson, 'fractions')).toBe(
+      '1 result for “fractions” from the Oak curriculum',
+    );
+    expect(curriculumAnnouncement({ status: 'empty' }, 'zzz')).toBe(
+      'No matching Oak curriculum results',
+    );
   });
 });
 

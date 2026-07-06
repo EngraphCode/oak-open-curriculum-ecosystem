@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import type { ReactElement } from 'react';
+import { useCurriculumSearch } from '@/lib/use-curriculum-search';
 import Destinations from './Destinations';
-import HubResults from './HubResults';
+import { HubResultsView, curriculumAnnouncement } from './HubResults';
 import ContentLinks from './ContentLinks';
 
 /** The hero's search box. Search is live-on-type; the button submits a no-op form
@@ -83,17 +84,26 @@ function HubHero({
 
 /**
  * The hub landing: the unified hub-wide search. The hero owns the query; an empty
- * query shows the destination cards, a live query shows the grouped results
- * (currently the live "From the Oak curriculum" group; static training/standards
- * groups follow once their content modules land).
+ * query shows the destination cards, a live query shows the grouped results. The
+ * single persistent sr-only live region lives HERE, mounted empty across both
+ * branches, so its first announcement is reliable and no visible element churns
+ * per keystroke (WCAG 2.2 SC 4.1.3; the ShowcaseResults region is the precedent).
  */
 export default function HubLanding(): ReactElement {
   const [query, setQuery] = useState('');
+  const curriculum = useCurriculumSearch(query);
   const searching = query.trim() !== '';
   return (
     <>
       <HubHero query={query} onQueryChange={setQuery} />
-      {searching ? <HubResults query={query} onClear={() => setQuery('')} /> : <Destinations />}
+      <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {curriculumAnnouncement(curriculum, query)}
+      </p>
+      {searching ? (
+        <HubResultsView query={query} onClear={() => setQuery('')} curriculum={curriculum} />
+      ) : (
+        <Destinations />
+      )}
       <ContentLinks />
     </>
   );

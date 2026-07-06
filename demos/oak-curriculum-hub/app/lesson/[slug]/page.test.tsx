@@ -55,6 +55,66 @@ describe('LessonPage — sources data via the direct data function (no self-fetc
   });
 });
 
+// Fixture for the URL-trust-boundary states: one lesson with one asset chip, its
+// three content-plane URL candidates set per state.
+const lessonWithUrls = (urls: {
+  summaryOakUrl?: string;
+  canonicalUrl?: string;
+  assetsOakUrl?: string;
+}) =>
+  ok({
+    summary: {
+      lessonTitle: 'Comparing fractions',
+      pupilLessonOutcome: 'Outcome.',
+      oakUrl: urls.summaryOakUrl,
+      canonicalUrl: urls.canonicalUrl,
+    },
+    quiz: null,
+    assets: {
+      oakUrl: urls.assetsOakUrl,
+      assets: [{ type: 'worksheet', label: 'Worksheet' }],
+    },
+  });
+
+const OAK_LESSON_URL = 'https://www.thenational.academy/lessons/comparing-fractions';
+
+describe('LessonPage — content-plane URL trust boundary (mirrors search-core safeUrl)', () => {
+  it('links out when the API supplies an http(s) lesson URL', async () => {
+    getLesson.mockResolvedValue(lessonWithUrls({ assetsOakUrl: OAK_LESSON_URL }));
+
+    await renderPage('comparing-fractions');
+
+    const link = screen.getByRole('link', { name: /Download these on thenational.academy/ });
+    expect(link.getAttribute('href')).toBe(OAK_LESSON_URL);
+  });
+
+  it('falls through a poisoned candidate to the next http(s) one', async () => {
+    getLesson.mockResolvedValue(
+      lessonWithUrls({ assetsOakUrl: 'file:///etc/passwd', summaryOakUrl: OAK_LESSON_URL }),
+    );
+
+    await renderPage('comparing-fractions');
+
+    const link = screen.getByRole('link', { name: /Download these on thenational.academy/ });
+    expect(link.getAttribute('href')).toBe(OAK_LESSON_URL);
+  });
+
+  it('renders no link at all when every content-plane URL is non-http(s)', async () => {
+    getLesson.mockResolvedValue(
+      lessonWithUrls({
+        assetsOakUrl: 'vbscript:x',
+        summaryOakUrl: 'file:///etc/passwd',
+        canonicalUrl: 'data:text/html,x',
+      }),
+    );
+
+    await renderPage('comparing-fractions');
+
+    expect(screen.getByText('Worksheet')).toBeTruthy();
+    expect(screen.queryByRole('link', { name: /Download these/ })).toBeNull();
+  });
+});
+
 describe('LessonPage — landmarks', () => {
   it('brings no main landmark of its own (the app layout owns main)', async () => {
     getLesson.mockResolvedValue(

@@ -52,10 +52,16 @@ function resolveKeywords(summary: Summary): readonly LessonKeyword[] {
   return (summary?.lessonKeywords ?? []).filter((k) => k.keyword.trim() !== '');
 }
 
+// URL trust boundary (mirrors lib/search-core.ts): only http(s) URLs from the
+// content plane reach an anchor.
+const isHttpUrl = (url: string | null | undefined): url is string =>
+  typeof url === 'string' && /^https?:\/\//i.test(url);
+
 // Oak gates downloads behind signed URLs, so the demo links out to the lesson
-// on thenational.academy rather than proxying files.
+// on thenational.academy rather than proxying files. The first candidate that
+// passes the trust boundary wins; if none does, there is no link at all.
 function resolveOakUrl(summary: Summary, assets: Assets): string | undefined {
-  return assets?.oakUrl ?? summary?.oakUrl ?? summary?.canonicalUrl ?? undefined;
+  return [assets?.oakUrl, summary?.oakUrl, summary?.canonicalUrl].find(isHttpUrl);
 }
 
 function resolveQuiz(quiz: Quiz): { starter: number; exit: number } | null {

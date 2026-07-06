@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactElement } from 'react';
-import { useCurriculumSearch, type CurriculumSearchState } from '@/lib/use-curriculum-search';
+import type { CurriculumSearchState } from '@/lib/use-curriculum-search';
 import { searchHub } from '@/lib/hub-search';
 import type { SearchResults } from '@/lib/search-types';
 import { GroupHeader, Notice, mutedClass, TrainingGroup, StandardsGroup } from './HubLocalGroups';
@@ -46,13 +46,16 @@ function CurriculumBody({ results }: { readonly results: SearchResults }): React
   );
 }
 
-/** A polite screen-reader announcement of the live-curriculum search state, so its async resolution
- *  (loading → results / empty / error) is not silent to AT users (WCAG 2.2 SC 4.1.3). */
-function curriculumAnnouncement(state: CurriculumSearchState): string {
+/** The screen-reader announcement of the hub search state, fed to the single persistent live
+ *  region {@link HubLanding} owns (WCAG 2.2 SC 4.1.3). The loading string is deliberately
+ *  CONSTANT — identical text re-rendered is not a DOM mutation, so continuous typing produces at
+ *  most one "Searching…" announcement; the settled string names the query so each settle is one
+ *  honest mutation. Idle announces nothing (empty region, mounted before its first message). */
+export function curriculumAnnouncement(state: CurriculumSearchState, query: string): string {
   if (state.status === 'ok') {
     const { lessons, units, threads } = state.results;
     const total = lessons.length + units.length + threads.length;
-    return `${total} ${total === 1 ? 'result' : 'results'} from the Oak curriculum`;
+    return `${total} ${total === 1 ? 'result' : 'results'} for “${query.trim()}” from the Oak curriculum`;
   }
   if (state.status === 'loading') {
     return 'Searching the Oak curriculum';
@@ -63,12 +66,14 @@ function curriculumAnnouncement(state: CurriculumSearchState): string {
   if (state.status === 'error') {
     return 'Oak curriculum search failed';
   }
-  // 'empty' and 'idle' both announce the no-results state (idle only occurs off-screen).
+  // 'empty' announces the no-results state; 'idle' keeps the mounted region silent.
   return state.status === 'empty' ? 'No matching Oak curriculum results' : '';
 }
 
-/** The live "From the Oak curriculum" group — lessons, units and threads via the SDK seam. A polite
- *  live region announces the async search state. Exported for direct component tests. */
+/** The live "From the Oak curriculum" group — lessons, units and threads via the SDK seam. The
+ *  async state is announced by {@link HubLanding}'s persistent live region, not here — a region
+ *  mounted mid-lifecycle with content already in place is unreliably announced. Exported for
+ *  direct component tests. */
 export function CurriculumGroup({
   state,
 }: {
@@ -76,9 +81,6 @@ export function CurriculumGroup({
 }): ReactElement {
   return (
     <section>
-      <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {curriculumAnnouncement(state)}
-      </p>
       <GroupHeader
         title="From the Oak curriculum"
         tint="bg-oak-mint"
@@ -106,9 +108,10 @@ export function CurriculumGroup({
   );
 }
 
-/** Results header: a polite live region (WCAG 2.2 SC 4.1.3) announcing the results view for the
- *  query — the destinations→results toggle is otherwise silent to AT users — plus a clear-search
- *  control. Focus is deliberately NOT moved. Exported for direct component tests. */
+/** Results header: the visible results-for-query heading plus a clear-search control. Carries NO
+ *  live-region semantics — a visible element announcing per keystroke is churn, not status; the
+ *  destinations→results toggle is announced by {@link HubLanding}'s persistent region instead
+ *  (WCAG 2.2 SC 4.1.3). Focus is deliberately NOT moved. Exported for direct component tests. */
 export function ResultsHeader({
   query,
   onClear,
@@ -118,12 +121,7 @@ export function ResultsHeader({
 }): ReactElement {
   return (
     <div className="mb-6 flex items-center justify-between gap-4">
-      <p
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        className="text-[22px] font-semibold leading-tight"
-      >
+      <p className="text-[22px] font-semibold leading-tight">
         Results for &ldquo;{query.trim()}&rdquo;
       </p>
       <button
@@ -165,15 +163,4 @@ export function HubResultsView({
       </div>
     </div>
   );
-}
-
-/** Binds the live curriculum search to the view (the module's only hook consumer). */
-export default function HubResults({
-  query,
-  onClear,
-}: {
-  readonly query: string;
-  readonly onClear: () => void;
-}): ReactElement {
-  return <HubResultsView query={query} onClear={onClear} curriculum={useCurriculumSearch(query)} />;
 }
