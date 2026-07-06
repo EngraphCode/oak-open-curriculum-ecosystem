@@ -1,6 +1,8 @@
 ---
-status: future
+status: complete
 kind: strategic
+completed: 2026-07-06 — Strand D executed and merged via PR 310 (Zodiac herds Spectrum); the
+  run-quality-gates-required item remains an open owner/admin action
 owner_decision_required: false
 lineage:
   serves_thread: agentic-engineering-enhancements

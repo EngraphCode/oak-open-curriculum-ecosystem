@@ -630,3 +630,51 @@ residuals) — independent lane. Napkin near rotation (~515 lines) — flag for 
   `!(parsed >= 1)` — blindly applying it would have introduced a NaN hole (`NaN < 1` is false).
   The cure was restructuring so the NaN path cannot exist (regex gate first, then compare).
   Sonar suggestions are rule-local; verify value-domain safety before applying.
+
+## 2026-07-06 — Doctrine PR session: succession + PR #310 merged (Zodiac herds Spectrum)
+
+Landed: PR #310 merged (`18a2d8c17`) — the every-issue-earns-a-check principle (D1), the
+pr-lifecycle merge-gate correction (D2), the TS/ESM-only source policy + dated ADR-168
+shell-scope amendment (D3), Cricket's conserve-at-close bundle, and a docs-adr-expert review
+absorption (9 findings). Owner action still pending: make `run-quality-gates` a REQUIRED status
+check (prevents the 300–302 gate-suppressed-bot-PR class). Capture-worthy:
+
+- **The standby seat contract ran clean a second time** (watcher + team-start registration, no
+  heartbeat cron, no claim; flipped to active at the natural-boundary handoff via a named plan,
+  not a PDR-063 record — no claim was retained, so `claims open`, not `claims adopt`).
+- **Merge-window race, observed from the fix side**: the owner merged #310 (at `d91a71bc0`)
+  while a review-fix commit (`c2671010e`, the Bugbot merge-ready-definition fix) was still in
+  its local pre-commit gate; the subsequent push to the PR branch SUCCEEDED — onto a
+  just-merged PR — and the commit silently missed main. A successful push to a PR branch is NOT
+  proof of inclusion. Cure applied: after any merge signal, verify branch-tip ancestry
+  (`git merge-base --is-ancestor <tip> origin/main`) BEFORE cleanup or done-declaration;
+  stranded work is cherry-picked to a follow-up branch, never deleted with the branch. This is
+  the push-side twin of the merge-instant re-check doctrine D2 itself landed.
+- **`closed-claims.archive.json` is untracked-tier and absent on this disk** (untracked at
+  `255117a43`); `claims close` fails ENOENT rather than creating it. Re-materialise the empty
+  `{schema_version: "1.3.0", claims: []}` container and closures append normally.
+- **Copilot tilde-path finding disposition**: the machine-local-paths validator deliberately
+  permits tilde forms (permitted shape 2, no PII), but the rule's historical-prose convention
+  still forbids a concrete per-session filename under `~/` — name the artefact by class. The
+  class check is construction+review per the new appropriate-kind spectrum (a tilde grep would
+  be the false-positive-prone check the spectrum rejects); review fired correctly.
+- **MD032 in the inherited plan file bounced the first commit**; fix-immediately-and-retry ran
+  as designed. The commit-queue auto-abandon + fresh-enqueue path held.
+- **Frictions-register candidate (loss-scan yield): `claims close` fails ENOENT rather than
+  creating the untracked closed-claims archive container.** A fresh disk (post the `255117a43`
+  untrack) cannot close a claim without knowing the empty-container shape by hand. Candidate
+  cure: `claims close` auto-creates the `{schema_version, claims: []}` container when the
+  `--closed` target is absent (same absent-artefact family as F-120).
+- **PDR-082 trigger texture (loss-scan yield): two same-day sessions independently read "a
+  third agent joining re-activates the full protocol" as counting ACTIVE participants
+  (claim-holding / source-editing), not registered presences.** My standby registration
+  (watcher + broadcast, no claim) did not re-trigger the full protocol for Cricket×Orchid, and
+  Hyena spins Lamplight's read-only review seat later declared n=2 owner-visible while I was
+  still active — both declared-not-decided, neither objected. Candidate: PDR-082 amendment
+  clarifying the trigger's participant definition; until then the declare-in-team-start
+  convention is holding.
+
+Napkin rotation remains DUE (>600 lines; twice-deferred now — Cricket flagged it, this session
+adds two closeouts) — next dedicated consolidation pass, not a doctrine-PR scope.
+
+— Zodiac herds Spectrum (72dd40)
