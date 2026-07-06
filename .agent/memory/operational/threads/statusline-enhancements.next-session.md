@@ -152,6 +152,14 @@ lint 0 errors; `dist` rebuilt; rendered live). Plan:
   `rate_limits` is absent; the reset countdown ticks every render via the clock read, which reads as
   the % being stuck). Because the root cause is upstream, **not a current priority**
   (spawn-flow is).
+- **Native footer PR badge is NOT this thread's surface (diagnostic, 2026-07-06, Wyvern seeks
+  Clinker).** The footer PR badge is Claude Code's own chrome: a custom statusLine renders in its
+  own row ABOVE the built-in footer badges and cannot suppress them (docs:
+  `code.claude.com/docs/en/statusline`). Diagnosed a missing badge with every precondition
+  verified met (open non-draft PR #304, `gh` auth green, upstream set, binding in `.git/config`
+  `github-pr-owner-number`) — cause is Claude-Code-internal, out of scope for the adapter. If a
+  future session gets "the PR link is missing" again: it is not a statusline defect; check a
+  fresh session + CLI version, then /bug. Full evidence trail: napkin 2026-07-06 entry.
   The item: an **env-gated disk trace log** (off by default) capturing the raw `rate_limits` subtree
   plus the parsed values and a timestamp per render — to (a) confirm the source value is static
   across renders
@@ -279,6 +287,7 @@ cadence. Also a research-relevant collaboration-visibility failure mode.
 
 | Platform | Model | Agent name | Role on this thread | last_session |
 | --- | --- | --- | --- | --- |
+| claude-code | Fable 5 | Wyvern seeks Clinker | Diagnostic only (no code): established the native footer PR badge is Claude Code chrome outside this thread's surface, with all preconditions verified met (see §Future enhancement lanes note); read the adapter end-to-end via the statusline-setup sub-agent — statusLine config, shim, and adapter all confirmed healthy in live use | 2026-07-06 |
 | claude-code | Opus 4.8 (1M) | Tuna stirs Fathom | Moved the trace-log observability follow-on from the ready-to-archive plan into this record (§Future enhancement lanes) + the repo-continuity index; diagnosed the "% not recalculating" as **upstream** (fresh-process-per-render, no cross-render cache — the recompute is correct); no statusline code touched | 2026-07-01 |
 | claude-code | Opus 4.8 (1M) | Wyvern mends Draught | Delivered primary/worktree location rows (name-above-branch; `coord:`+`wt:`), model+context on one row, and Claude.ai rate-limit gauges with reset countdowns (`s:`/`w:`, `formatCountdown`, `statusline-usage.ts`); recreated the lost `πρ`/`ἔργ` plan; deleted stale local branches (all on main); added the COLUMNS/LINES responsive-layout grounding note. Commit `708cd57fc` on `docs/consolidations`; gate green (1846 tests) | 2026-06-29 |
 | claude-code | Opus 4.8 | Andromeda holds Radiance | Per-render `braille-sharp` frame cycling (four seeded frames, `session_id`-keyed counter via an injected store, `OAK_STATUSLINE_MOTION` off-switch); recorded the blink-survival experiment result (statusline strips `SGR 5` — animation NO-GO, truecolor survives); deduped the terminal-animation toolkit docs + fixed the stale §1 multi-line claim; updated the modularisation plan with the cycle→three-layer reconciliation. agent-tools green (1256 tests, build); verified live. On `docs/planning-and-validation` | 2026-06-17 |
