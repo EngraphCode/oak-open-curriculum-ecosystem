@@ -15,8 +15,34 @@ if ! command -v gitleaks >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "🛡️ Running secret scan..."
-if ! pnpm secrets:scan; then
+echo "🛡️ Running secret scan (pushed commits only; CI scans full history)..."
+# git feeds pre-push "<local_ref> <local_sha> <remote_ref> <remote_sha>" lines on
+# stdin. Scan ONLY the commits being pushed — the CI secret-scan job runs the full
+# `--branches --tags` scan (fetch-depth 0) as the comprehensive backstop, so no
+# history goes unscanned; it is just not re-scanned across the whole repo on every
+# local push (that re-scan grew to minutes as large blobs accumulated in history).
+ZERO=0000000000000000000000000000000000000000
+scan_range() {
+  GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=diff.renameLimit GIT_CONFIG_VALUE_0=3000 \
+    gitleaks detect --redact=100 --source . --log-opts="$1" </dev/null
+}
+secret_scan_failed=0
+secret_scanned_any=0
+while read -r _ local_sha _ remote_sha; do
+  [ "$local_sha" = "$ZERO" ] && continue          # deleting a ref — nothing to scan
+  if [ "$remote_sha" = "$ZERO" ]; then
+    scan_opts="$local_sha --not --remotes"        # new branch — commits not yet on any remote
+  else
+    scan_opts="$remote_sha..$local_sha"           # branch update — only the new commits
+  fi
+  secret_scanned_any=1
+  scan_range "$scan_opts" || secret_scan_failed=1
+done
+# Fallback when stdin carries no ref lines (manual hook run / unusual invocation).
+if [ "$secret_scanned_any" -eq 0 ]; then
+  scan_range "HEAD --not --remotes" || secret_scan_failed=1
+fi
+if [ "$secret_scan_failed" -ne 0 ]; then
   echo "❌ Secret scan failed."
   echo "Remove or scrub secret-like values before pushing."
   echo "Use local placeholders for .env.example and real credentials only in .env files."
