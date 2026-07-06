@@ -64,6 +64,7 @@
     "agent-tools:check-blocked-content": "pnpm --filter @oaknational/agent-tools check-blocked-content",
     "agent-tools:check-encoding": "pnpm --filter @oaknational/agent-tools check-encoding",
     "agent-tools:check-commit-message": "pnpm --filter @oaknational/agent-tools check-commit-message",
+    "agent-tools:secret-scan": "pnpm --filter @oaknational/agent-tools secret-scan",
     "agent-tools:check-commit-skill-advisories": "pnpm --filter @oaknational/agent-tools check-commit-skill-advisories",
     "agent-tools:prevent-accidental-major-version": "pnpm --filter @oaknational/agent-tools prevent-accidental-major-version",
     "practice:substrate:check": "pnpm --filter @oaknational/agent-tools practice-substrate -- check",
