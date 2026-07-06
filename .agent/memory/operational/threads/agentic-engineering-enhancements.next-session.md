@@ -48,7 +48,9 @@ plus the concepts-vs-pointers layering guard; Tier-1 is a threadable comms subst
 identity-with-prefix, and a declared coordination-home; threading, `repo_ref`, and statusline
 are version-advertised extensions, not floor. **The WS0 family is therefore UNBLOCKED.**
 
-**Next session (owner-requested opening statement authored 2026-07-06):** author **WS0** (the
+**Next session (owner-requested opening statement authored 2026-07-06 — pasteable at
+`.agent/prompts/agentic-engineering/inter-practice-protocol-ws0-ws4-authoring-session.md`):**
+author **WS0** (the
 portable PDR, in both estates' propagating decision-records sets) paired with **WS4** (the
 join-ceremony skill, created alongside the PDR), plus WS0b/WS0c/WS0e/WS0d; then WS2 (`repo_ref`,
 depends WS0), WS5 (the resonance-side proposal — MAR awaits it in resonance's incoming box),

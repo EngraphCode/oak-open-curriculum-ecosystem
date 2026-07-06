@@ -119,7 +119,10 @@ extensions). With both gates cleared the WS0 family is UNBLOCKED and is the next
 session's work (the owner has asked for its opening statement, pairing WS0 with
 the WS4 join-ceremony skill authored alongside it): the WS0 family (WS0 / WS0b / WS0c / WS0e / WS0d), then WS2 (`repo_ref`,
 depends WS0), WS4 (skill), WS5 (the resonance-side proposal — MAR awaits it in
-resonance's incoming box after the owner's word), WS7 (docs + gates). **Exchange
+resonance's incoming box after the owner's word), WS7 (docs + gates). **The
+pasteable opening statement for this WS0+WS4 authoring session is at
+`.agent/prompts/agentic-engineering/inter-practice-protocol-ws0-ws4-authoring-session.md`.**
+**Exchange
 claim `d0e453a3` (Hushed Prowling Lantern, resonance) was CLOSED at this
 session's handoff; the lane resumes when the owner answers the two gates, by a
 fresh session opening a new claim and posting an adoption event. MAR's claim
