@@ -122,6 +122,17 @@ depends WS0), WS4 (skill), WS5 (the resonance-side proposal — MAR awaits it in
 resonance's incoming box after the owner's word), WS7 (docs + gates). **The
 pasteable opening statement for this WS0+WS4 authoring session is at
 `.agent/prompts/agentic-engineering/inter-practice-protocol-ws0-ws4-authoring-session.md`.**
+
+**WS0 PDR preamble — the "why" is captured (2026-07-06).** The shared-model
+synthesis (why inter-Practice exchange works at all: the two estates are
+instances of one *verification-scarce testimony economy*, and exchange is
+*recombination* — the anti-ratchet by which two amnesiac lineages repair each
+other's drift) is at
+[`reports/agentic-engineering/inter-practice-shared-model-synthesis-2026-07-06.md`](../../../reports/agentic-engineering/inter-practice-shared-model-synthesis-2026-07-06.md).
+Its §"Portable core" is the intended donor-neutral WS0-PDR preamble for both
+estates; §"triad → three planes" and the *recomputable-edge* unification are
+design inputs to WS0e (shared schema) and WS2 (`repo_ref`).
+
 **Exchange
 claim `d0e453a3` (Hushed Prowling Lantern, resonance) was CLOSED at this
 session's handoff; the lane resumes when the owner answers the two gates, by a
