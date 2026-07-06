@@ -96,6 +96,19 @@ export async function loadScopedContentBlocks(
 }
 
 /**
+ * Load the canonical hook policy as raw parsed JSON, schema-free.
+ *
+ * Exists for commit-time enforcement surfaces (tests, validators) that must
+ * see the policy file EXACTLY as written: the runtime schemas deliberately
+ * degrade unknown values fail-open (so a stale dist never bricks the guard),
+ * which would mask precisely the typos those surfaces exist to catch.
+ */
+export async function loadRawPolicyJson(policyUrl: URL = POLICY_URL): Promise<unknown> {
+  const policyText = await fs.readFile(policyUrl, 'utf8');
+  return JSON.parse(policyText);
+}
+
+/**
  * Parse blocked Bash-command patterns from already-loaded policy data.
  *
  * Reads `hooks.preToolUse.blocked_patterns` (the Bash guard key, sibling to the
