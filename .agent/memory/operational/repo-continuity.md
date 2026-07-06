@@ -35,6 +35,16 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
+- **PR-lifecycle closeout + gitleaks fix — MERGED (#306, #305, 2026-07-06).** #306 (pushed-range secret
+  scan, `62208200`) + #305 (docs closeout, `d14a989a`) merged; #300–302 closed (owner); the Sonar MCP
+  gateway URL typo was repaired (`sonarcould.io`→`sonarcloud.io`, via `mcp-config-set`). **LIVE NEXT: the
+  doctrine PR (Strand D)** — the foundational "every issue earns a check" principle + the pr-lifecycle
+  merge-gate correction (truly-green → non-admin `gh pr merge`) + ADR-168 shell-scope + a new 4-form
+  TS/ESM-only rule; decision-complete in
+  [`every-issue-earns-a-check-and-doctrine-tightening.plan.md`](../../plans/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md).
+  **Owner action pending:** make `run-quality-gates` a REQUIRED status check (prevents the #300–302
+  gate-suppressed-bot-PR class). Successor: **Zodiac herds Spectrum (72dd40)**; thread
+  `agentic-engineering-enhancements`. Peer Orchid binds Verdure (51a331) worked #308 in a separate worktree.
 - **Inter-Practice exchange lane + corpus phase-0 + practice doctrine — MERGED (#304, 2026-07-06).**
   PR #304 landed to `main` (release 1.59.0, `b41ae2233`): the inter-Practice collaboration protocol
   plan + WS1/WS3/WS6, the semantic-merge "confident-and-wrong" doctrine, the corpus phase-0 design

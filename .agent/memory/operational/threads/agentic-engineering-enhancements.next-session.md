@@ -23,6 +23,27 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## PR-LIFECYCLE DOCTRINE TIGHTENING — doctrine PR authored-as-plan, not yet built (2026-07-06)
+
+Session identity: Cricket lifts Echo (claude-code / prefix `2fffa2`), model switched
+claude-fable-5 → claude-opus-4-8 this session; `last_session` 2026-07-06. Owner-named successor for
+this lane: **Zodiac herds Spectrum (72dd40)**.
+
+**Landed this session:** #306 (gitleaks pushed-range secret-scan fix, `62208200`) + #305 (docs
+closeout, `d14a989a`) merged via non-admin `gh pr merge`; #300–302 closed by owner; `main` FF'd to
+`d14a989a`; the Sonar MCP gateway URL typo repaired (`sonarcould.io`→`sonarcloud.io`); the S4036
+finding on the new secret-scan CLI ACCEPTED as a context false-positive (code-expert + security-expert
+ratified). **Remaining — the decision-complete plan:**
+[`every-issue-earns-a-check-and-doctrine-tightening.plan.md`](../../../plans/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md).
+Strand D: D1 the foundational "every issue earns a check" principle (`principles.md` §Code Quality +
+`testing-strategy.md` + `pr-comments-resolve-and-recheck.md`); D2 the pr-lifecycle Phase-7 merge-gate
+correction (truly-green → non-admin `gh pr merge`; `--admin` forbidden); D3 the ADR-168 §5a shell-scope
+amendment + a new 4-form `source-is-typescript-esm-only.md` rule. **Next safe step:** branch off latest
+`main`, author D1→D2→D3, background the commits (pre-commit runs the full turbo gate, ~minutes each).
+**Owner action pending:** make `run-quality-gates` a REQUIRED status check — the class-guard that
+prevents the #300–302 gate-suppressed-bot-PR family. Peer **Orchid binds Verdure (51a331)** worked
+**#308** (sonar phase-5B idiom residuals) in a separate worktree all session — independent lane.
+
 ## INTER-PRACTICE EXCHANGE LANE — ungated work landed; both owner gates ANSWERED; WS0+WS4 authoring is next (2026-07-06)
 
 Session identity: Cricket lifts Echo (claude-code / claude-fable-5 / prefix `2fffa2`;
