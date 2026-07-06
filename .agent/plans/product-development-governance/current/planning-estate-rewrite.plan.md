@@ -191,6 +191,35 @@ These are **directions to confirm** at each workstream, not closures; each works
 empirical pass ratifies or revises them (e.g. the WS6 survey-pattern-reuse warrant is verified at WS6). The
 owner affirmed this confirm-at-the-workstream approach as good agile practice (2026-06-22).
 
+## Design inputs from the inter-Practice exchange (resonance methods)
+
+The resonance estate independently solved a same-shaped problem (conserve every idea across a
+plan-estate re-organisation; make plan state recomputable) and taught oak its methods in the
+2026-07-05→06 exchange. Oak holds its **own durable, self-contained, filesystem-independent copy**
+of those methods — re-sourced first-hand — in
+[`.agent/reference/resonance-practice-knowledge.md`](../../../reference/resonance-practice-knowledge.md);
+the "why it converges" companion is the
+[shared-model synthesis](../../../reports/agentic-engineering/inter-practice-shared-model-synthesis-2026-07-06.md).
+These are **design inputs to confirm at each workstream** (same status as the lens-resolved
+directions above) and are cited from oak's copy, **never** from the resonance checkout:
+
+- **WS2 (idea-node schema):** model acceptance / realisation / evidence as ONE content-addressed
+  **recomputable-edge** primitive, carrying resonance's closed six-kind typed-proof taxonomy
+  (`artifact` / `gate` / `probe` / `git-fact` / `ratified` / `attested`) on acceptance fields;
+  mutation-probe the frontmatter↔store validator from day one (reference §2, §4).
+- **WS6 (deep harvest):** run the harvest as a **decision-complete worker fan-out** with refusal
+  clauses, verifying every reply by the four-step protocol (format / count-parity / sampled
+  byte-fidelity / absence-re-derivation); budget mechanical waves as cheap insurance and reserve
+  adversarial passes for meaning (measured economics in reference §1, §3).
+- **WS7 (no-loss audit + retire):** execute the §Acceptance two-direction audit as resonance's
+  **conservation chain** — mechanical freeze → byte-identity → tiling ledger (zero gaps/overlaps)
+  → **challenge-the-clean** adversarial pass → **planted synthetic orphan** (prove the
+  loss-detector fires before trusting its zero) → repoint-before-retire in one commit; full-set
+  equality over sampling (reference §1).
+
+The sub-agent-estate and team-state (F-44 / OQ5) integrations are mapped in the reference's
+§Integration map; they are not this plan's workstreams.
+
 ## Incremental delivery (the boundary — ADR-200 §Consequences)
 
 Forward, genuinely-new high-value work proceeds **now** as V0 plans (unblocked) — they serve strategic
