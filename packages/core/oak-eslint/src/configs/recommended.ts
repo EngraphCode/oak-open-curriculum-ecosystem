@@ -260,6 +260,7 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
           '**/agent-tools/src/refounding/refound-tile.integration.test.ts',
           '**/agent-tools/src/refounding/refound-default-ledger.integration.test.ts',
           '**/agent-tools/src/refounding/refound-claim-census.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-batch-status.integration.test.ts',
           '**/agent-tools/tests/codex-project-agents.integration.test.ts',
           '**/agent-tools/tests/codex-reviewer-resolve.integration.test.ts',
           '**/agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts',
