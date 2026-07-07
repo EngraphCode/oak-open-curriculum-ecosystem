@@ -57,7 +57,7 @@ until F4/R2 policy); (3) R0b plan-state tool (F5 one-engine-two-adapters; fixtur
 mutation-probe acceptance only); (4) **owner**: merge PR #315 (Wildfire left it merge-ready,
 0/6 threads, CLEAN), then the G1 sitting; the plan promotes `current/`→`active/` only after
 PR 315 merges. Worktree-seat commit craft: commit-queue guard+workflow are PRIMARY-bound —
-land via plain `git commit -F`, pathspec-staged, first-hand verified, background (F-123);
+land via plain `git commit -F`, pathspec-staged, first-hand verified, background (F-131);
 formal frictions-register entries pending (mechanism conserved in the napkin + the abandoned
 intent `e38f8da0` notes).
 
@@ -72,7 +72,7 @@ and must not wait.
 **What landed this session (branch `docs/plan-corpus-refounding`):**
 
 - The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
   — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
   placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
   verification; the consolidated owner-gate register (G0..Walk C — **next action: the

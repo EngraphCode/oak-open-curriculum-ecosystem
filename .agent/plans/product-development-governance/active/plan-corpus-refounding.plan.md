@@ -64,7 +64,7 @@ todos:
     content: >-
       EXECUTE (S0/S1/S2 stable points): S0 atomic freeze commit (frozen copies at the
       refounding artefact root OUTSIDE the denominator + denominator + proofs; owner gates
-      G1+G-ADR+G2 cleared first); S1 scripted inventory + residue audit + planted-orphan
+      G1+G2 cleared first — G-ADR already ratified 2026-07-06); S1 scripted inventory + residue audit + planted-orphan
       proofs on the real corpus; S2 tiling baseline (anchored default blocks, exact-cover
       green) + the estate-wide audit-mode run (claim census -> claim-vs-derived divergence
       report). Merge-recheck re-derives the denominator at every stable point and batch
@@ -381,7 +381,7 @@ schema + registries are the authoring contract; validation strict at the boundar
 ADR-200 (the architecture this serves); PDR-018 (end-goal/mechanism/means; blocking vs
 beneficial); PDR-049 (every new multi-writer artefact declares a merge class at creation);
 PDR-122/123 (judgement pipelines and design panels); the governing invariant of the
-[rewrite plan](./planning-estate-rewrite.plan.md) (every organising axis registered and
+[rewrite plan](../current/planning-estate-rewrite.plan.md) (every organising axis registered and
 validated).
 
 ## Plan-body first-principles check

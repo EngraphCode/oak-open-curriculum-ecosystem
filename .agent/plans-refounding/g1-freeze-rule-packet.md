@@ -1,7 +1,7 @@
 # G1 packet — freeze-rule ratification (DRAFT for the owner sitting)
 
 > Decision-complete briefing for the owner's G1 sitting, per
-> [`plan-corpus-refounding.plan.md`](../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+> [`plan-corpus-refounding.plan.md`](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
 > §Owner-gate register (G1 row) and the
 > [design record](../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md).
 > Drafted 2026-07-06 by Stoat rides Gloaming (432a41). Every measured number below is
