@@ -240,6 +240,45 @@ genuinely cannot wait, to bound that backfill, never a licence to author the who
 graph. Also: V0-bridge plans must not invent a competing plan-organising taxonomy the graph would have to
 fight; they serve strategic choices via frontmatter and nothing more.
 
+### Amendment (2026-07-06, owner-ratified) — the corpus refounding precedes the graph; the Q3 boundary re-ruled
+
+The owner commissioned (in-session, 2026-07-06) and ratified (same day, formal question put and
+answered) a **lossless, intent-aligned refounding of the plan corpus that precedes the idea-graph
+build** — executed under `plan-corpus-refounding.plan.md` (product-development-governance), with
+the conservation-chain protocol recorded in its design record
+(`plan-estate-refounding-design-2026-07-06.md`, agentic-engineering reports). Those artefacts
+cite this ADR; reference direction stays toward the more fundamental artefact (PDR-105). This
+amends the Decision-level boundary above, explicitly rather than by silent re-sequencing:
+
+1. **The Q3 boundary gains a third, owner-commissioned category.** The refounding is neither
+   "forward, genuinely-new work" nor the graph-gated estate rewrite: it is a **conservation
+   transform at document altitude** — old plans are frozen, mined, and re-expressed into
+   owner-ratified destination lanes as V0.1 plans, under a provable no-loss chain. The estate
+   rewrite's _synthesis on the graph_ (WS7) remains gated on the idea-graph; the _corpus
+   re-founding_ precedes it.
+2. **The harvest substrate is re-pointed.** The deep harvest (§Sequence step 6 / rewrite-plan
+   ws6) consumes the **refounded corpus PLUS the frozen pre-refounding archive reachable via
+   binding-clause provenance edges** — stated at decision level so the transitive no-loss
+   composition holds at idea granularity (the refounding conserves at block/row granularity; the
+   provenance edges keep idea-level distinctions reachable).
+3. **The no-loss audit composes transitively.** Old→refounded is proven by the refounding's
+   conservation chain (tiling + every-class challenge + probe records, two independent
+   fresh-context reviewers); refounded→graph by the §5 two-direction audit as already specified.
+4. **No competing taxonomy is created** (the §Consequences worry is honoured, not waived): the
+   refounding's destination lanes are **registered axis values derived from the standing
+   vision/strategy and owner-ratified at its lane-taxonomy walk** — the same organising axes the
+   graph will validate, landed earlier.
+5. **The V0.1 additive schema extension is owner-signed** (same ratification): optional
+   proof-typed todos (`proof` + `spec_ref`, six-kind closed taxonomy; required at refounding
+   authoring), `permanent-home-routed` as the refounding conservation-ledger's seventh
+   conserving class (a ledger disposition, distinct from the plan-node schema's four-value
+   terminal-disposition enum), and the `pending`-sentinel-valid-only-in-the-holding-lane
+   rule. Additive over V0; recorded as the owner-signed V0.1 block in
+   `plan-node-schema.v0.md`.
+
+WS2 (idea-node schema) and WS4 (thin-slice proof) are unaffected and proceed in parallel; the
+refounding must not wait on them, nor they on it.
+
 ### Plan triage framework (applied during the harvest, not pre-judged here)
 
 Every document under `.agent/plans/` is idea-harvested; the _document_ then routes to one of:
@@ -287,6 +326,11 @@ agent-workflow per §8); the harvest pipeline.
 
 In parallel and unblocked: high-value stream work proceeds as V0 plans (the bridge).
 
+> **Sequence amendment (2026-07-06, owner-ratified — see §Consequences Amendment):** the
+> plan-corpus refounding (its own plan; R0–R6 with owner gates) runs before step 6; step 6's
+> harvest substrate is the refounded corpus plus the frozen archive via binding-clause
+> provenance edges. Steps 2–5 proceed in parallel with it.
+
 ## Scope (the live corpus)
 
 The idea-graph's subject is **Oak's intent _as expressed in this repository_** — not Oak's
@@ -297,6 +341,13 @@ scope for the harvest regardless of file form. The exact count is **re-derived a
 auditing recall against a stale snapshot would itself be a loss path). Out of scope by location only: the
 relocated archive (`.agent/plans-old-archive/`, harvested later) and `.cursor/plans/` (Cursor's ephemeral
 namespace). No method-doc "non-goal" overrides this; the filesystem boundary is the scope.
+
+> **Scope alignment (2026-07-06, follows the §Consequences Amendment):** once the corpus refounding
+> runs, the harvest's substrate is the **refounded corpus plus the frozen pre-refounding archive via
+> binding-clause provenance edges** — the frozen copies stay reachable for idea-level detail rather
+> than being bulk-harvested; and `.agent/plans-old-archive/` participates through the refounding's
+> sweep-promotion path (promoted hits join the denominator) rather than a separate "harvested later"
+> pass. The paragraph above stands as the pre-refounding scope statement.
 
 ## Future state (owner intent; explicitly beyond this work's scope)
 
