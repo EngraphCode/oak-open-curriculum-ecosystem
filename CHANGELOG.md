@@ -1,3 +1,18 @@
+# [1.62.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.61.0...v1.62.0) (2026-07-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** land the PR-321 gateway and bot round-one fix bundle ([8aa7d6d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8aa7d6d7a8cfcd3f641e5e731ca1a1a6cc355ae7))
+* **agent-tools:** linearise the ratified-lists list-line check ([e0739ba](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e0739bafa21d0910c6da8b703457f77929b460dc))
+
+
+### Features
+
+* **agent-tools:** land refound merge-recheck, tile, and default-ledger with gateway fixes ([c321495](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c321495e504fe74ce6d6412220130b509644a41a))
+* **agent-tools:** land refound-batch-status with cache-tamper and broken-artefact proofs ([8f5df6e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8f5df6e9f19dde694a35eedb95e45147c4f041a7))
+* **agent-tools:** land refound-claim-census with proofs and true the G1 packet ([735f089](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/735f089dfb93df162b56140623a1686ff69cc69f))
+
 # [1.61.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.60.0...v1.61.0) (2026-07-07)
 
 
