@@ -19,7 +19,49 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
+## Where We Are (2026-07-07, Stoat rides Gloaming — R0 EXECUTING: freeze instrument LANDED; tranche 2 built+reviewed, fix pass pending; G1 packet ready for the owner sitting)
+
+Successor pickup ran clean (runway handoff from Wildfire; standby → active per PDR-063/078).
+All landings on `feat/plan-corpus-refounding-r0a` (worktree; every commit through the full
+hook chain):
+
+- `23fd4d907` — **R0a tranche 1**: `refound-freeze` + `refound-verify-freeze` + the
+  freeze-rule/denominator/identity-proof schemas (`agent-tools/src/refounding/`;
+  `parseWithSchema` hoisted to core). 70 module tests; every detector proves it can fire
+  (flipped byte / missing / extra / tampered totals / consistently-tampered rows); five
+  refusals proven nothing-written. Review chain absorbed structurally, zero suppressions:
+  code-expert (8), test-expert (integration split + oak-eslint io-allowlist with plan-cited
+  removal trigger; 4 coverage gaps), security-expert (5: glob escape, rollback ownership,
+  symlink chain, out-dir denylist, residue honesty).
+- `02e681f62` — **R0c registers** at `.agent/plans-refounding/`: the **G1 freeze-rule packet
+  (ready for the owner sitting)**, `freeze-rule.json` v1 (`ratifiedBy: null` — the freeze
+  script refuses an unratified rule), the cost ledger (H1–H8 halts; SP3 evidence-labelling),
+  the owner-gate register (3/11 moments discharged: G0, G-ADR, R0-go).
+- `52785f9d6` — **destination-cardinality non-goal** (owner-directed): lane-derived, never
+  source-derived; per-source one-in-one-out is a named failure mode (the coupling, never the
+  instance); pinned on the Walk-A register row too.
+
+**Tranche 2 is BUILT and REVIEWED, uncommitted in the worktree**: five detector CLIs
+(`refound-inventory` 3 nets / `refound-residue` / `refound-sweep` / `refound-plant-orphan` /
+`refound-plant-challenge-canary`), 173 module / 2,326 workspace tests green pre-review;
+real-corpus anchor ratio 41.14% (in the 20–70% band). Code-expert changes-requested (4,
+all fail-closed) + test-expert pass-with-improvements. **The complete 13-item fix list,
+in-flight reasoning, and resume mechanics are conserved self-contained in
+`.agent/state/collaboration/handoffs/2026-07-07-stoat-r0a-tranche2-fix-pass.md`** (claim
+`7b10679e` retained with `handoff_record_path`; PDR-063 — read it before any source edit).
+
+**Next safe steps, in order**: (1) run the fix pass from the handoff record → ONE atomic
+tranche-2 commit; (2) tranche 3: `refound-tile`, `refound-merge-recheck`,
+`refound-batch-status`, `refound-claim-census` (sweep landed with tranche 2; banner deferred
+until F4/R2 policy); (3) R0b plan-state tool (F5 one-engine-two-adapters; fixture +
+mutation-probe acceptance only); (4) **owner**: merge PR #315 (Wildfire left it merge-ready,
+0/6 threads, CLEAN), then the G1 sitting; the plan promotes `current/`→`active/` only after
+PR 315 merges. Worktree-seat commit craft: commit-queue guard+workflow are PRIMARY-bound —
+land via plain `git commit -F`, pathspec-staged, first-hand verified, background (F-123);
+formal frictions-register entries pending (mechanism conserved in the napkin + the abandoned
+intent `e38f8da0` notes).
+
+## Where We Were (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
 
 **Owner direction (2026-07-06, in-session):** losslessly re-found the plan corpus around
 intent FIRST — the donor-estate (resonance) method at oak scale — as an independently
