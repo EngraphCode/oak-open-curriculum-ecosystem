@@ -125,3 +125,23 @@ New session observations append below.
   owner-visible declared. The explicit gated-stage list let the successor ground fully and
   draft the G1 packet + R0c ledger during the predecessor's heavy-chain window with zero
   collision risk. candidate: pattern if a second runway handoff recurs.
+
+## 2026-07-07 — Kiln tracks Basalt (2a5066, visiting resonance seat): WS0-landing records + conformance-twin captures
+
+- **Cross-estate authoring pattern proven again (WS0c/WS0e twins)**: seed the
+  foreign copy from the local landed artefact, transform ONLY the
+  estate-local blocks (here: the Result import to `@oaknational/result` and
+  quote style via this estate's own prettier), prove with the cross-estate
+  diff — the wire contract itself travels byte-identical.
+- **A twin's first live run is a detector test**: the WS0c conformance twin
+  reported tier-0 on its first run here because the usage-spec anchor
+  assumed double-quoted CLI help and this estate single-quotes — a REAL
+  phenotype divergence caught by the detector doing its job. Cure:
+  quote-agnostic anchor, applied to both estates' copies in the same window.
+  The class: porting a detector ports its authoring estate's lexical
+  assumptions; the first live run on the receiving estate is the cheapest
+  place to catch them.
+- **From the WS0 landing (2026-07-06, recorded late per the queued handoff
+  item)**: this estate's reference-direction gate fired twice on
+  doctrine-to-plan citations during the protocol landing — true positives
+  both; cure shape: doctrine cites doctrine, plans cite both.

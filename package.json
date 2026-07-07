@@ -70,6 +70,7 @@
     "agent-tools:check-commit-skill-advisories": "pnpm --filter @oaknational/agent-tools check-commit-skill-advisories",
     "agent-tools:prevent-accidental-major-version": "pnpm --filter @oaknational/agent-tools prevent-accidental-major-version",
     "practice:substrate:check": "pnpm --filter @oaknational/agent-tools practice-substrate -- check",
+    "protocol:conformance": "pnpm --filter @oaknational/agent-tools protocol-conformance",
     "type-check": "turbo run --continue type-check",
     "format:root": "prettier --write --cache .",
     "format-check:root": "prettier --check .",
