@@ -95,11 +95,27 @@ describe('buildConformanceNodeIo + runProtocolConformance (real filesystem)', ()
     const root = tempConformantEstate();
     rmSync(join(root, '.agent/state/README.md'), { force: true });
     const declaredHome = join(root, 'declared-home');
-    mkdirSync(join(declaredHome, '.agent/state'), { recursive: true });
+    // The declared home must hold the full collaboration substrate — the
+    // detector certifies the real resolver's contract, and bare
+    // `.agent/state` no longer resolves (PR #320 review finding).
+    mkdirSync(join(declaredHome, '.agent/state/collaboration'), { recursive: true });
     const { report, exitCode } = runProtocolConformance(
       buildConformanceNodeIo(root, { PRACTICE_COORDINATION_HOME: declaredHome }),
     );
     expect(report.failures).toEqual([]);
     expect(exitCode).toBe(0);
+  });
+
+  it('refuses a declared home holding a FILE where the substrate directory should be', () => {
+    const root = tempConformantEstate();
+    rmSync(join(root, '.agent/state/README.md'), { force: true });
+    const declaredHome = join(root, 'declared-home');
+    mkdirSync(join(declaredHome, '.agent/state'), { recursive: true });
+    writeFileSync(join(declaredHome, '.agent/state/collaboration'), 'not a directory\n');
+    const { report, exitCode } = runProtocolConformance(
+      buildConformanceNodeIo(root, { PRACTICE_COORDINATION_HOME: declaredHome }),
+    );
+    expect(report.failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
+    expect(exitCode).toBe(1);
   });
 });

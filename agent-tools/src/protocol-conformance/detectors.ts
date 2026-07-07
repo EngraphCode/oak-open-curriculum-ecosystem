@@ -1,3 +1,10 @@
+// coordination-home pulls node builtins (fs/path/child_process) into this
+// module's graph; acceptable because the only consumer chain is the node CLI
+// bin — a future non-node consumer of the detectors breaks at this boundary.
+import {
+  COLLABORATION_SUBSTRATE_REL,
+  resolveCoordinationHome,
+} from '../collaboration-state/coordination-home.js';
 import { getJsonValue, isJsonObject, type JsonObject } from '../core/json.js';
 import { type ConformanceFailure, type ConformanceIo } from './types.js';
 
@@ -107,7 +114,7 @@ function detectProtocolRecord(io: ConformanceIo): ConformanceFailure | undefined
     };
   }
   const content = io.readTextFile(`${DECISION_RECORDS_REL_PATH}/${recordName}`);
-  if (content !== undefined && content.includes(PROTOCOL_RECORD_CONTENT_MARKER)) {
+  if (content?.includes(PROTOCOL_RECORD_CONTENT_MARKER)) {
     return undefined;
   }
   return {
@@ -149,21 +156,13 @@ function detectWireSchemaItems(io: ConformanceIo): readonly ConformanceFailure[]
 function detectCoordinationHome(io: ConformanceIo): ConformanceFailure | undefined {
   const declaredHome = io.env[COORDINATION_HOME_ENV];
   if (declaredHome !== undefined) {
-    if (io.absolutePathExists(`${declaredHome}/.agent/state`)) {
-      return undefined;
-    }
-    return {
-      item: 't1-coordination-home',
-      tier: 'tier-1',
-      message: `${COORDINATION_HOME_ENV} declares ${declaredHome} but no collaboration substrate resolves there — a declared home that does not resolve is a loud stop, never a silent fallback`,
-      evidence: [`${declaredHome}/.agent/state`],
-    };
+    return certifyDeclaredHome(io, declaredHome);
   }
   // Git-native leg: the contract must exist AND actually document the
   // collaboration plane — a stray README does not establish a resolvable
   // home (review probe 2026-07-07).
   const homeContract = io.readTextFile(GIT_NATIVE_HOME_CONTRACT_REL_PATH);
-  if (homeContract !== undefined && homeContract.includes('collaboration')) {
+  if (homeContract?.includes('collaboration')) {
     return undefined;
   }
   return {
@@ -175,6 +174,33 @@ function detectCoordinationHome(io: ConformanceIo): ConformanceFailure | undefin
         : `the git-native home contract exists but does not document the collaboration plane`,
     evidence: [GIT_NATIVE_HOME_CONTRACT_REL_PATH],
   };
+}
+
+/**
+ * Certify a declared home by running the REAL resolver against the seam —
+ * the detector recomputes the exact production validation (absolute path,
+ * directory, collaboration substrate present) rather than recording a
+ * weaker copy of it (PR #320 review finding). The resolver never touches
+ * git on the declared-home path, so the cwd argument is inert.
+ */
+function certifyDeclaredHome(
+  io: ConformanceIo,
+  declaredHome: string,
+): ConformanceFailure | undefined {
+  try {
+    resolveCoordinationHome('.', {
+      coordinationHomeEnv: declaredHome,
+      directoryExists: io.absoluteDirectoryExists,
+    });
+    return undefined;
+  } catch (error) {
+    return {
+      item: 't1-coordination-home',
+      tier: 'tier-1',
+      message: error instanceof Error ? error.message : String(error),
+      evidence: [`${declaredHome}/${COLLABORATION_SUBSTRATE_REL}`],
+    };
+  }
 }
 
 function detectWatcherLivenessGate(io: ConformanceIo): ConformanceFailure | undefined {

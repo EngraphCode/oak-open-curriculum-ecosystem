@@ -36,7 +36,7 @@ function fakeIo(overrides?: {
   readonly files?: Readonly<Record<string, string | undefined>>;
   readonly dirs?: Readonly<Record<string, readonly string[] | undefined>>;
   readonly env?: Readonly<Record<string, string | undefined>>;
-  readonly absolutePaths?: readonly string[];
+  readonly absoluteDirs?: readonly string[];
 }): ConformanceIo {
   const files: Record<string, string | undefined> = {
     [PROTOCOL_DECLARATION_REL_PATH]: CONFORMANT_DECLARATION,
@@ -45,7 +45,7 @@ function fakeIo(overrides?: {
       'export const HELP = "comms assert-watcher-live (--platform ...)";',
     'agent-tools/src/collaboration-state/cli-comms-assert-watcher-live.ts':
       'export async function assertWatcherLive(): Promise<void> {}',
-    '.agent/practice-core/decision-records/PDR-133-inter-practice-collaboration-protocol.md':
+    '.agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md':
       '# fixture protocol record\n\n## Conformance — fixture floor\n',
     '.agent/state/README.md': '# Agent state — the collaboration plane contract (fixture)',
     ...overrides?.files,
@@ -54,7 +54,7 @@ function fakeIo(overrides?: {
     '.agent/practice-core/incoming': ['fixture-offers.md'],
     '.agent/practice-core/decision-records': [
       'PDR-001-fixture.md',
-      'PDR-133-inter-practice-collaboration-protocol.md',
+      'PDR-125-inter-practice-collaboration-protocol.md',
     ],
     ...overrides?.dirs,
   };
@@ -62,7 +62,7 @@ function fakeIo(overrides?: {
     fileExists: (relPath) => files[relPath] !== undefined,
     readTextFile: (relPath) => files[relPath],
     listDir: (relPath) => dirs[relPath],
-    absolutePathExists: (path) => (overrides?.absolutePaths ?? []).includes(path),
+    absoluteDirectoryExists: (path) => (overrides?.absoluteDirs ?? []).includes(path),
     env: overrides?.env ?? {},
   };
 }
@@ -173,7 +173,7 @@ describe('runConformanceDetectors', () => {
     const failures = runConformanceDetectors(
       fakeIo({
         files: {
-          '.agent/practice-core/decision-records/PDR-133-inter-practice-collaboration-protocol.md':
+          '.agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md':
             '# an empty shell\n',
         },
       }),
@@ -256,31 +256,69 @@ describe('runConformanceDetectors', () => {
     expect(failures[0]?.tier).toBe('tier-1');
   });
 
-  it('flips t1-coordination-home when neither the env home nor the git-native contract resolves', () => {
-    const failures = runConformanceDetectors(
-      fakeIo({ files: { '.agent/state/README.md': undefined } }),
-    );
-    expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
-    expect(failures[0]?.tier).toBe('tier-1');
-  });
+  describe('t1-coordination-home (the env leg certifies the real resolver)', () => {
+    it('flips t1-coordination-home when neither the env home nor the git-native contract resolves', () => {
+      const failures = runConformanceDetectors(
+        fakeIo({ files: { '.agent/state/README.md': undefined } }),
+      );
+      expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
+      expect(failures[0]?.tier).toBe('tier-1');
+    });
 
-  it('resolves t1-coordination-home through PRACTICE_COORDINATION_HOME when set', () => {
-    const failures = runConformanceDetectors(
-      fakeIo({
-        files: { '.agent/state/README.md': undefined },
-        env: { PRACTICE_COORDINATION_HOME: '/fixture/home' },
-        absolutePaths: ['/fixture/home/.agent/state'],
-      }),
-    );
-    expect(failures).toEqual([]);
-  });
+    it('resolves t1-coordination-home through PRACTICE_COORDINATION_HOME when set', () => {
+      const failures = runConformanceDetectors(
+        fakeIo({
+          files: { '.agent/state/README.md': undefined },
+          env: { PRACTICE_COORDINATION_HOME: '/fixture/home' },
+          absoluteDirs: ['/fixture/home', '/fixture/home/.agent/state/collaboration'],
+        }),
+      );
+      expect(failures).toEqual([]);
+    });
 
-  it('fails t1-coordination-home LOUD when the declared env home does not resolve', () => {
-    const failures = runConformanceDetectors(
-      fakeIo({ env: { PRACTICE_COORDINATION_HOME: '/fixture/missing' } }),
-    );
-    expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
-    expect(failures[0]?.message).toContain('/fixture/missing');
+    it('fails t1-coordination-home LOUD when the declared env home does not resolve', () => {
+      const failures = runConformanceDetectors(
+        fakeIo({ env: { PRACTICE_COORDINATION_HOME: '/fixture/missing' } }),
+      );
+      expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
+      expect(failures[0]?.message).toContain('/fixture/missing');
+      expect(failures[0]?.message).toContain('does not exist or is not a directory');
+    });
+
+    it('refuses a declared home holding bare .agent/state without the collaboration substrate', () => {
+      // The anti-weakening property this detector exists to certify: the env
+      // leg recomputes the REAL resolver, never a laxer recording of it
+      // (PR #320 review finding — the prior leg accepted any .agent/state).
+      const failures = runConformanceDetectors(
+        fakeIo({
+          env: { PRACTICE_COORDINATION_HOME: '/fixture/home' },
+          absoluteDirs: ['/fixture/home', '/fixture/home/.agent/state'],
+        }),
+      );
+      expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
+      expect(failures[0]?.message).toContain('.agent/state/collaboration');
+      expect(failures[0]?.evidence).toEqual(['/fixture/home/.agent/state/collaboration']);
+    });
+
+    it('refuses a relative declared home with the resolver teaching text', () => {
+      const failures = runConformanceDetectors(
+        fakeIo({
+          env: { PRACTICE_COORDINATION_HOME: 'fixture/relative-home' },
+          absoluteDirs: [
+            'fixture/relative-home',
+            'fixture/relative-home/.agent/state/collaboration',
+          ],
+        }),
+      );
+      expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
+      expect(failures[0]?.message).toContain('absolute path');
+    });
+
+    it('refuses an empty-string declared home as malformed, never as absence', () => {
+      const failures = runConformanceDetectors(fakeIo({ env: { PRACTICE_COORDINATION_HOME: '' } }));
+      expect(failures.map((f) => f.item)).toEqual(['t1-coordination-home']);
+      expect(failures[0]?.message).toContain('absolute path');
+    });
   });
 
   it('flips t1-watcher-liveness-gate when the assertion action leaves the CLI surface', () => {

@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { defaultDirectoryExists } from '../collaboration-state/coordination-home.js';
 import { type ConformanceIo } from './types.js';
 
 /**
@@ -29,7 +30,7 @@ export function buildConformanceNodeIo(
         return undefined;
       }
     },
-    absolutePathExists: (path) => existsSync(path),
+    absoluteDirectoryExists: defaultDirectoryExists,
     env,
   };
 }

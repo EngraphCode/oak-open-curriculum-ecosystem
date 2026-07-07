@@ -36,9 +36,14 @@ export interface ResolveCoordinationHomeOptions {
 }
 
 /** The directory a coordination home must contain to be recognisable as one. */
-const COLLABORATION_SUBSTRATE_REL = '.agent/state/collaboration';
+export const COLLABORATION_SUBSTRATE_REL = '.agent/state/collaboration';
 
-const defaultDirectoryExists = (path: string): boolean => {
+/**
+ * The resolver's own directory probe, exported so consumers that certify the
+ * resolver (the protocol-conformance detector) probe with EXACTLY the same
+ * semantics — a file at the substrate path is not a directory.
+ */
+export const defaultDirectoryExists = (path: string): boolean => {
   try {
     return statSync(path).isDirectory();
   } catch {

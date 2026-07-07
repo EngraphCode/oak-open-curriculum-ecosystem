@@ -1,5 +1,5 @@
 /**
- * WS0c — the protocol-conformance self-report (PDR-133 §Conformance).
+ * WS0c — the protocol-conformance self-report (PDR-125 §Conformance).
  *
  * "Speaks the protocol" is recomputable, never asserted: this module
  * RECOMPUTES the estate's tier from artefacts and gates on every run and
@@ -36,14 +36,15 @@ export interface ConformanceReport {
 
 /**
  * Read-only IO seam over the estate. Repo-relative paths except
- * `absolutePathExists`, which exists solely for the
+ * `absoluteDirectoryExists`, which exists solely for the
  * `PRACTICE_COORDINATION_HOME` resolution leg (an absolute path by
- * definition).
+ * definition) and carries directory semantics — a file at the probed
+ * path does not resolve, matching the real resolver's probe.
  */
 export interface ConformanceIo {
   readonly fileExists: (relPath: string) => boolean;
   readonly readTextFile: (relPath: string) => string | undefined;
   readonly listDir: (relPath: string) => readonly string[] | undefined;
-  readonly absolutePathExists: (path: string) => boolean;
+  readonly absoluteDirectoryExists: (path: string) => boolean;
   readonly env: Readonly<Record<string, string | undefined>>;
 }
