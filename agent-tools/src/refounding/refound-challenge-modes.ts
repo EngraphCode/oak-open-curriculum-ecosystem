@@ -99,7 +99,8 @@ export async function runPlantMode(
   }
   return ok(
     `planted ${String(summary.value.planted)} of ${String(summary.value.rows)} row(s); ` +
-      `stream at ${CHALLENGE_STREAM_SEGMENT}, KEY SET at ${args.keysOutPath} ` +
+      `stream at ${path.relative(repoRoot, path.join(outDirAbs.value, CHALLENGE_STREAM_SEGMENT))}, ` +
+      `KEY SET at ${args.keysOutPath} ` +
       `(dispatcher-held — keep it outside the challenge fleet's read scope); ` +
       `seal it before the batch.`,
   );
@@ -140,7 +141,8 @@ export async function runSealMode(
   }
   return ok(
     `sealed key set (sha256 ${sealed.value.keySetSha256}) into ` +
-      `${CHALLENGE_COMMITMENT_SEGMENT}; commit the commitment BEFORE the batch runs.`,
+      `${path.relative(repoRoot, commitmentAbsPath.value)}; ` +
+      `commit the commitment BEFORE the batch runs.`,
   );
 }
 

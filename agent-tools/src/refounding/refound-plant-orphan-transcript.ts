@@ -54,25 +54,38 @@ export type PlantOrphanOutcome = z.infer<typeof plantOrphanOutcomeSchema>;
  * outcome states the discriminations the proof exists to make.)
  */
 function checkOutcomeInvariants(outcome: PlantOrphanOutcome): Result<PlantOrphanOutcome, Error> {
-  const violations: string[] = [];
-  if (outcome.keyword.misspeltInInventory) {
-    violations.push('the misspelt plant appears in inventory (nets almost-matched)');
-  }
-  if (!outcome.keyword.misspeltInResidueBlock) {
-    violations.push('the misspelt plant is not recorded in a residue block');
-  }
-  if (outcome.keyword.netCShift !== 1) {
-    violations.push(`the control shifted Net C by ${String(outcome.keyword.netCShift)}, not 1`);
-  }
-  if (!outcome.sweep.plantPresentInCopy) {
-    violations.push('the sweep plant is not recorded as present in the staged copy');
-  }
-  if (outcome.sweep.sweepHitsForPlant !== 0) {
-    violations.push('the marker-free sweep plant was hit (it must be net-invisible)');
-  }
-  if (outcome.sweep.sweepHitsForControl < 1) {
-    violations.push('the sweep control never hit (the scanner was not proven live)');
-  }
+  const checks: readonly (readonly [boolean, string])[] = [
+    [
+      outcome.keyword.misspeltInInventory,
+      'the misspelt plant appears in inventory (nets almost-matched)',
+    ],
+    [
+      !outcome.keyword.misspeltInResidueBlock,
+      'the misspelt plant is not recorded in a residue block',
+    ],
+    [
+      outcome.keyword.netCShift !== 1,
+      `the control shifted Net C by ${String(outcome.keyword.netCShift)}, not 1`,
+    ],
+    [
+      outcome.keyword.controlNets.join(',') !== 'C',
+      `the control was captured by nets [${outcome.keyword.controlNets.join(', ')}], ` +
+        'not by Net C alone',
+    ],
+    [
+      !outcome.sweep.plantPresentInCopy,
+      'the sweep plant is not recorded as present in the staged copy',
+    ],
+    [
+      outcome.sweep.sweepHitsForPlant !== 0,
+      'the marker-free sweep plant was hit (it must be net-invisible)',
+    ],
+    [
+      outcome.sweep.sweepHitsForControl < 1,
+      'the sweep control never hit (the scanner was not proven live)',
+    ],
+  ];
+  const violations = checks.filter(([violated]) => violated).map(([, message]) => message);
   if (violations.length > 0) {
     return err(new Error(`discrimination-proof invariants unsatisfied: ${violations.join('; ')}`));
   }
@@ -87,13 +100,13 @@ function checkOutcomeInvariants(outcome: PlantOrphanOutcome): Result<PlantOrphan
  * a genuine proof run could not have recorded).
  */
 export function parseDiscriminationTranscript(text: string): Result<PlantOrphanOutcome, Error> {
-  const match = /```json\n([\s\S]*?)\n```/.exec(text);
-  if (match === null || match[1] === undefined) {
+  const machineBlock = /```json\r?\n([\s\S]*?)\r?\n```/.exec(text)?.[1];
+  if (machineBlock === undefined) {
     return err(new Error('transcript carries no machine-readable outcome block (```json fenced)'));
   }
   let document: unknown;
   try {
-    document = JSON.parse(match[1]);
+    document = JSON.parse(machineBlock);
   } catch (cause: unknown) {
     const message = cause instanceof Error ? cause.message : String(cause);
     return err(new Error(`transcript outcome block is not valid JSON: ${message}`));

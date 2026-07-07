@@ -48,6 +48,16 @@ describe('parseDiscriminationTranscript', () => {
     }
   });
 
+  it('parses a CRLF-rewritten transcript (line endings are not the proof)', () => {
+    const outcome = sampleOutcome();
+    const crlf = buildDiscriminationTranscript(outcome).replaceAll('\n', '\r\n');
+    const parsed = parseDiscriminationTranscript(crlf);
+    expect(parsed.ok).toBe(true);
+    if (parsed.ok) {
+      expect(parsed.value).toEqual(outcome);
+    }
+  });
+
   it('refuses a header-only stub (the founding path-only-gate hole)', () => {
     const parsed = parseDiscriminationTranscript('# Orphan-discrimination proof (v1)\n');
     expect(parsed.ok).toBe(false);
@@ -75,6 +85,21 @@ describe('parseDiscriminationTranscript', () => {
     if (!parsed.ok) {
       expect(parsed.error.message).toContain('invariants unsatisfied');
       expect(parsed.error.message).toContain('marker-free sweep plant was hit');
+    }
+  });
+
+  it('refuses a control captured by any net other than Net C alone (the proof rule verbatim)', () => {
+    const base = sampleOutcome();
+    for (const controlNets of [['A'], ['B', 'C'], ['C', 'A']]) {
+      const tampered: PlantOrphanOutcome = {
+        ...base,
+        keyword: { ...base.keyword, controlNets },
+      };
+      const parsed = parseDiscriminationTranscript(buildDiscriminationTranscript(tampered));
+      expect(parsed.ok).toBe(false);
+      if (!parsed.ok) {
+        expect(parsed.error.message).toContain('not by Net C alone');
+      }
     }
   });
 });
