@@ -2889,3 +2889,42 @@ commit SHA and the closing plan reference.
   spawn path (`runInheritedProcess`).
 - **Status**: open.
 - **Owner direction status**: captured at session closeout under record-all-frictions.
+
+### F-132 — `commit-queue guard` rejects the worktree-scoped `git:index/head@<worktree>` claim spelling
+
+- **Source**: R0a tranche-1 landing 2026-07-06 (Stoat rides Gloaming, 432a41), formally
+  registered 2026-07-07 (Leopard spins Moonrise, b07d1d) per execution-record §5.7; the
+  mechanism was first conserved on abandoned commit-queue intent `258714ba`/`e38f8da0` notes.
+- **Observed**: a PDR-117 worktree seat opens its commit-window claim as
+  `git:index/head@<worktree-name>` (the spelling the commit skill's merge-commit section
+  itself prescribes for worktree seats); `commit-queue guard` matches only the bare
+  `index/head` pattern and rejects the worktree-scoped spelling, so the queue ceremony
+  refuses a correctly-claimed worktree commit window.
+- **Expected**: the guard recognises worktree-scoped commit-window claims as valid for a
+  bundle staged in that same worktree.
+- **Candidate cure**: teach the guard the `index/head@<worktree>` pattern family and match
+  claim scope to the invoking tree (same-tree claims gate; other-tree claims do not).
+- **Target surface**: `agent-tools/src/collaboration-state` claims/guard matching + the
+  commit-queue guard.
+- **Status**: open. Worked around via the skill's sanctioned worktree shape (plain
+  `git commit -F`, pathspec-staged, first-hand staged-set verification, background task).
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
+
+- **Source**: R0a tranche-1 landing 2026-07-06 (Stoat rides Gloaming, 432a41), formally
+  registered 2026-07-07 (Leopard spins Moonrise, b07d1d) per execution-record §5.7;
+  mechanism conserved from abandoned intent `e38f8da0`'s notes before queue hygiene.
+- **Observed**: the workflow's verify-staged step reads `git diff --cached` against the
+  primary checkout's index, so a PDR-117 worktree seat's staged bundle reads as all-missing
+  and the workflow refuses — a structural repo-topology mismatch, NOT a recurrence of the
+  F-112 stdio class (the bundle landed cleanly via plain `git commit` in the worktree with
+  full hooks green, e.g. `23fd4d907`).
+- **Expected**: the queue workflow resolves git state against the tree the intent's seat
+  operates in, so worktree seats can ride the same ceremony as primary-checkout seats.
+- **Candidate cure**: resolve the git cwd from the claim's worktree scope (F-132's cure
+  supplies the scope) or from an explicit `--worktree` intent field; verify-staged and the
+  inner commit then run against that tree.
+- **Target surface**: `agent-tools/src/commit-workflow` (verify-staged + spawned git cwd).
+- **Status**: open. Same sanctioned workaround as F-132.
+- **Owner direction status**: standing (record-all-frictions).

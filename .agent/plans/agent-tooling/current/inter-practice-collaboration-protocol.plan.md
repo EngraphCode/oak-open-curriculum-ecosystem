@@ -70,7 +70,7 @@ todos:
     status: pending
     depends_on: [ws0-protocol-pdr]
   - id: ws6-knowledge-flow-probe
-    content: "WS6 — First cross-Practice knowledge-flow probe: read resonance's recomputable plan/team-state doctrine (its PDR-128/129) and its high-context-efficiency worker-agent material; produce an adoption assessment for oak routed to the owning surfaces. DONE 2026-07-05 (Cricket lifts Echo): .agent/reports/agentic-engineering/resonance-bundle-adoption-assessment-2026-07-05.md — §3 workers transplant (new sub-agent-estate lane), §1 proofs into ADR-200 WS2, §2 sequenced on OQ5/F-44, §4 folds into WS0b, §5 reconciles into WS0 (tier ladder answers owner gate b)."
+    content: "WS6 — First cross-Practice knowledge-flow probe: read resonance's recomputable plan/team-state doctrine (its PDR-129/130) and its high-context-efficiency worker-agent material; produce an adoption assessment for oak routed to the owning surfaces. DONE 2026-07-05 (Cricket lifts Echo): .agent/reports/agentic-engineering/resonance-bundle-adoption-assessment-2026-07-05.md — §3 workers transplant (new sub-agent-estate lane), §1 proofs into ADR-200 WS2, §2 sequenced on OQ5/F-44, §4 folds into WS0b, §5 reconciles into WS0 (tier ladder answers owner gate b)."
     status: done
   - id: ws7-docs-and-gates
     content: "WS7 — Documentation propagation (worktree-hygiene rule cross-reference, agent-collaboration directive, frictions register) and full quality gates on the integrated delivery."
@@ -171,7 +171,7 @@ concepts-vs-pointers layering clause 7), `c7cdf4a5f` (the first-class framing +
 WS0b/c/d), plus the commit landing the shared-schema direction and this pickup
 section. Napkin carries the live-run lessons. On the resonance side, this
 session's inbound teaching bundle was delivered to their Practice Box, verified
-by MAR, and COMMITTED into their tree; their return bundle (PDR-128/129
+by MAR, and COMMITTED into their tree; their return bundle (PDR-129/130
 recomputable state, task-worker + PDR-125 verification doctrine, the
 donor-exchange pattern) was delivered into oak's box — see task 1, it has
 ALREADY ARRIVED and been receipted.
@@ -184,8 +184,8 @@ ALREADY ARRIVED and been receipted.
    disk; this session verified it well-formed and posted the receipt on the
    resonance stream, so the delivery handshake is CLOSED. What remains is WS6:
    read it first-hand and route its substance as an adoption assessment. Its
-   five sections: (1) recomputable plan state / PDR-128, (2) recomputable team
-   state / PDR-129, (3) zero-judgement task workers + PDR-125 adversarial
+   five sections: (1) recomputable plan state / PDR-129, (2) recomputable
+   team state / PDR-130, (3) zero-judgement task workers + PDR-125 adversarial
    verification with live-fire lessons, (4) the exchange pattern + neutral-
    vocabulary doctrine (portable form), (5) MAR's proposal that the protocol
    ride the plasmid as a Core PDR family with tiered conformance. Route
@@ -256,7 +256,7 @@ or inter-Practice collaboration skill."
 **Why now (the impact under the mechanism).** Resonance is producing two
 capabilities directly applicable to this branch's work: high-context-
 efficiency worker agents for mechanical no-judgement tasks, and recomputable
-plan/team state carried in YAML frontmatter (its PDR-128/129). The protocol
+plan/team state carried in YAML frontmatter (its PDR-129/130). The protocol
 is the conduit that lets that knowledge flow into oak — and lets oak's
 practice flow back. WS6 exercises that flow as the plan's proof of value.
 
@@ -553,7 +553,7 @@ an interrupt).
 
 ## WS6 — Knowledge-flow probe (the proof of value)
 
-Read resonance's recomputable plan/team-state doctrine (its PDR-128/129 and
+Read resonance's recomputable plan/team-state doctrine (its PDR-129/130 and
 the plan-estate re-founding work) and its high-context-efficiency
 worker-agent material — its `task-worker` subagent class (Sonnet-5,
 Read/Grep/Glob only, zero-judgement briefs with refusal clauses), its
