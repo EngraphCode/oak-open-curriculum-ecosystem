@@ -114,7 +114,7 @@ in parallel, unchanged, per the section below.
 opener is
 [`prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md`](../../../prompts/strategy-and-plan-estate/plan-corpus-refounding-r0-session.md)
 — grounding order, the R0 work breakdown, the G1-packet deliverable, and the operational
-craft (background commits per F-123; the F-122 merge-ready discipline; the built
+craft (background commits per F-131; the F-130 merge-ready discipline; the built
 worktree). The conserved design-panel corpus (full script contracts) is at
 `reports/agentic-engineering/plan-estate-refounding-design-panel-2026-07-06/`.
 

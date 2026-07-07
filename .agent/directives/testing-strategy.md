@@ -62,7 +62,11 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
 - NEVER manipulate global state in tests - no `process.env` reads
   or mutations, no `vi.stubGlobal`, no `vi.mock`, no `vi.doMock`.
   Product code must accept configuration as parameters. See
-  [ADR-078][di].
+  [ADR-078][di]. For React components that fetch or derive async
+  state, the DI seam that makes this holdable is the view-binder
+  split — views take state as props, a two-line binder owns the
+  hook, tests render the view with literal states, zero mocks
+  (the `view-binder-di-seam` pattern in active memory).
 
 ## Rules
 

@@ -31,7 +31,9 @@ them (signals are verdicts).
    integration table, economics.
 3. `.agent/reports/agentic-engineering/plan-estate-refounding-design-panel-2026-07-06/` —
    the conserved panel corpus. **F1-mechanical-substrate.md is your primary input** (the
-   ten script contracts); F2 (worker envelopes) and F5 (the plan-state tool: one engine,
+   ten script contracts — plus `plant-challenge-canary`, which the ratified `r0a` todo
+   names as its own script beyond F1; the plan todo is the binding script list); F2
+   (worker envelopes) and F5 (the plan-state tool: one engine,
    two adapters) are R0b's inputs. Read WITH the design record's disposition tables — the
    raw designs contain the contradictions the critics caught.
 4. ADR-200 §Consequences Amendment + §Sequence note + §Scope alignment note; the V0.1
@@ -46,8 +48,10 @@ them (signals are verdicts).
 
 - **R0a — the mechanical instrument** (`agent-tools/src/refounding/`, TDD, zero-LLM):
   freeze / verify-freeze / inventory (three nets, verbatim, per-line digests) / tile
-  (exact cover) / plant-orphan (incl. the marker-free paraphrase plant AND the
-  sealed planted-loss challenge plants with hash-commit-then-reveal keys) / sweep /
+  (exact cover) / plant-orphan (incl. the marker-free paraphrase plant) /
+  plant-challenge-canary (a separate script per the ratified `r0a` todo: the sealed
+  planted-loss challenge plants with hash-commit-then-reveal keys and its own
+  sealed-then-revealed acceptance) / sweep /
   merge-recheck (banner-aware) / batch-status / claim-census. Acceptance is in the plan
   todo: every detector passes its scripted discrimination proof; byte-stable determinism
   tests. **Freeze+inventory may land and run the moment their own proofs pass** — do not
@@ -71,13 +75,13 @@ them (signals are verdicts).
 - **Commits**: the pre-commit chain runs build/type-check/lint/test across ~26 packages
   even for docs-only commits (~5–10 min). Run `git commit` as a BACKGROUND task, never
   under a foreground timeout — two timeout-killed commits orphaned whole-tree lint fleets
-  and drove host load to 94 (F-123 in the frictions register; the repair for hook-kill
+  and drove host load to 94 (F-131 in the frictions register; the repair for hook-kill
   residue is forward `git show HEAD:<p> > <p>` writes, never `git restore`). Check host
   load before starting any heavy chain (the cross-estate one-heavy-chain agreement).
 - **PR #315** carries the protocol + ratifications. **Merge-ready = checks green AND zero
   unresolved review threads, harvested via GraphQL at the declaration instant** — the
   binding-moment clause in `pr-comments-resolve-and-recheck` (added this session after the
-  owner caught exactly that failure; F-122 is the mechanical-checker debt, a natural small
+  owner caught exactly that failure; F-130 is the mechanical-checker debt, a natural small
   first build alongside R0a if you want a warm-up).
 - **WS2 of ADR-200 proceeds in parallel** and must not wait on you, nor you on it.
 - The resonance exchange seat has stood down; the inter-practice lane's WS0+WS4 authoring

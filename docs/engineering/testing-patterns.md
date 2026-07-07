@@ -89,6 +89,19 @@ Compliant tests to use as templates:
 
 ---
 
+## Untestable-Without-Prohibited-Mechanisms Is a Product-Code DI Defect
+
+When adding tests to existing green code would make them audit-shaped, check
+whether the untestability is itself the defect. A seam that cannot be tested
+without prohibited mechanisms (ambient env import, a module-level singleton
+reachable only via `vi.mock`, a non-injectable route) has a product-code DI
+defect, and the conformant cure is a **fresh TDD cycle** against a
+not-yet-existing injectable seam — genuine RED first — NOT a retrofit and NOT
+abstention (test-expert ruling, 2026-07-01, curriculum-hub search seam:
+extract the core with the service injected + a `createHandler(fn)` factory).
+"Tests would be audit-shaped" is a signal to inspect the product code's
+injectability, never merely a reason to skip.
+
 ## A Test That Needs Real IO Is a Product Defect
 
 When a unit or integration test seems to need real IO, the product code

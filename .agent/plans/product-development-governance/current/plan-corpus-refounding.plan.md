@@ -327,8 +327,9 @@ owner-hold — an upper bound on elapsed, not a work estimate.
 
 ## Prerequisites
 
-- **`blocking`** — R0a script proofs green before S0; G1+G-ADR+G2 before S0; Walk A before
-  pilot authoring; SP3 sanction before rollout.
+- **`blocking`** — R0a script proofs green before S0; G1+G2 before S0 (G-ADR is already
+  ratified and discharged — owner sitting 2026-07-06, per the owner-gate register); Walk A
+  before pilot authoring; SP3 sanction before rollout.
 - **`beneficial`** — the corpus-generalisation Phase 0 atomic landing set (PDR-122
   invariant-2 amendment): the refounding's quorum design already honours the measured-n_eff
   correction, so it does not wait; landing it first merely aligns the citation.

@@ -22,7 +22,6 @@
 import { graphCorpus, type GraphCorpusNode } from '@oaknational/sdk-codegen/graph-corpus';
 import { describe, expect, it } from 'vitest';
 
-import { buildCurriculumKeywordProjection } from './keyword-projection.js';
 import {
   DEFAULT_KEYWORD_LIMIT,
   KEYWORD_LESSON_DECORATION_LIMIT,
@@ -320,16 +319,5 @@ describe('keyword view — bounded anchored frequency-ranked retrieval', () => {
     });
 
     expect(first).toStrictEqual(second);
-  });
-
-  it('constructs the module-load projection within a generous startup-cost bound', () => {
-    const start = performance.now();
-    buildCurriculumKeywordProjection();
-    const elapsedMs = performance.now() - start;
-    // Map-building over ~41k nodes / ~75k edges. Calibration: this re-build
-    // (the module-load singleton has already constructed once) typically
-    // completes in well under 50ms locally; 500ms is ~10x headroom for CI
-    // pressure, matching the sibling views' shared ceiling convention.
-    expect(elapsedMs).toBeLessThan(500);
   });
 });

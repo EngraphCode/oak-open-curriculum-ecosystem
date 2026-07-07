@@ -146,6 +146,15 @@ collaboration-state substrate, replay-able by any future agent
 reconstructing the cycle's history, and retained until the claim
 closes successfully.
 
+**Externally-mutable facts carry an as-of stamp plus a
+recount-at-pickup instruction** (amendment, 2026-07-06). A handoff
+record's counts and states that other actors can change — open PR
+review threads, check states, bot comments, upstream branch tips —
+are true only at their evidence timestamp: stamp each such fact
+with when it was observed and instruct the receiving agent to
+recount at pickup. Worked instance: "the two Copilot threads" was
+true on 2026-07-03 evidence and silently false (eight) by pickup.
+
 ### Step 3 — Extend the active claim
 
 The retiring agent updates their active-claim entry with a single
