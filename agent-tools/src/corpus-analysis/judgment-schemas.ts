@@ -1,5 +1,7 @@
-import { err, ok, type Result } from '@oaknational/result';
+import type { Result } from '@oaknational/result';
 import { z } from 'zod';
+
+import { parseWithSchema } from '../core/schema-parse.js';
 
 /**
  * Atomic-judgment contract for the large-corpus-analysis method (v2).
@@ -169,23 +171,12 @@ export const voterOutcomeSchema = z.discriminatedUnion('status', [
 export type VoterOutcome = z.infer<typeof voterOutcomeSchema>;
 
 /**
- * Parse a value through a schema at a boundary, returning a `Result` with a prettified
- * error on failure (per the Result discipline — a parse failure is a typed value at the
- * call site, never an invisible throw). The boundary here is reading the Workflow's JSON
- * output back into typed judgments; the aggregation layer consumes already-parsed types.
- * The calibration schemas (`./recall-schemas.ts`) reuse this helper.
+ * The strict-parse boundary helper, re-exported for this module's existing
+ * consumers (`./recall-schemas.ts` and the post-run/stage-io readers). The
+ * implementation lives in `core/schema-parse.ts`, hoisted there when the
+ * refounding modules became its second consumer.
  */
-export function parseWithSchema<TSchema extends z.ZodType>(input: {
-  readonly label: string;
-  readonly schema: TSchema;
-  readonly value: unknown;
-}): Result<z.output<TSchema>, Error> {
-  const result = input.schema.safeParse(input.value);
-  if (result.success) {
-    return ok(result.data);
-  }
-  return err(new Error(`${input.label} failed validation: ${z.prettifyError(result.error)}`));
-}
+export { parseWithSchema };
 
 export const parseLeafSignal = (value: unknown): Result<LeafSignal, Error> =>
   parseWithSchema({ label: 'leaf signal', schema: leafSignalSchema, value });

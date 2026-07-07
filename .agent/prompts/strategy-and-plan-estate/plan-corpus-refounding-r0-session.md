@@ -24,7 +24,7 @@ them (signals are verdicts).
 
 ## Ground first (read in this order)
 
-1. `.agent/plans/product-development-governance/current/plan-corpus-refounding.plan.md` —
+1. `.agent/plans/product-development-governance/active/plan-corpus-refounding.plan.md` —
    the executable contract. R0a/R0b/R0c are yours this session.
 2. `.agent/reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md` — the
    design record: every critical finding's disposition (§3, §3a), the resonance mechanism
