@@ -221,3 +221,17 @@ describe('runInventory — halts (nothing written)', () => {
     expect(existsSync(path.join(outDirAbs, INVENTORY_BASENAME))).toBe(false);
   });
 });
+
+describe('runInventory — the all-or-nothing artefact pair', () => {
+  it('rolls back the inventory when the paired net-diff write fails (nothing remains)', async () => {
+    const outDirAbs = await makeArtefactHome(inBandCorpus());
+    // Plant the failure: the net-diff destination is a DIRECTORY, so its write fails.
+    await mkdir(path.join(outDirAbs, NET_DIFF_BASENAME), { recursive: true });
+    const summary = await runInventory({ outDirAbs });
+    expect(summary.ok).toBe(false);
+    if (!summary.ok) {
+      expect(summary.error.message).toContain('rolled back');
+    }
+    expect(existsSync(path.join(outDirAbs, INVENTORY_BASENAME))).toBe(false);
+  });
+});

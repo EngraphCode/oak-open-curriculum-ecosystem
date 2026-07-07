@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
@@ -9,6 +9,7 @@ import {
   renderJsonlArtefact,
   type DenominatorFile,
 } from './refounding-artefacts.js';
+import { writeArtefactSet } from './refound-artefact-writes.js';
 import { FROZEN_TREE_SEGMENT } from './refound-freeze-helpers.js';
 import {
   buildInventoryRecords,
@@ -128,22 +129,20 @@ async function writeInventoryArtefacts(input: {
   readonly records: readonly InventoryRecord[];
   readonly netDiff: NetDiffReport;
 }): Promise<Result<void, Error>> {
-  try {
-    await writeFile(
-      path.join(input.outDirAbs, INVENTORY_BASENAME),
-      renderJsonlArtefact(input.records),
-      'utf8',
-    );
-    await writeFile(
-      path.join(input.outDirAbs, NET_DIFF_BASENAME),
-      renderJsonArtefact(input.netDiff),
-      'utf8',
-    );
-    return ok(undefined);
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(`inventory artefact write failed: ${message}`));
+  const written = await writeArtefactSet([
+    {
+      absPath: path.join(input.outDirAbs, INVENTORY_BASENAME),
+      content: renderJsonlArtefact(input.records),
+    },
+    {
+      absPath: path.join(input.outDirAbs, NET_DIFF_BASENAME),
+      content: renderJsonArtefact(input.netDiff),
+    },
+  ]);
+  if (isErr(written)) {
+    return err(new Error(`inventory ${written.error.message}`));
   }
+  return ok(undefined);
 }
 
 /**

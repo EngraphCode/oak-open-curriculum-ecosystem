@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -447,5 +447,20 @@ describe('plant-mode guards and determinism', () => {
     expect((await runChallengePlant(plantInput(fixture))).ok).toBe(true);
     expect((await readFile(fixture.streamAbsPath)).equals(firstStream)).toBe(true);
     expect((await readFile(fixture.keysAbsPath)).equals(firstKeys)).toBe(true);
+  });
+});
+
+describe('the all-or-nothing plant artefact pair', () => {
+  it('rolls back the stream when the key-set write fails (no stream without keys)', async () => {
+    const fixture = await makeFixture();
+    // Plant the failure: the key-set destination is a DIRECTORY, so its write fails.
+    await rm(fixture.keysAbsPath, { force: true });
+    await mkdir(fixture.keysAbsPath, { recursive: true });
+    const planted = await runChallengePlant(plantInput(fixture));
+    expect(planted.ok).toBe(false);
+    if (!planted.ok) {
+      expect(planted.error.message).toContain('rolled back');
+    }
+    expect(existsSync(fixture.streamAbsPath)).toBe(false);
   });
 });
