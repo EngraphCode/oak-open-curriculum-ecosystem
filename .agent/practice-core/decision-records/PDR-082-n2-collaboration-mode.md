@@ -157,6 +157,29 @@ below the overhead cost:
   heartbeat cron + watcher if previously stopped), OR
 - Both agents close out and the session ends.
 
+**Participant definition for the third-agent trigger** (amendment,
+2026-07-06): "joins" counts **active participants** — an agent
+holding or adopting a claim, editing source, or otherwise working a
+lane — not mere registered presences. A standby registration
+(watcher + team-start broadcast, no claim) and a read-only review
+seat do not by themselves re-trigger the full protocol. Two same-day
+sessions (2026-07-06) independently applied this reading,
+declared-not-decided, with no objection; the operative convention is
+**declare the count-reading in the team-start broadcast** so peers
+can object — a declared n=2 with a visible standby is valid; an
+undeclared assumption is not. The flip trigger mirrors ALL THREE
+limbs of the active definition: the moment a benched or read-only
+seat adopts a claim, edits source, or starts working a lane, the
+full protocol re-activates — and the flipping agent MUST broadcast
+the flip as a join-equivalent comms event (existing agents restart
+heartbeat cron + watcher on receipt, as in the exit clause above);
+a registry write alone wakes nobody. Note the no-objection
+convention's dependency: "no objection" is only meaningful while
+peers' watchers are alive (frictions F-124 records silent watcher
+reclaim), which is one more reason the flip broadcast is mandatory.
+Falsifiability: shown wrong if a declared-standby session produces
+a coordination miss the full protocol would have caught.
+
 ### Accepted failure modes (with mitigation)
 
 - **Loss of automated retirement detection** — owner sees in chat

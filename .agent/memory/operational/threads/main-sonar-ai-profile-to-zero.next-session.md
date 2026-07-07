@@ -28,6 +28,7 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 | claude | claude-opus-4-8[1m] | 547586 | Alder tracks Topsoil | implementer | 2026-06-26 | 2026-06-26 |
 | claude | unknown | 483d97 | Gull tracks Eyrie | implementer | 2026-06-27 | 2026-06-27 |
 | claude-code | claude-fable-5 | 477cba | Katydid seeks Moonbeam | implementer | 2026-07-06 | 2026-07-06 |
+| claude-code | claude-fable-5 | 8897eb | Zenith wakes Perigee | curator (record touch: drift-guard follow-on + rule-name fix) | 2026-07-06 | 2026-07-06 |
 
 (Gull tracks Eyrie's row reconstructed 2026-07-06 from this record's own lane-state prose —
 the 2026-06-27 session omitted it; model not recorded there, so marked unknown.)
@@ -79,6 +80,16 @@ judgement), S7785 ×17 (top-level await, MAJOR — script refactors, own batch),
 `agent-tools/`: coordinate with the AEE tool-building lanes before touching), then the
 design-MAJOR Phase 4 (S107 ×7, S4323 ×7, S3358 ×4, S6564 ×4 …). Re-fetch live Sonar at
 start — counts here drift. Live backlog at 2026-07-06 fetch: 174 OPEN before the 5B batch.
+
+**Small self-contained follow-on (from the 5B thorough re-grounding pass, 2026-07-06):** the
+graph-corpus generated `index.ts` mirror has NO standing drift guard —
+`graph-corpus-emitted.integration.test.ts` pins data counts, not module source; the 5B
+hand-mirror was verified byte-identical once, but nothing catches future template↔mirror
+desync. Right cure shape: a repo-validator that RECOMPUTES ("committed vocab index module
+contains exactly the emitted lines join") wired into `repo-validators:check`
+(`validators-must-recompute-not-just-record`) — NOT an fs-reading in-process test (in-process tests must not
+do IO; a new allowlist entry would weaken the gate boundary). Owns here or the sdk-codegen
+estate, whichever touches first.
 
 ## Lane State
 

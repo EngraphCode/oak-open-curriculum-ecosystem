@@ -88,6 +88,16 @@ repeatable capability that enables future instances, built as real work (not hel
   apply preserve fidelity, and is every remaining difference judged?" question has a standing
   answer surface. Ratified divergences live in the register and are not re-flagged on the next
   pull (the productionisation plan WS2 stage-2 contract).
+- **Fidelity ground-truth authority order (worked, 2026-07-02):** the export's **source JS
+  bindings beat its renders**. State-dependent treatments (quiz answered-states, flip backs,
+  hotspot active markers) exist ONLY in the template's `enrich()` style strings — no capture of
+  a resting page can show them, and a render can lie (the missing-font serif artefact class).
+  Order of authority: export JS bindings > export template wrappers > SPA-driven per-state
+  captures > static screenshots.
+- **The content arm of the sync loop is the re-runnable generator (Director-ratified insight,
+  2026-07-01):** a content-extraction generator built re-runnable (the 214-block Course
+  generator) IS the reconcile mechanism for content — pull fresh export → diff → re-run the
+  generator → reconcile. Content extraction and upstream sync are one mechanism, not two.
 - **Enablement value:** a repeatable author-update path makes the demo family sustainable; build the
   capability rather than wait for the first update to arrive.
 

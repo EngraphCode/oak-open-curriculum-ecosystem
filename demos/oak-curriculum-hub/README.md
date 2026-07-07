@@ -35,6 +35,24 @@ Required env: `ELASTICSEARCH_URL`, `ELASTICSEARCH_API_KEY`, `OAK_API_KEY`,
 the app still boots — the search route returns `503` and the UI shows a
 "search backend not configured" state.
 
+### Dev-server discipline (hard-won; all verified in-repo)
+
+- **`next dev` daemonises when its wrapper detaches** — killing the wrapper
+  task leaves the server listening as an orphan. After ANY teardown, verify
+  the port actually released: `lsof -iTCP:3010 -sTCP:LISTEN`. Prefer the
+  attached pipe form for session-scoped servers.
+- **Stale `.next/types` after a teardown race breaks the ESTATE type-check**
+  (`.next/types/validator.ts` referencing a missing module) — the gitignored
+  build output is an input to the pre-push turbo type-check. Regenerate via
+  `pnpm --filter @oaknational/oak-curriculum-hub build`; never delete.
+- **Captures**: any check against a progressively-enhanced page must pin
+  which enhancement state it measures — the `hydration-state-pinning`
+  pattern in `.agent/memory/active/patterns/` is CANONICAL for the full
+  gotcha list. The two you will hit first: use `localhost`, not
+  `127.0.0.1` (the latter never hydrates here), and wait on
+  `domcontentloaded`, never `networkidle` (the HMR websocket keeps
+  networkidle from firing).
+
 ## Pages
 
 | Route                             | Content source                                                                                |

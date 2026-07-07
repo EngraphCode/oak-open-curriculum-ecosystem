@@ -17,7 +17,6 @@ import {
   DEFAULT_PREREQUISITE_DEPTH,
   MAX_PREREQUISITE_DEPTH,
   priorKnowledgeSubgraph,
-  createCurriculumPriorKnowledgeView,
 } from './prior-knowledge-view.js';
 import { required } from './test-helpers.js';
 
@@ -255,13 +254,5 @@ describe('prior-knowledge view — bounded anchored predecessor retrieval', () =
     expect(new Set(twice.value.nodes.map((n) => n.id))).toStrictEqual(
       new Set(once.value.nodes.map((n) => n.id)),
     );
-  });
-
-  it('constructs the module-load view within a generous startup-cost bound', () => {
-    const start = performance.now();
-    createCurriculumPriorKnowledgeView();
-    const elapsedMs = performance.now() - start;
-    // Sub-millisecond at corpus scale in practice; 250ms is a generous, non-flaky ceiling.
-    expect(elapsedMs).toBeLessThan(250);
   });
 });

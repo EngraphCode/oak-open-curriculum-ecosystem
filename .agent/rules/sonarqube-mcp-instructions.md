@@ -2,7 +2,7 @@
 
 Operationalises the SonarSource MCP server's official usage guidance for this repo. Cross-references the broader playbook at [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) for the workflow context (when to use Sonar MCP alongside CodeQL and Sentry MCP).
 
-These guidelines are advisory and do not override repo instructions in `principles.md` or any rule under `.agent/rules/`.
+The vendor-usage guidelines in this file are advisory and do not override repo instructions in `principles.md` or any rule under `.agent/rules/`; the §Ground in the governing doctrine section below is repo discipline, not vendor guidance.
 
 ## Basic usage
 
@@ -34,6 +34,10 @@ The cardinal anti-pattern with Sonar is the rule-level disable (a `sonar.issue.i
 
 Per-issue dismissals via `change_sonar_issue_status` (status `accept` / `falsepositive`) are acceptable when each disposition is grounded in a specific architectural tension at that site, not a labelled category. The full discipline is documented in [`docs/engineering/quality-tooling-mcp-coupling.md`](../../docs/engineering/quality-tooling-mcp-coupling.md) §Per-finding investigation discipline.
 
+## Ground in the governing doctrine before fixing or dispositioning
+
+Operationalises [PDR-018 §Disposition drift at phase boundaries](../practice-core/decision-records/PDR-018-planning-discipline.md) and [`verify-dont-trust`](verify-dont-trust.md)'s governing-decision grounding at the Sonar surface. Before choosing a fix shape for — or dispositioning — any Sonar finding, look up the repo's own decision for the flagged construct: grep the ADR estate (and PDRs/rules) before acting. At any `value is X` type-guard or literal-tuple site, read [ADR-153](../../docs/architecture/architectural-decisions/153-constant-type-predicate-pattern.md) by name first — the fluency of the common idiom (e.g. `Set.has` over `.some`) at a site with house doctrine is a warning to check for a governing decision, not a confirmation (`patterns/fluency-is-a-failure-vector`; worked instance: the PR #308 ADR-153 three-swing arc, 2026-07-06, where the governing ADR was one read away throughout). When dispatching a reviewer on a Sonar finding, apply the brief-construction discipline in [`invoke-code-experts`](../memory/executive/invoke-code-experts.md) §Delegation Snapshot (the dispatch names the governing decision records); absorb verdicts per `verify-dont-trust` — reviewer output is evidence to test, not a verdict to adopt.
+
 ## Hotspot review
 
 For Security Hotspots, the QG condition `new_security_hotspots_reviewed = 100%` requires each hotspot to move from `TO_REVIEW` to `REVIEWED` with a resolution (`FIXED` / `SAFE` / `ACKNOWLEDGED`). Use `change_security_hotspot_status` with an explicit comment carrying the rationale at each hotspot. Without rationale comments, the audit trail is too thin for future readers.
@@ -57,7 +61,7 @@ Use `search_my_sonarqube_projects` to enumerate accessible projects. Verify proj
 
 ### Tool prefix and gateway provisioning
 
-The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-scope server entry (in `~/.claude.json`), not from the plugin manifest — renaming or removing that server entry silently breaks the plugin's skills even though the plugin itself is untouched. Symmetrically, a disconnected Docker MCP gateway masquerades as feature-absence: the tools simply do not appear, which reads as "not supported" rather than "not connected". Before concluding a Sonar capability is missing, check the server entry and gateway connection state.
+The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-scope server entry (in `~/.claude.json`), not from the plugin manifest — renaming or removing that server entry silently breaks the plugin's skills even though the plugin itself is untouched. Symmetrically, a disconnected Docker MCP gateway masquerades as feature-absence: the tools simply do not appear, which reads as "not supported" rather than "not connected". A "dead" tool can also be a URL typo in the gateway's server config rather than a disconnect — an `UnknownHostException: sonarcould.io` (one-char typo, token and org intact) was fixed via `mcp-config-set {server:"sonarqube", config:{org, url:"https://sonarcloud.io"}}` (2026-07-06). Before concluding a Sonar capability is missing, check the server entry, the gateway connection state, and the configured URL.
 
 ### Code analysis issues
 
