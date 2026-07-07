@@ -44,7 +44,7 @@ import { readEffectiveDenominator, verifyFreeze } from './refound-verify-freeze-
  * denominator-path RULE (`groupFilesByArea`), never a frozen list. One
  * area's absent ledger cannot poison the dashboard: each area is tiled
  * independently, and the cross-area duplicate-id check runs as its own
- * stage once at least two areas tile green.
+ * stage once every area tiles green (and at least two exist).
  *
  * @packageDocumentation
  */

@@ -57,6 +57,7 @@
     "validate-fitness-vocabulary": "cd .. && pnpm exec tsx agent-tools/src/validators/fitness-vocabulary/validate-fitness-vocabulary.ts",
     "validate-collaboration-state": "cd .. && pnpm exec tsx agent-tools/src/validators/collaboration-state/validate-collaboration-state.ts",
     "validate-no-stale-script-invocations": "cd .. && pnpm exec tsx agent-tools/src/validators/stale-script-invocations/validate-no-stale-script-invocations.ts",
+    "validate-ratified-lists": "cd .. && pnpm exec tsx agent-tools/src/validators/ratified-lists/validate-ratified-lists.ts",
     "validate-patterns-index": "cd .. && pnpm exec tsx agent-tools/src/validators/patterns-index/validate-patterns-index.ts",
     "validate-patterns-index:fix": "cd .. && pnpm exec tsx agent-tools/src/validators/patterns-index/validate-patterns-index.ts --fix",
     "validate-lifecycle-scripts": "cd .. && pnpm exec tsx agent-tools/src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts",

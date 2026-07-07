@@ -90,6 +90,7 @@ const config: KnipConfig = {
         'src/validators/reference-direction/validate-reference-direction.ts',
         'src/validators/machine-local-paths/validate-no-machine-local-paths.ts',
         'src/validators/patterns-index/validate-patterns-index.ts',
+        'src/validators/ratified-lists/validate-ratified-lists.ts',
         'src/validators/portability/validate-portability.ts',
         'src/validators/subagents/validate-subagents.ts',
         'src/practice-fitness/validate-practice-fitness.ts',

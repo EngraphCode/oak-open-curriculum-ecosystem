@@ -2,7 +2,12 @@ import { type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, sha256Hex, splitLineBytes } from './refounding-artefacts.js';
+import {
+  compareByCodeUnit,
+  sha256Hex,
+  sha256HexSchema,
+  splitLineBytes,
+} from './refounding-artefacts.js';
 import { listScannableLines, matchKeywordsInsensitive } from './refound-inventory-nets.js';
 
 /**
@@ -34,7 +39,7 @@ export const CLAIM_CENSUS_BASENAME = 'claim-census.v1.jsonl';
  * `completed` 1092 … `shipped` 86). Case-insensitive MATCH, verbatim
  * CAPTURE; ratified with the G1 packet §2a.
  */
-export const COMPLETION_KEYWORDS_V1: readonly string[] = [
+export const COMPLETION_KEYWORDS_V1 = [
   'completed',
   'complete',
   'landed',
@@ -48,13 +53,12 @@ export const COMPLETION_KEYWORDS_V1: readonly string[] = [
   'implemented',
   'executed',
   'shipped',
-];
+] as const;
 
 /** A status-field line: optional indent, `status`, optional space, colon. */
 const STATUS_LINE_PATTERN = /^\s*status\s*:/i;
 
 const nonEmptyString = z.string().min(1);
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /**
  * One `claim-census.v1.jsonl` record: a captured line with verbatim bytes,
@@ -66,7 +70,7 @@ const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 const censusRecordSchema = z.strictObject({
   file: nonEmptyString,
   line: z.number().int().positive(),
-  markers: z.array(nonEmptyString),
+  markers: z.array(z.enum(COMPLETION_KEYWORDS_V1)),
   statusValue: z.string().nullable(),
   text: z.string(),
   sha256: sha256HexSchema,
@@ -114,7 +118,7 @@ export function buildCensusRecords(file: string, bytes: Uint8Array): readonly Ce
       markers: [...markers],
       statusValue,
       text: scannable.text,
-      sha256: sha256Hex(lineBytes[scannable.line - 1] ?? new Uint8Array()),
+      sha256: sha256Hex(lineBytes[scannable.line - 1]),
     });
   }
   return records;

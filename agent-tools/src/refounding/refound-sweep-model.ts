@@ -2,7 +2,12 @@ import { type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, sha256Hex, splitLineBytes } from './refounding-artefacts.js';
+import {
+  compareByCodeUnit,
+  sha256Hex,
+  sha256HexSchema,
+  splitLineBytes,
+} from './refounding-artefacts.js';
 import { matchKeywordsInsensitive } from './refound-inventory-nets.js';
 
 /**
@@ -55,7 +60,6 @@ export const SWEEP_MARKERS_V1: readonly string[] = [
 ];
 
 const nonEmptyString = z.string().min(1);
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /**
  * One `sweep/sweep-hits.v1.jsonl` record: a verbatim marker-bearing line on

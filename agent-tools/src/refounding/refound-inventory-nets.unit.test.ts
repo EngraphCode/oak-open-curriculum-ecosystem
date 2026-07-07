@@ -12,31 +12,6 @@ function netsByLine(lineTexts: readonly string[]): ReadonlyMap<number, readonly 
   return new Map(scanFileLines(lineTexts).map((capture) => [capture.line, capture.nets]));
 }
 
-describe('NET_C_KEYWORDS_V1', () => {
-  it('carries the G1-packet list verbatim, in packet order (frozen at G1)', () => {
-    expect(NET_C_KEYWORDS_V1).toEqual([
-      'status:',
-      'todo',
-      'next step',
-      'pending',
-      'blocked',
-      'depends',
-      'serves_',
-      'supersede',
-      'thread',
-      'gate',
-      'owner',
-      'decision',
-      'acceptance',
-      'definition of done',
-      'dod',
-      'follow-up',
-      'deferred',
-      'promotion trigger',
-    ]);
-  });
-});
-
 describe('matchKeywordsInsensitive', () => {
   it('matches case-insensitively and returns the matched keywords in list order', () => {
     expect(matchKeywordsInsensitive('STATUS: Blocked on the gate', NET_C_KEYWORDS_V1)).toEqual([

@@ -45,7 +45,8 @@ import { parseWithSchema } from '../core/schema-parse.js';
 
 const nonEmptyString = z.string().min(1);
 const nonNegativeInt = z.number().int().nonnegative();
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
+/** One digest primitive estate-wide: 64 lowercase hex chars of SHA-256. */
+export const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /** A relative POSIX path (path-traversal defence): no `..`, absolute, or backslash. */
 const relativePosixPath = nonEmptyString.refine((p) => {

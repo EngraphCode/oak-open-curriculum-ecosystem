@@ -3,7 +3,11 @@ import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
 import { compareByCodeUnit } from './refounding-artefacts.js';
-import { COMPLETION_KEYWORDS_V1, type CensusRecord } from './refound-claim-census-model.js';
+import {
+  CLAIM_CENSUS_BASENAME,
+  COMPLETION_KEYWORDS_V1,
+  type CensusRecord,
+} from './refound-claim-census-model.js';
 
 /**
  * The census's counted-summary side (R0a cycle 3): the injected
@@ -31,7 +35,9 @@ const statusMappingEntrySchema = z.strictObject({
   value: nonEmptyString.refine((value) => value === value.trim(), {
     message: 'mapping values must be pre-trimmed (application is exact-match-after-trim)',
   }),
-  verdict: nonEmptyString,
+  verdict: nonEmptyString.refine((verdict) => verdict !== 'UNMAPPED', {
+    message: "'UNMAPPED' is the reserved residue-class name, never an authored verdict",
+  }),
 });
 const statusMappingTableSchema = z.strictObject({
   version: z.number().int().positive(),
@@ -65,7 +71,10 @@ export function parseStatusMappingTable(value: unknown): Result<StatusMappingTab
 }
 
 const verdictCountSchema = z.strictObject({ verdict: nonEmptyString, count: nonNegativeInt });
-const keywordCountSchema = z.strictObject({ keyword: nonEmptyString, lines: nonNegativeInt });
+const keywordCountSchema = z.strictObject({
+  keyword: z.enum(COMPLETION_KEYWORDS_V1),
+  lines: nonNegativeInt,
+});
 const mappingSummarySchema = z.strictObject({
   tableVersion: z.number().int().positive(),
   verdicts: z.array(verdictCountSchema),
@@ -100,10 +109,55 @@ export type CensusReport = z.infer<typeof censusReportSchema>;
 export const parseCensusReport = (value: unknown): Result<CensusReport, Error> =>
   parseWithSchema({ label: 'census report', schema: censusReportSchema, value });
 
+/** What the census extracted, for the entry's operator summary. */
+export interface ClaimCensusSummary {
+  readonly files: number;
+  readonly records: number;
+  readonly statusLines: number;
+  readonly keywordLines: number;
+  readonly mapping: { readonly verdicts: number; readonly unmapped: number } | null;
+}
+
+/** The entry's decided verdict: the exit code and the exact operator lines. */
+export interface CensusVerdict {
+  readonly exitCode: number;
+  readonly lines: readonly string[];
+}
+
+/**
+ * Decide the census verdict — pure, so the exit-code contract is
+ * unit-testable without capturing stdout: a completed census is exit 0 (the
+ * census reports, it does not judge); refusals never reach here. Lines are
+ * unprefixed; the entry adds the tool prefix when printing (the batch-status
+ * idiom).
+ */
+export function decideCensusVerdict(summary: ClaimCensusSummary): CensusVerdict {
+  const mapping =
+    summary.mapping === null
+      ? 'no mapping table injected'
+      : `${String(summary.mapping.verdicts)} distinct verdict(s), ` +
+        `${String(summary.mapping.unmapped)} UNMAPPED line(s)`;
+  return {
+    exitCode: 0,
+    lines: [
+      `censused ${String(summary.records)} record(s) ` +
+        `(${String(summary.statusLines)} status line(s), ` +
+        `${String(summary.keywordLines)} completion-keyword line(s)) across ` +
+        `${String(summary.files)} frozen file(s); ${mapping}; artefacts at ` +
+        `${CLAIM_CENSUS_BASENAME} and ${CLAIM_CENSUS_REPORT_BASENAME}.`,
+    ],
+  };
+}
+
 /** The UNMAPPED halt band: strictly more than 20% of status lines (H shape). */
 const UNMAPPED_HALT_PERCENT = 20;
 
-/** Apply the trim-exact mapping; UNMAPPED is counted, over-band is a halt. */
+/**
+ * Apply the trim-exact mapping; UNMAPPED is counted, over-band is a halt.
+ * Zero status lines with a table injected is a deliberate non-halt (the
+ * summary is empty): the census reports, it does not judge — this drops the
+ * copied H-shape's zero-denominator halt arm on purpose.
+ */
 function buildMappingSummary(
   statusRecords: readonly CensusRecord[],
   table: StatusMappingTable,

@@ -175,6 +175,7 @@ describe('refound-claim-census over genuine freeze artefacts', () => {
     const summary = await runClaimCensus({ outDirAbs: bareHome, mappingAbsPath: null });
     expect(summary.ok).toBe(false);
     expect(existsSync(path.join(bareHome, CLAIM_CENSUS_BASENAME))).toBe(false);
+    expect(existsSync(path.join(bareHome, CLAIM_CENSUS_REPORT_BASENAME))).toBe(false);
   });
 });
 

@@ -45,19 +45,17 @@ const stageSchema = z.strictObject({
 });
 export type Stage = z.infer<typeof stageSchema>;
 
-const areaStatusSchema = z.strictObject({
+const areaStatusSchema = stageSchema.extend({
   area: nonEmptyString,
   files: nonNegativeInt,
-  state: stageStateSchema,
-  detail: nonEmptyString,
 });
 export type AreaStatus = z.infer<typeof areaStatusSchema>;
 
 /**
  * The `run-state.v1.json` document: the denominator root, the freeze and
  * inventory stages, per-area tiling states (sorted by area), and the
- * cross-area duplicate-id check (meaningful only once at least two areas
- * are tiled green).
+ * cross-area duplicate-id check (runs once every area tiles green, and at
+ * least two exist).
  */
 const runStateSchema = z.strictObject({
   version: z.literal(1),
@@ -79,9 +77,25 @@ export interface BatchStatusVerdict {
   readonly lines: readonly string[];
 }
 
-/** True when the state blocks: recomputed red or unreadable artefacts. */
+/**
+ * True when the state blocks: recomputed red or unreadable artefacts. The
+ * switch is exhaustive with no default so a new {@link StageState} member is
+ * a compile error here, never a silent exit-0 (fail-closed on enum growth).
+ */
 function blocks(state: StageState): boolean {
-  return state === 'red' || state === 'invalid';
+  switch (state) {
+    case 'red':
+    case 'invalid':
+      return true;
+    case 'green':
+    case 'not-reached':
+      return false;
+    default: {
+      // Exhaustiveness: a new StageState member fails to compile here.
+      const exhaustive: never = state;
+      return exhaustive;
+    }
+  }
 }
 
 /**

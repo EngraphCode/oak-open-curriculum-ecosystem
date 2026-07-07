@@ -7,9 +7,8 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { scanArgs, type ValueHandler } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
-import { CLAIM_CENSUS_BASENAME } from './refound-claim-census-model.js';
-import { CLAIM_CENSUS_REPORT_BASENAME } from './refound-claim-census-report.js';
-import { runClaimCensus, type ClaimCensusSummary } from './refound-claim-census-helpers.js';
+import { decideCensusVerdict } from './refound-claim-census-report.js';
+import { runClaimCensus } from './refound-claim-census-helpers.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
 import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
 
@@ -71,35 +70,6 @@ function resolveWithinRepo(flagPath: string): Result<string, Error> {
   return resolveReadPathWithinRepo(repoRoot, flagPath);
 }
 
-/** The entry's decided verdict: the exit code and the exact operator lines. */
-export interface CensusVerdict {
-  readonly exitCode: number;
-  readonly lines: readonly string[];
-}
-
-/**
- * Decide the census verdict — pure, so the exit-code contract is
- * unit-testable without capturing stdout: a completed census is exit 0 (the
- * census reports, it does not judge); refusals never reach here.
- */
-export function decideCensusVerdict(summary: ClaimCensusSummary): CensusVerdict {
-  const mapping =
-    summary.mapping === null
-      ? 'no mapping table injected'
-      : `${String(summary.mapping.verdicts)} verdict(s), ` +
-        `${String(summary.mapping.unmapped)} UNMAPPED`;
-  return {
-    exitCode: 0,
-    lines: [
-      `${TOOL}: censused ${String(summary.records)} record(s) ` +
-        `(${String(summary.statusLines)} status line(s), ` +
-        `${String(summary.keywordLines)} completion-keyword line(s)) across ` +
-        `${String(summary.files)} frozen file(s); ${mapping}; artefacts at ` +
-        `${CLAIM_CENSUS_BASENAME} and ${CLAIM_CENSUS_REPORT_BASENAME}.`,
-    ],
-  };
-}
-
 /** Resolve and constrain both flag-supplied paths against the repo root. */
 function resolvePaths(
   args: CensusArgs,
@@ -139,7 +109,7 @@ async function main(): Promise<void> {
   }
   const verdict = decideCensusVerdict(summary.value);
   for (const line of verdict.lines) {
-    writeLine(line);
+    writeLine(`${TOOL}: ${line}`);
   }
   process.exitCode = verdict.exitCode;
 }

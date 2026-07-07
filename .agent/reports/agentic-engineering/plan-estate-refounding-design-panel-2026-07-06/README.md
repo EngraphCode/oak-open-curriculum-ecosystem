@@ -12,8 +12,9 @@ review absorption); these files are the un-reconciled panel inputs and contain t
 contradictions the critics caught (e.g. the phantom pre-partition, the divergent row
 estimates, the exempted challenge classes later corrected). Read them WITH the design
 record's §3/§3a disposition tables, never instead of them. `brief.md` is the panel's
-grounding brief as issued. These files are conserved verbatim and are never edited;
-supersessions are recorded here and in the design record.
+grounding brief as issued. These files are conserved verbatim and are never edited.
+Panel-caught contradictions are dispositioned in the design record's §3/§3a tables;
+build-time divergences discovered after the panel are recorded in the list below.
 
 **Known superseded points in F1 (named so a builder cannot mis-anchor):**
 
@@ -52,6 +53,11 @@ supersessions are recorded here and in the design record.
    one digest primitive estate-wide. SHA-1's weak-hash class is gate-checked
    (Sonar S4790) and the "fingerprint, not a security boundary" caveat it needed is a
    caveat a future reader can get wrong; build to SHA-256, not to F1 §3's algorithm.
+8. **Run-state basename** — F1's artefact tree and its §5 script-catalogue row for
+   `refound-batch-status` name `run-state.json`. The landed artefact applies F1's own
+   versioned-artefact convention (as items 5 and 7) and is written as
+   `run-state.v1.json`; build to the versioned basename, not the unversioned §5
+   spelling.
 
-F1 itself is NEVER edited; every point above is recorded here (and in the design record),
-not patched into the conserved panel input.
+F1 itself is NEVER edited; every point above is recorded here, not patched into the
+conserved panel input.

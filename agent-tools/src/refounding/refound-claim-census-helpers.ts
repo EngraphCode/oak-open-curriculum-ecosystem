@@ -5,6 +5,7 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import {
+  countLines,
   renderJsonArtefact,
   renderJsonlArtefact,
   type DenominatorFile,
@@ -21,6 +22,7 @@ import {
   CLAIM_CENSUS_REPORT_BASENAME,
   parseStatusMappingTable,
   type CensusReport,
+  type ClaimCensusSummary,
   type StatusMappingTable,
 } from './refound-claim-census-report.js';
 import { FROZEN_TREE_SEGMENT } from './refound-freeze-helpers.js';
@@ -46,15 +48,6 @@ import { readEffectiveDenominator } from './refound-verify-freeze-helpers.js';
  *
  * @packageDocumentation
  */
-
-/** What the census extracted, for the entry's operator summary. */
-export interface ClaimCensusSummary {
-  readonly files: number;
-  readonly records: number;
-  readonly statusLines: number;
-  readonly keywordLines: number;
-  readonly mapping: { readonly verdicts: number; readonly unmapped: number } | null;
-}
 
 /** Read and parse the injected mapping table; `null` path means no mapping. */
 async function readMappingTable(
@@ -126,7 +119,7 @@ async function readFrozenCensus(input: {
     }
     records.push(...buildCensusRecords(file.path, bytes.value));
     scannedFiles += 1;
-    scannedLines += file.lines;
+    scannedLines += countLines(bytes.value);
   }
   return ok({ records: sortCensusRecords(records), scannedFiles, scannedLines });
 }

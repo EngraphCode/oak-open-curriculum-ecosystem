@@ -4,7 +4,7 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, sha256Hex } from './refounding-artefacts.js';
+import { compareByCodeUnit, sha256Hex, sha256HexSchema } from './refounding-artefacts.js';
 import { ledgerRowSchema } from './refound-ledger-row.js';
 
 /**
@@ -48,7 +48,6 @@ export const CHALLENGE_STREAM_SEGMENT = 'challenge/challenge-stream.v1.jsonl';
 export const CHALLENGE_COMMITMENT_SEGMENT = 'challenge/challenge-commitment.v1.json';
 
 const nonEmptyString = z.string().min(1);
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /**
  * One ledger row as the challenge tooling consumes it: the CANONICAL v1 row

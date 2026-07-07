@@ -75,9 +75,9 @@ export async function readDenominator(outDirAbs: string): Promise<Result<Denomin
 /**
  * Read the committed denominator AND its amendments, returning the merged
  * effective denominator (`v1 + all amendments`, F1 §7). The single read
- * boundary the verifier, `refound-merge-recheck`, and `refound-tile` divide
- * through (`consolidate-at-second-consumer`) — identity-proof refusals
- * included (`mergeDenominator`).
+ * boundary every denominator consumer divides through
+ * (`consolidate-at-second-consumer`) — identity-proof refusals included
+ * (`mergeDenominator`).
  */
 export async function readEffectiveDenominator(
   outDirAbs: string,

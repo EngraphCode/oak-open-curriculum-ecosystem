@@ -10,8 +10,9 @@ import { renderJsonArtefact } from './refounding-artefacts.js';
 import { runBatchStatus } from './refound-batch-status-helpers.js';
 import { parseRunState, RUN_STATE_BASENAME, type RunState } from './refound-batch-status-model.js';
 import { runDefaultLedger } from './refound-default-ledger-helpers.js';
-import { type SecretScan } from './refound-freeze-helpers.js';
+import { FROZEN_TREE_SEGMENT, type SecretScan } from './refound-freeze-helpers.js';
 import { runFreeze } from './refound-freeze-runner.js';
+import { INVENTORY_BASENAME } from './refound-inventory-model.js';
 import { runInventory } from './refound-inventory-runner.js';
 import { LEDGER_DIR_SEGMENT, ledgerBasenameForArea } from './refound-ledger-row.js';
 
@@ -78,7 +79,7 @@ async function makeStatusFixture(stages: {
   if (stages.ledgers) {
     expect((await runDefaultLedger({ outDirAbs })).ok).toBe(true);
   }
-  return { repoRoot, outDirAbs, frozenRoot: path.join(outDirAbs, 'archive/frozen-v1') };
+  return { repoRoot, outDirAbs, frozenRoot: path.join(outDirAbs, FROZEN_TREE_SEGMENT) };
 }
 
 async function recompute(outDirAbs: string): Promise<RunState> {
@@ -172,10 +173,51 @@ describe('refound-batch-status over genuine protocol artefacts', () => {
 
   it('P4 broken-artefact proof: a corrupted inventory flips the recomputed stage', async () => {
     const fixture = await makeStatusFixture({ inventory: true, ledgers: true });
-    await writeFile(path.join(fixture.outDirAbs, 'inventory.v1.jsonl'), 'not json\n', 'utf8');
+    await writeFile(path.join(fixture.outDirAbs, INVENTORY_BASENAME), 'not json\n', 'utf8');
     const runState = await recompute(fixture.outDirAbs);
     expect(runState.inventory.state).toBe('invalid');
     expect(runState.crossArea.state).toBe('not-reached');
+  });
+
+  it('refuses an ambiguous area derivation before the cache write (nothing written)', async () => {
+    // Two DISTINCT directory prefixes deriving one area id (`--` inside a
+    // segment name): `plans/x--y/…` and `plans--x/y/…` both derive
+    // `plans--x--y`, the collision `groupFilesByArea` refuses.
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-status-collide-'));
+    tempRoots.push(repoRoot);
+    const rule = {
+      version: 1,
+      ratifiedBy: '.agent/decisions/g1.md',
+      classes: [
+        { id: 'plans', globs: ['.agent/plans/**'], verdict: 'in', reason: 'estate' },
+        { id: 'plans-x', globs: ['.agent/plans--x/**'], verdict: 'in', reason: 'estate' },
+      ],
+    };
+    const files: Record<string, string> = {
+      '.agent/plans/x--y/a.md': '# A\n\nbody\n',
+      '.agent/plans--x/y/b.md': '# B\n\nbody\n',
+      '.agent/plans-refounding/freeze-rule.json': `${JSON.stringify(rule, null, 2)}\n`,
+    };
+    for (const [relPath, content] of Object.entries(files)) {
+      const absPath = path.join(repoRoot, relPath);
+      await mkdir(path.dirname(absPath), { recursive: true });
+      await writeFile(absPath, content);
+    }
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    const frozen = await runFreeze({
+      repoRoot,
+      ruleAbsPath: path.join(outDirAbs, 'freeze-rule.json'),
+      outDirAbs,
+      secretScan: cleanScan,
+    });
+    expect(frozen.ok).toBe(true);
+    expect((await runInventory({ outDirAbs })).ok).toBe(true);
+    const runState = await runBatchStatus({ outDirAbs });
+    expect(runState.ok).toBe(false);
+    if (!runState.ok) {
+      expect(runState.error.message).toContain('ambiguous');
+    }
+    expect(existsSync(path.join(outDirAbs, RUN_STATE_BASENAME))).toBe(false);
   });
 
   it('writes a byte-identical cache on a double run (determinism contract)', async () => {

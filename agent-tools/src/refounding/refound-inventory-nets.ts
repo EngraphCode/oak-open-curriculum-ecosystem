@@ -38,7 +38,7 @@
  * The Net-C keyword list, v1 — the G1 packet §2 list verbatim, in packet
  * order. Case-insensitive MATCH, verbatim CAPTURE; frozen at G1.
  */
-export const NET_C_KEYWORDS_V1: readonly string[] = [
+export const NET_C_KEYWORDS_V1 = [
   'status:',
   'todo',
   'next step',
@@ -57,7 +57,7 @@ export const NET_C_KEYWORDS_V1: readonly string[] = [
   'follow-up',
   'deferred',
   'promotion trigger',
-];
+] as const;
 
 /** A net identifier; the per-net sets feed the omission detector (F1 §4). */
 export type NetId = 'A' | 'B' | 'C';
@@ -85,10 +85,10 @@ export function isHeadingLine(text: string): boolean {
  * the matched keywords in list order. The line itself is untouched —
  * case-folding here is match mechanics, never capture normalisation (D7).
  */
-export function matchKeywordsInsensitive(
+export function matchKeywordsInsensitive<K extends string>(
   text: string,
-  keywords: readonly string[],
-): readonly string[] {
+  keywords: readonly K[],
+): readonly K[] {
   const folded = text.toLowerCase();
   return keywords.filter((keyword) => folded.includes(keyword));
 }

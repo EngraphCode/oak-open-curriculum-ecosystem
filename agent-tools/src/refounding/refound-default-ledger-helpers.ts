@@ -1,9 +1,10 @@
-import { access, mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
 import { compareByCodeUnit, renderJsonlArtefact } from './refounding-artefacts.js';
+import { writeArtefactSet, type ArtefactWrite } from './refound-artefact-writes.js';
 import { collectAnchorsForFiles } from './refound-anchor-map.js';
 import { buildDefaultLedgerRows } from './refound-default-ledger-model.js';
 import { LEDGER_DIR_SEGMENT, ledgerBasenameForArea, type LedgerRow } from './refound-ledger-row.js';
@@ -95,27 +96,35 @@ export async function runDefaultLedger(input: {
   return writeLedgers({ ledgerDirAbs, areas, rowsByArea: rowsByArea.value });
 }
 
-/** Write every area ledger; failures return as typed errors. */
+/**
+ * Write every area ledger all-or-nothing: a failed write rolls back the
+ * ledgers this run wrote, so a partial ledger set never survives to brick a
+ * rerun on the existing-ledger refusal.
+ */
 async function writeLedgers(input: {
   readonly ledgerDirAbs: string;
   readonly areas: readonly string[];
   readonly rowsByArea: ReadonlyMap<string, readonly LedgerRow[]>;
 }): Promise<Result<DefaultLedgerSummary, Error>> {
-  let rowCount = 0;
   try {
     await mkdir(input.ledgerDirAbs, { recursive: true });
-    for (const area of input.areas) {
-      const rows = input.rowsByArea.get(area) ?? [];
-      await writeFile(
-        path.join(input.ledgerDirAbs, ledgerBasenameForArea(area)),
-        renderJsonlArtefact(rows),
-        'utf8',
-      );
-      rowCount += rows.length;
-    }
   } catch (cause: unknown) {
     const message = cause instanceof Error ? cause.message : String(cause);
     return err(new Error(`default-ledger write failed: ${message}`));
+  }
+  let rowCount = 0;
+  const writes: ArtefactWrite[] = [];
+  for (const area of input.areas) {
+    const rows = input.rowsByArea.get(area) ?? [];
+    writes.push({
+      absPath: path.join(input.ledgerDirAbs, ledgerBasenameForArea(area)),
+      content: renderJsonlArtefact(rows),
+    });
+    rowCount += rows.length;
+  }
+  const written = await writeArtefactSet(writes);
+  if (isErr(written)) {
+    return written;
   }
   return ok({ areas: input.areas.length, rows: rowCount });
 }

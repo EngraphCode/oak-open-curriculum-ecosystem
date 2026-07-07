@@ -2,7 +2,12 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, sha256Hex, splitLineBytes } from './refounding-artefacts.js';
+import {
+  compareByCodeUnit,
+  sha256Hex,
+  sha256HexSchema,
+  splitLineBytes,
+} from './refounding-artefacts.js';
 import { scanFileLines, type NetId } from './refound-inventory-nets.js';
 
 /**
@@ -30,7 +35,6 @@ export const ANCHOR_RATIO_SANITY_BAND_V1 = { minPercent: 20, maxPercent: 70 } as
 
 const nonEmptyString = z.string().min(1);
 const nonNegativeInt = z.number().int().nonnegative();
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 const netIdSchema = z.enum(['A', 'B', 'C']);
 
 /**

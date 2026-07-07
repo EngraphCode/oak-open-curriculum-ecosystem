@@ -2,7 +2,11 @@ import { type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, type DenominatorFile } from './refounding-artefacts.js';
+import {
+  compareByCodeUnit,
+  sha256HexSchema,
+  type DenominatorFile,
+} from './refounding-artefacts.js';
 
 /**
  * The merge-recheck's data model (F1 D4, §5 row `refound-merge-recheck`,
@@ -45,7 +49,6 @@ export const ARRIVALS_BASENAME = 'arrivals.v1.report.json';
 
 const nonEmptyString = z.string().min(1);
 const nonNegativeInt = z.number().int().nonnegative();
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /** One live in-set file's observed identity, in both coordinate systems. */
 export interface LiveFileIdentity {
