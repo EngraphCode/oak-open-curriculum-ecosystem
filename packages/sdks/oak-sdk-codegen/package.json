@@ -16,72 +16,58 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "development": "./src/index.ts",
       "default": "./dist/index.js"
     },
     "./api-schema": {
       "types": "./dist/api-schema.d.ts",
-      "development": "./src/api-schema.ts",
       "default": "./dist/api-schema.js"
     },
     "./mcp-tools": {
       "types": "./dist/mcp-tools.d.ts",
-      "development": "./src/mcp-tools.ts",
       "default": "./dist/mcp-tools.js"
     },
     "./search": {
       "types": "./dist/search.d.ts",
-      "development": "./src/search.ts",
       "default": "./dist/search.js"
     },
     "./zod": {
       "types": "./dist/zod.d.ts",
-      "development": "./src/zod.ts",
       "default": "./dist/zod.js"
     },
     "./bulk": {
       "types": "./dist/bulk.d.ts",
-      "development": "./src/bulk.ts",
       "default": "./dist/bulk.js"
     },
     "./vocab": {
       "types": "./dist/vocab.d.ts",
-      "development": "./src/vocab.ts",
       "default": "./dist/vocab.js"
     },
     "./vocab-data": {
       "types": "./dist/vocab-data.d.ts",
-      "development": "./src/vocab-data.ts",
       "default": "./dist/vocab-data.js"
     },
     "./graph-corpus": {
       "types": "./dist/graph-corpus.d.ts",
-      "development": "./src/graph-corpus.ts",
       "default": "./dist/graph-corpus.js"
     },
     "./query-parser": {
       "types": "./dist/query-parser.d.ts",
-      "development": "./src/query-parser.ts",
       "default": "./dist/query-parser.js"
     },
     "./observability": {
       "types": "./dist/observability.d.ts",
-      "development": "./src/observability.ts",
       "default": "./dist/observability.js"
     },
     "./admin": {
       "types": "./dist/admin.d.ts",
-      "development": "./src/admin.ts",
       "default": "./dist/admin.js"
     },
     "./widget-constants": {
       "types": "./dist/widget-constants.d.ts",
-      "development": "./src/widget-constants.ts",
       "default": "./dist/widget-constants.js"
     },
     "./synonyms": {
       "types": "./dist/synonyms.d.ts",
-      "development": "./src/synonyms.ts",
       "default": "./dist/synonyms.js"
     }
   },
@@ -121,7 +107,7 @@
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@types/node": "^24.13.2",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "tsup": "^8.5.1",
     "typedoc": "^0.28.19",
     "typescript": "^6.0.3",

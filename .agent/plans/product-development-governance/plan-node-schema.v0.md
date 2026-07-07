@@ -38,6 +38,28 @@ historical context, not the active method.
 > not self-govern this file. The `spec` node-type is reserved in the registry
 > ([§5](#5-the-graph-contract-shape-it-composes-into)); its own schema is a later
 > stage.
+>
+> **V0.1 additive extension — OWNER-SIGNED 2026-07-06** (ratified alongside the ADR-200
+> corpus-refounding amendment; the LOCKED-model change path was followed — owner
+> re-ratification, additive only):
+>
+> 1. **Proof-typed todos.** The `todos` item shape gains OPTIONAL `proof` (one of the closed
+>    six-kind taxonomy `artifact | gate | probe | git-fact | ratified | attested`, with
+>    kind-specific reference fields resolving against committed registries — never free-text
+>    shell) and `spec_ref` (the frozen-spec binding clause target). Optional on the schema;
+>    REQUIRED at authoring for every plan produced by the corpus refounding, enforced by its
+>    authoring gate. Recorded status remains a claim; the plan-state recomputation tool holds
+>    claim and recomputation equal in both divergence directions.
+> 2. **`permanent-home-routed` — the refounding conservation-ledger's seventh conserving
+>    class** (a row-granular ledger disposition, NOT a member of this schema's §3.3
+>    terminal-disposition enum, which stands at four values; the plan-level analogue in
+>    §3.3 remains `extracted-and-archived`): doctrine-grade content routed, with provenance
+>    and a frozen binding clause, INTO the existing consolidation machinery (never a
+>    bespoke graduation path); requires the destination reference on the ledger row.
+> 3. **`serves_strategic_choice: "pending"` is valid only in the holding lane** once the
+>    refounding's lane registry lands; outside it, an executable plan resolves a published
+>    choice ID or carries a `gate` with `expires` (§3.4). This narrows §4 authority
+>    invariant 1 by the documented re-ratification path.
 
 ---
 

@@ -6,6 +6,18 @@ rationale**, then **replied to and resolved**. No comment is ever left unaddress
 checks alone are never sufficient: a PR is done only when it is mergeable AND every comment
 is dispositioned.
 
+**Binding moment: opening (or taking over) a PR binds that session to this rule.** The
+first "merge-ready" / "ready for merge" claim to the owner or a peer is itself a step-5
+declaration and must follow a fresh full-surface harvest run in that same turn — **a CI
+checks table is not a harvest**. Worked instance (2026-07-06, PR #315): "fully green —
+ready for your merge" was declared from the checks table alone while a High-Severity
+Bugbot thread sat unresolved; the owner caught it, not the author. Per §"A real issue is
+fixed only when a check guards it", this class's guarding check is a mechanical
+merge-ready verifier (checks green AND zero unresolved threads AND zero pending bot
+reviews, recomputed at the declaration instant) — registered as F-130 in the frictions
+register; until it lands, the harvest queries below ARE the check and must be cited in
+the declaration.
+
 "Every comment" spans every surface and every author — pull the full set first-hand, never
 from memory of what you think was raised:
 
@@ -54,6 +66,17 @@ Worked instance (2026-06-27, PR #244): fixing five review comments and pushing �
 time spawned a fresh bot comment on the very change that resolved the prior one (a too-broad
 lint ignore; then a plan over-generalisation; then a missing gitignore pairing). Assuming the
 first correction was sufficient would have merged over an unaddressed comment each time.
+
+## A real issue is fixed only when a check guards it
+
+A comment identifying a **real** issue is "fixed" only when the code is corrected AND a
+check of the appropriate kind exists that would have caught the issue and its class
+([`principles.md` §Code Quality "Every issue earns a check"](../directives/principles.md);
+for behaviour defects the operational shape is
+[testing-strategy.md §When a Defect Is Found](../directives/testing-strategy.md) — the
+reproducing test lands with the fix). A bare fix without the guarding check is an
+incomplete disposition: the reply names the fix AND the check, or states why the class is
+already guarded.
 
 Under shared gh credentials an agent's replies are attributed to the repo owner; identify as
 the agent in the reply body (`identify-as-agent-under-shared-credentials`).

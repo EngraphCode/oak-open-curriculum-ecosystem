@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
     "oak-local-dev": {
       "type": "http",
       "url": "http://localhost:3333/mcp"
@@ -17,6 +21,10 @@
     "oak-prod": {
       "type": "http",
       "url": "https://curriculum-mcp-alpha.oaknational.dev/mcp"
+    },
+    "claude-design": {
+      "type": "http",
+      "url": "https://api.anthropic.com/v1/design/mcp"
     }
   }
 }

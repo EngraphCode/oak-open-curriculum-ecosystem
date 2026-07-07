@@ -391,6 +391,12 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   `*.programme.md` index plus a `programmes:` frontmatter edge; disambiguates the
   planning "programme" from the curriculum "programme"; mirrors PDR-121; relates to
   ADR-117 and ADR-200; owner-directed, Accepted 2026-06-28)
+- [ADR-210: Comms write-path concept gate](210-comms-write-path-concept-gate.md)
+  (the collaboration comms CLI runs every event body through the PDR-044 trip-lists before
+  writing: SSOT-loaded from the hook policy, capture-tag recursive exclusion, Result-typed with
+  one CLI throw boundary, teaching-payload refusals, fail-closed on a partial policy; widening
+  the gated concept set is a governance act routed through the ADR; composes ADR-183;
+  owner-ratified route, Accepted 2026-07-02, recorded 2026-07-06)
 
 ## Key Architectural Decisions
 

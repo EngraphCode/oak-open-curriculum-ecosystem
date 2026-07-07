@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 
+import { ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { runCollaborationStateCli } from '../../src/collaboration-state';
@@ -147,6 +148,9 @@ function narrativeEvent(input: { readonly event_id: string; readonly body?: stri
 
 function filesystemIo(): CollaborationStateCliIo {
   return {
+    // ok([]) deliberately disables the gate for these IO-focused tests — the
+    // fail-closed validation lives in the production loader behind this seam.
+    loadCommsConceptGateBlocks: async () => ok([]),
     readActiveClaimsFile,
     readClosedClaimsFile,
     writeCommsEvent,

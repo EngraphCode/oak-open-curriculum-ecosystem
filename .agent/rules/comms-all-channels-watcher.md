@@ -159,8 +159,11 @@ auto-create the seen-file's parent directory and `appendFile` will fail
 silently if it is missing, causing the watcher to re-emit every event on
 every poll. The codename matches the `agent_name` derived by
 `pnpm agent-tools:collaboration-state -- identity preflight --platform <p>
---model <m>`; pre-existing seen-files in the directory model the
-convention.
+--model <m>` — **the display name VERBATIM, spaces included**
+(`Zenith wakes Perigee.json`), never a kebab-case slug: `assert-watcher-live`
+derives the heartbeat path from the display name, so a slug-named seen-file
+leaves the watcher running and the assert red (four recorded instances;
+`ls` the directory first — pre-existing seen-files model the convention).
 
 ### Fallback shape — portable script
 
@@ -211,6 +214,26 @@ and the heartbeat volume masked the gap (worked instance 2026-06-10;
 owner-approved 2026-06-11). Filter `*.tmp-*` names from poll-loop
 listings — the atomic-write rename race produces benign transient
 files.
+
+**Process-liveness is not delivery-liveness.** A watcher can pass
+`assert-watcher-live` (which reads the watcher's OWN heartbeat file)
+while delivering ZERO events — a muting filter or a wedged pipe ran one
+watcher mute for ~40 minutes with a green assert; a second agent's
+filter had the inverse defect (leaked everything) from the same wrong
+render assumption, same day (2026-07-02). The cure pair:
+
+1. **Corpus-test any hand-rolled filter against a real inbox snapshot
+   BEFORE arming** — prove the pass/leak counts against the actual
+   event corpus (the worked instance proved 381/381 pass + 0/791 leak,
+   then armed), never assume them. This mechanises the
+   test-each-shape step above.
+2. **Check the delivery side, not just the process**: the watcher
+   heartbeat records `emitted_count` — at cycle boundaries compare it
+   against stream activity in the window (events landed vs events
+   emitted). A green process assert with a flat `emitted_count` against
+   a moving stream is the mute signature. (Also expected honestly: at
+   n=1 with no peers, a silent stream and drain-timeout deaths are
+   comms-volume cost, not failure — re-arm and sweep.)
 
 ## Real-Time Failure-Mode Capture on the Comms Stream
 

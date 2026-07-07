@@ -1,0 +1,3680 @@
+{
+  "units": [
+    {
+      "id": "u1",
+      "label": "Unit 1",
+      "title": "Planning lessons at Oak"
+    },
+    {
+      "id": "u2",
+      "label": "Unit 2",
+      "title": "Designing high-quality explanation & checks for understanding"
+    },
+    {
+      "id": "u3",
+      "label": "Unit 3",
+      "title": "Practice and feedback"
+    },
+    {
+      "id": "u4",
+      "label": "Unit 4",
+      "title": "Questioning and quizzes"
+    }
+  ],
+  "intro": {
+    "id": "intro",
+    "title": "Welcome & overview",
+    "color": "#fff2aa",
+    "sections": [
+      {
+        "id": "introMain",
+        "title": "Welcome to the course",
+        "blocks": [
+          {
+            "t": "callout",
+            "variant": "tip",
+            "title": "Welcome",
+            "text": "We're going to help you plan and create high-quality lessons at Oak — from understanding what an Oak lesson is, to designing brilliant explanations and checks for understanding. Work through each module at your own pace; your progress is saved automatically."
+          },
+          {
+            "t": "text",
+            "paras": [
+              "Work through the units shown below at your own pace. Each one builds on the last — from what makes up an Oak lesson, to designing brilliant explanations and checks for understanding, to practice, feedback, questioning and quizzes.",
+              "Use the map to jump straight to a module, or follow the units in order using the navigation on the left. Your progress is saved automatically."
+            ]
+          },
+          {
+            "t": "video",
+            "caption": "Course introduction from the curriculum team.",
+            "placeholder": "Drop your intro video here (MP4 or embed)."
+          },
+          {
+            "t": "heading",
+            "text": "What you’ll learn"
+          },
+          {
+            "t": "coursemap"
+          },
+          {
+            "t": "callout",
+            "variant": "info",
+            "title": "A note on language",
+            "text": "Throughout, we say pupils (never students or learners), and headings are in sentence case — both part of Oak's house style."
+          }
+        ]
+      }
+    ]
+  },
+  "modules": [
+    {
+      "id": "u1m1",
+      "unit": "u1",
+      "title": "Oak lessons",
+      "color": "#ffc8a6",
+      "colorStrong": "#ff934e",
+      "outcomes": [
+        "Describe the eight components of an Oak lesson and how they work together",
+        "Explain the lesson creation process, duration and structure",
+        "Use Oak’s shared vocabulary: outcome, outline, learning cycle and key learning points"
+      ],
+      "sections": [
+        {
+          "id": "u1m1s1",
+          "title": "Why Oak lessons matter",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Lessons at Oak reach an enormous number of classrooms — which is exactly why they're planned and created by expert teachers like you.",
+                "In a typical week during the 2022 school year, Oak was used at remarkable scale. And teachers reach for the same lesson in very different ways, so there's no single 'right' way to use one."
+              ]
+            },
+            {
+              "t": "stats",
+              "intro": "In the 2022 school year, Oak reached classrooms at scale:",
+              "items": [
+                {
+                  "value": "102,000",
+                  "label": "pupils used the website each week"
+                },
+                {
+                  "value": "30,000",
+                  "label": "teachers used the website each week"
+                },
+                {
+                  "value": "1.13m",
+                  "label": "resources downloaded by teachers"
+                },
+                {
+                  "value": "9.6m",
+                  "label": "lessons taken by pupils"
+                }
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "How a single lesson gets used"
+            },
+            {
+              "t": "stats",
+              "intro": "One lesson is put to work in many different ways:",
+              "items": [
+                {
+                  "value": "47%",
+                  "label": "Lesson planning"
+                },
+                {
+                  "value": "43%",
+                  "label": "Curriculum planning"
+                },
+                {
+                  "value": "38%",
+                  "label": "Setting homework"
+                },
+                {
+                  "value": "32%",
+                  "label": "Setting cover"
+                },
+                {
+                  "value": "31%",
+                  "label": "Using slides in lessons"
+                },
+                {
+                  "value": "30%",
+                  "label": "Setting remote learning"
+                },
+                {
+                  "value": "27%",
+                  "label": "Professional development"
+                }
+              ],
+              "note": "A teacher may use a lesson in more than one way, so these don’t add up to 100%."
+            },
+            {
+              "t": "text",
+              "paras": [
+                "With such a wide range of uses, Oak turns each lesson you create into two digital products."
+              ]
+            },
+            {
+              "t": "flip",
+              "chip": "#ffc8a6",
+              "cards": [
+                {
+                  "badge": "1",
+                  "front": "Downloadable teaching resources",
+                  "back": "For teachers to deliver the lesson in their own classroom — slides, worksheets and quizzes they can adapt and use however suits them."
+                },
+                {
+                  "badge": "2",
+                  "front": "Online lessons",
+                  "back": "Focused on pupils being able to study the lesson remotely, working through the video, quizzes and worksheet at their own pace."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m1s2",
+          "title": "The eight lesson components",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Every Oak lesson is made up of eight components. They complement each other but can also be used independently — a teacher might download just the worksheet, or play only the video. Expand each to see what it does."
+              ]
+            },
+            {
+              "t": "accordion",
+              "chip": "#ffc8a6",
+              "items": [
+                {
+                  "q": "Curriculum information",
+                  "badge": "1",
+                  "a": [
+                    "All the information that, alongside the other components, makes up a full curriculum — unit and lesson titles, key learning points, keywords and lesson outcomes. You review this before you start planning."
+                  ]
+                },
+                {
+                  "q": "Slide deck",
+                  "badge": "2",
+                  "a": [
+                    "The heart of the lesson. Suitable for in-class use and for the video, it provides the visual content that supports teaching."
+                  ]
+                },
+                {
+                  "q": "Worksheet and answers",
+                  "badge": "3",
+                  "a": [
+                    "Practice tasks for pupils, with a matching answers version. Created only once the slide deck has been formally reviewed."
+                  ]
+                },
+                {
+                  "q": "Video",
+                  "badge": "4",
+                  "a": [
+                    "A recorded version of the lesson for pupils studying remotely. Created after the slide deck is reviewed, as it depends on it."
+                  ]
+                },
+                {
+                  "q": "Prior knowledge starter quiz",
+                  "badge": "5",
+                  "a": [
+                    "A short quiz at the start that checks the prior knowledge pupils need to access the lesson — part of the ‘Fit it’ and ‘Own it’ stages."
+                  ]
+                },
+                {
+                  "q": "Exit assessment quiz",
+                  "badge": "6",
+                  "a": [
+                    "An end-of-lesson quiz that assesses the key learning, helping to secure knowledge over time."
+                  ]
+                },
+                {
+                  "q": "Additional materials",
+                  "badge": "7",
+                  "a": [
+                    "Anything extra a lesson needs. Not every subject or lesson will have these."
+                  ]
+                },
+                {
+                  "q": "Transcript",
+                  "badge": "8",
+                  "a": [
+                    "A written record of the verbal content of the video, generated automatically."
+                  ]
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "text": "Lessons within a unit form a coherent whole, sequenced so content builds cumulatively — and every lesson is suitable for both in-school delivery and remote learning, and can be adapted by the teacher."
+            }
+          ]
+        },
+        {
+          "id": "u1m1s3",
+          "title": "Duration & creation process",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "When taught in a classroom, Oak lessons are designed to fit a single timetabled slot — including the time to complete the starter and exit quizzes."
+              ]
+            },
+            {
+              "t": "stats",
+              "items": [
+                {
+                  "value": "50–60 min",
+                  "label": "for KS2 to KS4"
+                },
+                {
+                  "value": "40 min",
+                  "label": "for KS1"
+                }
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "The creation process"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "The components aren't built in a random order. This sequence is pedagogical, and it also supports the review process — though your subject may need a slightly different approach.",
+                "Review curriculum information first, and keep returning to it. Build the slide deck alongside the additional materials and starter quiz to bind them together. Only create the worksheet and video once the slide deck has been formally reviewed, as both depend on it. The transcript is then generated automatically from the video."
+              ]
+            },
+            {
+              "t": "image",
+              "placeholder": "Lesson creation process diagram",
+              "caption": "The suggested order for creating each lesson component."
+            },
+            {
+              "t": "download",
+              "title": "Oak lesson planning tool",
+              "desc": "A step-by-step planning template to map out each component as you build your lesson.",
+              "meta": "PDF · click to download",
+              "href": "assets/Oak-planning-tool-2024.pdf",
+              "filename": "Oak-planning-tool-2024.pdf"
+            },
+            {
+              "t": "callout",
+              "variant": "tip",
+              "title": "Coherence is the hard part",
+              "text": "Creating the slide deck alongside the additional materials and starter quiz helps hold the whole lesson together — it's the aspect creators most often find challenging."
+            }
+          ]
+        },
+        {
+          "id": "u1m1s4",
+          "title": "Lesson structure & vocabulary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Oak lessons are highly structured to support explicit teaching — teaching in a structured, direct way where every part has clarity and pupils are shown how to succeed. Hattie's synthesis found explicit teaching has an average effect size of 0.59 on pupil achievement, benefiting all pupils.",
+                "The slide deck shows this structure most clearly. Its colours aren't decorative — they carry meaning. Tap each to see what it signals."
+              ]
+            },
+            {
+              "t": "flip",
+              "chip": "#ffc8a6",
+              "cards": [
+                {
+                  "badge": "A",
+                  "front": "Light green",
+                  "back": "Templated slides — the design is fixed and shared across all lessons."
+                },
+                {
+                  "badge": "B",
+                  "front": "Banner colour",
+                  "back": "On slides where creators have more design freedom, the banner colour signals which learning cycle the slide belongs to."
+                },
+                {
+                  "badge": "C",
+                  "front": "Shaded background",
+                  "back": "Any slide that involves feedback to pupils has a shaded background."
+                },
+                {
+                  "badge": "D",
+                  "front": "Sections",
+                  "back": "The deck is divided into sections that communicate the structure of the learning within the lesson."
+                }
+              ]
+            },
+            {
+              "t": "image",
+              "placeholder": "Full slide deck overview",
+              "caption": "A whole KS2 art and design slide deck, showing the colour-coded structure."
+            },
+            {
+              "t": "heading",
+              "text": "The vocabulary we use"
+            },
+            {
+              "t": "text",
+              "paras": ["It helps to share precise language for the parts of a lesson."]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Lesson outcome",
+                  "paras": [
+                    "The aim of the lesson, which guides all planning. Pupil outcomes focus on the ‘takeaway’ — the main task that secures pupils' learning."
+                  ]
+                },
+                {
+                  "label": "Lesson outline",
+                  "paras": [
+                    "The overview of all the learning in the lesson, broken into learning cycles. Outline items are chunks of learning focused on a theme, idea or concept — not necessarily objectives."
+                  ]
+                },
+                {
+                  "label": "Learning cycle",
+                  "paras": [
+                    "A section of learning focused on one theme, indicated by colour in the deck. Each cycle runs explanation → check for understanding → practice → feedback. Most lessons have between two and four."
+                  ]
+                },
+                {
+                  "label": "Key learning points",
+                  "paras": [
+                    "Up to five (but minimal) important pieces of new knowledge the lesson must cover. They're part of curriculum information, published for teachers, and guide how the lesson is built."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m1s5",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of Oak lessons before moving on."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: Oak lessons",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "How many components make up a single Oak lesson?",
+                  "options": [
+                    {
+                      "text": "Five"
+                    },
+                    {
+                      "text": "Eight",
+                      "correct": true
+                    },
+                    {
+                      "text": "Twelve"
+                    }
+                  ],
+                  "explain": "Eight: curriculum information, slide deck, worksheet & answers, video, starter quiz, exit quiz, additional materials and transcript."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Which component should you create first?",
+                  "options": [
+                    {
+                      "text": "The video"
+                    },
+                    {
+                      "text": "The worksheet"
+                    },
+                    {
+                      "text": "The slide deck — after reviewing curriculum information",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Review curriculum information first, then build the slide deck. The worksheet and video come after the deck is reviewed."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "A learning cycle runs explanation, check for understanding, practice, then feedback.",
+                  "options": [
+                    {
+                      "text": "True",
+                      "correct": true
+                    },
+                    {
+                      "text": "False"
+                    }
+                  ],
+                  "explain": "Each learning cycle starts with explanation, checked through CfUs, then practice and finally feedback."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m1s6",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Carry these essentials forward as you start planning."]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "Oak lessons reach classrooms at huge scale and are used in many ways, so each one becomes two products: downloadable resources and online lessons.",
+                "Every lesson has eight components, built in a deliberate order — review curriculum information first, then the slide deck, then the worksheet and video.",
+                "Lessons are highly structured around learning cycles (explanation → CfU → practice → feedback), with the slide deck's colours signalling that structure."
+              ],
+              "question": "Thinking about your subject, which of the eight components will take the most thought to get right — and where might your creation order differ from the suggested sequence?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u1m2",
+      "unit": "u1",
+      "title": "Curriculum information",
+      "color": "#fff2aa",
+      "colorStrong": "#ffe555",
+      "outcomes": [
+        "Explain what curriculum information is and why it’s the ‘Fit it’ stage",
+        "Navigate curriculum information across sequence, unit and lesson levels",
+        "Know what to review, create and iterate in the Curriculum Authoring Tool"
+      ],
+      "sections": [
+        {
+          "id": "u1m2s1",
+          "title": "What is curriculum information?",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Before you plan any lessons, it's critical to engage with curriculum information. This is the ‘Fit it’ stage of our learning framework — making sure pupils learn the right knowledge, in the right order.",
+                "Curriculum information is an umbrella term for all the information that, alongside the lesson components, creates a full curriculum. It's entered and stored in the Curriculum Authoring Tool (CAT) — a system Oak built to design curricula and to update and store this information."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "text": "Your Curriculum Development Leads have already entered some curriculum information into the CAT during curriculum development. You'll use it to help develop your lessons."
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Not everything can be added up front. Some information is best entered by the teacher planning the lesson, and lessons evolve as components are built — so this information often needs refining afterwards too. That's why the process suggests reviewing curriculum information both before and after you develop a lesson's components."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m2s2",
+          "title": "The three levels",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Curriculum information lives at three levels. Explore what sits at each."]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Curriculum sequence",
+                  "paras": [
+                    "The big picture across a whole curriculum. Includes the curriculum explainer — which helps a teacher picking up the curriculum understand its intention — and threads, the links that create coherence and progression across units and lessons."
+                  ],
+                  "example": "Review the threads and curriculum explainer in the CAT before you start developing lessons."
+                },
+                {
+                  "label": "Unit",
+                  "paras": [
+                    "The information that describes a unit: its title, planned number of lessons, prior knowledge requirements, national curriculum and exam board content, threads, a unit description, and ‘why this, why now’."
+                  ],
+                  "example": "‘Why this, why now’ explains why a unit contains this content and why it sits at this point in the sequence."
+                },
+                {
+                  "label": "Lesson",
+                  "paras": [
+                    "The detail for each lesson: title, key learning points, keywords, lesson outline, lesson outcome, misconceptions and responses, teacher tips and more. There's the most to do here — some to review, some to create, some to iterate."
+                  ],
+                  "example": "Each lesson has up to five key learning points — the main new knowledge pupils will learn."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m2s3",
+          "title": "Review, create or iterate",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "At lesson level, each piece of curriculum information needs a different action in the CAT. Some you review, some you create from scratch, and some you iterate as the lesson takes shape."
+              ]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Review",
+                  "paras": [
+                    "Information that already exists and needs checking against the lesson you're building: lesson title, key learning points, keywords, misconception and misconception response, and copyright content. (In some subjects key learning points and keywords still need developing.)"
+                  ]
+                },
+                {
+                  "label": "Create",
+                  "paras": [
+                    "Information you'll write as you plan: lesson outline, tags, teacher tips, content guidance and supervision level, equipment and resources, and attribution."
+                  ]
+                },
+                {
+                  "label": "Iterate",
+                  "paras": [
+                    "Information that's refined as the lesson develops — most notably the lesson outcome, which focuses on the main task that secures pupils' learning and is best finalised once the lesson exists."
+                  ]
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "warning",
+              "title": "Keep misconceptions central",
+              "text": "Identifying likely misconceptions or common mistakes at the planning stage keeps them at the forefront of planning and delivery. Write the response as a suggested series of responses, not a script."
+            }
+          ]
+        },
+        {
+          "id": "u1m2s4",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of curriculum information."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: curriculum information",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Which stage of the learning framework does engaging with curriculum information support?",
+                  "options": [
+                    {
+                      "text": "Fit it",
+                      "correct": true
+                    },
+                    {
+                      "text": "Use it"
+                    },
+                    {
+                      "text": "Keep it"
+                    }
+                  ],
+                  "explain": "Curriculum information is the ‘Fit it’ stage — making sure pupils learn the right knowledge."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "At how many levels does curriculum information exist?",
+                  "options": [
+                    {
+                      "text": "Two"
+                    },
+                    {
+                      "text": "Three — sequence, unit and lesson",
+                      "correct": true
+                    },
+                    {
+                      "text": "Five"
+                    }
+                  ],
+                  "explain": "Curriculum sequence, unit and lesson."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "You only need to look at curriculum information once, before you start.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "You review it before and after developing components, refining as the lesson evolves."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m2s5",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["The essentials to take into planning."]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "Curriculum information is the ‘Fit it’ stage — all the information that makes up a full curriculum, stored in the Curriculum Authoring Tool (CAT).",
+                "It exists at three levels: curriculum sequence, unit and lesson — with the most to do at lesson level.",
+                "Review it before you plan and return to it afterwards, since some information is created and iterated as the lesson takes shape."
+              ],
+              "question": "For your next unit, what prior knowledge do pupils need to access it — and is that captured clearly in the curriculum information?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u1m3",
+      "unit": "u1",
+      "title": "Core considerations",
+      "color": "#cdbdf2",
+      "colorStrong": "#b29ce8",
+      "outcomes": [
+        "Apply accessibility and scaffolding so all pupils can access the learning",
+        "Enact diversity through inclusive language and imagery",
+        "Uphold safety, safeguarding and content guidance responsibilities"
+      ],
+      "sections": [
+        {
+          "id": "u1m3s1",
+          "title": "Five areas to consider",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Several aspects of every Oak lesson exist to keep pupils and teachers safe and to uphold our moral and legal responsibilities. They fall into five areas — tap each to see what it covers."
+              ]
+            },
+            {
+              "t": "flip",
+              "chip": "#cdbdf2",
+              "cards": [
+                {
+                  "badge": "1",
+                  "front": "Accessibility",
+                  "back": "Lessons are created and designed to be accessible to all teachers and pupils — meeting WCAG 2.1 AA, with strong colour contrast and clear, scaffolded design."
+                },
+                {
+                  "badge": "2",
+                  "front": "Diversity",
+                  "back": "A curriculum principle: our content should be as positively diverse as the communities we serve, through inclusive language, imagery and the use of Oak characters."
+                },
+                {
+                  "badge": "3",
+                  "front": "Safety",
+                  "back": "Where an activity could be dangerous, health and safety best practice is identified, addressed and modelled."
+                },
+                {
+                  "badge": "4",
+                  "front": "Safeguarding",
+                  "back": "The same safeguarding principles and judgement as face-to-face teaching apply: age-appropriate content, no external links, and content warnings where needed."
+                },
+                {
+                  "badge": "5",
+                  "front": "Content guidance",
+                  "back": "Sensitive, offensive, health-and-safety or safeguarding-related content is flagged in the CAT and shown on the lesson page for teachers and pupils."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m3s2",
+          "title": "Accessibility & scaffolding",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Good teaching for pupils with SEND is good teaching for all. Oak's templates already build in many accessibility measures — a sans-serif font, left-aligned text, bold (not underline or italics) for keyword emphasis, captioning, signing and transcripts for videos, and colours checked by sector experts."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-460",
+                  "text": "Lesson content must be developed in order to enable the Web Content Accessibility Guidelines v2.1 AA standard to be met"
+                },
+                {
+                  "qs": "QS-390",
+                  "text": "Colour contrast is sufficient, with a text to background colour ratio of 4.5:1"
+                }
+              ]
+            },
+            {
+              "t": "text",
+              "paras": [
+                "One simple choice protects contrast: avoid coloured backgrounds behind text."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "Text on a plain white background, keeping a strong contrast.",
+              "goodNote": "Meets the 4.5:1 contrast ratio comfortably.",
+              "badText": "Text placed on a coloured background.",
+              "badNote": "Risks dropping below the required contrast ratio."
+            },
+            {
+              "t": "heading",
+              "text": "Scaffolding"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "The EEF describes scaffolding as temporary support that's removed when it's no longer needed — enough support that pupils can succeed at tasks they couldn't yet do alone. It works across a learning cycle, a whole lesson, and over a unit and key stage. Three types help in lesson design."
+              ]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Visual",
+                  "paras": ["Support that guides pupils towards success visually."],
+                  "example": "Success criteria, model examples, and images that support vocabulary teaching."
+                },
+                {
+                  "label": "Verbal",
+                  "paras": [
+                    "Additional spoken instruction that addresses misconceptions and vocalises thought processes."
+                  ],
+                  "example": "Focused discussion, metacognitive narratives, modelling and demonstration."
+                },
+                {
+                  "label": "Written",
+                  "paras": ["Structures that help pupils produce the task outcome."],
+                  "example": "Word banks, writing frames, sentence starters and partially completed examples."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m3s3",
+          "title": "Diversity",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Diversity is one of our curriculum principles. Our teachers and content should be as positively diverse as the communities we serve. Where you're teaching beyond your own experience or identity, seek guidance from those with more direct experience wherever you can.",
+                "Inclusive language is one of our main tools — using words that respect and acknowledge the diversity of people so everyone feels valued. Without it, we risk reinforcing stereotypes and power imbalances. Imagery matters too: diverse images provide representation and a sense of belonging, and can challenge stereotypes."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "‘Spokesperson’, ‘police officer’, ‘handyperson’ — non-gendered language used where possible.",
+              "goodNote": "Inclusive and accurate, without making assumptions.",
+              "badText": "‘Spokesman’, ‘policeman’, ‘handyman’.",
+              "badNote": "Gendered language that needlessly excludes."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-544",
+                  "text": "Inclusive language (language that avoids the use of certain expressions or words that might be considered to exclude particular groups of people) should be used at all times."
+                },
+                {
+                  "qs": "QS-543",
+                  "text": "Content should avoid portraying outdated power-dynamics or stereotypes. Diversity should be represented powerfully and positively."
+                },
+                {
+                  "qs": "QS-466",
+                  "text": "Use of gender neutral language is modelled by teachers"
+                }
+              ]
+            },
+            {
+              "t": "accordion",
+              "chip": "#cdbdf2",
+              "items": [
+                {
+                  "q": "Refer to protected characteristics only when relevant",
+                  "a": [
+                    "Mention a person's protected characteristics only if it's relevant to what you're communicating. That Tereshkova was female is relevant to her being the first woman in space; describing someone as ‘female’ when it isn't relevant to the point is not."
+                  ]
+                },
+                {
+                  "q": "Avoid generalisations",
+                  "a": [
+                    "Language shouldn't make generalisations about groups of people. Watch words like ‘all’ — they can turn a fact into a stereotype."
+                  ]
+                },
+                {
+                  "q": "Use approved Oak characters",
+                  "a": [
+                    "When creating personas, use only the approved Oak characters, vary them across lessons and units, and pronounce all names — characters, people and places — accurately."
+                  ]
+                },
+                {
+                  "q": "Choose imagery carefully",
+                  "a": [
+                    "Images should be culturally accurate, promote diversity and avoid stereotypes. A stereotypical image is acceptable only where balance is provided across a lesson or unit."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m3s4",
+          "title": "Safety, safeguarding & content guidance",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["These three areas protect pupils. Expand each for what to check."]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-164",
+                  "text": "Appropriate safeguarding considerations have been applied to the lesson"
+                },
+                {
+                  "qs": "QS-139",
+                  "text": "All content is age appropriate"
+                },
+                {
+                  "qs": "QS-140",
+                  "text": "Health & safety considerations have been identified and addressed"
+                }
+              ]
+            },
+            {
+              "t": "accordion",
+              "chip": "#cdbdf2",
+              "items": [
+                {
+                  "q": "Safety",
+                  "a": [
+                    "Where an activity could be dangerous, identify and address all health and safety considerations. Practical activities, demonstrations and modelling must follow and portray best practice, and safe behaviour is always modelled."
+                  ]
+                },
+                {
+                  "q": "Safeguarding",
+                  "a": [
+                    "Apply the same safeguarding judgement as face-to-face teaching, in line with government guidelines. Keep content age-appropriate (a PG film isn't suitable for EYFS or KS1–2), include no external URLs or links, and add content warnings for challenging content used only where essential. Remember the age range within a year group can vary widely."
+                  ]
+                },
+                {
+                  "q": "Content guidance",
+                  "a": [
+                    "Flag content guidance in the CAT for any sensitive, potentially offensive, health-and-safety or safeguarding-related content. It appears on the lesson page for teachers and pupils."
+                  ]
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-398",
+                  "text": "All resources are free from third party links"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m3s5",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of the core considerations."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: core considerations",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "What’s the minimum text-to-background contrast ratio for Oak lessons?",
+                  "options": [
+                    {
+                      "text": "2:1"
+                    },
+                    {
+                      "text": "4.5:1",
+                      "correct": true
+                    },
+                    {
+                      "text": "10:1"
+                    }
+                  ],
+                  "explain": "WCAG 2.1 AA requires at least 4.5:1 — already built into the templates."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "You can include a link to a helpful external website in a lesson.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "No external URLs or links — Oak can’t control changes or security, so they’re a safeguarding risk."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "When should you refer to a person’s protected characteristic?",
+                  "options": [
+                    {
+                      "text": "Always, for representation"
+                    },
+                    {
+                      "text": "Only when it’s relevant to what you’re communicating",
+                      "correct": true
+                    },
+                    {
+                      "text": "Never"
+                    }
+                  ],
+                  "explain": "Refer to protected characteristics only when relevant to the information being communicated."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u1m3s6",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["The responsibilities to hold onto as you create."]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "Five areas keep lessons safe and responsible: accessibility, diversity, safety, safeguarding and content guidance.",
+                "Design for access — meet WCAG 2.1 AA, keep strong contrast, and scaffold visually, verbally and in writing so all pupils can succeed.",
+                "Enact diversity through inclusive, non-gendered language and representative imagery, and uphold safeguarding with age-appropriate content, no external links and clear content guidance."
+              ],
+              "question": "In the lesson you'll plan next, where could a scaffold or an inclusive language choice make the learning more accessible — and is there any content that needs a guidance flag?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m1",
+      "unit": "u2",
+      "title": "The learning framework",
+      "color": "#bef2bd",
+      "colorStrong": "#93e892",
+      "outcomes": [
+        "Describe Oak’s evidence-informed learning framework and its seven stages",
+        "Explain where each stage happens across the learning journey",
+        "Recognise why every stage matters for learning to stick"
+      ],
+      "sections": [
+        {
+          "id": "m1s2",
+          "title": "What is the learning framework?",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Our learning framework is an evidence-informed model of learning, adapted from McCrea, P. Developing Expert Teaching (2023). We use it at Oak to guide and inform our design of lessons.",
+                "It pulls together all the composite parts required for anyone to learn something into a useful sequence. 'It' refers to the piece of new knowledge, and these seven stages are necessary for learning to happen effectively. Without any one of these stages, there is a risk that no learning happens."
+              ]
+            },
+            {
+              "t": "image",
+              "placeholder": "Learning framework diagram",
+              "src": "assets/learning-framework.png",
+              "alt": "Diagram of Oak’s learning framework: seven hexagonal stages — Fit it, Own it, Frame it, Get it, Use it and Keep it — arranged in sequence, all enclosed by a Check it border that runs throughout the model.",
+              "caption": "The learning framework — seven stages, with \"check it\" enclosing the model.",
+              "maxWidth": "56%"
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "text": "The learning framework does not span a single lesson but a much longer period of time. Fit it happens before learning starts; Own it, Frame it, Get it and Use it happen within a lesson; and Check it happens throughout."
+            },
+            {
+              "t": "heading",
+              "text": "Watch: the learning framework"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "This short animated explainer walks through all seven stages of the framework and how they show up in Oak lessons."
+              ]
+            },
+            {
+              "t": "videoimport",
+              "embed": "learningframework",
+              "filename": "learning-framework.mp4",
+              "duration": "2:02",
+              "caption": "The learning framework explained — from the curriculum team."
+            }
+          ]
+        },
+        {
+          "id": "m1s3",
+          "title": "The seven stages",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Each stage plays a distinct role. Expand each one to see what it means and how it shows up in Oak curricula and lessons."
+              ]
+            },
+            {
+              "t": "accordion",
+              "chip": "#bef2bd",
+              "items": [
+                {
+                  "q": "Fit it",
+                  "badge": "1",
+                  "a": [
+                    "Ensuring pupils are learning the right knowledge. Learning needs to be fitted to the pupil — the teacher identifies the next thing pupils need to learn, based on what they already know."
+                  ],
+                  "features": [
+                    "Curriculum sequence and curriculum information",
+                    "Unit and lesson information on the website"
+                  ],
+                  "img": {
+                    "placeholder": "Fit it — add image"
+                  }
+                },
+                {
+                  "q": "Own it",
+                  "badge": "2",
+                  "a": [
+                    "Ensuring pupils are motivated to learn. Teachers build motivation at the start of a lesson — for example by engineering success and piquing interest. We pay attention to things we're motivated to do and see value in; without attention, pupils won't learn.",
+                    "The impact of poor motivation is compound — the Matthew effect: pupils who experience success spend more time learning and improve, while those who struggle come to believe it's 'not for them'."
+                  ],
+                  "features": [
+                    "Prior knowledge starter quiz",
+                    "Motivational nudges: teacher visibility, enthusiasm & informal tone",
+                    "Accessibility measures, including web user experience"
+                  ],
+                  "img": {
+                    "placeholder": "Own it — add image"
+                  }
+                },
+                {
+                  "q": "Frame it",
+                  "badge": "3",
+                  "a": [
+                    "Ensuring pupils build on and link to existing knowledge. We make sense of new knowledge by connecting it to what we already know — like building a wall, each brick laid on those before. If new knowledge is too far from what pupils know, they won't understand it."
+                  ],
+                  "features": [
+                    "Prior knowledge starter quiz",
+                    "Verbal explanation linking new learning to prior learning"
+                  ],
+                  "img": {
+                    "placeholder": "Frame it — add image"
+                  }
+                },
+                {
+                  "q": "Get it",
+                  "badge": "4",
+                  "a": [
+                    "Helping pupils to understand the knowledge. This draws on the pedagogical strategy of explanation: knowledge is broken into manageable chunks and explained with techniques such as modelling and analogy. Teachers get pupils to think hard and make meaningful connections."
+                  ],
+                  "features": ["Explicit explanation phases in lessons", "Modelling"],
+                  "img": {
+                    "placeholder": "Get it — add image"
+                  }
+                },
+                {
+                  "q": "Use it",
+                  "badge": "5",
+                  "a": [
+                    "Ensuring pupils practise application of the knowledge. Commonly called practice — a pupil puts their new learning to use."
+                  ],
+                  "features": ["Explicit practice phases", "Quizzing"],
+                  "img": {
+                    "placeholder": "Use it — add image"
+                  }
+                },
+                {
+                  "q": "Keep it",
+                  "badge": "6",
+                  "a": [
+                    "Ensuring the knowledge sticks. The most effective learning takes months to secure, which is why our model goes beyond single lessons. Memory is subject to interference — forgetting that occurs naturally over time. Roughly 50% of new knowledge is remembered after an hour, falling to 20% after a week, unless we deliberately provide opportunities to recall. Each retrieval, spaced at increasing intervals, boosts the retention curve."
+                  ],
+                  "features": ["Implicit retrieval throughout a unit", "Unit level quiz (pending)"],
+                  "img": {
+                    "placeholder": "Keep it — add image"
+                  }
+                },
+                {
+                  "q": "Check it",
+                  "badge": "7",
+                  "a": [
+                    "Checking and course-correcting throughout. Teachers check understanding and respond to what they find — asking questions, or giving pupils model responses to compare against. Crucially, check it happens alongside all the other stages."
+                  ],
+                  "features": [
+                    "Prior knowledge starter quiz",
+                    "Checks for understanding",
+                    "Explicit feedback phases",
+                    "Lesson summary, model task responses & assessment exit quiz"
+                  ],
+                  "img": {
+                    "placeholder": "Check it — add image"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m1s3check",
+          "title": "Order the stages",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Without looking back, put the first six stages in the order learning happens. Drag the cards or use the arrows to reorder them."
+              ]
+            },
+            {
+              "t": "sortable",
+              "prompt": "The first six stages are sequential. Put them in the order learning happens. (Check it is the exception — it happens throughout.)",
+              "items": [
+                {
+                  "id": "frame",
+                  "text": "Frame it — build on existing knowledge"
+                },
+                {
+                  "id": "use",
+                  "text": "Use it — practise application"
+                },
+                {
+                  "id": "fit",
+                  "text": "Fit it — learning the right knowledge"
+                },
+                {
+                  "id": "keep",
+                  "text": "Keep it — the knowledge sticks"
+                },
+                {
+                  "id": "own",
+                  "text": "Own it — motivated to learn"
+                },
+                {
+                  "id": "get",
+                  "text": "Get it — understand the knowledge"
+                }
+              ],
+              "correct": ["fit", "own", "frame", "get", "use", "keep"]
+            }
+          ]
+        },
+        {
+          "id": "m1s4",
+          "title": "When do the stages happen?",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "The stages don't all live inside one lesson. Explore where each happens across the learning journey."
+              ]
+            },
+            {
+              "t": "hotspot",
+              "placeholder": "Timeline: before the lesson → within the lesson → across the unit",
+              "spots": [
+                {
+                  "title": "Before learning starts",
+                  "text": "Fit it happens before a lesson begins — the teacher decides what pupils need to learn next, supported by Oak curriculum and unit information."
+                },
+                {
+                  "title": "Within the lesson",
+                  "text": "Own it, Frame it, Get it and Use it all happen inside the lesson — building motivation, linking to prior learning, explaining new knowledge, and practising it."
+                },
+                {
+                  "title": "Across the unit and beyond",
+                  "text": "Keep it stretches over weeks and months through spaced retrieval. Check it runs throughout every stage, course-correcting as needed."
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "tip",
+              "title": "Why it matters",
+              "text": "Should one of these stages be absent or poorly executed, learning is likely to be hampered. Designing lessons with the whole framework in mind keeps every stage intentional."
+            }
+          ]
+        },
+        {
+          "id": "m1s5",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of the learning framework before moving on."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: the learning framework",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Which stage happens throughout, alongside all the others?",
+                  "options": [
+                    {
+                      "text": "Fit it"
+                    },
+                    {
+                      "text": "Get it"
+                    },
+                    {
+                      "text": "Check it",
+                      "correct": true
+                    },
+                    {
+                      "text": "Keep it"
+                    }
+                  ],
+                  "explain": "Check it runs continuously — shown by the dark border enclosing the whole model."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "The learning framework spans a single lesson.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "It spans a much longer period — Keep it alone takes weeks or months."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Which stage draws most directly on the pedagogical strategy of explanation?",
+                  "options": [
+                    {
+                      "text": "Own it"
+                    },
+                    {
+                      "text": "Get it",
+                      "correct": true
+                    },
+                    {
+                      "text": "Use it"
+                    },
+                    {
+                      "text": "Fit it"
+                    }
+                  ],
+                  "explain": "Get it is where new knowledge is chunked and explained so pupils understand it."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m1s6",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Here's what to carry forward from the learning framework before you move on to explanation."
+              ]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "Oak's learning framework is an evidence-informed model of seven stages — each one necessary for learning to happen and stick.",
+                "The first six stages are broadly sequential (Fit it, Own it, Frame it, Get it, Use it, Keep it), while Check it runs throughout.",
+                "It spans far more than one lesson: Fit it comes before the lesson, four stages sit within it, and Keep it stretches across the unit and beyond."
+              ],
+              "question": "As you plan your next lesson, which of the seven stages do you tend to design most thoroughly — and which might you be leaving to chance?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "unit": "u2",
+      "title": "High-quality explanation",
+      "color": "#a0b6f2",
+      "colorStrong": "#7c9aec",
+      "outcomes": [
+        "Distinguish substantive, disciplinary and procedural knowledge",
+        "Apply the three principles: connected, chunked and clear",
+        "Choose between simple-to-complex, part-whole and whole-part approaches"
+      ],
+      "sections": [
+        {
+          "id": "m2s1",
+          "title": "What is explanation?",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Explanation is a pedagogical strategy that involves providing pupils with clear and concise information about a topic or concept. The goal is to help pupils understand and engage with the material by keeping a sharp focus on optimising intrinsic load.",
+                "Teachers communicate through speech, text, non-verbal gestures and resources continuously throughout a lesson. Much of this is explanation — introducing a concept, modelling a task, correcting behaviour, writing instructions. Whatever the method, effective explanation is at the centre of learning."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "quote",
+              "text": "The most effective teachers spend double the amount of time explaining, giving examples, demonstrating and asking questions than the least effective teachers.",
+              "attrib": "Rosenshine"
+            }
+          ]
+        },
+        {
+          "id": "m2s2",
+          "title": "Types of knowledge",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "It's important to differentiate between three types of knowledge. This supports richer decisions about the approach to explanation. The balance may vary by subject, unit and lesson."
+              ]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Substantive",
+                  "paras": [
+                    "The content knowledge of a subject — facts, concepts and theories. It's the foundational knowledge pupils need in order to understand and engage with a subject."
+                  ],
+                  "example": "In maths, this includes addition, subtraction, multiplication and division, plus the properties of numbers and equations."
+                },
+                {
+                  "label": "Disciplinary",
+                  "paras": [
+                    "The ways of thinking, reasoning and communicating unique to a discipline — the methods, approaches and practices used to investigate, analyse and explain ideas within a subject."
+                  ],
+                  "example": "In history, this is knowing how historians investigate the past and construct claims, arguments and accounts."
+                },
+                {
+                  "label": "Procedural",
+                  "paras": [
+                    "Knowledge of how to do something — a skill or technique, performing a sequence of actions to achieve a goal. 'Knowing how' rather than 'knowing that' or 'knowing why'. It's delivered through modelling and demonstration with appropriate scaffolds."
+                  ],
+                  "example": "In computer science, being able to implement a repeat in a programming language."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m2s3",
+          "title": "Three principles",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Three guiding principles underpin high-quality explanation. Tap each card to see what it means at Oak."
+              ]
+            },
+            {
+              "t": "flip",
+              "chip": "#a0b6f2",
+              "cards": [
+                {
+                  "badge": "1",
+                  "front": "Connected",
+                  "back": "Our brains organise information into schemata; we can only store new knowledge by connecting it to what we already have. Oak explanations link to prior learning, lodge new content within a broader sequence, and foster engagement through frequent active participation."
+                },
+                {
+                  "badge": "2",
+                  "front": "Chunked",
+                  "back": "The right amount of information at the right time, to minimise extraneous load. Rosenshine's small steps limit the number and complexity of new pieces at once. Chunking also means sequencing skills, concepts and content to build towards mastery."
+                },
+                {
+                  "badge": "3",
+                  "front": "Clear",
+                  "back": "Take complex, abstract material and transform it into concrete, simple ideas without losing complexity. Cut inessential information; present all essential information together. Clarity of language is vital for understanding and remembering difficult concepts."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m2s4",
+          "title": "Delivering explanations",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "A number of instructional approaches reduce extraneous cognitive load and increase the efficacy of explanation. Explore the three approaches and an example of each."
+              ]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Simple to complex",
+                  "paras": [
+                    "Elements of the material are introduced in a simple-to-complex order so the pupil doesn't initially experience the full complexity of the material."
+                  ],
+                  "example": "Phonics: pupils are taught sounds first (e.g. ‘b’), then digraphs (‘ea’, ‘ch’), before the full word ‘beach’."
+                },
+                {
+                  "label": "Part-whole",
+                  "paras": [
+                    "Individual elements are introduced first, before the integrated task. The teacher breaks the complex task into sub-tasks and builds skill at each before bringing them together in the whole."
+                  ],
+                  "example": "Reading an Ordnance Survey map is broken into parts: symbols, then grid references, then scale, then contour lines."
+                },
+                {
+                  "label": "Whole-part",
+                  "paras": [
+                    "The material is introduced in full complexity from the beginning, then the pupil's attention is directed to each separate part. This helps learners understand how the sub-parts interact."
+                  ],
+                  "example": "Shooting a basketball: demonstrate the whole skill first, then break it down — feet position, aim, and so on."
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-87",
+                  "text": "Explanations are framed around small steps"
+                },
+                {
+                  "qs": "QS-85",
+                  "text": "All key learning points are evident in explanations"
+                },
+                {
+                  "qs": "QS-86",
+                  "text": "Appropriate, carefully selected models and visuals are used to simply explain complex ideas"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m2s5",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "quiz",
+              "title": "Quick check: high-quality explanation",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Which set of principles underpins high-quality explanation at Oak?",
+                  "options": [
+                    {
+                      "text": "Connected, chunked, clear",
+                      "correct": true
+                    },
+                    {
+                      "text": "Plan, teach, assess"
+                    },
+                    {
+                      "text": "Engage, explain, evaluate"
+                    }
+                  ],
+                  "explain": "The three Cs: connected, chunked and clear."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Introducing sounds, then digraphs, then a whole word is an example of which approach?",
+                  "options": [
+                    {
+                      "text": "Whole-part"
+                    },
+                    {
+                      "text": "Simple to complex",
+                      "correct": true
+                    },
+                    {
+                      "text": "Part-whole"
+                    }
+                  ],
+                  "explain": "Material moves from simple elements to the full complexity."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "Disciplinary knowledge refers to facts, concepts and theories.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "That describes substantive knowledge. Disciplinary knowledge is the ways of thinking and reasoning within a subject."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m2s6",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["The essentials of high-quality explanation to keep in mind as you design."]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "Explanation sits at the centre of learning, with a sharp focus on optimising intrinsic cognitive load.",
+                "Distinguish substantive, disciplinary and procedural knowledge — the balance shapes how you explain.",
+                "Make every explanation connected, chunked and clear, and choose simple-to-complex, part-whole or whole-part to suit the material."
+              ],
+              "question": "Thinking about a concept you'll teach soon — what type of knowledge is it, and does your current explanation feel genuinely connected, chunked and clear?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m3",
+      "unit": "u2",
+      "title": "Enriching explanations",
+      "color": "#b0e2de",
+      "colorStrong": "#7cd8d0",
+      "outcomes": [
+        "Identify the six ways to enrich an explanation",
+        "Use examples, non-examples and worked examples effectively",
+        "Account for the expertise reversal effect as pupils progress"
+      ],
+      "sections": [
+        {
+          "id": "m3s1",
+          "title": "Six ways to enrich",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Explanations are enriched through six features that support learning. These can appear as visual support on slide decks, or be added verbally in videos.",
+                "Teachers may use analogies, examples, non-examples, worked examples, stories, modelling, demonstration or discussion to enrich explanations."
+              ]
+            },
+            {
+              "t": "flip",
+              "chip": "#b0e2de",
+              "cards": [
+                {
+                  "badge": "A",
+                  "front": "Examples & non-examples",
+                  "back": "Examples give concrete illustrations of abstract ideas and build connections to existing knowledge. Non-examples clarify boundaries — showing what a concept is not — and help pupils avoid misconceptions. Worked examples fully guide novices, reducing load on working memory."
+                },
+                {
+                  "badge": "B",
+                  "front": "Images",
+                  "back": "Appropriately selected images convey information visually and intuitively, helping pupils build schema. With keywords and narration they reduce the redundancy effect, make complex information accessible, and capture attention."
+                },
+                {
+                  "badge": "C",
+                  "front": "Discussion",
+                  "back": "Discussion allows deeper exploration, develops critical thinking and communication, connects material to pupils' own experience, and gives the teacher immediate feedback on understanding."
+                },
+                {
+                  "badge": "D",
+                  "front": "Modelling & demonstration",
+                  "back": "Modelling shows a new concept or approach; demonstration is a practical exhibition of how something works. Pupils see the process and steps in action, build confidence, and learn to transfer principles to new contexts."
+                },
+                {
+                  "badge": "E",
+                  "front": "Stories",
+                  "back": "Stories are the oldest method of passing down information. They engage pupils emotionally and intellectually, create a memorable context, and activate sensory and emotional centres to encode information more deeply."
+                },
+                {
+                  "badge": "F",
+                  "front": "Analogies",
+                  "back": "Analogies help pupils access unfamiliar concepts and move understanding from the concrete to the abstract — e.g. reading a landscape like a book. Caution: take care not to embed a misconception."
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "text": "The teacher may use analogies, examples, non-examples, worked examples, stories, modelling, demonstration or discussion to enrich explanations.",
+              "qs": ["QS-72"]
+            }
+          ]
+        },
+        {
+          "id": "m3s2",
+          "title": "Worked examples in depth",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "A worked example is a problem already solved for the learner, with every step fully explained and clearly shown. Research shows novices given worked examples to study outperform those required to solve equivalent problems themselves — unguided problem-solving overloads working memory and inhibits transfer to long-term memory.",
+                "Worked examples free up working memory so pupils focus on how to solve the problem rather than only on the answer, making them more likely to recall the method in future."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "warning",
+              "title": "The expertise reversal effect",
+              "text": "Heavy use of worked examples becomes less effective as expertise increases — eventually redundant or even counterproductive. Gradually incorporate more independent problem-solving as pupils progress."
+            },
+            {
+              "t": "image",
+              "placeholder": "Worked example slide",
+              "caption": "A part-worked example with steps revealed progressively."
+            }
+          ]
+        },
+        {
+          "id": "m3s3",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "quiz",
+              "title": "Quick check: enriching explanations",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Why are non-examples useful alongside examples?",
+                  "options": [
+                    {
+                      "text": "They clarify what a concept is not, refining its boundaries",
+                      "correct": true
+                    },
+                    {
+                      "text": "They replace the need for explanation"
+                    },
+                    {
+                      "text": "They increase cognitive load deliberately"
+                    }
+                  ],
+                  "explain": "Non-examples help pupils see the limits of a concept and avoid misconceptions."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "Worked examples remain equally effective as pupils become experts.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "The expertise reversal effect: they become redundant or counterproductive for more expert pupils."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Using an analogy carries which key risk?",
+                  "options": [
+                    {
+                      "text": "It always confuses pupils"
+                    },
+                    {
+                      "text": "It can embed a misconception",
+                      "correct": true
+                    },
+                    {
+                      "text": "It removes the need for examples"
+                    }
+                  ],
+                  "explain": "Analogies are powerful but must be chosen carefully so they don’t embed a misconception."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m3s4",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Carry these enrichment principles into your next explanation."]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "Six features enrich explanations: examples & non-examples, images, discussion, modelling & demonstration, stories and analogies.",
+                "Worked examples free up novices' working memory — but the expertise reversal effect means you should fade them as pupils gain expertise.",
+                "Non-examples sharpen the boundaries of a concept; analogies are powerful but can embed misconceptions if chosen carelessly."
+              ],
+              "question": "Where in your next explanation could a non-example or a worked example deepen understanding — and at what point should you start fading that support?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m4",
+      "unit": "u2",
+      "title": "Checks for understanding",
+      "color": "#deb7d5",
+      "colorStrong": "#cf9cc3",
+      "outcomes": [
+        "Design CfUs that expose misconceptions and are quick to respond to",
+        "Select the right question type: multiple choice, short answer or true/false/why",
+        "Provide effective feedback for each type of CfU"
+      ],
+      "sections": [
+        {
+          "id": "m4s1",
+          "title": "What is a check for understanding?",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Checking for understanding (CfU) is a constant process critical for successful learning. It requires responsiveness from the teacher throughout a lesson — agility to respond as needs arise, but also deliberate planning. It's the 'check it' part of our learning framework.",
+                "CfUs in Oak lessons are snappy, interactive moments where the teacher checks understanding after explanations and assesses the key learning points. They support teachers to adapt the lesson based on pupil responses, and should reflect common misconceptions and mistakes in the content being taught."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "quote",
+              "text": "The champions of CfU make a habit of small intentional habits, applied consistently — a trusty safety net for pupils’ learning.",
+              "attrib": "Lemov"
+            }
+          ]
+        },
+        {
+          "id": "m4s2",
+          "title": "Principles of good CfUs",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "There's a minimum of two CfUs per learning cycle, peppered thoughtfully throughout the explanation rather than all explanation slides followed by all CfU slides. Answers should be short and easy to respond to on a mini-whiteboard."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "A CfU that is quick to respond to on a mini-whiteboard, using structure such as 1. and 2. to guide the response.",
+              "goodNote": "The teacher can scan the room and complete a quick assessment of learning.",
+              "badText": "A CfU that demands a long, open response.",
+              "badNote": "The teacher cannot scan the room and quickly assess learning — it slows the lesson down."
+            },
+            {
+              "t": "accordion",
+              "chip": "#deb7d5",
+              "items": [
+                {
+                  "q": "Pitch so guessing is hard",
+                  "a": [
+                    "It should not be possible to guess the correct answer. CfUs are pitched accurately and link directly to the explanation explicitly covered just before."
+                  ]
+                },
+                {
+                  "q": "Expose misconceptions",
+                  "a": [
+                    "CfU questions are ideally focused to expose common mistakes or misconceptions, which are then explicitly addressed during explanation and re-checked in the assessment exit quiz."
+                  ]
+                },
+                {
+                  "q": "Increase demand through a set",
+                  "a": [
+                    "Where questions following an explanation have different levels of demand, lower-demand questions are asked first and demand increases through the set."
+                  ]
+                },
+                {
+                  "q": "Use emphasis carefully",
+                  "a": [
+                    "Where a word needs emphasis, bold can be used — but the emphasised word should be in the banner colour. Keywords stay in black bold."
+                  ]
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-91",
+                  "text": "There is a minimum of two CfUs per learning cycle"
+                },
+                {
+                  "qs": "QS-92",
+                  "text": "Slides will switch between explanation and CfUs intermittently, rather than all explanation slides followed by all CfU slides"
+                },
+                {
+                  "qs": "QS-148",
+                  "text": "It is not possible to guess the correct answer"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m4s2check",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "A quick check before we look at question types — modelling the principle that checks should be peppered through the content, not saved for the end."
+              ]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: what good CfUs do",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Which part of the learning framework does checking for understanding map onto?",
+                  "options": [
+                    {
+                      "text": "Fit it"
+                    },
+                    {
+                      "text": "Check it",
+                      "correct": true
+                    },
+                    {
+                      "text": "Keep it"
+                    }
+                  ],
+                  "explain": "CfU is the ‘check it’ part of the learning framework — it runs throughout every stage."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "How many CfUs are there, as a minimum, per learning cycle?",
+                  "options": [
+                    {
+                      "text": "One"
+                    },
+                    {
+                      "text": "Two",
+                      "correct": true
+                    },
+                    {
+                      "text": "Five"
+                    }
+                  ],
+                  "explain": "A minimum of two CfUs per learning cycle, peppered through the explanation."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "A good CfU asks for a long, open response so the teacher can assess deeply.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Answers should be short and easy to respond to on a mini-whiteboard, so the teacher can scan the room quickly."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m4s3",
+          "title": "Question types",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "There are three types of question that can be used as CfUs. Vary the type between learning cycles to avoid task fatigue."
+              ]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Multiple choice",
+                  "paras": [
+                    "The teacher can see responses (a/b/c) at a glance. A question stem, one or two correct responses, and at least two distractors — with 3–5 answer choices, minimally different from each other. Label answers a, b, c (not 1, 2, 3)."
+                  ],
+                  "example": "Best when the answer is one of a defined set, when misconceptions can be addressed through distractors, or where nuance leads to minimally different options."
+                },
+                {
+                  "label": "Short answer",
+                  "paras": [
+                    "A gap-fill or a question requiring a single word or number. In gap-fills, indicate missing words with a 4pt drawn black line, removed when answers are revealed; multiple lines should be the same length to avoid clues."
+                  ],
+                  "example": "Best when there aren’t enough plausible distractors, when spelling matters, when alternatives might reinforce a misconception, or when the desired challenge is high."
+                },
+                {
+                  "label": "True / false / why",
+                  "paras": [
+                    "A straightforward way to check a simple factual statement. Because there's a 50:50 chance of guessing, pupils are encouraged to explain their answer — providing evidence of understanding."
+                  ],
+                  "example": "Best when there is a simple fact to check, or when checking explanation detail covered in the learning cycle is important."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m4s4",
+          "title": "Feedback",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Feedback is provided for all CfUs. The approach varies, but should always give pupils the answer and, where appropriate, information to explain it. Where there may be no single correct answer, a model response is provided, acknowledging other valid responses may exist.",
+                "Answers in the slide deck are animated, so no additional answer slides are needed. They should include full working where appropriate — for calculations, feedback might be a worked calculation."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "True/false/why: an animated tick and ‘Why?’ appear together; a second click reveals a full sentence of explanation that includes the initial statement.",
+              "goodNote": "Models a good standard of written communication.",
+              "badText": "A response that is not animated and whose explanatory sentence does not include the initial statement.",
+              "badNote": "Does not model a good standard of written communication."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-70",
+                  "text": "Praise and encouragement is used during CfU & practice feedback"
+                },
+                {
+                  "qs": "QS-475",
+                  "text": "When there may not be a correct answer to a check for understanding, a model response is provided with the acknowledgement that there may be other valid responses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m4s5",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "quiz",
+              "title": "Quick check: question types & feedback",
+              "questions": [
+                {
+                  "kind": "tf",
+                  "stem": "Multiple-choice CfU answers should be labelled 1, 2, 3.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "They should be labelled a, b, c rather than 1, 2, 3."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "When is short answer the better question type?",
+                  "options": [
+                    {
+                      "text": "When the answer is one of a small defined set"
+                    },
+                    {
+                      "text": "When spelling of the answer matters",
+                      "correct": true
+                    },
+                    {
+                      "text": "When you want responses visible at a glance"
+                    }
+                  ],
+                  "explain": "Short answer suits cases where spelling matters or there aren’t enough plausible distractors."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Why is ‘true / false / why’ a useful CfU?",
+                  "options": [
+                    {
+                      "text": "It removes any chance of guessing"
+                    },
+                    {
+                      "text": "Explaining ‘why’ gives evidence of understanding beyond a 50:50 guess",
+                      "correct": true
+                    },
+                    {
+                      "text": "It never needs feedback"
+                    }
+                  ],
+                  "explain": "With a 50:50 chance of guessing, asking pupils to explain their answer provides evidence of understanding."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "m4s6",
+          "title": "Module summary",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "The key principles of checks for understanding — and the end of the course. Nice work."
+              ]
+            },
+            {
+              "t": "summary",
+              "points": [
+                "CfU is the 'check it' stage — a constant process that's both planned and responsive, with a minimum of two CfUs peppered through each learning cycle.",
+                "Good CfUs are quick to answer on a mini-whiteboard, pitched so guessing is hard, and built to expose common misconceptions.",
+                "Choose multiple choice, short answer or true/false/why to fit the content, and always give feedback — animated in the deck so no extra slides are needed."
+              ],
+              "question": "For the lesson you'll design next, what common misconception could each check for understanding be built to expose — and how would you respond when it surfaces?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u3m1",
+      "unit": "u3",
+      "title": "Practice",
+      "color": "#b0e2de",
+      "colorStrong": "#7cd8d0",
+      "outcomes": [
+        "Explain why quality practice is essential for committing learning to memory",
+        "Describe how Oak lessons guide practice, build a high success rate and develop independence",
+        "Design practice tasks that demand hard thinking across a whole learning cycle"
+      ],
+      "sections": [
+        {
+          "id": "u3m1s1",
+          "title": "Quality practice",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Practice is a pedagogical strategy that gives pupils opportunities to check, apply and consolidate their learning. The goal is to help pupils develop their skills and knowledge through repeated practice and accompanying feedback. Practice also checks that pupils have learnt what was intended, so misconceptions and misunderstandings don’t become embedded."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "quote",
+              "text": "It’s not practice makes perfect, it’s practice makes permanent.",
+              "attrib": "Doug Lemov"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Practice is essential for committing new knowledge and skills to memory. By embedding key learning through practice, cognitive load is reduced — paving the way for more complex thinking. In the longer term, the right kind of practice is the only way to lead pupils towards independence.",
+                "Research shows that practice is a critical component of learning, and that repeated practice with feedback helps pupils develop their skills and knowledge more effectively. Lessons should give pupils regular opportunities to practise, and pairing practice tasks with feedback helps pupils improve.",
+                "Rosenshine’s principles of instruction divide into four strands. One of these — ‘stages of practice’ — breaks down further into three parts."
+              ]
+            },
+            {
+              "t": "image",
+              "placeholder": "Drop an image of Rosenshine’s stages of practice here.",
+              "caption": "Rosenshine’s stages of practice."
+            },
+            {
+              "t": "text",
+              "paras": [
+                "In Oak’s learning framework, practice sits at the heart of ‘use it’. Many features of our lessons support each of the three stages of practice:"
+              ]
+            },
+            {
+              "t": "columns",
+              "cols": [
+                {
+                  "title": "Guide student practice",
+                  "points": [
+                    "Checks for understanding peppered throughout explanations",
+                    "Two quizzes per lesson",
+                    "Misconceptions at the heart of curriculum information to guide planning",
+                    "Corrective or affirming feedback"
+                  ]
+                },
+                {
+                  "title": "Obtain a high success rate",
+                  "points": [
+                    "Quizzes are designed to support a 75% correct answer rate",
+                    "Checks for understanding are carefully sequenced and pitched to support success"
+                  ]
+                },
+                {
+                  "title": "Independent practice",
+                  "points": [
+                    "Practice tasks in every learning cycle",
+                    "Feedback provided after every task"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u3m1s2",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Check your understanding of quality practice and the stages of practice before moving on."
+              ]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: the stages of practice",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "How many stages of practice does Rosenshine’s ‘stages of practice’ strand break down into?",
+                  "options": [
+                    {
+                      "text": "Two"
+                    },
+                    {
+                      "text": "Three — guide practice, obtain a high success rate, independent practice",
+                      "correct": true
+                    },
+                    {
+                      "text": "Four"
+                    }
+                  ],
+                  "explain": "The ‘stages of practice’ strand breaks down into three parts: guiding student practice, obtaining a high success rate, and independent practice."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "What correct-answer rate are Oak quizzes designed to support?",
+                  "options": [
+                    {
+                      "text": "50%"
+                    },
+                    {
+                      "text": "75%",
+                      "correct": true
+                    },
+                    {
+                      "text": "100%"
+                    }
+                  ],
+                  "explain": "Quizzes are designed to support a 75% correct answer rate — obtaining a high success rate without removing all challenge."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "Practice should be paired with feedback to help pupils improve.",
+                  "options": [
+                    {
+                      "text": "True",
+                      "correct": true
+                    },
+                    {
+                      "text": "False"
+                    }
+                  ],
+                  "explain": "Research shows repeated practice with feedback helps pupils develop their skills and knowledge more effectively."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u3m1s3",
+          "title": "Three features of practice",
+          "blocks": [
+            {
+              "t": "heading",
+              "text": "Three features of practice at Oak"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Practice should be carefully planned and sequenced to embed core knowledge before moving on to more complex thinking. It’s also important that practice tasks elicit hard thinking. Three features of practice at Oak support this — tap each card to reveal more."
+              ]
+            },
+            {
+              "t": "flip",
+              "chip": "#b0e2de",
+              "cards": [
+                {
+                  "badge": "1",
+                  "front": "More than a CfU",
+                  "back": "A practice task is not about filling time. It must be more than a quick question — with a richness and depth that isn’t possible to achieve in a check for understanding."
+                },
+                {
+                  "badge": "2",
+                  "front": "Challenge just right",
+                  "back": "We don’t know the pupils in the classrooms where these lessons are delivered, so we have to pitch just right. Too easy and there’s no learning gain; too hard and we erase all the benefits of independent practice."
+                },
+                {
+                  "badge": "3",
+                  "front": "Whole learning cycle",
+                  "back": "Practice tasks come towards the end of a learning cycle for a reason: by this point we’ve covered the content. The task should encompass the entirety of the learning cycle, not just a small part of it."
+                }
+              ],
+              "frontImage": true
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "text": "A task is an activity undertaken by pupils to demonstrate their understanding of the teaching in the lesson up to that point.",
+              "qs": ["QS-492"]
+            }
+          ]
+        },
+        {
+          "id": "u3m1s4",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of the three features of practice at Oak."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: the three features of practice at Oak",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "How should a practice task differ from a check for understanding?",
+                  "options": [
+                    {
+                      "text": "It should be quicker and simpler"
+                    },
+                    {
+                      "text": "It should have a richness and depth not possible in a CfU",
+                      "correct": true
+                    },
+                    {
+                      "text": "It should always be multiple choice"
+                    }
+                  ],
+                  "explain": "A practice task must be more than a quick question — with a richness and depth that isn’t possible to achieve in a check for understanding."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "A practice task that is too hard still delivers the full benefit of independent practice.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Too easy and there’s no learning gain; too hard and we erase all the benefits of independent practice. The challenge must be pitched just right."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "How much of the learning cycle should a practice task cover?",
+                  "options": [
+                    {
+                      "text": "Just the most recent part"
+                    },
+                    {
+                      "text": "The entirety of the learning cycle",
+                      "correct": true
+                    },
+                    {
+                      "text": "Only the parts pupils found easy"
+                    }
+                  ],
+                  "explain": "Practice tasks come towards the end of a learning cycle so they can encompass the entirety of it, not just a small part."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u4m1",
+      "unit": "u4",
+      "title": "Questioning",
+      "color": "#a0b6f2",
+      "colorStrong": "#7c9aec",
+      "outcomes": [
+        "Explain why questioning is essential to effective teaching and learning",
+        "Describe the purpose and content of Oak’s two quizzes",
+        "Identify the four quiz question types and when to use each"
+      ],
+      "sections": [
+        {
+          "id": "u4m1s1",
+          "title": "Why we question",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Questioning is an essential part of effective pedagogy because it helps to engage pupils in the learning process. When teachers ask questions, it prompts pupils to think deeply about the topic and reflect on their own learning. It also helps pupils make connections between concepts and develop a deeper understanding of the content.",
+                "In developing critical thinking skills, pupils are encouraged to analyse information, evaluate evidence and draw conclusions based on their own reasoning. This promotes independent thinking and can lead to more meaningful, longer-lasting learning. Questioning creates an interactive, engaging environment too — and by encouraging pupils to ask their own questions, teachers foster curiosity and creativity.",
+                "Quizzing supports the ‘own it’, ‘frame it’, ‘use it’, ‘keep it’ and ‘check it’ stages of our learning framework."
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Where questioning appears"
+            },
+            {
+              "t": "text",
+              "paras": ["Questioning runs right through an Oak lesson, in several components:"]
+            },
+            {
+              "t": "columns",
+              "cols": [
+                {
+                  "title": "Slide decks",
+                  "points": [
+                    "Checks for understanding",
+                    "Practice tasks",
+                    "Enrichment questions on explanation slides"
+                  ]
+                },
+                {
+                  "title": "Video & worksheets",
+                  "points": [
+                    "Questions are delivered verbally in the video",
+                    "The transcript gives a written record of the explanation",
+                    "Practice-task questions are replicated on worksheets"
+                  ]
+                },
+                {
+                  "title": "Quizzes",
+                  "points": [
+                    "The two quizzes carry the greatest concentration of questions",
+                    "They help pupils retrieve and remember the most important information"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m1s2",
+          "title": "The two quizzes",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Every Oak lesson is accompanied by two quizzes: a Prior Knowledge Starter Quiz at the start, and an Assessment Exit Quiz at the end."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "text": "All lessons include a Prior Knowledge Starter Quiz and an Assessment Exit Quiz",
+              "qs": ["QS-373"]
+            },
+            {
+              "t": "columns",
+              "cols": [
+                {
+                  "title": "Prior Knowledge Starter Quiz (PKSQ)",
+                  "points": [
+                    "Purpose: activate the necessary knowledge to access the lesson",
+                    "6 questions for KS2–KS4",
+                    "4–6 questions for KS1, music, and the first KS2 languages unit, as appropriate",
+                    "4 questions for practical PE"
+                  ]
+                },
+                {
+                  "title": "Assessment Exit Quiz (AEQ)",
+                  "points": [
+                    "Purpose: assess performance against the key learning points",
+                    "4–6 questions for all key stages and music",
+                    "4 questions for practical PE"
+                  ]
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "text": "Prior knowledge starter quizzes have 6 questions (except KS1 which can have 4-6 as appropriate). Assessment exit quizzes have 4-6 questions as appropriate",
+              "qs": ["QS-113"]
+            },
+            {
+              "t": "heading",
+              "text": "What each quiz does"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "The prior knowledge starter quiz takes place at the start of the lesson and assesses prior knowledge."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-166",
+                  "text": "Prior knowledge starter quiz questions activate the necessary knowledge to access the lesson"
+                },
+                {
+                  "qs": "QS-167",
+                  "text": "Questions in the prior knowledge starter quiz engineer early success"
+                },
+                {
+                  "qs": "QS-145",
+                  "text": "For prior knowledge starter quizzes at the start of a unit this aligns with prior knowledge requirements and previous keywords from content in related prior units"
+                },
+                {
+                  "qs": "QS-146",
+                  "text": "Subsequent prior knowledge starter quizzes align with key learning points and keywords from previous lessons in the unit"
+                }
+              ]
+            },
+            {
+              "t": "text",
+              "paras": [
+                "The assessment exit quiz takes place at the end of the lesson and accompanies the learning from it. If a pupil has correctly completed the assessment exit quiz, they have understood the key learning points of the lesson."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-170",
+                  "text": "The assessment exit quiz questions assess key learning points"
+                },
+                {
+                  "qs": "QS-144",
+                  "text": "The misconception is explicitly addressed during explanation and checked via CfU and assessment exit quiz"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m1s3",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of questioning and Oak’s two quizzes."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: questioning and the two quizzes",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "When does the Prior Knowledge Starter Quiz take place, and what is its purpose?",
+                  "options": [
+                    {
+                      "text": "At the end — to assess the key learning points"
+                    },
+                    {
+                      "text": "At the start — to activate the knowledge needed to access the lesson",
+                      "correct": true
+                    },
+                    {
+                      "text": "Midway — to break up the explanation"
+                    }
+                  ],
+                  "explain": "The PKSQ takes place at the start of the lesson and activates the prior knowledge pupils need to access it."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "How many questions does an Assessment Exit Quiz typically have?",
+                  "options": [
+                    {
+                      "text": "Exactly 10"
+                    },
+                    {
+                      "text": "4–6 as appropriate",
+                      "correct": true
+                    },
+                    {
+                      "text": "2–3"
+                    }
+                  ],
+                  "explain": "Assessment exit quizzes have 4–6 questions as appropriate (4 for practical PE)."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "If a pupil correctly completes the assessment exit quiz, they have understood the key learning points of the lesson.",
+                  "options": [
+                    {
+                      "text": "True",
+                      "correct": true
+                    },
+                    {
+                      "text": "False"
+                    }
+                  ],
+                  "explain": "That is exactly what the AEQ is designed to show — it assesses performance against the key learning points."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m1s4",
+          "title": "Quiz principles",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "All Oak quizzes share a set of design principles. The complexity of knowledge and the challenge of questions increase (slowly) as the question number increases, question types are varied across a unit, and every question must be answerable independently of the lesson and of the other questions — so there is never a reference to ‘in the slide deck…’ or ‘during learning cycle 1…’.",
+                "Several of these principles are quality standards in their own right:"
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-147",
+                  "text": "In all quizzes, the majority of pupils would have a high success rate (around 75-80%)"
+                },
+                {
+                  "qs": "QS-148",
+                  "text": "It is not possible to guess the correct answer"
+                },
+                {
+                  "qs": "QS-168",
+                  "text": "Quiz questions require explicit knowledge to be answered correctly"
+                },
+                {
+                  "qs": "QS-169",
+                  "text": "All quizzes contain at least one question that checks keyword/vocabulary knowledge"
+                },
+                {
+                  "qs": "QS-511",
+                  "text": "All quiz questions are unique within the subject phase"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m1s5",
+          "title": "Question types",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Questions in a quiz can be one of four types. Each suits different content — tap through the tabs to see how each works and when to use it."
+              ]
+            },
+            {
+              "t": "tabs",
+              "tabs": [
+                {
+                  "label": "Multiple choice",
+                  "paras": [
+                    "One or two correct responses with at least two distractors; 3–5 answer choices in total.",
+                    "Best used when: the answer is one from a defined set (e.g. planets in the solar system); the question defines the plausible options; the correct answer would otherwise be hard to automark; the desired challenge is low; or the answer needs special characters."
+                  ],
+                  "example": "The Eastern Roman Empire was also known as the __________ Empire. → Byzantine ✓  (Shang / Indus / Ottoman)"
+                },
+                {
+                  "label": "Order",
+                  "paras": [
+                    "Three to seven answer choices. Items are represented by a single word or number, not full sentences.",
+                    "Best used when there is a clearly defined order that items can be sorted into."
+                  ],
+                  "example": "Starting with the earliest, place the events about early Christianity in the correct order."
+                },
+                {
+                  "label": "Match",
+                  "paras": [
+                    "Three to six answer pairs, with the same number of answer choices as match choices.",
+                    "Best used when there are two variables that align as matching pairs."
+                  ],
+                  "example": "Match the keyword to its definition: martyr → someone who would rather suffer than give up their belief."
+                },
+                {
+                  "label": "Short answer",
+                  "paras": [
+                    "One correct answer plus 0–4 alternative correct answers.",
+                    "Best used when there aren’t enough plausible distractors; spelling matters; alternatives might reinforce a misconception; the answer is easy to automark; it’s for retrieval practice; or the desired challenge is high."
+                  ],
+                  "example": "Many Christians were killed for their faith, making them __________. → martyrs"
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "tip",
+              "title": "Keep it varied",
+              "text": "Vary question types across a unit so retrieval stays effortful and engaging, and choose the type that best fits the knowledge being tested."
+            }
+          ]
+        },
+        {
+          "id": "u4m1s6",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of the four quiz question types."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: question types",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Which question type is best when there aren’t enough plausible distractors and spelling matters?",
+                  "options": [
+                    {
+                      "text": "Multiple choice"
+                    },
+                    {
+                      "text": "Short answer",
+                      "correct": true
+                    },
+                    {
+                      "text": "Order"
+                    }
+                  ],
+                  "explain": "Short answer is used when there aren’t enough plausible distractors, when spelling is important, or when MCQ alternatives might reinforce a misconception."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "How many answer choices should an order question have?",
+                  "options": [
+                    {
+                      "text": "Three to seven",
+                      "correct": true
+                    },
+                    {
+                      "text": "Exactly four"
+                    },
+                    {
+                      "text": "Up to twelve"
+                    }
+                  ],
+                  "explain": "Order questions have three to seven answer choices, each a single word or number rather than a full sentence."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "A match question should have the same number of answer choices as match choices.",
+                  "options": [
+                    {
+                      "text": "True",
+                      "correct": true
+                    },
+                    {
+                      "text": "False"
+                    }
+                  ],
+                  "explain": "Match questions have three to six pairs, with the same number of answer choices as match choices."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u4m2",
+      "unit": "u4",
+      "title": "Craft questions",
+      "color": "#deb7d5",
+      "colorStrong": "#cf9cc3",
+      "outcomes": [
+        "Write clear, age-appropriate question stems",
+        "Construct effective distractors for multiple choice questions",
+        "Apply Oak’s standards for answers, hints and feedback"
+      ],
+      "sections": [
+        {
+          "id": "u4m2s1",
+          "title": "Writing question stems",
+          "blocks": [
+            {
+              "t": "callout",
+              "variant": "tip",
+              "title": "Not just quizzes",
+              "text": "Although this focuses on questioning in quizzes, the guidance applies equally to developing high-quality checks for understanding and questions in practice tasks."
+            },
+            {
+              "t": "text",
+              "paras": [
+                "A question stem is the opening part of a question. It needs to include all the information required to answer the question — and nothing that gets in the way."
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Make the stem do the work"
+            },
+            {
+              "t": "compare",
+              "goodText": "How are nutrients from food carried around the body?",
+              "goodNote": "Phrased for a Year 4 pupil — phase and age appropriate.",
+              "badText": "The small intestine absorbs nutrients from our food and passes them to our __________ to be carried around the body."
+            },
+            {
+              "t": "compare",
+              "goodText": "Lipase has an optimum temperature of 37°C. Why does the activity of lipase decrease rapidly at 50°C?",
+              "goodNote": "Every piece of information is essential to answering.",
+              "badText": "Lipase is an enzyme that acts on lipids to produce fatty acids and glycerol. The optimal temperature for lipase is 37°C. Why does the activity of lipase decrease rapidly at 50°C?",
+              "badNote": "Contains information that isn’t needed to answer the question."
+            },
+            {
+              "t": "compare",
+              "goodText": "Which of the following is not an organ of the digestive system? (stomach / small intestines / liver / rectum)",
+              "goodNote": "The negative is valuable here — it is used to surface a common misconception.",
+              "badText": "All of the following statements are true except…",
+              "badNote": "A negative construct used without good reason adds difficulty that isn’t about the learning."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-182",
+                  "text": "Question stems: Ensure that the wording of questions is phase and age appropriate"
+                },
+                {
+                  "qs": "QS-184",
+                  "text": "Question stems: Include all of the relevant information in the question stem but avoid adding superfluous information."
+                },
+                {
+                  "qs": "QS-188",
+                  "text": "Question stems: Try to start questions with a question word (e.g. what, why, how) or a command word (describe, analyse, name) to give focus to the question"
+                },
+                {
+                  "qs": "QS-189",
+                  "text": "Question stems: Ensure the question poses a clear problem - the stem should not contain irrelevant material. Supplementary material, such as a table, chart or diagram, should be added as an image."
+                },
+                {
+                  "qs": "QS-190",
+                  "text": "Question stems: Make additional guidance separate from the question"
+                },
+                {
+                  "qs": "QS-192",
+                  "text": "Question stems: The stem should stand alone from the lesson. The subject of the question needs to be clear without assumed knowledge."
+                }
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-185",
+                  "text": "Question stems: Use the negative construct (e.g. not and except) carefully. If it is needed."
+                },
+                {
+                  "qs": "QS-186",
+                  "text": "Question stems: Stems should be presented in the negative only when significant learning requires it."
+                },
+                {
+                  "qs": "QS-116",
+                  "text": "Question stems do not state the number of responses required"
+                },
+                {
+                  "qs": "QS-193",
+                  "text": "Question stems: Avoid using yes/no, true/false questions where possible as they are low demand. If using true/false questions start the stem with True/false."
+                },
+                {
+                  "qs": "QS-183",
+                  "text": "Question stems: Check that the stem of multiple choice questions is meaningful without seeing the answer options."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m2s2",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of how to write effective question stems."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: question stems",
+              "questions": [
+                {
+                  "kind": "tf",
+                  "stem": "A good question stem can rely on knowledge from earlier in the lesson, such as ‘in the first learning cycle…’.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "The stem should stand alone from the lesson — the subject of the question must be clear without assumed knowledge."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Why should you avoid superfluous information in a stem?",
+                  "options": [
+                    {
+                      "text": "It makes the question look too short"
+                    },
+                    {
+                      "text": "It can get in the way of the clear problem the question poses",
+                      "correct": true
+                    },
+                    {
+                      "text": "It is against copyright rules"
+                    }
+                  ],
+                  "explain": "Include all relevant information but avoid superfluous detail — the stem should pose a clear problem with no irrelevant material."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "When is a negative construct (e.g. ‘not’ or ‘except’) appropriate in a stem?",
+                  "options": [
+                    {
+                      "text": "Whenever it makes the question harder"
+                    },
+                    {
+                      "text": "Only when significant learning requires it",
+                      "correct": true
+                    },
+                    {
+                      "text": "Never, under any circumstances"
+                    }
+                  ],
+                  "explain": "Use the negative construct carefully — stems should be presented in the negative only when significant learning requires it, such as to expose a misconception."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m2s3",
+          "title": "Answers and structures",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "The approach to answers varies by question type. Answers are generally a single word, unless a few words are required."
+              ]
+            },
+            {
+              "t": "stats",
+              "items": [
+                {
+                  "value": "3–5",
+                  "label": "Multiple choice answer choices (1–2 correct)"
+                },
+                {
+                  "value": "3–7",
+                  "label": "Order answer choices"
+                },
+                {
+                  "value": "3–6",
+                  "label": "Match answer pairs"
+                },
+                {
+                  "value": "0–4",
+                  "label": "Short answer alternatives (plus 1 correct)"
+                }
+              ],
+              "note": "Match questions must have the same number of answer choices as match choices."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-200",
+                  "text": "Answers: Short answer questions’ answers will generally be a single word, unless a few words are required."
+                },
+                {
+                  "qs": "QS-207",
+                  "text": "Answers: Multiple choice questions will include 3-5 answer choices."
+                },
+                {
+                  "qs": "QS-208",
+                  "text": "Answers: Short answer questions will include 1 correct answer and 0-4 alternative correct answers."
+                },
+                {
+                  "qs": "QS-209",
+                  "text": "Answers: Match questions will include 3-6 answer pairs"
+                }
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Structuring order and match questions"
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-203",
+                  "text": "Structuring order questions: Use the word sort e.g. Sort the animals"
+                },
+                {
+                  "qs": "QS-202",
+                  "text": "Structuring order questions: These questions need to provide clarity on where to start e.g Starting with the smallest animal…"
+                },
+                {
+                  "qs": "QS-204",
+                  "text": "Structuring order questions: These questions finish the question stem with the desired order e.g. …into order of increasing size…"
+                },
+                {
+                  "qs": "QS-201",
+                  "text": "Structuring order questions: These are used to sort items represented by a single word or number, not full sentences."
+                },
+                {
+                  "qs": "QS-205",
+                  "text": "Structuring match questions: At least one variable should be a single word or number"
+                },
+                {
+                  "qs": "QS-206",
+                  "text": "Structuring match questions: Each pair should be clearly matched, with no ambiguity"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m2s4",
+          "title": "Writing distractors",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Distractors are the incorrect answers in a multiple choice question. They are ‘distracting’ because they are plausible — pupils shouldn’t be able to dismiss them on sight or guess their way to the answer."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "What is 12 multiplied by 2?  (6 / 10 / 14 / 24)",
+              "goodNote": "Each distractor can be calculated from 12 and 2 and exposes a different operational error.",
+              "badText": "What is 12 multiplied by 2?  (7 / 22 / 24 / 26)",
+              "badNote": "7 is dismissed instantly; 22 and 26 show guessing but expose no relevant misconception."
+            },
+            {
+              "t": "compare",
+              "goodText": "What is a predator?  (an animal that hunts and kills other animals for food / an animal that is hunted, killed and eaten …)",
+              "goodNote": "No grammatical clue gives the answer away.",
+              "badText": "A predator is a…  (animal that hunts and kills… / animal that is hunted…)",
+              "badNote": "The ‘a…’ stem signals the grammatical form of the correct answer."
+            },
+            {
+              "t": "compare",
+              "goodText": "Which two of the following foods are good sources of protein?  (eggs / fish / rice / potatoes)",
+              "goodNote": "Pupils must know each option on its own merits.",
+              "badText": "Which of the following foods are good sources of protein?  (beans / chicken / eggs / fish / all of the above)",
+              "badNote": "Pupils can use partial knowledge to arrive at ‘all of the above’."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-187",
+                  "text": "Question stems: Distractors should be in the positive."
+                },
+                {
+                  "qs": "QS-194",
+                  "text": "Distractors: Avoid grammatical clues which give away the correct answer (e.g. using an at or an at the end of a stem or using a singular or plural construction)."
+                },
+                {
+                  "qs": "QS-195",
+                  "text": "Distractors: Ensure all distractors are mutually exclusive, there should be no overlap."
+                },
+                {
+                  "qs": "QS-196",
+                  "text": "Distractors:  Present the distractors in a logical order such as alphabetical, numerical or chronological. In cases where the items have an ordering convention, such as groups of the periodic table, use the convention."
+                },
+                {
+                  "qs": "QS-197",
+                  "text": "Distractors: Make sure there is only one best answer by removing ambiguity from the question or through adding detail to the answers."
+                },
+                {
+                  "qs": "QS-198",
+                  "text": "Distractors: Avoid using the distractors ‘all of the above’ and ‘none of the above’ as pupils can use partial knowledge to arrive at a correct answer."
+                },
+                {
+                  "qs": "QS-199",
+                  "text": "Distractors: Avoid complex multiple choice items. If there is more than one correct answer, use multiple-select instead."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m2s5",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of how to write effective distractors."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: distractors",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "What makes a distractor effective?",
+                  "options": [
+                    {
+                      "text": "It is obviously wrong so pupils feel confident"
+                    },
+                    {
+                      "text": "It is plausible and, ideally, exposes a specific misconception or error",
+                      "correct": true
+                    },
+                    {
+                      "text": "It repeats the correct answer in different words"
+                    }
+                  ],
+                  "explain": "Good distractors are minimally different from each other and expose a different operational error or misconception."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "‘All of the above’ is a useful distractor because it tests whether pupils know every option.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Avoid ‘all of the above’ and ‘none of the above’ — pupils can use partial knowledge to arrive at the answer."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "How should distractors usually be ordered?",
+                  "options": [
+                    {
+                      "text": "Randomly, so pupils can’t predict them"
+                    },
+                    {
+                      "text": "In a logical order such as alphabetical, numerical or chronological",
+                      "correct": true
+                    },
+                    {
+                      "text": "Longest to shortest"
+                    }
+                  ],
+                  "explain": "Present distractors in a logical order, and use any established convention (such as groups of the periodic table) where one exists."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m2s6",
+          "title": "Hints, feedback and images",
+          "blocks": [
+            {
+              "t": "heading",
+              "text": "Hints"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Every quiz question includes one relevant hint. A hint gives pupils some additional information to help them answer — without giving the answer away."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "Producers are usually green plants. The prefix a- means ‘non’ and biotic refers to life.",
+              "goodNote": "A useful nudge that doesn’t hand over the answer.",
+              "badText": "Trees are producers.",
+              "badNote": "This simply tells the pupil the answer."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-115",
+                  "text": "All quiz questions include one relevant hint"
+                },
+                {
+                  "qs": "QS-211",
+                  "text": "Hints are designed to give pupils some additional information to help them to answer the question."
+                },
+                {
+                  "qs": "QS-212",
+                  "text": "Hints: Hints should not tell pupils the answer."
+                }
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Feedback"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Feedback appears whether a pupil answered correctly or incorrectly, so it must be written to work in both cases. It should give the answer and, where appropriate, explain it — but don’t start with ‘Correct!’, as that is added automatically."
+              ]
+            },
+            {
+              "t": "compare",
+              "goodText": "The tree is a producer. Green plants are usually producers; they photosynthesise to form glucose.",
+              "goodNote": "Gives the answer and explains why.",
+              "badText": "Well done! That is correct.",
+              "badNote": "Doesn’t give or explain the answer, and refers to the response being correct."
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-114",
+                  "text": "All quiz questions include one piece of relevant feedback which provides the pupil with the correct answer and gives a reason, explanation or calculation that shows why the answer is correct. Feedback should not contain reference to the response being correct."
+                },
+                {
+                  "qs": "QS-213",
+                  "text": "Feedback: Feedback should give pupils the answer."
+                },
+                {
+                  "qs": "QS-214",
+                  "text": "Feedback: Where appropriate feedback should give information to explain the answer."
+                },
+                {
+                  "qs": "QS-215",
+                  "text": "Feedback: For calculations, feedback might be a worked calculation."
+                },
+                {
+                  "qs": "QS-216",
+                  "text": "Feedback: Feedback should be written so that it is appropriate for both the case where the pupil has answered the question correctly, and the case where they have answered the question incorrectly."
+                }
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Images in questions"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Images can appear in the question stem or as answer choices — particularly useful for younger pupils and for a wider range of question stimuli. Only use an image where it is needed to answer the question."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-377",
+                  "text": "Images in quizzes are only used where required for answering the question. Decorative images are not used"
+                },
+                {
+                  "qs": "QS-111",
+                  "text": "Images in quizzes always include an alt text description"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m2s7",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of hints and feedback."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: hints and feedback",
+              "questions": [
+                {
+                  "kind": "tf",
+                  "stem": "A hint should give the pupil the answer if they are struggling.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Hints give additional information to help pupils answer — they should not tell pupils the answer."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "Why shouldn’t feedback begin with ‘Correct!’?",
+                  "options": [
+                    {
+                      "text": "It sounds unfriendly"
+                    },
+                    {
+                      "text": "It is added automatically, and must also read correctly for pupils who answered incorrectly",
+                      "correct": true
+                    },
+                    {
+                      "text": "It uses too many characters"
+                    }
+                  ],
+                  "explain": "Feedback is shown whether the pupil was right or wrong and should not reference the response being correct; ‘Correct!’ is added automatically."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "What should good feedback always do?",
+                  "options": [
+                    {
+                      "text": "Praise the pupil and move on"
+                    },
+                    {
+                      "text": "Give the correct answer and, where appropriate, explain it",
+                      "correct": true
+                    },
+                    {
+                      "text": "List every other quiz question"
+                    }
+                  ],
+                  "explain": "Feedback provides the correct answer with a reason, explanation or calculation that shows why it is correct."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u4m3",
+      "unit": "u4",
+      "title": "Quiz builder",
+      "color": "#bef2bd",
+      "colorStrong": "#93e892",
+      "outcomes": [
+        "Describe the purpose of Quiz builder and how Oak quizzes are authored",
+        "Apply character limits and technical formatting rules correctly",
+        "Meet Oak’s standards for images and restricted content in quizzes"
+      ],
+      "sections": [
+        {
+          "id": "u4m3s1",
+          "title": "What Quiz builder is",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Quiz builder has been created by Oak to ensure all quizzes are built into our database, so we can present the content in a variety of formats for users on the platform — downloadable PDFs, interactive online quizzes, or quizzes that can be projected in the classroom.",
+                "All quiz content must be authored using Oak’s internal quiz authoring system. Quiz builder is accessed directly from the appropriate lesson page on the CAT."
+              ]
+            },
+            {
+              "t": "video",
+              "caption": "Using Quiz builder to create quizzes in the CAT.",
+              "placeholder": "Drop the Quiz builder walkthrough video here (MP4 or embed)."
+            },
+            {
+              "t": "callout",
+              "variant": "warning",
+              "title": "Quiz builder can be slow to save",
+              "text": "Always press enter when you finish, or click out of the edit box, then leave the tab open for at least a minute to make sure the save has completed. You can do other things on your computer meanwhile — just don’t close the Quiz builder tab, or changes you make may be lost."
+            }
+          ]
+        },
+        {
+          "id": "u4m3s2",
+          "title": "Character limits",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "So that content fits onto downloadable PDFs and other Oak products, each part of a quiz has a character limit."
+              ]
+            },
+            {
+              "t": "stats",
+              "items": [
+                {
+                  "value": "200",
+                  "label": "Question stem"
+                },
+                {
+                  "value": "250",
+                  "label": "Feedback"
+                },
+                {
+                  "value": "250",
+                  "label": "Hint"
+                },
+                {
+                  "value": "80",
+                  "label": "Multiple choice answers"
+                },
+                {
+                  "value": "30",
+                  "label": "Short answer answers"
+                },
+                {
+                  "value": "80",
+                  "label": "Order answers"
+                },
+                {
+                  "value": "40",
+                  "label": "Match choices"
+                },
+                {
+                  "value": "70",
+                  "label": "Match answers"
+                }
+              ],
+              "note": "Character limits. Practical PE should only use short answer and multiple choice questions."
+            }
+          ]
+        },
+        {
+          "id": "u4m3s3",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": ["Check your understanding of Quiz builder and its character limits."]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: Quiz builder",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Why must all quiz content be authored in Quiz builder?",
+                  "options": [
+                    {
+                      "text": "So it can be printed in colour only"
+                    },
+                    {
+                      "text": "So quizzes are built into Oak’s database and can be presented as PDFs, online quizzes or projected in class",
+                      "correct": true
+                    },
+                    {
+                      "text": "So teachers can edit them offline"
+                    }
+                  ],
+                  "explain": "Quiz builder ensures all quizzes are in Oak’s database, ready to present in a variety of formats."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "What is the character limit for a question stem?",
+                  "options": [
+                    {
+                      "text": "80"
+                    },
+                    {
+                      "text": "200",
+                      "correct": true
+                    },
+                    {
+                      "text": "250"
+                    }
+                  ],
+                  "explain": "The question stem limit is 200 characters; feedback and hints allow 250."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "After editing in Quiz builder, you can close the tab straight away once you’ve pressed enter.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Quiz builder can be slow to save — leave the tab open for at least a minute so the save completes."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m3s4",
+          "title": "Technical formatting",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Question stems need the right format so they appear with the correct automated text on the downloadable PDFs and in the pupil experience."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "text": "Question stems have the appropriate format to support system integration",
+              "qs": ["QS-112"]
+            },
+            {
+              "t": "text",
+              "paras": [
+                "The platform adds completion instructions automatically, and they can differ between an interactive quiz and a downloadable PDF. So don’t include phrases like ‘complete the sentence’ or instructions such as ‘write…’ — if you add them too, the pupil sees them twice and the instruction can become confusing."
+              ]
+            },
+            {
+              "t": "accordion",
+              "items": [
+                {
+                  "q": "Multiple choice",
+                  "a": [
+                    "PDF: ‘Tick 1 correct answer’, ‘Tick 2 correct answers’, and so on. Pupil view: ‘Select one answer’, ‘Select two answers’, and so on. You don’t need to write how many options to select — that’s automated from the number of boxes you mark correct."
+                  ]
+                },
+                {
+                  "q": "Short answer",
+                  "a": [
+                    "PDF: ‘fill in the blank’ if inline; nothing if block. Pupil view: ‘Type your answer here’."
+                  ]
+                },
+                {
+                  "q": "Order",
+                  "a": [
+                    "PDF: ‘Use numbers to show the correct order’. Pupil view: ‘Click and drag answers to change the order, or select using TAB then move with SPACE and the up/down arrows’."
+                  ]
+                },
+                {
+                  "q": "Match",
+                  "a": [
+                    "PDF: ‘Write the correct letter in each box’. Pupil view: ‘Click and drag answers to change the order, or select using TAB then move with SPACE and the up/down arrows’."
+                  ]
+                }
+              ]
+            },
+            {
+              "t": "text",
+              "paras": [
+                "A few formatting rules: to show a missing word in a multiple choice stem, use ten underscores — not one per letter of the answer. Use ‘...’ for a gap fill at the end of a sentence."
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Short answer questions"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "Short answer questions can be out-of-line, where the answer input comes after the stem, or in-line, where the input sits within the stem. For in-line answers, mark where the blank should go so the platform inserts a space for pupils to type at that point.",
+                "Provide alternative correct answers only where alternative words are acceptable. You don’t need to account for spacing, capitalisation or punctuation — the marking machine ignores these. For example, if the answer is ‘index finger’, then ‘index finger’, ‘INDEX FINGER’ and ‘Index finger’ are all marked correct."
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Feedback formatting"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "When writing feedback, don’t add ‘Correct!’ before your answer — it’s added automatically, so if you write it in, it appears twice."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m3s5",
+          "title": "Images and restricted content",
+          "blocks": [
+            {
+              "t": "heading",
+              "text": "Images in quizzes"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "General image guidance still applies, with extra standards for images used specifically in quizzes. Note that practical PE is not able to use imagery in quizzes."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-374",
+                  "text": "All images in quizzes are uploaded to Cloudinary in the highest quality format available"
+                },
+                {
+                  "qs": "QS-111",
+                  "text": "Images in quizzes always include an alt text description"
+                },
+                {
+                  "qs": "QS-378",
+                  "text": "Images in quizzes should be suitable for printing in black and white"
+                },
+                {
+                  "qs": "QS-379",
+                  "text": "All images in quizzes must be in a 3:2 landscape ratio"
+                },
+                {
+                  "qs": "QS-181",
+                  "text": "The relevant content of an image in a quiz must be clearly visible for all use cases, including the printable quiz pdf. This is approximately the size in which the image appears in the quiz builder"
+                }
+              ]
+            },
+            {
+              "t": "heading",
+              "text": "Highly restricted content"
+            },
+            {
+              "t": "text",
+              "paras": [
+                "To comply with licensing agreements around third-party content, two quality standards apply. When selecting an image in Cloudinary, anything tagged ‘highly restricted’ may not be used in a quiz question, and content associated with a contracted work may not be used in quizzes."
+              ]
+            },
+            {
+              "t": "callout",
+              "variant": "info",
+              "title": "Quality standard",
+              "items": [
+                {
+                  "qs": "QS-874",
+                  "text": "Quizzes do not include highly restricted content"
+                },
+                {
+                  "qs": "QS-875",
+                  "text": "Quizzes do not include copyrighted text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "u4m3s6",
+          "title": "Knowledge check",
+          "blocks": [
+            {
+              "t": "text",
+              "paras": [
+                "Check your understanding of technical formatting, images and restricted content."
+              ]
+            },
+            {
+              "t": "quiz",
+              "title": "Quick check: formatting, images and restricted content",
+              "questions": [
+                {
+                  "kind": "mcq",
+                  "stem": "Why shouldn’t you write ‘complete the sentence’ in a question stem?",
+                  "options": [
+                    {
+                      "text": "It is too informal"
+                    },
+                    {
+                      "text": "Completion instructions are added automatically and may differ by format, so pupils would see them twice",
+                      "correct": true
+                    },
+                    {
+                      "text": "It exceeds the character limit"
+                    }
+                  ],
+                  "explain": "The platform adds completion instructions automatically, and they can differ between the PDF and the pupil view — writing them in too causes confusing duplication."
+                },
+                {
+                  "kind": "mcq",
+                  "stem": "What ratio must all images in quizzes use?",
+                  "options": [
+                    {
+                      "text": "1:1 square"
+                    },
+                    {
+                      "text": "3:2 landscape",
+                      "correct": true
+                    },
+                    {
+                      "text": "16:9 widescreen"
+                    }
+                  ],
+                  "explain": "All images in quizzes must be in a 3:2 landscape ratio and suitable for printing in black and white."
+                },
+                {
+                  "kind": "tf",
+                  "stem": "An image tagged ‘highly restricted’ in Cloudinary can be used in a quiz question as long as it has alt text.",
+                  "options": [
+                    {
+                      "text": "True"
+                    },
+                    {
+                      "text": "False",
+                      "correct": true
+                    }
+                  ],
+                  "explain": "Highly restricted content, and any content associated with a contracted work, may not be used in quizzes at all."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

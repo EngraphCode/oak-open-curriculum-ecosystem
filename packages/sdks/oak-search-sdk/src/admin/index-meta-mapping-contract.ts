@@ -39,7 +39,7 @@ function hasExpectedTopLevel(mapping: estypes.MappingTypeMapping): boolean {
     properties?.doc_counts !== undefined,
     properties?.previous_version !== undefined,
   ];
-  return checks.every((check) => check);
+  return checks.every(Boolean);
 }
 
 function hasExpectedPropertyContracts(mapping: estypes.MappingTypeMapping): boolean {
@@ -59,7 +59,7 @@ function hasExpectedPropertyContracts(mapping: estypes.MappingTypeMapping): bool
     mappingType(properties.previous_version) === expected.previous_version.type,
     mappingNormalizer(properties.previous_version) === expected.previous_version.normalizer,
   ];
-  return checks.every((check) => check);
+  return checks.every(Boolean);
 }
 
 function mappingErrorFromException(error: unknown): AdminError {

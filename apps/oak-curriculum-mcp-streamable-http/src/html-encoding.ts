@@ -100,12 +100,16 @@ export function decodeHtml(html: string): string {
     return '';
   }
 
+  // &amp; must decode LAST: it is encoded first, so any '&' a decode step
+  // produces is literal text. Decoding it earlier would re-feed sequences
+  // like '&amp;#10;' into the later numeric-entity replacements (a double
+  // decode of what should stay the literal text '&#10;').
   return html
     .replaceAll('&#39;', "'")
     .replaceAll('&quot;', '"')
     .replaceAll('&gt;', '>')
     .replaceAll('&lt;', '<')
-    .replaceAll('&amp;', '&')
     .replaceAll('&#10;', '\n')
-    .replaceAll('&#13;', '\r');
+    .replaceAll('&#13;', '\r')
+    .replaceAll('&amp;', '&');
 }

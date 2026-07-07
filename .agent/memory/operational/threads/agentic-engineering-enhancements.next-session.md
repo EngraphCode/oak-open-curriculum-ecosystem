@@ -23,6 +23,63 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## DEDICATED CONSOLIDATION — EXECUTED (2026-07-06, evening)
+
+Session identity: Zenith wakes Perigee (claude-code / claude-fable-5 / prefix `8897eb`),
+curator; `last_session` 2026-07-06. Owner-directed dedicated knowledge-curation pass on branch
+`docs/zenith-dedicated-consolidation` (off post-#314 `main`), run as the third agent alongside
+the Wildfire×Kiln refounding lane (boundaries de-conflicted on the stream; their lane untouched).
+
+**EXECUTED:** pending-graduations drained to ZERO by decision (nine homes verified first-hand;
+sequence-first graduated into PDR-018 under a live owner ratification recorded on the comms
+stream; doctrine-lookup tripwires into the sonarqube rule + invoke-code-experts; the
+merge-commit path into the commit skill); distilled drained to header; the napkin fully
+processed then rotated (verbatim archive, cmp-proven); repo-continuity's completed-arc
+narrative drained per its disposition (char-critical cleared honestly); open-questions
+confirmed empty; four new patterns; frictions F-122..F-129; PDR-063/082/117 amendments. Both
+graduation batches ran the PDR-101 four-seat quorum; all findings adjudicated. Commits
+`519484dcc`, `3561ffd58`, `3ea53d89f` (+ the handoff bundle). **Residual signals:** the
+Zodiac-section residual (1) below is VERIFIED STALE — `run-quality-gates` (+ CodeQL +
+SonarCloud) is ALREADY required (first-hand `gh api …/rules/branches/main`, 2026-07-06);
+repo-continuity remains hard-over on chars at rest with named remediation lanes; the 7c audit
+flagged two >14-day-stale Active threads and two COMPLETE threads still listed Active (napkin
+carries the list).
+
+## PR-LIFECYCLE DOCTRINE TIGHTENING — EXECUTED: PR #310 MERGED (2026-07-06)
+
+Session identity: Zodiac herds Spectrum (claude-code / claude-fable-5 / prefix `72dd40`),
+owner-named successor to Cricket lifts Echo (2fffa2); `last_session` 2026-07-06. Succession ran
+the standby seat contract (watcher + registration, no cron, no claim) and flipped to active at
+Cricket's natural-boundary closeout.
+
+**EXECUTED:** PR #310 merged to `main` (`18a2d8c17`): Strand D in full — D1 the "every issue
+earns a check" principle + operationalisations, D2 the Phase-7 merge-gate correction, D3 the
+ADR-168 dated shell-scope amendment + the 4-form `source-is-typescript-esm-only` rule — plus
+Cricket's conserve-at-close bundle and a docs-adr-expert review absorption (9 findings, two
+substantive: the rule/ADR-168 §4 hand-authored-`.mjs` contradiction; the stale pr-lifecycle
+frontmatter description propagating the superseded gate model into generated adapters).
+**Residuals:** (1) owner action — `run-quality-gates` as a REQUIRED status check; (2) the Bugbot
+merge-ready-definition fix (`c2671010e`) missed the merge window (owner merged mid-gate) and
+rides the follow-up branch `docs/pr-lifecycle-merge-ready-review-leg` (cherry-pick `09bbbc91d`)
+with this continuity bundle; (3) plan archive-move (`future/` → `archive/completed/`) is
+deferred lifecycle hygiene, inbound-link sweep required; (4) napkin rotation twice-deferred, due
+at the next dedicated consolidation. The prior session facts below stand as history.
+
+**Landed this session:** #306 (gitleaks pushed-range secret-scan fix, `62208200`) + #305 (docs
+closeout, `d14a989a`) merged via non-admin `gh pr merge`; #300–302 closed by owner; `main` FF'd to
+`d14a989a`; the Sonar MCP gateway URL typo repaired (`sonarcould.io`→`sonarcloud.io`); the S4036
+finding on the new secret-scan CLI ACCEPTED as a context false-positive (code-expert + security-expert
+ratified). **The decision-complete plan (now executed):**
+[`every-issue-earns-a-check-and-doctrine-tightening.plan.md`](../../../plans/agentic-engineering-enhancements/future/every-issue-earns-a-check-and-doctrine-tightening.plan.md).
+Strand D: D1 the foundational "every issue earns a check" principle (`principles.md` §Code Quality +
+`testing-strategy.md` + `pr-comments-resolve-and-recheck.md`); D2 the pr-lifecycle Phase-7 merge-gate
+correction (truly-green → non-admin `gh pr merge`; `--admin` forbidden); D3 the ADR-168 §5a shell-scope
+amendment + a new 4-form `source-is-typescript-esm-only.md` rule. **Next safe step:** branch off latest
+`main`, author D1→D2→D3, background the commits (pre-commit runs the full turbo gate, ~minutes each).
+**Owner action pending:** make `run-quality-gates` a REQUIRED status check — the class-guard that
+prevents the #300–302 gate-suppressed-bot-PR family. Peer **Orchid binds Verdure (51a331)** worked
+**#308** (sonar phase-5B idiom residuals) in a separate worktree all session — independent lane.
+
 ## INTER-PRACTICE EXCHANGE LANE — ungated work landed; both owner gates ANSWERED; WS0+WS4 authoring is next (2026-07-06)
 
 Session identity: Cricket lifts Echo (claude-code / claude-fable-5 / prefix `2fffa2`;
@@ -539,6 +596,8 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Wolf rides Vigil` | `claude-code` | `claude-fable-5 → claude-opus-4-8 (downgraded mid-session at handoff)` | `25ece9` | `inter-Practice exchange lane (Lane E, NEW). Ran the first-ever LIVE BIDIRECTIONAL Practice exchange on branch feat/corpus_research_enhancements: this oak checkout as worktree, a second Practice repo (resonance) as coordination home, one session with per-estate names (Wolf rides Vigil here / Velvet Dimming Mist there / prefix 25ece9), peer Misty Anchoring Rudder (ab49a5) on the resonance side; shared owner. Authored .agent/plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md (commits 6d4df9f69, 8df0321ed, c7cdf4a5f, + the shared-schema/pickup commit) — a portable protocol (repo-reference vocabulary with origin+checkout as two coordinates; PRACTICE_COORDINATION_HOME override; join ceremony; foreign-substrate discipline; identity name+prefix display; concepts-vs-pointers exchange layering; adoption as shared-spec + shared-SCHEMA-with-version-family-compat + local-code). Reframed live conjugation as the Core exchange model's second mode alongside dead-material transformation. Delivered a 4-offer teaching bundle to resonance's Practice Box (verified + committed their side); their return bundle (PDR-128/129 recomputable state, task-worker + PDR-125 verification, donor-exchange pattern) authoring by MAR into oak's incoming box. Pre-handoff adversarial self-scan caught + corrected two defects (false-precision in delivered material: threading is a CLI-wiring port not a schema add — resonance already carries the field; an unsupervised cross-repo watcher). A third defect corrected live: I inferred name-derives-from-model (25ece9 name would change under the Opus downgrade) — FALSE; the successor is a SEPARATE session (2fffa2), name derives from the session seed not the model, and I kept my names under Opus. SUCCESSOR (now active): Cricket lifts Echo — separate Fable-5 oak session, prefix 2fffa2 (= Hushed Prowling Lantern on resonance), claim d0e453a3; adopted the lane 2026-07-05, landed WS1/WS3/WS6, now owner-gated on PDR birthplace + v1 tiers. My seat final-closed 2026-07-06 with the owner-requested loss/metaloss scan — durable homes: this plan, the experience file 2026-07-06-first-live-bidirectional-practice-exchange.md, napkin (fluency-under-completion-pressure cluster). NOT pushed, no PR.` | 2026-07-05 | 2026-07-06 |
 | `Cricket lifts Echo` | `claude-code` | `claude-fable-5` | `2fffa2` | `inter-Practice exchange lane successor (Wolf handoff; = Hushed Prowling Lantern on resonance). Adopted the lane at a Moment-2 acknowledgement, then landed the three ungated workstreams: WS6 adoption assessment (cf05fe95a), WS1 PRACTICE_COORDINATION_HOME override (f31faec62), WS3 statusline name+prefix join key + sessionIdPrefix helper (4b9683be1) — suite green each landing. Asked + RECORDED both owner gates (2026-07-06, AskUserQuestion): (a) author the PDR in BOTH repos; (b) five-item floor + Tier-0/Tier-1 conformance ladder — WS0 family now UNBLOCKED. Authored the owner-requested WS0+WS4 opening statement. Closeout: exchange claim d0e453a3 CLOSED with final-heartbeat-end + team-member-closeout on the resonance stream; MAR closed the resonance side symmetrically (44f0ea2c CLOSED at eefd4ef); watcher + claim-heartbeat torn down. Deep loss + recursive-metaloss scan run first-hand. THEN (same seat, continued) shepherded the branch to PR #304: semantic-merged the diverged PR line (napkin / repo-continuity / thread-record by concept-union, proven lossless) + pulled the ripgrep-guard fix (c2e2181bd); PR green (CI 16/16, both review threads resolved, mergeState CLEAN); owner MERGED to main (562a73b0f, release 1.59.0 b41ae2233). Recorded the git-merge stale-dist guard-brick recurrence as frictions F-120 (structural cure, not a fourth passive capture); archived feat/graph-tooling-tidyup as tag archive/graph-tooling-tidyup. Session-closeout loss/metaloss scan run 2026-07-06. MERGED.` | 2026-07-06 | 2026-07-06 |
 | `Hedgehog stirs Rime` | `claude-code` | `claude-fable-5` | `da727a` | `phase-0 corpus-generalisation design-ratification to a STABLE POINT: design record drafted + committed with all (a)-(e) + 17-question verdicts + D7-D9; BOTH reviews completed and conserved in the record §Review (assumptions ratify-with-revisions 13 items; wilma sound-with-revisions 18 findings, criticals spot-verified); restart notes conserved (frozen-math reconciliation, P1 sketch); branch pushed + PR opened and shepherded; restart = revision queues + landing set on a NEW BRANCH post-merge per the section brief above` | 2026-07-05 | 2026-07-06 |
+| `Zodiac herds Spectrum` | `claude-code` | `claude-fable-5` | `72dd40` | `doctrine-PR lane (Strand D), owner-named successor to Cricket lifts Echo. Standby seat (watcher + registration, no cron, no claim) flipped active at Cricket's natural-boundary closeout; landed PR #310 to main (18a2d8c17): D1 every-issue-earns-a-check principle + operationalisations, D2 pr-lifecycle Phase-7 merge-gate correction, D3 dated ADR-168 shell-scope amendment + 4-form source-is-typescript-esm-only rule, Cricket's continuity bundle, docs-adr-expert review absorption (9 findings). Caught + rescued the merge-window stranding (Bugbot fix c2671010e missed the merge; cherry-pick 09bbbc91d on docs/pr-lifecycle-merge-ready-review-leg with the new Phase-6 push-to-merged-PR clause + session continuity bundle). Residuals: owner run-quality-gates-required ruleset action; plan archive-move; napkin rotation (twice-deferred)` | 2026-07-06 | 2026-07-06 |
+| `Hyena spins Lamplight` | `claude-code` | `claude-fable-5` | `27cb6f` | `PDR-049 doctrine amendment (owner-ratified sequential-identifier collision standard → PDR-049 §Sequential-identifier collisions + practice-core CHANGELOG + semantic-merge skill pointer; PR #313 MERGED same day) with its founding worked instance executed live (PR-295 merge run-in: F-111→F-121). CORRECTION to Zodiac's residual above, verified first-hand 2026-07-06: run-quality-gates IS a required status check on main (gh api rules/branches/main: run-quality-gates + CodeQL + SonarCloud) — the "owner action pending" residual is STALE; do not re-relay it. Session closed 2026-07-06, no claims retained` | 2026-07-06 | 2026-07-06 |
 
 ## Cross-Plan and Cross-Thread Links
 

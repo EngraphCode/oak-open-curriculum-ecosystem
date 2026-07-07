@@ -256,7 +256,62 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ TEAM-TOOLING ARC CLOSED — NO LIVE DIRECTOR (seat vacant since 2026-06-29)
+> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Nettle #10's full closeout (2026-07-06)
+>
+> **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #10
+> (Nettle tracks Acorn, `dfddd4`) closed out fully on owner direction 2026-07-06; claim
+> `35d9c8f2` RETAINED with pickup record
+> `handoffs/2026-07-06-curriculum-hub-director-nettle.md` (state, the landed trains, the
+> remaining map, owner gates, operating notes — incl. TWO standing owner corrections:
+> append-only consolidation with sources conserved; no directive-tier edits from inferred
+> generalisations). Chain: Herring → … → Comet → Hyena → Nettle. A FRESH session continues.
+>
+> **The one-line state:** PR #295 ALL-GREEN at `70f6d25df`, ZERO unresolved threads, reviewer
+> passes DONE (verdicts + adopted fixes in the record); remaining = owner-released LOCAL
+> semantic main-merge (re-enumerate; conservation direction governs memory-file merges) →
+> owner visual sign-off via a fresh `tool:fidelity` run (14 unregistered findings to judge) →
+> MERGE → fresh-branch continuation + WS0+ → the merge-boundary sweep (retained claims /
+> stale stashes / gone-upstream branches — owner-gated dispositions, enumerated in the
+> loss/metaloss scan report).
+>
+> **Readiness gate before any Moment-2:** unchanged — five questions + the pasted mechanical
+> UTC liveness check; then `claims adopt 35d9c8f2`, watcher move 1, heartbeat per PDR-078 §4.
+>
+> ---
+>
+> ### ▶ PRIOR (superseded 2026-07-06): seat RETAINED at Hyena #9's full closeout (2026-07-04)
+>
+> **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #9
+> (Hyena stirs Lamplight, `d62788`) closed out fully on owner direction 2026-07-04; claim
+> `35d9c8f2` RETAINED for the restart successor. Chain: Herring → Swordfish → Lantern →
+> Hawthorn → Sycamore → Panther → Birch → Comet → Hyena.
+>
+> **A successor rehydrates from** (detail lives there, not duplicated):
+> `handoffs/2026-07-04-curriculum-hub-director-hyena.md` (CURRENT pickup — state, the landed
+> trains, the remaining map, owner gates, operating notes) · the thread record
+> `threads/curriculum-hub-demo.next-session.md` · the guiding plan
+> `active/port-prototype-to-live-demo.md` (§Ratified decisions 1–9) · the post-merge plan
+> `current/productionisation-and-reuse.plan.md`.
+>
+> **The one-line state:** PR #295 all-green (Sonar PASSES); ~14 commits LOCAL behind the
+> standing owner push gate ("pause before push"); the fidelity-review mechanism is BUILT and
+> proven (tool:fidelity + tracked fidelity-register.json + the fidelity-review skill +
+> playbook §Fidelity review); remaining = push release → Copilot-thread resolution + reviewer
+> passes → the SEMANTIC main-merge (7 knowledge-surface conflicts, /oak-semantic-merge +
+> ultrathink, owner-directed) → owner visual sign-off (aided by the fidelity report; 14
+> UNREGISTERED findings to judge) → MERGE → §J owner-hosted from main.
+>
+> **Owner-gated:** the push release · visual sign-off · WS6 SSO set · fourth-stream row ·
+> WS2 stage-naming at activation · deep consolidation (napkin ~700/300, pending-graduations
+> 9 items — a DEDICATED fresh-context pass, registered, not absorbed).
+>
+> **Readiness gate before any Moment-2:** unchanged — five questions + the pasted mechanical
+> UTC liveness check; then `claims adopt 35d9c8f2`, arm the watcher (move 1), heartbeat per
+> PDR-078 §4 value-contingency.
+>
+> ---
+>
+> ### ▶ TEAM-TOOLING ARC CLOSED (prior effort, conserved) — Director: Falcon wakes Stratus (2026-06-29)
 >
 > **No Director is live.** Falcon wakes Stratus (`adb1f3`, 6th Director; chain Firefly → Merlin →
 > Triton → Kraken → Trawler → Falcon) **stood down 2026-06-29** — heartbeat stopped, Director claim

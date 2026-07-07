@@ -42,6 +42,19 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   mocks, and indicate that product code needs refactoring and
   simplification in order to be easily testable.
 - ALL mocks MUST be simple fakes, passed as arguments to the function under test.
+- **Constant object-literal fakes are the DEFAULT; a parametric
+  (params-dependent) fake is admissible only when ALL five conditions
+  hold** (test-expert ruling, 2026-07-02, curriculum-hub E3): (a) the
+  parameter is contract data flowing through the seam, not a hardcoded
+  internal; (b) the fake models the collaborator's DOCUMENTED
+  semantics, stated in a comment; (c) it is a single branch-free pure
+  expression of its params; (d) assertions stay output-shaped — never
+  call-inspection; (e) fixtures are sized to discriminate.
+  Argument-reflector fakes are admissible only where the seam's
+  contract IS forwarding. Collaborator semantics that would need a
+  BRANCH in the fake belong to a higher test scale, not a cleverer
+  fake. Pre-flagging a parametric-fake deviation with its rationale in
+  the review request is what makes the admission cheap.
 - NEVER test external functionality, that is not under our control
 - NEVER add complex logic to tests - it risks testing the test code rather than the code under test
 - Always ask what a test is proving - it should prove something useful about the code under test
@@ -49,7 +62,11 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
 - NEVER manipulate global state in tests - no `process.env` reads
   or mutations, no `vi.stubGlobal`, no `vi.mock`, no `vi.doMock`.
   Product code must accept configuration as parameters. See
-  [ADR-078][di].
+  [ADR-078][di]. For React components that fetch or derive async
+  state, the DI seam that makes this holdable is the view-binder
+  split — views take state as props, a two-line binder owns the
+  hook, tests render the view with literal states, zero mocks
+  (the `view-binder-di-seam` pattern in active memory).
 
 ## Rules
 
@@ -390,6 +407,19 @@ FIRST, before changing implementation — within the same landing.
 
 This ensures tests remain specifications and that every commit
 leaves the tree in a green state.
+
+## When a Defect Is Found
+
+Every issue earns a check
+([principles.md §Code Quality](principles.md)). For a real defect in
+product behaviour the check is a test: write the test that reproduces
+the defect (Red) BEFORE the fix, at the same level as the defective
+behaviour, then land test + fix in one commit (Green). Describe the
+class the defect generalises to — parametrise or add sibling cases —
+not only the reported instance.
+
+When the issue is not product behaviour, the check is the appropriate
+kind instead; the spectrum lives in principles.md §Code Quality.
 
 ## Refactoring TDD
 

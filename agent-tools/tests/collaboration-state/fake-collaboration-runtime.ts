@@ -1,3 +1,5 @@
+import { ok } from '@oaknational/result';
+
 import { createCommsEvent } from '../../src/collaboration-state';
 import { migrateLegacyCommsDirectories } from '../../src/collaboration-state/comms-migration';
 import {
@@ -5,6 +7,7 @@ import {
   type CollaborationStateCliIo,
 } from '../../src/collaboration-state/cli-runtime';
 import { type GitWorktree } from '../../src/collaboration-state/git-worktree-list';
+import { type ScopedContentBlockGroup } from '../../src/hook-policy/types';
 import {
   type ClosedClaimsArchive,
   type CollaborationRegistry,
@@ -122,8 +125,34 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
     },
     migrateLegacyCommsDirectories: async (input) => migrateLegacyComms(state, input),
     ensureDirectory: async () => undefined,
+    // Fixture blocks, NOT the live policy file: one representative pattern
+    // per ratified comms-gated concept, so gate behaviour is observable in
+    // integration tests while their pass/fail stays decoupled from
+    // `.agent/hooks/policy.json` content (the DI seam's whole point).
+    loadCommsConceptGateBlocks: async () => ok(FAKE_COMMS_CONCEPT_GATE_BLOCKS),
   };
 }
+
+const FAKE_COMMS_CONCEPT_GATE_BLOCKS = [
+  {
+    concept: 'expediency-hedging',
+    kind: 'literal',
+    patterns: ['carve-out'],
+    include_paths: ['.agent/plans/'],
+    exclude_paths: [],
+    citation: 'PDR-044; principles.md §Architectural Excellence Over Expediency (fixture)',
+    reappraisal: 'Describe the coordination directly (fixture).',
+  },
+  {
+    concept: 'indefinite-deferral',
+    kind: 'regex',
+    patterns: [String.raw`\bparked\b`],
+    include_paths: ['.agent/plans/'],
+    exclude_paths: [],
+    citation: 'no-hedging-vocabulary.md §Indefinite-deferral vocabulary (fixture)',
+    reappraisal: 'Name the gate and the decision (fixture).',
+  },
+] as const satisfies readonly ScopedContentBlockGroup[];
 
 function seedComms(
   state: FakeRuntimeState,

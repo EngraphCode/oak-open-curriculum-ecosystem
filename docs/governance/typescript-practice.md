@@ -128,6 +128,16 @@ This avoids modifying generators while maintaining type
 unification. Use a bottom contract to extract invariant
 structural properties.
 
+A hand-restated projection of a generated type is a **shadow schema** —
+it drifts silently when the contract evolves. When a consumer needs a
+narrowed view of an SDK type, derive it
+(`Partial<Pick<SdkType, 'fieldA' | 'fieldB'>>`), never re-declare the
+fields by hand; deriving keeps the consumable shape identical and turns
+contract drift into a compile error. Verify field shapes against the
+GENERATED schema, not a handoff note — a relayed note once mis-stated
+`keyLearningPoints` as strings when the schema carries objects
+(worked instance 2026-07-01).
+
 ### Discriminated Unions
 
 For discriminated unions of

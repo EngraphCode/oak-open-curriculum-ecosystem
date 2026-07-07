@@ -30,3 +30,8 @@ point. Apply judgment about *which* home, not about *whether* the lesson has
 earned promotion.
 
 New napkin rotations append below; the next consolidation promotes them out.
+
+<!-- Buffer drained empty at the 2026-07-06 dedicated consolidation (Zenith wakes
+Perigee): every entry of the 2026-06-29→07-06 window was graduated to a verified
+permanent home or confirmed already-homed. The commits and the homes are the
+record. -->

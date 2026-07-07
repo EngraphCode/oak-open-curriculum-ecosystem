@@ -5,7 +5,7 @@ kind: executable
 serves_strategic_choice: pending
 derives_from:
   - ../../../../docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md
-last_updated: 2026-06-30
+last_updated: 2026-07-06
 todos:
   - id: ws1-verify-graph-core-api
     content: "RESEARCH — DONE 2026-06-22 (first-hand graph-stack survey; result recorded in ADR-200 §Open). WORKING substrate: graph-core (term/quad, DatasetCore, DataFactory, JSON-LD 1.1 processor, RDFC-1.0 canon, 7-vocab registry, GraphView interface); graph-ingest/jsonld-compatible + turtle + source-path; graph-project (RDF<->property-graph projection + adjacency); graph-corpus-sdk as the domain-instance model. JSON-LD bridge LANDED (jsonld-compatible). UN-built — the idea-graph's genuine new work: idea-node JSON Schema + id-minting + store layout; a new idea-graph domain SDK (sibling to graph-corpus-sdk); evolution tooling (supersede/split/merge/redirect with reference-rewrite + history — graph-core has only dataset CRUD); frontmatter<->store validator; harvest pipeline."
@@ -26,10 +26,13 @@ todos:
     content: "DESIGN+ANALYSIS: design the projection-type schemas (vision/strategy/stream/thread/high-level-plan/implementation-plan frontmatter-edge schemas, or a unified projection-node schema) AND the de-duplication/merge mechanism (how 'same idea' is determined + merged via duplicates/same_as + a merge op). Output: the projection-type schemas + the dedup/merge spec. Acceptance: each projection-type's frontmatter contract is stated; the dedup rule is deterministic-or-clearly-semantic."
     status: pending
     depends_on: [ws2-idea-schema-structure]
-  - id: ws6-deep-harvest
-    content: "GATED on ws4 + ws3: deep harvest of every .agent/plans/ doc (count re-derived at harvest, NOT frozen) PLUS VISION.md + docs/strategy/ (owner-ratified 2026-06-22) to the finalised schema -> the preserved idea-graph spanning all altitudes (the existing thin Pass-1 idea data is re-derived/enriched, not relied on). Acceptance: every in-scope doc harvested; every idea has provenance + class; coverage logged; the graph validates against the schema; vocabulary-friction logged as a first-class output (forced-misfit ideas, missing facets/domains/edges, scale-misfit) -> feeds ws6b."
+  - id: ws-r-corpus-refounding
+    content: "INSERTED (owner-directed 2026-07-06): the plan-corpus refounding — the provably lossless, intent-aligned transformation of the planning corpus into owner-ratified destination lanes, executed under its own plan (product-development-governance/current/plan-corpus-refounding.plan.md: scripted mechanical substrate, zero-judgement workers, placed judgement, recomputable state, conservation chain). Produces the refounded corpus ws6 harvests. The ADR-200 Decision-level amendment (Q3 boundary re-ruling + audit-composition ruling + V0.1 sign-off) was OWNER-RATIFIED 2026-07-06 and is landed in ADR-200 + the V0 schema spec; execution is authorised (R0 go)."
     status: pending
-    depends_on: [ws3-broad-shallow-discovery, ws4-thin-slice-proof]
+  - id: ws6-deep-harvest
+    content: "GATED on ws4 + ws3 + ws-r-corpus-refounding: deep harvest of the REFOUNDED plan corpus (count re-derived at harvest, NOT frozen) PLUS the frozen pre-refounding archive via binding-clause provenance edges (the owner-ratified substrate, ADR-200 §Consequences Amendment — the frozen copies stay reachable for idea-level detail) PLUS VISION.md + docs/strategy/ (owner-ratified 2026-06-22) to the finalised schema -> the preserved idea-graph spanning all altitudes (the existing thin Pass-1 idea data is re-derived/enriched, not relied on). Acceptance: every in-scope doc harvested; every idea has provenance + class; coverage logged; the graph validates against the schema; vocabulary-friction logged as a first-class output (forced-misfit ideas, missing facets/domains/edges, scale-misfit) -> feeds ws6b."
+    status: pending
+    depends_on: [ws3-broad-shallow-discovery, ws4-thin-slice-proof, ws-r-corpus-refounding]
   - id: ws6b-vocabulary-reassessment
     content: "GATED on ws6: V2 vocabulary reassessment at the highest-signal moment (full data + logged friction). Consolidate ws6's friction log + the values the full harvest surfaced -> additively refine the value/domain/edge vocabularies (V1 -> V2; structure stays LOCKED per ADR-200 §5, only values extend) -> re-tag/re-validate the friction-affected nodes against V2. Acceptance: every logged friction item is dispositioned (absorbed into V2, or recorded out-of-vocabulary with reason); V2 is additive over V1 (no structural change); affected nodes re-validate against V2; ONE bounded pass (not a V2->V3 loop — further evolution is the living graph's normal operation per ADR-200 §7). Re-tag mechanics (sampled vs full; friction threshold) decided here from the observed friction volume."
     status: pending
@@ -190,6 +193,67 @@ The open design-steps were triaged through the decision lenses (`principles.md` 
 These are **directions to confirm** at each workstream, not closures; each workstream's own design or
 empirical pass ratifies or revises them (e.g. the WS6 survey-pattern-reuse warrant is verified at WS6). The
 owner affirmed this confirm-at-the-workstream approach as good agile practice (2026-06-22).
+
+## Design inputs from the inter-Practice exchange (resonance methods)
+
+The resonance estate independently solved a same-shaped problem (conserve every idea across a
+plan-estate re-organisation; make plan state recomputable) and taught oak its methods in the
+2026-07-05→06 exchange. Oak holds its **own durable, self-contained, filesystem-independent copy**
+of those methods — re-sourced first-hand — in
+[`.agent/reference/resonance-practice-knowledge.md`](../../../reference/resonance-practice-knowledge.md);
+the "why it converges" companion is the
+[shared-model synthesis](../../../reports/agentic-engineering/inter-practice-shared-model-synthesis-2026-07-06.md).
+These are **design inputs to confirm at each workstream** (same status as the lens-resolved
+directions above) and are cited from oak's copy, **never** from the resonance checkout:
+
+- **WS2 (idea-node schema):** model acceptance / realisation / evidence as ONE content-addressed
+  **recomputable-edge** primitive, carrying resonance's closed six-kind typed-proof taxonomy
+  (`artifact` / `gate` / `probe` / `git-fact` / `ratified` / `attested`) on acceptance fields;
+  mutation-probe the frontmatter↔store validator from day one (reference §2, §4).
+- **WS6 (deep harvest):** run the harvest as a **decision-complete worker fan-out** with refusal
+  clauses, verifying every reply by the four-step protocol (format / count-parity / sampled
+  byte-fidelity / absence-re-derivation); budget mechanical waves as cheap insurance and reserve
+  adversarial passes for meaning (measured economics in reference §1, §3).
+- **WS7 (no-loss audit + retire):** execute the §Acceptance two-direction audit as resonance's
+  **conservation chain** — mechanical freeze → byte-identity → tiling ledger (zero gaps/overlaps)
+  → **challenge-the-clean** adversarial pass → **planted synthetic orphan** (prove the
+  loss-detector fires before trusting its zero) → repoint-before-retire in one commit; full-set
+  equality over sampling (reference §1).
+
+The sub-agent-estate and team-state (F-44 / OQ5) integrations are mapped in the reference's
+§Integration map; they are not this plan's workstreams.
+
+## Corpus refounding inserted as the intermediate step (owner-directed, 2026-07-06)
+
+The owner directed (in-session, 2026-07-06) that the planning corpus be **losslessly
+re-founded around intent first** — the donor-estate method at this estate's scale — as an
+intermediate, independently valuable step on the road to the idea-graph: near-term value
+(navigable destination lanes, conserved content, recomputable plan state) lands without
+waiting for the graph, and WS6's harvest then runs over a clean corpus whose registries,
+provenance, and typed state make the harvest mechanical.
+
+- **The refounding runs under its own executable plan**:
+  [`plan-corpus-refounding.plan.md`](./plan-corpus-refounding.plan.md) (protocol invariants
+  P1–P14, placed-judgement map, worker roles, consolidated owner-gate register, economics);
+  design provenance in the
+  [design record](../../../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md).
+- **Sequencing effect here**: the new `ws-r-corpus-refounding` todo gates `ws6`; WS6's
+  harvest substrate becomes the refounded corpus **plus the frozen archive reachable via
+  binding-clause provenance edges** (stated at decision level so the transitive no-loss
+  composition holds at idea granularity — the refounding conserves at block/row
+  granularity, and the provenance edges keep idea-level distinctions reachable); the
+  §Acceptance two-direction no-loss audit composes transitively (old→refounded proven by
+  the refounding's conservation chain; refounded→graph by WS7's audit as already
+  specified).
+- **WS2/WS4 are unaffected and must not wait** (owner direction stands): write-surface
+  disjointness, additive authoring under denominator re-derivation, V0 schema pinning,
+  and Director-scheduled owner gates keep the two arcs non-interfering.
+- **ADR-200 status**: the Decision-level amendment (Q3 re-ruling + audit-composition
+  ruling + the V0.1 sign-off) was **RATIFIED by the owner on 2026-07-06** (formal question
+  put and answered, same day as the commission) and is landed in ADR-200 §Consequences
+  Amendment + §Sequence note, with the V0.1 block in the V0 schema spec. The refounding
+  plan's G-ADR gate is closed; its remaining owner gates (G1 freeze-rule packet onward)
+  proceed per its register.
 
 ## Incremental delivery (the boundary — ADR-200 §Consequences)
 

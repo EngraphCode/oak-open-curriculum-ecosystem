@@ -7,42 +7,34 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "development": "./src/index.ts",
       "import": "./dist/index.js"
     },
     "./term": {
       "types": "./dist/term/index.d.ts",
-      "development": "./src/term/index.ts",
       "import": "./dist/term/index.js"
     },
     "./data-factory": {
       "types": "./dist/data-factory/index.d.ts",
-      "development": "./src/data-factory/index.ts",
       "import": "./dist/data-factory/index.js"
     },
     "./dataset": {
       "types": "./dist/dataset/index.d.ts",
-      "development": "./src/dataset/index.ts",
       "import": "./dist/dataset/index.js"
     },
     "./jsonld": {
       "types": "./dist/jsonld/index.d.ts",
-      "development": "./src/jsonld/index.ts",
       "import": "./dist/jsonld/index.js"
     },
     "./canon": {
       "types": "./dist/canon/index.d.ts",
-      "development": "./src/canon/index.ts",
       "import": "./dist/canon/index.js"
     },
     "./vocab": {
       "types": "./dist/vocab/index.d.ts",
-      "development": "./src/vocab/index.ts",
       "import": "./dist/vocab/index.js"
     },
     "./graph-view": {
       "types": "./dist/graph-view/index.d.ts",
-      "development": "./src/graph-view/index.ts",
       "import": "./dist/graph-view/index.js"
     }
   },
@@ -73,7 +65,7 @@
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@types/jsonld": "^1.5.15",
     "@types/node": "^24.13.2",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"

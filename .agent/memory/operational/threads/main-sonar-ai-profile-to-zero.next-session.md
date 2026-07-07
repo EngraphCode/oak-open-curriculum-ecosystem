@@ -26,16 +26,70 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 | claude | claude-opus-4-8[1m] | c2b721 | Thyme lifts Compost | team-session-closer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8 | 3b1f1c | Junk tracks Moorings | implementer | 2026-06-25 | 2026-06-25 |
 | claude | claude-opus-4-8[1m] | 547586 | Alder tracks Topsoil | implementer | 2026-06-26 | 2026-06-26 |
+| claude | unknown | 483d97 | Gull tracks Eyrie | implementer | 2026-06-27 | 2026-06-27 |
+| claude-code | claude-fable-5 | 477cba | Katydid seeks Moonbeam | implementer | 2026-07-06 | 2026-07-06 |
+| claude-code | claude-fable-5 | 8897eb | Zenith wakes Perigee | curator (record touch: drift-guard follow-on + rule-name fix) | 2026-07-06 | 2026-07-06 |
+
+(Gull tracks Eyrie's row reconstructed 2026-07-06 from this record's own lane-state prose —
+the 2026-06-27 session omitted it; model not recorded there, so marked unknown.)
+
+## Current Continuation
+
+- Branch: `fix/sonar-phase5b-idiom-residuals` (PR #308, open, mergeState BLOCKED = the
+  author-dependent code-owner gate; all review threads resolved; merge is the owner's).
+- Next safe step: **shepherd PR #308 to green and owner merge.** Restart the budgeted watcher
+  (`pnpm agent-tools:pr-watch 308 --watch --interval 60` — the prior session's watcher died with
+  its session); on the post-push Sonar scan confirm the duplication condition cleared (the
+  lessons/units registrar dedup + S1940 fix landed in the final commit) and re-harvest all four
+  feedback surfaces before any merge-ready declaration. The six guard-site S7765 issues are
+  ACCEPTED server-side with the ADR-153 §Membership Without Widening citation — do not re-open.
+- After merge: cut the next batch DOCTRINE-FIRST (map each rule class to its governing
+  ADR/decision before touching a site): S7763 ×34 (`export…from` — note principles.md already
+  bans `export *` via no-restricted-syntax; the flagged sites are named re-exports in
+  vitest.config.ts files + generated contracts — per-site), S7785 ×17 (top-level await, MAJOR),
+  S6594 ×15 (prefer-regexp-exec — generated overlap), S7786 ×14 (9 sites in `agent-tools/` —
+  coordinate with AEE lanes), then Phase 4 design-MAJORs.
+- Acceptance bar: PR #308 merged; Sonar gate green; zero unresolved threads; every disposition
+  evidenced.
 
 ## Landing Target For Next Session
 
-**Phases 1 and 2 COMPLETE; the BLOCKER and all HIGH/regex classes are dispositioned.**
-Phase 1 (S8707 ×3 + S4036) merged via PR #223 + #242 (`3895b3f45`); the S2699 test-assertion
-BLOCKER + the S101 ×3 ACCEPT via **PR #246** (`5054cd9a0`); **Phase 2 (18 regex findings) via
-PR #249** (`fix/sonar-phase2-regex-safety`, merge-ready 2026-06-27). **NEXT: Phase 3
-(test-integrity).** Authoritative pickup is the §"2026-06-27 (Gull tracks Eyrie)" block and the
-§"Next safe step — PHASE 3" block in the Lane State section below. Re-fetch live Sonar at start —
-counts here drift.
+**Phases 1, 2, 3a, 3b, and 5A are COMPLETE and MERGED** (#223+#242 `3895b3f45`; #246
+`5054cd9a0`; #249; #254 S5914 ×12; #255 S5906 ×34; #257 idiom lock-at-error + autofix).
+**Phase 5B (per-site idiom residuals) COMMITTED 2026-07-06** (Katydid seeks Moonbeam,
+`db97022c4` on `fix/sonar-phase5b-idiom-residuals`, PR pending): S7773 ×12 (11 hand sites +
+the sdk-error-types generator template), S7772 ×2 (root `eslint.config.ts` — outside every
+workspace lint run), S7770 ×3, S7765 per-site (3 container fixes; the six ADR-153 `value is X`
+type-guards KEEP the `.some` equality form — **ADR-153 §Membership Without Widening explicitly
+forbids `new Set<string>` / `readonly string[]` widening inside these guards**; a mid-PR Set
+conversion was landed then restored to main's exact forms after Copilot cited the ADR, so
+Sonar's `.includes()` suggestion is rejected-as-incorrect at those six sites with the ADR as
+evidence), S7764 ×2 (widget tokens.html). Follow-on round from PR feedback: the failed
+`new_duplicated_lines_density` condition cured by parsing `--size`/`--limit` once at the
+commander option boundary (`parsePositiveIntOption`, unit-tested, `InvalidArgumentError`
+house precedent) instead of per-handler `parseInt`; S7776 fixed (`SKIPPED_PATHS` → Set — no
+literal-union types involved). **Standing warning for future Sonar rounds on guard sites:
+read ADR-153 BEFORE dispositioning or fixing any `value is X` site.** **Key mechanism lesson**:
+unicorn v69's `prefer-number-properties` deliberately exempts radix-10/no-radix `parseInt`,
+so a locked-at-error ESLint rule can structurally never clear its Sonar S7773 counterpart —
+when a lock tranche leaves Sonar survivors, diff the two engines' rule criteria first
+(napkin 2026-07-06). **NEXT: the remaining large classes, per-site:** S7763 ×34
+(`export…from` re-exports — many vitest.config.ts + generated contract files; per-site
+judgement), S7785 ×17 (top-level await, MAJOR — script refactors, own batch), S6594 ×15
+(prefer-regexp-exec — generated overlap), S7786 ×14 (`new TypeError` — 9 sites in
+`agent-tools/`: coordinate with the AEE tool-building lanes before touching), then the
+design-MAJOR Phase 4 (S107 ×7, S4323 ×7, S3358 ×4, S6564 ×4 …). Re-fetch live Sonar at
+start — counts here drift. Live backlog at 2026-07-06 fetch: 174 OPEN before the 5B batch.
+
+**Small self-contained follow-on (from the 5B thorough re-grounding pass, 2026-07-06):** the
+graph-corpus generated `index.ts` mirror has NO standing drift guard —
+`graph-corpus-emitted.integration.test.ts` pins data counts, not module source; the 5B
+hand-mirror was verified byte-identical once, but nothing catches future template↔mirror
+desync. Right cure shape: a repo-validator that RECOMPUTES ("committed vocab index module
+contains exactly the emitted lines join") wired into `repo-validators:check`
+(`validators-must-recompute-not-just-record`) — NOT an fs-reading in-process test (in-process tests must not
+do IO; a new allowlist entry would weaken the gate boundary). Owns here or the sdk-codegen
+estate, whichever touches first.
 
 ## Lane State
 

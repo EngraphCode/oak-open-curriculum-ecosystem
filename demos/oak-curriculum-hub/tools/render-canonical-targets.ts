@@ -1,0 +1,150 @@
+/*
+ * Re-runnable render of the Claude Design canonical-export pages that LACK an in-export
+ * screenshot (Oak Hub, Oak Standards) -> demo-evidence/ as full-page + above-the-fold PNGs.
+ * These are the visual-match targets the styling lane needs for DoD §D (Course + Learning
+ * Framework already ship in-export targets: screenshots/coursemap.png / check.png / framework-img.png).
+ *
+ * WHY a server + headless browser (the prior "headless-blank / file:// blocked" wall):
+ * the .dc.html is NOT static — it is an <x-dc> custom element hydrated at runtime by
+ * _ds_bundle.js, plus a <meta name="ext-resource-dependency" content="data/quality-standards.json">
+ * that the bundle FETCHES. Over file:// that fetch is CORS-blocked, so the bundle never renders
+ * -> blank page. Cure: serve the export dir over local HTTP (relative assets + the fetch resolve),
+ * render with a JS-capable headless browser, wait for networkidle + document.fonts.ready (Lexend),
+ * then screenshot. Deterministic / byte-stable, so it is the render arm of the canonical-export
+ * sync loop: fresh export -> re-run this -> re-diff the PNGs.
+ *
+ * PLACEMENT: a workspace-internal dev tool of @oaknational/oak-curriculum-hub — `tsx` and
+ * `@playwright/test` are workspace devDependencies, so the tool is first-class TypeScript under
+ * the workspace's own strict gates (type-check + lint cover tools/).
+ *
+ * USAGE:
+ *   pnpm --filter @oaknational/oak-curriculum-hub tool:render-targets
+ *   pnpm --filter @oaknational/oak-curriculum-hub tool:render-targets -- --width 1280
+ *   # direct form, from the repo root:
+ *   tsx demos/oak-curriculum-hub/tools/render-canonical-targets.ts
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { chromium } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { ok, err, type Result } from '@oaknational/result';
+
+import { assertExportDir, EXPORT_DIR, portOf, serveDir } from './export-server';
+import { describeThrown, runTool } from './support';
+
+const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
+const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
+
+interface RenderTarget {
+  file: string;
+  base: string;
+}
+
+const TARGETS: readonly RenderTarget[] = [
+  { file: 'Oak Hub.dc.html', base: 'hub-canonical-render' },
+  { file: 'Oak Standards.dc.html', base: 'standards-canonical-render' },
+];
+
+/**
+ * Viewport CSS width for the render. This is the LAYOUT width (heading wrap, max-widths, breakpoints)
+ * — distinct from the PNG's pixel dimensions, which are width × deviceScaleFactor. Default 1440 is the
+ * §D matched-width standard so the canonical targets compare apples-to-apples with a 1440 live capture.
+ * Override: `--width 1280` or `RENDER_WIDTH=1280`.
+ */
+function resolveWidth(): Result<number, string> {
+  const flagIdx = process.argv.indexOf('--width');
+  const fromFlag = flagIdx === -1 ? undefined : process.argv.at(flagIdx + 1);
+  const raw = fromFlag ?? process.env.RENDER_WIDTH;
+  const width = raw !== undefined && raw !== '' ? Number.parseInt(raw, 10) : 1440;
+  if (!Number.isInteger(width) || width < 320 || width > 5000) {
+    return err(`invalid --width ${JSON.stringify(raw)} (expected 320..5000)`);
+  }
+  return ok(width);
+}
+
+/** Render one export page (full-page + above-the-fold PNGs); returns true when it looks blank. */
+async function renderTarget(page: Page, base: string, target: RenderTarget): Promise<boolean> {
+  const resp = await page.goto(`${base}/${encodeURIComponent(target.file)}`, {
+    waitUntil: 'networkidle',
+    timeout: 60000,
+  });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+  await page.addStyleTag({ content: '*{animation:none!important;transition:none!important}' });
+  await page.waitForTimeout(2000);
+  const m = await page.evaluate(() => ({
+    h: document.body.scrollHeight,
+    len: document.body.innerText.length,
+  }));
+  const status = resp === null ? 0 : resp.status();
+  const good = status === 200 && m.h > 400 && m.len > 200;
+  process.stdout.write(
+    `${target.file}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${good ? 'OK' : 'SUSPECT (blank?)'}\n`,
+  );
+  await page.screenshot({ path: path.join(OUT_DIR, `${target.base}.png`), fullPage: true });
+  await page.screenshot({
+    path: path.join(OUT_DIR, `${target.base}-abovefold.png`),
+    fullPage: false,
+  });
+  process.stdout.write(`  wrote ${target.base}.png + ${target.base}-abovefold.png\n`);
+  return !good;
+}
+
+/** Launch the browser and render every target; true when any render looked blank. */
+async function renderAll(base: string, width: number): Promise<boolean> {
+  process.stdout.write(
+    `viewport CSS width = ${width}px (deviceScaleFactor 2 → ${width * 2}px PNGs)\n`,
+  );
+  const browser = await chromium.launch({ headless: true });
+  const ctx = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 2 });
+  const page = await ctx.newPage();
+  let suspect = false;
+  for (const target of TARGETS) {
+    suspect = (await renderTarget(page, base, target)) || suspect;
+  }
+  await browser.close();
+  return suspect;
+}
+
+/** Serve the export and render every canonical target at `width` CSS px —
+ *  the importable core the fidelity orchestrator composes. */
+export async function renderCanonicalTargets(width: number): Promise<Result<void, string>> {
+  const exportDirRes = assertExportDir();
+  if (!exportDirRes.ok) {
+    return exportDirRes;
+  }
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  const server = await serveDir(EXPORT_DIR);
+  const portRes = portOf(server);
+  if (!portRes.ok) {
+    return err(`RENDER FAIL: ${describeThrown(portRes.error)}`);
+  }
+  const base = `http://127.0.0.1:${portRes.value}`;
+  process.stdout.write(`serving ${EXPORT_DIR} at ${base}\n`);
+
+  const suspect = await renderAll(base, width);
+  server.close();
+  if (suspect) {
+    return err(
+      'RENDER SUSPECT: a target looked blank (low bodyH/textLen) — investigate before trusting the PNGs',
+    );
+  }
+  process.stdout.write('render complete -> demo-evidence/\n');
+  return ok(undefined);
+}
+
+async function main(): Promise<Result<void, string>> {
+  const widthRes = resolveWidth();
+  if (!widthRes.ok) {
+    return widthRes;
+  }
+  return renderCanonicalTargets(widthRes.value);
+}
+
+const invokedPath = process.argv.at(1);
+if (invokedPath !== undefined && path.resolve(invokedPath) === fileURLToPath(import.meta.url)) {
+  await runTool(main, (error) => `RENDER FAIL: ${describeThrown(error)}`);
+}

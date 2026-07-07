@@ -1,3 +1,62 @@
+# [1.60.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.2...v1.60.0) (2026-07-06)
+
+
+### Bug Fixes
+
+* **agent-tools:** comms concept gate fails closed on a partial policy ([c4f8771](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c4f87710fa7d6d2d11898e942646d1ccca623cdf))
+* **agent-tools:** install bootstrap builds its workspace dep closure ([8576520](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8576520940ecc7d3763703a5b2e72c867719e33e))
+* **build:** workspace imports resolve built dist everywhere ([2b950aa](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2b950aaba99cd9060cfe8c50387fe8f7ba0fab23))
+* **demos:** align exemplars and wiki intros verbatim to the canonical card copy ([251c8a5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/251c8a58c0fa6e631bc6eb1d2dcca4a6ffbf9c69))
+* **demos:** asset-path boundary at generation + capture-classifier hash-nav fold ([082388b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/082388be736dd5920e3ea8d7a544cd3cf159c9d6))
+* **demos:** bump next to 16.2.9 clearing three high advisories ([b3f8bd2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b3f8bd2f154fb36e36de2f7be9c16d3ca6a84e27)), closes [#295](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/295)
+* **demos:** drop the stale base-url entry from the env example ([e4310a1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e4310a1b01e194105e9e50179519f604cba27929))
+* **demos:** five codex p2 cures — no-link fallback, id search, fresh state, tab keys, strict env ([ba043b9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ba043b917e2c9f35af92c51b9899889a79a96c7c))
+* **demos:** harden export-server path guard and de-regex the url assertion ([e08437e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e08437ef494facef05f28c6de8cb904952c32078))
+* **demos:** lesson page nested-main + design-language polish ([57f9854](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57f9854670edad19579e64b417b45d43f6d2699e))
+* **demos:** props read-only workspace-wide and dismissal as widget behaviour ([5cf288d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5cf288dfd75c53669a08d95f0a7adddb1c57b57d))
+* **demos:** reviewer-pass polish — content-plane url trust boundary, one persistent live region ([56a63ee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/56a63ee3373c00ddf32061c727f4fc9443d0e252))
+* **demos:** the last thirteen findings fixed in code ([e993dbb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e993dbb1d7b6f598eb2f2ff014e6f1f712975eae))
+* **demos:** url trust boundary, decode guard, abort lifecycle + measure-320 route ([9028664](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/902866437bd82ee56812c6f4df01f37790d2539a))
+* **eslint:** centralise the eslint-10 react-version pin in the shared react config ([5fbacc4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5fbacc4897033f4066fa95be130469eb8a72a05d))
+* **gates:** demo exemptions removed everywhere — scope by gitignore-awareness ([a2ec232](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a2ec23270837b9a58ba4d2081fe6e0b61b32a16e))
+* **mcp:** decode amp last so escaped numeric entities decode exactly once ([c14ddbb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c14ddbb7b5dd4b274706389c622543ce4415d25d)), closes [#10](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/10) [#13](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/13) [#10](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/10) [#10](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/10)
+* **sonar:** bootstrap template nesting and dev-server path spawn cured at root ([3454970](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/34549706227208c4df6245136ee2580cff9fdc20))
+* **tooling:** comms reply accepts the capture tag and search env passes through turbo ([0247fc4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0247fc42ca057e052eb3659ecff105d5fcf43d89))
+
+
+### Features
+
+* **agent-tools:** comms concept gate - pdr-044 trip-lists enforced at the comms write path ([09b5767](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/09b576704236f0925164c081766b29d6ae4f1ae1))
+* **demos:** build Oak Curriculum Hub from Claude Design export ([daa0fd3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/daa0fd31224f36010ff92a31e80f61bfffa7b476)), closes [#qs](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/qs)
+* **demos:** complete the 3b block pass - activity treatments, quiet views, callout variants ([08c5e5c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/08c5e5c34fd1d3e13fb620c26fef5a4d7a38db22))
+* **demos:** course assembly spine, deep-link focus, and productionisation plans ([687b1c9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/687b1c98a2468fd7d84f5477efefb0a3b0343075))
+* **demos:** e1 oak-website link-out + e2 curriculum-results-secondary ([e34234b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e34234b40e868fb66330d09179d2d03bb188f8b8))
+* **demos:** e3 curriculum semantic-search showcase + safe highlight rendering ([261ea92](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/261ea92f364b2fb19caf2a2664e86e5cf5b25c90))
+* **demos:** export-exact interactive-block styling + player controls ([7802485](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/780248557093ab9eecd0504b5f0e9874e968bee3))
+* **demos:** fidelity disposition register — every divergence gets a judgment ([3522f3d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3522f3daed63a605fb5211da784bcd2a2f426980))
+* **demos:** fidelity pairing map — the comparable surface declared ([590831c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/590831c19a29ef53f8faebb90816ddea0fa5e22b))
+* **demos:** fidelity report renderer — the review surface ([a487428](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a487428a8154636c10a911829bb565d763bca5b8))
+* **demos:** fidelity review orchestrator — one command, both sides, judged ([9c11d38](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9c11d3804f190fda0a5db241f32a73cefe7574bb))
+* **demos:** item-10 callout export fidelity + the absorbed styling backlog ([39497c0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/39497c03a13aeaf64d87111855c08779f0b0559b))
+* **demos:** item-8 responsive header + demo-wide 320px reflow pass ([0d7b2f4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0d7b2f42eac8a836c7a616636c18d2c5c66f59c3))
+* **demos:** live-sections capture arm for the per-block fidelity pairs ([98a7b9b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/98a7b9b1b57a6d19b965e4e13f485e9c398937b9)), closes [course#section](https://github.com/course/issues/section) [#main](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/main)
+* **demos:** paginated course player + export-exact sidebar (styling slices 1-2) ([f5d58e4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f5d58e4a9740afa2d2d38b879d065dbac39c7365))
+* **demos:** perceptual diff core for the fidelity review ([ac8d2f3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ac8d2f34db55bb1713379f6d4f684e00f093a284))
+* **demos:** section-d capture hardening + player evidence at 1440 ([ad4730e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ad4730ed2bbf0f4a6841e4f215326adeeefbb0de))
+* **demos:** widen the search seam for e3 — highlights, per-scope meta, sizes ([fb1852b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fb1852bfa6588a1e6c9ba43318b8c0ec60415db3))
+* **demos:** wire Heather W's Curriculum Hub demo to live Oak data ([ffae123](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ffae123edfceac4470166bbd80eb095fcd444fd8))
+* **practice:** fidelity-review skill — the reusable review fabric wired ([f3209f5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f3209f5cefcd6cf78a1b7a9af2f9143cf3c75adb))
+
+## [1.59.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.1...v1.59.2) (2026-07-06)
+
+
+### Bug Fixes
+
+* **sonar:** clear phase 5B idiom residuals (S7773/S7772/S7770/S7765/S7764) ([db97022](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/db97022c48fed5989d58f199754827e15a1a8647))
+* **sonar:** convert six type-guards to ReadonlySet membership; reconcile thread record ([1bee647](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1bee6475b0de2d58515192322d74b4262cc9f4b0))
+* **sonar:** dedupe search command registration and harden the size parser; session closeout ([f592b90](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f592b9013966f3cd4ef67d2a41b9381321129ee3))
+* **sonar:** reinstate ADR-153 guard forms; parse numeric CLI options at the boundary ([4bff3b8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bff3b85aaeb3dff678003b7acb2e8fa225dd946))
+
 ## [1.59.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.0...v1.59.1) (2026-07-06)
 
 

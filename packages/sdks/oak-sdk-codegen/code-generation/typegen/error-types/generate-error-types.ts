@@ -180,7 +180,7 @@ export function classifyException(
   // Parse status from SDK error messages like "SDK request failed: 404 Not Found"
   const statusMatch = message.match(/(\\d{3})/);
   if (statusMatch) {
-    const status = parseInt(statusMatch[1], 10);
+    const status = Number.parseInt(statusMatch[1], 10);
     return classifyHttpError(status, resource, resourceType, message);
   }
 

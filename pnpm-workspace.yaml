@@ -2,6 +2,9 @@ packages:
   - agent-tools
   - apps/oak-curriculum-mcp-streamable-http
   - apps/oak-search-cli
+  # Demo: Oak-styled web UI over the live search + content stack.
+  # Registered so workspace:* deps resolve and turbo can build/type-check it.
+  - demos/oak-curriculum-hub
   - packages/core/oak-eslint
   - packages/core/observability
   - packages/core/openapi-zod-client-adapter
@@ -66,6 +69,9 @@ overrides:
   js-yaml: '>=4.1.1 <5.0.0'
   markdown-it: '>=14.1.2'
   picomatch: '>=4.0.4'
+  # Security floor: next pins a nested postcss 8.4.31 (GHSA-qx2v-qp2m-jg93,
+  # XSS via unescaped </style> in stringify output; patched in 8.5.10).
+  postcss: '>=8.5.10'
   qs: '>=6.15.2'
   rollup: '>=4.59.0'
   sucrase: '>=3.35.1'

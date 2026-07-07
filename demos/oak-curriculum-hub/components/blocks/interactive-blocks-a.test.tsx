@@ -1,0 +1,216 @@
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import { AccordionBlockView } from '@/components/blocks/AccordionBlockView';
+import { QuizBlockView } from '@/components/blocks/QuizBlockView';
+import { TabsBlockView } from '@/components/blocks/TabsBlockView';
+
+describe('AccordionBlockView', () => {
+  it('renders each item question and answer', () => {
+    render(
+      <AccordionBlockView
+        block={{
+          t: 'accordion',
+          chip: '#ffc8a6',
+          items: [{ q: 'Curriculum information', badge: '1', a: ['Unit and lesson detail.'] }],
+        }}
+      />,
+    );
+    expect(screen.getByText('Curriculum information')).toBeTruthy();
+    expect(screen.getByText('Unit and lesson detail.')).toBeTruthy();
+  });
+
+  it('renders item features under the export "In Oak lessons" label', () => {
+    render(
+      <AccordionBlockView
+        block={{
+          t: 'accordion',
+          chip: '#ffc8a6',
+          items: [{ q: 'Own it', badge: '1', a: ['Motivation.'], features: ['Starter quiz'] }],
+        }}
+      />,
+    );
+    expect(screen.getByText('In Oak lessons')).toBeTruthy();
+    expect(screen.getByText('Starter quiz')).toBeTruthy();
+  });
+
+  it('renders a badgeless item and an item image placeholder (no chip)', () => {
+    render(
+      <AccordionBlockView
+        block={{
+          t: 'accordion',
+          items: [
+            { q: 'Simple question', a: ['A plain answer.'] },
+            { q: 'With an image', a: ['See below.'], img: { placeholder: 'Fit it — add image' } },
+          ],
+        }}
+      />,
+    );
+    expect(screen.getByText('Simple question')).toBeTruthy();
+    // The placeholder is a decorative slot with ONE visible label — no img role, so screen
+    // readers hear the label once (the old role="img" + figcaption double-announced it).
+    expect(screen.getByText('Fit it — add image')).toBeTruthy();
+    expect(screen.queryByRole('img')).toBeNull();
+  });
+});
+
+const tabsBlock = {
+  t: 'tabs' as const,
+  tabs: [
+    { label: 'Lesson outcome', paras: ['The aim of the lesson.'] },
+    { label: 'Lesson outline', paras: ['The sequence of the lesson.'] },
+  ],
+};
+
+describe('TabsBlockView', () => {
+  const block = tabsBlock;
+
+  it('shows the first panel and marks its tab selected', () => {
+    render(<TabsBlockView block={block} />);
+    expect(screen.getByText('The aim of the lesson.')).toBeTruthy();
+    expect(screen.getByRole('tab', { name: 'Lesson outcome' }).getAttribute('aria-selected')).toBe(
+      'true',
+    );
+  });
+
+  it('switches panel on tab click', () => {
+    render(<TabsBlockView block={block} />);
+    fireEvent.click(screen.getByRole('tab', { name: 'Lesson outline' }));
+    expect(screen.getByText('The sequence of the lesson.')).toBeTruthy();
+  });
+
+  it('moves selection and DOM focus with the Right arrow key', () => {
+    render(<TabsBlockView block={block} />);
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Lesson outcome' }), { key: 'ArrowRight' });
+    const outline = screen.getByRole('tab', { name: 'Lesson outline' });
+    expect(outline.getAttribute('aria-selected')).toBe('true');
+    expect(document.activeElement).toBe(outline);
+  });
+
+  it('selects the last tab with End and the first with Home, moving focus', () => {
+    render(<TabsBlockView block={block} />);
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Lesson outcome' }), { key: 'End' });
+    const outline = screen.getByRole('tab', { name: 'Lesson outline' });
+    expect(outline.getAttribute('aria-selected')).toBe('true');
+    expect(document.activeElement).toBe(outline);
+    fireEvent.keyDown(outline, { key: 'Home' });
+    const outcome = screen.getByRole('tab', { name: 'Lesson outcome' });
+    expect(outcome.getAttribute('aria-selected')).toBe('true');
+    expect(document.activeElement).toBe(outcome);
+  });
+});
+
+describe('TabsBlockView — keyboard default suppression', () => {
+  it('suppresses the browser default only for handled navigation keys', () => {
+    // Without preventDefault, End/Home also scroll the viewport while the
+    // tablist changes selection. fireEvent returns false when the handler
+    // called preventDefault.
+    render(<TabsBlockView block={tabsBlock} />);
+    const tab = screen.getByRole('tab', { name: 'Lesson outcome' });
+    for (const key of ['ArrowRight', 'ArrowLeft', 'Home', 'End']) {
+      expect(fireEvent.keyDown(screen.getByRole('tab', { selected: true }), { key })).toBe(false);
+    }
+    // Unhandled keys stay with the browser (Tab must keep traversing the page).
+    expect(fireEvent.keyDown(tab, { key: 'Tab' })).toBe(true);
+    expect(fireEvent.keyDown(tab, { key: 'a' })).toBe(true);
+  });
+});
+
+describe('TabsBlockView — id uniqueness across blocks', () => {
+  it('keeps ids unique when several tabs blocks render on one page', () => {
+    // The course page renders many tabs blocks; index-derived ids would repeat
+    // across blocks, making aria-controls/aria-labelledby ambiguous for AT.
+    render(
+      <>
+        <TabsBlockView block={tabsBlock} />
+        <TabsBlockView block={tabsBlock} />
+      </>,
+    );
+    const ids = screen.getAllByRole('tab').map((tab) => tab.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    // Only the selected tab references a panel (only the active panel is in the
+    // DOM); that reference must resolve to exactly one element, and each
+    // panel's labelling tab must be its own block's tab, not the first match.
+    for (const tab of screen.getAllByRole('tab')) {
+      const controls = tab.getAttribute('aria-controls');
+      if (tab.getAttribute('aria-selected') === 'true') {
+        expect(controls).not.toBeNull();
+        expect(document.querySelectorAll(`[id="${String(controls)}"]`)).toHaveLength(1);
+      } else {
+        expect(controls).toBeNull();
+      }
+    }
+    for (const panel of screen.getAllByRole('tabpanel')) {
+      const labelledBy = panel.getAttribute('aria-labelledby');
+      expect(document.querySelectorAll(`[id="${String(labelledBy)}"]`)).toHaveLength(1);
+    }
+  });
+});
+
+const quizBlock = {
+  t: 'quiz' as const,
+  title: 'Quick check',
+  questions: [
+    {
+      kind: 'mcq' as const,
+      stem: 'How many components make up a lesson?',
+      options: [{ text: 'Five' }, { text: 'Eight', correct: true }],
+      explain: 'Eight components make up a lesson.',
+    },
+  ],
+};
+
+describe('QuizBlockView', () => {
+  const block = quizBlock;
+
+  it('models options as a radio group labelled by the stem, empty status region before answering', () => {
+    render(<QuizBlockView block={block} />);
+    expect(screen.getByText('How many components make up a lesson?')).toBeTruthy();
+    // AT hears the visible Q-number as part of the group's name (stem row = the label).
+    const group = screen.getByRole('radiogroup', {
+      name: 'Q1 How many components make up a lesson?',
+    });
+    expect(group).toBeTruthy();
+    const five = screen.getByRole('radio', { name: 'Five' });
+    expect(five.getAttribute('aria-checked')).toBe('false');
+    expect(screen.queryByText(/Eight components make up a lesson\./)).toBeNull();
+    // The status region is always present (WCAG 4.1.3) but empty before answering.
+    expect(screen.getByRole('status').textContent).toBe('');
+  });
+
+  it('checks the chosen radio, reveals correctness in text, and announces the explanation', () => {
+    render(<QuizBlockView block={block} />);
+    fireEvent.click(screen.getByRole('radio', { name: 'Five' }));
+    expect(
+      screen
+        .getByRole('radio', { name: /Five — your answer, incorrect/ })
+        .getAttribute('aria-checked'),
+    ).toBe('true');
+    expect(screen.getByRole('radio', { name: /Eight — correct/ })).toBeTruthy();
+    expect(screen.getByRole('status').textContent).toBe('Eight components make up a lesson.');
+  });
+
+  it('moves selection and DOM focus with the Down arrow key', () => {
+    render(<QuizBlockView block={block} />);
+    fireEvent.keyDown(screen.getByRole('radio', { name: 'Five' }), { key: 'ArrowDown' });
+    const eight = screen.getByRole('radio', { name: /Eight/ });
+    expect(eight.getAttribute('aria-checked')).toBe('true');
+    expect(document.activeElement).toBe(eight);
+  });
+});
+
+describe('QuizBlockView — non-navigation keys', () => {
+  it('leaves an unanswered question unanswered on non-navigation keys', () => {
+    render(<QuizBlockView block={quizBlock} />);
+    // Tabbing away from (or typing on) an unanswered group must not answer it —
+    // answering on any key would reveal correctness just by traversing the page.
+    const five = screen.getByRole('radio', { name: 'Five' });
+    fireEvent.keyDown(five, { key: 'Tab' });
+    fireEvent.keyDown(five, { key: 'a' });
+    fireEvent.keyDown(five, { key: 'Enter' });
+    for (const radio of screen.getAllByRole('radio')) {
+      expect(radio.getAttribute('aria-checked')).toBe('false');
+    }
+    expect(screen.getByRole('status').textContent).toBe('');
+  });
+});

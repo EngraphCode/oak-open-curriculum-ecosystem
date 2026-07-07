@@ -4,7 +4,7 @@ import {
   parseJsonText,
   parseStringArray,
   requireString,
-} from './json.js';
+} from '../core/json.js';
 import {
   parseCommsEventValue,
   parseDirectedCommsMessageValue,

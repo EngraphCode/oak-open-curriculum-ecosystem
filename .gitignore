@@ -274,3 +274,13 @@ packages/sdks/oak-sdk-codegen/code-generation/utils/ingest-pipeline.md
 # Personal onboarding walkthrough state (individual-scoped, never shared;
 # one checkout = one individual — see .agent/skills/under-the-hood/SKILL-CANONICAL.md)
 .agent/state/onboarding/
+
+# Curriculum-hub vendor reference material is untracked inside the workspace —
+# see demos/oak-curriculum-hub/.gitignore (Oak trademarks/logos and the bundled
+# brand toolkit are not openly licensed; the export is re-obtainable via the
+# claude-design MCP). Mirrored here at the root because root-level tools
+# (prettier and friends) read this file, not the nested workspace .gitignore.
+# demo-evidence/ is regenerable tool output (tools/ recreates the capture set
+# on demand).
+demos/oak-curriculum-hub/claude-design-canonical-export/
+demos/oak-curriculum-hub/demo-evidence/

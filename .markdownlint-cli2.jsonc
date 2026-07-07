@@ -43,7 +43,6 @@
     "**/temp-secrets/**",
     "node_modules/**",
     "**/node_modules/**",
-    "packages/sdks/oak-curriculum-sdk/docs/api-md/**",
     "packages/sdks/oak-curriculum-sdk/docs/api/**",
     ".agent/state/collaboration/shared-comms-log.md",
     ".agent/state/collaboration/cross-worktree-work-state.md",
@@ -53,5 +52,8 @@
     "**/test-artifacts/**",
     ".stryker-tmp/**",
   ],
-  "gitignore": false,
+  // Lint scope = tracked repo files: gitignored content (untracked vendor
+  // reference data, local state) is not repo documentation (owner-ratified
+  // 2026-07-02).
+  "gitignore": true,
 }

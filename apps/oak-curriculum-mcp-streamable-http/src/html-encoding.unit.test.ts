@@ -104,6 +104,13 @@ function renderHelp() {
 
       expect(decoded).toBe(original);
     });
+
+    it('decodes an escaped numeric entity to the literal entity text, never twice', () => {
+      // '&amp;#10;' is the encoding of the literal five-character text '&#10;'.
+      // A single decode must stop there — not continue to a newline.
+      expect(decodeHtml('&amp;#10;')).toBe('&#10;');
+      expect(decodeHtml('&amp;#13;')).toBe('&#13;');
+    });
   });
 
   describe('Round-trip encoding', () => {

@@ -133,9 +133,12 @@ export const commsDirectHelp =
 export const commsReplyHelp =
   'comms reply --comms-dir <dir> --to-event-id <id> --kind <kind> ' +
   '(--body <body> | --body-file <path>) --platform <platform> --model <model> ' +
-  '--active <path> [--subject <subject>] [--event-id <id>] [--now <iso>] ' +
+  '--active <path> [--subject <subject>] [--event-id <id>] [--now <iso>] [--tag <tag>...] ' +
   '(--body and --body-file are mutually exclusive; --body-file reads the file ' +
-  'literally and bypasses shell interpretation)';
+  'literally and bypasses shell interpretation; --tag is repeatable, accepts the ' +
+  'ADR-183 namespace — a reply quoting a pathogen to correct it needs a capture ' +
+  'tag to pass the comms concept gate, incl. when the inherited "re:" subject ' +
+  'quotes one)';
 
 export const claimsOpenHelp =
   'claims open --active <path> --thread <thread> ' +

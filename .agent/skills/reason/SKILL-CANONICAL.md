@@ -54,7 +54,13 @@ not a box to tick.
    downside? For a design investigation the cheapest probe is a broad light scan run first — read
    the few load-bearing files yourself (the registry, the entry points, the SSOT), let that
    reframe the questions, and only then commit an expensive deep fan-out: early questions are
-   still settling, and the light read often dissolves or reshapes them.
+   still settling, and the light read often dissolves or reshapes them. Calibrate caution the
+   same way: cheap-to-check reversible uncertainty ("is it built? is this claim true?") →
+   verify eagerly first-hand; an expensive-to-reverse decision resting on an *inferred* (not
+   measured) signal → first MEASURE the signal if it can be measured (converting the case back
+   to eager first-hand verification); only if it genuinely cannot, route the decision to the
+   Director (PDR-117) with your verdict attached — never to the owner as an open question.
+   Repeated option-oscillation is the tell that evidence has not forced a choice.
 5. **Stress-test before committing.** Are you climbing the reliability ladder too fast (a few
    observations → a model → an identity)? What is the strongest version of the alternative? Quick
    scan for the common failures: premature solution, hidden values dressed as technical, evidence

@@ -16,17 +16,14 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "development": "./src/index.ts",
       "default": "./dist/index.js"
     },
     "./eef-strands": {
       "types": "./dist/eef-strands/index.d.ts",
-      "development": "./src/eef-strands/index.ts",
       "default": "./dist/eef-strands/index.js"
     },
     "./curriculum": {
       "types": "./dist/curriculum/index.d.ts",
-      "development": "./src/curriculum/index.ts",
       "default": "./dist/curriculum/index.js"
     }
   },
@@ -47,7 +44,7 @@
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@types/node": "^24.13.2",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"

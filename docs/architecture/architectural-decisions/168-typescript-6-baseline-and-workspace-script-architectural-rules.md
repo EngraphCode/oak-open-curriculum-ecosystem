@@ -5,7 +5,9 @@ from stricter compiler options that remain deferred; amended 2026-05-29 to add
 the test/unit-check-surface boundary rule (§5 — scripts are outside the
 unit-test surface; complexity requiring unit tests forces promotion to `src/`);
 amended 2026-05-31 to record the dissolution of `agent-tools/scripts/` — the
-§5 forcing function applied to completion (§5a).
+§5 forcing function applied to completion (§5a); amended 2026-07-06 to widen
+the shell-scope exception from Husky-entry-points-only to
+shell-where-it-significantly-reduces-effort (§Shell-scope exception).
 **Date**: 2026-04-29
 **Related**:
 [ADR-150](150-continuity-surfaces-session-handoff-and-surprise-pipeline.md) —
@@ -72,7 +74,8 @@ build step), but it had spread to scripts that had no such constraint.
 
 ## Decision
 
-This ADR ratifies four rules plus a pre-existing Husky carve-out, all
+This ADR ratifies four rules plus a shell-scope exception (originally a
+Husky-entry-points carve-out; widened 2026-07-06), all
 of which the `fix/build_issues` branch's five preceding commits have
 already implemented (`a34f8402`, `d9018628`, `72bf1d90`, `72c3fe89`,
 `1f991a4b` — see History below for the per-commit mapping). The rules
@@ -252,19 +255,30 @@ Consequences and boundaries:
   govern any that exist — but in `agent-tools` its reappearance is a regression
   signal: substantial tooling belongs in `src/`.
 - The shell wrapper formerly at `agent-tools/scripts/check-commit-message.sh`
-  was **ported to TypeScript** under §3 (workspace scripts are `.ts`; the only
-  `.sh` exception is the Husky entry points below), not relocated as shell.
+  was **ported to TypeScript** under §3 (workspace scripts are `.ts`; shell is
+  permitted only where it significantly reduces effort — see the shell-scope
+  exception below), not relocated as shell.
 - The `runtime-only-scripts/` category (§4) and the Husky `.sh` entry points
   (below) are unaffected — they remain recognised tiers in the workspaces that
   need them. Only `agent-tools/scripts/` is dissolved.
 
-### Pre-existing exception: Husky entry points
+### Shell-scope exception (amended 2026-07-06)
 
-Husky's hook entry points (`.husky/{pre-commit,commit-msg,pre-push}`)
-remain `.sh` because Husky requires shell-script entry points. This
-is a pre-existing exception, not a root-tooling exception. The hooks
+As originally ratified, the only `.sh` exception was Husky's hook entry
+points. The owner widened the scope on 2026-07-06: **shell is permitted
+where it significantly reduces effort**. Husky's hook entry points
+(`.husky/{pre-commit,commit-msg,pre-push}`) remain the canonical
+instance — Husky requires shell-script entry points — and the hooks
 delegate to workspace-owned package scripts wherever the work itself is
 non-trivial.
+
+The widening is a scope statement, not an invitation: substantial logic
+still belongs in typed, tested TypeScript (§3, §5), and a shell script
+that accretes parsing or branching logic carries the same
+promotion-overdue signals §5 names. The agent-firing form of the full
+source-language policy (TypeScript unless absolutely impractical;
+required JS compiled from TS; ESM only, no CJS; this shell scope) is
+[`.agent/rules/source-is-typescript-esm-only.md`](../../../.agent/rules/source-is-typescript-esm-only.md).
 
 ## Consequences
 
@@ -361,3 +375,13 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
   `vitest.config.base.ts` include line makes it discoverable at the point of
   confusion; Future Work #4 notes a possible mechanical check. Captured per
   ADR-150's surprise pipeline on two-instance recurrence.
+
+- **2026-07-06** — widened the shell-scope exception by owner directive: from
+  "the only `.sh` exception is the Husky entry points" to "shell is permitted
+  where it significantly reduces effort", Husky's hook entry points remaining
+  the canonical instance. §"Pre-existing exception: Husky entry points" is
+  retitled §"Shell-scope exception"; §5 promotion-overdue signals still govern
+  shell scripts that accrete logic. The agent-firing companion rule
+  `.agent/rules/source-is-typescript-esm-only.md` (TypeScript unless absolutely
+  impractical; required JS compiled from TS; ESM only, no CJS; this shell
+  scope) landed in the same change.
