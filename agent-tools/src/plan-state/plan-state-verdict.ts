@@ -44,7 +44,7 @@ export function decideGateVerdict(report: PlanStateReport): GateVerdict {
   if (report.summary.vacuous) {
     return {
       exitCode: 1,
-      lines: ['plan-state gate: VACUOUS — zero rows scanned; a gate over nothing never passes.'],
+      lines: ['VACUOUS — zero rows scanned; a gate over nothing never passes.'],
     };
   }
   const countOf = (rowClass: RowClass): number =>
@@ -60,15 +60,15 @@ export function decideGateVerdict(report: PlanStateReport): GateVerdict {
     `${String(report.summary.rows)} row(s); UNMAPPED ${String(report.summary.unmapped.count)}, ` +
     `no-evidence ${String(countOf('no-evidence'))}, attested ${String(countOf('attested'))}`;
   if (redCount > 0) {
-    return { exitCode: 1, lines: [`plan-state gate: RED — ${gatingLine} (${counted}).`] };
+    return { exitCode: 1, lines: [`RED — ${gatingLine} (${counted}).`] };
   }
   if (countOf('consistent') === 0) {
     return {
       exitCode: 0,
-      lines: [`plan-state gate: green — no recomputation performed (${counted}).`],
+      lines: [`green — no recomputation performed (${counted}).`],
     };
   }
-  return { exitCode: 0, lines: [`plan-state gate: green (${counted}).`] };
+  return { exitCode: 0, lines: [`green (${counted}).`] };
 }
 
 /** Serialise a report byte-stably (two-space indent, trailing newline). */
