@@ -19,7 +19,29 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-07, Leopard spins Moonrise b07d1d — R0a COMPLETE AND MERGED (#317, `3bc698531`); cycles 3–4 on t3; next = the main→t3 merge-forward, the t3 PR, then R0b)
+## Where We Are (2026-07-07 close, Goshawk calls Sundog 970bdc — R0a MERGED `af6c285e5`; G1 DISCHARGED in-chat; next = R0b)
+
+**The single pickup surface for the next session is the PDR-063 handoff record**
+[`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`](../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md)
+on claim `7b10679e` (retained; **successor owner-named: Rigel turns Void, c6080b** — fourth
+runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel).
+Headlines: **R0a is complete on main** (PR #321 merged truly-green at `af6c285e5`: four
+tranche-3 cycles + merge-forward `92f3cb0e2` + consolidations `a70885cc5`; three convergence
+rounds, severity decay 7→2→0; the owner-approved six-reviewer gateway absorbed). **G1 is
+DISCHARGED** — the owner ran the sitting in-chat 2026-07-07; the record is the G1 packet §9;
+`freeze-rule.json` is ratified (clean v1; destination `.agent/refounded-plans/` with terminal
+archive+rename; EMPTY sanctioned set; reader-sample cure at 10%; archive = sweep for the
+refounding but the WS6 HARVEST reads ALL live + ALL archived plans in full — owner ruling,
+also in `planning-estate-rewrite.plan.md` §ws6). PR #322 carries the ratification record
+(merge it truly-green if still open at pickup). Two owner corrections now structural:
+doc↔code sync checks are validator work (`validate-ratified-lists`, three lists guarded);
+truly-green PRs merge by the shepherding agent (pr-lifecycle Phase 7 IS the authorisation).
+The Walk-A derivation input (few thread-level plans + implementation collections + a holding
+bucket; zero concepts lost) is recorded in §9. **Next: R0b** (plan-state engine; Stoat's §3
+contracts BINDING; first truing = the `r0a-mechanical-instrument` todo still reading
+`pending`). Owner-gated residue and the full deferred set live in the handoff record §4.
+
+## Where We Were (2026-07-07, Leopard spins Moonrise b07d1d — R0a COMPLETE AND MERGED (#317, `3bc698531`); cycles 3–4 on t3; next = the main→t3 merge-forward, the t3 PR, then R0b)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
 [`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`](../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md)
@@ -222,3 +244,4 @@ loss-scan):
 | Skipper tracks Reef | claude-code | claude-opus-4-8[1m] | 87a7bb | capability-framing copy ("building capabilities") into VISION/README/strategy (`ac7870f4f`); authored the cross-effort curriculum graph estate synthesis report (`40d514fde`) and an SLT single-team brief (held local, not version-controlled); landed the prior session's uncommitted continuity edits (`7fb21e9ae`); did NOT advance the WS2 rewrite lane | 2026-06-22 | 2026-06-22 |
 | Perseus lifts Umbra | claude-code | claude-opus-4-8[1m] | 5af536 | two-altitude knowledge-as-graph research (report `knowledge-as-graph-two-altitudes-2026-06-23.md`, initial-research → incoming engineer's brief); **amended ADR-200 (owner-directed): realisation edges §5 + family-entailment §Future state**; live Aila adaptation experiment + LTAE build-vs-reuse read of Aila's code (evidence in reference-local); added Q-009; did NOT advance the WS2 rewrite lane (WS2 remains the next step) | 2026-06-23 | 2026-06-23 |
 | Wildfire herds Sulphur | claude-code | claude-fable-5 | 839565 | **corpus-refounding commission → protocol design → landing** (owner-directed 2026-07-06): estate-wide identification sweep; cross-estate design collaboration with the resonance exchange seat (Kiln tracks Basalt, 2a5066) under the inter-practice protocol; 6-designer + 4-critic PDR-123 panel; authored `plan-corpus-refounding.plan.md` (P1–P14, J1–J9, owner-gate register incl. G-ADR) + the design record + the dated `planning-estate-rewrite` amendment (`ws-r-corpus-refounding` gates ws6); donor-seat adversarial review absorbed (sound-with-revisions, zero overturns; B1 planted-loss challenge canaries, B2 WS6 substrate statement); WS2 untouched and unchanged as next parallel step | 2026-07-06 | 2026-07-06 |
+| Goshawk calls Sundog | claude-code | claude-fable-5 | 970bdc | R0 successor #3 (runway pickup from Leopard): executed the main→t3 merge-forward + the two promised consolidations; opened + shepherded PR #321 to a truly-green self-merge (`af6c285e5` — R0a COMPLETE); ran the owner-approved six-reviewer gateway on cycles 3–4 and absorbed three bot rounds; landed `validate-ratified-lists` (owner correction: doc↔code sync = validator work) + the gate-agenda insertions; ran the in-chat G1 sitting with the owner (all seven rulings; packet §9; freeze rule ratified) and landed it as PR #322; recorded the Walk-A derivation input + WS6 harvest-scope strengthening; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-07 |

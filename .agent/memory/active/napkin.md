@@ -305,3 +305,156 @@ New session observations append below.
   the authored resolution (union README) + full conflict analysis to the handoff record, then
   `git merge --abort` to a clean tree, beats handing a successor a fragile mid-merge index.
   The resolution is reused verbatim from handoffs/assets/.
+
+## 2026-07-07 — Goshawk calls Sundog (970bdc, R0 successor #3): session observations
+
+- **A conserved merge analysis is a hypothesis about a MOVED target — recompute the mechanical
+  sets before applying.** Leopard's [V]-marked merge-forward analysis was ~2h old at replay;
+  origin/main had moved one commit (1.61.0 release bump) and two of its enumerated sets were
+  short: the `readInventoryRecords` re-point list said 2 files, recompute (grep) found 3
+  (`refound-default-ledger-helpers.ts` missed); and the sha1→sha256 rename had a 6th
+  un-analysed site (`refound-tile-model.unit.test.ts:235` fixture). The three CONFLICTS were
+  exactly as analysed — git recomputes those; it is the semantic (non-conflicting) sets that
+  rot. Cure shape: treat every enumerated-set claim in a handoff as its generating COMMAND
+  (grep/tsc), not its cached result.
+- **The pnpm install bootstrap tsc caught the sha1 fixture before any gate ran** — third
+  worked instance of the install-time surprise gate (napkin 2026-07-07 Leopard entry); as a
+  MERGE verifier it is effectively a free whole-package pre-gate: run `pnpm install` in the
+  worktree immediately after resolving a merge, before reaching for the gate suite.
+- **Warm-standby pickup, third worked instance (Wildfire→Stoat→Leopard→Goshawk)**: this time
+  runway-already-clear at arrival (no wait state) — adopt + ACK as first coordination-visible
+  move directly after grounding. The `standby-runway-handoff` pattern candidate now has
+  instances in all three shapes: push-style, pull-style, and clear-at-arrival.
+- **Owner correction (2026-07-07, PR-321 fix round): a doc↔code "pin test" is a file-contents
+  audit wearing test clothes — not a behaviour a test may describe.** I had added a
+  COMPLETION_KEYWORDS_V1 pin test mirroring the landed NET_C precedent (a reviewer even
+  recommended it — precedent compounding). The cure is a REPO-VALIDATOR that RECOMPUTES both
+  sides (reads the G1 packet §2/§2a lists AND the in-script constants, compares exact-order):
+  `validate-ratified-lists`, wired into `repo-validators:check`; BOTH pin tests deleted. The
+  general rule: tests describe product behaviour; doc↔code/file-system sync checks live in
+  validators (`validators-must-recompute`). A landed precedent test is not a licence — the
+  same shape was wrong twice.
+- **The quiet-pipe exit-mask bit ME twice in one session** (`eslint | tail && echo OK` — tail's
+  exit 0 masked 3 lint errors past the `&&`): the F-125-class lesson ("never trust a captured
+  var through a quiet pipe") applies to exit codes too. Run gates bare or check
+  `${PIPESTATUS}`/`$?` explicitly; never key a success echo off the tail of a pipe.
+- **A reviewer-prescribed optional cleanup can cost more than it cures**: type-expert's W6
+  dead-`??`-fallback removal in evaluateAreas pushed the file over max-lines (250) — reverted
+  with the disposition recorded rather than trimming doctrine comments to pay for it
+  (lint-rule-pincer-is-a-design-signal, applied at item scale).
+- **Owner correction (2026-07-07): "PRs do not sit with me — if they are genuinely green and
+  clean they get merged."** I had declared "merge stays your moment" on #321, over-generalising
+  #317's PR-specific non-grant note. Phase 7 of pr-lifecycle already encodes the truth: the
+  truly-green gate (all checks green + zero unresolved threads + Sonar passing, re-verified at
+  the declaration instant) IS the merge authorisation — a normal non-admin `gh pr merge
+  --merge`, no separate owner grant needed. Waiting for an owner grant on a truly-green PR is
+  the inverse failure mode of merging early: both park the convergence on the human.
+  candidate: a small pr-lifecycle Phase-7 amendment — its "owner grant is per-session, never
+  standing" line reads as if a grant is NEEDED on top of the truly-green gate; clarify that
+  the gate itself authorises. Note the scope boundary the classifier enforced the same
+  sitting: the posture covers the shepherding agent's OWN PR; merging ANOTHER seat's PR
+  (#320) still needs an explicit owner grant naming it.
+- **The G1 sitting ran in-chat in ~15 minutes using the matrix-filter shape** (owner-directed):
+  run every packet question through the Decision Lenses first, record what the lenses + prior
+  owner rulings resolve, and surface ONLY the survivors as AskUserQuestion items with
+  recommended verdicts. Seven rulings landed with four questions. candidate: pattern
+  `gate-sitting-as-matrix-filtered-questions` if a second gate sitting (G2/G3/OG-2) repeats
+  the shape.
+- **Window-retraction second instance (after Stoat's)**: my window-OPEN broadcast composed
+  against reading pair (…, 10.26) went out before the third reading returned 11.20 —
+  oscillation at the bar. Retract-and-re-read held; the two-consecutive-sub-11 rule is doing
+  real work at the boundary.
+- **The comms vocabulary gate is real and fires on single words**: `comms append` refused a
+  body containing "parked" ("the indefinite-deferral block"). Reword, don't fight it.
+- **Unverified single instance**: a `comms append` chained after `cd <worktree>` exited 2; the
+  identical body posted fine from the primary root. Cause not isolated (worktree-resolved
+  dist/paths vs argv) — if it recurs, diagnose before trusting `collaboration-state` from a
+  worktree cwd.
+- **Security-expert hardening note routed (not landed, out of PR scope)**: the ledger read
+  sink (`refound-batch-status-helpers` existsSync / `refound-tile-helpers` readFile on
+  `ledger/<area>.ledger.jsonl`) relies on schema containment alone — asymmetric with the
+  frozen sink's realpath re-anchor. Not exploitable under the current trust model; a future
+  consolidation can route the ledger read through the same `assertPathWithinBase` guard.
+  Conserved in the 2026-07-07 Goshawk handoff record for the R0b seat.
+- **Reviewer-economics corroboration (cycles 3–4 gateway, six seats)**: 48–160k tokens/seat
+  (~664k total), ~4–11 min each in parallel; yield = 2 convergent must-fixes + 1 fail-open
+  defect + ~14 genuine improvements across three CHANGES-REQUESTED verdicts, plus two clean
+  PASSes that verified containment/config first-hand. Consistent with Stoat's R0a numbers:
+  the adversarial roster keeps paying at tranche scale.
+- **Owner ruling (2026-07-07, fired on a slow closeout `pnpm check`): "all tests should be
+  FAST, there must be ZERO IO, all tests must prove product code behaviour, never
+  implementation or configuration or test code behaviour... we have prettier and eslint and
+  typescript and validator scripts, we must ALWAYS use the correct tool for each job."**
+  This is the deliberate decision the `no-real-io-in-tests` rule's own comment anticipates
+  (warn + frozen allowlist "until escalation is a separate, deliberate decision") — the
+  direction is now set: migrate the allowlist to ZERO and escalate warn→error. Session-held
+  evidence for the diagnosis: (a) the io-allowlist carries ~33 real-IO integration tests, 13
+  of them the refounding suite's mkdtemp+runFreeze proofs (test-expert observation #6 this
+  session recorded the doctrine tension and pre-existing gateway passes had normalised it —
+  precedent compounding again); (b) the agent-tools suite's cost is IMPORT-dominated (~206s
+  import vs ~7s test on cold run) — the ADR-086 27MB load-time corpus validation follow-up
+  (napkin 2026-07-06, routed not landed) is the same root; (c) a one-line JSON commit pays a
+  multi-minute pre-commit turbo gate. Cure direction (routed, NOT executed in this closing
+  session): the owning plan is `architecture-and-infrastructure/current/
+  no-io-test-boundary-and-di-recovery.plan.md` — re-prioritise it under this ruling; the
+  refounding discrimination proofs that genuinely need a real filesystem belong as
+  VALIDATOR-SCRIPT self-proofs (the validator estate is the sanctioned home for fs checks —
+  same generator as the pin-test correction), with vitest keeping only the pure-core
+  behaviour proofs (the pure/IO split already exists in the module design). R0b design
+  input conserved in the Goshawk→Rigel handoff record.
+- **Owner correction DEEPENED (2026-07-07): "there should never have been an IO allowlist —
+  strict, everywhere, all the time... the creep is entropy, and the repo is vulnerable to
+  it, we have to restore order."** The generator-level insight, at full weight: a
+  violation-allowlist (warn-tier rule + frozen inventory + recorded-reason additions) is an
+  ESCAPE HATCH WITH PAPERWORK — it institutionalises exceptions to a rule whose whole point
+  is exceptionlessness, and its "discipline" (citations, closure clauses, review approval)
+  manufactures process-legitimacy for drift. Process-compliance is not
+  principle-compliance: this session I union'd two allowlist entries in a merge and a
+  six-seat gateway rated the allowlist-ADD discipline PASS — every step procedurally
+  correct, every step entropy. Same generator as the pin-test correction (audit-shaped
+  tests normalised by precedent): PRECEDENT COMPOUNDING IS THE MECHANISM OF ENTROPY in a
+  large estate. Cure is category-relocation, never exemption: work that genuinely needs a
+  real filesystem is not an exempted test — it is a different CATEGORY (validator script /
+  smoke). candidate (PDR/rule): "a lint rule lands at ERROR with conformance, in one
+  landing — never at warn over an allowlist; existing violations are fixed or
+  category-moved as part of the landing" (the atomic-landing invariant applied to gates).
+  Known warn-tier instances to inventory under restore-order: the io-allowlist (~33 files;
+  owning plan `no-io-test-boundary-and-di-recovery`, dated owner-direction note added
+  2026-07-07); the no-throw Result migration (~1000 warnings, own thread + plan); the
+  "new-rules-start-at-warn" clause cited in validate-patterns-index — each needs this
+  ruling applied or an owner-ratified distinct disposition.
+- **Owner standing rule (2026-07-07): metaloss findings are ALWAYS written to the napkin** —
+  the loss-scan and its recursive metaloss pass produce napkin entries, never chat-only
+  narration; the napkin is the capture surface the pipeline distils from, and a scan whose
+  findings live only in the closing message loses them at exactly the boundary the scan
+  guards. candidate: graduate into `session-handoff` §6e.2 (and the napkin skill's
+  always-active contract) at the next consolidation touch.
+
+## 2026-07-07 — Goshawk calls Sundog (970bdc): closing metaloss pass (recursive; per the standing rule)
+
+- **Attribution honesty for the record**: PR #321 I merged (truly-green non-admin); PR #322
+  was "already merged" (`a90560ff5`) when my declaration-instant merge ran — auto-merge or
+  an owner click fired the moment CLEAN landed. A fresh reader must not credit both merges
+  to this seat.
+- **The step-11 `pnpm check` gate was OWNER-WAIVED this closeout** (owner killed the run
+  mid-flight to unblock a starved commit; broadcast 417d8981). Standing in its place: the
+  full `pnpm check` green in the t3 worktree earlier this session (pre-#321 merge) + both
+  PR CI suites green (18/18 twice on #322's heads). A successor must not read "handoff
+  complete" as "primary-tree check ran green at close".
+- **Killing a shared-host chain kills OTHER chains' gate legs**: my `pkill -f "turbo run"`
+  (owner-directed kill of the check) also killed the in-flight pre-commit's own turbo gate,
+  producing a phantom red ("Build, type-check, lint, or unit tests failed") on an innocent
+  one-line commit. Diagnose kill-collateral before treating a post-kill red as real.
+- **Hot-file Edit fragility**: an Edit on the napkin dropped an entry's heading line
+  (repaired same session). Long anchor strings on a file being appended to repeatedly are
+  fragile — anchor on the shortest unique stable text, and verify the entry HEAD survives
+  after structural edits.
+- **Metaloss layer-2 finding (the scan scanning itself)**: a loss-scan is a snapshot that
+  rots at the speed of the session — my first pass (pre-G1-sitting) was invalidated within
+  the hour by the sitting and the IO ruling. The structural cure is exactly the owner's
+  standing rule: write findings to the napkin AT OCCURRENCE, because an end-of-session
+  batch competes with completion drive at the precise moment judgement degrades
+  (fluency-at-the-finish-line, four worked instances this session: the pin test, the quiet
+  pipe, the premature window broadcast, the allowlist complicity — one generator, named in
+  the deepened-correction entry). Residual unrecoverable loss: subjective decision-texture
+  beyond what the experience file carries — accepted, voluntary register by design.
