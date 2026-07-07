@@ -1,3 +1,10 @@
+## [1.62.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.1...v1.62.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* **plans:** keep freeze-rule ratifiedBy a plain record path ([c64748d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c64748dfc43c36aa3dcbd4d4dab70a62e82ddeae))
+
 ## [1.62.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.0...v1.62.1) (2026-07-07)
 
 
