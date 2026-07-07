@@ -17,7 +17,7 @@ lineage:
   serves_thread: strategy-and-plan-estate-holistic-review
   serves_stream: agentic-framework
   strategic_choice: FRAME-1
-last_updated: 2026-07-06
+last_updated: 2026-07-07
 todos:
   - id: r0a-mechanical-instrument
     content: >-
@@ -64,7 +64,7 @@ todos:
     content: >-
       EXECUTE (S0/S1/S2 stable points): S0 atomic freeze commit (frozen copies at the
       refounding artefact root OUTSIDE the denominator + denominator + proofs; owner gates
-      G1+G-ADR+G2 cleared first); S1 scripted inventory + residue audit + planted-orphan
+      G1+G2 cleared first — G-ADR already ratified 2026-07-06); S1 scripted inventory + residue audit + planted-orphan
       proofs on the real corpus; S2 tiling baseline (anchored default blocks, exact-cover
       green) + the estate-wide audit-mode run (claim census -> claim-vs-derived divergence
       report). Merge-recheck re-derives the denominator at every stable point and batch
@@ -343,6 +343,15 @@ owner-hold — an upper bound on elapsed, not a work estimate.
 - NOT the intent graph build (ADR-200 WS2–WS7 continue; WS6/WS7 consume this plan's output).
 - NOT a refactor/relabelling of existing plans, and old-plan conformance to V0 is NOT a
   goal (ADR-200 §Non-goals) — old plans are frozen, mined, and re-expressed, never patched.
+- NOT a file-count-preserving migration (named explicitly 2026-07-07, owner-directed):
+  destination cardinality is LANE-derived — set at Walk A by the ratified taxonomy and J7
+  authoring per lane — never source-derived. A per-source default of one-plan-in-one-plan-out
+  is a failure mode, not a target: conservation is row-granular through the seven
+  dispositions, the frozen archive remains the detail contract via P9 binding clauses, and
+  only named-home / merged-into rows produce destination text at all (the donor re-founded
+  15 sources into four destination plans). Source-plan count exerts zero pull on the
+  destination corpus; an individual 1:1 re-expression stays legitimate where a lane warrants
+  it — the non-goal is the coupling, never the instance.
 - NOT a re-authoring of vision or strategy (they stand; ADR-200 owner ruling 2026-06-22).
 - NOT a Practice-wide markdown→graph inversion (OQ-10 remains its own owner-gated ADR).
 - NOT deletion of anything: no destructive disposition class exists (P14);
@@ -372,7 +381,7 @@ schema + registries are the authoring contract; validation strict at the boundar
 ADR-200 (the architecture this serves); PDR-018 (end-goal/mechanism/means; blocking vs
 beneficial); PDR-049 (every new multi-writer artefact declares a merge class at creation);
 PDR-122/123 (judgement pipelines and design panels); the governing invariant of the
-[rewrite plan](./planning-estate-rewrite.plan.md) (every organising axis registered and
+[rewrite plan](../current/planning-estate-rewrite.plan.md) (every organising axis registered and
 validated).
 
 ## Plan-body first-principles check

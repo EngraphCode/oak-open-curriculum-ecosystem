@@ -244,6 +244,23 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
       'warn',
       {
         allowlistPathShapes: [
+          // Recorded reason: plan `plan-corpus-refounding` — the freeze/verify
+          // discrimination proofs (F1 D8) mutate genuine frozen artefacts on
+          // mkdtemp temp trees; a fake fs would make the mutation proofs
+          // theatre. The refounding module retires with the run (F1 §5), and
+          // that plan's closure removes these entries.
+          '**/agent-tools/src/refounding/refound-freeze.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-verify-freeze.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-inventory.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-residue.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-sweep.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-plant-orphan.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-plant-challenge-canary.integration.test.ts',
+          // Recorded reason: plan `plan-corpus-refounding` — the read/write
+          // path-resolver containment proofs need real symlinks and real
+          // existence probes (a fake fs would make the symlink-escape and
+          // ENOENT-refusal proofs theatre); same closure as the entries above.
+          '**/agent-tools/src/refounding/refound-path-resolve.integration.test.ts',
           '**/agent-tools/tests/codex-project-agents.integration.test.ts',
           '**/agent-tools/tests/codex-reviewer-resolve.integration.test.ts',
           '**/agent-tools/tests/collaboration-state/collaboration-state.unit.test.ts',

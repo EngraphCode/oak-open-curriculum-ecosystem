@@ -19,7 +19,57 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
+## Where We Are (2026-07-07 mid-day, Stoat rides Gloaming — R0a tranches 1+2 LANDED and on PR #317; #315 MERGED; tranche 3 building on a stacked branch; G1 packet sitting-ready)
+
+R0a is two-thirds landed and under review; the protocol estate is on `main`. Verified
+first-hand this morning:
+
+- **PR #315 MERGED** (owner, 08:01Z, merge commit `9994781b2`): the refounding protocol plan,
+  design record, registers, and the six fresh bot-thread fixes (friction renumber
+  F-122/F-123→F-130/F-131 across five surfaces at `798839a72`; the register reorder that also
+  cured the static-checks markdownlint red; the G-ADR prerequisites truing; the opener's
+  plant-challenge-canary supersession at `033cdee7b`). All 13 threads resolved
+  fixed-with-citation under the F-130 binding-moment discipline.
+- **Branch `feat/plan-corpus-refounding-r0a` pushed; PR #317 OPEN** (tip `582eda9be`,
+  ~5.9k insertions): tranche 1 (`23fd4d907` — freeze + verify-freeze, 70 module tests,
+  three-reviewer chain absorbed), R0c registers + **G1 packet sitting-ready** (`02e681f62`),
+  the destination-cardinality non-goal (`52785f9d6`), **tranche 2 LANDED** (`e1d8bb8c9` —
+  refound-inventory/residue/sweep/plant-orphan/plant-challenge-canary, 201 module tests,
+  13-item fix pass absorbed, anchor ratio 41.14% in-band), main merged in (`d3fe60bab`), and
+  the plan **promoted `current/`→`active/`** with the validator-proven link sweep
+  (`582eda9be`). #317's published scope EXCLUDES tranche 3 — do not push tranche-3 commits to
+  it. **#317 merge authority is NOT granted** (the owner's conditional grant was
+  #315-specific); merge is an owner moment.
+- **Tranche 3 (merge-recheck → tile → claim-census → batch-status) is BUILDING** on the
+  stacked branch `feat/plan-corpus-refounding-r0a-t3` in the repurposed
+  `plan-corpus-refounding` worktree. The pre-execution code-expert review (two-moments rule)
+  settled seven contract ambiguities and seven landed-decision contradictions BEFORE build —
+  notably: freeze-rule **schema v2 with sanctioned-writer classes** lands in cycle 1 (the
+  landed v1 parser cannot parse what G1 ratifies); census reads the FROZEN tree, never live;
+  banner-awareness degenerates to strict byte identity until the R2 F4 policy. **The complete
+  binding verdict set, builder state, and resume mechanics are self-contained in
+  `.agent/state/collaboration/handoffs/2026-07-07-stoat-r0a-tranche3-execution-record.md`**
+  (claim `7b10679e` handoff_record_path points there; PDR-063 — read it before any tranche-3
+  source edit).
+- **Standing owner directives (in force, this window)**: NO new subagents without owner
+  approval (temporary; resuming an existing builder via SendMessage is sanctioned — the
+  spend-limit death/resume mechanics are in the execution record §4); push authority for the
+  r0a branch stands; all four resonance-side watchers are real agents (owner-confirmed).
+
+**Next safe steps, in order**: (1) builder cycles 1–2 return → integrator first-hand verify →
+per-cycle atomic landings on the t3 branch; (2) owner gate: subagent approval for the
+cycles-3/4 builder + the post-execution gateway roster (execution record §3); (3) G1-packet
+truing after cycle 1 (schema v2 as the ratified rule's parse target); (4) shepherd #317 bot
+rounds (fix inline under the freeze) — merge is the owner's; (5) after #317 merges: main →
+t3 branch, open the t3 PR; (6) R0b (F5 one-engine-two-adapters); (7) the G1 owner sitting
+(packet ready). Housekeeping owed: formal frictions-register entries for the two
+commit-queue/PDR-117 worktree findings; queue hygiene (abandoned intents `258714ba`,
+`e38f8da0`); resonance PDR-129/130 citation truing (Kiln correction 2026-07-07); merged
+`docs/plan-corpus-refounding` branch-ref deletion (owner-gated; worktree repurposed to t3).
+Worktree-seat commit craft unchanged: pathspec-staged plain `git commit -F`, BACKGROUND task,
+1-min load <12 first (two consecutive sub-11 readings; announce windows AFTER the load read).
+
+## Where We Were (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
 
 **Owner direction (2026-07-06, in-session):** losslessly re-found the plan corpus around
 intent FIRST — the donor-estate (resonance) method at oak scale — as an independently
@@ -30,7 +80,7 @@ and must not wait.
 **What landed this session (branch `docs/plan-corpus-refounding`):**
 
 - The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
   — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
   placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
   verification; the consolidated owner-gate register (G0..Walk C — **next action: the
