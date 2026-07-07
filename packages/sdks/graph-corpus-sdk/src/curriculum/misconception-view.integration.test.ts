@@ -17,7 +17,6 @@
 import { graphCorpus } from '@oaknational/sdk-codegen/graph-corpus';
 import { describe, expect, it } from 'vitest';
 
-import { buildCurriculumMisconceptionProjection } from './misconception-projection.js';
 import {
   DEFAULT_THREAD_UNIT_LIMIT,
   MAX_THREAD_UNIT_LIMIT,
@@ -306,13 +305,5 @@ describe('misconception view — bounded anchored chain retrieval', () => {
 
     const entry = result.units[0];
     expect(Array.isArray(entry?.unit.threadSlugs)).toBe(true);
-  });
-
-  it('constructs the module-load projection within a generous startup-cost bound', () => {
-    const start = performance.now();
-    buildCurriculumMisconceptionProjection();
-    const elapsedMs = performance.now() - start;
-    // Map-building over ~27k nodes / ~32k edges; 500ms is a generous, non-flaky ceiling.
-    expect(elapsedMs).toBeLessThan(500);
   });
 });

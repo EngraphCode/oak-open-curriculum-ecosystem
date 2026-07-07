@@ -20,3 +20,12 @@ Before claiming an estate is clean:
 Default-search silence is not evidence for gitignored or excluded lanes.
 False-clean checks are worse than no checks because they teach the next
 agent to trust the wrong boundary.
+
+The same discipline covers **explicit command-path narrowing**, not only
+hidden files: a truthful "0/0" from `eslint scripts/ lib/course/` hides
+warnings elsewhere, and a narrow scope PROPAGATES agent-to-agent — the
+successor re-runs the same subset it inherited and re-reports "green"
+(worked instance 2026-07-01: two `no-throw` warnings hidden by a
+predecessor's narrow subset, caught only on a successor's full
+`eslint .`). A gate verdict needs the full gate scope (`eslint .`,
+`pnpm check`) before "green" is asserted or a slice counted done.

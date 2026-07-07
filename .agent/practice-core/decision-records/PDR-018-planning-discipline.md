@@ -21,6 +21,23 @@ aspirations).
 
 ## Amendment Log
 
+- **2026-07-06 amendment — sequence-first over smallest-first shipping (Zenith
+  wakes Perigee / claude-code / claude-fable-5; owner-ratified live as standing
+  doctrine during the 2026-07-06 dedicated consolidation; provenance: the
+  tier-E corpus drain E-b8 item C230, where the owner reframed
+  "smallest impactful thing first" in a worked planning exchange).** When
+  scoping how a multi-part capability ships, the default is **sequence-first**:
+  the full interface, architectural home, and envelope exist from day one, and
+  only *implementation timing* varies across the sequence. This accepts
+  roughly 10–15% more total work in exchange for earlier first delivery
+  **without future drift** — later increments land inside a shape that was
+  right from the start, instead of forcing interface churn on consumers of the
+  smallest-first slice. New §"Sequence-first over smallest-first shipping"
+  in the Decision area names the discipline.
+  - **Falsifiability**: shown wrong if sequence-first plans routinely
+    over-invest in envelopes that later increments abandon, i.e. if the
+    up-front interface work is discarded rather than filled in.
+
 - **2026-06-16 amendment — a plan pending its readiness review must not grow
   (Skunk hunts Crescent; decision-debt drain).** A plan whose whole pending job
   is review → DECISION-COMPLETE → execution-ready MUST NOT accrue new scope while
@@ -350,6 +367,39 @@ of any single plan; it emerges from how plans declare relationships
 to other plans. Planning discipline is the only surface where the
 shape can be caught at authoring time. At execution time, the
 gating has already cost the dependent work the time it lost.
+
+### Sequence-first over smallest-first shipping (2026-07-06 amendment)
+
+When planning a multi-part capability, do not scope delivery as "the
+smallest impactful thing, then grow the shape as we learn". The default
+is **sequence-first**:
+
+1. **The full interface, architectural home, and envelope exist from day
+   one.** The first increment already lives at the capability's final
+   address, exposes the final interface (with unimplemented parts honestly
+   typed/marked, never stubbed as fake success), and sits inside the
+   envelope the finished capability needs. The envelope is a designed
+   type/interface surface, not dead code: an increment exports only what
+   it (or a consumer landing with it) actually consumes — the
+   no-unused-code discipline stays absolute, so unconsumed envelope
+   members stay in the design (the plan's pinned interface) until the
+   increment that consumes them lands.
+2. **Only implementation timing varies.** The sequence orders which parts
+   of the envelope get filled in first — earliest-value first — but no
+   increment forces a later interface or placement change on its consumers.
+3. **The accepted cost is ~10–15% more total work** (the envelope is
+   designed before every part is needed) in exchange for earlier first
+   delivery without future drift.
+
+Smallest-first remains valid for genuine probes, decidable by **artefact
+intent**: an increment whose artefact is *evidence for a decision* —
+viability of the capability, or choice between approaches — and is
+expected to be discarded or reshaped once the decision lands, is a probe
+(the `reason` skill's decide-proportionately move governs sizing it).
+Sequence-first governs from the moment an increment's artefact is
+*contractually consumed* by other work. This composes with
+§Beneficial prerequisites must not block: the envelope is not a blocking
+prerequisite pile — it is the first increment's own shape.
 
 ### DECISION-COMPLETE is the readiness gate (2026-05-14 amendment)
 

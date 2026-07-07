@@ -85,7 +85,10 @@ is itself a claim-shaped artefact: before trusting its empty result, audit its
 filters — any exclusion (`-v`, glob, path scope, type filter) that could remove
 the class under test invalidates the sweep. The same discipline covers your own
 summarised verdicts: a conclusion you recorded earlier is a claim to re-test at
-the point of action, not a fact to inherit.
+the point of action, not a fact to inherit. And it covers your own arithmetic:
+recompute any asserted total from its parts before it leaves your output — a
+noise-inclusive grep once asserted 318 blocks where the genuine total was 214,
+with the per-type census right and only the summary total unrecomputed.
 
 **Self-state is the category where this discipline is most often skipped.** Agents
 reliably verify a peer's, a sub-agent's, or a bot's claim first-hand, then accept
@@ -255,6 +258,10 @@ in sync and one fetch would have shown it).
   colocated in `src/`) is precisely what it misses. The tell is fluency that
   flatters: "I spotted a gap" arrives smoothly because it flatters a gap-spotter
   self-image, and that smoothness is what bypasses the whole-package check.
+- Citing a scoped gate run as a full-scope verdict — narrow scopes also
+  propagate agent-to-agent; see
+  [`validate-full-target-estate`](validate-full-target-estate.md) for the
+  full discipline.
 - Reading a commit's success or failure from the streamed terminal display
   rather than from `git log -1` / `git status`.
 - Asserting a whole-file property (size, line count, "all captured") from a

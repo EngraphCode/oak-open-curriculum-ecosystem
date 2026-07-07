@@ -153,6 +153,27 @@ mcp__sonarqube__analyze_code_snippet({ snippet, language })
 | `typescript:S4036` PATH variable hotspot | Investigate at site                                                         | In dev/CI/build context, PATH IS the trust root; hardcoded absolute paths break portability       | hotspot REVIEWED → SAFE                                 |
 | `typescript:S1313` hardcoded IP hotspot  | Investigate at site                                                         | Often a test fixture (a string parsed as version, not IP)                                         | hotspot REVIEWED → SAFE                                 |
 
+### PR quality-gate conditions aggregate across the whole delta
+
+Sonar PR conditions aggregate severity across the entire PR delta: one MINOR finding can tip
+a threshold-edge gate red even though every local gate passed. A green local suite and a
+green PR scan are two different verdicts — verify both before declaring a PR gate-clean.
+
+### ESLint↔Sonar same-rule-id divergence
+
+A locked-at-error ESLint rule can structurally never clear its Sonar counterpart: the two
+engines' criteria for "the same" rule id diverge. Worked instance (2026-07-06): unicorn's
+`prefer-number-properties` (mapped to S7773) deliberately exempts `parseInt(x, 10)` /
+no-radix calls, while Sonar S7773 still flags them — so an autofix tranche left Sonar
+survivors no ESLint run could remove. When a lock-at-error + autofix tranche leaves Sonar
+survivors, diff the two engines' rule criteria before assuming a stale scan or a config gap;
+the residual may need a hand pass. Two adjacent gotchas from the same arc: the lint config
+estate is not self-linted (root-level `eslint.config.ts` sits outside every workspace lint
+run — S7772's last survivors were the config itself), and a Sonar "opposite operator"
+suggestion is rule-local, not value-domain-safe — S1940's `parsed < 1` over `!(parsed >= 1)`
+would have introduced a NaN hole (`NaN < 1` is false); restructure so the NaN path cannot
+exist rather than applying the suggestion blind.
+
 ### Anti-patterns
 
 - **`sonar.issue.ignore.multicriteria` rule-level block** (a sonar-scanner-CLI feature SonarCloud automatic analysis does not read). Disables the rule for an entire path glob across all current and future code. Violates `principles.md` "NEVER disable any quality gates". First reverted in commit `dba01e7c` after Vining Bending Root's drift incident on 2026-04-27; it later re-crept into a `sonar-project.properties` that automatic analysis never read, and that dead file has since been removed entirely. Dispositions are made per-site, server-side (see [Sonar Disposition Policy](../governance/sonar-disposition-policy.md)).

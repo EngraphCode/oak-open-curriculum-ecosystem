@@ -159,8 +159,11 @@ auto-create the seen-file's parent directory and `appendFile` will fail
 silently if it is missing, causing the watcher to re-emit every event on
 every poll. The codename matches the `agent_name` derived by
 `pnpm agent-tools:collaboration-state -- identity preflight --platform <p>
---model <m>`; pre-existing seen-files in the directory model the
-convention.
+--model <m>` — **the display name VERBATIM, spaces included**
+(`Zenith wakes Perigee.json`), never a kebab-case slug: `assert-watcher-live`
+derives the heartbeat path from the display name, so a slug-named seen-file
+leaves the watcher running and the assert red (four recorded instances;
+`ls` the directory first — pre-existing seen-files model the convention).
 
 ### Fallback shape — portable script
 

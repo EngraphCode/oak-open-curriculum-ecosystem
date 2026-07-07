@@ -23,6 +23,28 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## DEDICATED CONSOLIDATION — EXECUTED (2026-07-06, evening)
+
+Session identity: Zenith wakes Perigee (claude-code / claude-fable-5 / prefix `8897eb`),
+curator; `last_session` 2026-07-06. Owner-directed dedicated knowledge-curation pass on branch
+`docs/zenith-dedicated-consolidation` (off post-#314 `main`), run as the third agent alongside
+the Wildfire×Kiln refounding lane (boundaries de-conflicted on the stream; their lane untouched).
+
+**EXECUTED:** pending-graduations drained to ZERO by decision (nine homes verified first-hand;
+sequence-first graduated into PDR-018 under a live owner ratification recorded on the comms
+stream; doctrine-lookup tripwires into the sonarqube rule + invoke-code-experts; the
+merge-commit path into the commit skill); distilled drained to header; the napkin fully
+processed then rotated (verbatim archive, cmp-proven); repo-continuity's completed-arc
+narrative drained per its disposition (char-critical cleared honestly); open-questions
+confirmed empty; four new patterns; frictions F-122..F-129; PDR-063/082/117 amendments. Both
+graduation batches ran the PDR-101 four-seat quorum; all findings adjudicated. Commits
+`519484dcc`, `3561ffd58`, `3ea53d89f` (+ the handoff bundle). **Residual signals:** the
+Zodiac-section residual (1) below is VERIFIED STALE — `run-quality-gates` (+ CodeQL +
+SonarCloud) is ALREADY required (first-hand `gh api …/rules/branches/main`, 2026-07-06);
+repo-continuity remains hard-over on chars at rest with named remediation lanes; the 7c audit
+flagged two >14-day-stale Active threads and two COMPLETE threads still listed Active (napkin
+carries the list).
+
 ## PR-LIFECYCLE DOCTRINE TIGHTENING — EXECUTED: PR #310 MERGED (2026-07-06)
 
 Session identity: Zodiac herds Spectrum (claude-code / claude-fable-5 / prefix `72dd40`),

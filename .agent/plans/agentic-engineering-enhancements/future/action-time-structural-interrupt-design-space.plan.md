@@ -140,6 +140,20 @@ not greenfield: the estate has already tried executable enforcement once and
 let it lapse — the design should name what made the first attempt lapse so
 the second installs to stay.
 
+**Recurrence-evidence ledger routed from the 2026-07-06 dedicated consolidation**
+(PDR-098 — each class recurred DESPITE a live home; traction evidence, not fresh
+lessons): the `--no-verify` reflex (never-disable-checks recurrence);
+fluency-is-a-warning (3× in one Director session — naming the lesson did not
+inoculate minutes later; plus a 5-instance completion-pressure cluster in one
+closing stretch, 2026-07-06, every catch external); route-go-no-go-to-Director
+(≥4 consecutive curriculum-hub sessions, owner-corrected each time — the
+proposed active tripwire: drafting an owner-facing question/decision IS the
+firing moment to redirect to the Director); cwd drift (7× in one session under
+an adopted vigilance cure — structural cure now frictions F-125,
+location-independent root gate scripts); relabel-heartbeat-at-lane-transition
+(slips exactly when heads-down — cure candidate: relabel IS part of the
+task-start move, the same one-action fusion as adopt+arm-heartbeat).
+
 ## The Reconciliation (the distinct value)
 
 The register item demands reconciliation with metacognition and immune-system
