@@ -1,0 +1,6 @@
+---
+description: Run the inter-Practice join ceremony before any cross-estate action — fires when the worktree repo and the coordination home differ, or before reading from / writing into any sibling Practice estate's substrate.
+alwaysApply: false
+---
+
+Read and follow `.agent/rules/cross-repo-sessions-run-the-join-ceremony.md`.
