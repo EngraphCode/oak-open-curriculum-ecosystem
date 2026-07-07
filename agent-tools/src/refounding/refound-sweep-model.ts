@@ -41,7 +41,7 @@ export const SWEEP_HITS_SEGMENT = 'sweep/sweep-hits.v1.jsonl';
  * list verbatim, in packet order. Case-insensitive MATCH, verbatim CAPTURE;
  * frozen at G1.
  */
-export const SWEEP_MARKERS_V1: readonly string[] = [
+export const SWEEP_MARKERS_V1 = [
   'todo',
   'next step',
   'not yet',
@@ -57,7 +57,7 @@ export const SWEEP_MARKERS_V1: readonly string[] = [
   'carry-over',
   'promotion trigger',
   'reopen',
-];
+] as const;
 
 const nonEmptyString = z.string().min(1);
 

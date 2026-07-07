@@ -9,6 +9,7 @@ import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
 import { COMPLETION_KEYWORDS_V1 } from '../../refounding/refound-claim-census-model.js';
 import { NET_C_KEYWORDS_V1 } from '../../refounding/refound-inventory-nets.js';
+import { SWEEP_MARKERS_V1 } from '../../refounding/refound-sweep-model.js';
 import {
   compareRatifiedList,
   extractBacktickListParagraph,
@@ -16,9 +17,9 @@ import {
 
 /**
  * Ratified-lists validator: recompute BOTH sides of the G1-packet ↔ code
- * agreement — the packet's §2 (Net-C) and §2a (census completion-keyword)
+ * agreement — the packet's §2 (Net-C), §2a (census completion-keyword), and §6 (sweep marker)
  * ratification lists against the versioned in-script constants
- * (`NET_C_KEYWORDS_V1`, `COMPLETION_KEYWORDS_V1`) — and fail on any drift.
+ * (`NET_C_KEYWORDS_V1`, `COMPLETION_KEYWORDS_V1`, `SWEEP_MARKERS_V1`) — and fail on any drift.
  *
  * **Why a validator, not a test** (owner-directed 2026-07-07): a doc↔code
  * sync check audits file-system contents, which is not a product behaviour a
@@ -43,6 +44,11 @@ const CHECKS = [
     label: 'census completion-keyword list (§2a)',
     heading: '### 2a. Census completion-keyword list',
     code: COMPLETION_KEYWORDS_V1,
+  },
+  {
+    label: 'sweep-net marker set (§6)',
+    heading: '## 6. Sweep single-net residue',
+    code: SWEEP_MARKERS_V1,
   },
 ] as const;
 
@@ -84,7 +90,9 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  writeLine('validate-ratified-lists: OK (G1 packet §2/§2a match the versioned in-script lists).');
+  writeLine(
+    'validate-ratified-lists: OK (G1 packet §2/§2a/§6 match the versioned in-script lists).',
+  );
 }
 
 await main();
