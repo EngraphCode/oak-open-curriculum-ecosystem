@@ -19,7 +19,21 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
+## Where We Are (2026-07-07, Leopard spins Moonrise b07d1d — R0a COMPLETE AND MERGED (#317, `3bc698531`); cycles 3–4 on t3; next = the main→t3 merge-forward, the t3 PR, then R0b)
+
+**The single pickup surface for the next session is the PDR-063 handoff record**
+[`handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md`](../../../state/collaboration/handoffs/2026-07-07-leopard-r0-cycles34-and-merge-forward.md)
+on claim `7b10679e` (retained): it carries the merged-estate state with provenance marks, the
+FULLY-ANALYSED main→t3 merge-forward (three conflict resolutions — one conserved verbatim in
+`handoffs/assets/` — plus two semantic re-points and the publicly-promised census
+consolidations), the t3-PR endgame protocol (agent-owned settle probes; the owner-corrected
+convergence-ownership discipline now in the pr-lifecycle skill), and the seven open
+owner-gated items (subagent freeze, gateway roster, housekeeping branch, G1 sitting, R0b,
+branch deletions, Zodiac queue residue). Stoat's tranche-3 execution record's §3 contracts
+remain BINDING for R0b and rework. Session tally: six adversarial bot rounds on #317,
+14 threads all fixed-with-citation, Sonar green by code.
+
+## Where We Were (2026-07-06, Wildfire herds Sulphur — corpus REFOUNDING commissioned, designed, cross-estate-reviewed; next = owner gates G1+G-ADR, and WS2 unchanged in parallel)
 
 **Owner direction (2026-07-06, in-session):** losslessly re-found the plan corpus around
 intent FIRST — the donor-estate (resonance) method at oak scale — as an independently

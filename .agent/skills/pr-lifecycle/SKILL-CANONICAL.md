@@ -124,6 +124,18 @@ work or hold; the watcher wakes you.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **Own the convergence loop — never hand it to the owner** (owner
+  correction, 2026-07-07, #317). Bot rounds land findings minutes AFTER a
+  push, so "zero unresolved verified now" expires on a clock you do not
+  control. After EVERY push, arm your own settle probe (~8 min background
+  timer) and re-harvest when the round settles — event monitors give
+  awareness of arrivals, but awareness is not convergence ownership; without
+  the probe the human becomes the loop operator. Declare merge-ready only
+  after a FULL settled round lands zero new findings. Bundle every finding
+  from one round into ONE fix push (each push mints a fresh round; per-finding
+  pushes multiply rounds without bound). Expect convergence as severity decay
+  across rounds — a round that stops decaying is a signal to step back, not
+  push faster.
 - **Confirm the PR is still OPEN in the same re-fetch.** A push to a
   just-merged PR's branch SUCCEEDS but is not inclusion — the commit
   silently misses the base branch (worked instance 2026-07-06: a review

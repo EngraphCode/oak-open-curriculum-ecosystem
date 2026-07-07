@@ -261,3 +261,47 @@ New session observations append below.
   corpus that runs through `runInventory`; and a mapping fixture with 1 unmapped of 4 status
   lines is 25% — OVER the census 20% halt band (my own test tripped it; the halt fired
   exactly as specified — the test data was wrong, not the model).
+- **Doctrine lookup must include the CORE MODULE ESTATE, not just ADRs/rules/Sonar history**: my
+  gitleaks PATH-walk resolver was reviewed-and-reversed by Copilot citing `core/trusted-git.ts`
+  — an in-code precedent whose TSDoc records that PATH-based S4036 approaches were "replaced
+  outright". I had grepped ADRs and prior Sonar dispositions but never `src/core/` for an
+  existing hardening pattern. Before authoring any external-binary / security-shaped mechanism,
+  grep the core estate for a trusted-* / hardened sibling first (fluency-is-a-failure-vector,
+  in-code-precedent face).
+
+## 2026-07-07 — Leopard spins Moonrise (b07d1d), PR-317 endgame + closeout: session observations
+
+- **Owner correction (graduated to pr-lifecycle Phase 6 same-session): "why has this become a
+  loop operated by me?"** Six asynchronous bot rounds; I declared at each zero-unresolved
+  MOMENT and idled on event monitors between rounds; the owner spotted every new arrival. Cure
+  = agent-owned settle probes (~8 min post-push) + declare only after a full settled round
+  lands zero new findings + one bundled fix push per round. The general form (metaloss-
+  recovered): EVENT AWARENESS IS NOT CONVERGENCE OWNERSHIP — monitors satisfy the cadence
+  rules while the convergence obligation silently transfers to the human. candidate: pattern
+  `event-awareness-is-not-convergence-ownership` if a second instance recurs outside PRs.
+- **First-principles review beat precedent twice in one arc**: (1) the S4036 WONTFIX lean —
+  owner asked "is it really won't fix?"; review found the precedent had NO recorded rationale
+  and the site differed (attestation-feeding one-time event) → fixed by code, QG went green
+  with zero dispositions; (2) Copilot then showed even my fix deviated from an IN-CODE
+  precedent (core/trusted-git.ts fixed-allowlist doctrine, whose TSDoc pre-rejects PATH-based
+  approaches). Lesson homed in the napkin earlier: grep `src/core/` for a trusted-*/hardened
+  sibling BEFORE authoring any security-shaped mechanism.
+- **The discrimination proofs caught the FIXER, twice**: my first rollback draft failed its own
+  planted-directory proof (rm aborted before removing the stranded file); my census mapping
+  test fixture tripped the very halt band it was specifying. Proofs-first is earning its cost
+  against the author, not just the estate.
+- **Bot findings on #317 clustered into four instrument-ethos classes** (write-target
+  resolution; attestation content-verification; vacuous-green refusal; atomic artefact pairs)
+  — six rounds, 14 threads, 13 fixed at source, severity decayed monotonically. New t3-PR
+  findings should be checked against these classes first; every fix idiom is now in-tree.
+- **Auto-merge changes the endgame shape**: the merge fires the instant checks+threads
+  satisfy — DURING a composing bot round if unlucky. With auto-merge armed, the settle-probe
+  discipline is what makes the merge land on a genuinely-settled round rather than a lucky gap.
+- **grep -v self-trap, second instance this session**: excluding by a token that appears in
+  MATCH TEXT (import paths containing 'residue-helpers'; worktree paths containing
+  'refounding') silently empties results — filter on structured fields or path segments,
+  never on substrings shared with content.
+- **Handoff-safe abort as a deliberate move**: mid-merge at owner-directed close, conserving
+  the authored resolution (union README) + full conflict analysis to the handoff record, then
+  `git merge --abort` to a clean tree, beats handing a successor a fragile mid-merge index.
+  The resolution is reused verbatim from handoffs/assets/.
