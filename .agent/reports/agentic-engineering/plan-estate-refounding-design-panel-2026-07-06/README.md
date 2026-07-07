@@ -27,3 +27,26 @@ supersessions are recorded here and in the design record.
    acceptance; both arrived AFTER the panel — the lossless critique and the cross-estate
    review's B1). The plan's R0a todo and the R0 session opener carry the full plant set;
    build to those, not to F1 §plant-orphan alone.
+3. **Tiling block start rule** — F1 D5 and §11 describe an anchor-ONLY start, but F1 §9
+   itself defines the line-1 file-preamble block that precedes the first anchor. The
+   landed rule is anchor-start OR line-1 preamble: a block may start on an anchor line or
+   on line 1 as the pre-anchor preamble. An unconditional anchor-only rule would leave the
+   S2 tiling verifier permanently RED (every file's pre-anchor preamble would read as a
+   non-anchor start); build to anchor-OR-line-1, not anchor-only.
+4. **`block_id` form** — F1 §3 shows a counter-style example (`semantic-search-0417`). The
+   ratified block id is coordinate-derived — `<file>:<start>-<end>` (e.g.
+   `plans/alpha/a.md:3-5`) — never a counter, so the id is a pure function of the block's
+   coordinates and stays byte-stable across runs. Build to the coordinate form, not the
+   counter example.
+5. **Arrivals report basename** — F1 §5 names `arrivals.report.json`. The landed artefact
+   applies F1's own versioned-artefact convention (as `denominator.v1.json`,
+   `inventory.v1.jsonl`, etc.) and is written as `arrivals.v1.report.json`. Build to the
+   versioned basename, not the unversioned §5 spelling.
+6. **No root `agent-tools:refound-*` aliases** — F1 D9 and §5 assume root-level
+   `agent-tools:refound-*` script aliases. The landed surface is package scripts (in
+   `agent-tools/package.json`) plus knip entries only — no root aliases (a pre-existing
+   tranche-1 divergence, carried forward for tranches 2–3). Invoke the tools by their
+   package scripts, not by root aliases that do not exist.
+
+F1 itself is NEVER edited; every point above is recorded here (and in the design record),
+not patched into the conserved panel input.

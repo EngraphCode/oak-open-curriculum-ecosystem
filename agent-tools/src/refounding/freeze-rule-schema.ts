@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { parseWithSchema } from '../core/schema-parse.js';
 
 /**
- * Freeze-rule schema for the plan-corpus refounding (F1 §2, decision D2).
+ * Freeze-rule schema for the plan-corpus refounding (F1 §2, decision D2;
+ * v2 per P2's sanctioned-writer classes).
  *
  * @remarks
  * The freeze rule is a checked-in, owner-ratified data artefact that enumerates
@@ -14,6 +15,25 @@ import { parseWithSchema } from '../core/schema-parse.js';
  * script and no agent ever decides file-by-file. The shape is closed
  * (`strict-validation-at-boundary`): unknown keys are rejected so a typo'd or
  * smuggled field can never silently widen or narrow the freeze.
+ *
+ * **Versioning.** The document `version` field selects the schema shape:
+ *
+ * - **v1** — the shape the S0 freeze consumes: `version`, `ratifiedBy`,
+ *   `classes`. A v1 document carries no sanctioned-writer classes.
+ * - **v2** — v1 plus `sanctionedWriters`: PATH-scoped sanctioned-writer
+ *   classes (`{ id, globs, reason }`, G1 packet §5, P2). A write inside the
+ *   frozen denominator matching a sanctioned-writer glob is protocol-authored
+ *   — `refound-merge-recheck` classifies it `sanctioned` (reported
+ *   separately, never silent, never auto-frozen) instead of flagging it as an
+ *   arrival. The array is required and non-empty in v2: a rule with no
+ *   sanctioned-writer classes IS a v1 document — no placeholder shapes.
+ *
+ * The CONTENT-scoped banner diff class is deliberately absent from v2:
+ * banner-awareness is sanctioned-diff classification with an EMPTY
+ * content-diff class set, i.e. strict byte identity. Banners cannot exist
+ * before the R2 F4 banner policy, so there is no banner flag, no exemption
+ * parameter, and no empty placeholder here (closed-shape discipline); the
+ * banner diff class lands as a schema version bump WITH its policy.
  *
  * `ratifiedBy` is `null` until gate G1 lands. The schema accepts `null` so the
  * draft rule parses; the freeze runner (`runFreeze`) owns the refusal to
@@ -41,15 +61,45 @@ const freezeRuleClassSchema = z.strictObject({
 });
 
 /**
- * The whole rule document (`.agent/plans-refounding/freeze-rule.json`).
- * `ratifiedBy` is the owner-gate record path once G1 lands, `null` before.
+ * One PATH-scoped sanctioned-writer class (P2, G1 packet §5): writes inside
+ * the frozen denominator matching `globs` are protocol-authored, never
+ * self-noise arrivals. All fields non-empty; closed shape.
  */
-const freezeRuleSchema = z.strictObject({
-  version: z.number().int().positive(),
+const sanctionedWriterClassSchema = z.strictObject({
+  id: nonEmptyString,
+  globs: z.array(nonEmptyString).min(1),
+  reason: nonEmptyString,
+});
+export type SanctionedWriterClass = z.infer<typeof sanctionedWriterClassSchema>;
+
+const freezeRuleV1Schema = z.strictObject({
+  version: z.literal(1),
   ratifiedBy: nonEmptyString.nullable(),
   classes: z.array(freezeRuleClassSchema).min(1),
 });
+
+const freezeRuleV2Schema = z.strictObject({
+  version: z.literal(2),
+  ratifiedBy: nonEmptyString.nullable(),
+  classes: z.array(freezeRuleClassSchema).min(1),
+  sanctionedWriters: z.array(sanctionedWriterClassSchema).min(1),
+});
+
+/**
+ * The whole rule document (`.agent/plans-refounding/freeze-rule.json`), v1 or
+ * v2. `ratifiedBy` is the owner-gate record path once G1 lands, `null` before.
+ */
+const freezeRuleSchema = z.discriminatedUnion('version', [freezeRuleV1Schema, freezeRuleV2Schema]);
 export type FreezeRule = z.infer<typeof freezeRuleSchema>;
+
+/**
+ * The rule's sanctioned-writer classes across schema versions: a v1 document
+ * has none (the classes arrive with v2), a v2 document carries its declared
+ * set.
+ */
+export function sanctionedWriterClasses(rule: FreezeRule): readonly SanctionedWriterClass[] {
+  return rule.version === 2 ? rule.sanctionedWriters : [];
+}
 
 /**
  * Parse an unknown value as a freeze rule at the read boundary.

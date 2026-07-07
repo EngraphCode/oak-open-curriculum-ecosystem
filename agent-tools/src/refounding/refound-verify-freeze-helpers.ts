@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
+import { assertPathWithinBase } from '@oaknational/safe-path';
 import { glob } from 'tinyglobby';
 
 import {
@@ -13,6 +14,7 @@ import {
   type Denominator,
   type DenominatorFile,
 } from './refounding-artefacts.js';
+import { readAmendments } from './refound-amendments.js';
 import { DENOMINATOR_BASENAME, FROZEN_TREE_SEGMENT } from './refound-freeze-helpers.js';
 import { mergeDenominator, type FreezeViolation } from './refound-verify-freeze-model.js';
 
@@ -22,20 +24,17 @@ import { mergeDenominator, type FreezeViolation } from './refound-verify-freeze-
  *
  * @remarks
  * The verifier is the freeze's read-only contract made mechanical: it
- * re-hashes every frozen file against the denominator and goes RED on any
- * hash difference, any missing or unreadable frozen file, any EXTRA file
- * under the frozen tree that the denominator does not name, any per-row
- * byte/line count that disagrees with a recount of the copy's actual bytes,
- * and any disagreement between the recorded totals and totals recomputed
- * from the file list (`validators-must-recompute-not-just-record`). It
- * recomputes; it never trusts a recorded green — a consistently tampered
- * denominator (row edited, totals adjusted to match) still goes red because
- * the recount derives from the frozen bytes, not from the document.
- *
- * Its unit tests are the D8 discrimination proofs: a flipped byte, a deleted
- * copy, and a planted extra file must each go red before any green from this
- * tool is trusted — a zero from a detector that was never shown to fire is
- * not a finding.
+ * re-hashes every frozen file against the denominator and goes RED on any hash
+ * difference, any missing or unreadable frozen file, any EXTRA file the
+ * denominator does not name, any per-row byte/line count disagreeing with a
+ * recount of the copy's bytes, and any recorded totals disagreeing with totals
+ * recomputed from the file list (`validators-must-recompute-not-just-record`).
+ * It never trusts a recorded green — a consistently tampered denominator (row
+ * edited, totals adjusted to match) still goes red, the recount deriving from
+ * the frozen bytes, not the document. Its unit tests are the D8 discrimination
+ * proofs: a flipped byte, a deleted copy, and a planted extra file must each go
+ * red before any green is trusted — a zero from a detector never shown to fire
+ * is not a finding.
  *
  * @packageDocumentation
  */
@@ -71,6 +70,27 @@ export async function readDenominator(outDirAbs: string): Promise<Result<Denomin
     return json;
   }
   return parseDenominator(json.value);
+}
+
+/**
+ * Read the committed denominator AND its amendments, returning the merged
+ * effective denominator (`v1 + all amendments`, F1 §7). The single read
+ * boundary the verifier, `refound-merge-recheck`, and `refound-tile` divide
+ * through (`consolidate-at-second-consumer`) — identity-proof refusals
+ * included (`mergeDenominator`).
+ */
+export async function readEffectiveDenominator(
+  outDirAbs: string,
+): Promise<Result<Denominator, Error>> {
+  const denominatorV1 = await readDenominator(outDirAbs);
+  if (isErr(denominatorV1)) {
+    return denominatorV1;
+  }
+  const amendments = await readAmendments(outDirAbs);
+  if (isErr(amendments)) {
+    return amendments;
+  }
+  return mergeDenominator(denominatorV1.value, amendments.value);
 }
 
 /** Recompute totals from the file list and diff them against the recorded ones. */
@@ -130,15 +150,19 @@ export async function verifyFreeze(input: VerifyFreezeInput): Promise<Result<Ver
   if (isErr(denominatorV1)) {
     return denominatorV1;
   }
-  // Tranche 1 verifies v1 only; amendment files will be read here once
-  // refound-merge-recheck lands their identity-proof mechanics (F1 §7).
-  const denominator = mergeDenominator(denominatorV1.value, []);
+  const amendments = await readAmendments(input.outDirAbs);
+  if (isErr(amendments)) {
+    return amendments;
+  }
+  const denominator = mergeDenominator(denominatorV1.value, amendments.value);
   if (isErr(denominator)) {
     return denominator;
   }
   const frozenRootAbs = path.join(input.outDirAbs, FROZEN_TREE_SEGMENT);
   const violations: FreezeViolation[] = [
-    ...checkTotals(denominator.value),
+    // The totals check recomputes against the COMMITTED v1 artefact (the
+    // merged totals are recomputed by construction and would mask a tamper).
+    ...checkTotals(denominatorV1.value),
     ...(await checkFrozenFiles(denominator.value.files, frozenRootAbs)),
     ...(await checkForExtras(denominator.value.files, frozenRootAbs)),
   ];
@@ -195,7 +219,9 @@ async function checkFrozenFiles(
   for (const file of files) {
     let copyBytes: Buffer;
     try {
-      copyBytes = await readFile(path.join(frozenRootAbs, file.path));
+      // Defence-in-depth: re-anchor within the frozen root before reading.
+      const copyAbsPath = assertPathWithinBase(path.join(frozenRootAbs, file.path), frozenRootAbs);
+      copyBytes = await readFile(copyAbsPath);
     } catch (cause: unknown) {
       if (isFileMissingError(cause)) {
         violations.push({ kind: 'missing', path: file.path });

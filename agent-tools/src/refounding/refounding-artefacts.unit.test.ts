@@ -12,6 +12,7 @@ import {
   sha256Hex,
   splitLineBytes,
 } from './refounding-artefacts.js';
+import { parseDenominatorAmendment } from './refound-amendments.js';
 
 const SHA256_EMPTY = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
 const SHA256_ABC = 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad';
@@ -193,5 +194,59 @@ describe('parseFreezeIdentityProof', () => {
     expect(
       parseFreezeIdentityProof([{ path: 'plans/a.md', source_sha256: SHA256_ABC, bytes: 3 }]).ok,
     ).toBe(false);
+  });
+});
+
+describe('path-traversal refusal at the artefact read boundary', () => {
+  /** A one-row valid freeze-identity proof, with `path` overridable per case. */
+  const proofWithPath = (rowPath: string): Record<string, unknown>[] => [
+    { path: rowPath, source_sha256: SHA256_ABC, copy_sha256: SHA256_ABC, bytes: 3 },
+  ];
+
+  /** A minimal valid amendment, with the single file/proof `path` overridable. */
+  const amendmentWithFilePath = (rowPath: string): Record<string, unknown> => ({
+    version: 1,
+    files: [{ path: rowPath, bytes: 5, sha256: SHA256_ABC, lines: 1, inventory_mode: 'lines' }],
+    identityProof: [
+      { path: rowPath, source_sha256: SHA256_ABC, copy_sha256: SHA256_ABC, bytes: 5 },
+    ],
+  });
+
+  it('refuses a `..` segment, an absolute path, and a backslash in a denominator file.path', () => {
+    for (const badPath of [
+      'plans/../secret.md',
+      '/etc/passwd',
+      String.raw`plans\a.md`,
+      '../escape.md',
+    ]) {
+      const doc = validDenominator();
+      doc.files = [
+        { path: badPath, bytes: 5, sha256: SHA256_ABC, lines: 1, inventory_mode: 'lines' },
+      ];
+      expect(parseDenominator(doc).ok).toBe(false);
+    }
+  });
+
+  it('still accepts an ordinary relative POSIX file.path (no false positive)', () => {
+    const doc = validDenominator();
+    doc.files = [
+      { path: 'plans/alpha/a.md', bytes: 5, sha256: SHA256_ABC, lines: 1, inventory_mode: 'lines' },
+    ];
+    expect(parseDenominator(doc).ok).toBe(true);
+  });
+
+  it('refuses a `..`-bearing freeze-identity proof.path', () => {
+    expect(parseFreezeIdentityProof(proofWithPath('proofs/../../secret')).ok).toBe(false);
+    expect(parseFreezeIdentityProof(proofWithPath('/abs/proof')).ok).toBe(false);
+  });
+
+  it('refuses a `..`-bearing amendment file.path AND proof.path (nothing merged downstream)', () => {
+    // The amendment reuses the SAME refined denominator/freeze-identity schemas,
+    // so a traversal path is refused at parse — before any effective-denominator
+    // merge or write can consume it.
+    expect(parseDenominatorAmendment(amendmentWithFilePath('plans/../../etc/passwd')).ok).toBe(
+      false,
+    );
+    expect(parseDenominatorAmendment(amendmentWithFilePath('plans/ok.md')).ok).toBe(true);
   });
 });

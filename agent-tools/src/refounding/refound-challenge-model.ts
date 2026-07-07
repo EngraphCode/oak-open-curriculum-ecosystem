@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
 import { compareByCodeUnit, sha256Hex } from './refounding-artefacts.js';
+import { ledgerRowSchema } from './refound-ledger-row.js';
 
 /**
  * Pure logic for `refound-plant-challenge-canary` — the P4/B1/M5 sealed
@@ -50,17 +51,15 @@ const nonEmptyString = z.string().min(1);
 const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /**
- * One ledger row as the challenge tooling consumes it — the minimal shape
- * compatible with F1 §3's ledger row. `binding` must be non-empty on INPUT:
- * an input row with no binding would be indistinguishable from a plant.
+ * One ledger row as the challenge tooling consumes it: the CANONICAL v1 row
+ * schema (`refound-ledger-row.ts`) tightened at THIS boundary with the
+ * non-empty-`binding` requirement — a challenge-boundary rule, not a
+ * row-schema rule. An input row with no binding would be indistinguishable
+ * from a plant, so binding-less rows (including the emitter's sentinel
+ * `default-block` rows) are refused here.
  */
 const challengeLedgerRowSchema = z.strictObject({
-  block_id: nonEmptyString,
-  file: nonEmptyString,
-  line_start: z.number().int().positive(),
-  line_end: z.number().int().positive(),
-  disposition: nonEmptyString,
-  home: z.string(),
+  ...ledgerRowSchema.shape,
   binding: nonEmptyString,
 });
 export type ChallengeLedgerRow = z.infer<typeof challengeLedgerRowSchema>;

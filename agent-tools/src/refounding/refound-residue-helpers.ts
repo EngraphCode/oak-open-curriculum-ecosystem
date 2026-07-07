@@ -141,8 +141,13 @@ function parseInventoryLine(line: string, lineNumber: number): Result<InventoryR
   return record;
 }
 
-/** Read and strictly parse the committed inventory JSONL as a `Result`. */
-async function readInventoryRecords(
+/**
+ * Read and strictly parse the committed inventory JSONL as a `Result`.
+ * Shared with `refound-tile` and the default-ledger emitter
+ * (`consolidate-at-second-consumer`) — every consumer reads the committed
+ * anchor set through the same strict, line-cited boundary.
+ */
+export async function readInventoryRecords(
   outDirAbs: string,
 ): Promise<Result<readonly InventoryRecord[], Error>> {
   const inventoryAbsPath = path.join(outDirAbs, INVENTORY_BASENAME);
