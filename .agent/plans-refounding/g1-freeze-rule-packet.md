@@ -1,4 +1,4 @@
-# G1 packet — freeze-rule ratification (DRAFT for the owner sitting)
+# G1 packet — freeze-rule ratification (RATIFIED 2026-07-07 — see §9)
 
 > Decision-complete briefing for the owner's G1 sitting, per
 > [`plan-corpus-refounding.plan.md`](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
@@ -145,7 +145,7 @@ sweep zero is trusted.
 Sweep-net candidate marker set (J1, drafted; ratify with this packet):
 `todo`, `next step`, `not yet`, `pending`, `blocked`, `open question`, `unresolved`,
 `follow-up`, `deferred`, `still needs`, `remaining`, `incomplete`, `carry-over`,
-`promotion trigger`, `reopen`.
+`promotion trigger`, `reopen`
 
 The sweep scans every non-binary file on the sweep surfaces, all extensions.
 
@@ -170,3 +170,60 @@ input-gathering only: the binding organisational-structure decision is Walk A's
 lane-taxonomy ratification (with the R1 source denominator + census/divergence
 report as sitting inputs), and post-corpus size numbers stay priors until G-SP3
 presents the projection from pilot-measured merge/supersede/disposition rates.
+
+## 9. Ratification record (2026-07-07 owner sitting, in-chat)
+
+The G1 sitting ran in owner chat on 2026-07-07 (session: Goshawk calls Sundog,
+970bdc, recording; rulings are the owner's). Every ratification item is ruled:
+
+1. **Verdict table — RATIFIED as drafted**, under the owner's scope principle
+   "ALL plans and plan-adjacent documents". The old-archive edge was put as an
+   explicit question; the owner ratified **sweep + reader-sample** for
+   `plans-old-archive` (the drafted shape): live concepts caught by net, sample,
+   and amendment-promotion; the archive is never modified and never discarded.
+2. **Net-C list — RATIFIED as drafted** (18 keywords, §2).
+   **2a. Census completion-keyword list — RATIFIED as drafted** (13 keywords).
+   Both drift-guarded by `validate-ratified-lists`.
+3. **Residue-orphan bounds — RATIFIED as detection calibration** ((a)/(b)/(c) +
+   the 20–70% sanity band as declared starting values, SP3-re-examined), under
+   the owner's disposition ruling: detected orphans/residue are **absorbed,
+   processed, and turned into plans — LLM workers make schema non-compliance a
+   non-limit**; bounds detect and halt-inspect, they never exclude.
+4. **Destination rooting — the owner RULED the separate root**:
+   `.agent/refounded-plans/` for the run's duration; the terminal cutover action
+   (R5/R6) is **archive the old `.agent/plans/` directory and rename
+   `refounded-plans/` → `plans/`** (link-swept, validator-proven, per
+   repoint-before-retire). Consequence: the destination sits OUTSIDE the frozen
+   denominator, so protocol writes are never self-noise arrivals and the
+   competing-taxonomy risk is time-bounded by the named terminal rename. The
+   packet §4 recommendation is superseded by this ruling.
+5. **Sanctioned-writer classes — RATIFIED EMPTY** (consequence of ruling 4:
+   drafted classes 1/3 write outside the frozen scope and dissolve; class 2 was
+   already deferred to its own schema bump with the R2 F4 banner policy). The
+   ratified rule is therefore a clean **v1** document; every post-S0 write on
+   `in` surfaces is an arrival routed by the G3 table. A class may be added
+   later only by versioned amendment + re-ratification.
+6. **Sweep residue — the READER-SAMPLE CURE at 10% of non-hit windows** (the
+   drafted rate; cost-ledger declared, SP3-re-priced), covering all sweep
+   surfaces including the old archive. The marker-free paraphrase plant (P4)
+   must be caught before any sweep-clean verdict is trusted. The §6 sweep-net
+   marker set (`SWEEP_MARKERS_V1`) is RATIFIED as drafted with this item.
+
+**Walk-A derivation input (owner, verbatim direction):** "we lose ZERO CONCEPTS
+OR UNDERSTANDING, but we can consolidate and deduplicate; I expect a small
+number of high-quality thread-level plans, each with a collection of
+implementation plans, and a bucket for plans that are not part of the current
+delivery focus — but we throw nothing away." Mapping: thread-level plans = the
+lane taxonomy anchored on threads (cardinality lane-derived); implementation
+collections = the V0 lineage hierarchy; the bucket = the holding lane.
+
+**Harvest-scope note (owner, 2026-07-07 — binds ADR-200 WS6, not this freeze):**
+when the eventual concept extraction / intent-graph creation runs, it includes
+**ALL live plans AND ALL archived plans in full — achieved concepts are as
+first-class as intended concepts.** The refounding's archive-as-sweep verdict
+(item 1) is a REFOUNDING-scope economy only; it does not narrow the harvest.
+Recorded also in `planning-estate-rewrite.plan.md` §ws6.
+
+`freeze-rule.json` now carries `ratifiedBy` pointing at this section. G1 is
+DISCHARGED; S0 remains gated on G2 (the landing sanction, authored at R1 from
+the freeze dry-run).
