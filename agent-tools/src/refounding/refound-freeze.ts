@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 
-import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { err, isErr, ok, type Result } from '@oaknational/result';
+import { isErr, ok, type Result } from '@oaknational/result';
 
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import {
-  buildGitleaksDirArgs,
-  GITLEAKS_LEAK_EXIT_CODE,
   parseFreezeArgs,
   validateOutDirChoice,
   type FreezeArgs,
   type SecretScan,
 } from './refound-freeze-helpers.js';
+import {
+  makeGitleaksSecretScan,
+  probeGitleaksVersion,
+  resolveGitleaksBin,
+} from './refound-gitleaks.js';
 import { runFreeze } from './refound-freeze-runner.js';
 import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
 
@@ -41,61 +42,6 @@ import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refou
 
 const TOOL = 'refound-freeze';
 const repoRoot = resolveRepoRoot(import.meta.url);
-
-/**
- * Production secret scan: gitleaks in no-git `dir` mode, one process per
- * file with the repo root as cwd (see {@link buildGitleaksDirArgs} for the
- * empirically verified invocation shape and its foot-guns). Refuses when the
- * repo's `.gitleaks.toml` is absent rather than silently scanning with a
- * different rule set. Reports leaking FILES only — never finding contents.
- */
-const gitleaksSecretScan: SecretScan = (absFilePaths) => {
-  if (!existsSync(path.join(repoRoot, '.gitleaks.toml'))) {
-    return Promise.resolve(
-      err(new Error('secret scan cannot run: .gitleaks.toml not found at the repo root')),
-    );
-  }
-  const leakingFiles: string[] = [];
-  for (const absFilePath of absFilePaths) {
-    const relPath = path.relative(repoRoot, absFilePath);
-    // stderr is captured for failure diagnostics only; gitleaks runs with
-    // --redact=100 and --log-level error, so it never carries finding bytes.
-    const scan = spawnSync('gitleaks', [...buildGitleaksDirArgs(relPath)], {
-      cwd: repoRoot,
-      stdio: ['ignore', 'ignore', 'pipe'],
-      encoding: 'utf8',
-    });
-    if (scan.error !== undefined) {
-      return Promise.resolve(
-        err(new Error(`secret scan failed to run gitleaks: ${scan.error.message}`)),
-      );
-    }
-    if (scan.status === GITLEAKS_LEAK_EXIT_CODE) {
-      leakingFiles.push(relPath);
-    } else if (scan.status !== 0) {
-      const stderrTail = scan.stderr.trim();
-      return Promise.resolve(
-        err(
-          new Error(
-            `secret scan failed on '${relPath}' (gitleaks exit ${String(scan.status)})` +
-              (stderrTail === '' ? '' : `: ${stderrTail}`),
-          ),
-        ),
-      );
-    }
-  }
-  if (leakingFiles.length > 0) {
-    return Promise.resolve(
-      err(
-        new Error(
-          `secret scan found potential leaks in ${String(leakingFiles.length)} file(s): ` +
-            `${leakingFiles.join(', ')} — owner escalation required, never a skip`,
-        ),
-      ),
-    );
-  }
-  return Promise.resolve(ok(undefined));
-};
 
 /**
  * Resolve the out dir against the repo root and constrain it there WITHOUT
@@ -134,6 +80,45 @@ function resolvePaths(args: FreezeArgs): Result<{ ruleAbsPath: string; outDirAbs
   return ok({ ruleAbsPath: ruleAbsPath.value, outDirAbs: outDirAbs.value });
 }
 
+/** Everything `runFreeze` needs, proven refusal-free before it starts. */
+interface FreezeSetup {
+  readonly ruleAbsPath: string;
+  readonly outDirAbs: string;
+  readonly secretScan: SecretScan;
+}
+
+/** Resolve both flag paths AND the pinned scanner; refusals are `Err`. */
+function prepareFreeze(args: FreezeArgs): Result<FreezeSetup, Error> {
+  const paths = resolvePaths(args);
+  if (isErr(paths)) {
+    return paths;
+  }
+  const secretScan = preparePinnedSecretScan();
+  if (isErr(secretScan)) {
+    return secretScan;
+  }
+  return ok({ ...paths.value, secretScan: secretScan.value });
+}
+
+/**
+ * Resolve the scanner once, probe its version, and report the pinned
+ * attestation line; any refusal surfaces as `Err` before the freeze starts.
+ */
+function preparePinnedSecretScan(): Result<SecretScan, Error> {
+  const gitleaksBin = resolveGitleaksBin(process.env.PATH);
+  if (isErr(gitleaksBin)) {
+    return gitleaksBin;
+  }
+  const gitleaksVersion = probeGitleaksVersion(gitleaksBin.value);
+  if (isErr(gitleaksVersion)) {
+    return gitleaksVersion;
+  }
+  writeLine(
+    `${TOOL}: secret scan pinned to ${gitleaksBin.value} (gitleaks ${gitleaksVersion.value})`,
+  );
+  return ok(makeGitleaksSecretScan(repoRoot, gitleaksBin.value));
+}
+
 async function main(): Promise<void> {
   const args = parseFreezeArgs(process.argv.slice(2));
   if (isErr(args)) {
@@ -141,18 +126,13 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  const paths = resolvePaths(args.value);
-  if (isErr(paths)) {
-    writeErrorLine(`${TOOL}: ${paths.error.message}`);
+  const setup = prepareFreeze(args.value);
+  if (isErr(setup)) {
+    writeErrorLine(`${TOOL}: ${setup.error.message}`);
     process.exitCode = 1;
     return;
   }
-  const frozen = await runFreeze({
-    repoRoot,
-    ruleAbsPath: paths.value.ruleAbsPath,
-    outDirAbs: paths.value.outDirAbs,
-    secretScan: gitleaksSecretScan,
-  });
+  const frozen = await runFreeze({ repoRoot, ...setup.value });
   if (isErr(frozen)) {
     writeErrorLine(`${TOOL}: ${frozen.error.message}`);
     process.exitCode = 1;

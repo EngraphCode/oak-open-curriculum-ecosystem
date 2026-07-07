@@ -11,6 +11,7 @@ import {
   parseDenominator,
   parseFreezeIdentityProof,
 } from './refounding-artefacts.js';
+import { probeGitleaksVersion, resolveGitleaksBin } from './refound-gitleaks.js';
 import { type SecretScan } from './refound-freeze-helpers.js';
 import { partialMarkerPath } from './refound-freeze-plan.js';
 import { runFreeze } from './refound-freeze-runner.js';
@@ -420,5 +421,40 @@ describe('runFreeze — secret-scan ordering and rollback', () => {
     // files in the artefact home survive.
     expect(await readFile(decoyPath, 'utf8')).toBe('pre-existing operator file\n');
     expect(existsSync(fixture.ruleAbsPath)).toBe(true);
+  });
+});
+
+describe('gitleaks resolution (the pinned-binary attestation seam)', () => {
+  it('resolves an executable gitleaks from a PATH walk to its absolute path, once', async () => {
+    const binDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-bin-'));
+    tempRoots.push(binDir);
+    const emptyDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-empty-'));
+    tempRoots.push(emptyDir);
+    const fakeBin = path.join(binDir, 'gitleaks');
+    await writeFile(fakeBin, '#!/bin/sh\necho fake-gitleaks 0.0.0-test\n', { mode: 0o755 });
+    const resolved = resolveGitleaksBin([emptyDir, binDir].join(path.delimiter));
+    expect(resolved.ok).toBe(true);
+    if (resolved.ok) {
+      expect(resolved.value).toBe(fakeBin);
+      const version = probeGitleaksVersion(resolved.value);
+      expect(version.ok).toBe(true);
+      if (version.ok) {
+        expect(version.value).toBe('fake-gitleaks 0.0.0-test');
+      }
+    }
+  });
+
+  it('refuses when no PATH entry carries an executable gitleaks (never a bare-name spawn)', async () => {
+    const emptyDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-empty-'));
+    tempRoots.push(emptyDir);
+    const nonExecDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-nonexec-'));
+    tempRoots.push(nonExecDir);
+    await writeFile(path.join(nonExecDir, 'gitleaks'), 'not executable', { mode: 0o644 });
+    const resolved = resolveGitleaksBin([emptyDir, nonExecDir].join(path.delimiter));
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.error.message).toContain('not found on PATH');
+    }
+    expect(resolveGitleaksBin(undefined).ok).toBe(false);
   });
 });
