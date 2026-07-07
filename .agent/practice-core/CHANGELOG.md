@@ -4,6 +4,29 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-07 — WS0c + WS0e: conformance recomputed, the wire contract lands core-carried (visiting resonance seat, join ceremony)
+
+- NEW core-carried declaration artefact `.agent/practice-core/protocol.json`
+  (`{ schema_version, protocol_version, tier_floor, extensions }`): this
+  estate declares protocol 1.0.0 at a tier-1 floor advertising the
+  `comms-threading` extension. `pnpm protocol:conformance`
+  (`agent-tools/src/protocol-conformance/`) RECOMPUTES the tier from
+  artefacts per PDR-125 §Conformance — live self-run reports tier-1; every
+  detector carries a break fixture. Phenotype note: the usage-spec anchor is
+  quote-agnostic (this estate's single-quoted CLI help was a live divergence
+  the twin's first run caught; cured in both estates' copies).
+- NEW core-carried artefact
+  `.agent/practice-core/schemas/inter-practice-wire.schema.json` (contract
+  1.0.0, BYTE-IDENTICAL to the resonance copy, proven by diff at this
+  landing): the machine-readable contract for the cross-estate wire shapes
+  (PDR-125 clause 6). `agent-tools/src/protocol-wire/` carries the
+  version-family validators (cross-family contact is a typed refusal) and
+  the reconciliation binding test tying this estate's strict comms-event
+  schema to the contract in both directions.
+- Twin provenance: resonance's halves merged there as PRs #50 and #52; the
+  portable spec is identical by construction, phenotype confined to the
+  Result-package import, quote style, and this file.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-06 — Inter-Practice collaboration protocol: PDR-125 + join-ceremony skill; exchange model gains its second mode (Lapwing herds Eyrie, cross-estate session)
 
 - PDR-125 authored (`pdr_kind: governance`): the inter-Practice

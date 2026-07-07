@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "1.0.0",
+  "tier_floor": "tier-1",
+  "extensions": ["comms-threading"]
+}
