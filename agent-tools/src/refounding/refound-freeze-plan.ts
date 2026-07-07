@@ -177,8 +177,11 @@ async function applyRefusals(
 /**
  * Enumerate the rule's `in` classes from the live tree: sorted repo-relative
  * POSIX paths, with the instrument's own homes excluded by construction.
+ * Shared with `refound-merge-recheck` (`consolidate-at-second-consumer`) —
+ * the recheck recomputes the live source set through the IDENTICAL
+ * enumeration the freeze used (F1 D4), refusals included.
  */
-async function enumerateInSet(
+export async function enumerateInSet(
   rule: FreezeRule,
   repoRoot: string,
 ): Promise<Result<readonly string[], Error>> {

@@ -5,7 +5,15 @@ import path from 'node:path';
 import { ok, unwrap } from '@oaknational/result';
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { compareByCodeUnit, parseDenominator, type Denominator } from './refounding-artefacts.js';
+import {
+  compareByCodeUnit,
+  countLines,
+  parseDenominator,
+  renderJsonArtefact,
+  sha256Hex,
+  type Denominator,
+} from './refounding-artefacts.js';
+import { parseDenominatorAmendment, type DenominatorAmendment } from './refound-amendments.js';
 import { type SecretScan } from './refound-freeze-helpers.js';
 import { runFreeze } from './refound-freeze-runner.js';
 import { verifyFreeze } from './refound-verify-freeze-helpers.js';
@@ -188,6 +196,137 @@ describe('verifyFreeze — discrimination proofs (D8)', () => {
         .map((violation) => violation.kind)
         .sort(compareByCodeUnit);
       expect(kinds).toEqual(['extra', 'hash-mismatch']);
+    }
+  });
+});
+
+/**
+ * Route one arrival by hand: land the frozen copy and its
+ * `amendments/amendment-<n>.json` (file row + matching identity proof) —
+ * the mechanics `refound-merge-recheck` documents and R1's amendment writer
+ * will automate (the writer is deferred; these are the artefact shapes).
+ */
+async function routeArrival(
+  fixture: FrozenFixture,
+  sequence: number,
+  frozenPath: string,
+  content: string,
+): Promise<void> {
+  const bytes = Buffer.from(content, 'utf8');
+  const copyAbsPath = path.join(fixture.frozenRoot, frozenPath);
+  await mkdir(path.dirname(copyAbsPath), { recursive: true });
+  await writeFile(copyAbsPath, bytes);
+  const amendment: DenominatorAmendment = {
+    version: 1,
+    files: [
+      {
+        path: frozenPath,
+        bytes: bytes.length,
+        sha256: sha256Hex(bytes),
+        lines: countLines(bytes),
+        inventory_mode: 'lines',
+      },
+    ],
+    identityProof: [
+      {
+        path: frozenPath,
+        source_sha256: sha256Hex(bytes),
+        copy_sha256: sha256Hex(bytes),
+        bytes: bytes.length,
+      },
+    ],
+  };
+  const amendmentAbsPath = path.join(
+    fixture.outDirAbs,
+    'amendments',
+    `amendment-${String(sequence)}.json`,
+  );
+  await mkdir(path.dirname(amendmentAbsPath), { recursive: true });
+  await writeFile(amendmentAbsPath, renderJsonArtefact(amendment), 'utf8');
+}
+
+describe('verifyFreeze — amendments (F1 §7: effective denominator = v1 + all amendments)', () => {
+  it('is green over a freeze extended by a proven amendment, and counts its file', async () => {
+    const fixture = await makeFrozenFixture();
+    await routeArrival(fixture, 1, 'plans/arrived.md', '# Arrived\n\nrouted content\n');
+
+    const report = await verifyFreeze({ outDirAbs: fixture.outDirAbs });
+    expect(report.ok).toBe(true);
+    if (report.ok) {
+      expect(report.value.checkedFiles).toBe(4);
+      expect(report.value.violations).toEqual([]);
+    }
+  });
+
+  it('goes red on a flipped byte in an amendment-frozen copy', async () => {
+    const fixture = await makeFrozenFixture();
+    await routeArrival(fixture, 1, 'plans/arrived.md', '# Arrived\n\nrouted content\n');
+    const target = path.join(fixture.frozenRoot, 'plans/arrived.md');
+    const bytes = await readFile(target);
+    bytes[0] = bytes[0] ^ 0xff;
+    await writeFile(target, bytes);
+
+    const report = await verifyFreeze({ outDirAbs: fixture.outDirAbs });
+    expect(report.ok).toBe(true);
+    if (report.ok) {
+      expect(report.value.violations).toHaveLength(1);
+      expect(report.value.violations[0].kind).toBe('hash-mismatch');
+    }
+  });
+
+  it('refuses (typed error) an amendment lacking the identity proof for its file row', async () => {
+    const fixture = await makeFrozenFixture();
+    await routeArrival(fixture, 1, 'plans/arrived.md', '# Arrived\n\nrouted content\n');
+    const amendmentAbsPath = path.join(fixture.outDirAbs, 'amendments', 'amendment-1.json');
+    const raw: unknown = JSON.parse(await readFile(amendmentAbsPath, 'utf8'));
+    const document = unwrap(parseDenominatorAmendment(raw));
+    const broken = {
+      ...document,
+      identityProof: [{ ...document.identityProof[0], path: 'plans/other.md' }],
+    };
+    await writeFile(amendmentAbsPath, renderJsonArtefact(broken), 'utf8');
+
+    const report = await verifyFreeze({ outDirAbs: fixture.outDirAbs });
+    expect(report.ok).toBe(false);
+    if (!report.ok) {
+      expect(report.error.message).toContain('identity proof');
+    }
+  });
+
+  it('refuses a gap in the amendment sequence (append-only numbering)', async () => {
+    const fixture = await makeFrozenFixture();
+    await routeArrival(fixture, 2, 'plans/arrived.md', '# Arrived\n\nrouted content\n');
+
+    const report = await verifyFreeze({ outDirAbs: fixture.outDirAbs });
+    expect(report.ok).toBe(false);
+    if (!report.ok) {
+      expect(report.error.message).toContain('sequence gap');
+    }
+  });
+
+  it('refuses an unparseable amendment document, citing it', async () => {
+    const fixture = await makeFrozenFixture();
+    const amendmentAbsPath = path.join(fixture.outDirAbs, 'amendments', 'amendment-1.json');
+    await mkdir(path.dirname(amendmentAbsPath), { recursive: true });
+    await writeFile(amendmentAbsPath, 'not json{', 'utf8');
+
+    const report = await verifyFreeze({ outDirAbs: fixture.outDirAbs });
+    expect(report.ok).toBe(false);
+    if (!report.ok) {
+      expect(report.error.message).toContain('amendment-1');
+    }
+  });
+
+  it('refuses a stray non-amendment file inside amendments/', async () => {
+    const fixture = await makeFrozenFixture();
+    const strayAbsPath = path.join(fixture.outDirAbs, 'amendments', 'notes.txt');
+    await mkdir(path.dirname(strayAbsPath), { recursive: true });
+    await writeFile(strayAbsPath, 'residue\n', 'utf8');
+
+    const report = await verifyFreeze({ outDirAbs: fixture.outDirAbs });
+    expect(report.ok).toBe(false);
+    if (!report.ok) {
+      expect(report.error.message).toContain('notes.txt');
     }
   });
 });

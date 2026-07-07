@@ -31,7 +31,7 @@ import { runPlantOrphan } from './refound-plant-orphan-runner.js';
  *
  * Flags: `--rule <path>` (default `.agent/plans-refounding/freeze-rule.json`)
  * and `--out <dir>` (default `.agent/plans-refounding`), both constrained to
- * the repository (`@oaknational/safe-path`).
+ * the repository (`refound-path-resolve`).
  *
  * @packageDocumentation
  */

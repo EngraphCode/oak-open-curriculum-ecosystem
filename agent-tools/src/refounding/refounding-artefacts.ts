@@ -45,7 +45,14 @@ import { parseWithSchema } from '../core/schema-parse.js';
 
 const nonEmptyString = z.string().min(1);
 const nonNegativeInt = z.number().int().nonnegative();
-const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
+/** One digest primitive estate-wide: 64 lowercase hex chars of SHA-256. */
+export const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
+
+/** A relative POSIX path (path-traversal defence): no `..`, absolute, or backslash. */
+const relativePosixPath = nonEmptyString.refine((p) => {
+  const norm = p.replaceAll('\\', '/');
+  return !norm.startsWith('/') && !norm.split('/').includes('..') && !p.includes('\\');
+}, 'must be a relative POSIX path with no .. segments');
 
 /** Bytes inspected for a null byte when classifying a file as binary. */
 export const BINARY_SNIFF_WINDOW_BYTES = 8192;
@@ -55,8 +62,8 @@ const inventoryModeSchema = z.enum(['lines', 'whole-file', 'opaque']);
 export type InventoryMode = z.infer<typeof inventoryModeSchema>;
 
 /** One denominator row: the identity of a single frozen file. */
-const denominatorFileSchema = z.strictObject({
-  path: nonEmptyString,
+export const denominatorFileSchema = z.strictObject({
+  path: relativePosixPath,
   bytes: nonNegativeInt,
   sha256: sha256HexSchema,
   lines: nonNegativeInt,
@@ -84,8 +91,8 @@ const denominatorSchema = z.strictObject({
 export type Denominator = z.infer<typeof denominatorSchema>;
 
 /** One freeze-identity row: source and copy hashes for a single frozen file. */
-const freezeIdentityEntrySchema = z.strictObject({
-  path: nonEmptyString,
+export const freezeIdentityEntrySchema = z.strictObject({
+  path: relativePosixPath,
   source_sha256: sha256HexSchema,
   copy_sha256: sha256HexSchema,
   bytes: nonNegativeInt,

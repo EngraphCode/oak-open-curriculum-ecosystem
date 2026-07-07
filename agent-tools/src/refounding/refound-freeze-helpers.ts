@@ -54,9 +54,13 @@ export interface FreezeArgs {
 /**
  * Parse `--rule <path>` / `--out <dir>` from argv via the shared
  * {@link scanArgs} scanner. Unknown or dangling flags are errors, never
- * ignored.
+ * ignored. Shared by `refound-freeze` and `refound-merge-recheck` (the two
+ * rule-plus-out entries); `toolName` labels the usage line.
  */
-export function parseFreezeArgs(argv: readonly string[]): Result<FreezeArgs, Error> {
+export function parseFreezeArgs(
+  argv: readonly string[],
+  toolName = 'refound-freeze',
+): Result<FreezeArgs, Error> {
   const scanned = scanArgs(
     argv,
     { rulePath: DEFAULT_RULE_PATH, outDir: DEFAULT_OUT_DIR },
@@ -70,7 +74,7 @@ export function parseFreezeArgs(argv: readonly string[]): Result<FreezeArgs, Err
           state.outDir = value;
         },
       },
-      helpText: 'usage: refound-freeze [--rule <path>] [--out <dir>]',
+      helpText: `usage: ${toolName} [--rule <path>] [--out <dir>]`,
     },
   );
   if (!scanned.ok) {

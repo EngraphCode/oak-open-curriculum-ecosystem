@@ -27,7 +27,7 @@ import { runInventory } from './refound-inventory-runner.js';
  * and on any line-recount disagreement with the denominator.
  *
  * Flags: `--out <dir>` (default `.agent/plans-refounding`), constrained to
- * the repository (`@oaknational/safe-path`).
+ * the repository (`refound-path-resolve`).
  *
  * @packageDocumentation
  */

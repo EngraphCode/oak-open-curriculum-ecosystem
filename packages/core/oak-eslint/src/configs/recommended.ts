@@ -256,6 +256,11 @@ const oakRecommendedConfig: TSESLint.FlatConfig.Config = {
           '**/agent-tools/src/refounding/refound-sweep.integration.test.ts',
           '**/agent-tools/src/refounding/refound-plant-orphan.integration.test.ts',
           '**/agent-tools/src/refounding/refound-plant-challenge-canary.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-merge-recheck.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-tile.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-default-ledger.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-claim-census.integration.test.ts',
+          '**/agent-tools/src/refounding/refound-batch-status.integration.test.ts',
           // Recorded reason: plan `plan-corpus-refounding` — the read/write
           // path-resolver containment proofs need real symlinks and real
           // existence probes (a fake fs would make the symlink-escape and
