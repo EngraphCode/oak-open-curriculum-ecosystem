@@ -27,3 +27,8 @@ supersessions are recorded here and in the design record.
    acceptance; both arrived AFTER the panel — the lossless critique and the cross-estate
    review's B1). The plan's R0a todo and the R0 session opener carry the full plant set;
    build to those, not to F1 §plant-orphan alone.
+3. **Per-line digest algorithm** — F1 §3 records SHA-1 per-line digests in
+   `inventory.v1.jsonl` and `sweep-hits.v1.jsonl`; landed = SHA-256 (field `sha256`),
+   one digest primitive estate-wide. SHA-1's weak-hash class is gate-checked
+   (Sonar S4790) and the "fingerprint, not a security boundary" caveat it needed is a
+   caveat a future reader can get wrong; build to SHA-256, not to F1 §3's algorithm.

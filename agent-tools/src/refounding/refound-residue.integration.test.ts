@@ -202,7 +202,7 @@ describe('runResidue — refusal chain', () => {
       line: 99,
       nets: ['A'],
       text: 'phantom',
-      sha1: 'a'.repeat(40),
+      sha256: 'a'.repeat(64),
     })}\n`;
     await writeFile(inventoryPath, tampered, 'utf8');
     const result = await runResidue({ outDirAbs });
@@ -222,7 +222,7 @@ describe('runResidue — refusal chain', () => {
       line: 1,
       nets: ['A'],
       text: '# Head',
-      sha1: 'a'.repeat(40),
+      sha256: 'a'.repeat(64),
     })}\n`;
     await writeFile(inventoryPath, tampered, 'utf8');
     const result = await runResidue({ outDirAbs });
@@ -242,7 +242,7 @@ describe('runResidue — refusal chain', () => {
       line: 1,
       nets: ['A'],
       text: '# phantom',
-      sha1: 'a'.repeat(40),
+      sha256: 'a'.repeat(64),
     })}\n`;
     await writeFile(inventoryPath, tampered, 'utf8');
     const result = await runResidue({ outDirAbs });

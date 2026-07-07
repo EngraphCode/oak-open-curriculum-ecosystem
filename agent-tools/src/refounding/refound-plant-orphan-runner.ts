@@ -14,7 +14,7 @@ import {
 
 /**
  * The orchestration of `refound-plant-orphan` (F1 §9's discrimination proof
- * plus the plan-todo's marker-free sweep plant): derive the baseline, run
+ * plus the plan-mandated marker-free sweep plant): derive the baseline, run
  * the three proofs on staged scratch copies (the frozen tree and the live
  * sweep surfaces are read, never written), and only when EVERY detector
  * fired write the committed transcript to

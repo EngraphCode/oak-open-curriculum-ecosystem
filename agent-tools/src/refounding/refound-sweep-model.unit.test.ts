@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { sha1Hex } from './refounding-artefacts.js';
+import { sha256Hex } from './refounding-artefacts.js';
 import {
   buildSweepHits,
   parseSweepHit,
@@ -32,7 +32,7 @@ describe('SWEEP_MARKERS_V1', () => {
 });
 
 describe('buildSweepHits', () => {
-  it('captures marker lines verbatim with raw-byte sha1 and matched markers in list order', () => {
+  it('captures marker lines verbatim with raw-byte sha256 and matched markers in list order', () => {
     const bytes = Buffer.from('clean line\nTODO: port this, still NEEDS a home\r\n');
     expect(buildSweepHits('.agent/prompts/p.md', bytes)).toEqual([
       {
@@ -40,7 +40,7 @@ describe('buildSweepHits', () => {
         line: 2,
         markers: ['todo', 'still needs'],
         text: 'TODO: port this, still NEEDS a home\r',
-        sha1: sha1Hex(Buffer.from('TODO: port this, still NEEDS a home\r')),
+        sha256: sha256Hex(Buffer.from('TODO: port this, still NEEDS a home\r')),
       },
     ] satisfies SweepHit[]);
   });
@@ -65,7 +65,7 @@ describe('sortSweepHits', () => {
       line,
       markers: ['todo'],
       text: 'todo',
-      sha1: sha1Hex(Buffer.from('todo')),
+      sha256: sha256Hex(Buffer.from('todo')),
     });
     const sorted = sortSweepHits([hit('b.md', 1), hit('a.md', 9), hit('a.md', 2)]);
     expect(sorted.map((h) => `${h.file}:${String(h.line)}`)).toEqual([
@@ -82,7 +82,7 @@ describe('parseSweepHit', () => {
     line: 2,
     markers: ['todo'],
     text: 'todo',
-    sha1: sha1Hex(Buffer.from('todo')),
+    sha256: sha256Hex(Buffer.from('todo')),
   });
 
   it('parses a valid hit', () => {
@@ -92,6 +92,6 @@ describe('parseSweepHit', () => {
   it('rejects unknown keys, empty marker lists, and malformed digests', () => {
     expect(parseSweepHit({ ...valid(), spare: 1 }).ok).toBe(false);
     expect(parseSweepHit({ ...valid(), markers: [] }).ok).toBe(false);
-    expect(parseSweepHit({ ...valid(), sha1: 'zz' }).ok).toBe(false);
+    expect(parseSweepHit({ ...valid(), sha256: 'zz' }).ok).toBe(false);
   });
 });

@@ -153,7 +153,7 @@ function assessControlRun(baseline: Baseline, control: ClusteredTree): ControlAs
 /** Control-run rule violations, as operator-readable failure strings. */
 function controlFailures(assessment: ControlAssessment): string[] {
   const failures: string[] = [];
-  if (assessment.controlNets === undefined || assessment.controlNets.join(',') !== 'C') {
+  if (assessment.controlNets?.join(',') !== 'C') {
     failures.push('the control line was not captured by Net C alone');
   }
   if (assessment.netCShift !== 1 || assessment.uniqueCShift !== 1) {

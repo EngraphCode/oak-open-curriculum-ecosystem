@@ -103,6 +103,18 @@ function parseCanaryArgs(argv: readonly string[]): Result<CanaryArgs, Error> {
   return ok(scanned.state);
 }
 
+/** Dispatch the parsed args to their mode (membership validated at parse). */
+function runMode(args: CanaryArgs): Promise<Result<string, Error>> {
+  switch (args.mode) {
+    case 'plant':
+      return runPlantMode(repoRoot, args);
+    case 'seal':
+      return runSealMode(repoRoot, args);
+    default:
+      return runScoreMode(repoRoot, args);
+  }
+}
+
 async function main(): Promise<void> {
   const args = parseCanaryArgs(process.argv.slice(2));
   if (isErr(args)) {
@@ -110,13 +122,7 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  const mode = args.value.mode;
-  const outcome =
-    mode === 'plant'
-      ? await runPlantMode(repoRoot, args.value)
-      : mode === 'seal'
-        ? await runSealMode(repoRoot, args.value)
-        : await runScoreMode(repoRoot, args.value);
+  const outcome = await runMode(args.value);
   if (isErr(outcome)) {
     writeErrorLine(`${TOOL}: ${outcome.error.message}`);
     process.exitCode = 1;

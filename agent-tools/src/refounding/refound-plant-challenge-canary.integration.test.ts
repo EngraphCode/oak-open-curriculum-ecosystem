@@ -12,6 +12,7 @@ import {
   renderJsonlArtefact,
 } from './refounding-artefacts.js';
 import { runChallengePlant } from './refound-challenge-helpers.js';
+import { runPlantMode, runSealMode, type CanaryArgs } from './refound-challenge-modes.js';
 import { runChallengeScore, runChallengeSeal } from './refound-challenge-scoring.js';
 import {
   CHALLENGE_COMMITMENT_SEGMENT,
@@ -296,6 +297,99 @@ describe('the plausible-but-wrong plant discipline (B1/M5)', () => {
     expect(existsSync(path.join(fixture.outDirAbs, 'challenge/challenge-keys.v1.json'))).toBe(
       false,
     );
+  });
+});
+
+/** Full CanaryArgs with every flag defaulted empty, as the parser yields. */
+function canaryArgs(overrides: Partial<CanaryArgs>): CanaryArgs {
+  return {
+    mode: '',
+    ledgerPath: '',
+    rate: '',
+    salt: '',
+    outDir: '.agent/plans-refounding',
+    keysOutPath: '',
+    keysPath: '',
+    commitmentPath: '',
+    findingsPath: '',
+    ...overrides,
+  };
+}
+
+describe('mode-layer write-target resolution (the CLI creates its own artefacts)', () => {
+  it('plant mode succeeds when --out and --keys-out point at not-yet-existing dirs', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-canary-repo-'));
+    tempRoots.push(repoRoot);
+    await writeFile(
+      path.join(repoRoot, 'pilot.ledger.jsonl'),
+      renderJsonlArtefact(LEDGER_ROWS),
+      'utf8',
+    );
+    const outcome = await runPlantMode(
+      repoRoot,
+      canaryArgs({
+        mode: 'plant',
+        ledgerPath: 'pilot.ledger.jsonl',
+        rate: '25',
+        salt: FIXTURE_SALT,
+        outDir: 'artefacts/challenge-out',
+        keysOutPath: 'dispatcher/keys/challenge-keys.v1.json',
+      }),
+    );
+    expect(outcome.ok).toBe(true);
+    expect(
+      existsSync(path.join(repoRoot, 'artefacts/challenge-out', CHALLENGE_STREAM_SEGMENT)),
+    ).toBe(true);
+    expect(existsSync(path.join(repoRoot, 'dispatcher/keys/challenge-keys.v1.json'))).toBe(true);
+  });
+
+  it('seal mode succeeds when the commitment default dir does not exist yet', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-canary-repo-'));
+    tempRoots.push(repoRoot);
+    await writeFile(
+      path.join(repoRoot, 'keys.v1.json'),
+      renderJsonArtefact({
+        version: 1,
+        ratePercent: 25,
+        salt: FIXTURE_SALT,
+        plantedBlockIds: ['pilot-0001'],
+      }),
+      'utf8',
+    );
+    const outcome = await runSealMode(
+      repoRoot,
+      canaryArgs({ mode: 'seal', keysPath: 'keys.v1.json', outDir: 'artefacts/absent-out' }),
+    );
+    expect(outcome.ok).toBe(true);
+    expect(
+      existsSync(path.join(repoRoot, 'artefacts/absent-out', CHALLENGE_COMMITMENT_SEGMENT)),
+    ).toBe(true);
+  });
+
+  it('plant mode refuses a `..`-escaping --out, writing nothing', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-canary-repo-'));
+    tempRoots.push(repoRoot);
+    await writeFile(
+      path.join(repoRoot, 'pilot.ledger.jsonl'),
+      renderJsonlArtefact(LEDGER_ROWS),
+      'utf8',
+    );
+    const outcome = await runPlantMode(
+      repoRoot,
+      canaryArgs({
+        mode: 'plant',
+        ledgerPath: 'pilot.ledger.jsonl',
+        rate: '25',
+        salt: FIXTURE_SALT,
+        outDir: '../escaped-out',
+        keysOutPath: 'dispatcher/keys.v1.json',
+      }),
+    );
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('resolves outside the repository');
+    }
+    expect(existsSync(path.join(repoRoot, 'dispatcher'))).toBe(false);
   });
 });
 

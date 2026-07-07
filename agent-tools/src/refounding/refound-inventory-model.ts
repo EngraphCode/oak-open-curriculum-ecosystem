@@ -2,7 +2,7 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, sha1Hex, splitLineBytes } from './refounding-artefacts.js';
+import { compareByCodeUnit, sha256Hex, splitLineBytes } from './refounding-artefacts.js';
 import { scanFileLines, type NetId } from './refound-inventory-nets.js';
 
 /**
@@ -30,20 +30,21 @@ export const ANCHOR_RATIO_SANITY_BAND_V1 = { minPercent: 20, maxPercent: 70 } as
 
 const nonEmptyString = z.string().min(1);
 const nonNegativeInt = z.number().int().nonnegative();
-const sha1HexSchema = z.string().regex(/^[0-9a-f]{40}$/);
+const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 const netIdSchema = z.enum(['A', 'B', 'C']);
 
 /**
  * One `inventory.v1.jsonl` record (F1 §3): a captured line with verbatim
- * bytes and its raw-byte SHA-1. `text` may be empty (a blank frontmatter
- * line is a legal Net-A capture).
+ * bytes and its raw-byte SHA-256 (superseding F1 §3's SHA-1 — see
+ * {@link sha256Hex}). `text` may be empty (a blank frontmatter line is a
+ * legal Net-A capture).
  */
 const inventoryRecordSchema = z.strictObject({
   file: nonEmptyString,
   line: z.number().int().positive(),
   nets: z.array(netIdSchema).min(1),
   text: z.string(),
-  sha1: sha1HexSchema,
+  sha256: sha256HexSchema,
 });
 export type InventoryRecord = z.infer<typeof inventoryRecordSchema>;
 
@@ -53,7 +54,7 @@ export const parseInventoryRecord = (value: unknown): Result<InventoryRecord, Er
 
 /**
  * Build one file's inventory records from its raw frozen bytes: LF-split,
- * UTF-8-decoded for net matching, captured verbatim with the SHA-1 of the
+ * UTF-8-decoded for net matching, captured verbatim with the SHA-256 of the
  * RAW line bytes (so any decoding surprise stays detectable).
  *
  * @param file - Frozen-tree-relative POSIX path (the artefact coordinate).
@@ -67,7 +68,7 @@ export function buildInventoryRecords(file: string, bytes: Uint8Array): readonly
     line: capture.line,
     nets: [...capture.nets],
     text: lineTexts[capture.line - 1] ?? '',
-    sha1: sha1Hex(lineBytes[capture.line - 1] ?? new Uint8Array()),
+    sha256: sha256Hex(lineBytes[capture.line - 1] ?? new Uint8Array()),
   }));
 }
 

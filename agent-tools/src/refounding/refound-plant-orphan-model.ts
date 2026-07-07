@@ -5,7 +5,7 @@ import { RESIDUE_BOUNDS_V1 } from './refound-residue-model.js';
 
 /**
  * Pure logic for `refound-plant-orphan` (F1 §9's discrimination proof plus
- * the plan-todo's wider plant set): the planted texts themselves,
+ * the plan-mandated wider plant set): the planted texts themselves,
  * deterministic target selection, and byte-exact insertion helpers. All
  * plants land on SCRATCH COPIES only — the runner owns staging; nothing
  * here touches a filesystem. The outcome shape and committed-transcript

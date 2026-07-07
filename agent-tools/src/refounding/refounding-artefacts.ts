@@ -157,20 +157,14 @@ export function compareByCodeUnit(a: string, b: string): number {
 
 /**
  * SHA-256 of raw bytes as lowercase hex — the identity primitive for the
- * whole proof set (F1 §6).
+ * whole proof set (F1 §6) AND the per-line digest recorded in
+ * `inventory.v1.jsonl` and `sweep/sweep-hits.v1.jsonl`. F1 §3 recorded the
+ * per-line digest as SHA-1; landed = SHA-256, superseding it (one digest
+ * primitive estate-wide; the weak-hash class is gate-checked — panel README
+ * supersession note).
  */
 export function sha256Hex(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
-}
-
-/**
- * SHA-1 of raw bytes as lowercase hex — the per-line digest recorded in
- * `inventory.v1.jsonl` and `sweep/sweep-hits.v1.jsonl` (F1 §3). SHA-1 is a
- * content fingerprint for line-level dedup and diffing, not a security
- * boundary; whole-file identity stays on {@link sha256Hex}.
- */
-export function sha1Hex(bytes: Uint8Array): string {
-  return createHash('sha1').update(bytes).digest('hex');
 }
 
 /**

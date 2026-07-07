@@ -6,7 +6,6 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
@@ -19,6 +18,7 @@ import {
   type SecretScan,
 } from './refound-freeze-helpers.js';
 import { runFreeze } from './refound-freeze-runner.js';
+import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
 
 /**
  * `refound-freeze` — the plan-corpus refounding's S0 conservation event
@@ -33,7 +33,8 @@ import { runFreeze } from './refound-freeze-runner.js';
  *
  * Flags: `--rule <path>` (default `.agent/plans-refounding/freeze-rule.json`)
  * and `--out <dir>` (default `.agent/plans-refounding`), both constrained to
- * the repository (`@oaknational/safe-path`).
+ * the repository with read/write-appropriate resolution
+ * (`refound-path-resolve.ts`).
  *
  * @packageDocumentation
  */
@@ -96,53 +97,28 @@ const gitleaksSecretScan: SecretScan = (absFilePaths) => {
   return Promise.resolve(ok(undefined));
 };
 
-/** Deepest ancestor of `absPath` (possibly itself) that exists on disk. */
-function nearestExistingAncestor(absPath: string): string {
-  let dir = absPath;
-  while (!existsSync(dir)) {
-    const parent = path.dirname(dir);
-    if (parent === dir) {
-      return dir;
-    }
-    dir = parent;
-  }
-  return dir;
-}
-
 /**
  * Resolve the out dir against the repo root and constrain it there WITHOUT
- * creating anything: a lexical containment check on the resolved path, then
- * the symlink-resolving assertion on the nearest EXISTING ancestor (a
- * symlinked ancestor pointing outside the repo is rejected before any later
- * `mkdir` could follow it). Directory creation is deferred to the freeze
- * runner's write phase, after every refusal has passed.
+ * creating anything (`resolveWriteTargetWithinRepo`: lexical containment,
+ * then the symlink-resolving assertion on the nearest EXISTING ancestor).
+ * Directory creation is deferred to the freeze runner's write phase, after
+ * every refusal has passed.
  */
 function resolveOutDir(outDirFlag: string): Result<string, Error> {
-  const outDirAbs = path.resolve(repoRoot, outDirFlag);
-  if (outDirAbs !== repoRoot && !outDirAbs.startsWith(`${repoRoot}${path.sep}`)) {
-    return err(new Error(`--out '${outDirFlag}' resolves outside the repository`));
+  const outDirAbs = resolveWriteTargetWithinRepo(repoRoot, outDirFlag);
+  if (isErr(outDirAbs)) {
+    return outDirAbs;
   }
-  const choiceVerdict = validateOutDirChoice(repoRoot, outDirAbs);
+  const choiceVerdict = validateOutDirChoice(repoRoot, outDirAbs.value);
   if (isErr(choiceVerdict)) {
     return choiceVerdict;
   }
-  try {
-    assertPathWithinBase(nearestExistingAncestor(outDirAbs), repoRoot);
-    return ok(outDirAbs);
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
+  return outDirAbs;
 }
 
 /** Constrain the rule path (which must already exist) to the repository. */
 function resolveRulePath(rulePathFlag: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, rulePathFlag), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
+  return resolveReadPathWithinRepo(repoRoot, rulePathFlag);
 }
 
 /** Resolve and constrain both flag-supplied paths against the repo root. */
