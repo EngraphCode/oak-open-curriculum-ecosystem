@@ -1,16 +1,16 @@
-import { access, readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
 import { renderJsonArtefact, splitLineBytes } from './refounding-artefacts.js';
 import { FROZEN_TREE_SEGMENT } from './refound-freeze-helpers.js';
+import { readInventoryRecords } from './refound-inventory-read.js';
+import { type InventoryRecord } from './refound-inventory-model.js';
 import {
-  INVENTORY_BASENAME,
-  parseInventoryRecord,
-  type InventoryRecord,
-} from './refound-inventory-model.js';
-import { DISCRIMINATION_PROOF_SEGMENT } from './refound-plant-orphan-transcript.js';
+  DISCRIMINATION_PROOF_SEGMENT,
+  parseDiscriminationTranscript,
+} from './refound-plant-orphan-transcript.js';
 import {
   analyseFileResidue,
   buildResidueReport,
@@ -34,9 +34,10 @@ import { readDenominator } from './refound-verify-freeze-helpers.js';
  * copies through the IDENTICAL code path.
  *
  * A zero-orphan result is only acceptable alongside a committed
- * discrimination proof (F1 §9), and the acceptance is MECHANICAL: a
- * zero-candidate run REFUSES (nothing written) unless
- * `proofs/orphan-discrimination.v1.md` already sits in the artefact home.
+ * discrimination proof (F1 §9), and the acceptance is MECHANICAL and
+ * CONTENT-VERIFIED: a zero-candidate run REFUSES (nothing written) unless
+ * `proofs/orphan-discrimination.v1.md` re-parses as a committed proof with
+ * the every-detector-fired invariants intact.
  *
  * @packageDocumentation
  */
@@ -121,57 +122,12 @@ export async function computeResidue(input: {
   return ok(buildResidueReport(analyses));
 }
 
-/** Parse one non-empty inventory JSONL line through the strict boundary. */
-function parseInventoryLine(line: string, lineNumber: number): Result<InventoryRecord, Error> {
-  let json: unknown;
-  try {
-    json = JSON.parse(line);
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(
-      new Error(`${INVENTORY_BASENAME} line ${String(lineNumber)} is not valid JSON: ${message}`),
-    );
-  }
-  const record = parseInventoryRecord(json);
-  if (isErr(record)) {
-    return err(
-      new Error(`${INVENTORY_BASENAME} line ${String(lineNumber)}: ${record.error.message}`),
-    );
-  }
-  return record;
-}
-
-/** Read and strictly parse the committed inventory JSONL as a `Result`. */
-async function readInventoryRecords(
-  outDirAbs: string,
-): Promise<Result<readonly InventoryRecord[], Error>> {
-  const inventoryAbsPath = path.join(outDirAbs, INVENTORY_BASENAME);
-  let text: string;
-  try {
-    text = await readFile(inventoryAbsPath, 'utf8');
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(`cannot read ${INVENTORY_BASENAME} at '${inventoryAbsPath}': ${message}`));
-  }
-  const records: InventoryRecord[] = [];
-  const lines = text.split('\n');
-  for (let index = 0; index < lines.length; index += 1) {
-    const line = lines[index] ?? '';
-    if (line === '') {
-      continue;
-    }
-    const record = parseInventoryLine(line, index + 1);
-    if (isErr(record)) {
-      return record;
-    }
-    records.push(record.value);
-  }
-  return ok(records);
-}
-
 /**
  * The F1 §9 zero-orphan acceptance gate, MECHANICAL: zero candidates are
- * refused unless the committed discrimination-proof transcript exists.
+ * refused unless the committed discrimination-proof transcript exists AND
+ * its machine-readable outcome re-parses with the every-detector-fired
+ * invariants intact — a stale, truncated, or hand-touched transcript is a
+ * refusal, never an acceptance (`validators-must-recompute`).
  */
 async function checkZeroOrphanAcceptance(
   outDirAbs: string,
@@ -180,9 +136,9 @@ async function checkZeroOrphanAcceptance(
   if (report.totals.orphanCandidates > 0) {
     return ok(undefined);
   }
+  let transcript: string;
   try {
-    await access(path.join(outDirAbs, DISCRIMINATION_PROOF_SEGMENT));
-    return ok(undefined);
+    transcript = await readFile(path.join(outDirAbs, DISCRIMINATION_PROOF_SEGMENT), 'utf8');
   } catch {
     return err(
       new Error(
@@ -192,6 +148,17 @@ async function checkZeroOrphanAcceptance(
       ),
     );
   }
+  const outcome = parseDiscriminationTranscript(transcript);
+  if (isErr(outcome)) {
+    return err(
+      new Error(
+        `zero-orphan acceptance refused: ${DISCRIMINATION_PROOF_SEGMENT} does not verify as a ` +
+          `committed proof (${outcome.error.message}) — re-run refound-plant-orphan; a ` +
+          'transcript is trusted for what it records, never for existing',
+      ),
+    );
+  }
+  return ok(undefined);
 }
 
 /**

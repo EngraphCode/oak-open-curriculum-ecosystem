@@ -15,7 +15,10 @@ import {
 } from './refounding-artefacts.js';
 import { INVENTORY_BASENAME } from './refound-inventory-model.js';
 import { runInventory } from './refound-inventory-runner.js';
-import { DISCRIMINATION_PROOF_SEGMENT } from './refound-plant-orphan-transcript.js';
+import {
+  buildDiscriminationTranscript,
+  DISCRIMINATION_PROOF_SEGMENT,
+} from './refound-plant-orphan-transcript.js';
 import {
   buildResidueReport,
   parseResidueReport,
@@ -90,8 +93,36 @@ const FENCED_FILE = ['# Head', '```yaml', 'key: value', '- fenced list', '```', 
   '\n',
 );
 
-/** Commit a discrimination-proof transcript so a zero-orphan run is accepted. */
+/** Commit a GENUINE discrimination-proof transcript so a zero-orphan run is accepted. */
 async function writeDiscriminationProof(outDirAbs: string): Promise<void> {
+  const proofAbsPath = path.join(outDirAbs, DISCRIMINATION_PROOF_SEGMENT);
+  await mkdir(path.dirname(proofAbsPath), { recursive: true });
+  await writeFile(
+    proofAbsPath,
+    buildDiscriminationTranscript({
+      preamble: { file: 'plans/fenced.md', lineStart: 1, lineEnd: 30, reasons: ['file-preamble'] },
+      keyword: {
+        file: 'plans/fenced.md',
+        plantedLine: 2,
+        misspeltInInventory: false,
+        misspeltInResidueBlock: true,
+        controlNets: ['C'],
+        netCShift: 1,
+      },
+      sweep: {
+        file: 'prompts/opener.md',
+        plantedLine: 3,
+        plantPresentInCopy: true,
+        sweepHitsForPlant: 0,
+        sweepHitsForControl: 1,
+      },
+    }),
+    'utf8',
+  );
+}
+
+/** Commit the header-only stub the founding path-only gate wrongly accepted. */
+async function writeHollowProofStub(outDirAbs: string): Promise<void> {
   const proofAbsPath = path.join(outDirAbs, DISCRIMINATION_PROOF_SEGMENT);
   await mkdir(path.dirname(proofAbsPath), { recursive: true });
   await writeFile(proofAbsPath, '# Orphan-discrimination proof (v1)\n', 'utf8');
@@ -165,6 +196,18 @@ describe('runResidue — the mechanical zero-orphan acceptance gate (F1 §9)', (
     if (!result.ok) {
       expect(result.error.message).toContain('zero-orphan acceptance refused');
       expect(result.error.message).toContain(DISCRIMINATION_PROOF_SEGMENT);
+    }
+    expect(existsSync(path.join(outDirAbs, RESIDUE_BASENAME))).toBe(false);
+  });
+
+  it('REFUSES a zero-orphan result over a hollow transcript stub, writing nothing', async () => {
+    const outDirAbs = await makeInventoriedHome({ 'plans/fenced.md': FENCED_FILE });
+    await writeHollowProofStub(outDirAbs);
+    const result = await runResidue({ outDirAbs });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('does not verify as a committed proof');
+      expect(result.error.message).toContain('no machine-readable outcome block');
     }
     expect(existsSync(path.join(outDirAbs, RESIDUE_BASENAME))).toBe(false);
   });
