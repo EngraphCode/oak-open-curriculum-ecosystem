@@ -58,16 +58,32 @@ export interface PlanFileInput {
   readonly content: string;
 }
 
-/** The verbatim YAML frontmatter block, or null when the file carries none. */
-function frontmatterBlockOf(content: string): string | null {
+/**
+ * The verbatim YAML frontmatter block. Fail-closed at file granularity: a
+ * plan named to the gate with NO frontmatter, or with a fence opened but
+ * never closed, is a refusal — never a silent zero-row absorption (the
+ * vacuous-green class; the engine's vacuous flag only covers an all-empty
+ * scan, not one quietly dropped input among healthy ones).
+ */
+function frontmatterBlockOf(path: string, content: string): Result<string, Error> {
   if (!content.startsWith('---\n')) {
-    return null;
+    return err(
+      new Error(
+        `plan '${path}' carries no frontmatter — a named gate input whose recorded claims ` +
+          'cannot be scanned; refusing (nothing computed)',
+      ),
+    );
   }
   const close = content.indexOf('\n---\n', 4);
   if (close === -1) {
-    return null;
+    return err(
+      new Error(
+        `plan '${path}' opens a frontmatter fence that never closes — refusing rather than ` +
+          'silently dropping its recorded claims (nothing computed)',
+      ),
+    );
   }
-  return content.slice(4, close + 1);
+  return ok(content.slice(4, close + 1));
 }
 
 /** Parse one frontmatter block's YAML at the library boundary (Result-translated). */
@@ -85,16 +101,18 @@ function parseYamlDocument(path: string, block: string): Result<unknown, Error> 
 }
 
 /**
- * Extract one plan file's claim rows. A file with no frontmatter, no
- * `todos` key, or an empty todo list contributes zero rows — valid; the
- * engine's vacuous class covers an entirely empty scan.
+ * Extract one plan file's claim rows. A well-formed plan with no `todos`
+ * key or an empty todo list contributes zero rows — valid (strategic and
+ * metadata-only plans); the engine's vacuous class covers an entirely empty
+ * scan. Missing or unterminated frontmatter refuses (see
+ * {@link frontmatterBlockOf}).
  */
 export function extractGateClaims(input: PlanFileInput): Result<readonly ClaimRow[], Error> {
-  const block = frontmatterBlockOf(input.content);
-  if (block === null) {
-    return ok([]);
+  const block = frontmatterBlockOf(input.path, input.content);
+  if (!block.ok) {
+    return block;
   }
-  const document = parseYamlDocument(input.path, block);
+  const document = parseYamlDocument(input.path, block.value);
   if (!document.ok) {
     return document;
   }

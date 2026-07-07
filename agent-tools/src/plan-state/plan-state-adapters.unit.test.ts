@@ -121,16 +121,35 @@ describe('extractGateClaims — the permanent gate adapter', () => {
     }
   });
 
-  it('yields zero rows for strategic-without-todos, no-frontmatter, and no-todos files', () => {
+  it('yields zero rows for strategic-without-todos and todo-less metadata plans', () => {
     const inputs = [
       { path: 'p/s.plan.md', content: planWith('kind: strategic') },
-      { path: 'p/plain.md', content: '# No frontmatter\n' },
       { path: 'p/meta.plan.md', content: planWith('title: only-metadata') },
     ];
     const result = extractGateClaimsAll(inputs);
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.value).toEqual([]);
+    }
+  });
+
+  it('refuses a named input with no frontmatter (never silent zero-row absorption)', () => {
+    const result = extractGateClaims({ path: 'p/README.md', content: '# No frontmatter\n' });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('p/README.md');
+    }
+  });
+
+  it('refuses a frontmatter fence that opens but never closes (fail-closed)', () => {
+    const result = extractGateClaims({
+      path: 'p/broken.plan.md',
+      content:
+        '---\ntodos:\n  - id: t1\n    content: x\n    status: pending\n# fence never closed\n',
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('never closes');
     }
   });
 });
@@ -158,6 +177,9 @@ describe('extractAuditClaims — the disposable audit adapter', () => {
     }
   });
 
+  // Cross-module compat proof — pure, mock-free, zero-IO composition kept
+  // under the unit name deliberately (the C1 drift guard; see the adapter
+  // TSDoc for the seam contract).
   it('parses real census-module output (C1 shape compatibility, test-only import)', () => {
     const bytes = new TextEncoder().encode('---\nstatus: completed\n---\nbody\n');
     const records = buildCensusRecords('plans/a.plan.md', bytes);
@@ -165,6 +187,7 @@ describe('extractAuditClaims — the disposable audit adapter', () => {
     const result = extractAuditClaims(`${jsonl}\n`);
     expect(result.ok).toBe(true);
     if (result.ok) {
+      expect(result.value[0]?.key).toBe('plans/a.plan.md:2'); // frozen file:line coordinate
       expect(result.value[0]?.recordedStatus.trim()).toBe('completed');
     }
   });

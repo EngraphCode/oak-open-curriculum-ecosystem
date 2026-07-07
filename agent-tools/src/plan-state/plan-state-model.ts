@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { type Result } from '@oaknational/result';
+import { err, type Result } from '@oaknational/result';
 
 import { parseWithSchema } from '../core/schema-parse.js';
 
@@ -108,7 +108,7 @@ export type RowClass = (typeof ROW_CLASSES_V1)[number];
 
 /**
  * The v1 canonical-claim codomain: table v1 maps TODO-status instances only
- * (`plan-node-schema.v0.md` §2: `status: pending | completed`). Plan-level
+ * (`plan-node-schema.v0.md` §2.4: `status: pending | completed`). Plan-level
  * status values (`superseded`, `active`, …) are deliberately OUT OF SCOPE —
  * they surface as UNMAPPED residue, and the over-band halt firing on them at
  * r1 is the designed table-v2 trigger, not a defect.
@@ -140,21 +140,60 @@ const planStateTableSchema = z.strictObject({
 });
 export type PlanStateTable = z.infer<typeof planStateTableSchema>;
 
-/** Parse an unknown value as a {@link PlanStateTable} at the engine boundary. */
-export const parsePlanStateTable = (value: unknown): Result<PlanStateTable, Error> =>
-  parseWithSchema({
+/**
+ * Parse an unknown value as a {@link PlanStateTable} at the engine boundary;
+ * duplicate values refuse (the census-boundary invariant — a collision the
+ * trim-exact application cannot disambiguate; without this refusal a
+ * duplicated value would resolve silently by last-write-wins).
+ */
+export function parsePlanStateTable(value: unknown): Result<PlanStateTable, Error> {
+  const parsed = parseWithSchema({
     label: 'plan-state status-mapping table',
     schema: planStateTableSchema,
     value,
   });
+  if (!parsed.ok) {
+    return parsed;
+  }
+  const seen = new Set<string>();
+  for (const entry of parsed.value.entries) {
+    if (seen.has(entry.value)) {
+      return err(
+        new Error(
+          `plan-state status-mapping table carries duplicate value '${entry.value}' — ` +
+            'refusing (nothing computed)',
+        ),
+      );
+    }
+    seen.add(entry.value);
+  }
+  return parsed;
+}
 
 /** Versioned report basename (the landed versioned-basename convention). */
 export const PLAN_STATE_REPORT_BASENAME = 'plan-state.v1.report.json';
 
-/** One recomputation-verdict echo on a report row. */
+/**
+ * The total recomputation partition over the proof taxonomy — adding a kind
+ * fails compilation until its recomputation class is declared here, so a
+ * future non-recomputable kind cannot silently absorb into `no-evidence`.
+ */
+export const PROOF_KIND_RECOMPUTATION: Readonly<
+  Record<ProofKind, 'recomputable' | 'reported-only'>
+> = {
+  artifact: 'recomputable',
+  gate: 'recomputable',
+  probe: 'recomputable',
+  'git-fact': 'recomputable',
+  ratified: 'recomputable',
+  attested: 'reported-only',
+};
+
+/** One recomputation-verdict echo on a report row (detail aids red triage). */
 interface ReportEvidence {
   readonly kind: RecomputableProofKind;
   readonly verdict: 'green' | 'red';
+  readonly detail: string | null;
 }
 
 /** One report row (classes per the gate-semantics table above). */

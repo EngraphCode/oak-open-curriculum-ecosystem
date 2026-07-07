@@ -40,8 +40,16 @@ export const STATUS_MAPPING_TABLE_V1: PlanStateTable = {
   ],
 };
 
-/** OG-2 ratification state for {@link STATUS_MAPPING_TABLE_V1} (see above). */
-export const STATUS_MAPPING_V1_RATIFICATION = {
+/**
+ * OG-2 ratification state for {@link STATUS_MAPPING_TABLE_V1} (see above).
+ * The type declares the flip axis; the runner MECHANICALLY refuses audit
+ * mode on the default table while this reads `pending-ratification` (the
+ * prose constraint enforced in code — see `plan-state-helpers.ts`).
+ */
+export const STATUS_MAPPING_V1_RATIFICATION: {
+  readonly gate: 'OG-2';
+  readonly status: 'pending-ratification' | 'ratified';
+} = {
   gate: 'OG-2',
   status: 'pending-ratification',
-} as const;
+};

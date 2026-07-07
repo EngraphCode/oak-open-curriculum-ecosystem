@@ -1,25 +1,31 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
-import {
-  decideGateVerdict,
-  derivePlanState,
-  serialisePlanStateReport,
-  type PlanStateInput,
-} from './plan-state-engine.js';
+import { derivePlanState, type PlanStateInput } from './plan-state-engine.js';
+import { decideGateVerdict, serialisePlanStateReport } from './plan-state-verdict.js';
 import {
   type ClaimRow,
   type EvidenceVerdict,
+  type PlanStateTable,
   type ProofKind,
   type RecomputableProofKind,
 } from './plan-state-model.js';
-import { STATUS_MAPPING_TABLE_V1 } from './status-mapping/v1.js';
 
-/** Compile-time proof: the recomputable set is exactly ProofKind minus attested. */
-type MutuallyEqual<A, B> = [A] extends [B] ? ([B] extends [A] ? true : never) : never;
-const recomputableIsProofMinusAttested: MutuallyEqual<
-  RecomputableProofKind,
-  Exclude<ProofKind, 'attested'>
-> = true;
+// Compile-time anchor: the recomputable set is exactly ProofKind minus attested
+// (fails compilation on drift in either direction; no runtime assertion).
+expectTypeOf<RecomputableProofKind>().toEqualTypeOf<Exclude<ProofKind, 'attested'>>();
+
+/**
+ * A literal probe table so engine behaviour is decoupled from the
+ * owner-ratifiable production table (`status-mapping/v1.ts` owns that).
+ */
+const TEST_TABLE: PlanStateTable = {
+  version: 7,
+  entries: [
+    { value: 'completed', verdict: 'completed' },
+    { value: 'done', verdict: 'completed' },
+    { value: 'pending', verdict: 'pending' },
+  ],
+};
 
 const claim = (over: Partial<ClaimRow> & Pick<ClaimRow, 'key'>): ClaimRow => ({
   recordedStatus: 'completed',
@@ -41,7 +47,7 @@ const red = (key: string, over: Partial<EvidenceVerdict> = {}): EvidenceVerdict 
 });
 
 const derive = (input: Partial<PlanStateInput>) =>
-  derivePlanState({ claims: [], evidence: [], table: STATUS_MAPPING_TABLE_V1, ...input });
+  derivePlanState({ claims: [], evidence: [], table: TEST_TABLE, ...input });
 
 /** The derived report, or null on refusal (assertions then read as undefined). */
 const reportOf = (input: Partial<PlanStateInput>) => {
@@ -60,23 +66,22 @@ describe('derivePlanState — the two-direction gate', () => {
     expect(rows[0]?.rowClass).toBe('recorded-done-but-red');
   });
 
-  it('flags recorded-pending-but-green: the truing worked example (mutation direction 2)', () => {
+  it('flags recorded-pending-but-green with the full row echoed (mutation direction 2)', () => {
     // In-memory copy of the live instance this branch trued at 7c984a555.
-    const rows = rowsOf({
-      claims: [
-        claim({
-          key: 'plans/product-development-governance/active/plan-corpus-refounding.plan.md#r0a-mechanical-instrument',
-          recordedStatus: ' pending',
-        }),
-      ],
-      evidence: [
-        green(
-          'plans/product-development-governance/active/plan-corpus-refounding.plan.md#r0a-mechanical-instrument',
-        ),
-      ],
+    const key =
+      'plans/product-development-governance/active/plan-corpus-refounding.plan.md#r0a-mechanical-instrument';
+    const report = reportOf({
+      claims: [claim({ key, recordedStatus: ' pending' })],
+      evidence: [green(key, { detail: 'proofs green on main' })],
     });
-    expect(rows[0]?.rowClass).toBe('recorded-pending-but-green');
-    expect(rows[0]?.canonicalClaim).toBe('pending');
+    expect(report?.tableVersion).toBe(TEST_TABLE.version);
+    expect(report?.rows[0]).toEqual({
+      key,
+      recordedStatus: ' pending', // verbatim, never the trimmed form
+      canonicalClaim: 'pending',
+      rowClass: 'recorded-pending-but-green',
+      evidence: [{ kind: 'gate', verdict: 'green', detail: 'proofs green on main' }],
+    });
   });
 
   it('reads consistent in both honest directions', () => {
@@ -128,23 +133,29 @@ describe('derivePlanState — counted, never-gating classes', () => {
   });
 
   it('halts strictly over the 20% UNMAPPED band and writes nothing (integer arithmetic)', () => {
-    const mapped = ['t2', 't3', 't4', 't5'].map((id) =>
-      claim({ key: `a.md#${id}`, recordedStatus: 'pending' }),
-    );
+    const mapped = (ids: readonly string[]) =>
+      ids.map((id) => claim({ key: `a.md#${id}`, recordedStatus: 'pending' }));
     const atBand = derive({
-      claims: [claim({ key: 'a.md#t1', recordedStatus: 'mystery' }), ...mapped],
+      claims: [
+        claim({ key: 'a.md#t1', recordedStatus: 'mystery' }),
+        ...mapped(['t2', 't3', 't4', 't5']),
+      ],
     });
     expect(atBand.ok).toBe(true); // 1 of 5 = exactly 20%: no halt
-    const overBand = derive({
+    const overBandNarrow = derive({
+      claims: [claim({ key: 'a.md#t1', recordedStatus: 'mystery' }), ...mapped(['t2', 't3', 't4'])],
+    });
+    expect(overBandNarrow.ok).toBe(false); // 1 of 4 = 25%: halt (tight bracket)
+    const overBandWide = derive({
       claims: [
         claim({ key: 'a.md#t0', recordedStatus: 'enigma' }),
         claim({ key: 'a.md#t1', recordedStatus: 'mystery' }),
-        ...mapped.slice(0, 3),
+        ...mapped(['t2', 't3', 't4']),
       ],
     });
-    expect(overBand.ok).toBe(false); // 2 of 5 = 40%: halt
-    if (!overBand.ok) {
-      expect(overBand.error.message).toContain('halt-and-inspect');
+    expect(overBandWide.ok).toBe(false); // 2 of 5 = 40%: halt
+    if (!overBandWide.ok) {
+      expect(overBandWide.error.message).toContain('halt-and-inspect');
     }
   });
 
@@ -207,24 +218,33 @@ describe('derivePlanState — refusals (Err, nothing computed)', () => {
 
 describe('derivePlanState — determinism and the vacuous class', () => {
   const shuffledInput = (order: 'forward' | 'reverse'): PlanStateInput => {
-    // Five rows, one unmapped: exactly the 20% band edge, so no halt fires.
+    // Ten rows, two unmapped: exactly the 20% band edge, so no halt fires.
+    // d#t1 carries a same-kind green+red pair (the verdict tie-break);
+    // both unmapped values differ (the distinctValues sort).
     const claims = [
       claim({ key: 'b.md#t1', recordedStatus: 'pending' }),
       claim({ key: 'a.md#t2', recordedStatus: 'completed' }),
       claim({ key: 'a.md#t1', recordedStatus: 'nonesuch' }),
+      claim({ key: 'e.md#t1', recordedStatus: 'enigma' }),
+      claim({ key: 'd.md#t1', recordedStatus: 'completed' }),
       claim({ key: 'c.md#t1', recordedStatus: 'completed' }),
       claim({ key: 'c.md#t2', recordedStatus: 'done' }),
+      claim({ key: 'f.md#t1', recordedStatus: 'pending' }),
+      claim({ key: 'f.md#t2', recordedStatus: 'pending' }),
+      claim({ key: 'f.md#t3', recordedStatus: 'pending' }),
     ];
     const evidence = [
       green('b.md#t1'),
       red('a.md#t2'),
       green('a.md#t2', { kind: 'probe' }),
       green('c.md#t2'),
+      red('d.md#t1'),
+      green('d.md#t1'),
     ];
     return {
       claims: order === 'forward' ? claims : [...claims].reverse(),
       evidence: order === 'forward' ? evidence : [...evidence].reverse(),
-      table: STATUS_MAPPING_TABLE_V1,
+      table: TEST_TABLE,
     };
   };
 
@@ -242,7 +262,7 @@ describe('derivePlanState — determinism and the vacuous class', () => {
     expect(bytes.endsWith('\n')).toBe(true);
   });
 
-  it('sorts rows by key and includes every class in the closed byClass list', () => {
+  it('sorts rows, same-kind evidence by verdict, and distinct unmapped values', () => {
     const result = derivePlanState(shuffledInput('forward'));
     expect(result.ok).toBe(true);
     if (!result.ok) {
@@ -254,7 +274,18 @@ describe('derivePlanState — determinism and the vacuous class', () => {
       'b.md#t1',
       'c.md#t1',
       'c.md#t2',
+      'd.md#t1',
+      'e.md#t1',
+      'f.md#t1',
+      'f.md#t2',
+      'f.md#t3',
     ]);
+    const sameKindPair = result.value.rows.find((row) => row.key === 'd.md#t1');
+    expect(sameKindPair?.evidence).toEqual([
+      { kind: 'gate', verdict: 'green', detail: null },
+      { kind: 'gate', verdict: 'red', detail: null },
+    ]);
+    expect(result.value.summary.unmapped.distinctValues).toEqual(['enigma', 'nonesuch']);
     expect(result.value.summary.byClass.map((entry) => entry.rowClass)).toEqual([
       'consistent',
       'recorded-done-but-red',
@@ -277,50 +308,53 @@ describe('derivePlanState — determinism and the vacuous class', () => {
 });
 
 describe('decideGateVerdict — the gate-semantics table', () => {
-  /** The gate exit code for an input, or null on refusal. */
-  const gateExit = (input: Partial<PlanStateInput>): number | null => {
+  /** The gate verdict for an input, or null on refusal. */
+  const verdictOf = (input: Partial<PlanStateInput>) => {
     const report = reportOf(input);
-    return report === null ? null : decideGateVerdict(report).exitCode;
+    return report === null ? null : decideGateVerdict(report);
   };
 
   it('exits non-zero on each divergence class and zero on consistent', () => {
-    expect(gateExit({ claims: [claim({ key: 'k#1' })], evidence: [red('k#1')] })).toBe(1);
+    expect(verdictOf({ claims: [claim({ key: 'k#1' })], evidence: [red('k#1')] })?.exitCode).toBe(
+      1,
+    );
     expect(
-      gateExit({
+      verdictOf({
         claims: [claim({ key: 'k#1', recordedStatus: 'pending' })],
         evidence: [green('k#1')],
-      }),
+      })?.exitCode,
     ).toBe(1);
-    expect(gateExit({ claims: [claim({ key: 'k#1' })], evidence: [green('k#1')] })).toBe(0);
+    expect(verdictOf({ claims: [claim({ key: 'k#1' })], evidence: [green('k#1')] })?.exitCode).toBe(
+      0,
+    );
   });
 
-  it('never gates on the counted classes (unmapped within band, no-evidence, attested)', () => {
-    expect(
-      gateExit({
-        claims: [
-          claim({ key: 'k#1', recordedStatus: 'nonesuch' }),
-          claim({ key: 'k#2' }),
-          claim({ key: 'k#3', proof: { kind: 'attested', ref: 'owner' } }),
-          claim({ key: 'k#4', recordedStatus: 'pending' }),
-          claim({ key: 'k#5', recordedStatus: 'pending' }),
-        ],
-      }),
-    ).toBe(0);
+  it('never gates on the counted classes, and names an unverified green', () => {
+    const verdict = verdictOf({
+      claims: [
+        claim({ key: 'k#1', recordedStatus: 'nonesuch' }),
+        claim({ key: 'k#2' }),
+        claim({ key: 'k#3', proof: { kind: 'attested', ref: 'owner' } }),
+        claim({ key: 'k#4', recordedStatus: 'pending' }),
+        claim({ key: 'k#5', recordedStatus: 'pending' }),
+      ],
+    });
+    expect(verdict?.exitCode).toBe(0);
+    expect(verdict?.lines[0]).toContain('no recomputation performed');
+  });
+
+  it('does not carry the unverified marker once any row is recomputed consistent', () => {
+    const verdict = verdictOf({
+      claims: [claim({ key: 'k#1' }), claim({ key: 'k#2' })],
+      evidence: [green('k#1')],
+    });
+    expect(verdict?.exitCode).toBe(0);
+    expect(verdict?.lines[0]).not.toContain('no recomputation performed');
   });
 
   it('refuses to pass a vacuous report', () => {
-    const report = reportOf({});
-    expect(report).not.toBeNull();
-    if (report === null) {
-      return;
-    }
-    const verdict = decideGateVerdict(report);
-    expect(verdict.exitCode).toBe(1);
-    expect(verdict.lines[0]).toContain('VACUOUS');
+    const verdict = verdictOf({});
+    expect(verdict?.exitCode).toBe(1);
+    expect(verdict?.lines[0]).toContain('VACUOUS');
   });
-});
-
-// Referenced so the compile-time proof cannot be elided by noUnusedLocals.
-it('recomputable proof kinds are exactly the proof kinds minus attested', () => {
-  expect(recomputableIsProofMinusAttested).toBe(true);
 });

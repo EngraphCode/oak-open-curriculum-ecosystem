@@ -2,6 +2,7 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { compareByCodeUnit } from '../refounding/refounding-artefacts.js';
 import {
+  PROOF_KIND_RECOMPUTATION,
   ROW_CLASSES_V1,
   type CanonicalClaim,
   type ClaimRow,
@@ -29,8 +30,12 @@ import {
  * `compareByCodeUnit` is imported from the refounding module's artefact
  * utilities — a utility-direction dependency only. The deferred C1 coupling
  * is the OPPOSITE direction (census consuming this module's table stays an
- * injected input). Extraction of the shared utilities to `core/` is a
- * candidate for the next consolidation touching both modules.
+ * injected input). BOUND COMMITMENT (gateway ruling 2026-07-07): the shared
+ * utilities (`compareByCodeUnit`, `parseJsonDocument`, the path-resolve
+ * pair) extract to `agent-tools/src/core/` as a NAMED R1-runway work item —
+ * before any third consuming module appears and no later than the
+ * refounded-corpus milestone — merging the two JSON-parse-at-boundary owners
+ * (ADR-088 Result form wins) and dropping the `refound-` naming.
  *
  * @packageDocumentation
  */
@@ -95,12 +100,15 @@ function joinEvidence(
   return ok(byKey);
 }
 
-/** Classify one joined row (precedence: unmapped, attested, no-evidence, then divergence). */
+/** Classify one joined row (precedence: unmapped, reported-only, no-evidence, then divergence). */
 function classifyRow(joined: JoinedClaim, canonicalClaim: CanonicalClaim | null): RowClass {
   if (canonicalClaim === null) {
     return 'unmapped-status';
   }
-  if (joined.claim.proof?.kind === 'attested') {
+  if (
+    joined.claim.proof !== null &&
+    PROOF_KIND_RECOMPUTATION[joined.claim.proof.kind] === 'reported-only'
+  ) {
     return 'attested';
   }
   if (joined.evidence.length === 0) {
@@ -143,7 +151,7 @@ function buildRows(
       canonicalClaim,
       rowClass: classifyRow(joined, canonicalClaim),
       evidence: [...joined.evidence]
-        .map((entry) => ({ kind: entry.kind, verdict: entry.verdict }))
+        .map((entry) => ({ kind: entry.kind, verdict: entry.verdict, detail: entry.detail }))
         .sort(
           (a, b) => compareByCodeUnit(a.kind, b.kind) || compareByCodeUnit(a.verdict, b.verdict),
         ),
@@ -197,48 +205,4 @@ export function derivePlanState(input: PlanStateInput): Result<PlanStateReport, 
       vacuous: rows.length === 0,
     },
   });
-}
-
-/** The gate's decided verdict: exit code plus unprefixed operator lines. */
-export interface GateVerdict {
-  readonly exitCode: number;
-  readonly lines: readonly string[];
-}
-
-/**
- * Decide the gate verdict from a derived report — pure, so the exit-code
- * contract is unit-testable. RED on the two divergence classes ONLY;
- * `unmapped-status`, `no-evidence`, and `attested` are counted and reported,
- * never gating; a vacuous report refuses to pass (exit non-zero) because a
- * gate that scanned nothing must not read as green.
- */
-export function decideGateVerdict(report: PlanStateReport): GateVerdict {
-  if (report.summary.vacuous) {
-    return {
-      exitCode: 1,
-      lines: ['plan-state gate: VACUOUS — zero rows scanned; a gate over nothing never passes.'],
-    };
-  }
-  const countOf = (rowClass: RowClass): number =>
-    report.summary.byClass.find((entry) => entry.rowClass === rowClass)?.count ?? 0;
-  const doneButRed = countOf('recorded-done-but-red');
-  const pendingButGreen = countOf('recorded-pending-but-green');
-  const counted =
-    `${String(report.summary.rows)} row(s); UNMAPPED ${String(report.summary.unmapped.count)}, ` +
-    `no-evidence ${String(countOf('no-evidence'))}, attested ${String(countOf('attested'))}`;
-  if (doneButRed + pendingButGreen > 0) {
-    return {
-      exitCode: 1,
-      lines: [
-        `plan-state gate: RED — recorded-done-but-red ${String(doneButRed)}, ` +
-          `recorded-pending-but-green ${String(pendingButGreen)} (${counted}).`,
-      ],
-    };
-  }
-  return { exitCode: 0, lines: [`plan-state gate: green (${counted}).`] };
-}
-
-/** Serialise a report byte-stably (two-space indent, trailing newline). */
-export function serialisePlanStateReport(report: PlanStateReport): string {
-  return `${JSON.stringify(report, null, 2)}\n`;
 }
