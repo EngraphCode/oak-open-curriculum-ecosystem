@@ -2714,52 +2714,6 @@ commit SHA and the closing plan reference.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions); captured at session closeout.
 
-### F-130 — no mechanical merge-ready check exists; "checks green" gets declared as "merge-ready" despite the loaded rule
-
-- **Source**: Wildfire herds Sulphur session closeout 2026-07-06; worked instance: PR #315
-  declared "fully green — ready for your merge" from the CI checks table alone while a
-  High-Severity Bugbot review thread sat UNRESOLVED — the owner caught it, not the author.
-  The `pr-comments-resolve-and-recheck` rule (always-loaded) states green-checks-insufficient
-  plainly and lost to completion fluency anyway; recurrence class also seen on the #310 arc
-  (Bugbot merge-ready-definition miss).
-- **Surface**: any agent declaring PR readiness; `gh pr checks` output read as merge-readiness.
-- **Observed**: doctrine exists (rule + pr-lifecycle skill) but nothing FIRES mechanically at
-  the declaration instant; the failure is passive-guidance-loses-to-artefact-gravity.
-- **Expected**: a recomputable check per validators-must-recompute: merge-ready = required
-  checks green AND GraphQL reviewThreads unresolved == 0 AND no pending bot reviews AND Sonar
-  QG passed, evaluated at the declaration instant.
-- **Candidate cure**: `pnpm agent-tools:pr-merge-ready <number>` (gh + GraphQL; exits non-zero
-  with the named blockers); the rule's Binding-moment clause (added 2026-07-06) then requires
-  citing its green output in any merge-ready declaration. One unit + one CLI integration test.
-- **Target surface**: `agent-tools/src/` (new small module beside the collaboration-state CLI).
-- **Status**: open.
-- **Owner direction status**: emerged from an owner correction ("you have a real mental block
-  around conversation thread resolution being a merge blocker"); rule clause landed same day.
-
-### F-131 — a harness-timeout kill of `git commit` orphans the pre-commit hook chain as a whole-tree lint fleet
-
-- **Source**: Wildfire herds Sulphur 2026-07-06; worked instances: two consecutive `git commit`
-  invocations killed at the Bash tool's timeout (2m, then 10m under load) left their husky
-  pre-commit chains (turbo → per-workspace eslint) running detached; the orphans stacked into
-  a load-average-94 host with 0.5% CPU idle, starving the very chains that followed, and one
-  kill left deleted-but-not-regenerated generated SDK files in the worktree (repaired by
-  forward `git show HEAD:<p> > <p>` writes, never `git restore`).
-- **Surface**: `git commit` via the Bash tool in any session; husky pre-commit → pnpm → turbo
-  process tree.
-- **Observed**: SIGTERM at the timeout kills the shell but not the detached descendants; the
-  fleet is invisible to the session that spawned it and unattributable to peers reading `ps`.
-- **Expected**: a commit invocation that either survives (background, no timeout kill) or dies
-  atomically with its whole process tree.
-- **Candidate cure**: (a) session craft, immediate: run `git commit` as a background task
-  (no timeout kill) — worked same session; (b) structural: the commit-skill/queue workflow
-  wraps the hook chain in a process-group kill guard (`setsid` + trap, or the F-101
-  supervisor-pid pattern the comms watcher already uses) so an interrupted commit reaps its
-  tree; (c) the load-check-before-heavy-chain step from the cross-estate one-heavy-chain
-  agreement becomes a commit-skill preflight.
-- **Target surface**: `.agent/skills/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
-  spawn path (`runInheritedProcess`).
-- **Status**: open.
-- **Owner direction status**: captured at session closeout under record-all-frictions.
 ### F-122 — `claims close` fails ENOENT rather than creating the untracked closed-claims archive container
 
 - **Source**: doctrine-PR session 2026-07-06 (Zodiac herds Spectrum) + recurrence same day
@@ -2888,3 +2842,50 @@ commit SHA and the closing plan reference.
 - **Target surface**: `agent-tools/src/collaboration-state/comms-concept-gate.ts` + its tests.
 - **Status**: open.
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-130 — no mechanical merge-ready check exists; "checks green" gets declared as "merge-ready" despite the loaded rule
+
+- **Source**: Wildfire herds Sulphur session closeout 2026-07-06; worked instance: PR #315
+  declared "fully green — ready for your merge" from the CI checks table alone while a
+  High-Severity Bugbot review thread sat UNRESOLVED — the owner caught it, not the author.
+  The `pr-comments-resolve-and-recheck` rule (always-loaded) states green-checks-insufficient
+  plainly and lost to completion fluency anyway; recurrence class also seen on the #310 arc
+  (Bugbot merge-ready-definition miss).
+- **Surface**: any agent declaring PR readiness; `gh pr checks` output read as merge-readiness.
+- **Observed**: doctrine exists (rule + pr-lifecycle skill) but nothing FIRES mechanically at
+  the declaration instant; the failure is passive-guidance-loses-to-artefact-gravity.
+- **Expected**: a recomputable check per validators-must-recompute: merge-ready = required
+  checks green AND GraphQL reviewThreads unresolved == 0 AND no pending bot reviews AND Sonar
+  QG passed, evaluated at the declaration instant.
+- **Candidate cure**: `pnpm agent-tools:pr-merge-ready <number>` (gh + GraphQL; exits non-zero
+  with the named blockers); the rule's Binding-moment clause (added 2026-07-06) then requires
+  citing its green output in any merge-ready declaration. One unit + one CLI integration test.
+- **Target surface**: `agent-tools/src/` (new small module beside the collaboration-state CLI).
+- **Status**: open.
+- **Owner direction status**: emerged from an owner correction ("you have a real mental block
+  around conversation thread resolution being a merge blocker"); rule clause landed same day.
+
+### F-131 — a harness-timeout kill of `git commit` orphans the pre-commit hook chain as a whole-tree lint fleet
+
+- **Source**: Wildfire herds Sulphur 2026-07-06; worked instances: two consecutive `git commit`
+  invocations killed at the Bash tool's timeout (2m, then 10m under load) left their husky
+  pre-commit chains (turbo → per-workspace eslint) running detached; the orphans stacked into
+  a load-average-94 host with 0.5% CPU idle, starving the very chains that followed, and one
+  kill left deleted-but-not-regenerated generated SDK files in the worktree (repaired by
+  forward `git show HEAD:<p> > <p>` writes, never `git restore`).
+- **Surface**: `git commit` via the Bash tool in any session; husky pre-commit → pnpm → turbo
+  process tree.
+- **Observed**: SIGTERM at the timeout kills the shell but not the detached descendants; the
+  fleet is invisible to the session that spawned it and unattributable to peers reading `ps`.
+- **Expected**: a commit invocation that either survives (background, no timeout kill) or dies
+  atomically with its whole process tree.
+- **Candidate cure**: (a) session craft, immediate: run `git commit` as a background task
+  (no timeout kill) — worked same session; (b) structural: the commit-skill/queue workflow
+  wraps the hook chain in a process-group kill guard (`setsid` + trap, or the F-101
+  supervisor-pid pattern the comms watcher already uses) so an interrupted commit reaps its
+  tree; (c) the load-check-before-heavy-chain step from the cross-estate one-heavy-chain
+  agreement becomes a commit-skill preflight.
+- **Target surface**: `.agent/skills/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
+  spawn path (`runInheritedProcess`).
+- **Status**: open.
+- **Owner direction status**: captured at session closeout under record-all-frictions.

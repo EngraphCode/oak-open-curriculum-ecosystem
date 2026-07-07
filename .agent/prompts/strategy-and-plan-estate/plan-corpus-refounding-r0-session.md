@@ -71,13 +71,13 @@ them (signals are verdicts).
 - **Commits**: the pre-commit chain runs build/type-check/lint/test across ~26 packages
   even for docs-only commits (~5–10 min). Run `git commit` as a BACKGROUND task, never
   under a foreground timeout — two timeout-killed commits orphaned whole-tree lint fleets
-  and drove host load to 94 (F-123 in the frictions register; the repair for hook-kill
+  and drove host load to 94 (F-131 in the frictions register; the repair for hook-kill
   residue is forward `git show HEAD:<p> > <p>` writes, never `git restore`). Check host
   load before starting any heavy chain (the cross-estate one-heavy-chain agreement).
 - **PR #315** carries the protocol + ratifications. **Merge-ready = checks green AND zero
   unresolved review threads, harvested via GraphQL at the declaration instant** — the
   binding-moment clause in `pr-comments-resolve-and-recheck` (added this session after the
-  owner caught exactly that failure; F-122 is the mechanical-checker debt, a natural small
+  owner caught exactly that failure; F-130 is the mechanical-checker debt, a natural small
   first build alongside R0a if you want a warm-up).
 - **WS2 of ADR-200 proceeds in parallel** and must not wait on you, nor you on it.
 - The resonance exchange seat has stood down; the inter-practice lane's WS0+WS4 authoring
