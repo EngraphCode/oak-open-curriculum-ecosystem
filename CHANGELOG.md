@@ -1,3 +1,10 @@
+## [1.62.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.0...v1.62.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** t1-coordination-home certifies the real resolver ([901d7cf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/901d7cf5c52204a0345d2c62e873324cd3c54e25)), closes [#320](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/320)
+
 # [1.62.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.61.0...v1.62.0) (2026-07-07)
 
 
