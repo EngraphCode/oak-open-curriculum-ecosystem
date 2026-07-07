@@ -447,7 +447,7 @@ describe('reconciliation binding: the local strict schema honours the wire contr
   }
 
   it('shared event fields agree on their JSON type or identity $ref (type drift red-gates)', () => {
-    // The exchange delivery event is narrative-shaped (PDR-133 clause 7);
+    // The exchange delivery event is narrative-shaped (PDR-125 clause 7);
     // if a directed/lifecycle kind ever crosses estates, this binding gains
     // that pair too.
     const wire = defOf(realContract().document, 'exchange_comms_event');

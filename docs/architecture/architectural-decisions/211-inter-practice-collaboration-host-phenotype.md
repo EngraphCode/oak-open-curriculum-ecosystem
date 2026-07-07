@@ -1,4 +1,4 @@
-# ADR-210: Inter-Practice Collaboration — Host Phenotype
+# ADR-211: Inter-Practice Collaboration — Host Phenotype
 
 - **Status:** Accepted (2026-07-06; authored in the coordinated cross-estate WS0 session,
   Lapwing herds Eyrie).

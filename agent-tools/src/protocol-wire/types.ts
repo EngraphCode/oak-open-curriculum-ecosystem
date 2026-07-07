@@ -1,6 +1,6 @@
 /**
  * WS0e — the shared wire contract and its version-family validators
- * (PDR-133 clause 6).
+ * (PDR-125 clause 6).
  *
  * @remarks
  * The core-carried schema document is the CONTRACT for the cross-estate wire

@@ -6,13 +6,13 @@ import { type ConformanceIo, type ProtocolDeclaration } from './types.js';
 /**
  * The core-carried canonical path where an estate declares the protocol
  * version it speaks, its tier floor, and its version-advertised extensions
- * (PDR-133 §Conformance; the join ceremony negotiates against this).
+ * (PDR-125 §Conformance; the join ceremony negotiates against this).
  */
 export const PROTOCOL_DECLARATION_REL_PATH = '.agent/practice-core/protocol.json';
 
 /**
  * The declaration schema family this reader speaks. Cross-family contact is
- * a typed refusal (PDR-133 clause 6), never a best-effort parse.
+ * a typed refusal (PDR-125 clause 6), never a best-effort parse.
  */
 const DECLARATION_SCHEMA_FAMILY = '1';
 

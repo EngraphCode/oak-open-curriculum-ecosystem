@@ -45,13 +45,12 @@ Practice Core package.
 - New portable skill `inter-practice-collaboration` — the runnable
   join ceremony (the PDR's enactment); new portable rule
   `cross-repo-sessions-run-the-join-ceremony` — its discoverability
-  trigger. Host phenotype ADR-210 records the WHAT of the local
+  trigger. Host phenotype ADR-211 records the WHAT of the local
   mechanics (declared-home override, statusline join key).
 - `practice.md` and `practice-lineage.md` §Plasmid Exchange amended:
   exchange named as two modes of one class on shared substrate —
   transformation (dead material at a pin) and conjugation (live,
   negotiated, bidirectional) — completing the Core exchange model.
-
 
 ## [oak-open-curriculum-ecosystem] 2026-07-06 — PDR-117 Director-craft amendment (Nettle tracks Acorn)
 
@@ -62,6 +61,7 @@ owner-launched peers implement / Director dispatches read-only reviewers only (w
 narrowed degenerate-team exception); don't park lanes mid-session; decide-and-drive; the
 Director proposes landing points; rulings-as-artefacts as a first-class dispatch output; and
 minimum-action's inward face (anchor in the impact).
+
 ## [oak-open-curriculum-ecosystem] 2026-07-06 — PDR-049 gains the sequential-identifier collision clause (PR #295 merge run-in, Hyena spins Lamplight)
 
 Amended PDR-049 (Memory and State File Merge Semantics) with §Sequential-identifier

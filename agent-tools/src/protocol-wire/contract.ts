@@ -32,7 +32,7 @@ export function loadWireContractText(raw: string): Result<WireContract, string> 
   const family = numericFamily(version);
   if (family === undefined) {
     return err(
-      `wire contract version ${version} has no numeric MAJOR component — the family contract is MAJOR-numeric (PDR-133 clause 6)`,
+      `wire contract version ${version} has no numeric MAJOR component — the family contract is MAJOR-numeric (PDR-125 clause 6)`,
     );
   }
   return ok({ version, family, document: parsed });
@@ -51,7 +51,7 @@ function numericFamily(version: string): string | undefined {
 }
 
 /**
- * The join-ceremony version negotiation (PDR-133 clause 6): same MAJOR
+ * The join-ceremony version negotiation (PDR-125 clause 6): same MAJOR
  * family → agree and proceed; different families → a typed refusal naming
  * both versions, never a best-effort parse.
  */
