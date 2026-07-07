@@ -3,14 +3,13 @@
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
-
+import { isErr, ok, type Result } from '@oaknational/result';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { parseFreezeArgs, type FreezeArgs } from './refound-freeze-helpers.js';
 import { runMergeRecheck, type MergeRecheckSummary } from './refound-merge-recheck-helpers.js';
 import { ARRIVALS_BASENAME } from './refound-merge-recheck-model.js';
+import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
 
 /**
  * `refound-merge-recheck` — denominator re-derivation against the live tree
@@ -30,7 +29,7 @@ import { ARRIVALS_BASENAME } from './refound-merge-recheck-model.js';
  * Writes `arrivals.v1.report.json` (single writer, sorted, timestamp-free);
  * refusals write nothing. Flags: `--rule <path>` and `--out <dir>` (same
  * defaults as `refound-freeze`), both constrained to the repository
- * (`@oaknational/safe-path`).
+ * (`refound-path-resolve`).
  *
  * @packageDocumentation
  */
@@ -40,12 +39,7 @@ const repoRoot = resolveRepoRoot(import.meta.url);
 
 /** Constrain a flag-supplied path (which must exist) to the repository. */
 function resolveWithinRepo(flagPath: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, flagPath), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
+  return resolveReadPathWithinRepo(repoRoot, flagPath);
 }
 
 /** Resolve and constrain both flag-supplied paths against the repo root. */

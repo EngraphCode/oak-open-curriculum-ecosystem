@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
@@ -9,6 +9,7 @@ import {
   renderJsonlArtefact,
   type DenominatorFile,
 } from './refounding-artefacts.js';
+import { writeArtefactSet } from './refound-artefact-writes.js';
 import {
   buildCensusRecords,
   CLAIM_CENSUS_BASENAME,
@@ -130,28 +131,22 @@ async function readFrozenCensus(input: {
   return ok({ records: sortCensusRecords(records), scannedFiles, scannedLines });
 }
 
-/** Write both census artefacts; failures return as typed errors. */
+/** Write the census pair all-or-nothing; a failed run leaves nothing behind. */
 async function writeCensusArtefacts(
   outDirAbs: string,
   records: readonly CensusRecord[],
   report: CensusReport,
 ): Promise<Result<void, Error>> {
-  try {
-    await writeFile(
-      path.join(outDirAbs, CLAIM_CENSUS_BASENAME),
-      renderJsonlArtefact(records),
-      'utf8',
-    );
-    await writeFile(
-      path.join(outDirAbs, CLAIM_CENSUS_REPORT_BASENAME),
-      renderJsonArtefact(report),
-      'utf8',
-    );
-    return ok(undefined);
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(`census artefact write failed: ${message}`));
-  }
+  return writeArtefactSet([
+    {
+      absPath: path.join(outDirAbs, CLAIM_CENSUS_BASENAME),
+      content: renderJsonlArtefact(records),
+    },
+    {
+      absPath: path.join(outDirAbs, CLAIM_CENSUS_REPORT_BASENAME),
+      content: renderJsonArtefact(report),
+    },
+  ]);
 }
 
 /**

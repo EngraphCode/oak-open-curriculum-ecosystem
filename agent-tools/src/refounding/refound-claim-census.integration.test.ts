@@ -17,8 +17,9 @@ import { runFreeze } from './refound-freeze-runner.js';
  * Integration behaviours of `refound-claim-census` against GENUINE freeze
  * artefacts (never hand-rolled approximations): frozen-coordinate extraction,
  * the whole-file/opaque mode skip, double-run byte identity, the injected
- * mapping table, and the refusal set proven nothing-written (missing
- * denominator; the over-20-percent UNMAPPED halt).
+ * mapping table, the refusal set proven nothing-written (missing
+ * denominator; the over-20-percent UNMAPPED halt), and the all-or-nothing
+ * artefact pair (a failed report write rolls back the records).
  */
 
 const tempRoots: string[] = [];
@@ -174,5 +175,19 @@ describe('refound-claim-census over genuine freeze artefacts', () => {
     const summary = await runClaimCensus({ outDirAbs: bareHome, mappingAbsPath: null });
     expect(summary.ok).toBe(false);
     expect(existsSync(path.join(bareHome, CLAIM_CENSUS_BASENAME))).toBe(false);
+  });
+});
+
+describe('runClaimCensus — the all-or-nothing artefact pair', () => {
+  it('rolls back the records when the paired report write fails (nothing remains)', async () => {
+    const fixture = await makeCensusFixture();
+    // Plant the failure: the report destination is a DIRECTORY, so its write fails.
+    await mkdir(path.join(fixture.outDirAbs, CLAIM_CENSUS_REPORT_BASENAME), { recursive: true });
+    const summary = await runClaimCensus({ outDirAbs: fixture.outDirAbs, mappingAbsPath: null });
+    expect(summary.ok).toBe(false);
+    if (!summary.ok) {
+      expect(summary.error.message).toContain('rolled back');
+    }
+    expect(existsSync(path.join(fixture.outDirAbs, CLAIM_CENSUS_BASENAME))).toBe(false);
   });
 });

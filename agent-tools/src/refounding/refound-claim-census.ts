@@ -4,8 +4,6 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
-
 import { scanArgs, type ValueHandler } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
@@ -13,6 +11,7 @@ import { CLAIM_CENSUS_BASENAME } from './refound-claim-census-model.js';
 import { CLAIM_CENSUS_REPORT_BASENAME } from './refound-claim-census-report.js';
 import { runClaimCensus, type ClaimCensusSummary } from './refound-claim-census-helpers.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
+import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
 
 /**
  * `refound-claim-census` — verbatim status-value and completion-keyword
@@ -69,12 +68,7 @@ function parseCensusArgs(argv: readonly string[]): Result<CensusArgs, Error> {
 
 /** Constrain a flag-supplied path (which must exist) to the repository. */
 function resolveWithinRepo(flagPath: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, flagPath), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
+  return resolveReadPathWithinRepo(repoRoot, flagPath);
 }
 
 /** The entry's decided verdict: the exit code and the exact operator lines. */

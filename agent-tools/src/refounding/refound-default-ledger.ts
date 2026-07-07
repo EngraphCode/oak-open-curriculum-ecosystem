@@ -4,14 +4,13 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
-
 import { scanArgs } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { runDefaultLedger } from './refound-default-ledger-helpers.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
 import { DEFAULT_BLOCK_DISPOSITION, LEDGER_DIR_SEGMENT } from './refound-ledger-row.js';
+import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
 
 /**
  * `refound-default-ledger` — the per-area sentinel-ledger emitter (a
@@ -28,7 +27,7 @@ import { DEFAULT_BLOCK_DISPOSITION, LEDGER_DIR_SEGMENT } from './refound-ledger-
  * target ledger.
  *
  * Flags: `--out <dir>` (default `.agent/plans-refounding`), constrained to
- * the repository (`@oaknational/safe-path`).
+ * the repository (`refound-path-resolve`).
  *
  * @packageDocumentation
  */
@@ -59,12 +58,7 @@ function parseEmitterArgs(argv: readonly string[]): Result<{ outDir: string }, E
 
 /** Constrain the artefact home (which must exist to be readable) to the repo. */
 function resolveOutDir(outDirFlag: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, outDirFlag), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
+  return resolveReadPathWithinRepo(repoRoot, outDirFlag);
 }
 
 async function main(): Promise<void> {
