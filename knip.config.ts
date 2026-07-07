@@ -107,6 +107,7 @@ const config: KnipConfig = {
         'src/refounding/refound-merge-recheck.ts',
         'src/refounding/refound-tile.ts',
         'src/refounding/refound-default-ledger.ts',
+        'src/refounding/refound-claim-census.ts',
         // Corpus-analysis workflow stage entries: consumed by esbuild as string
         // entry points in workflows/build/workflow-builder.ts (bundled into
         // self-contained harness artefacts), which knip cannot trace as imports.

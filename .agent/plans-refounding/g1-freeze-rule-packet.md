@@ -4,11 +4,19 @@
 > [`plan-corpus-refounding.plan.md`](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
 > §Owner-gate register (G1 row) and the
 > [design record](../reports/agentic-engineering/plan-estate-refounding-design-2026-07-06.md).
-> Drafted 2026-07-06 by Stoat rides Gloaming (432a41). Every measured number below is
-> **indicative at draft time**; the binding denominator is recomputed by `refound-freeze`
-> at S0 (P2). The machine form of §1 is [`freeze-rule.json`](./freeze-rule.json) (v1 draft,
-> `ratifiedBy: null` until this sitting; the freeze script refuses to run on an
-> unratified rule).
+> Drafted 2026-07-06 by Stoat rides Gloaming (432a41); schema-v2 parse target trued
+> 2026-07-07 by Leopard spins Moonrise (b07d1d) after cycle 1 landed. Every measured
+> number below is **indicative at draft time**; the binding denominator is recomputed by
+> `refound-freeze` at S0 (P2). The machine form of §1 is
+> [`freeze-rule.json`](./freeze-rule.json) (draft, `ratifiedBy: null` until this sitting;
+> the freeze script refuses to run on an unratified rule). **Parse target of the ratified
+> rule: freeze-rule schema v2** (`agent-tools/src/refounding/freeze-rule-schema.ts`, the
+> landed v1|v2 discriminated union) — ratifying §5's path-scoped sanctioned-writer
+> classes fills v2's required `sanctionedWriters` array (`{ id, globs, reason }`, strict,
+> all non-empty), whose globs follow from the §4 rooting ratified at this sitting. A rule
+> ratified without path-scoped classes stays a valid v1 document; `refound-merge-recheck`
+> consumes the classes to classify matching deltas `sanctioned` (reported separately,
+> never silent, never auto-frozen).
 
 ## 1. Surface-class verdict table (ratification item 1)
 
@@ -49,6 +57,23 @@ SUBSTRING matching; stems capture derived forms (over-capture is conservation-sa
 adjudication filters).
 
 Owner question 2: ratify the Net-C list.
+
+### 2a. Census completion-keyword list (ratification item 2a — C2, added with R0a cycle 3)
+
+`refound-claim-census` extracts completion-claim lines through a second placed-judgement
+list (versioned in-script as `COMPLETION_KEYWORDS_V1`, same mechanics as Net C:
+case-insensitive substring MATCH, verbatim CAPTURE, non-fenced lines only; over-capture
+is conservation-safe — adjudication filters). Ordered by measured frequency in the live
+plans estate (2026-07-07):
+
+`completed`, `complete`, `landed`, `closed`, `resolved`, `archived`, `superseded`,
+`done`, `merged`, `retired`, `implemented`, `executed`, `shipped`
+
+The C2 planted-defect proof pins both directions (a planted completion line is caught; a
+misspelt one is not). Changes after ratification = versioned amendment plus
+re-ratification plus discrimination-proof re-run.
+
+Owner question 2a: ratify the census completion-keyword list.
 
 ## 3. Residue-orphan bounds (ratification item 3)
 
@@ -96,6 +121,14 @@ Writes inside the frozen denominator that are protocol-authored, never arrivals:
 
 Everything else arriving on `in` surfaces post-S0 is an arrival: `refound-merge-recheck`
 flags it; the G3 routing table disposes it.
+
+**Machine form (schema v2, landed with R0a cycle 1):** classes 1 and 3 are PATH-scoped
+and become the ratified rule's v2 `sanctionedWriters` entries (`{ id, globs, reason }`;
+globs concretised from the §4 rooting this sitting ratifies). Class 2
+(`ratified-banner-diff`) is CONTENT-scoped and deliberately absent from v2:
+banner-awareness stays strict byte identity for the whole tranche-3 horizon (banners
+cannot exist before the R2 F4 policy), and the banner diff class lands as its own schema
+version bump WITH that policy.
 
 Owner question 5: ratify the three classes.
 

@@ -45,6 +45,7 @@
     "refound-sweep": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-sweep.ts",
     "refound-plant-orphan": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-plant-orphan.ts",
     "refound-plant-challenge-canary": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-plant-challenge-canary.ts",
+    "refound-claim-census": "cd .. && pnpm exec tsx agent-tools/src/refounding/refound-claim-census.ts",
     "check-blocked-patterns": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-patterns.ts",
     "check-encoding": "cd .. && node agent-tools/dist/src/encoding/check-encoding.js",
     "check-blocked-content": "cd .. && pnpm exec tsx agent-tools/src/hook-policy/check-blocked-content.ts",

@@ -144,12 +144,29 @@ export interface LineNets {
 }
 
 /**
- * Run all three nets over one file's decoded line texts, returning only the
- * captured lines (the file's anchors) with their per-net attribution.
+ * One line the fence blackout lets a scanner see: fenced code content is
+ * absent by construction, fence delimiters are surfaced flagged (they are
+ * Net-A structure, never keyword-scannable content), and frontmatter lines
+ * are surfaced as scannable (they carry `status:` fields and stay eligible
+ * for keyword nets — see the module remarks).
  */
-export function scanFileLines(lineTexts: readonly string[]): readonly LineNets[] {
+export interface ScannableLine {
+  readonly line: number;
+  readonly text: string;
+  readonly inFrontmatter: boolean;
+  readonly isFenceDelimiter: boolean;
+}
+
+/**
+ * The ONE fence-blackout walk every line-scanner shares (the inventory nets
+ * and the claim census apply different predicates over the same blackout
+ * semantics — consolidated at the second consumer): leading frontmatter is
+ * scannable, fence delimiters toggle the blackout and surface flagged, and
+ * fenced content lines are omitted entirely.
+ */
+export function listScannableLines(lineTexts: readonly string[]): readonly ScannableLine[] {
   const frontmatterEnd = frontmatterEndLine(lineTexts);
-  const captures: LineNets[] = [];
+  const scannable: ScannableLine[] = [];
   let inCodeFence = false;
   for (let index = 0; index < lineTexts.length; index += 1) {
     const line = index + 1;
@@ -158,15 +175,31 @@ export function scanFileLines(lineTexts: readonly string[]): readonly LineNets[]
     if (!inFrontmatter && CODE_FENCE_PATTERN.test(text)) {
       // Fence delimiters are Net A structure; the state toggles on the line.
       inCodeFence = !inCodeFence;
-      captures.push({ line, nets: ['A'] });
+      scannable.push({ line, text, inFrontmatter, isFenceDelimiter: true });
       continue;
     }
     if (!inFrontmatter && inCodeFence) {
       continue; // Fenced content is blacked out for every net (see remarks).
     }
-    const nets = netsForLine(text, inFrontmatter);
+    scannable.push({ line, text, inFrontmatter, isFenceDelimiter: false });
+  }
+  return scannable;
+}
+
+/**
+ * Run all three nets over one file's decoded line texts, returning only the
+ * captured lines (the file's anchors) with their per-net attribution.
+ */
+export function scanFileLines(lineTexts: readonly string[]): readonly LineNets[] {
+  const captures: LineNets[] = [];
+  for (const scannable of listScannableLines(lineTexts)) {
+    if (scannable.isFenceDelimiter) {
+      captures.push({ line: scannable.line, nets: ['A'] });
+      continue;
+    }
+    const nets = netsForLine(scannable.text, scannable.inFrontmatter);
     if (nets.length > 0) {
-      captures.push({ line, nets });
+      captures.push({ line: scannable.line, nets });
     }
   }
   return captures;
