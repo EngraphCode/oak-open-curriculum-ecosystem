@@ -131,6 +131,16 @@ export function renderJsonArtefact(value: unknown): string {
 }
 
 /**
+ * Render a JSONL artefact: one compact JSON document per record, each line
+ * LF-terminated (`inventory.v1.jsonl`, `sweep/sweep-hits.v1.jsonl`). Key
+ * order follows construction order, which the builders keep fixed — the same
+ * byte-determinism contract as {@link renderJsonArtefact}.
+ */
+export function renderJsonlArtefact(records: readonly unknown[]): string {
+  return records.map((record) => `${JSON.stringify(record)}\n`).join('');
+}
+
+/**
  * Compare strings by UTF-16 code units — deliberately NOT `localeCompare`,
  * whose order varies by locale and would break the byte-determinism contract
  * for sorted artefact file lists. (Astral-plane characters order by their
@@ -151,6 +161,41 @@ export function compareByCodeUnit(a: string, b: string): number {
  */
 export function sha256Hex(bytes: Uint8Array): string {
   return createHash('sha256').update(bytes).digest('hex');
+}
+
+/**
+ * SHA-1 of raw bytes as lowercase hex — the per-line digest recorded in
+ * `inventory.v1.jsonl` and `sweep/sweep-hits.v1.jsonl` (F1 §3). SHA-1 is a
+ * content fingerprint for line-level dedup and diffing, not a security
+ * boundary; whole-file identity stays on {@link sha256Hex}.
+ */
+export function sha1Hex(bytes: Uint8Array): string {
+  return createHash('sha1').update(bytes).digest('hex');
+}
+
+/**
+ * Split raw bytes into one buffer per line by the SAME LF-split definition
+ * {@link countLines} counts by: the LF terminator is not part of the line, a
+ * CR before it is (no EOL normalisation, F1 D7), and a trailing LF does not
+ * open an empty final line. `splitLineBytes(bytes).length` always equals
+ * `countLines(bytes)`.
+ */
+export function splitLineBytes(bytes: Uint8Array): readonly Uint8Array[] {
+  if (bytes.length === 0) {
+    return [];
+  }
+  const lines: Uint8Array[] = [];
+  let lineStart = 0;
+  for (let index = 0; index < bytes.length; index += 1) {
+    if (bytes[index] === 0x0a) {
+      lines.push(bytes.subarray(lineStart, index));
+      lineStart = index + 1;
+    }
+  }
+  if (lineStart < bytes.length) {
+    lines.push(bytes.subarray(lineStart));
+  }
+  return lines;
 }
 
 /**

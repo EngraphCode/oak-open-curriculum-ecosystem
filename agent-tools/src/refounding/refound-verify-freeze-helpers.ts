@@ -51,8 +51,13 @@ export interface VerifyFreezeInput {
   readonly outDirAbs: string;
 }
 
-/** Read and parse the committed denominator artefact as a `Result`. */
-async function readDenominator(outDirAbs: string): Promise<Result<Denominator, Error>> {
+/**
+ * Read and parse the committed denominator artefact as a `Result`. Shared by
+ * the verifier and the downstream inventory/residue runners
+ * (`consolidate-at-second-consumer`) — every consumer divides by the same
+ * artefact through the same strict boundary.
+ */
+export async function readDenominator(outDirAbs: string): Promise<Result<Denominator, Error>> {
   const denominatorAbsPath = path.join(outDirAbs, DENOMINATOR_BASENAME);
   let text: string;
   try {

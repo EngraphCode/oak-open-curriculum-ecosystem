@@ -43,6 +43,11 @@ vocabulary (two status vocabularies, V0 axes, PDR-018 gate/promotion language).
 Changes after ratification = versioned amendment + re-ratification +
 discrimination-proof re-run.
 
+The list applies to non-fenced lines only — fenced code content captures nothing on
+any net and clusters to its opening-fence anchor (F1 §9). Matching is case-insensitive
+SUBSTRING matching; stems capture derived forms (over-capture is conservation-safe;
+adjudication filters).
+
 Owner question 2: ratify the Net-C list.
 
 ## 3. Residue-orphan bounds (ratification item 3)
@@ -108,6 +113,8 @@ Sweep-net candidate marker set (J1, drafted; ratify with this packet):
 `todo`, `next step`, `not yet`, `pending`, `blocked`, `open question`, `unresolved`,
 `follow-up`, `deferred`, `still needs`, `remaining`, `incomplete`, `carry-over`,
 `promotion trigger`, `reopen`.
+
+The sweep scans every non-binary file on the sweep surfaces, all extensions.
 
 Owner question 6: reader-sample cure at declared rate, OR sign the single-net residue
 declaration knowingly.

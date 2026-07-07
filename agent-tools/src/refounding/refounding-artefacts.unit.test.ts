@@ -7,7 +7,10 @@ import {
   countLines,
   parseDenominator,
   parseFreezeIdentityProof,
+  renderJsonlArtefact,
+  sha1Hex,
   sha256Hex,
+  splitLineBytes,
 } from './refounding-artefacts.js';
 
 const SHA256_EMPTY = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
@@ -17,6 +20,48 @@ describe('sha256Hex', () => {
   it('matches known SHA-256 vectors', () => {
     expect(sha256Hex(Buffer.from(''))).toBe(SHA256_EMPTY);
     expect(sha256Hex(Buffer.from('abc'))).toBe(SHA256_ABC);
+  });
+});
+
+describe('renderJsonlArtefact', () => {
+  it('renders one JSON document per line, each LF-terminated, no indentation', () => {
+    expect(renderJsonlArtefact([])).toBe('');
+    expect(renderJsonlArtefact([{ a: 1 }, { b: 'x' }])).toBe('{"a":1}\n{"b":"x"}\n');
+  });
+});
+
+describe('sha1Hex', () => {
+  it('matches known SHA-1 vectors', () => {
+    expect(sha1Hex(Buffer.from(''))).toBe('da39a3ee5e6b4b0d3255bfef95601890afd80709');
+    expect(sha1Hex(Buffer.from('abc'))).toBe('a9993e364706816aba3e25717850c26c9cd0d89d');
+  });
+});
+
+describe('splitLineBytes', () => {
+  it('splits by LF into one buffer per counted line, excluding the LF byte', () => {
+    expect(splitLineBytes(Buffer.from(''))).toEqual([]);
+    expect(splitLineBytes(Buffer.from('a'))).toEqual([Buffer.from('a')]);
+    expect(splitLineBytes(Buffer.from('a\n'))).toEqual([Buffer.from('a')]);
+    expect(splitLineBytes(Buffer.from('a\nb'))).toEqual([Buffer.from('a'), Buffer.from('b')]);
+    expect(splitLineBytes(Buffer.from('a\n\nb\n'))).toEqual([
+      Buffer.from('a'),
+      Buffer.from(''),
+      Buffer.from('b'),
+    ]);
+  });
+
+  it('keeps CR bytes as line content (no EOL normalisation, D7)', () => {
+    expect(splitLineBytes(Buffer.from('a\r\nb\r\n'))).toEqual([
+      Buffer.from('a\r'),
+      Buffer.from('b\r'),
+    ]);
+  });
+
+  it('always agrees with countLines on the number of lines', () => {
+    for (const text of ['', 'a', 'a\n', 'a\nb', 'a\nb\n', '\n', 'a\r\nb']) {
+      const bytes = Buffer.from(text);
+      expect(splitLineBytes(bytes)).toHaveLength(countLines(bytes));
+    }
   });
 });
 

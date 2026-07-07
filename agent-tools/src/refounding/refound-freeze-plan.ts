@@ -67,8 +67,12 @@ export interface FreezePlan {
   readonly frozenRootAbs: string;
 }
 
-/** Read and parse the rule document from disk as a `Result`. */
-async function readRule(ruleAbsPath: string): Promise<Result<FreezeRule, Error>> {
+/**
+ * Read and parse the rule document from disk as a `Result`. Shared with the
+ * sweep and plant runners (`consolidate-at-second-consumer`) — every
+ * consumer reads the rule through the same strict boundary.
+ */
+export async function readRule(ruleAbsPath: string): Promise<Result<FreezeRule, Error>> {
   let text: string;
   try {
     text = await readFile(ruleAbsPath, 'utf8');
