@@ -51,3 +51,77 @@ New session observations append below.
   defect (the same discipline authored into two homes plus a third existing one) that I had
   written fluently; the fix (one canonical home + pointers) landed before the commit. Reviewer
   convergence on the same defect from four genuinely distinct lenses is the strong signal form.
+
+## 2026-07-06 — Zenith wakes Perigee: handoff loss-scan captures
+
+- **7c thread-register audit findings (owner attention, from the dedicated pass):**
+  (1) `agentic-mechanisms-discovery` last_session 2026-06-08 — 28 days stale on the Active
+  table; (2) `eslint-no-throw-result-migration` 2026-06-19 — 17 days stale; (3) two COMPLETE
+  threads still listed Active (`reasoning-grammar`, `user-search-not-exposed-until-built` —
+  both landed, push pending) — retirement/paused-move candidates at the next continuity touch.
+  Coverage bound, honestly: checks 1/5/6 ran in full; checks 2–4 (orphan tables, missing
+  identity fields, duplicate rows) were spot-sampled, not exhaustive — a future audit should
+  not read this pass as full 7c coverage.
+- **7d residue:** the abandoned+expired Zodiac commit-queue intent (b19b15f7) was deliberately
+  LEFT in `active-claims.json` — a direct jq wipe was classifier-denied as shared-state
+  destruction (correct call: no owner direction named it). Phase=abandoned + expired = harmless;
+  clear it at the next owner-authorised collaboration-state write. Evidence for its
+  completedness: Zodiac's closeout 16:38/16:57Z + merged PRs #310/#312.
+- **Cross-estate host-load serialization worked (novel coordination shape, single instance):**
+  three heavy gate chains (two oak sessions + a resonance-estate merge, invisible to each
+  other's streams) converged on one host at 1-min load ~19; the exchange seat (Kiln) relayed a
+  one-heavy-chain-at-a-time sequencing between the estates' streams ("announce chain-start on
+  your home stream; hold while 1-min load >12 at start"). candidate: pattern/PDR if a second
+  instance recurs — the relay-seat-as-load-coordinator is the interesting part.
+- **Quorum operating economics (sizing knowledge for future dedicated passes):** a PDR-101
+  four-seat quorum over a ~20-file doctrine batch ran ~70–120K tokens/seat, ~5–7 min
+  wall-clock in parallel, and each batch produced 1–4 genuinely batch-altering findings —
+  worth the cost at doctrine-batch scale, oversized for a one-file graduation.
+- **My own F-125 bit me ~10 minutes after I registered it** (cwd drifted to threads/ from an
+  earlier `cd`, breaking a repo-root grep) — live recurrence evidence that vigilance does not
+  cure this class; the structural cure (location-independent gate scripts) is the point.
+- **Transient `.git/index.lock` collision under a peer's worktree ops**: cleared itself under
+  the no-contact posture (third recorded instance; diagnose-without-touching then retry holds).
+
+## 2026-07-06 — Zenith wakes Perigee: the wall-clock perf-test ruling (owner-surfaced)
+
+- **Owner diagnosis on a full-gate red**: "nothing that takes 700ms to run 12 tests is a real
+  unit test, there are some SLOW tests in there" — my first disposition (load flake, re-run) was
+  insufficient; the flake was a SYMPTOM. test-expert ruling (rulings-as-artefacts shape):
+  defect class = **wall-clock ceiling in a gated in-process test** (`toBeLessThan(500)` ms is
+  nondeterministic pass/fail across environments — the same defect class as a conditional test,
+  expressed through the assertion's value; any finite ceiling fails under sufficient
+  contention). Cure = DELETE (no deterministic assertion is recoverable from wall-clock; a
+  benchmark instrument is the conformant home for a genuinely-owned cost budget). Must-not:
+  raise the ceiling, retry-wrap, tolerance-band, relative bounds, or slice the corpus out of
+  behavioural tests. Landed: three deletions in graph-corpus-sdk (misconception/keyword/
+  prior-knowledge view suites), 100/100 green. The real-corpus import design itself was ruled
+  CONFORMANT and stays (Real-Content Backstops; discriminating fixtures done well).
+- **Two ruled follow-ups routed, NOT landed (owning lane's call):** (1) an on-demand cold-import
+  benchmark instrument (fresh-process measurement, script surface, reporting-not-gating) — only
+  if a real consumer-facing startup budget exists; (2) the dominant suite import cost is
+  ADR-086 per-node load-time validation of the ~27MB corpus at every consumer import — whether
+  that validation belongs fully at generation time (ADR-031 heavy-lifting-at-codegen) with a
+  minimal load-time assertion is a product/pipeline design question for the graph-corpus/
+  sdk-codegen estate. candidate: route to the owning lane at its next touch.
+
+## 2026-07-06 — Stoat rides Gloaming (432a41, plan-corpus refounding R0 successor): session observations
+
+- **The primary checkout's working tree mutated under me at session open**: ~56k generated SDK
+  lines (`packages/sdks/oak-sdk-codegen/src/types/generated/**`) showed deleted then restored
+  within ~2 min — an in-flight codegen/gate cycle from a concurrent seat (host 1-min load 66→90
+  on 8 cores, 0% CPU idle, memory pressure green). Behaviour note: a git-status snapshot taken
+  during a peer's codegen window is not tree truth; re-check before classifying dirt. Held all
+  heavy chains per the one-heavy-chain agreement. (Same window: a napkin append collided with a
+  live peer write — re-read-then-append held.)
+- **P2's sanctioned-writer/re-derivation clause earned its place before the protocol even ran**:
+  the surface census drifted design→now (618→619 plans md; ~20→29 plans non-md; 65→66 prompts —
+  the +1 prompt IS the R0 session opener authored for this seat). Every G1-packet number is
+  labelled indicative; the freeze script's recomputation is the only binding denominator.
+- **The standby / successor-in-waiting seat contract ran clean end-to-end**: watcher +
+  team-start registration, no heartbeat, no claim → the predecessor's SUCCESSOR RUNWAY
+  broadcast carried the full pickup contract (grounding pointer, GATED-until-runway-clear list,
+  boundaries, commit craft) → adoption = ACK broadcast + claim open in one move, n=2
+  owner-visible declared. The explicit gated-stage list let the successor ground fully and
+  draft the G1 packet + R0c ledger during the predecessor's heavy-chain window with zero
+  collision risk. candidate: pattern if a second runway handoff recurs.

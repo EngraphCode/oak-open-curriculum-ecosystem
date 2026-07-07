@@ -28,6 +28,7 @@ Supersedes the retired `main-critical-sonar-remediation` lane.
 | claude | claude-opus-4-8[1m] | 547586 | Alder tracks Topsoil | implementer | 2026-06-26 | 2026-06-26 |
 | claude | unknown | 483d97 | Gull tracks Eyrie | implementer | 2026-06-27 | 2026-06-27 |
 | claude-code | claude-fable-5 | 477cba | Katydid seeks Moonbeam | implementer | 2026-07-06 | 2026-07-06 |
+| claude-code | claude-fable-5 | 8897eb | Zenith wakes Perigee | curator (record touch: drift-guard follow-on + rule-name fix) | 2026-07-06 | 2026-07-06 |
 
 (Gull tracks Eyrie's row reconstructed 2026-07-06 from this record's own lane-state prose —
 the 2026-06-27 session omitted it; model not recorded there, so marked unknown.)

@@ -2776,7 +2776,9 @@ commit SHA and the closing plan reference.
   alien whole-estate failures as lane failures. Vigilance ("always prefix cd") demonstrably
   leaks under load — PDR-089 class.
 - **Candidate cure**: root-level location-independent gate scripts (e.g. `pnpm demo:gates`)
-  that own their own `cd`; Monitor loops carry an explicit `cd <repo-root>` inside the loop.
+  that own their own `cd`; Monitor loops carry an explicit `cd` to the repo root inside the
+  loop — in any committed template resolve it via `git rev-parse --show-toplevel`, never a
+  literal path (`no-machine-local-paths`).
 - **Status**: open — structural cure not built; three independent data points recorded.
 - **Owner direction status**: standing (record-all-frictions).
 
