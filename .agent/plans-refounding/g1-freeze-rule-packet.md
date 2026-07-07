@@ -159,3 +159,14 @@ gate exclusions with reasons, secret-scan attestation, commit window) and G3
 (arrivals-routing table) follow R0a; Walk A owns lane taxonomy; OG-2 (status-mapping
 table v1) and OG-3 (warn→enforce escalation) ride their own packets per the F5
 design (OG-1 was signed as part of V0.1).
+
+## 8. Riding agenda (non-binding; owner-directed 2026-07-07)
+
+One discussion item rides the G1 sitting without being a ratification item: the
+owner's **structural convictions and expected-shape priors** for the
+post-refounding corpus — gathered here so they can land in VISION/strategy (or be
+recorded as derivation inputs) BEFORE the R2 lane-seed derivation runs. This is
+input-gathering only: the binding organisational-structure decision is Walk A's
+lane-taxonomy ratification (with the R1 source denominator + census/divergence
+report as sitting inputs), and post-corpus size numbers stay priors until G-SP3
+presents the projection from pilot-measured merge/supersede/disposition rates.

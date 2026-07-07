@@ -295,12 +295,12 @@ Segmentation, classification, summary wording, and disposition are NOT worker wo
 | Gate | Content | When |
 | --- | --- | --- |
 | G0 | Commission — recorded 2026-07-06 (this plan); gate content settles at G1 | done |
-| G1 | Freeze-rule ratification: surface-class verdict table with sub-reasons; Net-C keyword list; residue-orphan bounds; destination-corpus rooting as a named freeze-rule class; sanctioned-writer classes; the sweep single-net residue declaration (signed knowingly or cured by the reader sample) | R0→R1 boundary |
+| G1 | Freeze-rule ratification: surface-class verdict table with sub-reasons; Net-C keyword list; residue-orphan bounds; destination-corpus rooting as a named freeze-rule class; sanctioned-writer classes; the sweep single-net residue declaration (signed knowingly or cured by the reader sample). Riding agenda (non-binding, owner-directed 2026-07-07): the owner's structural convictions + expected-shape priors for the post-refounding corpus, as R2 lane-seed derivation inputs | R0→R1 boundary |
 | G-ADR | **Decision-level ADR-200 amendment — RATIFIED (owner, 2026-07-06, formal question put and answered)**: the Q3 boundary re-ruling (corpus refounding precedes the graph; WS6 harvests the refounded corpus PLUS the frozen archive via binding-clause provenance edges), the audit-composition ruling, and the V0.1 sign-off (proof-typed todos; the `pending`-sentinel/lane rule; `permanent-home-routed`) — all three V0.1 items signed. Landed: ADR-200 §Consequences Amendment + §Sequence note; V0 schema V0.1 block | done |
 | G2 | S0 landing sanction: denominator totals, scoped gate exclusions with reasons, secret-scan attestation, declared commit window | R1 |
 | G3 | Arrivals-routing table (what auto-freezes vs per-arrival ruling) | R1 |
-| Walk A | Lane-taxonomy ratification from staged evidence (pilot + top-down seed; non-pilot lanes candidate-status) + escalation-thinning policy tables | R2 |
-| G-SP3 | Scale-up sanction on the RE-PRICED declaration (fixed vs marginal; ruling-demand sizing from pilot actuals) | R3→R4 boundary |
+| Walk A | Lane-taxonomy ratification from staged evidence (pilot + top-down seed; non-pilot lanes candidate-status) + escalation-thinning policy tables. This sitting IS the binding post-refounding organisational-structure decision; the R1 source denominator + census/divergence report are presented as sitting inputs (owner-directed 2026-07-07) | R2 |
+| G-SP3 | Scale-up sanction on the RE-PRICED declaration (fixed vs marginal; ruling-demand sizing from pilot actuals). Also presents the post-corpus size projection — source denominator × pilot-measured merge/supersede/disposition rates — the expected-numbers moment (owner-directed 2026-07-07) | R3→R4 boundary |
 | Ruling batches | Batched mid-flight rulings (≤15/batch; includes per-tranche cutover sanctions) | R4–R5 |
 | Walk C | Final ratification against recomputed state | R6 |
 
