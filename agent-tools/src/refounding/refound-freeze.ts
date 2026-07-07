@@ -16,7 +16,7 @@ import {
 import {
   makeGitleaksSecretScan,
   probeGitleaksVersion,
-  resolveGitleaksBin,
+  resolveTrustedGitleaks,
 } from './refound-gitleaks.js';
 import { runFreeze } from './refound-freeze-runner.js';
 import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
@@ -105,7 +105,7 @@ function prepareFreeze(args: FreezeArgs): Result<FreezeSetup, Error> {
  * attestation line; any refusal surfaces as `Err` before the freeze starts.
  */
 function preparePinnedSecretScan(): Result<SecretScan, Error> {
-  const gitleaksBin = resolveGitleaksBin(process.env.PATH);
+  const gitleaksBin = resolveTrustedGitleaks();
   if (isErr(gitleaksBin)) {
     return gitleaksBin;
   }

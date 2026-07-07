@@ -1,9 +1,10 @@
 import { spawnSync } from 'node:child_process';
-import { accessSync, constants, existsSync, statSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { type PathExists } from '../core/path-exists.js';
 import {
   buildGitleaksDirArgs,
   GITLEAKS_LEAK_EXIT_CODE,
@@ -12,41 +13,46 @@ import {
 
 /**
  * The pinned-gitleaks scanner seam for `refound-freeze` (F1 §8.3): resolve
- * the binary from `PATH` exactly once, probe its version for the run's
- * attestation line, and build the per-file scan closure over the resolved
- * ABSOLUTE path — no spawn ever searches `PATH` again (S4036), and the run
- * names one pinned binary. The invocation shape itself stays in
- * `refound-freeze-helpers.ts` (`buildGitleaksDirArgs`).
+ * the binary from a fixed allowlist of well-known directories exactly once
+ * — NEVER via `PATH` (the repository's established S4036 hardening; see
+ * `core/trusted-git.ts` and `core/trusted-gh.ts`, whose reasoning this
+ * third sibling mirrors) — probe its version for the run's attestation
+ * line, and build the per-file scan closure over the resolved ABSOLUTE
+ * path. The invocation shape itself stays in `refound-freeze-helpers.ts`
+ * (`buildGitleaksDirArgs`).
  *
  * @packageDocumentation
  */
 
+/** Fixed, well-known directories that may hold `gitleaks` (searched by absolute path, never via `PATH`). */
+const TRUSTED_GITLEAKS_DIRS = ['/opt/homebrew/bin', '/usr/local/bin', '/usr/bin', '/bin'] as const;
+
 /**
- * Resolve the `gitleaks` binary to an ABSOLUTE path by walking a `PATH`
- * value ONCE — every scan process then spawns the resolved path, never a
- * bare name (S4036: no per-spawn `PATH` re-search across the ~two scans per
- * corpus file, and the run's attestation names ONE pinned binary). The
- * caller's `PATH` is honoured exactly once, at this single auditable point;
- * a missing binary is a refusal. Exported for the discrimination proof.
+ * Resolve the absolute path to `gitleaks` from the fixed allowlist
+ * {@link TRUSTED_GITLEAKS_DIRS} — the repository's established S4036 fix in
+ * code (a caller-influenced `PATH` is the hijacking hole itself, so
+ * resolution never consults it; the security property is the fixed
+ * absolute path, not any guarantee the directories are non-writable). A
+ * gitleaks living only elsewhere (asdf/mise shims, the Nix store, a custom
+ * prefix) is a loud refusal naming the remedy, never an unverified path.
+ * Exported for the discrimination proof.
+ *
+ * @param exists - Existence probe; defaults to `node:fs` `existsSync`.
  */
-export function resolveGitleaksBin(envPath: string | undefined): Result<string, Error> {
-  const entries = (envPath ?? '').split(path.delimiter).filter((entry) => entry !== '');
-  for (const entry of entries) {
-    const candidate = path.resolve(entry, 'gitleaks');
-    try {
-      if (!statSync(candidate).isFile()) {
-        continue;
-      }
-      accessSync(candidate, constants.X_OK);
+export function resolveTrustedGitleaks(exists: PathExists = existsSync): Result<string, Error> {
+  for (const dir of TRUSTED_GITLEAKS_DIRS) {
+    const candidate = `${dir}/gitleaks`;
+    if (exists(candidate)) {
       return ok(candidate);
-    } catch {
-      continue; // Not present (or not executable) in this entry — keep walking.
     }
   }
   return err(
     new Error(
-      'gitleaks not found on PATH — the secret scan cannot run; install gitleaks or add its ' +
-        'directory to PATH',
+      `No trusted gitleaks binary found. Searched: ${TRUSTED_GITLEAKS_DIRS.join(', ')}. ` +
+        'gitleaks is resolved by a fixed absolute path from these well-known directories ' +
+        '(never via PATH) to defeat PATH-search hijacking (SonarCloud S4036). If gitleaks is ' +
+        'installed elsewhere (asdf/mise, Nix, a custom prefix), symlink it into one of those ' +
+        'directories.',
     ),
   );
 }

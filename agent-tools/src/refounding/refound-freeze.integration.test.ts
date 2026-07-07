@@ -11,7 +11,7 @@ import {
   parseDenominator,
   parseFreezeIdentityProof,
 } from './refounding-artefacts.js';
-import { probeGitleaksVersion, resolveGitleaksBin } from './refound-gitleaks.js';
+import { probeGitleaksVersion, resolveTrustedGitleaks } from './refound-gitleaks.js';
 import { type SecretScan } from './refound-freeze-helpers.js';
 import { partialMarkerPath } from './refound-freeze-plan.js';
 import { runFreeze } from './refound-freeze-runner.js';
@@ -425,36 +425,33 @@ describe('runFreeze — secret-scan ordering and rollback', () => {
 });
 
 describe('gitleaks resolution (the pinned-binary attestation seam)', () => {
-  it('resolves an executable gitleaks from a PATH walk to its absolute path, once', async () => {
-    const binDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-bin-'));
-    tempRoots.push(binDir);
-    const emptyDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-empty-'));
-    tempRoots.push(emptyDir);
-    const fakeBin = path.join(binDir, 'gitleaks');
-    await writeFile(fakeBin, '#!/bin/sh\necho fake-gitleaks 0.0.0-test\n', { mode: 0o755 });
-    const resolved = resolveGitleaksBin([emptyDir, binDir].join(path.delimiter));
+  it('resolves gitleaks from the fixed trusted-directory allowlist, never via PATH', () => {
+    const resolved = resolveTrustedGitleaks((candidate) => candidate === '/usr/local/bin/gitleaks');
     expect(resolved.ok).toBe(true);
     if (resolved.ok) {
-      expect(resolved.value).toBe(fakeBin);
-      const version = probeGitleaksVersion(resolved.value);
-      expect(version.ok).toBe(true);
-      if (version.ok) {
-        expect(version.value).toBe('fake-gitleaks 0.0.0-test');
-      }
+      expect(resolved.value).toBe('/usr/local/bin/gitleaks');
     }
   });
 
-  it('refuses when no PATH entry carries an executable gitleaks (never a bare-name spawn)', async () => {
-    const emptyDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-empty-'));
-    tempRoots.push(emptyDir);
-    const nonExecDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-nonexec-'));
-    tempRoots.push(nonExecDir);
-    await writeFile(path.join(nonExecDir, 'gitleaks'), 'not executable', { mode: 0o644 });
-    const resolved = resolveGitleaksBin([emptyDir, nonExecDir].join(path.delimiter));
+  it('refuses with the symlink remedy when no trusted directory holds gitleaks', () => {
+    const resolved = resolveTrustedGitleaks(() => false);
     expect(resolved.ok).toBe(false);
     if (!resolved.ok) {
-      expect(resolved.error.message).toContain('not found on PATH');
+      expect(resolved.error.message).toContain('No trusted gitleaks binary found');
+      expect(resolved.error.message).toContain('symlink');
     }
-    expect(resolveGitleaksBin(undefined).ok).toBe(false);
+  });
+
+  it('probes the pinned binary for its self-reported version', async () => {
+    const binDir = await mkdtemp(path.join(tmpdir(), 'refound-gitleaks-bin-'));
+    tempRoots.push(binDir);
+    const fakeBin = path.join(binDir, 'gitleaks');
+    await writeFile(fakeBin, '#!/bin/sh\necho fake-gitleaks 0.0.0-test\n', { mode: 0o755 });
+    const version = probeGitleaksVersion(fakeBin);
+    expect(version.ok).toBe(true);
+    if (version.ok) {
+      expect(version.value).toBe('fake-gitleaks 0.0.0-test');
+    }
+    expect(probeGitleaksVersion(path.join(binDir, 'absent')).ok).toBe(false);
   });
 });
