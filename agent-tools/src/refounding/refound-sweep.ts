@@ -4,12 +4,12 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import { scanArgs } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { DEFAULT_OUT_DIR, DEFAULT_RULE_PATH } from './refound-freeze-helpers.js';
+import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
 import { runSweep } from './refound-sweep-helpers.js';
 import { SWEEP_HITS_SEGMENT } from './refound-sweep-model.js';
 
@@ -25,7 +25,9 @@ import { SWEEP_HITS_SEGMENT } from './refound-sweep-model.js';
  *
  * Flags: `--rule <path>` (default `.agent/plans-refounding/freeze-rule.json`)
  * and `--out <dir>` (default `.agent/plans-refounding`), both constrained to
- * the repository (`@oaknational/safe-path`).
+ * the repository with read/write-appropriate resolution
+ * (`refound-path-resolve.ts`): the rule must exist; the out dir need not —
+ * the sweep's write phase creates it.
  *
  * @packageDocumentation
  */
@@ -59,26 +61,22 @@ function parseSweepArgs(
   return ok({ rulePath: scanned.state.rulePath, outDir: scanned.state.outDir });
 }
 
-/** Constrain a flag-supplied path to the repository. */
-function resolveWithinRepo(flagPath: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, flagPath), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
-}
-
-/** Resolve and constrain both flag-supplied paths against the repo root. */
-function resolvePaths(args: {
-  rulePath: string;
-  outDir: string;
-}): Result<{ ruleAbsPath: string; outDirAbs: string }, Error> {
-  const ruleAbsPath = resolveWithinRepo(args.rulePath);
+/**
+ * Resolve and constrain both flag-supplied paths against a repo root: the
+ * rule is a READ target (must exist and canonicalise); the out dir is a
+ * WRITE target (need not exist — `runSweep`'s write phase creates it, so a
+ * leaf `realpath` here would refuse a fresh artefact home before the sweep
+ * could create its own artefacts). Exported for the discrimination proof.
+ */
+export function resolveSweepPaths(
+  rootAbs: string,
+  args: { rulePath: string; outDir: string },
+): Result<{ ruleAbsPath: string; outDirAbs: string }, Error> {
+  const ruleAbsPath = resolveReadPathWithinRepo(rootAbs, args.rulePath);
   if (isErr(ruleAbsPath)) {
     return ruleAbsPath;
   }
-  const outDirAbs = resolveWithinRepo(args.outDir);
+  const outDirAbs = resolveWriteTargetWithinRepo(rootAbs, args.outDir);
   if (isErr(outDirAbs)) {
     return outDirAbs;
   }
@@ -92,7 +90,7 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  const paths = resolvePaths(args.value);
+  const paths = resolveSweepPaths(repoRoot, args.value);
   if (isErr(paths)) {
     writeErrorLine(`${TOOL}: ${paths.error.message}`);
     process.exitCode = 1;

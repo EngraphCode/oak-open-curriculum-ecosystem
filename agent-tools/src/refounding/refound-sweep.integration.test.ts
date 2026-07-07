@@ -5,6 +5,7 @@ import path from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
+import { resolveSweepPaths } from './refound-sweep.js';
 import { runSweep } from './refound-sweep-helpers.js';
 import { parseSweepHit, SWEEP_HITS_SEGMENT, type SweepHit } from './refound-sweep-model.js';
 
@@ -162,5 +163,39 @@ describe('runSweep — refusal chain (nothing written)', () => {
       expect(result.error.message).toContain('no files');
     }
     expect(existsSync(path.join(fixture.outDirAbs, SWEEP_HITS_SEGMENT))).toBe(false);
+  });
+});
+
+describe('resolveSweepPaths (entry-level write-target resolution)', () => {
+  it('accepts a not-yet-existing out dir alongside an existing rule (the sweep creates its own artefact home)', async () => {
+    const rootAbs = await mkdtemp(path.join(tmpdir(), 'refound-sweep-resolve-'));
+    tempRoots.push(rootAbs);
+    await writeFile(path.join(rootAbs, 'freeze-rule.json'), '{}', 'utf8');
+    const resolved = resolveSweepPaths(rootAbs, {
+      rulePath: 'freeze-rule.json',
+      outDir: 'artefacts/fresh-home',
+    });
+    expect(resolved.ok).toBe(true);
+    if (resolved.ok) {
+      expect(resolved.value.outDirAbs).toBe(path.join(rootAbs, 'artefacts/fresh-home'));
+    }
+    expect(existsSync(path.join(rootAbs, 'artefacts'))).toBe(false);
+  });
+
+  it('refuses a `..`-escaping out dir with a containment verdict, and a missing rule', async () => {
+    const rootAbs = await mkdtemp(path.join(tmpdir(), 'refound-sweep-resolve-'));
+    tempRoots.push(rootAbs);
+    await writeFile(path.join(rootAbs, 'freeze-rule.json'), '{}', 'utf8');
+    const escaped = resolveSweepPaths(rootAbs, {
+      rulePath: 'freeze-rule.json',
+      outDir: '../escaped-home',
+    });
+    expect(escaped.ok).toBe(false);
+    if (!escaped.ok) {
+      expect(escaped.error.message).toContain('resolves outside the repository');
+    }
+    expect(resolveSweepPaths(rootAbs, { rulePath: 'absent-rule.json', outDir: '.' }).ok).toBe(
+      false,
+    );
   });
 });
