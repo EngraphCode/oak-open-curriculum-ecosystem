@@ -104,6 +104,14 @@ export async function runChallengeScore(input: {
       ),
     );
   }
+  if (keys.value.value.plantedBlockIds.length === 0) {
+    return err(
+      new Error(
+        'revealed key set contains no planted ids — a vacuous challenge proves nothing (P4); ' +
+          'refusing to score',
+      ),
+    );
+  }
   const findings = await readJsonFile(
     'challenge findings',
     input.findingsAbsPath,

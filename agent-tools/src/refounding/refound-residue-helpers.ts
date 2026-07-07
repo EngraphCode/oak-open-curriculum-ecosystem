@@ -58,7 +58,9 @@ function collectAnchorsByFile(
   relPaths: readonly string[],
   records: readonly InventoryRecord[],
 ): Result<ReadonlyMap<string, readonly number[]>, Error> {
-  const anchorsByFile = new Map<string, number[]>(relPaths.map((relPath) => [relPath, []]));
+  const anchorsByFile = new Map<string, Set<number>>(
+    relPaths.map((relPath) => [relPath, new Set<number>()]),
+  );
   for (const record of records) {
     const anchors = anchorsByFile.get(record.file);
     if (anchors === undefined) {
@@ -69,7 +71,7 @@ function collectAnchorsByFile(
         ),
       );
     }
-    if (anchors.includes(record.line)) {
+    if (anchors.has(record.line)) {
       return err(
         new Error(
           `inventory carries a doubled anchor: '${record.file}' line ${String(record.line)} ` +
@@ -77,9 +79,9 @@ function collectAnchorsByFile(
         ),
       );
     }
-    anchors.push(record.line);
+    anchors.add(record.line);
   }
-  return ok(anchorsByFile);
+  return ok(new Map([...anchorsByFile].map(([file, anchors]) => [file, [...anchors]])));
 }
 
 /**

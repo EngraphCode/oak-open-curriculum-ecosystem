@@ -464,3 +464,32 @@ describe('the all-or-nothing plant artefact pair', () => {
     expect(existsSync(fixture.streamAbsPath)).toBe(false);
   });
 });
+
+describe('the vacuous-challenge refusal (P4)', () => {
+  it('REFUSES to score a committed key set with no planted ids', async () => {
+    const fixture = await makeFixture();
+    await writeFile(
+      fixture.keysAbsPath,
+      renderJsonArtefact({ version: 1, ratePercent: 25, salt: FIXTURE_SALT, plantedBlockIds: [] }),
+      'utf8',
+    );
+    expect(
+      (
+        await runChallengeSeal({
+          keysAbsPath: fixture.keysAbsPath,
+          commitmentAbsPath: fixture.commitmentAbsPath,
+        })
+      ).ok,
+    ).toBe(true);
+    const findingsAbsPath = await writeFindings(fixture, []);
+    const score = await runChallengeScore({
+      findingsAbsPath,
+      keysAbsPath: fixture.keysAbsPath,
+      commitmentAbsPath: fixture.commitmentAbsPath,
+    });
+    expect(score.ok).toBe(false);
+    if (!score.ok) {
+      expect(score.error.message).toContain('vacuous');
+    }
+  });
+});
