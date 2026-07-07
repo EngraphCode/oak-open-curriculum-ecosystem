@@ -8,8 +8,22 @@ import { err, ok, type Result } from '@oaknational/result';
  * @packageDocumentation
  */
 
-const LIST_LINE_PATTERN = /^\s*(?:`[^`]+`\s*,?\s*)+$/;
+const BACKTICK_TOKEN_PATTERN = /^`[^`]+`$/;
 const SECTION_HEADING_PATTERN = /^#{2,3} /;
+
+/**
+ * True when the line is a comma-separated run of backtick tokens. Split
+ * plus a per-part anchored match keeps the check linear — a single
+ * repeated-group regex over the whole line is the exponential-backtracking
+ * shape CodeQL/Sonar flag (S5852).
+ */
+function isListLine(line: string): boolean {
+  const body = line.trim().replace(/,$/, '');
+  if (body === '') {
+    return false;
+  }
+  return body.split(',').every((part) => BACKTICK_TOKEN_PATTERN.test(part.trim()));
+}
 
 /**
  * The first paragraph under `headingPrefix` whose every line is a
@@ -31,7 +45,7 @@ export function extractBacktickListParagraph(
     if (SECTION_HEADING_PATTERN.test(line) && collected.length === 0) {
       break;
     }
-    if (LIST_LINE_PATTERN.test(line)) {
+    if (isListLine(line)) {
       collected.push(line);
       continue;
     }
