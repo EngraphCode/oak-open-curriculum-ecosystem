@@ -110,6 +110,9 @@ const config: KnipConfig = {
         'src/refounding/refound-default-ledger.ts',
         'src/refounding/refound-claim-census.ts',
         'src/refounding/refound-batch-status.ts',
+        // Plan-state recomputation CLI (plan-corpus-refounding R0b):
+        // invoked via `pnpm exec tsx` package scripts, not imported.
+        'src/plan-state/plan-state.ts',
         // Corpus-analysis workflow stage entries: consumed by esbuild as string
         // entry points in workflows/build/workflow-builder.ts (bundled into
         // self-contained harness artefacts), which knip cannot trace as imports.
