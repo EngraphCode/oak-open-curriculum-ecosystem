@@ -47,6 +47,11 @@ supersessions are recorded here and in the design record.
    `agent-tools/package.json`) plus knip entries only — no root aliases (a pre-existing
    tranche-1 divergence, carried forward for tranches 2–3). Invoke the tools by their
    package scripts, not by root aliases that do not exist.
+7. **Per-line digest algorithm** — F1 §3 records SHA-1 per-line digests in
+   `inventory.v1.jsonl` and `sweep-hits.v1.jsonl`; landed = SHA-256 (field `sha256`),
+   one digest primitive estate-wide. SHA-1's weak-hash class is gate-checked
+   (Sonar S4790) and the "fingerprint, not a security boundary" caveat it needed is a
+   caveat a future reader can get wrong; build to SHA-256, not to F1 §3's algorithm.
 
 F1 itself is NEVER edited; every point above is recorded here (and in the design record),
 not patched into the conserved panel input.

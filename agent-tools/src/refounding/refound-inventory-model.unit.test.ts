@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { sha1Hex } from './refounding-artefacts.js';
+import { sha256Hex } from './refounding-artefacts.js';
 import {
   ANCHOR_RATIO_SANITY_BAND_V1,
   buildInventoryRecords,
@@ -11,7 +11,7 @@ import {
 } from './refound-inventory-model.js';
 
 describe('buildInventoryRecords', () => {
-  it('emits verbatim text, raw-byte sha1, and 1-based lines, in line order', () => {
+  it('emits verbatim text, raw-byte sha256, and 1-based lines, in line order', () => {
     const bytes = Buffer.from('# Title\nprose\nstatus: pending\r\n');
     const records = buildInventoryRecords('plans/a.md', bytes);
     expect(records).toEqual([
@@ -20,14 +20,14 @@ describe('buildInventoryRecords', () => {
         line: 1,
         nets: ['A'],
         text: '# Title',
-        sha1: sha1Hex(Buffer.from('# Title')),
+        sha256: sha256Hex(Buffer.from('# Title')),
       },
       {
         file: 'plans/a.md',
         line: 3,
         nets: ['B', 'C'],
         text: 'status: pending\r',
-        sha1: sha1Hex(Buffer.from('status: pending\r')),
+        sha256: sha256Hex(Buffer.from('status: pending\r')),
       },
     ] satisfies InventoryRecord[]);
   });
@@ -43,21 +43,21 @@ describe('parseInventoryRecord', () => {
     line: 1,
     nets: ['A'],
     text: '# Title',
-    sha1: sha1Hex(Buffer.from('# Title')),
+    sha256: sha256Hex(Buffer.from('# Title')),
   });
 
   it('parses a valid record (empty text is legal: a blank frontmatter line)', () => {
     expect(parseInventoryRecord(valid()).ok).toBe(true);
-    expect(parseInventoryRecord({ ...valid(), text: '', sha1: sha1Hex(Buffer.from('')) }).ok).toBe(
-      true,
-    );
+    expect(
+      parseInventoryRecord({ ...valid(), text: '', sha256: sha256Hex(Buffer.from('')) }).ok,
+    ).toBe(true);
   });
 
   it('rejects unknown keys, empty net lists, unknown nets, and malformed digests', () => {
     expect(parseInventoryRecord({ ...valid(), spare: 1 }).ok).toBe(false);
     expect(parseInventoryRecord({ ...valid(), nets: [] }).ok).toBe(false);
     expect(parseInventoryRecord({ ...valid(), nets: ['D'] }).ok).toBe(false);
-    expect(parseInventoryRecord({ ...valid(), sha1: 'abc' }).ok).toBe(false);
+    expect(parseInventoryRecord({ ...valid(), sha256: 'abc' }).ok).toBe(false);
   });
 });
 
@@ -67,7 +67,7 @@ describe('buildNetDiffReport', () => {
     line: number,
     nets: InventoryRecord['nets'],
     text: string,
-  ): InventoryRecord => ({ file, line, nets, text, sha1: sha1Hex(Buffer.from(text)) });
+  ): InventoryRecord => ({ file, line, nets, text, sha256: sha256Hex(Buffer.from(text)) });
 
   it('counts per-net captures and isolates single-net (unique) captures', () => {
     const records = [

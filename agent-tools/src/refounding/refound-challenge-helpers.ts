@@ -1,9 +1,10 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
 import { renderJsonArtefact, renderJsonlArtefact } from './refounding-artefacts.js';
+import { writeArtefactSet } from './refound-artefact-writes.js';
 import {
   buildChallengeKeySet,
   CHALLENGE_STREAM_SEGMENT,
@@ -198,11 +199,16 @@ async function writePlantArtefacts(input: {
   const streamAbsPath = path.join(input.outDirAbs, CHALLENGE_STREAM_SEGMENT);
   try {
     await mkdir(path.dirname(streamAbsPath), { recursive: true });
-    await writeFile(streamAbsPath, renderJsonlArtefact(input.streamRows), 'utf8');
     await mkdir(path.dirname(input.keysOutAbsPath), { recursive: true });
-    await writeFile(input.keysOutAbsPath, renderJsonArtefact(keySet), 'utf8');
-    return ok(undefined);
   } catch (cause: unknown) {
     return err(new Error(`challenge artefact write failed: ${asMessage(cause)}`));
   }
+  const written = await writeArtefactSet([
+    { absPath: streamAbsPath, content: renderJsonlArtefact(input.streamRows) },
+    { absPath: input.keysOutAbsPath, content: renderJsonArtefact(keySet) },
+  ]);
+  if (isErr(written)) {
+    return err(new Error(`challenge ${written.error.message}`));
+  }
+  return ok(undefined);
 }

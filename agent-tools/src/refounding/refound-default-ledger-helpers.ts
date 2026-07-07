@@ -7,7 +7,7 @@ import { compareByCodeUnit, renderJsonlArtefact } from './refounding-artefacts.j
 import { collectAnchorsForFiles } from './refound-anchor-map.js';
 import { buildDefaultLedgerRows } from './refound-default-ledger-model.js';
 import { LEDGER_DIR_SEGMENT, ledgerBasenameForArea, type LedgerRow } from './refound-ledger-row.js';
-import { readInventoryRecords } from './refound-residue-helpers.js';
+import { readInventoryRecords } from './refound-inventory-read.js';
 import { readEffectiveDenominator } from './refound-verify-freeze-helpers.js';
 
 /**

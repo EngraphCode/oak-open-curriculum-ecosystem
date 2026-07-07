@@ -232,7 +232,7 @@ const record = (file: string, line: number): InventoryRecord => ({
   line,
   nets: ['A'],
   text: '# x',
-  sha1: 'b'.repeat(40),
+  sha256: 'b'.repeat(64),
 });
 
 describe('collectAnchorsForFiles — the denominator↔inventory HALT layer', () => {

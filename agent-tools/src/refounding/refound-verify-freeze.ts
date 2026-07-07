@@ -4,11 +4,12 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import { scanArgs } from '../core/cli-arg-parser.js';
 import { resolveRepoRoot } from '../core/repo-root.js';
+
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
+import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
 import { DEFAULT_OUT_DIR } from './refound-freeze-helpers.js';
 import { verifyFreeze, type VerifyReport } from './refound-verify-freeze-helpers.js';
 import { formatViolation } from './refound-verify-freeze-model.js';
@@ -56,12 +57,7 @@ function parseVerifyArgs(argv: readonly string[]): Result<{ outDir: string }, Er
 
 /** Constrain the artefact home (which must exist to be verifiable) to the repo. */
 function resolveOutDir(outDirFlag: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, outDirFlag), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
+  return resolveReadPathWithinRepo(repoRoot, outDirFlag);
 }
 
 /** Print the recomputed verdict; RED lists every violation and exits 1. */

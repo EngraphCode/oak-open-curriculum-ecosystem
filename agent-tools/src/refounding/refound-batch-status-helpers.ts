@@ -26,7 +26,7 @@ import {
   LEDGER_DIR_SEGMENT,
   ledgerBasenameForArea,
 } from './refound-ledger-row.js';
-import { readInventoryRecords } from './refound-residue-helpers.js';
+import { readInventoryRecords } from './refound-inventory-read.js';
 import { runTile } from './refound-tile-helpers.js';
 import { readEffectiveDenominator, verifyFreeze } from './refound-verify-freeze-helpers.js';
 

@@ -1,7 +1,6 @@
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { assertPathWithinBase } from '@oaknational/safe-path';
 
 import { runChallengePlant } from './refound-challenge-helpers.js';
 import {
@@ -10,12 +9,15 @@ import {
   type ChallengeScore,
 } from './refound-challenge-model.js';
 import { runChallengeScore, runChallengeSeal } from './refound-challenge-scoring.js';
+import { resolveReadPathWithinRepo, resolveWriteTargetWithinRepo } from './refound-path-resolve.js';
 
 /**
  * The three CLI modes of `refound-plant-challenge-canary` as
  * operator-message-producing functions, parameterised by the repo root so
  * the entry point stays thin. Every flag-supplied path is constrained to
- * the repository (`@oaknational/safe-path`). The key set NEVER has a
+ * the repository with read/write-appropriate resolution
+ * (`refound-path-resolve.ts`): inputs must exist and canonicalise; output
+ * paths need not exist — the modes create them. The key set NEVER has a
  * default location adjacent to the stream: `--keys-out` (plant) and
  * `--keys` (seal/score) are REQUIRED, because the keys and the sealed salt
  * inside them must sit outside the challenge fleet's read scope.
@@ -42,24 +44,19 @@ export const CANARY_USAGE =
   '[--ledger <path>] [--rate <percent>] [--salt <value>] [--keys-out <path>] ' +
   '[--findings <path>] [--keys <path>] [--commitment <path>] [--out <dir>]';
 
-/** Constrain a flag-supplied path to the repository. */
-function resolveWithinRepo(repoRoot: string, flagPath: string): Result<string, Error> {
-  try {
-    return ok(assertPathWithinBase(path.resolve(repoRoot, flagPath), repoRoot));
-  } catch (cause: unknown) {
-    const message = cause instanceof Error ? cause.message : String(cause);
-    return err(new Error(message));
-  }
-}
-
-/** Resolve a mode file path: explicit flag override, else the out-dir default. */
+/**
+ * Resolve a mode file path: explicit flag override, else the out-dir
+ * default. `resolveWithin` names the read/write semantics: the commitment
+ * is a WRITE target in seal mode but a READ target in score mode.
+ */
 function resolveArtefactPath(
   repoRoot: string,
   override: string,
   outDir: string,
   segment: string,
+  resolveWithin: (repoRoot: string, flagPath: string) => Result<string, Error>,
 ): Result<string, Error> {
-  return resolveWithinRepo(repoRoot, override === '' ? path.join(outDir, segment) : override);
+  return resolveWithin(repoRoot, override === '' ? path.join(outDir, segment) : override);
 }
 
 /**
@@ -78,15 +75,15 @@ export async function runPlantMode(
       new Error(`plant mode requires --ledger, --rate, --salt, and --keys-out\n\n${CANARY_USAGE}`),
     );
   }
-  const ledgerAbsPath = resolveWithinRepo(repoRoot, args.ledgerPath);
+  const ledgerAbsPath = resolveReadPathWithinRepo(repoRoot, args.ledgerPath);
   if (isErr(ledgerAbsPath)) {
     return ledgerAbsPath;
   }
-  const outDirAbs = resolveWithinRepo(repoRoot, args.outDir);
+  const outDirAbs = resolveWriteTargetWithinRepo(repoRoot, args.outDir);
   if (isErr(outDirAbs)) {
     return outDirAbs;
   }
-  const keysOutAbsPath = resolveWithinRepo(repoRoot, args.keysOutPath);
+  const keysOutAbsPath = resolveWriteTargetWithinRepo(repoRoot, args.keysOutPath);
   if (isErr(keysOutAbsPath)) {
     return keysOutAbsPath;
   }
@@ -102,7 +99,8 @@ export async function runPlantMode(
   }
   return ok(
     `planted ${String(summary.value.planted)} of ${String(summary.value.rows)} row(s); ` +
-      `stream at ${CHALLENGE_STREAM_SEGMENT}, KEY SET at ${args.keysOutPath} ` +
+      `stream at ${path.relative(repoRoot, path.join(outDirAbs.value, CHALLENGE_STREAM_SEGMENT))}, ` +
+      `KEY SET at ${args.keysOutPath} ` +
       `(dispatcher-held — keep it outside the challenge fleet's read scope); ` +
       `seal it before the batch.`,
   );
@@ -120,7 +118,7 @@ export async function runSealMode(
       ),
     );
   }
-  const keysAbsPath = resolveWithinRepo(repoRoot, args.keysPath);
+  const keysAbsPath = resolveReadPathWithinRepo(repoRoot, args.keysPath);
   if (isErr(keysAbsPath)) {
     return keysAbsPath;
   }
@@ -129,6 +127,7 @@ export async function runSealMode(
     args.commitmentPath,
     args.outDir,
     CHALLENGE_COMMITMENT_SEGMENT,
+    resolveWriteTargetWithinRepo,
   );
   if (isErr(commitmentAbsPath)) {
     return commitmentAbsPath;
@@ -142,7 +141,8 @@ export async function runSealMode(
   }
   return ok(
     `sealed key set (sha256 ${sealed.value.keySetSha256}) into ` +
-      `${CHALLENGE_COMMITMENT_SEGMENT}; commit the commitment BEFORE the batch runs.`,
+      `${path.relative(repoRoot, commitmentAbsPath.value)}; ` +
+      `commit the commitment BEFORE the batch runs.`,
   );
 }
 
@@ -159,11 +159,11 @@ export async function runScoreMode(
       ),
     );
   }
-  const findingsAbsPath = resolveWithinRepo(repoRoot, args.findingsPath);
+  const findingsAbsPath = resolveReadPathWithinRepo(repoRoot, args.findingsPath);
   if (isErr(findingsAbsPath)) {
     return findingsAbsPath;
   }
-  const keysAbsPath = resolveWithinRepo(repoRoot, args.keysPath);
+  const keysAbsPath = resolveReadPathWithinRepo(repoRoot, args.keysPath);
   if (isErr(keysAbsPath)) {
     return keysAbsPath;
   }
@@ -172,6 +172,7 @@ export async function runScoreMode(
     args.commitmentPath,
     args.outDir,
     CHALLENGE_COMMITMENT_SEGMENT,
+    resolveReadPathWithinRepo,
   );
   if (isErr(commitmentAbsPath)) {
     return commitmentAbsPath;

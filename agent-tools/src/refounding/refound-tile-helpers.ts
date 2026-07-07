@@ -12,7 +12,7 @@ import {
   type LedgerRow,
 } from './refound-ledger-row.js';
 import { collectAnchorsForFiles } from './refound-anchor-map.js';
-import { readInventoryRecords } from './refound-residue-helpers.js';
+import { readInventoryRecords } from './refound-inventory-read.js';
 import {
   findCrossAreaDuplicateIds,
   verifyExactCover,

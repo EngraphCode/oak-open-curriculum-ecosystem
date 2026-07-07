@@ -1,3 +1,23 @@
+# [1.61.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.60.0...v1.61.0) (2026-07-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** align gitleaks resolution to the trusted-directory allowlist ([c8304fe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c8304fe62e142c1071e12cd3e5791b28b25cfb84))
+* **agent-tools:** enforce the Net-C-only invariant and true the round-4 review set ([9516f20](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9516f207f5cbd998b51b0b4a6b7f4c8807a34fba))
+* **agent-tools:** pin the freeze secret scan to a once-resolved gitleaks binary ([4bb0d95](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bb0d955293d0f63f984cdfabe67e4c269b999be))
+* **agent-tools:** refuse vacuous challenge scores and true the round-6 pair ([ca81421](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca814211ed74352586a3eabf86ddc31e2465e153))
+* **agent-tools:** resolve the sweep out dir as a write target ([227c556](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/227c55667b6b3edbc4bebe38f526c1461df8dfe4))
+* **agent-tools:** resolve write-target paths without realpath and move line digests to sha256 ([d685f59](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d685f59fe1e3e8ff91574ab99c4b66ea0705ec1d))
+* **agent-tools:** roll back half-written artefact pairs on write failure ([dfe1feb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dfe1feb5171ee8b92a62c9c55c0162657fade75d))
+* **agent-tools:** verify discrimination-transcript content at the zero-orphan gate ([96a4de9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/96a4de9986cdb2e0c53acf436af28ceb697776d1))
+
+
+### Features
+
+* **agent-tools:** land refound inventory, residue, sweep, and canary detectors with proofs ([e1d8bb8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e1d8bb8c9673dd566ab3dd0b1d7b5c00f10aa150))
+* **agent-tools:** land refound-freeze and refound-verify-freeze with proofs ([23fd4d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/23fd4d9070041aa08135348e019fcdf61bfc2e4e))
+
 # [1.60.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.2...v1.60.0) (2026-07-06)
 
 

@@ -2,7 +2,7 @@ import { type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { compareByCodeUnit, sha1Hex, splitLineBytes } from './refounding-artefacts.js';
+import { compareByCodeUnit, sha256Hex, splitLineBytes } from './refounding-artefacts.js';
 import { matchKeywordsInsensitive } from './refound-inventory-nets.js';
 
 /**
@@ -55,7 +55,7 @@ export const SWEEP_MARKERS_V1: readonly string[] = [
 ];
 
 const nonEmptyString = z.string().min(1);
-const sha1HexSchema = z.string().regex(/^[0-9a-f]{40}$/);
+const sha256HexSchema = z.string().regex(/^[0-9a-f]{64}$/);
 
 /**
  * One `sweep/sweep-hits.v1.jsonl` record: a verbatim marker-bearing line on
@@ -67,7 +67,7 @@ const sweepHitSchema = z.strictObject({
   line: z.number().int().positive(),
   markers: z.array(nonEmptyString).min(1),
   text: z.string(),
-  sha1: sha1HexSchema,
+  sha256: sha256HexSchema,
 });
 export type SweepHit = z.infer<typeof sweepHitSchema>;
 
@@ -77,7 +77,7 @@ export const parseSweepHit = (value: unknown): Result<SweepHit, Error> =>
 
 /**
  * Run the sweep net over one file's raw bytes: LF-split, case-insensitive
- * marker MATCH, verbatim byte CAPTURE with the raw line's SHA-1.
+ * marker MATCH, verbatim byte CAPTURE with the raw line's SHA-256.
  */
 export function buildSweepHits(file: string, bytes: Uint8Array): readonly SweepHit[] {
   const hits: SweepHit[] = [];
@@ -87,7 +87,7 @@ export function buildSweepHits(file: string, bytes: Uint8Array): readonly SweepH
     const text = Buffer.from(raw).toString('utf8');
     const markers = matchKeywordsInsensitive(text, SWEEP_MARKERS_V1);
     if (markers.length > 0) {
-      hits.push({ file, line: index + 1, markers: [...markers], text, sha1: sha1Hex(raw) });
+      hits.push({ file, line: index + 1, markers: [...markers], text, sha256: sha256Hex(raw) });
     }
   }
   return hits;

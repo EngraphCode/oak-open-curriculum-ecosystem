@@ -105,7 +105,9 @@ function countPlantHits(
   plantFile: string,
 ): { readonly sweepHitsForPlant: number; readonly sweepHitsForControl: number } {
   return {
-    sweepHitsForPlant: hits.filter((hit) => hit.text === SWEEP_PARAPHRASE_PLANT_LINE_V1).length,
+    sweepHitsForPlant: hits.filter(
+      (hit) => hit.file === plantFile && hit.text === SWEEP_PARAPHRASE_PLANT_LINE_V1,
+    ).length,
     sweepHitsForControl: hits.filter(
       (hit) => hit.file === plantFile && hit.text === SWEEP_CONTROL_PLANT_LINE_V1,
     ).length,
