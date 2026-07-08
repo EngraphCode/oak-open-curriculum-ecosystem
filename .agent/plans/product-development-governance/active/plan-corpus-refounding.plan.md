@@ -17,7 +17,7 @@ lineage:
   serves_thread: strategy-and-plan-estate-holistic-review
   serves_stream: agentic-framework
   strategic_choice: FRAME-1
-last_updated: 2026-07-07
+last_updated: 2026-07-08
 todos:
   - id: r0a-mechanical-instrument
     content: >-
@@ -50,7 +50,7 @@ todos:
       for THIS todo: fixture + mutation-proof completeness only. The full-estate
       claim-vs-derived divergence report is r1's audit-mode run (it needs the frozen
       inventory and so cannot precede the freeze).
-    status: pending
+    status: completed
   - id: r0c-registers-and-declaration
     content: >-
       AUTHOR: the consolidated owner-gate register (one Director-owned list — G0..G-Walk-C,
@@ -292,6 +292,12 @@ Segmentation, classification, summary wording, and disposition are NOT worker wo
 
 ## Owner-gate register (consolidated; the scale-independent spine)
 
+One **Director-owned** list (P11; economics-critique C4 cure) — every owner gate in the arc
+appears here and only here; the facet designs' gate sketches (F3 §6, F5 §3.6) are feeder
+material merged into these rows, never a second register. The economics counterpart is the
+[cost ledger](plan-corpus-refounding-cost-ledger.md): H5 (cost backstop) fires against that
+ledger's per-batch declarations AND its run total.
+
 | Gate | Content | When |
 | --- | --- | --- |
 | G0 | Commission — recorded 2026-07-06 (this plan); gate content settles at G1 | done |
@@ -299,10 +305,12 @@ Segmentation, classification, summary wording, and disposition are NOT worker wo
 | G-ADR | **Decision-level ADR-200 amendment — RATIFIED (owner, 2026-07-06, formal question put and answered)**: the Q3 boundary re-ruling (corpus refounding precedes the graph; WS6 harvests the refounded corpus PLUS the frozen archive via binding-clause provenance edges), the audit-composition ruling, and the V0.1 sign-off (proof-typed todos; the `pending`-sentinel/lane rule; `permanent-home-routed`) — all three V0.1 items signed. Landed: ADR-200 §Consequences Amendment + §Sequence note; V0 schema V0.1 block | done |
 | G2 | S0 landing sanction: denominator totals, scoped gate exclusions with reasons, secret-scan attestation, declared commit window | R1 |
 | G3 | Arrivals-routing table (what auto-freezes vs per-arrival ruling) | R1 |
+| OG-2 | Status-mapping table v1 ratification (`agent-tools/src/plan-state/status-mapping/v1.ts` — six entries, todo-binary scope; the `plan-state` CLI mechanically REFUSES audit mode until `STATUS_MAPPING_V1_RATIFICATION.status` flips to `ratified`, flipped in the same commit as the ruling; if the table becomes a packet-listed ratified list, extend `validate-ratified-lists` — never a pin test). Same-sitting agenda: (a) gate-semantics ruling — should a gate run whose gateable rows are ALL `no-evidence` refuse rather than pass? (currently exit 0 with the named `green — no recomputation performed` line; the counts disclose it; refusing changes gate semantics — owner's call); (b) plan-level status values are DESIGNED UNMAPPED residue — the >20% halt firing at r1's audit run is the table-v2 trigger, not a defect. This row merges the F3 §6 / F5 §3.6 OG-2 duplicates | R0→R1 boundary; gates r1's **audit-mode** run only (gate mode unaffected) |
+| OG-3 | Canary answer-key ratification (~15 sealed rows, each with rationale; sealed by the R0a `plant-challenge-canary` hash-commit-then-reveal mechanism): the owner ratifies the sealed key before any batch's challenge stream runs; re-ratified on any judgement-regime change (a regime change is a design change, PDR-122 inv-6) | R2→R3, before pilot batch 1 |
 | Walk A | Lane-taxonomy ratification from staged evidence (pilot + top-down seed; non-pilot lanes candidate-status) + escalation-thinning policy tables. This sitting IS the binding post-refounding organisational-structure decision; the R1 source denominator + census/divergence report are presented as sitting inputs (owner-directed 2026-07-07) | R2 |
 | G-SP3 | Scale-up sanction on the RE-PRICED declaration (fixed vs marginal; ruling-demand sizing from pilot actuals). Also presents the post-corpus size projection — source denominator × pilot-measured merge/supersede/disposition rates — the expected-numbers moment (owner-directed 2026-07-07) | R3→R4 boundary |
 | Ruling batches | Batched mid-flight rulings (≤15/batch; includes per-tranche cutover sanctions) | R4–R5 |
-| Walk C | Final ratification against recomputed state | R6 |
+| Walk C | Final ratification against recomputed state — **includes the terminal cutover sanction**: the archive-old + rename move to the G1-ruled destination root (`.agent/refounded-plans/` becomes the live corpus; the old estate archives, never deleted, per P14). No cutover executes without this sitting; per-tranche cutover sanctions along the way stay inside the Ruling-batches row | R6 |
 
 ## Economics (pre-pilot declaration; re-priced at SP3)
 
@@ -318,7 +326,10 @@ substrate spends zero LLM tokens; the donor estate's ~1.3M verification-wave cla
 deleted by design (scripted recomputation replaces it). Row prior: ~8.3k ledger rows
 (618 sources × the donor's measured ~14.9 rows/source − the terminal-probe share). All
 figures are declared bands, not commitments; SP3 re-prices from pilot actuals and the
-scale-up is owner-sanctioned (G-SP3). The full cost ledger is R0c's deliverable.
+scale-up is owner-sanctioned (G-SP3). The full cost ledger is
+[`plan-corpus-refounding-cost-ledger.md`](plan-corpus-refounding-cost-ledger.md)
+(authored at R0c; Director-owned; re-issued at SP1 and SP3; H5 binds to its per-batch
+declarations and run total).
 Honest scaling assumption (donor-seat label, extrapolated-not-measured): challenge cost
 is roughly LINEAR in corpus size — the controllable lever is brief narrowness (the
 binding clause + per-class questions), never class exemption or sampling; the pilot
