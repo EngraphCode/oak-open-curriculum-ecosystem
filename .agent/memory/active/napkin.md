@@ -793,3 +793,12 @@ coherence. All on `feat/slack-apps` / PR #328 (open). Successor: Copper (48382d)
   THEORY OF COST AND VALUE across the non-exclusive Next.js logging topologies (our-adapter+provider
   direct / stdio→Vercel-forward / Sentry-Next-SDK / Vercel-side plugin / Next built-in) BEFORE any
   decision — structure + assumption-marking first, populate only after verification.
+- **Watcher re-arm gotcha (own mistake): `pkill -f "<watch command>"` also kills the re-arm loop
+  itself.** When the all-channels watcher is armed as a persistent Monitor wrapping a `while kill -0
+  "$SUP"; do timeout 3600 pnpm … comms watch …; sleep; done` loop, the loop's OWN command line
+  contains the watch-command string. So `pkill -f "timeout 3600 pnpm … comms watch"` (intended to
+  restart a wedged inner arm) matches the wrapper shell too and kills the whole Monitor (observed:
+  Monitor exit 144). The drain-step timeout at n=1 against a large comms dir (~2.3k events) is the
+  DOCUMENTED cost (comms-all-channels-watcher rule: expect drain-wedge deaths, restart on the same
+  seen-file) — let the step-timeout + loop self-heal; do NOT manually pkill. If a manual kill is
+  truly needed, target the inner node pid specifically, never a `-f` pattern shared with the loop.
