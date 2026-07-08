@@ -1,60 +1,72 @@
 ---
 name: "Ask Oisín — v1 Slack assistant, framework-first"
-overview: "Ship Ask Oisín (project/repo navigator) as a headless Next.js App Router Slack app on Vercel, extracting a reusable slack-assistant framework so future Slack apps (Ask Oak next) are thin config. Internal-use only, allow-listed installations."
+overview: "Ship Ask Oisín (project/repo navigator) as a headless Next.js App Router Slack app on Vercel, building the reusable ai-gateway model layer and slack-assistant framework as isolated libs, the sentry-nextjs provider over a shared redaction core, and the logger portability fix — so future Slack apps (Ask Oak next) are thin config. Internal-use only, allow-listed installations."
 lineage:
   serves_thread: oak-slack-assistants
   serves_stream: "agentic surfaces over Oak's MCPs (new; no parent stream record yet)"
   strategic_choice: "n/a — new surface domain"
-  derives_from: ".agent/research/outreach/oisin-oce-navigator-design.md (PR #328, open, on branch feat/slack-apps — NOT yet merged to main)"
+  derives_from: ".agent/research/outreach/oisin-oce-navigator-design.md"
 todos:
   - id: ws0-scaffold
-    content: "WS0: scaffold packages/libs/slack-assistant (lib, repo tsup + three-tsconfig convention) + apps/slack/ask-oisin (Next.js App Router + vercel.json); register BOTH in pnpm-workspace; add turbo.json Next.js task entries; register slack-assistant in the eslint lib-boundary config permitting only FOUNDATION-provider imports (the logging adapter @oaknational/logger) — the framework imports NO vendor provider (sentry-node etc. compose at the app root); author the ADR for the apps/slack tier + framework placement; Next.js telemetry topology is an OPEN question (see logging design record), NOT decided here. Tree green."
+    content: "WS0: scaffold packages/libs/ai-gateway + packages/libs/slack-assistant (repo tsup + three-tsconfig convention) + apps/slack/ask-oisin (Next.js App Router + vercel.json); register all three in pnpm-workspace (explicit lib lines + apps/slack/* glob); turbo.json Next.js task entries; stratify the eslint adapter tier (adapter-base: ai-gateway + the shared sentry core; composites: slack-assistant, sentry-node, sentry-nextjs — structural acyclicity, no composite→composite edges) and update the boundary unit tests + APP_PACKAGE_IMPORTS + 3-deep path depth; record as an ADR-041 amendment (adapter-tier stratification + apps/slack family rows; ADR-154 cited). Tree green."
     status: pending
     depends_on: []
+  - id: ws-e1-logger-portability
+    content: "WS-E1 (estate): make @oaknational/logger's base entrypoint genuinely portable — add the missing no-node-only-imports enforcement test (RED on the node:crypto import), replace otel-format's createHash('md5') with a portable deterministic hash, true up the README claim. Parallel-safe; independent of WS0."
+    status: pending
+    depends_on: []
+  - id: ws-e2-sentry-provider
+    content: "WS-E2 (estate): decompose sentry-node at the vendor×runtime fault line — extract the five Sentry-shaped redactors + the hook-composition SKELETON (redact → injected post-redaction transform; applyFingerprint is LIFTED OUT and re-composed as sentry-node's post-redaction hook — its error families are MCP-app-specific) into a shared core consumed by sentry-node (public surface unchanged, existing tests green; types re-based on @sentry/core exports); build @oaknational/sentry-nextjs (App Router init glue, nodejs branch only, onRequestError, the FULL five-hook ADR-160 closure from the shared core, post-response capture+flush helper); author the provider-model ADR (references WS0's ADR-041 amendment for tier mechanics). Boundary registration consumes WS0's stratified tier."
+    status: pending
+    depends_on: [ws0-scaffold]
   - id: ws1-model-layer
-    content: "WS1: slack-assistant ask() over AI SDK + Gateway — bounded tool loop (isStepCount), tools typed as the AI SDK ToolSet. NO model-slug format validation (opaque operator-configured env string). Behaviour tests over an injected fake model."
+    content: "WS1: ai-gateway model layer — ask() bounded tool loop (ai@^7: isStepCount, instructions), askStream() over streamText (same loop, token stream out — owner decision 2026-07-08: streaming is v1), opaque model slug (NO format validation), per-request ZDR providerOptions, tools typed as ToolSet; the egress CONTRACT (branded ScrubbedText required at every egress point, @ts-expect-error compile fixture). Isolation tests over injected fake (streaming) models."
     status: pending
     depends_on: [ws0-scaffold]
   - id: ws2-pii-boundary
-    content: "WS2: PII egress boundary — scrub() strips identity/mentions/emails/phones/structured PII from the inbound question AND from model-generated tool-call arguments; scrub() returns a branded ScrubbedQuestion type that the egress path requires; config is injected (framework reads no process.env). Unit + integration tests."
+    content: "WS2: PII egress boundary — scrub() implementation in slack-assistant (identity/mentions/emails/phones/structured PII; Slack-shaped patterns as config) returning the ai-gateway branded type; tool-call-argument scrubbing seam inside ai-gateway's tool loop (injected arg-scrubber applied to model-emitted args before MCP dispatch). Unit + integration tests in both libs."
     status: pending
-    depends_on: [ws0-scaffold]
+    depends_on: [ws0-scaffold, ws1-model-layer]
   - id: ws3-mcp-attach
-    content: "WS3: attachMcp(config) — split: a mock-free unit test for the pure denylist filter, and an integration test over an injected fake client asserting Streamable-HTTP transport + auth/toolset headers. Note per-cold-start tool pickup."
+    content: "WS3: ai-gateway MCP attachment — attachMcp(config) over @ai-sdk/mcp@^2 (createMCPClient, transport type 'http', headers/authProvider): a mock-free unit test for the pure denylist filter, an integration test over an injected fake client asserting transport + auth/toolset headers. Note per-cold-start tool pickup; note client.tools() drops MCP annotations (verified) so name-denylist is the filter."
     status: pending
     depends_on: [ws0-scaffold]
   - id: ws4-slack-surface
-    content: "WS4: Slack surface adapter — @vercel/slack-bolt wiring for app_mention, DM (message.im only), slash, assistant-thread; signature verification with a stated test seam; a defined in-process Bolt test harness; mrkdwn + disclaimer. Integration tests + code."
+    content: "WS4: slack-assistant Slack surface — @vercel/slack-bolt@^1 wiring (VercelReceiver constructed once, same instance to App{deferInitialization:true} and createHandler(app, receiver)); app_mention (thread_ts = event.thread_ts ?? event.ts), DM (message.im, typed narrowing — no `as any`), slash, assistant-thread events; token streaming via sayStream on mention/DM/assistant listeners over ai-gateway askStream (slash answers post complete via response_url); 👍/👎 reaction-signal capture (reaction_added/removed on bot answers → metadata-only counters, identity stripped); DM/mention double-fire de-duplication; signature verification with a stated test seam; in-process Bolt test harness (signed synthetic requests); mrkdwn + disclaimer. Integration tests + code."
     status: pending
     depends_on: [ws0-scaffold]
   - id: ws5-factory
-    content: "WS5: defineSlackAssistant(config) factory + a sketched Zod config schema (Config = z.infer). Seam gate: framework has zero Oak-specific literals AND reads no process.env (config injected). Integration test + code."
+    content: "WS5: defineSlackAssistant(config) factory + Zod config schema (Config = z.infer). Seam gates (grep-enforced): framework has zero Oak-specific literals, zero process.env reads (config injected), and imports NO vendor telemetry provider; model/tool concerns come only through ai-gateway. Integration test + code."
     status: pending
     depends_on: [ws1-model-layer, ws2-pii-boundary, ws3-mcp-attach, ws4-slack-surface]
   - id: ws6-oisin-config
-    content: "WS6: Ask Oisín config — system prompt (repo-nav, cite-source, hand-off), GitHub MCP attach (read-only, repos toolset — which already includes search_code), model slug (opaque env), name. Bolt event union narrowed (no `as any`)."
+    content: "WS6: Ask Oisín app config — system instructions (repo-nav via under-the-hood start point, cite-source, decline-curriculum-with-explanation, safeguarding deflect+signpost), GitHub MCP attach (X-MCP-Readonly, X-MCP-Toolsets: repos — includes search_code + get_file_contents), opaque model slug env, name. Audience: internal Oak staff."
     status: pending
     depends_on: [ws5-factory]
   - id: ws7-access-and-limits
-    content: "WS7: Access control + abuse limiting — installation allow-list gate (internal-use ONLY; reject any non-allow-listed Slack workspace/team; no external access); per-workspace AND per-user (one-way hashed, never-egressed id) rate limiting in a durable KV. NOT express-rate-limit. Unit + integration tests."
+    content: "WS7: access control + abuse limits + delivery correctness — built IN slack-assistant so every bot inherits them (the design's framework-level controls): installation allow-list (workspace-level, fail-closed on empty/malformed list), per-workspace AND per-user (salted one-way hash, never egressed) rate limiting, Slack event-id retry de-duplication (retries are normal operation). Allow-list values, thresholds, salt, and the KV client are INJECTED config (fake KV in tests; Upstash Redis client supplied by the app). Unit + integration tests."
     status: pending
     depends_on: [ws0-scaffold]
   - id: ws8-observability
-    content: "WS8: Observability — Next.js telemetry via a runtime-appropriate PROVIDER composed at the app root (NOT @oaknational/sentry-node, which is Node-only). Topology (SDK-direct / stdio+platform-forward / Sentry-Next SDK / Vercel plugin) is an OPEN cost/value question — see the logging design record; back-end-only egress is the owner's working lean. Preserve the shared redaction barrier; capture + FLUSH errors from the waitUntil continuation before the function terminates; metadata-only logging. Do NOT enable AI SDK experimental_telemetry. Unit/integration tests."
+    content: "WS8: app observability composition — compose @oaknational/sentry-nextjs at the app root (instrumentation.ts + onRequestError; no client config — headless); forced-failure-in-the-post-response-continuation captured AND flushed before termination (our requirement, vendor-undocumented); metadata-only events (no message content; console capture stays off; AI SDK experimental_telemetry stays off). Unit/integration tests."
     status: pending
-    depends_on: [ws0-scaffold]
+    depends_on: [ws0-scaffold, ws-e2-sentry-provider]
   - id: ws9-deploy
-    content: "WS9: deploy config — vercel.json (Next.js), turbo entries, maxDuration, env wiring (incl SENTRY_*, GITHUB_TOKEN, allow-list), manifest.oisin.yaml (no channels:history / message.channels). Preview deploy acks Slack <3s (value-proxy)."
+    content: "WS9: deploy config — vercel.json (Next.js), turbo entries, env wiring (SLACK_*, AI_GATEWAY_API_KEY, CLAUDE_MODEL, GITHUB_TOKEN, SLACK_TEAM_ALLOWLIST, SENTRY_* incl. optional auth token for source maps), manifest.oisin.yaml (features.agent_view — NOT the legacy assistant_view; no channels:history / message.channels); duration left at the Fluid default (300s) unless measured need; a DEV Slack app pointed at the preview deployment (Slack delivers to one request URL per app). Preview deploy acks Slack <3s (value-proxy)."
     status: pending
     depends_on: [ws6-oisin-config, ws7-access-and-limits, ws8-observability]
-  - id: ws10-validation
-    content: "WS10: split validation — (a) deterministic in-process integration test proving the outbound payload (prompt + tool-call args) carries only the scrubbed question, no identity/PII (CI-safe, over the capture seam); (b) non-CI live value-proxy smoke that a known project question returns a grounded, cited answer; (c) content plain-language readability check."
+  - id: ws10a-pii-assertion
+    content: "WS10.1: the deterministic in-process integration test proving the outbound payload (instructions + prompt + every tool-call argument) carries only the scrubbed question — CI gate over the WS2 capture seam; runs the moment the libs assemble, NOT gated on deploy."
+    status: pending
+    depends_on: [ws2-pii-boundary, ws5-factory]
+  - id: ws10b-live-validation
+    content: "WS10.2–4: live value-proxy smoke (grounded answer citing the repo path), content readability vs oak-tone-of-voice, safeguarding deflect+signpost over a small adversarial synthetic set (not a single case)."
     status: pending
     depends_on: [ws9-deploy]
   - id: ws11-reviews-docs-consolidation
-    content: "WS11: readiness reviews (assumptions/mcp/security/config/accessibility/docs/onboarding/release), doc propagation (ADR-154 citation, what-the-system-emits-today.md, thread record), /oak-consolidate-docs."
+    content: "WS11: readiness reviews (release-readiness GO/NO-GO + the scheduled specialists), doc propagation (the two ADRs, lib READMEs, what-the-system-emits-today.md, thread record, design-doc status), /oak-consolidate-docs."
     status: pending
-    depends_on: [ws10-validation]
+    depends_on: [ws10a-pii-assertion, ws10b-live-validation]
 isProject: true
 ---
 
@@ -64,93 +76,145 @@ isProject: true
 # Ask Oisín — v1 Slack assistant, framework-first
 
 **Last Updated**: 2026-07-08
-**Status**: 🔵 **READY FOR REVIEW** (2026-07-08). Framework + app build (WS0–WS8) was drafted execution-ready, but this session reopened the **logging/observability approach**: WS0 and WS8 as previously worded assumed the framework imports `@oaknational/sentry-node` and that Next.js Sentry init is a settled `sentry-node` call — both wrong (`sentry-node` is the **Node** provider; a framework lib imports no vendor provider). Those workstreams now carry OPEN questions and a cost/value theory to resolve in review — see the [logging/observability design record](../../../research/outreach/slack-assistant-logging-observability-design.md). **WS9–WS11** remain gated on owner-handled provisioning. **v1 is an internal proof-of-concept.** Prior: two review rounds + adversarial verify + owner rulings integrated 2026-07-08.
-**Scope**: Ship Ask Oisín as a headless Next.js App Router Slack app on Vercel that answers project questions grounded in a live read of the OCE repo, while extracting a reusable `slack-assistant` framework. Internal-use only, allow-listed installations.
+**Status**: 🟢 **DECISION-COMPLETE / READY FOR EXECUTION** (2026-07-08). Every load-bearing
+vendor claim was verified against primary sources on 2026-07-08 (the full claim-register pass —
+provenance and counts in the thread record; corrections folded in). The
+telemetry topology is **settled** — see the
+[logging/observability design record](../../../research/outreach/slack-assistant-logging-observability-design.md)
+§5–§8 — and the estate workstreams it drives (WS-E1, WS-E2) are in this plan per owner
+direction (the estate's workspaces are ours to enhance in support of this work). Execution
+of WS9+ consumes the owner-provisioned resources named under §Dependencies — named blocking
+dependencies, not decision gaps. **Readiness reviews ran 2026-07-08** (assumptions, mcp,
+sentry, clerk, architecture-fred, docs-adr — six narrow specialist reviews; every finding
+critically assessed and the accepted set applied; the disposition record is the thread
+record's §Readiness review round). **v1 is an internal proof-of-concept.**
+**Scope**: Ship Ask Oisín as a headless Next.js App Router Slack app on Vercel that answers project questions grounded in a live read of the OCE repo, building `ai-gateway` (model layer), `slack-assistant` (surface framework), `sentry-nextjs` over a shared redaction core, and the `logger` portability fix. Internal-use only, allow-listed installations.
 
 ---
 
-## Assumptions & open questions (2026-07-08 review revision)
+## Settled by verification (2026-07-08)
 
-Marked per the owner's discipline (assumptions are marked as assumptions, never
-treated as settled fact). Full ledger + cost/value theory: the companion
-[logging/observability design record](../../../research/outreach/slack-assistant-logging-observability-design.md).
+The design source records the full verification ledger; the plan-relevant pins:
 
-- **OPEN (blocks WS0 boundary decision + WS8):** the Next.js **telemetry topology** —
-  SDK-direct provider / stdio + platform-forward / Sentry-Next SDK / Vercel-side
-  plugin, non-exclusive. A cost/value theory must be built and **vendor-verified**
-  before choosing. `@oaknational/sentry-node` is the **Node** provider and is NOT the
-  Next.js answer.
-- **OWNER'S-CALL (working lean, confirm):** back-end-only log egress — do not egress
-  from the front-end/Slack side.
-- **PREREQUISITE (estate defect):** `@oaknational/logger`'s base pulls `node:crypto`
-  and has no browser-safety enforcement test — it is not portable to edge/browser as
-  advertised. Fix + add the enforcement test if the framework/app runs anything
-  off-Node.
-- **TO-VERIFY:** the `@vercel/slack-bolt` receiver signature (skeleton is
-  illustrative); the Oak MCP OAuth alpha specifics (Ask Oak).
-- **DROPPED:** any legal/DPIA/audit requirement — none is known; PII handling is our
-  own safety requirement, not a compliance mandate.
+- **APIs (verified against published majors; re-verify against installed versions at each
+  GREEN — `verify-vendor-call-shapes`)**: `ai@^7` (`isStepCount`, `instructions`, `ToolSet`);
+  `@ai-sdk/mcp@^2` (`createMCPClient`, transport `{ type: 'http', url, headers }`,
+  `authProvider`); `@vercel/slack-bolt@^1` (`createHandler(app, receiver)` +
+  `VercelReceiver` + `deferInitialization`); `@slack/bolt@^4`.
+- **Slack**: manifest key is `features.agent_view` (new apps cannot use the legacy
+  `assistant_view`); `assistant:write` is the method scope for `assistant.threads.*`;
+  events deliver to ONE request URL per app (hence the dev Slack app in WS9); 3s ack +
+  up to 3 retries → event-id de-dup is correctness (WS7).
+- **Vercel**: Node.js runtime by default for App Router route handlers (`node:crypto`
+  available — the logger leak does not bite this app, and is fixed anyway in WS-E1);
+  Fluid compute default-on; default duration 300s on all tiers; Vercel KV is retired —
+  the durable KV is **Upstash Redis via the Marketplace**.
+- **Sentry**: `@sentry/nextjs` init shape + server-side `beforeSend`/`beforeSendTransaction`/
+  `beforeBreadcrumb` (the ADR-160 barrier applies); the Marketplace integration is
+  build/deploy-time only; console-as-Sentry-logs off by default (console-as-breadcrumbs is
+  ON and redacted via `beforeBreadcrumb`); SDK-wrapped handlers manage request-path flush —
+  the post-response continuation capture+flush is OUR requirement (WS8).
+- **Gateway**: zero-markup BYOK (paid tier + credits); per-request ZDR free
+  (`zeroDataRetention: true` in providerOptions) vs team-wide $0.10/1k → per-request;
+  per-key budgets are enforced caps.
+- **GitHub MCP**: `repos` toolset includes `search_code` + `get_file_contents`; no
+  anonymous mode; fine-grained PAT selects only `oak-skills` (public read is implicit).
+
+**Owner rulings in force** (unchanged): pragmatic PII egress; internal-use only,
+workspace-level allow-list; running-text matcher deferred; framework-first; opaque model
+slug; safeguarding = deflect + signpost, no record; PII invariant independent of ZDR;
+PAT reads private `oak-skills`. **Owner directions 2026-07-08 (this revision)**: estate
+workspaces are changeable in support of this work; `ai-gateway` is a first-class isolated
+lib (defining/describing/testing in isolation is the value, not a cost); optimise for
+long-term excellence, never minimum work.
 
 ## Context
 
-The design is recorded in [`.agent/research/outreach/oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md) — on the open PR #328 branch `feat/slack-apps`, **not yet merged to `main`** (usable as grounding, but not a merged artefact). This plan turns that design into executable work under owner rulings: **build Ask Oisín first**; **Ask Oak is a future app** (`../future/ask-oak.plan.md`); **framework-first**; **Next.js App Router** (settled); **pragmatic PII egress**; **running-text matcher deferred**; **internal-use only with an installation allow-list**.
+The design is recorded in [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md)
+(same branch/PR as this plan). This plan turns that design into executable work: **build Ask
+Oisín first**; **Ask Oak is a future app** ([`../future/ask-oak.plan.md`](../future/ask-oak.plan.md))
+riding a first-class machine identity on our own MCP app; **Next.js App Router** (owner
+choice); **pragmatic PII egress**; **internal-use only**.
 
 ### Problem Statement
 
-Oak staff have no low-friction way to ask questions about the *project* — the repo, the Practice, strategy, planning state — without reading the `.agent/` substrate themselves. The intended intervention is a Slack bot that answers from a live read of the public repo, extracted over a reusable framework so a second app (Ask Oak) is thin config.
+Oak staff have no low-friction way to ask questions about the *project* — the repo, the Practice, strategy, planning state — without reading the `.agent/` substrate themselves. The intended intervention is a Slack bot that answers from a live read of the public repo, built over isolated, reusable libs so a second app (Ask Oak) is thin config.
 
-### Existing Capabilities — what transfers, and what does NOT
+### Existing capabilities consumed
 
-- Genuine reusable `@oaknational/*` packages consumed via the boundary config: `result`, `env`, `env-resolution`, `logger` (the logging **adapter**, backed by Sentry + stdio), `sentry-node`, `type-helpers`, `build-metadata`.
-- **What does NOT transfer** (precedent-transfer trap, verified in review): `express-rate-limit` and the `@clerk/*` client wiring are **third-party, Express-bound, app-local** — not `@oaknational/*` packages, and not runnable under Next.js on Vercel serverless. The MCP app is an OAuth **resource-server / AS-proxy** (it *verifies* inbound tokens); it has no OAuth-**client** acquisition/refresh code, so Ask Oak's client flow is new work, not a lift. `@oaknational/sentry-node` wraps `@sentry/node` for an Express server; a Next.js App Router app needs a Next.js-appropriate init (`@sentry/nextjs` or `instrumentation.ts`) — decided in WS0/WS8.
-- The official remote GitHub MCP server (`https://api.githubcopilot.com/mcp/`, GA); the Vercel AI SDK + AI Gateway; `@ai-sdk/mcp`.
-- **A durable KV** (Upstash / Vercel KV) is a required v1 resource — WS7 rate-limiting depends on it (and optional Slack event de-dup). Provisioning it is owner-handled; the plan names it as needed.
+- Shared `@oaknational/*` packages: `result`, `env`, `env-resolution`, `logger` (WS-E1 makes
+  its portability claim true), `type-helpers`, `build-metadata`.
+- `@oaknational/observability`'s redaction primitives and ports; `sentry-node`'s
+  Sentry-shaped redaction + hook composition (extracted to a shared core in WS-E2 so the
+  barrier is owned once across runtimes).
+- The official remote GitHub MCP server (`https://api.githubcopilot.com/mcp/`, GA); the
+  Vercel AI SDK v7 + AI Gateway; `@ai-sdk/mcp@2`.
+- **Upstash Redis (Vercel Marketplace)** — required v1 resource for WS7 (rate limits +
+  event de-dup). Provisioning is owner-handled; the plan names it as needed.
 
 ---
 
 ## Design Principles
 
-1. **Thin app over a shared framework** — per-app delta is a config object + system prompt; the rest lives in `packages/libs/slack-assistant`. Apps are leaf deployables and never depend on each other.
-2. **Config seam = Oak-specific vs general** — `defineSlackAssistant(config)`; framework is org-agnostic and publishable; `config` carries all Oak specifics. Governed by [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) (Separate Framework from Consumer). The framework **consumes adapters** (e.g. the logging adapter, backed by Sentry/stdio) — that is the intended architecture, not a boundary violation; WS0 registers the framework in the eslint boundary config with its permitted adapter edges (configure, never disable — see `never-disable-checks`).
+1. **Isolated, describable units** — `ai-gateway` (model layer + egress contract) and
+   `slack-assistant` (surface + egress implementation) are separate libs, each defined,
+   described, and tested in isolation; the app is thin config over them. Apps are leaf
+   deployables and never depend on each other.
+2. **Config seam = Oak-specific vs general** — `defineSlackAssistant(config)`; the libs are
+   org-agnostic and publishable; `config` carries all Oak specifics. Governed by
+   [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md).
+   The boundary config is **configured** for the new tiers/edges (never disabled —
+   `never-disable-checks`); the WS0 ADR records them.
 3. **No vendoring, ever** — the repo is read live via the GitHub MCP.
-4. **Pragmatic PII egress, compiler-enforced** — only the sanctioned question egresses; `scrub()` returns a branded `ScrubbedQuestion` and the egress path accepts only that type; scrubbing covers the inbound question AND model-generated tool-call arguments; no content in logs/Sentry/KV. **The invariant does NOT depend on ZDR** (owner ruling 2026-07-08): it stands on minimisation + scrubbing alone; ZDR stays a beneficial toggle, not a proof dependency (see §Security).
-5. **Safeguarding: deflect + signpost, no record** (owner ruling 2026-07-08) — on a sensitive/safeguarding disclosure the bot declines to engage and points the user to Oak's human safeguarding route; nothing is retained (preserves the no-logging invariant). Carried in the system prompt (WS6).
-6. **Internal-use only, workspace-level** (owner ruling 2026-07-08) — an installation allow-list gates on the Slack team id and rejects any workspace that is not ours (no external users/access); guests / Slack-Connect members *of an allow-listed workspace* are accepted (workspace-level scope is sufficient for v1). Others may fork the repo and self-host their own instance.
-7. **Framework-first is an owner override of `consolidate-at-second-consumer`** (timing only; ruled 2026-07-08). The framework/consumer *separation* is ADR-154; the override is only of *when* to extract. Ask Oak validates the shared surface of the seam; its OAuth persistence is app-side.
-8. **Seam stop-rule** — framework code encodes only the demonstrably-shared surface and reads no `process.env` (config injected). Ask-Oak specifics stay in-app until Ask Oak is built.
+4. **Pragmatic PII egress, compiler-enforced** — only the sanctioned question egresses;
+   the egress contract (branded type) lives in `ai-gateway` and every egress point requires
+   it; scrubbing covers the inbound question AND model-generated tool-call arguments; no
+   content in logs/Sentry/KV. **The invariant does NOT depend on ZDR** (owner ruling);
+   per-request ZDR rides along as the free beneficial control.
+5. **Safeguarding: deflect + signpost, no record** (owner ruling) — carried in the system
+   instructions (WS6), verified in WS10.
+6. **Internal-use only, workspace-level** (owner ruling) — fail-closed installation
+   allow-list on the Slack team id; guests/Slack-Connect within an allow-listed workspace
+   accepted. Others may fork and self-host.
+7. **The barrier is owned once** — telemetry providers are per-runtime (`sentry-node`,
+   `sentry-nextjs`) over one shared Sentry-shaped redaction core (WS-E2); apps compose
+   providers at their roots; libs import no vendor provider.
+8. **Excellence over expediency** (owner direction, standing): estate workspaces, boundary
+   configs, and our own apps' auth are all improvable in support of the work; the
+   decomposition question is "does this have an independent identity worth defining,
+   describing, and testing in isolation?" — never "can we defer it?"
 
-**Non-Goals** (YAGNI):
+**Non-Goals** (YAGNI — each with its provenance and revisit trigger):
 
-- **Ask Oak** — future app; this plan only keeps the seam thin.
-- **Running-text matcher / `message.channels`** — deferred (privacy).
-- **A custom interactive feedback affordance** — deferred; v1 authors no interactive Block Kit element (removes the untested "accessible feedback" claim). If added later, it carries a WCAG 2.2 AA contract (text labels, non-colour-only, AT-reachable).
-- **Token streaming, Neon/relational storage, multi-workspace install store, web/CLI adapters, external access.**
-- **AI SDK `experimental_telemetry` / `recordInputs`** — must stay off (it would write raw prompts into span attributes).
+- **Ask Oak** — future app (`../future/ask-oak.plan.md`); this plan keeps the seam honest.
+- **Running-text matcher / `message.channels`** — owner privacy ruling; revisit only with a
+  demand signal AND a fresh privacy review.
+- **A custom interactive Block Kit feedback affordance** — deferred (owner decision
+  2026-07-08: the v1 feedback signal is 👍/👎 *reactions*, WS4.3 — counts only, in-Slack);
+  if the interactive affordance is ever pulled in, it carries a WCAG 2.2 AA contract.
+- **Neon/relational storage, multi-workspace install store, web/CLI surface adapters,
+  external access** — each has a named trigger in the design's revisit register.
+- **AI SDK `experimental_telemetry` / `recordInputs`** — stays off (would write raw prompts
+  into span attributes).
 
 ---
 
 ## Build-vs-Buy Attestation
 
-**Vendors**: Vercel (hosting + Slack adapter + AI Gateway), Anthropic (via Gateway), GitHub (MCP), Slack.
+**Vendors**: Vercel (hosting + Slack adapter + AI Gateway), Anthropic (via Gateway), GitHub (MCP), Slack, Sentry, Upstash (via Marketplace).
 
 | Integration | Evaluated? | Verdict |
 |--|--|--|
-| `@vercel/slack-bolt` (Web-Request-native Slack adapter) | yes | **adopted** — Next.js App Router host; solves 3s-ack/`waitUntil` |
-| Vercel AI SDK + AI Gateway | yes | **adopted** over raw Anthropic SDK |
+| `@vercel/slack-bolt` (Web-Request-native Slack adapter) | yes | **adopted** — solves 3s-ack/`waitUntil`; Next.js App Router host (owner choice) |
+| Vercel AI SDK v7 + AI Gateway | yes | **adopted** over raw Anthropic SDK (zero-markup BYOK, failover, budgets, per-request ZDR) |
 | Official remote GitHub MCP server | yes | **adopted** over a bespoke GitHub REST client |
 | `@ai-sdk/mcp` `createMCPClient` | yes | **adopted** |
-| `@oaknational/*` shared packages (result/env/logger/sentry-node...) | yes | **adopted via the boundary config** (framework consumes the logging adapter) |
-| Vercel/community "Slack agent" starter as the framework skeleton | yes | **ruled out** — single-file demo, not a reusable framework; hand-build the thin `defineSlackAssistant` seam |
-| Anthropic MCP connector (`mcp_servers`) | yes | **ruled out** — Anthropic-API-only; not ZDR-eligible |
-| `express-rate-limit` / `@clerk/*` client wiring | yes | **ruled out for transfer** — Express-bound, not Vercel-serverless-runnable; abuse control uses a durable-KV limiter (WS7) |
+| `@sentry/nextjs` (via the WS-E2 provider) | yes | **adopted** — the runtime's documented SDK; barrier hooks verified available |
+| Vercel log drains → Sentry Logs (topology B) | yes | **evaluated, not chosen for v1** — second pipe, self-managed dedup, no fidelity gain (logging record §5–§6) |
+| Vercel/community "Slack agent" starter as the framework skeleton | yes | **ruled out** — single-file demo, not a reusable framework |
+| Anthropic MCP connector (`mcp_servers`) | yes | **ruled out** — Anthropic-Messages-API-only; Anthropic documents it as not ZDR-eligible |
 
-**Reviewer**: `assumptions-expert` re-runs against this attestation pre-ExitPlanMode.
-
----
-
-## Framework: Next.js App Router (settled)
-
-Settled 2026-07-08: choosing `@vercel/slack-bolt` (for its `waitUntil` ack) chooses a Web-Request-native framework (`export const POST = createHandler(app, receiver)`); Vercel names Hono/Nitro/Next.js, not Express. Next.js is the canonical Vercel host, already in the monorepo. This is a fit-for-use-case choice, not a precedent copy of the MCP app's Express. Incoming canonical Next.js/React resources supply shared config to adopt, not a framework change. **Plan-body first-principles check**: before WS4/WS8 rely on the `@vercel/slack-bolt` receiver shape or a Sentry init mechanism, confirm against the current vendor README/docs (vendor-literal), and adopt the shared Next.js config workspace if it has landed.
+**Reviewer**: `assumptions-expert` re-runs against this attestation as part of the readiness review.
 
 ---
 
@@ -158,7 +222,10 @@ Settled 2026-07-08: choosing `@vercel/slack-bolt` (for its `waitUntil` ack) choo
 
 > See [Lifecycle Triggers component](../../templates/components/lifecycle-triggers.md)
 
-- **Start-right** each session; **thread record** `oak-slack-assistants.next-session.md` created with this revision; **active claim** on `apps/slack/**` + `packages/libs/slack-assistant/**`; **consolidation** at WS11.
+- **Start-right** each session; **thread record** `oak-slack-assistants.next-session.md`;
+  **active claim** on `apps/slack/**` + `packages/libs/ai-gateway/**` +
+  `packages/libs/slack-assistant/**` (+ the estate surfaces while WS-E1/WS-E2 are in
+  flight); **consolidation** at WS11.
 
 ---
 
@@ -166,75 +233,247 @@ Settled 2026-07-08: choosing `@vercel/slack-bolt` (for its `waitUntil` ack) choo
 
 > See [TDD Cycles component](../../templates/components/tdd-phases.md)
 
-WS0 gates all. **WS1, WS2, WS3, WS4, WS7, WS8** are parallel-safe after WS0 (separate file scopes). WS5←WS1–4; WS6←WS5; WS9←WS6+WS7+WS8; WS10←WS9; WS11 last.
+WS0 gates the new-workspace work. **WS-E1 is parallel-safe immediately** (logger-only file
+scope). **WS-E2's extraction cycles can be drafted in parallel, but its boundary
+registration consumes WS0's stratified tier and both touch `boundary.ts` + its tests — so
+WS-E2 lands after WS0** (`depends_on` reflects this). After WS0: **WS1, WS3, WS4, WS7**
+parallel-safe; WS2 ← WS1; WS5 ← WS1–4; WS6 ← WS5; WS8 ← WS-E2; WS9 ← WS6+WS7+WS8;
+WS10.1 (the CI PII assertion) ← WS5; WS10.2–4 ← WS9; WS11 last.
 
 ---
 
 ## Reviewer Scheduling
 
-- **Plan-phase**: `assumptions-expert`, `mcp-expert`, `architecture-expert-fred` (boundary config + ADR), `config-expert` (workspace/turbo/eslint-boundary).
-- **Mid-cycle**: `test-expert` + `type-expert` per RED/GREEN; `security-expert` after WS2/WS7/WS8 (PII, access control, egress); `code-expert` gateway.
-- **Close**: `accessibility-expert` (content readability + any future affordance), `docs-adr-expert`, `onboarding-expert`, `release-readiness-expert`.
+- **Plan-phase (this revision)**: `assumptions-expert`, `mcp-expert`,
+  `architecture-expert-fred` (boundary/tier + ADRs), `sentry-expert` (WS-E2/WS8),
+  `clerk-expert` (the Ask Oak machine-identity direction, advisory), `config-expert`
+  (workspace/turbo/eslint boundary).
+- **Mid-cycle**: `test-expert` + `type-expert` per RED/GREEN; `security-expert` after
+  WS2/WS7/WS8 (PII, access control, egress); `code-expert` gateway per
+  `invoke-code-experts`.
+- **Close (WS11)**: `accessibility-expert` (content readability), `docs-adr-expert`,
+  `onboarding-expert`, `release-readiness-expert` (GO/NO-GO).
 
 ---
 
 ## WS0 — Scaffold, register, configure
 
-Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tsconfig** convention — copy a `packages/libs/*` member, not a bespoke tsc/esbuild build) and `apps/slack/ask-oisin` (a **Next.js App Router** app + `vercel.json`, copying the `oak-curriculum-hub` Next config: `noEmit`, `jsx`, next plugin, `@/*` alias). Register **both** in `pnpm-workspace.yaml` (an explicit `packages/libs/slack-assistant` line and the `apps/slack/*` glob). Add `turbo.json` task entries for the Next.js app (`.next` outputs, `!.next` inputs), mirroring the hub. Add `slack-assistant` to `LIB_PACKAGES` in `boundary.ts` and place it in the **adapter** sub-tier so it may import **foundation** providers (`@oaknational/logger`, the general logging adapter). It MUST NOT import `@oaknational/sentry-node`: that is a Node-only vendor **provider** (itself an adapter — adapter→adapter is forbidden, correctly), and vendor providers compose at the **app composition root**, never in the framework (see [`slack-assistant-logging-observability-design.md`](../../../research/outreach/slack-assistant-logging-observability-design.md)). The ADR records the tier. **Update the `lib-boundary.unit.test.ts` tier assertions in the same change**, add the app package to `APP_PACKAGE_IMPORTS`, and note that `apps/slack/*` is a new 3-deep nesting (existing apps are 2-deep). Author an ADR (citing [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) for the framework/consumer seam and [ADR-041](../../../../docs/architecture/architectural-decisions/041-workspace-structure-option-a.md) for the workspace tier) recording the `apps/slack/*` family and the framework's tier + permitted edges. The Next.js telemetry topology is an **OPEN question** — build the cost/value theory and vendor-verify first (logging record §5–§8); do **not** hard-code `sentry-node` for Next.js.
+Create `packages/libs/ai-gateway` and `packages/libs/slack-assistant` (repo **tsup +
+three-tsconfig** convention — copy a `packages/libs/*` member) and `apps/slack/ask-oisin`
+(**Next.js App Router** + `vercel.json`, copying the hub's Next config conventions:
+`noEmit`, `jsx`, next plugin, `@/*` alias). Register all three in `pnpm-workspace.yaml`
+(explicit lib lines + the `apps/slack/*` glob — a new 3-deep app nesting; existing apps are
+2-deep). Add `turbo.json` entries for the Next.js app (`.next` outputs, `!.next` inputs,
+mirroring the hub). **Boundary configuration** (configure, never disable): stratify the existing
+**adapter tier** in `boundary.ts` — mirroring the foundation/adapter idiom one level deeper —
+into an **adapter-base** sub-tier (`ai-gateway`, and WS-E2's shared sentry core): vendor
+adapters other adapters may depend on, themselves importing only core + foundation; and the
+**adapter** sub-tier (`slack-assistant`, `sentry-node`, WS-E2's `sentry-nextjs`): may import
+core, foundation, and adapter-base — never another composite adapter. This gives the
+`slack-assistant → ai-gateway` and provider → shared-core edges **structural** acyclicity
+rather than a hand-maintained edge whitelist. Update the `lib-boundary`/`app-boundary`
+unit-test tier assertions (they import the tier constants directly, so the new sub-tier
+constant is asserted there too) and `APP_PACKAGE_IMPORTS` in the same change; verify the
+3-deep app's own eslint/tsconfig relative-path depth (existing apps are 2-deep). Record the
+decision as an **amendment to
+[ADR-041](../../../../docs/architecture/architectural-decisions/041-workspace-structure-option-a.md)**
+(one decision: the adapter-tier stratification + the `apps/slack/*` family rows — the same
+in-place amendment shape as its 2026-05-11 `agent-tools`/`agent-graphs` rows), with
+[ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md)
+cited for the framework/consumer seam.
 
-**Acceptance**: `pnpm build && pnpm type-check && pnpm lint` green for both workspaces (lint proves the boundary config accepts the framework's adapter imports); the **oak-eslint unit tests pass** (the edited `lib-boundary`/`app-boundary` assertions); the `@vercel/slack-bolt` receiver spike acks within 3s locally; ADR merged. **Reviewers**: `config-expert`, `architecture-expert-fred`.
+**Acceptance**: `pnpm build && pnpm type-check && pnpm lint` green for all three workspaces
+(lint proves the configured edges); the oak-eslint unit tests pass with the updated
+assertions; a `@vercel/slack-bolt` receiver spike acks within 3s locally; the ADR is in the
+tree. **Reviewers**: `config-expert`, `architecture-expert-fred`.
 
 ---
 
-## WS1 — Framework: model layer (`ask()`)
+## WS-E1 — Estate: logger portability (owner-directed)
 
-### Cycle 1.1: bounded tool loop (no slug-format validation)
+### Cycle E1.1: enforcement test + portable hash + truthful README
 
-**Parallel-safe** after WS0. **File scope**: `packages/libs/slack-assistant/src/model.ts` + `model.unit.test.ts`.
-**Test (Red)** — behaviour over an injected fake model: given a fake that returns text after K tool round-trips, `ask()` returns that text and stops at the configured bound. Do NOT assert the internal `generateText` call shape (audit-shaped). The model slug is an **opaque operator-configured env string** — no hyphen/dot format validation (the Gateway rejects unknown slugs at call time; current Anthropic IDs are hyphenated, e.g. `claude-sonnet-5`, so a format heuristic would false-reject valid models).
-**Product code (Green)**: `model.ts` — `ask(system, prompt, tools)`; `tools` typed as the AI SDK `ToolSet` (not `Record<string, unknown>`).
-**Validation**: workspace test exit 0; full `pnpm test` exit 0. **Reviewer**: `type-expert`.
-**Note**: re-verify `isStepCount` and `ToolSet` against the *installed* `ai` version at GREEN (`verify-vendor-call-shapes`).
-
----
-
-## WS2 — Framework: PII egress boundary (org-critical)
-
-### Cycle 2.1: scrub the inbound question → branded type
-
-**File scope**: `src/pii.ts` + `pii.unit.test.ts`. **Test (Red)**: `scrub()` removes `<@U…>` mentions, email- and phone-shaped tokens, and author identity; it returns a branded `ScrubbedQuestion = string & { readonly __scrubbed: unique symbol }`. **Product code**: `scrub()` + the branded type; the egress path (`ask()`/tool dispatch) accepts only `ScrubbedQuestion`, so the compiler rejects unscrubbed egress. Pin the compile-time guarantee with a `// @ts-expect-error` fixture — calling the egress path with a plain `string` must fail to compile (the evidence behind the Proof Contract's "compile failure on unscrubbed egress"). **Reviewer**: `security-expert`, `type-expert`.
-
-### Cycle 2.2: scrub model-generated tool-call arguments
-
-**File scope**: `src/pii.ts` + an integration test over the tool-loop seam with a capturing fake tool. **Test (Red)**: when the model emits a tool call whose arguments echo PII from the question, the arguments are scrubbed before they reach the MCP transport. **Product code**: apply `scrub()` (or a structured-arg scrubber) at the tool-dispatch boundary. This closes the design's named tool-argument egress vector — without it the PII invariant the owner ruling rests on is not enforced end-to-end. **Reviewer**: `security-expert`.
+**Parallel-safe immediately.** **File scope**: `packages/libs/logger/src/no-node-only-imports.unit.test.ts`
+(new), `src/otel-format.ts`, `README.md`.
+**Test (Red)**: a `no-node-only-imports` enforcement test mirroring
+`@oaknational/observability`'s (fails on any `node:*` or `@sentry/*` import in runtime
+source) — RED on `otel-format.ts`'s `node:crypto` import.
+**Product code (Green)**: replace `createHash('md5')` in `correlationIdToTraceId` with a
+portable deterministic **synchronous** hash (the function and its format-path callers are
+sync, and Web Crypto's `subtle.digest` is async — so a pure-JS 128-bit derivation preserving
+the trace-id shape, not a signature-changing swap). Before changing the derivation, grep
+`logger` consumers for any persistence or cross-version comparison of derived trace ids and
+record the result in the cycle (the "per-run values, not persisted contracts" claim becomes
+a checked fact, not an assertion). True up the README's runtime-agnostic claim so it is
+structurally guaranteed, not asserted.
+**Validation**: logger workspace tests exit 0; full `pnpm test` exit 0; the new enforcement
+test passes. **Reviewers**: `code-expert`, `test-expert`.
 
 ---
 
-## WS3 — Framework: MCP attachment
+## WS-E2 — Estate: Sentry vendor×runtime decomposition + the Next.js provider
+
+### Cycle E2.1: extract the shared Sentry redaction core (refactor-shaped)
+
+**File scope**: new shared core package (working name `packages/libs/sentry-core`; the ADR
+fixes the name/tier), `packages/libs/sentry-node/src/runtime-redaction.ts` +
+`runtime-sdk.ts` call sites, boundary config + tests.
+Move the Sentry-shaped, runtime-agnostic substance — the **five** `redactSentry*` redactors
+(event/breadcrumb/log/span/transaction) and the hook-composition **skeleton** (redact →
+optional injected post-redaction transform → return, with its **load-bearing ordering**) —
+into the shared core, re-basing types onto `@sentry/core` exports (nothing reaches back to
+`NodeOptions`). **`applyFingerprint` does NOT move**: it sits between redaction and the
+consumer hook today and its `KNOWN_ERROR_FAMILIES` are MCP-app-specific (`McpError`,
+`TestError*`) — lift it out of `createSentryHooks` and re-compose it as `sentry-node`'s own
+post-redaction hook (the existing `SentryPostRedactionHooks` injection point carries it), so
+`sentry-nextjs` never inherits it. `sentry-node` consumes the core; **its public surface is
+unchanged and its existing tests stay green unmodified** (refactoring-TDD: the RED phase is
+compiler errors, existing tests are the net). What must NOT move (per-runtime, confirmed):
+`createSentryInitOptions`/`NodeOptions` shaping, the three-mode DI + env resolution, the
+`LogSink` bridge, fixture mode. Boundary: the shared core joins the adapter-base sub-tier (the WS0 ADR-041
+amendment owns the tier mechanics; this workstream references it). The **provider-model
+ADR** records the genuinely separate decision: the Sentry vendor×runtime decomposition and
+where the ADR-160 barrier is owned (shared core owns it; sentry-node = Node/Express
+provider; sentry-nextjs = Next.js provider).
+
+### Cycle E2.2: `@oaknational/sentry-nextjs` (the Next.js provider)
+
+**File scope**: `packages/libs/sentry-nextjs/**` (new). **Test (Red)**: the provider wires
+the **full five-hook ADR-160 closure** (`beforeSend`, `beforeSendTransaction`,
+`beforeBreadcrumb`, `beforeSendLog`, `beforeSendSpan`) — a PII payload pushed through EACH
+hook emerges redacted (spans are mutate-redacted in place: `beforeSendSpan` cannot return
+null); composition order proven; a post-response **capture+flush** helper exists and
+flushes within a bounded timeout (~5s, `sentry-node`'s precedent). **Product code (Green)**:
+thin wrapping of `@sentry/nextjs` for headless App Router apps — instrumentation glue
+(`register()` loading the `nodejs` branch ONLY, deliberately no edge/client config, +
+`sentry.server.config` import + `onRequestError = captureRequestError`), the hook-set from
+the shared core, the helper. If the provider forwards `LogEvent`s into Sentry, that path
+depends on `beforeSendLog` being wired — same closure. Re-verify the `@sentry/nextjs`
+option names against the installed version at GREEN. **Config contract (precise)**: the
+ADR-171 SINKS axis vocabulary governs the provider's own sentry on/off enablement, read at
+server-config load; fixture behaviour is realised in the test harness (direct hook
+assertion), not a live fixture transport; the provider defines NO rival estate-wide axes
+schema — the estate-wide `SENTRY_MODE`→axes migration and the sink-enum reconciliation
+(`file` vs `log-file`) stay with the owner-gated `observability-sinks-decoupling` plan;
+this provider is cited there as evidence, not a preemption.
+**Reviewers**: `sentry-expert`, `security-expert`, `architecture-expert-fred`.
+
+---
+
+## WS1 — ai-gateway: model layer (`ask()`)
+
+### Cycle 1.1: bounded tool loop + egress contract
+
+**File scope**: `packages/libs/ai-gateway/src/model.ts`, `src/egress.ts` + unit tests.
+**Test (Red)** — behaviour over an injected fake model: given a fake that returns text after
+K tool round-trips, `ask()` returns that text and stops at the configured bound (do NOT
+assert the internal `generateText` call shape — audit-shaped). The model slug is an opaque
+operator-configured env string — no format validation (owner ruling). Egress contract: a
+branded `ScrubbedText` type (`string & { readonly __scrubbed: unique symbol }`) that every
+egress-facing parameter requires; pin the compile-time guarantee with a `// @ts-expect-error`
+fixture (plain `string` fails to compile).
+**Product code (Green)**: `ask(instructions, prompt, tools)` on `ai@^7` (`isStepCount`,
+`instructions`, `ToolSet`); per-request ZDR in `providerOptions`.
+**Validation**: workspace tests exit 0; full `pnpm test` exit 0. **Reviewer**: `type-expert`.
+
+### Cycle 1.2: streaming variant (`askStream()`)
+
+**File scope**: `packages/libs/ai-gateway/src/model.ts` + unit tests. **Test (Red)** — over an
+injected fake streaming model: `askStream()` yields the token stream and preserves the same
+bound, egress contract, and tool-loop semantics as `ask()` (one implementation of the loop,
+two delivery shapes — not a fork). Owner decision 2026-07-08: streaming is v1, built once at
+the framework level. **Reviewer**: `type-expert`, `code-expert`.
+
+---
+
+## WS2 — PII egress boundary (org-critical)
+
+### Cycle 2.1: scrub implementation → branded type (slack-assistant)
+
+**File scope**: `packages/libs/slack-assistant/src/pii.ts` + `pii.unit.test.ts`.
+**Test (Red)**: `scrub()` removes `<@U…>` mentions, email- and phone-shaped tokens, and
+author identity; returns `ScrubbedText` (the `ai-gateway` brand). Pattern set is config —
+Slack-shaped defaults, extensible. **Reviewer**: `security-expert`, `type-expert`.
+
+### Cycle 2.2: tool-call-argument scrubbing seam (ai-gateway)
+
+**File scope**: `packages/libs/ai-gateway/src/model.ts` + an integration test with a
+capturing fake tool. **Test (Red)**: when the model emits a tool call whose arguments echo
+PII from the question, the injected arg-scrubber runs over the arguments before they reach
+the MCP transport. This closes the design's named tool-argument egress vector — without it
+the PII invariant is not enforced end-to-end. **Reviewer**: `security-expert`.
+
+---
+
+## WS3 — ai-gateway: MCP attachment
 
 ### Cycle 3.1: pure denylist filter (unit, mock-free)
 
-**File scope**: `src/mcp-filter.ts` + `*.unit.test.ts`. **Test**: parameters in (tool map + denylist), filtered map out — no mocks. **Product code**: the pure filter.
+**File scope**: `packages/libs/ai-gateway/src/mcp-filter.ts` + `*.unit.test.ts`.
+**Test**: parameters in (tool map + denylist), filtered map out — no mocks. (Annotation-based
+filtering is not implementable on `client.tools()` output — verified: it drops
+`readOnlyHint`/`destructiveHint` — so the name denylist is the filter.)
 
 ### Cycle 3.2: attachMcp over an injected fake client (integration)
 
-**File scope**: `src/mcp.ts` + `*.integration.test.ts`. **Test**: an injected fake client receives the Streamable-HTTP transport config + auth/toolset headers; the filtered tools are returned. **Note**: the client is created once per warm instance (module scope), so denylist auto-pickup of new server tools is per-cold-start, not live — state it in the module doc. **Reviewer**: `mcp-expert`.
+**File scope**: `packages/libs/ai-gateway/src/mcp.ts` + `*.integration.test.ts`.
+**Test**: an injected fake client receives the Streamable-HTTP transport config
+(`type: 'http'`) + auth/toolset headers; the filtered tools are returned. **Note** in the
+module doc: the client is created once per warm instance, so denylist auto-pickup of new
+server tools is per-cold-start, not live. **Reviewer**: `mcp-expert`.
 
 ---
 
-## WS4 — Framework: Slack surface adapter
+## WS4 — slack-assistant: Slack surface
 
 ### Cycle 4.1: invocation wiring + signature verification (explicit-only)
 
-**File scope**: `src/slack.ts` + `*.integration.test.ts`. **Test harness (defined)**: drive Bolt events in-process by invoking the receiver's request handler with a signed synthetic request (no network); assert routing without HTTP. **Test (Red)**: `app_mention`, DM (`message.im`, `channel_type==="im"`) and slash route to `ask()` with a `ScrubbedQuestion`; a channel message is NOT handled (no `message.channels`); a self-mention does not double-answer; a request with an invalid Slack signature is rejected. **Product code**: `@vercel/slack-bolt` wiring, signature verification, mrkdwn + disclaimer, assistant-thread prompts. The Bolt message event is narrowed via its typed union (no `as any`). **Reviewer**: `security-expert`, `code-expert`.
+**File scope**: `packages/libs/slack-assistant/src/slack.ts` + `*.integration.test.ts`.
+**Test harness (defined)**: drive Bolt in-process by invoking the receiver's request handler
+with a signed synthetic request (no network). **Test (Red)**: `app_mention` (replying with
+`thread_ts: event.thread_ts ?? event.ts`), DM (`message.im`, narrowed via Bolt's typed
+message union — no `as any`), and slash route to `ask()` with `ScrubbedText`; a channel
+message is NOT handled (no `message.channels`); a mention **inside a DM does not
+double-answer** (mention+message de-dup); a self/bot message is ignored; an invalid Slack
+signature is rejected. **Product code**: `@vercel/slack-bolt` wiring — one `VercelReceiver`,
+the same instance to `new App({ receiver, deferInitialization: true })` and
+`createHandler(app, receiver)`; mrkdwn + disclaimer; assistant-thread suggested prompts.
+**Reviewer**: `security-expert`, `code-expert`.
+
+### Cycle 4.2: token streaming on the event listeners
+
+**File scope**: `src/slack.ts` + `*.integration.test.ts`. **Test (Red)**: a mention/DM/
+assistant-thread answer streams via `sayStream` (Bolt ≥ 4.7 wrapping
+`chat.startStream`/`appendStream`/`stopStream`, scope `chat:write`) fed by `askStream()`;
+the stream closes cleanly on completion and on error (no dangling stream); slash commands
+post complete answers via `response_url` (the streaming methods are message-thread-shaped,
+not response_url-shaped). Re-verify `sayStream` against the installed `@slack/bolt` at
+GREEN. **Reviewer**: `code-expert`.
+
+### Cycle 4.3: reaction feedback signal (👍/👎, metadata only)
+
+**File scope**: `src/reactions.ts` + test. **Test (Red)**: `reaction_added`/`reaction_removed`
+events on the bot's own answers increment/decrement metadata-only counters (answer message
+`ts` + emoji class + count — no user identity, no content); reactions on other messages are
+ignored. Owner decision 2026-07-08: reactions are the v1 POC feedback signal (in-Slack, no
+new PII egress; the interactive Block Kit affordance stays deferred). **Reviewer**:
+`security-expert` (identity-stripping), `code-expert`.
 
 ---
 
-## WS5 — Framework: `defineSlackAssistant()` + config schema
+## WS5 — slack-assistant: `defineSlackAssistant()` + config schema
 
 ### Cycle 5.1: factory + Zod config schema (the seam)
 
-**File scope**: `src/define.ts`, `src/config.ts`, `*.integration.test.ts`. **Config schema (sketch)**: `{ name, model (env slug), mcp: { url, headers|authProvider, deny[] }, systemPrompt, invocation: { slashCommands[] }, egress: { scrub, allowList }, observability (injected), disclaimer }` with `type Config = z.infer<typeof configSchema>`. **Test (Red)**: a minimal config yields a working handler (stub MCP + stub model) answering a scrubbed question; an invalid config is rejected. **Seam gate**: `packages/libs/slack-assistant/src` has (a) zero Oak-specific literals and (b) **zero `process.env` reads** (config injected) — both grep-gated. **Reviewer**: `architecture-expert-*`, `type-expert`.
+**File scope**: `src/define.ts`, `src/config.ts`, `*.integration.test.ts`.
+**Config schema (sketch)**: `{ name, model (env slug), mcp: { url, headers|authProvider, deny[] }, instructions, invocation: { slashCommands[] }, egress: { scrubPatterns, allowList }, observability (injected), disclaimer }` with `type Config = z.infer<typeof configSchema>`.
+**Test (Red)**: a minimal config yields a working handler (stub MCP + stub model) answering
+a scrubbed question; an invalid config is rejected. **Seam gates (grep-enforced)**:
+`packages/libs/slack-assistant/src` and `packages/libs/ai-gateway/src` have (a) zero
+Oak-specific literals, (b) zero `process.env` reads (config injected), (c) no vendor
+telemetry provider imports, and (d) the `ScrubbedText` brand is minted (`as ScrubbedText`)
+ONLY in the sanctioned scrubber modules — casting anywhere else is the enforcement-theatre
+hole, so the gate greps for the assertion outside those files. **Reviewer**: `architecture-expert-*`, `type-expert`.
 
 ---
 
@@ -242,57 +481,126 @@ Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tscon
 
 ### Cycle 6.1: Oisín config over the framework
 
-**File scope**: `apps/slack/ask-oisin/src/config.ts` + test. **Test (Red)**: attaches the GitHub MCP with `X-MCP-Readonly: true` and `X-MCP-Toolsets: repos` (the `repos` toolset already includes `search_code` + `get_file_contents`, sufficient for search-then-read grounding — no separate `search` toolset exists); system prompt names the under-the-hood start point + cite-source + **declines curriculum-content questions with a short explanation** (Ask Oak is not yet live) + a **safeguarding deflect-and-signpost instruction** (on a sensitive/safeguarding disclosure, decline to engage and point to Oak's human safeguarding route; retain nothing); config validates. Audience is **internal Oak staff** (reconciled from a stray "Pathfinder team" literal). **Reviewer**: `mcp-expert`.
+**File scope**: `apps/slack/ask-oisin/src/config.ts` + test. **Test (Red)**: attaches the
+GitHub MCP with `X-MCP-Readonly: true` and `X-MCP-Toolsets: repos`; system instructions name
+the under-the-hood start point + cite-source + decline-curriculum-with-explanation + the
+safeguarding deflect-and-signpost instruction; config validates. Audience: internal Oak
+staff. **Reviewer**: `mcp-expert`.
 
 ---
 
-## WS7 — Access control + abuse limiting
+## WS7 — Access control, abuse limits, delivery correctness
+
+These are **framework controls** — they live in `slack-assistant` so every bot inherits
+them (the design's §Security "framework-level, so every bot inherits them"); the app
+supplies only values (allow-list, thresholds, salt) and the KV client through the WS5
+config. All three cycles test over an **injected fake KV client** — CI needs no
+provisioned Redis; the app wires the real Upstash Redis client at its root.
 
 ### Cycle 7.1: installation allow-list (internal-use only)
 
-**File scope**: `apps/slack/ask-oisin/src/access.ts` + test. **Test (Red)**: a request from an allow-listed Slack team/workspace id is accepted; a request from any other workspace is rejected (internal-use only; no external access); **an empty or malformed allow-list rejects ALL requests (fail-closed)** — this is the invariant the "empty the allow-list" kill-switch relies on. The allow-list is config/env-driven. **Scope (owner ruling)**: workspace-level is the accepted v1 definition — guests / Slack-Connect members *within* an allow-listed workspace are accepted; no per-user identity gating in v1. **Product code**: verify the Slack team id against the allow-list after signature verification, before any model call. **Reviewer**: `security-expert`.
+**File scope**: `packages/libs/slack-assistant/src/access.ts` + test. **Test (Red)**: an
+allow-listed Slack team id is accepted; any other workspace is rejected; **an empty or
+malformed allow-list rejects ALL requests (fail-closed)** — the "empty the allow-list"
+kill-switch invariant. Workspace-level scope per the owner ruling. **Product code**: verify
+the team id after signature verification, before any model call. **Reviewer**:
+`security-expert`.
 
 ### Cycle 7.2: per-workspace + per-user (hashed) rate limiting
 
-**File scope**: `src/rate-limit.ts` + test. **Test (Red)**: over-limit requests are rejected; the limiter keys on the Slack team id (per-workspace) AND a **salted one-way hash of the user id that is never egressed** (per-user), in a durable KV (Upstash/Vercel KV) — NOT `express-rate-limit` (Express-bound, doesn't survive serverless, can't see users behind Slack's shared egress IP). The hash reconciles per-user limiting with PII identity-stripping. **Default thresholds (env-tunable)**: ~20 requests/hour per hashed user, ~200/hour per workspace — comfortably under GitHub's 5,000/hour authenticated REST limit. **Reviewer**: `security-expert`.
+**File scope**: `packages/libs/slack-assistant/src/rate-limit.ts` + test. **Test (Red)**:
+over-limit requests are rejected; keys are the Slack team id AND a salted one-way hash of
+the user id (never egressed), against the injected KV client. Default thresholds
+(config-tunable): ~20/hour per hashed user, ~200/hour per workspace — comfortably under
+GitHub's 5,000/hour token limit even at `isStepCount(8)` (GitHub search also carries
+per-minute sub-limits; the per-user bound keeps bursts inside them). **Reviewer**:
+`security-expert`.
+
+### Cycle 7.3: Slack retry de-duplication (first-class)
+
+**File scope**: `packages/libs/slack-assistant/src/dedup.ts` + test. **Test (Red)**: a
+redelivered event (same Slack event id / `x-slack-retry-num` present) is acknowledged but
+not re-answered; the de-dup key is the opaque event id with a short TTL — never content.
+Slack retries slow acks up to 3 times in normal operation; this is correctness, not
+hardening. **Reviewer**: `code-expert`.
 
 ---
 
-## WS8 — Observability
+## WS8 — App observability composition
 
-### Cycle 8.1: Next.js Sentry init via the all-sink barrier + waitUntil flush
+### Cycle 8.1: compose the provider; prove capture + flush + metadata-only
 
-**File scope**: `apps/slack/ask-oisin/src/observability.ts` (+ `instrumentation.ts` if that is the chosen Next.js init) + test. **Test (Red)**: a forced failure in the `waitUntil` continuation is captured AND Sentry is flushed before the function terminates (Vercel truncates otherwise); logs carry event-type/latency/token-count only, never message content. **Product code**: init through the `@oaknational/sentry-node` **non-bypassable all-sink redaction barrier** (ADR-160 — every current and future fan-out hook shares the redaction; do not re-enumerate the hook list here), not an events-only `beforeSend`; a `waitUntil`-aware capture+flush. AI SDK `experimental_telemetry` stays off. **Reviewer**: `security-expert`, `sentry-expert`.
+**File scope**: `apps/slack/ask-oisin/instrumentation.ts`, `sentry.server.config.ts`,
+`src/observability.ts` + tests. **Test (Red)**: a forced failure in the post-response
+continuation is captured AND flushed before the function terminates — and the capture is
+**explicit** (`try/catch` → `Sentry.captureException` → bounded `Sentry.flush(~5s)` wrapping
+the continuation body): `onRequestError`/`captureRequestError` covers request-path errors,
+NOT work continued after the response, so without the explicit wrap a continuation failure
+is invisible (our requirement — vendor-undocumented for the continuation path). Emitted
+events carry event-type/latency/token-count only, never message content; a content-bearing
+synthetic event is redacted by the barrier before transport (console-as-breadcrumbs is ON
+by default and rides `beforeBreadcrumb`; console-as-Sentry-logs stays off). **Product code (Green)**: compose `@oaknational/sentry-nextjs`
+(WS-E2) at the app root — no client config (headless); `withSentryConfig` per its README
+(source-map upload rides the optional `SENTRY_AUTH_TOKEN`; without it the POC still
+captures, with unminified server stacks anyway); console capture stays off; AI SDK
+`experimental_telemetry` stays off. **Reviewer**: `security-expert`, `sentry-expert`.
 
 ---
 
 ## WS9 — Deploy config
 
-`vercel.json` (Next.js), the `turbo.json` entries from WS0, `maxDuration` covering model + live GitHub reads, env wiring (`SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`, `AI_GATEWAY_API_KEY`, `CLAUDE_MODEL`, `GITHUB_TOKEN`, `SENTRY_MODE`/`SENTRY_DSN` + build-metadata release inputs, the allow-list), `manifest.oisin.yaml` (scopes without `channels:history`; events without `message.channels`).
+`vercel.json` (Next.js), the `turbo.json` entries from WS0, env wiring (`SLACK_BOT_TOKEN`,
+`SLACK_SIGNING_SECRET`, `AI_GATEWAY_API_KEY`, `CLAUDE_MODEL`, `GITHUB_TOKEN`,
+`SLACK_TEAM_ALLOWLIST`, `SENTRY_*` + build-metadata release inputs), `manifest.oisin.yaml`
+(**`features.agent_view`** — the legacy `assistant_view` is not available to new apps;
+scopes without `channels:history` but WITH `reactions:read` (WS4.3); events without
+`message.channels` but WITH `reaction_added` + `reaction_removed`). Duration stays at
+the Fluid default (300s) unless measured need says otherwise. **A dev Slack app** points at
+the preview deployment (Slack delivers each app's events to exactly one request URL).
 
-**Acceptance**: a Vercel **preview deploy** acks a Slack `app_mention` within 3s (value-proxy).
+**Acceptance**: a Vercel **preview deploy** acks a Slack `app_mention` from the dev app
+within 3s (value-proxy).
 
 ---
 
 ## WS10 — Validation (split)
 
-### Cycle 10.1: deterministic PII payload assertion (CI-safe)
+### Cycle 10.1: deterministic PII payload assertion (CI-safe; NOT deploy-gated)
 
-**In-process integration test** over the WS2 capture seam: the outbound payload (system + prompt + every tool-call argument) contains only the `ScrubbedQuestion` — no Slack user id, display name, or structured PII. Fully deterministic, runs in CI. **Proof**: `integration`.
+**In-process integration test** over the WS2 capture seam: the outbound payload
+(instructions + prompt + every tool-call argument) contains only the `ScrubbedText` — no
+Slack user id, display name, or structured PII. Fully deterministic, runs in CI the moment
+WS2+WS5 assemble (the estate's most important safety assertion does not wait for deploy).
+**Proof**: `integration`.
 
 ### Cycle 10.2: live grounded-answer smoke (non-CI)
 
-A **manual/value-proxy** check against the preview deploy: "What is the Practice?" returns an answer grounded in a live repo read that **cites the repo path** used. Non-deterministic (live LLM), so not a CI gate. **Proof**: `value-proxy` / `e2e` (manual).
+A **manual/value-proxy** check against the preview deploy: "What is the Practice?" returns
+an answer grounded in a live repo read that **cites the repo path** used. Non-deterministic
+(live LLM), so not a CI gate. **Proof**: `value-proxy` / `e2e` (manual).
 
 ### Cycle 10.3: content readability
 
-The reply text meets plain-language / WCAG understandable expectations (in scope even without React components), measured against **`oak-tone-of-voice`** as the named readability bar (already the loaded voice standard). **Proof**: `non-code` (reviewer check).
+The reply text meets plain-language expectations, measured against **`oak-tone-of-voice`**
+(the loaded voice standard). **Proof**: `non-code` (reviewer check).
+
+### Cycle 10.4: safeguarding behaviour
+
+A **small adversarial synthetic set** of safeguarding disclosures (not a single case — the
+behaviour is LLM-probabilistic) is deflected + signposted; nothing retained (the retention
+half is already proven deterministically by WS8 + WS10.1).
+**Proof**: `value-proxy` (manual).
 
 ---
 
 ## WS11 — Reviews, docs, consolidation
 
-Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite ADR-154 as the governing seam decision; register Ask Oisín as a runtime in [`what-the-system-emits-today.md`](../../observability/what-the-system-emits-today.md) (Engineering cell: Sentry capture + WS8 test id); update the design-doc status; author the `slack-assistant` README and app README. Run `/oak-consolidate-docs`.
+Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: the two ADRs
+(scaffolding; provider model); `ai-gateway`, `slack-assistant`, `sentry-nextjs`, and app
+READMEs; register Ask Oisín as a runtime in
+[`what-the-system-emits-today.md`](../../observability/what-the-system-emits-today.md)
+(Engineering cell: Sentry capture + the WS8 test id); update the design-doc status; the
+`oak-slack-assistants` thread record; the collection `roadmap.md`. Run `/oak-consolidate-docs`.
 
 ---
 
@@ -300,16 +608,23 @@ Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite
 
 | Acceptance id | Proof level | Proven by |
 |---|---|---|
-| Framework units (WS1–5) | unit / integration | `pnpm test --filter @oaknational/slack-assistant` exit 0 |
-| PII egress: inbound + tool-args, branded-type-enforced (WS2, WS10.1) | unit + integration + type | scrub tests + tool-arg capture test + compile failure on unscrubbed egress + deterministic outbound-payload assertion |
-| No Oak literals AND no `process.env` in framework (WS5) | non-code | two grep gates over `packages/libs/slack-assistant/src` |
-| Internal-only access + rate limits (WS7) | integration | allow-list accept/reject + over-limit reject tests |
-| Next.js Sentry all-sink + waitUntil flush (WS8) | integration | forced-failure-in-continuation captured+flushed; no content in events |
+| logger portability (WS-E1) | unit | the new enforcement test green on a portable base entrypoint |
+| Barrier owned once; provider redaction + ordering (WS-E2) | unit + integration | shared-core tests + provider hook-set tests; sentry-node's existing tests green unmodified |
+| Scaffold + boundary (WS0) | non-code + unit | build/type-check/lint green across the three workspaces; boundary unit tests assert the stratified tiers; the ADR-041 amendment in tree |
+| Model-layer isolation (WS1) | unit / integration | `pnpm test --filter @oaknational/ai-gateway` exit 0 over injected fakes |
+| MCP attachment (WS3) | unit + integration | mock-free denylist filter test + injected-fake-client transport/header assertions |
+| Slack surface (WS4) | integration | signature-reject, routing, thread_ts, DM/mention double-fire de-dup all proven in the in-process harness |
+| PII egress: inbound + tool-args, branded-type-enforced (WS2, WS10.1) | unit + integration + type | scrub tests + arg-capture test + compile failure on unscrubbed egress + deterministic outbound-payload assertion |
+| No Oak literals / no `process.env` / no vendor provider in the libs (WS5) | non-code | three grep gates over both lib `src/` trees |
+| Internal-only access + rate limits + retry de-dup (WS7) | integration | allow-list accept/reject (fail-closed) + over-limit reject + redelivery-not-reanswered tests |
+| Provider composition: continuation capture+flush; metadata-only (WS8) | integration | forced-failure captured+flushed; no content in events; redaction proven pre-transport |
 | GitHub MCP read-only attach (WS6) | unit | header assertions |
-| 3s ack (WS9) | value-proxy | captured Slack delivery + timely 2xx on a preview deploy |
+| Streaming delivery (WS1.2, WS4.2) | unit + integration | askStream over a fake streaming model; sayStream stream opened/closed cleanly in the harness |
+| Reaction feedback signal, identity-stripped (WS4.3) | integration | reaction events counted metadata-only; no user id in the counter records |
+| 3s ack (WS9) | value-proxy | captured Slack delivery + timely 2xx on a preview deploy via the dev app |
 | Grounded, cited answer (WS10.2) | value-proxy (manual) | preview-deploy question returns a cited, repo-grounded answer |
-| Safeguarding deflect + signpost (WS10) | value-proxy (manual) | a synthetic safeguarding disclosure is deflected + signposted, nothing retained |
-| POC success bar (WS10) | value-proxy | eval-set pass rate on a golden question set + weekly-active-askers, evaluated during the POC |
+| Safeguarding deflect + signpost (WS10.4) | value-proxy (manual) | synthetic disclosure deflected + signposted, nothing retained |
+| POC success bar | value-proxy | eval-set pass rate on a golden question set + weekly-active-askers; the numeric thresholds are set by the owner at POC start and recorded HERE before WS10.2 runs — the bar must be falsifiable before it is evaluated |
 
 `complete` is claimable only when every id is proven. TDD evidence must be test-first.
 
@@ -319,13 +634,15 @@ Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite
 
 | Risk | Mitigation |
 |------|------------|
-| Precedent-transfer trap (Express/MCP-shaped assumptions on a Next.js Bolt app) | Existing Capabilities separates what transfers (shared `@oaknational/*` packages) from what does not (express-rate-limit, Clerk client, Express Sentry init); WS7/WS8 build Vercel-appropriate replacements |
-| PII not enforced end-to-end | WS2 scrubs inbound AND tool-args; branded `ScrubbedQuestion` gives compile-time enforcement; WS10.1 deterministic payload assertion; framework reads no env |
-| External/unauthorised access | WS7 installation allow-list (internal-only) after signature verification; reject non-allow-listed workspaces |
-| Framework mis-tiered / boundary rule blocks legitimate adapter use | WS0 configures the eslint boundary for the framework's permitted adapter edges (configure, never disable); ADR records the tier |
-| Incoming shared Next.js config workspace differs from our scaffold | Framework settled (Next.js App Router); adopt the shared config when it lands (config alignment, not a framework change) |
-| ZDR classification | **Settled beneficial-only** (owner ruling 2026-07-08); the PII invariant does not depend on ZDR, so no proof row is owed. Confirming the contractual term is optional (owner/legal), not a plan dependency |
-| Prompt injection via public repo content steering the private-scoped `oak-skills` read | Read-only tools; PAT scoped to exactly the two repos; note the public-content-instructs-private-read pivot; disclosures land only in-Slack to internal staff |
+| Vendor API drift between plan-time pins and build-time installs | Every WS re-verifies the named call shapes against the installed versions at GREEN (`verify-vendor-call-shapes`); majors pinned |
+| PII not enforced end-to-end | WS2 scrubs inbound AND tool-args; the branded type gives compile-time enforcement; WS10.1 deterministic payload assertion; libs read no env |
+| External/unauthorised access | WS7 fail-closed allow-list after signature verification |
+| Boundary config blocks the new legitimate edges | WS0 configures the tiers/edges (never disables) with updated boundary tests; the ADRs record them |
+| Estate refactor (WS-E2) destabilises the MCP app | sentry-node's public surface unchanged; its existing tests must stay green unmodified — the refactor's safety net |
+| Trace-id derivation change (WS-E1) surprises a consumer | Correlation ids are per-run values, not persisted contracts; the derivation change is documented in TSDoc and the WS-E1 commit |
+| Incoming shared Next.js config workspace differs from our scaffold | Adopt the shared config when it lands (config alignment, not a framework change) |
+| Prompt injection via public repo content steering the private-scoped `oak-skills` read | Read-only tools; PAT selects exactly `oak-skills`; disclosures land only in-Slack to internal staff |
+| Double-answer on DM mentions / Slack retries | WS4 de-dup test + WS7.3 event-id de-dup (first-class) |
 
 ---
 
@@ -333,9 +650,16 @@ Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite
 
 > See [Foundation Alignment component](../../templates/components/foundation-alignment.md)
 
-- **principles.md** — decision lenses (design §4); simplicity, strict boundaries (PII branded type), long-term architecture (ADR-154 seam).
-- **testing-strategy.md** — TDD cycle-pairs; unit (no mocks) vs integration (injected fakes) correctly labelled; behaviour-not-audit tests; no skipped tests.
-- **schema-first-execution.md** — the Zod config schema is the seam contract (`Config = z.infer`); env validated via `@oaknational/env`/`env-resolution` at the app boundary; MCP tool shapes from the servers.
+- **principles.md** — decision lenses (design §4); strict boundaries (branded egress type);
+  long-term architecture over expediency (isolated libs, provider decomposition, estate
+  fixes done properly — owner direction 2026-07-08); separate framework from consumer
+  (ADR-154); context-specificity gradient (model layer below surface framework below app).
+- **testing-strategy.md** — TDD cycle-pairs; unit (mock-free) vs integration (injected
+  fakes) correctly labelled; behaviour-not-audit tests; refactoring-TDD for WS-E2.1;
+  no skipped tests.
+- **schema-first-execution.md** — the Zod config schema is the seam contract
+  (`Config = z.infer`); env validated via `@oaknational/env`/`env-resolution` at the app
+  boundary; MCP tool shapes from the servers.
 
 ---
 
@@ -343,7 +667,9 @@ Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite
 
 > See [Documentation Propagation component](../../templates/components/documentation-propagation.md)
 
-The WS0 ADR; `slack-assistant` + app READMEs; the design-doc status; `what-the-system-emits-today.md`; the `oak-slack-assistants` thread record; the collection `roadmap.md`.
+The two ADRs (WS0 scaffolding; WS-E2 provider model); lib + app READMEs; the design-doc
+status; the logging record (already carries the resolution); `what-the-system-emits-today.md`;
+the `oak-slack-assistants` thread record; the collection `roadmap.md`.
 
 ---
 
@@ -353,38 +679,32 @@ After all WS complete and gates pass, run `/oak-consolidate-docs`.
 
 ---
 
-## Known open questions — dispositions (2026-07-08)
-
-**v1 is an internal proof-of-concept.** The open-question review's items were answered or reassigned by the owner:
-
-- **Data protection** — existing Oak vendor DPAs cover Vercel/Anthropic/Slack; **a DPIA is not required for the internal POC** (recorded). Re-assess if v1 graduates beyond POC.
-- **Records/audit retention** — **no retention duty**; Slack's own workspace retention is the governed record (no Q&A store).
-- **ZDR** — beneficial only; the PII invariant does not depend on it (settled).
-- **Success bar** — light quantitative (see Proof Contract): an eval-set pass rate on a golden question set plus weekly-active-askers, evaluated during the POC.
-- **Provisioning, resource ownership, billing/cost ceiling, Slack-app approval, monitoring/service-owner, rollback authority** — **owner-handled; out of plan scope** for the POC (owner ruling 2026-07-08). The plan names the *resources* it needs (Dependencies); assigning their owners is the owner's.
-
-No open questions remain within the plan's own scope.
-
----
-
 ## Dependencies
 
-**Blocking**:
+**Blocking (owner-provisioned; consumed from WS9)**:
 
-- Slack app registration (bot token + signing secret); the Slack team/workspace id for the allow-list.
+- Slack app registration — the production app AND a dev app for previews (bot tokens +
+  signing secrets); the Slack team/workspace id for the allow-list.
 - Vercel project + `AI_GATEWAY_API_KEY` with BYOK (paid tier + purchased credits).
-- GitHub fine-grained PAT with read on the public OCE repo.
-- The WS0 ADR merged before scaffolding structure.
+- GitHub fine-grained PAT (select `oak-skills`; public OCE read is implicit).
+- **Upstash Redis via the Vercel Marketplace** (rate limits + retry de-dup).
 
-**Blocking for full voice (beneficial otherwise)**:
+**Blocking (in-plan)**:
 
-- **Chosen (owner ruling 2026-07-08): scope the fine-grained PAT to read the private `oak-skills` repo** (the make-public and mirror alternatives were declined for v1). This folds into the blocking PAT provisioning. **Minimum shippable without**: grounded, cited answers with degraded (non-Oak-voiced) tone.
+- The WS0 scaffolding ADR and the WS-E2 provider-model ADR land with their workstreams.
 
 **Beneficial**:
 
-- AI Gateway ZDR on — **beneficial only** (owner ruling 2026-07-08: the PII invariant does not depend on it). The contractual-ZDR question is tracked open (see Known Open Questions).
+- `SENTRY_AUTH_TOKEN` (or the Sentry Marketplace integration) for source-map upload —
+  without it the POC still captures errors with readable-enough server stacks.
+- Per-request ZDR — free; on by default in the model layer (the PII invariant does not
+  depend on it — owner ruling).
 
 **Related Plans**:
 
-- [`../future/ask-oak.plan.md`](../future/ask-oak.plan.md) — the second consumer.
-- Design source: [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md).
+- [`../future/ask-oak.plan.md`](../future/ask-oak.plan.md) — the second consumer (machine
+  identity on our MCP app).
+- [`observability-sinks-decoupling.plan.md`](../../observability/current/observability-sinks-decoupling.plan.md)
+  — owner-gated; WS-E2 coordinates with it (axes-native provider as evidence, not preemption).
+- Design source: [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md);
+  telemetry resolution: [`slack-assistant-logging-observability-design.md`](../../../research/outreach/slack-assistant-logging-observability-design.md).

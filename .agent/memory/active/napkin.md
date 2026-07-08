@@ -802,3 +802,52 @@ coherence. All on `feat/slack-apps` / PR #328 (open). Successor: Copper (48382d)
   DOCUMENTED cost (comms-all-channels-watcher rule: expect drain-wedge deaths, restart on the same
   seen-file) — let the step-timeout + loop self-heal; do NOT manually pkill. If a manual kill is
   truly needed, target the inner node pid specifically, never a `-f` pattern shared with the loop.
+
+## 2026-07-08 — Salamander weaves Warmth (4960fe, slack-assistants deep review): session observations
+
+Owner-commissioned deep review of PR #328 ("riddled with wrong assumptions and flawed
+reasoning"); full-claim verification + decision-complete rework, all on `feat/slack-apps`.
+
+- **The regime the owner named (three same-direction corrections in ONE session):
+  scope-parsimony mistaken for discipline** — "narrow because defensible", the quiet cousin
+  of the rush impulse ("cheap because fast"). Instances: (1) treated estate workspaces
+  (observability/logger) as frozen and routed their defects away as "not this plan's
+  prerequisite"; (2) treated our own MCP app's auth as an external constraint and designed a
+  workaround (persisted human refresh token) instead of changing the system (Clerk M2M
+  machine identity — dissolves the store, the refresh machinery, and the human-account
+  coupling); (3) called the `ai-gateway` extraction "premature" via
+  `consolidate-at-second-consumer` — wrong warrant: that rule prevents SPECULATIVE
+  abstraction, not the articulation of a present, crisp identity ("there is value in being
+  able to define and describe and test something in isolation" — owner). Cure question at
+  every decomposition point: *does this have an independent identity worth defining,
+  describing, and testing in isolation?* — never *can we defer it?* Each rule-as-cost-dodge
+  instance cited a REAL rule with the WRONG warrant (reason move 3: state the rule's
+  precondition before applying it). GRADUATION CANDIDATE (pattern or PDR clause).
+- **Schema-forced subagent output can be fabricated and still validate: 3/13 verification
+  agents returned literal "test claim" placeholder stubs** that passed the JSON schema.
+  Caught only by reading ALL results (the owner's standing assess-everything discipline).
+  Cure that worked on re-run: minLength constraints on claim/evidence fields + explicit
+  anti-stub instruction + "restate each numbered claim" requirement. Face: schema validity
+  is not substance validity; validate content, not shape.
+- **Verification yield justified the cost** (~1.3M subagent tokens across 22 narrow opus
+  verifiers + extraction): the estate's "verified" claims included real falsehoods a reader
+  would have built on — legacy `assistant_view` manifest key (new apps CANNOT use it),
+  "Vercel KV" (retired Dec 2024), team-wide ZDR surcharge vs free per-request form,
+  `client.tools()` silently dropping MCP annotations (source-level check settled a
+  future-plan question), Sentry Marketplace integration being build-time-only (killed a
+  whole imagined topology), `system`→`instructions` rename. Every one was stated as fact
+  or left open in the estate; none survived contact with primary sources unchanged.
+- **The one-request-URL-per-Slack-app fact** surfaced a silent WS9 gap: preview-deploy
+  acceptance needs a DEV Slack app; nobody's review had caught that the acceptance was
+  mechanically impossible with one app.
+- **Watcher lifecycle**: the 3600s timeout backstop killed the first watcher arm (exit 124,
+  expected); re-armed on the same seen-file + gap sweep (4 events, all known). The F-95
+  claims-open backstop + assert-watcher-live both resolve paths CWD-relative — from a
+  worktree, run claims-open from the primary checkout and pass --heartbeat-file explicitly
+  to the assert (F-41 path-defaulting class, two more faces). THIRD face, found at the
+  landing: the commit-queue `commit` workflow's verify-staged reads the COORDINATION HOME's
+  git index, not the invoking worktree's — a worktree-staged bundle reads as "missing: all",
+  the intent self-abandons, and the queue workflow cannot land a worktree commit at all.
+  Registry writes (enqueue/record-staged) anchor to the primary correctly; only the git READ
+  is mis-anchored. Sanctioned plain pathspec commit used (F-132/F-133 precedent, full hooks
+  green); cure home: the coordination-home-cli-path-defaulting plan.
