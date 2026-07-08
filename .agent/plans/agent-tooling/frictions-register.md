@@ -2925,6 +2925,6 @@ commit SHA and the closing plan reference.
 - **Candidate cure**: resolve the git cwd from the claim's worktree scope (F-132's cure
   supplies the scope) or from an explicit `--worktree` intent field; verify-staged and the
   inner commit then run against that tree.
-- **Target surface**: `agent-tools/src/commit-workflow` (verify-staged + spawned git cwd).
+- **Target surface**: `agent-tools/src/commit-queue/commit-workflow.ts` (verify-staged + spawned git cwd).
 - **Status**: open. Same sanctioned workaround as F-132.
 - **Owner direction status**: standing (record-all-frictions).
