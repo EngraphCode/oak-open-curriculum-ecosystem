@@ -56,6 +56,29 @@ New session observations append below.
   candidate: graduate as a clause in a collaboration/posture rule (or user-collaboration
   directive) at the next consolidation — the generator is "doctrine is the agent's yardstick,
   not the agent's authority over the owner."
+- **Landed outcome (PR #333 review round):** both remaining findings fixed in code and
+  pushed at `ec20d572c` (fix commit `f73307d22`, merged with the owner's v1.64.0-release
+  reconciliation `fe8a6baff`). Bugbot Low thread RESOLVED; Codex P2 `pre-rebase` thread still
+  OPEN — reply+resolve is the small next-session pickup (recorded in the strategy thread
+  record + repo-continuity). Gates green: `lint:shell:syntax`, `markdownlint:root`, full
+  pre-commit chain at commit time. Fix bytes verified present in the merged tree post-push.
+- **Grounded test-topology fact (conserve — a future agent testing a `pre-rebase` hook would
+  re-derive it):** git does NOT invoke `pre-rebase` for a rebase it treats as a no-op
+  ("Current branch X is up to date" — when the upstream is already an ancestor of the branch
+  tip). To exercise the hook you must rebase onto a **genuinely diverged** upstream (a commit
+  the branch lacks), or git skips the hook and the control reads as a false PASS. My first
+  harness had trunk as an ancestor of main, so the two branch-name-refusal controls (B4/B5)
+  silently passed by never running the hook; adding a diverged `devbase` fixed it (11/11).
+  The range-check controls (main INSIDE the rewritten range) fire correctly because that IS
+  real rebase work. Home: this is a scratch-harness-authoring fact; the harness itself is
+  ephemeral (scratchpad, never committed per the owner ruling above).
+- **Loss-scan (6e.2, from inside context):** nothing else survives the sweep unhomed. The fix
+  rationale (ambient `GUARD_BRANCH` is an ACCIDENTAL-drift risk not new adversarial power —
+  deliberate bypass already exists via `HUSKY=0`; guards are local hygiene, remote branch
+  protection is the invariant) is in the `f73307d22` commit body and the never-commit-to-main
+  rule. The reconciliation (owner merged the release + created `ec20d572c`) is in git history.
+  The Codex-reply content the next session needs is the range-check mechanism + the 11/11
+  proof, both captured in the thread record pickup.
 
 ## 2026-07-08 — Corsair guards Channel (ecdd12, dedicated consolidation): session observations
 
