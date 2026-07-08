@@ -154,8 +154,11 @@ genuinely required review landed (the author-dependent leg below). Then:
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — all checks green AND every review thread resolved (fixed, or
   rejected as inaccurate with rationale) — merges via a normal non-admin
-  `gh pr merge`. `--admin` is FORBIDDEN: it bypasses the gate instead of
-  satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
+  `gh pr merge`, SUBJECT to the merge-readiness boundary below (a
+  self-authored, sub-agent-reviewed PR additionally needs an in-session
+  owner grant or the owner's own merge — the gate opens the button, the
+  boundary says who may press it). `--admin` is FORBIDDEN: it bypasses the
+  gate instead of satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
   once threads resolved). Notify the owner at this action moment (send the
   notification; never suppress it on inferred presence —
   `owner-attention-at-action-moments`).
