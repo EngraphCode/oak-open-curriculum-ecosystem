@@ -19,6 +19,60 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
+## Where We Are (2026-07-08 evening, Elder stirs Chlorophyll 1af3af — main-commit guards landed via PR #332; r1 ASSIGNED to Elder on owner recall)
+
+**Owner rulings this session:** (1) local `main` receives no commits, EVER —
+the consolidation landing had stranded three commits on a diverged local
+`main`; resolution + prevention landed via **PR #332 (merged `d89d5c379`)**:
+the commits re-homed, the `never-commit-to-main` rule (exceptionless), and
+the shared five-hook branch guard (see the rule for the enumeration; eight
+review threads settled across four rounds + a post-merge round on the
+follow-up branch). (2) **r1 is assigned to Elder stirs Chlorophyll on
+explicit owner recall; the first step is resolving the owner's gate
+questions (G2+G3).** (3) Bypass mechanics are never documented in
+agent-facing doctrine (napkin-captured, graduation candidate).
+
+**r1 pickup — self-contained here** (the Pelican PDR-063 handoff record is
+machine-local under gitignored `handoffs/` — read it where present, never
+depend on it from a fresh clone):
+
+- Open a FRESH claim on the refounding areas
+  (`agent-tools/src/refounding/**`, `agent-tools/src/plan-state/**`) after
+  arming the all-channels watcher. (The Pelican retained claim `7b10679e`
+  was closed as stale by owner ruling 2026-07-08 at the Elder closeout —
+  there is nothing to adopt; this tracked block is the pickup.)
+- r1 = the controlling plan's `r1-freeze-inventory-baseline` todo (S0/S1/S2
+  stable points), gated on **G2** (S0 landing sanction: denominator totals,
+  scoped gate exclusions with reasons, secret-scan attestation, declared
+  commit window) and **G3** (arrivals-routing table) — both rows in the
+  plan's owner-gate register. Audit mode is mechanically unblocked (OG-2
+  table half discharged; ratified status-mapping v1 default).
+- First moves: `refound-freeze` DRY-RUN → author the G2 packet from its
+  output + draft the G3 table → ONE owner sitting (the graduated
+  `gate-sitting-as-matrix-filtered-questions` pattern) → S0 atomic freeze
+  inside the declared commit window (freeze artefacts live at the
+  refounding artefact root OUTSIDE the denominator; commits on a branch —
+  the new main guard makes branch-first mechanical) → S1 scripted
+  inventory + residue audit + planted-orphan proofs on the real corpus →
+  S2 tiling baseline + the estate-wide audit-mode run → the
+  claim-vs-derived divergence report published as Walk-A input.
+- Binding contracts: Stoat's tranche-3 execution-record §3 verdicts remain
+  BINDING for r1 rework — that record is machine-local
+  (`handoffs/2026-07-07-stoat-r0a-tranche3-execution-record.md`, present on
+  this machine; a fresh checkout lacks it — at adoption, fold whatever r1
+  actually consumes from it into tracked surfaces if working elsewhere).
+  The F2 R1-precondition stands (live set = in-enumeration ∪
+  effective-denominator before the amendment writer). The >20%
+  unmapped-status halt at the audit run is the table-v2 trigger, not a
+  defect.
+- Watch item (PDR-126 × OG-WE): the disposable audit adapter must never be
+  wired as a STANDING warn-tier repo-validator in the interim — PDR-126
+  clause 3's sequenced-conformance shape is the sanctioned path (the
+  refounding IS the conformance plan; OG-WE lands the permanent gate at
+  enforce); cite PDR-126 at the OG-WE sitting.
+- OG-2 judgement-machinery half + OG-3 (sealed canary key) remain OPEN, due
+  before any challenge stream (R3); may ride the Walk-A sitting.
+
 ## Where We Are (2026-07-08 later, Corsair guards Channel ecdd12 — the dedicated consolidation pass EXECUTED; next = r1)
 
 **The R0-arc consolidation debt is drained.** The dedicated pass (Corsair guards Channel,
@@ -357,3 +411,4 @@ loss-scan):
 | Rigel turns Void | claude-code | claude-fable-5 | c6080b | R0 successor #4 (standby→adoption per the runway pattern): built + landed R0b — the plan-state engine, two adapters, CLI, table v1 (pre-execution review + seven-seat gateway both absorbed; two shared-surface security hardenings); PR #323 shepherded truly-green (owner-merged 751ce9699); trued the r0a todo (7c984a555); registered the pr-lifecycle classifier-merge-boundary candidate; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-08 |
 | Pelican calls Spray | claude-code | claude-fable-5 | 55b041 | R0 successor #5 (pull-style standby→adoption): built + merged R0c — the consolidated owner-gate register + the cost ledger + r0b/r0c truings + the owner-ratified OG-2 table flip (both granted review moments absorbed, convergent critical cured; PR #325 via early-armed auto-merge); landed the mergeable≠READY + arm-early doctrine (PR #327); deep-reviewed the remediation bot's #326 and landed the proper S4782/S6661 fixes (PR #329, armed); relayed two owner insights to Resonance; restored the #324-dropped Goshawk/Rigel continuity era by concept-union; closeout handoff on retained claim `7b10679e` | 2026-07-08 | 2026-07-08 |
 | Corsair guards Channel | claude-code | claude-fable-5 | ecdd12 | curator (dedicated consolidation): drained the R0 arc's capture debt into permanent homes; trued this record's consolidation next-step; did NOT touch the refounding claim areas or r1 | 2026-07-08 | 2026-07-08 |
+| Elder stirs Chlorophyll | claude-code | claude-fable-5 | 1af3af | pre-r1 seat (owner-named R0 successor #6, standby then owner-paused then bounded resume): resolved the diverged local main (three consolidation commits re-homed); landed the never-commit-to-main rule + shared five-hook branch guard via PR #332 (merged `d89d5c379`; four review rounds + post-merge round, three-reviewer pre-landing chain, all findings fixed-at-source or dispositioned); absorbed the owner's audience-scoping ruling (bypass mechanics out of agent-facing doctrine); r1 assigned on owner recall — first step G2+G3 sitting; claim `7b10679e` closed as stale at the closeout (owner ruling — Pelican long retired; the tracked thread-record block is the r1 pickup, a fresh claim opens at recall) | 2026-07-08 | 2026-07-08 |

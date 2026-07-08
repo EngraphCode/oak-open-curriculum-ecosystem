@@ -164,7 +164,47 @@ New session observations append below.
   drift. The cure shape: audience-scope the rule (one line saying release automation is out
   of audience, zero mechanics), and answer bot reviewers' "won't this block X?" questions
   in the PR thread (a record), never in standing doctrine (a teaching surface). All four
-  guard/rule/napkin/PR surfaces swept clean the same round.
+  guard/rule/napkin/PR surfaces swept clean the same round. candidate: graduate as a clause
+  in rules-have-no-exceptions (or a small PDR) at the next consolidation — the generator
+  analysis is in this entry.
+
+## 2026-07-08 — Elder stirs Chlorophyll (1af3af): closeout captures + loss-scan (per the standing rule)
+
+- **PR-332 post-merge round (6 threads, ~3–7 min after MERGED — the quiet-window harvest
+  earned its keep): two guard redesigns landed on the closeout branch.** (1) Codex proved
+  `pre-applypatch` evaluates AFTER the patch touches the tree — a mailbox patch editing the
+  guard itself evades it; cure = move the guard to `applypatch-msg` (fires BEFORE
+  application, so the committed guard always runs); the self-modifying-patch attack proven
+  refused with guard bytes intact. (2) Codex proved my rule text wrong — rebase IS hookable
+  (`pre-rebase` can refuse); guard added with the $2-branch-argument semantics (refuse only
+  when the branch under rebase is main). Bonus property discovered twice by accident: the
+  sourcing hooks FAIL CLOSED when the shared guard file is missing (sh -e aborts non-zero).
+  Also fixed from the same round: my applypatch hint said switch-then-rerun, but a refused
+  am leaves an am session open that BLOCKS git switch — recovery hints must be written from
+  the refused state, not the clean state (second instance of the class; the merge hint got
+  this right only because a reviewer caught it first).
+- **Counts in prose rot at the speed of the design — enumerate in ONE home, point from the
+  rest.** "Three hooks" was true for ~an hour; four surfaces then carried the stale count
+  and two bot threads chased it (one raced my own fix). The cure applied: the rule owns the
+  hook enumeration; the commit skill and PR body now say "the shared guard" with a pointer,
+  no number.
+- **When costing sequencing options for one seat, first ask whether the work partitions
+  across SEATS** (owner re-sequencing lesson): my consolidation-vs-r1 cost analysis priced
+  only single-seat orderings; the owner's parallel-session move captured both benefits
+  (budget intact AND doctrine graduated first). The one-dev-many-agents model exists for
+  exactly this; a sequencing question is a partition question first.
+- **A suppressed side-effecting call is a landmine, not a no-op**: a leftover GraphQL
+  mutation with `|| true` and suppressed output POSTED a junk "placeholder" reply to a
+  resolved PR thread; caught only by re-querying the thread. Never leave a side-effecting
+  call in a compound with its output suppressed — the quiet-pipe class extends to
+  mutations (verify side effects, not just exit codes).
+- **Loss-scan residuals (recursive pass):** docs-adr's declined minor (comment-block DRY
+  duplication in the shared guard — explicitly observation-not-demand, declined to keep
+  guard-local mechanics readable) recorded here so the decline is on the record; the two
+  abandoned Corsair commit-queue intents remain in active-claims.json (documentation
+  riders for F-137, expired + harmless — warden-lane hygiene at the next authorised
+  write); accepted unrecoverable loss = decision texture beyond these entries (voluntary
+  register by design).
 - **`bash -n a b c` syntax-checks ONLY the first file — the rest become positional args; the
   repo's lint:shell gate was vacuously green for 3 of its 4 matched files** (proven with a
   planted `x(` file exiting 0 as a later arg). Same vacuous-green class as the register

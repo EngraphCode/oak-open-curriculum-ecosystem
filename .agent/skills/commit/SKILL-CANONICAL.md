@@ -632,7 +632,8 @@ Additional prohibitions:
 
 - **Never** commit on `main` locally — `main` advances only via pull requests
   ([`never-commit-to-main`](../../rules/never-commit-to-main.md); the shared
-  `.husky` branch guard, sourced by four hooks, refuses it mechanically).
+  `.husky` branch guard refuses it mechanically — the rule enumerates the
+  hooks).
   Branch first; if commits are already stranded on local `main`, fetch,
   preserve them on a branch, and re-home `main` to `origin/main`.
 - **Never** force-push to `main` / `master`.

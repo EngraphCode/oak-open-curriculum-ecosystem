@@ -155,6 +155,14 @@ join-ceremony skill, created alongside the PDR), plus WS0b/WS0c/WS0e/WS0d; then 
 depends WS0), WS5 (the resonance-side proposal — MAR awaits it in resonance's incoming box),
 WS7 (docs + gates).
 
+**Practice-box correction (2026-07-08, Elder, PR-332 post-merge round):** the box clearance
+above deleted files that ten durable consumers still cite by path (incl. the active
+refounding plan's provenance link) — both files were REINSTATED at their original incoming
+paths; they are integrated-and-cited sources, NOT unprocessed inbox items (do not
+re-process them at box checks). Routed follow-up for this lane's next touch: give both a
+durable citation home and sweep the ten consumers (validate-markdown-links proves the
+sweep), so the box can return to strict-transit semantics.
+
 **Two routed candidates from the 2026-07-05 resonance teaching bundle (owner-approved
 routing, dedicated consolidation 2026-07-08; the bundle itself cleared from the incoming
 box — integration otherwise verified in landed artefacts):** (a) **teaching 2, recomputable

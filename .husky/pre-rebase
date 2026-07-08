@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+# Refuse a rebase that would rewrite main — git fires this hook before any
+# rewrite; $2 names the branch being rebased and is absent when rebasing
+# the checked-out branch. Mechanics live in the shared guard
+# (never-commit-to-main rule).
+GUARD_BRANCH="${2:-}"
+GUARD_HINT="Rebase on a branch instead — main advances only via pull requests."
+. .husky/refuse-commit-on-main.sh
