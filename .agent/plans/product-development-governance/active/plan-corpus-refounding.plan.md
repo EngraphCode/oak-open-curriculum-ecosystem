@@ -298,8 +298,9 @@ material merged into these rows, never a second register. Facet gate-numberings 
 (F6 §9's G-labels and F5 §8's OG-labels differ from F3 §6's); THIS register's labels are
 authoritative — the F6 §9 mapping is Commission→G0, proof-typed→G-ADR, table→OG-2, lane
 walk→Walk A, G5→G-SP3, G6/G7→Ruling batches, G8→Walk C. The economics counterpart is the
-[cost ledger](plan-corpus-refounding-cost-ledger.md): H5 (cost backstop) fires against that
-ledger's per-batch declarations AND its run total.
+[cost ledger](plan-corpus-refounding-cost-ledger.md): H7 (the cost backstop, in the
+operational H-series the implemented runners emit) fires against that ledger's per-batch
+declarations AND its run total.
 
 | Gate | Content | When |
 | --- | --- | --- |

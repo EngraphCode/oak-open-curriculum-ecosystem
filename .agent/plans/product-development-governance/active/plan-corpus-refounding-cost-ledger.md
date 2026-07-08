@@ -15,7 +15,7 @@ facet owns the ensemble total; this artefact does). The facet sketches (F1 §15,
 F3 §8, F4 §14, F5 §11, F6 §10) and the independent economics critique's corrected bands
 (§1.2) are **feeder rows**, reconciled here. Every figure is a **declared band, not a
 commitment** (PDR-122 pre-declaration doctrine); SP1 re-issues on the real inventory and
-SP3 re-prices from pilot actuals. **H5 (cost backstop) binds to this ledger** — see
+SP3 re-prices from pilot actuals. **H7 (cost backstop) binds to this ledger** — see
 §H-series binding.
 
 ## 1. Billing denominations and unit prices
@@ -72,24 +72,24 @@ scaffold) are the main cacheable class; the pilot measures the realised cache ra
 | Arrival-routing (per-week overhead accrued over the arc — see §6) | MARGINAL (calendar-coupled) | 0.3–2.8M | mixed | 2–15 | §6 derivation |
 | Canaries, schema retries, cures/re-challenges (~15% of challenge spend) | MARGINAL | 3–5M | mixed | 25–70 | F2 §9 + F3 §8 allowances |
 
-## 4. Run totals (the numbers H5 fires against)
+## 4. Run totals (the numbers H7 fires against)
 
 **Aggregation policy (declared)**: the run-total bands are the economics critique's
 ENSEMBLE estimate (§1.2 F6 row), NOT the sum of §3 row tops — the rows are not
 co-maximal (the §3 token tops sum to ~75M and the USD tops to ~700; every line hitting
 its top simultaneously is outside the model). The hard ceilings below are therefore
-central-estimate caps: H5 firing while individual lines sit within their own bands is a
+central-estimate caps: H7 firing while individual lines sit within their own bands is a
 DESIGNED mid-arc owner checkpoint, not a declaration failure. One method across all
 three denominations.
 
-| Denomination | Declared band | Hard ceiling (H5 run-total trigger) |
+| Denomination | Declared band | Hard ceiling (H7 run-total trigger) |
 | --- | --- | --- |
 | LLM tokens | **40–60M** | 60M |
 | Currency | **~USD 300–700** (uncached ceiling at the §2 mix + §1 blend assumption) | USD 700 |
 | Seat-sessions | **25–45** (decomposition and overlap semantics in §5; the ceiling counts the 5 already-spent R0 sessions; the §5 honest projection names 60–75 as the plausible outcome if the pilot marginal rate holds — reaching the 45 ceiling then IS the designed SP3-adjacent owner checkpoint) | 45 |
 | Calendar | 6–14 weeks, **conditional on ≥2 concurrent seats** (seat-hours are the true unit, C5c) | not a gate (P12: exit criteria are proofs, never the clock) |
 
-Crossing a ceiling is an **H5 fork, not a failure** (PDR-122 inv 4): analyse the real
+Crossing a ceiling is an **H7 fork, not a failure** (PDR-122 inv 4): analyse the real
 number, commit checkpoints, prepare launch-ready forks, surface to the owner with a brief,
 stop the spend.
 
@@ -121,14 +121,17 @@ stable point until routed (F1 §7). Priced per week of arc length so the feedbac
 visible: **~0.25–0.5 seat-sessions/week + 50–200k tokens/week** (routing analysis;
 merge-recheck itself is scripted, ≈0). The compounding term: underestimated wall-clock →
 more weeks → more arrivals → more halts → more weeks. A calendar overrun therefore raises
-the run total superlinearly — one more reason H5 watches the SUM, not only per-batch lines.
+the run total superlinearly — one more reason H7 watches the SUM, not only per-batch lines.
 
 ## 7. R0 actuals (recorded against the declaration — the honesty row)
 
-Measured this arc (durable records: the PDR-063 handoff records under
-`.agent/state/collaboration/handoffs/` — Stoat's tranche-3 execution record, Goshawk's
-G1/R0b-runway record, Rigel's R0b-merged record and its gateway-adjudications companion —
-plus the session-close continuity commits that conserve the napkin economics entries):
+Measured this arc. Auditable evidence in committed/durable homes: the PR #321 and #323
+review transcripts on GitHub (the fleet dispatches and their token receipts), and the
+session-close continuity stack riding **PR #324** — the PDR-063 handoff records (Stoat's
+tranche-3 execution record; Goshawk's G1/R0b-runway record; Rigel's R0b-merged record and
+its gateway-adjudications companion) plus the napkin economics entries. Until #324
+merges, those records are branch-side, not in this tree — the SP1 re-issue re-verifies
+the citations resolve on `main`:
 R0a tranche reviewer rounds ~85–140k tokens/reviewer; R0a cycles-3–4 six-seat gateway
 ~664k; R0b pre-execution review ~154k; R0b seven-seat gateway ~505k. Order-of-magnitude
 R0 fleet total: **~3–6M tokens ≈ USD 40–90**, plus five interactive seat-sessions
@@ -139,25 +142,37 @@ rotation overhead.
 
 ## 8. H-series binding and the per-batch pre-run declaration
 
-**H5 (cost backstop) is re-defined against this ledger** (C4 cure): it fires when
-(a) a batch exceeds its own pre-run declaration in ANY denomination without a green loss
-check, OR (b) cumulative arc spend crosses a §4 run-total ceiling. All other H-conditions
-(H1–H4, H6; F3 §5.4) are unchanged and cite this ledger only through H5.
+**H7 (the cost backstop) is defined against this ledger** (C4 cure). It fires when
+(a) a batch exceeds its own pre-run declaration in ANY denomination —
+**unconditionally**: the backstop is budget-based and orthogonal to proof success
+(PDR-122 inv 4; a green loss check does not excuse an overrun — the fork conversation
+happens either way), OR (b) cumulative arc spend crosses a §4 run-total ceiling (no
+further batch opens until owner re-sanction).
 
-**H-numbering is F3 §5.4's, extended** (the R0c draft skeleton carried a colliding
-alternative numbering, superseded with it): the facet-owned operational halts join the
-one series as **H7** — inventory anchor-ratio outside the 20–70% band (F1, halt-and-
-inspect), **H8** — worker abort breaker (≥2 BYTE rejects from one role / ≥2 FLOOR misses
-/ a refusal recurring on a redesigned task; F2 §6), **H9** — >20% UNMAPPED status
-instances at the audit run (table-v2 trigger, F5 D4; the OG-2 row's designed residue
-ruling), and **H10** — hash-layer vs line-count-layer disagreement (an encoding/EOL
-surprise must be understood, never absorbed; F1 §6). Only H5 is cost-coupled; H7–H10
-are listed here solely so the series has one home and one numbering.
+**The one H-numbering is the OPERATIONAL series — the numbering the implemented runners
+emit** (`refound-inventory-model.ts` emits `H2 halt-and-inspect`; the series was drafted
+alongside the R0a build and the code follows it). F3 §5.4's design-era H1–H6 is feeder
+material, mapped in the last column:
+
+| H | Condition | Action | Source (design-era map) |
+| --- | --- | --- | --- |
+| H1 | Any batch loss-check failure | Halt THAT batch | P12 (F3-H4) |
+| H2 | Inventory anchor ratio outside the 20–70% band | Halt-and-inspect (net mis-fit) | F1 (implemented) |
+| H3 | Worker abort breaker: ≥2 BYTE rejects from one role / ≥2 FLOOR misses / a refusal recurring on a redesigned task | Halt the batch | F2 §6 |
+| H4 | >20% UNMAPPED status instances at the audit run | Halt for status-mapping table v2 (the OG-2 row's designed-residue ruling) | F5 D4 |
+| H5 | Planted-loss challenge canaries not all caught | Reject the batch's challenge pass; batch stays open | P4 / cross-estate B1 (F3-H1/H2) |
+| H6 | Out-of-map judgement observed (a J-row boundary breach) | Halt the batch; protocol defect record | J3 (F3-H6) |
+| H7 | **Cost backstop** — per-batch declaration exceeded in any denomination, or run total crossed | Fork, not failure: analyse, checkpoint, launch-ready forks, owner brief, stop the spend | This ledger (F3-H5) |
+| H8 | Hash-layer vs line-count-layer disagreement | Halt (an encoding/EOL surprise must be understood, never absorbed) | F1 §6 |
+| H9 | Challenge overturn rate >2% of challenged rows in a batch, or ANY overturn of a probe-decided terminal row | Halt; executor first-hand analysis; owner briefed | F3-H3 (threshold ratified at the OG-2 machinery half) |
+
+Only H7 is cost-coupled; the table lives here solely so the series has one home and one
+numbering, aligned with the code.
 
 Every batch opens with this declaration (all denominations, before any fleet dispatch —
 the R0c acceptance bar) and closes with actuals recorded next to it. **Enforcement is
-owed mechanically, not by diligence** (prove-it-fires applied to H5 itself: a batch that
-never declares makes H5(a) unfireable): the batch-open tooling (`refound-batch-status` /
+owed mechanically, not by diligence** (prove-it-fires applied to H7 itself: a batch that
+never declares makes H7(a) unfireable): the batch-open tooling (`refound-batch-status` /
 the breaker) REFUSES a batch open without a parseable declaration block — owed with the
 pre-pilot batch machinery (r1/r2 landing); until it lands, declaration-presence is an
 explicit Director check at every batch open:
