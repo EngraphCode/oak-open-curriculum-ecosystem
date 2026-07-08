@@ -19,9 +19,15 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-08 late, Bora holds Turbulence 42a4cf — PR #333 review-round fixes landed+pushed; one bot thread still to reply/resolve)
+## Where We Are (2026-07-08 late, Bora holds Turbulence 42a4cf — PR #333 review-round fixes landed; SETTLED: PR #333 MERGED, both threads resolved)
 
-PR #333's two remaining review-round findings are **fixed in code and pushed**
+**Settled 2026-07-08 (Callisto guards Penumbra, da9f8c): PR #333 MERGED
+(`9a1bb14d6`), the Codex P2 thread was replied-to and resolved, and the pickup
+below is DISCHARGED — kept for the record; nothing here is live work.** The
+remaining closeout continuity landed via PR #334 (MERGED 2026-07-08,
+`5efe61aaa`).
+
+PR #333's two review-round findings were **fixed in code and pushed**
 (merged into the branch at `ec20d572c`, origin in sync; the owner reconciled the
 branch's divergence with the v1.64.0 release merge `fe8a6baff`):
 
@@ -32,17 +38,15 @@ branch's divergence with the v1.64.0 release merge `fe8a6baff`):
   rebase with `main` inside the rewritten range (`--update-refs` /
   `rebase.updateRefs`) could force-move `main`; `pre-rebase` now also refuses
   when `refs/heads/main` is an ancestor of the rebased tip but not of the
-  upstream. Rule coverage claim trued. **Thread STILL OPEN** — the fix is
-  pushed but not yet replied-to or resolved.
+  upstream. Rule coverage claim trued. **Thread replied-to and RESOLVED
+  2026-07-08** (reply cites the range-check fix; `f73307d22` carries the full
+  scratch-proof description).
 
-**Next-session pickup for PR #333 (small, do first):** reply to the Codex P2
-thread on `.husky/pre-rebase` citing the range-check fix + the 11/11 scratch
-proof (identify as agent under shared credentials), resolve it, then re-harvest
-the PR for any new bot comments the push produced and check merge-readiness
-(`mergeStateStatus: CLEAN`, all threads resolved). The fix commit `f73307d22`
-carries the full scratch-proof description; the guarding check is
+The former next-session pickup (reply+resolve that thread, re-harvest, check
+merge-readiness) was executed 2026-07-08 and PR #333 merged (`9a1bb14d6`) —
+discharged, no live work remains in this block. The guarding check remains
 `lint:shell:syntax` (a git hook's behaviour is verified by hand-run script, not
-a committed CI test — owner ruling this session). This is orthogonal to r1 below.
+a committed CI test — owner ruling that session). This is orthogonal to r1 below.
 
 ## Where We Are (2026-07-08 evening, Elder stirs Chlorophyll 1af3af — main-commit guards landed via PR #332; r1 ASSIGNED to Elder on owner recall)
 
@@ -438,3 +442,4 @@ loss-scan):
 | Corsair guards Channel | claude-code | claude-fable-5 | ecdd12 | curator (dedicated consolidation): drained the R0 arc's capture debt into permanent homes; trued this record's consolidation next-step; did NOT touch the refounding claim areas or r1 | 2026-07-08 | 2026-07-08 |
 | Bora holds Turbulence | claude-code | claude-fable-5 | 42a4cf | PR #333 review-round fixes: severed ambient `GUARD_BRANCH` in the four non-rebase hooks + added the `pre-rebase` main-in-range refusal (`--update-refs` vector); trued the rule's coverage claim; proven 11/11 in a hand-run scratch harness (never a committed test). Landed+pushed at `ec20d572c` (owner reconciled the branch divergence). Did NOT touch the refounding claim areas or r1 | 2026-07-08 | 2026-07-08 |
 | Elder stirs Chlorophyll | claude-code | claude-fable-5 | 1af3af | pre-r1 seat (owner-named R0 successor #6, standby then owner-paused then bounded resume): resolved the diverged local main (three consolidation commits re-homed); landed the never-commit-to-main rule + shared five-hook branch guard via PR #332 (merged `d89d5c379`; four review rounds + post-merge round, three-reviewer pre-landing chain, all findings fixed-at-source or dispositioned); absorbed the owner's audience-scoping ruling (bypass mechanics out of agent-facing doctrine); r1 assigned on owner recall — first step G2+G3 sitting; claim `7b10679e` closed as stale at the closeout (owner ruling — Pelican long retired; the tracked thread-record block is the r1 pickup, a fresh claim opens at recall) | 2026-07-08 | 2026-07-08 |
+| Callisto guards Penumbra | claude-code | claude-fable-5 | da9f8c | PR #333/#334 closeout shepherd: fixed PR #334's review findings + merged it truly-green; verified the Codex P2 pre-rebase thread already resolved (pickup discharged); recovered Orchid's unconserved worktree captures into the branch; moved the primary checkout to main; removed all four worktrees + twelve merged branches; reconciled the PR #333 state contradiction (PR #335) | 2026-07-08 | 2026-07-08 |
