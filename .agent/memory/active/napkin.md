@@ -532,3 +532,18 @@ New session observations append below.
   mechanism on a factual ground, record the factual disagreement, not just the alternative.
   (3) Metaloss: the scan's residual loss is subjective decision-texture beyond the experience
   file — accepted, voluntary register by design.
+
+## 2026-07-08 — Pelican calls Spray (55b041, R0 standby successor): session observations
+
+- **Owner directive (2026-07-08, capture surface = this entry + OCE comms event d84ebf3a):
+  `comms inbox --since <iso>` is a PRIORITY for both estates (OCE + Resonance).** Worked
+  instance the same hour: the watcher rule mandates a post-arm sweep "covering the window from
+  BEFORE session open" via an inbox-shaped read, but `comms inbox` rejects `--since` (exit 2) —
+  the compliant fallbacks are a full-history replay or a raw jq time-filter (the hand-rolled
+  class the rule itself warns against). Relay delivered into the Resonance coordination home
+  (07:17:59Z, to Dusky Masking Mirror baeeec). OCE candidate home: the agent-tools
+  CLI-ergonomics lane. candidate: route at the lane's next touch.
+- **Cross-estate identity face, worked instance**: posting via Resonance's own
+  `collaboration-state` CLI derived my resonance-side name (Lacustrine Drifting Hull) from the
+  SAME session seed (55b041) — per-estate wordlists, one seed, two display names; sign both
+  identities in the body when relaying cross-estate.
