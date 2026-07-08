@@ -22,7 +22,7 @@ reconceived to this model 2026-06-18. This record is the **pickup surface**, not
 ## Where We Are (2026-07-08 close, Pelican calls Spray 55b041 — R0 COMPLETE; next = the dedicated consolidation pass, then r1)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`](../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md)
+[`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`](../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md)
 on claim `7b10679e` (retained; sixth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→Pelican→next).
 Headlines: **R0 is COMPLETE** — R0c merged truly-green via early-armed auto-merge (PR #325,
 `8385bc41a`): the consolidated owner-gate register (OG-2 in two halves — table half
@@ -45,7 +45,7 @@ F2 R1-precondition stands). Owner-gated residue in the handoff record §4.
 ## Where We Were (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
-[`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`](../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md)
+[`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`](../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md)
 on claim `7b10679e` (retained; fifth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→next;
 **successor owner-named: Pelican calls Spray, 55b041** — adopt on arrival, runway clean).
 Headlines: **R0b is complete on main** (PR #323 owner-merged truly-green at `751ce9699`,
@@ -159,7 +159,7 @@ and must not wait.
 **What landed this session (branch `docs/plan-corpus-refounding`):**
 
 - The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
   — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
   placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
   verification; the consolidated owner-gate register (G0..Walk C — **next action: the
