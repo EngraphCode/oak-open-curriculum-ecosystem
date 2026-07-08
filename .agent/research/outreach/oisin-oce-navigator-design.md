@@ -153,7 +153,7 @@ The production alpha at `https://curriculum-mcp-alpha.oaknational.dev/mcp` is a 
 
 1. Choose long-term architectural excellence at every decision point.
 2. Strict, everywhere, all the time.
-3. Could it be simpler without compromising quality or value? (the First Question)
+3. Could it be simpler without compromising functionality or quality? (the First Question)
 4. Would it be simpler if the system changed?
 5. Optimise for user value.
 
