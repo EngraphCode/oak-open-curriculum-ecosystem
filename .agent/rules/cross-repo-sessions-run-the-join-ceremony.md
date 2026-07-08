@@ -31,6 +31,15 @@ COLLABORATION boundaries; the moment a read-only session decides to
 write, register, or claim, the ceremony fires before that first
 action.
 
+**The ceremony's object is AGENT COMMUNICATION** (owner clarification,
+same day): a solo write window into a QUIET sibling estate — no live
+seats to coordinate with, no registration, no claims — needs the
+home's write GOVERNANCE (its gates, conventions, and a fresh branch
+off its latest main) but not the full communication ceremony; run the
+ceremony anyway when it helps do things properly. The moment live
+peers, claims, streams, or registration enter, the full ceremony
+binds.
+
 ## Action
 
 Invoke the
