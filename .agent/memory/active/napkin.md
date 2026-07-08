@@ -480,3 +480,21 @@ preserved verbatim before that worktree's removal.
   than mutating historical/delivery-time references (accurate about the past): the durable copy
   carries the current numbers and documents the renumber. The method taught in the transfer cured a
   problem in the transfer's own curation.
+
+## 2026-07-08 — Callisto guards Penumbra (da9f8c): PR #333/#334 closeout + cleanup session
+
+- **Owner correction — "you need to subscribe to updates somehow": I armed the PR watch via Bash
+  `run_in_background`, the exact named failure mode in `use-monitor-for-event-driven-wake`.** Bash
+  background delivers NO per-line notifications (only an exit notification), so new PR comments sat
+  unseen in an output file while the owner saw them live on GitHub. The rule was in my always-on
+  tier and I still reached for the familiar wrapper. Cure applied: TaskStop the Bash watcher, arm
+  the harness Monitor (`persistent: true`) wrapping the SUPERVISED terminal-condition loop (re-arm
+  `pr-watch` on every exit, recompute state, break only on MERGED/CLOSED) — per-line wake AND the
+  pr-lifecycle Phase-5 shape in one. Face: "long-running command whose output should drive
+  reactions" = Monitor, reflexively; the pr-watch stream is exactly that class.
+- **The one-clause-of-many truing trap (two rounds proved it):** truing a stale state inside a
+  LARGE table cell by editing the sentence the finding quoted left (round 1) an earlier clause in
+  the same cell and (round 2) the trailing identity column still asserting the old state. When a
+  fact changes, grep the WHOLE artefact for every assertion of the old state (`is OPEN`,
+  `still to reply/resolve`) before declaring the truing done — a cell/row is one record, not a
+  bag of independent sentences.
