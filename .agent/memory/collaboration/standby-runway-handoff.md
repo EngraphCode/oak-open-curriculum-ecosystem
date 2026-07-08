@@ -17,10 +17,7 @@ the plan-corpus-refounding R0 lane, four consecutive rotations in one arc
 (2026-07-07/08): Stoat→Leopard (push-style), Leopard's own pickup
 (pull-style self-park), Leopard→Goshawk (clear-at-arrival), Goshawk→Rigel
 (pull-style: a 25-minute standby window with grounding completed inside it,
-adopt+ACK on the runway-clear broadcast).
-
-A lane rotation shape with three cooperating parts, worked four times in one
-arc on the plan-corpus-refounding R0 lane:
+adopt+ACK on the runway-clear broadcast). Three cooperating parts:
 
 1. **The standby seat** (successor): registers presence with the full
    grounding foundation — all-channels watcher + team-start broadcast — but
