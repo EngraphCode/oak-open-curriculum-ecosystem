@@ -27,7 +27,12 @@ arc on the plan-corpus-refounding R0 lane:
    holds **no claim and no heartbeat cron**. This is a direct instance of the
    PDR-078 §4 consumer-absent exemption (a standby holds no claim, so its
    retirement rebalances nothing, so its heartbeat has no consumer); the
-   liveness contract is *watcher + registration only*. The standby grounds
+   liveness contract is *watcher + registration only*. The predecessor is
+   not a liveness consumer of the standby: in every worked rotation the
+   predecessor tracked the successor via its team-start broadcast and the
+   adoption ACK — coordination events, not heartbeat observation — so the
+   standby's silence carries no signal anyone consumes; the heartbeat
+   obligation re-evaluates the moment the seat flips at adoption. The standby grounds
    fully (handoff surfaces, binding contracts, plans) during the
    predecessor's remaining window — an explicit GATED-until-runway-clear list
    in the predecessor's broadcast lets the successor prepare deliverables
