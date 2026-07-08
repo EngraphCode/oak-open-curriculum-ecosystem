@@ -19,7 +19,30 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
+## Where We Are (2026-07-08 close, Pelican calls Spray 55b041 — R0 COMPLETE; next = the dedicated consolidation pass, then r1)
+
+**The single pickup surface for the next session is the PDR-063 handoff record**
+[`handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md`](../../../state/collaboration/handoffs/2026-07-08-pelican-r0-complete-and-r1-runway.md)
+on claim `7b10679e` (retained; sixth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→Pelican→next).
+Headlines: **R0 is COMPLETE** — R0c merged truly-green via early-armed auto-merge (PR #325,
+`8385bc41a`): the consolidated owner-gate register (OG-2 in two halves — table half
+DISCHARGED by owner ruling 2026-07-08 with the `STATUS_MAPPING_V1_RATIFICATION` flip landed,
+r1 audit mode mechanically unblocked; judgement-machinery half OPEN before R3; OG-3 canary
+key; OG-WE; the Walk-C terminal cutover sanction) and the Director-owned cost ledger
+(`plan-corpus-refounding-cost-ledger.md`; H-series unified on the operational numbering the
+runners emit, cost backstop H7, unconditional). Same day: the `mergeable`-is-not-READY +
+arm-auto-merge-early doctrine landed (PR #327, owner-correction arc) and the five-seat
+continuity chain merged (PR #324 — NOTE: its union dropped the Goshawk/Rigel era from THIS
+record and from repo-continuity; restored by concept-union at the Pelican closeout from
+`5faf08205`). **In flight, self-driving: PR #329** (the proper S4782/S6661 fixes, auto-merge
+armed, watched; supersedes the remediation bot's #326 — close #326 after #329 merges; the
+remediation agent's on/off is an open owner decision). **Next: (1) the dedicated
+consolidation pass — live-due, owner-scheduled to run first** (napkin ~700 lines / five seat
+windows / two practice-box files / three register items incl. the graduation-ripe quiet-pipe
+class); **(2) r1** gated on G2+G3 (audit mode unblocked; Stoat's §3 contracts BINDING; the
+F2 R1-precondition stands). Owner-gated residue in the handoff record §4.
+
+## Where We Were (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
 [`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`](../../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md)
@@ -316,3 +339,4 @@ loss-scan):
 | Wildfire herds Sulphur | claude-code | claude-fable-5 | 839565 | **corpus-refounding commission → protocol design → landing** (owner-directed 2026-07-06): estate-wide identification sweep; cross-estate design collaboration with the resonance exchange seat (Kiln tracks Basalt, 2a5066) under the inter-practice protocol; 6-designer + 4-critic PDR-123 panel; authored `plan-corpus-refounding.plan.md` (P1–P14, J1–J9, owner-gate register incl. G-ADR) + the design record + the dated `planning-estate-rewrite` amendment (`ws-r-corpus-refounding` gates ws6); donor-seat adversarial review absorbed (sound-with-revisions, zero overturns; B1 planted-loss challenge canaries, B2 WS6 substrate statement); WS2 untouched and unchanged as next parallel step | 2026-07-06 | 2026-07-06 |
 | Goshawk calls Sundog | claude-code | claude-fable-5 | 970bdc | R0 successor #3 (runway pickup from Leopard): executed the main→t3 merge-forward + the two promised consolidations; opened + shepherded PR #321 to a truly-green self-merge (`af6c285e5` — R0a COMPLETE); ran the owner-approved six-reviewer gateway on cycles 3–4 and absorbed three bot rounds; landed `validate-ratified-lists` (owner correction: doc↔code sync = validator work) + the gate-agenda insertions; ran the in-chat G1 sitting with the owner (all seven rulings; packet §9; freeze rule ratified) and landed it as PR #322; recorded the Walk-A derivation input + WS6 harvest-scope strengthening; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-07 |
 | Rigel turns Void | claude-code | claude-fable-5 | c6080b | R0 successor #4 (standby→adoption per the runway pattern): built + landed R0b — the plan-state engine, two adapters, CLI, table v1 (pre-execution review + seven-seat gateway both absorbed; two shared-surface security hardenings); PR #323 shepherded truly-green (owner-merged 751ce9699); trued the r0a todo (7c984a555); registered the pr-lifecycle classifier-merge-boundary candidate; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-08 |
+| Pelican calls Spray | claude-code | claude-fable-5 | 55b041 | R0 successor #5 (pull-style standby→adoption): built + merged R0c — the consolidated owner-gate register + the cost ledger + r0b/r0c truings + the owner-ratified OG-2 table flip (both granted review moments absorbed, convergent critical cured; PR #325 via early-armed auto-merge); landed the mergeable≠READY + arm-early doctrine (PR #327); deep-reviewed the remediation bot's #326 and landed the proper S4782/S6661 fixes (PR #329, armed); relayed two owner insights to Resonance; restored the #324-dropped Goshawk/Rigel continuity era by concept-union; closeout handoff on retained claim `7b10679e` | 2026-07-08 | 2026-07-08 |

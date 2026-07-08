@@ -598,3 +598,112 @@ New session observations append below.
   cannot see within-line edits. Cure: after choosing a side for an index-class file, diff the
   REJECTED side against base for line-level edits outside the superseded region and re-apply
   each. The "no known invariant violated" verdict gains this class.
+- **Owner correction (2026-07-08, PR #324): "the merge is set to auto-merge... why do you
+  have such a blind spot for [unresolved threads]?" — the settle-probe blind spot, SECOND
+  seat to re-derive it.** Leopard was corrected for this exact shape on #317 ("why has this
+  become a loop operated by me?"), the cure was graduated into pr-lifecycle Phase 6, I read
+  that napkin entry at session open — and still ran scheduled 8.5-minute nap-probes while
+  bot rounds landed in the gaps, three rounds running. Diagnosis: the probe pattern FEELS
+  like diligence (scheduled, disciplined) — fluency wearing process clothes — while every
+  sleep is a blind window and each "0 unresolved" read is a MOMENT treated as a state.
+  Structural cure applied this time: a continuous Monitor until-loop on the PR whose exit
+  conditions enumerate every terminal state (merged / new-unresolved>0 / check-failure) +
+  immediate full harvest on any event — awareness that cannot sleep through an arrival.
+  candidate: fold into the pr-lifecycle Phase-6 settle discipline (replace fixed-interval
+  probes with the terminal-condition watch as the canonical shape).
+- **Owner correction chain, PR-325 endgame (Pelican; the same sitting as Rigel's #324 entry
+  above — two seats corrected in parallel, one generator): three linked mis-reads.**
+  (1) Settle probes gated on the CHECKS rollup with threads as a side-read — bot reviews post
+  decoupled from checks, so "checks settled" never proved the round complete (Rigel's
+  terminal-condition watch above is the stronger cure; adopt it). (2) I read
+  `mergeable: MERGEABLE` as the merge gate, three recomputes running — the readiness field is
+  `mergeStateStatus: CLEAN`; `mergeable` = POSSIBLE (conflict-free only), NOT ready. Owner
+  directive landed verbatim this session in pr-lifecycle Phase 7 + pr-comments-resolve-and-
+  recheck. (3) With the PR unmerged at truly-green I blamed GitHub's state machine — the truth:
+  NOBODY had armed auto-merge; arming is the shepherd's own step (arm EARLY at PR open, while
+  requirements are unmet), and my one attempt bundled a direct-merge fallback the classifier
+  refused, after which I over-generalised the denial to the arm itself. The bare
+  `gh pr merge --auto --merge` was permitted and merged #325. General cure: when a composite
+  command is classifier-denied, retry the permitted constituent alone before concluding the
+  capability is gated; when the owner asks "why isn't X happening", recompute X's OWN state
+  machine end-to-end rather than defending the last declaration.
+- **PR #326 deep review (owner-requested): the ungrounded-remediation pattern, now with a live
+  specimen.** The SonarQube remediation agent's scheduled PR fixed 5 real MAJORs in ways correct
+  by GENERIC TypeScript convention and wrong by THIS estate's constitution, both times reversing
+  a deliberate documented local decision: (1) S6661 Object.assign→spread required two `as`
+  assertions — banned estate-wide (`consistent-type-assertions: 'never'`, error tier; predicted
+  from the config, then confirmed by the PR's own static-checks failing) — AND deleted the
+  load-bearing TSDoc that recorded WHY Object.assign was chosen (TS2698 avoidance without
+  assertions); (2) S4782 fixed by removing `?` from an options/DI bag (making keys required in
+  literals) when the SAME interface's neighbouring member demonstrates the estate idiom
+  (`?: NonNullable<alias>`) and the prior S4782 disposition went that direction. Generalisation:
+  an ungrounded fixer optimises the finding-count with no access to the doctrine stack (in-code
+  TSDoc precedent, lint config, disposition history) — fluency-as-a-service, the same generator
+  as this session's other corrections, embodied in a tool. Revealed history: 1 merged / 6
+  closed of 8 bot PRs; the May batch was closed with owner cherry-pick salvage. Review posted
+  to the PR (issuecomment-4913446806) with fix directions routed to the Sonar lane. candidate:
+  a small doctrine note in the sonarqube rule — remediation-agent PRs enter the same disposition
+  gauntlet as any seat's PR, never merge-on-green.
+- **PR-324 arc captures (Rigel closeout 2, 2026-07-08)**: (1) One inverted-slice register
+  edit spawned THREE bot findings across two rounds (duplicate entry + surviving entry +
+  the dedup that missed the survivor) — register mutations need post-condition guards in
+  the same script (round 5's assert-classifier-absent/quiet-pipe-single shape); an edit
+  script without asserts is a claim, not a change. (2) Bot-vs-schema authority: a Copilot
+  style suggestion (interior backticks) broke the register's own single-span schema and a
+  later Copilot round flagged its sibling's damage — when a reviewer suggestion conflicts
+  with the target file's declared schema, the schema wins and the disposition is
+  reject-or-revert with the schema cited. (3) The closeout-stack PR became a RETROACTIVE
+  REVIEW of five seats' continuity prose — stack-carried predecessor content gets fresh
+  bot eyes, and most findings were real (stale prescriptions, dead paths, count drift):
+  bundling continuity stacks through a PR is a cheap correctness pass on the whole chain,
+  price = the convergence rounds. (4) A repo write-hook can substring-misfire on a benign
+  compound command (a merge-pull + plain push read as push -f); the cure is splitting into
+  unambiguous single-intent calls, never a destructive sibling
+  (hook-policy-substring-discipline, worked instance). (5) The owner's live presence
+  inverts the convergence economics: three PRs merged owner-side mid-arc while my beliefs
+  aged minutes — at owner-active tempo, EVERY binding moment needs its recompute, and a
+  live watch beats any probe cadence.
+- **Loss-scan (closeout 2, recursive)**: the three-entry napkin union (blind-spot lesson +
+  Pelican's PR-325/326 captures) plus this entry live as WORKING-TREE EDITS on the
+  owner's fix/sonar branch checkout — custody passes to Pelican by directed comms (the
+  entries also persist in this comms trail); do not let a branch switch orphan them.
+  Residual accepted losses: decision-texture beyond the two experience files (voluntary
+  register); the scratchpad copies (session-mortal by design, all substance homed).
+
+## 2026-07-08 — Pelican calls Spray (55b041): closeout discoveries
+
+- **LIVE LOSS EVENT caught by the handoff's own re-read: PR #324's semantic union DROPPED the
+  Goshawk/Rigel era from BOTH the strategy thread record AND repo-continuity** — the merged
+  files carried zero mentions of either seat while the union broadcast claimed "no known
+  invariant violated". Recovered by concept-union from `5faf08205` (still object-store-
+  reachable) + current main's one unique section (Stoat mid-day), landed in the Pelican
+  closeout bundle. The metaloss shape: a semantic merge verified by set-diff proofs can still
+  choose an entire STALE SIDE for a file and pass its own checks if the proofs compare the
+  wrong pair; the binding check a union needs is an ERA-WITNESS assertion — the newest section
+  heading + the newest identity row of EACH side must be present in the result. candidate:
+  fold into the semantic-merge skill as a mandatory post-union assertion.
+- **Whole-repo `pnpm check` was broken-by-construction since validate-ratified-lists landed**:
+  the chain ran `clean` (wipes every dist) then `repo-validators:check`, whose ratified-lists
+  leg imports `@oaknational/result/dist` at tsx runtime → ERR_MODULE_NOT_FOUND before turbo
+  rebuilds. CI green all along (its pipeline builds first) — the local/CI gate asymmetry
+  masked it; my closeout gate was the first whole-chain run since the validator landed. Fix
+  landed at root cause: repo-validators:check moved AFTER the turbo build leg in the root
+  check script (validators-must-recompute implies validators-run-against-BUILT-artefacts).
+  Also surfaced, not yet cured: root `pnpm build` does not build `@oaknational/result`
+  (turbo graph gap) — friction-class for the register.
+- **The trailing-echo variant of the quiet-pipe class**: `pnpm check; echo "check-exit=$?"`
+  makes the HARNESS task notification read exit 0 (the echo's) while check failed — the
+  bare-exit discipline done half-right. Read the PRINTED value, never the notification's
+  exit, when a status echo trails the command. Sixth quiet-pipe-family instance; the
+  register item should name this variant.
+- **cwd-drift (F-125) recurrence at closeout**: a root `pnpm agent-tools:*` script invoked
+  while the shell sat in a workspace dir → ERR_PNPM_RECURSIVE_EXEC "command not found" (a
+  confusing error for a cwd problem). The napkin's own prior entry did not prevent it;
+  anchor every root-script invocation with an explicit `cd` to the primary root.
+- **A relayed claim repeated into a merged artefact without verification**: my cost-ledger §7
+  Bugbot fix cited "the handoff records ride PR #324" — relayed from Rigel's closeout
+  broadcast — but `handoffs/*` is GITIGNORED by design (ADR-199 state tier): PDR-063 records
+  are machine-local, never tracked; Rigel's "on main incl. my two handoff records" was itself
+  wrong. The bot's original finding (tree contains only README) was righter than my fix.
+  Corrected in the ledger at the Pelican closeout. Face: verify-dont-trust applies to PEER
+  closeout broadcasts exactly as to reviewer claims — check the tree, not the relay.

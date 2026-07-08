@@ -1,3 +1,10 @@
+## [1.63.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.1...v1.63.2) (2026-07-08)
+
+
+### Bug Fixes
+
+* **continuity:** repair handoff-link depth, plan path, and graduation schema colons (PR 330 round 1) ([60ee395](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/60ee39596e3e6579b03e47e9d0f94859ae82e400))
+
 ## [1.63.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.0...v1.63.1) (2026-07-08)
 
 
