@@ -97,3 +97,56 @@ New session observations append below.
   disposition ledger authored (permanent-doc-is-the-consolidation-record). Residual
   accepted loss: subjective decision-texture beyond the experience file (voluntary
   register by design).
+
+## 2026-07-08 — Elder stirs Chlorophyll (1af3af, pre-r1 seat): local-main divergence incident + cure
+
+- **Local main diverged 3-ahead/11-behind and nobody noticed until an owner question.** The
+  consolidation seat committed three closeout commits directly on local main (deliberate,
+  broadcast, "push is the owner's moment") while origin/main advanced 11 commits (PRs 329,
+  331 + three release chores). Two compounding mis-reads: (1) committing on main at all —
+  owner ruling, verbatim strength: "we NEVER, EVER commit directly to main"; (2) "push is
+  the owner's moment" under-read branch protection (PRs required + non-fast-forward blocked
+  — the owner CANNOT plain-push either; the only resolution is branch + PR). A stale local
+  origin/main ref masked the behind-side: my own first report said "3 ahead" because no
+  fetch had run since 10:12Z. Lesson: before reporting local-vs-remote branch state, fetch —
+  an unfetched comparison is a cached read of a moving target (the moved-target class, ref
+  face).
+- **Cure landed structural, PDR-126-shaped (strict in one landing, conformance included):**
+  a shared branch guard (`.husky/refuse-commit-on-main.sh`) sourced by THREE hooks — git
+  routes each commit-creating path through a different pre-hook (pre-commit: plain/amend;
+  pre-merge-commit: clean merges incl. `git pull` on a diverged main; prepare-commit-msg:
+  cherry-pick/revert, which stay ON the branch and never reach pre-commit) — plus the
+  `never-commit-to-main` rule (canonical + three adapters + RULES_INDEX row + commit-skill
+  prohibition bullet). Residuals no client hook can see (ff-merges, rebase ref-moves, fresh
+  clones pre-install) are rule-covered only; remote branch protection is the invariant. The
+  sanctioned-writer delimitation was already built: release.yml sets HUSKY=0, so
+  semantic-release's CI commits on main never meet the guards. Recovery shape in the rule:
+  FETCH FIRST, preserve-on-branch, `git branch -f main origin/main` while main is not
+  checked out (git itself refuses if any worktree holds it), land via PR.
+- **My own first guard proof COMMITTED AN EMPTY TEST COMMIT TO MAIN — the discrimination
+  proof caught the fixer, third seat running.** `git stash -u` stashed the uncommitted guard
+  itself; `git switch main` then ran main's OLD unguarded hook, the full gate chain passed an
+  `--allow-empty` commit, and `37cc62712` landed on local main minutes after the owner's
+  NEVER-EVER ruling (re-homed immediately; content-free by construction, nothing lost). The
+  class: **a working-tree gate cannot be tested by a flow that removes it from the working
+  tree** — stash/switch test designs strip the very subject under test. Correct shape used
+  second: extract the SHIPPED guard bytes into a scratch repo and run three controls (on-main
+  refuse / on-branch pass / detached-HEAD pass) — all green. Post-landing, the guards are
+  live in every checkout whose tree carries them; un-guarded windows remain (checkouts of
+  main predating the merge, plus the ff-merge/rebase/fresh-clone residuals above) — accepted:
+  remote protection already covers pushes; the guards' job is local hygiene.
+- **Two-seat reviewer convergence, both empirical: the pre-merge-commit gap.** config-expert
+  and code-expert independently built scratch-repo probes and both proved a clean `git merge`
+  on main fires pre-merge-commit (absent → husky shim waves it through), NOT pre-commit — and
+  code-expert additionally measured cherry-pick/revert firing ONLY prepare-commit-msg while
+  staying on main (my hook comment's "detached HEAD" explanation was a wrong mental model —
+  sequencer ops simply never reach pre-commit). prepare-commit-msg CAN abort (githooks(5):
+  non-zero aborts the commit) — that is the cherry-pick/revert door. Convergent empirical
+  findings from independent probes remain the strong-signal form.
+- **`bash -n a b c` syntax-checks ONLY the first file — the rest become positional args; the
+  repo's lint:shell gate was vacuously green for 3 of its 4 matched files** (proven with a
+  planted `x(` file exiting 0 as a later arg). Same vacuous-green class as the register
+  parser and the zero-file glob sweeps. Cure landed: loop form (`for f in …; do bash -n "$f"
+  || exit 1; done`) widened to the .husky hook estate, proven both directions (real files
+  pass; planted defect fires). Config-expert's NIT ("no gate syntax-checks the load-bearing
+  guard") led straight to it — the follow-the-nit instinct paid.

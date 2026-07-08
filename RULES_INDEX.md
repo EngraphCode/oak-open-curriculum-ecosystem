@@ -104,6 +104,7 @@ without proportional value.
 | `.agent/rules/loop-exit-criteria-required.md`                              | always-on      | —                                                                                                   |
 | `.agent/rules/markdown-code-blocks-must-have-language.md`                  | always-on      | —                                                                                                   |
 | `.agent/rules/monitor-branch-touched-files.md`                             | always-on      | —                                                                                                   |
+| `.agent/rules/never-commit-to-main.md`                                     | always-on      | —                                                                                                   |
 | `.agent/rules/never-disable-checks.md`                                     | always-on      | —                                                                                                   |
 | `.agent/rules/never-use-git-to-remove-work.md`                             | always-on      | —                                                                                                   |
 | `.agent/rules/new-rule-vs-pdr-clause.md`                                   | always-on      | —                                                                                                   |

@@ -630,6 +630,11 @@ If any of these would be helpful, **MUST discuss with the user first**.
 
 Additional prohibitions:
 
+- **Never** commit on `main` locally — `main` advances only via pull requests
+  ([`never-commit-to-main`](../../rules/never-commit-to-main.md); the shared
+  `.husky` branch guard, sourced by three hooks, refuses it mechanically).
+  Branch first; if commits are already stranded on local `main`, fetch,
+  preserve them on a branch, and re-home `main` to `origin/main`.
 - **Never** force-push to `main` / `master`.
 - **Never** amend commits already pushed to remote.
 - If a pre-commit or commit-msg hook fails, **fix the underlying issue** — no
