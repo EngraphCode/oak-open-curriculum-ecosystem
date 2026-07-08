@@ -120,7 +120,7 @@ at the top. Fields:
 ## The additive-identity rule (ratified — PDR-027 owns it)
 
 The rule is ratified doctrine in
-[PDR-027 §The additive-identity rule](../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
+[PDR-027 §The additive-identity rule](../../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
 joining a thread ADDS an identity row (never overwrite, rename, or
 collapse); a session matching an existing row on the canonical
 `(agent_name, id)` key UPDATES that row's `last_session`. A mid-session

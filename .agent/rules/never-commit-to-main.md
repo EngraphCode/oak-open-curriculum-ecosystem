@@ -37,22 +37,34 @@ pull request to resolve.
 
 ## Enforcement
 
-Mechanical for every commit-creating path git exposes a pre-hook for; the
-shared guard `.husky/refuse-commit-on-main.sh` is sourced by four hooks,
-each covering the path git actually routes it through:
+Mechanical for every commit-creating or ref-rewriting path git exposes a
+usable hook for; the shared guard `.husky/refuse-commit-on-main.sh` is
+sourced by five hooks, each covering the path git actually routes it
+through:
 
 - `pre-commit` — plain `git commit` and `git commit --amend`;
 - `pre-merge-commit` — clean merges, including a reflexive `git pull` on a
   diverged `main`;
 - `prepare-commit-msg` — sequencer commits (`git cherry-pick`, `git revert`),
   which stay on the branch and never reach `pre-commit`;
-- `pre-applypatch` — mailbox applies (`git am`), which invoke the applypatch
-  hook family and none of the above.
+- `applypatch-msg` — mailbox applies (`git am`), checked BEFORE the patch
+  touches the tree, so the guard that runs is always the committed one (a
+  patch cannot neuter its own guard first — `pre-applypatch` runs
+  post-application and lacks that property);
+- `pre-rebase` — a rebase that would rewrite `main` (including
+  `git pull --rebase` on a diverged `main`), and a rebase of any branch
+  whose rewritten range contains `main` — the state in which
+  `--update-refs` (or `rebase.updateRefs=true`) would force-move `main`
+  from a topic-branch rebase. The flag itself is invisible to the hook,
+  so the state is refused, not the flag detected.
+
+The guard fails closed: if the shared guard file is missing, every sourcing
+hook aborts non-zero rather than passing silently.
 
 Residual vectors NO client-side hook can see remain **rule-covered only**:
 a fast-forward merge (a ref update, no commit created — and `git pull` on
 `main` is the legitimate fast-forward from `origin/main`, so no hook could
-distinguish the sanctioned case), a rebase moving the `main` ref, and a
+distinguish the sanctioned case), and a
 fresh clone before `pnpm install` wires `core.hooksPath`. Remote branch
 protection (pull requests required, non-fast-forward pushes blocked) is the
 invariant that holds regardless; the guards are local hygiene that fails
@@ -70,7 +82,7 @@ not agent-facing knowledge.
 
 - [`.husky/refuse-commit-on-main.sh`](../../.husky/refuse-commit-on-main.sh)
   — the shared mechanical gate, sourced by `pre-commit`, `pre-merge-commit`,
-  `prepare-commit-msg`, and `pre-applypatch`.
+  `prepare-commit-msg`, `applypatch-msg`, and `pre-rebase`.
 - [PDR-126](../practice-core/decision-records/PDR-126-gates-land-strict-in-one-landing.md)
   — this gate landed strict with conformance in one landing (the stranded
   commits were re-homed in the same change).
