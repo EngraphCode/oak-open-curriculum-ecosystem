@@ -82,7 +82,21 @@ For each piece of drift content identified by the calling workflow:
 3. **Verify the destination is real**. Open the candidate destination
    file. Confirm the section exists and that the content is not already
    covered there (avoid duplication; a duplicate disposition is a strip,
-   not a move).
+   not a move). Two hardening checks, both from worked losses (R0c
+   register consolidation, 2026-07-08):
+   - **A "duplicates merged" claim can itself perform a lossy merge.**
+     Before writing "merged" / "deduplicated" / "absorbed", enumerate
+     BOTH sources' content lists side-by-side and confirm the survivor
+     carries every element — two "duplicates" once merged this way were
+     never duplicates at all, and one side's half vanished under the
+     verb. The mechanical form: grep every source section for rows
+     without a home in the result.
+   - **Sweep for RIVAL artefacts, not just rival rows.** Before claiming
+     "here and only here", `grep -rl` the artefact's nouns across the
+     estate — a consolidation once claimed a single home while two live
+     sibling artefacts carried the same gate IDs with different
+     meanings. Sync, supersede, or absorb-then-point; never leave a
+     silent rival.
 4. **Surface to the owner** if the move is non-trivial (creates a new
    ADR, restructures an existing doc, renames a rule, touches the
    trinity, etc.). Owner approval is the default; silent moves are

@@ -190,19 +190,39 @@ the sentence, observable to you as you write and to a reader as they read. Gate
 on the artefact the fluent claim omits, not on the feeling you hoped to notice.
 The smoother and more convenient the claim, the harder the citation is owed.
 
-## A Gate's Exit Code Is the Verdict — Never Pipe It Away
+## Run Gates, Pushes, and Probes BARE — the Exit Code Is the Verdict
 
-`gate | tail` / `| grep` returns the LAST pipe stage's exit, so a red gate
-reads green and every narration downstream inherits the lie (three instances,
-three agents, one day — 2026-07-02 — including a false push broadcast that a
-peer then "verified" from local refs). Run gate commands unpiped and check
-`$?` (or `set -o pipefail`, or write to a file with the exit code appended
-INSIDE the artefact: `; echo "EXIT: $?" >> log`). Any broadcast asserting a
-remote-state change (pushed / merged / deployed) quotes POST-action ground
-truth (`git status -sb`, `gh pr view`) captured after an unmasked exit —
-assert-from-evidence, never from intent. And a relayed claim must never ride
-inside a sentence labelled "verified first-hand": the verified label covers
-only what the check could see.
+`gate | tail` / `| head` / `| grep` returns the LAST pipe stage's exit, so a
+red gate reads green and every narration downstream inherits the lie. The
+class does not yield to vigilance: after this section first landed
+(2026-07-02, three instances in one day), six-plus further instances hit four
+different seats in three days (2026-07-06→08) — `eslint | tail` twice, a
+plan-state refusal read green through `| head`, `check-commit | tail`,
+`git push | tail`, `comms | grep -c`. The discipline is categorical:
+
+- Run every gate, push, and verification probe BARE, and read `$?` off the
+  bare command itself (or `PIPESTATUS[0]` / `set -o pipefail` when a pipe is
+  genuinely required; or append the code INSIDE the artefact:
+  `; echo "EXIT: $?" >> log`).
+- A success echo chained after a pipe (`… | tail && echo OK`) is unproven —
+  the echo keys off the tail's exit, never the gate's.
+- The **trailing-echo variant**: `cmd; echo "exit=$?"` makes the harness task
+  notification read exit 0 (the echo's) while `cmd` failed — when a status
+  echo trails the command, read the PRINTED value, never the notification's
+  exit.
+- zsh does not word-split unquoted variables: a captured `$ARGS` expands as
+  ONE argv word, the tool fails as invalid usage, and a quiet pipe masks the
+  failure — pass literal args or `${=VAR}`, and never trust a captured
+  variable through a quiet pipe.
+
+Any broadcast asserting a remote-state change (pushed / merged / deployed)
+quotes POST-action ground truth (`git status -sb`, `gh pr view`) captured
+after an unmasked exit — assert-from-evidence, never from intent. And a
+relayed claim must never ride inside a sentence labelled "verified
+first-hand": the verified label covers only what the check could see.
+Recurrence-despite-home is the live signal on this class (PDR-098) — the
+class carries a literal surface signature, so it is a candidate for the
+PDR-044 innate hook layer.
 
 ## Briefing Facts Carry Their Epistemic Status
 
@@ -241,6 +261,16 @@ in sync and one fetch would have shown it).
 - Treating a handoff record as live state without checking current claims,
   comms, and git.
 - Trusting a sub-agent's cited source without opening the source.
+- Verifying a compound claim's headline while its elements go unchecked — a
+  homes-authored note once claimed "pattern file + testing-strategy cross-ref"
+  where the pattern was real and the cross-ref absent; a reviewer-praised
+  TSDoc claim carried a real code defect dressed as doc drift. Verify each
+  element of a compound claim, never the headline.
+- Repeating a peer's closeout or relay claim into a durable artefact without
+  checking the tree — a "handoff records ride the PR" relay was wrong twice
+  over (the records are gitignored by design); verify-dont-trust applies to
+  PEER closeout broadcasts exactly as to reviewer claims: check the tree, not
+  the relay.
 - Calling an archive move a completed curation pass without disposition
   evidence for the archived substance.
 - Checking only the intended cure location while the original defect location

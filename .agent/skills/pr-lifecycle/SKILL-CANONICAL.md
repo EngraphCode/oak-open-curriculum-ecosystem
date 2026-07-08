@@ -101,19 +101,46 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   failure (observed 2026-06-24: the tail blamed a drift check; the failure
   was format-check).
 
-## Phase 5 — Wait without burning budget
+## Phase 5 — Wait without burning budget: the SUPERVISED terminal-condition watch
 
-Run the repo's budgeted watcher in the background:
-`pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
-change, including new comments by author and the unresolved review-thread
-count moving in EITHER direction (a thread arriving or being resolved). The
-watch ENDS on merged/closed and on ALL GREEN — every check passed AND every
-review thread resolved; passing checks alone are not green, because an
-unresolved thread blocks merge-readiness just as hard. That exit is the wake
-signal; the Phase 3 GraphQL harvest remains the authoritative read for which
-threads and what they say. Never hand-roll tight `gh` polling loops (the
-shared 5,000/hr API budget; frictions F-110). Between events, continue other
-work or hold; the watcher wakes you.
+- **Every PR-state read STARTS from the compound query** —
+  `mergeStateStatus` + unresolved `reviewThreads` count + `statusCheckRollup`,
+  in ONE call. This is a floor, not a ceiling: the Phase 3 harvest and the
+  pr-watch poll are consumers and refinements of the same compound state —
+  what is forbidden is reading any SINGLE field in isolation to answer a
+  question, however narrow the prompting signal (owner correction, ~50th
+  instance of the class, PR #329, 2026-07-08: told "BEHIND", a seat read
+  merge-state and checks and re-armed while two fresh unresolved threads were
+  the actual blocker). Answering a named signal with just that signal's
+  fields is the recurring generator; the cure is categorical, never
+  vigilance. Read the composite AND the components: when
+  `required_review_thread_resolution` is enabled on the base branch (verify
+  it against the branch-rules API rather than assuming — true here when last
+  verified, 2026-07-08), `mergeStateStatus: CLEAN` is GitHub's own
+  conjunction of checks, threads, and currency — a composite/component
+  disagreement is itself a finding to chase, never noise.
+- Run the repo's budgeted watcher in the background:
+  `pnpm agent-tools:pr-watch <n> --watch --interval 60` — one line per state
+  change, including new comments by author and the unresolved review-thread
+  count moving in EITHER direction. Passing checks alone are not green — an
+  unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
+  harvest remains the authoritative read for which threads and what they say.
+- **Know the watcher's designed hole: it also ENDS on ALL-GREEN.** Comments
+  post asynchronously up to ~10 minutes after a push, so an all-green exit
+  opens an unguarded window exactly when a bot round may still be composing.
+  **The mandated shape is a SUPERVISED watch**: a loop that re-arms pr-watch
+  on EVERY exit and terminates ONLY on MERGED/CLOSED, recomputing the
+  compound state at each re-arm (proven live end-to-end on PR #330,
+  2026-07-08: the watch rode the full arc to MERGED and self-terminated on
+  the recompute). MERGED/CLOSED is the only terminal claim — the only state
+  no late comment can un-green.
+- **There is no push-event transport to wait on instead**: true push events
+  are webhooks (they need a server); `gh api repos/…/events` is itself a poll
+  with ~30–60s feed latency; `gh pr checks --watch` has the same
+  exit-at-completion hole class. Polling the PR GraphQL at 60s (pr-watch,
+  budget-aware) is the strongest available primitive. Never hand-roll tight
+  `gh` polling loops (the shared 5,000/hr API budget; frictions F-110).
+  Between events, continue other work or hold; the watcher wakes you.
 
 ## Phase 6 — After EVERY push, re-fetch; resolve only what is settled
 
@@ -125,17 +152,27 @@ work or hold; the watcher wakes you.
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
 - **Own the convergence loop — never hand it to the owner** (owner
-  correction, 2026-07-07, #317). Bot rounds land findings minutes AFTER a
+  corrections, 2026-07-07 #317 and 2026-07-08 #324 — two seats re-derived
+  the same blind spot in one sitting; scheduled nap-probes FEEL like
+  diligence while every sleep is a blind window and each "0 unresolved" read
+  is a moment treated as a state). Bot rounds land findings minutes AFTER a
   push, so "zero unresolved verified now" expires on a clock you do not
-  control. After EVERY push, arm your own settle probe (~8 min background
-  timer) and re-harvest when the round settles — event monitors give
-  awareness of arrivals, but awareness is not convergence ownership; without
-  the probe the human becomes the loop operator. Declare merge-ready only
-  after a FULL settled round lands zero new findings. Bundle every finding
-  from one round into ONE fix push (each push mints a fresh round; per-finding
-  pushes multiply rounds without bound). Expect convergence as severity decay
-  across rounds — a round that stops decaying is a signal to step back, not
-  push faster.
+  control. The canonical shape is the Phase 5 SUPERVISED terminal-condition
+  watch, running from first push to MERGED/CLOSED, with an immediate full
+  harvest on any event — awareness that cannot sleep through an arrival.
+  Fixed-interval settle probes are superseded by that watch. Event monitors
+  give awareness of arrivals, but awareness is not convergence ownership;
+  without the supervised watch the human becomes the loop operator.
+  **Declare a round settled only when reviewers' latest reviews are bound to
+  the CURRENT tip AND a quiet window LONGER than the async lag has elapsed
+  (>10 min; 12 used on #330)**; declare merge-ready only after that settled
+  round lands zero new findings. Bundle every finding from one round into
+  ONE fix push (each push mints a fresh round; per-finding pushes multiply
+  rounds without bound). Expect convergence as severity decay across rounds
+  — a round that stops decaying is a signal to step back, not push faster.
+  At owner-active tempo the discipline tightens: the owner may merge or push
+  mid-arc, so EVERY binding moment recomputes the compound state (Phase 5) —
+  a live watch beats any probe cadence.
 - **Confirm the PR is still OPEN in the same re-fetch.** A push to a
   just-merged PR's branch SUCCEEDS but is not inclusion — the commit
   silently misses the base branch (worked instance 2026-07-06: a review
@@ -162,16 +199,30 @@ genuinely required review landed (the author-dependent leg below). Then:
   PR #325): a seat recomputed `mergeable: MERGEABLE` three times as its
   "truly-green gate" while never once reading `mergeStateStatus`, and could
   not explain the unmerged state to the owner.
-- **Arm auto-merge EARLY — at PR open, while requirements are still
-  unmet.** GitHub accepts `gh pr merge <n> --auto --merge` only on a PR
-  whose requirements are not yet satisfied; armed early, the merge fires
-  the instant the PR goes genuinely green AND CLEAN, and the settle-probe
-  discipline (Phase 6) is what makes it land on a settled round. On a PR
-  that is ALREADY clean, the same command executes an immediate merge —
-  which is then governed by the merge-authorisation legs below, not by the
-  arm-early clause. Arming is the shepherding seat's own step; a PR that
-  sits unmerged at truly-green because nobody armed the mechanism is the
-  shepherd's unfinished work (worked instance: PR #325, 2026-07-08).
+- **Arm auto-merge EARLY — at PR open, while requirements are still unmet —
+  WHERE merge authorisation is already settled.** Arming schedules the
+  merge: GitHub executes it the instant the PR goes CLEAN, with no
+  classifier, grant, or click in between. So the arm-early step inherits
+  the merge-authorisation boundary below — on a SELF-AUTHORED,
+  sub-agent-reviewed PR, arming without an in-session owner grant is
+  scheduling the exact merge the #323 boundary forbids; there, broadcast
+  merge-READY and leave the mechanism to the owner. Where authorisation is
+  settled (owner-directed arc, named grant, owner's own PR), arm at open:
+  the merge fires at genuinely green AND CLEAN. Be honest about the
+  trade-off: auto-merge fires on CLEAN, not on a settled round — the
+  supervised watch (Phase 5) observes but cannot delay it, so arming early
+  trades settled-round landing for zero-latency merge (the Phase 5
+  post-merge sweep is the backstop). On a PR that is ALREADY clean, the
+  same command executes an immediate merge — governed by the
+  merge-authorisation legs below, not by the arm-early clause. A PR that
+  sits unmerged at truly-green because nobody armed the mechanism (where
+  arming was authorised) is the shepherd's unfinished work (worked
+  instance: PR #325, 2026-07-08). If an arm attempt bundled with other
+  actions is harness-denied, retry the bare `gh pr merge <n> --auto
+  --merge` alone before concluding the capability is gated — on #325 a
+  composite arm-plus-direct-merge-fallback was denied, the denial was
+  over-generalised to the arm itself, and the permitted bare arm later
+  merged the PR.
 
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — all checks green AND every review thread resolved (fixed, or
@@ -228,6 +279,13 @@ allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   surface it to the owner; never fall back to squash.
 
 ## Phase 8 — After merge
+
+**One post-merge harvest before stand-down.** MERGED ends the merge-state
+question, not the feedback stream: a bot round composing at merge time still
+posts findings on the merged code up to ~10 minutes later. Apply the settled
+quiet window ONCE after MERGED (one final full harvest after >10 quiet
+minutes); route any real finding to a follow-up branch, never to the merged
+PR's branch.
 
 `worktree-hygiene` §3/§6 owns the cleanup: remove the worktree and delete the
 branch (content-verified, owner-authorisation-gated for destructive ops);

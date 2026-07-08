@@ -46,16 +46,19 @@ matching home; do not duplicate across multiple homes.
    cost; reach for one only when an existing PDR cannot cleanly own the
    contract through amendment.
 
-4. **Multi-instance cure shape → pattern file under
+4. **Cure-shape substance → pattern file under
    `.agent/memory/active/patterns/` or
    `.agent/memory/collaboration/`.**
-   Use when the substance is a recurring cure shape with two or more
-   recorded instances and named cures, but it is neither an
-   always-fired discipline (which would be a rule) nor a portable
-   contract (which would be a PDR). Pattern files carry worked
-   instances, failure shapes, and named cures. `patterns/` is the home
-   for solo-work cures; `collaboration/` is the home for multi-agent
-   coordination cures.
+   Use when the substance is a cure shape with recorded instances and
+   named cures, but it is neither an always-fired discipline (which
+   would be a rule) nor a portable contract (which would be a PDR).
+   Two-or-more instances is the default heuristic, NOT a gate: per
+   PDR-100 and the patterns README barrier reconciliation, a
+   single-instance cure shape graduates when the decision lenses give
+   a clear answer (broadly applicable, proven by implementation,
+   stable). Pattern files carry worked instances, failure shapes, and
+   named cures. `patterns/` is the home for solo-work cures;
+   `collaboration/` is the home for multi-agent coordination cures.
 
 When two homes look plausible, prefer the lower-cost route in order:
 pattern file > existing PDR clause > new rule > new PDR. Pattern files

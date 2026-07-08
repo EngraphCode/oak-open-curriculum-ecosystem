@@ -4,6 +4,30 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-126: gates land strict in one landing (Corsair guards Channel, dedicated consolidation)
+
+- PDR-126 authored (`pdr_kind: governance`): a gate lands at ERROR with full
+  estate conformance in one landing — existing violations are fixed or
+  category-moved as part of the landing; a violation-allowlist is an escape
+  hatch with paperwork; category-relocation, never exemption; existing
+  warn-tier surfaces are transition debt, never precedent. Graduates the
+  2026-07-07 owner correction chain (the zero-IO ruling and its deepening).
+- Decision-records README index: PDR-125 row restored (index drift — the
+  record existed on disk but was absent from the index) and PDR-126 added.
+- PDR-027 amendment: a mid-session model switch is a continuous seat (the
+  session-seed-derived identity is stable; the switch updates the existing
+  row's `model`, never adds a row).
+- Incoming box cleared (owner-approved, integration verified in landed
+  artefacts): the resonance plan-estate refounding synthesis (2026-07-06 —
+  absorbed by the plan-corpus refounding protocol plan and executed through
+  R0) and the resonance teaching bundle (2026-07-05 — teachings 1/4/5 live
+  here as the R0b plan-state engine, the Box flow, and PDR-125 +
+  protocol.json + the wire schema; teaching 3's challenge-clean-bills clause
+  absorbed into the reviewer-adjudication surface). Residuals routed with
+  destinations to the `agentic-engineering-enhancements` thread record:
+  recomputable team state (teaching 2) → the WS0 protocol-authoring agenda;
+  the worker agent-class generator (teaching 3) → the agent-tooling lane.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-07 — WS0c + WS0e: conformance recomputed, the wire contract lands core-carried (visiting resonance seat, join ceremony)
 
 - NEW core-carried declaration artefact `.agent/practice-core/protocol.json`

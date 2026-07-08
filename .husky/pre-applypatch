@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Refuse mailbox-applied commits (git am) on main — git am invokes the
+# applypatch hook family, not pre-commit; this hook runs before the commit
+# is created and a non-zero exit aborts it. Mechanics live in the shared
+# guard (never-commit-to-main rule).
+GUARD_HINT="Abort the apply (git am --abort), then apply the mailbox on a branch."
+. .husky/refuse-commit-on-main.sh

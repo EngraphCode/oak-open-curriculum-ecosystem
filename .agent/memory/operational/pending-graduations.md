@@ -104,40 +104,14 @@ a hedge** — a short dwell is never licence to leave a decidable item undecided
 New capture appends below as inline-bracket entries — `- **<title>**` then a
 backtick-wrapped inline `[…]` block (may wrap across lines) with pipe-separated
 `captured / source / target / trigger / size / status` fields (schema:
-`agent-tools/src/practice-fitness/item-count.ts`). The bracket must NOT be fenced
-— a fenced or unwrapped block is silently uncounted (it raises a malformed
-finding). `target` must name a doctrine surface (rule / PDR / ADR / pattern /
-governance doc); if it names a plan or report, the item belongs elsewhere.
+`agent-tools/src/practice-fitness/item-count.ts`). Every field name carries a
+colon (`captured: …`, `trigger: …`). The bracket must NOT be fenced — a fenced
+or unwrapped block is silently uncounted (it raises a malformed finding).
+`target` must name a doctrine surface (rule / PDR / ADR / pattern / governance
+doc); if it names a plan or report, the item belongs elsewhere. **After ANY
+append, run the parser's own readout** (`pnpm practice:fitness:informational`,
+the Live decision-debt line) **and verify the count MOVED** — colon-less
+fields once left four items reading as a clean register (vacuous-green in a
+debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
-
-- **Quiet-pipe exit-mask class: gates, pushes, and verification probes run BARE, exit read
-  off the command itself — never key success or an exit-code read off a pipeline tail**
-  `[captured: 2026-07-08 | source: napkin — six-plus worked instances across four seats (Stoat
-  zsh-var-through-pipe; Goshawk eslint|tail ×2; Rigel plan-state|head; Pelican
-  check-commit|tail, git-push|tail, comms|grep -c, plus the trailing-echo variant that
-  masked a red pnpm check from the harness notification) | target: new .agent/rules/ rule
-  (read-exit-codes-bare) OR a clause in verify-dont-trust / read-diagnostic-artefacts-in-full
-  — the pass picks the home; the doctrine: a pipeline's exit is the tail's, read $? off the
-  bare command or PIPESTATUS[0], treat any success echo chained after a pipe as unproven,
-  and read the PRINTED status value never the harness notification exit when an echo trails
-  | trigger: FIRED — cross-seat recurrence proves vigilance does not cure the class | size: S
-  | status: due]`
-- **PR settle discipline: a continuous terminal-condition watch replaces fixed-interval
-  settle probes** `[captured: 2026-07-08 | source: napkin (Rigel #324 + Pelican #325 parallel
-  owner corrections; Rigel's Monitor until-loop cure enumerating every terminal state) |
-  target pr-lifecycle SKILL Phase 5/6 amendment (the budgeted pr-watch IS the shape — make
-  it the mandated settle mechanism; checks-settled never proves a bot review round complete)
-  | trigger: FIRED — two seats corrected in one sitting | size: S | status: due]`
-- **Scheduled remediation-bot PRs enter the same disposition gauntlet as any seat's PR —
-  never merge-on-green** `[captured: 2026-07-08 | source: PR #326 deep review (napkin entry;
-  review comment issuecomment-4913446806: both bot fixes reversed documented local decisions;
-  1-merged/6-closed revealed history) | target: sonarqube-mcp-instructions rule note | trigger
-  owner decision on the remediation agent (if turned OFF, reject this item as moot at the
-  pass) | size: XS | status: pending]`
-- **Semantic-merge unions owe an ERA-WITNESS assertion** `[captured 2026-07-08 | source
-  napkin (PR #324's union dropped the entire Goshawk/Rigel era from two continuity surfaces
-  while its set-diff proofs read green; recovered at the Pelican closeout from 5faf08205) |
-  target semantic-merge SKILL mandatory post-union step: assert the newest section heading
-  AND newest identity row of EACH side are present in the result | trigger: FIRED — one
-  worked loss instance | size: S | status: due]`

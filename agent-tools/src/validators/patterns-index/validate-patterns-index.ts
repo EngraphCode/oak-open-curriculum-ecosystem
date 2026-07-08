@@ -62,9 +62,11 @@ async function loadPatterns(): Promise<{
  *
  * `use_this_when` is the schema's primary discovery field
  * (`patterns/README.md` §Frontmatter Schema), so a missing one is a real gap.
- * This recurring note is the **warn stage** of a new check over a pre-existing
- * gap (per the new-rules-start-at-warn discipline): once a curation pass fills
- * the missing hints, this should escalate to a blocking failure.
+ * This recurring note is transition debt under PDR-126 (gates land strict in
+ * one landing; the prior new-rules-start-at-warn convention is superseded by
+ * the 2026-07-07 owner ruling): the owning conformance work is the curation
+ * pass that fills the missing hints, and that pass's final slice escalates
+ * this note to a blocking failure.
  */
 function noteMissingHints(entries: readonly PatternEntry[]): void {
   const missing = entries.filter((entry) => entry.useThisWhen === undefined);

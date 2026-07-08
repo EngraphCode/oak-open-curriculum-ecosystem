@@ -118,6 +118,11 @@ form to use rather than a bypass:
   to update an already-pushed branch, **merge `origin/main` into it**
   instead of rebase-and-force-push (clean when the change is disjoint;
   the repo merges PRs anyway).
+- A benign COMPOUND command can substring-misfire across its parts: a
+  merge-pull followed by a plain `git push` in one call read as a forced
+  push (worked instance, PR #324 arc, 2026-07-08). The cure is splitting
+  into unambiguous single-intent calls — never reaching for a
+  destructive sibling that happens to pass.
 
 These are refinement candidates for the hook (flag-parsing over
 substring), never bypass justifications — use the safe form.

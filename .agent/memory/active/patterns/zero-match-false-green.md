@@ -44,3 +44,11 @@ the exit code: read the runner's reported file/test count, require it to
 be non-zero (and plausibly sized), and prefer configurations that fail on
 empty selection (e.g. vitest without `passWithNoTests`). For sweep tools,
 prove the filter on one known-matching file before trusting a green sweep.
+
+Recurrence variant (2026-07-08, despite this home): two comms gap sweeps
+globbed `*.json` from the wrong cwd and reported "clean" on zero files —
+shell cwd is context-dependent (reset between calls in some harness
+contexts, drift-prone after `cd` in others; the F-125 family), so either
+way it cannot be assumed. Cures: absolute paths in sweep commands, and
+treat empty output over a directory that SHOULD have content as a refusal,
+never a pass — a gate over nothing never passes.

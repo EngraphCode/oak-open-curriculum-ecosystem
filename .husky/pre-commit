@@ -1,5 +1,12 @@
 #!/usr/bin/env sh
 
+# Refuse plain and --amend commits on main; mechanics and residual-vector
+# notes live in the shared guard (never-commit-to-main rule). git invokes
+# pre-commit only for `git commit` — merge and sequencer paths are guarded
+# by pre-merge-commit and prepare-commit-msg.
+GUARD_HINT="Move to a branch first: git switch -c <branch> (staged changes travel with you)."
+. .husky/refuse-commit-on-main.sh
+
 # Disable turbo TUI
 export TURBO_UI=0
 

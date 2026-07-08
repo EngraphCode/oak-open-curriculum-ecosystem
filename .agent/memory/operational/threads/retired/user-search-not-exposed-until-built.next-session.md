@@ -1,3 +1,11 @@
+> **RETIRED — thread completed 2026-07-08.**
+> The gating landed on main — `OAK_CURRICULUM_MCP_USER_SEARCH_ENABLED` (default
+> OFF) and `runtimeConfig.userSearchEnabled` are live in the MCP server (verified
+> by artefact presence 2026-07-08; the session's original SHAs were orphaned by
+> later merge history, so the record's "push pending" note is stale). Retained as
+> continuity history; not a live lane. Not listed in `repo-continuity.md` Active
+> or Paused threads.
+
 # Thread: user-search-not-exposed-until-built
 
 **Purpose**: Stop the unbuilt user-search MCP App tools (`user-search` +

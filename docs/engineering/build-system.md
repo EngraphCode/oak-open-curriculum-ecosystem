@@ -395,6 +395,25 @@ This indicates core packages weren't built before type-check ran. Ensure:
 2. The generic `type-check` task in `turbo.json` depends on `["^build"]`. Only `@oaknational/sdk-codegen` has a package-specific override adding `sdk-codegen` (see ADR-065 items 6–7)
 3. Run `pnpm clean && pnpm build`
 
+### `pnpm install` runs a bootstrap `tsc` — a surprise early gate
+
+Editing a workspace `package.json` (e.g. adding a script) makes the next pnpm
+run re-verify dependencies, which triggers the postinstall bootstrap and a
+whole-package `tsc`. This catches real type errors BEFORE any explicit
+type-check pass — read the error HEAD (the tail is pnpm plumbing; the
+`runDepsStatusCheck` stack is the fingerprint). Used deliberately, it is a
+free whole-package pre-gate: run `pnpm install` in a worktree immediately
+after resolving a merge, before reaching for the gate suite (three worked
+instances, 2026-07-07/08 — one caught a merge fixture defect pre-gate).
+
+### Lint runs against the BUILT eslint plugin — config-source edits are invisible until rebuild
+
+An edit to `@oaknational/eslint-plugin-standards` source (e.g. a rule config
+or allowlist in `recommended.ts`) does not affect lint output until the
+plugin package rebuilds — ESLint resolves the built `dist/`. Rebuild the
+plugin after every config-source edit before trusting a lint readout
+(sibling of the F-120 stale-dist family).
+
 ### Slow repeated runs
 
 Ensure `build` has `cache: true` in `turbo.json`. Run `turbo run build --dry-run` to check if caching is working.

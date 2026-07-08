@@ -102,7 +102,21 @@ Multi-reviewer tranches converge in 2–3 rounds (each round can introduce its
 own regressions needing one more); budget for that shape rather than a single
 pass. Convergence of independent reviewers on the same finding is the
 strongest act-decisively signal a review can produce — treat it as a verdict,
-not one more input (corpus-proven across w-window sessions, 2026-05→06).
+not one more input (corpus-proven across w-window sessions, 2026-05→06;
+re-proven across the R0 arc 2026-07-07/08: a path-traversal defect found
+independently by security-expert and code-expert; two must-fix classes each
+found by 2+ seats; a lossy "duplicates merged" claim caught independently by
+both review seats). Convergence validates a DIAGNOSIS at most, never a
+prescription — the prescribed cure still runs through the gates first-hand.
+
+**Measured dispatch economics** (R0 arc, 2026-07-06→08, tranche-scale
+doctrine/tooling batches): 48–160k tokens per reviewer seat, 2–11 minutes in
+parallel; per-gateway yield 1–4 batch-altering findings plus convergent
+must-fixes and security classes the builders missed; a PDR-101 four-seat
+doctrine quorum ran ~70–120k tokens/seat. Worth the cost at tranche or
+doctrine-batch scale, oversized for a one-file change. Adversarial review of
+freshly-built detector tooling is not optional overhead — it is where most of
+the truth arrived.
 **Independence is the load-bearing condition**: reviewers handed the same
 framing or premise converge by amplification, not corroboration — panels
 systematically amplify the premise in the brief and approve artefacts that
@@ -373,7 +387,11 @@ standing requirement, 2026-06-10):
 - **Adjudicate every finding first-hand, in both directions.** Refute false
   claims with source grounding (encode refutations as regression tests where
   the claim is testable); apply true ones. Reply with the verdicts on the PR
-  so the adjudication is visible.
+  so the adjudication is visible. Verify the flagged findings AND
+  adversarially challenge the clean bills — a verification layer scoped to
+  positives leaves false-negatives untouched (a donor estate's ledger
+  challenge of ALL mappings, clean ones included, found zero overturns but
+  33 real detail-drops the flag-scoped layer missed).
 - **Assess the finding's LENS, not only its cited facts.** A reviewer can be
   factually right and model-wrong: screen whether the risk model presupposed
   by a finding fits the artefact's nature before accepting it (worked
@@ -412,11 +430,25 @@ standing requirement, 2026-06-10):
   adjust" as though it were one (owner clarification 2026-06-26).
   Distinguish doctrine surfaces (enforce alignment) from owner scratchpads
   (their content is automatically the owner's deliberate choice).
+- **A spend-limit-killed sub-agent resumes cheaply via a message to the
+  SAME agent id** — the harness resumes from the agent's own transcript
+  with context intact, far cheaper than a fresh dispatch (two worked
+  instances, 2026-07-07). Pair every resume with a
+  recompute-from-disk-first instruction: git status is file truth, re-run
+  the last scoped observation, treat unverified memory as claims.
 - **A result carrying a "safety classifier was unavailable" note is
   extra-unverified.** Rerun the same sub-agent with the same brief, or
   independently ground each load-bearing claim first-hand, before folding
   the findings (owner direction 2026-06-28) — the note raises the
   verification bar; it never lowers trust silently.
+- **A declined mechanism needs its factual disagreement recorded.** When you
+  decline a reviewer's prescribed mechanism on a FACTUAL ground (the helper it
+  names does not exist, the API it cites is absent), record the factual
+  disagreement explicitly — never just the alternative you implemented. A
+  silent fallback leaves an unverified reviewer claim and an invisible
+  decision (worked instance 2026-07-08: a reviewer asserted `writeArtefactSet`
+  exists, an export-grep found nothing, and a local atomic write landed with
+  no record of the disagreement until a loss-scan caught it).
 - **Grade a peer-owned PR against its pinned head SHA, never the peer's
   live worktree.** A live tree embodies the peer's in-flight response —
   including their uncommitted fix to the very finding under adjudication —

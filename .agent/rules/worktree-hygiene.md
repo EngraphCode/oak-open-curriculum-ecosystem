@@ -128,6 +128,13 @@ the primary path passed explicitly (`comms list/watch/inbox --comms-dir`, `claim
 --active`); only `comms send` auto-anchors to the primary, and a relative path silently
 lands worktree-local.
 
+Repurposing an idle provisioned worktree beats re-provisioning: a merged-PR
+worktree switches to a new branch in seconds at zero install cost. Two
+mandatory follow-ups: rebuild agent-tools after the switch (the
+stale-dist-after-switch class; see the frictions register), and expect
+`git switch` to fire harness "file modified" notices for every
+checkout-updated file — checkout noise, never peer edits.
+
 Worktree isolation is weaker than it looks — three proven leak paths: a **nested**
 worktree gives false-clean dependency runs (Node resolution walks up into the parent
 checkout's `node_modules`, so a missing dependency passes locally and fails everywhere
