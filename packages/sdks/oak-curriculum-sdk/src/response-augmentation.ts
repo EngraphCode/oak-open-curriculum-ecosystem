@@ -6,19 +6,19 @@
  * The upstream's `canonicalUrl` (context-rich curriculum URL) passes
  * through untouched.
  */
-import {
-  CONTENT_TYPE_PREFIXES,
-  generateOakUrlWithContext,
-} from '@oaknational/sdk-codegen/api-schema';
+import { generateOakUrlWithContext } from '@oaknational/sdk-codegen/api-schema';
 import type { ResponseContext, ContentType } from './types/response-augmentation.js';
 import type { HttpMethod } from './validation/types.js';
+import { isNonNullObject, isMergeablePayload } from './response-augmentation-helpers.js';
 import {
   getContentTypeFromPath,
   extractEntityIdFromPath,
+  endsWithEntityCollection,
+} from './response-augmentation-path-classification.js';
+import {
   extractGenericId,
   extractContentTypeSpecificId,
-  isNonNullObject,
-} from './response-augmentation-helpers.js';
+} from './response-augmentation-slug-extraction.js';
 import { deriveSequenceSlug } from './sequence-slug-derivation.js';
 import { rawCurriculumSchemas } from '@oaknational/sdk-codegen/zod';
 
@@ -31,10 +31,6 @@ const keyStagesSchema = rawCurriculumSchemas.SubjectResponseSchema.shape.keyStag
 
 interface SubjectContext {
   readonly keyStageSlugs: readonly string[];
-}
-
-function endsWithEntityCollection(path: string, contentType: ContentType): boolean {
-  return path.endsWith(`/${CONTENT_TYPE_PREFIXES[contentType].pathSegment}`);
 }
 
 /**
@@ -169,8 +165,9 @@ function extractIdFromPath(path: string): string | undefined {
  *
  * Returns `unknown` because the result flows to `JSON.stringify` at
  * the middleware boundary — there is no typed downstream consumer.
- * Uses `Object.assign` to avoid the TypeScript 20-member union
- * spread limit (TS2698).
+ * Items are guard-narrowed before spreading (an `unknown` cannot be
+ * spread); a non-object item carries no fields to merge, so only the
+ * extracted Oak URL fields are returned for it.
  */
 export function augmentArrayResponseWithOakUrl(
   response: readonly unknown[],
@@ -185,17 +182,19 @@ export function augmentArrayResponseWithOakUrl(
     return response;
   }
   return response.map((item) => {
-    return Object.assign({}, item, extractOakUrlFields(item, path, contentType));
+    const oakUrlFields = extractOakUrlFields(item, path, contentType);
+    return isMergeablePayload(item) ? { ...item, ...oakUrlFields } : oakUrlFields;
   });
 }
 
 /**
- * Augments a single object response with Oak URL.
+ * Augments a single response — object or non-object — with Oak URL.
  *
  * Returns `unknown` because the result flows to `JSON.stringify` at
  * the middleware boundary — there is no typed downstream consumer.
- * Uses `Object.assign` to avoid the TypeScript 20-member union
- * spread limit (TS2698).
+ * The response is guard-narrowed before spreading (an `unknown`
+ * cannot be spread); a non-object response carries no fields to
+ * merge, so only the extracted Oak URL fields are returned for it.
  */
 export function augmentResponseWithOakUrl(
   response: unknown,
@@ -209,7 +208,8 @@ export function augmentResponseWithOakUrl(
   if (!contentType) {
     return response;
   }
-  return Object.assign({}, response, extractOakUrlFields(response, path, contentType));
+  const oakUrlFields = extractOakUrlFields(response, path, contentType);
+  return isMergeablePayload(response) ? { ...response, ...oakUrlFields } : oakUrlFields;
 }
 
 /**

@@ -12,7 +12,7 @@
  *
  * For unit-resource extraction (where the resource IS a unit and
  * `unitSlug` is a top-level scalar), see `extractUnitSlug` in
- * `response-augmentation-helpers.ts`.
+ * `response-augmentation-slug-extraction.ts`.
  */
 
 import { rawCurriculumSchemas } from '@oaknational/sdk-codegen/zod';
@@ -51,7 +51,7 @@ function isNonNullObject(value: unknown): value is ObjectResponse {
  *
  * For unit-resource responses (where the resource IS a unit and
  * `unitSlug` is correctly a top-level scalar), use `extractUnitSlug`
- * from `response-augmentation-helpers.ts` instead.
+ * from `response-augmentation-slug-extraction.ts` instead.
  *
  * The narrowing uses the generated Zod schema's `units` sub-schema, so
  * the return type flows directly from `LessonSummaryResponseSchema` and

@@ -1,3 +1,24 @@
+## [1.63.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.3...v1.63.4) (2026-07-08)
+
+
+### Bug Fixes
+
+* linting issue ([15a922e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15a922ec33149efb76adc5d1be420800ac5853c9))
+
+## [1.63.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.2...v1.63.3) (2026-07-08)
+
+
+### Bug Fixes
+
+* **sonar:** resolve S4782 and S6661 at source with estate-conformant shapes ([4080841](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/408084120f315e6d8fa7eb8cf1f96f94cfdc1768)), closes [#326](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/326)
+
+## [1.63.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.1...v1.63.2) (2026-07-08)
+
+
+### Bug Fixes
+
+* **continuity:** repair handoff-link depth, plan path, and graduation schema colons (PR 330 round 1) ([60ee395](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/60ee39596e3e6579b03e47e9d0f94859ae82e400))
+
 ## [1.63.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.0...v1.63.1) (2026-07-08)
 
 
