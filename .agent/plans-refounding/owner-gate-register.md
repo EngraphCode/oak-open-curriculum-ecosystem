@@ -22,7 +22,7 @@
 | G-SP3 | Scale-up sanction on the RE-PRICED declaration (fixed vs marginal; ruling-demand sizing; evidence-vs-prior labels per M6). Also presents the post-corpus size projection — source denominator × pilot-measured merge/supersede/disposition rates — the expected-numbers moment (owner-directed 2026-07-07) | R3→R4 boundary | pending | [`plan-corpus-refounding-cost-ledger.md`](../plans/product-development-governance/active/plan-corpus-refounding-cost-ledger.md) is the substrate (supersedes the local draft skeleton) |
 | OG-WE | Plan-state gate warn→enforce escalation (after the deliberate-break transcript + an owner-seen divergence report) — re-ID'd from F5 §8's "OG-3" to clear the canary-key ID collision; rides a Ruling-batches slot | mid-flight ruling slot | pending | — |
 | Ruling batches | Batched mid-flight rulings (≤15/batch; per-tranche cutover sanctions ride these; worker task-design defect records reviewed here) | R4–R5 | pending | — |
-| Walk C | Final ratification against live-RECOMPUTED state; two fresh-context reviewers on the composed chain; WS6 hand-off note (substrate stated explicitly) | R6 | pending | — |
+| Walk C | Final ratification against live-RECOMPUTED state; two fresh-context reviewers on the composed chain; WS6 hand-off note (substrate stated explicitly). **Includes the terminal cutover sanction** — archive-old + rename to `.agent/refounded-plans/` (the G1 destination ruling); no cutover executes without this sitting | R6 | pending | — |
 
 Scale-independence check (P11): eleven owner moments total, three already discharged;
 mid-flight demand is bounded by the Walk-A thinning tables and re-sized at G-SP3.

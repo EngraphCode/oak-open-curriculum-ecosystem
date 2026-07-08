@@ -59,7 +59,7 @@ todos:
       Adjudicator throughput lines, arrival-routing overhead per week of arc). Acceptance:
       the pre-run declaration exists in every billing denomination before any fleet
       dispatch; the H-series halt conditions reference the run total.
-    status: pending
+    status: completed
   - id: r1-freeze-inventory-baseline
     content: >-
       EXECUTE (S0/S1/S2 stable points): S0 atomic freeze commit (frozen copies at the
