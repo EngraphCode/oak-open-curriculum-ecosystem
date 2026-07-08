@@ -58,16 +58,13 @@ protection (pull requests required, non-fast-forward pushes blocked) is the
 invariant that holds regardless; the guards are local hygiene that fails
 fast.
 
-The one sanctioned `main` writer — semantic-release in CI — commits with
-`HUSKY=0` (`release.yml`), so the guards never fire there (the husky shim
-`.husky/_/h` exits on `HUSKY=0` before any hook script is sourced — the
-guard scripts themselves never read the variable). That carve-out is
-category delimitation (a sanctioned automated writer), not an exemption an
-agent or human may use: `HUSKY=0` skips ALL hooks and is governed by the
-same fresh per-invocation owner-authorisation discipline as `--no-verify`
-([`no-verify-requires-fresh-authorisation`](no-verify-requires-fresh-authorisation.md)).
-Neither bypass lifts this rule: even with a hook bypass authorised for
-another reason, `main` still receives no local commits.
+This rule has no exception an agent may use or argue from. A hook bypass
+does not lift it: `--no-verify` (itself governed by
+[`no-verify-requires-fresh-authorisation`](no-verify-requires-fresh-authorisation.md))
+covers hook execution only — even with a bypass authorised for another
+reason, `main` still receives no local commits. Release automation is
+outside this rule's audience and handles its own writes; its mechanics are
+not agent-facing knowledge.
 
 ## Related Surfaces
 

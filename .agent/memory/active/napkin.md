@@ -119,9 +119,8 @@ New session observations append below.
   `git am` mailbox applies, the round-2 Codex catch) — plus the
   `never-commit-to-main` rule (canonical + three adapters + RULES_INDEX row + commit-skill
   prohibition bullet). Residuals no client hook can see (ff-merges, rebase ref-moves, fresh
-  clones pre-install) are rule-covered only; remote branch protection is the invariant. The
-  sanctioned-writer delimitation was already built: release.yml sets HUSKY=0, so
-  semantic-release's CI commits on main never meet the guards. Recovery shape in the rule:
+  clones pre-install) are rule-covered only; remote branch protection is the invariant.
+  Recovery shape in the rule:
   FETCH FIRST, preserve-on-branch, `git branch -f main origin/main` while main is not
   checked out (git itself refuses if any worktree holds it), land via PR.
 - **My own first guard proof COMMITTED AN EMPTY TEST COMMIT TO MAIN — the discrimination
@@ -154,6 +153,18 @@ New session observations append below.
   records that must not be rewritten), with a durable-re-home + consumer-sweep as a routed
   follow-up. Same class as the archive-move inbound-link sweep the plan estate already
   mandates; the box needed the same discipline.
+- **Owner correction (2026-07-08, PR-332 arc): never document a bypass mechanism in
+  agent-facing doctrine — an exception agents know about is an exception they will
+  eventually argue themselves into using.** My first three rounds carefully documented HOW
+  the release automation legitimately writes to main (reviewers even pushed for MORE
+  mechanism detail, and I added it — precedent compounding via review pressure). The ruling:
+  release automation is OUTSIDE the rule's audience and handles its own writes; the
+  agent-facing rule is ABSOLUTE, with no carve-out to know about. Same generator as
+  allowlist-complicity: a documented exception with paperwork manufactures legitimacy for
+  drift. The cure shape: audience-scope the rule (one line saying release automation is out
+  of audience, zero mechanics), and answer bot reviewers' "won't this block X?" questions
+  in the PR thread (a record), never in standing doctrine (a teaching surface). All four
+  guard/rule/napkin/PR surfaces swept clean the same round.
 - **`bash -n a b c` syntax-checks ONLY the first file — the rest become positional args; the
   repo's lint:shell gate was vacuously green for 3 of its 4 matched files** (proven with a
   planted `x(` file exiting 0 as a later arg). Same vacuous-green class as the register
