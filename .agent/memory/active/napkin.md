@@ -707,3 +707,46 @@ New session observations append below.
   wrong. The bot's original finding (tree contains only README) was righter than my fix.
   Corrected in the ledger at the Pelican closeout. Face: verify-dont-trust applies to PEER
   closeout broadcasts exactly as to reviewer claims — check the tree, not the relay.
+
+## 2026-07-08 — Gale guards Eyrie (33f49e, slack-assistants estate): session observations
+
+Verified the Ask Oisín/Ask Oak design doc, authored the `slack-assistants` plan collection, ran three
+review workflows (defect / open-question / round-2), integrated owner rulings, reconciled cross-file
+coherence. All on `feat/slack-apps` / PR #328 (open). Successor: Copper (48382d).
+
+- **Owner correction (×2, standing): surface EVERY user decision as an AskUserQuestion — the
+  4-question cap is NOT licence to drop overflow to prose.** I asked 4 via the tool then listed the
+  rest as prose "answer in your reply"; corrected twice. Home: memory
+  `surface-user-decisions-as-questions` (loophole closed: batch across calls). Face: a genuine
+  question left in prose is a dropped question.
+- **Owner correction: precedent is not correctness.** I twice leaned on "the existing MCP app uses
+  Express" as a reason for the Slack apps. Express fits an MCP-SDK server; it is wrong for a
+  `@vercel/slack-bolt` app (Web-Request-native → Next.js). Home: memory `precedent-is-not-correctness`.
+- **Owner correction: configure checks, don't blindly obey.** A reviewer (and I) read the eslint
+  lib-boundary config as immutable law and proposed an injection workaround; the repo's intent is that
+  apps consume adapters (the logging adapter is Sentry/stdio-backed), so configure the boundary to
+  permit it (never disable). Home: memory `configure-checks-not-blindly-obey`.
+- **Owner reframe: "not your concern" + "v1 is an internal POC".** I over-scoped the open-question
+  round into the owner's ops domain (provisioning, ownership, billing, Slack-app approval, monitoring,
+  rollback). For an internal POC these are owner-handled, out of plan scope — not design questions to
+  chase. The POC framing also resolved DPIA-not-required + no-retention-duty. Face: separate design/plan
+  questions from ops-ownership; do not surface the latter as if they are mine.
+- **Assess ALL subagent output, not the confirmed half — worked instance.** In the open-question round
+  two triage lenses marked the ZDR-contract question ALREADY-DECIDED by citing the estate's own
+  "confirm this" note (a note that something *needs* confirming is NOT a decision). Caught only by
+  reviewing the DROPPED (already-decided/refuted) set. Owner made it explicit: "critically assessing all
+  does not mean assessing half." candidate: pattern — adversarial-verify PLUS a self-pass over the
+  verifier's own downgrades/refutations.
+- **Three inter-subagent claim conflicts adjudicated (my own earlier subagents were wrong):**
+  (1) model-slug — an earlier research agent claimed the AI Gateway uses dot-slugs
+  (`claude-sonnet-4.5`); a later fleet + the canonical `claude-api` skill + the env's own model IDs
+  showed Anthropic IDs are HYPHENATED and the dotted form is a 404. I had baked the wrong rule into a
+  RED test; cure = drop format validation (opaque slug). (2) search-toolset — an earlier mcp-expert
+  hedged "add a search toolset"; a later one confirmed `search_code` is already in the GitHub MCP
+  `repos` toolset. (3) ADR — docs-adr cited ADR-154 (framework/consumer seam; verified governs),
+  arch-fred cited ADR-041 (workspace tier); both right, different aspects. Face: re-verify earlier
+  subagent claims; conflicts are the norm across a long multi-agent session, and my own earlier fleet
+  output is not exempt.
+- **napkin at ~710 lines (over the 300 limit)** — accumulated across many threads' sessions, not just
+  mine; a dedicated consolidation/rotation pass is DUE, but is cross-session work, not this handoff's
+  bounded scope. Captured here at full weight per the conservation invariant (do not trim to stay green).

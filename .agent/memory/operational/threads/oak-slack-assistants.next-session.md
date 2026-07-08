@@ -30,9 +30,11 @@ architectural seam:
 - **Completed prerequisites**: design verified against primary vendor docs + the
   live Oak MCP (2026-07-08); framework settled as Next.js App Router; owner
   rulings recorded (pragmatic PII egress, matcher deferred, framework-first,
-  internal-only access control, per-workspace + hashed-per-user limiting); a
-  12-expert fleet review + adversarial verify run and its upheld corrections
-  applied to the estate.
+  internal-only access control, per-workspace + hashed-per-user limiting).
+  **Three review rounds** ran — defect review, open-question review, round-2 —
+  each an expert fleet + per-finding adversarial verify, with ALL output
+  critically assessed including the dropped (refuted/overstated) set; upheld
+  corrections integrated. Do not re-run them blindly.
 - **Owner rulings in force**: internal-use ONLY (allow-listed installations, no
   external access); framework consumes the logging adapter (configure eslint
   boundaries, do not inject-around); model slug is opaque/unvalidated. Plus the
@@ -46,5 +48,33 @@ architectural seam:
   pass rate + weekly-active-askers). Provisioning, ownership, billing, Slack-app
   approval, monitoring, and rollback authority are **owner-handled, out of plan
   scope**. See the plan's "Known open questions — dispositions".
-- **Recent relevant commits**: PR #328 (`feat/slack-apps`) — design doc, plan
-  collection, framework-settle, and the fleet-review corrections.
+- **Recent relevant commits**: PR #328 (`feat/slack-apps`, HEAD `e1a8add3c`) —
+  design doc, plan collection, framework-settle (Next.js), round-2 corrections,
+  open-question integration, and the roadmap/README/thread-record coherence
+  reconcile. PR #328 is **open, not merged**; a Copilot autofix (`8710bb973`) and
+  a `main` merge (`cee7173b7`) landed on the branch between rounds (both intact).
+
+## For the successor — Copper (`48382d`, "Kiln wakes Copper")
+
+You inherit an estate that is **READY FOR EXECUTION for WS0–WS8**. Orientation:
+
+1. Read `ask-oisin.plan.md` (authoritative for scope/sequencing/acceptance) and the
+   design doc (source). The four estate docs + this record were coherence-checked
+   2026-07-08 and agree.
+2. **First move**: the WS0 ADR (apps/slack tier + framework **adapter**-tier + the
+   eslint lib-boundary config edit), then scaffold. WS0–WS8 are CI-provable with no
+   external credentials.
+3. **Owner-handled, not yours to chase**: provisioning + ownership + billing +
+   Slack-app approval + monitoring + rollback authority (owner ruling — v1 is an
+   internal POC). WS9–WS11 wait on those + a durable KV.
+4. Session learnings live in `napkin.md` (2026-07-08 Gale section) and three memory
+   files: `surface-user-decisions-as-questions`, `precedent-is-not-correctness`,
+   `configure-checks-not-blindly-obey`. Heed them.
+
+## Participating agent identities
+
+| platform / model | agent_name (prefix) | role | last_session |
+| --- | --- | --- | --- |
+| claude-code / claude-fable-5 | Gale guards Eyrie (`33f49e`) | design-verify + plan-author + 3 review rounds + coherence | 2026-07-08 |
+
+Successor named by the owner 2026-07-08: **Copper (`48382d`)**.
