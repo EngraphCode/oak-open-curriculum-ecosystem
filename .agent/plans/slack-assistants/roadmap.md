@@ -1,6 +1,6 @@
 # Slack Assistants Roadmap
 
-**Status**: M1 (Ask Oisín v1 + framework) — plan READY FOR EXECUTION for WS0–WS8 (WS9+ gated on owner-handled provisioning); **v1 is an internal proof-of-concept**. M2 (Ask Oak) strategic/future.
+**Status**: 🔵 **READY FOR REVIEW** (2026-07-08). M1 (Ask Oisín v1 + framework) was drafted execution-ready for WS0–WS8, but the **logging/observability approach is reopened** (WS0/WS8 — see the [logging design record](../../research/outreach/slack-assistant-logging-observability-design.md)); WS9+ gated on owner-handled provisioning; **v1 is an internal proof-of-concept**. M2 (Ask Oak) strategic/future.
 **Last Updated**: 2026-07-08
 
 ---

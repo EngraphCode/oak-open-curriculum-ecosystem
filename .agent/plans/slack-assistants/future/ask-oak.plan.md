@@ -6,12 +6,13 @@ lineage:
   serves_stream: "agentic surfaces over Oak's MCPs"
   strategic_choice: "n/a — new surface domain"
   derives_from: ".agent/research/outreach/oisin-oce-navigator-design.md (PR #328)"
-status: strategic
+status: ready for review
+lifecycle: strategic-future
 ---
 
 # Ask Oak — curriculum-content Slack assistant (future)
 
-**Status**: 🔵 STRATEGIC (future) — not executable until promoted.
+**Status**: 🔵 **READY FOR REVIEW** (2026-07-08) — strategic future brief; reviewed as part of the estate, not executable until promoted (Oak MCP alpha credentials). Inherits the reopened logging/observability approach — Ask Oak will need the same cross-runtime **provider** model (it consumes the framework's neutral ports; vendor providers compose at its app root). See the [logging/observability design record](../../../research/outreach/slack-assistant-logging-observability-design.md).
 
 ## Problem and intent
 

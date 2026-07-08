@@ -1,3 +1,10 @@
+---
+name: "Ask Oisín — OCE navigator design (with Ask Oak split out)"
+status: ready for review
+last_updated: 2026-07-08
+companion: ".agent/research/outreach/slack-assistant-logging-observability-design.md (logging/observability theory + open questions)"
+---
+
 # Ask Oisín — repo & project navigator, with Ask Oak split out for curriculum content
 
 > Verified against primary vendor documentation and the live Oak Curriculum MCP on 2026-07-08.
@@ -11,6 +18,42 @@
 **Ask Oisín** (Open Curriculum Ecosystem Navigator, OCEN) is a Slack bot that answers questions about the *project*: the OCE repo, the approaches, the strategy, the Practice, the vision, and the current planning state. It grounds in the `oaknational/oak-open-curriculum-ecosystem` GitHub repo, where the `under-the-hood` skill and the `.agent/` directives, PDRs/ADRs, `principles.md`, and planning state live. Oisín reads that repo **live, through the official remote GitHub MCP server (read-only)** — attached with the same AI SDK MCP client that Ask Oak uses for the Oak Curriculum MCP. **Nothing is vendored.** Surfacing the Oak Curriculum MCP as a source of *curriculum content* — lessons, threads, misconceptions, EEF evidence — is a separate concern handled by a separate app, **Ask Oak**. Two apps, one shared pattern — each attaches exactly one read-only MCP over HTTP — both hosted on Vercel.
 
 Oisín is invoked as `@ask-oisin` (the display name carries the Irish accent, "Ask Oisín"; the handle must be ASCII). It is reached by the `@ask-oisin` mention, two slash commands — `/ask-oisin` and its Welsh-spelling alias `/ask-osian`, both routing to the same handler — and the Slack assistant side-panel / DMs. Slack has no native `@`-mention alias (a bot has exactly one handle), so the second slash command is what carries the alternate spelling. A running-text matcher that catches the name typed mid-sentence (Oisin/Osian/Ossian/Osheen…) was considered but is **deferred for v1**: it requires subscribing to every channel message (`message.channels`), which is the largest incidental-PII surface in the design, so v1 relies on explicit invocation only (see §Security, privacy, and PII).
+
+## Assumptions, uncertainties & certainty-risks
+
+> **Status: ready for review.** This section marks what is assumption vs verified,
+> per the owner's discipline ("assumptions transmitted then treated as a primary
+> source of truth is wrong"). Read alongside the full ledger in the companion
+> [logging/observability design record](slack-assistant-logging-observability-design.md)
+> §7 (ledger) and §9 (certainty-as-risk).
+
+**Assumptions / to-verify (not settled fact):**
+
+- **`@vercel/slack-bolt` receiver wiring** (`createHandler(app, receiver)` shape,
+  `POST` export) — the code skeleton in §5 is *illustrative*, not verified;
+  confirm vendor-literal before WS4/WS8 (also raised on PR #328). Treat the
+  starter skeleton as a sketch that encodes intent, not copy/paste-ready code.
+- **All Sentry/logging mechanism choices** (how the Next.js app emits telemetry,
+  whether via a Sentry provider directly, stdio + platform forward, the Sentry
+  Next/Vercel SDK, or the Vercel-side integration) are **open** — a cost/value
+  theory must be built and vendor-verified first. See the companion record §5–§8.
+  The plan's WS8 wording ("`@oaknational/sentry-node` … Next.js init") is a
+  *placeholder to be revised*, not a decision — `sentry-node` is the **Node**
+  provider and does not run in a non-Node runtime.
+- **PII egress = "pragmatic"** rests on minimisation + scrubbing; it is our own
+  safety requirement, **not** a legal/DPIA/audit mandate (no such requirement is
+  known — see companion §7 Dropped). Do not reintroduce compliance framing.
+- **Oak MCP OAuth alpha specifics** (Ask Oak) remain invite-only and unverified —
+  see Caveats.
+
+**Owner's-call (decisions, not facts):** internal-use only + allow-list; framework-first
+timing override; opaque model slug; **back-end-only log egress lean** (do not egress
+from the front-end/Slack side — companion §4).
+
+**Certainty-as-risk (stated flatly → re-check):** any present-tense claim that a
+shared package "is browser-safe / runtime-agnostic" (the `logger` base is not —
+companion §2.1); any claim that the `@vercel/slack-bolt` signature is known without a
+vendor-literal check.
 
 ## Scope: two apps, one pattern
 

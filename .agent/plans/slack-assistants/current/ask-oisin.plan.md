@@ -8,7 +8,7 @@ lineage:
   derives_from: ".agent/research/outreach/oisin-oce-navigator-design.md (PR #328, open, on branch feat/slack-apps — NOT yet merged to main)"
 todos:
   - id: ws0-scaffold
-    content: "WS0: scaffold packages/libs/slack-assistant (lib, repo tsup + three-tsconfig convention) + apps/slack/ask-oisin (Next.js App Router + vercel.json); register BOTH in pnpm-workspace; add turbo.json Next.js task entries; register slack-assistant in the eslint lib-boundary config with its permitted adapter imports (logging adapter); author the ADR for the apps/slack tier + framework placement; decide the Next.js Sentry init mechanism. Tree green."
+    content: "WS0: scaffold packages/libs/slack-assistant (lib, repo tsup + three-tsconfig convention) + apps/slack/ask-oisin (Next.js App Router + vercel.json); register BOTH in pnpm-workspace; add turbo.json Next.js task entries; register slack-assistant in the eslint lib-boundary config permitting only FOUNDATION-provider imports (the logging adapter @oaknational/logger) — the framework imports NO vendor provider (sentry-node etc. compose at the app root); author the ADR for the apps/slack tier + framework placement; Next.js telemetry topology is an OPEN question (see logging design record), NOT decided here. Tree green."
     status: pending
     depends_on: []
   - id: ws1-model-layer
@@ -40,7 +40,7 @@ todos:
     status: pending
     depends_on: [ws0-scaffold]
   - id: ws8-observability
-    content: "WS8: Observability — Next.js Sentry init via the @oaknational/sentry-node all-sink redaction barrier (not events-only); capture + FLUSH errors from the waitUntil continuation before the function terminates; metadata-only logging; Sentry env contract. Do NOT enable AI SDK experimental_telemetry. Unit/integration tests."
+    content: "WS8: Observability — Next.js telemetry via a runtime-appropriate PROVIDER composed at the app root (NOT @oaknational/sentry-node, which is Node-only). Topology (SDK-direct / stdio+platform-forward / Sentry-Next SDK / Vercel plugin) is an OPEN cost/value question — see the logging design record; back-end-only egress is the owner's working lean. Preserve the shared redaction barrier; capture + FLUSH errors from the waitUntil continuation before the function terminates; metadata-only logging. Do NOT enable AI SDK experimental_telemetry. Unit/integration tests."
     status: pending
     depends_on: [ws0-scaffold]
   - id: ws9-deploy
@@ -64,10 +64,32 @@ isProject: true
 # Ask Oisín — v1 Slack assistant, framework-first
 
 **Last Updated**: 2026-07-08
-**Status**: 🟢 READY FOR EXECUTION for **WS0–WS8** (framework + app build; CI-provable; no external credentials needed). **WS9–WS11** (live preview deploy, value-proxy proofs, release review) are gated on owner-handled provisioning. **v1 is an internal proof-of-concept.** Two review rounds + adversarial verify + owner rulings integrated 2026-07-08 (release-readiness verdict: GO-WITH-CONDITIONS, conditions being the owner-handled provisioning).
+**Status**: 🔵 **READY FOR REVIEW** (2026-07-08). Framework + app build (WS0–WS8) was drafted execution-ready, but this session reopened the **logging/observability approach**: WS0 and WS8 as previously worded assumed the framework imports `@oaknational/sentry-node` and that Next.js Sentry init is a settled `sentry-node` call — both wrong (`sentry-node` is the **Node** provider; a framework lib imports no vendor provider). Those workstreams now carry OPEN questions and a cost/value theory to resolve in review — see the [logging/observability design record](../../../research/outreach/slack-assistant-logging-observability-design.md). **WS9–WS11** remain gated on owner-handled provisioning. **v1 is an internal proof-of-concept.** Prior: two review rounds + adversarial verify + owner rulings integrated 2026-07-08.
 **Scope**: Ship Ask Oisín as a headless Next.js App Router Slack app on Vercel that answers project questions grounded in a live read of the OCE repo, while extracting a reusable `slack-assistant` framework. Internal-use only, allow-listed installations.
 
 ---
+
+## Assumptions & open questions (2026-07-08 review revision)
+
+Marked per the owner's discipline (assumptions are marked as assumptions, never
+treated as settled fact). Full ledger + cost/value theory: the companion
+[logging/observability design record](../../../research/outreach/slack-assistant-logging-observability-design.md).
+
+- **OPEN (blocks WS0 boundary decision + WS8):** the Next.js **telemetry topology** —
+  SDK-direct provider / stdio + platform-forward / Sentry-Next SDK / Vercel-side
+  plugin, non-exclusive. A cost/value theory must be built and **vendor-verified**
+  before choosing. `@oaknational/sentry-node` is the **Node** provider and is NOT the
+  Next.js answer.
+- **OWNER'S-CALL (working lean, confirm):** back-end-only log egress — do not egress
+  from the front-end/Slack side.
+- **PREREQUISITE (estate defect):** `@oaknational/logger`'s base pulls `node:crypto`
+  and has no browser-safety enforcement test — it is not portable to edge/browser as
+  advertised. Fix + add the enforcement test if the framework/app runs anything
+  off-Node.
+- **TO-VERIFY:** the `@vercel/slack-bolt` receiver signature (skeleton is
+  illustrative); the Oak MCP OAuth alpha specifics (Ask Oak).
+- **DROPPED:** any legal/DPIA/audit requirement — none is known; PII handling is our
+  own safety requirement, not a compliance mandate.
 
 ## Context
 
@@ -158,7 +180,7 @@ WS0 gates all. **WS1, WS2, WS3, WS4, WS7, WS8** are parallel-safe after WS0 (sep
 
 ## WS0 — Scaffold, register, configure
 
-Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tsconfig** convention — copy a `packages/libs/*` member, not a bespoke tsc/esbuild build) and `apps/slack/ask-oisin` (a **Next.js App Router** app + `vercel.json`, copying the `oak-curriculum-hub` Next config: `noEmit`, `jsx`, next plugin, `@/*` alias). Register **both** in `pnpm-workspace.yaml` (an explicit `packages/libs/slack-assistant` line and the `apps/slack/*` glob). Add `turbo.json` task entries for the Next.js app (`.next` outputs, `!.next` inputs), mirroring the hub. Add `slack-assistant` to `LIB_PACKAGES` in `boundary.ts` and place it in the **adapter** sub-tier (so it may legally import `@oaknational/logger` / `sentry-node`); the ADR records the tier. **Update the `lib-boundary.unit.test.ts` tier assertions in the same change**, add the app package to `APP_PACKAGE_IMPORTS`, and note that `apps/slack/*` is a new 3-deep nesting (existing apps are 2-deep). Author an ADR (citing [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) for the framework/consumer seam and [ADR-041](../../../../docs/architecture/architectural-decisions/041-workspace-structure-option-a.md) for the workspace tier) recording the `apps/slack/*` family and the framework's tier + permitted edges. Decide + record the Next.js Sentry init mechanism.
+Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tsconfig** convention — copy a `packages/libs/*` member, not a bespoke tsc/esbuild build) and `apps/slack/ask-oisin` (a **Next.js App Router** app + `vercel.json`, copying the `oak-curriculum-hub` Next config: `noEmit`, `jsx`, next plugin, `@/*` alias). Register **both** in `pnpm-workspace.yaml` (an explicit `packages/libs/slack-assistant` line and the `apps/slack/*` glob). Add `turbo.json` task entries for the Next.js app (`.next` outputs, `!.next` inputs), mirroring the hub. Add `slack-assistant` to `LIB_PACKAGES` in `boundary.ts` and place it in the **adapter** sub-tier so it may import **foundation** providers (`@oaknational/logger`, the general logging adapter). It MUST NOT import `@oaknational/sentry-node`: that is a Node-only vendor **provider** (itself an adapter — adapter→adapter is forbidden, correctly), and vendor providers compose at the **app composition root**, never in the framework (see [`slack-assistant-logging-observability-design.md`](../../../research/outreach/slack-assistant-logging-observability-design.md)). The ADR records the tier. **Update the `lib-boundary.unit.test.ts` tier assertions in the same change**, add the app package to `APP_PACKAGE_IMPORTS`, and note that `apps/slack/*` is a new 3-deep nesting (existing apps are 2-deep). Author an ADR (citing [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) for the framework/consumer seam and [ADR-041](../../../../docs/architecture/architectural-decisions/041-workspace-structure-option-a.md) for the workspace tier) recording the `apps/slack/*` family and the framework's tier + permitted edges. The Next.js telemetry topology is an **OPEN question** — build the cost/value theory and vendor-verify first (logging record §5–§8); do **not** hard-code `sentry-node` for Next.js.
 
 **Acceptance**: `pnpm build && pnpm type-check && pnpm lint` green for both workspaces (lint proves the boundary config accepts the framework's adapter imports); the **oak-eslint unit tests pass** (the edited `lib-boundary`/`app-boundary` assertions); the `@vercel/slack-bolt` receiver spike acks within 3s locally; ADR merged. **Reviewers**: `config-expert`, `architecture-expert-fred`.
 

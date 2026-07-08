@@ -757,3 +757,39 @@ coherence. All on `feat/slack-apps` / PR #328 (open). Successor: Copper (48382d)
   Cure = capture exit code + pass/fail summary in the FIRST run of anything expensive (file redirect +
   `echo "EXIT: $?"` + grep); never tail-only-then-rerun. Home: memory
   `capture-expensive-command-output-first-run`. (Gate result: `pnpm check` EXIT 0 — green at handoff.)
+- **Obeyed a current lint-tier config as fixed law; shrank the plan to fit it (owner-caught, altitude
+  error).** Reviewing PR #328's Bugbot "High" finding (slack-assistant in the eslint `adapter` tier
+  can't import `@oaknational/sentry-node`, also an adapter → lint fail), I confirmed the boundary rule
+  and then declared "the clean fix: framework consumes `logger` only, drop `sentry-node`." Wrong twice:
+  (1) I treated the *current* two-tier boundary config as immutable and made the NEW app conform to it,
+  instead of asking whether the config / logging architecture is what should change (lens 4 — would it
+  be simpler if the system changed?). Nothing is frozen because we're adding an app. (2) I presented an
+  expedient fit-to-constraint as "the clean fix" — expediency dressed as excellence, which
+  §Architectural-Excellence-Over-Expediency forbids. Owner reframe: the boundary contradiction is a
+  SYMPTOM that we lack a cohesive theory of logging across runtimes (Node/Express, Next.js server,
+  edge, client) — the sentry logger will be EXTENDED client-side, not worked-around. This is
+  `configure-checks-not-blindly-obey` + `precedent-is-not-correctness` recurring at ARCHITECTURE
+  altitude (not just lint-rule altitude). Cure/tell: when a current config/tier/boundary blocks a
+  legitimate new need, first-principles-check the config itself via lens 4 BEFORE fitting the new work
+  to it; a "make the new thing conform" answer is the diagnostic. Grounding a logging-estate
+  re-exploration (logger/sentry-node internals + consumer/runtime inventory + observability prior-art)
+  before reasoning lens-by-lens.
+- **The general failure the above is one instance of (owner-named, sharp): assumptions transmitted
+  then treated as a primary source of truth.** In one logging discussion I did this four times: (1) echoed
+  the plan/thread's compliance framing (DPIA/records-retention/"legal/privacy gates") as if a live
+  requirement — owner: "drop this 'legal' bullshit… are you aware of an audit requirement that I am
+  not?" (the thread record itself says DPIA NOT required); (2) asserted "server-only runtime" — wrong,
+  both front-end and back-end code exist, the real variable is egress-policy-per-origin; (3)
+  "corrected" the plan's "logger = adapter" by citing the ESLint tier name, weaponising one overloaded
+  vocabulary (dependency-tier "adapter") against the owner's domain model (logger IS the general
+  adapter; sentry-node/stdio/client are PROVIDERS); (4) named `@sentry/nextjs` as "the mechanism" when
+  it's an unverified candidate ("maybe not, we have specific requirements"). Provenance of every one:
+  transmitted context (plan text, thread record, current code config, prior-session framing, my own
+  earlier read) taken as ground truth instead of as a claim to be marked and tested. CURE: keep an
+  explicit assumption ledger — Fact (verified) / Owner's-call / Assumption-to-verify / Dropped — and
+  never let a transmitted claim enter reasoning unmarked; vendor mechanisms in particular are
+  assumptions until vendor-literal-verified (verify-vendor-call-shapes). This is the same root as the
+  boundary-obey error above, generalised past code-config to ALL transmitted claims. Owner also wants a
+  THEORY OF COST AND VALUE across the non-exclusive Next.js logging topologies (our-adapter+provider
+  direct / stdio→Vercel-forward / Sentry-Next-SDK / Vercel-side plugin / Next built-in) BEFORE any
+  decision — structure + assumption-marking first, populate only after verification.

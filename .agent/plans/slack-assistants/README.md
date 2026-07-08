@@ -4,6 +4,8 @@ Collection purpose: user-facing agentic **Slack assistants** built over Oak's MC
 
 Design source of truth: [`.agent/research/outreach/oisin-oce-navigator-design.md`](../../research/outreach/oisin-oce-navigator-design.md) (PR #328), verified against primary vendor docs and the live Oak MCP on 2026-07-08.
 
+**Status: 🔵 ready for review** (2026-07-08). The whole estate is handed off for a review round. The **logging/observability approach is reopened** — see the companion [logging/observability design record](../../research/outreach/slack-assistant-logging-observability-design.md), which carries the current-state map, the cross-runtime cost/value theory, the open questions, and the assumption ledger (Fact / Owner's-call / To-verify / Dropped). Reviewers: treat all vendor-mechanism and Sentry/Next.js-init claims as **assumptions-to-verify**, not fact.
+
 Both apps are **internal-use only** — allow-listed Slack installations, no external users or access. Others may fork the repo and self-host their own instance. **Ask Oisín v1 is an internal proof-of-concept.** Roadmap: [`roadmap.md`](roadmap.md).
 
 ## Thread
