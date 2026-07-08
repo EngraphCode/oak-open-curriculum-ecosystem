@@ -8,8 +8,9 @@
 # BEFORE the patch touches the tree so a patch cannot edit its own guard),
 # and pre-rebase (a rebase rewriting main). Each hook sets GUARD_HINT to its
 # own recovery move; pre-rebase passes the branch under rebase via
-# GUARD_BRANCH (the other hooks leave it unset and the checked-out branch
-# is read). Hooks run with cwd at the working-tree top, so the
+# GUARD_BRANCH, and every other hook sets it EMPTY before sourcing so an
+# ambient exported value cannot redirect the check (empty falls through to
+# the checked-out branch). Hooks run with cwd at the working-tree top, so the
 # .husky-relative source path resolves in the primary checkout and in every
 # worktree. Detached-HEAD states (e.g. mid-rebase replays) resolve no
 # branch name and pass. Residual vectors no client hook can see

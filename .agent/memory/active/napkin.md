@@ -38,6 +38,25 @@ classes and a dozen corrections the primary did not reach alone.
 
 New session observations append below.
 
+## 2026-07-08 — Bora holds Turbulence (42a4cf): PR 333 review-fix session
+
+- **Owner ruling — real git operations belong in a hand-run validation script, never a
+  repeated automated test.** I proved the PR 333 hook fixes (GUARD_BRANCH severing +
+  pre-rebase range check) with a scratch-repo harness (`mktemp -d`, isolated `git init`,
+  real rebases against shipped hook bytes) — correct AS A ONE-SHOT MANUAL PROOF in the
+  scratchpad. The owner's line: baking those same real git ops into the automated suite / CI
+  is NOT acceptable. So a git-hook's behaviour is verified by hand-run script; the automated
+  guarding check stays the pure-syntax `lint:shell:syntax` (`sh -n`), which can't exercise
+  behaviour and isn't asked to. The harness is never committed as a test.
+- **Owner ruling — "you don't tell me what is mandated, I tell you."** I had framed my
+  scratch-repo approach to the owner as "the mandated pattern from the PR 332 arc," citing
+  repo doctrine back at the owner as if it governed the exchange. Wrong posture: the owner is
+  the authority on what is mandated; the agent describes what it did and why, and defers the
+  standard-setting call. Cite doctrine to orient my OWN choices, never to instruct the owner.
+  candidate: graduate as a clause in a collaboration/posture rule (or user-collaboration
+  directive) at the next consolidation — the generator is "doctrine is the agent's yardstick,
+  not the agent's authority over the owner."
+
 ## 2026-07-08 — Corsair guards Channel (ecdd12, dedicated consolidation): session observations
 
 - **F-125 (cwd drift) bit THIS seat live, mid-pass**: a python step ran with the shell in

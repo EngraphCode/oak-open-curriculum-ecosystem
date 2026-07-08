@@ -52,7 +52,11 @@ through:
   patch cannot neuter its own guard first — `pre-applypatch` runs
   post-application and lacks that property);
 - `pre-rebase` — a rebase that would rewrite `main` (including
-  `git pull --rebase` on a diverged `main`).
+  `git pull --rebase` on a diverged `main`), and a rebase of any branch
+  whose rewritten range contains `main` — the state in which
+  `--update-refs` (or `rebase.updateRefs=true`) would force-move `main`
+  from a topic-branch rebase. The flag itself is invisible to the hook,
+  so the state is refused, not the flag detected.
 
 The guard fails closed: if the shared guard file is missing, every sourcing
 hook aborts non-zero rather than passing silently.

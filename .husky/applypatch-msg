@@ -6,5 +6,6 @@
 # patch cannot edit its own guard first; pre-applypatch would run AFTER
 # application and lose that property). Mechanics live in the shared guard
 # (never-commit-to-main rule).
+GUARD_BRANCH=""
 GUARD_HINT="Abort this apply (git am --abort), then re-run it on a branch (git switch -c <branch>)."
 . .husky/refuse-commit-on-main.sh
