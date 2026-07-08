@@ -12,13 +12,14 @@ import { type PlanStateTable } from '../plan-state-model.js';
  * engine's over-20% halt firing on them at r1's audit run is the designed
  * table-v2 trigger, not a defect.
  *
- * RATIFICATION: OG-2, presented for the owner sitting on the R0b PR (the
- * `freeze-rule.json` ratifiedBy precedent). The census document schema is
- * strict `{version, entries}`, so ratification state lives HERE, never
- * inside the table document. Until `STATUS_MAPPING_V1_RATIFICATION.status`
- * flips to `ratified`, r1 MUST NOT run audit mode against this table. If
- * ratification adds this table to a packet-listed ratified list, extend the
- * `validate-ratified-lists` validator — never a pin test.
+ * RATIFICATION: OG-2 table half, RATIFIED 2026-07-08 (owner ruling, put as
+ * a formal question and answered; relayed to the R0c seat by directed comms
+ * event — the `freeze-rule.json` ratifiedBy precedent). The census document
+ * schema is strict `{version, entries}`, so ratification state lives HERE,
+ * never inside the table document; the flip below is the mechanical unlock
+ * for r1's audit mode on the default table. The table is not packet-listed,
+ * so `validate-ratified-lists` carries no entry for it; if a future packet
+ * lists it, extend the validator — never a pin test.
  *
  * Entries are sorted by value and pre-trimmed (the census parse boundary
  * refuses untrimmed values and duplicates; shape compatibility with
@@ -51,5 +52,5 @@ export const STATUS_MAPPING_V1_RATIFICATION: {
   readonly status: 'pending-ratification' | 'ratified';
 } = {
   gate: 'OG-2',
-  status: 'pending-ratification',
+  status: 'ratified',
 };

@@ -23,8 +23,10 @@ SP3 re-prices from pilot actuals. **H5 (cost backstop) binds to this ledger** �
 Declared in all three denominations PDR-122 requires: **tokens**, **currency (USD)**, and
 **wall-clock (seat-sessions; calendar conditional)**.
 
-Unit prices (Anthropic list, cached 2026-06-24 via the claude-api reference; re-check at
-each re-issue):
+Unit prices (Anthropic public pricing — an EXTERNAL source; retrieved 2026-06-24,
+independently re-verified 2026-07-08 by the R0c review pass. This table is itself the
+committed, diffable baseline: re-check the live price list at each re-issue and diff
+against these rows):
 
 | Tier | Input $/Mtok | Output $/Mtok | Blended 90/10 in/out |
 | --- | --- | --- | --- |
@@ -32,6 +34,12 @@ each re-issue):
 | Opus 4.8 (`claude-opus-4-8`) | 5.00 | 25.00 | ~7.00 |
 | Sonnet 5 (`claude-sonnet-5`) | 3.00 (2.00 intro to 2026-08-31) | 15.00 (10.00 intro) | ~4.20 |
 | Haiku 4.5 (`claude-haiku-4-5`) | 1.00 | 5.00 | ~1.40 |
+
+**Declared blend ASSUMPTION**: the 90/10 input/output split models the reading-dominant
+fleet classes (workers emit verbatim quotes only; challenge briefs are input-dominant).
+It is an assumption, not a measurement — the pilot measures the real split per class.
+**Authoring is the named exception** (its product IS output): assumed ~50/50 → Fable
+blended ~$30/Mtok; the §3 authoring row prices at that exception.
 
 Prompt-cache economics (reduction lever, NOT baked into the ceilings below — the
 declaration is the uncached ceiling): cache reads ≈0.1× input price; writes 1.25× (5-min
@@ -51,25 +59,34 @@ scaffold) are the main cacheable class; the pilot measures the realised cache ra
 
 ## 3. Per-facet feeder rows (tokens → USD at the declared mix)
 
-| Line | Tokens (band) | Tier | USD (uncached ceiling) | Source |
-| --- | --- | --- | --- | --- |
-| F1 run-time (all mechanical layers) | ≈0 | — | ≈0 | F1 §15; critique §1.2 (verified sound) |
-| F1/F5 build residual (r1+ machinery: amendment writer, probe executors, table v2) | 0.3–1.5M | Fable (implementer sessions) | 4–21 | F1 §15 + F5 §11, as claimed |
-| F2 workers (reader net + locator + quorum-of-absence + re-dispatch allowance) | 12–24M | Haiku/Sonnet | 17–101 | Critique C2/M2/M3 corrected band |
-| F3 quorum + challenge (dominant token term, ~40–45%) | 20–28M | Sonnet 60% / Fable 40% (declared) | 120–320 | Critique C1 corrected band |
-| F4 lane-evidence pass (cured shape: 2 lenses + escalation-only third) | 2–4M | Sonnet | 8–17 | Critique C3, cured band |
-| Adjudication + dispositions (~8.3k rows, routed residues) | 4–8M | Fable | 56–112 | F6 §10 |
-| Authoring (~100–170 refounded plans, 10–20k each + cure loops) | 2–4M | Fable | 28–56 | F6 §10 |
-| Challenger-finding adjudication (first-class line; donor's hidden dominant seat cost — potentially ~2k findings at ~26/100 rows) | inside adjudication + wall-clock line below | Fable | — | plan §Economics; pilot measures findings/100 rows by class |
-| Canaries, schema retries, cures/re-challenges (~15% of challenge spend) | 3–5M | mixed | 25–70 | F2 §9 + F3 §8 allowances |
+| Line | Class | Tokens (band) | Tier | USD (uncached ceiling) | Source |
+| --- | --- | --- | --- | --- | --- |
+| F1 run-time (all mechanical layers) | MARGINAL ≈0 | ≈0 | — | ≈0 | F1 §15; critique §1.2 (verified sound) |
+| F1/F5 build residual (r1+ machinery: amendment writer, probe executors, table v2, batch-open declaration check) | FIXED | 0.3–1.5M | Fable (implementer sessions) | 4–21 | F1 §15 + F5 §11, as claimed |
+| F2 workers (reader net + locator + quorum-of-absence + re-dispatch allowance) | MARGINAL | 12–24M | Haiku/Sonnet | 17–101 | Critique C2/M2/M3 corrected band |
+| F3 quorum + challenge (dominant token term, ~40–45%) | MARGINAL, DOMINANT | 20–28M | Sonnet 60% / Fable 40% (declared; presented for the OG-2 judgement-machinery ruling per M5 — the tier declaration IS the regime-pair decision) | 160–230 at the declared mix (derived: 0.6×4.20 + 0.4×14.00 ≈ $8.1/Mtok) | Critique C1 corrected band |
+| F4 lane-evidence pass (cured shape: 2 lenses + escalation-only third) | MARGINAL | 2–4M | Sonnet | 8–17 | Critique C3, cured band |
+| Adjudication + dispositions (~8.3k rows, routed residues) | MARGINAL, DOMINANT | 4–8M | Fable | 56–112 | F6 §10 |
+| Authoring (~100–170 refounded plans, 10–20k each + cure loops) | MARGINAL, DOMINANT (wall-clock) | 2–4M | Fable at the ~50/50 output exception (§1) | 60–120 | F6 §10 |
+| Challenger-finding adjudication (first-class line; donor's hidden dominant seat cost — potentially ~2k findings at ~26/100 rows) | MARGINAL, DOMINANT (seat) | inside adjudication + the §5 throughput line | Fable | — | plan §Economics; pilot measures findings/100 rows by class |
+| Arrival-routing (per-week overhead accrued over the arc — see §6) | MARGINAL (calendar-coupled) | 0.3–2.8M | mixed | 2–15 | §6 derivation |
+| Canaries, schema retries, cures/re-challenges (~15% of challenge spend) | MARGINAL | 3–5M | mixed | 25–70 | F2 §9 + F3 §8 allowances |
 
 ## 4. Run totals (the numbers H5 fires against)
+
+**Aggregation policy (declared)**: the run-total bands are the economics critique's
+ENSEMBLE estimate (§1.2 F6 row), NOT the sum of §3 row tops — the rows are not
+co-maximal (the §3 token tops sum to ~75M and the USD tops to ~700; every line hitting
+its top simultaneously is outside the model). The hard ceilings below are therefore
+central-estimate caps: H5 firing while individual lines sit within their own bands is a
+DESIGNED mid-arc owner checkpoint, not a declaration failure. One method across all
+three denominations.
 
 | Denomination | Declared band | Hard ceiling (H5 run-total trigger) |
 | --- | --- | --- |
 | LLM tokens | **40–60M** | 60M |
-| Currency | **~USD 300–700** (uncached ceiling at the §2 mix) | USD 700 |
-| Seat-sessions | **25–45** (decomposition in §5) | 45 |
+| Currency | **~USD 300–700** (uncached ceiling at the §2 mix + §1 blend assumption) | USD 700 |
+| Seat-sessions | **25–45** (decomposition and overlap semantics in §5; the ceiling counts the 5 already-spent R0 sessions; the §5 honest projection names 60–75 as the plausible outcome if the pilot marginal rate holds — reaching the 45 ceiling then IS the designed SP3-adjacent owner checkpoint) | 45 |
 | Calendar | 6–14 weeks, **conditional on ≥2 concurrent seats** (seat-hours are the true unit, C5c) | not a gate (P12: exit criteria are proofs, never the clock) |
 
 Crossing a ceiling is an **H5 fork, not a failure** (PDR-122 inv 4): analyse the real
@@ -78,14 +95,24 @@ stop the spend.
 
 ## 5. Wall-clock decomposition and throughput lines (C5 cure)
 
+**Overlap semantics (declared)**: Author-seat and Adjudicator-seat sessions are
+ADDITIVE serial terms BESIDE batch execution (they cannot be subsets: 30 > 18); the 5
+spent R0 sessions count inside the total. The §4 band (25–45) therefore assumes heavy
+within-session overlap of batch + adjudication work and calibration amortisation of the
+Author rate — the decomposition tops sum well past it (that tension is the point: the
+fixed-vs-marginal row and the 60–75 honest projection carry it openly, and SP3
+re-declares from actuals).
+
 | Line | Band | Notes |
 | --- | --- | --- |
 | R0 instruments (ACTUALS — see §7) | 5 seat-sessions spent | vs F6's declared 2–4; rotations under context budget, not scope growth |
 | Pilot B1 | 1.5–2 sessions, ~8–12h wall, 1.5–3M tokens | F6 §10; under donor's 17h (scripted mechanicals) |
 | Batch execution (fleet + loss checks) | 12–18 sessions | F6 §10; re-priced at SP3 |
-| **Author-seat throughput** | 5–15 plans/session incl. cure loops → **7–30 sessions** for ~100–170 plans | C5b; the largest unpriced serial term — pilot measures the real rate |
-| **Adjudicator-seat throughput** | 400–800 queue items through one executor context (5–10% routing rate × ~8.3k rows); declare items/session at pilot | C5b; the seat that dominated the donor's 17h at 223 rows |
-| Fixed vs marginal | **UNKNOWN until pilot** — SP3's single most valuable economic output (C5a); the 25–45 total assumes calibration cost amortises; if pilot marginal rate holds estate-wide, the honest projection is 60–75 sessions and SP3 re-declares | |
+| **Author-seat throughput** | 5–15 plans/session incl. cure loops → **7–30 sessions** for ~100–170 plans | C5b; the largest serial term — pilot measures the real rate |
+| **Adjudicator-seat throughput** | 400–800 queue items (5–10% routing rate × ~8.3k rows) at a prior of 50–100 items/session → **4–16 sessions**, partly overlapping batch sessions; pilot measures items/session | C5b; the seat that dominated the donor's 17h at 223 rows |
+| Arrival routing | 0.25–0.5 sessions/week × arc length → **1.5–7 sessions** at the §4 calendar band | §6; calendar-coupled |
+| Owner ruling demand (the fourth denomination — owner attention) | ≤15 rulings/batch; register capacity ~45–90 slots vs pre-thinning measured demand 100–200 | P11; thinned by the Walk-A escalation tables; re-sized at SP3 |
+| Fixed vs marginal | **UNKNOWN until pilot** — SP3's single most valuable economic output (C5a); the 25–45 total assumes calibration cost amortises; if the pilot marginal rate holds estate-wide, the honest projection is 60–75 sessions and SP3 re-declares | |
 
 ## 6. Arrival-routing overhead (per week of arc — C5d; the compounding feedback term)
 
@@ -98,7 +125,10 @@ the run total superlinearly — one more reason H5 watches the SUM, not only per
 
 ## 7. R0 actuals (recorded against the declaration — the honesty row)
 
-Measured this arc (session records: Stoat/Goshawk/Rigel napkin economics entries):
+Measured this arc (durable records: the PDR-063 handoff records under
+`.agent/state/collaboration/handoffs/` — Stoat's tranche-3 execution record, Goshawk's
+G1/R0b-runway record, Rigel's R0b-merged record and its gateway-adjudications companion —
+plus the session-close continuity commits that conserve the napkin economics entries):
 R0a tranche reviewer rounds ~85–140k tokens/reviewer; R0a cycles-3–4 six-seat gateway
 ~664k; R0b pre-execution review ~154k; R0b seven-seat gateway ~505k. Order-of-magnitude
 R0 fleet total: **~3–6M tokens ≈ USD 40–90**, plus five interactive seat-sessions
@@ -114,8 +144,23 @@ rotation overhead.
 check, OR (b) cumulative arc spend crosses a §4 run-total ceiling. All other H-conditions
 (H1–H4, H6; F3 §5.4) are unchanged and cite this ledger only through H5.
 
+**H-numbering is F3 §5.4's, extended** (the R0c draft skeleton carried a colliding
+alternative numbering, superseded with it): the facet-owned operational halts join the
+one series as **H7** — inventory anchor-ratio outside the 20–70% band (F1, halt-and-
+inspect), **H8** — worker abort breaker (≥2 BYTE rejects from one role / ≥2 FLOOR misses
+/ a refusal recurring on a redesigned task; F2 §6), **H9** — >20% UNMAPPED status
+instances at the audit run (table-v2 trigger, F5 D4; the OG-2 row's designed residue
+ruling), and **H10** — hash-layer vs line-count-layer disagreement (an encoding/EOL
+surprise must be understood, never absorbed; F1 §6). Only H5 is cost-coupled; H7–H10
+are listed here solely so the series has one home and one numbering.
+
 Every batch opens with this declaration (all denominations, before any fleet dispatch —
-the R0c acceptance bar) and closes with actuals recorded next to it:
+the R0c acceptance bar) and closes with actuals recorded next to it. **Enforcement is
+owed mechanically, not by diligence** (prove-it-fires applied to H5 itself: a batch that
+never declares makes H5(a) unfireable): the batch-open tooling (`refound-batch-status` /
+the breaker) REFUSES a batch open without a parseable declaration block — owed with the
+pre-pilot batch machinery (r1/r2 landing); until it lands, declaration-presence is an
+explicit Director check at every batch open:
 
 ```text
 Batch pre-run declaration:
@@ -134,4 +179,4 @@ Batch pre-run declaration:
 | Point | What re-prices |
 | --- | --- |
 | SP1 (freeze + real inventory landed) | Row prior (~8.3k) → measured; F2 window count → measured |
-| SP3 (pilot close; feeds G-SP3) | Everything: fixed-vs-marginal split, Author/Adjudicator measured throughput, cache-hit rate, findings/100 rows by class, ruling-demand sizing; the G-SP3 sitting sanctions the re-priced declaration |
+| SP3 (pilot close; feeds G-SP3) | Everything: fixed-vs-marginal split, Author/Adjudicator measured throughput, cache-hit rate, findings/100 rows by class, ruling-demand sizing; the G-SP3 sitting sanctions the re-priced declaration. **Evidence-labelling clause (design-record M6)**: SP3 explicitly labels which declaration lines carry pilot evidence and which remain priors — the pilot area has no active lanes, so the arrivals machinery, the challenge-stale trigger (P13), and live-lane ruling demand stay PRIOR-priced until batch 2 (chosen WITH active lanes) re-confirms those three terms before full parallelism |
