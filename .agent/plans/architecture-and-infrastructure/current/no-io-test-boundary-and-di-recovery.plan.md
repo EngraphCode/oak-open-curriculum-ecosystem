@@ -25,13 +25,25 @@ todos:
 
 # No-IO Test Boundary and DI Recovery
 
-**Last Updated**: 2026-05-13
+**Last Updated**: 2026-07-07
 **Status**: QUEUED
 **Collection**: architecture-and-infrastructure
 **Source findings**:
 [no-io-tests-and-di-boundary-report.md](../../../reports/agentic-engineering/deep-dive-syntheses/no-io-tests-and-di-boundary-report.md)
 
----
+> **Owner direction (2026-07-07, dated additive note — binding on this plan's end-state):**
+> "There should never have been an IO allowlist — strict, everywhere, all the time...
+> the creep is entropy, and the repo is vulnerable to it, we have to restore order."
+> All tests FAST, ZERO IO, proving product-code behaviour only; prettier / ESLint /
+> TypeScript / validator scripts each own their own job. This plan's end-state is
+> therefore: the `@oaknational/no-real-io-in-tests` allowlist migrates to ZERO and the
+> **allowlist mechanism itself is deleted**; the rule escalates warn→error in the same
+> landing as conformance (never a standing warn tier). Tests that genuinely need a real
+> filesystem are category-moved (validator-script self-proofs or smoke tests), never
+> exempted. The ~13 refounding-suite entries (2026-07 additions) are in scope; no new
+> entries may be added anywhere in the interim (recorded also in the R0-lane handoff
+> record 2026-07-07 and the napkin, with the generator-level lesson: a violation
+> allowlist is an escape hatch with paperwork).
 
 ## End Goal
 

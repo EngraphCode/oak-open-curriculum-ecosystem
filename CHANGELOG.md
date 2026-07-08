@@ -1,3 +1,39 @@
+## [1.63.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.3...v1.63.4) (2026-07-08)
+
+
+### Bug Fixes
+
+* linting issue ([15a922e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15a922ec33149efb76adc5d1be420800ac5853c9))
+
+## [1.63.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.2...v1.63.3) (2026-07-08)
+
+
+### Bug Fixes
+
+* **sonar:** resolve S4782 and S6661 at source with estate-conformant shapes ([4080841](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/408084120f315e6d8fa7eb8cf1f96f94cfdc1768)), closes [#326](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/326)
+
+## [1.63.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.1...v1.63.2) (2026-07-08)
+
+
+### Bug Fixes
+
+* **continuity:** repair handoff-link depth, plan path, and graduation schema colons (PR 330 round 1) ([60ee395](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/60ee39596e3e6579b03e47e9d0f94859ae82e400))
+
+## [1.63.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.0...v1.63.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* **continuity:** absorb PR-324 round-2 findings — reverted links, duplicate entry, stale count ([f9ff5d0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f9ff5d098a7171e5a80326d58c999fe56f05a0ba))
+* **continuity:** actually drain the graduated classifier entry from the register ([293e316](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/293e3168b276b78143a37fe33e489170ee558ec9))
+* **continuity:** correct the F-133 target-surface path to commit-queue/commit-workflow.ts ([520be1a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/520be1ad00f3707354086cdc03db9b01f916a9c1))
+* **continuity:** merge the duplicated pattern introductions ([8e18899](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8e18899826bee5c6e95581bd5052d33ddf590e34))
+* **continuity:** repoint the graduation note to the collaboration class and merge main forward ([871d278](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/871d278c1cac4a5e3d054fdbf1059cb494d870d5)), closes [#327](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/327)
+* **continuity:** restore the register entry to one inline code span ([fcb545e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fcb545ead7849c5bbd0beda94891a37453ebcdd4))
+* **continuity:** scope the shepherd-merges note and name the standby liveness consumer mechanics ([d4f128e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d4f128e208f30dcf97bb2ceffcea71d4d73f0759)), closes [#324](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/324)
+* **continuity:** true the bundle tracking note and backtick the exit-code variables ([9aad7ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9aad7ceb032d9d98f434e72c8c90e136b29d2874))
+* **skills:** scope Phase 7 merge bullet to the merge-authority boundary ([035b41b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/035b41ba74f87927e91be5b9856171d58604d87b)), closes [#324](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/324)
+
 # [1.63.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.2...v1.63.0) (2026-07-08)
 
 

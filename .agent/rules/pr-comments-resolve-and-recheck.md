@@ -1,10 +1,17 @@
 # Every PR comment is addressed, and every push is re-checked for new comments
 
-A pull request is not done — not mergeable, not ready, not to be reported as ready — until
+A pull request is not done — not ready to merge, not to be reported as ready — until
 **every** comment on it is either **fixed in code** or **explicitly rejected with a stated
 rationale**, then **replied to and resolved**. No comment is ever left unaddressed. Green
-checks alone are never sufficient: a PR is done only when it is mergeable AND every comment
-is dispositioned.
+checks alone are never sufficient: a PR is done only when every merge requirement is
+satisfied AND every comment is dispositioned.
+
+**Field semantics — `mergeable` means POSSIBLE, never READY (owner, 2026-07-08).**
+GitHub's `mergeable: MERGEABLE` says only that the branch merges without conflicts — it is
+TRUE on a PR drowning in unresolved threads and failing checks. Merge READINESS is
+`mergeStateStatus: CLEAN` (every requirement satisfied: checks, threads, required reviews,
+up-to-date branch). Never read `mergeable` to answer a readiness question, and never report
+a PR "mergeable" as if that meant ready — the two words are different claims.
 
 **Binding moment: opening (or taking over) a PR binds that session to this rule.** The
 first "merge-ready" / "ready for merge" claim to the owner or a peer is itself a step-5
