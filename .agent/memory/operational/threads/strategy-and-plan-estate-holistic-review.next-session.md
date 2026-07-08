@@ -136,7 +136,7 @@ and must not wait.
 **What landed this session (branch `docs/plan-corpus-refounding`):**
 
 - The executable protocol plan
-  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/current/plan-corpus-refounding.plan.md)
+  [`plan-corpus-refounding.plan.md`](../../../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
   — todos R0a–R6; invariants P1–P14; the placed-judgement map J1–J9 ("judgement is
   placed, never eliminated"); two zero-judgement worker roles under 100% deterministic
   verification; the consolidated owner-gate register (G0..Walk C — **next action: the

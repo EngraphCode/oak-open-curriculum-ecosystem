@@ -591,3 +591,10 @@ New session observations append below.
 - **F-41 face, worktree comms glob**: `ls .agent/state/collaboration/comms/` from the worktree
   cwd read an empty decoy dir; the canonical home is the primary checkout's. Run every comms
   read/write from the primary root (all appends this session did; one read glob did not).
+- **Semantic-merge within-line edits are invisible to heading-level proofs (worked instance,
+  PR #324 round 2)**: my ours-wins resolution of repo-continuity reverted origin's
+  `current/`->`active/` link corrections — the skill's "re-apply any single-line edit one side
+  made" clause, under-applied because the loss-proof I ran (heading set-diff) structurally
+  cannot see within-line edits. Cure: after choosing a side for an index-class file, diff the
+  REJECTED side against base for line-level edits outside the superseded region and re-apply
+  each. The "no known invariant violated" verdict gains this class.

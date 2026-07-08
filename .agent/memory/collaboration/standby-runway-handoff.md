@@ -19,7 +19,7 @@ the plan-corpus-refounding R0 lane, four consecutive rotations in one arc
 (pull-style: a 25-minute standby window with grounding completed inside it,
 adopt+ACK on the runway-clear broadcast).
 
-A lane rotation shape with three cooperating parts, worked three times in one
+A lane rotation shape with three cooperating parts, worked four times in one
 arc on the plan-corpus-refounding R0 lane:
 
 1. **The standby seat** (successor): registers presence with the full
@@ -64,7 +64,7 @@ command (grep, tsc, git) and recompute before applying, not as a cached
 result ([R] marks make this explicit; two short sets were caught this way on
 the third rotation).
 
-Related: [PDR-063 (mid-cycle retirement protocol)](../../../practice-core/decision-records/PDR-063-mid-cycle-retirement-protocol.md);
-[PDR-078 §4 (consumer-absent exemption)](../../../practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md);
-[`liveness-heartbeat-cron` §Exemptions](../../../rules/liveness-heartbeat-cron.md)
-(the standby worked instance); [`start-right-team` §3 standby seat](../../../skills/start-right-team/SKILL-CANONICAL.md).
+Related: [PDR-063 (mid-cycle retirement protocol)](../../practice-core/decision-records/PDR-063-mid-cycle-retirement-protocol.md);
+[PDR-078 §4 (consumer-absent exemption)](../../practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md);
+[`liveness-heartbeat-cron` §Exemptions](../../rules/liveness-heartbeat-cron.md)
+(the standby worked instance); [`start-right-team` §3 standby seat](../../skills/start-right-team/SKILL-CANONICAL.md).
