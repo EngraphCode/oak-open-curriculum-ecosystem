@@ -547,3 +547,27 @@ New session observations append below.
   `collaboration-state` CLI derived my resonance-side name (Lacustrine Drifting Hull) from the
   SAME session seed (55b041) — per-estate wordlists, one seed, two display names; sign both
   identities in the body when relaying cross-estate.
+- **"Duplicates merged" is a claim that can itself perform a lossy merge — and BOTH R0c review
+  seats caught it independently (convergent critical, the strong-signal form).** I consolidated
+  the owner-gate register, wrote "merges the F3 §6 / F5 §3.6 OG-2 duplicates", and had (a)
+  dropped F3's OG-2 half entirely (taxonomy, regime pair + challenger tier, H-thresholds,
+  §3.5 extension policy — the ratification sitting H5's thresholds depend on) and (b) cited the
+  wrong F5 section — the two "duplicates" were never duplicates. Same generator as the
+  allowlist-complicity face: the consolidation VERB arrives fluently and the completeness check
+  it implies never runs. Cure applied: enumerate BOTH sources' content lists side-by-side
+  before writing "merged"; the reviewers' sweep (grep every facet §gates section for rows
+  without register homes) is the mechanical form.
+- **A consolidation claim must sweep for RIVAL artefacts, not just rival rows**: the
+  assumptions seat found two live `.agent/plans-refounding/` artefacts (tracking register +
+  draft skeleton ledger) colliding with the new register — same gate ID meaning two different
+  gates (OG-3), two H-numbering schemes in two committed ledgers. "Here and only here" was
+  false on the day it was written. Cure: `grep -rl` the register/ledger nouns across the estate
+  before claiming ONE home; sync the status cache, supersede the draft, absorb-then-point.
+- **Owner rulings can arrive as a directed relay from a parallel seat** (Rigel relayed four
+  rulings put-and-answered in their session, incl. the OG-2 table ratification my register row
+  had just written as pending): treat a specific, provenance-carrying relay under owner grant
+  as owner direction; record the relay provenance in the artefact (v1.ts TSDoc cites the
+  directed event), and re-true your own fresh prose the moment the ruling supersedes it.
+- **F-41 face, worktree comms glob**: `ls .agent/state/collaboration/comms/` from the worktree
+  cwd read an empty decoy dir; the canonical home is the primary checkout's. Run every comms
+  read/write from the primary root (all appends this session did; one read glob did not).
