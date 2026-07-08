@@ -38,14 +38,16 @@ pull request to resolve.
 ## Enforcement
 
 Mechanical for every commit-creating path git exposes a pre-hook for; the
-shared guard `.husky/refuse-commit-on-main.sh` is sourced by three hooks,
+shared guard `.husky/refuse-commit-on-main.sh` is sourced by four hooks,
 each covering the path git actually routes it through:
 
 - `pre-commit` — plain `git commit` and `git commit --amend`;
 - `pre-merge-commit` — clean merges, including a reflexive `git pull` on a
   diverged `main`;
 - `prepare-commit-msg` — sequencer commits (`git cherry-pick`, `git revert`),
-  which stay on the branch and never reach `pre-commit`.
+  which stay on the branch and never reach `pre-commit`;
+- `pre-applypatch` — mailbox applies (`git am`), which invoke the applypatch
+  hook family and none of the above.
 
 Residual vectors NO client-side hook can see remain **rule-covered only**:
 a fast-forward merge (a ref update, no commit created — and `git pull` on
@@ -69,7 +71,7 @@ another reason, `main` still receives no local commits.
 
 - [`.husky/refuse-commit-on-main.sh`](../../.husky/refuse-commit-on-main.sh)
   — the shared mechanical gate, sourced by `pre-commit`, `pre-merge-commit`,
-  and `prepare-commit-msg`.
+  `prepare-commit-msg`, and `pre-applypatch`.
 - [PDR-126](../practice-core/decision-records/PDR-126-gates-land-strict-in-one-landing.md)
   — this gate landed strict with conformance in one landing (the stranded
   commits were re-homed in the same change).

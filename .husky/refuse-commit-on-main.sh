@@ -2,10 +2,10 @@
 
 # Shared branch guard (.agent/rules/never-commit-to-main.md): main advances
 # only via reviewed pull requests. Sourced by pre-commit, pre-merge-commit,
-# and prepare-commit-msg — git fires a different hook per commit-creating
-# path (plain/amend commit; clean merge; sequencer commits like cherry-pick
-# and revert), so the guard lives once here and each hook sets GUARD_HINT to
-# its own recovery move. Hooks run with cwd at the working-tree top, so the
+# prepare-commit-msg, and pre-applypatch — git fires a different hook per
+# commit-creating path (plain/amend commit; clean merge; sequencer commits
+# like cherry-pick and revert; mailbox applies via git am), so the guard
+# lives once here and each hook sets GUARD_HINT to its own recovery move. Hooks run with cwd at the working-tree top, so the
 # `.husky/`-relative source path resolves in the primary checkout and in
 # every worktree. The one sanctioned main writer — semantic-release in CI —
 # runs with HUSKY=0 (release.yml), so no guard fires there. Detached-HEAD

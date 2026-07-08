@@ -112,10 +112,11 @@ New session observations append below.
   an unfetched comparison is a cached read of a moving target (the moved-target class, ref
   face).
 - **Cure landed structural, PDR-126-shaped (strict in one landing, conformance included):**
-  a shared branch guard (`.husky/refuse-commit-on-main.sh`) sourced by THREE hooks — git
+  a shared branch guard (`.husky/refuse-commit-on-main.sh`) sourced by FOUR hooks — git
   routes each commit-creating path through a different pre-hook (pre-commit: plain/amend;
   pre-merge-commit: clean merges incl. `git pull` on a diverged main; prepare-commit-msg:
-  cherry-pick/revert, which stay ON the branch and never reach pre-commit) — plus the
+  cherry-pick/revert, which stay ON the branch and never reach pre-commit; pre-applypatch:
+  `git am` mailbox applies, the round-2 Codex catch) — plus the
   `never-commit-to-main` rule (canonical + three adapters + RULES_INDEX row + commit-skill
   prohibition bullet). Residuals no client hook can see (ff-merges, rebase ref-moves, fresh
   clones pre-install) are rule-covered only; remote branch protection is the invariant. The
@@ -143,6 +144,16 @@ New session observations append below.
   sequencer ops simply never reach pre-commit). prepare-commit-msg CAN abort (githooks(5):
   non-zero aborts the commit) — that is the cherry-pick/revert door. Convergent empirical
   findings from independent probes remain the strong-signal form.
+- **PR-332 round-2 Codex catches, both real (bots as the fourth+fifth reviewer):** (1) `git am`
+  on main evaded all three hooks — the applypatch hook family is its own commit-creating path;
+  cure = `.husky/pre-applypatch` sourcing the shared guard (fourth consumer). The class: every
+  guard-coverage claim should be enumerated against githooks(5)'s FULL hook list, not against
+  the paths the author thought of. (2) Clearing a transit box (practice-core/incoming) without
+  an inbound-link sweep left 10 durable consumers citing deleted paths — incl. the ACTIVE
+  refounding plan's provenance link; cure = restore-in-place (references are in historical
+  records that must not be rewritten), with a durable-re-home + consumer-sweep as a routed
+  follow-up. Same class as the archive-move inbound-link sweep the plan estate already
+  mandates; the box needed the same discipline.
 - **`bash -n a b c` syntax-checks ONLY the first file — the rest become positional args; the
   repo's lint:shell gate was vacuously green for 3 of its 4 matched files** (proven with a
   planted `x(` file exiting 0 as a later arg). Same vacuous-green class as the register
