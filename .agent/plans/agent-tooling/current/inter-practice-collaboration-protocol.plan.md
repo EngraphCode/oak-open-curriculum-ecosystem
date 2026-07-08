@@ -180,7 +180,7 @@ ALREADY ARRIVED and been receipted.
 
 1. **Route the inbound return bundle — it has ARRIVED and been receipted.**
    `.agent/practice-core/incoming/resonance-teaching-bundle-2026-07-05.md`
-   (189 lines, untracked — successor decides commit/integration timing) is on
+   (189 lines, committed to the repo with the 2026-07-08 closeout stack; integration timing stays the successor's call) is on
    disk; this session verified it well-formed and posted the receipt on the
    resonance stream, so the delivery handshake is CLOSED. What remains is WS6:
    read it first-hand and route its substance as an adoption assessment. Its
