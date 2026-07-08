@@ -1,3 +1,11 @@
+## [1.64.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.64.0...v1.64.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* **hooks:** applypatch-msg + pre-rebase guards; self-contained r1 pickup; Elder closeout ([cfbfccf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cfbfccfb977dcdd980b44ce75331d5cd88088aa6))
+* **hooks:** sever ambient GUARD_BRANCH; refuse main-in-range rebases ([f73307d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f73307d22e2c7e3e86567afac8fc9c05b75ebf53))
+
 # [1.64.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.4...v1.64.0) (2026-07-08)
 
 
