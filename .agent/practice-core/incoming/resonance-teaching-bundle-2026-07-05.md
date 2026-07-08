@@ -14,7 +14,7 @@ concept-anchors for your re-sourcing, not live dependencies.
 
 ---
 
-## 1. Recomputable plan state (resonance PDR-128)
+## 1. Recomputable plan state (resonance PDR-129)
 
 **Principle**: recorded plan state is a cache, never the truth. Every state
 claim in an executable plan binds to a recomputation procedure, and a gate
@@ -53,7 +53,7 @@ per-session landing commitment (plan-owned landing targets name proof ids;
 the close-of-session report recomputes them, upgrading the ritual from
 self-certified to gate-checked).
 
-## 2. Recomputable team state (resonance PDR-129)
+## 2. Recomputable team state (resonance PDR-130)
 
 Team state is the same principle joined across three substrates, each
 trusted only for what it can witness: **plan todos + proofs** (committed —

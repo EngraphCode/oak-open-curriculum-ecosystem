@@ -65,6 +65,10 @@ related_rule: <optional path to .agent/rules/ entry>
   ownership-preserving cures when a parallel lane blocks commit or staging:
   leave foreign repairs unstaged, or use `git apply --cached` for a surgical
   authorised hunk.
+- [`standby-runway-handoff.md`](standby-runway-handoff.md) — lane rotation
+  under context pressure: standby seat (watcher + registration, no claim, no
+  heartbeat), predecessor drives to a clean named boundary, adoption =
+  `claims adopt` + ACK as one move (four worked instances, R0 lane 2026-07).
 - [`parallel-track-pre-commit-gate-coupling.md`](parallel-track-pre-commit-gate-coupling.md)
   — founding pattern (2026-04-25, graduated from the napkin's pending-
   graduations register; founding instances 2026-04-24 and 2026-04-25).
