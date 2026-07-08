@@ -8,7 +8,9 @@
 # lives once here and each hook sets GUARD_HINT to its own recovery move. Hooks run with cwd at the working-tree top, so the
 # `.husky/`-relative source path resolves in the primary checkout and in
 # every worktree. The one sanctioned main writer — semantic-release in CI —
-# runs with HUSKY=0 (release.yml), so no guard fires there. Detached-HEAD
+# runs with HUSKY=0 (release.yml): the husky shim (.husky/_/h) exits before
+# sourcing any hook script when HUSKY=0, so no guard fires there — this
+# script itself never needs to read the variable. Detached-HEAD
 # states (e.g. mid-rebase replays) resolve no branch name and pass. Residual
 # vectors no client hook can see (fast-forward merges, rebase ref-moves,
 # fresh clones before install) are covered by the rule and by remote branch

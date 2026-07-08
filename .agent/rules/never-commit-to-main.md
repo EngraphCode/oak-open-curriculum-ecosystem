@@ -59,7 +59,9 @@ invariant that holds regardless; the guards are local hygiene that fails
 fast.
 
 The one sanctioned `main` writer — semantic-release in CI — commits with
-`HUSKY=0` (`release.yml`), so the guards never fire there. That carve-out is
+`HUSKY=0` (`release.yml`), so the guards never fire there (the husky shim
+`.husky/_/h` exits on `HUSKY=0` before any hook script is sourced — the
+guard scripts themselves never read the variable). That carve-out is
 category delimitation (a sanctioned automated writer), not an exemption an
 agent or human may use: `HUSKY=0` skips ALL hooks and is governed by the
 same fresh per-invocation owner-authorisation discipline as `--no-verify`
