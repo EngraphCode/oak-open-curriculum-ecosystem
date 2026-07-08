@@ -335,7 +335,7 @@ F-41 CLI tail).
    Rigel) + two resonance practice-box incoming files awaiting integration. Not well-bounded
    for the 2026-07-08 Rigel closeout (item-by-item processing at dedicated-pass scale);
    next session picks it up deliberately.** Prior: completed 2026-07-07 (Goshawk calls Sundog) —
-   bounded piece only: `standby-runway-handoff` graduated to `patterns/` (third worked
+   bounded piece only: `standby-runway-handoff` graduated to the collaboration memory class (`.agent/memory/collaboration/`) (third worked
    instance fired its trigger); napkin remains under its rotation threshold after the
    2026-07-06 dedicated pass; the next deep pass fires on the ordinary triggers. Prior
    dedicated pass: **EXECUTED 2026-07-06 (Zenith wakes Perigee, dedicated pass,
