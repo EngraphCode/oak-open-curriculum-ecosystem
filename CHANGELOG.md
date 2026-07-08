@@ -1,3 +1,10 @@
+## [1.63.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.3...v1.63.4) (2026-07-08)
+
+
+### Bug Fixes
+
+* linting issue ([15a922e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15a922ec33149efb76adc5d1be420800ac5853c9))
+
 ## [1.63.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.2...v1.63.3) (2026-07-08)
 
 
