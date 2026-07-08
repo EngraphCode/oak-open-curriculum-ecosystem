@@ -169,8 +169,9 @@ function extractIdFromPath(path: string): string | undefined {
  *
  * Returns `unknown` because the result flows to `JSON.stringify` at
  * the middleware boundary — there is no typed downstream consumer.
- * Uses `Object.assign` to avoid the TypeScript 20-member union
- * spread limit (TS2698).
+ * Items are guard-narrowed before spreading (an `unknown` cannot be
+ * spread); a non-object item carries no fields to merge, so only the
+ * extracted Oak URL fields are returned for it.
  */
 export function augmentArrayResponseWithOakUrl(
   response: readonly unknown[],
@@ -185,17 +186,19 @@ export function augmentArrayResponseWithOakUrl(
     return response;
   }
   return response.map((item) => {
-    return Object.assign({}, item, extractOakUrlFields(item, path, contentType));
+    const oakUrlFields = extractOakUrlFields(item, path, contentType);
+    return isNonNullObject(item) ? { ...item, ...oakUrlFields } : oakUrlFields;
   });
 }
 
 /**
- * Augments a single object response with Oak URL.
+ * Augments a single response — object or non-object — with Oak URL.
  *
  * Returns `unknown` because the result flows to `JSON.stringify` at
  * the middleware boundary — there is no typed downstream consumer.
- * Uses `Object.assign` to avoid the TypeScript 20-member union
- * spread limit (TS2698).
+ * The response is guard-narrowed before spreading (an `unknown`
+ * cannot be spread); a non-object response carries no fields to
+ * merge, so only the extracted Oak URL fields are returned for it.
  */
 export function augmentResponseWithOakUrl(
   response: unknown,
@@ -209,7 +212,8 @@ export function augmentResponseWithOakUrl(
   if (!contentType) {
     return response;
   }
-  return Object.assign({}, response, extractOakUrlFields(response, path, contentType));
+  const oakUrlFields = extractOakUrlFields(response, path, contentType);
+  return isNonNullObject(response) ? { ...response, ...oakUrlFields } : oakUrlFields;
 }
 
 /**
