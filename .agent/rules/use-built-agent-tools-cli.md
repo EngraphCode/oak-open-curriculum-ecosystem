@@ -58,6 +58,18 @@ gets re-derived (often re-derived wrong); the permanent command amortises
 across every future agent. The owner decides build-now vs backlog vs
 keep-scratchpad.
 
+## Sequencing Around Dist Rebuilds
+
+The built-artefact contract cuts both ways: a whole-repo `pnpm check` or
+`pnpm build` rebuilds `agent-tools/dist` mid-run, and a concurrent agent-tools
+CLI invocation dies on the module loader while the dist is half-written
+(worked instance 2026-07-08: a `collaboration-state` call died at
+`cjs/loader:1503` during a backgrounded closeout check). Sequence
+CLI-dependent steps AFTER a running check/build chain completes; never
+interleave them. The same family applies after a worktree branch switch:
+rebuild agent-tools before trusting its CLIs from that tree (the
+stale-dist-after-switch class; see the frictions register).
+
 ## Why This Rule Exists
 
 Observed live 2026-05-05: Pelagic Swimming Rudder was refactoring

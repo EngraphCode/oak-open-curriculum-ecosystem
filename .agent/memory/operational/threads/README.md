@@ -117,22 +117,22 @@ at the top. Fields:
 - `first_session` / `last_session` — dates the identity first
   touched and most recently touched the thread.
 
-## Proposed rule (candidate; not yet ratified)
+## The additive-identity rule (ratified — PDR-027 owns it)
 
-> When a session joins an active thread, it **adds an identity** to
-> the thread's identity list. It does **not** overwrite, rename, or
-> collapse existing identities. If the session is the same
-> platform/model/agent_name as an existing identity, it updates
-> `last_session` on that identity rather than adding a new one.
+The rule is ratified doctrine in
+[PDR-027 §The additive-identity rule](../../practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md):
+joining a thread ADDS an identity row (never overwrite, rename, or
+collapse); a session matching an existing row on the canonical
+`(agent_name, id)` key UPDATES that row's `last_session`. A mid-session
+model switch is a continuous seat — update the row's `model` field, never
+add a row (PDR-027 Amendment Log, 2026-07-08). (This section previously
+carried the rule as a pre-ratification candidate; PDR-027 is the home.)
 
-In a multi-writer window, grep the identity table for your
+Practical multi-writer note: grep the identity table for your
 `session_id_prefix` before adding a row — rotation churn has
 produced duplicate rows when two writers each added the same
 identity (observed 2026-06-10); a matching identity UPDATES
 `last_session`, never adds.
-
-This rule becomes a `.agent/rules/*.md` entry once ratified as a
-PDR at the next consolidation pass.
 
 ## Starting a session on a thread
 

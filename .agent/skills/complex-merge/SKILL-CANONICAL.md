@@ -51,3 +51,17 @@ Load `.agent/skills/complex-merge/shared/complex-merge.md` and enforce its
 If type-check fails after merge, do not proceed to further phases. Diagnose
 the break using the gap analysis findings. If the break was not predicted by
 gap analysis, add it to the session napkin as a process improvement.
+
+## Handoff-Safe Abort
+
+When a session must close mid-merge (owner-directed close, budget boundary),
+a fragile mid-merge index is the worst possible handoff. The deliberate move:
+conserve the authored resolution artefacts and the full conflict analysis to
+`.agent/state/collaboration/handoffs/` (with reusable resolution content under
+`handoffs/assets/`), then `git merge --abort` to a clean tree. The successor
+replays the conserved resolution against a recomputed merge — remembering that
+conserved enumerated sets are the generating commands, not cached results
+(`substrate-pointer-read-as-current-state`, analysis-artefact variants).
+Worked instance 2026-07-07: a mid-merge close conserved a union README
+resolution + analysis, aborted clean, and the successor reused the resolution
+verbatim after recomputing the semantic sets (which had drifted by one commit).

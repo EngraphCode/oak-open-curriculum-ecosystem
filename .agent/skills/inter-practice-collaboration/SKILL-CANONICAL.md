@@ -51,7 +51,12 @@ Reads that never leave the local estate do not fire this skill.
    key: it is the ONE identity coordinate shared across estates, and
    it identifies a SESSION (a successor session is a new prefix and a
    new name everywhere; same-name-different-prefix is an anomaly to
-   surface, never accept).
+   surface, never accept). One seed therefore yields TWO display names
+   (per-estate wordlists); when relaying content across estates, sign
+   BOTH identities in the body with the shared prefix, so each side's
+   readers can resolve the author (worked instance 2026-07-08: seed
+   55b041 = "Pelican calls Spray" here, "Lacustrine Drifting Hull" on
+   the peer estate).
 4. **Register on the home stream**: the first comms write declares the
    home identity name, native-repo alias(es), the prefix join key, the
    worktree repo-reference (origin + branch — never a machine-local
@@ -69,6 +74,14 @@ Reads that never leave the local estate do not fire this skill.
    SELF-CONTAINED concept payloads (no SHAs, no dereferences, no
    moving targets); the paired comms event carries the time-bound
    layer (provenance pins, identity, sequencing, the box path).
+   When a ported artefact is a DETECTOR (a validator, a conformance
+   twin, a gate), its first live run on the receiving estate is a
+   detector test: porting ports the authoring estate's lexical
+   assumptions (quote style, path shapes), and the first run is the
+   cheapest place to catch them — cure divergences in BOTH estates'
+   copies in the same window (worked instance 2026-07-07: a
+   conformance twin's usage-spec anchor assumed double-quoted CLI
+   help; this estate single-quotes).
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways.
 8. **Verify, never trust** (the host's adversarial-verification

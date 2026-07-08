@@ -74,6 +74,15 @@ time spawned a fresh bot comment on the very change that resolved the prior one 
 lint ignore; then a plan over-generalisation; then a missing gitignore pairing). Assuming the
 first correction was sufficient would have merged over an unaddressed comment each time.
 
+**When a reviewer suggestion conflicts with the target file's declared schema, the schema
+wins.** A stylistic bot suggestion (interior backticks) once broke a register's own
+single-span parse schema, and a later round of the same bot flagged the damage its sibling
+suggestion caused (PR #324, 2026-07-08). The disposition is reject-or-revert with the schema
+cited — never apply a suggestion that violates the file's declared contract. Relatedly, an
+edit script that mutates a register without post-condition asserts is a claim, not a change:
+one inverted-slice register edit spawned three bot findings across two rounds; mutation
+scripts carry their own asserts.
+
 ## A real issue is fixed only when a check guards it
 
 A comment identifying a **real** issue is "fixed" only when the code is corrected AND a

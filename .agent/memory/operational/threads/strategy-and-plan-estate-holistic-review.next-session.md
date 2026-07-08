@@ -19,6 +19,22 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
+## Where We Are (2026-07-08 later, Corsair guards Channel ecdd12 — the dedicated consolidation pass EXECUTED; next = r1)
+
+**The R0-arc consolidation debt is drained.** The dedicated pass (Corsair guards Channel,
+curator, solo on main) processed the seven-seat napkin window into permanent homes,
+drained pending-graduations to zero by decision (the R0 arc's doctrine now lives in
+verify-dont-trust §bare-exit, pr-lifecycle Phases 5–8 — supervised terminal-condition
+watch, compound-read floor, conditioned arm-early — semantic-merge's era-witness/link
+recompute steps, and PDR-126), cleared the practice box (owner-approved; the teaching
+bundle's recomputable-team-state residual is now a WS0 agenda item in the AEE thread
+record), retired two completed threads, and rotated the napkin
+(`archive/napkin-2026-07-08-corsair-dedicated-consolidation.md`). Detail:
+`repo-continuity.md` §Next Safe Steps 0a. **Next for THIS thread: r1** gated on G2+G3
+(unchanged; pickup = the Pelican handoff record below on retained claim `7b10679e`). The
+remediation-agent question in the section below is ANSWERED: the owner turned the bot OFF
+(2026-07-08, this pass) — the #326-gauntlet register item was rejected as moot.
+
 ## Where We Are (2026-07-08 close, Pelican calls Spray 55b041 — R0 COMPLETE; next = the dedicated consolidation pass, then r1)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
@@ -340,3 +356,4 @@ loss-scan):
 | Goshawk calls Sundog | claude-code | claude-fable-5 | 970bdc | R0 successor #3 (runway pickup from Leopard): executed the main→t3 merge-forward + the two promised consolidations; opened + shepherded PR #321 to a truly-green self-merge (`af6c285e5` — R0a COMPLETE); ran the owner-approved six-reviewer gateway on cycles 3–4 and absorbed three bot rounds; landed `validate-ratified-lists` (owner correction: doc↔code sync = validator work) + the gate-agenda insertions; ran the in-chat G1 sitting with the owner (all seven rulings; packet §9; freeze rule ratified) and landed it as PR #322; recorded the Walk-A derivation input + WS6 harvest-scope strengthening; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-07 |
 | Rigel turns Void | claude-code | claude-fable-5 | c6080b | R0 successor #4 (standby→adoption per the runway pattern): built + landed R0b — the plan-state engine, two adapters, CLI, table v1 (pre-execution review + seven-seat gateway both absorbed; two shared-surface security hardenings); PR #323 shepherded truly-green (owner-merged 751ce9699); trued the r0a todo (7c984a555); registered the pr-lifecycle classifier-merge-boundary candidate; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-08 |
 | Pelican calls Spray | claude-code | claude-fable-5 | 55b041 | R0 successor #5 (pull-style standby→adoption): built + merged R0c — the consolidated owner-gate register + the cost ledger + r0b/r0c truings + the owner-ratified OG-2 table flip (both granted review moments absorbed, convergent critical cured; PR #325 via early-armed auto-merge); landed the mergeable≠READY + arm-early doctrine (PR #327); deep-reviewed the remediation bot's #326 and landed the proper S4782/S6661 fixes (PR #329, armed); relayed two owner insights to Resonance; restored the #324-dropped Goshawk/Rigel continuity era by concept-union; closeout handoff on retained claim `7b10679e` | 2026-07-08 | 2026-07-08 |
+| Corsair guards Channel | claude-code | claude-fable-5 | ecdd12 | curator (dedicated consolidation): drained the R0 arc's capture debt into permanent homes; trued this record's consolidation next-step; did NOT touch the refounding claim areas or r1 | 2026-07-08 | 2026-07-08 |

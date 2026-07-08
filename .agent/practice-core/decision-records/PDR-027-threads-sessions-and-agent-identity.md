@@ -31,6 +31,16 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
+- **2026-07-08 — a mid-session model switch is a CONTINUOUS seat, not an
+  identity break.** Identity derives from the session seed, so the
+  `session_id_prefix` — and therefore the display name and the canonical
+  `(agent_name, id)` key — is stable across a model switch. Per the
+  additive-identity rule's continuation-matching condition the switch
+  UPDATES the existing row (its `model` field and `last_session`), never
+  adds a row; record the switch explicitly so it is not misread as a new
+  seat. Worked instance 2026-07-07: a fable-5→Opus-4.8 switch mid-run kept
+  the seat unbroken while an owner-named successor ran as a genuinely
+  separate session.
 - **2026-05-29 — retired/completed thread records carry a retirement
   banner.** The 2026-04-21 Session 5 entry established that a retired
   *surface* records its retirement rationale in the retired-surface README.

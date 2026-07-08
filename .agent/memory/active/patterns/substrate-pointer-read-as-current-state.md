@@ -54,6 +54,20 @@ These variants do not require a sibling pattern yet. They extend the
 same cure family: before a load-bearing action, compare the pointer's
 last-fresh moment with the live stream-tail and latest owner turn.
 
+**Analysis-artefact variants, folded 2026-07-08** (the R0 runway arc): the
+same decay fires on conserved WORK PRODUCTS, not only roster state. A
+conserved merge analysis replayed ~2h later missed one commit's drift — the
+three CONFLICTS were exactly as analysed (git recomputes those), but the
+enumerated SEMANTIC sets (a re-point list, a rename's site census) had
+rotted, each short by one member. Sibling faces the same window: file paths
+cached from the primary checkout after a plan-estate move (`current/` →
+`active/`); a held belief about an external gate ("#320 unmerged") the owner
+had cleared hours earlier. **The sharpened cure for enumerated-set claims:
+treat every enumerated set in a handoff or analysis as its generating
+COMMAND (the grep / tsc / ls that produced it), never its cached result —
+recompute the command at the binding moment.** Conflicts self-verify;
+semantic sets rot silently.
+
 **Two structural directions** observed firing the same class — and *the two directions are not symmetric in failure cost*. The substrate-says-closed direction propagates O(N) cascading misses across each Director / peer who relies on the stale substrate, until the misrepresented agent self-surfaces or another agent posts a correction. The substrate-says-active direction produces O(1) routing-overshoots per stale read (a directed event lands on a dead session; the dead session does not propagate the miss further). The asymmetry matters at cure-design time:
 
 | Direction | Shape | Failure propagation | Worked instance |

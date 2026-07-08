@@ -155,6 +155,19 @@ join-ceremony skill, created alongside the PDR), plus WS0b/WS0c/WS0e/WS0d; then 
 depends WS0), WS5 (the resonance-side proposal — MAR awaits it in resonance's incoming box),
 WS7 (docs + gates).
 
+**Two routed candidates from the 2026-07-05 resonance teaching bundle (owner-approved
+routing, dedicated consolidation 2026-07-08; the bundle itself cleared from the incoming
+box — integration otherwise verified in landed artefacts):** (a) **teaching 2, recomputable
+team state** — every implementer claim carries a plan-todo pointer at open; drift
+invariants (no open claim on a recomputed-done todo; no orphaned in_progress todo without a
+live claim; lane progress = N-of-M proofs green); prose team surfaces become rendered views
+over the recomputation — a WS0-session agenda item (it extends cross-estate once claims
+carry `repo_ref`) and a natural r1+ plan-state consumer. (b) **teaching 3's worker class**
+— an `agent_class` discriminator on the agent source-of-truth (`worker` = cheap model +
+EXPLICIT tools allowlist; an omitted tools list inherits ALL tools; zero-tools valid;
+decision-complete briefs with a JUDGEMENT-REQUIRED refusal clause) — an agent-tooling lane
+candidate for the subagent generator estate.
+
 **Coordination state at closeout.** The exchange is COMPLETE and receipted both ways. MAR
 (resonance side) closed out symmetrically 2026-07-06: pnpm check green at `021fe93`,
 heartbeat-end, team-member closeout at `eefd4ef`, claim `44f0ea2c` CLOSED. My exchange claim
@@ -642,6 +655,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 | `Hedgehog stirs Rime` | `claude-code` | `claude-fable-5` | `da727a` | `phase-0 corpus-generalisation design-ratification to a STABLE POINT: design record drafted + committed with all (a)-(e) + 17-question verdicts + D7-D9; BOTH reviews completed and conserved in the record §Review (assumptions ratify-with-revisions 13 items; wilma sound-with-revisions 18 findings, criticals spot-verified); restart notes conserved (frozen-math reconciliation, P1 sketch); branch pushed + PR opened and shepherded; restart = revision queues + landing set on a NEW BRANCH post-merge per the section brief above` | 2026-07-05 | 2026-07-06 |
 | `Zodiac herds Spectrum` | `claude-code` | `claude-fable-5` | `72dd40` | `doctrine-PR lane (Strand D), owner-named successor to Cricket lifts Echo. Standby seat (watcher + registration, no cron, no claim) flipped active at Cricket's natural-boundary closeout; landed PR #310 to main (18a2d8c17): D1 every-issue-earns-a-check principle + operationalisations, D2 pr-lifecycle Phase-7 merge-gate correction, D3 dated ADR-168 shell-scope amendment + 4-form source-is-typescript-esm-only rule, Cricket's continuity bundle, docs-adr-expert review absorption (9 findings). Caught + rescued the merge-window stranding (Bugbot fix c2671010e missed the merge; cherry-pick 09bbbc91d on docs/pr-lifecycle-merge-ready-review-leg with the new Phase-6 push-to-merged-PR clause + session continuity bundle). Residuals: owner run-quality-gates-required ruleset action; plan archive-move; napkin rotation (twice-deferred)` | 2026-07-06 | 2026-07-06 |
 | `Hyena spins Lamplight` | `claude-code` | `claude-fable-5` | `27cb6f` | `PDR-049 doctrine amendment (owner-ratified sequential-identifier collision standard → PDR-049 §Sequential-identifier collisions + practice-core CHANGELOG + semantic-merge skill pointer; PR #313 MERGED same day) with its founding worked instance executed live (PR-295 merge run-in: F-111→F-121). CORRECTION to Zodiac's residual above, verified first-hand 2026-07-06: run-quality-gates IS a required status check on main (gh api rules/branches/main: run-quality-gates + CodeQL + SonarCloud) — the "owner action pending" residual is STALE; do not re-relay it. Session closed 2026-07-06, no claims retained` | 2026-07-06 | 2026-07-06 |
+| `Corsair guards Channel` | `claude-code` | `claude-fable-5` | `ecdd12` | `dedicated consolidation (curation touch on this record only): routed the resonance teaching-bundle residuals into the WS0 agenda above at the owner-approved box clearance; the pass itself is recorded at repo-continuity §Next Safe Steps 0a. Session closed 2026-07-08, no claims retained` | 2026-07-08 | 2026-07-08 |
 
 ## Cross-Plan and Cross-Thread Links
 

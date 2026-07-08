@@ -95,12 +95,15 @@ matching `unicorn/*` rules, see `recommended.ts`) are **type-affecting, not
 stylistic** — their autofixes can force type-unsound rewrites (one broke an
 ADR-153 `value is X` type-guard). When activating a new rule:
 
-- Land it at `error` only when the same commit clears every violation with
-  **type-sound** fixes — review each autofix's type effect, never bulk-apply.
-- If the violation surface cannot be cleared soundly in one commit, wire the
-  new rule at `warn` initially; escalating to `error` is a separate, later
-  decision (standing owner preference). This applies to NEW rules only —
-  downgrading an existing `error` rule to `warn` remains forbidden
+- Land it at `error` with full conformance in ONE landing (PDR-126,
+  graduating the 2026-07-07 owner ruling — this supersedes the earlier
+  warn-first preference): the same landing clears every violation with
+  **type-sound** fixes (review each autofix's type effect, never bulk-apply)
+  or category-moves the genuine non-fits.
+- If the violation surface cannot be cleared soundly in one landing, the
+  conformance work is sequenced FIRST and the rule lands at `error` as that
+  sequence's final slice — never at `warn` over a violation inventory.
+  Downgrading an existing `error` rule to `warn` remains forbidden
   (`never-disable-checks`).
 
 ### Flat-config gotchas (verified in-repo)

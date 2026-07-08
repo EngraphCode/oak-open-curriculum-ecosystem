@@ -128,6 +128,12 @@ Bounded design work, first-hand, producing a decision — not open-ended analysi
 resolve canonical `.agent/state/collaboration/...` locations by default across **every**
 command that takes them; they remain optional overrides.
 
+**Owner-priority insertion (2026-07-08, F-135)**: `comms inbox --since <iso>` — the
+watcher rule's mandated post-arm gap sweep has no compliant tool shape (inbox rejects
+`--since`, exit 2; fallbacks are a full replay or the hand-rolled jq filter class the
+rule warns against). Owner-directed PRIORITY for both estates (comms event d84ebf3a);
+execute ahead of the general workstream order.
+
 ### WS2 — Derive identity / now from env (surface-wide)
 
 `--platform`/`--model`/session resolve from the hook-set env when omitted, consistent
