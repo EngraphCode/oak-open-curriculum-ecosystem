@@ -123,12 +123,21 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
   and read the PRINTED status value never the harness notification exit when an echo trails
   | trigger: FIRED — cross-seat recurrence proves vigilance does not cure the class | size: S
   | status: due]`
-- **PR settle discipline: a continuous terminal-condition watch replaces fixed-interval
-  settle probes** `[captured: 2026-07-08 | source: napkin (Rigel #324 + Pelican #325 parallel
-  owner corrections; Rigel's Monitor until-loop cure enumerating every terminal state) |
-  target pr-lifecycle SKILL Phase 5/6 amendment (the budgeted pr-watch IS the shape — make
-  it the mandated settle mechanism; checks-settled never proves a bot review round complete)
-  | trigger: FIRED — two seats corrected in one sitting | size: S | status: due]`
+- **PR settle discipline: a SUPERVISED terminal-condition watch replaces fixed-interval
+  settle probes** `[captured: 2026-07-08 | source: napkin (Rigel #324 + Pelican #325/#330
+  parallel owner corrections + the owner measurement interrogation) | target: pr-lifecycle
+  SKILL Phase 5/6/7 amendment — pr-watch alone has a designed ALL-GREEN EXIT hole (comments
+  post async up to ~10 min after a push); the mandated shape is the supervised loop that
+  re-arms pr-watch on every exit and terminates only on MERGED/CLOSED, plus the settled-round
+  gate (reviewers' latest reviews bound to the current tip + a >10-min quiet window) and
+  MERGED as the only terminal claim; proven live on PR #330 end-to-end. PLUS the
+  partial-read clause (owner correction ~50th instance, PR #329): the ONLY sanctioned
+  PR-state read is the compound query (mergeStateStatus + reviewThreads unresolved +
+  statusCheckRollup in ONE call) — answering a named signal with just that signal's
+  fields is the recurring generator; a checks-only read answered BEHIND while two fresh
+  unresolved threads were the actual blocker | trigger: FIRED —
+  two seats corrected in one sitting; measurement doctrine owner-elicited | size: S |
+  status: due]`
 - **Scheduled remediation-bot PRs enter the same disposition gauntlet as any seat's PR —
   never merge-on-green** `[captured: 2026-07-08 | source: PR #326 deep review (napkin entry;
   review comment issuecomment-4913446806: both bot fixes reversed documented local decisions;

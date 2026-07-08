@@ -707,3 +707,44 @@ New session observations append below.
   wrong. The bot's original finding (tree contains only README) was righter than my fix.
   Corrected in the ledger at the Pelican closeout. Face: verify-dont-trust applies to PEER
   closeout broadcasts exactly as to reviewer claims — check the tree, not the relay.
+
+## 2026-07-08 — Pelican calls Spray (55b041): the measurement doctrine (owner interrogation, post-handoff)
+
+- **Owner interrogation ("how will you MEASURE... how will you know they STAY green...
+  are there push events in gh?") produced doctrine that lived only in chat until this entry:**
+  (1) MEASURE = one compound read at the claim instant: `mergeStateStatus == CLEAN` (GitHub's
+  own conjunction of checks+threads+currency — this repo has `required_review_thread_resolution:
+  true`, verified against the rules API, so threads mechanically block merge) PLUS the three
+  components individually (`reviewThreads` unresolved==0; `statusCheckRollup` zero non-SUCCESS
+  AND zero pending; `mergeStateStatus` for DIRTY/BEHIND) — a composite/component disagreement
+  is itself a finding. (2) STAY = the repo's `pr-watch` has a designed ALL-GREEN EXIT (Phase 5:
+  ends on merged/closed OR all-green) — an unguarded window for comments posting up to ~10 min
+  after a push; cure = a SUPERVISED loop that re-arms pr-watch on every exit and terminates
+  ONLY on MERGED/CLOSED, recomputing state at each re-arm (deployed live on #329/#330; #330's
+  watch rode the full arc to MERGED and self-terminated on the recompute). Settled-round
+  declaration gate = reviewers' latest reviews bound to the CURRENT tip + a quiet window
+  LONGER than the async lag (>10 min; 12 used). MERGED is the only terminal claim — the only
+  state no late comment can un-green. (3) gh has NO event transport: true push events are
+  webhooks (need a server); `gh api repos/../events` (PushEvent etc.) is itself a poll with
+  ~30-60s feed latency buying nothing over polling the PR object; `gh pr checks --watch` has
+  the same exit-at-completion hole class. Polling the PR GraphQL at 60s (pr-watch, budget-aware)
+  is the strongest available primitive. → extends the terminal-condition-watch graduation item.
+- **A semantic union re-introduces the STALE SIDE'S LINKS, not just stale content** (the
+  moved-target class, link sub-face): my union took 5faf08205's `current/` plan link, correct
+  when written, broken after the active/ move — caught by two reviewers. Post-union checks =
+  era-witness (content) + LINK RECOMPUTE over the unioned sections (validate-markdown-links
+  scoped, or test -f each relative target).
+- **Register entries must match the parser schema or they are invisible debt**: my four
+  graduation entries used `captured 2026-07-08` (no colon) — the item-count parser matched
+  nothing and the register read CLEAN while carrying four items (vacuous-green in a debt
+  register). Bugbot caught it; post-fix the fitness readout honestly reads 4/hard-3. Lesson:
+  after ANY append to a schema-parsed register, run the parser's own readout and verify the
+  count MOVED.
+- **The fifty-times generator, finally isolated (owner correction on #329)**: when responding
+  to a NAMED signal I read the fields the signal names (Elder said BEHIND → I read
+  mergeStateStatus+checks+arm) instead of the full gate — while two fresh unresolved threads
+  were the actual blocker, an hour after writing the compound-read doctrine myself. Vigilance
+  is disproven at n=50; the cure is categorical: the compound query (mergeStateStatus +
+  unresolved threads + check rollup, ONE call) is the ONLY sanctioned PR-state read, for any
+  question, however narrow the prompting signal. Folded into the settle-watch graduation item
+  for the pr-lifecycle amendment.
