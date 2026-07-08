@@ -6,19 +6,19 @@
  * The upstream's `canonicalUrl` (context-rich curriculum URL) passes
  * through untouched.
  */
-import {
-  CONTENT_TYPE_PREFIXES,
-  generateOakUrlWithContext,
-} from '@oaknational/sdk-codegen/api-schema';
+import { generateOakUrlWithContext } from '@oaknational/sdk-codegen/api-schema';
 import type { ResponseContext, ContentType } from './types/response-augmentation.js';
 import type { HttpMethod } from './validation/types.js';
+import { isNonNullObject, isMergeablePayload } from './response-augmentation-helpers.js';
 import {
   getContentTypeFromPath,
   extractEntityIdFromPath,
+  endsWithEntityCollection,
+} from './response-augmentation-path-classification.js';
+import {
   extractGenericId,
   extractContentTypeSpecificId,
-  isNonNullObject,
-} from './response-augmentation-helpers.js';
+} from './response-augmentation-slug-extraction.js';
 import { deriveSequenceSlug } from './sequence-slug-derivation.js';
 import { rawCurriculumSchemas } from '@oaknational/sdk-codegen/zod';
 
@@ -31,10 +31,6 @@ const keyStagesSchema = rawCurriculumSchemas.SubjectResponseSchema.shape.keyStag
 
 interface SubjectContext {
   readonly keyStageSlugs: readonly string[];
-}
-
-function endsWithEntityCollection(path: string, contentType: ContentType): boolean {
-  return path.endsWith(`/${CONTENT_TYPE_PREFIXES[contentType].pathSegment}`);
 }
 
 /**
@@ -187,7 +183,7 @@ export function augmentArrayResponseWithOakUrl(
   }
   return response.map((item) => {
     const oakUrlFields = extractOakUrlFields(item, path, contentType);
-    return isNonNullObject(item) ? { ...item, ...oakUrlFields } : oakUrlFields;
+    return isMergeablePayload(item) ? { ...item, ...oakUrlFields } : oakUrlFields;
   });
 }
 
@@ -213,7 +209,7 @@ export function augmentResponseWithOakUrl(
     return response;
   }
   const oakUrlFields = extractOakUrlFields(response, path, contentType);
-  return isNonNullObject(response) ? { ...response, ...oakUrlFields } : oakUrlFields;
+  return isMergeablePayload(response) ? { ...response, ...oakUrlFields } : oakUrlFields;
 }
 
 /**

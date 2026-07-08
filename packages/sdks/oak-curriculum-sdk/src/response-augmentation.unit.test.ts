@@ -625,6 +625,14 @@ describe('augmentResponseWithOakUrl and augmentArrayResponseWithOakUrl — non-o
     });
   });
 
+  it('should return only the Oak URL fields for an array payload (never numeric-index spreading)', () => {
+    const result = augmentResponseWithOakUrl(['a', 'b'], '/lessons/add-two-numbers', 'get');
+
+    expect(result).toEqual({
+      oakUrl: 'https://www.thenational.academy/teachers/lessons/add-two-numbers',
+    });
+  });
+
   it('should return only the Oak URL fields for non-object array items', () => {
     const result = augmentArrayResponseWithOakUrl([42], '/lessons/add-two-numbers', 'get');
 
