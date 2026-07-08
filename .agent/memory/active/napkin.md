@@ -254,3 +254,46 @@ New session observations append below.
   || exit 1; done`) widened to the .husky hook estate, proven both directions (real files
   pass; planted defect fires). Config-expert's NIT ("no gate syntax-checks the load-bearing
   guard") led straight to it — the follow-the-nit instinct paid.
+
+## 2026-07-08 — Salamander weaves Warmth (4960fe): closeout tail (the session's main entries are committed in main via PR #328 / c7aa164ec; these are the post-merge closing captures)
+
+- **Closeout loss-scan + late captures (compact mirror of the worktree closeout, placed here
+  because uncommitted-in-a-worktree is invisible — owner correction at close):** (1) hand-editing
+  the patterns README Pattern Index trips `validate-patterns-index` — use
+  `validate-patterns-index:fix` after adding a pattern file; (2) `git pull --ff-only origin main`
+  while ON a feature branch fast-forwards the FEATURE branch when main descends from it — update
+  local main without checkout via `git fetch origin main:main`; (3) the commit-queue
+  verify-staged worktree failure this session was **F-133 exactly** (recurrence recorded in the
+  frictions register); (4) consciously dropped: assumptions-expert's optional early-deploy
+  resequencing (WS9 on the stdout floor before full WS-E2) — rejected for the do-it-properly
+  shape; (5) "turbo cache makes the pnpm-check re-run cheap" was false — gitleaks/markdownlint/
+  repo-validators run outside turbo, full-tree, every time (~12 min regardless); (6) graduations
+  landed this closeout: `patterns/scope-parsimony-is-not-discipline.md` + the pr-lifecycle
+  intent layer ("what a PR is"), PDR candidate registered in pending-graduations. Session-mortal
+  by design: the 534-claim register JSON, verifier evidence quotes, workflow journals.
+- **Owner correction at close: do not assign gender to agents unless self-declared** — I
+  repeatedly wrote "his" for a peer agent in chat despite the always-on
+  `agents-default-no-gender` rule. Artefacts scanned clean (the violation was speech-only);
+  the rule covers speech too. Use the agent's name or "their".
+
+- **Owner correction (deep, third escalation of the same class): my model of what a PR IS was
+  wrong, and the falsehood it produced proves it.** Revealed operating model: PR = delivery
+  vehicle; comments = an objection queue to clear; done = green + mergeable + zero unresolved.
+  Symptoms in one hour: reported "MERGEABLE" as if it meant progress while three threads sat
+  unresolved; re-harvested the review surface only when chased; queued a thread reply in the
+  same script as its own verification check WITHOUT gating on the result — and posted a FALSE
+  disposition to the PR record (claimed the stale description text was gone; it was live;
+  Copilot was right). Corrected model: **a PR is the structured conversation through which a
+  proposed change earns the right to become shared truth (main is the only durable home; the
+  PR is the airlock), and the durable RECORD of that earning.** Consequences: review threads
+  ARE the mechanism, not friction — each comment is a claim entitled to full epistemics
+  (verify → adjudicate → integrate or refute with evidence); "resolved" is the outcome, never
+  the goal; the conversation outranks new work while the PR is open (a reviewer finding is a
+  bug report against the proposal — session priority #1); the description is part of the
+  proposal and must stay true as the diff moves (and gh pr edit must be VERIFIED to stick —
+  bot summary re-appends can mask a failed edit); disposition replies are permanent record —
+  a false one poisons the well for every future reader (in this repo literally: Ask Oisín
+  will answer questions from PR records). "Mergeable" is a git-graph fact; READINESS is
+  conversation-complete + record-true. GRADUATION CANDIDATE: add the intent layer to the
+  pr-lifecycle skill preamble — the skill encodes the mechanics (harvest, re-fetch after
+  every push, truly-green); this failure was intent-level, above the mechanics.
