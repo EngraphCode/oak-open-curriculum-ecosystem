@@ -34,7 +34,7 @@ todos:
   - id: ws4-slack-surface
     content: "WS4: slack-assistant Slack surface — @vercel/slack-bolt@^1 wiring (VercelReceiver constructed once, same instance to App{deferInitialization:true} and createHandler(app, receiver)); app_mention (thread_ts = event.thread_ts ?? event.ts), DM (message.im, typed narrowing — no `as any`), slash, assistant-thread events; token streaming via sayStream on mention/DM/assistant listeners over ai-gateway askStream (slash answers post complete via response_url); 👍/👎 reaction-signal capture (reaction_added/removed on bot answers → metadata-only counters, identity stripped); DM/mention double-fire de-duplication; signature verification with a stated test seam; in-process Bolt test harness (signed synthetic requests); mrkdwn + disclaimer. Integration tests + code."
     status: pending
-    depends_on: [ws0-scaffold]
+    depends_on: [ws0-scaffold, ws1-model-layer, ws2-pii-boundary]
   - id: ws5-factory
     content: "WS5: defineSlackAssistant(config) factory + Zod config schema (Config = z.infer). Seam gates (grep-enforced): framework has zero Oak-specific literals, zero process.env reads (config injected), and imports NO vendor telemetry provider; model/tool concerns come only through ai-gateway. Integration test + code."
     status: pending
@@ -236,8 +236,10 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 WS0 gates the new-workspace work. **WS-E1 is parallel-safe immediately** (logger-only file
 scope). **WS-E2's extraction cycles can be drafted in parallel, but its boundary
 registration consumes WS0's stratified tier and both touch `boundary.ts` + its tests — so
-WS-E2 lands after WS0** (`depends_on` reflects this). After WS0: **WS1, WS3, WS4, WS7**
-parallel-safe; WS2 ← WS1; WS5 ← WS1–4; WS6 ← WS5; WS8 ← WS-E2; WS9 ← WS6+WS7+WS8;
+WS-E2 lands after WS0** (`depends_on` reflects this). After WS0: **WS1, WS3, WS7**
+parallel-safe; WS2 ← WS1; WS4 ← WS1+WS2 (its cycles route to `ask()`/`askStream()` with
+`ScrubbedText` — the surface consumes the model layer's contract and the scrubber);
+WS5 ← WS1–4; WS6 ← WS5; WS8 ← WS-E2; WS9 ← WS6+WS7+WS8;
 WS10.1 (the CI PII assertion) ← WS5; WS10.2–4 ← WS9; WS11 last.
 
 ---
