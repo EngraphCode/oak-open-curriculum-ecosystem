@@ -329,7 +329,8 @@ F-41 CLI tail).
    NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
    landing set) — see the §Current State corpus-generalisation entry; the self-contained
    restart brief is the AEE thread record §PHASE 0.
-0a. **Deep consolidation status: due — napkin over rotation threshold (522 lines vs ~400;
+0a. **Deep consolidation status: due — owner-ruled 2026-07-08: the dedicated pass runs AFTER
+   R0c MERGES (Pelican's captures ride it). Napkin over rotation threshold (522+ lines vs ~400;
    four session windows unprocessed since the 2026-07-06 rotation: Stoat, Leopard, Goshawk,
    Rigel) + two resonance practice-box incoming files awaiting integration. Not well-bounded
    for the 2026-07-08 Rigel closeout (item-by-item processing at dedicated-pass scale);
