@@ -36,9 +36,9 @@ todos:
     status: pending
     depends_on: [ws0-scaffold, ws1-model-layer, ws2-pii-boundary]
   - id: ws5-factory
-    content: "WS5: defineSlackAssistant(config) factory + Zod config schema (Config = z.infer). Seam gates (grep-enforced): framework has zero Oak-specific literals, zero process.env reads (config injected), and imports NO vendor telemetry provider; model/tool concerns come only through ai-gateway. Integration test + code."
+    content: "WS5: defineSlackAssistant(config) factory + Zod config schema (Config = z.infer). The factory assembles the FULL request pipeline — signature verification → allow-list (fail-closed) → retry de-dup → rate limit → scrub → ask — so every bot inherits the WS7 controls by construction, proven in the factory test. Seam gates (grep-enforced): framework has zero Oak-specific literals, zero process.env reads (config injected), and imports NO vendor telemetry provider; model/tool concerns come only through ai-gateway. Integration test + code."
     status: pending
-    depends_on: [ws1-model-layer, ws2-pii-boundary, ws3-mcp-attach, ws4-slack-surface]
+    depends_on: [ws1-model-layer, ws2-pii-boundary, ws3-mcp-attach, ws4-slack-surface, ws7-access-and-limits]
   - id: ws6-oisin-config
     content: "WS6: Ask Oisín app config — system instructions (repo-nav via under-the-hood start point, cite-source, decline-curriculum-with-explanation, safeguarding deflect+signpost), GitHub MCP attach (X-MCP-Readonly, X-MCP-Toolsets: repos — includes search_code + get_file_contents), opaque model slug env, name. Audience: internal Oak staff."
     status: pending
@@ -54,7 +54,7 @@ todos:
   - id: ws9-deploy
     content: "WS9: deploy config — vercel.json (Next.js), turbo entries, env wiring (SLACK_*, AI_GATEWAY_API_KEY, CLAUDE_MODEL, GITHUB_TOKEN, SLACK_TEAM_ALLOWLIST, SENTRY_* incl. optional auth token for source maps), manifest.oisin.yaml (features.agent_view — NOT the legacy assistant_view; no channels:history / message.channels); duration left at the Fluid default (300s) unless measured need; a DEV Slack app pointed at the preview deployment (Slack delivers to one request URL per app). Preview deploy acks Slack <3s (value-proxy)."
     status: pending
-    depends_on: [ws6-oisin-config, ws7-access-and-limits, ws8-observability]
+    depends_on: [ws6-oisin-config, ws8-observability]
   - id: ws10a-pii-assertion
     content: "WS10.1: the deterministic in-process integration test proving the outbound payload (instructions + prompt + every tool-call argument) carries only the scrubbed question — CI gate over the WS2 capture seam; runs the moment the libs assemble, NOT gated on deploy."
     status: pending
@@ -109,8 +109,9 @@ The design source records the full verification ledger; the plan-relevant pins:
   available — the logger leak does not bite this app, and is fixed anyway in WS-E1);
   Fluid compute default-on; default duration 300s on all tiers; Vercel KV is retired —
   the durable KV is **Upstash Redis via the Marketplace**.
-- **Sentry**: `@sentry/nextjs` init shape + server-side `beforeSend`/`beforeSendTransaction`/
-  `beforeBreadcrumb` (the ADR-160 barrier applies); the Marketplace integration is
+- **Sentry**: `@sentry/nextjs` init shape + the full five-hook ADR-160 closure available
+  server-side (`beforeSend`/`beforeSendTransaction`/`beforeBreadcrumb`/`beforeSendLog`/
+  `beforeSendSpan`); the Marketplace integration is
   build/deploy-time only; console-as-Sentry-logs off by default (console-as-breadcrumbs is
   ON and redacted via `beforeBreadcrumb`); SDK-wrapped handlers manage request-path flush —
   the post-response continuation capture+flush is OUR requirement (WS8).
@@ -239,7 +240,8 @@ registration consumes WS0's stratified tier and both touch `boundary.ts` + its t
 WS-E2 lands after WS0** (`depends_on` reflects this). After WS0: **WS1, WS3, WS7**
 parallel-safe; WS2 ← WS1; WS4 ← WS1+WS2 (its cycles route to `ask()`/`askStream()` with
 `ScrubbedText` — the surface consumes the model layer's contract and the scrubber);
-WS5 ← WS1–4; WS6 ← WS5; WS8 ← WS-E2; WS9 ← WS6+WS7+WS8;
+WS5 ← WS1–4 + WS7 (the factory composes the access/limits/de-dup pipeline and proves it
+enforced); WS6 ← WS5; WS8 ← WS-E2; WS9 ← WS6+WS8;
 WS10.1 (the CI PII assertion) ← WS5; WS10.2–4 ← WS9; WS11 last.
 
 ---
@@ -470,7 +472,11 @@ new PII egress; the interactive Block Kit affordance stays deferred). **Reviewer
 **File scope**: `src/define.ts`, `src/config.ts`, `*.integration.test.ts`.
 **Config schema (sketch)**: `{ name, model (env slug), mcp: { url, headers|authProvider, deny[] }, instructions, invocation: { slashCommands[] }, egress: { scrubPatterns, allowList }, observability (injected), disclaimer }` with `type Config = z.infer<typeof configSchema>`.
 **Test (Red)**: a minimal config yields a working handler (stub MCP + stub model) answering
-a scrubbed question; an invalid config is rejected. **Seam gates (grep-enforced)**:
+a scrubbed question; an invalid config is rejected; and the assembled pipeline ENFORCES the
+WS7 controls on the request path — a non-allow-listed synthetic request is rejected before
+any model call, and a redelivered event (same event id) is not re-answered. The factory is
+where "framework-level, so every bot inherits them" becomes a tested property rather than a
+claim. **Seam gates (grep-enforced)**:
 `packages/libs/slack-assistant/src` and `packages/libs/ai-gateway/src` have (a) zero
 Oak-specific literals, (b) zero `process.env` reads (config injected), (c) no vendor
 telemetry provider imports, and (d) the `ScrubbedText` brand is minted (`as ScrubbedText`)
@@ -619,6 +625,7 @@ READMEs; register Ask Oisín as a runtime in
 | PII egress: inbound + tool-args, branded-type-enforced (WS2, WS10.1) | unit + integration + type | scrub tests + arg-capture test + compile failure on unscrubbed egress + deterministic outbound-payload assertion |
 | No Oak literals / no `process.env` / no vendor provider in the libs (WS5) | non-code | three grep gates over both lib `src/` trees |
 | Internal-only access + rate limits + retry de-dup (WS7) | integration | allow-list accept/reject (fail-closed) + over-limit reject + redelivery-not-reanswered tests |
+| Controls enforced on the assembled pipeline (WS5) | integration | factory test: non-allow-listed request rejected before any model call; redelivered event not re-answered |
 | Provider composition: continuation capture+flush; metadata-only (WS8) | integration | forced-failure captured+flushed; no content in events; redaction proven pre-transport |
 | GitHub MCP read-only attach (WS6) | unit | header assertions |
 | Streaming delivery (WS1.2, WS4.2) | unit + integration | askStream over a fake streaming model; sayStream stream opened/closed cleanly in the harness |
