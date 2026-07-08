@@ -187,6 +187,58 @@ reconcile:** the resonance owner canonicalised `[HEARTBEAT]`-filtered watchers a
 that portable rule should reconcile to it as an inbound conjugation item — the protocol's own
 proof of value (doctrine flowing INTO oak).
 
+**Provenance:** the subsection below is Orchid binds Verdure's 2026-07-06 session record,
+found staged-but-uncommitted in the `shared-model-synthesis` worktree during worktree
+cleanup (Callisto guards Penumbra, da9f8c) and preserved verbatim before that worktree's
+removal. Its forward pointers ("Next on this lane") are SUPERSEDED by the 2026-07-07
+WS0-landing update above; its landings (#309 synthesis, #311 durable copy + wiring) and
+identity row remain the authoritative record of that session.
+
+### RECOVERED RECORD (2026-07-06, committed 2026-07-08): INTER-PRACTICE KNOWLEDGE TRANSFER — oak now OWNS the resonance substance; synthesis + durable copy landed (2026-07-06)
+
+Session identity: Orchid binds Verdure (claude / claude-fable-5 / prefix `51a331`); =
+Vining Rustling Dew on the resonance estate (guest observer, no claim held). This session made
+the resonance→oak knowledge transfer **safe and complete** — oak holds its own
+filesystem-independent copy of the transferable methods, wired into the planning-estate rewrite.
+
+**Landed on `main`:**
+
+- **Shared-model synthesis** (#309, merge `0dcd11733`):
+  `reports/agentic-engineering/inter-practice-shared-model-synthesis-2026-07-06.md` — the *why*
+  both estates converged (the verification-scarce testimony economy; a nine-lens panel; the
+  confound resolution homology-vs-analogy; the third-estate falsifier; the recomputable-edge
+  unification; enrichment-as-recombination). Its §"Portable core" is the intended donor-neutral
+  **WS0-PDR preamble** for both estates.
+- **Oak's durable copy of the resonance methods** (#311):
+  `reference/resonance-practice-knowledge.md` — the *how*: the conservation method (freeze →
+  tiling ledger → challenge-the-clean → planted synthetic orphan → repoint-before-retire, with
+  the reference-class classifier + orphan-disposition taxonomy), the six-kind typed-proof
+  taxonomy + two-direction gate, workers + the three-clause verification doctrine, verification
+  economics, the recomputable-edge unification. Re-sourced first-hand, pin-free,
+  filesystem-independent. Adversarially verified (4-lens) before landing — the material catch was
+  a dropped PDR-125 clause 2 (loss-detection non-delegable to fresh context), restored.
+- **Planning-estate wiring** (#311): the planning-estate-rewrite plan gains a "Design inputs from
+  the inter-Practice exchange" section pointing WS2 / WS6 / WS7 at **oak's own copy** (never the
+  resonance checkout); ADR-200 deliberately not amended (reference-direction).
+
+**Renumber trued:** resonance's recomputable-state pair (delivered as PDR-128/129) renumbered to
+**PDR-129/130** at resonance's fork union; oak's durable copy + synthesis use the current numbers
+and document the renumber (additive supersession note — resonance's own discipline). Delivery-time
+surfaces (the incoming bundle, the WS6 assessment's source-citation) are left accurate-about-the-past;
+TFA (resonance) will verify the truing at the WS0 contact.
+
+**Box:** the reference doc graduates the 2026-07-05 teaching bundle's substance; the incoming-box
+copy is a clear-candidate at the next consolidation but stays tracked/safe until then.
+
+**Exchange coordination:** established guest comms with Sparking Tempering Spark (its r6/r7 estate
+re-founding close) then Thermal Floating Airstream (`d24947`, who holds the resonance
+inter-practice-exchange lane; the WS0+WS4 authoring folds into TFA's live session per the owner's
+ruling); heads-up + renumber flagged to TFA and acked; guest-observer seat stood down. No claim.
+
+**Next on this lane:** the cross-estate WS0+WS4 protocol-PDR authoring (folding into TFA's
+resonance session) consumes the synthesis Portable core + oak's durable copy; the planning-estate
+rewrite (WS2 onward) integrates the resonance methods from oak's copy, not the resonance checkout.
+
 ## CORPUS GENERALISATION — research complete, design not yet ratified (2026-07-03)
 
 Session identity: Rosemary stirs Bracken; model switched claude-fable-5 → claude-opus-4-8

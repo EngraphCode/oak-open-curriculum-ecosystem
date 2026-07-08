@@ -14,7 +14,9 @@ architectural seam:
 
 ## Current Continuation
 
-- **Branch**: `feat/slack-apps` (PR #328, open — design + planning estate).
+- **Branch**: `feat/slack-apps` — **PR #328 MERGED to main 2026-07-08
+  (`c7aa164ec`, merged by the owner; all 18 review threads dispositioned)**. The
+  remote branch is retirable per worktree-hygiene (content confirmed in main).
 - **Invocation pointer**: continue `oak-slack-assistants` from this record.
 - **Controlling plan**:
   [`ask-oisin.plan.md`](../../../plans/slack-assistants/current/ask-oisin.plan.md)
@@ -22,10 +24,10 @@ architectural seam:
   [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md).
   Telemetry resolution:
   [`slack-assistant-logging-observability-design.md`](../../../research/outreach/slack-assistant-logging-observability-design.md).
-- **Next safe step**: merge PR #328, then execute the plan — **WS-E1 (logger
-  portability) is parallel-safe immediately; WS0 scaffolds the three new
-  workspaces and lays the stratified adapter tier; WS-E2 (Sentry provider
-  decomposition) lands after WS0 (shared `boundary.ts` surface).** WS9+ consumes the
+- **Next safe step**: execute the plan — **WS-E1 (logger portability) is
+  parallel-safe immediately; WS0 scaffolds the three new workspaces and lays
+  the stratified adapter tier; WS-E2 (Sentry provider decomposition) lands
+  after WS0 (shared `boundary.ts` surface).** WS9+ consumes the
   owner-provisioned resources named in the plan's §Dependencies (production +
   dev Slack apps, Vercel project + Gateway BYOK, fine-grained PAT selecting
   `oak-skills`, Upstash Redis via Marketplace).
@@ -117,9 +119,24 @@ flawed reasoning — make it rock solid"). What changed:
   mechanics), ask-oak brief (machine identity; settled annotation answer),
   README + roadmap + this record.
 
+### Session close (Salamander weaves Warmth, 2026-07-08)
+
+PR #328 merged (`c7aa164ec`) after the rework + five follow-up landings (WS4
+dependency edge; skeleton DM/mention de-dup; semantic main-merge with the
+napkin union hand-authored; WS7-through-factory wiring + five-hook pin; PR
+description re-applied and verified). Closeout ran session-handoff +
+session-completion consolidation; graduations: the scope-parsimony
+anti-pattern + the pr-lifecycle intent layer; F-133 recurrence recorded;
+closeout changes left uncommitted on main (owner direction). The
+review-surface watcher and comms watcher stood down at close.
+
 ### PR #328 review-surface dispositions (updated 2026-07-08, Salamander)
 
-13 review threads harvested via GraphQL. Dispositions: **T0/T10**
+13 review threads were harvested via GraphQL at the first full-surface pass
+(T0–T12, dispositioned below); later push rounds brought the PR's total to 18,
+every one replied-to and resolved before merge (GraphQL-verified 2026-07-08:
+18/18 resolved — the "18" in the summary above counts the whole PR, this
+section enumerates the first pass). First-pass dispositions: **T0/T10**
 (`thread_ts` bug) — fixed in the skeleton; **T1** (dot-separated slug wording)
 — superseded text removed (no tombstone); **T2/T3** (broken
 plan-body-first-principles link) — stale, link no longer exists; **T4/T5**

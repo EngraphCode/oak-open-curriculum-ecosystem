@@ -2930,7 +2930,12 @@ commit SHA and the closing plan reference.
   supplies the scope) or from an explicit `--worktree` intent field; verify-staged and the
   inner commit then run against that tree.
 - **Target surface**: `agent-tools/src/commit-queue/commit-workflow.ts` (verify-staged + spawned git cwd).
-- **Status**: open. Same sanctioned workaround as F-132.
+- **Status**: open. Same sanctioned workaround as F-132. **Recurrence 2026-07-08**
+  (Salamander weaves Warmth, 4960fe, sack-plan-refinement worktree on feat/slack-apps):
+  identical mechanism — enqueue/record-staged anchored to the primary registry correctly,
+  verify-staged read the primary's empty index, intent `34b176e4` self-abandoned
+  ("missing: all 9"); landed via the sanctioned plain pathspec commit (`4e684f193`, full
+  hooks green). Second independent seat hitting it strengthens the cure's priority.
 - **Owner direction status**: standing (record-all-frictions).
 
 ### F-134 — root `pnpm build` does not build `@oaknational/result` (turbo graph gap)

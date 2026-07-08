@@ -56,6 +56,29 @@ New session observations append below.
   candidate: graduate as a clause in a collaboration/posture rule (or user-collaboration
   directive) at the next consolidation — the generator is "doctrine is the agent's yardstick,
   not the agent's authority over the owner."
+- **Landed outcome (PR #333 review round):** both remaining findings fixed in code and
+  pushed at `ec20d572c` (fix commit `f73307d22`, merged with the owner's v1.64.0-release
+  reconciliation `fe8a6baff`). Bugbot Low thread RESOLVED; Codex P2 `pre-rebase` thread still
+  OPEN — reply+resolve is the small next-session pickup (recorded in the strategy thread
+  record + repo-continuity). Gates green: `lint:shell:syntax`, `markdownlint:root`, full
+  pre-commit chain at commit time. Fix bytes verified present in the merged tree post-push.
+- **Grounded test-topology fact (conserve — a future agent testing a `pre-rebase` hook would
+  re-derive it):** git does NOT invoke `pre-rebase` for a rebase it treats as a no-op
+  ("Current branch X is up to date" — when the upstream is already an ancestor of the branch
+  tip). To exercise the hook you must rebase onto a **genuinely diverged** upstream (a commit
+  the branch lacks), or git skips the hook and the control reads as a false PASS. My first
+  harness had trunk as an ancestor of main, so the two branch-name-refusal controls (B4/B5)
+  silently passed by never running the hook; adding a diverged `devbase` fixed it (11/11).
+  The range-check controls (main INSIDE the rewritten range) fire correctly because that IS
+  real rebase work. Home: this is a scratch-harness-authoring fact; the harness itself is
+  ephemeral (scratchpad, never committed per the owner ruling above).
+- **Loss-scan (6e.2, from inside context):** nothing else survives the sweep unhomed. The fix
+  rationale (ambient `GUARD_BRANCH` is an ACCIDENTAL-drift risk not new adversarial power —
+  deliberate bypass already exists via `HUSKY=0`; guards are local hygiene, remote branch
+  protection is the invariant) is in the `f73307d22` commit body and the never-commit-to-main
+  rule. The reconciliation (owner merged the release + created `ec20d572c`) is in git history.
+  The Codex-reply content the next session needs is the range-check mechanism + the 11/11
+  proof, both captured in the thread record pickup.
 
 ## 2026-07-08 — Corsair guards Channel (ecdd12, dedicated consolidation): session observations
 
@@ -232,6 +255,49 @@ New session observations append below.
   pass; planted defect fires). Config-expert's NIT ("no gate syntax-checks the load-bearing
   guard") led straight to it — the follow-the-nit instinct paid.
 
+## 2026-07-08 — Salamander weaves Warmth (4960fe): closeout tail (the session's main entries are committed in main via PR #328 / c7aa164ec; these are the post-merge closing captures)
+
+- **Closeout loss-scan + late captures (compact mirror of the worktree closeout, placed here
+  because uncommitted-in-a-worktree is invisible — owner correction at close):** (1) hand-editing
+  the patterns README Pattern Index trips `validate-patterns-index` — use
+  `validate-patterns-index:fix` after adding a pattern file; (2) `git pull --ff-only origin main`
+  while ON a feature branch fast-forwards the FEATURE branch when main descends from it — update
+  local main without checkout via `git fetch origin main:main`; (3) the commit-queue
+  verify-staged worktree failure this session was **F-133 exactly** (recurrence recorded in the
+  frictions register); (4) consciously dropped: assumptions-expert's optional early-deploy
+  resequencing (WS9 on the stdout floor before full WS-E2) — rejected for the do-it-properly
+  shape; (5) "turbo cache makes the pnpm-check re-run cheap" was false — gitleaks/markdownlint/
+  repo-validators run outside turbo, full-tree, every time (~12 min regardless); (6) graduations
+  landed this closeout: `patterns/scope-parsimony-is-not-discipline.md` + the pr-lifecycle
+  intent layer ("what a PR is"), PDR candidate registered in pending-graduations. Session-mortal
+  by design: the 534-claim register JSON, verifier evidence quotes, workflow journals.
+- **Owner correction at close: do not assign gender to agents unless self-declared** — I
+  repeatedly wrote "his" for a peer agent in chat despite the always-on
+  `agents-default-no-gender` rule. Artefacts scanned clean (the violation was speech-only);
+  the rule covers speech too. Use the agent's name or "their".
+
+- **Owner correction (deep, third escalation of the same class): my model of what a PR IS was
+  wrong, and the falsehood it produced proves it.** Revealed operating model: PR = delivery
+  vehicle; comments = an objection queue to clear; done = green + mergeable + zero unresolved.
+  Symptoms in one hour: reported "MERGEABLE" as if it meant progress while three threads sat
+  unresolved; re-harvested the review surface only when chased; queued a thread reply in the
+  same script as its own verification check WITHOUT gating on the result — and posted a FALSE
+  disposition to the PR record (claimed the stale description text was gone; it was live;
+  Copilot was right). Corrected model: **a PR is the structured conversation through which a
+  proposed change earns the right to become shared truth (main is the only durable home; the
+  PR is the airlock), and the durable RECORD of that earning.** Consequences: review threads
+  ARE the mechanism, not friction — each comment is a claim entitled to full epistemics
+  (verify → adjudicate → integrate or refute with evidence); "resolved" is the outcome, never
+  the goal; the conversation outranks new work while the PR is open (a reviewer finding is a
+  bug report against the proposal — session priority #1); the description is part of the
+  proposal and must stay true as the diff moves (and gh pr edit must be VERIFIED to stick —
+  bot summary re-appends can mask a failed edit); disposition replies are permanent record —
+  a false one poisons the well for every future reader (in this repo literally: Ask Oisín
+  will answer questions from PR records). "Mergeable" is a git-graph fact; READINESS is
+  conversation-complete + record-true. GRADUATION CANDIDATE: add the intent layer to the
+  pr-lifecycle skill preamble — the skill encodes the mechanics (harvest, re-fetch after
+  every push, truly-green); this failure was intent-level, above the mechanics.
+
 ## 2026-07-08 — Gale guards Eyrie (33f49e, slack-assistants estate): session observations
 
 Verified the Ask Oisín/Ask Oak design doc, authored the `slack-assistants` plan collection, ran three
@@ -375,3 +441,42 @@ reasoning"); full-claim verification + decision-complete rework, all on `feat/sl
   Registry writes (enqueue/record-staged) anchor to the primary correctly; only the git READ
   is mis-anchored. Sanctioned plain pathspec commit used (F-132/F-133 precedent, full hooks
   green); cure home: the coordination-home-cli-path-defaulting plan.
+
+## Recovered 2026-07-08 — Orchid binds Verdure (51a331) entry, dated 2026-07-06
+
+The entry below was found staged-but-uncommitted in the `shared-model-synthesis`
+worktree during worktree cleanup (Callisto guards Penumbra, da9f8c) and is
+preserved verbatim before that worktree's removal.
+
+### 2026-07-06 — inter-Practice knowledge transfer made durable (Orchid binds Verdure / 51a331)
+
+- **A cross-estate knowledge transfer is not safe until the RECEIVER owns the substance, not a
+  pointer to the donor's filesystem.** Owner's sharp correction: oak's planning-estate integration
+  cannot cite resonance's files — the sibling checkout will not always be present. Cure: re-source
+  the methods first-hand into oak's own pin-free reference doc
+  (`reference/resonance-practice-knowledge.md`) WHILE the donor is present, and point the plan
+  wiring at oak's copy. The exchange's own concepts-vs-pointers layering says the same: substance
+  travels, not pointers.
+- **Verify a knowledge-transfer capture adversarially BEFORE landing — my re-expression dropped a
+  load-bearing clause.** A 4-lens workflow (fidelity / completeness / filesystem-independence /
+  integration) over the draft caught that I wrote "both clauses" for PDR-125 but silently dropped
+  clause 2 (loss-detection is non-delegable to fresh context) — the clause most relevant to the
+  WS7 no-loss audit it routes to — plus four completeness gaps that lived only in the donor's
+  checkout (blind-net extraction, reference-class classifier, orphan-disposition,
+  conserve-concepts-not-structure). The semantic-merge skill's "both the tool AND the merger can
+  be confident-and-wrong" generalises to knowledge transfer: the authoring agent is wrong exactly
+  where its own frame has gaps; a fresh-context adversarial read is the only catch.
+- **Worktree isolation under a contended shared checkout.** A peer session held the primary
+  checkout (juggling PRs across branches); my untracked report followed its branch-switch into its
+  tree. Cure (owner-flagged): a dedicated worktree off `main` with its OWN git index — zero index
+  collision with the peer's primary commits — and coordinate via the ARC channel; never write
+  source into a peer's active checkout.
+- **`gh pr update-branch` is a local-pre-push-free BEHIND cure, and its merge is provably clean.**
+  For a docs branch behind `main` under strict-up-to-date, a server-side `gh pr update-branch`
+  merges `main` in with no local gate; prove semantic safety by `git diff origin/main
+  <merged-head> --stat` = only your intended files (a memory/state file changed on one side only is
+  taken verbatim — no line-merge, no corruption).
+- **Applied the donor's own additive-supersession-note discipline to cure the PDR renumber** rather
+  than mutating historical/delivery-time references (accurate about the past): the durable copy
+  carries the current numbers and documents the renumber. The method taught in the transfer cured a
+  problem in the transfer's own curation.

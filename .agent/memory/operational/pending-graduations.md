@@ -115,3 +115,12 @@ fields once left four items reading as a clean register (vacuous-green in a
 debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
+
+- **PR-as-earning-and-record as portable Practice doctrine** `[captured: 2026-07-08 |
+  source: napkin (Salamander weaves Warmth, 4960fe — PR #328 closeout; owner correction
+  "change your idea of what a PR is") | target: PDR (portable: review conversations are
+  first-class — a PR is the structured conversation through which a change earns shared
+  truth, and the durable record of that earning; the host-level enforcement already landed
+  in the pr-lifecycle skill preamble 2026-07-08) | trigger: a second estate needs the
+  doctrine (inter-Practice exchange) OR the next Practice-core refinement window |
+  size: S | status: pending]`

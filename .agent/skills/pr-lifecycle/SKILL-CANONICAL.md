@@ -29,6 +29,38 @@ claim-close, monitor-stop) while the work is unmerged is the error: a
 feature branch with an open PR is one cleanup away from gone, and the
 owner's merge signoff is a gate, never a handoff of ownership.
 
+## What a PR is (the intent under every phase below)
+
+**A PR is the structured conversation through which a proposed change earns the
+right to become shared truth — and the durable record of that earning.** `main`
+is the only durable home; the PR is the airlock between one seat's view of the
+system and everyone's system, and the review conversation is not friction on the
+way through the airlock — it IS the airlock. Consequences the mechanics below
+assume but cannot themselves supply (owner correction, 2026-07-08, worked
+instance: a seat reported "MERGEABLE" as progress while threads sat unresolved,
+then posted a disposition reply un-gated on its own verification — a false claim
+into the permanent record):
+
+- **Every comment is a claim entitled to full epistemics** — verify, adjudicate,
+  integrate or refute with evidence. *Resolved* is the outcome of that
+  treatment, never the goal; racing resolution inverts the artefact.
+- **While a PR is open, the conversation IS the work.** A reviewer finding is a
+  bug report against the proposal — session priority #1, ahead of new work. A
+  push changes the proposal, so the entire review surface is stale the moment
+  it lands: re-harvest and disposition before reporting anything.
+- **The record outlives the merge.** Description + threads + dispositions are
+  how future readers (and agents answering from PR history) recover *why* the
+  change is what it is. A false disposition reply poisons that well permanently
+  — gate every reply on its own verification, and VERIFY description edits
+  actually stuck (bot summary re-appends can silently mask a failed edit).
+- **"Mergeable" is a git-graph fact about ancestry, not readiness.** Readiness
+  is a property of the conversation: every thread dispositioned with evidence,
+  every check green, the description true of the *current* diff, the record
+  coherent for a reader who was not there. Report in those terms.
+- **The PR exists to structure shared attention** so nobody has to chase state;
+  making the owner chase threads defeats the artefact even when the diff is
+  perfect.
+
 ## Phase 1 — Before opening
 
 1. **Divergence**: `git fetch origin main`; if behind, merge `origin/main`
@@ -68,7 +100,7 @@ surfaces. Partial reads produce false "no problems" verdicts:
 2. **Issue comments and reviews** — full bodies, never truncated skims; a
    Sonar gate summary or a bot capability notice lives here.
 3. **All checks** — `gh pr checks`, including the external ones (SonarCloud,
-   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's _first_ failure is
+   CodeQL, Vercel, Cursor Bugbot, Codex). A failed check's *first* failure is
    the root to chase: a 20-second `install` failure cascades into skipped
    builds and a failed deployment — fix the root, not the echoes.
 4. **Sonar quality gate** — when it fails, pull the ACTUAL issues
