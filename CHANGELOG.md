@@ -1,3 +1,17 @@
+# [1.64.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.4...v1.64.0) (2026-07-08)
+
+
+### Bug Fixes
+
+* **hooks:** guard git am via pre-applypatch and reinstate referenced incoming files (PR 332 round 2) ([edec048](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/edec048a39e7e1e45e360d48ee498c594656bd07))
+* **hooks:** match shell-lint interpreter to shebangs; clarify HUSKY=0 (PR 332 round 3) ([f88ef1f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f88ef1f7d43363defa71b9a597a37cccbd6233ed))
+* **hooks:** preserve bash -n exit codes in lint:shell:syntax (PR 332 round 1) ([622240b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/622240bcc3bc63642506924889c2c53f8082508d))
+
+
+### Features
+
+* **hooks:** refuse local commits on main via a three-hook shared guard ([ad83057](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ad830571ba21afad8d7add8a367f4a655caa2871))
+
 ## [1.63.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.63.3...v1.63.4) (2026-07-08)
 
 
