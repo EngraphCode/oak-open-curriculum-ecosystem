@@ -117,6 +117,6 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
   zsh var-through-pipe; Goshawk eslint-pipe-tail x2; Rigel head-masked refusal exit on the
   plan-state ratification probe) | target: verify-dont-trust rule (or a sibling clause in
   read-diagnostic-artefacts-in-full) — the generalised form: a pipeline's exit status is the
-  tail's; read`$?` off the bare command or `${PIPESTATUS[0]}`, and treat any success echo chained
+  tail's; read $? off the bare command or PIPESTATUS[0], and treat any success echo chained
   after a pipe as unproven | trigger: next consolidation pass (rides the due napkin
   processing) | size: S | status: pending]`
