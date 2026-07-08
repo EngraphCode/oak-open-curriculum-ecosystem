@@ -19,7 +19,27 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-07 close, Goshawk calls Sundog 970bdc — R0a MERGED `af6c285e5`; G1 DISCHARGED in-chat; next = R0b)
+## Where We Are (2026-07-08 close, Rigel turns Void c6080b — R0b MERGED `751ce9699`; next = R0c)
+
+**The single pickup surface for the next session is the PDR-063 handoff record**
+[`handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md`](../../state/collaboration/handoffs/2026-07-08-rigel-r0b-merged-and-r0c-runway.md)
+on claim `7b10679e` (retained; fifth runway handoff Wildfire→Stoat→Leopard→Goshawk→Rigel→next;
+**successor owner-named: Pelican calls Spray, 55b041** — adopt on arrival, runway clean).
+Headlines: **R0b is complete on main** (PR #323 owner-merged truly-green at `751ce9699`,
+release 1.63.0): the plan-state recomputation engine — one deterministic engine, two adapters
+(permanent gate over V0/V0.1 frontmatter; disposable audit over census records), the
+`plan-state` CLI, and status-mapping table v1 (OG-2 ratification PENDING; the CLI mechanically
+refuses audit mode on the unratified default) — plus two shared-surface hardenings
+(dangling-symlink write refusal; terminal control-char stripping). Both review moments ran
+(pre-execution APPROVED-WITH-RESOLUTIONS; seven-seat gateway absorbed at source, two convergent
+must-fix classes). PR #320 also merged (`c703dce16`). **Next: R0c** (owner-gate register — add
+the OG-2 row — + cost ledger; Stoat's §3 contracts still BINDING); first truing owed = the
+`r0b-plan-state-tool` todo still reads `pending`. Then r1, gated on G2+G3 (+OG-2 for audit
+mode). The OG-2 agenda, the R1-runway core/-extraction named item, and the owner-gated residue
+(primary realign now three closeout commits deep; branch/worktree disposals; Zodiac queue
+clearing) live in the handoff record §3–§4.
+
+## Where We Were (2026-07-07 close, Goshawk calls Sundog 970bdc — R0a MERGED `af6c285e5`; G1 DISCHARGED in-chat; next = R0b)
 
 **The single pickup surface for the next session is the PDR-063 handoff record**
 [`handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md`](../../../state/collaboration/handoffs/2026-07-07-goshawk-g1-discharged-and-r0b-runway.md)
@@ -245,3 +265,4 @@ loss-scan):
 | Perseus lifts Umbra | claude-code | claude-opus-4-8[1m] | 5af536 | two-altitude knowledge-as-graph research (report `knowledge-as-graph-two-altitudes-2026-06-23.md`, initial-research → incoming engineer's brief); **amended ADR-200 (owner-directed): realisation edges §5 + family-entailment §Future state**; live Aila adaptation experiment + LTAE build-vs-reuse read of Aila's code (evidence in reference-local); added Q-009; did NOT advance the WS2 rewrite lane (WS2 remains the next step) | 2026-06-23 | 2026-06-23 |
 | Wildfire herds Sulphur | claude-code | claude-fable-5 | 839565 | **corpus-refounding commission → protocol design → landing** (owner-directed 2026-07-06): estate-wide identification sweep; cross-estate design collaboration with the resonance exchange seat (Kiln tracks Basalt, 2a5066) under the inter-practice protocol; 6-designer + 4-critic PDR-123 panel; authored `plan-corpus-refounding.plan.md` (P1–P14, J1–J9, owner-gate register incl. G-ADR) + the design record + the dated `planning-estate-rewrite` amendment (`ws-r-corpus-refounding` gates ws6); donor-seat adversarial review absorbed (sound-with-revisions, zero overturns; B1 planted-loss challenge canaries, B2 WS6 substrate statement); WS2 untouched and unchanged as next parallel step | 2026-07-06 | 2026-07-06 |
 | Goshawk calls Sundog | claude-code | claude-fable-5 | 970bdc | R0 successor #3 (runway pickup from Leopard): executed the main→t3 merge-forward + the two promised consolidations; opened + shepherded PR #321 to a truly-green self-merge (`af6c285e5` — R0a COMPLETE); ran the owner-approved six-reviewer gateway on cycles 3–4 and absorbed three bot rounds; landed `validate-ratified-lists` (owner correction: doc↔code sync = validator work) + the gate-agenda insertions; ran the in-chat G1 sitting with the owner (all seven rulings; packet §9; freeze rule ratified) and landed it as PR #322; recorded the Walk-A derivation input + WS6 harvest-scope strengthening; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-07 |
+| Rigel turns Void | claude-code | claude-fable-5 | c6080b | R0 successor #4 (standby→adoption per the runway pattern): built + landed R0b — the plan-state engine, two adapters, CLI, table v1 (pre-execution review + seven-seat gateway both absorbed; two shared-surface security hardenings); PR #323 shepherded truly-green (owner-merged 751ce9699); trued the r0a todo (7c984a555); registered the pr-lifecycle classifier-merge-boundary candidate; closeout handoff on retained claim `7b10679e` | 2026-07-07 | 2026-07-08 |

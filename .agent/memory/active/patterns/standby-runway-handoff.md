@@ -3,7 +3,7 @@ name: "Standby Runway Handoff: A Named Successor Grounds on a Benched Seat While
 polarity: pattern
 use_this_when: "Rotating a long-running lane between sessions under context-budget pressure — an owner-named successor needs to take over WITHOUT a coordination gap, duplicate claims, or a fragile mid-work pickup."
 category: collaboration
-proven_in: "plan-corpus-refounding R0 lane, three consecutive rotations in one arc (2026-07-07): Stoat→Leopard (push-style), Leopard's own pickup (pull-style self-park), Leopard→Goshawk (clear-at-arrival)."
+proven_in: "plan-corpus-refounding R0 lane, four consecutive rotations in one arc (2026-07-07/08): Stoat→Leopard (push-style), Leopard's own pickup (pull-style self-park), Leopard→Goshawk (clear-at-arrival), Goshawk→Rigel (pull-style: 25-min standby window, grounding completed inside it, adopt+ACK on the runway-clear broadcast)."
 proven_date: 2026-07-07
 barrier:
   broadly_applicable: true

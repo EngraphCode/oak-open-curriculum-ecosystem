@@ -110,3 +110,24 @@ finding). `target` must name a doctrine surface (rule / PDR / ADR / pattern /
 governance doc); if it names a plan or report, the item belongs elsewhere.
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
+
+- **Quiet-pipe exit-mask — verification probes and gates run BARE; never key success or an
+  exit-code read off a pipeline tail**
+  `[captured: 2026-07-08 | source: napkin — four worked instances across three seats (Stoat
+  zsh var-through-pipe; Goshawk eslint-pipe-tail x2; Rigel head-masked refusal exit on the
+  plan-state ratification probe) | target: verify-dont-trust rule (or a sibling clause in
+  read-diagnostic-artefacts-in-full) — the generalised form: a pipeline's exit status is the
+  tail's; read $? off the bare command or ${PIPESTATUS[0]}, and treat any success echo chained
+  after a pipe as unproven | trigger: next consolidation pass (rides the due napkin
+  processing) | size: S | status: pending]`
+
+- **Classifier merge boundary in pr-lifecycle Phase 7 — the truly-green gate authorises
+  merge-READINESS, not the merge of a self-authored self-reviewed PR**
+  `[captured: 2026-07-08 | source: napkin 2026-07-08 Rigel closeout captures (worked
+  instance: PR #323 gh-pr-merge classifier denial despite CLEAN/18-checks/0-threads;
+  resolved by the owner's own click 06:46Z; prior partial instance: the #320 scope note,
+  Goshawk 2026-07-07) | target: pr-lifecycle SKILL-CANONICAL Phase 7 — a clause naming
+  that the auto-mode classifier requires an in-session owner grant (or the owner's click)
+  for a self-authored PR whose reviews were the agent's own sub-agents; broadcasts say
+  "merge-ready", never promise "merge on truly-green" | trigger: next pr-lifecycle skill
+  touch, or the next truly-green self-authored PR moment | size: S | status: pending]`
