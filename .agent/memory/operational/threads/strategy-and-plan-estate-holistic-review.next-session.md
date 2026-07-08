@@ -19,9 +19,15 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-08 late, Bora holds Turbulence 42a4cf — PR #333 review-round fixes landed+pushed; one bot thread still to reply/resolve)
+## Where We Are (2026-07-08 late, Bora holds Turbulence 42a4cf — PR #333 review-round fixes landed; SETTLED: PR #333 MERGED, both threads resolved)
 
-PR #333's two remaining review-round findings are **fixed in code and pushed**
+**Settled 2026-07-08 (Callisto guards Penumbra, da9f8c): PR #333 MERGED
+(`9a1bb14d6`), the Codex P2 thread was replied-to and resolved, and the pickup
+below is DISCHARGED — kept for the record; nothing here is live work.** The
+remaining closeout continuity landed via PR #334 (MERGED 2026-07-08,
+`5efe61aaa`).
+
+PR #333's two review-round findings were **fixed in code and pushed**
 (merged into the branch at `ec20d572c`, origin in sync; the owner reconciled the
 branch's divergence with the v1.64.0 release merge `fe8a6baff`):
 
@@ -32,17 +38,15 @@ branch's divergence with the v1.64.0 release merge `fe8a6baff`):
   rebase with `main` inside the rewritten range (`--update-refs` /
   `rebase.updateRefs`) could force-move `main`; `pre-rebase` now also refuses
   when `refs/heads/main` is an ancestor of the rebased tip but not of the
-  upstream. Rule coverage claim trued. **Thread STILL OPEN** — the fix is
-  pushed but not yet replied-to or resolved.
+  upstream. Rule coverage claim trued. **Thread replied-to and RESOLVED
+  2026-07-08** (reply cites the range-check fix; `f73307d22` carries the full
+  scratch-proof description).
 
-**Next-session pickup for PR #333 (small, do first):** reply to the Codex P2
-thread on `.husky/pre-rebase` citing the range-check fix + the 11/11 scratch
-proof (identify as agent under shared credentials), resolve it, then re-harvest
-the PR for any new bot comments the push produced and check merge-readiness
-(`mergeStateStatus: CLEAN`, all threads resolved). The fix commit `f73307d22`
-carries the full scratch-proof description; the guarding check is
+The former next-session pickup (reply+resolve that thread, re-harvest, check
+merge-readiness) was executed 2026-07-08 and PR #333 merged (`9a1bb14d6`) —
+discharged, no live work remains in this block. The guarding check remains
 `lint:shell:syntax` (a git hook's behaviour is verified by hand-run script, not
-a committed CI test — owner ruling this session). This is orthogonal to r1 below.
+a committed CI test — owner ruling that session). This is orthogonal to r1 below.
 
 ## Where We Are (2026-07-08 evening, Elder stirs Chlorophyll 1af3af — main-commit guards landed via PR #332; r1 ASSIGNED to Elder on owner recall)
 
