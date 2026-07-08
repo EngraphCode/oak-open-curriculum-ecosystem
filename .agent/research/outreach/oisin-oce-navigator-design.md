@@ -2,9 +2,10 @@
 
 > Verified against primary vendor documentation and the live Oak Curriculum MCP on 2026-07-08.
 > Owner rulings folded in 2026-07-08: **pragmatic PII egress** (§Security), **running-text matcher
-> deferred** for v1, **build v1 now** (no demand gate). The app **framework choice is provisional**
-> pending incoming canonical Next.js/React resources — see §Implementation shape and the revisit
-> register. What else remains open (the invite-only Oak MCP alpha specifics and the
+> deferred** for v1, **build v1 now** (no demand gate). The app framework is **settled: Next.js App
+> Router** (2026-07-08) — the `@vercel/slack-bolt` adapter is Web-Request-native, so Next.js is the
+> right host for *this* use case (not a precedent copy of the MCP app's Express). React *components*
+> stay out of scope for v1 (Slack Block Kit only). What else remains open (the invite-only Oak MCP alpha specifics and the
 > `@vercel/slack-bolt` receiver wiring) is in Caveats.
 
 **Ask Oisín** (Open Curriculum Ecosystem Navigator, OCEN) is a Slack bot that answers questions about the *project*: the OCE repo, the approaches, the strategy, the Practice, the vision, and the current planning state. It grounds in the `oaknational/oak-open-curriculum-ecosystem` GitHub repo, where the `under-the-hood` skill and the `.agent/` directives, PDRs/ADRs, `principles.md`, and planning state live. Oisín reads that repo **live, through the official remote GitHub MCP server (read-only)** — attached with the same AI SDK MCP client that Ask Oak uses for the Oak Curriculum MCP. **Nothing is vendored.** Surfacing the Oak Curriculum MCP as a source of *curriculum content* — lessons, threads, misconceptions, EEF evidence — is a separate concern handled by a separate app, **Ask Oak**. Two apps, one shared pattern — each attaches exactly one read-only MCP over HTTP — both hosted on Vercel.
@@ -25,7 +26,7 @@ Oisín is invoked as `@ask-oisin` (the display name carries the Irish accent, "A
 Both apps are separate Slack apps (two manifests, two bot users, two tokens) built on the same codebase — the same invocation set, the same Vercel + `@vercel/slack-bolt` runtime, the same AI SDK + AI Gateway model layer, and the same "attach one read-only MCP, run a bounded tool loop" shape.
 
 ## TL;DR
-- Host on Vercel as a headless app using the official `@vercel/slack-bolt` adapter, which uses Fluid compute's `waitUntil` to acknowledge Slack inside its 3-second window while the model call continues in the background. **Reuse the repo's proven Vercel-headless harness** (`apps/oak-curriculum-mcp-streamable-http`: Express 5 + esbuild + observability + rate-limiting + Clerk) rather than introducing Next.js; the exact HTTP framework is **provisional** pending incoming canonical Next.js/React resources. Socket Mode is not usable on Vercel (no long-lived process); it stays a local-dev convenience only.
+- Host on Vercel as a **Next.js App Router** app using the official `@vercel/slack-bolt` adapter, which uses Fluid compute's `waitUntil` to acknowledge Slack inside its 3-second window while the model call continues in the background. Next.js is settled because the adapter is Web-Request-native (`export const POST = createHandler(app, receiver)`) — Express is not one of its targets. Reuse the MCP app's observability / rate-limiting / Clerk **packages**, not its Express router. Socket Mode is not usable on Vercel (no long-lived process); it stays a local-dev convenience only.
 - Use the AI SDK with the Vercel AI Gateway (BYOK) as the model layer, not the raw Anthropic SDK. It is zero-markup on tokens (including under BYOK), gives spend/latency observability and cross-provider failover, offers a Zero-Data-Retention routing toggle, and composes cleanly with the Slack adapter. Both apps call `generateText` with a bounded tool loop (`stopWhen: isStepCount(…)`): Oisín with the GitHub MCP tools attached, Ask Oak with the Oak MCP tools attached. Route with a current Gateway model slug (dot-separated, e.g. `anthropic/claude-sonnet-5`) — **not** the legacy `claude-sonnet-4-5`.
 - Ground Oisín by reading the repo **live** through the official remote GitHub MCP server (read-only, `repos` toolset), attached via the AI SDK MCP client — no vendoring, ever. The repo is public; there is no anonymous mode, so the one credential is a fine-grained PAT with read on it (plus the private `oak-skills` repo, for tone-of-voice). The Oak Curriculum MCP stays out of Oisín entirely: its `oak-under-the-hood` tool only returns a pointer back to the same repo.
 - **PII: pragmatic egress (owner ruling).** The user's own deliberately-typed question is the only sanctioned egress; author identity is stripped, structured PII scrubbed, nothing logged or persisted outside Slack, and ZDR is on. See §Security, privacy, and PII for the full boundary.
@@ -35,7 +36,7 @@ Both apps are separate Slack apps (two manifests, two bot users, two tokens) bui
 
 **The Vercel serverless-vs-Slack problem is solved.** Historically, Bolt on serverless was painful — ack fast to beat Slack's 3-second timeout and the long-running work gets killed when the function returns; wait for the work and Slack times out. The official `@vercel/slack-bolt` adapter closes that gap using Fluid compute streaming and `waitUntil`, so you keep Bolt's `app.event`/`app.command`/`app.message` ergonomics on serverless. It works with any Web Request framework (Hono, Nitro, Next.js), with Express possible but against the grain. (Fluid compute is now default-on for new Vercel projects; only pre-existing projects need the toggle.)
 
-**The repo already has a working template for this class of service.** `apps/oak-curriculum-mcp-streamable-http` is a Vercel-deployed, observable, rate-limited, **Clerk-authenticated** headless app built on Express 5 + esbuild, consuming the shared workspace packages (`@oaknational/result`, `env`, `env-resolution`, `logger`, `observability`, `sentry-node`, `type-helpers`, `build-metadata`). Its build/deploy/observability/rate-limit/Clerk harness is the expensive, reusable part — the HTTP router is the cheap part. Ask Oak's Clerk-backed OAuth is the same auth pattern this app already solved.
+**The repo already has a working template for this class of service.** `apps/oak-curriculum-mcp-streamable-http` is a Vercel-deployed, observable, rate-limited, **Clerk-authenticated** headless app built on Express 5 + esbuild, consuming the shared workspace packages (`@oaknational/result`, `env`, `env-resolution`, `logger`, `observability`, `sentry-node`, `type-helpers`, `build-metadata`). Its observability / rate-limit / Clerk **packages** are the expensive, reusable part — the HTTP router is the cheap part and does **not** transfer (Express fits an MCP-SDK server; Ask Oisín uses a Next.js route handler via `@vercel/slack-bolt`). Ask Oak's Clerk-backed OAuth is the same auth pattern this app already solved.
 
 **The AI Gateway is the right model layer here.** Tokens cost the same as going direct to Anthropic, with zero markup, including under BYOK; on top you get a spend/latency dashboard, automatic cross-provider failover, and an optional team-wide Zero-Data-Retention routing toggle. ZDR should be **on** for an internal tool handling Oak's own material.
 
@@ -68,11 +69,11 @@ apps/slack/ask-oak/                # thin: config + deploy harness
 
 **Separating Oak config from general functionality → a publishable core.** Express the seam as a factory, `defineSlackAssistant(config)`: the framework is tier 1, the `config` object *is* tiers 2–3. The test for placement: *would someone else's bot need this unchanged?* → framework; *would they change a value?* → config; *would they change logic?* → it's mis-placed. Held to that line, `slack-assistant` has zero Oak in it and is open-sourceable as a "grounded Slack assistant over any MCP" framework, which serves the openness principle and is exactly the "others spin up their own versions" goal. Draw the seam so **Slack is one adapter** over a surface-agnostic "grounded assistant" core (prompt + MCP tools + egress guard); don't build other adapters now, but the seam keeps a future web/CLI adapter cheap.
 
-**Framework provisionality and revisit register.** The Express 5 + esbuild recommendation is reasoned from the *current* proven pattern; canonical Next.js/React resources and additional workspaces are incoming and may carry an org framework standard that outranks precedent. Reopen each of these when they land:
+**Framework: settled, plus a revisit register.** The app framework is **Next.js App Router** (settled 2026-07-08): choosing `@vercel/slack-bolt` for its `waitUntil` ack chooses a Web-Request framework, and Next.js is the canonical Vercel host, already in the monorepo (the demo). This is a fit-for-use-case choice, not a copy of the MCP app's precedent — precedent is not correctness. Incoming canonical Next.js/React resources will supply shared config/conventions to adopt, not change the framework. Reopen the register rows below when they land:
 
 | Item | Status now | What would change it |
 |---|---|---|
-| App HTTP framework (Express/esbuild vs Next.js) | **Provisional** — from the MCP-app precedent | An org Next.js/React standard or shared config workspace |
+| App HTTP framework | **Settled: Next.js App Router** (adapter is Web-Request-native) | Incoming shared Next.js config workspace → adopt its conventions (a config alignment, not a framework change) |
 | `packages/libs/slack-assistant` | Safe to design now — surface/framework-agnostic | Only if the standard mandates a specific runtime shape |
 | Web-surface adapter (surface-agnostic core opportunity) | **Deferred** — this is the React/Next surface | Gated on canonical Next.js/React resources + `react-component-expert` + `accessibility-expert` review |
 | Any feedback/admin/config **UI** beyond Slack Block Kit | Deferred | Same gate as the web adapter |
@@ -122,7 +123,7 @@ Block Kit (suggested prompts, feedback buttons, mrkdwn) is not React, so v1 is R
 5. Claude reads the repo live through the GitHub tools and answers. Curriculum-content questions are handed to Ask Oak rather than guessed. Answers cite the repo path used, so users can verify.
 6. The handler posts the answer as Slack `mrkdwn`, appends an LLM-content disclaimer, sets the thread title, and optionally shows an (accessible) feedback affordance whose state lives in Slack.
 
-**Hosting & runtime (Vercel).** A headless app deployed with the repo's proven Vercel harness (Express 5 + esbuild, mirroring `apps/oak-curriculum-mcp-streamable-http`; **framework provisional** — see §Implementation shape). The Slack request URL is wired to Bolt through `@vercel/slack-bolt`; the route sets `maxDuration` high enough to cover model **plus live GitHub tool** latency after the fast ack, and Fluid compute keeps the function running for `waitUntil` (default-on for new projects). Socket Mode cannot run on Vercel; keep it only for a local dev process if wanted.
+**Hosting & runtime (Vercel).** A **Next.js App Router** app on Vercel (settled). The Slack request URL is an App Router route handler wired to Bolt through `@vercel/slack-bolt` (`export const POST = createHandler(app, receiver)`), reusing the MCP app's observability / rate-limit / Clerk packages (not its Express router); the route sets `maxDuration` high enough to cover model **plus live GitHub tool** latency after the fast ack, and Fluid compute keeps the function running for `waitUntil` (default-on for new projects). Socket Mode cannot run on Vercel; keep it only for a local dev process if wanted.
 
 **AI layer.** The AI SDK routes through the AI Gateway by passing a dot-separated `creator/model` slug — `anthropic/claude-sonnet-5` for the default, or `anthropic/claude-opus-4.8` for higher quality — not the legacy `claude-sonnet-4-5`. BYOK is configured once in the Vercel dashboard. Anthropic knobs (prompt caching, betas) pass through `providerOptions` keyed by `anthropic`. Turn on the Gateway ZDR toggle.
 
@@ -158,7 +159,7 @@ Applied to the decisions that changed:
 
 - **The split (one app vs two).** Lens 1 favours the split: isolating Ask Oak's invite-only OAuth dependency from a ship-now app is the cleaner boundary. Lenses 3–4 resist duplicated deployment, and the third option they force is the one adopted — one shared codebase, two thin app configs. Lens 5: staff get Ask Oisín now, teachers get Ask Oak when the alpha opens. → two apps, one codebase.
 - **Oisín's grounding (live GitHub vs vendoring vs the Oak MCP).** Lenses 1–2 favour reading the repo live: one live source with nothing to drift, carrying file-level planning state the pointer-only `oak-under-the-hood` cannot. Lens 4 dissolves the "which surface" question. Lens 3: one credential, one tool loop. → live GitHub read; no vendoring; no Oak MCP for Oisín.
-- **Hosting and model layer.** Lens 1: the managed path buys observability and failover at a mild, reversible lock-in cost. Lenses 3 and 5: simplest path to staff. → Vercel + AI Gateway (framework provisional per §Implementation shape).
+- **Hosting and model layer.** Lens 1: the managed path buys observability and failover at a mild, reversible lock-in cost. Lenses 3 and 5: simplest path to staff. → Vercel + AI Gateway, with **Next.js App Router** for the HTTP layer (settled — fit to the Web-Request adapter, not a precedent copy).
 - **The running-text matcher.** Lens 3 (simpler without losing value) and lens 4 (change the system, dissolve the problem): dropping it removes the double-fire bug and the channel-wide PII surface at negligible cost to real usage. → deferred for v1.
 
 **Metacognition skill — the routing driver.** Oisín answers project questions from the repo and hands curriculum questions to Ask Oak rather than confabulating; Ask Oak defers project questions to Oisín.
@@ -169,7 +170,7 @@ Applied to the decisions that changed:
 
 The continuity directive still applies: capture surprising failures (alpha auth expiry, a GitHub rate-limit or PAT-scope surprise, a Gateway routing surprise) into the `capture → distil → graduate → enforce` pipeline.
 
-### 5. Starter code skeleton (TypeScript, Vercel; framework provisional — see §Implementation shape)
+### 5. Starter code skeleton (TypeScript, Next.js App Router on Vercel)
 
 **Ask Oisín app manifest (`manifest.oisin.yaml`):**
 ```yaml
@@ -353,7 +354,7 @@ For production, both apps: add token-by-token streaming with `streamText` + Slac
 
 ### 6. Doc references supporting each decision
 - `@vercel/slack-bolt` adapter — Fluid compute + `waitUntil`; Web-Request-native (Hono/Nitro/Next); `createHandler(app, receiver)`: Vercel changelog "Build Slack agents with @vercel/slack-bolt" and the package README.
-- Repo precedent — `apps/oak-curriculum-mcp-streamable-http` (Express 5 + esbuild + Clerk + observability + rate-limiting on Vercel) and its shared workspace deps.
+- Reused packages — `apps/oak-curriculum-mcp-streamable-http` (Clerk + observability + rate-limiting on Vercel) supplies shared workspace packages to reuse; its Express router is **not** reused (Ask Oisín is Next.js App Router — the framework is chosen for this use case, not copied from that app).
 - Official remote **GitHub MCP server** — endpoint `https://api.githubcopilot.com/mcp/` (GA 2025-09-04), PAT/OAuth auth (no anonymous mode), read-only via `X-MCP-Readonly`, toolset scoping via `X-MCP-Toolsets`, Streamable HTTP: `github/github-mcp-server` docs.
 - Slack — `Assistant` class, assistant-thread events, `assistant:write`, status/suggested-prompt helpers; 3s ack + up-to-3 retries; slash commands + `commands` scope; `mrkdwn` (`<url|text>` links, no headings/tables); `conversations.replies`; streaming via `chat.startStream`/`appendStream`/`stopStream`: Slack docs.
 - HTTP required on Vercel (Socket Mode needs a long-lived process): Slack "Comparing HTTP & Socket Mode".
@@ -363,7 +364,7 @@ For production, both apps: add token-by-token streaming with `streamText` + Slac
 - Oak skills: `oaknational/oak-skills` (currently private). Oak MCP: `curriculum-mcp-alpha.oaknational.dev` and its `/.well-known/` metadata.
 
 ## Recommendations
-1. **Host both apps as headless Vercel apps with `@vercel/slack-bolt`, reusing the MCP app's Express 5 + esbuild harness** (build, observability, rate-limiting, Clerk) — treat the HTTP framework as provisional pending the incoming standard. Set `maxDuration` to cover model plus live tool latency; HTTP request URL, no Socket Mode.
+1. **Host both apps as Next.js App Router apps on Vercel with `@vercel/slack-bolt`** (settled — the adapter is Web-Request-native), reusing the MCP app's observability / rate-limiting / Clerk packages (not its Express router). Set `maxDuration` to cover model plus live tool latency; HTTP request URL, no Socket Mode.
 2. **Use the AI SDK + AI Gateway (BYOK), not the raw Anthropic SDK.** Configure BYOK, route with a current dot-slug (`anthropic/claude-sonnet-5`), turn on ZDR, pin the AI SDK major (v7: `isStepCount`). Both apps: `generateText` with a bounded tool loop.
 3. **Ship Ask Oisín first, reading GitHub live, no vendoring.** Attach the official remote GitHub MCP server (read-only, `repos` toolset) via `@ai-sdk/mcp`; PAT reads the OCE repo (public) + `oak-skills` (private).
 4. **Enforce the pragmatic PII boundary in the framework** (§Security): strip identity, scrub PII on prompt and tool args, no content in logs/Sentry/KV, egress allowlist, ZDR on.
@@ -373,7 +374,7 @@ For production, both apps: add token-by-token streaming with `streamText` + Slac
 8. **Apply the decision matrix as defined in §4** when re-evaluating any change, and **reopen the revisit register** (§Implementation shape) when the canonical Next.js/React resources and workspaces arrive.
 
 ## Caveats
-- The **framework choice (Express/esbuild vs Next.js) is provisional** — canonical Next.js/React resources are incoming and may carry an org standard that overrides the precedent-based recommendation. Revisit per the register in §Implementation shape.
+- The app framework is **settled: Next.js App Router** (the adapter is Web-Request-native; chosen for this use case, not copied from the MCP app's Express). Incoming canonical Next.js/React resources will supply shared config to adopt, not change the framework; React *components* stay out of scope until a web-surface adapter is added.
 - `@vercel/slack-bolt` is recent (2025); the handler signature is `createHandler(app, receiver)` — confirm the exact export/receiver names and wiring against its current README, and against the incoming standard.
 - The remote GitHub MCP server requires a credential even for public-repo reads — there is **no anonymous mode**. `oak-skills` is confirmed **private** (2026-07-08), so the PAT must read it too, or Oisín cannot load `oak-tone-of-voice` live — the alternative is to make `oak-skills` public (its description signals that intent) or mirror the tone-of-voice content into the public OCE repo. Live reads use the authenticated GitHub REST limit (5,000/hr per token).
 - The AI SDK MCP client is stable in `@ai-sdk/mcp` (current major v7 of `ai`; `@ai-sdk/mcp@2.x`). Pin the major and use v7 API names (`isStepCount`, not `stepCountIs`).

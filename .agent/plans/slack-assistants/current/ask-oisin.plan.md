@@ -8,7 +8,7 @@ lineage:
   derives_from: ".agent/research/outreach/oisin-oce-navigator-design.md (PR #328, open; design file tracked on main)"
 todos:
   - id: ws0-scaffold
-    content: "WS0: scaffold packages/libs/slack-assistant + apps/slack/ask-oisin workspaces (pkg/tsconfig/eslint/vitest/esbuild/vercel.json), add pnpm-workspace glob, spike @vercel/slack-bolt receiver wiring. Tree green (build/type-check/lint)."
+    content: "WS0: scaffold packages/libs/slack-assistant (lib) + apps/slack/ask-oisin (Next.js App Router app + vercel.json) workspaces (pkg/tsconfig/eslint/vitest), add pnpm-workspace glob, spike @vercel/slack-bolt receiver wiring. Tree green (build/type-check/lint)."
     status: pending
     depends_on: []
   - id: ws1-model-layer
@@ -75,7 +75,7 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 
 ### Existing Capabilities
 
-- `apps/oak-curriculum-mcp-streamable-http` — a working Vercel-deployed, observable, rate-limited, Clerk-authenticated headless app (Express 5 + esbuild). Its build/deploy/observability/rate-limit harness is the template to reuse; the HTTP router is the cheap part.
+- `apps/oak-curriculum-mcp-streamable-http` — a working Vercel-deployed, observable, rate-limited, Clerk-authenticated headless app (Express 5 + esbuild). Reuse its observability / rate-limit / Clerk **packages**; its Express **router does not transfer** — Express is the right choice for an MCP-SDK server, but Ask Oisín is a Next.js App Router handler under `@vercel/slack-bolt`. Reuse the shared packages, not the framework.
 - Shared workspace packages already consumed by that app: `@oaknational/{result, env, env-resolution, logger, observability, sentry-node, type-helpers, build-metadata}`.
 - The official remote GitHub MCP server (`https://api.githubcopilot.com/mcp/`, GA) for live repo reads; the Vercel AI SDK + AI Gateway for the model layer; `@ai-sdk/mcp` for MCP attachment.
 
@@ -114,7 +114,7 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 | Vercel AI SDK + AI Gateway | yes | **adopted** over raw Anthropic SDK — zero-markup BYOK, observability, failover, ZDR, one model interface |
 | Official remote GitHub MCP server | yes | **adopted** over a bespoke GitHub REST client — first-party, read-only scoping, GA |
 | `@ai-sdk/mcp` `createMCPClient` | yes | **adopted** — first-party MCP client, one tool loop, ZDR-eligible (vs Anthropic's connector) |
-| In-repo MCP-app esbuild/vercel/observability harness | yes | **adopted** — reuse the proven Vercel-headless pattern rather than a new bespoke build |
+| In-repo MCP-app observability / rate-limit / Clerk packages | yes | **adopted** — reuse the shared packages; the MCP app's Express router is **not** reused (that framework fits an MCP-SDK server, not this Bolt-adapter Slack app — Ask Oisín is a Next.js App Router handler) |
 | Vercel/community "Slack agent" starter as the framework skeleton | yes | **ruled out as a skeleton** — the `@vercel/slack-bolt` changelog example is a single-file demo, not a reusable framework, and no first-party "grounded-assistant-over-MCP framework" ships. We adopt the *adapter* (above) but hand-build the thin `defineSlackAssistant` seam (a factory + Zod config); the bespoke surface is minimal and justified by the committed second consumer, not sunk cost |
 | Anthropic MCP connector (`mcp_servers`) | yes | **ruled out** — Anthropic-API-only (breaks the AI-SDK abstraction) and not ZDR-eligible |
 
@@ -122,9 +122,9 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 
 ---
 
-## Framework provisionality (revisit gate)
+## Framework: Next.js App Router (settled)
 
-The app HTTP framework (Express 5 + esbuild, per the MCP-app precedent) is **provisional** pending incoming canonical Next.js/React resources and workspaces, which may carry an org standard that overrides precedent. Keep the HTTP layer thin behind `@vercel/slack-bolt` so a framework swap is cheap. Reopen the revisit register in the design doc §Implementation shape when those resources land. **Plan-body first-principles check** (`../../rules/plan-body-first-principles-check.md`): before WS0 scaffolds any framework-specific file, confirm the standard has not already landed; before WS4 relies on a specific `@vercel/slack-bolt` receiver shape, confirm it against the current README (vendor-literal clause).
+The app framework is **Next.js App Router** — settled 2026-07-08. Choosing `@vercel/slack-bolt` for its `waitUntil` ack *is* choosing a Web-Request framework: the adapter is Web-Request-native and exports `export const POST = createHandler(app, receiver)` — a Next.js App Router route handler. Vercel's changelog names Hono/Nitro/Next.js and does not list Express; running Bolt on Express would mean Bolt's classic `ExpressReceiver`, i.e. *not* this adapter, forfeiting the `waitUntil` benefit we adopted it for. Next.js is the canonical Vercel host and is already in the monorepo (the `oak-curriculum-hub` demo). Incoming canonical Next.js/React resources will supply shared config/conventions to **adopt**, not change the framework. **Plan-body first-principles check** (`../../rules/plan-body-first-principles-check.md`): before WS4/WS8 rely on the `@vercel/slack-bolt` receiver shape, confirm it against the current README (vendor-literal clause), and adopt the shared Next.js config workspace if it has landed.
 
 ---
 
@@ -165,7 +165,7 @@ The app HTTP framework (Express 5 + esbuild, per the MCP-app precedent) is **pro
 
 ## WS0 — Scaffold workspaces + adapter spike
 
-Create `packages/libs/slack-assistant` and `apps/slack/ask-oisin` with package.json, tsconfig, eslint, vitest, esbuild, and (app) vercel.json, mirroring the MCP app. Add the `apps/slack/*` glob to `pnpm-workspace.yaml`. Spike the `@vercel/slack-bolt` receiver wiring against its current README and record the confirmed shape.
+Create `packages/libs/slack-assistant` (a lib: tsc/esbuild build) and `apps/slack/ask-oisin` (a **Next.js App Router** app + `vercel.json`) with package.json, tsconfig, eslint, vitest. Reuse the MCP app's observability / rate-limit / Clerk **packages** (not its Express router). Add the `apps/slack/*` glob to `pnpm-workspace.yaml`. Spike the `@vercel/slack-bolt` receiver wiring against its current README and record the confirmed shape.
 
 **Acceptance**: `pnpm build && pnpm type-check && pnpm lint` green for both new workspaces; the adapter spike proves an ack path within Slack's 3s window locally. **Proof**: `non-code` (workspace builds) + a captured local ack. **Reviewer**: `config-expert`.
 
@@ -262,7 +262,7 @@ The org-critical slice. Cycles delivering identity-stripping and structured-PII 
 
 ## WS8 — Deploy config
 
-`vercel.json` (framework provisional — thin), `maxDuration` covering model+GitHub-read latency, env wiring (`SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`, `AI_GATEWAY_API_KEY`, `CLAUDE_MODEL`, `GITHUB_TOKEN`), `manifest.oisin.yaml` (scopes without `channels:history`; events without `message.channels`).
+`vercel.json` (Next.js on Vercel), `maxDuration` covering model+GitHub-read latency, env wiring (`SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`, `AI_GATEWAY_API_KEY`, `CLAUDE_MODEL`, `GITHUB_TOKEN`), `manifest.oisin.yaml` (scopes without `channels:history`; events without `message.channels`).
 
 **Acceptance**: a Vercel **preview deploy** receives a Slack `app_mention` and acks within 3s (value-proxy). **Proof**: `value-proxy` — captured Slack delivery + 2xx within window.
 
@@ -305,7 +305,7 @@ Run readiness reviewers (`release-readiness-expert` GO/NO-GO gate), propagate se
 
 | Risk | Mitigation |
 |------|------------|
-| Incoming Next.js/React standard overrides Express/esbuild | Keep HTTP layer thin behind the adapter; revisit register; WS0 first-principles check confirms standard not yet landed |
+| Incoming shared Next.js config workspace differs from our scaffold | Framework is settled (Next.js App Router); adopt the shared config's conventions when it lands — a config alignment, not a framework change |
 | PII leak via logs/Sentry/tool-args | WS2 scrub applies to prompt AND tool args; WS7 beforeSend + metadata-only logging; `security-expert` gate |
 | `oak-skills` is private → no live tone-of-voice | Prereq below; minimum shippable = grounded answers with degraded voice until PAT scope / public flip / mirror |
 | `@vercel/slack-bolt` receiver wiring uncertain | WS0 spike confirms against current README before WS4/WS8 depend on it |

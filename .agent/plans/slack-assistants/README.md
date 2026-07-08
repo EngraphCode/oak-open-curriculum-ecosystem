@@ -17,4 +17,4 @@ Design source of truth: [`.agent/research/outreach/oisin-oce-navigator-design.md
 
 ## Sequencing
 
-Ship **Ask Oisín first** (it extracts the `slack-assistant` framework), **with more Slack apps in mind** (Ask Oak is the committed second consumer; the seam is validated when Ask Oak ships as thin config with no framework changes). The app HTTP framework choice (Express/esbuild) is **provisional** pending incoming canonical Next.js/React resources — see the design doc's revisit register.
+Ship **Ask Oisín first** (it extracts the `slack-assistant` framework), **with more Slack apps in mind** (Ask Oak is the committed second consumer; the seam is validated when Ask Oak ships as thin config with no framework changes). The app framework is **Next.js App Router** (settled 2026-07-08 — the `@vercel/slack-bolt` adapter is Web-Request-native, so Next.js fits *this* use case; not a copy of the MCP app's Express). Incoming canonical Next.js/React resources supply shared config to adopt, not a framework change.
