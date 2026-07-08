@@ -1,18 +1,23 @@
 ---
-name: "Standby Runway Handoff: A Named Successor Grounds on a Benched Seat While the Predecessor Drives to a Clean Boundary"
-polarity: pattern
-use_this_when: "Rotating a long-running lane between sessions under context-budget pressure — an owner-named successor needs to take over WITHOUT a coordination gap, duplicate claims, or a fragile mid-work pickup."
-category: collaboration
-proven_in: "plan-corpus-refounding R0 lane, four consecutive rotations in one arc (2026-07-07/08): Stoat→Leopard (push-style), Leopard's own pickup (pull-style self-park), Leopard→Goshawk (clear-at-arrival), Goshawk→Rigel (pull-style: 25-min standby window, grounding completed inside it, adopt+ACK on the runway-clear broadcast)."
-proven_date: 2026-07-07
-barrier:
-  broadly_applicable: true
-  proven_by_implementation: true
-  prevents_recurring_mistake: "Successors that arrive hot open duplicate claims, collide with the predecessor's in-flight heavy chains, or inherit a mid-merge/mid-fix tree; successors that wait blind miss the pickup moment and the lane stalls."
-  stable: true
+pattern_name: standby-runway-handoff
+status: graduated
+graduated_at: 2026-07-07
+graduated_from: napkin 2026-07-07 entries (Stoat, Leopard, Goshawk R0-lane rotations)
+instances: 4
+related_directive: ../../directives/agent-collaboration.md
+related_rule: ../../rules/liveness-heartbeat-cron.md
 ---
 
 # Standby Runway Handoff
+
+Use this when rotating a long-running lane between sessions under
+context-budget pressure — an owner-named successor takes over WITHOUT a
+coordination gap, duplicate claims, or a fragile mid-work pickup. Proven on
+the plan-corpus-refounding R0 lane, four consecutive rotations in one arc
+(2026-07-07/08): Stoat→Leopard (push-style), Leopard's own pickup
+(pull-style self-park), Leopard→Goshawk (clear-at-arrival), Goshawk→Rigel
+(pull-style: a 25-minute standby window with grounding completed inside it,
+adopt+ACK on the runway-clear broadcast).
 
 A lane rotation shape with three cooperating parts, worked three times in one
 arc on the plan-corpus-refounding R0 lane:

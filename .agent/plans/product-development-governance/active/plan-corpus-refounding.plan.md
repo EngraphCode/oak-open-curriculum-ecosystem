@@ -17,7 +17,7 @@ lineage:
   serves_thread: strategy-and-plan-estate-holistic-review
   serves_stream: agentic-framework
   strategic_choice: FRAME-1
-last_updated: 2026-07-06
+last_updated: 2026-07-07
 todos:
   - id: r0a-mechanical-instrument
     content: >-
@@ -40,7 +40,7 @@ todos:
       planted-loss challenge canary sealed-then-revealed end-to-end); determinism tests
       prove byte-stable output; freeze+inventory scripts may land and RUN as soon as their
       own proofs pass — not gated on the rest of R0.
-    status: pending
+    status: completed
   - id: r0b-plan-state-tool
     content: >-
       BUILD (TDD): the plan-state recomputation tool (repo-validators
@@ -64,7 +64,7 @@ todos:
     content: >-
       EXECUTE (S0/S1/S2 stable points): S0 atomic freeze commit (frozen copies at the
       refounding artefact root OUTSIDE the denominator + denominator + proofs; owner gates
-      G1+G-ADR+G2 cleared first); S1 scripted inventory + residue audit + planted-orphan
+      G1+G2 cleared first — G-ADR already ratified 2026-07-06); S1 scripted inventory + residue audit + planted-orphan
       proofs on the real corpus; S2 tiling baseline (anchored default blocks, exact-cover
       green) + the estate-wide audit-mode run (claim census -> claim-vs-derived divergence
       report). Merge-recheck re-derives the denominator at every stable point and batch
@@ -295,12 +295,12 @@ Segmentation, classification, summary wording, and disposition are NOT worker wo
 | Gate | Content | When |
 | --- | --- | --- |
 | G0 | Commission — recorded 2026-07-06 (this plan); gate content settles at G1 | done |
-| G1 | Freeze-rule ratification: surface-class verdict table with sub-reasons; Net-C keyword list; residue-orphan bounds; destination-corpus rooting as a named freeze-rule class; sanctioned-writer classes; the sweep single-net residue declaration (signed knowingly or cured by the reader sample) | R0→R1 boundary |
+| G1 | Freeze-rule ratification — **DISCHARGED 2026-07-07** (in-chat owner sitting; record: the G1 packet §9): verdict table ratified as drafted (archive = sweep + reader sample); both keyword lists ratified; bounds ratified as detection calibration under the absorb-everything disposition; destination RULED as the separate root `.agent/refounded-plans/` with the terminal archive-old + rename cutover (supersedes the drafted named-class rooting); sanctioned-writer set ratified EMPTY (clean v1 rule); reader-sample cure at 10%. The §8 riding agenda delivered the Walk-A derivation input (zero concepts lost; a small number of thread-level plans each with implementation collections; a holding bucket; nothing thrown away) | R0→R1 boundary |
 | G-ADR | **Decision-level ADR-200 amendment — RATIFIED (owner, 2026-07-06, formal question put and answered)**: the Q3 boundary re-ruling (corpus refounding precedes the graph; WS6 harvests the refounded corpus PLUS the frozen archive via binding-clause provenance edges), the audit-composition ruling, and the V0.1 sign-off (proof-typed todos; the `pending`-sentinel/lane rule; `permanent-home-routed`) — all three V0.1 items signed. Landed: ADR-200 §Consequences Amendment + §Sequence note; V0 schema V0.1 block | done |
 | G2 | S0 landing sanction: denominator totals, scoped gate exclusions with reasons, secret-scan attestation, declared commit window | R1 |
 | G3 | Arrivals-routing table (what auto-freezes vs per-arrival ruling) | R1 |
-| Walk A | Lane-taxonomy ratification from staged evidence (pilot + top-down seed; non-pilot lanes candidate-status) + escalation-thinning policy tables | R2 |
-| G-SP3 | Scale-up sanction on the RE-PRICED declaration (fixed vs marginal; ruling-demand sizing from pilot actuals) | R3→R4 boundary |
+| Walk A | Lane-taxonomy ratification from staged evidence (pilot + top-down seed; non-pilot lanes candidate-status) + escalation-thinning policy tables. This sitting IS the binding post-refounding organisational-structure decision; the R1 source denominator + census/divergence report are presented as sitting inputs (owner-directed 2026-07-07) | R2 |
+| G-SP3 | Scale-up sanction on the RE-PRICED declaration (fixed vs marginal; ruling-demand sizing from pilot actuals). Also presents the post-corpus size projection — source denominator × pilot-measured merge/supersede/disposition rates — the expected-numbers moment (owner-directed 2026-07-07) | R3→R4 boundary |
 | Ruling batches | Batched mid-flight rulings (≤15/batch; includes per-tranche cutover sanctions) | R4–R5 |
 | Walk C | Final ratification against recomputed state | R6 |
 
@@ -343,6 +343,15 @@ owner-hold — an upper bound on elapsed, not a work estimate.
 - NOT the intent graph build (ADR-200 WS2–WS7 continue; WS6/WS7 consume this plan's output).
 - NOT a refactor/relabelling of existing plans, and old-plan conformance to V0 is NOT a
   goal (ADR-200 §Non-goals) — old plans are frozen, mined, and re-expressed, never patched.
+- NOT a file-count-preserving migration (named explicitly 2026-07-07, owner-directed):
+  destination cardinality is LANE-derived — set at Walk A by the ratified taxonomy and J7
+  authoring per lane — never source-derived. A per-source default of one-plan-in-one-plan-out
+  is a failure mode, not a target: conservation is row-granular through the seven
+  dispositions, the frozen archive remains the detail contract via P9 binding clauses, and
+  only named-home / merged-into rows produce destination text at all (the donor re-founded
+  15 sources into four destination plans). Source-plan count exerts zero pull on the
+  destination corpus; an individual 1:1 re-expression stays legitimate where a lane warrants
+  it — the non-goal is the coupling, never the instance.
 - NOT a re-authoring of vision or strategy (they stand; ADR-200 owner ruling 2026-06-22).
 - NOT a Practice-wide markdown→graph inversion (OQ-10 remains its own owner-gated ADR).
 - NOT deletion of anything: no destructive disposition class exists (P14);
@@ -372,7 +381,7 @@ schema + registries are the authoring contract; validation strict at the boundar
 ADR-200 (the architecture this serves); PDR-018 (end-goal/mechanism/means; blocking vs
 beneficial); PDR-049 (every new multi-writer artefact declares a merge class at creation);
 PDR-122/123 (judgement pipelines and design panels); the governing invariant of the
-[rewrite plan](./planning-estate-rewrite.plan.md) (every organising axis registered and
+[rewrite plan](../current/planning-estate-rewrite.plan.md) (every organising axis registered and
 validated).
 
 ## Plan-body first-principles check

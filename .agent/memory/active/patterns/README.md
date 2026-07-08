@@ -406,7 +406,3 @@ drift. After adding or changing a pattern file, regenerate with
 - **pnpm Strict Hoisting Blocks Transitive Type Resolution** *(anti-pattern)* → [pnpm-strict-hoisting-type-resolution.md](pnpm-strict-hoisting-type-resolution.md)
 - **Turbo / Pre-Commit Cache False-Green** *(anti-pattern)* -- Use this when: A gate result disagrees with observed behaviour, a hook finds drift a task reported clean, or you are about to cite a cached gate run as evidence. → [turbo-cache-false-green.md](turbo-cache-false-green.md)
 - **Zero-Match False-Green** *(anti-pattern)* -- Use this when: Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets. → [zero-match-false-green.md](zero-match-false-green.md)
-
-### Collaboration (1)
-
-- **Standby Runway Handoff: A Named Successor Grounds on a Benched Seat While the Predecessor Drives to a Clean Boundary** -- Use this when: Rotating a long-running lane between sessions under context-budget pressure — an owner-named successor needs to take over WITHOUT a coordination gap, duplicate claims, or a fragile mid-work pickup. → [standby-runway-handoff.md](standby-runway-handoff.md)

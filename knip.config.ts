@@ -90,11 +90,29 @@ const config: KnipConfig = {
         'src/validators/reference-direction/validate-reference-direction.ts',
         'src/validators/machine-local-paths/validate-no-machine-local-paths.ts',
         'src/validators/patterns-index/validate-patterns-index.ts',
+        'src/validators/ratified-lists/validate-ratified-lists.ts',
         'src/validators/portability/validate-portability.ts',
         'src/validators/subagents/validate-subagents.ts',
         'src/practice-fitness/validate-practice-fitness.ts',
         'src/ci/ci-schema-drift-check.ts',
         'src/ci/ci-turbo-report.ts',
+        // Refounding mechanical-instrument CLIs (plan-corpus-refounding R0a):
+        // invoked via `pnpm exec tsx` package scripts, not imported.
+        'src/refounding/refound-freeze.ts',
+        'src/refounding/refound-verify-freeze.ts',
+        'src/refounding/refound-inventory.ts',
+        'src/refounding/refound-residue.ts',
+        'src/refounding/refound-sweep.ts',
+        'src/refounding/refound-plant-orphan.ts',
+        'src/refounding/refound-plant-challenge-canary.ts',
+        'src/refounding/refound-merge-recheck.ts',
+        'src/refounding/refound-tile.ts',
+        'src/refounding/refound-default-ledger.ts',
+        'src/refounding/refound-claim-census.ts',
+        'src/refounding/refound-batch-status.ts',
+        // Plan-state recomputation CLI (plan-corpus-refounding R0b):
+        // invoked via `pnpm exec tsx` package scripts, not imported.
+        'src/plan-state/plan-state.ts',
         // Corpus-analysis workflow stage entries: consumed by esbuild as string
         // entry points in workflows/build/workflow-builder.ts (bundled into
         // self-contained harness artefacts), which knip cannot trace as imports.

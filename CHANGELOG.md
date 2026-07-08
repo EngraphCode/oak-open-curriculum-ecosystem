@@ -1,3 +1,66 @@
+# [1.63.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.2...v1.63.0) (2026-07-08)
+
+
+### Bug Fixes
+
+* **agent-tools:** absorb R0b gateway verdicts into the plan-state module ([7727981](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7727981a5ccb6cfbe674725c1d389e64d4bd50a5))
+* **agent-tools:** dangling-symlink write refusal and terminal control-char strip ([a11c019](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a11c0198001f4dfd05d0356ffd08cf2bbe9bf93b))
+* **agent-tools:** keep plan-state verdict lines unprefixed (Copilot finding) ([cb49686](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cb49686af9cf6861ffbd4e08b3710d180d9bb96b))
+
+
+### Features
+
+* **agent-tools:** plan-state recomputation engine, two adapters, and gate CLI ([4284745](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4284745da99d0f9b03a00252a032587653be70b4))
+
+## [1.62.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.1...v1.62.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* **plans:** keep freeze-rule ratifiedBy a plain record path ([c64748d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c64748dfc43c36aa3dcbd4d4dab70a62e82ddeae))
+
+## [1.62.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.0...v1.62.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** t1-coordination-home certifies the real resolver ([901d7cf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/901d7cf5c52204a0345d2c62e873324cd3c54e25)), closes [#320](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/320)
+
+# [1.62.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.61.0...v1.62.0) (2026-07-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** land the PR-321 gateway and bot round-one fix bundle ([8aa7d6d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8aa7d6d7a8cfcd3f641e5e731ca1a1a6cc355ae7))
+* **agent-tools:** linearise the ratified-lists list-line check ([e0739ba](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e0739bafa21d0910c6da8b703457f77929b460dc))
+
+
+### Features
+
+* **agent-tools:** land refound merge-recheck, tile, and default-ledger with gateway fixes ([c321495](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c321495e504fe74ce6d6412220130b509644a41a))
+* **agent-tools:** land refound-batch-status with cache-tamper and broken-artefact proofs ([8f5df6e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8f5df6e9f19dde694a35eedb95e45147c4f041a7))
+* **agent-tools:** land refound-claim-census with proofs and true the G1 packet ([735f089](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/735f089dfb93df162b56140623a1686ff69cc69f))
+
+# [1.61.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.60.0...v1.61.0) (2026-07-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** align gitleaks resolution to the trusted-directory allowlist ([c8304fe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c8304fe62e142c1071e12cd3e5791b28b25cfb84))
+* **agent-tools:** enforce the Net-C-only invariant and true the round-4 review set ([9516f20](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9516f207f5cbd998b51b0b4a6b7f4c8807a34fba))
+* **agent-tools:** pin the freeze secret scan to a once-resolved gitleaks binary ([4bb0d95](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4bb0d955293d0f63f984cdfabe67e4c269b999be))
+* **agent-tools:** refuse vacuous challenge scores and true the round-6 pair ([ca81421](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca814211ed74352586a3eabf86ddc31e2465e153))
+* **agent-tools:** resolve the sweep out dir as a write target ([227c556](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/227c55667b6b3edbc4bebe38f526c1461df8dfe4))
+* **agent-tools:** resolve write-target paths without realpath and move line digests to sha256 ([d685f59](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d685f59fe1e3e8ff91574ab99c4b66ea0705ec1d))
+* **agent-tools:** roll back half-written artefact pairs on write failure ([dfe1feb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dfe1feb5171ee8b92a62c9c55c0162657fade75d))
+* **agent-tools:** verify discrimination-transcript content at the zero-orphan gate ([96a4de9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/96a4de9986cdb2e0c53acf436af28ceb697776d1))
+
+
+### Features
+
+* **agent-tools:** land refound inventory, residue, sweep, and canary detectors with proofs ([e1d8bb8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e1d8bb8c9673dd566ab3dd0b1d7b5c00f10aa150))
+* **agent-tools:** land refound-freeze and refound-verify-freeze with proofs ([23fd4d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/23fd4d9070041aa08135348e019fcdf61bfc2e4e))
+
 # [1.60.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.59.2...v1.60.0) (2026-07-06)
 
 

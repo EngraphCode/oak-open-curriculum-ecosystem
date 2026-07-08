@@ -121,6 +121,16 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
   after a pipe as unproven | trigger: next consolidation pass (rides the due napkin
   processing) | size: S | status: pending]`
 
+- **Quiet-pipe exit-mask — verification probes and gates run BARE; never key success or an
+  exit-code read off a pipeline tail**
+  `[captured: 2026-07-08 | source: napkin — four worked instances across three seats (Stoat
+  zsh var-through-pipe; Goshawk eslint-pipe-tail x2; Rigel head-masked refusal exit on the
+  plan-state ratification probe) | target: verify-dont-trust rule (or a sibling clause in
+  read-diagnostic-artefacts-in-full) — the generalised form: a pipeline's exit status is the
+  tail's; read $? off the bare command or ${PIPESTATUS[0]}, and treat any success echo chained
+  after a pipe as unproven | trigger: next consolidation pass (rides the due napkin
+  processing) | size: S | status: pending]`
+
 - **Classifier merge boundary in pr-lifecycle Phase 7 — the truly-green gate authorises
   merge-READINESS, not the merge of a self-authored self-reviewed PR**
   `[captured: 2026-07-08 | source: napkin 2026-07-08 Rigel closeout captures (worked

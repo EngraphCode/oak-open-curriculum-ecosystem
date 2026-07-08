@@ -167,6 +167,15 @@ genuinely required review landed (the author-dependent leg below). Then:
   authored under the owner's own auth shows `CLEAN` and merges directly —
   GitHub auto-satisfies the code-owner requirement when the author IS the
   sole code owner, and forbids self-approval.
+- **The truly-green gate authorises merge-READINESS, not every merge**
+  (worked instance PR #323, 2026-07-08): a PR the agent AUTHORED in-session
+  whose reviews are the agent's own sub-agents sits behind a second,
+  harness-level boundary — the auto-mode classifier requires an in-session
+  owner grant (or the owner's own click) before `gh pr merge` executes,
+  independent of the gate. Broadcast "merge-READY at truly-green", never a
+  promise to merge; surface the merge as an owner action moment unless a
+  named in-session grant exists. (The #306/#305 precedent above is not a
+  licence for self-authored, self-reviewed merges.)
 - An owner grant of merge authority (for example to a team session's
   Director) is per-session, never standing (owner, 2026-06-29); absent a
   fresh grant, the truly-green gate above governs unchanged — the merge

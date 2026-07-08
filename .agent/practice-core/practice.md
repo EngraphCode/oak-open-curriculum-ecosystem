@@ -453,6 +453,17 @@ through real work; the remaining files prove, orient, record, and
 trace. Each repo carries its own Practice instance — there is no
 hierarchy.
 
+**Exchange has two modes, one class, shared substrate** (named
+2026-07-06; the inter-Practice collaboration protocol PDR governs the
+second): **transformation** — dead material taken up at a pin, one
+direction, integrated later (the transplant machinery, the Practice
+Box, provenance chains) — and **conjugation** — two live agents on two
+living estates, material negotiated and receipted in-session, both
+directions in one window. Their lifecycles are complementary:
+transformation founds an estate; conjugation keeps peer estates
+repairing each other's drift for as long as both live. The Box and the
+provenance chain serve both modes.
+
 The trinity files carry YAML frontmatter with a `provenance` pointer
 and the four fitness thresholds described in §Fitness Functions above.
 The provenance file always travels with the Core package.
