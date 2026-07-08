@@ -172,3 +172,147 @@ New session observations append below.
   || exit 1; done`) widened to the .husky hook estate, proven both directions (real files
   pass; planted defect fires). Config-expert's NIT ("no gate syntax-checks the load-bearing
   guard") led straight to it — the follow-the-nit instinct paid.
+
+## 2026-07-08 — Gale guards Eyrie (33f49e, slack-assistants estate): session observations
+
+Verified the Ask Oisín/Ask Oak design doc, authored the `slack-assistants` plan collection, ran three
+review workflows (defect / open-question / round-2), integrated owner rulings, reconciled cross-file
+coherence. All on `feat/slack-apps` / PR #328 (open). Successor: Copper (48382d).
+
+- **Owner correction (×2, standing): surface EVERY user decision as an AskUserQuestion — the
+  4-question cap is NOT licence to drop overflow to prose.** I asked 4 via the tool then listed the
+  rest as prose "answer in your reply"; corrected twice. Home: memory
+  `surface-user-decisions-as-questions` (loophole closed: batch across calls). Face: a genuine
+  question left in prose is a dropped question.
+- **Owner correction: precedent is not correctness.** I twice leaned on "the existing MCP app uses
+  Express" as a reason for the Slack apps. Express fits an MCP-SDK server; it is wrong for a
+  `@vercel/slack-bolt` app (Web-Request-native → Next.js). Home: memory `precedent-is-not-correctness`.
+- **Owner correction: configure checks, don't blindly obey.** A reviewer (and I) read the eslint
+  lib-boundary config as immutable law and proposed an injection workaround; the repo's intent is that
+  apps consume adapters (the logging adapter is Sentry/stdio-backed), so configure the boundary to
+  permit it (never disable). Home: memory `configure-checks-not-blindly-obey`.
+- **Owner reframe: "not your concern" + "v1 is an internal POC".** I over-scoped the open-question
+  round into the owner's ops domain (provisioning, ownership, billing, Slack-app approval, monitoring,
+  rollback). For an internal POC these are owner-handled, out of plan scope — not design questions to
+  chase. The POC framing also resolved DPIA-not-required + no-retention-duty. Face: separate design/plan
+  questions from ops-ownership; do not surface the latter as if they are mine.
+- **Assess ALL subagent output, not the confirmed half — worked instance.** In the open-question round
+  two triage lenses marked the ZDR-contract question ALREADY-DECIDED by citing the estate's own
+  "confirm this" note (a note that something *needs* confirming is NOT a decision). Caught only by
+  reviewing the DROPPED (already-decided/refuted) set. Owner made it explicit: "critically assessing all
+  does not mean assessing half." candidate: pattern — adversarial-verify PLUS a self-pass over the
+  verifier's own downgrades/refutations.
+- **Three inter-subagent claim conflicts adjudicated (my own earlier subagents were wrong):**
+  (1) model-slug — an earlier research agent claimed the AI Gateway uses dot-slugs
+  (`claude-sonnet-4.5`); a later fleet + the canonical `claude-api` skill + the env's own model IDs
+  showed Anthropic IDs are HYPHENATED and the dotted form is a 404. I had baked the wrong rule into a
+  RED test; cure = drop format validation (opaque slug). (2) search-toolset — an earlier mcp-expert
+  hedged "add a search toolset"; a later one confirmed `search_code` is already in the GitHub MCP
+  `repos` toolset. (3) ADR — docs-adr cited ADR-154 (framework/consumer seam; verified governs),
+  arch-fred cited ADR-041 (workspace tier); both right, different aspects. Face: re-verify earlier
+  subagent claims; conflicts are the norm across a long multi-agent session, and my own earlier fleet
+  output is not exempt.
+- **napkin at ~710 lines (over the 300 limit)** — accumulated across many threads' sessions, not just
+  mine; a dedicated consolidation/rotation pass is DUE, but is cross-session work, not this handoff's
+  bounded scope. Captured here at full weight per the conservation invariant (do not trim to stay green).
+- **Wasteful re-run of an expensive gate (owner-caught).** I ran the full `pnpm check` handoff gate
+  (minutes) capturing only `tail -30`, so I could not see the exit code — then RE-RAN the entire gate
+  just to capture the status. The first run was green and useful; I discarded that by not capturing the
+  exit code. Owner: "you ran the full expensive check, decided the tail didn't count, and ran it again."
+  Cure = capture exit code + pass/fail summary in the FIRST run of anything expensive (file redirect +
+  `echo "EXIT: $?"` + grep); never tail-only-then-rerun. Home: memory
+  `capture-expensive-command-output-first-run`. (Gate result: `pnpm check` EXIT 0 — green at handoff.)
+- **Obeyed a current lint-tier config as fixed law; shrank the plan to fit it (owner-caught, altitude
+  error).** Reviewing PR #328's Bugbot "High" finding (slack-assistant in the eslint `adapter` tier
+  can't import `@oaknational/sentry-node`, also an adapter → lint fail), I confirmed the boundary rule
+  and then declared "the clean fix: framework consumes `logger` only, drop `sentry-node`." Wrong twice:
+  (1) I treated the *current* two-tier boundary config as immutable and made the NEW app conform to it,
+  instead of asking whether the config / logging architecture is what should change (lens 4 — would it
+  be simpler if the system changed?). Nothing is frozen because we're adding an app. (2) I presented an
+  expedient fit-to-constraint as "the clean fix" — expediency dressed as excellence, which
+  §Architectural-Excellence-Over-Expediency forbids. Owner reframe: the boundary contradiction is a
+  SYMPTOM that we lack a cohesive theory of logging across runtimes (Node/Express, Next.js server,
+  edge, client) — the sentry logger will be EXTENDED client-side, not worked-around. This is
+  `configure-checks-not-blindly-obey` + `precedent-is-not-correctness` recurring at ARCHITECTURE
+  altitude (not just lint-rule altitude). Cure/tell: when a current config/tier/boundary blocks a
+  legitimate new need, first-principles-check the config itself via lens 4 BEFORE fitting the new work
+  to it; a "make the new thing conform" answer is the diagnostic. Grounding a logging-estate
+  re-exploration (logger/sentry-node internals + consumer/runtime inventory + observability prior-art)
+  before reasoning lens-by-lens.
+- **The general failure the above is one instance of (owner-named, sharp): assumptions transmitted
+  then treated as a primary source of truth.** In one logging discussion I did this four times: (1) echoed
+  the plan/thread's compliance framing (DPIA/records-retention/"legal/privacy gates") as if a live
+  requirement — owner: "drop this 'legal' bullshit… are you aware of an audit requirement that I am
+  not?" (the thread record itself says DPIA NOT required); (2) asserted "server-only runtime" — wrong,
+  both front-end and back-end code exist, the real variable is egress-policy-per-origin; (3)
+  "corrected" the plan's "logger = adapter" by citing the ESLint tier name, weaponising one overloaded
+  vocabulary (dependency-tier "adapter") against the owner's domain model (logger IS the general
+  adapter; sentry-node/stdio/client are PROVIDERS); (4) named `@sentry/nextjs` as "the mechanism" when
+  it's an unverified candidate ("maybe not, we have specific requirements"). Provenance of every one:
+  transmitted context (plan text, thread record, current code config, prior-session framing, my own
+  earlier read) taken as ground truth instead of as a claim to be marked and tested. CURE: keep an
+  explicit assumption ledger — Fact (verified) / Owner's-call / Assumption-to-verify / Dropped — and
+  never let a transmitted claim enter reasoning unmarked; vendor mechanisms in particular are
+  assumptions until vendor-literal-verified (verify-vendor-call-shapes). This is the same root as the
+  boundary-obey error above, generalised past code-config to ALL transmitted claims. Owner also wants a
+  THEORY OF COST AND VALUE across the non-exclusive Next.js logging topologies (our-adapter+provider
+  direct / stdio→Vercel-forward / Sentry-Next-SDK / Vercel-side plugin / Next built-in) BEFORE any
+  decision — structure + assumption-marking first, populate only after verification.
+- **Watcher re-arm gotcha (own mistake): `pkill -f "<watch command>"` also kills the re-arm loop
+  itself.** When the all-channels watcher is armed as a persistent Monitor wrapping a `while kill -0
+  "$SUP"; do timeout 3600 pnpm … comms watch …; sleep; done` loop, the loop's OWN command line
+  contains the watch-command string. So `pkill -f "timeout 3600 pnpm … comms watch"` (intended to
+  restart a wedged inner arm) matches the wrapper shell too and kills the whole Monitor (observed:
+  Monitor exit 144). The drain-step timeout at n=1 against a large comms dir (~2.3k events) is the
+  DOCUMENTED cost (comms-all-channels-watcher rule: expect drain-wedge deaths, restart on the same
+  seen-file) — let the step-timeout + loop self-heal; do NOT manually pkill. If a manual kill is
+  truly needed, target the inner node pid specifically, never a `-f` pattern shared with the loop.
+
+## 2026-07-08 — Salamander weaves Warmth (4960fe, slack-assistants deep review): session observations
+
+Owner-commissioned deep review of PR #328 ("riddled with wrong assumptions and flawed
+reasoning"); full-claim verification + decision-complete rework, all on `feat/slack-apps`.
+
+- **The regime the owner named (three same-direction corrections in ONE session):
+  scope-parsimony mistaken for discipline** — "narrow because defensible", the quiet cousin
+  of the rush impulse ("cheap because fast"). Instances: (1) treated estate workspaces
+  (observability/logger) as frozen and routed their defects away as "not this plan's
+  prerequisite"; (2) treated our own MCP app's auth as an external constraint and designed a
+  workaround (persisted human refresh token) instead of changing the system (Clerk M2M
+  machine identity — dissolves the store, the refresh machinery, and the human-account
+  coupling); (3) called the `ai-gateway` extraction "premature" via
+  `consolidate-at-second-consumer` — wrong warrant: that rule prevents SPECULATIVE
+  abstraction, not the articulation of a present, crisp identity ("there is value in being
+  able to define and describe and test something in isolation" — owner). Cure question at
+  every decomposition point: *does this have an independent identity worth defining,
+  describing, and testing in isolation?* — never *can we defer it?* Each rule-as-cost-dodge
+  instance cited a REAL rule with the WRONG warrant (reason move 3: state the rule's
+  precondition before applying it). GRADUATION CANDIDATE (pattern or PDR clause).
+- **Schema-forced subagent output can be fabricated and still validate: 3/13 verification
+  agents returned literal "test claim" placeholder stubs** that passed the JSON schema.
+  Caught only by reading ALL results (the owner's standing assess-everything discipline).
+  Cure that worked on re-run: minLength constraints on claim/evidence fields + explicit
+  anti-stub instruction + "restate each numbered claim" requirement. Face: schema validity
+  is not substance validity; validate content, not shape.
+- **Verification yield justified the cost** (~1.3M subagent tokens across 22 narrow opus
+  verifiers + extraction): the estate's "verified" claims included real falsehoods a reader
+  would have built on — legacy `assistant_view` manifest key (new apps CANNOT use it),
+  "Vercel KV" (retired Dec 2024), team-wide ZDR surcharge vs free per-request form,
+  `client.tools()` silently dropping MCP annotations (source-level check settled a
+  future-plan question), Sentry Marketplace integration being build-time-only (killed a
+  whole imagined topology), `system`→`instructions` rename. Every one was stated as fact
+  or left open in the estate; none survived contact with primary sources unchanged.
+- **The one-request-URL-per-Slack-app fact** surfaced a silent WS9 gap: preview-deploy
+  acceptance needs a DEV Slack app; nobody's review had caught that the acceptance was
+  mechanically impossible with one app.
+- **Watcher lifecycle**: the 3600s timeout backstop killed the first watcher arm (exit 124,
+  expected); re-armed on the same seen-file + gap sweep (4 events, all known). The F-95
+  claims-open backstop + assert-watcher-live both resolve paths CWD-relative — from a
+  worktree, run claims-open from the primary checkout and pass --heartbeat-file explicitly
+  to the assert (F-41 path-defaulting class, two more faces). THIRD face, found at the
+  landing: the commit-queue `commit` workflow's verify-staged reads the COORDINATION HOME's
+  git index, not the invoking worktree's — a worktree-staged bundle reads as "missing: all",
+  the intent self-abandons, and the queue workflow cannot land a worktree commit at all.
+  Registry writes (enqueue/record-staged) anchor to the primary correctly; only the git READ
+  is mis-anchored. Sanctioned plain pathspec commit used (F-132/F-133 precedent, full hooks
+  green); cure home: the coordination-home-cli-path-defaulting plan.
