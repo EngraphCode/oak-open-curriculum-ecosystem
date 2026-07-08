@@ -64,7 +64,7 @@ isProject: true
 # Ask Oisín — v1 Slack assistant, framework-first
 
 **Last Updated**: 2026-07-08
-**Status**: 🟡 PLANNING (queued in `current/`, not started; blocking prerequisites in Dependencies). Plan-phase reviews run 2026-07-08 (12-expert fleet + adversarial verify + owner rulings); corrections applied. Re-review after this revision before marking READY FOR EXECUTION.
+**Status**: 🟢 READY FOR EXECUTION for **WS0–WS8** (framework + app build; CI-provable; no external credentials needed). **WS9–WS11** (live preview deploy, value-proxy proofs, release review) are gated on owner-handled provisioning. **v1 is an internal proof-of-concept.** Two review rounds + adversarial verify + owner rulings integrated 2026-07-08 (release-readiness verdict: GO-WITH-CONDITIONS, conditions being the owner-handled provisioning).
 **Scope**: Ship Ask Oisín as a headless Next.js App Router Slack app on Vercel that answers project questions grounded in a live read of the OCE repo, while extracting a reusable `slack-assistant` framework. Internal-use only, allow-listed installations.
 
 ---
@@ -82,6 +82,7 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 - Genuine reusable `@oaknational/*` packages consumed via the boundary config: `result`, `env`, `env-resolution`, `logger` (the logging **adapter**, backed by Sentry + stdio), `sentry-node`, `type-helpers`, `build-metadata`.
 - **What does NOT transfer** (precedent-transfer trap, verified in review): `express-rate-limit` and the `@clerk/*` client wiring are **third-party, Express-bound, app-local** — not `@oaknational/*` packages, and not runnable under Next.js on Vercel serverless. The MCP app is an OAuth **resource-server / AS-proxy** (it *verifies* inbound tokens); it has no OAuth-**client** acquisition/refresh code, so Ask Oak's client flow is new work, not a lift. `@oaknational/sentry-node` wraps `@sentry/node` for an Express server; a Next.js App Router app needs a Next.js-appropriate init (`@sentry/nextjs` or `instrumentation.ts`) — decided in WS0/WS8.
 - The official remote GitHub MCP server (`https://api.githubcopilot.com/mcp/`, GA); the Vercel AI SDK + AI Gateway; `@ai-sdk/mcp`.
+- **A durable KV** (Upstash / Vercel KV) is a required v1 resource — WS7 rate-limiting depends on it (and optional Slack event de-dup). Provisioning it is owner-handled; the plan names it as needed.
 
 ---
 
@@ -151,15 +152,15 @@ WS0 gates all. **WS1, WS2, WS3, WS4, WS7, WS8** are parallel-safe after WS0 (sep
 
 - **Plan-phase**: `assumptions-expert`, `mcp-expert`, `architecture-expert-fred` (boundary config + ADR), `config-expert` (workspace/turbo/eslint-boundary).
 - **Mid-cycle**: `test-expert` + `type-expert` per RED/GREEN; `security-expert` after WS2/WS7/WS8 (PII, access control, egress); `code-expert` gateway.
-- **Close**: `accessibility-expert` (content readability + any future affordance), `docs-adr-expert`, `release-readiness-expert`.
+- **Close**: `accessibility-expert` (content readability + any future affordance), `docs-adr-expert`, `onboarding-expert`, `release-readiness-expert`.
 
 ---
 
 ## WS0 — Scaffold, register, configure
 
-Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tsconfig** convention — copy a `packages/libs/*` member, not a bespoke tsc/esbuild build) and `apps/slack/ask-oisin` (a **Next.js App Router** app + `vercel.json`, copying the `oak-curriculum-hub` Next config: `noEmit`, `jsx`, next plugin, `@/*` alias). Register **both** in `pnpm-workspace.yaml` (an explicit `packages/libs/slack-assistant` line and the `apps/slack/*` glob). Add `turbo.json` task entries for the Next.js app (`.next` outputs, `!.next` inputs), mirroring the hub. Register `slack-assistant` in the eslint lib-boundary config with its permitted adapter imports (it consumes the logging adapter). Author an ADR (citing [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) for the framework/consumer seam and [ADR-041](../../../../docs/architecture/architectural-decisions/041-workspace-structure-option-a.md) for the workspace tier) recording the `apps/slack/*` family and the framework's tier + permitted edges. Decide + record the Next.js Sentry init mechanism.
+Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tsconfig** convention — copy a `packages/libs/*` member, not a bespoke tsc/esbuild build) and `apps/slack/ask-oisin` (a **Next.js App Router** app + `vercel.json`, copying the `oak-curriculum-hub` Next config: `noEmit`, `jsx`, next plugin, `@/*` alias). Register **both** in `pnpm-workspace.yaml` (an explicit `packages/libs/slack-assistant` line and the `apps/slack/*` glob). Add `turbo.json` task entries for the Next.js app (`.next` outputs, `!.next` inputs), mirroring the hub. Add `slack-assistant` to `LIB_PACKAGES` in `boundary.ts` and place it in the **adapter** sub-tier (so it may legally import `@oaknational/logger` / `sentry-node`); the ADR records the tier. **Update the `lib-boundary.unit.test.ts` tier assertions in the same change**, add the app package to `APP_PACKAGE_IMPORTS`, and note that `apps/slack/*` is a new 3-deep nesting (existing apps are 2-deep). Author an ADR (citing [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) for the framework/consumer seam and [ADR-041](../../../../docs/architecture/architectural-decisions/041-workspace-structure-option-a.md) for the workspace tier) recording the `apps/slack/*` family and the framework's tier + permitted edges. Decide + record the Next.js Sentry init mechanism.
 
-**Acceptance**: `pnpm build && pnpm type-check && pnpm lint` green for both workspaces (lint proves the boundary config accepts the framework's adapter imports); the `@vercel/slack-bolt` receiver spike acks within 3s locally; ADR merged. **Reviewers**: `config-expert`, `architecture-expert-fred`.
+**Acceptance**: `pnpm build && pnpm type-check && pnpm lint` green for both workspaces (lint proves the boundary config accepts the framework's adapter imports); the **oak-eslint unit tests pass** (the edited `lib-boundary`/`app-boundary` assertions); the `@vercel/slack-bolt` receiver spike acks within 3s locally; ADR merged. **Reviewers**: `config-expert`, `architecture-expert-fred`.
 
 ---
 
@@ -179,7 +180,7 @@ Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tscon
 
 ### Cycle 2.1: scrub the inbound question → branded type
 
-**File scope**: `src/pii.ts` + `pii.unit.test.ts`. **Test (Red)**: `scrub()` removes `<@U…>` mentions, email- and phone-shaped tokens, and author identity; it returns a branded `ScrubbedQuestion = string & { readonly __scrubbed: unique symbol }`. **Product code**: `scrub()` + the branded type; the egress path (`ask()`/tool dispatch) accepts only `ScrubbedQuestion`, so the compiler rejects unscrubbed egress. **Reviewer**: `security-expert`, `type-expert`.
+**File scope**: `src/pii.ts` + `pii.unit.test.ts`. **Test (Red)**: `scrub()` removes `<@U…>` mentions, email- and phone-shaped tokens, and author identity; it returns a branded `ScrubbedQuestion = string & { readonly __scrubbed: unique symbol }`. **Product code**: `scrub()` + the branded type; the egress path (`ask()`/tool dispatch) accepts only `ScrubbedQuestion`, so the compiler rejects unscrubbed egress. Pin the compile-time guarantee with a `// @ts-expect-error` fixture — calling the egress path with a plain `string` must fail to compile (the evidence behind the Proof Contract's "compile failure on unscrubbed egress"). **Reviewer**: `security-expert`, `type-expert`.
 
 ### Cycle 2.2: scrub model-generated tool-call arguments
 
@@ -227,7 +228,7 @@ Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tscon
 
 ### Cycle 7.1: installation allow-list (internal-use only)
 
-**File scope**: `apps/slack/ask-oisin/src/access.ts` + test. **Test (Red)**: a request from an allow-listed Slack team/workspace id is accepted; a request from any other workspace is rejected (internal-use only; no external access). The allow-list is config/env-driven. **Scope (owner ruling)**: workspace-level is the accepted v1 definition — guests / Slack-Connect members *within* an allow-listed workspace are accepted; no per-user identity gating in v1. **Product code**: verify the Slack team id against the allow-list after signature verification, before any model call. **Reviewer**: `security-expert`.
+**File scope**: `apps/slack/ask-oisin/src/access.ts` + test. **Test (Red)**: a request from an allow-listed Slack team/workspace id is accepted; a request from any other workspace is rejected (internal-use only; no external access); **an empty or malformed allow-list rejects ALL requests (fail-closed)** — this is the invariant the "empty the allow-list" kill-switch relies on. The allow-list is config/env-driven. **Scope (owner ruling)**: workspace-level is the accepted v1 definition — guests / Slack-Connect members *within* an allow-listed workspace are accepted; no per-user identity gating in v1. **Product code**: verify the Slack team id against the allow-list after signature verification, before any model call. **Reviewer**: `security-expert`.
 
 ### Cycle 7.2: per-workspace + per-user (hashed) rate limiting
 
@@ -239,7 +240,7 @@ Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tscon
 
 ### Cycle 8.1: Next.js Sentry init via the all-sink barrier + waitUntil flush
 
-**File scope**: `apps/slack/ask-oisin/src/observability.ts` (+ `instrumentation.ts` if that is the chosen Next.js init) + test. **Test (Red)**: a forced failure in the `waitUntil` continuation is captured AND Sentry is flushed before the function terminates (Vercel truncates otherwise); logs carry event-type/latency/token-count only, never message content. **Product code**: init through the `@oaknational/sentry-node` **all-sink redaction barrier** (beforeSend + beforeSendSpan + beforeSendLog + beforeSendTransaction + beforeBreadcrumb — ADR-160), not an events-only `beforeSend`; a `waitUntil`-aware capture+flush. AI SDK `experimental_telemetry` stays off. **Reviewer**: `security-expert`, `sentry-expert`.
+**File scope**: `apps/slack/ask-oisin/src/observability.ts` (+ `instrumentation.ts` if that is the chosen Next.js init) + test. **Test (Red)**: a forced failure in the `waitUntil` continuation is captured AND Sentry is flushed before the function terminates (Vercel truncates otherwise); logs carry event-type/latency/token-count only, never message content. **Product code**: init through the `@oaknational/sentry-node` **non-bypassable all-sink redaction barrier** (ADR-160 — every current and future fan-out hook shares the redaction; do not re-enumerate the hook list here), not an events-only `beforeSend`; a `waitUntil`-aware capture+flush. AI SDK `experimental_telemetry` stays off. **Reviewer**: `security-expert`, `sentry-expert`.
 
 ---
 
@@ -285,6 +286,8 @@ Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite
 | GitHub MCP read-only attach (WS6) | unit | header assertions |
 | 3s ack (WS9) | value-proxy | captured Slack delivery + timely 2xx on a preview deploy |
 | Grounded, cited answer (WS10.2) | value-proxy (manual) | preview-deploy question returns a cited, repo-grounded answer |
+| Safeguarding deflect + signpost (WS10) | value-proxy (manual) | a synthetic safeguarding disclosure is deflected + signposted, nothing retained |
+| POC success bar (WS10) | value-proxy | eval-set pass rate on a golden question set + weekly-active-askers, evaluated during the POC |
 
 `complete` is claimable only when every id is proven. TDD evidence must be test-first.
 
@@ -299,7 +302,7 @@ Readiness reviewers (`release-readiness-expert` GO/NO-GO). Doc propagation: cite
 | External/unauthorised access | WS7 installation allow-list (internal-only) after signature verification; reject non-allow-listed workspaces |
 | Framework mis-tiered / boundary rule blocks legitimate adapter use | WS0 configures the eslint boundary for the framework's permitted adapter edges (configure, never disable); ADR records the tier |
 | Incoming shared Next.js config workspace differs from our scaffold | Framework settled (Next.js App Router); adopt the shared config when it lands (config alignment, not a framework change) |
-| ZDR is contractual, not just a toggle | Confirm the Anthropic/Gateway ZDR arrangement (owner/legal) before treating "no retention" as guaranteed; reconcile ZDR's plan classification (invariant vs beneficial) with a proof row |
+| ZDR classification | **Settled beneficial-only** (owner ruling 2026-07-08); the PII invariant does not depend on ZDR, so no proof row is owed. Confirming the contractual term is optional (owner/legal), not a plan dependency |
 | Prompt injection via public repo content steering the private-scoped `oak-skills` read | Read-only tools; PAT scoped to exactly the two repos; note the public-content-instructs-private-read pivot; disclosures land only in-Slack to internal staff |
 
 ---
@@ -328,19 +331,17 @@ After all WS complete and gates pass, run `/oak-consolidate-docs`.
 
 ---
 
-## Known open questions (owner / legal / ops)
+## Known open questions — dispositions (2026-07-08)
 
-Surfaced by the 2026-07-08 open-question review; four design-shaping decisions were answered (safeguarding, ZDR classification, internal scope, oak-skills — folded in above). These remain open and are tracked as dependencies, not blockers for a plan-phase re-review. They mostly need a real legal/ops owner, not a design choice:
+**v1 is an internal proof-of-concept.** The open-question review's items were answered or reassigned by the owner:
 
-- **Legal — data protection**: are DPAs (Vercel / Anthropic / Slack) + a DPIA required before launch (staff questions → US inference + the KV user-hash), or is a "not required" decision recorded?
-- **Legal — records/audit retention**: does Oak have a positive duty to *retain* a Q&A log (vs the no-persistence stance)? Is Slack's own workspace retention the governed record, or is a deliberate audit store needed?
-- **Legal — ZDR contract**: is a no-retention term contractually in force with Vercel/Anthropic (the invariant no longer depends on it, but confirming lets ZDR be relied on if wanted)?
-- **Owner/product — success metrics**: the keep/kill bar for v1 (eval pass rate / weekly active askers / cited-and-correct % / "would staff miss it"). No target exists yet.
-- **Ops — provisioning + ownership**: named owner per external resource — Slack app (+ workspace-admin approval), Vercel project + billing, Gateway BYOK key + Anthropic key, GitHub PAT (recommend a **machine/service account**, not a personal PAT), and Ask Oak's Clerk identity + refresh-token store.
-- **Ops — cost ceiling**: monthly budget cap, alert thresholds, hard-stop-vs-alert-only at ceiling, and whether to disable the silent Vercel system-credit BYOK fallback. Named budget owner.
-- **Ops — monitoring / service owner**: where Sentry / budget / rate-limit-trip alerts route, and who operates the running service.
-- **Ops — rollback / kill-switch authority**: mechanism is derivable (empty the allow-list / unset Gateway+GitHub env / Vercel instant-rollback); who is authorised to trigger it, and the incident procedure.
-- **Ops/owner — Slack app approval**: does the workspace require admin/security approval to install a new app, who grants it, and what lead-time does M1 budget for?
+- **Data protection** — existing Oak vendor DPAs cover Vercel/Anthropic/Slack; **a DPIA is not required for the internal POC** (recorded). Re-assess if v1 graduates beyond POC.
+- **Records/audit retention** — **no retention duty**; Slack's own workspace retention is the governed record (no Q&A store).
+- **ZDR** — beneficial only; the PII invariant does not depend on it (settled).
+- **Success bar** — light quantitative (see Proof Contract): an eval-set pass rate on a golden question set plus weekly-active-askers, evaluated during the POC.
+- **Provisioning, resource ownership, billing/cost ceiling, Slack-app approval, monitoring/service-owner, rollback authority** — **owner-handled; out of plan scope** for the POC (owner ruling 2026-07-08). The plan names the *resources* it needs (Dependencies); assigning their owners is the owner's.
+
+No open questions remain within the plan's own scope.
 
 ---
 

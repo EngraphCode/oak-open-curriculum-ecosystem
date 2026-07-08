@@ -44,7 +44,7 @@ Teachers and curriculum staff have no low-friction way to ask curriculum-content
 
 - Invite-only alpha (endpoint, tools, scopes) may change — verified 2026-07-08 but not stable.
 - Refresh-token lifecycle (rotation, revocation) needs an owned store design.
-- **Denylist fails open** on a server tool rename or a new write/destructive tool. Harden the name-based denylist with an MCP tool-annotation filter — but annotations are OPTIONAL, so `readOnlyHint !== true` would wrongly exclude every *unannotated* tool. Correct logic: exclude only tools **explicitly** marked non-read (`readOnlyHint === false` OR `destructiveHint === true`); keep unannotated tools (the name denylist still covers the known non-curriculum ones). Also: access to the Oak MCP is invite-only, so Ask Oak inherits the same internal-only posture as Ask Oisín (mcp-expert review, logic corrected).
+- **Denylist fails open** on a server tool rename or a new write/destructive tool. Harden the name-based denylist with an MCP tool-annotation filter — but annotations are OPTIONAL, so `readOnlyHint !== true` would wrongly exclude every *unannotated* tool. Correct logic: exclude only tools **explicitly** marked non-read (`readOnlyHint === false` OR `destructiveHint === true`); keep unannotated tools (the name denylist still covers the known non-curriculum ones). **Verify at promotion** whether the AI SDK MCP client's `.tools()` actually surfaces raw MCP annotations (`readOnlyHint`/`destructiveHint`) — if it does not, the annotation filter is not implementable and the name denylist stands alone. Also: access to the Oak MCP is invite-only, so Ask Oak inherits the same internal-only posture as Ask Oisín (mcp-expert review, logic corrected).
 
 ## Promotion trigger into `current/`
 

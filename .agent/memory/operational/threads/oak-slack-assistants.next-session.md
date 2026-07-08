@@ -21,12 +21,12 @@ architectural seam:
   (`current/`, PLANNING — re-review pending after the 2026-07-08 fleet-review
   corrections). Design source:
   [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md).
-- **Next safe step**: the plan is not yet READY FOR EXECUTION — a plan-phase
-  re-review against the applied corrections is the next move, then provision the
-  blocking prerequisites (Slack app registration + team id for the allow-list,
-  Vercel project + AI Gateway BYOK key, GitHub PAT for OCE + private `oak-skills`
-  read), then the WS0 ADR (apps/slack tier + framework tier/boundary config)
-  before any scaffolding.
+- **Next safe step**: the plan is **READY FOR EXECUTION for WS0–WS8** (framework +
+  app build; CI-provable; no external credentials). Start at the WS0 ADR
+  (apps/slack tier + framework adapter-tier + eslint boundary config), then
+  scaffold. WS9–WS11 (live preview deploy, value-proxy proofs, release review) are
+  gated on owner-handled provisioning (Slack app + team id, Vercel + Gateway BYOK,
+  GitHub PAT for OCE + private `oak-skills`) and a durable KV.
 - **Completed prerequisites**: design verified against primary vendor docs + the
   live Oak MCP (2026-07-08); framework settled as Next.js App Router; owner
   rulings recorded (pragmatic PII egress, matcher deferred, framework-first,
@@ -40,9 +40,11 @@ architectural seam:
   PII invariant does NOT depend on ZDR (ZDR beneficial only); internal scope is
   workspace-level (guests/Slack-Connect within an allow-listed workspace accepted);
   oak-skills = scope the PAT to read the private repo.
-- **Tracked open questions (owner/legal/ops)**: DPIA/DPAs; records-retention duty;
-  ZDR contract; v1 success metrics; provisioning + ownership of the 4 external
-  resources; cost ceiling + budget owner; monitoring/service owner; rollback
-  authority; Slack app-approval process. See the plan's "Known open questions".
+- **Open-question dispositions (2026-07-08)**: v1 is an internal POC — DPIA not
+  required (existing vendor DPAs cover it); no records-retention duty (Slack is the
+  governed record); ZDR beneficial-only; success bar = light quantitative (eval-set
+  pass rate + weekly-active-askers). Provisioning, ownership, billing, Slack-app
+  approval, monitoring, and rollback authority are **owner-handled, out of plan
+  scope**. See the plan's "Known open questions — dispositions".
 - **Recent relevant commits**: PR #328 (`feat/slack-apps`) — design doc, plan
   collection, framework-settle, and the fleet-review corrections.
