@@ -334,18 +334,32 @@ const app = new App({
   deferInitialization: true,
 });
 
+// An @-mention inside a DM delivers BOTH app_mention and message.im for the same message —
+// answer once, keyed on channel+ts. (Illustrative in-instance guard; the durable event-id
+// de-dup across Slack retries is the framework's WS7.3 KV cycle.)
+const answered = new Set<string>();
+const answerOnce = async (key: string, reply: () => Promise<void>) => {
+  if (answered.has(key)) return;
+  answered.add(key);
+  await reply();
+};
+
 app.event("app_mention", async ({ event, say }) => {
-  await say({
-    text: await ask(INSTRUCTIONS, scrub(event.text), tools),
-    thread_ts: event.thread_ts ?? event.ts,          // reply in the existing thread when mentioned inside one
+  await answerOnce(`${event.channel}:${event.ts}`, async () => {
+    await say({
+      text: await ask(INSTRUCTIONS, scrub(event.text), tools),
+      thread_ts: event.thread_ts ?? event.ts,        // reply in the existing thread when mentioned inside one
+    });
   });
 });
 
 app.message(async ({ message, say }) => {            // DMs only (message.im); no channel subscription
   if (message.channel_type !== "im" || message.subtype !== undefined) return;   // typed narrowing — no `as any`
-  await say({
-    text: await ask(INSTRUCTIONS, scrub(message.text ?? ""), tools),
-    thread_ts: message.thread_ts ?? message.ts,
+  await answerOnce(`${message.channel}:${message.ts}`, async () => {
+    await say({
+      text: await ask(INSTRUCTIONS, scrub(message.text ?? ""), tools),
+      thread_ts: message.thread_ts ?? message.ts,
+    });
   });
 });
 
