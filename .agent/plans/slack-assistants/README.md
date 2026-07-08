@@ -4,9 +4,11 @@ Collection purpose: user-facing agentic **Slack assistants** built over Oak's MC
 
 Design source of truth: [`.agent/research/outreach/oisin-oce-navigator-design.md`](../../research/outreach/oisin-oce-navigator-design.md) (PR #328), verified against primary vendor docs and the live Oak MCP on 2026-07-08.
 
+Both apps are **internal-use only** — allow-listed Slack installations, no external users or access. Others may fork the repo and self-host their own instance. Roadmap: [`roadmap.md`](roadmap.md).
+
 ## Thread
 
-`oak-slack-assistants` (PDR-027) — thread record to be created at execution start of the Ask Oisín plan.
+`oak-slack-assistants` (PDR-027) — [`../../memory/operational/threads/oak-slack-assistants.next-session.md`](../../memory/operational/threads/oak-slack-assistants.next-session.md).
 
 ## Plans
 
