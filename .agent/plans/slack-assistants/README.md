@@ -4,7 +4,7 @@ Collection purpose: user-facing agentic **Slack assistants** built over Oak's MC
 
 Design source of truth: [`.agent/research/outreach/oisin-oce-navigator-design.md`](../../research/outreach/oisin-oce-navigator-design.md) (PR #328), verified against primary vendor docs and the live Oak MCP on 2026-07-08.
 
-Both apps are **internal-use only** — allow-listed Slack installations, no external users or access. Others may fork the repo and self-host their own instance. Roadmap: [`roadmap.md`](roadmap.md).
+Both apps are **internal-use only** — allow-listed Slack installations, no external users or access. Others may fork the repo and self-host their own instance. **Ask Oisín v1 is an internal proof-of-concept.** Roadmap: [`roadmap.md`](roadmap.md).
 
 ## Thread
 
@@ -14,7 +14,7 @@ Both apps are **internal-use only** — allow-listed Slack installations, no ext
 
 | Lane | Plan | State |
 |---|---|---|
-| `current/` | [`ask-oisin.plan.md`](current/ask-oisin.plan.md) | Ask Oisín v1 — project/repo navigator; extracts the framework. Queued, not started. |
+| `current/` | [`ask-oisin.plan.md`](current/ask-oisin.plan.md) | Ask Oisín v1 (internal POC) — project/repo navigator; extracts the framework. READY for WS0–WS8; WS9+ gated on owner provisioning. |
 | `future/` | [`ask-oak.plan.md`](future/ask-oak.plan.md) | Ask Oak — curriculum-content assistant. Strategic; promoted when the framework ships and Oak MCP alpha credentials land. |
 
 ## Sequencing

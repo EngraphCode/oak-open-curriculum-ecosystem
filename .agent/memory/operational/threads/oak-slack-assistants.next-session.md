@@ -18,8 +18,8 @@ architectural seam:
 - **Invocation pointer**: continue `oak-slack-assistants` from this record.
 - **Controlling plan**:
   [`ask-oisin.plan.md`](../../../plans/slack-assistants/current/ask-oisin.plan.md)
-  (`current/`, PLANNING — re-review pending after the 2026-07-08 fleet-review
-  corrections). Design source:
+  (`current/`, READY FOR EXECUTION for WS0–WS8; two review rounds complete,
+  corrections integrated). Design source:
   [`oisin-oce-navigator-design.md`](../../../research/outreach/oisin-oce-navigator-design.md).
 - **Next safe step**: the plan is **READY FOR EXECUTION for WS0–WS8** (framework +
   app build; CI-provable; no external credentials). Start at the WS0 ADR
