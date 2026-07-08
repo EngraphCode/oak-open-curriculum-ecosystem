@@ -125,13 +125,15 @@ the run total superlinearly — one more reason H7 watches the SUM, not only per
 
 ## 7. R0 actuals (recorded against the declaration — the honesty row)
 
-Measured this arc. Auditable evidence in committed/durable homes: the PR #321 and #323
-review transcripts on GitHub (the fleet dispatches and their token receipts), and the
-session-close continuity stack riding **PR #324** — the PDR-063 handoff records (Stoat's
-tranche-3 execution record; Goshawk's G1/R0b-runway record; Rigel's R0b-merged record and
-its gateway-adjudications companion) plus the napkin economics entries. Until #324
-merges, those records are branch-side, not in this tree — the SP1 re-issue re-verifies
-the citations resolve on `main`:
+Measured this arc. Auditable evidence, honestly located (corrected 2026-07-08 at the
+Pelican closeout — an earlier revision claimed the handoff records rode PR #324; the
+`handoffs/*` path is gitignored BY DESIGN, so PDR-063 records are machine-local state,
+never in this tree): the **committed** homes are the PR #321/#323 review transcripts on
+GitHub (the fleet dispatches and their token receipts) and the napkin economics entries
+riding the session-close continuity commits; the **machine-local** homes are the PDR-063
+handoff records under `.agent/state/collaboration/handoffs/` (Stoat's tranche-3 execution
+record; Goshawk's G1/R0b-runway record; Rigel's R0b-merged record and its
+gateway-adjudications companion). The SP1 re-issue re-verifies whichever it can reach:
 R0a tranche reviewer rounds ~85–140k tokens/reviewer; R0a cycles-3–4 six-seat gateway
 ~664k; R0b pre-execution review ~154k; R0b seven-seat gateway ~505k. Order-of-magnitude
 R0 fleet total: **~3–6M tokens ≈ USD 40–90**, plus five interactive seat-sessions

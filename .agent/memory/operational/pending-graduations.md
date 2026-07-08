@@ -110,3 +110,23 @@ finding). `target` must name a doctrine surface (rule / PDR / ADR / pattern /
 governance doc); if it names a plan or report, the item belongs elsewhere.
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
+
+- **Quiet-pipe exit-mask class: gates, pushes, and verification probes run BARE, exit read
+  off the command itself** `[captured 2026-07-08 | source napkin (five-plus recorded
+  instances across four seats: Stoat zsh-var-through-pipe; Goshawk eslint|tail ×2; Rigel
+  plan-state|head; Pelican check-commit|tail, git-push|tail, comms|grep -c) | target new
+  .agent/rules/ rule (read-exit-codes-bare; PIPESTATUS/bare-$? discipline; never key a
+  success echo or a chain continuation off a pipe tail) | trigger FIRED — recurrence across
+  seats proves vigilance does not cure the class | size S | status due]`
+- **PR settle discipline: a continuous terminal-condition watch replaces fixed-interval
+  settle probes** `[captured 2026-07-08 | source napkin (Rigel #324 + Pelican #325 parallel
+  owner corrections; Rigel's Monitor until-loop cure enumerating every terminal state) |
+  target pr-lifecycle SKILL Phase 5/6 amendment (the budgeted pr-watch IS the shape — make
+  it the mandated settle mechanism; checks-settled never proves a bot review round complete)
+  | trigger FIRED — two seats corrected in one sitting | size S | status due]`
+- **Scheduled remediation-bot PRs enter the same disposition gauntlet as any seat's PR —
+  never merge-on-green** `[captured 2026-07-08 | source PR #326 deep review (napkin entry;
+  review comment issuecomment-4913446806: both bot fixes reversed documented local decisions;
+  1-merged/6-closed revealed history) | target sonarqube-mcp-instructions rule note | trigger
+  owner decision on the remediation agent (if turned OFF, reject this item as moot at the
+  pass) | size XS | status pending]`
