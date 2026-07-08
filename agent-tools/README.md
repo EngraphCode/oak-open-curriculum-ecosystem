@@ -97,6 +97,13 @@ subcommand (`agent-identity`, `collaboration-state`, `commit-queue`,
 every action within those topics — MUST satisfy the following help
 contract. This is a hard requirement.
 
+Authoring note for new tsx-invoked entry points: register each new entry
+file in `knip.config.ts`'s agent-tools entry list AT AUTHORING TIME, or the
+entry reads as unused and its imports cascade into false unused-export
+findings. Then un-export whatever nothing imports — an un-exported unused
+type alias trips `noUnusedLocals`, so delete it rather than de-export
+(cost of learning this late: one commit bounce, 2026-07-06).
+
 - **`--help` accepts no value** and prints the full usage block for the
   command at hand: command name, all required flags marked clearly
   (asterisk, `REQUIRED` tag, or grouping header), all optional flags

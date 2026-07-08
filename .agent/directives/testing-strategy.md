@@ -135,6 +135,20 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   NOT conditional — it is deterministic enumeration. Full rule:
   [`no-conditional-tests.md`][no-cond].
 
+- **No wall-clock ceilings in gated tests** - A wall-clock assertion
+  (`expect(elapsed).toBeLessThan(500)` or any finite ms ceiling) in a
+  gated in-process test is the conditional-test defect class expressed
+  through an assertion value: it is nondeterministic pass/fail across
+  environments, and ANY finite ceiling fails under sufficient host
+  contention. The cure is DELETE — no deterministic assertion is
+  recoverable from wall-clock. A genuinely-owned cost budget belongs in
+  a benchmark instrument (an on-demand script, reporting not gating),
+  never in the test suite. Must-nots: raising the ceiling, retry-wraps,
+  tolerance bands, relative bounds, or slicing the corpus out of
+  behavioural tests (test-expert ruling, 2026-07-06: three wall-clock
+  suites deleted; the real-corpus import design itself ruled conformant
+  and retained).
+
 [no-skip]: ../rules/no-skipped-tests.md
 [no-cond]: ../rules/no-conditional-tests.md
 

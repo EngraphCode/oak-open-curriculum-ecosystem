@@ -2780,6 +2780,10 @@ commit SHA and the closing plan reference.
   loop — in any committed template resolve it via `git rev-parse --show-toplevel`, never a
   literal path (`no-machine-local-paths`).
 - **Status**: open — structural cure not built; three independent data points recorded.
+  Further recurrences: 2026-07-06 (Zenith, ~10 min after re-registering the friction);
+  2026-07-08 (Pelican closeout: `ERR_PNPM_RECURSIVE_EXEC "command not found"` on a root
+  script from a workspace cwd — a confusing error for a cwd problem). Recurrence under
+  full awareness keeps proving the cure must be structural.
 - **Owner direction status**: standing (record-all-frictions).
 
 ### F-126 — semantic-merge losslessness proof is hand-rolled every time; wants a verifier command
@@ -2927,4 +2931,84 @@ commit SHA and the closing plan reference.
   inner commit then run against that tree.
 - **Target surface**: `agent-tools/src/commit-queue/commit-workflow.ts` (verify-staged + spawned git cwd).
 - **Status**: open. Same sanctioned workaround as F-132.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-134 — root `pnpm build` does not build `@oaknational/result` (turbo graph gap)
+
+- **Source**: Pelican calls Spray closeout 2026-07-08, discovered while root-causing the
+  broken-by-construction `pnpm check` (the `clean` → `repo-validators:check` ordering
+  defect, fixed the same day by moving validators after the turbo build leg).
+- **Observed**: after `pnpm clean`, a root `pnpm build` leaves `@oaknational/result`'s
+  `dist/` absent — tsx-invoked consumers importing `@oaknational/result/dist` die with
+  `ERR_MODULE_NOT_FOUND` until something else builds the package. CI masks it (its
+  pipeline builds explicitly), so the gap only bites local whole-chain runs.
+- **Expected**: root `pnpm build` produces a complete built estate — every workspace any
+  gate leg imports at runtime.
+- **Candidate cure**: add the missing turbo graph edge (or include the package in the
+  root build scope); a regression probe is a post-clean root build followed by
+  `test -d packages/libs/result/dist`.
+- **Target surface**: `turbo.json` / root build task scope.
+- **Status**: open.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-135 — `comms inbox` rejects `--since`; the watcher rule's mandated gap sweep has no compliant tool shape (OWNER PRIORITY)
+
+- **Source**: owner directive 2026-07-08 (comms event d84ebf3a; relayed to the resonance
+  estate the same hour — the priority covers BOTH estates).
+- **Observed**: the comms-all-channels-watcher rule mandates a post-arm foreground sweep
+  "covering the window from BEFORE session open" via an inbox-shaped read, but
+  `comms inbox` rejects `--since` (exit 2). The compliant fallbacks are a full-history
+  replay or a hand-rolled jq time-filter — the exact hand-rolled-filter class the rule
+  itself warns against.
+- **Expected**: `pnpm agent-tools:collaboration-state -- comms inbox --since <iso>` lists
+  every event (all channels, self-excluded) since the timestamp.
+- **Candidate cure**: add `--since` to the inbox command; the owning lane is the
+  CLI-ergonomics plan (`agent-tools-cli-ergonomics.plan.md`) — this friction is that
+  plan's highest-priority item by owner direction.
+- **Target surface**: `agent-tools/src/collaboration-state/` (inbox command).
+- **Status**: open — OWNER PRIORITY.
+- **Owner direction status**: owner-directed 2026-07-08.
+
+### F-136 — practice-core CONTENT has no portability scanner (`portability:check` covers adapters only)
+
+- **Source**: PDR-101 quorum over the 2026-07-08 consolidation batch (two seats
+  independently): a new PDR shipped with host-adapter paths and host-local context, and
+  no mechanical gate could catch it — `portability:check` validates skills/rules adapter
+  parity, never Core file content. Existing PDRs carry the same leakage (precedent
+  compounding, unguarded).
+- **Observed**: `practice-core-portability` is a governance claim with no scanner
+  (`governance-claim-needs-a-scanner` class): host paths (`.agent/...`), plan filenames,
+  and seat names inside `practice-core/**` dangle in any adopting repo and nothing fires.
+- **Expected**: a repo-validator scans `practice-core/**` for host-path/host-context
+  fingerprints (path prefixes, plan-filename shapes) with a per-file allow for the
+  bridge-index surfaces that are host-facing by design.
+- **Candidate cure**: `validate-core-portability` in the repo-validators estate; per
+  PDR-126 it lands at error with the existing leakage fixed or explicitly dispositioned
+  in the same landing.
+- **Target surface**: `agent-tools/src/validators/` (new validator).
+- **Status**: open — tooling candidate.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-137 — staged RENAMES cannot ride the commit-queue workflow (name-only verify vs both-sides pathspec)
+
+- **Source**: the 2026-07-08 dedicated-consolidation landing (Corsair guards Channel,
+  ecdd12); two `git mv` thread-record retirements in the bundle.
+- **Observed**: two structural mismatches compose. (1) `verify-staged` compares the intent
+  list against `git diff --cached --name-only`, which reports a rename as the NEW path
+  only — an intent listing both sides reads "missing: <old>", an intent listing the new
+  side only passes verify but then (2) the workflow's inner pathspec-scoped `git commit`
+  builds a temporary index in which the old path's deletion (absent from the pathspec) is
+  not included, so the pre-commit hook's `git ls-files` still lists the old path and the
+  machine-local-paths validator dies ENOENT opening it. Same repo-topology class as
+  F-132/F-133, different axis (rename semantics, not worktree scope).
+- **Expected**: the workflow accepts a bundle containing staged renames — verify-staged
+  understands rename records (old→new as one entry) and the inner commit's pathspec
+  carries both sides.
+- **Candidate cure**: read the staged set via `git diff --cached --name-status -M` and
+  normalise `R` records to (old,new) pairs in both verify-staged and the spawned commit
+  argv.
+- **Target surface**: `agent-tools/src/commit-queue/commit-workflow.ts`.
+- **Status**: open. Sanctioned workaround (per the F-132/F-133 precedent in the commit
+  skill): plain `git commit -F <msg> -- <paths incl. both rename sides>` with first-hand
+  staged-set verification, full hooks.
 - **Owner direction status**: standing (record-all-frictions).

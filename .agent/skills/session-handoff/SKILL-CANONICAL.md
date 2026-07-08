@@ -533,6 +533,21 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    see pending-graduations.) "Nothing survives the sweep" is a valid answer reached by
    asking, not by skipping.
 
+   **Loss-scan and metaloss findings are ALWAYS written to the napkin** (owner
+   standing rule, 2026-07-07) — never chat-only narration. The napkin is the
+   capture surface the pipeline distils from; a scan whose findings live only
+   in the closing message loses them at exactly the boundary the scan guards.
+   Write findings AT OCCURRENCE where possible: an end-of-session batch
+   competes with completion drive at the precise moment judgement degrades
+   (fluency-at-the-finish-line — four worked instances in one closing stretch,
+   2026-07-07), and a loss-scan is a snapshot that rots at the speed of the
+   session. When handing off with an in-flight sub-agent, prefer
+   stop-then-characterize over hand-off-blind: `TaskStop` it, run the
+   verification chain yourself, and freeze a verified state — verified-green
+   completed work is landed (committed and pushed), never handed off
+   uncommitted-on-disk (worked instance 2026-07-07: an "about to re-run tests"
+   unknown-partial converted to a verified-green ready-to-land handoff).
+
 7. **Refresh cross-session coordination surfaces** (session-scoped
    touch on cross-session artefacts the session affected).
 

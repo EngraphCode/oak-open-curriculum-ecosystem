@@ -153,7 +153,10 @@ The committed cache is the build source; a warn-only check surfaces staleness:
   and raw-fetch pipelines does not cry wolf while genuine same-version content drift is
   still caught.
 - It runs in CI and as a non-blocking pre-push advisory. It always exits 0 — a stale cache
-  is surfaced, never a blocker on unrelated work. New checks start at warn.
+  is surfaced, never a blocker on unrelated work. (Its advisory polarity is a deliberate
+  signal-vs-gate design choice; note that new GATES land at error with conformance in one
+  landing per PDR-126 — the prior "new checks start at warn" convention is superseded by
+  the 2026-07-07 owner ruling.)
 
 ## References
 

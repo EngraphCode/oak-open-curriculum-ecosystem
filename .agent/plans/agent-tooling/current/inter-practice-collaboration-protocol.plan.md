@@ -178,11 +178,14 @@ ALREADY ARRIVED and been receipted.
 
 **The three things the next session must do, in order:**
 
-1. **Route the inbound return bundle — it has ARRIVED and been receipted.**
-   `.agent/practice-core/incoming/resonance-teaching-bundle-2026-07-05.md`
-   (189 lines, committed to the repo with the 2026-07-08 closeout stack; integration timing stays the successor's call) is on
-   disk; this session verified it well-formed and posted the receipt on the
-   resonance stream, so the delivery handshake is CLOSED. What remains is WS6:
+1. **Route the inbound return bundle — ARRIVED, receipted, and INTEGRATED.**
+   The bundle (`resonance-teaching-bundle-2026-07-05.md`, formerly in the
+   incoming box) was integrated and cleared at the 2026-07-08 dedicated
+   consolidation (owner-approved; retrievable from git history): teachings
+   1/4/5 verified live in landed artefacts, the two residuals routed to the
+   `agentic-engineering-enhancements` thread record (recomputable team state
+   → this WS0 session's agenda; the worker agent-class generator → the
+   agent-tooling lane). The delivery handshake is CLOSED. What remains is WS6:
    read it first-hand and route its substance as an adoption assessment. Its
    five sections: (1) recomputable plan state / PDR-129, (2) recomputable
    team state / PDR-130, (3) zero-judgement task workers + PDR-125 adversarial

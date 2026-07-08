@@ -55,11 +55,13 @@ WS0d delivers (a). Frame every design choice against those three.
    `.agent/reports/agentic-engineering/resonance-bundle-adoption-assessment-2026-07-05.md`
    — §5 reconciles the two proposals into ONE shared spec; the tier ladder is the
    recorded answer to conformance strictness.
-3. Inbound bundle:
-   `.agent/practice-core/incoming/resonance-teaching-bundle-2026-07-05.md`
-   — the return-bundle §5 (protocol rides the plasmid as a Core PDR family with
-   tiered conformance) CONVERGES with oak's own design. Author ONE shared shape,
-   not two competing ones.
+3. Inbound bundle (integrated and cleared from the incoming box at the
+   2026-07-08 consolidation; read it from git history if needed:
+   `resonance-teaching-bundle-2026-07-05.md`) — the return-bundle §5
+   (protocol rides the plasmid as a Core PDR family with tiered conformance)
+   CONVERGES with oak's own design. Author ONE shared shape, not two
+   competing ones. Its teaching 2 (recomputable team state) is now a routed
+   agenda item in the AEE thread record for THIS session.
 4. The `agentic-engineering-enhancements` thread record's INTER-PRACTICE EXCHANGE
    LANE section and the exchange-lane napkin entries (identity join-key;
    watcher-is-a-writer; ARC-is-fast-not-durable).

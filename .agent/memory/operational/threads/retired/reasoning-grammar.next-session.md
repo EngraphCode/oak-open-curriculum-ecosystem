@@ -1,3 +1,11 @@
+> **RETIRED — thread completed 2026-07-08.**
+> The capability landed on main — the grammar-of-thinking reference, the `reason`
+> skill, and the metacognition/oak-plan/start-right wiring are all live (verified
+> by artefact presence 2026-07-08; the session's original SHA `3b9836d89` was
+> orphaned by later merge history, so the record's "push pending" note is stale).
+> Retained as continuity history; not a live lane. Not listed in
+> `repo-continuity.md` Active or Paused threads.
+
 # Thread: reasoning-grammar
 
 **Purpose**: Actuate a structured-reasoning capability for agents — the portable

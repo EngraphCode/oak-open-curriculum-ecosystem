@@ -129,6 +129,11 @@ side is ever dropped to fit a structure or a limit.**
 4. **Review the WHOLE changed section, not just conflict hunks.** Git auto-merges
    non-conflicting hunks; those can be semantically wrong too (two top entries stacked
    oddly, a row inserted mid-table). Read the entire section both sides touched.
+   Heading-level proofs structurally cannot see WITHIN-LINE edits: when you choose one
+   side of an index-class file, diff the REJECTED side against base for line-level edits
+   outside the region that superseded it, and re-apply each (worked instance, PR #324
+   round 2: an ours-wins resolution silently reverted the other side's
+   `current/`→`active/` link corrections; caught by two reviewers).
 5. **Respect fitness limits.** These files carry line/char limits in frontmatter. If the
    union overflows, the cure is conserve-insight-and-drain per the file's
    `overflow_disposition` (run `consolidate-docs`) — NEVER drop a concept to fit.
@@ -150,6 +155,22 @@ side is ever dropped to fit a structure or a limit.**
    home (or in that side's archive) before accepting the emptied version — a drain is
    lossless only when the substance reached its home. Sibling:
    [[ground-convenient-claims]], `verify-dont-trust`.
+8. **Assert the ERA WITNESS — mandatory after EVERY union.** The NEWEST section heading
+   of EACH side — and, for files carrying an identity/seat table, each side's newest
+   identity row — must be present in the result **or verified at its drain destination
+   per step 7** (a legitimately-drained side's newest entry is correctly absent from the
+   result; the witness for that side is the verified home or archive, never
+   re-introduction). A set-diff proof only compares the pair the merger CHOSE; if the
+   union accidentally adopted an entire stale side for a file, the proof reads green
+   while a whole era is gone (worked loss, PR #324, 2026-07-08: a union dropped the
+   entire Goshawk/Rigel era from two continuity surfaces while its set-diff proofs read
+   green; recovered from the object store at `5faf08205`). The era witness binds the
+   proof to recency, which a set-diff structurally cannot see.
+9. **Recompute LINKS over the unioned sections.** A union re-introduces the stale side's
+   links, not just its content — a path correct when written and broken after a later
+   move rides back in (worked instance: a `current/` plan link re-introduced after the
+   `active/` move). Run `validate-markdown-links` scoped to the merged file, or `test -f`
+   each relative target the union (re-)introduced.
 
 ## Mechanics that respect the repo rules
 

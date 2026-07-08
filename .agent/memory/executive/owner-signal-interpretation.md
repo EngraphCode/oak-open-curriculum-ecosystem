@@ -62,6 +62,16 @@ worked modes:
   supersession (replaces) from sequencing/addition (adds a later goal,
   leaving the current one live). Reading every new turn as a replacement
   wrongly discards a still-live earlier directive.
+- **The stream can arrive by RELAY.** An owner ruling put-and-answered in a
+  parallel seat's session can reach you as a directed comms event: treat a
+  SPECIFIC, provenance-carrying relay sent under owner grant as owner
+  direction — record the relay provenance in any artefact it shapes (cite
+  the directed event), and re-true your own fresh prose the moment the
+  relayed ruling supersedes it (worked instance 2026-07-08: four rulings
+  relayed mid-session, including one that flipped a register row written as
+  pending minutes earlier). This composes with `precedence-is-not-approval`:
+  the relay must carry provenance and grant; a vague second-hand "the owner
+  said" remains a claim to verify.
 
 ## Direction Scope Is Session-Bounded by Default
 

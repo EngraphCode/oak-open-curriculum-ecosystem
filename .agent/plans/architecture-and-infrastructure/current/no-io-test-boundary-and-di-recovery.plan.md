@@ -43,7 +43,17 @@ todos:
 > exempted. The ~13 refounding-suite entries (2026-07 additions) are in scope; no new
 > entries may be added anywhere in the interim (recorded also in the R0-lane handoff
 > record 2026-07-07 and the napkin, with the generator-level lesson: a violation
-> allowlist is an escape hatch with paperwork).
+> allowlist is an escape hatch with paperwork; the portable form graduated as PDR-126,
+> 2026-07-08).
+
+**Routed follow-up (2026-07-08 consolidation, same cost root):** the agent-tools
+test suite's cost is IMPORT-dominated (~206s import vs ~7s test on a cold run) —
+ADR-086's per-node load-time validation of the ~27MB corpus runs at every consumer
+import. Whether that validation belongs fully at generation time (ADR-031
+heavy-lifting-at-codegen) with a minimal load-time assertion is a graph-corpus /
+sdk-codegen design question this plan's owning lane should take up alongside the
+IO boundary (test-expert ruling 2026-07-06 routed it; a cold-import benchmark
+instrument is warranted only if a real consumer-facing startup budget exists).
 
 ## End Goal
 

@@ -82,7 +82,13 @@ The same asymmetry governs *reading*: for who-did-what questions, consult the
 comms event stream and claim dispositions, never a GitHub actor field
 (`mergedBy`, PR author, commit pusher) — the login identifies the shared
 credential, not the actor (worked instance: PR #160's merge mis-attributed to
-the owner from `mergedBy` alone, 2026-06-10).
+the owner from `mergedBy` alone, 2026-06-10). The same applies to comment
+audits: agent replies render under the human login in watcher streams and
+comment lists, so when auditing "owner comments" on a PR, filter by the
+agent-identification marker in the body, never by author login. A leading
+`[Agent: …]` prefix is the stronger marker convention for comments — it is
+visible in truncated comment lists where a trailing signature is not
+(worked instance 2026-07-07).
 
 ## Scope Nuance
 

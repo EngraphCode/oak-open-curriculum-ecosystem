@@ -459,6 +459,13 @@ Before opening the four-move protocol above:
    `commit-queue commit` workflow in move 3 invokes the advisory
    orchestrator (which runs the message check) as part of its
    composition; no separate manual format-check pass is required.
+5. On harness platforms, run long `git commit` invocations via the
+   platform's background-task mechanism (`run_in_background`), never a
+   shell-level detach — `& disown` inside a foreground call severs the
+   hook chain from all tracking so no completion notification ever
+   arrives (F-131 class, re-observed 2026-07-07). Backgrounding
+   properly is the rule; an until-loop wake on HEAD movement is only
+   the recovery shape after a detach has already happened.
 
 ## Advisory Orchestrator In Isolation
 

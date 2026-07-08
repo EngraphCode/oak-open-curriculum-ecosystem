@@ -131,10 +131,19 @@ next session:
 - **Preferences**: how the user likes things done.
 - **What worked**: approaches that succeeded, especially
   non-obvious ones.
+- **Loss-scan and metaloss findings** (owner standing rule, 2026-07-07):
+  written HERE, never chat-only, preferably at occurrence — the full
+  doctrine lives in `session-handoff` §6e.2.
 
 Be specific. "Made an error" is useless. "Assumed the API
 returns a list but it returns a paginated object with `.items`"
 is actionable.
+
+Append-discipline note for this hot file: anchor edits on the shortest
+unique stable text, and verify the entry's heading line survived after
+any structural edit — long anchors on a frequently-appended file are
+fragile (a napkin Edit once silently dropped an entry's heading,
+2026-07-07).
 
 ## Surprise Format
 

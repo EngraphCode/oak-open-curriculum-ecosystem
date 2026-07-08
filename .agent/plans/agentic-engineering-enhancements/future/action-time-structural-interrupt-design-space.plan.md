@@ -240,6 +240,17 @@ proof that cognitive content CAN be given a mechanical firing cadence. This is
 the gap the design lane exists to close — and the reconciliation shows it is a
 genuine hole in the composed estate, not a duplicate of any existing layer.
 
+**Recurrence evidence with a matchable surface (2026-07-08 consolidation).**
+The quiet-pipe exit-mask class (a gate/push/probe piped through `| tail` /
+`| head` / `| grep`, exit read off the pipe tail) recurred 6+ times across
+four seats in three days AFTER its doctrine clause landed in
+`verify-dont-trust` (2026-07-02) — the strongest recurrence-despite-home
+signal recorded so far (PDR-098). Unlike the true semantic pathogens above,
+this class HAS a literal surface signature (a pipe stage following a known
+gate/push command shape), so its candidate mechanism is the PDR-044 innate
+hook layer (advisory-response, per PDR-029's constraint), not the empty
+quadrant — t2's inventory should classify it accordingly.
+
 ## Relationship to Existing Plans (coordination, not duplication)
 
 - [`closure-pressure-remediation-design-space.plan.md`](closure-pressure-remediation-design-space.plan.md)

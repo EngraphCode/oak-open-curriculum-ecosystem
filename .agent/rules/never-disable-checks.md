@@ -171,7 +171,11 @@ during the window — which they will not.
   ESLint, Prettier, vitest, tsconfig, husky, or CI workflow
   configuration. A config diff that weakens any check (rule
   severity, ignore-list growth, test-file exclusion, hook
-  removal) is a hard reject.
+  removal) is a hard reject. The same hard reject covers the
+  LANDING-time shape: a NEW gate arriving at `warn`, or arriving
+  with a violation-allowlist / grandfather inventory, violates
+  PDR-126 (gates land strict, in one landing) — a new rule is not
+  a "weakening" diff, so this clause names it explicitly.
 - `release-readiness-expert` enforces the rule at PR-ready gate.
 - `architecture-expert-fred` (principles-first) enforces the rule
   on any architectural decision that proposes a gate-off-fix-gate-on
@@ -184,6 +188,10 @@ during the window — which they will not.
   weaken a gate to solve a testing problem".
 - Sibling rule: [`no-warning-toleration.md`](no-warning-toleration.md)
   — warnings are not deferrable; same shape at warning severity.
+- Landing-time complement:
+  [PDR-126](../practice-core/decision-records/PDR-126-gates-land-strict-in-one-landing.md)
+  — this rule governs gates once live; PDR-126 governs how they arrive
+  (at error, with conformance, in one landing).
 - Sibling rule: [`no-verify-requires-fresh-authorisation.md`](no-verify-requires-fresh-authorisation.md)
   — gate skipping requires fresh per-invocation owner authorisation.
 - Sibling rule: [`dont-break-build-without-fix-plan.md`](dont-break-build-without-fix-plan.md)
