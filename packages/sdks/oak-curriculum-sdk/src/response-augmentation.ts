@@ -192,7 +192,7 @@ export function augmentArrayResponseWithOakUrl(
 }
 
 /**
- * Augments a single object response with Oak URL.
+ * Augments a single response — object or non-object — with Oak URL.
  *
  * Returns `unknown` because the result flows to `JSON.stringify` at
  * the middleware boundary — there is no typed downstream consumer.

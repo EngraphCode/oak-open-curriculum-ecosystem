@@ -616,7 +616,7 @@ describe('augmentResponseWithOakUrl', () => {
   });
 });
 
-describe('non-object payloads', () => {
+describe('augmentResponseWithOakUrl and augmentArrayResponseWithOakUrl — non-object payloads', () => {
   it('should return only the Oak URL fields for a non-object single response', () => {
     const result = augmentResponseWithOakUrl('add-two-numbers', '/lessons/add-two-numbers', 'get');
 
