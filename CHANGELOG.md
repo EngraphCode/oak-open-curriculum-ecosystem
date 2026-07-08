@@ -1,3 +1,17 @@
+# [1.63.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.2...v1.63.0) (2026-07-08)
+
+
+### Bug Fixes
+
+* **agent-tools:** absorb R0b gateway verdicts into the plan-state module ([7727981](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7727981a5ccb6cfbe674725c1d389e64d4bd50a5))
+* **agent-tools:** dangling-symlink write refusal and terminal control-char strip ([a11c019](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a11c0198001f4dfd05d0356ffd08cf2bbe9bf93b))
+* **agent-tools:** keep plan-state verdict lines unprefixed (Copilot finding) ([cb49686](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cb49686af9cf6861ffbd4e08b3710d180d9bb96b))
+
+
+### Features
+
+* **agent-tools:** plan-state recomputation engine, two adapters, and gate CLI ([4284745](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4284745da99d0f9b03a00252a032587653be70b4))
+
 ## [1.62.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.62.1...v1.62.2) (2026-07-07)
 
 
