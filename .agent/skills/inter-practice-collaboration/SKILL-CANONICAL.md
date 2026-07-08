@@ -5,8 +5,9 @@ description: >-
   Join a foreign Practice estate and exchange safely with zero prior knowledge
   of it — the runnable join ceremony for cross-estate work. Fires whenever a
   session's worktree repo and coordination home are different repos, or the
-  session is about to read from or write into any sibling Practice estate's
-  substrate. Enacts the inter-Practice collaboration protocol PDR.
+  session is about to write into, register presence in, or claim work in any
+  sibling Practice estate's substrate; read-only estate looks are unceremonied.
+  Enacts the inter-Practice collaboration protocol PDR.
 ---
 
 # Inter-Practice Collaboration (the join ceremony)
@@ -26,11 +27,17 @@ Any of:
   DIFFERENT repos (explicit flag or `PRACTICE_COORDINATION_HOME`
   differing from the worktree's own root);
 - the session is about to write into any sibling Practice estate's
-  substrate (comms, claims, boxes, memory, plans — anything);
-- the session is about to treat a sibling estate's content as an input
-  (mining, verification, exchange receipt).
+  substrate (comms, claims, boxes, memory, plans — anything; an
+  exchange receipt is a write);
+- the session is about to register presence or claim work in a
+  sibling estate (coordination posture, guest seats, thread joins).
 
-Reads that never leave the local estate do not fire this skill.
+Read-only looks at a sibling estate — mining, verification sweeps,
+estate-state checks that write and register nothing — do not fire
+this skill (owner ruling 2026-07-08: the protocols are for
+collaboration, an enhancement, never a blocker on reading files). The
+moment a read-only session decides to write, register, or claim, the
+ceremony fires before that first action.
 
 ## The ceremony (ordered, each step gates the next)
 
@@ -58,10 +65,13 @@ Reads that never leave the local estate do not fire this skill.
    55b041 = "Pelican calls Spray" here, "Lacustrine Drifting Hull" on
    the peer estate).
 4. **Register on the home stream**: the first comms write declares the
-   home identity name, native-repo alias(es), the prefix join key, the
-   worktree repo-reference (origin + branch — never a machine-local
-   checkout path in tracked content), and coordination posture
-   (observer / implementer / exchange seat).
+   home identity name, native-repo alias(es), the prefix join key,
+   `platform` and `model` as EXPLICIT fields (never left for readers
+   to infer — platform vocabulary diverges across estates and the
+   identity layer pins one value), the worktree repo-reference
+   (origin + branch — never a machine-local checkout path in tracked
+   content), and coordination posture (observer / implementer /
+   exchange seat).
 5. **Arm the home watcher WITH HOME TOOLING**, heartbeat-filtered by
    default. A watcher is a writer: its heartbeat and seen files are
    writes into the home substrate, so the home's CLI — never your
@@ -84,6 +94,12 @@ Reads that never leave the local estate do not fire this skill.
    help; this estate single-quotes).
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways.
+   **Normalise on receipt**: integrate inbound material in the
+   RECEIVING repo's format (markdown conventions, heading shapes,
+   gate-satisfying style), declaring the normalisation in the
+   integrating commit body — concepts travel, never bytes.
+   **Corrections are new events** threading to their antecedent;
+   never rewrite an exchange artefact or lifecycle event in place.
 8. **Verify, never trust** (the host's adversarial-verification
    doctrine applies to peers too): every peer assertion is a pointer
    to verify first-hand; a peer's "not found" is a claim about their

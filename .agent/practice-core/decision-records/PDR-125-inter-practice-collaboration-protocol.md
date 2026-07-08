@@ -8,7 +8,11 @@ pdr_kind: governance
 cross-estate session, per the owner's birthplace ruling: the same
 portable text lands in both estates' propagating decision-record sets
 in the same window; a cross-estate diff proving the copies identical
-modulo the local phenotype note is the acceptance proof)
+modulo the local phenotype note is the acceptance proof). Amended
+2026-07-08 (the v1 clause-conservation batch: the six registered
+founding clauses folded into clauses 3, 5, and 7; the both-estates
+innovation posture added to clause 6; both estates in one window,
+cross-estate diff re-proven).
 **Date**: 2026-07-06
 **Related**: PDR-005 (transplantation and provenance), PDR-024
 (vital integration surfaces and outbound routing), PDR-027 (identity
@@ -91,7 +95,15 @@ below serves one of those three.
    first-read step: the 2026-07-05 join event named the home estate's
    Practice-donor repository directly, tripping the home's
    donor-neutrality doctrine; self-reported on its stream the same
-   session.
+   session. **Naming constraints are asymmetric by design**: the home's
+   vocabulary doctrine may forbid names the guest's own tree uses
+   freely (one estate's tree may name the other while the reverse is
+   forbidden); the guest learns the asymmetry from the home's rules,
+   never assumes symmetry. **A session's cwd is a coordinate, not a
+   boundary**: estate governance binds WRITES and MERGES to each
+   estate's gates, while AUTHORSHIP is unrestricted for any session
+   under this ceremony — being "based in" an estate is a working-copy
+   fact, not an access boundary.
 
 4. **Foreign-substrate discipline — a watcher is a writer.** Write to
    a substrate only with that substrate's own tooling, schemas, and
@@ -107,20 +119,28 @@ below serves one of those three.
 
 5. **Identity display and the join key.** Identity names are
    repo-local derivations and stay so (converging them is
-   clone-pressure). Every rendered identity surface — statusline,
-   comms headings, claim listings — shows
+   clone-pressure); **each estate derives its name from the session
+   SEED alone** — never from model, platform, or any other session
+   property — which is exactly why one seed yields sovereign
+   per-estate names joined by the prefix. Every rendered identity
+   surface — statusline, comms headings, claim listings — shows
    `<name> (<session_id_prefix>)`. The **session_id_prefix is the join
    key**, and it identifies a SESSION: one session presents different
    names across estates. A SUCCESSOR is a NEW session — new prefix,
    therefore a new name in every estate. The anomaly rule: same name
    with a different prefix is an anomaly — surface it, do not accept
    it. A pre-positioning handoff event from an outgoing session
-   authorises a successor, but successor details in pre-positioning
-   are hypotheses: the peer verifies the successor's OWN identity
-   tuple at the successor's team-start, never assuming the outgoing
-   prefix carries over. Platform vocabulary diverges on one stream
-   (three spellings of one platform observed live); the identity layer
-   pins one canonical value with normalising reads.
+   authorises a successor, but **ALL pre-positioned successor details
+   are hypotheses** — the identity tuple, the seating, the timing, the
+   commissioned scope: the peer verifies the successor's OWN
+   registration at the successor's team-start, never assuming any
+   pre-positioned detail carries over. Platform vocabulary diverges on
+   one stream (three spellings of one platform observed live); the
+   identity layer pins one canonical value with normalising reads, and
+   **`platform` and `model` are explicit registration fields, never
+   inferred** — a registration that omits them is incomplete, and a
+   reader that guesses them from context re-introduces the divergence
+   the pinning exists to cure.
 
 6. **Adoption and versioning — shared spec AND shared schema, never
    shared code.** Three layers travel on the plasmid; each repo
@@ -151,6 +171,18 @@ below serves one of those three.
    named in clause 4: a strict validator refusing an unknown field IS
    this contract firing.
 
+   **Both-estates innovation posture (owner ruling 2026-07-07).**
+   Wherever possible, innovations and improvements to the shared
+   machinery apply to BOTH estates. Every innovation carries a
+   per-item twin disposition, recorded where the innovation lands:
+   `twinned-in-window` (both estates in one window, diff-proven),
+   `already-present-verify-parity`, `their-lane-owns-coordinate`
+   (the peer's own lane lands it; coordinate, don't duplicate), or
+   `impossible-with-named-reason`. The falsifier for the posture is
+   drift observed at the next exchange turn: three documented drift
+   instances (a detector below its resolver, a quote-style anchor, a
+   citation-port miss) are the reconverge cost this posture removes.
+
 7. **Exchange handshake — concepts and pointers are distinct layers.**
    A box file carries a SELF-CONTAINED concept payload: substance that
    needs no dereference, no commit pins, no moving targets — a SHA
@@ -163,7 +195,17 @@ below serves one of those three.
    integration ledger joins file ↔ event ↔ execution-time pin. The two
    host rule families (SHA-required in collaboration content;
    SHA-forbidden in permanent docs) are this one layering rule seen
-   from its two sides.
+   from its two sides. **Format-normalise on receipt**: inbound
+   material is normalised to the RECEIVING repo's format — markdown
+   conventions, heading shapes, gate-satisfying style — with the
+   normalisation declared in the integrating commit body; concepts
+   travel, never bytes, and a receipt that preserves foreign
+   formatting verbatim is an integration not yet finished.
+   **Corrections are new events**: an exchange artefact or lifecycle
+   event is never rewritten in place — a correction is a NEW event (or
+   a new box delivery) threading to its antecedent, so both estates'
+   records stay append-honest and a correction survives archive
+   rotation exactly like the material it corrects.
 
 ## Conformance — the v1 floor and tier ladder (owner-ratified 2026-07-06)
 

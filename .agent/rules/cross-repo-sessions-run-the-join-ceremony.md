@@ -1,9 +1,10 @@
 # Cross-Repo Sessions Run the Join Ceremony
 
 A session whose worktree repo and coordination home are different
-repos, or that is about to read from or write into a sibling Practice
-estate's substrate, runs the inter-Practice join ceremony BEFORE its
-first cross-estate action.
+repos, or that is about to COLLABORATE in a sibling Practice estate —
+write into its substrate, register presence, or claim work there —
+runs the inter-Practice join ceremony BEFORE its first cross-estate
+collaboration action.
 
 ## Trigger
 
@@ -14,9 +15,21 @@ Any of, at any point in a session:
   own;
 - work is about to write into another Practice estate's substrate —
   comms, claims, boxes, memory, plans, or liveness files (a watcher is
-  a writer);
-- work is about to consume another Practice estate's content as input
-  (mining, verification, exchange receipt).
+  a writer, and an exchange receipt is a write);
+- work is about to register presence or claim work in another
+  Practice estate (coordination posture, guest seats, thread joins).
+
+## Scope — reads are unceremonied
+
+**Read-only filesystem looks at a sibling estate on this machine do
+not fire the ceremony** (owner ruling 2026-07-08, verbatim substance:
+"the inter-Practice protocols are for collaboration, but they are an
+enhancement, not a blocker, you can just go and look at the files").
+Mining, verification sweeps, and estate-state checks that write
+nothing and register nothing proceed directly. The ceremony binds
+COLLABORATION boundaries; the moment a read-only session decides to
+write, register, or claim, the ceremony fires before that first
+action.
 
 ## Action
 

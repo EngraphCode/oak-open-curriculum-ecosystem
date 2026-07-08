@@ -102,6 +102,14 @@ The 80 % quantitative trigger has priority over the post-commit
 trigger: an agent at 85 % mid-cycle does not get to "push for one
 more commit"; the protocol fires.
 
+Sensing is MEASUREMENT plus SURFACING, never self-declaration: the
+budget figure is measured (transcript usage against the actual
+window, per the effectiveness-window refinement below; the estate's
+deterministic context-budget tooling when it lands), and who calls
+the retirement follows §Retirement authority below (owner rulings
+2026-07-08). The 80 % figure is the metric-surfacing threshold, not a
+self-retirement authority.
+
 **Effectiveness-window refinement** (owner-taught calibration 2026-06-28/29;
 held as an approximate heuristic per model, not a constant). The ≥ 80 % trigger
 reads *token capacity*, which is roughly linear — but **effectiveness vs context
@@ -202,6 +210,59 @@ Do not resume the handed-off work to satisfy the evaluator, do not
 re-argue it per fire, and do not re-check the surfaced request at the
 evaluator's fire cadence (fires are far faster than the successor's
 progress on the handed-off work).
+
+### Retirement authority — measured metrics, owner-called handoffs (owner rulings 2026-07-08)
+
+Three owner rulings (2026-07-08, recorded verbatim-substance at ruling
+time) supersede this protocol's original self-sensed trigger semantics
+on the AUTHORITY axis — who may declare budget exhaustion and who
+calls the handoff moment. The thresholds and the five-step mechanics
+above are unchanged.
+
+1. **No self-declared exhaustion, ever.** Budget verdicts come only
+   from measured context figures (transcript usage against the actual
+   window; the estate's deterministic context-budget tooling once it
+   lands). An agent never retires, hands off, or declines work on a
+   guessed budget state.
+2. **Owner-present: the seat surfaces the measured metric; the OWNER
+   calls the handoff moment.** Surfacing measured metrics is the
+   agent's whole authority in this mode.
+3. **Owner-absent at the 80 % metric-surfacing threshold: surface,
+   then autonomous handoff.** The seat surfaces the measurement
+   (comms event plus push notification), waits a bounded window for
+   owner or coordinator word, and MAY then execute this protocol's
+   five steps autonomously on the measured verdict — never on an
+   unmeasured sense of fullness.
+4. **Successor instantiation is owner-mediated until session-spawn
+   automation exists** (the owner's named automation gap: "yes to
+   automated handoff, however we have no way of automatically
+   starting new sessions, yet"). This section is deliberately
+   mechanism-agnostic: the Step 2 handoff-record contract is the
+   stable interface any future spawner consumes; spawner-command
+   work precedes any editor-plugin route (owner sequencing ruling,
+   same day).
+
+### Deliberate succession — the in-flight discriminator (amendment 2026-07-08)
+
+Deliberate (owner-directed) succession at a NATURAL boundary is not a
+mid-cycle retirement, and it takes one of two shapes. The
+discriminator is whether state is IN-FLIGHT:
+
+- **In-flight state exists** (open cycle, live claim, uncommitted
+  decisions): the record substrate plus claim ADOPTION carry the
+  succession — the predecessor's handoff record and claim transfer to
+  the successor (worked instances at the peer estate: the 2026-07-07
+  standby→successor adoption; the 2026-07-08 in-flight succession).
+- **The lane is AT REST** (work landed, claim closed, no open
+  decisions): the hand is TRACKED-SURFACES-ONLY — there is NO claim
+  to adopt and NO handoff record; the successor opens their OWN claim
+  at go, against the re-derived registry (worked instance at the peer
+  estate: a directed event had to correct an incoming successor's
+  adopt-expectation — expecting an adoptable claim on an at-rest lane
+  was the named loss vector).
+
+Successors expect the shape the discriminator names; a missing
+handoff record on an at-rest lane is the correct state, not a gap.
 
 ### Handover timing — naming a successor starts the clock (owner-taught 2026-06-28)
 
@@ -386,6 +447,13 @@ absorbed inline.
 - Pushing the 80 % trigger upward to squeeze in one more cycle.
   The trigger threshold may be revisited under empirical evidence;
   individual agents may not move it for their own session.
+- Self-declared exhaustion: retiring, handing off, or declining work
+  on a budget state that was guessed (conversation length, session
+  "feel", a memory heuristic) rather than measured. A budget claim
+  needs a measurement or a declared uncertainty (worked instance
+  2026-07-08: a seat asserted "does not cover slice 1 with margin"
+  from vibes; the owner measured 27 % remaining and ruled "you can do
+  a LOT with that").
 - Using the mid-cycle handoff discriminator for natural-boundary
   closeouts. A natural-boundary closeout uses the existing
   closeout contract; the mid-cycle discriminator is reserved for

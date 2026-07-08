@@ -4,6 +4,26 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-125 + PDR-063 amended in the cross-estate window (resonance guest seat, owner-authorised)
+
+- PDR-125 carries the v1 clause-conservation amendment batch, twinned with
+  the peer estate's copy in one window (cross-estate diff re-proven:
+  divergence confined to number / Related / phenotype): clause 3 gains the
+  asymmetric-naming and cwd-is-a-coordinate sentences; clause 5 gains
+  seed-only name derivation, all-successor-details-are-hypotheses, and
+  platform+model as explicit never-inferred registration fields; clause 6
+  gains the both-estates innovation posture (per-item twin dispositions);
+  clause 7 gains format-normalise-on-receipt and corrections-are-new-events.
+  The join-ceremony skill and the cross-repo rule carry the matching step
+  amendments plus the owner's read-scoping ruling (read-only estate looks
+  are unceremonied; the ceremony binds collaboration boundaries).
+- PDR-063 gains §Retirement authority (owner rulings 2026-07-08: no
+  self-declared exhaustion ever — measured metrics only; owner-present the
+  owner calls handoffs; owner-absent at 80 % surface-then-autonomous) and
+  §Deliberate succession (the in-flight discriminator), composing with this
+  estate's effectiveness-window refinement, which the peer estate is
+  backporting in the same window.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-126: gates land strict in one landing (Corsair guards Channel, dedicated consolidation)
 
 - PDR-126 authored (`pdr_kind: governance`): a gate lands at ERROR with full
