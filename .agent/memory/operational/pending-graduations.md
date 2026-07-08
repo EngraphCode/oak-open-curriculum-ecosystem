@@ -112,12 +112,17 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
 - **Quiet-pipe exit-mask class: gates, pushes, and verification probes run BARE, exit read
-  off the command itself** `[captured 2026-07-08 | source napkin (five-plus recorded
-  instances across four seats: Stoat zsh-var-through-pipe; Goshawk eslint|tail ×2; Rigel
-  plan-state|head; Pelican check-commit|tail, git-push|tail, comms|grep -c) | target new
-  .agent/rules/ rule (read-exit-codes-bare; PIPESTATUS/bare-$? discipline; never key a
-  success echo or a chain continuation off a pipe tail) | trigger FIRED — recurrence across
-  seats proves vigilance does not cure the class | size S | status due]`
+  off the command itself — never key success or an exit-code read off a pipeline tail**
+  `[captured 2026-07-08 | source napkin — six-plus worked instances across four seats (Stoat
+  zsh-var-through-pipe; Goshawk eslint|tail ×2; Rigel plan-state|head; Pelican
+  check-commit|tail, git-push|tail, comms|grep -c, plus the trailing-echo variant that
+  masked a red pnpm check from the harness notification) | target new .agent/rules/ rule
+  (read-exit-codes-bare) OR a clause in verify-dont-trust / read-diagnostic-artefacts-in-full
+  — the pass picks the home; the doctrine: a pipeline's exit is the tail's, read $? off the
+  bare command or PIPESTATUS[0], treat any success echo chained after a pipe as unproven,
+  and read the PRINTED status value never the harness notification exit when an echo trails
+  | trigger FIRED — cross-seat recurrence proves vigilance does not cure the class | size S
+  | status due]`
 - **PR settle discipline: a continuous terminal-condition watch replaces fixed-interval
   settle probes** `[captured 2026-07-08 | source napkin (Rigel #324 + Pelican #325 parallel
   owner corrections; Rigel's Monitor until-loop cure enumerating every terminal state) |
@@ -130,3 +135,9 @@ governance doc); if it names a plan or report, the item belongs elsewhere.
   1-merged/6-closed revealed history) | target sonarqube-mcp-instructions rule note | trigger
   owner decision on the remediation agent (if turned OFF, reject this item as moot at the
   pass) | size XS | status pending]`
+- **Semantic-merge unions owe an ERA-WITNESS assertion** `[captured 2026-07-08 | source
+  napkin (PR #324's union dropped the entire Goshawk/Rigel era from two continuity surfaces
+  while its set-diff proofs read green; recovered at the Pelican closeout from 5faf08205) |
+  target semantic-merge SKILL mandatory post-union step: assert the newest section heading
+  AND newest identity row of EACH side are present in the result | trigger FIRED — one
+  worked loss instance | size S | status due]`

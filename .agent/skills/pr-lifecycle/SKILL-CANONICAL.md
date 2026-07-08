@@ -124,6 +124,18 @@ work or hold; the watcher wakes you.
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
+- **Own the convergence loop — never hand it to the owner** (owner
+  correction, 2026-07-07, #317). Bot rounds land findings minutes AFTER a
+  push, so "zero unresolved verified now" expires on a clock you do not
+  control. After EVERY push, arm your own settle probe (~8 min background
+  timer) and re-harvest when the round settles — event monitors give
+  awareness of arrivals, but awareness is not convergence ownership; without
+  the probe the human becomes the loop operator. Declare merge-ready only
+  after a FULL settled round lands zero new findings. Bundle every finding
+  from one round into ONE fix push (each push mints a fresh round; per-finding
+  pushes multiply rounds without bound). Expect convergence as severity decay
+  across rounds — a round that stops decaying is a signal to step back, not
+  push faster.
 - **Confirm the PR is still OPEN in the same re-fetch.** A push to a
   just-merged PR's branch SUCCEEDS but is not inclusion — the commit
   silently misses the base branch (worked instance 2026-07-06: a review
@@ -164,8 +176,11 @@ genuinely required review landed (the author-dependent leg below). Then:
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — all checks green AND every review thread resolved (fixed, or
   rejected as inaccurate with rationale) — merges via a normal non-admin
-  `gh pr merge`. `--admin` is FORBIDDEN: it bypasses the gate instead of
-  satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
+  `gh pr merge`, SUBJECT to the merge-readiness boundary below (a
+  self-authored, sub-agent-reviewed PR additionally needs an in-session
+  owner grant or the owner's own merge — the gate opens the button, the
+  boundary says who may press it). `--admin` is FORBIDDEN: it bypasses the
+  gate instead of satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
   once threads resolved). Notify the owner at this action moment (send the
   notification; never suppress it on inferred presence —
   `owner-attention-at-action-moments`).
@@ -177,6 +192,15 @@ genuinely required review landed (the author-dependent leg below). Then:
   authored under the owner's own auth shows `CLEAN` and merges directly —
   GitHub auto-satisfies the code-owner requirement when the author IS the
   sole code owner, and forbids self-approval.
+- **The truly-green gate authorises merge-READINESS, not every merge**
+  (worked instance PR #323, 2026-07-08): a PR the agent AUTHORED in-session
+  whose reviews are the agent's own sub-agents sits behind a second,
+  harness-level boundary — the auto-mode classifier requires an in-session
+  owner grant (or the owner's own click) before `gh pr merge` executes,
+  independent of the gate. Broadcast "merge-READY at truly-green", never a
+  promise to merge; surface the merge as an owner action moment unless a
+  named in-session grant exists. (The #306/#305 precedent above is not a
+  licence for self-authored, self-reviewed merges.)
 - An owner grant of merge authority (for example to a team session's
   Director) is per-session, never standing (owner, 2026-06-29); absent a
   fresh grant, the truly-green gate above governs unchanged — the merge
