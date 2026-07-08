@@ -74,3 +74,26 @@ New session observations append below.
 - **The transient `.git/index.lock` no-contact posture held again** (fourth recorded
   instance): a lock appeared mid-staging during the preservation commit, diagnosis found no
   live git process, the lock self-cleared, one retry landed clean.
+
+## 2026-07-08 — Corsair guards Channel (ecdd12): closeout captures (post-rotation tail)
+
+- **F-137 discovered at the landing: staged RENAMES cannot ride the commit-queue workflow**
+  (two composing mismatches — verify-staged reads `--name-only` which reports renames as
+  the new path only, while the inner pathspec commit's temp index omits the old path's
+  deletion and the pre-commit validator ENOENTs on it). Registered as F-137 with the
+  mechanism; landed via the F-132/F-133-sanctioned plain pathspec commit including BOTH
+  rename sides, full hooks green (`33621c826`). Two abandoned intents carry stage-named
+  notes.
+- **Closeout loss-scan dispositions (session-handoff §6e.2, written at occurrence):**
+  (1) four-platform memory sweep completed — Claude per-user memory ABSENT/empty (buffer
+  at zero since the 2026-07-05 drain; the archived report citing
+  `feedback_new_eslint_rules_start_warn` refers to a drained memory, no live rival to the
+  PDR-126 truing); Codex `~/.codex/memories/` bootstrap-state only, nothing to ingest;
+  Cursor chats empty; Gemini exposes no memory surface. (2) PDR-101's own pre-existing
+  plan-lane citation (a quorum-seat note left un-landed in the batch) fixed in this
+  closeout commit — same citation-directionality class as the verify-dont-trust fix.
+  (3) Quorum transcripts are session-mortal by design: every applied correction is in
+  `33621c826`, the refutation and rejections are in the commit body and this napkin; no
+  disposition ledger authored (permanent-doc-is-the-consolidation-record). Residual
+  accepted loss: subjective decision-texture beyond the experience file (voluntary
+  register by design).
