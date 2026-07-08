@@ -29,7 +29,7 @@ Both apps are separate Slack apps (two manifests, two bot users, two tokens) bui
 - Host on Vercel as a **Next.js App Router** app using the official `@vercel/slack-bolt` adapter, which uses Fluid compute's `waitUntil` to acknowledge Slack inside its 3-second window while the model call continues in the background. Next.js is settled because the adapter is Web-Request-native (`export const POST = createHandler(app, receiver)`) — Express is not one of its targets. Reuse the MCP app's observability / rate-limiting / Clerk **packages**, not its Express router. Socket Mode is not usable on Vercel (no long-lived process); it stays a local-dev convenience only.
 - Use the AI SDK with the Vercel AI Gateway (BYOK) as the model layer, not the raw Anthropic SDK. It is zero-markup on tokens (including under BYOK), gives spend/latency observability and cross-provider failover, offers a Zero-Data-Retention routing toggle, and composes cleanly with the Slack adapter. Both apps call `generateText` with a bounded tool loop (`stopWhen: isStepCount(…)`): Oisín with the GitHub MCP tools attached, Ask Oak with the Oak MCP tools attached. Route with a current model slug (e.g. `anthropic/claude-sonnet-5`); treat it as an **opaque operator-configured value and do not validate its format** — the Gateway rejects unknown slugs at call time, and Anthropic IDs are hyphenated (e.g. `claude-sonnet-5`, `claude-opus-4-8`), so a dot/hyphen heuristic would false-reject valid models.
 - Ground Oisín by reading the repo **live** through the official remote GitHub MCP server (read-only, `repos` toolset), attached via the AI SDK MCP client — no vendoring, ever. The repo is public; there is no anonymous mode, so the one credential is a fine-grained PAT with read on it (plus the private `oak-skills` repo, for tone-of-voice). The Oak Curriculum MCP stays out of Oisín entirely: its `oak-under-the-hood` tool only returns a pointer back to the same repo.
-- **PII: pragmatic egress (owner ruling).** The user's own deliberately-typed question is the only sanctioned egress; author identity is stripped, structured PII scrubbed, nothing logged or persisted outside Slack, and ZDR is on. See §Security, privacy, and PII for the full boundary.
+- **PII: pragmatic egress (owner ruling).** The user's own deliberately-typed question is the only sanctioned egress; author identity is stripped, structured PII scrubbed, nothing logged or persisted outside Slack. The invariant **does not depend on ZDR** (owner ruling 2026-07-08) — it stands on minimisation + scrubbing; ZDR is a beneficial toggle. See §Security, privacy, and PII for the full boundary.
 - Oisín needs no persistent storage to ship (its GitHub PAT is an env secret). Add a small TTL key-value store (Upstash/Vercel KV) keyed on the Slack event id for retry de-duplication. **Ask Oak, by contrast, needs durable storage from day one** — the Oak MCP OAuth has no client-credentials grant, so Ask Oak must persist an OAuth refresh token. Reach for Neon Postgres only when durable, queryable data (feedback, analytics, audit) becomes a real need.
 
 ## Key Findings
@@ -83,9 +83,9 @@ Block Kit (suggested prompts, feedback buttons, mrkdwn) is not React, so v1 is R
 
 ## Security, privacy, and PII
 
-**Invariant (owner ruling: pragmatic egress).** An LLM bot must send the user's question out of Slack to reach Claude, so "zero PII leaves Slack" is only literally achievable with Oak-controlled inference (recorded as the strict alternative, not v1). The achievable invariant v1 commits to: **the user's own deliberately-typed question is the sole sanctioned egress — minimised, stripped of identity, scrubbed of structured PII — and no content is logged or persisted outside Slack.**
+**Invariant (owner ruling: pragmatic egress).** An LLM bot must send the user's question out of Slack to reach Claude, so "zero PII leaves Slack" is only literally achievable with Oak-controlled inference (recorded as the strict alternative, not v1). The achievable invariant v1 commits to: **the user's own deliberately-typed question is the sole sanctioned egress — minimised, stripped of identity, scrubbed of structured PII — and no content is logged or persisted outside Slack.** This invariant is **independent of ZDR** (owner ruling 2026-07-08): it holds on minimisation + scrubbing alone. ZDR stays a beneficial toggle, and whether it is contractually guaranteed is a tracked open question, not a dependency of the invariant.
 
-**Access control (owner ruling): internal-use only.** An installation allow-list gate — applied after Slack signature verification, before any model call — rejects any Slack workspace/team that is not ours. No external users, no external access. Others may fork the repo and self-host their own instance; our deployment serves internal Oak staff only.
+**Access control (owner ruling): internal-use only, workspace-level.** An installation allow-list gate — applied after Slack signature verification, before any model call — rejects any Slack workspace/team that is not ours. Scope is **workspace-level** (owner ruling 2026-07-08): guests / Slack-Connect members *within* an allow-listed workspace are accepted; no per-user identity gating in v1. No external workspaces, no external access. Others may fork the repo and self-host their own instance; our deployment serves internal Oak staff only.
 
 **Trust boundaries and every egress point** (the middle three are commonly missed):
 
@@ -106,7 +106,7 @@ Block Kit (suggested prompts, feedback buttons, mrkdwn) is not React, so v1 is R
 5. **Egress allowlist** — the function reaches only Gateway, Slack, GitHub MCP, Oak MCP.
 6. **Read-only tools** — GitHub MCP `X-MCP-Readonly`, Oak MCP is read; low prompt-injection blast radius (repo/curriculum content and any channel text can carry adversarial instructions, but the bot cannot act destructively).
 7. **Access control + cost/abuse** — an installation allow-list (internal-use ONLY; reject non-allow-listed workspaces) plus a durable-KV limiter keyed on the Slack team id and a one-way-hashed (never-egressed) user id. **Not** `express-rate-limit` (Express-bound, doesn't survive Vercel serverless, can't see users behind Slack's shared egress IP). Set Gateway budget alerts.
-8. **Safeguarding** — Oak is an education body; even an internal bot can receive sensitive disclosures. Disclaimer + no-logging + a policy on deflecting sensitive content.
+8. **Safeguarding (owner ruling 2026-07-08): deflect + signpost, no record.** On a sensitive/safeguarding disclosure the bot declines to engage and points the user to Oak's human safeguarding route; nothing is retained (preserves the no-logging invariant). Carried in the system prompt. A mandated-escalation-with-record variant was considered and not adopted for v1.
 9. **Accessibility (org requirement)** — any rendered affordance beyond Block Kit defaults must meet WCAG 2.2 AA (contrast, keyboard/AT reachability, non-colour-only signals).
 
 ## Details
@@ -115,7 +115,7 @@ Block Kit (suggested prompts, feedback buttons, mrkdwn) is not React, so v1 is R
 
 **Grounding.** Oisín reads the OCE repo live. It attaches the official remote GitHub MCP server as a read-only tool set and lets the model fetch what each question needs: it starts from `.agent/skills/under-the-hood/SKILL-CANONICAL.md` and follows it, then reads the specific `.agent/` directives, decision records (PDRs/ADRs), `principles.md`, and planning docs the question calls for. Nothing is baked into the deploy, so every answer reflects the current `main`. It does not touch the Oak Curriculum MCP.
 
-**Oak skills.** The LLM reads Oak skills live from `oaknational/oak-skills`, primarily `oak-tone-of-voice`: make the reader the subject not Oak, use first and second person and contractions, put the point first in plain words. `oak-skills` is currently a **private** repo (verified 2026-07-08), so Oisín's PAT must be scoped to read it too — or the tone-of-voice content mirrored into the public OCE repo, or `oak-skills` made public (its own description signals that intent).
+**Oak skills.** The LLM reads Oak skills live from `oaknational/oak-skills`, primarily `oak-tone-of-voice`: make the reader the subject not Oak, use first and second person and contractions, put the point first in plain words. `oak-skills` is currently a **private** repo (verified 2026-07-08), so Oisín's PAT is scoped to read it too — **owner ruling 2026-07-08** (the make-public and mirror-into-OCE alternatives were considered and declined for v1).
 
 **Message flow.**
 1. A user `@ask-oisin`s a question, uses `/ask-oisin` or `/ask-osian`, or messages Oisín in the assistant side-panel or a DM.
@@ -262,14 +262,16 @@ import { scrub } from "@/lib/pii";                     // strips identity + stru
 export const maxDuration = 120;   // cover model + LIVE GitHub reads after the fast ack
 
 const SYSTEM = `You are Ask Oisín (@ask-oisin), a bot — an assistant, not a person — for Oak
-National Academy's Pathfinder team. You answer questions about the PROJECT: the Open Curriculum
+National Academy's internal staff. You answer questions about the PROJECT: the Open Curriculum
 Ecosystem repo, its approaches, the Practice, strategy, vision, and current planning state.
 Read the repo LIVE with the GitHub tools — nothing is baked in. Start from
 .agent/skills/under-the-hood/SKILL-CANONICAL.md and follow it, then read the specific .agent/
 directives, decision records (PDRs/ADRs), principles.md, and planning docs the question needs.
 Cite the repo path you used. For Oak's voice, read oak-tone-of-voice from the oak-skills repo.
-If a question is really about curriculum CONTENT, say so and point the user to the Ask Oak app.
-Format replies as Slack mrkdwn.`;
+If a question is really about curriculum CONTENT, say so and explain that curriculum answers are
+not yet available (the Ask Oak app is future); do not guess. If someone shares a sensitive or
+safeguarding disclosure, do not engage with it — say you cannot help with that here and point them
+to Oak's human safeguarding route; retain nothing. Format replies as Slack mrkdwn.`;
 
 // Official remote GitHub MCP server, read-only, repos toolset — reads the public repo live.
 const github = await createMCPClient({
@@ -378,7 +380,7 @@ For production, both apps: add token-by-token streaming with `streamText` + Slac
 ## Caveats
 - The app framework is **settled: Next.js App Router** (the adapter is Web-Request-native; chosen for this use case, not copied from the MCP app's Express). Incoming canonical Next.js/React resources will supply shared config to adopt, not change the framework; React *components* stay out of scope until a web-surface adapter is added.
 - `@vercel/slack-bolt` is recent (2025); the handler signature is `createHandler(app, receiver)` — confirm the exact export/receiver names and wiring against its current README, and against the incoming standard.
-- The remote GitHub MCP server requires a credential even for public-repo reads — there is **no anonymous mode**. `oak-skills` is confirmed **private** (2026-07-08), so the PAT must read it too, or Oisín cannot load `oak-tone-of-voice` live — the alternative is to make `oak-skills` public (its description signals that intent) or mirror the tone-of-voice content into the public OCE repo. Live reads use the authenticated GitHub REST limit (5,000/hr per token).
+- The remote GitHub MCP server requires a credential even for public-repo reads — there is **no anonymous mode**. `oak-skills` is confirmed **private** (2026-07-08); the PAT is scoped to read it too (**owner ruling 2026-07-08**; make-public / mirror were the declined alternatives). Live reads use the authenticated GitHub REST limit (5,000/hr per token).
 - The AI SDK MCP client is stable in `@ai-sdk/mcp` (current major v7 of `ai`; `@ai-sdk/mcp@2.x`). Pin the major and use v7 API names (`isStepCount`, not `stepCountIs`).
 - AI Gateway BYOK requires the paid tier and purchased credits; a failed BYOK request falls back to Vercel system credentials billed against your balance. The team-wide ZDR toggle may carry a small per-request surcharge — confirm on the live pricing page.
 - The model slug is an **opaque operator-configured value — do NOT validate its format**. Current Anthropic IDs are **hyphenated** (`claude-sonnet-5`, `claude-opus-4-8`); an earlier "dot-separated / hyphen-is-legacy" claim in this doc was wrong (`claude-sonnet-4-5` is a valid older ID, not a bad format). The Gateway rejects unknown slugs at call time; confirm the exact accepted form against the installed Gateway/AI SDK.

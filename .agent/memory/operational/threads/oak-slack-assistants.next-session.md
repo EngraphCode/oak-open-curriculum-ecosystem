@@ -35,6 +35,14 @@ architectural seam:
   applied to the estate.
 - **Owner rulings in force**: internal-use ONLY (allow-listed installations, no
   external access); framework consumes the logging adapter (configure eslint
-  boundaries, do not inject-around); model slug is opaque/unvalidated.
+  boundaries, do not inject-around); model slug is opaque/unvalidated. Plus the
+  2026-07-08 open-question rulings: safeguarding = deflect + signpost, no record;
+  PII invariant does NOT depend on ZDR (ZDR beneficial only); internal scope is
+  workspace-level (guests/Slack-Connect within an allow-listed workspace accepted);
+  oak-skills = scope the PAT to read the private repo.
+- **Tracked open questions (owner/legal/ops)**: DPIA/DPAs; records-retention duty;
+  ZDR contract; v1 success metrics; provisioning + ownership of the 4 external
+  resources; cost ceiling + budget owner; monitoring/service owner; rollback
+  authority; Slack app-approval process. See the plan's "Known open questions".
 - **Recent relevant commits**: PR #328 (`feat/slack-apps`) — design doc, plan
   collection, framework-settle, and the fleet-review corrections.

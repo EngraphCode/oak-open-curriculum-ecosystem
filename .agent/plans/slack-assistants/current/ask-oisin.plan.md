@@ -90,10 +90,11 @@ Oak staff have no low-friction way to ask questions about the *project* — the 
 1. **Thin app over a shared framework** — per-app delta is a config object + system prompt; the rest lives in `packages/libs/slack-assistant`. Apps are leaf deployables and never depend on each other.
 2. **Config seam = Oak-specific vs general** — `defineSlackAssistant(config)`; framework is org-agnostic and publishable; `config` carries all Oak specifics. Governed by [ADR-154](../../../../docs/architecture/architectural-decisions/154-separate-framework-from-consumer.md) (Separate Framework from Consumer). The framework **consumes adapters** (e.g. the logging adapter, backed by Sentry/stdio) — that is the intended architecture, not a boundary violation; WS0 registers the framework in the eslint boundary config with its permitted adapter edges (configure, never disable — see `never-disable-checks`).
 3. **No vendoring, ever** — the repo is read live via the GitHub MCP.
-4. **Pragmatic PII egress, compiler-enforced** — only the sanctioned question egresses; `scrub()` returns a branded `ScrubbedQuestion` and the egress path accepts only that type; scrubbing covers the inbound question AND model-generated tool-call arguments; no content in logs/Sentry/KV; ZDR on (see §Security).
-5. **Internal-use only** — an installation allow-list rejects any workspace/team that is not ours; no external users, no external access. Others may fork the repo and self-host their own instance.
-6. **Framework-first is an owner override of `consolidate-at-second-consumer`** (timing only; ruled 2026-07-08). The framework/consumer *separation* is ADR-154; the override is only of *when* to extract. Ask Oak validates the shared surface of the seam; its OAuth persistence is app-side.
-7. **Seam stop-rule** — framework code encodes only the demonstrably-shared surface and reads no `process.env` (config injected). Ask-Oak specifics stay in-app until Ask Oak is built.
+4. **Pragmatic PII egress, compiler-enforced** — only the sanctioned question egresses; `scrub()` returns a branded `ScrubbedQuestion` and the egress path accepts only that type; scrubbing covers the inbound question AND model-generated tool-call arguments; no content in logs/Sentry/KV. **The invariant does NOT depend on ZDR** (owner ruling 2026-07-08): it stands on minimisation + scrubbing alone; ZDR stays a beneficial toggle, not a proof dependency (see §Security).
+5. **Safeguarding: deflect + signpost, no record** (owner ruling 2026-07-08) — on a sensitive/safeguarding disclosure the bot declines to engage and points the user to Oak's human safeguarding route; nothing is retained (preserves the no-logging invariant). Carried in the system prompt (WS6).
+6. **Internal-use only, workspace-level** (owner ruling 2026-07-08) — an installation allow-list gates on the Slack team id and rejects any workspace that is not ours (no external users/access); guests / Slack-Connect members *of an allow-listed workspace* are accepted (workspace-level scope is sufficient for v1). Others may fork the repo and self-host their own instance.
+7. **Framework-first is an owner override of `consolidate-at-second-consumer`** (timing only; ruled 2026-07-08). The framework/consumer *separation* is ADR-154; the override is only of *when* to extract. Ask Oak validates the shared surface of the seam; its OAuth persistence is app-side.
+8. **Seam stop-rule** — framework code encodes only the demonstrably-shared surface and reads no `process.env` (config injected). Ask-Oak specifics stay in-app until Ask Oak is built.
 
 **Non-Goals** (YAGNI):
 
@@ -218,7 +219,7 @@ Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tscon
 
 ### Cycle 6.1: Oisín config over the framework
 
-**File scope**: `apps/slack/ask-oisin/src/config.ts` + test. **Test (Red)**: attaches the GitHub MCP with `X-MCP-Readonly: true` and `X-MCP-Toolsets: repos` (the `repos` toolset already includes `search_code` + `get_file_contents`, sufficient for search-then-read grounding — no separate `search` toolset exists); system prompt names the under-the-hood start point + the Ask-Oak hand-off + cite-source; config validates. **Reviewer**: `mcp-expert`.
+**File scope**: `apps/slack/ask-oisin/src/config.ts` + test. **Test (Red)**: attaches the GitHub MCP with `X-MCP-Readonly: true` and `X-MCP-Toolsets: repos` (the `repos` toolset already includes `search_code` + `get_file_contents`, sufficient for search-then-read grounding — no separate `search` toolset exists); system prompt names the under-the-hood start point + cite-source + **declines curriculum-content questions with a short explanation** (Ask Oak is not yet live) + a **safeguarding deflect-and-signpost instruction** (on a sensitive/safeguarding disclosure, decline to engage and point to Oak's human safeguarding route; retain nothing); config validates. Audience is **internal Oak staff** (reconciled from a stray "Pathfinder team" literal). **Reviewer**: `mcp-expert`.
 
 ---
 
@@ -226,11 +227,11 @@ Create `packages/libs/slack-assistant` (a lib on the repo's **tsup + three-tscon
 
 ### Cycle 7.1: installation allow-list (internal-use only)
 
-**File scope**: `apps/slack/ask-oisin/src/access.ts` + test. **Test (Red)**: a request from an allow-listed Slack team/workspace id is accepted; a request from any other workspace is rejected (internal-use only; no external access). The allow-list is config/env-driven. **Product code**: verify the Slack team id against the allow-list after signature verification, before any model call. **Reviewer**: `security-expert`.
+**File scope**: `apps/slack/ask-oisin/src/access.ts` + test. **Test (Red)**: a request from an allow-listed Slack team/workspace id is accepted; a request from any other workspace is rejected (internal-use only; no external access). The allow-list is config/env-driven. **Scope (owner ruling)**: workspace-level is the accepted v1 definition — guests / Slack-Connect members *within* an allow-listed workspace are accepted; no per-user identity gating in v1. **Product code**: verify the Slack team id against the allow-list after signature verification, before any model call. **Reviewer**: `security-expert`.
 
 ### Cycle 7.2: per-workspace + per-user (hashed) rate limiting
 
-**File scope**: `src/rate-limit.ts` + test. **Test (Red)**: over-limit requests are rejected; the limiter keys on the Slack team id (per-workspace) AND a **salted one-way hash of the user id that is never egressed** (per-user), in a durable KV (Upstash/Vercel KV) — NOT `express-rate-limit` (Express-bound, doesn't survive serverless, can't see users behind Slack's shared egress IP). The hash reconciles per-user limiting with PII identity-stripping. **Reviewer**: `security-expert`.
+**File scope**: `src/rate-limit.ts` + test. **Test (Red)**: over-limit requests are rejected; the limiter keys on the Slack team id (per-workspace) AND a **salted one-way hash of the user id that is never egressed** (per-user), in a durable KV (Upstash/Vercel KV) — NOT `express-rate-limit` (Express-bound, doesn't survive serverless, can't see users behind Slack's shared egress IP). The hash reconciles per-user limiting with PII identity-stripping. **Default thresholds (env-tunable)**: ~20 requests/hour per hashed user, ~200/hour per workspace — comfortably under GitHub's 5,000/hour authenticated REST limit. **Reviewer**: `security-expert`.
 
 ---
 
@@ -262,7 +263,7 @@ A **manual/value-proxy** check against the preview deploy: "What is the Practice
 
 ### Cycle 10.3: content readability
 
-The reply text meets plain-language / WCAG understandable expectations (in scope even without React components). **Proof**: `non-code` (reviewer check).
+The reply text meets plain-language / WCAG understandable expectations (in scope even without React components), measured against **`oak-tone-of-voice`** as the named readability bar (already the loaded voice standard). **Proof**: `non-code` (reviewer check).
 
 ---
 
@@ -327,6 +328,22 @@ After all WS complete and gates pass, run `/oak-consolidate-docs`.
 
 ---
 
+## Known open questions (owner / legal / ops)
+
+Surfaced by the 2026-07-08 open-question review; four design-shaping decisions were answered (safeguarding, ZDR classification, internal scope, oak-skills — folded in above). These remain open and are tracked as dependencies, not blockers for a plan-phase re-review. They mostly need a real legal/ops owner, not a design choice:
+
+- **Legal — data protection**: are DPAs (Vercel / Anthropic / Slack) + a DPIA required before launch (staff questions → US inference + the KV user-hash), or is a "not required" decision recorded?
+- **Legal — records/audit retention**: does Oak have a positive duty to *retain* a Q&A log (vs the no-persistence stance)? Is Slack's own workspace retention the governed record, or is a deliberate audit store needed?
+- **Legal — ZDR contract**: is a no-retention term contractually in force with Vercel/Anthropic (the invariant no longer depends on it, but confirming lets ZDR be relied on if wanted)?
+- **Owner/product — success metrics**: the keep/kill bar for v1 (eval pass rate / weekly active askers / cited-and-correct % / "would staff miss it"). No target exists yet.
+- **Ops — provisioning + ownership**: named owner per external resource — Slack app (+ workspace-admin approval), Vercel project + billing, Gateway BYOK key + Anthropic key, GitHub PAT (recommend a **machine/service account**, not a personal PAT), and Ask Oak's Clerk identity + refresh-token store.
+- **Ops — cost ceiling**: monthly budget cap, alert thresholds, hard-stop-vs-alert-only at ceiling, and whether to disable the silent Vercel system-credit BYOK fallback. Named budget owner.
+- **Ops — monitoring / service owner**: where Sentry / budget / rate-limit-trip alerts route, and who operates the running service.
+- **Ops — rollback / kill-switch authority**: mechanism is derivable (empty the allow-list / unset Gateway+GitHub env / Vercel instant-rollback); who is authorised to trigger it, and the incident procedure.
+- **Ops/owner — Slack app approval**: does the workspace require admin/security approval to install a new app, who grants it, and what lead-time does M1 budget for?
+
+---
+
 ## Dependencies
 
 **Blocking**:
@@ -338,11 +355,11 @@ After all WS complete and gates pass, run `/oak-consolidate-docs`.
 
 **Blocking for full voice (beneficial otherwise)**:
 
-- PAT read on the private `oak-skills` repo (or make `oak-skills` public, or mirror the tone-of-voice content). **Minimum shippable without**: grounded, cited answers with degraded (non-Oak-voiced) tone.
+- **Chosen (owner ruling 2026-07-08): scope the fine-grained PAT to read the private `oak-skills` repo** (the make-public and mirror alternatives were declined for v1). This folds into the blocking PAT provisioning. **Minimum shippable without**: grounded, cited answers with degraded (non-Oak-voiced) tone.
 
 **Beneficial**:
 
-- AI Gateway ZDR on (confirm the contractual arrangement).
+- AI Gateway ZDR on — **beneficial only** (owner ruling 2026-07-08: the PII invariant does not depend on it). The contractual-ZDR question is tracked open (see Known Open Questions).
 
 **Related Plans**:
 
