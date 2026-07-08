@@ -750,3 +750,10 @@ coherence. All on `feat/slack-apps` / PR #328 (open). Successor: Copper (48382d)
 - **napkin at ~710 lines (over the 300 limit)** — accumulated across many threads' sessions, not just
   mine; a dedicated consolidation/rotation pass is DUE, but is cross-session work, not this handoff's
   bounded scope. Captured here at full weight per the conservation invariant (do not trim to stay green).
+- **Wasteful re-run of an expensive gate (owner-caught).** I ran the full `pnpm check` handoff gate
+  (minutes) capturing only `tail -30`, so I could not see the exit code — then RE-RAN the entire gate
+  just to capture the status. The first run was green and useful; I discarded that by not capturing the
+  exit code. Owner: "you ran the full expensive check, decided the tail didn't count, and ran it again."
+  Cure = capture exit code + pass/fail summary in the FIRST run of anything expensive (file redirect +
+  `echo "EXIT: $?"` + grep); never tail-only-then-rerun. Home: memory
+  `capture-expensive-command-output-first-run`. (Gate result: `pnpm check` EXIT 0 — green at handoff.)
