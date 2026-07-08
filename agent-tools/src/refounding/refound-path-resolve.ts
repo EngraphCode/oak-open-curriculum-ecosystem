@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, lstatSync } from 'node:fs';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
@@ -66,6 +66,20 @@ export function resolveWriteTargetWithinRepo(
   const targetAbs = path.resolve(repoRoot, flagPath);
   if (targetAbs !== repoRoot && !targetAbs.startsWith(`${repoRoot}${path.sep}`)) {
     return err(new Error(`'${flagPath}' resolves outside the repository`));
+  }
+  // Dangling-symlink write bypass (security-expert, R0b gateway 2026-07-07):
+  // `existsSync` FOLLOWS symlinks, so a dangling link at the target reports
+  // "absent", the ancestor walk skips over it, and a later write would
+  // create the file at the link's destination -- possibly outside the repo.
+  // An existing symlink is realpath-checked below; the dangling case refuses.
+  const targetStat = lstatSync(targetAbs, { throwIfNoEntry: false });
+  if (targetStat?.isSymbolicLink() === true && !existsSync(targetAbs)) {
+    return err(
+      new Error(
+        `'${flagPath}' is a dangling symlink -- a write would follow it to an unverifiable ` +
+          'destination; refusing',
+      ),
+    );
   }
   try {
     assertPathWithinBase(nearestExistingAncestor(targetAbs), repoRoot);

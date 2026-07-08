@@ -91,6 +91,17 @@ describe('resolveWriteTargetWithinRepo', () => {
     expect(resolved.ok).toBe(true);
   });
 
+  it('refuses a dangling symlink at the target (write would follow it blind)', async () => {
+    const dir = await makeRepoRoot();
+    const target = path.join(dir, 'plan-state.v1.report.json');
+    await symlink(path.join(dir, 'no-such-destination.json'), target);
+    const resolved = resolveWriteTargetWithinRepo(dir, 'plan-state.v1.report.json');
+    expect(resolved.ok).toBe(false);
+    if (!resolved.ok) {
+      expect(resolved.error.message).toContain('dangling symlink');
+    }
+  });
+
   it('refuses a `..` escape lexically, before any existence probe', async () => {
     const root = await makeRepoRoot();
     const resolved = resolveWriteTargetWithinRepo(root, '../escaped/anywhere.txt');

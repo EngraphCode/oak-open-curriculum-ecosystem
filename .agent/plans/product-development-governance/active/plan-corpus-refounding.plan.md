@@ -40,7 +40,7 @@ todos:
       planted-loss challenge canary sealed-then-revealed end-to-end); determinism tests
       prove byte-stable output; freeze+inventory scripts may land and RUN as soon as their
       own proofs pass — not gated on the rest of R0.
-    status: pending
+    status: completed
   - id: r0b-plan-state-tool
     content: >-
       BUILD (TDD): the plan-state recomputation tool (repo-validators
