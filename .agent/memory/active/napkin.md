@@ -297,6 +297,7 @@ New session observations append below.
   conversation-complete + record-true. GRADUATION CANDIDATE: add the intent layer to the
   pr-lifecycle skill preamble — the skill encodes the mechanics (harvest, re-fetch after
   every push, truly-green); this failure was intent-level, above the mechanics.
+
 ## 2026-07-08 — Gale guards Eyrie (33f49e, slack-assistants estate): session observations
 
 Verified the Ask Oisín/Ask Oak design doc, authored the `slack-assistants` plan collection, ran three
@@ -440,3 +441,42 @@ reasoning"); full-claim verification + decision-complete rework, all on `feat/sl
   Registry writes (enqueue/record-staged) anchor to the primary correctly; only the git READ
   is mis-anchored. Sanctioned plain pathspec commit used (F-132/F-133 precedent, full hooks
   green); cure home: the coordination-home-cli-path-defaulting plan.
+
+## Recovered 2026-07-08 — Orchid binds Verdure (51a331) entry, dated 2026-07-06
+
+The entry below was found staged-but-uncommitted in the `shared-model-synthesis`
+worktree during worktree cleanup (Callisto guards Penumbra, da9f8c) and is
+preserved verbatim before that worktree's removal.
+
+### 2026-07-06 — inter-Practice knowledge transfer made durable (Orchid binds Verdure / 51a331)
+
+- **A cross-estate knowledge transfer is not safe until the RECEIVER owns the substance, not a
+  pointer to the donor's filesystem.** Owner's sharp correction: oak's planning-estate integration
+  cannot cite resonance's files — the sibling checkout will not always be present. Cure: re-source
+  the methods first-hand into oak's own pin-free reference doc
+  (`reference/resonance-practice-knowledge.md`) WHILE the donor is present, and point the plan
+  wiring at oak's copy. The exchange's own concepts-vs-pointers layering says the same: substance
+  travels, not pointers.
+- **Verify a knowledge-transfer capture adversarially BEFORE landing — my re-expression dropped a
+  load-bearing clause.** A 4-lens workflow (fidelity / completeness / filesystem-independence /
+  integration) over the draft caught that I wrote "both clauses" for PDR-125 but silently dropped
+  clause 2 (loss-detection is non-delegable to fresh context) — the clause most relevant to the
+  WS7 no-loss audit it routes to — plus four completeness gaps that lived only in the donor's
+  checkout (blind-net extraction, reference-class classifier, orphan-disposition,
+  conserve-concepts-not-structure). The semantic-merge skill's "both the tool AND the merger can
+  be confident-and-wrong" generalises to knowledge transfer: the authoring agent is wrong exactly
+  where its own frame has gaps; a fresh-context adversarial read is the only catch.
+- **Worktree isolation under a contended shared checkout.** A peer session held the primary
+  checkout (juggling PRs across branches); my untracked report followed its branch-switch into its
+  tree. Cure (owner-flagged): a dedicated worktree off `main` with its OWN git index — zero index
+  collision with the peer's primary commits — and coordinate via the ARC channel; never write
+  source into a peer's active checkout.
+- **`gh pr update-branch` is a local-pre-push-free BEHIND cure, and its merge is provably clean.**
+  For a docs branch behind `main` under strict-up-to-date, a server-side `gh pr update-branch`
+  merges `main` in with no local gate; prove semantic safety by `git diff origin/main
+  <merged-head> --stat` = only your intended files (a memory/state file changed on one side only is
+  taken verbatim — no line-merge, no corruption).
+- **Applied the donor's own additive-supersession-note discipline to cure the PDR renumber** rather
+  than mutating historical/delivery-time references (accurate about the past): the durable copy
+  carries the current numbers and documents the renumber. The method taught in the transfer cured a
+  problem in the transfer's own curation.

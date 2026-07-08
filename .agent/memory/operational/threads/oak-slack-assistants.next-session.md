@@ -132,7 +132,11 @@ review-surface watcher and comms watcher stood down at close.
 
 ### PR #328 review-surface dispositions (updated 2026-07-08, Salamander)
 
-13 review threads harvested via GraphQL. Dispositions: **T0/T10**
+13 review threads were harvested via GraphQL at the first full-surface pass
+(T0–T12, dispositioned below); later push rounds brought the PR's total to 18,
+every one replied-to and resolved before merge (GraphQL-verified 2026-07-08:
+18/18 resolved — the "18" in the summary above counts the whole PR, this
+section enumerates the first pass). First-pass dispositions: **T0/T10**
 (`thread_ts` bug) — fixed in the skeleton; **T1** (dot-separated slug wording)
 — superseded text removed (no tombstone); **T2/T3** (broken
 plan-body-first-principles link) — stale, link no longer exists; **T4/T5**
