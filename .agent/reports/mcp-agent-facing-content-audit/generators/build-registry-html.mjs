@@ -12,7 +12,7 @@ const { meta, items } = reg;
 // review: a truncated haystack made audited content — e.g. the C163 typo — undiscoverable).
 // `q` is the search-only haystack: full snippet + behavioural intent + reasoning.
 const rows = items.map((i) => ({
-  id: i.id, f: i.file, n: i.identifier, st: i.surface_type,
+  id: i.id, f: i.file, ln: i.lines, n: i.identifier, st: i.surface_type,
   it: i.impact_tier, rd: i.review_domain, sl: i.source_locus, ek: i.extraction_kind,
   au: i.audience, fl: i.flags, s: (i.snippet || '').slice(0, 220),
   q: `${i.snippet || ''} ${i.behavioural_intent || ''} ${i.reasoning || ''}`.toLowerCase(),
@@ -207,7 +207,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
         '<td><span class="chip dom">'+esc(r.rd)+'</span></td>'+
         '<td><span class="chip sl-'+esc(r.sl)+'">'+esc(LOCUS[r.sl]||r.sl)+'</span></td>'+
         '<td>'+esc(r.ek)+'</td>'+
-        '<td class="file"><code>'+esc(r.f)+'</code></td>'+
+        '<td class="file"><code>'+esc(r.f)+(r.ln?':'+esc(r.ln):'')+'</code></td>'+
         '<td>'+(r.fl.length?r.fl.map(flagHtml).join(''):'<span class="s">—</span>')+'</td></tr>');
     }
     tb.innerHTML=out.join('');

@@ -107,7 +107,7 @@ for (const dom of DOMAIN_ORDER) {
       const fl = it.flags.length ? ` \`${it.flags.join('` `')}\`` : '';
       const LOCUS_MARK = { 'upstream-in-house-api': ' **↑oak-api (OCA)**', 'upstream-in-house-skills': ' **↑oak-skills**', 'external-third-party': ' **⊗EEF-external**' };
       const locus = LOCUS_MARK[it.source_locus] || '';
-      md += `- **${it.id}** _[${it.surface_type} · ${it.extraction_kind}]_${imp}${locus} **${esc(it.identifier)}** — ${esc(it.snippet).slice(0, 160)}${fl}\n`;
+      md += `- **${it.id}** _[${it.surface_type} · ${it.extraction_kind}]_${imp}${locus} **${esc(it.identifier)}** — ${esc((it.snippet || "").slice(0, 160))}${fl}\n`;
     }
     md += `\n</details>\n`;
   }

@@ -55,7 +55,8 @@ function reviewDomain(it) {
   if (st === 'tool-guidance') return 'tool-usability';
   if (st === 'tool-title' || st === 'tool-description' || st === 'tool-param-description') return 'tool-usability';
   if (st === 'resource-name-or-description' || st === 'resource-content') return 'tool-usability';
-  if (st === 'tool-annotations' || st === 'discovery-or-catalog-metadata' || st === 'server-branding' || st === 'server-instructions') return 'engineering-structural';
+  if (st === 'server-instructions') return 'tool-usability'; // the initialize-response text is the top of the how-to-use-this-server funnel — content reviewers must see it (PR #337 review)
+  if (st === 'tool-annotations' || st === 'discovery-or-catalog-metadata' || st === 'server-branding') return 'engineering-structural';
   // Known MCP-facing types must not fall to the catch-all (PR #337 review): prompt catalogue
   // copy is teacher-workflow framing (pedagogy); response-format templates frame every
   // successful tool result an agent reads (tool-usability).
@@ -84,17 +85,17 @@ const UPSTREAM_POINTER = {
   'this-repo': null,
   'upstream-in-house-api': 'Oak Open Curriculum API (OCA) OpenAPI spec — IN-HOUSE (oaknational/oak-api repo). Authoritative source: https://open-api.thenational.academy/api/v0/swagger.json. Local committed snapshot reviewers can read: packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json. Base tool/param prose is authored upstream; to change it, change the spec. NOTE: the "bulk download" is NOT a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus).',
   'upstream-in-house-skills': 'Oak Skills — IN-HOUSE (oaknational/oak-skills). This prompt workflow is DERIVED/ADAPTED from a named skill (oak-curriculum-mapper / oak-lesson-builder); the authoritative pedagogy workflow lives there. Review the source skill, and keep the two in step.',
-  'external-third-party': 'EEF Teaching & Learning Toolkit — EXTERNAL third party. Cite, do not rewrite; verify citation accuracy and any Oak editorial framing wrapped around it.',
+  'external-third-party': 'EXTERNAL third party — cite, do not rewrite. Most items are the EEF Teaching & Learning Toolkit corpus; others name their own provider in the item reasoning (e.g. DfE/UK statistics, upstream vendor OAuth metadata) — check per item. Verify citation accuracy and any Oak editorial framing wrapped around it.',
 };
 
 // --- impact_tier: gates protocol weight (owner design). high-impact => review+eval protocols required. ---
 // Conservative default: anything behaviour-shaping is high-impact; only clearly-structural/UI config is simple.
-// Any risk flag forces high-impact. tool-annotations are NOT simple config (PR #337 review): the MCP
-// behaviour hints (readOnlyHint/destructiveHint/idempotentHint/openWorldHint) drive host retry,
-// confirmation, and safety decisions — the report's own confirmed idempotentHint defect proves the stakes.
+// Any risk flag forces high-impact. simple-config is ONLY the owner's named tier — 'simple string
+// config for UI or branding'. tool-annotations, auth/OAuth copy, and discovery/scope metadata are
+// all behaviour-shaping (host retry/safety decisions; client re-auth flows; scope declarations)
+// and stay high-impact (PR #337 review, two rounds).
 const SIMPLE_CONFIG_SURFACES = new Set([
-  'server-branding', 'discovery-or-catalog-metadata',
-  'landing-page-html', 'widget-ui-content', 'auth-consent-copy',
+  'server-branding', 'landing-page-html', 'widget-ui-content',
 ]);
 function impactTier(it, itemFlags) {
   if (itemFlags.length) return 'high-impact';

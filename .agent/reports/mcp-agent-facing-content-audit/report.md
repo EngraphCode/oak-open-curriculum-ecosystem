@@ -84,9 +84,9 @@ Two provenance notes the per-item count understates:
 
 | Review domain | Items | What it is |
 | --- | ---: | --- |
-| tool-usability | 299 | How an agent discovers/uses tools — titles, descriptions, param descriptions, prerequisite/orientation directives |
+| tool-usability | 304 | How an agent discovers/uses tools — titles, descriptions, param descriptions, prerequisite/orientation directives |
 | recovery-copy | 151 | What the agent receives on failure/empty — validation, empty-state, degradation; shapes recover-vs-fabricate |
-| engineering-structural | 95 | Annotations, schemas, scopes, discovery/branding metadata |
+| engineering-structural | 90 | Annotations, schemas, scopes, discovery/branding metadata |
 | pedagogy | 99 | Prompts, orientation, curriculum-model doctrine, EEF interpretation — **education-expert target** |
 | other | 2 | Mixed/uncategorised |
 | curriculum-accuracy | 27 | The authored conceptual model — ontology, domain concepts — **curriculum-expert target** |
@@ -129,7 +129,7 @@ The audit's neutral A/B/C framing is superseded. The owner has set the direction
 1. **Review will happen** — it is committed, not conditional. The design's job is to *operationalise* it, not to justify it.
 2. **A variety of reviews, by content intent + audience — not one monolithic "content review."** This is the `review_domain` dimension: pedagogy, curriculum-accuracy, legal-licensing, safety, ux-accessibility, etc., each with its own reviewer and protocol.
 3. **Content Oak controls moves into separate content workspace(s)** — chosen deliberately to *lower the cognitive load of finding and changing it*. This overrides co-location for controlled content: it is a product surface, not incidental plumbing.
-4. **Stratify by impact/risk, and require protocols for the high tier.** Within the content workspace(s), **high-impact / risky** content is separated from **simple string config** (UI, branding). High-impact content **must** carry **review protocols and eval protocols**; simple config need not. The registry now carries an `impact_tier` field: **658 high-impact, 58 simple-config** (conservative default — anything behaviour-shaping is high-impact; any risk flag forces high-impact).
+4. **Stratify by impact/risk, and require protocols for the high tier.** Within the content workspace(s), **high-impact / risky** content is separated from **simple string config** (UI, branding). High-impact content **must** carry **review protocols and eval protocols**; simple config need not. The registry now carries an `impact_tier` field: **697 high-impact, 19 simple-config** (conservative default — anything behaviour-shaping is high-impact; any risk flag forces high-impact).
 5. **Upstream in-house content is highlighted, not wrapped.** Where high-impact content is imported from another in-house source (`oak-api`, `oak-skills`, `oak-curriculum-ontology`), do **not** build a pointless local wrapper — flag it (the `source_locus` field) and point reviewers to the owning repo. The eventual answer is to bring those repos into this monorepo; not now.
 6. **The content workspace(s) are the SSOT, not copies.** Consumers (SDK, generators, app) read *from* the workspace. This is precisely why they cannot hold upstream content — you cannot be the source of truth for words another repo owns.
 7. **Design l10n-ready (2026-07-09).** No other-language localisation now, but structure the workspace so genuine localisation can be added later without a rebuild — the leaf-authored content's catalogue shape should be able to carry translations, and the "translate into safer/more rigorous forms" review and any future language translation share the same rails.

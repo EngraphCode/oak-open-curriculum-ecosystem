@@ -107,7 +107,20 @@ try {
         params = zodParamLines(typeof schema.shape === 'object' && schema.shape !== null ? schema.shape : schema);
       }
     } catch (e2) { problems.push(`params for ${name}: ${e2.message}`); }
-    parts.push(`### \`${name}\`${title ? ` — ${title}` : ''}\n\n${fence(desc)}\n\nParameters:\n${params || '  (none)'}\n\nAnnotations: ${ann}\n`);
+    // Security + app metadata also ship in tools/list (PR #337 review): OAuth scheme/scopes and
+    // any MCP Apps widget routing are part of the exact surface an agent/host consumes.
+    let security = '(none declared)';
+    try {
+      const schemes = d.securitySchemes ?? d._meta?.securitySchemes;
+      if (Array.isArray(schemes) && schemes.length) {
+        security = schemes.map((s) => `${s.type}${Array.isArray(s.scopes) && s.scopes.length ? ` (scopes: ${s.scopes.join(', ')})` : ''}`).join('; ');
+      }
+    } catch { /* ignore */ }
+    let ui = '';
+    try {
+      if (d._meta?.ui) ui = `\nWidget (_meta.ui): ${d._meta.ui.resourceUri ? `resourceUri=${d._meta.ui.resourceUri}` : ''}${d._meta.ui.visibility ? ` visibility=${JSON.stringify(d._meta.ui.visibility)}` : ''}`;
+    } catch { /* ignore */ }
+    parts.push(`### \`${name}\`${title ? ` — ${title}` : ''}\n\n${fence(desc)}\n\nParameters:\n${params || '  (none)'}\n\nAnnotations: ${ann}\nSecurity: ${security}${ui}\n`);
   }
 } catch (e) { problems.push('TOOLS: ' + e.message + '\n' + (e.stack || '')); }
 

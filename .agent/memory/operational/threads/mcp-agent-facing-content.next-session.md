@@ -39,7 +39,7 @@ research. Nothing here auto-starts.
 validator, no evals built. Under `.agent/reports/mcp-agent-facing-content-audit/`:
 
 - `registry.json` — machine-readable **SSOT snapshot** of the corpus: **716 items across 143 files**,
-  each tagged `impact_tier` (658 high-impact / 58 simple-config), `review_domain`, `source_locus`,
+  each tagged `impact_tier` (697 high-impact / 19 simple-config), `review_domain`, `source_locus`,
   `extraction_kind`, risk `flags`, provenance, snippet. This is the durable source; the views regenerate
   from it. (The raw two-pass audit outputs were ephemeral scratchpad files — GONE; registry.json is the snapshot.)
 - `registry.md` — human index grouped by review domain, with reviewer pointers.

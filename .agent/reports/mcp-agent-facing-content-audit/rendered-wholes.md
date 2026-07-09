@@ -116,6 +116,7 @@ Parameters:
   - limit (optional): Maximum number of suggestions. Suggest scope only.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `fetch` — Fetch Curriculum Resource
 
@@ -141,6 +142,7 @@ Parameters:
   - id: Canonical identifier in format "type:slug" (e.g., "lesson:add-fractions-with-the-same-denominator", "unit:comparing-fractions", "subject:maths", "sequence:maths-primary", "thread:number-multiplication-and-division")
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-curriculum-model` — Oak Curriculum Overview
 
@@ -164,6 +166,8 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
+Widget (_meta.ui): resourceUri=ui://widget/oak-curriculum-app-local.html visibility=["model","app"]
 
 ### `get-thread-progressions` — Oak Curriculum Thread Progressions
 
@@ -192,6 +196,7 @@ Parameters:
   - keyStage (optional): Discovery anchor (with subject): a key-stage slug, e.g. "ks2". Returns bounded thread descriptors without sequences.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-prior-knowledge-graph` — Oak Curriculum Prior Knowledge Subgraph
 
@@ -219,6 +224,7 @@ Parameters:
   - depth (optional): Prerequisite-traversal depth: how many predecessor levels to include. Default 2, maximum 3.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-misconception-graph` — Oak Curriculum Misconception Subgraph
 
@@ -250,6 +256,7 @@ Parameters:
   - unitLimit (optional): Thread anchor only: units per window. Default 10, maximum 25.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-keyword-graph` — Oak Curriculum Keyword Graph
 
@@ -280,6 +287,7 @@ Parameters:
   - limit (optional): Optional top-N bound for the ranked keyword page: integer in [1, 100], default 25.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-eef-evidence` — EEF Evidence (Teaching and Learning Toolkit)
 
@@ -307,6 +315,7 @@ Parameters:
   - detail (optional): evidence-for-move: 'full' (default) returns the complete strands; 'headline' returns a bounded list — identity, the impact-for-cost headline metrics, tags, and the EEF page — to scan, then drill a chosen strand with inspect-strand. Ignored by inspect-strand. [enum: full, headline]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `browse-curriculum` — Browse Curriculum
 
@@ -343,6 +352,7 @@ Parameters:
   - keyStage (optional): Filter by key stage to see what subjects and content are available [enum: ks1, ks2, ks3, ks4]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `explore-topic` — Explore Topic
 
@@ -388,6 +398,7 @@ Parameters:
   - keyStage (optional): Optional key stage filter applied to all scopes [enum: ks1, ks2, ks3, ks4]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `download-asset` — Download Asset
 
@@ -415,6 +426,7 @@ Parameters:
   - type: Asset type to download [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `user-search` — User Search
 
@@ -452,6 +464,8 @@ Parameters:
   - size (optional): Maximum number of results to return (1-50, default 25).
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
+Widget (_meta.ui): resourceUri=ui://widget/oak-curriculum-app-local.html
 
 ### `user-search-query` — User Search Query
 
@@ -474,6 +488,8 @@ Parameters:
   - size (optional): Maximum number of results to return (1-50, default 25).
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
+Widget (_meta.ui):  visibility=["app"]
 
 ### `get-changelog` — Get Changelog
 
@@ -487,6 +503,7 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: noauth
 
 ### `get-changelog-latest` — Get Changelog Latest
 
@@ -500,6 +517,7 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: noauth
 
 ### `get-key-stages` — Get Key Stages
 
@@ -515,6 +533,7 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-key-stages-subject-assets` — Get Key Stages Subject Assets
 
@@ -537,6 +556,7 @@ Parameters:
   - unit (optional): Optional unit slug to additionally filter by
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-key-stages-subject-lessons` — Get Key Stages Subject Lessons
 
@@ -556,6 +576,7 @@ Parameters:
   - limit (optional): Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-key-stages-subject-questions` — Get Key Stages Subject Questions
 
@@ -575,6 +596,7 @@ Parameters:
   - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-key-stages-subject-units` — Get Key Stages Subject Units
 
@@ -592,6 +614,7 @@ Parameters:
   - examBoard (optional): (no description) [enum: aqa, edexcel, eduqas, ocr, wjec, edexcelb]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-keywords` — Get Keywords
 
@@ -613,6 +636,7 @@ Parameters:
   - lesson (optional): (no description)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-lessons-assets` — Get Lessons Assets
 
@@ -631,6 +655,7 @@ Parameters:
   - type (optional): Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-lessons-quiz` — Get Lessons Quiz
 
@@ -647,6 +672,7 @@ Parameters:
   - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-lessons-summary` — Get Lessons Summary
 
@@ -662,6 +688,7 @@ Parameters:
   - lesson: The slug of the lesson
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-lessons-transcript` — Get Lessons Transcript
 
@@ -677,6 +704,7 @@ Parameters:
   - lesson: The slug of the lesson
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-programmes` — Get Programmes
 
@@ -694,6 +722,7 @@ Parameters:
   - programme: The programme slug identifier
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-programmes-assets` — Get Programmes Assets
 
@@ -714,6 +743,7 @@ Parameters:
   - type (optional): Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-programmes-questions` — Get Programmes Questions
 
@@ -732,6 +762,7 @@ Parameters:
   - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-programmes-units` — Get Programmes Units
 
@@ -747,6 +778,7 @@ Parameters:
   - programme: The programme slug identifier
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-rate-limit` — Get Rate Limit
 
@@ -762,6 +794,7 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: noauth
 
 ### `get-sequences` — Get Sequences
 
@@ -777,6 +810,7 @@ Parameters:
   - sequence: The sequence slug identifier
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-sequences-assets` — Get Sequences Assets
 
@@ -800,6 +834,7 @@ Parameters:
 Available values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-sequences-questions` — Get Sequences Questions
 
@@ -819,6 +854,7 @@ Parameters:
   - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-sequences-units` — Get Sequences Units
 
@@ -835,6 +871,7 @@ Parameters:
   - year (optional): The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-subject-detail` — Get Subject Detail
 
@@ -850,6 +887,7 @@ Parameters:
   - subject: The slug identifier for the subject [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-subjects` — Get Subjects
 
@@ -865,6 +903,7 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-subjects-key-stages` — Get Subjects Key Stages
 
@@ -880,6 +919,7 @@ Parameters:
   - subject: The subject slug identifier [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-subjects-programmes` — Get Subjects Programmes
 
@@ -897,6 +937,7 @@ Parameters:
   - subject: The subject slug identifier [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-subjects-years` — Get Subjects Years
 
@@ -912,6 +953,7 @@ Parameters:
   - subject: Subject slug to filter by [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-threads` — Get Threads
 
@@ -927,6 +969,7 @@ Parameters:
   (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-threads-units` — Get Threads Units
 
@@ -942,6 +985,7 @@ Parameters:
   - thread: (no description)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ### `get-units-summary` — Get Units Summary
 
@@ -961,6 +1005,7 @@ Parameters:
   - childSubject (optional): (no description) [enum: biology, chemistry, combined-science, physics]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
+Security: oauth2 (scopes: email)
 
 ## 5. Prompts — assembled workflow messages (7)
 
