@@ -31,7 +31,8 @@ const POINTERS = meta.upstream_pointers;
 const kpi = (n, l) => `<div class="kpi"><span class="kpi-n">${n}</span><span class="kpi-l">${l}</span></div>`;
 const opt = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<option value="${k}">${k} (${v})</option>`).join('');
 
-const html = `<style>
+const html = `<title>Oak MCP agent-facing content registry</title>
+<style>
 :root{
   --bg:#fbfcfb;--surface:#ffffff;--surface-2:#f2f6f2;--text:#17251b;--muted:#55655b;
   --border:#d7e0d9;--accent:#1f6b2b;--accent-2:#e7f2e9;--focus:#0b5c8a;
