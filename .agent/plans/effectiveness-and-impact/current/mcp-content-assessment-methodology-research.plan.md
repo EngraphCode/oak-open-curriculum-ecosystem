@@ -173,9 +173,11 @@ upstream; oak-skills-derived prompts (2) → M8 derived-copy drift-checking agai
   per-family timeboxes. Plus two pre-probes whose results steer everything:
   **(P1) contamination quiz** (~30 min: quiz ≥2 models on ~10 curriculum items with tools disabled;
   high accuracy ⇒ contamination-aware design mandatory in every M4/M5 golden set),
-  **(P2) MCPJam suite expressiveness** (~½ day, via the in-repo `mcp-inspector` skill + MCPJam suite
-  docs: can the ratified runner express trajectory scoring, ablations, cross-model variance, M7
-  statistics? Gaps named early, not discovered at build).
+  **(P2) MCPJam suite expressiveness** (~½ day, via the repo's MCPJam tooling — `@mcpjam/cli` is a
+  root devDependency and the `mcpjam` server is wired in `.mcp.json` — plus the current MCPJam suite
+  docs; a platform-level `mcp-inspector` skill may assist where the executing agent has one, but is
+  NOT in-repo and must not be assumed. Question: can the ratified runner express trajectory scoring,
+  ablations, cross-model variance, M7 statistics? Gaps named early, not discovered at build).
 - **WS-V — Vertical slice (before any horizontal breadth).** Take THREE seams through the full
   pipeline (sweep → ratify → template → ground): **M5/retrieval** (settled; apparatus exists),
   **pedagogy M1/M2** (values-hardest; books the first expert workshop), **M4/tool-selection**

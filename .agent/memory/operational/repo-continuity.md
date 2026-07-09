@@ -35,8 +35,8 @@ Compact live state only. Finished-session narrative is conserved in its homes
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
 
-- **MCP agent-facing content — VISIBILITY DELIVERABLE LANDED (PR #337, 2026-07-09, OPEN).** A classified
-  registry of all 716 repo-controlled content items that reach an MCP consumer (the effective agent prompt),
+- **MCP agent-facing content — VISIBILITY DELIVERABLE MERGED TO MAIN (PR #337, 2026-07-09, `5f3c1f472`).**
+  A classified registry of all 716 repo-controlled content items that reach an MCP consumer (the effective agent prompt),
   under `.agent/reports/mcp-agent-facing-content-audit/` (registry.json SSOT snapshot, report, rendered-wholes,
   WCAG-AA html, generators). Owner-decided direction (report §7): SSOT content workspace(s) not copies,
   stratified by `impact_tier` (697 high-impact / 19 simple-config) with review+eval protocols for high-impact,
@@ -45,8 +45,10 @@ forward-asks remain.
   planning only): plan landed in the NEW owner-named `effectiveness-and-impact` plan area —
   [`mcp-content-assessment-methodology-research.plan.md`](../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
   (🟡 PLANNING; readiness reviewers PENDING; M1–M12 families × registry seams; WS0 pre-probes then
-  WS-V vertical slice; no pilot). **Owner-gated next:** shepherd PR #337; research EXECUTION and the
-  content-workspace build both stay gated — **do not auto-start**. Thread:
+  WS-V vertical slice; no pilot). **LIVE next (the Monday pickup): shepherd PR #338** — it carries the plan collection, this continuity
+  truing, AND the merge-window-stranded `2af1ce9cb` rescue (report §7 count fix, cherry-picked as
+  `e63f36cda`). The self-contained successor brief is the thread record §Landing Target (Monday brief).
+  Research EXECUTION and the content-workspace build stay owner-gated — **do not auto-start**. Thread:
   [`mcp-agent-facing-content`](threads/mcp-agent-facing-content.next-session.md).
 - **PR-lifecycle doctrine arc — COMPLETE (#306, #305, #310, 2026-07-06).** The gitleaks fix (#306,
   `62208200`) and docs closeout (#305, `d14a989a`) merged (Cricket lifts Echo); the doctrine PR (#310,
