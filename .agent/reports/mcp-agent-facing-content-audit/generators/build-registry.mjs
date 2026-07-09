@@ -65,7 +65,7 @@ function reviewDomain(it) {
 }
 
 // --- source_locus: WHERE the content is authored, so reviewers can be pointed at it ---
-// this-repo | upstream-in-house-api | upstream-in-house-ontology | upstream-in-house-skills | external-third-party
+// this-repo | upstream-in-house-api | upstream-in-house-skills | external-third-party
 function sourceLocus(it, ek) {
   if (ek === 'external-copy') return 'external-third-party';
   // Two of the seven prompts are adapted from named oak-skills skills (verified in source docstrings).
