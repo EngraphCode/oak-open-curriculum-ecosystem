@@ -526,3 +526,31 @@ preserved verbatim before that worktree's removal.
 - **candidate:** review-methodology — when auditing content/config that is delivered as a cohesive whole,
   present the reviewer the ASSEMBLED whole (exact, or with `{{placeholders}}`), not only the fragments;
   render it from the running code, not by reconstruction. Owner requirement this session; home = a pattern.
+
+## 2026-07-09 — Beacon hunts Brilliance, post-model-switch resume (Fable 5, same seat 2bd86d)
+
+- **Model-switch resume worked exactly as PDR-027 says:** continuous seat (same seed → same name),
+  UPDATE the identity row's model field, never a new row. The written handoff became the
+  *verification baseline*, not the memory — the right first move after a switch is to re-ground
+  every load-bearing claim (the PR had grown 6 reviews + 2 comments since the pre-switch snapshot).
+- **Bot reviewers found real defects in my visibility artefacts — adversarial triage confirmed
+  ~30 of 31 threads as substantively correct.** The two most instructive: (1) my rendered-wholes
+  "exact" labels were aspirational in three places (params never rendered — Zod raw shape has no
+  .properties; context hint + branding hardcoded, branding already drifted by ONE APOSTROPHE and
+  a bot caught it); (2) my registry derivations contradicted my own report (tool-annotations tiered
+  simple-config while C166's idempotentHint was a listed confirmed defect; EEF classified by
+  FILENAME overriding the owner's provenance ruling the same report records). Lesson: **derivation
+  rules must be checked against the document's own claims** — a report that states X while its
+  generator encodes not-X ships both.
+- **Locus doctrine sharpened by review:** source_locus = where the WORDS are edited, never data
+  provenance (C009 attribution wording = this-repo though the KG data derives from the ontology
+  repo; generated annotation hints = this-repo though they ride OpenAPI-based tools).
+- **Iterative derivation changes cascade into count-truing debt:** three rounds of
+  658/58-style number updates across report/thread/continuity/memory. The whole-record truing
+  lesson held; what would structurally cure it is generating the report's tables from
+  registry.json instead of hand-truing (same doc-patch-vs-structural-cure judgement as
+  metacognition's cure-shape rule — noted, not built, since the report is a snapshot artefact).
+- **candidate:** exact-render doctrine — anything labelled "exact"/verbatim in a review artefact
+  must be machine-rendered from the built source or explicitly relabelled a snapshot with SSOT
+  pointer; truncation and unrenderable values (e.g. [object Object]) are label violations, not
+  cosmetics. Two rounds of bot findings on precisely this; home = a pattern file.
