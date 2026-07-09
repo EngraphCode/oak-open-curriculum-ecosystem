@@ -86,8 +86,11 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 
 ## Lane State
 
-- **Owning plan(s):** none yet — the direction lives in `report.md` §7/§11. A build plan would be authored when
-  the content-workspace build is owner-scheduled.
+- **Owning plan(s):** the eval/assessment-methodology research is owned by
+  [`mcp-content-assessment-methodology-research.plan.md`](../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+  (new `effectiveness-and-impact` area, owner-named 2026-07-09; plan authored + landed 2026-07-09,
+  status 🟡 PLANNING — readiness reviewers assumptions-expert/mcp-expert/test-expert PENDING, owner
+  directed copy-only landing). The content-workspace build plan would be authored when owner-scheduled.
 - **Current objective:** visibility delivered; awaiting owner direction on next phase.
 - **Blockers / low-confidence areas:** the content-workspace build is owner-gated ("further thought before we
   decide"). The `impact_tier` derivation is a conservative heuristic (any behaviour-shaping surface = high-impact;
@@ -100,10 +103,12 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 
 1. **Shepherd PR #337 to merge** (owner may review first — it is the education-expert review substrate).
    Use `oak-pr-lifecycle`. Docs-only; pre-push gate was green (build/type-check/lint/test, 105 tasks).
-2. **DO NOT start the eval-methodology research unprompted.** Owner ruling 2026-07-09: do BOTH a foundational
-   authoritative-source pass AND build-session grounding — but **gated on explicit owner go**. When cleared,
-   research agent/LLM eval best practice (judge bias, ground-truth construction, inter-rater reliability,
-   statistical power, contamination, cross-model variance) from authoritative sources FIRST.
+2. **Eval-methodology research: PLANNED, not started.** The owner-gated go arrived for PLANNING only
+   (2026-07-09); the plan is authored and landed (see Owning plan(s) above) with owner answers absorbed
+   (expert hours arrangeable; full output set; NO pilot; new `effectiveness-and-impact` area).
+   **Execution remains owner-gated.** First execution moves when cleared: dispatch the PENDING
+   readiness reviewers, then WS0 (evidence standards + the P1 contamination and P2 MCPJam pre-probes),
+   then the WS-V vertical slice. Do not start unprompted.
 3. **Content-workspace build is owner-gated / "further thought".** When scheduled, the open design questions
    (report §11) become live and MUST be carded (per `surface-user-decisions-as-questions`): the partition axis
    (several workspaces by review regime vs one), the SSOT→consumer flow (generator inversion; some SSOT content

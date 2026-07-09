@@ -41,8 +41,12 @@ forward-asks remain.
   WCAG-AA html, generators). Owner-decided direction (report §7): SSOT content workspace(s) not copies,
   stratified by `impact_tier` (697 high-impact / 19 simple-config) with review+eval protocols for high-impact,
   upstream in-house content (OCA `oak-api` / `oak-skills` / `oak-curriculum-ontology`) HIGHLIGHTED not wrapped,
-  design l10n-ready. **Owner-gated next:** shepherd PR #337; the content-workspace build AND the eval-methodology
-  research are both QUEUED — **do not auto-start** (eval research gated on explicit owner-go). Thread:
+  design l10n-ready. **Eval/assessment-methodology research PLANNED 2026-07-09** (owner go covered
+  planning only): plan landed in the NEW owner-named `effectiveness-and-impact` plan area —
+  [`mcp-content-assessment-methodology-research.plan.md`](../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+  (🟡 PLANNING; readiness reviewers PENDING; M1–M12 families × registry seams; WS0 pre-probes then
+  WS-V vertical slice; no pilot). **Owner-gated next:** shepherd PR #337; research EXECUTION and the
+  content-workspace build both stay gated — **do not auto-start**. Thread:
   [`mcp-agent-facing-content`](threads/mcp-agent-facing-content.next-session.md).
 - **PR-lifecycle doctrine arc — COMPLETE (#306, #305, #310, 2026-07-06).** The gitleaks fix (#306,
   `62208200`) and docs closeout (#305, `d14a989a`) merged (Cricket lifts Echo); the doctrine PR (#310,
