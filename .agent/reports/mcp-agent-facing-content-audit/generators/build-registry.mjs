@@ -52,13 +52,11 @@ function sourceLocus(it, ek) {
   // Knowledge-graph-derived content attributes to the Oak Curriculum Ontology repo.
   if (/OAK_KG|oak-curriculum-ontology|Oak Curriculum Ontology/i.test(prov)) return 'upstream-in-house-ontology';
   if (ek === 'generated-from-openapi') return 'upstream-in-house-api';
-  if (/conceptGraph|vocab|keyword-graph/i.test(`${it.file} ${it.exemption_reasoning ?? ''}`) && /bulk/i.test(`${it.exemption_reasoning ?? ''}`)) return 'upstream-in-house-bulk';
   return 'this-repo';
 }
 const UPSTREAM_POINTER = {
   'this-repo': null,
-  'upstream-in-house-api': 'Oak Open Curriculum API OpenAPI spec — IN-HOUSE (oaknational/oak-api). Authoritative source: https://open-api.thenational.academy/api/v0/swagger.json. Local committed snapshot reviewers can read: packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json. Base tool/param prose is authored upstream; to change it, change the spec.',
-  'upstream-in-house-bulk': 'Oak bulk download data — IN-HOUSE (Oak bulk export). Local snapshot: apps/oak-search-cli/bulk-downloads. Vocabulary/graph content derives from this pipeline at codegen time.',
+  'upstream-in-house-api': 'Oak Open Curriculum API (OCA) OpenAPI spec — IN-HOUSE (oaknational/oak-api repo). Authoritative source: https://open-api.thenational.academy/api/v0/swagger.json. Local committed snapshot reviewers can read: packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json. Base tool/param prose is authored upstream; to change it, change the spec. NOTE: the "bulk download" is NOT a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus).',
   'upstream-in-house-ontology': 'Oak Curriculum Ontology — IN-HOUSE (oaknational/oak-curriculum-ontology). The formal semantic curriculum representation; knowledge-graph content and the OAK_KG attribution derive from it. Review the graph/ontology source there.',
   'upstream-in-house-skills': 'Oak Skills — IN-HOUSE (oaknational/oak-skills). This prompt workflow is DERIVED/ADAPTED from a named skill (oak-curriculum-mapper / oak-lesson-builder); the authoritative pedagogy workflow lives there. Review the source skill, and keep the two in step.',
   'external-third-party': 'EEF Teaching & Learning Toolkit — EXTERNAL third party. Cite, do not rewrite; verify citation accuracy and any Oak editorial framing wrapped around it.',
