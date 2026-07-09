@@ -8,7 +8,17 @@ const DIR = `${REPO}/.agent/reports/mcp-agent-facing-content-audit`;
 const reg = JSON.parse(readFileSync(`${DIR}/registry.json`, 'utf8'));
 const { meta, items } = reg;
 
-const esc = (s) => String(s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ').trim();
+// Escape HTML-significant characters too (PR #337 review): audited snippets are sometimes HTML
+// fragments; unescaped they render as document structure instead of showing the literal string
+// under review. Ampersand first so entities are not double-escaped.
+const esc = (s) =>
+  String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\|/g, '\\|')
+    .replace(/\n/g, ' ')
+    .trim();
 const table = (obj) => Object.entries(obj).sort((a, b) => b[1] - a[1]).map(([k, v]) => `| ${k} | ${v} |`).join('\n');
 
 const DOMAIN_ORDER = ['pedagogy', 'curriculum-accuracy', 'pedagogy-external', 'tool-usability', 'recovery-copy', 'legal-licensing', 'ux-accessibility', 'engineering-structural', 'other'];
@@ -34,7 +44,7 @@ See [\`report.md\`](./report.md) for the analysis, the i18n/content-workspace re
 
 ## How to read this
 
-Each item has a **review domain** (which expert should audit it) and an **extraction kind** (whether it is leaf-authored content that could move to a content catalog, or generated/external content that cannot). Item ids (\`C001\`…) are stable references into \`registry.json\`.
+Each item has a **review domain** (which expert should audit it) and an **extraction kind** (whether it is leaf-authored content that could move to a content catalogue, or generated/external content that cannot). Item ids (\`C001\`…) are stable references into \`registry.json\`.
 
 ## Summary
 
@@ -55,8 +65,8 @@ ${table(meta.review_domains)}
 | --- | --- |
 ${table(meta.extraction_kinds)}
 
-- **leaf-authored** — pure authored strings; catalog-extractable (the i18n-movable core).
-- **generated-from-openapi** — base tool text transformed from the upstream OpenAPI spec; would *invert* (generator reads catalog), not move.
+- **leaf-authored** — pure authored strings; catalogue-extractable (the i18n-movable core).
+- **generated-from-openapi** — base tool text transformed from the upstream OpenAPI spec; would *invert* (generator reads the catalogue), not move.
 - **generated-from-repo-code** — emitted by a repo generator (server instructions, per-response hint); stays generated.
 - **authored-template** — authored sentence frame + interpolated data; the template extracts, the data stays.
 - **authored-framing-of-external** — Oak-authored framing wrapped around external EEF corpus.
@@ -95,7 +105,7 @@ for (const dom of DOMAIN_ORDER) {
     for (const it of byFile[file]) {
       const imp = it.impact_tier === 'high-impact' ? ' **⚑high-impact**' : '';
       const fl = it.flags.length ? ` \`${it.flags.join('` `')}\`` : '';
-      const LOCUS_MARK = { 'upstream-in-house-api': ' **↑oak-api**', 'upstream-in-house-bulk': ' **↑bulk**', 'upstream-in-house-ontology': ' **↑oak-curriculum-ontology**', 'upstream-in-house-skills': ' **↑oak-skills**', 'external-third-party': ' **⊗EEF-external**' };
+      const LOCUS_MARK = { 'upstream-in-house-api': ' **↑oak-api (OCA)**', 'upstream-in-house-ontology': ' **↑oak-curriculum-ontology**', 'upstream-in-house-skills': ' **↑oak-skills**', 'external-third-party': ' **⊗EEF-external**' };
       const locus = LOCUS_MARK[it.source_locus] || '';
       md += `- **${it.id}** _[${it.surface_type} · ${it.extraction_kind}]_${imp}${locus} **${esc(it.identifier)}** — ${esc(it.snippet).slice(0, 160)}${fl}\n`;
     }

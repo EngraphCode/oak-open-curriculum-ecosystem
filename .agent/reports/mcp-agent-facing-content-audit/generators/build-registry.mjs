@@ -15,8 +15,14 @@ const relpath = (f) => f.startsWith(REPO + '/') ? f.slice(REPO.length + 1) : f.r
 
 function extractionKind(it) {
   const f = it.file;
-  if (/eef-toolkit\.external-data/.test(f)) return 'external-copy';
+  // Item-level provenance wins over filename (PR #337 review): the EEF external-data
+  // file MIXES verbatim EEF corpus with Oak-authored framing; only the former is external-copy.
   if (it.provenance === 'sourced-external-possibly-exempt') return 'external-copy';
+  if (/eef-toolkit\.external-data/.test(f)) {
+    return it.provenance === 'static-authored' || it.provenance === 'data-templated'
+      ? 'authored-framing-of-external'
+      : 'external-copy';
+  }
   if (/eef-interpretation|aggregated-eef-evidence/.test(f)) return 'authored-framing-of-external';
   if (it.provenance === 'codegen-metadata') return 'generated-from-openapi';
   if (it.provenance === 'generated-by-repo-code') return 'generated-from-repo-code';
@@ -27,7 +33,11 @@ function extractionKind(it) {
 function reviewDomain(it) {
   const f = it.file;
   const st = it.surface_type;
-  if (/eef-toolkit\.external-data/.test(f)) return 'pedagogy-external';
+  // Provenance-aware (PR #337 review): Oak-authored framing inside the EEF external-data
+  // file routes to Oak pedagogy review; only the verbatim external corpus is pedagogy-external.
+  if (/eef-toolkit\.external-data/.test(f)) {
+    return it.provenance === 'sourced-external-possibly-exempt' ? 'pedagogy-external' : 'pedagogy';
+  }
   if (st === 'source-attribution') return 'legal-licensing';
   if (/prompt-messages\/|mcp-prompt/.test(f)) return 'pedagogy';
   if (/eef-interpretation|aggregated-eef-evidence/.test(f)) return 'pedagogy';
@@ -43,7 +53,7 @@ function reviewDomain(it) {
 }
 
 // --- source_locus: WHERE the content is authored, so reviewers can be pointed at it ---
-// this-repo | upstream-in-house-api | upstream-in-house-bulk | upstream-in-house-ontology | upstream-in-house-skills | external-third-party
+// this-repo | upstream-in-house-api | upstream-in-house-ontology | upstream-in-house-skills | external-third-party
 function sourceLocus(it, ek) {
   const prov = `${it.identifier} ${it.exemption_reasoning ?? ''} ${it.snippet ?? ''} ${it.behavioural_intent ?? ''}`;
   if (ek === 'external-copy') return 'external-third-party';
@@ -64,9 +74,11 @@ const UPSTREAM_POINTER = {
 
 // --- impact_tier: gates protocol weight (owner design). high-impact => review+eval protocols required. ---
 // Conservative default: anything behaviour-shaping is high-impact; only clearly-structural/UI config is simple.
-// Any risk flag forces high-impact (e.g. the buggy idempotent annotation).
+// Any risk flag forces high-impact. tool-annotations are NOT simple config (PR #337 review): the MCP
+// behaviour hints (readOnlyHint/destructiveHint/idempotentHint/openWorldHint) drive host retry,
+// confirmation, and safety decisions — the report's own confirmed idempotentHint defect proves the stakes.
 const SIMPLE_CONFIG_SURFACES = new Set([
-  'server-branding', 'discovery-or-catalog-metadata', 'tool-annotations',
+  'server-branding', 'discovery-or-catalog-metadata',
   'landing-page-html', 'widget-ui-content', 'auth-consent-copy',
 ]);
 function impactTier(it, itemFlags) {

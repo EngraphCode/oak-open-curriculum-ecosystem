@@ -39,7 +39,7 @@ forward-asks remain.
   registry of all 716 repo-controlled content items that reach an MCP consumer (the effective agent prompt),
   under `.agent/reports/mcp-agent-facing-content-audit/` (registry.json SSOT snapshot, report, rendered-wholes,
   WCAG-AA html, generators). Owner-decided direction (report §7): SSOT content workspace(s) not copies,
-  stratified by `impact_tier` (612 high-impact / 104 simple-config) with review+eval protocols for high-impact,
+  stratified by `impact_tier` (658 high-impact / 58 simple-config) with review+eval protocols for high-impact,
   upstream in-house content (OCA `oak-api` / `oak-skills` / `oak-curriculum-ontology`) HIGHLIGHTED not wrapped,
   design l10n-ready. **Owner-gated next:** shepherd PR #337; the content-workspace build AND the eval-methodology
   research are both QUEUED — **do not auto-start** (eval research gated on explicit owner-go). Thread:

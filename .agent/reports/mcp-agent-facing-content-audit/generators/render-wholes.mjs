@@ -9,7 +9,42 @@ const OUT = `${REPO}/.agent/reports/mcp-agent-facing-content-audit/rendered-whol
 const entry = process.argv[2];
 
 const mcp = await import(entry);
-const fence = (s) => '```text\n' + String(s).replace(/```/g, '`​``') + '\n```';
+// The per-response hint is not re-exported from the public entry; import it from the sibling
+// built module so §2 renders from the BUILD, never a hardcoded copy (PR #337 review).
+const prereq = await import(entry.replace(/public\/mcp-tools\.js$/, 'mcp/prerequisite-guidance.js'));
+// Break nested triple-backticks with an explicit zero-width-space escape (visible intent,
+// no invisible-character copy/paste hazard in the source; PR #337 review).
+const fence = (s) => '```text\n' + String(s).replace(/```/g, '`\u200b``') + '\n```';
+// Truncate at the last newline before the limit so excerpts never cut mid-word (PR #337 review).
+const truncateAtLine = (s, limit) => {
+  if (s.length <= limit) return s;
+  const cut = s.lastIndexOf('\n', limit);
+  const head = s.slice(0, cut > 0 ? cut : limit);
+  return `${head}\n…[truncated; full length ${s.length} chars]`;
+};
+// Render parameter lines from a Zod raw shape ({ name: ZodType }) — what listUniversalTools()
+// actually returns (universal-tools/types.ts:137); there is no JSON-Schema .properties on it
+// (PR #337 review: the previous .properties path never fired). Defensive: Zod internals vary.
+const zodParamLines = (shape) => {
+  return Object.entries(shape).map(([name, type]) => {
+    let desc;
+    let optional = false;
+    let inner = type;
+    try { desc = type.description; } catch { /* description getter unavailable */ }
+    try { optional = typeof type.isOptional === 'function' ? type.isOptional() : false; } catch { /* ignore */ }
+    for (let i = 0; i < 4; i += 1) {
+      try {
+        if (typeof inner.unwrap === 'function') inner = inner.unwrap();
+        else break;
+        if (!desc) desc = inner.description;
+      } catch { break; }
+    }
+    let options;
+    try { options = inner.options ?? inner._def?.values; } catch { /* ignore */ }
+    const enumNote = Array.isArray(options) ? ` [enum: ${options.join(', ')}]` : '';
+    return `  - ${name}${optional ? ' (optional)' : ''}: ${desc ?? '(no description)'}${enumNote}`;
+  }).join('\n');
+};
 const parts = [];
 const problems = [];
 
@@ -24,11 +59,15 @@ try {
   parts.push(`## 1. Server instructions — delivered once at connection\n\nExact. This is the whole string an agent receives in the MCP \`initialize\` response.\n\n${fence(mcp.SERVER_INSTRUCTIONS)}\n`);
 } catch (e) { problems.push('SERVER_INSTRUCTIONS: ' + e.message); }
 
-// 2. Per-response context hint (exact — from source; injected into every tool response)
-parts.push(`## 2. Per-response context hint — injected into every tool response\n\nExact (\`OAK_CONTEXT_HINT\`, in \`structuredContent.oakContextHint\` of every response).\n\n${fence('If you have not called get-curriculum-model yet, do so before your next tool call — it provides the domain model and tool guidance needed for accurate results.')}\n`);
+// 2. Per-response context hint (exact — read from the BUILT module, never hardcoded)
+try {
+  parts.push(`## 2. Per-response context hint — injected into every tool response\n\nExact (\`OAK_CONTEXT_HINT\`, in \`structuredContent.oakContextHint\` of every response; rendered from the built SDK).\n\n${fence(prereq.OAK_CONTEXT_HINT)}\n`);
+} catch (e) { problems.push('OAK_CONTEXT_HINT: ' + e.message); }
 
-// 3. Server branding / Implementation (exact — from server-branding.ts)
-parts.push(`## 3. Server identity (Implementation metadata)\n\nExact. Rendered in every MCP host's server list.\n\n${fence('title: Oak National Academy\ndescription: Search, explore, download and use Oak’s free, fully sequenced and resourced curriculum resources, for KS1 to KS4.\nwebsiteUrl: https://www.thenational.academy\nicons: [light acorn #287c34, dark acorn #ffffff] (data: URIs)')}\n`);
+// 3. Server branding / Implementation. The app ships only bundled entry points with boot
+// side effects, so this section is a VERBATIM SNAPSHOT of the SSOT, labelled as such
+// (PR #337 review) — verify against server-branding.ts when it changes.
+parts.push(`## 3. Server identity (Implementation metadata)\n\nVerbatim snapshot — **not machine-rendered**. SSOT: \`apps/oak-curriculum-mcp-streamable-http/src/server-branding.ts\` (\`OAK_SERVER_BRANDING\`); re-verify against it on change.\n\n${fence("title: Oak National Academy\ndescription: Search, explore, download and use Oak's free, fully sequenced and resourced curriculum resources, for KS1 to KS4.\nwebsiteUrl: https://www.thenational.academy\nicons: two themed data:image/svg+xml;base64 acorn variants (light fill #287c34, dark fill #ffffff)")}\n`);
 
 // 4. TOOLS — assembled title + description + params + annotations (exact)
 try {
@@ -40,13 +79,19 @@ try {
     const title = d.annotations?.title ?? d.title ?? '';
     const desc = d.description ?? '';
     const ann = d.annotations ? `readOnly=${d.annotations.readOnlyHint} destructive=${d.annotations.destructiveHint} idempotent=${d.annotations.idempotentHint} openWorld=${d.annotations.openWorldHint}` : '(none)';
-    // parameter descriptions from the input schema if present
+    // Parameter descriptions. listUniversalTools() exposes inputSchema as a Zod RAW SHAPE
+    // ({ name: ZodType }) — never a JSON Schema — so render from the shape; keep the
+    // JSON-Schema path only as a fallback for descriptor-shaped inputs.
     let params = '';
     const schema = d.inputSchema ?? d.toolInputJsonSchema ?? d.inputJsonSchema;
-    if (schema?.properties) {
-      params = Object.entries(schema.properties).map(([k, v]) => `  - ${k}: ${v?.description ?? '(no description)'}${v?.enum ? ` [enum: ${v.enum.join(', ')}]` : ''}`).join('\n');
-    }
-    parts.push(`### \`${name}\`${title ? ` — ${title}` : ''}\n\n${fence(desc)}\n\nParameters:\n${params || '  (none / not exposed here)'}\n\nAnnotations: ${ann}\n`);
+    try {
+      if (schema?.properties) {
+        params = Object.entries(schema.properties).map(([k, v]) => `  - ${k}: ${v?.description ?? '(no description)'}${v?.enum ? ` [enum: ${v.enum.join(', ')}]` : ''}`).join('\n');
+      } else if (schema && typeof schema === 'object') {
+        params = zodParamLines(typeof schema.shape === 'object' && schema.shape !== null ? schema.shape : schema);
+      }
+    } catch (e2) { problems.push(`params for ${name}: ${e2.message}`); }
+    parts.push(`### \`${name}\`${title ? ` — ${title}` : ''}\n\n${fence(desc)}\n\nParameters:\n${params || '  (none)'}\n\nAnnotations: ${ann}\n`);
   }
 } catch (e) { problems.push('TOOLS: ' + e.message + '\n' + (e.stack || '')); }
 
@@ -79,7 +124,7 @@ try {
 // 7. EEF interpretation resource (exact assembled markdown; corpus values are third-party)
 try {
   const eef = mcp.getEefInterpretationMarkdown();
-  parts.push(`## 7. Resource — \`eef://interpretation\` (assembled)\n\nExact assembled markdown. The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored. Truncated to first 3500 chars for length.\n\n${fence(eef.slice(0, 3500) + (eef.length > 3500 ? '\n…[truncated; full length ' + eef.length + ' chars]' : ''))}\n`);
+  parts.push(`## 7. Resource — \`eef://interpretation\` (assembled)\n\nExact assembled markdown. The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored. Truncated to ~3500 chars at a line boundary for length.\n\n${fence(truncateAtLine(eef, 3500))}\n`);
 } catch (e) { problems.push('getEefInterpretationMarkdown: ' + e.message); }
 
 // 8. Curriculum-model resource (structural representative — large, part authored + API-derived slugs)
@@ -87,7 +132,7 @@ try {
   const cm = mcp.getCurriculumModelJson();
   const s = typeof cm === 'string' ? cm : JSON.stringify(cm, null, 2);
   const top = typeof cm === 'string' ? '(string)' : Object.keys(cm).join(', ');
-  parts.push(`## 8. Resource/tool — \`curriculum://model\` / \`get-curriculum-model\` (representative)\n\nThe orientation payload delivered by the priority-1.0 resource and the \`get-curriculum-model\` tool. Large (${s.length} chars). Top-level keys: \`${top}\`. First 3000 chars shown; the whole is repo-authored domain model + tool guidance (subject/key-stage slug lists are OpenAPI-derived, display metadata authored).\n\n${fence(s.slice(0, 3000) + '\n…[truncated]')}\n`);
+  parts.push(`## 8. Resource/tool — \`curriculum://model\` / \`get-curriculum-model\` (representative)\n\nThe orientation payload delivered by the priority-1.0 resource and the \`get-curriculum-model\` tool. Large (${s.length} chars). Top-level keys: \`${top}\`. First ~3000 chars shown (line-boundary truncation); the whole is repo-authored domain model + tool guidance (subject/key-stage slug lists are OpenAPI-derived, display metadata authored).\n\n${fence(truncateAtLine(s, 3000))}\n`);
 } catch (e) { problems.push('getCurriculumModelJson: ' + e.message); }
 
 if (problems.length) parts.push(`## Render notes\n\nItems that could not be rendered exactly (fell back to source or omitted):\n\n${problems.map((p) => '- ' + p.split('\n')[0]).join('\n')}\n`);
@@ -95,4 +140,9 @@ if (problems.length) parts.push(`## Render notes\n\nItems that could not be rend
 writeFileSync(OUT, parts.join('\n'));
 console.log('wrote rendered-wholes.md —', parts.join('\n').length, 'chars');
 console.log('problems:', problems.length);
-if (problems.length) console.log(problems.map((p) => p.split('\n')[0]).join('\n'));
+if (problems.length) {
+  console.log(problems.map((p) => p.split('\n')[0]).join('\n'));
+  // A partial render must FAIL the invoking pipeline (PR #337 review): a future regeneration
+  // that silently drops a surface would otherwise pass gates green while the artefact degrades.
+  process.exitCode = 1;
+}

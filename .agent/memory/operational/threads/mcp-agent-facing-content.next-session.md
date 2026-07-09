@@ -24,7 +24,7 @@ this thread is about the *authored framing/instructions/descriptions* Oak contro
 
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
-| claude | claude-opus-4-8[1m] | 2bd86d | Beacon hunts Brilliance | analyst + implementer | 2026-07-09 | 2026-07-09 |
+| claude | claude-fable-5 (switched from claude-opus-4-8[1m] mid-session 2026-07-09; continuous seat per PDR-027) | 2bd86d | Beacon hunts Brilliance | analyst + implementer | 2026-07-09 | 2026-07-09 |
 
 ## Landing Target For Next Session
 
@@ -39,7 +39,7 @@ research. Nothing here auto-starts.
 validator, no evals built. Under `.agent/reports/mcp-agent-facing-content-audit/`:
 
 - `registry.json` — machine-readable **SSOT snapshot** of the corpus: **716 items across 143 files**,
-  each tagged `impact_tier` (612 high-impact / 104 simple-config), `review_domain`, `source_locus`,
+  each tagged `impact_tier` (658 high-impact / 58 simple-config), `review_domain`, `source_locus`,
   `extraction_kind`, risk `flags`, provenance, snippet. This is the durable source; the views regenerate
   from it. (The raw two-pass audit outputs were ephemeral scratchpad files — GONE; registry.json is the snapshot.)
 - `registry.md` — human index grouped by review domain, with reviewer pointers.
@@ -62,14 +62,15 @@ Lifecycle order that reconciles evals with the "no validator yet" ruling: review
 → eval-protocol (measure behaviour) → drift-guard last.
 
 **Source-locus provenance (where reviewers go; distinct from the exemption boundary — upstream ≠ exempt):**
-`this-repo` (563); `upstream-in-house-api` (130 tool/param base prose from the **Oak Open Curriculum API (OCA)**
+`this-repo` (574); `upstream-in-house-api` (130 tool/param base prose from the **Oak Open Curriculum API (OCA)**
 OpenAPI spec in `oaknational/oak-api`, local snapshot `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json`;
 the "bulk download" is the SAME OCA data/repo presented differently, NOT a separate source; owner-floated future
 rename not adopted: "Open Resource Curriculum API" → Orca); `upstream-in-house-skills`
 (2 prompts — `lesson-planning`←oak-lesson-builder, `curriculum-mapping`←oak-curriculum-mapper, in
 `oaknational/oak-skills`); `upstream-in-house-ontology` (`OAK_KG` attribution + graph corpora ←
-`oaknational/oak-curriculum-ontology`); `external-third-party` (20, EEF corpus — exempt, but its Oak editorial
-framing is in scope). Cross-links: ADR-157 + the `data-sources-governance` thread own the DATA-source side.
+`oaknational/oak-curriculum-ontology`); `external-third-party` (9 — verbatim EEF corpus items only, exempt;
+the EEF file's Oak-authored framing is classified by item provenance and routes to pedagogy / this-repo,
+PR #337 review fix). Cross-links: ADR-157 + the `data-sources-governance` thread own the DATA-source side.
 
 **Highest-leverage content:** the orient-first directive ("call `get-curriculum-model` first"), restated 12+×
 incl. per-response `OAK_CONTEXT_HINT` and codegen `DOMAIN_PREREQUISITE_GUIDANCE`. Source of truth for server

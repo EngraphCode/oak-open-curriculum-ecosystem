@@ -14,13 +14,13 @@ What this is **not**, deliberately:
 
 - **Not a validator, and not a proposal for one.** A drift-guard or conformance check built now would silently promote *accidental* shapes to *canonical* ones. Much of this content evolved organically, without pedagogical or editorial oversight; guarding it before it has been reviewed would lock in exactly the shapes we most want to reconsider. Visibility precedes any guard.
 - **Not an eval harness.** Behavioural evaluation is a later, separate decision (see §9).
-- **Not a decision about restructuring.** The "pull all content into a new class of workspace" idea (§7) is given enough analysis to *inform* a decision and no more.
+- **Not the workspace build.** The content-workspace direction is now owner-DECIDED (§7 records it), but this report only records those decisions — nothing is restructured, built, or migrated here. The build is a separate, owner-scheduled session.
 
 The immediate deliverable is **visibility**.
 
 ## 2. What counts as in scope (boundary)
 
-In scope: content **the repo authors or controls** that reaches an MCP consumer (an agent, or its human user) and can shape behaviour — server instructions, tool/resource titles & descriptions, parameter descriptions, tool guidance, MCP prompts, response-format templates, error/empty/refusal copy, attribution, orientation content, landing-page and widget UI, auth/consent copy, discovery metadata.
+In scope: content **authored or controlled in this repo** that reaches an MCP consumer (an agent, or its human user) and can shape behaviour — server instructions, tool/resource titles & descriptions, parameter descriptions, tool guidance, MCP prompts, response-format templates, error/empty/refusal copy, attribution, orientation content, landing-page and widget UI, auth/consent copy, discovery metadata.
 
 Exempt: **raw curriculum data bytes** fetched from the Oak Open Curriculum HTTP API or the bulk export (lesson/quiz/unit content). The exemption's precondition is "the bytes came from the API/bulk export".
 
@@ -66,9 +66,9 @@ Every item carries a `source_locus` so a reviewer is never left guessing which r
 
 | Source locus | Items | Where the reviewer goes |
 | --- | ---: | --- |
-| `this-repo` | 563 | authored here — review in this repository |
+| `this-repo` | 574 | authored here — review in this repository |
 | `upstream-in-house-api` | 130 | **Oak Open Curriculum API (OCA) OpenAPI spec — in-house `oaknational/oak-api`.** Authoritative source `https://open-api.thenational.academy/api/v0/swagger.json`; a **committed local snapshot** is readable at `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json`. Base tool/param prose is authored upstream; to change it, change the spec. The "bulk download" is **not** a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus) |
-| `external-third-party` | 20 | **EEF Teaching & Learning Toolkit — external.** Cite, do not rewrite; review citation accuracy + any Oak editorial framing |
+| `external-third-party` | 9 | **EEF Teaching & Learning Toolkit — external.** Cite, do not rewrite; review citation accuracy + any Oak editorial framing |
 | `upstream-in-house-skills` | 2 | **Oak Skills — in-house `oaknational/oak-skills`.** The `lesson-planning` (C198) and `curriculum-mapping` (C201) prompt workflows are *derived/adapted* from named skills (`oak-lesson-builder`, `oak-curriculum-mapper`); the authoritative pedagogy workflow lives there |
 | `upstream-in-house-ontology` | 1 | **Oak Curriculum Ontology — in-house `oaknational/oak-curriculum-ontology`.** The `OAK_KG` attribution (C009) and the knowledge-graph corpora derive from it |
 
@@ -88,25 +88,25 @@ Two provenance notes the per-item count understates:
 | tool-usability | 269 | How an agent discovers/uses tools — titles, descriptions, param descriptions, prerequisite/orientation directives |
 | recovery-copy | 151 | What the agent receives on failure/empty — validation, empty-state, degradation; shapes recover-vs-fabricate |
 | engineering-structural | 95 | Annotations, schemas, scopes, discovery/branding metadata |
-| pedagogy | 81 | Prompts, orientation, curriculum-model doctrine, EEF interpretation — **education-expert target** |
+| pedagogy | 92 | Prompts, orientation, curriculum-model doctrine, EEF interpretation — **education-expert target** |
 | other | 39 | Mixed/uncategorised |
 | curriculum-accuracy | 27 | The authored conceptual model — ontology, domain concepts — **curriculum-expert target** |
 | legal-licensing | 19 | Attribution, OGL v3.0, trademark, EEF-citation obligations |
-| pedagogy-external | 19 | External EEF corpus (exempt) that is pedagogy-relevant and carries Oak editorial framing |
+| pedagogy-external | 8 | External EEF corpus (exempt) that is pedagogy-relevant and carries Oak editorial framing |
 | ux-accessibility | 16 | Human-facing landing page, widget, auth/consent copy (WCAG 2.2 AA applies) |
 
 **The education-expert reviewable slice = pedagogy (81) + curriculum-accuracy (27) + pedagogy-external (19) = 127 items.** This is the set that can be handed to Oak's education experts without asking them to read TypeScript — the direct enabler of the stated goal.
 
 ### 5.2 By extraction kind (the i18n movability question)
 
-| Extraction kind | Items | Movable to a content catalog? |
+| Extraction kind | Items | Movable to a content catalogue? |
 | --- | ---: | --- |
 | leaf-authored | 418 | **Yes** — pure authored strings; the i18n-extractable core |
-| generated-from-openapi | 130 | No — base text transformed from upstream OpenAPI; would *invert* (generator reads catalog) |
+| generated-from-openapi | 130 | No — base text transformed from upstream OpenAPI; would *invert* (generator reads the catalogue) |
 | authored-template | 98 | Partly — the sentence frame extracts; the interpolated data stays |
 | generated-from-repo-code | 26 | No — emitted by a repo generator; stays generated |
-| authored-framing-of-external | 24 | The framing yes; the wrapped EEF corpus no |
-| external-copy | 20 | No — verbatim external data; can be cited, not rewritten |
+| authored-framing-of-external | 35 | The framing yes; the wrapped EEF corpus no |
+| external-copy | 9 | No — verbatim external data; can be cited, not rewritten |
 
 ## 6. The i18n / localisation reframe
 
@@ -130,12 +130,12 @@ The audit's neutral A/B/C framing is superseded. The owner has set the direction
 1. **Review will happen** — it is committed, not conditional. The design's job is to *operationalise* it, not to justify it.
 2. **A variety of reviews, by content intent + audience — not one monolithic "content review."** This is the `review_domain` dimension: pedagogy, curriculum-accuracy, legal-licensing, safety, ux-accessibility, etc., each with its own reviewer and protocol.
 3. **Content Oak controls moves into separate content workspace(s)** — chosen deliberately to *lower the cognitive load of finding and changing it*. This overrides co-location for controlled content: it is a product surface, not incidental plumbing.
-4. **Stratify by impact/risk, and require protocols for the high tier.** Within the content workspace(s), **high-impact / risky** content is separated from **simple string config** (UI, branding). High-impact content **must** carry **review protocols and eval protocols**; simple config need not. The registry now carries an `impact_tier` field: **612 high-impact, 104 simple-config** (conservative default — anything behaviour-shaping is high-impact; any risk flag forces high-impact).
+4. **Stratify by impact/risk, and require protocols for the high tier.** Within the content workspace(s), **high-impact / risky** content is separated from **simple string config** (UI, branding). High-impact content **must** carry **review protocols and eval protocols**; simple config need not. The registry now carries an `impact_tier` field: **658 high-impact, 58 simple-config** (conservative default — anything behaviour-shaping is high-impact; any risk flag forces high-impact).
 5. **Upstream in-house content is highlighted, not wrapped.** Where high-impact content is imported from another in-house source (`oak-api`, `oak-skills`, `oak-curriculum-ontology`), do **not** build a pointless local wrapper — flag it (the `source_locus` field) and point reviewers to the owning repo. The eventual answer is to bring those repos into this monorepo; not now.
 6. **The content workspace(s) are the SSOT, not copies.** Consumers (SDK, generators, app) read *from* the workspace. This is precisely why they cannot hold upstream content — you cannot be the source of truth for words another repo owns.
 7. **Design l10n-ready (2026-07-09).** No other-language localisation now, but structure the workspace so genuine localisation can be added later without a rebuild — the leaf-authored content's catalogue shape should be able to carry translations, and the "translate into safer/more rigorous forms" review and any future language translation share the same rails.
 
-**How the impact tier lands (per decision 4/5):** protocol weight follows *impact*, not *location*. The `impact_tier × source_locus` cut shows **113 high-impact items are authored upstream** (`oak-api`) plus 2 in `oak-skills` and 1 in `oak-curriculum-ontology` — these still require review + eval protocols, but the protocols run **cross-repo** against the assembled output / the upstream source until consolidation. "Don't wrap it" must not become "don't govern it."
+**How the impact tier lands (per decision 4/5):** protocol weight follows *impact*, not *location*. The `impact_tier × source_locus` cut shows **127 high-impact items are authored upstream** (`oak-api`) plus 2 in `oak-skills` and 1 in `oak-curriculum-ontology` — these still require review + eval protocols, but the protocols run **cross-repo** against the assembled output / the upstream source until consolidation. "Don't wrap it" must not become "don't govern it."
 
 **How this reconciles with "no validator yet" (§1):** the lifecycle is ordered — **review protocol** ratifies the *intended* shape → **eval protocol** measures whether the content produces good agent *behaviour* against that ratified intent → a drift-guard (if ever) comes last. Evals score behaviour; they do not freeze wording. That ordering is why requiring eval protocols (decision 4) does not contradict rejecting a shape-freezing validator.
 

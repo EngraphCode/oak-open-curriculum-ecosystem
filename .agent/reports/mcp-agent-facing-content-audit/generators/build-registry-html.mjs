@@ -20,8 +20,7 @@ const files = new Set(rows.map((r) => r.f)).size;
 
 const LOCUS_LABEL = {
   'this-repo': 'this repo',
-  'upstream-in-house-api': 'oak-api',
-  'upstream-in-house-bulk': 'bulk export',
+  'upstream-in-house-api': 'oak-api (OCA)',
   'upstream-in-house-ontology': 'oak-curriculum-ontology',
   'upstream-in-house-skills': 'oak-skills',
   'external-third-party': 'EEF (external)',
@@ -31,7 +30,16 @@ const POINTERS = meta.upstream_pointers;
 const kpi = (n, l) => `<div class="kpi"><span class="kpi-n">${n}</span><span class="kpi-l">${l}</span></div>`;
 const opt = (o) => Object.entries(o).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<option value="${k}">${k} (${v})</option>`).join('');
 
-const html = `<title>Oak MCP agent-facing content registry</title>
+// Full standalone document shell (PR #337 review): the repo file is opened directly by
+// reviewers, so it needs <!doctype html>, <html lang> (WCAG 3.1.1 Level A), and an explicit
+// charset (the page uses non-ASCII glyphs). NOTE: the claude.ai Artifact publisher wraps
+// body-only content in its own skeleton — if republishing there, strip this shell first.
+const html = `<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oak MCP agent-facing content registry</title>
 <style>
 :root{
   --bg:#fbfcfb;--surface:#ffffff;--surface-2:#f2f6f2;--text:#17251b;--muted:#55655b;
@@ -94,7 +102,7 @@ button.reset:hover{background:var(--surface-2)}
 table{width:100%;border-collapse:collapse;font-size:.9rem}
 caption{text-align:left;padding:12px 14px;color:var(--muted);font-size:.82rem;border-bottom:1px solid var(--border)}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
-th{position:sticky;top:0;background:var(--surface-2);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);z-index:1}
+th{background:var(--surface-2);font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
 tbody tr:hover{background:var(--surface-2)}
 td.id{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
 td.item .n{font-weight:600;display:block;margin-bottom:2px}
@@ -105,7 +113,7 @@ td.file code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fo
 .imp-high{background:var(--pii-bg);color:var(--pii);font-weight:700}
 .imp-simple{background:var(--dom-bg);color:var(--muted)}
 .sl-this-repo{background:var(--chip-repo-bg);color:var(--chip-repo-tx)}
-.sl-upstream-in-house-api,.sl-upstream-in-house-bulk{background:var(--chip-up-bg);color:var(--chip-up-tx)}
+.sl-upstream-in-house-api{background:var(--chip-up-bg);color:var(--chip-up-tx)}
 .sl-upstream-in-house-skills{background:var(--chip-skill-bg);color:var(--chip-skill-tx)}
 .sl-upstream-in-house-ontology{background:var(--chip-onto-bg);color:var(--chip-onto-tx)}
 .sl-external-third-party{background:var(--chip-ext-bg);color:var(--chip-ext-tx)}
@@ -121,7 +129,8 @@ td.file code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fo
 footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);padding-top:16px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
-
+</head>
+<body>
 <div class="wrap">
 <header>
   <h1>Oak MCP agent-facing content registry</h1>
@@ -208,7 +217,9 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
   document.getElementById('reset').addEventListener('click',function(){q.value='';it.value='';rd.value='';sl.value='';ek.value='';fl.value='';render();q.focus()});
   render();
 })();
-</script>`;
+</script>
+</body>
+</html>`;
 
 writeFileSync(`${DIR}/content-registry.html`, html);
 console.log('wrote content-registry.html —', html.length, 'chars,', rows.length, 'rows embedded');

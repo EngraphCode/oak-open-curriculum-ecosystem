@@ -27,7 +27,7 @@ For questions that are not about curriculum content — about the mechanisms by 
 
 ## 2. Per-response context hint — injected into every tool response
 
-Exact (`OAK_CONTEXT_HINT`, in `structuredContent.oakContextHint` of every response).
+Exact (`OAK_CONTEXT_HINT`, in `structuredContent.oakContextHint` of every response; rendered from the built SDK).
 
 ```text
 If you have not called get-curriculum-model yet, do so before your next tool call — it provides the domain model and tool guidance needed for accurate results.
@@ -35,13 +35,13 @@ If you have not called get-curriculum-model yet, do so before your next tool cal
 
 ## 3. Server identity (Implementation metadata)
 
-Exact. Rendered in every MCP host's server list.
+Verbatim snapshot — **not machine-rendered**. SSOT: `apps/oak-curriculum-mcp-streamable-http/src/server-branding.ts` (`OAK_SERVER_BRANDING`); re-verify against it on change.
 
 ```text
 title: Oak National Academy
-description: Search, explore, download and use Oak’s free, fully sequenced and resourced curriculum resources, for KS1 to KS4.
+description: Search, explore, download and use Oak's free, fully sequenced and resourced curriculum resources, for KS1 to KS4.
 websiteUrl: https://www.thenational.academy
-icons: [light acorn #287c34, dark acorn #ffffff] (data: URIs)
+icons: two themed data:image/svg+xml;base64 acorn variants (light fill #287c34, dark fill #ffffff)
 ```
 
 ## 4. Tools — assembled definitions (42)
@@ -98,7 +98,22 @@ NOTE: This tool can return a large payload at broad scope and may exceed a host'
 ```
 
 Parameters:
-  (none / not exposed here)
+  - query (optional): Search query. Required for all scopes except threads — for threads scope, omit query and provide subject or keyStage to browse all threads matching the filter.
+  - scope: Which index to search. "lessons" for specific lessons, "units" for topic groups, "threads" for cross-year progressions, "sequences" for programme structures, "suggest" for typeahead. [enum: lessons, units, threads, sequences, suggest]
+  - subject (optional): Filter by subject slug (e.g. "maths", "science", "english") [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - keyStage (optional): Filter by key stage (ks1, ks2, ks3, ks4) [enum: ks1, ks2, ks3, ks4]
+  - size (optional): Maximum number of results to return (1-100, default 25)
+  - from (optional): Offset for pagination (default 0)
+  - unitSlug (optional): Filter lessons whose `units[]` contains an entry with this unit slug. A lesson can belong to multiple units across programme variants, so this filter matches a lesson if any of its unit entries has the supplied slug. Lessons scope only.
+  - tier (optional): Filter to lessons available in this KS4 tier (foundation/higher). Tier is a programme-factor on the lesson's units; matching a lesson means at least one of its unit entries has this tier. Lessons scope only, KS4.
+  - examBoard (optional): Filter to lessons offered by this exam board. Exam board is a programme-factor on the lesson's units; matching a lesson means at least one of its unit entries is tagged with this exam board. Lessons scope only.
+  - year (optional): Filter by year group number. Lessons scope only. [enum: [object Object], [object Object]]
+  - threadSlug (optional): Filter by curriculum thread slug. Lessons scope only.
+  - highlight (optional): Include highlighted text snippets in results. Lessons and units scopes.
+  - minLessons (optional): Minimum number of lessons a unit must contain. Units scope only.
+  - phaseSlug (optional): Filter by phase slug. Sequences scope only.
+  - category (optional): Filter by category. Sequences scope only.
+  - limit (optional): Maximum number of suggestions. Suggest scope only.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -123,7 +138,7 @@ Use format "type:slug" (e.g., "lesson:add-fractions-with-the-same-denominator", 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - id: Canonical identifier in format "type:slug" (e.g., "lesson:add-fractions-with-the-same-denominator", "unit:comparing-fractions", "subject:maths", "sequence:maths-primary", "thread:number-multiplication-and-division")
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -146,7 +161,7 @@ Do NOT use for:
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -172,7 +187,9 @@ Complements get-prior-knowledge-graph (unit-level prerequisite subgraphs) and ge
 ```
 
 Parameters:
-  (none / not exposed here)
+  - threadSlug (optional): Detail anchor: one thread slug (corpus key). Returns that thread’s full year-ordered unit progression. Exactly one anchor mode per call.
+  - subject (optional): Discovery anchor (with keyStage): a subject slug, e.g. "maths". Returns bounded thread descriptors without sequences. Exactly one anchor mode per call.
+  - keyStage (optional): Discovery anchor (with subject): a key-stage slug, e.g. "ks2". Returns bounded thread descriptors without sequences.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -198,7 +215,8 @@ Complements get-thread-progressions (full thread learning paths) with anchored p
 ```
 
 Parameters:
-  (none / not exposed here)
+  - unitSlugs: Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is the bounded prior-knowledge subgraph for these units. Unknown slugs are reported back in unknownAnchors, not errored.
+  - depth (optional): Prerequisite-traversal depth: how many predecessor levels to include. Default 2, maximum 3.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -225,7 +243,11 @@ Complements get-prior-knowledge-graph (prerequisite gaps) with per-lesson miscon
 ```
 
 Parameters:
-  (none / not exposed here)
+  - lessonSlugs (optional): Lesson anchor: lesson slugs (corpus keys). Each lesson carries at most two misconceptions. Exactly one anchor mode per call.
+  - unitSlugs (optional): Unit anchor: unit slugs (corpus keys). Returns each unit with every placed lesson and its misconceptions. Exactly one anchor mode per call.
+  - threadSlug (optional): Thread anchor: one thread slug (corpus key). Returns a unit-granular window over the thread with honest coverage (totalUnits, hasMore). Exactly one anchor mode per call.
+  - unitOffset (optional): Thread anchor only: index of the first unit in the window. Default 0.
+  - unitLimit (optional): Thread anchor only: units per window. Default 10, maximum 25.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -251,7 +273,11 @@ Complements get-keywords (live full set), get-misconception-graph, get-prior-kno
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject: Anchor subject slug (corpus key), e.g. "maths". Required, with keyStage.
+  - keyStage: Anchor key-stage slug (corpus key), e.g. "ks2". Required, with subject.
+  - unitSlugs (optional): Optional narrowing: unit slugs (corpus keys) within the anchor. Unknown slugs are reported in unknownUnitAnchors, not errored.
+  - lessonSlugs (optional): Optional narrowing: lesson slugs (corpus keys) within the anchor. Unknown slugs are reported in unknownLessonAnchors, not errored.
+  - limit (optional): Optional top-N bound for the ranked keyword page: integer in [1, 100], default 25.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -272,7 +298,13 @@ Inputs are a closed set drawn from the corpus's own vocabulary. Axis filters (`p
 ```
 
 Parameters:
-  (none / not exposed here)
+  - function: Which query to run. 'inspect-strand': the evidence for one named EEF strand by id. 'evidence-for-move': the strands matching a pedagogical context (phase / key stage / priority) or an explicit set of ids. [enum: inspect-strand, evidence-for-move]
+  - strandId (optional): inspect-strand: the single EEF strand id to inspect. [enum: eef-tl-arts-participation, eef-tl-aspiration-interventions, eef-tl-behaviour-interventions, eef-tl-collaborative-learning, eef-tl-extending-school-time, eef-tl-feedback, eef-tl-homework, eef-tl-individualised-instruction, eef-tl-learning-styles, eef-tl-mastery-learning, eef-tl-mentoring, eef-tl-metacognition-and-self-regulation, eef-tl-one-to-one-tuition, eef-tl-oral-language-interventions, eef-tl-outdoor-adventure-learning, eef-tl-parental-engagement, eef-tl-peer-tutoring, eef-tl-performance-pay, eef-tl-phonics, eef-tl-physical-activity, eef-tl-reading-comprehension-strategies, eef-tl-reducing-class-size, eef-tl-repeating-a-year, eef-tl-school-uniform, eef-tl-setting-and-streaming, eef-tl-small-group-tuition, eef-tl-social-and-emotional-learning, eef-tl-summer-schools, eef-tl-teaching-assistant-interventions, eef-tl-within-class-attainment-grouping]
+  - strandIds (optional): evidence-for-move: explicit EEF strand ids to retrieve together. [enum: eef-tl-arts-participation, eef-tl-aspiration-interventions, eef-tl-behaviour-interventions, eef-tl-collaborative-learning, eef-tl-extending-school-time, eef-tl-feedback, eef-tl-homework, eef-tl-individualised-instruction, eef-tl-learning-styles, eef-tl-mastery-learning, eef-tl-mentoring, eef-tl-metacognition-and-self-regulation, eef-tl-one-to-one-tuition, eef-tl-oral-language-interventions, eef-tl-outdoor-adventure-learning, eef-tl-parental-engagement, eef-tl-peer-tutoring, eef-tl-performance-pay, eef-tl-phonics, eef-tl-physical-activity, eef-tl-reading-comprehension-strategies, eef-tl-reducing-class-size, eef-tl-repeating-a-year, eef-tl-school-uniform, eef-tl-setting-and-streaming, eef-tl-small-group-tuition, eef-tl-social-and-emotional-learning, eef-tl-summer-schools, eef-tl-teaching-assistant-interventions, eef-tl-within-class-attainment-grouping]
+  - phase (optional): evidence-for-move: the school phase the pedagogical move applies to. [enum: primary, secondary, early_years]
+  - keyStage (optional): evidence-for-move: the key stage the pedagogical move applies to. [enum: KS1, KS2, KS3, KS4, EYFS]
+  - priority (optional): evidence-for-move: the school-improvement priority the move addresses. [enum: improving_behaviour, closing_disadvantage_gap, improving_oracy, improving_writing, metacognition_and_self_regulation, improving_reading, improving_maths, curriculum_development, post_covid_recovery, parental_engagement, transition_support, effective_use_of_tas, improving_send_provision]
+  - detail (optional): evidence-for-move: 'full' (default) returns the complete strands; 'headline' returns a bounded list — identity, the impact-for-cost headline metrics, tags, and the EEF page — to scan, then drill a chosen strand with inspect-strand. Ignored by inspect-strand. [enum: full, headline]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -307,7 +339,8 @@ NOTE: This tool can return a large payload at broad scope and may exceed a host'
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject (optional): Filter by subject slug to see what units and lessons are available [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - keyStage (optional): Filter by key stage to see what subjects and content are available [enum: ks1, ks2, ks3, ks4]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -350,7 +383,9 @@ NEXT STEPS AFTER EXPLORE:
 ```
 
 Parameters:
-  (none / not exposed here)
+  - query: The topic to explore. Use descriptive terms like "photosynthesis", "the Romans", "fractions".
+  - subject (optional): Optional subject filter applied to all scopes [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - keyStage (optional): Optional key stage filter applied to all scopes [enum: ks1, ks2, ks3, ks4]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -376,7 +411,8 @@ Do NOT use for:
 ```
 
 Parameters:
-  (none / not exposed here)
+  - lesson: Lesson slug (e.g. "adding-fractions-with-the-same-denominator")
+  - type: Asset type to download [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -409,7 +445,11 @@ Do NOT use for:
 ```
 
 Parameters:
-  (none / not exposed here)
+  - query: Search query text.
+  - scope: Which index to search: lessons, units, threads, or sequences. [enum: lessons, units, threads, sequences]
+  - subject (optional): Filter by subject slug. [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - keyStage (optional): Filter by key stage. [enum: ks1, ks2, ks3, ks4]
+  - size (optional): Maximum number of results to return (1-50, default 25).
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -427,7 +467,11 @@ with search controls directly.
 ```
 
 Parameters:
-  (none / not exposed here)
+  - query: Search query text.
+  - scope: Which index to search: lessons, units, threads, or sequences. [enum: lessons, units, threads, sequences]
+  - subject (optional): Filter by subject slug. [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - keyStage (optional): Filter by key stage. [enum: ks1, ks2, ks3, ks4]
+  - size (optional): Maximum number of results to return (1-50, default 25).
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -440,7 +484,7 @@ Use when you need the full history of API changes — for surfacing release note
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -453,7 +497,7 @@ Use when you only need the current API version — e.g. a version banner or depl
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -468,7 +512,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -487,7 +531,10 @@ NOTE: This tool can return a large payload at broad scope and may exceed a host'
 ```
 
 Parameters:
-  (none / not exposed here)
+  - keyStage: Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase [enum: ks1, ks2, ks3, ks4]
+  - subject: Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - type (optional): Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
+  - unit (optional): Optional unit slug to additionally filter by
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -502,7 +549,11 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - keyStage: Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase [enum: ks1, ks2, ks3, ks4]
+  - subject: Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - unit (optional): Optional unit slug to additionally filter by
+  - offset (optional): Offset applied to lessons within each unit (not to the unit list).
+  - limit (optional): Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -517,7 +568,11 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - keyStage: Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase [enum: ks1, ks2, ks3, ks4]
+  - subject: Subject slug to search by, e.g. 'science' - note that casing is important here [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - offset (optional): If limiting results returned, this allows you to return the next set of results, starting at the given offset point
+  - limit (optional): Limit the number of lessons, e.g. return a maximum of 100 lessons
+  - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -532,7 +587,9 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - keyStage: Key stage slug to filter by, e.g. 'ks2' [enum: ks1, ks2, ks3, ks4]
+  - subject: Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - examBoard (optional): (no description) [enum: aqa, edexcel, eduqas, ocr, wjec, edexcelb]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -549,7 +606,11 @@ WHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject (optional): (no description) [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
+  - keyStage (optional): (no description) [enum: ks1, ks2, ks3, ks4]
+  - phase (optional): (no description) [enum: primary, secondary]
+  - unit (optional): (no description)
+  - lesson (optional): (no description)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -566,7 +627,8 @@ NOTE: The asset `url` fields returned by this tool are authenticated API endpoin
 ```
 
 Parameters:
-  (none / not exposed here)
+  - lesson: The lesson slug identifier
+  - type (optional): Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -581,7 +643,8 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - lesson: The lesson slug identifier
+  - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -596,7 +659,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - lesson: The slug of the lesson
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -611,7 +674,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - lesson: The slug of the lesson
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -628,7 +691,7 @@ NOTE: Programme slugs are the full form — `<subject>-<phase>-year-<year>` plus
 ```
 
 Parameters:
-  (none / not exposed here)
+  - programme: The programme slug identifier
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -645,7 +708,10 @@ NOTE: The asset `url` fields returned by this tool are authenticated API endpoin
 ```
 
 Parameters:
-  (none / not exposed here)
+  - programme: The programme slug identifier
+  - offset (optional): If limiting results returned, this allows you to return the next set of results, starting at the given offset point
+  - limit (optional): Limit the number of lessons, e.g. return a maximum of 100 lessons
+  - type (optional): Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -660,7 +726,10 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - programme: The programme slug identifier
+  - offset (optional): If limiting results returned, this allows you to return the next set of results, starting at the given offset point
+  - limit (optional): Limit the number of lessons, e.g. return a maximum of 100 lessons
+  - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -675,7 +744,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - programme: The programme slug identifier
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -690,7 +759,7 @@ NOTE: A response of limit=0, remaining=0, reset=0 indicates an unlimited API key
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -705,7 +774,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - sequence: The sequence slug identifier
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -724,7 +793,11 @@ NOTE: This tool can return a large payload at broad scope and may exceed a host'
 ```
 
 Parameters:
-  (none / not exposed here)
+  - sequence: The sequence slug identifier, including the key stage 4 option where relevant.
+  - year (optional): The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.
+  - type (optional): Optional asset type specifier
+
+Available values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers [enum: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -739,7 +812,11 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - sequence: The sequence slug identifier, including the key stage 4 option where relevant.
+  - year (optional): The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.
+  - offset (optional): If limiting results returned, this allows you to return the next set of results, starting at the given offset point
+  - limit (optional): Limit the number of lessons, e.g. return a maximum of 100 lessons
+  - filter (optional): Optional filter for question results. Use `images` to return only questions with a question image or image answer. [enum: images]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -754,7 +831,8 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - sequence: The sequence slug identifier, including the key stage 4 option where relevant.
+  - year (optional): The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -769,7 +847,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject: The slug identifier for the subject [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -784,7 +862,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -799,7 +877,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject: The subject slug identifier [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -816,7 +894,7 @@ NOTE: Programme slugs are the full form — `<subject>-<phase>-year-<year>` plus
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject: The subject slug identifier [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -831,7 +909,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - subject: Subject slug to filter by [enum: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -846,7 +924,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  (none)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -861,7 +939,7 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - thread: (no description)
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -876,7 +954,11 @@ PREREQUISITE: You MUST call the `get-curriculum-model` tool first to understand 
 ```
 
 Parameters:
-  (none / not exposed here)
+  - unit: The unit slug
+  - examBoard (optional): (no description) [enum: aqa, edexcel, eduqas, ocr, wjec, edexcelb]
+  - pathway (optional): (no description) [enum: core, gcse]
+  - tier (optional): (no description) [enum: core, foundation, higher]
+  - childSubject (optional): (no description) [enum: biology, chemistry, combined-science, physics]
 
 Annotations: readOnly=true destructive=false idempotent=true openWorld=false
 
@@ -1073,7 +1155,7 @@ For detailed API documentation, visit: <https://open-api.thenational.academy/doc
 
 ## 7. Resource — `eef://interpretation` (assembled)
 
-Exact assembled markdown. The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored. Truncated to first 3500 chars for length.
+Exact assembled markdown. The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored. Truncated to ~3500 chars at a line boundary for length.
 
 ```text
 # EEF Teaching and Learning Toolkit — Interpretation Guide
@@ -1109,13 +1191,12 @@ Read context for grounding `get-eef-evidence`. The EEF Toolkit summarises educat
 - High impact with low evidence strength should be treated with caution — the true effect may differ substantially.
 - Implementation quality is a critical moderator. Poorly implemented high-impact strategies can show zero or negative effects.
 - The toolkit measures academic attainment outcomes. It does not capture the full value of approaches that have important non-academic benefits (e.g. arts, physical activity, SEL).
-- Absence from the toolkit is not evidence of ineffectivene
 …[truncated; full length 16292 chars]
 ```
 
 ## 8. Resource/tool — `curriculum://model` / `get-curriculum-model` (representative)
 
-The orientation payload delivered by the priority-1.0 resource and the `get-curriculum-model` tool. Large (66453 chars). Top-level keys: `(string)`. First 3000 chars shown; the whole is repo-authored domain model + tool guidance (subject/key-stage slug lists are OpenAPI-derived, display metadata authored).
+The orientation payload delivered by the priority-1.0 resource and the `get-curriculum-model` tool. Large (66453 chars). Top-level keys: `(string)`. First ~3000 chars shown (line-boundary truncation); the whole is repo-authored domain model + tool guidance (subject/key-stage slug lists are OpenAPI-derived, display metadata authored).
 
 ```text
 {
@@ -1217,6 +1298,5 @@ The orientation payload delivered by the priority-1.0 resource and the `get-curr
           "slug": "art",
           "name": "Art",
           "keyStages": [
-            "
-…[truncated]
+…[truncated; full length 66453 chars]
 ```
