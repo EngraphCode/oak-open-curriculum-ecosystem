@@ -498,3 +498,59 @@ preserved verbatim before that worktree's removal.
   fact changes, grep the WHOLE artefact for every assertion of the old state (`is OPEN`,
   `still to reply/resolve`) before declaring the truing done — a cell/row is one record, not a
   bag of independent sentences.
+
+## 2026-07-09 — Beacon hunts Brilliance (mcp-agent-facing-content, session 2bd86d)
+
+- **Loss-scan (context-holder's exclusive job, model-switch handoff):** the SUBSTANCE was already durable
+  (registry.json / report.md / rendered-wholes.md / PR #337), but the **continuity pointers were the whole
+  gap** — a fresh start-right would not have found the work because `repo-continuity.md` and the thread index
+  had no trace of it. Closed by creating `threads/mcp-agent-facing-content.next-session.md` + a repo-continuity
+  Active-Threads row + Current-State bullet. Metaloss after closing: none surviving. One accepted ephemeral
+  loss: the raw two-pass workflow audit outputs (`<session>/tasks/*.output`) — `registry.json` is the durable
+  snapshot; the generator that builds it from those outputs is committed but its inputs are gone.
+- **Surprise (execution):** the workflow task-output files live at `<session-dir>/tasks/`, NOT
+  `<session-dir>/scratchpad/tasks/`. A `$SP/tasks/...` path (SP=scratchpad) gave ENOENT, the generator exited
+  1, and the failure was **swallowed by a pipe** (`node build.mjs | sed ...` — pipe exit code is sed's 0), so a
+  STALE registry silently survived and the downstream md/html regenerated from it. Caught only by a
+  post-hoc grep assertion (bulk-present / OCA-absent). Lesson: do not pipe a generating command through a
+  filter when its exit code matters; assert the artefact changed (`capture-expensive-command-output-first-run`).
+- **Correction (domain, owner 2026-07-09):** the "bulk download" is NOT a separate data source — it is the
+  SAME Oak Open Curriculum API (OCA) data from the SAME `oak-api` repo, presented differently (different
+  metadata focus). My `source_locus` model had a distinct `upstream-in-house-bulk` category; 0 items actually
+  landed in it (no mis-tag) but the model was wrong — removed, folded into `upstream-in-house-api` (OCA). Also:
+  the API's proper name is **OCA** (Oak Open Curriculum API), not just "oak-api" (the repo). Owner-floated
+  future rename, NOT adopted: "Open Resource Curriculum API" → **Orca**.
+- **candidate:** `visibility-before-validation` (don't build a validator/guard over a surface whose shape
+  evolved without intention; make it visible for review first, ratify, then guard) — validated by owner
+  correction this session; home = a `patterns/` file or a PDR (pattern kind). Also in personal memory.
+- **candidate:** review-methodology — when auditing content/config that is delivered as a cohesive whole,
+  present the reviewer the ASSEMBLED whole (exact, or with `{{placeholders}}`), not only the fragments;
+  render it from the running code, not by reconstruction. Owner requirement this session; home = a pattern.
+
+## 2026-07-09 — Beacon hunts Brilliance, post-model-switch resume (Fable 5, same seat 2bd86d)
+
+- **Model-switch resume worked exactly as PDR-027 says:** continuous seat (same seed → same name),
+  UPDATE the identity row's model field, never a new row. The written handoff became the
+  *verification baseline*, not the memory — the right first move after a switch is to re-ground
+  every load-bearing claim (the PR had grown 6 reviews + 2 comments since the pre-switch snapshot).
+- **Bot reviewers found real defects in my visibility artefacts — adversarial triage confirmed
+  ~30 of 31 threads as substantively correct.** The two most instructive: (1) my rendered-wholes
+  "exact" labels were aspirational in three places (params never rendered — Zod raw shape has no
+  .properties; context hint + branding hardcoded, branding already drifted by ONE APOSTROPHE and
+  a bot caught it); (2) my registry derivations contradicted my own report (tool-annotations tiered
+  simple-config while C166's idempotentHint was a listed confirmed defect; EEF classified by
+  FILENAME overriding the owner's provenance ruling the same report records). Lesson: **derivation
+  rules must be checked against the document's own claims** — a report that states X while its
+  generator encodes not-X ships both.
+- **Locus doctrine sharpened by review:** source_locus = where the WORDS are edited, never data
+  provenance (C009 attribution wording = this-repo though the KG data derives from the ontology
+  repo; generated annotation hints = this-repo though they ride OpenAPI-based tools).
+- **Iterative derivation changes cascade into count-truing debt:** three rounds of
+  658/58-style number updates across report/thread/continuity/memory. The whole-record truing
+  lesson held; what would structurally cure it is generating the report's tables from
+  registry.json instead of hand-truing (same doc-patch-vs-structural-cure judgement as
+  metacognition's cure-shape rule — noted, not built, since the report is a snapshot artefact).
+- **candidate:** exact-render doctrine — anything labelled "exact"/verbatim in a review artefact
+  must be machine-rendered from the built source or explicitly relabelled a snapshot with SSOT
+  pointer; truncation and unrenderable values (e.g. [object Object]) are label violations, not
+  cosmetics. Two rounds of bot findings on precisely this; home = a pattern file.
