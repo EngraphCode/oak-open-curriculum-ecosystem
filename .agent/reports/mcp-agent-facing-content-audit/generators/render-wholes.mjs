@@ -39,9 +39,25 @@ const zodParamLines = (shape) => {
         if (!desc) desc = inner.description;
       } catch { break; }
     }
-    let options;
-    try { options = inner.options ?? inner._def?.values; } catch { /* ignore */ }
-    const enumNote = Array.isArray(options) ? ` [enum: ${options.join(', ')}]` : '';
+    // Normalise enum options to primitives (PR #337 review): a union-of-literals exposes
+    // Zod schema OBJECTS via .options, which would render as "[object Object]" — an exact
+    // render must show the literal values or no enum note at all.
+    const normaliseOption = (o) => {
+      if (o === null || typeof o !== 'object') return o;
+      if ('value' in o) return o.value; // ZodLiteral instance
+      const dv = o._def?.values ?? o.def?.values; // literal def carries values[]
+      if (Array.isArray(dv) && dv.length === 1) return dv[0];
+      return undefined; // unrenderable — suppress the enum note rather than emit junk
+    };
+    let optionValues;
+    try {
+      const raw = inner.options ?? inner._def?.values;
+      if (Array.isArray(raw)) {
+        const mapped = raw.map(normaliseOption);
+        if (mapped.every((v) => v !== undefined && typeof v !== 'object')) optionValues = mapped;
+      }
+    } catch { /* ignore */ }
+    const enumNote = optionValues ? ` [enum: ${optionValues.join(', ')}]` : '';
     return `  - ${name}${optional ? ' (optional)' : ''}: ${desc ?? '(no description)'}${enumNote}`;
   }).join('\n');
 };

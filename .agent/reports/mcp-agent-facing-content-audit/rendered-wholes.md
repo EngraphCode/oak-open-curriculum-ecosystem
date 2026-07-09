@@ -107,7 +107,7 @@ Parameters:
   - unitSlug (optional): Filter lessons whose `units[]` contains an entry with this unit slug. A lesson can belong to multiple units across programme variants, so this filter matches a lesson if any of its unit entries has the supplied slug. Lessons scope only.
   - tier (optional): Filter to lessons available in this KS4 tier (foundation/higher). Tier is a programme-factor on the lesson's units; matching a lesson means at least one of its unit entries has this tier. Lessons scope only, KS4.
   - examBoard (optional): Filter to lessons offered by this exam board. Exam board is a programme-factor on the lesson's units; matching a lesson means at least one of its unit entries is tagged with this exam board. Lessons scope only.
-  - year (optional): Filter by year group number. Lessons scope only. [enum: [object Object], [object Object]]
+  - year (optional): Filter by year group number. Lessons scope only.
   - threadSlug (optional): Filter by curriculum thread slug. Lessons scope only.
   - highlight (optional): Include highlighted text snippets in results. Lessons and units scopes.
   - minLessons (optional): Minimum number of lessons a unit must contain. Units scope only.
