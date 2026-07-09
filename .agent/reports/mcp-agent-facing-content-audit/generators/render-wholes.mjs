@@ -124,7 +124,7 @@ try {
 // 7. EEF interpretation resource (exact assembled markdown; corpus values are third-party)
 try {
   const eef = mcp.getEefInterpretationMarkdown();
-  parts.push(`## 7. Resource — \`eef://interpretation\` (assembled)\n\nExact assembled markdown. The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored. Truncated to ~3500 chars at a line boundary for length.\n\n${fence(truncateAtLine(eef, 3500))}\n`);
+  parts.push(`## 7. Resource — \`eef://interpretation\` (assembled)\n\nExact assembled markdown, rendered IN FULL (PR #337 review: an "exact" surface must not be truncated). The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored.\n\n${fence(eef)}\n`);
 } catch (e) { problems.push('getEefInterpretationMarkdown: ' + e.message); }
 
 // 8. Curriculum-model resource (structural representative — large, part authored + API-derived slugs)

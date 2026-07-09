@@ -2,6 +2,13 @@
 // Merge pass-1 + pass-2 audit items into the MCP agent-facing content registry.
 // Deterministic enrichment: repo-relative paths, extraction_kind, review_domain, flags.
 // Usage: node build-registry.mjs <pass1.output> <pass2.output>   (run from repo root)
+//
+// PROVENANCE NOTE (PR #337 review): the pass-1/pass-2 audit outputs were ephemeral
+// session artefacts and are deliberately NOT committed — they embed machine-local
+// absolute paths, which the repo's no-machine-local-paths rule (PII) forbids landing.
+// The committed `registry.json` IS the durable snapshot and the SSOT for the views
+// (registry.md / content-registry.html regenerate from it). This script is retained
+// as provenance documentation of the derivation rules, not as a reproducible pipeline.
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const REPO = process.cwd();
@@ -49,25 +56,33 @@ function reviewDomain(it) {
   if (st === 'tool-title' || st === 'tool-description' || st === 'tool-param-description') return 'tool-usability';
   if (st === 'resource-name-or-description' || st === 'resource-content') return 'tool-usability';
   if (st === 'tool-annotations' || st === 'discovery-or-catalog-metadata' || st === 'server-branding' || st === 'server-instructions') return 'engineering-structural';
+  // Known MCP-facing types must not fall to the catch-all (PR #337 review): prompt catalogue
+  // copy is teacher-workflow framing (pedagogy); response-format templates frame every
+  // successful tool result an agent reads (tool-usability).
+  if (st === 'prompt-name-or-description' || st === 'prompt-message-template') return 'pedagogy';
+  if (st === 'response-format-template') return 'tool-usability';
   return 'other';
 }
 
 // --- source_locus: WHERE the content is authored, so reviewers can be pointed at it ---
 // this-repo | upstream-in-house-api | upstream-in-house-ontology | upstream-in-house-skills | external-third-party
 function sourceLocus(it, ek) {
-  const prov = `${it.identifier} ${it.exemption_reasoning ?? ''} ${it.snippet ?? ''} ${it.behavioural_intent ?? ''}`;
   if (ek === 'external-copy') return 'external-third-party';
   // Two of the seven prompts are adapted from named oak-skills skills (verified in source docstrings).
   if (/prompt-messages\/(curriculum-mapping|lesson-planning)\.ts$/.test(it.file) && it.surface_type === 'prompt-message-template') return 'upstream-in-house-skills';
-  // Knowledge-graph-derived content attributes to the Oak Curriculum Ontology repo.
-  if (/OAK_KG|oak-curriculum-ontology|Oak Curriculum Ontology/i.test(prov)) return 'upstream-in-house-ontology';
-  if (ek === 'generated-from-openapi') return 'upstream-in-house-api';
+  // NOTE (PR #337 review): locus = where the WORDS are edited, not where underlying data comes
+  // from. The OAK_KG attribution wording is authored locally (this-repo) even though the graph
+  // DATA derives from oaknational/oak-curriculum-ontology — that data relationship is documented
+  // in the report §4.1 prose and ADR-157, not as a word-authorship locus.
+  // Likewise, generated tool ANNOTATION blocks are authored by this repo's generator
+  // (emit-index.ts hard-codes the readOnly/destructive/idempotent/openWorld values) — they are
+  // not upstream OpenAPI prose, so they stay this-repo.
+  if (ek === 'generated-from-openapi' && it.surface_type !== 'tool-annotations') return 'upstream-in-house-api';
   return 'this-repo';
 }
 const UPSTREAM_POINTER = {
   'this-repo': null,
   'upstream-in-house-api': 'Oak Open Curriculum API (OCA) OpenAPI spec — IN-HOUSE (oaknational/oak-api repo). Authoritative source: https://open-api.thenational.academy/api/v0/swagger.json. Local committed snapshot reviewers can read: packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json. Base tool/param prose is authored upstream; to change it, change the spec. NOTE: the "bulk download" is NOT a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus).',
-  'upstream-in-house-ontology': 'Oak Curriculum Ontology — IN-HOUSE (oaknational/oak-curriculum-ontology). The formal semantic curriculum representation; knowledge-graph content and the OAK_KG attribution derive from it. Review the graph/ontology source there.',
   'upstream-in-house-skills': 'Oak Skills — IN-HOUSE (oaknational/oak-skills). This prompt workflow is DERIVED/ADAPTED from a named skill (oak-curriculum-mapper / oak-lesson-builder); the authoritative pedagogy workflow lives there. Review the source skill, and keep the two in step.',
   'external-third-party': 'EEF Teaching & Learning Toolkit — EXTERNAL third party. Cite, do not rewrite; verify citation accuracy and any Oak editorial framing wrapped around it.',
 };

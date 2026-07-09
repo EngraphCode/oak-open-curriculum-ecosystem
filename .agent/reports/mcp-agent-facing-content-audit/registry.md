@@ -23,15 +23,15 @@ _high-impact items require review + eval protocols (owner design 2026-07-09); si
 ### By review domain (who should audit)
 | Review domain | Items |
 | --- | --- |
-| tool-usability | 269 |
+| tool-usability | 299 |
 | recovery-copy | 151 |
+| pedagogy | 99 |
 | engineering-structural | 95 |
-| pedagogy | 92 |
-| other | 39 |
 | curriculum-accuracy | 27 |
 | legal-licensing | 19 |
 | ux-accessibility | 16 |
 | pedagogy-external | 8 |
+| other | 2 |
 
 ### By extraction kind (i18n-style movability)
 | Extraction kind | Items |
@@ -53,16 +53,14 @@ _high-impact items require review + eval protocols (owner design 2026-07-09); si
 ### By source locus (where to point reviewers)
 | Source locus | Items |
 | --- | --- |
-| this-repo | 574 |
-| upstream-in-house-api | 130 |
+| this-repo | 589 |
+| upstream-in-house-api | 116 |
 | external-third-party | 9 |
 | upstream-in-house-skills | 2 |
-| upstream-in-house-ontology | 1 |
 
 **Where reviewers go for non-`this-repo` content:**
 
 - **upstream-in-house-api** — Oak Open Curriculum API (OCA) OpenAPI spec — IN-HOUSE (oaknational/oak-api repo). Authoritative source: https://open-api.thenational.academy/api/v0/swagger.json. Local committed snapshot reviewers can read: packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json. Base tool/param prose is authored upstream; to change it, change the spec. NOTE: the "bulk download" is NOT a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus).
-- **upstream-in-house-ontology** — Oak Curriculum Ontology — IN-HOUSE (oaknational/oak-curriculum-ontology). The formal semantic curriculum representation; knowledge-graph content and the OAK_KG attribution derive from it. Review the graph/ontology source there.
 - **upstream-in-house-skills** — Oak Skills — IN-HOUSE (oaknational/oak-skills). This prompt workflow is DERIVED/ADAPTED from a named skill (oak-curriculum-mapper / oak-lesson-builder); the authoritative pedagogy workflow lives there. Review the source skill, and keep the two in step.
 - **external-third-party** — EEF Teaching & Learning Toolkit — EXTERNAL third party. Cite, do not rewrite; verify citation accuracy and any Oak editorial framing wrapped around it.
 
@@ -83,7 +81,7 @@ _high-impact items require review + eval protocols (owner design 2026-07-09); si
 
 ## Index by review domain
 
-### pedagogy — 92 items
+### pedagogy — 99 items
 
 Teaching/learning framing — prompts, orientation, curriculum-model doctrine, EEF interpretation. **Primary education-expert review target.**
 
@@ -128,6 +126,17 @@ Teaching/learning framing — prompts, orientation, curriculum-model doctrine, E
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts</code> — 1</summary>
 
 - **C376** _[orientation-content · leaf-authored]_ **⚑high-impact** **OAK_UNDER_THE_HOOD_TOOL_SUMMARY** — Oak: Under the Hood — fetch the linked canonical method and orient the user to this repository. The method and sources are at the resource link below.
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts</code> — 7</summary>
+
+- **C329** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt find-lessons (title 'Find Lessons' + description)** — name:'find-lessons' title:'Find Lessons' — 'Find curriculum lessons on a specific topic. Searches across all subjects and key stages.'
+- **C330** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt lesson-planning (title 'Lesson Planning' + description)** — 'Build a complete, teachable lesson on a topic, grounded in Oak's live curriculum data and six curriculum principles — outcome, key learning points, keywords, m
+- **C331** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt explore-curriculum (title 'Explore Curriculum' + description)** — 'Explore what Oak has on a topic across the whole curriculum. Searches lessons, units, and threads in parallel.'
+- **C332** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt learning-progression (title 'Learning Progression' + description)** — 'Understand how a concept builds across year groups by searching progression threads and mapping dependencies.'
+- **C333** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt curriculum-mapping (title 'Curriculum Mapping' + description)** — "Build or audit a curriculum map — unit order across a year or key stage — grounded in Oak's threads, prerequisites, and national-curriculum coverage."
+- **C334** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt adapt-lesson (title 'Adapt Lesson with EEF Evidence' + description, EEF-gated)** — 'Adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence, presenting evidence-calibrated options with caveats and attribution intact.'
+- **C335** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt continue-progression (title 'Continue Progression' + description)** — "Plan the next step from where your class is: state what they just covered and get the next unit from Oak's sequence, a checkable readiness list, and the miscon
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts</code> — 1</summary>
@@ -345,10 +354,31 @@ External EEF corpus content (exempt — we cannot change it) that is nonetheless
 
 </details>
 
-### tool-usability — 269 items
+### tool-usability — 299 items
 
 How an agent discovers and uses tools — titles, descriptions, param descriptions, prerequisite/orientation directives.
 
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts</code> — 1</summary>
+
+- **C398** _[response-format-template · authored-template]_ **⚑high-impact** **sendInvalidResourceResponse** — error="invalid_token", error_description="${reason}" ; body { error: 'Unauthorized', message: reason } `user-input-interpolation` `possible-defect-reported`
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts</code> — 2</summary>
+
+- **C358** _[response-format-template · authored-template]_ **⚑high-impact** **prompt list-item display template** — &lt;li&gt;&lt;code&gt;${escapeHtml(prompt.name)}&lt;/code&gt;&lt;span class="tool-desc"&gt;${escapeHtml(prompt.description)}&lt;/span&gt;${argList}&lt;/li&gt; `user-input-interpolation`
+- **C359** _[response-format-template · authored-template]_ **⚑high-impact** **prompt arguments labels ('Arguments:', '(optional)')** — Arguments: &lt;code&gt;${a.name}&lt;/code&gt;${a.required ? '' : ' (optional)'} `user-input-interpolation`
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts</code> — 1</summary>
+
+- **C361** _[response-format-template · authored-template]_ **⚑high-impact** **resource list-item display template** — &lt;li&gt;&lt;code&gt;${resource.uri}&lt;/code&gt;&lt;span class="resource-title"&gt;${resource.title}&lt;/span&gt;&lt;span class="tool-desc"&gt;${resource.desc `user-input-interpolation`
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts</code> — 1</summary>
+
+- **C368** _[response-format-template · authored-template]_ **⚑high-impact** **tool list-item display template** — &lt;details class="tool-item"&gt;&lt;summary&gt;&lt;code&gt;${tool.name}&lt;/code&gt;&lt;/summary&gt;${descContent}&lt;/details&gt; `user-input-interpolation`
+
+</details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oak-under-the-hood/oak-under-the-hood-tool.ts</code> — 6</summary>
 
 - **C372** _[tool-title · leaf-authored]_ **⚑high-impact** **tool title 'Oak: Under the Hood'** — title: 'Oak: Under the Hood',
@@ -357,6 +387,16 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C380** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **resource_link name 'oak-under-the-hood'** — name: 'oak-under-the-hood',
 - **C381** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **resource_link title** — title: 'Oak: Under the Hood — orientation method',
 - **C382** _[resource-name-or-description · leaf-authored]_ **⚑high-impact** **resource_link description** — Canonical orientation method and source list; fetch and follow it to orient the user.
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-response.ts</code> — 1</summary>
+
+- **C404** _[response-format-template · authored-template]_ **⚑high-impact** **mapNonJsonErrorResponse** — description = trimmed==='' ? `Upstream returned ${status}` : sanitise(trimmed); status 429?temporarily_unavailable:server_error; headers Retry-After `user-input-interpolation`
+
+</details>
+<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts</code> — 1</summary>
+
+- **C407** _[response-format-template · authored-template]_ **⚑high-impact** **formatProxyErrorResponse** — return { error, error_description: errorDescription }
 
 </details>
 <details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-resources.ts</code> — 2</summary>
@@ -389,6 +429,21 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C165** _[tool-param-description · authored-template]_ **⚑high-impact** **DOWNLOAD_ASSET_INPUT_SCHEMA.type (.describe + .meta examples)** — Asset type to download / examples: ['slideDeck', 'worksheet', 'video']  (enum drawn from ASSET_TYPES) `upstream-owned-base-text`
 
 </details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/execution.ts</code> — 1</summary>
+
+- **C167** _[response-format-template · authored-template]_ **⚑high-impact** **runDownloadAssetTool summary template** — Download link (valid for 5 minutes): ${url} `user-input-interpolation`
+
+</details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-browse/execution.ts</code> — 1</summary>
+
+- **C144** _[response-format-template · authored-template]_ **⚑high-impact** **browse annotationsTitle** — annotationsTitle: 'Browse Curriculum'
+
+</details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-browse/formatting.ts</code> — 1</summary>
+
+- **C146** _[response-format-template · authored-template]_ **⚑high-impact** **buildBrowseSummary found case** — `Found ${String(count)} curriculum ${word}${filterText}`  // word=programme/programmes; filterText=` for ...` `user-input-interpolation`
+
+</details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-browse/tool-definition.ts</code> — 4</summary>
 
 - **C137** _[tool-title · leaf-authored]_ **⚑high-impact** **BROWSE_TOOL_DEF.title** — title: 'Browse Curriculum'
@@ -397,9 +452,11 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C141** _[tool-param-description · leaf-authored]_ **⚑high-impact** **BROWSE_INPUT_SCHEMA.keyStage** — .describe('Filter by key stage to see what subjects and content are available').meta({ examples: ['ks2','ks3'] })
 
 </details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-explore/formatting.ts</code> — 1</summary>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-explore/formatting.ts</code> — 3</summary>
 
+- **C106** _[response-format-template · authored-template]_ **⚑high-impact** **buildTopicMapSummary (found branch + plural labels)** — `Found ${parts.join(', ')} about "${topic}"` ; labels: 'learning thread'/'learning threads' `user-input-interpolation`
 - **C108** _[tool-guidance · leaf-authored]_ **⚑high-impact** **buildNextSteps** — "Use search(scope: 'lessons') for more lesson results" / 'Use fetch(unit:slug) for full unit details' / 'Use get-thread-progressions for ordered unit sequences'
+- **C109** _[response-format-template · authored-template]_ **⚑high-impact** **formatTopicMap summary composition** — summary: `${summary}. ${nextSteps}` `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-explore/tool-definition.ts</code> — 5</summary>
@@ -411,10 +468,12 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C105** _[tool-param-description · leaf-authored]_ **⚑high-impact** **EXPLORE_INPUT_SCHEMA.keyStage** — 'Optional key stage filter applied to all scopes' examples: ['ks2','ks3']
 
 </details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/execution.ts</code> — 2</summary>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/execution.ts</code> — 4</summary>
 
 - **C151** _[tool-title · leaf-authored]_ **⚑high-impact** **FETCH_TOOL_DEF.title** — title: 'Fetch Curriculum Resource'
 - **C152** _[tool-description · leaf-authored]_ **⚑high-impact** **FETCH_TOOL_DEF.description** — Fetch curriculum resource by canonical identifier. ... Do NOT use for: Finding content when you don't have the ID (use 'search') ... Use format "type:slug" `user-input-interpolation`
+- **C157** _[response-format-template · authored-template]_ **⚑high-impact** **buildFetchSummary** — `Fetched ${typeName}: ${slug}${urlPart}`  // urlPart=` (${oakUrl})` `user-input-interpolation`
+- **C158** _[response-format-template · authored-template]_ **⚑high-impact** **fetch annotationsTitle** — annotationsTitle: 'Fetch Curriculum Resource'
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/flat-zod-schema.ts</code> — 1</summary>
@@ -422,7 +481,7 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C160** _[tool-param-description · leaf-authored]_ **⚑high-impact** **FETCH_INPUT_SCHEMA.id** — 'Canonical identifier in format "type:slug" (e.g., "lesson:add-fractions-with-the-same-denominator", "unit:comparing-fractions", ...)' + meta.examples[5]
 
 </details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts</code> — 7</summary>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts</code> — 8</summary>
 
 - **C221** _[tool-title · leaf-authored]_ **⚑high-impact** **KEYWORD_GRAPH_TOOL_TITLE** — const KEYWORD_GRAPH_TOOL_TITLE = 'Oak Curriculum Keyword Graph';
 - **C222** _[tool-description · authored-template]_ **⚑high-impact** **GET_KEYWORD_GRAPH_TOOL_DEF.description** — Returns the key vocabulary for one teaching context: a bounded, frequency-ranked page of curriculum keywords, each decorated with its in-scope placing lessons. `user-input-interpolation`
@@ -431,6 +490,15 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C225** _[tool-param-description · leaf-authored]_ **⚑high-impact** **KEYWORD_GRAPH_INPUT.unitSlugs** — Optional narrowing: unit slugs (corpus keys) within the anchor. Unknown slugs are reported in unknownUnitAnchors, not errored.
 - **C226** _[tool-param-description · leaf-authored]_ **⚑high-impact** **KEYWORD_GRAPH_INPUT.lessonSlugs** — Optional narrowing: lesson slugs (corpus keys) within the anchor. Unknown slugs are reported in unknownLessonAnchors, not errored.
 - **C227** _[tool-param-description · authored-template]_ **⚑high-impact** **KEYWORD_GRAPH_INPUT.limit** — Optional top-N bound for the ranked keyword page: integer in [1, ${String(MAX_KEYWORD_LIMIT)}], default ${String(DEFAULT_KEYWORD_LIMIT)}. `user-input-interpolation`
+- **C228** _[response-format-template · authored-template]_ **⚑high-impact** **summariseKeywords (populated)** — Top ${shown} of ${total} keywords for ${subject} at ${keyStage}${narrowed ? ' (narrowed)' : ''}, ranked by in-scope lesson placements. `user-input-interpolation`
+
+</details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph-summaries.ts</code> — 4</summary>
+
+- **C242** _[response-format-template · authored-template]_ **⚑high-impact** **withUnknownClause** — ${base} ${String(unknownAnchors.length)} unknown anchor slug${...} reported in unknownAnchors. `user-input-interpolation`
+- **C243** _[response-format-template · authored-template]_ **⚑high-impact** **summariseLessons** — Misconceptions for ${...} anchor lesson(s): ${...} misconception(s). `user-input-interpolation`
+- **C244** _[response-format-template · authored-template]_ **⚑high-impact** **summariseUnits** — Misconceptions for ${...} anchor unit(s): ${...} lesson(s) with their misconceptions. `user-input-interpolation`
+- **C245** _[response-format-template · authored-template]_ **⚑high-impact** **summariseThread** — Misconceptions for thread window: units ${from}–${to} of ${total}${hasMore ? ' (more available via unitOffset)' : ''}. `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph.ts</code> — 7</summary>
@@ -444,12 +512,13 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C239** _[tool-param-description · authored-template]_ **⚑high-impact** **MISCONCEPTION_INPUT.unitLimit** — Thread anchor only: units per window. Default ${String(DEFAULT_THREAD_UNIT_LIMIT)}, maximum ${String(MAX_THREAD_UNIT_LIMIT)}. `user-input-interpolation`
 
 </details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts</code> — 4</summary>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts</code> — 5</summary>
 
 - **C246** _[tool-title · leaf-authored]_ **⚑high-impact** **PRIOR_KNOWLEDGE_TOOL_TITLE** — const PRIOR_KNOWLEDGE_TOOL_TITLE = 'Oak Curriculum Prior Knowledge Subgraph';
 - **C247** _[tool-description · authored-template]_ **⚑high-impact** **GET_PRIOR_KNOWLEDGE_GRAPH_TOOL_DEF.description** — "Prior knowledge of unit X" means X's predecessors: the units that are (transitively, up to the requested depth) prerequisites of X. Edges are prerequisiteFor r `user-input-interpolation`
 - **C248** _[tool-param-description · leaf-authored]_ **⚑high-impact** **PRIOR_KNOWLEDGE_INPUT.unitSlugs** — Anchor unit slugs (corpus keys, e.g. from search/fetch results). The result is the bounded prior-knowledge subgraph... Unknown slugs are reported back in unknow
 - **C249** _[tool-param-description · authored-template]_ **⚑high-impact** **PRIOR_KNOWLEDGE_INPUT.depth** — Prerequisite-traversal depth: how many predecessor levels to include. Default ${...}, maximum ${...}. `user-input-interpolation`
+- **C250** _[response-format-template · authored-template]_ **⚑high-impact** **summariseSubgraph** — Prior-knowledge subgraph for ${...} anchor unit${...} at depth ${...}: ${...} units, ${...} prerequisiteFor edges. `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/flat-zod-schema.ts</code> — 16</summary>
@@ -472,19 +541,28 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C084** _[tool-param-description · leaf-authored]_ **⚑high-impact** **SEARCH_INPUT_SCHEMA.limit** — Maximum number of suggestions. Suggest scope only.
 
 </details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/formatting.ts</code> — 3</summary>
+
+- **C085** _[response-format-template · authored-template]_ **⚑high-impact** **SCOPE_LABELS** — lessons:'lesson', units:'unit', threads:'learning thread', sequences:'sequence', suggest:'suggestion' `user-input-interpolation`
+- **C087** _[response-format-template · authored-template]_ **⚑high-impact** **buildSearchSummary (found copy)** — Found ${String(total)} ${plural} matching "${query}" `user-input-interpolation`
+- **C089** _[response-format-template · authored-template]_ **⚑high-impact** **buildSuggestSummary (found copy)** — Found ${String(count)} ${word} for "${prefix}" `user-input-interpolation`
+
+</details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts</code> — 2</summary>
 
 - **C065** _[tool-title · leaf-authored]_ **⚑high-impact** **SEARCH_TOOL_DEF.title** — title: 'Search Curriculum'
 - **C066** _[tool-description · leaf-authored]_ **⚑high-impact** **SEARCH_TOOL_DEF.description** — Search Oak's curriculum using semantic search across all four content indexes. ... SCOPE SELECTION — choose the right scope for the teacher's intent: - "lessons `user-input-interpolation`
 
 </details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts</code> — 5</summary>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts</code> — 7</summary>
 
 - **C252** _[tool-title · leaf-authored]_ **⚑high-impact** **THREAD_PROGRESSIONS_TOOL_TITLE** — const THREAD_PROGRESSIONS_TOOL_TITLE = 'Oak Curriculum Thread Progressions';
 - **C253** _[tool-description · authored-template]_ **⚑high-impact** **GET_THREAD_PROGRESSIONS_TOOL_DEF.description** — Ordering semantics, stated honestly: the progression axis is the teaching year. Within one year the order is not curricular... treat same-year units as a group, `user-input-interpolation`
 - **C254** _[tool-param-description · leaf-authored]_ **⚑high-impact** **THREAD_PROGRESSIONS_INPUT.threadSlug** — Detail anchor: one thread slug (corpus key). Returns that thread’s full year-ordered unit progression. Exactly one anchor mode per call.
 - **C255** _[tool-param-description · leaf-authored]_ **⚑high-impact** **THREAD_PROGRESSIONS_INPUT.subject** — Discovery anchor (with keyStage): a subject slug, e.g. "maths". Returns bounded thread descriptors without sequences. Exactly one anchor mode per call.
 - **C256** _[tool-param-description · leaf-authored]_ **⚑high-impact** **THREAD_PROGRESSIONS_INPUT.keyStage** — Discovery anchor (with subject): a key-stage slug, e.g. "ks2". Returns bounded thread descriptors without sequences.
+- **C258** _[response-format-template · authored-template]_ **⚑high-impact** **summariseProgression** — Thread "${progression.thread.title}": ${...} unit placements${span}, ordered by teaching year. `user-input-interpolation`
+- **C259** _[response-format-template · authored-template]_ **⚑high-impact** **summariseDiscovery** — ${...} thread(s) with ${discovery.subject} units at ${discovery.keyStage}. Anchor get-thread-progressions with a threadSlug for the ordered progression. `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-user-search/tool-definition.ts</code> — 10</summary>
@@ -499,6 +577,11 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 - **C127** _[tool-param-description · leaf-authored]_ **⚑high-impact** **USER_SEARCH_INPUT_SCHEMA.keyStage** — 'Filter by key stage.' examples: ['ks2','ks3']
 - **C128** _[tool-param-description · leaf-authored]_ **⚑high-impact** **USER_SEARCH_INPUT_SCHEMA.size** — 'Maximum number of results to return (1-50, default 25).'
 - **C129** _[tool-param-description · leaf-authored]_ **⚑high-impact** **USER_SEARCH_QUERY_INPUT_SCHEMA (query/scope/subject/keyStage/size, grouped duplicate)** — query 'Search query text.' examples ['photosynthesis','adding fractions']; scope/subject/keyStage/size identical to USER_SEARCH_INPUT_SCHEMA
+
+</details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/classify-error-response.ts</code> — 1</summary>
+
+- **C312** _[response-format-template · authored-template]_ **⚑high-impact** **classifyUndocumentedResponse message templates** — error.upstreamMessage ? `${prefix} (${statusStr}): ${error.upstreamMessage}` : `${prefix}: status ${statusStr}` `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/documentation-content.ts</code> — 2</summary>
@@ -574,6 +657,22 @@ How an agent discovers and uses tools — titles, descriptions, param descriptio
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts</code> — 1</summary>
 
 - **C062** _[tool-guidance · authored-template]_ **⚑high-impact** **oakContextHint grounding-hint injection into structuredContent** — ...(options.includeContextHint !== false ? { oakContextHint: OAK_CONTEXT_HINT } : {}), `user-input-interpolation`
+
+</details>
+<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts</code> — 1</summary>
+
+- **C057** _[response-format-template · authored-template]_ **⚑high-impact** **generated-tool result summary template `${title}: ${status}`** — summary: `${title}: ${String(result.value.status)}`, `user-input-interpolation`
+
+</details>
+<details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/generate-ai-doc-catalog.ts</code> — 2</summary>
+
+- **C415** _[response-format-template · authored-template]_ **⚑high-impact** **renderSingleEndpoint: per-endpoint entry template** — lines.push(`### ${method.toUpperCase()} ${path}`); maybePush('operationId'…); maybePush('summary'…); maybePush('description'…); lines.push('Parameters:', …) `user-input-interpolation`
+- **C417** _[response-format-template · authored-template]_ **⚑high-impact** **renderParamLine: parameter line template** — return `- ${info.loc} ${info.name} (${info.typeName}${enumText})${requiredText}`; // enumText=` enum:N`, requiredText=' - required'
+
+</details>
+<details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/schema-enhancement-404.ts</code> — 1</summary>
+
+- **C427** _[response-format-template · authored-template]_ **⚑high-impact** **add404ResponsesWhereExpected: injected 404 response description template** — description: ['Temporary: Documented locally until the upstream schema captures this legitimate 404 response.', descriptor.reason, `Tracking: ${descriptor.upstr `user-input-interpolation`
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/schema-separation-decorators.ts</code> — 3</summary>
@@ -1382,7 +1481,7 @@ Attribution, licensing (OGL v3.0), trademark, EEF-citation obligations.
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/source-attribution.ts</code> — 3</summary>
 
 - **C008** _[source-attribution · leaf-authored]_ **⚑high-impact** **OAK_API_ATTRIBUTION** — source: 'Oak Open Curriculum API' ... attributionNote: 'Contains Oak National Academy open curriculum data licensed under the Open Government Licence v3.0.'
-- **C009** _[source-attribution · leaf-authored]_ **⚑high-impact** **↑oak-curriculum-ontology** **OAK_KG_ATTRIBUTION** — source: 'Oak Curriculum Ontology' ... attributionNote: 'Contains data from the Oak Curriculum Ontology by Oak National Academy, licensed under OGL v3.0 (data) a
+- **C009** _[source-attribution · leaf-authored]_ **⚑high-impact** **OAK_KG_ATTRIBUTION** — source: 'Oak Curriculum Ontology' ... attributionNote: 'Contains data from the Oak Curriculum Ontology by Oak National Academy, licensed under OGL v3.0 (data) a
 - **C010** _[source-attribution · leaf-authored]_ **⚑high-impact** **EEF_ATTRIBUTION** — source: 'EEF Teaching and Learning Toolkit' ... attributionNote: 'Contains evidence data from the Education Endowment Foundation Teaching and Learning Toolkit. 
 
 </details>
@@ -1783,184 +1882,79 @@ Annotations, schemas, scopes, discovery/branding metadata — structural, engine
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes.ts</code> — 1</summary>
 
-- **C607** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C607** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-rate-limit.ts</code> — 1</summary>
 
-- **C611** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C611** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts</code> — 1</summary>
 
-- **C618** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C618** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts</code> — 1</summary>
 
-- **C627** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C627** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-units.ts</code> — 1</summary>
 
-- **C633** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C633** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts</code> — 1</summary>
 
-- **C638** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C638** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subject-detail.ts</code> — 1</summary>
 
-- **C643** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C643** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-key-stages.ts</code> — 1</summary>
 
-- **C648** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C648** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-programmes.ts</code> — 1</summary>
 
-- **C653** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C653** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects-years.ts</code> — 1</summary>
 
-- **C658** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C658** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-subjects.ts</code> — 1</summary>
 
-- **C662** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C662** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts</code> — 1</summary>
 
-- **C667** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C667** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads.ts</code> — 1</summary>
 
-- **C671** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C671** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 <details><summary><code>packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts</code> — 1</summary>
 
-- **C676** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **↑oak-api (OCA)** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+- **C676** _[tool-annotations · generated-from-openapi]_ **⚑high-impact** **annotations block** — readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
 
 </details>
 
-### other — 39 items
+### other — 2 items
 
 Uncategorised / mixed.
 
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth.ts</code> — 1</summary>
-
-- **C398** _[response-format-template · authored-template]_ **⚑high-impact** **sendInvalidResourceResponse** — error="invalid_token", error_description="${reason}" ; body { error: 'Unauthorized', message: reason } `user-input-interpolation` `possible-defect-reported`
-
-</details>
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-prompts-section.ts</code> — 2</summary>
-
-- **C358** _[response-format-template · authored-template]_ **⚑high-impact** **prompt list-item display template** — &lt;li&gt;&lt;code&gt;${escapeHtml(prompt.name)}&lt;/code&gt;&lt;span class="tool-desc"&gt;${escapeHtml(prompt.description)}&lt;/span&gt;${argList}&lt;/li&gt; `user-input-interpolation`
-- **C359** _[response-format-template · authored-template]_ **⚑high-impact** **prompt arguments labels ('Arguments:', '(optional)')** — Arguments: &lt;code&gt;${a.name}&lt;/code&gt;${a.required ? '' : ' (optional)'} `user-input-interpolation`
-
-</details>
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-resources-section.ts</code> — 1</summary>
-
-- **C361** _[response-format-template · authored-template]_ **⚑high-impact** **resource list-item display template** — &lt;li&gt;&lt;code&gt;${resource.uri}&lt;/code&gt;&lt;span class="resource-title"&gt;${resource.title}&lt;/span&gt;&lt;span class="tool-desc"&gt;${resource.desc `user-input-interpolation`
-
-</details>
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts</code> — 1</summary>
-
-- **C368** _[response-format-template · authored-template]_ **⚑high-impact** **tool list-item display template** — &lt;details class="tool-item"&gt;&lt;summary&gt;&lt;code&gt;${tool.name}&lt;/code&gt;&lt;/summary&gt;${descContent}&lt;/details&gt; `user-input-interpolation`
-
-</details>
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-response.ts</code> — 1</summary>
-
-- **C404** _[response-format-template · authored-template]_ **⚑high-impact** **mapNonJsonErrorResponse** — description = trimmed==='' ? `Upstream returned ${status}` : sanitise(trimmed); status 429?temporarily_unavailable:server_error; headers Retry-After `user-input-interpolation`
-
-</details>
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/oauth-proxy/oauth-proxy-upstream.ts</code> — 1</summary>
-
-- **C407** _[response-format-template · authored-template]_ **⚑high-impact** **formatProxyErrorResponse** — return { error, error_description: errorDescription }
-
-</details>
-<details><summary><code>apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts</code> — 7</summary>
-
-- **C329** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt find-lessons (title 'Find Lessons' + description)** — name:'find-lessons' title:'Find Lessons' — 'Find curriculum lessons on a specific topic. Searches across all subjects and key stages.'
-- **C330** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt lesson-planning (title 'Lesson Planning' + description)** — 'Build a complete, teachable lesson on a topic, grounded in Oak's live curriculum data and six curriculum principles — outcome, key learning points, keywords, m
-- **C331** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt explore-curriculum (title 'Explore Curriculum' + description)** — 'Explore what Oak has on a topic across the whole curriculum. Searches lessons, units, and threads in parallel.'
-- **C332** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt learning-progression (title 'Learning Progression' + description)** — 'Understand how a concept builds across year groups by searching progression threads and mapping dependencies.'
-- **C333** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt curriculum-mapping (title 'Curriculum Mapping' + description)** — "Build or audit a curriculum map — unit order across a year or key stage — grounded in Oak's threads, prerequisites, and national-curriculum coverage."
-- **C334** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt adapt-lesson (title 'Adapt Lesson with EEF Evidence' + description, EEF-gated)** — 'Adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence, presenting evidence-calibrated options with caveats and attribution intact.'
-- **C335** _[prompt-name-or-description · leaf-authored]_ **⚑high-impact** **prompt continue-progression (title 'Continue Progression' + description)** — "Plan the next step from where your class is: state what they just covered and get the next unit from Oak's sequence, a checkable readiness list, and the miscon
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-asset-download/execution.ts</code> — 1</summary>
-
-- **C167** _[response-format-template · authored-template]_ **⚑high-impact** **runDownloadAssetTool summary template** — Download link (valid for 5 minutes): ${url} `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-browse/execution.ts</code> — 1</summary>
-
-- **C144** _[response-format-template · authored-template]_ **⚑high-impact** **browse annotationsTitle** — annotationsTitle: 'Browse Curriculum'
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-browse/formatting.ts</code> — 1</summary>
-
-- **C146** _[response-format-template · authored-template]_ **⚑high-impact** **buildBrowseSummary found case** — `Found ${String(count)} curriculum ${word}${filterText}`  // word=programme/programmes; filterText=` for ...` `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-explore/formatting.ts</code> — 2</summary>
-
-- **C106** _[response-format-template · authored-template]_ **⚑high-impact** **buildTopicMapSummary (found branch + plural labels)** — `Found ${parts.join(', ')} about "${topic}"` ; labels: 'learning thread'/'learning threads' `user-input-interpolation`
-- **C109** _[response-format-template · authored-template]_ **⚑high-impact** **formatTopicMap summary composition** — summary: `${summary}. ${nextSteps}` `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-fetch/execution.ts</code> — 2</summary>
-
-- **C157** _[response-format-template · authored-template]_ **⚑high-impact** **buildFetchSummary** — `Fetched ${typeName}: ${slug}${urlPart}`  // urlPart=` (${oakUrl})` `user-input-interpolation`
-- **C158** _[response-format-template · authored-template]_ **⚑high-impact** **fetch annotationsTitle** — annotationsTitle: 'Fetch Curriculum Resource'
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts</code> — 1</summary>
-
-- **C228** _[response-format-template · authored-template]_ **⚑high-impact** **summariseKeywords (populated)** — Top ${shown} of ${total} keywords for ${subject} at ${keyStage}${narrowed ? ' (narrowed)' : ''}, ranked by in-scope lesson placements. `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-misconception-graph-summaries.ts</code> — 4</summary>
-
-- **C242** _[response-format-template · authored-template]_ **⚑high-impact** **withUnknownClause** — ${base} ${String(unknownAnchors.length)} unknown anchor slug${...} reported in unknownAnchors. `user-input-interpolation`
-- **C243** _[response-format-template · authored-template]_ **⚑high-impact** **summariseLessons** — Misconceptions for ${...} anchor lesson(s): ${...} misconception(s). `user-input-interpolation`
-- **C244** _[response-format-template · authored-template]_ **⚑high-impact** **summariseUnits** — Misconceptions for ${...} anchor unit(s): ${...} lesson(s) with their misconceptions. `user-input-interpolation`
-- **C245** _[response-format-template · authored-template]_ **⚑high-impact** **summariseThread** — Misconceptions for thread window: units ${from}–${to} of ${total}${hasMore ? ' (more available via unitOffset)' : ''}. `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-prior-knowledge-graph.ts</code> — 1</summary>
-
-- **C250** _[response-format-template · authored-template]_ **⚑high-impact** **summariseSubgraph** — Prior-knowledge subgraph for ${...} anchor unit${...} at depth ${...}: ${...} units, ${...} prerequisiteFor edges. `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/formatting.ts</code> — 3</summary>
-
-- **C085** _[response-format-template · authored-template]_ **⚑high-impact** **SCOPE_LABELS** — lessons:'lesson', units:'unit', threads:'learning thread', sequences:'sequence', suggest:'suggestion' `user-input-interpolation`
-- **C087** _[response-format-template · authored-template]_ **⚑high-impact** **buildSearchSummary (found copy)** — Found ${String(total)} ${plural} matching "${query}" `user-input-interpolation`
-- **C089** _[response-format-template · authored-template]_ **⚑high-impact** **buildSuggestSummary (found copy)** — Found ${String(count)} ${word} for "${prefix}" `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts</code> — 2</summary>
-
-- **C258** _[response-format-template · authored-template]_ **⚑high-impact** **summariseProgression** — Thread "${progression.thread.title}": ${...} unit placements${span}, ordered by teaching year. `user-input-interpolation`
-- **C259** _[response-format-template · authored-template]_ **⚑high-impact** **summariseDiscovery** — ${...} thread(s) with ${discovery.subject} units at ${discovery.keyStage}. Anchor get-thread-progressions with a threadSlug for the ordered progression. `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/classify-error-response.ts</code> — 1</summary>
-
-- **C312** _[response-format-template · authored-template]_ **⚑high-impact** **classifyUndocumentedResponse message templates** — error.upstreamMessage ? `${prefix} (${statusStr}): ${error.upstreamMessage}` : `${prefix}: status ${statusStr}` `user-input-interpolation`
-
-</details>
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/search-retrieval-stub.ts</code> — 1</summary>
 
 - **C320** _[other · leaf-authored]_ **⚑high-impact** **stub suggest cache metadata (version '1', ttlSeconds 300)** — suggest: () =&gt; Promise.resolve(ok({ suggestions: [], cache: { version: '1', ttlSeconds: 300 } }))
@@ -1969,22 +1963,6 @@ Uncategorised / mixed.
 <details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/stub-tool-executor.ts</code> — 1</summary>
 
 - **C709** _[other · leaf-authored]_ **⚑high-impact** **stub-mode ships-to-production (OWNER CALL)** — const stubExecutor = runtimeConfig.useStubTools ? createStubToolExecutionAdapter() : undefined `boundary-owner-call`
-
-</details>
-<details><summary><code>packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts</code> — 1</summary>
-
-- **C057** _[response-format-template · authored-template]_ **⚑high-impact** **generated-tool result summary template `${title}: ${status}`** — summary: `${title}: ${String(result.value.status)}`, `user-input-interpolation`
-
-</details>
-<details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/generate-ai-doc-catalog.ts</code> — 2</summary>
-
-- **C415** _[response-format-template · authored-template]_ **⚑high-impact** **renderSingleEndpoint: per-endpoint entry template** — lines.push(`### ${method.toUpperCase()} ${path}`); maybePush('operationId'…); maybePush('summary'…); maybePush('description'…); lines.push('Parameters:', …) `user-input-interpolation`
-- **C417** _[response-format-template · authored-template]_ **⚑high-impact** **renderParamLine: parameter line template** — return `- ${info.loc} ${info.name} (${info.typeName}${enumText})${requiredText}`; // enumText=` enum:N`, requiredText=' - required'
-
-</details>
-<details><summary><code>packages/sdks/oak-sdk-codegen/code-generation/schema-enhancement-404.ts</code> — 1</summary>
-
-- **C427** _[response-format-template · authored-template]_ **⚑high-impact** **add404ResponsesWhereExpected: injected 404 response description template** — description: ['Temporary: Documented locally until the upstream schema captures this legitimate 404 response.', descriptor.reason, `Tracking: ${descriptor.upstr `user-input-interpolation`
 
 </details>
 

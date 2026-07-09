@@ -62,15 +62,17 @@ Lifecycle order that reconciles evals with the "no validator yet" ruling: review
 → eval-protocol (measure behaviour) → drift-guard last.
 
 **Source-locus provenance (where reviewers go; distinct from the exemption boundary — upstream ≠ exempt):**
-`this-repo` (574); `upstream-in-house-api` (130 tool/param base prose from the **Oak Open Curriculum API (OCA)**
+`this-repo` (589); `upstream-in-house-api` (116 tool/param base prose from the **Oak Open Curriculum API (OCA)**
 OpenAPI spec in `oaknational/oak-api`, local snapshot `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json`;
 the "bulk download" is the SAME OCA data/repo presented differently, NOT a separate source; owner-floated future
 rename not adopted: "Open Resource Curriculum API" → Orca); `upstream-in-house-skills`
 (2 prompts — `lesson-planning`←oak-lesson-builder, `curriculum-mapping`←oak-curriculum-mapper, in
-`oaknational/oak-skills`); `upstream-in-house-ontology` (`OAK_KG` attribution + graph corpora ←
-`oaknational/oak-curriculum-ontology`); `external-third-party` (9 — verbatim EEF corpus items only, exempt;
+`oaknational/oak-skills`); `external-third-party` (9 — verbatim EEF corpus items only, exempt;
 the EEF file's Oak-authored framing is classified by item provenance and routes to pedagogy / this-repo,
-PR #337 review fix). Cross-links: ADR-157 + the `data-sources-governance` thread own the DATA-source side.
+PR #337 review fix). Locus = where the WORDS are edited, never data provenance: the `OAK_KG` attribution
+wording (C009) and the generated tool-annotation blocks are authored in THIS repo (emit-index.ts), so both
+are `this-repo`; the graph corpora's DATA derives from `oaknational/oak-curriculum-ontology`, documented in
+report §4.1 prose. Cross-links: ADR-157 + the `data-sources-governance` thread own the DATA-source side.
 
 **Highest-leverage content:** the orient-first directive ("call `get-curriculum-model` first"), restated 12+×
 incl. per-response `OAK_CONTEXT_HINT` and codegen `DOMAIN_PREREQUISITE_GUIDANCE`. Source of truth for server

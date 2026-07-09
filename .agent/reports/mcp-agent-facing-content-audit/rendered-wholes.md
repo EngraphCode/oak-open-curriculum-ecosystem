@@ -1155,7 +1155,7 @@ For detailed API documentation, visit: <https://open-api.thenational.academy/doc
 
 ## 7. Resource — `eef://interpretation` (assembled)
 
-Exact assembled markdown. The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored. Truncated to ~3500 chars at a line boundary for length.
+Exact assembled markdown, rendered IN FULL (PR #337 review: an "exact" surface must not be truncated). The interpolated corpus values (strand text, caveats, named authors) are external EEF content; the scaffold + agent-reasoning layer are Oak-authored.
 
 ```text
 # EEF Teaching and Learning Toolkit — Interpretation Guide
@@ -1191,7 +1191,85 @@ Read context for grounding `get-eef-evidence`. The EEF Toolkit summarises educat
 - High impact with low evidence strength should be treated with caution — the true effect may differ substantially.
 - Implementation quality is a critical moderator. Poorly implemented high-impact strategies can show zero or negative effects.
 - The toolkit measures academic attainment outcomes. It does not capture the full value of approaches that have important non-academic benefits (e.g. arts, physical activity, SEL).
-…[truncated; full length 16292 chars]
+- Absence from the toolkit is not evidence of ineffectiveness — it indicates insufficient research to date.
+- Digital technology was removed as a standalone strand in 2021 and integrated as a sub-section within other strands.
+- Data in this file reflects the May 2025 and October 2025 living systematic review updates where available. Some strands may reflect earlier data pending their annual refresh.
+- Some strands now show null impact where evidence is rated 'insufficient'. The EEF cannot determine a reliable impact estimate for these strands.
+
+### Strand index (complete corpus)
+
+Every strand, with its impact-for-cost one-liner and EEF page. Choose strands from this index by inspecting their definitions, findings, and relations — not by axis filtering alone.
+
+| Strand id | Name | Impact-for-cost summary | Tags | EEF page |
+| --- | --- | --- | --- | --- |
+| eef-tl-arts-participation | Arts participation | Moderate impact for very low cost based on moderate evidence | creative, engagement, cross-curricular, enrichment, primary, secondary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/arts-participation |
+| eef-tl-aspiration-interventions | Aspiration interventions | Unclear impact for very low cost based on insufficient evidence | motivation, disadvantage, careers, widening-participation | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/aspiration-interventions |
+| eef-tl-behaviour-interventions | Behaviour interventions | Moderate impact for low cost based on moderate evidence | behaviour, classroom-management, self-regulation, universal, targeted, primary, secondary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/behaviour-interventions |
+| eef-tl-collaborative-learning | Collaborative learning approaches | Moderate impact for very low cost based on limited evidence | pedagogy, group-work, cooperative-learning, talk, primary, secondary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/collaborative-learning-approaches |
+| eef-tl-extending-school-time | Extending school time | Moderate impact for moderate cost based on moderate evidence | time, after-school, holiday, enrichment, academic-support | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/extending-school-time |
+| eef-tl-feedback | Feedback | High impact for very low cost based on extensive evidence | assessment, formative-assessment, marking, pedagogy, primary, secondary, high-impact, low-cost | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/feedback |
+| eef-tl-homework | Homework | Moderate impact for very low cost based on very limited evidence | homework, independent-learning, primary, secondary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/homework |
+| eef-tl-individualised-instruction | Individualised instruction | Moderate impact for very low cost based on limited evidence | differentiation, adaptive-teaching, personalisation, technology | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/individualised-instruction |
+| eef-tl-learning-styles | Learning styles | Unclear impact for very low cost based on insufficient evidence | debunked, myths, VAK, differentiation | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/learning-styles |
+| eef-tl-mastery-learning | Mastery learning | Moderate impact for very low cost based on limited evidence | mastery, curriculum-design, assessment, progression, primary, secondary, mathematics | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/mastery-learning |
+| eef-tl-mentoring | Mentoring | Low impact for moderate cost based on moderate evidence | relationships, role-models, disadvantage, pastoral | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/mentoring |
+| eef-tl-metacognition-and-self-regulation | Metacognition and self-regulation | High impact for very low cost based on extensive evidence | metacognition, self-regulation, planning, monitoring, evaluation, pedagogy, high-impact, low-cost, disadvantage, primary, secondary, early-years | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/metacognition-and-self-regulation |
+| eef-tl-one-to-one-tuition | One to one tuition | Moderate impact for moderate cost based on moderate evidence | tuition, intervention, targeted-support, primary, secondary, online-tutoring, pupil-premium | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/one-to-one-tuition |
+| eef-tl-oral-language-interventions | Oral language interventions | High impact for very low cost based on extensive evidence | oracy, speaking, listening, vocabulary, language, literacy, early-years, primary, secondary, high-impact | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/oral-language-interventions |
+| eef-tl-outdoor-adventure-learning | Outdoor adventure learning | Unclear impact for moderate cost based on insufficient evidence | outdoor, adventure, residential, enrichment, wellbeing | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/outdoor-adventure-learning |
+| eef-tl-parental-engagement | Parental engagement | Moderate impact for very low cost based on extensive evidence | parents, families, home-learning, communication, early-years, primary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/parental-engagement |
+| eef-tl-peer-tutoring | Peer tutoring | High impact for very low cost based on extensive evidence | peer-support, tutoring, structured, reciprocal, primary, secondary, high-impact, low-cost | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/peer-tutoring |
+| eef-tl-performance-pay | Performance pay | Low impact for low cost based on very limited evidence | teacher-pay, incentives, workforce, policy | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/performance-pay |
+| eef-tl-phonics | Phonics | Moderate impact for very low cost based on extensive evidence | reading, literacy, early-reading, systematic-synthetic-phonics, early-years, KS1, high-impact | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/phonics |
+| eef-tl-physical-activity | Physical activity | Low impact for very low cost based on extensive evidence | PE, physical-activity, health, wellbeing, concentration | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/physical-activity |
+| eef-tl-reading-comprehension-strategies | Reading comprehension strategies | High impact for very low cost based on moderate evidence | reading, literacy, comprehension, strategies, primary, secondary, high-impact, low-cost | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/reading-comprehension-strategies |
+| eef-tl-reducing-class-size | Reducing class size | Low impact for very high cost based on very limited evidence | class-size, staffing, policy, resources | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/reducing-class-size |
+| eef-tl-repeating-a-year | Repeating a year | Negative impact for very high cost based on limited evidence | retention, progression, policy, negative-impact | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/repeating-a-year |
+| eef-tl-school-uniform | School uniform | Unclear impact for very low cost based on insufficient evidence | uniform, policy, behaviour, school-culture | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/school-uniform |
+| eef-tl-setting-and-streaming | Setting and streaming | No impact for very low cost based on very limited evidence | grouping, setting, streaming, ability-grouping, equity, disadvantage | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/setting-and-streaming |
+| eef-tl-small-group-tuition | Small group tuition | Moderate impact for low cost based on moderate evidence | tuition, intervention, targeted-support, small-group, primary, secondary, pupil-premium | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/small-group-tuition |
+| eef-tl-social-and-emotional-learning | Social and emotional learning | Moderate impact for very low cost based on moderate evidence | SEL, wellbeing, PSHE, social-skills, emotional-regulation, resilience, primary, secondary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/social-and-emotional-learning |
+| eef-tl-summer-schools | Summer schools | Moderate impact for moderate cost based on limited evidence | summer, holiday, catch-up, enrichment, disadvantage | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/summer-schools |
+| eef-tl-teaching-assistant-interventions | Teaching assistant interventions | Moderate impact for moderate cost based on moderate evidence | teaching-assistants, TAs, deployment, intervention, targeted-support, primary, secondary | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/teaching-assistant-interventions |
+| eef-tl-within-class-attainment-grouping | Within-class attainment grouping | Low impact for very low cost based on very limited evidence | grouping, differentiation, flexible-grouping, adaptive-teaching | https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/within-class-attainment-grouping |
+
+## 2. Agent reasoning guidance — NOT EEF corpus evidence
+
+This layer is the calling agent's reasoning scaffold. It is NOT part of the EEF corpus and must never be presented to a teacher as EEF evidence.
+
+### End goals
+- Transmit the evidence faithfully: preserve each strand's impact, cost, evidence strength, caveats, and limits.
+- Present options and trade-offs, never recommendations or selections — the teacher decides.
+- Always attribute EEF and link the teacher to the relevant EEF page for the full detail and most current figures.
+
+### Oak → EEF workflow
+1. Understand the teaching task.
+2. Use Oak's search, misconception, and prior-knowledge tools to surface the pedagogical signals in the lesson.
+3. Name the pedagogical move the signal raises, then choose real strand ids from the index above.
+4. Call `get-eef-evidence` with those finite ids/axes; read the returned envelope.
+5. Offer the teacher evidence-calibrated options, with caveats and EEF attribution intact.
+
+### Worked examples
+- Faithful: "EEF rates feedback as high impact (+6 months) for very low cost on extensive evidence, though figures are population averages and depend on implementation quality."
+- Unfaithful: "Use feedback — it is the best strategy." (Invents a ranking; drops cost, evidence strength, and caveats.)
+
+### Reading partial curation honestly
+- 17 of 30 strands carry school-context tags (`school_context_relevance`). The absence of a tag is **not evidence of inapplicability** — the corpus covers 3-18 year-olds and curation is partial.
+- The complete strand index above, not axis filtering, is the discovery path over the full corpus.
+
+## 3. Graph-structural reference
+
+A `get-eef-evidence` result is an evidence envelope with these fields:
+- `answerType`: what kind of result this is — `'strand-lookup'` (exactly the strands you named by id, complete for the request) or `'context-subset'` (the strands the corpus tags for your axis selectors, a NON-EXHAUSTIVE curated subset; a missing tag is not inapplicability). Information about the result, not a recommendation.
+- `members`: the matched strands — full strand objects by default, or the headline projection (identity, headline metrics, tags, EEF page) when the query passed `detail: "headline"`.
+- `edges`: `related_strand` edges whose endpoints are both members.
+- `frontier`: related strand ids outside the member set — suggested next lookups.
+- `provenance`: `source` (name, url, organisation, authors), `licence`, and `caveats`, carried once per envelope.
+
+Input selectors are finite and drawn from the corpus: strand ids, and the observed phase, key stage, and priority axes. For `evidence-for-move`, `detail: "headline"` returns a bounded list to scan; drill a chosen strand with `inspect-strand` for its full evidence.
+
+MCP tool names may appear prefixed by the client (e.g. `mcp__<server>__get-eef-evidence`); match tools by their suffix.
+
 ```
 
 ## 8. Resource/tool — `curriculum://model` / `get-curriculum-model` (representative)

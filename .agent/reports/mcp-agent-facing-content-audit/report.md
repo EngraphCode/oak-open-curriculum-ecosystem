@@ -66,13 +66,12 @@ Every item carries a `source_locus` so a reviewer is never left guessing which r
 
 | Source locus | Items | Where the reviewer goes |
 | --- | ---: | --- |
-| `this-repo` | 574 | authored here — review in this repository |
-| `upstream-in-house-api` | 130 | **Oak Open Curriculum API (OCA) OpenAPI spec — in-house `oaknational/oak-api`.** Authoritative source `https://open-api.thenational.academy/api/v0/swagger.json`; a **committed local snapshot** is readable at `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json`. Base tool/param prose is authored upstream; to change it, change the spec. The "bulk download" is **not** a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus) |
+| `this-repo` | 589 | authored here — review in this repository |
+| `upstream-in-house-api` | 116 | **Oak Open Curriculum API (OCA) OpenAPI spec — in-house `oaknational/oak-api`.** Authoritative source `https://open-api.thenational.academy/api/v0/swagger.json`; a **committed local snapshot** is readable at `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json`. Base tool/param prose is authored upstream; to change it, change the spec. The "bulk download" is **not** a separate source — it is the same OCA data from the same repo, presented differently (different metadata focus) |
 | `external-third-party` | 9 | **EEF Teaching & Learning Toolkit — external.** Cite, do not rewrite; review citation accuracy + any Oak editorial framing |
 | `upstream-in-house-skills` | 2 | **Oak Skills — in-house `oaknational/oak-skills`.** The `lesson-planning` (C198) and `curriculum-mapping` (C201) prompt workflows are *derived/adapted* from named skills (`oak-lesson-builder`, `oak-curriculum-mapper`); the authoritative pedagogy workflow lives there |
-| `upstream-in-house-ontology` | 1 | **Oak Curriculum Ontology — in-house `oaknational/oak-curriculum-ontology`.** The `OAK_KG` attribution (C009) and the knowledge-graph corpora derive from it |
 
-Every non-`this-repo` locus is **in scope and reviewable** — recording the locus tells a reviewer *which repo owns the words*. Each in-house upstream is a different Oak repo, not an external party (only EEF is external): the base tool/param prose lives in the **Oak Open Curriculum API (OCA)** spec in `oak-api` (with the committed schema-cache as a read-only local copy; the bulk export is the same OCA data/repo presented differently, not a distinct source); two prompt workflows are adapted from `oak-skills` skills and must be kept in step with them; knowledge-graph content attributes to `oak-curriculum-ontology`. (Owner-floated future rename, not adopted: "Open Resource Curriculum API" → **Orca**.)
+Every non-`this-repo` locus is **in scope and reviewable** — the locus tells a reviewer *which repo owns the words*, never where underlying data comes from. Each in-house upstream is a different Oak repo, not an external party (only EEF is external): the base tool/param prose lives in the **Oak Open Curriculum API (OCA)** spec in `oak-api` (with the committed schema-cache as a read-only local copy; the bulk export is the same OCA data/repo presented differently, not a distinct source); two prompt workflows are adapted from `oak-skills` skills and must be kept in step with them. Two words-vs-data distinctions the locus deliberately encodes (PR #337 review): generated tool **annotation blocks** are authored by *this repo's* generator (`emit-index.ts` hard-codes the hint values), so they are `this-repo` even where the surrounding description is OCA-based; and the `OAK_KG` **attribution wording** (C009) is authored locally (`this-repo`) even though the knowledge-graph *data* derives from `oaknational/oak-curriculum-ontology` — that data relationship is recorded in the notes below, not as a locus. (Owner-floated future rename, not adopted: "Open Resource Curriculum API" → **Orca**.)
 
 Two provenance notes the per-item count understates:
 
@@ -85,17 +84,17 @@ Two provenance notes the per-item count understates:
 
 | Review domain | Items | What it is |
 | --- | ---: | --- |
-| tool-usability | 269 | How an agent discovers/uses tools — titles, descriptions, param descriptions, prerequisite/orientation directives |
+| tool-usability | 299 | How an agent discovers/uses tools — titles, descriptions, param descriptions, prerequisite/orientation directives |
 | recovery-copy | 151 | What the agent receives on failure/empty — validation, empty-state, degradation; shapes recover-vs-fabricate |
 | engineering-structural | 95 | Annotations, schemas, scopes, discovery/branding metadata |
-| pedagogy | 92 | Prompts, orientation, curriculum-model doctrine, EEF interpretation — **education-expert target** |
-| other | 39 | Mixed/uncategorised |
+| pedagogy | 99 | Prompts, orientation, curriculum-model doctrine, EEF interpretation — **education-expert target** |
+| other | 2 | Mixed/uncategorised |
 | curriculum-accuracy | 27 | The authored conceptual model — ontology, domain concepts — **curriculum-expert target** |
 | legal-licensing | 19 | Attribution, OGL v3.0, trademark, EEF-citation obligations |
 | pedagogy-external | 8 | External EEF corpus (exempt) that is pedagogy-relevant and carries Oak editorial framing |
 | ux-accessibility | 16 | Human-facing landing page, widget, auth/consent copy (WCAG 2.2 AA applies) |
 
-**The education-expert reviewable slice = pedagogy (81) + curriculum-accuracy (27) + pedagogy-external (19) = 127 items.** This is the set that can be handed to Oak's education experts without asking them to read TypeScript — the direct enabler of the stated goal.
+**The education-expert reviewable slice = pedagogy (99) + curriculum-accuracy (27) + pedagogy-external (8) = 134 items.** This is the set that can be handed to Oak's education experts without asking them to read TypeScript — the direct enabler of the stated goal.
 
 ### 5.2 By extraction kind (the i18n movability question)
 
@@ -135,7 +134,7 @@ The audit's neutral A/B/C framing is superseded. The owner has set the direction
 6. **The content workspace(s) are the SSOT, not copies.** Consumers (SDK, generators, app) read *from* the workspace. This is precisely why they cannot hold upstream content — you cannot be the source of truth for words another repo owns.
 7. **Design l10n-ready (2026-07-09).** No other-language localisation now, but structure the workspace so genuine localisation can be added later without a rebuild — the leaf-authored content's catalogue shape should be able to carry translations, and the "translate into safer/more rigorous forms" review and any future language translation share the same rails.
 
-**How the impact tier lands (per decision 4/5):** protocol weight follows *impact*, not *location*. The `impact_tier × source_locus` cut shows **127 high-impact items are authored upstream** (`oak-api`) plus 2 in `oak-skills` and 1 in `oak-curriculum-ontology` — these still require review + eval protocols, but the protocols run **cross-repo** against the assembled output / the upstream source until consolidation. "Don't wrap it" must not become "don't govern it."
+**How the impact tier lands (per decision 4/5):** protocol weight follows *impact*, not *location*. The `impact_tier × source_locus` cut shows **113 high-impact items are authored upstream** (`oak-api`) plus 2 in `oak-skills` — these still require review + eval protocols, but the protocols run **cross-repo** against the assembled output / the upstream source until consolidation. "Don't wrap it" must not become "don't govern it."
 
 **How this reconciles with "no validator yet" (§1):** the lifecycle is ordered — **review protocol** ratifies the *intended* shape → **eval protocol** measures whether the content produces good agent *behaviour* against that ratified intent → a drift-guard (if ever) comes last. Evals score behaviour; they do not freeze wording. That ordering is why requiring eval protocols (decision 4) does not contradict rejecting a shape-freezing validator.
 
@@ -180,10 +179,10 @@ Presented as *candidates for the relevant expert*, not verdicts. The registry as
 
 To review *meaning*, read [`rendered-wholes.md`](./rendered-wholes.md) — the surfaces assembled as an agent receives them; use the registry to trace any line back to its file and owner.
 
-- **Education / curriculum experts:** start from the 127-item review slice — `review_domain` of `pedagogy`, `curriculum-accuracy`, `pedagogy-external` in [`registry.md`](./registry.md), and read the assembled prompts and `curriculum://model` in [`rendered-wholes.md`](./rendered-wholes.md) §5/§8. These are the prompts, the curriculum model, the domain doctrine, and the EEF framing, as agents actually receive them.
+- **Education / curriculum experts:** start from the 134-item review slice — `review_domain` of `pedagogy`, `curriculum-accuracy`, `pedagogy-external` in [`registry.md`](./registry.md), and read the assembled prompts and `curriculum://model` in [`rendered-wholes.md`](./rendered-wholes.md) §5/§8. These are the prompts, the curriculum model, the domain doctrine, and the EEF framing, as agents actually receive them.
 - **Legal:** the 19 `legal-licensing` items (attribution, OGL, EEF-citation).
 - **Safety:** the `user-input-interpolation` and `pii-adjacent` flags, starting with `classNotes`.
-- **Reviewers of tool/parameter wording:** filter `source_locus`. The 130 `upstream-in-house-api` items are reviewed and edited in the **`oak-api` repo** (OpenAPI spec), not here — the committed snapshot `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json` is the read-only local copy of that base text; the in-repo injections around them (PREREQUISITE, per-tool notes) are separate `this-repo` items.
+- **Reviewers of tool/parameter wording:** filter `source_locus`. The 116 `upstream-in-house-api` items are reviewed and edited in the **`oak-api` repo** (OpenAPI spec), not here — the committed snapshot `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json` is the read-only local copy of that base text; the in-repo injections around them (PREREQUISITE, per-tool notes) are separate `this-repo` items.
 - **Engineers:** `registry.json` is the queryable source; the confirmed defects in §8.1 are concrete fixes independent of any larger decision.
 
 ## 11. Reserved decisions

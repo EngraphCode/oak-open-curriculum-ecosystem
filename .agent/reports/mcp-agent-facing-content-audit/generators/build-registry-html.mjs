@@ -8,11 +8,14 @@ const DIR = `${REPO}/.agent/reports/mcp-agent-facing-content-audit`;
 const reg = JSON.parse(readFileSync(`${DIR}/registry.json`, 'utf8'));
 const { meta, items } = reg;
 
-// Trim to display fields (keeps the embedded payload lean).
+// Display fields keep the excerpt short, but search must cover the FULL text (PR #337
+// review: a truncated haystack made audited content — e.g. the C163 typo — undiscoverable).
+// `q` is the search-only haystack: full snippet + behavioural intent + reasoning.
 const rows = items.map((i) => ({
   id: i.id, f: i.file, n: i.identifier, st: i.surface_type,
   it: i.impact_tier, rd: i.review_domain, sl: i.source_locus, ek: i.extraction_kind,
   au: i.audience, fl: i.flags, s: (i.snippet || '').slice(0, 220),
+  q: `${i.snippet || ''} ${i.behavioural_intent || ''} ${i.reasoning || ''}`.toLowerCase(),
 }));
 
 const eduSlice = rows.filter((r) => ['pedagogy', 'curriculum-accuracy', 'pedagogy-external'].includes(r.rd)).length;
@@ -21,7 +24,6 @@ const files = new Set(rows.map((r) => r.f)).size;
 const LOCUS_LABEL = {
   'this-repo': 'this repo',
   'upstream-in-house-api': 'oak-api (OCA)',
-  'upstream-in-house-ontology': 'oak-curriculum-ontology',
   'upstream-in-house-skills': 'oak-skills',
   'external-third-party': 'EEF (external)',
 };
@@ -115,7 +117,6 @@ td.file code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;fo
 .sl-this-repo{background:var(--chip-repo-bg);color:var(--chip-repo-tx)}
 .sl-upstream-in-house-api{background:var(--chip-up-bg);color:var(--chip-up-tx)}
 .sl-upstream-in-house-skills{background:var(--chip-skill-bg);color:var(--chip-skill-tx)}
-.sl-upstream-in-house-ontology{background:var(--chip-onto-bg);color:var(--chip-onto-tx)}
 .sl-external-third-party{background:var(--chip-ext-bg);color:var(--chip-ext-tx)}
 .flag{display:inline-block;font-size:.72rem;padding:1px 6px;border-radius:5px;margin:1px 2px 1px 0;border:1px solid var(--border);color:var(--muted)}
 .flag.defect{background:var(--defect-bg);color:var(--defect);border-color:transparent;font-weight:600}
@@ -198,7 +199,7 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;border-top:1px solid v
       if(sl.value&&r.sl!==sl.value)continue;
       if(ek.value&&r.ek!==ek.value)continue;
       if(fl.value&&r.fl.indexOf(fl.value)<0)continue;
-      if(qs&&(r.n+' '+r.s+' '+r.f+' '+r.id).toLowerCase().indexOf(qs)<0)continue;
+      if(qs&&((r.n+' '+r.f+' '+r.id).toLowerCase()+' '+r.q).indexOf(qs)<0)continue;
       shown++;
       out.push('<tr><td class="id">'+esc(r.id)+'</td>'+
         '<td class="item"><span class="n">'+esc(r.n)+'</span><span class="s">'+esc(r.s)+'</span></td>'+
