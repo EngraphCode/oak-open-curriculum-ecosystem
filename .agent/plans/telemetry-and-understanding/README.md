@@ -1,0 +1,121 @@
+---
+title: "Telemetry and Understanding System (TAU)"
+type: plan-collection-index
+status: active
+last_updated: 2026-07-11
+serves_strategic_choice: APP-1
+---
+
+# Telemetry and Understanding System (TAU)
+
+TAU is the controlling plan collection for turning runtime evidence into
+product and operational understanding.
+
+The name expresses the loop:
+
+```text
+Telemetry -> Analysis -> Understanding
+```
+
+TAU exists so Oak can answer:
+
+- who is using the MCP surfaces, with what repeat pattern;
+- what tools and flows are used;
+- where people succeed, fail, abandon, or report unmet needs;
+- which dependencies, releases, or hosts explain degraded outcomes;
+- which change should happen next;
+- whether the change improved the intended outcome.
+
+## Strategic traceability
+
+Primary strategic choice:
+
+- [`APP-1`](../../../docs/strategy/stream-mcp-app.md): meet teachers inside
+  the assistants they already use.
+
+TAU also provides evidence for:
+
+- K1: live is an evidence state, not a deploy state;
+- APP-2: whether Oak remains recognisable and grounded;
+- APP-3: whether the surface informs rather than decides;
+- engineering-tool and framework quality where the same event/logging
+  substrate is reused.
+
+Telemetry alone cannot prove teacher impact. TAU provides part of the evidence
+substrate and must be joined with research, evaluation, curriculum review, and
+other Oak measures.
+
+## Scope
+
+TAU controls cross-layer sequencing for:
+
+- event and signal intent;
+- question and decision registers;
+- PostHog implementation and project surfaces;
+- Sentry reconciliation;
+- logging destination decisions;
+- monitoring and alerts;
+- feedback, flags, experiments, and qualitative evidence;
+- privacy, identity, retention, deletion, and cost controls;
+- analysis definitions and scheduled interpretation;
+- later warehouse/export triggers.
+
+## Boundaries
+
+| Collection/surface | Boundary |
+|---|---|
+| `observability/` | Detailed inherited implementation estate and historical evidence. TAU dispositions and sequences it; it is not silently deleted. |
+| `architecture-and-infrastructure/` | Generic OTel, environment, workspace, build, and deployment architecture. |
+| `security-and-privacy/` | DPIA, DPO, legal basis, identity permission, retention, DSAR/deletion, security controls. |
+| `compliance/` | Published policy, statutory records, and external submission requirements. |
+| `effectiveness-and-impact/` | Assessment/evaluation methodology for whether surfaces are effective. TAU supplies behavioural evidence but does not own evaluation truth. |
+| `semantic-search/` | Search quality and retrieval implementation; TAU owns cross-runtime event semantics and analysis joins. |
+| application workspaces | Own emission sites and behaviour tests. |
+
+## Authority model
+
+1. strategy and owner decisions;
+2. this roadmap and the current TAU delivery plan;
+3. Oak event/signal schemas and executable conformance tests;
+4. application code;
+5. adapter packages;
+6. PostHog/Sentry project definitions and live evidence;
+7. inherited plans and research as source material.
+
+## Lifecycle
+
+| Lane | Role | Index |
+|---|---|---|
+| [`current/`](current/README.md) | NEXT: decision-complete queued execution | TAU delivery plan |
+| `active/` | NOW: created when implementation begins | Not yet created |
+| `future/` | Later trigger-bound extensions | Added when a concrete future plan exists |
+| `archive/completed/` | Read-only execution history | Added at first completion |
+
+## Current direction
+
+- PostHog is the next product-understanding priority.
+- Oak event contracts remain provider-neutral.
+- Sentry remains the primary specialist engineering-observability surface.
+- stdout/fixtures remain the no-vendor floor.
+- warehouse work no longer blocks PostHog; it opens on a named durable
+  cross-source analysis need.
+- `@posthog/mcp`, PostHog Logs, traces, and Definitions-as-code are bounded
+  probes, not assumed dependencies.
+- identified production capture remains blocked by privacy acceptance.
+
+## Entry points
+
+- [Roadmap](roadmap.md)
+- [Current delivery plan](current/tau-delivery.plan.md)
+- [Research index](../../research/telemetry-and-understanding/README.md)
+- [May identity and event-emission exploration](../../../docs/explorations/2026-05-26-mcp-analytics-identity-and-event-emission.md)
+
+## Delivery rule
+
+Every stage must close a real loop:
+
+```text
+question -> signal -> delivery -> analysis -> human review -> decision
+```
+
+A stage that only adds instrumentation is incomplete.
