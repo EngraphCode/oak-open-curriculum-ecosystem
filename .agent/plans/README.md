@@ -19,6 +19,7 @@ For the strategic overview, use [high-level-plan.md](high-level-plan.md).
 | Entry | Purpose |
 |---|---|
 | [high-level-plan.md](high-level-plan.md) | Strategic cross-collection overview |
+| [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md) | TAU: the next-priority outcome-led path from telemetry through analysis to product and operational understanding |
 | [vision-strategy-and-plan-estate.plan.md](product-development-governance/vision-strategy-and-plan-estate.plan.md) | Controlling plan for the experiment→product arc: three co-equal bodies (vision · strategy · plan-estate) on a four-layer informational model (homed in the product-development-governance collection; imported analysis suggestions sit subordinate under that collection's `suggestions/`) |
 | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) | MCP HTTP server M1 → M2 → M3 → GA coordination |
 | [curriculum-mcp-path-to-ga/launch-readiness-framework.md](curriculum-mcp-path-to-ga/launch-readiness-framework.md) | What "live product" means for the MCP app: readiness dimensions, keystone owner decisions, candidate M4/GA gates |
@@ -38,7 +39,7 @@ that deserve explicit triage before any practical plan is cut from them.
 | Assessment | Planning question | Likely owning surfaces |
 |---|---|---|
 | [Oak Repository Professionalism and Engineering Quality Report — 2026-06-03](../reports/oak-repo-professionalism-engineering-quality-report-2026-06-03.md) | Can its improvement roadmap become one or more practical plans without weakening the repo's existing engineering discipline? | [architecture-and-infrastructure/current](architecture-and-infrastructure/current/README.md), [developer-experience/current](developer-experience/current/README.md), [agentic-engineering-enhancements/current](agentic-engineering-enhancements/current/README.md), [agent-tooling](agent-tooling/README.md) |
-| [MCP App Live-Product Readiness — 2026-06-15](../reports/mcp-app-live-product-readiness-assessment-2026-06-15.md) | What must be true (product, safety, compliance, experience, operations, whole-estate) before the MCP app is a live product, and does the milestone ladder still stand? | [curriculum-mcp-path-to-ga/](curriculum-mcp-path-to-ga/roadmap.md), [milestones/](../milestones/), [security-and-privacy/](security-and-privacy/README.md), [observability/](observability/README.md) |
+| [MCP App Live-Product Readiness — 2026-06-15](../reports/mcp-app-live-product-readiness-assessment-2026-06-15.md) | What must be true (product, safety, compliance, experience, operations, whole-estate) before the MCP app is a live product, and does the milestone ladder still stand? | [curriculum-mcp-path-to-ga/](curriculum-mcp-path-to-ga/roadmap.md), [milestones/](../milestones/), [security-and-privacy/](security-and-privacy/README.md), [telemetry-and-understanding/](telemetry-and-understanding/README.md), [observability/](observability/README.md) |
 
 ---
 
@@ -64,7 +65,8 @@ disposition.
 | [semantic-search/](semantic-search/) | Hybrid semantic search, ingestion, retrieval quality, search/graph adjacency, and search-facing SDK/MCP support | 🔄 Current queue |
 | [school-data-search/](school-data-search/) | Oak School Data Search service POC MVP: UK school-register ingestion, canonical dataset, authenticated search API, typed client — built in-repo until a post-POC go/no-go | 📋 Queued (owner gates first) |
 | [sdk-and-mcp-enhancements/](sdk-and-mcp-enhancements/) | MCP Apps, MCP protocol adoption, generated SDK/tool surfaces, and OpenAPI-to-MCP pipeline evolution | 🔄 Active + queued execution |
-| [observability/](observability/) | Five-axis observability under ADR-162: engineering, product, usability, accessibility, and security signals | 🔄 Active |
+| [telemetry-and-understanding/](telemetry-and-understanding/README.md) | TAU: outcome-led event intent, PostHog product understanding, Sentry reconciliation, logging/monitoring decisions, analysis surfaces, and evidence-to-decision governance | 🟢 Next priority / current plan |
+| [observability/](observability/) | Inherited five-axis observability implementation estate under TAU: engineering, product, usability, accessibility, and security signal plans and evidence | 🔄 Active transition |
 | [architecture-and-infrastructure/](architecture-and-infrastructure/) | Cross-cutting architecture, workspace boundaries, quality gates, infrastructure, and system quality | 🔄 Active backlog |
 | [security-and-privacy/](security-and-privacy/) | Security controls, privacy posture, security claim evidence, Cloudflare MCP gate, and Web Bot Auth enforcement evidence | 🔄 Active execution |
 | [compliance/](compliance/) | External policy compliance, platform submission, directory listing requirements, and regulatory/documentation alignment | 📋 Planned / queued |
@@ -137,6 +139,12 @@ handoff, review, consolidation, and priority-setting.
 - **Execution detail belongs to collection plans.** `high-level-plan.md` and
   `curriculum-mcp-path-to-ga/roadmap.md` coordinate, but do not replace owning
   active/current plans.
+- **TAU owns the evidence-to-understanding loop.**
+  [telemetry-and-understanding/](telemetry-and-understanding/README.md) owns
+  question registration, event semantics, PostHog delivery, Sentry
+  reconciliation, analysis surfaces, and cross-layer sequencing. The
+  [observability/](observability/README.md) collection remains the detailed
+  inherited implementation/evidence estate until each lane is dispositioned.
 - **Discovery is about being found.** Runtime MCP tools, SDK generation, and
   tool schemas belong in [sdk-and-mcp-enhancements/](sdk-and-mcp-enhancements/);
   public web/agent discoverability belongs in [discovery/](discovery/).
