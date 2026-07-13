@@ -1,8 +1,8 @@
 ---
 title: 'External organising and stakeholder surfaces — repository, Linear, Notion, Slack, GitHub, Figma, and evidence systems'
 type: report
-status: exploration
-stage: 'Repository-grounded exploration and understanding; decides no implementation, integration, or service adoption.'
+status: exploration-informed-direction
+stage: 'Repository-grounded exploration plus the owner-set audience and surface contract; connector architecture and automation remain undecided.'
 date: 2026-07-13
 audience: 'Oak engineering, product, design, delivery, and organisational stakeholders considering how OCE intent, execution, evidence, and stakeholder access should cross system boundaries'
 subject: 'The authority model, current plans, code/configuration, contradictions, gaps, and likely architectural direction for connecting OCE to Linear, Notion, and other organising or stakeholder surfaces'
@@ -14,6 +14,7 @@ related:
   - .agent/plans/product-development-governance/plan-node-schema.v0.md
   - .agent/plans/product-development-governance/current/planning-estate-rewrite.plan.md
   - .agent/plans/product-development-governance/active/plan-corpus-refounding.plan.md
+  - .agent/plans/product-development-governance/vision-strategy-and-plan-estate.plan.md
   - .agent/plans/product-development-governance/future/external-evidence-integration.plan.md
   - .agent/plans/agentic-engineering-enhancements/future/external-pointer-surface-integration.plan.md
   - .agent/plans/slack-assistants/current/ask-oisin.plan.md
@@ -21,11 +22,12 @@ related:
 
 # External organising and stakeholder surfaces
 
-> **Status: exploration and understanding only.** This report records what the repository currently
+> **Status: exploration plus subsequent owner direction.** This report records what the repository
 > says, what has actually been implemented, where the artefacts disagree, and what architectural
-> model appears to be emerging. It does **not** accept ADR-201, promote or retire a plan, define a
-> Linear mapping, assign Notion a role, or author an implementation plan. Recommendations below are
-> candidate dispositions for later owner-governed work, not decisions made by this report.
+> model appears to be emerging. The owner has since settled the audience roles of Notion, Linear,
+> PostHog, Sentry, the repo, and GitHub. The report still does **not** accept ADR-201, settle a final
+> graph-to-Linear mapping, or author connector automation. Section 16 preserves the remaining
+> architecture questions rather than treating them as decisions.
 
 ## Executive synthesis
 
@@ -58,13 +60,15 @@ Once framed that way, the surfaces separate into distinct kinds:
 | Kind | Surface | Proper role suggested by the current estate |
 | --- | --- | --- |
 | Canonical intent | OCE repository and future idea graph | Why, what, constraints, strategy, durable plans, decisions, and interpretation |
-| Execution coordination | Linear | Assignment, sequencing, cycles, estimates, and live delivery status |
+| Execution coordination | Linear | Concrete delivery work, ownership, dependencies, sequencing, progress, and delivery performance |
 | Change readiness | GitHub pull requests | Diffs, reviews, checks, previews, and evidence for a proposed change |
 | Design collaboration | Figma | Design source, interaction intent, design-system artefacts, and design review |
-| Internal stakeholder access | Ask Oisín in Slack | Low-friction, read-only navigation and questions grounded live in the repo |
-| Operational and product evidence | Sentry, OpenTelemetry, PostHog, Sonar, Vercel, Elastic | Facts and signals that return to intent as typed evidence |
+| Principal stakeholder visibility | Notion | Current state, intent, value, roadmap, milestones, status, Oak goal/strategy/OKR alignment, and curated evidence for non-engineering and senior stakeholders |
+| Conversational internal access | Ask Oisín in Slack | Low-friction, read-only navigation and questions grounded live in the repo |
+| Product usage evidence | PostHog | Observed usage, adoption, journeys, and behaviour once the TAU instrumentation work lands |
+| Operational understanding | Sentry and OpenTelemetry | Errors, traces, regressions, operational health, and engineering diagnosis |
+| Other specialised evidence | Sonar, Vercel, Elastic | Code-quality, deployment, and search/index facts interpreted against repo-owned intent |
 | Potential public orientation | GitHub Projects, generated web views, or another public surface | Public roadmap or partner visibility, if that need becomes real |
-| Undefined | Notion | No current OCE role has been established |
 
 This is a better architecture than a network of pairwise synchronisations. It is not yet fully
 reconciled across the plan estate.
@@ -77,13 +81,15 @@ The most important tensions are:
    evidence, validated write-back, and declared supervision;
 3. the repo has graph substrate and plans, but no Linear projector, connector, write-back path, or
    validator implementation;
-4. Notion is historical rather than current: the former `oak-notion-mcp` workspace was removed and
-   no present strategy gives Notion a unique role;
-5. Ask Oisín is the clearest concrete stakeholder surface, but its own plan exposes unregistered
+4. Notion's historical MCP-adapter removal answers an implementation question, not today's
+   stakeholder need: the owner has now established Notion as the principal non-engineering and
+   senior-stakeholder visibility surface;
+5. Ask Oisín remains a valuable conversational access surface, but its own plan exposes unregistered
    strategic and stream values that the plan-corpus refounding is intended to cure;
 6. Figma is recognised as a real design-intent surface but has not yet received settled graph-edge
    semantics;
-7. the stakeholder audience model is less mature than the technical authority model.
+7. the audience roles are now settled at high altitude, while freshness, projection, and evidence
+   mechanics remain less mature than the technical authority model.
 
 ## 1. Scope, method, and reasoning stance
 
@@ -370,9 +376,9 @@ The repository is converging on a layered system:
           +--------------+-----------------+
           |              |                 |
    human documents   execution         stakeholder
-   in the repo       projection         read models
+   in the repo       projection         visibility
           |              |                 |
-   vision/strategy     Linear          Slack / public
+   vision/strategy     Linear          Notion / Slack
    streams/plans         |             navigation
           |              |
           +------ GitHub changes ---------+
@@ -400,7 +406,8 @@ truth":
 | User behaviour and adoption facts | PostHog |
 | Static code-quality facts | Sonar |
 | Search and index operational facts | Elastic |
-| Low-friction internal access to repo knowledge | Slack / Ask Oisín |
+| Principal narrative/status visibility for non-engineering and senior stakeholders | Notion |
+| Low-friction conversational access to repo knowledge | Slack / Ask Oisín |
 
 The core design principle is not that the repo contains every fact. It is that the repo contains the
 semantic and authority model by which specialised facts are interpreted and connected to durable
@@ -413,11 +420,13 @@ intent.
 The repo is consistent at high altitude:
 
 - OCE owns durable intent, strategy, scope, constraints, acceptance, and relationships;
-- Linear owns assignment, sequencing, cycles, estimates, and current execution state;
+- Linear serves engineers, engineering managers, product managers, and delivery colleagues;
+- Linear owns concrete steps, assignment, dependencies, sequencing, cycles, estimates, current
+  execution state, progress, and delivery-performance visibility;
 - Linear may report state back into the graph;
 - Linear does not define the plan, strategic choice, or acceptance contract.
 
-The accepted V0 mapping is the strongest available model:
+The V0 schema and imported design inputs make this the strongest mapping candidate:
 
 ```text
 strategic choice  ~= Linear Initiative
@@ -428,7 +437,11 @@ workstream/cycle  ~= Linear issue or sub-issue
 The use of approximation is important. The repo's graph concepts should not be distorted merely to
 match current vendor primitives.
 
-### 4.2 Why plan -> Project is stronger than thread -> label as the primary mapping
+The current live Linear project is a pathfinder container for this programme. It is evidence that a
+project-level delivery surface is useful; it is not proof that every plan must map one-to-one to a
+Linear Project.
+
+### 4.2 Why plan -> Project is a stronger candidate than thread -> label
 
 A plan is goal-bearing and contains executable work. A Linear Project is also goal-bearing and
 contains issues. The lifetimes and semantics align.
@@ -444,7 +457,9 @@ of a thread. Therefore:
 
 ### 4.3 Existing implementation evidence
 
-The current repository contains almost no Linear implementation.
+The current repository contains no automated Linear projection or reconciliation implementation.
+There is, however, a live manually maintained Linear project for this work, so "no integration"
+must not be misread as "no useful Linear surface".
 
 Present:
 
@@ -452,7 +467,7 @@ Present:
 - the graph foundation exists in
   [`packages/core/graph-core`](../../packages/core/graph-core/README.md) and
   [`packages/libs/graph-ingest`](../../packages/libs/graph-ingest/README.md);
-- the V0 plan schema reserves `projects_to`;
+- the V0 plan schema reserves the `projects_to` edge vocabulary;
 - plans and ADRs describe future connectors and projections.
 
 Not found:
@@ -460,7 +475,8 @@ Not found:
 - product code importing `@linear/sdk`;
 - a `LINEAR_API_KEY` integration outside the old future plan;
 - an implemented `mcp.linear.app` configuration;
-- `projects_to` schema or runtime code;
+- an implemented validator schema or runtime projection for `projects_to` beyond that V0
+  vocabulary reservation;
 - a Linear projector or exporter command;
 - a Linear connector under `agent-tools`;
 - validated write-back;
@@ -469,9 +485,9 @@ Not found:
 - an implemented stale-pointer or projection-integrity validator.
 
 The older plan claims that the Linear MCP plugin was already wired in both Cursor and Claude. The
-current [`.claude/settings.json`](../../.claude/settings.json) enables Sentry, MCP-server-development,
-and Sonar plugins, but not Linear. That claim is therefore stale or at least no longer demonstrated
-by the current configuration.
+current [`.claude/settings.json`](../../.claude/settings.json) enables Sentry,
+`mcp-server-dev@claude-plugins-official`, and Sonar plugins, but not Linear. That claim is therefore
+stale or at least no longer demonstrated by the current configuration.
 
 ### 4.4 Open architectural questions
 
@@ -552,59 +568,52 @@ surface.
 
 ## 5. Notion
 
-### 5.1 Current finding
+### 5.1 Owner-established role and audience
 
-Notion has no current strategic or operational role in the OCE surface architecture found by this
-review.
+Owner direction on 2026-07-13 establishes Notion as the **principal visibility surface for
+non-engineering stakeholders**, especially the most senior stakeholders. The MCP Pathfinder area
+already contains roadmap and release-planning material; the missing piece is one coherent,
+leadership-altitude account of the project. That account now exists as
+[MCP App — Strategy, Intended Impact, and Current Direction](https://app.notion.com/p/39c26cc4e1b181d09242ed54708443e8).
 
-The concrete history is documented in
-[ADR-004](../../docs/architecture/architectural-decisions/004-no-direct-notion-sdk-usage.md).
-The former `oak-notion-mcp` workspace was removed. It had served as an architectural forcing
-function: supporting a second MCP server forced the original codebase to generalise. Once the
-ecosystem supported multiple MCP servers natively, that forcing function became obsolete.
+That account must make the following legible without requiring GitHub or Linear fluency:
 
-Searches for `@notionhq/client` and `oak-notion-mcp` produce archived implementation plans,
-baselines, and historical analyses rather than current code or product-governance plans.
+- the project's intent and intended value;
+- how it supports Oak's goals, strategy, and current OKRs without inventing or restating them;
+- current project state and a dated status;
+- the delivery roadmap and milestones;
+- material dependencies, risks, and decisions;
+- what evidence exists now and what evidence is still expected.
 
-### 5.2 Enduring lesson
+### 5.2 Authority, evidence, and freshness contract
 
-The useful outcome of the Notion work is not a continuing requirement to connect OCE to Notion. It
-is the anti-corruption principle preserved by ADR-004:
+Notion is a curated stakeholder narrative, not a second planning authority. It synthesises and
+links to the surfaces that own each fact:
 
-- isolate external SDKs behind domain interfaces;
-- prevent vendor vocabulary from leaking into the core model;
-- retain testability through simple substitutes;
-- keep external API change local to the adapter;
-- express OCE's domain rather than the vendor's objects.
+| Notion statement | Owning evidence surface |
+| --- | --- |
+| Intent, value, strategy alignment, scope, and constraints | Repository vision, strategy, plans, and decisions |
+| Work, dependencies, ownership, progress, and delivery performance | Linear, with GitHub change/readiness evidence where relevant |
+| Product usage, adoption, journeys, and behaviour | PostHog after the TAU instrumentation work lands |
+| Errors, traces, regressions, and operational health | Sentry and OpenTelemetry |
+| Value and impact | Interpretation across product/operational evidence plus research, evaluation, curriculum evidence, and Oak-owned outcomes |
 
-This principle applies directly to Linear, Slack, Figma, PostHog, Sentry, and every other service.
+Every status page should therefore state its evidence date, current limits, next refresh condition,
+and source links. A manual curated page is appropriate now because the audience and narrative are
+real while automated projections do not yet exist. Automation may later reduce freshness risk, but
+it must preserve the same authority boundaries.
 
-### 5.3 Could Notion still earn a role?
+### 5.3 Historical adapter work is a separate question
 
-There is a plausible future role for Notion as a curated asynchronous stakeholder portal:
+[ADR-004](../../docs/architecture/architectural-decisions/004-no-direct-notion-sdk-usage.md) records
+why the former `oak-notion-mcp` product workspace was removed and preserves an anti-corruption
+principle for any future adapter. That implementation history does not answer whether stakeholders
+need a Notion communication surface.
 
-- narrative project summaries;
-- accessible strategy explanations;
-- decision briefings;
-- onboarding or organisational context;
-- a browsable status surface for people who will not use GitHub or Linear.
-
-But the repository does not currently establish that need, audience, or authority boundary. Adding
-Notion because it is familiar or already used elsewhere would create another editable knowledge
-surface before proving that it adds unique value.
-
-An architecture-compatible Notion role would therefore be one of:
-
-- a generated read model;
-- a read-only projection;
-- an explicitly curated communication artefact with provenance back to the graph;
-- a service-native collaboration object whose authority is narrowly defined.
-
-It should not become a second planning estate or an editable mirror of repo strategy and plans.
-
-The falsifier for the current "no role yet" judgement would be a concrete stakeholder workflow that
-cannot be served adequately by Slack, Linear, GitHub, generated reports, or a public web surface,
-and for which Notion's native collaboration model materially improves value.
+The still-valid engineering lesson is to isolate vendor SDKs behind OCE-owned contracts and prevent
+Notion vocabulary from leaking into the intent model. Creating and curating a stakeholder page does
+not require reinstating the removed product workspace or making Notion an authority over repo
+intent.
 
 ## 6. GitHub and pull requests
 
@@ -648,10 +657,11 @@ use than adding a parallel GitHub Project merely to duplicate Linear.
 
 ## 7. Slack and Ask Oisín
 
-### 7.1 The clearest stakeholder surface
+### 7.1 The conversational access surface
 
-[Ask Oisín](../plans/slack-assistants/current/ask-oisin.plan.md) is the most concrete current answer
-to internal stakeholder legibility.
+[Ask Oisín](../plans/slack-assistants/current/ask-oisin.plan.md) is the clearest planned answer to
+low-friction conversational access to internal repo knowledge. It complements Notion's principal
+stakeholder narrative rather than replacing it.
 
 Its design is deliberately not a new source of truth:
 
@@ -698,7 +708,7 @@ is therefore useful evidence for the refounding's lane and strategic-choice work
 
 ### 7.4 Broader implication
 
-Ask Oisín may be the first concrete example of a general class:
+Ask Oisín is a concrete planned example of a general class:
 
 > stakeholder read models and conversational projections over the canonical graph.
 
@@ -761,8 +771,10 @@ invented by this report.
 
 ### 9.1 Sentry and OpenTelemetry
 
-Sentry and OpenTelemetry own runtime error, trace, performance, and incident facts. They do not own
-product priority or strategy. Their evidence can:
+Sentry and OpenTelemetry own runtime error, trace, performance, and incident facts. Sentry is both
+an evidence source and a first-class specialist surface through which engineers and operational
+stakeholders understand the running product. It does not own product priority or strategy. Its
+evidence can:
 
 - identify failures;
 - measure change-failure and recovery behaviour;
@@ -771,19 +783,24 @@ product priority or strategy. Their evidence can:
 - contribute to release and operational decisions.
 
 The observability estate is the most developed external evidence foundation, but the full
-intent-to-runtime graph loop is not yet built.
+intent-to-runtime graph loop is not yet built. A senior-stakeholder Notion summary may curate a
+health statement from Sentry; operational diagnosis still belongs in Sentry itself.
 
 ### 9.2 PostHog
 
-PostHog is strategically important because it is intended to close the user-value loop rather than
-merely report engineering activity.
+PostHog is the intended first-class product-usage surface: it should show how people actually use
+the MCP app, including adoption, repeat use, tool/flow use, outcomes, and abandonment where the
+event contract can establish those facts safely.
 
-The external-evidence plan names PostHog as the primary source for `validated_by` usage and
-behaviour evidence. ADR-207 treats the user-value loop as higher priority than the delivery metrics
-because delivery without end-user evidence can optimise the wrong thing.
+That visibility depends on the instrumentation and question-to-decision work proposed by the draft
+TAU programme in [PR #339](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/339).
+PR #339 owns the runtime question -> typed signal -> privacy projection -> delivery -> analysis ->
+review -> decision -> remeasurement mechanics. This report owns the neighbouring audience and
+surface boundary and does not restate TAU's event, identity, dashboard, or interpretation semantics.
 
-PostHog should therefore not become a strategy authority. It observes behaviour; the repo defines
-what the observation means, which hypothesis it bears on, and what decision follows.
+PostHog should not become a strategy or impact authority. It observes product behaviour. The repo
+defines the intended value and decision context, while research, evaluation, curriculum evidence,
+and Oak-owned outcome measures remain necessary to establish impact.
 
 ### 9.3 Vercel and deployments
 
@@ -878,12 +895,14 @@ The essential constraints would be:
 - no Linear desired-state calculation;
 - no Linear mutation command;
 - no Linear reconciliation validator;
-- no external evidence edge schema;
+- no implemented external-node/evidence-edge validator or runtime schema beyond the edge vocabulary
+  reserved by the V0 plan layer;
 - no connector/triggers/write-back implementation;
 - no DORA graph projection;
 - no PostHog-to-`validated_by` implementation;
 - no Figma connector or edge contract;
-- no Notion connector or current role;
+- no automated Notion projection or connector; the owner-set stakeholder role is currently served
+  through curated pages;
 - no Ask Oisín app code yet;
 - no generated public stakeholder surface.
 
@@ -894,25 +913,27 @@ must remain future-tense wherever the consuming runtime does not exist.
 
 | Tension | Earlier or weaker shape | Later or stronger shape | Current assessment |
 | --- | --- | --- | --- |
-| Linear primary mapping | Thread -> label; landing -> issue; one repo project | Strategic choice -> Initiative; plan -> Project; workstream -> issue | Reconcile; later V0 schema governs primary semantics |
+| Linear primary mapping | Thread -> label; landing -> issue; one repo project | Strategic choice -> Initiative; plan -> Project; workstream -> issue | Reconcile through real consumers; V0 reserves the relationship but does not settle every cardinality or mapping |
 | Data direction | Repo -> Linear only | Intent projects outward; execution/evidence reports back | Older non-goal is overtaken by ADR-201 direction, subject to ratification |
 | Trigger ownership | Session handoff emits updates | Graph-derived desired state, connectors, triggers, validated write-back | Session handoff may trigger, but should not own semantics |
 | Failure behaviour | Skip on MCP timeout; warnings initially | Strict, complete, no warning toleration, fail-fast | Old fallback/warning shape is not compatible with current doctrine |
 | Cardinality | One existing repo project; thread labels | V0 `projects_to` 0..1 | Must be tested against real team/project structure; many-to-many remains plausible |
 | Linear plugin state | Claimed wired in Cursor and Claude | Current config demonstrates Cursor only | Older claim is stale or unproven |
 | Graph authority | Governed document graph | Living idea graph with documents as projections | ADR-200 supersedes document-as-fundamental framing |
-| External service model | Peer pointer surface | Typed projection and evidence edges | Pointer language remains useful for navigation but is incomplete |
+| External service model | Peer pointer surface | Typed projection and evidence edges | The sources converge on this direction, but ADR-201 and the connector contract remain proposed |
 | Figma | Design source in imported semantic model | Omitted from ADR-201 connector map | Needs separate ratification and likely more than one edge family |
 | Ask Oisín strategy placement | New unregistered stream; no strategic choice | Registered axes and mandatory traceability | Input to refounding; not proof that the surface is invalid |
-| Notion | Former MCP forcing function | No current role | Do not assume a new integration need from history |
+| Notion | Former MCP product forcing function | Principal non-engineering and senior-stakeholder visibility surface | Keep stakeholder communication separate from the removed product adapter and from repo authority |
 | Execution state in repo | `active/` and `current/` folders | Linear-owned execution status; future folder collapse | Target decided, migration dependent on dependable projection |
 
 ## 13. Assessment through the decision lenses
 
 ### 13.1 Long-term architectural excellence
 
-The excellent shape is **one canonical intent graph with purpose-specific projections, commands,
-and evidence connectors**, not a mesh of independent pairwise synchronisations.
+The accepted substrate, owner-set audience boundaries, and proposed external-system designs
+**converge on** one canonical intent graph with purpose-specific projections, commands, and
+evidence connectors rather than a mesh of independent pairwise synchronisations. This is an
+inference from the sources, not a claim that ADR-201 or its connector mechanics are accepted.
 
 Each external integration should be an adapter over OCE-owned contracts. Linear, Slack, Figma,
 GitHub, and evidence systems should not force vendor concepts into the core intent model.
@@ -944,18 +965,19 @@ Yes: do not add a surface until it has a unique job.
 
 - Linear earns its place through execution coordination.
 - GitHub earns its place through changes and readiness.
-- Slack earns its place through low-friction internal access.
+- Notion earns its place through principal narrative/status visibility for non-engineering and
+  senior stakeholders.
+- Slack earns its place through low-friction conversational access.
 - Figma earns its place through design collaboration.
 - Evidence systems earn their place through specialised observation.
-- Notion does not yet have a unique role.
 - GitHub Projects does not yet have a unique internal role.
 
 Simplicity does not mean reducing capability. It means avoiding redundant editable authorities.
 
 ### 13.4 Would it be simpler if the system changed?
 
-Yes. The key system change is to stop treating the problem as document and ticket synchronisation.
-Instead build:
+Potentially. The key system-level hypothesis is to stop treating the problem as document and ticket
+synchronisation. The current sources suggest evaluating:
 
 - one canonical graph;
 - typed projections into operational systems;
@@ -978,9 +1000,10 @@ Every surface should begin with an audience and a decision or task:
 - what evidence is needed to know the work benefited teachers?
 - what can an agent safely read or change in each context?
 
-The repo is highly developed around architecture, graph modelling, and agent operation. Its explicit
-stakeholder audience taxonomy is less mature. Ask Oisín begins to close that gap, but a broader
-audience-and-decision map would be needed before selecting additional stakeholder surfaces.
+The repo is highly developed around architecture, graph modelling, and agent operation. The owner
+has now settled the high-altitude audience map for Notion, Linear, PostHog, Sentry, GitHub, and the
+repo. Per-audience decisions, disclosure, cadence, and language still need to be maintained in the
+individual surfaces.
 
 ## 14. Current model and candidate future decomposition
 
@@ -1014,19 +1037,21 @@ The following is an interpretation of the emerging architecture, not a ratified 
 - Slack for questions and access;
 - service-native annotations where the object of work belongs to that service.
 
-### Layer E — external observation
+### Layer E — specialist observation and understanding
 
-- Sentry/OpenTelemetry, PostHog, Sonar, Vercel, Elastic;
+- PostHog for product usage and behaviour after TAU instrumentation;
+- Sentry/OpenTelemetry for operational health and engineering diagnosis;
+- Sonar, Vercel, and Elastic for their specialised evidence;
 - source-owned facts represented by typed external nodes or resolvable references;
 - generated summaries and returning evidence.
 
-### Layer F — stakeholder read models
+### Layer F — stakeholder visibility and access
 
+- Notion as the principal non-engineering and senior-stakeholder narrative;
 - Ask Oisín;
 - generated reports;
 - leadership or team views;
 - public roadmaps if later required;
-- possibly Notion only if a distinct stakeholder workflow earns it.
 
 The reusable mechanism across Layers B–F should be generic where the principles require it, with
 thin OCE-specific configuration and interpretation.
@@ -1045,9 +1070,10 @@ contract.
 The old pointer-surface plan, V0 schema, ADR-201, ADR-207, and the external-evidence plan each hold a
 part of the Linear model. No current artefact reconciles them all.
 
-### Gap 3 — stakeholder audiences are under-modelled
+### Gap 3 — audience roles are settled; operating contracts are incomplete
 
-The service map is strong, but the audience map is partial. "Stakeholders" may mean:
+The owner has settled the principal surface roles, but each surface still needs an explicit
+freshness, disclosure, decision, and language contract. "Stakeholders" still spans:
 
 - Oak leadership;
 - product and delivery colleagues;
@@ -1060,8 +1086,8 @@ The service map is strong, but the audience map is partial. "Stakeholders" may m
 - external developers;
 - auditors or governance reviewers.
 
-Those audiences need different altitudes, disclosure, cadence, interaction, and language. Selecting
-a tool before defining the audience risks building the wrong projection.
+Those audiences need different altitudes, disclosure, cadence, interaction, and language. The
+Notion page begins the senior/non-engineering contract; it does not resolve every audience.
 
 ### Gap 4 — no implementation bridge from graph architecture to service adapters
 
@@ -1072,48 +1098,69 @@ safe identity resolver, command architecture, and connector framework are not bu
 
 Figma is acknowledged but does not fit neatly into the existing evidence-only framing.
 
-### Gap 6 — Notion has no problem statement
+### Gap 6 — Notion needs a durable freshness and provenance practice
 
-The absence of a current Notion integration is not itself a defect. The missing item is evidence
-that a unique Notion-shaped need exists.
+The problem statement now exists: senior and non-engineering stakeholders use Notion as their
+principal visibility surface. The remaining gap is preventing a curated page from drifting from
+repo intent, Linear delivery state, PostHog usage evidence, and Sentry operational evidence while
+keeping the narrative legible.
 
-### Gap 7 — current plans can predate the registered strategy axes they need
+### Gap 7 — PR #339 is an adjacent draft authority, not content for this report to absorb
+
+Draft [PR #339](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/339) proposes TAU
+as the runtime question-to-evidence-to-decision programme. The coordinated boundary is:
+
+- this report and PR own audience/surface contracts and organisational visibility;
+- TAU owns runtime questions, typed signals, privacy projections, delivery, analysis,
+  interpretation/review, decisions, and remeasurement;
+- Linear delivery coordination, Notion stakeholder presentation, and future idea-graph evidence
+  edges remain neighbouring authorities outside TAU.
+
+PR #339 should consume the landed boundary after this exploration is review-ready; PR #341 should
+not reproduce TAU's event, identity, dashboard, or interpretation semantics.
+
+### Gap 8 — current plans can predate the registered strategy axes they need
 
 Ask Oisín demonstrates the practical consequence: valuable new work can appear before the planning
 corpus has a legal strategic or stream value for it. The refounding must preserve that signal rather
 than forcing the plan into an incorrect existing category.
 
-### Gap 8 — execution migration sequencing remains unresolved
+### Gap 9 — execution migration sequencing remains unresolved
 
 The target removes hand-maintained repo execution state in favour of Linear projection. The current
 repo still depends on folder and continuity cues. A migration must prevent a period in which neither
 surface is dependable.
 
-## 16. Candidate dispositions for later owner-governed work
+## 16. Decision questions and considerations for later owner-governed work
 
-These are not actions authorised by this report. They are the most coherent candidate dispositions
-for a later planning or architecture turn.
+The exploration raised the following questions. They are neither actions authorised by this report
+nor conclusions disguised as recommendations.
 
-1. **Treat the V0 plan schema and ADR-200 as the starting authority for Linear**, not the old
-   pointer-surface plan.
-2. **Harvest and retire or rewrite the old Linear plan during corpus refounding**, preserving its
-   useful findings: no-collapse thread visibility, low-noise cadence, local secret/PII boundary,
-   and the distinction between navigation pointers and authority.
-3. **Ratify or replace ADR-201 only after reconciling the broader service-authority model**, including
-   Figma and stakeholder read surfaces rather than evidence systems alone.
-4. **Define an audience-and-decision map before selecting another stakeholder tool.** This is the
-   missing problem statement for Notion and public surfaces.
-5. **Use Ask Oisín as a proving instance for read-model architecture**, not as a one-off Slack bot.
-6. **Derive Linear state from typed plan nodes**, with one command and reconciliation path, rather
-   than distributing vendor writes across session workflows.
-7. **Keep GitHub PRs as the readiness aggregation hub**, with typed review lanes and links rather
-   than duplicating planning state in GitHub Projects.
-8. **Model Figma with design-specific semantics**, not by forcing it into a generic operational
-   evidence connector.
-9. **Separate current-state orientation from target execution authority during migration** so the
-   current repo remains navigable until Linear projection is proven dependable.
-10. **Require runtime evidence before present-tense integration claims.** Configuration toggles and
-    future plans are not proof that a connector or stakeholder surface exists.
+1. **What should govern the final Linear mapping?** ADR-200 and the V0 vocabulary provide the
+   accepted substrate, while the live pathfinder project provides consumer evidence; the older
+   pointer-surface plan remains an input whose useful findings may need harvesting.
+2. **Which findings from the old Linear plan remain valuable during corpus refounding?** Candidates
+   include no-collapse thread visibility, low-noise cadence, the local secret/PII boundary, and the
+   distinction between navigation pointers and authority.
+3. **Does ADR-201 cover the full service-authority problem?** Ratification or replacement needs to
+   account for Figma and stakeholder visibility as well as operational evidence systems.
+4. **What freshness and editorial cadence keeps Notion trustworthy?** The audience and role are now
+   settled; the remaining decision is how source dates, owners, review cadence, and drift detection
+   work without making Notion a second planning authority.
+5. **What does Ask Oisín prove about conversational read models?** Its value should be assessed as a
+   member of a broader projection class rather than only as a one-off Slack bot.
+6. **What is the simplest strict Linear command and reconciliation path?** The target should be
+   evaluated against typed plan nodes, idempotency, recovery, and supervised mutation rather than
+   assumed from session workflow.
+7. **Does any internal need justify GitHub Projects alongside Linear?** Today GitHub PRs already
+   aggregate change readiness; another project board needs a distinct audience task.
+8. **Which design-specific relationships does Figma require?** A generic operational-evidence edge
+   may not capture design source, implementation, and review authority.
+9. **How should migration preserve current repo orientation until Linear projection is dependable?**
+   The target authority and the transition state are separate decisions.
+10. **What evidence threshold permits present-tense integration claims?** Configuration toggles,
+    manual pages, live service projects, and running connectors prove different things and should be
+    described precisely.
 
 ## 17. Falsifiers and uncertainty
 
@@ -1122,7 +1169,8 @@ This report's model should change if first-hand evidence shows any of the follow
 - a team cannot coordinate delivery effectively when durable intent remains repo-owned;
 - plan -> Linear Project repeatedly fails because real project boundaries are structurally different;
 - stakeholders do not use or trust a live repo-grounded Slack surface;
-- Notion provides a unique collaboration or communication function not covered elsewhere;
+- senior and non-engineering stakeholders do not use or trust the Notion narrative, or require a
+  materially different principal visibility surface;
 - Figma cannot be connected without making it an authority surface for particular product-design
   contracts;
 - strict desired-state reconciliation produces more complexity and lower reliability than a
@@ -1155,13 +1203,19 @@ Linear is the clearest operational consumer, but its integration should be re-de
 accepted plan and idea-graph architecture rather than implemented directly from the older
 pointer-surface plan.
 
-Notion is historical, not currently part of the model. It should remain absent unless a distinctive
-stakeholder need is demonstrated.
+Notion is now part of the operating model as the principal non-engineering and senior-stakeholder
+visibility surface. Its historical product-adapter role remains retired. The durable challenge is
+to keep the stakeholder narrative sourced, dated, and explicit about evidence limits without
+turning it into another planning authority.
 
-Ask Oisín is strategically significant because it is not another store: it is a live, read-only
-stakeholder lens over the canonical repo. It may be the first concrete example of the broader
-projection/read-model architecture, even though its own strategy traceability still needs
-reconciliation.
+Ask Oisín remains strategically significant because it is not another store: it is a planned,
+read-only conversational lens over the canonical repo. It complements Notion's curated narrative,
+even though its own strategy traceability still needs reconciliation.
+
+PostHog and Sentry are also surfaces in their own right, not only feeds for a leadership report.
+Draft PR #339 owns their proposed TAU mechanics; this report owns the neighbouring audience and
+authority boundary. Product usage, operational health, delivery performance, and actual impact
+remain different evidence classes.
 
 The conceptual direction is strong. The estate's present weakness is not a lack of ideas; it is
 **unretired conceptual overlap and the distance between accepted architecture and running
@@ -1184,6 +1238,7 @@ planning ceremony.
 - [V0 plan-node schema](../plans/product-development-governance/plan-node-schema.v0.md)
 - [Planning-estate rewrite](../plans/product-development-governance/current/planning-estate-rewrite.plan.md)
 - [Plan-corpus refounding](../plans/product-development-governance/active/plan-corpus-refounding.plan.md)
+- [Vision, strategy, and plan-estate controlling plan](../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md)
 - [Plans root index](../plans/README.md)
 
 ### Proposed and future integration architecture
@@ -1191,6 +1246,7 @@ planning ceremony.
 - [ADR-201 — external systems as evidence edges](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
 - [External-evidence integration plan](../plans/product-development-governance/future/external-evidence-integration.plan.md)
 - [External pointer-surface plan](../plans/agentic-engineering-enhancements/future/external-pointer-surface-integration.plan.md)
+- [Draft PR #339 — TAU planning](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/339)
 
 ### Product-development-governance inputs
 
@@ -1201,6 +1257,7 @@ planning ceremony.
 
 ### Stakeholder and service surfaces
 
+- [Notion — MCP App strategy, intended impact, and current direction](https://app.notion.com/p/39c26cc4e1b181d09242ed54708443e8)
 - [Ask Oisín design](../research/outreach/oisin-oce-navigator-design.md)
 - [Slack assistants collection](../plans/slack-assistants/README.md)
 - [Ask Oisín plan](../plans/slack-assistants/current/ask-oisin.plan.md)

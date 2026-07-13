@@ -5,7 +5,7 @@ type: governance-execution
 status: active
 lifecycle: active
 thread: strategy-and-plan-estate-holistic-review
-last_updated: 2026-06-20
+last_updated: 2026-07-13
 related:
   - VISION.md
   - docs/architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md
@@ -13,6 +13,7 @@ related:
   - .agent/plans/curriculum-mcp-path-to-ga/roadmap.md
   - .agent/plans/curriculum-mcp-path-to-ga/launch-readiness-framework.md
   - .agent/reports/archive/plan-estate-survey-2026-06-15/README.md
+  - .agent/reports/external-organising-and-stakeholder-surfaces-review-2026-07-13.md
 todos:
   - id: vision-foundation
     content: "Vision body — VISION.md is the full two-part vision (authored 2026-06-20): Part 1 serves Oak's mission (the app for teachers + the tools for the ecosystem, two of Oak's three goals); Part 2 is the agent-first product-creation-and-curation transformation, stated with the amplifier-not-replacement ethic. Mission verbatim; the three value streams are present, grouped into the two parts; VISION.md links the strategy corpus. Alignment TO Oak lives in the strategy, not restated in the vision. Owner is the final editor of the vision."
@@ -32,6 +33,9 @@ todos:
   - id: estate-hygiene
     content: "Estate hygiene (independent — no informational dependence on vision/strategy) — re-anchor dead VISION references; fix the editorial-tone vision path; clear the dead PR-76 blocker; remediate reachability/openers/stale-executables after re-verifying current counts."
     status: pending
+  - id: stakeholder-visibility-contract
+    content: "Federated visibility estate (owner-set 2026-07-13) — keep durable intent in the repo; make Notion the principal narrative/status surface for non-engineering and senior stakeholders; use Linear for concrete delivery work, dependencies, progress, and delivery performance; use PostHog for observed product usage after TAU instrumentation; use Sentry for operational health and engineering diagnosis; keep GitHub as the change/readiness surface. Every projection links to its source and states its freshness and evidence limits."
+    status: completed
 ---
 
 # Vision, Strategy, and Plan-Estate — Thread Governance
@@ -122,6 +126,43 @@ The streams are **not orthogonal** — they reinforce each other:
 The strategy must be **cohesive across and within** the streams — the cross-stream
 cohesion carried at the portfolio tier, each stream's section explicitly
 interdependent. A strategy that treats the streams as independent misses the point.
+
+## Federated visibility estate — intent must circulate without authority drift
+
+The repository remains the durable authority for vision, strategy, decisions, scope,
+constraints, and planning intent. That authority does not imply that every audience
+should have to read the repository. Owner direction on 2026-07-13 establishes a
+**federated visibility estate**: each external surface has one audience-shaped job and
+links back to the authoritative source rather than becoming another planning estate.
+
+| Surface | Primary audience | Authoritative responsibility |
+| --- | --- | --- |
+| Repository and future idea graph | Engineering, agents, governance reviewers | Durable vision, strategy, decisions, plans, relationships, and interpretation |
+| Notion | Non-engineering stakeholders; especially senior leadership | Principal narrative visibility: intent, value, current state, roadmap, milestones, status, and explicit alignment to Oak goals, strategy, and current OKRs |
+| Linear | Engineers, engineering managers, product managers, and delivery colleagues | Concrete work, ownership, dependencies, sequencing, progress, and delivery performance |
+| GitHub pull requests | Authors, reviewers, and engineering stakeholders | Proposed change, review, checks, evidence, and readiness |
+| PostHog | Product, engineering, data/research, and leadership through curated readouts | Observed product usage, adoption, journeys, and behaviour after the TAU instrumentation work lands |
+| Sentry | Engineers and operational stakeholders | Errors, traces, regressions, operational health, and diagnostic understanding |
+
+This is not a claim that one dashboard proves impact. The estate keeps four evidence
+classes apart:
+
+- **delivery performance** comes from Linear and GitHub;
+- **operational behaviour and health** come from Sentry and its OpenTelemetry context;
+- **product usage and adoption** come from PostHog once the relevant TAU work lands;
+- **value and impact** require interpretation across those sources plus qualitative
+  research, evaluation, curriculum evidence, and Oak-owned outcome measures.
+
+Notion is the synthesis surface for senior stakeholders, not the origin of those facts.
+Its page must name source links, evidence dates, current limits, and the owner or cadence
+for refresh. Linear remains the detailed delivery surface rather than a leadership
+narrative. PostHog and Sentry remain directly useful specialist surfaces as well as
+evidence sources for curated Notion updates.
+
+The proposed TAU programme in GitHub PR #339 is the adjacent delivery authority for the
+PostHog/Sentry question-to-evidence loop if that PR is accepted. This contract does not
+duplicate TAU's implementation plan, and TAU does not replace the stakeholder-facing
+Notion or delivery-facing Linear responsibilities recorded here.
 
 ## Body 1 — Vision (full two-part vision authored 2026-06-20)
 
@@ -762,6 +803,16 @@ Settled (2026-06-21):
     generated-from-schema discipline applies here). Taxonomy survey-gated; the `suggestions/` docs
     held as input-to-verify.
 
+Settled (2026-07-13):
+
+23. **Federated visibility estate and audience boundaries — settled.** The repo owns durable
+    intent; Notion is the principal narrative/status surface for non-engineering and senior
+    stakeholders; Linear owns concrete delivery coordination and performance; GitHub owns change
+    readiness; PostHog owns observed product usage once TAU instrumentation lands; Sentry owns
+    operational health and engineering diagnosis. Notion synthesises linked evidence but does not
+    become a second planning authority. Usage and operational signals inform impact; they do not
+    prove it without research, evaluation, and Oak-owned outcome evidence.
+
 ## Inputs and Authorities
 
 Work only from the latest understanding. Authorities, in informational order:
@@ -769,8 +820,9 @@ Work only from the latest understanding. Authorities, in informational order:
 - **Oak's strategy** — from `.agent/reference-local/` (inform-only; original
   derivation only, never quoted/linked/copied).
 - **`VISION.md`** — the change and the three streams.
-- **Owner direction (2026-06-17 / 2026-06-18)** — the corrected model, the
-  streams-as-system, the bodies, the homes, the schools non-goal.
+- **Owner direction (2026-06-17 / 2026-06-18 / 2026-07-13)** — the corrected model, the
+  streams-as-system, the bodies, the homes, the schools non-goal, and the federated
+  visibility/audience contract.
 - **ADR-119** (the Practice), **PDR-018** (planning discipline — narrative-first on
   multi-workstream work; end-goal/mechanism/means; blocking-vs-beneficial;
   DECISION-COMPLETE readiness gate), **ADR-117** (document hierarchy — facts
@@ -790,7 +842,9 @@ three streams and is not a source of truth** — Body 2 supersedes it.
   20), so the remaining gates are just the **plan standard** and the **fresh survey**. Hygiene
   and the read+extract prep are exempt and **startable now**.
 - **No quoting, linking, or copying the local Oak reference** — derive only.
-- **No in-repo impact instrumentation** — articulate in the strategy, measure at Oak.
+- **No impact overclaim from instrumentation** — this plan names the visibility and evidence
+  boundaries; TAU owns the proposed instrumentation mechanics, while Oak-owned research,
+  evaluation, and outcome measures remain necessary to establish impact.
 - **No idea deletion** — value-preserving; every removal carries a disposition.
 - **No rewriting the survey report's dated findings** — its empirical map is a dated
   2026-06-15 record, re-derived by a *fresh* survey, not edited. The report is archived
@@ -811,6 +865,7 @@ re-checked if a body grows a code surface. Each claim is proven by the named
 | `vision-foundation` | `VISION.md` at `d4f6e0293` states three co-equal streams; mission verbatim; README consistent |
 | `strategy-decisions-preserved` | K1–K3, hybrid depth, README-three recorded and carried into the corpus |
 | `strategy-corpus` | `docs/strategy/` corpus exists, in the editorial voice; Oak-alignment (stream→goal, schools non-goal, pillars) derived; streams-as-system map present; each stream has choices + won't-do + measures (measures owner/Oak-grounded, not invented); K1–K3 inside the app section; every release-readiness requirement has a named hand-off; `VISION.md` links the corpus |
+| `stakeholder-visibility-contract` | the federated visibility section assigns one audience-shaped responsibility to the repo, Notion, Linear, GitHub, PostHog, and Sentry; separates delivery, operational, usage, and impact evidence; and records PR #339 as an adjacent draft authority rather than duplicating TAU mechanics |
 | `estate-restructure` | new structure applied; every plan traces to a strategic choice and is reachable; survivors rewritten to standard; complete archived; partial-completed extracted+archived; home decided; ungated collection gone; **every removed/moved item has a recorded disposition (supersession mapping)** |
 | `estate-restructure-prep` | every plan read; permanent documentation extracted to its durable home; genuinely-complete plans archived — all with recorded dispositions; no new boundaries asserted ahead of the strategy |
 | `estate-hygiene` | dead VISION anchors repointed; editorial-tone path fixed; PR-76 blocker cleared; reachability re-counted and remediated |
@@ -825,6 +880,8 @@ acceptance is proven.
 | Strategy authored as goal-list or impact-only, not choices+measures | the corpus acceptance requires diagnosis, what-we-won't-do, and measures per stream — an impact-only doc fails its proof |
 | Streams strategised as independent tracks | cohesion across-and-within is an acceptance condition; the streams-as-system map is required |
 | Measures invented by the agent rather than Oak-grounded | measures are an Oak input; acceptance requires owner/Oak grounding; surface an owner checkpoint where the signal isn't already known |
+| A stakeholder projection becomes a competing authority or stale status page | every external narrative links its source, states freshness and evidence limits, and keeps edits inside the surface's assigned responsibility |
+| Delivery, operational, usage, and impact evidence are collapsed into one success claim | keep the four evidence classes explicit; require research/evaluation and Oak-owned outcomes before claiming impact |
 | Strategy corpus authored in plain dev-doc voice | the editorial-tone directive applies to the strategy; "in the editorial voice" is an acceptance and proof condition |
 | The app silently re-acquires "first / more important" framing | the framing corrections are an explicit non-goal and a proof condition |
 | Restructure deletes value while "restructuring" | recorded disposition (supersession mapping per the consolidation discipline) — every removal carries one or it is a defect |
