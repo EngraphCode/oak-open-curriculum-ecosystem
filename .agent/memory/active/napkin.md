@@ -979,3 +979,26 @@ schemes. Timeline and facts, all first-hand:
   with by-hand staged-set verification and a worktree-scoped claim opened FROM the primary;
   never create a local `active-claims.json` in a worktree (decoy registry, F-41); and any
   `claims open` from a worktree fails — run all collaboration-state writes from the primary.
+
+### F-138 corrections (same session — the PR 355 late review round, verified against source)
+
+The merged notes drew a source-grounded review round; all three findings verified
+first-hand and correct. The record above stands amended:
+
+- **Hypothesis → verified mechanism.** `runCommitQueueTopic` collapses registry and git
+  roots into one: `repoRoot: input.repoRoot ?? resolveCoordinationHome(input.cwd)`
+  (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`), and `commit-queue/git.ts` runs all
+  staged reads with `cwd: repoRoot`. From a worktree, BOTH resolve to the primary — the
+  staged reads deliberately follow the coordination home, which is why record-staged saw
+  the primary's empty index. The cure boundary is the CLI wiring (split the roots), not
+  `runCommitWorkflow` as the entry above first suggested.
+- **The claims-open failure was self-inflicted, narrower than recorded.** `withResolvedActive`
+  (`collaboration-state/claim-active-path.ts`) defaults an OMITTED `--active` to the
+  coordination home (F-85 cure) — a worktree invocation without `--active` works. Only the
+  explicitly supplied relative `--active` resolved against the worktree and ENOENTed.
+  Interim guidance narrowed: from a worktree, omit `--active` (and other explicit relative
+  state paths); do not avoid the CLI wholesale.
+- **Practice note**: the "unverified hypothesis" label above did its job — the review round
+  targeted exactly the labelled claim, and verification replaced it with file:line
+  mechanism in one pass. Labelling epistemic status invites the cheapest possible
+  correction.
