@@ -82,6 +82,29 @@ prevents the #300–302 gate-suppressed-bot-PR family. Peer **Orchid binds Verdu
 
 ## INTER-PRACTICE EXCHANGE LANE — protocol LANDED both estates; conformance + wire-schema twins LANDED (2026-07-07)
 
+**2026-07-13 UPDATE (Monsoon herds Airstream, claude-code / claude-fable-5,
+prefix `8c566b`, pr-shepherd under an owner /loop directive):** PR #336 (the
+window's landing PR) was driven through 28 bot review rounds (110 threads,
+every disposition byte-verified) plus an owner-commissioned 155-agent
+Haiku/Sonnet diff-fleet assessment; the doctrine is substantially hardened
+(executable retirement bounds, the Step 4 transport exception with its
+PDR-064 mirrors, the quiet-write path carried into PDR-125 clause 3 / rule /
+skill, derived-name collision verification, full identity block with the
+four-field wire minimum). Analysis + fleet retrospective + OCE relevance:
+`.agent/reports/agentic-engineering/pr336-fleet-assessment-and-review-treadmill-2026-07-13.md`.
+**Handoff state**: merge at truly-green is the only remaining step on the PR.
+**This lane's standing follow-ups**: (1) RE-TWIN — the PDR-063/064/125
+post-review truings are ahead of the peer copies; the Practice-Core
+changelog's 2026-07-13 entry carries the per-item `impossible-with-named-reason`
+dispositions; the next exchange window's outbound bundle carries them over.
+(2) Fleet-critic design gaps for a design sitting: PDR-063 names no
+measurement procedure pending the deterministic context-budget tooling (that
+tooling's plan should cite ruling 3's deadline contract as a consumer); the
+effectiveness-window calibration is single-model with no recalibration
+procedure; the guest-retirement intersection (PDR-063 firing under the
+inter-practice ceremony) is unaddressed; the ceremony's adoption/closeout
+events carry no message_kind discriminator.
+
 **2026-07-07 UPDATE (written by the visiting resonance seat Kiln tracks Basalt,
 prefix `2a5066`, under the join ceremony — the WS0-landing record queued since
 2026-07-06 plus this landing's own):**

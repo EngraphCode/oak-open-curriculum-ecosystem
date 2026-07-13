@@ -4,6 +4,63 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-13 — post-review truings to PDR-125, PDR-063, PDR-064 and the ceremony surfaces (Monsoon herds Airstream, PR review rounds)
+
+- Review-round truings amending clauses twinned in the 2026-07-08 window
+  (each item below EXTENDS or mirrors a twinned original; the originals'
+  twinning stands): PDR-125 clauses 3 and 5 (quiet-write scoping; clause 3's
+  registration list extended to the full identity block, building on
+  clause 5's already-twinned platform/model fields; override precedence
+  with the derived-only anomaly qualification and `(agent_name, id)`
+  collision disambiguation; the already-twinned
+  successor-details-are-hypotheses rule mirrored into the runnable
+  ceremony); PDR-063 (two-axis + post-commit signal
+  model with the observable next-cycle floor; §Retirement authority with the
+  executable wait bound and the no-recipient Step 4 transport exception;
+  §Deliberate succession initiator discriminator); PDR-064 (transport-
+  exception mirror in the coordinator-retirement intersection); the
+  join-ceremony skill, cross-repo rule, and start-right-team mirrors; the
+  ADR-211 host-phenotype amendment.
+- Twin disposition for every item above: `impossible-with-named-reason` (no
+  live peer seat in this window) — the affected portable texts are AHEAD of
+  the peer copies; re-twin queued for the next exchange window's outbound
+  bundle. The 2026-07-08 entry below describes only that window's twinned
+  landing.
+
+## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-125 + PDR-063 amended in the cross-estate window (resonance guest seat, owner-authorised)
+
+- PDR-125 carries the v1 clause-conservation amendment batch, twinned with
+  the peer estate's copy in one window (cross-estate diff re-proven:
+  divergence confined to number / Related / phenotype): clause 3 gains the
+  asymmetric-naming and cwd-is-a-coordinate sentences; clause 5 gains
+  seed-only name derivation, all-successor-details-are-hypotheses, and
+  platform+model as explicit never-inferred registration fields; clause 6
+  gains the both-estates innovation posture (per-item twin dispositions);
+  clause 7 gains format-normalise-on-receipt and corrections-are-new-events.
+  The join-ceremony skill and the cross-repo rule carry the matching step
+  amendments plus the owner's read-scoping ruling (read-only estate looks
+  are unceremonied; the ceremony binds collaboration boundaries).
+- PDR-063 gains §Retirement authority (owner rulings 2026-07-08: no
+  self-declared exhaustion ever — measured metrics only; owner-present the
+  owner calls handoffs; owner-absent surface-then-autonomous at a measured
+  signal — the ~50 % effectiveness-window start primary under rotating cast,
+  the ≥ 80 % ceiling, or a measured post-commit shortfall, whichever fires
+  first) and
+  §Deliberate succession (the in-flight discriminator), composing with this
+  estate's effectiveness-window refinement, which the peer estate is
+  backporting in the same window.
+- Per-item twin dispositions (clause 6): the PDR-125 clause batch (clause 3
+  ×2, clause 5 ×3, clause 6 posture, clause 7 ×2) — `twinned-in-window`
+  (cross-estate diff re-proven) **as of the 2026-07-08 window**; the PDR-063
+  §Retirement authority + §Deliberate succession amendments —
+  `twinned-in-window` (peer backport, same window) **as of that window**;
+  the join-ceremony skill + cross-repo rule step amendments — local
+  `twinned-in-window` as part of the same landing (the rule and the
+  runnable skill travel in the propagating Core set — shared machinery,
+  never local code). These dispositions describe this window's landed
+  text; the post-review truings that later amended these clauses are the
+  2026-07-13 entry above, with their own disposition.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-126: gates land strict in one landing (Corsair guards Channel, dedicated consolidation)
 
 - PDR-126 authored (`pdr_kind: governance`): a gate lands at ERROR with full

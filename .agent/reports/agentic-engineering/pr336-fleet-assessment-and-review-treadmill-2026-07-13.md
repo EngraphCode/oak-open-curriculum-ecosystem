@@ -1,0 +1,252 @@
+# PR #336: the review treadmill, the diff fleet, and what each taught — 2026-07-13
+
+Session record (Monsoon herds Airstream, 8c566b; owner-directed). Two
+assessment regimes ran against one artefact — PR #336's cross-estate
+doctrine diff (~600 added lines over 15 files) — and this report records
+the analysis results, how the fleet mechanisms and protocols performed,
+and how both relate to upcoming work in this estate. Companion evidence:
+the workflow journal for run `wf_508d7cac-c56` (session-local), the PR's
+own 110 dispositioned review threads, and the batch commit
+`SHA:5433b80ff`.
+
+## 1. What was assessed
+
+PR #336 lands the cross-estate window's doctrine: PDR-125 clause
+amendments, PDR-063 §Retirement authority + §Deliberate succession,
+PDR-064 intersection updates, the join-ceremony skill and cross-repo
+rule, start-right-team mirrors, ADR-182/ADR-211 phenotype notes, the
+controlling plan's clause mirror, and the practice-core changelog.
+
+## 2. Regime one — the bot review treadmill (rounds 1–28)
+
+Each push triggered a full re-review by three bots (Copilot, Codex,
+Cursor Bugbot), ~10 minutes per round. New findings per round:
+6, 12, 3, 3, 1, 5, 2, 6, 2, 3, 5, 2, 4, 4, 5, 3, 3, 1, 3, 1, 6, 5, 5,
+2, 3, 4, 3, 4 — 110 threads total (rounds 25–28 arrived after the fleet
+batch and were mostly mirror echoes of the fleet-era fixes), every one
+dispositioned with byte-verified replies (fixed, already-fixed-race, or
+declined-with-rationale; three declines: a received exchange artefact's
+wording per corrections-are-new-events, one estate-idiom flag, and the
+changelog's bracketed estate name — that ledger's defined function).
+
+The shape is NOT a clean asymptote. Substantive fixes to portable
+doctrine created mirror obligations (skill, rule, adapters, changelog,
+plan, host ADRs) that the next round then correctly demanded — roughly
+half of all rounds were echoes of the previous round's own additions.
+The detection rate approaches zero only when a push adds no new
+doctrine surface. Real hardening emerged (executable bounds, observable
+measurements, one boundary stated identically across five surfaces),
+but at ~10 minutes and one full re-review per iteration.
+
+## 3. Regime two — the diff fleet (owner-directed, ultracode)
+
+One background workflow over the same diff, modelled on the sibling
+estate's fleet-hardening runs (its 2026-07-12 deep review: expert
+passes + a Haiku verification fleet, "every subagent claim
+spot-verified or cross-converged before acceptance", with recorded
+Haiku literalism overridden by first-hand reads).
+
+Design:
+
+- **66 Haiku finders** — one file × one lens each (contradiction,
+  undefined-mechanism, counts, chronology, verified references,
+  language, portability), low effort, ≤8 findings, anti-stub schema:
+  every finding carries an EXACT verbatim quote (declared as
+  byte-checked), and an empty result is declared a success.
+- **6 Sonnet cross-surface agents** — the retirement family, the
+  ceremony family, the plan mirror, provenance coherence,
+  doctrine-vs-code (mechanism claims checked against
+  `types.ts`, the wire schema, `derive.ts`, claims-adopt), and
+  authority coherence.
+- **1 Sonnet refute-first verifier per deduped finding** — fabrication
+  check first (quote must exist verbatim), then adversarial
+  adjudication with the literalism warning in the brief.
+- **2 Sonnet completeness critics** (semantic drift; cold-executor
+  walk).
+- **Final layer: the primary agent's own read of ALL verdicts** —
+  confirmed, refuted, and fabricated alike (assess-everything).
+
+Run: 155 agents, 28 minutes wall-clock, ~6.6M subagent tokens,
+1,276 tool uses.
+
+## 4. Fleet results
+
+**85 raw findings → 81 deduped → 12 CONFIRMED / 53 REFUTED /
+1 FABRICATED / 0 UNCERTAIN** (15 finder units died on the structured-
+output retry cap — see §5). The 12 confirmed were all real and all
+fixed in the batch `SHA:5433b80ff`: a dangling practice-index link, a
+missing amendment annotation on PDR-063's status, two grammar defects
+in session-authored text ("pend authority to", "waits that window"),
+a wrong ordinal citation (move 6 → move 7), a stale `last_updated`,
+the QUIET classification made operational (three coordination
+surfaces, all silent), estate-deictic worked examples made
+role-neutral, two load-bearing clause-3 rules restored to the
+ceremony's cold-read surface, an ADR list-indent defect, a missing
+article, and a truings-vs-mirrors provenance split in PDR-125's
+status. The critics added three design-level follow-ups (§7) and one
+claim the primary refuted (a §Retirement-authority "tension" that
+misread Step 1's routing sentence).
+
+One meta-catch outranked the fleet: the pre-commit
+reference-direction validator REFUSED the fleet's own link fix
+(pointing portable Core at a repo-local file) and forced the correct
+by-role reference per PDR-105. Deterministic gates stay above both
+regimes.
+
+## 5. Mechanism performance — what worked, what did not
+
+Worked:
+
+- **Quote-anchored anti-stub schema**: exactly 1 fabrication in 85 —
+  the mandatory-verbatim-quote + declared byte-check pattern
+  essentially eliminated the schema-valid-stub failure mode this
+  estate recorded on 2026-07-08 (3/13 stubs without it).
+- **Sonnet verification layer**: cut 81 → 12 (65% refute rate). The
+  refutations were dominated by exactly the predicted Haiku failure
+  modes: literalism (qualified statements read as unqualified),
+  house-style flags, and already-handled-nearby claims. Without this
+  layer the fleet's output would have been mostly noise.
+- **Sonnet cross-surface agents**: contributed 3 of the 12 confirmed
+  (the two provenance conflicts and the cold-read gap) — the lens
+  Haiku structurally cannot hold.
+- **Batching against the treadmill**: 7 bot findings arrived during
+  the fleet run, were fixed locally and HELD, then landed with the
+  fleet's 12 in ONE push — one bot round instead of up to seven.
+
+Did not work / costs:
+
+- **15/66 Haiku finder units (23%) died on the structured-output
+  retry cap** — never returned. Coverage of those file × lens cells
+  is silently absent (logged here per no-silent-caps). Likely cause:
+  low-effort Haiku struggling with the strict schema on long files.
+  Cure candidates: simpler schema for finders, higher retry cap,
+  or Sonnet fallback on retry exhaustion.
+- **Finder precision was low** (12/81 ≈ 15%): acceptable only because
+  verification was cheap relative to bot rounds; a standing protocol
+  should tighten finder briefs with per-lens worked examples of
+  NON-findings.
+- **Latency**: 28 minutes end-to-end — ~3 bot rounds' worth — but it
+  swept the WHOLE diff once, versus the treadmill's incremental
+  drip. For a 28-round artefact the fleet is decisively cheaper in
+  wall-clock; for a 2-round artefact it would not be.
+
+## 6. Comparative verdict
+
+The treadmill and the fleet found largely DISJOINT defect sets: the
+bots excel at cross-round consistency pressure on freshly-pushed text
+(they re-read the whole diff every time, mercilessly), while the
+fleet's lens grid + critics found long-standing defects the bots never
+raised in 25 rounds (the dangling link, the stale `last_updated`, the
+undefined QUIET check, the deictic examples). The right standing shape
+is therefore **fleet-first, bots-after**: run the fleet BEFORE the
+first push of any large doctrine diff, land one hardened batch, and
+let the bots take one or two passes at the residue — inverting the
+ratio that produced 28 rounds here.
+
+## 7. Relation to upcoming OCE work
+
+- **`effectiveness-and-impact` assessment-methodology research** (the
+  `mcp-content-assessment-methodology-research` plan, owner-gated):
+  this fleet is a live instance of the review-protocol shape the 697
+  high-impact content items will need. Directly reusable primitives:
+  the quote-anchored anti-fabrication schema (a content-eval
+  primitive), the find/verify split with refute-first adjudication,
+  the per-lens narrow-remit decomposition, and the measured
+  finder-precision / verifier-yield figures as baseline data for the
+  plan's M-family grounding (LLM-as-judge validity, statistical
+  power). The 23% finder-failure rate is a capability datum for
+  runner selection (WS0 P2's MCPJam expressiveness probe should note
+  model-tier floor effects).
+- **Corpus-generalisation Phase 0** (paused; restart owner-scheduled):
+  the phase-0 design's single-model-voter measurement (inter-lens
+  phi ≈0.55 → ≈1.4 effective votes of 3) predicted that same-model
+  voters are partially redundant; this run's cross-TIER split
+  (Haiku find, Sonnet verify) is the complementary design point —
+  diversity by capability tier, not just by lens — and the 65%
+  refute rate is evidence the tiers genuinely disagree.
+- **PDR-101 quorum economics**: a new data point beside the 2026-07-08
+  four-seat quorum (~557k tokens, 2 convergent must-fix classes):
+  155 agents / ~6.6M tokens / 12 confirmed + 3 design follow-ups on
+  an already-22-rounds-reviewed artefact.
+- **Acacia's draft PR #345** (concept exploration, same window):
+  frames concern groupings as assurance boundaries joining
+  expert-review corpora and automated eval suites — this fleet's
+  lens grid is a concrete instance of such a boundary set; the two
+  should meet in the content-workspace design when the owner
+  schedules it.
+- **Design follow-ups surfaced by the critics** (not fixed in the
+  batch; they need owner/design input): (a) PDR-063 names no
+  measurement procedure for its Step-1 percentages beyond the pending
+  deterministic context-budget tooling — that tooling's plan should
+  cite ruling 3's deadline contract as a consumer; (b) the
+  effectiveness-window calibration exists for one model only, with no
+  recalibration procedure for other models; (c) the
+  guest-retirement intersection (PDR-063 firing while under the
+  inter-practice ceremony) is unaddressed in both records; (d) the
+  ceremony's adoption and closeout events carry no message_kind
+  discriminator. Routed to the `agentic-engineering-enhancements`
+  thread record's agenda by this report.
+
+## 8. Failure-mode log (for the next fleet author)
+
+- Structured-output retry deaths concentrate in low-effort Haiku on
+  long files: budget for a fallback tier.
+- A comms watcher armed without its required `--seen-file` argument
+  crash-loops silently inside a Monitor re-arm loop — assert the
+  watcher live (F-95 check) after arming, not just armed.
+- `gh pr update-branch` advances the remote: merge it back locally
+  before the next push or the push is rejected non-fast-forward
+  (bitten twice this session).
+- Fleet fixes are NOT exempt from the estate's deterministic gates:
+  run the full pre-commit chain before trusting any fleet fix
+  (the reference-direction refusal here was correct).
+
+## 9. Session loss review — what this context held, and where it now lives
+
+Deep review at handoff (owner-directed). Everything below was, until this
+handoff, held only in one very long session context.
+
+**Conserved to durable homes:**
+
+- The per-round finding data, disposition rationales, and comparative
+  verdict — §2–§6 of this report + the PR's 110 review threads (each
+  reply is a byte-verified permanent record).
+- The fleet's design, yields, failure modes, and reuse guidance — §3–§5,
+  §8 of this report.
+- The OCE-relevance bridges — §7, plus the AEE thread record's
+  2026-07-13 lane update (the re-twin obligation and the four critic
+  design gaps, routed as that lane's standing follow-ups).
+- Session-behavioural lessons (the missed post-merge wave and its cure,
+  the batching discipline, the watcher-assert lesson, the update-branch
+  race, gates-outrank-fleets) — the napkin's 2026-07-13 part-2 entry.
+- Live state for the next reader — repo-continuity's PR #336 bullet;
+  the controlling plan's trued status and todo graph.
+- The branch/worktree cleanup census and its proof criteria — the
+  napkin entry (95 local + 2 remote deleted, 25 + 7 kept with reasons).
+
+**Accepted ephemeral losses (deliberate, with reasoning):**
+
+- The fleet's raw per-agent transcripts and the workflow journal
+  (session-local): the report's counts and confirmed-finding table are
+  the snapshot; the journal is reproducible in design from §3. Same
+  disposition class as the 2026-07-09 registry audit outputs.
+- The workflow script file (session-local): §3 describes the design
+  completely enough to re-author; inlining ~200 lines of JS here would
+  duplicate a described mechanism.
+- The 53 refuted and 1 fabricated finding bodies: the refute-rate and
+  failure-mode analysis (§5) is the durable signal; the bodies are
+  fleet-output residue.
+- Chat-only reasoning texture (round-by-round triage deliberation,
+  owner exchange phrasing): the decisions all landed in commits, thread
+  replies, and this report; the texture is session-mortal by design.
+
+**Residue explicitly handed forward (not lost, owned):**
+
+- The stale Hedgehog claim `b23a3800` in `active-claims.json`
+  (warden-lane sweep).
+- The 7 `remediate-main-*` remote branches (owner judgment, not proof).
+- The napkin is well over its rotation threshold (~700 lines) — a
+  dedicated consolidation pass is DUE (recorded here per the
+  consolidation gate; not run at this handoff, which is session-scoped).
+- The re-twin bundle for the sibling estate (the changelog's 2026-07-13
+  per-item dispositions are the manifest).
