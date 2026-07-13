@@ -186,9 +186,14 @@ below serves one of those three.
    - **Shared spec** — this portable PDR (the prose contract).
    - **Shared schema** — a versioned, machine-readable schema for the
      cross-estate wire shapes: the comms-event fields exchange relies
-     on, the claim `repo_ref`, the box-file / exchange-envelope
-     frontmatter, AND the watcher heartbeat/seen files (the live run
-     proved liveness files are wire surfaces too). Core-carried, so
+     on, the claim `repo_ref`, the exchange DELIVERY comms event, AND
+     the watcher heartbeat/seen files (the live run
+     proved liveness files are wire surfaces too). Box files
+     themselves stay pin-free markdown prose per clause 7 — their
+     machine-readable time-bound layer IS the paired delivery comms
+     event, so the schema covers that event, never box-file
+     frontmatter (the landed v1 schema records this scope in its own
+     `$comment_scope`). Core-carried, so
      two estates validate inbound foreign material against the SAME
      schema and a mismatch is a typed refusal, never a silent misread.
    - **Local code** — each repo implements its own CLI and validators
