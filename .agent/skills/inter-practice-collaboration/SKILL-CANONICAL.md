@@ -90,12 +90,15 @@ exemption scan needs the full history for unmatched openings.
 PDR-078's fourth exemption — consumer-absent — is NOT a scannable
 window and never enters this check as one: it is derived from the
 home's CURRENT registry/conductor state with self-healing exits (a
-consuming peer appears, the conductor goes async, the cast rotates),
-and its effect on the QUIET read is already carried by the first
-surface — an unexpired claim counts live with no heartbeat at all,
-and a live conductor shows as its own activity within the retirement
-window. A truly empty estate (no claims, no in-window activity, no
-open bounded window) reads QUIET. The moment the session writes
+consuming peer appears, the conductor goes async, the cast rotates).
+Its seats can be nearly invisible on coordination surfaces — an
+unclaimed solo session emits no heartbeats and need not hold a claim
+— so the QUIET read must ALSO consult the home's ground-truth work
+surfaces: git activity newer than the retirement window (commits on
+live branches, working-tree or index movement where observable)
+vetoes QUIET even when every coordination surface is silent. A truly
+empty estate (no claims, no in-window comms or watcher activity, no
+in-window git activity, no open bounded window) reads QUIET. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

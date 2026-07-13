@@ -663,6 +663,9 @@ session-behavioural captures).
 
 ## 2026-07-13 — Aspen stirs Blossom (2fbfde): full succession from Monsoon + the PR 347 shepherd
 
+<!-- fitness exceeded by ~400 lines; needs consolidation — the dedicated pass is DUE (also
+flagged at the 2026-07-13 part-2 entry and in Monsoon's handoff) -->
+
 Owner-directed incremental-then-full succession from Monsoon herds Airstream (8c566b); PR #347
 shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes on
 `docs/pr347-postmerge-tail`.

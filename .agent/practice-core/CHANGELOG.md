@@ -37,9 +37,10 @@ Practice Core package.
   opening/closing pairs from canonical event history, never a bounded
   tail; PDR-078's consumer-absent exemption is NOT a scannable window
   — it is derived from the home's current registry/conductor state
-  with self-healing exits, and its QUIET-read effect is already
-  carried by the claims surface, so a truly empty estate reads
-  QUIET); the cross-repo rule's QUIET
+  with self-healing exits, and because its seats can be unclaimed and
+  heartbeat-silent the QUIET read also consults ground-truth work
+  surfaces — in-window git activity vetoes QUIET; a truly empty
+  estate reads QUIET); the cross-repo rule's QUIET
   description now points at the skill's three-surface liveness check
   instead of an informal gloss; the start-right-team retirement mirror
   restores PDR-063's authority qualifier (owner or coordinator word

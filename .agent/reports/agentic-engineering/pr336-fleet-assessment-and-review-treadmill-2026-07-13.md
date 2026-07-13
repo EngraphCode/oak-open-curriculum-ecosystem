@@ -333,11 +333,13 @@ handoff, held only in one very long session context.
   rationales are session-mortal (a third run defect — see §8). The
   transcripts behind them remain session-mortal, reproducible in
   design from §3.
-- The verdict-to-finding LINKAGE for the 15 unverified rows, and the
-  per-finding adjudication depth beyond the extract's 500-character
-  evidence caps (see §4): the finding and verdict BODIES themselves
-  survive in the companion evidence file and are not lost — what is
-  lost is the linkage and depth. The refute-rate and failure-mode
+- The verdict-to-finding LINKAGE on the 66 recorded verdict rows —
+  whose absence is exactly what prevents identifying WHICH 15 of the
+  81 deduped findings carry no verdict — and the per-finding
+  adjudication depth beyond the extract's 500-character evidence caps
+  (see §4): all 81 finding bodies and all 66 verdict bodies survive
+  in the companion evidence file and are not lost — what is lost is
+  the linkage and depth. The refute-rate and failure-mode
   analysis (§5) is the durable signal; re-adjudicating fleet-output
   residue is a NAMED de-prioritisation (the unverified 15's expected
   yield is assessed low in §4), not a silent loss.
