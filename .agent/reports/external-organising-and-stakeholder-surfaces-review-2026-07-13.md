@@ -458,12 +458,19 @@ of a thread. Therefore:
 ### 4.3 Existing implementation evidence
 
 The current repository contains no automated Linear projection or reconciliation implementation.
-There is, however, a live manually maintained Linear project for this work, so "no integration"
-must not be misread as "no useful Linear surface".
+It does contain a live manually maintained Linear project, a tracked pull-request linkage contract,
+and plugin enablement for agent-side Linear access. Those are useful integration surfaces, but they
+must not be mistaken for automated projection, reconciliation, or proof that a plugin is installed
+and authenticated in a particular contributor environment.
 
 Present:
 
 - the Cursor plugin setting enables `linear` in [`.cursor/settings.json`](../../.cursor/settings.json);
+- [`.claude/settings.json`](../../.claude/settings.json) enables
+  `linear@claude-plugins-official`, and the contributor README documents its installation and
+  authentication boundary;
+- [`.github/PULL_REQUEST_TEMPLATE.md`](../../.github/PULL_REQUEST_TEMPLATE.md) requires a Linear
+  relationship, while [`CONTRIBUTING.md`](../../CONTRIBUTING.md) documents the GitHub integration;
 - the graph foundation exists in
   [`packages/core/graph-core`](../../packages/core/graph-core/README.md) and
   [`packages/libs/graph-ingest`](../../packages/libs/graph-ingest/README.md);
@@ -480,14 +487,13 @@ Not found:
 - a Linear projector or exporter command;
 - a Linear connector under `agent-tools`;
 - validated write-back;
-- PR-template integration;
 - a GitHub workflow performing reconciliation;
 - an implemented stale-pointer or projection-integrity validator.
 
 The older plan claims that the Linear MCP plugin was already wired in both Cursor and Claude. The
-current [`.claude/settings.json`](../../.claude/settings.json) enables Sentry,
-`mcp-server-dev@claude-plugins-official`, and Sonar plugins, but not Linear. That claim is therefore
-stale or at least no longer demonstrated by the current configuration.
+current tracked settings now demonstrate Linear plugin enablement in both agent environments. They
+do not prove that the plugin is installed, authenticated, or live in any particular contributor
+session; that remains environment-specific runtime evidence.
 
 ### 4.4 Open architectural questions
 
@@ -884,7 +890,7 @@ The essential constraints would be:
 - Plan and idea-graph architecture in ADR-200 and the current rewrite plan.
 - Reserved plan-layer `projects_to`, `realized_by`, and `validated_by` edges.
 - Cursor plugin enablement for Linear, PostHog, Sentry, Vercel, and other services.
-- Claude plugin enablement for Sentry and Sonar, but not currently Linear.
+- Claude plugin enablement for Linear, Sentry, MCP server development, and Sonar.
 - Slack assistant design and executable plan.
 
 ### 11.2 Important implementation absent
@@ -918,7 +924,7 @@ must remain future-tense wherever the consuming runtime does not exist.
 | Trigger ownership | Session handoff emits updates | Graph-derived desired state, connectors, triggers, validated write-back | Session handoff may trigger, but should not own semantics |
 | Failure behaviour | Skip on MCP timeout; warnings initially | Strict, complete, no warning toleration, fail-fast | Old fallback/warning shape is not compatible with current doctrine |
 | Cardinality | One existing repo project; thread labels | V0 `projects_to` 0..1 | Must be tested against real team/project structure; many-to-many remains plausible |
-| Linear plugin state | Claimed wired in Cursor and Claude | Current config demonstrates Cursor only | Older claim is stale or unproven |
+| Linear plugin state | Claimed wired in Cursor and Claude | Tracked config enables Linear in both environments | Tracked enablement is confirmed; live installation and authentication remain unproven |
 | Graph authority | Governed document graph | Living idea graph with documents as projections | ADR-200 supersedes document-as-fundamental framing |
 | External service model | Peer pointer surface | Typed projection and evidence edges | The sources converge on this direction, but ADR-201 and the connector contract remain proposed |
 | Figma | Design source in imported semantic model | Omitted from ADR-201 connector map | Needs separate ratification and likely more than one edge family |
