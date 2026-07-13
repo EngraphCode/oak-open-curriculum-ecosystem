@@ -602,6 +602,52 @@ preserved verbatim before that worktree's removal.
 - **Stranding guard worked as doctrine:** asserted PR still OPEN immediately after the push
   (the cure candidate from the 2026-07-09 recurrence); no stranding this time.
 
+## 2026-07-13 — Thyme guards Seedling (019f5b): public-alpha workflow exploration
+
+- **Mistake / tooling seam:** I opened the short-lived commit claim in the linked worktree's
+  untracked registry. `commit-queue` resolves its registry and Git `repoRoot` to the primary
+  coordination checkout, so it could neither see that claim nor safely operate on this worktree's
+  index. The primary checkout also contains an unrelated user edit. For this isolated n=1 worktree,
+  use the commit skill's explicit-pathspec fallback after verifying the worktree's staged set; do
+  not redirect the composed queue workflow at the primary checkout merely to make the claim visible.
+- **Owner correction:** teacher authority is invariant over every user interaction; the agent is
+  only ever facilitating. The named examples are demo fixtures, not capability scope: flows and
+  tools must work for any lesson, topic, or unit. Localisation demo locale is Watford, England.
+- **Concept frame changed on the full-space pass:** workflow delivery is only one mechanism inside a
+  generic, teacher-controlled facilitation protocol over typed curriculum anchors. Three distinctions
+  prevent attractive but false simplifications: teacher authority is compatible with reversible
+  read-only initiative; curriculum-wide generality does not require uniform steps or complete data;
+  and a compelling photosynthesis/Watford demo makes the mechanism visible but does not prove
+  generality or cross-host portability.
+- **Commit-message helper usage mistake:** I passed the proposed message as a positional argument to
+  `agent-tools:check-commit-message`; the helper deliberately mirrors `git commit` and requires
+  `-m <message>` (or stdin/file input). The exit was invalid usage, not a commitlint verdict. Use the
+  explicit `-m` form before committing.
+
+<!-- fitness already exceeded; this behaviour-changing exploration result must still be preserved
+and needs later consolidation -->
+
+- **Concept-exploration exit pass corrected an over-unification:** “one generic facilitation
+  kernel” fused two separate properties. The durable shape is one shared teacher-authority/fidelity
+  constitution, multiple bounded intent-specific workflows, and a generic deterministic curriculum
+  substrate. Generality belongs to the invariants, the entity operations, and each workflow's
+  curriculum coverage—not to forcing preparation and engagement localisation through one uniform
+  dialogue. The same pass separated the natural teacher experience from the internal evidence trace;
+  both are required for the demo, but exposing protocol mechanics to the teacher is not.
+- **Search-scope mistake during the exit audit:** a broad `rg` across plans, milestones, architecture,
+  the MCP app, and SDK emitted roughly 66,000 lines and truncated, obscuring the signal. The useful
+  recovery was to read the directly identified milestone, ADR, workflow, and prompt source files.
+  For concept audits, use a light index scan to find load-bearing files and then switch immediately
+  to directed reads.
+- **Critical-fitness post-mortem:** (1) the earlier zones did fire—the pre-rotation napkin recorded a
+  710-line warning, and the buffer was processed and rotated on 8 July—but many independent sessions
+  then appended substantial new learning faster than the next consolidation cadence; the signal was
+  visible rather than absent. (2) The limit is still appropriate for this file's drainable-buffer
+  role: raising it would conceal the backlog, while trimming would violate preservation. (3) The
+  critical state is a missing-consolidation symptom across the post-rotation entries. This session's
+  stable product substance is already in the dedicated research note; the napkin entries still need
+  a later holistic consolidation that graduates every mature concept before rotation.
+
 ## 2026-07-13 — Monsoon herds Airstream (8c566b), part 2: the PR #336 treadmill, the diff fleet, and the loop session
 
 <!-- fitness exceeded by ~380 lines; needs consolidation — dedicated pass DUE (also recorded in the fleet report §9 and the session handoff) -->
@@ -660,3 +706,44 @@ session-behavioural captures).
   continuity but is a judgment, not a proof; owner call). Local main fast-forwarded.
 - **Registry hygiene residue**: the stale Hedgehog claim (b23a3800, PR #304 pr-shepherd,
   expired 2026-07-06) remains in active-claims.json — flagged for the next warden-lane write.
+
+## 2026-07-13 — Aspen stirs Blossom (2fbfde): full succession from Monsoon + the PR 347 shepherd
+
+<!-- fitness exceeded by ~400 lines; needs consolidation — the dedicated pass is DUE (also
+flagged at the 2026-07-13 part-2 entry and in Monsoon's handoff) -->
+
+Owner-directed incremental-then-full succession from Monsoon herds Airstream (8c566b); PR #347
+shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes on
+`docs/pr347-postmerge-tail`.
+
+- **The PDR-064 two-moments shape carried a FULL-ROLE succession cleanly**: pre-positioning
+  (triaged manifest, every detail marked hypothesis) → my Moment-2 ack → retiring seat's
+  closeout + final-heartbeat-end. A post-close preservation addendum then rescued the verbatim
+  fleet workflow script — a retiring seat can still hand substance forward AFTER authority
+  transfers, via broadcast; the successor lands it durably.
+- **Treadmill data, successor tenure**: 57 threads over ~9 review rounds in ~75 minutes;
+  roughly 40% were bots racing already-pushed fixes (review rounds are computed on the diff at
+  round START — a thread's timestamp does not prove it saw the current head; only remote byte
+  checks prove raced-vs-real). Convergent-refinement chains are real: my own steps-2–7 clause
+  took three rounds to converge to steps-2–6-with-Moment-2-named; the QUIET check evolved four
+  times (heartbeat-tagged events → time bound on all categories → named-boundary windows via
+  canonical-history pairs → consumer-absent-is-state-not-a-window). Lesson: when a fix
+  introduces NEW doctrine text, pre-check it against the cited PDR's own edge cases (forced
+  retirement, threshold-suspension exemptions) BEFORE pushing — the bots found each edge one
+  round later, each costing a full round-trip.
+- **The exit was the owner's merge, not thread-quiet**: checks green + 0 unresolved was reached
+  three times and a fresh round landed each time; the owner merged inside one such window. The
+  +10-minute tail harvest then caught 3 more threads (fixed on the follow-up branch) — third
+  instance of the tail-window class; the mandate is earned.
+- **Four extract run defects named for the next fleet author** (report §8): no
+  verdict-to-finding linking key; a verifier evidence stub (anti-stub anchors must cover
+  verifier fields); 64/66 evidence rows clipped at exactly 500 chars by the extract writer;
+  file/lens metadata dropped at export (phase split unrecoverable — cross-surface rows carried
+  only the generic label in-run, defeating file-aware dedup).
+- **Write-hook fires, both concept-improving**: "restore" inside a claim summary tripped the
+  git-destruction substring policy (rephrased, no bypass); "carve-out" tripped the
+  expediency-hedge fingerprint — reappraisal found the design genuinely uniform
+  (role-determined default action) and the positive statement was better.
+- **F-133 recurrence-consistent**: all six commits this tenure used the sanctioned plain
+  pathspec path from the worktree (queue verify-staged cannot read a worktree index); claims
+  opened/closed per window, zero contention (solo on the tree throughout).
