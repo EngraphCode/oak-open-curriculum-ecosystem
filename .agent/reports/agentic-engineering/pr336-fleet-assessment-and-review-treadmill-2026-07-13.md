@@ -109,7 +109,8 @@ Worked:
   the mandatory-verbatim-quote + declared byte-check pattern
   essentially eliminated the schema-valid-stub failure mode this
   estate recorded on 2026-07-08 (3/13 stubs without it).
-- **Sonnet verification layer**: cut 81 → 12 (65% refute rate). The
+- **Sonnet verification layer**: 66 verdicts over 81 deduped, 12
+  confirmed (80% of verdicts were refutations). The
   refutations were dominated by exactly the predicted Haiku failure
   modes: literalism (qualified statements read as unqualified),
   house-style flags, and already-handled-nearby claims. Without this
@@ -163,7 +164,8 @@ ratio that produced 28 rounds here.
   the per-lens narrow-remit decomposition, and the measured
   finder-precision / verifier-yield figures as baseline data for the
   plan's M-family grounding (LLM-as-judge validity, statistical
-  power). The 23% finder-failure rate is a capability datum for
+  power). The 19% verifier-failure rate (15/81 schema-retry deaths) is
+  a capability datum for
   runner selection (WS0 P2's MCPJam expressiveness probe should note
   model-tier floor effects).
 - **Corpus-generalisation Phase 0** (paused; restart owner-scheduled):

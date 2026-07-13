@@ -276,7 +276,8 @@ replaces it. No other step changes.
    executable, not vibes: the surfacing event MUST declare its
    absolute deadline and the default action that fires at the
    deadline (protocol default when no coordinator SLA applies:
-   10 minutes, then autonomous execution of the five steps — matching
+   10 minutes, then autonomous execution of the remaining Steps 2–5 —
+   matching
    the estate liveness convention's 10-minute retirement window).
    Autonomous execution does not require a live successor: the five
    steps complete with the Step 2 handoff record as the durable

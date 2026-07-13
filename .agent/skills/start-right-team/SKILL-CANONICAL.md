@@ -810,7 +810,8 @@ one (PDR-063 ruling 3; the platform's declared notification
 mechanism is a host-phenotype fact — a platform with none satisfies
 surfacing with the comms event alone), with an explicit absolute deadline and default action
 declared in the surfacing event (protocol default when no
-coordinator SLA applies: 10 minutes, then autonomous execution),
+coordinator SLA applies: 10 minutes, then autonomous execution of
+the remaining Steps 2–5),
 waits out that declared window, and AT THE DEADLINE EXECUTES the
 declared default action — the REMAINING Steps 2–5, autonomously, on
 the measured verdict (Step 1 already fired and completed this
