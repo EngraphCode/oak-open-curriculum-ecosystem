@@ -26,6 +26,7 @@ this thread is about the *authored framing/instructions/descriptions* Oak contro
 | --- | --- | --- | --- | --- | --- | --- |
 | claude | claude-fable-5 (switched from claude-opus-4-8[1m] mid-session 2026-07-09; continuous seat per PDR-027) | 2bd86d | Beacon hunts Brilliance | analyst + implementer | 2026-07-09 | 2026-07-09 |
 | claude-code | claude-fable-5 | 8c566b | Monsoon herds Airstream | pr-shepherd | 2026-07-13 | 2026-07-13 |
+| codex | GPT-5 | 019f5b | Acacia wakes Sapling | explorer | 2026-07-13 | 2026-07-13 |
 
 ## Landing Target For Next Session (trued 2026-07-13, Monsoon herds Airstream)
 

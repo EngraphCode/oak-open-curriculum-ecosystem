@@ -601,3 +601,54 @@ preserved verbatim before that worktree's removal.
   stayed closed.
 - **Stranding guard worked as doctrine:** asserted PR still OPEN immediately after the push
   (the cure candidate from the 2026-07-09 recurrence); no stranding this time.
+
+<!-- fitness exceeded before this entry; needs consolidation — capture preserved at full weight -->
+
+## 2026-07-13 — Acacia wakes Sapling (019f5b): MCP agent-influence concept exploration
+
+- **The folder question is downstream of four different units that the present audit makes
+  visible:** 716 authored fragments are the edit/inventory units; assembled server instructions,
+  tools, prompts, resources, and UI are review/composition units; end-to-end trajectories such as
+  tool selection, recovery, safety, faithfulness, and context cost are evaluation units; and
+  `source_locus` names the repository that owns the words. A single concern-shaped folder tree
+  cannot carry all four identities without duplication or hidden cross-links. The clarified
+  hypothesis is an authoring/composition plane plus durable concern-assurance bundles, each joining
+  an expert-review product and an automated-evaluation product; this is not yet a design decision.
+  Evidence: 81 of 143 source files contain more than one primary review domain, 35 mix source loci,
+  and safety flags cut across seven domains.
+- **The registry's `review_domain` is evidence, not a ready-made workspace taxonomy.** It is a
+  deterministic scalar heuristic with an explicit future sample-validation gate; safety is not a
+  domain at all but a cross-cutting methodology/flag family. Treating the nine current values as
+  package boundaries would ratify the audit lens before expert review and would repeat the
+  visibility-before-validation failure shape at architecture altitude.
+- **Owner clarification exposed the actual dimensionality:** the grouping exists to put a complete
+  concern corpus before human experts AND to host automated evals. Both need the same concern
+  membership, but experts consume a contextual review book and decisions while runners consume
+  stable identities, executable claims/cases, and reproducible evidence. The useful conceptual
+  unit may therefore be a durable concern-assurance bundle with two products and a joined coverage
+  view—not a tag-only projection and not necessarily the exclusive owner of every source string.
+  The tension is completeness-by-concern versus canonicity-by-construction/source, not human versus
+  machine assurance.
+- **Fresh-worktree build warning:** `pnpm build` passed 27/27 tasks, but Next.js warned that it
+  inferred the workspace root from a user-level lockfile because multiple lockfiles were detected.
+  This is existing worktree/tooling behaviour, outside this exploration's implementation boundary,
+  and must not be reported as warning-free setup.
+- **Own startup/tooling mistakes:** I read the napkin-skill wrapper and ran a memory search before
+  completing the mandated full napkin/distilled read; no task action had occurred, but the order was
+  wrong. I then invoked a nonexistent `agent-tools:comms` root script instead of the built
+  `agent-tools:collaboration-state -- comms ...` surface. Finally I guessed a descriptive watcher
+  seen-file name; `claims open` correctly refused it because the canonical heartbeat path is derived
+  from the exact identity name (`Acacia wakes Sapling`). Behaviour change: use the helper's emitted
+  path/error as authority and never infer collaboration-state filenames from naming aesthetics.
+- **Commit-window claim mismatch:** I opened `git:index/head@agent-influence-exploration` after
+  reading the worktree-qualified merge guidance, but the ordinary commit-queue guard accepts the
+  bare `git:index/head` pattern. The guard refused before staging; I abandoned the intent, closed the
+  mismatched claim, and reopened the exact shape required by the ordinary queue workflow.
+- **Commit-queue worktree/coordination-home seam:** the unified CLI deliberately resolved its
+  `repoRoot` to the primary checkout so queue state stayed shared, but the composed commit workflow
+  then inspected the primary checkout's index rather than this worktree's index. Record-staged and
+  verify therefore saw an empty bundle while first-hand `git diff --cached` in the worktree showed
+  all three files. The workflow abandoned safely before hooks or history. For this commit I use the
+  repo-owned commit-queue module's explicit `repoRoot` composition seam for the worktree while
+  retaining the primary registry; a future tooling pass should expose that split as a first-class
+  CLI option rather than requiring the lower-level entry point.
