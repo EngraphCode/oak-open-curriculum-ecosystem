@@ -38,7 +38,7 @@ This repo uses a three-layer model
 2. **`.claude/`, `.cursor/`, `.gemini/`, `.codex/`, `.agents/`** — thin
    platform adapters that point back to `.agent/`
 3. **`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`** — entry points
-   that each platform reads (`skills.md` is guidance that
+   that platforms read or can use (`skills.md` is guidance that
    [Linear coding sessions](https://linear.app/docs/coding-sessions)
    can use)
 

@@ -431,9 +431,9 @@ no retrospective memos; those are close-out work, this skill's §Steps.
 
    **6d. Sweep platform-specific entry points for drift.** Open
    each of the platform-specific entry-point files at the repo root
-   — `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, and any analogous
-   platform entry point present in the repo — plus any host-specific
-   adapter entry-point (`.codex/AGENTS.md`, etc.).
+   — `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`, and any
+   analogous platform entry point present in the repo — plus any
+   host-specific adapter entry-point (`.codex/AGENTS.md`, etc.).
 
    **Default contract**: heading + a one-line pointer to
    [`.agent/directives/AGENT.md`](../../directives/AGENT.md) (or the
