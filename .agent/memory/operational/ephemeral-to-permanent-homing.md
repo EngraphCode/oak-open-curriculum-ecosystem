@@ -27,7 +27,9 @@ Three classes of surface accumulate content that does not belong there:
    `skills.md`, plus any analogous `.codex/AGENTS.md`, `.cursor/`-rooted
    entry, or future-platform equivalent) — these MUST contain ONLY a pointer
    to the canonical agent directive at `.agent/directives/AGENT.md` (or the
-   host's canonical equivalent). Any additional content is **drift**:
+   host's canonical equivalent), plus any named extension licensed by the
+   session-handoff entry-point contract (step 6d). Any other content is
+   **drift**:
    instructions, facts, or preferences that an agent or user added directly
    to the entry point instead of routing them through the canonical
    surfaces. Drift in

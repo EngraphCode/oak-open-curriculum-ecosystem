@@ -45,7 +45,7 @@ Before understanding how the pieces interact, it helps to know where they are.
 | [`docs/governance/`](../governance/)                                                     | Code standards, TypeScript practice, safety policy                | Both (prescriptive standards)  |
 | `.claude/`, `.cursor/`, `.gemini/`, `.codex/`                                            | Thin platform adapters pointing to `.agent/` canonical content    | Platform-specific agents       |
 
-The three-layer architecture ([ADR-125](../architecture/architectural-decisions/125-agent-artefact-portability.md)): canonical content in `.agent/`, thin platform adapters in `.claude/`/`.cursor/`/etc., and entry points (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`) that each platform reads — `skills.md` as guidance Linear coding sessions can use. Edit the canonical version; adapters follow.
+The three-layer architecture ([ADR-125](../architecture/architectural-decisions/125-agent-artefact-portability.md)): canonical content in `.agent/`, thin platform adapters in `.claude/`/`.cursor/`/etc., and entry points (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`) that each platform reads — `skills.md` as guidance [Linear coding sessions](https://linear.app/docs/coding-sessions) can use. Edit the canonical version; adapters follow.
 
 ## The Three Layers
 

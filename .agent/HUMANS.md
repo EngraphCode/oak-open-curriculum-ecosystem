@@ -38,8 +38,9 @@ This repo uses a three-layer model
 2. **`.claude/`, `.cursor/`, `.gemini/`, `.codex/`, `.agents/`** — thin
    platform adapters that point back to `.agent/`
 3. **`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`** — entry points
-   that each platform reads (`skills.md` is guidance that Linear coding
-   sessions can use)
+   that each platform reads (`skills.md` is guidance that
+   [Linear coding sessions](https://linear.app/docs/coding-sessions)
+   can use)
 
 The adapters exist so the same rules and capabilities work across different
 AI tooling. If you see similar-looking files in `.claude/rules/` and

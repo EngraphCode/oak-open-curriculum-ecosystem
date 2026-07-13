@@ -99,8 +99,9 @@ Failure semantics:
   from missing files.
 - Linear coding sessions run through Claude Code or Codex and inherit
   those entry-point chains; the root `skills.md` is supplementary
-  guidance Linear Agent can use during a delegated session (Linear
-  coding-sessions docs, verified 2026-07-13). Linear has no
-  adapter-family or hook surface in this repo.
+  guidance Linear Agent can use during a delegated session (per
+  [Linear's coding-sessions docs](https://linear.app/docs/coding-sessions),
+  verified 2026-07-13). Linear has no adapter-family or hook surface
+  in this repo.
 - Portable does not mean symmetrical: each platform has different native
   capabilities and the matrix records what is actually wired.
