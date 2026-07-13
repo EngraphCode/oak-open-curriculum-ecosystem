@@ -624,9 +624,9 @@ session-behavioural captures).
   (ultracode) — 12 confirmed findings the bots had NOT raised in 25 rounds (disjoint defect
   sets), landed as ONE batch with 7 held bot fixes. The batching discipline (fix locally, HOLD
   the push, one wave instead of seven) is the single biggest loop-shortener found this session.
-- **Anti-fabrication quote-anchor worked**: 1 fabrication among the 66 verified (bound 1–16 over
-  all 81 deduped — the 15 unverified were never fabrication-checked; vs 3/13 stubs on
-  2026-07-08 without it). Sonnet refute-first verification returned 66 verdicts over 81 deduped
+- **Anti-fabrication quote-anchor worked**: 1 fabrication among the 65 substantively verified
+  (bound 1–17 over all 81 deduped — 16 findings carry no trustworthy check: the 15 verdict-less
+  plus the stub row's target; vs 3/13 stubs on 2026-07-08 without it). Sonnet refute-first verification returned 66 verdicts over 81 deduped
   (12 confirmed / 52 substantively refuted + 1 verifier evidence-stub / 1 fabricated — 80% of
   verdicts were refutations, the Haiku
   literalism the sibling estate's evidence predicted); 15 verifier units DIED on the schema

@@ -817,7 +817,8 @@ declared default action — the REMAINING Steps 2–5, autonomously, on
 the measured verdict (Step 1 already fired and completed this
 authority wait; re-entering it would recurse). The default action is
 role-determined: a COORDINATOR seat declares and runs the PDR-064
-intersection's combined order (its steps 2–7, Moment 1 interleaved —
+intersection's combined order (its steps 2–6, Moment 1 interleaved;
+step 7 — Moment 2 — is the receiving agent's later pickup action —
 see §"Coordinator Handoff (Two Moments)" §"Intersection with
 PDR-063" below), never the bare Steps 2–5 block. Owner or
 coordinator

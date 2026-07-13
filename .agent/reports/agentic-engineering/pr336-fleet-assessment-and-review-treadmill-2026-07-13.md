@@ -114,8 +114,9 @@ regimes.
 Worked:
 
 - **Quote-anchored anti-stub schema**: exactly 1 fabrication among
-  the 66 verified findings — the 15 unverified were never
-  fabrication-checked, so the bound over all 81 deduped is 1–16 —
+  the 65 substantively verified findings — 16 findings carry no
+  trustworthy fabrication check (the 15 verdict-less plus the stub
+  row's target), so the bound over all 81 deduped is 1–17 —
   where the mandatory-verbatim-quote + declared byte-check pattern
   essentially eliminated the schema-valid-stub failure mode this
   estate recorded on 2026-07-08 (3/13 stubs without it) — for FINDER

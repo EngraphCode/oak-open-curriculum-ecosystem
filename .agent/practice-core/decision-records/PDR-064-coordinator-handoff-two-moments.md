@@ -346,9 +346,12 @@ pressure (PDR-063 trigger), both protocols fire:
    path); an owner or coordinator redirect exits this sequence here.
    For a coordinator seat, the default action declared in the
    owner-absent surfacing event IS the remainder of this sequence
-   (steps 2–7 below): it realises PDR-063's "remaining Steps 2–5"
-   with Moment 1 interleaved — there is no separate contiguous
-   Steps-2–5 block for a coordinator.
+   that the retiring seat itself can execute (steps 2–6 below): it
+   realises PDR-063's "remaining Steps 2–5" with Moment 1
+   interleaved — there is no separate contiguous Steps-2–5 block for
+   a coordinator. Step 7 (Moment 2) is the receiving agent's later
+   pickup action, never part of the retiring seat's autonomous
+   default.
 2. PDR-063 Step 2 — ONLY when the coordinator was running an open
    cycle claim: write the structured handoff record for it.
 3. PDR-063 Step 3 — under the same open-claim condition: extend that

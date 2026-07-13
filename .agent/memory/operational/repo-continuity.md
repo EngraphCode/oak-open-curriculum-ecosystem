@@ -65,7 +65,7 @@ forward-asks remain.
   (first-hand `gh api …/rules/branches/main`, 2026-07-06; the "owner action pending" line was a
   twice-relayed dated claim); (2) the Bugbot merge-ready-definition fix landed via follow-up
   PR #312 (MERGED).
-- **Inter-Practice window PR #336 — MERGED (`f74a935a5`, 2026-07-13 12:37Z; post-merge wave rides
+- **Inter-Practice window PR #336 — MERGED (`SHA:f74a935a5`, 2026-07-13 12:37Z; post-merge wave rides
   PR #347, Monsoon herds Airstream → Aspen stirs Blossom).** The cross-estate window's doctrine
   (PDR-125 clause batch, PDR-063 §Retirement
   authority + §Deliberate succession, PDR-064 intersection, the join-ceremony skill + cross-repo

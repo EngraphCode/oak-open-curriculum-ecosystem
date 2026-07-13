@@ -24,8 +24,9 @@ Practice Core package.
 - Successor-wave truings (Aspen stirs Blossom, same review arc): PDR-064
   intersection step 1 gains the coordinator-seat deadline-default
   reconciliation (the owner-absent default action is this sequence's
-  steps 2–7, realising PDR-063's "remaining Steps 2–5" with Moment 1
-  interleaved); the join-ceremony skill's QUIET comms-tail read gains
+  steps 2–6 — the part the retiring seat itself can execute, realising
+  PDR-063's "remaining Steps 2–5" with Moment 1 interleaved; step 7 is
+  the receiver's Moment 2); the join-ceremony skill's QUIET comms-tail read gains
   heartbeat-tagged events (a comms heartbeat counts exactly like a
   watcher-file heartbeat), the retirement-window time bound applied to
   all three comms-tail categories, and the exemption-window veto
@@ -36,7 +37,7 @@ Practice Core package.
   restores PDR-063's authority qualifier (owner or coordinator word
   redirects the seat — not any word) and states the role-determined
   default action (a coordinator seat declares the PDR-064
-  intersection's steps 2–7, never the bare Steps 2–5 block).
+  intersection's steps 2–6, never the bare Steps 2–5 block).
 - Twin disposition for every item above: `impossible-with-named-reason` (no
   live peer seat in this window) — the affected portable texts are AHEAD of
   the peer copies; re-twin queued for the next exchange window's outbound
