@@ -31,7 +31,11 @@ Practice Core package.
   watcher-file heartbeat), the retirement-window time bound applied to
   all three comms-tail categories, and the exemption-window veto
   bounded per PDR-078's own shapes (a named-closing-boundary window
-  runs from its opening event to its boundary regardless of age; only
+  runs from its opening event to its boundary regardless of age —
+  including PDR-064's forced-retirement Step 5 broadcast as a grace
+  window's closing boundary; exemption openings are resolved as
+  opening/closing pairs from canonical event history, never a bounded
+  tail; only
   an unbounded consumer-absent-style declaration needs its declaring
   seat to show a surviving surface trace); the cross-repo rule's QUIET
   description now points at the skill's three-surface liveness check
@@ -39,7 +43,11 @@ Practice Core package.
   restores PDR-063's authority qualifier (owner or coordinator word
   redirects the seat — not any word) and states the role-determined
   default action (a coordinator seat declares the PDR-064
-  intersection's steps 2–6, never the bare Steps 2–5 block).
+  intersection's steps 2–6, never the bare Steps 2–5 block); PDR-064's
+  Date header carries the 2026-07-13 amendment; PDR-125 clause 6's
+  schema enumeration trued to the landed v1 scope (the schema covers
+  the exchange delivery comms event, never box-file frontmatter —
+  box files stay pin-free prose per clause 7).
 - Twin disposition for every item above: `impossible-with-named-reason` (no
   live peer seat in this window) — the affected portable texts are AHEAD of
   the peer copies; re-twin queued for the next exchange window's outbound

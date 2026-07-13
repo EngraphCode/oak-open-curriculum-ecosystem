@@ -35,7 +35,9 @@ action.
 same day): a solo write window into a QUIET sibling estate — QUIET as
 determined by the ceremony's liveness check (the skill's three-surface
 read: claims, comms tail, and watcher heartbeats within the home's
-retirement threshold, with no open exemption window), never an
+retirement threshold, with no open exemption window — exemption
+openings are resolved as opening/closing pairs from canonical event
+history, not a bounded tail), never an
 informal glance — needs the
 home's write GOVERNANCE (its gates, conventions, a declared
 coordination home per PDR-125 clause 2, and a fresh branch off its

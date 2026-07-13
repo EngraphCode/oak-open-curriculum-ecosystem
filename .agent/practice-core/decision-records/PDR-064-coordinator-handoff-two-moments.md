@@ -13,7 +13,10 @@ in the 2026-06-12 amendment below)
 single event into a shadow-period process; standing-successor authorisation
 and the citable-gate test added, resolving deferred open question 4;
 Director-session closeout obligations added per owner-standing direction;
-amended 2026-07-04 — owner-probe semantics during a protocol window)
+amended 2026-07-04 — owner-probe semantics during a protocol window;
+amended 2026-07-13 — the intersection's owner-absent deadline default
+scoped to the steps the retiring seat itself can execute, steps 2–6
+with Moment 1 interleaved; step 7 is the receiver's Moment 2)
 **Related**:
 [PDR-027](PDR-027-threads-sessions-and-agent-identity.md)
 (threads, sessions, identity — coordinator identity travels

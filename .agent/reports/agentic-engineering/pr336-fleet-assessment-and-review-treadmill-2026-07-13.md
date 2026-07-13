@@ -147,10 +147,13 @@ Did not work / costs:
   raise, a fallback verifier on exhaustion, and a workflow-level
   invariant that verdict-count MUST equal deduped-count before the
   run reports.
-- **Verified-subset finder precision was low** (12/65 substantive
-  verdicts ≈ 18%; the 15 unverified findings plus the stub's
-  unadjudicated target make overall precision a bound, 12/81 to
-  28/81, not a point figure): acceptable only because
+- **The pooled finding-confirmation share was low** (12/65
+  substantive verdicts ≈ 18%, finder and cross-surface findings
+  pooled — phase linkage was not retained in the extract, so a
+  phase-specific Haiku finder-precision figure is not recoverable;
+  the 15 unverified findings plus the stub's unadjudicated target
+  make the overall bound 12/81 to 28/81, not a point figure):
+  acceptable only because
   verification was cheap relative to bot rounds; a standing protocol
   should tighten finder briefs with per-lens worked examples of
   NON-findings.
@@ -181,7 +184,8 @@ ratio that produced 28 rounds here.
   the quote-anchored anti-fabrication schema (a content-eval
   primitive), the find/verify split with refute-first adjudication,
   the per-lens narrow-remit decomposition, and the measured
-  finder-precision / verifier-yield figures as baseline data for the
+  pooled-confirmation / verifier-yield figures (§5 — phase-specific
+  finder precision is not recoverable) as baseline data for the
   plan's M-family grounding (LLM-as-judge validity, statistical
   power). The 19% verifier-failure rate (15/81 schema-retry deaths) is
   a capability datum for
@@ -245,10 +249,11 @@ ratio that produced 28 rounds here.
   session. The extract writer, not the verifier, imposed the cap.
 - Require the quoted source file in EVERY phase's finding schema: the
   run's FINDINGS_SCHEMA forbade additional properties and carried no
-  file field — finder results got their file stamped by the dispatch
-  wrapper, but cross-surface findings reached the deduper unstamped,
-  so the file-aware dedup could not match them to file-scoped
-  duplicates (the extract shows one pickup-contract defect surviving
+  file field — finder results got the scoped file stamped by the
+  dispatch wrapper, while cross-surface findings fell back to the
+  generic `cross-surface` label, so the file-aware dedup key could
+  not match a cross-surface finding to its file-scoped twin (the
+  extract shows one pickup-contract defect surviving
   to two separate verdicts). A historical defect of the preserved
   script, not a fixable property of this run's data.
 - Give completeness critics their own base prompt: this run's critics
@@ -258,10 +263,12 @@ ratio that produced 28 rounds here.
   coverage is not reproducible as described. Also a historical defect
   of the preserved script.
 - Preserve the dispatch-stamped metadata (file, lens) on finding rows
-  in the durable extract: the workflow stamped both onto every finder
-  result, and the extract writer dropped them, leaving the 85 raw
-  findings unattributable to the file × lens grid the analysis
-  evaluates. Export finding rows with their full field set.
+  in the durable extract: the workflow stamped both onto every
+  finding row (the scoped file for finder results, the generic
+  `cross-surface` fallback otherwise), and the extract writer dropped
+  them, leaving the 85 raw findings unattributable to the file × lens
+  grid the analysis evaluates — and the finder/cross-surface phase
+  split unrecoverable. Export finding rows with their full field set.
 - A comms watcher armed without its required `--seen-file` argument
   crash-loops silently inside a Monitor re-arm loop — assert the
   watcher live (F-95 check) after arming, not just armed.
