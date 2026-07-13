@@ -4,7 +4,7 @@ type: report
 status: exploration-informed-direction
 stage: 'Repository-grounded exploration plus the owner-set audience and surface contract; connector architecture and automation remain undecided.'
 date: 2026-07-13
-audience: 'Oak engineering, product, design, delivery, and organisational stakeholders considering how OCE intent, execution, evidence, and stakeholder access should cross system boundaries'
+audience: 'Oak engineering, product, design, delivery, and organisational stakeholders considering how OCE intent, execution, evidence, and stakeholder access cross system boundaries'
 subject: 'The authority model, current plans, code/configuration, contradictions, gaps, and likely architectural direction for connecting OCE to Linear, Notion, and other organising or stakeholder surfaces'
 thread: strategy-and-plan-estate-holistic-review
 related:
@@ -57,7 +57,7 @@ surfaces" is too solution-shaped**. The underlying problem is:
 
 Once framed that way, the surfaces separate into distinct kinds:
 
-| Kind | Surface | Proper role suggested by the current estate |
+| Kind | Surface | Role established or suggested by the current estate |
 | --- | --- | --- |
 | Canonical intent | OCE repository and future idea graph | Why, what, constraints, strategy, durable plans, decisions, and interpretation |
 | Execution coordination | Linear | Concrete delivery work, ownership, dependencies, sequencing, progress, and delivery performance |
@@ -70,8 +70,8 @@ Once framed that way, the surfaces separate into distinct kinds:
 | Other specialised evidence | Sonar, Vercel, Elastic | Code-quality, deployment, and search/index facts interpreted against repo-owned intent |
 | Potential public orientation | GitHub Projects, generated web views, or another public surface | Public roadmap or partner visibility, if that need becomes real |
 
-This is a better architecture than a network of pairwise synchronisations. It is not yet fully
-reconciled across the plan estate.
+The sources converge on this federated division rather than on a network of pairwise
+synchronisations. It is not yet fully reconciled or ratified across the plan estate.
 
 The most important tensions are:
 
@@ -164,16 +164,16 @@ The systems do not merely exchange data. Each surface has a different relationsh
 
 A Linear issue being `In Progress`, a Figma frame describing an intended interaction, a PostHog
 funnel recording behaviour, and an ADR defining architecture are not interchangeable facts. A
-sound integration architecture must preserve those differences rather than flatten them into a
-single generic "sync" concept.
+A candidate integration architecture can be tested by whether it preserves those differences
+rather than flattening them into a single generic "sync" concept.
 
 ### 1.4 The load-bearing warrant
 
 The principal warrant behind the emerging design is:
 
-> Durable product and engineering intent must remain recoverable, versioned, reviewable, and
-> structurally traceable in the repository; external systems are better at live coordination,
-> specialised collaboration, or observation, but should not silently redefine that intent.
+> Durable product and engineering intent remains recoverable, versioned, reviewable, and
+> structurally traceable in the repository. External systems handle live coordination, specialised
+> collaboration, or observation without silently redefining that intent.
 
 This warrant would be weakened if first-hand team use showed that repo-authored plans were not
 human-usable, could not support normal product-management collaboration, or routinely lagged the
@@ -204,8 +204,9 @@ It decides that:
 - repo intent projects outward and service evidence later returns through a distinct integration
   decision.
 
-This is materially more fundamental than any specific Linear or stakeholder-surface plan. Any
-integration must compose with it rather than establish a parallel planning model.
+ADR-200 places this substrate beneath any specific Linear or stakeholder-surface plan. Later
+integration candidates are evaluated for composition with it rather than for establishing a
+parallel planning model.
 
 #### The V0 plan-node schema
 
@@ -225,7 +226,7 @@ It states that:
 - `projects_to` is an outward projection edge from a plan to an external Linear Project;
 - Linear never holds an authority edge into intent.
 
-The state decomposition is one of the strongest parts of the current design. It separates:
+The current design's state decomposition explicitly separates:
 
 - `kind`: whether intent is strategic or executable;
 - `gate`: a temporary, expiring external or owner block;
@@ -247,7 +248,7 @@ It is explicit that:
 - Linear is the intent/execution-status axis;
 - Sentry and OpenTelemetry contribute runtime and incident evidence;
 - `projects_to`, `realized_by`, and evidence edges make attribution traversable;
-- delivery metrics should be generated projections, not hand-maintained dashboards;
+- delivery metrics are defined as generated projections rather than hand-maintained dashboards;
 - the Linear projection is designed and reserved but not built.
 
 #### Current corpus refounding and planning-estate rewrite
@@ -267,8 +268,8 @@ graph-ready corpus with:
 - destination lanes derived from vision and strategy;
 - no ungoverned free-text stream or thread values.
 
-This matters because the external-surface design should project a stable, governed corpus rather
-than encode the current estate's drift into Linear or another service.
+This makes a stable, governed corpus a prerequisite for any external projection; otherwise the
+current estate's drift would be encoded into Linear or another service.
 
 ### 2.2 Proposed and future architecture
 
@@ -277,7 +278,7 @@ than encode the current estate's drift into Linear or another service.
 [ADR-201](../../docs/architecture/architectural-decisions/201-external-systems-evidence-integration.md)
 is proposed, not accepted.
 
-Its proposed contract is nevertheless the clearest general design for external systems:
+Its proposed contract is one detailed general design for external systems:
 
 - direction invariant: repo intent projects outward; services report evidence back;
 - external state never becomes an authority edge into intent;
@@ -286,7 +287,7 @@ Its proposed contract is nevertheless the clearest general design for external s
 - mutations carry an explicit supervision requirement;
 - external identifiers and credentials remain out of version control;
 - connectors and triggers feed validated write-back into the graph;
-- only evidence that earns persistence should be stored rather than duplicating computable service
+- persistence is reserved for evidence that earns it rather than for duplicated computable service
   state.
 
 It is gated on the idea-graph substrate and an owner decision.
@@ -312,10 +313,10 @@ because Linear remains required elsewhere for execution status and throughput.
 The
 [product-development-governance collection README](../plans/product-development-governance/README.md)
 explicitly classifies the material under `suggestions/` as imported analysis rather than authority.
-Those documents are useful because they independently re-derived much of the accepted model, but
-they must be verified and dispositioned rather than adopted wholesale.
+Those documents independently re-derived much of the accepted model. Their subordinate status
+subjects them to verification and disposition rather than wholesale adoption.
 
-The strongest imported model is
+The most detailed imported model is
 [`service-authority-and-operating-contexts.semantic-model.md`](../plans/product-development-governance/suggestions/service-authority-and-operating-contexts.semantic-model.md).
 It states the useful three-way distinction:
 
@@ -326,13 +327,12 @@ GitHub PRs aggregate review and readiness for proposed changes.
 ```
 
 It also gives Figma, Sentry, PostHog, Sonar, Elastic, deployments, and AI agents distinct authority
-boundaries. Its warning against turning the repo into a stale second dashboard is well-founded.
+boundaries and records the risk of turning the repo into a stale second dashboard.
 
 The
 [`governed-repo-document-graph.plan.md`](../plans/product-development-governance/suggestions/governed-repo-document-graph.plan.md)
 provides useful candidate graph relationships such as `projects_to_linear` and `summarises_linear`,
-but its document-graph framing predates and is partly superseded by ADR-200's stronger idea-graph
-architecture.
+but its document-graph framing predates the later accepted ADR-200 idea-graph architecture.
 
 The
 [`repo-intent-and-service-knowledge-boundaries.proposal.md`](../plans/product-development-governance/suggestions/repo-intent-and-service-knowledge-boundaries.proposal.md)
@@ -354,17 +354,17 @@ Its primary mapping is:
 - emission -> session-handoff event;
 - direction -> repo to Linear only.
 
-That was a structurally thoughtful design for exposing the former thread/session continuity model.
-It is no longer sufficient as the primary semantic model because the accepted V0 schema centres:
+That design exposes the former thread/session continuity model. It differs from the accepted V0
+schema, which centres:
 
 - strategic choice -> Initiative;
 - plan -> Project;
 - workstream/cycle -> issue or sub-issue;
 - external execution state -> returning graph projection.
 
-The older plan should not simply be treated as wrong. Thread labels may remain useful
-cross-project classification, and finite landing issues may still be useful evidence. But it must
-be reconciled against the more authoritative plan-graph design before any execution.
+The older plan still contributes thread labels as possible cross-project classification and finite
+landing issues as possible evidence. How those concepts reconcile with the accepted plan-graph
+design remains a later mapping decision.
 
 ## 3. The emerging authority model
 
@@ -426,7 +426,7 @@ The repo is consistent at high altitude:
 - Linear may report state back into the graph;
 - Linear does not define the plan, strategic choice, or acceptance contract.
 
-The V0 schema and imported design inputs make this the strongest mapping candidate:
+The V0 schema and imported design inputs surface one mapping candidate for evaluation:
 
 ```text
 strategic choice  ~= Linear Initiative
@@ -434,34 +434,35 @@ plan              ~= Linear Project
 workstream/cycle  ~= Linear issue or sub-issue
 ```
 
-The use of approximation is important. The repo's graph concepts should not be distorted merely to
-match current vendor primitives.
+The approximation marks a comparison constraint: a mapping that distorts repo graph concepts to
+match current vendor primitives would change the authority model.
 
 The current live Linear project is a pathfinder container for this programme. It is evidence that a
-project-level delivery surface is useful; it is not proof that every plan must map one-to-one to a
-Linear Project.
+project-level delivery surface is useful; it does not establish a universal one-to-one mapping from
+plans to Linear Projects.
 
-### 4.2 Why plan -> Project is a stronger candidate than thread -> label
+### 4.2 Semantic comparison: plan -> Project and thread -> label
 
 A plan is goal-bearing and contains executable work. A Linear Project is also goal-bearing and
 contains issues. The lifetimes and semantics align.
 
 A thread is a continuity and navigation concept that may span many plans and products. A Linear
 label can classify issues across projects, but it cannot carry the full durable scope or acceptance
-of a thread. Therefore:
+of a thread. These similarities and differences produce considerations rather than a selected
+mapping:
 
-- plan -> Project is a credible primary projection;
-- thread -> label is a credible secondary classification;
-- landing -> issue may be a useful finite evidence record, but should not define the ontology;
-- current workstreams and todos are stronger candidates for issues than the session boundary itself.
+- plan -> Project aligns two goal-bearing containers;
+- thread -> label preserves classification across projects;
+- landing -> issue could provide a finite evidence record, with its ontology effect unresolved;
+- current workstreams, todos, and the session boundary are alternative issue granularities to test.
 
 ### 4.3 Existing implementation evidence
 
 The current repository contains no automated Linear projection or reconciliation implementation.
 It does contain a live manually maintained Linear project, a tracked pull-request linkage contract,
-and plugin enablement for agent-side Linear access. Those are useful integration surfaces, but they
-must not be mistaken for automated projection, reconciliation, or proof that a plugin is installed
-and authenticated in a particular contributor environment.
+and plugin enablement for agent-side Linear access. Those surfaces establish manual linkage and
+tracked enablement; they do not establish automated projection, reconciliation, or installation and
+authentication in a particular contributor environment.
 
 Present:
 
@@ -522,9 +523,9 @@ The repo needs a precise distinction among:
 - personal identifiers;
 - credentials and secrets.
 
-"No PII in version control" is necessary but insufficient as a complete identity contract. If a
-graph edge must resolve durably, the system needs a safe, stable reference representation plus a
-local or service-side resolver.
+"No PII in version control" is necessary but insufficient as a complete identity contract. A
+durably resolvable graph edge requires a safe, stable reference representation plus a local or
+service-side resolver.
 
 #### Write mechanism
 
@@ -570,8 +571,8 @@ The V0 model says Linear owns live status. The current plan folder taxonomy stil
 lanes. The V0 schema explicitly intends to collapse that distinction once the projection is real.
 
 Until Linear is actually a dependable consumer, removing all repo execution orientation could make
-the repo less usable. This is an example where architecture and migration sequencing must be held
-apart: the target decision is clear, but the current repo still needs a legible interim execution
+the repo less usable. Architecture and migration sequencing are distinct but coupled decisions: the
+target direction is recorded, while the current repo still needs a legible interim execution
 surface.
 
 ## 5. Notion
@@ -584,7 +585,8 @@ already contains roadmap and release-planning material; the missing piece is one
 leadership-altitude account of the project. That account now exists as
 [MCP App — Strategy, Intended Impact, and Current Direction](https://app.notion.com/p/39c26cc4e1b181d09242ed54708443e8).
 
-That account must make the following legible without requiring GitHub or Linear fluency:
+That account's stated job is to make the following legible without requiring GitHub or Linear
+fluency:
 
 - the project's intent and intended value;
 - how it supports Oak's goals, strategy, and current OKRs without inventing or restating them;
@@ -606,10 +608,10 @@ links to the surfaces that own each fact:
 | Errors, traces, regressions, and operational health | Sentry and OpenTelemetry |
 | Value and impact | Interpretation across product/operational evidence plus research, evaluation, curriculum evidence, and Oak-owned outcomes |
 
-Every status page should therefore state its evidence date, current limits, next refresh condition,
-and source links. A manual curated page is appropriate now because the audience and narrative are
-real while automated projections do not yet exist. Automation may later reduce freshness risk, but
-it must preserve the same authority boundaries.
+The status-page contract includes its evidence date, current limits, next refresh condition, and
+source links. A manual curated page is the current mechanism because the audience and narrative are
+real while automated projections do not yet exist. The same authority boundaries constrain any
+later automation intended to reduce freshness risk.
 
 ### 5.3 Historical adapter work is a separate question
 
@@ -656,20 +658,20 @@ including:
 - repo/Linear projection;
 - migration and disposition integrity.
 
-This is conceptually strong, but the review did not find a fully operationalised typed PR-readiness
-contract or a repo-wide PR template implementing these lanes.
+The proposal enumerates these lanes, but the review did not find a fully operationalised typed
+PR-readiness contract or a repo-wide PR template implementing them.
 
 GitHub is also the change axis in ADR-207. It joins intent to commits and pull requests, then to
-deployments and incidents through `realized_by` and evidence relationships. This is a more valuable
-use than adding a parallel GitHub Project merely to duplicate Linear.
+deployments and incidents through `realized_by` and evidence relationships. Whether GitHub Projects
+adds a distinct audience job beyond that change axis and Linear remains an open consideration.
 
 ## 7. Slack and Ask Oisín
 
 ### 7.1 The conversational access surface
 
-[Ask Oisín](../plans/slack-assistants/current/ask-oisin.plan.md) is the clearest planned answer to
-low-friction conversational access to internal repo knowledge. It complements Notion's principal
-stakeholder narrative rather than replacing it.
+[Ask Oisín](../plans/slack-assistants/current/ask-oisin.plan.md) is a planned answer to low-friction
+conversational access to internal repo knowledge. It complements Notion's principal stakeholder
+narrative rather than replacing it.
 
 Its design is deliberately not a new source of truth:
 
@@ -680,8 +682,7 @@ Its design is deliberately not a new source of truth:
 - it does not vendor or copy the repo corpus;
 - Slack renders the conversation, but the repo remains the grounding source.
 
-This is architecturally excellent because it makes the canonical substrate more accessible without
-forking it.
+The planned design aims to make the canonical substrate more accessible without forking it.
 
 ### 7.2 Current implementation state
 
@@ -752,7 +753,7 @@ It also correctly denies Figma authority over:
 - release readiness by itself.
 
 The product-development-governance collection README says Figma is a real near-term need as a team
-and designer arrive, but projection tooling should wait until the consumers exist.
+and designer arrive, and stages projection tooling after those consumers exist.
 
 The unresolved issue is that Figma is not simply another evidence service:
 
@@ -763,8 +764,8 @@ The unresolved issue is that Figma is not simply another evidence service:
 - some design-system contracts may need a machine-readable canonical form shared with code.
 
 ADR-201's first-cut external-system list does not include Figma, and the external-evidence plan does
-not assign it a connector. A later architecture should decide whether Figma participates through
-several distinct edge families rather than one generic `evidence` relationship, for example:
+not assign it a connector. Whether Figma participates through several distinct edge families rather
+than one generic `evidence` relationship remains a later architecture question, for example:
 
 - `designed_by` or `design_source`;
 - `implements_design`;
@@ -796,9 +797,9 @@ health statement from Sentry; operational diagnosis still belongs in Sentry itse
 
 ### 9.2 PostHog
 
-PostHog is the intended first-class product-usage surface: it should show how people actually use
-the MCP app, including adoption, repeat use, tool/flow use, outcomes, and abandonment where the
-event contract can establish those facts safely.
+PostHog's owner-set role is the first-class product-usage surface: observed usage can include
+adoption, repeat use, tool/flow use, outcomes, and abandonment where the event contract establishes
+those facts safely.
 
 That visibility depends on the instrumentation and question-to-decision work proposed by the draft
 TAU programme in [PR #339](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/339).
@@ -806,9 +807,9 @@ PR #339 owns the runtime question -> typed signal -> privacy projection -> deliv
 review -> decision -> remeasurement mechanics. This report owns the neighbouring audience and
 surface boundary and does not restate TAU's event, identity, dashboard, or interpretation semantics.
 
-PostHog should not become a strategy or impact authority. It observes product behaviour. The repo
-defines the intended value and decision context, while research, evaluation, curriculum evidence,
-and Oak-owned outcome measures remain necessary to establish impact.
+PostHog is not a strategy or impact authority. It observes product behaviour. The repo defines the
+intended value and decision context, while research, evaluation, curriculum evidence, and Oak-owned
+outcome measures remain necessary to establish impact.
 
 ### 9.3 Vercel and deployments
 
@@ -848,7 +849,7 @@ observed fact -> typed evidence edge
 repo-owned interpretation -> decision, learning, or new intent
 ```
 
-This is stronger than copying dashboards into reports. It preserves source authority while making
+This differs from copying dashboards into reports by preserving source authority while making
 evidence structurally traversable.
 
 ## 10. GitHub Projects, public roadmaps, and other public surfaces
@@ -915,17 +916,17 @@ The essential constraints would be:
 - no generated public stakeholder surface.
 
 The architecture is therefore intentionally ahead of the implementation. Current-state language
-must remain future-tense wherever the consuming runtime does not exist.
+remains future-tense wherever the consuming runtime does not exist.
 
 ## 12. Contradictions, drift, and unresolved overlaps
 
-| Tension | Earlier or weaker shape | Later or stronger shape | Current assessment |
+| Tension | Earlier shape | Later shape | Current assessment |
 | --- | --- | --- | --- |
 | Linear primary mapping | Thread -> label; landing -> issue; one repo project | Strategic choice -> Initiative; plan -> Project; workstream -> issue | Reconcile through real consumers; V0 reserves the relationship but does not settle every cardinality or mapping |
 | Data direction | Repo -> Linear only | Intent projects outward; execution/evidence reports back | Older non-goal is overtaken by ADR-201 direction, subject to ratification |
-| Trigger ownership | Session handoff emits updates | Graph-derived desired state, connectors, triggers, validated write-back | Session handoff may trigger, but should not own semantics |
+| Trigger ownership | Session handoff emits updates | Graph-derived desired state, connectors, triggers, validated write-back | Trigger choice and semantic ownership remain distinct decisions |
 | Failure behaviour | Skip on MCP timeout; warnings initially | Strict, complete, no warning toleration, fail-fast | Old fallback/warning shape is not compatible with current doctrine |
-| Cardinality | One existing repo project; thread labels | V0 `projects_to` 0..1 | Must be tested against real team/project structure; many-to-many remains plausible |
+| Cardinality | One existing repo project; thread labels | V0 `projects_to` 0..1 | Requires testing against real team/project structure; many-to-many remains plausible |
 | Linear plugin state | Claimed wired in Cursor and Claude | Tracked config enables Linear in both environments | Tracked enablement is confirmed; live installation and authentication remain unproven |
 | Graph authority | Governed document graph | Living idea graph with documents as projections | ADR-200 supersedes document-as-fundamental framing |
 | External service model | Peer pointer surface | Typed projection and evidence edges | The sources converge on this direction, but ADR-201 and the connector contract remain proposed |
@@ -966,11 +967,12 @@ Every external relationship eventually needs a typed contract covering:
 - persistence or derivation policy;
 - privacy and audit behaviour.
 
-Best-effort copying and "remember to update the other tool" are not acceptable end states.
+The accepted strictness doctrine rules out best-effort copying and "remember to update the other
+tool" as terminal states.
 
 ### 13.3 Could it be simpler without compromising quality or value?
 
-Yes: do not add a surface until it has a unique job.
+The simplicity lens distinguishes each surface by a unique audience job:
 
 - Linear earns its place through execution coordination.
 - GitHub earns its place through changes and readiness.
@@ -979,7 +981,7 @@ Yes: do not add a surface until it has a unique job.
 - Slack earns its place through low-friction conversational access.
 - Figma earns its place through design collaboration.
 - Evidence systems earn their place through specialised observation.
-- GitHub Projects does not yet have a unique internal role.
+- GitHub Projects does not yet have a documented distinct internal role.
 
 Simplicity does not mean reducing capability. It means avoiding redundant editable authorities.
 
@@ -1126,27 +1128,28 @@ as the runtime question-to-evidence-to-decision programme. The coordinated bound
 - Linear delivery coordination, Notion stakeholder presentation, and future idea-graph evidence
   edges remain neighbouring authorities outside TAU.
 
-PR #339 should consume the landed boundary after this exploration is review-ready; PR #341 should
-not reproduce TAU's event, identity, dashboard, or interpretation semantics.
+PR #339 has confirmed that it consumes this audience boundary while remaining draft pending PR
+#341's landing. PR #341 does not reproduce TAU's event, identity, dashboard, or interpretation
+semantics.
 
 ### Gap 8 — current plans can predate the registered strategy axes they need
 
 Ask Oisín demonstrates the practical consequence: valuable new work can appear before the planning
-corpus has a legal strategic or stream value for it. The refounding must preserve that signal rather
-than forcing the plan into an incorrect existing category.
+corpus has a legal strategic or stream value for it. Preserving that signal rather than forcing the
+plan into an incorrect existing category is a refounding requirement.
 
 ### Gap 9 — execution migration sequencing remains unresolved
 
-The target removes hand-maintained repo execution state in favour of Linear projection. The current
-repo still depends on folder and continuity cues. A migration must prevent a period in which neither
-surface is dependable.
+One proposed migration removes hand-maintained repo execution state in favour of Linear projection.
+The current repo still depends on folder and continuity cues, so dependable transition sequencing is
+an unresolved consideration.
 
 ## 16. Decision questions and considerations for later owner-governed work
 
 The exploration raised the following questions. They are neither actions authorised by this report
 nor conclusions disguised as recommendations.
 
-1. **What should govern the final Linear mapping?** ADR-200 and the V0 vocabulary provide the
+1. **Which evidence governs the final Linear mapping?** ADR-200 and the V0 vocabulary provide the
    accepted substrate, while the live pathfinder project provides consumer evidence; the older
    pointer-surface plan remains an input whose useful findings may need harvesting.
 2. **Which findings from the old Linear plan remain valuable during corpus refounding?** Candidates
@@ -1157,24 +1160,24 @@ nor conclusions disguised as recommendations.
 4. **What freshness and editorial cadence keeps Notion trustworthy?** The audience and role are now
    settled; the remaining decision is how source dates, owners, review cadence, and drift detection
    work without making Notion a second planning authority.
-5. **What does Ask Oisín prove about conversational read models?** Its value should be assessed as a
-   member of a broader projection class rather than only as a one-off Slack bot.
-6. **What is the simplest strict Linear command and reconciliation path?** The target should be
-   evaluated against typed plan nodes, idempotency, recovery, and supervised mutation rather than
-   assumed from session workflow.
+5. **What does Ask Oisín prove about conversational read models?** Its assessment includes its role
+   as a member of a broader projection class, not only as a one-off Slack bot.
+6. **Which criteria define the simplest strict Linear command and reconciliation path?** Candidate
+   criteria include typed plan nodes, idempotency, recovery, and supervised mutation rather than an
+   assumption inherited from session workflow.
 7. **Does any internal need justify GitHub Projects alongside Linear?** Today GitHub PRs already
    aggregate change readiness; another project board needs a distinct audience task.
 8. **Which design-specific relationships does Figma require?** A generic operational-evidence edge
    may not capture design source, implementation, and review authority.
-9. **How should migration preserve current repo orientation until Linear projection is dependable?**
+9. **Which migration design preserves current repo orientation until Linear projection is dependable?**
    The target authority and the transition state are separate decisions.
 10. **What evidence threshold permits present-tense integration claims?** Configuration toggles,
-    manual pages, live service projects, and running connectors prove different things and should be
-    described precisely.
+    manual pages, live service projects, and running connectors prove different things; precise
+    descriptions keep those evidence classes separate.
 
 ## 17. Falsifiers and uncertainty
 
-This report's model should change if first-hand evidence shows any of the following:
+This report's model is falsified if first-hand evidence shows any of the following:
 
 - a team cannot coordinate delivery effectively when durable intent remains repo-owned;
 - plan -> Linear Project repeatedly fails because real project boundaries are structurally different;
@@ -1211,7 +1214,7 @@ If ratified and proven, that candidate would be:
 - capable of serving different audiences without duplicating intent;
 - able to close the loop from strategy through delivery to observed value.
 
-Linear is the clearest operational consumer. The accepted plan and idea-graph architecture and the
+Linear is an operational consumer. The accepted plan and idea-graph architecture and the
 older pointer-surface plan remain inputs to the later integration decision; the final mapping is not
 selected by this report.
 
