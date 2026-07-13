@@ -3053,13 +3053,13 @@ commit SHA and the closing plan reference.
   direction, lines 16-20; only the unusually detailed trace depth was a session-scoped ask,
   2026-07-13)
 - **Corroboration (2026-07-13T17:42Z) + the missing composition edge**: an independent
-  seat (Phosphor holds Tallow, codex 019f5c, comms event same timestamp) hit the same
+  seat (Phosphor holds Tallow, codex 019f5c, comms event at the same timestamp) hit the same
   empty-index failure within hours and proposed a `PRACTICE_COORDINATION_HOME` binding.
   Source-verified: the binding is structurally INERT for commit-queue today — the env var
-  is injected at the composition edge by design (ADR-078; `coordination-home.ts` never
-  reads `process.env`) and `runCommitQueueTopic` calls `resolveCoordinationHome(input.cwd)`
-  WITHOUT passing the declared home (`agent-tools-cli-topics.ts:34`). That missing wire is
+  is injected at the composition edge by design (ADR-078;
+  `agent-tools/src/collaboration-state/coordination-home.ts` never reads `process.env`) and `runCommitQueueTopic` calls `resolveCoordinationHome(input.cwd)`
+  WITHOUT passing the declared home (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`). That missing wire is
   the cure's composition edge. `--registry` IS accepted on every subcommand including
-  `enqueue`/`commit` (`commit-queue/options.ts`), but it pins only the registry — the git
+  `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
