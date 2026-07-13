@@ -83,7 +83,10 @@ order.
    identity layer pins one value), the worktree repo-reference
    (origin + branch — never a machine-local checkout path in tracked
    content), and coordination posture (observer / implementer /
-   exchange seat).
+   exchange seat). An owner-assigned or operator-overridden
+   `agent_name` outranks the home derivation and is declared AS an
+   override in the same registration (PDR-125 clause 5); the prefix
+   join key binds unchanged.
 5. **Arm the home watcher WITH HOME TOOLING**, heartbeat-filtered by
    default. A watcher is a writer: its heartbeat and seen files are
    writes into the home substrate, so the home's CLI — never your
@@ -104,6 +107,13 @@ order.
    copies in the same window (worked instance 2026-07-07: a
    conformance twin's usage-spec anchor assumed double-quoted CLI
    help; this estate single-quotes).
+   **Every shared-machinery improvement carries a per-item twin
+   disposition** recorded where the innovation lands (PDR-125
+   clause 6): `twinned-in-window` (both estates in one window,
+   diff-proven), `already-present-verify-parity`,
+   `their-lane-owns-coordinate`, or `impossible-with-named-reason` —
+   an improvement with no disposition is drift waiting for the next
+   exchange turn.
    Lifecycle threads on the comms stream: delivered → acknowledged →
    integrated or rejected — every bundle receipted both ways.
    **Normalise on receipt**: integrate inbound material in the
