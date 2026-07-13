@@ -27,9 +27,14 @@ Practice Core package.
   steps 2–7, realising PDR-063's "remaining Steps 2–5" with Moment 1
   interleaved); the join-ceremony skill's QUIET comms-tail read gains
   heartbeat-tagged events (a comms heartbeat counts exactly like a
-  watcher-file heartbeat); the cross-repo rule's QUIET description now
-  points at the skill's three-surface liveness check instead of an
-  informal gloss.
+  watcher-file heartbeat), the retirement-window time bound applied to
+  all three comms-tail categories, and the exemption-window veto
+  bounded (a bare historical declaration from a seat with no surviving
+  surface trace does not veto QUIET); the cross-repo rule's QUIET
+  description now points at the skill's three-surface liveness check
+  instead of an informal gloss; the start-right-team retirement mirror
+  restores PDR-063's authority qualifier (owner or coordinator word
+  redirects the seat — not any word).
 - Twin disposition for every item above: `impossible-with-named-reason` (no
   live peer seat in this window) — the affected portable texts are AHEAD of
   the peer copies; re-twin queued for the next exchange window's outbound

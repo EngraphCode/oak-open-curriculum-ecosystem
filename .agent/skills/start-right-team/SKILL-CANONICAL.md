@@ -815,7 +815,8 @@ the remaining Steps 2–5),
 waits out that declared window, and AT THE DEADLINE EXECUTES the
 declared default action — the REMAINING Steps 2–5, autonomously, on
 the measured verdict (Step 1 already fired and completed this
-authority wait; re-entering it would recurse); word arriving before
+authority wait; re-entering it would recurse); owner or coordinator
+word arriving before
 the deadline redirects the seat and EXITS the sequence — the bounded
 wait can never become an indefinite one. With no live recipient
 for step 4's directed event (schema-required `to`), the no-recipient

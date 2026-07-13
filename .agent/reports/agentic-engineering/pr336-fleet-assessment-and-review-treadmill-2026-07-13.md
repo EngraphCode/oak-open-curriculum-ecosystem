@@ -113,8 +113,10 @@ regimes.
 
 Worked:
 
-- **Quote-anchored anti-stub schema**: exactly 1 fabrication in 85 —
-  the mandatory-verbatim-quote + declared byte-check pattern
+- **Quote-anchored anti-stub schema**: exactly 1 fabrication among
+  the 66 verified findings — the 15 unverified were never
+  fabrication-checked, so the bound over all 81 deduped is 1–16 —
+  where the mandatory-verbatim-quote + declared byte-check pattern
   essentially eliminated the schema-valid-stub failure mode this
   estate recorded on 2026-07-08 (3/13 stubs without it) — for FINDER
   findings. Verifier evidence fields carried no such anchor and one
@@ -122,7 +124,8 @@ Worked:
   literal schema-padding filler (see §8).
 - **Sonnet verification layer**: 66 verdict rows over 81 deduped (65
   substantive after the one stub), 12
-  confirmed (80% of verdicts were refutations). The
+  confirmed; 53 of the 66 recorded verdicts were refutations (≈80% —
+  52 substantive plus the 1 stub row recorded as REFUTED). The
   refutations were dominated by exactly the predicted Haiku failure
   modes: literalism (qualified statements read as unqualified),
   house-style flags, and already-handled-nearby claims. Without this
@@ -235,6 +238,20 @@ ratio that produced 28 rounds here.
   characters (most mid-rationale), so the extract's verdicts are
   auditable only to that depth and the full rationales died with the
   session. The extract writer, not the verifier, imposed the cap.
+- Require the quoted source file in EVERY phase's finding schema: the
+  run's FINDINGS_SCHEMA forbade additional properties and carried no
+  file field — finder results got their file stamped by the dispatch
+  wrapper, but cross-surface findings reached the deduper unstamped,
+  so the file-aware dedup could not match them to file-scoped
+  duplicates (the extract shows one pickup-contract defect surviving
+  to two separate verdicts). A historical defect of the preserved
+  script, not a fixable property of this run's data.
+- Give completeness critics their own base prompt: this run's critics
+  inherited COMMON's one-lens/one-file constraints verbatim while
+  being asked for multi-file completeness reviews (the cross-surface
+  phase replaced the constraint; the critic phase did not), so critic
+  coverage is not reproducible as described. Also a historical defect
+  of the preserved script.
 - A comms watcher armed without its required `--seen-file` argument
   crash-loops silently inside a Monitor re-arm loop — assert the
   watcher live (F-95 check) after arming, not just armed.

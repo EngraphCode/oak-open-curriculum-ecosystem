@@ -54,8 +54,9 @@ the home's live coordination surfaces (located per the write
 governance read in step 1): its claims registry for open claims (any
 unexpired claim is live regardless of heartbeats — heartbeat-exempt
 seats exist), its comms stream tail for registrations,
-heartbeat-tagged events, AND substantive events newer than the home's
-retirement window (liveness per the home's own liveness contract,
+heartbeat-tagged events, AND substantive events — each of the three
+counted only when newer than the home's retirement window — (liveness
+per the home's own liveness contract,
 e.g. PDR-078: heartbeat OR substantive activity, honouring its
 declared exemption windows — a comms heartbeat event counts exactly
 like a watcher-file heartbeat), and its watcher
@@ -68,7 +69,14 @@ are silent AND no observable exemption window is open (a
 coordinator-handoff grace window, a declared consumer-absent or
 contiguous-execution mode — the home's liveness contract names its
 exemption classes), the estate is QUIET; if any one is live or an
-exemption window is open, it is not. The moment the session writes
+exemption window is open, it is not. An exemption window counts as
+open only within its own bound: a handoff grace window until its
+declared deadline or the incoming acknowledgement lands, and a
+declared mode while its declaring seat still shows on at least one
+of the three surfaces — a bare historical declaration from a seat
+with no surviving trace does not veto QUIET (otherwise a truly empty
+estate could never read QUIET, since PDR-078's consumer-absent state
+is itself defined by peer absence). The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).
