@@ -348,16 +348,18 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
    repo's tooling are permitted only behind schema validation that refuses
    loudly on mismatch. The Practice is an ecosystem: never assume a sibling
    repo's conventions, numbering, or derivations transfer.
-5. **Identity display and the join key.** Names are repo-local derivations and
-   stay so (converging them is clone-pressure). Every rendered identity surface
+5. **Identity display and the join key.** DERIVED names are repo-local
+   derivations and stay so (converging them is clone-pressure); a declared
+   owner/operator override outranks derivation (PDR-125 clause 5 as amended
+   2026-07-13). Every rendered identity surface
    — statusline, comms headings, claim listings — shows
    `<name> (<session_id_prefix>)`. The **session_id_prefix is the join key**,
    and it identifies a SESSION: one session presents different names across
    estates (proven live 2026-07-05: one session was `Velvet Dimming Mist` at
    this estate and `Wolf rides Vigil` at the donor, both `25ece9`; the standby
    successor was `Hushed Prowling Lantern` / `Cricket lifts Echo`, both
-   `2fffa2`). A SUCCESSOR is a NEW session — new prefix, therefore a new name in
-   every estate; it is not the same prefix re-derived. (An earlier hypothesis
+   `2fffa2`). A SUCCESSOR is a NEW session — new prefix, therefore (for DERIVED names) a
+   new name in every estate; it is not the same prefix re-derived. (An earlier hypothesis
    that the name derives from the model was tested against the successor's
    arrival and WITHDRAWN — a new session simply has a new seed.) The anomaly
    rule: *same name + different prefix* = anomaly (surface and VERIFY before
@@ -366,9 +368,10 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
    `(agent_name, id)` key disambiguates; a DECLARED owner/operator override
    may legitimately recur across prefixes). A
    pre-positioning handoff event from the outgoing session authorises the
-   successor; the peer verifies the successor's OWN identity tuple (its own
-   prefix + cross-estate alias) at the successor's team-start, never assuming
-   the outgoing prefix carries over.
+   successor; the peer verifies ALL pre-positioned successor details — the identity tuple
+   (its own prefix + cross-estate alias) AND the seating, timing, and
+   commissioned scope — at the successor's team-start, never assuming any
+   pre-positioned detail carries over.
 6. **Adoption and versioning — shared spec AND shared schema, not shared
    code** (owner-sharpened 2026-07-05). Three distinct layers travel on the
    plasmid, each repo phenotypes only the last:

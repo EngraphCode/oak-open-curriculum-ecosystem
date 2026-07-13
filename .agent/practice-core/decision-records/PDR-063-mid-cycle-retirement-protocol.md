@@ -262,9 +262,12 @@ replaces it. No other step changes.
    notification capability (a host-phenotype concern — each estate
    names its mechanism; a platform with none satisfies surfacing with
    the comms event alone, and the declared deadline still governs),
-   waits a bounded window for owner or coordinator word, and MAY then
-   execute this protocol's five steps autonomously on the measured
-   verdict — never on an unmeasured sense of fullness. The bound is
+   waits the declared window for owner or coordinator word, and AT
+   THE DEADLINE EXECUTES the declared default action (this
+   protocol's five steps, autonomously, on the measured verdict —
+   never on an unmeasured sense of fullness); owner or coordinator
+   word arriving before the deadline redirects the seat instead. The
+   bounded wait can never become an indefinite one. The bound is
    executable, not vibes: the surfacing event MUST declare its
    absolute deadline and the default action that fires at the
    deadline (protocol default when no coordinator SLA applies:
@@ -278,8 +281,9 @@ replaces it. No other step changes.
    or coordinator — exists. When neither exists, Step 4 takes the
    no-recipient variant: a BROADCAST narrative comms event announcing
    the PENDING handoff and the record path (broadcasts carry no `to`,
-   so no schema violation), plus the surfacing step's owner push
-   notification; the successor later picks up via claim ADOPTION
+   so no schema violation), plus the surfacing step's out-of-band
+   owner notification where the platform provides one (the same
+   capability condition as above); the successor later picks up via claim ADOPTION
    (the §Deliberate-succession in-flight substrate), which needs no
    directed event from the departed seat. The seat closes cleanly;
    successor instantiation then follows ruling 4 (owner-mediated)

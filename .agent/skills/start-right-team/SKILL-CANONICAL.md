@@ -806,13 +806,15 @@ calls the handoff moment. Owner-absent at a measured handover signal
 ceiling, or a measured post-commit shortfall — whichever fires
 first), the seat surfaces the measurement through the comms event
 PLUS an out-of-band owner notification where the platform provides
-one (PDR-063 ruling 3; on this platform, the PushNotification tool —
-a platform with none satisfies surfacing with the comms event
-alone), with an explicit absolute deadline and default action
+one (PDR-063 ruling 3; the platform's declared notification
+mechanism is a host-phenotype fact — a platform with none satisfies
+surfacing with the comms event alone), with an explicit absolute deadline and default action
 declared in the surfacing event (protocol default when no
 coordinator SLA applies: 10 minutes, then autonomous execution),
-waits that bounded window, and may then run the five steps
-autonomously on the measured verdict. With no live recipient
+waits that declared window, and AT THE DEADLINE EXECUTES the
+declared default action (the five steps, autonomously, on the
+measured verdict); word arriving before the deadline redirects the
+seat instead — the bounded wait can never become an indefinite one. With no live recipient
 for step 4's directed event (schema-required `to`), the no-recipient
 variant applies: a broadcast pending-handoff announcement carrying
 the record path; the successor picks up via claim adoption
