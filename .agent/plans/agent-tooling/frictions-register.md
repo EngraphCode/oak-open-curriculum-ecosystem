@@ -3052,3 +3052,11 @@ commit SHA and the closing plan reference.
 - **Owner direction status**: standing (friction capture is the register's standing owner
   direction, lines 16-20; only the unusually detailed trace depth was a session-scoped ask,
   2026-07-13)
+- **Corroboration + candidate interim binding (2026-07-13T17:42Z)**: an independent seat
+  (Phosphor holds Tallow, codex 019f5c, comms event same timestamp) hit the same
+  empty-index failure within hours and proposed declaring `PRACTICE_COORDINATION_HOME` at
+  the worktree so the git reads re-root there (the env var is real and validated —
+  `collaboration-state/coordination-home.ts`). UNVERIFIED end-to-end: the recipe's other
+  half needs the registry kept on the primary, and `--registry` is only documented on the
+  read commands (`status`/`list`/`show`), not `enqueue`/`commit`. Verify both halves
+  before adopting as guidance; until then the plain-commit path above stands.
