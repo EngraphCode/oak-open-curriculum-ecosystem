@@ -9,7 +9,7 @@ cross-estate session, per the owner's birthplace ruling: the same
 portable text lands in both estates' propagating decision-record sets
 in the same window; a cross-estate diff proving the copies identical
 modulo the local phenotype note is the acceptance proof). Amended
-2026-07-08 (the v1 clause-conservation batch: the six registered
+2026-07-08 (the v1 clause-conservation batch: the registered
 founding clauses folded into clauses 3, 5, and 7; the both-estates
 innovation posture added to clause 6; both estates in one window,
 cross-estate diff re-proven).

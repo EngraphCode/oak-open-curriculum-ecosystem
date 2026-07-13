@@ -86,7 +86,11 @@ order.
    exchange seat). An owner-assigned or operator-overridden
    `agent_name` outranks the home derivation and is declared AS an
    override in the same registration (PDR-125 clause 5); the prefix
-   join key binds unchanged.
+   join key binds unchanged. ALL pre-positioned successor details —
+   the identity tuple AND the seating, timing, and commissioned scope
+   — are hypotheses (PDR-125 clause 5): peers verify the successor's
+   OWN registration at the successor's team-start and assume nothing
+   carries over from a predecessor's handoff event.
 5. **Arm the home watcher WITH HOME TOOLING**, heartbeat-filtered by
    default. A watcher is a writer: its heartbeat and seen files are
    writes into the home substrate, so the home's CLI — never your

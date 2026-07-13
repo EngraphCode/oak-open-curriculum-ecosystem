@@ -274,8 +274,12 @@ above are unchanged.
 
 Deliberate (owner-directed) succession is not a budget-triggered
 mid-cycle retirement — the owner's call, not a threshold crossing,
-starts it — and it takes one of two shapes. The discriminator is
-whether state is IN-FLIGHT:
+starts it — and it may occur mid-cycle or at rest: the discriminator
+against this protocol is the INITIATOR (an owner call versus a
+measured budget signal), never the state. It takes one of two shapes,
+and the shape discriminator is whether state is IN-FLIGHT (in-flight
+state selects the record-plus-adoption shape below, not this
+protocol's five steps):
 
 - **In-flight state exists** (open cycle, live claim, uncommitted
   decisions): the record substrate plus claim ADOPTION carry the
