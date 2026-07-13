@@ -88,11 +88,15 @@ use the existing `start-right-team` §Closeout Contract unchanged.
 
 ### Step 1 — Sense approaching budget
 
-The retiring agent senses approaching budget at either of two
+The retiring agent senses approaching budget at any of three
 triggers, whichever comes first:
 
-- **Quantitative**: context usage ≥ 80 % of the agent's bounded
-  budget.
+- **Effectiveness-window start** (the primary handover-start signal
+  under rotating-cast operation): measured usage crosses ~50 % of the
+  full window — see the refinement below for the calibration and why
+  this fires long before the capacity ceiling.
+- **Quantitative ceiling**: context usage ≥ 80 % of the agent's
+  bounded budget — the hard stop.
 - **Post-commit**: immediately after landing any commit, the agent
   re-evaluates remaining budget against the next-cycle floor (TDD
   authoring + reviewer absorption + gate suite) and enters this
@@ -110,8 +114,13 @@ budget figure is measured (transcript usage against the actual
 window, per the effectiveness-window refinement below; the estate's
 deterministic context-budget tooling when it lands), and who calls
 the retirement follows §Retirement authority below (owner rulings
-2026-07-08). The 80 % figure is the metric-surfacing threshold, not a
-self-retirement authority.
+2026-07-08). Every trigger figure is a metric-surfacing threshold,
+never a self-retirement authority, and the signal model has two axes
+— the ~50 % effectiveness-window start (the primary handover-start
+signal; refinement below) and the ≥ 80 % hard-stop ceiling. This
+routing applies to every trigger above, the post-commit verdict
+included: a measured post-commit shortfall is surfaced and routed
+through §Retirement authority exactly like a threshold crossing.
 
 **Effectiveness-window refinement** (owner-taught calibration 2026-06-28/29;
 held as an approximate heuristic per model, not a constant). The ≥ 80 % trigger
@@ -216,7 +225,7 @@ progress on the handed-off work).
 
 ### Retirement authority — measured metrics, owner-called handoffs (owner rulings 2026-07-08)
 
-Three owner rulings (2026-07-08, recorded verbatim-substance at ruling
+Four owner rulings (2026-07-08, recorded verbatim-substance at ruling
 time) supersede this protocol's original self-sensed trigger semantics
 on the AUTHORITY axis — who may declare budget exhaustion and who
 calls the handoff moment. The thresholds and the five-step mechanics
@@ -238,7 +247,12 @@ above are unchanged.
    surfaces the measurement (comms event plus push notification),
    waits a bounded window for owner or coordinator word, and MAY then
    execute this protocol's five steps autonomously on the measured
-   verdict — never on an unmeasured sense of fullness.
+   verdict — never on an unmeasured sense of fullness. The bound is
+   executable, not vibes: the surfacing event MUST declare its
+   absolute deadline and the default action that fires at the
+   deadline (protocol default when no coordinator SLA applies:
+   10 minutes, then autonomous execution of the five steps — matching
+   the estate liveness convention's 10-minute retirement window).
 4. **Successor instantiation is owner-mediated until session-spawn
    automation exists** (the owner's named automation gap: "yes to
    automated handoff, however we have no way of automatically

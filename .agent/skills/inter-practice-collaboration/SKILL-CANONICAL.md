@@ -6,8 +6,9 @@ description: >-
   of it — the runnable join ceremony for cross-estate work. Fires whenever a
   session's worktree repo and coordination home are different repos, or the
   session is about to write into, register presence in, or claim work in any
-  sibling Practice estate's substrate; read-only estate looks are unceremonied.
-  Enacts the inter-Practice collaboration protocol PDR.
+  sibling Practice estate's substrate; read-only estate looks are unceremonied,
+  and a solo write into a QUIET sibling estate takes the lighter
+  governance-only path. Enacts the inter-Practice collaboration protocol PDR.
 ---
 
 # Inter-Practice Collaboration (the join ceremony)
@@ -38,6 +39,17 @@ this skill (owner ruling 2026-07-08: the protocols are for
 collaboration, an enhancement, never a blocker on reading files). The
 moment a read-only session decides to write, register, or claim, the
 ceremony fires before that first action.
+
+**Quiet-estate solo writes take the lighter path** (owner
+clarification 2026-07-08: the ceremony's object is AGENT
+COMMUNICATION). When the sibling estate is QUIET — no live seats, no
+registration, no claims to coordinate with — a solo write window
+needs only steps 1 and the fresh-branch half of the home's write
+governance (its gates, conventions, and a fresh branch off its latest
+main); the communication steps (identity registration, watcher,
+adoption event) are optional-but-welcome. The moment live peers,
+claims, streams, or registration enter, every step below binds in
+order.
 
 ## The ceremony (ordered, each step gates the next)
 

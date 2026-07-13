@@ -19,7 +19,9 @@ Practice Core package.
   are unceremonied; the ceremony binds collaboration boundaries).
 - PDR-063 gains §Retirement authority (owner rulings 2026-07-08: no
   self-declared exhaustion ever — measured metrics only; owner-present the
-  owner calls handoffs; owner-absent at 80 % surface-then-autonomous) and
+  owner calls handoffs; owner-absent surface-then-autonomous at a measured
+  signal — the ~50 % effectiveness-window start primary under rotating cast,
+  or the ≥ 80 % ceiling, whichever fires first) and
   §Deliberate succession (the in-flight discriminator), composing with this
   estate's effectiveness-window refinement, which the peer estate is
   backporting in the same window.

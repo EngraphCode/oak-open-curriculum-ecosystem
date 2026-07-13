@@ -774,21 +774,29 @@ use the contract above unchanged.
 
 **Triggers** (whichever fires first):
 
-- **Quantitative**: context usage ≥ 80% of the agent's bounded budget.
+- **Effectiveness-window start** (primary under rotating-cast
+  operation): measured usage crosses ~50% of the full window —
+  handover STARTS here (PDR-063's effectiveness-window refinement).
+- **Quantitative ceiling**: context usage ≥ 80% of the agent's
+  bounded budget — the hard stop.
 - **Post-commit**: immediately after landing any commit, the agent
   re-evaluates remaining budget against the next-cycle floor (TDD
   authoring + reviewer absorption + gate suite) and enters the
   protocol if the remaining budget would not cover one more cycle
   with margin.
 
-The 80% quantitative trigger has priority — an agent at 85% mid-cycle
-does not get to push for one more commit.
+The 80% ceiling has priority over post-commit — an agent at 85%
+mid-cycle does not get to push for one more commit.
 
 **Authority (PDR-063 §Retirement authority, owner rulings
 2026-07-08):** budget verdicts are measured, never self-declared.
 Owner-present, the seat surfaces the measured metric and the OWNER
-calls the handoff moment. Owner-absent at a measured handover signal,
-the seat surfaces, waits a bounded window, and may then run the five
+calls the handoff moment. Owner-absent at a measured handover signal
+(the ~50% effectiveness-window start or the ≥ 80% ceiling — whichever
+fires first), the seat surfaces with an explicit absolute deadline
+and default action declared in the surfacing event (protocol default
+when no coordinator SLA applies: 10 minutes, then autonomous
+execution), waits that bounded window, and may then run the five
 steps autonomously on the measured verdict. A trigger firing is
 surface-and-route, never self-retirement.
 
