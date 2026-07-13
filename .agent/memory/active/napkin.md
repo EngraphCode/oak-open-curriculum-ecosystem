@@ -554,3 +554,50 @@ preserved verbatim before that worktree's removal.
   must be machine-rendered from the built source or explicitly relabelled a snapshot with SSOT
   pointer; truncation and unrenderable values (e.g. [object Object]) are label violations, not
   cosmetics. Two rounds of bot findings on precisely this; home = a pattern file.
+
+## 2026-07-09 — Beacon hunts Brilliance, second handoff prep (successor picks up Monday)
+
+- **Merge-window stranding RECURRENCE (instance ≥2):** owner merged PR #337 at 15:03Z; my truings
+  commit `SHA:2af1ce9cb` reached the branch moments later and silently missed the merge. Same shape as
+  the prior "merge-window stranding rescued" instance in continuity. Rescue: cherry-pick onto the
+  open PR #338 (`SHA:e63f36cda`). Detection was NOT self-evident — found only because handoff prep
+  re-grounded PR state first-hand and diffed `origin/main..origin/<branch>`. Cure-shape thought:
+  after ANY push to a PR branch, assert the PR is still OPEN (a push to a just-merged PR is a
+  stranding signal); candidate pr-lifecycle clause — second instance makes it graduation-eligible.
+- **Carried context rots in minutes at handoff boundaries:** between my last summary and handoff
+  prep, #337 merged, its branch gained a stranded commit, and #338 grew 3 review threads. The
+  handoff-skill rule (verify every load-bearing claim at write time) caught ALL three. Reflex
+  confirmed: never write a handoff surface from memory.
+- **Platform-skill locus error (bot-caught):** the research plan cited "the in-repo `mcp-inspector`
+  skill" — it is a USER-level (~/.claude) skill, not in-repo; the repo capability is `@mcpjam/cli`
+  (devDependency) + the `.mcp.json` server. My own plan-body first-principles check had marked
+  vendor-literal "handled" — the check verified MCPJam facts but not the SKILL's locus. Lesson:
+  before naming any skill/tool in a durable artefact, verify WHERE it lives (repo vs user vs
+  plugin); a personal skill cited as repo capability breaks the next executor. candidate: fold
+  into the plan-body first-principles check's vendor-literal clause (capability-locus check).
+- **Loss-scan (this handoff):** substance durable (plan on PR #338; registry estate on main;
+  decisions in plan/report/thread record; Monday brief written into the thread record §Landing
+  Target + repo-continuity pointer). Accepted ephemeral losses: session-local scratchpad scripts
+  (committed copies exist in generators/), the raw audit outputs (registry.json is the snapshot,
+  documented). Metaloss check: the review-treadmill exit-criteria practice (name exit criteria
+  BEFORE the round arrives) worked twice today — already captured above; nothing else survives
+  the sweep.
+
+## 2026-07-13 — Monsoon herds Airstream (8c566b): PR #338 shepherd (the Monday pickup)
+
+- **Landed:** PR #338 MERGED to main (`SHA:7ef8a8a3a`, 08:15Z) via normal non-admin merge (merge
+  commit) — the merge button IS active for a non-admin on this repo once checks are green and
+  threads resolved; owner pre-authorised the press this session via AskUserQuestion. The last
+  unresolved finding (Copilot: the plan cites a repo-tracked `.mcp.json`) was VERIFIED REAL
+  before any reply — `.mcp.json` exists locally but is gitignored (`.gitignore:27`); fixed at
+  `SHA:9cff508da` by stating the capability truly (`@mcpjam/cli` devDependency, `pnpm exec mcpjam`;
+  wiring is per-checkout). Third instance of the capability-locus class on this thread (after
+  the mcp-inspector-skill citation) — the plan-body first-principles check's capability-locus
+  clause (napkin 2026-07-09 candidate) keeps earning its graduation.
+- **Whole-record truing held:** the false claim existed at TWO sites in the plan (P2 pre-probe
+  - the gap list's "MCPJam wired"); grep-sweep before declaring done caught the second. The
+  disposition reply was posted only after the fix bytes were confirmed on the REMOTE head
+  (raw-contents API at the new sha) — the false-disposition failure mode from the PR #328 arc
+  stayed closed.
+- **Stranding guard worked as doctrine:** asserted PR still OPEN immediately after the push
+  (the cure candidate from the 2026-07-09 recurrence); no stranding this time.
