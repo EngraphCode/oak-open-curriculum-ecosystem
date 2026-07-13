@@ -813,7 +813,7 @@ cannot close.
 
 #### The capability labels still carry unwanted product assumptions
 
-The source stories use “Plan a lesson” and “Topic adaption”. The exploration already identifies the
+The source stories use “Plan a lesson” and “Topic adaptation”. The exploration already identifies
 first phrase as linguistically dangerous, but has not yet stabilised replacement vocabulary.
 
 - **Plan a lesson** commonly invites generation of a new lesson or a prescribed teaching sequence.
