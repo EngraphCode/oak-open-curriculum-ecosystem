@@ -817,9 +817,9 @@ shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes
   destructive-pattern tokens never co-occur. (3) The self-merge classifier denial landed five
   minutes BEFORE a fresh bot wave — the guard caught completion drive exactly as designed
   (fluency-clusters-at-the-finish-line, worked instance).
-- **Cleanup sweep (owner-authorized, all re-proven at deletion time)**: 2 further worktrees
+- **Cleanup sweep (owner-authorised, all re-proven at deletion time)**: 2 further worktrees
   removed (public-alpha-teacher-workflows after PR 344; the Codex-managed 3e29 after PR 351 —
-  owner explicitly authorized crossing the harness-ownership caveat), 3 local + 1 remote branch
+  owner explicitly authorised crossing the harness-ownership caveat), 3 local + 1 remote branch
   deleted (2 ancestry-proven, docs/inter-practice-window-2026-07-08 cherry-proven both sides).
   KEEP verdicts stand for 26 local + 16 remote with unmerged patches, incl.
   feat/graph-tooling-tidyup (204 patches — recorded as superseded WIP, but supersession is a
@@ -830,7 +830,7 @@ shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes
   origin/main bytes plus a cross-artefact ledger-consistency agent — run wf_4e940fbc; verdicts
   recorded in the session handoff). The scan's own epistemics named honestly: context-vs-inventory
   is non-delegable (only the seat can do it), and the scan is a best-effort read of what the seat
-  recognized as load-bearing, never a proof — mitigated structurally because decisions
+  recognised as load-bearing, never a proof — mitigated structurally because decisions
   round-tripped through durable surfaces at occurrence time.
 - **Verification verdict (this pass)**: 43 claims checked — 41 verifier-true with verbatim
   quotes, 1 verifier false negative overturned first-hand (the four-condition QUIET sentence IS
