@@ -302,6 +302,26 @@ model-API budget for probes/screening (≥2 models); MCPJam runtime (in repo); l
 
 ## Lifecycle triggers & consolidation
 
+Per [`lifecycle-triggers.md`](../../templates/components/lifecycle-triggers.md), how execution
+sessions pass each required touch point:
+
+- **Session entry**: every execution session opens with `start-right-quick` (or
+  `start-right-thorough` for the heavier sittings), reading active claims, recent comms, and the
+  [`mcp-agent-facing-content` thread record](../../../memory/operational/threads/mcp-agent-facing-content.next-session.md).
+- **Work-shape declaration**: this plan IS the work-shape artefact (executable plan in `current/`).
+- **Pre-edit coordination**: the executing seat consults the active-claims registry, registers an
+  active claim over the touched areas before any edit, and leaves an observable artefact proving
+  the registry was consulted (`register-active-areas-at-session-open`).
+- **During work**: direction changes, overlaps, and gate states append to the shared comms log;
+  the WS2 owner gate is carded, never prose.
+- **Session handoff**: each session closes its claims, updates the thread record, and runs
+  `session-handoff` with its consolidation gate.
+- **Deep consolidation**: `consolidate-docs` runs at the programme-completion trigger below
+  (auditing stale claims, closure history, and decision threads); interim napkin captures ride
+  each session per the standing napkin skill.
+
+Sequencing triggers:
+
 - WS2 owner ratification → unblocks WS4.
 - Programme completion → dedicated consolidation: graduate the operational method into
   `validation-strategy.md`; register the build-session plan as the successor; ADR candidate for
