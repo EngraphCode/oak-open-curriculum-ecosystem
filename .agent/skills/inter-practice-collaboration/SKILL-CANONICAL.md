@@ -48,7 +48,7 @@ needs only steps 1 and the fresh-branch half of the home's write
 governance (its gates, conventions, and a fresh branch off its latest
 main); the communication steps (identity registration, watcher,
 adoption event) are optional-but-welcome. The moment live peers,
-claims, streams, or registration enter, every step below binds in
+claims, or registration enter, every step below binds in
 order.
 
 ## The ceremony (ordered, each step gates the next)

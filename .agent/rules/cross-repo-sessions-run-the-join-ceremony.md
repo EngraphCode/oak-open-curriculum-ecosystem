@@ -37,7 +37,7 @@ seats to coordinate with, no registration, no claims — needs the
 home's write GOVERNANCE (its gates, conventions, and a fresh branch
 off its latest main) but not the full communication ceremony; run the
 ceremony anyway when it helps do things properly. The moment live
-peers, claims, streams, or registration enter, the full ceremony
+peers, claims, or registration enter, the full ceremony
 binds.
 
 ## Action
@@ -48,7 +48,7 @@ skill and run its ceremony in order — read the host's write governance
 first, declare the home, resolve identity with the home's derivation,
 register with the prefix join key, arm the home-tooling watcher, post
 the adoption event — before the first cross-estate write **where the
-full ceremony binds** (live peers, claims, streams, or registration —
+full ceremony binds** (live peers, claims, or registration —
 per §Scope). For a solo write into a QUIET sibling estate, §Scope's
 lighter path applies: the home's write governance and a fresh branch
 off its latest main, with the full ceremony optional-but-welcome. The doctrine

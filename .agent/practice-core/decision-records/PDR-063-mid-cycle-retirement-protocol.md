@@ -98,10 +98,14 @@ triggers, whichever comes first:
 - **Quantitative ceiling**: context usage ≥ 80 % of the agent's
   bounded budget — the hard stop.
 - **Post-commit**: immediately after landing any commit, the agent
-  re-evaluates remaining budget against the next-cycle floor (TDD
-  authoring + reviewer absorption + gate suite) and enters this
-  protocol if the remaining budget would not cover one more cycle
-  with margin.
+  re-evaluates remaining budget against the next-cycle floor and
+  enters this protocol if the remaining budget would not cover one
+  more cycle with margin. The floor is OBSERVABLE, not estimated: the
+  measured token cost of this session's most recent completed cycle
+  (TDD authoring + reviewer absorption + gate suite, read from the
+  transcript). A session with no completed cycle yet has no measured
+  floor — its post-commit arm cannot fire; the two threshold axes
+  govern alone.
 
 The 80 % quantitative trigger has priority over the post-commit
 trigger: an agent at 85 % mid-cycle does not get to "push for one
@@ -228,8 +232,9 @@ progress on the handed-off work).
 Four owner rulings (2026-07-08, recorded verbatim-substance at ruling
 time) supersede this protocol's original self-sensed trigger semantics
 on the AUTHORITY axis — who may declare budget exhaustion and who
-calls the handoff moment. The thresholds and the five-step mechanics
-above are unchanged.
+calls the handoff moment. The thresholds are unchanged; the five-step
+mechanics stand with one named variant — ruling 3's no-recipient
+Step 4 shape below.
 
 1. **No self-declared exhaustion, ever.** Budget verdicts come only
    from measured context figures (transcript usage against the actual
