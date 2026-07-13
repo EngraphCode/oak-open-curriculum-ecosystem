@@ -75,8 +75,9 @@ the first comms write, claim, or registration).
    legitimate derived collision is possible — finite wordlists — and
    the `(agent_name, id)` key disambiguates; a DECLARED owner/operator
    override may legitimately recur across prefixes, with the override
-   declaration as the exemption proof). One seed therefore yields TWO display names
-   (per-estate wordlists); when relaying content across estates, sign
+   declaration as the exemption proof). For DERIVED names one seed
+   therefore yields TWO display names (per-estate wordlists — a
+   declared override may instead present one name everywhere); when relaying content across estates, sign
    BOTH identities in the body with the shared prefix, so each side's
    readers can resolve the author (worked instance 2026-07-08: seed
    55b041 = "Pelican calls Spray" here, "Lacustrine Drifting Hull" on

@@ -134,19 +134,20 @@ below serves one of those three.
    Practice is an ecosystem: never assume a sibling repo's
    conventions, numbering, or derivations transfer.
 
-5. **Identity display and the join key.** Identity names are
+5. **Identity display and the join key.** DERIVED identity names are
    repo-local derivations and stay so (converging them is
    clone-pressure); **each estate derives its name from the session
    SEED alone** — never from model, platform, or any other session
    property — which is exactly why one seed yields sovereign
-   per-estate names joined by the prefix. An owner-assigned or
+   per-estate DERIVED names joined by the prefix. An owner-assigned or
    operator-overridden `agent_name` outranks derivation (as in each
    estate's own identity contract); the override is declared as an
    override at registration, and the prefix join key binds unchanged. Every rendered identity
    surface — statusline, comms headings, claim listings — shows
    `<name> (<session_id_prefix>)`. The **session_id_prefix is the join
    key**, and it identifies a SESSION: one session presents different
-   names across estates. A SUCCESSOR is a NEW session — new prefix,
+   DERIVED names across estates (a declared override may present the
+   same name everywhere). A SUCCESSOR is a NEW session — new prefix,
    therefore (for DERIVED names) a new name in every estate; a
    declared persistent override is the one sanctioned exception,
    below. The anomaly rule: same name
