@@ -467,9 +467,9 @@ no retrospective memos; those are close-out work, this skill's §Steps.
    **drift**: an instruction, fact, preference, or operational note
    that an agent or user added directly to the entry point instead
    of routing it through the canonical surfaces. Entry-point drift
-   is particularly insidious because every platform reads only its
-   own entry point first; a fact that lives only in `AGENTS.md` is
-   invisible to Claude, and vice versa.
+   is particularly insidious because platforms consume different
+   entry points; a fact that lives only in `AGENTS.md` is invisible
+   to Claude, and vice versa.
 
    For every piece of drift found, apply the
    [ephemeral-to-permanent-homing methodology](../../memory/operational/ephemeral-to-permanent-homing.md):

@@ -33,10 +33,10 @@ Three classes of surface accumulate content that does not belong there:
    instructions, facts, or preferences that an agent or user added directly
    to the entry point instead of routing them through the canonical
    surfaces. Drift in
-   entry points is particularly insidious because every platform reads its
-   own entry point first; a fact that lives only in `AGENTS.md` is invisible
-   to Claude, and vice versa. The rule: **entry points point; they do not
-   carry**.
+   entry points is particularly insidious because platforms consume
+   different entry points; a fact that lives only in `AGENTS.md` is
+   invisible to Claude, and vice versa. The rule: **entry points point;
+   they do not carry**.
 
 ## Destinations table
 

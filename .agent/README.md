@@ -20,7 +20,7 @@ definition, see
 .gemini/, .codex/,
 .agents/
   ↓ loaded by
-CLAUDE.md, AGENTS.md,← entry points each platform reads
+CLAUDE.md, AGENTS.md,← entry points platforms read or can use
 GEMINI.md, skills.md
 ```
 
