@@ -881,13 +881,17 @@ responsibilities of the other participants:
 Without that allocation, both over-passive and over-prescriptive implementations can claim to honour
 teacher authority.
 
-#### The current milestone record does not yet carry this product direction
+#### The top-level milestone does not yet name these specific workflows
 
-The current Open Public Alpha milestone record focuses on search reliability, MCP Apps,
-observability, knowledge-graph alignment, staff/invited users, developers, and AI tool builders. It
-does not yet name these teacher workflows or teachers as the direct user. That does not negate the
-owner direction recorded here, but it is a repository-alignment gap to resolve before a delivery
-plan claims to implement an already-ratified milestone scope.
+The [Public Alpha Experience Contract](../plans/user-experience/public-alpha-experience-contract.md)
+already places educator end users in scope and promises that teachers can ask for curriculum help
+in supported AI clients without wrestling with tooling internals. The narrower unresolved question
+sits in the top-level Open Public Alpha milestone record: it focuses on search reliability, MCP
+Apps, observability, knowledge-graph alignment, staff/invited users, developers, and AI tool
+builders, but does not yet name lesson preparation or engagement-localisation as ratified workflow
+scope. Planning should therefore show how these workflows fulfil the existing educator promise and
+either align them with the current milestone or record an explicit product-governance addition; it
+should not imply that the educator direction is absent from the repository.
 
 #### Review hygiene is not concept evidence
 
