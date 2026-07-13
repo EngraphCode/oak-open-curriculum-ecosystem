@@ -34,7 +34,9 @@ Practice Core package.
   description now points at the skill's three-surface liveness check
   instead of an informal gloss; the start-right-team retirement mirror
   restores PDR-063's authority qualifier (owner or coordinator word
-  redirects the seat — not any word).
+  redirects the seat — not any word) and states the role-determined
+  default action (a coordinator seat declares the PDR-064
+  intersection's steps 2–7, never the bare Steps 2–5 block).
 - Twin disposition for every item above: `impossible-with-named-reason` (no
   live peer seat in this window) — the affected portable texts are AHEAD of
   the peer copies; re-twin queued for the next exchange window's outbound

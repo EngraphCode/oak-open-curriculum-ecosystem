@@ -815,7 +815,12 @@ the remaining Steps 2–5),
 waits out that declared window, and AT THE DEADLINE EXECUTES the
 declared default action — the REMAINING Steps 2–5, autonomously, on
 the measured verdict (Step 1 already fired and completed this
-authority wait; re-entering it would recurse); owner or coordinator
+authority wait; re-entering it would recurse). The default action is
+role-determined: a COORDINATOR seat declares and runs the PDR-064
+intersection's combined order (its steps 2–7, Moment 1 interleaved —
+see §"Coordinator Handoff (Two Moments)" §"Intersection with
+PDR-063" below), never the bare Steps 2–5 block. Owner or
+coordinator
 word arriving before
 the deadline redirects the seat and EXITS the sequence — the bounded
 wait can never become an indefinite one. With no live recipient
