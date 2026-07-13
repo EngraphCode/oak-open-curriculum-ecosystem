@@ -67,8 +67,9 @@ forward-asks remain.
   PR #312 (MERGED).
 - **Inter-Practice window PR #336 — MERGED (`SHA:f74a935a5`, 2026-07-13 12:37Z); post-merge wave
   PR #347 also MERGED (`SHA:a7ca8f8aa`, 2026-07-13 14:39Z, 57 threads dispositioned; Monsoon
-  herds Airstream → Aspen stirs Blossom succession); the +10-minute tail's three late threads
-  landed via the `docs/pr347-postmerge-tail` branch.** The cross-estate window's doctrine
+  herds Airstream → Aspen stirs Blossom succession); the tail PR #352 also MERGED
+  (`SHA:088db6555`, 2026-07-13 15:50Z — 8 tail findings + 8 refinement rounds, 17 threads, 2
+  refuted; its own +10-minute tail was CLEAN, closing the arc at 82 threads total).** The cross-estate window's doctrine
   (PDR-125 clause batch, PDR-063 §Retirement
   authority + §Deliberate succession, PDR-064 intersection, the join-ceremony skill + cross-repo
   rule + start-right-team mirrors, ADR-182/211 phenotype notes) survived 28 bot review rounds

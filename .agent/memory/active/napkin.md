@@ -748,6 +748,46 @@ shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes
   pathspec path from the worktree (queue verify-staged cannot read a worktree index); claims
   opened/closed per window, zero contention (solo on the tree throughout).
 
+- **PR 352 (the tail PR) closed the arc**: 8 refinement rounds, 17 threads (2 refuted as false
+  positives with grounding — the first refutations of the arc: bots read PDR-027 session prefixes
+  as bare commit SHAs; the sha-prefix rule scopes COMMIT SHAs). The QUIET check took FOUR
+  generations to converge (heartbeat-tagged events → time bound on all categories →
+  named-boundary windows via canonical-history opening/closing pairs → consumer-absent is state,
+  git ground-truth veto, best-effort-never-proof residual). Lesson earned: when a fix introduces
+  NEW doctrine text, pre-check it against the cited PDR's own edge cases (forced retirement,
+  threshold-suspension exemptions, busy-estate volumes) BEFORE pushing — each missed edge cost a
+  full review round-trip. Total arc: 82 threads dispositioned, all byte-verified; owner merged
+  both PRs (`SHA:a7ca8f8aa`, `SHA:088db6555`); the second +10-minute tail was CLEAN.
+- **Process recurrences this tenure**: (1) capture-expensive-command-output recurred twice in new
+  faces — a stale COMMIT EXIT read from the wrong task log, and MSG EXIT measuring the pipe's
+  tail instead of the checker (ELIFECYCLE in the output was the tell); gate on the TRUE exit,
+  capture it in the first run. (2) hook-policy-substring-discipline, new face: "git push" and a
+  graphql "-f" flag co-located in ONE compound tripped the force-push policy — split compounds so
+  destructive-pattern tokens never co-occur. (3) The self-merge classifier denial landed five
+  minutes BEFORE a fresh bot wave — the guard caught completion drive exactly as designed
+  (fluency-clusters-at-the-finish-line, worked instance).
+- **Cleanup sweep (owner-authorized, all re-proven at deletion time)**: 2 further worktrees
+  removed (public-alpha-teacher-workflows after PR 344; the Codex-managed 3e29 after PR 351 —
+  owner explicitly authorized crossing the harness-ownership caveat), 3 local + 1 remote branch
+  deleted (2 ancestry-proven, docs/inter-practice-window-2026-07-08 cherry-proven both sides).
+  KEEP verdicts stand for 26 local + 16 remote with unmerged patches, incl.
+  feat/graph-tooling-tidyup (204 patches — recorded as superseded WIP, but supersession is a
+  judgment not a proof) and the 7 remediate-main-* (1 patch each, owner judgment). PR #345
+  flipped draft→non-draft mid-session (live GitHub fact, no conservation needed).
+- **Closeout loss scan + recursive metaloss pass run per the owner's daily prompt**
+  (workflow-verified: quote-anchored Sonnet verifiers checked every claimed durable home against
+  origin/main bytes plus a cross-artefact ledger-consistency agent — run wf_4e940fbc; verdicts
+  recorded in the session handoff). The scan's own epistemics named honestly: context-vs-inventory
+  is non-delegable (only the seat can do it), and the scan is a best-effort read of what the seat
+  recognized as load-bearing, never a proof — mitigated structurally because decisions
+  round-tripped through durable surfaces at occurrence time.
+- **Verification verdict (this pass)**: 43 claims checked — 41 verifier-true with verbatim
+  quotes, 1 verifier false negative overturned first-hand (the four-condition QUIET sentence IS
+  on main; the verifier read the read-instruction sentence), 1 genuine inventory error (the §8
+  failure-mode log holds TEN entries — my seven plus Monsoon's three pre-existing; substance
+  conserved). Cross-artefact ledger consistent incl. jsonl ground truth 85/66. ZERO conservation
+  gaps; write-phase items landed in this commit.
+
 ## 2026-07-13 — Sloop holds Lagoon (5fbef7): linear-plugin config lane + closeout loss-scan
 
 Session shape: sole contributor, ad-hoc config lane (no registered thread; transient claim
