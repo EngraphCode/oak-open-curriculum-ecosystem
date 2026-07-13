@@ -71,10 +71,11 @@ the first comms write, claim, or registration).
    key: it is the ONE identity coordinate shared across estates, and
    it identifies a SESSION (a successor session is a new prefix and —
    for DERIVED names — a new name everywhere; same-name-different-prefix
-   is an anomaly to surface, never accept for DERIVED names: a DECLARED
-   owner/operator override may legitimately recur across prefixes,
-   with the override declaration as the exemption proof and the
-   `(agent_name, id)` pair disambiguating). One seed therefore yields TWO display names
+   is an anomaly to surface and VERIFY before accepting: a rare
+   legitimate derived collision is possible — finite wordlists — and
+   the `(agent_name, id)` key disambiguates; a DECLARED owner/operator
+   override may legitimately recur across prefixes, with the override
+   declaration as the exemption proof). One seed therefore yields TWO display names
    (per-estate wordlists); when relaying content across estates, sign
    BOTH identities in the body with the shared prefix, so each side's
    readers can resolve the author (worked instance 2026-07-08: seed

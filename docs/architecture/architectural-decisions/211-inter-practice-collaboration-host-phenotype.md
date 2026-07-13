@@ -32,7 +32,10 @@ is, so the protocol's clauses resolve to concrete surfaces here.
 - **Ceremony and trigger:** the portable skill `inter-practice-collaboration`
   (`.agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md`) is the runnable join ceremony;
   the portable rule `cross-repo-sessions-run-the-join-ceremony` fires it on the cross-repo
-  condition.
+  condition. Amended 2026-07-13 to mirror the owner's 2026-07-08 scoping rulings: read-only
+  estate looks are unceremonied, and a solo write into a QUIET estate takes the lighter
+  governance-only path (write governance + a fresh branch off latest main); the full ceremony's
+  machinery binds at the first comms write, claim, or registration (PDR-125 clause 3).
 
 ## Consequences
 

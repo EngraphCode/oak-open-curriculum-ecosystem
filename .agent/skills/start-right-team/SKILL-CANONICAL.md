@@ -830,10 +830,13 @@ SKILL names the protocol shape and points at it):
    the new handoff record. No other schema field changes; existing
    readers ignore the field without breakage.
 4. **Hand off via a directed comms-event** carrying `message_kind:
-   "mid-cycle-handoff"` per ADR-182 §"Comms-event message_kind value".
-   The event body carries the claim identifier, a pointer to the
-   handoff record, a ≤200-word human summary, and the retiring agent's
-   identity tuple per PDR-027.
+   "mid-cycle-handoff"` per ADR-182 §"Comms-event message_kind value"
+   — when a live recipient (successor or coordinator) exists. With no
+   live recipient, the transport exception applies (PDR-063 ruling
+   3): a BROADCAST pending-handoff announcement instead, and pickup
+   via claim adoption. Either event body carries the claim
+   identifier, a pointer to the handoff record, a ≤200-word human
+   summary, and the retiring agent's identity tuple per PDR-027.
 5. **Retire** with a final retirement broadcast on the existing
    team-cadence shape, naming the handed-off claim and the receiving
    agent (if known) so the team sees the retirement is not abandonment.

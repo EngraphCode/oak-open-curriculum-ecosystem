@@ -4,6 +4,25 @@ Changes to the Practice Core files, newest first. Each entry records the repo
 that made the change and what was changed. This file travels with the
 Practice Core package.
 
+## [oak-open-curriculum-ecosystem] 2026-07-13 — post-review truings to PDR-125, PDR-063, PDR-064 and the ceremony surfaces (Monsoon herds Airstream, PR review rounds)
+
+- Review-round truings amending clauses twinned in the 2026-07-08 window:
+  PDR-125 clauses 3 and 5 (quiet-write scoping; explicit platform/model
+  registration fields; override precedence with the derived-only anomaly
+  qualification and `(agent_name, id)` collision disambiguation;
+  successor-details-are-hypotheses); PDR-063 (two-axis + post-commit signal
+  model with the observable next-cycle floor; §Retirement authority with the
+  executable wait bound and the no-recipient Step 4 transport exception;
+  §Deliberate succession initiator discriminator); PDR-064 (transport-
+  exception mirror in the coordinator-retirement intersection); the
+  join-ceremony skill, cross-repo rule, and start-right-team mirrors; the
+  ADR-211 host-phenotype amendment.
+- Twin disposition for every item above: `impossible-with-named-reason` (no
+  live peer seat in this window) — the affected portable texts are AHEAD of
+  the peer copies; re-twin queued for the next exchange window's outbound
+  bundle. The 2026-07-08 entry below describes only that window's twinned
+  landing.
+
 ## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-125 + PDR-063 amended in the cross-estate window (resonance guest seat, owner-authorised)
 
 - PDR-125 carries the v1 clause-conservation amendment batch, twinned with
@@ -33,15 +52,9 @@ Practice Core package.
   `twinned-in-window` (peer backport, same window) **as of that window**;
   the join-ceremony skill + cross-repo rule step amendments — local
   phenotype of the twinned spec (clause 6: local code is per-repo, no
-  disposition owed). The post-landing review-round truings on this PR
-  (signal-model completion, no-recipient Step 4 transport exception,
-  quiet-write path, anomaly-rule override exemption, successor-hypotheses
-  and twin-disposition mirrors) AMEND clauses twinned above, so the
-  affected portable texts are now AHEAD of the peer copies —
-  `impossible-with-named-reason` (no live peer seat in this window),
-  queued for the next exchange window's re-twin; the batch-level
-  twinned-in-window claims hold for the window's landed text, not the
-  post-review final text.
+  disposition owed). These dispositions describe this window's landed
+  text; the post-review truings that later amended these clauses are the
+  2026-07-13 entry above, with their own disposition.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-126: gates land strict in one landing (Corsair guards Channel, dedicated consolidation)
 

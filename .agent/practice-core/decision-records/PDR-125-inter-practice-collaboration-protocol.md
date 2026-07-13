@@ -146,12 +146,15 @@ below serves one of those three.
    therefore (for DERIVED names) a new name in every estate; a
    declared persistent override is the one sanctioned exception,
    below. The anomaly rule: same name
-   with a different prefix is an anomaly — surface it, do not accept
-   it. The anomaly rule binds DERIVED names only: a DECLARED
-   owner/operator override may legitimately recur across prefixes
-   (persistent identity per each estate's identity contract), the
-   registration's override declaration is the exemption proof, and
-   the `(agent_name, id)` pair disambiguates concurrent bearers.
+   with a different prefix is an anomaly — surface it and VERIFY
+   before accepting, never assume. For DERIVED names a rare
+   legitimate collision is possible (finite wordlists; different
+   seeds can collide), and the canonical `(agent_name, id)` key
+   disambiguates the bearers; an unverified same-name assumption is
+   never accepted. A DECLARED owner/operator override may
+   legitimately recur across prefixes (persistent identity per each
+   estate's identity contract), with the registration's override
+   declaration as the exemption proof.
    A pre-positioning handoff event from an outgoing session
    authorises a successor, but **ALL pre-positioned successor details
    are hypotheses** — the identity tuple, the seating, the timing, the
