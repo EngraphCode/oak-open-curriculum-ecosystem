@@ -239,7 +239,7 @@ Each seam entry in the recommendation table MUST carry:
 
 | id | Acceptance | Level | Proof |
 |---|---|---|---|
-| A1 | Coverage matrix complete | non-code | coverage checker landed with WS2 at `.agent/reports/mcp-agent-facing-content-audit/generators/check-coverage.mjs` (run: `node .agent/reports/mcp-agent-facing-content-audit/generators/check-coverage.mjs`); exit 0 with 716/716 review-mapped, 697/697 eval-mapped or exempted, zero unmapped — independently recomputable from registry.json |
+| A1 | Coverage matrix complete | non-code | coverage checker is a WS2 deliverable (it does NOT exist yet); WS2 lands it at `.agent/reports/mcp-agent-facing-content-audit/generators/check-coverage.mjs`, after which `node .agent/reports/mcp-agent-facing-content-audit/generators/check-coverage.mjs` exits 0 with 716/716 review-mapped, 697/697 eval-mapped or exempted, zero unmapped — independently recomputable from registry.json |
 | A2 | Per-seam entries meet all 9 criteria | non-code | checklist audit of the recommendation table; spot-verified by readiness reviewers |
 | A3 | Pre-probes run and absorbed | value-proxy | P1 contamination result + P2 MCPJam expressiveness note present and cited by affected entries |
 | A4 | Expert workshop evidence | non-code | ≥1 elicitation workshop + calibration round recorded for the pedagogy seam; rubric + IRR figure attached |

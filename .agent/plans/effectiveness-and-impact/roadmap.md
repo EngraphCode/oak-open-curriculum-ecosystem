@@ -1,7 +1,7 @@
 # Effectiveness and Impact Roadmap
 
 **Status**: Milestone 1 queued (research plan in `current/`, execution owner-gated)
-**Last Updated**: 2026-07-13
+**Last Updated**: 13 July 2026
 
 ---
 

@@ -1,6 +1,6 @@
 # Effectiveness and Impact
 
-**Last Updated**: 9 July 2026
+**Last Updated**: 13 July 2026
 
 Planning hub for how Oak **knows its agent-facing surfaces work and deliver value**: evaluation
 and assessment methodology, review and eval protocols for the MCP agent-facing content corpus,
