@@ -26,8 +26,19 @@ this thread is about the *authored framing/instructions/descriptions* Oak contro
 | --- | --- | --- | --- | --- | --- | --- |
 | claude | claude-fable-5 (switched from claude-opus-4-8[1m] mid-session 2026-07-09; continuous seat per PDR-027) | 2bd86d | Beacon hunts Brilliance | analyst + implementer | 2026-07-09 | 2026-07-09 |
 | claude-code | claude-fable-5 | 8c566b | Monsoon herds Airstream | pr-shepherd | 2026-07-13 | 2026-07-13 |
+| codex | GPT-5 | 019f5b | Acacia wakes Sapling | explorer | 2026-07-13 | 2026-07-13 |
 
 ## Landing Target For Next Session (trued 2026-07-13, Monsoon herds Airstream)
+
+**The owner-commissioned concept exploration is complete as an exploration artefact, not as an
+architecture decision or implementation plan:**
+[`2026-07-13-mcp-agent-influence-content-organisation-exploration.md`](../../../../docs/explorations/2026-07-13-mcp-agent-influence-content-organisation-exploration.md)
+records the leading hypothesis of a canonical content estate plus typed concern-assurance areas.
+Human review and automated evaluation share concern scope, stable identities, and coverage, while
+remaining distinct products; pedagogy-like stewardship domains may earn primary boundaries,
+safety remains cross-cutting, and broad accuracy must be decomposed into accountable claims. The
+topology remains falsifiable through expert validation, concern-denominator research, editable
+round-trip usability, and evaluation-methodology research.
 
 **The Monday brief's one live task is DISCHARGED: PR #338 MERGED to main 2026-07-13 08:15Z
 (`SHA:7ef8a8a3a`)** — the `effectiveness-and-impact` plan collection, the assessment-methodology
@@ -39,18 +50,22 @@ declaration instant; normal non-admin merge (merge commit).
 
 Remaining, IN ORDER:
 
-1. **Branch cleanup (owner confirm, not agent action):** `docs/mcp-agent-facing-content-registry`
+1. **Land the exploration before follow-on work:** verify PR #345 is merged and the exploration
+   artefact above exists on `main`; do not treat review-ready or conflict-free state as landing.
+2. **Branch cleanup (owner confirm, not agent action):** `docs/mcp-agent-facing-content-registry`
    (merged via #337), `docs/effectiveness-and-impact-assessment-research` (merged via #338), and
    `docs/mcp-content-338-closeout` (this truing, once merged) are deletable; deletion has
    historically been an owner action here — confirm rather than assume.
-2. **Then STOP — everything else is owner-gated.** Do NOT start unprompted:
+3. **Then STOP — everything else is owner-gated.** Do NOT start unprompted:
+   - **Plan creation:** this is the next distinct stage when the owner starts it. Use the
+     exploration as evidence without promoting its leading hypothesis into a settled architecture.
    - **Research execution** (the plan in §Owning plan(s)): first move when the owner clears it =
      dispatch the three PENDING readiness reviewers (assumptions-expert, mcp-expert, test-expert)
      on the plan body, absorb verdicts, then WS0 (P1 contamination quiz; P2 MCPJam expressiveness).
    - **Content-workspace build** (report §7 direction): its design questions get carded when the
      owner schedules it.
    - **Production analytics / tier-3**: gated on the `mcp-product-analytics` lane promotion.
-3. **Standing, non-blocking items** (do only if owner asks): the confirmed content defects
+4. **Standing, non-blocking items** (do only if owner asks): the confirmed content defects
    (report §8.1 — classNotes PII/injection, two typos, stale wording, idempotentHint, graph-tools/
    toolCategories mismatch) are small independent fixes, partly upstream in the OCA spec; the
    published claude.ai artifact of `content-registry.html` predates the review-round fixes (stale)
@@ -58,6 +73,13 @@ Remaining, IN ORDER:
    wraps body-only content, so strip the shell before any republish (generator comment says this).
 
 ## Current State — VISIBILITY + PLANNING DELIVERABLES ON MAIN (2026-07-13)
+
+The concept-exploration session adds the concern-assurance model linked in §Landing Target. Its
+outcome narrows the later design space but deliberately leaves package topology, concern
+denominators, evaluation instruments, and migration mechanics undecided. The next session must
+verify the exploration has landed on `main` before beginning the separately owner-gated planning
+stage; no content move, schema, generator, evaluation suite, or implementation follows directly
+from this record.
 
 **PR #337 MERGED to main 2026-07-09 15:03Z (`SHA:5f3c1f472`)** — the registry, report, rendered-wholes,
 HTML browser, and generators are live on `main`. One commit missed the merge window (a known
