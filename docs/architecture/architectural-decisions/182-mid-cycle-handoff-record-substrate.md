@@ -70,6 +70,15 @@ Strict readers already accept arbitrary `message_kind` strings; no
 schema migration is required (the orthogonal `tags` extension is
 governed by ADR-183 and PDR-066, not this ADR).
 
+**No-recipient transport variant (amended 2026-07-13, mirroring
+PDR-063 §Retirement authority ruling 3):** the directed
+`mid-cycle-handoff` event requires a `to` recipient, so it fires only
+when a live successor or coordinator exists. With no live recipient,
+Step 4 takes a BROADCAST narrative pending-handoff announcement
+carrying the same body contract (claim identifier, record pointer,
+summary, identity tuple); the successor later picks up via claim
+adoption, which needs no directed event from the departed seat.
+
 ### Skill amendments
 
 The `start-right-team` SKILL §Closeout Contract gains a subsection

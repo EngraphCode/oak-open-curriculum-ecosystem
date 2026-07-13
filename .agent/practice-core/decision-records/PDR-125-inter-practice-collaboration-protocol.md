@@ -14,11 +14,13 @@ founding clauses folded into clauses 3, 5, and 7; the both-estates
 innovation posture added to clause 6; both estates in one window,
 cross-estate diff re-proven). Amended 2026-07-13 (post-landing review
 truings to clauses 3 and 5 — quiet-write scoping, registration
-fields, override precedence and anomaly exemption,
-successor-details-are-hypotheses): the current copy is AHEAD of the
-peer estate's; re-twin queued for the next exchange window (per-item
-dispositions in the Practice-Core changelog). The 2026-07-08
-diff-proof describes that window's landed text, not this head.
+fields, override precedence and anomaly verification,
+successor-details-are-hypotheses): this amendment originated in the
+oak-open-curriculum-ecosystem estate and was not twinned at authoring
+time (no live peer seat); its re-twin is queued for the next exchange
+window, with per-item dispositions in the originating estate's
+Practice-Core changelog. The 2026-07-08 diff-proof describes that
+window's landed text, not the 2026-07-13 amendment.
 **Date**: 2026-07-06
 **Related**: PDR-005 (transplantation and provenance), PDR-024
 (vital integration surfaces and outbound routing), PDR-027 (identity

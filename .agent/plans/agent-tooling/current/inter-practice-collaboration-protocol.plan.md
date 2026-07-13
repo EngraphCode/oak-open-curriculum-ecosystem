@@ -360,7 +360,11 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
    every estate; it is not the same prefix re-derived. (An earlier hypothesis
    that the name derives from the model was tested against the successor's
    arrival and WITHDRAWN — a new session simply has a new seed.) The anomaly
-   rule: *same name + different prefix* = anomaly (surface, do not accept). A
+   rule: *same name + different prefix* = anomaly (surface and VERIFY before
+   accepting — PDR-125 clause 5 as amended 2026-07-13: a rare legitimate
+   derived collision is possible with finite wordlists and the
+   `(agent_name, id)` key disambiguates; a DECLARED owner/operator override
+   may legitimately recur across prefixes). A
    pre-positioning handoff event from the outgoing session authorises the
    successor; the peer verifies the successor's OWN identity tuple (its own
    prefix + cross-estate alias) at the successor's team-start, never assuming

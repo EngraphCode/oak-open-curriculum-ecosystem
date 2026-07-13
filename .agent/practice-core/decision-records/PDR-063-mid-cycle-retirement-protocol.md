@@ -83,8 +83,11 @@ produce.
 
 Adopt the following five-step mid-cycle retirement protocol. It
 fires only when an agent must retire before the natural boundary
-they were working toward; natural-boundary closeouts continue to
-use the existing `start-right-team` §Closeout Contract unchanged.
+they were working toward AND the initiator is a measured budget
+signal — an OWNER-called handoff is never these five steps; it
+routes through §Deliberate succession below. Natural-boundary
+closeouts continue to use the existing `start-right-team` §Closeout
+Contract unchanged.
 
 ### Step 1 — Sense approaching budget
 
