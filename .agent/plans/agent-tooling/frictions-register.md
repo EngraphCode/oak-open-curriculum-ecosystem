@@ -3035,12 +3035,18 @@ commit SHA and the closing plan reference.
 - **Expected**: one resolution scheme for both surfaces — operate fully against the
   invoking worktree's index (registry still at the coordination home), or refuse loudly at
   enqueue time when cwd is a worktree.
-- **Candidate cure**: pin the git working tree explicitly at every dep boundary in
-  `runCommitWorkflow` (match it to the invoking cwd), and until then add a
-  worktree-detection guard that errors with the plain-path instruction. Confirm the
-  resolution-split hypothesis against the CLI source first (napkin entry labels it
-  unverified).
+- **Candidate cure**: split the two roots at the CLI boundary — `runCommitQueueTopic`
+  collapses both concerns into `repoRoot: resolveCoordinationHome(input.cwd)`
+  (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`), and the staged reads / workflow git
+  calls are already pinned to that root (`commit-queue/git.ts` `runGit` uses
+  `cwd: repoRoot`), so the registry root must stay the coordination home while a separate
+  git-worktree root carries the invoking cwd. Fixing inside `runCommitWorkflow` alone
+  cannot recover the worktree. Until cured, add a worktree-detection guard that errors
+  with the plain-path instruction. (Resolution-split mechanism VERIFIED against source at
+  the PR 355 review round, 2026-07-13.)
 - **Target surface**: agent-tools CLI (`commit-queue` workflow deps); compose with the
   `coordination-home-cli-path-defaulting` plan (F-41 family) rather than a parallel fix
 - **Status**: open
-- **Owner direction status**: session-scoped (owner asked for detailed notes, 2026-07-13)
+- **Owner direction status**: standing (friction capture is the register's standing owner
+  direction, lines 16-20; only the unusually detailed trace depth was a session-scoped ask,
+  2026-07-13)
