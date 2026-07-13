@@ -175,8 +175,9 @@ ratio that produced 28 rounds here.
   phi ≈0.55 → ≈1.4 effective votes of 3) predicted that same-model
   voters are partially redundant; this run's cross-TIER split
   (Haiku find, Sonnet verify) is the complementary design point —
-  diversity by capability tier, not just by lens — and the 65%
-  refute rate is evidence the tiers genuinely disagree.
+  diversity by capability tier, not just by lens — and the 80%
+  refuted-verdict share (53/66) is evidence the tiers genuinely
+  disagree.
 - **PDR-101 quorum economics**: a new data point beside the 2026-07-08
   four-seat quorum (~557k tokens, 2 convergent must-fix classes):
   155 agents / ~6.6M tokens / 12 confirmed + 4 design follow-ups on
@@ -202,8 +203,10 @@ ratio that produced 28 rounds here.
 
 ## 8. Failure-mode log (for the next fleet author)
 
-- Structured-output retry deaths concentrate in low-effort Haiku on
-  long files: budget for a fallback tier.
+- Structured-output retry deaths hit the VERIFIER path (15/81 Sonnet
+  verifier units), not the Haiku finders as first assumed: add a
+  fallback verifier on retry exhaustion and a workflow invariant that
+  verdict-count equals deduped-count before the run reports.
 - A comms watcher armed without its required `--seen-file` argument
   crash-loops silently inside a Monitor re-arm loop — assert the
   watcher live (F-95 check) after arming, not just armed.

@@ -57,8 +57,11 @@ seats exist), its comms stream tail for registrations AND substantive
 events newer than the home's retirement window (liveness per the
 home's own liveness contract, e.g. PDR-078: heartbeat OR substantive
 activity, honouring its declared exemption windows), and its watcher
-liveness files for heartbeats within the home's heartbeat cadence
-(all read from the write governance in step 1). If all three surfaces
+liveness files for heartbeats within the home's RETIREMENT threshold
+— a seat is live until it has been silent (no heartbeat, no
+substantive event) for that whole window, so a heartbeat older than
+one cadence but inside the threshold still counts as live (all read
+from the write governance in step 1). If all three surfaces
 are silent, the estate is QUIET; if any one is live, it is not. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
