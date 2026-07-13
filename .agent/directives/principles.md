@@ -48,6 +48,14 @@ agent-facing substrate is a product whose users are agents; see
 [PDR-111](../practice-core/decision-records/PDR-111-agent-experience-is-first-class.md)),
 and the highest levels of software engineering excellence.
 
+### Concept Exploration — the pre-decision workflow
+
+The lenses resolve formed questions. For raw observations, recurring phenomena, or an unshaped
+ask, invoke the
+[`concept-exploration`](../skills/concept-exploration/SKILL-CANONICAL.md) skill before an option
+list exists. It alternates `metacognition` and `reason`, then feeds its warranted, falsifiable
+synthesis into the lenses above.
+
 ## First Question
 
 Always apply the first question; **Ask: could it be simpler *without
