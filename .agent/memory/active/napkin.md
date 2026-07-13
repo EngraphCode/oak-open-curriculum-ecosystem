@@ -623,3 +623,27 @@ preserved verbatim before that worktree's removal.
   `agent-tools:check-commit-message`; the helper deliberately mirrors `git commit` and requires
   `-m <message>` (or stdin/file input). The exit was invalid usage, not a commitlint verdict. Use the
   explicit `-m` form before committing.
+
+<!-- fitness already exceeded; this behaviour-changing exploration result must still be preserved
+and needs later consolidation -->
+
+- **Concept-exploration exit pass corrected an over-unification:** “one generic facilitation
+  kernel” fused two separate properties. The durable shape is one shared teacher-authority/fidelity
+  constitution, multiple bounded intent-specific workflows, and a generic deterministic curriculum
+  substrate. Generality belongs to the invariants, the entity operations, and each workflow's
+  curriculum coverage—not to forcing preparation and engagement localisation through one uniform
+  dialogue. The same pass separated the natural teacher experience from the internal evidence trace;
+  both are required for the demo, but exposing protocol mechanics to the teacher is not.
+- **Search-scope mistake during the exit audit:** a broad `rg` across plans, milestones, architecture,
+  the MCP app, and SDK emitted roughly 66,000 lines and truncated, obscuring the signal. The useful
+  recovery was to read the directly identified milestone, ADR, workflow, and prompt source files.
+  For concept audits, use a light index scan to find load-bearing files and then switch immediately
+  to directed reads.
+- **Critical-fitness post-mortem:** (1) the earlier zones did fire—the pre-rotation napkin recorded a
+  710-line warning, and the buffer was processed and rotated on 8 July—but many independent sessions
+  then appended substantial new learning faster than the next consolidation cadence; the signal was
+  visible rather than absent. (2) The limit is still appropriate for this file's drainable-buffer
+  role: raising it would conceal the backlog, while trimming would violate preservation. (3) The
+  critical state is a missing-consolidation symptom across the post-rotation entries. This session's
+  stable product substance is already in the dedicated research note; the napkin entries still need
+  a later holistic consolidation that graduates every mature concept before rotation.

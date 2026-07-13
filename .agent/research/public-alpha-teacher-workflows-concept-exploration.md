@@ -785,3 +785,257 @@ The important outcome of this wider exploration is a changed centre of gravity. 
 a crucial mechanism, but the capability is defined by the facilitation contract and its invariants.
 The two demonstration fixtures should reveal that contract under different pressures; they should
 not become the contract themselves.
+
+## Concept Exploration exit assessment
+
+The preceding passes explored the concept broadly. This pass asks a different pre-decision
+question: **is further conceptual exploration likely to change the model, or do the remaining
+uncertainties now require evidence from teachers, hosts, and live behaviour?** It uses the same four
+movements to avoid both premature planning and endless inquiry.
+
+### Movement 1: reflect on what the exploration now contains and omits
+
+#### The evidence has unequal strength
+
+The repository and protocol observations are strong enough to support claims about the current MCP
+surfaces, deterministic Oak capabilities, optional lesson components, and the teacher-as-expert
+product boundary. The exploration does not yet contain direct evidence about:
+
+- how teachers describe these tasks without product vocabulary;
+- which refining questions teachers find useful or burdensome;
+- whether simple engagement localisation is valuable before artefact transformation;
+- how target AI applications expose assistant-audience resources in practice; or
+- whether models reliably acquire bounded workflow guidance from ordinary teacher language.
+
+Those are not missing paragraphs. They are empirical gaps that more solitary conceptual writing
+cannot close.
+
+#### The capability labels still carry unwanted product assumptions
+
+The source stories use “Plan a lesson” and “Topic adaption”. The exploration already identifies the
+first phrase as linguistically dangerous, but has not yet stabilised replacement vocabulary.
+
+- **Plan a lesson** commonly invites generation of a new lesson or a prescribed teaching sequence.
+  The public-alpha story is more accurately **prepare to teach using existing Oak material**.
+- **Topic adaptation** can imply changed educational content. The Watford story is more accurately
+  **localise engagement context** while the educational anchors remain fixed.
+- **Pedagogical adaptation** should name an explicit, teacher-directed change to teaching choices,
+  support, sequencing, assessment, or intended learning.
+- **Generation** should remain a separate capability term, not a silent consequence of “planning”
+  or “adaptation”.
+
+These are not cosmetic labels. A model uses the words as behavioural cues, so the vocabulary helps
+enforce the alpha boundary.
+
+#### One generic kernel over-unifies the concept
+
+The previous synthesis proposed a generic facilitation kernel with intent facets. That is better
+than fixture-specific workflows, but it still compresses two distinct requirements:
+
+1. the same authority, provenance, fidelity, and capability-honesty rules should govern every
+   teacher interaction; and
+2. preparing to teach and localising engagement are different intents that may warrant different
+   refining dialogues and stopping conditions.
+
+Curriculum generality does not require one universal teacher workflow. A stronger composition is:
+
+- one shared **facilitation constitution** containing the invariants;
+- bounded, **intent-specific workflows** that are curriculum-agnostic; and
+- generic deterministic curriculum operations used by those workflows.
+
+This preserves common product semantics without forcing preparation and localisation through an
+artificially uniform conversation.
+
+#### The demonstration has two audiences and therefore two planes
+
+The teacher-facing demonstration should feel like an ordinary conversation. Requiring the teacher
+to watch MCP resource acquisition, tool selection, or provenance bookkeeping would damage the UX it
+is meant to prove.
+
+The internal audience needs the opposite evidence: enough trace to see that the agent acquired the
+Oak-authored workflow, called the appropriate deterministic tools, preserved source/derived
+boundaries, respected unavailable capabilities, and returned decisions to the teacher.
+
+The demonstration is therefore one event with two projections:
+
+1. **Experience plane:** the natural teacher-agent conversation and useful content/materials.
+2. **Evidence plane:** an internal trace or walkthrough connecting behaviour to workflow guidance,
+   Oak calls, source facts, boundary decisions, and teacher decision points.
+
+A polished transcript without the evidence plane does not show how Oak influenced the behaviour. A
+protocol trace without the experience plane does not show teacher value.
+
+#### Authority needs allocation, not only repetition
+
+“The teacher is the authority” is the invariant. A usable concept also needs to distinguish the
+responsibilities of the other participants:
+
+- the agent may take reversible operational initiative inside the expressed goal;
+- the Oak server supplies deterministic curriculum facts, materials, provenance, and bounded
+  capabilities;
+- the consuming host supplies permissions and optional capabilities such as browsing or file
+  editing; and
+- pupils are affected stakeholders, not users of this surface. The workflow should not require
+  pupil-identifiable information to become helpful.
+
+Without that allocation, both over-passive and over-prescriptive implementations can claim to honour
+teacher authority.
+
+#### The current milestone record does not yet carry this product direction
+
+The current Open Public Alpha milestone record focuses on search reliability, MCP Apps,
+observability, knowledge-graph alignment, staff/invited users, developers, and AI tool builders. It
+does not yet name these teacher workflows or teachers as the direct user. That does not negate the
+owner direction recorded here, but it is a repository-alignment gap to resolve before a delivery
+plan claims to implement an already-ratified milestone scope.
+
+#### Review hygiene is not concept evidence
+
+The draft PR is green and automated reviewers raised no findings. That establishes that the research
+artefact is reviewable and mechanically sound. It does not validate teacher value, host behaviour,
+or the proposed workflow-delivery model.
+
+### Movement 2: define the exploration-exit problem
+
+#### Kind of problem
+
+This is an **inquiry-boundary evaluation in a hybrid human and technical product system**. It is not
+yet an architecture decision or a delivery plan.
+
+#### Gap
+
+The concept is broad enough to expose its main mechanisms and tensions, but conceptual questions,
+empirical questions, product decisions, and implementation choices have been allowed to sit in one
+list. Without classifying them, the work can fail in either direction:
+
+- stop too early and carry category errors into planning; or
+- keep “exploring” questions that can only be answered through observation and thereby avoid contact
+  with reality.
+
+#### Who the gap harms
+
+- Teachers bear the cost if untested assumptions become a rigid or burdensome workflow.
+- Oak bears the cost if a technically persuasive demo cannot show that Oak guidance caused the
+  behaviour.
+- Implementers bear the cost if a plan begins before workflow boundaries and product vocabulary are
+  stable.
+- Reviewers bear the cost if public-alpha claims and current milestone records describe different
+  products.
+
+#### Causal mechanism
+
+The concept spans several reliability rungs. Repository and protocol facts are observations;
+teacher interaction and host-portability claims are models. The fluent failure is to treat all of
+them as equally established because they appear in one coherent document.
+
+#### Constraints
+
+- Teacher authority and curriculum generality remain invariants.
+- This session is exploration, not planning or implementation.
+- The internal examples must remain fixtures rather than scope.
+- Empirical uncertainty must not be resolved by model confidence or additional prose.
+- The public-alpha concept must remain useful without borrowing uncommitted beta capabilities.
+
+#### Success
+
+Exploration is sufficient when:
+
+1. the central product concept and its boundaries can be stated without demo-specific language;
+2. distinct intents are composed without being collapsed into one universal conversation;
+3. decision authority and operational initiative are allocated clearly;
+4. the teacher experience and the internal proof are both defined;
+5. remaining uncertainties are classified by the kind of evidence or decision that can resolve
+   them; and
+6. there is a falsifiable reason to reopen the concept rather than an assumption that exploration
+   should continue indefinitely.
+
+### Movement 3: reflect on the responsible stopping shapes
+
+Three shapes are available:
+
+| Shape | Attractive property | Failure mode |
+| --- | --- | --- |
+| Stop with the existing synthesis | Avoids further abstraction and moves quickly | Preserves ambiguous capability language, over-unification, and the one-plane demo model |
+| Keep exploring until the host and teacher questions are answered | Avoids declaring conceptual closure under uncertainty | Misclassifies empirical discovery as conceptual work and creates no stopping condition |
+| Run one bounded conceptual close, then move unknowns to evidence | Resolves the remaining category errors while preserving contact with reality | Requires discipline not to turn the evidence agenda into an implementation plan |
+
+The third shape is proportionate. The remaining conceptual changes are small in number but
+load-bearing; the remaining large uncertainties cannot be reasoned away.
+
+#### Revised composition model
+
+The concept should no longer be described as one generic workflow kernel. It has four layers:
+
+| Layer | Responsibility | What must remain generic |
+| --- | --- | --- |
+| Facilitation constitution | Teacher authority, provenance, fidelity, honest capability boundaries, source/derived distinction | Applies to every interaction and every intent |
+| Intent-specific workflow | Progressive dialogue and stopping conditions for preparation, engagement localisation, or later capabilities | Works across any relevant Oak lesson, topic, or unit; contains no fixture branches |
+| Curriculum capability substrate | Deterministic search, resolution, fetch, graph, content, material, and link operations | Operates over typed curriculum entities and returns honest partial/empty results |
+| MCP delivery adapters | Resource, model-controlled retrieval, metadata, and optional prompt projections | Render one canonical workflow source without semantic drift |
+
+This model allows more than one teacher workflow without duplicating the product boundary or
+hard-coding subject content.
+
+#### Decision-rights model
+
+| Participant | May do | Must not do or assume |
+| --- | --- | --- |
+| Teacher | Set and change the goal; decide relevance; provide as much context as they choose; select materials and options; direct changes; approve final use | Be treated as an approval step after the agent has already made the pedagogical decision |
+| Consuming agent | Search, retrieve, summarise, compare, ask consequential questions, expose uncertainty, and present grounded options within the expressed goal | Prescribe pedagogy, silently change educational intent, fabricate unavailable content, or imply host/Oak capabilities that are absent |
+| Oak MCP server | Return deterministic curriculum facts, structure, resources, provenance, safeguards, and canonical workflow guidance | Make request-time pedagogical decisions or claim external/local facts it does not supply |
+| Host application | Mediate permissions and provide optional capabilities such as resource access, web research, downloads, or editing | Be treated as a portable Oak capability unless observed and declared |
+
+Pupils are affected by the teacher's decisions but are not direct users of this surface. Helpful
+refinement should use class-level context where possible and should not depend on names, individual
+profiles, or other pupil-identifiable information.
+
+#### Dual-plane demonstration contract
+
+| Claim | Teacher-facing evidence | Internal evidence |
+| --- | --- | --- |
+| Natural-language entry works | The teacher uses ordinary language and receives a relevant first response | The trace shows how the workflow was discovered without a user-invoked MCP prompt |
+| Oak content and quality travel | The teacher sees accurate, selective lesson information and usable materials | The trace maps presented claims to Oak results and identifies omitted/unavailable components |
+| Teacher authority holds | The conversation leaves relevance and pedagogical choices visibly open to the teacher | The walkthrough identifies each decision point and distinguishes operational initiative from teacher authority |
+| Localisation stays bounded | Watford context is offered as source-labelled engagement material without silently changing the learning intent | The trace separates Oak anchors, teacher/external local context, host capabilities, and proposed substitutions |
+| Capability limits are honest | Missing assets or unsupported editing are stated plainly | The evidence names which boundary belongs to Oak, the host, or a future milestone |
+
+### Movement 4: synthesise the exit verdict
+
+#### Revised concept
+
+The concept is now:
+
+> A shared teacher-authority and fidelity constitution, applied through bounded intent-specific
+> workflows that orchestrate generic deterministic Oak curriculum capabilities, with the canonical
+> workflow guidance delivered through complementary MCP adapters.
+
+This supersedes the stronger “one generic facilitation kernel” wording. Preparation and engagement
+localisation share a constitution and capability substrate; they do not have to share every
+question, branch, or stopping condition.
+
+#### Verdict
+
+**One bounded piece of exploration remained, and this exit pass completes it.** Another broad
+concept sweep is unlikely to improve the model without new evidence. The exploration should now be
+treated as sufficient for pre-decision discovery, subject to review of this revised framing.
+
+The remaining work before planning is evidence gathering rather than more solitary concept
+expansion:
+
+| Remaining uncertainty | Correct next mode | Evidence or authority needed |
+| --- | --- | --- |
+| Teacher vocabulary, useful questions, and value of simple localisation | Teacher discovery | Teacher walkthroughs or observed sessions using natural starting language |
+| Resource visibility, workflow-tool selection, and link behaviour | Host capability probe | Live tests in each target AI application with prompts unavailable |
+| Curriculum-wide generality and failure behaviour | Scenario evaluation | A small deliberately varied corpus matrix, including ambiguous, partial, and empty cases |
+| Watford facts, maps, images, licensing, and attribution | Source research | Current authoritative or appropriately licensed local sources plus teacher judgement |
+| The right workflow granularity and delivery adapter | Decision after probes | Measured context cost, acquisition reliability, and semantic-drift risk |
+| Placement within the current Open Public Alpha milestone | Product governance | Owner-backed milestone truing or an explicit supersession/addition decision |
+| Implementation sequence and acceptance gates | Planning | A subsequent planning session grounded in the evidence and product decision above |
+
+These activities may change the concept. They should reopen exploration only if they falsify a
+load-bearing claim—for example, teachers do not recognise the proposed intent boundaries, distinct
+workflows create harmful fragmentation, proactive retrieval is experienced as loss of authority,
+or the internal evidence plane cannot be produced without degrading the teacher experience.
+
+Until such evidence appears, continued conceptual elaboration would add detail without increasing
+contact with reality.
