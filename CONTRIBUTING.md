@@ -381,17 +381,17 @@ then add a conventional-commit-style summary:
 - `MCP-123: feat(search): add database pagination support`
 - `MCP-456: fix(security): correct email scrubbing regex`
 
-The issue ID must be the first text in the title. Linear links a pull request
-when the issue ID appears in its branch name or title; the title prefix is this
-repository's consistent convention. The remainder of the title keeps the
-change type, optional scope, and concise summary visible to reviewers.
+The issue ID must be the first text in the title. Linear can link a pull request
+when the issue ID appears in its branch name, title, or description; the title
+prefix is this repository's consistent convention. The remainder of the title
+keeps the change type, optional scope, and concise summary visible to reviewers.
 
 In the PR description, add one of these on its own line:
 
 - `Fixes MCP-123` when merging the PR completes the issue
 - `References MCP-123` when the issue must remain open after merge
 
-The title creates the link; the description keyword makes the intended issue
+The description keyword both creates a link and makes the intended issue
 lifecycle explicit. For a PR that covers multiple issues, put the primary issue
 in the title and list every closing or non-closing relationship in the
 description. Automated dependency and release PRs may omit the issue prefix.

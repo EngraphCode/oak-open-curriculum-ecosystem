@@ -1,5 +1,6 @@
 <!--
-PR title: LINEAR-ID: type(scope): concise summary
+PR title: LINEAR-ID: type: concise summary
+Optional scope: LINEAR-ID: type(scope): concise summary
 Example: LINEAR-ID: feat(search): add programme filters
 
 The Linear ID must be the first text in the title. See CONTRIBUTING.md for
