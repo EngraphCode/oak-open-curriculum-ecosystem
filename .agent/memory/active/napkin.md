@@ -602,6 +602,52 @@ preserved verbatim before that worktree's removal.
 - **Stranding guard worked as doctrine:** asserted PR still OPEN immediately after the push
   (the cure candidate from the 2026-07-09 recurrence); no stranding this time.
 
+## 2026-07-13 — Thyme guards Seedling (019f5b): public-alpha workflow exploration
+
+- **Mistake / tooling seam:** I opened the short-lived commit claim in the linked worktree's
+  untracked registry. `commit-queue` resolves its registry and Git `repoRoot` to the primary
+  coordination checkout, so it could neither see that claim nor safely operate on this worktree's
+  index. The primary checkout also contains an unrelated user edit. For this isolated n=1 worktree,
+  use the commit skill's explicit-pathspec fallback after verifying the worktree's staged set; do
+  not redirect the composed queue workflow at the primary checkout merely to make the claim visible.
+- **Owner correction:** teacher authority is invariant over every user interaction; the agent is
+  only ever facilitating. The named examples are demo fixtures, not capability scope: flows and
+  tools must work for any lesson, topic, or unit. Localisation demo locale is Watford, England.
+- **Concept frame changed on the full-space pass:** workflow delivery is only one mechanism inside a
+  generic, teacher-controlled facilitation protocol over typed curriculum anchors. Three distinctions
+  prevent attractive but false simplifications: teacher authority is compatible with reversible
+  read-only initiative; curriculum-wide generality does not require uniform steps or complete data;
+  and a compelling photosynthesis/Watford demo makes the mechanism visible but does not prove
+  generality or cross-host portability.
+- **Commit-message helper usage mistake:** I passed the proposed message as a positional argument to
+  `agent-tools:check-commit-message`; the helper deliberately mirrors `git commit` and requires
+  `-m <message>` (or stdin/file input). The exit was invalid usage, not a commitlint verdict. Use the
+  explicit `-m` form before committing.
+
+<!-- fitness already exceeded; this behaviour-changing exploration result must still be preserved
+and needs later consolidation -->
+
+- **Concept-exploration exit pass corrected an over-unification:** “one generic facilitation
+  kernel” fused two separate properties. The durable shape is one shared teacher-authority/fidelity
+  constitution, multiple bounded intent-specific workflows, and a generic deterministic curriculum
+  substrate. Generality belongs to the invariants, the entity operations, and each workflow's
+  curriculum coverage—not to forcing preparation and engagement localisation through one uniform
+  dialogue. The same pass separated the natural teacher experience from the internal evidence trace;
+  both are required for the demo, but exposing protocol mechanics to the teacher is not.
+- **Search-scope mistake during the exit audit:** a broad `rg` across plans, milestones, architecture,
+  the MCP app, and SDK emitted roughly 66,000 lines and truncated, obscuring the signal. The useful
+  recovery was to read the directly identified milestone, ADR, workflow, and prompt source files.
+  For concept audits, use a light index scan to find load-bearing files and then switch immediately
+  to directed reads.
+- **Critical-fitness post-mortem:** (1) the earlier zones did fire—the pre-rotation napkin recorded a
+  710-line warning, and the buffer was processed and rotated on 8 July—but many independent sessions
+  then appended substantial new learning faster than the next consolidation cadence; the signal was
+  visible rather than absent. (2) The limit is still appropriate for this file's drainable-buffer
+  role: raising it would conceal the backlog, while trimming would violate preservation. (3) The
+  critical state is a missing-consolidation symptom across the post-rotation entries. This session's
+  stable product substance is already in the dedicated research note; the napkin entries still need
+  a later holistic consolidation that graduates every mature concept before rotation.
+
 ## 2026-07-13 — Monsoon herds Airstream (8c566b), part 2: the PR #336 treadmill, the diff fleet, and the loop session
 
 <!-- fitness exceeded by ~380 lines; needs consolidation — dedicated pass DUE (also recorded in the fleet report §9 and the session handoff) -->
