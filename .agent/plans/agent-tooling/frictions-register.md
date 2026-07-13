@@ -3018,7 +3018,7 @@ commit SHA and the closing plan reference.
   staged-set verification, full hooks.
 - **Owner direction status**: standing (record-all-frictions).
 
-### F-138 — commit-queue git reads split from registry resolution when run from a worktree
+### F-138 — commit-queue reuses the coordination-home root for worktree git operations
 
 - **Source**: napkin 2026-07-13 "Sloop holds Lagoon (5fbef7), part 2" (full trace); intent
   `dc13fba5` abandonment notes; claim closure `bf3fe8e2`; commit body `SHA:e888ccb01`
@@ -3029,7 +3029,9 @@ commit SHA and the closing plan reference.
   PRIMARY registry, but `record-staged` fingerprinted an EMPTY staged set
   (`staged_name_status: ""`) while the worktree index held the file, so the commit
   workflow failed verify-staged-before ("missing: …napkin.md") and auto-abandoned the
-  intent. Registry resolution and git-tree resolution disagree from any non-primary tree.
+  intent. There is no split between two schemes: one root (the coordination home) is
+  supplied for both, and it is wrong for git operations whenever the invoking tree is a
+  worktree.
   Adjacent capture: piping the workflow through `| tail` masked the non-zero exit
   (background-task false-green).
 - **Expected**: one resolution scheme for both surfaces — operate fully against the
@@ -3042,8 +3044,8 @@ commit SHA and the closing plan reference.
   `cwd: repoRoot`), so the registry root must stay the coordination home while a separate
   git-worktree root carries the invoking cwd. Fixing inside `runCommitWorkflow` alone
   cannot recover the worktree. Until cured, add a worktree-detection guard that errors
-  with the plain-path instruction. (Resolution-split mechanism VERIFIED against source at
-  the PR 355 review round, 2026-07-13.)
+  with the plain-path instruction. (Mechanism VERIFIED against source at the PR 355
+  review round, 2026-07-13: single-root reuse, not a resolution split.)
 - **Target surface**: agent-tools CLI (`commit-queue` workflow deps); compose with the
   `coordination-home-cli-path-defaulting` plan (F-41 family) rather than a parallel fix
 - **Status**: open
