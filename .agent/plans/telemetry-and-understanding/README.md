@@ -2,7 +2,7 @@
 title: "Telemetry and Understanding System (TAU)"
 type: plan-collection-index
 status: active
-last_updated: 2026-07-11
+last_updated: 2026-07-13
 serves_strategic_choice: APP-1
 ---
 
@@ -14,8 +14,15 @@ product and operational understanding.
 The name expresses the loop:
 
 ```text
-Telemetry -> Analysis -> Understanding
+Telemetry -> Analysis -> Interpretation -> Understanding
 ```
+
+Here, **logging** records operational detail; **observability** makes system
+state answerable from correlated outputs; **organisational intelligence** is
+the explicit formation and comparison of hypotheses from those outputs; and
+**understanding** is warranted, situated comprehension sufficient for a
+responsible decision. A dashboard is an analysis surface, not understanding by
+itself.
 
 TAU exists so Oak can answer:
 
@@ -70,6 +77,7 @@ TAU controls cross-layer sequencing for:
 | `compliance/` | Published policy, statutory records, and external submission requirements. |
 | `effectiveness-and-impact/` | Assessment/evaluation methodology for whether surfaces are effective. TAU supplies behavioural evidence but does not own evaluation truth. |
 | `semantic-search/` | Search quality and retrieval implementation; TAU owns cross-runtime event semantics and analysis joins. |
+| stakeholder and external-system surfaces | Linear owns delivery coordination, Notion owns stakeholder presentation and deliberation, and the proposed idea-graph evidence architecture owns cross-system projection semantics. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
 | application workspaces | Own emission sites and behaviour tests. |
 
 ## Authority model
@@ -86,7 +94,7 @@ TAU controls cross-layer sequencing for:
 
 | Lane | Role | Index |
 |---|---|---|
-| [`current/`](current/README.md) | NEXT: decision-complete queued execution | TAU delivery plan |
+| [`current/`](current/README.md) | NEXT: queued; coordination and review remain open | TAU delivery plan |
 | `active/` | NOW: created when implementation begins | Not yet created |
 | `future/` | Later trigger-bound extensions | Added when a concrete future plan exists |
 | `archive/completed/` | Read-only execution history | Added at first completion |
@@ -115,7 +123,7 @@ TAU controls cross-layer sequencing for:
 Every stage must close a real loop:
 
 ```text
-question -> signal -> delivery -> analysis -> human review -> decision
+question -> signal -> delivery -> analysis -> interpretation -> human review -> decision
 ```
 
 A stage that only adds instrumentation is incomplete.

@@ -14,7 +14,7 @@ derives_from:
   - ../../../research/telemetry-and-understanding/2026-07-11-architecture-and-intent-corpus-review.md
   - ../../../research/telemetry-and-understanding/2026-07-11-posthog-baseline-and-build-vs-buy.md
   - ../../../research/telemetry-and-understanding/2026-07-11-sentry-integration-disposition-ledger.md
-last_updated: 2026-07-11
+last_updated: 2026-07-13
 todos:
   - id: s0-ground-current-state
     content: "STAGE 0: re-derive current code, package, branch, Sentry, PostHog, logger, event, environment, and plan state; produce a source-cited ground-truth ledger and replace stale emission percentages with executable evidence."
@@ -77,7 +77,7 @@ todos:
     status: pending
     depends_on: [s3-tool-invoked, s3-dependency-call]
   - id: s4-question-surfaces
-    content: "STAGE 4: create TAU ingestion-quality, adoption, tool/outcome/path, dependency/reliability, host/client, and release-correlation insights/dashboards; every asset cites a registered question and owner."
+    content: "STAGE 4: create TAU ingestion-quality, adoption, tool/outcome/path, dependency/reliability, host/client, and release-correlation analysis surfaces; every asset cites a registered question and owner."
     status: pending
     depends_on: [s3-vertical-slice-evidence]
   - id: s4-definitions-probe
@@ -85,7 +85,7 @@ todos:
     status: pending
     depends_on: [s4-question-surfaces]
   - id: s4-understanding-review
-    content: "STAGE 4: run the first product/data/engineering understanding review, record an evidence-backed decision or explicit no-change finding, and schedule outcome re-measurement."
+    content: "STAGE 4: run the first product/data/engineering sensemaking review; separate observations from interpretations and judgements; record hypotheses, alternatives, counterevidence, confidence, an evidence-backed decision or explicit no-change finding, and outcome re-measurement."
     status: pending
     depends_on: [s4-question-surfaces]
   - id: s5-sentry-ground-truth
@@ -109,21 +109,21 @@ todos:
     status: pending
     depends_on: [s6-signal-class-and-logs]
   - id: s7-wider-events
-    content: "STAGE 7: deliver focused child lanes for search_query, auth_failure, rate_limit_triggered, feedback_submitted, widget_session_outcome, and a11y_preference_tag using the proven TAU pattern."
+    content: "STAGE 7: evaluate the wider-event gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, feedback_submitted, widget_session_outcome, and a11y_preference_tag using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every lane."
     status: pending
     depends_on: [s4-understanding-review]
   - id: s8-feedback-flags-experiments
-    content: "STAGE 8: when a real surface/hypothesis exists, deliver qualitative feedback, provider-neutral flag evaluation, PostHog/Sentry projections, survey compatibility, and experiment governance."
+    content: "STAGE 8: evaluate the qualitative-learning gate; either deliver qualitative feedback, provider-neutral flag evaluation, PostHog/Sentry projections, survey compatibility, and experiment governance for a real surface/hypothesis, or record an evidence-backed not-promoted disposition."
     status: pending
     depends_on: [s7-wider-events]
   - id: s9-warehouse-trigger
-    content: "STAGE 9: on a recorded durable cross-source question, select and implement a warehouse/export projection with retention, backfill, identity-minimisation, and reconciliation; never as a retroactive PostHog prerequisite."
+    content: "STAGE 9: evaluate the durable-export gate; either select and implement a warehouse/export projection for a recorded cross-source question with retention, backfill, identity-minimisation, and reconciliation, or record an evidence-backed not-promoted disposition; never make it a retroactive PostHog prerequisite."
     status: pending
     depends_on: [s4-understanding-review]
   - id: s10-governance-and-close
-    content: "STAGE 10: establish project/event definition verification, ingestion warnings, cost/retention budgets, deletion drills, recurring question reviews, ADR/runbook propagation, fresh emission inventory, and plan-corpus consolidation."
+    content: "STAGE 10: verify that every declared lane is complete or has an explicit evidence-backed not-promoted disposition; establish project/event definition verification, ingestion warnings, cost/retention budgets, deletion drills, recurring question reviews, ADR/runbook propagation, fresh emission inventory, and plan-corpus consolidation."
     status: pending
-    depends_on: [s4-understanding-review, s5-sentry-corpus-close]
+    depends_on: [s2-posthog-mcp-probe, s4-definitions-probe, s5-sentry-corpus-close, s6-monitoring-alerts, s7-wider-events, s8-feedback-flags-experiments, s9-warehouse-trigger]
 ---
 
 # TAU — Telemetry and Understanding System delivery plan
@@ -133,13 +133,30 @@ todos:
 **Lifecycle:** `current/` — NEXT, executable and queued; no implementation has
 started under this plan.
 
-**Decision completeness:**
+**Decision completeness:** open. Stages 0–4 are structurally specified, but the
+identity/cardinality review findings and the neighbouring stakeholder/evidence
+surface exploration must be reconciled before promotion. Stage 5 retains a
+defined disposition method but must re-derive Sentry facts before code changes.
+Stages 6–10 remain evidence-gated and now require an explicit completed or
+not-promoted disposition before corpus close.
 
-- Stages 0–4 are decision-complete as tasks and may execute after promotion.
-- Stage 5 is decision-complete in disposition and must re-derive Sentry facts
-  before code changes.
-- Stages 6–10 are trigger/evidence-gated. Their outcomes and acceptance are
-  defined, but detailed mechanisms must be finalised from observed data.
+## Coordination boundary with PR #341
+
+[PR #341](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/341)
+is the neighbouring authority for audience-shaped visibility across the
+repository, Linear, Notion, GitHub, and specialist evidence services. It owns
+which surface serves which audience and how durable intent, delivery state,
+stakeholder narrative, and external evidence cross those boundaries.
+
+TAU owns the narrower question-to-signal-to-analysis-to-interpretation loop:
+event and identity semantics, privacy projection, PostHog and Sentry delivery,
+evidence limits, sensemaking, decision use, and re-measurement. It supplies
+governed evidence to the neighbouring surfaces; it does not redefine their
+audiences, authority, or projection mechanics.
+
+PR #341 should land first. This plan must then reconcile the landed report and
+planning contract before promotion; until that happens PR #339 remains a draft
+and this plan remains coordination-open.
 
 ## Owner direction embodied
 
@@ -182,7 +199,8 @@ registered question
   -> allowlist/redaction/identity projection
   -> adapter fan-out
   -> reproducible analysis surface
-  -> scheduled review
+  -> explicit interpretation and hypothesis record
+  -> scheduled sensemaking review
   -> decision
   -> change
   -> re-measurement
@@ -302,6 +320,7 @@ adds no direct PostHog calls to it during the first vertical slice.
 - delivery;
 - storage;
 - analysis;
+- interpretation and organisational sensemaking;
 - monitoring;
 - decision;
 - re-measurement.
@@ -344,6 +363,9 @@ Rules:
   surfaces.
 - An event without a question must be justified by a mandatory engineering,
   security, compliance, or accessibility control.
+- A review record separates observation, interpretation, model, judgement, and
+  action. It names at least one plausible alternative explanation, relevant
+  counterevidence, and calibrated confidence before a decision is recorded.
 - Questions can be retired, but their decision history remains.
 
 ## Stage-1 event catalogue
@@ -738,7 +760,7 @@ Reconcile all by IDs.
 5. monitor ingestion warnings and cost;
 6. rollback switch rehearsed.
 
-## Stage 4 — Understanding surfaces
+## Stage 4 — Analysis and sensemaking surfaces
 
 ### Asset naming
 
@@ -800,6 +822,14 @@ Output:
 question_id: TAU-Q...
 evidence:
   - posthog_insight: ...
+observations:
+  - ...
+interpretation: ...
+alternative_explanations:
+  - ...
+counterevidence:
+  - ...
+confidence: low|medium|high
 limits:
   - ...
 decision: ...
@@ -943,6 +973,8 @@ Only then select and implement the warehouse projection.
 
 ### Corpus close
 
+- verify every declared lane is complete or explicitly dispositioned as not
+  promoted, with the gate evidence retained;
 - amend ADRs;
 - update app/library/runbooks;
 - generate fresh emission inventory;

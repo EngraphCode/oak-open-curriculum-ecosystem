@@ -2,7 +2,7 @@
 title: "TAU current plans"
 type: lifecycle-index
 status: current
-last_updated: 2026-07-11
+last_updated: 2026-07-13
 ---
 
 # TAU current plans
@@ -11,7 +11,7 @@ last_updated: 2026-07-11
 
 | Plan | Status | Purpose |
 |---|---|---|
-| [TAU delivery](tau-delivery.plan.md) | Decision-complete for Stages 0–4; later stages have explicit evidence gates | Build the Oak event contract, PostHog-first vertical slice, question-driven analysis surfaces, Sentry integration, and long-term governance. |
+| [TAU delivery](tau-delivery.plan.md) | Coordination and review open; not ready for promotion | Build the Oak event contract, PostHog-first vertical slice, question-driven analysis and sensemaking surfaces, Sentry integration, and long-term governance. |
 
 Before implementation starts, move the plan to `active/`, create the active
 index, and re-verify all live external/project assumptions.

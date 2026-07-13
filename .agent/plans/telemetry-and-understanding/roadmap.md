@@ -2,7 +2,7 @@
 title: "TAU roadmap"
 type: strategic-index
 status: active
-last_updated: 2026-07-11
+last_updated: 2026-07-13
 serves_strategic_choice: APP-1
 current_plan: "current/tau-delivery.plan.md"
 ---
@@ -32,13 +32,13 @@ Oak has one coherent understanding system in which:
 | 1 | Questions and semantic contracts | Eight Stage-1 events and common envelope are code-enforced | Stage 0 contradictions closed |
 | 2 | Delivery substrate and PostHog adapter | Provider-neutral event fan-out and proven Vercel delivery | Stage 1 schemas green |
 | 3 | First value-bearing vertical slice | `tool_invoked` + `dependency_call` answer initial questions in PostHog | Privacy-safe preview adapter green |
-| 4 | Understanding surfaces | Named questions have dashboards/queries, owners, and review cadence | Real/synthetic event quality proven |
+| 4 | Analysis and sensemaking surfaces | Named questions have reproducible analysis, interpretation records, owners, and review cadence | Real/synthetic event quality proven |
 | 5 | Sentry reconciliation | Sentry work is completed, absorbed, deferred, or retired by distinct value | Stage 3 correlations established |
 | 6 | Logs, monitoring, and alerts | Signal classes, destinations, SLOs, and runbooks are proportionate | Enough distributions and incidents exist |
 | 7 | Wider axes and runtimes | Search, security, feedback, widget, accessibility, and other runtimes join TAU | Stage 1–4 pattern proven |
 | 8 | Qualitative learning and experimentation | Feedback, flags, surveys, and experiments are governed | Real product hypothesis or feedback surface exists |
 | 9 | Durable export and warehouse | Cross-source/durable analysis is implemented only for a named need | Recorded question cannot be met proportionately in PostHog |
-| 10 | Governance and corpus close | Event/project definitions, costs, deletion, decision logs, and plan estate remain truthful | Every promoted stage closed |
+| 10 | Governance and corpus close | Event/project definitions, costs, deletion, decision logs, and plan estate remain truthful | Every declared lane complete or explicitly dispositioned as not promoted |
 
 ## Critical path
 
@@ -127,12 +127,18 @@ Deliver:
 
 Gate:
 
-- Q1–Q5 have queryable evidence;
+- Q2, Q4, and Q5 have queryable evidence;
+- Q1 can report identified people and anonymous activity only; it must not
+  claim anonymous-person cardinality without a privacy-approved stable
+  anonymous identity;
+- Q3 is limited to tool composition within one Oak invocation identified by
+  `correlation_id`; it must not claim cross-invocation or host-conversation
+  composition;
 - event completeness reconciles against controlled calls/logs;
 - expected and error paths covered;
 - product owner, engineer, and data/research reviewer accept usefulness.
 
-### Stage 4 — Understanding surfaces
+### Stage 4 — Analysis and sensemaking surfaces
 
 Deliver:
 
@@ -143,12 +149,16 @@ Deliver:
 - dependency/reliability dashboard;
 - saved HogQL queries;
 - definitions-as-code spike and decision;
-- recurring evidence review and decision-log template.
+- recurring evidence review and decision-log template that separates
+  observations, interpretations, hypotheses, counterevidence, confidence, and
+  judgement.
 
 Gate:
 
 - every surface cites question ID and owner;
 - reviewers can answer questions without bespoke engineering;
+- reviews record plausible alternative explanations and what evidence would
+  change the interpretation;
 - at least one decision or explicit no-change finding is recorded;
 - default starter assets are clearly separated from Oak authority.
 
@@ -242,6 +252,7 @@ Warehouse does not retroactively become a PostHog prerequisite.
 
 Deliver:
 
+- completion or explicit not-promoted disposition for every declared lane;
 - event/project definitions verification;
 - ingestion-warning and schema-drift checks;
 - cost and retention review;
@@ -258,10 +269,12 @@ Every stage review answers:
 1. What question or risk did this stage serve?
 2. What evidence was produced?
 3. What can the evidence not establish?
-4. What decision was made?
-5. What changed as a result?
-6. When will the outcome be re-measured?
-7. Which old authority was retired or updated?
+4. Which interpretations or hypotheses were considered, with what confidence?
+5. What counterevidence would change the interpretation?
+6. What decision was made?
+7. What changed as a result?
+8. When will the outcome be re-measured?
+9. Which old authority was retired or updated?
 
 ## Promotion
 

@@ -305,7 +305,10 @@ runtime capability ──> Oak event/signal contract
                                          │
                          reproducible analysis surfaces
                                          │
-                          scheduled human interpretation
+                         explicit hypotheses, alternatives,
+                         counterevidence, and confidence
+                                         │
+                          scheduled human sensemaking
                                          │
                               decision + re-measure
 ```

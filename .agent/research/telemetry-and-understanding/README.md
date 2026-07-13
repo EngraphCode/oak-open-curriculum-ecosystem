@@ -2,7 +2,7 @@
 title: "Telemetry and Understanding research"
 type: research-index
 status: active
-last_updated: 2026-07-11
+last_updated: 2026-07-13
 ---
 
 # Telemetry and Understanding research
@@ -13,7 +13,7 @@ This directory contains the evidence and reasoning behind the
 TAU names a full loop:
 
 ```text
-telemetry -> analysis -> understanding -> decision -> change -> outcome evidence
+telemetry -> analysis -> interpretation -> understanding -> decision -> change -> outcome evidence
 ```
 
 The programme is deliberately wider than a vendor integration and wider than

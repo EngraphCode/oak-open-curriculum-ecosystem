@@ -24,7 +24,7 @@ The next step should be a new outcome-led programme:
 The programme name describes the intended transformation:
 
 ```text
-Telemetry -> Analysis -> Understanding
+Telemetry -> Analysis -> Interpretation -> Understanding
 ```
 
 The architecture remains sink-cardinality agnostic. PostHog is first because
@@ -188,7 +188,8 @@ named question
   -> privacy and identity projection
   -> one or more adapters
   -> reproducible analysis surface
-  -> scheduled review with a named decision owner
+  -> explicit interpretation, alternatives, counterevidence, and confidence
+  -> scheduled sensemaking review with a named decision owner
   -> decision or explicit no-change finding
   -> product/operational change
   -> outcome re-measurement
@@ -430,9 +431,9 @@ These are seeds for Stage 1, not final measures:
 
 | ID | Question | Likely decision |
 |---|---|---|
-| Q1 | How many identified and anonymous people use the MCP over time? | Whether adoption and enablement work should change. |
+| Q1 | How many identified people use the MCP, and how much anonymous activity occurs, over time? | Whether adoption and enablement work should change. |
 | Q2 | Which tools are used, by which client classes, and with what outcome? | Tool portfolio, documentation, and host-specific fixes. |
-| Q3 | Which tools compose within the same invocation window? | Workflow and MCP App design. |
+| Q3 | Which tools compose within the same Oak invocation? | Workflow and MCP App design without inventing a host-session boundary. |
 | Q4 | Where do upstream Oak API or Elasticsearch calls fail or dominate latency? | Reliability and architecture priorities. |
 | Q5 | Which releases or hosts correlate with errors or degraded outcomes? | Rollback, incident, and release decisions. |
 | Q6 | Which categorical curriculum areas and search shapes are requested or produce zero hits? | Search and content-surface priorities. |
