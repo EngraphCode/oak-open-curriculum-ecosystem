@@ -3,19 +3,24 @@ name: concept-exploration
 classification: active
 description: >-
   Explore an unshaped concept, phenomenon, recurring incident class, or messy set of observations
-  before solution options exist. Use when framing options immediately would foreclose the real
-  question; run four alternating metacognition and reason movements to produce a well-formed
-  understanding with warranted, falsifiable proposals. Do not use once the options or decision
-  question are already well formed; use reason and the decision lenses instead.
+  before solution options or the decision question are well formed. Use when framing options
+  immediately would foreclose the real question; run four alternating metacognition and reason
+  movements to produce a well-formed understanding with warranted, falsifiable proposals. Do not
+  use once the options or decision question are already well formed; use reason and the decision
+  lenses instead.
 ---
 
 # Concept Exploration
 
-Convert raw observations into holistic understanding before proposing options. This workflow is
-the upstream sibling of the decision lenses: it composes
+Convert raw observations into holistic understanding before committing to well-formed options.
+This workflow is the upstream sibling of the decision lenses: it composes
 [`metacognition`](../metacognition/SKILL-CANONICAL.md) inward and
 [`reason`](../reason/SKILL-CANONICAL.md) outward so that each discipline checks the other's failure
-shape.
+shape. Reasoning alone structures prematurely; reflection alone yields insight that never
+converges.
+
+Repository-specific provenance, adaptation notes, and replication guidance live in
+[the concept-exploration Practice transfer note](../../research/concept-exploration-practice-transfer-2026-07.md).
 
 ## Four Movements
 
