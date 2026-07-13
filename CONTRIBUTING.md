@@ -372,32 +372,55 @@ Then create a Pull Request on GitHub.
 
 ## Pull Request Guidelines
 
-### PR Title
+### Linear Issue and PR Title
 
-Use conventional commit format:
+For ordinary contributor-authored work, select or create the Linear issue before
+opening a pull request. Start the PR title with the exact, uppercase issue ID,
+then add a conventional-commit-style summary:
 
-- `feat: add database pagination support`
-- `fix: correct email scrubbing regex`
+- `MCP-123: feat(search): add database pagination support`
+- `MCP-456: fix(security): correct email scrubbing regex`
+
+The issue ID must be the first text in the title. Linear can link a pull request
+when the issue ID appears in its branch name, title, or description; the title
+prefix is this repository's consistent convention. The remainder of the title
+keeps the change type, optional scope, and concise summary visible to reviewers.
+
+In the PR description, add one of these on its own line:
+
+- `Fixes MCP-123` when merging the PR completes the issue
+- `References MCP-123` when the issue must remain open after merge
+
+The description keyword both creates a link and makes the intended issue
+lifecycle explicit. For a PR that covers multiple issues, put the primary issue
+in the title and list every closing or non-closing relationship in the
+description. Automated dependency and release PRs may omit the issue prefix.
+Any other intentionally untracked exception must explain why in the template's
+Linear section. See [Linear's GitHub integration
+documentation](https://linear.app/docs/github-integration) for the integration
+behaviour.
 
 ### PR Description
 
-Include:
+Use the repository template as a reviewer-facing account of the change. Include:
 
-1. **What** — Brief description of changes
-2. **Why** — Problem being solved or feature being added
-3. **How** — High-level approach taken
-4. **Testing** — How you tested the changes
+1. **Linear** — Closing, non-closing, or justified untracked relationship
+2. **Summary** — Coherent outcome, not a file list
+3. **Why** — Problem, impact, and motivation
+4. **Review focus** — Decisions, assumptions, and high-risk areas
+5. **Scope** — What is deliberately in and out
+6. **Validation** — Reproducible evidence for the final diff
+7. **Risks and rollout** — Compatibility, migration, monitoring, rollback, or follow-up notes
 
 ### PR Checklist
 
-- [ ] Tests added/updated for all changes
-- [ ] All tests passing (`pnpm test`)
-- [ ] Types checked (`pnpm type-check`)
-- [ ] Code linted (`pnpm lint:fix`)
-- [ ] Documentation updated if needed
-- [ ] No `console.log` statements
-- [ ] No hardcoded values
-- [ ] No `any` types or type assertions
+- [ ] The title and description express the correct Linear relationship
+- [ ] Validation evidence reflects the final diff
+- [ ] Required quality gates pass (`pnpm check` is the canonical full local gate)
+- [ ] Tests cover changed behaviour, or the PR explains why they are not applicable
+- [ ] Documentation is updated where behaviour, interfaces, or workflows changed
+- [ ] An ADR is added or updated for architectural decisions
+- [ ] No secrets, credentials, or sensitive data are included
 
 ## Code Standards
 
