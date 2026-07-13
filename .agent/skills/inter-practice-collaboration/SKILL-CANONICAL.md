@@ -82,13 +82,15 @@ the first comms write, claim, or registration).
    55b041 = "Pelican calls Spray" here, "Lacustrine Drifting Hull" on
    the peer estate).
 4. **Register on the home stream**: the first comms write declares the
-   home identity name, native-repo alias(es), the prefix join key,
-   `platform` and `model` as EXPLICIT fields (never left for readers
-   to infer — platform vocabulary diverges across estates and the
-   identity layer pins one value), the worktree repo-reference
-   (origin + branch — never a machine-local checkout path in tracked
-   content), and coordination posture (observer / implementer /
-   exchange seat). An owner-assigned or operator-overridden
+   FULL identity block (the home identity contract, e.g. PDR-027) —
+   the home identity name, the canonical `id` disambiguator (the
+   valid live routing target), `platform` and `model` as EXPLICIT
+   fields (never left for readers to infer — platform vocabulary
+   diverges across estates and the identity layer pins one value),
+   the prefix join key, and `seed_source` — plus native-repo
+   alias(es), the worktree repo-reference (origin + branch — never a
+   machine-local checkout path in tracked content), and coordination
+   posture (observer / implementer / exchange seat). An owner-assigned or operator-overridden
    `agent_name` outranks the home derivation and is declared AS an
    override in the same registration (PDR-125 clause 5); the prefix
    join key binds unchanged. ALL pre-positioned successor details —

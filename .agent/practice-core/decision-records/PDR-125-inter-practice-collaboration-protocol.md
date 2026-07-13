@@ -102,9 +102,11 @@ below serves one of those three.
    machinery below binds at the first comms write, claim, or
    registration. For the communicating join: resolve identity with
    the HOME repo's own derivation; the first comms write declares the
-   home identity name, native-repo alias(es), the `session_id_prefix`
-   as the join key, the explicit `platform` and `model` registration
-   values (clause 5 — never inferred), the worktree repo-reference
+   FULL identity block of each estate's identity contract — the home
+   identity name, the canonical `id` disambiguator, the explicit
+   `platform` and `model` values (clause 5 — never inferred), the
+   `session_id_prefix` as the join key, and the `seed_source` — plus
+   native-repo alias(es), the worktree repo-reference
    (origin + branch), and coordination posture. Claims opened on the foreign substrate carry
    the repo-qualified area form. Worked violation that ratified the
    first-read step: the 2026-07-05 join event named the home estate's

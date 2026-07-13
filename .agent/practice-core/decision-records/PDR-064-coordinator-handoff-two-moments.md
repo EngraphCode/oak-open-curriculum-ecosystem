@@ -322,17 +322,21 @@ pressure (PDR-063 trigger), both protocols fire:
 1. PDR-063 Step 1 — sense the budget threshold.
 2. PDR-063 Step 2 — write the structured handoff record for any
    open cycle claim the coordinator was running.
-3. This PDR's Moment 1 — broadcast the pre-positioning event
+3. PDR-063 Step 3 — extend the active claim with
+   `handoff_record_path` (claim adoption preserves the field but
+   never adds it, so this step must precede any transport whose
+   pickup relies on adoption).
+4. This PDR's Moment 1 — broadcast the pre-positioning event
    covering coordinator responsibilities (which is broader than
    any single cycle claim).
-4. PDR-063 Step 4 — directed `mid-cycle-handoff` event to a named
+5. PDR-063 Step 4 — directed `mid-cycle-handoff` event to a named
    receiver for the cycle claim; when no live receiver exists
    (neither successor nor another coordinator), PDR-063 ruling 3's
    Step 4 transport exception applies — a broadcast pending-handoff
    announcement carrying the record path, with pickup via claim
    adoption.
-5. PDR-063 Step 5 — retirement broadcast.
-6. The receiving agent for the coordinator role then provides
+6. PDR-063 Step 5 — retirement broadcast.
+7. The receiving agent for the coordinator role then provides
    this PDR's Moment 2 (active-acknowledgement) when they pick
    up the role.
 
