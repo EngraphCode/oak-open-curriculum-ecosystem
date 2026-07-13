@@ -770,12 +770,13 @@ with substrate phenotype in
 It fires when an agent must retire before the natural boundary they
 were working toward — almost always under context-budget pressure
 during rotating-cast operation. Natural-boundary closeouts continue to
-use the contract above unchanged. **The initiator discriminates**:
-an OWNER-called succession is not this protocol — it routes through
-PDR-063 §Deliberate succession (in-flight state hands over via
-record-plus-adoption; an at-rest lane hands over tracked-surfaces-only
-with no claim to adopt); these five steps fire only on a measured
-budget signal.
+use the contract above unchanged. **The ORIGIN discriminates**: these
+five steps fire only on a measured budget signal — the owner calling
+the handoff moment on that signal (PDR-063 ruling 2) stays inside
+them; an owner INITIATING a succession with no measured budget
+signal in play routes through PDR-063 §Deliberate succession instead
+(in-flight state hands over via record-plus-adoption; an at-rest
+lane hands over tracked-surfaces-only with no claim to adopt).
 
 **Triggers** (whichever fires first):
 
