@@ -33,9 +33,11 @@ action.
 
 **The ceremony's object is AGENT COMMUNICATION** (owner clarification,
 same day): a solo write window into a QUIET sibling estate — QUIET as
-determined by the ceremony's liveness check (the skill's three-surface
-read: claims, comms tail, and watcher heartbeats within the home's
-retirement threshold, with no open exemption window — exemption
+determined by the ceremony's liveness check (the skill's four-part
+read: claims, time-windowed comms, and watcher heartbeats within the
+home's retirement threshold, PLUS the ground-truth work surfaces —
+in-window git activity vetoes QUIET — with no open exemption window;
+exemption
 openings are resolved as opening/closing pairs from canonical event
 history, not a bounded tail), never an
 informal glance — needs the
