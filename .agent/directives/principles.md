@@ -38,11 +38,12 @@ scope):
 5. **Optimise for user value.**
 
 A question arriving as an either/or is usually a false frame (owner standing
-directive, 2026-06-29): reject the binary out of hand, run the lenses over the
-real problem, and find the third option that transcends both — or do both
-(immediate relief and the structural cure are a sequence, not a choice). When
-a lens genuinely excludes one side, the third option captures the excluded
-side's *intent* without building it.
+directive, 2026-06-29). First determine whether the question and its options are
+well formed; if not, run Concept Exploration before treating them as the frame.
+Once formed, reject the binary out of hand, run the lenses over the real problem,
+and find the third option that transcends both — or do both (immediate relief and
+the structural cure are a sequence, not a choice). When a lens genuinely excludes
+one side, the third option captures the excluded side's *intent* without building it.
 
 These resolve *questions*. They sit alongside standing concerns that are never
 traded away — excellent developer experience, excellent **agent experience** (the

@@ -6,8 +6,8 @@ description: >-
   before solution options or the decision question are well formed. Use when framing options
   immediately would foreclose the real question; run four alternating metacognition and reason
   movements to produce a well-formed understanding with warranted, falsifiable proposals. Do not
-  use once the options or decision question are already well formed; use reason and the decision
-  lenses instead.
+  use it as a separate pre-decision pass once the options or decision question are already well
+  formed; continue through the estate's formed-decision workflow instead.
 ---
 
 # Concept Exploration
@@ -54,8 +54,9 @@ headings, repeat the movement that failed to bite.
 
 ## Routing Boundaries
 
-- When options or a contested decision are already well formed, use `reason` and the decision
-  lenses instead.
+- When options or a contested decision are already well formed, use the estate's formed-decision
+  workflow (`reason`, decision lenses, and any required decision matrix) instead of re-running this
+  standalone pre-decision exploration.
 - When the need is only to inspect the thinker's stance at an action boundary, use `metacognition`
   directly.
 - When the synthesis is settled and implementation needs sequencing, hand the result to the plan
