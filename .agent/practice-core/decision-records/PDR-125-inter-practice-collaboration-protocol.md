@@ -139,7 +139,12 @@ below serves one of those three.
    names across estates. A SUCCESSOR is a NEW session — new prefix,
    therefore a new name in every estate. The anomaly rule: same name
    with a different prefix is an anomaly — surface it, do not accept
-   it. A pre-positioning handoff event from an outgoing session
+   it. The anomaly rule binds DERIVED names only: a DECLARED
+   owner/operator override may legitimately recur across prefixes
+   (persistent identity per each estate's identity contract), the
+   registration's override declaration is the exemption proof, and
+   the `(agent_name, id)` pair disambiguates concurrent bearers.
+   A pre-positioning handoff event from an outgoing session
    authorises a successor, but **ALL pre-positioned successor details
    are hypotheses** — the identity tuple, the seating, the timing, the
    commissioned scope: the peer verifies the successor's OWN

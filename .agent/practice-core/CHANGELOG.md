@@ -28,15 +28,20 @@ Practice Core package.
   backporting in the same window.
 - Per-item twin dispositions (clause 6): the PDR-125 clause batch (clause 3
   ×2, clause 5 ×3, clause 6 posture, clause 7 ×2) — `twinned-in-window`
-  (cross-estate diff re-proven); the PDR-063 §Retirement authority +
-  §Deliberate succession amendments — `twinned-in-window` (peer backport,
-  same window); the join-ceremony skill + cross-repo rule step amendments —
-  local phenotype of the twinned spec (clause 6: local code is per-repo, no
-  disposition owed); the post-landing review-round truings on this PR
+  (cross-estate diff re-proven) **as of the 2026-07-08 window**; the PDR-063
+  §Retirement authority + §Deliberate succession amendments —
+  `twinned-in-window` (peer backport, same window) **as of that window**;
+  the join-ceremony skill + cross-repo rule step amendments — local
+  phenotype of the twinned spec (clause 6: local code is per-repo, no
+  disposition owed). The post-landing review-round truings on this PR
   (signal-model completion, no-recipient Step 4 transport exception,
-  quiet-write path, successor-hypotheses and twin-disposition mirrors) —
-  `impossible-with-named-reason` (no live peer seat in this window; queued
-  for the next exchange window's outbound bundle).
+  quiet-write path, anomaly-rule override exemption, successor-hypotheses
+  and twin-disposition mirrors) AMEND clauses twinned above, so the
+  affected portable texts are now AHEAD of the peer copies —
+  `impossible-with-named-reason` (no live peer seat in this window),
+  queued for the next exchange window's re-twin; the batch-level
+  twinned-in-window claims hold for the window's landed text, not the
+  post-review final text.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-08 — PDR-126: gates land strict in one landing (Corsair guards Channel, dedicated consolidation)
 
