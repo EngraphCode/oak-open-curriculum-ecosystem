@@ -343,7 +343,11 @@ leaving the *successor* to initiate the pickup unilaterally. Corollary: the
 predecessor keeps its **incoming-visibility watcher armed until the handover is
 acknowledged-complete**, not dropped at the first closeout broadcast — a
 retiring-but-not-yet-handed-over predecessor must stay able to see the live
-pickup.
+pickup. One authorised exception: ruling 3's no-recipient path (§Retirement
+authority) closes the seat with NO live receiver to watch for — there the
+watcher stands down with the seat, and pickup accountability transfers to the
+durable surfaces the path requires (the pending-handoff broadcast, the claim's
+record pointer, and — for coordinators — the Moment 1 pre-positioning event).
 
 ### Receiving agent's pickup contract
 
@@ -528,7 +532,9 @@ absorbed inline.
 - An additional context budget (estimated 2–5 k tokens; empirical
   evidence will set the floor) at retirement time spent writing
   the handoff record. The retiring agent must reserve this budget
-  before the 80 % trigger fires; the budget is a fixed cost of
+  before the FIRST measured Step-1 signal can fire — in rotating-cast
+  operation that is the ~50 % effectiveness-window start, not only
+  the 80 % ceiling; the budget is a fixed cost of
   rotating-cast operation, not waste.
 - A new content substrate. Archive discipline is a follow-on once
   a handful of records exist; not specified here because the
