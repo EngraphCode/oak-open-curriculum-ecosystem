@@ -3017,3 +3017,30 @@ commit SHA and the closing plan reference.
   skill): plain `git commit -F <msg> -- <paths incl. both rename sides>` with first-hand
   staged-set verification, full hooks.
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-138 — commit-queue git reads split from registry resolution when run from a worktree
+
+- **Source**: napkin 2026-07-13 "Sloop holds Lagoon (5fbef7), part 2" (full trace); intent
+  `dc13fba5` abandonment notes; claim closure `bf3fe8e2`; commit body `SHA:e888ccb01`
+- **Surface**: `agent-tools commit-queue` (record-staged / verify-staged / commit) and
+  `collaboration-state claims open` relative-path handling, invoked from a git worktree
+- **Observed**: from a worktree, `claims open` ENOENTs on the relative `--active` path
+  (registry absent — untracked tier, ADR-199); `commit-queue` enqueue/show reach the
+  PRIMARY registry, but `record-staged` fingerprinted an EMPTY staged set
+  (`staged_name_status: ""`) while the worktree index held the file, so the commit
+  workflow failed verify-staged-before ("missing: …napkin.md") and auto-abandoned the
+  intent. Registry resolution and git-tree resolution disagree from any non-primary tree.
+  Adjacent capture: piping the workflow through `| tail` masked the non-zero exit
+  (background-task false-green).
+- **Expected**: one resolution scheme for both surfaces — operate fully against the
+  invoking worktree's index (registry still at the coordination home), or refuse loudly at
+  enqueue time when cwd is a worktree.
+- **Candidate cure**: pin the git working tree explicitly at every dep boundary in
+  `runCommitWorkflow` (match it to the invoking cwd), and until then add a
+  worktree-detection guard that errors with the plain-path instruction. Confirm the
+  resolution-split hypothesis against the CLI source first (napkin entry labels it
+  unverified).
+- **Target surface**: agent-tools CLI (`commit-queue` workflow deps); compose with the
+  `coordination-home-cli-path-defaulting` plan (F-41 family) rather than a parallel fix
+- **Status**: open
+- **Owner direction status**: session-scoped (owner asked for detailed notes, 2026-07-13)

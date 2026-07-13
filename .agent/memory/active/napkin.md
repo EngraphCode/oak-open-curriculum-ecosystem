@@ -930,3 +930,52 @@ auditors) grounded every claim above; fixes their real findings, so the record s
   author's self-report — only the lost context could verify it; read it as testimony, not
   finding. Point (4)'s peer-side unknowability was already labelled; these two carry the
   same epistemic status.
+
+## 2026-07-13 — Sloop holds Lagoon (5fbef7), part 2: commit-queue-from-worktree failure, full trace
+
+Worked instance behind frictions-register F-138 (owner-requested detailed notes). One commit
+ceremony, run from a fresh worktree, failed in a way that splits the queue's two resolution
+schemes. Timeline and facts, all first-hand:
+
+- **Setup**: worktree created `git worktree add …-worktrees/spelling-tail -b docs/pr353-spelling-tail
+  origin/main` (base SHA:121ec7aff). One file staged there (napkin, 3-line spelling fix).
+- **Fact 1 — `claims open` from the worktree: ENOENT.** The command's relative `--active`
+  path resolved against the worktree root, where `.agent/state/collaboration/active-claims.json`
+  does not exist (the state tier is untracked-by-design, ADR-199, so worktrees have the
+  TRACKED state dirs but no registry). Running the same command from the primary checkout
+  with area pattern `index/head@spelling-tail` worked (claim bf3fe8e2).
+- **Fact 2 — `commit-queue enqueue`/`show` from the worktree DID reach the primary
+  registry.** Intent dc13fba5 was later visible from the primary (`show` found it), so the
+  queue's REGISTRY path resolves via coordination-home logic, not bare cwd.
+- **Fact 3 — `record-staged` from the worktree recorded an EMPTY staged bundle** — the
+  intent's `staged_name_status` field is `""` and the fingerprint (c1735cdd97…) is of an
+  empty set — while `git diff --cached` run by hand IN the worktree showed the napkin
+  staged. The queue's GIT reads therefore resolved against a different tree than the one
+  `git add` ran in.
+- **Fact 4 — `commit-queue commit` failed correctly**: verify-staged-before reported
+  "staged files do not exactly match intent files; missing: .agent/memory/active/napkin.md"
+  and auto-abandoned the intent with stage-named notes. The failure behaviour (loud,
+  stage-named, rollback-clean) worked exactly as designed; the defect is upstream of it.
+- **Fact 5 — adjacent false-green**: my invocation piped the workflow through `| tail`, so
+  the background task reported exit 0 while the real exit was 1 (the pipe ate PIPESTATUS —
+  the known background-task-exit-code-masks-gate class). The true signal was only in the
+  task output file. Never pipe the ceremony's final command; capture output by redirect.
+- **Hypothesis (labelled, unverified)**: the split is registry-resolution
+  (coordination-home walk → primary) vs git-resolution (process cwd or a `cd ..`-derived
+  path inside the pnpm script chain). The two schemes agree on the primary checkout and
+  split in every worktree. Not yet confirmed against the CLI source — F-138's cure work
+  should pin this first.
+- **Contrast controls**: the identical ceremony succeeded twice the same day from the
+  primary checkout (intents 9c75217d SHA:e645b1f75; b96bf7d8 SHA:442f13705), and failed
+  ONLY from the worktree — the tree, not the bundle, is the variable.
+- **Recovery used (and why it was legitimate)**: first-hand-verified plain `git commit` in
+  the worktree (SHA:e888ccb01) — staged set read by hand (one file, exact match), full hook
+  chain green, claim open on the primary registry, closure cites the SHA. This mirrors the
+  commit skill's merge-commit exception (first-hand verification substitutes for the
+  fingerprint when the queue is structurally unavailable); it is NOT the forbidden F-112
+  fallback, which prohibits routing around a *defective* workflow run on the primary — here
+  the workflow is structurally out of scope for the tree in question.
+- **Consequences for practice until F-138 is cured**: worktree commits use the plain path
+  with by-hand staged-set verification and a worktree-scoped claim opened FROM the primary;
+  never create a local `active-claims.json` in a worktree (decoy registry, F-41); and any
+  `claims open` from a worktree fails — run all collaboration-state writes from the primary.
