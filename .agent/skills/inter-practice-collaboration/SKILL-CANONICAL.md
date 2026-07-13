@@ -65,11 +65,14 @@ liveness files for heartbeats within the home's RETIREMENT threshold
 substantive event) for that whole window, so a heartbeat older than
 one cadence but inside the threshold still counts as live (all read
 from the write governance in step 1). If all three surfaces
-are silent AND no observable exemption window is open (a
+are silent, the home's ground-truth work surfaces show no git
+activity newer than the retirement window (the fourth check, defined
+with the consumer-absent note below), AND no observable exemption
+window is open (a
 coordinator-handoff grace window, a contiguous-execution window, a
 verdict-synthesis window — the home's liveness contract names its
-exemption classes), the estate is QUIET; if any one is live or an
-exemption window is open, it is not. An exemption window counts as
+exemption classes), the estate is QUIET; if any surface or work
+trace is live, or an exemption window is open, it is not. An exemption window counts as
 open from its observable opening event until its named closing
 boundary (per PDR-078: a handoff grace window until the incoming
 acknowledgement lands OR, under PDR-064's authorised
