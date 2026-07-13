@@ -41,8 +41,9 @@ Practice Core package.
   heartbeat-silent the QUIET read also consults ground-truth work
   surfaces — in-window git activity vetoes QUIET; a truly empty
   estate reads QUIET); the cross-repo rule's QUIET
-  description now points at the skill's three-surface liveness check
-  instead of an informal gloss; the start-right-team retirement mirror
+  description now mirrors the skill's four-part liveness check (the
+  three coordination surfaces plus the ground-truth git-activity
+  veto) instead of an informal gloss; the start-right-team retirement mirror
   restores PDR-063's authority qualifier (owner or coordinator word
   redirects the seat — not any word) and states the role-determined
   default action (a coordinator seat declares the PDR-064
