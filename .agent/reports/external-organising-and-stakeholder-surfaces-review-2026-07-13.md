@@ -509,8 +509,8 @@ Both shapes are plausible:
 - one large repo plan may require several projects across teams or phases;
 - a product increment may cut across multiple plans and projects.
 
-This should be settled from actual team and Linear usage rather than by abstract preference. The
-first real consumers are a cheap probe; the schema should remain strict once grounded.
+This remains to be settled from actual team and Linear usage rather than by abstract preference.
+The first real consumers are a cheap probe; schema strictness depends on that grounding.
 
 #### Stable external identity without PII or secrets
 
@@ -531,7 +531,7 @@ local or service-side resolver.
 The old design relies on an agent emitting Linear state during session handoff. That rides an
 existing action surface, but it still depends on conversational workflow and agent compliance.
 
-The graph architecture suggests a stronger target:
+The graph architecture supplies one candidate for evaluation:
 
 - derive the intended external projection from typed plan nodes;
 - compute the desired-state delta;
@@ -540,7 +540,9 @@ The graph architecture suggests a stronger target:
 - validate the resulting external relationship;
 - make reconciliation idempotent and rerunnable.
 
-This would make session handoff a trigger, not the owner of Linear semantics.
+If ratified and proven, this shape would make session handoff a trigger rather than the owner of
+Linear semantics. A service-native workflow with explicit repo references remains an alternative
+to compare against it.
 
 #### Failure semantics
 
@@ -770,7 +772,7 @@ several distinct edge families rather than one generic `evidence` relationship, 
 - `validated_by` for accessibility or preview evidence;
 - a collaboration-state link that is not durable intent.
 
-Those names are illustrative only; the vocabulary should be grounded and ratified rather than
+Those names are illustrative only; the vocabulary remains to be grounded and ratified rather than
 invented by this report.
 
 ## 9. Operational, quality, analytics, and evidence systems
@@ -862,8 +864,8 @@ internal-visibility need:
 It leaves a clear reopening trigger: a future need for a **public roadmap** visible to external
 partners, curriculum organisations, or community contributors.
 
-That remains a legitimate unmet surface, but it should be framed by audience need rather than by the
-availability of GitHub Projects. Candidate public read models could include:
+That remains a legitimate unmet surface. The later decision needs to frame it by audience need
+rather than by the availability of GitHub Projects. Candidate public read models could include:
 
 - a generated GitHub Project;
 - a generated web roadmap;
@@ -941,8 +943,9 @@ The accepted substrate, owner-set audience boundaries, and proposed external-sys
 evidence connectors rather than a mesh of independent pairwise synchronisations. This is an
 inference from the sources, not a claim that ADR-201 or its connector mechanics are accepted.
 
-Each external integration should be an adapter over OCE-owned contracts. Linear, Slack, Figma,
-GitHub, and evidence systems should not force vendor concepts into the core intent model.
+The convergent candidate treats each external integration as an adapter over OCE-owned contracts.
+In that candidate, Linear, Slack, Figma, GitHub, and evidence systems do not force vendor concepts
+into the core intent model; this remains an inference to evaluate, not a ratified connector design.
 
 ### 13.2 Strict and complete
 
@@ -996,7 +999,7 @@ This dissolves much of the sync problem rather than managing its symptoms.
 
 ### 13.5 Optimise for user value
 
-Every surface should begin with an audience and a decision or task:
+The owner-set audience map frames every surface by an audience and a decision or task:
 
 - what does a delivery lead need to coordinate?
 - what does an engineer need during implementation?
@@ -1059,8 +1062,9 @@ The following is an interpretation of the emerging architecture, not a ratified 
 - leadership or team views;
 - public roadmaps if later required;
 
-The reusable mechanism across Layers B–F should be generic where the principles require it, with
-thin OCE-specific configuration and interpretation.
+The proposed sources converge on a reusable mechanism across Layers B–F that is generic where the
+principles require it, with thin OCE-specific configuration and interpretation. Its final boundary
+remains to be ratified.
 
 ## 15. Principal gaps
 
@@ -1184,20 +1188,22 @@ This report's model should change if first-hand evidence shows any of the follow
 - the idea graph fails to become human-usable or becomes a bottleneck for ordinary work;
 - public partners require a roadmap before the graph and projection infrastructure is available.
 
-The strongest current judgement is therefore conditional:
+The current synthesis records an observed but unratified convergence:
 
-> The graph-centred projection-and-evidence architecture is the best fit to the repo's accepted
-> principles and decisions, but its service mappings and stakeholder value must still be proven by
-> real consumers rather than inferred solely from architectural coherence.
+> Accepted principles and proposed designs converge on a graph-centred
+> projection-and-evidence architecture. Whether that architecture is fit, how its services map, and
+> whether stakeholders value it remain unresolved questions for owner ratification and real
+> consumer evidence.
 
 ## 18. Conclusion
 
-The most important reframing is:
+The most consequential observed reframing in the source estate is:
 
-> OCE should not be "connected to" a collection of external tools. OCE should expose a governed set
-> of projections, command paths, evidence channels, and read models over a canonical intent system.
+> OCE is treated not merely as something "connected to" a collection of external tools. The
+> proposed sources converge on governed projections, command paths, evidence channels, and read
+> models over a canonical intent system.
 
-That makes the architecture:
+If ratified and proven, that candidate would be:
 
 - vendor-independent;
 - legible to humans and agents;
@@ -1205,9 +1211,9 @@ That makes the architecture:
 - capable of serving different audiences without duplicating intent;
 - able to close the loop from strategy through delivery to observed value.
 
-Linear is the clearest operational consumer, but its integration should be re-derived from the
-accepted plan and idea-graph architecture rather than implemented directly from the older
-pointer-surface plan.
+Linear is the clearest operational consumer. The accepted plan and idea-graph architecture and the
+older pointer-surface plan remain inputs to the later integration decision; the final mapping is not
+selected by this report.
 
 Notion is now part of the operating model as the principal non-engineering and senior-stakeholder
 visibility surface. Its historical product-adapter role remains retired. The durable challenge is
