@@ -604,6 +604,8 @@ preserved verbatim before that worktree's removal.
 
 ## 2026-07-13 — Monsoon herds Airstream (8c566b), part 2: the PR #336 treadmill, the diff fleet, and the loop session
 
+<!-- fitness exceeded by ~380 lines; needs consolidation — dedicated pass DUE (also recorded in the fleet report §9 and the session handoff) -->
+
 Owner-directed /loop session (4-min cron): address all comments on all non-draft PRs until none
 remain open; standing authority to remove provably redundant worktrees/branches. Full analysis +
 fleet retrospective + OCE-relevance record:
@@ -623,9 +625,12 @@ session-behavioural captures).
   sets), landed as ONE batch with 7 held bot fixes. The batching discipline (fix locally, HOLD
   the push, one wave instead of seven) is the single biggest loop-shortener found this session.
 - **Anti-fabrication quote-anchor worked**: 1 fabrication in 85 findings (vs 3/13 stubs on
-  2026-07-08 without it). Sonnet refute-first verification cut 81→12 (65% refute — Haiku
-  literalism as predicted by the sibling estate's evidence). Both mechanisms are now baseline
-  data for the effectiveness-and-impact assessment-methodology plan (report §7).
+  2026-07-08 without it). Sonnet refute-first verification returned 66 verdicts over 81 deduped
+  (12 confirmed / 53 refuted / 1 fabricated — 80% of verdicts were refutations, the Haiku
+  literalism the sibling estate's evidence predicted); 15 verifier units DIED on the schema
+  retry cap, so 15 findings carry no verdict — a run defect a post-merge reviewer caught in my
+  own ledger (12+53+1≠81). The reconciled figures are the baseline data for the
+  effectiveness-and-impact assessment-methodology plan (report §4/§5/§7).
 - **Deterministic gates outrank fleets**: the pre-commit reference-direction validator REFUSED
   a fleet-confirmed fix (Core→host path) and forced the correct by-role reference. Fleet
   verdicts are inputs to the gate chain, never exemptions from it.

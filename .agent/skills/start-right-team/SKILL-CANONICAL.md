@@ -812,9 +812,11 @@ surfacing with the comms event alone), with an explicit absolute deadline and de
 declared in the surfacing event (protocol default when no
 coordinator SLA applies: 10 minutes, then autonomous execution),
 waits out that declared window, and AT THE DEADLINE EXECUTES the
-declared default action (the five steps, autonomously, on the
-measured verdict); word arriving before the deadline redirects the
-seat instead — the bounded wait can never become an indefinite one. With no live recipient
+declared default action — the REMAINING Steps 2–5, autonomously, on
+the measured verdict (Step 1 already fired and completed this
+authority wait; re-entering it would recurse); word arriving before
+the deadline redirects the seat and EXITS the sequence — the bounded
+wait can never become an indefinite one. With no live recipient
 for step 4's directed event (schema-required `to`), the no-recipient
 variant applies: a broadcast pending-handoff announcement carrying
 the record path; the successor picks up via claim adoption
@@ -923,8 +925,10 @@ distinct `narrative` broadcast covering coordinator-role context
 events — the handoff record carries cycle-claim substance; the
 pre-positioning event carries coordinator-role substance. **Do not
 use `mid-cycle-handoff` for coordinator role transitions.** The
-combined ORDER is PDR-064's: sense (Step 1) → WHEN an open cycle
-claim exists: freeze its record (Step 2) and extend the claim with
+combined ORDER is PDR-064's: sense (Step 1) → complete the
+§Retirement-authority route (owner-present call, or the owner-absent
+declared-deadline/default path; a redirect EXITS here) → WHEN an open
+cycle claim exists: freeze its record (Step 2) and extend the claim with
 `handoff_record_path` (Step 3 — before any transport whose pickup
 relies on adoption) → Moment 1 pre-positioning broadcast → PDR-063
 Step 4 under the same open-claim condition (directed to a live

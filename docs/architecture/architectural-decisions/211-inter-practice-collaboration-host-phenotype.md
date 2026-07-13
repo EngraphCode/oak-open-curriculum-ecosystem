@@ -41,6 +41,6 @@ is, so the protocol's clauses resolve to concrete surfaces here.
 
 A visiting session can join this estate with zero prior knowledge: the rule fires, the skill
 enumerates the ceremony, the PDR carries the doctrine, and the mechanics above are the host
-surfaces the ceremony touches. The remaining protocol workstreams (the repo-qualified claims WS2, the
-conformance self-report WS0c, the shared schema WS0e) extend this phenotype and amend this ADR
-when they land.
+surfaces the ceremony touches. The remaining protocol workstream (the repo-qualified claims WS2) extends this phenotype and
+amends this ADR when it lands; the conformance self-report (WS0c) and the shared wire schema
+(WS0e) landed on 2026-07-07 and are part of the phenotype above.

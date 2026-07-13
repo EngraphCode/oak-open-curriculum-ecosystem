@@ -53,11 +53,13 @@ are optional-but-welcome. Classify QUIET by reading
 the home's live coordination surfaces (located per the write
 governance read in step 1): its claims registry for open claims (any
 unexpired claim is live regardless of heartbeats — heartbeat-exempt
-seats exist), its comms stream tail for registrations newer than the
-home's retirement window, and its watcher liveness files for
-heartbeats within the home's own liveness convention (its heartbeat
-cadence and retirement threshold, read from its write governance in
-step 1) — all three silent is QUIET; any one live is not. The moment the session writes
+seats exist), its comms stream tail for registrations AND substantive
+events newer than the home's retirement window (liveness per the
+home's own liveness contract, e.g. PDR-078: heartbeat OR substantive
+activity, honouring its declared exemption windows), and its watcher
+liveness files for heartbeats within the home's heartbeat cadence
+(all read from the write governance in step 1) — all three silent is
+QUIET; any one live is not. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

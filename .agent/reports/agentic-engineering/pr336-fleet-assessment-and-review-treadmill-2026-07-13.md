@@ -6,7 +6,7 @@ doctrine diff (~600 added lines over 15 files) — and this report records
 the analysis results, how the fleet mechanisms and protocols performed,
 and how both relate to upcoming work in this estate. Companion evidence:
 the workflow journal for run `wf_508d7cac-c56` (session-local), the PR's
-own 110 dispositioned review threads, and the batch commit
+own review threads (every one dispositioned), and the batch commit
 `SHA:5433b80ff`.
 
 ## 1. What was assessed
@@ -22,8 +22,10 @@ controlling plan's clause mirror, and the practice-core changelog.
 Each push triggered a full re-review by three bots (Copilot, Codex,
 Cursor Bugbot), ~10 minutes per round. New findings per round:
 6, 12, 3, 3, 1, 5, 2, 6, 2, 3, 5, 2, 4, 4, 5, 3, 3, 1, 3, 1, 6, 5, 5,
-2, 3, 4, 3, 4 — 110 threads total (rounds 25–28 arrived after the fleet
-batch and were mostly mirror echoes of the fleet-era fixes), every one
+2, 3, 4, 3, 4 (sum 106; counts are as-harvested per round — GitHub's
+raw thread ledger runs higher because bots auto-outdate and supersede
+threads between harvests, and a 16-thread post-merge tail wave landed
+after round 28), every one
 dispositioned with byte-verified replies (fixed, already-fixed-race, or
 declined-with-rationale; three declines: a received exchange artefact's
 wording per corrections-are-new-events, one estate-idiom flag, and the
@@ -71,9 +73,15 @@ Run: 155 agents, 28 minutes wall-clock, ~6.6M subagent tokens,
 
 ## 4. Fleet results
 
-**85 raw findings → 81 deduped → 12 CONFIRMED / 53 REFUTED /
-1 FABRICATED / 0 UNCERTAIN** (15 finder units died on the structured-
-output retry cap — see §5). The 12 confirmed were all real and all
+**85 raw findings → 81 deduped → 66 VERIFIED (12 CONFIRMED / 53
+REFUTED / 1 FABRICATED / 0 UNCERTAIN) + 15 UNVERIFIED** — 15 VERIFIER
+units died on the structured-output retry cap, so their findings carry
+no verdict (a run defect, first mis-attributed to finders; see §5). The
+unverified residue, recoverable only from the session journal, is
+dominated by the undefined-mechanism lens — cold-executor definitional
+demands of the class the verified set already samples heavily (that
+lens produced most of the 53 refutations), so the expected real-defect
+yield among the 15 is low but is NOT zero and was not measured. The 12 confirmed were all real and all
 fixed in the batch `SHA:5433b80ff`: a dangling practice-index link, a
 missing amendment annotation on PDR-063's status, two grammar defects
 in session-authored text ("pend authority to", "waits that window"),
@@ -83,7 +91,7 @@ surfaces, all silent), estate-deictic worked examples made
 role-neutral, two load-bearing clause-3 rules restored to the
 ceremony's cold-read surface, an ADR list-indent defect, a missing
 article, and a truings-vs-mirrors provenance split in PDR-125's
-status. The critics added three design-level follow-ups (§7) and one
+status. The critics added four design-level follow-ups (§7) and one
 claim the primary refuted (a §Retirement-authority "tension" that
 misread Step 1's routing sentence).
 
@@ -115,13 +123,14 @@ Worked:
 
 Did not work / costs:
 
-- **15/66 Haiku finder units (23%) died on the structured-output
-  retry cap** — never returned. Coverage of those file × lens cells
-  is silently absent (logged here per no-silent-caps). Likely cause:
-  low-effort Haiku struggling with the strict schema on long files.
-  Cure candidates: simpler schema for finders, higher retry cap,
-  or Sonnet fallback on retry exhaustion.
-- **Finder precision was low** (12/81 ≈ 15%): acceptable only because
+- **15/81 VERIFIER units (19%) died on the structured-output retry
+  cap** — their findings carry no verdict and were silently dropped
+  from the first draft of this ledger (caught by a post-merge
+  reviewer; logged per no-silent-caps). Cure candidates: retry-cap
+  raise, a fallback verifier on exhaustion, and a workflow-level
+  invariant that verdict-count MUST equal deduped-count before the
+  run reports.
+- **Finder precision was low** (12/66 verified ≈ 18%): acceptable only because
   verification was cheap relative to bot rounds; a standing protocol
   should tighten finder briefs with per-lens worked examples of
   NON-findings.
@@ -136,7 +145,7 @@ The treadmill and the fleet found largely DISJOINT defect sets: the
 bots excel at cross-round consistency pressure on freshly-pushed text
 (they re-read the whole diff every time, mercilessly), while the
 fleet's lens grid + critics found long-standing defects the bots never
-raised in 25 rounds (the dangling link, the stale `last_updated`, the
+raised across the treadmill (the dangling link, the stale `last_updated`, the
 undefined QUIET check, the deictic examples). The right standing shape
 is therefore **fleet-first, bots-after**: run the fleet BEFORE the
 first push of any large doctrine diff, land one hardened batch, and
@@ -166,7 +175,7 @@ ratio that produced 28 rounds here.
   refute rate is evidence the tiers genuinely disagree.
 - **PDR-101 quorum economics**: a new data point beside the 2026-07-08
   four-seat quorum (~557k tokens, 2 convergent must-fix classes):
-  155 agents / ~6.6M tokens / 12 confirmed + 3 design follow-ups on
+  155 agents / ~6.6M tokens / 12 confirmed + 4 design follow-ups on
   an already-22-rounds-reviewed artefact.
 - **Acacia's draft PR #345** (concept exploration, same window):
   frames concern groupings as assurance boundaries joining
@@ -209,7 +218,7 @@ handoff, held only in one very long session context.
 **Conserved to durable homes:**
 
 - The per-round finding data, disposition rationales, and comparative
-  verdict — §2–§6 of this report + the PR's 110 review threads (each
+  verdict — §2–§6 of this report + the PR's review threads (each
   reply is a byte-verified permanent record).
 - The fleet's design, yields, failure modes, and reuse guidance — §3–§5,
   §8 of this report.
@@ -227,15 +236,17 @@ handoff, held only in one very long session context.
 **Accepted ephemeral losses (deliberate, with reasoning):**
 
 - The fleet's raw per-agent transcripts and the workflow journal
-  (session-local): the report's counts and confirmed-finding table are
+  (session-local): the report's counts and the §4 confirmed-finding summary are
   the snapshot; the journal is reproducible in design from §3. Same
   disposition class as the 2026-07-09 registry audit outputs.
 - The workflow script file (session-local): §3 describes the design
   completely enough to re-author; inlining ~200 lines of JS here would
   duplicate a described mechanism.
-- The 53 refuted and 1 fabricated finding bodies: the refute-rate and
-  failure-mode analysis (§5) is the durable signal; the bodies are
-  fleet-output residue.
+- The 53 refuted and 1 fabricated finding bodies, and the 15
+  unverified findings (see §4): the refute-rate and failure-mode
+  analysis (§5) is the durable signal; the bodies are fleet-output
+  residue, and the unverified 15's expected yield is assessed low in
+  §4 — an accepted, NAMED loss rather than a silent one.'
 - Chat-only reasoning texture (round-by-round triage deliberation,
   owner exchange phrasing): the decisions all landed in commits, thread
   replies, and this report; the texture is session-mortal by design.

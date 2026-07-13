@@ -340,7 +340,10 @@ events and remains the escalation surface above each slice-coord.
 If the outgoing coordinator is retiring mid-cycle under token
 pressure (PDR-063 trigger), both protocols fire:
 
-1. PDR-063 Step 1 — sense the budget threshold.
+1. PDR-063 Step 1 — sense the budget threshold, surface the
+   measurement, and COMPLETE the §Retirement-authority route
+   (owner-present call, or the owner-absent declared-deadline/default
+   path); an owner or coordinator redirect exits this sequence here.
 2. PDR-063 Step 2 — ONLY when the coordinator was running an open
    cycle claim: write the structured handoff record for it.
 3. PDR-063 Step 3 — under the same open-claim condition: extend that
