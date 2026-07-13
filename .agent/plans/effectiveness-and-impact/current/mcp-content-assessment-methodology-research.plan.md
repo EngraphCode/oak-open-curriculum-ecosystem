@@ -88,7 +88,8 @@ shape-freezing validator.
   `mcp-product-analytics` thread (paused, owner-gated) + observability plans.
 
 **Verified gaps this research fills** (estate sweep 2026-07-09): no general non-search eval
-methodology; 0/24 skills carry evals; MCPJam wired but suite-less; prompts/sub-agents uncovered;
+methodology; 0/24 skills carry evals; MCPJam available (`@mcpjam/cli` devDependency) but
+suite-less; prompts/sub-agents uncovered;
 no LLM-as-judge or faithfulness implementation anywhere; validation-strategy operational method
 missing; real-world loop unbuilt; `.agent/evaluations/` an empty stub; no non-deterministic
 testing doctrine operational; no CI eval-gating; launch-readiness "positive impact" bar undefined.
@@ -174,9 +175,10 @@ upstream; oak-skills-derived prompts (2) → M8 derived-copy drift-checking agai
   **(P1) contamination quiz** (~30 min: quiz ≥2 models on ~10 curriculum items with tools disabled;
   high accuracy ⇒ contamination-aware design mandatory in every M4/M5 golden set),
   **(P2) MCPJam suite expressiveness** (~½ day, via the repo's MCPJam tooling — `@mcpjam/cli` is a
-  root devDependency and the `mcpjam` server is wired in `.mcp.json` — plus the current MCPJam suite
-  docs; a platform-level `mcp-inspector` skill may assist where the executing agent has one, but is
-  NOT in-repo and must not be assumed. Question: can the ratified runner express trajectory scoring,
+  root devDependency, invoked as `pnpm exec mcpjam`; any `.mcp.json` MCP-server wiring for it is
+  machine-local and gitignored, set up per checkout, never assumed present — plus the current
+  MCPJam suite docs; a platform-level `mcp-inspector` skill may assist where the executing agent
+  has one, but is NOT in-repo and must not be assumed. Question: can the ratified runner express trajectory scoring,
   ablations, cross-model variance, M7 statistics? Gaps named early, not discovered at build).
 - **WS-V — Vertical slice (before any horizontal breadth).** Take THREE seams through the full
   pipeline (sweep → ratify → template → ground): **M5/retrieval** (settled; apparatus exists),
