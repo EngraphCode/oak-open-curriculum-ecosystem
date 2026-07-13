@@ -469,9 +469,9 @@ second instance.
 - Cancelling coordinator-cadence cron / wakeup / monitor at
   Moment 1. Cadence ends at Moment 2 or not at all — with this PDR's
   one forced exception (§Cron / cadence boundary): a retirement
-  AUTHORISED under PDR-063 §Retirement authority stands session-scoped
-  cadence surfaces down BY NAME in the Step 5 broadcast, before any
-  Moment 2 can land.
+  AUTHORISED under PDR-063 §Retirement authority stands the
+  session-scoped cadence surfaces down BY NAME in the Step 5
+  broadcast, before any Moment 2 can land.
 - Using `mid-cycle-handoff` (PDR-063 message_kind) for
   coordinator role transitions. The role is team-state; cycle
   handoffs are claim-state. They may co-occur (see
