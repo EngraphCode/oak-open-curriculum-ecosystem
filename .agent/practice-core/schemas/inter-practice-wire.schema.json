@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "inter-practice-wire.schema.json",
-  "title": "Inter-Practice wire shapes (PDR-133 clause 6)",
+  "title": "Inter-Practice wire shapes (the protocol PDR's clause 6; estate-local numbering — PDR-125 in oak-open-curriculum-ecosystem, PDR-133 in the founding donor estate)",
   "version": "1.0.0",
   "$comment_contract": "Core-carried: two estates validate inbound foreign material against the SAME document, so a mismatch is a typed refusal, never a silent misread. Version-family compatibility: within one MAJOR family evolution is additive-optional only — wire $defs deliberately tolerate unknown fields (additionalProperties true) so a newer minor parses under an older minor's validator, and every field added within a family MUST be optional so older payloads stay valid under newer validators. A breaking wire change is a MAJOR bump and a new family; cross-family contact is a typed refusal with an explicit version-mismatch message. Local estate schemas remain each estate's ENFORCEMENT surface (strict, additionalProperties false); this document is the CONTRACT for the wire-relevant subset, and each estate binds the two with a conformance test so drift red-gates.",
-  "$comment_scope": "v1 floor: exactly the shapes PDR-133 clause 6 names, as they exist on the live wire. The box-file exchange envelope is deliberately ABSENT: live box files are pin-free markdown prose by the clause-7 layering doctrine (concepts, no machine frontmatter), and their machine-readable time-bound layer IS the paired delivery comms event, covered by exchange_comms_event. Giving box files frontmatter would be new protocol surface — a family amendment, not a v1 recording.",
+  "$comment_scope": "v1 floor: exactly the shapes the protocol PDR's clause 6 names (estate-local numbering; PDR-125 in this estate), as they exist on the live wire. The box-file exchange envelope is deliberately ABSENT: live box files are pin-free markdown prose by the clause-7 layering doctrine (concepts, no machine frontmatter), and their machine-readable time-bound layer IS the paired delivery comms event, covered by exchange_comms_event. Giving box files frontmatter would be new protocol surface — a family amendment, not a v1 recording.",
   "$defs": {
     "wire_identity": {
       "$comment": "The cross-estate identity tuple (clause 5): the session_id_prefix is the join key; names are repo-local derivations. Estates may attach local extras (deterministic ids, naming provenance) — wire readers tolerate them.",

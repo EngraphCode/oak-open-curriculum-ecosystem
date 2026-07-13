@@ -35,9 +35,11 @@ Practice Core package.
   including PDR-064's forced-retirement Step 5 broadcast as a grace
   window's closing boundary; exemption openings are resolved as
   opening/closing pairs from canonical event history, never a bounded
-  tail; only
-  an unbounded consumer-absent-style declaration needs its declaring
-  seat to show a surviving surface trace); the cross-repo rule's QUIET
+  tail; PDR-078's consumer-absent exemption is NOT a scannable window
+  — it is derived from the home's current registry/conductor state
+  with self-healing exits, and its QUIET-read effect is already
+  carried by the claims surface, so a truly empty estate reads
+  QUIET); the cross-repo rule's QUIET
   description now points at the skill's three-surface liveness check
   instead of an informal gloss; the start-right-team retirement mirror
   restores PDR-063's authority qualifier (owner or coordinator word
@@ -45,9 +47,19 @@ Practice Core package.
   default action (a coordinator seat declares the PDR-064
   intersection's steps 2–6, never the bare Steps 2–5 block); PDR-064's
   Date header carries the 2026-07-13 amendment; PDR-125 clause 6's
-  schema enumeration trued to the landed v1 scope (the schema covers
-  the exchange delivery comms event, never box-file frontmatter —
-  box files stay pin-free prose per clause 7).
+  schema enumeration trued to the landed v1 scope and aligned to the
+  five landed wire shapes — identity tuple, exchange delivery comms
+  event, claim repo_ref, watcher heartbeat file, watcher seen file
+  (the schema covers the delivery comms event, never box-file
+  frontmatter — box files stay pin-free prose per clause 7), with the
+  clause-6 amendment recorded in PDR-125's own Status header; the
+  wire schema's title and scope annotations de-pinned from the donor
+  estate's PDR number to estate-local numbering (annotation-only, no
+  wire change, same version — a re-twin item like the rest); PDR-064's
+  §Forbidden and §Accepted Cost absolutes qualified with the PDR's own
+  authorised-forced-retirement exception; the QUIET liveness read
+  stated as time-windowed (every event newer than the retirement
+  threshold), never a fixed newest-N tail.
 - Twin disposition for every item above: `impossible-with-named-reason` (no
   live peer seat in this window) — the affected portable texts are AHEAD of
   the peer copies; re-twin queued for the next exchange window's outbound

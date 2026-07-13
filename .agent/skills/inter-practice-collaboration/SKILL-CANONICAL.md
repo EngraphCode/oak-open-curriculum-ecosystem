@@ -66,8 +66,8 @@ substantive event) for that whole window, so a heartbeat older than
 one cadence but inside the threshold still counts as live (all read
 from the write governance in step 1). If all three surfaces
 are silent AND no observable exemption window is open (a
-coordinator-handoff grace window, a declared consumer-absent or
-contiguous-execution mode — the home's liveness contract names its
+coordinator-handoff grace window, a contiguous-execution window, a
+verdict-synthesis window — the home's liveness contract names its
 exemption classes), the estate is QUIET; if any one is live or an
 exemption window is open, it is not. An exemption window counts as
 open from its observable opening event until its named closing
@@ -81,16 +81,21 @@ does not expire a window whose boundary event has not yet appeared.
 Because an opening event may therefore be older than any bounded
 tail, the exemption check resolves opening/closing PAIRS from the
 home's canonical event history (or its persisted exemption state
-where it keeps one) — a newest-N tail read (this repo's `comms list`
-defaults to 20 events) is sufficient for the three liveness
-categories above, which age out at the retirement window, but NOT
-for unmatched exemption openings.
-Only a declaration with NO named closing boundary (a
-consumer-absent-style mode) needs its declaring seat to show on at
-least one of the three surfaces to veto QUIET — a bare unbounded
-declaration from a seat with no surviving trace does not (otherwise
-a truly empty estate could never read QUIET, since PDR-078's
-consumer-absent state is itself defined by peer absence). The moment the session writes
+where it keeps one). The three liveness categories above are read by
+TIME window — every event newer than the home's retirement threshold
+— never by a fixed newest-N count (this repo's `comms list` defaults
+to 20 events; a busy estate can push a live seat's latest event
+outside any fixed N while it is still inside the threshold), and the
+exemption scan needs the full history for unmatched openings.
+PDR-078's fourth exemption — consumer-absent — is NOT a scannable
+window and never enters this check as one: it is derived from the
+home's CURRENT registry/conductor state with self-healing exits (a
+consuming peer appears, the conductor goes async, the cast rotates),
+and its effect on the QUIET read is already carried by the first
+surface — an unexpired claim counts live with no heartbeat at all,
+and a live conductor shows as its own activity within the retirement
+window. A truly empty estate (no claims, no in-window activity, no
+open bounded window) reads QUIET. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

@@ -16,7 +16,10 @@ cross-estate diff re-proven). Amended 2026-07-13 (post-landing review
 truings to clauses 3 and 5 — quiet-write scoping, registration
 fields, override precedence and anomaly verification, plus ceremony
 mirrors of already-twinned clause-5 rules such as
-successor-details-are-hypotheses): this amendment originated in ONE
+successor-details-are-hypotheses; extended same-day with the clause-6
+schema-scope truing — the shared schema's enumeration aligned to the
+five landed v1 wire shapes, covering the exchange delivery comms
+event and never box-file frontmatter): this amendment originated in ONE
 estate of the exchange pair and was not twinned at authoring time (no
 live peer seat); its re-twin is queued for the next exchange window,
 with per-item dispositions in the originating estate's Practice-Core
@@ -185,10 +188,10 @@ below serves one of those three.
    phenotypes only the last:
    - **Shared spec** — this portable PDR (the prose contract).
    - **Shared schema** — a versioned, machine-readable schema for the
-     cross-estate wire shapes: the comms-event fields exchange relies
-     on, the claim `repo_ref`, the exchange DELIVERY comms event, AND
-     the watcher heartbeat/seen files (the live run
-     proved liveness files are wire surfaces too). Box files
+     cross-estate wire shapes, five in v1: the cross-estate identity
+     tuple, the exchange DELIVERY comms event, the claim `repo_ref`,
+     the watcher heartbeat file, AND the watcher seen file (the live
+     run proved liveness files are wire surfaces too). Box files
      themselves stay pin-free markdown prose per clause 7 — their
      machine-readable time-bound layer IS the paired delivery comms
      event, so the schema covers that event, never box-file

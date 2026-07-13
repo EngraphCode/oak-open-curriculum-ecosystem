@@ -660,3 +660,41 @@ session-behavioural captures).
   continuity but is a judgment, not a proof; owner call). Local main fast-forwarded.
 - **Registry hygiene residue**: the stale Hedgehog claim (b23a3800, PR #304 pr-shepherd,
   expired 2026-07-06) remains in active-claims.json — flagged for the next warden-lane write.
+
+## 2026-07-13 — Aspen stirs Blossom (2fbfde): full succession from Monsoon + the PR 347 shepherd
+
+Owner-directed incremental-then-full succession from Monsoon herds Airstream (8c566b); PR #347
+shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes on
+`docs/pr347-postmerge-tail`.
+
+- **The PDR-064 two-moments shape carried a FULL-ROLE succession cleanly**: pre-positioning
+  (triaged manifest, every detail marked hypothesis) → my Moment-2 ack → retiring seat's
+  closeout + final-heartbeat-end. A post-close preservation addendum then rescued the verbatim
+  fleet workflow script — a retiring seat can still hand substance forward AFTER authority
+  transfers, via broadcast; the successor lands it durably.
+- **Treadmill data, successor tenure**: 57 threads over ~9 review rounds in ~75 minutes;
+  roughly 40% were bots racing already-pushed fixes (review rounds are computed on the diff at
+  round START — a thread's timestamp does not prove it saw the current head; only remote byte
+  checks prove raced-vs-real). Convergent-refinement chains are real: my own steps-2–7 clause
+  took three rounds to converge to steps-2–6-with-Moment-2-named; the QUIET check evolved four
+  times (heartbeat-tagged events → time bound on all categories → named-boundary windows via
+  canonical-history pairs → consumer-absent-is-state-not-a-window). Lesson: when a fix
+  introduces NEW doctrine text, pre-check it against the cited PDR's own edge cases (forced
+  retirement, threshold-suspension exemptions) BEFORE pushing — the bots found each edge one
+  round later, each costing a full round-trip.
+- **The exit was the owner's merge, not thread-quiet**: checks green + 0 unresolved was reached
+  three times and a fresh round landed each time; the owner merged inside one such window. The
+  +10-minute tail harvest then caught 3 more threads (fixed on the follow-up branch) — third
+  instance of the tail-window class; the mandate is earned.
+- **Four extract run defects named for the next fleet author** (report §8): no
+  verdict-to-finding linking key; a verifier evidence stub (anti-stub anchors must cover
+  verifier fields); 64/66 evidence rows clipped at exactly 500 chars by the extract writer;
+  file/lens metadata dropped at export (phase split unrecoverable — cross-surface rows carried
+  only the generic label in-run, defeating file-aware dedup).
+- **Write-hook fires, both concept-improving**: "restore" inside a claim summary tripped the
+  git-destruction substring policy (rephrased, no bypass); "carve-out" tripped the
+  expediency-hedge fingerprint — reappraisal found the design genuinely uniform
+  (role-determined default action) and the positive statement was better.
+- **F-133 recurrence-consistent**: all six commits this tenure used the sanctioned plain
+  pathspec path from the worktree (queue verify-staged cannot read a worktree index); claims
+  opened/closed per window, zero contention (solo on the tree throughout).
