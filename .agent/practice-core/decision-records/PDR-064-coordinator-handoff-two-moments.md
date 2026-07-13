@@ -13,7 +13,10 @@ in the 2026-06-12 amendment below)
 single event into a shadow-period process; standing-successor authorisation
 and the citable-gate test added, resolving deferred open question 4;
 Director-session closeout obligations added per owner-standing direction;
-amended 2026-07-04 — owner-probe semantics during a protocol window)
+amended 2026-07-04 — owner-probe semantics during a protocol window;
+amended 2026-07-13 — the intersection's owner-absent deadline default
+scoped to the steps the retiring seat itself can execute, steps 2–6
+with Moment 1 interleaved; step 7 is the receiver's Moment 2)
 **Related**:
 [PDR-027](PDR-027-threads-sessions-and-agent-identity.md)
 (threads, sessions, identity — coordinator identity travels
@@ -149,7 +152,20 @@ If the active-acknowledgement never arrives:
   to surface a fresh candidate;
 - the outgoing coordinator may not retire until either active-
   acknowledgement lands or the team explicitly designates a
-  different coordinator.
+  different coordinator — with ONE forced exception: a retirement
+  AUTHORISED under PDR-063 §Retirement authority (owner-called when
+  present; the completed declared-deadline/default-action path when
+  absent) on any measured Step-1 handover signal; once that authority
+  route completes, the retirement proceeds whether or not a receiver
+  exists. In that case the coordinator does not leave
+  authority pending for an unnamed successor: the Step 5 retirement broadcast
+  explicitly returns coordination authority to the OWNER (the scarce
+  authority above every seat); the coordinator-role context rides
+  the Moment 1 pre-positioning event (re-broadcast if stale — the
+  role is team-state, never handoff-record content); any open cycle
+  claim additionally takes the pending-handoff transport; and the
+  next coordinator is owner-designated or team-designated at pickup
+  — never silently assumed.
 
 ### Cron / cadence boundary
 
@@ -174,7 +190,15 @@ monitor owned by the outgoing coordinator:
   pre-positioning event (*"if Moment 2 has not landed by
   \<deadline\>, the cron continues firing into an empty
   coordinator slot — this is the structural defect; the team
-  must surface a new candidate"*).
+  must surface a new candidate"*). Under the forced
+  exception above (the authority-invariant bullet; PDR-063
+  §Retirement authority), session-scoped cadence surfaces cannot outlive
+  the retiring session: the Step 5 retirement broadcast declares
+  them stood down by name, and the empty-slot surfacing duty rides
+  the Moment 1 pre-positioning event (the durable coordinator-role
+  surface — re-broadcast it if stale) to the owner-designated
+  pickup; the per-claim handoff record, where one exists, carries
+  only the cycle-claim context.
 
 ### Pre-positioning is a process — the shadow period (2026-06-12 amendment)
 
@@ -319,16 +343,38 @@ events and remains the escalation surface above each slice-coord.
 If the outgoing coordinator is retiring mid-cycle under token
 pressure (PDR-063 trigger), both protocols fire:
 
-1. PDR-063 Step 1 — sense the budget threshold.
-2. PDR-063 Step 2 — write the structured handoff record for any
-   open cycle claim the coordinator was running.
-3. This PDR's Moment 1 — broadcast the pre-positioning event
+1. PDR-063 Step 1 — sense the budget threshold, surface the
+   measurement, and COMPLETE the §Retirement-authority route
+   (owner-present call, or the owner-absent declared-deadline/default
+   path); an owner or coordinator redirect exits this sequence here.
+   For a coordinator seat, the default action declared in the
+   owner-absent surfacing event IS the remainder of this sequence
+   that the retiring seat itself can execute (steps 2–6 below): it
+   realises PDR-063's "remaining Steps 2–5" with Moment 1
+   interleaved — there is no separate contiguous Steps-2–5 block for
+   a coordinator. Step 7 (Moment 2) is the receiving agent's later
+   pickup action, never part of the retiring seat's autonomous
+   default.
+2. PDR-063 Step 2 — ONLY when the coordinator was running an open
+   cycle claim: write the structured handoff record for it.
+3. PDR-063 Step 3 — under the same open-claim condition: extend that
+   claim with `handoff_record_path` (claim adoption preserves the
+   field but never adds it, so this step must precede any transport
+   whose pickup relies on adoption). With no open cycle claim,
+   Steps 2–4 all skip and execution proceeds to Moment 1.
+4. This PDR's Moment 1 — broadcast the pre-positioning event
    covering coordinator responsibilities (which is broader than
    any single cycle claim).
-4. PDR-063 Step 4 — directed `mid-cycle-handoff` event to a named
-   receiver for the cycle claim.
-5. PDR-063 Step 5 — retirement broadcast.
-6. The receiving agent for the coordinator role then provides
+5. PDR-063 Step 4 — ONLY when an open cycle claim exists (Steps 2
+   and 3 created and linked its record): directed `mid-cycle-handoff`
+   event to a named receiver for that claim; when no live receiver
+   exists (neither successor nor another coordinator), PDR-063
+   ruling 3's Step 4 transport exception applies — a broadcast
+   pending-handoff announcement carrying the record path, with pickup
+   via claim adoption. A coordinator with NO open cycle claim skips
+   this step entirely; the role handoff is Moment 1's to carry.
+6. PDR-063 Step 5 — retirement broadcast.
+7. The receiving agent for the coordinator role then provides
    this PDR's Moment 2 (active-acknowledgement) when they pick
    up the role.
 
@@ -421,7 +467,11 @@ second instance.
   coordinator must broadcast active-acknowledgement; absent the
   broadcast, peers cannot route to them.
 - Cancelling coordinator-cadence cron / wakeup / monitor at
-  Moment 1. Cadence ends at Moment 2 or not at all.
+  Moment 1. Cadence ends at Moment 2 or not at all — with this PDR's
+  one forced exception (§Cron / cadence boundary): a retirement
+  AUTHORISED under PDR-063 §Retirement authority stands the
+  session-scoped cadence surfaces down BY NAME in the Step 5
+  broadcast, before any Moment 2 can land.
 - Using `mid-cycle-handoff` (PDR-063 message_kind) for
   coordinator role transitions. The role is team-state; cycle
   handoffs are claim-state. They may co-occur (see
@@ -433,7 +483,11 @@ second instance.
   amortised by the audit clarity it provides.
 - A possible coordinator-less *waiting* state if active-
   acknowledgement is delayed. The cure is the rule "outgoing
-  coordinator does not retire until Moment 2 lands"; the cost
+  coordinator does not retire until Moment 2 lands" (subject to the
+  same authorised-forced-retirement exception — a PDR-063-authorised
+  retirement completes steps 2–6 of THIS PDR's §Intersection sequence
+  and ends the session before
+  Moment 2, returning authority to the owner); the cost
   is that the outgoing coordinator's session length is bounded
   by the incoming coordinator's arrival, which is acceptable
   for non-token-pressured handoffs and is exactly why PDR-063's

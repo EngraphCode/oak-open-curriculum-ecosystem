@@ -1,7 +1,7 @@
 # ADR-211: Inter-Practice Collaboration — Host Phenotype
 
 - **Status:** Accepted (2026-07-06; authored in the coordinated cross-estate WS0 session,
-  Lapwing herds Eyrie).
+  Lapwing herds Eyrie). Amended 2026-07-13 (ceremony-and-trigger scoping mirror).
 - **Mirrors:** [PDR-125: The Inter-Practice Collaboration Protocol](../../../.agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md)
   — the portable doctrine. This ADR is the host half: how this repo realises the protocol's
   mechanics. The controlling plan in the agent-tooling lane owns the HOW and the remaining
@@ -29,15 +29,25 @@ is, so the protocol's clauses resolve to concrete surfaces here.
 - **Home tooling (clause 4):** the `@oaknational/agent-tools` collaboration-state CLI is the ONLY
   write path into this repo's collaboration plane at `.agent/state/collaboration/` — guest
   sessions included, liveness files included.
+- **Conformance self-report (WS0c, landed 2026-07-07):** the estate declares its protocol
+  version family and tier in `.agent/practice-core/protocol.json` (schema/protocol 1.0.0,
+  tier-1 floor, comms-threading extension).
+- **Shared wire schema (WS0e, landed 2026-07-07):** the Core-carried contract at
+  `.agent/practice-core/schemas/inter-practice-wire.schema.json` — wire-relevant subset only;
+  each estate's local strict schemas remain the enforcement surface, bound by a conformance
+  test.
 - **Ceremony and trigger:** the portable skill `inter-practice-collaboration`
   (`.agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md`) is the runnable join ceremony;
   the portable rule `cross-repo-sessions-run-the-join-ceremony` fires it on the cross-repo
-  condition.
+  condition. Amended 2026-07-13 to mirror the owner's 2026-07-08 scoping rulings: read-only
+  estate looks are unceremonied, and a solo write into a QUIET estate takes the lighter
+  governance-only path (write governance + a fresh branch off the latest main); the full ceremony's
+  machinery binds at the first comms write, claim, or registration (PDR-125 clause 3).
 
 ## Consequences
 
 A visiting session can join this estate with zero prior knowledge: the rule fires, the skill
 enumerates the ceremony, the PDR carries the doctrine, and the mechanics above are the host
-surfaces the ceremony touches. The remaining protocol workstreams (repo-qualified claims WS2, the
-conformance self-report WS0c, the shared schema WS0e) extend this phenotype and amend this ADR
-when they land.
+surfaces the ceremony touches. The remaining protocol workstream (the repo-qualified claims WS2) extends this phenotype and
+amends this ADR when it lands; the conformance self-report (WS0c) and the shared wire schema
+(WS0e) landed on 2026-07-07 and are part of the phenotype above.
