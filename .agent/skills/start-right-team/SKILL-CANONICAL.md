@@ -878,8 +878,11 @@ pre-positioning event via `in_response_to`, naming the prior
 coordinator, and declaring the cadence the incoming coordinator will
 adopt. The outgoing coordinator continues to hold authority until this
 broadcast lands in the comms stream — with PDR-064's one forced
-exception: a retirement AUTHORISED under PDR-063 §Retirement authority
-on a measured signal ends the session before Moment 2 can land; the
+exception: a retirement AUTHORISED under PDR-063 §Retirement
+authority on any measured Step-1 signal, once that authority route
+COMPLETES (owner-called when present; the completed owner-absent
+deadline/default path when absent), ends the session before Moment 2
+can land; the
 Step 5 retirement broadcast then returns coordination authority to
 the OWNER explicitly, the role context rides the (re-broadcast if
 stale) Moment 1 pre-positioning event, and the next coordinator is
@@ -890,7 +893,12 @@ wakeup, or persistent monitor owned by the outgoing coordinator
 **continues to run through Moment 1**, **ends at Moment 2**, and
 **never goes dark between them** within the same role-authority
 window. Cancelling the cadence at Moment 1 is the proximate cause of
-the coordinator-less window this rule structurally cures.
+the coordinator-less window this rule structurally cures. One
+carve-out (PDR-064 §forced exception): session-scoped cadence
+surfaces cannot outlive an authorised forced retirement — the Step 5
+broadcast stands them down BY NAME, and the empty-slot surfacing
+duty rides the (re-broadcast if stale) Moment 1 pre-positioning
+event to the owner-designated pickup.
 
 **Singleton-authority roles beyond coordinator.** The same two-moments
 discipline governs any singleton-authority role — notably the
@@ -913,7 +921,14 @@ distinct `narrative` broadcast covering coordinator-role context
 (which is broader than any single cycle claim). The two are distinct
 events — the handoff record carries cycle-claim substance; the
 pre-positioning event carries coordinator-role substance. **Do not
-use `mid-cycle-handoff` for coordinator role transitions.**
+use `mid-cycle-handoff` for coordinator role transitions.** The
+combined ORDER is PDR-064's: sense (Step 1) → freeze the record
+(Step 2) → extend the claim with `handoff_record_path` (Step 3 —
+before any transport whose pickup relies on adoption) → Moment 1
+pre-positioning broadcast → PDR-063 Step 4 ONLY when an open cycle
+claim exists (directed to a live receiver, else the broadcast
+pending-handoff transport exception) → Step 5 retirement broadcast →
+the incoming coordinator's Moment 2 at pickup.
 
 ### Closeout consolidation discipline for failure-mode events
 
