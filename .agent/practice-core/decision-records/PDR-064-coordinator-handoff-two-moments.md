@@ -467,7 +467,11 @@ second instance.
   coordinator must broadcast active-acknowledgement; absent the
   broadcast, peers cannot route to them.
 - Cancelling coordinator-cadence cron / wakeup / monitor at
-  Moment 1. Cadence ends at Moment 2 or not at all.
+  Moment 1. Cadence ends at Moment 2 or not at all — with this PDR's
+  one forced exception (§Cron / cadence boundary): a retirement
+  AUTHORISED under PDR-063 §Retirement authority stands the
+  session-scoped cadence surfaces down BY NAME in the Step 5
+  broadcast, before any Moment 2 can land.
 - Using `mid-cycle-handoff` (PDR-063 message_kind) for
   coordinator role transitions. The role is team-state; cycle
   handoffs are claim-state. They may co-occur (see
@@ -479,7 +483,11 @@ second instance.
   amortised by the audit clarity it provides.
 - A possible coordinator-less *waiting* state if active-
   acknowledgement is delayed. The cure is the rule "outgoing
-  coordinator does not retire until Moment 2 lands"; the cost
+  coordinator does not retire until Moment 2 lands" (subject to the
+  same authorised-forced-retirement exception — a PDR-063-authorised
+  retirement completes steps 2–6 of THIS PDR's §Intersection sequence
+  and ends the session before
+  Moment 2, returning authority to the owner); the cost
   is that the outgoing coordinator's session length is bounded
   by the incoming coordinator's arrival, which is acceptable
   for non-token-pressured handoffs and is exactly why PDR-063's

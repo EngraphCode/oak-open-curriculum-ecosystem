@@ -65,11 +65,14 @@ liveness files for heartbeats within the home's RETIREMENT threshold
 substantive event) for that whole window, so a heartbeat older than
 one cadence but inside the threshold still counts as live (all read
 from the write governance in step 1). If all three surfaces
-are silent AND no observable exemption window is open (a
-coordinator-handoff grace window, a declared consumer-absent or
-contiguous-execution mode — the home's liveness contract names its
-exemption classes), the estate is QUIET; if any one is live or an
-exemption window is open, it is not. An exemption window counts as
+are silent, the home's ground-truth work surfaces show no git
+activity newer than the retirement window (the fourth check, defined
+with the consumer-absent note below), AND no observable exemption
+window is open (a
+coordinator-handoff grace window, a contiguous-execution window, a
+verdict-synthesis window — the home's liveness contract names its
+exemption classes), the estate is QUIET; if any surface or work
+trace is live, or an exemption window is open, it is not. An exemption window counts as
 open from its observable opening event until its named closing
 boundary (per PDR-078: a handoff grace window until the incoming
 acknowledgement lands OR, under PDR-064's authorised
@@ -81,16 +84,37 @@ does not expire a window whose boundary event has not yet appeared.
 Because an opening event may therefore be older than any bounded
 tail, the exemption check resolves opening/closing PAIRS from the
 home's canonical event history (or its persisted exemption state
-where it keeps one) — a newest-N tail read (this repo's `comms list`
-defaults to 20 events) is sufficient for the three liveness
-categories above, which age out at the retirement window, but NOT
-for unmatched exemption openings.
-Only a declaration with NO named closing boundary (a
-consumer-absent-style mode) needs its declaring seat to show on at
-least one of the three surfaces to veto QUIET — a bare unbounded
-declaration from a seat with no surviving trace does not (otherwise
-a truly empty estate could never read QUIET, since PDR-078's
-consumer-absent state is itself defined by peer absence). The moment the session writes
+where it keeps one). The three liveness categories above are read by
+TIME window — every event newer than the home's retirement threshold
+— never by a fixed newest-N count (a busy estate can push a live
+seat's latest event outside any fixed N while it is still inside the
+threshold). Where the home's CLI caps a time-filtered read (this
+repo's `comms list --since <threshold>` still applies its default
+`--tail 20` AFTER the filter), raise the tail until the header's
+shown count equals its post-threshold denominator — the header
+exposes the truncation — and the
+exemption scan needs the full history for unmatched openings.
+PDR-078's fourth exemption — consumer-absent — is NOT a scannable
+window and never enters this check as one: it is derived from the
+home's CURRENT registry/conductor state with self-healing exits (a
+consuming peer appears, the conductor goes async, the cast rotates).
+Its seats can be nearly invisible on coordination surfaces — an
+unclaimed solo session emits no heartbeats and need not hold a claim
+— so the QUIET read must ALSO consult the home's ground-truth work
+surfaces: git activity newer than the retirement window (commits on
+live branches, working-tree or index movement where observable)
+vetoes QUIET even when every coordination surface is silent. A truly
+empty estate (no claims, no in-window comms or watcher activity, no
+in-window git activity, no open bounded window) reads QUIET. Name
+the residual honestly: a fully silent seat that is only reading or
+reasoning leaves no observable trace (git evidence is coarse and
+lagging), so QUIET is a best-effort read of observable surfaces,
+never a proof of emptiness. The lighter path stays safe under that
+residual because its writes land on a fresh branch off the home's
+latest main under the home's own gates — never on any seat's working
+surface — and the machinery binds at the first comms write, claim,
+or registration, so a collision surfaces through the home's own
+coordination the moment either side writes. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

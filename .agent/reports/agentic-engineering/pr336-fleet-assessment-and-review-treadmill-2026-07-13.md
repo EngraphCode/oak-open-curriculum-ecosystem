@@ -85,7 +85,10 @@ preserved in the companion evidence file (§9), but no
 verdict-to-finding linking key was captured — the linkage lived in
 the verifier prompts, session-mortal — so the 15 are bounded as a
 set, not individually identifiable (a second run defect; see §8). The
-residue is dominated by the undefined-mechanism lens — cold-executor
+residue was dominated by the undefined-mechanism lens — a
+session-time observation that can no longer be verified from the
+preserved data (the linking key and the per-row lens metadata were
+both dropped; see §8) — cold-executor
 definitional demands of the class the verified set already samples
 heavily (that lens produced most of the refutations), so the expected
 real-defect yield among the 15 is low but is NOT zero and was not
@@ -330,13 +333,16 @@ handoff, held only in one very long session context.
   rationales are session-mortal (a third run defect — see §8). The
   transcripts behind them remain session-mortal, reproducible in
   design from §3.
-- The 52 substantively refuted, 1 stub-refuted, and 1 fabricated
-  finding bodies, and the 15 unverified findings (see §4): their raw
-  bodies survive in the companion evidence file, but the refute-rate
-  and failure-mode analysis (§5) is the durable signal; the bodies
-  are fleet-output residue, and the unverified 15's expected yield is
-  assessed low in §4 — an accepted, NAMED de-prioritisation rather
-  than a silent loss.
+- The verdict-to-finding LINKAGE on the 66 recorded verdict rows —
+  whose absence is exactly what prevents identifying WHICH 15 of the
+  81 deduped findings carry no verdict — and the per-finding
+  adjudication depth beyond the extract's 500-character evidence caps
+  (see §4): all 81 finding bodies and all 66 verdict bodies survive
+  in the companion evidence file and are not lost — what is lost is
+  the linkage and depth. The refute-rate and failure-mode
+  analysis (§5) is the durable signal; re-adjudicating fleet-output
+  residue is a NAMED de-prioritisation (the unverified 15's expected
+  yield is assessed low in §4), not a silent loss.
 - Chat-only reasoning texture (round-by-round triage deliberation,
   owner exchange phrasing): the decisions all landed in commits, thread
   replies, and this report; the texture is session-mortal by design.
