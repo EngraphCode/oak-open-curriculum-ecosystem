@@ -171,9 +171,10 @@ the tools without the Oak-authored understanding needed to facilitate it well.
 
 ## Concept Exploration
 
-This section is the result of re-running Resonance's four-movement Concept Exploration workflow
-after the preceding observations were committed. It evaluates the concept and the two demonstration
-fixtures; it does not turn the outcome into an implementation sequence.
+This section applies [Resonance's upstream four-movement Concept Exploration workflow](https://github.com/EngraphCode/resonance/blob/main/baxtersgallery/research/concept-exploration.md)
+to the preceding Oak-specific observations. The local use retains the four reflective movements but
+does not adopt Resonance's repository governance or decision-matrix layer. It evaluates the concept
+and the two demonstration fixtures; it does not turn the outcome into an implementation sequence.
 
 ### Movement 1: reflect on the raw observations
 

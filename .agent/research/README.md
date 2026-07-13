@@ -82,6 +82,7 @@ Research on AI integration, MCP tools, and agent patterns.
 | ├─ [quiz-design-principles.md](aila-modular-extraction/quiz-design-principles.md) | Quiz generation rules | |
 | └─ [safety-patterns.md](aila-modular-extraction/safety-patterns.md) | Content safety | |
 | [mcp_agent_guidance_provision.md](mcp_agent_guidance_provision.md) | MCP agent guidance | Tool descriptions for AI agents |
+| [public-alpha-teacher-workflows-concept-exploration.md](public-alpha-teacher-workflows-concept-exploration.md) | Public-alpha teacher workflows through MCP | Natural-language entry, agent-facing workflow delivery, teacher authority, and a localisation gradient |
 | [mcp-sdk-type-reuse-investigation.md](mcp-sdk-type-reuse-investigation.md) | MCP SDK types | |
 | [mcp-tool-description-schema-flow-analysis.md](mcp-tool-description-schema-flow-analysis.md) | Tool schema flow | |
 | [openai_claude_gemini_apps_sdk_comparison.md](openai_claude_gemini_apps_sdk_comparison.md) | AI SDK comparison | OpenAI, Claude, Gemini patterns |
@@ -105,7 +106,6 @@ developer-experience inputs used to improve Oak's agentic engineering system.
 | └─ local `developer-experience/novel/` lane | Ignored repair lane | Raw imports and sibling clean copies; stable promotion deferred |
 | [graphify-oak-practice-analysis.md](graphify-oak-practice-analysis.md) | Derived graph memory exploration | Navigation layer over the practice estate, explicit attribution requirement |
 | [mcp_agent_guidance_provision.md](mcp_agent_guidance_provision.md) | MCP help-surface design | Start-here resources, help tools, and prompt-oriented discoverability |
-| [public-alpha-teacher-workflows-concept-exploration.md](public-alpha-teacher-workflows-concept-exploration.md) | Public-alpha teacher workflows through MCP | Natural-language entry, agent-facing workflow delivery, teacher authority, and a localisation gradient |
 | [openai_claude_gemini_apps_sdk_comparison.md](openai_claude_gemini_apps_sdk_comparison.md) | Cross-vendor app surface comparison | Host/UI surface differences around MCP and embedded experiences |
 
 ### 🔐 Authentication & Security
