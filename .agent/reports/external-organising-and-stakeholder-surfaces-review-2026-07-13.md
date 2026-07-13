@@ -1201,7 +1201,7 @@ planning ceremony.
 
 ### Stakeholder and service surfaces
 
-- [Ask Oisín design](outreach/oisin-oce-navigator-design.md)
+- [Ask Oisín design](../research/outreach/oisin-oce-navigator-design.md)
 - [Slack assistants collection](../plans/slack-assistants/README.md)
 - [Ask Oisín plan](../plans/slack-assistants/current/ask-oisin.plan.md)
 - [ADR-004 — deprecated Notion adapter decision](../../docs/architecture/architectural-decisions/004-no-direct-notion-sdk-usage.md)
