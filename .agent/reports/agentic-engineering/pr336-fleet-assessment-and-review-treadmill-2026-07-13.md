@@ -73,15 +73,23 @@ Run: 155 agents, 28 minutes wall-clock, ~6.6M subagent tokens,
 
 ## 4. Fleet results
 
-**85 raw findings → 81 deduped → 66 VERIFIED (12 CONFIRMED / 53
+**85 raw findings → 81 deduped (4 dedup-duplicates) → 66 verdict rows
+(12 CONFIRMED / 52 substantively REFUTED / 1 verifier STUB recorded as
 REFUTED / 1 FABRICATED / 0 UNCERTAIN) + 15 UNVERIFIED** — 15 VERIFIER
 units died on the structured-output retry cap, so their findings carry
-no verdict (a run defect, first mis-attributed to finders; see §5). The
-unverified residue, recoverable only from the session journal, is
-dominated by the undefined-mechanism lens — cold-executor definitional
-demands of the class the verified set already samples heavily (that
-lens produced most of the 53 refutations), so the expected real-defect
-yield among the 15 is low but is NOT zero and was not measured. The 12 confirmed were all real and all
+no verdict (a run defect, first mis-attributed to finders; see §5),
+and one surviving REFUTED row's evidence field is literal
+schema-padding filler (a verifier stub — see §5 and §8), so the
+substantive verdict count is 65. The unverified residue's bodies are
+preserved in the companion evidence file (§9), but no
+verdict-to-finding linking key was captured — the linkage lived in
+the verifier prompts, session-mortal — so the 15 are bounded as a
+set, not individually identifiable (a second run defect; see §8). The
+residue is dominated by the undefined-mechanism lens — cold-executor
+definitional demands of the class the verified set already samples
+heavily (that lens produced most of the refutations), so the expected
+real-defect yield among the 15 is low but is NOT zero and was not
+measured. The 12 confirmed were all real and all
 fixed in the batch `SHA:5433b80ff`: a dangling practice-index link, a
 missing amendment annotation on PDR-063's status, two grammar defects
 in session-authored text ("pend authority to", "waits that window"),
@@ -108,8 +116,12 @@ Worked:
 - **Quote-anchored anti-stub schema**: exactly 1 fabrication in 85 —
   the mandatory-verbatim-quote + declared byte-check pattern
   essentially eliminated the schema-valid-stub failure mode this
-  estate recorded on 2026-07-08 (3/13 stubs without it).
-- **Sonnet verification layer**: 66 verdicts over 81 deduped, 12
+  estate recorded on 2026-07-08 (3/13 stubs without it) — for FINDER
+  findings. Verifier evidence fields carried no such anchor and one
+  stub survived there: a REFUTED verdict row whose evidence is
+  literal schema-padding filler (see §8).
+- **Sonnet verification layer**: 66 verdict rows over 81 deduped (65
+  substantive after the one stub), 12
   confirmed (80% of verdicts were refutations). The
   refutations were dominated by exactly the predicted Haiku failure
   modes: literalism (qualified statements read as unqualified),
@@ -176,8 +188,8 @@ ratio that produced 28 rounds here.
   voters are partially redundant; this run's cross-TIER split
   (Haiku find, Sonnet verify) is the complementary design point —
   diversity by capability tier, not just by lens — and the 80%
-  refuted-verdict share (53/66) is evidence the tiers genuinely
-  disagree.
+  refuted-verdict share (53/66 as recorded; 52 substantive after the
+  stub, §4) is evidence the tiers genuinely disagree.
 - **PDR-101 quorum economics**: a new data point beside the 2026-07-08
   four-seat quorum (~557k tokens, 2 convergent must-fix classes):
   155 agents / ~6.6M tokens / 12 confirmed + 4 design follow-ups on
@@ -207,6 +219,17 @@ ratio that produced 28 rounds here.
   verifier units), not the Haiku finders as first assumed: add a
   fallback verifier on retry exhaustion and a workflow invariant that
   verdict-count equals deduped-count before the run reports.
+- Capture a verdict-to-finding linking key IN the durable extract:
+  this run's linkage lived only in the verifier prompts
+  (session-mortal), so the 15 unverified findings are bounded as a
+  set, not individually identifiable. One finding-key field per
+  verdict row cures it.
+- Anti-stub constraints must cover VERIFIER evidence fields, not only
+  finder findings: one REFUTED verdict's evidence is literal
+  schema-padding filler that passed schema validation — the
+  quote-anchor protected findings only. The extract preserves the row
+  as captured (never falsify the evidence file); the ledger counts it
+  as a stub, not a substantive refutation.
 - A comms watcher armed without its required `--seen-file` argument
   crash-loops silently inside a Monitor re-arm loop — assert the
   watcher live (F-95 check) after arming, not just armed.
@@ -239,23 +262,31 @@ handoff, held only in one very long session context.
   the controlling plan's trued status and todo graph.
 - The branch/worktree cleanup census and its proof criteria — the
   napkin entry (95 local + 2 remote deleted, 25 + 7 kept with reasons).
+- The fleet workflow script — rescued verbatim post-close by the
+  retiring seat's preservation-addendum comms event: it lives at
+  [`pr336-fleet-workflow-script-2026-07-13.js.txt`](pr336-fleet-workflow-script-2026-07-13.js.txt)
+  (the calibrated craft — exact lens briefs, anti-stub schemas,
+  verifier procedure — beside §3's design description).
 
 **Accepted ephemeral losses (deliberate, with reasoning):**
 
 - The fleet's raw per-agent transcripts and the workflow journal
   (session-local): the durable extract is the companion evidence file
   [`pr336-fleet-raw-findings-2026-07-13.jsonl`](pr336-fleet-raw-findings-2026-07-13.jsonl)
-  (all 85 finder findings + all 66 verdicts — the 15 unverified bodies
-  are recoverable from it by subtraction forever); the transcripts
-  behind them remain session-mortal, reproducible in design from §3.
-- The workflow script file (session-local): §3 describes the design
-  completely enough to re-author; inlining ~200 lines of JS here would
-  duplicate a described mechanism.
-- The 53 refuted and 1 fabricated finding bodies, and the 15
-  unverified findings (see §4): the refute-rate and failure-mode
-  analysis (§5) is the durable signal; the bodies are fleet-output
-  residue, and the unverified 15's expected yield is assessed low in
-  §4 — an accepted, NAMED loss rather than a silent one.
+  (all 85 raw finder findings — 81 deduped after the 4
+  dedup-duplicates — and all 66 verdict rows; the arithmetic is
+  85 − 4 = 81 and 81 − 66 = 15 unverified, whose bodies are among the
+  81 but carry no verdict-to-finding linking key, so they are bounded
+  as a set rather than individually recoverable — see §4 and §8); the
+  transcripts behind them remain session-mortal, reproducible in
+  design from §3.
+- The 52 substantively refuted, 1 stub-refuted, and 1 fabricated
+  finding bodies, and the 15 unverified findings (see §4): their raw
+  bodies survive in the companion evidence file, but the refute-rate
+  and failure-mode analysis (§5) is the durable signal; the bodies
+  are fleet-output residue, and the unverified 15's expected yield is
+  assessed low in §4 — an accepted, NAMED de-prioritisation rather
+  than a silent loss.
 - Chat-only reasoning texture (round-by-round triage deliberation,
   owner exchange phrasing): the decisions all landed in commits, thread
   replies, and this report; the texture is session-mortal by design.

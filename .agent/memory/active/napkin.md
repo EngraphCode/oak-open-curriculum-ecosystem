@@ -626,7 +626,8 @@ session-behavioural captures).
   the push, one wave instead of seven) is the single biggest loop-shortener found this session.
 - **Anti-fabrication quote-anchor worked**: 1 fabrication in 85 findings (vs 3/13 stubs on
   2026-07-08 without it). Sonnet refute-first verification returned 66 verdicts over 81 deduped
-  (12 confirmed / 53 refuted / 1 fabricated — 80% of verdicts were refutations, the Haiku
+  (12 confirmed / 52 substantively refuted + 1 verifier evidence-stub / 1 fabricated — 80% of
+  verdicts were refutations, the Haiku
   literalism the sibling estate's evidence predicted); 15 verifier units DIED on the schema
   retry cap, so 15 findings carry no verdict — a run defect a post-merge reviewer caught in my
   own ledger (12+53+1≠81). The reconciled figures are the baseline data for the

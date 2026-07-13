@@ -70,7 +70,8 @@ forward-asks remain.
   authority + §Deliberate succession, PDR-064 intersection, the join-ceremony skill + cross-repo
   rule + start-right-team mirrors, ADR-182/211 phenotype notes) survived 28 bot review rounds
   (110 threads, all byte-verified dispositions) plus an owner-commissioned 155-agent Haiku/Sonnet
-  diff fleet (12 confirmed / 53 refuted / 1 fabricated). Full analysis, fleet-mechanism
+  diff fleet (12 confirmed / 52 substantively refuted + 1 verifier stub / 1 fabricated). Full
+  analysis, fleet-mechanism
   retrospective, and OCE-relevance record:
   [`pr336-fleet-assessment-and-review-treadmill-2026-07-13.md`](../../reports/agentic-engineering/pr336-fleet-assessment-and-review-treadmill-2026-07-13.md)
   (rides the PR). **Standing follow-ups**: the untwinned PDR-063/064/125 truings re-twin at the
