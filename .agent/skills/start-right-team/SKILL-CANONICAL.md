@@ -792,8 +792,9 @@ mid-cycle does not get to push for one more commit.
 2026-07-08):** budget verdicts are measured, never self-declared.
 Owner-present, the seat surfaces the measured metric and the OWNER
 calls the handoff moment. Owner-absent at a measured handover signal
-(the ~50% effectiveness-window start or the ≥ 80% ceiling — whichever
-fires first), the seat surfaces with an explicit absolute deadline
+(any Step-1 trigger: the ~50% effectiveness-window start, the ≥ 80%
+ceiling, or a measured post-commit shortfall — whichever fires
+first), the seat surfaces with an explicit absolute deadline
 and default action declared in the surfacing event (protocol default
 when no coordinator SLA applies: 10 minutes, then autonomous
 execution), waits that bounded window, and may then run the five

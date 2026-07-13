@@ -21,7 +21,8 @@ Practice Core package.
   self-declared exhaustion ever — measured metrics only; owner-present the
   owner calls handoffs; owner-absent surface-then-autonomous at a measured
   signal — the ~50 % effectiveness-window start primary under rotating cast,
-  or the ≥ 80 % ceiling, whichever fires first) and
+  the ≥ 80 % ceiling, or a measured post-commit shortfall, whichever fires
+  first) and
   §Deliberate succession (the in-flight discriminator), composing with this
   estate's effectiveness-window refinement, which the peer estate is
   backporting in the same window.
