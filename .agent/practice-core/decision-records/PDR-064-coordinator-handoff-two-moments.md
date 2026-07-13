@@ -485,7 +485,8 @@ second instance.
   acknowledgement is delayed. The cure is the rule "outgoing
   coordinator does not retire until Moment 2 lands" (subject to the
   same authorised-forced-retirement exception — a PDR-063-authorised
-  retirement completes its steps 2–6 and ends the session before
+  retirement completes steps 2–6 of THIS PDR's §Intersection sequence
+  and ends the session before
   Moment 2, returning authority to the owner); the cost
   is that the outgoing coordinator's session length is bounded
   by the incoming coordinator's arrival, which is acceptable

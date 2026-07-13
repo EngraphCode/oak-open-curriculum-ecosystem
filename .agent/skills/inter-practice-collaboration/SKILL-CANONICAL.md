@@ -86,9 +86,13 @@ tail, the exemption check resolves opening/closing PAIRS from the
 home's canonical event history (or its persisted exemption state
 where it keeps one). The three liveness categories above are read by
 TIME window — every event newer than the home's retirement threshold
-— never by a fixed newest-N count (this repo's `comms list` defaults
-to 20 events; a busy estate can push a live seat's latest event
-outside any fixed N while it is still inside the threshold), and the
+— never by a fixed newest-N count (a busy estate can push a live
+seat's latest event outside any fixed N while it is still inside the
+threshold). Where the home's CLI caps a time-filtered read (this
+repo's `comms list --since <threshold>` still applies its default
+`--tail 20` AFTER the filter), raise the tail until the header's
+shown count equals its post-threshold denominator — the header
+exposes the truncation — and the
 exemption scan needs the full history for unmatched openings.
 PDR-078's fourth exemption — consumer-absent — is NOT a scannable
 window and never enters this check as one: it is derived from the
