@@ -19,15 +19,26 @@ The intended entry point is ordinary teacher language, for example:
 
 > I want to prepare a Year 9 lesson using the Oak photosynthesis materials.
 
+This is a demonstration utterance, not the boundary of the capability.
+
 The consuming agent should recognise the intent, ask useful refining questions, find and present
-the appropriate Oak lesson and materials, and facilitate the teacher's requests. The teacher does
-the planning. The agent supports that work; it does not silently turn the request into an
-agent-authored lesson or make the pedagogical choices.
+the appropriate Oak content and materials, and facilitate the teacher's requests. Facilitation is
+the agent's only role. Teacher authority is invariant throughout every user interaction: the agent
+does not take decision authority at discovery, refinement, presentation, transformation, or any
+other stage.
 
 This is the product expression of
 [ADR-194](../../docs/architecture/architectural-decisions/194-teacher-as-expert-product-boundary.md):
 Oak surfaces inform and offer options, while the teacher remains the pedagogical expert and the
 authority on what should happen.
+
+Two invariants govern every workflow discussed here:
+
+1. **Teacher authority:** the teacher remains in control throughout every interaction. The agent
+   facilitates the teacher's work; it does not decide on the teacher's behalf.
+2. **Curriculum generality:** the workflows and tools must operate across any Oak lesson, topic, or
+   unit. Named subjects, years, lessons, and places are demonstration fixtures, never hard-coded
+   branches or boundaries in the capability.
 
 For milestone scope:
 
@@ -37,29 +48,32 @@ For milestone scope:
   sophisticated end of that capability must remain visible on the roadmap even if delivery begins
   with simpler forms.
 
-## The two use cases are not the same operation
+## Generic capabilities and their demonstration fixtures
 
-### Prepare an existing [Year 9 photosynthesis lesson](https://www.thenational.academy/teachers/programmes/science-secondary-ks3/units/plant-nutrition-and-photosynthesis/lessons/photosynthesis)
+### Demonstration fixture 1: prepare an existing [Year 9 photosynthesis lesson](https://www.thenational.academy/teachers/programmes/science-secondary-ks3/units/plant-nutrition-and-photosynthesis/lessons/photosynthesis)
 
-The anchor is an existing Oak lesson, not a topic from which the agent should build a new lesson.
-The useful flow is likely to include finding the exact lesson, establishing what the teacher wants
-to prepare, and presenting the lesson's outcome, key learning points, misconceptions, transcript,
-quizzes, and available assets selectively. Which of those matter, and what the teacher does with
-them, are matters for the dialogue rather than a fixed output template.
+This example demonstrates a generic lesson-preparation flow. It must work whether the teacher
+starts with a lesson, a topic, or a unit, and regardless of subject or year. The useful flow is
+likely to include resolving the relevant Oak lesson, establishing what the teacher wants to
+prepare, and presenting its outcome, key learning points, misconceptions, transcript, quizzes, and
+available assets selectively. Which of those matter, and what the teacher does with them, are
+matters for the dialogue rather than a fixed output template.
 
 This differs materially from the current `lesson-planning` MCP prompt. That prompt searches for an
 Oak analogue and then instructs the model to assemble a complete lesson with a new outcome,
 sequence, assessments, resources, and adaptation notes. Its content is useful candidate material,
 but its current goal is broader and more generative than preparing to teach an existing lesson.
 
-### Localise the existing [Local Area lesson](https://www.thenational.academy/teachers/programmes/geography-primary-ks1/units/local-area-where-do-we-live/lessons/our-local-area)
+### Demonstration fixture 2: localise the [Local Area lesson](https://www.thenational.academy/teachers/programmes/geography-primary-ks1/units/local-area-where-do-we-live/lessons/our-local-area) for Watford, England
 
 Localisation has degrees. In this use case it is generally about engagement and contextual
 relevance, not changing the educational content itself. The source lesson already invites the
 teacher to replace its example aerial maps with maps of the school's local area. The agent can help
 the teacher inspect the lesson, identify context-bearing elements, gather teacher-supplied local
-context, and present possible substitutions. The teacher decides what is locally and
-pedagogically meaningful.
+context, and present possible substitutions. The fixed locale for the demonstration is **Watford,
+England**. Watford exercises the generic localisation flow; it must not appear in the workflow or
+tool implementation as a special case. The teacher decides what is locally and pedagogically
+meaningful.
 
 A useful gradient is:
 
@@ -73,7 +87,8 @@ A useful gradient is:
 
 The earlier degrees provide a credible starting point. The later degrees require progressively
 more capability, review, and explicit teacher direction; they are a beta-horizon concern rather
-than an implied alpha promise. At every degree, the teacher is the arbiter of pedagogical output.
+than an implied alpha promise. At every degree and in every interaction, the teacher retains
+authority and the agent only facilitates.
 
 ## MCP interaction constraint
 
@@ -137,6 +152,8 @@ the tools without the Oak-authored understanding needed to facilitate it well.
   discovery tool return the relevant guidance, or is strong tool metadata sufficient?
 - What trigger descriptions let a consuming agent recognise "prepare an existing lesson" without
   converting it into "generate a lesson"?
+- What contract makes the same flow work from any lesson, topic, or unit without demo-specific
+  instructions?
 - What minimum refining dialogue is genuinely useful, and which questions should only arise from
   the teacher's stated goal?
 - Which behaviours can be demonstrated across the target AI hosts, given that resource inclusion
@@ -155,8 +172,8 @@ the tools without the Oak-authored understanding needed to facilitate it well.
 ## Concept Exploration
 
 This section is the result of re-running Resonance's four-movement Concept Exploration workflow
-after the preceding observations were committed. It evaluates the concept and the two user stories;
-it does not turn the outcome into an implementation sequence.
+after the preceding observations were committed. It evaluates the concept and the two demonstration
+fixtures; it does not turn the outcome into an implementation sequence.
 
 ### Movement 1: reflect on the raw observations
 
@@ -164,8 +181,9 @@ Several observations are load-bearing:
 
 1. The teacher's natural-language request is the real entry point. Requiring prior knowledge of an
    Oak slash command would move discovery work back onto the teacher and break the intended UX.
-2. The two user stories both start from an existing, identified Oak lesson. The initial value is
-   fidelity, access, and selective use of what Oak already provides, not generation from a topic.
+2. The named stories are demonstration fixtures, not capability definitions. The workflows and
+   tools must work across any lesson, topic, or unit; photosynthesis and Watford are concrete probes
+   of generic behaviour.
 3. The current rich workflow instructions are attached to user-controlled prompts. That makes them
    candidate content, not an agent-facing capability.
 4. Oak already exposes an agent-audience resource and a model-controlled orientation tool. The
@@ -179,9 +197,10 @@ Several observations are load-bearing:
 7. Localisation is not one operation. The Local Area lesson's own teacher tip invites a local-map
    substitution, while its learning outcome and key learning points provide the educational anchor
    to preserve. Engagement-level context and pedagogical adaptation must not be collapsed together.
-8. Teacher authority is not a disclaimer appended to an output. It changes the interaction: the
-   agent asks what matters, offers relevant content and options, and leaves choices open rather than
-   completing the teacher's thinking on their behalf.
+8. Teacher authority is invariant over every user interaction, not a disclaimer appended to an
+   output or a boundary that activates only for overt pedagogical decisions. It changes the whole
+   interaction: the agent asks what matters, offers relevant content and options, and only
+   facilitates the teacher's work.
 9. The alpha's distinctive value is distribution into existing AI workspaces. A technically valid
    MCP primitive that only works in one host's UI does not satisfy that value by itself.
 
@@ -199,9 +218,10 @@ content-search or content-generation problem.
 
 #### Gap
 
-Oak has the lesson content, tools, orientation substrate, and early workflow drafts. It does not yet
-expose the detailed workflows on a sufficiently portable, model-accessible path that a consuming
-agent can discover from natural-language teacher intent.
+Oak has the curriculum content, tools, orientation substrate, and early workflow drafts. It does
+not yet expose generic detailed workflows on a sufficiently portable, model-accessible path that a
+consuming agent can discover from natural-language teacher intent and apply to any lesson, topic,
+or unit.
 
 #### Who the gap harms
 
@@ -219,7 +239,9 @@ and curriculum tool use are not yet joined into one reliable path.
 
 #### Constraints
 
-- The teacher remains the pedagogical expert and decision-maker.
+- Teacher authority is invariant over all interactions; the agent's role is facilitation only.
+- Workflows and tools are curriculum-generic across any lesson, topic, or unit; demonstrations do
+  not create special cases.
 - The server remains deterministic; runtime interpretation belongs to the consuming agent.
 - Public alpha should emphasise existing Oak content and materials, not promise a generation or
   artefact-editing product.
@@ -236,14 +258,17 @@ Starting with the prompt surface unavailable, a teacher can use ordinary languag
 
 1. recognises the relevant Oak-supported intent;
 2. acquires the appropriate Oak-authored workflow guidance;
-3. finds the exact lesson and preserves its educational anchors and provenance;
+3. resolves the relevant lessons, topics, or units and preserves their educational anchors and
+   provenance;
 4. asks a small number of relevant refining questions as the need emerges;
 5. presents content, materials, and options that advance the teacher's work; and
-6. leaves pedagogical decisions with the teacher.
+6. preserves teacher authority throughout the interaction.
 
 For an internal demonstration, success is not merely a polished final answer. The demonstration
 must make the behavioural chain inspectable: natural-language request, workflow acquisition,
-curriculum calls, selective presentation, and a visible teacher decision point.
+curriculum calls, selective presentation, and visible teacher control. Photosynthesis and Watford
+make that chain concrete; they do not by themselves establish the required curriculum-wide
+generality.
 
 ### Movement 3: reflect on possible solutions
 
@@ -332,19 +357,21 @@ particular, it remains open whether intent-scoped retrieval belongs in `get-curr
 a small dedicated tool. That choice should be informed by context size, model-selection behaviour,
 and host support rather than by a preference for fewer or more primitives.
 
-#### Evaluation of the two stories
+#### Evaluation of the two demonstration fixtures
 
-| Story | Public-alpha value | Agent contribution | Teacher decision | Beta horizon |
+| Demonstration fixture | Generic capability exercised | Public-alpha value | Teacher authority | Beta horizon |
 | --- | --- | --- | --- | --- |
-| Prepare Year 9 photosynthesis | Find and selectively expose the exact lesson, misconception, teacher tip, quizzes, transcript, and available materials | Ask what preparation help matters; present the relevant Oak content without rebuilding the lesson by default | What to emphasise, change, omit, or teach | Deeper adaptation, generated artefacts, or resource transformation |
-| Localise Local Area | Identify the lesson's educational anchors and context-bearing elements; support simple local substitutions that improve engagement | Ask for the locality and relevant teacher context; present substitution points and options while preserving intent | What is locally meaningful and pedagogically appropriate | Systematic asset editing, external local-data integration, and pedagogical adaptation |
+| Prepare Year 9 photosynthesis | Prepare from any Oak lesson, topic, or unit | Resolve and selectively expose the relevant lesson, misconception, teacher tip, quizzes, transcript, and available materials | The agent asks what help matters and facilitates; the teacher controls what to emphasise, change, omit, or teach | Deeper adaptation, generated artefacts, or resource transformation |
+| Localise Local Area for Watford, England | Facilitate localisation requests starting from any Oak lesson, topic, or unit without changing educational intent by default | Identify educational anchors and context-bearing elements; support simple Watford substitutions that improve engagement | The agent presents substitution points and options; the teacher controls what is locally meaningful and pedagogically appropriate | Systematic asset editing, external local-data integration, and pedagogical adaptation |
 
-Both stories are credible public-alpha demonstrations if "support" is kept literal. The
-photosynthesis story tests whether the agent can facilitate preparation without turning it into
-lesson generation. The Local Area story tests whether it can distinguish engagement-focused
-localisation from educational-content change. The second story should not imply that the Oak MCP
-server itself can discover arbitrary local maps or edit downloaded slide decks unless those
-capabilities are actually supplied by the consuming host or a future integration.
+Both fixtures are credible public-alpha demonstrations if "support" is kept literal. The
+photosynthesis fixture tests whether the agent can facilitate preparation without turning it into
+lesson generation. The Watford Local Area fixture tests whether it can distinguish
+engagement-focused localisation from educational-content change. Neither fixture relaxes the
+requirement that the underlying workflows and tools work across the Oak curriculum. The second
+fixture should not imply that the Oak MCP server itself can discover arbitrary local maps or edit
+downloaded slide decks unless those capabilities are actually supplied by the consuming host or a
+future integration.
 
 #### Warrants and falsifiers
 
@@ -353,8 +380,11 @@ capabilities are actually supplied by the consuming host or a future integration
 | Detailed workflows should be bounded rather than always loaded | Context and attention costs grow with every supported intent | Host/model evaluations show the full catalogue is small, consistently attended to, and cheaper than retrieval failures |
 | Resources and a model-controlled path should share one source | Resources are canonical and inspectable; tools are more portable across current agents | Every target host reliably injects or exposes assistant-audience resources to the model without user action |
 | The model-controlled path should return usable guidance | A pointer-only result relies on a second host-dependent resource hop | Target-host probes show resource links returned by tools are always followed correctly |
-| Alpha workflows should facilitate rather than generate by default | Public-alpha intent and ADR-194 both centre teacher effort and authority | Teacher research shows that a more active default is desired and can still leave decisions genuinely open |
 | Simple localisation can begin before sophisticated adaptation | Engagement substitutions can preserve the lesson's educational anchors | Teachers find simple substitutions offer no material value without artefact editing or deeper pedagogical change |
+
+Teacher authority and curriculum generality are invariants, not propositions in this table. A flow
+that takes authority from the teacher or only works for its demonstration fixture has failed the
+concept; contrary behaviour is not evidence that weakens the invariant.
 
 #### Discriminating probes, not an implementation plan
 
@@ -363,11 +393,13 @@ The concept can be reduced further by evidence before a delivery plan exists:
 - In each target AI host, can the model see `curriculum://model` automatically, list/read a bounded
   workflow resource, and use a resource link returned from a tool?
 - With MCP prompts deliberately unavailable, does a compact workflow-tool description cause the
-  model to acquire guidance for both natural-language stories?
+  model to acquire guidance for both demonstration fixtures?
+- Can the same workflow operate on unrelated lessons, topics, and units without changing its
+  authored instructions or introducing entity-specific branches?
 - Does the photosynthesis interaction preserve the source lesson's specific misconception and
   "word summary" teacher tip while avoiding an unsolicited rebuilt lesson?
-- Does the Local Area interaction ask for local context, preserve the learning outcome, and stop at
-  engagement-level substitutions unless the teacher requests more?
+- Does the Local Area interaction use Watford, England as its local context, preserve the learning
+  outcome, and stop at engagement-level substitutions unless the teacher requests more?
 - Do teachers experience the refining questions as helpful facilitation rather than an intake form
   or disguised prescription?
 

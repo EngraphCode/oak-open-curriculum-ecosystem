@@ -610,3 +610,6 @@ preserved verbatim before that worktree's removal.
   index. The primary checkout also contains an unrelated user edit. For this isolated n=1 worktree,
   use the commit skill's explicit-pathspec fallback after verifying the worktree's staged set; do
   not redirect the composed queue workflow at the primary checkout merely to make the claim visible.
+- **Owner correction:** teacher authority is invariant over every user interaction; the agent is
+  only ever facilitating. The named examples are demo fixtures, not capability scope: flows and
+  tools must work for any lesson, topic, or unit. Localisation demo locale is Watford, England.
