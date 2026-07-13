@@ -266,19 +266,22 @@ replaces it. No other step changes.
    names its mechanism; a platform with none satisfies surfacing with
    the comms event alone, and the declared deadline still governs),
    waits the declared window for owner or coordinator word, and AT
-   THE DEADLINE EXECUTES the declared default action (this
-   protocol's five steps, autonomously, on the measured verdict —
-   never on an unmeasured sense of fullness); owner or coordinator
-   word arriving before the deadline redirects the seat instead. The
-   bounded wait can never become an indefinite one. The bound is
+   THE DEADLINE EXECUTES the declared default action — the REMAINING
+   Steps 2–5, autonomously, on the measured verdict (Step 1 has
+   already fired, surfaced, and completed this authority wait;
+   re-entering it would recurse) — never on an unmeasured sense of
+   fullness; owner or coordinator word arriving before the deadline
+   redirects the seat and EXITS this path instead. The bounded wait
+   can never become an indefinite one. The bound is
    executable, not vibes: the surfacing event MUST declare its
    absolute deadline and the default action that fires at the
    deadline (protocol default when no coordinator SLA applies:
-   10 minutes, then autonomous execution of the five steps — matching
+   10 minutes, then autonomous execution of the remaining Steps 2–5 —
+   matching
    the estate liveness convention's 10-minute retirement window).
-   Autonomous execution does not require a live successor: the five
-   steps complete with the Step 2 handoff record as the durable
-   interface. The claim retains `handoff_record_path`; Step 4's
+   Autonomous execution does not require a live successor: the
+   remaining steps complete with the Step 2 handoff record as the
+   durable interface. The claim retains `handoff_record_path`; Step 4's
    directed `mid-cycle-handoff` event (schema-required point-to-point
    with a `to` recipient) is sent when a live recipient — successor
    or coordinator — exists. When neither exists, Step 4 takes the

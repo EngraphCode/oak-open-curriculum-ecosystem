@@ -810,11 +810,21 @@ one (PDR-063 ruling 3; the platform's declared notification
 mechanism is a host-phenotype fact — a platform with none satisfies
 surfacing with the comms event alone), with an explicit absolute deadline and default action
 declared in the surfacing event (protocol default when no
-coordinator SLA applies: 10 minutes, then autonomous execution),
+coordinator SLA applies: 10 minutes, then autonomous execution of
+the remaining Steps 2–5),
 waits out that declared window, and AT THE DEADLINE EXECUTES the
-declared default action (the five steps, autonomously, on the
-measured verdict); word arriving before the deadline redirects the
-seat instead — the bounded wait can never become an indefinite one. With no live recipient
+declared default action — the REMAINING Steps 2–5, autonomously, on
+the measured verdict (Step 1 already fired and completed this
+authority wait; re-entering it would recurse). The default action is
+role-determined: a COORDINATOR seat declares and runs the PDR-064
+intersection's combined order (its steps 2–6, Moment 1 interleaved;
+step 7 — Moment 2 — is the receiving agent's later pickup action —
+see §"Coordinator Handoff (Two Moments)", subsection "Intersection
+with PDR-063", below), never the bare Steps 2–5 block. Owner or
+coordinator
+word arriving before
+the deadline redirects the seat and EXITS the sequence — the bounded
+wait can never become an indefinite one. With no live recipient
 for step 4's directed event (schema-required `to`), the no-recipient
 variant applies: a broadcast pending-handoff announcement carrying
 the record path; the successor picks up via claim adoption
@@ -923,15 +933,19 @@ distinct `narrative` broadcast covering coordinator-role context
 events — the handoff record carries cycle-claim substance; the
 pre-positioning event carries coordinator-role substance. **Do not
 use `mid-cycle-handoff` for coordinator role transitions.** The
-combined ORDER is PDR-064's: sense (Step 1) → WHEN an open cycle
-claim exists: freeze its record (Step 2) and extend the claim with
+combined ORDER is PDR-064's: sense (Step 1) → complete the
+§Retirement-authority route (owner-present call, or the owner-absent
+declared-deadline/default path; a redirect EXITS here) → WHEN an open
+cycle claim exists: freeze its record (Step 2) and extend the claim with
 `handoff_record_path` (Step 3 — before any transport whose pickup
 relies on adoption) → Moment 1 pre-positioning broadcast → PDR-063
 Step 4 under the same open-claim condition (directed to a live
 receiver, else the broadcast pending-handoff transport exception) →
 Step 5 retirement broadcast → the incoming coordinator's Moment 2 at
-pickup. A coordinator with NO open cycle claim runs only Step 1 →
-Moment 1 → Step 5 → Moment 2.
+pickup. A coordinator with NO open cycle claim runs only Step 1 (with its
+completed authority route) → Moment 1 → Step 5; the incoming
+coordinator supplies Moment 2 at pickup — the
+claimless path never bypasses the owner/deadline gate.
 
 ### Closeout consolidation discipline for failure-mode events
 

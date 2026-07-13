@@ -65,12 +65,17 @@ forward-asks remain.
   (first-hand `gh api …/rules/branches/main`, 2026-07-06; the "owner action pending" line was a
   twice-relayed dated claim); (2) the Bugbot merge-ready-definition fix landed via follow-up
   PR #312 (MERGED).
-- **Inter-Practice window PR #336 — REVIEW-HARDENED, AT THE MERGE GATE (2026-07-13, Monsoon herds
-  Airstream).** The cross-estate window's doctrine (PDR-125 clause batch, PDR-063 §Retirement
+- **Inter-Practice window PR #336 — MERGED (`SHA:f74a935a5`, 2026-07-13 12:37Z); post-merge wave
+  PR #347 also MERGED (`SHA:a7ca8f8aa`, 2026-07-13 14:39Z, 57 threads dispositioned; Monsoon
+  herds Airstream → Aspen stirs Blossom succession); the +10-minute tail's three late threads
+  landed via the `docs/pr347-postmerge-tail` branch.** The cross-estate window's doctrine
+  (PDR-125 clause batch, PDR-063 §Retirement
   authority + §Deliberate succession, PDR-064 intersection, the join-ceremony skill + cross-repo
   rule + start-right-team mirrors, ADR-182/211 phenotype notes) survived 28 bot review rounds
   (110 threads, all byte-verified dispositions) plus an owner-commissioned 155-agent Haiku/Sonnet
-  diff fleet (12 confirmed / 53 refuted / 1 fabricated). Full analysis, fleet-mechanism
+  diff fleet (66 verdict rows: 12 confirmed / 52 substantively refuted + 1 verifier stub / 1
+  fabricated; 15 of the 81 deduped findings carry no verdict — verifier retry deaths). Full
+  analysis, fleet-mechanism
   retrospective, and OCE-relevance record:
   [`pr336-fleet-assessment-and-review-treadmill-2026-07-13.md`](../../reports/agentic-engineering/pr336-fleet-assessment-and-review-treadmill-2026-07-13.md)
   (rides the PR). **Standing follow-ups**: the untwinned PDR-063/064/125 truings re-twin at the
