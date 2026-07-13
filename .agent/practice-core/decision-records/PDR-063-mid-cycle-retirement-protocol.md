@@ -240,10 +240,11 @@ above are unchanged.
    calls the handoff moment.** Surfacing measured metrics is the
    agent's whole authority in this mode.
 3. **Owner-absent at a measured handover signal: surface, then
-   autonomous handoff.** The signal is either axis of the trigger
-   above — the effectiveness-window start (~50 % of the full window;
-   the primary handover-start signal under rotating-cast operation)
-   or the ≥ 80 % hard-stop ceiling — whichever fires first. The seat
+   autonomous handoff.** The signal is any measured Step 1 trigger —
+   the effectiveness-window start (~50 % of the full window; the
+   primary handover-start signal under rotating-cast operation), the
+   ≥ 80 % hard-stop ceiling, or a measured post-commit shortfall —
+   whichever fires first. The seat
    surfaces the measurement (comms event plus push notification),
    waits a bounded window for owner or coordinator word, and MAY then
    execute this protocol's five steps autonomously on the measured
@@ -253,6 +254,13 @@ above are unchanged.
    deadline (protocol default when no coordinator SLA applies:
    10 minutes, then autonomous execution of the five steps — matching
    the estate liveness convention's 10-minute retirement window).
+   Autonomous execution does not require a live successor: the five
+   steps complete with the Step 2 handoff record as the durable
+   interface — the claim retains `handoff_record_path`, the Step 4
+   directed event addresses the coordinator (or, absent one,
+   broadcasts owner-directed) as a PENDING handoff, and the seat
+   closes cleanly; successor instantiation then follows ruling 4
+   (owner-mediated) from the record.
 4. **Successor instantiation is owner-mediated until session-spawn
    automation exists** (the owner's named automation gap: "yes to
    automated handoff, however we have no way of automatically
@@ -264,9 +272,10 @@ above are unchanged.
 
 ### Deliberate succession — the in-flight discriminator (amendment 2026-07-08)
 
-Deliberate (owner-directed) succession at a NATURAL boundary is not a
-mid-cycle retirement, and it takes one of two shapes. The
-discriminator is whether state is IN-FLIGHT:
+Deliberate (owner-directed) succession is not a budget-triggered
+mid-cycle retirement — the owner's call, not a threshold crossing,
+starts it — and it takes one of two shapes. The discriminator is
+whether state is IN-FLIGHT:
 
 - **In-flight state exists** (open cycle, live claim, uncommitted
   decisions): the record substrate plus claim ADOPTION carry the
