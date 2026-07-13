@@ -3059,7 +3059,10 @@ commit SHA and the closing plan reference.
   is injected at the composition edge by design (ADR-078;
   `agent-tools/src/collaboration-state/coordination-home.ts` never reads `process.env`) and `runCommitQueueTopic` calls `resolveCoordinationHome(input.cwd)`
   WITHOUT passing the declared home (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`). That missing wire is
-  the cure's composition edge. `--registry` IS accepted on every subcommand including
+  a SEPARATE composition gap, not the cure: wiring it would still yield the single
+  `repoRoot` consumed by both the registry (`agent-tools/src/commit-queue/cli.ts:41`) and
+  the staged git reads (`cli.ts:140,174`) — the cure remains the two-root split named in
+  the candidate cure above. `--registry` IS accepted on every subcommand including
   `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
