@@ -647,3 +647,55 @@ and needs later consolidation -->
   critical state is a missing-consolidation symptom across the post-rotation entries. This session's
   stable product substance is already in the dedicated research note; the napkin entries still need
   a later holistic consolidation that graduates every mature concept before rotation.
+
+## 2026-07-13 — Monsoon herds Airstream (8c566b), part 2: the PR #336 treadmill, the diff fleet, and the loop session
+
+Owner-directed /loop session (4-min cron): address all comments on all non-draft PRs until none
+remain open; standing authority to remove provably redundant worktrees/branches. Full analysis +
+fleet retrospective + OCE-relevance record:
+`.agent/reports/agentic-engineering/pr336-fleet-assessment-and-review-treadmill-2026-07-13.md`
+(the durable home for everything methodological below — this entry carries only the
+session-behavioural captures).
+
+- **Owner correction ("there are blatantly unaddressed copilot threads"): I missed a post-merge
+  wave on #342** — it landed 5 minutes after the owner's merge, AFTER my monitor died at MERGED
+  and I moved on. The pr-lifecycle quiet-window harvest doctrine existed and I violated it on the
+  very PR after applying it to #338. Cure applied for the rest of the session: explicit
+  post-merge tail re-harvest on every merged PR. candidate: pr-lifecycle Phase-8 could name a
+  MANDATORY +10-minute tail harvest (second recorded violation-class instance).
+- **Owner redirect that changed the economics: stop the treadmill, fleet the whole diff.**
+  25 bot rounds in, the owner commissioned a 155-agent Haiku/Sonnet fleet over the full diff
+  (ultracode) — 12 confirmed findings the bots had NOT raised in 25 rounds (disjoint defect
+  sets), landed as ONE batch with 7 held bot fixes. The batching discipline (fix locally, HOLD
+  the push, one wave instead of seven) is the single biggest loop-shortener found this session.
+- **Anti-fabrication quote-anchor worked**: 1 fabrication in 85 findings (vs 3/13 stubs on
+  2026-07-08 without it). Sonnet refute-first verification cut 81→12 (65% refute — Haiku
+  literalism as predicted by the sibling estate's evidence). Both mechanisms are now baseline
+  data for the effectiveness-and-impact assessment-methodology plan (report §7).
+- **Deterministic gates outrank fleets**: the pre-commit reference-direction validator REFUSED
+  a fleet-confirmed fix (Core→host path) and forced the correct by-role reference. Fleet
+  verdicts are inputs to the gate chain, never exemptions from it.
+- **Doctrine-mirror ripple is the treadmill's engine**: ~half of 28 rounds were consistency
+  echoes of my own previous round's additions (PDR → skill → rule → adapter → changelog → plan
+  → host ADR). The report's verdict: fleet-first-then-push inverts the ratio. Also: every
+  fix to a portable PDR creates a re-twin obligation — the changelog's per-item twin
+  dispositions now carry an `impossible-with-named-reason` batch queued for the next exchange
+  window (the sibling estate must receive the PDR-063/064/125 truings).
+- **Watcher arming must be asserted, not assumed**: my first comms watcher crash-looped
+  silently inside a Monitor re-arm loop (missing required --seen-file); the F-95 assert exists
+  for exactly this and I skipped it. Second instance of watcher-lifecycle self-injury this
+  napkin (pkill self-match, 2026-07-08).
+- **`gh pr update-branch` races local state** (bitten twice): it creates a server-side merge
+  commit; the next local push is rejected non-fast-forward until merged back. Fold into the
+  update-branch napkin lesson from 2026-07-08 (same tool, new face).
+- **Peer coexistence clean**: Acacia wakes Sapling (codex, owner-commissioned) worked the
+  mcp-agent-facing-content thread concurrently — claims/comms discipline held on both sides,
+  zero conflicts; their draft PR #345 (assurance-boundary concept exploration) is a named
+  input to the owner-gated content-workspace design.
+- **Cleanup under standing authority (proof-gated)**: 2 worktrees removed (clean +
+  merged-proven), 95 local + 2 remote branches deleted (strict ancestry or zero
+  cherry-unmerged patches), 25 local branches kept (unmerged content), 7 remediate-main-*
+  remote branches kept (1 unmerged commit each — supersession by #329 is recorded in
+  continuity but is a judgment, not a proof; owner call). Local main fast-forwarded.
+- **Registry hygiene residue**: the stale Hedgehog claim (b23a3800, PR #304 pr-shepherd,
+  expired 2026-07-06) remains in active-claims.json — flagged for the next warden-lane write.

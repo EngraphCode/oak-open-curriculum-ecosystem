@@ -65,6 +65,18 @@ forward-asks remain.
   (first-hand `gh api …/rules/branches/main`, 2026-07-06; the "owner action pending" line was a
   twice-relayed dated claim); (2) the Bugbot merge-ready-definition fix landed via follow-up
   PR #312 (MERGED).
+- **Inter-Practice window PR #336 — REVIEW-HARDENED, AT THE MERGE GATE (2026-07-13, Monsoon herds
+  Airstream).** The cross-estate window's doctrine (PDR-125 clause batch, PDR-063 §Retirement
+  authority + §Deliberate succession, PDR-064 intersection, the join-ceremony skill + cross-repo
+  rule + start-right-team mirrors, ADR-182/211 phenotype notes) survived 28 bot review rounds
+  (110 threads, all byte-verified dispositions) plus an owner-commissioned 155-agent Haiku/Sonnet
+  diff fleet (12 confirmed / 53 refuted / 1 fabricated). Full analysis, fleet-mechanism
+  retrospective, and OCE-relevance record:
+  [`pr336-fleet-assessment-and-review-treadmill-2026-07-13.md`](../../reports/agentic-engineering/pr336-fleet-assessment-and-review-treadmill-2026-07-13.md)
+  (rides the PR). **Standing follow-ups**: the untwinned PDR-063/064/125 truings re-twin at the
+  next exchange window (per-item dispositions in the Practice-Core changelog); four critic design
+  gaps routed to the AEE thread record; the stale Hedgehog claim `b23a3800` awaits a warden-lane
+  sweep.
 - **Inter-Practice exchange lane + corpus phase-0 + practice doctrine — MERGED (#304, 2026-07-06).**
   PR #304 landed to `main` (release 1.59.0, `b41ae2233`): the inter-Practice collaboration protocol
   plan + WS1/WS3/WS6, the semantic-merge "confident-and-wrong" doctrine, the corpus phase-0 design

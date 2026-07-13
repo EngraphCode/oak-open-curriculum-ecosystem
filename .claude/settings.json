@@ -197,7 +197,8 @@
   "enabledPlugins": {
     "sentry@claude-plugins-official": true,
     "mcp-server-dev@claude-plugins-official": true,
-    "sonarqube@claude-plugins-official": true
+    "sonarqube@claude-plugins-official": true,
+    "linear@claude-plugins-official": true
   },
   "skillOverrides": {
     "sentry-android-sdk": "off",

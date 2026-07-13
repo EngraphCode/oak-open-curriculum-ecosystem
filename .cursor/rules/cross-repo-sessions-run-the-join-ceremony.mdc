@@ -1,5 +1,5 @@
 ---
-description: Run the inter-Practice join ceremony before any cross-estate action — fires when the worktree repo and the coordination home differ, or before reading from / writing into any sibling Practice estate's substrate.
+description: Run the inter-Practice join ceremony before cross-estate collaboration — fires when the worktree repo and the coordination home differ, or before writing into, registering presence in, or claiming work in any sibling Practice estate's substrate; read-only estate looks are unceremonied.
 alwaysApply: false
 ---
 
