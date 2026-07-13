@@ -326,7 +326,11 @@ pressure (PDR-063 trigger), both protocols fire:
    covering coordinator responsibilities (which is broader than
    any single cycle claim).
 4. PDR-063 Step 4 — directed `mid-cycle-handoff` event to a named
-   receiver for the cycle claim.
+   receiver for the cycle claim; when no live receiver exists
+   (neither successor nor another coordinator), PDR-063 ruling 3's
+   Step 4 transport exception applies — a broadcast pending-handoff
+   announcement carrying the record path, with pickup via claim
+   adoption.
 5. PDR-063 Step 5 — retirement broadcast.
 6. The receiving agent for the coordinator role then provides
    this PDR's Moment 2 (active-acknowledgement) when they pick
