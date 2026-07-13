@@ -187,7 +187,7 @@ Several observations are load-bearing:
    of generic behaviour.
 3. The current rich workflow instructions are attached to user-controlled prompts. That makes them
    candidate content, not an agent-facing capability.
-4. Oak already exposes an agent-audience resource and a model-controlled orientation tool. The
+4. Oak already exposes an assistant-audience resource and a model-controlled orientation tool. The
    missing shape is therefore not a generic MCP "start here" surface; it is detailed workflow
    knowledge that is discoverable by intent without inflating every conversation.
 5. MCP resources are application-driven. `audience: ["assistant"]` and `priority` improve the
@@ -814,7 +814,7 @@ cannot close.
 #### The capability labels still carry unwanted product assumptions
 
 The source stories use “Plan a lesson” and “Topic adaptation”. The exploration already identifies
-first phrase as linguistically dangerous, but has not yet stabilised replacement vocabulary.
+the first phrase as linguistically dangerous, but has not yet stabilised replacement vocabulary.
 
 - **Plan a lesson** commonly invites generation of a new lesson or a prescribed teaching sequence.
   The public-alpha story is more accurately **prepare to teach using existing Oak material**.
