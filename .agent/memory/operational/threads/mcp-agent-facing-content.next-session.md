@@ -26,16 +26,42 @@ this thread is about the *authored framing/instructions/descriptions* Oak contro
 | --- | --- | --- | --- | --- | --- | --- |
 | claude | claude-fable-5 (switched from claude-opus-4-8[1m] mid-session 2026-07-09; continuous seat per PDR-027) | 2bd86d | Beacon hunts Brilliance | analyst + implementer | 2026-07-09 | 2026-07-09 |
 
-## Landing Target For Next Session
+## Landing Target For Next Session — THE MONDAY BRIEF (read this first)
 
-The visibility deliverable LANDED (PR #337). Next session is **owner-directed**: either (a) shepherd
-PR #337 to merge, or (b) — only on owner go — the content-workspace design, or (c) the eval-methodology
-research. Nothing here auto-starts.
+Successor pickup (prepared 2026-07-09; predecessor seat: Beacon hunts Brilliance, 2bd86d).
+Do these IN ORDER; each is self-contained:
 
-## Current State — LANDED (2026-07-09)
+1. **Shepherd PR #338 to merge** (`docs/effectiveness-and-impact-assessment-research`) — the ONLY
+   open work. It carries: the new `effectiveness-and-impact` plan collection + the
+   assessment-methodology research plan + the plans-README wiring + the rescued truings commit
+   (see §Current State) + this brief. At handoff: CI green, all review threads replied-to and
+   resolved. Fresh pushes may spawn new bot review rounds — triage root-cause-first, fix real
+   findings, disposition-with-rationale the rest (the review-loop exit criteria: CI green + no
+   material findings + 0 unresolved). Use `oak-pr-lifecycle`; normal non-admin merge.
+2. **After merge**: branch cleanup — `docs/mcp-agent-facing-content-registry` (merged via #337)
+   and `docs/effectiveness-and-impact-assessment-research` (after #338) can be deleted; deletion
+   has historically been an owner action here — confirm rather than assume.
+3. **Then STOP — everything else is owner-gated.** Do NOT start unprompted:
+   - **Research execution** (the plan in §Owning plan(s)): first move when the owner clears it =
+     dispatch the three PENDING readiness reviewers (assumptions-expert, mcp-expert, test-expert)
+     on the plan body, absorb verdicts, then WS0 (P1 contamination quiz; P2 MCPJam expressiveness).
+   - **Content-workspace build** (report §7 direction): its design questions get carded when the
+     owner schedules it.
+   - **Production analytics / tier-3**: gated on the `mcp-product-analytics` lane promotion.
+4. **Standing, non-blocking items** (do only if owner asks): the confirmed content defects
+   (report §8.1 — classNotes PII/injection, two typos, stale wording, idempotentHint, graph-tools/
+   toolCategories mismatch) are small independent fixes, partly upstream in the OCA spec; the
+   published claude.ai artifact of `content-registry.html` predates the review-round fixes (stale)
+   — NOTE: the committed file now carries a full HTML document shell, and the artifact publisher
+   wraps body-only content, so strip the shell before any republish (generator comment says this).
 
-**PR #337 OPEN** (branch `docs/mcp-agent-facing-content-registry`, commits `6078d73d3` → `dc453c455`
-→ `59fb8e780`, fully synced). A **visibility-only** deliverable — no product code changed, no
+## Current State — VISIBILITY DELIVERABLE ON MAIN (2026-07-09)
+
+**PR #337 MERGED to main 2026-07-09 15:03Z (`5f3c1f472`)** — the registry, report, rendered-wholes,
+HTML browser, and generators are live on `main`. One commit missed the merge window (a known
+stranding pattern: pushed to the branch moments after the owner merged): the report §7 count fix +
+continuity pointers, commit `2af1ce9cb` — **rescued by cherry-pick onto PR #338** (`e63f36cda`),
+so it lands when #338 merges. A **visibility-only** deliverable — no product code changed, no
 validator, no evals built. Under `.agent/reports/mcp-agent-facing-content-audit/`:
 
 - `registry.json` — machine-readable **SSOT snapshot** of the corpus: **716 items across 143 files**,
@@ -86,8 +112,11 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 
 ## Lane State
 
-- **Owning plan(s):** none yet — the direction lives in `report.md` §7/§11. A build plan would be authored when
-  the content-workspace build is owner-scheduled.
+- **Owning plan(s):** the eval/assessment-methodology research is owned by
+  [`mcp-content-assessment-methodology-research.plan.md`](../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+  (new `effectiveness-and-impact` area, owner-named 2026-07-09; plan authored + landed 2026-07-09,
+  status 🟡 PLANNING — readiness reviewers assumptions-expert/mcp-expert/test-expert PENDING, owner
+  directed copy-only landing). The content-workspace build plan would be authored when owner-scheduled.
 - **Current objective:** visibility delivered; awaiting owner direction on next phase.
 - **Blockers / low-confidence areas:** the content-workspace build is owner-gated ("further thought before we
   decide"). The `impact_tier` derivation is a conservative heuristic (any behaviour-shaping surface = high-impact;
@@ -98,16 +127,18 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 
 ## Next Safe Step
 
-1. **Shepherd PR #337 to merge** (owner may review first — it is the education-expert review substrate).
-   Use `oak-pr-lifecycle`. Docs-only; pre-push gate was green (build/type-check/lint/test, 105 tasks).
-2. **DO NOT start the eval-methodology research unprompted.** Owner ruling 2026-07-09: do BOTH a foundational
-   authoritative-source pass AND build-session grounding — but **gated on explicit owner go**. When cleared,
-   research agent/LLM eval best practice (judge bias, ground-truth construction, inter-rater reliability,
-   statistical power, contamination, cross-model variance) from authoritative sources FIRST.
-3. **Content-workspace build is owner-gated / "further thought".** When scheduled, the open design questions
-   (report §11) become live and MUST be carded (per `surface-user-decisions-as-questions`): the partition axis
-   (several workspaces by review regime vs one), the SSOT→consumer flow (generator inversion; some SSOT content
-   is structured data that COMPOSES a string, e.g. `agent-support-tool-metadata.ts` → `SERVER_INSTRUCTIONS`),
-   whether simple-config also relocates, and the review/eval protocol definitions. Design l10n-ready.
-4. The confirmed defects (§8.1) can be fixed anytime as small independent PRs; the two typos + stale wording are
-   partly upstream (`oak-api` OpenAPI) — fix at source, cross-repo.
+**The Monday brief at the top of this record (§Landing Target) is the authoritative next-step
+list** — one live task (shepherd PR #338), then owner-gated stops. Supplementary detail the brief
+references:
+
+- **Research execution (owner-gated).** The plan (§Owning plan(s)) is authored with owner answers
+  absorbed (expert hours arrangeable; full output set; NO pilot; `effectiveness-and-impact` home).
+  When cleared: dispatch PENDING reviewers → WS0 (P1 contamination quiz; P2 MCPJam expressiveness
+  via the repo's `@mcpjam/cli`) → WS-V vertical slice.
+- **Content-workspace build (owner-gated).** When scheduled, the report §11 design questions become
+  live and MUST be carded (per `surface-user-decisions-as-questions`): the partition axis, the
+  SSOT→consumer flow (generator inversion; some SSOT content is structured data that COMPOSES a
+  string, e.g. `agent-support-tool-metadata.ts` → `SERVER_INSTRUCTIONS`), whether simple-config
+  also relocates, and the review/eval protocol definitions. Design l10n-ready.
+- The confirmed defects (report §8.1) can be fixed anytime as small independent PRs; the two typos +
+  stale wording are partly upstream (OCA OpenAPI spec in `oak-api`) — fix at source, cross-repo.

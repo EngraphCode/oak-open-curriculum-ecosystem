@@ -554,3 +554,31 @@ preserved verbatim before that worktree's removal.
   must be machine-rendered from the built source or explicitly relabelled a snapshot with SSOT
   pointer; truncation and unrenderable values (e.g. [object Object]) are label violations, not
   cosmetics. Two rounds of bot findings on precisely this; home = a pattern file.
+
+## 2026-07-09 — Beacon hunts Brilliance, second handoff prep (successor picks up Monday)
+
+- **Merge-window stranding RECURRENCE (instance ≥2):** owner merged PR #337 at 15:03Z; my truings
+  commit `2af1ce9cb` reached the branch moments later and silently missed the merge. Same shape as
+  the prior "merge-window stranding rescued" instance in continuity. Rescue: cherry-pick onto the
+  open PR #338 (`e63f36cda`). Detection was NOT self-evident — found only because handoff prep
+  re-grounded PR state first-hand and diffed `origin/main..origin/<branch>`. Cure-shape thought:
+  after ANY push to a PR branch, assert the PR is still OPEN (a push to a just-merged PR is a
+  stranding signal); candidate pr-lifecycle clause — second instance makes it graduation-eligible.
+- **Carried context rots in minutes at handoff boundaries:** between my last summary and handoff
+  prep, #337 merged, its branch gained a stranded commit, and #338 grew 3 review threads. The
+  handoff-skill rule (verify every load-bearing claim at write time) caught ALL three. Reflex
+  confirmed: never write a handoff surface from memory.
+- **Platform-skill locus error (bot-caught):** the research plan cited "the in-repo `mcp-inspector`
+  skill" — it is a USER-level (~/.claude) skill, not in-repo; the repo capability is `@mcpjam/cli`
+  (devDependency) + the `.mcp.json` server. My own plan-body first-principles check had marked
+  vendor-literal "handled" — the check verified MCPJam facts but not the SKILL's locus. Lesson:
+  before naming any skill/tool in a durable artefact, verify WHERE it lives (repo vs user vs
+  plugin); a personal skill cited as repo capability breaks the next executor. candidate: fold
+  into the plan-body first-principles check's vendor-literal clause (capability-locus check).
+- **Loss-scan (this handoff):** substance durable (plan on PR #338; registry estate on main;
+  decisions in plan/report/thread record; Monday brief written into the thread record §Landing
+  Target + repo-continuity pointer). Accepted ephemeral losses: session-local scratchpad scripts
+  (committed copies exist in generators/), the raw audit outputs (registry.json is the snapshot,
+  documented). Metaloss check: the review-treadmill exit-criteria practice (name exit criteria
+  BEFORE the round arrives) worked twice today — already captured above; nothing else survives
+  the sweep.
