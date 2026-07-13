@@ -37,8 +37,9 @@ This repo uses a three-layer model
 1. **`.agent/`** — canonical content (rules, skills, commands)
 2. **`.claude/`, `.cursor/`, `.gemini/`, `.codex/`, `.agents/`** — thin
    platform adapters that point back to `.agent/`
-3. **`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`** — entry points that each
-   platform reads automatically
+3. **`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`** — entry points
+   that each platform reads (`skills.md` is guidance that Linear coding
+   sessions can use)
 
 The adapters exist so the same rules and capabilities work across different
 AI tooling. If you see similar-looking files in `.claude/rules/` and

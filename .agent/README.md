@@ -20,8 +20,8 @@ definition, see
 .gemini/, .codex/,
 .agents/
   ↓ loaded by
-CLAUDE.md, AGENTS.md,← entry points each platform reads automatically
-GEMINI.md
+CLAUDE.md, AGENTS.md,← entry points each platform reads
+GEMINI.md, skills.md
 ```
 
 When you see a rule in `.claude/rules/` or `.cursor/rules/`, it is a

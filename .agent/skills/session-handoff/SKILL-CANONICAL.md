@@ -455,6 +455,12 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      AGENT.md pointer to its rules-index references the way Claude
      Code does, so the rules-index pointer is part of the AGENTS.md
      contract.
+   - `skills.md` extends the default with the same rules-index line.
+     This is the Linear coding-sessions entry point; a delegated
+     Linear session runs Claude Code or Codex and can use `skills.md`
+     as supplementary guidance, so the non-loader rules-index pointer
+     is part of the `skills.md` contract for the same reason as
+     `AGENTS.md`.
 
    Anything beyond the default (or beyond a named extension) is
    **drift**: an instruction, fact, preference, or operational note

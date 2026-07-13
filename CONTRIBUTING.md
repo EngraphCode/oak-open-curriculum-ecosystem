@@ -33,6 +33,8 @@ auto-loaded by every supported agent surface:
 - [`AGENTS.md`](AGENTS.md) — Codex and the generic AGENTS.md contract
 - [`CLAUDE.md`](CLAUDE.md) — Claude Code
 - [`GEMINI.md`](GEMINI.md) — Gemini CLI
+- [`skills.md`](skills.md) — Linear coding sessions (used as delegated-session
+  guidance), and any other platform that reads a repo-root `skills.md`
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — GitHub Copilot
 - [`.windsurf/rules/generalrules.md`](.windsurf/rules/generalrules.md) — Windsurf
 - [`.cursor/rules/read-agent-md.mdc`](.cursor/rules/read-agent-md.mdc) — Cursor
