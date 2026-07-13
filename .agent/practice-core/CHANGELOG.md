@@ -30,8 +30,10 @@ Practice Core package.
   heartbeat-tagged events (a comms heartbeat counts exactly like a
   watcher-file heartbeat), the retirement-window time bound applied to
   all three comms-tail categories, and the exemption-window veto
-  bounded (a bare historical declaration from a seat with no surviving
-  surface trace does not veto QUIET); the cross-repo rule's QUIET
+  bounded per PDR-078's own shapes (a named-closing-boundary window
+  runs from its opening event to its boundary regardless of age; only
+  an unbounded consumer-absent-style declaration needs its declaring
+  seat to show a surviving surface trace); the cross-repo rule's QUIET
   description now points at the skill's three-surface liveness check
   instead of an informal gloss; the start-right-team retirement mirror
   restores PDR-063's authority qualifier (owner or coordinator word

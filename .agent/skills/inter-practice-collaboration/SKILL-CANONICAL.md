@@ -70,13 +70,18 @@ coordinator-handoff grace window, a declared consumer-absent or
 contiguous-execution mode — the home's liveness contract names its
 exemption classes), the estate is QUIET; if any one is live or an
 exemption window is open, it is not. An exemption window counts as
-open only within its own bound: a handoff grace window until its
-declared deadline or the incoming acknowledgement lands, and a
-declared mode while its declaring seat still shows on at least one
-of the three surfaces — a bare historical declaration from a seat
-with no surviving trace does not veto QUIET (otherwise a truly empty
-estate could never read QUIET, since PDR-078's consumer-absent state
-is itself defined by peer absence). The moment the session writes
+open from its observable opening event until its named closing
+boundary (per PDR-078: a handoff grace window until the incoming
+acknowledgement lands; a contiguous-execution window until its
+cycle-boundary broadcast or abandonment; a verdict-synthesis window
+until the sub-agent returns or the dispatch abandons) — age alone
+does not expire a window whose boundary event has not yet appeared.
+Only a declaration with NO named closing boundary (a
+consumer-absent-style mode) needs its declaring seat to show on at
+least one of the three surfaces to veto QUIET — a bare unbounded
+declaration from a seat with no surviving trace does not (otherwise
+a truly empty estate could never read QUIET, since PDR-078's
+consumer-absent state is itself defined by peer absence). The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

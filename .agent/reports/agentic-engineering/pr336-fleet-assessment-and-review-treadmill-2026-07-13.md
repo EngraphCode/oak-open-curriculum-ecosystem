@@ -147,9 +147,10 @@ Did not work / costs:
   raise, a fallback verifier on exhaustion, and a workflow-level
   invariant that verdict-count MUST equal deduped-count before the
   run reports.
-- **Verified-subset finder precision was low** (12/66 verdicts ≈ 18%;
-  the 15 unverified findings make overall precision a bound, 12/81 to
-  27/81, not a point figure): acceptable only because
+- **Verified-subset finder precision was low** (12/65 substantive
+  verdicts ≈ 18%; the 15 unverified findings plus the stub's
+  unadjudicated target make overall precision a bound, 12/81 to
+  28/81, not a point figure): acceptable only because
   verification was cheap relative to bot rounds; a standing protocol
   should tighten finder briefs with per-lens worked examples of
   NON-findings.
@@ -191,9 +192,12 @@ ratio that produced 28 rounds here.
   phi ≈0.55 → ≈1.4 effective votes of 3) predicted that same-model
   voters are partially redundant; this run's cross-TIER split
   (Haiku find, Sonnet verify) is the complementary design point —
-  diversity by capability tier, not just by lens — and the 80%
+  diversity by capability tier, not just by lens. The 80%
   refuted-verdict share (53/66 as recorded; 52 substantive after the
-  stub, §4) is evidence the tiers genuinely disagree.
+  stub, §4) is a fleet-wide rejection rate, not a clean tier-disagreement
+  measure: the verdict pool mixes Haiku finder and Sonnet
+  cross-surface findings, and the extract dropped the phase linkage
+  (§8), so a phase-specific Haiku→Sonnet rate is not recoverable.
 - **PDR-101 quorum economics**: a new data point beside the 2026-07-08
   four-seat quorum (~557k tokens, 2 convergent must-fix classes):
   155 agents / ~6.6M tokens / 12 confirmed + 4 design follow-ups on
@@ -253,6 +257,11 @@ ratio that produced 28 rounds here.
   phase replaced the constraint; the critic phase did not), so critic
   coverage is not reproducible as described. Also a historical defect
   of the preserved script.
+- Preserve the dispatch-stamped metadata (file, lens) on finding rows
+  in the durable extract: the workflow stamped both onto every finder
+  result, and the extract writer dropped them, leaving the 85 raw
+  findings unattributable to the file × lens grid the analysis
+  evaluates. Export finding rows with their full field set.
 - A comms watcher armed without its required `--seen-file` argument
   crash-loops silently inside a Monitor re-arm loop — assert the
   watcher live (F-95 check) after arming, not just armed.
@@ -301,6 +310,12 @@ handoff, held only in one very long session context.
   85 − 4 = 81 and 81 − 66 = 15 unverified, whose bodies are among the
   81 but carry no verdict-to-finding linking key, so they are bounded
   as a set rather than individually recoverable — see §4 and §8).
+  Finding rows carry claim/quote/severity only — the
+  dispatch-stamped file and lens metadata was dropped at export, so
+  the 85 raw findings are no longer attributable to the file × lens
+  cells §5 evaluates (partially reconstructable by byte-searching
+  each verbatim quote across the ten scoped files; not done — see
+  §8).
   Verdict evidence was captured TRUNCATED: 64 of the 66 rows are
   clipped at exactly 500 characters, most mid-rationale, so the
   extract's verdicts are auditable only to that depth; the full
