@@ -105,7 +105,16 @@ surfaces: git activity newer than the retirement window (commits on
 live branches, working-tree or index movement where observable)
 vetoes QUIET even when every coordination surface is silent. A truly
 empty estate (no claims, no in-window comms or watcher activity, no
-in-window git activity, no open bounded window) reads QUIET. The moment the session writes
+in-window git activity, no open bounded window) reads QUIET. Name
+the residual honestly: a fully silent seat that is only reading or
+reasoning leaves no observable trace (git evidence is coarse and
+lagging), so QUIET is a best-effort read of observable surfaces,
+never a proof of emptiness. The lighter path stays safe under that
+residual because its writes land on a fresh branch off the home's
+latest main under the home's own gates — never on any seat's working
+surface — and the machinery binds at the first comms write, claim,
+or registration, so a collision surfaces through the home's own
+coordination the moment either side writes. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).
