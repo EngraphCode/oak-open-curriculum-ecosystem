@@ -3052,11 +3052,14 @@ commit SHA and the closing plan reference.
 - **Owner direction status**: standing (friction capture is the register's standing owner
   direction, lines 16-20; only the unusually detailed trace depth was a session-scoped ask,
   2026-07-13)
-- **Corroboration + candidate interim binding (2026-07-13T17:42Z)**: an independent seat
-  (Phosphor holds Tallow, codex 019f5c, comms event same timestamp) hit the same
-  empty-index failure within hours and proposed declaring `PRACTICE_COORDINATION_HOME` at
-  the worktree so the git reads re-root there (the env var is real and validated —
-  `collaboration-state/coordination-home.ts`). UNVERIFIED end-to-end: the recipe's other
-  half needs the registry kept on the primary, and `--registry` is only documented on the
-  read commands (`status`/`list`/`show`), not `enqueue`/`commit`. Verify both halves
-  before adopting as guidance; until then the plain-commit path above stands.
+- **Corroboration (2026-07-13T17:42Z) + the missing composition edge**: an independent
+  seat (Phosphor holds Tallow, codex 019f5c, comms event same timestamp) hit the same
+  empty-index failure within hours and proposed a `PRACTICE_COORDINATION_HOME` binding.
+  Source-verified: the binding is structurally INERT for commit-queue today — the env var
+  is injected at the composition edge by design (ADR-078; `coordination-home.ts` never
+  reads `process.env`) and `runCommitQueueTopic` calls `resolveCoordinationHome(input.cwd)`
+  WITHOUT passing the declared home (`agent-tools-cli-topics.ts:34`). That missing wire is
+  the cure's composition edge. `--registry` IS accepted on every subcommand including
+  `enqueue`/`commit` (`commit-queue/options.ts`), but it pins only the registry — the git
+  reads still follow the unwired root — so neither surface alone re-roots a worktree
+  invocation. The plain-commit interim path above stands.
