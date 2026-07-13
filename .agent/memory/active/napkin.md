@@ -792,7 +792,7 @@ shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes
 
 Session shape: sole contributor, ad-hoc config lane (no registered thread; transient claim
 thread `linear-plugin-config`, opened and closed same session). Landed: PR #348 merged by
-owner (merge commit db713b966; work commit e645b1f75) — linear plugin enabled repo-wide via
+owner (merge commit SHA:db713b966; work commit SHA:e645b1f75) — linear plugin enabled repo-wide via
 tracked `.claude/settings.json`, README prerequisites bullet, MCP-contributors doc row.
 
 - **Mistake (owner-corrected): switched the PRIMARY checkout's branch to start new work.**
@@ -824,7 +824,7 @@ tracked `.claude/settings.json`, README prerequisites bullet, MCP-contributors d
   reached (memory files, napkin, comms, commit/PR bodies) and confirm the sweep — a single-
   file edit is not "removed from the record".
 - **Loss-scan (6e.2, run in-context):** durably homed with citations — config + docs (git,
-  PR #348), design rationale (commit body e645b1f75 + PR body), worktree lesson (user-level
+  PR #348), design rationale (commit body SHA:e645b1f75 + PR body), worktree lesson (user-level
   memory + this entry), claim/intent lifecycle (active-claims archive + queue), corrections
   (comms events 13:34Z, 13:43Z — untracked tier, hence mirrored here). Accepted ephemeral
   losses, deliberate: chat-only reasoning texture (distilled into the experience file),
@@ -854,7 +854,7 @@ auditors) grounded every claim above; fixes their real findings, so the record s
   "F-95" = the frictions register, `.agent/plans/agent-tooling/frictions-register.md`.
 - **Corrected citation — the queue is not a completion record.** The commit_queue (in
   active-claims.json) DROPS an intent on successful completion; only abandoned intents
-  persist. Completion evidence for intent 9c75217d is the landed commit e645b1f75 itself.
+  persist. Completion evidence for intent 9c75217d is the landed commit SHA:e645b1f75 itself.
   My "archive + queue" citation above was structurally wrong for the completed intent; a
   verifier caught it (the one red verdict in the fleet pass).
 - **Cure-state disposition, for auditability**: primary's pre-mistake branch was
