@@ -233,8 +233,10 @@ Four owner rulings (2026-07-08, recorded verbatim-substance at ruling
 time) supersede this protocol's original self-sensed trigger semantics
 on the AUTHORITY axis — who may declare budget exhaustion and who
 calls the handoff moment. The thresholds are unchanged; the five-step
-mechanics stand with one named variant — ruling 3's no-recipient
-Step 4 shape below.
+mechanics stand with ONE explicit Step 4 TRANSPORT exception, defined
+in ruling 3 below: when no live recipient exists for the directed
+`mid-cycle-handoff` event, a broadcast pending-handoff announcement
+replaces it. No other step changes.
 
 1. **No self-declared exhaustion, ever.** Budget verdicts come only
    from measured context figures (transcript usage against the actual
