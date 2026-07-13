@@ -55,8 +55,9 @@ Practice Core package.
   §Retirement authority + §Deliberate succession amendments —
   `twinned-in-window` (peer backport, same window) **as of that window**;
   the join-ceremony skill + cross-repo rule step amendments — local
-  phenotype of the twinned spec (clause 6: local code is per-repo, no
-  disposition owed). These dispositions describe this window's landed
+  `twinned-in-window` as part of the same landing (the rule and the
+  runnable skill travel in the propagating Core set — shared machinery,
+  never local code). These dispositions describe this window's landed
   text; the post-review truings that later amended these clauses are the
   2026-07-13 entry above, with their own disposition.
 

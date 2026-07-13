@@ -91,7 +91,10 @@ the first comms write, claim, or registration).
    the prefix join key, and `seed_source` — plus native-repo
    alias(es), the worktree repo-reference (origin + branch — never a
    machine-local checkout path in tracked content), and coordination
-   posture (observer / implementer / exchange seat). An owner-assigned or operator-overridden
+   posture (observer / implementer / exchange seat). The shared wire
+   schema's REQUIRED minimum stays the four fields (name, platform,
+   model, prefix); `id` and `seed_source` ride as the home identity
+   contract requires. An owner-assigned or operator-overridden
    `agent_name` outranks the home derivation and is declared AS an
    override in the same registration (PDR-125 clause 5); the prefix
    join key binds unchanged. ALL pre-positioned successor details —

@@ -152,8 +152,9 @@ If the active-acknowledgement never arrives:
   different coordinator — with ONE forced exception: a retirement
   AUTHORISED under PDR-063 §Retirement authority (owner-called when
   present; the completed declared-deadline/default-action path when
-  absent) on a measured budget signal, which ends the session whether
-  or not a receiver exists. In that case the coordinator does not pend
+  absent) on any measured Step-1 handover signal; once that authority
+  route completes, the retirement proceeds whether or not a receiver
+  exists. In that case the coordinator does not pend
   authority to an unnamed successor: the Step 5 retirement broadcast
   explicitly returns coordination authority to the OWNER (the scarce
   authority above every seat), the pending-handoff transport carries
@@ -183,7 +184,11 @@ monitor owned by the outgoing coordinator:
   pre-positioning event (*"if Moment 2 has not landed by
   \<deadline\>, the cron continues firing into an empty
   coordinator slot — this is the structural defect; the team
-  must surface a new candidate"*).
+  must surface a new candidate"*). Under the §authority forced
+  exception above, session-scoped cadence surfaces cannot outlive
+  the retiring session: the Step 5 retirement broadcast declares
+  them stood down by name, and the empty-slot surfacing duty rides
+  the pending-handoff record to the owner-designated pickup.
 
 ### Pre-positioning is a process — the shadow period (2026-06-12 amendment)
 
