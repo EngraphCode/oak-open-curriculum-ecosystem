@@ -96,7 +96,9 @@ shape-freezing validator.
   `mcp-product-analytics` thread (paused, owner-gated) + observability plans.
 
 **Verified gaps this research fills** (estate sweep 2026-07-09): no general non-search eval
-methodology; 0/24 skills carry evals; MCPJam available (`@mcpjam/cli` devDependency) but
+methodology; no skill carries evals (0 of 28 skill dirs, recounted 2026-07-13 via
+`find .agent/skills -maxdepth 2 -name SKILL-CANONICAL.md | wc -l` — re-derive at execution);
+MCPJam available (`@mcpjam/cli` devDependency) but
 suite-less; prompts/sub-agents uncovered;
 no LLM-as-judge or faithfulness implementation anywhere; validation-strategy operational method
 missing; real-world loop unbuilt; `.agent/evaluations/` an empty stub; no non-deterministic
@@ -203,7 +205,9 @@ upstream; oak-skills-derived prompts (2) → M8 derived-copy drift-checking agai
 - **WS2 — Seam ratification (OWNER GATE).** The per-seam recommendation table; the
   **machine-checkable coverage matrix** (every one of 716 items → ≥1 review methodology; every 697
   high-impact → ≥1 eval methodology; or an explicit named exemption); the `review_domain`
-  sample-validation (~20 items/domain; >10% reassignment ⇒ re-cut seams by behaviour before
+  sample-validation (min(~20, domain size) items/domain — four domains hold fewer than 20 items
+  (`other` 2, `pedagogy-external` 8, `ux-accessibility` 16, `legal-licensing` 19), so those are
+  validated whole; >10% reassignment ⇒ re-cut seams by behaviour before
   ratifying). **The owner ratifies the table** — it is a values/priorities call, not a researcher
   self-sign-off.
 - **WS4 — Corpus grounding.** Every ratified recommendation dry-run against NAMED registry items.
