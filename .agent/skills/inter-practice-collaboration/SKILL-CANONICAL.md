@@ -62,7 +62,11 @@ liveness files for heartbeats within the home's RETIREMENT threshold
 substantive event) for that whole window, so a heartbeat older than
 one cadence but inside the threshold still counts as live (all read
 from the write governance in step 1). If all three surfaces
-are silent, the estate is QUIET; if any one is live, it is not. The moment the session writes
+are silent AND no observable exemption window is open (a
+coordinator-handoff grace window, a declared consumer-absent or
+contiguous-execution mode — the home's liveness contract names its
+exemption classes), the estate is QUIET; if any one is live or an
+exemption window is open, it is not. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

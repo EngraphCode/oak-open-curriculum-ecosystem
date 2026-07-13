@@ -29,6 +29,13 @@ is, so the protocol's clauses resolve to concrete surfaces here.
 - **Home tooling (clause 4):** the `@oaknational/agent-tools` collaboration-state CLI is the ONLY
   write path into this repo's collaboration plane at `.agent/state/collaboration/` — guest
   sessions included, liveness files included.
+- **Conformance self-report (WS0c, landed 2026-07-07):** the estate declares its protocol
+  version family and tier in `.agent/practice-core/protocol.json` (schema/protocol 1.0.0,
+  tier-1 floor, comms-threading extension).
+- **Shared wire schema (WS0e, landed 2026-07-07):** the Core-carried contract at
+  `.agent/practice-core/schemas/inter-practice-wire.schema.json` — wire-relevant subset only;
+  each estate's local strict schemas remain the enforcement surface, bound by a conformance
+  test.
 - **Ceremony and trigger:** the portable skill `inter-practice-collaboration`
   (`.agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md`) is the runnable join ceremony;
   the portable rule `cross-repo-sessions-run-the-join-ceremony` fires it on the cross-repo

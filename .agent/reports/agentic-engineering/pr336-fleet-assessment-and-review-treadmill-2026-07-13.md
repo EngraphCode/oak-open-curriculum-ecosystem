@@ -243,9 +243,11 @@ handoff, held only in one very long session context.
 **Accepted ephemeral losses (deliberate, with reasoning):**
 
 - The fleet's raw per-agent transcripts and the workflow journal
-  (session-local): the report's counts and the §4 confirmed-finding summary are
-  the snapshot; the journal is reproducible in design from §3. Same
-  disposition class as the 2026-07-09 registry audit outputs.
+  (session-local): the durable extract is the companion evidence file
+  [`pr336-fleet-raw-findings-2026-07-13.jsonl`](pr336-fleet-raw-findings-2026-07-13.jsonl)
+  (all 85 finder findings + all 66 verdicts — the 15 unverified bodies
+  are recoverable from it by subtraction forever); the transcripts
+  behind them remain session-mortal, reproducible in design from §3.
 - The workflow script file (session-local): §3 describes the design
   completely enough to re-author; inlining ~200 lines of JS here would
   duplicate a described mechanism.
