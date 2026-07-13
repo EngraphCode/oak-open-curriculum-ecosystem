@@ -256,11 +256,18 @@ above are unchanged.
    the estate liveness convention's 10-minute retirement window).
    Autonomous execution does not require a live successor: the five
    steps complete with the Step 2 handoff record as the durable
-   interface — the claim retains `handoff_record_path`, the Step 4
-   directed event addresses the coordinator (or, absent one,
-   broadcasts owner-directed) as a PENDING handoff, and the seat
-   closes cleanly; successor instantiation then follows ruling 4
-   (owner-mediated) from the record.
+   interface. The claim retains `handoff_record_path`; Step 4's
+   directed `mid-cycle-handoff` event (schema-required point-to-point
+   with a `to` recipient) is sent when a live recipient — successor
+   or coordinator — exists. When neither exists, Step 4 takes the
+   no-recipient variant: a BROADCAST narrative comms event announcing
+   the PENDING handoff and the record path (broadcasts carry no `to`,
+   so no schema violation), plus the surfacing step's owner push
+   notification; the successor later picks up via claim ADOPTION
+   (the §Deliberate-succession in-flight substrate), which needs no
+   directed event from the departed seat. The seat closes cleanly;
+   successor instantiation then follows ruling 4 (owner-mediated)
+   from the record.
 4. **Successor instantiation is owner-mediated until session-spawn
    automation exists** (the owner's named automation gap: "yes to
    automated handoff, however we have no way of automatically

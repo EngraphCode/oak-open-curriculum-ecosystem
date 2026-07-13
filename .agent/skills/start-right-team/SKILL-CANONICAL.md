@@ -798,7 +798,11 @@ first), the seat surfaces with an explicit absolute deadline
 and default action declared in the surfacing event (protocol default
 when no coordinator SLA applies: 10 minutes, then autonomous
 execution), waits that bounded window, and may then run the five
-steps autonomously on the measured verdict. A trigger firing is
+steps autonomously on the measured verdict. With no live recipient
+for step 4's directed event (schema-required `to`), the no-recipient
+variant applies: a broadcast pending-handoff announcement carrying
+the record path; the successor picks up via claim adoption
+(PDR-063 §Retirement authority ruling 3). A trigger firing is
 surface-and-route, never self-retirement.
 
 **The five-step protocol** (PDR-063 §Decision is authoritative; this
