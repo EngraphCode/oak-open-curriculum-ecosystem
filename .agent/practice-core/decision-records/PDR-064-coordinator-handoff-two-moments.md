@@ -149,7 +149,14 @@ If the active-acknowledgement never arrives:
   to surface a fresh candidate;
 - the outgoing coordinator may not retire until either active-
   acknowledgement lands or the team explicitly designates a
-  different coordinator.
+  different coordinator — with ONE forced exception: a measured
+  budget exhaustion (PDR-063) physically ends the session whether or
+  not a receiver exists. In that case the coordinator does not pend
+  authority to an unnamed successor: the Step 5 retirement broadcast
+  explicitly returns coordination authority to the OWNER (the scarce
+  authority above every seat), the pending-handoff transport carries
+  the record, and the next coordinator is owner-designated or
+  team-designated at pickup — never silently assumed.
 
 ### Cron / cadence boundary
 

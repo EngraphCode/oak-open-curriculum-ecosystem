@@ -255,7 +255,11 @@ replaces it. No other step changes.
    primary handover-start signal under rotating-cast operation), the
    ≥ 80 % hard-stop ceiling, or a measured post-commit shortfall —
    whichever fires first. The seat
-   surfaces the measurement (comms event plus push notification),
+   surfaces the measurement through the comms event PLUS an
+   out-of-band owner notification where the platform provides a
+   notification capability (a host-phenotype concern — each estate
+   names its mechanism; a platform with none satisfies surfacing with
+   the comms event alone, and the declared deadline still governs),
    waits a bounded window for owner or coordinator word, and MAY then
    execute this protocol's five steps autonomously on the measured
    verdict — never on an unmeasured sense of fullness. The bound is

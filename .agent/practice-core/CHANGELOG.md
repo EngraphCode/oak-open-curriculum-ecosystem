@@ -6,11 +6,15 @@ Practice Core package.
 
 ## [oak-open-curriculum-ecosystem] 2026-07-13 — post-review truings to PDR-125, PDR-063, PDR-064 and the ceremony surfaces (Monsoon herds Airstream, PR review rounds)
 
-- Review-round truings amending clauses twinned in the 2026-07-08 window:
-  PDR-125 clauses 3 and 5 (quiet-write scoping; explicit platform/model
-  registration fields; override precedence with the derived-only anomaly
-  qualification and `(agent_name, id)` collision disambiguation;
-  successor-details-are-hypotheses); PDR-063 (two-axis + post-commit signal
+- Review-round truings amending clauses twinned in the 2026-07-08 window
+  (each item below EXTENDS or mirrors a twinned original; the originals'
+  twinning stands): PDR-125 clauses 3 and 5 (quiet-write scoping; clause 3's
+  registration list extended to the full identity block, building on
+  clause 5's already-twinned platform/model fields; override precedence
+  with the derived-only anomaly qualification and `(agent_name, id)`
+  collision disambiguation; the already-twinned
+  successor-details-are-hypotheses rule mirrored into the runnable
+  ceremony); PDR-063 (two-axis + post-commit signal
   model with the observable next-cycle floor; §Retirement authority with the
   executable wait bound and the no-recipient Step 4 transport exception;
   §Deliberate succession initiator discriminator); PDR-064 (transport-

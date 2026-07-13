@@ -803,13 +803,15 @@ Owner-present, the seat surfaces the measured metric and the OWNER
 calls the handoff moment. Owner-absent at a measured handover signal
 (any Step-1 trigger: the ~50% effectiveness-window start, the ≥ 80%
 ceiling, or a measured post-commit shortfall — whichever fires
-first), the seat surfaces the measurement through BOTH channels —
-a comms event AND a push notification (PDR-063 ruling 3) — with an
-explicit absolute deadline and default action declared in the
-surfacing event (protocol default when no coordinator SLA applies:
-10 minutes, then autonomous execution), waits that bounded window,
-and may then run the five steps autonomously on the measured
-verdict. With no live recipient
+first), the seat surfaces the measurement through the comms event
+PLUS an out-of-band owner notification where the platform provides
+one (PDR-063 ruling 3; on this platform, the PushNotification tool —
+a platform with none satisfies surfacing with the comms event
+alone), with an explicit absolute deadline and default action
+declared in the surfacing event (protocol default when no
+coordinator SLA applies: 10 minutes, then autonomous execution),
+waits that bounded window, and may then run the five steps
+autonomously on the measured verdict. With no live recipient
 for step 4's directed event (schema-required `to`), the no-recipient
 variant applies: a broadcast pending-handoff announcement carrying
 the record path; the successor picks up via claim adoption
