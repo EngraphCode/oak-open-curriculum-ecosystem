@@ -19,9 +19,13 @@ lineage:
     - .agent/reports/evals-and-assurance-position-2026-06-23.md
     - .agent/plans/agentic-engineering-enhancements/current/skill-evals-pilot-start-right-quick.plan.md (sibling thread)
 todos:
+  - id: readiness-review
+    content: 'Readiness gate: dispatch the three PENDING readiness reviewers (assumptions-expert, mcp-expert, test-expert) on the plan body, absorb verdicts, mark DECISION-COMPLETE'
+    status: pending
   - id: ws0-evidence-standards
     content: 'WS0: evidence-grading scheme, settled-discipline fast-path, source-log discipline, two pre-probes (contamination quiz; MCPJam expressiveness)'
     status: pending
+    depends_on: [readiness-review]
   - id: wsv-vertical-slice
     content: 'WS-V: one full vertical (sweep→ratify→template→ground) through M5 retrieval (settled), pedagogy M1/M2 (values), M4 tool-selection (frontier)'
     status: pending
@@ -42,6 +46,10 @@ todos:
     content: 'WS4: ground every recommendation against named registry items (cheap disposable probes allowed; pedagogy grounding via expert workshops)'
     status: pending
     depends_on: [ws2-seam-ratification]
+  - id: ws5-completion-and-consolidation
+    content: 'Completion: verify A1–A6 acceptance proofs, run the completion review, run/reference the consolidation workflow (lifecycle triggers), archive per ADR-117'
+    status: pending
+    depends_on: [ws4-corpus-grounding]
 ---
 
 # MCP Content Assessment-Methodology Research
@@ -227,7 +235,7 @@ Each seam entry in the recommendation table MUST carry:
 
 | id | Acceptance | Level | Proof |
 |---|---|---|---|
-| A1 | Coverage matrix complete | non-code | script over registry.json + table: 716/716 review-mapped, 697/697 eval-mapped or exempted; zero unmapped |
+| A1 | Coverage matrix complete | non-code | coverage checker landed with WS2 at `.agent/reports/mcp-agent-facing-content-audit/generators/check-coverage.mjs` (run: `node .agent/reports/mcp-agent-facing-content-audit/generators/check-coverage.mjs`); exit 0 with 716/716 review-mapped, 697/697 eval-mapped or exempted, zero unmapped — independently recomputable from registry.json |
 | A2 | Per-seam entries meet all 9 criteria | non-code | checklist audit of the recommendation table; spot-verified by readiness reviewers |
 | A3 | Pre-probes run and absorbed | value-proxy | P1 contamination result + P2 MCPJam expressiveness note present and cited by affected entries |
 | A4 | Expert workshop evidence | non-code | ≥1 elicitation workshop + calibration round recorded for the pedagogy seam; rubric + IRR figure attached |
@@ -257,14 +265,25 @@ model-API budget for probes/screening (≥2 models); MCPJam runtime (in repo); l
   test-first. — fires, handled.
 - **Landing-path**: new plan area `effectiveness-and-impact/` created at landing; no tooling
   contract rides on file naming beyond `*.plan.md` conventions. — fires, handled.
-- **Vendor-literal**: MCPJam/DSPy/inspect_ai capabilities are verified against current upstream
-  docs at research time (P2 does this for MCPJam); no capability asserted from memory. — fires.
+- **Vendor-literal**: the one call shape this plan pins was verified at plan-author time —
+  `@mcpjam/cli` 3.12.0 (root devDependency) resolves via `pnpm exec mcpjam` (`--version` → 3.12.0,
+  verified 2026-07-13). Deeper MCPJam/DSPy/inspect_ai capability claims (suite schema, trajectory
+  scoring, statistics) are deliberately not asserted here; P2 verifies them against current
+  upstream docs at research time; no capability asserted from memory. — fires, handled.
 - **Optionality-surface (PDR-058)**: every deferral names its gate — M11 implementation gates on
   the `mcp-product-analytics` lane promotion; research execution gates on owner-go; the
   content-workspace build gates on owner scheduling. — fires, handled.
 - **Rules-tier screen**: no-validator (visibility-before-validation), synthetic-data-only (no-PII),
   eef-corpus-grounding (M12 sources EEF's own standards), present-verdicts-not-menus (WS2 owner
   gate is a carded verdict). — screened.
+- **testing-strategy alignment**: the A1 coverage checker is this plan's only code artefact; it
+  lands as one TDD cycle (test + script, one commit) per `tdd-as-design.md`. Everything else is
+  research prose — the eval-TDD inversion above governs eval assertions. — fires, handled.
+- **schema-first-execution alignment**: justified N/A — no MCP tool registration, SDK codegen, or
+  runtime validation surface is touched; `registry.json` is consumed as a read-only snapshot.
+- **Quality gates**: landed artefacts (plan, reference docs, checker) pass the repo's standard
+  gates per `.agent/plans/templates/components/quality-gates.md` — markdownlint, prettier,
+  repo-validators, and `pnpm check` as the aggregate before any completion claim.
 
 ## Adversarial review
 
@@ -288,6 +307,10 @@ model-API budget for probes/screening (≥2 models); MCPJam runtime (in repo); l
 
 ## Dependencies
 
-- **Blocking:** none — executable on owner go.
-- **Beneficial:** PR #337 merged (the registry lands on main; research cites main paths);
-  education-expert scheduling (first workshop date); model-API budget confirmation.
+- **Blocking:** owner go (execution is owner-gated), which carries the two WS0-probe resources
+  with it — model-API access for ≥2 models (P1 cannot run without it) and MCPJam suite access
+  where the suite/case schema is gated (P2). Neither is expected to exist before the go.
+- **Beneficial:** education-expert scheduling (first workshop date — minimum shape without it:
+  WS-V books the workshop and proceeds on the two non-pedagogy seams).
+- **Satisfied:** PR #337 merged 2026-07-09 (the registry is on main; research cites main paths);
+  this plan itself landed via PR #338, merged 2026-07-13.

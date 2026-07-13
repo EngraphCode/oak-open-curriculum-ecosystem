@@ -25,44 +25,47 @@ this thread is about the *authored framing/instructions/descriptions* Oak contro
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | claude | claude-fable-5 (switched from claude-opus-4-8[1m] mid-session 2026-07-09; continuous seat per PDR-027) | 2bd86d | Beacon hunts Brilliance | analyst + implementer | 2026-07-09 | 2026-07-09 |
+| claude-code | claude-fable-5 | 8c566b | Monsoon herds Airstream | pr-shepherd | 2026-07-13 | 2026-07-13 |
 
-## Landing Target For Next Session — THE MONDAY BRIEF (read this first)
+## Landing Target For Next Session (trued 2026-07-13, Monsoon herds Airstream)
 
-Successor pickup (prepared 2026-07-09; predecessor seat: Beacon hunts Brilliance, 2bd86d).
-Do these IN ORDER; each is self-contained:
+**The Monday brief's one live task is DISCHARGED: PR #338 MERGED to main 2026-07-13 08:15Z
+(`SHA:7ef8a8a3a`)** — the `effectiveness-and-impact` plan collection, the assessment-methodology
+research plan, the plans-README wiring, and the rescued `#337` truings commit are all on `main`.
+The final review round's Copilot finding (plan cited a repo-tracked `.mcp.json`; the file is
+machine-local and gitignored) was verified real and fixed at `SHA:9cff508da` (capability-locus
+truing); all review threads resolved with verified dispositions; 18/18 checks green at the
+declaration instant; normal non-admin merge (merge commit).
 
-1. **Shepherd PR #338 to merge** (`docs/effectiveness-and-impact-assessment-research`) — the ONLY
-   open work. It carries: the new `effectiveness-and-impact` plan collection + the
-   assessment-methodology research plan + the plans-README wiring + the rescued truings commit
-   (see §Current State) + this brief. At handoff: CI green, all review threads replied-to and
-   resolved. Fresh pushes may spawn new bot review rounds — triage root-cause-first, fix real
-   findings, disposition-with-rationale the rest (the review-loop exit criteria: CI green + no
-   material findings + 0 unresolved). Use `oak-pr-lifecycle`; normal non-admin merge.
-2. **After merge**: branch cleanup — `docs/mcp-agent-facing-content-registry` (merged via #337)
-   and `docs/effectiveness-and-impact-assessment-research` (after #338) can be deleted; deletion
-   has historically been an owner action here — confirm rather than assume.
-3. **Then STOP — everything else is owner-gated.** Do NOT start unprompted:
+Remaining, IN ORDER:
+
+1. **Branch cleanup (owner confirm, not agent action):** `docs/mcp-agent-facing-content-registry`
+   (merged via #337), `docs/effectiveness-and-impact-assessment-research` (merged via #338), and
+   `docs/mcp-content-338-closeout` (this truing, once merged) are deletable; deletion has
+   historically been an owner action here — confirm rather than assume.
+2. **Then STOP — everything else is owner-gated.** Do NOT start unprompted:
    - **Research execution** (the plan in §Owning plan(s)): first move when the owner clears it =
      dispatch the three PENDING readiness reviewers (assumptions-expert, mcp-expert, test-expert)
      on the plan body, absorb verdicts, then WS0 (P1 contamination quiz; P2 MCPJam expressiveness).
    - **Content-workspace build** (report §7 direction): its design questions get carded when the
      owner schedules it.
    - **Production analytics / tier-3**: gated on the `mcp-product-analytics` lane promotion.
-4. **Standing, non-blocking items** (do only if owner asks): the confirmed content defects
+3. **Standing, non-blocking items** (do only if owner asks): the confirmed content defects
    (report §8.1 — classNotes PII/injection, two typos, stale wording, idempotentHint, graph-tools/
    toolCategories mismatch) are small independent fixes, partly upstream in the OCA spec; the
    published claude.ai artifact of `content-registry.html` predates the review-round fixes (stale)
    — NOTE: the committed file now carries a full HTML document shell, and the artifact publisher
    wraps body-only content, so strip the shell before any republish (generator comment says this).
 
-## Current State — VISIBILITY DELIVERABLE ON MAIN (2026-07-09)
+## Current State — VISIBILITY + PLANNING DELIVERABLES ON MAIN (2026-07-13)
 
-**PR #337 MERGED to main 2026-07-09 15:03Z (`5f3c1f472`)** — the registry, report, rendered-wholes,
+**PR #337 MERGED to main 2026-07-09 15:03Z (`SHA:5f3c1f472`)** — the registry, report, rendered-wholes,
 HTML browser, and generators are live on `main`. One commit missed the merge window (a known
 stranding pattern: pushed to the branch moments after the owner merged): the report §7 count fix +
-continuity pointers, commit `2af1ce9cb` — **rescued by cherry-pick onto PR #338** (`e63f36cda`),
-so it lands when #338 merges. A **visibility-only** deliverable — no product code changed, no
-validator, no evals built. Under `.agent/reports/mcp-agent-facing-content-audit/`:
+continuity pointers, commit `SHA:2af1ce9cb` — rescued by cherry-pick onto PR #338 (`SHA:e63f36cda`) and
+**landed on `main` when PR #338 merged (2026-07-13, `SHA:7ef8a8a3a`)**. A **visibility-only**
+deliverable — no product code changed, no validator, no evals built. Under
+`.agent/reports/mcp-agent-facing-content-audit/`:
 
 - `registry.json` — machine-readable **SSOT snapshot** of the corpus: **716 items across 143 files**,
   each tagged `impact_tier` (697 high-impact / 19 simple-config), `review_domain`, `source_locus`,
@@ -113,7 +116,7 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 ## Lane State
 
 - **Owning plan(s):** the eval/assessment-methodology research is owned by
-  [`mcp-content-assessment-methodology-research.plan.md`](../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
+  [`mcp-content-assessment-methodology-research.plan.md`](../../../plans/effectiveness-and-impact/current/mcp-content-assessment-methodology-research.plan.md)
   (new `effectiveness-and-impact` area, owner-named 2026-07-09; plan authored + landed 2026-07-09,
   status 🟡 PLANNING — readiness reviewers assumptions-expert/mcp-expert/test-expert PENDING, owner
   directed copy-only landing). The content-workspace build plan would be authored when owner-scheduled.
@@ -127,9 +130,9 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 
 ## Next Safe Step
 
-**The Monday brief at the top of this record (§Landing Target) is the authoritative next-step
-list** — one live task (shepherd PR #338), then owner-gated stops. Supplementary detail the brief
-references:
+**The §Landing Target at the top of this record is the authoritative next-step list** — the PR #338
+shepherd is discharged; what remains is branch-cleanup confirmation, then owner-gated stops.
+Supplementary detail the list references:
 
 - **Research execution (owner-gated).** The plan (§Owning plan(s)) is authored with owner answers
   absorbed (expert hours arrangeable; full output set; NO pilot; `effectiveness-and-impact` home).

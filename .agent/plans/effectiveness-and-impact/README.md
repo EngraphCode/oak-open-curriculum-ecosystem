@@ -22,7 +22,8 @@ regime (skills/prompts/sub-agents, e.g. the skill-evals pilot); `sdk-and-mcp-enh
 what the MCP servers *do*. This collection owns **how the agent-facing content and its delivered
 behaviour are assessed** — methodology, protocols, coverage, and the impact evidence chain.
 
-**Current Plans**: [current/](current/)
+**Roadmap**: [roadmap.md](roadmap.md) · **Lanes**: [active/](active/README.md) ·
+[current/](current/) · [future/](future/README.md)
 
 ## Documents
 
