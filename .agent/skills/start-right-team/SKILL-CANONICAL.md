@@ -777,11 +777,20 @@ use the contract above unchanged.
 - **Quantitative**: context usage ≥ 80% of the agent's bounded budget.
 - **Post-commit**: immediately after landing any commit, the agent
   re-evaluates remaining budget against the next-cycle floor (TDD
-  authoring + reviewer absorption + gate suite) and retires if the
-  remaining budget would not cover one more cycle with margin.
+  authoring + reviewer absorption + gate suite) and enters the
+  protocol if the remaining budget would not cover one more cycle
+  with margin.
 
 The 80% quantitative trigger has priority — an agent at 85% mid-cycle
 does not get to push for one more commit.
+
+**Authority (PDR-063 §Retirement authority, owner rulings
+2026-07-08):** budget verdicts are measured, never self-declared.
+Owner-present, the seat surfaces the measured metric and the OWNER
+calls the handoff moment. Owner-absent at a measured handover signal,
+the seat surfaces, waits a bounded window, and may then run the five
+steps autonomously on the measured verdict. A trigger firing is
+surface-and-route, never self-retirement.
 
 **The five-step protocol** (PDR-063 §Decision is authoritative; this
 SKILL names the protocol shape and points at it):

@@ -47,7 +47,11 @@ Invoke the
 skill and run its ceremony in order — read the host's write governance
 first, declare the home, resolve identity with the home's derivation,
 register with the prefix join key, arm the home-tooling watcher, post
-the adoption event — before the first cross-estate write. The doctrine
+the adoption event — before the first cross-estate write **where the
+full ceremony binds** (live peers, claims, streams, or registration —
+per §Scope). For a solo write into a QUIET sibling estate, §Scope's
+lighter path applies: the home's write governance and a fresh branch
+off its latest main, with the full ceremony optional-but-welcome. The doctrine
 behind the ceremony is
 [PDR-125](../practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md).
 

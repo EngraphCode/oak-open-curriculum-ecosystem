@@ -89,8 +89,9 @@ below serves one of those three.
    by the home's rules, not the guest's. Then resolve identity with
    the HOME repo's own derivation; the first comms write declares the
    home identity name, native-repo alias(es), the `session_id_prefix`
-   as the join key, the worktree repo-reference (origin + branch), and
-   coordination posture. Claims opened on the foreign substrate carry
+   as the join key, the explicit `platform` and `model` registration
+   values (clause 5 — never inferred), the worktree repo-reference
+   (origin + branch), and coordination posture. Claims opened on the foreign substrate carry
    the repo-qualified area form. Worked violation that ratified the
    first-read step: the 2026-07-05 join event named the home estate's
    Practice-donor repository directly, tripping the home's
@@ -122,7 +123,10 @@ below serves one of those three.
    clone-pressure); **each estate derives its name from the session
    SEED alone** — never from model, platform, or any other session
    property — which is exactly why one seed yields sovereign
-   per-estate names joined by the prefix. Every rendered identity
+   per-estate names joined by the prefix. An owner-assigned or
+   operator-overridden `agent_name` outranks derivation (as in each
+   estate's own identity contract); the override is declared as an
+   override at registration, and the prefix join key binds unchanged. Every rendered identity
    surface — statusline, comms headings, claim listings — shows
    `<name> (<session_id_prefix>)`. The **session_id_prefix is the join
    key**, and it identifies a SESSION: one session presents different

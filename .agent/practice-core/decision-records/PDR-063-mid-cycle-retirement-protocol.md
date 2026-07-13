@@ -95,12 +95,15 @@ triggers, whichever comes first:
   budget.
 - **Post-commit**: immediately after landing any commit, the agent
   re-evaluates remaining budget against the next-cycle floor (TDD
-  authoring + reviewer absorption + gate suite) and retires if the
-  remaining budget would not cover one more cycle with margin.
+  authoring + reviewer absorption + gate suite) and enters this
+  protocol if the remaining budget would not cover one more cycle
+  with margin.
 
 The 80 % quantitative trigger has priority over the post-commit
 trigger: an agent at 85 % mid-cycle does not get to "push for one
-more commit"; the protocol fires.
+more commit"; the protocol fires. Firing means the seat surfaces the
+measured figure and follows §Retirement authority below on who calls
+the handoff — firing is never self-retirement.
 
 Sensing is MEASUREMENT plus SURFACING, never self-declaration: the
 budget figure is measured (transcript usage against the actual
@@ -227,12 +230,15 @@ above are unchanged.
 2. **Owner-present: the seat surfaces the measured metric; the OWNER
    calls the handoff moment.** Surfacing measured metrics is the
    agent's whole authority in this mode.
-3. **Owner-absent at the 80 % metric-surfacing threshold: surface,
-   then autonomous handoff.** The seat surfaces the measurement
-   (comms event plus push notification), waits a bounded window for
-   owner or coordinator word, and MAY then execute this protocol's
-   five steps autonomously on the measured verdict — never on an
-   unmeasured sense of fullness.
+3. **Owner-absent at a measured handover signal: surface, then
+   autonomous handoff.** The signal is either axis of the trigger
+   above — the effectiveness-window start (~50 % of the full window;
+   the primary handover-start signal under rotating-cast operation)
+   or the ≥ 80 % hard-stop ceiling — whichever fires first. The seat
+   surfaces the measurement (comms event plus push notification),
+   waits a bounded window for owner or coordinator word, and MAY then
+   execute this protocol's five steps autonomously on the measured
+   verdict — never on an unmeasured sense of fullness.
 4. **Successor instantiation is owner-mediated until session-spawn
    automation exists** (the owner's named automation gap: "yes to
    automated handoff, however we have no way of automatically
