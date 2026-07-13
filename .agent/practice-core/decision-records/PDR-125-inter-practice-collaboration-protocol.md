@@ -143,7 +143,9 @@ below serves one of those three.
    `<name> (<session_id_prefix>)`. The **session_id_prefix is the join
    key**, and it identifies a SESSION: one session presents different
    names across estates. A SUCCESSOR is a NEW session — new prefix,
-   therefore a new name in every estate. The anomaly rule: same name
+   therefore (for DERIVED names) a new name in every estate; a
+   declared persistent override is the one sanctioned exception,
+   below. The anomaly rule: same name
    with a different prefix is an anomaly — surface it, do not accept
    it. The anomaly rule binds DERIVED names only: a DECLARED
    owner/operator override may legitimately recur across prefixes

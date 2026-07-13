@@ -47,9 +47,10 @@ registration, no claims to coordinate with — a solo write window
 needs only steps 1 and the fresh-branch half of the home's write
 governance (its gates, conventions, and a fresh branch off its latest
 main); the communication steps (identity registration, watcher,
-adoption event) are optional-but-welcome. The moment live peers,
-claims, or registration enter, every step below binds in
-order.
+adoption event) are optional-but-welcome. The moment the session writes
+comms, opens a claim, registers, or encounters live peers, every
+step below binds in order (PDR-125 clause 3: the machinery binds at
+the first comms write, claim, or registration).
 
 ## The ceremony (ordered, each step gates the next)
 
@@ -68,9 +69,9 @@ order.
 3. **Resolve identity with the HOME repo's own derivation** — never
    carry your native name across. Your `session_id_prefix` is the join
    key: it is the ONE identity coordinate shared across estates, and
-   it identifies a SESSION (a successor session is a new prefix and a
-   new name everywhere; same-name-different-prefix is an anomaly to
-   surface, never accept — for DERIVED names: a DECLARED
+   it identifies a SESSION (a successor session is a new prefix and —
+   for DERIVED names — a new name everywhere; same-name-different-prefix
+   is an anomaly to surface, never accept for DERIVED names: a DECLARED
    owner/operator override may legitimately recur across prefixes,
    with the override declaration as the exemption proof and the
    `(agent_name, id)` pair disambiguating). One seed therefore yields TWO display names
