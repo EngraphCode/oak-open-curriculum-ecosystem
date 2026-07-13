@@ -34,8 +34,9 @@ action.
 **The ceremony's object is AGENT COMMUNICATION** (owner clarification,
 same day): a solo write window into a QUIET sibling estate — no live
 seats to coordinate with, no registration, no claims — needs the
-home's write GOVERNANCE (its gates, conventions, and a fresh branch
-off its latest main) but not the full communication ceremony; run the
+home's write GOVERNANCE (its gates, conventions, a declared
+coordination home per PDR-125 clause 2, and a fresh branch off its
+latest main) but not the full communication ceremony; run the
 ceremony anyway when it helps do things properly. The moment the session
 writes comms, opens a claim, registers, or encounters live peers,
 the full ceremony binds (PDR-125 clause 3: the machinery binds at

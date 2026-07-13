@@ -44,10 +44,12 @@ ceremony fires before that first action.
 clarification 2026-07-08: the ceremony's object is AGENT
 COMMUNICATION). When the sibling estate is QUIET — no live seats, no
 registration, no claims to coordinate with — a solo write window
-needs only steps 1 and the fresh-branch half of the home's write
-governance (its gates, conventions, and a fresh branch off its latest
-main); the communication steps (identity registration, watcher,
-adoption event) are optional-but-welcome. Classify QUIET by reading
+needs steps 1 AND 2 (write governance read; coordination home
+declared with loud failure on a bad home — clause 2 binds everywhere)
+plus the fresh-branch half of the home's write governance (its gates,
+conventions, and a fresh branch off its latest main); the
+communication steps (identity registration, watcher, adoption event)
+are optional-but-welcome. Classify QUIET by reading
 the home's live coordination surfaces (located per the write
 governance read in step 1): its claims registry for open claims (any
 unexpired claim is live regardless of heartbeats — heartbeat-exempt

@@ -98,8 +98,9 @@ below serves one of those three.
    by the home's rules, not the guest's. The ceremony's object is
    AGENT COMMUNICATION (owner clarification 2026-07-08): a solo write
    window into a QUIET estate — no live seats, no registration, no
-   claims — needs the home's write governance and a fresh branch off
-   its latest main; the identity, registration, watcher, and adoption
+   claims — needs the home's write governance, a DECLARED coordination
+   home (clause 2 binds everywhere, loud failure on a bad home), and a
+   fresh branch off its latest main; the identity, registration, watcher, and adoption
    machinery below binds at the first comms write, claim, or
    registration. For the communicating join: resolve identity with
    the HOME repo's own derivation; the first comms write declares the

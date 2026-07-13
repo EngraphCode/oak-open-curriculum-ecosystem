@@ -46,7 +46,7 @@ todos:
   - id: ws0e-shared-schema
     content: "WS0e — Author the SHARED SCHEMA (owner-directed 2026-07-05): a versioned machine-readable schema of the cross-estate wire shapes (exchange-relevant comms-event fields, claim repo_ref, exchange-envelope/box-file frontmatter), Core-carried so both estates validate inbound foreign material against the SAME schema. Encode the version-family compatibility contract: within one MAJOR, additive-optional only (newer parses under older by ignoring unknown-optional; older stays valid under newer); a breaking wire change is a MAJOR bump / new family; cross-family contact is a typed refusal, never best-effort parse. The schema is the artefact that makes divergence SAFE, not merely tolerated."
     status: done
-    depends_on: [ws0-protocol-pdr, ws2-cycle-1-repo-ref-schema]
+    depends_on: [ws0-protocol-pdr]
   - id: ws0d-discoverability
     content: "WS0d — Make the protocol discoverable-by-construction: a portable rule that FIRES on the cross-repo condition (worktree-repo ≠ coordination-home-repo, or joining any foreign substrate) pointing at the join-ceremony skill, plus an AGENT.md/entry-point pointer — both in the propagating Core set so a fresh agent in a freshly-transplanted repo finds the ceremony without being told."
     status: done

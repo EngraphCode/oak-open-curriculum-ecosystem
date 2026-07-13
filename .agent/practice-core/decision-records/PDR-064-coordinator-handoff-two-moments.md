@@ -340,12 +340,13 @@ If the outgoing coordinator is retiring mid-cycle under token
 pressure (PDR-063 trigger), both protocols fire:
 
 1. PDR-063 Step 1 — sense the budget threshold.
-2. PDR-063 Step 2 — write the structured handoff record for any
-   open cycle claim the coordinator was running.
-3. PDR-063 Step 3 — extend the active claim with
-   `handoff_record_path` (claim adoption preserves the field but
-   never adds it, so this step must precede any transport whose
-   pickup relies on adoption).
+2. PDR-063 Step 2 — ONLY when the coordinator was running an open
+   cycle claim: write the structured handoff record for it.
+3. PDR-063 Step 3 — under the same open-claim condition: extend that
+   claim with `handoff_record_path` (claim adoption preserves the
+   field but never adds it, so this step must precede any transport
+   whose pickup relies on adoption). With no open cycle claim,
+   Steps 2–4 all skip and execution proceeds to Moment 1.
 4. This PDR's Moment 1 — broadcast the pre-positioning event
    covering coordinator responsibilities (which is broader than
    any single cycle claim).

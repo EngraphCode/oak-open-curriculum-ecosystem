@@ -922,13 +922,15 @@ distinct `narrative` broadcast covering coordinator-role context
 events — the handoff record carries cycle-claim substance; the
 pre-positioning event carries coordinator-role substance. **Do not
 use `mid-cycle-handoff` for coordinator role transitions.** The
-combined ORDER is PDR-064's: sense (Step 1) → freeze the record
-(Step 2) → extend the claim with `handoff_record_path` (Step 3 —
-before any transport whose pickup relies on adoption) → Moment 1
-pre-positioning broadcast → PDR-063 Step 4 ONLY when an open cycle
-claim exists (directed to a live receiver, else the broadcast
-pending-handoff transport exception) → Step 5 retirement broadcast →
-the incoming coordinator's Moment 2 at pickup.
+combined ORDER is PDR-064's: sense (Step 1) → WHEN an open cycle
+claim exists: freeze its record (Step 2) and extend the claim with
+`handoff_record_path` (Step 3 — before any transport whose pickup
+relies on adoption) → Moment 1 pre-positioning broadcast → PDR-063
+Step 4 under the same open-claim condition (directed to a live
+receiver, else the broadcast pending-handoff transport exception) →
+Step 5 retirement broadcast → the incoming coordinator's Moment 2 at
+pickup. A coordinator with NO open cycle claim runs only Step 1 →
+Moment 1 → Step 5 → Moment 2.
 
 ### Closeout consolidation discipline for failure-mode events
 
