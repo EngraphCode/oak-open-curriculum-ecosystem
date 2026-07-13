@@ -935,8 +935,9 @@ relies on adoption) → Moment 1 pre-positioning broadcast → PDR-063
 Step 4 under the same open-claim condition (directed to a live
 receiver, else the broadcast pending-handoff transport exception) →
 Step 5 retirement broadcast → the incoming coordinator's Moment 2 at
-pickup. A coordinator with NO open cycle claim runs only Step 1 →
-Moment 1 → Step 5 → Moment 2.
+pickup. A coordinator with NO open cycle claim runs only Step 1 (with its
+completed authority route) → Moment 1 → Step 5 → Moment 2 — the
+claimless path never bypasses the owner/deadline gate.
 
 ### Closeout consolidation discipline for failure-mode events
 

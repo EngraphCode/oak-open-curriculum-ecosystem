@@ -279,9 +279,9 @@ replaces it. No other step changes.
    10 minutes, then autonomous execution of the remaining Steps 2–5 —
    matching
    the estate liveness convention's 10-minute retirement window).
-   Autonomous execution does not require a live successor: the five
-   steps complete with the Step 2 handoff record as the durable
-   interface. The claim retains `handoff_record_path`; Step 4's
+   Autonomous execution does not require a live successor: the
+   remaining steps complete with the Step 2 handoff record as the
+   durable interface. The claim retains `handoff_record_path`; Step 4's
    directed `mid-cycle-handoff` event (schema-required point-to-point
    with a `to` recipient) is sent when a live recipient — successor
    or coordinator — exists. When neither exists, Step 4 takes the

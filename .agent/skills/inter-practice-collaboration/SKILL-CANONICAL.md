@@ -58,8 +58,8 @@ events newer than the home's retirement window (liveness per the
 home's own liveness contract, e.g. PDR-078: heartbeat OR substantive
 activity, honouring its declared exemption windows), and its watcher
 liveness files for heartbeats within the home's heartbeat cadence
-(all read from the write governance in step 1) — all three silent is
-QUIET; any one live is not. The moment the session writes
+(all read from the write governance in step 1). If all three surfaces
+are silent, the estate is QUIET; if any one is live, it is not. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).

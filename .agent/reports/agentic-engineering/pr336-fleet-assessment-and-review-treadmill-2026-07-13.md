@@ -131,7 +131,9 @@ Did not work / costs:
   raise, a fallback verifier on exhaustion, and a workflow-level
   invariant that verdict-count MUST equal deduped-count before the
   run reports.
-- **Finder precision was low** (12/66 verified ≈ 18%): acceptable only because
+- **Verified-subset finder precision was low** (12/66 verdicts ≈ 18%;
+  the 15 unverified findings make overall precision a bound, 12/81 to
+  27/81, not a point figure): acceptable only because
   verification was cheap relative to bot rounds; a standing protocol
   should tighten finder briefs with per-lens worked examples of
   NON-findings.
@@ -248,7 +250,7 @@ handoff, held only in one very long session context.
   unverified findings (see §4): the refute-rate and failure-mode
   analysis (§5) is the durable signal; the bodies are fleet-output
   residue, and the unverified 15's expected yield is assessed low in
-  §4 — an accepted, NAMED loss rather than a silent one.'
+  §4 — an accepted, NAMED loss rather than a silent one.
 - Chat-only reasoning texture (round-by-round triage deliberation,
   owner exchange phrasing): the decisions all landed in commits, thread
   replies, and this report; the texture is session-mortal by design.
