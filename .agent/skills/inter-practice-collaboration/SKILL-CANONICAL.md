@@ -53,11 +53,44 @@ are optional-but-welcome. Classify QUIET by reading
 the home's live coordination surfaces (located per the write
 governance read in step 1): its claims registry for open claims (any
 unexpired claim is live regardless of heartbeats — heartbeat-exempt
-seats exist), its comms stream tail for registrations newer than the
-home's retirement window, and its watcher liveness files for
-heartbeats within the home's own liveness convention (its heartbeat
-cadence and retirement threshold, read from its write governance in
-step 1) — all three silent is QUIET; any one live is not. The moment the session writes
+seats exist), its comms stream tail for registrations,
+heartbeat-tagged events, AND substantive events — each of the three
+counted only when newer than the home's retirement window — (liveness
+per the home's own liveness contract,
+e.g. PDR-078: heartbeat OR substantive activity, honouring its
+declared exemption windows — a comms heartbeat event counts exactly
+like a watcher-file heartbeat), and its watcher
+liveness files for heartbeats within the home's RETIREMENT threshold
+— a seat is live until it has been silent (no heartbeat, no
+substantive event) for that whole window, so a heartbeat older than
+one cadence but inside the threshold still counts as live (all read
+from the write governance in step 1). If all three surfaces
+are silent AND no observable exemption window is open (a
+coordinator-handoff grace window, a declared consumer-absent or
+contiguous-execution mode — the home's liveness contract names its
+exemption classes), the estate is QUIET; if any one is live or an
+exemption window is open, it is not. An exemption window counts as
+open from its observable opening event until its named closing
+boundary (per PDR-078: a handoff grace window until the incoming
+acknowledgement lands OR, under PDR-064's authorised
+forced-retirement path, the Step 5 retirement broadcast that returns
+authority to the owner; a contiguous-execution window until its
+cycle-boundary broadcast or abandonment; a verdict-synthesis window
+until the sub-agent returns or the dispatch abandons) — age alone
+does not expire a window whose boundary event has not yet appeared.
+Because an opening event may therefore be older than any bounded
+tail, the exemption check resolves opening/closing PAIRS from the
+home's canonical event history (or its persisted exemption state
+where it keeps one) — a newest-N tail read (this repo's `comms list`
+defaults to 20 events) is sufficient for the three liveness
+categories above, which age out at the retirement window, but NOT
+for unmatched exemption openings.
+Only a declaration with NO named closing boundary (a
+consumer-absent-style mode) needs its declaring seat to show on at
+least one of the three surfaces to veto QUIET — a bare unbounded
+declaration from a seat with no surviving trace does not (otherwise
+a truly empty estate could never read QUIET, since PDR-078's
+consumer-absent state is itself defined by peer absence). The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).
