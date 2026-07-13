@@ -895,9 +895,9 @@ should not imply that the educator direction is absent from the repository.
 
 #### Review hygiene is not concept evidence
 
-The draft PR is green and automated reviewers raised no findings. That establishes that the research
-artefact is reviewable and mechanically sound. It does not validate teacher value, host behaviour,
-or the proposed workflow-delivery model.
+Passing repository checks and resolving review findings can establish that a research artefact is
+reviewable and mechanically sound. They do not validate teacher value, host behaviour, or the
+proposed workflow-delivery model.
 
 ### Movement 2: define the exploration-exit problem
 
