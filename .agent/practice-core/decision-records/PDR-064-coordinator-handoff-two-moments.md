@@ -344,6 +344,11 @@ pressure (PDR-063 trigger), both protocols fire:
    measurement, and COMPLETE the §Retirement-authority route
    (owner-present call, or the owner-absent declared-deadline/default
    path); an owner or coordinator redirect exits this sequence here.
+   For a coordinator seat, the default action declared in the
+   owner-absent surfacing event IS the remainder of this sequence
+   (steps 2–7 below): it realises PDR-063's "remaining Steps 2–5"
+   with Moment 1 interleaved — there is no separate contiguous
+   Steps-2–5 block for a coordinator.
 2. PDR-063 Step 2 — ONLY when the coordinator was running an open
    cycle claim: write the structured handoff record for it.
 3. PDR-063 Step 3 — under the same open-claim condition: extend that

@@ -21,6 +21,15 @@ Practice Core package.
   exception mirror in the coordinator-retirement intersection); the
   join-ceremony skill, cross-repo rule, and start-right-team mirrors; the
   ADR-211 host-phenotype amendment.
+- Successor-wave truings (Aspen stirs Blossom, same review arc): PDR-064
+  intersection step 1 gains the coordinator-seat deadline-default
+  reconciliation (the owner-absent default action is this sequence's
+  steps 2–7, realising PDR-063's "remaining Steps 2–5" with Moment 1
+  interleaved); the join-ceremony skill's QUIET comms-tail read gains
+  heartbeat-tagged events (a comms heartbeat counts exactly like a
+  watcher-file heartbeat); the cross-repo rule's QUIET description now
+  points at the skill's three-surface liveness check instead of an
+  informal gloss.
 - Twin disposition for every item above: `impossible-with-named-reason` (no
   live peer seat in this window) — the affected portable texts are AHEAD of
   the peer copies; re-twin queued for the next exchange window's outbound

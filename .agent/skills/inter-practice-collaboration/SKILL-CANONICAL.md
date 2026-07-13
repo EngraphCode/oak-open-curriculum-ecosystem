@@ -53,10 +53,12 @@ are optional-but-welcome. Classify QUIET by reading
 the home's live coordination surfaces (located per the write
 governance read in step 1): its claims registry for open claims (any
 unexpired claim is live regardless of heartbeats — heartbeat-exempt
-seats exist), its comms stream tail for registrations AND substantive
-events newer than the home's retirement window (liveness per the
-home's own liveness contract, e.g. PDR-078: heartbeat OR substantive
-activity, honouring its declared exemption windows), and its watcher
+seats exist), its comms stream tail for registrations,
+heartbeat-tagged events, AND substantive events newer than the home's
+retirement window (liveness per the home's own liveness contract,
+e.g. PDR-078: heartbeat OR substantive activity, honouring its
+declared exemption windows — a comms heartbeat event counts exactly
+like a watcher-file heartbeat), and its watcher
 liveness files for heartbeats within the home's RETIREMENT threshold
 — a seat is live until it has been silent (no heartbeat, no
 substantive event) for that whole window, so a heartbeat older than

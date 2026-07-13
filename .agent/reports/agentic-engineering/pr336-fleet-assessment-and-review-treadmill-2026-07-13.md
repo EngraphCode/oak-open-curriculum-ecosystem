@@ -230,6 +230,11 @@ ratio that produced 28 rounds here.
   quote-anchor protected findings only. The extract preserves the row
   as captured (never falsify the evidence file); the ledger counts it
   as a stub, not a substantive refutation.
+- Export FULL evidence text in the durable extract — no slice caps:
+  64 of the 66 captured verdict rows are clipped at exactly 500
+  characters (most mid-rationale), so the extract's verdicts are
+  auditable only to that depth and the full rationales died with the
+  session. The extract writer, not the verifier, imposed the cap.
 - A comms watcher armed without its required `--seen-file` argument
   crash-loops silently inside a Monitor re-arm loop — assert the
   watcher live (F-95 check) after arming, not just armed.
@@ -277,7 +282,11 @@ handoff, held only in one very long session context.
   dedup-duplicates — and all 66 verdict rows; the arithmetic is
   85 − 4 = 81 and 81 − 66 = 15 unverified, whose bodies are among the
   81 but carry no verdict-to-finding linking key, so they are bounded
-  as a set rather than individually recoverable — see §4 and §8); the
+  as a set rather than individually recoverable — see §4 and §8).
+  Verdict evidence was captured TRUNCATED: 64 of the 66 rows are
+  clipped at exactly 500 characters, most mid-rationale, so the
+  extract's verdicts are auditable only to that depth; the full
+  rationales are session-mortal (a third run defect — see §8). The
   transcripts behind them remain session-mortal, reproducible in
   design from §3.
 - The 52 substantively refuted, 1 stub-refuted, and 1 fabricated
