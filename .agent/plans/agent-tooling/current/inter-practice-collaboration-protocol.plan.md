@@ -34,22 +34,22 @@ last_updated: 2026-07-13
 todos:
   - id: ws0-protocol-pdr
     content: "WS0 — Author the inter-Practice collaboration protocol v1 as a practice-core PDR that TRAVELS ON THE PLASMID (portable, repo-neutral, placed in the propagating decision-records/ set so every transplant receives it by construction) plus the oak ADR phenotype note. Frames conjugation as the Core exchange model's second mode alongside transformation. Clauses: repo-reference vocabulary, coordination-home declaration, join ceremony, foreign-substrate discipline, identity display, adoption/versioning model, exchange handshake (concepts-vs-pointers layering)."
-    status: pending
+    status: done
   - id: ws0b-two-exchange-modes
     content: "WS0b — Amend the Core exchange model (practice-lineage.md / practice.md portable surfaces) to name TWO modes of horizontal Practice transfer: transformation (existing dead-material uptake at a pin — the transplant/manifest machinery) and conjugation (live bidirectional negotiated exchange — this protocol). Name their shared substrate (incoming box, provenance chains) and complementary lifecycles. This is the reframe that makes inter-Practice comms an extension of an existing Core model, not a bolt-on."
-    status: pending
+    status: done
     depends_on: [ws0-protocol-pdr]
   - id: ws0c-conformance-and-versioning
     content: "WS0c — Define the minimum conformance contract that makes a repo 'speak the protocol' (incoming box; threadable comms substrate; the two-sided concepts-vs-pointers layering guard; identity-with-prefix; a declared coordination-home mechanism) and a self-reporting conformance+version check (practice-verification.md phenotype). Each repo declares the protocol version it speaks; the join ceremony negotiates version. This is what lets the ecosystem evolve without lockstep — portable spec, local phenotype, conformance gate, exactly as PDR→ADR already works."
-    status: pending
+    status: done
     depends_on: [ws0-protocol-pdr]
   - id: ws0e-shared-schema
     content: "WS0e — Author the SHARED SCHEMA (owner-directed 2026-07-05): a versioned machine-readable schema of the cross-estate wire shapes (exchange-relevant comms-event fields, claim repo_ref, exchange-envelope/box-file frontmatter), Core-carried so both estates validate inbound foreign material against the SAME schema. Encode the version-family compatibility contract: within one MAJOR, additive-optional only (newer parses under older by ignoring unknown-optional; older stays valid under newer); a breaking wire change is a MAJOR bump / new family; cross-family contact is a typed refusal, never best-effort parse. The schema is the artefact that makes divergence SAFE, not merely tolerated."
-    status: pending
+    status: done
     depends_on: [ws0-protocol-pdr, ws2-cycle-1-repo-ref-schema]
   - id: ws0d-discoverability
     content: "WS0d — Make the protocol discoverable-by-construction: a portable rule that FIRES on the cross-repo condition (worktree-repo ≠ coordination-home-repo, or joining any foreign substrate) pointing at the join-ceremony skill, plus an AGENT.md/entry-point pointer — both in the propagating Core set so a fresh agent in a freshly-transplanted repo finds the ceremony without being told."
-    status: pending
+    status: done
     depends_on: [ws0-protocol-pdr, ws4-skill]
   - id: ws1-cycle-1-env-override
     content: "WS1 cycle 1: failing unit test for PRACTICE_COORDINATION_HOME resolution order (explicit flag > env > git-native) + loud rejection of a missing/substrate-less path, then the resolveCoordinationHome product change. One commit. Tree green at end. DONE 2026-07-05 (Cricket lifts Echo, f31faec62): seam + loud validation landed incl. reviewer-raised absolute-path guard; test file re-classified integration; explicit-flag wiring test + one composition-edge wrapper routed to coordination-home-cli-path-defaulting."
@@ -63,7 +63,7 @@ todos:
     status: done
   - id: ws4-skill
     content: "WS4 — Author the portable inter-practice-collaboration skill (SKILL-CANONICAL + .claude adapter): join ceremony checklist, foreign-substrate discipline, home declaration, alias mapping, worked example from the 2026-07-05 first instance."
-    status: pending
+    status: done
     depends_on: [ws0-protocol-pdr]
   - id: ws5-resonance-proposal
     content: "WS5 — Post the protocol proposal to the resonance coordination substrate for its own ratification and phenotype implementation (never implemented unilaterally from oak)."
@@ -82,7 +82,10 @@ isProject: false
 # Inter-Practice Collaboration Protocol
 
 **Last Updated**: 2026-07-13
-**Status**: 🟡 QUEUED (current/) — owner-approved direction, execution not started
+**Status**: 🟢 IN EXECUTION (current/) — WS0 family (protocol PDR, two-mode
+reframe, conformance ladder, wire schema, discoverability rule), WS1 c1,
+WS3 c1, WS4 skill, and WS6 all landed (todo states above are true); WS2,
+WS5, WS7 remain
 **Scope**: Make cross-repo (cross-Practice) agent collaboration a named,
 versioned protocol implemented by each repo on its own terms.
 

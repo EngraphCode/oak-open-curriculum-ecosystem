@@ -49,10 +49,13 @@ governance (its gates, conventions, and a fresh branch off its latest
 main); the communication steps (identity registration, watcher,
 adoption event) are optional-but-welcome. Classify QUIET by reading
 the home's live coordination surfaces (located per the write
-governance read in step 1): its claims registry for open claims, its
-comms stream tail for recent registrations, and its watcher liveness
-files for fresh heartbeats — all three silent is QUIET; any one live
-is not. The moment the session writes
+governance read in step 1): its claims registry for open claims (any
+unexpired claim is live regardless of heartbeats — heartbeat-exempt
+seats exist), its comms stream tail for registrations newer than the
+home's retirement window, and its watcher liveness files for
+heartbeats within the home's own liveness convention (its heartbeat
+cadence and retirement threshold, read from its write governance in
+step 1) — all three silent is QUIET; any one live is not. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).
