@@ -52,7 +52,7 @@ follow-up considerations. Write "None" when there are no relevant risks.
 
 ## Checklist
 
-- [ ] The title begins with the primary Linear issue ID and follows it with a conventional-commit summary
+- [ ] The title begins with the primary Linear issue ID and a conventional-commit summary, or this PR explains a documented exception
 - [ ] The Linear relationship above is accurate (`Fixes`, `References`, or a justified exception)
 - [ ] Validation evidence reflects the final diff and all required quality gates pass (`pnpm check` is the canonical full local gate)
 - [ ] Tests cover changed behaviour, or the validation section explains why tests are not applicable
