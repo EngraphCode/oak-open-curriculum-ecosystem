@@ -780,10 +780,14 @@ use the contract above unchanged.
 - **Quantitative ceiling**: context usage ≥ 80% of the agent's
   bounded budget — the hard stop.
 - **Post-commit**: immediately after landing any commit, the agent
-  re-evaluates remaining budget against the next-cycle floor (TDD
-  authoring + reviewer absorption + gate suite) and enters the
-  protocol if the remaining budget would not cover one more cycle
-  with margin.
+  re-evaluates remaining budget against the next-cycle floor and
+  enters the protocol if the remaining budget would not cover one
+  more cycle with margin. The floor is OBSERVABLE, never estimated:
+  the measured token cost of this session's most recent completed
+  cycle (TDD authoring + reviewer absorption + gate suite, read from
+  the transcript); a session with no completed cycle has no measured
+  floor — this arm cannot fire and the two threshold axes govern
+  alone (PDR-063 Step 1).
 
 The 80% ceiling has priority over post-commit — an agent at 85%
 mid-cycle does not get to push for one more commit.
@@ -794,11 +798,13 @@ Owner-present, the seat surfaces the measured metric and the OWNER
 calls the handoff moment. Owner-absent at a measured handover signal
 (any Step-1 trigger: the ~50% effectiveness-window start, the ≥ 80%
 ceiling, or a measured post-commit shortfall — whichever fires
-first), the seat surfaces with an explicit absolute deadline
-and default action declared in the surfacing event (protocol default
-when no coordinator SLA applies: 10 minutes, then autonomous
-execution), waits that bounded window, and may then run the five
-steps autonomously on the measured verdict. With no live recipient
+first), the seat surfaces the measurement through BOTH channels —
+a comms event AND a push notification (PDR-063 ruling 3) — with an
+explicit absolute deadline and default action declared in the
+surfacing event (protocol default when no coordinator SLA applies:
+10 minutes, then autonomous execution), waits that bounded window,
+and may then run the five steps autonomously on the measured
+verdict. With no live recipient
 for step 4's directed event (schema-required `to`), the no-recipient
 variant applies: a broadcast pending-handoff announcement carrying
 the record path; the successor picks up via claim adoption
