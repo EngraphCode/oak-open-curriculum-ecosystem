@@ -103,7 +103,12 @@ tooling's plan should cite ruling 3's deadline contract as a consumer); the
 effectiveness-window calibration is single-model with no recalibration
 procedure; the guest-retirement intersection (PDR-063 firing under the
 inter-practice ceremony) is unaddressed; the ceremony's adoption/closeout
-events carry no message_kind discriminator.
+events carry no message_kind discriminator. (3) DOCTRINE FRICTION,
+reviewer-surfaced on PR #336: practice-core-portability names `incoming/`
+in its repo-independent scope while the exchange protocol defines
+`incoming/` as estate-addressed transit — the portability rule predates
+the conjugation model; reconcile at the next exchange-window doctrine
+sitting.
 
 **2026-07-07 UPDATE (written by the visiting resonance seat Kiln tracks Basalt,
 prefix `2a5066`, under the join ceremony — the WS0-landing record queued since
