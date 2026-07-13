@@ -613,3 +613,13 @@ preserved verbatim before that worktree's removal.
 - **Owner correction:** teacher authority is invariant over every user interaction; the agent is
   only ever facilitating. The named examples are demo fixtures, not capability scope: flows and
   tools must work for any lesson, topic, or unit. Localisation demo locale is Watford, England.
+- **Concept frame changed on the full-space pass:** workflow delivery is only one mechanism inside a
+  generic, teacher-controlled facilitation protocol over typed curriculum anchors. Three distinctions
+  prevent attractive but false simplifications: teacher authority is compatible with reversible
+  read-only initiative; curriculum-wide generality does not require uniform steps or complete data;
+  and a compelling photosynthesis/Watford demo makes the mechanism visible but does not prove
+  generality or cross-host portability.
+- **Commit-message helper usage mistake:** I passed the proposed message as a positional argument to
+  `agent-tools:check-commit-message`; the helper deliberately mirrors `git commit` and requires
+  `-m <message>` (or stdin/file input). The exit was invalid usage, not a commitlint verdict. Use the
+  explicit `-m` form before committing.

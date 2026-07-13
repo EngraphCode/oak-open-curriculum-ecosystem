@@ -407,3 +407,381 @@ These probes decide between resource-only, pointer-tool, direct-return tool, and
 shapes. They also produce a more honest internal demonstration: not that one model once produced a
 good answer, but that Oak's workflow understanding became discoverable and constrained the agent's
 behaviour in the intended way.
+
+## Expanded Concept Exploration: the full capability space
+
+The first pass isolated the immediate delivery gap. This second pass deliberately widens the frame:
+the product experience is not only the mechanism by which an agent acquires workflow instructions.
+It is the whole relationship between a teacher's natural-language intent, Oak's curriculum corpus,
+the consuming agent, the host application's capabilities, and the evidence Oak can present about
+the resulting behaviour.
+
+This remains concept exploration. The candidate shapes, evidence dimensions, and unresolved
+questions below are not a delivery sequence or an implementation commitment.
+
+### Movement 1: raw observations
+
+#### Authority and initiative are different axes
+
+- Teacher authority does not require the agent to ask permission before every reversible search or
+  retrieval. Within an expressed goal, read-only operational initiative can reduce friction.
+- The authority boundary concerns who decides the goal, what is relevant, what pedagogical choices
+  are made, what changes are acceptable, and what is ultimately used. Those decisions remain with
+  the teacher.
+- An agent can therefore say, in effect, "I found these possible Oak starting points; which one did
+  you mean?" It must not silently decide which curriculum pathway the teacher ought to teach.
+- Questions are not intrinsically teacher-centred. A long mandatory intake form can shift work onto
+  the teacher without increasing their control. Refinement should be progressive and useful.
+- Recommendations need careful semantics. Presenting grounded options, consequences, and source
+  evidence facilitates a decision; selecting a pedagogical outcome on the teacher's behalf does not.
+
+#### Generality is not uniformity
+
+- "Any lesson, any topic, any unit" means the capability contract cannot encode photosynthesis or
+  Watford as special branches. It does not mean every request must traverse the same fixed steps or
+  retrieve the same lesson components.
+- A lesson slug, a topic phrase, and a unit request have different ambiguity and resolution shapes.
+  One generic workflow may need typed branches while retaining the same authority and fidelity
+  invariants.
+- Curriculum coverage includes honest empty and partial outcomes. A query outside Oak's corpus, a
+  lesson without downloadable assets, or an ambiguous topic is not made successful by inventing an
+  answer.
+- Demonstrating two fixtures can make a generic mechanism visible. It cannot prove curriculum-wide
+  generality by itself.
+
+#### The existing retrieval substrate is already broader than the examples
+
+- `search` covers lessons, units, threads, and sequences and can filter by curriculum dimensions;
+  `explore-topic` searches lessons, units, and threads together; and `fetch` accepts typed lesson,
+  unit, subject, sequence, and thread identifiers.
+- Lesson summaries are consistently available, while assets, video, transcript, quizzes, and other
+  components are optional. A workflow must reason from actual availability rather than assume a
+  complete bundle.
+- Search can return a well-formed zero-result response with guidance. The workflow layer should
+  preserve that honesty instead of turning absence into fabricated curriculum content.
+- `download-asset` produces a short-lived asset link. It does not edit a slide deck, worksheet, or
+  other artefact. Those are materially different capabilities.
+
+#### The experience crosses an Oak-host boundary
+
+- Oak can make its content, curriculum model, safeguards, provenance, and workflow understanding
+  available. A consuming host decides how resources are exposed, what tools a model can select, how
+  links are handled, and whether capabilities such as web search or file editing exist.
+- A host may be able to find a local map or edit a presentation even when the Oak server cannot.
+  Guidance may coordinate with those capabilities, but should not claim them as Oak capabilities or
+  assume they are portable.
+- MCP resource annotations express intended audience and priority; they do not guarantee that every
+  host injects the resource into model context or permits a model to read it without user action.
+- Host behaviour is therefore part of the product evidence, not incidental integration detail.
+
+#### Localisation is multidimensional
+
+- Localisation can change engagement without changing educational intent: a place name, journey,
+  photo, landmark, map, comparison, or discussion prompt can make an example more immediate.
+- It can also cross into factual adaptation, resource transformation, accessibility, cultural
+  relevance, or pedagogical redesign. These have different evidence and risk profiles.
+- Sophistication is not a single ladder. A simple text substitution may require high confidence in
+  local facts, while a technically complex image replacement might leave educational content
+  untouched.
+- The source of local truth matters: teacher-provided knowledge, a host's web search, a licensed
+  dataset, and model recollection are not equivalent.
+- Watford is a useful demonstration context because it forces the flow to separate Oak's educational
+  anchors from local additions. It must remain input data, not product logic.
+
+#### Workflow content is product content
+
+- Agent-facing workflow instructions influence behaviour and therefore need a canonical source,
+  reviewability, provenance, versioning, and consistent safeguards.
+- Copying the same workflow independently into prompts, resources, tool descriptions, and host
+  instructions creates semantic drift even when every copy starts identical.
+- Always loading every workflow avoids retrieval failure but spends context and model attention on
+  irrelevant capabilities. On-demand retrieval saves context but adds a selection and delivery
+  failure point.
+- Tool descriptions can advertise intent compactly, but carrying a whole refining workflow in a
+  description makes the tool catalogue an expensive and poorly governed instruction channel.
+
+#### The milestone boundary changes what "support" should mean
+
+- Public alpha primarily connects teacher intent to Oak content and understanding inside existing AI
+  applications. Its strongest claim is facilitated discovery and use, not autonomous generation.
+- Simple engagement-focused localisation can be explored at the alpha edge without implying that
+  Oak can transform all artefacts or make pedagogical adaptations.
+- Preserving a path to deeper adaptation matters. Prematurely promising beta-shaped behaviour in
+  alpha would obscure which value comes from Oak's corpus and which comes from generation or a
+  particular host.
+
+### Movement 2: map the problem spaces
+
+| Space | Gap or mechanism | Constraint carried into every candidate | Evidence of success | Characteristic failure |
+| --- | --- | --- | --- | ---
+| Teacher authority | An agent mediates between an open request and a structured curriculum corpus | The teacher owns goals, relevance, pedagogical judgement, changes, and final use | The agent makes source-grounded options easier to inspect and leaves consequential choices explicit | The flow prescribes, silently changes intent, or treats teacher confirmation as a rubber stamp |
+| Intent recognition | Natural language does not invoke an MCP prompt automatically | Ordinary teacher phrasing must be enough to make the relevant capability discoverable | The agent acquires appropriate guidance without a special command | The teacher must know Oak's prompt name or MCP vocabulary |
+| Curriculum entity resolution | Topic language can match several lessons, years, subjects, units, or programme variants | Ambiguity must be surfaced rather than hidden | Candidate anchors are accurate, distinguishable, and teacher-selectable | The agent commits to the first plausible result or fabricates a match |
+| Curriculum-wide scope | Demonstrations start with named examples, while the service spans typed curriculum entities | No fixture-specific logic; partial and empty results remain valid | The same contract behaves coherently across subjects, stages, entity types, and data availability | A polished demo masks hard-coded assumptions |
+| Progressive interaction | Useful support often needs context not present in the first message | Ask only questions that materially improve the next action | Each turn gives useful evidence or narrows a real ambiguity | A static questionnaire front-loads effort or gives the illusion of control |
+| Content fidelity | Agents may summarise, select, or combine Oak content | Source facts, derived suggestions, and external additions remain distinguishable | Misconceptions, teacher tips, safeguards, and learning intent survive retrieval and presentation | Fluent output drops or alters load-bearing curriculum meaning |
+| Material availability | Lessons expose different optional components and asset types | Never imply that missing content exists or that links equal editable files | The flow adapts to the components actually returned | The workflow assumes slides, transcripts, or quizzes everywhere |
+| Local context | Oak educational anchors and local engagement context may come from different sources | Local claims need provenance; educational changes require teacher direction | The agent identifies candidate substitution points and explains the origin of proposed local material | It invents local facts, changes the learning outcome, or blurs Oak and external content |
+| Host capability | Resources, tool selection, browsing, downloads, and file editing vary by AI application | The portable core cannot depend silently on optional host behaviour | Target hosts can execute the bounded interaction, with explicit degradation when they cannot | The demo works only because one host supplied an undeclared capability |
+| MCP delivery | Prompts, resources, and tools have different control and discovery models | A user-controlled surface cannot be the only agent-facing path | Guidance is model-accessible from natural-language intent with acceptable context cost | Instructions exist in the server but not in the model's usable context |
+| Workflow governance | Several protocol surfaces may expose the same semantic contract | One reviewed source must govern all projections | Every projection has equivalent authority, scope, and safeguard semantics | Prompt and tool behaviour diverge over time |
+| Failure and recovery | No match, authentication, host limits, missing components, and ambiguity are normal states | Failures must be typed, informative, and recoverable where possible | The teacher sees what is known, what is missing, and what they can choose next | The agent compensates with ungrounded content or an opaque dead end |
+| Demonstration and evaluation | A good transcript is persuasive but weak evidence of a reusable capability | Examples illustrate; a scenario matrix tests generality and invariants | Behaviour is reproducible across hosts, curriculum areas, and boundary cases | One successful output is presented as proof of product coverage |
+| Milestone boundary | Alpha and beta value can blur when adaptation is visible | Alpha claims remain centred on Oak content and facilitation; later options remain open | The demo makes current value and future horizon separately legible | The experience depends on uncommitted generation or transformation capabilities |
+
+These spaces expose several tensions that no single protocol primitive resolves:
+
+- **Authority versus useful initiative:** excessive passivity makes the teacher operate the search
+  engine; excessive initiative turns facilitation into prescription.
+- **Generality versus relevance:** a universal monologue is generic in wording but poor in use; a
+  generic contract should activate only the branches relevant to the current entity and intent.
+- **Progressive refinement versus form-filling:** the agent needs context, but every question should
+  earn its place by changing the next retrieval or presentation.
+- **Portability versus context cost:** always-present instructions travel simply but consume scarce
+  attention; on-demand instructions are efficient only if hosts deliver them reliably.
+- **Single source versus multiple surfaces:** portability may require several MCP projections, while
+  governance requires that their meaning cannot drift.
+- **Alpha focus versus beta optionality:** a narrow, honest alpha should not close the architecture to
+  deeper adaptation, but future flexibility is not a reason to imply present capability.
+- **Demo legibility versus generalisation proof:** named fixtures help colleagues see the behaviour;
+  only systematic variation shows that the mechanism is not fixture-bound.
+- **Oak truth versus local truth:** combining them can be valuable, but provenance must survive the
+  combination.
+
+### Movement 3: explore possible shapes and inherited assumptions
+
+#### Agent-facing delivery shapes
+
+| Shape | Attractive property | Pressure or failure mode |
+| --- | --- | --- |
+| One always-loaded workflow manual | No acquisition step; all intents are visible | Context and attention cost grow with capability breadth; unrelated instructions can interfere |
+| User-controlled prompts only | Existing MCP primitive and explicit teacher choice | Breaks natural-language activation and assumes the teacher knows the workflow catalogue |
+| Assistant-audience resources only | Canonical, inspectable, and naturally suited to authored guidance | Application-driven exposure is not enough when a host does not surface or inject the resource |
+| Pointer-only discovery tool | Very small tool response and a canonical resource address | Adds a second host-dependent resource-read hop; a visible pointer may still be unusable guidance |
+| Direct-return workflow tool | Gives the model bounded instructions in the same model-controlled call | Adds a tool and requires careful intent descriptions; responses must not become an ungoverned copy |
+| Compact catalogue plus bounded workflow retrieval | Balances initial discoverability, context cost, and workflow specificity | Needs evidence that models select the route consistently and that granularity is right |
+| Workflow text embedded in domain-tool descriptions | Avoids an extra retrieval call | Bloats every tool, mixes operational schemas with behavioural guidance, and multiplies drift |
+| Host-specific instruction packages | Can exploit each application's strongest integration surface | Weak portability and a high risk that the Oak experience differs semantically by host |
+
+The layered, single-source shape remains the strongest hypothesis: a small orientation catalogue,
+bounded workflow bodies projected as assistant-audience resources and model-controlled direct-return
+retrieval, and optional user prompts generated from the same source. Its advantage is not the number
+of MCP primitives. It is that no one host-dependent primitive has to carry the entire experience.
+
+That hypothesis has limits. If target hosts reliably make annotated resources model-visible, the
+tool projection may be redundant. If models fail to select a workflow retrieval tool from ordinary
+language, the tool alone is not a discovery solution. If the bodies are too granular, acquisition
+becomes conversational overhead; if too broad, the context saving disappears.
+
+#### Interaction shapes
+
+| Choice | One pole | Other pole | More promising synthesis |
+| --- | --- | --- | --- |
+| Refinement | Fixed questionnaire before any action | Immediate answer from assumed intent | Retrieve enough to make ambiguity concrete, then ask the smallest consequential question |
+| Material use | Fetch the entire lesson bundle | Fetch only a single requested fact | Start with summary and anchors, then retrieve optional components when the teacher's goal makes them useful |
+| Guidance | Agent selects a recommended pedagogical path | Agent repeats raw search results | Present a small set of grounded options and trade-offs; let the teacher direct the choice |
+| Adaptation | Rewrite eagerly | Refuse any alteration | Separate source anchors from proposed changes and facilitate only the degree the teacher requests |
+| Localisation | Substitute arbitrary local names | Require a complete formal local-data integration | Begin with teacher- or host-supplied, source-labelled context and bounded engagement substitutions |
+
+#### General capability shapes
+
+A fixture-specific template is easy to demonstrate and impossible to defend as the requested
+capability. A more general shape is an entity-resolution and facilitation kernel with intent facets:
+
+1. recognise whether the starting expression names a lesson, topic, unit, or unresolved curriculum
+   idea;
+2. search and resolve candidate Oak anchors without hiding ambiguity;
+3. expose the source's educational intent, relevant components, provenance, and safeguards;
+4. refine according to the teacher's expressed purpose rather than a hard-coded subject sequence;
+5. retrieve only the material needed for that purpose;
+6. distinguish source content from summaries, external context, and possible changes; and
+7. return every consequential decision to the teacher.
+
+The photosynthesis and Watford demonstrations then exercise different facets of the same kernel.
+They do not define two product-specific workflows that happen to share tools.
+
+#### Localisation capability shapes
+
+Localisation is clearer when decomposed by purpose, object, evidence, and risk:
+
+| Dimension | Lower-complexity example | More sophisticated example | Persistent authority boundary |
+| --- | --- | --- | --- |
+| Purpose | Improve recognition or engagement | Reframe a sequence around local enquiry | Teacher decides whether the change serves their pupils and intent |
+| Object changed | Place name or discussion prompt | Slides, worksheet, map, imagery, or assessment | Teacher chooses the artefact and approves the result |
+| Source of context | Teacher supplies a Watford landmark | Licensed local dataset or verified external research | Provenance and uncertainty remain visible |
+| Educational effect | Preserve learning outcome and disciplinary anchor | Modify examples, task structure, or content emphasis | Pedagogical change is explicit, not inferred |
+| Technical operation | Suggest substitution points in text | Transform downloadable assets and maintain layout/accessibility | Technical success is not treated as pedagogical approval |
+
+This suggests an alpha edge that is useful without pretending to be the beta destination: identify
+context-bearing elements, retain the educational anchors, help the teacher consider source-labelled
+Watford substitutions, and make clear which artefact operations depend on the host or are not yet
+available. Future integrated data sources and artefact transformation can deepen the capability
+without changing the authority contract.
+
+#### Assumptions changed by the exploration
+
+- The problem is not two bespoke workflows. It is a generic facilitation protocol exercised by two
+  deliberately different fixtures.
+- "Works everywhere" does not mean every tool or lesson component is used everywhere. It means the
+  contract produces an honest, useful outcome for every supported entity and a clear empty or
+  refusal outside the available corpus or capability.
+- Teacher authority does not mean agent passivity. It permits reversible operational initiative but
+  never transfers pedagogical or final-use authority.
+- Localisation is not a single sophistication scale and is not necessarily a change to educational
+  content.
+- An internal demonstration is evidence of legibility, not proof of generality.
+- An assistant audience annotation is a useful signal, not a promise of model context across hosts.
+- A tool that merely tells the agent to read a resource does not solve accessibility unless the
+  second hop is proven in each target host.
+- Deterministic server retrieval and model-led interaction are complementary: the server should not
+  become an opaque planning agent, and the consuming agent should not invent curriculum facts that
+  Oak can supply.
+
+### Movement 4: synthesis and a falsifiable concept
+
+#### Revised framing
+
+The concept is a **generic, teacher-controlled facilitation protocol over typed Oak curriculum
+anchors, delivered through layered MCP adapters**.
+
+"Teacher-controlled" names the authority invariant. "Facilitation" allows useful operational
+initiative without assigning pedagogical agency to the system. "Typed curriculum anchors" makes
+lesson, topic, unit, and related curriculum structures part of one general contract without
+pretending they are identical. "Layered MCP adapters" separates the canonical workflow content from
+the host-dependent routes by which a model acquires it.
+
+The conceptual interaction is:
+
+1. **Recognise intent:** infer that the teacher wants to work with Oak material, without requiring a
+   command or protocol term.
+2. **Resolve a starting anchor:** search the relevant curriculum structures and present real
+   ambiguity.
+3. **Refine progressively:** ask only for details that change the next retrieval or presentation.
+4. **Retrieve selectively:** use the components actually available and useful for the expressed
+   purpose.
+5. **Preserve meaning and provenance:** carry educational anchors, safeguards, and source identity
+   into the response.
+6. **Offer reversible options:** surface materials, interpretations, or possible substitutions
+   without silently applying pedagogical changes.
+7. **Return decisions to the teacher:** make relevance, adaptation, emphasis, and final use explicit
+   teacher choices.
+
+#### Public-alpha capability envelope
+
+Within this framing, a defensible public-alpha envelope includes:
+
+- natural-language recognition of preparation, exploration, and bounded localisation intents;
+- generic resolution from lesson, topic, or unit language to Oak curriculum anchors;
+- progressive, teacher-directed refinement rather than mandatory scripted intake;
+- selective presentation of available Oak content, pedagogical context, safeguards, and materials;
+- source links and downloadable-asset links where the current tools provide them;
+- clear distinction between Oak source material, agent summaries, and external or teacher-provided
+  context; and
+- simple engagement-oriented localisation where the source of local context and the unchanged
+  educational anchors remain explicit.
+
+It does not by itself claim:
+
+- arbitrary discovery of current local information by the Oak server;
+- editing of slide decks, worksheets, maps, images, or other downloaded assets;
+- autonomous lesson planning, pedagogical judgement, or approval;
+- generation as a substitute for missing Oak material; or
+- identical resource and tool behaviour in every host without integration evidence.
+
+The public-beta horizon can include deeper adaptation, artefact transformation, integrated local
+data, and more generation while preserving the same authority, fidelity, and provenance invariants.
+
+#### What the demonstrations can and cannot show
+
+| Fixture | Can show | Cannot establish alone |
+| --- | --- | --- |
+| Year 9 photosynthesis preparation | Natural-language workflow acquisition; topic/entity resolution; selective use of source misconception, teacher tip, quiz, transcript, and available assets; progressive teacher refinement | Curriculum-wide generality, cross-host portability, missing-data behaviour, or support for every preparation purpose |
+| Local Area localised to Watford, England | Separation of educational anchors from local context; engagement-level substitutions; provenance; explicit teacher approval; honest host/asset boundary | Arbitrary local-data accuracy, systematic artefact editing, sophisticated adaptation, or generality across all subjects and localities |
+
+A stronger evidence surface varies the conditions rather than polishing the two transcripts:
+
+- lesson-, topic-, and unit-led starting messages;
+- several subjects, key stages, and curriculum structures;
+- one match, several plausible matches, and no match;
+- complete, partial, and absent optional lesson components;
+- programme, tier, and exam-board ambiguity where applicable;
+- content guidance and supervision-level handling;
+- requests that remain inside alpha and requests that cross the declared boundary; and
+- each major target host's resource visibility, tool selection, link handling, and context behaviour.
+
+This is an evaluation space, not a proposed rollout checklist. Its purpose is to prevent the two
+fixtures being mistaken for the extent of the capability.
+
+#### Hard failures and quality signals
+
+Teacher-authority violations and demo-specific product branches are hard failures even if the final
+answer looks useful. Other discriminating signals include:
+
+| Signal | Strong behaviour | Weak behaviour |
+| --- | --- | --- |
+| Workflow acquisition | Guidance is acquired from ordinary teacher language without a prompt command | The model proceeds unguided or requires protocol knowledge |
+| Anchor resolution | Real curriculum choices and uncertainty are visible | First-match selection is hidden |
+| Fidelity | Load-bearing Oak facts, safeguards, and provenance survive | Fluent paraphrase changes or omits them |
+| Question quality | Each question unlocks a materially better next action | Questions reproduce a generic planning form |
+| Scope control | The agent facilitates the expressed request and labels boundaries | It generates or adapts beyond the teacher's request |
+| Missing data | Absence is explicit and alternatives are bounded | Content or capabilities are implied or invented |
+| Local provenance | Watford additions have a visible source and status | Local claims blend into Oak material |
+| Portability | Equivalent authority and fidelity semantics survive host differences | The concept depends on undeclared host behaviour |
+| Context efficiency | Only relevant workflow detail is loaded and attended to | The catalogue dominates context or retrieval repeatedly fails |
+
+#### Stress cases
+
+The framing should remain coherent when:
+
+- a topic phrase has plausible matches in different subjects or years;
+- a teacher begins from a unit rather than a lesson;
+- Oak has no matching content;
+- a lesson has no transcript, quiz, slide deck, or worksheet;
+- a programme distinction such as tier or exam board changes the candidate set;
+- content guidance or a supervision level must be surfaced;
+- a teacher asks "what should I do?" and the agent must facilitate options without claiming their
+  professional judgement;
+- the requested change would alter educational intent rather than merely localise engagement;
+- the local context includes pupil-, school-, or safeguarding-sensitive information;
+- an external map, photograph, or dataset has licensing, attribution, currency, or accessibility
+  constraints;
+- a host cannot read a resource returned by the server;
+- a host cannot browse, download, or edit the artefact implied by the request; or
+- a short-lived asset link expires before the teacher uses it.
+
+These cases widen "quality" beyond answer relevance. Privacy, safeguarding, accessibility,
+licensing, attribution, link lifetime, and explicit capability boundaries all affect whether the
+facilitation is usable and trustworthy.
+
+#### Warrants, falsifiers, and unresolved empirical questions
+
+| Current hypothesis | Warrant | Falsifier or material weakening evidence |
+| --- | --- | --- |
+| A generic facilitation kernel with typed branches is preferable to fixture workflows | Authority and fidelity are common, while entity resolution and available content vary | The common contract proves too abstract to constrain model behaviour across curriculum entities |
+| Progressive dialogue is preferable to a fixed intake | Teacher requests contain different amounts of context and ambiguity | Teachers consistently prefer a known up-front form, or progressive questioning creates more turns without better outcomes |
+| Layered delivery is preferable to any single MCP surface | Host support and control models differ | All target hosts expose one surface reliably and other projections only add selection confusion |
+| Bounded direct-return retrieval is safer than a pointer-only tool | It removes an unproven resource-read hop | Target hosts consistently follow resource pointers and direct-return content causes worse context or governance outcomes |
+| Simple localisation has alpha value | Engagement can improve while educational anchors remain fixed | Teachers find it trivial, misleading, or unusable without deeper artefact transformation |
+| External/teacher context should remain explicitly separate from Oak source content | Provenance enables professional judgement and honest correction | User research shows the distinction cannot be communicated without making the workflow unusably complex |
+| Reversible operational initiative is compatible with teacher authority | Searching and presenting evidence does not decide pedagogy | Teachers experience proactive retrieval as loss of control or the agent repeatedly narrows intent incorrectly |
+
+The remaining questions are empirical rather than invitations to decide architecture by preference:
+
+- Which target applications make assistant-audience resources visible to the model, and under what
+  conditions?
+- When prompts are unavailable, which compact descriptions reliably cause models to acquire the
+  relevant workflow?
+- What workflow granularity minimises both context cost and failed acquisition?
+- How much authored guidance is needed to preserve authority and fidelity across different model
+  families?
+- Which questions do teachers experience as genuinely helpful at each ambiguity point?
+- What sources can support Watford context with appropriate licensing, attribution, currency, and
+  privacy?
+- How should a consuming agent communicate that a requested artefact operation belongs to the host,
+  not the Oak server?
+- Which scenario matrix is sufficient to make a credible curriculum-wide and cross-host claim?
+
+The important outcome of this wider exploration is a changed centre of gravity. MCP delivery remains
+a crucial mechanism, but the capability is defined by the facilitation contract and its invariants.
+The two demonstration fixtures should reveal that contract under different pressures; they should
+not become the contract themselves.
