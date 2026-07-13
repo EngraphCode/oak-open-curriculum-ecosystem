@@ -164,7 +164,7 @@ The systems do not merely exchange data. Each surface has a different relationsh
 
 A Linear issue being `In Progress`, a Figma frame describing an intended interaction, a PostHog
 funnel recording behaviour, and an ADR defining architecture are not interchangeable facts. A
-A candidate integration architecture can be tested by whether it preserves those differences
+candidate integration architecture can be tested by whether it preserves those differences
 rather than flattening them into a single generic "sync" concept.
 
 ### 1.4 The load-bearing warrant
