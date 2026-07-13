@@ -1,6 +1,7 @@
 # ADR-182: Mid-Cycle Handoff Record Substrate
 
-**Status**: Proposed 2026-05-22
+**Status**: Proposed 2026-05-22 (amended 2026-07-13 — no-recipient
+transport variant)
 **Date**: 2026-05-22
 **Related**:
 PDR-063 (mid-cycle retirement protocol — the genotype this ADR

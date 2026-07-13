@@ -30,7 +30,7 @@ first_instance: >
   checkout as the coordination home; Wolf rides Vigil (25ece9) ran the first
   live cross-Practice join manually and recorded the frictions this plan
   cures.
-last_updated: 2026-07-05
+last_updated: 2026-07-13
 todos:
   - id: ws0-protocol-pdr
     content: "WS0 — Author the inter-Practice collaboration protocol v1 as a practice-core PDR that TRAVELS ON THE PLASMID (portable, repo-neutral, placed in the propagating decision-records/ set so every transplant receives it by construction) plus the oak ADR phenotype note. Frames conjugation as the Core exchange model's second mode alongside transformation. Clauses: repo-reference vocabulary, coordination-home declaration, join ceremony, foreign-substrate discipline, identity display, adoption/versioning model, exchange handshake (concepts-vs-pointers layering)."
@@ -81,7 +81,7 @@ isProject: false
 
 # Inter-Practice Collaboration Protocol
 
-**Last Updated**: 2026-07-05
+**Last Updated**: 2026-07-13
 **Status**: 🟡 QUEUED (current/) — owner-approved direction, execution not started
 **Scope**: Make cross-repo (cross-Practice) agent collaboration a named,
 versioned protocol implemented by each repo on its own terms.
@@ -334,9 +334,16 @@ Core's exchange model. WS0b makes that explicit on the portable surfaces.
 3. **Join ceremony.** On joining a foreign substrate: FIRST read the home
    estate's write-governance — naming/vocabulary doctrine, comms conventions,
    exchange paths — because guest writes are bound by the home's rules, not
-   the guest's. Then resolve identity with the HOME repo's own derivation;
-   the first comms write declares the home identity name, native-repo
-   alias(es), `session_id_prefix` as the join key, the worktree
+   the guest's. The ceremony's object is AGENT COMMUNICATION (PDR-125
+   clause 3 as amended 2026-07-13): a solo write into a QUIET estate needs
+   the home's write governance and a fresh branch off its latest main; the
+   identity/registration/watcher/adoption machinery binds at the first
+   comms write, claim, or registration. For the communicating join: resolve
+   identity with the HOME repo's own derivation; the first comms write
+   declares the FULL identity block of the home identity contract (name,
+   canonical `id`, explicit `platform`/`model`, `session_id_prefix` as the
+   join key, `seed_source` — the shared wire schema's required minimum
+   stays the four fields), plus native-repo alias(es), the worktree
    repo-reference (origin + branch), and coordination posture. Claims opened
    on the foreign substrate carry the repo-qualified area form. Worked
    violation that ratified the first-read step: the 2026-07-05 join event

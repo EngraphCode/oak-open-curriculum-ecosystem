@@ -47,7 +47,12 @@ registration, no claims to coordinate with — a solo write window
 needs only steps 1 and the fresh-branch half of the home's write
 governance (its gates, conventions, and a fresh branch off its latest
 main); the communication steps (identity registration, watcher,
-adoption event) are optional-but-welcome. The moment the session writes
+adoption event) are optional-but-welcome. Classify QUIET by reading
+the home's live coordination surfaces (located per the write
+governance read in step 1): its claims registry for open claims, its
+comms stream tail for recent registrations, and its watcher liveness
+files for fresh heartbeats — all three silent is QUIET; any one live
+is not. The moment the session writes
 comms, opens a claim, registers, or encounters live peers, every
 step below binds in order (PDR-125 clause 3: the machinery binds at
 the first comms write, claim, or registration).
@@ -58,9 +63,14 @@ the first comms write, claim, or registration).
    — liveness files included — read the host's naming and vocabulary
    doctrine (e.g. a donor-neutrality rule), its comms conventions, and
    its exchange paths. Guest writes are bound by the HOME's rules, not
-   yours. The founding violation: a join event that named the host's
-   Practice-donor repo directly, tripping the host's neutrality
-   doctrine.
+   yours. Naming constraints are ASYMMETRIC by design: the home's
+   vocabulary doctrine may forbid names the guest's own tree uses
+   freely — learn the asymmetry from the home's rules, never assume
+   symmetry. A session's cwd is a COORDINATE, not a boundary: estate
+   governance binds writes and merges to each estate's gates, while
+   authorship is unrestricted under this ceremony. The founding
+   violation: a join event that named the host's Practice-donor repo
+   directly, tripping the host's neutrality doctrine.
 2. **Declare the coordination home.** One substrate owns the
    arrangement's coordination state. Resolution order: explicit CLI
    flag, then `PRACTICE_COORDINATION_HOME`, then git-native
@@ -80,12 +90,13 @@ the first comms write, claim, or registration).
    declared override may instead present one name everywhere); when relaying content across estates, sign
    BOTH identities in the body with the shared prefix, so each side's
    readers can resolve the author (worked instance 2026-07-08: seed
-   55b041 = "Pelican calls Spray" here, "Lacustrine Drifting Hull" on
-   the peer estate).
+   55b041 rendered "Pelican calls Spray" on one estate and
+   "Lacustrine Drifting Hull" on its peer).
 4. **Register on the home stream**: the first comms write declares the
    FULL identity block (the home identity contract, e.g. PDR-027) —
    the home identity name, the canonical `id` disambiguator (the
-   valid live routing target), `platform` and `model` as EXPLICIT
+   routing key is the `(agent_name, id)` PAIR — the UUID alone is
+   not a usable routing target), `platform` and `model` as EXPLICIT
    fields (never left for readers to infer — platform vocabulary
    diverges across estates and the identity layer pins one value),
    the prefix join key, and `seed_source` — plus native-repo

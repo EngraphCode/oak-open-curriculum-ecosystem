@@ -154,12 +154,15 @@ If the active-acknowledgement never arrives:
   present; the completed declared-deadline/default-action path when
   absent) on any measured Step-1 handover signal; once that authority
   route completes, the retirement proceeds whether or not a receiver
-  exists. In that case the coordinator does not pend
-  authority to an unnamed successor: the Step 5 retirement broadcast
+  exists. In that case the coordinator does not leave
+  authority pending for an unnamed successor: the Step 5 retirement broadcast
   explicitly returns coordination authority to the OWNER (the scarce
-  authority above every seat), the pending-handoff transport carries
-  the record, and the next coordinator is owner-designated or
-  team-designated at pickup — never silently assumed.
+  authority above every seat); the coordinator-role context rides
+  the Moment 1 pre-positioning event (re-broadcast if stale — the
+  role is team-state, never handoff-record content); any open cycle
+  claim additionally takes the pending-handoff transport; and the
+  next coordinator is owner-designated or team-designated at pickup
+  — never silently assumed.
 
 ### Cron / cadence boundary
 
@@ -188,7 +191,10 @@ monitor owned by the outgoing coordinator:
   exception above, session-scoped cadence surfaces cannot outlive
   the retiring session: the Step 5 retirement broadcast declares
   them stood down by name, and the empty-slot surfacing duty rides
-  the pending-handoff record to the owner-designated pickup.
+  the Moment 1 pre-positioning event (the durable coordinator-role
+  surface — re-broadcast it if stale) to the owner-designated
+  pickup; the per-claim handoff record, where one exists, carries
+  only the cycle-claim context.
 
 ### Pre-positioning is a process — the shadow period (2026-06-12 amendment)
 
@@ -343,12 +349,14 @@ pressure (PDR-063 trigger), both protocols fire:
 4. This PDR's Moment 1 — broadcast the pre-positioning event
    covering coordinator responsibilities (which is broader than
    any single cycle claim).
-5. PDR-063 Step 4 — directed `mid-cycle-handoff` event to a named
-   receiver for the cycle claim; when no live receiver exists
-   (neither successor nor another coordinator), PDR-063 ruling 3's
-   Step 4 transport exception applies — a broadcast pending-handoff
-   announcement carrying the record path, with pickup via claim
-   adoption.
+5. PDR-063 Step 4 — ONLY when an open cycle claim exists (Steps 2
+   and 3 created and linked its record): directed `mid-cycle-handoff`
+   event to a named receiver for that claim; when no live receiver
+   exists (neither successor nor another coordinator), PDR-063
+   ruling 3's Step 4 transport exception applies — a broadcast
+   pending-handoff announcement carrying the record path, with pickup
+   via claim adoption. A coordinator with NO open cycle claim skips
+   this step entirely; the role handoff is Moment 1's to carry.
 6. PDR-063 Step 5 — retirement broadcast.
 7. The receiving agent for the coordinator role then provides
    this PDR's Moment 2 (active-acknowledgement) when they pick

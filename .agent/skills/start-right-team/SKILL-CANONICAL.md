@@ -811,7 +811,7 @@ mechanism is a host-phenotype fact — a platform with none satisfies
 surfacing with the comms event alone), with an explicit absolute deadline and default action
 declared in the surfacing event (protocol default when no
 coordinator SLA applies: 10 minutes, then autonomous execution),
-waits that declared window, and AT THE DEADLINE EXECUTES the
+waits out that declared window, and AT THE DEADLINE EXECUTES the
 declared default action (the five steps, autonomously, on the
 measured verdict); word arriving before the deadline redirects the
 seat instead — the bounded wait can never become an indefinite one. With no live recipient
@@ -846,7 +846,7 @@ SKILL names the protocol shape and points at it):
    team-cadence shape, naming the handed-off claim and the receiving
    agent (if known) so the team sees the retirement is not abandonment.
 
-The receiving agent's pickup contract is named in §"First Moves" move 6:
+The receiving agent's pickup contract is named in §"First Moves" move 7:
 read the handoff record before any source edit. The
 `mid-cycle-handoff` `message_kind` is reserved for cycle-claim
 handoffs and **may not be used for coordinator role transitions** —
@@ -877,7 +877,13 @@ role acknowledgement: \<incoming\> from \<prior\>"_, referencing the
 pre-positioning event via `in_response_to`, naming the prior
 coordinator, and declaring the cadence the incoming coordinator will
 adopt. The outgoing coordinator continues to hold authority until this
-broadcast lands in the comms stream.
+broadcast lands in the comms stream — with PDR-064's one forced
+exception: a retirement AUTHORISED under PDR-063 §Retirement authority
+on a measured signal ends the session before Moment 2 can land; the
+Step 5 retirement broadcast then returns coordination authority to
+the OWNER explicitly, the role context rides the (re-broadcast if
+stale) Moment 1 pre-positioning event, and the next coordinator is
+owner- or team-designated at pickup — never silently assumed.
 
 **Cron / cadence boundary.** Any coordinator-cadence cron, scheduled
 wakeup, or persistent monitor owned by the outgoing coordinator

@@ -4,7 +4,9 @@ pdr_kind: governance
 
 # PDR-063: Mid-Cycle Retirement Protocol for Token-Bounded Agents
 
-**Status**: Proposed
+**Status**: Proposed (amended 2026-07-08 — §Retirement authority +
+§Deliberate succession, owner rulings; amended 2026-07-13 — signal
+model, observable floor, executable bounds, transport exception)
 **Date**: 2026-05-22
 **Related**:
 [PDR-026](PDR-026-per-session-landing-commitment.md)
@@ -37,8 +39,9 @@ contract names triggers this PDR's per-cycle handoff protocol when a
 heartbeat-emitting role retires under token pressure; PDR-078 defers
 to PDR-063 for the per-cycle handoff substrate, and PDR-063 in turn
 relies on PDR-078's threshold for the trigger);
-[`practice-index.md`](../practice-index.md) (substrate-implementation
-ADR carrying the repo-specific phenotype of this PDR).
+the host estate's practice index (the substrate-implementation
+ADR carrying the repo-specific phenotype of this PDR lives behind it;
+Core cites hosts by role, never by path, per PDR-105).
 
 ## Context
 

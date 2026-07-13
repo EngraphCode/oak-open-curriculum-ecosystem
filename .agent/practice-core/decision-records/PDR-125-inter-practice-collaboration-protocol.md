@@ -14,7 +14,8 @@ founding clauses folded into clauses 3, 5, and 7; the both-estates
 innovation posture added to clause 6; both estates in one window,
 cross-estate diff re-proven). Amended 2026-07-13 (post-landing review
 truings to clauses 3 and 5 — quiet-write scoping, registration
-fields, override precedence and anomaly verification,
+fields, override precedence and anomaly verification, plus ceremony
+mirrors of already-twinned clause-5 rules such as
 successor-details-are-hypotheses): this amendment originated in the
 oak-open-curriculum-ecosystem estate and was not twinned at authoring
 time (no live peer seat); its re-twin is queued for the next exchange
@@ -153,9 +154,9 @@ below serves one of those three.
    key**, and it identifies a SESSION: one session presents different
    DERIVED names across estates (a declared override may present the
    same name everywhere). A SUCCESSOR is a NEW session — new prefix,
-   therefore (for DERIVED names) a new name in every estate; a
-   declared persistent override is the one sanctioned exception,
-   below. The anomaly rule: same name
+   therefore (for DERIVED names) a new name in every estate. The
+   sanctioned same-name cases are a declared persistent override and
+   a VERIFIED rare derived collision, both below. The anomaly rule: same name
    with a different prefix is an anomaly — surface it and VERIFY
    before accepting, never assume. For DERIVED names a rare
    legitimate collision is possible (finite wordlists; different

@@ -1,7 +1,7 @@
 # ADR-211: Inter-Practice Collaboration — Host Phenotype
 
 - **Status:** Accepted (2026-07-06; authored in the coordinated cross-estate WS0 session,
-  Lapwing herds Eyrie).
+  Lapwing herds Eyrie). Amended 2026-07-13 (ceremony-and-trigger scoping mirror).
 - **Mirrors:** [PDR-125: The Inter-Practice Collaboration Protocol](../../../.agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md)
   — the portable doctrine. This ADR is the host half: how this repo realises the protocol's
   mechanics. The controlling plan in the agent-tooling lane owns the HOW and the remaining
@@ -41,6 +41,6 @@ is, so the protocol's clauses resolve to concrete surfaces here.
 
 A visiting session can join this estate with zero prior knowledge: the rule fires, the skill
 enumerates the ceremony, the PDR carries the doctrine, and the mechanics above are the host
-surfaces the ceremony touches. The remaining protocol workstreams (repo-qualified claims WS2, the
+surfaces the ceremony touches. The remaining protocol workstreams (the repo-qualified claims WS2, the
 conformance self-report WS0c, the shared schema WS0e) extend this phenotype and amend this ADR
 when they land.
