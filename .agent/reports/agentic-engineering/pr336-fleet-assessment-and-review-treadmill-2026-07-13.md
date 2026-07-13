@@ -233,7 +233,7 @@ ratio that produced 28 rounds here.
   set, not individually identifiable. One finding-key field per
   verdict row cures it.
 - Anti-stub constraints must cover VERIFIER evidence fields, not only
-  finder findings: one REFUTED verdict's evidence is literal
+  finding rows: one REFUTED verdict's evidence is literal
   schema-padding filler that passed schema validation — the
   quote-anchor protected findings only. The extract preserves the row
   as captured (never falsify the evidence file); the ledger counts it
@@ -305,7 +305,8 @@ handoff, held only in one very long session context.
 - The fleet's raw per-agent transcripts and the workflow journal
   (session-local): the durable extract is the companion evidence file
   [`pr336-fleet-raw-findings-2026-07-13.jsonl`](pr336-fleet-raw-findings-2026-07-13.jsonl)
-  (all 85 raw finder findings — 81 deduped after the 4
+  (all 85 raw findings, finder and cross-surface phases combined —
+  81 deduped after the 4
   dedup-duplicates — and all 66 verdict rows; the arithmetic is
   85 − 4 = 81 and 81 − 66 = 15 unverified, whose bodies are among the
   81 but carry no verdict-to-finding linking key, so they are bounded
