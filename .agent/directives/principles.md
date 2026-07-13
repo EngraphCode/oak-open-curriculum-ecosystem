@@ -19,12 +19,14 @@ All of these principles MUST be followed at all times.
 
 ## Decision Lenses — Order of Resolution
 
-When answering a question or making a decision, apply these lenses **in order**;
-the first that decisively resolves the question governs. They are the shared
-decision substrate every agent and the Director apply, so decisions stay coherent
-across the team without escalation — a question reaches the owner only when
-critical analysis through all five genuinely fails to resolve it, or the decision
-is constitutively the owner's (for example product or feature scope):
+First determine whether the work has a formed question. When it begins as raw observations, a
+recurring phenomenon, or an unshaped ask — or when a premature option list may foreclose the real
+question — run Concept Exploration below. Once the question is well formed, apply these lenses
+**in order**; the first that decisively resolves the question governs. They are the shared decision
+substrate every agent and the Director apply, so decisions stay coherent across the team without
+escalation — a question reaches the owner only when critical analysis through all five genuinely
+fails to resolve it, or the decision is constitutively the owner's (for example product or feature
+scope):
 
 1. **Choose long-term architectural excellence at every decision point** — see
    [§Architectural Excellence Over Expediency](#architectural-excellence-over-expediency).
@@ -50,11 +52,11 @@ and the highest levels of software engineering excellence.
 
 ### Concept Exploration — the pre-decision workflow
 
-The lenses resolve formed questions. For raw observations, recurring phenomena, or an unshaped
-ask, invoke the
-[`concept-exploration`](../skills/concept-exploration/SKILL-CANONICAL.md) skill before an option
-list exists. It alternates `metacognition` and `reason`, then feeds its warranted, falsifiable
-synthesis into the lenses above.
+The lenses resolve formed questions. Invoke the
+[`concept-exploration`](../skills/concept-exploration/SKILL-CANONICAL.md) skill before committing
+to an option list, including when an early list exists but may foreclose the real question. It
+alternates `metacognition` and `reason`, then feeds its warranted, falsifiable synthesis into the
+lenses above.
 
 ## First Question
 
