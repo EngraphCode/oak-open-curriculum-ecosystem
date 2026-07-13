@@ -1,6 +1,6 @@
 # Effectiveness and Impact
 
-**Last Updated**: 9 July 2026
+**Last Updated**: 13 July 2026
 
 Planning hub for how Oak **knows its agent-facing surfaces work and deliver value**: evaluation
 and assessment methodology, review and eval protocols for the MCP agent-facing content corpus,
@@ -22,7 +22,8 @@ regime (skills/prompts/sub-agents, e.g. the skill-evals pilot); `sdk-and-mcp-enh
 what the MCP servers *do*. This collection owns **how the agent-facing content and its delivered
 behaviour are assessed** — methodology, protocols, coverage, and the impact evidence chain.
 
-**Current Plans**: [current/](current/)
+**Roadmap**: [roadmap.md](roadmap.md) · **Lanes**: [active/](active/README.md) ·
+[current/](current/) · [future/](future/README.md)
 
 ## Documents
 

@@ -558,9 +558,9 @@ preserved verbatim before that worktree's removal.
 ## 2026-07-09 — Beacon hunts Brilliance, second handoff prep (successor picks up Monday)
 
 - **Merge-window stranding RECURRENCE (instance ≥2):** owner merged PR #337 at 15:03Z; my truings
-  commit `2af1ce9cb` reached the branch moments later and silently missed the merge. Same shape as
+  commit `SHA:2af1ce9cb` reached the branch moments later and silently missed the merge. Same shape as
   the prior "merge-window stranding rescued" instance in continuity. Rescue: cherry-pick onto the
-  open PR #338 (`e63f36cda`). Detection was NOT self-evident — found only because handoff prep
+  open PR #338 (`SHA:e63f36cda`). Detection was NOT self-evident — found only because handoff prep
   re-grounded PR state first-hand and diffed `origin/main..origin/<branch>`. Cure-shape thought:
   after ANY push to a PR branch, assert the PR is still OPEN (a push to a just-merged PR is a
   stranding signal); candidate pr-lifecycle clause — second instance makes it graduation-eligible.
@@ -582,3 +582,22 @@ preserved verbatim before that worktree's removal.
   documented). Metaloss check: the review-treadmill exit-criteria practice (name exit criteria
   BEFORE the round arrives) worked twice today — already captured above; nothing else survives
   the sweep.
+
+## 2026-07-13 — Monsoon herds Airstream (8c566b): PR #338 shepherd (the Monday pickup)
+
+- **Landed:** PR #338 MERGED to main (`SHA:7ef8a8a3a`, 08:15Z) via normal non-admin merge (merge
+  commit) — the merge button IS active for a non-admin on this repo once checks are green and
+  threads resolved; owner pre-authorised the press this session via AskUserQuestion. The last
+  unresolved finding (Copilot: the plan cites a repo-tracked `.mcp.json`) was VERIFIED REAL
+  before any reply — `.mcp.json` exists locally but is gitignored (`.gitignore:27`); fixed at
+  `SHA:9cff508da` by stating the capability truly (`@mcpjam/cli` devDependency, `pnpm exec mcpjam`;
+  wiring is per-checkout). Third instance of the capability-locus class on this thread (after
+  the mcp-inspector-skill citation) — the plan-body first-principles check's capability-locus
+  clause (napkin 2026-07-09 candidate) keeps earning its graduation.
+- **Whole-record truing held:** the false claim existed at TWO sites in the plan (P2 pre-probe
+  - the gap list's "MCPJam wired"); grep-sweep before declaring done caught the second. The
+  disposition reply was posted only after the fix bytes were confirmed on the REMOTE head
+  (raw-contents API at the new sha) — the false-disposition failure mode from the PR #328 arc
+  stayed closed.
+- **Stranding guard worked as doctrine:** asserted PR still OPEN immediately after the push
+  (the cure candidate from the 2026-07-09 recurrence); no stranding this time.
