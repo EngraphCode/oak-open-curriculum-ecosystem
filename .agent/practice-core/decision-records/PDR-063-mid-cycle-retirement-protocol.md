@@ -287,7 +287,7 @@ replaces it. No other step changes.
    so no schema violation), plus the surfacing step's out-of-band
    owner notification where the platform provides one (the same
    capability condition as above); the successor later picks up via claim ADOPTION
-   (the §Deliberate-succession in-flight substrate), which needs no
+   (the §Deliberate succession in-flight substrate), which needs no
    directed event from the departed seat. The seat closes cleanly;
    successor instantiation then follows ruling 4 (owner-mediated)
    from the record.

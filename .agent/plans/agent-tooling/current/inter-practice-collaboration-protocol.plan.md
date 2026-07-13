@@ -48,7 +48,7 @@ todos:
     status: done
     depends_on: [ws0-protocol-pdr]
   - id: ws0d-discoverability
-    content: "WS0d — Make the protocol discoverable-by-construction: a portable rule that FIRES on the cross-repo condition (worktree-repo ≠ coordination-home-repo, or joining any foreign substrate) pointing at the join-ceremony skill, plus an AGENT.md/entry-point pointer — both in the propagating Core set so a fresh agent in a freshly-transplanted repo finds the ceremony without being told."
+    content: "WS0d — Make the protocol discoverable-by-construction: a portable rule that FIRES on the cross-repo condition (worktree-repo ≠ coordination-home-repo, or sibling-estate COLLABORATION — writes, claims, registration; read-only looks are unceremonied and quiet-estate solo writes take the lighter governance path, per the 2026-07-13 scoping) pointing at the join-ceremony skill, plus an AGENT.md/entry-point pointer — both in the propagating Core set so a fresh agent in a freshly-transplanted repo finds the ceremony without being told."
     status: done
     depends_on: [ws0-protocol-pdr, ws4-skill]
   - id: ws1-cycle-1-env-override

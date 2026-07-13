@@ -187,8 +187,9 @@ monitor owned by the outgoing coordinator:
   pre-positioning event (*"if Moment 2 has not landed by
   \<deadline\>, the cron continues firing into an empty
   coordinator slot — this is the structural defect; the team
-  must surface a new candidate"*). Under the §authority forced
-  exception above, session-scoped cadence surfaces cannot outlive
+  must surface a new candidate"*). Under the forced
+  exception above (the authority-invariant bullet; PDR-063
+  §Retirement authority), session-scoped cadence surfaces cannot outlive
   the retiring session: the Step 5 retirement broadcast declares
   them stood down by name, and the empty-slot surfacing duty rides
   the Moment 1 pre-positioning event (the durable coordinator-role

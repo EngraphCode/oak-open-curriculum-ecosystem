@@ -894,7 +894,8 @@ wakeup, or persistent monitor owned by the outgoing coordinator
 **never goes dark between them** within the same role-authority
 window. Cancelling the cadence at Moment 1 is the proximate cause of
 the coordinator-less window this rule structurally cures. One
-carve-out (PDR-064 §forced exception): session-scoped cadence
+carve-out (PDR-064's forced exception — its authority-invariant
+bullet): session-scoped cadence
 surfaces cannot outlive an authorised forced retirement — the Step 5
 broadcast stands them down BY NAME, and the empty-slot surfacing
 duty rides the (re-broadcast if stale) Moment 1 pre-positioning
