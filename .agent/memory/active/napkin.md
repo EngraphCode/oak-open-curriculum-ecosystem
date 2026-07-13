@@ -601,3 +601,12 @@ preserved verbatim before that worktree's removal.
   stayed closed.
 - **Stranding guard worked as doctrine:** asserted PR still OPEN immediately after the push
   (the cure candidate from the 2026-07-09 recurrence); no stranding this time.
+
+## 2026-07-13 — Thyme guards Seedling (019f5b): public-alpha workflow exploration
+
+- **Mistake / tooling seam:** I opened the short-lived commit claim in the linked worktree's
+  untracked registry. `commit-queue` resolves its registry and Git `repoRoot` to the primary
+  coordination checkout, so it could neither see that claim nor safely operate on this worktree's
+  index. The primary checkout also contains an unrelated user edit. For this isolated n=1 worktree,
+  use the commit skill's explicit-pathspec fallback after verifying the worktree's staged set; do
+  not redirect the composed queue workflow at the primary checkout merely to make the claim visible.
