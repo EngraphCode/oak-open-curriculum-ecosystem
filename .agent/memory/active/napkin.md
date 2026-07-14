@@ -2217,3 +2217,13 @@ Two genuinely-new arrivals conserved in this commit, both to route to main at co
 
 Post-compaction liveness: comms watcher re-armed (#12, same seen-file, gap-sweep covered);
 claim `0f4be777` heartbeat re-armed as a 3-minute monitor loop replacing the manual refreshes.
+
+**Post-alignment addendum (same seat):** first-hand verification falsified a claim my own
+compaction summary transmitted as fact — the director-handoff `CURRENT HANDOFF STATE` refresh
+did NOT land in PR #376 (only the frictions-register path truing reached main; no 2026-07-14
+entry existed in the landed file). The rehydration base still pointed a successor at the
+2026-07-06 curriculum-hub state and claim `35d9c8f2` instead of this team arc and claim
+`0f4be777`. Cured in this commit: the planning-and-visibility ACTIVE EFFORT block authored at
+the top of `CURRENT HANDOFF STATE`; the curriculum-hub block retitled PARALLEL RETAINED EFFORT
+with its content conserved verbatim. The worked lesson is the standing one: carried context
+rots at PR boundaries — verify landings first-hand, including your own.
