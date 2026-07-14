@@ -1,3 +1,18 @@
+# [1.65.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.64.1...v1.65.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* **agent:** clarify concept exploration routing ([8ac9068](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8ac90682f3a6e551a59d4ef23cb4783d61ed2290))
+* **agent:** complete concept exploration review ([4801042](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/48010420f102797235f7e10a55b00ce2b3c77a37))
+* **agent:** preserve concept routing ([ca05372](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca0537239ce88a2945c8c36208e05194355944b1))
+* **docs:** catalogue concept transfer ([62b851b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62b851bb546233d5f673e690798592faf056795a))
+
+
+### Features
+
+* **agent:** add concept exploration skill ([aad0cee](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aad0cee194b15a2ec53d33485477a48d034ba8f8))
+
 ## [1.64.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.64.0...v1.64.1) (2026-07-08)
 
 
