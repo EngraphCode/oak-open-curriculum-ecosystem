@@ -3,11 +3,12 @@ plan_id: high-level-plan
 title: "High-Level Plan"
 type: strategic-index
 status: active
-last_updated: 2026-06-18
+last_updated: 2026-07-14
 related_indices:
   - "README.md"
   - "curriculum-mcp-path-to-ga/roadmap.md"
   - "discovery/README.md"
+  - "telemetry-and-understanding/roadmap.md"
   - "observability/high-level-observability-plan.md"
 ---
 
@@ -59,9 +60,10 @@ the collection-owned plan first, then reconcile this index.
 |---|---|---|
 | Whole plan portfolio | [README.md](README.md) | Root operational index, collection table, lifecycle/reachability contract |
 | MCP server release arc | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) | Thin strategic index for M1 → M2 → M3 → GA across observability, security, compliance, SDK/MCP, and architecture |
+| Telemetry and product/operational understanding | [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md) | TAU: proposed next-priority question → signal → analysis → decision programme, pending Stage 0 authority ratification; PostHog-first with Sentry as engineering specialist |
 | Graph & evidence work | [connecting-oak-resources/knowledge-graph-integration/README.md](connecting-oak-resources/knowledge-graph-integration/README.md) | Knowledge-graph integration hub; the live EEF evidence tool is under [sector-engagement/eef/](sector-engagement/eef/README.md) |
 | Agent-readiness discovery | [discovery/README.md](discovery/README.md) | API catalog, Agent Skills, MCP Server Cards, A2A, DNS-AID, WebMCP, Web Bot Auth, robots/sitemaps, and `.well-known` metadata |
-| Observability strategy | [observability/high-level-observability-plan.md](observability/high-level-observability-plan.md) | Five-axis observability plan under ADR-162 |
+| Observability implementation estate | [observability/README.md](observability/README.md) | Inherited five-axis signal/Sentry plans and evidence, proposed for TAU sequencing and disposition after Stage 0 ratification |
 
 ---
 
@@ -81,7 +83,7 @@ is promoted.
 | M0 - Open Private Alpha | ✅ Complete | Repo made public after secrets/PII and docs remediation; HTTP server remained private alpha. | Relocated archive ([`.agent/plans-old-archive/`](../plans-old-archive/)) |
 | M1 - Invite-Only Alpha | ✅ Complete | Dev Clerk allowlist, Oak/invited users, server live at `curriculum-mcp-alpha.oaknational.dev`. | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) |
 | M2 - Open Public Alpha | 🔄 In progress | Public-alpha readiness across search/index health, MCP Apps migration, graph alignment, observability evidence, and user-facing MCP App experience. | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) plus collection active/current plans |
-| M3 - Public Beta | 📋 Planned / gated | Production Clerk, Cloudflare MCP security gate, operational hardening, alerting, compliance/privacy paperwork, and exemplar UI readiness. | [security-and-privacy/roadmap.md](security-and-privacy/roadmap.md), [compliance/roadmap.md](compliance/roadmap.md), and [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) |
+| M3 - Public Beta | 📋 Planned / gated | Production Clerk, Cloudflare MCP security gate, operational hardening, alerting, compliance/privacy paperwork, and exemplar UI readiness. | [security-and-privacy/roadmap.md](security-and-privacy/roadmap.md), [compliance/roadmap.md](compliance/roadmap.md), [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md), and [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) |
 | M4 / GA | ⏳ Undefined | Sustained production GA needs owner-defined gates after M3 evidence accumulates. | Backlog A4 in [roadmap.md](curriculum-mcp-path-to-ga/roadmap.md); pre-decision scaffold in [launch-readiness-framework.md](curriculum-mcp-path-to-ga/launch-readiness-framework.md) |
 
 ---
@@ -110,15 +112,40 @@ Key linked collections:
 
 - [sdk-and-mcp-enhancements/](sdk-and-mcp-enhancements/README.md) - MCP Apps,
   MCP protocol adoption, generated SDK/tool surfaces.
-- [observability/](observability/README.md) - five-axis observability and
-  runtime emission.
+- [telemetry-and-understanding/](telemetry-and-understanding/README.md) -
+  product/operational understanding, PostHog delivery, and Sentry integration.
+- [observability/](observability/README.md) - inherited detailed five-axis
+  implementation/evidence estate proposed for TAU sequencing after Stage 0.
 - [security-and-privacy/](security-and-privacy/README.md) - Cloudflare MCP
   public-beta security gate, evidence-backed security claims, Web Bot Auth
   enforcement evidence.
 - [compliance/](compliance/README.md) - host submission, policy, and external
   regulatory/documentation alignment.
 
-### 2. Graph And Evidence Surfaces
+### 2. Telemetry And Understanding System (TAU)
+
+TAU is the next-priority outcome-led programme. It converts runtime evidence
+into product and operational understanding:
+
+```text
+question -> typed signal -> privacy projection -> adapter delivery
+         -> analysis -> review -> decision -> re-measurement
+```
+
+The programme:
+
+- implements the Oak-owned event contract;
+- uses PostHog first for product understanding;
+- preserves Sentry as the specialist engineering-observability surface;
+- keeps stdout/fixtures as the no-vendor floor;
+- integrates logging, monitoring, feedback, and experimentation by named need;
+- removes warehouse work as a prerequisite and reopens it only on a durable
+  cross-source analysis question;
+- rationalises the inherited observability/Sentry plan corpus.
+
+Start at [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md).
+
+### 3. Graph And Evidence Surfaces
 
 Graph work connects Oak curriculum structure, Oak ontology resources,
 misconceptions, and sector evidence. It is owned by its collections:
@@ -134,7 +161,7 @@ Wider graph coordination is deliberately undefined until that first tool ships;
 the estate clean-up is owned by
 [graph-estate-consolidation.plan.md](connecting-oak-resources/knowledge-graph-integration/current/graph-estate-consolidation.plan.md).
 
-### 3. Agent-Readiness Discovery
+### 4. Agent-Readiness Discovery
 
 Discovery is now an active and queued workstream, not a reference-only note.
 Start at [discovery/README.md](discovery/README.md).
@@ -149,7 +176,7 @@ decision/evidence bridge. Future discovery lanes cover MCP Server Cards,
 DNS-AID, Aila A2A, WebMCP, and enabled-control Web Bot Auth rollout if Oak
 ratifies signed-agent verification.
 
-### 4. Practice, Tooling, And Review Infrastructure
+### 5. Practice, Tooling, And Review Infrastructure
 
 Agentic practice and the implementation tooling are separate but coordinated:
 
@@ -160,16 +187,24 @@ Agentic practice and the implementation tooling are separate but coordinated:
   collaboration-state substrate, hooks, CLI behaviour, schemas, and
   implementation-level tooling.
 
-### 5. Runtime Quality, Architecture, And Developer Experience
+### 6. Runtime Quality, Architecture, And Developer Experience
 
-Architecture, observability, developer experience, and semantic-search follow-up
-form the reliability substrate for the public app and public repo:
+Architecture, TAU, observability, developer experience, and semantic-search
+follow-up form the reliability and understanding substrate for the public app
+and public repo:
 
 - [architecture-and-infrastructure/](architecture-and-infrastructure/README.md)
   owns cross-cutting architecture, quality gates, workspace boundaries, and
   system quality.
-- [observability/](observability/README.md) owns five-axis observability after
-  the 2026-04-18 restructure.
+- [effectiveness-and-impact/](effectiveness-and-impact/README.md) owns how
+  agent-facing content and delivered behaviour are assessed and how assurance
+  evidence connects to real-world impact.
+- [telemetry-and-understanding/](telemetry-and-understanding/README.md) is
+  proposed to own the runtime-telemetry question-to-interpretation-to-decision
+  and remeasurement loop plus cross-layer signal priority after its Stage 0
+  authority gate; it does not own assessment or impact methodology.
+- [observability/](observability/README.md) owns inherited detailed signal and
+  Sentry implementation evidence until TAU dispositions each lane.
 - [developer-experience/](developer-experience/README.md) owns SDK publishing,
   generated docs, tooling strictness, and developer-facing quality.
 - [semantic-search/](semantic-search/README.md) owns search quality, ingestion,
@@ -195,7 +230,9 @@ remain authoritative for execution.
 | `semantic-search/` | Hybrid search, ingestion, retrieval quality, search/graph adjacency | 🔄 Current queue; no active plan in collection README | [README.md](semantic-search/README.md) |
 | `school-data-search/` | UK school-register dataset service POC (in-repo until go/no-go); owner gates walk the synthesis report | 📋 Queued | [README.md](school-data-search/README.md) |
 | `sdk-and-mcp-enhancements/` | MCP Apps, MCP protocol adoption, generated SDK/tool surfaces | 🔄 Active + queued execution | [README.md](sdk-and-mcp-enhancements/README.md) |
-| `observability/` | Five-axis observability under ADR-162 | 🔄 Active | [README.md](observability/README.md) |
+| `effectiveness-and-impact/` | Assessment methodology for agent-facing content and delivered behaviour; evidence chain to real-world impact | 📋 Current research plan; execution owner-gated | [README.md](effectiveness-and-impact/README.md) |
+| `telemetry-and-understanding/` | TAU: proposed outcome-led authority for event intent, PostHog understanding, Sentry reconciliation, and logging/monitoring/analysis governance, pending Stage 0 ratification | 🟢 Next priority / current plan; authority proposed | [README.md](telemetry-and-understanding/README.md) |
+| `observability/` | Inherited five-axis signal/Sentry implementation and evidence proposed for TAU sequencing after Stage 0 | 🔄 Active transition proposal | [README.md](observability/README.md) |
 | `architecture-and-infrastructure/` | Architecture, quality gates, workspace boundaries, system quality | 🔄 Active backlog | [README.md](architecture-and-infrastructure/README.md) |
 | `security-and-privacy/` | Security controls, privacy posture, evidence-backed claims, Web Bot Auth enforcement evidence | 🔄 Active execution | [README.md](security-and-privacy/README.md) |
 | `compliance/` | External policy compliance, app submission, regulatory alignment | 📋 Planned / queued | [README.md](compliance/README.md) |
@@ -219,8 +256,8 @@ Update this file when:
 - a new plan collection is created or retired;
 - a cross-collection strategic index becomes authoritative;
 - milestone state changes at M2/M3/M4 level;
-- discovery, graph, MCP release, security, or observability posture changes in a
-  way future sessions must see from the root.
+- discovery, graph, MCP release, security, TAU, or observability posture changes
+  in a way future sessions must see from the root.
 
 Do not use this file for:
 
