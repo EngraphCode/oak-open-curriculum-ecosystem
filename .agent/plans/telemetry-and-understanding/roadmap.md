@@ -196,6 +196,9 @@ Gate:
 - each alert is actionable;
 - logs add demonstrated investigation value;
 - network export is sampled/bounded and privacy-reviewed.
+- the required signal-class registry is complete, while the external-log route
+  and the distribution-dependent SLO/alert lane each retain independent
+  delivered or evidence-backed not-promoted evidence for Stage 10.
 
 ### Stage 7 — Wider axes and runtimes
 

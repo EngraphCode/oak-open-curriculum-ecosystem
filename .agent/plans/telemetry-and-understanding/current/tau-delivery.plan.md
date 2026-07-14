@@ -101,11 +101,11 @@ todos:
     status: pending
     depends_on: [s5-sentry-distinct-value, s0-authority-and-disposition]
   - id: s6-signal-class-and-logs
-    content: "STAGE 6: formalise event/log/trace/metric/error/alert/feedback classes and run the PostHog OTLP Logs value-cost-privacy probe; do not wholesale duplicate logs without a surviving question."
+    content: "STAGE 6: formalise event/log/trace/metric/error/alert/feedback classes; run the PostHog OTLP Logs value-cost-privacy probe and either deliver the proportionate surviving log route or record an evidence-backed not-promoted disposition; do not wholesale duplicate logs without a surviving question."
     status: pending
     depends_on: [s4-understanding-review, s5-sentry-ground-truth]
   - id: s6-monitoring-alerts
-    content: "STAGE 6: derive SLOs and alerts from observed distributions; each alert requires owner, condition, dedupe, runbook, cost/cardinality control, and explicit action."
+    content: "STAGE 6: when stable distributions and incident evidence exist, either derive proportionate SLOs and alerts or record an evidence-backed not-promoted disposition; each surviving alert requires owner, condition, dedupe, runbook, cost/cardinality control, and explicit action."
     status: pending
     depends_on: [s6-signal-class-and-logs]
   - id: s7-wider-events
@@ -927,6 +927,12 @@ Define service-level indicators from stable signals. Candidate dimensions:
 - privacy/data-quality violations.
 
 Targets and alerts wait for traffic and owner risk tolerance.
+
+The signal-class registry is required. The external-log route and the
+distribution-dependent SLO/alert lane each terminate independently as either
+delivered or evidence-backed not promoted. Insufficient traffic, incident
+evidence, investigation value, or owner risk tolerance is evidence for the
+latter outcome; it must not be represented as an implemented monitoring lane.
 
 ## Stage 7 — Wider events and runtimes
 
