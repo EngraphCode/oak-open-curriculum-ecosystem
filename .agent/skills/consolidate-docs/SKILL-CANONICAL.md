@@ -114,7 +114,7 @@ deferral-honesty discipline that this workflow's homing actions all
 defer to. The session-scoped counterpart is
 [`session-handoff` step 6d](../session-handoff/SKILL-CANONICAL.md),
 which sweeps platform-specific entry points (`CLAUDE.md`, `AGENTS.md`,
-`GEMINI.md`, etc.) at every session close.
+`GEMINI.md`, `skills.md`, etc.) at every session close.
 
 **A completed plan MUST be safe to delete at any point.** Plans are
 execution instructions — they describe what to do and track progress.
@@ -408,10 +408,10 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
      dispositions, not silent skips. Cross-platform ingestion is a
      consolidation-time activity, not a session-open activity.
    - **Platform-specific entry points**: `CLAUDE.md`, `AGENTS.md`,
-     `GEMINI.md`, and analogous host adapters. Session-handoff
-     should already have caught these; re-sweep at thread-scoped
-     depth as a backstop and to catch any drift the session-scoped
-     pass missed.
+     `GEMINI.md`, `skills.md`, and analogous host adapters.
+     Session-handoff should already have caught these; re-sweep at
+     thread-scoped depth as a backstop and to catch any drift the
+     session-scoped pass missed.
 
    Per the standing direction codified in the homing partial: *all
    content must be moved to permanent homes or, if not useful,

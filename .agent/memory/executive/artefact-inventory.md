@@ -44,7 +44,7 @@ boundary is ADR-165.
 
 | Location | Purpose |
 |----------|---------|
-| `AGENTS.md` / `CLAUDE.md` / `GEMINI.md` | Thin platform entrypoints that point agents into `.agent/` |
+| `AGENTS.md` / `CLAUDE.md` / `GEMINI.md` / `skills.md` | Thin platform entrypoints that point agents into `.agent/` |
 
 ## Platform Adapters (Layer 2)
 

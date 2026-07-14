@@ -431,9 +431,9 @@ no retrospective memos; those are close-out work, this skill's §Steps.
 
    **6d. Sweep platform-specific entry points for drift.** Open
    each of the platform-specific entry-point files at the repo root
-   — `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, and any analogous
-   platform entry point present in the repo — plus any host-specific
-   adapter entry-point (`.codex/AGENTS.md`, etc.).
+   — `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`, and any
+   analogous platform entry point present in the repo — plus any
+   host-specific adapter entry-point (`.codex/AGENTS.md`, etc.).
 
    **Default contract**: heading + a one-line pointer to
    [`.agent/directives/AGENT.md`](../../directives/AGENT.md) (or the
@@ -455,14 +455,21 @@ no retrospective memos; those are close-out work, this skill's §Steps.
      AGENT.md pointer to its rules-index references the way Claude
      Code does, so the rules-index pointer is part of the AGENTS.md
      contract.
+   - `skills.md` extends the default with the same rules-index line.
+     This is the entry point for
+     [Linear coding sessions](https://linear.app/docs/coding-sessions);
+     a delegated Linear session runs Claude Code or Codex and can use
+     `skills.md` as supplementary guidance, so the non-loader
+     rules-index pointer is part of the `skills.md` contract for the
+     same reason as `AGENTS.md`.
 
    Anything beyond the default (or beyond a named extension) is
    **drift**: an instruction, fact, preference, or operational note
    that an agent or user added directly to the entry point instead
    of routing it through the canonical surfaces. Entry-point drift
-   is particularly insidious because every platform reads only its
-   own entry point first; a fact that lives only in `AGENTS.md` is
-   invisible to Claude, and vice versa.
+   is particularly insidious because platforms consume different
+   entry points; a fact that lives only in `AGENTS.md` is invisible
+   to Claude, and vice versa.
 
    For every piece of drift found, apply the
    [ephemeral-to-permanent-homing methodology](../../memory/operational/ephemeral-to-permanent-homing.md):
