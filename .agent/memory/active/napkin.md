@@ -1975,3 +1975,208 @@ now exists as a rule); consolidation dispositions each point on its merits.
   remained cold-paused with its r1 claim retained; it did not retire or own the accepted
   visibility/Sentry remainder. This correction supersedes the historical placement while
   preserving the original record.
+
+## 2026-07-14 — Galleon calls Channel (019f60): terminal session handoff, loss scan, and recursive metaloss
+
+<!-- `oak-consolidate-docs` mode: session-completion. This seat is a team member handing its
+bounded lane to Director Quasar mends Umbra (52b4de), not the repo-wide closeout owner. The
+larger napkin rotation remains a dedicated cross-thread curator boundary. -->
+
+### Landed outcome, verified at write time
+
+- The federated-visibility authority work is on `main`: PR #369 merged at
+  `SHA:b370001dd83d6661420e31524653efce19666a3c`. The authorised Notion retrofit on page
+  `39c26cc4e1b181d09242ed54708443e8` was read back after the write with its five evidence
+  classes, usage-versus-impact boundary, source-routing table, freshness policy, technical
+  verification toggle, terms toggle, and repository-attributed traceability entries intact.
+- The NEO report, review contract, thread history, and Sentry configuration landed through
+  PR #372 at `SHA:3254dbc347e57d7dd1783159db393243ac01712c`. PR #371 is closed unmerged as
+  superseded; its remote branch is intentionally retained.
+- The retirement-only follow-up landed through PR #373 at
+  `SHA:03046020307f0a17eb493f3d349a5773f142a66c`. On current `origin/main`, the NEO record
+  is under `threads/retired/`, the old root record and active-index row are absent, and the
+  retired bytes retain SHA-256
+  `b979bac3e716cb422ad3c9092b8d638bbfec7188fc815524e7015b9d83a76efa`.
+- The repository-wide gate for the retirement change passed all 114/114 Turbo tasks and every
+  trailing validator in the required unsandboxed run. The sandboxed precursor reached 110/114;
+  its four failures were macOS Chromium bootstrap denials before test assertions, not product
+  failures. This distinction is part of the evidence, not a waiver of the full gate.
+
+### First-order loss scan
+
+- **The owner's later Notion formatting is owner-authored state.** After the retrofit, the
+  owner explicitly said they adjusted the page's format. The content invariants survived the
+  subsequent read, but presentation choices are not reconstructable from a content checklist.
+  A future agent must preserve that formatting and use the smallest targeted edit after a fresh
+  fetch; replaying the retrofit as a full-page replacement would destroy owner work while still
+  appearing semantically correct.
+- **Historical capture and live continuity have different truth conditions.** The late PR #373
+  review correctly noticed napkin passages that describe the report as untracked and cite the
+  former live record. Those passages are conserved, then-true history; the live surfaces are
+  the retired record and absence from the active index. The correct fix was to narrow the PR
+  description, not rewrite history into present tense.
+- **The supersession has two distinct residues.** PR #371 is closed and its remote branch is
+  retained by decision. Separately, its local safeguard worktree still contains uncommitted,
+  now-redundant report/retirement edits. Branch retention is not authority to land those bytes,
+  and redundant local residue is not authority to delete it. Any later cleanup must re-prove
+  both the remote supersession and the local bytes before acting.
+- **Cross-PR ordering was load-bearing even though the final result is order-independent.**
+  PR #374 initially edited the NEO active-index row that PR #373 deleted. Galleon's catch and
+  the Director's retirement-wins ruling led Cedar to drop the hunk at `SHA:3e91a011c`; the
+  follow-up can no longer reintroduce the retired row. Without that rationale, a future reader
+  could misread the absent hunk as an accidental omission.
+- **The shared branch is not the currency source.** The primary checkout's branch tip is exactly
+  synchronised with its upstream, but it predates the retirement commits and therefore still
+  carries a stale live NEO record in its committed tree. Its working tree now also carries Cedar's
+  and Galleon's uncommitted closeout appends. Current truth comes from `origin/main`, not from
+  whichever shared coordination branch happens to be checked out. A branch can be ref-clean and
+  still be semantically stale; a dirty working tree does not change either fact.
+- **Collaboration obligations are closed.** All Galleon delivery claims were explicitly closed;
+  no commit intent or PR/comms watcher remains from the delivery lane. The post-merge handoff to
+  Quasar is event `5f24a26c-8c55-48b6-aea8-e0d3b8bb9d0f`. This closeout opens only a narrow
+  conservation claim for the napkin and the pattern graduated below, then closes it after the
+  Director handoff.
+
+### Recursive metaloss — what the first scan could itself erase
+
+1. **Semantic sameness can conceal presentation loss.** A Markdown/content read can prove
+   headings and statements while missing visual grouping, spacing, emphasis, or ordering the
+   owner adjusted in Notion. Therefore content verification does not license a rewrite.
+2. **A single repository has multiple temporal truths.** `origin/main`, the shared team branch,
+   the retained superseded branch, and dirty local worktree bytes each answer a different
+   question. Compressing them into “the repo state” would erase the distinction between landed
+   authority, coordination state, retained evidence, and unlanded residue.
+3. **A summary can accidentally grant authority.** Recording the retained PR #371 branch or
+   local residue could be misread as a pickup instruction. It is preservation and cleanup
+   evidence only; the research thread is retired and has no default continuation.
+4. **Conserved history can look like contradiction.** The napkin's old untracked-state claims
+   and the retired record's current state are both correct at their named times. Removing the
+   earlier statement would lose provenance; leaving it without a retirement/current-truth
+   pointer would lose legibility. Supersession needs both.
+5. **Exact terminal state decays while the invariant survives.** `origin/main` advanced to a
+   release after PR #373. “Main equals the merge” was a freeze-instant fact; ancestry, retired
+   bytes, path absence, and resolved review state are the durable checks.
+6. **The scan's complement remains unknowable.** This sweep covered the chat arc, sent and
+   received comms, Git/PR state, Notion read-back, claims/queue state, current and superseded
+   worktrees, memory surfaces, and gate evidence. Representative rejects: exact polling cadence,
+   intermediate reply drafts, repeated command output, and already-superseded PR counts. They
+   carry no decision, authority, evidence boundary, or next action.
+7. **The recursion stops here.** A further pass produced no new consumer action. The reusable
+   method — write at occurrence, state the scan window, sample rejects, recurse once over the
+   filter, then stop when decision/evidence/authority/next-action semantics are homed — has
+   graduated to `patterns/bounded-metaloss-recursion.md` rather than remaining another closing
+   paragraph.
+
+### Consolidation disposition
+
+- No new ADR or PDR candidate emerged. No non-urgent open question emerged. The two unrelated
+  pending-graduation items remain live and untouched.
+- The napkin remains far beyond its rotation threshold. This `session-completion` pass does not
+  claim an item-by-item cross-thread drain while the Director owns the team closeout and peer
+  continuity appends remain in the same working tree. The constraint is falsified when a
+  dedicated curator owns the whole buffer on a stable landing ref.
+- Verdict for this bounded seat: **complete** once the pattern and this entry are validated,
+  the closeout claim is archived, and Quasar's custody read-back is verified. Repository-wide
+  consolidation remains a separate Director/curator responsibility; that does not make this
+  session's handoff partial.
+
+## 2026-07-14 — Cedar rides Undergrowth (270379): terminal closeout — delta loss scan + metaloss (the compaction-prep scan composes; this owes only 13:15Z→close)
+
+<!-- fitness already exceeded; capture preserved at full weight; the dedicated consolidation
+pass remains DUE (Director-owned). Terminal scan note: the 13:15Z compaction-prep scan was
+byte-verified (14/16 TRUE); this delta entry owes only the reconciliation arc after it. -->
+
+Arc landed after the compaction-prep scan: owner-directed omnibus reconciliation (PR #372
+MERGED `SHA:3254dbc34` — all 13 primary local files + the semantic merge of main into the
+team branch: 2 concept-unions, 7 take-main resolutions proven by `git cherry`); the
++10-minute tail caught an 18-thread wave → PR #374 (12 truings at `SHA:eca3ba369`; NEO-row
+hunk dropped at `SHA:3e91a011c` after Galleon's overlap catch — Director ruling: retirement
+wins, PR #373 deletes the row); all 18 threads dispositioned with remote-byte verification
+(10 fixed-with-citation, 8 routed to #373, 1 disposition publicly corrected on the record).
+PR #370 (r1 pre-S0 tranche) still OPEN: owner-updated head, one straggler check pending ~1h,
+BEHIND again after the #372/#373 advances.
+
+**Delta loss ledger (6e.2, in-context; scope: chat arc since 13:15Z, comms sent/received,
+PR records 370/372/373/374, both worktrees, monitors, claims registry):**
+
+- **S0's implicit prerequisite made explicit**: S0 cannot run until PR #370 MERGES — the
+  freeze's out-subtraction semantics and the `--`/help hardening ARE the S0 instrument.
+  The thread record says #370 carries the tranche but never states the dependency as a
+  gate; the Director custody-handoff event now does. (The freeze-planning sitting should
+  sequence: #370 merge → exclusion-configs commit → artefact clear → hard window.)
+- **PR #370's straggler-check hypothesis**: one check pending ~1h on head `SHA:0bcc32f4d`
+  looks stuck, not slow (its siblings finished in ~12 min) — the Director may need a
+  re-run press. Also #370 reads BEHIND again; another update-branch rides the merge moment.
+- **PR #374's update-branch actor**: head moved to `SHA:a4e3454d4` by an actor I never
+  identified (my `gh pr update-branch` returned already-up-to-date). Harmless (checks run;
+  Director merges) but unattributed — re-read the head before acting on any PR, even your
+  own (second face of the moved-target class today).
+- **Worktree disposal residue** (post-merge hygiene, owner-authorised sweeps only):
+  `plan-corpus-refounding-r1` (holds open PR #370's branch + the UNTRACKED stale freeze
+  artefacts that MUST be cleared before S0 — the tool refuses over a non-empty frozen
+  tree) and `pr372-tail` (PR #374's branch; removable after its merge).
+- **Grounded execution knowledge (delta)**: (1) `gh pr merge --auto --merge` arms cleanly
+  while BLOCKED-on-checks and fires on CLEAN — the safest owner-authorised merge shape
+  (worked on #372). (2) Prettier normalises a line-leading plus sign followed by a space in
+  markdown prose into a hyphen list bullet — an authoring hazard for inline plus-signs at line starts (it corrupted
+  my thread-record sentence; caught because the whole team's pre-push wall hit it).
+  (3) `git cherry` is the cheap proof for "is this branch SUBSTANTIVELY ahead" — used twice
+  today to collapse false ahead-counts to zero. (4) Under hook policies that block
+  checkout/restore verbs, `git show <ref>:<path> > <path>` is the clean non-destructive
+  conflict-side selection. (5) A backgrounded compound that pipes `claims open` into
+  `grep -c` swallows the CLI's failure — the window claim silently never opened (F-95-
+  adjacent face; open window claims in a FOREGROUND call, verify, then background the
+  commit only).
+- **Consciously dropped (filter sample)**: merge-order option-weighing texture beyond the
+  ruling; the per-thread reply wording iterations; watch-cadence tuning.
+
+**Metaloss (recursive, delta over instance 2):** the terminal scan rides completion drive —
+the exact finish-line hazard the doctrine names; the mitigation held because the arc wrote
+at occurrence (commits, PR dispositions, comms events at every boundary), leaving this
+ledger rationale-and-residue again, not decisions. New observation worth one line, not a
+candidate: **scans COMPOSE** — a terminal scan after a byte-verified compaction-prep scan
+owes only the delta window, and saying so keeps the second scan honest about its bounds
+instead of re-asserting the whole session. The bounded-recursion finding stands as
+`bounded-metaloss-recursion` (instance 2, already candidate-flagged); recursion past the
+filter-sample level again added words, not information.
+
+Closeout dispositions: claim `efe98e1e` CLOSED (no claims retained — the thread record's
+2026-07-14 Cedar section is the r1 pickup; a fresh seat opens its own claim per the
+standing precedent); heartbeat stopped-then-ended; #370/#374 merge custody → Director
+(directed handoff event carries the enumerated state). `pnpm check` gate: NOT re-run at
+close — the freshest whole-tree greens are this seat's #374 pre-push battery (~14:19Z) and
+Galleon's 114/114 on #373 (~14:18Z), both on today's main lineage, with live Director
+merges in flight — a duplicate singleton run mid-merge-window serves no one
+(check-singleton discipline; the evidence is cited, not skipped).
+
+## 2026-07-14 — Quasar mends Umbra (52b4de), Director: Walk-A priors ruled (capture at occurrence)
+
+Two concept-exploration passes (owner-directed, four-movement workflow) produced owner-reacted
+structure priors for the refounding's Walk A; the owner then directed all-surfaces recording.
+
+- **Owner rulings/reactions:** intent lanes 6–8 (6 good, 10 too many); one roadmap per lane plus
+  one estate roadmap; **~20 STRATEGIC plans** (the owner's count, replacing my flat 30–60 —
+  "I wonder if we are missing a layer"); the three-layer hierarchy RATIFIED IN PRINCIPLE
+  (roadmap → strategic plan → implementation plan, implementation plans as-required and always
+  parented); threads challenged — "define what they mean better; 10–15 active reflects the
+  somewhat chaotic approach we have now… what's a sensible WIP limit? It's not 10."
+- **Director synthesis the owner asked for:** the layer isn't new — the corpus already grows it
+  ungoverned (controlling/child/execution plan names, per-collection roadmaps); ratification,
+  not invention. WIP limit binds OWNER ATTENTION not agent throughput: proposed **5 strategic
+  plans in execution, 2–3 owner-hot**, agents parallelising inside strategic plans (today's
+  worked instance: ~15 seats and 7 PRs were really 2–3 strategic streams). Threads: recommend
+  DISSOLVE into strategic-plan continuity sections + one Director map (fallback: threads 1:1
+  with in-execution strategic plans, making thread count = WIP by construction).
+- **Homeless-concepts policy (earlier pass, owner agreed):** "homeless" decomposes into
+  wrong-kind (re-home by function — the six-register move is the worked instance),
+  valuable-but-unplaced intent (conservatory lane: destination-quality form + provenance +
+  PLACEMENT TRIGGER each; Walk-C reviewed), and historical (frozen archive, already handled).
+- **Granularity (earlier pass, owner agreed):** three units, one per layer — rows for proof
+  (tiling), CONCEPTS for judgement (cross-file, many-to-one), plans for authoring (co-authored,
+  never edited copies). Concept-recognition quality is the arc's judgement bottleneck — why
+  OG-2 machinery + OG-3 canary gate R3.
+- **Stage runway (earlier pass):** six stages from now, owner attention at exactly three
+  sittings (freeze-planning; Walk A; Walk C) plus the SP3 checkpoint.
+- Durable homes: the walk-a-priors document at the refounding artefact root + the refounding
+  plan's priors section + owner-gate-register agenda rows (PR after #375); this capture; the
+  thread record's r2 block; repo-continuity truing.
