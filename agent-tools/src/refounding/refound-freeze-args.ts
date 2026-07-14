@@ -27,7 +27,7 @@ export interface FreezeArgs {
 
 /** The one usage line, shared by the parser's errors and the entries' `--help` output. */
 export function freezeUsageText(toolName: string): string {
-  return `usage: ${toolName} [--rule <path>] [--out <dir>] [--help]`;
+  return `usage: ${toolName} [--rule <path>] [--out <dir>] [--help|-h]`;
 }
 
 /**
