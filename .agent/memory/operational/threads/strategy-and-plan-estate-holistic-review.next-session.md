@@ -19,7 +19,28 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-14, Cedar rides Undergrowth 270379 — r1 STARTED: G2+G3 ruled, pre-S0 tranche on PR #370; S0 HELD for the freeze-planning sitting)
+## Where We Are (2026-07-14 later, Quasar mends Umbra 52b4de Director — pre-S0 estate shaped: registers re-homed, Walk-A priors recorded; runway = consolidation session → freeze-planning sitting → S0)
+
+Director custody after Cedar's terminal closeout (their block below stands as the
+r1 execution record). Landed since: **PR #370 MERGED** (`SHA:89f65108d` — the
+pre-S0 tranche + four Director-fixed review rounds; the freeze tool now
+mechanically REFUSES S0 until the freeze-planning sitting re-ratifies the rule,
+`ratifiedBy` null). **PR #375** (open at this writing) re-homes the six
+operational registers OUT of `.agent/plans/**` (frictions register +
+deferred-controls → memory/operational; three documentation-sync-logs →
+memory/operational/documentation-sync-logs/; cost ledger → the artefact root) —
+the freeze rule's register class is DELETED, not confirmed — and records the
+**Walk-A structure priors** (owner-reacted: three-layer hierarchy ratified in
+principle; lanes 6–8; ~20 strategic plans; WIP 5 with 2–3 owner-hot; the
+thread-dissolution recommendation; the conservatory-lane policy; the
+rows/concepts/plans analysis units) at
+`.agent/plans-refounding/walk-a-structure-priors.md` — the Walk A sitting input
+of record. **Owner-set runway:** dedicated consolidation session → the
+freeze-planning sitting (re-ratify the register-free rule; confirm the hard
+hours-scale window + moratorium) → S0. Successor context: Barnacle calls Spray
+(6d5d9c) is the owner-named eventual Director successor (cold standby).
+
+## Where We Were (2026-07-14, Cedar rides Undergrowth 270379 — r1 STARTED: G2+G3 ruled, pre-S0 tranche on PR #370; S0 HELD for the freeze-planning sitting)
 
 The r1 seat opened fresh per the 2026-07-14 owner ruling (fresh implementer, not an Elder
 recall), under Director Quasar mends Umbra (52b4de), in the
@@ -45,6 +66,13 @@ recall), under Director Quasar mends Umbra (52b4de), in the
   fresh branch off then-current main → freeze → one atomic S0 commit → push → merge, all
   inside the declared hard window. Then S1 (inventory + residue + planted-orphan proofs) and
   S2 (tiling baseline + the audit-mode claim-vs-derived divergence report as Walk-A input).
+- **Seat closed 2026-07-14 ~14:35Z** (owner-directed terminal handoff): PR #372 (the
+  owner-directed reconciliation omnibus) MERGED `SHA:3254dbc34`; its tail wave is PR #374
+  (open, Director merges); **PR #370 remains OPEN** — one straggler check + BEHIND; merge
+  custody with the Director. **S0's explicit gate: PR #370 must merge first** (the freeze
+  instrument's hardening + out-subtraction live there), then the freeze-planning sitting,
+  then the hard window. The r1 worktree still holds the UNTRACKED stale freeze artefacts —
+  clear before S0. No claims retained; this section is the pickup.
 - The six-path derivation rationale (churn evidence + kind-judgement calls) is in the napkin
   entry "2026-07-14 — Cedar rides Undergrowth: compaction-prep loss scan" and the Director
   sitting brief; the G1-era r1 pickup block below is SUPERSEDED by this section through the

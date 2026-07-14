@@ -47,7 +47,7 @@ investigation.
   formal report; the report remains the research artefact. Plan promotion is a
   separate owner-ratified action.
 - **Primary artefact:**
-  [`neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md`](../../../../reports/neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md).
+  [`neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md`](../../../../reports/wider-ecosystem/neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md).
 - **Current state:** research and report complete; the substantive artefacts are
   landed on `main`. No external message to NEO, partnership commitment,
   implementation action, or plan promotion occurred.
