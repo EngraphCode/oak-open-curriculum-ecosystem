@@ -115,19 +115,19 @@ todos:
   - id: s8-feedback-loop
     content: "STAGE 8: for a real feedback collection surface, either deliver the qualitative-feedback taxonomy and response/service loop or record an evidence-backed not-promoted disposition for this lane."
     status: pending
-    depends_on: [s7-wider-events]
+    depends_on: [s4-understanding-review]
   - id: s8-flag-evaluation
     content: "STAGE 8: for a real feature rollout, either deliver provider-neutral flag evaluation plus bounded PostHog/Sentry projections or record an evidence-backed not-promoted disposition for this lane."
     status: pending
-    depends_on: [s7-wider-events]
+    depends_on: [s4-understanding-review]
   - id: s8-survey-compatibility
     content: "STAGE 8: for a real survey need, either deliver and verify an accessible host-compatible collection approach or record an evidence-backed not-promoted disposition for this lane."
     status: pending
-    depends_on: [s7-wider-events]
+    depends_on: [s4-understanding-review]
   - id: s8-experiment-governance
     content: "STAGE 8: for a real product hypothesis or experiment proposal, either deliver pre-registration, exposure semantics, guardrails, readout, and kill-switch governance or record an evidence-backed not-promoted disposition for this lane."
     status: pending
-    depends_on: [s7-wider-events]
+    depends_on: [s4-understanding-review]
   - id: s9-warehouse-trigger
     content: "STAGE 9: evaluate the durable-export gate; either select and implement a warehouse/export projection for a recorded cross-source question with retention, backfill, identity-minimisation, and reconciliation, or record an evidence-backed not-promoted disposition; never make it a retroactive PostHog prerequisite."
     status: pending
@@ -170,7 +170,7 @@ governed evidence to the neighbouring surfaces; it does not redefine their
 audiences, authority, or projection mechanics.
 
 PR #341 merged on 2026-07-14 at
-source head `1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`. Its landed
+source head `SHA:1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`. Its landed
 contract preserves this authority boundary: Linear owns execution coordination
 and progress, while
 [ADR-207](../../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md)
