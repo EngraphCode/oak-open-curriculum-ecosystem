@@ -24,16 +24,19 @@ Three classes of surface accumulate content that does not belong there:
    belongs in permanent docs (ADRs, governance, READMEs, TSDoc) or in
    `.agent/practice-core/` if it is portable Practice substance.
 3. **Platform-specific entry points** (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`,
-   plus any analogous `.codex/AGENTS.md`, `.cursor/`-rooted entry, or
-   future-platform equivalent) — these MUST contain ONLY a pointer to the
-   canonical agent directive at `.agent/directives/AGENT.md` (or the host's
-   canonical equivalent). Any additional content is **drift**: instructions,
-   facts, or preferences that an agent or user added directly to the entry
-   point instead of routing them through the canonical surfaces. Drift in
-   entry points is particularly insidious because every platform reads its
-   own entry point first; a fact that lives only in `AGENTS.md` is invisible
-   to Claude, and vice versa. The rule: **entry points point; they do not
-   carry**.
+   `skills.md`, plus any analogous `.codex/AGENTS.md`, `.cursor/`-rooted
+   entry, or future-platform equivalent) — these MUST contain ONLY a pointer
+   to the canonical agent directive at `.agent/directives/AGENT.md` (or the
+   host's canonical equivalent), plus any named extension licensed by the
+   session-handoff entry-point contract (step 6d). Any other content is
+   **drift**:
+   instructions, facts, or preferences that an agent or user added directly
+   to the entry point instead of routing them through the canonical
+   surfaces. Drift in
+   entry points is particularly insidious because platforms consume
+   different entry points; a fact that lives only in `AGENTS.md` is
+   invisible to Claude, and vice versa. The rule: **entry points point;
+   they do not carry**.
 
 ## Destinations table
 
@@ -109,11 +112,13 @@ For each piece of drift content identified by the calling workflow:
 
 ## Special category: platform-specific entry points
 
-When sweeping `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, or any analogous
-platform entry point:
+When sweeping `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`, or any
+analogous platform entry point:
 
 - **Expected shape**: heading + one line referencing
-  `.agent/directives/AGENT.md`. Nothing else.
+  `.agent/directives/AGENT.md`, plus any named extension licensed by
+  the session-handoff skill's entry-point contract (step 6d) — the
+  single home for the named-extensions list.
 - **Any other content is drift**. Apply the methodology above.
 - **Do NOT delete drift content without homing it first** unless it is a
   pure duplicate of canonical content already present in `AGENT.md` or

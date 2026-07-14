@@ -798,3 +798,207 @@ shepherded to the owner's merge (`SHA:a7ca8f8aa`, 14:39Z); post-merge tail fixes
 - **F-133 recurrence-consistent**: all six commits this tenure used the sanctioned plain
   pathspec path from the worktree (queue verify-staged cannot read a worktree index); claims
   opened/closed per window, zero contention (solo on the tree throughout).
+
+- **PR 352 (the tail PR) closed the arc**: 8 refinement rounds, 17 threads (2 refuted as false
+  positives with grounding — the first refutations of the arc: bots read PDR-027 session prefixes
+  as bare commit SHAs; the sha-prefix rule scopes COMMIT SHAs). The QUIET check took FOUR
+  generations to converge (heartbeat-tagged events → time bound on all categories →
+  named-boundary windows via canonical-history opening/closing pairs → consumer-absent is state,
+  git ground-truth veto, best-effort-never-proof residual). Lesson earned: when a fix introduces
+  NEW doctrine text, pre-check it against the cited PDR's own edge cases (forced retirement,
+  threshold-suspension exemptions, busy-estate volumes) BEFORE pushing — each missed edge cost a
+  full review round-trip. Total arc: 82 threads dispositioned, all byte-verified; owner merged
+  both PRs (`SHA:a7ca8f8aa`, `SHA:088db6555`); the second +10-minute tail was CLEAN.
+- **Process recurrences this tenure**: (1) capture-expensive-command-output recurred twice in new
+  faces — a stale COMMIT EXIT read from the wrong task log, and MSG EXIT measuring the pipe's
+  tail instead of the checker (ELIFECYCLE in the output was the tell); gate on the TRUE exit,
+  capture it in the first run. (2) hook-policy-substring-discipline, new face: "git push" and a
+  graphql "-f" flag co-located in ONE compound tripped the force-push policy — split compounds so
+  destructive-pattern tokens never co-occur. (3) The self-merge classifier denial landed five
+  minutes BEFORE a fresh bot wave — the guard caught completion drive exactly as designed
+  (fluency-clusters-at-the-finish-line, worked instance).
+- **Cleanup sweep (owner-authorised, all re-proven at deletion time)**: 2 further worktrees
+  removed (public-alpha-teacher-workflows after PR 344; the Codex-managed 3e29 after PR 351 —
+  owner explicitly authorised crossing the harness-ownership caveat), 3 local + 1 remote branch
+  deleted (2 ancestry-proven, docs/inter-practice-window-2026-07-08 cherry-proven both sides).
+  KEEP verdicts stand for 26 local + 16 remote with unmerged patches, incl.
+  feat/graph-tooling-tidyup (204 patches — recorded as superseded WIP, but supersession is a
+  judgment not a proof) and the 7 remediate-main-* (1 patch each, owner judgment). PR #345
+  flipped draft→non-draft mid-session (live GitHub fact, no conservation needed).
+- **Closeout loss scan + recursive metaloss pass run per the owner's daily prompt**
+  (workflow-verified: quote-anchored Sonnet verifiers checked every claimed durable home against
+  origin/main bytes plus a cross-artefact ledger-consistency agent — run wf_4e940fbc; verdicts
+  recorded in the session handoff). The scan's own epistemics named honestly: context-vs-inventory
+  is non-delegable (only the seat can do it), and the scan is a best-effort read of what the seat
+  recognised as load-bearing, never a proof — mitigated structurally because decisions
+  round-tripped through durable surfaces at occurrence time.
+- **Verification verdict (this pass)**: 43 claims checked — 41 verifier-true with verbatim
+  quotes, 1 verifier false negative overturned first-hand (the four-condition QUIET sentence IS
+  on main; the verifier read the read-instruction sentence), 1 genuine inventory error (the §8
+  failure-mode log holds TEN entries — my seven plus Monsoon's three pre-existing; substance
+  conserved). Cross-artefact ledger consistent incl. jsonl ground truth 85/66. ZERO conservation
+  gaps; write-phase items landed in this commit.
+
+## 2026-07-13 — Sloop holds Lagoon (5fbef7): linear-plugin config lane + closeout loss-scan
+
+Session shape: sole contributor, ad-hoc config lane (no registered thread; transient claim
+thread `linear-plugin-config`, opened and closed same session). Landed: PR #348 merged by
+owner (merge commit SHA:db713b966; work commit SHA:e645b1f75) — linear plugin enabled repo-wide via
+tracked `.claude/settings.json`, README prerequisites bullet, MCP-contributors doc row.
+
+- **Mistake (owner-corrected): switched the PRIMARY checkout's branch to start new work.**
+  The primary checkout is shared fleet surface; the switch forced a contested-checkout
+  warning into a peer handoff. Cure applied: work moved to a worktree at the sibling
+  convention path, primary restored to rest on main (its prior branch was held by a peer's
+  worktree, so main is the neutral state), correction broadcast on comms. The generator was
+  fluency: the work "felt small" so worktree isolation was skipped. Worktree-first is
+  unconditional; size of work is not a licence.
+- **Execution knowledge (next agent re-derives otherwise):**
+  - Markdown tables must be Prettier-formatted before staging; the pre-commit gate fails on
+    unpadded table columns. `pnpm exec prettier --write <doc>` then restage.
+  - Plugin install/uninstall rewrites `.claude/settings.json` key ORDER (settings churn);
+    restore original key order by hand to keep the tracked diff one-line clean.
+  - `.mcp.json` is gitignored BY DESIGN (local MCP config); tracked `settings.json`
+    `enabledPlugins` is this repo's checked-in plugin-state mechanism (gitignore comment is
+    the policy statement). A parallel `.mcp.json` entry for a plugin-provided server
+    duplicates the connection (two tool sets, two auth flows).
+  - `claims open` comms-watcher backstop (F-95) fired as designed when other agents were
+    live in the registry; arming the all-channels watcher + one gap sweep cleared it.
+  - Watcher 3600s timeout backstop (exit 124) fired twice; re-arm on same seen-file missed
+    nothing (cursor). At lane close with no responsibilities, watcher stand-down with a
+    closeout broadcast follows the fleet precedent (Monsoon 2026-07-13).
+  - `comms send` CLI takes no `--kind` flag (narrative is the default); check `--help`
+    before composing flags from prose examples.
+  - GitHub auto-deletes head branches on merge in this repo (observed first-hand, PR #348).
+- **Practice lesson (record hygiene): keep durable records technical, not emotional.** When
+  the owner asks for something to be expunged from a record, sweep ALL surfaces it may have
+  reached (memory files, napkin, comms, commit/PR bodies) and confirm the sweep — a single-
+  file edit is not "removed from the record".
+- **Loss-scan (6e.2, run in-context):** durably homed with citations — config + docs (git,
+  PR #348), design rationale (commit body SHA:e645b1f75 + PR body), worktree lesson (user-level
+  memory + this entry), claim/intent lifecycle (active-claims archive + queue), corrections
+  (comms events 13:34Z, 13:43Z — untracked tier, hence mirrored here). Accepted ephemeral
+  losses, deliberate: chat-only reasoning texture (distilled into the experience file),
+  scratchpad artefacts, session monitors. Scan scope: git state, comms stream, memory
+  surfaces, scratchpad, chat arc — absence of an entry is bounded by that sweep, not
+  silence.
+- **Metaloss (recursive pass):** (1) The ledger records its members, never its complement —
+  items filtered as "minor" are dropped unlisted; the cure is stating scan scope (above) so
+  absence reads as bounded evidence. (2) Much "context-only" knowledge was actually
+  artefact-derived on re-read; the irreducible context-only residue is small: weightings,
+  rejected paths, felt arc. Loss estimates inflate without this distinction. (3) The
+  metaloss note conserves the concept of its own filter, not the filter — recursion bottoms
+  out in the structural cure: write at occurrence; prefer artefacts generated by the work
+  over recall after it. Further recursion adds words, not information; bounded recursion is
+  itself the finding. (4) Multi-agent metaloss: my scan cannot enumerate PEER-side loss my
+  mistake caused (that lives in their contexts); the comms broadcast is the only
+  cross-context loss-insurance — which is why the correction event mattered more than the
+  local fix. Per-context loss-scans never union anywhere; the stream is the shared window.
+
+### Post-verification amendment (same session, after an 8-agent fleet audit of this record)
+
+An ultracode verification fleet (8 agents: 6 claim-verifiers + 2 fresh-reader/completeness
+auditors) grounded every claim above; fixes their real findings, so the record stands alone:
+
+- **Terms**: "Sloop holds Lagoon (5fbef7)" is this session's PDR-027 identity (agent name +
+  session-id prefix). "6e.2" = session-handoff SKILL step 6e.2 (the in-context loss-scan).
+  "F-95" = the frictions register, `.agent/plans/agent-tooling/frictions-register.md`.
+- **Corrected citation — the queue is not a completion record.** The commit_queue (in
+  active-claims.json) DROPS an intent on successful completion; only abandoned intents
+  persist. Completion evidence for intent 9c75217d is the landed commit SHA:e645b1f75 itself.
+  My "archive + queue" citation above was structurally wrong for the completed intent; a
+  verifier caught it (the one red verdict in the fleet pass).
+- **Cure-state disposition, for auditability**: primary's pre-mistake branch was
+  docs/pr336-postmerge-wave (carrying the then-uncommitted 3-file change). The cure
+  worktree at `<repo>-worktrees/linear-plugin-config` was REMOVED after the merge; local
+  branch deleted (`-d`, fully merged); remote branch auto-deleted by GitHub (single
+  observation — treat as a repo-settings data point, not verified configuration). Primary
+  resting on main is CONTINGENT (the prior branch was held by a peer's worktree), never a
+  standing invariant.
+- **Durability tiers in the loss ledger above**: git-history homes (config, docs, commit
+  and PR bodies) were durable at scan time; the napkin/experience/continuity homes were
+  WORKING-TREE state until the owner-directed closeout commit that carries this amendment;
+  the user-level memory home is host-local by design (indexed in that platform's MEMORY.md,
+  unreachable from the repo — cited for completeness, not repo-durability).
+- **Expunge-lesson grounding**: an expunge request WAS handled this session; the sweep
+  covered user-level memory, napkin, experience file, comms events, and commit/PR bodies,
+  and an independent fleet agent verified all five surfaces clean. Scope boundary: the
+  lesson governs records of the OWNER's state; the voluntary `.agent/experience/` register
+  (the agent's own felt texture) is explicitly out of its scope — do not trim it under this
+  lesson.
+- **Self-report labels**: metaloss point (2)'s "irreducible residue is small" is the
+  author's self-report — only the lost context could verify it; read it as testimony, not
+  finding. Point (4)'s peer-side unknowability was already labelled; these two carry the
+  same epistemic status.
+
+## 2026-07-13 — Sloop holds Lagoon (5fbef7), part 2: commit-queue-from-worktree failure, full trace
+
+Worked instance behind frictions-register F-138 (owner-requested detailed notes). One commit
+ceremony, run from a fresh worktree, failed in a way that splits the queue's two resolution
+schemes. Timeline and facts, all first-hand:
+
+- **Setup**: worktree created `git worktree add …-worktrees/spelling-tail -b docs/pr353-spelling-tail
+  origin/main` (base SHA:121ec7aff). One file staged there (napkin, 3-line spelling fix).
+- **Fact 1 — `claims open` from the worktree: ENOENT.** The command's relative `--active`
+  path resolved against the worktree root, where `.agent/state/collaboration/active-claims.json`
+  does not exist (the state tier is untracked-by-design, ADR-199, so worktrees have the
+  TRACKED state dirs but no registry). Running the same command from the primary checkout
+  with area pattern `index/head@spelling-tail` worked (claim bf3fe8e2).
+- **Fact 2 — `commit-queue enqueue`/`show` from the worktree DID reach the primary
+  registry.** Intent dc13fba5 was later visible from the primary (`show` found it), so the
+  queue's REGISTRY path resolves via coordination-home logic, not bare cwd.
+- **Fact 3 — `record-staged` from the worktree recorded an EMPTY staged bundle** — the
+  intent's `staged_name_status` field is `""` and the fingerprint (c1735cdd97…) is of an
+  empty set — while `git diff --cached` run by hand IN the worktree showed the napkin
+  staged. The queue's GIT reads therefore resolved against a different tree than the one
+  `git add` ran in.
+- **Fact 4 — `commit-queue commit` failed correctly**: verify-staged-before reported
+  "staged files do not exactly match intent files; missing: .agent/memory/active/napkin.md"
+  and auto-abandoned the intent with stage-named notes. The failure behaviour (loud,
+  stage-named, rollback-clean) worked exactly as designed; the defect is upstream of it.
+- **Fact 5 — adjacent false-green**: my invocation piped the workflow through `| tail`, so
+  the background task reported exit 0 while the real exit was 1 (the pipe ate PIPESTATUS —
+  the known background-task-exit-code-masks-gate class). The true signal was only in the
+  task output file. Never pipe the ceremony's final command; capture output by redirect.
+- **Hypothesis (labelled, unverified)**: the split is registry-resolution
+  (coordination-home walk → primary) vs git-resolution (process cwd or a `cd ..`-derived
+  path inside the pnpm script chain). The two schemes agree on the primary checkout and
+  split in every worktree. Not yet confirmed against the CLI source — F-138's cure work
+  should pin this first.
+- **Contrast controls**: the identical ceremony succeeded twice the same day from the
+  primary checkout (intents 9c75217d SHA:e645b1f75; b96bf7d8 SHA:442f13705), and failed
+  ONLY from the worktree — the tree, not the bundle, is the variable.
+- **Recovery used (and why it was legitimate)**: first-hand-verified plain `git commit` in
+  the worktree (SHA:e888ccb01) — staged set read by hand (one file, exact match), full hook
+  chain green, claim open on the primary registry, closure cites the SHA. This mirrors the
+  commit skill's merge-commit exception (first-hand verification substitutes for the
+  fingerprint when the queue is structurally unavailable); it is NOT the forbidden F-112
+  fallback, which prohibits routing around a *defective* workflow run on the primary — here
+  the workflow is structurally out of scope for the tree in question.
+- **Consequences for practice until F-138 is cured**: worktree commits use the plain path
+  with by-hand staged-set verification and a worktree-scoped claim opened FROM the primary;
+  never create a local `active-claims.json` in a worktree (decoy registry, F-41); and any
+  `claims open` from a worktree fails — run all collaboration-state writes from the primary.
+
+### F-138 corrections (same session — the PR 355 late review round, verified against source)
+
+The merged notes drew a source-grounded review round; all three findings verified
+first-hand and correct. The record above stands amended:
+
+- **Hypothesis → verified mechanism.** `runCommitQueueTopic` collapses registry and git
+  roots into one: `repoRoot: input.repoRoot ?? resolveCoordinationHome(input.cwd)`
+  (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`), and `commit-queue/git.ts` runs all
+  staged reads with `cwd: repoRoot`. From a worktree, BOTH resolve to the primary — the
+  staged reads deliberately follow the coordination home, which is why record-staged saw
+  the primary's empty index. The cure boundary is the CLI wiring (split the roots), not
+  `runCommitWorkflow` as the entry above first suggested.
+- **The claims-open failure was self-inflicted, narrower than recorded.** `withResolvedActive`
+  (`collaboration-state/claim-active-path.ts`) defaults an OMITTED `--active` to the
+  coordination home (F-85 cure) — a worktree invocation without `--active` works. Only the
+  explicitly supplied relative `--active` resolved against the worktree and ENOENTed.
+  Interim guidance narrowed: from a worktree, omit `--active` (and other explicit relative
+  state paths); do not avoid the CLI wholesale.
+- **Practice note**: the "unverified hypothesis" label above did its job — the review round
+  targeted exactly the labelled claim, and verification replaced it with file:line
+  mechanism in one pass. Labelling epistemic status invites the cheapest possible
+  correction.
