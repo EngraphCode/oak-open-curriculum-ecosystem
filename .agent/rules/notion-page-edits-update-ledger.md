@@ -1,5 +1,11 @@
 # Notion Page Edits Update the Page Ledger
 
+**Operationalises:**
+[ADR-212](../../docs/architecture/architectural-decisions/212-federated-visibility-authority-and-evidence-boundaries.md)
+(federated audience and authority boundary) and
+[PDR-113](../practice-core/decision-records/PDR-113-source-intent-from-the-principal-not-the-records.md)
+(records project intent rather than originating it).
+
 For every agent-authored Notion page edit, the agent must leave a concise, page-local audit line.
 The visible ledger lets a stakeholder distinguish deliberate repository-driven updates from
 unexplained page drift, even when the Notion credential identifies a shared human account.
