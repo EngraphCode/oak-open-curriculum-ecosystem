@@ -8,6 +8,13 @@ overflow_disposition: 'leave-if-live; else conserve-insight-and-delete — never
 merge_class: index-narrative-tables
 ---
 
+> **RETIRED — thread completed 2026-07-14.**
+> The owner-requested NEO Curriculum Vault research and formal report are complete. The report,
+> this continuity history, and the reusable review-contract guidance landed through PR #372
+> (`SHA:3254dbc347e57d7dd1783159db393243ac01712c`); the originating research seat has retired.
+> Retained as continuity history; not a live lane. Not listed in `repo-continuity.md` Active or
+> Paused threads.
+
 # NEO Curriculum Vault Research — Next Session
 
 ## Thread Identity
@@ -30,29 +37,28 @@ investigation.
 | codex | GPT-5 | unknown | James | history and governance explorer | 2026-07-14 | 2026-07-14 |
 | codex | GPT-5 | unknown | Russell | software and operations explorer | 2026-07-14 | 2026-07-14 |
 
-## Current Continuation
+## Current Continuation (retired)
 
-- **Branch:** `team/planning_and_visibility`, a moving shared coordination
-  branch. The report has no commit and must not be inferred to have landed from
-  the branch's ahead/behind state.
-- **Invocation pointer:** continue this thread from this record and review the
-  report against its own `Meta: document intent and review contract` section.
+- **Landing:** the report, this continuity history, reusable review-contract
+  guidance, and Sentry configuration landed on `main` through PR #372 at
+  `SHA:3254dbc347e57d7dd1783159db393243ac01712c`. This follow-up only moves the
+  completed record under `retired/` and removes its active-index row.
 - **Controlling plan:** none. The owner requested concept exploration and a
-  formal report; the report is the research artefact. Plan promotion is a
+  formal report; the report remains the research artefact. Plan promotion is a
   separate owner-ratified action.
 - **Primary artefact:**
-  [`neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md`](../../../reports/neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md).
-- **Current state:** report complete in the working tree, independent review
-  pending. It is intentionally untracked at handoff; no commit, push, external
-  message to NEO, partnership commitment, or implementation action occurred.
-- **Team expectation:** a fresh independent reviewer is useful. A new research
-  fan-out is unnecessary unless the reviewer identifies a material evidence
-  gap that the pinned public sources cannot resolve.
-- **Acceptance bar:** the reviewer either validates the report against the
-  declared contract, identifies an exact contract mismatch with evidence, or
-  names missing evidence that would materially change the synthesis.
+  [`neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md`](../../../../reports/neo-curriculum-vault-value-proposition-mechanics-and-intent-2026-07-14.md).
+- **Current state:** research and report complete; the substantive artefacts are
+  landed on `main`. No external message to NEO, partnership commitment,
+  implementation action, or plan promotion occurred.
+- **Continuation:** none by default. Re-open research only if the owner requests
+  a new question or a material evidence gap requires a fresh public-source pass.
 
-## Landing Target For The Next Session
+## Historical Review Contract
+
+The research lane has no next session. The checklist below is retained as the
+contract against which the completed report can be reviewed without reopening
+the thread:
 
 1. Read the report's top-level review contract, executive synthesis, evidence
    boundary, opportunities, tensions, warrants, and reasoning trace before
@@ -178,8 +184,9 @@ default.
 
 The following context would have disappeared with the session and is now homed:
 
-1. The report is uncommitted and sits among unrelated shared-tree changes —
-   preserved in this continuation record and the active-thread index.
+1. The report and reusable review-contract guidance landed on `main` through
+   PR #372. This follow-up retires this continuity record and removes its
+   active-thread index entry.
 2. The three specialist findings above were session-only outputs — their
    value-relevant portions live in the report and their excluded residue lives
    here with a first-hand re-verification warning.
@@ -232,13 +239,14 @@ ephemeral; conserving them would bury the information a successor needs.
 ## Lane State
 
 - **Owning plan(s):** none.
-- **Current objective:** independent substantive review of the completed report.
-- **Current state:** report complete and checked; review and any landing action
-  remain pending owner direction.
-- **Blockers / low-confidence areas:** no blocker to review. Public usage and
+- **Current objective:** complete; no live continuation objective remains.
+- **Current state:** research and report complete; the report and reusable
+  guidance landed on `main` through PR #372, and this record is retired.
+- **Blockers / low-confidence areas:** no blocker to closure. Public usage and
   outcome evidence remain unavailable, so the reviewer must retain the stated
   evidence ceiling rather than resolve it by inference.
-- **Next safe step:** run the contract-bound review described above.
+- **Next safe step:** none for this retired lane. A future reader may review the
+  report against the historical contract without treating this as active work.
 - **Promotion watchlist:** none. This session surfaced no new Oak ADR or PDR
   candidate. The general lesson that independently reviewed reports need an
   explicit review contract graduated directly into `.agent/reports/README.md`.
@@ -258,10 +266,11 @@ work.
 The informational and strict-hard practice-fitness scans both ran. They report
 critical pre-existing cross-thread debt in the napkin and repo-continuity
 surfaces, plus two live pending-graduation decisions; this NEO record itself is
-only in the soft zone. The active-thread audit found nine indexed rows, no
-duplicate identities, and no missing records. It also surfaced two pre-existing
-rows for their owning lanes to disposition: `eslint-no-throw-result-migration`
-describes itself as owner-paused, while `continuity-memory-and-knowledge-flow`
-describes itself as quiescent with its controlling plan completed, yet both
-remain in the active index. Collaboration state parsed cleanly and all claims
-observed during the audit were fresh; this session did not mutate peer claims.
+only in the soft zone. The NEO record is now retired, carries the required
+banner, and is intentionally absent from the Active and Paused indexes. The
+earlier audit also surfaced two pre-existing rows for their owning lanes to
+disposition: `eslint-no-throw-result-migration` describes itself as
+owner-paused, while `continuity-memory-and-knowledge-flow` describes itself as
+quiescent with its controlling plan completed, yet both remain in the active
+index. Collaboration state parsed cleanly and all claims observed during the
+audit were fresh; this session did not mutate peer claims.
