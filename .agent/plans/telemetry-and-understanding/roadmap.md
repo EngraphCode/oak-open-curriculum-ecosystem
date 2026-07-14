@@ -2,7 +2,7 @@
 title: "TAU roadmap"
 type: strategic-index
 status: active
-last_updated: 2026-07-13
+last_updated: 2026-07-14
 serves_strategic_choice: APP-1
 current_plan: "current/tau-delivery.plan.md"
 ---
@@ -36,7 +36,7 @@ Oak has one coherent understanding system in which:
 | 5 | Sentry reconciliation | Sentry work is completed, absorbed, deferred, or retired by distinct value | Stage 3 correlations established |
 | 6 | Logs, monitoring, and alerts | Signal classes, destinations, SLOs, and runbooks are proportionate | Enough distributions and incidents exist |
 | 7 | Wider axes and runtimes | Search, security, feedback, widget, accessibility, and other runtimes join TAU | Stage 1–4 pattern proven |
-| 8 | Qualitative learning and experimentation | Feedback, flags, surveys, and experiments are governed | Real product hypothesis or feedback surface exists |
+| 8 | Qualitative learning and experimentation | Feedback, flags, surveys, and experiments are independently governed | Real product hypothesis or feedback surface exists |
 | 9 | Durable export and warehouse | Cross-source/durable analysis is implemented only for a named need | Recorded question cannot be met proportionately in PostHog |
 | 10 | Governance and corpus close | Event/project definitions, costs, deletion, decision logs, and plan estate remain truthful | Every declared lane complete or explicitly dispositioned as not promoted |
 
@@ -211,7 +211,8 @@ Deliver in focused child lanes:
 
 Gate per child:
 
-- same schema/conformance/question/decision loop as Stage 3;
+- same schema/conformance/question/evidence-usefulness gate as Stage 3,
+  followed by a Stage 4-style review and decision before the child closes;
 - runtime-specific privacy and delivery proof;
 - no bulk scope expansion.
 
@@ -223,11 +224,24 @@ Trigger:
 
 Deliver:
 
-- feedback taxonomy and response loop;
-- survey/host-compatibility decision;
-- provider-neutral flag port;
-- PostHog/Sentry flag projections;
-- experiment design, exposure event, guardrails, and readout.
+- independently triggered child lanes for feedback, flag evaluation, survey
+  compatibility, and experiment governance;
+- a complete or evidence-backed not-promoted disposition for every child,
+  allowing honest mixed outcomes when only one trigger fires;
+- feedback taxonomy and response loop when a real feedback surface exists;
+- provider-neutral flag evaluation and bounded PostHog/Sentry projections when
+  a real rollout exists;
+- accessible host-compatible collection when a real survey need exists;
+- experiment design, exposure event, guardrails, readout, and kill switch when
+  a real hypothesis exists.
+
+Gate per child:
+
+- the named trigger and owner are recorded;
+- complete/not-promoted evidence is retained independently of the other Stage
+  8 children;
+- Stage 10 can verify each terminal disposition without inferring a stage-wide
+  outcome.
 
 ### Stage 9 — Durable export and warehouse
 
@@ -264,17 +278,23 @@ Deliver:
 
 ## Stage-review rule
 
-Every stage review answers:
+Every stage review answers the evidence questions:
 
 1. What question or risk did this stage serve?
 2. What evidence was produced?
 3. What can the evidence not establish?
 4. Which interpretations or hypotheses were considered, with what confidence?
 5. What counterevidence would change the interpretation?
-6. What decision was made?
-7. What changed as a result?
-8. When will the outcome be re-measured?
-9. Which old authority was retired or updated?
+6. Which downstream review owns interpretation and decision, if this stage is
+   a prerequisite?
+
+When a stage or child lane owns sensemaking and decision, its review also
+answers:
+
+7. What decision or explicit no-change finding was made?
+8. What changed as a result?
+9. When will the outcome be re-measured?
+10. Which old authority was retired or updated?
 
 ## Promotion
 

@@ -14,7 +14,7 @@ derives_from:
   - ../../../research/telemetry-and-understanding/2026-07-11-architecture-and-intent-corpus-review.md
   - ../../../research/telemetry-and-understanding/2026-07-11-posthog-baseline-and-build-vs-buy.md
   - ../../../research/telemetry-and-understanding/2026-07-11-sentry-integration-disposition-ledger.md
-last_updated: 2026-07-13
+last_updated: 2026-07-14
 todos:
   - id: s0-ground-current-state
     content: "STAGE 0: re-derive current code, package, branch, Sentry, PostHog, logger, event, environment, and plan state; produce a source-cited ground-truth ledger and replace stale emission percentages with executable evidence."
@@ -73,7 +73,7 @@ todos:
     status: pending
     depends_on: [s3-tool-invoked]
   - id: s3-vertical-slice-evidence
-    content: "STAGE 3: prove the question-to-event-to-PostHog-to-decision vertical slice in fixture, preview, and approved production mode; reconcile counts against controlled logs and Sentry traces."
+    content: "STAGE 3: prove the question-to-event-to-PostHog evidence and usefulness slice in fixture, preview, and approved production mode; reconcile counts against controlled logs and Sentry traces, record what the evidence cannot establish, and leave interpretation and an evidence-backed decision to Stage 4."
     status: pending
     depends_on: [s3-tool-invoked, s3-dependency-call]
   - id: s4-question-surfaces
@@ -112,8 +112,20 @@ todos:
     content: "STAGE 7: evaluate the wider-event gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, feedback_submitted, widget_session_outcome, and a11y_preference_tag using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every lane."
     status: pending
     depends_on: [s4-understanding-review]
-  - id: s8-feedback-flags-experiments
-    content: "STAGE 8: evaluate the qualitative-learning gate; either deliver qualitative feedback, provider-neutral flag evaluation, PostHog/Sentry projections, survey compatibility, and experiment governance for a real surface/hypothesis, or record an evidence-backed not-promoted disposition."
+  - id: s8-feedback-loop
+    content: "STAGE 8: for a real feedback collection surface, either deliver the qualitative-feedback taxonomy and response/service loop or record an evidence-backed not-promoted disposition for this lane."
+    status: pending
+    depends_on: [s7-wider-events]
+  - id: s8-flag-evaluation
+    content: "STAGE 8: for a real feature rollout, either deliver provider-neutral flag evaluation plus bounded PostHog/Sentry projections or record an evidence-backed not-promoted disposition for this lane."
+    status: pending
+    depends_on: [s7-wider-events]
+  - id: s8-survey-compatibility
+    content: "STAGE 8: for a real survey need, either deliver and verify an accessible host-compatible collection approach or record an evidence-backed not-promoted disposition for this lane."
+    status: pending
+    depends_on: [s7-wider-events]
+  - id: s8-experiment-governance
+    content: "STAGE 8: for a real product hypothesis or experiment proposal, either deliver pre-registration, exposure semantics, guardrails, readout, and kill-switch governance or record an evidence-backed not-promoted disposition for this lane."
     status: pending
     depends_on: [s7-wider-events]
   - id: s9-warehouse-trigger
@@ -123,7 +135,7 @@ todos:
   - id: s10-governance-and-close
     content: "STAGE 10: verify that every declared lane is complete or has an explicit evidence-backed not-promoted disposition; establish project/event definition verification, ingestion warnings, cost/retention budgets, deletion drills, recurring question reviews, ADR/runbook propagation, fresh emission inventory, and plan-corpus consolidation."
     status: pending
-    depends_on: [s2-posthog-mcp-probe, s4-definitions-probe, s5-sentry-corpus-close, s6-monitoring-alerts, s7-wider-events, s8-feedback-flags-experiments, s9-warehouse-trigger]
+    depends_on: [s2-posthog-mcp-probe, s4-definitions-probe, s5-sentry-corpus-close, s6-monitoring-alerts, s7-wider-events, s8-feedback-loop, s8-flag-evaluation, s8-survey-compatibility, s8-experiment-governance, s9-warehouse-trigger]
 ---
 
 # TAU — Telemetry and Understanding System delivery plan
@@ -782,7 +794,8 @@ TAU-Q002 — Tool calls by outcome and tool
 
 1. event receipt and schema version;
 2. expected-vs-received controlled probe;
-3. unique identified/anonymous use over time;
+3. unique identified-person counts and anonymous invocation/event activity over
+   time, reported separately;
 4. new vs returning identified users, with limits;
 5. tool mix and outcome;
 6. duration percentiles;
@@ -932,16 +945,20 @@ search rather than duplicate retrieval-quality ownership.
 
 Open only on a real surface or hypothesis.
 
-- feedback taxonomy;
-- response/service loop;
-- accessible host-compatible collection;
-- provider-neutral flag port;
-- PostHog `evaluateFlags()` or selected provider;
-- Sentry crash-linked flag context;
-- exposure schema;
-- experiment pre-registration and guardrails;
-- decision/readout template;
-- kill switch.
+Stage 8 is four independently triggered child lanes. A trigger in one lane does
+not promote the others, and mixed outcomes are expected. Each child must finish
+with its own complete or evidence-backed not-promoted disposition:
+
+1. **Feedback loop** — feedback taxonomy plus response/service loop for a real
+   collection surface.
+2. **Flag evaluation** — provider-neutral flag port, selected provider
+   evaluation, and bounded PostHog/Sentry flag projections for a real rollout.
+3. **Survey compatibility** — accessible host-compatible collection for a real
+   survey need.
+4. **Experiment governance** — exposure schema, pre-registration, guardrails,
+   decision/readout template, and kill switch for a real hypothesis.
+
+Stage 10 verifies the terminal evidence for all four child lanes separately.
 
 ## Stage 9 — Warehouse/export
 

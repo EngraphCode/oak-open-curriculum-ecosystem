@@ -2,7 +2,7 @@
 title: "Telemetry and Understanding System (TAU)"
 type: plan-collection-index
 status: active
-last_updated: 2026-07-13
+last_updated: 2026-07-14
 serves_strategic_choice: APP-1
 ---
 
@@ -75,7 +75,7 @@ TAU controls cross-layer sequencing for:
 | `architecture-and-infrastructure/` | Generic OTel, environment, workspace, build, and deployment architecture. |
 | `security-and-privacy/` | DPIA, DPO, legal basis, identity permission, retention, DSAR/deletion, security controls. |
 | `compliance/` | Published policy, statutory records, and external submission requirements. |
-| `effectiveness-and-impact/` | Assessment/evaluation methodology for whether surfaces are effective. TAU supplies behavioural evidence but does not own evaluation truth. |
+| evaluation methodology (repository authority unresolved) | TAU supplies behavioural evidence but does not own evaluation truth. The existing `.agent/evaluations/` log is search-specific and is not a cross-product authority. Stage 0 must ratify or create a reachable evaluation owner before TAU claims that a surface is effective. |
 | `semantic-search/` | Search quality and retrieval implementation; TAU owns cross-runtime event semantics and analysis joins. |
 | stakeholder and external-system surfaces | Linear owns delivery coordination, Notion owns stakeholder presentation and deliberation, and the proposed idea-graph evidence architecture owns cross-system projection semantics. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
 | application workspaces | Own emission sites and behaviour tests. |
@@ -120,10 +120,15 @@ TAU controls cross-layer sequencing for:
 
 ## Delivery rule
 
-Every stage must close a real loop:
+The programme must close a real loop:
 
 ```text
 question -> signal -> delivery -> analysis -> interpretation -> human review -> decision
 ```
 
-A stage that only adds instrumentation is incomplete.
+Prerequisite stages may establish contracts, delivery, or reconciled evidence
+without prematurely claiming interpretation or a decision. Their closure must
+name the downstream stage that completes the loop and state what the current
+evidence cannot establish. Stage 4 owns the first sensemaking review and
+evidence-backed decision; a stage that merely adds instrumentation without a
+declared evidence or downstream-use gate is incomplete.
