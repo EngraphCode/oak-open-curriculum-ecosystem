@@ -23,21 +23,21 @@ for automated versioning based on
 version is determined entirely from the commit history — there is no
 manual version bumping.
 
-| Commit prefix                       | Version bump  |
-| ----------------------------------- | ------------- |
-| `docs:`                             | Patch (0.0.x) |
-| `chore:`                            | Patch (0.0.x) |
-| `fix:`                              | Patch (0.0.x) |
-| `perf:`                             | Patch (0.0.x) |
-| `feat:`                             | Minor (0.x.0) |
-| `BREAKING CHANGE:` (in body/footer) | Major (x.0.0) |
-| `release:` (automation only)        | No bump       |
+| Commit prefix                                              | Version bump  |
+| ---------------------------------------------------------- | ------------- |
+| `docs:`, `chore:`, `fix:`, `perf:`                         | Patch (0.0.x) |
+| `style:`, `refactor:`, `test:`, `build:`, `ci:`, `revert:` | Patch (0.0.x) |
+| `feat:`                                                    | Minor (0.x.0) |
+| `BREAKING CHANGE:` (in body/footer) or `!` after the type  | Major (x.0.0) |
+| `release:` (automation only)                               | No bump       |
 
-Documentation-only and maintenance merges intentionally receive their own
-patch version. The automation commits each version bump back to `main` as
+Every work-commit type permitted by commitlint triggers at least a patch
+release, so every deployment from `main` carries a distinct version. The
+automation commits each version bump back to `main` as
 `release(<version>): <version> [skip ci]` — a dedicated commit type that is
-explicitly mapped to no release, so the automation can never trigger itself. The current version is recorded in the root and SDK
-`package.json` files, which `semantic-release` updates together.
+explicitly mapped to no release, so the automation can never trigger itself.
+The current version is recorded in the root and SDK `package.json` files,
+which `semantic-release` updates together.
 
 ## Release Automation
 
@@ -49,7 +49,8 @@ The pipeline:
 
 1. CI runs on every push to `main`
 2. `semantic-release` analyses commits since the last release
-3. If at least one commit has a release-triggering type listed above, it:
+3. If at least one commit matches one of the release rules above (a mapped
+   type, or a breaking-change marker on any type), it:
    - Determines the next version
    - Updates `CHANGELOG.md`
    - Updates `package.json` version
@@ -199,8 +200,10 @@ git revert HEAD  # Revert the release commit
 git push origin main
 ```
 
-This triggers a new release workflow run but, since there are no
-new releasable commits, `semantic-release` will skip publishing.
+Under the every-merge model the reverting commit itself is releasable: give
+it a conventional `revert:` message and the workflow publishes a new patch
+release carrying the reverted state (a bare `git revert` message without a
+Conventional Commits type matches no release rule and publishes nothing).
 
 ### Troubleshooting
 

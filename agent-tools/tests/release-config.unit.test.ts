@@ -107,6 +107,37 @@ describe('semantic-release configuration', () => {
     ).toBe('major');
   });
 
+  it('maps every commitlint-permitted work-commit type to a version bump', async () => {
+    // The every-merge release model: every deployment from `main` carries a
+    // distinct version, so every commit type a human can land (the commitlint
+    // type-enum, minus the automation-only `release` type) must trigger a
+    // bump. Reading the live commitlint config pins the two configs together.
+    const commitlintModule: unknown = rootRequire(join(repoRoot, 'commitlint.config.mjs'));
+    const typeEnum = z
+      .object({
+        default: z.looseObject({
+          rules: z.looseObject({
+            'type-enum': z.tuple([z.number(), z.string(), z.array(z.string())]),
+          }),
+        }),
+      })
+      .parse(commitlintModule).default.rules['type-enum'][2];
+
+    const workTypes = typeEnum.filter((type) => type !== 'release');
+    expect(workTypes.length).toBeGreaterThan(0);
+
+    const releaseTypes = await Promise.all(
+      workTypes.map(
+        async (type) =>
+          [type, await determineReleaseType(`${type}: exercise the ${type} rule`)] as const,
+      ),
+    );
+
+    for (const [type, releaseType] of releaseTypes) {
+      expect(releaseType, `expected \`${type}:\` commits to trigger a release`).not.toBeNull();
+    }
+  });
+
   it('commits the version bump with the dedicated release type and the CI loop guard', () => {
     const gitPluginOptions = z
       .object({ message: z.string() })

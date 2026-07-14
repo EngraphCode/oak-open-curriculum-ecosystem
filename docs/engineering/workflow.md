@@ -171,8 +171,8 @@ deleted-file cascades, and signature mismatches in auto-merged files.
 Releases are automated via [semantic-release](https://semantic-release.gitbook.io/):
 
 1. PRs merged to `main` trigger the release workflow
-2. Version is bumped based on Conventional Commit types (`docs`, `chore`,
-   `fix`, and `perf` → patch; `feat` → minor; breaking change → major)
+2. Version is bumped based on Conventional Commit types (`feat` → minor;
+   breaking change → major; every other work type → patch)
 3. The bump is committed back to `main` as
    `release(<version>): <version> [skip ci]` — a dedicated type that triggers
    no further bump or CI run

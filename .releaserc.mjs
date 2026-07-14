@@ -32,6 +32,30 @@ export default {
             release: 'patch',
           },
           {
+            type: 'style',
+            release: 'patch',
+          },
+          {
+            type: 'refactor',
+            release: 'patch',
+          },
+          {
+            type: 'test',
+            release: 'patch',
+          },
+          {
+            type: 'build',
+            release: 'patch',
+          },
+          {
+            type: 'ci',
+            release: 'patch',
+          },
+          {
+            type: 'revert',
+            release: 'patch',
+          },
+          {
             // The release automation's own version-bump commits (the git
             // plugin `message` below) must never trigger another release.
             // Explicit, not left to the analyzer's default treatment of
