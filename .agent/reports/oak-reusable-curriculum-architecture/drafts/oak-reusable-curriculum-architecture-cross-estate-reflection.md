@@ -1,5 +1,7 @@
 # Oak reusable curriculum architecture — cross-estate reflection
 
+> Historical draft. Superseded by the canonical report in the parent directory.
+
 **Date:** 2026-07-14  
 **Status:** Second-stage exploratory synthesis, not an implementation plan or ratified architecture  
 **Scope:** Curriculum semantics, authoring, alignment, assessment, versioning, and graph serving across four Oak repositories
@@ -126,7 +128,7 @@ does not yet answer “which stable proposition does this question assess?” or
 
 The local generated schema confirms the same public contract:
 
-- [`api-schema-original.json`](../../../packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json)
+- [`api-schema-original.json`](../../../../packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json)
   exposes lesson KLPs as text-only objects and questions at lesson, programme,
   subject, and sequence scopes;
 - the distinction between starter questions testing prior knowledge and exit
@@ -224,13 +226,13 @@ validate automatic atomisation or matching as universal curriculum truth.
 ### This repository contains two different graph realities
 
 The conceptual property graph in
-[`property-graph-data.ts`](../../../packages/sdks/oak-sdk-codegen/src/mcp/property-graph-data.ts)
+[`property-graph-data.ts`](../../../../packages/sdks/oak-sdk-codegen/src/mcp/property-graph-data.ts)
 includes quiz, question, and KLP node types, with relationships such as lesson
 `hasQuizzes`, quiz `containsQuestions`, thread `linksAcrossYears`, and lesson
 `delivers` KLP.
 
 The emitted runtime graph in
-[`graph-corpus-emitted-index-lines.ts`](../../../packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-emitted-index-lines.ts)
+[`graph-corpus-emitted-index-lines.ts`](../../../../packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-emitted-index-lines.ts)
 is narrower. Its emitted node kinds are unit, thread, lesson, misconception,
 and keyword; its emitted relationships are `prerequisiteFor`, `containsUnit`,
 `containsLesson`, `addressesMisconception`, and `containsKeyword`. KLPs,
@@ -810,6 +812,6 @@ genuinely open.
 - [OpenAPI lesson summary schema](https://github.com/oaknational/oak-openapi/blob/f64b8f3fe8bee849016c61e60cc0a454d424369b/src/lib/handlers/lesson/schemas/lessonSummaryResponse.schema.ts)
 - [OpenAPI question schema](https://github.com/oaknational/oak-openapi/blob/f64b8f3fe8bee849016c61e60cc0a454d424369b/src/lib/handlers/questions/types.ts)
 - [OpenAPI unit summary schema](https://github.com/oaknational/oak-openapi/blob/f64b8f3fe8bee849016c61e60cc0a454d424369b/src/lib/handlers/units/schemas/unitSummaryResponse.schema.ts)
-- [Local deterministic-data ADR](../../../docs/architecture/architectural-decisions/191-deterministic-data-surface-agent-reasons.md)
-- [Local thread-progression projection](../../../packages/sdks/graph-corpus-sdk/src/curriculum/thread-progressions-projection.ts)
-- [Local ontology deep review, June snapshot](../oak-kg-ontology-deep-review-2026-06-04.md)
+- [Local deterministic-data ADR](../../../../docs/architecture/architectural-decisions/191-deterministic-data-surface-agent-reasons.md)
+- [Local thread-progression projection](../../../../packages/sdks/graph-corpus-sdk/src/curriculum/thread-progressions-projection.ts)
+- [Local ontology deep review, June snapshot](../../oak-kg-ontology-deep-review-2026-06-04.md)

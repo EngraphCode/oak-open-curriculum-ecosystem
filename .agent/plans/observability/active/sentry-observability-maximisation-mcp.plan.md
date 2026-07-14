@@ -90,7 +90,7 @@ todos:
     status: completed
     note: "Landed 2026-04-19 (commit 9e1a26b2). §RED reshaped mid-execution: the prescribed structural content-presence test was authored, run red, then removed after testing-strategy.md review (tests must prove behaviour, not constrain doc wording). Acceptance moved to the reviewer matrix (docs-adr-expert + onboarding-expert) plus the manual reader-test. Both reviewers returned; P1/Critical findings actioned in-place (11 broken ADR filename slugs, SentryPostRedactionHooks vs SentryRedactionHooks conflation, userId/setUser scope correction, discoverability mesh). Follow-ups recorded in lane close evidence."
   - id: l-doc-final
-    content: "L-DOC final: DISSOLVED 2026-04-20. Docs are definition-of-done on every lane, not a separate phase — a separate L-DOC-final lane creates a drift window where code lands in Phases 3 and 4 without matching docs, which violates the repo's no-drift discipline. Each lane's REFACTOR phase now gates on: per-loop TSDoc on owning functions; ADR index entries for any new ADR touched; propagation to `sentry-deployment-runbook.md`, `sentry-cli-usage.md`, `production-debugging-runbook.md`, and `environment-variables.md` for the specific signals that lane emits; `docs-adr-expert` close review. `documentation-sync-log.md` entries land per-lane at lane close, not in a final sweep."
+    content: "L-DOC final: DISSOLVED 2026-04-20. Docs are definition-of-done on every lane, not a separate phase — a separate L-DOC-final lane creates a drift window where code lands in Phases 3 and 4 without matching docs, which violates the repo's no-drift discipline. Each lane's REFACTOR phase now gates on: per-loop TSDoc on owning functions; ADR index entries for any new ADR touched; propagation to `sentry-deployment-runbook.md`, `sentry-cli-usage.md`, `production-debugging-runbook.md`, and `environment-variables.md` for the specific signals that lane emits; `docs-adr-expert` close review. `.agent/memory/operational/documentation-sync-logs/observability.md` entries land per-lane at lane close, not in a final sweep."
     status: dissolved
   - id: l-imm-operational-hardening
     content: "L-IMM (Phase 3, IMMEDIATE post-2026-04-26 Sentry validation): operational hardening bundle covering custom error fingerprinting (event.fingerprint logic in beforeSend for known error families), ignoreErrors/denyUrls allow-list for known-noise patterns, shutdownTimeout/flush review (raise DEFAULT_SENTRY_FLUSH_TIMEOUT_MS from 2_000 to ~5_000 to reduce Lambda drop risk under burst load), maxBreadcrumbs tuning (verify default 100 is sufficient for long-running MCP sessions), sendClientReports verification (default true, confirm enabled), and Vercel ↔ Sentry Marketplace integration verification (confirm what's wired vs hand-rolled). Identified 2026-04-26 by gap analysis against Sentry official docs."
@@ -396,7 +396,8 @@ The original Phase 5 "L-DOC final" lane has been dissolved (2026-04-20).
 Every lane's REFACTOR gate includes: per-loop TSDoc on owning functions;
 ADR index entries for any new ADR touched; propagation to the operational
 runbooks and `environment-variables.md` for the specific signals that
-lane emits; `docs-adr-expert` close review; a `documentation-sync-log.md`
+lane emits; `docs-adr-expert` close review; a
+`.agent/memory/operational/documentation-sync-logs/observability.md`
 entry for the lane. Docs drift is not permitted between lanes.
 
 L-EH retains its "initial + final" structure (rule enablement in Phase 1;
@@ -1900,7 +1901,7 @@ against.
   the lane that establishes the link target.
 - **`docs-adr-expert` close review** — runs at every lane close,
   not once at the end.
-- **`documentation-sync-log.md`** — entry per lane, not per phase.
+- **`.agent/memory/operational/documentation-sync-logs/observability.md`** — entry per lane, not per phase.
 
 **Acceptance**: each lane's close criteria include the items above
 that apply to it. No lane closes with unmatched docs.

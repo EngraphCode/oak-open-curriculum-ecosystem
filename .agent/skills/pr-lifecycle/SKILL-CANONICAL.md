@@ -309,6 +309,17 @@ genuinely required review landed (the author-dependent leg below). Then:
 allow_squash_merge, allow_rebase_merge}'`; `allow_merge_commit` has
   silently reverted before (2026-06-27). If merge commits are disabled,
   surface it to the owner; never fall back to squash.
+- **`gh pr update-branch` is a server-side merge commit, not a local
+  operation — it races the next local push.** For a PR reading `BEHIND`, it
+  merges the base branch in server-side with no local gate to run first; the
+  merge is provably clean via `git diff origin/main <merged-head> --stat`
+  (only your intended files changed). Bitten twice: the next LOCAL push to
+  the same branch is then rejected non-fast-forward until you pull the
+  server-side merge back down first — always fetch/pull immediately after
+  calling it, before pushing anything else to that branch. `gh pr merge
+  --auto --merge` is the safe complement: it arms cleanly on a `BLOCKED`
+  PR still waiting on checks and fires the instant the PR goes `CLEAN`, with
+  no further local action.
 
 ## Phase 8 — After merge
 

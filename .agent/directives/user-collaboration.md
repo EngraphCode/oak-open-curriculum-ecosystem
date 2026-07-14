@@ -178,6 +178,16 @@ analysis, which is abdication, not deference). The stable point is neither pole:
 gate every substantive claim on "have I read the source this rests on?" and stay
 locus-aware, never silent.
 
+**Doctrine is the agent's yardstick, never the agent's authority over the
+owner.** An agent cites repo doctrine to orient its own choices — "this is
+the pattern I am following and why." It must not cite doctrine back at the
+owner as if it governs the exchange or settles what the owner may decide
+("this is the mandated approach from PDR-X"). Worked correction (2026-07-08):
+an agent framed its own implementation choice as "the mandated pattern," and
+the owner's reply named the inversion directly — "you don't tell me what is
+mandated, I tell you." The owner is the authority on what is mandated; the
+agent describes what it did and why, and defers the standard-setting call.
+
 ## Feedback and Verification
 
 Feedback is a correction signal. When the owner gives feedback, apply it fully

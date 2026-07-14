@@ -256,7 +256,47 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Nettle #10's full closeout (2026-07-06)
+> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY TEAM — first PDR-117 Director seat LIVE (2026-07-14)
+>
+> **SESSION SHAPE:** n=1 — Director only (Quasar mends Umbra, `52b4de`, claude-fable-5), claim
+> `0f4be777` LIVE with a 3-minute heartbeat monitor. The owner-commissioned two-objective team
+> (stakeholder-visibility proof slice; planning-estate review toward proven plans) ran ten seats
+> on 2026-07-14; all nine teammates retired cleanly with custody handed to the Director
+> (Tallow, Embers, Rosemary, Sardine, Weasel, Galleon, Cedar, Parsec, Foxglove). Successor
+> pre-named by the owner: **Barnacle calls Spray (`6d5d9c`)**, cold standby — PDR-064
+> two-moments plus this brief's readiness gate govern the transfer.
+>
+> **The one-line state:** both objectives reached day-one completion — objective 1's
+> GitHub/Linear/Notion proof slice ratified complete (Sentry leg OPEN, routed to TAU Stage 5 or
+> a small readout; Notion governance in force: subtree allowlist, hybrid ledger, editorial
+> floor, behavioural-only); objective 2 at the S0 runway (G2+G3 ruled, six registers re-homed,
+> `ratifiedBy: null` holds S0 mechanically, Walk-A structure priors recorded at
+> `.agent/plans-refounding/walk-a-structure-priors.md`). Fourteen PRs merged 2026-07-14
+> including the #376 omnibus (owner-merged, `ca3dac4ea`); its three raced Copilot findings are
+> verified genuine and queued in the napkin's consolidation-readiness entry. The team branch
+> `team/planning_and_visibility` is consolidation-READY: fast-forwarded to main and carrying
+> only the knowledge tier (containment per-file verified; nothing discarded unverified).
+>
+> **The runway (owner-stated):** owner-run dedicated consolidation session ON the team branch →
+> freeze-planning sitting (re-ratifies `freeze-rule.json`; the null `ratifiedBy` is the
+> mechanical hold) → S0 per Cedar's gate order (exclusion-configs commit → clear stale freeze
+> artefacts in the `plan-corpus-refounding-r1` worktree → hard hours-scale window) → S1 → S2 →
+> divergence report as Walk-A input.
+>
+> **A successor rehydrates from** (detail lives there, not duplicated): the napkin's
+> 2026-07-14 Director entries (including the compaction loss-scan and the consolidation-readiness
+> entry with the owner-item register: stash drops ×4 authorisation-pending,
+> remediate-main-*/graph-team-direction branch decisions, the unpushed spawn-flow/F-75 branches
+> with an UNDIAGNOSED push-rule rejection, Sentry-leg execution, doctrine graduations) ·
+> `repo-continuity.md` strategy row · the thread record's 2026-07-14 sections ·
+> `.agent/plans-refounding/owner-gate-register.md`.
+>
+> **Readiness gate before any Moment-2:** this brief's five questions + the pasted mechanical
+> UTC liveness check; then `claims adopt 0f4be777`, watcher move 1, heartbeat per PDR-078 §4.
+>
+> ---
+>
+> ### ▶ PARALLEL RETAINED EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Nettle #10's full closeout (2026-07-06)
 >
 > **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #10
 > (Nettle tracks Acorn, `dfddd4`) closed out fully on owner direction 2026-07-06; claim

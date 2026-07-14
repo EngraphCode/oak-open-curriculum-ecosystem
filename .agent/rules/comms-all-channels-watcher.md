@@ -129,6 +129,36 @@ batched/incremental drain with per-batch deadlines, or moving the scan off
 the deadline path — is homed in the
 `agent-tooling/current/comms-watch-storage-redesign.plan.md` plan.
 
+### Supervision must live on the notification path, never a wrapper loop
+
+Do not wrap the canonical watch invocation in your own supervising loop
+(`while kill -0 "$SUP"; do <comms watch>; done`, or similar hand-rolled
+re-arm shells). A wrapper loop hides its own death: when the inner watch
+process dies (drain-timeout, crash), the wrapper's next iteration silently
+re-arms it with no observable gap — until the wrapper itself stalls or exits,
+which then goes undetected because nothing is watching the wrapper. Two
+independent instances: a supervised wrapper died silently after its first
+inner drain-timeout and was discovered only by the F-95 `claims open`
+watcher-liveness refusal, not by any liveness signal from the wrapper itself
+(2026-07-13); a `pkill -f "<the watch command>"` intended to restart a wedged
+inner arm also matched the wrapper shell's own command line (because the
+wrapper's argv contains the watch-command string) and killed the whole
+Monitor (2026-07-08).
+
+The correct shape is the single canonical invocation under the platform's
+own persistent-task primitive (Claude Code: `Monitor` with
+`persistent: true`), re-armed on the primitive's own **exit notification**
+— the notification path cannot hide a death the way a wrapper loop can,
+because the notification IS the liveness signal. If a manual restart is
+ever needed, target the inner process by pid, never a `pkill -f` pattern
+that a wrapper's own command line can also match.
+
+A re-arm's recompute step must also treat an **empty state read as
+transport/auth failure** (stop and surface), never as "keep looping" —
+a gh-token invalidation once turned a supervised PR-watch loop into a
+silent crash-loop against the anonymous API tier because empty state was
+read as "no news" rather than "the transport is down" (2026-07-13/14).
+
 ### Liveness self-check (cycle boundaries)
 
 The watcher writes a liveness heartbeat **on by default** at

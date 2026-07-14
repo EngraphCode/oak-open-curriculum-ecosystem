@@ -3,7 +3,7 @@ name: Bounded Metaloss Recursion
 polarity: pattern
 use_this_when: Running a loss scan at compaction or session close and a recursive pass over the scan itself risks becoming an unbounded attempt to prove that nothing was omitted
 category: process
-proven_in: .agent/memory/active/napkin.md (Sloop holds Lagoon, 2026-07-13; Cedar rides Undergrowth and Galleon calls Channel, 2026-07-14)
+proven_in: three worked instances inlined below (Sloop holds Lagoon, 2026-07-13; Cedar rides Undergrowth and Galleon calls Channel, 2026-07-14), conserved verbatim in the dated napkin archive at .agent/memory/active/archive/napkin-2026-07-14.md
 proven_date: 2026-07-14
 barrier:
   broadly_applicable: true
@@ -85,7 +85,9 @@ selection function, and explicit custody for late residue.
 
 ## Source Surfaces
 
-- `.agent/memory/active/napkin.md`, entries for Sloop holds Lagoon (13 July 2026), Cedar rides
-  Undergrowth (14 July 2026), and Galleon calls Channel (14 July 2026).
+- The three worked instances above are self-contained; their full session entries are conserved
+  verbatim (not by live pointer) in the dated archive
+  `.agent/memory/active/archive/napkin-2026-07-14.md` — Sloop holds Lagoon (13 July 2026), Cedar
+  rides Undergrowth (14 July 2026), and Galleon calls Channel (14 July 2026).
 - `.agent/skills/session-handoff/SKILL-CANONICAL.md` step 6e.2, which makes the context-holder's
   loss scan non-delegable and requires loss and metaloss findings to reach the napkin.

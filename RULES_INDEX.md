@@ -137,6 +137,7 @@ without proportional value.
 | `.agent/rules/read-before-asking.md`                                       | always-on      | —                                                                                                   |
 | `.agent/rules/read-diagnostic-artefacts-in-full.md`                        | always-on      | —                                                                                                   |
 | `.agent/rules/read-nextjs-docs-before-coding.md`                           | trigger-loaded | Next.js work (routes, layouts, proxy, next.config, rendering/caching) in a next-consuming workspace |
+| `.agent/rules/records-are-technical-not-emotional.md`                      | always-on      | —                                                                                                   |
 | `.agent/rules/register-active-areas-at-session-open.md`                    | always-on      | —                                                                                                   |
 | `.agent/rules/register-identity-on-thread-join.md`                         | always-on      | —                                                                                                   |
 | `.agent/rules/replace-dont-bridge.md`                                      | always-on      | —                                                                                                   |
