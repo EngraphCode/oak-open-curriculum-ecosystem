@@ -60,10 +60,10 @@ the collection-owned plan first, then reconcile this index.
 |---|---|---|
 | Whole plan portfolio | [README.md](README.md) | Root operational index, collection table, lifecycle/reachability contract |
 | MCP server release arc | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) | Thin strategic index for M1 → M2 → M3 → GA across observability, security, compliance, SDK/MCP, and architecture |
-| Telemetry and product/operational understanding | [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md) | TAU: proposed next-priority question → signal → analysis → decision programme, pending Stage 0 authority ratification; PostHog-first with Sentry as engineering specialist |
+| Telemetry and product/operational understanding | [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md) | TAU planning corpus accepted and queued; controlling authority pending Stage 0 disposition and recorded owner ratification; implementation not started; PostHog-first with Sentry as engineering specialist |
 | Graph & evidence work | [connecting-oak-resources/knowledge-graph-integration/README.md](connecting-oak-resources/knowledge-graph-integration/README.md) | Knowledge-graph integration hub; the live EEF evidence tool is under [sector-engagement/eef/](sector-engagement/eef/README.md) |
 | Agent-readiness discovery | [discovery/README.md](discovery/README.md) | API catalog, Agent Skills, MCP Server Cards, A2A, DNS-AID, WebMCP, Web Bot Auth, robots/sitemaps, and `.well-known` metadata |
-| Observability implementation estate | [observability/README.md](observability/README.md) | Inherited five-axis signal/Sentry plans and evidence, proposed for TAU sequencing and disposition after Stage 0 ratification |
+| Observability implementation estate | [observability/README.md](observability/README.md) | Inherited five-axis signal/Sentry plans and evidence; TAU Stage 0 must disposition them before recorded owner ratification of controlling authority |
 
 ---
 
@@ -231,8 +231,8 @@ remain authoritative for execution.
 | `school-data-search/` | UK school-register dataset service POC (in-repo until go/no-go); owner gates walk the synthesis report | 📋 Queued | [README.md](school-data-search/README.md) |
 | `sdk-and-mcp-enhancements/` | MCP Apps, MCP protocol adoption, generated SDK/tool surfaces | 🔄 Active + queued execution | [README.md](sdk-and-mcp-enhancements/README.md) |
 | `effectiveness-and-impact/` | Assessment methodology for agent-facing content and delivered behaviour; evidence chain to real-world impact | 📋 Current research plan; execution owner-gated | [README.md](effectiveness-and-impact/README.md) |
-| `telemetry-and-understanding/` | TAU: proposed outcome-led authority for event intent, PostHog understanding, Sentry reconciliation, and logging/monitoring/analysis governance, pending Stage 0 ratification | 🟢 Next priority / current plan; authority proposed | [README.md](telemetry-and-understanding/README.md) |
-| `observability/` | Inherited five-axis signal/Sentry implementation and evidence proposed for TAU sequencing after Stage 0 | 🔄 Active transition proposal | [README.md](observability/README.md) |
+| `telemetry-and-understanding/` | TAU planning corpus is accepted and queued; controlling authority awaits Stage 0 disposition and recorded owner ratification; implementation has not started | 🟢 Next priority / current plan; implementation not started | [README.md](telemetry-and-understanding/README.md) |
+| `observability/` | Inherited five-axis signal/Sentry implementation and evidence awaiting TAU Stage 0 disposition before any owner-ratified authority transfer | 🔄 Active transition proposal | [README.md](observability/README.md) |
 | `architecture-and-infrastructure/` | Architecture, quality gates, workspace boundaries, system quality | 🔄 Active backlog | [README.md](architecture-and-infrastructure/README.md) |
 | `security-and-privacy/` | Security controls, privacy posture, evidence-backed claims, Web Bot Auth enforcement evidence | 🔄 Active execution | [README.md](security-and-privacy/README.md) |
 | `compliance/` | External policy compliance, app submission, regulatory alignment | 📋 Planned / queued | [README.md](compliance/README.md) |
