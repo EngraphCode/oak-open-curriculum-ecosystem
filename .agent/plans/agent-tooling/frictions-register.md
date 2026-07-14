@@ -3066,3 +3066,29 @@ commit SHA and the closing plan reference.
   `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
+
+### F-139 — watcher and inbox share a cursor, conflating delivery with acknowledgement
+
+- **Source**: Phosphor holds Tallow closeout event `d8a305ec` and napkin entry
+  2026-07-14; mechanism verified against `cli-comms-watch.ts`,
+  `cli-comms-inbox.ts`, and `cli-io-production.ts` on 2026-07-14.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms watch` and
+  `comms inbox` when invoked with the same `--seen-file`.
+- **Observed**: the watcher emits an event and then appends its id to `seenFile`; a later
+  foreground inbox reads that same file and reports `no new comms events`, even when the
+  agent has not personally inspected or interpreted the event. Transport delivery is
+  therefore presented as if it proved cognitive acknowledgement.
+- **Expected**: passive delivery/liveness and deliberate foreground review remain
+  independently observable; one may advance without erasing the other's unread set.
+- **Interim guidance**: give foreground cognition checks an independent seen file, or run
+  a direct time-window/corpus sweep and record acknowledgement. Do not interpret
+  `no new comms events` on the watcher's cursor as proof of personal review.
+- **Candidate cure**: separate the transport cursor from a typed cognition cursor at the
+  CLI boundary. `watch` advances only transport state; `inbox` (or the F-135 `--since`
+  sweep) advances only cognition state. Derive and document both canonical paths from the
+  agent identity so callers do not hand-roll cursor names.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-watch.ts`,
+  `cli-comms-inbox.ts`, cursor-path helpers, and the watcher rule invocation.
+- **Status**: open — first observed instance; compose the cure with F-135.
+- **Owner direction status**: session-scoped Director route under the standing
+  record-all-frictions direction.
