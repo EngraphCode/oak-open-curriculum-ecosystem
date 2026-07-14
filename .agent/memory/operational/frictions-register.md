@@ -3211,3 +3211,48 @@ commit SHA and the closing plan reference.
 - **Status**: open — single confirmed instance; not yet cured or estate-scoped.
 - **Owner direction status**: standing (record-all-frictions); Director committed to routing
   this entry in the same directed event.
+
+### F-143 — `commit-queue -- commit` races a concurrent peer's file six-for-six; direct `git commit` passed clean twice, immediately
+
+- **Evidence**: napkin entry 2026-07-14 "Dolphin weaves Reef (ffedcf): full session handoff,
+  loss-scan, and recursive metaloss" (first-order loss scan); six consecutive terminal failures
+  observed first-hand in one sitting, each with identical stack traces, interleaved with two
+  clean direct-invocation passes.
+- **Surface**: `agent-tools commit-queue -- commit` (the composite verify-staged →
+  advisory-orchestrator → phase → verify-staged-again → `git commit` workflow) vs. a plain
+  `bash .husky/pre-commit` or `git commit` invocation of the identical hook chain.
+- **Observed**: staging and committing a 32-file bundle (a dedicated-consolidation closeout) on
+  a shared primary checkout while a second, unidentified live session was actively renaming/
+  recreating one tracked file
+  (`.agent/reports/oak-reusable-curriculum-architecture/oak-reusable-curriculum-architecture-cross-estate-reflection.md`).
+  Six consecutive `commit-queue -- commit` attempts all crashed at the identical point: the
+  pre-commit hook's `validate-no-machine-local-paths` step ran `git ls-files -z`, got back a
+  path that was at that instant absent from disk, and `readFileSync` threw (the validator's
+  designed fail-loud behaviour on a tracked-but-unreadable file — not itself the defect).
+  Standalone re-runs of the same validator, seconds before and after each failure, consistently
+  passed clean. Running `bash .husky/pre-commit` directly (bypassing the commit-queue tool)
+  passed the FULL hook chain, twice, on the first try each time, including this exact
+  validator step. A subsequent plain `git commit -F <msgfile>` (same staged tree, same hooks)
+  also succeeded immediately.
+- **Expected**: if the underlying hook chain is equally likely to hit a genuine external race at
+  any given moment, direct and tool-mediated invocations should fail at roughly comparable rates
+  — six-for-six via one path against two-for-two clean via the other, on the same tree, in the
+  same few minutes, is a bigger asymmetry than "bad luck" comfortably explains.
+- **Candidate cure**: **unconfirmed hypothesis, not yet source-verified** — the
+  `commit-queue -- commit` workflow's composite chain (verify-staged, the advisory orchestrator's
+  own fitness/vocab/message sub-checks, a phase transition, a second verify-staged, THEN the real
+  `git commit` which re-runs the full hook chain a second time) plausibly takes meaningfully
+  longer wall-clock time than a single direct hook invocation, widening whatever window a
+  concurrently-active peer process needs to touch the vulnerable file. Reproduction recipe for
+  the next investigator: stage a bundle, have a second process repeatedly rename/recreate one
+  tracked file in a tight loop, run `commit-queue -- commit` several times back-to-back against
+  one direct `git commit` under the same conditions, and compare failure rates plus wall-clock
+  timing of each path to the point where `validate-no-machine-local-paths` executes.
+- **Target surface**: `agent-tools/src/commit-queue/` workflow composition (the `commit` action
+  specifically), or — if the timing hypothesis is falsified — the shared-checkout concurrency
+  model itself (multiple live sessions on one working tree with no file-level staging isolation
+  outside the advisory `git:index/head` claim).
+- **Status**: open — mechanism unconfirmed, reproduction recipe recorded, workaround identified
+  (a plain `git commit` on a pre-verified staged tree is a legitimate fallback when the
+  commit-queue tool itself — not the underlying gates — is the thing failing repeatedly).
+- **Owner direction status**: standing (record-all-frictions).
