@@ -2,12 +2,12 @@
 
 Last updated: 14 July 2026
 
-`current/` means **NEXT**: queued for plan completion, not yet in progress.
+`current/` means **NEXT**: queued and ready, not yet in progress.
 
 | Plan | Status | Purpose |
 |---|---|---|
-| [TAU delivery](tau-delivery.plan.md) | Decision-completeness OPEN; public interface names/signatures must settle before promotion; implementation not started | Build the Oak event contract, PostHog-first vertical slice, question-driven analysis and sensemaking surfaces, Sentry integration, and long-term governance. |
+| [TAU delivery](tau-delivery.plan.md) | Queued and ready; Stage 0 settles the public interface contract before the first product-code cycle; implementation not started | Build the Oak event contract, PostHog-first vertical slice, question-driven analysis and sensemaking surfaces, Sentry integration, and long-term governance. |
 
-Before promotion, settle and record the public interface names/signatures.
-Before implementation starts, move the plan to `active/`, create the active
-index, and re-verify all live external/project assumptions.
+When execution starts, move the plan to `active/`, create the active index, and
+re-verify all live external/project assumptions. Stage 0 must settle and record
+the public interface names/signatures before the first product-code cycle.
