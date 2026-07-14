@@ -145,12 +145,15 @@ todos:
 **Lifecycle:** `current/` — NEXT, executable and queued; no implementation has
 started under this plan.
 
-**Decision completeness:** open. Stages 0–4 are structurally specified, but the
-identity/cardinality review findings and the neighbouring stakeholder/evidence
-surface exploration must be reconciled before promotion. Stage 5 retains a
-defined disposition method but must re-derive Sentry facts before code changes.
-Stages 6–10 remain evidence-gated and now require an explicit completed or
-not-promoted disposition before corpus close.
+**Promotion readiness:** ready. The identity/cardinality findings and the
+neighbouring stakeholder/evidence-surface contract are reconciled. Stage 0 is
+the first active work and must ratify TAU authority and re-derive live facts;
+Stage 5 must re-derive Sentry facts before code changes. Stages 6–10 remain
+evidence-gated and require an explicit completed or not-promoted disposition
+before corpus close.
+
+**Plan shape:** 30 dependency-linked todos across Stages 0–10. The 2026-07-14
+validation confirmed unique IDs, present dependencies, and an acyclic graph.
 
 ## Coordination boundary with PR #341
 
@@ -167,10 +170,14 @@ governed evidence to the neighbouring surfaces; it does not redefine their
 audiences, authority, or projection mechanics.
 
 PR #341 merged on 2026-07-14 at
-`1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`; its landed report and planning
-contract preserve this authority boundary. The owner moved PR #339 to ready for
-review at 08:07:30Z while thread convergence continued. This plan remains
-coordination-open until that review surface settles.
+source head `1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`. Its landed
+contract preserves this authority boundary: Linear owns execution coordination
+and progress, while
+[ADR-207](../../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md)
+owns the delivery-performance projection over the intent graph joined to
+GitHub, Linear, deployment, and Sentry evidence. The owner moved PR #339 to
+ready for review at 08:07:30Z while thread convergence continued. This plan
+remains coordination-open until that review surface settles.
 
 ## Owner direction embodied
 
@@ -339,7 +346,10 @@ adds no direct PostHog calls to it during the first vertical slice.
 - decision;
 - re-measurement.
 
-Every planned item must name both an axis and a layer.
+Every question-register entry and every child implementation artefact promoted
+from this plan must name both an axis and a layer. The stage-level todos above
+coordinate work across multiple axes and layers; they are not the classified
+implementation artefacts.
 
 ## Question register contract
 

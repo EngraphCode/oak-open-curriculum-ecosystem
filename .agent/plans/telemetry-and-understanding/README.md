@@ -78,7 +78,7 @@ If ratified at Stage 0, TAU controls cross-layer sequencing for:
 | `compliance/` | Published policy, statutory records, and external submission requirements. |
 | evaluation methodology (repository authority unresolved) | TAU supplies behavioural evidence but does not own evaluation truth. The existing `.agent/evaluations/` log is search-specific and is not a cross-product authority. Stage 0 must ratify or create a reachable evaluation owner before TAU claims that a surface is effective. |
 | `semantic-search/` | Search quality and retrieval implementation; TAU owns cross-runtime event semantics and analysis joins. |
-| stakeholder and external-system surfaces | Linear owns delivery coordination, Notion owns stakeholder presentation and deliberation, and the proposed idea-graph evidence architecture owns cross-system projection semantics. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
+| stakeholder and external-system surfaces | Linear owns execution coordination and progress; Notion owns stakeholder presentation and deliberation; and [ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md) owns the delivery-performance projection over the intent graph joined to GitHub, Linear, deployment, and Sentry evidence. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
 | application workspaces | Own emission sites and behaviour tests. |
 
 ## Proposed authority model
@@ -95,7 +95,7 @@ If ratified at Stage 0, TAU controls cross-layer sequencing for:
 
 | Lane | Role | Index |
 |---|---|---|
-| [`current/`](current/README.md) | NEXT: queued; coordination and review remain open | TAU delivery plan |
+| [`current/`](current/README.md) | NEXT: queued and ready; move to `active/` when implementation starts | TAU delivery plan |
 | `active/` | NOW: created when implementation begins | Not yet created |
 | `future/` | Later trigger-bound extensions | Added when a concrete future plan exists |
 | `archive/completed/` | Read-only execution history | Added at first completion |

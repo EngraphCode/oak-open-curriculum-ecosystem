@@ -60,10 +60,10 @@ the collection-owned plan first, then reconcile this index.
 |---|---|---|
 | Whole plan portfolio | [README.md](README.md) | Root operational index, collection table, lifecycle/reachability contract |
 | MCP server release arc | [curriculum-mcp-path-to-ga/roadmap.md](curriculum-mcp-path-to-ga/roadmap.md) | Thin strategic index for M1 → M2 → M3 → GA across observability, security, compliance, SDK/MCP, and architecture |
-| Telemetry and product/operational understanding | [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md) | TAU: next-priority question → signal → analysis → decision programme; PostHog-first with Sentry as engineering specialist |
+| Telemetry and product/operational understanding | [telemetry-and-understanding/roadmap.md](telemetry-and-understanding/roadmap.md) | TAU: proposed next-priority question → signal → analysis → decision programme, pending Stage 0 authority ratification; PostHog-first with Sentry as engineering specialist |
 | Graph & evidence work | [connecting-oak-resources/knowledge-graph-integration/README.md](connecting-oak-resources/knowledge-graph-integration/README.md) | Knowledge-graph integration hub; the live EEF evidence tool is under [sector-engagement/eef/](sector-engagement/eef/README.md) |
 | Agent-readiness discovery | [discovery/README.md](discovery/README.md) | API catalog, Agent Skills, MCP Server Cards, A2A, DNS-AID, WebMCP, Web Bot Auth, robots/sitemaps, and `.well-known` metadata |
-| Observability implementation estate | [observability/README.md](observability/README.md) | Inherited five-axis signal/Sentry plans and evidence, now sequenced and dispositioned by TAU |
+| Observability implementation estate | [observability/README.md](observability/README.md) | Inherited five-axis signal/Sentry plans and evidence, proposed for TAU sequencing and disposition after Stage 0 ratification |
 
 ---
 
@@ -115,7 +115,7 @@ Key linked collections:
 - [telemetry-and-understanding/](telemetry-and-understanding/README.md) -
   product/operational understanding, PostHog delivery, and Sentry integration.
 - [observability/](observability/README.md) - inherited detailed five-axis
-  implementation/evidence estate under TAU.
+  implementation/evidence estate proposed for TAU sequencing after Stage 0.
 - [security-and-privacy/](security-and-privacy/README.md) - Cloudflare MCP
   public-beta security gate, evidence-backed security claims, Web Bot Auth
   enforcement evidence.
@@ -196,8 +196,9 @@ and public repo:
 - [architecture-and-infrastructure/](architecture-and-infrastructure/README.md)
   owns cross-cutting architecture, quality gates, workspace boundaries, and
   system quality.
-- [telemetry-and-understanding/](telemetry-and-understanding/README.md) owns
-  the evidence-to-understanding loop and cross-layer priority.
+- [telemetry-and-understanding/](telemetry-and-understanding/README.md) is
+  proposed to own the evidence-to-understanding loop and cross-layer priority
+  after its Stage 0 authority gate.
 - [observability/](observability/README.md) owns inherited detailed signal and
   Sentry implementation evidence until TAU dispositions each lane.
 - [developer-experience/](developer-experience/README.md) owns SDK publishing,
@@ -225,8 +226,8 @@ remain authoritative for execution.
 | `semantic-search/` | Hybrid search, ingestion, retrieval quality, search/graph adjacency | 🔄 Current queue; no active plan in collection README | [README.md](semantic-search/README.md) |
 | `school-data-search/` | UK school-register dataset service POC (in-repo until go/no-go); owner gates walk the synthesis report | 📋 Queued | [README.md](school-data-search/README.md) |
 | `sdk-and-mcp-enhancements/` | MCP Apps, MCP protocol adoption, generated SDK/tool surfaces | 🔄 Active + queued execution | [README.md](sdk-and-mcp-enhancements/README.md) |
-| `telemetry-and-understanding/` | TAU: outcome-led event intent, PostHog understanding, Sentry reconciliation, logging/monitoring/analysis governance | 🟢 Next priority / current plan | [README.md](telemetry-and-understanding/README.md) |
-| `observability/` | Inherited five-axis signal/Sentry implementation and evidence under TAU | 🔄 Active transition | [README.md](observability/README.md) |
+| `telemetry-and-understanding/` | TAU: proposed outcome-led authority for event intent, PostHog understanding, Sentry reconciliation, and logging/monitoring/analysis governance, pending Stage 0 ratification | 🟢 Next priority / current plan; authority proposed | [README.md](telemetry-and-understanding/README.md) |
+| `observability/` | Inherited five-axis signal/Sentry implementation and evidence proposed for TAU sequencing after Stage 0 | 🔄 Active transition proposal | [README.md](observability/README.md) |
 | `architecture-and-infrastructure/` | Architecture, quality gates, workspace boundaries, system quality | 🔄 Active backlog | [README.md](architecture-and-infrastructure/README.md) |
 | `security-and-privacy/` | Security controls, privacy posture, evidence-backed claims, Web Bot Auth enforcement evidence | 🔄 Active execution | [README.md](security-and-privacy/README.md) |
 | `compliance/` | External policy compliance, app submission, regulatory alignment | 📋 Planned / queued | [README.md](compliance/README.md) |

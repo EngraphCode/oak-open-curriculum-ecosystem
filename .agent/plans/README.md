@@ -65,8 +65,8 @@ disposition.
 | [semantic-search/](semantic-search/) | Hybrid semantic search, ingestion, retrieval quality, search/graph adjacency, and search-facing SDK/MCP support | 🔄 Current queue |
 | [school-data-search/](school-data-search/) | Oak School Data Search service POC MVP: UK school-register ingestion, canonical dataset, authenticated search API, typed client — built in-repo until a post-POC go/no-go | 📋 Queued (owner gates first) |
 | [sdk-and-mcp-enhancements/](sdk-and-mcp-enhancements/) | MCP Apps, MCP protocol adoption, generated SDK/tool surfaces, and OpenAPI-to-MCP pipeline evolution | 🔄 Active + queued execution |
-| [telemetry-and-understanding/](telemetry-and-understanding/README.md) | TAU: outcome-led event intent, PostHog product understanding, Sentry reconciliation, logging/monitoring decisions, analysis surfaces, and evidence-to-decision governance | 🟢 Next priority / current plan |
-| [observability/](observability/) | Inherited five-axis observability implementation estate under TAU: engineering, product, usability, accessibility, and security signal plans and evidence | 🔄 Active transition |
+| [telemetry-and-understanding/](telemetry-and-understanding/README.md) | TAU: proposed outcome-led authority for event intent, PostHog product understanding, Sentry reconciliation, logging/monitoring decisions, analysis surfaces, and evidence-to-decision governance, pending Stage 0 ratification | 🟢 Next priority / current plan; authority proposed |
+| [observability/](observability/) | Inherited five-axis observability implementation estate proposed for sequencing under TAU after Stage 0: engineering, product, usability, accessibility, and security signal plans and evidence | 🔄 Active transition proposal |
 | [architecture-and-infrastructure/](architecture-and-infrastructure/) | Cross-cutting architecture, workspace boundaries, quality gates, infrastructure, and system quality | 🔄 Active backlog |
 | [security-and-privacy/](security-and-privacy/) | Security controls, privacy posture, security claim evidence, Cloudflare MCP gate, and Web Bot Auth enforcement evidence | 🔄 Active execution |
 | [compliance/](compliance/) | External policy compliance, platform submission, directory listing requirements, and regulatory/documentation alignment | 📋 Planned / queued |
@@ -139,10 +139,11 @@ handoff, review, consolidation, and priority-setting.
 - **Execution detail belongs to collection plans.** `high-level-plan.md` and
   `curriculum-mcp-path-to-ga/roadmap.md` coordinate, but do not replace owning
   active/current plans.
-- **TAU owns the evidence-to-understanding loop.**
-  [telemetry-and-understanding/](telemetry-and-understanding/README.md) owns
-  question registration, event semantics, PostHog delivery, Sentry
-  reconciliation, analysis surfaces, and cross-layer sequencing. The
+- **TAU is proposed to own the evidence-to-understanding loop after Stage 0.**
+  [telemetry-and-understanding/](telemetry-and-understanding/README.md) is
+  proposed to own question registration, event semantics, PostHog delivery,
+  Sentry reconciliation, analysis surfaces, and cross-layer sequencing after
+  its authority gate. The
   [observability/](observability/README.md) collection remains the detailed
   inherited implementation/evidence estate until each lane is dispositioned.
 - **Discovery is about being found.** Runtime MCP tools, SDK generation, and

@@ -9,9 +9,11 @@ engineering, product, usability, accessibility, and security.
 
 The new
 [Telemetry and Understanding System (TAU)](../telemetry-and-understanding/README.md)
-is the controlling programme for current cross-layer priority, PostHog delivery,
-Sentry reconciliation, logging/monitoring decisions, analysis surfaces, and
-evidence-to-decision governance.
+is the proposed controlling programme for cross-layer priority, PostHog
+delivery, Sentry reconciliation, logging/monitoring decisions, analysis
+surfaces, and evidence-to-decision governance, pending its Stage 0 authority
+ratification. Until that gate closes, the existing authorities in this
+collection remain current.
 
 This collection remains the detailed inherited implementation/evidence estate.
 Nothing is silently abandoned or archived by the transition. The
@@ -24,9 +26,9 @@ Oak-owned event schemas remain authoritative; Sentry remains the specialist
 engineering-observability surface; and stdout/fixtures remain the
 vendor-independent floor.
 
-**Status**: 🔄 Active transition (post-2026-04-18 restructure; bounded
-corrective lane archived complete 2026-04-23; TAU controls new sequencing
-from 2026-07-11)
+**Status**: 🔄 Active transition proposal (post-2026-04-18 restructure;
+bounded corrective lane archived complete 2026-04-23; TAU is proposed to
+control new sequencing after Stage 0 ratification)
 **Foundational ADR**: [ADR-162 Observability-First](../../../docs/architecture/architectural-decisions/162-observability-first.md)
 (the ADR file is the current status authority).
 **Direction-setting session**: [`docs/explorations/2026-04-18-observability-strategy-and-restructure.md`](../../../docs/explorations/2026-04-18-observability-strategy-and-restructure.md)
