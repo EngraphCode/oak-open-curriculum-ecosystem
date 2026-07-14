@@ -2,7 +2,6 @@ import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import { scanArgs } from '../core/cli-arg-parser.js';
 import {
   compareByCodeUnit,
   type Denominator,
@@ -11,11 +10,11 @@ import {
 } from './refounding-artefacts.js';
 
 /**
- * Pure logic for `refound-freeze` (F1 §5 row 1): flag parsing, source→frozen
- * path mapping, denominator building, and the verified gitleaks invocation
- * shape. The filesystem-touching orchestration lives in the sibling
- * `refound-freeze-runner.ts`; the entry point owns I/O wiring and the exit
- * code.
+ * Pure logic for `refound-freeze` (F1 §5 row 1): source→frozen path mapping,
+ * denominator building, and the verified gitleaks invocation shape. Flag
+ * parsing lives in the sibling `refound-freeze-args.ts`; the
+ * filesystem-touching orchestration lives in `refound-freeze-runner.ts`; the
+ * entry point owns I/O wiring and the exit code.
  *
  * @packageDocumentation
  */
@@ -44,44 +43,6 @@ export const INSTRUMENT_EXCLUDE_GLOBS: readonly string[] = [
   '.agent/plans-refounding/**',
   'agent-tools/src/refounding/**',
 ];
-
-/** Parsed CLI flags for `refound-freeze` (paths as given; the entry resolves them). */
-export interface FreezeArgs {
-  readonly rulePath: string;
-  readonly outDir: string;
-}
-
-/**
- * Parse `--rule <path>` / `--out <dir>` from argv via the shared
- * {@link scanArgs} scanner. Unknown or dangling flags are errors, never
- * ignored. Shared by `refound-freeze` and `refound-merge-recheck` (the two
- * rule-plus-out entries); `toolName` labels the usage line.
- */
-export function parseFreezeArgs(
-  argv: readonly string[],
-  toolName = 'refound-freeze',
-): Result<FreezeArgs, Error> {
-  const scanned = scanArgs(
-    argv,
-    { rulePath: DEFAULT_RULE_PATH, outDir: DEFAULT_OUT_DIR },
-    {
-      flags: {},
-      valueOptions: {
-        '--rule': (state, value) => {
-          state.rulePath = value;
-        },
-        '--out': (state, value) => {
-          state.outDir = value;
-        },
-      },
-      helpText: `usage: ${toolName} [--rule <path>] [--out <dir>]`,
-    },
-  );
-  if (!scanned.ok) {
-    return err(new Error(scanned.error));
-  }
-  return ok({ rulePath: scanned.state.rulePath, outDir: scanned.state.outDir });
-}
 
 /**
  * Map a repo-root-relative source path to its frozen-tree-relative mirror:
