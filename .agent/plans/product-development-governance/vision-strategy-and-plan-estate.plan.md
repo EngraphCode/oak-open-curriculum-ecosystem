@@ -870,7 +870,7 @@ acceptance is proven.
 | Streams strategised as independent tracks | cohesion across-and-within is an acceptance condition; the streams-as-system map is required |
 | Measures invented by the agent rather than Oak-grounded | measures are an Oak input; acceptance requires owner/Oak grounding; surface an owner checkpoint where the signal isn't already known |
 | A stakeholder projection becomes a competing authority or stale status page | every external narrative links its source, states freshness and evidence limits, and keeps edits inside the surface's assigned responsibility |
-| Delivery, operational, usage, and impact evidence are collapsed into one success claim | keep the four evidence classes explicit; require research/evaluation and Oak-owned outcomes before claiming impact |
+| Execution movement, delivery performance, operational health, usage, and impact evidence are collapsed into one success claim | keep the five evidence classes explicit; require research/evaluation and Oak-owned outcomes before claiming impact |
 | Strategy corpus authored in plain dev-doc voice | the editorial-tone directive applies to the strategy; "in the editorial voice" is an acceptance and proof condition |
 | The app silently re-acquires "first / more important" framing | the framing corrections are an explicit non-goal and a proof condition |
 | Restructure deletes value while "restructuring" | recorded disposition (supersession mapping per the consolidation discipline) — every removal carries one or it is a defect |

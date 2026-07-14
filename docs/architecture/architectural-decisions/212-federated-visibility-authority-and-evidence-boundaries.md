@@ -77,3 +77,25 @@ provides the portable principle that records are projections rather than sources
 named systems, audiences, and responsibilities above are this repository's host architecture, so
 they do not create a vendor-specific PDR. A portable Practice contract would require separate
 owner intent and a host-free, evidenced formulation.
+
+## Amendment — 2026-07-14: Execution movement is a fifth evidence class
+
+The owner ruled that execution movement is not merely a view onto delivery performance. It is a
+distinct evidence class answering whether concrete work, dependencies, and proposed changes are
+moving. The accepted text above records the original four-class decision and remains unchanged as
+history; this amendment supersedes that count.
+
+Keep five evidence classes distinct:
+
+1. **Execution movement** comes from Linear execution state and GitHub change/readiness evidence.
+   It answers whether concrete work, dependencies, review, and proposed changes are progressing.
+2. **Delivery performance** is the ADR-207 generated projection over the intent graph joined to
+   GitHub, Linear, deployment, and Sentry evidence. No single external service owns it.
+3. **Operational behaviour and health** come from Sentry and its OpenTelemetry context.
+4. **Product usage and adoption** come from PostHog after the relevant instrumentation lands.
+5. **Value and impact** require interpretation across those sources plus qualitative research,
+   evaluation, curriculum evidence, and Oak-owned outcome measures.
+
+Execution movement can be current while the delivery system performs poorly, and delivery
+performance can improve without proving product use or impact. The five classes therefore remain
+separate in stakeholder projections and generated evidence views.
