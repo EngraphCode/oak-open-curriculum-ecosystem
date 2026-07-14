@@ -16,6 +16,18 @@ identity detail into the main narrative.
 
 An agent is about to create or change content on a Notion page while working from a repository.
 
+## Allowed edit boundary
+
+The owner-authorised edit boundary is the Notion subtree rooted at `Live Vision, Strategy, and
+Planning` (page ID `39d26cc4e1b1803bb6ead6ff2c109ae3`): the root page and every page currently
+beneath it. Resolve ancestry from live Notion state before writing. Do not maintain a second list of
+page IDs; the owner extends or contracts the boundary by moving pages into or out of this subtree.
+
+Refuse edits outside the subtree and surface the request to the Director. Subtree membership makes
+a page eligible for editing, but does not independently authorise creating a new child page or
+choosing between a new page and an inline affordance; route that content-architecture choice to the
+Director first.
+
 ## Action
 
 For each agent-authored change set on a page, the agent MUST append exactly one list item to that
