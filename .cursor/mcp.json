@@ -1,32 +1,32 @@
 {
   "mcpServers": {
-    "sentry-ooc-mcp": {
+    "cursor-sentry-ooc-mcp": {
       "type": "http",
       "url": "https://mcp.sentry.dev/mcp/oak-national-academy/oak-open-curriculum-mcp"
     },
-    "sentry-ooc-search-cli": {
+    "cursor-sentry-ooc-search-cli": {
       "type": "http",
       "url": "https://mcp.sentry.dev/mcp/oak-national-academy/oak-open-curriculum-search-cli"
     },
-    "oak-prod": {
+    "cursor-oak-prod": {
       "type": "http",
       "url": "https://curriculum-mcp-alpha.oaknational.dev/mcp"
     },
-    "oak-preview-1": {
+    "cursor-oak-preview-1": {
       "type": "http",
       "url": "https://poc-oak-open-curriculum-mcp-git-docs-agent-collaboration-7b7314.vercel.thenational.academy/mcp"
     },
-    "oak-local": {
+    "cursor-oak-local": {
       "type": "http",
       "url": "http://localhost:3333/mcp"
     },
-    "playwright": {
+    "cursor-playwright": {
       "command": "npx",
       "args": [
         "@playwright/mcp@latest"
       ]
     },
-    "next-devtools": {
+    "cursor-next-devtools": {
       "command": "npx",
       "args": [
         "-y",
