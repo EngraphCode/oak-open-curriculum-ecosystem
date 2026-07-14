@@ -1,5 +1,7 @@
 # Oak reusable curriculum architecture — final synthesis
 
+> Historical draft. Superseded by the canonical report in the parent directory.
+
 **Date:** 2026-07-14  
 **Status:** Final synthesis of this concept exploration; a strategic recommendation, not a ratified architecture or implementation plan  
 **Scope:** Curriculum meaning, authoring, review, assessment, alignment, release management, AI assistance, and deterministic graph serving
@@ -371,13 +373,13 @@ These relations can support each other. They are not interchangeable.
 
 The local graph corpus currently crosses that boundary.
 
-[`graph-corpus-edges.ts`](../../../packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-edges.ts)
+[`graph-corpus-edges.ts`](../../../../packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-edges.ts)
 builds `prerequisiteFor` edges from consecutive units in each thread's
 year-ordered projection. It also preserves same-year adjacency by sorting on a
 unit identifier. The source explicitly says that same-year tie-break is
 arbitrary and not a pedagogical or curricular claim.
 
-[`prior-knowledge-view.ts`](../../../packages/sdks/graph-corpus-sdk/src/curriculum/prior-knowledge-view.ts)
+[`prior-knowledge-view.ts`](../../../../packages/sdks/graph-corpus-sdk/src/curriculum/prior-knowledge-view.ts)
 then describes these edges as real prerequisites and exposes their predecessors
 as prior knowledge. The curriculum-mapping guidance consumes the prior-
 knowledge graph as an ordering input.
@@ -778,11 +780,11 @@ lack of conviction.
 - [Lesson summary schema](https://github.com/oaknational/oak-openapi/blob/f64b8f3fe8bee849016c61e60cc0a454d424369b/src/lib/handlers/lesson/schemas/lessonSummaryResponse.schema.ts)
 - [Question schema](https://github.com/oaknational/oak-openapi/blob/f64b8f3fe8bee849016c61e60cc0a454d424369b/src/lib/handlers/questions/types.ts)
 - [Unit summary schema](https://github.com/oaknational/oak-openapi/blob/f64b8f3fe8bee849016c61e60cc0a454d424369b/src/lib/handlers/units/schemas/unitSummaryResponse.schema.ts)
-- [Local graph edge generation](../../../packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-edges.ts)
-- [Local prior-knowledge view](../../../packages/sdks/graph-corpus-sdk/src/curriculum/prior-knowledge-view.ts)
-- [Local thread-progression projection](../../../packages/sdks/graph-corpus-sdk/src/curriculum/thread-progressions-projection.ts)
-- [Deterministic data surface ADR](../../../docs/architecture/architectural-decisions/191-deterministic-data-surface-agent-reasons.md)
-- [Teacher-as-expert ADR](../../../docs/architecture/architectural-decisions/194-teacher-as-expert-product-boundary.md)
+- [Local graph edge generation](../../../../packages/sdks/oak-sdk-codegen/src/bulk/generators/graph-corpus-edges.ts)
+- [Local prior-knowledge view](../../../../packages/sdks/graph-corpus-sdk/src/curriculum/prior-knowledge-view.ts)
+- [Local thread-progression projection](../../../../packages/sdks/graph-corpus-sdk/src/curriculum/thread-progressions-projection.ts)
+- [Deterministic data surface ADR](../../../../docs/architecture/architectural-decisions/191-deterministic-data-surface-agent-reasons.md)
+- [Teacher-as-expert ADR](../../../../docs/architecture/architectural-decisions/194-teacher-as-expert-product-boundary.md)
 
 ### Curriculum and editorial lenses
 

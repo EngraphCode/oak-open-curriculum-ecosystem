@@ -140,7 +140,11 @@ Practice consists of.
 Platform-specific implementations follow a canonical-first model:
 substantive content lives in `.agent/`; thin adapters and tracked platform
 config activate the canonical Practice for each supported runtime.
-Entry-point files direct each platform to the canonical Practice. Rules and
+Entry-point files direct each platform to the canonical Practice — they are
+deliberately host-specific: each names the exact vendor surface it funnels
+(`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`), so every agent, regardless of vendor
+association, lands on the same portable, shared infrastructure (owner ruling,
+2026-07-14). Rules and
 hooks use the same split: canonical policy in `.agent/`, thin native
 activation in platform config, and repo-local runtime where needed. Project
 platform config is tracked infrastructure; local overrides are additive.

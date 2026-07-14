@@ -24,8 +24,7 @@ or a policy. Therefore it does not need to be canonical or exhaustive. -->
 
 ## Team Session
 
-/goal ultrathink /oak-metacognition /oak-reason /oak-start-right-team
-  /oak-consolidate-until-done
+/goal ultrathink /oak-metacognition /oak-reason /oak-start-right-team /oak-consolidate-until-done
 
   This is a dedicated consolidation session. As always, the goal is knowledge
   curation, not chasing fitness numbers. The fitness function results are never the

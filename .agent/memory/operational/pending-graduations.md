@@ -116,20 +116,6 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **PR-as-earning-and-record as portable Practice doctrine** `[captured: 2026-07-08 |
-  source: napkin (Salamander weaves Warmth, 4960fe — PR #328 closeout; owner correction
-  "change your idea of what a PR is") | target: PDR (portable: review conversations are
-  first-class — a PR is the structured conversation through which a change earns shared
-  truth, and the durable record of that earning; the host-level enforcement already landed
-  in the pr-lifecycle skill preamble 2026-07-08) | trigger: a second estate needs the
-  doctrine (inter-Practice exchange) OR the next Practice-core refinement window |
-  size: S | status: pending]`
-
-- **Durable records carry technical substance, never the owner's emotional state** `[captured:
-  2026-07-13 | source: napkin (Sloop holds Lagoon, 5fbef7 — owner correction at the
-  linear-plugin closeout: an expunge request means sweeping ALL surfaces a record reached,
-  not editing one file; records describe the mistake and cure factually) | target: rule
-  (record-hygiene clause: memory/napkin/comms/commit records state technical facts and
-  corrections; the owner's tone or emotional state is never recorded, and an expunge request
-  triggers an all-surfaces sweep with confirmation) | trigger: next consolidation pass |
-  size: S | status: pending]`
+<!-- Register drained to empty at the 2026-07-14 dedicated consolidation (Dolphin weaves
+Reef): both items below graduated to PDR-128 (review-conversations-are-first-class) and the
+new records-are-technical-not-emotional rule respectively — both homes verified live. -->

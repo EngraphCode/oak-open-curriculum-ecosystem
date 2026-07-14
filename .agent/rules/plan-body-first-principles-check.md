@@ -20,7 +20,19 @@ before writing code or doctrine.
    (especially vendor API values, config keys, package-export names, file
    paths) match the current upstream surface, or is it a doc-level word the
    plan borrowed? Plan prose drifts from vendor reality between plan-write and
-   plan-execute.
+   plan-execute. **Capability-locus check (same clause, a distinct failure
+   mode):** before naming any skill, tool, or capability in a durable
+   artefact, verify WHERE it actually lives — repo-local, user/platform-level,
+   plugin-provided, or vendor-hosted — not just that it exists. A capability
+   that is real but lives one layer away from where the artefact claims
+   breaks the next executor exactly as a stale vendor literal does. Recurred
+   three times on one thread (2026-07-09/13): a research plan cited "the
+   in-repo `mcp-inspector` skill" when it is a user-level (`~/.claude`) skill,
+   not in-repo; a plan gap-list asserted "MCPJam wired" when the actual
+   capability is the `@mcpjam/cli` devDependency invoked per-checkout; and a
+   plan cited a "repo-tracked `.mcp.json`" that exists locally but is
+   `.gitignore`d. Each instance passed a vendor-literal check that verified
+   the *fact* but not the *locus* — verify both.
 4. **Optionality-surface clause.** Is the plan, acceptance criterion, outcome,
    or status being authored embedding optionality where a closed answer
    exists? Route the finding to its surface in

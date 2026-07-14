@@ -417,6 +417,20 @@ F-41 CLI tail).
 3. Comms-event rotation is the retention-gated curator-pass (ADR-199 / PDR-094): archive-move events past
    their class window, gated on absorption + provenance. Analysis is never gated; fitness is routing
    evidence only — never archive, split, shard, or rename unprocessed content to improve scores.
+4. **Practice Box light-pass complete (2026-07-14 dedicated consolidation, Dolphin weaves Reef); full
+   integration still QUEUED, owner-scoped.** Three resonance exchange bundles received
+   2026-07-05/06/08 (`.agent/practice-core/incoming/`), well-formedness-checked, box NOT cleared. Two
+   backflow items are castr-bound (forward at the next resonance/castr exchange window, no local
+   action). The PDR-117 host-path item is already resolved on `main` (the Consequences section already
+   uses the "in this repo it is `<path>`" host-indirection form). **Queued for a dedicated cross-estate
+   integration session** (owner-scoped — this bears directly on the live `strategy-and-plan-estate-holistic-review`
+   plan-corpus-refounding effort, so route through that thread's Director, not unilaterally): four
+   design-core candidates (proof-ladder claim-typing, a refusals-list shape, a posture-selection
+   procedure, an obligation-family shape); resonance PDR-129/130-style recomputable plan/team state
+   (proof-typed todos, claims joined to plan-todo pointers); a zero-judgement worker-class discipline
+   with mandatory verification-of-delegated-work; and a proposed inter-Practice communication protocol
+   as a Core PDR family (offered to merge with this estate's own queued
+   `inter-practice-collaboration-protocol.plan.md`).
 
 ### Connecting-Oak / PR History
 

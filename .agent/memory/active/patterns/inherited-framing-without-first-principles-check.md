@@ -53,8 +53,8 @@ surfaced to the owner before code or doctrine is written.
 
 ## Instances
 
-Six instances observed in the 2026-04-20 and 2026-04-21 sessions,
-paired against the clause each instance invalidated.
+Seven instances observed across the 2026-04-20/21 and 2026-07-13/14
+sessions, paired against the clause each instance invalidated.
 
 ### 2026-04-20 (same session, three instances)
 
@@ -106,6 +106,25 @@ paired against the clause each instance invalidated.
    mentioned a Sentry-related export/config key lifted from
    earlier prose; the live vendor surface had moved. (Clause 3,
    vendor-literal.) The literal was doc-level, not code-level.
+
+### 2026-07-13/14 (a sharpened generator: the entity a change adds IS the edge case)
+
+7. **Instance 7 — new doctrine text asserting a universal failed on the very
+   entity the same change introduced.** Authoring a root `skills.md` entry
+   point, an agent wrote prose asserting universals about how platforms load
+   entry points ("every platform reads its own entry point first", "loaded
+   by", "auto-loaded"). Three separate review rounds traced back to this one
+   clause because the change itself introduced the counterexample: Linear's
+   entry-point shape is inherit-plus-supplementary, not read-its-own-only.
+   (Clause 1, shape: a universal claim authored by the same session that adds
+   the entity breaking it.) This sharpens the general check with a specific
+   generator: **when authoring new doctrine prose in the same change that
+   adds a new case, entity, or platform, check the new prose's universals
+   against that new addition FIRST** — it is the one case guaranteed not to
+   have been in scope when the universal felt true. Caught by Copilot review,
+   three rounds deep, each costing a full round-trip; pre-checking a new
+   universal against the entity the same change just added would have caught
+   it before the first push.
 
 Instances 4, 5, 6 were caught by external friction mechanisms
 (owner in-flight review, reading spec against directive, cross-

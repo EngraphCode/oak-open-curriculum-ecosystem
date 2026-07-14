@@ -3182,3 +3182,32 @@ commit SHA and the closing plan reference.
 - **Status**: cure landed for the conservation-event pair; class sweep open.
 - **Owner direction status**: Director-ruled in-scope for the r1 seat (directed event
   2026-07-14 ~09:43Z), sequenced after the G2/G3 sitting packet.
+
+### F-142 — a passive comms watcher's seen-cursor is not a cognition cursor
+
+- **Evidence**: napkin entry 2026-07-14 "Phosphor holds Tallow (019f5c): visibility-estate
+  closeout and recursive loss scan" (candidate: transport cursor is not a cognition cursor);
+  comms directed event `7d0cf7bd-6300-4464-b5a0-770ee54ce4b6` (Quasar mends Umbra, Director,
+  naming this "a real find" and committing to route it here).
+- **Surface**: the all-channels comms watcher's seen-file cursor
+  (`comms-all-channels-watcher.md`), shared by both the persistent background watcher AND any
+  later foreground `comms inbox`-shaped personal check.
+- **Observed**: the persistent watcher consumed a Director-addressed directed event and
+  advanced the shared seen cursor. A later foreground inbox read, performed by the same
+  agent to personally inspect and interpret messages, found "no new comms events" against
+  that already-advanced cursor — even though the agent itself had never read or interpreted
+  the event's content. A passive transport process can prove delivery/liveness (the event was
+  received, the watcher is alive); it cannot prove cognitive acknowledgement (a human or agent
+  actually read and understood it). The two are currently the same cursor, so proving one
+  silently reads as proving the other.
+- **Expected**: a required personal message-check (the two-minute self-check cadence, or any
+  "did you see X" verification) should be answerable from a cursor that only advances on
+  actual cognitive inspection, independent of what the background transport has already
+  consumed.
+- **Candidate cure**: separate the transport cursor (what the background watcher has drained)
+  from a cognition cursor (what the agent has personally read and interpreted) — either a
+  second, agent-owned seen-file advanced only by an explicit personal-read action, or a
+  direct time-window/corpus sweep that does not consult the transport cursor at all.
+- **Status**: open — single confirmed instance; not yet cured or estate-scoped.
+- **Owner direction status**: standing (record-all-frictions); Director committed to routing
+  this entry in the same directed event.

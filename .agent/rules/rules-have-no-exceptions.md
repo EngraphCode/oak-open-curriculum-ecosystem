@@ -28,6 +28,31 @@ tombstone for the case the author could not yet fit.
 4. A case you cannot yet resolve is surfaced for an owner doctrine decision,
    never parked inside the rule as a carve-out.
 
+## A documented bypass is a carve-out, even when the actor is legitimately outside the rule's audience
+
+When a real actor legitimately needs different treatment than the rule
+prescribes (release automation writing to `main`; a service account; a
+scheduled job), the fix is **scoping the rule's audience explicitly**
+("release automation is outside this rule's audience and handles its own
+writes"), never **documenting the bypass mechanism** for that actor inside
+agent-facing doctrine. A documented mechanism is itself a carve-out: an
+exception agents know about is an exception they will eventually argue
+themselves into using, and each round of review pressure to "explain how X
+still works" tends to add more mechanism detail, compounding the leak.
+Audience-scoping states *who the rule does not govern* in one line, with zero
+mechanics; it does not teach agents how the excluded actor operates.
+
+Worked instance (2026-07-08, PR #332 arc):
+[`never-commit-to-main`](never-commit-to-main.md) initially grew increasingly
+detailed documentation of how release automation legitimately writes to
+`main` (reviewers pushed for even more mechanism detail, and it was added —
+precedent compounding via review pressure). The cure was deleting the
+mechanism prose and adding one audience-scope sentence instead: "Release
+automation is outside this rule's audience and handles its own writes; its
+mechanics are not agent-facing knowledge." Bot reviewers' "won't this block
+X?" questions get answered in the PR thread (a record), never folded into
+standing doctrine (a teaching surface).
+
 ## Why this is strict
 
 Exceptions accrete. Each one is a small licence to stop thinking, and the next
