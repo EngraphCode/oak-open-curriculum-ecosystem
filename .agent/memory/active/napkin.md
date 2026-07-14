@@ -1158,3 +1158,29 @@ loss-scan findings (written per the standing rule):
   correction: "I don't need you to land the PR, I need you to complete the session close
   out" — lane-hygiene perfectionism (branch deletion) was delaying the asked-for handoff;
   at closeout, hygiene beyond proof-of-safety is deferrable, the handoff is not.
+
+## 2026-07-14 — F-138 repair lane (implementer, Director-commissioned; worktree f138-two-root-split)
+
+- **F-138 cured at `SHA:8c6b1d157`** (branch `fix/f138-commit-queue-two-root-split`): the
+  commit-queue two-root split — `repoRoot` stays the coordination-home registry anchor; a
+  required lazy `resolveGitRoot` thunk (new `commit-queue/git-root.ts`,
+  `git rev-parse --show-toplevel`) carries staged reads, verification, the advisory
+  orchestrator, and the inner commit against the INVOKING worktree; underivable git root =
+  loud refusal, never a coordination-home fallback. RED-first regression suite
+  (`tests/commit-queue.worktree.integration.test.ts`, real scratch primary + linked
+  worktree) reproduced the field failure exactly (`staged_name_status: ""`,
+  verify "missing", guard case silently exit 0) before the fix went in.
+- **Dogfood proof**: the fix commit was landed via the repaired ceremony FROM the linked
+  worktree against the shared primary registry (intent `8cd528f0`, claim `12fdfcee`) — the
+  exact invocation shape that auto-abandoned intents on 2026-07-13/14.
+- **New friction F-139 captured**: `guard` rejects the skill-doctrine
+  `index/head@<worktree>` claim pattern (matcher wants bare `index/head`); workaround =
+  bare pattern + worktree named in the claim intent text. First attempt's intent
+  `d2ed19ef` abandoned on exactly this; claim `180670a3` closed with the reason.
+- **Mechanics observed**: (1) `claims open` F-95 watcher gate checks the comms-seen
+  heartbeat via a cwd-relative path — from a worktree it misses the primary's LIVE
+  watcher; run claims commands from the primary (known F-138-adjacent face, still open).
+  (2) zsh does not word-split an unquoted `$FILES` variable — repeated `--file` flags must
+  be spelled out (first enqueue "exit 2" was this, not the CLI). (3) The workflow's
+  formatting-gate failure correctly auto-abandoned the intent; prettier-write on the four
+  offending files + fresh intent recovered cleanly — rollback discipline held.
