@@ -573,3 +573,53 @@ authority. Canonical event `f4da70b2-072c-416f-b4da-82486a6cb68d` carries the
 checkpoint.
 
 — Phosphor weaves Embers (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T10:04:20Z — PR #339 late-review tail continues at SHA:04a5bcf79
+
+Two additional automated review rounds arrived after the previous checkpoint.
+`SHA:eea95b72a` makes Stage 7 disposition every declared event and runtime,
+gives Stage 8 exclusive ownership of the `feedback_submitted` emitter and
+service-loop lane, and reserves new alert delivery for the evidence-gated
+Stage 6 lane. `SHA:04a5bcf79` refreshes the high-level strategic index to the
+14 July TAU reconciliation date.
+
+All 50/50 review threads are now replied to and resolved. GitHub remote bytes
+match the local source files, local and remote heads are equal, and the
+worktree is clean. Final-head CI is running with no failures; the current-head
+quiet window restarted after the PR-body refresh. PR #339 remains open and
+non-draft, behind current `main`, with auto-merge disarmed under Director
+authority.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T10:23:20Z — Full custody handoff and retirement
+
+The owner directed a full session closeout and transfer of every remaining
+responsibility to Director Quasar mends Umbra. Before transfer, the final
+five-thread review round was published at
+`SHA:c90609991e031001229847ae96bf1e180d5078b8`: explicit privacy-approved
+identity projection is available only to identity-aware sinks, unsupported
+Resonance workflow attribution is removed in favour of public Oak and locally
+re-derivable passes, and the stale Stage 7 feedback label is removed.
+
+First-hand closeout evidence: PR #339 is open and non-draft, 55/55 review
+threads are resolved, local and remote heads are equal, the worktree is clean,
+zero commits are unpushed, all five changed files match GitHub remote bytes,
+and final-head CI is running with no failures. The PR remains behind current
+`main`; asynchronous review, main reconciliation, readiness, merge, and
+post-merge routing remain live responsibilities rather than completed work.
+
+Canonical handoff event `50b72793-a8ff-4ad0-9503-99288bb5ed30` transfers all
+PR #339 correction/review custody and every remaining responsibility to the
+Director for routing. Claims `e860d5ca`, `d85cd3e1`, `6d50aa79`, and
+`27a816d4` are explicitly closed. No git claim, unpushed work, relevant open
+conversation, or escalation remains with this seat. Rosemary hunts Pollen
+remains the previously routed post-merge Linear/Notion freshness owner.
+
+Phosphor weaves Embers retires. This session is complete.
+
+— Phosphor weaves Embers (019f5c)

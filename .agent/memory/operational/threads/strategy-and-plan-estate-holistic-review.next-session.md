@@ -19,6 +19,37 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
+## Where We Are (2026-07-14, Cedar rides Undergrowth 270379 — r1 STARTED: G2+G3 ruled, pre-S0 tranche on PR #370; S0 HELD for the freeze-planning sitting)
+
+The r1 seat opened fresh per the 2026-07-14 owner ruling (fresh implementer, not an Elder
+recall), under Director Quasar mends Umbra (52b4de), in the
+`plan-corpus-refounding-r1` worktree (branch `feat/plan-corpus-refounding-r1`).
+
+- **G2+G3 were RULED at the ~12:25–12:30Z owner sitting** (relay of record: the Director's
+  directed event 12:29:05Z; full ratification records in the artefact-root packets):
+  G2.1/G2.2/G2.3 yes; **G2.4 overruled → HARD freeze window** (hours-scale, team holds
+  landings); owner **moratorium** on plan-corpus work during the window (the arrivals table
+  is violation-detection inside it); deletions halt for ruling; **G3.3: operational
+  registers are OUT of the corpus** (six-path closed list in the freeze rule; exact-list
+  confirmation rides the freeze-planning sitting).
+- **PR #370** carries the pre-S0 tranche: the F-141 freeze-tool hardening (`SHA:2baa798db`),
+  the G3.3 out-subtraction with the `operational-registers` rule class (`SHA:6ab5270a2` —
+  in-set under the amended rule: 677 files, tool-derived = git arithmetic), and the sitting
+  records with the owner-gate register truings and F-141 (`SHA:f1f0d25a5`). Two code-expert
+  gateways absorbed; all resolutions applied; residuals recorded in F-141.
+- **S0 is HELD**: owner directed a step-back — the Director runs a pre-freeze estate review
+  (all open sessions/PRs/branches/uncommitted work), then a freeze-planning sitting. The S0
+  branch sequence when it opens: gate-exclusion configs commit → clear the exploration's
+  stale freeze artefacts from the r1 worktree (the tool refuses over a non-empty frozen
+  tree; they were cut at pre-G3.3 `SHA:cf3327515` and disagree with the amended rule) →
+  fresh branch off then-current main → freeze → one atomic S0 commit → push → merge, all
+  inside the declared hard window. Then S1 (inventory + residue + planted-orphan proofs) and
+  S2 (tiling baseline + the audit-mode claim-vs-derived divergence report as Walk-A input).
+- The six-path derivation rationale (churn evidence + kind-judgement calls) is in the napkin
+  entry "2026-07-14 — Cedar rides Undergrowth: compaction-prep loss scan" and the Director
+  sitting brief; the G1-era r1 pickup block below is SUPERSEDED by this section through the
+  packet stage.
+
 ## Where We Are (2026-07-08 late, Bora holds Turbulence 42a4cf — PR #333 review-round fixes landed; SETTLED: PR #333 MERGED, both threads resolved)
 
 **Settled 2026-07-08 (Callisto guards Penumbra, da9f8c): PR #333 MERGED
@@ -443,3 +474,4 @@ loss-scan):
 | Bora holds Turbulence | claude-code | claude-fable-5 | 42a4cf | PR #333 review-round fixes: severed ambient `GUARD_BRANCH` in the four non-rebase hooks + added the `pre-rebase` main-in-range refusal (`--update-refs` vector); trued the rule's coverage claim; proven 11/11 in a hand-run scratch harness (never a committed test). Landed+pushed at `ec20d572c` (owner reconciled the branch divergence). Did NOT touch the refounding claim areas or r1 | 2026-07-08 | 2026-07-08 |
 | Elder stirs Chlorophyll | claude-code | claude-fable-5 | 1af3af | pre-r1 seat (owner-named R0 successor #6, standby then owner-paused then bounded resume): resolved the diverged local main (three consolidation commits re-homed); landed the never-commit-to-main rule + shared five-hook branch guard via PR #332 (merged `d89d5c379`; four review rounds + post-merge round, three-reviewer pre-landing chain, all findings fixed-at-source or dispositioned); absorbed the owner's audience-scoping ruling (bypass mechanics out of agent-facing doctrine); r1 assigned on owner recall — first step G2+G3 sitting; claim `7b10679e` closed as stale at the closeout (owner ruling — Pelican long retired; the tracked thread-record block is the r1 pickup, a fresh claim opens at recall) | 2026-07-08 | 2026-07-08 |
 | Callisto guards Penumbra | claude-code | claude-fable-5 | da9f8c | PR #333/#334 closeout shepherd: fixed PR #334's review findings + merged it truly-green; verified the Codex P2 pre-rebase thread already resolved (pickup discharged); recovered Orchid's unconserved worktree captures into the branch; moved the primary checkout to main; removed all four worktrees + twelve merged branches; reconciled the PR #333 state contradiction (PR #335) | 2026-07-08 | 2026-07-08 |
+| Cedar rides Undergrowth | claude | claude-fable-5 | 270379 | r1 implementer (fresh seat per owner ruling, Director-routed): concept exploration of the r1 space; G2+G3 sitting packets authored + ruled; F-141 freeze-tool hardening; G3.3 out-subtraction + operational-registers rule class; pre-S0 tranche on PR #370; S0 held for the freeze-planning sitting | 2026-07-14 | 2026-07-14 |
