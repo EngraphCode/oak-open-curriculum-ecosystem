@@ -8,6 +8,7 @@ import { join } from 'node:path';
 import { runAgentToolsCli } from '../src/bin/agent-tools-cli';
 import type { CommitIntent, CommitQueueRegistry } from '../src/commit-queue';
 import { readRegistry } from '../src/commit-queue/registry';
+import { resolveTrustedGit } from '../src/core/trusted-git';
 
 /**
  * F-138 regression smoke — the commit-queue two-root split.
@@ -64,7 +65,7 @@ function seedRegistry(): CommitQueueRegistry {
 }
 
 function git(cwd: string, ...args: readonly string[]): string {
-  return execFileSync('git', [...args], { cwd, encoding: 'utf8' });
+  return execFileSync(resolveTrustedGit(), [...args], { cwd, encoding: 'utf8' });
 }
 
 interface WorktreeFixture {

@@ -1167,7 +1167,7 @@ loss-scan findings (written per the standing rule):
   `git rev-parse --show-toplevel`) carries staged reads, verification, the advisory
   orchestrator, and the inner commit against the INVOKING worktree; underivable git root =
   loud refusal, never a coordination-home fallback. RED-first regression suite
-  (`tests/commit-queue.worktree.integration.test.ts`, real scratch primary + linked
+  (`agent-tools/smoke-tests/commit-queue-worktree.smoke.ts`, real scratch primary + linked
   worktree) reproduced the field failure exactly (`staged_name_status: ""`,
   verify "missing", guard case silently exit 0) before the fix went in.
 - **Dogfood proof**: the fix commit was landed via the repaired ceremony FROM the linked

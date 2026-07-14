@@ -3059,7 +3059,7 @@ commit SHA and the closing plan reference.
   loudly — no fallback to the coordination home, because the fallback IS this defect. The
   primary checkout is the degenerate case (both roots coincide; prior behaviour
   preserved). Evidence: RED-first regression suite
-  (`agent-tools/tests/commit-queue.worktree.integration.test.ts` — real scratch primary +
+  (`agent-tools/smoke-tests/commit-queue-worktree.smoke.ts` — real scratch primary +
   linked worktree; pre-fix it reproduced `staged_name_status: ""`, the
   "missing: …" auto-abandon, and the guard case's silent exit 0), then GREEN; and the fix
   commit itself was landed via the repaired ceremony FROM the
