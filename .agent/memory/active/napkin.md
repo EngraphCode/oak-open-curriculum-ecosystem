@@ -1159,6 +1159,138 @@ loss-scan findings (written per the standing rule):
   out" — lane-hygiene perfectionism (branch deletion) was delaying the asked-for handoff;
   at closeout, hygiene beyond proof-of-safety is deferrable, the handoff is not.
 
+## 2026-07-14 — Phosphor holds Tallow (019f5c): visibility-estate closeout and recursive loss scan
+
+<!-- fitness already exceeded; capture preserved at full weight. A dedicated consolidation
+pass remains due and is transferred to the Director rather than raced against the live PR #339
+lane and shared primary-checkout churn. -->
+
+Lane complete: PR #341 merged as `SHA:1dcae73de` from `SHA:1f9da7c1b`; its follow-up PR #363
+merged as `SHA:6455bf2b5` from `SHA:adcf65504`. Live closeout verification found 21/21 and 0/0
+review threads resolved respectively, final check sets green (PR #363 includes one neutral
+Cursor result), and no post-merge drift. Linear MCP-12 is Done; the Linear project and
+curated Notion stakeholder page carry the audience/authority contract and both merge
+checkpoints. The proof-slice requested by Director event
+`ffad6296-83df-4881-b670-e6066f8174b4` is therefore materially present: a curated Notion
+narrative, Linear delivery true-up, and reciprocal links, at evidence altitude only, with no
+connector implementation or ADR-201 ratification.
+
+- **candidate: transport cursor is not a cognition cursor.** The persistent watcher consumed
+  the canonical event above and advanced the same seen cursor used by later foreground inbox
+  reads. Those reads returned `no new comms events`, although I had never personally inspected
+  or interpreted the Director's message. A passive transport can prove delivery/liveness, but
+  cannot prove cognitive acknowledgement. Until tooling separates these concerns, a required
+  personal heartbeat must use an independent cognition cursor or a direct time-window/corpus
+  sweep, then record acknowledgement. This is a first observed instance: keep it here and in
+  the tooling handoff rather than prematurely graduating it to doctrine.
+- **ARC append mistake and correction.** I twice used a repeated signature as an `apply_patch`
+  anchor while trying to append to the live ARC. The new text landed earlier in the file and
+  had to be followed by a file-order correction. Future ARC writes must use an append-safe
+  operation or an exact current-tail anchor, then immediately verify the tail. Corrections are
+  new entries; historical entries are never rewritten.
+- **Canonical correction owed and now routed.** Event
+  `f19ac171-ea0b-41f7-9337-239933b2487a` incorrectly claimed
+  `PRACTICE_COORDINATION_HOME` could bind commit-queue git reads to a worktree. Source
+  inspection later proved the CLI resolves `repoRoot` from `input.repoRoot ??
+  resolveCoordinationHome(input.cwd)` at that entry and does not pass the environment binding.
+  F-138's sanctioned recovery remains an explicit-pathspec plain commit with hooks until the
+  registry-root/invoking-worktree-git-root split lands. The closeout comms retraction names the
+  superseded event so the durable stream is self-correcting.
+- **Surface-boundary result.** Repo owns durable intent; Linear owns concrete execution;
+  Notion is the senior/non-engineering narrative; GitHub owns proposed-change readiness;
+  ADR-207 composes delivery-performance evidence; PostHog will own observed usage after TAU;
+  Sentry owns operational diagnosis. Usage, delivery performance, health, and impact remain
+  distinct evidence classes.
+- **Routed live residue, not this seat's custody.** PR #339 is peer-owned and live at
+  `SHA:457a71975`, 34/34 threads resolved, green/neutral final check set, but behind main. Linear
+  still names `SHA:e43380a2e` and Notion `SHA:04eeb6a5a`; this staleness is transferred to Director and
+  the PR #339 custodian rather than raced from the retired #341 seat. No own active claims,
+  conversations, escalations, queue intents, source edits, or unresolved review threads remain.
+- **Consolidation disposition.** Session-completion mode only. Open questions are empty; the
+  pending-graduations register has two pre-existing items. No new ADR or PDR candidate is
+  stable enough to promote. The napkin is beyond its critical threshold and a dedicated
+  consolidation remains due; collision with the Director/PR #339 live lane is the named
+  deferral constraint, falsified when those active claims close and an isolated curator pass
+  can own the shared memory surfaces.
+- **Recursive loss-scan boundary.** Read first-hand: the whole task conversation/current Codex
+  rollout; every canonical comms event matching this seat; the full ARC; current claims,
+  queue, conversation and escalation state; repo entry points; distilled, napkin,
+  pending-graduations, open-questions, continuity/thread records; relevant Claude memory and
+  plans; recent Cursor/Gemini surface inventory; live GitHub, Linear and Notion state; both git
+  worktrees. Accepted ephemeral loss is limited to reasoning texture, discarded draft prose,
+  and superseded status snapshots whose decisions/results are now in merged PRs, external
+  surfaces, this napkin entry, the ARC, or the Director handoff.
+
+## 2026-07-14 — Cedar rides Undergrowth (270379): r1 implementer seat — exploration complete, cold-paused on owner quota direction
+
+<!-- fitness already exceeded; capture preserved at full weight; dedicated consolidation remains DUE -->
+
+Fresh r1 seat under Director Quasar mends Umbra (52b4de) per the 2026-07-14 owner ruling (fresh
+seat, thread-record r1 block is the pickup). Claim `efe98e1e` (refounding + plan-state areas,
+role=implementer) OPEN and retained through the pause. Worktree
+`<repo-worktrees>/plan-corpus-refounding-r1` (branch
+`feat/plan-corpus-refounding-r1` off `SHA:cf3327515`) built green (install+build exit 0).
+
+- **Failure-mode (comms-posted at occurrence): `refound-freeze` EXECUTES on `--help`** — no help
+  path; unknown argv ignored; probing the interface ran the full conservation event in my
+  worktree (isolated, uncommitted, S0 gates untouched). Director ruled the structural cure
+  (unknown-argv refusal + explicit `--help`/`--dry-run`, test-first) IN-scope for my claim as a
+  small pre-S0 hardening commit, SEQUENCED AFTER the G2 packet. Frictions-register entry rides
+  the r1 work. Class: a state-writing script with no interface-probe path is a footgun; read the
+  source header, never probe with flags.
+- **The accidental run doubles as the thread-record's requested DRY-RUN** (Director-accepted
+  economy): 679 files (659 plans / 5 milestones / 15 proposals), 205,136 lines, 10,422,585
+  bytes; gitleaks 8.30.1 (pinned path) scan CLEAN — that is the G2 secret-scan attestation
+  evidence. The tool has NO dry-run mode; the real shape is "a full run in a disposable tree".
+  It REFUSES over a non-empty frozen tree, so the accidental artefacts must be cleared before
+  the real S0 run.
+- **G3 is load-bearing from day one, not an edge case**: 26 distinct in-scope files touched in
+  the 8 days since the design date (14 added, 92 modify events, 1 rename); top churn =
+  frictions-register.md (15 M), inter-practice-collaboration-protocol.plan.md (10 M),
+  ask-oisin.plan.md (8 M), the controlling refounding plan itself (7 M). Arrival stream shape:
+  high-churn operational registers + active-plan accretion + ~1.75 new plans/day.
+- **G2 gate-exclusion evidence (probed first-hand in the worktree)**: NO gate config anywhere
+  excludes `.agent/plans-refounding/` (grep across .prettierignore/.gitignore/markdownlint/
+  knip/gitleaks configs: zero hits). Pre-commit runs prettier-staged + markdownlint-staged over
+  STAGED files — the S0 commit stages ~679 frozen files. CHECK-mode gates pass on byte-copies
+  of in-tree-passing sources (prettier --check on a sample frozen file: green); the hazard
+  class is FIX-mode invocations (`markdownlint:root` is `--fix`; `format:root` writes) — any
+  rewrite of `archive/frozen-v1/**` breaks byte-identity at verify-freeze. The G2 packet must
+  declare scoped exclusions for the archive path with the byte-identity reason (configure the
+  boundary, never disable the gate).
+- **Plan-skill verdict (owner-directed /oak-plan question)**: r1 mints NO new plan artefact —
+  the controlling plan's `r1-freeze-inventory-baseline` todo is the executable authority, and a
+  new plan file in `.agent/plans/**` would itself be an ARRIVAL into the corpus being frozen
+  (self-noise). Sitting packets live at the artefact root OUTSIDE the denominator, per the G1
+  precedent.
+- **Cold pause (owner direction, ~09:47Z)**: quota conserved for the Director; heartbeat-end +
+  directed pause event posted; watcher + heartbeat monitors stopped (watcher notifications
+  burn model turns — a paused seat must go dark, and the re-arm recovery is same-seen-file +
+  gap sweep). Claim retained with the pause declared so PDR-078 retirement detection does not
+  false-fire. Resume = author G2 packet + G3 table from the evidence above (all re-derivable;
+  freeze artefacts sit uncommitted in the worktree), post to Director, sitting, then S0.
+- **ADR-144 critical-zone post-mortem.** (1) Earlier zones did fire: this is at least the
+  sixth consecutive seat-level due signal, so the failure is follow-through/capacity rather
+  than detection. Live delivery and shared-memory collision repeatedly displaced the isolated
+  curator pass. (2) The limits are not mis-set for the napkin's drainable-buffer role; 1214
+  lines / 98,920 characters and 68 overlong prose lines correctly indicate a failed processing
+  loop. Do not raise them. (3) Some residue is missing graduation (the two counted pending
+  items), but the dominant symptom is an undrained mixture of closeout evidence and candidate
+  lessons. The repair is the already-due dedicated consolidation/corpus pass, not reactive
+  compression during this live team closeout.
+- **Final gate result.** The sandboxed root `pnpm check` reached 110/114 Turbo tasks, then
+  Chromium failed macOS Mach-port registration with `Permission denied (1100)` across four
+  Playwright UI/accessibility tasks. The required unsandboxed rerun passed end to end: all
+  tests and validators, markdownlint, and Prettier green. Practice fitness remains CRITICAL
+  (3 critical / 14 hard / 12 soft / 41 healthy), intentionally routed rather than disguised.
+- **Director acceptance and qualified remainder.** Directed event
+  `7d0cf7bd-6300-4464-b5a0-770ee54ce4b6` accepts the closeout, proof-slice proposal,
+  shared-memory custody, #339 freshness routing, and transport/cognition friction. It ratifies
+  the initial proof slice across GitHub, Linear, and Notion, but keeps the Sentry leg open for
+  TAU Stage 5 reconciliation or a small operational-evidence readout. Quasar mends Umbra owns
+  that remainder and will surface it to the owner; this retiring seat does not claim objective
+  1 is whole.
+
 ## 2026-07-14 — F-138 repair lane (implementer, Director-commissioned; worktree f138-two-root-split)
 
 - **F-138 cured at `SHA:8c6b1d157`** (branch `fix/f138-commit-queue-two-root-split`): the
@@ -1184,3 +1316,12 @@ loss-scan findings (written per the standing rule):
   be spelled out (first enqueue "exit 2" was this, not the CLI). (3) The workflow's
   formatting-gate failure correctly auto-abandoned the intent; prettier-write on the four
   offending files + fresh intent recovered cleanly — rollback discipline held.
+
+## 2026-07-14 — PR #365 append-only correction ledger (Weasel stirs Lair, 019f60)
+
+- **Attribution correction.** The bullets titled **Final gate result** and
+  **Director acceptance and qualified remainder**, currently positioned in the Cedar
+  rides Undergrowth capture, belong to Phosphor holds Tallow's terminal closeout. Cedar
+  remained cold-paused with its r1 claim retained; it did not retire or own the accepted
+  visibility/Sentry remainder. This correction supersedes the historical placement while
+  preserving the original record.
