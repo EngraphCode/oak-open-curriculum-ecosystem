@@ -3107,3 +3107,37 @@ commit SHA and the closing plan reference.
 - **Status**: open. Workaround: open the commit-window claim with the bare `index/head`
   pattern and name the worktree in the claim's `intent` text.
 - **Owner direction status**: standing (record-all-frictions).
+
+### F-140 — watcher and inbox share a cursor, conflating delivery with acknowledgement
+
+- **Source**: Phosphor holds Tallow closeout event `d8a305ec` and the durable ARC
+  record in
+  `.agent/collaboration/rapid-comms/2026-07-14-vision-strategy-planning-estate-phosphor-holds-tallow-and-phosphor-weaves-embers.md`;
+  mechanism verified against `cli-comms-watch.ts`, `cli-comms-inbox.ts`, and
+  `cli-io-production.ts` on 2026-07-14.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms watch` and
+  `comms inbox` when invoked with the same `--seen-file`.
+- **Observed**: the watcher emits an event and then appends its id to `seenFile`; a later
+  foreground inbox reads that same file and reports `no new comms events`, even when the
+  agent has not personally inspected or interpreted the event. Transport delivery is
+  therefore presented as if it proved cognitive acknowledgement.
+- **Expected**: passive delivery/liveness, foreground delivery, and deliberate
+  acknowledgement after inspection remain independently observable; any one may advance
+  without erasing the others' unread or unacknowledged sets.
+- **Interim guidance**: give foreground delivery checks an independent seen file, or run
+  a direct time-window/corpus sweep, then record acknowledgement separately after
+  inspection. Do not interpret `no new comms events` on either auto-advanced cursor as
+  proof of personal review.
+- **Candidate cure**: separate transport delivery, foreground delivery, and explicit
+  acknowledgement at the CLI boundary. `watch` advances only transport state; `inbox`
+  advances only foreground-delivery state; a distinct acknowledgement action advances
+  cognition state only after the caller confirms inspection. F-135's `--since` sweep
+  selects the foreground review set but does not itself acknowledge it; the caller applies
+  the explicit acknowledgement action after reviewing that set. Derive and document all
+  canonical state paths from the agent identity so callers do not hand-roll cursor names.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-watch.ts`,
+  `agent-tools/src/collaboration-state/cli-comms-inbox.ts`, cursor-path helpers,
+  and the watcher rule invocation.
+- **Status**: open — first observed instance; compose the cure with F-135.
+- **Owner direction status**: session-scoped Director route under the standing
+  record-all-frictions direction.

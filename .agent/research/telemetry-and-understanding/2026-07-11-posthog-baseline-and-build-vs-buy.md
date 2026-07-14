@@ -73,6 +73,14 @@ event contract.
 
 ### `@posthog/mcp`
 
+The bounded probe pin is
+[`@posthog/mcp@0.9.0`](https://www.npmjs.com/package/@posthog/mcp/v/0.9.0),
+verified against the published package and PostHog's official
+[`@posthog/mcp@0.9.0` source
+tag](https://github.com/PostHog/posthog-js/tree/b85a37abb5039c131cfb604bc44cb8c1de04f89d/packages/mcp)
+on 2026-07-14. Any later version is a new evidence input, not an implicit
+upgrade.
+
 Current documentation describes a beta, pre-1.0 package that:
 
 - wraps `Server` or `McpServer`;
@@ -95,8 +103,13 @@ Risks for Oak:
    no-raw-content posture;
 4. exception autocapture may duplicate Sentry;
 5. the HTTP app creates a fresh server per request;
-6. vendor-native events could become a second semantic contract;
-7. tool-call events could duplicate Oak `tool_invoked`.
+6. version `0.9.0` initialises a generated `ses_*` value for every instrumented
+   server and, absent an approved identified user, emits it as both
+   `$session_id` and anonymous `distinct_id`;
+7. `enableConversationId: false` disables only the tool-parameter/prompt-back
+   conversation feature and does not suppress that generated session identity;
+8. vendor-native events could become a second semantic contract;
+9. tool-call events could duplicate Oak `tool_invoked`.
 
 **Decision:** do not make it the canonical instrumentation path. Run a
 version-pinned, preview-only build-vs-buy probe.
@@ -114,12 +127,23 @@ Probe configuration floor:
 }
 ```
 
+That configuration is necessary but insufficient. On Oak's
+fresh-server-per-request topology it would otherwise fabricate one PostHog
+session and anonymous `distinct_id` per request. The probe must therefore rewrite
+the final wire payload: remove or replace the generated `$session_id` only with
+an accepted real session value, and replace `distinct_id` only with Oak's
+separately approved identity/anonymous projection. If both fields cannot be
+rewritten safely, the wrapper is rejected.
+
 The probe must prove:
 
 - no tool schema changes;
 - no raw arguments/results on the final wire payload;
 - no duplicate canonical event;
-- correct behaviour with a fresh server per HTTP request;
+- across at least two fresh HTTP request servers, no vendor-generated `ses_*`
+  value survives in either `$session_id` or `distinct_id`;
+- tests cover identified, approved-anonymous, and no-approved-identity cases at
+  the final wire boundary;
 - bounded flush behaviour;
 - stable client and identity semantics;
 - adapter isolation from the rest of the codebase.
