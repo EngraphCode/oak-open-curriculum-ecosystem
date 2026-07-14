@@ -59,8 +59,9 @@ Once framed that way, the surfaces separate into distinct kinds:
 
 | Kind | Surface | Role established or suggested by the current estate |
 | --- | --- | --- |
-| Canonical intent | OCE repository and future idea graph | Why, what, constraints, strategy, durable plans, decisions, and interpretation |
-| Execution coordination | Linear | Concrete delivery work, ownership, dependencies, sequencing, progress, and delivery performance |
+| Canonical intent | OCE repository and future idea graph | Why, what, constraints, strategy, durable plans, decisions, interpretation, and generated cross-system delivery-performance projections |
+| Execution coordination | Linear | Concrete delivery work, ownership, dependencies, sequencing, and execution progress |
+| Delivery-performance evidence | ADR-207 generated DORA projection | Cross-system projection over the intent graph plus GitHub, Linear, deployment, and Sentry evidence; not owned by one external surface |
 | Change readiness | GitHub pull requests | Diffs, reviews, checks, previews, and evidence for a proposed change |
 | Design collaboration | Figma | Design source, interaction intent, design-system artefacts, and design review |
 | Principal stakeholder visibility | Notion | Current state, intent, value, roadmap, milestones, status, Oak goal/strategy/OKR alignment, and curated evidence for non-engineering and senior stakeholders |
@@ -422,7 +423,9 @@ The repo is consistent at high altitude:
 - OCE owns durable intent, strategy, scope, constraints, acceptance, and relationships;
 - Linear serves engineers, engineering managers, product managers, and delivery colleagues;
 - Linear owns concrete steps, assignment, dependencies, sequencing, cycles, estimates, current
-  execution state, progress, and delivery-performance visibility;
+  execution state, and progress visibility;
+- Linear supplies execution-state evidence to the ADR-207 generated DORA projection, but does not
+  own delivery-performance truth;
 - Linear may report state back into the graph;
 - Linear does not define the plan, strategic choice, or acceptance contract.
 
@@ -603,7 +606,8 @@ links to the surfaces that own each fact:
 | Notion statement | Owning evidence surface |
 | --- | --- |
 | Intent, value, strategy alignment, scope, and constraints | Repository vision, strategy, plans, and decisions |
-| Work, dependencies, ownership, progress, and delivery performance | Linear, with GitHub change/readiness evidence where relevant |
+| Work, dependencies, ownership, and execution progress | Linear, with GitHub change/readiness evidence where relevant |
+| Delivery performance | ADR-207 generated projection over the intent graph plus GitHub, Linear, deployment, and Sentry evidence |
 | Product usage, adoption, journeys, and behaviour | PostHog after the TAU instrumentation work lands |
 | Errors, traces, regressions, and operational health | Sentry and OpenTelemetry |
 | Value and impact | Interpretation across product/operational evidence plus research, evaluation, curriculum evidence, and Oak-owned outcomes |

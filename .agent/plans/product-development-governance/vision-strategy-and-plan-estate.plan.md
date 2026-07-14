@@ -34,7 +34,7 @@ todos:
     content: "Estate hygiene (independent — no informational dependence on vision/strategy) — re-anchor dead VISION references; fix the editorial-tone vision path; clear the dead PR-76 blocker; remediate reachability/openers/stale-executables after re-verifying current counts."
     status: pending
   - id: stakeholder-visibility-contract
-    content: "Federated visibility estate (owner-set 2026-07-13) — keep durable intent in the repo; make Notion the principal narrative/status surface for non-engineering and senior stakeholders; use Linear for concrete delivery work, dependencies, progress, and delivery performance; use PostHog for observed product usage after TAU instrumentation; use Sentry for operational health and engineering diagnosis; keep GitHub as the change/readiness surface. Every projection links to its source and states its freshness and evidence limits."
+    content: "Federated visibility estate (owner-set 2026-07-13) — keep durable intent in the repo; make Notion the principal narrative/status surface for non-engineering and senior stakeholders; use Linear for concrete delivery work, dependencies, and execution progress; derive delivery performance as the ADR-207 projection over the intent graph plus GitHub, Linear, deployment, and Sentry evidence; use PostHog for observed product usage after TAU instrumentation; use Sentry for operational health and engineering diagnosis; keep GitHub as the change/readiness surface. Every projection links to its source and states its freshness and evidence limits."
     status: completed
 ---
 
@@ -137,9 +137,9 @@ links back to the authoritative source rather than becoming another planning est
 
 | Surface | Primary audience | Authoritative responsibility |
 | --- | --- | --- |
-| Repository and future idea graph | Engineering, agents, governance reviewers | Durable vision, strategy, decisions, plans, relationships, and interpretation |
+| Repository and future idea graph | Engineering, agents, governance reviewers | Durable vision, strategy, decisions, plans, relationships, interpretation, and generated cross-system delivery-performance projections |
 | Notion | Non-engineering stakeholders; especially senior leadership | Principal narrative visibility: intent, value, current state, roadmap, milestones, status, and explicit alignment to Oak goals, strategy, and current OKRs |
-| Linear | Engineers, engineering managers, product managers, and delivery colleagues | Concrete work, ownership, dependencies, sequencing, progress, and delivery performance |
+| Linear | Engineers, engineering managers, product managers, and delivery colleagues | Concrete work, ownership, dependencies, sequencing, and execution progress |
 | GitHub pull requests | Authors, reviewers, and engineering stakeholders | Proposed change, review, checks, evidence, and readiness |
 | PostHog | Product, engineering, data/research, and leadership through curated readouts | Observed product usage, adoption, journeys, and behaviour after the TAU instrumentation work lands |
 | Sentry | Engineers and operational stakeholders | Errors, traces, regressions, operational health, and diagnostic understanding |
@@ -147,7 +147,8 @@ links back to the authoritative source rather than becoming another planning est
 This is not a claim that one dashboard proves impact. The estate keeps four evidence
 classes apart:
 
-- **delivery performance** comes from Linear and GitHub;
+- **delivery performance** is the ADR-207 generated projection over the typed intent graph plus
+  GitHub, Linear, deployment, and Sentry evidence; no one external surface owns it;
 - **operational behaviour and health** come from Sentry and its OpenTelemetry context;
 - **product usage and adoption** come from PostHog once the relevant TAU work lands;
 - **value and impact** require interpretation across those sources plus qualitative
