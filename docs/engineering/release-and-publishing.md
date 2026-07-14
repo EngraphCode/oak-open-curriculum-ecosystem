@@ -23,14 +23,25 @@ for automated versioning based on
 version is determined entirely from the commit history — there is no
 manual version bumping.
 
-| Commit prefix                       | Version bump  |
-| ----------------------------------- | ------------- |
-| `fix:`                              | Patch (0.0.x) |
-| `feat:`                             | Minor (0.x.0) |
-| `BREAKING CHANGE:` (in body/footer) | Major (x.0.0) |
+| Commit prefix                                              | Version bump  |
+| ---------------------------------------------------------- | ------------- |
+| `docs:`, `chore:`, `fix:`, `perf:`                         | Patch (0.0.x) |
+| `style:`, `refactor:`, `test:`, `build:`, `ci:`, `revert:` | Patch (0.0.x) |
+| `feat:`                                                    | Minor (0.x.0) |
+| `BREAKING CHANGE:` (in body/footer)                        | Major (x.0.0) |
+| `release:` (automation only)                               | No bump       |
 
-The current version is `0.8.0` (pre-1.0 semver; set to avoid clashes with
-earlier failed tag creation).
+Breaking changes require the `BREAKING CHANGE:` footer: the analyser's
+parser (`conventional-changelog-angular`) does not recognise the `type!:`
+shorthand, and the commit-msg hook blocks `!` commits anyway.
+
+Every work-commit type permitted by commitlint triggers at least a patch
+release, so every deployment from `main` carries a distinct version. The
+automation commits each version bump back to `main` as
+`release(<version>): <version> [skip ci]` — a dedicated commit type that is
+explicitly mapped to no release, so the automation can never trigger itself.
+The current version is recorded in the root and SDK `package.json` files,
+which `semantic-release` updates together.
 
 ## Release Automation
 
@@ -42,7 +53,8 @@ The pipeline:
 
 1. CI runs on every push to `main`
 2. `semantic-release` analyses commits since the last release
-3. If releasable commits exist, it:
+3. If at least one commit matches one of the release rules above (a mapped
+   type, or a breaking-change marker on any type), it:
    - Determines the next version
    - Updates `CHANGELOG.md`
    - Updates `package.json` version
@@ -93,7 +105,12 @@ Before your first release, ensure these are in place:
 - Releases only trigger from the `main` branch
 - All commits to `main` must use Conventional Commits format
 - Feature branches merge to `main` via pull request
-- The `[skip ci]` suffix on release commits prevents infinite loops
+- Release commits use the dedicated `release` type: the type is explicitly
+  mapped to no version bump, and the `[skip ci]` suffix prevents CI loops
+- The `release` type is reserved for the automation: it is not in the human
+  commitlint enum (hooks reject it in work commits), while the release
+  workflow runs `semantic-release` with `HUSKY: 0`, so the generated commit
+  bypasses hooks entirely
 
 ### Dry Run Procedure
 
@@ -112,7 +129,7 @@ Expected output (abbreviated):
 ```text
 npm warn publish Package @oaknational/curriculum-sdk not found...
 npm notice
-npm notice package: @oaknational/curriculum-sdk@0.8.0
+npm notice package: @oaknational/curriculum-sdk@CURRENT_VERSION
 npm notice Tarball Contents
 npm notice   XXXkB  dist/index.js
 npm notice   XXXkB  dist/index.d.ts
@@ -122,7 +139,7 @@ npm notice   XXXkB  README.md
 npm notice   XXXkB  LICENCE
 npm notice Tarball Details
 npm notice   name:          @oaknational/curriculum-sdk
-npm notice   version:       0.8.0
+npm notice   version:       CURRENT_VERSION
 npm notice   package size:  ...
 npm notice   total files:   ...
 ```
@@ -191,18 +208,22 @@ git revert HEAD  # Revert the release commit
 git push origin main
 ```
 
-This triggers a new release workflow run but, since there are no
-new releasable commits, `semantic-release` will skip publishing.
+Under the every-merge model the reverting commit itself is releasable and
+publishes a new patch release carrying the reverted state — whether it uses
+a conventional `revert:` message (the explicit `revert` patch rule) or Git's
+default `Revert "…"` message (the analyser's built-in
+`{ revert: true, release: 'patch' }` rule matches the
+`This reverts commit …` body).
 
 ### Troubleshooting
 
-| Problem                        | Likely cause                                           | Fix                                             |
-| ------------------------------ | ------------------------------------------------------ | ----------------------------------------------- |
-| Release workflow does not run  | Not on `main` branch                                   | Merge to `main`                                 |
-| "No releasable commits"        | All commits since last release are `chore:` or `docs:` | Add a `fix:` or `feat:` commit                  |
-| npm publish fails with 403     | Token lacks write permission or wrong scope            | Regenerate token with correct permissions       |
-| npm publish fails with 402     | Package is scoped but missing `publishConfig.access`   | Already set to `"public"` in SDK `package.json` |
-| `LICENCE` missing from tarball | `prepublishOnly` script failed                         | Run `pnpm build` in the SDK workspace first     |
+| Problem                        | Likely cause                                         | Fix                                                        |
+| ------------------------------ | ---------------------------------------------------- | ---------------------------------------------------------- |
+| Release workflow does not run  | Not on `main` branch                                 | Merge to `main`                                            |
+| "No releasable commits"        | Commit types are not mapped to a release             | Check that each commit uses the accurate Conventional type |
+| npm publish fails with 403     | Token lacks write permission or wrong scope          | Regenerate token with correct permissions                  |
+| npm publish fails with 402     | Package is scoped but missing `publishConfig.access` | Already set to `"public"` in SDK `package.json`            |
+| `LICENCE` missing from tarball | `prepublishOnly` script failed                       | Run `pnpm build` in the SDK workspace first                |
 
 ---
 
