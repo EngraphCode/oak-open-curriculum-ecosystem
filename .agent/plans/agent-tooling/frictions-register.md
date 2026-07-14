@@ -3018,7 +3018,7 @@ commit SHA and the closing plan reference.
   staged-set verification, full hooks.
 - **Owner direction status**: standing (record-all-frictions).
 
-### F-138 — commit-queue git reads split from registry resolution when run from a worktree
+### F-138 — commit-queue reuses the coordination-home root for worktree git operations
 
 - **Source**: napkin 2026-07-13 "Sloop holds Lagoon (5fbef7), part 2" (full trace); intent
   `dc13fba5` abandonment notes; claim closure `bf3fe8e2`; commit body `SHA:e888ccb01`
@@ -3029,18 +3029,40 @@ commit SHA and the closing plan reference.
   PRIMARY registry, but `record-staged` fingerprinted an EMPTY staged set
   (`staged_name_status: ""`) while the worktree index held the file, so the commit
   workflow failed verify-staged-before ("missing: …napkin.md") and auto-abandoned the
-  intent. Registry resolution and git-tree resolution disagree from any non-primary tree.
+  intent. There is no split between two schemes: one root (the coordination home) is
+  supplied for both, and it is wrong for git operations whenever the invoking tree is a
+  worktree.
   Adjacent capture: piping the workflow through `| tail` masked the non-zero exit
   (background-task false-green).
 - **Expected**: one resolution scheme for both surfaces — operate fully against the
   invoking worktree's index (registry still at the coordination home), or refuse loudly at
   enqueue time when cwd is a worktree.
-- **Candidate cure**: pin the git working tree explicitly at every dep boundary in
-  `runCommitWorkflow` (match it to the invoking cwd), and until then add a
-  worktree-detection guard that errors with the plain-path instruction. Confirm the
-  resolution-split hypothesis against the CLI source first (napkin entry labels it
-  unverified).
+- **Candidate cure**: split the two roots at the CLI boundary — `runCommitQueueTopic`
+  collapses both concerns into `repoRoot: resolveCoordinationHome(input.cwd)`
+  (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`), and the staged reads / workflow git
+  calls are already pinned to that root (`commit-queue/git.ts` `runGit` uses
+  `cwd: repoRoot`), so the registry root must stay the coordination home while a separate
+  git-worktree root carries the invoking cwd. Fixing inside `runCommitWorkflow` alone
+  cannot recover the worktree. Until cured, add a worktree-detection guard that errors
+  with the plain-path instruction. (Mechanism VERIFIED against source at the PR 355
+  review round, 2026-07-13: single-root reuse, not a resolution split.)
 - **Target surface**: agent-tools CLI (`commit-queue` workflow deps); compose with the
   `coordination-home-cli-path-defaulting` plan (F-41 family) rather than a parallel fix
 - **Status**: open
-- **Owner direction status**: session-scoped (owner asked for detailed notes, 2026-07-13)
+- **Owner direction status**: standing (friction capture is the register's standing owner
+  direction, lines 16-20; only the unusually detailed trace depth was a session-scoped ask,
+  2026-07-13)
+- **Corroboration (2026-07-13T17:42Z) + the missing composition edge**: an independent
+  seat (Phosphor holds Tallow, codex 019f5c, comms event at the same timestamp) hit the same
+  empty-index failure within hours and proposed a `PRACTICE_COORDINATION_HOME` binding.
+  Source-verified: the binding is structurally INERT for commit-queue today — the env var
+  is injected at the composition edge by design (ADR-078;
+  `agent-tools/src/collaboration-state/coordination-home.ts` never reads `process.env`) and `runCommitQueueTopic` calls `resolveCoordinationHome(input.cwd)`
+  WITHOUT passing the declared home (`agent-tools/src/bin/agent-tools-cli-topics.ts:34`). That missing wire is
+  a SEPARATE composition gap, not the cure: wiring it would still yield the single
+  `repoRoot` consumed by both the registry (`agent-tools/src/commit-queue/cli.ts:41`) and
+  the staged git reads (`cli.ts:140,174`) — the cure remains the two-root split named in
+  the candidate cure above. `--registry` IS accepted on every subcommand including
+  `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
+  reads still follow the unwired root — so neither surface alone re-roots a worktree
+  invocation. The plain-commit interim path above stands.

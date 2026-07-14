@@ -19,12 +19,14 @@ All of these principles MUST be followed at all times.
 
 ## Decision Lenses — Order of Resolution
 
-When answering a question or making a decision, apply these lenses **in order**;
-the first that decisively resolves the question governs. They are the shared
-decision substrate every agent and the Director apply, so decisions stay coherent
-across the team without escalation — a question reaches the owner only when
-critical analysis through all five genuinely fails to resolve it, or the decision
-is constitutively the owner's (for example product or feature scope):
+First determine whether the work has a formed question. When it begins as raw observations, a
+recurring phenomenon, or an unshaped ask — or when a premature option list may foreclose the real
+question — run Concept Exploration below. Once the question is well formed, apply these lenses
+**in order**; the first that decisively resolves the question governs. They are the shared decision
+substrate every agent and the Director apply, so decisions stay coherent across the team without
+escalation — a question reaches the owner only when critical analysis through all five genuinely
+fails to resolve it, or the decision is constitutively the owner's (for example product or feature
+scope):
 
 1. **Choose long-term architectural excellence at every decision point** — see
    [§Architectural Excellence Over Expediency](#architectural-excellence-over-expediency).
@@ -36,17 +38,26 @@ is constitutively the owner's (for example product or feature scope):
 5. **Optimise for user value.**
 
 A question arriving as an either/or is usually a false frame (owner standing
-directive, 2026-06-29): reject the binary out of hand, run the lenses over the
-real problem, and find the third option that transcends both — or do both
-(immediate relief and the structural cure are a sequence, not a choice). When
-a lens genuinely excludes one side, the third option captures the excluded
-side's *intent* without building it.
+directive, 2026-06-29). First determine whether the question and its options are
+well formed; if not, run Concept Exploration before treating them as the frame.
+Once formed, reject the binary out of hand, run the lenses over the real problem,
+and find the third option that transcends both — or do both (immediate relief and
+the structural cure are a sequence, not a choice). When a lens genuinely excludes
+one side, the third option captures the excluded side's *intent* without building it.
 
 These resolve *questions*. They sit alongside standing concerns that are never
 traded away — excellent developer experience, excellent **agent experience** (the
 agent-facing substrate is a product whose users are agents; see
 [PDR-111](../practice-core/decision-records/PDR-111-agent-experience-is-first-class.md)),
 and the highest levels of software engineering excellence.
+
+### Concept Exploration — the pre-decision workflow
+
+The lenses resolve formed questions. Invoke the
+[`concept-exploration`](../skills/concept-exploration/SKILL-CANONICAL.md) skill before committing
+to an option list, including when an early list exists but may foreclose the real question. It
+alternates `metacognition` and `reason`, then feeds its warranted, falsifiable synthesis into the
+lenses above.
 
 ## First Question
 

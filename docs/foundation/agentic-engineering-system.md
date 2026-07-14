@@ -45,7 +45,7 @@ Before understanding how the pieces interact, it helps to know where they are.
 | [`docs/governance/`](../governance/)                                                     | Code standards, TypeScript practice, safety policy                | Both (prescriptive standards)  |
 | `.claude/`, `.cursor/`, `.gemini/`, `.codex/`                                            | Thin platform adapters pointing to `.agent/` canonical content    | Platform-specific agents       |
 
-The three-layer architecture ([ADR-125](../architecture/architectural-decisions/125-agent-artefact-portability.md)): canonical content in `.agent/`, thin platform adapters in `.claude/`/`.cursor/`/etc., and entry points (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`) that each platform reads automatically. Edit the canonical version; adapters follow.
+The three-layer architecture ([ADR-125](../architecture/architectural-decisions/125-agent-artefact-portability.md)): canonical content in `.agent/`, thin platform adapters in `.claude/`/`.cursor/`/etc., and entry points (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `skills.md`) that platforms read or can use (`skills.md` is guidance [Linear coding sessions](https://linear.app/docs/coding-sessions) can use). Edit the canonical version; adapters follow.
 
 ## The Three Layers
 
@@ -53,7 +53,7 @@ The Practice operates in three layers, each building on the one below. See [`pra
 
 - **Philosophy** — the principles and learning mechanisms that define _why_ it works. The [First Question](../../.agent/directives/AGENT.md) ("could it be simpler?"), [metacognition](../../.agent/directives/metacognition.md), and the knowledge flow. Architectural enforcement is a core commitment: physical constraints (lint rules, boundary tooling) are preferred over human vigilance.
 - **Structure** — the organisational patterns that define _what_ it consists of. [Directives](../../.agent/directives/), [plans](../../.agent/plans/), [ADRs](../architecture/architectural-decisions/), [specialist reviewers](../../.agent/sub-agents/), [quality gates](../../.agent/directives/principles.md), and [institutional memory](../../.agent/memory/).
-- **Tooling** — the platform-specific implementations that define _how_ it is used. Canonical content in `.agent/`, platform adapters, entry points. This layer means the same rules and capabilities work whether you're using Claude, Cursor, Codex, or Gemini.
+- **Tooling** — the platform-specific implementations that define _how_ it is used. Canonical content in `.agent/`, platform adapters, entry points. This layer means the same rules and capabilities work whether you're using Claude, Cursor, Codex, Gemini, or a Linear coding session.
 
 The layers interact: philosophy governs what structures are created (e.g. "if a behaviour must be automatic, it needs a rule, not just a skill"). Structure enables tooling (e.g. canonical rules become platform-specific always-applied triggers). Tooling feeds back into philosophy through the learning loop.
 

@@ -19,9 +19,9 @@ definition, see
 .claude/, .cursor/,  ← thin platform adapters (one-line pointers)
 .gemini/, .codex/,
 .agents/
-  ↓ loaded by
-CLAUDE.md, AGENTS.md,← entry points each platform reads automatically
-GEMINI.md
+  ↓ consumed by
+CLAUDE.md, AGENTS.md,← entry points platforms read or can use
+GEMINI.md, skills.md
 ```
 
 When you see a rule in `.claude/rules/` or `.cursor/rules/`, it is a

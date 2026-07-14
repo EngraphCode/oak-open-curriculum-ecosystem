@@ -28,11 +28,15 @@ and the wider system that governs how the codebase is built and
 reviewed — **the Practice**, a self-reinforcing system of principles,
 structures, specialist reviewers, and tooling — are all rooted in
 [`.agent/directives/AGENT.md`](.agent/directives/AGENT.md). AGENT.md is
-auto-loaded by every supported agent surface:
+the shared entry target for every supported agent surface:
 
 - [`AGENTS.md`](AGENTS.md) — Codex and the generic AGENTS.md contract
 - [`CLAUDE.md`](CLAUDE.md) — Claude Code
 - [`GEMINI.md`](GEMINI.md) — Gemini CLI
+- [`skills.md`](skills.md) —
+  [Linear coding sessions](https://linear.app/docs/coding-sessions) (used as
+  delegated-session guidance), and any other platform that reads a repo-root
+  `skills.md`
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — GitHub Copilot
 - [`.windsurf/rules/generalrules.md`](.windsurf/rules/generalrules.md) — Windsurf
 - [`.cursor/rules/read-agent-md.mdc`](.cursor/rules/read-agent-md.mdc) — Cursor
