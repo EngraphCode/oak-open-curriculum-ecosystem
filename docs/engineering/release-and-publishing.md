@@ -28,8 +28,12 @@ manual version bumping.
 | `docs:`, `chore:`, `fix:`, `perf:`                         | Patch (0.0.x) |
 | `style:`, `refactor:`, `test:`, `build:`, `ci:`, `revert:` | Patch (0.0.x) |
 | `feat:`                                                    | Minor (0.x.0) |
-| `BREAKING CHANGE:` (in body/footer) or `!` after the type  | Major (x.0.0) |
+| `BREAKING CHANGE:` (in body/footer)                        | Major (x.0.0) |
 | `release:` (automation only)                               | No bump       |
+
+Breaking changes require the `BREAKING CHANGE:` footer: the analyser's
+parser (`conventional-changelog-angular`) does not recognise the `type!:`
+shorthand, and the commit-msg hook blocks `!` commits anyway.
 
 Every work-commit type permitted by commitlint triggers at least a patch
 release, so every deployment from `main` carries a distinct version. The
@@ -103,6 +107,10 @@ Before your first release, ensure these are in place:
 - Feature branches merge to `main` via pull request
 - Release commits use the dedicated `release` type: the type is explicitly
   mapped to no version bump, and the `[skip ci]` suffix prevents CI loops
+- The `release` type is reserved for the automation: it is not in the human
+  commitlint enum (hooks reject it in work commits), while the release
+  workflow runs `semantic-release` with `HUSKY: 0`, so the generated commit
+  bypasses hooks entirely
 
 ### Dry Run Procedure
 
@@ -200,10 +208,12 @@ git revert HEAD  # Revert the release commit
 git push origin main
 ```
 
-Under the every-merge model the reverting commit itself is releasable: give
-it a conventional `revert:` message and the workflow publishes a new patch
-release carrying the reverted state (a bare `git revert` message without a
-Conventional Commits type matches no release rule and publishes nothing).
+Under the every-merge model the reverting commit itself is releasable and
+publishes a new patch release carrying the reverted state — whether it uses
+a conventional `revert:` message (the explicit `revert` patch rule) or Git's
+default `Revert "…"` message (the analyser's built-in
+`{ revert: true, release: 'patch' }` rule matches the
+`This reverts commit …` body).
 
 ### Troubleshooting
 

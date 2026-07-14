@@ -172,12 +172,13 @@ Releases are automated via [semantic-release](https://semantic-release.gitbook.i
 
 1. PRs merged to `main` trigger the release workflow
 2. Version is bumped based on Conventional Commit types (`feat` → minor;
-   breaking change → major; every other work type → patch)
+   `BREAKING CHANGE:` footer → major; every other work type → patch)
 3. The bump is committed back to `main` as
    `release(<version>): <version> [skip ci]` — a dedicated type that triggers
    no further bump or CI run
 4. A GitHub release is created automatically
-5. npm packages are published for public packages
+5. npm publication is currently disabled (`npmPublish: false` in
+   `.releaserc.mjs`); when enabled, public packages are published to npm
 
 See [Release and Publishing](./release-and-publishing.md) for npm package
 publishing, and [Milestone Release Runbook](./milestone-release-runbook.md)

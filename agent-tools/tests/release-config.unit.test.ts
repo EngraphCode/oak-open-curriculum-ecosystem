@@ -105,14 +105,32 @@ describe('semantic-release configuration', () => {
         'docs: update migration notes\n\nBREAKING CHANGE: remove the legacy interface',
       ),
     ).toBe('major');
+
+    // Git's default revert message carries no Conventional Commits type, but
+    // the analyzer's built-in `{ revert: true, release: 'patch' }` default
+    // still matches it — a bare `git revert` merge publishes a patch too.
+    expect(
+      await determineReleaseType(
+        'Revert "feat: add a capability"\n\nThis reverts commit 1234567890abcdef1234567890abcdef12345678.',
+      ),
+    ).toBe('patch');
+
+    // The installed parser (conventional-changelog-angular@8.3.1, resolved
+    // through commit-analyzer) does not recognise the `type!:` shorthand, so
+    // breaking changes require the BREAKING CHANGE footer. The commit-msg
+    // guard (prevent-accidental-major-version) blocks `!` commits locally,
+    // and `main` has no bang-form commits in its history.
+    expect(await determineReleaseType('feat!: remove the legacy interface')).toBeNull();
   });
 
-  it('maps every commitlint-permitted work-commit type to a version bump', async () => {
+  it('maps every human commit type to its documented bump level', async () => {
     // The every-merge release model: every deployment from `main` carries a
-    // distinct version, so every commit type a human can land (the commitlint
-    // type-enum, minus the automation-only `release` type) must trigger a
-    // bump. Reading the live commitlint config pins the two configs together.
-    const commitlintModule: unknown = rootRequire(join(repoRoot, 'commitlint.config.mjs'));
+    // distinct version, so every commit type a human can land must trigger
+    // exactly its documented bump — `feat` a minor, every other work type a
+    // patch (docs/engineering/release-and-publishing.md). The human enum is
+    // read through the root commitlint installation so the two configs
+    // cannot drift apart.
+    const conventionalModule: unknown = rootRequire('@commitlint/config-conventional');
     const typeEnum = z
       .object({
         default: z.looseObject({
@@ -121,21 +139,38 @@ describe('semantic-release configuration', () => {
           }),
         }),
       })
-      .parse(commitlintModule).default.rules['type-enum'][2];
+      .parse(conventionalModule).default.rules['type-enum'][2];
 
-    const workTypes = typeEnum.filter((type) => type !== 'release');
-    expect(workTypes.length).toBeGreaterThan(0);
+    expect(typeEnum.length).toBeGreaterThan(0);
 
-    const releaseTypes = await Promise.all(
-      workTypes.map(
+    const bumpLevels = await Promise.all(
+      typeEnum.map(
         async (type) =>
           [type, await determineReleaseType(`${type}: exercise the ${type} rule`)] as const,
       ),
     );
 
-    for (const [type, releaseType] of releaseTypes) {
-      expect(releaseType, `expected \`${type}:\` commits to trigger a release`).not.toBeNull();
+    for (const [type, bumpLevel] of bumpLevels) {
+      const documentedLevel = type === 'feat' ? 'minor' : 'patch';
+      expect(bumpLevel, `expected \`${type}:\` commits to release a ${documentedLevel}`).toBe(
+        documentedLevel,
+      );
     }
+  });
+
+  it('keeps the automation-only release type out of the human commit enum', () => {
+    // The release workflow runs semantic-release with `HUSKY: 0`
+    // (.github/workflows/release.yml), so the automation's `release(...)`
+    // commit never meets commitlint. Humans DO: keeping `release` out of the
+    // enum makes the no-bump type unusable in work commits — enforcement,
+    // not convention — preserving the every-merge version guarantee.
+    const rootCommitlintModule: unknown = rootRequire(join(repoRoot, 'commitlint.config.mjs'));
+    const rootCommitlintConfig = z
+      .object({ default: z.looseObject({ extends: z.array(z.string()) }) })
+      .parse(rootCommitlintModule).default;
+
+    expect(rootCommitlintConfig.extends).toContain('@commitlint/config-conventional');
+    expect(rootCommitlintConfig).not.toHaveProperty('rules');
   });
 
   it('commits the version bump with the dedicated release type and the CI loop guard', () => {
@@ -149,6 +184,13 @@ describe('semantic-release configuration', () => {
   });
 
   it('never lets a release-typed commit trigger another version bump', async () => {
+    // Owner directive: the no-bump mapping for the automation's own commits
+    // must be EXPLICIT in the config, never derived from the analyzer's
+    // default treatment of unknown types. The behavioural assertion below
+    // cannot distinguish those two states (both yield null), so this
+    // presence pin is the only enforcement of that explicitness contract —
+    // a deliberate, owner-ratified exception to "assert effects, not
+    // configuration collections" within this config-contract suite.
     const analyzerOptions = z
       .object({ releaseRules: z.array(z.looseObject({})) })
       .parse(findPluginOptions('@semantic-release/commit-analyzer'));
