@@ -1,19 +1,4 @@
-import { execFileSync } from 'node:child_process';
-
-import { resolveTrustedGit } from '../core/trusted-git.js';
-
-/** Runs a git subcommand from `cwd` and returns stdout; throws on non-zero exit. */
-export type InvokingGitRunner = (args: readonly string[], cwd: string) => string;
-
-const defaultRunGit: InvokingGitRunner = (args, cwd) =>
-  // Execute git by its ABSOLUTE path (resolveTrustedGit) so a writable PATH
-  // entry cannot shadow it (S4036) — the same hardening pattern as
-  // `collaboration-state/coordination-home.ts`.
-  execFileSync(resolveTrustedGit(), [...args], {
-    cwd,
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
+import { defaultRunGit, type GitRunner } from '../collaboration-state/coordination-home.js';
 
 /**
  * Resolve the root of the git worktree the CLI was INVOKED from.
@@ -31,16 +16,18 @@ const defaultRunGit: InvokingGitRunner = (args, cwd) =>
  * top level — the primary checkout is the degenerate case where both roots
  * coincide, preserving prior behaviour byte-for-byte there.
  *
+ * The default runner is the trusted-git runner shared with
+ * `resolveCoordinationHome` (absolute-path git, S4036 hardening) — one
+ * canonical invocation shape for both root resolvers.
+ *
  * @param cwd - the directory the CLI was invoked from.
- * @param runGit - git-runner seam; tests inject a fake, production omits it.
+ * @param runGit - git-runner seam; unit tests inject a fake, production
+ *   omits it and the shared trusted-git runner runs.
  * @throws when `cwd` is not inside a git working tree — the F-138 fail-loud
  *   guard. There is no fallback to the coordination home: a fallback is
  *   exactly the silent two-root collapse this module exists to prevent.
  */
-export function resolveInvokingGitRoot(
-  cwd: string,
-  runGit: InvokingGitRunner = defaultRunGit,
-): string {
+export function resolveInvokingGitRoot(cwd: string, runGit: GitRunner = defaultRunGit): string {
   let topLevel: string;
   try {
     topLevel = runGit(['rev-parse', '--show-toplevel'], cwd);

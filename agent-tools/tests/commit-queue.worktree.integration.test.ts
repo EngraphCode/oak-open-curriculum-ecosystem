@@ -204,6 +204,11 @@ describe('commit-queue from a linked worktree (F-138 two-root split)', () => {
       });
 
       expect(committed.exitCode).toBe(0);
+      // The scratch repo has no advisory-orchestrator script, so the
+      // advisory pass fails — and MUST NOT gate the commit (PDR-053 /
+      // ADR-176 advisory polarity). The surfaced notice describes that
+      // deliberately exercised state.
+      expect(committed.stderr).toContain('advisory orchestrator exit');
       const reportedSha = committed.stdout.trim();
       expect(git(fixture.linked, 'rev-parse', 'HEAD').trim()).toBe(reportedSha);
       expect(git(fixture.linked, 'show', '--name-only', '--format=%s', 'HEAD')).toContain(
@@ -237,9 +242,11 @@ describe('commit-queue from a linked worktree (F-138 two-root split)', () => {
       expect(result.exitCode).toBe(2);
       expect(result.stderr).toContain('not inside a git working tree');
 
-      // No silent fallback: the registry must NOT have been fingerprinted
-      // against the coordination home's own index.
+      // No silent fallback: the intent survives untouched — neither
+      // fingerprinted against the coordination home's own index nor
+      // abandoned by the refused invocation.
       const intent = await readPrimaryIntent(fixture);
+      expect(intent).toMatchObject({ intent_id: INTENT_ID, phase: 'staging' });
       expect(intent?.staged_name_status).toBeUndefined();
       expect(intent?.staged_bundle_fingerprint).toBeUndefined();
     } finally {

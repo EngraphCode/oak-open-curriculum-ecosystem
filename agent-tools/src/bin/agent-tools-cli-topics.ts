@@ -46,13 +46,14 @@ export async function runCommitQueueTopic(
       resolveGitRoot: () => resolveInvokingGitRoot(input.cwd),
       readRegistry: input.readCommitQueueRegistry,
       stdout,
+      stderr,
     });
     return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
   } catch (error) {
     return {
       exitCode: 2,
       stdout: stdout.text(),
-      stderr: `${error instanceof Error ? error.message : String(error)}\n`,
+      stderr: `${stderr.text()}${error instanceof Error ? error.message : String(error)}\n`,
     };
   }
 }

@@ -288,6 +288,7 @@ describe('commit-queue CLI read commands', () => {
   it('dispatches commit to the workflow runner and writes the resulting SHA to stdout on success', async () => {
     const stdout = stdoutBuffer();
     const stderr = stdoutBuffer();
+    const runnerCalls: { gitRoot: string; registryPath: string }[] = [];
 
     await expect(
       runCommitQueueCli({
@@ -300,13 +301,10 @@ describe('commit-queue CLI read commands', () => {
         repoRoot: '/repo',
         resolveGitRoot: () => '/repo-worktrees/lane',
         commitWorkflow: async (runnerInput) => {
-          // The two-root split: the registry stays at the coordination home
-          // while the workflow's git operations receive the INVOKING
-          // worktree's root (F-138).
-          expect(runnerInput.gitRoot).toBe('/repo-worktrees/lane');
-          expect(runnerInput.registryPath).toBe(
-            '/repo/.agent/state/collaboration/active-claims.json',
-          );
+          runnerCalls.push({
+            gitRoot: runnerInput.gitRoot,
+            registryPath: runnerInput.registryPath,
+          });
           return {
             ok: true,
             intentId: '11111111-1111-4111-8111-111111111111',
@@ -319,6 +317,15 @@ describe('commit-queue CLI read commands', () => {
       }),
     ).resolves.toBe(0);
 
+    // The two-root split: the registry stays at the coordination home while
+    // the workflow's git operations receive the INVOKING worktree's root
+    // (F-138).
+    expect(runnerCalls).toStrictEqual([
+      {
+        gitRoot: '/repo-worktrees/lane',
+        registryPath: '/repo/.agent/state/collaboration/active-claims.json',
+      },
+    ]);
     expect(stdout.text()).toBe('cafef00dcafef00dcafef00dcafef00dcafef00d\n');
     expect(stderr.text()).toBe('');
   });
