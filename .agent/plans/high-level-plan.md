@@ -3,7 +3,7 @@ plan_id: high-level-plan
 title: "High-Level Plan"
 type: strategic-index
 status: active
-last_updated: 2026-07-11
+last_updated: 2026-07-14
 related_indices:
   - "README.md"
   - "curriculum-mcp-path-to-ga/roadmap.md"
