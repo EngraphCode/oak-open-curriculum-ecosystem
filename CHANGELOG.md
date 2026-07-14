@@ -1,3 +1,13 @@
+## [1.66.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.1...v1.66.2) (2026-07-14)
+
+
+### Bug Fixes
+
+* **agent-tools:** harden commit queue git execution ([6bfdbd5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6bfdbd5d039260b6d5e652d59ba093ed17fc2624))
+* **agent-tools:** harden the two-root split per expert review ([ebf7103](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ebf7103c6521ded3aeba1d1eac97693e1b3abae6))
+* **agent-tools:** harden worktree smoke evidence ([3ced187](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3ced187b615d7b0f028aa7faffd03f0f46da6796))
+* **agent-tools:** split commit-queue registry and git roots (F-138) ([8c6b1d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8c6b1d157c5b4432d38ea7f3734070ab24a1695e))
+
 ## [1.66.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.0...v1.66.1) (2026-07-14)
 
 # [1.66.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.65.0...v1.66.0) (2026-07-14)
