@@ -897,7 +897,9 @@ The essential constraints would be:
 - Plan and idea-graph architecture in ADR-200 and the current rewrite plan.
 - Reserved plan-layer `projects_to`, `realized_by`, and `validated_by` edges.
 - Cursor plugin enablement for Linear, PostHog, Sentry, Vercel, and other services.
-- Claude plugin enablement for Linear, Sentry, MCP server development, and Sonar.
+- Claude plugin enablement for `linear@claude-plugins-official`,
+  `sentry@claude-plugins-official`, `mcp-server-dev@claude-plugins-official`, and
+  `sonarqube@claude-plugins-official`.
 - Slack assistant design and executable plan.
 
 ### 11.2 Important implementation absent
