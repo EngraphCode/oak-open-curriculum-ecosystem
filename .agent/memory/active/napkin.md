@@ -1569,17 +1569,17 @@ cross-thread curator boundary and is not performed inside this active shared-tre
 
 ### Landed outcome and first-order loss scan
 
-- Commit `8dd824e0d0b659f02f6c63f1a88f6e3378e1e1a5` records the accepted federated
+- Commit `SHA:8dd824e0d0b659f02f6c63f1a88f6e3378e1e1a5` records the accepted federated
   visibility boundary in ADR-212, keeps ADR-201 Proposed and limited to connector/evidence-edge/
   supervision mechanics, makes the three TAU status dimensions explicit, and creates the
   repository-attributed Notion page-ledger rule plus platform adapters. The commit workflow's
   hooks completed successfully: staged Prettier and markdownlint were green, repository
   validators were green, and the build/type-check/lint/test run completed 105/105 tasks.
 - The commit is real but not published. The local branch is one commit ahead of its upstream,
-  while open PR #365 still points at the upstream head `d98d85ab5` and owns unrelated continuity
+  while open PR #365 still points at the upstream head `SHA:d98d85ab5` and owns unrelated continuity
   reconciliation. Pushing this branch would silently add the visibility bundle to PR #365. The
   safe landing path is a fresh branch/worktree from current `origin/main`, cherry-pick
-  `8dd824e0d`, open a dedicated PR, and leave merge authority with Quasar mends Umbra.
+  `SHA:8dd824e0d`, open a dedicated PR, and leave merge authority with Quasar mends Umbra.
 - The durable authority model has two different homes by design: ADR-212 owns the stable audience,
   authority-direction, and four-evidence-class contract; the TAU collection index owns volatile
   planning-corpus, controlling-authority, and implementation status. The current vector is:
@@ -1612,7 +1612,7 @@ cross-thread curator boundary and is not performed inside this active shared-tre
   Notion page allowlist (behavioural-only under today's owner-credential MCP transport, with a
   page-scoped integration as the future hard-permission path) and stakeholder editorial rules
   requiring audience-appropriate language and defined acronyms. Those clauses were not part of
-  `8dd824e0d`; they need a separate, reviewed permanent home. A preceding Director relay asked for
+  `SHA:8dd824e0d`; they need a separate, reviewed permanent home. A preceding Director relay asked for
   agent/session/account ledger attribution, but the owner's direct repository-ledger instruction
   is the controlling rule for Notion and must be relayed as the correction rather than combined
   into a multi-actor line.
@@ -1645,7 +1645,7 @@ cross-thread curator boundary and is not performed inside this active shared-tre
   separate preconditions. The repo contract is behavioural enforcement today, not a Notion-side
   permission guarantee.
 - **A reviewer-clean commit can masquerade as a landed change.** Specialist verdicts and green
-  hooks prove the bundle's quality at `8dd824e0d`; they do not prove push, PR review, merge, external
+  hooks prove the bundle's quality at `SHA:8dd824e0d`; they do not prove push, PR review, merge, external
   projection refresh, Sentry authentication, or implementation start. Those transitions require
   their own evidence.
 - **No-vendor-PDR rationale is easily dropped.** PDR-113 already carries the portable principle
@@ -1685,7 +1685,7 @@ cross-thread curator boundary and is not performed inside this active shared-tre
 ### Post-scan correction and authority conflict
 
 - The recursive scan's live-plan drift was cured, not merely routed: follow-up commit
-  `70aaa1ded95951759c6f9fb7a1184692509b2bf3` reconciles the three root/navigation summaries and
+  `SHA:70aaa1ded95951759c6f9fb7a1184692509b2bf3` reconciles the three root/navigation summaries and
   adds the required ADR-212/PDR-113 authority citation to the Notion ledger rule. Its commit hooks
   also completed successfully with 105/105 cached Turbo tasks.
 - Quasar's later Notion defect event `3cd99695-90f6-4f72-b5ab-c9372eecd2cc` asks to retrofit agent/session/account
@@ -1962,7 +1962,7 @@ now exists as a rule); consolidation dispositions each point on its merits.
   the guard's discipline; drafting instructive content about a trip pattern starts descriptive,
   never literal. (3) The mid-upgrade brick (stale dist + new policy enum value = every Bash
   call denied incl. the rebuild) is now structurally cured for FUTURE kinds (schema catch) but
-  each checkout pays a one-time build after pulling c2e2181bd — deployment note in the PR body;
+  each checkout pays a one-time build after pulling SHA:c2e2181bd — deployment note in the PR body;
   code-expert's run-from-source shim observation is the class-dissolving follow-up, routed in
   the commit message and here: the Bash guard could import committed source like the content
   guard's shim already does, deleting the whole stale-dist tolerance family.
