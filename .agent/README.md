@@ -19,7 +19,7 @@ definition, see
 .claude/, .cursor/,  ← thin platform adapters (one-line pointers)
 .gemini/, .codex/,
 .agents/
-  ↓ loaded by
+  ↓ consumed by
 CLAUDE.md, AGENTS.md,← entry points platforms read or can use
 GEMINI.md, skills.md
 ```
