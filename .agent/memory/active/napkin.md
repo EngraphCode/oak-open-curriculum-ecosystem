@@ -931,8 +931,6 @@ auditors) grounded every claim above; fixes their real findings, so the record s
   finding. Point (4)'s peer-side unknowability was already labelled; these two carry the
   same epistemic status.
 
-<<<<<<< Updated upstream
-
 ## 2026-07-13 — Sloop holds Lagoon (5fbef7), part 2: commit-queue-from-worktree failure, full trace
 
 Worked instance behind frictions-register F-138 (owner-requested detailed notes). One commit
@@ -1004,7 +1002,7 @@ first-hand and correct. The record above stands amended:
   targeted exactly the labelled claim, and verification replaced it with file:line
   mechanism in one pass. Labelling epistemic status invites the cheapest possible
   correction.
-=======
+
 <!-- fitness already exceeded; capture preserved at full weight per the conservation invariant -->
 
 ## 2026-07-13 — Foxglove seeks Petal (110a88): skills.md entry-point lane (PR 360)
@@ -1160,5 +1158,3 @@ loss-scan findings (written per the standing rule):
   correction: "I don't need you to land the PR, I need you to complete the session close
   out" — lane-hygiene perfectionism (branch deletion) was delaying the asked-for handoff;
   at closeout, hygiene beyond proof-of-safety is deferrable, the handoff is not.
-
->>>>>>> Stashed changes
