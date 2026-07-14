@@ -42,6 +42,52 @@ entry. Those remain on their canonical surfaces.
 
 ---
 
+## [Phosphor weaves Embers 019f5c] 2026-07-14T09:19:00Z — PR #339 round seven published; F-138 reproduced first-hand
+
+Current-head Copilot review added two actionable threads after the prior quiet
+window. Both are fixed in `SHA:457a71975`: the four independently triggered
+Stage 8 lanes now depend on the Stage 4 foundation rather than the Stage 7
+aggregate, and the plan-body audit reference uses the mandatory `SHA:` prefix.
+Both threads have commit-linked replies and are resolved; PR #339 now has 34/34
+threads resolved while final-head CI and asynchronous review settle.
+
+F-138 reproduced exactly during this round. Intent `2c0e0d0e` fingerprinted an
+empty primary index (`staged_name_status: ""`) while this linked worktree held
+the declared staged file. The intent was abandoned and the sanctioned
+explicit-pathspec commit ran with hooks. Team-wide repair request remains event
+`318fbd41-e57c-4fed-b51e-bd8cef0f2c91`; the required cure is still a registry
+root / invoking-worktree git root split.
+
+Director merge authority and primary direction remain in force. I will not
+merge or change PR posture; correction and review-convergence custody remains
+with me until the current head settles.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T08:59:45Z — Owner delegates PR #339 merge authority to Director; review convergence continues
+
+The owner has directed that PR #339 merge authority now belongs to Director
+Quasar mends Umbra, who is my primary source of direction. I retain custody of
+source corrections and review-thread convergence, but I will not merge #339 or
+change its merge posture absent Director direction. Canonical directed event
+`d9dae31c-9348-4097-bcd5-2ba5705e2fcb` records that transfer.
+
+PR #339 is open and non-draft at `9bf03b796`. All 32 review threads present at
+this checkpoint are replied to and resolved. The latest round constrains alpha
+PostHog Definitions mutation to a disposable sandbox, keeps Oak-project
+verification read-only, and prevents Stage 10 closure over unfinished promoted
+Stage 7 child lanes. Final-head CI and asynchronous review are still settling.
+
+At the owner's request I also broadcast F-138 as a team-smoothness repair
+priority in canonical event `318fbd41-e57c-4fed-b51e-bd8cef0f2c91`, naming the
+verified two-root cure and linked-worktree regression-test requirement.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
 ## [Phosphor weaves Embers 019f5c] 2026-07-14T08:05:30Z — PR #339 review correction head published; draft posture retained
 
 The four actionable #339 review findings are corrected and pushed at head
@@ -338,3 +384,216 @@ carry the same merged/follow-up state and the same ADR-207 evidence boundary.
 No TAU mechanics or PR #339 custody changed.
 
 — Phosphor holds Tallow (019f5c)
+
+---
+
+## [Phosphor holds Tallow 019f5c] 2026-07-14T08:58:30Z — Owner delegates merge authority and primary direction to Director
+
+The owner has directed, twice in this task, that from this point I defer merge
+authority to the Director and treat the Director as my primary source of
+direction. I accept that routing.
+
+Canonical directed event `12f81dba-f365-4eb2-b533-4afc128a3f72` hands the
+current checkpoint to Quasar mends Umbra and asks for merge timing or further
+closeout direction. I will not merge PR #363 absent Director direction. The
+verified state remains unchanged: #341 is merged and 21/21 resolved; #363 is
+OPEN, non-draft, MERGEABLE/CLEAN at `adcf65504`, 18/18 green, Sonar green,
+current-tip Copilot reviewed with no comments, 0/0 unresolved, quiet-window
+settled, and cross-surface synchronized.
+
+— Phosphor holds Tallow (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T09:00:05Z — File-order correction for PR #339 Director authority and round-six checkpoint
+
+Correction: my `08:59:45Z` PR #339 update was inserted after an earlier peer
+signature rather than at the file tail. Its substance is current; this entry
+establishes authoritative file order.
+
+The owner has delegated PR #339 merge authority and primary direction to
+Director Quasar mends Umbra. I retain source-correction and review-convergence
+custody but will not merge or change merge posture without Director direction.
+Canonical event `d9dae31c-9348-4097-bcd5-2ba5705e2fcb` records that transfer.
+
+PR #339 is open and non-draft at `9bf03b796`, with 32/32 threads resolved. The
+latest safety/terminal-closure corrections are published; final-head CI and
+review are settling. F-138 repair was broadcast team-wide in event
+`318fbd41-e57c-4fed-b51e-bd8cef0f2c91` with its verified two-root cure.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
+## [Phosphor holds Tallow 019f5c] 2026-07-14T09:07:30Z — PR #363 merged; final visibility-estate checkpoint synchronized
+
+Live GitHub verification now shows follow-up PR #363 MERGED at
+`2026-07-14T09:01:25Z` as
+`6455bf2b5d5aa7bf72da9d313f76c72fb639df99` from source head
+`adcf655047d6234387da07243eb2172dd9e9976f`. GitHub records the merging actor
+as `jimCresswell`; this entry records that observed fact and does not infer the
+authorization channel. Its final current-head state is 18/18 checks successful,
+Sonar green, Copilot reviewed with no comments, and 0/0 review threads
+unresolved.
+
+PR #341 remains MERGED as `1dcae73de1534d9cc7c4322b914433f25cd4476f`
+from `1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`, with all 21/21 review
+threads resolved and no post-merge drift. The Linear project, completed MCP-12
+issue, and curated Notion stakeholder page now all reflect the #363 merge.
+
+The owner-delegated routing remains in force: Quasar mends Umbra is the primary
+source of direction and holds merge authority for any further work. No #339 TAU
+mechanics or custody boundary changed.
+
+— Phosphor holds Tallow (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T09:19:30Z — File-order correction for PR #339 round seven
+
+Correction: my `09:19:00Z` round-seven update was inserted after an earlier
+matching peer signature rather than at the file tail. Its substance is current;
+this entry establishes authoritative file order.
+
+Current-head Copilot review added two actionable threads. Both are fixed in
+`SHA:457a71975`: all four independently triggered Stage 8 lanes now depend on
+the Stage 4 foundation rather than the Stage 7 aggregate, and the plan-body
+audit reference uses the mandatory `SHA:` prefix. Both threads have
+commit-linked replies and are resolved; PR #339 now has 34/34 threads resolved
+while final-head CI and asynchronous review settle.
+
+F-138 reproduced exactly: intent `2c0e0d0e` fingerprinted an empty primary
+index while this linked worktree held the declared staged file. The intent was
+abandoned and the sanctioned explicit-pathspec commit ran with hooks. Repair
+request event `318fbd41-e57c-4fed-b51e-bd8cef0f2c91` still calls for the
+registry-root / invoking-worktree-git-root split.
+
+Director merge authority and primary direction remain in force. I retain
+correction and review-convergence custody only.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
+## [Phosphor holds Tallow 019f5c] 2026-07-14T09:27:00Z — Seat closeout, proof-slice proposal, and retirement handoff
+
+The #341 visibility-estate lane is complete. Live closeout verification keeps
+PR #341 merged as `1dcae73de` from `1f9da7c1b` with 21/21 threads resolved and
+PR #363 merged as `6455bf2b5` from `adcf65504` with 0/0 threads unresolved;
+their final check sets remain settled. Linear MCP-12 is Done. The Linear project
+and curated Notion page contain both merge checkpoints, the audience contract,
+and reciprocal repo/Linear/Notion links.
+
+I found and personally read Director event
+`ffad6296-83df-4881-b670-e6066f8174b4`, which the shared passive watcher cursor
+had hidden from later foreground inbox reads. Its tail harvest is clean. I have
+proposed the already-materialised Notion narrative + Linear execution true-up +
+cross-links as the initial objective-1 proof slice: evidence altitude only, no
+connector implementation, and no ADR-201 ratification. Canonical handoff event
+`d8a305ec-d6f0-4bb9-b00b-e9915dccb52b` transfers that disposition and the
+transport-cursor/cognition-cursor finding to Quasar mends Umbra.
+
+Canonical event `36b4cd2e-3c8a-48a9-b79f-bb6488239c65` retracts my earlier
+false F-138 environment-binding claim. The sanctioned explicit-pathspec commit
+recovery remains the verified route until registry and invoking-worktree git
+roots are separated.
+
+Adjacent live residue remains with its owners: PR #339 is peer-owned at
+`457a71975`, 34/34 threads resolved and behind main; Linear and Notion still
+carry older #339 heads, now explicitly routed to the Director and its custodian.
+The critical napkin/dedicated-consolidation lane is likewise transferred rather
+than raced against active #339 and Director claims. This seat has no active
+claim, queue intent, conversation, escalation, source edit, or review thread.
+
+After final gate and comms readback, Phosphor holds Tallow retires. Quasar mends
+Umbra remains primary direction and merge authority; Phosphor weaves Embers
+retains PR #339 correction/review-convergence custody.
+
+— Phosphor holds Tallow (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T09:30:00Z — PR #339 review convergence settled; Director checkpoint sent
+
+The greater-than-10-minute current-head tail is clean. First-hand harvest at
+`2026-07-14T09:28:41Z` found PR #339 open and non-draft at
+`SHA:457a71975226b1bfcfa1e06f2114989437ab7b4d`, local and remote heads equal,
+worktree clean, 34/34 review threads resolved, 17 successful checks, one neutral
+Cursor result, and zero pending or failing checks. No further Copilot review or
+thread appeared.
+
+Review-correction convergence is settled. GitHub reports the PR behind `main`;
+I have not rebased, merged, or changed posture because those actions remain
+under Director authority. Canonical directed event
+`358f72de-5a84-4ce7-b324-12e765e45c4d` carries the final checkpoint and the
+post-merge Linear/Notion freshness boundary to Quasar mends Umbra.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
+## [Phosphor holds Tallow 019f5c] 2026-07-14T09:34:40Z — Director acceptance received; terminal seat state
+
+Director event `7d0cf7bd-6300-4464-b5a0-770ee54ce4b6` accepts this seat's
+closeout and custody transfer. It ratifies the initial proof slice across
+GitHub, Linear, and Notion, while preserving one qualified remainder: the
+Sentry evidence leg stays open under Director custody for TAU Stage 5
+reconciliation or a small operational-evidence readout. This seat does not
+claim objective 1 is whole.
+
+The required unsandboxed root `pnpm check` passed end to end after the sandboxed
+attempt was invalidated by macOS Chromium Mach-port denial. Practice fitness is
+truthfully CRITICAL; the dedicated curation lane and numbered friction routing
+are accepted by the Director. Canonical acknowledgement event
+`b748a4cd-7880-416f-be1f-a210e7c8bf2e` records the qualified remainder and final
+gate result.
+
+Phosphor holds Tallow now retires with no active claim or unresolved boundary.
+Quasar mends Umbra owns all remaining coordination; Phosphor weaves Embers keeps
+PR #339 convergence custody.
+
+— Phosphor holds Tallow (019f5c)
+
+---
+
+## [Phosphor weaves Embers 019f5c] 2026-07-14T09:50:00Z — PR #339 post-main-merge rounds published
+
+The owner merged current `main` into PR #339 as `SHA:4a4a53f8d`, reopening the
+review surface. Two correction rounds are now published: `SHA:a61c0e053`
+addresses the first eight threads, and `SHA:8c1837b0c` addresses four follow-on
+authority/provenance threads introduced by the newly landed
+`effectiveness-and-impact/` collection and inaccessible private workflow
+attribution.
+
+Live state is 46/46 threads resolved. Every resolution has a commit-linked
+reply and GitHub remote-byte verification. The replacement workflow source is
+public, commit-pinned, and anonymously returns HTTP 200. Final-head CI and
+asynchronous review are settling; auto-merge remains disarmed under Director
+authority. Canonical event `f4da70b2-072c-416f-b4da-82486a6cb68d` carries the
+checkpoint.
+
+— Phosphor weaves Embers (019f5c)
+
+---
+
+## [Weasel stirs Lair 019f60] 2026-07-14T12:48:06Z — PR #365 append-only correction ledger for historical checkpoints
+
+This review-custody entry corrects audit markers and one factual result across
+the conserved Phosphor entries; prior ARC entries remain byte-preserved under
+the append-only protocol.
+
+- The review-thread-targeted commit references are canonically
+  `SHA:9bf03b796`, `SHA:adcf655047d6234387da07243eb2172dd9e9976f`,
+  `SHA:6455bf2b5d5aa7bf72da9d313f76c72fb639df99`,
+  `SHA:1dcae73de1534d9cc7c4322b914433f25cd4476f`,
+  `SHA:1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`, and
+  `SHA:457a71975`. These markers supersede the bare renderings without
+  changing their checkpoint meaning.
+- PR #363's final GitHub set at
+  `SHA:adcf655047d6234387da07243eb2172dd9e9976f` contained 18 runs: 17
+  concluded `SUCCESS` and Cursor Bugbot concluded `NEUTRAL`. Therefore the
+  08:40:15Z, 08:58:30Z, and 09:07:30Z entries' “all 18 checks pass”, “18/18
+  green”, and “18/18 checks successful” phrasings are superseded by **17
+  successful checks plus one neutral check**.
+
+— Weasel stirs Lair (019f60)
