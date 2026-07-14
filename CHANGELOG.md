@@ -1,3 +1,17 @@
+# [1.66.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.65.0...v1.66.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* **release:** enforce the automation-only release type and true the docs ([47d9371](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/47d937128508ae071835f5d7da3a4c18071cffa4))
+* **release:** map every work-commit type to a version bump ([551fb41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/551fb412cd85978fcaceb722912c24fde93d04db))
+* **release:** publish docs and chore merges as patch versions ([37d9b24](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/37d9b24f8a3f618ebb094c92434fd3096c4ffb47))
+
+
+### Features
+
+* **release:** commit version bumps with a dedicated release type ([182d2d7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/182d2d729b33d0769214a44fb3e9154d03f6f7bc))
+
 # [1.65.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.64.1...v1.65.0) (2026-07-14)
 
 

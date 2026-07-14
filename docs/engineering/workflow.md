@@ -171,9 +171,14 @@ deleted-file cascades, and signature mismatches in auto-merged files.
 Releases are automated via [semantic-release](https://semantic-release.gitbook.io/):
 
 1. PRs merged to `main` trigger the release workflow
-2. Version is bumped based on conventional commit types (`feat` → minor, `fix` → patch)
-3. A GitHub release is created automatically
-4. npm packages are published for public packages
+2. Version is bumped based on Conventional Commit types (`feat` → minor;
+   `BREAKING CHANGE:` footer → major; every other work type → patch)
+3. The bump is committed back to `main` as
+   `release(<version>): <version> [skip ci]` — a dedicated type that triggers
+   no further bump or CI run
+4. A GitHub release is created automatically
+5. npm publication is currently disabled (`npmPublish: false` in
+   `.releaserc.mjs`); when enabled, public packages are published to npm
 
 See [Release and Publishing](./release-and-publishing.md) for npm package
 publishing, and [Milestone Release Runbook](./milestone-release-runbook.md)
