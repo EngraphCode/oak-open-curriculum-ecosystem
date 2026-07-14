@@ -34,12 +34,18 @@ const ADVISORY_BANNER = '[ADVISORY ONLY — NOT A COMMIT GATE]';
 
 /**
  * Input for the runtime commit-workflow runner.
+ *
+ * `registryPath` anchors registry reads/writes at the coordination home;
+ * `gitRoot` is the root of the INVOKING git worktree, and every git-side
+ * operation (staged reads, the advisory orchestrator, the inner
+ * `git commit`, the HEAD read) runs against it — never against the
+ * coordination home (F-138).
  */
 export interface CommitWorkflowRuntimeInput {
   readonly intentId: string;
   readonly messageFilePath: string;
   readonly registryPath: string;
-  readonly repoRoot: string;
+  readonly gitRoot: string;
 }
 
 /**
@@ -55,14 +61,14 @@ export async function runCommitWorkflowRuntime(
     readRegistry: () => readRegistry(input.registryPath),
     transformRegistry: (transform) => updateRegistry(input.registryPath, transform),
     getStagedBundle: (scopeInput) =>
-      getStagedBundle({ repoRoot: input.repoRoot, pathspec: scopeInput.pathspec }),
+      getStagedBundle({ gitRoot: input.gitRoot, pathspec: scopeInput.pathspec }),
     runAdvisoryOrchestrator: () => runAdvisoryOrchestrator(input),
     runGitCommit: (scopeInput) =>
       runGitCommit({
         intentId: input.intentId,
         messageFilePath: input.messageFilePath,
         registryPath: input.registryPath,
-        repoRoot: input.repoRoot,
+        gitRoot: input.gitRoot,
         pathspec: scopeInput.pathspec,
       }),
     nowIso: () => new Date().toISOString(),
@@ -85,7 +91,7 @@ async function runAdvisoryOrchestrator(
   return runInheritedProcess({
     command: 'pnpm',
     args: ['agent-tools:check-commit-skill-advisories', '-F', input.messageFilePath],
-    cwd: input.repoRoot,
+    cwd: input.gitRoot,
   });
 }
 
@@ -95,18 +101,18 @@ async function runGitCommit(
   const commit = await runInheritedProcess({
     command: 'git',
     args: ['commit', '-F', input.messageFilePath, '--', ...input.pathspec],
-    cwd: input.repoRoot,
+    cwd: input.gitRoot,
   });
 
   if (commit.exitCode !== 0) {
     return commit;
   }
 
-  return { ...commit, sha: readHeadSha(input.repoRoot) };
+  return { ...commit, sha: readHeadSha(input.gitRoot) };
 }
-function readHeadSha(repoRoot: string): string {
+function readHeadSha(gitRoot: string): string {
   return execFileSync('git', ['rev-parse', 'HEAD'], {
-    cwd: repoRoot,
+    cwd: gitRoot,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
   }).trim();

@@ -52,6 +52,14 @@ function registry(): CommitQueueRegistry {
   };
 }
 
+/**
+ * The F-138 two-root contract for registry-only commands: the invoking git
+ * root must never be consulted, so a resolution attempt is a test failure.
+ */
+function rejectGitRootResolution(): string {
+  throw new Error('resolveGitRoot must not be consulted by this command');
+}
+
 function stdoutBuffer(): { readonly stdout: { write(chunk: string): void }; text(): string } {
   const chunks: string[] = [];
   return {
@@ -131,6 +139,7 @@ describe('commit-queue CLI read commands', () => {
         command: 'status',
         options: { file: [], now: '2026-04-27T07:25:00Z' },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () => registry(),
         stdout: output.stdout,
       }),
@@ -158,6 +167,7 @@ describe('commit-queue CLI read commands', () => {
           now: '2026-04-27T07:25:00Z',
         },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () => registry(),
         stdout: output.stdout,
       }),
@@ -180,6 +190,7 @@ describe('commit-queue CLI read commands', () => {
           now: '2026-04-27T07:25:00Z',
         },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () => registry(),
         stdout: output.stdout,
       }),
@@ -207,6 +218,7 @@ describe('commit-queue CLI read commands', () => {
           now: '2026-04-27T07:25:00Z',
         },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () => ({
           schema_version: '1.3.0',
           claims: [
@@ -231,6 +243,7 @@ describe('commit-queue CLI read commands', () => {
         command: 'status',
         options: { file: [], 'claim-id': 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa' },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
       }),
     ).rejects.toThrow('unknown option for commit-queue status: --claim-id');
   });
@@ -243,6 +256,7 @@ describe('commit-queue CLI read commands', () => {
           command,
           options,
           repoRoot: '/repo',
+          resolveGitRoot: rejectGitRootResolution,
         }),
       ).rejects.toThrow(`unknown option for commit-queue ${command}: --now`);
     },
@@ -254,6 +268,7 @@ describe('commit-queue CLI read commands', () => {
         command: 'constructor',
         options: { file: [], 'intent-id': '11111111-1111-4111-8111-111111111111' },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
       }),
     ).rejects.toThrow('Usage: pnpm agent-tools:commit-queue');
   });
@@ -264,6 +279,7 @@ describe('commit-queue CLI read commands', () => {
         command: 'status',
         options: { file: [], now: '2026-02-31T07:25:00Z' },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () => registry(),
       }),
     ).rejects.toThrow('invalid ISO date-time for --now: 2026-02-31T07:25:00Z');
@@ -282,12 +298,22 @@ describe('commit-queue CLI read commands', () => {
           'message-file': '.git/COMMIT_EDITMSG',
         },
         repoRoot: '/repo',
-        commitWorkflow: async () => ({
-          ok: true,
-          intentId: '11111111-1111-4111-8111-111111111111',
-          sha: 'cafef00dcafef00dcafef00dcafef00dcafef00d',
-          advisoryExitCode: 0,
-        }),
+        resolveGitRoot: () => '/repo-worktrees/lane',
+        commitWorkflow: async (runnerInput) => {
+          // The two-root split: the registry stays at the coordination home
+          // while the workflow's git operations receive the INVOKING
+          // worktree's root (F-138).
+          expect(runnerInput.gitRoot).toBe('/repo-worktrees/lane');
+          expect(runnerInput.registryPath).toBe(
+            '/repo/.agent/state/collaboration/active-claims.json',
+          );
+          return {
+            ok: true,
+            intentId: '11111111-1111-4111-8111-111111111111',
+            sha: 'cafef00dcafef00dcafef00dcafef00dcafef00d',
+            advisoryExitCode: 0,
+          };
+        },
         stdout: stdout.stdout,
         stderr: stderr.stdout,
       }),
@@ -310,6 +336,7 @@ describe('commit-queue CLI read commands', () => {
           'message-file': '.git/COMMIT_EDITMSG',
         },
         repoRoot: '/repo',
+        resolveGitRoot: () => '/repo-worktrees/lane',
         commitWorkflow: async () => ({
           ok: true,
           intentId: '11111111-1111-4111-8111-111111111111',
@@ -338,6 +365,7 @@ describe('commit-queue CLI read commands', () => {
           'message-file': '.git/COMMIT_EDITMSG',
         },
         repoRoot: '/repo',
+        resolveGitRoot: () => '/repo-worktrees/lane',
         commitWorkflow: async () => ({
           ok: false,
           stage: 'verify-staged-before',
@@ -362,6 +390,7 @@ describe('commit-queue CLI read commands', () => {
           'message-file': '.git/COMMIT_EDITMSG',
         },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         commitWorkflow: async () => {
           throw new Error('commitWorkflow should not be called when args are invalid');
         },
@@ -378,6 +407,7 @@ describe('commit-queue CLI read commands', () => {
           'intent-id': '11111111-1111-4111-8111-111111111111',
         },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
         commitWorkflow: async () => {
           throw new Error('commitWorkflow should not be called when args are invalid');
         },
@@ -396,6 +426,7 @@ describe('commit-queue CLI read commands', () => {
           'commit-subject': 'feat(x): y',
         },
         repoRoot: '/repo',
+        resolveGitRoot: rejectGitRootResolution,
       }),
     ).rejects.toThrow('unknown option for commit-queue commit: --commit-subject');
   });

@@ -79,7 +79,7 @@ async function dispatchWriteCommand(args: {
       registry: await readRegistry(registryPath),
       options: input.options,
       now,
-      repoRoot: input.repoRoot,
+      gitRoot: input.resolveGitRoot(),
     });
   }
   if (input.command === 'complete') {
@@ -137,7 +137,7 @@ async function runRecordStagedCommand(input: CommandInputWithCli): Promise<numbe
     return 1;
   }
   const staged = getStagedBundle({
-    repoRoot: input.input.repoRoot,
+    gitRoot: input.input.resolveGitRoot(),
     pathspec: narrowed.pathspec,
   });
   await updateRegistry(input.registryPath, (registry) => {
@@ -171,7 +171,7 @@ function runVerifyStagedCommand(input: VerifyInput): number {
   return writeVerificationResult({
     intent,
     staged: getStagedBundle({
-      repoRoot: input.repoRoot,
+      gitRoot: input.gitRoot,
       pathspec: narrowed.pathspec,
     }),
     commitSubject: requireOption(input.options, 'commit-subject'),
@@ -230,5 +230,6 @@ interface VerifyInput {
   readonly registry: CommitQueueRegistry;
   readonly options: CommitQueueCliOptions;
   readonly now: string;
-  readonly repoRoot: string;
+  /** Root of the INVOKING git worktree — never the coordination home (F-138). */
+  readonly gitRoot: string;
 }

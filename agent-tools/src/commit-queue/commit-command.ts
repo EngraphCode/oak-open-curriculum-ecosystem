@@ -44,7 +44,7 @@ export async function runCommitCommand(input: CommitCommandInput): Promise<numbe
     intentId,
     messageFilePath,
     registryPath: input.registryPath,
-    repoRoot: input.input.repoRoot,
+    gitRoot: input.input.resolveGitRoot(),
   });
 
   return writeCommitCommandResult(result, input.input);
