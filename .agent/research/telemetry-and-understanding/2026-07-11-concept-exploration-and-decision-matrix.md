@@ -460,11 +460,15 @@ Current vendor sources:
 - <https://posthog.com/docs/logs>
 - <https://posthog.com/docs/advanced/infra-as-code>
 
-Decision workflow source:
+Decision workflow provenance:
 
-- [Decision Matrix](https://github.com/EngraphCode/reasoning-workflows/blob/main/decision-matrix.md).
-  This Oak exploration adapts the upstream workflow's empirical grounding,
-  outward Reason, inward metacognition, cross-examination, four-lens
-  dissolution, and survival-class routing to a repository plan estate rather
-  than a single implementation choice; Stage 0 remains the local authority
-  gate.
+- [Oak Concept Exploration workflow](https://github.com/oaknational/oak-open-curriculum-ecosystem/blob/cf33275153c3de4faa161de967ae3f825b70723b/.agent/skills/concept-exploration/SKILL-CANONICAL.md)
+  is the public, commit-pinned source for the alternating Reason and
+  metacognition movements used here.
+- The original decision-shaped source available during this exploration is not
+  publicly reachable. To keep this research re-derivable, the additional
+  applied passes are conserved here: empirical grounding, outward Reason,
+  inward metacognition, cross-examination, four-lens dissolution, and
+  survival-class routing. No candidate-scoring step was used. This exploration
+  applies those passes to a repository plan estate rather than a single
+  implementation choice; Stage 0 remains the local authority gate.

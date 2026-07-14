@@ -196,9 +196,13 @@ and public repo:
 - [architecture-and-infrastructure/](architecture-and-infrastructure/README.md)
   owns cross-cutting architecture, quality gates, workspace boundaries, and
   system quality.
+- [effectiveness-and-impact/](effectiveness-and-impact/README.md) owns how
+  agent-facing content and delivered behaviour are assessed and how assurance
+  evidence connects to real-world impact.
 - [telemetry-and-understanding/](telemetry-and-understanding/README.md) is
-  proposed to own the evidence-to-understanding loop and cross-layer priority
-  after its Stage 0 authority gate.
+  proposed to own the runtime-telemetry question-to-interpretation-to-decision
+  and remeasurement loop plus cross-layer signal priority after its Stage 0
+  authority gate; it does not own assessment or impact methodology.
 - [observability/](observability/README.md) owns inherited detailed signal and
   Sentry implementation evidence until TAU dispositions each lane.
 - [developer-experience/](developer-experience/README.md) owns SDK publishing,
@@ -226,6 +230,7 @@ remain authoritative for execution.
 | `semantic-search/` | Hybrid search, ingestion, retrieval quality, search/graph adjacency | 🔄 Current queue; no active plan in collection README | [README.md](semantic-search/README.md) |
 | `school-data-search/` | UK school-register dataset service POC (in-repo until go/no-go); owner gates walk the synthesis report | 📋 Queued | [README.md](school-data-search/README.md) |
 | `sdk-and-mcp-enhancements/` | MCP Apps, MCP protocol adoption, generated SDK/tool surfaces | 🔄 Active + queued execution | [README.md](sdk-and-mcp-enhancements/README.md) |
+| `effectiveness-and-impact/` | Assessment methodology for agent-facing content and delivered behaviour; evidence chain to real-world impact | 📋 Current research plan; execution owner-gated | [README.md](effectiveness-and-impact/README.md) |
 | `telemetry-and-understanding/` | TAU: proposed outcome-led authority for event intent, PostHog understanding, Sentry reconciliation, and logging/monitoring/analysis governance, pending Stage 0 ratification | 🟢 Next priority / current plan; authority proposed | [README.md](telemetry-and-understanding/README.md) |
 | `observability/` | Inherited five-axis signal/Sentry implementation and evidence proposed for TAU sequencing after Stage 0 | 🔄 Active transition proposal | [README.md](observability/README.md) |
 | `architecture-and-infrastructure/` | Architecture, quality gates, workspace boundaries, system quality | 🔄 Active backlog | [README.md](architecture-and-infrastructure/README.md) |
