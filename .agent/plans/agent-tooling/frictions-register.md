@@ -3110,9 +3110,11 @@ commit SHA and the closing plan reference.
 
 ### F-140 — watcher and inbox share a cursor, conflating delivery with acknowledgement
 
-- **Source**: Phosphor holds Tallow closeout event `d8a305ec` and napkin entry
-  2026-07-14; mechanism verified against `cli-comms-watch.ts`,
-  `cli-comms-inbox.ts`, and `cli-io-production.ts` on 2026-07-14.
+- **Source**: Phosphor holds Tallow closeout event `d8a305ec` and the durable ARC
+  record in
+  `.agent/collaboration/rapid-comms/2026-07-14-vision-strategy-planning-estate-phosphor-holds-tallow-and-phosphor-weaves-embers.md`;
+  mechanism verified against `cli-comms-watch.ts`, `cli-comms-inbox.ts`, and
+  `cli-io-production.ts` on 2026-07-14.
 - **Surface**: `pnpm agent-tools:collaboration-state -- comms watch` and
   `comms inbox` when invoked with the same `--seen-file`.
 - **Observed**: the watcher emits an event and then appends its id to `seenFile`; a later
@@ -3134,7 +3136,8 @@ commit SHA and the closing plan reference.
   the explicit acknowledgement action after reviewing that set. Derive and document all
   canonical state paths from the agent identity so callers do not hand-roll cursor names.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-watch.ts`,
-  `cli-comms-inbox.ts`, cursor-path helpers, and the watcher rule invocation.
+  `agent-tools/src/collaboration-state/cli-comms-inbox.ts`, cursor-path helpers,
+  and the watcher rule invocation.
 - **Status**: open — first observed instance; compose the cure with F-135.
 - **Owner direction status**: session-scoped Director route under the standing
   record-all-frictions direction.
