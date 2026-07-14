@@ -403,8 +403,9 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   join ceremony; Accepted 2026-07-06, amended 2026-07-13)
 - [ADR-212: Federated visibility authority and evidence boundaries](212-federated-visibility-authority-and-evidence-boundaries.md)
   (the repository remains the durable intent authority while Notion, Linear, GitHub, PostHog, and
-  Sentry each serve one audience-shaped role; delivery, operational, usage, and impact evidence
-  remain distinct; Accepted by owner direction 2026-07-13, recorded 2026-07-14)
+  Sentry each serve one audience-shaped role; execution movement, delivery performance,
+  operational health, usage/adoption, and value/impact evidence remain distinct; Accepted by owner
+  direction 2026-07-13, recorded 2026-07-14; amended 2026-07-14)
 
 ## Key Architectural Decisions
 

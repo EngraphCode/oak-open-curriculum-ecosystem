@@ -132,8 +132,9 @@ interdependent. A strategy that treats the streams as independent misses the poi
 [ADR-212](../../../docs/architecture/architectural-decisions/212-federated-visibility-authority-and-evidence-boundaries.md)
 is the Accepted architectural home for the federated visibility estate: the repository remains
 the durable intent authority, while Notion, Linear, GitHub, PostHog, and Sentry each have one
-audience-shaped responsibility. It also keeps delivery, operational, usage, and impact evidence
-distinct. This plan applies that permanent contract rather than restating it.
+audience-shaped responsibility. It also keeps execution-movement, delivery-performance,
+operational-health, usage/adoption, and value/impact evidence distinct. This plan applies that
+permanent contract rather than restating it.
 
 The [TAU collection index](../telemetry-and-understanding/README.md#current-status) is the canonical
 cross-surface status projection for TAU planning readiness, delivery authority, and implementation

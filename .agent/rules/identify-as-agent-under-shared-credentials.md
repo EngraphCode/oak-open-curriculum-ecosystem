@@ -25,9 +25,9 @@ fires before:
 
 It also fires when authoring on any non-GitHub outward surface (a vendor
 dashboard or external tracker) through credentials that identify a human
-rather than the agent. Curated Notion pages use a hybrid ledger: delivery-estate
-provenance on the visible line and the full agent/credential chain in a
-collapsed toggle. Their complete attribution contract is
+rather than the agent. Notion page edits inside the owner-allowlisted subtree use a hybrid ledger:
+delivery-estate provenance on the visible line and the full agent/credential chain in a collapsed
+toggle. Their complete attribution contract is
 [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
 
 ## Action
@@ -102,9 +102,9 @@ visible in truncated comment lists where a trailing signature is not
   (carry PDR-027 name+UUID by construction).
 - **Not in scope:** content authored under the agent's *own* distinct account
   (where the actor is already visible) — though a marker there is harmless.
-- **Already covered, do not double-mark:** curated Notion page edits. Their hybrid page-local
-  ledger identifies the originating repository visibly and the agent/session/credential chain in
-  a collapsed toggle once per coherent change set, as required by
+- **Already covered, do not double-mark:** Notion page edits inside the owner-allowlisted subtree.
+  Their hybrid page-local ledger identifies the originating repository visibly and the
+  agent/session/credential chain in a collapsed toggle once per coherent change set, as required by
   [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md). Do not add a separate
   GitHub-style attribution trailer.
 - **In scope (reading side):** attributing past actions performed under shared

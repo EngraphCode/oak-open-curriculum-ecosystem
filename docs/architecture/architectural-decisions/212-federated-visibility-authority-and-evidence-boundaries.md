@@ -1,6 +1,7 @@
 # ADR-212: Federated Visibility Authority and Evidence Boundaries
 
-- **Status:** Accepted (owner-directed 2026-07-13; recorded 2026-07-14).
+- **Status:** Accepted (owner-directed 2026-07-13; recorded 2026-07-14); amended 2026-07-14
+  (execution movement ratified as the fifth evidence class).
 - **Builds on:** [ADR-200](200-intent-as-a-living-idea-graph.md), which keeps durable intent in
   the repository and future idea graph.
 - **Relates to:** [ADR-201](201-external-systems-evidence-integration.md), which remains Proposed
