@@ -364,10 +364,11 @@ F-41 CLI tail).
    NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
    landing set) — see the §Current State corpus-generalisation entry; the self-contained
    restart brief is the AEE thread record §PHASE 0.
-0a. **Deep consolidation status: due — napkin past rotation threshold (805 lines, critical)
-   at the 2026-07-13 closeout gate (Sloop holds Lagoon, 5fbef7); not bounded for that
-   closeout and already routed as inherited fleet residue (Aspen stirs Blossom's succession
-   list names napkin consolidation-due). Prior pass: EXECUTED 2026-07-08 (Corsair guards
+0a. **Deep consolidation status: due — napkin past rotation threshold (1077 lines at the
+   2026-07-14 closeout gate, Foxglove seeks Petal 110a88 — fifth consecutive seat flagging;
+   first flagged 2026-07-13 at 805 lines by Sloop holds Lagoon, 5fbef7); not bounded for a
+   session closeout and already routed as inherited fleet residue (Aspen stirs Blossom's
+   succession list names napkin consolidation-due). Prior pass: EXECUTED 2026-07-08 (Corsair guards
    Channel, ecdd12, dedicated pass on main).** That commissioned scope was processed bottom-up: the napkin's
    seven seat-windows (2026-07-06→08, the R0 runway arc; Pelican's post-handoff custody
    entries preserved first at `473f22dcb`) dispositioned item-by-item then rotated (verbatim
