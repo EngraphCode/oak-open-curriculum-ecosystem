@@ -1,3 +1,18 @@
+# [1.67.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.9...v1.67.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* **agent-tools:** name the -h alias in the freeze usage line ([261b357](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/261b3573c49e0faedf423161aec4dc7dd1488549))
+* **agent-tools:** refuse -- and add --help to the refound freeze entries ([2baa798](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2baa798db27553dd1506dbe01676d0d7f03c5dea))
+* **refounding:** close the option-token value footgun and true pre-S0 provenance ([a05cc88](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a05cc881fce35884ac2d1fc8e47a894f428ad5ed)), closes [#370](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/370)
+* **refounding:** own-key option guard, honest refusal reasons, record truings ([4567ca7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4567ca759beb627a94b46cce17db0c69bea8ff70)), closes [#370](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/370)
+
+
+### Features
+
+* **agent-tools:** subtract out classes from the freeze in-set (G3.3) ([6ab5270](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6ab5270a231096333aeb5f9493b8266f820d2f54))
+
 ## [1.66.9](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.8...v1.66.9) (2026-07-14)
 
 ## [1.66.8](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.7...v1.66.8) (2026-07-14)
