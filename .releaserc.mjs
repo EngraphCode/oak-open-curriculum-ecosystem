@@ -31,6 +31,14 @@ export default {
             type: 'chore',
             release: 'patch',
           },
+          {
+            // The release automation's own version-bump commits (the git
+            // plugin `message` below) must never trigger another release.
+            // Explicit, not left to the analyzer's default treatment of
+            // unknown types.
+            type: 'release',
+            release: false,
+          },
         ],
       },
     ],
@@ -63,7 +71,8 @@ export default {
           'packages/sdks/oak-curriculum-sdk/package.json',
           'pnpm-lock.yaml',
         ],
-        message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+        message:
+          'release(${nextRelease.version}): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
       },
     ],
     '@semantic-release/github',

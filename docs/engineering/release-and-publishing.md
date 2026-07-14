@@ -31,9 +31,12 @@ manual version bumping.
 | `perf:`                             | Patch (0.0.x) |
 | `feat:`                             | Minor (0.x.0) |
 | `BREAKING CHANGE:` (in body/footer) | Major (x.0.0) |
+| `release:` (automation only)        | No bump       |
 
 Documentation-only and maintenance merges intentionally receive their own
-patch version. The current version is recorded in the root and SDK
+patch version. The automation commits each version bump back to `main` as
+`release(<version>): <version> [skip ci]` — a dedicated commit type that is
+explicitly mapped to no release, so the automation can never trigger itself. The current version is recorded in the root and SDK
 `package.json` files, which `semantic-release` updates together.
 
 ## Release Automation
@@ -97,7 +100,8 @@ Before your first release, ensure these are in place:
 - Releases only trigger from the `main` branch
 - All commits to `main` must use Conventional Commits format
 - Feature branches merge to `main` via pull request
-- The `[skip ci]` suffix on release commits prevents infinite loops
+- Release commits use the dedicated `release` type: the type is explicitly
+  mapped to no version bump, and the `[skip ci]` suffix prevents CI loops
 
 ### Dry Run Procedure
 

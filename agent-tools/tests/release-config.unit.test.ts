@@ -107,12 +107,22 @@ describe('semantic-release configuration', () => {
     ).toBe('major');
   });
 
-  it('keeps generated chore(release) commits from starting another CI cycle', async () => {
+  it('commits the version bump with the dedicated release type and the CI loop guard', () => {
     const gitPluginOptions = z
       .object({ message: z.string() })
       .parse(findPluginOptions('@semantic-release/git'));
 
-    expect(gitPluginOptions.message).toMatch(/\[skip ci\]/u);
-    expect(await determineReleaseType('chore(release): 1.65.0 [skip ci]')).toBe('patch');
+    expect(gitPluginOptions.message).toBe(
+      'release(${nextRelease.version}): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+    );
+  });
+
+  it('never lets a release-typed commit trigger another version bump', async () => {
+    const analyzerOptions = z
+      .object({ releaseRules: z.array(z.looseObject({})) })
+      .parse(findPluginOptions('@semantic-release/commit-analyzer'));
+
+    expect(analyzerOptions.releaseRules).toContainEqual({ type: 'release', release: false });
+    expect(await determineReleaseType('release(1.65.0): 1.65.0 [skip ci]')).toBeNull();
   });
 });
