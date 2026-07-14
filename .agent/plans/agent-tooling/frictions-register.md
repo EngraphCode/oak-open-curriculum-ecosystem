@@ -3048,7 +3048,24 @@ commit SHA and the closing plan reference.
   review round, 2026-07-13: single-root reuse, not a resolution split.)
 - **Target surface**: agent-tools CLI (`commit-queue` workflow deps); compose with the
   `coordination-home-cli-path-defaulting` plan (F-41 family) rather than a parallel fix
-- **Status**: open
+- **Status**: fixed-2026-07-14 at `SHA:8c6b1d157` (branch
+  `fix/f138-commit-queue-two-root-split`) — the two-root split landed as the candidate cure
+  named below prescribed. Mechanism: `runCommitQueueTopic` collapsed the registry root and
+  the git root into one `repoRoot`. Cure: `CommitQueueCliInput` now carries BOTH roots —
+  `repoRoot` (coordination home, registry only) plus a required lazy `resolveGitRoot`
+  thunk (`agent-tools/src/commit-queue/git-root.ts`, `git rev-parse --show-toplevel` from
+  the invoking cwd) consumed by every staged read, verification, the advisory
+  orchestrator, and the inner `git commit`; when no git root is derivable the CLI refuses
+  loudly — no fallback to the coordination home, because the fallback IS this defect. The
+  primary checkout is the degenerate case (both roots coincide; prior behaviour
+  preserved). Evidence: RED-first regression suite
+  (`agent-tools/smoke-tests/commit-queue-worktree.smoke.ts` — real scratch primary +
+  linked worktree; pre-fix it reproduced `staged_name_status: ""`, the
+  "missing: …" auto-abandon, and the guard case's silent exit 0), then GREEN; and the fix
+  commit itself was landed via the repaired ceremony FROM the
+  `f138-two-root-split` linked worktree against the shared primary registry (intent
+  `8cd528f0`, claim `12fdfcee`). The `claims open`/comms relative-path face of this entry
+  (and the F-41 composition edge) remains open — the cure here is commit-queue-scoped.
 - **Owner direction status**: standing (friction capture is the register's standing owner
   direction, lines 16-20; only the unusually detailed trace depth was a session-scoped ask,
   2026-07-13)
@@ -3066,3 +3083,61 @@ commit SHA and the closing plan reference.
   `enqueue`/`commit` (`agent-tools/src/commit-queue/options.ts`), but it pins only the registry — the git
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
+
+### F-139 — commit-queue guard rejects the `index/head@<worktree>` claim pattern
+
+- **Source**: the F-138 repair lane's live ceremony, 2026-07-14 (intent `d2ed19ef`
+  abandoned; claim `180670a3` closed with the failure reason)
+- **Surface**: `agent-tools commit-queue guard` claim matching
+  (`agent-tools/src/commit-queue/guard.ts` — the matcher requires a `git` area pattern
+  exactly equal to `index/head`)
+- **Observed**: the commit skill's merge-commit section (SKILL-CANONICAL §Merge commits)
+  prescribes per-working-tree commit-window claims as `git:index/head@<worktree-name>`
+  for worktree seats, but `guard` rejects an intent whose claim carries the suffixed
+  pattern: "is not an active git:index/head claim". The worktree seat must open a bare
+  `index/head` claim to pass guard, collapsing the per-tree claim scoping the skill
+  doctrine names.
+- **Expected**: guard recognises `index/head@<worktree>` patterns as git commit-window
+  claims (per-tree scoping preserved), or the skill doctrine and the guard matcher are
+  reconciled to one spelling.
+- **Candidate cure**: extend the guard matcher to accept `index/head` with an optional
+  `@<worktree>` suffix; add the same recognition anywhere else the composed label is
+  parsed.
+- **Target surface**: `agent-tools/src/commit-queue/guard.ts` + commit skill canonical.
+- **Status**: open. Workaround: open the commit-window claim with the bare `index/head`
+  pattern and name the worktree in the claim's `intent` text.
+- **Owner direction status**: standing (record-all-frictions).
+
+### F-140 — watcher and inbox share a cursor, conflating delivery with acknowledgement
+
+- **Source**: Phosphor holds Tallow closeout event `d8a305ec` and the durable ARC
+  record in
+  `.agent/collaboration/rapid-comms/2026-07-14-vision-strategy-planning-estate-phosphor-holds-tallow-and-phosphor-weaves-embers.md`;
+  mechanism verified against `cli-comms-watch.ts`, `cli-comms-inbox.ts`, and
+  `cli-io-production.ts` on 2026-07-14.
+- **Surface**: `pnpm agent-tools:collaboration-state -- comms watch` and
+  `comms inbox` when invoked with the same `--seen-file`.
+- **Observed**: the watcher emits an event and then appends its id to `seenFile`; a later
+  foreground inbox reads that same file and reports `no new comms events`, even when the
+  agent has not personally inspected or interpreted the event. Transport delivery is
+  therefore presented as if it proved cognitive acknowledgement.
+- **Expected**: passive delivery/liveness, foreground delivery, and deliberate
+  acknowledgement after inspection remain independently observable; any one may advance
+  without erasing the others' unread or unacknowledged sets.
+- **Interim guidance**: give foreground delivery checks an independent seen file, or run
+  a direct time-window/corpus sweep, then record acknowledgement separately after
+  inspection. Do not interpret `no new comms events` on either auto-advanced cursor as
+  proof of personal review.
+- **Candidate cure**: separate transport delivery, foreground delivery, and explicit
+  acknowledgement at the CLI boundary. `watch` advances only transport state; `inbox`
+  advances only foreground-delivery state; a distinct acknowledgement action advances
+  cognition state only after the caller confirms inspection. F-135's `--since` sweep
+  selects the foreground review set but does not itself acknowledge it; the caller applies
+  the explicit acknowledgement action after reviewing that set. Derive and document all
+  canonical state paths from the agent identity so callers do not hand-roll cursor names.
+- **Target surface**: `agent-tools/src/collaboration-state/cli-comms-watch.ts`,
+  `agent-tools/src/collaboration-state/cli-comms-inbox.ts`, cursor-path helpers,
+  and the watcher rule invocation.
+- **Status**: open — first observed instance; compose the cure with F-135.
+- **Owner direction status**: session-scoped Director route under the standing
+  record-all-frictions direction.

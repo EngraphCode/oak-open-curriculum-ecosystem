@@ -1,3 +1,33 @@
+## [1.66.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.3...v1.66.4) (2026-07-14)
+
+## [1.66.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.2...v1.66.3) (2026-07-14)
+
+## [1.66.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.1...v1.66.2) (2026-07-14)
+
+
+### Bug Fixes
+
+* **agent-tools:** harden commit queue git execution ([6bfdbd5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6bfdbd5d039260b6d5e652d59ba093ed17fc2624))
+* **agent-tools:** harden the two-root split per expert review ([ebf7103](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ebf7103c6521ded3aeba1d1eac97693e1b3abae6))
+* **agent-tools:** harden worktree smoke evidence ([3ced187](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3ced187b615d7b0f028aa7faffd03f0f46da6796))
+* **agent-tools:** split commit-queue registry and git roots (F-138) ([8c6b1d1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8c6b1d157c5b4432d38ea7f3734070ab24a1695e))
+
+## [1.66.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.0...v1.66.1) (2026-07-14)
+
+# [1.66.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.65.0...v1.66.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* **release:** enforce the automation-only release type and true the docs ([47d9371](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/47d937128508ae071835f5d7da3a4c18071cffa4))
+* **release:** map every work-commit type to a version bump ([551fb41](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/551fb412cd85978fcaceb722912c24fde93d04db))
+* **release:** publish docs and chore merges as patch versions ([37d9b24](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/37d9b24f8a3f618ebb094c92434fd3096c4ffb47))
+
+
+### Features
+
+* **release:** commit version bumps with a dedicated release type ([182d2d7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/182d2d729b33d0769214a44fb3e9154d03f6f7bc))
+
 # [1.65.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.64.1...v1.65.0) (2026-07-14)
 
 
