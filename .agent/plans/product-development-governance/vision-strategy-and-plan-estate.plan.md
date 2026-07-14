@@ -808,11 +808,13 @@ Settled (2026-07-13):
 
 23. **Federated visibility estate and audience boundaries — settled.** The repo owns durable
     intent; Notion is the principal narrative/status surface for non-engineering and senior
-    stakeholders; Linear owns concrete delivery coordination and performance; GitHub owns change
-    readiness; PostHog owns observed product usage once TAU instrumentation lands; Sentry owns
-    operational health and engineering diagnosis. Notion synthesises linked evidence but does not
-    become a second planning authority. Usage and operational signals inform impact; they do not
-    prove it without research, evaluation, and Oak-owned outcome evidence.
+    stakeholders; Linear owns concrete execution coordination and progress; delivery performance
+    is the ADR-207 generated projection over the intent graph plus GitHub, Linear, deployment, and
+    Sentry evidence; GitHub owns change readiness; PostHog owns observed product usage once TAU
+    instrumentation lands; Sentry owns operational health and engineering diagnosis. Notion
+    synthesises linked evidence but does not become a second planning authority. Usage and
+    operational signals inform impact; they do not prove it without research, evaluation, and
+    Oak-owned outcome evidence.
 
 ## Inputs and Authorities
 
