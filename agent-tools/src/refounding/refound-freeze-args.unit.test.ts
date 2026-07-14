@@ -59,4 +59,13 @@ describe('parseFreezeArgs', () => {
       expect(result.error.message).toContain('unknown option');
     }
   });
+
+  it('rejects a registered option token as an option value (the --out -h footgun)', () => {
+    const result = parseFreezeArgs(['--out', '-h']);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('requires a value');
+    }
+    expect(parseFreezeArgs(['--rule', '--help']).ok).toBe(false);
+  });
 });
