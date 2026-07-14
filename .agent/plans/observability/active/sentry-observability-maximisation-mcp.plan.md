@@ -2595,7 +2595,7 @@ lane; FIX-BEFORE-MERGE findings land inside the same PR.
 - `packages/libs/sentry-node/README.md`
 - `.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md`
   L-7 + L-8 status + section bodies (this file)
-- `.agent/plans/observability/documentation-sync-log.md`
+- `.agent/memory/operational/documentation-sync-logs/observability.md` (the per-lane operational log — created there on first entry, never inside the plans tree)
 
 #### L-8 Risk Assessment
 
