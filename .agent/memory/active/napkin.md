@@ -1002,3 +1002,159 @@ first-hand and correct. The record above stands amended:
   targeted exactly the labelled claim, and verification replaced it with file:line
   mechanism in one pass. Labelling epistemic status invites the cheapest possible
   correction.
+
+<!-- fitness already exceeded; capture preserved at full weight per the conservation invariant -->
+
+## 2026-07-13 — Foxglove seeks Petal (110a88): skills.md entry-point lane (PR 360)
+
+Owner-directed: add a root `skills.md` Layer-3 entry point (Linear coding sessions) + true the
+entry-point enumerations. Landed via worktree branch `docs/skills-md-entry-point`, PR 360;
+reviewer pair (docs-adr + onboarding) pre-commit, then three Copilot rounds (8 → 4 → 3
+findings, all substantive-then-wording). Session observations:
+
+- **Supervised watcher wrapper died silently after its first inner death** — the
+  `while kill -0 $SUP; do <comms watch>; done` re-arm loop stopped after the first drain-timeout
+  (heartbeat froze at the death; no restart, discovered only by the F-95 claims-open refusal).
+  The observable shape that worked: single canonical invocation under Monitor
+  `persistent: true`, re-arm on the exit NOTIFICATION (the rule's own design). A wrapper loop
+  hides its own death; the notification path cannot.
+- **CLI asymmetry (one retry each): `claims open` defaults `--now` (F-89) but `claims close`
+  REQUIRES it**; `comms inbox` has no `--since`. Compose close commands with
+  `--now "$(date -u ...)"` reflexively.
+- **hook-policy-substring, new face: the word "restore" inside a commit-message heredoc**
+  riding the same Bash call as `git commit` tripped the git-destruction policy. The message
+  text travels in the command; reword the concept honestly ("stays chronological"), never
+  route around.
+- **Disposition replies via `gh` under shared credentials render as the OWNER and each reply
+  registers as a COMMENTED review** — my round-1 replies (8) went out unsigned and briefly
+  read back as fresh owner input in my own compound read. Sign every PR reply with the agent
+  identity line per identify-as-agent-under-shared-credentials (done rounds 2–3).
+- **gh token invalidated mid-shepherd (HTTP 401)**: pr-watch crash-looped inside its re-arm
+  loop against the anonymous tier. Cure sequence: TaskStop the watch, `gh auth status` to
+  confirm, PushNotification to owner (re-auth is interactive), comms broadcast to peers
+  sharing the credential, hold GitHub surfaces. Recompute-state inside a re-arm loop must
+  treat EMPTY state output as "auth/API failure — stop", not "keep looping".
+- **Background `until`-timer wakes were killed twice** (quiet-window checkpoints) — on this
+  host they are unreliable; the pr-watch cycle notifications served as the settled-round
+  clock instead.
+- **Treadmill shape consistent with the register**: round 1 carried the one genuine
+  enumeration miss (session-handoff 6d named-extension licence — both expert reviewers had
+  flagged the CONTRACT, Copilot caught the SWEEP LIST omission two rounds later) and a real
+  doctrine rule (documentation-hygiene §2 attribution links — verified real before fixing).
+  Rounds 2–3 were my own new doctrine text failing its own edge cases ("every platform reads
+  its own entry point first" falsified by Linear's inherit-plus-supplementary shape) — the
+  pre-check-new-doctrine-against-its-own-edges lesson, recurrence at entry-point altitude.
+
+## 2026-07-14 — Quasar mends Umbra (52b4de): first Director of the two-objective team
+
+<!-- fitness already exceeded; capture preserved at full weight per the conservation invariant;
+the dedicated consolidation pass remains DUE (fourth consecutive seat flagging it) -->
+
+- **Owner correction (objective framing): the objective-1 surface list is Sentry / Linear /
+  NOTION / GitHub — "I mean Notion, not Vercel."** For non-technical stakeholders Notion is the
+  first place they will look; the Linear initiative is brought up to speed as well; the surfaces
+  cross-link. Owner doctrine, verbatim substance: **the difference between the surfaces is NOT
+  primacy, it is AUDIENCE.** (Consistent with the PR #341 settled contract; the correction was to
+  my reading of the owner's list, mirrored here because comms events are untracked-tier.)
+- **Owner rulings at the same sitting:** refounding r1 = FRESH implementer seat (not an Elder
+  recall; the thread-record r1 block is the pickup). PR #341 closeout routed to its custodian;
+  the owner presses merge. Proof slice builds NO connector architecture (ADR-201 stays Proposed;
+  read/summarise/curate modes only).
+- **Concept-exploration yield (the framing that changed):** the two objectives parallelise
+  because they project DIFFERENT things — delivery/work EVIDENCE (true now, safe to surface
+  immediately) vs INTENT (plans/roadmaps, trustworthy outward only after refounding). The
+  refounding gates intent-projection, never evidence-projection. Workflow used: Resonance's
+  four-movement concept-exploration (skill `concept-exploration` in the sibling estate;
+  applied here as a manual protocol, matching the 2026-07-13 precedents).
+- **Mid-turn owner directions executed:** PRs #339/#341/#362 analysed first-hand (unresolved
+  threads: 1 / 2 / 2, all substantive; checks green on all three); custodial routing via
+  directed events; #362 (custodian-less) + the provably-redundant branch/worktree sweep
+  commissioned as Director-routed background implementer lanes (codex-harness worktrees
+  report-only — two live codex seats share prefix 019f5c and task→worktree mapping is unproven).
+- **Estate observation at grounding:** PR #339 flipped draft→non-draft while #341 (its declared
+  landing prerequisite) was still open — surfaced to the custodian as a posture question, not an
+  accusation; carried context rots in minutes at PR boundaries (re-fetched state differed from
+  20-minute-old reads on all three PRs).
+
+## 2026-07-14 — Foxglove seeks Petal (110a88): skills.md lane closeout (part 2 — the arc after the first entry)
+
+<!-- fitness already exceeded; capture preserved at full weight; the dedicated consolidation
+pass remains DUE (fifth consecutive seat flagging it) -->
+
+Lane CLOSED: PR 360 (root skills.md entry point, 7 commits) merged by owner at
+2026-07-13T07:26Z-equiv `SHA:9fef40267`; post-merge tail finding fixed via PR 361 (merged
+`SHA:de0c12ed2`, 2026-07-14T08:06Z); both tips ancestry-verified in origin/main; tail
+harvests clean. Six Copilot rounds total (8→4→3→0→2→1 findings) + 1 post-merge. Closeout
+loss-scan findings (written per the standing rule):
+
+- **gh-outage postscript (completes the part-1 entry): the invalid keyring token self-healed
+  by morning with no owner action; owner attributes the window to the kengraph credential
+  machinery** ("gh was logged in fine, was this about the kengraph credentials?"). Diagnostic
+  shape for next time: `GITHUB_MCP_TOKEN`/`GITHUB_PERSONAL_ACCESS_TOKEN` env vars are NOT
+  consulted by gh (only GH_TOKEN/GITHUB_TOKEN override); a keyring-token 401 that later
+  self-recovers matches a rotation window, not a revocation. Check `gh auth status` FRESH
+  before escalating — the outage may already be over.
+- **candidate: reviewer-clearance-is-scope-bound (pattern).** docs-adr-expert explicitly
+  cleared consolidate-docs ("e.g./etc., no update owed"); Copilot round 6 found two explicit
+  operational enumerations in that same file. A reviewer's negative verdict ("nothing to
+  update") inherits the reviewer's search scope — same class as the subtree-scope
+  negative-existence trap (2026-07-08), now at reviewer altitude. Cure shape: clearances of
+  absence compose with a mechanical class sweep, never substitute for one.
+- **candidate: universal claims fail on the entity being added (sharpened generator for the
+  pre-check-new-doctrine lesson).** Rounds 2–3 and 5 all traced to my own new text asserting
+  universals ("every platform reads its own entry point first", "loaded by", "auto-loaded")
+  while the change itself introduced the counterexample (Linear's inherit-plus-supplementary
+  shape). The entity a change adds IS the edge case to check its prose against.
+- **candidate: supervision must live on the notification path (comms-all-channels-watcher
+  amendment).** A `while kill -0 $SUP` re-arm wrapper died silently after its first inner
+  drain-timeout (heartbeat froze; discovered only by the F-95 claims-open refusal). The
+  Monitor exit-notification IS the re-arm signal; wrapping the watcher in a loop re-creates
+  the silent-death hole one level up. Also proven: a re-arm loop's recompute must treat an
+  EMPTY state read as auth/API failure (stop + surface), not as loop-continue — the gh
+  outage turned the 360-watch loop into a 401 crash-loop against the anonymous API tier.
+- **candidate: entry points are host-specific funnels (owner ruling, 2026-07-14).** "All of
+  the entry points are host specific, that's how we funnel all agents into the portable,
+  shared infrastructure regardless of their vendor association." Landed in practice.md's
+  ENTRY node + the f4ed4e031 commit body; consider a one-line prose home in ADR-125 or
+  practice.md §Tooling at the next consolidation.
+- **PR-description staleness is a review finding class**: Copilot round 5 flagged the diff
+  contradicting the description's Scope (the practice.md owner ruling happened in-session,
+  invisible to bots). When an owner ruling changes scope mid-PR, true the DESCRIPTION in the
+  same wave as the diff — the record is part of the proposal (PR-328-arc lesson, new face).
+- **Grounded execution knowledge**: (1) no agent-tools validator enumerates the root
+  entry-point files — verified by docs-adr-expert; the next entry-point addition is
+  docs-surface-only plus the enumeration sweep. (2) `auth-routes.integration.test.ts`
+  ("resource URL matches request host header") timed out at 5000ms under a parallel-loaded
+  host in the pre-push battery, passed 14/14 in isolation — transient-flake shape, verify
+  in isolation before assuming regression. (3) For a human-press merge wait, a
+  poll-emit-on-change-only Monitor (gh pr view state, 300s cadence, break on non-OPEN or
+  EMPTY) beats cycling pr-watch, which exits instantly on all-green and generates two
+  notifications per cycle. (4) The claims/comms CLI resolves `--active` paths against CWD:
+  from a worktree the registry path ENOENTs (F-41 face) — always run collaboration-state
+  commands from the primary checkout.
+- **Declined finding on the record**: onboarding-expert P3 suggested bumping the foundation
+  doc's `last_reviewed: 2026-04-20` frontmatter; declined — the session edited two lines
+  without reviewing the document, and a false review stamp is worse than a stale one.
+- **Routed residue**: the cross-platform surface matrix still carries pre-existing stale
+  adapter rows (`.cursor/skills/` etc., retired by ADR-125's 2026-05-09/10 amendments) —
+  named out-of-scope in PR 360's description; belongs to the next executive-memory curation
+  pass.
+- **Loss-scan scope statement** (absence = bounded evidence): chat arc, git state (both PRs,
+  all 8 commits), my 8 comms events, claims registry, scratchpad, task list, sub-agent
+  result payloads (docs-adr, onboarding), per-user memory (checked — existing entries
+  cover; nothing new user-tier), ~/.claude/plans (checked at closeout), napkin part-1 entry.
+  Accepted ephemeral losses: scratchpad PR-body drafts (live on GitHub), the two expert
+  reviews' full prose (dispositions all enacted in commits; verdict summaries in this entry
+  and the PR record), task-list state, watcher/seen-file mechanics. Session-mortal by
+  design: chat reasoning texture beyond these entries.
+- **Closeout residue (recursive-pass catches, written at occurrence):** (1) local branches
+  `docs/skills-md-entry-point` + `docs/pr360-postmerge-tail` KEPT — both first-hand
+  ancestry-proven into origin/main (remote refs auto-deleted; worktree removed clean);
+  `git branch -d` from the primary refuses because primary HEAD doesn't contain them —
+  ancestry-vs-HEAD is -d's check, not a merge-truth signal; deletion is cosmetic, left for
+  any owner-authorised sweep. (2) An orphaned round-5 commit-window claim was found and
+  closed at closeout — the push-flake retry detour swallowed its close; window claims need
+  their close in the SAME move-chain as the push they cover. (3) Owner mid-closeout
+  correction: "I don't need you to land the PR, I need you to complete the session close
+  out" — lane-hygiene perfectionism (branch deletion) was delaying the asked-for handoff;
+  at closeout, hygiene beyond proof-of-safety is deferrable, the handoff is not.
