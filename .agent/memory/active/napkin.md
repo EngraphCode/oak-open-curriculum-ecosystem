@@ -2180,3 +2180,40 @@ structure priors for the refounding's Walk A; the owner then directed all-surfac
 - Durable homes: the walk-a-priors document at the refounding artefact root + the refounding
   plan's priors section + owner-gate-register agenda rows (PR after #375); this capture; the
   thread record's r2 block; repo-continuity truing.
+
+## 2026-07-14 — PR #376 settled; team branch consolidation-ready (Director, Quasar mends Umbra, 52b4de)
+
+The owner merged PR #376 at 17:04:41Z (merge commit `SHA:ca3dac4ea`, final head `SHA:d5206aff2`
+after a BEHIND auto-update, all checks green). The predicted raced review wave landed at
+17:09Z — three Copilot threads, each verified genuine first-hand against origin/main and
+QUEUED FOR THE CONSOLIDATION SESSION (the owner's one-PR-before-consolidation directive rules
+out another PR from this seat; threads replied-to and resolved with this entry as the pointer):
+
+- **Sentry plan retarget incomplete**: `.agent/plans/observability/active/sentry-observability-maximisation-mcp.plan.md`
+  lines 93, 399, and 1903 still instruct lane-close entries into `documentation-sync-log.md`,
+  a path that no longer exists after the PR #375 re-homing — the #376 fix retargeted only
+  line 2598. Retarget all three to
+  `.agent/memory/operational/documentation-sync-logs/<lane>.md`.
+- **Permanent-to-ephemeral provenance, twice**: `.agent/memory/active/patterns/bounded-metaloss-recursion.md`
+  cites the rotating napkin at line 6 (`proven_in`) and lines 88–91 (source section), contrary
+  to `no-moving-targets-in-permanent-docs`. Cure: inline the evidence (seat names, dates, the
+  loss-scan/metaloss findings summary) so the pattern is self-contained.
+
+Team-branch preparation for the owner's dedicated consolidation session is COMPLETE:
+`team/planning_and_visibility` fast-forwarded `SHA:5d552cd99` → `SHA:caf61468b` (== origin/main).
+Per-file containment was verified BEFORE aligning: napkin/thread-record/patterns-README working
+copies were strictly stale against main's reviewed corrections (SHA-prefix truings, re-homed
+cost-ledger path); repo-continuity's tree-side `neo-curriculum-vault-research` row is absent
+from main DELIBERATELY (the thread record was retired to `threads/retired/` in the same landed
+change); five untracked files were byte-identical to main and recreated by the fast-forward.
+Nothing was discarded unverified.
+
+Two genuinely-new arrivals conserved in this commit, both to route to main at consolidation:
+
+- `.agent/reports/oak-reusable-curriculum-architecture/oak-reusable-curriculum-architecture-final-synthesis.md`
+  (791 lines) — the concept-exploration final synthesis that missed the #376 omnibus.
+- `.agent/reports/wider-ecosystem/NEO Curriculum Vault report.md` — the OWNER'S artefact
+  (created 16:47 local, after the omnibus branch was cut), landed verbatim, untouched.
+
+Post-compaction liveness: comms watcher re-armed (#12, same seen-file, gap-sweep covered);
+claim `0f4be777` heartbeat re-armed as a 3-minute monitor loop replacing the manual refreshes.
