@@ -2,19 +2,17 @@ import { access, lstat, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { err, isErr, ok, type Result } from '@oaknational/result';
-import { glob } from 'tinyglobby';
 
 import { parseFreezeRule, type FreezeRule } from './freeze-rule-schema.js';
-import { compareByCodeUnit, parseJsonDocument } from './refounding-artefacts.js';
+import { parseJsonDocument } from './refounding-artefacts.js';
 import {
   DENOMINATOR_BASENAME,
-  findEscapingMatches,
   FROZEN_TREE_SEGMENT,
   IDENTITY_PROOF_SEGMENT,
-  INSTRUMENT_EXCLUDE_GLOBS,
   mapSourcesToFrozen,
   type SecretScan,
 } from './refound-freeze-helpers.js';
+import { enumerateInSet } from './refound-in-set.js';
 
 /**
  * The pre-copy phase of `refound-freeze` (F1 §5 row 1, §8.3): read and parse
@@ -172,40 +170,6 @@ async function applyRefusals(
     );
   }
   return ok(rule.ratifiedBy);
-}
-
-/**
- * Enumerate the rule's `in` classes from the live tree: sorted repo-relative
- * POSIX paths, with the instrument's own homes excluded by construction.
- * Shared with `refound-merge-recheck` (`consolidate-at-second-consumer`) —
- * the recheck recomputes the live source set through the IDENTICAL
- * enumeration the freeze used (F1 D4), refusals included.
- */
-export async function enumerateInSet(
-  rule: FreezeRule,
-  repoRoot: string,
-): Promise<Result<readonly string[], Error>> {
-  const patterns = rule.classes
-    .filter((ruleClass) => ruleClass.verdict === 'in')
-    .flatMap((ruleClass) => [...ruleClass.globs]);
-  const matches = await glob(patterns, {
-    cwd: repoRoot,
-    dot: true,
-    ignore: [...INSTRUMENT_EXCLUDE_GLOBS],
-  });
-  const escaping = findEscapingMatches(matches);
-  if (escaping.length > 0) {
-    return err(
-      new Error(
-        `freeze rule globs matched paths outside the repository (absolute or containing '..'): ` +
-          `${escaping.slice(0, 5).join(', ')} — a ratified rule cannot grant out-of-repo reach`,
-      ),
-    );
-  }
-  if (matches.length === 0) {
-    return err(new Error("no files matched the freeze rule's 'in' classes; refusing a mis-run"));
-  }
-  return ok([...matches].sort(compareByCodeUnit));
 }
 
 /**

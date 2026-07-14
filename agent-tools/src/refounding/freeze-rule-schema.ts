@@ -48,7 +48,14 @@ const nonEmptyString = z.string().min(1);
 /**
  * A class verdict: `in` (frozen and conserved by the denominator), `sweep`
  * (scanned for non-terminal markers, promotable by amendment), or `out`
- * (excluded, with a recorded reason).
+ * (excluded, with a recorded reason). `out` is subtractive over the `in`
+ * enumeration: an `out` glob overlapping an `in` glob wins, so a class
+ * inside an `in` surface (G3.3's operational registers, owner-ruled
+ * 2026-07-14) stays unfrozen — before that ruling an overlapping `out`
+ * class was silently inert. Subtraction applies to the `in` enumeration
+ * only; an `out` class overlapping a SWEEP glob remains inert — a recorded
+ * follow-up (frictions register F-141 residuals), with no ratified instance
+ * today.
  */
 const freezeVerdictSchema = z.enum(['in', 'sweep', 'out']);
 

@@ -12,7 +12,8 @@ import {
   INSTRUMENT_EXCLUDE_GLOBS,
   mapSourcesToFrozen,
 } from './refound-freeze-helpers.js';
-import { enumerateInSet, readRule } from './refound-freeze-plan.js';
+import { readRule } from './refound-freeze-plan.js';
+import { enumerateInSet } from './refound-in-set.js';
 import {
   ARRIVALS_BASENAME,
   buildArrivalsReport,

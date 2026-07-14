@@ -183,6 +183,81 @@ describe('runFreeze — happy path', () => {
     expect(existsSync(path.join(frozenRoot, 'plans/keep.md'))).toBe(true);
     expect(existsSync(path.join(frozenRoot, 'plans-refounding'))).toBe(false);
   });
+
+  it('subtracts an out class overlapping an in glob (G3.3: operational registers stay unfrozen)', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-freeze-'));
+    tempRoots.push(repoRoot);
+    const rule = {
+      version: 1,
+      ratifiedBy: '.agent/decisions/g1.md',
+      classes: [
+        { id: 'plans', globs: ['.agent/plans/**'], verdict: 'in', reason: 'estate' },
+        {
+          id: 'operational-registers',
+          globs: ['.agent/plans/frictions-register.md'],
+          verdict: 'out',
+          reason: 'operational surface, not a plan (owner ruling G3.3)',
+        },
+      ],
+    };
+    await writeTree(repoRoot, {
+      '.agent/plans/a.md': '# A\n',
+      '.agent/plans/frictions-register.md': '# register — churns through any work\n',
+      '.agent/plans-refounding/freeze-rule.json': `${JSON.stringify(rule, null, 2)}\n`,
+    });
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    const result = await runFreeze({
+      repoRoot,
+      ruleAbsPath: path.join(outDirAbs, 'freeze-rule.json'),
+      outDirAbs,
+      secretScan: cleanScan,
+    });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.fileCount).toBe(1);
+    }
+    const frozenRoot = path.join(outDirAbs, 'archive/frozen-v1');
+    expect(existsSync(path.join(frozenRoot, 'plans/a.md'))).toBe(true);
+    expect(existsSync(path.join(frozenRoot, 'plans/frictions-register.md'))).toBe(false);
+    const denominatorRaw: unknown = JSON.parse(
+      await readFile(path.join(outDirAbs, 'denominator.v1.json'), 'utf8'),
+    );
+    const denominator = parseDenominator(denominatorRaw);
+    expect(denominator.ok).toBe(true);
+    if (denominator.ok) {
+      expect(denominator.value.files.map((f) => f.path)).toEqual(['plans/a.md']);
+    }
+  });
+
+  it('refuses (nothing written) when out classes subtract the entire in set, naming subtraction', async () => {
+    const repoRoot = await mkdtemp(path.join(tmpdir(), 'refound-freeze-'));
+    tempRoots.push(repoRoot);
+    const rule = {
+      version: 1,
+      ratifiedBy: '.agent/decisions/g1.md',
+      classes: [
+        { id: 'plans', globs: ['.agent/plans/**'], verdict: 'in', reason: 'estate' },
+        { id: 'everything-out', globs: ['.agent/plans/**'], verdict: 'out', reason: 'mis-rule' },
+      ],
+    };
+    await writeTree(repoRoot, {
+      '.agent/plans/a.md': '# A\n',
+      '.agent/plans-refounding/freeze-rule.json': `${JSON.stringify(rule, null, 2)}\n`,
+    });
+    const outDirAbs = path.join(repoRoot, '.agent/plans-refounding');
+    const result = await runFreeze({
+      repoRoot,
+      ruleAbsPath: path.join(outDirAbs, 'freeze-rule.json'),
+      outDirAbs,
+      secretScan: cleanScan,
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain("after subtracting 'out' classes");
+    }
+    expect(existsSync(path.join(outDirAbs, 'archive/frozen-v1'))).toBe(false);
+    expect(existsSync(path.join(outDirAbs, 'denominator.v1.json'))).toBe(false);
+  });
 });
 
 describe('runFreeze — refusal chain (nothing written)', () => {
