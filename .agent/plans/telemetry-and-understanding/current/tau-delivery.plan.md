@@ -51,7 +51,7 @@ todos:
     status: pending
     depends_on: [s2-semantic-event-port, s0-privacy-and-project-gates]
   - id: s2-posthog-mcp-probe
-    content: "STAGE 2: run a pinned preview-only @posthog/mcp build-vs-buy probe with context/conversation/missing-capability/exception capture disabled and final-wire stripping; decide supplementary adoption, pattern reuse, or rejection."
+    content: "STAGE 2: run a preview-only @posthog/mcp@0.9.0 build-vs-buy probe (published pin and source tag verified 2026-07-14) with context/conversation/missing-capability/exception capture disabled and final-wire stripping; decide supplementary adoption, pattern reuse, or rejection."
     status: pending
     depends_on: [s2-posthog-adapter]
   - id: s2-sink-decoupling
@@ -102,14 +102,18 @@ todos:
     content: "STAGE 5: absorb product lanes into TAU, decompose trigger-bound work, consolidate release authorities, conserve evidence, and retire/supersede the oversized Sentry umbrella as live execution authority."
     status: pending
     depends_on: [s5-sentry-distinct-value, s0-authority-and-disposition]
-  - id: s6-signal-class-and-logs
-    content: "STAGE 6: formalise event/log/trace/metric/error/alert/feedback classes; run the PostHog OTLP Logs value-cost-privacy probe and either deliver the proportionate surviving log route or record an evidence-backed not-promoted disposition; do not wholesale duplicate logs without a surviving question."
+  - id: s6-signal-class-registry
+    content: "STAGE 6: formalise the event/log/span/metric/error/alert/feedback/experiment-exposure signal-class registry required by both terminal Stage-6 lanes."
     status: pending
     depends_on: [s4-understanding-review, s5-sentry-ground-truth]
+  - id: s6-posthog-logs
+    content: "STAGE 6: run the PostHog OTLP Logs value-cost-privacy probe and either deliver the proportionate surviving log route or record an evidence-backed not-promoted disposition; do not wholesale duplicate logs without a surviving question."
+    status: pending
+    depends_on: [s6-signal-class-registry]
   - id: s6-monitoring-alerts
     content: "STAGE 6: when stable distributions and incident evidence exist, either derive proportionate SLOs and alerts or record an evidence-backed not-promoted disposition; each surviving alert requires owner, condition, dedupe, runbook, cost/cardinality control, and explicit action."
     status: pending
-    depends_on: [s6-signal-class-and-logs]
+    depends_on: [s6-signal-class-registry]
   - id: s7-wider-events
     content: "STAGE 7: evaluate the wider-event/runtime gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, widget_session_outcome, a11y_preference_tag, Search CLI, widget runtime, Slack assistants, and later AI tools using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every declared lane; keep this aggregate pending until every promoted child completes its question-to-decision loop or every unpromoted child is explicitly dispositioned as not promoted. Stage 8 exclusively owns the feedback_submitted emitter and service-loop lane."
     status: pending
@@ -137,24 +141,26 @@ todos:
   - id: s10-governance-and-close
     content: "STAGE 10: verify that every declared lane is complete or has an explicit evidence-backed not-promoted disposition; establish project/event definition verification, ingestion warnings, cost/retention budgets, deletion drills, recurring question reviews, ADR/runbook propagation, fresh emission inventory, and plan-corpus consolidation."
     status: pending
-    depends_on: [s2-posthog-mcp-probe, s4-definitions-probe, s5-sentry-corpus-close, s6-monitoring-alerts, s7-wider-events, s8-feedback-loop, s8-flag-evaluation, s8-survey-compatibility, s8-experiment-governance, s9-warehouse-trigger]
+    depends_on: [s2-posthog-mcp-probe, s4-definitions-probe, s5-sentry-corpus-close, s6-posthog-logs, s6-monitoring-alerts, s7-wider-events, s8-feedback-loop, s8-flag-evaluation, s8-survey-compatibility, s8-experiment-governance, s9-warehouse-trigger]
 ---
 
 # TAU — Telemetry and Understanding System delivery plan
 
 ## Status
 
-**Lifecycle:** `current/` — NEXT, executable and queued; no implementation has
+**Lifecycle:** `current/` — NEXT, queued and ready; no implementation has
 started under this plan.
 
-**Promotion readiness:** ready. The identity/cardinality findings and the
-neighbouring stakeholder/evidence-surface contract are reconciled. Stage 0 is
-the first active work and must ratify TAU authority and re-derive live facts;
-Stage 5 must re-derive Sentry facts before code changes. Stages 6–10 remain
-evidence-gated and require an explicit completed or not-promoted disposition
-before corpus close.
+**Decision completeness:** `DECISION-COMPLETE`. The identity/cardinality
+findings and the neighbouring stakeholder/evidence-surface contract are
+reconciled, and the public semantic-event port contract is selected below.
+Stage 0 must ratify TAU authority and re-derive live facts; Stage 5 must
+re-derive Sentry facts before its code changes. Those are execution evidence
+gates, not deferred plan-author decisions. Stages 6–10 remain evidence-gated
+and require an explicit completed or not-promoted disposition before corpus
+close.
 
-**Plan shape:** 30 dependency-linked todos across Stages 0–10. The 2026-07-14
+**Plan shape:** 31 dependency-linked todos across Stages 0–10. The 2026-07-14
 validation confirmed unique IDs, present dependencies, and an acyclic graph.
 
 ## Coordination boundary with PR #341
@@ -525,10 +531,11 @@ privacy boundary.
 The existing `ObservabilitySink` exception/message surface is too narrow to
 be the sole semantic-event port.
 
-Add a distinct interface, for example:
+`@oaknational/observability-events` owns and exports this selected public
+contract:
 
 ```ts
-type ApprovedIdentityProjection =
+export type ApprovedIdentityProjection =
   | {
       mode: "identified";
       opaqueSubjectId: string;
@@ -540,7 +547,7 @@ type ApprovedIdentityProjection =
       processPersonProfile: false;
     };
 
-interface SemanticEventPort {
+export interface SemanticEventPort {
   capture(
     event: ObservabilityEvent,
     identity?: ApprovedIdentityProjection,
@@ -569,7 +576,11 @@ Requirements:
 - PostHog receives the product-understanding projection;
 - future warehouse receives its own minimised projection.
 
-Final names are chosen during RED/GREEN design, not fixed by this example.
+These names, discriminants, fields, method signatures, return types, and package
+ownership are the selected public contract. `flush(timeoutMs)` deliberately
+matches the existing vendor-neutral `ObservabilitySink` drain semantics. A
+change requires a plan amendment before implementation; RED/GREEN product work
+must detect drift from this contract rather than redesign it.
 
 ## PostHog adapter design
 
@@ -615,6 +626,16 @@ No lifecycle mechanism is accepted from documentation alone.
 
 ## `@posthog/mcp` probe
 
+### Verified package pin
+
+The Stage-2 probe uses exactly
+[`@posthog/mcp@0.9.0`](https://www.npmjs.com/package/@posthog/mcp/v/0.9.0),
+verified as the published version on 2026-07-14 and matched to PostHog's
+official [`@posthog/mcp@0.9.0` source
+tag](https://github.com/PostHog/posthog-js/tree/b85a37abb5039c131cfb604bc44cb8c1de04f89d/packages/mcp).
+An upgrade is a new probe input and requires the source and final-wire contract
+to be re-verified before changing the pin.
+
 ### Why probe
 
 It may buy:
@@ -632,6 +653,9 @@ It may buy:
 - payload capture;
 - schema mutation;
 - fresh-server-per-request topology;
+- `instrument()` creates a generated session for each instrumented server;
+  without an approved identity it emits that value as both `$session_id` and
+  the anonymous `distinct_id`;
 - duplicate semantic events;
 - possible identity/session mismatch;
 - duplicate exception capture.
@@ -657,7 +681,17 @@ The selected variant must pass:
 - stable package pin;
 - upgrade contract test;
 - no feature-code imports;
-- server-per-request and Vercel lifecycle proof.
+- server-per-request and Vercel lifecycle proof;
+- `enableConversationId: false` is treated only as disabling the injected
+  `conversation_id` parameter and its prompt-back loop, not as suppressing
+  generated session identity;
+- final-wire tests over at least two fresh Oak request servers prove that no
+  vendor-generated `ses_*` value survives in either `$session_id` or
+  `distinct_id`; `$session_id` is removed or replaced only by an accepted real
+  session value, and `distinct_id` is replaced only by the separately approved
+  Oak identity/anonymous projection;
+- the wrapper is rejected if both fields cannot be rewritten and tested without
+  weakening Oak's identity, privacy, or no-host-conversation-ID contracts.
 
 ## Stage execution detail
 
@@ -973,6 +1007,8 @@ distribution-dependent SLO/alert lane each terminate independently as either
 delivered or evidence-backed not promoted. Insufficient traffic, incident
 evidence, investigation value, or owner risk tolerance is evidence for the
 latter outcome; it must not be represented as an implemented monitoring lane.
+Both terminal lanes depend on the registry and feed Stage 10; neither depends
+on the other.
 
 ## Stage 7 — Wider events and runtimes
 
