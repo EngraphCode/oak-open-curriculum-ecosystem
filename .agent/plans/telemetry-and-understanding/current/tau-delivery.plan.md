@@ -166,9 +166,11 @@ evidence limits, sensemaking, decision use, and re-measurement. It supplies
 governed evidence to the neighbouring surfaces; it does not redefine their
 audiences, authority, or projection mechanics.
 
-PR #341 should land first. This plan must then reconcile the landed report and
-planning contract before promotion; until that happens PR #339 remains a draft
-and this plan remains coordination-open.
+PR #341 merged on 2026-07-14 at
+`1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`; its landed report and planning
+contract preserve this authority boundary. The owner moved PR #339 to ready for
+review at 08:07:30Z while thread convergence continued. This plan remains
+coordination-open until that review surface settles.
 
 ## Owner direction embodied
 
@@ -350,7 +352,7 @@ docs/telemetry-and-understanding/question-register.yaml
 Each question:
 
 ```yaml
-id: TAU-Q001
+id: TAU-Q002
 statement: "Which MCP tools are used and with what outcome?"
 strategic_choice: APP-1
 decision_owner: product
@@ -582,7 +584,9 @@ No lifecycle mechanism is accepted from documentation alone.
 
 It may buy:
 
-- tool/resource/prompt instrumentation;
+- tool-list and tool-call instrumentation today;
+- future resource/prompt instrumentation only if the probe verifies that the
+  package wraps those methods rather than merely naming their event mappings;
 - intent capture;
 - missing-capability reporting;
 - purpose-built MCP views.

@@ -2,7 +2,7 @@
 title: "TAU PostHog baseline and build-vs-buy research"
 type: research
 status: complete
-last_updated: 2026-07-11
+last_updated: 2026-07-14
 posthog_project_id: 221775
 ---
 
@@ -76,7 +76,9 @@ event contract.
 Current documentation describes a beta, pre-1.0 package that:
 
 - wraps `Server` or `McpServer`;
-- emits `$mcp_*` events for tool calls, initialize, tools/resources/prompts;
+- instruments initialize, tool listing, and tool calls with `$mcp_*` events;
+- names resource/prompt events in its mapping, but the current wrapper does not
+  instrument resource or prompt methods;
 - provides an MCP Analytics view;
 - supports intent and missing-capability features;
 - can identify users;
