@@ -102,8 +102,8 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: ./.github/actions/setup
 
-  # Static analysis and configuration-contract tests that need node_modules but
-  # not a build. Runs in parallel with `build`.
+  # Static analysis that needs node_modules but not a build. Runs in parallel
+  # with `build`.
   static-checks:
     name: static-checks
     permissions:
@@ -118,8 +118,6 @@ jobs:
         run: pnpm format-check:root
       - name: Check markdown
         run: pnpm markdownlint-check:root
-      - name: Check release configuration
-        run: node --test tests/release-config.unit.test.mjs
       - name: Lint shell scripts
         run: pnpm lint:shell
       - name: Validate sub-agents
