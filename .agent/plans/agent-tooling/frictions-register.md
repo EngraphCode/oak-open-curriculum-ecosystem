@@ -3141,3 +3141,44 @@ commit SHA and the closing plan reference.
 - **Status**: open — first observed instance; compose the cure with F-135.
 - **Owner direction status**: session-scoped Director route under the standing
   record-all-frictions direction.
+
+### F-141 — refound-freeze executed a full freeze on an attempted `--help` interface probe
+
+- **Evidence**: comms failure-mode event 2026-07-14 (Cedar rides Undergrowth, 270379); napkin
+  entry "2026-07-14 — Cedar rides Undergrowth"; first-hand mechanism trace of
+  `parseFreezeArgs` + `core/cli-arg-parser.ts` `scanArgs`.
+- **Surface**: `pnpm --filter @oaknational/agent-tools refound-freeze -- --help` (pnpm forwards
+  the `--` literally), and any entry sharing the rule-plus-out parser.
+- **Observed**: `scanArgs` treats `--` as a stop-terminator and silently swallows every
+  following token; the freeze parser registered no `--help` flag; the probe therefore ran the
+  FULL S0 conservation event (679 files copied into the invoking checkout — an isolated
+  worktree, so no shared state was harmed) instead of printing help.
+- **Expected**: a state-writing tool refuses tokens it does not understand and offers a
+  run-nothing interface-description path; probing an interface must never execute the action.
+- **Cure (landed with this entry)**: `refound-freeze-args.ts` — the parser refuses any argv
+  containing `--` ("takes no positional arguments"), registers `--help`/`-h`, and both
+  rule-plus-out entries (`refound-freeze`, `refound-merge-recheck`) short-circuit on the help
+  verdict before any preparation or write; six-test unit contract; live probes green in both
+  directions (the original footgun invocation now exits 1; `--help` prints usage and writes
+  nothing).
+- **Residual class (recorded follow-up — the deferral's condition)**: the ten remaining
+  refounding entries (batch-status, claim-census, default-ledger, inventory,
+  plant-challenge-canary, plant-orphan, residue, sweep, tile, verify-freeze) register no
+  `--help` and share `scanArgs`' stop-at-`--` swallow — `-- --help` still executes a default
+  run on each today (report/proof writers; rerunnable, low-mass). The structural cure lives in
+  the SHARED scanner (`core/cli-arg-parser.ts`): spec-driven `--`/positional refusal
+  (default-refuse for tools with no positionals) + help registration across the entries, and a
+  closed-shape help verdict (`{kind:'help'} | {kind:'run'; …}`) so an entry that forgets the
+  short-circuit cannot compile — per consolidate-at-second-consumer, the estate pass is the
+  consolidation moment; this commit's per-tool pre-check is deliberately the first consumer.
+  The swallow class also reaches non-refounding `scanArgs` consumers (context-cost,
+  session-metadata, plan-state) — audit their help coverage in the same pass. Further recorded
+  follow-ups from the 2026-07-14 gateway review of the G3.3 out-subtraction cycle: (1) the
+  out∩sweep overlap — `out`-class subtraction applies to the `in` enumeration only; an `out`
+  class overlapping a sweep glob is still silently inert (no ratified instance today) — either
+  extend subtraction to the sweep enumeration test-first or refuse out/sweep overlaps at rule
+  parse; (2) the unreachable empty-set check in the merge-recheck helpers (pre-existing dead
+  code) — delete it.
+- **Status**: cure landed for the conservation-event pair; class sweep open.
+- **Owner direction status**: Director-ruled in-scope for the r1 seat (directed event
+  2026-07-14 ~09:43Z), sequenced after the G2/G3 sitting packet.
