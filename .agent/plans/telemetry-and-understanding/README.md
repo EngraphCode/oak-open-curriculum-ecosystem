@@ -78,7 +78,7 @@ If ratified at Stage 0, TAU controls cross-layer sequencing for:
 | `compliance/` | Published policy, statutory records, and external submission requirements. |
 | evaluation methodology (repository authority unresolved) | TAU supplies behavioural evidence but does not own evaluation truth. The existing `.agent/evaluations/` log is search-specific and is not a cross-product authority. Stage 0 must ratify or create a reachable evaluation owner before TAU claims that a surface is effective. |
 | `semantic-search/` | Search quality and retrieval implementation; TAU owns cross-runtime event semantics and analysis joins. |
-| stakeholder and external-system surfaces | Linear owns execution coordination and progress; Notion owns stakeholder presentation and deliberation; and [ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md) owns the delivery-performance projection over the intent graph joined to GitHub, Linear, deployment, and Sentry evidence. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
+| stakeholder and external-system surfaces | Linear owns execution coordination and progress; Notion owns curated stakeholder narrative and status presentation; and [ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md) owns the delivery-performance projection over the intent graph joined to GitHub, Linear, deployment, and Sentry evidence. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
 | application workspaces | Own emission sites and behaviour tests. |
 
 ## Proposed authority model
@@ -124,7 +124,8 @@ If ratified at Stage 0, TAU controls cross-layer sequencing for:
 The programme must close a real loop:
 
 ```text
-question -> signal -> delivery -> analysis -> interpretation -> human review -> decision
+question -> signal -> delivery -> analysis -> interpretation -> human review
+         -> decision -> change -> remeasurement -> next question
 ```
 
 Prerequisite stages may establish contracts, delivery, or reconciled evidence

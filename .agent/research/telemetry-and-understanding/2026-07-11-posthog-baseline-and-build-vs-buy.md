@@ -91,7 +91,8 @@ Risks for Oak:
 
 1. event names/properties may change before 1.0;
 2. default `context: true` changes tool schemas;
-3. parameters and responses conflict with Oak’s categorical-only posture;
+3. parameters and responses conflict with Oak’s closed-allowlist,
+   no-raw-content posture;
 4. exception autocapture may duplicate Sentry;
 5. the HTTP app creates a fresh server per request;
 6. vendor-native events could become a second semantic contract;

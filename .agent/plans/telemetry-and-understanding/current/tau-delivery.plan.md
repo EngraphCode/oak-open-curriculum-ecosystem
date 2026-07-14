@@ -1,6 +1,8 @@
 ---
 id: tau-delivery
 node_type: plan
+name: TAU telemetry and understanding delivery
+overview: Execute the staged TAU question-to-evidence-to-decision programme.
 kind: executable
 serves_strategic_choice: APP-1
 derives_from:
@@ -65,7 +67,7 @@ todos:
     status: pending
     depends_on: [s2-posthog-adapter, s2-vendor-independence]
   - id: s3-tool-invoked
-    content: "STAGE 3: emit exactly one schema-conformant tool_invoked event at the terminal tool-handler seam for every outcome, with categorical metadata only and Sentry correlation."
+    content: "STAGE 3: emit exactly one schema-conformant tool_invoked event at the terminal tool-handler seam for every outcome, with allowlisted categorical, boolean, and numeric metadata only and Sentry correlation."
     status: pending
     depends_on: [s2-vercel-delivery-proof]
   - id: s3-dependency-call
@@ -1029,21 +1031,11 @@ Only then select and implement the warehouse projection.
 Per implementation PR:
 
 ```bash
-pnpm format:root
-pnpm markdownlint:root
-pnpm build
-pnpm type-check
-pnpm lint
-pnpm test
-pnpm depcruise
-pnpm knip
-pnpm constraints
-pnpm cycles
 pnpm check
 ```
 
-Use the repo’s current canonical gate command/ordering at execution time; this
-list is re-derived before the first implementation commit.
+Use the repo’s canonical aggregate once at execution time; do not duplicate its
+expansion in the plan.
 
 Additional TAU gates:
 
@@ -1116,6 +1108,10 @@ deterministic evidence, and explicit decision/next gate.
 
 What was run or changed.
 
+### Question or risk
+
+Which registered question or risk the stage served.
+
 ### Observed outcome
 
 Raw result, including failure and missing evidence.
@@ -1124,17 +1120,29 @@ Raw result, including failure and missing evidence.
 
 What the evidence establishes and what it does not.
 
-### Understanding
+### Sensemaking ownership
 
-Which registered question was answered.
+Record `prerequisite` or `sensemaking-owner`. A prerequisite names the
+downstream review that owns interpretation and decision.
 
-### Decision
+### Interpretation boundary
 
-Action, owner, and rationale—or explicit no-change.
+For a prerequisite, record evidence limits and the downstream owner; do not
+claim understanding or a decision. For a sensemaking owner, record the
+interpretations or hypotheses considered, alternatives, counterevidence, and
+confidence.
 
-### Re-measure
+### Decision (sensemaking owner only)
 
-Date/condition for checking the outcome.
+Action, owner, and rationale—or explicit no-change finding.
+
+### Change (sensemaking owner only)
+
+What changed as a result of the decision.
+
+### Re-measure (sensemaking owner only)
+
+Date or condition for checking the outcome.
 
 ### Corpus disposition
 

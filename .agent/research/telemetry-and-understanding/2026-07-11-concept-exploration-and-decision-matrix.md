@@ -404,7 +404,8 @@ Reconsider the direction if any of these occur:
 
 1. The first vertical slice cannot answer its named questions after controlled
    and real traffic is available.
-2. The PostHog adapter cannot enforce Oak’s categorical-only privacy contract.
+2. The PostHog adapter cannot enforce closed field allowlists with no raw
+   content.
 3. Controlled Vercel probes cannot deliver all expected events with bounded
    flush time.
 4. Identified capture cannot clear privacy and deletion gates.
@@ -461,7 +462,9 @@ Current vendor sources:
 
 Decision workflow source:
 
-- [Resonance Decision Matrix](https://github.com/EngraphCode/resonance/blob/main/.agent/rules/decision-matrix.md).
-  This Oak exploration adapts the upstream workflow by applying its candidate
-  scoring and cross-examination to a repository plan estate rather than to a
-  single implementation choice; Stage 0 remains the local authority gate.
+- [Decision Matrix](https://github.com/EngraphCode/reasoning-workflows/blob/main/decision-matrix.md).
+  This Oak exploration adapts the upstream workflow's empirical grounding,
+  outward Reason, inward metacognition, cross-examination, four-lens
+  dissolution, and survival-class routing to a repository plan estate rather
+  than a single implementation choice; Stage 0 remains the local authority
+  gate.
