@@ -163,7 +163,7 @@ and do not re-vendor into `.agent/skills/`.
   `agent-artefact-portability-audit-2026-05-06.report.md`,
   `agent-commands-retirement.plan.md`,
   `skills-standardisation-and-adapter-generator.plan.md`,
-  `frictions-register.md`, and
+  `.agent/memory/operational/frictions-register.md`, and
   `mcp-app-extension-migration.plan.md`. A light status pass
   through these is recommended once their owning sessions resume.
   ADR-125 §"Externally installed skills" should also receive the

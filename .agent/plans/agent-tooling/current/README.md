@@ -43,7 +43,7 @@ next-session cleanup pass before merge.
 ## Related
 
 - Collection root: [../README.md](../README.md)
-- Frictions register: [../frictions-register.md](../frictions-register.md)
+- Frictions register: [../../../memory/operational/frictions-register.md](../../../memory/operational/frictions-register.md)
 - Future backlog: [../future/README.md](../future/README.md)
 - **Comms / coordination cluster map** (overlap + supersession analysis across
   current + future): [../future/README.md#comms--coordination-cluster](../future/README.md#comms--coordination-cluster)

@@ -27,7 +27,7 @@ isProject: false
 This is a two-part, bounded agent-tooling plan:
 
 - Fix F-14 in [`agent-tools/src/collaboration-state/cli-options.ts`](agent-tools/src/collaboration-state/cli-options.ts) and [`agent-tools/src/collaboration-state/cli-claim-commands.ts`](agent-tools/src/collaboration-state/cli-claim-commands.ts): repeated `--area-pattern` must preserve every supplied pattern.
-- Review F-01 through F-16 in [` .agent/plans/agent-tooling/frictions-register.md`](.agent/plans/agent-tooling/frictions-register.md) against the live codebase and update the register/statuses only after implementation evidence exists.
+- Review F-01 through F-16 in [` .agent/memory/operational/frictions-register.md`](../../.agent/memory/operational/frictions-register.md) against the live codebase and update the register/statuses only after implementation evidence exists.
 
 Non-goal: do not fix every friction in the same bundle. The review may promote follow-up plans or mark items as addressed, but implementation stays limited to the `--area-pattern` bug unless a tiny adjacent help-text/status correction is required to keep the fix honest.
 
@@ -78,7 +78,7 @@ For each friction F-01 through F-16:
   - identity model: F-10;
   - commit-queue protocol safety: F-15;
   - skills/adapter standardisation: F-16.
-- Update [` .agent/plans/agent-tooling/frictions-register.md`](.agent/plans/agent-tooling/frictions-register.md) only where there is concrete evidence, preserving it as a capture surface rather than turning it into an execution plan.
+- Update [` .agent/memory/operational/frictions-register.md`](../../.agent/memory/operational/frictions-register.md) only where there is concrete evidence, preserving it as a capture surface rather than turning it into an execution plan.
 
 ## Reviewers
 

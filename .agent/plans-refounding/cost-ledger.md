@@ -1,7 +1,7 @@
 # R0c cost ledger — SUPERSEDED 2026-07-08
 
 > Superseded at the R0c landing by the canonical Director-owned ledger
-> [`plan-corpus-refounding-cost-ledger.md`](../plans/product-development-governance/active/plan-corpus-refounding-cost-ledger.md)
+> [`.agent/plans-refounding/plan-corpus-refounding-cost-ledger.md`](plan-corpus-refounding-cost-ledger.md)
 > (one artefact per the economics-critique C4 cure). Every element of this draft skeleton
 > was absorbed there: the FIXED/MARGINAL class tags (§3 Class column), the per-line bands
 > and TO-DERIVE items (§3/§5 with the SP3 re-issue), the owner-ruling-demand line (§5),

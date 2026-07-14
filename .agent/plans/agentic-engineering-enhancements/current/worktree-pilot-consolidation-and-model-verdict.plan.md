@@ -418,7 +418,7 @@ to prove green.
   --claim-id`, `claims set-handoff --claim-id --path`) — would remove the handoff
   friction this arc works around at every Implementer handoff; absent it, durable
   handoff records + fresh seats suffice. **Not yet in the agent-tooling frictions
-  register** (`.agent/plans/agent-tooling/frictions-register.md`, verified
+  register** (`.agent/memory/operational/frictions-register.md`, verified
   first-hand 2026-06-25 — no F-NN entry covers it); recording it there is itself a
   beneficial next step.
 - A start-right **watcher-presence fail-fast gate** — fail session-open if no live

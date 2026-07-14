@@ -29,7 +29,7 @@ isProject: false
 
 This is the executable implementation plan for the remaining primary
 agent-tooling improvements tracked in
-[`.agent/plans/agent-tooling/frictions-register.md`](/.agent/plans/agent-tooling/frictions-register.md).
+[`.agent/memory/operational/frictions-register.md`](/.agent/memory/operational/frictions-register.md).
 It is not a sideline cleanup plan and not a plan to create another plan.
 
 The affected tools are part of the working substrate agents use to coordinate,
@@ -405,7 +405,7 @@ Issues covered: all remaining statuses plus `F-16` routing verification.
 
 Target files:
 
-- [`.agent/plans/agent-tooling/frictions-register.md`](/.agent/plans/agent-tooling/frictions-register.md)
+- [`.agent/memory/operational/frictions-register.md`](/.agent/memory/operational/frictions-register.md)
 - Existing follow-up plan for `F-16`: [`.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md`](/.agent/plans/agent-tooling/current/skills-standardisation-and-adapter-generator.plan.md)
 
 Actions:

@@ -38,7 +38,7 @@ produces (removals).
 | A2 | New file in an in-scope glob | same | AUTO-FREEZE | denominator amendment adds the row; verbatim copy captured at the amendment point |
 | A3 | Rename of an in-scope file | same, as an ADDED path plus a DELETED path — the detector has no rename status: no old→new association is produced, and a rename-with-edit is not hash-inferable | AUTO-FREEZE with mapping at the window boundary | the operator associates the add+delete pair and the amendment records the old path → new path mapping (manual provenance until the detector grows rename support); bytes conserved under both |
 | A4 | Deletion of an in-scope file | same (delete status) | **PER-ARRIVAL RULING** | the frozen copy already conserves the bytes (P14 — nothing is discarded); the ruling decides the ledger disposition of the removal, never a default |
-| A5 | High-churn operational registers (e.g. the frictions register) | **RESOLVED at the sitting (G3.3)** | OUT OF THE CORPUS | operational surfaces, not plans — excluded from the frozen denominator by the freeze rule's `operational-registers` class (exact six-path list; warrant recorded in the rule); they never generate arrivals because they are never in-scope |
+| A5 | High-churn operational registers (e.g. the frictions register) | **RESOLVED at the sitting (G3.3), then dissolved by re-homing (2026-07-14)** | OUT OF THE CORPUS BY CONSTRUCTION | operational surfaces, not plans — the owner-approved re-homing moved all six registers out of `.agent/plans/**` (memory/operational and the refounding artefact root), so the freeze rule carries NO register exclusion class and they can never generate arrivals |
 | A6 | Protocol-authored writes | structurally impossible as arrivals | n/a | the artefact root and the destination root sit OUTSIDE the frozen denominator (G1 ruling 4; sanctioned-writer set ratified EMPTY) |
 | A7 | Writes to sweep surfaces (`plans-old-archive`, prompts, thread records) | not arrivals — outside the frozen denominator | n/a | sweep re-runs at stable points cover them |
 
@@ -71,3 +71,15 @@ seat at 12:29:05Z (the evidence pointer of record):
    A5 row above. Drafted A5 interim posture superseded.
 4. **G3.4 — YES**: the table stands as the routing record, adjusted for the
    above.
+
+## Addendum — 2026-07-14, post-sitting re-homing
+
+The G3.3 ruling ("operational registers are OUT of the corpus") was
+subsequently strengthened structurally: the owner approved re-homing all six
+registers out of `.agent/plans/**` entirely (frictions register and
+deferred-controls register to `.agent/memory/operational/`, the three
+documentation-sync-logs to `.agent/memory/operational/documentation-sync-logs/`,
+the cost ledger to the refounding artefact root). The freeze rule's
+`operational-registers` class is therefore DELETED, not confirmed: the
+plans tree contains only planning intent, the exclusion list has no members,
+and the freeze-planning sitting re-ratifies a rule with no register clause.

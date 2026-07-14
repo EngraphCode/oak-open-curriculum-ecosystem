@@ -682,7 +682,7 @@ RED (tests/evidence first):
 GREEN (minimal implementation):
 
 1. Update cross-references to point to canonical plan (or archive targets at closure).
-2. Record completion evidence in `../documentation-sync-log.md`.
+2. Record completion evidence in `../../../memory/operational/documentation-sync-logs/developer-experience.md`.
 3. Prepare combined plan archival actions only when all gates are green.
 
 REFACTOR (cleanup/documentation):
@@ -806,7 +806,7 @@ The 218-warning burn-down target requires nuanced handling:
 - `../../architecture-and-infrastructure/archive/completed/no-console-enforcement.plan.md`
 - `../../agentic-engineering-enhancements/current/architectural-enforcement-adoption.plan.md`
 - `../../agentic-engineering-enhancements/active/phase-3-architectural-enforcement-execution.md`
-- `../documentation-sync-log.md`
+- `../../../memory/operational/documentation-sync-logs/developer-experience.md`
 
 ---
 

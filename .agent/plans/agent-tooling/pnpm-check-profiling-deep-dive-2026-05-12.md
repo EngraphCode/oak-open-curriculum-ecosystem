@@ -312,7 +312,7 @@ complements Sonar; it does not replace build, type, lint, or runtime tests.
 ## Tooling Frictions Recorded
 
 The profiling pass exposed a tooling gap now recorded as F-20 in
-`frictions-register.md`:
+`.agent/memory/operational/frictions-register.md`:
 
 - the profile command records useful graph and timing JSON but not environment
   preflight failures;

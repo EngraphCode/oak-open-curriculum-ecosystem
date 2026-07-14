@@ -267,7 +267,7 @@ Phase 1 documents already landed (attempt 1):
 
 - [`PDR-051-vendor-agnostic-skills-standardisation.md`](../../../practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md) — portable doctrine.
 - [`ADR-125 (Amended 2026-05-09)`](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md) — host adoption.
-- [`F-16`](../frictions-register.md) — drift signal addressed by this plan.
+- [`F-16`](../../../memory/operational/frictions-register.md) — drift signal addressed by this plan.
 - Failed attempt-1 record: [`../archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md`](../archive/failed-skills-standardisation-attempt-1-2026-05-09.plan.md).
 
 This plan implements the generator, validator extensions, mass migration, and documentation propagation. It is the only artefact that adds product behaviour; the docs are unchanged from attempt 1.
@@ -1059,8 +1059,8 @@ After review passes: `/jc-consolidate-docs`. Update `.agent/memory/operational/r
 - [PDR-035](../../../practice-core/decision-records/PDR-035-agent-work-capabilities-belong-to-the-practice.md): canonical is Practice substance; adapters are repo phenotype.
 - [PDR-051](../../../practice-core/decision-records/PDR-051-vendor-agnostic-skills-standardisation.md): the portable doctrine this plan implements.
 - [ADR-125](../../../../docs/architecture/architectural-decisions/125-agent-artefact-portability.md) (Amended 2026-05-09): host adoption of PDR-051.
-- [F-09](../frictions-register.md): full-help-on-invalid-flag rule — generator CLI must comply (cycle 1.7 test).
-- [F-16](../frictions-register.md): skills/commands surface sprawl — closed by this plan.
+- [F-09](../../../memory/operational/frictions-register.md): full-help-on-invalid-flag rule — generator CLI must comply (cycle 1.7 test).
+- [F-16](../../../memory/operational/frictions-register.md): skills/commands surface sprawl — closed by this plan.
 - `.agent/rules/no-speed-pressure.md`: the ceremony substrate is the cure, not the obstacle.
 - `.agent/rules/strict-validation-at-boundary.md`: WS1.1 lands Ajv schema first.
 - `.agent/rules/no-type-shortcuts.md`: no `as` casts; Result types throughout.

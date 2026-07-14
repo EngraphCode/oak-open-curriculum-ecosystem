@@ -109,7 +109,7 @@ logger), then finish graph-core's remaining 16, up the DAG. WS1 (codegen templat
 later — see the hazard below. WS9 doctrine (ADR-088 / use-result-pattern.md /
 principles.md) LAST, narrow-claim + ping Siren (`b01b303e`) before staging.
 
-**Hazards / frictions (recorded in `.agent/plans/agent-tooling/frictions-register.md`
+**Hazards / frictions (recorded in `.agent/memory/operational/frictions-register.md`
 F-70–F-74):** F-74 is load-bearing for WS1 — a full `pnpm build` in a fresh worktree
 **fetches live upstream OpenAPI schema** and dirties generated SDK files (belongs to
 the `fix/align_with_upstream_api_spec` lane). Excluded by explicit pathspec on every

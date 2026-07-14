@@ -54,4 +54,4 @@ On 2026-03-03 the collection was manually migrated into lifecycle lanes, and the
 - [current/README.md](./current/README.md)
 - [future/README.md](./future/README.md)
 - [roadmap.md](./roadmap.md)
-- [documentation-sync-log.md](./documentation-sync-log.md)
+- [.agent/memory/operational/documentation-sync-logs/developer-experience.md](../../memory/operational/documentation-sync-logs/developer-experience.md)

@@ -9,7 +9,7 @@ overview: >
 status: future
 type: developer-experience
 related_frictions:
-  - "F-75 (.agent/plans/agent-tooling/frictions-register.md)"
+  - "F-75 (.agent/memory/operational/frictions-register.md)"
   - "F-44 (freshness must read the heartbeat stream to be correct)"
 related_plans:
   - "../current/agent-experience-improvement.plan.md"

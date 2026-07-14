@@ -231,7 +231,7 @@ authored on fresh context (owner-directed), with PDR-117 as the surface to amend
 ## Known friction (route to tooling, not to the brief or the plan)
 
 These are tooling gaps, not doctrine gaps — they belong in the agent-tooling
-backlog (`.agent/plans/agent-tooling/frictions-register.md`), named here only so a
+backlog (`.agent/memory/operational/frictions-register.md`), named here only so a
 successor recognises them rather than rediscovers them. Register state below is
 first-hand as of 2026-06-25.
 

@@ -104,7 +104,7 @@ napkin observations, inter-agent comms, and post-session reviews. Each
 entry has source citation, observed behaviour, candidate cure, and current
 status.
 
-→ [`frictions-register.md`](frictions-register.md)
+→ [`.agent/memory/operational/frictions-register.md`](../../memory/operational/frictions-register.md)
 
 Assessment input:
 [Oak Repository Professionalism and Engineering Quality Report — 2026-06-03](../../reports/oak-repo-professionalism-engineering-quality-report-2026-06-03.md)

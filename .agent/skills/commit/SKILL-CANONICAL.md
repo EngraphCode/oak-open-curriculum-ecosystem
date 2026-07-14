@@ -577,7 +577,7 @@ surface to the owner — do NOT land the commit by an equivalent-effect route
 (direct `git commit`, manual index surgery). Transition the intent to
 `abandoned` with stage-named notes, close the commit-window claim with the
 failure reason, and surface the defect. The defect is tracked as
-[F-112](../../plans/agent-tooling/frictions-register.md) — the cure is fixing
+[F-112](../../memory/operational/frictions-register.md) — the cure is fixing
 the workflow's spawned-process stdio handling, not routing around it. (A prior
 revision of this section documented a direct-commit fallback; that guidance is
 withdrawn — it was the equivalent-effect workaround the no-fallback principle

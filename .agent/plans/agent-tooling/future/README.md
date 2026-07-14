@@ -77,5 +77,5 @@ list**. Do not re-litigate disposition per-plan; route it through M4.
 ## Related
 
 - Collection root: [../README.md](../README.md)
-- Frictions register: [../frictions-register.md](../frictions-register.md)
+- Frictions register: [../../../memory/operational/frictions-register.md](../../../memory/operational/frictions-register.md)
 - Current execution: [../current/README.md](../current/README.md)

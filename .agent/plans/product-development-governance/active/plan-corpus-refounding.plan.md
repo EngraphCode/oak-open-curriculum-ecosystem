@@ -298,7 +298,7 @@ material merged into these rows, never a second register. Facet gate-numberings 
 (F6 §9's G-labels and F5 §8's OG-labels differ from F3 §6's); THIS register's labels are
 authoritative — the F6 §9 mapping is Commission→G0, proof-typed→G-ADR, table→OG-2, lane
 walk→Walk A, G5→G-SP3, G6/G7→Ruling batches, G8→Walk C. The economics counterpart is the
-[cost ledger](plan-corpus-refounding-cost-ledger.md): H7 (the cost backstop, in the
+[cost ledger](../../../plans-refounding/plan-corpus-refounding-cost-ledger.md): H7 (the cost backstop, in the
 operational H-series the implemented runners emit) fires against that ledger's per-batch
 declarations AND its run total.
 
@@ -331,7 +331,7 @@ deleted by design (scripted recomputation replaces it). Row prior: ~8.3k ledger 
 (618 sources × the donor's measured ~14.9 rows/source − the terminal-probe share). All
 figures are declared bands, not commitments; SP3 re-prices from pilot actuals and the
 scale-up is owner-sanctioned (G-SP3). The full cost ledger is
-[`plan-corpus-refounding-cost-ledger.md`](plan-corpus-refounding-cost-ledger.md)
+[`.agent/plans-refounding/plan-corpus-refounding-cost-ledger.md`](../../../plans-refounding/plan-corpus-refounding-cost-ledger.md)
 (authored at R0c; Director-owned; re-issued at SP1 and SP3; H5 binds to its per-batch
 declarations and run total).
 Honest scaling assumption (donor-seat label, extrapolated-not-measured): challenge cost

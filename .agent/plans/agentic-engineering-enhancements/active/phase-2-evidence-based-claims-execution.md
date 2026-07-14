@@ -189,19 +189,19 @@ task execution:
   - required canonical docs updated or explicitly marked no-change with rationale
   - consolidation review completed using `jc-consolidate-docs`
 - Deterministic validation:
-  - `rg -n "## Phase 2|Status:|ADR-119 update or rationale|practice.md update or rationale|prog-frame update or rationale|Consolidation review" .agent/plans/agentic-engineering-enhancements/documentation-sync-log.md`
+  - `rg -n "## Phase 2|Status:|ADR-119 update or rationale|practice.md update or rationale|prog-frame update or rationale|Consolidation review" .agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md`
   - `test -f docs/architecture/architectural-decisions/119-agentic-engineering-practice.md`
   - `test -f .agent/practice-core/practice.md`
 
 #### Steps
 
 1. **Update documentation sync log** with Phase 2 entry
-   - File: `.agent/plans/agentic-engineering-enhancements/documentation-sync-log.md`
+   - File: `.agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md`
    - Content: status, ADR-119 impact (update or no-change rationale), practice.md impact
 2. **Run consolidation**
    - Run: `jc-consolidate-docs` (or equivalent manual review)
 3. **Validate sync log entry**
-   - Run: `rg -n "## Phase 2" .agent/plans/agentic-engineering-enhancements/documentation-sync-log.md`
+   - Run: `rg -n "## Phase 2" .agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md`
    - Expected: 1 match
 
 ## Evidence and Claims

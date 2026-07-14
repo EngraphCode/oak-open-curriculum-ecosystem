@@ -13,7 +13,7 @@ overview: >
 status: future
 type: developer-experience
 related_frictions:
-  - "F-41 (.agent/plans/agent-tooling/frictions-register.md) — core closed by B1+fix; this is the CLI tail"
+  - "F-41 (.agent/memory/operational/frictions-register.md) — core closed by B1+fix; this is the CLI tail"
 related_plans:
   - "../current/agent-experience-improvement.plan.md"
 related_doctrine:
