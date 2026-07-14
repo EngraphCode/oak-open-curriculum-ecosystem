@@ -19,6 +19,24 @@ for that later deliverable, or lay out the factors? Restating a plan-settled con
 the plan; asserting a new preference is the over-reach — even when the
 brief's own section titles ask for "recommendations".
 
+## Review Contract
+
+A formal report intended for independent review must state its review contract
+near the top, before the synthesis a reviewer will assess. The compact contract
+names:
+
+- the document's purpose and intended impact;
+- the substantive questions or acceptance criteria the review should test;
+- the evidence standard and authority boundary;
+- material non-goals and actions the report does not authorise; and
+- what constitutes a successful review, including how missing evidence or a
+  contract mismatch should be reported.
+
+This makes the report's intent inspectable rather than asking a reviewer to
+infer it from the prose. It does not pre-decide the review verdict or replace
+the report's evidence. A substantive review grounds its findings against the
+declared contract; stylistic preference alone is not a contract failure.
+
 ## Current Structure
 
 - [agentic-engineering/README.md](./agentic-engineering/README.md) — formal

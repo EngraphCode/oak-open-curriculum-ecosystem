@@ -1317,6 +1317,656 @@ role=implementer) OPEN and retained through the pause. Worktree
   formatting-gate failure correctly auto-abandoned the intent; prettier-write on the four
   offending files + fresh intent recovered cleanly — rollback discipline held.
 
+## 2026-07-14 — Parsec binds Heavens (019f5f): NEO Curriculum Vault report, review contract, and recursive metaloss handoff
+
+<!-- fitness already exceeded; capture preserved at full weight. The cross-thread napkin
+rotation remains due and is not compressed or raced during this active shared-tree window. -->
+
+Session outcome: a public-source report now explains what value NEO's Curriculum Vault
+actually provides, how Curriculum × Overlay works, what is implemented versus prospective,
+how NEO relates to Oak's ontology/graph/external-adoption work, and seven reversible mutual-
+support probes. The report is pinned to the reviewed public commits, has an explicit review
+contract at the top, and remains uncommitted for an independent contract-bound review.
+
+### Surprise — a reviewer cannot recover the document's intended test reliably from prose alone
+
+- **Expected**: the report's scope, evidence caveats, reasoning trace, and non-opportunities
+  would give another agent enough context to review it correctly.
+- **Actual**: the owner asked for a meta section stating the document's intent so another agent
+  could review against that intent rather than guess. The reports guidance defined authority
+  split but did not require an explicit document-level review contract.
+- **Why expectation failed**: authorial intent distributed across a long report is legible to
+  the author but underdetermined to a fresh reviewer. The reviewer can invent a different brief,
+  especially where research, recommendation, and implementation boundaries are adjacent.
+- **Behaviour change**: independently reviewed reports state purpose, intended impact,
+  substantive review questions, evidence/authority, non-goals, and the success condition near
+  the top. The NEO report now does this, and the reusable convention graduated directly into
+  `.agent/reports/README.md`.
+
+### First-order loss scan
+
+- The main report is a complete but untracked working-tree artefact among unrelated live-team
+  changes. Its exact status, byte hash, verification results, and review-first next action now
+  live in `threads/neo-curriculum-vault-research.next-session.md` and the repo-continuity index.
+- Three specialist agent results existed only in this session: corpus/schema, history/
+  governance, and software/operations. The owner had narrowed the report away from a broad
+  audit, so only proposition-relevant evidence was absorbed. The thread record now preserves a
+  bounded contextual residue and labels it second-hand until a future main agent re-verifies it.
+- The sequence of owner corrections mattered: public sources only; sibling repositories as
+  context; value/mechanics/intent as the centre; apply concept exploration; distinguish actual
+  demonstrated value from outcomes; relate to Oak without collapsing authority; define the
+  report's intent for review. The report's meta contract and reasoning trace preserve the
+  resulting shape rather than the conversation chronology.
+- The corpus/link census was produced with ad hoc read-only commands against a disposable
+  pinned checkout, not a committed generator. Counts are durable as a dated snapshot; future
+  regeneration requires a new census.
+- Mandatory ephemeral-surface scan found three canonical comms events for this seat; the
+  start/end summaries were consistent with the report but pre-dated the owner's later reframe.
+  Platform memory and plan surfaces contained no NEO-specific durable knowledge. Codex history
+  retained the volatile conversation, which is not a substitute for repo continuity.
+
+### Recursive metaloss — what a factual handoff would still lose
+
+- **Intent provenance would disappear.** Broad governance/software findings were excluded by
+  owner scope, not overlooked or disproved. Without that distinction, a reviewer could expand
+  the report or accuse it of incompleteness against a brief it was told not to serve.
+- **Evidence altitude would collapse.** “Actual value” is demonstrated editorial,
+  navigational, conceptual, and interoperability value. The public sources do not prove learner
+  outcomes, practitioner adoption, commissioner use, or the complete evidence lifecycle.
+- **Negative authority would decay.** Potential mutual support is a discovery space, not
+  permission to contact NEO, exchange learner data, ingest content, endorse mappings, create a
+  plan, or promise support.
+- **Omission semantics would be lost.** Silence in the report can mean non-goal, unknown, or
+  negative evidence. Those are different states and must not be merged by a fresh reader.
+- **Snapshot semantics would decay.** Pinned commits make the claims reproducible, not current
+  forever. Later upstream change supplements the snapshot; it does not retroactively rewrite it.
+- **Review semantics would drift.** The next agent's job is to falsify the report against its
+  declared contract, not invent a new report brief and grade this document against it.
+- **Compression would erase the safety mechanisms.** Warrants, falsifiers,
+  counterinterpretations, evidence ceilings, and the reasoning trace are the parts that stop a
+  plausible concept from silently becoming a recommendation or commitment.
+- **The loss scan itself can become stale.** The thread record therefore carries the report's
+  write-time hash and calls it a checkpoint, not a perpetual truth claim.
+
+The recursion stops at irreducible decision, evidence, authority, and continuation semantics.
+Discarded draft wording, temporary build output, superseded live-status snapshots, and private
+reasoning texture remain intentionally ephemeral because preserving them would bury the next
+reader's real pickup.
+
+### Consolidation and closeout disposition
+
+- `oak-consolidate-docs` ran in `session-completion` mode: the report is the permanent NEO
+  synthesis, the thread record carries grounded continuation and excluded contextual residue,
+  and the general report-review-contract lesson graduated to the reports README.
+- No new Oak ADR or PDR candidate emerged. Open questions remain empty; the two pre-existing
+  pending graduations are unrelated to this thread.
+- The napkin remains beyond its rotation threshold. A full item-by-item rotation is a separate
+  dedicated knowledge-curation boundary because this buffer spans many active threads and the
+  shared tree has live peer claims. This constraint is falsified when those claims close and a
+  curator can own the whole buffer without colliding with peer work.
+- Tooling mistake caught during the auxiliary-surface scan: in zsh, `path` is a special array
+  tied to `PATH`; using `path` as a loop variable removed command lookup and caused later `head`
+  calls to fail. Use a neutral loop variable such as `item`.
+
+## 2026-07-14 — Quasar mends Umbra (52b4de), Director: external-surface write-governance rulings (capture at occurrence)
+
+- **Owner ruling (traceability): every agent edit to a Notion page carries a ledger line — agent
+  name + session prefix + whose login credentials — enough to query any change at source.** The
+  external-surface extension of identify-as-agent-under-shared-credentials (PR replies already
+  covered). Applies wherever an agent writes as a human account on a stakeholder surface (Notion
+  first; Linear narrative edits equally). Comms record: event c173d745.
+- **Owner ruling (lockdown): a STRICT allowlist of Notion pages agents may edit — absence from
+  the list = refusal, never judgment; unauthorised-area page changes are the named risk.** Initial
+  allowlist: the MCP App stakeholder page (39c26cc4e1b181d09242ed54708443e8) only; owner-extensible,
+  agents never extend it. Two-layer model named honestly: repo contract = agent-side discipline;
+  the hard guarantee is Notion-side integration/page-permission scoping (owner workspace action).
+  Comms record: the ruling-2 event following c173d745.
+- **Durable home routed**: both clauses land via Sardine holds Undertow's owner-routed recording
+  lane (worktree → PR → main), alongside the audience/status contract — one external
+  stakeholder-surface write-governance record, not two scattered notes.
+
+## 2026-07-14 — Rosemary hunts Pollen (019f60; full identity d7518cc2): PR #365 routing handoff, loss scan, and recursive metaloss
+
+<!-- fitness already exceeded; capture is preserved at full weight. This is a session-completion
+slice, not a claim that the cross-thread napkin buffer has been drained. -->
+
+The owner asked this seat to fetch every comment and review thread for PR #365, report its live
+state, hand every remaining responsibility to Director Quasar mends Umbra (52b4de), and then run
+a full session handoff with a first-order context-loss scan and a second recursive metaloss scan.
+Rosemary did not claim or edit PR #365 source. The boundary being transferred is the remaining
+observation, explanation, and routing obligation; the Director remains free to delegate the
+actual repair lane.
+
+### First-order loss scan — context that would disappear with this session
+
+- **The authoritative checkpoint is volatile and contradicts the auto-merge narrative.** At
+  `2026-07-14T12:11:44Z`, PR #365 is OPEN, non-draft, MERGEABLE but `BLOCKED`, on
+  `SHA:d98d85ab5ba3ab340da7f14f193134a149bbaf88`. Auto-merge is enabled, but its stored commit
+  body says checks are green with zero unresolved threads. GitHub's review-thread connection
+  instead reports 77 unresolved, 0 resolved, and 0 outdated threads. The stale body is not
+  state evidence and must not be used as a merge-readiness claim.
+- **The review corpus is larger than the ordinary PR summary exposes.** The PR currently has
+  10 conversation comments and 8 review submissions. The 77 review threads are distributed
+  across the planning-estate ARC (56), the napkin (20), and Rosemary's Director rendezvous ARC
+  (1). The latest thread is `PRRT_kwDOPUA_4M6QusJz`, created at `2026-07-14T11:47:14Z` on the
+  planning-estate ARC at line 502; it asks for the mandatory `SHA:` marker on a live PR-head
+  reference. GitHub itself is the canonical per-thread inventory; any executor must re-fetch
+  the GraphQL `reviewThreads` connection rather than infer resolution from comments or reviews.
+- **Six issue families explain the corpus but do not replace the individual threads.** The
+  dominant family is missing `SHA:` markers across append-only ARC and napkin content. The
+  remaining families are British-spelling corrections, the truthful PR #363 result of 17
+  successful checks plus one neutral Cursor Bugbot check rather than 18 successful checks,
+  Tallow evidence nested under Cedar's heading, two machine-local sibling-worktree references,
+  and one duplicate seat-prefix finding: Rosemary and Sardine holds Undertow both display
+  `019f60`. Use Rosemary's full identity `d7518cc2-896d-5898-be99-dd6ce9635aa4` to disambiguate
+  attribution; do not assume the six-character prefix is unique.
+- **The snapshot changed during observation.** An earlier read saw head `SHA:eb5a35253a80aa55f1cb8be85266bb049492ffe8`
+  and 64 threads; the later checkpoint is `SHA:d98d85ab5ba3ab340da7f14f193134a149bbaf88`
+  with 77. That delta is evidence that the handoff must name its freeze instant and require a
+  fresh read before action. It is not evidence that the current 77 will remain stable.
+- **The primary checkout is both the PR branch and a live shared worktree.** At the
+  `2026-07-14T12:07:43Z` collaboration freeze, branch `team/planning_and_visibility` matched
+  PR head `SHA:d98d85ab5ba3ab340da7f14f193134a149bbaf88`, the worktree contained many uncommitted
+  peer changes, and Sardine holds Undertow held a fresh `git:index/head` claim plus queued
+  16-file intent `6117b0b1-779f-4e55-8f05-63321be3c7ae`. By the `12:13:37Z` re-read, that
+  queue/commit-window claim had cleared and local HEAD had moved to
+  `SHA:8dd824e0d0b659f02f6c63f1a88f6e3378e1e1a5`, while unrelated dirty residue remained.
+  None of those changes belongs to Rosemary. This movement is why the directed handoff must
+  carry a new remote PR freeze; a repair executor must coordinate with the live owners and must
+  not sweep the dirty primary tree into a PR #365 commit.
+- **All earlier Rosemary delivery boundaries are closed, not transferable work.** Live GitHub
+  verification records PR #339 merged at `SHA:b20c936b9937cd09d5411ef20f324701728b353d`,
+  PR #366 at `SHA:0d3a043412a6f32050bbd05417d931540411be7b`, PR #367 at
+  `SHA:05ec3bd492ea72e5affd252e25ef533134b45abb`, and PR #368 at
+  `SHA:506a5281c07aa735dd90224af7a7821543416693`. The PR #339 Linear and Notion refresh was
+  previously completed and read back in comms event `eb7593de-43f4-4d6a-b7f6-4bd7dd6cb028`.
+  Those outcomes are evidence for closure, not new responsibilities for the Director.
+- **Rosemary has no hidden collaboration tail.** Current collaboration state contains no active
+  Rosemary claim, commit-queue intent, conversation obligation, or escalation. The earlier
+  heartbeat was stopped and the prior source boundary was closed. This reopened turn did not
+  start a new source claim or heartbeat; it exists only to inspect, conserve, and transfer the
+  newly requested PR #365 routing boundary.
+- **The volatile conversation had no other durable PR #365 home.** Codex history contains the
+  owner's fetch, status, handoff, and deep-closeout requests. The relevant Claude project-memory
+  surfaces, Cursor surfaces, and Gemini surface contain no PR #365-specific state that changes
+  this pickup. Repo entry points retain their canonical pointer-only shapes. No new ADR, PDR,
+  open-question, or executable-plan candidate emerges: this is live operational routing state.
+- **Grounded execution knowledge:** `gh pr view` exposes conversation comments, review
+  submissions, checks, auto-merge, and top-level merge state, but not authoritative thread
+  resolution. The GraphQL `reviewThreads` connection is required for the 77-thread result. A
+  repeated reviewer round can create new threads after a corrective push, so completion means
+  repair comprehensively, reply/resolve, then re-fetch the whole connection on the exact head.
+
+### Recursive metaloss — what could be lost or distorted even by this loss scan
+
+- **A frozen count can masquerade as a continuing fact.** The timestamp and exact head are part
+  of the claim, not decoration. If the head changes, the 77-thread inventory and check result
+  must be treated as historical evidence until re-fetched. The falsifier is any different
+  `headRefOid`, `updatedAt`, or review-thread total.
+- **Issue-family compression can erase append-only repair semantics.** “Fix the SHA prefixes”
+  is not sufficient when the ARC is append-only: several comments explicitly require a tail
+  correction rather than rewriting history. The grouped summary is an orientation map; each
+  live thread remains the executable instruction and must be dispositioned individually.
+- **A handoff can accidentally manufacture ownership.** PR #365 was not Rosemary's source lane,
+  and Quasar already owns Director routing. The transfer is therefore custody of unresolved
+  routing and merge-safety awareness, not an assertion that Quasar must personally implement
+  77 fixes. The Director's responsibility is to route, preserve boundaries, and verify the
+  eventual convergence.
+- **The duplicate `019f60` prefix can corrupt the handoff's own attribution.** Every durable
+  action arising from this record should use agent name plus full identity where ambiguity
+  matters. Treating the prefix as a unique primary key would merge two seats' histories and
+  reproduce the review finding inside the cure.
+- **The stale auto-merge body can outlive the blocker that currently protects the branch.** A
+  future state transition could make the PR mergeable while the stored narrative still says
+  zero threads. The Director should explicitly review whether to disarm or rewrite auto-merge
+  before allowing the branch to converge; current `BLOCKED` state is not a permanent safety
+  mechanism.
+- **Repair activity can create more review surface than it removes.** The observed progression
+  from 64 to 77 threads followed a new head and another Copilot round. The safer unit of work is
+  a comprehensive source-level correction across all repeated families, followed by one exact-
+  head audit, rather than a sequence of narrow pushes whose review rounds multiply duplicate
+  comments.
+- **The shared dirty checkout can turn a correct routing brief into an unsafe implementation
+  shortcut.** A fresh executor reading only “PR head equals local HEAD” could edit or commit the
+  primary branch and absorb unrelated peer work. The handoff therefore conserves both facts:
+  head equality and worktree non-ownership. Neither fact is safe without the other.
+- **The handoff itself creates new state after its freeze.** Appending this napkin entry and
+  emitting the directed comms event will happen after the PR checkpoint. Those actions prove
+  conservation and custody, not a refreshed PR verdict. The event must be read back exactly and
+  the Director must acknowledge custody; after that acknowledgement, Rosemary should not
+  reopen the PR merely to make the freeze look newer.
+- **Recursive stopping rule.** Preserve decision-changing semantics: authority, exact-head
+  scope, thread-resolution source, ownership boundaries, rejected inference from stale
+  auto-merge prose, and the re-fetch trigger. Discard private reasoning texture, superseded
+  intermediate counts, repeated command output, and draft phrasing. Retaining those would bury
+  the pickup rather than improve it.
+
+### Consolidation disposition
+
+- `oak-consolidate-docs` mode is `session-completion`. This entry is the required capture home
+  for the loss scan and metaloss; the directed Director event is the operational consumer home.
+  No permanent doctrine needs creation because the reusable GitHub thread-resolution contract
+  already lives in the PR-merge-readiness plan and repository rules.
+- The napkin is already far beyond its rotation threshold. A full item-by-item rotation is not
+  silently claimed here: it spans many active threads, and the live shared tree currently has
+  peer file and commit-window ownership. That constraint is falsified when the active lanes
+  close and a dedicated curator can own the whole buffer. Verdict for this pass: **partial slice
+  landed** — fresh session knowledge conserved and routed; the larger buffer remains live.
+- **Custody receipt and onward route.** Director Quasar mends Umbra explicitly accepted the
+  whole boundary in event `cfc89dea-9a88-4f91-8a8d-2319acd477ed`, referencing Rosemary's full
+  handoff event `1744b228-8cdb-4039-84ea-d819a53f2076`. Quasar routed PR #365 thread
+  convergence to Weasel stirs Lair in event `d9bd011e-ba1b-4a10-8510-26feded8bfb5`, retaining
+  Director merge custody. The Director chose to keep auto-merge armed while the checks gate
+  holds; Weasel must verify each bot claim against the actual append-only knowledge surfaces,
+  refute wrong-layer findings, fix genuine defects, and report exact-head convergence. This
+  acknowledgement closes Rosemary's remaining responsibility without passing implementation
+  work back to the owner.
+
+## 2026-07-14 — Sardine holds Undertow (019f60): federated visibility authority, first-order loss, and recursive metaloss
+
+<!-- fitness already exceeded; capture preserved at full weight. Rotation remains a dedicated,
+cross-thread curator boundary and is not performed inside this active shared-tree closeout. -->
+
+### Landed outcome and first-order loss scan
+
+- Commit `8dd824e0d0b659f02f6c63f1a88f6e3378e1e1a5` records the accepted federated
+  visibility boundary in ADR-212, keeps ADR-201 Proposed and limited to connector/evidence-edge/
+  supervision mechanics, makes the three TAU status dimensions explicit, and creates the
+  repository-attributed Notion page-ledger rule plus platform adapters. The commit workflow's
+  hooks completed successfully: staged Prettier and markdownlint were green, repository
+  validators were green, and the build/type-check/lint/test run completed 105/105 tasks.
+- The commit is real but not published. The local branch is one commit ahead of its upstream,
+  while open PR #365 still points at the upstream head `d98d85ab5` and owns unrelated continuity
+  reconciliation. Pushing this branch would silently add the visibility bundle to PR #365. The
+  safe landing path is a fresh branch/worktree from current `origin/main`, cherry-pick
+  `8dd824e0d`, open a dedicated PR, and leave merge authority with Quasar mends Umbra.
+- The durable authority model has two different homes by design: ADR-212 owns the stable audience,
+  authority-direction, and four-evidence-class contract; the TAU collection index owns volatile
+  planning-corpus, controlling-authority, and implementation status. The current vector is:
+  planning corpus owner-accepted + merged + `DECISION-COMPLETE` + queued; controlling authority
+  pending Stage 0 disposition and recorded owner ratification; implementation not started.
+- Live audience surfaces were fetched first-hand after the commit. Notion and the Linear project/
+  MCP-13 still omit ADR-212 and still say Stage 0 itself ratifies TAU. The Notion page also calls
+  execution progress a fifth evidence class, while ADR-212 defines four evidence classes and
+  treats execution status as an audience view feeding delivery-performance evidence. These are
+  projection corrections, not grounds to reopen the accepted architecture.
+- Quasar requested the entire current Notion page for owner examination. Read-only fetch content
+  and metadata were sent verbatim in directed comms event
+  `594039c1-e23a-4491-89ce-a0392014871d`. No retrofit edit should precede the Director's defect
+  list. When the page is edited, perform one coherent change set and append exactly one new
+  single-line `Change ledger` item using repository name `oak-open-curriculum-ecosystem`, per the
+  owner's direct instruction and the new rule.
+- Three live root/navigation summaries still carry the older authority model even though their
+  collection-owned source is corrected: `.agent/plans/high-level-plan.md`,
+  `.agent/plans/README.md`, and `.agent/plans/observability/README.md` say TAU is proposed or that
+  Stage 0 ratifies authority. They need a thin reconciliation to the TAU index's three-state
+  contract; dated research may remain a snapshot when explicitly fenced as such.
+- The Sentry lane is unlanded, not complete. No
+  `.agent/reports/sentry-operational-health-evidence-2026-07-14.md` exists. First-hand evidence was
+  limited to configured integration and an Unauthorized live query; live issue counts, release
+  health, and error rates remain unverified. The tracked repo Codex config does contain both
+  requested OAuth HTTP endpoints and `codex mcp list` sees them enabled, but `.codex/config.toml`
+  remains uncommitted. Runtime availability still requires a new/restarted Codex session and
+  per-server OAuth login. Config presence is not evidence that live Sentry access works.
+- Later Director events add two still-ephemeral governance obligations: a strict owner-controlled
+  Notion page allowlist (behavioural-only under today's owner-credential MCP transport, with a
+  page-scoped integration as the future hard-permission path) and stakeholder editorial rules
+  requiring audience-appropriate language and defined acronyms. Those clauses were not part of
+  `8dd824e0d`; they need a separate, reviewed permanent home. A preceding Director relay asked for
+  agent/session/account ledger attribution, but the owner's direct repository-ledger instruction
+  is the controlling rule for Notion and must be relayed as the correction rather than combined
+  into a multi-actor line.
+
+### Recursive metaloss — what a technically accurate handoff could still erase
+
+- **Landing topology can disappear behind a SHA.** Saying “commit exists” without saying “the
+  current remote branch is an unrelated open PR head” invites the next agent to push the right
+  content into the wrong review surface. The branch relationship is part of the artefact's safety
+  contract until the commit is rehomed.
+- **Status nouns can collapse independent state machines.** “Accepted,” “merged,” “current,”
+  “ratified,” and “started” refer to architecture, planning corpus, filesystem queue, controlling
+  authority, and implementation respectively. A compressed “TAU is live” statement destroys the
+  gates even when every individual word looked plausible.
+- **Canonical truth can lose to a nearer rival.** A future reader often opens the root plan index
+  or Notion page before ADR-212. If those projections retain “Stage 0 ratifies,” they reconstitute
+  the superseded model despite the canonical record being correct. Cross-surface freshness is
+  therefore part of authority preservation, not cosmetic synchronisation.
+- **A fifth row can silently mint a fifth evidence class.** Linear execution progress and GitHub
+  change readiness are important views, but ADR-207 composes them into delivery-performance
+  evidence. Treating the view as a peer evidence class changes the ontology and weakens the reason
+  the four classes must not prove one another.
+- **Configured can be misreported as observed.** Repo MCP entries, SDK wiring, and Sentry docs
+  establish capability/configuration only. The Unauthorized probe establishes an evidence ceiling,
+  not bad health, good health, or a completed integration. The missing report file is meaningful:
+  it prevents an unverified readout from acquiring documentary authority by implication.
+- **Audience responsibility can be mistaken for write authority.** Notion being the stakeholder
+  narrative surface does not authorise arbitrary Notion edits. Target allowlisting, Director
+  review, audience/editorial fit, freshness, and the exactly-one repository-ledger line remain
+  separate preconditions. The repo contract is behavioural enforcement today, not a Notion-side
+  permission guarantee.
+- **A reviewer-clean commit can masquerade as a landed change.** Specialist verdicts and green
+  hooks prove the bundle's quality at `8dd824e0d`; they do not prove push, PR review, merge, external
+  projection refresh, Sentry authentication, or implementation start. Those transitions require
+  their own evidence.
+- **No-vendor-PDR rationale is easily dropped.** PDR-113 already carries the portable principle
+  that records project intent rather than originate it. The named Notion/Linear/GitHub/PostHog/
+  Sentry split is host architecture and belongs in ADR-212; manufacturing a vendor PDR would
+  duplicate the host decision and falsely universalise one estate.
+- **Sequence is part of meaning.** Rehome the commit and obtain a dedicated PR before projecting a
+  PR link externally; wait for the Director's Notion defect list; perform one coherent Notion edit
+  with one repository-ledger line; update Linear without reopening Done MCP-13; keep the Sentry
+  config/readout lane separate; only then can freshness be claimed. The same edits in another
+  order would briefly publish claims without source evidence or create duplicate audit lines.
+- **The handoff snapshot decays.** Notion/Linear fetches, PR #365's remote head, the upstream-ahead
+  count, and claim freshness are write-time observations. Their identifiers and timestamps are
+  preserved so Quasar can re-fetch rather than inherit them as timeless facts. Custody is complete
+  only after Quasar explicitly acknowledges the routed responsibilities.
+- **Recursive stopping rule.** Preserve decision-changing semantics: authority direction, state
+  separation, evidence ceilings, write-governance preconditions, landing topology, sequencing, and
+  falsifiers. Discard transient command noise, repeated reviewer prose, draft wording, and private
+  reasoning texture; retaining those would bury the next safe action and recreate context loss by
+  overload.
+
+### Session-completion consolidation disposition
+
+- The highest-impact permanent homes for settled knowledge are now ADR-212, the TAU index/current
+  plan, ADR-201's conformance boundary, strategy references, and the Notion-ledger rule. No new ADR
+  or PDR candidate remains: the architectural decision and portable-principle boundary are already
+  dispositioned.
+- The napkin remains critical and pending-graduations retains two unrelated live items. A full
+  drain is not truthfully part of this team-member closeout: the buffer spans many active threads,
+  Quasar is the named closeout owner, and live peer claims make unilateral rotation collision-prone.
+  The constraint is falsified when Quasar routes a dedicated curator over a quiescent buffer window.
+- Verdict for this boundary: **partial slice landed**. Permanent documentation is committed and
+  verified; publication, audience-projection repair, the additional external-write governance
+  clauses, the uncommitted Codex Sentry config, live Sentry evidence, and final merge remain live
+  responsibilities to transfer to the Director.
+
+### Post-scan correction and authority conflict
+
+- The recursive scan's live-plan drift was cured, not merely routed: follow-up commit
+  `70aaa1ded95951759c6f9fb7a1184692509b2bf3` reconciles the three root/navigation summaries and
+  adds the required ADR-212/PDR-113 authority citation to the Notion ledger rule. Its commit hooks
+  also completed successfully with 105/105 cached Turbo tasks.
+- Quasar's later Notion defect event `3cd99695-90f6-4f72-b5ab-c9372eecd2cc` asks to retrofit agent/session/account
+  identity and preserve “five evidence classes.” That conflicts with two higher or more specific
+  authorities already in this lane: the owner's direct instruction requires one ledger line using
+  the repository name, and Accepted ADR-212 defines four evidence classes. The correct response is
+  to surface the conflict to Quasar, preserve the repository-name ledger rule, and describe the
+  execution-status row as a view feeding delivery performance rather than silently minting a fifth
+  evidence class. The remaining acronym and audience-language findings are compatible and stay live.
+- **Mistake caught:** two collaboration commands supplied a hand-written `--now` a few seconds
+  ahead of the host clock. No ordering-dependent action consumed the discrepancy, and claim closure
+  waited until host time reached it. Future collaboration timestamps come from `date -u` or the
+  CLI default, never model-imagined wall time.
+
+## 2026-07-14 — Quasar mends Umbra (52b4de), Director: afternoon rulings capture (comms-mirror)
+
+- **Owner rulings on the Sardine-surfaced authority conflicts (~12:23Z):** (1) Notion change-ledger
+  = HYBRID — visible line stays single-line repo-name; a collapsed toggle per entry carries the
+  full identity chain (agent name, session prefix, credentials account, date). Supersedes BOTH
+  prior shapes (my ~11:58Z full-identity ruling AND the repo-name-only shape in Sardine's committed
+  rule). (2) ADR-212 amends (dated) from four to FIVE evidence classes — execution movement is a
+  genuine class; the stakeholder page's five-row table stands. Both land via Galleon calls
+  Channel's extended lane (cherry-picks + amendments, one PR).
+- **G2 sitting half complete (~12:10Z):** G2.1 landing-shape YES; G2.2 scoped archive exclusions
+  YES; G2.3 run-output attestation YES; **G2.4 NO — owner ruled a HARD freeze window** (team holds
+  landings during S0), against the declaration-not-lock recommendation. G3's four questions pending;
+  the G2.4 ruling still to relay to Cedar with the G3 outcomes.
+- **Notion page examined first-hand (owner request, ~12:12Z):** substance accurate (all merge
+  checkpoints match Director-verified facts), authority-state honesty exactly right; defects =
+  ledger shape (now owner-ruled hybrid), undefined acronyms (MCP/TAU/ADR/SDK/M1-M2, no glossary),
+  jargon leaks ("queued in current/", raw SHAs in prose, "stream-aligned squad"). Defect list
+  routed to the retrofit lane (Sardine → Galleon after the handoff).
+
+## 2026-07-14 — Cedar rides Undergrowth (270379): compaction-prep loss scan + recursive metaloss (r1 seat, PR #370 open)
+
+<!-- fitness already exceeded; capture preserved at full weight; the dedicated consolidation
+pass remains DUE (Director-transferred). Owner-directed compaction prep during the PR #370
+quiet window: ultrathink + metacognition/reason/session-handoff/consolidate-docs + concept
+exploration over the metaloss. Consolidation gate verdict: session-completion mode; the
+dedicated napkin rotation stays due — not bounded for this prep. -->
+
+Session state at scan: PR #370 all-green (18/18 checks, 0 unresolved threads) but BEHIND main
+(PR #365 merged mid-battery); merge before compaction per owner; S0 HELD for the Director's
+pre-freeze estate review + a freeze-planning sitting. Claim `efe98e1e` freshness-stale at
+13:37Z by design (heartbeats carry liveness; refresh at the convergence boundary).
+
+**Loss ledger (6e.2, from inside context — items durable artefacts do NOT yet carry):**
+
+- **The six-path exclusion list's DERIVATION rationale** (the freeze-planning sitting's
+  confirmation input): candidates enumerated mechanically (name-pattern register|ledger|log|
+  tracker over the in-globs at `SHA:2ccc0e2e0`) then churn-measured (frictions-register 24
+  edits/8 days; cost-ledger 4; the rest 0); judgement calls recorded: the three
+  documentation-sync-log files + deferred-controls-register are OUT by KIND (operational
+  records) despite zero churn; `pdr-080-comms-log-care-phenotype.plan.md` and
+  `team-handoff-routing-and-action-log-exploration.plan.md` matched the name pattern but are
+  intent-bearing PLANS (stay IN); `remediation-backlog.md` and the semantic-search backlog
+  README/_boundary are plan-shaped backlogs (stay IN). The cost-ledger's extra warrant: the
+  protocol itself writes it per batch — freezing it would make the protocol generate its own
+  self-noise arrivals. Routed: this entry + the Director sitting-brief line (comms).
+- **PR #370's review-coverage gap**: Codex AND Cursor Bugbot both quota-skipped (no findings
+  is a skip, not a clean pass); Sonar passed 0-new; no Copilot review had landed on head
+  `SHA:f1f0d25a5` as of 13:08Z. The merge decision should weigh the thinner-than-usual bot
+  coverage against the two code-expert gateways + full local battery. Routed: the convergence
+  report to the Director.
+- **Sequencing rationale not in the PR**: the derivation rationale deliberately did NOT get a
+  fourth commit (merge-ready PR + owner wants the merge before compaction; a new commit
+  reopens review + re-runs the battery). Route chosen: napkin + comms, packet amendment can
+  ride the S0 branch if the sitting wants it in the packet.
+- **The `ratifiedBy` nuance** (future-challenger pre-emption): freeze-rule.json still cites
+  the G1 packet while its classes were amended post-ratification; gateway review CLEARED this
+  as consistent with the rule's judgement-at-authoring model — the G3.3 warrant lives in the
+  class `reason` + the gate-register row. If a reviewer flags it, that is the answer.
+- **Grounded execution knowledge** (next agent re-derives otherwise): (1) `pr-watch` takes a
+  POSITIONAL pr-number + `--watch` (a `--pr` flag is exit-2 usage error); it exits on
+  all-green/merged/closed — all-green exit means re-arm if you need continued coverage.
+  (2) Heartbeat comms events require `--title` IN ADDITION to the typed-state args (the F-73
+  neighbourhood; my first loop died on it — failure was loud by design). (3) `tsx -e` evals
+  compile CJS — no top-level await; use a scratch `.mts` file. (4) `git rebase` is
+  mechanically permission-denied in this harness; the sanctioned shape is the estate's
+  forward merge (origin/main INTO the branch), which also runs the full gate chain via
+  pre-merge-commit. (5) The reviewer's tinyglobby probes (literal-file ignores do not prune
+  siblings; glob ignores reach dot-dirs) are conserved as the integration tests' behaviour —
+  the probe transcripts are session-mortal by design.
+- **Live monitor inventory at compaction** (session-mortal, restated for the pickup):
+  all-channels watcher task bbkta0cbw (3600s backstop dies ~14:05 — re-arm on the same
+  seen-file + gap sweep), heartbeat loop b5v025pli (label pr-370-shepherd), quiet-window
+  one-shot bht18m1ag (fires ~13:18 → convergence report → Director merge).
+- **Consciously dropped** (sample of the filter's rejects, so the class is visible): the
+  7→6 miscount self-correction texture (the cross-validation practice that caught it is
+  already in the PR body); option-weighing texture on merge-vs-rebase beyond the rationale
+  above; the second gateway's full finding prose (all applied or F-141-recorded).
+
+**Metaloss (concept-exploration four movements over the scan itself, instance 2 of the
+class):**
+
+1. *Observations*: the ledger records members, never its complement (this entry names a
+   SAMPLE of rejects as partial cure); compaction differs from session-end — a SUMMARISER
+   whose selection function is not mine carries the context forward, so the loss function is
+   "not durable AND not salient to the summariser", which is why the operational pickup also
+   rides the final visible message (two channels, two audiences).
+2. *Problem*: the scan's filter (what felt worth listing) is itself context-state that dies
+   with the context; absence in the ledger is bounded evidence, not proof — scan scope: chat
+   arc, my comms events (sent+received), both gateway transcripts, task outputs, worktree
+   state, monitors, packets, register, PR record, task list.
+3. *Solutions re-opened*: "write more at the boundary" is the fluent non-cure (competes with
+   completion drive); the real cure was ALREADY practised this session — write-at-occurrence
+   (packets carried rulings at ruling time; comms at every boundary; the pause entry at the
+   pause). Evidence it worked: this ledger is rationale-texture and CLI trivia, not decisions.
+4. *Synthesis*: route the two load-bearing items (derivation rationale, coverage gap) to
+   their consumers; state the scan scope; bounded recursion is itself the finding —
+   corroborating Sloop holds Lagoon's 2026-07-13 metaloss pass, making this INSTANCE 2.
+   candidate: `bounded-metaloss-recursion` pattern (the loss-scan's filter is unrecoverable
+   past ~2 recursion levels; the structural cure is write-at-occurrence + scope-statement +
+   reject-sampling, never deeper recursion) — promote-on-first-instance policy already met,
+   now twice-instanced; home = a `patterns/` file at the next consolidation.
+
+Steps 6b/6b.1 asked: no new ADR/PDR candidate beyond the pattern candidate above; no
+non-urgent open question minted (the out∩sweep decision and scanner-estate sweep are already
+F-141-recorded with owners). Step 11 gate: NOT re-run here — PR #370's full pre-push battery
+green at push (~13:05Z) is the tree-state evidence; a duplicate whole-repo check during the
+quiet window would break check-singleton discipline; the full check rides the actual session
+close.
+
+## 2026-07-14 — Weasel stirs Lair (019f60): PR #365 deep closeout, loss scan, and recursive metaloss
+
+<!-- Session-completion consolidation slice. Capture is preserved at full weight despite the
+napkin's existing critical fitness pressure. Weasel is a team member, not the repo-wide closeout
+owner; repo-continuity, thread-wide state, and the cross-thread napkin rotation remain with
+Director Quasar mends Umbra (52b4de). -->
+
+Landed outcome, re-verified first-hand during closeout: PR #365 is `MERGED`; head
+`SHA:eebc8487968d594896860a3bc59268ddfd1893a0` merged at
+`SHA:1313a935f29208a8e16ec7ae7478daa727e2d16f`. GitHub's authoritative
+`reviewThreads` connection contains 78 threads, 0 unresolved, and 0 lacking a signed Weasel
+disposition. The final check rollup is 17 successful checks plus one neutral Cursor Bugbot.
+Current `origin/main` has advanced to release commit
+`SHA:cbcc7e089ba3bda42cbfdc8ac6138f279a233b97`; both the correction and merge commits remain
+ancestry-proven. The earlier 13:06 statement that `origin/main` was *exactly* the merge commit was
+a true freeze-instant claim, not a timeless property.
+
+### Metacognitive change in framing
+
+- **Inherited shape**: the Director expected a refute-heavy bot-review corpus because conserved
+  collaboration history had previously been misread as live assertions.
+- **What changed**: first-hand inspection of all 77 initial threads showed that most were genuine
+  bare-commit-marker violations, repeated across historical entries; preserved history was not an
+  exemption from a retroactive audit rule. The cure had to preserve the historical bytes *and*
+  make the canonical correction legible.
+- **Action-to-impact bridge**: the work was not “make the bot green.” It was restore trust in the
+  repository's institutional memory without rewriting what agents actually recorded. That led to
+  an append-only ARC correction ledger, direct napkin annotations only where precedent permitted,
+  one portability repair, factual/attribution corrections, and grounded refutations for spelling
+  preference and short session-prefix false positives.
+- **Falsifier used**: any thread whose exact comment, target bytes, or governing rule did not fit
+  the aggregate class would invalidate batch treatment. Every thread was therefore verified and
+  dispositioned individually before the aggregate verdict was trusted.
+
+### First-order loss scan — what this context held beyond the terminal PR result
+
+- **The decision boundary between correction shapes.** The ARC is append-only, so its bare SHA
+  references and the PR #363 check-count error were superseded in one tail ledger rather than
+  silently rewritten. The napkin has direct in-place annotation precedent, so its commit markers
+  were repaired at source. A host-local sibling-worktree path was portabilised because the
+  machine-local-path rule is explicitly whole-repo and retroactive. These are three different
+  warrants, not one “bulk edit” policy.
+- **The refutation boundary.** British-spelling suggestions did not establish factual defects in
+  conserved prose. Six-hex session prefixes were not commit references: PDR-027 routes identity by
+  the full agent tuple, so a shared display prefix is not itself an identity collision. Those
+  threads required evidence-backed refutation, not cosmetic compliance.
+- **The review loop was moving.** The first exact-head harvest found 77 unresolved threads. A
+  later Copilot spelling-only thread raised the settled corpus to 78. Completion therefore meant
+  re-fetch after the push, remote-byte verification, signed disposition on every thread, a
+  current-tip quiet window, and a terminal full re-harvest — never “the initial count is now zero.”
+- **The aggregate hypothesis changed under evidence.** Quasar's refute-heavy forecast was useful
+  prior experience, not authority. The observed corpus was predominantly one genuine rule
+  violation repeated across seven review waves. The structural prevention lane (mechanical
+  validation of the marker rule) is Director-routed; this seat did not mint a competing plan.
+- **Grounded execution knowledge.** `gh pr view` supplies top-level PR state, comments, reviews,
+  and checks, but not authoritative review-thread resolution. GitHub GraphQL `reviewThreads` was
+  required for the 78/0/0 proof. A signed-disposition audit must inspect every thread's comments,
+  not infer authorship from the thread resolver or top-level review submissions.
+- **The working-tree safety shape.** The primary checkout remained a stale, dirty, multi-agent
+  branch. All PR repair work used a clean isolated worktree; its branch still points at the
+  correction commit and contains no unlanded product change. The primary's unrelated dirty files
+  remain peer-owned and must not be swept into a continuity commit.
+- **Collaboration lifecycle is closed.** Both Weasel claims are explicitly archived; no active
+  queue intent, decision thread, sidebar, escalation, source-review duty, or monitor remains. The
+  full transfer to Quasar is event `b8dd61e9-2fd9-46c4-bdf4-4a9bba4498e5`; custody acknowledgement
+  is event `fbe0990b-5b84-4710-9023-b4939a9816ca`.
+- **Auxiliary-surface sweep.** Codex session history contains the volatile conversation but is not
+  a repository continuity home. The current Claude plan files concern other lanes; Claude project
+  transcripts mentioning PR #365 belong to the Director/Cedar contexts already represented in
+  comms. Cursor and Gemini surfaces yielded no PR #365-specific knowledge. Entry points remain in
+  their canonical pointer-only shapes. No new ADR, PDR, open question, or executable-plan
+  candidate emerged.
+
+### Surprise — a named “durable” handoff artefact was not durable
+
+- **Expected**: the pair ARC named in the terminal handoff was a tracked evidence surface because
+  it had been maintained throughout the team session.
+- **Actual**: first-hand `git ls-tree origin/main -- <pair-ARC>` returned no entry. The file exists
+  only as an untracked primary-checkout file; merely naming its repo-relative path in a handoff did
+  not make it version-reachable.
+- **Why expectation failed**: the PR repair ran in an isolated worktree while the pair ARC was
+  written in the primary checkout. The correction commit intentionally covered only the reviewed
+  ARC and napkin files, so the rendezvous ARC never crossed the branch boundary.
+- **Behaviour change**: “durable artefact” claims now require two checks: content exists *and* the
+  intended durable ref reaches it. If a team member cannot commit at close, the handoff must call
+  the file explicitly **untracked**, name the receiving custodian, and specify copy-from-fresh-main
+  rather than letting a stale branch commit the whole dirty surface.
+- **Disposition**: this napkin tail and the untracked pair ARC are terminal continuity orphans.
+  Quasar owns their fresh-main landing; the primary napkin must not be committed wholesale because
+  its branch predates PR #365's correction commit. Copy the pair ARC and this tail onto fresh main,
+  then land them as a narrow continuity change.
+
+### Recursive metaloss — what the first loss scan could itself erase or distort
+
+1. **Existence can masquerade as permanence.** A filesystem path, a clean worktree, a commit SHA,
+   and a handoff citation are four different facts. None proves the cited file is reachable from
+   the branch the next reader hydrates. The first scan initially repeated that category error; the
+   `git ls-tree` falsifier exposed it.
+2. **An aggregate cure can erase per-thread epistemics.** “One marker rule repeated 56 times” is
+   an orientation map, not a disposition. Some threads were factual corrections, one was a
+   portability rule, and several were grounded refutations. The 78 signed GitHub threads remain
+   the executable evidence; this summary must never substitute for them.
+3. **Preserving history creates an indirection cost.** An append-only correction ledger keeps the
+   original record honest, but a reader can still quote the old false sentence without reaching
+   the tail. The ledger therefore names the exact superseding canonical references and factual
+   result. “History preserved” without explicit supersession would conserve ambiguity, not
+   knowledge.
+4. **Freeze-instant truth decays across clocks and refs.** Thread totals, mergeability, auto-merge
+   state, check results, and even “main equals the merge” change independently. A timestamp and
+   exact head/ref are part of each claim. The durable invariant is ancestry plus terminal GitHub
+   state, not the intermediate narrative's apparent ordering to the second.
+5. **The handoff order contains a paradox.** A context-holder can transfer all known residue and
+   then discover new residue while performing the required loss scan. The safe response is not to
+   silently resume the delivered lane or conceal the defect; it is one terminal conservation write
+   plus a corrective, explicit custody update. Future PR #365 work remains Director-routed.
+6. **A detailed closeout can accidentally retain authority.** Describing the repair method does
+   not retain a duty to monitor the merged PR, clean local branches, rotate the cross-thread
+   napkin, or implement the validator. Those responsibilities are either closed or explicitly
+   Director-owned. Knowledge transfer and ownership transfer are separate axes.
+7. **The recursion generates new at-risk knowledge.** Discovering that the ARC is untracked is
+   itself lost if it appears only in chat. This entry makes the defect, falsifier, and landing
+   action available to the next reader; the directed correction event makes the owner explicit.
+8. **Some context should die.** Exact polling cadence, intermediate command output, discarded
+   reply wording, and repeated mechanical attempts add no decision, evidence, authority, or next
+   action. Preserving them would bury the signal. Recursion stops when decision rationale,
+   rejected alternatives, first-hand evidence, authority transfer, and the consumer's next safe
+   action all have durable or explicitly custodial homes.
+
+Consolidation verdict for this seat: **partial slice landed**. The PR outcome and correction
+knowledge are permanent; the context-holder loss scan is captured; the continuity orphans are
+explicitly Director-routed. The estate-wide napkin rotation and repo-wide closeout remain a
+separate, claimed curator/Director boundary rather than a false completion claim from this team
+member.
+
+## Recovered 2026-07-14 — Hedgehog-era entry from stash@{1} (feat/corpus_research_enhancements, dated 2026-07-06)
+
+The entry below was found stashed-and-never-landed during the pre-freeze orphan sweep
+(Quasar mends Umbra, 52b4de) and is preserved verbatim before stash disposition; proven
+absent from all git history and memory surfaces (git log --all -S + memory grep, zero hits).
+Parts may since have been independently cured (the identify-as-agent PR-comment discipline
+now exists as a rule); consolidation dispositions each point on its merits.
+
+- **PR-shepherding addendum (2026-07-06, post-stable-point)**: (1) My PR review-thread reply
+  posted under the owner's gh auth with no agent identification — the
+  identify-as-agent-under-shared-credentials discipline applies to PR comments exactly as to
+  comms; future PR-surface writes sign the agent identity. The commit trailer carried
+  attribution; the comment did not. (2) The new regex guard fired twice on my OWN instructive
+  content (a node probe carrying the literal trip shape; a PR reply naming the dangerous
+  example literally) — the hook-policy-substring-discipline rule's descriptive-substitution
+  cure applied both times and the fence taught as designed. A guard author is not exempt from
+  the guard's discipline; drafting instructive content about a trip pattern starts descriptive,
+  never literal. (3) The mid-upgrade brick (stale dist + new policy enum value = every Bash
+  call denied incl. the rebuild) is now structurally cured for FUTURE kinds (schema catch) but
+  each checkout pays a one-time build after pulling c2e2181bd — deployment note in the PR body;
+  code-expert's run-from-source shim observation is the class-dissolving follow-up, routed in
+  the commit message and here: the Bash guard could import committed source like the content
+  guard's shim already does, deleting the whole stale-dist tolerance family.
+
 ## 2026-07-14 — PR #365 append-only correction ledger (Weasel stirs Lair, 019f60)
 
 - **Attribution correction.** The bullets titled **Final gate result** and
