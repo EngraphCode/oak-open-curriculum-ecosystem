@@ -3067,7 +3067,7 @@ commit SHA and the closing plan reference.
   reads still follow the unwired root — so neither surface alone re-roots a worktree
   invocation. The plain-commit interim path above stands.
 
-### F-139 — watcher and inbox share a cursor, conflating delivery with acknowledgement
+### F-140 — watcher and inbox share a cursor, conflating delivery with acknowledgement
 
 - **Source**: Phosphor holds Tallow closeout event `d8a305ec` and napkin entry
   2026-07-14; mechanism verified against `cli-comms-watch.ts`,
