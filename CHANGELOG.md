@@ -1,3 +1,10 @@
+# [1.68.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.67.2...v1.68.0) (2026-07-14)
+
+
+### Features
+
+* **refounding:** ratify the freeze rule at the freeze-planning sitting ([3366862](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3366862b2c8679eb7af48d337380c67ec6fe5f4d))
+
 ## [1.67.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.67.1...v1.67.2) (2026-07-14)
 
 
