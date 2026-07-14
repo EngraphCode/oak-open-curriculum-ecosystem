@@ -12,7 +12,7 @@ todos:
     content: Phase 3 — exercise preview endpoints to produce info log, MCP success transaction, handled error, validation failure; evaluate whether an unhandled-exception path is reachable without code changes.
     status: completed
   - id: phase4-sentry-queries
-    content: Phase 4 — use sentry-ooc-mcp to confirm release tag, issues, mcp.server transaction, redaction spot-checks, and source-map resolution state.
+    content: Phase 4 — use cursor-sentry-ooc-mcp to confirm release tag, issues, mcp.server transaction, redaction spot-checks, and source-map resolution state.
     status: completed
   - id: phase5-owner-gates
     content: Phase 5 — stop-and-ask on kill-switch rehearsal and alerting baseline before attempting either.
@@ -35,7 +35,7 @@ isProject: false
 
 - Parent authority: [sentry-otel-integration.execution.plan.md](.agent/plans/architecture-and-infrastructure/active/sentry-otel-integration.execution.plan.md). Two parent todos remain: `sentry-credential-provisioning` (in progress) and `deployment-and-evidence` (pending).
 - Authoritative preview (fresh, reflects rolled-back auth): `https://poc-oak-open-curriculum-mcp-git-feat-otelsentryenhancements.vercel.thenational.academy/mcp`. Connected in IDE as `oak-preview`.
-- Sentry access: `sentry-ooc-mcp` — `oak-national-academy/oak-open-curriculum-mcp` on `de.sentry.io`.
+- Sentry access: `cursor-sentry-ooc-mcp` — `oak-national-academy/oak-open-curriculum-mcp` on `de.sentry.io`.
 - Expected release tag: `VERCEL_GIT_COMMIT_SHA` for the preview that built from `0f9245f5`.
 - Evidence target directory: `.agent/plans/architecture-and-infrastructure/evidence/2026-04-16-http-mcp-sentry-validation/`. Hygiene rules in [evidence/README.md](.agent/plans/architecture-and-infrastructure/evidence/README.md) — scrubbed summaries only; no raw event exports, tokens, or secret-bearing URLs.
 
@@ -90,7 +90,7 @@ Exercise the preview over the `oak-preview` MCP connection and/or `curl` to prod
 
 ### Phase 4 — Gather evidence via Sentry MCP
 
-Using `sentry-ooc-mcp`:
+Using `cursor-sentry-ooc-mcp`:
 
 - `find_releases` — confirm the release string used by the preview; compare to `VERCEL_GIT_COMMIT_SHA` and the `package.json` version per [vercel-environment-config.md](apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md) resolution policy.
 - `search_issues` + `search_issue_events` — confirm the handled error(s) and (if triggered) unhandled exception surfaced with correct grouping, release tag, and environment.
