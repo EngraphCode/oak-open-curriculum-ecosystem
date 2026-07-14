@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 import { isErr, ok, type Result } from '@oaknational/result';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
-import { parseFreezeArgs, type FreezeArgs } from './refound-freeze-helpers.js';
+import { freezeUsageText, parseFreezeArgs, type FreezeArgs } from './refound-freeze-args.js';
 import { runMergeRecheck, type MergeRecheckSummary } from './refound-merge-recheck-helpers.js';
 import { ARRIVALS_BASENAME } from './refound-merge-recheck-model.js';
 import { resolveReadPathWithinRepo } from './refound-path-resolve.js';
@@ -104,6 +104,10 @@ async function main(): Promise<void> {
   if (isErr(args)) {
     writeErrorLine(`${TOOL}: ${args.error.message}`);
     process.exitCode = 1;
+    return;
+  }
+  if (args.value.help) {
+    writeLine(freezeUsageText(TOOL));
     return;
   }
   const paths = resolvePaths(args.value);

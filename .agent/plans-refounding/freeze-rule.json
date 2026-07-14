@@ -1,12 +1,25 @@
 {
   "version": 1,
-  "ratifiedBy": ".agent/plans-refounding/g1-freeze-rule-packet.md",
+  "ratifiedBy": null,
   "classes": [
     {
       "id": "plans",
       "globs": [".agent/plans/**"],
       "verdict": "in",
       "reason": "The estate being refounded. No extension filter: extension filtering is a per-file judgement; non-md files conserve by byte-identity plus whole-file ledger rows."
+    },
+    {
+      "id": "operational-registers",
+      "globs": [
+        ".agent/plans/agent-tooling/frictions-register.md",
+        ".agent/plans/product-development-governance/active/plan-corpus-refounding-cost-ledger.md",
+        ".agent/plans/agentic-engineering-enhancements/documentation-sync-log.md",
+        ".agent/plans/developer-experience/documentation-sync-log.md",
+        ".agent/plans/security-and-privacy/documentation-sync-log.md",
+        ".agent/plans/security-and-privacy/deferred-controls-register.md"
+      ],
+      "verdict": "out",
+      "reason": "Owner ruling G3.3 (2026-07-14 sitting, relayed by Director directed event 12:29:05Z): high-churn operational registers are operational surfaces, not plans — live operational state churns through any work, so excluding the class dissolves the freeze-window-moratorium-vs-registers conflict. Exact closed path list (no name-pattern heuristic, P1); membership changes need re-ratification. These files stay live and untouched in the repo — out of the frozen corpus is not out of the estate."
     },
     {
       "id": "milestones",

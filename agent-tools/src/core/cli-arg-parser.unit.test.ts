@@ -84,6 +84,23 @@ describe('scanArgs', () => {
     }
   });
 
+  it('accepts an inherited-object-key string as an ordinary option value', () => {
+    const result = scanArgs(['--name', 'toString'], initial(), spec);
+
+    expect(result.ok && result.state.name).toBe('toString');
+    const ctor = scanArgs(['--name', 'constructor'], initial(), spec);
+    expect(ctor.ok && ctor.state.name).toBe('constructor');
+  });
+
+  it('errors when a value option is followed by a registered short flag (the -h footgun)', () => {
+    const result = scanArgs(['--name', '-h'], initial(), spec);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.startsWith('--name requires a value')).toBe(true);
+    }
+  });
+
   it('rejects an unknown option', () => {
     const result = scanArgs(['--bogus'], initial(), spec);
 

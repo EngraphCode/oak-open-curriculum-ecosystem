@@ -12,7 +12,8 @@ import {
   INSTRUMENT_EXCLUDE_GLOBS,
   mapSourcesToFrozen,
 } from './refound-freeze-helpers.js';
-import { enumerateInSet, readRule } from './refound-freeze-plan.js';
+import { readRule } from './refound-freeze-plan.js';
+import { enumerateInSet } from './refound-in-set.js';
 import {
   ARRIVALS_BASENAME,
   buildArrivalsReport,
@@ -129,6 +130,11 @@ interface RecheckInputs {
   readonly sanctionedClassBySource: ReadonlyMap<string, string>;
 }
 
+const UNRATIFIED_RULE_REFUSAL =
+  'freeze rule is unratified (ratifiedBy is null — initial ratification or a pending ' +
+  'amendment awaiting confirmation): the recheck recomputes the RATIFIED source rule, ' +
+  'and a draft-rule comparison would misclassify arrivals';
+
 /**
  * The read phase: ratified rule, effective denominator, live in-set
  * identities, and the sanctioned source map — every refusal happens here,
@@ -144,12 +150,7 @@ async function prepareRecheck(input: {
     return rule;
   }
   if (rule.value.ratifiedBy === null) {
-    return err(
-      new Error(
-        'freeze rule is unratified; the recheck recomputes the RATIFIED source rule (G1) and ' +
-          'a draft-rule comparison would misclassify arrivals',
-      ),
-    );
+    return err(new Error(UNRATIFIED_RULE_REFUSAL));
   }
   const denominator = await readEffectiveDenominator(input.outDirAbs);
   if (isErr(denominator)) {

@@ -67,7 +67,12 @@ function scanValueOption<TState>(
   value: string | undefined,
   spec: CliArgScanSpec<TState>,
 ): ScanStep {
-  if (value === undefined || value.startsWith('--')) {
+  if (
+    value === undefined ||
+    value.startsWith('--') ||
+    Object.hasOwn(spec.flags, value) ||
+    Object.hasOwn(spec.valueOptions, value)
+  ) {
     return { kind: 'error', error: `${option} requires a value\n\n${spec.helpText}` };
   }
   spec.valueOptions[option](state, value);

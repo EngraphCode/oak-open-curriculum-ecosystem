@@ -7,12 +7,8 @@ import { isErr, ok, type Result } from '@oaknational/result';
 
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
-import {
-  parseFreezeArgs,
-  validateOutDirChoice,
-  type FreezeArgs,
-  type SecretScan,
-} from './refound-freeze-helpers.js';
+import { freezeUsageText, parseFreezeArgs, type FreezeArgs } from './refound-freeze-args.js';
+import { validateOutDirChoice, type SecretScan } from './refound-freeze-helpers.js';
 import {
   makeGitleaksSecretScan,
   probeGitleaksVersion,
@@ -120,10 +116,14 @@ function preparePinnedSecretScan(): Result<SecretScan, Error> {
 }
 
 async function main(): Promise<void> {
-  const args = parseFreezeArgs(process.argv.slice(2));
+  const args = parseFreezeArgs(process.argv.slice(2), TOOL);
   if (isErr(args)) {
     writeErrorLine(`${TOOL}: ${args.error.message}`);
     process.exitCode = 1;
+    return;
+  }
+  if (args.value.help) {
+    writeLine(freezeUsageText(TOOL));
     return;
   }
   const setup = prepareFreeze(args.value);
