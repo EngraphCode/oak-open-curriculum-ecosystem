@@ -528,16 +528,39 @@ be the sole semantic-event port.
 Add a distinct interface, for example:
 
 ```ts
-interface SemanticEventSink {
-  readonly kind: SemanticEventSinkKind;
-  capture(event: ObservabilityEvent): void;
+type ApprovedIdentityProjection =
+  | {
+      mode: "identified";
+      opaqueSubjectId: string;
+      processPersonProfile: boolean;
+    }
+  | {
+      mode: "anonymous";
+      anonymousKey?: string;
+      processPersonProfile: false;
+    };
+
+interface SemanticEventPort {
+  capture(
+    event: ObservabilityEvent,
+    identity?: ApprovedIdentityProjection,
+  ): void;
   flush(timeoutMs: number): Promise<boolean>;
 }
 ```
 
+The composition root creates `ApprovedIdentityProjection` only after the
+privacy and mode gates pass. The port routes it only to explicitly
+identity-aware PostHog/Sentry projections; stdout, fixture, warehouse, and
+other non-identity sinks receive only `ObservabilityEvent`. The opaque Clerk
+identifier therefore remains outside the common event envelope and cannot be
+recovered from ambient state.
+
 Requirements:
 
 - event is validated before capture;
+- identity is separately approved, typed, and unavailable to non-identity
+  sinks;
 - sink adapters cannot mutate caller-owned values;
 - fan-out failure is isolated and observable;
 - stdout/fixture sink available;

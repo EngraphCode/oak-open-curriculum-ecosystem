@@ -35,7 +35,7 @@ Oak has one coherent understanding system in which:
 | 4 | Analysis and sensemaking surfaces | Named questions have reproducible analysis, interpretation records, owners, and review cadence | Real/synthetic event quality proven |
 | 5 | Sentry reconciliation | Sentry work is completed, absorbed, deferred, or retired by distinct value | Stage 3 correlations established |
 | 6 | Logs, monitoring, and alerts | Signal classes, destinations, SLOs, and runbooks are proportionate | Stage 4 review and Stage 5 ground truth complete; enough distributions and incidents exist |
-| 7 | Wider axes and runtimes | Search, security, feedback, widget, accessibility, and other runtimes join TAU | Stage 1–4 pattern proven |
+| 7 | Wider axes and runtimes | Search, security, widget, accessibility, and other runtimes join TAU | Stage 1–4 pattern proven |
 | 8 | Qualitative learning and experimentation | Feedback, flags, surveys, and experiments are independently governed | A corresponding child trigger exists: feedback surface, rollout, survey need, or product hypothesis/experiment proposal |
 | 9 | Durable export and warehouse | Cross-source/durable analysis is implemented only for a named need | Recorded question cannot be met proportionately in PostHog |
 | 10 | Governance and corpus close | Event/project definitions, costs, deletion, decision logs, and plan estate remain truthful | Every declared lane complete or explicitly dispositioned as not promoted |

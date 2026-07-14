@@ -26,7 +26,7 @@ questions.
 
 | Document | Purpose |
 |---|---|
-| [Concept exploration and Decision Matrix](2026-07-11-concept-exploration-and-decision-matrix.md) | Tests the concept space using the Resonance Decision Matrix workflow and records the selected direction. |
+| [Concept exploration and conserved decision passes](2026-07-11-concept-exploration-and-decision-matrix.md) | Tests the concept space using public Oak Reason/metacognition movements plus locally documented, re-derivable decision passes. |
 | [Architecture and intent-corpus review](2026-07-11-architecture-and-intent-corpus-review.md) | Reviews the current logging, observability, monitoring, analytics, and analysis corpus as one system. |
 | [PostHog baseline and build-vs-buy](2026-07-11-posthog-baseline-and-build-vs-buy.md) | Records the live empty-project baseline, current first-party capabilities, and adapter decisions. |
 | [Sentry integration disposition ledger](2026-07-11-sentry-integration-disposition-ledger.md) | Dispositions the stalled Sentry work into preserve, complete, absorb, defer, or retire lanes. |

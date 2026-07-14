@@ -1,15 +1,15 @@
 ---
-title: "TAU concept exploration and Decision Matrix"
+title: "TAU concept exploration and conserved decision passes"
 type: research
 status: complete
 last_updated: 2026-07-14
 method:
   - "Oak reason skill"
   - "Oak metacognition skill"
-  - "Resonance Decision Matrix workflow"
+  - "Locally conserved re-derivable decision passes"
 ---
 
-# TAU concept exploration and Decision Matrix
+# TAU concept exploration and conserved decision passes
 
 ## Executive finding
 
@@ -460,15 +460,14 @@ Current vendor sources:
 - <https://posthog.com/docs/logs>
 - <https://posthog.com/docs/advanced/infra-as-code>
 
-Decision workflow provenance:
+Method provenance and local conservation:
 
 - [Oak Concept Exploration workflow](https://github.com/oaknational/oak-open-curriculum-ecosystem/blob/cf33275153c3de4faa161de967ae3f825b70723b/.agent/skills/concept-exploration/SKILL-CANONICAL.md)
   is the public, commit-pinned source for the alternating Reason and
   metacognition movements used here.
-- The original decision-shaped source available during this exploration is not
-  publicly reachable. To keep this research re-derivable, the additional
-  applied passes are conserved here: empirical grounding, outward Reason,
-  inward metacognition, cross-examination, four-lens dissolution, and
-  survival-class routing. No candidate-scoring step was used. This exploration
-  applies those passes to a repository plan estate rather than a single
+- Additional applied passes are documented locally rather than attributed to
+  an unavailable external source: empirical grounding, outward Reason, inward
+  metacognition, cross-examination, four-lens dissolution, and survival-class
+  routing. No candidate-scoring step was used. This exploration applies those
+  re-derivable passes to a repository plan estate rather than a single
   implementation choice; Stage 0 remains the local authority gate.

@@ -279,9 +279,11 @@ packages/libs/posthog-node/
 
 Responsibilities:
 
-- consume only validated Oak event types;
+- consume a validated Oak event plus an optional, separately approved identity
+  projection supplied by the composition root;
 - map event name and fields to PostHog;
-- choose `distinct_id` and `$process_person_profile`;
+- choose `distinct_id` and `$process_person_profile` only from that explicit
+  identity projection;
 - add release/environment/runtime/schema version;
 - enforce the final field allowlist;
 - reject/drop unrecognised fields;
@@ -289,6 +291,12 @@ Responsibilities:
 - expose bounded flush/shutdown to the composition root;
 - surface delivery failures to structured logs/metrics without recursion;
 - provide a network-free capture fixture.
+
+The identity projection carries only the approved opaque subject ID or
+anonymous key and the person-profile decision. It is not part of the canonical
+event envelope, cannot be derived from ambient state, and is routed only to
+explicitly identity-aware PostHog/Sentry adapters. Stdout, fixture, warehouse,
+and other non-identity sinks receive the validated event without this input.
 
 Non-responsibilities:
 
