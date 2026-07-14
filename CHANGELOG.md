@@ -1,3 +1,11 @@
+## [1.67.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.67.0...v1.67.1) (2026-07-14)
+
+
+### Bug Fixes
+
+* **planning:** close the re-homing review round — outbound links, templates, register truings ([107d34b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/107d34bb95c21b41e2739e7785b9246dd164424b)), closes [#375](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/375)
+* **planning:** true the second six-path site in the continuity table row ([14e1425](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/14e1425395ac61332590d97805d3364575ff267c))
+
 # [1.67.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.66.9...v1.67.0) (2026-07-14)
 
 
