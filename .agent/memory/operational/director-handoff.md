@@ -256,15 +256,29 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY TEAM — first PDR-117 Director seat LIVE (2026-07-14)
+> ### ▶ ACTIVE EFFORT: PLANNING & VISIBILITY / PLAN-CORPUS REFOUNDING — Director: Barnacle calls Spray (2026-07-14, Moment-2 20:42:46Z)
 >
-> **SESSION SHAPE:** n=1 — Director only (Quasar mends Umbra, `52b4de`, claude-fable-5), claim
-> `0f4be777` LIVE with a 3-minute heartbeat monitor. The owner-commissioned two-objective team
+> **SESSION SHAPE:** n=1 — Director only (**Barnacle calls Spray, `6d5d9c`**, claude-code /
+> claude-fable-5), claim `0f4be777` ADOPTED from Quasar mends Umbra (`52b4de`, Director #1,
+> retired at natural boundary after full closeout). The transfer ran PDR-064 two-moments with
+> the readiness gate + a 9-agent adversarial verification of the handoff record. **The live
+> pickup surface is the handoff record**
+> `.agent/state/collaboration/handoffs/2026-07-14-director-quasar-to-barnacle-0f4be777.md`
+> (§2 the S0 execution order; §4 deferred work + owner-item register): at transfer, **the S0
+> hard freeze window was OPEN** with S0 staged-not-started in the r1 worktree. Team protocol
+> in force per **PDR-127** (team-branch coordination) and **PDR-128** (review conversations
+> are first-class), both graduated at the 2026-07-14 dedicated consolidation.
+>
+> <details><summary>Superseded: Director #1 state at seat-open (conserved)</summary>
+>
+> The owner-commissioned two-objective team
 > (stakeholder-visibility proof slice; planning-estate review toward proven plans) ran ten seats
 > on 2026-07-14; all nine teammates retired cleanly with custody handed to the Director
 > (Tallow, Embers, Rosemary, Sardine, Weasel, Galleon, Cedar, Parsec, Foxglove). Successor
 > pre-named by the owner: **Barnacle calls Spray (`6d5d9c`)**, cold standby — PDR-064
 > two-moments plus this brief's readiness gate govern the transfer.
+>
+> </details>
 >
 > **The one-line state:** both objectives reached day-one completion — objective 1's
 > GitHub/Linear/Notion proof slice ratified complete (Sentry leg OPEN, routed to TAU Stage 5 or
@@ -297,6 +311,12 @@ first-hand as of 2026-06-25.
 > ---
 >
 > ### ▶ PARALLEL RETAINED EFFORT: CURRICULUM HUB PROGRAM — seat RETAINED at Nettle #10's full closeout (2026-07-06)
+>
+> **[2026-07-14 annotation, Quasar mends Umbra:** claim `35d9c8f2` is no longer present in
+> `active-claims.json` NOR in `closed-claims.archive.json` (both verified first-hand,
+> zero hits) — it vanished without an archived closure, most plausibly in one of the day's
+> registry-hygiene sweeps. A pickup seat should OPEN A FRESH CLAIM rather than `claims adopt`;
+> the pickup record path below remains valid and is the substance carrier.**]**
 >
 > **SESSION SHAPE:** n=1 — Director only — to MERGE (owner ruling, unchanged). Director #10
 > (Nettle tracks Acorn, `dfddd4`) closed out fully on owner direction 2026-07-06; claim

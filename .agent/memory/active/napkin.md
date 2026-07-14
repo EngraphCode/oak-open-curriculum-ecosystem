@@ -196,3 +196,64 @@ Verdict: **complete** for this session's scope. The one item the recursive pass 
 commit.
 
 ## New session observations append below.
+
+## 2026-07-14 — Quasar mends Umbra (52b4de): Director #1 session closeout — loss scan + bounded metaloss
+
+**Landed outcome (PDR-026):** the commissioned two-objective day landed end-to-end. Objective 1
+(GitHub/Linear/Notion stakeholder-visibility proof slice) ratified complete, Sentry leg open and
+routed. Objective 2 ran the whole runway: registers re-homed, Walk-A priors recorded, the
+dedicated consolidation executed (Dolphin: PDR-127/128, napkin rotation), the freeze-planning
+sitting RULED (rule ratified — record `freeze-planning-sitting-2026-07-14.md`), reconciliation
+PR #377 merged (`SHA:019448a16`), **the S0 hard window OPENED**, S0 staged, and the Director
+seat TRANSFERRED to Barnacle calls Spray (PDR-064 Moment 2, 20:42:46Z, claim `0f4be777`
+adopted after their 9-agent verification). Fifteen PRs merged through this seat's day.
+
+**Surprise — false-orphan verdicts from two verification methods (the sharp lesson):** my
+worktree-orphan audit produced three "genuine orphan" verdicts; closeout re-verification
+retracted TWO. (b) the codex Sentry config: a `git diff origin/main...<sha>` THREE-DOT diff
+compares against the MERGE-BASE, not current main — the config had landed via PR #372 after
+the base; a plain two-dot content check against `origin/main:<path>` refutes it in one line.
+(c) the index-hygiene paragraph: an exact-line diff/grep containment check is
+line-wrapping-sensitive — prettier/markdownlint rewrapping made present content look absent;
+SUBSTANCE-PROBES (grep for several distinctive short phrases) settle it. Conversely (a) — the
+48-line compaction napkin entry from `SHA:882e82687` — SURVIVED the stricter re-check: the
+archive's same-titled entry is Cedar's, and every unique substance-probe (seven-branch
+enumeration, push-rule rejection, heartbeat-lapse specifics) hits zero. One real orphan, two
+false alarms, one method upgrade. Handoff-record addendum carries the corrected inventory.
+
+**Surprise — a "retained" claim can vanish without archive closure:** curriculum-hub claim
+`35d9c8f2` (retained 2026-07-06 for a successor pickup) is in NEITHER `active-claims.json`
+NOR `closed-claims.archive.json` (both verified, zero hits). Annotated in director-handoff.md:
+pickup opens a fresh claim; the pickup record path is the substance carrier. Registry-hygiene
+sweeps should archive-close, never plain-delete.
+
+**Owner-interaction learning:** major directives arrive embedded in structured-question
+answers — "delete all three, **and pass the seat to Barnacle**" rode an artefact-clearance
+answer. Parse every answer in full, not just against the question asked. (→ user memory.)
+
+**Harness learning:** the auto-mode classifier refuses agent-chosen deletion targets under a
+generic authorisation — the owner must name the exact paths. Correct behaviour, worth
+expecting: surface deletion lists as named targets in the authorisation ask itself.
+
+**Loss scan (6e.2, from inside this context, against the grain):** enumerated candidates and
+their homes — the S0 execution order (handoff record §2); the corrected orphan inventory
+(addendum); the 35d9c8f2 vanish (annotation); the neo-sentry worktree keep-condition void →
+removed at closeout (addendum); the org Claude-review billing cap (handoff record); the
+undiagnosed push-ruleset (register + record); the team branch now behind main again, my
+closeout commits ride the next paired reconciliation (PDR-127 governs; Barnacle knows);
+Barnacle's verification pattern (9-agent adversarial re-check of a handoff record) worked and
+is worth repeating — visible in their Moment-2 event for any future consolidation. Nothing
+else in-context survives the subtraction: today's decisions round-tripped through comms,
+PRs, and records at occurrence.
+
+**Metaloss (bounded per the graduated pattern):** the scan enumerates what this seat
+RECOGNISED as load-bearing; unrecognised loss is structurally mitigated by
+round-trip-at-occurrence. The day's own evidence sharpens the residual-risk class: BOTH real
+losses found today (the #376 silent drop of the napkin entry + handoff refresh) and both
+false verdicts (three-dot diff, exact-line grep) were failures of VERIFICATION METHOD at
+landing boundaries, not failures of capture — so the residue to guard is "content believed
+landed/absent on the strength of a method that answers a different question". Cure captured
+as the distilled lesson + a pending-graduations candidate (containment checks =
+substance-probes against current main). Representative reject: monitor task-IDs and re-arm
+counts — reconstructible from the transcript, zero decision value. Recursion bottoms out;
+further passes add words, not information.
