@@ -1,3 +1,10 @@
+## [1.67.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.67.1...v1.67.2) (2026-07-14)
+
+
+### Bug Fixes
+
+* **planning:** retarget the observability plan's sync-log prescription ([0ea4b6a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0ea4b6a70b9ff1c413542fa195de047c89475e92))
+
 ## [1.67.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.67.0...v1.67.1) (2026-07-14)
 
 
