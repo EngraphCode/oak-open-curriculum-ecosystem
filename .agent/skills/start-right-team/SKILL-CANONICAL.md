@@ -770,18 +770,66 @@ with substrate phenotype in
 It fires when an agent must retire before the natural boundary they
 were working toward — almost always under context-budget pressure
 during rotating-cast operation. Natural-boundary closeouts continue to
-use the contract above unchanged.
+use the contract above unchanged. **The ORIGIN discriminates**: these
+five steps fire only on a measured budget signal — the owner calling
+the handoff moment on that signal (PDR-063 ruling 2) stays inside
+them; an owner INITIATING a succession with no measured budget
+signal in play routes through PDR-063 §Deliberate succession instead
+(in-flight state hands over via record-plus-adoption; an at-rest
+lane hands over tracked-surfaces-only with no claim to adopt).
 
 **Triggers** (whichever fires first):
 
-- **Quantitative**: context usage ≥ 80% of the agent's bounded budget.
+- **Effectiveness-window start** (primary under rotating-cast
+  operation): measured usage crosses ~50% of the full window —
+  handover STARTS here (PDR-063's effectiveness-window refinement).
+- **Quantitative ceiling**: context usage ≥ 80% of the agent's
+  bounded budget — the hard stop.
 - **Post-commit**: immediately after landing any commit, the agent
-  re-evaluates remaining budget against the next-cycle floor (TDD
-  authoring + reviewer absorption + gate suite) and retires if the
-  remaining budget would not cover one more cycle with margin.
+  re-evaluates remaining budget against the next-cycle floor and
+  enters the protocol if the remaining budget would not cover one
+  more cycle with margin. The floor is OBSERVABLE, never estimated:
+  the measured token cost of this session's most recent completed
+  cycle (TDD authoring + reviewer absorption + gate suite, read from
+  the transcript); a session with no completed cycle has no measured
+  floor — this arm cannot fire and the two threshold axes govern
+  alone (PDR-063 Step 1).
 
-The 80% quantitative trigger has priority — an agent at 85% mid-cycle
-does not get to push for one more commit.
+The 80% ceiling has priority over post-commit — an agent at 85%
+mid-cycle does not get to push for one more commit.
+
+**Authority (PDR-063 §Retirement authority, owner rulings
+2026-07-08):** budget verdicts are measured, never self-declared.
+Owner-present, the seat surfaces the measured metric and the OWNER
+calls the handoff moment. Owner-absent at a measured handover signal
+(any Step-1 trigger: the ~50% effectiveness-window start, the ≥ 80%
+ceiling, or a measured post-commit shortfall — whichever fires
+first), the seat surfaces the measurement through the comms event
+PLUS an out-of-band owner notification where the platform provides
+one (PDR-063 ruling 3; the platform's declared notification
+mechanism is a host-phenotype fact — a platform with none satisfies
+surfacing with the comms event alone), with an explicit absolute deadline and default action
+declared in the surfacing event (protocol default when no
+coordinator SLA applies: 10 minutes, then autonomous execution of
+the remaining Steps 2–5),
+waits out that declared window, and AT THE DEADLINE EXECUTES the
+declared default action — the REMAINING Steps 2–5, autonomously, on
+the measured verdict (Step 1 already fired and completed this
+authority wait; re-entering it would recurse). The default action is
+role-determined: a COORDINATOR seat declares and runs the PDR-064
+intersection's combined order (its steps 2–6, Moment 1 interleaved;
+step 7 — Moment 2 — is the receiving agent's later pickup action —
+see §"Coordinator Handoff (Two Moments)", subsection "Intersection
+with PDR-063", below), never the bare Steps 2–5 block. Owner or
+coordinator
+word arriving before
+the deadline redirects the seat and EXITS the sequence — the bounded
+wait can never become an indefinite one. With no live recipient
+for step 4's directed event (schema-required `to`), the no-recipient
+variant applies: a broadcast pending-handoff announcement carrying
+the record path; the successor picks up via claim adoption
+(PDR-063 §Retirement authority ruling 3). A trigger firing is
+surface-and-route, never self-retirement.
 
 **The five-step protocol** (PDR-063 §Decision is authoritative; this
 SKILL names the protocol shape and points at it):
@@ -797,15 +845,18 @@ SKILL names the protocol shape and points at it):
    the new handoff record. No other schema field changes; existing
    readers ignore the field without breakage.
 4. **Hand off via a directed comms-event** carrying `message_kind:
-   "mid-cycle-handoff"` per ADR-182 §"Comms-event message_kind value".
-   The event body carries the claim identifier, a pointer to the
-   handoff record, a ≤200-word human summary, and the retiring agent's
-   identity tuple per PDR-027.
+   "mid-cycle-handoff"` per ADR-182 §"Comms-event message_kind value"
+   — when a live recipient (successor or coordinator) exists. With no
+   live recipient, the transport exception applies (PDR-063 ruling
+   3): a BROADCAST pending-handoff announcement instead, and pickup
+   via claim adoption. Either event body carries the claim
+   identifier, a pointer to the handoff record, a ≤200-word human
+   summary, and the retiring agent's identity tuple per PDR-027.
 5. **Retire** with a final retirement broadcast on the existing
    team-cadence shape, naming the handed-off claim and the receiving
    agent (if known) so the team sees the retirement is not abandonment.
 
-The receiving agent's pickup contract is named in §"First Moves" move 6:
+The receiving agent's pickup contract is named in §"First Moves" move 7:
 read the handoff record before any source edit. The
 `mid-cycle-handoff` `message_kind` is reserved for cycle-claim
 handoffs and **may not be used for coordinator role transitions** —
@@ -836,14 +887,29 @@ role acknowledgement: \<incoming\> from \<prior\>"_, referencing the
 pre-positioning event via `in_response_to`, naming the prior
 coordinator, and declaring the cadence the incoming coordinator will
 adopt. The outgoing coordinator continues to hold authority until this
-broadcast lands in the comms stream.
+broadcast lands in the comms stream — with PDR-064's one forced
+exception: a retirement AUTHORISED under PDR-063 §Retirement
+authority on any measured Step-1 signal, once that authority route
+COMPLETES (owner-called when present; the completed owner-absent
+deadline/default path when absent), ends the session before Moment 2
+can land; the
+Step 5 retirement broadcast then returns coordination authority to
+the OWNER explicitly, the role context rides the (re-broadcast if
+stale) Moment 1 pre-positioning event, and the next coordinator is
+owner- or team-designated at pickup — never silently assumed.
 
 **Cron / cadence boundary.** Any coordinator-cadence cron, scheduled
 wakeup, or persistent monitor owned by the outgoing coordinator
 **continues to run through Moment 1**, **ends at Moment 2**, and
 **never goes dark between them** within the same role-authority
 window. Cancelling the cadence at Moment 1 is the proximate cause of
-the coordinator-less window this rule structurally cures.
+the coordinator-less window this rule structurally cures. One
+carve-out (PDR-064's forced exception — its authority-invariant
+bullet): session-scoped cadence
+surfaces cannot outlive an authorised forced retirement — the Step 5
+broadcast stands them down BY NAME, and the empty-slot surfacing
+duty rides the (re-broadcast if stale) Moment 1 pre-positioning
+event to the owner-designated pickup.
 
 **Singleton-authority roles beyond coordinator.** The same two-moments
 discipline governs any singleton-authority role — notably the
@@ -866,7 +932,20 @@ distinct `narrative` broadcast covering coordinator-role context
 (which is broader than any single cycle claim). The two are distinct
 events — the handoff record carries cycle-claim substance; the
 pre-positioning event carries coordinator-role substance. **Do not
-use `mid-cycle-handoff` for coordinator role transitions.**
+use `mid-cycle-handoff` for coordinator role transitions.** The
+combined ORDER is PDR-064's: sense (Step 1) → complete the
+§Retirement-authority route (owner-present call, or the owner-absent
+declared-deadline/default path; a redirect EXITS here) → WHEN an open
+cycle claim exists: freeze its record (Step 2) and extend the claim with
+`handoff_record_path` (Step 3 — before any transport whose pickup
+relies on adoption) → Moment 1 pre-positioning broadcast → PDR-063
+Step 4 under the same open-claim condition (directed to a live
+receiver, else the broadcast pending-handoff transport exception) →
+Step 5 retirement broadcast → the incoming coordinator's Moment 2 at
+pickup. A coordinator with NO open cycle claim runs only Step 1 (with its
+completed authority route) → Moment 1 → Step 5; the incoming
+coordinator supplies Moment 2 at pickup — the
+claimless path never bypasses the owner/deadline gate.
 
 ### Closeout consolidation discipline for failure-mode events
 

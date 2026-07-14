@@ -14,15 +14,20 @@ definition, see
 ([ADR-125](../docs/architecture/architectural-decisions/125-agent-artefact-portability.md)):
 
 ```text
-.agent/              ← canonical content (rules, skills, sub-agents)
-  ↓ referenced by
-.claude/, .cursor/,  ← thin platform adapters (one-line pointers)
-.gemini/, .codex/,
-.agents/
-  ↓ loaded by
-CLAUDE.md, AGENTS.md,← entry points each platform reads automatically
-GEMINI.md
+                    .agent/
+                    (canonical content — rules, skills, sub-agents)
+                      ↑                        ↑
+        referenced by |                        | pointed to, via
+                      |                        | directives/AGENT.md
+.claude/ .cursor/ .gemini/          CLAUDE.md, AGENTS.md,
+.codex/ .agents/                    GEMINI.md, skills.md
+(thin platform adapters —           (entry points platforms
+ one-line pointers)                  read or can use)
 ```
+
+Adapters and entry points are independent platform-facing surfaces:
+each references `.agent/` directly, and no entry point consumes an
+adapter directory.
 
 When you see a rule in `.claude/rules/` or `.cursor/rules/`, it is a
 one-line pointer back to the canonical version in `.agent/rules/`. Edit

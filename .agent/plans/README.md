@@ -76,6 +76,7 @@ disposition.
 | [sector-engagement/](sector-engagement/) | External data sources, partner review, upstream coordination, EEF, and KG adoption support | 📋 Reference + active subthreads |
 | [upstream-feature-requests/](upstream-feature-requests/) | Feature requests this repo raises for other Oak teams' repositories (Oak Open Curriculum API, Oak Skills) — one folder per team, one file per request; recorded here and handed over | 📋 Reference + coordination |
 | [discovery/](discovery/) | Public discoverability of Oak machine surfaces: API catalog, Agent Skills, MCP Server Cards, A2A, DNS-AID, WebMCP, Web Bot Auth, robots/sitemaps, and `.well-known` metadata | 🔄 Active + queued execution |
+| [effectiveness-and-impact/](effectiveness-and-impact/) | How Oak knows its agent-facing surfaces work and deliver value: assessment/eval methodology for the MCP content corpus, review + eval protocols, and the internal-assurance→real-world-impact evidence chain | 📋 Queued (research plan landed; execution owner-gated) |
 | [agentic-engineering-enhancements/](agentic-engineering-enhancements/) | Practice/governance layer: how agents collaborate, plan, communicate, review, learn, and improve the repo | 🔄 Active + queued execution |
 | [agent-tooling/](agent-tooling/) | Implementation layer for the `agent-tools/` workspace, collaboration-state substrate, hooks, CLIs, schemas, and adapter generation | 🔄 Active + queued execution |
 | [user-experience/](user-experience/) | Persona-level outcome contracts and UX reference material | 📋 Legacy/reference |

@@ -4,7 +4,9 @@ pdr_kind: governance
 
 # PDR-063: Mid-Cycle Retirement Protocol for Token-Bounded Agents
 
-**Status**: Proposed
+**Status**: Proposed (amended 2026-07-08 — §Retirement authority +
+§Deliberate succession, owner rulings; amended 2026-07-13 — signal
+model, observable floor, executable bounds, transport exception)
 **Date**: 2026-05-22
 **Related**:
 [PDR-026](PDR-026-per-session-landing-commitment.md)
@@ -37,8 +39,9 @@ contract names triggers this PDR's per-cycle handoff protocol when a
 heartbeat-emitting role retires under token pressure; PDR-078 defers
 to PDR-063 for the per-cycle handoff substrate, and PDR-063 in turn
 relies on PDR-078's threshold for the trigger);
-[`practice-index.md`](../practice-index.md) (substrate-implementation
-ADR carrying the repo-specific phenotype of this PDR).
+the host estate's practice index (the substrate-implementation
+ADR carrying the repo-specific phenotype of this PDR lives behind it;
+Core cites hosts by role, never by path, per PDR-105).
 
 ## Context
 
@@ -83,24 +86,53 @@ produce.
 
 Adopt the following five-step mid-cycle retirement protocol. It
 fires only when an agent must retire before the natural boundary
-they were working toward; natural-boundary closeouts continue to
-use the existing `start-right-team` §Closeout Contract unchanged.
+they were working toward AND the ORIGIN is a measured budget signal.
+The owner CALLING the handoff moment on that measured signal
+(§Retirement authority ruling 2) stays inside these five steps; an
+owner INITIATING a succession with no measured budget signal in play
+routes through §Deliberate succession below instead.
+Natural-boundary closeouts continue to use the existing
+`start-right-team` §Closeout Contract unchanged.
 
 ### Step 1 — Sense approaching budget
 
-The retiring agent senses approaching budget at either of two
+The retiring agent senses approaching budget at any of three
 triggers, whichever comes first:
 
-- **Quantitative**: context usage ≥ 80 % of the agent's bounded
-  budget.
+- **Effectiveness-window start** (the primary handover-start signal
+  under rotating-cast operation): measured usage crosses ~50 % of the
+  full window — see the refinement below for the calibration and why
+  this fires long before the capacity ceiling.
+- **Quantitative ceiling**: context usage ≥ 80 % of the agent's
+  bounded budget — the hard stop.
 - **Post-commit**: immediately after landing any commit, the agent
-  re-evaluates remaining budget against the next-cycle floor (TDD
-  authoring + reviewer absorption + gate suite) and retires if the
-  remaining budget would not cover one more cycle with margin.
+  re-evaluates remaining budget against the next-cycle floor and
+  enters this protocol if the remaining budget would not cover one
+  more cycle with margin. The floor is OBSERVABLE, not estimated: the
+  measured token cost of this session's most recent completed cycle
+  (TDD authoring + reviewer absorption + gate suite, read from the
+  transcript). A session with no completed cycle yet has no measured
+  floor — its post-commit arm cannot fire; the two threshold axes
+  govern alone.
 
 The 80 % quantitative trigger has priority over the post-commit
 trigger: an agent at 85 % mid-cycle does not get to "push for one
-more commit"; the protocol fires.
+more commit"; the protocol fires. Firing means the seat surfaces the
+measured figure and follows §Retirement authority below on who calls
+the handoff — firing is never self-retirement.
+
+Sensing is MEASUREMENT plus SURFACING, never self-declaration: the
+budget figure is measured (transcript usage against the actual
+window, per the effectiveness-window refinement below; the estate's
+deterministic context-budget tooling when it lands), and who calls
+the retirement follows §Retirement authority below (owner rulings
+2026-07-08). Every trigger figure is a metric-surfacing threshold,
+never a self-retirement authority, and the signal model has two axes
+— the ~50 % effectiveness-window start (the primary handover-start
+signal; refinement below) and the ≥ 80 % hard-stop ceiling. This
+routing applies to every trigger above, the post-commit verdict
+included: a measured post-commit shortfall is surfaced and routed
+through §Retirement authority exactly like a threshold crossing.
 
 **Effectiveness-window refinement** (owner-taught calibration 2026-06-28/29;
 held as an approximate heuristic per model, not a constant). The ≥ 80 % trigger
@@ -203,6 +235,101 @@ re-argue it per fire, and do not re-check the surfaced request at the
 evaluator's fire cadence (fires are far faster than the successor's
 progress on the handed-off work).
 
+### Retirement authority — measured metrics, owner-called handoffs (owner rulings 2026-07-08)
+
+Four owner rulings (2026-07-08, recorded verbatim-substance at ruling
+time) supersede this protocol's original self-sensed trigger semantics
+on the AUTHORITY axis — who may declare budget exhaustion and who
+calls the handoff moment. The thresholds are unchanged; the five-step
+mechanics stand with ONE explicit Step 4 TRANSPORT exception, defined
+in ruling 3 below: when no live recipient exists for the directed
+`mid-cycle-handoff` event, a broadcast pending-handoff announcement
+replaces it. No other step changes.
+
+1. **No self-declared exhaustion, ever.** Budget verdicts come only
+   from measured context figures (transcript usage against the actual
+   window; the estate's deterministic context-budget tooling once it
+   lands). An agent never retires, hands off, or declines work on a
+   guessed budget state.
+2. **Owner-present: the seat surfaces the measured metric; the OWNER
+   calls the handoff moment.** Surfacing measured metrics is the
+   agent's whole authority in this mode.
+3. **Owner-absent at a measured handover signal: surface, then
+   autonomous handoff.** The signal is any measured Step 1 trigger —
+   the effectiveness-window start (~50 % of the full window; the
+   primary handover-start signal under rotating-cast operation), the
+   ≥ 80 % hard-stop ceiling, or a measured post-commit shortfall —
+   whichever fires first. The seat
+   surfaces the measurement through the comms event PLUS an
+   out-of-band owner notification where the platform provides a
+   notification capability (a host-phenotype concern — each estate
+   names its mechanism; a platform with none satisfies surfacing with
+   the comms event alone, and the declared deadline still governs),
+   waits the declared window for owner or coordinator word, and AT
+   THE DEADLINE EXECUTES the declared default action — the REMAINING
+   Steps 2–5, autonomously, on the measured verdict (Step 1 has
+   already fired, surfaced, and completed this authority wait;
+   re-entering it would recurse) — never on an unmeasured sense of
+   fullness; owner or coordinator word arriving before the deadline
+   redirects the seat and EXITS this path instead. The bounded wait
+   can never become an indefinite one. The bound is
+   executable, not vibes: the surfacing event MUST declare its
+   absolute deadline and the default action that fires at the
+   deadline (protocol default when no coordinator SLA applies:
+   10 minutes, then autonomous execution of the remaining Steps 2–5 —
+   matching
+   the estate liveness convention's 10-minute retirement window).
+   Autonomous execution does not require a live successor: the
+   remaining steps complete with the Step 2 handoff record as the
+   durable interface. The claim retains `handoff_record_path`; Step 4's
+   directed `mid-cycle-handoff` event (schema-required point-to-point
+   with a `to` recipient) is sent when a live recipient — successor
+   or coordinator — exists. When neither exists, Step 4 takes the
+   no-recipient variant: a BROADCAST narrative comms event announcing
+   the PENDING handoff and the record path (broadcasts carry no `to`,
+   so no schema violation), plus the surfacing step's out-of-band
+   owner notification where the platform provides one (the same
+   capability condition as above); the successor later picks up via claim ADOPTION
+   (the §Deliberate succession in-flight substrate), which needs no
+   directed event from the departed seat. The seat closes cleanly;
+   successor instantiation then follows ruling 4 (owner-mediated)
+   from the record.
+4. **Successor instantiation is owner-mediated until session-spawn
+   automation exists** (the owner's named automation gap: "yes to
+   automated handoff, however we have no way of automatically
+   starting new sessions, yet"). This section is deliberately
+   mechanism-agnostic: the Step 2 handoff-record contract is the
+   stable interface any future spawner consumes; spawner-command
+   work precedes any editor-plugin route (owner sequencing ruling,
+   same day).
+
+### Deliberate succession — the in-flight discriminator (amendment 2026-07-08)
+
+Deliberate (owner-directed) succession is not a budget-triggered
+mid-cycle retirement — the owner's call, not a threshold crossing,
+starts it — and it may occur mid-cycle or at rest: the discriminator
+against this protocol is the INITIATOR (an owner call versus a
+measured budget signal), never the state. It takes one of two shapes,
+and the shape discriminator is whether state is IN-FLIGHT (in-flight
+state selects the record-plus-adoption shape below, not this
+protocol's five steps):
+
+- **In-flight state exists** (open cycle, live claim, uncommitted
+  decisions): the record substrate plus claim ADOPTION carry the
+  succession — the predecessor's handoff record and claim transfer to
+  the successor (worked instances at the peer estate: the 2026-07-07
+  standby→successor adoption; the 2026-07-08 in-flight succession).
+- **The lane is AT REST** (work landed, claim closed, no open
+  decisions): the hand is TRACKED-SURFACES-ONLY — there is NO claim
+  to adopt and NO handoff record; the successor opens their OWN claim
+  at go, against the re-derived registry (worked instance at the peer
+  estate: a directed event had to correct an incoming successor's
+  adopt-expectation — expecting an adoptable claim on an at-rest lane
+  was the named loss vector).
+
+Successors expect the shape the discriminator names; a missing
+handoff record on an at-rest lane is the correct state, not a gap.
+
 ### Handover timing — naming a successor starts the clock (owner-taught 2026-06-28)
 
 **Naming a successor STARTS the handover; the predecessor DRIVES it to
@@ -219,7 +346,11 @@ leaving the *successor* to initiate the pickup unilaterally. Corollary: the
 predecessor keeps its **incoming-visibility watcher armed until the handover is
 acknowledged-complete**, not dropped at the first closeout broadcast — a
 retiring-but-not-yet-handed-over predecessor must stay able to see the live
-pickup.
+pickup. One authorised exception: ruling 3's no-recipient path (§Retirement
+authority) closes the seat with NO live receiver to watch for — there the
+watcher stands down with the seat, and pickup accountability transfers to the
+durable surfaces the path requires (the pending-handoff broadcast, the claim's
+record pointer, and — for coordinators — the Moment 1 pre-positioning event).
 
 ### Receiving agent's pickup contract
 
@@ -386,6 +517,13 @@ absorbed inline.
 - Pushing the 80 % trigger upward to squeeze in one more cycle.
   The trigger threshold may be revisited under empirical evidence;
   individual agents may not move it for their own session.
+- Self-declared exhaustion: retiring, handing off, or declining work
+  on a budget state that was guessed (conversation length, session
+  "feel", a memory heuristic) rather than measured. A budget claim
+  needs a measurement or a declared uncertainty (worked instance
+  2026-07-08: a seat asserted "does not cover slice 1 with margin"
+  from vibes; the owner measured 27 % remaining and ruled "you can do
+  a LOT with that").
 - Using the mid-cycle handoff discriminator for natural-boundary
   closeouts. A natural-boundary closeout uses the existing
   closeout contract; the mid-cycle discriminator is reserved for
@@ -397,7 +535,9 @@ absorbed inline.
 - An additional context budget (estimated 2–5 k tokens; empirical
   evidence will set the floor) at retirement time spent writing
   the handoff record. The retiring agent must reserve this budget
-  before the 80 % trigger fires; the budget is a fixed cost of
+  before the FIRST measured Step-1 signal can fire — in rotating-cast
+  operation that is the ~50 % effectiveness-window start, not only
+  the 80 % ceiling; the budget is a fixed cost of
   rotating-cast operation, not waste.
 - A new content substrate. Archive discipline is a follow-on once
   a handful of records exist; not specified here because the

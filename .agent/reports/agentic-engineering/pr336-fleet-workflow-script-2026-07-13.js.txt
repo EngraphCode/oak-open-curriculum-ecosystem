@@ -1,0 +1,148 @@
+Verbatim fleet workflow script for run wf_508d7cac-c56 (PR #336 diff fleet,
+2026-07-13). Preserved from Monsoon herds Airstream's (8c566b) preservation
+addendum comms event; the fleet report §3 describes the design, this file
+carries the calibrated craft (lens briefs, anti-stub schemas, verifier
+procedure). Companion to pr336-fleet-assessment-and-review-treadmill-2026-07-13.md.
+
+export const meta = {
+  name: 'pr336-diff-fleet-assessment',
+  description: 'Haiku finder fleet + Sonnet consistency/verification over PR 336 full diff from main',
+  phases: [
+    { title: 'Find', detail: 'narrow Haiku finders: one file x one lens each', model: 'haiku' },
+    { title: 'CrossSurface', detail: 'Sonnet cross-surface consistency squad', model: 'sonnet' },
+    { title: 'Verify', detail: 'Sonnet refute-first verifier per deduped finding', model: 'sonnet' },
+    { title: 'Critic', detail: 'Sonnet completeness critics', model: 'sonnet' },
+  ],
+}
+
+const FILES = [
+  { path: '.agent/practice-core/decision-records/PDR-063-mid-cycle-retirement-protocol.md', scope: 'the whole file' },
+  { path: '.agent/practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md', scope: 'the whole file' },
+  { path: '.agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md', scope: 'the whole file' },
+  { path: '.agent/rules/cross-repo-sessions-run-the-join-ceremony.md', scope: 'the whole file' },
+  { path: '.agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md', scope: 'the whole file' },
+  { path: '.agent/skills/start-right-team/SKILL-CANONICAL.md', scope: 'ONLY the section starting at the heading "### Mid-Cycle Retirement (distinct closeout mode)" through the end of that section (~120 lines); read the file with offset ~750' },
+  { path: '.agent/plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md', scope: 'ONLY the numbered clause list around lines 330-390 (the identity/join-key clause 5 paragraph and its neighbours); read with offset 320 limit 80' },
+  { path: '.agent/practice-core/CHANGELOG.md', scope: 'ONLY lines 1-85 (the two newest entries dated 2026-07-13 and 2026-07-08); read with limit 85' },
+  { path: 'docs/architecture/architectural-decisions/182-mid-cycle-handoff-record-substrate.md', scope: 'the whole file' },
+  { path: 'docs/architecture/architectural-decisions/211-inter-practice-collaboration-host-phenotype.md', scope: 'the whole file' },
+]
+
+const LENSES = [
+  { key: 'contradiction', brief: 'INTERNAL CONTRADICTION: two statements inside this scope that cannot both be true, or a qualified statement later restated unqualified. Only flag pairs INSIDE the given scope.' },
+  { key: 'undefined-mechanism', brief: 'UNDEFINED MECHANISM: any MUST/required/never-may behaviour whose satisfying mechanism is not defined or not executable as written (a required field no schema carries, a required event no transport supports, a required measurement with no measurement procedure). Flag only requirements that a cold executor could not deterministically satisfy.' },
+  { key: 'counts', brief: 'COUNTS AND ENUMERATIONS: any stated number (three rulings, six clauses, two axes, five steps, four fields) that does not match the actual list it describes inside this scope; also numbered lists with skipped or duplicated numbers.' },
+  { key: 'chronology', brief: 'DATES AND PROVENANCE: dated claims that conflict (an entry dated X describing events dated Y as already done; an amendment note whose date ordering is impossible; newest-first ordering violated; a proof scoped to one date claimed for content from another).' },
+  { key: 'references', brief: 'REFERENCE INTEGRITY: names of files, sections, PDRs, ADRs, rules, skills, or fields that do not exist or do not say what is claimed. VERIFY each by reading/grepping the referenced artefact before flagging. Only flag references you PROVED wrong.' },
+  { key: 'language', brief: 'LANGUAGE: British English violations (repo mandates British spelling/grammar/dates), missing articles, broken sentences, duplicated words, malformed markdown (unclosed emphasis, broken list indentation). Do NOT flag style preferences; only defects.' },
+  { key: 'portability', brief: 'PORTABILITY (only meaningful for files under .agent/practice-core/ and .agent/skills/): host-relative deixis that becomes false when the text is copied verbatim to a sibling estate ("this repo", "the current copy", a named tool asserted to exist on all platforms), or machine-local paths. Files outside practice-core/skills: return zero findings unless a machine-local path appears.' },
+]
+
+const FINDINGS_SCHEMA = {
+  type: 'object', additionalProperties: false, required: ['lens_restate', 'findings'],
+  properties: {
+    lens_restate: { type: 'string', minLength: 30, description: 'restate in your own words the single lens you applied and to which file scope' },
+    findings: {
+      type: 'array', maxItems: 8,
+      items: {
+        type: 'object', additionalProperties: false, required: ['claim', 'quote', 'severity'],
+        properties: {
+          claim: { type: 'string', minLength: 60, description: 'the specific defect, concretely stated — what is wrong and why it matters to an executor' },
+          quote: { type: 'string', minLength: 12, description: 'an EXACT contiguous substring copied verbatim from the file that anchors the defect (will be byte-checked against the file; a paraphrase counts as fabrication)' },
+          severity: { type: 'string', enum: ['high', 'medium', 'low'] },
+        },
+      },
+    },
+  },
+}
+
+const COMMON = 'You are a READ-ONLY review agent in a git repo (cwd is the repo root). NEVER edit or create any file. Apply EXACTLY ONE lens to EXACTLY ONE file scope; ignore every other kind of defect even if you notice it. Read the target scope in full first. Anti-stub rules: never invent placeholder findings; an empty findings array is a fully successful result if the scope is clean under your lens; every quote must be copied exactly from the file (it will be byte-checked). Context that is settled and NOT a defect: "SHA:" prefixes before commit hashes are a repo convention; the Practice/estate/plasmid/twin vocabulary is established doctrine; en-dashes and long sentences are house style.'
+
+phase('Find')
+const units = []
+for (const f of FILES) {
+  for (const l of LENSES) {
+    if (l.key === 'portability' && !(f.path.includes('practice-core') || f.path.includes('.agent/skills'))) continue
+    units.push({ file: f, lens: l })
+  }
+}
+log(`dispatching ${units.length} haiku finders`)
+
+const found = await pipeline(
+  units,
+  (u) => agent(
+    `${COMMON}\nTARGET FILE: ${u.file.path}\nSCOPE: ${u.file.scope}\nLENS — ${u.lens.brief}`,
+    { label: `find:${u.lens.key}:${u.file.path.split('/').pop().slice(0, 24)}`, phase: 'Find', schema: FINDINGS_SCHEMA, model: 'haiku', effort: 'low' }
+  ).then(r => r ? r.findings.map(x => ({ ...x, file: u.file.path, lens: u.lens.key })) : [])
+)
+
+phase('CrossSurface')
+const XS_SCHEMA = FINDINGS_SCHEMA
+const CROSS = [
+  { key: 'retirement-family', prompt: 'CROSS-SURFACE CONSISTENCY of the mid-cycle retirement doctrine. Read ALL of: .agent/practice-core/decision-records/PDR-063-mid-cycle-retirement-protocol.md, the "### Mid-Cycle Retirement" section of .agent/skills/start-right-team/SKILL-CANONICAL.md (offset ~750), .agent/practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md sections "Intersection with PDR-063" and the authority invariant around lines 140-165 and the cadence boundary, and docs/architecture/architectural-decisions/182-mid-cycle-handoff-record-substrate.md. Flag every place two of these surfaces state DIFFERENT trigger sets, authority rules, transport rules, deadlines, or step sequences for the same behaviour. Quote from the surface that is WRONG or LAGGING.' },
+  { key: 'ceremony-family', prompt: 'CROSS-SURFACE CONSISTENCY of the join-ceremony doctrine. Read ALL of: .agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md clauses 3 and 5, .agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md, .agent/rules/cross-repo-sessions-run-the-join-ceremony.md, .cursor/rules/cross-repo-sessions-run-the-join-ceremony.mdc, the cross-repo row in RULES_INDEX.md, docs/architecture/architectural-decisions/211-inter-practice-collaboration-host-phenotype.md, and the frontmatter descriptions of .claude/skills/oak-inter-practice-collaboration/SKILL.md and .agents/skills/oak-inter-practice-collaboration/SKILL.md. Flag every trigger-condition, boundary, or identity-rule statement that differs between surfaces (including adapter descriptions lagging the canonical). Quote from the lagging surface.' },
+  { key: 'plan-mirror', prompt: 'CROSS-SURFACE CONSISTENCY between .agent/plans/agent-tooling/current/inter-practice-collaboration-protocol.plan.md (the clause list around lines 320-400) and PDR-125 clauses 3/5/6/7 in .agent/practice-core/decision-records/PDR-125-inter-practice-collaboration-protocol.md. The plan mirrors the PDR; flag every clause statement in the plan that now contradicts the amended PDR. Quote from the plan.' },
+  { key: 'provenance', prompt: 'PROVENANCE COHERENCE: read .agent/practice-core/CHANGELOG.md lines 1-85, the Status/amendment header of PDR-125 (lines 1-35), and the Status header of PDR-063. Flag every provenance claim that conflicts with another (what was twinned when, what is ahead, which dispositions apply to which items, date ordering). Quote the conflicting sentence.' },
+  { key: 'code-reality', prompt: 'DOCTRINE-VS-CODE: verify every mechanism claim in the diff surfaces against the actual code. Claims to check (verify each first-hand, flag only proven mismatches): (1) directed comms events require a `to` recipient — check agent-tools/src/collaboration-state/types.ts DirectedCommsMessage; (2) broadcast/narrative events carry no `to` — same file NarrativeCommsEvent; (3) the shared wire schema requires exactly agent_name, platform, model, session_id_prefix for wire_identity — grep for wire_identity or protocol.json under .agent/ and agent-tools/; (4) claims adopt preserves but never adds handoff_record_path — agent-tools/src/collaboration-state/ (grep adopt); (5) derived display names use finite wordlists with modulo so different seeds can collide — agent-tools/src/core/agent-identity/derive.ts; (6) PDR-027 full identity block fields are agent_name, id, platform, model, session_id_prefix, seed_source — .agent/practice-core/decision-records/PDR-027-threads-sessions-and-agent-identity.md. For each claim that the DOCTRINE states incorrectly, flag with a quote from the doctrine file (name it in the claim).' },
+  { key: 'authority-coherence', prompt: 'AUTHORITY COHERENCE: read PDR-063 §Retirement authority and §Deliberate succession, PDR-064 authority invariant + forced exception + intersection sequence, and PDR-078 (.agent/practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md) where it names retirement thresholds. Flag every place one record grants an authority or exception another record forbids, or where a threshold/derivation in one contradicts another. Quote from the surface that should change.' },
+]
+const crossFound = await pipeline(
+  CROSS,
+  (c) => agent(`${COMMON.replace('EXACTLY ONE lens to EXACTLY ONE file scope', 'one cross-surface consistency lens across the named files')}\n${c.prompt}`,
+    { label: `xs:${c.key}`, phase: 'CrossSurface', schema: XS_SCHEMA, model: 'sonnet' }
+  ).then(r => r ? r.findings.map(x => ({ ...x, file: x.file || 'cross-surface', lens: 'xs:' + c.key })) : [])
+)
+
+const all = [...found.filter(Boolean).flat(), ...crossFound.filter(Boolean).flat()]
+log(`raw findings: ${all.length}`)
+const seen = new Set(); const deduped = []
+for (const f of all) {
+  const k = (f.file + '|' + f.quote.slice(0, 60)).toLowerCase()
+  if (seen.has(k)) continue
+  seen.add(k); deduped.push(f)
+}
+log(`deduped findings: ${deduped.length}`)
+
+phase('Verify')
+const VERDICT_SCHEMA = {
+  type: 'object', additionalProperties: false, required: ['quote_found', 'verdict', 'evidence', 'fix_sketch'],
+  properties: {
+    quote_found: { type: 'boolean', description: 'did the exact quote exist verbatim in the named file (or any diff-surface file for cross-surface findings)?' },
+    verdict: { type: 'string', enum: ['CONFIRMED', 'REFUTED', 'FABRICATED', 'UNCERTAIN'] },
+    evidence: { type: 'string', minLength: 100, description: 'exact lines/text you read that ground the verdict; name file and location' },
+    fix_sketch: { type: 'string', description: 'if CONFIRMED: the minimal fix, in one or two sentences; else empty string' },
+  },
+}
+const verified = await pipeline(
+  deduped,
+  (f) => agent(
+    `You are a READ-ONLY adversarial verifier (cwd is the repo root). A review fleet produced this finding; your DEFAULT stance is to REFUTE it. Finding: file="${f.file}" lens="${f.lens}" severity=${f.severity}\nCLAIM: ${f.claim}\nQUOTE (must exist verbatim): ${JSON.stringify(f.quote)}\nProcedure: (1) grep/read to check the quote exists EXACTLY in the named file (for lens starting xs: it may be in any of the cross-referenced files — find which); if absent, verdict=FABRICATED. (2) Read enough surrounding context (and any artefact the claim cites) to judge whether the claim is TRUE AS STATED — a claim that is only partially right, already handled elsewhere in the same file, or resting on a misreading is REFUTED; note the refutation reason. Beware literalism: a qualified statement ("for DERIVED names") that the claim treats as unqualified is a REFUTED claim. (3) Only a claim you could defend to a sceptical maintainer with the text in front of them is CONFIRMED. House context: "SHA:" prefixes are convention; British English is mandated; the estate/twin/plasmid vocabulary is established.`,
+    { label: `verify:${f.lens}:${(f.quote || '').slice(0, 18)}`, phase: 'Verify', schema: VERDICT_SCHEMA, model: 'sonnet' }
+  ).then(v => ({ ...f, v }))
+)
+
+phase('Critic')
+const CRITIC_SCHEMA = {
+  type: 'object', additionalProperties: false, required: ['gaps', 'spot_check_findings'],
+  properties: {
+    gaps: { type: 'array', items: { type: 'string' }, description: 'coverage gaps: file/lens intersections the fleet under-covered and why it matters' },
+    spot_check_findings: { type: 'array', maxItems: 5, items: { type: 'object', additionalProperties: false, required: ['claim', 'quote', 'file'], properties: { claim: { type: 'string', minLength: 60 }, quote: { type: 'string', minLength: 12 }, file: { type: 'string' } } }, description: 'defects YOU found first-hand in a spot check that the fleet missed' },
+  },
+}
+const critics = await parallel([
+  () => agent(`${COMMON}\nYou are a COMPLETENESS CRITIC. The fleet scanned these files with lenses (contradiction, undefined-mechanism, counts, chronology, references, language, portability, cross-surface): ${FILES.map(f => f.path).join(', ')}. Spot-check the three files you judge most defect-dense yourself (read them fully) and report anything the lenses would plausibly have missed — especially semantic drift where a sentence is grammatical and consistent but WRONG about what the system does, and diff-boundary defects (new text grafted mid-sentence into old text).`, { label: 'critic:semantic', phase: 'Critic', schema: CRITIC_SCHEMA, model: 'sonnet' }),
+  () => agent(`${COMMON}\nYou are a COMPLETENESS CRITIC focused on the EXECUTOR experience. Read .agent/practice-core/decision-records/PDR-063-mid-cycle-retirement-protocol.md and .agent/skills/inter-practice-collaboration/SKILL-CANONICAL.md end to end AS IF you were a cold agent trying to EXECUTE them. Report every step where you would be stuck, would need to guess, or where two instructions send you in different directions.`, { label: 'critic:executor', phase: 'Critic', schema: CRITIC_SCHEMA, model: 'sonnet' }),
+])
+
+const confirmed = verified.filter(Boolean).filter(x => x.v && x.v.verdict === 'CONFIRMED')
+const refuted = verified.filter(Boolean).filter(x => x.v && x.v.verdict === 'REFUTED')
+const fabricated = verified.filter(Boolean).filter(x => x.v && x.v.verdict === 'FABRICATED')
+const uncertain = verified.filter(Boolean).filter(x => x.v && x.v.verdict === 'UNCERTAIN')
+log(`confirmed=${confirmed.length} refuted=${refuted.length} fabricated=${fabricated.length} uncertain=${uncertain.length}`)
+return {
+  counts: { raw: all.length, deduped: deduped.length, confirmed: confirmed.length, refuted: refuted.length, fabricated: fabricated.length, uncertain: uncertain.length },
+  confirmed: confirmed.map(x => ({ file: x.file, lens: x.lens, severity: x.severity, claim: x.claim, quote: x.quote, fix: x.v.fix_sketch, evidence: x.v.evidence })),
+  uncertain: uncertain.map(x => ({ file: x.file, lens: x.lens, claim: x.claim, quote: x.quote, evidence: x.v.evidence })),
+  refuted: refuted.map(x => ({ file: x.file, lens: x.lens, claim: x.claim.slice(0, 140), reason: x.v.evidence.slice(0, 200) })),
+  critics: critics.filter(Boolean),
+}
