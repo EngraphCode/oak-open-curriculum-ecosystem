@@ -24,10 +24,10 @@ fires before:
 - any other post that lands under the shared account on an external surface.
 
 It also fires when authoring on any non-GitHub outward surface (a vendor
-dashboard or external tracker) through credentials that identify a human
-rather than the agent. Notion page edits inside the owner-allowlisted subtree use a hybrid ledger:
-delivery-estate provenance on the visible line and the full agent/credential chain in a collapsed
-toggle. Their complete attribution contract is
+dashboard, external tracker, or published page) through credentials that
+identify a human rather than the agent. Notion page edits inside the owner-allowlisted subtree use
+a hybrid ledger: delivery-estate provenance on the visible line and the full agent/credential
+chain in a collapsed toggle. Their complete attribution contract is
 [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
 
 ## Action

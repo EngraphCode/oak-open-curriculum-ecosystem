@@ -38,7 +38,7 @@ authority.
 
 The authority direction is fixed:
 
-- durable intent originates in the repository and projects outward;
+- principal intent is recorded durably in the repository before it projects outward;
 - external systems may return evidence within their assigned evidence class;
 - an external record, ticket, dashboard, or narrative never becomes authority over durable intent
   merely because it is current or easier to read; and
