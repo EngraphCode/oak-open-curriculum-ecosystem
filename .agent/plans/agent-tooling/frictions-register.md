@@ -3078,15 +3078,20 @@ commit SHA and the closing plan reference.
   foreground inbox reads that same file and reports `no new comms events`, even when the
   agent has not personally inspected or interpreted the event. Transport delivery is
   therefore presented as if it proved cognitive acknowledgement.
-- **Expected**: passive delivery/liveness and deliberate foreground review remain
-  independently observable; one may advance without erasing the other's unread set.
-- **Interim guidance**: give foreground cognition checks an independent seen file, or run
-  a direct time-window/corpus sweep and record acknowledgement. Do not interpret
-  `no new comms events` on the watcher's cursor as proof of personal review.
-- **Candidate cure**: separate the transport cursor from a typed cognition cursor at the
-  CLI boundary. `watch` advances only transport state; `inbox` (or the F-135 `--since`
-  sweep) advances only cognition state. Derive and document both canonical paths from the
-  agent identity so callers do not hand-roll cursor names.
+- **Expected**: passive delivery/liveness, foreground delivery, and deliberate
+  acknowledgement after inspection remain independently observable; any one may advance
+  without erasing the others' unread or unacknowledged sets.
+- **Interim guidance**: give foreground delivery checks an independent seen file, or run
+  a direct time-window/corpus sweep, then record acknowledgement separately after
+  inspection. Do not interpret `no new comms events` on either auto-advanced cursor as
+  proof of personal review.
+- **Candidate cure**: separate transport delivery, foreground delivery, and explicit
+  acknowledgement at the CLI boundary. `watch` advances only transport state; `inbox`
+  advances only foreground-delivery state; a distinct acknowledgement action advances
+  cognition state only after the caller confirms inspection. F-135's `--since` sweep
+  selects the foreground review set but does not itself acknowledge it; the caller applies
+  the explicit acknowledgement action after reviewing that set. Derive and document all
+  canonical state paths from the agent identity so callers do not hand-roll cursor names.
 - **Target surface**: `agent-tools/src/collaboration-state/cli-comms-watch.ts`,
   `cli-comms-inbox.ts`, cursor-path helpers, and the watcher rule invocation.
 - **Status**: open — first observed instance; compose the cure with F-135.
