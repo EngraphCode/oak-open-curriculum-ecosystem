@@ -35,7 +35,8 @@ import { parseWithSchema } from '../core/schema-parse.js';
  * parameter, and no empty placeholder here (closed-shape discipline); the
  * banner diff class lands as a schema version bump WITH its policy.
  *
- * `ratifiedBy` is `null` until gate G1 lands. The schema accepts `null` so the
+ * `ratifiedBy` is `null` until ratification lands — initially gate G1, and
+ * again after any amendment until the confirming sitting re-ratifies. The schema accepts `null` so the
  * draft rule parses; the freeze runner (`runFreeze`) owns the refusal to
  * FREEZE from an unratified rule — parsing a draft and acting on it are
  * different boundaries.
@@ -94,7 +95,8 @@ const freezeRuleV2Schema = z.strictObject({
 
 /**
  * The whole rule document (`.agent/plans-refounding/freeze-rule.json`), v1 or
- * v2. `ratifiedBy` is the owner-gate record path once G1 lands, `null` before.
+ * v2. `ratifiedBy` is the ratifying owner-gate/sitting record path, `null`
+ * before initial ratification and while an amendment awaits confirmation.
  */
 const freezeRuleSchema = z.discriminatedUnion('version', [freezeRuleV1Schema, freezeRuleV2Schema]);
 export type FreezeRule = z.infer<typeof freezeRuleSchema>;

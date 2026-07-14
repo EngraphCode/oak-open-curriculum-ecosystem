@@ -3158,7 +3158,7 @@ commit SHA and the closing plan reference.
 - **Cure (landed with this entry)**: `refound-freeze-args.ts` — the parser refuses any argv
   containing `--` ("takes no positional arguments"), registers `--help`/`-h`, and both
   rule-plus-out entries (`refound-freeze`, `refound-merge-recheck`) short-circuit on the help
-  verdict before any preparation or write; six-test unit contract; live probes green in both
+  verdict before any preparation or write; unit-contract suite (help, terminator, and value-guard cases); live probes green in both
   directions (the original footgun invocation now exits 1; `--help` prints usage and writes
   nothing).
 - **Residual class (recorded follow-up — the deferral's condition)**: the ten remaining

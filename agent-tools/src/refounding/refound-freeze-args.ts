@@ -47,7 +47,7 @@ export function parseFreezeArgs(
   if (argv.includes('--')) {
     return err(
       new Error(
-        `${toolName} takes no positional arguments; remove the -- terminator\n\n${freezeUsageText(toolName)}`,
+        `takes no positional arguments; remove the -- terminator\n\n${freezeUsageText(toolName)}`,
       ),
     );
   }

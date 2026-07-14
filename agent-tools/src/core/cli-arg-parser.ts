@@ -70,8 +70,8 @@ function scanValueOption<TState>(
   if (
     value === undefined ||
     value.startsWith('--') ||
-    value in spec.flags ||
-    value in spec.valueOptions
+    Object.hasOwn(spec.flags, value) ||
+    Object.hasOwn(spec.valueOptions, value)
   ) {
     return { kind: 'error', error: `${option} requires a value\n\n${spec.helpText}` };
   }

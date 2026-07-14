@@ -30,7 +30,7 @@ stream. Auto-freeze must be the default or the ruling queue drowns (P11); the
 only class that warrants a human ruling is the one the stream almost never
 produces (removals).
 
-## The table (v1, proposed)
+## The table (v1 — ruled at the 2026-07-14 sitting; see the Ratification record)
 
 | # | Arrival class | Detected by | Routing | Mechanics |
 | --- | --- | --- | --- | --- |

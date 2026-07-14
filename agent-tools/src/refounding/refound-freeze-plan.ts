@@ -143,7 +143,11 @@ async function applyRefusals(
   frozenRootAbs: string,
 ): Promise<Result<string, Error>> {
   if (rule.ratifiedBy === null) {
-    return err(new Error('freeze rule is unratified; G1 ratification must land first'));
+    return err(
+      new Error(
+        'freeze rule is unratified (ratifiedBy is null): initial ratification, or re-ratification of the pending amendment, must land first',
+      ),
+    );
   }
   if (await pathIsPresent(partialMarkerPath(frozenRootAbs))) {
     return err(

@@ -130,6 +130,11 @@ interface RecheckInputs {
   readonly sanctionedClassBySource: ReadonlyMap<string, string>;
 }
 
+const UNRATIFIED_RULE_REFUSAL =
+  'freeze rule is unratified (ratifiedBy is null — initial ratification or a pending ' +
+  'amendment awaiting confirmation): the recheck recomputes the RATIFIED source rule, ' +
+  'and a draft-rule comparison would misclassify arrivals';
+
 /**
  * The read phase: ratified rule, effective denominator, live in-set
  * identities, and the sanctioned source map — every refusal happens here,
@@ -145,12 +150,7 @@ async function prepareRecheck(input: {
     return rule;
   }
   if (rule.value.ratifiedBy === null) {
-    return err(
-      new Error(
-        'freeze rule is unratified; the recheck recomputes the RATIFIED source rule (G1) and ' +
-          'a draft-rule comparison would misclassify arrivals',
-      ),
-    );
+    return err(new Error(UNRATIFIED_RULE_REFUSAL));
   }
   const denominator = await readEffectiveDenominator(input.outDirAbs);
   if (isErr(denominator)) {
