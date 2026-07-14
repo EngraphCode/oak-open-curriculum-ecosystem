@@ -171,8 +171,8 @@ deleted-file cascades, and signature mismatches in auto-merged files.
 Releases are automated via [semantic-release](https://semantic-release.gitbook.io/):
 
 1. PRs merged to `main` trigger the release workflow
-2. Version is bumped from Conventional Commit types (`docs`, `chore`, `fix`,
-   and `perf` → patch; `feat` → minor; breaking change → major)
+2. Version is bumped based on Conventional Commit types (`docs`, `chore`,
+   `fix`, and `perf` → patch; `feat` → minor; breaking change → major)
 3. A GitHub release is created automatically
 4. npm packages are published for public packages
 

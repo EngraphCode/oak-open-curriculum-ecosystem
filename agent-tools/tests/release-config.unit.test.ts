@@ -32,6 +32,11 @@ const releaseConfigSchema = z.object({
   }),
 });
 
+// require(esm) is stable on the repo's pinned Node 24 (`.nvmrc`, `engines`)
+// for modules without top-level await, so requiring the ESM `.releaserc.mjs`
+// does NOT throw ERR_REQUIRE_ESM. Dynamic import() is banned
+// (@oaknational/no-dynamic-import); createRequire is the repo's lint-clean
+// runtime-loading boundary.
 const releaseConfigModule: unknown = rootRequire(join(repoRoot, '.releaserc.mjs'));
 const releaseConfig = releaseConfigSchema.parse(releaseConfigModule).default;
 
