@@ -104,6 +104,7 @@ developer-experience inputs used to improve Oak's agentic engineering system.
 | ├─ [architectural-enforcement-playbook.md](developer-experience/architectural-enforcement-playbook.md) | Architectural enforcement | Guardrails, prompts, and enforcement posture |
 | ├─ [2026-02-20-onboarding-review.md](developer-experience/2026-02-20-onboarding-review.md) | Onboarding review | Friction points and onboarding improvements |
 | └─ local `developer-experience/novel/` lane | Ignored repair lane | Raw imports and sibling clean copies; stable promotion deferred |
+| [concept-exploration-practice-transfer-2026-07.md](concept-exploration-practice-transfer-2026-07.md) | Concept Exploration Practice transfer | Adoption context, retained workflow, local differences, and replication guidance |
 | [graphify-oak-practice-analysis.md](graphify-oak-practice-analysis.md) | Derived graph memory exploration | Navigation layer over the practice estate, explicit attribution requirement |
 | [mcp_agent_guidance_provision.md](mcp_agent_guidance_provision.md) | MCP help-surface design | Start-here resources, help tools, and prompt-oriented discoverability |
 | [openai_claude_gemini_apps_sdk_comparison.md](openai_claude_gemini_apps_sdk_comparison.md) | Cross-vendor app surface comparison | Host/UI surface differences around MCP and embedded experiences |
@@ -157,6 +158,12 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-07-13)
+
+| Document | Summary |
+|----------|---------|
+| [concept-exploration-practice-transfer-2026-07.md](concept-exploration-practice-transfer-2026-07.md) | Practice transfer record for the Concept Exploration skill, including adoption context, conserved workflow, local differences, and replication guidance. |
 
 ## Recent Additions (2026-07-01)
 
