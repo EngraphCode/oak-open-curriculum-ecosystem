@@ -25,12 +25,16 @@ manual version bumping.
 
 | Commit prefix                       | Version bump  |
 | ----------------------------------- | ------------- |
+| `docs:`                             | Patch (0.0.x) |
+| `chore:`                            | Patch (0.0.x) |
 | `fix:`                              | Patch (0.0.x) |
+| `perf:`                             | Patch (0.0.x) |
 | `feat:`                             | Minor (0.x.0) |
 | `BREAKING CHANGE:` (in body/footer) | Major (x.0.0) |
 
-The current version is `0.8.0` (pre-1.0 semver; set to avoid clashes with
-earlier failed tag creation).
+Documentation-only and maintenance merges intentionally receive their own
+patch version. The current version is recorded in the root and SDK
+`package.json` files, which `semantic-release` updates together.
 
 ## Release Automation
 
@@ -42,7 +46,7 @@ The pipeline:
 
 1. CI runs on every push to `main`
 2. `semantic-release` analyses commits since the last release
-3. If releasable commits exist, it:
+3. If at least one commit has a release-triggering type listed above, it:
    - Determines the next version
    - Updates `CHANGELOG.md`
    - Updates `package.json` version
@@ -112,7 +116,7 @@ Expected output (abbreviated):
 ```text
 npm warn publish Package @oaknational/curriculum-sdk not found...
 npm notice
-npm notice package: @oaknational/curriculum-sdk@0.8.0
+npm notice package: @oaknational/curriculum-sdk@CURRENT_VERSION
 npm notice Tarball Contents
 npm notice   XXXkB  dist/index.js
 npm notice   XXXkB  dist/index.d.ts
@@ -122,7 +126,7 @@ npm notice   XXXkB  README.md
 npm notice   XXXkB  LICENCE
 npm notice Tarball Details
 npm notice   name:          @oaknational/curriculum-sdk
-npm notice   version:       0.8.0
+npm notice   version:       CURRENT_VERSION
 npm notice   package size:  ...
 npm notice   total files:   ...
 ```
@@ -196,13 +200,13 @@ new releasable commits, `semantic-release` will skip publishing.
 
 ### Troubleshooting
 
-| Problem                        | Likely cause                                           | Fix                                             |
-| ------------------------------ | ------------------------------------------------------ | ----------------------------------------------- |
-| Release workflow does not run  | Not on `main` branch                                   | Merge to `main`                                 |
-| "No releasable commits"        | All commits since last release are `chore:` or `docs:` | Add a `fix:` or `feat:` commit                  |
-| npm publish fails with 403     | Token lacks write permission or wrong scope            | Regenerate token with correct permissions       |
-| npm publish fails with 402     | Package is scoped but missing `publishConfig.access`   | Already set to `"public"` in SDK `package.json` |
-| `LICENCE` missing from tarball | `prepublishOnly` script failed                         | Run `pnpm build` in the SDK workspace first     |
+| Problem                        | Likely cause                                         | Fix                                                        |
+| ------------------------------ | ---------------------------------------------------- | ---------------------------------------------------------- |
+| Release workflow does not run  | Not on `main` branch                                 | Merge to `main`                                            |
+| "No releasable commits"        | Commit types are not mapped to a release             | Check that each commit uses the accurate Conventional type |
+| npm publish fails with 403     | Token lacks write permission or wrong scope          | Regenerate token with correct permissions                  |
+| npm publish fails with 402     | Package is scoped but missing `publishConfig.access` | Already set to `"public"` in SDK `package.json`            |
+| `LICENCE` missing from tarball | `prepublishOnly` script failed                       | Run `pnpm build` in the SDK workspace first                |
 
 ---
 

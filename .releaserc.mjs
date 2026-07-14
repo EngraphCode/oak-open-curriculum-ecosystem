@@ -15,7 +15,25 @@ export default {
     },
   ],
   plugins: [
-    '@semantic-release/commit-analyzer',
+    [
+      '@semantic-release/commit-analyzer',
+      {
+        releaseRules: [
+          {
+            breaking: true,
+            release: 'major',
+          },
+          {
+            type: 'docs',
+            release: 'patch',
+          },
+          {
+            type: 'chore',
+            release: 'patch',
+          },
+        ],
+      },
+    ],
     '@semantic-release/release-notes-generator',
     [
       '@semantic-release/changelog',
