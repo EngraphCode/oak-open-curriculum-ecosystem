@@ -30,10 +30,6 @@ todos:
     content: "STAGE 0: verify PostHog project region/token/settings; record processor/DPIA/privacy-notice/DSAR/deletion/DPO gaps; encode off/anonymous/identified modes with identified production hard-gated."
     status: pending
     depends_on: [s0-ground-current-state]
-  - id: s0-semantic-port-contract
-    content: "STAGE 0: select and record the public semantic-event port and approved identity-projection names, types, method signatures, ownership, and non-identity-sink exclusion contract before the first product-code cycle; preserve the provider-neutral and privacy boundaries or stop for owner resolution."
-    status: pending
-    depends_on: [s0-ground-current-state, s0-privacy-and-project-gates]
   - id: s1-question-register
     content: "STAGE 1: author the checked-in TAU question register with question ID, strategic link, decision owner, event/signal needs, interpretation limits, review cadence, and action/re-measure contract."
     status: pending
@@ -41,7 +37,7 @@ todos:
   - id: s1-events-workspace
     content: "STAGE 1: implement @oaknational/observability-events with common envelope and eight Stage-1 schemas: tool_invoked, dependency_call, search_query, feedback_submitted, auth_failure, rate_limit_triggered, widget_session_outcome, a11y_preference_tag."
     status: pending
-    depends_on: [s1-question-register, s0-semantic-port-contract]
+    depends_on: [s1-question-register]
   - id: s1-privacy-conformance
     content: "STAGE 1: add closed field allowlists, prohibited-field fixtures, schema examples, event catalogue, schema versioning/deprecation rules, and consuming-workspace conformance helpers."
     status: pending
@@ -155,17 +151,16 @@ todos:
 **Lifecycle:** `current/` — NEXT, queued and ready; no implementation has
 started under this plan.
 
-**Execution readiness:** ready to begin at Stage 0. The identity/cardinality
+**Decision completeness:** `DECISION-COMPLETE`. The identity/cardinality
 findings and the neighbouring stakeholder/evidence-surface contract are
-reconciled. Selecting the public semantic-event port names and signatures is
-an explicit blocking Stage-0 execution gate (`s0-semantic-port-contract`), not
-unfinished work outside the executable plan. That gate must close before the
-first product-code cycle. Stage 0 must also ratify TAU authority and re-derive
-live facts; Stage 5 must re-derive Sentry facts before its code changes. Stages
-6–10 remain evidence-gated and require an explicit completed or not-promoted
-disposition before corpus close.
+reconciled, and the public semantic-event port contract is selected below.
+Stage 0 must ratify TAU authority and re-derive live facts; Stage 5 must
+re-derive Sentry facts before its code changes. Those are execution evidence
+gates, not deferred plan-author decisions. Stages 6–10 remain evidence-gated
+and require an explicit completed or not-promoted disposition before corpus
+close.
 
-**Plan shape:** 32 dependency-linked todos across Stages 0–10. The 2026-07-14
+**Plan shape:** 31 dependency-linked todos across Stages 0–10. The 2026-07-14
 validation confirmed unique IDs, present dependencies, and an acyclic graph.
 
 ## Coordination boundary with PR #341
@@ -536,10 +531,11 @@ privacy boundary.
 The existing `ObservabilitySink` exception/message surface is too narrow to
 be the sole semantic-event port.
 
-Add a distinct interface, for example:
+`@oaknational/observability-events` owns and exports this selected public
+contract:
 
 ```ts
-type ApprovedIdentityProjection =
+export type ApprovedIdentityProjection =
   | {
       mode: "identified";
       opaqueSubjectId: string;
@@ -551,7 +547,7 @@ type ApprovedIdentityProjection =
       processPersonProfile: false;
     };
 
-interface SemanticEventPort {
+export interface SemanticEventPort {
   capture(
     event: ObservabilityEvent,
     identity?: ApprovedIdentityProjection,
@@ -580,11 +576,11 @@ Requirements:
 - PostHog receives the product-understanding projection;
 - future warehouse receives its own minimised projection.
 
-Final public names and signatures are the explicit
-`s0-semantic-port-contract` execution gate. Stage 0 must select and document
-them before the first product-code cycle; RED/GREEN product implementation must
-not be used to defer this contract. The example above constrains the required
-privacy and ownership boundary but is not the selected public contract.
+These names, discriminants, fields, method signatures, return types, and package
+ownership are the selected public contract. `flush(timeoutMs)` deliberately
+matches the existing vendor-neutral `ObservabilitySink` drain semantics. A
+change requires a plan amendment before implementation; RED/GREEN product work
+must detect drift from this contract rather than redesign it.
 
 ## PostHog adapter design
 
@@ -720,9 +716,6 @@ Create failing or contradiction-detecting checks where practical:
 - record archive/split worklist;
 - close identity-policy comments that contradict the May decision;
 - record exact privacy blockers and owners.
-- select and record the public semantic-event port and approved
-  identity-projection names, types, method signatures, ownership, and
-  non-identity-sink exclusion contract before product code starts.
 
 ### Acceptance
 
@@ -730,9 +723,6 @@ Create failing or contradiction-detecting checks where practical:
 - one plan owner per surviving lane;
 - no old plan is treated as current merely because its directory says so;
 - every external project assumption dated and sourced.
-- the public semantic-event and identity-projection contract is selected,
-  source-linked, and accepted by architecture and privacy reviewers before any
-  Stage-1 product-code cycle starts.
 
 ### Review
 
