@@ -220,7 +220,7 @@ If uncertain, the correct behaviour is explicit abstention and follow-up verific
 Apply the shared documentation-propagation contract:
 
 - [Documentation Propagation component](../templates/components/documentation-propagation.md)
-- [documentation-sync-log.md](documentation-sync-log.md) (collection tracking)
+- [the agentic-engineering-enhancements documentation-sync-log](../../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md) (collection tracking)
 
 ## 9. Deferred Safety Notes (not planned now)
 

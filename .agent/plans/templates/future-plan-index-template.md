@@ -17,4 +17,4 @@ In-progress execution: [active/README.md](../active/README.md)
 Next-up queue: [current/README.md](../current/README.md)
 
 Documentation tracking for all phases:
-[documentation-sync-log.md](../documentation-sync-log.md)
+[the collection documentation-sync-log](../../../memory/operational/documentation-sync-logs/[collection].md)

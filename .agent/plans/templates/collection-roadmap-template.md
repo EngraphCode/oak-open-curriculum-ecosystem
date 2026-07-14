@@ -30,7 +30,7 @@ No phase can be marked complete until documentation updates are handled for:
 4. any additionally impacted ADRs, `/docs/` pages, or README files
 
 Record updates (or no-change rationale) in a collection-local
-`documentation-sync-log.md`.
+the collection's documentation-sync-log in `.agent/memory/operational/documentation-sync-logs/`.
 Apply the [`consolidate-docs`](../../skills/consolidate-docs/SKILL-CANONICAL.md) skill before closing major phases.
 
 ---

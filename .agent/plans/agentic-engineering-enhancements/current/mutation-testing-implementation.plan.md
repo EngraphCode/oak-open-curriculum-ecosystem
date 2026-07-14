@@ -118,7 +118,7 @@ See [Appendix: Historical Pilot](#appendix-historical-pilot) for findings from t
 Apply the shared documentation-propagation contract:
 
 - [Documentation Propagation component](../templates/components/documentation-propagation.md)
-- [documentation-sync-log.md](documentation-sync-log.md) (collection tracking)
+- [the agentic-engineering-enhancements documentation-sync-log](../../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md) (collection tracking)
 
 ## Success Metrics
 
