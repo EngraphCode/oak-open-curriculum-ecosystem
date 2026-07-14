@@ -8,6 +8,8 @@
   substrate-vs-full-value split); `packages/core/graph-core` + `packages/libs/graph-ingest` (the substrate
   and ingestion); the observability estate (Sentry/OpenTelemetry, Vercel);
   [ADR-179](179-transport-agnostic-graph-substrate.md) (transport-agnostic substrate).
+- **Relates to:** [ADR-212](212-federated-visibility-authority-and-evidence-boundaries.md), which owns
+  the Accepted federated audience, authority-direction, and evidence-class contract.
 
 ## Context
 
@@ -26,15 +28,20 @@ external-systems pillar was set out, owner-ratified, as a principle in the inten
 "external systems are typed edges; the repo stays canonical" pillar); this ADR formalises that principle for
 the idea knowledge-graph of ADR-200.
 
+[ADR-212](212-federated-visibility-authority-and-evidence-boundaries.md) settles the neighbouring
+audience responsibilities, authority direction, and evidence-class distinctions. It does not settle the
+connector, evidence-edge, write-back, or supervision mechanisms owned here. This ADR does not own TAU
+planning readiness, delivery authority, or implementation status. Conversely, accepting this ADR would not
+make Notion or Linear a source of durable intent: external systems remain projections or evidence sources
+with bounded authority.
+
 ## Decision (proposed)
 
 External systems are **typed edges to external nodes**; the idea knowledge-graph stays **canonical**. The
 shape:
 
-1. **Direction invariant — repo intent projects outward; services report evidence back.** The graph never
-   derives its intent from an external system. Every external integration is a directional edge: intent →
-   outward (what the work is for); service → back (evidence of what happened). External state is **never** an
-   authority edge into intent.
+1. **Conform to ADR-212's authority direction.** The connector and edge mechanics defined here must
+   preserve ADR-212; this proposed decision does not reopen or redefine that Accepted contract.
 2. **Evidence edges.** External state attaches via returning edges in the plan-layer schema — `evidence` (a
    node is evidenced by external state), `validated_by` (a strategic choice or increment is validated by
    user-value evidence), `realized_by` (the intent → realization join, for cost and throughput attribution).
@@ -46,9 +53,10 @@ shape:
    triggers (event-driven and scheduled) drive agentic analysis; write-back into the graph is validated (the
    deterministic frontmatter↔store validator extends to cover evidence edges).
 6. **Per-system map (first cut):** GitHub (change-readiness), Linear (execution / `projects_to`),
-   Sentry + OpenTelemetry (runtime / incident), Vercel (deploy), Sonar (code quality), PostHog (the
-   user-value signal that closes the link→loop). Each is a directional edge with a capability mode, an
-   evidence-only authority effect, and a supervision requirement.
+   Sentry + OpenTelemetry (runtime / incident), Vercel (deploy), Sonar (code quality), and PostHog
+   (product usage, adoption, and behaviour). Each is a directional edge with a capability mode, an
+   evidence-only authority effect, and a supervision requirement. PostHog evidence contributes to the
+   user-value loop but does not establish value or impact without interpretation and Oak-grounded evidence.
 
 ## Consequences
 
@@ -56,10 +64,16 @@ shape:
   value — on top of the substrate.
 - **Gated on the substrate** (ADR-200 §Value interim milestone): this integration does not begin until the
   idea knowledge-graph is real. The substrate value stands without it.
-- A separate **executable plan** sequences the build —
-  `external-evidence-integration.plan.md` in `.agent/plans/product-development-governance/future/`.
 - Extends to the future knowledge-graph family (ADR-200 §Future state): the operations and code
   knowledge-graphs evidence from the same external estate through the same contract.
+
+## Practice boundary
+
+[PDR-113](../../../.agent/practice-core/decision-records/PDR-113-source-intent-from-the-principal-not-the-records.md)
+provides the portable principle that records are projections rather than sources of intent. The named
+vendor roles and evidence mechanisms in this ADR are host-repository architecture, so they do not belong
+in a new PDR. A portable PDR requires a separately evidenced, host-free contract and an owner decision;
+portability is not inferred from this one implementation estate.
 
 ## Open (to settle at ratification)
 

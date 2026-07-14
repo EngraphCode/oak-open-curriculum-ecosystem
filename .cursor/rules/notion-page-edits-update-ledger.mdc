@@ -1,0 +1,6 @@
+---
+description: Within the owner-allowlisted Live Vision, Strategy, and Planning subtree, every agent-authored Notion page change set appends one repository-attributed ledger line plus a collapsed agent and credential traceability toggle.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/notion-page-edits-update-ledger.md`.

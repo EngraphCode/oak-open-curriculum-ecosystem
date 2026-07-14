@@ -29,6 +29,15 @@ related:
 > graph-to-Linear mapping, or author connector automation. Section 16 preserves the remaining
 > architecture questions rather than treating them as decisions.
 
+> **Disposition recorded 14 July 2026.** The audience contract described here is Accepted in
+> [ADR-212](../../docs/architecture/architectural-decisions/212-federated-visibility-authority-and-evidence-boundaries.md).
+> ADR-201 remains Proposed, and no automated idea graph, Linear projection, PostHog evidence, or
+> cross-system evidence projection had landed at this snapshot. References below to draft PR #339
+> preserve the exploration state rather than current delivery status. The
+> [TAU collection index](../plans/telemetry-and-understanding/README.md#current-status) is the
+> canonical cross-surface status projection for TAU planning readiness, delivery authority, and
+> implementation activity.
+
 ## Executive synthesis
 
 The repository contains a strong and increasingly coherent architectural model for relating OCE to

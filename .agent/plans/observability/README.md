@@ -9,11 +9,12 @@ engineering, product, usability, accessibility, and security.
 
 The new
 [Telemetry and Understanding System (TAU)](../telemetry-and-understanding/README.md)
-is the proposed controlling programme for cross-layer priority, PostHog
+has an accepted, queued planning corpus for cross-layer priority, PostHog
 delivery, Sentry reconciliation, logging/monitoring decisions, analysis
-surfaces, and evidence-to-decision governance, pending its Stage 0 authority
-ratification. Until that gate closes, the existing authorities in this
-collection remain current.
+surfaces, and evidence-to-decision governance. Controlling authority remains
+pending: Stage 0 must disposition this inherited estate, then the owner must
+ratify the authority transfer. Until both gates close, the existing authorities
+in this collection remain current. TAU implementation has not started.
 
 This collection remains the detailed inherited implementation/evidence estate.
 Nothing is silently abandoned or archived by the transition. The
@@ -27,8 +28,9 @@ engineering-observability surface; and stdout/fixtures remain the
 vendor-independent floor.
 
 **Status**: 🔄 Active transition proposal (post-2026-04-18 restructure;
-bounded corrective lane archived complete 2026-04-23; TAU is proposed to
-control new sequencing after Stage 0 ratification)
+bounded corrective lane archived complete 2026-04-23; TAU planning corpus
+accepted and queued; controlling authority pending Stage 0 disposition and
+recorded owner ratification; implementation not started)
 **Foundational ADR**: [ADR-162 Observability-First](../../../docs/architecture/architectural-decisions/162-observability-first.md)
 (the ADR file is the current status authority).
 **Direction-setting session**: [`docs/explorations/2026-04-18-observability-strategy-and-restructure.md`](../../../docs/explorations/2026-04-18-observability-strategy-and-restructure.md)
@@ -180,8 +182,9 @@ Per [`high-level-observability-plan.md` §Substrate](./high-level-observability-
 ## Related
 
 - [`telemetry-and-understanding/`](../telemetry-and-understanding/README.md)
-  — proposed controlling programme for new cross-layer sequencing, pending its
-  Stage 0 authority ratification gate.
+  — accepted, queued planning corpus for new cross-layer sequencing; controlling
+  authority is pending Stage 0 disposition and recorded owner ratification;
+  implementation has not started.
 - [`high-level-plan.md`](../high-level-plan.md) — repo-wide plan index.
 - [`architecture-and-infrastructure/roadmap.md`](../architecture-and-infrastructure/roadmap.md)
   — wider architecture roadmap (the parent foundation plan is listed there).
