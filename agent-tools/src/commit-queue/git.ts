@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process';
 
+import { resolveTrustedGit } from '../core/trusted-git.js';
 import { type StagedBundle } from './types.js';
 
 const STAGED_PATCH_BUFFER_BYTES = 32 * 1024 * 1024;
@@ -16,11 +17,16 @@ const STAGED_PATCH_BUFFER_BYTES = 32 * 1024 * 1024;
  * would occur if `git diff --cached -- ` were invoked with an empty
  * pathspec list.
  *
+ * `gitRoot` is the root of the INVOKING git worktree — never the
+ * coordination home (F-138). Staged reads must see the index of the
+ * worktree the agent staged in; from a linked worktree the primary
+ * checkout's index is a different (typically empty) index entirely.
+ *
  * `runGit` is an injection seam for unit tests; production callers omit
  * it and the default real-git invocation runs.
  */
 export interface GetStagedBundleInput {
-  readonly repoRoot: string;
+  readonly gitRoot: string;
   readonly pathspec: readonly [string, ...string[]];
   readonly runGit?: (args: readonly string[]) => string;
 }
@@ -34,7 +40,7 @@ export interface GetStagedBundleInput {
  * peers does not appear in the returned bundle.
  */
 export function getStagedBundle(input: GetStagedBundleInput): StagedBundle {
-  const runGitBound = input.runGit ?? ((args) => runGit(input.repoRoot, args));
+  const runGitBound = input.runGit ?? ((args) => runGit(input.gitRoot, args));
   const pathspecArgs = ['--', ...input.pathspec];
   return {
     stagedNameOnly: runGitBound(['diff', '--cached', '--name-only', ...pathspecArgs]),
@@ -44,9 +50,9 @@ export function getStagedBundle(input: GetStagedBundleInput): StagedBundle {
   };
 }
 
-function runGit(repoRoot: string, args: readonly string[]): string {
-  return execFileSync('git', args, {
-    cwd: repoRoot,
+function runGit(gitRoot: string, args: readonly string[]): string {
+  return execFileSync(resolveTrustedGit(), args, {
+    cwd: gitRoot,
     encoding: 'utf8',
     maxBuffer: STAGED_PATCH_BUFFER_BYTES,
     stdio: ['ignore', 'pipe', 'pipe'],

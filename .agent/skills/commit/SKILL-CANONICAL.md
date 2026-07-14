@@ -305,6 +305,14 @@ direct CLI commands for inspection and recovery.
    Orchestrator Is Advisory" section below states the doctrine in
    full.
 
+   Since the F-138 two-root split, the workflow's git operations AND
+   the advisory orchestrator run against the INVOKING worktree (the
+   registry stays at the coordination home). From a linked worktree
+   that has not run `pnpm install`, the advisory pass therefore fails
+   non-blockingly (no runnable scripts) rather than producing a real
+   advisory verdict — install dependencies in the worktree when the
+   advisory signal is wanted.
+
    The verify-staged checks protect the authorial bundle — they do
    not replace the repository's whole-tree quality gates. Full-tree
    gating is intentional and correct (owner-settled 2026-05-22): the

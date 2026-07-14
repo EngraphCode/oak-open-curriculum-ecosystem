@@ -133,16 +133,29 @@ export type CommitWorkflowCliRunner = (input: {
   readonly intentId: string;
   readonly messageFilePath: string;
   readonly registryPath: string;
-  readonly repoRoot: string;
+  readonly gitRoot: string;
 }) => Promise<CommitWorkflowCliResult>;
 
 /**
  * Parsed command-line input for the commit-queue CLI.
+ *
+ * The commit-queue spans TWO distinct roots (F-138) and this input keeps
+ * them separate by construction:
+ *
+ * - `repoRoot` anchors the REGISTRY: the coordination home (the primary
+ *   checkout shared by every linked worktree), where enqueue/phase/
+ *   record-staged registry writes and all reads land.
+ * - `resolveGitRoot` names the INVOKING git worktree: the root every staged
+ *   read, verification, and the inner `git commit` operate against. It is a
+ *   thunk so read-only registry commands never touch git, and it MUST fail
+ *   loudly when no git root is derivable — falling back to `repoRoot` is
+ *   exactly the two-root collapse that abandoned valid worktree intents.
  */
 export interface CommitQueueCliInput {
   readonly command: string | undefined;
   readonly options: CommitQueueCliOptions;
   readonly repoRoot: string;
+  readonly resolveGitRoot: () => string;
   readonly readRegistry?: (registryPath: string) => Promise<CommitQueueRegistry>;
   readonly commitWorkflow?: CommitWorkflowCliRunner;
   readonly stdout?: {
