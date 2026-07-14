@@ -73,7 +73,7 @@ Each phase must either:
 
 - update impacted documents directly, or
 - record an explicit no-change rationale in
-  [documentation-sync-log.md](documentation-sync-log.md)
+  [.agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md](../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md)
 
 Before phase closure, apply the
 [`jc-consolidate-docs` workflow](../../commands/consolidate-docs.md)

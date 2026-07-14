@@ -15,7 +15,7 @@ related_doctrine:
   - .agent/rules/comms-all-channels-watcher.md
   - .agent/skills/commit/SKILL-CANONICAL.md
 related_frictions:
-  - "F-41 (frictions-register.md) — core closed by b5408291d + c90150ffa; this is the CLI tail"
+  - "F-41 (.agent/memory/operational/frictions-register.md) — core closed by b5408291d + c90150ffa; this is the CLI tail"
 first_instance: "2026-07-01 — Vanilla stirs Spore (807471) launched directly in the oak-upstream-api-alignment worktree; first recorded live worktree-launch that hit the hazard (all prior instances ran in the primary and masked it). Owner note: would otherwise have been discovered during the Spawn Flow work."
 last_updated: 2026-07-01
 todos:

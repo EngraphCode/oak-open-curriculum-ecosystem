@@ -543,4 +543,4 @@ Operational phase artefacts:
 6. `.agent/plans/security-and-privacy/future/phase-1-security-claim-contract.md`
 7. `.agent/plans/security-and-privacy/future/phase-2-evidence-merge-readiness-rules.md`
 8. `.agent/plans/security-and-privacy/future/phase-3-baseline-control-cut-list.md`
-9. `.agent/plans/security-and-privacy/deferred-controls-register.md`
+9. `.agent/memory/operational/deferred-controls-register.md`

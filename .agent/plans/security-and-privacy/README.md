@@ -19,7 +19,7 @@ reduce unsupported security claims first, then enforce evidence-backed delivery.
 | `future/cloudflare-mcp-public-beta-security-gate.plan.md` | Future strategic brief | Cloudflare MCP security gate, Practice deltas, and product threat-model enhancements before public beta |
 | `future/native-mcp-sdk-auth-build-vs-buy.md` | Future strategic spike | Build-vs-buy: can native MCP SDK / `@clerk/mcp-tools` auth replace the bespoke MCP auth subsystem? Names the decision and evidence; does not migrate |
 | `../discovery/future/web-bot-auth-agent-verification.plan.md` | Cross-linked discovery brief | First-class Web Bot Auth / signed-agent verification posture; security owns enforcement evidence for enabled claims |
-| `documentation-sync-log.md` | Tracking log | Per-phase record of required ADR/directive/reference-doc and README updates |
+| `.agent/memory/operational/documentation-sync-logs/security-and-privacy.md` | Tracking log | Per-phase record of required ADR/directive/reference-doc and README updates |
 | `developing-secure-mcp-servers.research.md` | Research | Hardening evidence base and control backlog |
 | `evidence-bundle.template.md` | Template | Claim/evidence artefact format for non-trivial security claims |
 | `evidence/README.md` | Reference | Storage and naming convention for security evidence artefacts |
@@ -59,7 +59,7 @@ reduce unsupported security claims first, then enforce evidence-backed delivery.
 - **Roadmap (`roadmap.md`)**: strategic phase sequence, dependencies, and status.
 - **Active plans (`active/*.md`)**: authoritative executable tasks and deterministic validation.
 - **Research docs (`*.research.md`)**: evidence base only; not execution instructions.
-- **Tracking artefacts** (`documentation-sync-log.md`, `evidence/`): proof of documentation propagation and evidence.
+- **Tracking artefacts** (`.agent/memory/operational/documentation-sync-logs/security-and-privacy.md`, `evidence/`): proof of documentation propagation and evidence.
 
 If strategy and execution disagree, update the active plan first, then
 reconcile the roadmap and collection README.

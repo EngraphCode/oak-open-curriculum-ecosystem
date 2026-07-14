@@ -298,7 +298,7 @@ material merged into these rows, never a second register. Facet gate-numberings 
 (F6 §9's G-labels and F5 §8's OG-labels differ from F3 §6's); THIS register's labels are
 authoritative — the F6 §9 mapping is Commission→G0, proof-typed→G-ADR, table→OG-2, lane
 walk→Walk A, G5→G-SP3, G6/G7→Ruling batches, G8→Walk C. The economics counterpart is the
-[cost ledger](plan-corpus-refounding-cost-ledger.md): H7 (the cost backstop, in the
+[cost ledger](../../../plans-refounding/plan-corpus-refounding-cost-ledger.md): H7 (the cost backstop, in the
 operational H-series the implemented runners emit) fires against that ledger's per-batch
 declarations AND its run total.
 
@@ -316,6 +316,23 @@ declarations AND its run total.
 | Ruling batches | Batched mid-flight rulings (≤15/batch; includes per-tranche cutover sanctions AND the plan-state gate warn→enforce escalation — F5 §8's third gate, re-ID'd **OG-WE** here to clear its collision with the canary-key OG-3 above; fires after the deliberate-break transcript + an owner-seen divergence report) | R4–R5 (OG-WE in any mid-flight slot) |
 | Walk C | Final ratification against recomputed state — **includes the terminal cutover sanction**: the archive-old + rename move to the G1-ruled destination root (`.agent/refounded-plans/` becomes the live corpus; the old estate archives, never deleted, per P14). No cutover executes without this sitting; per-tranche cutover sanctions along the way stay inside the Ruling-batches row | R6 |
 
+## Walk-A structure priors (owner-reacted, 2026-07-14)
+
+Two owner-directed concept-exploration passes produced owner-reacted priors
+for r2's derivation and the Walk A sitting — recorded in full at
+[`walk-a-structure-priors.md`](../../../plans-refounding/walk-a-structure-priors.md)
+(the sitting input of record). Headlines: the **three-layer hierarchy**
+(lane roadmap → strategic plan → implementation plan, implementation always
+parented) is ratified in principle; **lanes 6–8**; **~20 strategic plans**
+with a **WIP limit of 5 in execution (2–3 owner-hot)** binding owner
+attention, not agent throughput; threads recommended to dissolve into
+strategic-plan continuity sections (Walk A decides); the homeless-concept
+policy (wrong-kind re-homes by function / unplaced intent enters the
+conservatory lane with placement triggers / history conserves in the frozen
+archive); and the three analysis units (rows for proof, concepts for
+judgement, plans for authoring). These are priors, not rulings — Walk A
+ratifies, SP1/SP3 re-price.
+
 ## Economics (pre-pilot declaration; re-priced at SP3)
 
 Corrected ensemble band from the independent economics critique: **40–60M tokens**,
@@ -331,7 +348,7 @@ deleted by design (scripted recomputation replaces it). Row prior: ~8.3k ledger 
 (618 sources × the donor's measured ~14.9 rows/source − the terminal-probe share). All
 figures are declared bands, not commitments; SP3 re-prices from pilot actuals and the
 scale-up is owner-sanctioned (G-SP3). The full cost ledger is
-[`plan-corpus-refounding-cost-ledger.md`](plan-corpus-refounding-cost-ledger.md)
+[`.agent/plans-refounding/plan-corpus-refounding-cost-ledger.md`](../../../plans-refounding/plan-corpus-refounding-cost-ledger.md)
 (authored at R0c; Director-owned; re-issued at SP1 and SP3; H5 binds to its per-batch
 declarations and run total).
 Honest scaling assumption (donor-seat label, extrapolated-not-measured): challenge cost

@@ -29,7 +29,7 @@ before closure to ensure settled documentation is extracted from plans.
 
 ## Recommended Tracking Pattern
 
-- Keep a collection-local `documentation-sync-log.md` with one section per
+- Keep the collection's documentation-sync-log (`.agent/memory/operational/documentation-sync-logs/[collection].md` — operational memory, never inside the plans tree) with one section per
   phase/workstream.
 - In each section capture:
   - status

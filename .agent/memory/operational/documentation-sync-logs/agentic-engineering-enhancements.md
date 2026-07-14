@@ -369,7 +369,7 @@ instances this session — graduate to
 
 ## OAC Phase 4.3 — Continuity surface retirement & doc propagation (2026-04-20)
 
-Plan: [operational-awareness-and-continuity-surface-separation.plan.md](archive/completed/operational-awareness-and-continuity-surface-separation.plan.md).
+Plan: [operational-awareness-and-continuity-surface-separation.plan.md](../../../plans/agentic-engineering-enhancements/archive/completed/operational-awareness-and-continuity-surface-separation.plan.md).
 Driver: retire `.agent/prompts/session-continuation.prompt.md`'s `Live
 continuity contract` section in favour of the three repo-local state
 surfaces (`.agent/memory/operational/repo-continuity.md` +

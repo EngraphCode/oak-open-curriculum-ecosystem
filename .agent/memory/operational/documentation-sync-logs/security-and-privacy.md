@@ -29,7 +29,7 @@ Do not mark a phase complete without an entry.
 - prog-frame update or rationale: pending
 - Other ADR/docs/README updates: pending
 - Consolidation review (`jc-consolidate-docs`): pending
-- Notes: expected artefacts are `phase-0-control-mapping.md` and `deferred-controls-register.md`.
+- Notes: expected artefacts are `phase-0-control-mapping.md` and `.agent/memory/operational/deferred-controls-register.md`.
 
 ## Phase 1 — Hallucination Guarding
 

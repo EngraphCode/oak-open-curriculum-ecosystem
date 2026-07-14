@@ -17,7 +17,7 @@ Phase artefact targets:
 - [phase-1-security-claim-contract.md](../future/phase-1-security-claim-contract.md)
 - [phase-2-evidence-merge-readiness-rules.md](../future/phase-2-evidence-merge-readiness-rules.md)
 - [phase-3-baseline-control-cut-list.md](../future/phase-3-baseline-control-cut-list.md)
-- [deferred-controls-register.md](../deferred-controls-register.md)
+- [.agent/memory/operational/deferred-controls-register.md](../../../memory/operational/deferred-controls-register.md)
 
 Documentation tracking for all phases:
-[documentation-sync-log.md](../documentation-sync-log.md)
+[documentation-sync-log.md](../../../memory/operational/documentation-sync-logs/security-and-privacy.md)

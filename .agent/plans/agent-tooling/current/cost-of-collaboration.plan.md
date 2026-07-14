@@ -84,7 +84,7 @@ subsumes:
   — the pre-2026-05-11 workstream split. The completed work (shared CLI
   discoverability via F-01/F-02/F-04/F-09/F-12/F-13) remains landed; the
   remaining workstreams are re-homed inside this plan's P-order.
-- The 19-entry [frictions register](../frictions-register.md) — remains
+- The 19-entry [frictions register](../../../memory/operational/frictions-register.md) — remains
   the source of truth for issue inventory. This plan's workstreams point
   at the relevant friction IDs.
 - The locked sidebar design for B-11 directed-message authoring at
@@ -1828,7 +1828,7 @@ refactoring (newly in scope as of this owner direction).
 > Added 2026-06-28 (Beluga rides Wave). A prioritisation VIEW over this plan's thesis
 > (substance > coordination overhead, agent-count-aware) scoped to the imminent serious,
 > long-running session with a long-lived Director over ephemeral Implementers (PDR-117). The
-> items live in the [frictions register](../frictions-register.md) (F-NN refs) and the named
+> items live in the [frictions register](../../../memory/operational/frictions-register.md) (F-NN refs) and the named
 > plans; this section only sequences them by what a Director+Implementer loop actually needs.
 
 **The loop and where it corrupts.** Director spawns an Implementer (worktree + launch) →

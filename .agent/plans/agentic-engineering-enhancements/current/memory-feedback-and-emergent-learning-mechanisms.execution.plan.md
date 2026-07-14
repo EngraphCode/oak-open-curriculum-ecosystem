@@ -933,7 +933,7 @@ grep -c "status: overdue" .agent/memory/operational/repo-continuity.md
 
 # Sync log has entries for each phase
 grep -c "memory-feedback-and-emergent-learning" \
-  .agent/plans/agentic-engineering-enhancements/documentation-sync-log.md
+  .agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md
 # Expected: ≥1
 ```
 

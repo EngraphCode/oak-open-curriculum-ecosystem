@@ -34,7 +34,7 @@ todos:
     status: pending
     depends_on: [1-4-phase-1-gate]
   - id: 2-2-vercel-friction
-    content: "2.2 Append Vercel friction entry to frictions-register.md (defer removal to strategic plan)."
+    content: "2.2 Append Vercel friction entry to .agent/memory/operational/frictions-register.md (defer removal to strategic plan)."
     status: pending
     depends_on: [2-1-vercel-inventory]
   - id: 3-1-validator-green
@@ -303,7 +303,7 @@ settings. Two options:
 
 - **Option A (preferred)**: open an upstream issue or local override
   asking the Vercel plugin to expose its skill catalogue as
-  user-selectable. Track in `.agent/plans/agent-tooling/frictions-register.md`.
+  user-selectable. Track in `.agent/memory/operational/frictions-register.md`.
 - **Option B**: remove the Vercel plugin and replace with a curated
   internal `vercel-deploy-expert` canonical skill plus the project's
   existing Vercel MCP. Out-of-scope for this urgent plan; deferred to
@@ -313,7 +313,7 @@ This phase **records** the gap and the proposed remediation; it does
 not yet remove the plugin.
 
 - **Action**: Append a friction entry (`F-XX: Vercel plugin skill catalogue
-  unbounded`) to `frictions-register.md`.
+  unbounded`) to `.agent/memory/operational/frictions-register.md`.
 - **Acceptance**: friction recorded; strategic plan references it as
   input.
 
@@ -379,7 +379,7 @@ not yet remove the plugin.
    in-session `/doctor` evidence may confirm this but is not a
    command-line gate.
 3. No `mcp__*` grant in `.claude/settings.local.json` is broken.
-4. Vercel friction recorded in `frictions-register.md`.
+4. Vercel friction recorded in `.agent/memory/operational/frictions-register.md`.
 5. Outcome section in this plan filled in.
 
 ---

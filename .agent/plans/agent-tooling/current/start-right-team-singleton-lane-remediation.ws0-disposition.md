@@ -142,7 +142,7 @@ member.
 | `.agent/plans/agent-tooling/current/cost-of-collaboration.plan.md` | **update at execution time**. |
 | `.agent/plans/agent-tooling/current/primary-agent-tooling-enhancements.plan.md` | **update at execution time**. |
 | `.agent/plans/agent-tooling/current/2026-05-11-collaboration-protocol-hardening-*-opener.md` | **historical-evidence** (session openers, time-stamped). |
-| `.agent/plans/agent-tooling/frictions-register.md` | **update at next register pass** if any entry presents retired paths as a live friction shape. |
+| `.agent/memory/operational/frictions-register.md` | **update at next register pass** if any entry presents retired paths as a live friction shape. |
 | `.agent/plans/agent-tooling/future/collaboration-state-domain-model-and-comms-reliability.plan.md` | **update at promotion time** — when this future plan moves to current/active. |
 | `.agent/plans/agent-tooling/future/comms-watch-liveness-floor.plan.md` | **update at promotion time** (deferred per the lens). |
 | `.agent/plans/agentic-engineering-enhancements/current/2026-05-06-*-opener.md` | **historical-evidence** (session openers). |

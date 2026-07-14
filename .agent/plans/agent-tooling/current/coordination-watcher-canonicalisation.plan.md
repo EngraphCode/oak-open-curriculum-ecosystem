@@ -25,7 +25,7 @@ related_rules:
   - ".agent/rules/use-monitor-for-event-driven-wake.md"
   - ".agent/reference/arc-rapid-communication.md"
 related_frictions:
-  - "F-82 (.agent/plans/agent-tooling/frictions-register.md)"
+  - "F-82 (.agent/memory/operational/frictions-register.md)"
   - "F-81 (.agent/memory/active/napkin.md; register candidate)"
 last_updated: 2026-06-21
 isProject: false
@@ -312,6 +312,6 @@ next working pass so the design change is made with the owner, not unilaterally.
 ## Learning Loop
 
 On completion: close friction **F-82** and **F-81** with the landing commit
-SHAs in [`frictions-register.md`](../frictions-register.md); update
+SHAs in [`.agent/memory/operational/frictions-register.md`](../../../memory/operational/frictions-register.md); update
 Cross-Cutting Theme 6; archive this plan per ADR-117 and mine the
 TYPE-vs-surface model into the rehomed canonical watcher doc (WS6).

@@ -18,4 +18,4 @@ when it completes.
 - Collection root: [../README.md](../README.md)
 - Queued: [../current/README.md](../current/README.md)
 - Future backlog: [../future/README.md](../future/README.md)
-- Frictions register: [../frictions-register.md](../frictions-register.md)
+- Frictions register: [../../../memory/operational/frictions-register.md](../../../memory/operational/frictions-register.md)

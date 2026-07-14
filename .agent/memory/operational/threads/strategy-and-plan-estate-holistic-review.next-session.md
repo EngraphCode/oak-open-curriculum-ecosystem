@@ -159,7 +159,7 @@ Headlines: **R0 is COMPLETE** — R0c merged truly-green via early-armed auto-me
 DISCHARGED by owner ruling 2026-07-08 with the `STATUS_MAPPING_V1_RATIFICATION` flip landed,
 r1 audit mode mechanically unblocked; judgement-machinery half OPEN before R3; OG-3 canary
 key; OG-WE; the Walk-C terminal cutover sanction) and the Director-owned cost ledger
-(`plan-corpus-refounding-cost-ledger.md`; H-series unified on the operational numbering the
+(`.agent/plans-refounding/plan-corpus-refounding-cost-ledger.md`; H-series unified on the operational numbering the
 runners emit, cost backstop H7, unconditional). Same day: the `mergeable`-is-not-READY +
 arm-auto-merge-early doctrine landed (PR #327, owner-correction arc) and the five-seat
 continuity chain merged (PR #324 — NOTE: its union dropped the Goshawk/Rigel era from THIS

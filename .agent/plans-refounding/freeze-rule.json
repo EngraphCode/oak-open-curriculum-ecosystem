@@ -4,56 +4,59 @@
   "classes": [
     {
       "id": "plans",
-      "globs": [".agent/plans/**"],
+      "globs": [
+        ".agent/plans/**"
+      ],
       "verdict": "in",
       "reason": "The estate being refounded. No extension filter: extension filtering is a per-file judgement; non-md files conserve by byte-identity plus whole-file ledger rows."
     },
     {
-      "id": "operational-registers",
-      "globs": [
-        ".agent/plans/agent-tooling/frictions-register.md",
-        ".agent/plans/product-development-governance/active/plan-corpus-refounding-cost-ledger.md",
-        ".agent/plans/agentic-engineering-enhancements/documentation-sync-log.md",
-        ".agent/plans/developer-experience/documentation-sync-log.md",
-        ".agent/plans/security-and-privacy/documentation-sync-log.md",
-        ".agent/plans/security-and-privacy/deferred-controls-register.md"
-      ],
-      "verdict": "out",
-      "reason": "Owner ruling G3.3 (2026-07-14 sitting, relayed by Director directed event 12:29:05Z): high-churn operational registers are operational surfaces, not plans — live operational state churns through any work, so excluding the class dissolves the freeze-window-moratorium-vs-registers conflict. Exact closed path list (no name-pattern heuristic, P1); membership changes need re-ratification. These files stay live and untouched in the repo — out of the frozen corpus is not out of the estate."
-    },
-    {
       "id": "milestones",
-      "globs": [".agent/milestones/**"],
+      "globs": [
+        ".agent/milestones/**"
+      ],
       "verdict": "in",
       "reason": "Intent-bearing plan-adjacent surface; trivial cost; excluding needs a reason, including needs none."
     },
     {
       "id": "proposals",
-      "globs": [".agent/proposals/**"],
+      "globs": [
+        ".agent/proposals/**"
+      ],
       "verdict": "in",
       "reason": "Recorded proposals awaiting triage are conservable planning concepts; the refounding's disposition machinery is their triage."
     },
     {
       "id": "plans-old-archive",
-      "globs": [".agent/plans-old-archive/**"],
+      "globs": [
+        ".agent/plans-old-archive/**"
+      ],
       "verdict": "sweep",
       "reason": "Sub-reason (a) re-derivable-from-structure: immutable-by-convention relocated archive. Non-terminal concepts caught by the scripted sweep; hits promote via denominator amendment; the archive is never modified in place."
     },
     {
       "id": "prompts",
-      "globs": [".agent/prompts/**"],
+      "globs": [
+        ".agent/prompts/**"
+      ],
       "verdict": "sweep",
       "reason": "Live operational surface (session entry points); freezing would perturb running-session tooling. Sub-reason (a): entry-point prose re-derives from the plans it points at. Bounded leakage caught by sweep."
     },
     {
       "id": "thread-records",
-      "globs": [".agent/memory/operational/threads/**"],
+      "globs": [
+        ".agent/memory/operational/threads/**"
+      ],
       "verdict": "sweep",
       "reason": "History records, not intent carriers; annotate-never-rewrite. Sweep catches plan-shaped intent parked in thread records."
     },
     {
       "id": "reports-research-evals",
-      "globs": [".agent/reports/**", ".agent/research/**", ".agent/evaluations/**"],
+      "globs": [
+        ".agent/reports/**",
+        ".agent/research/**",
+        ".agent/evaluations/**"
+      ],
       "verdict": "out",
       "reason": "Assessment inputs, not plans. Sub-reason (a): referenced BY plans - the ledger conserves the referencing lines; the referenced documents stay live and untouched."
     }

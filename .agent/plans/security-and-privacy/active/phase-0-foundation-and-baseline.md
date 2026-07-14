@@ -29,7 +29,7 @@ isProject: false
 - [roadmap.md](../roadmap.md)
 - [developing-secure-mcp-servers.research.md](../developing-secure-mcp-servers.research.md)
 - [phase-0-control-mapping.md](../future/phase-0-control-mapping.md)
-- [deferred-controls-register.md](../deferred-controls-register.md)
+- [.agent/memory/operational/deferred-controls-register.md](../../../memory/operational/deferred-controls-register.md)
 
 ## Preflight
 
@@ -71,11 +71,11 @@ cp .agent/plans/security-and-privacy/evidence-bundle.template.md \
 
 - Output:
   - collection docs encode priority order (hallucination -> evidence -> deferred controls)
-  - deferred controls are explicitly listed in `deferred-controls-register.md`
+  - deferred controls are explicitly listed in `.agent/memory/operational/deferred-controls-register.md`
 - Deterministic validation:
   - `rg -n "Prioritisation Contract|Immediate|Second|Deferred" .agent/plans/security-and-privacy/README.md .agent/plans/security-and-privacy/roadmap.md`
-  - `test -f .agent/plans/security-and-privacy/deferred-controls-register.md`
-  - `rg -n "Deferred Controls|Trigger to Promote|Review Cadence" .agent/plans/security-and-privacy/deferred-controls-register.md`
+  - `test -f .agent/memory/operational/deferred-controls-register.md`
+  - `rg -n "Deferred Controls|Trigger to Promote|Review Cadence" .agent/memory/operational/deferred-controls-register.md`
 
 ### Task 0.3: Evidence Baseline Prepared
 
@@ -91,7 +91,7 @@ cp .agent/plans/security-and-privacy/evidence-bundle.template.md \
   - required canonical docs updated or explicitly marked no-change with rationale
   - consolidation review completed using `jc-consolidate-docs`
 - Deterministic validation:
-  - `rg -n "## Phase 0|Status:|ADR-119 update or rationale|practice.md update or rationale|prog-frame update or rationale|Consolidation review" .agent/plans/security-and-privacy/documentation-sync-log.md`
+  - `rg -n "## Phase 0|Status:|ADR-119 update or rationale|practice.md update or rationale|prog-frame update or rationale|Consolidation review" .agent/memory/operational/documentation-sync-logs/security-and-privacy.md`
   - `test -f docs/architecture/architectural-decisions/119-agentic-engineering-practice.md`
   - `test -f .agent/practice-core/practice.md`
 

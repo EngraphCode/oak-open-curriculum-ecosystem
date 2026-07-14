@@ -229,7 +229,7 @@ boundary), `test-expert` (atomic-landing of each cycle; no audit-shaped tests),
 ## Learning Loop
 
 On completion: close F-41, F-54, F-57 with landing SHAs in
-[`frictions-register.md`](../frictions-register.md); the disposition ledger (WS-6)
+[`.agent/memory/operational/frictions-register.md`](../../../memory/operational/frictions-register.md); the disposition ledger (WS-6)
 records every other friction's home; archive per ADR-117; mine the drain-validator
 shape into a reusable register-integrity pattern if a second register wants it
 (consolidate-at-second-consumer).

@@ -194,7 +194,7 @@ blocked protocol above.
 ### Task 3: Documentation Synchronisation
 
 - Output:
-  - Phase entry updated in `documentation-sync-log.md`
+  - Phase entry updated in the collection's documentation-sync-log (`.agent/memory/operational/documentation-sync-logs/[collection].md`)
   - required canonical docs updated or explicitly marked no-change with rationale
   - consolidation review completed using `oak-consolidate-docs`
 - Acceptance criteria:
@@ -205,11 +205,11 @@ blocked protocol above.
 
   ```bash
   rg -n "## <phase>|Status:|Consolidation review" \
-    .agent/plans/[collection]/documentation-sync-log.md
+    .agent/memory/operational/documentation-sync-logs/[collection].md
   rg -n "ADR-119 update or rationale|ADR-124 update or rationale" \
-    .agent/plans/[collection]/documentation-sync-log.md
+    .agent/memory/operational/documentation-sync-logs/[collection].md
   rg -n "practice.md update or rationale" \
-    .agent/plans/[collection]/documentation-sync-log.md
+    .agent/memory/operational/documentation-sync-logs/[collection].md
   test -f docs/architecture/architectural-decisions/119-agentic-engineering-practice.md
   test -f docs/architecture/architectural-decisions/124-practice-propagation-model.md
   test -f .agent/practice-core/practice.md

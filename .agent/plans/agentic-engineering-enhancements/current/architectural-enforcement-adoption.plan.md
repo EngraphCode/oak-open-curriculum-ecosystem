@@ -150,7 +150,7 @@ Directory-complexity-related enforcement work is now split by disruption profile
 Apply the shared documentation-propagation contract:
 
 - [Documentation Propagation component](../../templates/components/documentation-propagation.md)
-- [documentation-sync-log.md](../documentation-sync-log.md) (collection tracking)
+- [documentation-sync-log.md](../../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md) (collection tracking)
 
 ## 4. Success Metrics
 

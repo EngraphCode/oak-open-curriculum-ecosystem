@@ -131,3 +131,15 @@ seat at 12:29:05Z (the evidence pointer of record):
 G3 (the arrivals-routing table) was ruled at the same sitting —
 [`g3-arrivals-routing-table.md`](./g3-arrivals-routing-table.md) carries its
 record, including the G3.3 registers-OUT ruling applied in §1 above.
+
+## Addendum (mirrors the G3 record) — 2026-07-14, post-sitting re-homing
+
+The G3.3 ruling ("operational registers are OUT of the corpus") was
+subsequently strengthened structurally: the owner approved re-homing all six
+registers out of `.agent/plans/**` entirely (frictions register and
+deferred-controls register to `.agent/memory/operational/`, the three
+documentation-sync-logs to `.agent/memory/operational/documentation-sync-logs/`,
+the cost ledger to the refounding artefact root). The freeze rule's
+`operational-registers` class is therefore DELETED, not confirmed: the
+plans tree contains only planning intent, the exclusion list has no members,
+and the freeze-planning sitting re-ratifies a rule with no register clause.

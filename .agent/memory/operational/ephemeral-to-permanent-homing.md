@@ -58,7 +58,7 @@ of these:
 | **Future work** / a build to do later (including trigger-gated "do X when Y") | a `.agent/plans/` entry (`future/` with a promotion trigger) — NOT pending-graduations |
 | **Operational "what next" / where-are-we / an owner decision** | `.agent/memory/operational/repo-continuity.md` (Next Safe Steps / Open Owner-Decision Items) or the owning thread record — NOT open-questions |
 | **Proposal / feasibility finding** (a design awaiting owner GO) | `.agent/reports/` or `.agent/research/`, promoted to a `plans/` entry on owner GO |
-| **Tooling / ergonomics gap** | the frictions register (`.agent/plans/agent-tooling/frictions-register.md`)     |
+| **Tooling / ergonomics gap** | the frictions register (`.agent/memory/operational/frictions-register.md`)     |
 | Repo-wide canonical rules / principles                         | `.agent/directives/principles.md` or rule files at `.agent/rules/`              |
 | Always-applied agent operational rules                         | `.agent/rules/*.md` with platform adapters at `.cursor/rules/`, `.claude/rules/` |
 | Subjective experience (texture, what work was like)            | `.agent/experience/<date>-<slug>.md`                                            |

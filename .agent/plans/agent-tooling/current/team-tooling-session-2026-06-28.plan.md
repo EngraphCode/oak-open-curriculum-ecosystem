@@ -105,7 +105,7 @@ companion opener instance — referenced, not duplicated here.
 | --- | --- | --- | --- | --- |
 | Director | all | Direct; hold cohesion; route; merge-sequence; state/continuity writes; frame + adjudicate the OQ5 decision | [director brief (PDR-117)](../../../memory/operational/director-handoff.md) | — |
 | Implementer A | O3 | Spawn/binding: spawn-flow Phase 1 → Phase 2 (F-98 binding view) → F-98 heartbeat-age column (critical path) | [`agent-spawn-flow-tool.plan.md`](agent-spawn-flow-tool.plan.md) | launch-in-worktree convention codified *after* the first spawn E2E (its own Phase 0) |
-| Implementer B | O1, O2 | Floor + liveness + ergonomics: F-82 verify (first) → F-101 kill-tree → F-75 → F-85 `--active`→home → comms+claims batch | [frictions register](../frictions-register.md) (batch home); [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md) | F-75 starts *after* F-101 (it makes heartbeat-silence truthful) |
+| Implementer B | O1, O2 | Floor + liveness + ergonomics: F-82 verify (first) → F-101 kill-tree → F-75 → F-85 `--active`→home → comms+claims batch | [frictions register](../../../memory/operational/frictions-register.md) (batch home); [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md) | F-75 starts *after* F-101 (it makes heartbeat-silence truthful) |
 | O4 (no standing seat) | O4 | OQ5 composed-liveness **decision** only — a late Director+implementer design sidebar | [`cost-of-collaboration.plan.md` §Locked scope](cost-of-collaboration.plan.md) | runs *late*, fed by the build lanes' lived liveness evidence |
 | O5 (compact, flexible) | O5 | One pointer sentence on the MCP discovery surface → `oak-under-the-hood` (non-curriculum / mechanism / repo questions). Tiny + independent (MCP app/SDK domain) — a quick deliverable for whichever implementer has capacity, or Director-routed | [`under-the-hood-mcp-discovery-pointer.plan.md`](../../sdk-and-mcp-enhancements/current/under-the-hood-mcp-discovery-pointer.plan.md) | none (independent of the agent-tooling lanes) |
 
@@ -114,7 +114,7 @@ companion opener instance — referenced, not duplicated here.
 - [`agent-spawn-flow-tool.plan.md`](agent-spawn-flow-tool.plan.md) — serves O3 (the binding lane).
 - [`cost-of-collaboration.plan.md`](cost-of-collaboration.plan.md) — the locked scope and the
   liveness/coordination workstreams (serves O1/O2/O4).
-- [frictions register](../frictions-register.md) — **the home of the comms+claims ergonomics batch**
+- [frictions register](../../../memory/operational/frictions-register.md) — **the home of the comms+claims ergonomics batch**
   (F-72 / F-89 / F-70 / F-77 / F-79 / F-80) and the authoritative state for F-82, F-85, F-101, F-75.
 - [`agent-tools-cli-ergonomics.plan.md`](agent-tools-cli-ergonomics.plan.md) — **related convention
   work** (PDR-055 cl.7–10; WS0 Phase-0-gated, whole-surface). The six point-fixes contribute friction

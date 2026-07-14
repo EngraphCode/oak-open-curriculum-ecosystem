@@ -75,7 +75,7 @@ is superseded and retained only for historical references.
 | `current/agentic-corpus-discoverability-and-deep-dive-hub.plan.md` | Plan | Source strategy for the index-only hub, research/report lanes, docs cross-links, and seed deep dives |
 | `archive/completed/agentic-corpus-discoverability-and-deep-dive-hub.execution.plan.md` | Plan (Completed) | Execution plan for the agentic corpus discoverability hub and lane rollout — **COMPLETE** (archived 2026-04-20) |
 | ~~`active/practice-convergence.plan.md`~~ | Plan (Completed) | Convergence closeout for Practice Core, local surfaces, and outgoing Context — **COMPLETE** (deleted) |
-| `documentation-sync-log.md` | Tracking Log | Per-phase record of required ADR/directive/reference-doc and README updates |
+| `.agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md` | Tracking Log | Per-phase record of required ADR/directive/reference-doc and README updates |
 | `current/elasticsearch-specialist-capability.plan.md` | Plan | Strategic source plan for a canonical Elasticsearch reviewer, skill, and situational rule grounded in official Elastic docs and Elastic Serverless applicability |
 | `current/architectural-enforcement-adoption.plan.md` | Plan | Physical enforcement strategy; strictness-specific ESLint work is delegated to `developer-experience/active/devx-strictness-convergence.plan.md`, and directory-complexity execution now lives in `developer-experience/current/directory-complexity-enablement.execution.plan.md` |
 | `current/mutation-testing-implementation.plan.md` | Plan | Stryker mutation testing across all workspaces |
@@ -162,7 +162,7 @@ is superseded and retained only for historical references.
   capability work (LATER), not yet executable.
 - **Strategic source plans (`*.plan.md`)**: policy intent, rationale, success criteria, and phase design; execution is delegated to active plans.
 - **Research docs (`*.research.md`)**: evidence base only; not execution instructions.
-- **Tracking artefacts** (`documentation-sync-log.md`, `evidence/`): proof of documentation propagation and claim evidence.
+- **Tracking artefacts** (`.agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md`, `evidence/`): proof of documentation propagation and claim evidence.
 - **Agentic corpus hub** (`../../reference/agentic-engineering/README.md`): concept-routing surface only; routes back to canon, research, evidence, reports, and docs entry points.
 
 If strategy and execution disagree, update the active plan first, then reconcile

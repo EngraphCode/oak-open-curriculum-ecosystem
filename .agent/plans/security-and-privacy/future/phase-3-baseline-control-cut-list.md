@@ -41,7 +41,7 @@ classification for each required vendor-control disposition.
 ## Deferred Controls
 
 Low-priority controls are tracked in
-[deferred-controls-register.md](deferred-controls-register.md).
+[.agent/memory/operational/deferred-controls-register.md](../../../memory/operational/deferred-controls-register.md).
 
 ## Validation Checklist
 

@@ -30,7 +30,7 @@ isProject: false
 - [roadmap.md](../roadmap.md)
 - [developing-secure-mcp-servers.research.md](../developing-secure-mcp-servers.research.md)
 - [phase-3-baseline-control-cut-list.md](../future/phase-3-baseline-control-cut-list.md)
-- [deferred-controls-register.md](../deferred-controls-register.md)
+- [.agent/memory/operational/deferred-controls-register.md](../../../memory/operational/deferred-controls-register.md)
 
 ## Scope Boundary
 
@@ -78,7 +78,7 @@ Low-priority items remain deferred and are tracked only as notes:
     in `phase-3-baseline-control-cut-list.md`
 - Deterministic validation:
   - `rg -n "first implementation slices|cut list|dependency" .agent/plans/security-and-privacy/developing-secure-mcp-servers.research.md .agent/plans/security-and-privacy/active/phase-3-protocol-auth-and-tool-governance-baseline.md`
-  - `rg -n "Deferred Controls|Trigger to Promote" .agent/plans/security-and-privacy/deferred-controls-register.md`
+  - `rg -n "Deferred Controls|Trigger to Promote" .agent/memory/operational/deferred-controls-register.md`
 
 ### Task 3.5: Documentation Synchronisation
 
@@ -87,7 +87,7 @@ Low-priority items remain deferred and are tracked only as notes:
   - required canonical docs updated or explicitly marked no-change with rationale
   - consolidation review completed using `jc-consolidate-docs`
 - Deterministic validation:
-  - `rg -n "## Phase 3|Status:|ADR-119 update or rationale|practice.md update or rationale|prog-frame update or rationale|Consolidation review" .agent/plans/security-and-privacy/documentation-sync-log.md`
+  - `rg -n "## Phase 3|Status:|ADR-119 update or rationale|practice.md update or rationale|prog-frame update or rationale|Consolidation review" .agent/memory/operational/documentation-sync-logs/security-and-privacy.md`
   - `test -f docs/architecture/architectural-decisions/119-agentic-engineering-practice.md`
   - `test -f .agent/practice-core/practice.md`
 

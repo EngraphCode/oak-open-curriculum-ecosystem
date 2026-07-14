@@ -64,7 +64,7 @@ isProject: false
 > WS-B `d27453500`/`157cf3f6d`/`aee0c5271`/`a3486fe08`/`f3e45eef1`; review
 > hardening (TOCTOU/exhaustiveness/path-guard, all findings verified first-hand)
 > `e5c42da07`. All gates green; both features smoke-verified end-to-end through
-> the built binary. **Open follow-up:** retire F-94/F-95 in `frictions-register.md`
+> the built binary. **Open follow-up:** retire F-94/F-95 in `.agent/memory/operational/frictions-register.md`
 > — those entries live on the pilot continuity branch, not `origin/main`, so the
 > retirement is a consolidation-session task on the branch that owns the register
 > (doing it here would conflict).
@@ -259,7 +259,7 @@ gates blocking. Owner controls push.
 
 **Blocking**: none — built on `origin/main`; substrate verified present.
 
-**Sequenced follow-up (NOT on this branch)**: the `frictions-register.md`
+**Sequenced follow-up (NOT on this branch)**: the `.agent/memory/operational/frictions-register.md`
 entries for F-94/F-95 live on the pilot continuity branch, not `origin/main`.
 Retiring them (move to "Mitigated / Addressed" with this work's SHAs) is a
 consolidation-session activity on the branch that owns the register, gated on

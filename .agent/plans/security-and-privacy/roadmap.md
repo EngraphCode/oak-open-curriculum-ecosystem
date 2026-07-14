@@ -29,7 +29,7 @@ Authoritative phase artefacts:
 3. [phase-2-evidence-merge-readiness-rules.md](future/phase-2-evidence-merge-readiness-rules.md)
 4. [phase-3-baseline-control-cut-list.md](future/phase-3-baseline-control-cut-list.md)
 5. [cloudflare-mcp-public-beta-security-gate.plan.md](future/cloudflare-mcp-public-beta-security-gate.plan.md)
-6. [deferred-controls-register.md](deferred-controls-register.md)
+6. [.agent/memory/operational/deferred-controls-register.md](../../memory/operational/deferred-controls-register.md)
 7. [native-mcp-sdk-auth-build-vs-buy.md](future/native-mcp-sdk-auth-build-vs-buy.md)
    — build-vs-buy spike (informs Phase 3 auth governance)
 
@@ -48,7 +48,7 @@ Each phase must either:
 
 - update impacted documents directly, or
 - record an explicit no-change rationale in
-  [documentation-sync-log.md](documentation-sync-log.md)
+  [.agent/memory/operational/documentation-sync-logs/security-and-privacy.md](../../memory/operational/documentation-sync-logs/security-and-privacy.md)
 
 Before phase closure, apply the
 [`consolidate-docs` workflow](../../skills/consolidate-docs/SKILL-CANONICAL.md).
@@ -116,7 +116,7 @@ Cloudflare MCP public-beta security gate            ⛔ M3 BLOCKER
 - Done when:
   - baseline control inventory is mapped from research to executable tasks
   - [phase-0-control-mapping.md](future/phase-0-control-mapping.md) is complete
-  - [deferred-controls-register.md](deferred-controls-register.md) is initialised
+  - [.agent/memory/operational/deferred-controls-register.md](../../memory/operational/deferred-controls-register.md) is initialised
   - phase priority contract is explicit and agreed in the collection docs
   - documentation sync log records updates/no-change rationale for Phase 0
 - Dependencies: none

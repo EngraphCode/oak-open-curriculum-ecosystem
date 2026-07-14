@@ -29,7 +29,7 @@ its worktree has its binding `(identity → worktree → branch)` **derived** fr
 anchor / registry / agent-work-state-ADR this brief proposes is **dissolved** (PDR-118 OQ2 sanctioned
 exactly this supersession). The live home is the [agent spawn-flow tool](../current/agent-spawn-flow-tool.plan.md).
 Do not promote or build from this brief — its assert-primitive / registry framing is dead.
-**Source**: F-98 (`.agent/plans/agent-tooling/frictions-register.md`), owner-directed
+**Source**: F-98 (`.agent/memory/operational/frictions-register.md`), owner-directed
 capture 2026-06-25.
 **Related** (coordinate, do not duplicate):
 [`claim-liveness-crash-reconciliation-and-session-forensics.plan.md`](claim-liveness-crash-reconciliation-and-session-forensics.plan.md)
