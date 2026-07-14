@@ -397,6 +397,14 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   one CLI throw boundary, teaching-payload refusals, fail-closed on a partial policy; widening
   the gated concept set is a governance act routed through the ADR; composes ADR-183;
   owner-ratified route, Accepted 2026-07-02, recorded 2026-07-06)
+- [ADR-211: Inter-Practice collaboration — host phenotype](211-inter-practice-collaboration-host-phenotype.md)
+  (this repo's concrete realisation of PDR-125: coordination-home declaration, join-key display,
+  collaboration-state write path, conformance self-report, shared wire schema, and the runnable
+  join ceremony; Accepted 2026-07-06, amended 2026-07-13)
+- [ADR-212: Federated visibility authority and evidence boundaries](212-federated-visibility-authority-and-evidence-boundaries.md)
+  (the repository remains the durable intent authority while Notion, Linear, GitHub, PostHog, and
+  Sentry each serve one audience-shaped role; delivery, operational, usage, and impact evidence
+  remain distinct; Accepted by owner direction 2026-07-13, recorded 2026-07-14)
 
 ## Key Architectural Decisions
 

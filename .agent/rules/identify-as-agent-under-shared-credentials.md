@@ -24,8 +24,10 @@ fires before:
 - any other post that lands under the shared account on an external surface.
 
 It also fires when authoring on any non-GitHub outward surface (a vendor
-dashboard, an external tracker, a published page) through credentials that
-identify a human rather than the agent.
+dashboard or external tracker) through credentials that identify a human
+rather than the agent. Curated Notion pages use delivery-estate provenance
+rather than ephemeral agent provenance; their complete attribution contract is
+[`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
 
 ## Action
 
@@ -99,6 +101,9 @@ visible in truncated comment lists where a trailing signature is not
   (carry PDR-027 name+UUID by construction).
 - **Not in scope:** content authored under the agent's *own* distinct account
   (where the actor is already visible) — though a marker there is harmless.
+- **Not in scope:** curated Notion page edits. Their page-local change ledger
+  identifies the originating repository once per coherent change set, as
+  required by [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
 - **In scope (reading side):** attributing past actions performed under shared
   credentials — use the comms stream and claim dispositions, never the GitHub
   actor field (see §Why).

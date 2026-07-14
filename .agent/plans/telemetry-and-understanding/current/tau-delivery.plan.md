@@ -23,7 +23,7 @@ todos:
     status: pending
     depends_on: []
   - id: s0-authority-and-disposition
-    content: "STAGE 0: ratify TAU as controlling authority; verify and disposition every live observability/Sentry/monitoring/analytics plan; explicitly supersede warehouse-before-PostHog; create archive/split/update worklist without losing evidence."
+    content: "STAGE 0: verify and disposition every live observability/Sentry/monitoring/analytics plan; explicitly supersede warehouse-before-PostHog; create archive/split/update worklist without losing evidence; obtain recorded owner ratification before TAU becomes controlling delivery authority."
     status: pending
     depends_on: [s0-ground-current-state]
   - id: s0-privacy-and-project-gates
@@ -154,7 +154,8 @@ started under this plan.
 **Decision completeness:** `DECISION-COMPLETE`. The identity/cardinality
 findings and the neighbouring stakeholder/evidence-surface contract are
 reconciled, and the public semantic-event port contract is selected below.
-Stage 0 must ratify TAU authority and re-derive live facts; Stage 5 must
+Stage 0 must re-derive live facts, disposition inherited authorities, and
+obtain recorded owner ratification before TAU controls delivery; Stage 5 must
 re-derive Sentry facts before its code changes. Those are execution evidence
 gates, not deferred plan-author decisions. Stages 6–10 remain evidence-gated
 and require an explicit completed or not-promoted disposition before corpus
@@ -163,9 +164,9 @@ close.
 **Plan shape:** 31 dependency-linked todos across Stages 0–10. The 2026-07-14
 validation confirmed unique IDs, present dependencies, and an acyclic graph.
 
-## Coordination boundary with PR #341
+## Coordination boundary with the federated visibility contract
 
-[PR #341](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/341)
+[ADR-212](../../../../docs/architecture/architectural-decisions/212-federated-visibility-authority-and-evidence-boundaries.md)
 is the neighbouring authority for audience-shaped visibility across the
 repository, Linear, Notion, GitHub, and specialist evidence services. It owns
 which surface serves which audience and how durable intent, delivery state,
@@ -177,15 +178,13 @@ evidence limits, sensemaking, decision use, and re-measurement. It supplies
 governed evidence to the neighbouring surfaces; it does not redefine their
 audiences, authority, or projection mechanics.
 
-PR #341 merged on 2026-07-14 at
-source head `SHA:1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`. Its landed
-contract preserves this authority boundary: Linear owns execution coordination
-and progress, while
+The contract preserves this authority boundary: Linear owns execution
+coordination and progress, while
 [ADR-207](../../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md)
 owns the delivery-performance projection over the intent graph joined to
-GitHub, Linear, deployment, and Sentry evidence. The owner moved PR #339 to
-ready for review at 08:07:30Z while thread convergence continued. This plan
-remains coordination-open until that review surface settles.
+GitHub, Linear, deployment, and Sentry evidence. PR #339 merged on 2026-07-14;
+the follow-up repairs in PR #368 selected the public semantic-event port
+contract and marked this plan `DECISION-COMPLETE`.
 
 ## Owner direction embodied
 
@@ -293,6 +292,36 @@ The programme is accepted when:
 - Rebuilding `@oaknational/logger`.
 - Adding alerts before distributions and response ownership exist.
 - Adding experiments before a product hypothesis exists.
+
+## Build-vs-buy attestation
+
+This plan proposes two reusable capabilities that trigger PDR-031: the provider-neutral
+semantic-event port and the `@oaknational/posthog-node` adapter. The
+[supporting research](../../../research/telemetry-and-understanding/2026-07-11-posthog-baseline-and-build-vs-buy.md)
+records the full search and comparison matrix.
+
+**What was searched.** The review searched the npm registry and vendor source/catalogues for
+`posthog node sdk`, `PostHog MCP analytics`, `PostHog project as code`, and OpenTelemetry/PostHog
+integration options. It inspected `posthog-node`, `@posthog/mcp@0.9.0`, and
+`@posthog/definitions`, then searched this repository for `ObservabilitySink`, semantic event
+schemas, Sentry/OpenTelemetry fan-out, identity projection, redaction, lifecycle, and network-free
+capture patterns.
+
+**What was found.** `posthog-node` provides the supported transport and batching client;
+`@posthog/mcp` provides beta automatic MCP instrumentation but owns a broader, vendor-shaped event
+surface; `@posthog/definitions` provides alpha project-definition automation; PostHog supplies the
+analytics UI. The repo already has vendor-neutral sink semantics and Sentry/OpenTelemetry plumbing,
+but no typed product-event contract, separately approved identity projection, or PostHog adapter
+that preserves those boundaries.
+
+**Why the bounded build is preferred.** Reuse `posthog-node` behind an Oak-owned adapter rather
+than rebuilding vendor transport. Build only the strict semantic port, event/identity projections,
+final field allowlist, failure policy, and network-free fixture because none of the candidates
+provides that closed Oak contract or keeps vendor choice out of emission sites. Probe
+`@posthog/mcp` for supplementary adoption or pattern reuse; do not adopt it by default. Probe
+`@posthog/definitions` in a disposable project before deciding whether it can own project state.
+Buy the PostHog analysis UI and preserve Sentry as the operational-health surface. This is a
+reuse-behind-boundary decision, not a custom analytics transport build.
 
 ## Current-state baseline
 

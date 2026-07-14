@@ -9,8 +9,24 @@ serves_strategic_choice: APP-1
 # Telemetry and Understanding System (TAU)
 
 TAU is the proposed controlling plan collection for turning runtime evidence
-into product and operational understanding. Its Stage 0 authority gate must
-ratify that role before TAU becomes current delivery authority.
+into product and operational understanding. Stage 0 must disposition the inherited
+estate, and the owner must then ratify TAU before it becomes current delivery authority.
+
+## Current status
+
+These independent dimensions are deliberately separate:
+
+| Dimension | Current position | Authority |
+|---|---|---|
+| TAU planning corpus | Owner-accepted, merged, `DECISION-COMPLETE`, and queued in `current/` | This collection and the [current delivery plan](current/tau-delivery.plan.md) define the ready execution sequence and selected public interface contract. |
+| TAU controlling delivery authority | Pending Stage 0 and recorded owner ratification | Stage 0 must verify and disposition every inherited observability, Sentry, monitoring, and analytics plan. TAU controls delivery only after the owner accepts that evidence and ratifies the authority transfer. |
+| TAU implementation | Not started | `current/` means NEXT. Move the plan to `active/` only when implementation begins; do not report PostHog usage evidence or automated projections as live beforehand. |
+
+[ADR-212](../../../docs/architecture/architectural-decisions/212-federated-visibility-authority-and-evidence-boundaries.md)
+owns the Accepted federated audience contract. Notion and Linear project the status above for their
+respective audiences. They must not shorten **owner-accepted, merged, and
+`DECISION-COMPLETE`** to imply that **delivery authority is ratified** or that **implementation is
+active**.
 
 The name expresses the loop:
 
@@ -55,7 +71,7 @@ other Oak measures.
 
 ## Scope
 
-If ratified at Stage 0, TAU controls cross-layer sequencing for:
+After Stage 0 disposition and recorded owner ratification, TAU controls cross-layer sequencing for:
 
 - event and signal intent;
 - question and decision registers;
@@ -81,7 +97,7 @@ If ratified at Stage 0, TAU controls cross-layer sequencing for:
 | stakeholder and external-system surfaces | Linear owns execution coordination and progress; Notion owns curated stakeholder narrative and status presentation; and [ADR-207](../../../docs/architecture/architectural-decisions/207-dora-delivery-metrics-as-a-structural-property.md) owns the delivery-performance projection over the intent graph joined to GitHub, Linear, deployment, and Sentry evidence. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
 | application workspaces | Own emission sites and behaviour tests. |
 
-## Proposed authority model
+## Authority model, pending Stage 0 disposition and owner ratification
 
 1. strategy and owner decisions;
 2. this roadmap and the current TAU delivery plan;
