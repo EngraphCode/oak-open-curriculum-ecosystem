@@ -316,6 +316,23 @@ declarations AND its run total.
 | Ruling batches | Batched mid-flight rulings (≤15/batch; includes per-tranche cutover sanctions AND the plan-state gate warn→enforce escalation — F5 §8's third gate, re-ID'd **OG-WE** here to clear its collision with the canary-key OG-3 above; fires after the deliberate-break transcript + an owner-seen divergence report) | R4–R5 (OG-WE in any mid-flight slot) |
 | Walk C | Final ratification against recomputed state — **includes the terminal cutover sanction**: the archive-old + rename move to the G1-ruled destination root (`.agent/refounded-plans/` becomes the live corpus; the old estate archives, never deleted, per P14). No cutover executes without this sitting; per-tranche cutover sanctions along the way stay inside the Ruling-batches row | R6 |
 
+## Walk-A structure priors (owner-reacted, 2026-07-14)
+
+Two owner-directed concept-exploration passes produced owner-reacted priors
+for r2's derivation and the Walk A sitting — recorded in full at
+[`walk-a-structure-priors.md`](../../../plans-refounding/walk-a-structure-priors.md)
+(the sitting input of record). Headlines: the **three-layer hierarchy**
+(lane roadmap → strategic plan → implementation plan, implementation always
+parented) is ratified in principle; **lanes 6–8**; **~20 strategic plans**
+with a **WIP limit of 5 in execution (2–3 owner-hot)** binding owner
+attention, not agent throughput; threads recommended to dissolve into
+strategic-plan continuity sections (Walk A decides); the homeless-concept
+policy (wrong-kind re-homes by function / unplaced intent enters the
+conservatory lane with placement triggers / history conserves in the frozen
+archive); and the three analysis units (rows for proof, concepts for
+judgement, plans for authoring). These are priors, not rulings — Walk A
+ratifies, SP1/SP3 re-price.
+
 ## Economics (pre-pilot declaration; re-priced at SP3)
 
 Corrected ensemble band from the independent economics critique: **40–60M tokens**,
