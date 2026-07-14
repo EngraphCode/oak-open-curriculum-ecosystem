@@ -178,7 +178,8 @@ Per [`high-level-observability-plan.md` §Substrate](./high-level-observability-
 ## Related
 
 - [`telemetry-and-understanding/`](../telemetry-and-understanding/README.md)
-  — current controlling programme for new cross-layer sequencing.
+  — proposed controlling programme for new cross-layer sequencing, pending its
+  Stage 0 authority ratification gate.
 - [`high-level-plan.md`](../high-level-plan.md) — repo-wide plan index.
 - [`architecture-and-infrastructure/roadmap.md`](../architecture-and-infrastructure/roadmap.md)
   — wider architecture roadmap (the parent foundation plan is listed there).

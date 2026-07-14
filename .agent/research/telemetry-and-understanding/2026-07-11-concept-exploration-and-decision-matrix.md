@@ -2,7 +2,7 @@
 title: "TAU concept exploration and Decision Matrix"
 type: research
 status: complete
-last_updated: 2026-07-11
+last_updated: 2026-07-14
 method:
   - "Oak reason skill"
   - "Oak metacognition skill"
@@ -259,7 +259,7 @@ whose lanes are explicitly dispositioned into TAU.
 
 The bridge from current to target state is:
 
-1. freeze no runtime work; instead, inventory and classify current authority;
+1. freeze new runtime work; inventory and classify current authority first;
 2. build the Oak event contract;
 3. prove provider-neutral delivery and Vercel lifecycle;
 4. deliver one vertical question-to-decision slice in PostHog;
@@ -377,11 +377,11 @@ do not open until it proves useful.
 
 ## Step 7 — verdict
 
-### Selected direction
+### Recommended direction
 
-Adopt Candidate C.
+Recommend Candidate C for Stage 0 ratification.
 
-Create TAU as the controlling programme for:
+If ratified, TAU becomes the controlling programme for:
 
 - telemetry intent and event contracts;
 - PostHog product-understanding delivery;
@@ -461,4 +461,7 @@ Current vendor sources:
 
 Decision workflow source:
 
-- `EngraphCode/resonance/.agent/rules/decision-matrix.md`
+- [Resonance Decision Matrix](https://github.com/EngraphCode/resonance/blob/main/.agent/rules/decision-matrix.md).
+  This Oak exploration adapts the upstream workflow by applying its candidate
+  scoring and cross-examination to a repository plan estate rather than to a
+  single implementation choice; Stage 0 remains the local authority gate.

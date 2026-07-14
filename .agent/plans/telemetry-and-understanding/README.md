@@ -8,8 +8,9 @@ serves_strategic_choice: APP-1
 
 # Telemetry and Understanding System (TAU)
 
-TAU is the controlling plan collection for turning runtime evidence into
-product and operational understanding.
+TAU is the proposed controlling plan collection for turning runtime evidence
+into product and operational understanding. Its Stage 0 authority gate must
+ratify that role before TAU becomes current delivery authority.
 
 The name expresses the loop:
 
@@ -54,7 +55,7 @@ other Oak measures.
 
 ## Scope
 
-TAU controls cross-layer sequencing for:
+If ratified at Stage 0, TAU controls cross-layer sequencing for:
 
 - event and signal intent;
 - question and decision registers;
@@ -80,7 +81,7 @@ TAU controls cross-layer sequencing for:
 | stakeholder and external-system surfaces | Linear owns delivery coordination, Notion owns stakeholder presentation and deliberation, and the proposed idea-graph evidence architecture owns cross-system projection semantics. TAU owns the meaning, limits, interpretation, and decision use of its telemetry; it does not own those neighbouring surfaces. |
 | application workspaces | Own emission sites and behaviour tests. |
 
-## Authority model
+## Proposed authority model
 
 1. strategy and owner decisions;
 2. this roadmap and the current TAU delivery plan;

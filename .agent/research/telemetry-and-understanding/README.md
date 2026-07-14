@@ -2,7 +2,7 @@
 title: "Telemetry and Understanding research"
 type: research-index
 status: active
-last_updated: 2026-07-13
+last_updated: 2026-07-14
 ---
 
 # Telemetry and Understanding research
@@ -38,17 +38,20 @@ The research is operationalised by:
 - [`plans/telemetry-and-understanding/roadmap.md`](../../plans/telemetry-and-understanding/roadmap.md)
 - [`plans/telemetry-and-understanding/current/tau-delivery.plan.md`](../../plans/telemetry-and-understanding/current/tau-delivery.plan.md)
 
-## Evidence hierarchy
+## Evidence authority by claim type
 
-Where sources disagree, use this order:
+Resolve disagreement according to the claim being made:
 
-1. current owner direction recorded in the TAU plan;
-2. current runtime code and executable tests;
-3. accepted ADRs and the current strategy corpus;
-4. live PostHog and Sentry project state;
-5. current first-party vendor documentation;
-6. existing active/current plans;
-7. historical plans, reports, and memory as evidence, not authority.
+- **Current runtime behaviour:** executable code and tests first, then live
+  provider state and generated inventories. Plans and owner direction cannot
+  override observed current-state facts.
+- **Target direction and priority:** current owner direction, strategy, and
+  accepted ADRs govern intent; a promoted TAU plan may sequence delivery after
+  its Stage 0 authority gate closes.
+- **Provider capability:** current first-party vendor documentation and live
+  project probes govern what is available and configured.
+- **Historical context:** superseded plans, reports, and memory remain evidence
+  of prior intent and decisions, not current runtime or delivery authority.
 
 ## Live baseline
 
