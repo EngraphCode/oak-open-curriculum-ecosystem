@@ -1290,3 +1290,29 @@ role=implementer) OPEN and retained through the pause. Worktree
   TAU Stage 5 reconciliation or a small operational-evidence readout. Quasar mends Umbra owns
   that remainder and will surface it to the owner; this retiring seat does not claim objective
   1 is whole.
+
+## 2026-07-14 — F-138 repair lane (implementer, Director-commissioned; worktree f138-two-root-split)
+
+- **F-138 cured at `SHA:8c6b1d157`** (branch `fix/f138-commit-queue-two-root-split`): the
+  commit-queue two-root split — `repoRoot` stays the coordination-home registry anchor; a
+  required lazy `resolveGitRoot` thunk (new `commit-queue/git-root.ts`,
+  `git rev-parse --show-toplevel`) carries staged reads, verification, the advisory
+  orchestrator, and the inner commit against the INVOKING worktree; underivable git root =
+  loud refusal, never a coordination-home fallback. RED-first regression suite
+  (`agent-tools/smoke-tests/commit-queue-worktree.smoke.ts`, real scratch primary + linked
+  worktree) reproduced the field failure exactly (`staged_name_status: ""`,
+  verify "missing", guard case silently exit 0) before the fix went in.
+- **Dogfood proof**: the fix commit was landed via the repaired ceremony FROM the linked
+  worktree against the shared primary registry (intent `8cd528f0`, claim `12fdfcee`) — the
+  exact invocation shape that auto-abandoned intents on 2026-07-13/14.
+- **New friction F-139 captured**: `guard` rejects the skill-doctrine
+  `index/head@<worktree>` claim pattern (matcher wants bare `index/head`); workaround =
+  bare pattern + worktree named in the claim intent text. First attempt's intent
+  `d2ed19ef` abandoned on exactly this; claim `180670a3` closed with the reason.
+- **Mechanics observed**: (1) `claims open` F-95 watcher gate checks the comms-seen
+  heartbeat via a cwd-relative path — from a worktree it misses the primary's LIVE
+  watcher; run claims commands from the primary (known F-138-adjacent face, still open).
+  (2) zsh does not word-split an unquoted `$FILES` variable — repeated `--file` flags must
+  be spelled out (first enqueue "exit 2" was this, not the CLI). (3) The workflow's
+  formatting-gate failure correctly auto-abandoned the intent; prettier-write on the four
+  offending files + fresh intent recovered cleanly — rollback discipline held.

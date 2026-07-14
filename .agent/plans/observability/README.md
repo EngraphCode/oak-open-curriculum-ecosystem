@@ -5,10 +5,32 @@ the **five-axis** observability principle per
 [ADR-162](../../../docs/architecture/architectural-decisions/162-observability-first.md):
 engineering, product, usability, accessibility, and security.
 
-**Status**: 🔄 Active (post-2026-04-18 restructure; bounded
-corrective lane archived complete 2026-04-23)
+## TAU transition — 2026-07-11
+
+The new
+[Telemetry and Understanding System (TAU)](../telemetry-and-understanding/README.md)
+is the proposed controlling programme for cross-layer priority, PostHog
+delivery, Sentry reconciliation, logging/monitoring decisions, analysis
+surfaces, and evidence-to-decision governance, pending its Stage 0 authority
+ratification. Until that gate closes, the existing authorities in this
+collection remain current.
+
+This collection remains the detailed inherited implementation/evidence estate.
+Nothing is silently abandoned or archived by the transition. The
+[TAU delivery plan](../telemetry-and-understanding/current/tau-delivery.plan.md)
+first re-verifies and dispositions every live lane.
+
+Where older observability plans conflict with the TAU direction: PostHog is
+the next implementation priority; the warehouse no longer blocks PostHog;
+Oak-owned event schemas remain authoritative; Sentry remains the specialist
+engineering-observability surface; and stdout/fixtures remain the
+vendor-independent floor.
+
+**Status**: 🔄 Active transition proposal (post-2026-04-18 restructure;
+bounded corrective lane archived complete 2026-04-23; TAU is proposed to
+control new sequencing after Stage 0 ratification)
 **Foundational ADR**: [ADR-162 Observability-First](../../../docs/architecture/architectural-decisions/162-observability-first.md)
-(**Accepted** 2026-04-19 at Phase 5 close).
+(the ADR file is the current status authority).
 **Direction-setting session**: [`docs/explorations/2026-04-18-observability-strategy-and-restructure.md`](../../../docs/explorations/2026-04-18-observability-strategy-and-restructure.md)
 **Execution plan**: [`architecture-and-infrastructure/current/observability-strategy-restructure.plan.md`](../architecture-and-infrastructure/current/observability-strategy-restructure.plan.md).
 **High-level plan**: [`high-level-observability-plan.md`](./high-level-observability-plan.md).
@@ -157,6 +179,9 @@ Per [`high-level-observability-plan.md` §Substrate](./high-level-observability-
 
 ## Related
 
+- [`telemetry-and-understanding/`](../telemetry-and-understanding/README.md)
+  — proposed controlling programme for new cross-layer sequencing, pending its
+  Stage 0 authority ratification gate.
 - [`high-level-plan.md`](../high-level-plan.md) — repo-wide plan index.
 - [`architecture-and-infrastructure/roadmap.md`](../architecture-and-infrastructure/roadmap.md)
   — wider architecture roadmap (the parent foundation plan is listed there).
