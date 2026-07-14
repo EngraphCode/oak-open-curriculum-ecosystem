@@ -95,7 +95,7 @@ todos:
     status: pending
     depends_on: [s3-vertical-slice-evidence]
   - id: s5-sentry-distinct-value
-    content: "STAGE 5: complete only distinct engineering-observability work (selected free integrations, context, release/source-map closure, engineering health metrics/alerts) and link it to TAU events by correlation."
+    content: "STAGE 5: complete only distinct engineering-observability work (selected free integrations, context, release/source-map closure, and engineering-health metric capability/verification) and link it to TAU events by correlation; inventory existing alert capability but route all new alert delivery exclusively through s6-monitoring-alerts."
     status: pending
     depends_on: [s5-sentry-ground-truth]
   - id: s5-sentry-corpus-close
@@ -111,11 +111,11 @@ todos:
     status: pending
     depends_on: [s6-signal-class-and-logs]
   - id: s7-wider-events
-    content: "STAGE 7: evaluate the wider-event gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, feedback_submitted, widget_session_outcome, and a11y_preference_tag using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every lane; keep this aggregate pending until every promoted child completes its question-to-decision loop or is explicitly dispositioned as not promoted."
+    content: "STAGE 7: evaluate the wider-event/runtime gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, widget_session_outcome, a11y_preference_tag, Search CLI, widget runtime, Slack assistants, and later AI tools using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every declared lane; keep this aggregate pending until every promoted child completes its question-to-decision loop or every unpromoted child is explicitly dispositioned as not promoted. Stage 8 exclusively owns the feedback_submitted emitter and service-loop lane."
     status: pending
     depends_on: [s4-understanding-review]
   - id: s8-feedback-loop
-    content: "STAGE 8: for a real feedback collection surface, either deliver the qualitative-feedback taxonomy and response/service loop or record an evidence-backed not-promoted disposition for this lane."
+    content: "STAGE 8: exclusively own the feedback_submitted emitter and service-loop lane; for a real feedback collection surface, either deliver the schema-conformant emitter, qualitative-feedback taxonomy, and response/service loop together or record one evidence-backed not-promoted disposition for the whole lane."
     status: pending
     depends_on: [s4-understanding-review]
   - id: s8-flag-evaluation
@@ -886,8 +886,9 @@ Candidate work, subject to re-verification:
 - selected runtime/error integrations;
 - Sentry scope projection of the TAU envelope;
 - release/source-map closure;
-- engineering health metrics;
-- alerts after distributions;
+- engineering-health metric capability and verification;
+- existing alert-capability inventory handed to Stage 6, with no new alert
+  delivery in Stage 5;
 - Search CLI engineering parity where owned by its plan.
 
 ### Move/retire
@@ -961,7 +962,11 @@ question -> schema -> fixture -> emitter -> adapter -> dashboard/query
 
 Security events use strict categorical allowlists and rate caps. Widget/a11y
 work requires host compatibility. Search events coordinate with semantic
-search rather than duplicate retrieval-quality ownership.
+search rather than duplicate retrieval-quality ownership. The aggregate covers
+every declared event and runtime lane: `search_query`, `auth_failure`,
+`rate_limit_triggered`, `widget_session_outcome`, `a11y_preference_tag`, Search
+CLI, widget runtime, Slack assistants, and later AI tools. Stage 8 exclusively
+owns the `feedback_submitted` emitter and service-loop lane.
 
 Creating a child plan does not complete `s7-wider-events`. The aggregate stays
 pending until every promoted child has delivered the full loop above or has an
@@ -976,8 +981,9 @@ Stage 8 is four independently triggered child lanes. A trigger in one lane does
 not promote the others, and mixed outcomes are expected. Each child must finish
 with its own complete or evidence-backed not-promoted disposition:
 
-1. **Feedback loop** — feedback taxonomy plus response/service loop for a real
-   collection surface.
+1. **Feedback loop** — one owner and one terminal disposition for the
+   `feedback_submitted` emitter, feedback taxonomy, and response/service loop
+   for a real collection surface.
 2. **Flag evaluation** — provider-neutral flag port, selected provider
    evaluation, and bounded PostHog/Sentry flag projections for a real rollout.
 3. **Survey compatibility** — accessible host-compatible collection for a real

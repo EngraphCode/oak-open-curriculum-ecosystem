@@ -210,10 +210,12 @@ Deliver in focused child lanes:
 - `search_query`;
 - `auth_failure`;
 - `rate_limit_triggered`;
-- `feedback_submitted`;
 - `widget_session_outcome`;
 - `a11y_preference_tag`;
 - Search CLI, widget, Slack assistants, and later AI tools where applicable.
+
+Stage 8 exclusively owns the `feedback_submitted` emitter and its service-loop
+disposition, so Stage 7 cannot independently mark that event not promoted.
 
 Gate per child:
 
@@ -241,7 +243,8 @@ Deliver:
   compatibility, and experiment governance;
 - a complete or evidence-backed not-promoted disposition for every child,
   allowing honest mixed outcomes when only one trigger fires;
-- feedback taxonomy and response loop when a real feedback surface exists;
+- one owned `feedback_submitted` emitter, taxonomy, and response loop when a
+  real feedback surface exists;
 - provider-neutral flag evaluation and bounded PostHog/Sentry projections when
   a real rollout exists;
 - accessible host-compatible collection when a real survey need exists;
