@@ -1,0 +1,6 @@
+---
+description: Every agent-authored Notion page change set appends one page-local ledger line attributed to the active repository name.
+alwaysApply: true
+---
+
+Read and follow `.agent/rules/notion-page-edits-update-ledger.md`.

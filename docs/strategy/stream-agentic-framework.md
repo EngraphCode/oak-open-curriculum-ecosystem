@@ -2,7 +2,7 @@
 title: 'Strategy — Stream: the agentic framework (ecosystem, and our own transformation)'
 type: strategy
 status: active
-last_updated: 2026-06-21
+last_updated: 2026-07-14
 derives_from:
   - VISION.md
 governed_by:
@@ -42,15 +42,15 @@ A few load-bearing shapes the strategy builds on:
 - **The team learns, then disperses the capability.** How agent-first capability spreads
   across Oak — who learns it first, and how it propagates — is named as a proposed bet
   below (FRAME-4); the rollout/adoption model is yours to shape.
-- **The system measures its own delivery — natively.** Because vision, strategy, intent,
-  work, and output all live in one substrate, the framework can surface its own
-  delivery-performance evidence — the industry-standard DORA delivery metrics — as a
-  property of the structure rather than a separate instrumentation project. The hardest
-  precondition for measuring delivery (observability across the whole toolchain) is met here
-  by construction: the repo integrates change (GitHub), execution (Linear), and runtime
-  (Sentry with OpenTelemetry) into one graph. A framework that can _prove_ it delivers value,
-  not just claim it, is part of this stream's core value — not a side-benefit. (The substrate that makes
-  this possible — the idea knowledge-graph — and the value it delivers are recorded canonically in
+- **We're designing the system to measure its own delivery.** Vision, strategy, intent, work,
+  and output have a canonical, versioned home, so we can derive the industry-standard DORA
+  delivery metrics from the structure instead of reconstructing them manually. ADR-207 gates that
+  projection on the idea graph, Linear projection, and external evidence joins under ADR-200 and
+  proposed ADR-201. Those inputs become one automated graph only after the gates close; the
+  [TAU collection index](../../.agent/plans/telemetry-and-understanding/README.md#current-status)
+  carries current delivery status. A framework that can _prove_ it delivers value, not just claim
+  it, remains part of this stream's core value — not a side-benefit. (The substrate that makes this
+  possible — the idea knowledge-graph — and the value it delivers are recorded canonically in
   [ADR-200 §Value](../architecture/architectural-decisions/200-intent-as-a-living-idea-graph.md).)
 
 ## How we win
@@ -80,7 +80,9 @@ The bets, grounded in the diagnosis (pace without trading rigour away) — owner
 
 Internal delivery uplift and external adoption of the framework — the candidate signals are
 ours to propose, the targets Oak's to ground. Delivery performance (the DORA metrics) is a
-_leading_ signal we derive in-repo; impact on Oak's goals is the _lagging_ signal Oak grounds.
+_leading_ signal ADR-207 designs as an in-repo derivation; impact on Oak's goals is the _lagging_
+signal Oak grounds. Current delivery status lives in the
+[TAU collection index](../../.agent/plans/telemetry-and-understanding/README.md#current-status).
 See the [measures checkpoint](measures.md).
 
 > **Settled (owner, 2026-06-20):** the internal transformation's alignment is direct — **Oak
