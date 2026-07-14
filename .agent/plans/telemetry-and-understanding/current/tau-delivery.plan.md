@@ -295,33 +295,55 @@ The programme is accepted when:
 
 ## Build-vs-buy attestation
 
-This plan proposes two reusable capabilities that trigger PDR-031: the provider-neutral
-semantic-event port and the `@oaknational/posthog-node` adapter. The
-[supporting research](../../../research/telemetry-and-understanding/2026-07-11-posthog-baseline-and-build-vs-buy.md)
-records the full search and comparison matrix.
+This plan directly proposes four reusable capability groups that trigger PDR-031:
+
+1. the `@oaknational/observability-events` library;
+2. its strict schemas, catalogue, conformance validators, and consuming-workspace test helpers;
+3. the provider-neutral semantic-event port and registry; and
+4. the `@oaknational/posthog-node` adapter.
+
+[Supporting research](../../../research/telemetry-and-understanding/2026-07-11-posthog-baseline-and-build-vs-buy.md)
+records the original vendor and transport comparison matrix. This attestation was refreshed on
+2026-07-14 to audit every triggering capability in the plan.
 
 **What was searched.** The review searched the npm registry and vendor source/catalogues for
 `posthog node sdk`, `PostHog MCP analytics`, `PostHog project as code`, and OpenTelemetry/PostHog
-integration options. It inspected `posthog-node`, `@posthog/mcp@0.9.0`, and
-`@posthog/definitions`, then searched this repository for `ObservabilitySink`, semantic event
-schemas, Sentry/OpenTelemetry fan-out, identity projection, redaction, lifecycle, and network-free
-capture patterns.
+integration options, plus `TypeScript telemetry event schema`, `Zod event schema registry`, and
+`OpenTelemetry semantic conventions`. It inspected `posthog-node`, `@posthog/mcp@0.9.0`,
+`@posthog/definitions`, the workspace's existing Zod dependency, and OpenTelemetry's semantic
+conventions, then searched this repository for `ObservabilitySink`, semantic event schemas,
+schema validators, conformance helpers, Sentry/OpenTelemetry fan-out, identity projection,
+redaction, lifecycle, and network-free capture patterns.
 
 **What was found.** `posthog-node` provides the supported transport and batching client;
 `@posthog/mcp` provides beta automatic MCP instrumentation but owns a broader, vendor-shaped event
 surface; `@posthog/definitions` provides alpha project-definition automation; PostHog supplies the
-analytics UI. The repo already has vendor-neutral sink semantics and Sentry/OpenTelemetry plumbing,
-but no typed product-event contract, separately approved identity projection, or PostHog adapter
-that preserves those boundaries.
+analytics UI. Zod already provides parsing and validation, and OpenTelemetry semantic conventions
+provide vendor-neutral operational telemetry names, but neither supplies Oak's product-question
+event vocabulary, closed property allowlists, or consuming-workspace conformance contract. The repo
+already has vendor-neutral sink semantics, schema/test patterns, and Sentry/OpenTelemetry plumbing,
+but no shared typed product-event library, separately approved identity projection, or PostHog
+adapter that preserves those boundaries.
 
-**Why the bounded build is preferred.** Reuse `posthog-node` behind an Oak-owned adapter rather
-than rebuilding vendor transport. Build only the strict semantic port, event/identity projections,
-final field allowlist, failure policy, and network-free fixture because none of the candidates
-provides that closed Oak contract or keeps vendor choice out of emission sites. Probe
-`@posthog/mcp` for supplementary adoption or pattern reuse; do not adopt it by default. Probe
+**Why the bounded build is preferred.** Reuse Zod for parsing/validation, existing repository
+schema and fixture patterns for tests, and `posthog-node` behind an Oak-owned adapter rather than
+building a parser, validator engine, test framework, or vendor transport. Build only the shared
+Oak event package, strict semantic port, event/identity projections, closed field allowlists,
+catalogue/conformance helpers, failure policy, and network-free fixture because none of the
+candidates provides that question-linked contract or keeps vendor choice out of emission sites.
+Probe `@posthog/mcp` for supplementary adoption or pattern reuse; do not adopt it by default. Probe
 `@posthog/definitions` in a disposable project before deciding whether it can own project state.
 Buy the PostHog analysis UI and preserve Sentry as the operational-health surface. This is a
-reuse-behind-boundary decision, not a custom analytics transport build.
+reuse-behind-boundary decision, not a custom schema engine or analytics transport build.
+
+**Conditional later-stage capabilities.** The `s4-definitions-probe` fallback and Stages 6–9 can
+still propose triggering capabilities: a custom expected-state verifier, log/alert integrations,
+wider-event schema or runtime adapters, a feature-flag port, survey integration, experiment
+exposure validation, or a warehouse/export projection. `DECISION-COMPLETE` does not approve any of
+those conditional builds. Before a child lane that proposes one is promoted for execution, that
+child plan MUST carry its own current, falsifiable PDR-031 attestation naming searches,
+candidates, and the property that justifies building. A parent-level attestation or an
+evidence-backed decision to promote the lane cannot substitute for that gate.
 
 ## Current-state baseline
 

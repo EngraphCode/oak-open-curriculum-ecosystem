@@ -1165,8 +1165,8 @@ loss-scan findings (written per the standing rule):
 pass remains due and is transferred to the Director rather than raced against the live PR #339
 lane and shared primary-checkout churn. -->
 
-Lane complete: PR #341 merged as `1dcae73de` from `1f9da7c1b`; its follow-up PR #363
-merged as `6455bf2b5` from `adcf65504`. Live closeout verification found 21/21 and 0/0
+Lane complete: PR #341 merged as `SHA:1dcae73de` from `SHA:1f9da7c1b`; its follow-up PR #363
+merged as `SHA:6455bf2b5` from `SHA:adcf65504`. Live closeout verification found 21/21 and 0/0
 review threads resolved respectively, final check sets green (PR #363 includes one neutral
 Cursor result), and no post-merge drift. Linear MCP-12 is Done; the Linear project and
 curated Notion stakeholder page carry the audience/authority contract and both merge
@@ -1202,8 +1202,8 @@ connector implementation or ADR-201 ratification.
   Sentry owns operational diagnosis. Usage, delivery performance, health, and impact remain
   distinct evidence classes.
 - **Routed live residue, not this seat's custody.** PR #339 is peer-owned and live at
-  `457a71975`, 34/34 threads resolved, green/neutral final check set, but behind main. Linear
-  still names `e43380a2e` and Notion `04eeb6a5a`; this staleness is transferred to Director and
+  `SHA:457a71975`, 34/34 threads resolved, green/neutral final check set, but behind main. Linear
+  still names `SHA:e43380a2e` and Notion `SHA:04eeb6a5a`; this staleness is transferred to Director and
   the PR #339 custodian rather than raced from the retired #341 seat. No own active claims,
   conversations, escalations, queue intents, source edits, or unresolved review threads remain.
 - **Consolidation disposition.** Session-completion mode only. Open questions are empty; the
@@ -1228,7 +1228,7 @@ connector implementation or ADR-201 ratification.
 Fresh r1 seat under Director Quasar mends Umbra (52b4de) per the 2026-07-14 owner ruling (fresh
 seat, thread-record r1 block is the pickup). Claim `efe98e1e` (refounding + plan-state areas,
 role=implementer) OPEN and retained through the pause. Worktree
-`../oak-open-curriculum-ecosystem-worktrees/plan-corpus-refounding-r1` (branch
+`<repo-worktrees>/plan-corpus-refounding-r1` (branch
 `feat/plan-corpus-refounding-r1` off `SHA:cf3327515`) built green (install+build exit 0).
 
 - **Failure-mode (comms-posted at occurrence): `refound-freeze` EXECUTES on `--help`** — no help
@@ -1966,3 +1966,12 @@ now exists as a rule); consolidation dispositions each point on its merits.
   code-expert's run-from-source shim observation is the class-dissolving follow-up, routed in
   the commit message and here: the Bash guard could import committed source like the content
   guard's shim already does, deleting the whole stale-dist tolerance family.
+
+## 2026-07-14 — PR #365 append-only correction ledger (Weasel stirs Lair, 019f60)
+
+- **Attribution correction.** The bullets titled **Final gate result** and
+  **Director acceptance and qualified remainder**, currently positioned in the Cedar
+  rides Undergrowth capture, belong to Phosphor holds Tallow's terminal closeout. Cedar
+  remained cold-paused with its r1 claim retained; it did not retire or own the accepted
+  visibility/Sentry remainder. This correction supersedes the historical placement while
+  preserving the original record.

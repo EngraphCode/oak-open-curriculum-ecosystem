@@ -132,8 +132,9 @@ interdependent. A strategy that treats the streams as independent misses the poi
 [ADR-212](../../../docs/architecture/architectural-decisions/212-federated-visibility-authority-and-evidence-boundaries.md)
 is the Accepted architectural home for the federated visibility estate: the repository remains
 the durable intent authority, while Notion, Linear, GitHub, PostHog, and Sentry each have one
-audience-shaped responsibility. It also keeps delivery, operational, usage, and impact evidence
-distinct. This plan applies that permanent contract rather than restating it.
+audience-shaped responsibility. It also keeps execution-movement, delivery-performance,
+operational-health, usage/adoption, and value/impact evidence distinct. This plan applies that
+permanent contract rather than restating it.
 
 The [TAU collection index](../telemetry-and-understanding/README.md#current-status) is the canonical
 cross-surface status projection for TAU planning readiness, delivery authority, and implementation
@@ -870,7 +871,7 @@ acceptance is proven.
 | Streams strategised as independent tracks | cohesion across-and-within is an acceptance condition; the streams-as-system map is required |
 | Measures invented by the agent rather than Oak-grounded | measures are an Oak input; acceptance requires owner/Oak grounding; surface an owner checkpoint where the signal isn't already known |
 | A stakeholder projection becomes a competing authority or stale status page | every external narrative links its source, states freshness and evidence limits, and keeps edits inside the surface's assigned responsibility |
-| Delivery, operational, usage, and impact evidence are collapsed into one success claim | keep the four evidence classes explicit; require research/evaluation and Oak-owned outcomes before claiming impact |
+| Execution movement, delivery performance, operational health, usage, and impact evidence are collapsed into one success claim | keep the five evidence classes explicit; require research/evaluation and Oak-owned outcomes before claiming impact |
 | Strategy corpus authored in plain dev-doc voice | the editorial-tone directive applies to the strategy; "in the editorial voice" is an acceptance and proof condition |
 | The app silently re-acquires "first / more important" framing | the framing corrections are an explicit non-goal and a proof condition |
 | Restructure deletes value while "restructuring" | recorded disposition (supersession mapping per the consolidation discipline) — every removal carries one or it is a defect |

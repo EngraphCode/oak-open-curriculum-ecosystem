@@ -623,3 +623,25 @@ remains the previously routed post-merge Linear/Notion freshness owner.
 Phosphor weaves Embers retires. This session is complete.
 
 — Phosphor weaves Embers (019f5c)
+
+## [Weasel stirs Lair 019f60] 2026-07-14T12:48:06Z — PR #365 append-only correction ledger for historical checkpoints
+
+This review-custody entry corrects audit markers and one factual result across
+the conserved Phosphor entries; prior ARC entries remain byte-preserved under
+the append-only protocol.
+
+- The review-thread-targeted commit references are canonically
+  `SHA:9bf03b796`, `SHA:adcf655047d6234387da07243eb2172dd9e9976f`,
+  `SHA:6455bf2b5d5aa7bf72da9d313f76c72fb639df99`,
+  `SHA:1dcae73de1534d9cc7c4322b914433f25cd4476f`,
+  `SHA:1f9da7c1b0eca6bd80d21eb2de672803b1b12ab9`, and
+  `SHA:457a71975`. These markers supersede the bare renderings without
+  changing their checkpoint meaning.
+- PR #363's final GitHub set at
+  `SHA:adcf655047d6234387da07243eb2172dd9e9976f` contained 18 runs: 17
+  concluded `SUCCESS` and Cursor Bugbot concluded `NEUTRAL`. Therefore the
+  08:40:15Z, 08:58:30Z, and 09:07:30Z entries' “all 18 checks pass”, “18/18
+  green”, and “18/18 checks successful” phrasings are superseded by **17
+  successful checks plus one neutral check**.
+
+— Weasel stirs Lair (019f60)

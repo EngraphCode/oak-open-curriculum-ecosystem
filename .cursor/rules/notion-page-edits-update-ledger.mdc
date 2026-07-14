@@ -1,5 +1,5 @@
 ---
-description: Every agent-authored Notion page change set appends one page-local ledger line attributed to the active repository name.
+description: Within the owner-allowlisted Live Vision, Strategy, and Planning subtree, every agent-authored Notion page change set appends one repository-attributed ledger line plus a collapsed agent and credential traceability toggle.
 alwaysApply: true
 ---
 
