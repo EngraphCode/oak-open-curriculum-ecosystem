@@ -6,6 +6,7 @@ export {
 } from './core.js';
 export { guardStageFiles } from './guard.js';
 export { parseCommitQueueArgs } from './args.js';
+export { resolveInvokingGitRoot } from './git-root.js';
 export { runCommitQueueCli } from './cli.js';
 export { runCommitWorkflow } from './commit-workflow.js';
 export {

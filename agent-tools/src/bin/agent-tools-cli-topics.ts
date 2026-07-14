@@ -1,7 +1,11 @@
 import { runBranchTouchedFilesCli } from '../branch-touched-files/cli.js';
 import { runCodexExecCli } from '../codex-exec/cli.js';
 import { resolveCoordinationHome } from '../collaboration-state/coordination-home.js';
-import { parseCommitQueueArgs, runCommitQueueCli } from '../commit-queue/index.js';
+import {
+  parseCommitQueueArgs,
+  resolveInvokingGitRoot,
+  runCommitQueueCli,
+} from '../commit-queue/index.js';
 import { runContextCostCli } from '../context-cost/cli.js';
 import { runPrWatchCli } from '../pr-watch/cli.js';
 import { runSessionMetadataCli } from '../session-metadata/cli.js';
@@ -29,18 +33,27 @@ export async function runCommitQueueTopic(
   const stderr = new OutputBuffer();
 
   try {
+    // The F-138 two-root split: `repoRoot` anchors the REGISTRY at the
+    // coordination home (the primary checkout every linked worktree
+    // shares), while `resolveGitRoot` names the INVOKING worktree for all
+    // staged reads, verification, and the inner commit. The thunk is lazy
+    // so registry-only commands never require a derivable git root, and it
+    // fails loudly — never falling back to the coordination home — when
+    // one cannot be derived.
     const exitCode = await runCommitQueueCli({
       ...parseCommitQueueArgs(args),
       repoRoot: input.repoRoot ?? resolveCoordinationHome(input.cwd),
+      resolveGitRoot: () => resolveInvokingGitRoot(input.cwd),
       readRegistry: input.readCommitQueueRegistry,
       stdout,
+      stderr,
     });
     return { exitCode, stdout: stdout.text(), stderr: stderr.text() };
   } catch (error) {
     return {
       exitCode: 2,
       stdout: stdout.text(),
-      stderr: `${error instanceof Error ? error.message : String(error)}\n`,
+      stderr: `${stderr.text()}${error instanceof Error ? error.message : String(error)}\n`,
     };
   }
 }
