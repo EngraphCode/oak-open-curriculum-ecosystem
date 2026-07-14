@@ -81,7 +81,7 @@ todos:
     status: pending
     depends_on: [s3-vertical-slice-evidence]
   - id: s4-definitions-probe
-    content: "STAGE 4: test @posthog/definitions apply/verify/rollback in the empty project; adopt as code authority only if deterministic and reviewable, otherwise retain a checked-in expected-state manifest and read-only verifier."
+    content: "STAGE 4: test @posthog/definitions apply/verify/rollback only in a disposable sandbox project while keeping Oak-project verification read-only; adopt as code authority only if deterministic and reviewable, otherwise retain a checked-in expected-state manifest and read-only verifier."
     status: pending
     depends_on: [s4-question-surfaces]
   - id: s4-understanding-review
@@ -109,7 +109,7 @@ todos:
     status: pending
     depends_on: [s6-signal-class-and-logs]
   - id: s7-wider-events
-    content: "STAGE 7: evaluate the wider-event gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, feedback_submitted, widget_session_outcome, and a11y_preference_tag using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every lane."
+    content: "STAGE 7: evaluate the wider-event gate; either promote focused child lanes for search_query, auth_failure, rate_limit_triggered, feedback_submitted, widget_session_outcome, and a11y_preference_tag using the proven TAU pattern, or record an evidence-backed not-promoted disposition for every lane; keep this aggregate pending until every promoted child completes its question-to-decision loop or is explicitly dispositioned as not promoted."
     status: pending
     depends_on: [s4-understanding-review]
   - id: s8-feedback-loop
@@ -825,10 +825,10 @@ TAU-Q002 — Tool calls by outcome and tool
 Spike:
 
 - export/create one dashboard, one insight, one cohort, one event definition;
-- apply to the empty project;
-- no-op re-apply;
-- modify through PR;
-- rollback;
+- apply, no-op re-apply, modify, and rollback only in a disposable sandbox
+  project;
+- keep verification against the populated Oak project read-only;
+- drive the sandbox definition change through a PR;
 - verify drift;
 - inspect credential and CI requirements.
 
@@ -960,6 +960,11 @@ question -> schema -> fixture -> emitter -> adapter -> dashboard/query
 Security events use strict categorical allowlists and rate caps. Widget/a11y
 work requires host compatibility. Search events coordinate with semantic
 search rather than duplicate retrieval-quality ownership.
+
+Creating a child plan does not complete `s7-wider-events`. The aggregate stays
+pending until every promoted child has delivered the full loop above or has an
+explicit evidence-backed not-promoted disposition; Stage 10 therefore cannot
+close over unfinished child work.
 
 ## Stage 8 — Feedback, flags, and experiments
 

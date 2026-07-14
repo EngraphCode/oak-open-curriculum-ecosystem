@@ -233,10 +233,12 @@ Risks:
 - destructive or surprising reconciliation;
 - mismatch between project defaults and repo intent.
 
-**Decision:** Stage-4 bounded spike. Until accepted, keep a checked-in
-manifest of expected project assets and verify live state through read-only
+**Decision:** Stage-4 bounded spike. Run alpha apply, no-op re-apply, modify,
+and rollback only against a disposable sandbox project. Keep the populated Oak
+project read-only throughout the probe. Until accepted, retain a checked-in
+manifest of expected Oak project assets and verify live state through read-only
 queries. Do not make alpha tooling a launch blocker without a successful
-apply/rollback proof.
+sandbox apply/rollback proof.
 
 ## Build-vs-buy matrix
 

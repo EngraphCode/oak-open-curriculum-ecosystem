@@ -150,7 +150,8 @@ Deliver:
 - tool/outcome/path dashboard;
 - dependency/reliability dashboard;
 - saved HogQL queries;
-- definitions-as-code spike and decision;
+- definitions-as-code disposable-sandbox spike, read-only Oak-project
+  verification, and decision;
 - recurring evidence review and decision-log template that separates
   observations, interpretations, hypotheses, counterevidence, confidence, and
   judgement.
@@ -220,6 +221,9 @@ Gate per child:
   followed by a Stage 4-style review and decision before the child closes;
 - runtime-specific privacy and delivery proof;
 - no bulk scope expansion.
+
+The Stage 7 aggregate remains pending until every promoted child has closed its
+question-to-decision loop or has an evidence-backed not-promoted disposition.
 
 ### Stage 8 — Qualitative learning and experimentation
 
