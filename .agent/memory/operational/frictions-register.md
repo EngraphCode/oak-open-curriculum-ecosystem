@@ -3267,9 +3267,12 @@ commit SHA and the closing plan reference.
   (message prevalidated, hooks enabled).
 - **Expected**: the commit-queue tooling either streams (or raises `maxBuffer` on) git output it
   consumes, or degrades gracefully with a clear too-large-bundle message naming the fallback.
-- **Candidate cure**: switch the affected `spawnSync` call(s) to a streaming spawn or set an
-  explicit `maxBuffer` sized to the tool's declared bundle ceiling; add the ceiling to the
-  tool's help text.
+- **Candidate cure**: switch the affected `execFileSync` call (commit-queue `git.ts`
+  `runGit`, which buffers `git diff --cached --full-index --binary` under a 32 MiB
+  `maxBuffer` via `STAGED_PATCH_BUFFER_BYTES`) to a streaming spawn, or raise that explicit
+  `maxBuffer` to the tool's declared bundle ceiling; add the ceiling to the tool's help
+  text. (The observed error string can still name `spawnSync` — Node surfaces it from the
+  underlying call — but the call site is `execFileSync`.)
 - **Target surface**: `agent-tools` commit-queue `record-staged` implementation.
 - **Status**: open — workaround proven (explicit-pathspec commit path).
 - **Owner direction status**: standing (record-all-frictions).

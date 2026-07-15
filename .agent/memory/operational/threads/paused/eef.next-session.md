@@ -27,7 +27,9 @@ merge_class: index-narrative-tables
   satisfied the doctrine** — bounded complete subgraphs, anchors echoed, honest windows, typed
   refusals/well-formed empties, no soft stubs; cross-provenance consistency held (fetch's
   live-API lesson text byte-matches the bulk-corpus graph responses). **One material finding,
-  owner/Director decision needed**: `get-eef-evidence` success payloads render `(omitted)` in
+  owner/Director decision needed** *(at the time — RESOLVED 2026-06-12: PR #191 landed the
+  owner-decided dual shape, released 1.28.0 and production-verified; see the snagging-arc
+  entry below)*: `get-eef-evidence` success payloads render `(omitted)` in
   the Cursor MCP client — the owner-ratified `content: []` + structuredContent-only success
   shape is dropped by clients that render only `content` blocks (typed refusals and all graph
   tools render fine; root cause source-grounded in `aggregated-eef-evidence.ts`). The D7
@@ -35,8 +37,8 @@ merge_class: index-narrative-tables
   disposition options in
   [`oak-prod-live-mcp-exercise-2026-06-11.md`](../../../../reports/oak-prod-live-mcp-exercise-2026-06-11.md)
   (also: two corpus-data observations — cross-subject keyword description leakage on
-  `keyword:convert`, one prior-knowledge typo; prompts not invocable from the Cursor harness,
-  named as a coverage gap).
+  `keyword:convert`, one prior-knowledge typo; prompts not agent-invocable from the Cursor
+  harness — user slash-command invocation works — named as a coverage gap).
 - **2026-06-12 (Forge turns Basalt / claude-code Fable 5, `c4b882`) — EEF DATA SURFACING-GAP
   RESEARCH LANDED.** Read-only research: corpus-vs-surfaced inventory, verified first-hand
   (full surfacing stack read; three live oak-prod probes; 24-agent workflow with adversarial

@@ -64,11 +64,15 @@ three honest shapes — no soft stub observed anywhere.
   content-block-only rendering) cannot consume EEF evidence from the live
   server at all — the D7 teacher-value path is dead in such clients while the
   contract-level behaviour remains correct.
-- **Disposition**: owner/Director decision needed — add a serialised
+- **Disposition** *(as written 2026-06-11)*: owner/Director decision needed — add a serialised
   `TextContent` mirror to `get-eef-evidence` success responses (one-line change
   at the formatter boundary, consistent with the graph-tool category shape), or
   record the client limitation and hold the ratified shape. Evidence here; not
   self-executed because it reverses an owner-ratified decision.
+- **Resolution** *(2026-06-12; noted at the 2026-07-15 re-home)*: decided and landed —
+  the owner-decided dual shape shipped via PR #191 (merge `SHA:1b02b70b4`, released
+  1.28.0, with the E3 docs supersession sweep); production verified serving 1.28.0.
+  The disposition above is closed and kept as the point-in-time record.
 
 ## Secondary observations (corpus data, not tool defects)
 
@@ -85,9 +89,15 @@ three honest shapes — no soft stub observed anywhere.
 ## Coverage gaps (named, not silently skipped)
 
 - MCP **prompts** (`continue-progression` and six others) are listed by the
-  live server but Cursor's harness offers no prompt-invocation surface, so the
-  prompt bodies were not exercised live this session. The descriptors match the
-  shipped definitions.
+  live server. Cursor exposes prompts to the *user* as slash commands (verified
+  live 2026-06-11: `/adapt-lesson` reached the server and returned a
+  spec-correct validation error naming `topic` + `yearGroup`); what is absent is
+  *agent-side* invocation — the Cursor agent harness exposes tools and
+  resources, not prompts — so the prompt bodies were not exercised from the
+  agent harness this session. The descriptors match the shipped definitions.
+  *(Wording corrected at the 2026-07-15 re-home per the snagging plan's
+  §Non-snags amendment note; the full account is §4 of the
+  [cursor-visibility write-up](oak-prod-mcp-cursor-visibility-writeup-2026-06-11.md).)*
 - Live-API list tools (`get-key-stages-*`, `get-sequences-*`, `get-lessons-*`,
   changelog, rate-limit, user-search) were not individually probed; `fetch` and
   `search` cover the same live-API provenance path.
