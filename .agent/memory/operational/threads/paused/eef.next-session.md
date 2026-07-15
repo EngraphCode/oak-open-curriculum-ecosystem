@@ -17,6 +17,26 @@ merge_class: index-narrative-tables
 
 ## Current Continuation
 
+- **2026-06-11 evening (Dawnlit Glimmering Orbit / cursor Fable 5, `50c2d1`,
+  oak-prod-live-mcp-exercise, solo)** *(recovered 2026-07-15 from `SHA:c9ff6bb49` on
+  `docs/graph-team-direction-2026-06-10` after PR #383 closed unmergeable; landed via the
+  batched continuity PR)* — the live oak-prod MCP
+  (`curriculum-mcp-alpha.oaknational.dev`, app v1.26.1, Cursor OAuth client) was exercised
+  end-to-end against the working-with-graphs checklist: orientation, all four graph tools
+  (positive + negative probes), search, fetch, `eef://interpretation`. **Every graph response
+  satisfied the doctrine** — bounded complete subgraphs, anchors echoed, honest windows, typed
+  refusals/well-formed empties, no soft stubs; cross-provenance consistency held (fetch's
+  live-API lesson text byte-matches the bulk-corpus graph responses). **One material finding,
+  owner/Director decision needed**: `get-eef-evidence` success payloads render `(omitted)` in
+  the Cursor MCP client — the owner-ratified `content: []` + structuredContent-only success
+  shape is dropped by clients that render only `content` blocks (typed refusals and all graph
+  tools render fine; root cause source-grounded in `aggregated-eef-evidence.ts`). The D7
+  teacher-value path is dead in such clients while contract behaviour stays correct. Evidence +
+  disposition options in
+  [`oak-prod-live-mcp-exercise-2026-06-11.md`](../../../../reports/oak-prod-live-mcp-exercise-2026-06-11.md)
+  (also: two corpus-data observations — cross-subject keyword description leakage on
+  `keyword:convert`, one prior-knowledge typo; prompts not invocable from the Cursor harness,
+  named as a coverage gap).
 - **2026-06-12 (Forge turns Basalt / claude-code Fable 5, `c4b882`) — EEF DATA SURFACING-GAP
   RESEARCH LANDED.** Read-only research: corpus-vs-surfaced inventory, verified first-hand
   (full surfacing stack read; three live oak-prod probes; 24-agent workflow with adversarial
