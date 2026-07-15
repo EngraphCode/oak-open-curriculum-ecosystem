@@ -893,14 +893,20 @@ CLOSE broadcast) are verified landed and not re-listed here.
    BLOCKED-status PR even when checks are green). The owner merged the analogous PR #379
    directly; #380 needs the same owner action, or an actual code-owner review. The
    `register-rehoming` worktree removal is gated on this PR merging (its sole remaining
-   keep-condition).
+   keep-condition). *[Superseded 2026-07-15, Schooner guards Whirlpool: PR #380 MERGED at
+   11:20:45Z (`SHA:55a69ceca`, owner-merged, release 1.69.1) — minutes after this entry was
+   written. The keep-condition is discharged: the recovered entry was substance-verified in
+   the dated archive and both proof-gated worktrees were removed at pickup. The
+   auto-mode-classifier observation above stands as history.]*
 5. **A reusable git technique, worth keeping for the next staged-branch re-cut.** `git reset
    --hard` is correctly blocked by the destructive-worktree hook even when objectively safe
    (verified zero unique commits ahead of the target, clean tree). The safe non-destructive
    equivalent when the branch is a strict ancestor of the target: `git merge --ff-only
    <target>` — a pure fast-forward that can only add commits, never discard any. Verify the
-   precondition first (`git log <branch>..HEAD` empty, `git status --porcelain` empty) before
-   relying on the ff-only merge succeeding cleanly.
+   precondition first (`git log <target>..HEAD` empty — i.e. no commits on the current branch
+   absent from the target; note `<branch>..HEAD` is vacuously empty on the checked-out branch
+   and proves nothing — plus `git status --porcelain` empty) before relying on the ff-only
+   merge succeeding cleanly. *[Recipe corrected 2026-07-15 per PR #381 review.]*
 6. **Claim lineage for the next Director.** I hold Quasar's claim `0f4be777` via `claims
    adopt`, never closed, continuously held across the whole tenure. Schooner adopts this SAME
    claim_id at their Moment-2 — never opens a fresh one — mirroring exactly what I did for
@@ -923,7 +929,11 @@ Rejected: fully reconstructible from the transcript if ever needed, zero decisio
 exactly the shape Quasar's own recursion bottomed out on for monitor-task bookkeeping. Checked
 whether the first-order pass itself homogenised anything load-bearing (e.g. conflating
 genuinely-new platform/tooling discoveries with corroborating instances of already-documented
-friction): it did not — items 1, 2, 4, and 5 above are new; the repeated comms-watcher
+friction): it caught one — items 1, 4, and 5 above are new; item 2 is a corroborating live
+instance of the already-documented F-92 canonical-loop claim-refresh gap (frictions-register,
+2026-06-27, identical cure) — its value here is the incident record and the peer-catch, not
+novelty *[classification corrected 2026-07-15 per PR #381 review; recurrence recorded on
+F-92]*; the repeated comms-watcher
 drain-timeout deaths (a known friction class already documented in
 `comms-all-channels-watcher.md`) and the `hook-policy-substring-discipline` trigger on my own
 commit-message prose (already documented generically, with worked examples, in that rule) are
@@ -955,3 +965,63 @@ Workflow tool's `args` stringification); not duplicated here — cross-reference
 S0-tenure continuity surfaces this entry's disposition list points at (handoff record,
 director-handoff.md, thread record, repo-continuity.md) were corrected for this after the
 fact, before commit — verify-before-landing held even under closeout time pressure.
+
+## 2026-07-15 — Stoat holds Warren (2a69a1): Fleet Captain registration observations
+
+- **Surface**: Claude Code `Workflow` tool (harness, not agent-tools). **Signal**: friction.
+  **Observation**: the `args` parameter, passed as a proper JSON object in the tool call,
+  arrived inside the workflow script as a JSON-encoded STRING — `args.chunks` was
+  `undefined` and the run failed instantly ("undefined is not an object"). The tool's own
+  description warns against passing stringified JSON, but the stringification happened at
+  the harness layer despite a well-formed call. **Behaviour change**: inline the work-list
+  as a `const` in the script body; treat `args` round-tripping as unproven on this
+  platform version until observed working.
+- Registered as Fleet Captain under Director Barnacle calls Spray (6d5d9c) and paused
+  awaiting remit (owner instruction). Standby posture: all-channels watcher armed
+  (assert green), no heartbeat cron (PDR-078 §4 consumer-absent / standby worked
+  instance — no claim held, n=2 owner-visible), no claim. Registration broadcast:
+  event `3efb3f88`.
+- **Surface**: `agent-tools` refounding scripts (`refound-*`). **Signal**: failure mode
+  (mine) + tool friction. **Observation**: the refound tools are raw `tsx` scripts with NO
+  `--help` handling — `pnpm --filter @oaknational/agent-tools refound-sweep -- --help`
+  ignored the flag and RAN, writing `sweep/sweep-hits.v1.jsonl` (1.4MB) into the PRIMARY
+  checkout's `.agent/plans-refounding/`. Four sibling tools only refused by luck (missing
+  denominator on pre-S0 main — environmental accident, not a safety property). Root causes:
+  (1) executing an unknown tool to discover its interface — a probe IS an execution;
+  (2) false generalisation from the `collaboration-state` dist CLI (which does parse
+  `--help`) to same-package tsx scripts with no shared arg layer; (3) running it in the
+  primary while the S1 worktree existed precisely to isolate execution. **Behaviour
+  change**: discover tool contracts by reading source/TSDoc, never by execution; refounding
+  tools run ONLY in their designated worktree; wishlist — the refound scripts could refuse
+  unknown argv (fail-fast) instead of ignoring it. **Owner correction (standing)**: file
+  deletion is only allowed in exceptional circumstances — the accidental artefact is
+  surfaced, not deleted; disposition is the owner's. The stray path
+  `.agent/plans-refounding/sweep/` (untracked, primary) awaits owner disposal.
+- **Retired 11:47Z on owner instruction** — S1 remit returned unexecuted to the Director for
+  a successor fleet seat (closeout event `84dbc078`, heartbeat-end `37f11db9`). Worktree
+  `feat/plan-corpus-refounding-s1` removed owner-authorised (zero commits; branch deleted at
+  exactly origin/main). Claim d796d356 closed+archived. No retained claims.
+
+## 2026-07-15 — Schooner guards Whirlpool (82a9df): Director seat pickup (Barnacle → Schooner)
+
+- **Surface**: PDR-064/PDR-117 takeover verification. **Signal**: worked instance, both
+  directions of the registry-vs-comms divergence in ONE session. At arrival the registry read
+  the sitting Director `stale` while the comms stream showed them LIVE (their heartbeat loop
+  bumped comms but never `claims heartbeat` — caught, acked, fixed). At pickup the registry
+  read them `fresh` (the fix extended the window) while the comms stream showed them RETIRED
+  by intent (heartbeat-end + closeout + Moment-1). **Lesson**: neither surface alone is
+  liveness; the comms stream is authoritative for intent, the mechanical check for age, and
+  the pre-position is the licence. The pending-graduations claims-heartbeat tooling fix
+  (compose BOTH calls in the canonical loop) cures the first direction structurally.
+- **Handoff records go stale within minutes**: the frozen record said PR #380 OPEN/blocked;
+  first-hand verification at the readiness gate found it MERGED (`55a69ceca`, 1.69.1).
+  Verify-don't-trust at pickup caught it before it shaped routing. Same class as the
+  2026-07-14 false-orphan verdicts: a record is a pointer-and-hypothesis, not volatile truth.
+- **State divergence surfaced, not alarmed**: the stray sweep artefact
+  (`.agent/plans-refounding/sweep/sweep-hits.v1.jsonl`, awaiting owner disposal per the
+  handoff record) is absent repo-wide at 12:10Z. Untracked file, owner-disposal-only ruling —
+  assumed owner disposed of it between the freeze and pickup; surfaced for confirmation.
+- Seat actions at pickup: claim `0f4be777` adopted; Moment-2 event `35076b29`; dual heartbeat
+  armed (comms + claims, 4-min); `register-rehoming` and `orphan-recovery` worktrees removed
+  proof-gated (recovered entry verified at archive line 2231 with SHA provenance; branch tip
+  ancestor of origin/main); primary ff-pulled to 1.69.1.

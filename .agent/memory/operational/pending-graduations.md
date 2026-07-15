@@ -120,13 +120,4 @@ debt register, 2026-07-08).
 Reef): both items below graduated to PDR-128 (review-conversations-are-first-class) and the
 new records-are-technical-not-emotional rule respectively — both homes verified live. -->
 
-- **Canonical heartbeat-loop recipe must bump the claims registry, not only the comms stream** `[captured: 2026-07-15 | source: napkin 2026-07-15 Barnacle calls Spray session-close loss-scan, item 2 | target: .agent/rules/liveness-heartbeat-cron.md canonical invocation | trigger: next edit to that rule's canonical invocation section, or the next claim-holding seat's heartbeat-loop authoring | size: small | status: pending]`
-  A claim-holding seat's heartbeat loop emitting `comms send --tag heartbeat` satisfies stream
-  liveness but does NOT bump the claims registry's own `heartbeat_at`/`claimed_at` freshness —
-  a distinct mechanism the current canonical invocation does not call. Validated by a live
-  incident (this Director tenure: registry read `stale` for ~15 hours while the comms stream
-  showed continuous liveness, caught by a peer on arrival, not self-detected) plus the general
-  principle it demonstrates (comms-liveness and registry-liveness are two surfaces that can
-  silently diverge). The fix: the canonical heartbeat-loop recipe should compose BOTH calls
-  (`comms send --tag heartbeat` AND `claims heartbeat --claim-id <id>`) per tick, not leave the
-  registry bump to each agent's memory.
+- **Canonical heartbeat-loop recipe must bump the claims registry, not only the comms stream** `[captured: 2026-07-15 | source: napkin 2026-07-15 Barnacle calls Spray session-close loss-scan, item 2 | status: duplicate — already captured as F-92 (frictions-register.md, 2026-06-27, the "canonical loop omits the CLAIM heartbeat refresh" bullet) with the identical cure and target surface; routed per this register's tooling-gap rule. The 2026-07-15 Barnacle-tenure incident (~15h registry-stale during continuous comms heartbeats, peer-caught at succession) is recorded on F-92 as recurrence confirmation. Terminal disposition 2026-07-15, Schooner guards Whirlpool, per PR #381 review thread.]`

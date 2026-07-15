@@ -19,7 +19,34 @@ clearly; never delete ideas. **Scope authority is the controlling plan**
 [`vision-strategy-and-plan-estate.plan.md`](../../../plans/product-development-governance/vision-strategy-and-plan-estate.plan.md),
 reconceived to this model 2026-06-18. This record is the **pickup surface**, not scope authority.
 
-## Where We Are (2026-07-14 evening, Quasar mends Umbra 52b4de outgoing Director — RULE RATIFIED, S0 WINDOW OPEN, seat → Barnacle calls Spray)
+## Where We Are (2026-07-15 midday, Schooner guards Whirlpool 82a9df Director — S0 CLOSED AND MERGED, S1 UNSTARTED, seat held at Moment-2)
+
+**S0 is CLOSED and merged**: PR #379 (`SHA:68d6d232`, release 1.69.1) landed the 681-file
+frozen conservation commit; window CLOSE broadcast 10:28Z. **Orphan-recovery PR #380
+MERGED** (`SHA:55a69ceca`, 11:20:45Z) — the recovered compaction-prep entry verified in the
+dated napkin archive with SHA provenance; both proof-gated worktrees (`register-rehoming`,
+`orphan-recovery`) removed at pickup. **S1 is UNSTARTED**: the first Fleet Captain seat
+(Stoat holds Warren) was retired by owner instruction before any script ran (the
+tool-contract mistake is in their 2026-07-15 napkin entry — read it before the successor
+seat starts). **The S1 remit stands verbatim and is the durable P3 lane guidance**
+(Director remit event 2026-07-15T11:35:42Z): the deterministic `refound-*` scripts run
+FIRST at zero LLM cost (`refound-verify-freeze` re-hash → `refound-inventory` →
+`refound-residue` → `refound-sweep`, then `refound-plant-orphan` for P4
+detector-calibration BEFORE trusting any zero/green result); the
+`refound-reader`/`refound-locator` fleet layer is a narrow, zero-judgement,
+calibration-gated residual only where scripts prove reading unavoidable, pre-declared
+against the cost ledger (P12) before any dispatch — this scripts-first discipline applies
+to the WHOLE refounding arc (S2/S3/S4 too). **The Director seat is with Schooner guards
+Whirlpool** (`82a9df`; PDR-064 Moment-2 2026-07-15T12:04:35Z, event `35076b29`, claim
+`0f4be777` adopted; Barnacle calls Spray retired clean on owner instruction). **Owner
+rulings 2026-07-15**: no more handover branches/PRs (handover artefacts land batched —
+`director-handoff.md` step 7); a residue disposition sweep (primary's 4 stashes + ~50 local
+branches, per-item proof ledger → one batch ruling) is commissioned. The stray sweep
+artefact from Stoat's misfire was absent repo-wide at 12:10Z (assumed owner-disposed,
+confirmation pending). Next safe step = successor fleet seat for S1 (owner launches;
+Director re-routes the remit) → S2 → divergence report as Walk-A input.
+
+## Where We Were (2026-07-14 evening, Quasar mends Umbra 52b4de outgoing Director — RULE RATIFIED, S0 WINDOW OPEN, seat → Barnacle calls Spray)
 
 The runway completed end-to-end tonight. **The dedicated consolidation session
 executed** (Dolphin weaves Reef, ffedcf: PDR-127 team-branch protocol + PDR-128
@@ -496,9 +523,9 @@ loss-scan):
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | Quasar mends Umbra | claude | claude-fable-5 | 52b4de | Director (first PDR-117 seat) — runway to ratified rule + open S0 window; seat → Barnacle | 2026-07-14 | 2026-07-14 |
-| Barnacle calls Spray | claude-code | claude-fable-5 | 6d5d9c | Director (Moment-2 2026-07-14T20:42:46Z) — executed S0 (re-cut branch on owner instruction to include PR #378 arrivals, froze 681 files, PR #379 merged `SHA:68d6d232`, window CLOSE broadcast), landed the S0 orphan-recovery (PR #380, open, owner-actionable — see handoff record); routed Stoat holds Warren's S1 fleet-captain remit (scripts-first, calibration-gated fleet-dispatch discipline per P3); retired at seat-open-to-Schooner, full loss-scan in the 2026-07-15 napkin entry | 2026-07-14 | 2026-07-15 |
+| Barnacle calls Spray | claude-code | claude-fable-5 | 6d5d9c | Director (Moment-2 2026-07-14T20:42:46Z) — executed S0 (re-cut branch on owner instruction to include PR #378 arrivals, froze 681 files, PR #379 merged `SHA:68d6d232`, window CLOSE broadcast), landed the S0 orphan-recovery (PR #380, merged 2026-07-15T11:20:45Z post-closeout); routed Stoat holds Warren's S1 fleet-captain remit (scripts-first, calibration-gated fleet-dispatch discipline per P3); retired at seat-open-to-Schooner, full loss-scan in the 2026-07-15 napkin entry | 2026-07-14 | 2026-07-15 |
 | Stoat holds Warren | claude-code | claude-fable-5 | 2a69a1 | Fleet Captain (owner-designated, Director-routed) — RETIRED by owner instruction (unreliable behaviour) before any S1 script ran; the retirement was a contained tool-contract mistake (a `--help` probe executed `refound-sweep` for real, writing a stray artefact — see the 2026-07-15 napkin entry), not corrupted work-product; zero commits, S1 returns unstarted | 2026-07-15 | 2026-07-15 |
-| Schooner guards Whirlpool | claude-code | claude-fable-5 | 82a9df | incoming Director (standby, owner-named), pre-positioned via PDR-064 Moment 1 by this record; no claim yet | 2026-07-15 | 2026-07-15 |
+| Schooner guards Whirlpool | claude-code | claude-fable-5 | 82a9df | Director (Moment-2 2026-07-15T12:04:35Z, event `35076b29`, claim `0f4be777` adopted) — caught the registry/comms heartbeat divergence at arrival; corrected the handoff record's superseded PR-#380/S1 claims first-hand at pickup; PR #381 thread fixes | 2026-07-15 | 2026-07-15 |
 | Baobab lifts Topsoil | claude-code | claude-opus-4-8 | 3be248 | surveyor-synthesist | 2026-06-15 | 2026-06-15 |
 | Ocelot binds Curfew | claude-code | claude-opus-4-8[1m] | c9423b | vision-author + estate-rewiring | 2026-06-17 | 2026-06-17 |
 | Tempest spins Spire | claude-code | claude-opus-4-8[1m] | 94a5c5 | controlling-plan author + review-synthesis + hygiene | 2026-06-17 | 2026-06-17 |
