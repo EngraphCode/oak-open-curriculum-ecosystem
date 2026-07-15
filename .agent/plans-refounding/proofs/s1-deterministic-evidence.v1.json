@@ -21,11 +21,7 @@
     "pnpm --filter @oaknational/agent-tools refound-plant-orphan"
   ],
   "verificationCommands": [
-    "shasum -a 256 .agent/plans-refounding/inventory.v1.jsonl",
-    "shasum -a 256 .agent/plans-refounding/net-diff.v1.report.json",
-    "shasum -a 256 .agent/plans-refounding/residue.v1.report.json",
-    "shasum -a 256 .agent/plans-refounding/sweep/sweep-hits.v1.jsonl",
-    "shasum -a 256 .agent/plans-refounding/proofs/orphan-discrimination.v1.md",
+    "shasum -a 256 -c <<'EOF'\n8c212300a2e256ea24e67925456fe79cbc36b7612b122d5183f70d7df8125b37  .agent/plans-refounding/inventory.v1.jsonl\n108428ac876e3f718a3e57abfa5003a2d0b6684fa8f7c2aa36374abfc3ac3fb4  .agent/plans-refounding/net-diff.v1.report.json\n29b969f1160982e539cdd806404e4c8d7b0886185fee5899378681d53742318b  .agent/plans-refounding/residue.v1.report.json\n1e79010da165a88645d11b86455270710690269cd5610180f3b92f3e5017eee8  .agent/plans-refounding/sweep/sweep-hits.v1.jsonl\n22b38d4f1e1e6a95b0b45416f6df21f8616a423e65194e97f39294af38f279f1  .agent/plans-refounding/proofs/orphan-discrimination.v1.md\nEOF",
     "wc -lc .agent/plans-refounding/inventory.v1.jsonl .agent/plans-refounding/net-diff.v1.report.json .agent/plans-refounding/residue.v1.report.json .agent/plans-refounding/sweep/sweep-hits.v1.jsonl .agent/plans-refounding/proofs/orphan-discrimination.v1.md"
   ],
   "artifacts": [
