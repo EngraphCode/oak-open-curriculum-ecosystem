@@ -23,12 +23,13 @@ sector-engagement.
 
 | Path | Purpose |
 |---|---|
+| [reusable-curriculum-architecture/](reusable-curriculum-architecture/) | Cross-workspace planning for faithful acquisition, loss-aware compilation, source-portable Elastic curriculum exploration, and honest search, graph, vocabulary, MCP, website, and API-facing projections |
 | [knowledge-graph-integration/](knowledge-graph-integration/) | Internal Oak knowledge-graph plans (graph-query-layer, graph-resource-factory, misconception surface, NC taxonomy, alignment audit, cross-source journeys, ontology strategy and reassessment plans, agent-guidance consolidation, kg quick wins) |
 | [external-oak-references/](external-oak-references/) | External Oak repo research and selective adoption — license audit, plan-impact mapping, deep-research scheduling for oak-curriculum-ontology, Aila / oak-ai-lesson-assistant, oak-ai-moderation-service |
 
 ## Thread Record
 
-[`.agent/memory/operational/threads/connecting-oak-resources.next-session.md`](../../memory/operational/threads/connecting-oak-resources.next-session.md)
+[`.agent/memory/operational/threads/connecting-oak-resources.next-session.md`](../../memory/operational/threads/paused/connecting-oak-resources.next-session.md)
 
 ## Adoption Rules (owner direction 2026-05-01)
 
@@ -45,6 +46,7 @@ For external Oak repos:
 ## Read Order
 
 1. This README.
-2. [knowledge-graph-integration/README.md](knowledge-graph-integration/README.md) — internal Oak KG state.
-3. [external-oak-references/future/external-oak-references-deep-research.plan.md](external-oak-references/future/external-oak-references-deep-research.plan.md) — external Oak repos plan.
-4. [Thread record](../../memory/operational/threads/connecting-oak-resources.next-session.md) — current state and first task.
+2. [reusable-curriculum-architecture/README.md](reusable-curriculum-architecture/README.md) — cross-workspace curriculum-data planning.
+3. [knowledge-graph-integration/README.md](knowledge-graph-integration/README.md) — internal Oak KG state.
+4. [external-oak-references/future/external-oak-references-deep-research.plan.md](external-oak-references/future/external-oak-references-deep-research.plan.md) — external Oak repos plan.
+5. [Thread record](../../memory/operational/threads/paused/connecting-oak-resources.next-session.md) — current state and first task.

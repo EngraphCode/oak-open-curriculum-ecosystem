@@ -2,7 +2,7 @@
 
 ## Intent
 
-Provide canonical inputs for validating `@engraph/castr` against a real, schema-first pipeline. These OpenAPI fixtures are the ground truth for the Oak Open Curriculum API: every generated type, validator, and MCP tool ultimately flows from them. The SDK-decorated schema is the input passed to castr; the original schema is retained for provenance and upstream feedback. OpenAPI 3.0 inputs are preserved alongside OpenAPI 3.1 upgrades used for stricter, fully valid checks. These fixtures define the contract Castr must satisfy for the current systems, not an implementation detail of the harness.
+Provide canonical inputs for validating `@engraph/castr` against a real, schema-first pipeline. These OpenAPI fixtures are the ground truth for the Oak Open Curriculum API: every generated type, validator, and MCP tool ultimately flows from them. The SDK-decorated schema is the input passed to Castr; the original schema is retained for provenance and upstream feedback. OpenAPI 3.0 inputs are preserved alongside OpenAPI 3.1 upgrades used for stricter, fully valid checks. These fixtures define the contract Castr must satisfy for the current systems, not an implementation detail of the harness.
 
 ## Negotiation Context
 
@@ -24,16 +24,16 @@ This document represents Oak's initial requirements. It is a starting point for 
 | **File structure** | Oak can adapt to any reasonable output layout. Current structure is not sacred. |
 | **API shape** | As long as the required data is accessible, the exact function signatures and export structure are flexible. |
 | **Naming conventions** | Prefer configurable hooks, but Oak can adapt to reasonable defaults. |
-| **Path format** | Colon (`:id`) vs curly (`{id}`) - Oak can adapt either way if castr has a preference. |
+| **Path format** | Colon (`:id`) vs curly (`{id}`) - Oak can adapt either way if Castr has a preference. |
 | **Bundle manifest structure** | The current `castr-bundle.schema.json` is a proposal. Open to revision. |
 | **Emitter granularity** | Whether Zod/TypeScript/metadata come from one emitter or multiple is flexible. |
 
 ### How to Propose Changes
 
-If castr identifies requirements that are problematic, unclear, or could be improved:
+If Castr identifies requirements that are problematic, unclear, or could be improved:
 
 1. **Document the concern** - What specific requirement is problematic and why?
-2. **Propose an alternative** - What would work better for castr while still meeting Oak's underlying need?
+2. **Propose an alternative** - What would work better for Castr while still meeting Oak's underlying need?
 3. **Discuss impact** - Oak will assess whether the alternative satisfies the actual constraint (not just the stated requirement).
 
 The goal is a contract that works well for both sides, not rigid adherence to initial assumptions.
@@ -92,41 +92,46 @@ Phase 1 is complete when Oak can:
 
 ### Functional Criteria
 
-1. **Replace the adapter** - Remove `openapi-zod-client` and `openapi3-ts` dependencies entirely
+1. **Replace the adapter** - Remove the adapter workspace and its
+   `openapi-zod-client` dependency; the wider OpenAPI dependency cutover follows
+   the complete convergence plan below
 2. **Generate equivalent output** - `curriculumZodSchemas.ts` compiles and exports:
    - All component schemas with `.strict()`
    - Endpoints array with correct structure
    - Metadata maps (`OPERATION_ID_BY_METHOD_AND_PATH`, etc.)
 3. **Pass existing tests** - Oak's SDK test suite passes without modification (other than import paths)
-4. **Maintain determinism** - Running castr twice produces identical output
+4. **Maintain determinism** - Running Castr twice produces identical output
 
 ### Validation Process
 
 1. **Fixture validation** - Castr bundle passes `verify-castr-fixtures.ts` checks
-2. **Integration test** - Oak replaces adapter imports with castr output, runs full test suite
+2. **Integration test** - Oak replaces adapter imports with Castr output, runs full test suite
 3. **Type check** - `pnpm type-check` passes across all Oak workspaces
 4. **Runtime validation** - Sample API responses validate against generated Zod schemas
 
-### What "Done" Looks Like
+### Planned Phase 1 Authoring Flow
 
-Oak can run:
+This is a target runbook, not a currently runnable command sequence. It becomes
+available only after WS2.1 of the
+[source integration implementation plan](../../architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+lands the optional wrapper and its scripts.
 
 ```bash
-# Generate from castr
-castr generate api-schema-sdk.json -o generated/
-
-# Copy output to Oak SDK
-cp generated/*.ts oak-curriculum-sdk/src/types/generated/zod/
-
-# Full quality gate passes
-pnpm format && pnpm type-check && pnpm lint && pnpm test && pnpm build
+pnpm --dir integrations/castr source:bootstrap
+pnpm --dir integrations/castr castr:build
+pnpm --dir integrations/castr contract:generate:source
+pnpm --dir integrations/castr contract:verify
+pnpm --dir integrations/castr test:contract
 ```
 
-No errors, no manual patches, no type assertions added.
+The commands use the wrapper-owned input and output paths, so no manual copy is
+part of the contract. After cutover, `contract:generate:released` exercises the
+ordinary package mode and `contract:parity` compares both modes. Neither mode
+falls back silently. No manual patches or type assertions are added.
 
 ## Core Principles (Non-Negotiable)
 
-These principles MUST be upheld by all castr outputs. See `oak-principles.md` for detailed examples and rationale.
+These principles MUST be upheld by all Castr outputs. See `oak-principles.md` for detailed examples and rationale.
 
 ### Cardinal Rule
 
@@ -157,16 +162,35 @@ The immediate goal is to replace the `openapi-zod-client` dependency in Oak's ad
 2. Transforms Zod v3 → Zod v4 via regex replacements
 3. Depends on `openapi3-ts` for OpenAPI type definitions
 
-**Phase 1 deliverable**: Castr produces Zod v4 output directly, eliminating the need for the adapter's v3→v4 transformation layer. The adapter can remain in place initially while Castr output is validated side-by-side against the existing pipeline. Adapter removal is a subsequent step once validation is complete.
+**Phase 1 deliverable**: Castr produces Zod v4 output directly, eliminating the need for the adapter's v3→v4 transformation layer. The adapter can remain in place initially while Castr output is validated side-by-side against the existing pipeline. Adapter removal is a subsequent step once validation is complete; it is not the final scope boundary.
 
-### Future Phases (Not Yet Specified)
+**End-state intent**: Castr replaces
+`packages/core/openapi-zod-client-adapter`, `openapi-zod-client`, and the other
+direct OpenAPI implementation dependencies in OCE. The current replacement
+ledger includes `openapi3-ts`, `openapi-typescript`, `openapi-fetch`, and the
+declared Search CLI development dependency `@asteasolutions/zod-to-openapi`.
+Each dependency is removed after its generic capability is proved through core
+Castr or an ADR-043 companion, while Oak-specific runtime policy stays in OCE.
+A repo-wide scan at cutover classifies any remaining OpenAPI-named transitives
+as Castr-family-owned or unrelated. See the linked integration report for the
+live inventory and capability boundaries.
+
+### Specified Convergence After Phase 1
 
 - Replace `openapi-typescript` for TypeScript type generation
-- Generate MCP tool scaffolding directly
+- Replace `openapi-fetch` with a separate generic Castr fetch companion while
+  retaining Oak auth, retry, rate-limit, serialisation, response augmentation,
+  and public SDK policy in OCE
+- Replace remaining `openapi3-ts` document/type usage
+- Resolve the Search CLI's declared `@asteasolutions/zod-to-openapi` dependency
+- Generate MCP tool scaffolding directly where the selected contract requires it
 - Emit JSON Schema validators alongside Zod
 - Produce endpoint metadata maps
 
-These future phases will be specified once Phase 1 is validated.
+The [source integration implementation plan](../../architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+specifies the parity, upstreaming, package publication, cutover, and deletion
+sequence. Individual Castr capabilities still land as small slices after Phase
+1 is validated.
 
 ## Phase 1: Detailed Requirements
 
@@ -272,7 +296,7 @@ Each endpoint must include:
 
 #### Required: Parameter Schema Strings
 
-For `request-parameter-map.ts` generation, castr must also provide parameter schemas as **code strings** that can be written to files. This could be:
+For `request-parameter-map.ts` generation, Castr must also provide parameter schemas as **code strings** that can be written to files. This could be:
 
 - A separate export with stringified schemas
 - A serialization utility
@@ -298,13 +322,18 @@ The current system builds a `curriculumSchemas` collection that maps sanitised k
 
 Castr could provide utilities or structured data to construct this collection, but the exact API is flexible.
 
-### What Castr Does NOT Need To Do
+### What Castr Does Not Need to Do in Phase 1
 
-- Emit `openapi-fetch` compatible types (that is a separate phase)
+- Emit `openapi-fetch` compatible types; the later convergence slice replaces
+  that dependency through a separate ADR-043-aligned generic fetch companion
 - Match the exact file structure of current outputs
 - Preserve current naming conventions (but must be configurable)
-- Support Zodios or any specific HTTP client
+- Support Zodios or any specific HTTP client in the Phase 1 Zod/metadata slice
 - Maintain backwards compatibility with current adapter API
+
+These are Phase 1 exclusions, not end-state exclusions. Later generic companion
+capability, retained Oak policy, and complete OpenAPI dependency convergence
+are required by the linked implementation plan.
 
 ## Contents
 
@@ -317,17 +346,17 @@ Castr could provide utilities or structured data to construct this collection, b
 
 ### Contract Schemas
 
-- `castr-bundle.schema.json` - JSON Schema contract for castr bundle manifests
-- `castr-bundle.sample.json` - Example castr bundle manifest with placeholder values
+- `castr-bundle.schema.json` - JSON Schema contract for Castr bundle manifests
+- `castr-bundle.sample.json` - Example Castr bundle manifest with placeholder values
 
 ### Tooling
 
-- `verify-castr-fixtures.ts` - Verification harness for the fixtures and optional castr bundle manifests
+- `verify-castr-fixtures.ts` - Verification harness for the fixtures and optional Castr bundle manifests
 
 ### Principles Documentation
 
 - `oak-principles.md` - Complete type discipline principles (self-contained, no external dependencies)
-- `expected-outputs.md` - Concrete examples of expected castr output with validation checklist
+- `expected-outputs.md` - Concrete examples of expected Castr output with validation checklist
 
 ## How these schemas are acquired and processed
 
@@ -352,21 +381,21 @@ The SDK schema applies Oak-specific enhancements to the original:
 
 2. **Legitimate 404 documentation** - The `/lessons/{lesson}/transcript` endpoint documents a 404 response (some lessons have no transcript)
 
-These enhancements are applied programmatically; castr receives the already-enhanced `api-schema-sdk.json`.
+These enhancements are applied programmatically; Castr receives the already-enhanced `api-schema-sdk.json`.
 
-### OpenAPI 3.1 fixtures (castr upgrade expectations)
+### OpenAPI 3.1 fixtures (Castr upgrade expectations)
 
-`api-schema-original-3.1.json` and `api-schema-sdk-3.1.json` are the strict counterparts to the 3.0 fixtures. They reflect the required castr upgrade step:
+`api-schema-original-3.1.json` and `api-schema-sdk-3.1.json` are the strict counterparts to the 3.0 fixtures. They reflect the required Castr upgrade step:
 
 - `openapi` is upgraded to `3.1.0` and `jsonSchemaDialect` is set to draft 2020-12.
 - `nullable: true` is replaced with JSON Schema null unions (for example, `type: ["object", "null"]`).
 - No other semantic changes are applied; these are behavioural expectations, not formatting or ordering constraints.
-The verification harness does not attempt upgrades or normalisation; castr is responsible for producing these 3.1 outputs.
+The verification harness does not attempt upgrades or normalisation; Castr is responsible for producing these 3.1 outputs.
 
 ## Potential avenues for use (automated checks)
 
 - **IR determinism**: parse `api-schema-sdk.json` and assert stable, sorted IR output across runs.
-- **Emitter parity**: emit Zod v4 and TypeScript from castr and compare structural parity against the SDK artefacts.
+- **Emitter parity**: emit Zod v4 and TypeScript from Castr and compare structural parity against the SDK artefacts.
 - **Endpoint map validation**: ensure method + path -> operationId and response status mappings match SDK outputs.
 - **Decoration checks**: verify `canonicalUrl` injection and the transcript 404 response are present only in the SDK schema.
 - **Round-trip safety**: OpenAPI -> OpenAPI output must preserve semantics against the SDK schema (byte equivalence is not required).
@@ -380,7 +409,7 @@ The verification harness does not attempt upgrades or normalisation; castr is re
 ### Input Requirements
 
 - Castr consumes the SDK-decorated schema (`api-schema-sdk.json`), not the upstream original.
-- OpenAPI 3.0.x is allowed as input, but castr must upgrade to fully valid OpenAPI 3.1.x internally.
+- OpenAPI 3.0.x is allowed as input, but Castr must upgrade to fully valid OpenAPI 3.1.x internally.
 
 ### Output Requirements
 
@@ -438,7 +467,7 @@ The `verify-castr-fixtures.ts` script validates:
 1. **Fixture presence** - OpenAPI schema files exist and are valid OpenAPI 3.x
 2. **SDK decoration** - `canonicalUrl` properties present in SDK schema, absent from original
 3. **404 documentation** - Transcript endpoint 404 response present in SDK schema
-4. **Bundle structure** - When a castr bundle is provided, validates all required fields and file references
+4. **Bundle structure** - When a Castr bundle is provided, validates all required fields and file references
 
 ### Running the harness
 
@@ -449,7 +478,7 @@ tsx verify-castr-fixtures.ts
 # Verify fixtures in a specific directory
 tsx verify-castr-fixtures.ts --dir /path/to/fixtures
 
-# Verify a castr bundle output
+# Verify a Castr bundle output
 tsx verify-castr-fixtures.ts --bundle /path/to/castr-bundle.json
 
 # Strict mode: require all bundle files to exist (not just schema shape)
@@ -534,17 +563,57 @@ castr.generate({
 
 ## Integration Prerequisites
 
-Before castr can be integrated into Oak's type generation pipeline:
+Before Castr can be integrated into Oak's type generation pipeline:
 
-1. **SDK workspace separation** — Oak's code-generation code must be extracted into a dedicated generation workspace (separate from the runtime SDK). This is Step 1 of the [4-workspace decomposition](../../semantic-search/archive/completed/sdk-workspace-separation.md) defined in [ADR-108](../../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md). (Separation complete, plan archived.) After separation, Castr becomes a dependency of the Generic Pipeline workspace (WS1). Pipeline framework extraction is [iceboxed](../../icebox/openapi-pipeline-framework.md).
+1. **SDK workspace separation** — Oak's code-generation code must be extracted into a dedicated generation workspace (separate from the runtime SDK). This is Step 1 of the 4-workspace decomposition (`../../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md`) defined in [ADR-108](../../../../docs/architecture/architectural-decisions/108-sdk-workspace-decomposition.md). (Separation complete, plan archived.) The optional source mode remains behind the integration wrapper; only released `@engraph/castr` becomes the ordinary pipeline dependency at final cutover. Pipeline framework extraction is [iceboxed](../../speculative/openapi-pipeline-framework.md).
 
 2. **Side-by-side validation** — The existing `openapi-zod-client-adapter` can remain in place initially while Castr output is validated against the fixtures in this directory. This allows comparison of the two pipelines before committing to the switch.
 
-3. **Adapter removal** (subsequent step) — Once Castr outputs are validated and the quality gate chain passes with Castr output, Oak's current `openapi-zod-client-adapter` and its `openapi-zod-client` + `openapi3-ts` dependencies will be removed.
+3. **OpenAPI stack convergence** (subsequent steps) — Once Castr outputs are validated, promote detailed contracts into this requirements estate, then move document/type and TypeScript writer capability into core Castr through small upstream slices. Generic typed-fetch/hooks belong in a separate ADR-043 companion; Oak runtime policy remains in OCE. Any live reverse-generation capability requires its own reviewed companion. The quality gate chain must pass for each slice.
 
-## Local castr checkout
+4. **Distribution truth** — As checked on 2026-07-15, the repository declares
+   `@engraph/castr` but the package is not available from npm and the repository
+   has no GitHub release; the proposed fetch companion does not yet exist.
+   Local OCE/Castr co-development therefore uses the pinned source integration
+   below. Provenance-bearing core and companion packages are required before
+   final OCE cutover so the ordinary public root can regenerate without the
+   optional submodule; they are not prerequisites for the rapid local authoring
+   loop.
 
-Ask the user if and where to clone the castr repository for local development.
+5. **Cutover and deletion** — Prove source-built and released-package modes
+   produce byte-identical OCE contract files for the same Castr commits and
+   inputs. Then make Castr core plus the approved generic fetch companion OCE's
+   direct generic OpenAPI implementation boundary, retain Oak policy, delete
+   `packages/core/openapi-zod-client-adapter`, and remove the superseded
+   dependencies and lockfile entries. Side-by-side validation must not become a
+   permanent dual stack.
+
+## Local Castr Checkout
+
+The planned canonical checkout is the optional Git submodule at
+`integrations/castr/upstream`, wrapped by the private
+`integrations/castr/package.json` workspace. The default public clone leaves it
+uninitialised, and ordinary root install, build, tests, and quality gates must
+remain complete in that state.
+
+When Castr capability is being developed for OCE, initialise the checkout
+explicitly, create a short-lived `feat/oce-*` branch inside the submodule, and
+use the wrapper's named build, generation, and contract-verification commands.
+Local dirty authoring is allowed for the tight edit/test loop only when the
+wrapper records the base commit and deterministic content hash. Direct `main`
+mutation, CI, release, and parent-pin updates require clean committed state. The
+wrapper owns the stable command and generated-artefact contract; OCE packages
+must not import `upstream/src`, `upstream/dist`, or link the nested package into
+the root workspace graph. At cutover, ordinary root codegen uses released Castr
+core plus the approved generic fetch companion, while the wrapper retains an
+explicit source mode. The two modes have a byte-parity gate and never fall back
+silently. Generally useful changes are merged to Castr `main`, then the parent
+gitlink advances to the merged commit.
+
+See the [Castr source integration report](../../../reports/oak-integrations/castr-source-integration-report-2026-07-15.md)
+for the exploration and the
+[source integration implementation plan](../../architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md)
+for the executable sequence.
 
 ## Refresh guidance
 
@@ -554,7 +623,7 @@ These are static snapshots. Refresh only when the upstream schema changes and th
 
 ### Castr Contract Documents (this directory)
 
-- `expected-outputs.md` - Concrete examples of expected castr output with validation checklist
-- `oak-principles.md` - Type discipline principles castr must uphold (self-contained reference)
+- `expected-outputs.md` - Concrete examples of expected Castr output with validation checklist
+- `oak-principles.md` - Type discipline principles Castr must uphold (self-contained reference)
 - `castr-bundle.schema.json` - JSON Schema for bundle manifests
 - `verify-castr-fixtures.ts` - Verification harness

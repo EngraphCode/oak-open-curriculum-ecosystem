@@ -20,6 +20,7 @@ existence at multi-session scope, not before).
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | claude | Opus 4.8 | e756f7 | Moonlit Waxing Nebula | upstream-realignment-specialist | 2026-06-03 | 2026-06-03 |
+| codex | GPT-5 | unknown | Codex | reusable-curriculum-architecture search synthesis and closeout | 2026-07-15 | 2026-07-15 |
 
 ## Current Continuation
 
@@ -27,13 +28,13 @@ existence at multi-session scope, not before).
   pushing is the owner's call).
 - Invocation pointer: `start-right-quick`, then this record.
 - Owning plans:
-  - [`schema-change-minimal-adaptation.plan.md`](../../../plans/sdk-and-mcp-enhancements/current/schema-change-minimal-adaptation.plan.md)
+  - [`schema-change-minimal-adaptation.plan.md`](../../../../plans/sdk-and-mcp-enhancements/current/schema-change-minimal-adaptation.plan.md)
     — owner-ratified ("yes to all", 2026-06-03); queued, executes after or
     parallel to EEF D4 on owner scheduling.
-  - [`bulk-schema-driven-code-generation.md`](../../../plans/semantic-search/future/02-schema-authority-and-codegen/bulk-schema-driven-code-generation.md)
+  - [`bulk-schema-driven-code-generation.md`](../../../../plans/semantic-search/future/02-schema-authority-and-codegen/bulk-schema-driven-code-generation.md)
     — promotion APPROVED; physical move to an executable lane at its
     executing session.
-  - [`schema-resilience-and-response-architecture.plan.md`](../../../plans/sdk-and-mcp-enhancements/active/schema-resilience-and-response-architecture.plan.md)
+  - [`schema-resilience-and-response-architecture.plan.md`](../../../../plans/sdk-and-mcp-enhancements/active/schema-resilience-and-response-architecture.plan.md)
     — OQ1 SETTLED (`.strict()` everywhere stands); live scope is the
     drift-health endpoint + diagnostic extra-field failure classification.
 - Completed (2026-06-03, Moonlit Waxing Nebula): the upstream sequences API
@@ -60,3 +61,17 @@ existence at multi-session scope, not before).
   Rule ADR first; it is doctrine and needs owner review).
 - Promotion watchlist: `bulk-schema-driven-code-generation.md` (approved,
   awaiting its executing session).
+- New paused evidence (2026-07-15): the reusable curriculum architecture
+  [report family](../../../../reports/oak-reusable-curriculum-architecture/README.md)
+  and strategic
+  [planning brief](../../../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
+  extend this lane from ingestion mechanics to source-portable curriculum
+  exploration. They define a conserved source-accounting boundary, explicit
+  entity/occurrence/relation/passage/rollup projections, progressive MCP
+  exploration, and distinct agent and website retrieval policies. They do not
+  change the current operational architecture or authorise implementation.
+- Next safe step for the new evidence: on owner-directed promotion, revalidate
+  the received bulk bundle and current search paths, reconcile adjacent search
+  plans, establish known-answer consumer journeys, verify a representative
+  public materialised-view adapter and live Serverless capabilities, and decide
+  the ADR-089/ADR-140 amendment or successor-ADR path.
