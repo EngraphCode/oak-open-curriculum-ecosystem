@@ -68,9 +68,9 @@ declared-rate reader sample remains open.
 
 ## Regenerate
 
-Use a clean checkout containing the recorded base or a descendant whose frozen
-corpus and refounding generator sources are byte-identical. From the repository
-root, run this exact sequence without adding a `--help` probe:
+Use a clean checkout at the exact recorded run base
+`0a04617d420ad47145c8af27af45d529581f830a`. From the repository root, run
+this exact sequence without adding a `--help` probe:
 
 ```sh
 pnpm install

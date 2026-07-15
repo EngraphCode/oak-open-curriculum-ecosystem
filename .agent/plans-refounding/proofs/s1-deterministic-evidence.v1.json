@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "runBaseSha": "0a04617d420ad47145c8af27af45d529581f830a",
+  "requiresExactRunBase": true,
   "repeatRuns": 2,
   "byteIdenticalAcrossRuns": true,
   "freezeVerification": {
@@ -11,14 +12,21 @@
     "changed": 0,
     "extra": 0
   },
-  "commands": [
-    "pnpm install",
-    "pnpm build",
+  "setupCommands": ["pnpm install", "pnpm build"],
+  "repeatedRunCommands": [
     "pnpm --filter @oaknational/agent-tools refound-verify-freeze",
     "pnpm --filter @oaknational/agent-tools refound-inventory",
     "pnpm --filter @oaknational/agent-tools refound-residue",
     "pnpm --filter @oaknational/agent-tools refound-sweep",
     "pnpm --filter @oaknational/agent-tools refound-plant-orphan"
+  ],
+  "verificationCommands": [
+    "shasum -a 256 .agent/plans-refounding/inventory.v1.jsonl",
+    "shasum -a 256 .agent/plans-refounding/net-diff.v1.report.json",
+    "shasum -a 256 .agent/plans-refounding/residue.v1.report.json",
+    "shasum -a 256 .agent/plans-refounding/sweep/sweep-hits.v1.jsonl",
+    "shasum -a 256 .agent/plans-refounding/proofs/orphan-discrimination.v1.md",
+    "wc -lc .agent/plans-refounding/inventory.v1.jsonl .agent/plans-refounding/net-diff.v1.report.json .agent/plans-refounding/residue.v1.report.json .agent/plans-refounding/sweep/sweep-hits.v1.jsonl .agent/plans-refounding/proofs/orphan-discrimination.v1.md"
   ],
   "artifacts": [
     {
