@@ -19,7 +19,7 @@ merge_class: index-narrative-tables
 Repo-level operational index for active thread state. Historical session-close
 prose is archived under [`archive/`](archive/), with the latest pre-compaction
 source snapshot preserved at
-[`archive/repo-continuity-current-state-2026-05-31-foamy-docs-consolidation.md`](archive/repo-continuity-current-state-2026-05-31-foamy-docs-consolidation.md).
+`./archive/repo-continuity-current-state-2026-05-31-foamy-docs-consolidation.md` (`./archive/repo-continuity-current-state-2026-05-31-foamy-docs-consolidation.md`).
 Detailed lane histories live in thread records, curator reports, completed
 plans, and prior continuity archives; this file should stay a compact pickup
 surface.
@@ -34,6 +34,21 @@ Compact live state only. Finished-session narrative is conserved in its homes
 (commits, ADRs, PDRs, patterns, thread records) and in git history, then drained
 from here per `continuity-practice.md` §Disposition; only live lanes and live
 forward-asks remain.
+
+- **ARCHITECTURAL FITNESS + MUTATION TESTING — decision-ready concept
+  exploration written 2026-07-15; no implementation.** The architectural-
+  budget child now records a proposal to replace the unwired, externally
+  inventoried `max-files-per-dir` ESLint shape with deterministic report-only
+  validator signals whose counts are not limits. Owner ratification and any
+  ADR-166 amendment remain pending. The mutation-testing plans now reflect that
+  root Stryker scaffolding exists but all 26 inspected workspaces lack a
+  `mutate` command; next is an explicit unit/integration dry-run contract, then
+  pure-unit, integration-only, and mixed canaries. Reports:
+  [architectural fitness](../../reports/architectural-fitness-functions-concept-exploration-2026-07-15.md)
+  and
+  [mutation testing](../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md).
+  Both remain documentation-only, uncommitted work in a heavily shared dirty
+  tree.
 
 - **MCP agent-facing content — VISIBILITY DELIVERABLE MERGED TO MAIN (PR #337, 2026-07-09, `SHA:5f3c1f472`).**
   A classified registry of all 716 repo-controlled content items that reach an MCP consumer (the effective agent prompt),
@@ -192,7 +207,7 @@ forward-asks remain.
   "branch unpushed" note here was stale). Queue-workflow commits from Claude Code are
   unblocked; the Cursor-only stream-truncation residual remains documented in the commit
   skill. Completed plan (evidence + pinned mechanism):
-  [`f-112-commit-workflow-stream-truncation-fix.plan.md`](../../plans/agent-tooling/current/f-112-commit-workflow-stream-truncation-fix.plan.md).
+  `f-112-commit-workflow-stream-truncation-fix.plan.md` (`../../plans/agent-tooling/archive/completed/f-112-commit-workflow-stream-truncation-fix.plan.md`).
 - **CI / security follow-ons (LIVE forward-asks).** From the CI-hardening landings (#236 dep-review
   gate, #239 CI parallelisation): report the #229 Tier-2/3 security-roadmap items; reconcile the
   widget/a11y pre-push ≠ CI parity gap (ADR-121 matrix, from #230); and the Codex #239 follow-ups to
@@ -273,18 +288,56 @@ not the current session-priority lane. Reactivation is owner-directed.
 | `eef` | EEF graph-tooling rebuild — D0–D7 delivered & shipped (v1.16.0); D7 proof dropped as overkill (paused 2026-06-19) | [record][eef] | claude / Fable 5 / Thyme wakes Canopy / record-condensation / 2026-06-12 (prior identities, 30+ seats: thread record) |
 | `data-sources-governance` | Author `docs/governance/DATA-SOURCES.md` (suitability / last-reviewed / removal criteria) — **owner-gated**: new governance policy, an owner decision, not agent-resolvable; gates the under-the-hood/explain user-exposure surface | [record](threads/data-sources-governance.next-session.md) | claude / Opus 4.8 / Ferret weaves Nightfall / thread-opener-brief-only / 2026-06-25 |
 | `school-data-search` | Oak School Data Search service (POC MVP): deep review complete, build-ready (paused 2026-06-19) | [record][school-data-search] | claude / Opus 4.8 / Fiery Sparking Caldera / deep-review-and-refinement / 2026-06-04 (prior identities: thread record) |
-| `semantic-search` | Search data foundations: upstream-schema alignment, bulk sourcing, minimal-adaptation arc (paused 2026-06-19) | [record][semantic-search] | claude / Opus 4.8 / Moonlit Waxing Nebula / upstream-realignment-specialist / 2026-06-03 |
+| `semantic-search` | Search data foundations plus paused source-portable curriculum-exploration evidence and planning | [record][semantic-search] | codex / GPT-5 / Codex / reusable-curriculum-architecture search synthesis and closeout / 2026-07-15 |
 | `oak-kg-ontology-planning-review` | Plan the `oak-kg`/ontology work via a deep review of the Oak Curriculum Ontology repo (opened, not started; paused 2026-06-19) | [record][oak-kg-ontology] | claude / Opus 4.8 / Twilit Cascading Supernova / thread-opener-brief-only / 2026-06-04 |
-| `connecting-oak-resources` | Oak resource graph substrate for EEF | [record][connecting] | claude / Opus 4.8 / Galactic Glowing Prism / jc4-plan-authoring (kg collection) / 2026-06-02 (prior: Opalescent Cascading Planet, Stellar Waning Planet, Silvered Lurking Mask, all 2026-06-02) |
+| `connecting-oak-resources` | Oak resource graph substrate plus queued source-integration workspaces and paused reusable-curriculum-architecture evidence | [record][connecting] | codex / GPT-5 / Leopard tracks Dewdrop / source-integration concept exploration, plan, and closeout / 2026-07-15 |
 | `branch-fitness-and-push-cadence` | Small-PR, push-often, branch-fitness, PR/Sonar protocol substrate | [record][branch-fitness] | Pelagic Snorkelling Sextant / codex / GPT-5 / Cycle 1 substrate capture / 2026-05-24 |
 | `mcp-product-analytics` | MCP product analytics design and Path-to-GA Programme | [record][mcp-analytics] | Stellar Glowing Satellite / claude / claude-opus-4-7 / Programme landed + amendments / 2026-05-26 |
 | `observability-sentry-otel` | Sentry/OTel integration | [record][observability] | Umbral Creeping Night / claude-code / opus-4.7 / 2026-05-10 |
 | `exploring-open-education-resources` | Third-party OER | [record][oer] | Gnarled / claude-code / 2026-05-01 |
 | `sector-engagement` | External adoption | [record][sector] | claude-code / Fable 5 / Forge turns Basalt / dfe-data-sdk-seed-authoring / 2026-06-12 (prior: Squally / cursor / 2026-04-30) |
-| `architectural-budget-system` | Architectural budget | [record][budget] | Nebulous / codex / 2026-04-29 |
+| `architectural-budget-system` | Cross-scale budgets; proposed report-only directory-concentration validator direction awaits owner ratification | [record][budget] | codex / GPT-5 / Spark seeks Pumice / concept exploration and handoff / 2026-07-15 |
 | `cloudflare-mcp-security-and-token-economy-plans` | Cloudflare MCP | [record][cloudflare] | Glassy / codex / 2026-04-28 |
 
 ## Next Safe Steps
+
+### Source integration workspaces — ready, sequenced, and not yet executed (2026-07-15)
+
+The durable concept exploration is the
+[`oak-integrations` report family](../../reports/oak-integrations/README.md),
+including the dedicated
+[Castr source-integration report](../../reports/oak-integrations/castr-source-integration-report-2026-07-15.md).
+The executable owner is the
+[Oak source integration workspaces plan](../../plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md).
+It specifies optional pinned source checkouts for Oak OpenAPI, Castr, Oak Curriculum Ontology,
+and Oak Database-Tools, with stable parent wrappers and a complete public-root path when every
+submodule is absent. Castr uses source mode for rapid local co-development and released core plus
+generic fetch-companion packages for ordinary public-root use; Oak runtime policy remains owned
+here.
+
+The plan is `ready-for-execution` but sequenced after the P0 workspace layer-separation audit.
+This session performed no implementation, submodule addition, source-repository branch creation,
+package publication, commit, or push. The next authorised executor must first confirm that the
+preceding audit is complete, then run the plan's blocking preflight: recheck source visibility and
+heads, branch policy, cross-repository permissions, npm scope and package-name authority,
+trusted/provenance publishing, and the current vendor call shapes. `git status` remains the
+falsifier for the report, plan, and closeout artefacts, which are written in the shared working
+tree but uncommitted.
+
+### Reusable curriculum architecture — evidence complete; promotion owner-directed (2026-07-15)
+
+The three-report
+[family](../../reports/oak-reusable-curriculum-architecture/README.md) and the
+strategic future [planning
+brief](../../plans/connecting-oak-resources/reusable-curriculum-architecture/future/reusable-curriculum-architecture-planning.plan.md)
+are the durable evidence and planning homes. They cover repository corrections,
+cross-estate obligations, source-portable Elastic exploration, MCP and website
+consumer boundaries, and the ADR ratification watchlist. The
+`connecting-oak-resources` and `semantic-search` records remain paused; no
+implementation is authorised. The next safe action is the brief's
+owner-directed promotion trigger, not ad hoc code or current-architecture edits.
+Session-completion consolidation captured this lane; unrelated incoming
+practice exchanges remain owner-gated outside this session.
 
 ### agent-tools architecture — plan authored; commit + standard deferred (2026-06-29)
 

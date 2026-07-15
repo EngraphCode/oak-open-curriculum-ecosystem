@@ -18,7 +18,7 @@ todos:
 
 # Architectural Budget Enforcement Layer
 
-**Last Updated**: 2026-04-29
+**Last Updated**: 2026-07-15
 **Status**: Strategic brief, not executable
 **Lane**: `future/`
 **Parent**:
@@ -53,7 +53,7 @@ before this plan can rely on hook promotion evidence.
 
 | Candidate | Future failure mode | Required proof before gate promotion |
 |---|---|---|
-| Directory cardinality | Configured `max-files-per-dir` inventory reports over-limit directories | Non-empty deterministic inventory and over-limit fixture |
+| Directory cardinality | **Proposed removal from enforcement candidates**; retain as a report-only concentration signal if the 2026-07-15 synthesis is ratified | Longitudinal evidence would need to prove a low-ambiguity, role-independent invariant and ungameable response before reconsideration |
 | Package exports | Export target missing or public surface exceeds approved shape | Export targets resolve and public API is intentionally documented |
 | Deep imports | Cross-workspace import bypasses approved package exports | Imports resolve through package specifiers, not internals |
 | Nested package markers | Nested `package.json` has no fixture/generated disposition | Allowlist or removal plan is explicit |
@@ -88,6 +88,12 @@ When a check becomes blocking, the same change must update:
 
 Warnings are not acceptable terminal states. A check is either informational
 with a named consumer, or blocking with non-zero failure behaviour.
+
+An informational signal is not a failed check waiting for a convenient
+threshold. The 2026-07-15 concept exploration proposes that directory count
+remain such a signal; owner ratification is still required. Cycles, forbidden
+dependency edges, and export-contract breaches remain plausible enforcement
+candidates because they can express explicit architectural invariants.
 
 ## Non-Goals
 

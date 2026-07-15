@@ -39,7 +39,7 @@ todos:
     content: "Completed: dependency-cruiser findings resolved and promoted to blocking QG, with manifest/API enforcement kept separate."
     status: completed
   - id: enable-max-files-per-dir
-    content: "Route max-files-per-dir through the ADR-166 directory-cardinality child plan before any repo-wide gate promotion."
+    content: "Ratify or reject the 2026-07-15 proposal to route directory cardinality to report-only visibility instead of promoting max-files-per-dir."
     status: pending
   - id: promote-type-assertions-in-tests
     content: "Remove the testRules exception that makes consistent-type-assertions a warning rather than an error. Remediate all ~218 assertion warnings across 6 workspaces."
@@ -51,7 +51,7 @@ todos:
     content: "Mandate test:e2e boots dist/ artefacts under plain Node; fold built-artifact proof into E2E, not a separate lane."
     status: pending
   - id: enable-stryker-all-workspaces
-    content: "Enable Stryker mutation testing in all workspaces with initial loose thresholds. Create incremental remediation plan."
+    content: "Use evidence-gated unit, integration-only, and mixed Stryker canaries before any value-led rollout or separate gate decision."
     status: pending
   - id: promote-widget-a11y-to-ci
     content: "Add test:a11y, test:widget, test:widget:ui, test:widget:a11y to CI workflow — currently local-only gates with no remote enforcement."
@@ -342,9 +342,9 @@ on ESLint config standardisation (Tier 1) completing first.
 |------|--------|--------|-------|
 | Knip drift follow-up | Routed to completed child | Medium | Baseline promotion complete; only new drift or config changes belong here |
 | Package API / deep-import enforcement | ADR-166 enforcement layer | High (eventual) | Requires visibility baseline and deterministic failure mode |
-| Stryker mutation testing | 2+ days | Medium | Needs healthy test suite first (test audit sibling plan) |
+| Stryker mutation testing | Unknown until canaries | Medium | Explicit unit/integration scope and canary runtime must be proven first |
 | `no-child-process-in-tests` rule | 1 day | Low-Medium | 2 existing violators |
-| `max-files-per-dir` enablement | ADR-166 directory-cardinality child | Low now, higher after baseline | Estimate and dependencies live in the child plan |
+| Directory-concentration visibility | ADR-166 visibility child | Informational | Proposed report-only signal; owner ratification pending |
 | oak-eslint self-linting | 0.5 day | Low | Low external impact |
 
 ## Domain Boundaries
@@ -366,7 +366,9 @@ on ESLint config standardisation (Tier 1) completing first.
 10. **`@oaknational/no-eslint-disable` promotion** — warn to error
 11. **knip/depcruise drift checks** — rerun promoted gates and route any new
     drift to the completed child plans
-12. **max-files-per-dir** — route through ADR-166 directory-cardinality child
+12. **Directory-concentration visibility proposal** — decide whether to route
+    through the ADR-166 report-only child instead of wiring
+    `max-files-per-dir`
 13. **`consistent-type-assertions` in tests** — promote to error
 14. **Stryker mutation testing**
 15. **`no-child-process-in-tests` ESLint rule**
@@ -401,11 +403,11 @@ to compensate.
 | Depcruise drift follow-up | Completed depcruise child plan | Only new drift or config changes belong here |
 | `consistent-type-assertions` | **ESLint config standardisation** | Lint-rule promotion on trustworthy infrastructure |
 | `no-eslint-disable` promotion | **ESLint config standardisation** + `eslint-disable-remediation.plan.md` | Remediation plan has zero progress; re-assess |
-| `max-files-per-dir` | ADR-166 directory-cardinality child + ESLint config standardisation | Gate promotion waits for enforcement-layer preconditions |
+| Directory concentration | ADR-166 directory-cardinality child | Proposed informational validator work; owner ratification precedes any implementation |
 | Forbidden-comment test infra | None | Must solve without gate weakening |
 | Knip drift follow-up | Completed knip child plan | Only new drift or config changes belong here |
 | Package API / deep-import enforcement | ADR-166 enforcement layer | Requires visibility baseline and deterministic failure mode |
-| Stryker | Test audit (sibling plan) | Mutation testing most valuable after healthy suite |
+| Stryker | Explicit test-scope contract and small canaries | Unit, integration-only, and mixed evidence precede rollout or cadence decisions |
 | `no-child-process-in-tests` | None | Prevents future violations |
 | oak-eslint self-linting | Forbidden-comment infra | Investigate circular dependency risk first |
 
@@ -573,7 +575,7 @@ updated. See child plan
 ### 5. Enable dependency-cruiser as a Blocking Quality Gate — COMPLETE
 
 **Completed**: 2026-04-12. The child plan
-[depcruise-triage-and-remediation.plan.md](../archive/completed/depcruise-triage-and-remediation.plan.md)
+depcruise-triage-and-remediation.plan.md (`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/depcruise-triage-and-remediation.plan.md`)
 resolved the circular-dependency and orphan baseline, promoted strict
 dependency-cruiser coverage, and left `.dependency-cruiser.mjs` plus
 `pnpm depcruise` in the root quality-gate path.
@@ -582,24 +584,28 @@ Dependency-cruiser still does not police every package-manifest concern. That
 is not a depcruise defect; package export and deep-import enforcement belongs
 to the ADR-166 enforcement layer after visibility and remediation planning.
 
-### 6. Enable max-files-per-dir via the Directory-Cardinality Child Plan
+### 6. Replace max-files-per-dir Activation with Report-only Visibility
 
 **Problem**: The `@oaknational/max-files-per-dir` ESLint rule exists but is
 not registered or activated. The rule also depends on configured inventories,
 so a careless activation can silently no-op.
 
-**Fix**: Execute
+**2026-07-15 proposal**: If ratified, execute
 [developer-experience/current/directory-complexity-enablement.execution.plan.md](../../developer-experience/current/directory-complexity-enablement.execution.plan.md)
-as the directory-cardinality child of ADR-166. That plan owns the baseline
-refresh, deterministic inventory contract, RED rule/config tests, pilot
-calibration, and staged activation.
+as the directory-cardinality child of ADR-166. It now owns deterministic
+repository discovery, file-role classification, human/JSON signal output,
+contrasting pilots, and named-consumer routing. Do not register or activate the
+ESLint rule. Retire it only after the replacement proves equivalent discovery
+and discoverability.
 
-**Remediation**: Do not split directories mechanically. Each breach must route
-to a structural response: cohesive intra-layer extraction, lower-layer move,
-workspace split, dead-code deletion, or generated output.
+**Interpretation**: Do not split directories mechanically. A signal can route
+to cohesive extraction, a lower-layer move, workspace separation, dead-code
+deletion, generation, or an evidence-backed no-structural-change disposition.
 
-**Gate note**: ADR-121 and build-system docs must change only when a
-`max-files-per-dir` check actually runs on a gate surface.
+**Gate note**: The concept exploration recommends removing directory
+cardinality from gate candidacy. This is not settled until owner ratification;
+any later reconsideration would need new longitudinal evidence and another
+owner decision.
 
 ### 7. Promote `consistent-type-assertions` in Tests to Error
 
@@ -653,11 +659,19 @@ scripts would enumerate them in 10 minutes).
 
 ### 10. Enable Stryker Mutation Testing
 
-**Problem**: Stryker is configured but not enabled as a gate. Existing plan at `.agent/plans/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md`.
+**Problem**: Stryker dependencies, a root script, a Turbo task, and a generated
+base stub exist, but no workspace has a `mutate` script. The root command
+currently schedules no mutation work. Existing plan at
+`.agent/plans/agentic-engineering-enhancements/current/mutation-testing-implementation.plan.md`.
 
-**Fix**: Enable `pnpm mutate` in all workspaces. Configure initial thresholds loose enough for current code to pass. Then create an incremental plan to tighten thresholds and improve test suite effectiveness.
+**Fix**: Prove explicit production and unit/integration selection with a dry
+run, then a pure unit canary, an integration-only canary, and one mixed
+workspace. Evaluate TypeScript checking, incremental reuse, cadence, and value-
+led expansion separately. Keep score non-blocking during this evidence phase.
 
-**Remediation**: Per-workspace configuration and threshold tuning. New tests where mutation testing reveals uncovered behaviour.
+**Remediation**: Triage survivors by behavioural meaning. Add tests only where
+they prove product behaviour; do not tune exclusions or write mutant-specific
+tests to improve a number.
 
 ## Owner Decisions (Resolved 2026-04-11)
 

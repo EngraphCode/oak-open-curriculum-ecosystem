@@ -40,9 +40,10 @@ On 2026-03-03 the collection was manually migrated into lifecycle lanes, and the
 ## Canonical Directory-Complexity Plan
 
 - Current canonical plan: `current/directory-complexity-enablement.execution.plan.md`
-- Purpose: execute the directory-cardinality child of ADR-166, including
-  current-truth baseline, deterministic inventory, remediation SOP, pilot
-  calibration, and staged `max-files-per-dir` activation
+- Purpose: execute the directory-cardinality child of ADR-166 as deterministic,
+  non-blocking architectural-fitness evidence, including role classification,
+  contrasting pilots, named consumers, and eventual retirement of the unwired
+  `max-files-per-dir` rule after replacement-equivalence proof
 - Folded/delegated sources:
   - `active/devx-strictness-convergence.plan.md` (directory-complexity subset extracted)
   - `../agentic-engineering-enhancements/current/architectural-enforcement-adoption.plan.md`

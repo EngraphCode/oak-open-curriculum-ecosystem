@@ -27,7 +27,7 @@ tooling substrate, it belongs under `agent-tooling/`.
 | --- | --- | --- |
 | [hallucination-and-evidence-guard-adoption.plan.md](hallucination-and-evidence-guard-adoption.plan.md) | Phases 1 & 2 (hallucination guarding + evidence-based claims) | REFERENCE |
 | [architectural-enforcement-adoption.plan.md](architectural-enforcement-adoption.plan.md) | Phase 3 (architectural enforcement) | REFERENCE |
-| [mutation-testing-implementation.plan.md](mutation-testing-implementation.plan.md) | Phase 5 (mutation testing) | REFERENCE |
+| [mutation-testing-implementation.plan.md](mutation-testing-implementation.plan.md) | Phase 5: evidence-gated Stryker unit/integration canaries before any wider rollout or gate decision; concept evidence in the [2026-07-15 report](../../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md) | DECISION-READY |
 | [skill-evals-pilot-start-right-quick.plan.md](skill-evals-pilot-start-right-quick.plan.md) | Skill-evals pilot on the high-traffic `start-right-quick` grounding skill: in-repo `evals/`, behaviour-on-transcript with/without delta; answers "can a grounding skill be evaluated, and does it earn its context" | QUEUED — runnable now; feeds the [evals position report](../../../reports/evals-and-assurance-position-2026-06-23.md) |
 | [elasticsearch-specialist-capability.plan.md](elasticsearch-specialist-capability.plan.md) | Adjacent: ES specialist (✅ complete) | REFERENCE |
 | [sentry-specialist-capability.plan.md](sentry-specialist-capability.plan.md) | Adjacent: Sentry specialist (foundation active) | REFERENCE |
@@ -58,11 +58,11 @@ tooling substrate, it belongs under `agent-tooling/`.
 | ↪️ MOVED | `collaboration-state-write-safety.plan.md` → [`../../agent-tooling/current/`](../../agent-tooling/current/collaboration-state-write-safety.plan.md) | (relocated 2026-05-05) |
 | ↪️ MOVED | `n-agent-collaboration-experiments.plan.md` → [`../../agent-tooling/current/`](../../agent-tooling/current/n-agent-collaboration-experiments.plan.md) | (relocated 2026-05-05) |
 | [doctrine-enforcement-quick-wins.plan.md](doctrine-enforcement-quick-wins.plan.md) | Six structural enforcement workstreams against the highest-frequency doctrine-violation patterns named in the post-/insights reflection round; PDR-044 innate-immunity layer host adoption | NOT STARTED |
-| ~~[practice-core-surface-retirement.plan.md](../archive/completed/practice-core-surface-retirement.plan.md)~~ | Retire `.agent/practice-core/patterns/` and `.agent/practice-context/`; update doctrine, navigation, validators, count-prose | **COMPLETE** — all four phases landed 2026-04-29; PDR-007/PDR-024/PDR-014 amendments; trinity navigation updated; directories deleted; validators green |
-| ~~[codex-session-identity-plumbing.plan.md](../archive/completed/codex-session-identity-plumbing.plan.md)~~ | Promoted high-impact slice from the Codex identity follow-up: SessionStart context, full preflight guidance for thread rows, and report-only anonymous-record audit | COMPLETE |
+| ~~practice-core-surface-retirement.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/practice-core-surface-retirement.plan.md`)~~ | Retire `.agent/practice-core/patterns/` and `.agent/practice-context/`; update doctrine, navigation, validators, count-prose | **COMPLETE** — all four phases landed 2026-04-29; PDR-007/PDR-024/PDR-014 amendments; trinity navigation updated; directories deleted; validators green |
+| ~~[codex-session-identity-plumbing.plan.md](../../agent-tooling/future/codex-session-identity-plumbing.plan.md)~~ | Promoted high-impact slice from the Codex identity follow-up: SessionStart context, full preflight guidance for thread rows, and report-only anonymous-record audit | COMPLETE |
 | [plan-index-reachability-remediation.plan.md](plan-index-reachability-remediation.plan.md) | Restore the leaf-to-root reachability invariant for `.agent/plans/`: add 3 missing collections to root README, add lifecycle READMEs to observability + security-and-privacy/future, thread 5 orphan plans into their lifecycle indexes, and add a repo-validator that fails CI on new orphans | DECISION-INCOMPLETE |
 | [role-emission-citation-binding.plan.md](role-emission-citation-binding.plan.md) | Substrate cure for the PDR-074 §S1 "Director ticking-clock" failure mode: PDR-086 portable contract + ADR-188 repo-bound phenotype convert self-discipline checklist question into mechanically-enforced citation-binding (Director + Heartbeat-emitter required scope v1; other roles Reserved). 6-reviewer pre-execution pass complete; consensus absorbed | DECISION-COMPLETE pending owner execution direction |
-| [group-a-graduations-execution.plan.md](group-a-graduations-execution.plan.md) | Execute the six owner-ratified Group A pending-graduations (#21, #37, #22+23, #40, #41, reflection) as five parallel authoring lanes + one serialized shared-index convergence; carries the 2026-05-29 re-verification home-grounding | QUEUED — owner-ratified 2026-05-29; readiness gate pending |
+| ../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/group-a-graduations-execution.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/group-a-graduations-execution.plan.md`) | Execute the six owner-ratified Group A pending-graduations (#21, #37, #22+23, #40, #41, reflection) as five parallel authoring lanes + one serialized shared-index convergence; carries the 2026-05-29 re-verification home-grounding | QUEUED — owner-ratified 2026-05-29; readiness gate pending |
 
 ## Assessment Inputs For Planability Review
 
@@ -75,15 +75,15 @@ plan work should be created or routed into existing source plans.
 
 Recently completed 2026-05-25 (multi-agent practice-infrastructure hardening
 arc closeout; see
-[`../archive/completed/README.md`](../archive/completed/README.md) for the
+[`../archive/completed/README.md`] (`../archive/completed/README.md`) for the
 supersession mappings):
 
-- [`post-m1-attestation-tidy-up.plan.md`](../archive/completed/post-m1-attestation-tidy-up.plan.md)
+- `post-m1-attestation-tidy-up.plan.md` (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/post-m1-attestation-tidy-up.plan.md`)
   delivered via PR #114 (merged at `77fcf746`); cycles 10 + 11 (comms-watch
   storage redesign) superseded into
   [`../../agent-tooling/current/comms-watch-storage-redesign.plan.md`](../../agent-tooling/current/comms-watch-storage-redesign.plan.md);
   cycle 15 removed as misunderstanding per owner direction.
-- [`practice-infrastructure-hardening-program.plan.md`](../archive/completed/practice-infrastructure-hardening-program.plan.md)
+- `practice-infrastructure-hardening-program.plan.md` (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/practice-infrastructure-hardening-program.plan.md`)
   delivered via PR #108 (merged at `2462952a`) + arc-wide doctrine landings
   (PDR-076a/b/077/078/079 + ADR-182/183/184/185/186/187); §P5.W1 substance
   promoted to
@@ -91,7 +91,7 @@ supersession mappings):
   WS-10 (heartbeat-cron mechanism) deferred with named constraint.
 
 Earlier closures:
-[multi-agent-collaboration-decision-thread-and-claim-history.plan.md](../archive/completed/multi-agent-collaboration-decision-thread-and-claim-history.plan.md)
+multi-agent-collaboration-decision-thread-and-claim-history.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/multi-agent-collaboration-decision-thread-and-claim-history.plan.md`)
 closed WS3A on 2026-04-26. A narrow WS4A lifecycle integration pass then
 made start-right, session-handoff, plan templates, and Practice/ADR surfaces
 recognise WS0-WS3A collaboration state. Additional three-agent phase-transition
@@ -99,13 +99,13 @@ evidence then satisfied the WS3B promotion gate; the owner-approved
 implementation pass installed sidebars, owner escalation, and
 joint-decision integration on 2026-04-26.
 
-[intent-to-commit-queue.execution.plan.md](../archive/completed/intent-to-commit-queue.execution.plan.md)
+intent-to-commit-queue.execution.plan.md (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/intent-to-commit-queue.execution.plan.md`)
 closed on 2026-04-27. The queue implementation landed in `5c39d1d4`, then the
 owner-directed governance pass graduated the shared git transaction /
 authorial-bundle tripwire to PDR-029 Family A Class A.3 and archived the
 execution plan.
 
-[codex-session-identity-plumbing.plan.md](../archive/completed/codex-session-identity-plumbing.plan.md)
+[codex-session-identity-plumbing.plan.md](../../agent-tooling/future/codex-session-identity-plumbing.plan.md)
 closed and archived on 2026-04-28. The Codex `SessionStart` identity hook,
 canonical preflight guidance, report-only anonymous identity audit, and ADR/PDR
 propagation are implemented and validated.

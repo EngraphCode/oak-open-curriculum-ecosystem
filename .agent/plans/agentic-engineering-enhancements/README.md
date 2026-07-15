@@ -62,7 +62,7 @@ is superseded and retained only for historical references.
 **Active Execution Index**: [active/README.md](active/README.md)
 **Current / Source Plans**: [current/README.md](current/README.md)
 **Later Plans**: [future/README.md](future/README.md)
-**Agentic Corpus Hub**: [../../reference/agentic-engineering/README.md](../../reference/agentic-engineering/README.md)
+**Agentic Corpus Hub**: [../../research/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
 
 ## Documents
 
@@ -78,7 +78,7 @@ is superseded and retained only for historical references.
 | `.agent/memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md` | Tracking Log | Per-phase record of required ADR/directive/reference-doc and README updates |
 | `current/elasticsearch-specialist-capability.plan.md` | Plan | Strategic source plan for a canonical Elasticsearch reviewer, skill, and situational rule grounded in official Elastic docs and Elastic Serverless applicability |
 | `current/architectural-enforcement-adoption.plan.md` | Plan | Physical enforcement strategy; strictness-specific ESLint work is delegated to `developer-experience/active/devx-strictness-convergence.plan.md`, and directory-complexity execution now lives in `developer-experience/current/directory-complexity-enablement.execution.plan.md` |
-| `current/mutation-testing-implementation.plan.md` | Plan | Stryker mutation testing across all workspaces |
+| `current/mutation-testing-implementation.plan.md` | Plan | Evidence-gated Stryker unit/integration canaries before value-led expansion or a separate gate decision; grounded by the [2026-07-15 concept report](../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md) |
 | `current/hallucination-and-evidence-guard-adoption.plan.md` | Plan | Prioritised safety adoption: hallucination guards first, evidence-based claims second |
 | `current/harness-concepts-adoption.plan.md` | Plan | Evaluate and adopt concepts from harness-engineering model (docs freshness, entropy cleanup, quality scoring) |
 | `archive/completed/operational-awareness-and-continuity-surface-separation.plan.md` | Active Plan | Repo-local awareness plane: separate canonical continuity contract, workstream resumption briefs, and thread-aware tactical track cards via markdown-first repo-local state surfaces (promoted 2026-04-20) |
@@ -132,7 +132,7 @@ is superseded and retained only for historical references.
    [current/README.md](current/README.md) for strategic source plans and
    adjacent capability work (queued or in progress)
 3. **Corpus hub for concept routing**:
-   [../../reference/agentic-engineering/README.md](../../reference/agentic-engineering/README.md)
+   [../../research/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
 4. **Later backlog**: [future/README.md](future/README.md) for deferred
    strategic work and exploratory capability plans
 5. **Strategic source plans**: hallucination/evidence guards -> enforcement ->

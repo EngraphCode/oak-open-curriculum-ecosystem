@@ -1,44 +1,68 @@
 ---
-name: "Directory Complexity Enablement"
-overview: "Executable child plan for the directory-cardinality layer of the architectural budget system, centred on deterministic max-files-per-dir rollout."
+name: "Directory Complexity and Architectural Fitness Signals"
+overview: "Decision-ready child plan for replacing the unwired max-files-per-dir ESLint shape with deterministic, non-blocking architectural fitness signals."
 todos:
   - id: phase-0-current-truth-baseline
-    content: "Phase 0: Refresh current truth for max-files-per-dir, depcruise, knip, pnpm check, hooks, exports, nested package markers, and crowded directories."
+    content: "Phase 0: Refresh current truth for the rule, validator framework, architectural-budget plans, and directory baseline."
+    status: completed
+  - id: phase-1-ratify-signal-contract
+    content: "Phase 1: Ratify that directory cardinality is a report-only signal, define named consumers, and decide the ADR-166 amendment route."
     status: pending
-  - id: phase-1-remediation-contract
-    content: "Phase 1: Define the directory-cardinality remediation SOP and deterministic inventory contract."
+  - id: phase-2-discovery-classification
+    content: "Phase 2: Use TDD to build deterministic discovery, file-role classification, and stable human/JSON output in the validator framework."
     status: pending
-  - id: phase-2-red-rule-and-config-proofs
-    content: "Phase 2: Add RED tests proving unwired/no-op behaviour, inventory determinism, and an over-limit fixture."
+  - id: phase-3-report-only-pilot
+    content: "Phase 3: Wire a report-only directory-concentration slice and pilot contrasting behaviour-code and registry/data directories."
     status: pending
-  - id: phase-3-green-targeted-activation
-    content: "Phase 3: Wire max-files-per-dir in the agreed initial scope with minimal structural remediation."
+  - id: phase-4-suite-expansion
+    content: "Phase 4: Add further architectural signals only where a named consumer and interpretation contract exist."
     status: pending
-  - id: phase-4-pilot-calibration
-    content: "Phase 4: Pilot on real crowded directories and calibrate threshold, ignores, and rollout scope from evidence."
-    status: pending
-  - id: phase-5-docs-and-gate-readiness
-    content: "Phase 5: Propagate docs, update tracking, run reviewers, and prepare any future gate promotion through the enforcement layer."
+  - id: phase-5-rule-retirement
+    content: "Phase 5: Retire the unwired ESLint rule after replacement-equivalence proof and propagate the settled signal-versus-invariant doctrine."
     status: pending
 ---
 
-# Directory Complexity Enablement
+# Directory Complexity and Architectural Fitness Signals
 
 **Created**: 2026-03-07
-**Last Updated**: 2026-04-29
-**Status**: Queued executable child plan in `current/`
+**Last Updated**: 2026-07-15
+**Status**: Decision-ready; implementation waits for owner ratification of the
+signal contract
 **Parent doctrine**:
 [ADR-166](../../../../docs/architecture/architectural-decisions/166-architectural-budget-system-across-scales.md)
 and
 [Architectural Budget System Across Scales](../../architecture-and-infrastructure/future/architectural-budget-system-across-scales.plan.md)
+
+**Concept evidence**:
+[Architectural Fitness Functions: Concept Exploration](../../../reports/architectural-fitness-functions-concept-exploration-2026-07-15.md)
+
+## 2026-07-15 Re-foundation
+
+First-hand inspection changed the intended implementation shape:
+
+- `max-files-per-dir` is implemented and tested but is neither exported nor
+  configured;
+- it requires a caller-supplied repository inventory inside a per-file ESLint
+  rule and silently returns no finding when that inventory is absent;
+- a read-only baseline found 77 authored source directories above its default
+  of eight files, including behaviour code, registries, and data-like
+  collections with materially different interpretations;
+- the established repository validator framework is a better mechanism for
+  deterministic discovery, classification, report-only output, and agent
+  consumption.
+
+The phases below headed **Historical activation shape** preserve the previous
+plan for provenance but are no longer executable instructions. The
+authoritative next sequence is the re-founded sequence in this section. Do not
+wire the ESLint rule merely because the historical phase says to do so.
 
 ## Role
 
 This plan owns the directory-cardinality execution slice of the architectural
 budget system. It is no longer the single source of truth for every supporting
 architecture guardrail. The parent ADR and architecture plans own the
-cross-scale doctrine; this plan owns the safe rollout of
-`@oaknational/max-files-per-dir`.
+cross-scale doctrine; this plan owns the decision and execution path for the
+first repository-level directory-concentration signal.
 
 Directory budgets are intra-layer signals only. If a crowded directory reveals
 framework/consumer mixing, lifecycle mixing, or context-specificity tension,
@@ -57,28 +81,71 @@ Oak already has:
 - an implemented but unwired
   `packages/core/oak-eslint/src/rules/max-files-per-dir.ts`
 
-The remaining directory-cardinality gap is narrower:
+The remaining directory-cardinality gap is not rule registration. It is the
+absence of a trustworthy interpretation contract:
 
-- the rule is not registered in the plugin/config path
-- the rule can silently no-op without a configured inventory
-- there is no deterministic inventory source or ignore policy
-- there is no Oak SOP for responding to a directory-count failure
-- crowded directories have not been piloted against the future rule
+- deterministic repository discovery and explicit file-role classification;
+- stable human-readable and JSON outputs;
+- named consumers and review cadence;
+- an SOP that treats counts as noticers rather than failures;
+- contrasting pilots that distinguish behaviour-code pressure from coherent
+  registries or data collections;
+- a settled boundary between heuristic signals and enforceable invariants.
 
 ## Goal
 
-Enable `max-files-per-dir` only after Oak can respond to a breach with
-cohesive intra-layer design, deterministic inventory evidence, and reviewed
-rollout settings.
+Create a non-blocking architectural-fitness signal that makes upward migration
+of complexity visible without turning a file count into a limit or mechanical
+refactoring instruction.
 
 ## Non-Goals
 
-- No immediate repo-wide activation.
-- No threshold selection before baseline and pilot evidence.
+- No ESLint activation.
+- No blocking directory-count gate.
+- No threshold selection as an architectural pass/fail line.
 - No re-planning completed `knip`, `depcruise`, or `pnpm check` integration.
 - No directory split where ADR-154 requires workspace separation.
 - No suppressions, threshold inflation, or compatibility barrels.
 - No new graph tool while dependency-cruiser owns graph enforcement.
+
+## Re-founded Execution Sequence
+
+### Phase 1: Ratify the Signal Contract
+
+Decide explicitly that directory cardinality is informational, name its
+consumer and cadence, and choose whether ADR-166 needs an amendment or a
+superseding decision. The warrant is the baseline's mixed directory roles. The
+direction is falsified if the owner supplies evidence that count is a strict,
+role-independent invariant with one ungameable response.
+
+### Phase 2: Discovery and Classification with TDD
+
+Build the smallest validator-framework slice that proves deterministic roots,
+sorting, production/test/generated/fixture/registry classification, non-empty
+inventory, and identical human/JSON facts. Reuse an existing repository
+analysis surface if one is discovered to own the complete contract.
+
+### Phase 3: Report-only Pilot
+
+Run the signal against at least one behaviour-code directory and one coherent
+registry/data-like directory. Record the disposition, including a valid
+“observed; no structural change” result. Stop if reviewers cannot reach
+repeatable interpretations without an allowlist masquerading as taxonomy.
+
+### Phase 4: Named-consumer Expansion
+
+Add workspace, export, or graph observations only when a consumer states the
+decision each signal informs. Never duplicate an invariant already owned by
+ESLint, dependency-cruiser, Knip, or package-contract validation.
+
+### Phase 5: Rule Retirement and Doctrine Propagation
+
+After replacement-equivalence tests and discovery wiring are proven, delete the
+unwired custom rule and its tests in the same change. Propagate the settled
+signal/invariant distinction to ADR-166, planning indexes, quality-gate docs,
+and the architecture-budget thread as required by the ratified decision.
+
+## Historical Activation Shape — Preserved, Not Executable
 
 ## Foundation Alignment
 
@@ -98,7 +165,7 @@ Relevant doctrine:
 - ADR-155: decompose at the tension
 - ADR-166: architectural budgets across scales
 
-## Phase 0: Current-Truth Baseline
+### Former Phase 0: Current-Truth Baseline
 
 **Goal**: refresh the exact state before writing rule or config code.
 
@@ -130,7 +197,7 @@ test -f knip.config.ts
 find apps packages agent-tools -name package.json -not -path "*/node_modules/*"
 ```
 
-## Phase 1: Remediation Contract and Inventory Design
+### Former Phase 1: Remediation Contract and Inventory Design
 
 **Goal**: define how developers respond to a directory-cardinality breach.
 
@@ -167,7 +234,7 @@ rg --line-number "directory-cardinality|directory complexity|max-files-per-dir" 
 rg --line-number "ADR-154|ADR-166|inventory|threshold|suppress" .agent docs
 ```
 
-## Phase 2: RED Rule and Config Proofs
+### Former Phase 2: RED Rule and Config Proofs
 
 **Goal**: write failing tests that prove the desired rule wiring before
 implementation.
@@ -192,7 +259,7 @@ pnpm --filter @oaknational/eslint-plugin-standards test
 pnpm --filter @oaknational/eslint-plugin-standards lint
 ```
 
-## Phase 3: GREEN Targeted Activation
+### Former Phase 3: GREEN Targeted Activation
 
 **Goal**: wire the rule in the smallest reviewed scope that proves the path.
 
@@ -220,7 +287,7 @@ pnpm --filter @oaknational/eslint-plugin-standards test
 pnpm lint
 ```
 
-## Phase 4: Pilot and Calibration
+### Former Phase 4: Pilot and Calibration
 
 **Goal**: use real hotspots to calibrate rollout behaviour from evidence.
 
@@ -249,7 +316,7 @@ pnpm depcruise
 pnpm knip
 ```
 
-## Phase 5: Documentation and Gate Readiness
+### Former Phase 5: Documentation and Gate Readiness
 
 **Goal**: close the child plan without overstating enforcement status.
 
@@ -292,8 +359,8 @@ git diff --check
 
 | Risk | Mitigation |
 |---|---|
-| The rule silently no-ops | Require non-empty deterministic inventory and config tests |
-| Counts cause mechanical splits | SOP requires a structural response and reviewer disposition |
+| The replacement inventory silently empties | Require non-empty deterministic discovery and tests |
+| Counts cause mechanical splits | Treat counts as observations and require an interpretation record |
 | Directory split hides layer tension | ADR-154 routes layer tension to workspace separation |
 | Existing gate state is misrepresented | Phase 0 refreshes live `knip`, `depcruise`, and `pnpm check` truth |
 | Hook/CI promotion claims are false | Enforcement waits for non-zero failure-mode proof |
@@ -302,6 +369,7 @@ git diff --check
 
 1. Apply `start-right-quick`.
 2. Re-read ADR-166, ADR-154, and this plan.
-3. Start with Phase 0 baseline refresh, not rule wiring.
+3. Start with Phase 1 owner ratification, not rule wiring; the 2026-07-15
+   baseline is complete but must be cheaply re-verified before code changes.
 4. Treat any cross-scale finding as evidence for the parent architecture
    programme rather than forcing it into directory remediation.

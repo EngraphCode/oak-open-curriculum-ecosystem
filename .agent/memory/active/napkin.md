@@ -78,7 +78,9 @@ never reached a claim in the first place).
   real `git commit`, which re-runs the FULL pre-commit hook a second time) — strictly more
   wall-clock time than one direct hook run, widening whatever race window a concurrently-active
   peer session was creating by touching
-  `.agent/reports/oak-reusable-curriculum-architecture/oak-reusable-curriculum-architecture-cross-estate-reflection.md`.
+  the report then at
+  `.agent/reports/oak-reusable-curriculum-architecture/oak-reusable-curriculum-architecture-cross-estate-reflection.md`
+  (now under that report family's `drafts/` directory).
   This was NOT written to `frictions-register.md` — it should be, as a new numbered entry (the
   register's next number is F-143 as of this scan), with the mechanism hypothesis flagged
   explicitly as unconfirmed and a recipe for reproducing it (stage a bundle, have a second
@@ -257,3 +259,581 @@ as the distilled lesson + a pending-graduations candidate (containment checks =
 substance-probes against current main). Representative reject: monitor task-IDs and re-arm
 counts — reconstructible from the transcript, zero decision value. Recursion bottoms out;
 further passes add words, not information.
+
+## 2026-07-15 — Reusable curriculum architecture closeout and recursive loss scan
+
+### Recorded outcome
+
+- The permanent substantive home is the three-report family under
+  `.agent/reports/oak-reusable-curriculum-architecture/`: this-repository issues,
+  current-data-estate issues, and the synthesis.
+- The reports preserve the local/upstream/shared ownership split, distinguish graph
+  completeness from source accounting, and retain known-correct behaviour that future work
+  must not regress: progression naming, internal-edge closure, and integer depth handling.
+- Independent evidence review and a separate final privacy/provenance audit passed on the
+  public report snapshot. No product implementation, implementation plan, thread, commit, or
+  push was authorised or performed.
+- Session-completion consolidation graduated the only due decision-debt item into
+  `.agent/rules/verify-dont-trust.md`. The distilled and pending-graduation buffers no longer
+  duplicate it.
+
+### Surprise — `path` is shell state in zsh
+
+- A read-only inventory script assigned a scalar to `path`, expecting an ordinary local
+  variable. In zsh that name controls command lookup, so later commands appeared missing.
+- The rerun used `surface_path` and succeeded. Future zsh automation must treat `path` as
+  reserved shell state and use a descriptive non-special variable name.
+
+### First-order loss scan
+
+1. **Authority and status:** this was a standalone, read-only investigation followed by
+   authorised report and closeout-document edits. It was not part of the unrelated live team
+   lane, and it grants no implementation authority.
+2. **Evidence ceiling:** current public code and checked-in definitions establish source-code
+   behaviour, not production deployment or runtime truth. Licensing, stable cross-release
+   variants, and programme-to-variant semantics remain questions where the reports say they
+   remain questions.
+3. **Privacy boundary:** restricted-source insights survive only as source-neutral concepts.
+   Raw wording, private implementation detail, host-local paths, personal data, and source
+   identity were deliberately not copied. External assistant-memory surfaces were
+   keyword-inventoried but not opened or imported under this boundary.
+4. **Durability state:** the synthesis is modified and the two companion reports are still
+   untracked. Closeout rule and memory edits are also uncommitted. This is explicit because an
+   untracked report can disappear even when its content is complete; only `git status` can
+   falsify this state.
+5. **Remaining work:** report-owned questions and falsifiers remain in the reports. No new
+   open-question entry, ADR/PDR candidate, implementation plan, or active thread was warranted.
+6. **Unrelated estate signals:** four active thread records appear stale by latest substantive
+   touch; three active identity tables use incomplete or non-canonical fields; one unrelated
+   team claim and one example conversation appear stale. Incoming practice exchanges remain
+   owner-gated. They were surfaced, not mutated, because this session lacks their ownership.
+7. **Continuity:** the reports are the permanent knowledge home. Repo continuity was not
+   rewritten into historical narrative because this investigation created no live execution
+   lane and no next operator action.
+
+### Recursive metaloss
+
+- **Challenge:** claiming that "the reports own it" could hide facts known only to this
+  context. Rechecking report scopes, dispositions, remaining questions, privacy limits, and
+  working-tree status surfaced only the uncommitted-state and verification-method facts above.
+- **Deliberate non-preservation:** exact restricted-source language must disappear; raw agent
+  transcripts add no authority beyond absorbed findings; exploratory command order and wording
+  iterations are reconstructible and decision-neutral; private memory matches were never read.
+- **Residual risk:** the two untracked reports are the only session output whose existence is
+  not protected by version history. That is reported rather than silently converted into a
+  commit, because closeout did not authorise repository publication actions.
+- **Second challenge:** could the privacy filter itself erase a necessary source claim? No:
+  every decision-relevant proposition is either independently supported by public code, marked
+  as an inference, or retained as an unanswered verification question. Source identity adds
+  provenance risk without adding decision authority.
+- **Semantic stop:** a further pass yields only restatements of the same authority, evidence,
+  privacy, and durability filters. No additional decision-changing, non-private information
+  remains solely in context.
+
+### Fitness response and disposition
+
+- The fitness scan found two pre-existing critical surfaces and wider hard limits. Earlier
+  escalation history is not established here; the current evidence shows unrelated cumulative
+  growth, not a new session regression. Limits were not relaxed and substance was not trimmed.
+  Zero live decision-debt argues against a missing graduation from this session; the critical
+  surfaces need owner-led structural curation.
+- The napkin was already above its character budget before this required loss scan, but below
+  its explicit rotation trigger. The scan stays here; rotation is a separate curation action.
+- Verdict at capture: research, synthesis, privacy review, and knowledge homing are complete.
+  The repository-wide handoff gate follows this entry.
+- The first sandboxed gate attempt reached the browser suites but the operating environment
+  denied browser-process setup. The unsandboxed rerun passed `pnpm check` end to end; this was
+  an environment-bound failure followed by a green gate, not a test-assertion repair.
+- The green gate's informational link scan still reported 925 pre-existing broken internal
+  Markdown links: 326 auto-fixable and 599 manual. This is an unrelated documentation-estate
+  signal, not evidence against the report changes.
+- Final strict fitness remained at two critical, 16 hard, 12 soft, and 41 healthy surfaces.
+  Live decision-debt is zero. A fresh-reader closeout review returned PASS after two wording
+  corrections and found no remaining privacy, authority, provenance, or homing defect.
+
+## 2026-07-15 — Reusable curriculum architecture closeout addendum after search exploration
+
+### Why the earlier snapshot is no longer the final state
+
+- Subsequent owner direction authorised a strategic planning brief and a broad, shallow search
+  exploration. The earlier statement that no plan or thread update was warranted was true at
+  that capture point but is superseded by that later direction.
+- The permanent home is now the three-report family, its directory README, and the strategic
+  future planning brief. Root report, connecting-resources, and semantic-search indexes expose
+  those surfaces. The two relevant thread records remain paused and now point to them.
+- No implementation, ontology change, upstream mutation, commit, push, or publication action was
+  authorised. The working tree remains the truthful durability boundary until an owner-authorised
+  commit lands.
+
+### Recursive first-hand loss scan
+
+1. **Architecture:** the source-accounting compiler boundary; explicit entity, occurrence,
+   relation, passage, and rollup projections; progressive MCP exploration; independent agent and
+   website retrieval policies; Elastic-native capability probes; and the bulk/materialised-view
+   adapter boundary are all in the reports and plan.
+2. **Ratification path:** ADR-089 and ADR-140 are amendment candidates, not current decisions. A
+   successor ADR remains possible. The plan now makes that choice explicit and preserves the
+   current operational semantic-search architecture as authoritative until implementation changes
+   runtime truth.
+3. **Unresolved evidence:** stable cross-release variant lineage, exact programme-to-variant
+   authority, producer release identity, representative public materialised-view fixtures,
+   known-answer consumer journeys, and live Serverless feature/cost constraints remain explicit
+   questions or promotion gates. Quiz licensing is not an unresolved restriction; structured
+   availability and projection fidelity still require evidence.
+4. **Assumption correction:** current generated graphs and indexes are not the ceiling. Any
+   projection supported by the received bulk data is available, but source support does not
+   license invented semantics, completeness claims, or longitudinal identity.
+5. **Evidence ceiling:** source code and checked-in data definitions establish inspectable
+   behaviour, not current production deployment. The reports preserve the concrete bulk
+   disagreement and separate observed facts, inferences, proposals, and unknowns.
+6. **Privacy:** no personal data, raw restricted-source material, distinctive private detail, or
+   host-local path was carried into the durable surfaces. Restricted learning survives only as
+   source-neutral concepts. External assistant histories were inventoried but not opened or
+   imported.
+7. **Collaboration and ownership:** this was a sole-contributor standalone lane despite a
+   team-capable environment. It created no session claim, delegated boundary, conversation, or
+   escalation to close. Unrelated working-tree files, claims, comms, and incoming practice
+   exchanges remain untouched and owner-gated.
+8. **Durability:** the report/plan/discovery/continuity result is complete on disk but uncommitted.
+   `git status`, not prose, remains the falsifier. The unrelated untracked `oak-integrations`
+   report directory is outside this session and must not be attributed to this work.
+
+### Recursive challenge and semantic stop
+
+- Removing this context now would lose only execution trivia: command order, drafting history,
+  and wording alternatives. Every decision-changing, non-private proposition has a named durable
+  home or is explicitly listed as an unresolved promotion gate.
+- The strongest remaining counterexample was the chat-only ADR propagation advice. It is now in
+  the strategic brief and both paused thread continuations. The second pass found no additional
+  context-only design, authority, provenance, privacy, or next-action fact.
+- Incoming practice exchanges and repo-wide fitness debt are not hidden completion work for this
+  lane. They remain separate owner/curator responsibilities. Further recursive passes would
+  restate the same boundaries rather than preserve new information.
+
+### Fitness signal response
+
+- Earlier zones did fire. The mandatory loss scan added to an already large append-only buffer;
+  the signal is evidence of curation pressure, not permission to remove or weaken content.
+- The thresholds are signals appropriate to this file's role, not limits to satisfy. They must not
+  drive deletion, compression, or relocation by themselves.
+- The architecture is already homed in reports and a plan; no missing graduation caused this
+  signal. Any future structural curation must preserve all substance and follow its own authorised
+  lane.
+
+### Owner corrections during closeout
+
+- Fitness readings are signals, never limits. Do not remove, compress, weaken, relocate, or rewrite
+  knowledge merely to improve a fitness number. Preserve everything; any structural curation needs
+  its own substantive reason and authorised lane.
+- In this repo, `pnpm check` always needs a browser-capable host environment. Start the first run
+  with the required process permissions. A restricted-sandbox attempt that predictably fails to
+  launch Playwright is waste, not useful discovery. This is now explicit in `AGENT.md`.
+- This session changed documentation only. Its proportionate verification boundary is Prettier,
+  Markdownlint, and link validation only; running product builds, tests, browser suites, or the
+  aggregate `pnpm check` adds no relevant evidence. Task scope takes precedence over a generic
+  closeout-gate reflex.
+
+### Estate-wide Markdown link repair
+
+- Owner direction expanded the closeout to every broken internal Markdown link, regardless of
+  location or cause. The validator moved from 929 broken links to zero across 2,594 scanned files.
+- Existing live targets were repaired by exact unique-basename evidence, path-suffix/source-estate
+  disambiguation, or an explicit demonstrated successor such as the canonical skill or research
+  hub. Archived, removed, placeholder, ignored-local, and otherwise orphaned targets were converted
+  from false dependencies into readable text retaining the historical path in code formatting.
+- No knowledge was deleted to clear the count. The governing distinction is semantic: a link claims
+  a live navigable dependency; a preserved historical path records provenance without making that
+  false claim.
+
+## 2026-07-15 — Leopard tracks Dewdrop: source-integration planning closeout
+
+### Session outcome and corrections that changed the design
+
+- The concept exploration and readiness-reviewed implementation plan now cover four optional
+  source integrations: Oak OpenAPI, Castr, Oak Curriculum Ontology, and Oak Database-Tools. The
+  report family is `.agent/reports/oak-integrations/`; the executable owner is
+  `.agent/plans/architecture-and-infrastructure/current/oak-source-integration-workspaces.plan.md`.
+- The owner's open-source constraint applies to every nested source checkout, not only private Oak
+  repositories. Oak OpenAPI and Database-Tools require credentials, but public Castr and Curriculum
+  Ontology are also absent from ordinary root install, workspace traversal, gates, and CI.
+- The spelling is **Castr**. More importantly, Castr is intended to replace the direct generic
+  OpenAPI implementation stack in this repo, not merely the current adapter workspace. The report
+  and plan therefore inventory declarations, consumers, generated imports, public SDK surface,
+  workspace registration, Knip exceptions, tests, docs, config, and lockfile evidence for
+  `openapi-zod-client`, `openapi3-ts`, `openapi-typescript`, `openapi-fetch`, and the apparently
+  stale `@asteasolutions/zod-to-openapi` declaration.
+- The source-first preference and the open-source constraint are complementary rather than
+  contradictory. A local Castr submodule gives the fast edit/build/generate/OCE-test loop while
+  capabilities are forming. Released packages plus generated contracts give a contributor with no
+  submodules a complete ordinary path after cutover. Source, released, and byte-parity modes remain
+  explicit; there is no silent fallback.
+- Castr ADR-043 changed the responsibility split. Core `@engraph/castr` remains compiler-only. The
+  selected direction proposes a separate generic `@engraph/castr-fetch` companion, subject to a
+  blocking npm name/scope/authority preflight. Authentication, retries, rate limits, serialisation,
+  response augmentation, and public Oak SDK compatibility remain OCE policy. Hiding
+  `openapi-fetch` behind core Castr would preserve the wrong architecture rather than replace the
+  dependency honestly.
+- Database-Tools is worthwhile only as an optional, quarantined, synthetic materialised-view lab:
+  operation allowlist first, wrapper-owned resource identity, clean child environment, zero-call
+  refusal by default, bounded teardown, named pgTAP, and no production credentials or data. Its
+  first useful vertical depends on Castr's source-mode TypeScript writer, not full publication and
+  OpenAPI-stack cutover.
+
+### First-order loss scan — facts and reasoning that would disappear with this context
+
+1. **Rejected integration shapes:** `workspace:*`, `link:`, and host-local sibling paths make the
+   optional checkout part of root dependency truth; copying source creates a second authority;
+   package-only authoring makes the formative feedback loop slow; source-only steady state breaks
+   the complete public clone. The selected command-and-artefact wrapper exists because it avoids
+   all four failures at once.
+2. **Branch truth:** Castr needs no standing OCE integration branch. Work starts from reviewed
+   `main` on short-lived `feat/oce-*`, runs Castr-native and OCE contract proofs, merges upstream,
+   then advances the parent gitlink. Dirty authoring is local-only and records base commit plus a
+   deterministic content hash; it is forbidden for CI, release, and pin updates. A merged parent
+   must not rely on a deletable feature ref.
+3. **Completeness method:** “replace all OpenAPI dependencies” is not proved by deleting package
+   names. It requires a capability and deletion ledger spanning manifests, consumers, generated
+   output, configuration, compatibility, and packed dependency metadata. The strict-peer package
+   proof must show that neither Castr core nor its companion declares `openapi-fetch` as a
+   dependency, peer dependency, or peer metadata entry.
+4. **Atomicity:** the implementation plan deliberately separates wrapper, Phase-1 Zod/metadata,
+   later-contract checkpoint, document/IR, TypeScript writer, fetch companion plus Oak policy,
+   reverse generation, and publish/cutover slices. A monolithic convergence cycle would hide which
+   authority and proof failed; deleting source-proven legacy slices before released-mode parity
+   would break the public root.
+5. **Live external blockers:** on 2026-07-15 the inspected Castr source was commit
+   `4be99dae5d8b0c24e4f22436b856b592637dc9d1`; the npm registry returned 404 for
+   `@engraph/castr`, and no GitHub release was exposed. These observations can drift. The executor
+   must recheck source heads, repository visibility, npm ownership and package names, publish
+   rights, trusted OIDC/provenance configuration, protected release environment, 2FA/recovery, and
+   a named release owner before mutation or cutover.
+6. **Reader trap removed:** an older Castr requirements runbook presented an unpublished `castr`
+   command and a nonexistent copy destination as though the flow were executable. The updated
+   requirements surface now points at the planned WS2.1 wrapper and refuses to imply that an
+   unbuilt toolchain is available today.
+7. **Review evidence:** independent architecture, assumptions, and documentation/onboarding
+   reviews all approved the final report/plan surface. Markdownlint, internal-link validation, and
+   scoped diff checks passed before closeout. Those approvals validate planning readiness; they do
+   not prove npm authority, package publication, or implementation.
+8. **Collaboration and durability:** this was one owning contributor with three reviewer
+   subagents. Claim `86f4fdfa-cb8f-4ded-8ca4-0bb3aea49061` is explicitly closed; no relevant
+   conversation or escalation remains. No submodule, source branch, implementation, commit, push,
+   or publication occurred. All integration and closeout artefacts remain uncommitted in a heavily
+   shared dirty tree; exact-path `git status` is the falsifier, and broad staging would risk taking
+   unrelated work.
+
+### Recursive metaloss — challenge to the first scan's own selection
+
+1. **A polished end-state can erase the correction path.** Without the sequence above, a future
+   executor could treat source plus released modes as needless duplication or collapse the fetch
+   companion into core. The correction path records that these boundaries follow two independent
+   authorities: the owner's rapid-feedback/public-root requirements and Castr's accepted ADR-043.
+2. **A package inventory can create a false sense of completeness.** The deeper lost method is the
+   classification itself: replacement claims must follow declarations, consumers, generated
+   contracts, configuration, and public API, because each can remain after a package-name grep is
+   green. The report's ledger and plan acceptance criteria preserve this method for the actual
+   migration; it is not yet a proven reusable pattern.
+3. **“Optional” can silently narrow to “private.”** The user correction establishes a broader
+   invariant: even public nested toolchains are optional when requiring them would make the public
+   root slower, more fragile, or incomplete. The report README, plan, continuity, and thread record
+   now all state that public Castr and Curriculum Ontology are opt-in too.
+4. **“Ready for execution” can erase blocking unknowns.** Readiness means the plan is coherent and
+   reviewed, not that npm package-name authority, trusted publishing, live source heads, or
+   cross-repository permissions are known. The handoff keeps those as blocking preflight and keeps
+   the owning thread paused until owner-directed execution after the workspace-layer audit.
+5. **Reviewers disappear when context disappears.** Their load-bearing challenges are now in the
+   report and plan: core/companion responsibility, exact strict-peer manifest proof, public API
+   compatibility, atomic slices, and the release-security preflight. The approvals themselves do
+   not substitute for those incorporated findings.
+6. **Closeout creates its own loss edge.** Writing continuity and napkin entries makes them durable
+   on disk but not durable in repository history. The session-handoff workflow forbids turning
+   closeout into an implicit commit, so the honest outcome is “written, verified, uncommitted.” A
+   future owner can falsify or resolve this state with exact-path `git status` and an intentional
+   explicit-path commit.
+7. **Doctrine candidates were tested and rejected for now.** The optional-source/released-mode
+   boundary is ADR-shaped but has not survived implementation or a later session; the replacement
+   ledger method is pattern-shaped but is not yet proven by a completed migration. Both remain in
+   their report/plan homes rather than being prematurely promoted. No PDR candidate emerged, and
+   the live questions already belong to the plan preflight rather than the global open-question
+   register.
+8. **Semantic stop:** a third recursive pass yields drafting order, exact exploratory commands, and
+   wording alternatives. Those are reconstructible and do not change authority, architecture,
+   evidence, or next action. The remaining non-reconstructible risks—correction path, blocking
+   preflight, optionality breadth, review findings, and uncommitted state—are now homed above.
+
+### Consolidation disposition
+
+- Mode: `session-completion`. The report family is the permanent design/evidence home; the plan is
+  live execution state; this napkin entry preserves surprises, corrections, first-order loss, and
+  bounded recursive metaloss; repo continuity and the paused thread record preserve pickup state.
+- No new pattern, ADR, PDR, rule, Practice Core amendment, experience entry, or open-question item
+  clears its graduation bar in this pass. Platform plan/memory and root entry-point scans found no
+  additional integration substance needing import or navigation changes.
+- Unrelated incoming Practice Box items, the stale team-director claim/commit queue, and the wider
+  dirty knowledge estate remain outside this session's ownership. They were observed, not mutated.
+- Closeout verdict before final gates: **partial slice landed** in the consolidation workflow's
+  sense that the session's obvious knowledge is homed, while broader curation buffers remain live;
+  repository landing is still **uncommitted** and must not be inferred from that term.
+
+### Final gate and fitness evidence
+
+- `pnpm check` ran in the required browser-capable host and exited zero. Builds, type checks,
+  tests, Playwright UI/accessibility suites, dependency checks, collaboration validators,
+  machine-path validation, internal Markdown links, Markdownlint, and Prettier all passed.
+- The same run emitted substantial existing `@oaknational/no-throw-statement` warnings across
+  unrelated graph, design-token, logger, environment, SDK, search CLI, and MCP application files,
+  plus an existing Next.js workspace-root warning. Those files were neither authored nor claimed
+  by this session. The handoff workflow requires a warning-free aggregate gate, so session handoff
+  is **pending**, not complete, despite the zero exit code and green integration documentation.
+  Curing that product-wide migration in this closeout would collide with the existing
+  `eslint-no-throw-result-migration` lane and the heavily shared dirty tree. The falsifier is a
+  fresh `pnpm check` whose output contains no warnings after that owning lane lands.
+- Final fitness reported eight critical, 16 hard, 12 soft, and 35 healthy surfaces with zero live
+  pending-graduation decision debt. The touched thread record is healthy; the current napkin and
+  repo continuity are critical accumulation surfaces. This integration session did not create the
+  wider estate's historical pressure, but its mandatory full-fidelity loss scan added legitimate
+  capture to it.
+
+### Critical-surface post-mortem
+
+1. **Why earlier zones did not prevent critical state:** they did fire in earlier closeouts, but
+   capture continued across several sessions and contributors. During this closeout the live line
+   counts changed between diagnostics, proving these are moving shared surfaces. Fitness is a
+   routing signal and correctly did not suppress the required loss/metaloss capture.
+2. **Whether the limits are wrong:** no evidence supports raising them. The napkin threshold is
+   correctly signalling that a new dedicated bottom-up processing and rotation window is due;
+   repo continuity is correctly signalling that historical narrative must graduate into thread
+   records or existing archives so its pickup surface can become compact again.
+3. **Whether missing graduation caused the signal:** not for the integration substance. Its
+   architecture is in the report family, execution state is in the plan, and pickup state is in
+   the thread record. The pressure comes from the aggregate multi-session capture/continuity
+   estate, which must be processed as a whole rather than trimming this session's evidence.
+
+- **Explicit remediation lane:** the next dedicated knowledge-curation owner should first freeze a
+  napkin corpus boundary, verify no peer entry arrived after its read, process every item in that
+  window bottom-up, rotate only after disposition, and then compact repo continuity by preserving
+  live pickup state while moving already-homed narrative to its existing thread/archive homes.
+  This was not done here because the source changed concurrently during the gate and the current
+  buffer includes other contributors' unprocessed entries. That constraint is falsified once a
+  stable read/diff window can be demonstrated.
+
+### Final closeout verdict
+
+- `oak-consolidate-docs` (`session-completion`): **partial slice landed** — all integration-specific
+  knowledge reached its highest-impact available home; broader buffers and critical fitness remain
+  live with an explicit remediation lane.
+- `oak-session-handoff`: **pending** — exact continuity is written and reviewers are complete, but
+  the warning-clean aggregate gate is not satisfied.
+- Repository state: **written and verified, uncommitted**. No commit or push was performed.
+
+## 2026-07-15 — Spark seeks Pumice: architectural-fitness and mutation-testing exploration closeout
+
+### Session boundary and outcome
+
+- This was a standalone, documentation-only concept-exploration session in a
+  team-context checkout. The live Director retained ownership of collaboration
+  state; this session opened no team claim and changed no collaboration files.
+- No ESLint rule, validator, source directory, Stryker config, workspace script,
+  dependency, test, mutation run, CI surface, ADR, commit, or remote state was
+  changed. The output is decision-ready evidence and planning only.
+- Two formal reports now hold the first-hand synthesis:
+  `architectural-fitness-functions-concept-exploration-2026-07-15.md` and
+  `mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md`.
+  The reports index, relevant source/active plans, plan indexes, two thread
+  records, and repo continuity link to them.
+- Privacy constraints were preserved. No PII, private-source detail, raw
+  machine-local source path, or confidential cross-repository information was
+  copied into a version-controlled surface.
+
+### Architectural-fitness findings that changed the plan
+
+1. The old `max-files-per-dir` rule is not merely switched off. It is an
+   unwired per-file ESLint rule that requires a caller-supplied repository
+   inventory, silently emits nothing without one, and attaches a directory
+   result to the alphabetically first file to avoid duplicates. Repository
+   topology has been forced through the wrong mechanism.
+2. A read-only baseline over authored production TypeScript/TSX found 1,632
+   files across 217 directories, with 77 directories above the old default of
+   eight and 28 above twelve. The largest results mix behaviour-heavy code with
+   coherent one-file-per-concept registries and data-like collections. This
+   falsifies both immediate activation and count-as-diagnosis.
+3. The original insight remains load-bearing: complexity can migrate from
+   function to file to directory to workspace when only the lower scale is
+   constrained. What changes is the inherited assumption that every scale uses
+   a blocking maximum or the same tool.
+4. Syntax-local invariants stay in ESLint. Repository concentration belongs in
+   the established validator framework as deterministic human/JSON evidence.
+   Dependency cycles, forbidden edges, and explicit export-contract breaches
+   can remain gate candidates because their failure semantics are invariants.
+5. File count is a noticer, not a limit, quality score, or refactoring command.
+   Discovery, file-role classification, and interpretation must be separate.
+   Production behaviour, tests, generated output, fixtures, declarations, and
+   registry/data shapes cannot be flattened into one compliance number.
+6. Non-blocking does not mean ownerless. Every signal needs a named consumer,
+   cadence, provenance, and disposition, including a valid “observed; no
+   structural change” outcome. No signal should be added merely because it can
+   be measured.
+7. Anti-gaming is part of the output contract: arbitrary subdirectories, proxy
+   workspaces, barrels, count-driven exclusions, threshold inflation, or
+   deletion/compression of valuable docs/tests/evidence do not improve the
+   architecture.
+8. The custom rule should be retired only in the same implementation change
+   that proves replacement-equivalent discovery and discoverability. It is not
+   a live gate, so this later retirement would not weaken current enforcement.
+9. The child plan is now decision-ready and explicitly awaits owner
+   ratification. ADR-166 is unchanged. The amendment candidate is to clarify
+   that an architectural budget can be a heuristic signal and that only
+   explicit invariants are enforcement candidates.
+
+### Mutation-testing findings that changed the plan
+
+1. The repository has Stryker 9.6.1 dependencies, a root `pnpm mutate` script,
+   a Turbo `mutate` task, and a generated base-config stub. No workspace has a
+   `mutate` script. Turbo reported `<NONEXISTENT>` for all 26 inspected
+   workspaces. The honest state is scaffold present, capability absent.
+2. The base stub does not encode Oak's test doctrine: no explicit production
+   mutation globs, no unit/integration test globs, no E2E boundary, no
+   report-only threshold policy, and no incremental-state contract. Its root
+   build command may impose unrelated cost and must be tested rather than
+   assumed necessary or removed by guesswork.
+3. Unit and integration files are the only intended test surface. Stryker must
+   positively select both patterns and preserve Vitest's E2E exclusion as
+   defence in depth. `allowEmpty` must remain false so a bad glob cannot report
+   success.
+4. “Smallest workspace” was refined to “smallest suitable proof”. Re-verify
+   `@oaknational/type-helpers` as the first canary because one pure source file
+   and direct unit tests isolate mechanics. Re-verify
+   `@oaknational/search-contracts` next because its integration-only test proves
+   a distinct contract. A mixed workspace follows only after those facts are
+   separately established.
+5. The first executable step is dry-run-only: prove sandbox config resolution,
+   exact test selection, E2E exclusion, non-empty production globs, and passing
+   unmutated tests before creating mutants.
+6. The first full mutation result must be non-incremental and reproducible.
+   Incremental mode can reuse prior results but cannot create a trusted first
+   baseline; its dry run still executes. Periodic forced full runs are needed
+   if later adopted.
+7. Mutation score begins as an observation with no breaking threshold. Every
+   survivor needs triage, but not every survivor needs a test. Missing
+   behavioural protection, equivalent mutants, dead/unreachable code, compile
+   errors, timeouts, and unsuitable mutators are different findings. Tests and
+   exclusions written only to improve the score are invalid.
+8. The TypeScript checker and incremental mode must be evaluated independently
+   because each changes cost and interpretation. Installed dependency is not
+   proof that the checker should be active in the first canary.
+9. Invocation cadence—manual, scheduled, changed-workspace, release, or later
+   pull-request integration—comes after measured runtime and determinism.
+   Coverage should expand by behavioural value and risk, not a 100% workspace
+   metric. Any blocking promotion is a separate owner decision.
+
+### First-order context-loss scan
+
+1. **Negative knowledge would be lost first.** No Stryker canary ran; current
+   relative Vitest-config sandboxing is unproven; no directory threshold is
+   calibrated; no high-count directory has been diagnosed; no ADR change is
+   ratified; no named signal consumer or survivor-triage owner is selected.
+   The reports carry these evidence ceilings explicitly.
+2. **Rejected shapes matter.** Enabling the old directory rule with a higher
+   threshold preserves the wrong mechanism; adding an inventory generator
+   still couples repository analysis to per-file reporting; a dashboard before
+   a deterministic command adds infrastructure before value. For mutation,
+   all-workspace rollout, one app/library pilot, early incremental mode, and
+   universal score targets each combine unknowns or invite gaming.
+3. **The two lanes share a principle but not a metric.** Both demonstrate that
+   numbers are evidence, not goals. Directory count is a heuristic
+   concentration signal; mutation results are experimental evidence about test
+   sensitivity. They must not be merged into a generic “quality score” or one
+   universal fitness-gate policy.
+4. **The sequence carries the proof.** Architectural discovery precedes
+   classification, which precedes interpretation and named-consumer expansion.
+   Mutation dry run precedes a pure unit full run, which precedes an
+   integration-only canary, a mixed canary, and only then optimisation/cadence.
+   Reordering would make failures ambiguous.
+5. **Planning readiness is not authority.** The reports make recommendations;
+   the architecture plan explicitly awaits owner ratification. The mutation
+   plan is executable in shape but implementation still requires a fresh live
+   re-baseline. Updating adjacent plans removes stale instructions without
+   claiming the code or policy has landed.
+6. **Historical evidence is bounded.** A Stryker sandbox failure and mutation
+   score from a deleted workspace are preserved as clues, not current facts.
+   The directory baseline is a worktree snapshot and must be cheaply rerun
+   before implementation. Official tool documentation can also drift.
+7. **Mechanism ownership prevents duplication.** ESLint, dependency-cruiser,
+   Knip, package-contract checks, and repository validators each retain their
+   appropriate roles. A future architectural-fitness suite may route to their
+   results but must not reimplement them to make a combined report.
+8. **The broader session knowledge is already homed.** Earlier curriculum-data,
+   search modularisation, Elasticsearch Serverless, documentation-gate, link-
+   repair, privacy, and source-integration findings live in their report
+   families, strategic plans, ADR-121/AGENT guidance, continuity, and the prior
+   napkin closeout. No new detail from those lanes needed duplication here.
+
+### Recursive metaloss scan — what the first scan itself could hide
+
+1. **A crisp recommendation can erase uncertainty.** The phrase “replace the
+   rule” can sound ratified. The durable surfaces therefore retain the pending
+   owner decision and the falsifier: evidence that directory count is a strict,
+   role-independent invariant with an ungameable response.
+2. **A good taxonomy can become an allowlist.** File-role classification is
+   intended to preserve and explain evidence, not exempt awkward directories.
+   If classification requires case-by-case labels chosen to quiet results, the
+   design has failed and the pilot must stop.
+3. **Named consumers can become ceremonial.** A consumer must state the
+   decision the signal informs and record a disposition. Merely listing a team
+   or plan would leave non-blocking output operationally optional.
+4. **JSON output can imply a stable score before semantics stabilise.** Machine-
+   readable facts are for agents and provenance, not a licence to aggregate
+   heterogeneous signals. Schema versioning and semantic field names must keep
+   raw observations separate from human dispositions.
+5. **Canary success can be over-generalised.** A pure unit canary proves
+   mechanics, not integration selection; an integration-only canary proves test
+   inclusion, not app/browser support; a mixed canary proves neither acceptable
+   monorepo runtime nor CI policy. Each claim must stay attached to its proof.
+6. **A mutation score can conceal excluded invalid mutants.** TypeScript
+   compile-error classification improves interpretability but those mutants do
+   not contribute to the score. Reports must expose category counts so the
+   number cannot hide a large invalid-mutant surface.
+7. **Incremental speed can conceal stale trust.** Reused results are only as
+   trustworthy as their compatibility inputs. The eventual design needs
+   invalidation provenance and periodic full runs, not merely a faster command.
+8. **A documentation-only closeout can be mistaken for repository landing.**
+   All outputs are written to a heavily shared dirty worktree and remain
+   uncommitted. No commit/push was requested. Future custody must use exact-path
+   status/diff, never broad staging, to distinguish this slice from concurrent
+   work.
+9. **Closeout fitness can pressure knowledge loss.** The napkin and repo
+   continuity already exceed informational envelopes. The owner has explicitly
+   ruled that fitness numbers are signals, not limits. This pass therefore
+   preserves the required loss evidence and leaves whole-buffer processing to
+   a dedicated curator with a stable boundary; it does not trim, split, rotate,
+   or delete live knowledge to improve a count.
+10. **Privacy loss can happen through provenance, not content alone.** The
+    exploration used only generalised concepts in durable files. No local
+    private-source repository, raw chat participant identity, or host path is
+    needed to reproduce either design. Future implementers should rely on the
+    public repo evidence and official documentation recorded in the reports.
+11. **A third recursive pass adds no new load-bearing distinction.** It yields
+    command wording, candidate ordering alternatives already represented by
+    warrants/falsifiers, and formatting choices. Those are reconstructible.
+    Authority state, negative knowledge, sequence, anti-gaming semantics,
+    evidence ceilings, privacy, and uncommitted custody are now durable.
+
+### Consolidation and handoff disposition
+
+- Mode: `session-completion`.
+- Highest-impact homes: formal reports for synthesis; source/active plans for
+  future execution; plan/report indexes for discoverability; thread records and
+  repo continuity for pickup; this napkin entry for surprises, negative
+  knowledge, correction path, and recursive metaloss.
+- No new rule, pattern, ADR, PDR, Practice amendment, or open-question entry is
+  promoted. The architecture doctrine candidate needs owner ratification; the
+  mutation mechanism needs canary evidence. Premature graduation would turn
+  proposals into authority.
+- Entry-point scan found the root agent files already route to canonical
+  doctrine. Platform-local planning/memory added no decision-changing content.
+  Incoming Practice material is non-empty but unrelated and remains outside
+  this standalone lane.
+- Broader buffers remain live and shared. They were not processed or rotated;
+  fitness is diagnostic and cannot override conservation.
+- Repository state before the final documentation gate: written, discoverable,
+  privacy-safe, uncommitted, and implementation-free.

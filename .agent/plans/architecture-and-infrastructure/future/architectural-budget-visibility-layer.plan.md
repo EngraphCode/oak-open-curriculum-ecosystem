@@ -18,7 +18,7 @@ todos:
 
 # Architectural Budget Visibility Layer
 
-**Last Updated**: 2026-04-29
+**Last Updated**: 2026-07-15
 **Status**: Strategic brief, not executable
 **Lane**: `future/`
 **Parent**:
@@ -29,7 +29,9 @@ todos:
 ## Intent
 
 Create a read-only visibility layer for architectural budget signals before
-any new checks become blocking gates.
+any new checks become blocking gates. This is the strategic parent for the
+report-only validator direction developed in
+[Architectural Fitness Functions: Concept Exploration](../../../reports/architectural-fitness-functions-concept-exploration-2026-07-15.md).
 
 The visibility layer exists to answer: where is complexity concentrating, at
 which scale, and which existing plan should own the response?
@@ -39,7 +41,7 @@ which scale, and which existing plan should own the response?
 | Consumer | Trigger | Uses |
 |---|---|---|
 | Workspace layer separation audit | Phase 1 and Phase 2 classification | Workspace/layer pressure and tranche slicing |
-| Directory complexity enablement | Phase 0 baseline refresh | Crowded directories and inventory design |
+| Directory complexity and fitness signals | Re-founded Phases 1–3 | Crowded directories, role classification, and interpretation |
 | Enforcement layer plan | Promotion from future to current | Deterministic failure cases and allowlists |
 | Quality gate hardening | Before any gate promotion | Surface mapping and non-zero failure proof |
 
@@ -62,6 +64,7 @@ The visibility report should capture:
 - dependency-cruiser cycles, forbidden edges, and orphans
 - nested `package.json` markers, with fixture/generated disposition
 - generated, fixture, cache, declaration, and documentation exclusions
+- explicit production-behaviour, test, registry/data, and generated roles
 
 Every generated report must include:
 
@@ -78,10 +81,17 @@ The report must separate:
 - visible-only pressure signals
 - future enforcement candidates
 
+Counts are observations, not limits. Reports may use bands or ordering to make
+concentrations visible, but must not describe a directory as compliant merely
+because it falls below a number or as defective merely because it exceeds one.
+They must permit an evidence-backed “no structural change” disposition.
+
 ## Non-Goals
 
 - No blocking checks.
 - No threshold selection before baseline data exists.
+- No use of documentation, tests, or evidence deletion to improve a fitness
+  number.
 - No dashboard or new tool if a simple generated report is sufficient.
 - No duplicate layer/workspace matrix outside the workspace audit plan.
 

@@ -3,14 +3,16 @@ name: Architectural Enforcement Adoption
 overview: >
   Apply the Architectural Enforcement Playbook to the repository to prevent
   monolith decay and enforce domain boundaries using ESLint constraints,
-  dependency-cruiser, and knip. Directory-complexity-related execution now
-  lives in the canonical developer-experience enablement plan.
+  dependency-cruiser, and knip. The 2026-07-15 concept exploration proposes
+  moving directory-complexity visibility to the canonical
+  developer-experience fitness-signal plan rather than a blocking-enforcement
+  workstream; owner ratification remains pending.
 todos:
   - id: eslint-strict-completion
     content: "Complete ESLint strict enforcement (Phase 0): resolve remaining lint errors."
     status: pending
   - id: baseline-lint-rules
-    content: "Export and wire existing 'max-files-per-dir' rule with a calibrated threshold. (Execution delegated to the directory-cardinality child plan.)"
+    content: "Ratify or reject the 2026-07-15 report-only architectural-fitness proposal before any max-files-per-dir export or wiring."
     status: pending
   - id: boundary-configuration
     content: "Configure boundary enforcement per the canonical import matrix (ADR-041). (Execution delegated to devx strictness convergence.)"
@@ -50,7 +52,7 @@ Based on requirements and analysis in:
 
 **Related plans**:
 
-- [Cross-Agent Standardisation](../archive/completed/cross-agent-standardisation.plan.md) (separated concern — portability and platform-agnostic alignment)
+- Cross-Agent Standardisation (`../../../plans-old-archive/agentic-engineering-enhancements/archive/completed/cross-agent-standardisation.plan.md`) (separated concern — portability and platform-agnostic alignment)
 - [Hallucination and Evidence Guard Adoption](hallucination-and-evidence-guard-adoption.plan.md) (claim integrity and evidence policy)
 
 ### Execution Role
@@ -60,7 +62,7 @@ authoritative execution tasks for this stream live in:
 
 - [phase-3-architectural-enforcement-execution.md](../active/phase-3-architectural-enforcement-execution.md)
 
-### Convergence Update (2026-03-04)
+### Convergence Update (2026-03-04; proposed amendment 2026-07-15)
 
 Directory-complexity-related enforcement work is now split by disruption profile:
 
@@ -68,10 +70,10 @@ Directory-complexity-related enforcement work is now split by disruption profile
    - `no-console` convergence
    - canonical execution: [devx-strictness-convergence.plan.md](../../developer-experience/active/devx-strictness-convergence.plan.md)
 2. **Canonicalised in the queued directory-complexity plan**:
-   - remediation SOP for directory-complexity breaches
-   - deterministic inventory and config tests for `max-files-per-dir`
-   - pilot calibration and staged directory-cardinality activation
-   - staged `max-files-per-dir` activation
+   - deterministic repository discovery and file-role classification
+   - report-only directory-concentration signals and interpretation SOP
+   - contrasting pilot dispositions before any suite expansion
+   - retirement of the unwired rule after replacement-equivalence proof
    - canonical execution: [directory-complexity-enablement.execution.plan.md](../../developer-experience/current/directory-complexity-enablement.execution.plan.md)
 3. **Retained here as strategic intent only**:
    - rationale for physical constraints and success metrics
@@ -91,15 +93,16 @@ Directory-complexity-related enforcement work is now split by disruption profile
   `semantic-search`. Verify `pnpm lint` passes cleanly across the
   monorepo.
 
-### Phase 1: Physical Modularity (ESLint, deferred)
+### Phase 1: Physical Modularity Visibility (Repository Validator, Deferred)
 
-- **Goal:** Break up "God Folders."
+- **Goal:** Make concentrated responsibility visible without treating file
+  count as a defect or compulsory split.
 - **Execution source:** [directory-complexity-enablement.execution.plan.md](../../developer-experience/current/directory-complexity-enablement.execution.plan.md)
 - **Status:** queued there as the canonical execution source of truth.
 
 ### Phase 2: Boundary Definition (ESLint)
 
-- **Precursor:** The [SDK workspace separation](../../semantic-search/archive/completed/sdk-workspace-separation.md) (archived)
+- **Precursor:** The SDK workspace separation (`../../../plans-old-archive/semantic-search/archive/completed/sdk-workspace-separation.md`) (archived)
   plan implements targeted SDK boundary rules (`createSdkBoundaryRules()` in
   `boundary.ts`) enforcing the sdks DAG constraint for the generation/runtime
   split. These should integrate with the broader layer enforcement when
@@ -122,7 +125,7 @@ Directory-complexity-related enforcement work is now split by disruption profile
 - **Goal:** Keep the dependency graph free from cycles, orphans, and forbidden
   layer-direction edges.
 - **Execution source:** completed dependency-cruiser child plan:
-  [depcruise-triage-and-remediation.plan.md](../../architecture-and-infrastructure/archive/completed/depcruise-triage-and-remediation.plan.md).
+  depcruise-triage-and-remediation.plan.md (`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/depcruise-triage-and-remediation.plan.md`).
 - **Rule intent:** dependency-cruiser owns graph shape. Package API, barrel,
   and deep-import enforcement are future ADR-166 enforcement-layer concerns,
   not directory-cardinality execution.
@@ -131,7 +134,7 @@ Directory-complexity-related enforcement work is now split by disruption profile
 
 - **Goal:** Keep the "surface area" of the SDK and MCP servers minimal.
 - **Execution source:** completed quality-gate hardening child:
-  [knip-triage-and-remediation.plan.md](../../architecture-and-infrastructure/archive/completed/knip-triage-and-remediation.plan.md).
+  knip-triage-and-remediation.plan.md (`../../../plans-old-archive/architecture-and-infrastructure/archive/completed/knip-triage-and-remediation.plan.md`).
 
 ### Phase 5: Agentic Grounding
 
@@ -155,8 +158,8 @@ Apply the shared documentation-propagation contract:
 ## 4. Success Metrics
 
 - Dependency-cruiser reports zero circular dependencies and zero orphans.
-- The directory-cardinality child proves configured `max-files-per-dir`
-  activation without silent inventory no-ops.
+- The directory-cardinality child proves deterministic report-only discovery,
+  classification, and interpretation without silent inventory no-ops.
 - Future package API and deep-import checks route through ADR-166's
   enforcement layer.
 - `knip` remains clean under the promoted root gate.

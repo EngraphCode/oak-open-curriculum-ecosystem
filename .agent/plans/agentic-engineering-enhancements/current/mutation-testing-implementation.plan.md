@@ -1,24 +1,27 @@
 ---
 name: Stryker Mutation Testing Integration
 overview: >
-  Deliver mutation-testing capability across all pnpm workspaces via Stryker,
-  adding pnpm mutate as a phased supplementary signal (with later quality-gate
-  promotion) to validate that tests actually protect behaviour.
+  Turn the existing no-op Stryker scaffold into a trustworthy mutation-testing
+  capability through explicit unit/integration scope and evidence-gated
+  workspace canaries before any broader rollout or gate decision.
 todos:
   - id: re-baseline
     content: "Re-audit workspace layout, vitest configs, and dependency posture against current state."
+    status: completed
+  - id: phase-0-contract
+    content: "Define the typed root contract, explicit unit/integration test selection, production mutation globs, and report-only semantics."
     status: pending
-  - id: phase-0-foundation
-    content: "Land root-level Stryker dependencies, base config template, Turbo task, and pnpm mutate command."
+  - id: phase-1-unit-canary
+    content: "Prove sandbox/config mechanics with a dry run and full mutation pass on the smallest suitable pure unit-test workspace."
     status: pending
-  - id: phase-1-pilot
-    content: "Run mutation testing on 2 pilot workspaces (1 library, 1 app) and capture results."
+  - id: phase-2-integration-canary
+    content: "Prove explicit integration-test inclusion and E2E exclusion on a small integration-only workspace, then pilot one mixed workspace."
     status: pending
-  - id: phase-2-rollout
-    content: "Roll out Stryker config to all workspaces with test scripts."
+  - id: phase-3-evaluate-optimisations
+    content: "Evaluate the TypeScript checker, incremental reuse, report retention, and invocation cadence independently from score policy."
     status: pending
-  - id: phase-3-automation
-    content: "Integrate incremental mutation runs into CI, add new-workspace detection."
+  - id: phase-4-value-led-rollout
+    content: "Expand by behavioural risk and value only after canary evidence, with an explicit separate decision for any blocking promotion."
     status: pending
 ---
 
@@ -26,7 +29,8 @@ todos:
 
 ## Core References
 
-- [Testing Strategy](../../directives/testing-strategy.md)
+- [Testing Strategy](../../../directives/testing-strategy.md)
+- [Mutation Testing: Incremental Roll-out Concept Exploration](../../../reports/mutation-testing-incremental-rollout-concept-exploration-2026-07-15.md)
 - [Augmented Engineering Practices (industry evidence)](../augmented-engineering-practices.research.md) — mutation testing rationale (Parts 8.1, 8.2, Part G)
 - [Hallucination and Evidence Guard Adoption](hallucination-and-evidence-guard-adoption.plan.md)
 - [Evidence Bundle Template](../evidence-bundle.template.md) — claim and evidence format for pilot and roll-out reporting
@@ -34,7 +38,11 @@ todos:
 
 ## Intent
 
-Deliver a dependable mutation-testing capability across all pnpm workspaces so that mutation coverage (via `pnpm mutate`) is available as a supplementary signal in Phases 0-2, with a Phase 3 decision on promotion into `pnpm check`. Mutation testing validates that tests actually protect behaviour — if you introduce a bug and tests still pass, tests are not protecting you.
+Deliver a dependable mutation-testing capability so that selected workspaces
+can use mutation results as supplementary evidence that tests protect
+behaviour. The plan does not assume that every workspace benefits equally, or
+that mutation testing belongs in `pnpm check`. Coverage expansion and gate
+promotion are separate, evidence-gated decisions.
 
 ### Execution Role
 
@@ -47,94 +55,129 @@ The authoritative execution tasks for this stream live in:
 
 This plan is a **pre-beta gate** — mutation testing must be operational before the repository exits public alpha and enters public beta. See the [high-level plan](../../high-level-plan.md) Milestone 3.
 
-## Current State
+## Current State — Re-baselined 2026-07-15
 
-> **Prerequisite gate**: Phase 0 MUST NOT begin until the re-baseline audit (todo `re-baseline`) is completed and this section is updated.
+The repository has scaffolding but no operational workspace capability:
 
-### Re-baseline checklist
+- [x] Root `package.json` exposes `pnpm mutate` through
+  `turbo run --continue mutate`.
+- [x] `turbo.json` defines a `mutate` task.
+- [x] Root development dependencies include Stryker core, Vitest runner, and
+  TypeScript checker 9.6.1.
+- [x] `stryker.config.base.ts` is a generated stub without Oak source/test
+  globs, thresholds, incremental state, or workspace contract.
+- [x] No workspace package exposes a `mutate` script.
+- [x] `pnpm exec turbo run mutate --dry=json` reports `<NONEXISTENT>` for all 26
+  inspected workspaces.
+- [x] The testing directive defines unit and integration tests as the intended
+  in-process surface; E2E is out of scope.
+- [x] Historical pilots name a deleted workspace and cannot prove current
+  Stryker 9.6.1 sandbox behaviour.
 
-The workspace layout has changed significantly since the last audit (2025-09-24). The re-baseline must verify:
+The root command must not be described as enabled until at least one workspace
+executes a deterministic dry run and mutation pass.
 
-- [ ] Enumerate all workspaces with `test` scripts (current layout)
-- [ ] Confirm each workspace has an explicit vitest config suitable for Stryker sandboxing
-- [ ] Verify `pnpm mutate` does not yet exist at root level
-- [ ] Verify `turbo.json` has no `mutate` task
-- [ ] Verify no `@stryker-mutator/*` packages in root `devDependencies`
-- [ ] Remove references to deleted workspaces (e.g. `@oaknational/mcp-providers-node`)
+## Configuration Contract to Prove
 
-See [Appendix: Historical Pilot](#appendix-historical-pilot) for findings from the 2025-09-24 pilot run.
+### 1. Explicit Test and Source Selection
 
-## Prerequisites (to validate during re-baseline)
+- Positively select only `*.unit.test.{ts,tsx}` and
+  `*.integration.test.{ts,tsx}` through Stryker's test-file contract.
+- Preserve Vitest's E2E exclusion as defence in depth, not the only boundary.
+- Select authored production source explicitly and exclude tests, generated
+  files, declarations, fixtures where applicable, and build output.
+- Keep `allowEmpty` false so a bad selection cannot report success.
 
-### 1. Vitest Configuration Normalisation
+### 2. Typed Root Contract, Workspace-local Ownership
 
-- Standardise unit/integration globs so Stryker targets only in-process tests
-- Ensure all workspaces with test scripts have explicit vitest configs (not relying on implicit defaults)
-- Evaluate a shared testing configuration workspace (`packages/config/testing/`) for reusable vitest + Stryker helpers
+- Replace the generated root stub with a typed base or factory only after a RED
+  canary proves the required contract.
+- Keep mutation/test globs and report paths explicit in each participating
+  workspace.
+- Create a shared testing-config workspace only if canaries prove a reuse
+  problem that the root helper cannot solve.
+- Test whether the current root `buildCommand: 'pnpm build'` is needed. Do not
+  impose repository-wide build cost on each mutant without evidence.
 
-### 2. Dev Dependency Strategy
+### 3. Report-only Semantics
 
-- Add `@stryker-mutator/core`, `@stryker-mutator/vitest-runner`, `@stryker-mutator/typescript-checker` to root `devDependencies`
-- Align Stryker versions with the monorepo Vitest major version
-- Document hoisting expectations
-
-### 3. Turbo Task Extensions
-
-- Draft a `mutate` task in `turbo.json` modelled on `test`
-- Define `pnpm mutate` at root to call `turbo run --continue mutate`
-- During Phases 0–2, `mutate` runs as a **supplementary signal** (nightly CI or release pipelines only — not part of `pnpm check`). During Phase 3, evaluate promotion to `pnpm check` once performance overhead is acceptable and mutant survival is below threshold.
+- Begin with `thresholds.break: null`; a score is evidence, not a gate.
+- Record runtime and each mutant category, then disposition survivors as
+  missing behaviour coverage, equivalent mutant, dead/unreachable code,
+  invalid mutation, timeout, or unsuitable mutator.
+- Reject tests, exclusions, and mutator changes whose only purpose is improving
+  the number.
+- Decide invocation cadence only after measuring canaries.
 
 ## Strategic Roadmap
 
-### Phase 0 — Foundation and Governance
+### Phase 0 — Contract and Dry-run Foundation
 
-- Publish re-baseline audit and remediation backlog
-- Land root-level Stryker dependencies and base config template with agreed thresholds
-- Introduce `pnpm mutate` (Turbo-backed) and document workspace `mutate` scripts
-- Update `CONTRIBUTING.md` and quality-gate guidance
+- Define the typed root contract and one workspace-local config through TDD.
+- Prove sandbox, Vitest config, production globs, test selection, and E2E
+  exclusion in dry-run-only mode.
+- Do not add thresholds, CI, or a broad shared abstraction yet.
 
-### Phase 1 — Pilot Workspaces
+### Phase 1 — Pure Unit Canary
 
-- Mutation testing operational in one library (`packages/libs/logger/`) and one app (`apps/oak-curriculum-mcp-stdio/`), validating Node pathways
-- Capture performance metrics, mutant survival hotspots, and remediation guidance
+- Re-verify `@oaknational/type-helpers` as the preferred one-source-file,
+  pure-function canary.
+- Run a full non-incremental mutation pass only after the dry run succeeds.
+- Triage every survivor category and capture deterministic rerun evidence.
 - Record pilot claims and verification evidence using [Evidence Bundle Template](../evidence-bundle.template.md)
 
-### Phase 2 — Monorepo Roll-out
+### Phase 2 — Integration and Mixed Canaries
 
-- All workspaces with test scripts expose mutation coverage
-- Roll out workspace-level `mutate` scripts
-- Establish reporting to surface mutation results in CI
-- Build shared testing configuration workspace if justified by pilot findings
-- Use evidence bundles for mutation-score and runtime-overhead claims before merge-ready updates
+- Re-verify `@oaknational/search-contracts` as the preferred small,
+  integration-only canary.
+- Prove integration-test inclusion and E2E exclusion independently of the unit
+  canary.
+- Then select one mixed unit/integration workspace to prove combined scope.
 
-### Phase 3 — Optimisation and Automation
+### Phase 3 — Independent Optimisation Evaluations
 
-- Incremental mutant runs (touched-files mode) to reduce feedback loop time
-- Automated detection of missing `stryker.config.ts` in new workspaces
-- Contributor guidance and remediation patterns
+- Compare TypeScript-checker accuracy and runtime with the same canary evidence.
+- Establish a trusted full result before evaluating incremental reuse.
+- Define per-workspace result retention and an occasional forced full run.
+- Measure manual, scheduled, changed-workspace, release, and possible later PR
+  cadence options before selecting one.
+
+### Phase 4 — Value-led Expansion and Separate Gate Decision
+
+- Expand to workspaces according to behavioural risk, value, determinism, and
+  feedback cost rather than a 100% adoption target.
+- Document new-workspace eligibility and explicit no-op dispositions.
+- Treat any blocking promotion as a separate owner decision with stable
+  runtime, survivor policy, and infrastructure-failure semantics.
 
 ## Documentation Propagation Requirement
 
 Apply the shared documentation-propagation contract:
 
-- [Documentation Propagation component](../templates/components/documentation-propagation.md)
+- [Documentation Propagation component](../../templates/components/documentation-propagation.md)
 - [the agentic-engineering-enhancements documentation-sync-log](../../../memory/operational/documentation-sync-logs/agentic-engineering-enhancements.md) (collection tracking)
 
-## Success Metrics
+## Success Evidence
 
-- **Coverage adoption**: 100% of workspaces with `test` scripts have active `mutate` tasks wired into Turbo
-- **Supplementary signal (Phases 0–2)**: Mutation testing runs as part of nightly CI or release pipelines; not a blocking quality gate during initial roll-out. Phase 3 evaluates promotion to `pnpm check`.
-- **Surviving mutants**: Critical workspaces maintain ≤ 5% surviving mutants after remediation
-- **Developer experience**: Mutation runs complete within 2x the baseline unit-test runtime for pilot workspaces
+- A dry run proves non-empty production source, exact unit/integration scope,
+  E2E exclusion, and passing unmutated tests.
+- A pure unit canary and an integration-only canary each produce reproducible
+  full results with complete survivor dispositions.
+- Runtime and result-category evidence supports the next workspace and cadence
+  decision.
+- No score target, exclusion, or test exists without a behavioural rationale.
+- The root command reports honestly when zero workspaces are configured and is
+  described as operational only after an actual workspace command exists.
 
 ## Risks and Mitigations
 
 | Risk | Mitigation |
 |---|---|
-| Performance overhead from long mutation runs | Phased roll-out, incremental modes, nightly full runs |
+| Performance overhead from long mutation runs | Small canaries, measured cadence, then incremental evaluation after a full baseline |
 | Existing test flakiness amplified by mutation | Enforce deterministic test design before enabling Stryker |
-| Config drift across workspaces | Shared base config, periodic audits, lint checks |
-| CI runner resource limits | Profile during pilots, adjust infrastructure as needed |
+| Config drift across workspaces | Typed root contract plus explicit workspace ownership; share more only when canaries prove the need |
+| CI runner resource limits | Keep CI out of the first proof and profile before selecting cadence |
+| Score gaming | Require behavioural survivor dispositions; treat fitness numbers as signals, not limits |
 
 ## Appendix: Historical Pilot
 
@@ -142,7 +185,8 @@ Apply the shared documentation-propagation contract:
 
 A pilot run on the former `@oaknational/mcp-providers-node` workspace produced a mutation score of **53.57%** (15 killed, 13 survived). Surviving mutants clustered around console logging branches, highlighting missing behavioural assertions.
 
-**Key findings**:
+**Historical clues, not current facts**:
 
-- Stryker's sandbox requires self-contained vitest configs — fragile relative paths to shared base configs break in the sandbox
-- Vitest configuration duplication is needed for Stryker sandboxing — consider a shared testing configuration workspace to solve this cleanly
+- the former sandbox run failed with a relative shared Vitest configuration;
+- the current Stryker 9.6.1 and current Vitest topology must be tested before
+  deciding whether duplication or a shared testing-config workspace is needed.
